@@ -33,55 +33,55 @@
 import { useState, useEffect } from "react";
 import pusherClient from "@/lib/pusher";
 
+type Option = "A" | "B" | "C" | "D";
+
 export default function Home() {
-  const [messages, setMessages] = useState<string[]>([]);
-  const [newMessage, setNewMessage] = useState("");
+  const [answers, setAnswers] = useState<Record<Lowercase<Option>, number>>({ a: 0, b: 0, c: 0, d: 0 });
 
   useEffect(() => {
-    const channel = pusherClient.subscribe("chat-channel");
+    const channel = pusherClient.subscribe("trivia");
 
-    channel.bind("new-message", (data: { message: string }) => {
-      setMessages((prev) => [...prev, data.message]);
+    channel.bind("answer", (data: { option: Option }) => {
+      const lowercaseOption = data.option.toLowerCase() as Lowercase<Option>;
+      setAnswers((answers) => ({
+        ...answers,
+        [lowercaseOption]: answers[lowercaseOption] + 1,
+      }));
     });
 
     return () => {
-      pusherClient.unsubscribe("chat-channel");
+      pusherClient.unsubscribe("trivia");
     };
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleAnswer = async (option: Option) => {
     // In a real app, you'd send this to your backend
     // which would then trigger the Pusher event
     await fetch("/api/messages", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: newMessage }),
+      body: JSON.stringify({ option }),
     });
-
-    setNewMessage("");
   };
 
   return (
     <main className="p-4">
       <h1 className="mb-4 text-2xl">Real-Time Message Board</h1>
-      <form onSubmit={handleSubmit} className="mb-4">
-        <input
-          type="text"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          className="mr-2 border p-2"
-          placeholder="Type a message"
-        />
-        <button type="submit" className="bg-blue-500 p-2 text-white">
-          Send
-        </button>
-      </form>
+      <button onClick={() => handleAnswer("A")} className="bg-blue-500 p-2 text-white">
+        A
+      </button>
+      <button onClick={() => handleAnswer("B")} className="bg-blue-500 p-2 text-white">
+        B
+      </button>
+      <button onClick={() => handleAnswer("C")} className="bg-blue-500 p-2 text-white">
+        C
+      </button>
+      <button onClick={() => handleAnswer("D")} className="bg-blue-500 p-2 text-white">
+        D
+      </button>
       <ul>
-        {messages.map((message, index) => (
-          <li key={index} className="mb-2">
-            {message}
+        {Object.entries(answers).map(([option, count]) => (
+          <li key={option} className="mb-2">
+            {option}: {count}
           </li>
         ))}
       </ul>

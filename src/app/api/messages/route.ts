@@ -10,10 +10,10 @@ const pusher = new Pusher({
 });
 
 export async function POST(request: Request) {
-  const { message } = await request.json();
+  const { option } = await request.json();
 
-  await pusher.trigger("chat-channel", "new-message", {
-    message,
+  await pusher.trigger("trivia", "answer", {
+    option,
   });
 
   return NextResponse.json({ success: true });
