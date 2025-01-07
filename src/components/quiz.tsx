@@ -7,12 +7,13 @@ import { Button } from "@/components/ui/button";
 
 interface QuizOption {
   text: string;
-  image: string;
+  image?: string;
 }
 
-interface QuizProps {
+export interface QuizProps {
   question: string;
   options: QuizOption[];
+  correctAnswer: string;
 }
 
 export function Quiz({ question, options }: QuizProps) {
@@ -45,7 +46,9 @@ export function Quiz({ question, options }: QuizProps) {
             }`}
             onClick={() => handleSelectAnswer(option)}
           >
-            <Image src={option.image} alt={option.text} width={150} height={150} className="mb-4 rounded-md" />
+            {option.image && (
+              <Image src={option.image} alt={option.text} width={150} height={150} className="mb-4 rounded-md" />
+            )}
             <span className="text-lg font-semibold">{option.text}</span>
           </Button>
         ))}

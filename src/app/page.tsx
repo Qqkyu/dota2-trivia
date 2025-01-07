@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import pusherClient from "@/lib/pusher";
-import { Quiz } from "@/components/quiz";
+import { HeroesAttributes } from "@/components/heroesAttributes";
 
 type Option = "A" | "B" | "C" | "D";
 
@@ -28,15 +28,7 @@ export default function Home() {
   return (
     <main className="p-4">
       <h1 className="mb-4 text-2xl">Real-Time Message Board</h1>
-      <Quiz
-        question="Question"
-        options={[
-          { text: "a", image: "/img.jpg" },
-          { text: "b", image: "/img.jpg" },
-          { text: "c", image: "/img.jpg" },
-          { text: "d", image: "/img.jpg" },
-        ]}
-      />
+      <HeroesAttributes />
       <ul>
         {Object.entries(answers).map(([option, count]) => (
           <li key={option} className="mb-2">
