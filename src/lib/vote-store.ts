@@ -3,6 +3,8 @@ import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { CrowdResult, PlayerVote, VoteResult } from "@/lib/arcade-contract";
 import type { GameId } from "@/lib/game-catalogs";
+import { MAP_SENSE_MAX_CROWD_PINS } from "@/lib/map-sense";
+import type { MapPosition } from "@/lib/map-types";
 
 interface StoredRound {
   roomId: string;
@@ -99,9 +101,15 @@ function stateForRuntime() {
 
 function crowdFor(round: StoredRound | undefined): CrowdResult {
   const counts: CrowdResult["counts"] = round && validCounts(round.counts) ? [...round.counts] : [0, 0, 0, 0];
+  const positions = round
+    ? Object.values(round.voters)
+        .flatMap((vote) => (vote.mapPosition ? [{ ...vote.mapPosition }] : []))
+        .slice(-MAP_SENSE_MAX_CROWD_PINS)
+    : [];
   return {
     counts,
     total: counts.reduce((sum, count) => sum + count, 0),
+    positions,
   };
 }
 
@@ -155,6 +163,7 @@ export async function recordRoundVote(input: {
   questionId: string;
   correctIndex: number;
   answerIndex: number;
+  mapPosition?: MapPosition;
   voterId: string;
   submittedAt: number;
 }): Promise<VoteResult> {
@@ -195,6 +204,7 @@ export async function recordRoundVote(input: {
     const playerVote = {
       answerIndex: input.answerIndex,
       submittedAt: input.submittedAt,
+      ...(input.mapPosition ? { mapPosition: { ...input.mapPosition } } : {}),
     };
     round.voters[hash] = playerVote;
     round.counts[input.answerIndex] += 1;

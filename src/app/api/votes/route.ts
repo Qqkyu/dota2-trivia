@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Pusher from "pusher";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
+import { isMapPosition, mapAnswerIndex } from "@/lib/map-sense";
 import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
 import { recordRoundVote } from "@/lib/vote-store";
 
@@ -69,6 +70,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "That public round has already moved on." }, { status: 409 });
   }
 
+  const mapPosition = isMapPosition(candidate.mapPosition) ? candidate.mapPosition : undefined;
+  if (question.kind === "map-location" && (!question.map || !mapPosition)) {
+    return NextResponse.json({ error: "Map Sense requires a valid map position." }, { status: 400 });
+  }
+
   if (round.phase !== "answering" || submittedAt >= round.answerDeadline) {
     return NextResponse.json({ error: "Answers are closed for this round." }, { status: 409 });
   }
@@ -81,7 +87,8 @@ export async function POST(request: Request) {
       contentVersion: room.contentVersion,
       questionId,
       correctIndex: question.correctIndex,
-      answerIndex,
+      answerIndex: question.map && mapPosition ? mapAnswerIndex(question.map, mapPosition) : answerIndex,
+      mapPosition: question.map ? mapPosition : undefined,
       voterId,
       submittedAt,
     });
@@ -96,6 +103,7 @@ export async function POST(request: Request) {
             questionId,
             counts: [0, 0, 0, 0],
             total: result.total,
+            positions: [],
           });
         } catch (error) {
           console.error("Could not broadcast arcade vote.", error);
@@ -108,6 +116,7 @@ export async function POST(request: Request) {
         accepted: result.accepted,
         counts: [0, 0, 0, 0],
         total: result.total,
+        positions: [],
         playerVote: result.playerVote,
       },
       {

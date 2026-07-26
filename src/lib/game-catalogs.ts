@@ -1,4 +1,5 @@
 import {
+  ARCADE_CONTENT_VERSION,
   createArcadeDeck,
   triviaQuestions,
   triviaMeta,
@@ -38,9 +39,9 @@ export const GAME_CATALOGS: Record<GameId, GameCatalog> = {
     id: "dota2",
     label: "Dota 2",
     logoUrl: "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
-    contentVersion: triviaMeta.contentVersion,
+    contentVersion: ARCADE_CONTENT_VERSION,
     contentLabel: `Patch ${triviaMeta.patch}`,
-    modes: ["mixed", "trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt", "quote-hunt"],
+    modes: ["mixed", "trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt", "quote-hunt", "map-sense"],
     questions: triviaQuestions,
     createDeck: createArcadeDeck,
   },

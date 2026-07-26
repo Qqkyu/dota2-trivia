@@ -8,11 +8,13 @@ import {
   ChevronRight,
   CircleStop,
   Clock3,
+  Crosshair,
   Flame,
   Gauge,
   Gamepad2,
   Headphones,
   Keyboard,
+  MapPin,
   MessageSquareQuote,
   Radio,
   RotateCcw,
@@ -47,13 +49,15 @@ import {
 } from "@/lib/trivia";
 import type { CrowdResult, PublicRoomSettings, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
+import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
+import type { MapPosition } from "@/lib/map-types";
 import styles from "./queue-arcade.module.css";
 
 const REVEAL_DURATION_MS = 7_000;
 const MAX_SPEED_BONUS = 100;
 const SPELL_CLUE_PENALTY = 40;
 const LETTERS = ["A", "B", "C", "D"] as const;
-const EMPTY_CROWD: CrowdResult = { counts: [0, 0, 0, 0], total: 0 };
+const EMPTY_CROWD: CrowdResult = { counts: [0, 0, 0, 0], total: 0, positions: [] };
 const STORAGE_KEY = "queue-arcade:stats:v2";
 const PLAYER_KEY = "queue-arcade:player:v2";
 const SETTINGS_KEY = "queue-arcade:settings:v2";
@@ -98,6 +102,8 @@ interface RoundAward {
   correct: boolean;
   speedBonus: number;
   cluePenalty: number;
+  precisionBonus: number;
+  mapDistance: number | null;
 }
 
 interface RoundRecord {
@@ -137,9 +143,9 @@ const MODE_INFO: Record<
     label: "Mixed Arcade",
     shortLabel: "Mixed",
     eyebrow: "House pick · Recommended",
-    description: "Facts, recipes, spells, fog, voices, and hero quotes rotate every round.",
+    description: "Facts, recipes, spells, fog, voices, quotes, and map pings rotate every round.",
     action: "Enter mixed arcade",
-    rule: "Every six rounds contains all six games exactly once.",
+    rule: "Every seven rounds contains all seven games exactly once.",
   },
   trivia: {
     label: "Queue Trivia",
@@ -189,6 +195,14 @@ const MODE_INFO: Record<
     action: "Read between the lines",
     rule: "One proper hero line, four closely matched portraits, no laughs or throwaway noises.",
   },
+  "map-sense": {
+    label: "Map Sense",
+    shortLabel: "Map Sense",
+    eyebrow: "Pinpoint the play",
+    description: "Drop a pin on Dota's terrain, then see the true spot and where the whole room guessed.",
+    action: "Read the map",
+    rule: "Accuracy and speed both score. Veteran targets demand a much tighter pin.",
+  },
 };
 
 function ModeIcon({ mode }: { mode: ArcadeMode | RoundGame }) {
@@ -198,6 +212,7 @@ function ModeIcon({ mode }: { mode: ArcadeMode | RoundGame }) {
   if (mode === "fogged-vision") return <ScanEye />;
   if (mode === "echo-hunt") return <AudioLines />;
   if (mode === "quote-hunt") return <MessageSquareQuote />;
+  if (mode === "map-sense") return <MapPin />;
   return <Brain />;
 }
 
@@ -208,6 +223,8 @@ function gameLabel(game: RoundGame) {
 function normalizeCrowd(value: unknown): CrowdResult | null {
   if (!value || typeof value !== "object" || !("counts" in value) || !("total" in value)) return null;
   const { counts, total } = value;
+  const positions =
+    "positions" in value && Array.isArray(value.positions) ? value.positions.filter(isMapPosition).slice(-400) : [];
 
   if (
     !Array.isArray(counts) ||
@@ -222,6 +239,7 @@ function normalizeCrowd(value: unknown): CrowdResult | null {
   return {
     counts: [counts[0], counts[1], counts[2], counts[3]],
     total,
+    positions,
   };
 }
 
@@ -232,18 +250,20 @@ function normalizePlayerVote(value: unknown) {
   }
 
   const { answerIndex, submittedAt } = value;
+  const mapPosition = "mapPosition" in value ? value.mapPosition : undefined;
   if (
     typeof answerIndex !== "number" ||
     !Number.isInteger(answerIndex) ||
     answerIndex < 0 ||
     answerIndex > 3 ||
     typeof submittedAt !== "number" ||
-    !Number.isFinite(submittedAt)
+    !Number.isFinite(submittedAt) ||
+    (mapPosition !== undefined && !isMapPosition(mapPosition))
   ) {
     return undefined;
   }
 
-  return { answerIndex, submittedAt };
+  return { answerIndex, submittedAt, ...(mapPosition ? { mapPosition } : {}) };
 }
 
 function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
@@ -278,7 +298,9 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     typeof round.id !== "string" ||
     typeof round.number !== "number" ||
     (round.phase !== "answering" && round.phase !== "reveal") ||
-    !["trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt", "quote-hunt"].includes(round.game) ||
+    !["trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt", "quote-hunt", "map-sense"].includes(
+      round.game,
+    ) ||
     typeof round.questionId !== "string" ||
     typeof round.startedAt !== "number" ||
     typeof round.answerDeadline !== "number" ||
@@ -347,18 +369,31 @@ function clueStageAt(timeRemaining: number, duration: number) {
   return 1;
 }
 
-function scoreBreakdown(question: ArcadeRound, timeRemaining: number, duration: number) {
+function scoreBreakdown(
+  question: ArcadeRound,
+  timeRemaining: number,
+  duration: number,
+  selectedMapPosition?: MapPosition | null,
+) {
   const speedRatio = Math.max(0, Math.min(1, timeRemaining / duration));
   const speedBonus = Math.round(speedRatio * MAX_SPEED_BONUS);
   const difficultyBonus = (question.difficulty - 1) * 25;
   const cluePenalty =
     question.game === "spell-link" ? (clueStageAt(timeRemaining, duration) - 1) * SPELL_CLUE_PENALTY : 0;
+  const distance = question.map && selectedMapPosition ? mapDistance(question.map.target, selectedMapPosition) : null;
+  const precisionBonus = question.map
+    ? distance === null
+      ? 100
+      : Math.round(Math.max(0, 1 - distance / question.map.tolerance) * 100)
+    : 0;
 
   return {
     speedBonus,
     difficultyBonus,
     cluePenalty,
-    rawPoints: Math.max(25, 100 + speedBonus + difficultyBonus - cluePenalty),
+    precisionBonus,
+    mapDistance: distance,
+    rawPoints: Math.max(25, 100 + speedBonus + difficultyBonus + precisionBonus - cluePenalty),
   };
 }
 
@@ -450,6 +485,241 @@ function AnswerArtwork({ src, alt, kind }: { src: string; alt: string; kind: Tri
   );
 }
 
+function percentagePosition(position: MapPosition) {
+  return {
+    left: `${position.x * 100}%`,
+    top: `${position.y * 100}%`,
+  } satisfies CSSProperties;
+}
+
+function MapSenseBoard({
+  question,
+  phase,
+  selectedPosition,
+  crowd,
+  onChoose,
+}: {
+  question: ArcadeRound;
+  phase: GamePhase;
+  selectedPosition: MapPosition | null;
+  crowd: CrowdResult;
+  onChoose: (position: MapPosition) => void;
+}) {
+  const [aimPosition, setAimPosition] = useState<MapPosition | null>(null);
+  const challenge = question.map;
+
+  if (!challenge) return null;
+
+  const canChoose = phase === "answering" && !selectedPosition;
+  const selectedDistance = selectedPosition ? mapDistance(challenge.target, selectedPosition) : null;
+  const selectedBand = selectedPosition ? mapAnswerIndex(challenge, selectedPosition) : null;
+  const targetRingStyle = {
+    left: `${challenge.target.x * 100}%`,
+    top: `${challenge.target.y * 100}%`,
+    width: `${challenge.tolerance * 200}%`,
+    height: `${challenge.tolerance * 200}%`,
+  } satisfies CSSProperties;
+
+  const positionFromPointer = (element: HTMLButtonElement, clientX: number, clientY: number) => {
+    const bounds = element.getBoundingClientRect();
+    return {
+      x: Math.max(0, Math.min(1, (clientX - bounds.left) / bounds.width)),
+      y: Math.max(0, Math.min(1, (clientY - bounds.top) / bounds.height)),
+    };
+  };
+
+  return (
+    <div className={styles.mapSenseQuestion} data-testid="map-sense-round">
+      <div className={styles.mapBoardFrame}>
+        <button
+          type="button"
+          className={styles.mapBoard}
+          data-testid="map-sense-board"
+          data-map-state={phase === "reveal" ? "reveal" : selectedPosition ? "locked" : "aiming"}
+          disabled={!canChoose}
+          aria-label={
+            canChoose
+              ? `Place your pin for: ${question.prompt} Use the pointer, or arrow keys and Enter.`
+              : `Map pin ${selectedPosition ? "locked" : "unavailable"} for ${question.prompt}`
+          }
+          onFocus={() => {
+            if (canChoose && !aimPosition) setAimPosition({ x: 0.5, y: 0.5 });
+          }}
+          onPointerMove={(event) => {
+            if (canChoose) setAimPosition(positionFromPointer(event.currentTarget, event.clientX, event.clientY));
+          }}
+          onPointerLeave={() => {
+            if (canChoose) setAimPosition(null);
+          }}
+          onKeyDown={(event) => {
+            if (!canChoose) return;
+            const movement = 0.025;
+            const current = aimPosition ?? { x: 0.5, y: 0.5 };
+            const next = { ...current };
+            if (event.key === "ArrowLeft") next.x -= movement;
+            else if (event.key === "ArrowRight") next.x += movement;
+            else if (event.key === "ArrowUp") next.y -= movement;
+            else if (event.key === "ArrowDown") next.y += movement;
+            else if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              onChoose(current);
+              return;
+            } else {
+              return;
+            }
+            event.preventDefault();
+            setAimPosition({
+              x: Math.max(0, Math.min(1, next.x)),
+              y: Math.max(0, Math.min(1, next.y)),
+            });
+          }}
+          onClick={(event) => {
+            if (!canChoose || event.detail === 0) return;
+            onChoose(positionFromPointer(event.currentTarget, event.clientX, event.clientY));
+          }}
+        >
+          <Image
+            src={MAP_SENSE_IMAGE}
+            alt="Dota 2 battlefield"
+            fill
+            sizes="(max-width: 680px) calc(100vw - 50px), 520px"
+            className={styles.mapImage}
+            priority
+          />
+          <span className={styles.mapGrid} aria-hidden="true" />
+
+          {phase === "reveal" && crowd.positions.length > 0 && (
+            <svg className={styles.mapHeatmap} data-testid="map-heatmap" viewBox="0 0 100 100" aria-hidden="true">
+              <g className={styles.mapHeatGlow}>
+                {crowd.positions.map((position, index) => (
+                  <circle
+                    key={`${position.x}:${position.y}:${index}`}
+                    cx={position.x * 100}
+                    cy={position.y * 100}
+                    r="3.8"
+                  />
+                ))}
+              </g>
+              <g className={styles.mapCrowdDots}>
+                {crowd.positions.map((position, index) => (
+                  <circle
+                    key={`${position.x}:${position.y}:dot:${index}`}
+                    cx={position.x * 100}
+                    cy={position.y * 100}
+                    r="0.52"
+                  />
+                ))}
+              </g>
+            </svg>
+          )}
+
+          {phase === "reveal" && selectedPosition && (
+            <svg className={styles.mapDistanceLine} viewBox="0 0 100 100" aria-hidden="true">
+              <line
+                x1={selectedPosition.x * 100}
+                y1={selectedPosition.y * 100}
+                x2={challenge.target.x * 100}
+                y2={challenge.target.y * 100}
+              />
+            </svg>
+          )}
+
+          {phase === "reveal" && <span className={styles.mapTargetRadius} style={targetRingStyle} />}
+
+          {aimPosition && canChoose && (
+            <span className={styles.mapAim} style={percentagePosition(aimPosition)} aria-hidden="true">
+              <Crosshair />
+            </span>
+          )}
+
+          {selectedPosition && (
+            <span
+              className={styles.mapPlayerPin}
+              data-testid="map-player-pin"
+              style={percentagePosition(selectedPosition)}
+              aria-hidden="true"
+            >
+              <MapPin />
+              <small>You</small>
+            </span>
+          )}
+
+          {phase === "reveal" && (
+            <span
+              className={styles.mapTargetPin}
+              data-testid="map-target-pin"
+              style={percentagePosition(challenge.target)}
+              aria-hidden="true"
+            >
+              <Crosshair />
+              <small>Target</small>
+            </span>
+          )}
+
+          <span className={styles.mapRadiantLabel}>Radiant</span>
+          <span className={styles.mapDireLabel}>Dire</span>
+        </button>
+
+        <div className={styles.mapBoardStatus}>
+          <span>
+            <Crosshair />
+            {phase === "reveal"
+              ? `${crowd.positions.length.toLocaleString("en-US")} room ${
+                  crowd.positions.length === 1 ? "pin" : "pins"
+                } revealed`
+              : selectedPosition
+                ? "Pin locked"
+                : "Click or tap once to lock"}
+          </span>
+          <strong>
+            {selectedDistance === null
+              ? `Hit radius ${Math.round(challenge.tolerance * 100)}%`
+              : `${MAP_SENSE_BAND_LABELS[selectedBand ?? 3]} · ${Math.round(selectedDistance * 100)}% off`}
+          </strong>
+        </div>
+      </div>
+
+      <div className={styles.mapMission}>
+        <span>
+          <MapPin />
+          {question.eyebrow}
+        </span>
+        <h2>{question.prompt}</h2>
+        <p>Place one pin. A fast answer scores more; a pin near the center earns a precision bonus.</p>
+
+        <div className={styles.mapAccuracyScale} aria-label="Map accuracy bands">
+          {MAP_SENSE_BAND_LABELS.map((label, index) => (
+            <span key={label} className={selectedBand === index ? styles.mapAccuracyActive : undefined}>
+              <i />
+              <small>{String(index + 1).padStart(2, "0")}</small>
+              <strong>{label}</strong>
+            </span>
+          ))}
+        </div>
+
+        <div className={styles.mapMissionStatus}>
+          {phase === "reveal" ? (
+            <>
+              <small>Correct location</small>
+              <strong>{challenge.targetLabel}</strong>
+            </>
+          ) : selectedPosition ? (
+            <>
+              <small>Answer received</small>
+              <strong>No repings—trust the call</strong>
+            </>
+          ) : (
+            <>
+              <small>Your call</small>
+              <strong>Read the terrain, then commit</strong>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function BrandMark() {
   return (
     <span className={styles.brandMark} aria-hidden="true">
@@ -466,6 +736,7 @@ export function QueueArcade() {
   const [currentQuestion, setCurrentQuestion] = useState<ArcadeRound | null>(null);
   const [roundIndex, setRoundIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [selectedMapPosition, setSelectedMapPosition] = useState<MapPosition | null>(null);
   const [answerTimeLeft, setAnswerTimeLeft] = useState(0);
   const [crowd, setCrowdState] = useState<CrowdResult>(EMPTY_CROWD);
   const [roundAward, setRoundAward] = useState<RoundAward | null>(null);
@@ -493,6 +764,7 @@ export function QueueArcade() {
   const currentQuestionRef = useRef<ArcadeRound | null>(null);
   const roundIndexRef = useRef(0);
   const selectedIndexRef = useRef<number | null>(null);
+  const selectedMapPositionRef = useRef<MapPosition | null>(null);
   const answerTimeLeftRef = useRef(0);
   const crowdRef = useRef<CrowdResult>(EMPTY_CROWD);
   const deadlineRef = useRef<number | null>(null);
@@ -524,6 +796,9 @@ export function QueueArcade() {
     }
     if (mode === "quote-hunt") {
       return ACTIVE_QUESTIONS.find((question) => question.kind === "hero-quote") ?? ACTIVE_QUESTIONS[0];
+    }
+    if (mode === "map-sense") {
+      return ACTIVE_QUESTIONS.find((question) => question.kind === "map-location") ?? ACTIVE_QUESTIONS[0];
     }
     return ACTIVE_QUESTIONS.find((question) => question.id === "cooldown:lina_dragon_slave:4") ?? ACTIVE_QUESTIONS[0];
   }, [mode]);
@@ -653,12 +928,27 @@ export function QueueArcade() {
       const {
         speedBonus,
         cluePenalty,
+        precisionBonus,
+        mapDistance: distance,
         rawPoints: correctPoints,
-      } = scoreBreakdown(question, answerTimeLeftRef.current, snapshot.round.answerDuration);
+      } = scoreBreakdown(
+        question,
+        answerTimeLeftRef.current,
+        snapshot.round.answerDuration,
+        selectedMapPositionRef.current,
+      );
       const rawPoints = isCorrect ? correctPoints : 0;
       const points = majorityBonus ? rawPoints * 2 : rawPoints;
 
-      setRoundAward({ points, majorityBonus, correct: isCorrect, speedBonus, cluePenalty });
+      setRoundAward({
+        points,
+        majorityBonus,
+        correct: isCorrect,
+        speedBonus,
+        cluePenalty,
+        precisionBonus,
+        mapDistance: distance,
+      });
       setScore((currentScore) => currentScore + points);
       setHistory((records) => [
         ...records,
@@ -718,10 +1008,13 @@ export function QueueArcade() {
 
         const playerVote = snapshot.playerVote;
         const nextSelectedIndex = playerVote?.answerIndex ?? null;
+        const nextMapPosition = playerVote?.mapPosition ?? null;
         const nextAnswerTimeLeft = playerVote ? Math.max(0, snapshot.round.answerDeadline - playerVote.submittedAt) : 0;
         selectedIndexRef.current = nextSelectedIndex;
+        selectedMapPositionRef.current = nextMapPosition;
         answerTimeLeftRef.current = nextAnswerTimeLeft;
         setSelectedIndex(nextSelectedIndex);
+        setSelectedMapPosition(nextMapPosition);
         setAnswerTimeLeft(nextAnswerTimeLeft);
 
         participatedRef.current = snapshot.round.phase === "answering";
@@ -745,8 +1038,10 @@ export function QueueArcade() {
       if (snapshot.playerVote && selectedIndexRef.current === null) {
         const nextAnswerTimeLeft = Math.max(0, snapshot.round.answerDeadline - snapshot.playerVote.submittedAt);
         selectedIndexRef.current = snapshot.playerVote.answerIndex;
+        selectedMapPositionRef.current = snapshot.playerVote.mapPosition ?? null;
         answerTimeLeftRef.current = nextAnswerTimeLeft;
         setSelectedIndex(snapshot.playerVote.answerIndex);
+        setSelectedMapPosition(snapshot.playerVote.mapPosition ?? null);
         setAnswerTimeLeft(nextAnswerTimeLeft);
       }
 
@@ -818,6 +1113,10 @@ export function QueueArcade() {
       finalizedRef.current = false;
       participatedRef.current = false;
       setCurrentQuestion(null);
+      selectedIndexRef.current = null;
+      selectedMapPositionRef.current = null;
+      setSelectedIndex(null);
+      setSelectedMapPosition(null);
       setRoundIndex(0);
       setScore(0);
       setStreak(0);
@@ -839,7 +1138,7 @@ export function QueueArcade() {
   }, [applyRoomSnapshot, ensurePlayerId, filter, joiningRoom, mode, playSound, requestRoomSnapshot, skillLevel]);
 
   const submitVote = useCallback(
-    async (question: TriviaQuestion, answerIndex: number) => {
+    async (question: TriviaQuestion, answerIndex: number, mapPosition?: MapPosition) => {
       const snapshot = roomSnapshotRef.current;
       const settings = roomSettingsRef.current;
       if (!snapshot || !settings || snapshot.round.id !== roundIdRef.current) return;
@@ -855,6 +1154,7 @@ export function QueueArcade() {
             roundId: snapshot.round.id,
             questionId: question.id,
             answerIndex,
+            ...(mapPosition ? { mapPosition } : {}),
             voterId: ensurePlayerId(),
           }),
         });
@@ -868,12 +1168,14 @@ export function QueueArcade() {
         if (!result) throw new Error("VOTE_FAILED");
 
         if (roundIdRef.current === snapshot.round.id) {
-          setCrowd({ counts: result.counts, total: result.total });
+          setCrowd({ counts: result.counts, total: result.total, positions: result.positions });
           if (result.playerVote) {
             const serverTimeLeft = Math.max(0, snapshot.round.answerDeadline - result.playerVote.submittedAt);
             selectedIndexRef.current = result.playerVote.answerIndex;
+            selectedMapPositionRef.current = result.playerVote.mapPosition ?? null;
             answerTimeLeftRef.current = serverTimeLeft;
             setSelectedIndex(result.playerVote.answerIndex);
+            setSelectedMapPosition(result.playerVote.mapPosition ?? null);
             setAnswerTimeLeft(serverTimeLeft);
           }
           setRoomError(null);
@@ -881,8 +1183,10 @@ export function QueueArcade() {
       } catch {
         if (roundIdRef.current === snapshot.round.id) {
           selectedIndexRef.current = null;
+          selectedMapPositionRef.current = null;
           answerTimeLeftRef.current = 0;
           setSelectedIndex(null);
+          setSelectedMapPosition(null);
           setAnswerTimeLeft(0);
           setRoomError("Vote confirmation delayed · checking the room");
         }
@@ -898,6 +1202,7 @@ export function QueueArcade() {
       if (
         phaseRef.current !== "answering" ||
         !question ||
+        question.game === "map-sense" ||
         selectedIndexRef.current !== null ||
         !deadlineRef.current ||
         Date.now() >= deadlineRef.current
@@ -912,6 +1217,33 @@ export function QueueArcade() {
       setAnswerTimeLeft(timeLeft);
       playSound("lock");
       void submitVote(question, answerIndex);
+    },
+    [playSound, submitVote],
+  );
+
+  const chooseMapPosition = useCallback(
+    (position: MapPosition) => {
+      const question = currentQuestionRef.current;
+      if (
+        phaseRef.current !== "answering" ||
+        !question?.map ||
+        selectedIndexRef.current !== null ||
+        !deadlineRef.current ||
+        Date.now() >= deadlineRef.current
+      ) {
+        return;
+      }
+
+      const timeLeft = Math.max(0, deadlineRef.current - Date.now());
+      const answerIndex = mapAnswerIndex(question.map, position);
+      selectedIndexRef.current = answerIndex;
+      selectedMapPositionRef.current = position;
+      answerTimeLeftRef.current = timeLeft;
+      setSelectedIndex(answerIndex);
+      setSelectedMapPosition(position);
+      setAnswerTimeLeft(timeLeft);
+      playSound("lock");
+      void submitVote(question, answerIndex, position);
     },
     [playSound, submitVote],
   );
@@ -1109,7 +1441,12 @@ export function QueueArcade() {
   const firstClueAt = Math.round((answerDuration * 2) / 3_000);
   const finalClueAt = Math.round(answerDuration / 3_000);
   const liveAward = currentQuestion
-    ? scoreBreakdown(currentQuestion, selectedIndex === null ? answerRemaining : answerTimeLeft, answerDuration)
+    ? scoreBreakdown(
+        currentQuestion,
+        selectedIndex === null ? answerRemaining : answerTimeLeft,
+        answerDuration,
+        selectedMapPosition,
+      )
     : null;
   const recentHistory = history.slice(phase === "answering" ? -9 : -10);
   const recentHistoryStart = history.length - recentHistory.length + 1;
@@ -1178,7 +1515,7 @@ export function QueueArcade() {
           <div className={styles.lobbyCopy}>
             <div className={styles.liveLabel}>
               <span />
-              Six games live · More in the lab
+              Seven games live · More in the lab
             </div>
             <h1>
               Your queue has
@@ -1325,7 +1662,13 @@ export function QueueArcade() {
                 <strong>00:{String(answerDuration / 1000).padStart(2, "0")}</strong>
               </div>
               <div className={styles.previewQuestion}>
-                {mode === "echo-hunt" ? (
+                {mode === "map-sense" ? (
+                  <div className={styles.previewMap} aria-hidden="true">
+                    <Image src={MAP_SENSE_IMAGE} alt="" fill sizes="190px" />
+                    <span />
+                    <Crosshair />
+                  </div>
+                ) : mode === "echo-hunt" ? (
                   <div className={styles.previewEcho} aria-hidden="true">
                     <Headphones />
                     <span>
@@ -1360,11 +1703,13 @@ export function QueueArcade() {
                             ? "Whose voice just crossed the river?"
                             : mode === "quote-hunt"
                               ? "Who said it?"
-                              : previewQuestion.prompt}
+                              : mode === "map-sense"
+                                ? "Where on the map is the call?"
+                                : previewQuestion.prompt}
                 </h2>
                 <p>{activeModeInfo.description}</p>
               </div>
-              <div className={styles.previewAnswers}>
+              <div className={clsx(styles.previewAnswers, mode === "map-sense" && styles.previewMapBands)}>
                 {previewQuestion.answers.map((answer, index) => (
                   <div key={answer}>
                     <span>{LETTERS[index]}</span>
@@ -1374,7 +1719,9 @@ export function QueueArcade() {
               </div>
               <div className={styles.previewFooter}>
                 <Users />
-                One synchronized round, deadline, and answer split for everyone
+                {mode === "map-sense"
+                  ? "One synchronized deadline, then the room heatmap"
+                  : "One synchronized round, deadline, and answer split for everyone"}
               </div>
             </div>
 
@@ -1402,6 +1749,7 @@ export function QueueArcade() {
               currentGame === "fogged-vision" && styles.foggedStage,
               currentGame === "echo-hunt" && styles.echoStage,
               currentGame === "quote-hunt" && styles.quoteStage,
+              currentGame === "map-sense" && styles.mapSenseStage,
             )}
           >
             <div className={styles.timerTrack} aria-hidden="true">
@@ -1444,7 +1792,16 @@ export function QueueArcade() {
               </div>
             </div>
 
-            {currentGame === "shopkeeper" ? (
+            {currentGame === "map-sense" ? (
+              <MapSenseBoard
+                key={currentQuestion.id}
+                question={currentQuestion}
+                phase={phase}
+                selectedPosition={selectedMapPosition}
+                crowd={crowd}
+                onChoose={chooseMapPosition}
+              />
+            ) : currentGame === "shopkeeper" ? (
               <div className={clsx(styles.questionBlock, styles.shopkeeperQuestion)} data-testid="round-prompt">
                 <div className={styles.recipeTarget}>
                   <QuestionArtwork question={currentQuestion} />
@@ -1632,105 +1989,109 @@ export function QueueArcade() {
               </div>
             )}
 
-            <div
-              className={clsx(
-                styles.answers,
-                currentGame === "shopkeeper" && styles.itemAnswers,
-                (currentQuestion.answerImageKind === "hero" || currentGame === "spell-link") && styles.heroAnswers,
-                currentGame === "fogged-vision" && styles.fogAnswers,
-                currentGame === "echo-hunt" && styles.echoAnswers,
-                currentGame === "quote-hunt" && styles.quoteAnswers,
-              )}
-              role="group"
-              aria-label="Answer choices"
-              data-testid="answer-grid"
-            >
-              {currentQuestion.answers.map((answer, index) => {
-                const isSelected = selectedIndex === index;
-                const isCorrect = currentQuestion.correctIndex === index;
-                const percentage = crowd.total ? Math.round((crowd.counts[index] / crowd.total) * 100) : 0;
-                const resultStyle = {
-                  "--result-width": `${percentage}%`,
-                } as CSSProperties;
+            {currentGame !== "map-sense" && (
+              <div
+                className={clsx(
+                  styles.answers,
+                  currentGame === "shopkeeper" && styles.itemAnswers,
+                  (currentQuestion.answerImageKind === "hero" || currentGame === "spell-link") && styles.heroAnswers,
+                  currentGame === "fogged-vision" && styles.fogAnswers,
+                  currentGame === "echo-hunt" && styles.echoAnswers,
+                  currentGame === "quote-hunt" && styles.quoteAnswers,
+                )}
+                role="group"
+                aria-label="Answer choices"
+                data-testid="answer-grid"
+              >
+                {currentQuestion.answers.map((answer, index) => {
+                  const isSelected = selectedIndex === index;
+                  const isCorrect = currentQuestion.correctIndex === index;
+                  const percentage = crowd.total ? Math.round((crowd.counts[index] / crowd.total) * 100) : 0;
+                  const resultStyle = {
+                    "--result-width": `${percentage}%`,
+                  } as CSSProperties;
 
-                return (
-                  <button
-                    key={`${currentQuestion.id}:${answer}`}
-                    type="button"
-                    data-testid="arcade-answer"
-                    className={clsx(
-                      styles.answer,
-                      currentQuestion.answerImages && styles.visualAnswer,
-                      phase === "answering" && isSelected && styles.answerLocked,
-                      phase === "answering" && selectedIndex !== null && !isSelected && styles.answerMuted,
-                      phase === "reveal" && isCorrect && styles.answerCorrect,
-                      phase === "reveal" && isSelected && !isCorrect && styles.answerWrong,
-                    )}
-                    onClick={() => chooseAnswer(index)}
-                    disabled={phase !== "answering" || selectedIndex !== null}
-                    aria-pressed={isSelected}
-                    style={resultStyle}
-                  >
-                    {phase === "reveal" && <span className={styles.resultFill} />}
-                    <span className={styles.answerKey}>{LETTERS[index]}</span>
-                    {currentQuestion.answerImages?.[index] && (
-                      <AnswerArtwork
-                        src={currentQuestion.answerImages[index]}
-                        alt={answer}
-                        kind={
-                          currentQuestion.answerImageKind ??
-                          (currentGame === "spell-link" || currentGame === "echo-hunt" || currentGame === "quote-hunt"
-                            ? "hero"
-                            : "item")
-                        }
-                      />
-                    )}
-                    <span className={styles.answerText}>
-                      {answer}
-                      {isSelected && phase === "answering" && <small>Your answer · locked</small>}
-                      {isSelected && phase === "reveal" && <small>Your answer</small>}
-                    </span>
-                    {phase === "reveal" ? (
-                      <span className={styles.answerResult}>
-                        <strong>{percentage}%</strong>
-                        {isCorrect ? <Check /> : isSelected ? <X /> : null}
+                  return (
+                    <button
+                      key={`${currentQuestion.id}:${answer}`}
+                      type="button"
+                      data-testid="arcade-answer"
+                      className={clsx(
+                        styles.answer,
+                        currentQuestion.answerImages && styles.visualAnswer,
+                        phase === "answering" && isSelected && styles.answerLocked,
+                        phase === "answering" && selectedIndex !== null && !isSelected && styles.answerMuted,
+                        phase === "reveal" && isCorrect && styles.answerCorrect,
+                        phase === "reveal" && isSelected && !isCorrect && styles.answerWrong,
+                      )}
+                      onClick={() => chooseAnswer(index)}
+                      disabled={phase !== "answering" || selectedIndex !== null}
+                      aria-pressed={isSelected}
+                      style={resultStyle}
+                    >
+                      {phase === "reveal" && <span className={styles.resultFill} />}
+                      <span className={styles.answerKey}>{LETTERS[index]}</span>
+                      {currentQuestion.answerImages?.[index] && (
+                        <AnswerArtwork
+                          src={currentQuestion.answerImages[index]}
+                          alt={answer}
+                          kind={
+                            currentQuestion.answerImageKind ??
+                            (currentGame === "spell-link" || currentGame === "echo-hunt" || currentGame === "quote-hunt"
+                              ? "hero"
+                              : "item")
+                          }
+                        />
+                      )}
+                      <span className={styles.answerText}>
+                        {answer}
+                        {isSelected && phase === "answering" && <small>Your answer · locked</small>}
+                        {isSelected && phase === "reveal" && <small>Your answer</small>}
                       </span>
-                    ) : (
-                      <span className={styles.answerChevron}>
-                        <ChevronRight />
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
+                      {phase === "reveal" ? (
+                        <span className={styles.answerResult}>
+                          <strong>{percentage}%</strong>
+                          {isCorrect ? <Check /> : isSelected ? <X /> : null}
+                        </span>
+                      ) : (
+                        <span className={styles.answerChevron}>
+                          <ChevronRight />
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
 
             {phase === "answering" ? (
-              <div className={styles.answerHelper}>
-                {selectedIndex === null ? (
-                  <>
-                    <Keyboard />
-                    {currentGame === "shopkeeper"
-                      ? "Pick the missing component · A–D or 1–4"
-                      : currentGame === "spell-link"
-                        ? "Link the spell to a hero · A–D or 1–4"
-                        : currentGame === "fogged-vision"
-                          ? "Name the silhouette · A–D or 1–4"
-                          : currentGame === "echo-hunt"
-                            ? "Play the echo, then choose · A–D or 1–4"
-                            : currentGame === "quote-hunt"
-                              ? "Match the line to its hero · A–D or 1–4"
-                              : "Use A–D or 1–4 to answer"}
-                    <span>Correct now: {liveAward?.rawPoints ?? 0} pts</span>
-                  </>
-                ) : (
-                  <>
-                    <Signal className={styles.signalIcon} />
-                    Answer locked with {Math.ceil(answerTimeLeft / 1000)}s left
-                    <span>Worth {liveAward?.rawPoints ?? 0} pts if correct</span>
-                  </>
-                )}
-              </div>
+              currentGame !== "map-sense" && (
+                <div className={styles.answerHelper}>
+                  {selectedIndex === null ? (
+                    <>
+                      <Keyboard />
+                      {currentGame === "shopkeeper"
+                        ? "Pick the missing component · A–D or 1–4"
+                        : currentGame === "spell-link"
+                          ? "Link the spell to a hero · A–D or 1–4"
+                          : currentGame === "fogged-vision"
+                            ? "Name the silhouette · A–D or 1–4"
+                            : currentGame === "echo-hunt"
+                              ? "Play the echo, then choose · A–D or 1–4"
+                              : currentGame === "quote-hunt"
+                                ? "Match the line to its hero · A–D or 1–4"
+                                : "Use A–D or 1–4 to answer"}
+                      <span>Correct now: {liveAward?.rawPoints ?? 0} pts</span>
+                    </>
+                  ) : (
+                    <>
+                      <Signal className={styles.signalIcon} />
+                      Answer locked with {Math.ceil(answerTimeLeft / 1000)}s left
+                      <span>Worth {liveAward?.rawPoints ?? 0} pts if correct</span>
+                    </>
+                  )}
+                </div>
+              )
             ) : (
               <div
                 className={clsx(styles.revealPanel, selectedWasCorrect ? styles.revealCorrect : styles.revealWrong)}
@@ -1746,7 +2107,9 @@ export function QueueArcade() {
                     {roundAward?.majorityBonus
                       ? "2× crowd breaker"
                       : roundAward?.correct
-                        ? `+${roundAward.speedBonus} speed${roundAward.cluePenalty ? ` · −${roundAward.cluePenalty} hints` : ""}`
+                        ? currentGame === "map-sense"
+                          ? `+${roundAward.precisionBonus} precision · +${roundAward.speedBonus} speed`
+                          : `+${roundAward.speedBonus} speed${roundAward.cluePenalty ? ` · −${roundAward.cluePenalty} hints` : ""}`
                         : "No score"}
                   </small>
                   <strong>+{roundAward?.points ?? 0}</strong>
@@ -1833,23 +2196,38 @@ export function QueueArcade() {
               <div className={styles.cardTitle}>
                 <span>
                   <Radio />
-                  Global answers
+                  {currentGame === "map-sense" ? "Room pings" : "Global answers"}
                 </span>
                 <span className={styles.livePill}>Live room</span>
               </div>
               <strong>
-                {crowd.total.toLocaleString("en-US")} {crowd.total === 1 ? "answer" : "answers"}
+                {crowd.total.toLocaleString("en-US")}{" "}
+                {currentGame === "map-sense"
+                  ? crowd.total === 1
+                    ? "pin"
+                    : "pins"
+                  : crowd.total === 1
+                    ? "answer"
+                    : "answers"}
               </strong>
               <p>
-                {phase === "answering"
-                  ? crowd.total
-                    ? `${crowd.total.toLocaleString("en-US")} ${
-                        crowd.total === 1 ? "player has" : "players have"
-                      } locked in. The split stays hidden until the shared deadline.`
-                    : "Answers appear here as players lock in. The split stays hidden until the shared deadline."
-                  : crowd.total
-                    ? "Final answer split for this synchronized public round."
-                    : "Nobody answered before this room’s deadline."}
+                {currentGame === "map-sense"
+                  ? phase === "answering"
+                    ? crowd.total
+                      ? `${crowd.total.toLocaleString("en-US")} locked in.`
+                      : "The room is reading the map."
+                    : crowd.total
+                      ? "Every anonymous pin is now visible on the map."
+                      : "No pins landed before the deadline."
+                  : phase === "answering"
+                    ? crowd.total
+                      ? `${crowd.total.toLocaleString("en-US")} ${
+                          crowd.total === 1 ? "player has" : "players have"
+                        } locked in. The split stays hidden until the shared deadline.`
+                      : "Answers appear here as players lock in. The split stays hidden until the shared deadline."
+                    : crowd.total
+                      ? "Final answer split for this synchronized public round."
+                      : "Nobody answered before this room’s deadline."}
               </p>
               <div className={styles.crowdPulse} aria-hidden="true">
                 <span />
@@ -1876,7 +2254,9 @@ export function QueueArcade() {
                           ? "Echo Hunt tip"
                           : currentGame === "quote-hunt"
                             ? "Quote Hunt tip"
-                            : "Crowd rules"}
+                            : currentGame === "map-sense"
+                              ? "Map Sense tip"
+                              : "Crowd rules"}
                 </span>
                 <p>
                   {currentGame === "shopkeeper"
@@ -1889,7 +2269,9 @@ export function QueueArcade() {
                           ? "Accent, cadence, and vocal effects are useful tells. Replay as often as the timer allows."
                           : currentGame === "quote-hunt"
                             ? "Look for vocabulary, ego, and worldview—the best hero lines reveal all three."
-                            : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
+                            : currentGame === "map-sense"
+                              ? "Use lane geometry and river bends as anchors. Precision and speed both add points."
+                              : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
                 </p>
               </div>
             </div>

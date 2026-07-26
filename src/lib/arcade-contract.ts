@@ -1,14 +1,17 @@
 import type { ArcadeMode, KnowledgeFilter, RoundGame, SkillLevel } from "@/lib/trivia";
 import type { GameId } from "@/lib/game-catalogs";
+import type { MapPosition } from "@/lib/map-types";
 
 export interface CrowdResult {
   counts: [number, number, number, number];
   total: number;
+  positions: MapPosition[];
 }
 
 export interface PlayerVote {
   answerIndex: number;
   submittedAt: number;
+  mapPosition?: MapPosition;
 }
 
 export interface PublicRoomSettings {

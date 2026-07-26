@@ -39,6 +39,7 @@ export async function GET(request: Request) {
         crowd: {
           counts: round.phase === "reveal" ? result.counts : HIDDEN_COUNTS,
           total: result.total,
+          positions: round.phase === "reveal" ? result.positions : [],
         },
         playerVote: result.playerVote,
       },

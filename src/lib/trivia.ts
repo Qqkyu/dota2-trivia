@@ -1,5 +1,7 @@
 import generatedQuestions from "@/data/questions.generated.json";
 import generatedMeta from "@/data/trivia-meta.generated.json";
+import { mapSenseQuestions } from "@/lib/map-sense";
+import type { MapChallenge } from "@/lib/map-types";
 import { fixedCycleRotation, varietyShuffle } from "@/lib/variety.mjs";
 
 export const KNOWLEDGE_FILTERS = ["Mixed", "Abilities", "Items", "Heroes"] as const;
@@ -7,7 +9,7 @@ export const SKILL_LEVELS = ["Open", "Learning", "Veteran"] as const;
 
 export type KnowledgeFilter = (typeof KNOWLEDGE_FILTERS)[number];
 export type SkillLevel = (typeof SKILL_LEVELS)[number];
-export type TriviaCategory = "Abilities" | "Cooldowns" | "Damage" | "Recipes" | "Items" | "Mana" | "Heroes";
+export type TriviaCategory = "Abilities" | "Cooldowns" | "Damage" | "Recipes" | "Items" | "Mana" | "Heroes" | "Map";
 export type ArcadeMode =
   | "mixed"
   | "trivia"
@@ -15,7 +17,8 @@ export type ArcadeMode =
   | "spell-link"
   | "fogged-vision"
   | "echo-hunt"
-  | "quote-hunt";
+  | "quote-hunt"
+  | "map-sense";
 export type RoundGame = Exclude<ArcadeMode, "mixed">;
 export type QuestionKind =
   | "spell-owner"
@@ -33,7 +36,8 @@ export type QuestionKind =
   | "item-price-duel"
   | "fogged-hero"
   | "hero-voice"
-  | "hero-quote";
+  | "hero-quote"
+  | "map-location";
 export type TriviaArtworkKind = "ability" | "hero" | "item";
 
 export interface TriviaQuestion {
@@ -58,6 +62,7 @@ export interface TriviaQuestion {
   audio?: {
     src: string;
   };
+  map?: MapChallenge;
   source: {
     label: string;
     url: string;
@@ -70,8 +75,8 @@ export interface TriviaMeta {
   contentVersion: string;
   snapshotDate: string;
   questionCount: number;
-  categoryCounts: Record<TriviaCategory, number>;
-  kindCounts: Record<QuestionKind, number>;
+  categoryCounts: Partial<Record<TriviaCategory, number>>;
+  kindCounts: Partial<Record<QuestionKind, number>>;
   assetValidation: {
     checkedAt: string;
     verifiedAssetCount: number;
@@ -80,8 +85,12 @@ export interface TriviaMeta {
   };
 }
 
-export const triviaQuestions = generatedQuestions as TriviaQuestion[];
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-2`;
+export const triviaQuestions = [
+  ...(generatedQuestions as TriviaQuestion[]),
+  ...(mapSenseQuestions as TriviaQuestion[]),
+];
 
 export interface ArcadeRound extends TriviaQuestion {
   game: RoundGame;
@@ -95,8 +104,10 @@ function belongsToFilter(question: TriviaQuestion, filter: KnowledgeFilter) {
 }
 
 export function createQuestionDeck(seed: string, filter: KnowledgeFilter) {
-  const pool = triviaQuestions.filter((question) => belongsToFilter(question, filter));
-  return varietyShuffle(pool, `${seed}:${filter}:${triviaMeta.contentVersion}`);
+  const pool = triviaQuestions.filter(
+    (question) => roundGame(question) === "trivia" && belongsToFilter(question, filter),
+  );
+  return varietyShuffle(pool, `${seed}:${filter}:${ARCADE_CONTENT_VERSION}`);
 }
 
 function roundGame(question: TriviaQuestion): RoundGame {
@@ -105,6 +116,7 @@ function roundGame(question: TriviaQuestion): RoundGame {
   if (question.kind === "fogged-hero") return "fogged-vision";
   if (question.kind === "hero-voice") return "echo-hunt";
   if (question.kind === "hero-quote") return "quote-hunt";
+  if (question.kind === "map-location") return "map-sense";
   return "trivia";
 }
 
@@ -119,10 +131,14 @@ function shuffledPool(seed: string, game: RoundGame, filter: KnowledgeFilter, sk
     if (roundGame(question) !== game) return false;
     if (game === "trivia") return belongsToFilter(question, filter) && belongsToSkillLevel(question, skillLevel);
     if (game === "spell-link") return belongsToSkillLevel(question, skillLevel);
+    if (game === "map-sense") {
+      if (skillLevel === "Learning") return question.difficulty <= 2;
+      if (skillLevel === "Veteran") return question.difficulty === 3;
+    }
     return true;
   });
 
-  return varietyShuffle(pool, `${seed}:${game}:${filter}:${skillLevel}:${triviaMeta.contentVersion}`);
+  return varietyShuffle(pool, `${seed}:${game}:${filter}:${skillLevel}:${ARCADE_CONTENT_VERSION}`);
 }
 
 export function createArcadeDeck(
@@ -141,6 +157,7 @@ export function createArcadeDeck(
     "fogged-vision",
     "echo-hunt",
     "quote-hunt",
+    "map-sense",
   ] satisfies RoundGame[];
   const games: RoundGame[] =
     mode === "mixed"
@@ -154,6 +171,7 @@ export function createArcadeDeck(
     "fogged-vision": shuffledPool(seed, "fogged-vision", filter, skillLevel),
     "echo-hunt": shuffledPool(seed, "echo-hunt", filter, skillLevel),
     "quote-hunt": shuffledPool(seed, "quote-hunt", filter, skillLevel),
+    "map-sense": shuffledPool(seed, "map-sense", filter, skillLevel),
   };
   const cursors: Record<RoundGame, number> = {
     trivia: 0,
@@ -162,6 +180,7 @@ export function createArcadeDeck(
     "fogged-vision": 0,
     "echo-hunt": 0,
     "quote-hunt": 0,
+    "map-sense": 0,
   };
 
   return games.flatMap((game) => {

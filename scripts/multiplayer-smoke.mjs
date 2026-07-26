@@ -5,6 +5,9 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 const appUrl = process.env.APP_URL ?? "http://localhost:3000";
+const mapLocations = JSON.parse(
+  await readFile(path.join(process.cwd(), "src", "data", "map-sense-locations.json"), "utf8"),
+);
 const settings = {
   gameId: "dota2",
   mode: "mixed",
@@ -15,20 +18,20 @@ const firstPlayer = `multiplayer-smoke-a-${randomUUID()}`;
 const secondPlayer = `multiplayer-smoke-b-${randomUUID()}`;
 const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
-function roomUrl(playerId) {
-  const query = new URLSearchParams({ ...settings, playerId });
+function roomUrl(playerId, roomSettings = settings) {
+  const query = new URLSearchParams({ ...roomSettings, playerId });
   return `${appUrl}/api/rounds?${query}`;
 }
 
-async function readRoom(playerId) {
-  const response = await fetch(roomUrl(playerId), { cache: "no-store" });
+async function readRoom(playerId, roomSettings = settings) {
+  const response = await fetch(roomUrl(playerId, roomSettings), { cache: "no-store" });
   if (!response.ok) throw new Error(`Room request failed with ${response.status}.`);
   return response.json();
 }
 
-async function answeringRoundWithTime(playerId) {
+async function answeringRoundWithTime(playerId, roomSettings = settings) {
   for (let attempt = 0; attempt < 3; attempt += 1) {
-    const snapshot = await readRoom(playerId);
+    const snapshot = await readRoom(playerId, roomSettings);
     const timeLeft = snapshot.round.answerDeadline - snapshot.serverNow;
     if (snapshot.round.phase === "answering" && timeLeft >= 4_000) return snapshot;
     await delay(Math.max(250, snapshot.round.revealDeadline - snapshot.serverNow + 150));
@@ -36,18 +39,19 @@ async function answeringRoundWithTime(playerId) {
   throw new Error("Could not join an answering phase with enough time to run the smoke test.");
 }
 
-async function vote(snapshot, playerId, answerIndex) {
+async function vote(snapshot, playerId, answerIndex, roomSettings = settings, extraFields = {}) {
   const response = await fetch(`${appUrl}/api/votes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      ...settings,
+      ...roomSettings,
       roundId: snapshot.round.id,
       questionId: snapshot.round.questionId,
       answerIndex,
       voterId: playerId,
+      ...extraFields,
     }),
   });
   const result = await response.json();
@@ -119,6 +123,52 @@ if (persisted.includes(firstPlayer) || persisted.includes(secondPlayer)) {
   throw new Error("A raw anonymous player ID was written to persistent storage.");
 }
 
+const mapSettings = {
+  gameId: "dota2",
+  mode: "map-sense",
+  filter: "Mixed",
+  skillLevel: "Open",
+};
+const mapPlayer = `multiplayer-map-${randomUUID()}`;
+const mapSnapshot = await answeringRoundWithTime(mapPlayer, mapSettings);
+const mapLocation = mapLocations.find((location) => `map-location:${location.id}` === mapSnapshot.round.questionId);
+if (!mapLocation) throw new Error("The synchronized Map Sense round referenced an unknown location.");
+
+const mapPosition = mapLocation.target;
+const mapVote = await vote(mapSnapshot, mapPlayer, 3, mapSettings, { mapPosition });
+const mapDuplicate = await vote(mapSnapshot, mapPlayer, 3, mapSettings, {
+  mapPosition: { x: 0.01, y: 0.01 },
+});
+if (
+  !mapVote.accepted ||
+  mapVote.playerVote?.answerIndex !== 0 ||
+  mapVote.playerVote?.mapPosition?.x !== mapPosition.x ||
+  mapVote.playerVote?.mapPosition?.y !== mapPosition.y ||
+  mapDuplicate.accepted ||
+  mapDuplicate.playerVote?.mapPosition?.x !== mapPosition.x ||
+  mapDuplicate.playerVote?.mapPosition?.y !== mapPosition.y
+) {
+  throw new Error("Map Sense vote validation, server-side scoring, or duplicate protection failed.");
+}
+
+const lockedMapSnapshot = await readRoom(mapPlayer, mapSettings);
+if (
+  lockedMapSnapshot.crowd.positions.length !== 0 ||
+  lockedMapSnapshot.playerVote?.mapPosition?.x !== mapPosition.x ||
+  lockedMapSnapshot.playerVote?.mapPosition?.y !== mapPosition.y
+) {
+  throw new Error("Map Sense leaked room pins before reveal or failed to restore the player's pin.");
+}
+
+await delay(Math.max(250, lockedMapSnapshot.round.answerDeadline - lockedMapSnapshot.serverNow + 200));
+const revealedMapSnapshot = await readRoom(mapPlayer, mapSettings);
+const ownPinRevealed = revealedMapSnapshot.crowd.positions.some(
+  (position) => position.x === mapPosition.x && position.y === mapPosition.y,
+);
+if (revealedMapSnapshot.round.phase !== "reveal" || !ownPinRevealed) {
+  throw new Error("Map Sense did not reveal the anonymous room pins after the shared deadline.");
+}
+
 console.log(
   JSON.stringify(
     {
@@ -130,6 +180,9 @@ console.log(
       finalTotal: revealSnapshot.crowd.total,
       persisted: true,
       voterIdsHashed: true,
+      mapAnswerScoredOnServer: true,
+      mapPinsHiddenUntilReveal: true,
+      mapPinRevealed: true,
     },
     null,
     2,

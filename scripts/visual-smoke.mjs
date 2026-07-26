@@ -529,6 +529,71 @@ const quoteHunt = await evaluate(`({
 })`);
 await screenshot("/tmp/queue-arcade-quote-hunt.png");
 
+await navigate(appUrl);
+await evaluate(`(() => {
+  document.querySelector('[data-arcade-mode="map-sense"]')?.click();
+  document.querySelector('[data-skill-level="veteran"]')?.click();
+  return true;
+})()`);
+await delay(350);
+const mapPreview = await evaluate(`({
+  visible: Boolean(document.querySelector('[data-arcade-mode="map-sense"][aria-pressed="true"]')),
+  imageLoaded: [...document.querySelectorAll('[data-testid="mode-preview"] img')]
+    .some((image) => image.complete && image.naturalWidth > 0),
+  bands: document.querySelectorAll('[data-testid="mode-preview"] [class*="previewAnswers"] > div').length
+})`);
+await screenshot("/tmp/queue-arcade-map-sense-preview.png");
+await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+await waitFor(`(() => {
+  const main = document.querySelector("main");
+  const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
+  const image = document.querySelector('[data-testid="map-sense-board"] img');
+  return main?.dataset.phase === "answering" &&
+    main?.dataset.questionKind === "map-location" &&
+    timer >= 4 &&
+    image?.complete &&
+    image?.naturalWidth > 0;
+})()`);
+
+const mapBounds = await evaluate(`(() => {
+  const bounds = document.querySelector('[data-testid="map-sense-board"]')?.getBoundingClientRect();
+  return bounds ? { x: bounds.x, y: bounds.y, width: bounds.width, height: bounds.height } : null;
+})()`);
+if (mapBounds) {
+  const x = mapBounds.x + mapBounds.width * 0.46;
+  const y = mapBounds.y + mapBounds.height * 0.54;
+  await send("Input.dispatchMouseEvent", { type: "mousePressed", x, y, button: "left", clickCount: 1 });
+  await send("Input.dispatchMouseEvent", { type: "mouseReleased", x, y, button: "left", clickCount: 1 });
+}
+await waitFor(`Boolean(document.querySelector('[data-testid="map-player-pin"]'))`);
+const mapSenseAnswering = await evaluate(`(() => {
+  const board = document.querySelector('[data-testid="map-sense-board"]');
+  const bounds = board?.getBoundingClientRect();
+  return {
+    kind: document.querySelector("main")?.dataset.questionKind,
+    game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
+    difficulty: Number(document.querySelector('[data-testid="round-difficulty"]')?.dataset.contentDifficulty),
+    answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
+    locked: board?.dataset.mapState === "locked",
+    square: bounds ? Math.abs(bounds.width - bounds.height) < 1 : false,
+    imageLoaded: [...(board?.querySelectorAll("img") ?? [])]
+      .every((image) => image.complete && image.naturalWidth > 0),
+    horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+  };
+})()`);
+await screenshot("/tmp/queue-arcade-map-sense-answering.png");
+
+await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
+const mapSenseReveal = await evaluate(`({
+  targetVisible: Boolean(document.querySelector('[data-testid="map-target-pin"]')),
+  playerVisible: Boolean(document.querySelector('[data-testid="map-player-pin"]')),
+  heatmapVisible: Boolean(document.querySelector('[data-testid="map-heatmap"]')),
+  crowdDots: document.querySelectorAll('[data-testid="map-heatmap"] circle').length,
+  resultVisible: Boolean(document.querySelector('[aria-live="polite"]')),
+  horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+})`);
+await screenshot("/tmp/queue-arcade-map-sense-reveal.png");
+
 await send("Emulation.setDeviceMetricsOverride", {
   width: 390,
   height: 844,
@@ -536,6 +601,12 @@ await send("Emulation.setDeviceMetricsOverride", {
   mobile: true,
 });
 await navigate(appUrl);
+await evaluate(`(() => {
+  document.querySelector('[data-arcade-mode="map-sense"]')?.click();
+  document.querySelector('[data-skill-level="open"]')?.click();
+  return true;
+})()`);
+await delay(250);
 await screenshot("/tmp/queue-arcade-mobile.png");
 
 const mobile = await evaluate(`({
@@ -544,6 +615,31 @@ const mobile = await evaluate(`({
   headingVisible: Boolean(document.querySelector("h1")?.getBoundingClientRect().height)
 })`);
 
+await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+await waitFor(`(() => {
+  const main = document.querySelector("main");
+  return main?.dataset.phase === "answering" && main?.dataset.questionKind === "map-location";
+})()`);
+const mobileMap = await evaluate(`(() => {
+  const board = document.querySelector('[data-testid="map-sense-board"]');
+  const bounds = board?.getBoundingClientRect();
+  return {
+    horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    boardFits: bounds ? bounds.left >= 0 && bounds.right <= innerWidth : false,
+    square: bounds ? Math.abs(bounds.width - bounds.height) < 1 : false
+  };
+})()`);
+await evaluate(`document.querySelector('[data-testid="map-sense-board"]')?.scrollIntoView({ block: "center" })`);
+await delay(300);
+await screenshot("/tmp/queue-arcade-mobile-map-sense.png");
+
+await navigate(appUrl);
+await evaluate(`(() => {
+  document.querySelector('[data-arcade-mode="trivia"]')?.click();
+  document.querySelector('[data-skill-level="open"]')?.click();
+  return true;
+})()`);
+await delay(250);
 await evaluate(`(() => {
   document.querySelector('[data-testid="start-arcade"]')?.click();
   return true;
@@ -567,7 +663,7 @@ const failures = [];
 const layoutDelta = (left, right) =>
   Object.keys(left).reduce((largest, key) => Math.max(largest, Math.abs((left[key] ?? 0) - (right[key] ?? 0))), 0);
 if (!lobby.title.includes("Queue Arcade")) failures.push("The Queue Arcade metadata title is missing.");
-if (!lobby.startButton || lobby.arcadeModes !== 7 || lobby.skillLevels !== 3) {
+if (!lobby.startButton || lobby.arcadeModes !== 8 || lobby.skillLevels !== 3) {
   failures.push("The arcade lobby controls are incomplete.");
 }
 if (lobby.horizontalOverflow) failures.push("The desktop lobby overflows horizontally.");
@@ -672,17 +768,44 @@ if (
 ) {
   failures.push("Quote Hunt line or hero choices failed.");
 }
+if (!mapPreview.visible || !mapPreview.imageLoaded || mapPreview.bands !== 4) {
+  failures.push("Map Sense lobby preview is incomplete.");
+}
+if (
+  mapSenseAnswering.kind !== "map-location" ||
+  mapSenseAnswering.game !== "map-sense" ||
+  mapSenseAnswering.difficulty < 2 ||
+  mapSenseAnswering.answerCount !== 0 ||
+  !mapSenseAnswering.locked ||
+  !mapSenseAnswering.square ||
+  !mapSenseAnswering.imageLoaded
+) {
+  failures.push("Map Sense did not render and lock a coordinate answer.");
+}
+if (
+  !mapSenseReveal.targetVisible ||
+  !mapSenseReveal.playerVisible ||
+  !mapSenseReveal.heatmapVisible ||
+  mapSenseReveal.crowdDots < 2 ||
+  !mapSenseReveal.resultVisible
+) {
+  failures.push("Map Sense reveal is missing the target, player pin, or room heatmap.");
+}
 if (
   spellLink.horizontalOverflow ||
   foggedVision.horizontalOverflow ||
   echoHunt.horizontalOverflow ||
   quoteHunt.horizontalOverflow ||
+  mapSenseAnswering.horizontalOverflow ||
+  mapSenseReveal.horizontalOverflow ||
   mobile.horizontalOverflow ||
+  mobileMap.horizontalOverflow ||
   mobileQuestion.horizontalOverflow
 ) {
   failures.push("An arcade screen overflows horizontally.");
 }
 if (mobileQuestion.answerCount !== 4) failures.push("The mobile round is missing answers.");
+if (!mobileMap.boardFits || !mobileMap.square) failures.push("The mobile Map Sense board does not fit the viewport.");
 if (browserErrors.length) failures.push(`Browser exceptions: ${browserErrors.join(", ")}`);
 
 console.log(
@@ -717,7 +840,11 @@ console.log(
       fogNextRound,
       echoHunt,
       quoteHunt,
+      mapPreview,
+      mapSenseAnswering,
+      mapSenseReveal,
       mobile,
+      mobileMap,
       mobileQuestion,
       browserErrors,
     },

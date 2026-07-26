@@ -21,7 +21,7 @@ if (
   throw new Error("The deterministic variety scheduler repeated or lost a question in its balanced opening.");
 }
 
-const arcadeGames = ["trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt", "quote-hunt"];
+const arcadeGames = ["trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt", "quote-hunt", "map-sense"];
 const mixedRounds = fixedCycleRotation(arcadeGames, "public-room-regression", 31, 4);
 const mixedWindowsAreComplete = mixedRounds
   .slice(0, mixedRounds.length - arcadeGames.length + 1)
@@ -32,7 +32,7 @@ if (
   mixedRounds.some((game, index) => index > 0 && game === mixedRounds[index - 1]) ||
   JSON.stringify(mixedRounds) !== JSON.stringify(fixedCycleRotation(arcadeGames, "public-room-regression", 31, 4))
 ) {
-  throw new Error("Mixed Arcade can skip or repeat a game inside its guaranteed six-round rotation.");
+  throw new Error("Mixed Arcade can skip or repeat a game inside its guaranteed seven-round rotation.");
 }
 
 console.log(
