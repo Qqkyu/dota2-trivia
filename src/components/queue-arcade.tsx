@@ -1499,14 +1499,6 @@ export function QueueArcade() {
                 </div>
               </div>
             )}
-
-            {phase === "reveal" && (
-              <div className={styles.autoAdvance} aria-live="polite">
-                Public room advances for everyone
-                <strong>{Math.ceil(revealRemaining / 1000)}s</strong>
-                <ChevronRight />
-              </div>
-            )}
           </div>
 
           <aside className={styles.sideRail}>

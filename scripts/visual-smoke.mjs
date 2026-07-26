@@ -225,7 +225,7 @@ const reveal = await evaluate(`({
   percentages: [...document.querySelectorAll("button")]
     .filter((button) => /%/.test(button.innerText))
     .map((button) => button.innerText),
-  autoAdvance: document.body.innerText.includes("Public room advances for everyone"),
+  redundantAdvanceCopy: document.body.innerText.includes("Public room advances for everyone"),
   nextButton: [...document.querySelectorAll("button")].some((button) => button.textContent.includes("Next round"))
 })`);
 
@@ -382,7 +382,7 @@ if (!shopkeeper.modeVisible || shopkeeper.answers.length !== 4) failures.push("S
 if (shopkeeper.answerImages !== 4 || !shopkeeper.answerImagesLoaded) {
   failures.push("Shopkeeper Rush item artwork did not load.");
 }
-if (!reveal.result || reveal.percentages.length !== 4 || !reveal.autoAdvance || reveal.nextButton) {
+if (!reveal.result || reveal.percentages.length !== 4 || reveal.redundantAdvanceCopy || reveal.nextButton) {
   failures.push("The crowd reveal is incomplete.");
 }
 if (!autoAdvanced.answering || !autoAdvanced.endless || autoAdvanced.round === revealedRound) {
