@@ -10,7 +10,6 @@ import {
   Flame,
   Gauge,
   Gamepad2,
-  Info,
   Keyboard,
   Radio,
   RotateCcw,
@@ -346,10 +345,14 @@ function spellMechanicHint(hint: string) {
 
 function QuestionArtwork({ question }: { question: TriviaQuestion }) {
   const [failedSource, setFailedSource] = useState<string | null>(null);
+  const [loadedSource, setLoadedSource] = useState<string | null>(null);
   const failed = failedSource === question.image.src;
+  const loaded = loadedSource === question.image.src;
 
   return (
     <div
+      data-testid="question-artwork"
+      data-artwork-state={failed ? "fallback" : loaded ? "loaded" : "loading"}
       className={clsx(
         styles.artwork,
         question.image.kind === "hero" && styles.heroArtwork,
@@ -366,6 +369,7 @@ function QuestionArtwork({ question }: { question: TriviaQuestion }) {
           fill
           sizes="(max-width: 700px) 112px, 150px"
           className={styles.artImage}
+          onLoad={() => setLoadedSource(question.image.src)}
           onError={() => setFailedSource(question.image.src)}
           unoptimized
           priority
@@ -1481,10 +1485,6 @@ export function QueueArcade() {
                 <div className={styles.revealCopy}>
                   <span>{selectedWasCorrect ? "Correct" : selectedIndex === null ? "Time expired" : "Not quite"}</span>
                   <p>{currentQuestion.explanation}</p>
-                  <a href={currentQuestion.source.url} target="_blank" rel="noreferrer">
-                    <Info />
-                    {currentQuestion.source.label}
-                  </a>
                 </div>
                 <div className={styles.pointsAward}>
                   <small>

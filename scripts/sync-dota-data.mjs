@@ -3,6 +3,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { auditImageAssets, questionImageUrls } from "./image-assets.mjs";
 import { spellDifficulty, spellDistractors } from "./spell-difficulty.mjs";
 import { buildSpellHint } from "./spell-hints.mjs";
 
@@ -512,7 +513,15 @@ for (const item of stableSample(
   );
 }
 
-const sortedQuestions = questions.sort((left, right) => left.id.localeCompare(right.id));
+console.log(`Checking artwork for ${questions.length} generated questions...`);
+const { availability } = await auditImageAssets(questions);
+const rejectedQuestions = questions.filter((question) =>
+  questionImageUrls(question).some((url) => !availability.get(url)),
+);
+const sortedQuestions = questions
+  .filter((question) => !rejectedQuestions.includes(question))
+  .sort((left, right) => left.id.localeCompare(right.id));
+const verifiedAssetCount = new Set(sortedQuestions.flatMap(questionImageUrls)).size;
 const categoryCounts = Object.fromEntries(
   [...new Set(sortedQuestions.map((question) => question.category))].map((category) => [
     category,
@@ -531,6 +540,11 @@ await writeFile(
       questionCount: sortedQuestions.length,
       categoryCounts,
       sources: endpoints,
+      assetValidation: {
+        checkedAt: SNAPSHOT_DATE,
+        verifiedAssetCount,
+        rejectedQuestionIds: rejectedQuestions.map((question) => question.id).sort(),
+      },
     },
     null,
     2,
@@ -539,3 +553,12 @@ await writeFile(
 
 console.log(`Generated ${sortedQuestions.length} questions for Dota ${PATCH}.`);
 console.log(categoryCounts);
+if (rejectedQuestions.length) {
+  console.warn(`Rejected ${rejectedQuestions.length} questions with unavailable artwork:`);
+  console.warn(
+    rejectedQuestions
+      .map((question) => question.id)
+      .sort()
+      .join("\n"),
+  );
+}

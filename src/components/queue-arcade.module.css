@@ -1711,26 +1711,6 @@
   -webkit-line-clamp: 2;
 }
 
-.revealCopy a {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  color: var(--faint);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-.revealCopy a:hover {
-  color: var(--muted);
-}
-
-.revealCopy a svg {
-  width: 10px;
-}
-
 .pointsAward {
   display: flex;
   min-width: 96px;

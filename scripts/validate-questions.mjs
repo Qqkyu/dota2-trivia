@@ -11,6 +11,7 @@ const metadata = JSON.parse(await readFile(join(root, "src", "data", "trivia-met
 
 const failures = [];
 const ids = new Set();
+const imageUrls = new Set();
 
 if (!Array.isArray(questions) || questions.length < 100) {
   failures.push("The generated deck must contain at least 100 questions.");
@@ -33,12 +34,14 @@ for (const [index, question] of questions.entries()) {
   }
   if (!question.answers[question.correctIndex]) failures.push(`${label}: correct answer is empty.`);
   if (!/^https:\/\//.test(question.image?.src ?? "")) failures.push(`${label}: image URL is invalid.`);
+  if (question.image?.src) imageUrls.add(question.image.src);
   if (
     question.answerImages &&
     (question.answerImages.length !== 4 || question.answerImages.some((image) => !/^https:\/\//.test(image ?? "")))
   ) {
     failures.push(`${label}: answer images must contain four valid HTTPS URLs.`);
   }
+  for (const image of question.answerImages ?? []) imageUrls.add(image);
   if (
     (question.id.startsWith("ability-owner:") || question.id.startsWith("item-component:")) &&
     !question.answerImages
@@ -72,6 +75,17 @@ if (magnusSkewer?.difficulty !== 1) {
 
 if (metadata.questionCount !== questions.length) {
   failures.push(`Metadata says ${metadata.questionCount} questions, but the deck has ${questions.length}.`);
+}
+if (metadata.assetValidation?.checkedAt !== metadata.snapshotDate) {
+  failures.push("The generated deck must record an artwork check for its snapshot date.");
+}
+if (metadata.assetValidation?.verifiedAssetCount !== imageUrls.size) {
+  failures.push(
+    `Metadata says ${metadata.assetValidation?.verifiedAssetCount ?? 0} images were verified, but the deck uses ${imageUrls.size}.`,
+  );
+}
+for (const rejectedId of metadata.assetValidation?.rejectedQuestionIds ?? []) {
+  if (ids.has(rejectedId)) failures.push(`${rejectedId}: rejected artwork remains in the playable deck.`);
 }
 
 if (failures.length) {

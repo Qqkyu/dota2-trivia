@@ -13,7 +13,7 @@ The playable MVP includes:
 
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - Open, Learning, and Veteran challenge levels with 12–18 second timers and filtered trivia pools;
-- 425 generated questions for Dota patch 7.41d;
+- 420 artwork-verified questions for Dota patch 7.41d;
 - item and hero artwork for the visual minigames;
 - progressive Spell Link clues at two-thirds and one-third time remaining;
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
@@ -66,6 +66,7 @@ Questions and minigame artwork mappings are generated from the current OpenDota 
 ```bash
 DOTA_PATCH=7.41d DOTA_SNAPSHOT_DATE=2026-07-26 pnpm sync-data
 pnpm validate-data
+pnpm validate-assets
 ```
 
 The sync writes:
@@ -73,7 +74,9 @@ The sync writes:
 - `src/data/questions.generated.json`
 - `src/data/trivia-meta.generated.json`
 
-Set the patch and snapshot date deliberately after checking the current official gameplay patch. Generated facts are explicitly stamped in the UI.
+The sync checks every referenced image and rejects questions whose artwork is unavailable. `validate-assets` can rerun
+that remote check against the committed deck. Set the patch and snapshot date deliberately after checking the current
+official gameplay patch; the content pack is explicitly patch-stamped in the UI.
 
 ## Verify it
 

@@ -160,38 +160,6 @@
     ]
   },
   {
-    "id": "ability-owner:batrider_smoldering_resin",
-    "category": "Abilities",
-    "difficulty": 3,
-    "eyebrow": "Smoldering Resin",
-    "prompt": "Which hero owns this ability?",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/batrider_smoldering_resin.png",
-      "alt": "Smoldering Resin ability icon",
-      "kind": "ability"
-    },
-    "answers": [
-      "Venomancer",
-      "Batrider",
-      "Puck",
-      "Storm Spirit"
-    ],
-    "correctIndex": 1,
-    "explanation": "Smoldering Resin belongs to Batrider. Batrider's attacks apply a debuff that deals 20% of the attack damage every 1s for 2s.",
-    "source": {
-      "label": "OpenDota constants · 2026-07-26",
-      "url": "https://docs.opendota.com/"
-    },
-    "patch": "7.41d",
-    "hint": "The caster's attacks apply a debuff that deals 20% of the attack damage every 1s for 2s.",
-    "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/venomancer.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/batrider.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/puck.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png"
-    ]
-  },
-  {
     "id": "ability-owner:dark_seer_wall_of_replica",
     "category": "Abilities",
     "difficulty": 1,
@@ -509,38 +477,6 @@
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bristleback.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enchantress.png"
-    ]
-  },
-  {
-    "id": "ability-owner:faceless_void_distortion_field",
-    "category": "Abilities",
-    "difficulty": 3,
-    "eyebrow": "Distortion Field",
-    "prompt": "Which hero owns this ability?",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/faceless_void_distortion_field.png",
-      "alt": "Distortion Field ability icon",
-      "kind": "ability"
-    },
-    "answers": [
-      "Kez",
-      "Slardar",
-      "Bloodseeker",
-      "Faceless Void"
-    ],
-    "correctIndex": 3,
-    "explanation": "Distortion Field belongs to Faceless Void. Enemy Attack Projectiles targetting Faceless Void or allied heroes within a 1200 radius of him get slowed by 40%, when they get within 500 distance of their target.",
-    "source": {
-      "label": "OpenDota constants · 2026-07-26",
-      "url": "https://docs.opendota.com/"
-    },
-    "patch": "7.41d",
-    "hint": "Enemy Attack Projectiles targetting the caster or allied heroes within a 1200 radius of him get slowed by 40%, when they get within 500 distance of their target.",
-    "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slardar.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bloodseeker.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png"
     ]
   },
   {
@@ -1021,38 +957,6 @@
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/windrunner.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png"
-    ]
-  },
-  {
-    "id": "ability-owner:mars_dauntless",
-    "category": "Abilities",
-    "difficulty": 3,
-    "eyebrow": "Dauntless",
-    "prompt": "Which hero owns this ability?",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mars_dauntless.png",
-      "alt": "Dauntless ability icon",
-      "kind": "ability"
-    },
-    "answers": [
-      "Mars",
-      "Tidehunter",
-      "Wraith King",
-      "Doom"
-    ],
-    "correctIndex": 0,
-    "explanation": "Dauntless belongs to Mars. Mars gets more HP Regen the more he is outnumbered by enemy heroes in 700 radius.",
-    "source": {
-      "label": "OpenDota constants · 2026-07-26",
-      "url": "https://docs.opendota.com/"
-    },
-    "patch": "7.41d",
-    "hint": "The caster gets more HP Regen the more he is outnumbered by enemy heroes in 700 radius.",
-    "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mars.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tidehunter.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png"
     ]
   },
   {
@@ -1888,38 +1792,6 @@
     ]
   },
   {
-    "id": "ability-owner:sniper_keen_scope",
-    "category": "Abilities",
-    "difficulty": 3,
-    "eyebrow": "Keen Scope",
-    "prompt": "Which hero owns this ability?",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sniper_keen_scope.png",
-      "alt": "Keen Scope ability icon",
-      "kind": "ability"
-    },
-    "answers": [
-      "Medusa",
-      "Templar Assassin",
-      "Sniper",
-      "Lone Druid"
-    ],
-    "correctIndex": 2,
-    "explanation": "Keen Scope belongs to Sniper. Sniper’s attacks deal bonus damage for every 100 units of distance Sniper is from the target.",
-    "source": {
-      "label": "OpenDota constants · 2026-07-26",
-      "url": "https://docs.opendota.com/"
-    },
-    "patch": "7.41d",
-    "hint": "The caster's attacks deal bonus damage for every 100 units of distance the caster is from the target.",
-    "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/medusa.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/templar_assassin.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lone_druid.png"
-    ]
-  },
-  {
     "id": "ability-owner:spectre_dispersion",
     "category": "Abilities",
     "difficulty": 1,
@@ -2269,38 +2141,6 @@
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/furion.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png"
-    ]
-  },
-  {
-    "id": "ability-owner:witch_doctor_gris_gris",
-    "category": "Abilities",
-    "difficulty": 3,
-    "eyebrow": "Gris-Gris",
-    "prompt": "Which hero owns this ability?",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/witch_doctor_gris_gris.png",
-      "alt": "Gris-Gris ability icon",
-      "kind": "ability"
-    },
-    "answers": [
-      "Silencer",
-      "Lina",
-      "Witch Doctor",
-      "Ring Master"
-    ],
-    "correctIndex": 2,
-    "explanation": "Gris-Gris belongs to Witch Doctor. Witch Doctor gets a Gris-Gris, an item that cannot be dropped or placed in the backpack. When the owner dies, 100% of the gold lost from death is added to the item, and will be refunded when the item is consumed. The value of the Gris-Gris is increased by 1 every 3s. \n\n Right-click to consume and permanently remove the item.",
-    "source": {
-      "label": "OpenDota constants · 2026-07-26",
-      "url": "https://docs.opendota.com/"
-    },
-    "patch": "7.41d",
-    "hint": "The caster gets a this ability, an item that cannot be dropped or placed in the backpack.",
-    "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/witch_doctor.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png"
     ]
   },
   {

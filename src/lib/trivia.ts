@@ -38,6 +38,11 @@ export interface TriviaMeta {
   snapshotDate: string;
   questionCount: number;
   categoryCounts: Record<TriviaCategory, number>;
+  assetValidation: {
+    checkedAt: string;
+    verifiedAssetCount: number;
+    rejectedQuestionIds: string[];
+  };
 }
 
 export const triviaQuestions = generatedQuestions as TriviaQuestion[];

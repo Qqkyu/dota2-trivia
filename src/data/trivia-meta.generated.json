@@ -1,9 +1,9 @@
 {
   "patch": "7.41d",
   "snapshotDate": "2026-07-26",
-  "questionCount": 425,
+  "questionCount": 420,
   "categoryCounts": {
-    "Abilities": 72,
+    "Abilities": 67,
     "Cooldowns": 52,
     "Damage": 48,
     "Recipes": 36,
@@ -16,5 +16,16 @@
     "items": "https://api.opendota.com/api/constants/items",
     "abilities": "https://api.opendota.com/api/constants/abilities",
     "heroAbilities": "https://api.opendota.com/api/constants/hero_abilities"
+  },
+  "assetValidation": {
+    "checkedAt": "2026-07-26",
+    "verifiedAssetCount": 448,
+    "rejectedQuestionIds": [
+      "ability-owner:batrider_smoldering_resin",
+      "ability-owner:faceless_void_distortion_field",
+      "ability-owner:mars_dauntless",
+      "ability-owner:sniper_keen_scope",
+      "ability-owner:witch_doctor_gris_gris"
+    ]
   }
 }

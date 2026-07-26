@@ -225,6 +225,7 @@ const reveal = await evaluate(`({
   percentages: [...document.querySelectorAll("button")]
     .filter((button) => /%/.test(button.innerText))
     .map((button) => button.innerText),
+  internalSourceLabel: document.body.innerText.includes("OpenDota constants"),
   redundantAdvanceCopy: document.body.innerText.includes("Public room advances for everyone"),
   nextButton: [...document.querySelectorAll("button")].some((button) => button.textContent.includes("Next round"))
 })`);
@@ -269,7 +270,8 @@ await evaluate(`(() => {
 await waitFor(`(() => {
   const main = document.querySelector("main");
   const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
-  return main?.dataset.phase === "answering" && timer >= 10;
+  const artwork = document.querySelector('[data-testid="question-artwork"]');
+  return main?.dataset.phase === "answering" && timer >= 10 && artwork?.dataset.artworkState === "loaded";
 })()`);
 await screenshot("/tmp/queue-arcade-spell-link.png");
 
@@ -279,6 +281,10 @@ const spellLink = await evaluate(`({
   heroAnswers: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
   heroImagesLoaded: [...document.querySelectorAll('[data-testid="arcade-answer"] img')]
     .every((image) => image.complete && image.naturalWidth > 0),
+  questionArtworkLoaded:
+    document.querySelector('[data-testid="question-artwork"]')?.dataset.artworkState === "loaded",
+  questionArtworkFallback:
+    document.querySelector('[data-testid="question-artwork"]')?.dataset.artworkState === "fallback",
   answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
   difficulty: document.querySelector('[data-testid="round-difficulty"]')?.textContent.trim(),
   contentDifficulty: Number(document.querySelector('[data-testid="round-difficulty"]')?.dataset.contentDifficulty),
@@ -382,7 +388,13 @@ if (!shopkeeper.modeVisible || shopkeeper.answers.length !== 4) failures.push("S
 if (shopkeeper.answerImages !== 4 || !shopkeeper.answerImagesLoaded) {
   failures.push("Shopkeeper Rush item artwork did not load.");
 }
-if (!reveal.result || reveal.percentages.length !== 4 || reveal.redundantAdvanceCopy || reveal.nextButton) {
+if (
+  !reveal.result ||
+  reveal.percentages.length !== 4 ||
+  reveal.internalSourceLabel ||
+  reveal.redundantAdvanceCopy ||
+  reveal.nextButton
+) {
   failures.push("The crowd reveal is incomplete.");
 }
 if (!autoAdvanced.answering || !autoAdvanced.endless || autoAdvanced.round === revealedRound) {
@@ -398,7 +410,13 @@ if (
 ) {
   failures.push("Spell Link did not start.");
 }
-if (spellLink.heroAnswers !== 4 || !spellLink.heroImagesLoaded || !spellClue.clueTwoUnlocked) {
+if (
+  spellLink.heroAnswers !== 4 ||
+  !spellLink.heroImagesLoaded ||
+  !spellLink.questionArtworkLoaded ||
+  spellLink.questionArtworkFallback ||
+  !spellClue.clueTwoUnlocked
+) {
   failures.push("Spell Link artwork or progressive clues failed.");
 }
 if (!spellFinalClue || /belongs to/i.test(spellFinalClue)) {
