@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s · Queue Arcade",
   },
   description:
-    "Three fast Dota 2 queue-time minigames: classic trivia, Shopkeeper Rush, Spell Link, and a Mixed Arcade with shared answer splits.",
+    "Three synchronized Dota 2 queue-time minigames: classic trivia, Shopkeeper Rush, Spell Link, and a Mixed Arcade with live public-room reveals.",
   applicationName: "Queue Arcade",
   category: "game",
   keywords: ["Dota 2", "minigames", "trivia", "quiz", "queue time", "abilities", "items", "heroes"],

@@ -623,6 +623,16 @@
   left: 115%;
 }
 
+.primaryButton:disabled,
+.modeCard:disabled,
+.filterButton:disabled,
+.skillButton:disabled {
+  cursor: wait;
+  filter: saturate(0.65);
+  opacity: 0.72;
+  transform: none;
+}
+
 .primaryButton svg {
   width: 16px;
   height: 16px;
@@ -630,6 +640,34 @@
 
 .primaryButton svg:last-child {
   margin-left: 8px;
+}
+
+.roomNotice {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.roomNotice svg {
+  width: 13px;
+  flex: 0 0 auto;
+  color: var(--green);
+}
+
+.roomNoticeError {
+  color: #d7a7a0;
+}
+
+.roomNoticeError svg {
+  color: var(--red-bright);
 }
 
 .featureStrip {
@@ -910,8 +948,7 @@
 }
 
 .shopkeeperStage {
-  background:
-    radial-gradient(circle at 32% 22%, rgba(210, 163, 74, 0.075), transparent 29%),
+  background: radial-gradient(circle at 32% 22%, rgba(210, 163, 74, 0.075), transparent 29%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.025), transparent 28%), rgba(15, 18, 19, 0.88);
 }
 
@@ -921,8 +958,7 @@
 }
 
 .spellLinkStage {
-  background:
-    radial-gradient(circle at 34% 22%, rgba(91, 137, 160, 0.1), transparent 30%),
+  background: radial-gradient(circle at 34% 22%, rgba(91, 137, 160, 0.1), transparent 30%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.025), transparent 28%), rgba(15, 18, 19, 0.88);
 }
 

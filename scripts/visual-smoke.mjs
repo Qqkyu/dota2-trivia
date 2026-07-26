@@ -90,6 +90,15 @@ async function screenshot(path) {
   await writeFile(path, Buffer.from(result.data, "base64"));
 }
 
+async function waitFor(expression, timeout = 30_000) {
+  const startedAt = Date.now();
+  while (Date.now() - startedAt < timeout) {
+    if (await evaluate(expression)) return;
+    await delay(200);
+  }
+  throw new Error(`Timed out waiting for: ${expression}`);
+}
+
 await send("Page.enable");
 await send("Runtime.enable");
 await send("Emulation.setDeviceMetricsOverride", {
@@ -99,6 +108,8 @@ await send("Emulation.setDeviceMetricsOverride", {
   mobile: false,
 });
 
+await navigate(appUrl);
+await evaluate("localStorage.clear(); true");
 await navigate(appUrl);
 await evaluate(`(() => {
   document.querySelector('[data-arcade-mode="mixed"]')?.click();
@@ -158,7 +169,11 @@ await evaluate(`(() => {
 })()`);
 await delay(250);
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
-await delay(1_000);
+await waitFor(`(() => {
+  const main = document.querySelector("main");
+  const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
+  return main?.dataset.phase === "answering" && timer >= 3;
+})()`);
 const veteranRound = await evaluate(`({
   warmUpVisible: document.body.innerText.includes("Warm-up"),
   veteranSession: document.body.innerText.includes("Veteran"),
@@ -179,7 +194,11 @@ await evaluate(`(() => {
   document.querySelector('[data-testid="start-arcade"]')?.click();
   return true;
 })()`);
-await delay(1_500);
+await waitFor(`(() => {
+  const main = document.querySelector("main");
+  const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
+  return main?.dataset.phase === "answering" && timer >= 4;
+})()`);
 await screenshot("/tmp/queue-arcade-shopkeeper.png");
 
 const shopkeeper = await evaluate(`({
@@ -196,7 +215,7 @@ await evaluate(`(() => {
   document.querySelector('[data-testid="arcade-answer"]')?.click();
   return true;
 })()`);
-await delay(15_500);
+await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`);
 await screenshot("/tmp/queue-arcade-reveal.png");
 
 const reveal = await evaluate(`({
@@ -206,16 +225,19 @@ const reveal = await evaluate(`({
   percentages: [...document.querySelectorAll("button")]
     .filter((button) => /%/.test(button.innerText))
     .map((button) => button.innerText),
-  autoAdvance: document.body.innerText.includes("Next round starts automatically"),
+  autoAdvance: document.body.innerText.includes("Public room advances for everyone"),
   nextButton: [...document.querySelectorAll("button")].some((button) => button.textContent.includes("Next round"))
 })`);
 
-const revealedRound = await evaluate(`document.body.innerText.match(/round\\s+\\d+/i)?.[0]`);
-await delay(7_300);
+const revealedRound = await evaluate(`document.querySelector("main")?.dataset.roundId`);
+await waitFor(`(() => {
+  const main = document.querySelector("main");
+  return main?.dataset.phase === "answering" && main?.dataset.roundId !== ${JSON.stringify(revealedRound)};
+})()`);
 const autoAdvanced = await evaluate(`({
-  round: document.body.innerText.match(/round\\s+\\d+/i)?.[0],
+  round: document.querySelector("main")?.dataset.roundId,
   answering: Boolean(document.querySelector('[data-testid="arcade-answer"]:not([disabled])')),
-  endless: document.body.innerText.includes("Endless rounds")
+  endless: document.body.innerText.includes("Endless synchronized rounds")
 })`);
 
 await evaluate(`(() => {
@@ -244,7 +266,11 @@ await evaluate(`(() => {
   document.querySelector('[data-testid="start-arcade"]')?.click();
   return true;
 })()`);
-await delay(1_200);
+await waitFor(`(() => {
+  const main = document.querySelector("main");
+  const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
+  return main?.dataset.phase === "answering" && timer >= 10;
+})()`);
 await screenshot("/tmp/queue-arcade-spell-link.png");
 
 const spellLink = await evaluate(`({
@@ -267,7 +293,11 @@ const spellLayoutOne = await evaluate(`({
   answersTop: document.querySelector('[data-testid="answer-grid"]')?.getBoundingClientRect().top
 })`);
 
-await delay(5_200);
+await waitFor(
+  `document.querySelector("main")?.dataset.phase === "answering" &&
+    !document.querySelector('[data-testid="spell-clue-2"]')?.innerText.includes("unlock")`,
+  8_000,
+);
 const spellClue = await evaluate(`({
   clueTwoUnlocked: !document.querySelector('[data-testid="spell-clue-2"]')?.innerText.includes("unlock"),
   clueTwoText: document.querySelector('[data-testid="spell-clue-2"]')?.innerText,
@@ -282,7 +312,11 @@ const spellLayoutTwo = await evaluate(`({
   promptHeight: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().height,
   answersTop: document.querySelector('[data-testid="answer-grid"]')?.getBoundingClientRect().top
 })`);
-await delay(5_100);
+await waitFor(
+  `document.querySelector("main")?.dataset.phase === "answering" &&
+    !document.querySelector('[data-testid="spell-clue-3"]')?.innerText.includes("unlock")`,
+  8_000,
+);
 const spellFinalClue = await evaluate(`document.querySelector('[data-testid="spell-clue-3"]')?.innerText`);
 const spellLayoutThree = await evaluate(`({
   promptTop: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().top,
@@ -312,7 +346,7 @@ await evaluate(`(() => {
   document.querySelector('[data-testid="start-arcade"]')?.click();
   return true;
 })()`);
-await delay(1_000);
+await waitFor(`document.querySelector("main")?.dataset.phase === "answering"`);
 
 const mobileQuestion = await evaluate(`({
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,

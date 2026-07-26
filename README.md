@@ -1,6 +1,6 @@
 # Queue Arcade
 
-An unofficial, browser-based Dota 2 arcade made for the gap between **Find Match** and **Accept**. It began as a recreation of Valve's old Queue Trivia and now wraps that loop around three fast minigames:
+An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now wraps that loop around three fast minigames:
 
 - **Queue Trivia** — current mana, damage, cooldown, item, and hero facts;
 - **Shopkeeper Rush** — finish item recipes by finding the missing component;
@@ -17,8 +17,10 @@ The playable MVP includes:
 - item and hero artwork for the visual minigames;
 - progressive Spell Link clues at two-thirds and one-third time remaining;
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
-- a live crowd-vote API with duplicate-vote protection;
-- optional Pusher broadcasts between connected browsers;
+- server-owned public rooms: everyone with the same mode, filter, and challenge level receives the same round and deadlines;
+- per-round crowd results with server-enforced deadlines and duplicate-vote protection;
+- disk-backed vote history that survives Node server restarts and records per-question accuracy data;
+- optional Pusher broadcasts between connected browsers, with automatic polling as the zero-config fallback;
 - keyboard controls, responsive layouts, sound cues, and local lifetime stats;
 - a reproducible data sync and validation pipeline.
 
@@ -53,7 +55,9 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-Pusher is optional. Copy `.env.example` to `.env.local` and add a Pusher Channels app if you want vote totals broadcast immediately to every connected browser. Without it, the game and vote API still work.
+Pusher is optional. Copy `.env.example` to `.env.local` and add a Pusher Channels app if you want participation totals broadcast immediately to every connected browser. Without it, clients poll the server and the synchronized game still works.
+
+Votes default to `.data/queue-arcade-votes.json`, which is intentionally ignored by Git. Set `ARCADE_DATA_FILE` to a path on a persistent volume in production. Anonymous player IDs are salted and hashed before they reach disk; set a private `ARCADE_VOTER_SALT` to keep that hash namespace installation-specific.
 
 ## Refresh the Dota data
 
@@ -79,24 +83,28 @@ pnpm check
 
 That validates the question deck and visual-option data, runs ESLint, runs strict TypeScript checking, and creates an optimized production build.
 
-For visual smoke testing, start Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the arcade lobby, Shopkeeper Rush, Spell Link's progressive clues, automatic round advancement, the session report, mobile overflow, and saves screenshots under `/tmp`.
+With the development server running, use `pnpm check:multiplayer` to create two anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal splits, concurrent votes, duplicate rejection, the shared reveal, disk persistence, and hashed voter IDs.
+
+For visual smoke testing, start Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the arcade lobby, Shopkeeper Rush, Spell Link's progressive clues, synchronized automatic round advancement, the session report, mobile overflow, and saves screenshots under `/tmp`.
 
 ## Crowd architecture
 
-`/api/votes` validates question IDs, accepts one vote per anonymous local player ID and question, and returns the current four-way split. The default store is process-local so the project has no required database. If Pusher variables are present, accepted totals are also broadcast on the `queue-arcade` channel.
+Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d:...`, so future game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
-This is shared, asynchronous answer history—not synchronized multiplayer yet. Each browser currently owns its deck and timer. Real multiplayer needs a server-owned question ID, answer deadline, reveal deadline, and automatic next-round event so every client stays on the same round.
+`/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 
-For a multi-instance public deployment, replace `src/lib/vote-store.ts` with Redis, Postgres, or another durable atomic store. Pusher distributes updates but is not the source of truth.
+The default persistent store is an atomic JSON file suited to local development and a single long-running Node instance with a persistent disk. It serializes concurrent writes inside the process and stores aggregate per-question answer counts for later difficulty calibration. For horizontal scaling or serverless deployment, replace `src/lib/vote-store.ts` with Redis or Postgres; Pusher distributes updates but is never the source of truth.
 
 ## Useful next steps
 
-1. Add **Map Pin**, then test objective locations and common warding spots.
-2. Add durable global vote storage and per-patch historical splits.
-3. Add server-timed global rounds, then shared daily rooms and friend-room codes.
-4. Add a question-report flow for edge cases after patches.
-5. Add Steam sign-in, leaderboards, and streak challenges only after the anonymous loop proves fun.
-6. Package it as a lightweight desktop/overlay companion for people who want it beside the real Dota queue.
+1. Move vote storage to Redis or Postgres before a horizontally scaled public deployment.
+2. Turn observed per-question correct rates into live challenge tiers and an admin calibration view.
+3. Add a question-report flow for ambiguous or outdated facts after patches.
+4. Add **Map Pin**, then test objective locations and common warding spots.
+5. Implement a second game's questions and minigame deck against the existing game-catalog contract.
+6. Add shared daily rooms and friend-room codes.
+7. Add Steam sign-in, leaderboards, and streak challenges only after the anonymous loop proves fun.
+8. Package it as a lightweight desktop/overlay companion for people who want it beside the real Dota queue.
 
 ## Attribution
 

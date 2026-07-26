@@ -31,12 +31,9 @@ import clsx from "clsx";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { getPusherClient } from "@/lib/pusher";
 import {
-  createArcadeDeck,
   difficultyLabel,
   KNOWLEDGE_FILTERS,
   SKILL_LEVELS,
-  triviaMeta,
-  triviaQuestions,
   type ArcadeMode,
   type ArcadeRound,
   type KnowledgeFilter,
@@ -44,11 +41,11 @@ import {
   type SkillLevel,
   type TriviaQuestion,
 } from "@/lib/trivia";
-import type { CrowdResult } from "@/lib/vote-store";
+import type { CrowdResult, PublicRoomSettings, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
+import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
 import styles from "./queue-arcade.module.css";
 
 const REVEAL_DURATION_MS = 7_000;
-const DECK_BATCH_LENGTH = 24;
 const MAX_SPEED_BONUS = 100;
 const SPELL_CLUE_PENALTY = 40;
 const LETTERS = ["A", "B", "C", "D"] as const;
@@ -59,8 +56,10 @@ const SETTINGS_KEY = "queue-arcade:settings:v2";
 const LEGACY_STORAGE_KEY = "queue-trivia:stats:v1";
 const LEGACY_PLAYER_KEY = "queue-trivia:player:v1";
 const LEGACY_SETTINGS_KEY = "queue-trivia:settings:v1";
-const ARCADE_MODES: ArcadeMode[] = ["mixed", "trivia", "shopkeeper", "spell-link"];
-const DOTA_LOGO_URL = "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png";
+const ACTIVE_GAME = GAME_CATALOGS[DEFAULT_GAME_ID];
+const ACTIVE_QUESTIONS = ACTIVE_GAME.questions;
+const QUESTIONS_BY_ID = new Map(ACTIVE_QUESTIONS.map((question) => [question.id, question]));
+const ARCADE_MODES: ArcadeMode[] = [...ACTIVE_GAME.modes];
 
 const SKILL_INFO: Record<
   SkillLevel,
@@ -195,6 +194,103 @@ function normalizeCrowd(value: unknown): CrowdResult | null {
   };
 }
 
+function normalizePlayerVote(value: unknown) {
+  if (value === null) return null;
+  if (!value || typeof value !== "object" || !("answerIndex" in value) || !("submittedAt" in value)) {
+    return undefined;
+  }
+
+  const { answerIndex, submittedAt } = value;
+  if (
+    typeof answerIndex !== "number" ||
+    !Number.isInteger(answerIndex) ||
+    answerIndex < 0 ||
+    answerIndex > 3 ||
+    typeof submittedAt !== "number" ||
+    !Number.isFinite(submittedAt)
+  ) {
+    return undefined;
+  }
+
+  return { answerIndex, submittedAt };
+}
+
+function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
+  if (
+    !value ||
+    typeof value !== "object" ||
+    !("serverNow" in value) ||
+    !("room" in value) ||
+    !("round" in value) ||
+    !("crowd" in value) ||
+    !("playerVote" in value)
+  ) {
+    return null;
+  }
+
+  const candidate = value as Partial<RoomSnapshot>;
+  const room = candidate.room;
+  const round = candidate.round;
+  const crowd = normalizeCrowd(candidate.crowd);
+  const playerVote = normalizePlayerVote(candidate.playerVote);
+
+  if (
+    typeof candidate.serverNow !== "number" ||
+    !room ||
+    typeof room.id !== "string" ||
+    !GAME_IDS.includes(room.gameId) ||
+    typeof room.contentVersion !== "string" ||
+    !ARCADE_MODES.includes(room.mode) ||
+    !KNOWLEDGE_FILTERS.includes(room.filter) ||
+    !SKILL_LEVELS.includes(room.skillLevel) ||
+    !round ||
+    typeof round.id !== "string" ||
+    typeof round.number !== "number" ||
+    (round.phase !== "answering" && round.phase !== "reveal") ||
+    !["trivia", "shopkeeper", "spell-link"].includes(round.game) ||
+    typeof round.questionId !== "string" ||
+    typeof round.startedAt !== "number" ||
+    typeof round.answerDeadline !== "number" ||
+    typeof round.revealDeadline !== "number" ||
+    typeof round.answerDuration !== "number" ||
+    !crowd ||
+    playerVote === undefined
+  ) {
+    return null;
+  }
+
+  return {
+    serverNow: candidate.serverNow,
+    room,
+    round,
+    crowd,
+    playerVote,
+  };
+}
+
+function normalizeVoteResult(value: unknown): VoteResult | null {
+  if (!value || typeof value !== "object" || !("accepted" in value) || !("playerVote" in value)) return null;
+  const crowd = normalizeCrowd(value);
+  const playerVote = normalizePlayerVote(value.playerVote);
+  if (typeof value.accepted !== "boolean" || playerVote === undefined || !crowd) return null;
+
+  return {
+    accepted: value.accepted,
+    ...crowd,
+    playerVote,
+  };
+}
+
+function publicRoomQuery(settings: PublicRoomSettings, playerId: string) {
+  return new URLSearchParams({
+    gameId: settings.gameId,
+    mode: settings.mode,
+    filter: settings.filter,
+    skillLevel: settings.skillLevel,
+    playerId,
+  });
+}
+
 function formatDuration(milliseconds: number) {
   const seconds = Math.max(0, Math.floor(milliseconds / 1000));
   const minutes = Math.floor(seconds / 60);
@@ -246,13 +342,6 @@ function spellMechanicHint(hint: string) {
   ] as const;
   const matches = mechanics.filter(([pattern]) => pattern.test(hint)).map(([, label]) => label);
   return matches.length ? matches.slice(0, 2).join(" · ") : "Utility effect";
-}
-
-function fallbackCrowd(selectedIndex: number | null) {
-  if (selectedIndex === null) return EMPTY_CROWD;
-  const counts: CrowdResult["counts"] = [0, 0, 0, 0];
-  counts[selectedIndex] = 1;
-  return { counts, total: 1 };
 }
 
 function QuestionArtwork({ question }: { question: TriviaQuestion }) {
@@ -312,7 +401,7 @@ function AnswerArtwork({ src, alt, kind }: { src: string; alt: string; kind: "it
 function BrandMark() {
   return (
     <span className={styles.brandMark} aria-hidden="true">
-      <Image src={DOTA_LOGO_URL} alt="" width={30} height={30} unoptimized />
+      <Image src={ACTIVE_GAME.logoUrl} alt="" width={30} height={30} unoptimized />
     </span>
   );
 }
@@ -322,7 +411,7 @@ export function QueueArcade() {
   const [mode, setMode] = useState<ArcadeMode>("mixed");
   const [filter, setFilter] = useState<KnowledgeFilter>("Mixed");
   const [skillLevel, setSkillLevel] = useState<SkillLevel>("Open");
-  const [deck, setDeck] = useState<ArcadeRound[]>([]);
+  const [currentQuestion, setCurrentQuestion] = useState<ArcadeRound | null>(null);
   const [roundIndex, setRoundIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [answerTimeLeft, setAnswerTimeLeft] = useState(0);
@@ -341,9 +430,12 @@ export function QueueArcade() {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [lifetimeStats, setLifetimeStats] = useState<LifetimeStats>(EMPTY_STATS);
   const [statsLoaded, setStatsLoaded] = useState(false);
+  const [joiningRoom, setJoiningRoom] = useState(false);
+  const [roomError, setRoomError] = useState<string | null>(null);
+  const [activeRoomId, setActiveRoomId] = useState("");
+  const [activeRoundId, setActiveRoundId] = useState("");
 
   const phaseRef = useRef<GamePhase>("lobby");
-  const deckRef = useRef<ArcadeRound[]>([]);
   const currentQuestionRef = useRef<ArcadeRound | null>(null);
   const roundIndexRef = useRef(0);
   const selectedIndexRef = useRef<number | null>(null);
@@ -352,21 +444,24 @@ export function QueueArcade() {
   const deadlineRef = useRef<number | null>(null);
   const queueStartedAtRef = useRef<number | null>(null);
   const finalizedRef = useRef(false);
-  const advancedRef = useRef(false);
+  const participatedRef = useRef(false);
   const runSavedRef = useRef(false);
   const playerIdRef = useRef("");
+  const roomSettingsRef = useRef<PublicRoomSettings | null>(null);
+  const roomSnapshotRef = useRef<RoomSnapshot | null>(null);
+  const roundIdRef = useRef("");
+  const syncPromiseRef = useRef<Promise<void> | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
 
-  const currentQuestion = deck[roundIndex];
   const answerDuration = SKILL_INFO[skillLevel].duration;
   const previewQuestion = useMemo(() => {
     if (mode === "shopkeeper") {
-      return triviaQuestions.find((question) => question.category === "Recipes") ?? triviaQuestions[0];
+      return ACTIVE_QUESTIONS.find((question) => question.category === "Recipes") ?? ACTIVE_QUESTIONS[0];
     }
     if (mode === "spell-link") {
-      return triviaQuestions.find((question) => question.id.startsWith("ability-owner:")) ?? triviaQuestions[0];
+      return ACTIVE_QUESTIONS.find((question) => question.id.startsWith("ability-owner:")) ?? ACTIVE_QUESTIONS[0];
     }
-    return triviaQuestions.find((question) => question.id === "cooldown:lina_dragon_slave:4") ?? triviaQuestions[0];
+    return ACTIVE_QUESTIONS.find((question) => question.id === "cooldown:lina_dragon_slave:4") ?? ACTIVE_QUESTIONS[0];
   }, [mode]);
 
   const setPhase = useCallback((nextPhase: GamePhase) => {
@@ -444,70 +539,235 @@ export function QueueArcade() {
     [soundEnabled],
   );
 
-  const readCrowd = useCallback(async (questionId: string) => {
-    const response = await fetch(`/api/votes?questionId=${encodeURIComponent(questionId)}`, {
+  const requestRoomSnapshot = useCallback(async (settings: PublicRoomSettings, playerId: string) => {
+    const requestedAt = Date.now();
+    const response = await fetch(`/api/rounds?${publicRoomQuery(settings, playerId)}`, {
       cache: "no-store",
     });
-    if (!response.ok) throw new Error("Crowd room unavailable.");
-    return normalizeCrowd(await response.json());
+    const payload: unknown = await response.json();
+    const receivedAt = Date.now();
+
+    if (!response.ok) throw new Error("Public room unavailable.");
+    const snapshot = normalizeRoomSnapshot(payload);
+    if (!snapshot || !QUESTIONS_BY_ID.has(snapshot.round.questionId)) {
+      throw new Error("Public room returned an unknown round.");
+    }
+
+    return {
+      snapshot,
+      receivedAt,
+      clockOffset: (requestedAt + receivedAt) / 2 - snapshot.serverNow,
+    };
   }, []);
 
-  const prepareRound = useCallback(
-    (question: ArcadeRound) => {
-      const startedAt = Date.now();
-      currentQuestionRef.current = question;
-      selectedIndexRef.current = null;
-      answerTimeLeftRef.current = 0;
-      finalizedRef.current = false;
-      advancedRef.current = false;
-      setSelectedIndex(null);
-      setAnswerTimeLeft(0);
-      setCrowd(EMPTY_CROWD);
-      setRoundAward(null);
-      setRevealDeadlineState(null);
-      setDeadline(startedAt + answerDuration);
-      setNow(startedAt);
-      setPhase("answering");
+  const finalizeRound = useCallback(
+    (snapshot: RoomSnapshot, localRevealDeadline: number) => {
+      const question = currentQuestionRef.current;
+      if (!question || finalizedRef.current || !participatedRef.current || snapshot.round.id !== roundIdRef.current) {
+        return;
+      }
 
-      void readCrowd(question.id)
-        .then((result) => {
-          if (result && currentQuestionRef.current?.id === question.id) setCrowd(result);
-        })
-        .catch(() => undefined);
+      finalizedRef.current = true;
+      setDeadline(null);
+      setRevealDeadlineState(localRevealDeadline);
+      setPhase("reveal");
+      setCrowd(snapshot.crowd);
+
+      const isCorrect = selectedIndexRef.current === question.correctIndex;
+      const correctVotes = snapshot.crowd.counts[question.correctIndex];
+      const majorityBonus = isCorrect && snapshot.crowd.total > 0 && correctVotes / snapshot.crowd.total < 0.5;
+      const {
+        speedBonus,
+        cluePenalty,
+        rawPoints: correctPoints,
+      } = scoreBreakdown(question, answerTimeLeftRef.current, snapshot.round.answerDuration);
+      const rawPoints = isCorrect ? correctPoints : 0;
+      const points = majorityBonus ? rawPoints * 2 : rawPoints;
+
+      setRoundAward({ points, majorityBonus, correct: isCorrect, speedBonus, cluePenalty });
+      setScore((currentScore) => currentScore + points);
+      setHistory((records) => [
+        ...records,
+        {
+          id: snapshot.round.id,
+          category: question.category,
+          game: question.game,
+          correct: isCorrect,
+          points,
+        },
+      ]);
+
+      if (isCorrect) {
+        setCorrectCount((count) => count + 1);
+        setStreak((currentStreak) => {
+          const nextStreak = currentStreak + 1;
+          setBestStreak((currentBest) => Math.max(currentBest, nextStreak));
+          return nextStreak;
+        });
+        playSound("correct");
+      } else {
+        setStreak(0);
+        playSound("wrong");
+      }
     },
-    [answerDuration, readCrowd, setCrowd, setDeadline, setPhase],
+    [playSound, setCrowd, setDeadline, setPhase],
   );
 
-  const startRun = useCallback(() => {
-    ensurePlayerId();
-    const startedAt = Date.now();
-    const nextDeck = createArcadeDeck(
-      `${startedAt}:${window.crypto.randomUUID()}`,
-      mode,
-      mode === "trivia" ? filter : "Mixed",
-      DECK_BATCH_LENGTH,
-      skillLevel,
-    );
+  const applyRoomSnapshot = useCallback(
+    (snapshot: RoomSnapshot, clockOffset: number, receivedAt: number) => {
+      const baseQuestion = QUESTIONS_BY_ID.get(snapshot.round.questionId);
+      if (!baseQuestion) throw new Error("The synchronized round references an unknown question.");
+      const question: ArcadeRound = { ...baseQuestion, game: snapshot.round.game };
+      const localAnswerDeadline = snapshot.round.answerDeadline + clockOffset;
+      const localRevealDeadline = snapshot.round.revealDeadline + clockOffset;
+      const isNewRound = roundIdRef.current !== snapshot.round.id;
+      const hadRound = Boolean(roundIdRef.current);
 
-    deckRef.current = nextDeck;
-    roundIndexRef.current = 0;
-    queueStartedAtRef.current = startedAt;
-    runSavedRef.current = false;
-    setDeck(nextDeck);
-    setRoundIndex(0);
-    setScore(0);
-    setStreak(0);
-    setBestStreak(0);
-    setCorrectCount(0);
-    setHistory([]);
-    setRunDuration(0);
-    setQueueStartedAt(startedAt);
-    playSound("start");
-    prepareRound(nextDeck[0]);
-  }, [ensurePlayerId, filter, mode, playSound, prepareRound, skillLevel]);
+      roomSnapshotRef.current = snapshot;
+      setActiveRoomId(snapshot.room.id);
+      setActiveRoundId(snapshot.round.id);
+      setCrowd(snapshot.crowd);
+      setRoomError(null);
+      setNow(receivedAt);
+
+      if (isNewRound) {
+        roundIdRef.current = snapshot.round.id;
+        currentQuestionRef.current = question;
+        setCurrentQuestion(question);
+        setRoundAward(null);
+
+        const nextRoundIndex = hadRound ? roundIndexRef.current + 1 : 0;
+        roundIndexRef.current = nextRoundIndex;
+        setRoundIndex(nextRoundIndex);
+
+        const playerVote = snapshot.playerVote;
+        const nextSelectedIndex = playerVote?.answerIndex ?? null;
+        const nextAnswerTimeLeft = playerVote ? Math.max(0, snapshot.round.answerDeadline - playerVote.submittedAt) : 0;
+        selectedIndexRef.current = nextSelectedIndex;
+        answerTimeLeftRef.current = nextAnswerTimeLeft;
+        setSelectedIndex(nextSelectedIndex);
+        setAnswerTimeLeft(nextAnswerTimeLeft);
+
+        participatedRef.current = snapshot.round.phase === "answering";
+        finalizedRef.current = snapshot.round.phase === "reveal";
+
+        if (snapshot.round.phase === "answering") {
+          setDeadline(localAnswerDeadline);
+          setRevealDeadlineState(null);
+          setPhase("answering");
+        } else {
+          setDeadline(null);
+          setRevealDeadlineState(localRevealDeadline);
+          setPhase("reveal");
+        }
+        return;
+      }
+
+      currentQuestionRef.current = question;
+      setCurrentQuestion(question);
+
+      if (snapshot.playerVote && selectedIndexRef.current === null) {
+        const nextAnswerTimeLeft = Math.max(0, snapshot.round.answerDeadline - snapshot.playerVote.submittedAt);
+        selectedIndexRef.current = snapshot.playerVote.answerIndex;
+        answerTimeLeftRef.current = nextAnswerTimeLeft;
+        setSelectedIndex(snapshot.playerVote.answerIndex);
+        setAnswerTimeLeft(nextAnswerTimeLeft);
+      }
+
+      if (snapshot.round.phase === "answering") {
+        setDeadline(localAnswerDeadline);
+        setRevealDeadlineState(null);
+        setPhase("answering");
+        return;
+      }
+
+      setRevealDeadlineState(localRevealDeadline);
+      if (phaseRef.current === "answering") {
+        finalizeRound(snapshot, localRevealDeadline);
+      } else {
+        setDeadline(null);
+        setPhase("reveal");
+      }
+    },
+    [finalizeRound, setCrowd, setDeadline, setPhase],
+  );
+
+  const syncRoom = useCallback(() => {
+    if (syncPromiseRef.current) return syncPromiseRef.current;
+    const settings = roomSettingsRef.current;
+    if (!settings) return Promise.resolve();
+
+    const task = (async () => {
+      try {
+        const result = await requestRoomSnapshot(settings, ensurePlayerId());
+        if (roomSettingsRef.current !== settings) return;
+        applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
+      } catch {
+        if (roomSettingsRef.current === settings) {
+          setRoomError("Connection interrupted · retrying automatically");
+        }
+      }
+    })();
+
+    syncPromiseRef.current = task;
+    void task.finally(() => {
+      if (syncPromiseRef.current === task) syncPromiseRef.current = null;
+    });
+    return task;
+  }, [applyRoomSnapshot, ensurePlayerId, requestRoomSnapshot]);
+
+  const startRun = useCallback(async () => {
+    if (joiningRoom) return;
+
+    const settings: PublicRoomSettings = {
+      gameId: DEFAULT_GAME_ID,
+      mode,
+      filter: mode === "trivia" ? filter : "Mixed",
+      skillLevel,
+    };
+    setJoiningRoom(true);
+    setRoomError(null);
+    roomSettingsRef.current = settings;
+
+    try {
+      const result = await requestRoomSnapshot(settings, ensurePlayerId());
+      if (roomSettingsRef.current !== settings) return;
+
+      const startedAt = Date.now();
+      roundIdRef.current = "";
+      currentQuestionRef.current = null;
+      roundIndexRef.current = 0;
+      queueStartedAtRef.current = startedAt;
+      runSavedRef.current = false;
+      finalizedRef.current = false;
+      participatedRef.current = false;
+      setCurrentQuestion(null);
+      setRoundIndex(0);
+      setScore(0);
+      setStreak(0);
+      setBestStreak(0);
+      setCorrectCount(0);
+      setHistory([]);
+      setRunDuration(0);
+      setQueueStartedAt(startedAt);
+      playSound("start");
+      applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
+    } catch {
+      if (roomSettingsRef.current === settings) {
+        roomSettingsRef.current = null;
+        setRoomError("Could not join the public room. The arcade will keep your settings.");
+      }
+    } finally {
+      setJoiningRoom(false);
+    }
+  }, [applyRoomSnapshot, ensurePlayerId, filter, joiningRoom, mode, playSound, requestRoomSnapshot, skillLevel]);
 
   const submitVote = useCallback(
     async (question: TriviaQuestion, answerIndex: number) => {
+      const snapshot = roomSnapshotRef.current;
+      const settings = roomSettingsRef.current;
+      if (!snapshot || !settings || snapshot.round.id !== roundIdRef.current) return;
+
       try {
         const response = await fetch("/api/votes", {
           method: "POST",
@@ -515,27 +775,57 @@ export function QueueArcade() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            ...settings,
+            roundId: snapshot.round.id,
             questionId: question.id,
             answerIndex,
             voterId: ensurePlayerId(),
           }),
         });
-        if (!response.ok) throw new Error("Vote rejected.");
-        const result = normalizeCrowd(await response.json());
-        if (result && currentQuestionRef.current?.id === question.id) setCrowd(result);
-      } catch {
-        if (currentQuestionRef.current?.id === question.id && crowdRef.current.total === 0) {
-          setCrowd(fallbackCrowd(answerIndex));
+        const payload: unknown = await response.json();
+
+        if (!response.ok) {
+          throw new Error(response.status === 409 ? "ROUND_CLOSED" : "VOTE_FAILED");
         }
+
+        const result = normalizeVoteResult(payload);
+        if (!result) throw new Error("VOTE_FAILED");
+
+        if (roundIdRef.current === snapshot.round.id) {
+          setCrowd({ counts: result.counts, total: result.total });
+          if (result.playerVote) {
+            const serverTimeLeft = Math.max(0, snapshot.round.answerDeadline - result.playerVote.submittedAt);
+            selectedIndexRef.current = result.playerVote.answerIndex;
+            answerTimeLeftRef.current = serverTimeLeft;
+            setSelectedIndex(result.playerVote.answerIndex);
+            setAnswerTimeLeft(serverTimeLeft);
+          }
+          setRoomError(null);
+        }
+      } catch {
+        if (roundIdRef.current === snapshot.round.id) {
+          selectedIndexRef.current = null;
+          answerTimeLeftRef.current = 0;
+          setSelectedIndex(null);
+          setAnswerTimeLeft(0);
+          setRoomError("Vote confirmation delayed · checking the room");
+        }
+        void syncRoom();
       }
     },
-    [ensurePlayerId, setCrowd],
+    [ensurePlayerId, setCrowd, syncRoom],
   );
 
   const chooseAnswer = useCallback(
     (answerIndex: number) => {
       const question = currentQuestionRef.current;
-      if (phaseRef.current !== "answering" || !question || selectedIndexRef.current !== null || !deadlineRef.current) {
+      if (
+        phaseRef.current !== "answering" ||
+        !question ||
+        selectedIndexRef.current !== null ||
+        !deadlineRef.current ||
+        Date.now() >= deadlineRef.current
+      ) {
         return;
       }
 
@@ -550,124 +840,17 @@ export function QueueArcade() {
     [playSound, submitVote],
   );
 
-  const finalizeRound = useCallback(async () => {
-    const question = currentQuestionRef.current;
-    if (!question || finalizedRef.current || phaseRef.current !== "answering") return;
-
-    finalizedRef.current = true;
-    setDeadline(null);
-    setPhase("reveal");
-
-    let finalCrowd = crowdRef.current;
-    try {
-      const latestCrowd = await readCrowd(question.id);
-      if (latestCrowd) finalCrowd = latestCrowd;
-    } catch {
-      if (!finalCrowd.total) finalCrowd = fallbackCrowd(selectedIndexRef.current);
-    }
-
-    if (!finalCrowd.total && selectedIndexRef.current !== null) {
-      finalCrowd = fallbackCrowd(selectedIndexRef.current);
-    }
-
-    setCrowd(finalCrowd);
-
-    const isCorrect = selectedIndexRef.current === question.correctIndex;
-    const correctVotes = finalCrowd.counts[question.correctIndex];
-    const majorityBonus = isCorrect && finalCrowd.total > 0 && correctVotes / finalCrowd.total < 0.5;
-    const {
-      speedBonus,
-      cluePenalty,
-      rawPoints: correctPoints,
-    } = scoreBreakdown(question, answerTimeLeftRef.current, answerDuration);
-    const rawPoints = isCorrect ? correctPoints : 0;
-    const points = majorityBonus ? rawPoints * 2 : rawPoints;
-
-    setRoundAward({ points, majorityBonus, correct: isCorrect, speedBonus, cluePenalty });
-    setScore((currentScore) => currentScore + points);
-    setHistory((records) => [
-      ...records,
-      {
-        id: question.id,
-        category: question.category,
-        game: question.game,
-        correct: isCorrect,
-        points,
-      },
-    ]);
-
-    if (isCorrect) {
-      setCorrectCount((count) => count + 1);
-      setStreak((currentStreak) => {
-        const nextStreak = currentStreak + 1;
-        setBestStreak((currentBest) => Math.max(currentBest, nextStreak));
-        return nextStreak;
-      });
-      playSound("correct");
-    } else {
-      setStreak(0);
-      playSound("wrong");
-    }
-
-    setRevealDeadlineState(Date.now() + REVEAL_DURATION_MS);
-  }, [answerDuration, playSound, readCrowd, setCrowd, setDeadline, setPhase]);
-
   const finishSession = useCallback(() => {
     if (phaseRef.current === "lobby" || phaseRef.current === "summary") return;
     const finishedAt = Date.now();
     const startedAt = queueStartedAtRef.current ?? finishedAt;
+    roomSettingsRef.current = null;
+    roomSnapshotRef.current = null;
     setRunDuration(finishedAt - startedAt);
     setDeadline(null);
     setRevealDeadlineState(null);
     setPhase("summary");
   }, [setDeadline, setPhase]);
-
-  const advanceRound = useCallback(() => {
-    if (phaseRef.current !== "reveal" || advancedRef.current) return;
-    advancedRef.current = true;
-
-    const nextIndex = roundIndexRef.current + 1;
-    let nextDeck = deckRef.current;
-
-    if (!nextDeck[nextIndex]) {
-      const recentIds = new Set(nextDeck.slice(-6).map((question) => question.id));
-      const generated = createArcadeDeck(
-        `${queueStartedAtRef.current}:${nextIndex}:${window.crypto.randomUUID()}`,
-        mode,
-        mode === "trivia" ? filter : "Mixed",
-        DECK_BATCH_LENGTH,
-        skillLevel,
-      );
-      let nextBatch = [
-        ...generated.filter((question) => !recentIds.has(question.id)),
-        ...generated.filter((question) => recentIds.has(question.id)),
-      ];
-
-      if (mode === "mixed" && nextDeck.at(-1)?.game === nextBatch[0]?.game) {
-        const differentGameIndex = nextBatch.findIndex((question) => question.game !== nextDeck.at(-1)?.game);
-        if (differentGameIndex > 0) {
-          nextBatch = [
-            nextBatch[differentGameIndex],
-            ...nextBatch.slice(0, differentGameIndex),
-            ...nextBatch.slice(differentGameIndex + 1),
-          ];
-        }
-      }
-
-      if (!nextBatch.length) {
-        finishSession();
-        return;
-      }
-
-      nextDeck = [...nextDeck, ...nextBatch];
-      deckRef.current = nextDeck;
-      setDeck(nextDeck);
-    }
-
-    roundIndexRef.current = nextIndex;
-    setRoundIndex(nextIndex);
-    prepareRound(nextDeck[nextIndex]);
-  }, [filter, finishSession, mode, prepareRound, skillLevel]);
 
   useEffect(() => {
     if (phase === "lobby" || phase === "summary") return;
@@ -676,12 +859,29 @@ export function QueueArcade() {
   }, [phase]);
 
   useEffect(() => {
-    if (phase === "answering" && deadline && now >= deadline) void finalizeRound();
-  }, [deadline, finalizeRound, now, phase]);
+    if (phase === "lobby" || phase === "summary") return;
+
+    const interval = window.setInterval(() => void syncRoom(), 1_000);
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") void syncRoom();
+    };
+
+    window.addEventListener("focus", handleVisibility);
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => {
+      window.clearInterval(interval);
+      window.removeEventListener("focus", handleVisibility);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [phase, syncRoom]);
 
   useEffect(() => {
-    if (phase === "reveal" && revealDeadline && now >= revealDeadline) advanceRound();
-  }, [advanceRound, now, phase, revealDeadline]);
+    if (phase === "answering" && deadline && now >= deadline) void syncRoom();
+  }, [deadline, now, phase, syncRoom]);
+
+  useEffect(() => {
+    if (phase === "reveal" && revealDeadline && now >= revealDeadline) void syncRoom();
+  }, [now, phase, revealDeadline, syncRoom]);
 
   useEffect(() => {
     const hydration = window.setTimeout(() => {
@@ -740,10 +940,10 @@ export function QueueArcade() {
 
     const channel = pusher.subscribe("queue-arcade");
     const onVoteUpdate = (event: unknown) => {
-      if (!event || typeof event !== "object" || !("questionId" in event)) return;
-      const questionId = event.questionId;
+      if (!event || typeof event !== "object" || !("roundId" in event)) return;
+      const roundId = event.roundId;
       const result = normalizeCrowd(event);
-      if (typeof questionId === "string" && result && currentQuestionRef.current?.id === questionId) {
+      if (typeof roundId === "string" && result && roundIdRef.current === roundId) {
         setCrowd(result);
       }
     };
@@ -820,7 +1020,12 @@ export function QueueArcade() {
   const activeModeInfo = MODE_INFO[mode];
 
   return (
-    <main className={styles.shell}>
+    <main
+      className={styles.shell}
+      data-phase={phase}
+      data-room-id={activeRoomId || undefined}
+      data-round-id={activeRoundId || undefined}
+    >
       <div className={styles.backdrop} aria-hidden="true">
         <span className={styles.backdropOrbOne} />
         <span className={styles.backdropOrbTwo} />
@@ -834,6 +1039,8 @@ export function QueueArcade() {
           aria-label="Queue Arcade home"
           onClick={(event) => {
             event.preventDefault();
+            roomSettingsRef.current = null;
+            roomSnapshotRef.current = null;
             setPhase("lobby");
           }}
         >
@@ -845,7 +1052,9 @@ export function QueueArcade() {
         </a>
 
         <div className={styles.headerMeta}>
-          <span className={styles.patchBadge}>Patch {triviaMeta.patch}</span>
+          <span className={styles.patchBadge}>
+            {ACTIVE_GAME.label} · {ACTIVE_GAME.contentLabel}
+          </span>
           <span className={styles.fanBadge}>Unofficial fan project</span>
           <button
             type="button"
@@ -888,6 +1097,7 @@ export function QueueArcade() {
                       data-arcade-mode={option}
                       className={clsx(styles.modeCard, mode === option && styles.modeCardActive)}
                       onClick={() => setMode(option)}
+                      disabled={joiningRoom}
                       aria-pressed={mode === option}
                     >
                       <span className={styles.modeIcon}>
@@ -916,6 +1126,7 @@ export function QueueArcade() {
                         type="button"
                         className={clsx(styles.filterButton, filter === option && styles.filterButtonActive)}
                         onClick={() => setFilter(option)}
+                        disabled={joiningRoom}
                         aria-pressed={filter === option}
                       >
                         {option === "Mixed" && <Sparkles />}
@@ -941,9 +1152,15 @@ export function QueueArcade() {
             </div>
 
             <div className={styles.lobbyActions}>
-              <button type="button" data-testid="start-arcade" className={styles.primaryButton} onClick={startRun}>
+              <button
+                type="button"
+                data-testid="start-arcade"
+                className={styles.primaryButton}
+                onClick={() => void startRun()}
+                disabled={joiningRoom}
+              >
                 <Gamepad2 />
-                {activeModeInfo.action}
+                {joiningRoom ? "Joining public room…" : activeModeInfo.action}
                 <ChevronRight />
               </button>
               <div className={styles.skillBlock}>
@@ -956,6 +1173,7 @@ export function QueueArcade() {
                       data-skill-level={option.toLowerCase()}
                       className={clsx(styles.skillButton, skillLevel === option && styles.skillButtonActive)}
                       onClick={() => setSkillLevel(option)}
+                      disabled={joiningRoom}
                       aria-pressed={skillLevel === option}
                     >
                       <strong>{SKILL_INFO[option].label}</strong>
@@ -966,13 +1184,18 @@ export function QueueArcade() {
               </div>
             </div>
 
+            <div className={clsx(styles.roomNotice, roomError && styles.roomNoticeError)} aria-live="polite">
+              <Signal />
+              {roomError ?? "Public rooms are synchronized to one server-owned round and reveal."}
+            </div>
+
             <div className={styles.featureStrip}>
               <div>
                 <strong>3</strong>
                 <span>games live</span>
               </div>
               <div>
-                <strong>{triviaMeta.questionCount}</strong>
+                <strong>{ACTIVE_QUESTIONS.length}</strong>
                 <span>patch-current prompts</span>
               </div>
               <div>
@@ -1020,7 +1243,7 @@ export function QueueArcade() {
               </div>
               <div className={styles.previewFooter}>
                 <Users />
-                Shared answer split and speed score after every round
+                One synchronized round, deadline, and answer split for everyone
               </div>
             </div>
 
@@ -1029,7 +1252,7 @@ export function QueueArcade() {
                 <Gamepad2 />
               </span>
               <span>
-                <small>Endless session ready</small>
+                <small>Public room ready</small>
                 {SKILL_INFO[skillLevel].label} · {activeModeInfo.shortLabel}
               </span>
               <strong>{answerDuration / 1000}s</strong>
@@ -1039,7 +1262,7 @@ export function QueueArcade() {
       )}
 
       {(phase === "answering" || phase === "reveal") && currentQuestion && (
-        <section className={styles.gameLayout}>
+        <section className={styles.gameLayout} data-testid="public-room">
           <div
             className={clsx(
               styles.gameStage,
@@ -1079,7 +1302,7 @@ export function QueueArcade() {
                 aria-label={`${Math.ceil(answerRemaining / 1000)} seconds remaining`}
               >
                 <Clock3 />
-                <strong>
+                <strong data-testid="round-timer">
                   {phase === "answering"
                     ? String(Math.ceil(answerRemaining / 1000)).padStart(2, "0")
                     : String(Math.ceil(revealRemaining / 1000)).padStart(2, "0")}
@@ -1279,7 +1502,7 @@ export function QueueArcade() {
 
             {phase === "reveal" && (
               <div className={styles.autoAdvance} aria-live="polite">
-                Next round starts automatically
+                Public room advances for everyone
                 <strong>{Math.ceil(revealRemaining / 1000)}s</strong>
                 <ChevronRight />
               </div>
@@ -1293,24 +1516,19 @@ export function QueueArcade() {
                   <Gamepad2 />
                 </span>
                 <span>
-                  <small>{MODE_INFO[mode].shortLabel} session</small>
-                  Endless rounds
+                  <small>{MODE_INFO[mode].shortLabel} public room</small>
+                  Endless synchronized rounds
                 </span>
                 <strong>{formatDuration(sessionElapsed)}</strong>
               </div>
               <div className={styles.queueDetails}>
                 <span>{skillLevel}</span>
                 <i />
-                <span>Auto advance</span>
+                <span>Server timed</span>
                 <i />
-                <span>Shared results</span>
+                <span title={roomError ?? activeRoomId}>{roomError ? "Reconnecting" : "Live room"}</span>
               </div>
-              <button
-                type="button"
-                data-testid="end-session"
-                onClick={finishSession}
-                disabled={phase === "reveal" && roundAward === null}
-              >
+              <button type="button" data-testid="end-session" onClick={finishSession}>
                 <CircleStop />
                 End session
               </button>
@@ -1370,17 +1588,21 @@ export function QueueArcade() {
                   <Radio />
                   Global answers
                 </span>
-                <span className={styles.livePill}>Shared</span>
+                <span className={styles.livePill}>Live room</span>
               </div>
               <strong>
                 {crowd.total.toLocaleString("en-US")} {crowd.total === 1 ? "answer" : "answers"}
               </strong>
               <p>
                 {phase === "answering"
-                  ? "Your pick joins this question’s shared split. Results stay hidden until time expires."
+                  ? crowd.total
+                    ? `${crowd.total.toLocaleString("en-US")} ${
+                        crowd.total === 1 ? "player has" : "players have"
+                      } locked in. The split stays hidden until the shared deadline.`
+                    : "Answers appear here as players lock in. The split stays hidden until the shared deadline."
                   : crowd.total
-                    ? "Answer history for this exact question, across every arcade session."
-                    : "Be the first player to answer this question."}
+                    ? "Final answer split for this synchronized public round."
+                    : "Nobody answered before this room’s deadline."}
               </p>
               <div className={styles.crowdPulse} aria-hidden="true">
                 <span />
@@ -1426,7 +1648,7 @@ export function QueueArcade() {
               </span>
               Session ended
             </div>
-            <span className={styles.summaryPatch}>Patch {triviaMeta.patch}</span>
+            <span className={styles.summaryPatch}>{ACTIVE_GAME.contentLabel}</span>
           </div>
 
           <div className={styles.summaryHero}>
@@ -1491,7 +1713,7 @@ export function QueueArcade() {
           </div>
 
           <div className={styles.summaryActions}>
-            <button type="button" className={styles.primaryButton} onClick={startRun}>
+            <button type="button" className={styles.primaryButton} onClick={() => void startRun()}>
               <RotateCcw />
               Play again
               <ChevronRight />

@@ -9,8 +9,12 @@
 # testing
 /coverage
 
+# local persistent arcade data
+/.data/
+
 # next.js
 /.next/
+/.next-check/
 /out/
 
 # production

@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
 import Pusher from "pusher";
-import { triviaQuestions } from "@/lib/trivia";
-import { getCrowdResult, recordVote } from "@/lib/vote-store";
+import { GAME_CATALOGS } from "@/lib/game-catalogs";
+import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
+import { recordRoundVote } from "@/lib/vote-store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-const questionIds = new Set(triviaQuestions.map((question) => question.id));
 
 function getPusherServer() {
   const appId = process.env.PUSHER_APP_ID;
@@ -25,20 +24,6 @@ function getPusherServer() {
   });
 }
 
-export async function GET(request: Request) {
-  const questionId = new URL(request.url).searchParams.get("questionId");
-
-  if (!questionId || !questionIds.has(questionId)) {
-    return NextResponse.json({ error: "Unknown question." }, { status: 404 });
-  }
-
-  return NextResponse.json(getCrowdResult(questionId), {
-    headers: {
-      "Cache-Control": "no-store",
-    },
-  });
-}
-
 export async function POST(request: Request) {
   let body: unknown;
 
@@ -48,21 +33,23 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid JSON." }, { status: 400 });
   }
 
-  if (
-    !body ||
-    typeof body !== "object" ||
-    !("questionId" in body) ||
-    !("answerIndex" in body) ||
-    !("voterId" in body)
-  ) {
+  if (!body || typeof body !== "object") {
     return NextResponse.json({ error: "Missing vote fields." }, { status: 400 });
   }
 
-  const { questionId, answerIndex, voterId } = body;
+  const candidate = body as Record<string, unknown>;
+  const settings = parsePublicRoomSettings({
+    gameId: candidate.gameId,
+    mode: candidate.mode,
+    filter: candidate.filter,
+    skillLevel: candidate.skillLevel,
+  });
+  const { roundId, questionId, answerIndex, voterId } = candidate;
 
   if (
+    !settings ||
+    typeof roundId !== "string" ||
     typeof questionId !== "string" ||
-    !questionIds.has(questionId) ||
     typeof answerIndex !== "number" ||
     !Number.isInteger(answerIndex) ||
     answerIndex < 0 ||
@@ -74,26 +61,63 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid vote." }, { status: 400 });
   }
 
-  const result = recordVote(questionId, answerIndex, voterId);
+  const submittedAt = Date.now();
+  const { room, round } = currentPublicRound(settings, submittedAt);
+  const question = GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === round.questionId);
 
-  if (result.accepted) {
-    const pusher = getPusherServer();
-    if (pusher) {
-      try {
-        await pusher.trigger("queue-arcade", "vote-update", {
-          questionId,
-          counts: result.counts,
-          total: result.total,
-        });
-      } catch (error) {
-        console.error("Could not broadcast arcade vote.", error);
-      }
-    }
+  if (!question || round.id !== roundId || round.questionId !== questionId) {
+    return NextResponse.json({ error: "That public round has already moved on." }, { status: 409 });
   }
 
-  return NextResponse.json(result, {
-    headers: {
-      "Cache-Control": "no-store",
-    },
-  });
+  if (round.phase !== "answering" || submittedAt >= round.answerDeadline) {
+    return NextResponse.json({ error: "Answers are closed for this round." }, { status: 409 });
+  }
+
+  try {
+    const result = await recordRoundVote({
+      roundId,
+      roomId: room.id,
+      gameId: room.gameId,
+      contentVersion: room.contentVersion,
+      questionId,
+      correctIndex: question.correctIndex,
+      answerIndex,
+      voterId,
+      submittedAt,
+    });
+
+    if (result.accepted) {
+      const pusher = getPusherServer();
+      if (pusher) {
+        try {
+          await pusher.trigger("queue-arcade", "vote-update", {
+            roomId: room.id,
+            roundId,
+            questionId,
+            counts: [0, 0, 0, 0],
+            total: result.total,
+          });
+        } catch (error) {
+          console.error("Could not broadcast arcade vote.", error);
+        }
+      }
+    }
+
+    return NextResponse.json(
+      {
+        accepted: result.accepted,
+        counts: [0, 0, 0, 0],
+        total: result.total,
+        playerVote: result.playerVote,
+      },
+      {
+        headers: {
+          "Cache-Control": "no-store",
+        },
+      },
+    );
+  } catch (error) {
+    console.error("Could not persist the arcade vote.", error);
+    return NextResponse.json({ error: "Vote storage unavailable." }, { status: 503 });
+  }
 }

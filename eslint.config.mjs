@@ -9,6 +9,7 @@ const config = defineConfig([
   prettierRecommended,
   globalIgnores([
     ".next/**",
+    ".next-check/**",
     "node_modules/**",
     "out/**",
     "build/**",
