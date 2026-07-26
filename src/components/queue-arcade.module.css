@@ -1619,18 +1619,18 @@
   --fog-start-saturation: 0.68;
   --fog-start-contrast: 0.92;
   --fog-start-scale: 1.3;
-  --fog-middle-blur: 11px;
-  --fog-middle-grayscale: 0.38;
-  --fog-middle-brightness: 0.62;
-  --fog-middle-saturation: 0.76;
-  --fog-middle-contrast: 0.98;
-  --fog-middle-scale: 1.18;
-  --fog-final-blur: 5px;
-  --fog-final-grayscale: 0.18;
-  --fog-final-brightness: 0.78;
-  --fog-final-saturation: 0.84;
-  --fog-final-contrast: 1;
-  --fog-final-scale: 1.07;
+  --fog-middle-blur: 10px;
+  --fog-middle-grayscale: 0.34;
+  --fog-middle-brightness: 0.65;
+  --fog-middle-saturation: 0.79;
+  --fog-middle-contrast: 0.99;
+  --fog-middle-scale: 1.16;
+  --fog-final-blur: 6px;
+  --fog-final-grayscale: 0.22;
+  --fog-final-brightness: 0.75;
+  --fog-final-saturation: 0.8;
+  --fog-final-contrast: 0.98;
+  --fog-final-scale: 1.08;
 }
 
 .fogQuestion[data-skill-level="learning"] {
@@ -1640,18 +1640,18 @@
   --fog-start-saturation: 0.84;
   --fog-start-contrast: 1;
   --fog-start-scale: 1.15;
-  --fog-middle-blur: 6px;
-  --fog-middle-grayscale: 0.18;
-  --fog-middle-brightness: 0.7;
-  --fog-middle-saturation: 0.86;
+  --fog-middle-blur: 5px;
+  --fog-middle-grayscale: 0.14;
+  --fog-middle-brightness: 0.79;
+  --fog-middle-saturation: 0.9;
   --fog-middle-contrast: 1;
-  --fog-middle-scale: 1.1;
-  --fog-final-blur: 3px;
-  --fog-final-grayscale: 0.08;
-  --fog-final-brightness: 0.86;
-  --fog-final-saturation: 0.94;
+  --fog-middle-scale: 1.07;
+  --fog-final-blur: 4px;
+  --fog-final-grayscale: 0.12;
+  --fog-final-brightness: 0.83;
+  --fog-final-saturation: 0.9;
   --fog-final-contrast: 1;
-  --fog-final-scale: 1.03;
+  --fog-final-scale: 1.04;
 }
 
 .fogQuestion[data-skill-level="veteran"] {
@@ -1661,18 +1661,18 @@
   --fog-start-saturation: 0.44;
   --fog-start-contrast: 0.88;
   --fog-start-scale: 1.42;
-  --fog-middle-blur: 15px;
-  --fog-middle-grayscale: 0.62;
-  --fog-middle-brightness: 0.52;
-  --fog-middle-saturation: 0.55;
+  --fog-middle-blur: 14px;
+  --fog-middle-grayscale: 0.56;
+  --fog-middle-brightness: 0.56;
+  --fog-middle-saturation: 0.6;
   --fog-middle-contrast: 0.9;
-  --fog-middle-scale: 1.28;
-  --fog-final-blur: 7px;
-  --fog-final-grayscale: 0.36;
-  --fog-final-brightness: 0.68;
-  --fog-final-saturation: 0.65;
-  --fog-final-contrast: 0.94;
-  --fog-final-scale: 1.12;
+  --fog-middle-scale: 1.25;
+  --fog-final-blur: 8px;
+  --fog-final-grayscale: 0.42;
+  --fog-final-brightness: 0.65;
+  --fog-final-saturation: 0.6;
+  --fog-final-contrast: 0.92;
+  --fog-final-scale: 1.13;
 }
 
 .fogArtwork::after {
