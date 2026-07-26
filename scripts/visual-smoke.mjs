@@ -415,6 +415,24 @@ const fogClarityThree = await evaluate(`(() => {
     transform: image ? getComputedStyle(image).transform : ""
   };
 })()`);
+const fogFinalTierFilters = await evaluate(`(() => {
+  const prompt = document.querySelector('[data-testid="round-prompt"]');
+  const image = document.querySelector('[data-testid="question-artwork"] img');
+  if (!prompt || !image) return {};
+
+  const originalSkill = prompt.dataset.skillLevel;
+  const originalTransition = image.style.transition;
+  image.style.transition = "none";
+  const filters = {};
+  for (const skill of ["learning", "open", "veteran"]) {
+    prompt.dataset.skillLevel = skill;
+    filters[skill] = getComputedStyle(image).filter;
+  }
+  prompt.dataset.skillLevel = originalSkill;
+  getComputedStyle(image).filter;
+  image.style.transition = originalTransition;
+  return filters;
+})()`);
 const foggedVision = await evaluate(`({
   answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
   answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
@@ -615,19 +633,22 @@ if (
 if (
   fogNextRound.round === fogRound ||
   fogNextRound.stage !== "1" ||
-  !fogNextRound.filter?.includes("blur(22px)") ||
+  !fogNextRound.filter?.includes("blur(17px)") ||
   fogNextRound.transitionDuration !== "0s"
 ) {
   failures.push("Fogged Vision briefly reveals the next round before applying fog.");
 }
 if (
   fogClarityOne.skill !== "open" ||
-  !fogClarityOne.filter.includes("blur(22px)") ||
+  !fogClarityOne.filter.includes("blur(17px)") ||
   !fogClarityTwo.filter.includes("blur(11px)") ||
-  !fogClarityThree.filter.includes("blur(0px)") ||
-  !fogTierFilters.learning?.includes("blur(18px)") ||
-  !fogTierFilters.open?.includes("blur(22px)") ||
-  !fogTierFilters.veteran?.includes("blur(28px)")
+  !fogClarityThree.filter.includes("blur(4px)") ||
+  !fogTierFilters.learning?.includes("blur(13px)") ||
+  !fogTierFilters.open?.includes("blur(17px)") ||
+  !fogTierFilters.veteran?.includes("blur(21px)") ||
+  !fogFinalTierFilters.learning?.includes("blur(2px)") ||
+  !fogFinalTierFilters.open?.includes("blur(4px)") ||
+  !fogFinalTierFilters.veteran?.includes("blur(6px)")
 ) {
   failures.push("Fogged Vision challenge levels do not produce the intended progressive clarity curve.");
 }
@@ -691,6 +712,7 @@ console.log(
       fogClarityOne,
       fogClarityTwo,
       fogClarityThree,
+      fogFinalTierFilters,
       fogRound,
       fogNextRound,
       echoHunt,

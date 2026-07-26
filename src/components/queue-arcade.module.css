@@ -1613,48 +1613,66 @@
 }
 
 .fogQuestion {
-  --fog-start-blur: 22px;
-  --fog-start-grayscale: 0.68;
-  --fog-start-brightness: 0.4;
-  --fog-start-saturation: 0.48;
-  --fog-start-contrast: 0.9;
-  --fog-start-scale: 1.42;
+  --fog-start-blur: 17px;
+  --fog-start-grayscale: 0.5;
+  --fog-start-brightness: 0.62;
+  --fog-start-saturation: 0.68;
+  --fog-start-contrast: 0.92;
+  --fog-start-scale: 1.3;
   --fog-middle-blur: 11px;
   --fog-middle-grayscale: 0.38;
   --fog-middle-brightness: 0.62;
   --fog-middle-saturation: 0.76;
   --fog-middle-contrast: 0.98;
   --fog-middle-scale: 1.18;
+  --fog-final-blur: 4px;
+  --fog-final-grayscale: 0.12;
+  --fog-final-brightness: 0.82;
+  --fog-final-saturation: 0.9;
+  --fog-final-contrast: 1;
+  --fog-final-scale: 1.05;
 }
 
 .fogQuestion[data-skill-level="learning"] {
-  --fog-start-blur: 18px;
-  --fog-start-grayscale: 0.4;
-  --fog-start-brightness: 0.5;
-  --fog-start-saturation: 0.65;
-  --fog-start-contrast: 0.94;
-  --fog-start-scale: 1.28;
-  --fog-middle-blur: 7px;
+  --fog-start-blur: 13px;
+  --fog-start-grayscale: 0.24;
+  --fog-start-brightness: 0.75;
+  --fog-start-saturation: 0.84;
+  --fog-start-contrast: 1;
+  --fog-start-scale: 1.15;
+  --fog-middle-blur: 6px;
   --fog-middle-grayscale: 0.18;
   --fog-middle-brightness: 0.7;
   --fog-middle-saturation: 0.86;
   --fog-middle-contrast: 1;
   --fog-middle-scale: 1.1;
+  --fog-final-blur: 2px;
+  --fog-final-grayscale: 0.04;
+  --fog-final-brightness: 0.9;
+  --fog-final-saturation: 0.98;
+  --fog-final-contrast: 1;
+  --fog-final-scale: 1.02;
 }
 
 .fogQuestion[data-skill-level="veteran"] {
-  --fog-start-blur: 28px;
-  --fog-start-grayscale: 0.9;
-  --fog-start-brightness: 0.3;
-  --fog-start-saturation: 0.25;
-  --fog-start-contrast: 0.78;
-  --fog-start-scale: 1.58;
-  --fog-middle-blur: 16px;
+  --fog-start-blur: 21px;
+  --fog-start-grayscale: 0.7;
+  --fog-start-brightness: 0.5;
+  --fog-start-saturation: 0.44;
+  --fog-start-contrast: 0.88;
+  --fog-start-scale: 1.42;
+  --fog-middle-blur: 15px;
   --fog-middle-grayscale: 0.62;
   --fog-middle-brightness: 0.52;
   --fog-middle-saturation: 0.55;
   --fog-middle-contrast: 0.9;
   --fog-middle-scale: 1.28;
+  --fog-final-blur: 6px;
+  --fog-final-grayscale: 0.3;
+  --fog-final-brightness: 0.72;
+  --fog-final-saturation: 0.72;
+  --fog-final-contrast: 0.94;
+  --fog-final-scale: 1.1;
 }
 
 .fogArtwork::after {
@@ -1695,8 +1713,9 @@
 }
 
 .fogQuestion[data-fog-stage="3"] .artImage {
-  filter: blur(0) grayscale(0) brightness(0.92) saturate(1);
-  transform: scale(1);
+  filter: blur(var(--fog-final-blur)) grayscale(var(--fog-final-grayscale)) brightness(var(--fog-final-brightness))
+    saturate(var(--fog-final-saturation)) contrast(var(--fog-final-contrast));
+  transform: scale(var(--fog-final-scale));
 }
 
 .fogArtwork > span:last-child {
