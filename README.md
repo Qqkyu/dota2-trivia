@@ -1,13 +1,14 @@
 # Queue Arcade
 
-An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now wraps that loop around five fast minigames:
+An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now wraps that loop around six fast minigames:
 
 - **Queue Trivia** — facts, comparisons, odd-one-out rounds, reverse recipes, and ability detective prompts;
 - **Shopkeeper Rush** — finish item recipes by finding the missing component;
 - **Spell Link** — match an ability to its hero while timed clues unlock;
 - **Fogged Vision** — identify a hero while its portrait clears through three fixed-layout stages;
 - **Echo Hunt** — identify a hero from a voice response, with autoplay and an always-available replay control;
-- **Mixed Arcade** — rotates all five games so consecutive rounds never feel the same.
+- **Quote Hunt** — match a substantial written hero response to its speaker;
+- **Mixed Arcade** — repeats a shuffled six-round cycle, guaranteeing every game appears exactly once per cycle.
 
 Every mode shares the parts that made the original compelling: short timed rounds, a shared answer reveal, speed and streak scoring, and double points when you are right while most of the crowd is wrong.
 
@@ -15,9 +16,9 @@ The playable MVP includes:
 
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - Open, Learning, and Veteran challenge levels with 12–18 second timers and filtered trivia pools;
-- 695 asset-verified questions across 15 templates for Dota patch 7.41d;
+- 738 asset-verified questions across 16 templates for Dota patch 7.41d;
 - item, hero, and ability artwork for visual answer rounds;
-- 44 remotely verified hero voice rounds sourced through Dotabase;
+- 44 remotely verified Echo Hunt clips and 43 Quote Hunt lines sourced through Dotabase;
 - progressive Spell Link clues at two-thirds and one-third time remaining;
 - deterministic template-aware scheduling, so large numeric pools cannot drown out distinctive question formats;
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
@@ -80,9 +81,9 @@ The sync writes:
 
 The sync uses OpenDota for current facts and artwork mappings, and Dotabase for hero-response metadata and playable
 audio paths. It checks every referenced image and audio clip, rejects questions whose assets are unavailable, filters
-voice lines that contain the hero's name, and blocks generated clues that leak their answer. `validate-assets` can
-rerun the remote checks against the committed deck. Set the patch and snapshot date deliberately after checking the
-current official gameplay patch; the content pack is explicitly patch-stamped in the UI.
+hero-name leaks and laugh-heavy/noise responses, and blocks generated clues that leak their answer. `validate-assets`
+can rerun the remote checks against the committed deck. Set the patch and snapshot date deliberately after checking
+the current official gameplay patch; the content pack is explicitly patch-stamped in the UI.
 
 ## Verify it
 
@@ -94,11 +95,11 @@ That validates the question deck, template rotation, and visual/audio metadata, 
 
 With the development server running, use `pnpm check:multiplayer` to create two anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal splits, concurrent votes, duplicate rejection, the shared reveal, disk persistence, and hashed voter IDs.
 
-For visual smoke testing, start Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the arcade lobby, Shopkeeper Rush, Spell Link's progressive clues, all three fixed Fogged Vision stages, Echo Hunt audio readiness, synchronized automatic round advancement, the session report, mobile overflow, and saves screenshots under `/tmp`.
+For visual smoke testing, start Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the arcade lobby, Shopkeeper Rush, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt audio readiness, Quote Hunt rendering, synchronized automatic round advancement, the session report, mobile overflow, and saves screenshots under `/tmp`.
 
 ## Crowd architecture
 
-Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-1:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 

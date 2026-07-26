@@ -13,6 +13,10 @@ const failures = [];
 const ids = new Set();
 const imageUrls = new Set();
 const audioUrls = new Set();
+const isVoiceVocalization = (word) =>
+  /^(?:a+h+|h+a+h*|h+e+h+|h+o+h*|h+u+h+|(?:ha){2,}h?|(?:ah){2,}a?|(?:he){2,}h?|(?:eh){2,}e?|(?:ho){2,}h?|(?:oh){2,}o?|hm+|hmm+|e+h+|o+h+|u+gh+|gr+r+|ar+gh+)$/i.test(
+    word,
+  );
 const allowedKinds = new Set([
   "spell-owner",
   "mana-cost",
@@ -29,8 +33,9 @@ const allowedKinds = new Set([
   "item-price-duel",
   "fogged-hero",
   "hero-voice",
+  "hero-quote",
 ]);
-const artworkOptionalKinds = new Set(["hero-stat-duel", "hero-intruder", "item-price-duel"]);
+const artworkOptionalKinds = new Set(["hero-stat-duel", "hero-intruder", "item-price-duel", "hero-quote"]);
 
 if (!Array.isArray(questions) || questions.length < 100) {
   failures.push("The generated deck must contain at least 100 questions.");
@@ -78,6 +83,7 @@ for (const [index, question] of questions.entries()) {
       "hero-intruder",
       "item-price-duel",
       "hero-voice",
+      "hero-quote",
     ].includes(question.kind) &&
     !question.answerImages
   ) {
@@ -100,8 +106,28 @@ for (const [index, question] of questions.entries()) {
     if (!/^https:\/\//.test(question.audio?.src ?? ""))
       failures.push(`${label}: Echo Hunt requires a valid audio URL.`);
     if (question.audio?.src) audioUrls.add(question.audio.src);
+    if (/(?:^|[_:-])(laugh|chuckle|giggle)(?:[_:-]|$)/i.test(question.id)) {
+      failures.push(`${label}: Echo Hunt must use a proper spoken line, not a laugh.`);
+    }
   } else if (question.audio) {
     failures.push(`${label}: unexpected audio payload.`);
+  }
+  if (question.kind === "hero-quote") {
+    const quoteWords = question.detail?.match(/[a-z]+(?:['’-][a-z]+)*/gi) ?? [];
+    const vocalizations = quoteWords.filter(isVoiceVocalization);
+    const correctAnswer = question.answers[question.correctIndex];
+    if ((question.detail?.length ?? 0) < 28 || quoteWords.length < 5) {
+      failures.push(`${label}: Quote Hunt requires a substantial spoken line.`);
+    }
+    if (vocalizations.some((word) => word.length >= 4) || vocalizations.length >= 2) {
+      failures.push(`${label}: Quote Hunt must use a proper line without laugh-heavy vocalizations.`);
+    }
+    if (containsAnswerLeak(question.detail ?? "", correctAnswer)) {
+      failures.push(`${label}: Quote Hunt line leaks the correct hero.`);
+    }
+    if (/(?:^|[_:-])(laugh|chuckle|giggle)(?:[_:-]|$)/i.test(question.id)) {
+      failures.push(`${label}: Quote Hunt must never use a laugh or vocalization.`);
+    }
   }
   if (!/^https:\/\//.test(question.source?.url ?? "")) failures.push(`${label}: source URL is invalid.`);
   if (question.patch !== metadata.patch) failures.push(`${label}: patch does not match metadata.`);
@@ -110,6 +136,7 @@ for (const [index, question] of questions.entries()) {
 const spellLinkQuestions = questions.filter((question) => question.kind === "spell-owner");
 const foggedQuestions = questions.filter((question) => question.kind === "fogged-hero");
 const voiceQuestions = questions.filter((question) => question.kind === "hero-voice");
+const quoteQuestions = questions.filter((question) => question.kind === "hero-quote");
 const learningSpellCount = spellLinkQuestions.filter((question) => question.difficulty === 1).length;
 const veteranSpellCount = spellLinkQuestions.filter((question) => question.difficulty >= 2).length;
 const magnusSkewer = spellLinkQuestions.find((question) => question.id === "ability-owner:magnataur_skewer");
@@ -121,6 +148,7 @@ if (learningSpellCount < 12 || veteranSpellCount < 12) {
 }
 if (foggedQuestions.length < 36) failures.push(`Fogged Vision needs at least 36 playable heroes.`);
 if (voiceQuestions.length < 32) failures.push(`Echo Hunt needs at least 32 verified hero clips.`);
+if (quoteQuestions.length < 32) failures.push(`Quote Hunt needs at least 32 proper hero lines.`);
 if (magnusSkewer?.difficulty !== 1) {
   failures.push("Magnus's highly recognizable Skewer icon must stay out of the Veteran Spell Link pool.");
 }

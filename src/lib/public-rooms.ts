@@ -88,6 +88,8 @@ function rawRoomBatch(room: PublicRoom, batchNumber: number) {
     room.filter,
     PUBLIC_ROOM_BATCH_LENGTH,
     room.skillLevel,
+    `public-room:${room.id}:mode-rotation`,
+    batchNumber * PUBLIC_ROOM_BATCH_LENGTH,
   );
 
   if (!deck.length) {

@@ -8488,6 +8488,1253 @@
     "answerImageKind": "hero"
   },
   {
+    "id": "hero-quote:npc_dota_hero_ancient_apparition:appa_kill_09",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Chen",
+      "Crystal Maiden",
+      "Ancient Apparition",
+      "Dazzle"
+    ],
+    "correctIndex": 2,
+    "explanation": "“Now is the winter of your disembowelment.” is spoken by Ancient Apparition.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Now is the winter of your disembowelment.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chen.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crystal_maiden.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ancient_apparition.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_bane:bane_respawn_05",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Phoenix",
+      "Mirana",
+      "Bane",
+      "Crystal Maiden"
+    ],
+    "correctIndex": 2,
+    "explanation": "“Nightmares, follow me into the light.” is spoken by Bane.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Nightmares, follow me into the light.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phoenix.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crystal_maiden.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_batrider:bat_spawn_05",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Disruptor",
+      "Earth Spirit",
+      "Batrider",
+      "Storm Spirit"
+    ],
+    "correctIndex": 2,
+    "explanation": "“If you don't ride into battle, you don't ride at all.” is spoken by Batrider.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "If you don't ride into battle, you don't ride at all.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/disruptor.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/batrider.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_bloodseeker:blod_spawn_07",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Sven",
+      "Clockwerk",
+      "Bloodseeker",
+      "Riki"
+    ],
+    "correctIndex": 2,
+    "explanation": "“For the Flayed Twins, I seek blood.” is spoken by Bloodseeker.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "For the Flayed Twins, I seek blood.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sven.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bloodseeker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_brewmaster:brew_kill_01",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Dragon Knight",
+      "Brewmaster",
+      "Pangolier",
+      "Nyx Assassin"
+    ],
+    "correctIndex": 1,
+    "explanation": "“Sorry friend, just trying to help.” is spoken by Brewmaster.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Sorry friend, just trying to help.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nyx_assassin.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_bristleback:bristle_levelup_06",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Axe",
+      "Bristleback",
+      "Bloodseeker",
+      "Doom"
+    ],
+    "correctIndex": 1,
+    "explanation": "“Oh, I'm a right proper basher.” is spoken by Bristleback.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Oh, I'm a right proper basher.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bristleback.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bloodseeker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_broodmother:broo_move_16",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Lone Druid",
+      "Anti-Mage",
+      "Broodmother",
+      "Meepo"
+    ],
+    "correctIndex": 2,
+    "explanation": "“Was that a twitch on my web?” is spoken by Broodmother.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Was that a twitch on my web?",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lone_druid.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/broodmother.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_centaur:cent_win_03",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Bristleback",
+      "Undying",
+      "Chaos Knight",
+      "Centaur Warrunner"
+    ],
+    "correctIndex": 3,
+    "explanation": "“Long shall my name be remembered.” is spoken by Centaur Warrunner.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Long shall my name be remembered.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bristleback.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/undying.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chaos_knight.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/centaur.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_dark_seer:dkseer_spawn_03",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Dark Seer",
+      "Doom",
+      "Dark Willow",
+      "Chaos Knight"
+    ],
+    "correctIndex": 0,
+    "explanation": "“An enemy destroyed cannot rise against you.” is spoken by Dark Seer.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "An enemy destroyed cannot rise against you.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chaos_knight.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_dragon_knight:dragon_attack_02",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Bristleback",
+      "Dragon Knight",
+      "Lifestealer",
+      "Ogre Magi"
+    ],
+    "correctIndex": 1,
+    "explanation": "“By the honor of the ancients.” is spoken by Dragon Knight.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "By the honor of the ancients.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bristleback.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/life_stealer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ogre_magi.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_earth_spirit:earthspi_spawn_05",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Earth Spirit",
+      "Nyx Assassin",
+      "Pangolier",
+      "Clockwerk"
+    ],
+    "correctIndex": 0,
+    "explanation": "“That which is arises from that which is not.” is spoken by Earth Spirit.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "That which is arises from that which is not.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nyx_assassin.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_enigma:enig_spawn_06",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Puck",
+      "Enigma",
+      "Dazzle",
+      "Vengeful Spirit"
+    ],
+    "correctIndex": 1,
+    "explanation": "“I take form, consumer of worlds.” is spoken by Enigma.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "I take form, consumer of worlds.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/puck.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enigma.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_faceless_void:face_kill_07",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Kunkka",
+      "Meepo",
+      "Wraith King",
+      "Faceless Void"
+    ],
+    "correctIndex": 3,
+    "explanation": "“I foresaw your death the moment you were born.” is spoken by Faceless Void.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "I foresaw your death the moment you were born.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_grimstroke:grimstroke_ability2_05",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Grimstroke",
+      "Phoenix",
+      "Morphling",
+      "Bane"
+    ],
+    "correctIndex": 0,
+    "explanation": "“Into the shadows with you...” is spoken by Grimstroke.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Into the shadows with you...",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/grimstroke.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phoenix.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_gyrocopter:gyro_homing_missile_impact_07",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Kez",
+      "Morphling",
+      "Gyrocopter",
+      "Monkey King"
+    ],
+    "correctIndex": 2,
+    "explanation": "“That's what you get for running!” is spoken by Gyrocopter.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "That's what you get for running!",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/gyrocopter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_huskar:husk_rare_01",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Kunkka",
+      "Elder Titan",
+      "Huskar",
+      "Silencer"
+    ],
+    "correctIndex": 2,
+    "explanation": "“I walk the sacred path to my promised destiny.” is spoken by Huskar.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "I walk the sacred path to my promised destiny.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/huskar.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_legion_commander:legcom_firstblood_03",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Elder Titan",
+      "Tusk",
+      "Legion Commander",
+      "Brewmaster"
+    ],
+    "correctIndex": 2,
+    "explanation": "“First blood has been spilled!” is spoken by Legion Commander.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "First blood has been spilled!",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tusk.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/legion_commander.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_leshrac:lesh_level_03",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Lich",
+      "Outworld Devourer",
+      "Leshrac",
+      "Jakiro"
+    ],
+    "correctIndex": 2,
+    "explanation": "“By the impure powers of nature.” is spoken by Leshrac.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "By the impure powers of nature.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lich.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/leshrac.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_lich:lich_kill_14",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Queen of Pain",
+      "Visage",
+      "Lion",
+      "Lich"
+    ],
+    "correctIndex": 3,
+    "explanation": "“Your time above ground is over.” is spoken by Lich.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Your time above ground is over.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/queenofpain.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lion.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lich.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_life_stealer:lifest_kill_13",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Dragon Knight",
+      "Marci",
+      "Void Spirit",
+      "Lifestealer"
+    ],
+    "correctIndex": 3,
+    "explanation": "“You feel the red hand of death.” is spoken by Lifestealer.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "You feel the red hand of death.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/life_stealer.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_lina:lina_cm_02",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Visage",
+      "Necrophos",
+      "Gyrocopter",
+      "Lina"
+    ],
+    "correctIndex": 3,
+    "explanation": "“This is one bridge I don't mind burning.” is spoken by Lina.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "This is one bridge I don't mind burning.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/gyrocopter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_lion:lion_kill_03",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Lion",
+      "Lich",
+      "Oracle",
+      "Shadow Shaman"
+    ],
+    "correctIndex": 0,
+    "explanation": "“When you get to hell, tell them I sent you.” is spoken by Lion.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "When you get to hell, tell them I sent you.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lion.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lich.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/oracle.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_shaman.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_lycan:lycan_firstblood_02",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Lycan",
+      "Clockwerk",
+      "Dawnbreaker",
+      "Spirit Breaker"
+    ],
+    "correctIndex": 0,
+    "explanation": "“First Blood! I am the alpha wolf.” is spoken by Lycan.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "First Blood! I am the alpha wolf.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lycan.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spirit_breaker.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_magnataur:magn_spawn_04",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Marci",
+      "Magnus",
+      "Tusk",
+      "Earth Spirit"
+    ],
+    "correctIndex": 1,
+    "explanation": "“My horn is sharp, my pike is sharper still.” is spoken by Magnus.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "My horn is sharp, my pike is sharper still.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tusk.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_medusa:medus_kill_09",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Lina",
+      "Ember Spirit",
+      "Storm Spirit",
+      "Medusa"
+    ],
+    "correctIndex": 3,
+    "explanation": "“Don't resist the cobra, little bird.” is spoken by Medusa.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Don't resist the cobra, little bird.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/medusa.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_monkey_king:monkey_kill_11",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Juggernaut",
+      "Ember Spirit",
+      "Monkey King",
+      "Kunkka"
+    ],
+    "correctIndex": 2,
+    "explanation": "“Only way that could've gone.” is spoken by Monkey King.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Only way that could've gone.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/juggernaut.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_night_stalker:nstalk_kill_11",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Chaos Knight",
+      "Largo",
+      "Mars",
+      "Night Stalker"
+    ],
+    "correctIndex": 3,
+    "explanation": "“You've seen your last sunrise.” is spoken by Night Stalker.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "You've seen your last sunrise.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chaos_knight.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mars.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/night_stalker.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_obsidian_destroyer:odest_levelup_01",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Gyrocopter",
+      "Outworld Devourer",
+      "Medusa",
+      "Necrophos"
+    ],
+    "correctIndex": 1,
+    "explanation": "“My wings beat with the rhythms of eternity.” is spoken by Outworld Devourer.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "My wings beat with the rhythms of eternity.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/gyrocopter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/medusa.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_pangolier:pangolin_move_17",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Marci",
+      "Pangolier",
+      "Doom",
+      "Clockwerk"
+    ],
+    "correctIndex": 1,
+    "explanation": "“The danger, she is this way?” is spoken by Pangolier.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "The danger, she is this way?",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_phantom_assassin:phass_kill_03",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Shadow Fiend",
+      "Sniper",
+      "Razor",
+      "Phantom Assassin"
+    ],
+    "correctIndex": 3,
+    "explanation": "“The Veiled Oracle chose you.” is spoken by Phantom Assassin.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "The Veiled Oracle chose you.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/razor.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_assassin.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_pudge:pud_attack_04",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Pudge",
+      "Centaur Warrunner",
+      "Wraith King",
+      "Omniknight"
+    ],
+    "correctIndex": 0,
+    "explanation": "“This edge is nice and sharp.” is spoken by Pudge.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "This edge is nice and sharp.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/centaur.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/omniknight.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_rattletrap:ratt_ability_flare_10",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Faceless Void",
+      "Phoenix",
+      "Magnus",
+      "Clockwerk"
+    ],
+    "correctIndex": 3,
+    "explanation": "“Where'd that come from, right?” is spoken by Clockwerk.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Where'd that come from, right?",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phoenix.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_rubick:rubick_spellsteal_14",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Muerta",
+      "Rubick",
+      "Bane",
+      "Crystal Maiden"
+    ],
+    "correctIndex": 1,
+    "explanation": "“There are none who cannot be mimicked.” is spoken by Rubick.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "There are none who cannot be mimicked.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crystal_maiden.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_sand_king:skg_attack_12",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Nyx Assassin",
+      "Sand King",
+      "Marci",
+      "Dark Seer"
+    ],
+    "correctIndex": 1,
+    "explanation": "“They'll never find your bones.” is spoken by Sand King.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "They'll never find your bones.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nyx_assassin.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sand_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_shadow_demon:shadow_demon_kill_08",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Skywrath Mage",
+      "Dazzle",
+      "Visage",
+      "Shadow Demon"
+    ],
+    "correctIndex": 3,
+    "explanation": "“Look to the shadows for a taste of your fate.” is spoken by Shadow Demon.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Look to the shadows for a taste of your fate.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skywrath_mage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_demon.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_skeleton_king:skel_arc_swipe_03",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Slardar",
+      "Wraith King",
+      "Largo",
+      "Earth Spirit"
+    ],
+    "correctIndex": 1,
+    "explanation": "“Target or no, the sword arm likes to swing.” is spoken by Wraith King.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Target or no, the sword arm likes to swing.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slardar.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_sniper:snip_kill_14",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Muerta",
+      "Sniper",
+      "Vengeful Spirit",
+      "Terrorblade"
+    ],
+    "correctIndex": 1,
+    "explanation": "“Gunfighting's tough without a gun, isn't it?” is spoken by Sniper.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Gunfighting's tough without a gun, isn't it?",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/terrorblade.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_spectre:spec_move_06",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Axe",
+      "Spectre",
+      "Juggernaut",
+      "Pangolier"
+    ],
+    "correctIndex": 1,
+    "explanation": "“No equivalent in human speech.” is spoken by Spectre.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "No equivalent in human speech.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spectre.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/juggernaut.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_templar_assassin:temp_kill_01",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Templar Assassin",
+      "Faceless Void",
+      "Bounty Hunter",
+      "Clinkz"
+    ],
+    "correctIndex": 0,
+    "explanation": "“You came too close to the secrets.” is spoken by Templar Assassin.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "You came too close to the secrets.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/templar_assassin.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bounty_hunter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/clinkz.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_void_spirit:voidspir_move_19",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Invoker",
+      "Void Spirit",
+      "Spirit Breaker",
+      "Naga Siren"
+    ],
+    "correctIndex": 1,
+    "explanation": "“Do you think I've not seen this?” is spoken by Void Spirit.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Do you think I've not seen this?",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spirit_breaker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_warlock:warl_kill_07",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Warlock",
+      "Dark Willow",
+      "Oracle",
+      "Hoodwink"
+    ],
+    "correctIndex": 0,
+    "explanation": "“Another name in my grimoire.” is spoken by Warlock.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "Another name in my grimoire.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/oracle.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/hoodwink.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_weaver:weav_kill_05",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Naga Siren",
+      "Mirana",
+      "Monkey King",
+      "Weaver"
+    ],
+    "correctIndex": 3,
+    "explanation": "“I'll thread the needle through your eyes.” is spoken by Weaver.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "I'll thread the needle through your eyes.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/weaver.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "hero-quote:npc_dota_hero_zuus:zuus_arc_kill_07",
+    "kind": "hero-quote",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Quote Hunt",
+    "prompt": "Which hero said this line?",
+    "answers": [
+      "Outworld Devourer",
+      "Queen of Pain",
+      "Zeus",
+      "Invoker"
+    ],
+    "correctIndex": 2,
+    "explanation": "“At least I deigned to notice you.” is spoken by Zeus.",
+    "source": {
+      "label": "Dotabase hero responses · 2026-07-26",
+      "url": "https://github.com/mdiller/dotabase"
+    },
+    "patch": "7.41d",
+    "detail": "At least I deigned to notice you.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/queenofpain.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/zuus.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
     "id": "hero-stat:attack-range:npc_dota_hero_arc_warden",
     "kind": "hero-stat-duel",
     "category": "Heroes",
@@ -9736,20 +10983,20 @@
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_batrider:bat_move_15",
+    "id": "hero-voice:npc_dota_hero_batrider:bat_move_17",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Earth Spirit",
-      "Batrider",
+      "Storm Spirit",
       "Disruptor",
-      "Storm Spirit"
+      "Earth Spirit",
+      "Batrider"
     ],
-    "correctIndex": 1,
-    "explanation": "“What a ride!” is spoken by Batrider.",
+    "correctIndex": 3,
+    "explanation": "“Keepin my knees in the breeze.” is spoken by Batrider.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -9761,31 +11008,31 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/batrider/bat_move_15.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/batrider/bat_move_17.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/batrider.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/disruptor.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/batrider.png"
     ],
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_bloodseeker:blod_laugh_02",
+    "id": "hero-voice:npc_dota_hero_bloodseeker:blod_first_01",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Sven",
-      "Bloodseeker",
+      "Riki",
       "Clockwerk",
-      "Riki"
+      "Sven",
+      "Bloodseeker"
     ],
-    "correctIndex": 1,
-    "explanation": "“Hmm-heh-heh-heh-heh-ha!” is spoken by Bloodseeker.",
+    "correctIndex": 3,
+    "explanation": "“First Blood! The Twins shall not thirst for long!” is spoken by Bloodseeker.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -9797,31 +11044,31 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/bloodseeker/blod_laugh_02.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/bloodseeker/blod_first_01.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sven.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bloodseeker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sven.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bloodseeker.png"
     ],
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_brewmaster:brew_attack_10",
+    "id": "hero-voice:npc_dota_hero_brewmaster:brew_attack_12",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Brewmaster",
       "Pangolier",
       "Dragon Knight",
-      "Nyx Assassin"
+      "Nyx Assassin",
+      "Brewmaster"
     ],
-    "correctIndex": 0,
-    "explanation": "“One for luck.” is spoken by Brewmaster.",
+    "correctIndex": 3,
+    "explanation": "“Step aside or fall dead.” is spoken by Brewmaster.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -9833,13 +11080,13 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/brewmaster/brew_attack_10.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/brewmaster/brew_attack_12.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nyx_assassin.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nyx_assassin.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster.png"
     ],
     "answerImageKind": "hero"
   },
@@ -9952,20 +11199,20 @@
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_dark_seer:dkseer_attack_08",
+    "id": "hero-voice:npc_dota_hero_dark_seer:dkseer_attack_10",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Dark Seer",
-      "Dark Willow",
       "Doom",
+      "Dark Willow",
+      "Dark Seer",
       "Chaos Knight"
     ],
-    "correctIndex": 0,
-    "explanation": "“Slap in the face.” is spoken by Dark Seer.",
+    "correctIndex": 2,
+    "explanation": "“Your skull's roundness offends me.” is spoken by Dark Seer.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -9977,12 +11224,12 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/dark_seer/dkseer_attack_08.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/dark_seer/dkseer_attack_10.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chaos_knight.png"
     ],
     "answerImageKind": "hero"
@@ -10024,20 +11271,20 @@
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_earth_spirit:earthspi_kill_20",
+    "id": "hero-voice:npc_dota_hero_earth_spirit:earthspi_levelup_05",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Clockwerk",
-      "Nyx Assassin",
       "Earth Spirit",
-      "Pangolier"
+      "Pangolier",
+      "Nyx Assassin",
+      "Clockwerk"
     ],
-    "correctIndex": 2,
-    "explanation": "“Heh heh hehhheh eh eh heh.” is spoken by Earth Spirit.",
+    "correctIndex": 0,
+    "explanation": "“I am shaped to a higher order.” is spoken by Earth Spirit.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -10049,13 +11296,13 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/earth_spirit/earthspi_kill_20.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/earth_spirit/earthspi_levelup_05.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nyx_assassin.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nyx_assassin.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png"
     ],
     "answerImageKind": "hero"
   },
@@ -10132,20 +11379,20 @@
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_faceless_void:face_laugh_03",
+    "id": "hero-voice:npc_dota_hero_faceless_void:face_respawn_03",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Kunkka",
-      "Wraith King",
       "Meepo",
-      "Faceless Void"
+      "Wraith King",
+      "Faceless Void",
+      "Kunkka"
     ],
-    "correctIndex": 3,
-    "explanation": "“Heah heh heh heh.” is spoken by Faceless Void.",
+    "correctIndex": 2,
+    "explanation": "“I have seen the end of time.” is spoken by Faceless Void.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -10157,31 +11404,31 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/faceless_void/face_laugh_03.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/faceless_void/face_respawn_03.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png"
     ],
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_grimstroke:grimstroke_move_pain_08",
+    "id": "hero-voice:npc_dota_hero_grimstroke:grimstroke_move_pain_02",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
+      "Grimstroke",
       "Morphling",
       "Phoenix",
-      "Bane",
-      "Grimstroke"
+      "Bane"
     ],
-    "correctIndex": 3,
-    "explanation": "“Nothing wasted.” is spoken by Grimstroke.",
+    "correctIndex": 0,
+    "explanation": "“Before the ink sets...” is spoken by Grimstroke.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -10193,31 +11440,31 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/grimstroke/grimstroke_move_pain_08.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/grimstroke/grimstroke_move_pain_02.mp3"
     },
     "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/grimstroke.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phoenix.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/grimstroke.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png"
     ],
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_gyrocopter:gyro_move_14",
+    "id": "hero-voice:npc_dota_hero_gyrocopter:gyro_call_down_12",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Monkey King",
+      "Gyrocopter",
       "Kez",
-      "Morphling",
-      "Gyrocopter"
+      "Monkey King",
+      "Morphling"
     ],
-    "correctIndex": 3,
-    "explanation": "“Affirmative!” is spoken by Gyrocopter.",
+    "correctIndex": 0,
+    "explanation": "“Well that'll teach you to hold still!” is spoken by Gyrocopter.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -10229,18 +11476,18 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/gyrocopter/gyro_move_14.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/gyrocopter/gyro_call_down_12.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/gyrocopter.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/gyrocopter.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png"
     ],
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_huskar:husk_ability_lifebrk_01",
+    "id": "hero-voice:npc_dota_hero_huskar:husk_ability_lifebrk_02",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
@@ -10249,11 +11496,11 @@
     "answers": [
       "Silencer",
       "Kunkka",
-      "Elder Titan",
-      "Huskar"
+      "Huskar",
+      "Elder Titan"
     ],
-    "correctIndex": 3,
-    "explanation": "“Well worth it.” is spoken by Huskar.",
+    "correctIndex": 2,
+    "explanation": "“The ultimate sacrifice.” is spoken by Huskar.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -10265,13 +11512,13 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/huskar/husk_ability_lifebrk_01.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/huskar/husk_ability_lifebrk_02.mp3"
     },
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/huskar.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/huskar.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png"
     ],
     "answerImageKind": "hero"
   },
@@ -10312,20 +11559,20 @@
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_leshrac:lesh_move_12",
+    "id": "hero-voice:npc_dota_hero_leshrac:lesh_kill_09",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
+      "Leshrac",
       "Lich",
       "Outworld Devourer",
-      "Jakiro",
-      "Leshrac"
+      "Jakiro"
     ],
-    "correctIndex": 3,
-    "explanation": "“Such disorder.” is spoken by Leshrac.",
+    "correctIndex": 0,
+    "explanation": "“You merge with the Impurities.” is spoken by Leshrac.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -10337,13 +11584,13 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/leshrac/lesh_move_12.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/leshrac/lesh_kill_09.mp3"
     },
     "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/leshrac.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lich.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/leshrac.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png"
     ],
     "answerImageKind": "hero"
   },
@@ -10384,20 +11631,20 @@
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_life_stealer:lifest_kill_09",
+    "id": "hero-voice:npc_dota_hero_life_stealer:lifest_levelup_06",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Marci",
-      "Void Spirit",
+      "Dragon Knight",
       "Lifestealer",
-      "Dragon Knight"
+      "Marci",
+      "Void Spirit"
     ],
-    "correctIndex": 2,
-    "explanation": "“Mu, ha ha ha ha!” is spoken by Lifestealer.",
+    "correctIndex": 1,
+    "explanation": "“My rage burns bright!” is spoken by Lifestealer.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -10409,31 +11656,31 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/life_stealer/lifest_kill_09.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/life_stealer/lifest_levelup_06.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/life_stealer.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png"
     ],
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_lina:lina_laugh_06",
+    "id": "hero-voice:npc_dota_hero_lina:lina_level_05",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Lina",
-      "Necrophos",
       "Gyrocopter",
+      "Necrophos",
+      "Lina",
       "Visage"
     ],
-    "correctIndex": 0,
-    "explanation": "“Ah ha ha ha ha!” is spoken by Lina.",
+    "correctIndex": 2,
+    "explanation": "“My flame burns brighter.” is spoken by Lina.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -10445,12 +11692,12 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/lina/lina_laugh_06.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/lina/lina_level_05.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/gyrocopter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png"
     ],
     "answerImageKind": "hero"
@@ -10492,20 +11739,20 @@
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_lycan:lycan_laugh_08",
+    "id": "hero-voice:npc_dota_hero_lycan:lycan_move_16",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Dawnbreaker",
-      "Clockwerk",
       "Spirit Breaker",
-      "Lycan"
+      "Lycan",
+      "Dawnbreaker",
+      "Clockwerk"
     ],
-    "correctIndex": 3,
-    "explanation": "“Ha ha ha ha ha ha ha...heh.” is spoken by Lycan.",
+    "correctIndex": 1,
+    "explanation": "“Ah, my instincts are keen.” is spoken by Lycan.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -10517,31 +11764,31 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/lycan/lycan_laugh_08.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/lycan/lycan_move_16.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spirit_breaker.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lycan.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lycan.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png"
     ],
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_magnataur:magn_laugh_03",
+    "id": "hero-voice:npc_dota_hero_magnataur:magn_attack_09",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Marci",
       "Tusk",
+      "Magnus",
       "Earth Spirit",
-      "Magnus"
+      "Marci"
     ],
-    "correctIndex": 3,
-    "explanation": "“Eh ha ha ha ha ha ha ha!” is spoken by Magnus.",
+    "correctIndex": 1,
+    "explanation": "“I'll crush them underhoof.” is spoken by Magnus.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -10553,13 +11800,13 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/magnataur/magn_laugh_03.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/magnataur/magn_attack_09.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tusk.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png"
     ],
     "answerImageKind": "hero"
   },
@@ -10708,20 +11955,20 @@
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_pangolier:pangolin_laugh_07",
+    "id": "hero-voice:npc_dota_hero_pangolier:pangolin_move_34",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Pangolier",
       "Doom",
+      "Pangolier",
       "Clockwerk",
       "Marci"
     ],
-    "correctIndex": 0,
-    "explanation": "“Ehhe hahaha hahaha.” is spoken by Pangolier.",
+    "correctIndex": 1,
+    "explanation": "“An honorable path.” is spoken by Pangolier.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -10733,31 +11980,31 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/pangolin/pangolin_laugh_07.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/pangolin/pangolin_move_34.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png"
     ],
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_phantom_assassin:phass_attack_02",
+    "id": "hero-voice:npc_dota_hero_phantom_assassin:phass_attack_04",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Razor",
       "Phantom Assassin",
+      "Shadow Fiend",
       "Sniper",
-      "Shadow Fiend"
+      "Razor"
     ],
-    "correctIndex": 1,
-    "explanation": "“Quick strike.” is spoken by Phantom Assassin.",
+    "correctIndex": 0,
+    "explanation": "“Where least expected.” is spoken by Phantom Assassin.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -10769,18 +12016,18 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/phantom_assassin/phass_attack_02.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/phantom_assassin/phass_attack_04.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/razor.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_assassin.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/razor.png"
     ],
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_pudge:pud_ability_devour_08",
+    "id": "hero-voice:npc_dota_hero_pudge:pud_attack_06",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
@@ -10788,12 +12035,12 @@
     "prompt": "Which hero said this?",
     "answers": [
       "Centaur Warrunner",
-      "Pudge",
       "Omniknight",
-      "Wraith King"
+      "Wraith King",
+      "Pudge"
     ],
-    "correctIndex": 1,
-    "explanation": "“Huh huh huh, fresh meat!” is spoken by Pudge.",
+    "correctIndex": 3,
+    "explanation": "“I will devour you!” is spoken by Pudge.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -10805,13 +12052,13 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/pudge/pud_ability_devour_08.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/pudge/pud_attack_06.mp3"
     },
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/centaur.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/omniknight.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png"
     ],
     "answerImageKind": "hero"
   },
@@ -10924,20 +12171,20 @@
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_shadow_demon:shadow_demon_kill_14",
+    "id": "hero-voice:npc_dota_hero_shadow_demon:shadow_demon_kill_10",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Visage",
       "Dazzle",
-      "Shadow Demon",
-      "Skywrath Mage"
+      "Visage",
+      "Skywrath Mage",
+      "Shadow Demon"
     ],
-    "correctIndex": 2,
-    "explanation": "“Cry some more.” is spoken by Shadow Demon.",
+    "correctIndex": 3,
+    "explanation": "“You conspired against me.” is spoken by Shadow Demon.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -10949,13 +12196,13 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/shadow_demon/shadow_demon_kill_14.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/shadow_demon/shadow_demon_kill_10.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_demon.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skywrath_mage.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skywrath_mage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_demon.png"
     ],
     "answerImageKind": "hero"
   },
@@ -11032,20 +12279,20 @@
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_spectre:spec_firstblood_01",
+    "id": "hero-voice:npc_dota_hero_spectre:spec_spawn_03",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Spectre",
       "Pangolier",
+      "Juggernaut",
       "Axe",
-      "Juggernaut"
+      "Spectre"
     ],
-    "correctIndex": 0,
-    "explanation": "“First Blood!” is spoken by Spectre.",
+    "correctIndex": 3,
+    "explanation": "“What is this place?” is spoken by Spectre.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -11057,13 +12304,13 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/spectre/spec_firstblood_01.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/spectre/spec_spawn_03.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spectre.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/juggernaut.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/juggernaut.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spectre.png"
     ],
     "answerImageKind": "hero"
   },
@@ -11212,20 +12459,20 @@
     "answerImageKind": "hero"
   },
   {
-    "id": "hero-voice:npc_dota_hero_zuus:zuus_arc_laugh_02",
+    "id": "hero-voice:npc_dota_hero_zuus:zuus_attack_03",
     "kind": "hero-voice",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Echo Hunt",
     "prompt": "Which hero said this?",
     "answers": [
-      "Queen of Pain",
-      "Zeus",
+      "Outworld Devourer",
       "Invoker",
-      "Outworld Devourer"
+      "Zeus",
+      "Queen of Pain"
     ],
-    "correctIndex": 1,
-    "explanation": "“Ah ha ha ha ha ha ha ha ha ha ha!” is spoken by Zeus.",
+    "correctIndex": 2,
+    "explanation": "“You'll wish you were never spawned!” is spoken by Zeus.",
     "source": {
       "label": "Dotabase hero responses · 2026-07-26",
       "url": "https://github.com/mdiller/dotabase"
@@ -11237,13 +12484,13 @@
       "kind": "hero"
     },
     "audio": {
-      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/zuus/zuus_arc_laugh_02.mp3"
+      "src": "https://dotabase.dillerm.io/vpk/sounds/vo/zuus/zuus_attack_03.mp3"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/queenofpain.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/zuus.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/zuus.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/queenofpain.png"
     ],
     "answerImageKind": "hero"
   },

@@ -385,6 +385,34 @@ const foggedVision = await evaluate(`({
 })`);
 await screenshot("/tmp/queue-arcade-fog-stage-3.png");
 
+const fogRound = await evaluate(`document.querySelector("main")?.dataset.roundId`);
+await waitFor(
+  `(() => {
+    const main = document.querySelector("main");
+    const prompt = document.querySelector('[data-testid="round-prompt"]');
+    const artwork = document.querySelector('[data-testid="question-artwork"]');
+    const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
+    return main?.dataset.phase === "answering" &&
+      main?.dataset.roundId !== ${JSON.stringify(fogRound)} &&
+      main?.dataset.questionKind === "fogged-hero" &&
+      prompt?.dataset.fogStage === "1" &&
+      timer >= 10 &&
+      artwork?.dataset.artworkState === "loaded";
+  })()`,
+  30_000,
+);
+const fogNextRound = await evaluate(`(() => {
+  const image = document.querySelector('[data-testid="question-artwork"] img');
+  const style = image ? getComputedStyle(image) : null;
+  return {
+    round: document.querySelector("main")?.dataset.roundId,
+    stage: document.querySelector('[data-testid="round-prompt"]')?.dataset.fogStage,
+    filter: style?.filter,
+    transitionDuration: style?.transitionDuration
+  };
+})()`);
+await screenshot("/tmp/queue-arcade-fog-next-round.png");
+
 await navigate(appUrl);
 await evaluate(`(() => {
   document.querySelector('button[aria-label="Mute game sounds"]')?.click();
@@ -415,6 +443,35 @@ const echoHunt = await evaluate(`({
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 await screenshot("/tmp/queue-arcade-echo-hunt.png");
+
+await navigate(appUrl);
+await evaluate(`(() => {
+  document.querySelector('[data-arcade-mode="quote-hunt"]')?.click();
+  document.querySelector('[data-skill-level="open"]')?.click();
+  return true;
+})()`);
+await delay(350);
+await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+await waitFor(`(() => {
+  const main = document.querySelector("main");
+  const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
+  const answers = [...document.querySelectorAll('[data-testid="arcade-answer"] img')];
+  return main?.dataset.phase === "answering" &&
+    main?.dataset.questionKind === "hero-quote" &&
+    timer >= 4 &&
+    answers.length === 4 &&
+    answers.every((image) => image.complete && image.naturalWidth > 0);
+})()`);
+const quoteHunt = await evaluate(`({
+  text: document.querySelector('[data-testid="hero-quote"] blockquote')?.innerText,
+  answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
+  answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
+  answerImagesLoaded: [...document.querySelectorAll('[data-testid="arcade-answer"] img')]
+    .every((image) => image.complete && image.naturalWidth > 0),
+  hasAudio: Boolean(document.querySelector("audio")),
+  horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+})`);
+await screenshot("/tmp/queue-arcade-quote-hunt.png");
 
 await send("Emulation.setDeviceMetricsOverride", {
   width: 390,
@@ -454,7 +511,7 @@ const failures = [];
 const layoutDelta = (left, right) =>
   Object.keys(left).reduce((largest, key) => Math.max(largest, Math.abs((left[key] ?? 0) - (right[key] ?? 0))), 0);
 if (!lobby.title.includes("Queue Arcade")) failures.push("The Queue Arcade metadata title is missing.");
-if (!lobby.startButton || lobby.arcadeModes !== 6 || lobby.skillLevels !== 3) {
+if (!lobby.startButton || lobby.arcadeModes !== 7 || lobby.skillLevels !== 3) {
   failures.push("The arcade lobby controls are incomplete.");
 }
 if (lobby.horizontalOverflow) failures.push("The desktop lobby overflows horizontally.");
@@ -518,6 +575,14 @@ if (
   failures.push("Fogged Vision artwork, answers, or fixed-stage layout failed.");
 }
 if (
+  fogNextRound.round === fogRound ||
+  fogNextRound.stage !== "1" ||
+  !fogNextRound.filter?.includes("blur(17px)") ||
+  fogNextRound.transitionDuration !== "0s"
+) {
+  failures.push("Fogged Vision briefly reveals the next round before applying fog.");
+}
+if (
   echoHunt.answerCount !== 4 ||
   echoHunt.answerImages !== 4 ||
   !echoHunt.answerImagesLoaded ||
@@ -528,9 +593,20 @@ if (
   failures.push("Echo Hunt audio or hero choices failed.");
 }
 if (
+  (quoteHunt.text?.length ?? 0) < 28 ||
+  (quoteHunt.text?.match(/[a-z]+(?:['’-][a-z]+)*/gi)?.length ?? 0) < 5 ||
+  quoteHunt.answerCount !== 4 ||
+  quoteHunt.answerImages !== 4 ||
+  !quoteHunt.answerImagesLoaded ||
+  quoteHunt.hasAudio
+) {
+  failures.push("Quote Hunt line or hero choices failed.");
+}
+if (
   spellLink.horizontalOverflow ||
   foggedVision.horizontalOverflow ||
   echoHunt.horizontalOverflow ||
+  quoteHunt.horizontalOverflow ||
   mobile.horizontalOverflow ||
   mobileQuestion.horizontalOverflow
 ) {
@@ -562,7 +638,10 @@ console.log(
       fogLayoutOne,
       fogLayoutTwo,
       fogLayoutThree,
+      fogRound,
+      fogNextRound,
       echoHunt,
+      quoteHunt,
       mobile,
       mobileQuestion,
       browserErrors,

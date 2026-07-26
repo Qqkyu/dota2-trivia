@@ -1,6 +1,6 @@
 import generatedQuestions from "@/data/questions.generated.json";
 import generatedMeta from "@/data/trivia-meta.generated.json";
-import { seededShuffle, varietyShuffle } from "@/lib/variety.mjs";
+import { fixedCycleRotation, varietyShuffle } from "@/lib/variety.mjs";
 
 export const KNOWLEDGE_FILTERS = ["Mixed", "Abilities", "Items", "Heroes"] as const;
 export const SKILL_LEVELS = ["Open", "Learning", "Veteran"] as const;
@@ -8,7 +8,14 @@ export const SKILL_LEVELS = ["Open", "Learning", "Veteran"] as const;
 export type KnowledgeFilter = (typeof KNOWLEDGE_FILTERS)[number];
 export type SkillLevel = (typeof SKILL_LEVELS)[number];
 export type TriviaCategory = "Abilities" | "Cooldowns" | "Damage" | "Recipes" | "Items" | "Mana" | "Heroes";
-export type ArcadeMode = "mixed" | "trivia" | "shopkeeper" | "spell-link" | "fogged-vision" | "echo-hunt";
+export type ArcadeMode =
+  | "mixed"
+  | "trivia"
+  | "shopkeeper"
+  | "spell-link"
+  | "fogged-vision"
+  | "echo-hunt"
+  | "quote-hunt";
 export type RoundGame = Exclude<ArcadeMode, "mixed">;
 export type QuestionKind =
   | "spell-owner"
@@ -25,7 +32,8 @@ export type QuestionKind =
   | "recipe-upgrade"
   | "item-price-duel"
   | "fogged-hero"
-  | "hero-voice";
+  | "hero-voice"
+  | "hero-quote";
 export type TriviaArtworkKind = "ability" | "hero" | "item";
 
 export interface TriviaQuestion {
@@ -96,6 +104,7 @@ function roundGame(question: TriviaQuestion): RoundGame {
   if (question.kind === "spell-owner") return "spell-link";
   if (question.kind === "fogged-hero") return "fogged-vision";
   if (question.kind === "hero-voice") return "echo-hunt";
+  if (question.kind === "hero-quote") return "quote-hunt";
   return "trivia";
 }
 
@@ -122,28 +131,20 @@ export function createArcadeDeck(
   filter: KnowledgeFilter,
   length = 10,
   skillLevel: SkillLevel = "Open",
+  rotationSeed = seed,
+  roundOffset = 0,
 ) {
+  const mixedGames = [
+    "trivia",
+    "shopkeeper",
+    "spell-link",
+    "fogged-vision",
+    "echo-hunt",
+    "quote-hunt",
+  ] satisfies RoundGame[];
   const games: RoundGame[] =
     mode === "mixed"
-      ? (() => {
-          const rotation: RoundGame[] = [];
-
-          while (rotation.length < length) {
-            const cycleIndex = Math.floor(rotation.length / 5);
-            const cycle = seededShuffle(
-              ["trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt"] satisfies RoundGame[],
-              `${seed}:cycle:${cycleIndex}`,
-            );
-
-            if (rotation.at(-1) === cycle[0]) {
-              [cycle[0], cycle[1]] = [cycle[1], cycle[0]];
-            }
-
-            rotation.push(...cycle.slice(0, length - rotation.length));
-          }
-
-          return rotation;
-        })()
+      ? fixedCycleRotation(mixedGames, rotationSeed, length, roundOffset)
       : Array.from({ length }, () => mode);
 
   const pools = {
@@ -152,6 +153,7 @@ export function createArcadeDeck(
     "spell-link": shuffledPool(seed, "spell-link", filter, skillLevel),
     "fogged-vision": shuffledPool(seed, "fogged-vision", filter, skillLevel),
     "echo-hunt": shuffledPool(seed, "echo-hunt", filter, skillLevel),
+    "quote-hunt": shuffledPool(seed, "quote-hunt", filter, skillLevel),
   };
   const cursors: Record<RoundGame, number> = {
     trivia: 0,
@@ -159,6 +161,7 @@ export function createArcadeDeck(
     "spell-link": 0,
     "fogged-vision": 0,
     "echo-hunt": 0,
+    "quote-hunt": 0,
   };
 
   return games.flatMap((game) => {

@@ -37,6 +37,24 @@ export function seededShuffle(values, seed) {
 }
 
 /**
+ * Builds a deterministic fixed cycle. Because the same shuffled order repeats,
+ * every sliding window the size of the input contains every value exactly once.
+ *
+ * @template T
+ * @param {readonly T[]} values
+ * @param {string} seed
+ * @param {number} length
+ * @param {number} [offset]
+ * @returns {T[]}
+ */
+export function fixedCycleRotation(values, seed, length, offset = 0) {
+  if (!values.length || length <= 0) return [];
+
+  const order = seededShuffle(values, `${seed}:fixed-cycle`);
+  return Array.from({ length }, (_, index) => order[(offset + index) % order.length]);
+}
+
+/**
  * Deterministically rotates question templates while each template still has
  * candidates. Large pools therefore cannot drown out smaller, more distinctive
  * round types at the front of a public-room batch.

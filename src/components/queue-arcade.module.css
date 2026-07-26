@@ -271,13 +271,13 @@
 .modePicker {
   display: grid;
   gap: 8px;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .modeCard {
   position: relative;
   display: grid;
-  min-height: 82px;
+  min-height: 74px;
   align-items: center;
   gap: 11px;
   overflow: hidden;
@@ -293,6 +293,20 @@
     background 160ms ease,
     color 160ms ease,
     transform 160ms ease;
+}
+
+.modeCard[data-arcade-mode="mixed"] {
+  min-height: 64px;
+  grid-column: 1 / -1;
+}
+
+.modeCard:not([data-arcade-mode="mixed"]) {
+  gap: 9px;
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.modeCard:not([data-arcade-mode="mixed"]) > svg {
+  display: none;
 }
 
 .modeCard::after {
@@ -867,6 +881,40 @@
   animation-delay: -690ms;
 }
 
+.previewQuote {
+  position: relative;
+  display: flex;
+  width: min(100%, 330px);
+  height: 126px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  padding: 20px 27px;
+  border: 1px solid rgba(222, 164, 96, 0.24);
+  background: radial-gradient(circle at 15% 20%, rgba(201, 132, 65, 0.13), transparent 48%), rgba(0, 0, 0, 0.18);
+  text-align: left;
+}
+
+.previewQuote > svg {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  width: 23px;
+  color: rgba(229, 172, 105, 0.72);
+}
+
+.previewQuote > p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  color: #d4c1aa;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 .previewQuestion > span {
   color: var(--red-bright);
   font-family: var(--font-geist-mono), monospace;
@@ -1057,6 +1105,16 @@
   box-shadow: 0 0 14px rgba(183, 145, 229, 0.42);
 }
 
+.quoteStage {
+  background: radial-gradient(circle at 31% 22%, rgba(190, 126, 65, 0.11), transparent 31%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.025), transparent 28%), rgba(15, 18, 19, 0.88);
+}
+
+.quoteStage .timerTrack > span {
+  background: linear-gradient(90deg, #8c572e, #dea460);
+  box-shadow: 0 0 14px rgba(222, 164, 96, 0.4);
+}
+
 .gameStage::after {
   position: absolute;
   z-index: 0;
@@ -1158,6 +1216,10 @@
 
 .echoStage .roundGameLabel svg {
   color: #b791e5;
+}
+
+.quoteStage .roundGameLabel svg {
+  color: #dea460;
 }
 
 .difficulty1 {
@@ -1346,20 +1408,23 @@
 .shopkeeperQuestion,
 .spellQuestion,
 .fogQuestion,
-.echoQuestion {
+.echoQuestion,
+.quoteQuestion {
   min-height: 272px;
 }
 
 .spellQuestion,
 .fogQuestion,
-.echoQuestion {
+.echoQuestion,
+.quoteQuestion {
   height: 272px;
   overflow: hidden;
 }
 
 .spellQuestion .questionCopy,
 .fogQuestion .questionCopy,
-.echoQuestion .questionCopy {
+.echoQuestion .questionCopy,
+.quoteQuestion .questionCopy {
   width: min(670px, calc(100% - 180px));
   flex: 0 1 670px;
 }
@@ -1573,6 +1638,10 @@
     transform 700ms ease;
 }
 
+.fogQuestion[data-fog-stage="1"] .artImage {
+  transition: none;
+}
+
 .fogQuestion[data-fog-stage="2"] .artImage {
   filter: blur(7px) grayscale(0.23) brightness(0.68) saturate(0.86);
   transform: scale(1.14);
@@ -1742,6 +1811,65 @@
   max-width: 520px;
 }
 
+.quoteCard {
+  position: relative;
+  display: flex;
+  width: min(480px, 54%);
+  height: 164px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  padding: 31px 33px 25px;
+  border: 1px solid rgba(222, 164, 96, 0.22);
+  background: radial-gradient(circle at 13% 16%, rgba(201, 132, 65, 0.14), transparent 46%), rgba(8, 7, 5, 0.35);
+  box-shadow:
+    inset 0 0 42px rgba(151, 91, 38, 0.035),
+    0 18px 40px rgba(0, 0, 0, 0.2);
+}
+
+.quoteCard > svg {
+  position: absolute;
+  top: 15px;
+  left: 17px;
+  width: 25px;
+  color: #c9874c;
+}
+
+.quoteCard blockquote {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  color: #e5d5c2;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(16px, 1.65vw, 21px);
+  line-height: 1.42;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.quoteCard > span {
+  position: absolute;
+  right: 16px;
+  bottom: 10px;
+  color: #8d7156;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.quoteQuestion .questionCopy {
+  flex-basis: 330px;
+}
+
+.quoteQuestion .questionCopy > span {
+  color: #dea460;
+}
+
+.quoteQuestion .questionCopy h2 {
+  max-width: 310px;
+}
+
 .answers {
   display: grid;
   gap: 10px;
@@ -1831,6 +1959,11 @@
 .echoAnswers .answer:hover {
   border-color: rgba(183, 145, 229, 0.4);
   background: rgba(104, 73, 145, 0.08);
+}
+
+.quoteAnswers .answer:hover {
+  border-color: rgba(222, 164, 96, 0.4);
+  background: rgba(141, 87, 43, 0.08);
 }
 .answer:not(:disabled):hover {
   border-color: rgba(240, 106, 88, 0.36);
@@ -2823,6 +2956,14 @@
     padding-inline: 9px;
   }
 
+  .modePicker {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .modeCard[data-arcade-mode="mixed"] {
+    grid-column: 1 / -1;
+  }
+
   .modeIcon {
     width: 34px;
     height: 34px;
@@ -2919,6 +3060,10 @@
 
   .modePicker {
     grid-template-columns: 1fr;
+  }
+
+  .modeCard[data-arcade-mode="mixed"] {
+    grid-column: auto;
   }
 
   .modeSettingsSlot {
@@ -3030,13 +3175,15 @@
   .shopkeeperQuestion,
   .spellQuestion,
   .fogQuestion,
-  .echoQuestion {
+  .echoQuestion,
+  .quoteQuestion {
     min-height: 270px;
   }
 
   .spellQuestion,
   .fogQuestion,
-  .echoQuestion {
+  .echoQuestion,
+  .quoteQuestion {
     height: 340px;
     min-height: 340px;
   }
@@ -3044,7 +3191,8 @@
   .shopkeeperQuestion .questionCopy,
   .spellQuestion .questionCopy,
   .fogQuestion .questionCopy,
-  .echoQuestion .questionCopy {
+  .echoQuestion .questionCopy,
+  .quoteQuestion .questionCopy {
     width: 100%;
   }
 
@@ -3075,6 +3223,31 @@
 
   .echoWave {
     height: 44px;
+  }
+
+  .quoteCard {
+    width: min(100%, 330px);
+    height: 154px;
+    flex: 0 0 auto;
+    padding: 29px 26px 23px;
+    text-align: left;
+  }
+
+  .quoteCard blockquote {
+    font-size: 16px;
+  }
+
+  .quoteQuestion {
+    height: 370px;
+    min-height: 370px;
+  }
+
+  .quoteQuestion .questionCopy {
+    flex-basis: auto;
+  }
+
+  .quoteQuestion .questionCopy h2 {
+    max-width: none;
   }
 
   .questionGlyph {

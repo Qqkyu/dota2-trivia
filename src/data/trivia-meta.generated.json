@@ -1,13 +1,13 @@
 {
   "patch": "7.41d",
-  "contentVersion": "7.41d-variety-1",
+  "contentVersion": "7.41d-variety-2",
   "snapshotDate": "2026-07-26",
-  "questionCount": 695,
+  "questionCount": 738,
   "categoryCounts": {
     "Abilities": 104,
     "Cooldowns": 52,
     "Damage": 48,
-    "Heroes": 258,
+    "Heroes": 301,
     "Recipes": 36,
     "Items": 137,
     "Mana": 60
@@ -19,6 +19,7 @@
     "ability-damage": 48,
     "fogged-hero": 56,
     "hero-intruder": 32,
+    "hero-quote": 43,
     "hero-stat-duel": 42,
     "hero-voice": 44,
     "recipe-component": 36,

@@ -13,7 +13,7 @@ const META_OUTPUT = join(ROOT, "src", "data", "trivia-meta.generated.json");
 
 const PATCH = process.env.DOTA_PATCH ?? "7.41d";
 const SNAPSHOT_DATE = process.env.DOTA_SNAPSHOT_DATE ?? new Date().toISOString().slice(0, 10);
-const CONTENT_VERSION = `${PATCH}-variety-1`;
+const CONTENT_VERSION = `${PATCH}-variety-2`;
 const CDN = "https://cdn.cloudflare.steamstatic.com";
 const DOTABASE_RAW = "https://raw.githubusercontent.com/mdiller/dotabase/master";
 const DOTABASE_ASSETS = "https://dotabase.dillerm.io/vpk";
@@ -178,8 +178,39 @@ function responseSlug(value) {
     .replace(/^_+|_+$/g, "");
 }
 
+function voiceLineText(response) {
+  return (response.text || response.text_simple || "").replace(/\s+/g, " ").trim();
+}
+
+function isVoiceVocalization(word) {
+  return /^(?:a+h+|h+a+h*|h+e+h+|h+o+h*|h+u+h+|(?:ha){2,}h?|(?:ah){2,}a?|(?:he){2,}h?|(?:eh){2,}e?|(?:ho){2,}h?|(?:oh){2,}o?|hm+|hmm+|e+h+|o+h+|u+gh+|gr+r+|ar+gh+)$/i.test(
+    word,
+  );
+}
+
+function meaningfulVoiceWords(value) {
+  const words = value.match(/[a-z]+(?:['’-][a-z]+)*/gi) ?? [];
+  return words.filter((word) => !isVoiceVocalization(word));
+}
+
+function isProperVoiceLine(response, minimumCharacters, minimumWords) {
+  const text = voiceLineText(response);
+  const assetName = [response.name, response.fullname, response.mp3].filter(Boolean).join(" ");
+  const vocalizations = (text.match(/[a-z]+/gi) ?? []).filter(isVoiceVocalization);
+
+  return (
+    text.length >= minimumCharacters &&
+    text.length <= 110 &&
+    meaningfulVoiceWords(text).length >= minimumWords &&
+    !vocalizations.some((word) => word.length >= 4) &&
+    vocalizations.length < 2 &&
+    !/[<>{}]/.test(text) &&
+    !/(?:^|[_\s-])(laugh|chuckle|giggle)(?:[_\s.-]|$)/i.test(assetName)
+  );
+}
+
 function voiceLineLeaksHero(response, hero, dotabaseHero) {
-  const line = response.text_simple || response.text || "";
+  const line = voiceLineText(response);
   const aliases = new Set([
     ...normalizedWords(hero.localized_name),
     ...normalizedWords(dotabaseHero?.name ?? ""),
@@ -659,44 +690,74 @@ for (const [hero, responses] of voiceResponses) {
   const dotabaseHero = dotabaseHeroById.get(hero.id);
   const candidates = responses
     .filter((response) => {
-      const text = response.text?.trim() ?? "";
       return (
         response.hero_id === hero.id &&
         typeof response.mp3 === "string" &&
         response.mp3.endsWith(".mp3") &&
-        text.length >= 12 &&
-        text.length <= 90 &&
-        !/[<>{}]/.test(text) &&
+        isProperVoiceLine(response, 18, 3) &&
         /(Moving|Attacking|Spawning|Killing a hero)/.test(response.pretty_criteria ?? "") &&
         !voiceLineLeaksHero(response, hero, dotabaseHero)
       );
     })
-    .map((response) => ({ ...response, key: response.fullname ?? response.name }));
-  const line = stableSample(candidates, 1, `hero-voice:${hero.key}`)[0];
-  if (!line) continue;
+    .map((response) => ({
+      ...response,
+      key: response.fullname ?? response.name,
+      normalizedText: voiceLineText(response),
+    }));
+  const audioLine = stableSample(candidates, 1, `hero-voice:${hero.key}`)[0];
+  const quoteCandidates = candidates.filter(
+    (response) =>
+      response.key !== audioLine?.key &&
+      response.normalizedText.length >= 28 &&
+      meaningfulVoiceWords(response.normalizedText).length >= 5,
+  );
+  const quoteLine = stableSample(quoteCandidates, 1, `hero-quote:${hero.key}`)[0];
+  if (!audioLine && !quoteLine) continue;
 
   const distractors = spellDistractors(hero, heroes, 2, `hero-voice:${hero.key}`, hash);
   if (distractors.length !== 3) continue;
   const answerHeroes = [hero, ...distractors];
 
-  questions.push(
-    makeQuestion({
-      id: `hero-voice:${hero.key}:${line.name}`,
-      kind: "hero-voice",
-      category: "Heroes",
-      difficulty: 2,
-      eyebrow: "Echo Hunt",
-      prompt: "Which hero said this?",
-      image: { src: hero.image, alt: `${hero.localized_name} hero portrait`, kind: "hero" },
-      answers: answerHeroes.map((candidate) => candidate.localized_name),
-      correctAnswer: hero.localized_name,
-      answerImagesByValue: answerArtworkByName(answerHeroes),
-      answerImageKind: "hero",
-      explanation: `“${line.text.trim()}” is spoken by ${hero.localized_name}.`,
-      audio: { src: `${DOTABASE_ASSETS}${line.mp3}` },
-      source: voiceSource,
-    }),
-  );
+  if (audioLine) {
+    questions.push(
+      makeQuestion({
+        id: `hero-voice:${hero.key}:${audioLine.name}`,
+        kind: "hero-voice",
+        category: "Heroes",
+        difficulty: 2,
+        eyebrow: "Echo Hunt",
+        prompt: "Which hero said this?",
+        image: { src: hero.image, alt: `${hero.localized_name} hero portrait`, kind: "hero" },
+        answers: answerHeroes.map((candidate) => candidate.localized_name),
+        correctAnswer: hero.localized_name,
+        answerImagesByValue: answerArtworkByName(answerHeroes),
+        answerImageKind: "hero",
+        explanation: `“${audioLine.normalizedText}” is spoken by ${hero.localized_name}.`,
+        audio: { src: `${DOTABASE_ASSETS}${audioLine.mp3}` },
+        source: voiceSource,
+      }),
+    );
+  }
+
+  if (quoteLine) {
+    questions.push(
+      makeQuestion({
+        id: `hero-quote:${hero.key}:${quoteLine.name}`,
+        kind: "hero-quote",
+        category: "Heroes",
+        difficulty: 2,
+        eyebrow: "Quote Hunt",
+        prompt: "Which hero said this line?",
+        detail: quoteLine.normalizedText,
+        answers: answerHeroes.map((candidate) => candidate.localized_name),
+        correctAnswer: hero.localized_name,
+        answerImagesByValue: answerArtworkByName(answerHeroes),
+        answerImageKind: "hero",
+        explanation: `“${quoteLine.normalizedText}” is spoken by ${hero.localized_name}.`,
+        source: voiceSource,
+      }),
+    );
+  }
 }
 
 const popularItemKeys = [

@@ -13,6 +13,7 @@ import {
   Gamepad2,
   Headphones,
   Keyboard,
+  MessageSquareQuote,
   Radio,
   RotateCcw,
   ShoppingBag,
@@ -136,9 +137,9 @@ const MODE_INFO: Record<
     label: "Mixed Arcade",
     shortLabel: "Mixed",
     eyebrow: "House pick · Recommended",
-    description: "Facts, recipes, spells, fog, and hero voices rotate every round. Maximum chaos, zero downtime.",
+    description: "Facts, recipes, spells, fog, voices, and hero quotes rotate every round.",
     action: "Enter mixed arcade",
-    rule: "All five games rotate automatically—no back-to-back repeats.",
+    rule: "Every six rounds contains all six games exactly once.",
   },
   trivia: {
     label: "Queue Trivia",
@@ -180,6 +181,14 @@ const MODE_INFO: Record<
     action: "Hunt some echoes",
     rule: "Play or replay the voice line while the shared round timer keeps moving.",
   },
+  "quote-hunt": {
+    label: "Quote Hunt",
+    shortLabel: "Quotes",
+    eyebrow: "Who said it?",
+    description: "Read a real hero response and identify the speaker from their attitude, diction, and worldview.",
+    action: "Read between the lines",
+    rule: "One proper hero line, four closely matched portraits, no laughs or throwaway noises.",
+  },
 };
 
 function ModeIcon({ mode }: { mode: ArcadeMode | RoundGame }) {
@@ -188,6 +197,7 @@ function ModeIcon({ mode }: { mode: ArcadeMode | RoundGame }) {
   if (mode === "spell-link") return <WandSparkles />;
   if (mode === "fogged-vision") return <ScanEye />;
   if (mode === "echo-hunt") return <AudioLines />;
+  if (mode === "quote-hunt") return <MessageSquareQuote />;
   return <Brain />;
 }
 
@@ -268,7 +278,7 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     typeof round.id !== "string" ||
     typeof round.number !== "number" ||
     (round.phase !== "answering" && round.phase !== "reveal") ||
-    !["trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt"].includes(round.game) ||
+    !["trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt", "quote-hunt"].includes(round.game) ||
     typeof round.questionId !== "string" ||
     typeof round.startedAt !== "number" ||
     typeof round.answerDeadline !== "number" ||
@@ -511,6 +521,9 @@ export function QueueArcade() {
     }
     if (mode === "echo-hunt") {
       return ACTIVE_QUESTIONS.find((question) => question.kind === "hero-voice") ?? ACTIVE_QUESTIONS[0];
+    }
+    if (mode === "quote-hunt") {
+      return ACTIVE_QUESTIONS.find((question) => question.kind === "hero-quote") ?? ACTIVE_QUESTIONS[0];
     }
     return ACTIVE_QUESTIONS.find((question) => question.id === "cooldown:lina_dragon_slave:4") ?? ACTIVE_QUESTIONS[0];
   }, [mode]);
@@ -1165,7 +1178,7 @@ export function QueueArcade() {
           <div className={styles.lobbyCopy}>
             <div className={styles.liveLabel}>
               <span />
-              Five games live · More in the lab
+              Six games live · More in the lab
             </div>
             <h1>
               Your queue has
@@ -1323,6 +1336,11 @@ export function QueueArcade() {
                       <i />
                     </span>
                   </div>
+                ) : mode === "quote-hunt" ? (
+                  <div className={styles.previewQuote} aria-hidden="true">
+                    <MessageSquareQuote />
+                    <p>“{previewQuestion.detail}”</p>
+                  </div>
                 ) : (
                   <div className={clsx(mode === "fogged-vision" && styles.previewFog)} data-fog-stage="1">
                     <QuestionArtwork question={previewQuestion} concealIdentity={mode === "fogged-vision"} />
@@ -1340,7 +1358,9 @@ export function QueueArcade() {
                           ? "Name the hero before the fog clears."
                           : mode === "echo-hunt"
                             ? "Whose voice just crossed the river?"
-                            : previewQuestion.prompt}
+                            : mode === "quote-hunt"
+                              ? "Who said it?"
+                              : previewQuestion.prompt}
                 </h2>
                 <p>{activeModeInfo.description}</p>
               </div>
@@ -1381,6 +1401,7 @@ export function QueueArcade() {
               currentGame === "spell-link" && styles.spellLinkStage,
               currentGame === "fogged-vision" && styles.foggedStage,
               currentGame === "echo-hunt" && styles.echoStage,
+              currentGame === "quote-hunt" && styles.quoteStage,
             )}
           >
             <div className={styles.timerTrack} aria-hidden="true">
@@ -1491,6 +1512,7 @@ export function QueueArcade() {
               </div>
             ) : currentGame === "fogged-vision" ? (
               <div
+                key={`${activeRoundId}:fog`}
                 className={clsx(styles.questionBlock, styles.fogQuestion)}
                 data-testid="round-prompt"
                 data-fog-stage={clueStage}
@@ -1570,6 +1592,18 @@ export function QueueArcade() {
                   <small>The line stays hidden until the reveal.</small>
                 </div>
               </div>
+            ) : currentGame === "quote-hunt" ? (
+              <div className={clsx(styles.questionBlock, styles.quoteQuestion)} data-testid="round-prompt">
+                <div className={styles.quoteCard} data-testid="hero-quote">
+                  <MessageSquareQuote />
+                  <blockquote>“{currentQuestion.detail}”</blockquote>
+                  <span>Hero response</span>
+                </div>
+                <div className={styles.questionCopy}>
+                  <span>Quote Hunt · Who said it?</span>
+                  <h2>Which hero speaks like this?</h2>
+                </div>
+              </div>
             ) : (
               <div
                 className={clsx(styles.questionBlock, !currentQuestion.image && styles.textQuestion)}
@@ -1604,6 +1638,7 @@ export function QueueArcade() {
                 (currentQuestion.answerImageKind === "hero" || currentGame === "spell-link") && styles.heroAnswers,
                 currentGame === "fogged-vision" && styles.fogAnswers,
                 currentGame === "echo-hunt" && styles.echoAnswers,
+                currentGame === "quote-hunt" && styles.quoteAnswers,
               )}
               role="group"
               aria-label="Answer choices"
@@ -1643,7 +1678,9 @@ export function QueueArcade() {
                         alt={answer}
                         kind={
                           currentQuestion.answerImageKind ??
-                          (currentGame === "spell-link" || currentGame === "echo-hunt" ? "hero" : "item")
+                          (currentGame === "spell-link" || currentGame === "echo-hunt" || currentGame === "quote-hunt"
+                            ? "hero"
+                            : "item")
                         }
                       />
                     )}
@@ -1680,7 +1717,9 @@ export function QueueArcade() {
                           ? "Name the silhouette · A–D or 1–4"
                           : currentGame === "echo-hunt"
                             ? "Play the echo, then choose · A–D or 1–4"
-                            : "Use A–D or 1–4 to answer"}
+                            : currentGame === "quote-hunt"
+                              ? "Match the line to its hero · A–D or 1–4"
+                              : "Use A–D or 1–4 to answer"}
                     <span>Correct now: {liveAward?.rawPoints ?? 0} pts</span>
                   </>
                 ) : (
@@ -1834,7 +1873,9 @@ export function QueueArcade() {
                         ? "Fogged Vision tip"
                         : currentGame === "echo-hunt"
                           ? "Echo Hunt tip"
-                          : "Crowd rules"}
+                          : currentGame === "quote-hunt"
+                            ? "Quote Hunt tip"
+                            : "Crowd rules"}
                 </span>
                 <p>
                   {currentGame === "shopkeeper"
@@ -1845,7 +1886,9 @@ export function QueueArcade() {
                         ? "Silhouette and color are often enough. Every clarity stage is safer, but costs time."
                         : currentGame === "echo-hunt"
                           ? "Accent, cadence, and vocal effects are useful tells. Replay as often as the timer allows."
-                          : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
+                          : currentGame === "quote-hunt"
+                            ? "Look for vocabulary, ego, and worldview—the best hero lines reveal all three."
+                            : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
                 </p>
               </div>
             </div>
