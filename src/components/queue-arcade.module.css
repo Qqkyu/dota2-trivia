@@ -1625,12 +1625,12 @@
   --fog-middle-saturation: 0.76;
   --fog-middle-contrast: 0.98;
   --fog-middle-scale: 1.18;
-  --fog-final-blur: 4px;
-  --fog-final-grayscale: 0.12;
-  --fog-final-brightness: 0.82;
-  --fog-final-saturation: 0.9;
+  --fog-final-blur: 5px;
+  --fog-final-grayscale: 0.18;
+  --fog-final-brightness: 0.78;
+  --fog-final-saturation: 0.84;
   --fog-final-contrast: 1;
-  --fog-final-scale: 1.05;
+  --fog-final-scale: 1.07;
 }
 
 .fogQuestion[data-skill-level="learning"] {
@@ -1646,12 +1646,12 @@
   --fog-middle-saturation: 0.86;
   --fog-middle-contrast: 1;
   --fog-middle-scale: 1.1;
-  --fog-final-blur: 2px;
-  --fog-final-grayscale: 0.04;
-  --fog-final-brightness: 0.9;
-  --fog-final-saturation: 0.98;
+  --fog-final-blur: 3px;
+  --fog-final-grayscale: 0.08;
+  --fog-final-brightness: 0.86;
+  --fog-final-saturation: 0.94;
   --fog-final-contrast: 1;
-  --fog-final-scale: 1.02;
+  --fog-final-scale: 1.03;
 }
 
 .fogQuestion[data-skill-level="veteran"] {
@@ -1667,12 +1667,12 @@
   --fog-middle-saturation: 0.55;
   --fog-middle-contrast: 0.9;
   --fog-middle-scale: 1.28;
-  --fog-final-blur: 6px;
-  --fog-final-grayscale: 0.3;
-  --fog-final-brightness: 0.72;
-  --fog-final-saturation: 0.72;
+  --fog-final-blur: 7px;
+  --fog-final-grayscale: 0.36;
+  --fog-final-brightness: 0.68;
+  --fog-final-saturation: 0.65;
   --fog-final-contrast: 0.94;
-  --fog-final-scale: 1.1;
+  --fog-final-scale: 1.12;
 }
 
 .fogArtwork::after {

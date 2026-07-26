@@ -36,7 +36,7 @@ The playable MVP includes:
 - **Veteran** uses 12 seconds, excludes recognizable core abilities, hides ability-name clues, and selects closer distractor heroes.
 
 Fogged Vision also scales the portrait itself: Learning preserves more color and silhouette detail, Open starts
-substantially obscured, and Veteran stays more cropped, desaturated, and blurred through the final stage.
+substantially obscured, and every level retains some fog through the final stage—with Veteran keeping the most.
 
 Spell Link's initial content tier is reproducible: core/iconic abilities are Learning, unusual sub-abilities, innates, upgrades, and helper abilities are Veteran, and the remaining edge cases sit between them. Distractor similarity considers primary attribute, attack type, range, and shared roles. Once the project has durable vote history, observed correct-answer rates should supersede this seed heuristic.
 

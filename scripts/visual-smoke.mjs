@@ -642,13 +642,13 @@ if (
   fogClarityOne.skill !== "open" ||
   !fogClarityOne.filter.includes("blur(17px)") ||
   !fogClarityTwo.filter.includes("blur(11px)") ||
-  !fogClarityThree.filter.includes("blur(4px)") ||
+  !fogClarityThree.filter.includes("blur(5px)") ||
   !fogTierFilters.learning?.includes("blur(13px)") ||
   !fogTierFilters.open?.includes("blur(17px)") ||
   !fogTierFilters.veteran?.includes("blur(21px)") ||
-  !fogFinalTierFilters.learning?.includes("blur(2px)") ||
-  !fogFinalTierFilters.open?.includes("blur(4px)") ||
-  !fogFinalTierFilters.veteran?.includes("blur(6px)")
+  !fogFinalTierFilters.learning?.includes("blur(3px)") ||
+  !fogFinalTierFilters.open?.includes("blur(5px)") ||
+  !fogFinalTierFilters.veteran?.includes("blur(7px)")
 ) {
   failures.push("Fogged Vision challenge levels do not produce the intended progressive clarity curve.");
 }
