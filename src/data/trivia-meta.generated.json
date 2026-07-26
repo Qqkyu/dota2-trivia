@@ -1,0 +1,20 @@
+{
+  "patch": "7.41d",
+  "snapshotDate": "2026-07-26",
+  "questionCount": 425,
+  "categoryCounts": {
+    "Abilities": 72,
+    "Cooldowns": 52,
+    "Damage": 48,
+    "Recipes": 36,
+    "Items": 73,
+    "Mana": 60,
+    "Heroes": 84
+  },
+  "sources": {
+    "heroes": "https://api.opendota.com/api/constants/heroes",
+    "items": "https://api.opendota.com/api/constants/items",
+    "abilities": "https://api.opendota.com/api/constants/abilities",
+    "heroAbilities": "https://api.opendota.com/api/constants/hero_abilities"
+  }
+}
