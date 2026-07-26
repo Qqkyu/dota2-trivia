@@ -359,8 +359,31 @@ const fogLayoutOne = await evaluate(`({
   promptHeight: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().height,
   answersTop: document.querySelector('[data-testid="answer-grid"]')?.getBoundingClientRect().top
 })`);
+const fogTierFilters = await evaluate(`(() => {
+  const prompt = document.querySelector('[data-testid="round-prompt"]');
+  const image = document.querySelector('[data-testid="question-artwork"] img');
+  if (!prompt || !image) return {};
+
+  const originalSkill = prompt.dataset.skillLevel;
+  const filters = {};
+  for (const skill of ["learning", "open", "veteran"]) {
+    prompt.dataset.skillLevel = skill;
+    filters[skill] = getComputedStyle(image).filter;
+  }
+  prompt.dataset.skillLevel = originalSkill;
+  return filters;
+})()`);
+const fogClarityOne = await evaluate(`(() => {
+  const image = document.querySelector('[data-testid="question-artwork"] img');
+  return {
+    skill: document.querySelector('[data-testid="round-prompt"]')?.dataset.skillLevel,
+    filter: image ? getComputedStyle(image).filter : "",
+    transform: image ? getComputedStyle(image).transform : ""
+  };
+})()`);
 await screenshot("/tmp/queue-arcade-fog-stage-1.png");
 await waitFor(`document.querySelector('[data-testid="round-prompt"]')?.dataset.fogStage === "2"`, 8_000);
+await delay(800);
 const fogLayoutTwo = await evaluate(`({
   promptTop: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().top,
   promptLeft: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().left,
@@ -368,6 +391,14 @@ const fogLayoutTwo = await evaluate(`({
   promptHeight: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().height,
   answersTop: document.querySelector('[data-testid="answer-grid"]')?.getBoundingClientRect().top
 })`);
+const fogClarityTwo = await evaluate(`(() => {
+  const image = document.querySelector('[data-testid="question-artwork"] img');
+  return {
+    filter: image ? getComputedStyle(image).filter : "",
+    transform: image ? getComputedStyle(image).transform : ""
+  };
+})()`);
+await screenshot("/tmp/queue-arcade-fog-stage-2.png");
 await waitFor(`document.querySelector('[data-testid="round-prompt"]')?.dataset.fogStage === "3"`, 8_000);
 await delay(800);
 const fogLayoutThree = await evaluate(`({
@@ -377,6 +408,13 @@ const fogLayoutThree = await evaluate(`({
   promptHeight: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().height,
   answersTop: document.querySelector('[data-testid="answer-grid"]')?.getBoundingClientRect().top
 })`);
+const fogClarityThree = await evaluate(`(() => {
+  const image = document.querySelector('[data-testid="question-artwork"] img');
+  return {
+    filter: image ? getComputedStyle(image).filter : "",
+    transform: image ? getComputedStyle(image).transform : ""
+  };
+})()`);
 const foggedVision = await evaluate(`({
   answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
   answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
@@ -577,10 +615,21 @@ if (
 if (
   fogNextRound.round === fogRound ||
   fogNextRound.stage !== "1" ||
-  !fogNextRound.filter?.includes("blur(17px)") ||
+  !fogNextRound.filter?.includes("blur(22px)") ||
   fogNextRound.transitionDuration !== "0s"
 ) {
   failures.push("Fogged Vision briefly reveals the next round before applying fog.");
+}
+if (
+  fogClarityOne.skill !== "open" ||
+  !fogClarityOne.filter.includes("blur(22px)") ||
+  !fogClarityTwo.filter.includes("blur(11px)") ||
+  !fogClarityThree.filter.includes("blur(0px)") ||
+  !fogTierFilters.learning?.includes("blur(18px)") ||
+  !fogTierFilters.open?.includes("blur(22px)") ||
+  !fogTierFilters.veteran?.includes("blur(28px)")
+) {
+  failures.push("Fogged Vision challenge levels do not produce the intended progressive clarity curve.");
 }
 if (
   echoHunt.answerCount !== 4 ||
@@ -638,6 +687,10 @@ console.log(
       fogLayoutOne,
       fogLayoutTwo,
       fogLayoutThree,
+      fogTierFilters,
+      fogClarityOne,
+      fogClarityTwo,
+      fogClarityThree,
       fogRound,
       fogNextRound,
       echoHunt,

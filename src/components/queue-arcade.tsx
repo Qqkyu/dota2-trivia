@@ -1516,6 +1516,7 @@ export function QueueArcade() {
                 className={clsx(styles.questionBlock, styles.fogQuestion)}
                 data-testid="round-prompt"
                 data-fog-stage={clueStage}
+                data-skill-level={skillLevel.toLowerCase()}
               >
                 <div className={styles.fogArtwork}>
                   <QuestionArtwork question={currentQuestion} concealIdentity />

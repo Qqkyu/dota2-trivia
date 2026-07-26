@@ -1612,6 +1612,51 @@
   background: rgba(6, 14, 13, 0.58);
 }
 
+.fogQuestion {
+  --fog-start-blur: 22px;
+  --fog-start-grayscale: 0.68;
+  --fog-start-brightness: 0.4;
+  --fog-start-saturation: 0.48;
+  --fog-start-contrast: 0.9;
+  --fog-start-scale: 1.42;
+  --fog-middle-blur: 11px;
+  --fog-middle-grayscale: 0.38;
+  --fog-middle-brightness: 0.62;
+  --fog-middle-saturation: 0.76;
+  --fog-middle-contrast: 0.98;
+  --fog-middle-scale: 1.18;
+}
+
+.fogQuestion[data-skill-level="learning"] {
+  --fog-start-blur: 18px;
+  --fog-start-grayscale: 0.4;
+  --fog-start-brightness: 0.5;
+  --fog-start-saturation: 0.65;
+  --fog-start-contrast: 0.94;
+  --fog-start-scale: 1.28;
+  --fog-middle-blur: 7px;
+  --fog-middle-grayscale: 0.18;
+  --fog-middle-brightness: 0.7;
+  --fog-middle-saturation: 0.86;
+  --fog-middle-contrast: 1;
+  --fog-middle-scale: 1.1;
+}
+
+.fogQuestion[data-skill-level="veteran"] {
+  --fog-start-blur: 28px;
+  --fog-start-grayscale: 0.9;
+  --fog-start-brightness: 0.3;
+  --fog-start-saturation: 0.25;
+  --fog-start-contrast: 0.78;
+  --fog-start-scale: 1.58;
+  --fog-middle-blur: 16px;
+  --fog-middle-grayscale: 0.62;
+  --fog-middle-brightness: 0.52;
+  --fog-middle-saturation: 0.55;
+  --fog-middle-contrast: 0.9;
+  --fog-middle-scale: 1.28;
+}
+
 .fogArtwork::after {
   position: absolute;
   z-index: 4;
@@ -1631,8 +1676,9 @@
 }
 
 .fogArtwork .artImage {
-  filter: blur(17px) grayscale(0.52) brightness(0.48) saturate(0.68);
-  transform: scale(1.3);
+  filter: blur(var(--fog-start-blur)) grayscale(var(--fog-start-grayscale)) brightness(var(--fog-start-brightness))
+    saturate(var(--fog-start-saturation)) contrast(var(--fog-start-contrast));
+  transform: scale(var(--fog-start-scale));
   transition:
     filter 700ms ease,
     transform 700ms ease;
@@ -1643,8 +1689,9 @@
 }
 
 .fogQuestion[data-fog-stage="2"] .artImage {
-  filter: blur(7px) grayscale(0.23) brightness(0.68) saturate(0.86);
-  transform: scale(1.14);
+  filter: blur(var(--fog-middle-blur)) grayscale(var(--fog-middle-grayscale)) brightness(var(--fog-middle-brightness))
+    saturate(var(--fog-middle-saturation)) contrast(var(--fog-middle-contrast));
+  transform: scale(var(--fog-middle-scale));
 }
 
 .fogQuestion[data-fog-stage="3"] .artImage {
