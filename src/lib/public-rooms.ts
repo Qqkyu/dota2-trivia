@@ -103,7 +103,10 @@ function roomBatch(room: PublicRoom, batchNumber: number) {
 
   const previousLast = rawRoomBatch(room, batchNumber - 1).at(-1);
   const first = deck[0];
-  const conflicts = first.id === previousLast?.id || (room.mode === "mixed" && first.game === previousLast?.game);
+  const conflicts =
+    first.id === previousLast?.id ||
+    (room.mode === "mixed" && first.game === previousLast?.game) ||
+    (room.mode === "trivia" && first.kind === previousLast?.kind);
   if (!conflicts) return deck;
 
   const replacementIndex = deck.findIndex(
@@ -111,7 +114,8 @@ function roomBatch(room: PublicRoom, batchNumber: number) {
       index > 0 &&
       index < deck.length - 1 &&
       question.id !== previousLast?.id &&
-      (room.mode !== "mixed" || question.game !== previousLast?.game),
+      (room.mode !== "mixed" || question.game !== previousLast?.game) &&
+      (room.mode !== "trivia" || question.kind !== previousLast?.kind),
   );
   if (replacementIndex < 1) return deck;
 

@@ -1,11 +1,13 @@
 # Queue Arcade
 
-An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now wraps that loop around three fast minigames:
+An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now wraps that loop around five fast minigames:
 
-- **Queue Trivia** — current mana, damage, cooldown, item, and hero facts;
+- **Queue Trivia** — facts, comparisons, odd-one-out rounds, reverse recipes, and ability detective prompts;
 - **Shopkeeper Rush** — finish item recipes by finding the missing component;
 - **Spell Link** — match an ability to its hero while timed clues unlock;
-- **Mixed Arcade** — rotates all three games so consecutive rounds never feel the same.
+- **Fogged Vision** — identify a hero while its portrait clears through three fixed-layout stages;
+- **Echo Hunt** — identify a hero from a voice response, with autoplay and an always-available replay control;
+- **Mixed Arcade** — rotates all five games so consecutive rounds never feel the same.
 
 Every mode shares the parts that made the original compelling: short timed rounds, a shared answer reveal, speed and streak scoring, and double points when you are right while most of the crowd is wrong.
 
@@ -13,9 +15,11 @@ The playable MVP includes:
 
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - Open, Learning, and Veteran challenge levels with 12–18 second timers and filtered trivia pools;
-- 420 artwork-verified questions for Dota patch 7.41d;
-- item and hero artwork for the visual minigames;
+- 695 asset-verified questions across 15 templates for Dota patch 7.41d;
+- item, hero, and ability artwork for visual answer rounds;
+- 44 remotely verified hero voice rounds sourced through Dotabase;
 - progressive Spell Link clues at two-thirds and one-third time remaining;
+- deterministic template-aware scheduling, so large numeric pools cannot drown out distinctive question formats;
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
 - server-owned public rooms: everyone with the same mode, filter, and challenge level receives the same round and deadlines;
 - per-round crowd results with server-enforced deadlines and duplicate-vote protection;
@@ -74,9 +78,11 @@ The sync writes:
 - `src/data/questions.generated.json`
 - `src/data/trivia-meta.generated.json`
 
-The sync checks every referenced image and rejects questions whose artwork is unavailable. `validate-assets` can rerun
-that remote check against the committed deck. Set the patch and snapshot date deliberately after checking the current
-official gameplay patch; the content pack is explicitly patch-stamped in the UI.
+The sync uses OpenDota for current facts and artwork mappings, and Dotabase for hero-response metadata and playable
+audio paths. It checks every referenced image and audio clip, rejects questions whose assets are unavailable, filters
+voice lines that contain the hero's name, and blocks generated clues that leak their answer. `validate-assets` can
+rerun the remote checks against the committed deck. Set the patch and snapshot date deliberately after checking the
+current official gameplay patch; the content pack is explicitly patch-stamped in the UI.
 
 ## Verify it
 
@@ -84,15 +90,15 @@ official gameplay patch; the content pack is explicitly patch-stamped in the UI.
 pnpm check
 ```
 
-That validates the question deck and visual-option data, runs ESLint, runs strict TypeScript checking, and creates an optimized production build.
+That validates the question deck, template rotation, and visual/audio metadata, runs ESLint, runs strict TypeScript checking, and creates an optimized production build.
 
 With the development server running, use `pnpm check:multiplayer` to create two anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal splits, concurrent votes, duplicate rejection, the shared reveal, disk persistence, and hashed voter IDs.
 
-For visual smoke testing, start Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the arcade lobby, Shopkeeper Rush, Spell Link's progressive clues, synchronized automatic round advancement, the session report, mobile overflow, and saves screenshots under `/tmp`.
+For visual smoke testing, start Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the arcade lobby, Shopkeeper Rush, Spell Link's progressive clues, all three fixed Fogged Vision stages, Echo Hunt audio readiness, synchronized automatic round advancement, the session report, mobile overflow, and saves screenshots under `/tmp`.
 
 ## Crowd architecture
 
-Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d:...`, so future game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-1:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 
@@ -104,11 +110,12 @@ The default persistent store is an atomic JSON file suited to local development 
 2. Turn observed per-question correct rates into live challenge tiers and an admin calibration view.
 3. Add a question-report flow for ambiguous or outdated facts after patches.
 4. Add **Map Pin**, then test objective locations and common warding spots.
-5. Implement a second game's questions and minigame deck against the existing game-catalog contract.
-6. Add shared daily rooms and friend-room codes.
-7. Add Steam sign-in, leaderboards, and streak challenges only after the anonymous loop proves fun.
-8. Package it as a lightweight desktop/overlay companion for people who want it beside the real Dota queue.
+5. Add more sound formats, such as ability casts, announcer calls, and item activations.
+6. Implement a second game's questions and minigame deck against the existing game-catalog contract.
+7. Add shared daily rooms and friend-room codes.
+8. Add Steam sign-in, leaderboards, and streak challenges only after the anonymous loop proves fun.
+9. Package it as a lightweight desktop/overlay companion for people who want it beside the real Dota queue.
 
 ## Attribution
 
-Question facts are generated from [OpenDota](https://docs.opendota.com/), and game icons are served from Valve's public Dota asset CDN. Dota 2 and its assets are trademarks of Valve Corporation. This fan project is not affiliated with or endorsed by Valve.
+Question facts are generated from [OpenDota](https://docs.opendota.com/), hero-response metadata is sourced through [Dotabase](https://github.com/mdiller/dotabase), and game assets are served from public Dota asset hosts. Dota 2 and its assets are trademarks of Valve Corporation. This fan project is not affiliated with or endorsed by Valve.

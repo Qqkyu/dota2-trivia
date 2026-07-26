@@ -6,7 +6,11 @@ export function questionImageUrls(question) {
   return [question.image?.src, ...(question.answerImages ?? [])].filter(Boolean);
 }
 
-async function probeImage(url, attempt = 0) {
+export function questionAudioUrls(question) {
+  return question.audio?.src ? [question.audio.src] : [];
+}
+
+async function probeAsset(url, attempt = 0) {
   try {
     const response = await fetch(url, {
       method: "HEAD",
@@ -21,22 +25,21 @@ async function probeImage(url, attempt = 0) {
 
     if (RETRYABLE_STATUS_CODES.has(response.status) && attempt < 2) {
       await delay(250 * 2 ** attempt);
-      return probeImage(url, attempt + 1);
+      return probeAsset(url, attempt + 1);
     }
 
     throw new Error(`Asset check failed for ${url}: HTTP ${response.status}`);
   } catch (error) {
     if (attempt < 2 && error instanceof TypeError) {
       await delay(250 * 2 ** attempt);
-      return probeImage(url, attempt + 1);
+      return probeAsset(url, attempt + 1);
     }
 
     throw error;
   }
 }
 
-export async function auditImageAssets(questions, concurrency = 12) {
-  const urls = [...new Set(questions.flatMap(questionImageUrls))];
+async function auditUrls(urls, concurrency) {
   const availability = new Map();
   let cursor = 0;
 
@@ -44,7 +47,7 @@ export async function auditImageAssets(questions, concurrency = 12) {
     while (cursor < urls.length) {
       const url = urls[cursor];
       cursor += 1;
-      availability.set(url, await probeImage(url));
+      availability.set(url, await probeAsset(url));
     }
   }
 
@@ -54,4 +57,12 @@ export async function auditImageAssets(questions, concurrency = 12) {
     availability,
     checkedCount: urls.length,
   };
+}
+
+export async function auditImageAssets(questions, concurrency = 12) {
+  return auditUrls([...new Set(questions.flatMap(questionImageUrls))], concurrency);
+}
+
+export async function auditAudioAssets(questions, concurrency = 8) {
+  return auditUrls([...new Set(questions.flatMap(questionAudioUrls))], concurrency);
 }

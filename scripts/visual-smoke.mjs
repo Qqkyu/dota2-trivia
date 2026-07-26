@@ -333,6 +333,89 @@ const spellLayoutThree = await evaluate(`({
 })`);
 await screenshot("/tmp/queue-arcade-spell-link-final-clue.png");
 
+await navigate(appUrl);
+await evaluate(`(() => {
+  document.querySelector('[data-arcade-mode="fogged-vision"]')?.click();
+  document.querySelector('[data-skill-level="open"]')?.click();
+  return true;
+})()`);
+await delay(350);
+await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+await waitFor(`(() => {
+  const main = document.querySelector("main");
+  const prompt = document.querySelector('[data-testid="round-prompt"]');
+  const artwork = document.querySelector('[data-testid="question-artwork"]');
+  const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
+  return main?.dataset.phase === "answering" &&
+    main?.dataset.questionKind === "fogged-hero" &&
+    prompt?.dataset.fogStage === "1" &&
+    timer >= 10 &&
+    artwork?.dataset.artworkState === "loaded";
+})()`);
+const fogLayoutOne = await evaluate(`({
+  promptTop: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().top,
+  promptLeft: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().left,
+  promptWidth: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().width,
+  promptHeight: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().height,
+  answersTop: document.querySelector('[data-testid="answer-grid"]')?.getBoundingClientRect().top
+})`);
+await screenshot("/tmp/queue-arcade-fog-stage-1.png");
+await waitFor(`document.querySelector('[data-testid="round-prompt"]')?.dataset.fogStage === "2"`, 8_000);
+const fogLayoutTwo = await evaluate(`({
+  promptTop: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().top,
+  promptLeft: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().left,
+  promptWidth: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().width,
+  promptHeight: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().height,
+  answersTop: document.querySelector('[data-testid="answer-grid"]')?.getBoundingClientRect().top
+})`);
+await waitFor(`document.querySelector('[data-testid="round-prompt"]')?.dataset.fogStage === "3"`, 8_000);
+await delay(800);
+const fogLayoutThree = await evaluate(`({
+  promptTop: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().top,
+  promptLeft: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().left,
+  promptWidth: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().width,
+  promptHeight: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().height,
+  answersTop: document.querySelector('[data-testid="answer-grid"]')?.getBoundingClientRect().top
+})`);
+const foggedVision = await evaluate(`({
+  answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
+  answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
+  artworkLoaded: document.querySelector('[data-testid="question-artwork"]')?.dataset.artworkState === "loaded",
+  horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+})`);
+await screenshot("/tmp/queue-arcade-fog-stage-3.png");
+
+await navigate(appUrl);
+await evaluate(`(() => {
+  document.querySelector('button[aria-label="Mute game sounds"]')?.click();
+  document.querySelector('[data-arcade-mode="echo-hunt"]')?.click();
+  document.querySelector('[data-skill-level="open"]')?.click();
+  return true;
+})()`);
+await delay(350);
+await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+await waitFor(`(() => {
+  const main = document.querySelector("main");
+  const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
+  const audio = document.querySelector("audio");
+  return main?.dataset.phase === "answering" &&
+    main?.dataset.questionKind === "hero-voice" &&
+    timer >= 4 &&
+    audio?.readyState >= 2;
+})()`);
+const echoHunt = await evaluate(`({
+  answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
+  answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
+  answerImagesLoaded: [...document.querySelectorAll('[data-testid="arcade-answer"] img')]
+    .every((image) => image.complete && image.naturalWidth > 0),
+  audioReady: document.querySelector("audio")?.readyState >= 2,
+  audioSource: document.querySelector("audio")?.currentSrc,
+  replayButton: Boolean(document.querySelector('[data-testid="voice-line-play"]')),
+  playerState: document.querySelector('[data-testid="echo-player"]')?.dataset.voiceState,
+  horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+})`);
+await screenshot("/tmp/queue-arcade-echo-hunt.png");
+
 await send("Emulation.setDeviceMetricsOverride", {
   width: 390,
   height: 844,
@@ -371,7 +454,7 @@ const failures = [];
 const layoutDelta = (left, right) =>
   Object.keys(left).reduce((largest, key) => Math.max(largest, Math.abs((left[key] ?? 0) - (right[key] ?? 0))), 0);
 if (!lobby.title.includes("Queue Arcade")) failures.push("The Queue Arcade metadata title is missing.");
-if (!lobby.startButton || lobby.arcadeModes !== 4 || lobby.skillLevels !== 3) {
+if (!lobby.startButton || lobby.arcadeModes !== 6 || lobby.skillLevels !== 3) {
   failures.push("The arcade lobby controls are incomplete.");
 }
 if (lobby.horizontalOverflow) failures.push("The desktop lobby overflows horizontally.");
@@ -425,7 +508,32 @@ if (!spellFinalClue || /belongs to/i.test(spellFinalClue)) {
 if (layoutDelta(spellLayoutOne, spellLayoutTwo) > 1 || layoutDelta(spellLayoutOne, spellLayoutThree) > 1) {
   failures.push("Unlocking Spell Link clues shifts the round layout.");
 }
-if (spellLink.horizontalOverflow || mobile.horizontalOverflow || mobileQuestion.horizontalOverflow) {
+if (
+  !foggedVision.artworkLoaded ||
+  foggedVision.answerCount !== 4 ||
+  foggedVision.answerImages !== 0 ||
+  layoutDelta(fogLayoutOne, fogLayoutTwo) > 1 ||
+  layoutDelta(fogLayoutOne, fogLayoutThree) > 1
+) {
+  failures.push("Fogged Vision artwork, answers, or fixed-stage layout failed.");
+}
+if (
+  echoHunt.answerCount !== 4 ||
+  echoHunt.answerImages !== 4 ||
+  !echoHunt.answerImagesLoaded ||
+  !echoHunt.audioReady ||
+  !echoHunt.audioSource?.includes("dotabase.dillerm.io") ||
+  !echoHunt.replayButton
+) {
+  failures.push("Echo Hunt audio or hero choices failed.");
+}
+if (
+  spellLink.horizontalOverflow ||
+  foggedVision.horizontalOverflow ||
+  echoHunt.horizontalOverflow ||
+  mobile.horizontalOverflow ||
+  mobileQuestion.horizontalOverflow
+) {
   failures.push("An arcade screen overflows horizontally.");
 }
 if (mobileQuestion.answerCount !== 4) failures.push("The mobile round is missing answers.");
@@ -450,6 +558,11 @@ console.log(
       spellLayoutOne,
       spellLayoutTwo,
       spellLayoutThree,
+      foggedVision,
+      fogLayoutOne,
+      fogLayoutTwo,
+      fogLayoutThree,
+      echoHunt,
       mobile,
       mobileQuestion,
       browserErrors,

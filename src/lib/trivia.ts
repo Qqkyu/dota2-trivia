@@ -1,5 +1,6 @@
 import generatedQuestions from "@/data/questions.generated.json";
 import generatedMeta from "@/data/trivia-meta.generated.json";
+import { seededShuffle, varietyShuffle } from "@/lib/variety.mjs";
 
 export const KNOWLEDGE_FILTERS = ["Mixed", "Abilities", "Items", "Heroes"] as const;
 export const SKILL_LEVELS = ["Open", "Learning", "Veteran"] as const;
@@ -7,25 +8,48 @@ export const SKILL_LEVELS = ["Open", "Learning", "Veteran"] as const;
 export type KnowledgeFilter = (typeof KNOWLEDGE_FILTERS)[number];
 export type SkillLevel = (typeof SKILL_LEVELS)[number];
 export type TriviaCategory = "Abilities" | "Cooldowns" | "Damage" | "Recipes" | "Items" | "Mana" | "Heroes";
-export type ArcadeMode = "mixed" | "trivia" | "shopkeeper" | "spell-link";
+export type ArcadeMode = "mixed" | "trivia" | "shopkeeper" | "spell-link" | "fogged-vision" | "echo-hunt";
 export type RoundGame = Exclude<ArcadeMode, "mixed">;
+export type QuestionKind =
+  | "spell-owner"
+  | "mana-cost"
+  | "cooldown"
+  | "ability-damage"
+  | "hero-primary-attribute"
+  | "hero-move-speed"
+  | "item-cost"
+  | "recipe-component"
+  | "hero-stat-duel"
+  | "hero-intruder"
+  | "ability-detective"
+  | "recipe-upgrade"
+  | "item-price-duel"
+  | "fogged-hero"
+  | "hero-voice";
+export type TriviaArtworkKind = "ability" | "hero" | "item";
 
 export interface TriviaQuestion {
   id: string;
+  kind: QuestionKind;
   category: TriviaCategory;
   difficulty: 1 | 2 | 3;
   eyebrow: string;
   prompt: string;
-  image: {
+  image?: {
     src: string;
     alt: string;
-    kind: "ability" | "hero" | "item";
+    kind: TriviaArtworkKind;
   };
   answers: [string, string, string, string];
   answerImages?: [string, string, string, string];
+  answerImageKind?: TriviaArtworkKind;
   correctIndex: number;
   explanation: string;
+  detail?: string;
   hint?: string;
+  audio?: {
+    src: string;
+  };
   source: {
     label: string;
     url: string;
@@ -35,53 +59,24 @@ export interface TriviaQuestion {
 
 export interface TriviaMeta {
   patch: string;
+  contentVersion: string;
   snapshotDate: string;
   questionCount: number;
   categoryCounts: Record<TriviaCategory, number>;
+  kindCounts: Record<QuestionKind, number>;
   assetValidation: {
     checkedAt: string;
     verifiedAssetCount: number;
+    verifiedAudioCount: number;
     rejectedQuestionIds: string[];
   };
 }
 
 export const triviaQuestions = generatedQuestions as TriviaQuestion[];
-export const triviaMeta = generatedMeta as TriviaMeta;
+export const triviaMeta = generatedMeta as unknown as TriviaMeta;
 
 export interface ArcadeRound extends TriviaQuestion {
   game: RoundGame;
-}
-
-function hash(input: string) {
-  let value = 2166136261;
-
-  for (let index = 0; index < input.length; index += 1) {
-    value ^= input.charCodeAt(index);
-    value = Math.imul(value, 16777619);
-  }
-
-  return value >>> 0;
-}
-
-function mulberry32(seed: number) {
-  return () => {
-    let value = (seed += 0x6d2b79f5);
-    value = Math.imul(value ^ (value >>> 15), value | 1);
-    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
-    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-function seededShuffle<T>(values: T[], seed: string) {
-  const random = mulberry32(hash(seed));
-  const shuffled = [...values];
-
-  for (let index = shuffled.length - 1; index > 0; index -= 1) {
-    const target = Math.floor(random() * (index + 1));
-    [shuffled[index], shuffled[target]] = [shuffled[target], shuffled[index]];
-  }
-
-  return shuffled;
 }
 
 function belongsToFilter(question: TriviaQuestion, filter: KnowledgeFilter) {
@@ -92,20 +87,15 @@ function belongsToFilter(question: TriviaQuestion, filter: KnowledgeFilter) {
 }
 
 export function createQuestionDeck(seed: string, filter: KnowledgeFilter) {
-  const random = mulberry32(hash(`${seed}:${filter}:${triviaMeta.patch}`));
   const pool = triviaQuestions.filter((question) => belongsToFilter(question, filter));
-
-  for (let index = pool.length - 1; index > 0; index -= 1) {
-    const target = Math.floor(random() * (index + 1));
-    [pool[index], pool[target]] = [pool[target], pool[index]];
-  }
-
-  return pool;
+  return varietyShuffle(pool, `${seed}:${filter}:${triviaMeta.contentVersion}`);
 }
 
 function roundGame(question: TriviaQuestion): RoundGame {
-  if (question.category === "Recipes") return "shopkeeper";
-  if (question.id.startsWith("ability-owner:")) return "spell-link";
+  if (question.kind === "recipe-component") return "shopkeeper";
+  if (question.kind === "spell-owner") return "spell-link";
+  if (question.kind === "fogged-hero") return "fogged-vision";
+  if (question.kind === "hero-voice") return "echo-hunt";
   return "trivia";
 }
 
@@ -116,7 +106,6 @@ function belongsToSkillLevel(question: TriviaQuestion, skillLevel: SkillLevel) {
 }
 
 function shuffledPool(seed: string, game: RoundGame, filter: KnowledgeFilter, skillLevel: SkillLevel) {
-  const random = mulberry32(hash(`${seed}:${game}:${filter}:${skillLevel}:${triviaMeta.patch}`));
   const pool = triviaQuestions.filter((question) => {
     if (roundGame(question) !== game) return false;
     if (game === "trivia") return belongsToFilter(question, filter) && belongsToSkillLevel(question, skillLevel);
@@ -124,12 +113,7 @@ function shuffledPool(seed: string, game: RoundGame, filter: KnowledgeFilter, sk
     return true;
   });
 
-  for (let index = pool.length - 1; index > 0; index -= 1) {
-    const target = Math.floor(random() * (index + 1));
-    [pool[index], pool[target]] = [pool[target], pool[index]];
-  }
-
-  return pool;
+  return varietyShuffle(pool, `${seed}:${game}:${filter}:${skillLevel}:${triviaMeta.contentVersion}`);
 }
 
 export function createArcadeDeck(
@@ -145,9 +129,9 @@ export function createArcadeDeck(
           const rotation: RoundGame[] = [];
 
           while (rotation.length < length) {
-            const cycleIndex = Math.floor(rotation.length / 3);
+            const cycleIndex = Math.floor(rotation.length / 5);
             const cycle = seededShuffle(
-              ["trivia", "shopkeeper", "spell-link"] satisfies RoundGame[],
+              ["trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt"] satisfies RoundGame[],
               `${seed}:cycle:${cycleIndex}`,
             );
 
@@ -166,11 +150,15 @@ export function createArcadeDeck(
     trivia: shuffledPool(seed, "trivia", filter, skillLevel),
     shopkeeper: shuffledPool(seed, "shopkeeper", filter, skillLevel),
     "spell-link": shuffledPool(seed, "spell-link", filter, skillLevel),
+    "fogged-vision": shuffledPool(seed, "fogged-vision", filter, skillLevel),
+    "echo-hunt": shuffledPool(seed, "echo-hunt", filter, skillLevel),
   };
   const cursors: Record<RoundGame, number> = {
     trivia: 0,
     shopkeeper: 0,
     "spell-link": 0,
+    "fogged-vision": 0,
+    "echo-hunt": 0,
   };
 
   return games.flatMap((game) => {

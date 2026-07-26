@@ -12,6 +12,25 @@ const metadata = JSON.parse(await readFile(join(root, "src", "data", "trivia-met
 const failures = [];
 const ids = new Set();
 const imageUrls = new Set();
+const audioUrls = new Set();
+const allowedKinds = new Set([
+  "spell-owner",
+  "mana-cost",
+  "cooldown",
+  "ability-damage",
+  "hero-primary-attribute",
+  "hero-move-speed",
+  "item-cost",
+  "recipe-component",
+  "hero-stat-duel",
+  "hero-intruder",
+  "ability-detective",
+  "recipe-upgrade",
+  "item-price-duel",
+  "fogged-hero",
+  "hero-voice",
+]);
+const artworkOptionalKinds = new Set(["hero-stat-duel", "hero-intruder", "item-price-duel"]);
 
 if (!Array.isArray(questions) || questions.length < 100) {
   failures.push("The generated deck must contain at least 100 questions.");
@@ -22,6 +41,7 @@ for (const [index, question] of questions.entries()) {
 
   if (!question?.id || ids.has(question.id)) failures.push(`${label}: missing or duplicate id.`);
   ids.add(question.id);
+  if (!allowedKinds.has(question.kind)) failures.push(`${label}: missing or unknown question kind.`);
 
   if (!Array.isArray(question.answers) || question.answers.length !== 4) {
     failures.push(`${label}: must have exactly four answers.`);
@@ -33,7 +53,10 @@ for (const [index, question] of questions.entries()) {
     failures.push(`${label}: invalid correctIndex.`);
   }
   if (!question.answers[question.correctIndex]) failures.push(`${label}: correct answer is empty.`);
-  if (!/^https:\/\//.test(question.image?.src ?? "")) failures.push(`${label}: image URL is invalid.`);
+  if (!artworkOptionalKinds.has(question.kind) && !/^https:\/\//.test(question.image?.src ?? "")) {
+    failures.push(`${label}: image URL is invalid.`);
+  }
+  if (question.image && !/^https:\/\//.test(question.image.src ?? "")) failures.push(`${label}: image URL is invalid.`);
   if (question.image?.src) imageUrls.add(question.image.src);
   if (
     question.answerImages &&
@@ -41,25 +64,52 @@ for (const [index, question] of questions.entries()) {
   ) {
     failures.push(`${label}: answer images must contain four valid HTTPS URLs.`);
   }
+  if (question.answerImages && !["ability", "hero", "item"].includes(question.answerImageKind)) {
+    failures.push(`${label}: visual answers must declare their artwork kind.`);
+  }
   for (const image of question.answerImages ?? []) imageUrls.add(image);
   if (
-    (question.id.startsWith("ability-owner:") || question.id.startsWith("item-component:")) &&
+    [
+      "spell-owner",
+      "recipe-component",
+      "ability-detective",
+      "recipe-upgrade",
+      "hero-stat-duel",
+      "hero-intruder",
+      "item-price-duel",
+      "hero-voice",
+    ].includes(question.kind) &&
     !question.answerImages
   ) {
     failures.push(`${label}: visual arcade rounds require answer images.`);
   }
-  if (question.id.startsWith("ability-owner:")) {
+  if (question.kind === "spell-owner") {
     const correctAnswer = question.answers[question.correctIndex];
     if (!question.hint?.trim()) failures.push(`${label}: Spell Link requires an answer-safe hint.`);
     if (question.hint && containsAnswerLeak(question.hint, correctAnswer)) {
       failures.push(`${label}: Spell Link hint leaks the correct hero (${correctAnswer}).`);
     }
   }
+  if (
+    question.kind === "ability-detective" &&
+    containsAnswerLeak(question.detail ?? "", question.answers[question.correctIndex])
+  ) {
+    failures.push(`${label}: Ability Detective clue leaks the correct ability.`);
+  }
+  if (question.kind === "hero-voice") {
+    if (!/^https:\/\//.test(question.audio?.src ?? ""))
+      failures.push(`${label}: Echo Hunt requires a valid audio URL.`);
+    if (question.audio?.src) audioUrls.add(question.audio.src);
+  } else if (question.audio) {
+    failures.push(`${label}: unexpected audio payload.`);
+  }
   if (!/^https:\/\//.test(question.source?.url ?? "")) failures.push(`${label}: source URL is invalid.`);
   if (question.patch !== metadata.patch) failures.push(`${label}: patch does not match metadata.`);
 }
 
-const spellLinkQuestions = questions.filter((question) => question.id.startsWith("ability-owner:"));
+const spellLinkQuestions = questions.filter((question) => question.kind === "spell-owner");
+const foggedQuestions = questions.filter((question) => question.kind === "fogged-hero");
+const voiceQuestions = questions.filter((question) => question.kind === "hero-voice");
 const learningSpellCount = spellLinkQuestions.filter((question) => question.difficulty === 1).length;
 const veteranSpellCount = spellLinkQuestions.filter((question) => question.difficulty >= 2).length;
 const magnusSkewer = spellLinkQuestions.find((question) => question.id === "ability-owner:magnataur_skewer");
@@ -69,6 +119,8 @@ if (learningSpellCount < 12 || veteranSpellCount < 12) {
     `Spell Link needs viable Learning and Veteran pools (found ${learningSpellCount} Learning and ${veteranSpellCount} Veteran).`,
   );
 }
+if (foggedQuestions.length < 36) failures.push(`Fogged Vision needs at least 36 playable heroes.`);
+if (voiceQuestions.length < 32) failures.push(`Echo Hunt needs at least 32 verified hero clips.`);
 if (magnusSkewer?.difficulty !== 1) {
   failures.push("Magnus's highly recognizable Skewer icon must stay out of the Veteran Spell Link pool.");
 }
@@ -76,12 +128,26 @@ if (magnusSkewer?.difficulty !== 1) {
 if (metadata.questionCount !== questions.length) {
   failures.push(`Metadata says ${metadata.questionCount} questions, but the deck has ${questions.length}.`);
 }
+if (!metadata.contentVersion?.startsWith(`${metadata.patch}-`)) {
+  failures.push("The content version must namespace deck changes beneath the gameplay patch.");
+}
+for (const kind of allowedKinds) {
+  const actual = questions.filter((question) => question.kind === kind).length;
+  if ((metadata.kindCounts?.[kind] ?? 0) !== actual) {
+    failures.push(`${kind}: metadata count does not match the generated deck.`);
+  }
+}
 if (metadata.assetValidation?.checkedAt !== metadata.snapshotDate) {
   failures.push("The generated deck must record an artwork check for its snapshot date.");
 }
 if (metadata.assetValidation?.verifiedAssetCount !== imageUrls.size) {
   failures.push(
     `Metadata says ${metadata.assetValidation?.verifiedAssetCount ?? 0} images were verified, but the deck uses ${imageUrls.size}.`,
+  );
+}
+if (metadata.assetValidation?.verifiedAudioCount !== audioUrls.size) {
+  failures.push(
+    `Metadata says ${metadata.assetValidation?.verifiedAudioCount ?? 0} audio clips were verified, but the deck uses ${audioUrls.size}.`,
   );
 }
 for (const rejectedId of metadata.assetValidation?.rejectedQuestionIds ?? []) {

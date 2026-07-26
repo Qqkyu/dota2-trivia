@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import {
+  AudioLines,
   Brain,
   Check,
   ChevronRight,
@@ -10,12 +11,14 @@ import {
   Flame,
   Gauge,
   Gamepad2,
+  Headphones,
   Keyboard,
   Radio,
   RotateCcw,
   ShoppingBag,
   Shuffle,
   Signal,
+  ScanEye,
   Sparkles,
   Swords,
   Trophy,
@@ -38,6 +41,7 @@ import {
   type KnowledgeFilter,
   type RoundGame,
   type SkillLevel,
+  type TriviaArtworkKind,
   type TriviaQuestion,
 } from "@/lib/trivia";
 import type { CrowdResult, PublicRoomSettings, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
@@ -132,9 +136,9 @@ const MODE_INFO: Record<
     label: "Mixed Arcade",
     shortLabel: "Mixed",
     eyebrow: "House pick · Recommended",
-    description: "Trivia, recipes, and spell recognition rotate every round. Maximum chaos, zero downtime.",
+    description: "Facts, recipes, spells, fog, and hero voices rotate every round. Maximum chaos, zero downtime.",
     action: "Enter mixed arcade",
-    rule: "All three games rotate automatically—no back-to-back repeats.",
+    rule: "All five games rotate automatically—no back-to-back repeats.",
   },
   trivia: {
     label: "Queue Trivia",
@@ -160,12 +164,30 @@ const MODE_INFO: Record<
     action: "Link some spells",
     rule: "Extra clues unlock as time burns down, and each one reduces the available score.",
   },
+  "fogged-vision": {
+    label: "Fogged Vision",
+    shortLabel: "Fogged",
+    eyebrow: "Progressive reveal",
+    description: "Recognize a hero through heavy fog before the portrait sharpens and the easy points disappear.",
+    action: "Enter the fog",
+    rule: "The portrait clears in three stages. Lock in early while the image is still obscured.",
+  },
+  "echo-hunt": {
+    label: "Echo Hunt",
+    shortLabel: "Echo",
+    eyebrow: "Sound check",
+    description: "Hear a hero response and identify its owner from four closely matched portraits.",
+    action: "Hunt some echoes",
+    rule: "Play or replay the voice line while the shared round timer keeps moving.",
+  },
 };
 
 function ModeIcon({ mode }: { mode: ArcadeMode | RoundGame }) {
   if (mode === "mixed") return <Shuffle />;
   if (mode === "shopkeeper") return <ShoppingBag />;
   if (mode === "spell-link") return <WandSparkles />;
+  if (mode === "fogged-vision") return <ScanEye />;
+  if (mode === "echo-hunt") return <AudioLines />;
   return <Brain />;
 }
 
@@ -246,7 +268,7 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     typeof round.id !== "string" ||
     typeof round.number !== "number" ||
     (round.phase !== "answering" && round.phase !== "reveal") ||
-    !["trivia", "shopkeeper", "spell-link"].includes(round.game) ||
+    !["trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt"].includes(round.game) ||
     typeof round.questionId !== "string" ||
     typeof round.startedAt !== "number" ||
     typeof round.answerDeadline !== "number" ||
@@ -343,11 +365,21 @@ function spellMechanicHint(hint: string) {
   return matches.length ? matches.slice(0, 2).join(" · ") : "Utility effect";
 }
 
-function QuestionArtwork({ question }: { question: TriviaQuestion }) {
+function QuestionArtwork({
+  question,
+  concealIdentity = false,
+}: {
+  question: TriviaQuestion;
+  concealIdentity?: boolean;
+}) {
   const [failedSource, setFailedSource] = useState<string | null>(null);
   const [loadedSource, setLoadedSource] = useState<string | null>(null);
-  const failed = failedSource === question.image.src;
-  const loaded = loadedSource === question.image.src;
+  const image = question.image;
+  const source = image?.src ?? "";
+  const failed = failedSource === source;
+  const loaded = loadedSource === source;
+
+  if (!image) return null;
 
   return (
     <div
@@ -355,22 +387,22 @@ function QuestionArtwork({ question }: { question: TriviaQuestion }) {
       data-artwork-state={failed ? "fallback" : loaded ? "loaded" : "loading"}
       className={clsx(
         styles.artwork,
-        question.image.kind === "hero" && styles.heroArtwork,
-        question.image.kind === "item" && styles.itemArtwork,
+        image.kind === "hero" && styles.heroArtwork,
+        image.kind === "item" && styles.itemArtwork,
       )}
     >
       <div className={styles.artGlow} />
       {failed ? (
-        <span className={styles.artFallback}>{question.eyebrow.slice(0, 2).toUpperCase()}</span>
+        <span className={styles.artFallback}>{concealIdentity ? "?" : question.eyebrow.slice(0, 2).toUpperCase()}</span>
       ) : (
         <Image
-          src={question.image.src}
-          alt={question.image.alt}
+          src={image.src}
+          alt={concealIdentity ? "" : image.alt}
           fill
           sizes="(max-width: 700px) 112px, 150px"
           className={styles.artImage}
-          onLoad={() => setLoadedSource(question.image.src)}
-          onError={() => setFailedSource(question.image.src)}
+          onLoad={() => setLoadedSource(image.src)}
+          onError={() => setFailedSource(image.src)}
           unoptimized
           priority
         />
@@ -380,11 +412,17 @@ function QuestionArtwork({ question }: { question: TriviaQuestion }) {
   );
 }
 
-function AnswerArtwork({ src, alt, kind }: { src: string; alt: string; kind: "item" | "hero" }) {
+function AnswerArtwork({ src, alt, kind }: { src: string; alt: string; kind: TriviaArtworkKind }) {
   const [failed, setFailed] = useState(false);
 
   return (
-    <span className={clsx(styles.answerArtwork, kind === "hero" && styles.answerHeroArtwork)}>
+    <span
+      className={clsx(
+        styles.answerArtwork,
+        kind === "hero" && styles.answerHeroArtwork,
+        kind === "ability" && styles.answerAbilityArtwork,
+      )}
+    >
       {failed ? (
         <span>{alt.slice(0, 2).toUpperCase()}</span>
       ) : (
@@ -438,6 +476,8 @@ export function QueueArcade() {
   const [roomError, setRoomError] = useState<string | null>(null);
   const [activeRoomId, setActiveRoomId] = useState("");
   const [activeRoundId, setActiveRoundId] = useState("");
+  const [voiceState, setVoiceState] = useState<"loading" | "ready" | "playing" | "error">("loading");
+  const [voicePlayCount, setVoicePlayCount] = useState(0);
 
   const phaseRef = useRef<GamePhase>("lobby");
   const currentQuestionRef = useRef<ArcadeRound | null>(null);
@@ -456,6 +496,7 @@ export function QueueArcade() {
   const roundIdRef = useRef("");
   const syncPromiseRef = useRef<Promise<void> | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const voiceAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const answerDuration = SKILL_INFO[skillLevel].duration;
   const previewQuestion = useMemo(() => {
@@ -463,7 +504,13 @@ export function QueueArcade() {
       return ACTIVE_QUESTIONS.find((question) => question.category === "Recipes") ?? ACTIVE_QUESTIONS[0];
     }
     if (mode === "spell-link") {
-      return ACTIVE_QUESTIONS.find((question) => question.id.startsWith("ability-owner:")) ?? ACTIVE_QUESTIONS[0];
+      return ACTIVE_QUESTIONS.find((question) => question.kind === "spell-owner") ?? ACTIVE_QUESTIONS[0];
+    }
+    if (mode === "fogged-vision") {
+      return ACTIVE_QUESTIONS.find((question) => question.kind === "fogged-hero") ?? ACTIVE_QUESTIONS[0];
+    }
+    if (mode === "echo-hunt") {
+      return ACTIVE_QUESTIONS.find((question) => question.kind === "hero-voice") ?? ACTIVE_QUESTIONS[0];
     }
     return ACTIVE_QUESTIONS.find((question) => question.id === "cooldown:lina_dragon_slave:4") ?? ACTIVE_QUESTIONS[0];
   }, [mode]);
@@ -542,6 +589,16 @@ export function QueueArcade() {
     },
     [soundEnabled],
   );
+
+  const playVoiceLine = useCallback(() => {
+    const audio = voiceAudioRef.current;
+    if (!audio) return;
+
+    setSoundEnabled(true);
+    audio.currentTime = 0;
+    setVoiceState("loading");
+    void audio.play().catch(() => setVoiceState("error"));
+  }, []);
 
   const requestRoomSnapshot = useCallback(async (settings: PublicRoomSettings, playerId: string) => {
     const requestedAt = Date.now();
@@ -639,6 +696,8 @@ export function QueueArcade() {
         currentQuestionRef.current = question;
         setCurrentQuestion(question);
         setRoundAward(null);
+        setVoiceState("loading");
+        setVoicePlayCount(0);
 
         const nextRoundIndex = hadRound ? roundIndexRef.current + 1 : 0;
         roundIndexRef.current = nextRoundIndex;
@@ -986,9 +1045,32 @@ export function QueueArcade() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [chooseAnswer]);
 
+  useEffect(() => {
+    if (phase !== "answering") voiceAudioRef.current?.pause();
+  }, [phase]);
+
+  useEffect(() => {
+    const audio = voiceAudioRef.current;
+    if (
+      phase !== "answering" ||
+      currentQuestion?.game !== "echo-hunt" ||
+      !currentQuestion.audio ||
+      !soundEnabled ||
+      !audio
+    ) {
+      return;
+    }
+
+    audio.currentTime = 0;
+    void audio.play().catch(() => {
+      setVoiceState(audio.readyState >= 2 ? "ready" : "loading");
+    });
+  }, [currentQuestion?.audio, currentQuestion?.game, currentQuestion?.id, phase, soundEnabled]);
+
   useEffect(
     () => () => {
       if (audioContextRef.current) void audioContextRef.current.close();
+      voiceAudioRef.current?.pause();
     },
     [],
   );
@@ -1029,6 +1111,7 @@ export function QueueArcade() {
       data-phase={phase}
       data-room-id={activeRoomId || undefined}
       data-round-id={activeRoundId || undefined}
+      data-question-kind={currentQuestion?.kind}
     >
       <div className={styles.backdrop} aria-hidden="true">
         <span className={styles.backdropOrbOne} />
@@ -1063,7 +1146,12 @@ export function QueueArcade() {
           <button
             type="button"
             className={styles.iconButton}
-            onClick={() => setSoundEnabled((enabled) => !enabled)}
+            onClick={() =>
+              setSoundEnabled((enabled) => {
+                if (enabled) voiceAudioRef.current?.pause();
+                return !enabled;
+              })
+            }
             aria-label={soundEnabled ? "Mute game sounds" : "Enable game sounds"}
             aria-pressed={soundEnabled}
           >
@@ -1077,7 +1165,7 @@ export function QueueArcade() {
           <div className={styles.lobbyCopy}>
             <div className={styles.liveLabel}>
               <span />
-              Three games live · More in the lab
+              Five games live · More in the lab
             </div>
             <h1>
               Your queue has
@@ -1195,7 +1283,7 @@ export function QueueArcade() {
 
             <div className={styles.featureStrip}>
               <div>
-                <strong>3</strong>
+                <strong>{ARCADE_MODES.length - 1}</strong>
                 <span>games live</span>
               </div>
               <div>
@@ -1224,7 +1312,22 @@ export function QueueArcade() {
                 <strong>00:{String(answerDuration / 1000).padStart(2, "0")}</strong>
               </div>
               <div className={styles.previewQuestion}>
-                <QuestionArtwork question={previewQuestion} />
+                {mode === "echo-hunt" ? (
+                  <div className={styles.previewEcho} aria-hidden="true">
+                    <Headphones />
+                    <span>
+                      <i />
+                      <i />
+                      <i />
+                      <i />
+                      <i />
+                    </span>
+                  </div>
+                ) : (
+                  <div className={clsx(mode === "fogged-vision" && styles.previewFog)} data-fog-stage="1">
+                    <QuestionArtwork question={previewQuestion} concealIdentity={mode === "fogged-vision"} />
+                  </div>
+                )}
                 <span>{activeModeInfo.eyebrow}</span>
                 <h2>
                   {mode === "mixed"
@@ -1233,7 +1336,11 @@ export function QueueArcade() {
                       ? `Finish ${previewQuestion.eyebrow}'s recipe.`
                       : mode === "spell-link"
                         ? "Who cast this? Link the spell to its hero."
-                        : previewQuestion.prompt}
+                        : mode === "fogged-vision"
+                          ? "Name the hero before the fog clears."
+                          : mode === "echo-hunt"
+                            ? "Whose voice just crossed the river?"
+                            : previewQuestion.prompt}
                 </h2>
                 <p>{activeModeInfo.description}</p>
               </div>
@@ -1266,12 +1373,14 @@ export function QueueArcade() {
       )}
 
       {(phase === "answering" || phase === "reveal") && currentQuestion && (
-        <section className={styles.gameLayout} data-testid="public-room">
+        <section className={styles.gameLayout} data-testid="public-room" data-round-game={currentGame}>
           <div
             className={clsx(
               styles.gameStage,
               currentGame === "shopkeeper" && styles.shopkeeperStage,
               currentGame === "spell-link" && styles.spellLinkStage,
+              currentGame === "fogged-vision" && styles.foggedStage,
+              currentGame === "echo-hunt" && styles.echoStage,
             )}
           >
             <div className={styles.timerTrack} aria-hidden="true">
@@ -1380,12 +1489,109 @@ export function QueueArcade() {
                   <small>Every extra clue costs {SPELL_CLUE_PENALTY} points, on top of the fading speed bonus</small>
                 </div>
               </div>
+            ) : currentGame === "fogged-vision" ? (
+              <div
+                className={clsx(styles.questionBlock, styles.fogQuestion)}
+                data-testid="round-prompt"
+                data-fog-stage={clueStage}
+              >
+                <div className={styles.fogArtwork}>
+                  <QuestionArtwork question={currentQuestion} concealIdentity />
+                  <span>
+                    <ScanEye />
+                    Fog {String(clueStage).padStart(2, "0")}
+                    <small>/ 03</small>
+                  </span>
+                </div>
+                <div className={styles.questionCopy}>
+                  <span>Fogged Vision · Progressive reveal</span>
+                  <h2>Which hero is hiding in the fog?</h2>
+                  <div className={styles.fogMeter} aria-label={`Portrait clarity stage ${clueStage} of 3`}>
+                    {Array.from({ length: 3 }, (_, index) => (
+                      <span key={index} className={index < clueStage ? styles.fogMeterActive : undefined} />
+                    ))}
+                  </div>
+                  <small>Trust the silhouette, palette, and pose.</small>
+                </div>
+              </div>
+            ) : currentGame === "echo-hunt" ? (
+              <div className={clsx(styles.questionBlock, styles.echoQuestion)} data-testid="round-prompt">
+                <audio
+                  key={currentQuestion.id}
+                  ref={voiceAudioRef}
+                  src={currentQuestion.audio?.src}
+                  preload="auto"
+                  onLoadStart={() => setVoiceState("loading")}
+                  onCanPlay={() => setVoiceState((state) => (state === "playing" ? state : "ready"))}
+                  onPlay={() => {
+                    setVoiceState("playing");
+                    setVoicePlayCount((count) => count + 1);
+                  }}
+                  onPause={() => {
+                    if (phaseRef.current === "answering") setVoiceState("ready");
+                  }}
+                  onEnded={() => setVoiceState("ready")}
+                  onError={() => setVoiceState("error")}
+                />
+                <div
+                  className={styles.echoPlayer}
+                  data-testid="echo-player"
+                  data-voice-state={voiceState}
+                  data-play-count={voicePlayCount}
+                >
+                  <button
+                    type="button"
+                    data-testid="voice-line-play"
+                    onClick={playVoiceLine}
+                    aria-label={voicePlayCount ? "Replay hero voice line" : "Play hero voice line"}
+                  >
+                    {voiceState === "playing" ? <AudioLines /> : <Headphones />}
+                  </button>
+                  <div className={styles.echoWave} aria-hidden="true">
+                    {Array.from({ length: 15 }, (_, index) => (
+                      <i key={index} />
+                    ))}
+                  </div>
+                  <span>
+                    {voiceState === "error"
+                      ? "Audio unavailable"
+                      : voiceState === "loading"
+                        ? "Loading echo"
+                        : voiceState === "playing"
+                          ? "Now playing"
+                          : voicePlayCount
+                            ? "Replay echo"
+                            : "Play echo"}
+                  </span>
+                </div>
+                <div className={styles.questionCopy}>
+                  <span>Echo Hunt · Hero response</span>
+                  <h2>Whose voice crossed the river?</h2>
+                  <small>The line stays hidden until the reveal.</small>
+                </div>
+              </div>
             ) : (
-              <div className={styles.questionBlock} data-testid="round-prompt">
-                <QuestionArtwork question={currentQuestion} />
+              <div
+                className={clsx(styles.questionBlock, !currentQuestion.image && styles.textQuestion)}
+                data-testid="round-prompt"
+              >
+                {currentQuestion.image ? (
+                  <QuestionArtwork question={currentQuestion} />
+                ) : (
+                  <div className={styles.questionGlyph} aria-hidden="true">
+                    {currentQuestion.kind === "hero-stat-duel" ||
+                    currentQuestion.kind === "item-price-duel" ||
+                    currentQuestion.kind === "hero-move-speed" ? (
+                      <Gauge />
+                    ) : (
+                      <Swords />
+                    )}
+                  </div>
+                )}
                 <div className={styles.questionCopy}>
                   <span>{currentQuestion.eyebrow}</span>
                   <h2>{currentQuestion.prompt}</h2>
+                  {currentQuestion.detail && <p className={styles.questionDetail}>{currentQuestion.detail}</p>}
                   <small>Patch {currentQuestion.patch} · No talents or upgrades unless stated</small>
                 </div>
               </div>
@@ -1395,7 +1601,9 @@ export function QueueArcade() {
               className={clsx(
                 styles.answers,
                 currentGame === "shopkeeper" && styles.itemAnswers,
-                currentGame === "spell-link" && styles.heroAnswers,
+                (currentQuestion.answerImageKind === "hero" || currentGame === "spell-link") && styles.heroAnswers,
+                currentGame === "fogged-vision" && styles.fogAnswers,
+                currentGame === "echo-hunt" && styles.echoAnswers,
               )}
               role="group"
               aria-label="Answer choices"
@@ -1433,7 +1641,10 @@ export function QueueArcade() {
                       <AnswerArtwork
                         src={currentQuestion.answerImages[index]}
                         alt={answer}
-                        kind={currentGame === "spell-link" ? "hero" : "item"}
+                        kind={
+                          currentQuestion.answerImageKind ??
+                          (currentGame === "spell-link" || currentGame === "echo-hunt" ? "hero" : "item")
+                        }
                       />
                     )}
                     <span className={styles.answerText}>
@@ -1465,7 +1676,11 @@ export function QueueArcade() {
                       ? "Pick the missing component · A–D or 1–4"
                       : currentGame === "spell-link"
                         ? "Link the spell to a hero · A–D or 1–4"
-                        : "Use A–D or 1–4 to answer"}
+                        : currentGame === "fogged-vision"
+                          ? "Name the silhouette · A–D or 1–4"
+                          : currentGame === "echo-hunt"
+                            ? "Play the echo, then choose · A–D or 1–4"
+                            : "Use A–D or 1–4 to answer"}
                     <span>Correct now: {liveAward?.rawPoints ?? 0} pts</span>
                   </>
                 ) : (
@@ -1615,14 +1830,22 @@ export function QueueArcade() {
                     ? "Shopkeeper tip"
                     : currentGame === "spell-link"
                       ? "Spell Link tip"
-                      : "Crowd rules"}
+                      : currentGame === "fogged-vision"
+                        ? "Fogged Vision tip"
+                        : currentGame === "echo-hunt"
+                          ? "Echo Hunt tip"
+                          : "Crowd rules"}
                 </span>
                 <p>
                   {currentGame === "shopkeeper"
                     ? "Look for the real component, not an item that merely has a similar cost or stat."
                     : currentGame === "spell-link"
                       ? `Each extra clue costs ${SPELL_CLUE_PENALTY} points. Answering sooner also preserves up to ${MAX_SPEED_BONUS} speed points.`
-                      : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
+                      : currentGame === "fogged-vision"
+                        ? "Silhouette and color are often enough. Every clarity stage is safer, but costs time."
+                        : currentGame === "echo-hunt"
+                          ? "Accent, cadence, and vocal effects are useful tells. Replay as often as the timer allows."
+                          : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
                 </p>
               </div>
             </div>

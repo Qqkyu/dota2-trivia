@@ -3,9 +3,9 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { auditImageAssets, questionImageUrls } from "./image-assets.mjs";
+import { auditAudioAssets, auditImageAssets, questionAudioUrls, questionImageUrls } from "./image-assets.mjs";
 import { spellDifficulty, spellDistractors } from "./spell-difficulty.mjs";
-import { buildSpellHint } from "./spell-hints.mjs";
+import { buildSpellHint, containsAnswerLeak } from "./spell-hints.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const OUTPUT = join(ROOT, "src", "data", "questions.generated.json");
@@ -13,13 +13,17 @@ const META_OUTPUT = join(ROOT, "src", "data", "trivia-meta.generated.json");
 
 const PATCH = process.env.DOTA_PATCH ?? "7.41d";
 const SNAPSHOT_DATE = process.env.DOTA_SNAPSHOT_DATE ?? new Date().toISOString().slice(0, 10);
+const CONTENT_VERSION = `${PATCH}-variety-1`;
 const CDN = "https://cdn.cloudflare.steamstatic.com";
+const DOTABASE_RAW = "https://raw.githubusercontent.com/mdiller/dotabase/master";
+const DOTABASE_ASSETS = "https://dotabase.dillerm.io/vpk";
 
 const endpoints = {
   heroes: "https://api.opendota.com/api/constants/heroes",
   items: "https://api.opendota.com/api/constants/items",
   abilities: "https://api.opendota.com/api/constants/abilities",
   heroAbilities: "https://api.opendota.com/api/constants/hero_abilities",
+  dotabaseHeroes: `${DOTABASE_RAW}/json/heroes.json`,
 };
 
 const cacheArg = process.argv.find((argument) => argument.startsWith("--cache-dir="));
@@ -79,6 +83,7 @@ function numericOptions(correct, kind, salt) {
 
 function makeQuestion({
   id,
+  kind,
   category,
   difficulty,
   eyebrow,
@@ -87,18 +92,21 @@ function makeQuestion({
   answers,
   correctAnswer,
   answerImagesByValue,
+  answerImageKind,
   explanation,
+  detail,
   hint,
+  audio,
   source,
 }) {
   const orderedAnswers = shuffle(answers, id);
   const question = {
     id,
+    kind,
     category,
     difficulty,
     eyebrow,
     prompt,
-    image,
     answers: orderedAnswers,
     correctIndex: orderedAnswers.indexOf(correctAnswer),
     explanation,
@@ -106,10 +114,14 @@ function makeQuestion({
     patch: PATCH,
   };
 
+  if (image) question.image = image;
+  if (detail) question.detail = detail;
   if (hint) question.hint = hint;
+  if (audio) question.audio = audio;
 
   if (answerImagesByValue && orderedAnswers.every((answer) => answerImagesByValue[answer])) {
     question.answerImages = orderedAnswers.map((answer) => answerImagesByValue[answer]);
+    question.answerImageKind = answerImageKind;
   }
 
   return question;
@@ -130,9 +142,59 @@ function formatRecipeComponents(componentKeys, itemData) {
   return [...counts].map(([name, count]) => (count > 1 ? `${name} ×${count}` : name)).join(", ");
 }
 
+function comparisonGroup(anchor, pool, valueOf, direction, salt) {
+  const correctValue = valueOf(anchor);
+  const candidates = pool
+    .filter((candidate) => {
+      if (candidate.key === anchor.key) return false;
+      const value = valueOf(candidate);
+      return direction === "max" ? value < correctValue : value > correctValue;
+    })
+    .sort((left, right) => {
+      const distance = Math.abs(valueOf(left) - correctValue) - Math.abs(valueOf(right) - correctValue);
+      return distance || hash(`${salt}:${left.key}`) - hash(`${salt}:${right.key}`);
+    });
+
+  return [anchor, ...candidates.slice(0, 3)];
+}
+
+function answerArtworkByName(entries) {
+  return Object.fromEntries(entries.map((entry) => [entry.localized_name ?? entry.dname, entry.image]));
+}
+
+function normalizedWords(value) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9'-]+/g, " ")
+    .split(/\s+/)
+    .filter((word) => word.length >= 3);
+}
+
+function responseSlug(value) {
+  return value
+    .toLowerCase()
+    .replace(/['’]/g, "")
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+}
+
+function voiceLineLeaksHero(response, hero, dotabaseHero) {
+  const line = response.text_simple || response.text || "";
+  const aliases = new Set([
+    ...normalizedWords(hero.localized_name),
+    ...normalizedWords(dotabaseHero?.name ?? ""),
+    ...normalizedWords(dotabaseHero?.aliases ?? ""),
+  ]);
+
+  return [...aliases].some((alias) =>
+    new RegExp(`\\b${alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i").test(line),
+  );
+}
+
 async function loadDataset(name, url) {
   if (cacheDirectory) {
-    const cacheName = name === "heroAbilities" ? "hero-abilities" : name;
+    const cacheName =
+      name === "heroAbilities" ? "hero-abilities" : name === "dotabaseHeroes" ? "dotabase-heroes" : name;
     return JSON.parse(await readFile(join(cacheDirectory, `dota-${cacheName}.json`), "utf8"));
   }
 
@@ -145,16 +207,51 @@ async function loadDataset(name, url) {
   return response.json();
 }
 
-const [heroesById, itemsByKey, abilitiesByKey, heroAbilitiesByKey] = await Promise.all(
+async function loadHeroResponses(responseNames) {
+  for (const responseName of responseNames) {
+    if (cacheDirectory) {
+      try {
+        return JSON.parse(await readFile(join(cacheDirectory, `dota-responses-${responseName}.json`), "utf8"));
+      } catch (error) {
+        if (error?.code === "ENOENT") continue;
+        throw error;
+      }
+    }
+
+    const url = `${DOTABASE_RAW}/json/responses/${responseName}.json`;
+    const response = await fetch(url, {
+      headers: {
+        "user-agent": "queue-arcade-data-sync/1.0",
+      },
+    });
+    if (response.status === 404) continue;
+    if (!response.ok) throw new Error(`Failed to fetch ${url}: ${response.status}`);
+    return response.json();
+  }
+
+  throw new Error(`No response file matched ${responseNames.join(" or ")}`);
+}
+
+const [heroesById, itemsByKey, abilitiesByKey, heroAbilitiesByKey, dotabaseHeroes] = await Promise.all(
   Object.entries(endpoints).map(([name, url]) => loadDataset(name, url)),
 );
 
+const dotabaseHeroById = new Map(dotabaseHeroes.map((hero) => [hero.id, hero]));
 const heroes = Object.values(heroesById)
   .filter((hero) => hero.localized_name && hero.name && hero.img)
   .map((hero) => ({
     ...hero,
     key: hero.name,
     image: asset(hero.img),
+    responseNames: [
+      ...new Set(
+        [
+          dotabaseHeroById.get(hero.id)?.media_name,
+          dotabaseHeroById.get(hero.id)?.name,
+          responseSlug(hero.localized_name),
+        ].filter(Boolean),
+      ),
+    ],
   }));
 
 const heroByKey = new Map(heroes.map((hero) => [hero.key, hero]));
@@ -193,6 +290,10 @@ const questionSource = {
   label: `OpenDota constants · ${SNAPSHOT_DATE}`,
   url: "https://docs.opendota.com/",
 };
+const voiceSource = {
+  label: `Dotabase hero responses · ${SNAPSHOT_DATE}`,
+  url: "https://github.com/mdiller/dotabase",
+};
 
 const questions = [];
 
@@ -205,6 +306,7 @@ for (const ability of stableSample(abilities, 72, "ability-owner")) {
   questions.push(
     makeQuestion({
       id: `ability-owner:${ability.key}`,
+      kind: "spell-owner",
       category: "Abilities",
       difficulty,
       eyebrow: ability.dname,
@@ -213,8 +315,57 @@ for (const ability of stableSample(abilities, 72, "ability-owner")) {
       answers: answerHeroes.map((hero) => hero.localized_name),
       correctAnswer: ability.owner.localized_name,
       answerImagesByValue: Object.fromEntries(answerHeroes.map((hero) => [hero.localized_name, hero.image])),
+      answerImageKind: "hero",
       explanation: `${ability.dname} belongs to ${ability.owner.localized_name}.${ability.desc ? ` ${ability.desc}` : ""}`,
       hint: buildSpellHint(ability.desc, ability.owner.localized_name, ability.dname),
+      source: questionSource,
+    }),
+  );
+}
+
+const detectiveCandidates = abilities
+  .map((ability) => {
+    const siblings = abilities.filter(
+      (candidate) =>
+        candidate.owner.key === ability.owner.key &&
+        candidate.key !== ability.key &&
+        candidate.dname !== ability.dname &&
+        candidate.image,
+    );
+    const detail = buildSpellHint(ability.desc, ability.owner.localized_name, ability.dname);
+    return { ...ability, siblings, detail };
+  })
+  .filter(
+    (ability) =>
+      ability.siblings.length >= 3 &&
+      ability.detail.length >= 18 &&
+      !ability.detail.startsWith("No additional mechanical clue") &&
+      !containsAnswerLeak(ability.detail, ability.dname),
+  );
+
+for (const ability of stableSample(detectiveCandidates, 48, "ability-detective")) {
+  const siblingAnswers = stableSample(ability.siblings, 3, `ability-detective:${ability.key}`);
+  const answerAbilities = [ability, ...siblingAnswers];
+
+  questions.push(
+    makeQuestion({
+      id: `ability-detective:${ability.key}`,
+      kind: "ability-detective",
+      category: "Abilities",
+      difficulty: 2,
+      eyebrow: `${ability.owner.localized_name} · Ability Detective`,
+      prompt: "Which of this hero’s abilities matches the effect below?",
+      detail: ability.detail,
+      image: {
+        src: ability.owner.image,
+        alt: `${ability.owner.localized_name} hero portrait`,
+        kind: "hero",
+      },
+      answers: answerAbilities.map((candidate) => candidate.dname),
+      correctAnswer: ability.dname,
+      answerImagesByValue: answerArtworkByName(answerAbilities),
+      answerImageKind: "ability",
+      explanation: `${ability.dname}: ${ability.desc}`,
       source: questionSource,
     }),
   );
@@ -235,6 +386,7 @@ for (const ability of stableSample(manaAbilities, 60, "mana")) {
   questions.push(
     makeQuestion({
       id: `mana:${ability.key}:${levelIndex + 1}`,
+      kind: "mana-cost",
       category: "Mana",
       difficulty: 2,
       eyebrow: `${ability.owner.localized_name} · ${ability.dname}`,
@@ -263,6 +415,7 @@ for (const ability of stableSample(cooldownAbilities, 52, "cooldown")) {
   questions.push(
     makeQuestion({
       id: `cooldown:${ability.key}:${levelIndex + 1}`,
+      kind: "cooldown",
       category: "Cooldowns",
       difficulty: 3,
       eyebrow: `${ability.owner.localized_name} · ${ability.dname}`,
@@ -296,6 +449,7 @@ for (const { ability, values } of stableSample(
   questions.push(
     makeQuestion({
       id: `damage:${ability.key}:${levelIndex + 1}`,
+      kind: "ability-damage",
       category: "Damage",
       difficulty: 3,
       eyebrow: `${ability.owner.localized_name} · ${ability.dname}`,
@@ -323,6 +477,7 @@ for (const hero of stableSample(heroes, 44, "primary-attribute")) {
   questions.push(
     makeQuestion({
       id: `primary-attribute:${hero.key}`,
+      kind: "hero-primary-attribute",
       category: "Heroes",
       difficulty: 1,
       eyebrow: hero.localized_name,
@@ -347,6 +502,7 @@ for (const hero of stableSample(
   questions.push(
     makeQuestion({
       id: `move-speed:${hero.key}`,
+      kind: "hero-move-speed",
       category: "Heroes",
       difficulty: 2,
       eyebrow: hero.localized_name,
@@ -356,6 +512,189 @@ for (const hero of stableSample(
       correctAnswer: formatNumber(correct),
       explanation: `${hero.localized_name} has ${formatNumber(correct)} base movement speed, before boots and other modifiers.`,
       source: questionSource,
+    }),
+  );
+}
+
+const heroStatDefinitions = [
+  {
+    key: "move-speed",
+    label: "base movement speed",
+    value: (hero) => Number(hero.move_speed),
+    eligible: (hero) => Number.isFinite(hero.move_speed),
+    direction: "max",
+    difficulty: 2,
+    format: (value) => formatNumber(value),
+  },
+  {
+    key: "attack-range",
+    label: "attack range",
+    value: (hero) => Number(hero.attack_range),
+    eligible: (hero) => hero.attack_type === "Ranged" && Number.isFinite(hero.attack_range),
+    direction: "max",
+    difficulty: 2,
+    format: (value) => formatNumber(value),
+  },
+  {
+    key: "base-attack-time",
+    label: "base attack time",
+    value: (hero) => Number(hero.attack_rate),
+    eligible: (hero) => Number.isFinite(hero.attack_rate) && hero.attack_rate > 0,
+    direction: "min",
+    difficulty: 3,
+    format: (value) => `${formatNumber(value)}s`,
+  },
+];
+
+for (const stat of heroStatDefinitions) {
+  const pool = heroes.filter(stat.eligible);
+  const anchors = pool.filter(
+    (hero) => comparisonGroup(hero, pool, stat.value, stat.direction, `hero-stat:${stat.key}:${hero.key}`).length === 4,
+  );
+
+  for (const hero of stableSample(anchors, 14, `hero-stat:${stat.key}`)) {
+    const answerHeroes = comparisonGroup(hero, pool, stat.value, stat.direction, `hero-stat:${stat.key}:${hero.key}`);
+    const comparisonWord = stat.direction === "max" ? "highest" : "lowest";
+    const values = answerHeroes
+      .map((candidate) => `${candidate.localized_name} ${stat.format(stat.value(candidate))}`)
+      .join(" · ");
+
+    questions.push(
+      makeQuestion({
+        id: `hero-stat:${stat.key}:${hero.key}`,
+        kind: "hero-stat-duel",
+        category: "Heroes",
+        difficulty: stat.difficulty,
+        eyebrow: `Stat Duel · ${stat.label}`,
+        prompt: `Which hero has the ${comparisonWord} ${stat.label}?`,
+        answers: answerHeroes.map((candidate) => candidate.localized_name),
+        correctAnswer: hero.localized_name,
+        answerImagesByValue: answerArtworkByName(answerHeroes),
+        answerImageKind: "hero",
+        explanation: `${hero.localized_name} leads these choices. ${values}.`,
+        source: questionSource,
+      }),
+    );
+  }
+}
+
+const heroesByAttribute = heroes.reduce((groups, hero) => {
+  groups[hero.primary_attr] ??= [];
+  groups[hero.primary_attr].push(hero);
+  return groups;
+}, {});
+for (const hero of stableSample(heroes, 32, "hero-intruder")) {
+  const distractorAttributes = Object.keys(heroesByAttribute).filter(
+    (attribute) => attribute !== hero.primary_attr && (heroesByAttribute[attribute]?.length ?? 0) >= 3,
+  );
+  const distractorAttribute = distractorAttributes[hash(`hero-intruder:${hero.key}`) % distractorAttributes.length];
+  const distractors = stableSample(
+    heroesByAttribute[distractorAttribute] ?? [],
+    3,
+    `hero-intruder:${hero.key}:${distractorAttribute}`,
+  );
+  if (distractors.length !== 3) continue;
+
+  const answerHeroes = [hero, ...distractors];
+  const heroAttribute = attributeNames[hero.primary_attr];
+  const sharedAttribute = attributeNames[distractorAttribute];
+
+  questions.push(
+    makeQuestion({
+      id: `hero-intruder:${hero.key}:${distractorAttribute}`,
+      kind: "hero-intruder",
+      category: "Heroes",
+      difficulty: 2,
+      eyebrow: "Draft Intruder · Primary attributes",
+      prompt: "Which hero does not share the others’ primary attribute?",
+      answers: answerHeroes.map((candidate) => candidate.localized_name),
+      correctAnswer: hero.localized_name,
+      answerImagesByValue: answerArtworkByName(answerHeroes),
+      answerImageKind: "hero",
+      explanation: `${hero.localized_name} is ${heroAttribute}; the other three heroes are ${sharedAttribute}.`,
+      source: questionSource,
+    }),
+  );
+}
+
+for (const hero of stableSample(heroes, 56, "fogged-hero")) {
+  const distractors = spellDistractors(hero, heroes, 2, `fogged:${hero.key}`, hash);
+  if (distractors.length !== 3) continue;
+  const answerHeroes = [hero, ...distractors];
+
+  questions.push(
+    makeQuestion({
+      id: `fogged-hero:${hero.key}`,
+      kind: "fogged-hero",
+      category: "Heroes",
+      difficulty: 2,
+      eyebrow: "Fogged Vision",
+      prompt: "Which hero is hidden in the fog?",
+      image: { src: hero.image, alt: `${hero.localized_name} hero portrait`, kind: "hero" },
+      answers: answerHeroes.map((candidate) => candidate.localized_name),
+      correctAnswer: hero.localized_name,
+      explanation: `${hero.localized_name} was hiding behind the fog.`,
+      source: questionSource,
+    }),
+  );
+}
+
+const voiceHeroes = stableSample(
+  heroes.filter((hero) => hero.responseNames.length),
+  48,
+  "hero-voice",
+);
+const voiceResponses = await Promise.all(
+  voiceHeroes.map(async (hero) => {
+    try {
+      return [hero, await loadHeroResponses(hero.responseNames)];
+    } catch (error) {
+      console.warn(`Skipping voice responses for ${hero.localized_name}: ${error.message}`);
+      return [hero, []];
+    }
+  }),
+);
+
+for (const [hero, responses] of voiceResponses) {
+  const dotabaseHero = dotabaseHeroById.get(hero.id);
+  const candidates = responses
+    .filter((response) => {
+      const text = response.text?.trim() ?? "";
+      return (
+        response.hero_id === hero.id &&
+        typeof response.mp3 === "string" &&
+        response.mp3.endsWith(".mp3") &&
+        text.length >= 12 &&
+        text.length <= 90 &&
+        !/[<>{}]/.test(text) &&
+        /(Moving|Attacking|Spawning|Killing a hero)/.test(response.pretty_criteria ?? "") &&
+        !voiceLineLeaksHero(response, hero, dotabaseHero)
+      );
+    })
+    .map((response) => ({ ...response, key: response.fullname ?? response.name }));
+  const line = stableSample(candidates, 1, `hero-voice:${hero.key}`)[0];
+  if (!line) continue;
+
+  const distractors = spellDistractors(hero, heroes, 2, `hero-voice:${hero.key}`, hash);
+  if (distractors.length !== 3) continue;
+  const answerHeroes = [hero, ...distractors];
+
+  questions.push(
+    makeQuestion({
+      id: `hero-voice:${hero.key}:${line.name}`,
+      kind: "hero-voice",
+      category: "Heroes",
+      difficulty: 2,
+      eyebrow: "Echo Hunt",
+      prompt: "Which hero said this?",
+      image: { src: hero.image, alt: `${hero.localized_name} hero portrait`, kind: "hero" },
+      answers: answerHeroes.map((candidate) => candidate.localized_name),
+      correctAnswer: hero.localized_name,
+      answerImagesByValue: answerArtworkByName(answerHeroes),
+      answerImageKind: "hero",
+      explanation: `“${line.text.trim()}” is spoken by ${hero.localized_name}.`,
+      audio: { src: `${DOTABASE_ASSETS}${line.mp3}` },
+      source: voiceSource,
     }),
   );
 }
@@ -463,6 +802,7 @@ for (const item of items) {
   questions.push(
     makeQuestion({
       id: `item-cost:${item.key}`,
+      kind: "item-cost",
       category: "Items",
       difficulty: item.cost >= 3000 ? 2 : 1,
       eyebrow: item.dname,
@@ -478,7 +818,7 @@ for (const item of items) {
 
 const componentPool = [...new Set(items.flatMap((item) => item.components ?? []))]
   .map((key) => ({ ...itemsByKey[key], key, image: asset(itemsByKey[key]?.img) }))
-  .filter((item) => item.dname);
+  .filter((item) => item.dname && item.image);
 
 for (const item of stableSample(
   items.filter((entry) => entry.components?.length),
@@ -499,6 +839,7 @@ for (const item of stableSample(
   questions.push(
     makeQuestion({
       id: `item-component:${item.key}:${componentKey}`,
+      kind: "recipe-component",
       category: "Recipes",
       difficulty: 2,
       eyebrow: item.dname,
@@ -507,25 +848,101 @@ for (const item of stableSample(
       answers: answerItems.map((answerItem) => answerItem.dname),
       correctAnswer: component.dname,
       answerImagesByValue: Object.fromEntries(answerItems.map((answerItem) => [answerItem.dname, answerItem.image])),
+      answerImageKind: "item",
       explanation: `${item.dname} is built with ${formatRecipeComponents(item.components, itemsByKey)}.`,
       source: questionSource,
     }),
   );
 }
 
-console.log(`Checking artwork for ${questions.length} generated questions...`);
-const { availability } = await auditImageAssets(questions);
-const rejectedQuestions = questions.filter((question) =>
-  questionImageUrls(question).some((url) => !availability.get(url)),
+const recipeItems = items.filter((item) => item.components?.length);
+for (const item of stableSample(recipeItems, 36, "recipe-upgrade")) {
+  const componentKey = item.components[hash(`recipe-upgrade:${item.key}`) % item.components.length];
+  const component = {
+    ...itemsByKey[componentKey],
+    key: componentKey,
+    image: asset(itemsByKey[componentKey]?.img),
+  };
+  if (!component.dname || !component.image) continue;
+
+  const distractors = stableSample(
+    recipeItems.filter(
+      (candidate) => candidate.key !== item.key && !candidate.components.includes(componentKey) && candidate.image,
+    ),
+    3,
+    `recipe-upgrade:${item.key}:${componentKey}`,
+  );
+  if (distractors.length !== 3) continue;
+  const answerItems = [item, ...distractors];
+
+  questions.push(
+    makeQuestion({
+      id: `recipe-upgrade:${componentKey}:${item.key}`,
+      kind: "recipe-upgrade",
+      category: "Items",
+      difficulty: 2,
+      eyebrow: `${component.dname} · Reverse Shopkeeper`,
+      prompt: `Which item can be built using ${component.dname}?`,
+      image: { src: component.image, alt: `${component.dname} item icon`, kind: "item" },
+      answers: answerItems.map((candidate) => candidate.dname),
+      correctAnswer: item.dname,
+      answerImagesByValue: Object.fromEntries(answerItems.map((candidate) => [candidate.dname, candidate.image])),
+      answerImageKind: "item",
+      explanation: `${component.dname} is one of the components used to build ${item.dname}.`,
+      source: questionSource,
+    }),
+  );
+}
+
+const priceDuelAnchors = items.filter(
+  (item) => comparisonGroup(item, items, (candidate) => candidate.cost, "max", `item-price:${item.key}`).length === 4,
+);
+for (const item of stableSample(priceDuelAnchors, 28, "item-price-duel")) {
+  const answerItems = comparisonGroup(item, items, (candidate) => candidate.cost, "max", `item-price:${item.key}`);
+  const values = answerItems
+    .map((candidate) => `${candidate.dname} ${candidate.cost.toLocaleString("en-US")}g`)
+    .join(" · ");
+
+  questions.push(
+    makeQuestion({
+      id: `item-price-duel:${item.key}`,
+      kind: "item-price-duel",
+      category: "Items",
+      difficulty: 2,
+      eyebrow: "Price Duel · Main shop",
+      prompt: "Which item is the most expensive?",
+      answers: answerItems.map((candidate) => candidate.dname),
+      correctAnswer: item.dname,
+      answerImagesByValue: Object.fromEntries(answerItems.map((candidate) => [candidate.dname, candidate.image])),
+      answerImageKind: "item",
+      explanation: `${item.dname} is the most expensive of these choices. ${values}.`,
+      source: questionSource,
+    }),
+  );
+}
+
+console.log(`Checking remote assets for ${questions.length} generated questions...`);
+const [imageAudit, audioAudit] = await Promise.all([auditImageAssets(questions), auditAudioAssets(questions)]);
+const rejectedQuestions = questions.filter(
+  (question) =>
+    questionImageUrls(question).some((url) => !imageAudit.availability.get(url)) ||
+    questionAudioUrls(question).some((url) => !audioAudit.availability.get(url)),
 );
 const sortedQuestions = questions
   .filter((question) => !rejectedQuestions.includes(question))
   .sort((left, right) => left.id.localeCompare(right.id));
 const verifiedAssetCount = new Set(sortedQuestions.flatMap(questionImageUrls)).size;
+const verifiedAudioCount = new Set(sortedQuestions.flatMap(questionAudioUrls)).size;
 const categoryCounts = Object.fromEntries(
   [...new Set(sortedQuestions.map((question) => question.category))].map((category) => [
     category,
     sortedQuestions.filter((question) => question.category === category).length,
+  ]),
+);
+const kindCounts = Object.fromEntries(
+  [...new Set(sortedQuestions.map((question) => question.kind))].map((kind) => [
+    kind,
+    sortedQuestions.filter((question) => question.kind === kind).length,
   ]),
 );
 
@@ -536,13 +953,16 @@ await writeFile(
   `${JSON.stringify(
     {
       patch: PATCH,
+      contentVersion: CONTENT_VERSION,
       snapshotDate: SNAPSHOT_DATE,
       questionCount: sortedQuestions.length,
       categoryCounts,
+      kindCounts,
       sources: endpoints,
       assetValidation: {
         checkedAt: SNAPSHOT_DATE,
         verifiedAssetCount,
+        verifiedAudioCount,
         rejectedQuestionIds: rejectedQuestions.map((question) => question.id).sort(),
       },
     },
@@ -553,8 +973,9 @@ await writeFile(
 
 console.log(`Generated ${sortedQuestions.length} questions for Dota ${PATCH}.`);
 console.log(categoryCounts);
+console.log(kindCounts);
 if (rejectedQuestions.length) {
-  console.warn(`Rejected ${rejectedQuestions.length} questions with unavailable artwork:`);
+  console.warn(`Rejected ${rejectedQuestions.length} questions with unavailable assets:`);
   console.warn(
     rejectedQuestions
       .map((question) => question.id)
