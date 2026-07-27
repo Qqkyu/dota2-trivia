@@ -7,7 +7,7 @@
     "target": { "x": 0.302, "y": 0.347 },
     "tolerance": 0.045,
     "eyebrow": "Map Sense · Landmark riddle",
-    "prompt": "The Aegis call is northwest of mid, beside the upper river bend. Ping the pit.",
+    "prompt": "Northwest river bend → Roshan pit.",
     "explanation": "The upper river bend leads into the top Roshan pit."
   },
   {
@@ -18,7 +18,7 @@
     "target": { "x": 0.682, "y": 0.666 },
     "tolerance": 0.045,
     "eyebrow": "Map Sense · Landmark riddle",
-    "prompt": "The Aegis call is southeast of mid, beside the lower river bend. Ping the pit.",
+    "prompt": "Southeast river bend → Roshan pit.",
     "explanation": "The lower river bend leads into the bottom Roshan pit."
   },
   {
@@ -29,7 +29,7 @@
     "target": { "x": 0.278, "y": 0.553 },
     "tolerance": 0.043,
     "eyebrow": "Map Sense · Landmark riddle",
-    "prompt": "Your courier needs an Eaglesong from the shop west of the river. Ping the counter.",
+    "prompt": "West of river → Secret Shop.",
     "explanation": "The west-side Secret Shop is in Radiant territory."
   },
   {
@@ -40,7 +40,7 @@
     "target": { "x": 0.748, "y": 0.44 },
     "tolerance": 0.043,
     "eyebrow": "Map Sense · Landmark riddle",
-    "prompt": "Your courier needs an Eaglesong from the shop east of the river. Ping the counter.",
+    "prompt": "East of river → Secret Shop.",
     "explanation": "The east-side Secret Shop is in Dire territory."
   },
   {
@@ -51,7 +51,7 @@
     "target": { "x": 0.437, "y": 0.442 },
     "tolerance": 0.042,
     "eyebrow": "Map Sense · Landmark riddle",
-    "prompt": "Six minutes. Your mid checks the river spawn north of the lane first. Ping it.",
+    "prompt": "North river spawn → Power Rune.",
     "explanation": "The top Power Rune spot sits northwest of the mid-lane crossing."
   },
   {
@@ -62,7 +62,7 @@
     "target": { "x": 0.56, "y": 0.558 },
     "tolerance": 0.042,
     "eyebrow": "Map Sense · Landmark riddle",
-    "prompt": "Six minutes. Your mid checks the river spawn south of the lane first. Ping it.",
+    "prompt": "South river spawn → Power Rune.",
     "explanation": "The bottom Power Rune spot sits southeast of the mid-lane crossing."
   },
   {
@@ -73,7 +73,7 @@
     "target": { "x": 0.414, "y": 0.738 },
     "tolerance": 0.029,
     "eyebrow": "Map Sense · Objective riddle",
-    "prompt": "The first seven-minute XP objective your Radiant offlaner protects is up. Ping it.",
+    "prompt": "Radiant offlaner → 7-minute XP.",
     "explanation": "Radiant's Wisdom Shrine is the timed XP objective in its southern offlane jungle."
   },
   {
@@ -84,7 +84,7 @@
     "target": { "x": 0.548, "y": 0.27 },
     "tolerance": 0.029,
     "eyebrow": "Map Sense · Objective riddle",
-    "prompt": "The first seven-minute XP objective your Dire offlaner protects is up. Ping it.",
+    "prompt": "Dire offlaner → 7-minute XP.",
     "explanation": "Dire's Wisdom Shrine is the timed XP objective in its northern offlane jungle."
   },
   {
@@ -95,7 +95,7 @@
     "target": { "x": 0.058, "y": 0.055 },
     "tolerance": 0.03,
     "eyebrow": "Map Sense · Rotation riddle",
-    "prompt": "Take the edge-to-edge shortcut closest to Dire's safe lane. Ping the entrance.",
+    "prompt": "Dire safe lane → edge shortcut.",
     "explanation": "Dire's safe lane runs along the top edge beside the top Twin Gate."
   },
   {
@@ -106,7 +106,7 @@
     "target": { "x": 0.935, "y": 0.938 },
     "tolerance": 0.03,
     "eyebrow": "Map Sense · Rotation riddle",
-    "prompt": "Take the edge-to-edge shortcut closest to Radiant's safe lane. Ping the entrance.",
+    "prompt": "Radiant safe lane → edge shortcut.",
     "explanation": "Radiant's safe lane runs along the bottom edge beside the bottom Twin Gate."
   },
   {
@@ -117,7 +117,7 @@
     "target": { "x": 0.39, "y": 0.704 },
     "tolerance": 0.031,
     "eyebrow": "Map Sense · Farm riddle",
-    "prompt": "Radiant's carry retreats into the compact high-ground Ancient-camp farm loop. Ping it.",
+    "prompt": "Radiant carry → Ancient-camp farm loop.",
     "explanation": "That compact high-ground farming loop is Radiant's triangle."
   },
   {
@@ -128,7 +128,7 @@
     "target": { "x": 0.61, "y": 0.296 },
     "tolerance": 0.031,
     "eyebrow": "Map Sense · Farm riddle",
-    "prompt": "Dire's carry retreats into the compact high-ground Ancient-camp farm loop. Ping it.",
+    "prompt": "Dire carry → Ancient-camp farm loop.",
     "explanation": "That compact high-ground farming loop is Dire's triangle."
   },
   {
@@ -140,7 +140,7 @@
     "tolerance": 0.045,
     "reference": { "position": { "x": 0.302, "y": 0.347 }, "label": "Reference" },
     "eyebrow": "Map Sense · Mirror call",
-    "prompt": "The marked objective has an opposing-side counterpart. Ping the other Roshan pit.",
+    "prompt": "Marked pit → other Roshan pit.",
     "explanation": "The bottom Roshan pit is the opposing-side counterpart to the marked top pit."
   },
   {
@@ -152,7 +152,7 @@
     "tolerance": 0.045,
     "reference": { "position": { "x": 0.682, "y": 0.666 }, "label": "Reference" },
     "eyebrow": "Map Sense · Mirror call",
-    "prompt": "The marked objective has an opposing-side counterpart. Ping the other Roshan pit.",
+    "prompt": "Marked pit → other Roshan pit.",
     "explanation": "The top Roshan pit is the opposing-side counterpart to the marked bottom pit."
   },
   {
@@ -164,7 +164,7 @@
     "tolerance": 0.05,
     "reference": { "position": { "x": 0.39, "y": 0.704 }, "label": "Reference" },
     "eyebrow": "Map Sense · Mirror call",
-    "prompt": "Mirror the marked farming area onto the opposing half. Ping the other triangle.",
+    "prompt": "Marked triangle → opposing triangle.",
     "explanation": "Dire's triangle mirrors the marked Radiant farming area across the map."
   },
   {
@@ -176,7 +176,7 @@
     "tolerance": 0.05,
     "reference": { "position": { "x": 0.61, "y": 0.296 }, "label": "Reference" },
     "eyebrow": "Map Sense · Mirror call",
-    "prompt": "Mirror the marked farming area onto the opposing half. Ping the other triangle.",
+    "prompt": "Marked triangle → opposing triangle.",
     "explanation": "Radiant's triangle mirrors the marked Dire farming area across the map."
   },
   {
@@ -188,7 +188,7 @@
     "tolerance": 0.046,
     "reference": { "position": { "x": 0.278, "y": 0.553 }, "label": "Reference" },
     "eyebrow": "Map Sense · Mirror call",
-    "prompt": "The marked shop has a counterpart across the river. Ping the other Secret Shop.",
+    "prompt": "Marked shop → other Secret Shop.",
     "explanation": "The Dire-side Secret Shop is the counterpart to the marked Radiant-side shop."
   },
   {
@@ -200,7 +200,7 @@
     "tolerance": 0.046,
     "reference": { "position": { "x": 0.748, "y": 0.44 }, "label": "Reference" },
     "eyebrow": "Map Sense · Mirror call",
-    "prompt": "The marked shop has a counterpart across the river. Ping the other Secret Shop.",
+    "prompt": "Marked shop → other Secret Shop.",
     "explanation": "The Radiant-side Secret Shop is the counterpart to the marked Dire-side shop."
   },
   {
@@ -212,7 +212,7 @@
     "tolerance": 0.029,
     "reference": { "position": { "x": 0.414, "y": 0.738 }, "label": "Reference" },
     "eyebrow": "Map Sense · Mirror call",
-    "prompt": "Mirror the marked timed objective onto Dire's half. Ping the other Wisdom Shrine.",
+    "prompt": "Marked shrine → opposing Wisdom Shrine.",
     "explanation": "Dire's Wisdom Shrine is the counterpart to the marked Radiant shrine."
   },
   {
@@ -224,7 +224,7 @@
     "tolerance": 0.029,
     "reference": { "position": { "x": 0.548, "y": 0.27 }, "label": "Reference" },
     "eyebrow": "Map Sense · Mirror call",
-    "prompt": "Mirror the marked timed objective onto Radiant's half. Ping the other Wisdom Shrine.",
+    "prompt": "Marked shrine → opposing Wisdom Shrine.",
     "explanation": "Radiant's Wisdom Shrine is the counterpart to the marked Dire shrine."
   },
   {
@@ -236,7 +236,7 @@
     "tolerance": 0.028,
     "reference": { "position": { "x": 0.438, "y": 0.562 }, "label": "Reference" },
     "eyebrow": "Map Sense · Mirror call",
-    "prompt": "Mirror the marked mid-lane defense. Ping the opposing Tier 1.",
+    "prompt": "Marked mid Tier 1 → opposing tower.",
     "explanation": "Dire's mid Tier 1 mirrors the marked Radiant mid Tier 1 across the river."
   },
   {
@@ -248,7 +248,7 @@
     "tolerance": 0.028,
     "reference": { "position": { "x": 0.562, "y": 0.438 }, "label": "Reference" },
     "eyebrow": "Map Sense · Mirror call",
-    "prompt": "Mirror the marked mid-lane defense. Ping the opposing Tier 1.",
+    "prompt": "Marked mid Tier 1 → opposing tower.",
     "explanation": "Radiant's mid Tier 1 mirrors the marked Dire mid Tier 1 across the river."
   },
   {
@@ -260,7 +260,7 @@
     "tolerance": 0.028,
     "reference": { "position": { "x": 0.655, "y": 0.858 }, "label": "Reference" },
     "eyebrow": "Map Sense · Mirror call",
-    "prompt": "Mirror the marked safe-lane defense. Ping the opposing team's safe-lane Tier 1.",
+    "prompt": "Marked safe-lane Tier 1 → opposing tower.",
     "explanation": "Dire's safe-lane Tier 1 mirrors the marked Radiant safe-lane Tier 1."
   },
   {
@@ -272,7 +272,7 @@
     "tolerance": 0.028,
     "reference": { "position": { "x": 0.345, "y": 0.142 }, "label": "Reference" },
     "eyebrow": "Map Sense · Mirror call",
-    "prompt": "Mirror the marked safe-lane defense. Ping the opposing team's safe-lane Tier 1.",
+    "prompt": "Marked safe-lane Tier 1 → opposing tower.",
     "explanation": "Radiant's safe-lane Tier 1 mirrors the marked Dire safe-lane Tier 1."
   },
   {
@@ -284,7 +284,7 @@
     "tolerance": 0.05,
     "reference": { "position": { "x": 0.145, "y": 0.855 }, "label": "Start" },
     "eyebrow": "Map Sense · Nearest objective",
-    "prompt": "From the marked Ancient, ping the closer Twin Gate.",
+    "prompt": "Marker → closest Twin Gate.",
     "explanation": "The bottom Twin Gate is closer to the Radiant Ancient."
   },
   {
@@ -296,7 +296,7 @@
     "tolerance": 0.05,
     "reference": { "position": { "x": 0.855, "y": 0.145 }, "label": "Start" },
     "eyebrow": "Map Sense · Nearest objective",
-    "prompt": "From the marked Ancient, ping the closer Twin Gate.",
+    "prompt": "Marker → closest Twin Gate.",
     "explanation": "The top Twin Gate is closer to the Dire Ancient."
   },
   {
@@ -308,7 +308,7 @@
     "tolerance": 0.045,
     "reference": { "position": { "x": 0.437, "y": 0.442 }, "label": "Start" },
     "eyebrow": "Map Sense · Nearest objective",
-    "prompt": "From the marked river spot, ping the closer Roshan pit.",
+    "prompt": "Marker → closest Roshan pit.",
     "explanation": "The top Roshan pit is closer to the top Power Rune spot."
   },
   {
@@ -320,7 +320,7 @@
     "tolerance": 0.045,
     "reference": { "position": { "x": 0.56, "y": 0.558 }, "label": "Start" },
     "eyebrow": "Map Sense · Nearest objective",
-    "prompt": "From the marked river spot, ping the closer Roshan pit.",
+    "prompt": "Marker → closest Roshan pit.",
     "explanation": "The bottom Roshan pit is closer to the bottom Power Rune spot."
   },
   {
@@ -332,7 +332,7 @@
     "tolerance": 0.045,
     "reference": { "position": { "x": 0.058, "y": 0.055 }, "label": "Start" },
     "eyebrow": "Map Sense · Nearest objective",
-    "prompt": "You exit at the marked Twin Gate. Ping the closer Roshan pit.",
+    "prompt": "Marker → closest Roshan pit.",
     "explanation": "The top Roshan pit is closer to the top Twin Gate."
   },
   {
@@ -344,7 +344,7 @@
     "tolerance": 0.045,
     "reference": { "position": { "x": 0.935, "y": 0.938 }, "label": "Start" },
     "eyebrow": "Map Sense · Nearest objective",
-    "prompt": "You exit at the marked Twin Gate. Ping the closer Roshan pit.",
+    "prompt": "Marker → closest Roshan pit.",
     "explanation": "The bottom Roshan pit is closer to the bottom Twin Gate."
   },
   {
@@ -356,7 +356,7 @@
     "tolerance": 0.029,
     "reference": { "position": { "x": 0.39, "y": 0.704 }, "label": "Start" },
     "eyebrow": "Map Sense · Nearest objective",
-    "prompt": "From the marked farming area, ping the closer Roshan pit.",
+    "prompt": "Marker → closest Roshan pit.",
     "explanation": "The bottom Roshan pit is closer to the Radiant triangle."
   },
   {
@@ -368,7 +368,7 @@
     "tolerance": 0.029,
     "reference": { "position": { "x": 0.61, "y": 0.296 }, "label": "Start" },
     "eyebrow": "Map Sense · Nearest objective",
-    "prompt": "From the marked farming area, ping the closer Roshan pit.",
+    "prompt": "Marker → closest Roshan pit.",
     "explanation": "The top Roshan pit is closer to the Dire triangle."
   },
   {
@@ -380,7 +380,7 @@
     "tolerance": 0.029,
     "reference": { "position": { "x": 0.278, "y": 0.553 }, "label": "Start" },
     "eyebrow": "Map Sense · Nearest objective",
-    "prompt": "From the marked shop, ping the closer Roshan pit.",
+    "prompt": "Marker → closest Roshan pit.",
     "explanation": "The top Roshan pit is closer to the Radiant-side Secret Shop."
   },
   {
@@ -392,7 +392,7 @@
     "tolerance": 0.029,
     "reference": { "position": { "x": 0.748, "y": 0.44 }, "label": "Start" },
     "eyebrow": "Map Sense · Nearest objective",
-    "prompt": "From the marked shop, ping the closer Roshan pit.",
+    "prompt": "Marker → closest Roshan pit.",
     "explanation": "The bottom Roshan pit is closer to the Dire-side Secret Shop."
   },
   {
@@ -404,7 +404,7 @@
     "tolerance": 0.03,
     "reference": { "position": { "x": 0.655, "y": 0.858 }, "label": "Start" },
     "eyebrow": "Map Sense · Nearest objective",
-    "prompt": "From the marked safe-lane Tier 1, ping the closer Twin Gate.",
+    "prompt": "Marker → closest Twin Gate.",
     "explanation": "The bottom Twin Gate is closer to Radiant's safe-lane Tier 1."
   },
   {
@@ -416,7 +416,7 @@
     "tolerance": 0.03,
     "reference": { "position": { "x": 0.345, "y": 0.142 }, "label": "Start" },
     "eyebrow": "Map Sense · Nearest objective",
-    "prompt": "From the marked safe-lane Tier 1, ping the closer Twin Gate.",
+    "prompt": "Marker → closest Twin Gate.",
     "explanation": "The top Twin Gate is closer to Dire's safe-lane Tier 1."
   },
   {
@@ -428,7 +428,7 @@
     "tolerance": 0.045,
     "reference": { "position": { "x": 0.437, "y": 0.442 }, "label": "Haste" },
     "eyebrow": "Map Sense · Rotation scenario",
-    "prompt": "Haste spawned at the marked rune. Your team calls Roshan—ping the closer pit.",
+    "prompt": "Haste rune → closest Roshan pit.",
     "explanation": "From the top Power Rune spot, the top Roshan pit is the shorter rotation."
   },
   {
@@ -440,7 +440,7 @@
     "tolerance": 0.045,
     "reference": { "position": { "x": 0.56, "y": 0.558 }, "label": "Haste" },
     "eyebrow": "Map Sense · Rotation scenario",
-    "prompt": "Haste spawned at the marked rune. Your team calls Roshan—ping the closer pit.",
+    "prompt": "Haste rune → closest Roshan pit.",
     "explanation": "From the bottom Power Rune spot, the bottom Roshan pit is the shorter rotation."
   },
   {
@@ -452,7 +452,7 @@
     "tolerance": 0.043,
     "reference": { "position": { "x": 0.39, "y": 0.704 }, "label": "Carry" },
     "eyebrow": "Map Sense · Economy scenario",
-    "prompt": "Your carry is farming at the marker and needs the nearest Secret Shop. Ping it.",
+    "prompt": "Carry → closest Secret Shop.",
     "explanation": "The Radiant-side Secret Shop is closest to the Radiant triangle."
   },
   {
@@ -464,7 +464,7 @@
     "tolerance": 0.043,
     "reference": { "position": { "x": 0.61, "y": 0.296 }, "label": "Carry" },
     "eyebrow": "Map Sense · Economy scenario",
-    "prompt": "Your carry is farming at the marker and needs the nearest Secret Shop. Ping it.",
+    "prompt": "Carry → closest Secret Shop.",
     "explanation": "The Dire-side Secret Shop is closest to the Dire triangle."
   },
   {
@@ -476,7 +476,7 @@
     "tolerance": 0.042,
     "reference": { "position": { "x": 0.437, "y": 0.442 }, "label": "Empty" },
     "eyebrow": "Map Sense · Scout scenario",
-    "prompt": "The Power Rune did not spawn at the marked spot. Ping the other river spawn.",
+    "prompt": "Empty rune spot → other spawn.",
     "explanation": "The other Power Rune spawn is southeast of the mid-lane crossing."
   },
   {
@@ -488,7 +488,7 @@
     "tolerance": 0.042,
     "reference": { "position": { "x": 0.56, "y": 0.558 }, "label": "Empty" },
     "eyebrow": "Map Sense · Scout scenario",
-    "prompt": "The Power Rune did not spawn at the marked spot. Ping the other river spawn.",
+    "prompt": "Empty rune spot → other spawn.",
     "explanation": "The other Power Rune spawn is northwest of the mid-lane crossing."
   },
   {
@@ -500,7 +500,7 @@
     "tolerance": 0.029,
     "reference": { "position": { "x": 0.39, "y": 0.704 }, "label": "Team" },
     "eyebrow": "Map Sense · Shot-call scenario",
-    "prompt": "Your team controls the marked triangle and immediately calls Roshan. Ping the closer pit.",
+    "prompt": "Controlled triangle → closest Roshan pit.",
     "explanation": "The bottom Roshan pit is closer to the Radiant triangle."
   },
   {
@@ -512,7 +512,7 @@
     "tolerance": 0.029,
     "reference": { "position": { "x": 0.61, "y": 0.296 }, "label": "Team" },
     "eyebrow": "Map Sense · Shot-call scenario",
-    "prompt": "Your team controls the marked triangle and immediately calls Roshan. Ping the closer pit.",
+    "prompt": "Controlled triangle → closest Roshan pit.",
     "explanation": "The top Roshan pit is closer to the Dire triangle."
   },
   {
@@ -524,7 +524,7 @@
     "tolerance": 0.029,
     "reference": { "position": { "x": 0.142, "y": 0.365 }, "label": "Offlaner" },
     "eyebrow": "Map Sense · Timing scenario",
-    "prompt": "You are the marked Radiant offlaner. Seven minutes hits—ping your team's XP objective.",
+    "prompt": "7:00 → your Wisdom Shrine.",
     "explanation": "The Radiant Wisdom Shrine is the team's seven-minute XP objective."
   },
   {
@@ -536,7 +536,7 @@
     "tolerance": 0.029,
     "reference": { "position": { "x": 0.858, "y": 0.635 }, "label": "Offlaner" },
     "eyebrow": "Map Sense · Timing scenario",
-    "prompt": "You are the marked Dire offlaner. Seven minutes hits—ping your team's XP objective.",
+    "prompt": "7:00 → your Wisdom Shrine.",
     "explanation": "The Dire Wisdom Shrine is the team's seven-minute XP objective."
   },
   {
@@ -548,7 +548,7 @@
     "tolerance": 0.03,
     "reference": { "position": { "x": 0.655, "y": 0.858 }, "label": "Tower lost" },
     "eyebrow": "Map Sense · Escape scenario",
-    "prompt": "The marked safe-lane Tier 1 just fell. Ping the closest Twin Gate for the escape.",
+    "prompt": "Tower lost → closest Twin Gate.",
     "explanation": "The bottom Twin Gate is the closest edge exit from Radiant's safe-lane Tier 1."
   },
   {
@@ -560,7 +560,7 @@
     "tolerance": 0.03,
     "reference": { "position": { "x": 0.345, "y": 0.142 }, "label": "Tower lost" },
     "eyebrow": "Map Sense · Escape scenario",
-    "prompt": "The marked safe-lane Tier 1 just fell. Ping the closest Twin Gate for the escape.",
+    "prompt": "Tower lost → closest Twin Gate.",
     "explanation": "The top Twin Gate is the closest edge exit from Dire's safe-lane Tier 1."
   }
 ]

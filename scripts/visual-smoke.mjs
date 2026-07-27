@@ -573,6 +573,8 @@ const mapSenseAnswering = await evaluate(`(() => {
     kind: document.querySelector("main")?.dataset.questionKind,
     game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
     difficulty: Number(document.querySelector('[data-testid="round-difficulty"]')?.dataset.contentDifficulty),
+    prompt: document.querySelector('[data-testid="map-sense-round"] h2')?.textContent?.trim(),
+    readGraceVisible: document.querySelector('[data-testid="map-sense-round"]')?.textContent?.includes("3s read grace"),
     answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
     locked: board?.dataset.mapState === "locked",
     referenceVisible: Boolean(document.querySelector('[data-testid="map-reference-pin"]')),
@@ -777,6 +779,8 @@ if (
   mapSenseAnswering.game !== "map-sense" ||
   mapSenseAnswering.difficulty < 2 ||
   mapSenseAnswering.answerCount !== 0 ||
+  (mapSenseAnswering.prompt?.split(/\s+/).filter((word) => word !== "→").length ?? 99) > 8 ||
+  !mapSenseAnswering.readGraceVisible ||
   !mapSenseAnswering.locked ||
   !mapSenseAnswering.square ||
   !mapSenseAnswering.imageLoaded ||

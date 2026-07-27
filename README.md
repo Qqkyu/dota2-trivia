@@ -42,8 +42,10 @@ substantially obscured, and every level retains some fog through the final stage
 
 Map Sense changes both reasoning and precision: Learning mixes broad calls with approachable riddles, mirror calls,
 and marked-start rotations; Open samples the whole pack; Veteran keeps tight hit radii while emphasizing inference,
-relative position, and short game-state scenarios. Its family-aware scheduler caps direct location calls at roughly
-one in five rounds in every synchronized 24-round batch. Correct pins earn separate speed and center-precision bonuses.
+relative position, and short game-state scenarios. Creative calls are capped at seven words and use a consistent arrow
+shorthand. Its family-aware scheduler caps direct location calls at roughly one in five rounds in every synchronized
+24-round batch. A three-second reading grace preserves full speed points before the bonus begins fading; correct pins
+also earn a separate center-precision bonus.
 
 Spell Link's initial content tier is reproducible: core/iconic abilities are Learning, unusual sub-abilities, innates, upgrades, and helper abilities are Veteran, and the remaining edge cases sit between them. Distractor similarity considers primary attribute, attack type, range, and shared roles. Once the project has durable vote history, observed correct-answer rates should supersede this seed heuristic.
 
@@ -114,7 +116,7 @@ For visual smoke testing, start Chrome with a debugging port and then run `node 
 
 ## Crowd architecture
 
-Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2-map-sense-3:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2-map-sense-4:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 

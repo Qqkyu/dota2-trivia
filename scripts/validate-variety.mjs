@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { fixedCycleRotation, varietyShuffle } from "../src/lib/variety.mjs";
+import { MAP_READ_GRACE_MS, speedScoreRatio } from "../src/lib/scoring.mjs";
 
 const fixture = [
   ...Array.from({ length: 12 }, (_, index) => ({ id: `numeric-${index}`, kind: "numeric" })),
@@ -55,6 +56,17 @@ if (
   throw new Error(`Map Sense lost its balanced five-family opening: ${JSON.stringify(mapOpeningCounts)}.`);
 }
 
+const roundDuration = 12_000;
+if (
+  speedScoreRatio(roundDuration, roundDuration) !== 1 ||
+  speedScoreRatio(roundDuration - MAP_READ_GRACE_MS, roundDuration, MAP_READ_GRACE_MS) !== 1 ||
+  speedScoreRatio(roundDuration - MAP_READ_GRACE_MS - 1, roundDuration, MAP_READ_GRACE_MS) >= 1 ||
+  speedScoreRatio(0, roundDuration, MAP_READ_GRACE_MS) !== 0 ||
+  speedScoreRatio(roundDuration / 2, roundDuration) !== 0.5
+) {
+  throw new Error("The Map Sense reading grace or the standard speed curve regressed.");
+}
+
 console.log(
-  `Validated deterministic template, Mixed Arcade, and Map Sense family rotations (${JSON.stringify(mapOpeningCounts)}).`,
+  `Validated deterministic template, Mixed Arcade, Map Sense family rotation, and ${MAP_READ_GRACE_MS / 1000}s reading grace (${JSON.stringify(mapOpeningCounts)}).`,
 );

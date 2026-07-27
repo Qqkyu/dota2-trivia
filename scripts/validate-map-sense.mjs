@@ -113,6 +113,22 @@ for (const challenge of challenges) {
   }
 }
 
+const creativePromptWordCounts = challenges.map(
+  (challenge) =>
+    challenge.prompt
+      .trim()
+      .split(/\s+/)
+      .filter((word) => word !== "→").length,
+);
+const longestCreativePrompt = Math.max(...creativePromptWordCounts);
+const averageCreativePrompt =
+  creativePromptWordCounts.reduce((total, wordCount) => total + wordCount, 0) / creativePromptWordCounts.length;
+if (longestCreativePrompt > 7 || averageCreativePrompt > 5.5) {
+  failures.push(
+    `Creative Map Sense calls must stay scan-friendly (found ${longestCreativePrompt} words max, ${averageCreativePrompt.toFixed(1)} average).`,
+  );
+}
+
 const learningCount = allDefinitions.filter((location) => location.difficulty <= 2).length;
 const veteranCount = allDefinitions.filter((location) => location.difficulty === 3).length;
 if (learningCount < 24 || veteranCount < 24) {

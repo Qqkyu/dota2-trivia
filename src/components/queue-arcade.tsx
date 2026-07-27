@@ -51,6 +51,7 @@ import type { CrowdResult, PublicRoomSettings, RoomSnapshot, VoteResult } from "
 import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
 import type { MapPosition } from "@/lib/map-types";
+import { MAP_READ_GRACE_MS, speedScoreRatio } from "@/lib/scoring.mjs";
 import styles from "./queue-arcade.module.css";
 
 const REVEAL_DURATION_MS = 7_000;
@@ -201,7 +202,7 @@ const MODE_INFO: Record<
     eyebrow: "Pinpoint the play",
     description: "Drop a pin on Dota's terrain, then see the true spot and where the whole room guessed.",
     action: "Read the map",
-    rule: "Accuracy and speed both score. Veteran targets demand a much tighter pin.",
+    rule: "The first three seconds preserve full speed points. Precision decides the rest.",
   },
 };
 
@@ -375,7 +376,7 @@ function scoreBreakdown(
   duration: number,
   selectedMapPosition?: MapPosition | null,
 ) {
-  const speedRatio = Math.max(0, Math.min(1, timeRemaining / duration));
+  const speedRatio = speedScoreRatio(timeRemaining, duration, question.map ? MAP_READ_GRACE_MS : 0);
   const speedBonus = Math.round(speedRatio * MAX_SPEED_BONUS);
   const difficultyBonus = (question.difficulty - 1) * 25;
   const cluePenalty =
@@ -697,7 +698,7 @@ function MapSenseBoard({
           {question.eyebrow}
         </span>
         <h2>{question.prompt}</h2>
-        <p>Place one pin. A fast answer scores more; a pin near the center earns a precision bonus.</p>
+        <p>{MAP_READ_GRACE_MS / 1000}s read grace. Then speed and precision score.</p>
 
         <div className={styles.mapAccuracyScale} aria-label="Map accuracy bands">
           {MAP_SENSE_BAND_LABELS.map((label, index) => (
@@ -2282,7 +2283,7 @@ export function QueueArcade() {
                           : currentGame === "quote-hunt"
                             ? "Look for vocabulary, ego, and worldview—the best hero lines reveal all three."
                             : currentGame === "map-sense"
-                              ? "Use lane geometry and river bends as anchors. Precision and speed both add points."
+                              ? "Your first three seconds keep full speed points. Read the arrow call, then pin it."
                               : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
                 </p>
               </div>
