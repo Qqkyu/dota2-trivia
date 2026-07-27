@@ -43,8 +43,9 @@ export type QuestionKind =
   | "map-relative"
   | "map-scenario"
   | "map-crop"
-  | "map-vector"
-  | "map-radar";
+  | "map-camp-block"
+  | "map-stack-route"
+  | "map-tp-in";
 export type TriviaArtworkKind = "ability" | "hero" | "item";
 
 export interface TriviaQuestion {
@@ -93,7 +94,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-6`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7`;
 export const triviaQuestions = [
   ...(generatedQuestions as TriviaQuestion[]),
   ...(mapSenseQuestions as TriviaQuestion[]),
@@ -141,7 +142,10 @@ function shuffledPool(seed: string, game: RoundGame, filter: KnowledgeFilter, sk
     if (game === "map-sense") {
       if (skillLevel === "Learning") return question.difficulty <= 2;
       if (skillLevel === "Veteran") {
-        return ["map-crop", "map-vector", "map-radar"].includes(question.kind) && question.difficulty === 3;
+        return (
+          ["map-crop", "map-camp-block", "map-stack-route", "map-tp-in"].includes(question.kind) &&
+          question.difficulty === 3
+        );
       }
     }
     return true;

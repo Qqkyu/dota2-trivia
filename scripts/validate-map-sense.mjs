@@ -9,7 +9,7 @@ const locations = JSON.parse(await readFile(join(root, "src", "data", "map-sense
 const challenges = JSON.parse(await readFile(join(root, "src", "data", "map-sense-challenges.json"), "utf8"));
 const crops = JSON.parse(await readFile(join(root, "src", "data", "map-sense-crops.json"), "utf8"));
 const landmarkSnapshot = JSON.parse(await readFile(join(root, "src", "data", "map-sense-landmarks.json"), "utf8"));
-const spatial = JSON.parse(await readFile(join(root, "src", "data", "map-sense-spatial.json"), "utf8"));
+const mechanics = JSON.parse(await readFile(join(root, "src", "data", "map-sense-mechanics.json"), "utf8"));
 const mapPath = join(root, "public", "assets", "dota2", "map", "overview-7.41d.webp");
 const failures = [];
 const ids = new Set();
@@ -38,16 +38,11 @@ if (
   failures.push("Map Sense needs at least 24 Tricky and 36 Brutal terrain crops.");
 }
 
-if (
-  !Array.isArray(spatial.vectors) ||
-  spatial.vectors.length < 24 ||
-  !Array.isArray(spatial.radar) ||
-  spatial.radar.length < 24
-) {
-  failures.push("Map Sense needs at least 24 Vector Run and 24 Signal Lock questions.");
+if (!Array.isArray(mechanics.camps) || mechanics.camps.length < 24) {
+  failures.push("Map Sense needs at least 24 audited neutral camps.");
 }
 
-const brutalCropById = new Map((crops.brutal ?? []).map((crop) => [crop.id, crop]));
+const landmarks = landmarkSnapshot.landmarks ?? {};
 const cropDefinitions = [
   ...(crops.tricky ?? []).map((crop) => ({
     id: `tricky:${crop.id}`,
@@ -74,41 +69,70 @@ const cropDefinitions = [
     zoom: 8.4,
   })),
 ];
-const spatialDefinitions = [
-  ...(spatial.vectors ?? []).map((seed) => {
-    const target = brutalCropById.get(seed.target);
-    return {
-      id: seed.target,
-      family: "vector",
-      targetLabel: "the vector endpoint",
-      difficulty: 3,
-      target: { x: target?.x, y: target?.y },
-      tolerance: 0.024,
-      eyebrow: "Map Sense · Vector run",
-      prompt: "Plot the vector.",
-      explanation: "The grid offsets end at the target.",
-    };
-  }),
-  ...(spatial.radar ?? []).map((seed) => {
-    const target = brutalCropById.get(seed.target);
-    return {
-      id: seed.target,
-      family: "radar",
-      targetLabel: "the signal intersection",
-      difficulty: 3,
-      target: { x: target?.x, y: target?.y },
-      tolerance: 0.024,
-      eyebrow: "Map Sense · Signal lock",
-      prompt: "Find the intersection.",
-      explanation: "The beacon ranges meet at the target.",
-    };
-  }),
+const teleportCandidates = ["radiant", "dire"].flatMap((side) => {
+  const anchors = Object.entries(landmarks)
+    .filter(([id]) => id.startsWith(`${side}-`) && id.includes("-tier-"))
+    .map(([id, landmark]) => ({ id, position: landmark.position }));
+  return (crops.brutal ?? [])
+    .map((target) => {
+      const ranked = anchors
+        .map((anchor) => ({
+          ...anchor,
+          distance: Math.hypot(anchor.position.x - target.x, anchor.position.y - target.y),
+        }))
+        .sort((left, right) => left.distance - right.distance);
+      return { side, target, ranked, gap: ranked[1].distance - ranked[0].distance };
+    })
+    .filter(
+      (candidate) =>
+        candidate.ranked[0].distance > 0.05 &&
+        candidate.ranked[0].distance < 0.38 &&
+        candidate.gap > 0.025 &&
+        candidate.gap < 0.12,
+    )
+    .sort((left, right) => Math.abs(left.gap - 0.07) - Math.abs(right.gap - 0.07))
+    .slice(0, 12);
+});
+const mechanicDefinitions = [
+  ...(mechanics.camps ?? []).map((camp) => ({
+    id: camp.id,
+    family: "camp-block",
+    targetLabel: "the blocking ward",
+    difficulty: 3,
+    target: camp.position,
+    tolerance: 0.024,
+    eyebrow: "Map Sense · Camp block",
+    prompt: "Which ward blocks?",
+    explanation: "One ward is inside the spawn box.",
+  })),
+  ...(mechanics.camps ?? []).map((camp) => ({
+    id: camp.id,
+    family: "stack-route",
+    targetLabel: "the stack route",
+    difficulty: 3,
+    target: camp.position,
+    tolerance: 0.024,
+    eyebrow: "Map Sense · Stack route",
+    prompt: "Which stack path?",
+    explanation: "The in-game camp guide marks one route.",
+  })),
+  ...teleportCandidates.map(({ side, target, ranked }) => ({
+    id: `${side}:${target.id}`,
+    family: "tp-in",
+    targetLabel: ranked[0].id,
+    difficulty: 3,
+    target: ranked[0].position,
+    tolerance: 0.024,
+    eyebrow: "Map Sense · TP in",
+    prompt: "Nearest TP?",
+    explanation: "One live tower is nearest the fight.",
+  })),
 ];
 const allDefinitions = [
   ...locations.map((location) => ({ ...location, family: "location" })),
   ...challenges,
   ...cropDefinitions,
-  ...spatialDefinitions,
+  ...mechanicDefinitions,
 ];
 
 function validPosition(position) {
@@ -122,6 +146,20 @@ function validPosition(position) {
     x <= 0.98 &&
     y >= 0.02 &&
     y <= 0.98
+  );
+}
+
+function validNormalizedPosition(position) {
+  const { x, y } = position ?? {};
+  return (
+    typeof x === "number" &&
+    typeof y === "number" &&
+    Number.isFinite(x) &&
+    Number.isFinite(y) &&
+    x >= 0 &&
+    x <= 1 &&
+    y >= 0 &&
+    y <= 1
   );
 }
 
@@ -212,7 +250,6 @@ for (const crop of cropDefinitions) {
   }
 }
 
-const landmarks = landmarkSnapshot.landmarks ?? {};
 const overview = landmarkSnapshot.snapshot?.overview;
 const worldSpan = overview?.scale * overview?.coordinateSize;
 const samePosition = (left, right, epsilon = 0.0000011) =>
@@ -250,60 +287,161 @@ if (
   }
 }
 
-const spatialTargetIds = {
-  vector: new Set(),
-  radar: new Set(),
+if (
+  mechanics.snapshot?.patch !== landmarkSnapshot.snapshot?.patch ||
+  mechanics.snapshot?.steamBuildId !== landmarkSnapshot.snapshot?.steamBuildId ||
+  mechanics.snapshot?.timingResource !== "pak01_dir.vpk:scripts/creep_pull_timings.txt" ||
+  mechanics.snapshot?.timingCrc !== "00e3848198"
+) {
+  failures.push("Map mechanics must match the audited Dota build and current in-game pull-timing resource.");
+}
+
+const campIds = new Set();
+const insideBounds = (position, bounds) =>
+  position.x >= bounds.min.x && position.x <= bounds.max.x && position.y >= bounds.min.y && position.y <= bounds.max.y;
+const clamp = (value, minimum, maximum) => Math.max(minimum, Math.min(maximum, value));
+const markerFitsViewport = (position, center, zoom) => {
+  const epsilon = 0.000001;
+  const viewportPosition = {
+    x: 0.5 + (position.x - center.x) * zoom,
+    y: 0.5 + (position.y - center.y) * zoom,
+  };
+  return (
+    viewportPosition.x >= 0.085 - epsilon &&
+    viewportPosition.x <= 0.915 + epsilon &&
+    viewportPosition.y >= 0.085 - epsilon &&
+    viewportPosition.y <= 0.915 + epsilon
+  );
 };
-for (const seed of spatial.vectors ?? []) {
-  const target = brutalCropById.get(seed.target);
-  const start = landmarks[seed.start];
-  if (!target) failures.push(`vector:${seed.target}: unknown audited crop target.`);
-  if (!start) failures.push(`vector:${seed.target}: unknown audited start landmark.`);
-  if (spatialTargetIds.vector.has(seed.target)) failures.push(`vector:${seed.target}: duplicate target.`);
-  spatialTargetIds.vector.add(seed.target);
-  if (target && start) {
-    const distance = Math.hypot(target.x - start.position.x, target.y - start.position.y);
-    if (distance < 0.14 || distance > 0.5) {
-      failures.push(`vector:${seed.target}: start-to-target distance must stay readable.`);
+const fittedViewport = (positions, preferredCenter, maximumZoom, markerMargin) => {
+  for (let zoomStep = Math.round(maximumZoom * 100); zoomStep >= 300; zoomStep -= 1) {
+    const zoom = zoomStep / 100;
+    const halfViewport = 0.5 / zoom;
+    const markerReach = (0.5 - markerMargin) / zoom;
+    const minimumCenterX = Math.max(halfViewport, ...positions.map((position) => position.x - markerReach));
+    const maximumCenterX = Math.min(1 - halfViewport, ...positions.map((position) => position.x + markerReach));
+    const minimumCenterY = Math.max(halfViewport, ...positions.map((position) => position.y - markerReach));
+    const maximumCenterY = Math.min(1 - halfViewport, ...positions.map((position) => position.y + markerReach));
+
+    if (minimumCenterX <= maximumCenterX && minimumCenterY <= maximumCenterY) {
+      return {
+        center: {
+          x: clamp(preferredCenter.x, minimumCenterX, maximumCenterX),
+          y: clamp(preferredCenter.y, minimumCenterY, maximumCenterY),
+        },
+        zoom,
+      };
     }
+  }
+  return null;
+};
+const campViewportCenter = (center, zoom) => {
+  const halfViewport = 0.5 / zoom;
+  return {
+    x: clamp(center.x, halfViewport, 1 - halfViewport),
+    y: clamp(center.y, halfViewport, 1 - halfViewport),
+  };
+};
+for (const [index, camp] of (mechanics.camps ?? []).entries()) {
+  if (typeof camp.id !== "string" || campIds.has(camp.id)) failures.push(`${camp.id}: duplicate neutral camp.`);
+  campIds.add(camp.id);
+
+  if (
+    !validPosition(camp.position) ||
+    !validPosition(camp.spawnBox?.min) ||
+    !validPosition(camp.spawnBox?.max) ||
+    camp.spawnBox.min.x >= camp.spawnBox.max.x ||
+    camp.spawnBox.min.y >= camp.spawnBox.max.y ||
+    !insideBounds(camp.position, camp.spawnBox)
+  ) {
+    failures.push(`${camp.id}: invalid current-map camp position or spawn box.`);
+    continue;
+  }
+  if (
+    !["small", "medium", "large", "ancient"].includes(camp.tier) ||
+    !["radiant", "dire"].includes(camp.side) ||
+    (camp.id.includes("_good_") ? camp.side !== "radiant" : camp.side !== "dire")
+  ) {
+    failures.push(`${camp.id}: invalid camp tier or side.`);
+  }
+  if (
+    !Number.isInteger(camp.stack?.start) ||
+    !Number.isInteger(camp.stack?.end) ||
+    camp.stack.start < 52 ||
+    camp.stack.end > 57 ||
+    camp.stack.end <= camp.stack.start ||
+    typeof camp.stack.direction !== "number" ||
+    camp.stack.direction < 0 ||
+    camp.stack.direction >= 360
+  ) {
+    failures.push(`${camp.id}: invalid Valve stack window or arrow direction.`);
+  }
+
+  const center = {
+    x: (camp.spawnBox.min.x + camp.spawnBox.max.x) / 2,
+    y: (camp.spawnBox.min.y + camp.spawnBox.max.y) / 2,
+  };
+  const halfWidth = (camp.spawnBox.max.x - camp.spawnBox.min.x) / 2;
+  const halfHeight = (camp.spawnBox.max.y - camp.spawnBox.min.y) / 2;
+  const correctIndex = (index * 3 + 1) % 4;
+  const startAngle = 22 + (index % 4) * 9;
+  const wardOptions = Array.from({ length: 4 }, (_, optionIndex) => {
+    const radians = ((startAngle + optionIndex * 90) * Math.PI) / 180;
+    const boundaryDistance =
+      1 / Math.max(Math.abs(Math.cos(radians)) / halfWidth, Math.abs(Math.sin(radians)) / halfHeight);
+    const distance = boundaryDistance * (optionIndex === correctIndex ? 0.87 : 1.14);
+    return {
+      x: center.x + Math.cos(radians) * distance,
+      y: center.y - Math.sin(radians) * distance,
+    };
+  });
+  if (
+    wardOptions.some((position) => !validPosition(position)) ||
+    wardOptions.filter((position) => insideBounds(position, camp.spawnBox)).length !== 1 ||
+    !insideBounds(wardOptions[correctIndex], camp.spawnBox) ||
+    wardOptions.some((position) => !markerFitsViewport(position, campViewportCenter(center, 8.2), 8.2))
+  ) {
+    failures.push(`${camp.id}: Camp Block must expose one blocking ward and keep all markers in view.`);
+  }
+
+  const boxWidth = camp.spawnBox.max.x - camp.spawnBox.min.x;
+  const boxHeight = camp.spawnBox.max.y - camp.spawnBox.min.y;
+  const edgeDistance = Math.min(camp.position.x, 1 - camp.position.x, camp.position.y, 1 - camp.position.y);
+  const routeDistance = Math.max(0.028, Math.min(Math.max(boxWidth, boxHeight) * 1.45, edgeDistance * 0.72));
+  const routeOptions = [0, 90, 180, 270].map((offset) => {
+    const routeRadians = (((camp.stack.direction + offset) % 360) * Math.PI) / 180;
+    return {
+      x: camp.position.x + Math.cos(routeRadians) * routeDistance,
+      y: camp.position.y - Math.sin(routeRadians) * routeDistance,
+    };
+  });
+  const routeViewport = fittedViewport(
+    [camp.position, camp.spawnBox.min, camp.spawnBox.max, ...routeOptions],
+    center,
+    6.2,
+    0.085,
+  );
+  if (
+    routeOptions.some((position) => !validNormalizedPosition(position)) ||
+    insideBounds(routeOptions[0], camp.spawnBox) ||
+    !routeViewport ||
+    routeOptions.some((position) => !markerFitsViewport(position, routeViewport.center, routeViewport.zoom))
+  ) {
+    failures.push(`${camp.id}: Stack Route must clear the spawn box and keep all four paths in view.`);
   }
 }
 
-const angularDistance = (left, right) => {
-  const difference = Math.abs(left - right) % (Math.PI * 2);
-  return Math.min(difference, Math.PI * 2 - difference);
-};
-for (const seed of spatial.radar ?? []) {
-  const target = brutalCropById.get(seed.target);
-  if (!target) failures.push(`radar:${seed.target}: unknown audited crop target.`);
-  if (spatialTargetIds.radar.has(seed.target)) failures.push(`radar:${seed.target}: duplicate target.`);
-  spatialTargetIds.radar.add(seed.target);
-  if (!Array.isArray(seed.beacons) || seed.beacons.length !== 3 || new Set(seed.beacons).size !== 3) {
-    failures.push(`radar:${seed.target}: exactly three distinct beacons are required.`);
-    continue;
-  }
-
-  const beacons = seed.beacons.map((id) => landmarks[id]);
-  if (beacons.some((beacon) => !beacon)) {
-    failures.push(`radar:${seed.target}: every beacon must use an audited landmark.`);
-    continue;
-  }
-  if (!target) continue;
-
-  const vectors = beacons.map((beacon) => ({
-    distance: Math.hypot(beacon.position.x - target.x, beacon.position.y - target.y),
-    angle: Math.atan2(beacon.position.y - target.y, beacon.position.x - target.x),
-  }));
-  if (vectors.some(({ distance }) => distance < 0.12 || distance > 0.56)) {
-    failures.push(`radar:${seed.target}: beacon range is too short or too large to read.`);
-  }
-  const minimumAngle = Math.min(
-    angularDistance(vectors[0].angle, vectors[1].angle),
-    angularDistance(vectors[0].angle, vectors[2].angle),
-    angularDistance(vectors[1].angle, vectors[2].angle),
-  );
-  if (minimumAngle < (70 * Math.PI) / 180) {
-    failures.push(`radar:${seed.target}: beacons do not surround the target clearly enough.`);
+if (teleportCandidates.length !== 24) {
+  failures.push(`TP In needs 24 unambiguous entity-backed scenarios (found ${teleportCandidates.length}).`);
+}
+for (const candidate of teleportCandidates) {
+  if (
+    candidate.ranked.length !== 9 ||
+    candidate.ranked.slice(0, 4).some((anchor) => !validPosition(anchor.position)) ||
+    candidate.gap <= 0.025 ||
+    candidate.gap >= 0.12
+  ) {
+    failures.push(`${candidate.side}:${candidate.target.id}: ambiguous or invalid TP In scenario.`);
   }
 }
 
@@ -327,10 +465,11 @@ const learningCount = allDefinitions.filter((location) => location.difficulty <=
 const veteranCount = allDefinitions.filter((location) => location.difficulty === 3).length;
 const veteranFamilyCounts = {
   crop: cropDefinitions.filter((location) => location.difficulty === 3).length,
-  vector: spatial.vectors?.length ?? 0,
-  radar: spatial.radar?.length ?? 0,
+  block: mechanics.camps?.length ?? 0,
+  stack: mechanics.camps?.length ?? 0,
+  tp: teleportCandidates.length,
 };
-if (learningCount < 24 || veteranCount < 72 || Object.values(veteranFamilyCounts).some((count) => count < 24)) {
+if (learningCount < 24 || veteranCount < 96 || Object.values(veteranFamilyCounts).some((count) => count < 24)) {
   failures.push(`Map Sense needs 24-round Learning and Veteran pools (found ${learningCount} and ${veteranCount}).`);
 }
 
@@ -349,6 +488,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${allDefinitions.length} Map Sense questions across eight families and ${Object.keys(landmarks).length} entity-backed pins (${difficultyCounts[1]} warm-up, ${difficultyCounts[2]} tricky, ${difficultyCounts[3]} brutal; Veteran ${JSON.stringify(veteranFamilyCounts)}).`,
+    `Validated ${allDefinitions.length} Map Sense questions across nine families, ${mechanics.camps.length} current neutral camps, and ${Object.keys(landmarks).length} entity-backed pins (${difficultyCounts[1]} warm-up, ${difficultyCounts[2]} tricky, ${difficultyCounts[3]} brutal; Veteran ${JSON.stringify(veteranFamilyCounts)}).`,
   );
 }

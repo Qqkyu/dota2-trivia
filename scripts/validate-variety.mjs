@@ -43,12 +43,15 @@ const mapKinds = [
   "map-relative",
   "map-scenario",
   "map-crop",
-  "map-vector",
-  "map-radar",
+  "map-camp-block",
+  "map-stack-route",
+  "map-tp-in",
 ];
 const mapFixture = mapKinds.flatMap((kind) =>
   Array.from(
-    { length: ["map-location", "map-crop", "map-vector", "map-radar"].includes(kind) ? 24 : 6 },
+    {
+      length: ["map-location", "map-crop", "map-camp-block", "map-stack-route", "map-tp-in"].includes(kind) ? 24 : 6,
+    },
     (_, index) => ({
       id: `${kind}-${index}`,
       kind,
@@ -62,13 +65,13 @@ const mapOpeningCounts = Object.fromEntries(
 
 if (
   mapOpening.some((question, index) => index > 0 && question.kind === mapOpening[index - 1].kind) ||
-  mapKinds.some((kind) => mapOpeningCounts[kind] < 3) ||
+  mapKinds.some((kind) => mapOpeningCounts[kind] < 2 || mapOpeningCounts[kind] > 3) ||
   mapOpeningCounts["map-location"] > 5
 ) {
-  throw new Error(`Map Sense lost its balanced eight-family opening: ${JSON.stringify(mapOpeningCounts)}.`);
+  throw new Error(`Map Sense lost its balanced nine-family opening: ${JSON.stringify(mapOpeningCounts)}.`);
 }
 
-const veteranMapKinds = ["map-crop", "map-vector", "map-radar"];
+const veteranMapKinds = ["map-crop", "map-camp-block", "map-stack-route", "map-tp-in"];
 const veteranMapFixture = veteranMapKinds.flatMap((kind) =>
   Array.from({ length: 24 }, (_, index) => ({ id: `veteran-${kind}-${index}`, kind })),
 );
@@ -78,9 +81,9 @@ const veteranMapCounts = Object.fromEntries(
 );
 if (
   veteranMapOpening.some((question, index) => index > 0 && question.kind === veteranMapOpening[index - 1].kind) ||
-  veteranMapKinds.some((kind) => veteranMapCounts[kind] !== 8)
+  veteranMapKinds.some((kind) => veteranMapCounts[kind] !== 6)
 ) {
-  throw new Error(`Veteran Map Sense lost its three-family rotation: ${JSON.stringify(veteranMapCounts)}.`);
+  throw new Error(`Veteran Map Sense lost its four-family rotation: ${JSON.stringify(veteranMapCounts)}.`);
 }
 
 const roundDuration = 12_000;

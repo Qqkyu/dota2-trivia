@@ -71,7 +71,8 @@ export async function POST(request: Request) {
   }
 
   const mapPosition = isMapPosition(candidate.mapPosition) ? candidate.mapPosition : undefined;
-  if (question.map && !mapPosition) {
+  const requiresMapPosition = Boolean(question.map && !question.map.choice);
+  if (requiresMapPosition && !mapPosition) {
     return NextResponse.json({ error: "Map Sense requires a valid map position." }, { status: 400 });
   }
 
@@ -87,8 +88,9 @@ export async function POST(request: Request) {
       contentVersion: room.contentVersion,
       questionId,
       correctIndex: question.correctIndex,
-      answerIndex: question.map && mapPosition ? mapAnswerIndex(question.map, mapPosition) : answerIndex,
-      mapPosition: question.map ? mapPosition : undefined,
+      answerIndex:
+        requiresMapPosition && question.map && mapPosition ? mapAnswerIndex(question.map, mapPosition) : answerIndex,
+      mapPosition: requiresMapPosition ? mapPosition : undefined,
       voterId,
       submittedAt,
     });

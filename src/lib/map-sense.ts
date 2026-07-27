@@ -2,13 +2,24 @@ import mapLocations from "@/data/map-sense-locations.json";
 import mapChallenges from "@/data/map-sense-challenges.json";
 import mapCrops from "@/data/map-sense-crops.json";
 import mapLandmarks from "@/data/map-sense-landmarks.json";
-import mapSpatial from "@/data/map-sense-spatial.json";
-import type { MapChallenge, MapCrop, MapPosition, MapRadar, MapReference, MapVector } from "@/lib/map-types";
+import mapMechanics from "@/data/map-sense-mechanics.json";
+import type {
+  MapCamp,
+  MapChallenge,
+  MapChoiceChallenge,
+  MapChoiceOption,
+  MapCrop,
+  MapPosition,
+  MapReference,
+  MapViewport,
+} from "@/lib/map-types";
 
 export const MAP_SENSE_IMAGE = "/assets/dota2/map/overview-7.41d.webp";
 export const MAP_SENSE_IMAGE_SOURCE = "https://www.dota2.com/patches/7.41";
 export const MAP_SENSE_BAND_LABELS = ["On target", "Close", "Wide", "Miss"] as const;
 export const MAP_SENSE_MAX_CROWD_PINS = 400;
+
+type AnswerTuple = [string, string, string, string];
 
 interface MapLocationDefinition {
   id: string;
@@ -19,10 +30,11 @@ interface MapLocationDefinition {
   eyebrow: string;
   prompt: string;
   explanation: string;
+  answers?: AnswerTuple;
+  correctIndex?: number;
   crop?: MapCrop;
   reference?: MapReference;
-  vector?: MapVector;
-  radar?: MapRadar;
+  choice?: MapChoiceChallenge;
 }
 
 type MapChallengeFamily = "riddle" | "mirror" | "relative" | "scenario";
@@ -32,15 +44,12 @@ type MapQuestionKind =
   | "map-relative"
   | "map-scenario"
   | "map-crop"
-  | "map-vector"
-  | "map-radar";
+  | "map-camp-block"
+  | "map-stack-route"
+  | "map-tp-in";
 
 interface MapChallengeDefinition extends MapLocationDefinition {
   family: MapChallengeFamily;
-  reference?: {
-    position: MapPosition;
-    label: string;
-  };
 }
 
 const familyKinds = {
@@ -54,6 +63,18 @@ interface MapCropSeed {
   id: string;
   x: number;
   y: number;
+}
+
+interface AuditedLandmark {
+  label: string;
+  position: MapPosition;
+}
+
+const auditedLandmarks = mapLandmarks.landmarks as Record<string, AuditedLandmark>;
+const mechanicsCamps = mapMechanics.camps as MapCamp[];
+
+function clamp(value: number, minimum: number, maximum: number) {
+  return Math.max(minimum, Math.min(maximum, value));
 }
 
 function cropQuestion(seed: MapCropSeed, difficulty: 2 | 3): MapLocationDefinition {
@@ -80,85 +101,254 @@ const cropDefinitions = [
   ...mapCrops.brutal.map((seed) => cropQuestion(seed, 3)),
 ];
 
-interface AuditedLandmark {
-  label: string;
-  position: MapPosition;
-}
-
-interface MapVectorSeed {
-  target: string;
-  start: string;
-}
-
-interface MapRadarSeed {
-  target: string;
-  beacons: string[];
-}
-
-const auditedLandmarks = mapLandmarks.landmarks as Record<string, AuditedLandmark>;
-const brutalCropById = new Map(mapCrops.brutal.map((crop) => [crop.id, crop]));
-
-function spatialTarget(id: string) {
-  const seed = brutalCropById.get(id);
-  if (!seed) throw new Error(`Unknown Map Sense spatial target: ${id}`);
-  return { x: seed.x, y: seed.y };
-}
-
-function auditedLandmark(id: string) {
-  const landmark = auditedLandmarks[id];
-  if (!landmark) throw new Error(`Unknown audited Map Sense landmark: ${id}`);
-  return landmark;
-}
-
-function vectorQuestion(seed: MapVectorSeed): MapLocationDefinition {
-  const target = spatialTarget(seed.target);
-  const start = auditedLandmark(seed.start);
+function boxCenter(camp: MapCamp): MapPosition {
   return {
-    id: seed.target,
-    targetLabel: "the vector endpoint",
-    difficulty: 3,
-    target,
-    tolerance: 0.024,
-    eyebrow: "Map Sense · Vector run",
-    prompt: "Plot the vector.",
-    explanation: "The horizontal and vertical grid offsets from the marked start end at this exact point.",
-    reference: {
-      position: start.position,
-      label: "Start",
+    x: (camp.spawnBox.min.x + camp.spawnBox.max.x) / 2,
+    y: (camp.spawnBox.min.y + camp.spawnBox.max.y) / 2,
+  };
+}
+
+function campViewport(camp: MapCamp, zoom: number): MapViewport {
+  const center = boxCenter(camp);
+  const halfViewport = 0.5 / zoom;
+  return {
+    center: {
+      x: clamp(center.x, halfViewport, 1 - halfViewport),
+      y: clamp(center.y, halfViewport, 1 - halfViewport),
     },
-    vector: {
-      dx: target.x - start.position.x,
-      dy: target.y - start.position.y,
-      gridSize: 8,
+    zoom,
+  };
+}
+
+function fittedViewport(
+  positions: MapPosition[],
+  preferredCenter: MapPosition,
+  maximumZoom: number,
+  markerMargin: number,
+): MapViewport {
+  for (let zoomStep = Math.round(maximumZoom * 100); zoomStep >= 300; zoomStep -= 1) {
+    const zoom = zoomStep / 100;
+    const halfViewport = 0.5 / zoom;
+    const markerReach = (0.5 - markerMargin) / zoom;
+    const minimumCenterX = Math.max(halfViewport, ...positions.map((position) => position.x - markerReach));
+    const maximumCenterX = Math.min(1 - halfViewport, ...positions.map((position) => position.x + markerReach));
+    const minimumCenterY = Math.max(halfViewport, ...positions.map((position) => position.y - markerReach));
+    const maximumCenterY = Math.min(1 - halfViewport, ...positions.map((position) => position.y + markerReach));
+
+    if (minimumCenterX <= maximumCenterX && minimumCenterY <= maximumCenterY) {
+      return {
+        center: {
+          x: clamp(preferredCenter.x, minimumCenterX, maximumCenterX),
+          y: clamp(preferredCenter.y, minimumCenterY, maximumCenterY),
+        },
+        zoom,
+      };
+    }
+  }
+
+  return { center: { x: 0.5, y: 0.5 }, zoom: 1 };
+}
+
+function positionAt(position: MapPosition, direction: number, distance: number): MapPosition {
+  const radians = (direction * Math.PI) / 180;
+  return {
+    x: position.x + Math.cos(radians) * distance,
+    y: position.y - Math.sin(radians) * distance,
+  };
+}
+
+function campBlockQuestion(camp: MapCamp, seedIndex: number): MapLocationDefinition {
+  const center = boxCenter(camp);
+  const halfWidth = (camp.spawnBox.max.x - camp.spawnBox.min.x) / 2;
+  const halfHeight = (camp.spawnBox.max.y - camp.spawnBox.min.y) / 2;
+  const correctIndex = (seedIndex * 3 + 1) % 4;
+  const startAngle = 22 + (seedIndex % 4) * 9;
+  const positions = Array.from({ length: 4 }, (_, index) => {
+    const angle = startAngle + index * 90;
+    const radians = (angle * Math.PI) / 180;
+    const boundaryDistance =
+      1 / Math.max(Math.abs(Math.cos(radians)) / halfWidth, Math.abs(Math.sin(radians)) / halfHeight);
+    return positionAt(center, angle, boundaryDistance * (index === correctIndex ? 0.87 : 1.14));
+  });
+  const options = positions.map(
+    (position, index) =>
+      ({
+        position,
+        label: `Ward ${String.fromCharCode(65 + index)}`,
+        marker: "ward",
+      }) satisfies MapChoiceOption,
+  ) as MapChoiceChallenge["options"];
+
+  return {
+    id: camp.id,
+    targetLabel: options[correctIndex].label,
+    difficulty: 3,
+    target: options[correctIndex].position,
+    tolerance: 0.024,
+    eyebrow: "Map Sense · Camp block",
+    prompt: "Which ward blocks?",
+    answers: options.map((option) => option.label) as AnswerTuple,
+    correctIndex,
+    explanation: `${options[correctIndex].label} sits inside this ${camp.tier} camp's current spawn box, so it blocks the next neutral spawn.`,
+    choice: {
+      kind: "camp-block",
+      viewport: campViewport(camp, 8.2),
+      options,
+      camp,
     },
   };
 }
 
-function radarQuestion(seed: MapRadarSeed): MapLocationDefinition {
-  const target = spatialTarget(seed.target);
+function stackRouteQuestion(camp: MapCamp, seedIndex: number): MapLocationDefinition {
+  const boxWidth = camp.spawnBox.max.x - camp.spawnBox.min.x;
+  const boxHeight = camp.spawnBox.max.y - camp.spawnBox.min.y;
+  const edgeDistance = Math.min(camp.position.x, 1 - camp.position.x, camp.position.y, 1 - camp.position.y);
+  const routeDistance = Math.max(0.028, Math.min(Math.max(boxWidth, boxHeight) * 1.45, edgeDistance * 0.72));
+  const directionOrder = [0, 90, 180, 270].map((offset) => (camp.stack.direction + offset) % 360);
+  const shift = (seedIndex * 3 + 2) % 4;
+  const directions = [...directionOrder.slice(shift), ...directionOrder.slice(0, shift)];
+  const correctIndex = directions.indexOf(camp.stack.direction);
+  const options = directions.map(
+    (angle, index) =>
+      ({
+        position: positionAt(camp.position, angle, routeDistance),
+        label: `Path ${String.fromCharCode(65 + index)}`,
+        angle,
+        marker: "route",
+      }) satisfies MapChoiceOption,
+  ) as MapChoiceChallenge["options"];
+  const viewport = fittedViewport(
+    [camp.position, camp.spawnBox.min, camp.spawnBox.max, ...options.map((option) => option.position)],
+    boxCenter(camp),
+    6.2,
+    0.085,
+  );
+
   return {
-    id: seed.target,
-    targetLabel: "the signal intersection",
+    id: camp.id,
+    targetLabel: options[correctIndex].label,
     difficulty: 3,
-    target,
+    target: options[correctIndex].position,
     tolerance: 0.024,
-    eyebrow: "Map Sense · Signal lock",
-    prompt: "Find the intersection.",
-    explanation: "All three beacon ranges intersect at this exact point.",
-    radar: {
-      beacons: seed.beacons.map((id) => {
-        const position = auditedLandmark(id).position;
+    eyebrow: "Map Sense · Stack route",
+    prompt: "Which stack path?",
+    answers: options.map((option) => option.label) as AnswerTuple,
+    correctIndex,
+    explanation: `The current in-game camp guide marks ${options[correctIndex].label} with a :${camp.stack.start}–:${camp.stack.end} stack window.`,
+    choice: {
+      kind: "stack-route",
+      viewport,
+      options,
+      camp,
+    },
+  };
+}
+
+interface TeleportAnchor extends MapReference {
+  id: string;
+  side: "radiant" | "dire";
+}
+
+function teleportTier(id: string) {
+  if (id.endsWith("-one")) return "T1";
+  if (id.endsWith("-two")) return "T2";
+  return "T3";
+}
+
+function teleportLane(id: string) {
+  if (id.includes("-mid-")) return "Mid";
+  if (id.includes("-safe-")) return "Safe";
+  if (id.includes("-offlane-")) return "Offlane";
+  if (id.includes("-top-")) return "Top";
+  return "Bottom";
+}
+
+const teleportAnchors = (["radiant", "dire"] as const).flatMap((side) =>
+  Object.entries(auditedLandmarks)
+    .filter(([id]) => id.startsWith(`${side}-`) && id.includes("-tier-"))
+    .map(
+      ([id, landmark]) =>
+        ({
+          id,
+          side,
+          label: `${teleportLane(id)} ${teleportTier(id)}`,
+          position: landmark.position,
+        }) satisfies TeleportAnchor,
+    ),
+);
+
+function rotate<T>(values: T[], shift: number) {
+  return [...values.slice(shift), ...values.slice(0, shift)];
+}
+
+function teleportQuestions() {
+  const candidates = (["radiant", "dire"] as const).flatMap((side) => {
+    const anchors = teleportAnchors.filter((anchor) => anchor.side === side);
+    return mapCrops.brutal
+      .map((target) => {
+        const ranked = anchors
+          .map((anchor) => ({
+            ...anchor,
+            distance: mapDistance(anchor.position, { x: target.x, y: target.y }),
+          }))
+          .sort((left, right) => left.distance - right.distance);
         return {
-          position,
-          distance: mapDistance(position, target),
+          side,
+          target,
+          ranked,
+          gap: ranked[1].distance - ranked[0].distance,
         };
-      }),
-    },
-  };
+      })
+      .filter(
+        (candidate) =>
+          candidate.ranked[0].distance > 0.05 &&
+          candidate.ranked[0].distance < 0.38 &&
+          candidate.gap > 0.025 &&
+          candidate.gap < 0.12,
+      )
+      .sort((left, right) => Math.abs(left.gap - 0.07) - Math.abs(right.gap - 0.07))
+      .slice(0, 12);
+  });
+
+  return candidates.map(({ side, target, ranked }, seedIndex): MapLocationDefinition => {
+    const nearest = ranked[0];
+    const orderedAnchors = rotate(ranked.slice(0, 4), (seedIndex * 3 + 1) % 4);
+    const correctIndex = orderedAnchors.findIndex((anchor) => anchor.id === nearest.id);
+    const options = orderedAnchors.map(
+      (anchor) =>
+        ({
+          position: anchor.position,
+          label: anchor.label,
+          marker: "tower",
+          side,
+        }) satisfies MapChoiceOption,
+    ) as MapChoiceChallenge["options"];
+    const fight = { position: { x: target.x, y: target.y }, label: "Fight" };
+
+    return {
+      id: `${side}:${target.id}`,
+      targetLabel: nearest.label,
+      difficulty: 3,
+      target: nearest.position,
+      tolerance: 0.024,
+      eyebrow: "Map Sense · TP in",
+      prompt: "Nearest TP?",
+      answers: options.map((option) => option.label) as AnswerTuple,
+      correctIndex,
+      explanation: `Of the four live ${side} towers shown, ${nearest.label} is nearest to the fight ping.`,
+      choice: {
+        kind: "tp-in",
+        viewport: { center: { x: 0.5, y: 0.5 }, zoom: 1 },
+        options,
+        fight,
+      },
+    };
+  });
 }
 
-const vectorDefinitions = (mapSpatial.vectors as MapVectorSeed[]).map(vectorQuestion);
-const radarDefinitions = (mapSpatial.radar as MapRadarSeed[]).map(radarQuestion);
+const campBlockDefinitions = mechanicsCamps.map(campBlockQuestion);
+const stackRouteDefinitions = mechanicsCamps.map(stackRouteQuestion);
+const teleportDefinitions = teleportQuestions();
 
 export function isMapPosition(value: unknown): value is MapPosition {
   if (!value || typeof value !== "object") return false;
@@ -197,17 +387,16 @@ const mapQuestion = (location: MapLocationDefinition, kind: "map-location" | Map
   difficulty: location.difficulty,
   eyebrow: location.eyebrow,
   prompt: location.prompt,
-  answers: [...MAP_SENSE_BAND_LABELS] as [string, string, string, string],
-  correctIndex: 0,
+  answers: location.answers ?? ([...MAP_SENSE_BAND_LABELS] as AnswerTuple),
+  correctIndex: location.correctIndex ?? 0,
   explanation: location.explanation,
   map: {
     target: location.target,
     targetLabel: location.targetLabel,
     tolerance: location.tolerance,
-    ...("reference" in location && location.reference ? { reference: location.reference } : {}),
+    ...(location.reference ? { reference: location.reference } : {}),
     ...(location.crop ? { crop: location.crop } : {}),
-    ...(location.vector ? { vector: location.vector } : {}),
-    ...(location.radar ? { radar: location.radar } : {}),
+    ...(location.choice ? { choice: location.choice } : {}),
   },
   source: {
     label: `Dota 2 build ${mapLandmarks.snapshot.steamBuildId}`,
@@ -222,6 +411,7 @@ export const mapSenseQuestions = [
     mapQuestion(challenge, familyKinds[challenge.family]),
   ),
   ...cropDefinitions.map((crop) => mapQuestion(crop, "map-crop")),
-  ...vectorDefinitions.map((vector) => mapQuestion(vector, "map-vector")),
-  ...radarDefinitions.map((radar) => mapQuestion(radar, "map-radar")),
+  ...campBlockDefinitions.map((camp) => mapQuestion(camp, "map-camp-block")),
+  ...stackRouteDefinitions.map((camp) => mapQuestion(camp, "map-stack-route")),
+  ...teleportDefinitions.map((teleport) => mapQuestion(teleport, "map-tp-in")),
 ];

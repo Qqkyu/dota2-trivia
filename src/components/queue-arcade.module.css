@@ -1378,22 +1378,33 @@
   border: 1px solid rgba(130, 208, 208, 0.26);
   background: #0b1011;
   color: inherit;
-  cursor: crosshair;
   box-shadow:
     0 24px 54px rgba(0, 0, 0, 0.34),
     0 0 0 7px rgba(111, 202, 203, 0.025);
 }
 
-.mapBoard:disabled {
+.mapPinSurface {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: crosshair;
+}
+
+.mapPinSurface:disabled {
   cursor: default;
 }
 
-.mapBoard:focus-visible {
+.mapPinSurface:focus-visible {
   outline: 2px solid rgba(126, 218, 216, 0.82);
-  outline-offset: 4px;
+  outline-offset: -3px;
 }
 
 .mapImage {
+  position: absolute;
   z-index: 0;
   object-fit: cover;
   filter: brightness(0.69) saturate(0.72) contrast(1.04);
@@ -1426,39 +1437,6 @@
   height: 100%;
   overflow: visible;
   pointer-events: none;
-}
-
-.mapRadarRings {
-  position: absolute;
-  z-index: 2;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.mapRadarRings circle {
-  fill: none;
-  stroke: #72dcda;
-  stroke-dasharray: 2.4 1.5;
-  stroke-width: 0.48;
-  opacity: 0.76;
-  animation: mapRadarTrace 9s linear infinite;
-  filter: drop-shadow(0 0 1.5px rgba(87, 213, 208, 0.48));
-  vector-effect: non-scaling-stroke;
-}
-
-.mapRadarRings circle[data-tone="1"] {
-  stroke: #e7b55d;
-  animation-direction: reverse;
-  filter: drop-shadow(0 0 1.5px rgba(231, 181, 93, 0.44));
-}
-
-.mapRadarRings circle[data-tone="2"] {
-  stroke: #d98bd6;
-  animation-duration: 11s;
-  filter: drop-shadow(0 0 1.5px rgba(217, 139, 214, 0.44));
 }
 
 .mapHeatGlow {
@@ -1500,8 +1478,7 @@
 .mapAim,
 .mapPlayerPin,
 .mapTargetPin,
-.mapReferencePin,
-.mapRadarBeacon {
+.mapReferencePin {
   position: absolute;
   z-index: 6;
   display: grid;
@@ -1582,52 +1559,295 @@
   color: #f5ce80;
 }
 
-.mapRadarBeacon {
-  width: 26px;
-  height: 26px;
-  border: 1px solid rgba(114, 220, 218, 0.84);
-  border-radius: 50%;
-  background: rgba(9, 25, 26, 0.92);
-  color: #a9efec;
+.mapSpawnBox {
+  position: absolute;
+  z-index: 3;
+  border: 2px dashed rgba(242, 189, 91, 0.9);
+  background: rgba(242, 189, 91, 0.09);
   box-shadow:
-    0 0 0 3px rgba(114, 220, 218, 0.11),
-    0 3px 8px rgba(0, 0, 0, 0.72);
+    inset 0 0 22px rgba(242, 189, 91, 0.08),
+    0 0 18px rgba(242, 189, 91, 0.08);
+  pointer-events: none;
+}
+
+.mapRouteLines {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.mapRouteLines line {
+  stroke: rgba(214, 226, 221, 0.46);
+  stroke-dasharray: 1.4 1.3;
+  stroke-width: 0.55;
+  transition:
+    stroke 180ms ease,
+    stroke-width 180ms ease;
+}
+
+.mapRouteLines line[data-state="selected"] {
+  stroke: #87d9d5;
+  stroke-width: 0.85;
+}
+
+.mapRouteLines line[data-state="correct"] {
+  stroke: #72d99e;
+  stroke-width: 0.95;
+}
+
+.mapRouteLines line[data-state="wrong"] {
+  stroke: #eb6c5b;
+  stroke-width: 0.85;
+}
+
+.mapCampMarker,
+.mapFightMarker {
+  position: absolute;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
   transform: translate(-50%, -50%);
 }
 
-.mapRadarBeacon i {
+.mapCampMarker {
+  width: 25px;
+  height: 25px;
+  border: 1px solid rgba(242, 189, 91, 0.78);
+  border-radius: 50%;
+  background: rgba(28, 23, 11, 0.92);
+  box-shadow:
+    0 0 0 4px rgba(242, 189, 91, 0.1),
+    0 3px 8px rgba(0, 0, 0, 0.74);
+}
+
+.mapCampMarker i {
+  width: 11px;
+  height: 10px;
+  background: #efbf64;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.mapCampMarker[data-tier="medium"] i {
+  box-shadow: inset 0 -3px rgba(35, 28, 12, 0.72);
+}
+
+.mapCampMarker[data-tier="large"] i {
+  background: linear-gradient(#efbf64 0 42%, #5e4822 42% 56%, #efbf64 56%);
+}
+
+.mapCampMarker[data-tier="ancient"] i {
+  background: transparent;
+  border: 2px solid #efbf64;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.mapFightMarker {
+  width: 38px;
+  height: 38px;
+  color: #f07260;
+  filter: drop-shadow(0 0 8px rgba(240, 103, 84, 0.72));
+}
+
+.mapFightMarker svg {
+  width: 100%;
+  height: 100%;
+}
+
+.mapFightMarker small {
+  position: absolute;
+  top: 34px;
+  padding: 2px 6px;
+  border: 1px solid rgba(240, 103, 84, 0.48);
+  background: rgba(24, 10, 9, 0.9);
+  color: #ffb1a4;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 8px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.mapChoiceMarker {
+  position: absolute;
+  z-index: 8;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid rgba(166, 209, 207, 0.62);
+  border-radius: 50%;
+  background: rgba(8, 18, 19, 0.94);
+  color: #c5e5e1;
+  cursor: pointer;
+  place-items: center;
+  box-shadow:
+    0 0 0 4px rgba(105, 203, 200, 0.08),
+    0 4px 10px rgba(0, 0, 0, 0.72);
+  transform: translate(-50%, -50%);
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.mapChoiceMarker:hover:not(:disabled),
+.mapChoiceMarker:focus-visible {
+  border-color: #9ae2de;
+  color: #effffd;
+  outline: none;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.mapChoiceMarker:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.mapChoiceMarker > strong {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  display: grid;
+  width: 19px;
+  height: 19px;
+  border: 1px solid currentcolor;
+  background: #0a1112;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  font-weight: 600;
+  place-items: center;
+}
+
+.mapChoiceMarker > em {
+  position: absolute;
+  top: -10px;
+  right: -15px;
+  padding: 2px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(7, 12, 13, 0.94);
+  color: #d1dad8;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 8px;
+  font-style: normal;
+}
+
+.mapChoiceMarker[data-state="selected"] {
+  border-color: #7bdbd7;
+  background: rgba(20, 53, 53, 0.96);
+  color: #a9f0ed;
+  box-shadow:
+    0 0 0 5px rgba(105, 213, 209, 0.16),
+    0 4px 12px rgba(0, 0, 0, 0.72);
+}
+
+.mapChoiceMarker[data-state="correct"] {
+  border-color: #72d99e;
+  background: rgba(17, 55, 36, 0.97);
+  color: #9ce8b9;
+  box-shadow:
+    0 0 0 5px rgba(91, 207, 142, 0.16),
+    0 4px 12px rgba(0, 0, 0, 0.72);
+}
+
+.mapChoiceMarker[data-state="wrong"] {
+  border-color: #eb6c5b;
+  background: rgba(62, 24, 20, 0.97);
+  color: #ff9f91;
+}
+
+.mapChoiceMarker[data-marker="ward"] > i {
+  position: relative;
+  width: 18px;
+  height: 12px;
+  border: 2px solid currentcolor;
+  border-radius: 50%;
+}
+
+.mapChoiceMarker[data-marker="ward"] > i::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 5px;
   height: 5px;
   border-radius: 50%;
   background: currentcolor;
   box-shadow: 0 0 7px currentcolor;
+  content: "";
+  transform: translate(-50%, -50%);
 }
 
-.mapRadarBeacon small {
+.mapChoiceMarker[data-marker="ward"] > i::after {
   position: absolute;
-  top: 27px;
-  padding: 1px 4px;
-  border: 1px solid currentcolor;
-  background: rgba(7, 13, 14, 0.94);
+  top: 10px;
+  left: 50%;
+  width: 2px;
+  height: 9px;
+  background: currentcolor;
+  content: "";
+  transform: translateX(-50%);
+}
+
+.mapChoiceMarker[data-marker="route"] > i::before {
+  display: block;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
-  line-height: 13px;
+  font-size: 25px;
+  font-style: normal;
+  line-height: 1;
+  content: "➜";
+  transform: rotate(var(--map-route-angle));
 }
 
-.mapRadarBeacon[data-tone="1"] {
-  border-color: #e7b55d;
-  color: #f3ca7d;
-  box-shadow:
-    0 0 0 3px rgba(231, 181, 93, 0.11),
-    0 3px 8px rgba(0, 0, 0, 0.72);
+.mapChoiceMarker[data-marker="tower"] {
+  width: 42px;
+  height: 42px;
 }
 
-.mapRadarBeacon[data-tone="2"] {
-  border-color: #d98bd6;
-  color: #ecb1e9;
-  box-shadow:
-    0 0 0 3px rgba(217, 139, 214, 0.11),
-    0 3px 8px rgba(0, 0, 0, 0.72);
+.mapChoiceMarker[data-marker="tower"][data-side="radiant"] {
+  border-color: rgba(109, 207, 151, 0.75);
+  color: #8de2b1;
+}
+
+.mapChoiceMarker[data-marker="tower"][data-side="dire"] {
+  border-color: rgba(232, 105, 90, 0.75);
+  color: #f39a8d;
+}
+
+.mapChoiceMarker[data-marker="tower"] > i {
+  position: relative;
+  width: 17px;
+  height: 17px;
+  border: 2px solid currentcolor;
+  border-top: 0;
+}
+
+.mapChoiceMarker[data-marker="tower"] > i::before {
+  position: absolute;
+  top: -6px;
+  left: -2px;
+  width: 17px;
+  height: 7px;
+  background: currentcolor;
+  clip-path: polygon(0 0, 28% 0, 28% 45%, 72% 45%, 72% 0, 100% 0, 100% 100%, 0 100%);
+  content: "";
+}
+
+.mapChoiceMarker[data-marker="tower"] > small {
+  position: absolute;
+  top: 45px;
+  min-width: 52px;
+  padding: 2px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(7, 12, 13, 0.92);
+  color: #ced9d6;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 7px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .mapRadiantLabel,
@@ -1766,257 +1986,169 @@
   stroke-width: 1.35;
 }
 
-.mapVectorCard,
-.mapRadarCard {
-  position: relative;
+.mapMechanicCard {
+  display: grid;
   width: min(100%, 320px);
-  min-height: 176px;
-  overflow: hidden;
+  min-height: 116px;
+  align-items: center;
+  gap: 18px;
+  grid-template-columns: 74px minmax(0, 1fr);
   margin-top: 18px;
+  padding: 18px;
   border: 1px solid rgba(124, 207, 208, 0.28);
-  background: linear-gradient(135deg, rgba(109, 215, 212, 0.07), transparent 48%), rgba(5, 11, 12, 0.66);
+  background: linear-gradient(135deg, rgba(109, 215, 212, 0.07), transparent 52%), rgba(5, 11, 12, 0.66);
   box-shadow:
     0 18px 36px rgba(0, 0, 0, 0.28),
     inset 0 0 34px rgba(2, 6, 7, 0.32);
 }
 
-.mapVectorCard {
+.mapMechanicCard > span {
   display: grid;
-  align-items: center;
-  gap: 18px;
-  grid-template-columns: 136px minmax(0, 1fr);
-  padding: 18px;
+  width: 66px;
+  height: 66px;
+  border: 1px solid rgba(119, 212, 209, 0.22);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(90, 187, 185, 0.12), transparent 67%);
+  color: #86dedb;
+  place-items: center;
 }
 
-.mapVectorDial {
+.mapMechanicCard > span svg {
+  width: 29px;
+  stroke-width: 1.35;
+}
+
+.mapMechanicCard[data-kind="camp-block"] > span i {
   position: relative;
-  width: 136px;
-  aspect-ratio: 1;
-  border: 1px solid rgba(123, 211, 209, 0.3);
+  width: 29px;
+  height: 19px;
+  border: 2px solid #91e3df;
   border-radius: 50%;
-  background: linear-gradient(rgba(123, 211, 209, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(123, 211, 209, 0.06) 1px, transparent 1px),
-    radial-gradient(circle, rgba(90, 187, 185, 0.1), transparent 64%);
-  background-size:
-    25% 25%,
-    25% 25%,
-    auto;
-  box-shadow:
-    inset 0 0 24px rgba(1, 5, 6, 0.62),
-    0 0 22px rgba(81, 184, 181, 0.08);
 }
 
-.mapVectorDial::before,
-.mapVectorDial::after {
-  position: absolute;
-  border: 1px solid rgba(123, 211, 209, 0.12);
-  border-radius: 50%;
-  content: "";
-  inset: 18px;
-}
-
-.mapVectorDial::after {
-  inset: 42px;
-}
-
-.mapVectorDial > small {
-  position: absolute;
-  z-index: 2;
-  color: #6f8987;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
-  letter-spacing: 0.08em;
-}
-
-.mapVectorDial > small:nth-of-type(1) {
-  top: 7px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.mapVectorDial > small:nth-of-type(2) {
-  top: 50%;
-  right: 8px;
-  transform: translateY(-50%);
-}
-
-.mapVectorDial > small:nth-of-type(3) {
-  bottom: 7px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.mapVectorDial > small:nth-of-type(4) {
-  top: 50%;
-  left: 8px;
-  transform: translateY(-50%);
-}
-
-.mapVectorDial > span {
-  position: absolute;
-  z-index: 3;
-  top: 50%;
-  left: 50%;
-  width: 70px;
-  height: 70px;
-  transform-origin: center;
-}
-
-.mapVectorDial > span::before {
-  position: absolute;
-  top: 3px;
-  left: 50%;
-  width: 2px;
-  height: 32px;
-  background: linear-gradient(#c0f6f2, #6bd4d1);
-  box-shadow: 0 0 8px rgba(107, 212, 209, 0.72);
-  content: "";
-  transform: translateX(-50%);
-}
-
-.mapVectorDial > span::after {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 9px;
-  height: 9px;
-  border-top: 2px solid #c0f6f2;
-  border-left: 2px solid #c0f6f2;
-  content: "";
-  transform: translateX(-50%) rotate(45deg);
-}
-
-.mapVectorDial > span i {
+.mapMechanicCard[data-kind="camp-block"] > span i::before {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 8px;
   height: 8px;
-  border: 2px solid #96e7e3;
   border-radius: 50%;
-  background: #102526;
-  box-shadow: 0 0 9px rgba(107, 212, 209, 0.62);
+  background: #91e3df;
+  box-shadow: 0 0 9px rgba(113, 218, 213, 0.82);
+  content: "";
   transform: translate(-50%, -50%);
 }
 
-.mapVectorSteps {
+.mapMechanicCard[data-kind="camp-block"] > span i::after {
+  position: absolute;
+  top: 17px;
+  left: 50%;
+  width: 2px;
+  height: 13px;
+  background: #91e3df;
+  content: "";
+  transform: translateX(-50%);
+}
+
+.mapMechanicCard > div {
   display: grid;
-  gap: 8px;
-  grid-template-columns: 1fr 1fr;
+  gap: 7px;
 }
 
-.mapVectorSteps > span {
-  display: grid;
-  min-height: 57px;
-  place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.075);
-  background: rgba(0, 0, 0, 0.16);
-}
-
-.mapVectorSteps i {
-  color: #78d8d5;
+.mapMechanicCard small {
+  color: #6f8582;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 19px;
-  font-style: normal;
-  line-height: 1;
-}
-
-.mapVectorSteps strong {
-  color: #e1e9e6;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 1;
-}
-
-.mapVectorSteps > small {
-  grid-column: 1 / -1;
-  color: #687371;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
-  letter-spacing: 0.11em;
-  text-align: center;
+  font-size: 9px;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 
-.mapRadarCard {
-  display: grid;
-  min-height: 176px;
-  place-items: center;
-  padding: 20px;
-  isolation: isolate;
-}
-
-.mapRadarCard::before,
-.mapRadarCard::after {
-  position: absolute;
-  z-index: -1;
-  width: 150px;
-  height: 150px;
-  border: 1px solid rgba(119, 212, 209, 0.1);
-  border-radius: 50%;
-  content: "";
-}
-
-.mapRadarCard::after {
-  width: 96px;
-  height: 96px;
-}
-
-.mapRadarCard > svg {
-  width: 50px;
-  color: #8ce1de;
-  filter: drop-shadow(0 0 11px rgba(105, 213, 209, 0.38));
-  stroke-width: 1.2;
-}
-
-.mapRadarCard > div {
-  display: grid;
-  width: 100%;
-  gap: 7px;
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.mapRadarCard > div span {
-  display: flex;
-  min-height: 37px;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-  border: 1px solid rgba(114, 220, 218, 0.2);
-  background: rgba(6, 18, 19, 0.86);
-  color: #a7ece9;
+.mapMechanicCard strong {
+  color: #e0e9e6;
   font-family: var(--font-geist-mono), monospace;
-}
-
-.mapRadarCard > div span[data-tone="1"] {
-  border-color: rgba(231, 181, 93, 0.25);
-  color: #f0c779;
-}
-
-.mapRadarCard > div span[data-tone="2"] {
-  border-color: rgba(217, 139, 214, 0.25);
-  color: #e7a9e4;
-}
-
-.mapRadarCard > div i {
-  width: 6px;
-  height: 6px;
-  margin-right: 3px;
-  border-radius: 50%;
-  background: currentcolor;
-  box-shadow: 0 0 7px currentcolor;
-}
-
-.mapRadarCard > div strong {
-  font-size: 15px;
+  font-size: 21px;
   font-weight: 500;
+  text-transform: capitalize;
 }
 
-.mapRadarCard > div small {
-  color: currentcolor;
-  font-size: 8px;
-  opacity: 0.68;
+.mapChoiceList {
+  display: grid;
+  max-width: 430px;
+  gap: 7px;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 22px;
+}
+
+.mapChoiceList button {
+  display: grid;
+  min-height: 48px;
+  align-items: center;
+  gap: 9px;
+  grid-template-columns: 29px minmax(0, 1fr) auto;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  background: rgba(0, 0, 0, 0.13);
+  color: #8f9997;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.mapChoiceList button:hover:not(:disabled),
+.mapChoiceList button:focus-visible {
+  border-color: rgba(118, 216, 212, 0.56);
+  color: #d7e7e4;
+  outline: none;
+}
+
+.mapChoiceList button:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.mapChoiceList button > span {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  place-items: center;
+}
+
+.mapChoiceList button > strong {
+  overflow: hidden;
+  font-size: 11px;
+  font-weight: 540;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mapChoiceList button > small {
+  color: #aeb8b6;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+}
+
+.mapChoiceList button[data-state="selected"] {
+  border-color: rgba(117, 216, 212, 0.56);
+  background: rgba(29, 72, 71, 0.28);
+  color: #c9eeeb;
+}
+
+.mapChoiceList button[data-state="correct"] {
+  border-color: rgba(98, 207, 142, 0.58);
+  background: rgba(25, 77, 49, 0.3);
+  color: #b8edca;
+}
+
+.mapChoiceList button[data-state="wrong"] {
+  border-color: rgba(232, 97, 80, 0.58);
+  background: rgba(84, 31, 26, 0.28);
+  color: #f0aaa0;
 }
 
 .mapMission h2 {
@@ -3863,12 +3995,6 @@
   }
 }
 
-@keyframes mapRadarTrace {
-  to {
-    stroke-dashoffset: -28;
-  }
-}
-
 @media (max-width: 1120px) {
   .lobby {
     gap: 48px;
@@ -3991,28 +4117,21 @@
   }
 
   .mapTerrainCrop,
-  .mapVectorCard,
-  .mapRadarCard {
+  .mapMechanicCard {
     width: min(180px, 58vw);
   }
 
-  .mapVectorCard {
-    min-height: auto;
-    gap: 12px;
-    grid-template-columns: 1fr;
-    padding: 14px;
+  .mapMechanicCard {
+    min-height: 92px;
+    gap: 10px;
+    grid-template-columns: 54px minmax(0, 1fr);
+    padding: 12px;
+    text-align: left;
   }
 
-  .mapVectorDial {
-    width: 118px;
-  }
-
-  .mapVectorSteps {
-    width: 100%;
-  }
-
-  .mapRadarCard {
-    min-height: 168px;
+  .mapMechanicCard > span {
+    width: 50px;
+    height: 50px;
   }
 
   .mapMission h2 {
@@ -4025,6 +4144,10 @@
 
   .mapAccuracyScale {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .mapChoiceList {
+    width: 100%;
   }
 
   .mapMissionStatus {

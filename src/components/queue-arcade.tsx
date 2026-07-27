@@ -50,7 +50,7 @@ import {
 import type { CrowdResult, PublicRoomSettings, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
-import type { MapCrop, MapPosition, MapRadar, MapVector } from "@/lib/map-types";
+import type { MapBounds, MapChoiceChallenge, MapCrop, MapPosition, MapViewport } from "@/lib/map-types";
 import { MAP_READ_GRACE_MS, speedScoreRatio } from "@/lib/scoring.mjs";
 import styles from "./queue-arcade.module.css";
 
@@ -200,9 +200,9 @@ const MODE_INFO: Record<
     label: "Map Sense",
     shortLabel: "Map Sense",
     eyebrow: "Pinpoint the play",
-    description: "Read terrain, plot grid vectors, and triangulate signals before the room reveal.",
+    description: "Read terrain, block camps, stack neutrals, and choose the right TP before the room reveal.",
     action: "Read the map",
-    rule: "Terrain memory, grid movement, and triangulation.",
+    rule: "Real terrain, spawn boxes, stack guides, and live structures.",
   },
 };
 
@@ -382,11 +382,10 @@ function scoreBreakdown(
   const cluePenalty =
     question.game === "spell-link" ? (clueStageAt(timeRemaining, duration) - 1) * SPELL_CLUE_PENALTY : 0;
   const distance = question.map && selectedMapPosition ? mapDistance(question.map.target, selectedMapPosition) : null;
-  const precisionBonus = question.map
-    ? distance === null
-      ? 100
-      : Math.round(Math.max(0, 1 - distance / question.map.tolerance) * 100)
-    : 0;
+  const precisionBonus =
+    question.map && !question.map.choice && distance !== null
+      ? Math.round(Math.max(0, 1 - distance / question.map.tolerance) * 100)
+      : 0;
 
   return {
     speedBonus,
@@ -526,65 +525,57 @@ function MapTerrainCrop({ crop }: { crop: MapCrop }) {
   );
 }
 
-function MapVectorCard({ vector }: { vector: MapVector }) {
-  const angle = (Math.atan2(vector.dy, vector.dx) * 180) / Math.PI + 90;
-  const horizontal = Math.abs(vector.dx * vector.gridSize).toFixed(1);
-  const vertical = Math.abs(vector.dy * vector.gridSize).toFixed(1);
-
-  return (
-    <div
-      className={styles.mapVectorCard}
-      data-testid="map-vector-card"
-      role="img"
-      aria-label={`From the start marker, move ${horizontal} grid squares ${
-        vector.dx >= 0 ? "right" : "left"
-      } and ${vertical} grid squares ${vector.dy >= 0 ? "down" : "up"}.`}
-    >
-      <div className={styles.mapVectorDial} aria-hidden="true">
-        <small>N</small>
-        <small>E</small>
-        <small>S</small>
-        <small>W</small>
-        <span style={{ transform: `translate(-50%, -50%) rotate(${angle}deg)` }}>
-          <i />
-        </span>
-      </div>
-      <div className={styles.mapVectorSteps} aria-hidden="true">
-        <span>
-          <i>{vector.dx >= 0 ? "→" : "←"}</i>
-          <strong>{horizontal}</strong>
-        </span>
-        <span>
-          <i>{vector.dy >= 0 ? "↓" : "↑"}</i>
-          <strong>{vertical}</strong>
-        </span>
-        <small>
-          {vector.gridSize} × {vector.gridSize} grid
-        </small>
-      </div>
-    </div>
-  );
+function viewportPosition(position: MapPosition, viewport: MapViewport): MapPosition {
+  return {
+    x: 0.5 + (position.x - viewport.center.x) * viewport.zoom,
+    y: 0.5 + (position.y - viewport.center.y) * viewport.zoom,
+  };
 }
 
-function MapRadarCard({ radar }: { radar: MapRadar }) {
+function viewportImageStyle(viewport: MapViewport) {
+  return {
+    width: `${viewport.zoom * 100}%`,
+    height: `${viewport.zoom * 100}%`,
+    left: `${50 - viewport.center.x * viewport.zoom * 100}%`,
+    top: `${50 - viewport.center.y * viewport.zoom * 100}%`,
+  } satisfies CSSProperties;
+}
+
+function viewportBoundsStyle(bounds: MapBounds, viewport: MapViewport) {
+  const minimum = viewportPosition(bounds.min, viewport);
+  const maximum = viewportPosition(bounds.max, viewport);
+  return {
+    left: `${minimum.x * 100}%`,
+    top: `${minimum.y * 100}%`,
+    width: `${(maximum.x - minimum.x) * 100}%`,
+    height: `${(maximum.y - minimum.y) * 100}%`,
+  } satisfies CSSProperties;
+}
+
+function MapMechanicCard({ choice }: { choice: MapChoiceChallenge }) {
+  const camp = choice.camp;
+  const side = choice.options.find((option) => option.side)?.side;
+
   return (
-    <div
-      className={styles.mapRadarCard}
-      data-testid="map-radar-card"
-      role="img"
-      aria-label={`Three beacon ranges: ${radar.beacons
-        .map((beacon) => `${Math.round(beacon.distance * 100)} percent`)
-        .join(", ")}.`}
-    >
-      <Radio aria-hidden="true" />
-      <div aria-hidden="true">
-        {radar.beacons.map((beacon, index) => (
-          <span key={`${beacon.position.x}:${beacon.position.y}`} data-tone={index}>
-            <i />
-            <strong>{Math.round(beacon.distance * 100)}</strong>
-            <small>%</small>
-          </span>
-        ))}
+    <div className={styles.mapMechanicCard} data-testid={`map-${choice.kind}-card`} data-kind={choice.kind}>
+      <span aria-hidden="true">
+        {choice.kind === "camp-block" ? <i /> : choice.kind === "stack-route" ? <Clock3 /> : <MapPin />}
+      </span>
+      <div>
+        <small>
+          {choice.kind === "camp-block"
+            ? "Neutral spawn · :00"
+            : choice.kind === "stack-route"
+              ? `${camp?.tier} camp`
+              : `${side} rotation`}
+        </small>
+        <strong>
+          {choice.kind === "camp-block"
+            ? `${camp?.tier} camp`
+            : choice.kind === "stack-route"
+              ? `:${camp?.stack.start}–:${camp?.stack.end}`
+              : "4 live towers"}
+        </strong>
       </div>
     </div>
   );
@@ -593,31 +584,45 @@ function MapRadarCard({ radar }: { radar: MapRadar }) {
 function MapSenseBoard({
   question,
   phase,
+  selectedIndex,
   selectedPosition,
   crowd,
-  onChoose,
+  onChoosePosition,
+  onChooseIndex,
 }: {
   question: ArcadeRound;
   phase: GamePhase;
+  selectedIndex: number | null;
   selectedPosition: MapPosition | null;
   crowd: CrowdResult;
-  onChoose: (position: MapPosition) => void;
+  onChoosePosition: (position: MapPosition) => void;
+  onChooseIndex: (index: number) => void;
 }) {
   const [aimPosition, setAimPosition] = useState<MapPosition | null>(null);
   const challenge = question.map;
 
   if (!challenge) return null;
 
-  const canChoose = phase === "answering" && !selectedPosition;
+  const choice = challenge.choice;
+  const viewport = choice?.viewport ?? { center: { x: 0.5, y: 0.5 }, zoom: 1 };
+  const canChoosePin = phase === "answering" && !choice && selectedIndex === null;
+  const canChooseOption = phase === "answering" && Boolean(choice) && selectedIndex === null;
   const selectedDistance = selectedPosition ? mapDistance(challenge.target, selectedPosition) : null;
   const selectedBand = selectedPosition ? mapAnswerIndex(challenge, selectedPosition) : null;
-  const hasVisualPuzzle = Boolean(challenge.crop || challenge.vector || challenge.radar);
+  const hasVisualPuzzle = Boolean(challenge.crop || choice);
   const targetRingStyle = {
     left: `${challenge.target.x * 100}%`,
     top: `${challenge.target.y * 100}%`,
     width: `${challenge.tolerance * 200}%`,
     height: `${challenge.tolerance * 200}%`,
   } satisfies CSSProperties;
+  const campPosition = choice?.camp ? viewportPosition(choice.camp.position, viewport) : null;
+  const choiceInstruction =
+    choice?.kind === "camp-block"
+      ? "Choose a ward"
+      : choice?.kind === "stack-route"
+        ? "Choose a path"
+        : "Choose a tower";
 
   const positionFromPointer = (element: HTMLButtonElement, clientX: number, clientY: number) => {
     const bounds = element.getBoundingClientRect();
@@ -631,86 +636,67 @@ function MapSenseBoard({
     <div
       className={clsx(styles.mapSenseQuestion, hasVisualPuzzle && styles.mapVisualQuestion)}
       data-testid="map-sense-round"
-      data-puzzle-kind={challenge.crop ? "crop" : challenge.vector ? "vector" : challenge.radar ? "radar" : "call"}
+      data-puzzle-kind={challenge.crop ? "crop" : (choice?.kind ?? "call")}
     >
       <div className={styles.mapBoardFrame}>
-        <button
-          type="button"
+        <div
           className={styles.mapBoard}
           data-testid="map-sense-board"
-          data-map-state={phase === "reveal" ? "reveal" : selectedPosition ? "locked" : "aiming"}
-          disabled={!canChoose}
-          aria-label={
-            canChoose
-              ? `Place your pin for: ${question.prompt} Use the pointer, or arrow keys and Enter.`
-              : `Map pin ${selectedPosition ? "locked" : "unavailable"} for ${question.prompt}`
-          }
-          onFocus={() => {
-            if (canChoose && !aimPosition) setAimPosition({ x: 0.5, y: 0.5 });
-          }}
-          onPointerMove={(event) => {
-            if (canChoose) setAimPosition(positionFromPointer(event.currentTarget, event.clientX, event.clientY));
-          }}
-          onPointerLeave={() => {
-            if (canChoose) setAimPosition(null);
-          }}
-          onKeyDown={(event) => {
-            if (!canChoose) return;
-            const movement = 0.025;
-            const current = aimPosition ?? { x: 0.5, y: 0.5 };
-            const next = { ...current };
-            if (event.key === "ArrowLeft") next.x -= movement;
-            else if (event.key === "ArrowRight") next.x += movement;
-            else if (event.key === "ArrowUp") next.y -= movement;
-            else if (event.key === "ArrowDown") next.y += movement;
-            else if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              onChoose(current);
-              return;
-            } else {
-              return;
-            }
-            event.preventDefault();
-            setAimPosition({
-              x: Math.max(0, Math.min(1, next.x)),
-              y: Math.max(0, Math.min(1, next.y)),
-            });
-          }}
-          onClick={(event) => {
-            if (!canChoose || event.detail === 0) return;
-            onChoose(positionFromPointer(event.currentTarget, event.clientX, event.clientY));
-          }}
+          data-map-state={phase === "reveal" ? "reveal" : selectedIndex !== null ? "locked" : "aiming"}
+          data-choice-kind={choice?.kind}
+          role={choice ? "group" : undefined}
+          aria-label={choice ? `${question.prompt} Four choices are marked on the Dota map.` : undefined}
         >
           <Image
             src={MAP_SENSE_IMAGE}
             alt="Dota 2 battlefield"
-            fill
+            width={512}
+            height={512}
             sizes="(max-width: 680px) calc(100vw - 50px), 520px"
             className={styles.mapImage}
+            style={viewportImageStyle(viewport)}
             priority
           />
           <span className={styles.mapGrid} aria-hidden="true" />
 
-          {challenge.radar && (
-            <svg
-              className={styles.mapRadarRings}
-              data-testid="map-radar-rings"
-              viewBox="0 0 100 100"
+          {choice?.camp && phase === "reveal" && (
+            <span
+              className={styles.mapSpawnBox}
+              data-testid="map-spawn-box"
+              style={viewportBoundsStyle(choice.camp.spawnBox, viewport)}
               aria-hidden="true"
-            >
-              {challenge.radar.beacons.map((beacon, index) => (
-                <circle
-                  key={`${beacon.position.x}:${beacon.position.y}`}
-                  data-tone={index}
-                  cx={beacon.position.x * 100}
-                  cy={beacon.position.y * 100}
-                  r={beacon.distance * 100}
-                />
-              ))}
+            />
+          )}
+
+          {choice?.kind === "stack-route" && campPosition && (
+            <svg className={styles.mapRouteLines} viewBox="0 0 100 100" aria-hidden="true">
+              {choice.options.map((option, index) => {
+                const end = viewportPosition(option.position, viewport);
+                const state =
+                  phase === "reveal"
+                    ? index === question.correctIndex
+                      ? "correct"
+                      : index === selectedIndex
+                        ? "wrong"
+                        : "idle"
+                    : index === selectedIndex
+                      ? "selected"
+                      : "idle";
+                return (
+                  <line
+                    key={`${option.position.x}:${option.position.y}`}
+                    x1={campPosition.x * 100}
+                    y1={campPosition.y * 100}
+                    x2={end.x * 100}
+                    y2={end.y * 100}
+                    data-state={state}
+                  />
+                );
+              })}
             </svg>
           )}
 
-          {phase === "reveal" && crowd.positions.length > 0 && (
+          {!choice && phase === "reveal" && crowd.positions.length > 0 && (
             <svg className={styles.mapHeatmap} data-testid="map-heatmap" viewBox="0 0 100 100" aria-hidden="true">
               <g className={styles.mapHeatGlow}>
                 {crowd.positions.map((position, index) => (
@@ -735,7 +721,7 @@ function MapSenseBoard({
             </svg>
           )}
 
-          {phase === "reveal" && selectedPosition && (
+          {!choice && phase === "reveal" && selectedPosition && (
             <svg className={styles.mapDistanceLine} viewBox="0 0 100 100" aria-hidden="true">
               <line
                 x1={selectedPosition.x * 100}
@@ -746,9 +732,9 @@ function MapSenseBoard({
             </svg>
           )}
 
-          {phase === "reveal" && <span className={styles.mapTargetRadius} style={targetRingStyle} />}
+          {!choice && phase === "reveal" && <span className={styles.mapTargetRadius} style={targetRingStyle} />}
 
-          {challenge.reference && (
+          {!choice && challenge.reference && (
             <span
               className={styles.mapReferencePin}
               data-testid="map-reference-pin"
@@ -760,21 +746,75 @@ function MapSenseBoard({
             </span>
           )}
 
-          {challenge.radar?.beacons.map((beacon, index) => (
+          {choice?.camp && campPosition && (
             <span
-              key={`${beacon.position.x}:${beacon.position.y}:beacon`}
-              className={styles.mapRadarBeacon}
-              data-testid="map-radar-beacon"
-              data-tone={index}
-              style={percentagePosition(beacon.position)}
+              className={styles.mapCampMarker}
+              data-testid="map-camp-marker"
+              data-tier={choice.camp.tier}
+              data-side={choice.camp.side}
+              style={percentagePosition(campPosition)}
               aria-hidden="true"
             >
               <i />
-              <small>{index + 1}</small>
             </span>
-          ))}
+          )}
 
-          {aimPosition && canChoose && (
+          {choice?.fight && (
+            <span
+              className={styles.mapFightMarker}
+              data-testid="map-fight-marker"
+              style={percentagePosition(viewportPosition(choice.fight.position, viewport))}
+              aria-hidden="true"
+            >
+              <Crosshair />
+              <small>{choice.fight.label}</small>
+            </span>
+          )}
+
+          {choice?.options.map((option, index) => {
+            const position = viewportPosition(option.position, viewport);
+            const isSelected = selectedIndex === index;
+            const isCorrect = question.correctIndex === index;
+            const state =
+              phase === "reveal"
+                ? isCorrect
+                  ? "correct"
+                  : isSelected
+                    ? "wrong"
+                    : "idle"
+                : isSelected
+                  ? "selected"
+                  : "idle";
+            const percentage = crowd.total ? Math.round((crowd.counts[index] / crowd.total) * 100) : 0;
+            const optionStyle = {
+              ...percentagePosition(position),
+              "--map-route-angle": `${-(option.angle ?? 0)}deg`,
+            } as CSSProperties;
+
+            return (
+              <button
+                key={`${option.position.x}:${option.position.y}:${index}`}
+                type="button"
+                className={styles.mapChoiceMarker}
+                data-testid="map-choice-option"
+                data-marker={option.marker}
+                data-state={state}
+                data-side={option.side}
+                style={optionStyle}
+                onClick={() => onChooseIndex(index)}
+                disabled={!canChooseOption}
+                aria-label={`${String.fromCharCode(65 + index)}. ${option.label}`}
+                aria-pressed={isSelected}
+              >
+                <i aria-hidden="true" />
+                <strong>{String.fromCharCode(65 + index)}</strong>
+                {option.marker === "tower" && <small>{option.label}</small>}
+                {phase === "reveal" && <em>{percentage}%</em>}
+              </button>
+            );
+          })}
+
+          {aimPosition && canChoosePin && (
             <span className={styles.mapAim} style={percentagePosition(aimPosition)} aria-hidden="true">
               <Crosshair />
             </span>
@@ -792,7 +832,7 @@ function MapSenseBoard({
             </span>
           )}
 
-          {phase === "reveal" && (
+          {!choice && phase === "reveal" && (
             <span
               className={styles.mapTargetPin}
               data-testid="map-target-pin"
@@ -804,25 +844,87 @@ function MapSenseBoard({
             </span>
           )}
 
-          <span className={styles.mapRadiantLabel}>Radiant</span>
-          <span className={styles.mapDireLabel}>Dire</span>
-        </button>
+          {!choice && (
+            <button
+              type="button"
+              className={styles.mapPinSurface}
+              disabled={!canChoosePin}
+              aria-label={
+                canChoosePin
+                  ? `Place your pin for: ${question.prompt} Use the pointer, or arrow keys and Enter.`
+                  : `Map pin ${selectedPosition ? "locked" : "unavailable"} for ${question.prompt}`
+              }
+              onFocus={() => {
+                if (canChoosePin && !aimPosition) setAimPosition({ x: 0.5, y: 0.5 });
+              }}
+              onPointerMove={(event) => {
+                if (canChoosePin) {
+                  setAimPosition(positionFromPointer(event.currentTarget, event.clientX, event.clientY));
+                }
+              }}
+              onPointerLeave={() => {
+                if (canChoosePin) setAimPosition(null);
+              }}
+              onKeyDown={(event) => {
+                if (!canChoosePin) return;
+                const movement = 0.025;
+                const current = aimPosition ?? { x: 0.5, y: 0.5 };
+                const next = { ...current };
+                if (event.key === "ArrowLeft") next.x -= movement;
+                else if (event.key === "ArrowRight") next.x += movement;
+                else if (event.key === "ArrowUp") next.y -= movement;
+                else if (event.key === "ArrowDown") next.y += movement;
+                else if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  onChoosePosition(current);
+                  return;
+                } else {
+                  return;
+                }
+                event.preventDefault();
+                setAimPosition({
+                  x: Math.max(0, Math.min(1, next.x)),
+                  y: Math.max(0, Math.min(1, next.y)),
+                });
+              }}
+              onClick={(event) => {
+                if (!canChoosePin || event.detail === 0) return;
+                onChoosePosition(positionFromPointer(event.currentTarget, event.clientX, event.clientY));
+              }}
+            />
+          )}
+
+          {viewport.zoom === 1 && <span className={styles.mapRadiantLabel}>Radiant</span>}
+          {viewport.zoom === 1 && <span className={styles.mapDireLabel}>Dire</span>}
+        </div>
 
         <div className={styles.mapBoardStatus}>
           <span>
-            <Crosshair />
+            {choice ? <Radio /> : <Crosshair />}
             {phase === "reveal"
-              ? `${crowd.positions.length.toLocaleString("en-US")} room ${
-                  crowd.positions.length === 1 ? "pin" : "pins"
-                } revealed`
-              : selectedPosition
-                ? "Pin locked"
-                : "Click or tap once to lock"}
+              ? choice
+                ? `${crowd.total.toLocaleString("en-US")} room ${crowd.total === 1 ? "answer" : "answers"} revealed`
+                : `${crowd.positions.length.toLocaleString("en-US")} room ${
+                    crowd.positions.length === 1 ? "pin" : "pins"
+                  } revealed`
+              : selectedIndex !== null
+                ? choice
+                  ? "Answer locked"
+                  : "Pin locked"
+                : choice
+                  ? choiceInstruction
+                  : "Click or tap once to lock"}
           </span>
           <strong>
-            {selectedDistance === null
-              ? `Hit radius ${Math.round(challenge.tolerance * 100)}%`
-              : `${MAP_SENSE_BAND_LABELS[selectedBand ?? 3]} · ${Math.round(selectedDistance * 100)}% off`}
+            {choice?.kind === "camp-block"
+              ? `${choice.camp?.tier} camp · spawn :00`
+              : choice?.kind === "stack-route"
+                ? `:${choice.camp?.stack.start}–:${choice.camp?.stack.end} window`
+                : choice?.kind === "tp-in"
+                  ? "4 live towers"
+                  : selectedDistance === null
+                    ? `Hit radius ${Math.round(challenge.tolerance * 100)}%`
+                    : `${MAP_SENSE_BAND_LABELS[selectedBand ?? 3]} · ${Math.round(selectedDistance * 100)}% off`}
           </strong>
         </div>
       </div>
@@ -833,19 +935,53 @@ function MapSenseBoard({
           {question.eyebrow}
         </span>
         {challenge.crop && <MapTerrainCrop crop={challenge.crop} />}
-        {challenge.vector && <MapVectorCard vector={challenge.vector} />}
-        {challenge.radar && <MapRadarCard radar={challenge.radar} />}
+        {choice && <MapMechanicCard choice={choice} />}
         <h2>{question.prompt}</h2>
 
-        <div className={styles.mapAccuracyScale} aria-label="Map accuracy bands">
-          {MAP_SENSE_BAND_LABELS.map((label, index) => (
-            <span key={label} className={selectedBand === index ? styles.mapAccuracyActive : undefined}>
-              <i />
-              <small>{String(index + 1).padStart(2, "0")}</small>
-              <strong>{label}</strong>
-            </span>
-          ))}
-        </div>
+        {choice ? (
+          <div className={styles.mapChoiceList} role="group" aria-label="Map choices">
+            {choice.options.map((option, index) => {
+              const isSelected = selectedIndex === index;
+              const isCorrect = question.correctIndex === index;
+              const percentage = crowd.total ? Math.round((crowd.counts[index] / crowd.total) * 100) : 0;
+              return (
+                <button
+                  key={`${question.id}:legend:${index}`}
+                  type="button"
+                  data-testid="map-choice-answer"
+                  data-state={
+                    phase === "reveal"
+                      ? isCorrect
+                        ? "correct"
+                        : isSelected
+                          ? "wrong"
+                          : "idle"
+                      : isSelected
+                        ? "selected"
+                        : "idle"
+                  }
+                  onClick={() => onChooseIndex(index)}
+                  disabled={!canChooseOption}
+                  aria-pressed={isSelected}
+                >
+                  <span>{String.fromCharCode(65 + index)}</span>
+                  <strong>{option.label}</strong>
+                  {phase === "reveal" && <small>{percentage}%</small>}
+                </button>
+              );
+            })}
+          </div>
+        ) : (
+          <div className={styles.mapAccuracyScale} aria-label="Map accuracy bands">
+            {MAP_SENSE_BAND_LABELS.map((label, index) => (
+              <span key={label} className={selectedBand === index ? styles.mapAccuracyActive : undefined}>
+                <i />
+                <small>{String(index + 1).padStart(2, "0")}</small>
+                <strong>{label}</strong>
+              </span>
+            ))}
+          </div>
+        )}
 
         {!hasVisualPuzzle && (
           <div className={styles.mapMissionStatus}>
@@ -1354,7 +1490,7 @@ export function QueueArcade() {
       if (
         phaseRef.current !== "answering" ||
         !question ||
-        question.game === "map-sense" ||
+        (question.game === "map-sense" && !question.map?.choice) ||
         selectedIndexRef.current !== null ||
         !deadlineRef.current ||
         Date.now() >= deadlineRef.current
@@ -1579,6 +1715,7 @@ export function QueueArcade() {
   const selectedWasCorrect =
     selectedIndex !== null && currentQuestion ? selectedIndex === currentQuestion.correctIndex : false;
   const currentGame = currentQuestion?.game ?? "trivia";
+  const mapChoiceRound = currentGame === "map-sense" && Boolean(currentQuestion?.map?.choice);
   const displayedDifficulty =
     currentGame !== "trivia" && skillLevel !== "Open"
       ? {
@@ -1949,9 +2086,11 @@ export function QueueArcade() {
                 key={currentQuestion.id}
                 question={currentQuestion}
                 phase={phase}
+                selectedIndex={selectedIndex}
                 selectedPosition={selectedMapPosition}
                 crowd={crowd}
-                onChoose={chooseMapPosition}
+                onChoosePosition={chooseMapPosition}
+                onChooseIndex={chooseAnswer}
               />
             ) : currentGame === "shopkeeper" ? (
               <div className={clsx(styles.questionBlock, styles.shopkeeperQuestion)} data-testid="round-prompt">
@@ -2260,7 +2399,9 @@ export function QueueArcade() {
                       ? "2× crowd breaker"
                       : roundAward?.correct
                         ? currentGame === "map-sense"
-                          ? `+${roundAward.precisionBonus} precision · +${roundAward.speedBonus} speed`
+                          ? currentQuestion.map?.choice
+                            ? `+${roundAward.speedBonus} speed`
+                            : `+${roundAward.precisionBonus} precision · +${roundAward.speedBonus} speed`
                           : `+${roundAward.speedBonus} speed${roundAward.cluePenalty ? ` · −${roundAward.cluePenalty} hints` : ""}`
                         : "No score"}
                   </small>
@@ -2348,13 +2489,13 @@ export function QueueArcade() {
               <div className={styles.cardTitle}>
                 <span>
                   <Radio />
-                  {currentGame === "map-sense" ? "Room pings" : "Global answers"}
+                  {currentGame === "map-sense" ? (mapChoiceRound ? "Room answers" : "Room pings") : "Global answers"}
                 </span>
                 <span className={styles.livePill}>Live room</span>
               </div>
               <strong>
                 {crowd.total.toLocaleString("en-US")}{" "}
-                {currentGame === "map-sense"
+                {currentGame === "map-sense" && !mapChoiceRound
                   ? crowd.total === 1
                     ? "pin"
                     : "pins"
@@ -2363,7 +2504,7 @@ export function QueueArcade() {
                     : "answers"}
               </strong>
               <p>
-                {currentGame === "map-sense"
+                {currentGame === "map-sense" && !mapChoiceRound
                   ? phase === "answering"
                     ? crowd.total
                       ? `${crowd.total.toLocaleString("en-US")} locked in.`
@@ -2422,11 +2563,13 @@ export function QueueArcade() {
                           : currentGame === "quote-hunt"
                             ? "Look for vocabulary, ego, and worldview—the best hero lines reveal all three."
                             : currentGame === "map-sense"
-                              ? currentQuestion.kind === "map-vector"
-                                ? "Start at gold. The two arrows count squares on the visible 8 × 8 grid."
-                                : currentQuestion.kind === "map-radar"
-                                  ? "The three colored range rings share exactly one point."
-                                  : "Paths, ramps, and treelines are stronger tells than faction color."
+                              ? currentQuestion.kind === "map-camp-block"
+                                ? "Only a ward inside the camp’s real spawn box prevents the next neutral spawn."
+                                : currentQuestion.kind === "map-stack-route"
+                                  ? "Match this camp and timing window to its in-game stack arrow."
+                                  : currentQuestion.kind === "map-tp-in"
+                                    ? "All four marked towers are live. Choose the one nearest the fight ping."
+                                    : "Paths, ramps, and treelines are stronger tells than faction color."
                               : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
                 </p>
               </div>

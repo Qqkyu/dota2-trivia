@@ -141,7 +141,7 @@ const mapSettings = {
   gameId: "dota2",
   mode: "map-sense",
   filter: "Mixed",
-  skillLevel: "Open",
+  skillLevel: "Learning",
 };
 const mapPlayer = `multiplayer-map-${randomUUID()}`;
 const mapSnapshot = await answeringRoundWithTime(mapPlayer, mapSettings);
@@ -155,18 +155,13 @@ const challengeKinds = {
 };
 const [cropTier, cropId] = mapDefinitionId.split(":");
 const crop = mapKind === "map-crop" ? mapCrops[cropTier]?.find((candidate) => candidate.id === cropId) : null;
-const spatialTarget = ["map-vector", "map-radar"].includes(mapKind)
-  ? mapCrops.brutal.find((candidate) => candidate.id === mapDefinitionId)
-  : null;
 const mapLocation = crop
   ? { target: { x: crop.x, y: crop.y } }
-  : spatialTarget
-    ? { target: { x: spatialTarget.x, y: spatialTarget.y } }
-    : mapKind === "map-location"
-      ? mapLocations.find((location) => location.id === mapDefinitionId)
-      : mapChallenges.find(
-          (challenge) => challenge.id === mapDefinitionId && challenge.family === challengeKinds[mapKind],
-        );
+  : mapKind === "map-location"
+    ? mapLocations.find((location) => location.id === mapDefinitionId)
+    : mapChallenges.find(
+        (challenge) => challenge.id === mapDefinitionId && challenge.family === challengeKinds[mapKind],
+      );
 if (!mapLocation) throw new Error("The synchronized Map Sense round referenced an unknown location.");
 
 const mapPosition = mapLocation.target;
@@ -204,6 +199,47 @@ if (revealedMapSnapshot.round.phase !== "reveal" || !ownPinRevealed) {
   throw new Error("Map Sense did not reveal the anonymous room pins after the shared deadline.");
 }
 
+const choiceSettings = {
+  gameId: "dota2",
+  mode: "map-sense",
+  filter: "Mixed",
+  skillLevel: "Veteran",
+};
+const choicePlayer = `multiplayer-map-choice-${randomUUID()}`;
+let choiceSnapshot = await answeringRoundWithTime(choicePlayer, choiceSettings);
+if (choiceSnapshot.round.questionId.startsWith("map-crop:")) {
+  await delay(Math.max(250, choiceSnapshot.round.revealDeadline - choiceSnapshot.serverNow + 150));
+  choiceSnapshot = await answeringRoundWithTime(choicePlayer, choiceSettings);
+}
+if (
+  !["map-camp-block", "map-stack-route", "map-tp-in"].some((kind) => choiceSnapshot.round.questionId.startsWith(kind))
+) {
+  throw new Error("The Veteran Map Sense room did not advance to a Dota mechanics choice round.");
+}
+
+const choiceVote = await vote(choiceSnapshot, choicePlayer, 0, choiceSettings);
+const choiceDuplicate = await vote(choiceSnapshot, choicePlayer, 3, choiceSettings);
+if (
+  !choiceVote.accepted ||
+  choiceVote.playerVote?.answerIndex !== 0 ||
+  choiceVote.playerVote?.mapPosition ||
+  choiceDuplicate.accepted ||
+  choiceDuplicate.playerVote?.answerIndex !== 0
+) {
+  throw new Error("Map Sense choice voting or duplicate protection failed.");
+}
+
+await delay(Math.max(250, choiceSnapshot.round.answerDeadline - choiceSnapshot.serverNow + 200));
+const revealedChoiceSnapshot = await readRoom(choicePlayer, choiceSettings);
+if (
+  revealedChoiceSnapshot.round.phase !== "reveal" ||
+  revealedChoiceSnapshot.crowd.total < 1 ||
+  revealedChoiceSnapshot.crowd.counts.reduce((sum, count) => sum + count, 0) !== revealedChoiceSnapshot.crowd.total ||
+  revealedChoiceSnapshot.crowd.positions.length !== 0
+) {
+  throw new Error("Map Sense choice answers did not reveal as a synchronized A–D split.");
+}
+
 console.log(
   JSON.stringify(
     {
@@ -218,6 +254,8 @@ console.log(
       mapAnswerScoredOnServer: true,
       mapPinsHiddenUntilReveal: true,
       mapPinRevealed: true,
+      mapChoiceAcceptedWithoutPin: true,
+      mapChoiceSplitRevealed: true,
     },
     null,
     2,
