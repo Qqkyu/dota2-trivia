@@ -1,0 +1,126 @@
+{
+  "vectors": [
+    { "target": "northwest-path-a", "start": "top-power-rune" },
+    { "target": "northwest-path-b", "start": "top-roshan-pit" },
+    { "target": "north-pool-west", "start": "top-power-rune" },
+    { "target": "north-pool-east", "start": "dire-mid-tier-one" },
+    { "target": "north-dire-path", "start": "top-power-rune" },
+    { "target": "dire-top-ramp", "start": "dire-mid-tier-one" },
+    { "target": "dire-northeast-cut", "start": "dire-secret-shop" },
+    { "target": "dire-east-ramp", "start": "dire-wisdom-shrine" },
+    { "target": "dire-base-west", "start": "bottom-power-rune" },
+    { "target": "dire-inner-west", "start": "bottom-roshan-pit" },
+    { "target": "dire-jungle-south", "start": "top-roshan-pit" },
+    { "target": "dire-jungle-west", "start": "radiant-mid-tier-one" },
+    { "target": "upper-river-west", "start": "dire-mid-tier-one" },
+    { "target": "upper-pit-west", "start": "top-power-rune" },
+    { "target": "upper-pit-south", "start": "radiant-ancient" },
+    { "target": "west-high-ramp", "start": "radiant-mid-tier-one" },
+    { "target": "west-lower-ramp", "start": "top-roshan-pit" },
+    { "target": "west-river-stairs", "start": "radiant-ancient" },
+    { "target": "roshan-west-mouth", "start": "radiant-mid-tier-two" },
+    { "target": "river-north-kink", "start": "bottom-power-rune" },
+    { "target": "mid-river-kink", "start": "top-roshan-pit" },
+    { "target": "dire-river-stairs", "start": "radiant-mid-tier-one" },
+    { "target": "east-inner-ramp", "start": "bottom-roshan-pit" },
+    { "target": "east-outer-ramp", "start": "dire-mid-tier-one" }
+  ],
+  "radar": [
+    {
+      "target": "upper-river-west",
+      "beacons": ["dire-ancient", "radiant-mid-tier-two", "top-twin-gate"]
+    },
+    {
+      "target": "upper-pit-west",
+      "beacons": ["radiant-ancient", "dire-ancient", "top-twin-gate"]
+    },
+    {
+      "target": "upper-pit-south",
+      "beacons": ["dire-mid-tier-two", "radiant-offlane-tier-two", "top-twin-gate"]
+    },
+    {
+      "target": "west-high-ramp",
+      "beacons": ["radiant-offlane-tier-two", "top-twin-gate", "top-power-rune"]
+    },
+    {
+      "target": "west-lower-ramp",
+      "beacons": ["radiant-ancient", "dire-mid-tier-one", "top-twin-gate"]
+    },
+    {
+      "target": "west-river-stairs",
+      "beacons": ["radiant-ancient", "dire-mid-tier-one", "top-twin-gate"]
+    },
+    {
+      "target": "roshan-west-mouth",
+      "beacons": ["radiant-ancient", "dire-safe-tier-one", "dire-mid-tier-two"]
+    },
+    {
+      "target": "river-north-kink",
+      "beacons": ["dire-ancient", "radiant-mid-tier-one", "top-twin-gate"]
+    },
+    {
+      "target": "mid-river-kink",
+      "beacons": ["radiant-mid-tier-two", "dire-safe-tier-two", "dire-secret-shop"]
+    },
+    {
+      "target": "dire-river-stairs",
+      "beacons": ["dire-ancient", "top-roshan-pit", "bottom-roshan-pit"]
+    },
+    {
+      "target": "east-inner-ramp",
+      "beacons": ["radiant-safe-tier-two", "dire-safe-tier-two", "dire-offlane-tier-two"]
+    },
+    {
+      "target": "east-outer-ramp",
+      "beacons": ["dire-ancient", "radiant-mid-tier-one", "bottom-twin-gate"]
+    },
+    {
+      "target": "east-low-path",
+      "beacons": ["dire-ancient", "radiant-mid-tier-two", "bottom-twin-gate"]
+    },
+    {
+      "target": "southeast-inner",
+      "beacons": ["radiant-mid-tier-two", "dire-offlane-tier-two", "bottom-twin-gate"]
+    },
+    {
+      "target": "radiant-east-cut",
+      "beacons": ["radiant-safe-tier-one", "radiant-mid-tier-two", "dire-offlane-tier-two"]
+    },
+    {
+      "target": "radiant-bot-ramp",
+      "beacons": ["dire-mid-tier-two", "radiant-safe-tier-two", "bottom-twin-gate"]
+    },
+    {
+      "target": "south-pool-east",
+      "beacons": ["radiant-ancient", "bottom-twin-gate", "bottom-power-rune"]
+    },
+    {
+      "target": "south-pool-west",
+      "beacons": ["radiant-ancient", "dire-mid-tier-one", "bottom-twin-gate"]
+    },
+    {
+      "target": "radiant-south-path",
+      "beacons": ["radiant-ancient", "bottom-twin-gate", "top-power-rune"]
+    },
+    {
+      "target": "radiant-west-cut",
+      "beacons": ["radiant-mid-tier-one", "radiant-safe-tier-two", "radiant-offlane-tier-two"]
+    },
+    {
+      "target": "southwest-inner",
+      "beacons": ["radiant-ancient", "radiant-offlane-tier-one", "bottom-roshan-pit"]
+    },
+    {
+      "target": "radiant-jungle-north",
+      "beacons": ["radiant-ancient", "bottom-roshan-pit", "radiant-secret-shop"]
+    },
+    {
+      "target": "lower-river-west",
+      "beacons": ["dire-mid-tier-two", "radiant-safe-tier-two", "radiant-offlane-tier-two"]
+    },
+    {
+      "target": "lower-pit-east",
+      "beacons": ["dire-offlane-tier-one", "radiant-safe-tier-two", "top-power-rune"]
+    }
+  ]
+}

@@ -36,12 +36,24 @@ if (
   throw new Error("Mixed Arcade can skip or repeat a game inside its guaranteed seven-round rotation.");
 }
 
-const mapKinds = ["map-location", "map-riddle", "map-mirror", "map-relative", "map-scenario", "map-crop"];
+const mapKinds = [
+  "map-location",
+  "map-riddle",
+  "map-mirror",
+  "map-relative",
+  "map-scenario",
+  "map-crop",
+  "map-vector",
+  "map-radar",
+];
 const mapFixture = mapKinds.flatMap((kind) =>
-  Array.from({ length: kind === "map-location" || kind === "map-crop" ? 24 : 6 }, (_, index) => ({
-    id: `${kind}-${index}`,
-    kind,
-  })),
+  Array.from(
+    { length: ["map-location", "map-crop", "map-vector", "map-radar"].includes(kind) ? 24 : 6 },
+    (_, index) => ({
+      id: `${kind}-${index}`,
+      kind,
+    }),
+  ),
 );
 const mapOpening = varietyShuffle(mapFixture, "map-family-regression").slice(0, 24);
 const mapOpeningCounts = Object.fromEntries(
@@ -53,7 +65,22 @@ if (
   mapKinds.some((kind) => mapOpeningCounts[kind] < 3) ||
   mapOpeningCounts["map-location"] > 5
 ) {
-  throw new Error(`Map Sense lost its balanced six-family opening: ${JSON.stringify(mapOpeningCounts)}.`);
+  throw new Error(`Map Sense lost its balanced eight-family opening: ${JSON.stringify(mapOpeningCounts)}.`);
+}
+
+const veteranMapKinds = ["map-crop", "map-vector", "map-radar"];
+const veteranMapFixture = veteranMapKinds.flatMap((kind) =>
+  Array.from({ length: 24 }, (_, index) => ({ id: `veteran-${kind}-${index}`, kind })),
+);
+const veteranMapOpening = varietyShuffle(veteranMapFixture, "veteran-map-family-regression").slice(0, 24);
+const veteranMapCounts = Object.fromEntries(
+  veteranMapKinds.map((kind) => [kind, veteranMapOpening.filter((question) => question.kind === kind).length]),
+);
+if (
+  veteranMapOpening.some((question, index) => index > 0 && question.kind === veteranMapOpening[index - 1].kind) ||
+  veteranMapKinds.some((kind) => veteranMapCounts[kind] !== 8)
+) {
+  throw new Error(`Veteran Map Sense lost its three-family rotation: ${JSON.stringify(veteranMapCounts)}.`);
 }
 
 const roundDuration = 12_000;
@@ -68,5 +95,5 @@ if (
 }
 
 console.log(
-  `Validated deterministic template, Mixed Arcade, Map Sense family rotation, and ${MAP_READ_GRACE_MS / 1000}s reading grace (${JSON.stringify(mapOpeningCounts)}).`,
+  `Validated deterministic template, Mixed Arcade, Map Sense family rotation, and ${MAP_READ_GRACE_MS / 1000}s reading grace (Open ${JSON.stringify(mapOpeningCounts)}, Veteran ${JSON.stringify(veteranMapCounts)}).`,
 );

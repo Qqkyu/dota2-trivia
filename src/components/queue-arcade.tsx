@@ -50,7 +50,7 @@ import {
 import type { CrowdResult, PublicRoomSettings, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
-import type { MapCrop, MapPosition } from "@/lib/map-types";
+import type { MapCrop, MapPosition, MapRadar, MapVector } from "@/lib/map-types";
 import { MAP_READ_GRACE_MS, speedScoreRatio } from "@/lib/scoring.mjs";
 import styles from "./queue-arcade.module.css";
 
@@ -200,9 +200,9 @@ const MODE_INFO: Record<
     label: "Map Sense",
     shortLabel: "Map Sense",
     eyebrow: "Pinpoint the play",
-    description: "Drop a pin on Dota's terrain, then see the true spot and where the whole room guessed.",
+    description: "Read terrain, plot grid vectors, and triangulate signals before the room reveal.",
     action: "Read the map",
-    rule: "Paths, ramps, and treelines are the real tells.",
+    rule: "Terrain memory, grid movement, and triangulation.",
   },
 };
 
@@ -526,6 +526,70 @@ function MapTerrainCrop({ crop }: { crop: MapCrop }) {
   );
 }
 
+function MapVectorCard({ vector }: { vector: MapVector }) {
+  const angle = (Math.atan2(vector.dy, vector.dx) * 180) / Math.PI + 90;
+  const horizontal = Math.abs(vector.dx * vector.gridSize).toFixed(1);
+  const vertical = Math.abs(vector.dy * vector.gridSize).toFixed(1);
+
+  return (
+    <div
+      className={styles.mapVectorCard}
+      data-testid="map-vector-card"
+      role="img"
+      aria-label={`From the start marker, move ${horizontal} grid squares ${
+        vector.dx >= 0 ? "right" : "left"
+      } and ${vertical} grid squares ${vector.dy >= 0 ? "down" : "up"}.`}
+    >
+      <div className={styles.mapVectorDial} aria-hidden="true">
+        <small>N</small>
+        <small>E</small>
+        <small>S</small>
+        <small>W</small>
+        <span style={{ transform: `translate(-50%, -50%) rotate(${angle}deg)` }}>
+          <i />
+        </span>
+      </div>
+      <div className={styles.mapVectorSteps} aria-hidden="true">
+        <span>
+          <i>{vector.dx >= 0 ? "→" : "←"}</i>
+          <strong>{horizontal}</strong>
+        </span>
+        <span>
+          <i>{vector.dy >= 0 ? "↓" : "↑"}</i>
+          <strong>{vertical}</strong>
+        </span>
+        <small>
+          {vector.gridSize} × {vector.gridSize} grid
+        </small>
+      </div>
+    </div>
+  );
+}
+
+function MapRadarCard({ radar }: { radar: MapRadar }) {
+  return (
+    <div
+      className={styles.mapRadarCard}
+      data-testid="map-radar-card"
+      role="img"
+      aria-label={`Three beacon ranges: ${radar.beacons
+        .map((beacon) => `${Math.round(beacon.distance * 100)} percent`)
+        .join(", ")}.`}
+    >
+      <Radio aria-hidden="true" />
+      <div aria-hidden="true">
+        {radar.beacons.map((beacon, index) => (
+          <span key={`${beacon.position.x}:${beacon.position.y}`} data-tone={index}>
+            <i />
+            <strong>{Math.round(beacon.distance * 100)}</strong>
+            <small>%</small>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function MapSenseBoard({
   question,
   phase,
@@ -547,6 +611,7 @@ function MapSenseBoard({
   const canChoose = phase === "answering" && !selectedPosition;
   const selectedDistance = selectedPosition ? mapDistance(challenge.target, selectedPosition) : null;
   const selectedBand = selectedPosition ? mapAnswerIndex(challenge, selectedPosition) : null;
+  const hasVisualPuzzle = Boolean(challenge.crop || challenge.vector || challenge.radar);
   const targetRingStyle = {
     left: `${challenge.target.x * 100}%`,
     top: `${challenge.target.y * 100}%`,
@@ -564,9 +629,9 @@ function MapSenseBoard({
 
   return (
     <div
-      className={clsx(styles.mapSenseQuestion, challenge.crop && styles.mapCropQuestion)}
+      className={clsx(styles.mapSenseQuestion, hasVisualPuzzle && styles.mapVisualQuestion)}
       data-testid="map-sense-round"
-      data-has-crop={challenge.crop ? "true" : "false"}
+      data-puzzle-kind={challenge.crop ? "crop" : challenge.vector ? "vector" : challenge.radar ? "radar" : "call"}
     >
       <div className={styles.mapBoardFrame}>
         <button
@@ -626,6 +691,25 @@ function MapSenseBoard({
           />
           <span className={styles.mapGrid} aria-hidden="true" />
 
+          {challenge.radar && (
+            <svg
+              className={styles.mapRadarRings}
+              data-testid="map-radar-rings"
+              viewBox="0 0 100 100"
+              aria-hidden="true"
+            >
+              {challenge.radar.beacons.map((beacon, index) => (
+                <circle
+                  key={`${beacon.position.x}:${beacon.position.y}`}
+                  data-tone={index}
+                  cx={beacon.position.x * 100}
+                  cy={beacon.position.y * 100}
+                  r={beacon.distance * 100}
+                />
+              ))}
+            </svg>
+          )}
+
           {phase === "reveal" && crowd.positions.length > 0 && (
             <svg className={styles.mapHeatmap} data-testid="map-heatmap" viewBox="0 0 100 100" aria-hidden="true">
               <g className={styles.mapHeatGlow}>
@@ -675,6 +759,20 @@ function MapSenseBoard({
               <small>{challenge.reference.label}</small>
             </span>
           )}
+
+          {challenge.radar?.beacons.map((beacon, index) => (
+            <span
+              key={`${beacon.position.x}:${beacon.position.y}:beacon`}
+              className={styles.mapRadarBeacon}
+              data-testid="map-radar-beacon"
+              data-tone={index}
+              style={percentagePosition(beacon.position)}
+              aria-hidden="true"
+            >
+              <i />
+              <small>{index + 1}</small>
+            </span>
+          ))}
 
           {aimPosition && canChoose && (
             <span className={styles.mapAim} style={percentagePosition(aimPosition)} aria-hidden="true">
@@ -735,6 +833,8 @@ function MapSenseBoard({
           {question.eyebrow}
         </span>
         {challenge.crop && <MapTerrainCrop crop={challenge.crop} />}
+        {challenge.vector && <MapVectorCard vector={challenge.vector} />}
+        {challenge.radar && <MapRadarCard radar={challenge.radar} />}
         <h2>{question.prompt}</h2>
 
         <div className={styles.mapAccuracyScale} aria-label="Map accuracy bands">
@@ -747,7 +847,7 @@ function MapSenseBoard({
           ))}
         </div>
 
-        {!challenge.crop && (
+        {!hasVisualPuzzle && (
           <div className={styles.mapMissionStatus}>
             {phase === "reveal" ? (
               <>
@@ -2322,7 +2422,11 @@ export function QueueArcade() {
                           : currentGame === "quote-hunt"
                             ? "Look for vocabulary, ego, and worldview—the best hero lines reveal all three."
                             : currentGame === "map-sense"
-                              ? "Paths, ramps, and treelines are stronger tells than faction color."
+                              ? currentQuestion.kind === "map-vector"
+                                ? "Start at gold. The two arrows count squares on the visible 8 × 8 grid."
+                                : currentQuestion.kind === "map-radar"
+                                  ? "The three colored range rings share exactly one point."
+                                  : "Paths, ramps, and treelines are stronger tells than faction color."
                               : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
                 </p>
               </div>

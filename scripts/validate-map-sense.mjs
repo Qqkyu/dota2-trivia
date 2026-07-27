@@ -9,6 +9,7 @@ const locations = JSON.parse(await readFile(join(root, "src", "data", "map-sense
 const challenges = JSON.parse(await readFile(join(root, "src", "data", "map-sense-challenges.json"), "utf8"));
 const crops = JSON.parse(await readFile(join(root, "src", "data", "map-sense-crops.json"), "utf8"));
 const landmarkSnapshot = JSON.parse(await readFile(join(root, "src", "data", "map-sense-landmarks.json"), "utf8"));
+const spatial = JSON.parse(await readFile(join(root, "src", "data", "map-sense-spatial.json"), "utf8"));
 const mapPath = join(root, "public", "assets", "dota2", "map", "overview-7.41d.webp");
 const failures = [];
 const ids = new Set();
@@ -37,6 +38,16 @@ if (
   failures.push("Map Sense needs at least 24 Tricky and 36 Brutal terrain crops.");
 }
 
+if (
+  !Array.isArray(spatial.vectors) ||
+  spatial.vectors.length < 24 ||
+  !Array.isArray(spatial.radar) ||
+  spatial.radar.length < 24
+) {
+  failures.push("Map Sense needs at least 24 Vector Run and 24 Signal Lock questions.");
+}
+
+const brutalCropById = new Map((crops.brutal ?? []).map((crop) => [crop.id, crop]));
 const cropDefinitions = [
   ...(crops.tricky ?? []).map((crop) => ({
     id: `tricky:${crop.id}`,
@@ -63,10 +74,41 @@ const cropDefinitions = [
     zoom: 8.4,
   })),
 ];
+const spatialDefinitions = [
+  ...(spatial.vectors ?? []).map((seed) => {
+    const target = brutalCropById.get(seed.target);
+    return {
+      id: seed.target,
+      family: "vector",
+      targetLabel: "the vector endpoint",
+      difficulty: 3,
+      target: { x: target?.x, y: target?.y },
+      tolerance: 0.024,
+      eyebrow: "Map Sense · Vector run",
+      prompt: "Plot the vector.",
+      explanation: "The grid offsets end at the target.",
+    };
+  }),
+  ...(spatial.radar ?? []).map((seed) => {
+    const target = brutalCropById.get(seed.target);
+    return {
+      id: seed.target,
+      family: "radar",
+      targetLabel: "the signal intersection",
+      difficulty: 3,
+      target: { x: target?.x, y: target?.y },
+      tolerance: 0.024,
+      eyebrow: "Map Sense · Signal lock",
+      prompt: "Find the intersection.",
+      explanation: "The beacon ranges meet at the target.",
+    };
+  }),
+];
 const allDefinitions = [
   ...locations.map((location) => ({ ...location, family: "location" })),
   ...challenges,
   ...cropDefinitions,
+  ...spatialDefinitions,
 ];
 
 function validPosition(position) {
@@ -208,6 +250,63 @@ if (
   }
 }
 
+const spatialTargetIds = {
+  vector: new Set(),
+  radar: new Set(),
+};
+for (const seed of spatial.vectors ?? []) {
+  const target = brutalCropById.get(seed.target);
+  const start = landmarks[seed.start];
+  if (!target) failures.push(`vector:${seed.target}: unknown audited crop target.`);
+  if (!start) failures.push(`vector:${seed.target}: unknown audited start landmark.`);
+  if (spatialTargetIds.vector.has(seed.target)) failures.push(`vector:${seed.target}: duplicate target.`);
+  spatialTargetIds.vector.add(seed.target);
+  if (target && start) {
+    const distance = Math.hypot(target.x - start.position.x, target.y - start.position.y);
+    if (distance < 0.14 || distance > 0.5) {
+      failures.push(`vector:${seed.target}: start-to-target distance must stay readable.`);
+    }
+  }
+}
+
+const angularDistance = (left, right) => {
+  const difference = Math.abs(left - right) % (Math.PI * 2);
+  return Math.min(difference, Math.PI * 2 - difference);
+};
+for (const seed of spatial.radar ?? []) {
+  const target = brutalCropById.get(seed.target);
+  if (!target) failures.push(`radar:${seed.target}: unknown audited crop target.`);
+  if (spatialTargetIds.radar.has(seed.target)) failures.push(`radar:${seed.target}: duplicate target.`);
+  spatialTargetIds.radar.add(seed.target);
+  if (!Array.isArray(seed.beacons) || seed.beacons.length !== 3 || new Set(seed.beacons).size !== 3) {
+    failures.push(`radar:${seed.target}: exactly three distinct beacons are required.`);
+    continue;
+  }
+
+  const beacons = seed.beacons.map((id) => landmarks[id]);
+  if (beacons.some((beacon) => !beacon)) {
+    failures.push(`radar:${seed.target}: every beacon must use an audited landmark.`);
+    continue;
+  }
+  if (!target) continue;
+
+  const vectors = beacons.map((beacon) => ({
+    distance: Math.hypot(beacon.position.x - target.x, beacon.position.y - target.y),
+    angle: Math.atan2(beacon.position.y - target.y, beacon.position.x - target.x),
+  }));
+  if (vectors.some(({ distance }) => distance < 0.12 || distance > 0.56)) {
+    failures.push(`radar:${seed.target}: beacon range is too short or too large to read.`);
+  }
+  const minimumAngle = Math.min(
+    angularDistance(vectors[0].angle, vectors[1].angle),
+    angularDistance(vectors[0].angle, vectors[2].angle),
+    angularDistance(vectors[1].angle, vectors[2].angle),
+  );
+  if (minimumAngle < (70 * Math.PI) / 180) {
+    failures.push(`radar:${seed.target}: beacons do not surround the target clearly enough.`);
+  }
+}
+
 const creativePromptWordCounts = challenges.map(
   (challenge) =>
     challenge.prompt
@@ -226,8 +325,12 @@ if (longestCreativePrompt > 7 || averageCreativePrompt > 5.5) {
 
 const learningCount = allDefinitions.filter((location) => location.difficulty <= 2).length;
 const veteranCount = allDefinitions.filter((location) => location.difficulty === 3).length;
-const veteranTerrainCount = cropDefinitions.filter((location) => location.difficulty === 3).length;
-if (learningCount < 24 || veteranCount < 24 || veteranTerrainCount < 24) {
+const veteranFamilyCounts = {
+  crop: cropDefinitions.filter((location) => location.difficulty === 3).length,
+  vector: spatial.vectors?.length ?? 0,
+  radar: spatial.radar?.length ?? 0,
+};
+if (learningCount < 24 || veteranCount < 72 || Object.values(veteranFamilyCounts).some((count) => count < 24)) {
   failures.push(`Map Sense needs 24-round Learning and Veteran pools (found ${learningCount} and ${veteranCount}).`);
 }
 
@@ -246,6 +349,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${allDefinitions.length} Map Sense questions across six families and ${Object.keys(landmarks).length} entity-backed pins (${difficultyCounts[1]} warm-up, ${difficultyCounts[2]} tricky, ${difficultyCounts[3]} brutal).`,
+    `Validated ${allDefinitions.length} Map Sense questions across eight families and ${Object.keys(landmarks).length} entity-backed pins (${difficultyCounts[1]} warm-up, ${difficultyCounts[2]} tricky, ${difficultyCounts[3]} brutal; Veteran ${JSON.stringify(veteranFamilyCounts)}).`,
   );
 }

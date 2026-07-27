@@ -529,6 +529,43 @@ const quoteHunt = await evaluate(`({
 })`);
 await screenshot("/tmp/queue-arcade-quote-hunt.png");
 
+async function inspectMapSenseVariant() {
+  return evaluate(`(() => {
+    const board = document.querySelector('[data-testid="map-sense-board"]');
+    const crop = document.querySelector('[data-testid="map-terrain-crop"]');
+    const cropImage = crop?.querySelector("img");
+    const vector = document.querySelector('[data-testid="map-vector-card"]');
+    const radar = document.querySelector('[data-testid="map-radar-card"]');
+    const visual = crop ?? vector ?? radar;
+    const bounds = board?.getBoundingClientRect();
+    const visualBounds = visual?.getBoundingClientRect();
+    return {
+      roundId: document.querySelector("main")?.dataset.roundId,
+      kind: document.querySelector("main")?.dataset.questionKind,
+      game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
+      difficulty: Number(document.querySelector('[data-testid="round-difficulty"]')?.dataset.contentDifficulty),
+      prompt: document.querySelector('[data-testid="map-sense-round"] h2')?.textContent?.trim(),
+      readGraceVisible: document.querySelector('[data-testid="map-sense-round"]')?.textContent?.includes("3s read grace"),
+      cropVisible: Boolean(crop),
+      cropTreatment: crop?.dataset.treatment,
+      cropLoaded: Boolean(cropImage?.complete && cropImage?.naturalWidth > 0),
+      cropFilter: cropImage ? getComputedStyle(cropImage).filter : null,
+      vectorVisible: Boolean(vector),
+      radarVisible: Boolean(radar),
+      radarRings: document.querySelectorAll('[data-testid="map-radar-rings"] circle').length,
+      radarBeacons: document.querySelectorAll('[data-testid="map-radar-beacon"]').length,
+      answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
+      locked: board?.dataset.mapState === "locked",
+      referenceVisible: Boolean(document.querySelector('[data-testid="map-reference-pin"]')),
+      square: bounds ? Math.abs(bounds.width - bounds.height) < 1 : false,
+      visualFits: visualBounds ? visualBounds.left >= 0 && visualBounds.right <= innerWidth : false,
+      imageLoaded: [...(board?.querySelectorAll("img") ?? [])]
+        .every((image) => image.complete && image.naturalWidth > 0),
+      horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+    };
+  })()`);
+}
+
 await navigate(appUrl);
 await evaluate(`(() => {
   document.querySelector('[data-arcade-mode="map-sense"]')?.click();
@@ -566,30 +603,7 @@ if (mapBounds) {
   await send("Input.dispatchMouseEvent", { type: "mouseReleased", x, y, button: "left", clickCount: 1 });
 }
 await waitFor(`Boolean(document.querySelector('[data-testid="map-player-pin"]'))`);
-const mapSenseAnswering = await evaluate(`(() => {
-  const board = document.querySelector('[data-testid="map-sense-board"]');
-  const crop = document.querySelector('[data-testid="map-terrain-crop"]');
-  const cropImage = crop?.querySelector("img");
-  const bounds = board?.getBoundingClientRect();
-  return {
-    kind: document.querySelector("main")?.dataset.questionKind,
-    game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
-    difficulty: Number(document.querySelector('[data-testid="round-difficulty"]')?.dataset.contentDifficulty),
-    prompt: document.querySelector('[data-testid="map-sense-round"] h2')?.textContent?.trim(),
-    readGraceVisible: document.querySelector('[data-testid="map-sense-round"]')?.textContent?.includes("3s read grace"),
-    cropVisible: Boolean(crop),
-    cropTreatment: crop?.dataset.treatment,
-    cropLoaded: Boolean(cropImage?.complete && cropImage?.naturalWidth > 0),
-    cropFilter: cropImage ? getComputedStyle(cropImage).filter : null,
-    answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
-    locked: board?.dataset.mapState === "locked",
-    referenceVisible: Boolean(document.querySelector('[data-testid="map-reference-pin"]')),
-    square: bounds ? Math.abs(bounds.width - bounds.height) < 1 : false,
-    imageLoaded: [...(board?.querySelectorAll("img") ?? [])]
-      .every((image) => image.complete && image.naturalWidth > 0),
-    horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
-  };
-})()`);
+const mapSenseAnswering = await inspectMapSenseVariant();
 await screenshot("/tmp/queue-arcade-map-sense-answering.png");
 
 await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
@@ -602,6 +616,27 @@ const mapSenseReveal = await evaluate(`({
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 await screenshot("/tmp/queue-arcade-map-sense-reveal.png");
+
+const mapVariants = [mapSenseAnswering];
+let previousMapRound = mapSenseAnswering.roundId;
+for (let attempt = 0; attempt < 4 && new Set(mapVariants.map((variant) => variant.kind)).size < 3; attempt += 1) {
+  await waitFor(
+    `(() => {
+      const main = document.querySelector("main");
+      return main?.dataset.phase === "answering" &&
+        main?.dataset.roundId !== ${JSON.stringify(previousMapRound)} &&
+        ["map-crop", "map-vector", "map-radar"].includes(main?.dataset.questionKind);
+    })()`,
+    30_000,
+  );
+  const variant = await inspectMapSenseVariant();
+  mapVariants.push(variant);
+  previousMapRound = variant.roundId;
+  await screenshot(`/tmp/queue-arcade-map-sense-${variant.kind}.png`);
+  if (new Set(mapVariants.map((candidate) => candidate.kind)).size < 3) {
+    await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
+  }
+}
 
 await send("Emulation.setDeviceMetricsOverride", {
   width: 390,
@@ -627,23 +662,32 @@ const mobile = await evaluate(`({
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
 await waitFor(`(() => {
   const main = document.querySelector("main");
-  return main?.dataset.phase === "answering" && main?.dataset.questionKind === "map-crop";
+  return main?.dataset.phase === "answering" &&
+    ["map-crop", "map-vector", "map-radar"].includes(main?.dataset.questionKind);
 })()`);
 const mobileMap = await evaluate(`(() => {
   const board = document.querySelector('[data-testid="map-sense-board"]');
   const crop = document.querySelector('[data-testid="map-terrain-crop"]');
+  const vector = document.querySelector('[data-testid="map-vector-card"]');
+  const radar = document.querySelector('[data-testid="map-radar-card"]');
+  const visual = crop ?? vector ?? radar;
   const bounds = board?.getBoundingClientRect();
-  const cropBounds = crop?.getBoundingClientRect();
+  const visualBounds = visual?.getBoundingClientRect();
   return {
     kind: document.querySelector("main")?.dataset.questionKind,
     horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
     boardFits: bounds ? bounds.left >= 0 && bounds.right <= innerWidth : false,
     square: bounds ? Math.abs(bounds.width - bounds.height) < 1 : false,
-    cropVisible: Boolean(cropBounds?.height),
-    cropFits: cropBounds ? cropBounds.left >= 0 && cropBounds.right <= innerWidth : false
+    cropVisible: Boolean(crop),
+    vectorVisible: Boolean(vector),
+    radarVisible: Boolean(radar),
+    visualVisible: Boolean(visualBounds?.height),
+    visualFits: visualBounds ? visualBounds.left >= 0 && visualBounds.right <= innerWidth : false
   };
 })()`);
-await evaluate(`document.querySelector('[data-testid="map-sense-board"]')?.scrollIntoView({ block: "center" })`);
+await evaluate(`document.querySelector(
+  '[data-testid="map-terrain-crop"], [data-testid="map-vector-card"], [data-testid="map-radar-card"]'
+)?.scrollIntoView({ block: "center" })`);
 await delay(300);
 await screenshot("/tmp/queue-arcade-mobile-map-sense.png");
 
@@ -676,6 +720,42 @@ socket.close();
 const failures = [];
 const layoutDelta = (left, right) =>
   Object.keys(left).reduce((largest, key) => Math.max(largest, Math.abs((left[key] ?? 0) - (right[key] ?? 0))), 0);
+const requiredMapKinds = ["map-crop", "map-vector", "map-radar"];
+const mapVariantKinds = new Set(mapVariants.map((variant) => variant.kind));
+const validMapVariant = (variant) => {
+  const common =
+    requiredMapKinds.includes(variant.kind) &&
+    variant.game === "map-sense" &&
+    variant.difficulty === 3 &&
+    variant.answerCount === 0 &&
+    (variant.prompt?.split(/\s+/).length ?? 99) <= 4 &&
+    !variant.readGraceVisible &&
+    variant.square &&
+    variant.visualFits &&
+    variant.imageLoaded &&
+    !variant.horizontalOverflow;
+  if (!common) return false;
+  if (variant.kind === "map-crop") {
+    return (
+      variant.cropVisible &&
+      variant.cropLoaded &&
+      variant.cropTreatment === "mono" &&
+      variant.cropFilter?.includes("grayscale") &&
+      !variant.vectorVisible &&
+      !variant.radarVisible
+    );
+  }
+  if (variant.kind === "map-vector") {
+    return variant.vectorVisible && variant.referenceVisible && !variant.cropVisible && !variant.radarVisible;
+  }
+  return (
+    variant.radarVisible &&
+    variant.radarRings === 3 &&
+    variant.radarBeacons === 3 &&
+    !variant.cropVisible &&
+    !variant.vectorVisible
+  );
+};
 if (!lobby.title.includes("Queue Arcade")) failures.push("The Queue Arcade metadata title is missing.");
 if (!lobby.startButton || lobby.arcadeModes !== 8 || lobby.skillLevels !== 3) {
   failures.push("The arcade lobby controls are incomplete.");
@@ -786,21 +866,11 @@ if (!mapPreview.visible || !mapPreview.imageLoaded || mapPreview.bands !== 4) {
   failures.push("Map Sense lobby preview is incomplete.");
 }
 if (
-  mapSenseAnswering.kind !== "map-crop" ||
-  mapSenseAnswering.game !== "map-sense" ||
-  mapSenseAnswering.difficulty !== 3 ||
-  mapSenseAnswering.answerCount !== 0 ||
-  (mapSenseAnswering.prompt?.split(/\s+/).length ?? 99) > 4 ||
-  mapSenseAnswering.readGraceVisible ||
-  !mapSenseAnswering.cropVisible ||
-  !mapSenseAnswering.cropLoaded ||
-  mapSenseAnswering.cropTreatment !== "mono" ||
-  !mapSenseAnswering.cropFilter?.includes("grayscale") ||
   !mapSenseAnswering.locked ||
-  !mapSenseAnswering.square ||
-  !mapSenseAnswering.imageLoaded
+  requiredMapKinds.some((kind) => !mapVariantKinds.has(kind)) ||
+  mapVariants.some((variant) => !validMapVariant(variant))
 ) {
-  failures.push("Veteran Map Sense did not render and lock an audited terrain-match answer.");
+  failures.push("Veteran Map Sense did not rotate through valid terrain, vector, and signal rounds.");
 }
 if (
   !mapSenseReveal.targetVisible ||
@@ -816,7 +886,7 @@ if (
   foggedVision.horizontalOverflow ||
   echoHunt.horizontalOverflow ||
   quoteHunt.horizontalOverflow ||
-  mapSenseAnswering.horizontalOverflow ||
+  mapVariants.some((variant) => variant.horizontalOverflow) ||
   mapSenseReveal.horizontalOverflow ||
   mobile.horizontalOverflow ||
   mobileMap.horizontalOverflow ||
@@ -826,13 +896,16 @@ if (
 }
 if (mobileQuestion.answerCount !== 4) failures.push("The mobile round is missing answers.");
 if (
-  mobileMap.kind !== "map-crop" ||
+  !requiredMapKinds.includes(mobileMap.kind) ||
   !mobileMap.boardFits ||
   !mobileMap.square ||
-  !mobileMap.cropVisible ||
-  !mobileMap.cropFits
+  !mobileMap.visualVisible ||
+  !mobileMap.visualFits ||
+  (mobileMap.kind === "map-crop" && !mobileMap.cropVisible) ||
+  (mobileMap.kind === "map-vector" && !mobileMap.vectorVisible) ||
+  (mobileMap.kind === "map-radar" && !mobileMap.radarVisible)
 ) {
-  failures.push("The mobile Veteran terrain match does not fit the viewport.");
+  failures.push("The mobile Veteran Map Sense puzzle does not fit the viewport.");
 }
 if (browserErrors.length) failures.push(`Browser exceptions: ${browserErrors.join(", ")}`);
 
@@ -870,6 +943,7 @@ console.log(
       quoteHunt,
       mapPreview,
       mapSenseAnswering,
+      mapVariants,
       mapSenseReveal,
       mobile,
       mobileMap,

@@ -79,24 +79,34 @@ if (firstSnapshot.crowd.counts.some((count) => count !== 0)) {
 }
 
 const baselineTotal = firstSnapshot.crowd.total;
+const mixedMapPositions =
+  firstSnapshot.round.game === "map-sense"
+    ? [{ mapPosition: { x: 0.42, y: 0.42 } }, { mapPosition: { x: 0.58, y: 0.58 } }]
+    : [{}, {}];
 const [firstVote, secondVote] = await Promise.all([
-  vote(firstSnapshot, firstPlayer, 0),
-  vote(secondSnapshot, secondPlayer, 1),
+  vote(firstSnapshot, firstPlayer, 0, settings, mixedMapPositions[0]),
+  vote(secondSnapshot, secondPlayer, 1, settings, mixedMapPositions[1]),
 ]);
-const duplicateVote = await vote(firstSnapshot, firstPlayer, 3);
+const duplicateVote = await vote(
+  firstSnapshot,
+  firstPlayer,
+  3,
+  settings,
+  firstSnapshot.round.game === "map-sense" ? { mapPosition: { x: 0.01, y: 0.01 } } : {},
+);
 
 if (!firstVote.accepted || !secondVote.accepted || duplicateVote.accepted) {
   throw new Error("Vote acceptance or duplicate-vote protection failed.");
 }
 
-if (duplicateVote.playerVote?.answerIndex !== 0) {
+if (duplicateVote.playerVote?.answerIndex !== firstVote.playerVote?.answerIndex) {
   throw new Error("A duplicate vote did not preserve the player’s original answer.");
 }
 
 const lockedSnapshot = await readRoom(firstPlayer);
 if (
   lockedSnapshot.round.id !== firstSnapshot.round.id ||
-  lockedSnapshot.playerVote?.answerIndex !== 0 ||
+  lockedSnapshot.playerVote?.answerIndex !== firstVote.playerVote?.answerIndex ||
   lockedSnapshot.crowd.total < baselineTotal + 2 ||
   lockedSnapshot.crowd.counts.some((count) => count !== 0)
 ) {
@@ -145,13 +155,18 @@ const challengeKinds = {
 };
 const [cropTier, cropId] = mapDefinitionId.split(":");
 const crop = mapKind === "map-crop" ? mapCrops[cropTier]?.find((candidate) => candidate.id === cropId) : null;
+const spatialTarget = ["map-vector", "map-radar"].includes(mapKind)
+  ? mapCrops.brutal.find((candidate) => candidate.id === mapDefinitionId)
+  : null;
 const mapLocation = crop
   ? { target: { x: crop.x, y: crop.y } }
-  : mapKind === "map-location"
-    ? mapLocations.find((location) => location.id === mapDefinitionId)
-    : mapChallenges.find(
-        (challenge) => challenge.id === mapDefinitionId && challenge.family === challengeKinds[mapKind],
-      );
+  : spatialTarget
+    ? { target: { x: spatialTarget.x, y: spatialTarget.y } }
+    : mapKind === "map-location"
+      ? mapLocations.find((location) => location.id === mapDefinitionId)
+      : mapChallenges.find(
+          (challenge) => challenge.id === mapDefinitionId && challenge.family === challengeKinds[mapKind],
+        );
 if (!mapLocation) throw new Error("The synchronized Map Sense round referenced an unknown location.");
 
 const mapPosition = mapLocation.target;

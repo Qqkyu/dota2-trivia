@@ -1428,6 +1428,39 @@
   pointer-events: none;
 }
 
+.mapRadarRings {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.mapRadarRings circle {
+  fill: none;
+  stroke: #72dcda;
+  stroke-dasharray: 2.4 1.5;
+  stroke-width: 0.48;
+  opacity: 0.76;
+  animation: mapRadarTrace 9s linear infinite;
+  filter: drop-shadow(0 0 1.5px rgba(87, 213, 208, 0.48));
+  vector-effect: non-scaling-stroke;
+}
+
+.mapRadarRings circle[data-tone="1"] {
+  stroke: #e7b55d;
+  animation-direction: reverse;
+  filter: drop-shadow(0 0 1.5px rgba(231, 181, 93, 0.44));
+}
+
+.mapRadarRings circle[data-tone="2"] {
+  stroke: #d98bd6;
+  animation-duration: 11s;
+  filter: drop-shadow(0 0 1.5px rgba(217, 139, 214, 0.44));
+}
+
 .mapHeatGlow {
   fill: #f06a58;
   opacity: 0.24;
@@ -1467,7 +1500,8 @@
 .mapAim,
 .mapPlayerPin,
 .mapTargetPin,
-.mapReferencePin {
+.mapReferencePin,
+.mapRadarBeacon {
   position: absolute;
   z-index: 6;
   display: grid;
@@ -1546,6 +1580,54 @@
   top: 27px;
   border-color: rgba(242, 189, 91, 0.46);
   color: #f5ce80;
+}
+
+.mapRadarBeacon {
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(114, 220, 218, 0.84);
+  border-radius: 50%;
+  background: rgba(9, 25, 26, 0.92);
+  color: #a9efec;
+  box-shadow:
+    0 0 0 3px rgba(114, 220, 218, 0.11),
+    0 3px 8px rgba(0, 0, 0, 0.72);
+  transform: translate(-50%, -50%);
+}
+
+.mapRadarBeacon i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentcolor;
+  box-shadow: 0 0 7px currentcolor;
+}
+
+.mapRadarBeacon small {
+  position: absolute;
+  top: 27px;
+  padding: 1px 4px;
+  border: 1px solid currentcolor;
+  background: rgba(7, 13, 14, 0.94);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 8px;
+  line-height: 13px;
+}
+
+.mapRadarBeacon[data-tone="1"] {
+  border-color: #e7b55d;
+  color: #f3ca7d;
+  box-shadow:
+    0 0 0 3px rgba(231, 181, 93, 0.11),
+    0 3px 8px rgba(0, 0, 0, 0.72);
+}
+
+.mapRadarBeacon[data-tone="2"] {
+  border-color: #d98bd6;
+  color: #ecb1e9;
+  box-shadow:
+    0 0 0 3px rgba(217, 139, 214, 0.11),
+    0 3px 8px rgba(0, 0, 0, 0.72);
 }
 
 .mapRadiantLabel,
@@ -1684,6 +1766,259 @@
   stroke-width: 1.35;
 }
 
+.mapVectorCard,
+.mapRadarCard {
+  position: relative;
+  width: min(100%, 320px);
+  min-height: 176px;
+  overflow: hidden;
+  margin-top: 18px;
+  border: 1px solid rgba(124, 207, 208, 0.28);
+  background: linear-gradient(135deg, rgba(109, 215, 212, 0.07), transparent 48%), rgba(5, 11, 12, 0.66);
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.28),
+    inset 0 0 34px rgba(2, 6, 7, 0.32);
+}
+
+.mapVectorCard {
+  display: grid;
+  align-items: center;
+  gap: 18px;
+  grid-template-columns: 136px minmax(0, 1fr);
+  padding: 18px;
+}
+
+.mapVectorDial {
+  position: relative;
+  width: 136px;
+  aspect-ratio: 1;
+  border: 1px solid rgba(123, 211, 209, 0.3);
+  border-radius: 50%;
+  background: linear-gradient(rgba(123, 211, 209, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(123, 211, 209, 0.06) 1px, transparent 1px),
+    radial-gradient(circle, rgba(90, 187, 185, 0.1), transparent 64%);
+  background-size:
+    25% 25%,
+    25% 25%,
+    auto;
+  box-shadow:
+    inset 0 0 24px rgba(1, 5, 6, 0.62),
+    0 0 22px rgba(81, 184, 181, 0.08);
+}
+
+.mapVectorDial::before,
+.mapVectorDial::after {
+  position: absolute;
+  border: 1px solid rgba(123, 211, 209, 0.12);
+  border-radius: 50%;
+  content: "";
+  inset: 18px;
+}
+
+.mapVectorDial::after {
+  inset: 42px;
+}
+
+.mapVectorDial > small {
+  position: absolute;
+  z-index: 2;
+  color: #6f8987;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.mapVectorDial > small:nth-of-type(1) {
+  top: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mapVectorDial > small:nth-of-type(2) {
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+}
+
+.mapVectorDial > small:nth-of-type(3) {
+  bottom: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mapVectorDial > small:nth-of-type(4) {
+  top: 50%;
+  left: 8px;
+  transform: translateY(-50%);
+}
+
+.mapVectorDial > span {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  transform-origin: center;
+}
+
+.mapVectorDial > span::before {
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  width: 2px;
+  height: 32px;
+  background: linear-gradient(#c0f6f2, #6bd4d1);
+  box-shadow: 0 0 8px rgba(107, 212, 209, 0.72);
+  content: "";
+  transform: translateX(-50%);
+}
+
+.mapVectorDial > span::after {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-top: 2px solid #c0f6f2;
+  border-left: 2px solid #c0f6f2;
+  content: "";
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.mapVectorDial > span i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #96e7e3;
+  border-radius: 50%;
+  background: #102526;
+  box-shadow: 0 0 9px rgba(107, 212, 209, 0.62);
+  transform: translate(-50%, -50%);
+}
+
+.mapVectorSteps {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.mapVectorSteps > span {
+  display: grid;
+  min-height: 57px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.mapVectorSteps i {
+  color: #78d8d5;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 19px;
+  font-style: normal;
+  line-height: 1;
+}
+
+.mapVectorSteps strong {
+  color: #e1e9e6;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.mapVectorSteps > small {
+  grid-column: 1 / -1;
+  color: #687371;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 8px;
+  letter-spacing: 0.11em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.mapRadarCard {
+  display: grid;
+  min-height: 176px;
+  place-items: center;
+  padding: 20px;
+  isolation: isolate;
+}
+
+.mapRadarCard::before,
+.mapRadarCard::after {
+  position: absolute;
+  z-index: -1;
+  width: 150px;
+  height: 150px;
+  border: 1px solid rgba(119, 212, 209, 0.1);
+  border-radius: 50%;
+  content: "";
+}
+
+.mapRadarCard::after {
+  width: 96px;
+  height: 96px;
+}
+
+.mapRadarCard > svg {
+  width: 50px;
+  color: #8ce1de;
+  filter: drop-shadow(0 0 11px rgba(105, 213, 209, 0.38));
+  stroke-width: 1.2;
+}
+
+.mapRadarCard > div {
+  display: grid;
+  width: 100%;
+  gap: 7px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.mapRadarCard > div span {
+  display: flex;
+  min-height: 37px;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border: 1px solid rgba(114, 220, 218, 0.2);
+  background: rgba(6, 18, 19, 0.86);
+  color: #a7ece9;
+  font-family: var(--font-geist-mono), monospace;
+}
+
+.mapRadarCard > div span[data-tone="1"] {
+  border-color: rgba(231, 181, 93, 0.25);
+  color: #f0c779;
+}
+
+.mapRadarCard > div span[data-tone="2"] {
+  border-color: rgba(217, 139, 214, 0.25);
+  color: #e7a9e4;
+}
+
+.mapRadarCard > div i {
+  width: 6px;
+  height: 6px;
+  margin-right: 3px;
+  border-radius: 50%;
+  background: currentcolor;
+  box-shadow: 0 0 7px currentcolor;
+}
+
+.mapRadarCard > div strong {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.mapRadarCard > div small {
+  color: currentcolor;
+  font-size: 8px;
+  opacity: 0.68;
+}
+
 .mapMission h2 {
   max-width: 430px;
   margin: 13px 0 0;
@@ -1701,11 +2036,11 @@
   line-height: 1.6;
 }
 
-.mapCropQuestion .mapMission h2 {
+.mapVisualQuestion .mapMission h2 {
   margin-top: 14px;
 }
 
-.mapCropQuestion .mapAccuracyScale {
+.mapVisualQuestion .mapAccuracyScale {
   max-width: 320px;
   grid-template-columns: 1fr 1fr;
 }
@@ -3528,6 +3863,12 @@
   }
 }
 
+@keyframes mapRadarTrace {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
 @media (max-width: 1120px) {
   .lobby {
     gap: 48px;
@@ -3642,15 +3983,36 @@
     padding: 0 6px;
   }
 
-  .mapCropQuestion .mapMission {
+  .mapVisualQuestion .mapMission {
     display: grid;
     justify-items: center;
     order: -1;
     text-align: center;
   }
 
-  .mapTerrainCrop {
+  .mapTerrainCrop,
+  .mapVectorCard,
+  .mapRadarCard {
     width: min(180px, 58vw);
+  }
+
+  .mapVectorCard {
+    min-height: auto;
+    gap: 12px;
+    grid-template-columns: 1fr;
+    padding: 14px;
+  }
+
+  .mapVectorDial {
+    width: 118px;
+  }
+
+  .mapVectorSteps {
+    width: 100%;
+  }
+
+  .mapRadarCard {
+    min-height: 168px;
   }
 
   .mapMission h2 {

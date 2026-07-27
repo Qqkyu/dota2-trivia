@@ -2,7 +2,8 @@ import mapLocations from "@/data/map-sense-locations.json";
 import mapChallenges from "@/data/map-sense-challenges.json";
 import mapCrops from "@/data/map-sense-crops.json";
 import mapLandmarks from "@/data/map-sense-landmarks.json";
-import type { MapChallenge, MapCrop, MapPosition } from "@/lib/map-types";
+import mapSpatial from "@/data/map-sense-spatial.json";
+import type { MapChallenge, MapCrop, MapPosition, MapRadar, MapReference, MapVector } from "@/lib/map-types";
 
 export const MAP_SENSE_IMAGE = "/assets/dota2/map/overview-7.41d.webp";
 export const MAP_SENSE_IMAGE_SOURCE = "https://www.dota2.com/patches/7.41";
@@ -19,10 +20,20 @@ interface MapLocationDefinition {
   prompt: string;
   explanation: string;
   crop?: MapCrop;
+  reference?: MapReference;
+  vector?: MapVector;
+  radar?: MapRadar;
 }
 
 type MapChallengeFamily = "riddle" | "mirror" | "relative" | "scenario";
-type MapQuestionKind = "map-riddle" | "map-mirror" | "map-relative" | "map-scenario" | "map-crop";
+type MapQuestionKind =
+  | "map-riddle"
+  | "map-mirror"
+  | "map-relative"
+  | "map-scenario"
+  | "map-crop"
+  | "map-vector"
+  | "map-radar";
 
 interface MapChallengeDefinition extends MapLocationDefinition {
   family: MapChallengeFamily;
@@ -68,6 +79,86 @@ const cropDefinitions = [
   ...mapCrops.tricky.map((seed) => cropQuestion(seed, 2)),
   ...mapCrops.brutal.map((seed) => cropQuestion(seed, 3)),
 ];
+
+interface AuditedLandmark {
+  label: string;
+  position: MapPosition;
+}
+
+interface MapVectorSeed {
+  target: string;
+  start: string;
+}
+
+interface MapRadarSeed {
+  target: string;
+  beacons: string[];
+}
+
+const auditedLandmarks = mapLandmarks.landmarks as Record<string, AuditedLandmark>;
+const brutalCropById = new Map(mapCrops.brutal.map((crop) => [crop.id, crop]));
+
+function spatialTarget(id: string) {
+  const seed = brutalCropById.get(id);
+  if (!seed) throw new Error(`Unknown Map Sense spatial target: ${id}`);
+  return { x: seed.x, y: seed.y };
+}
+
+function auditedLandmark(id: string) {
+  const landmark = auditedLandmarks[id];
+  if (!landmark) throw new Error(`Unknown audited Map Sense landmark: ${id}`);
+  return landmark;
+}
+
+function vectorQuestion(seed: MapVectorSeed): MapLocationDefinition {
+  const target = spatialTarget(seed.target);
+  const start = auditedLandmark(seed.start);
+  return {
+    id: seed.target,
+    targetLabel: "the vector endpoint",
+    difficulty: 3,
+    target,
+    tolerance: 0.024,
+    eyebrow: "Map Sense · Vector run",
+    prompt: "Plot the vector.",
+    explanation: "The horizontal and vertical grid offsets from the marked start end at this exact point.",
+    reference: {
+      position: start.position,
+      label: "Start",
+    },
+    vector: {
+      dx: target.x - start.position.x,
+      dy: target.y - start.position.y,
+      gridSize: 8,
+    },
+  };
+}
+
+function radarQuestion(seed: MapRadarSeed): MapLocationDefinition {
+  const target = spatialTarget(seed.target);
+  return {
+    id: seed.target,
+    targetLabel: "the signal intersection",
+    difficulty: 3,
+    target,
+    tolerance: 0.024,
+    eyebrow: "Map Sense · Signal lock",
+    prompt: "Find the intersection.",
+    explanation: "All three beacon ranges intersect at this exact point.",
+    radar: {
+      beacons: seed.beacons.map((id) => {
+        const position = auditedLandmark(id).position;
+        return {
+          position,
+          distance: mapDistance(position, target),
+        };
+      }),
+    },
+  };
+}
+
+const vectorDefinitions = (mapSpatial.vectors as MapVectorSeed[]).map(vectorQuestion);
+const radarDefinitions = (mapSpatial.radar as MapRadarSeed[]).map(radarQuestion);
 
 export function isMapPosition(value: unknown): value is MapPosition {
   if (!value || typeof value !== "object") return false;
@@ -115,6 +206,8 @@ const mapQuestion = (location: MapLocationDefinition, kind: "map-location" | Map
     tolerance: location.tolerance,
     ...("reference" in location && location.reference ? { reference: location.reference } : {}),
     ...(location.crop ? { crop: location.crop } : {}),
+    ...(location.vector ? { vector: location.vector } : {}),
+    ...(location.radar ? { radar: location.radar } : {}),
   },
   source: {
     label: `Dota 2 build ${mapLandmarks.snapshot.steamBuildId}`,
@@ -129,4 +222,6 @@ export const mapSenseQuestions = [
     mapQuestion(challenge, familyKinds[challenge.family]),
   ),
   ...cropDefinitions.map((crop) => mapQuestion(crop, "map-crop")),
+  ...vectorDefinitions.map((vector) => mapQuestion(vector, "map-vector")),
+  ...radarDefinitions.map((radar) => mapQuestion(radar, "map-radar")),
 ];
