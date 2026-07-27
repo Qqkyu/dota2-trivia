@@ -568,6 +568,8 @@ if (mapBounds) {
 await waitFor(`Boolean(document.querySelector('[data-testid="map-player-pin"]'))`);
 const mapSenseAnswering = await evaluate(`(() => {
   const board = document.querySelector('[data-testid="map-sense-board"]');
+  const crop = document.querySelector('[data-testid="map-terrain-crop"]');
+  const cropImage = crop?.querySelector("img");
   const bounds = board?.getBoundingClientRect();
   return {
     kind: document.querySelector("main")?.dataset.questionKind,
@@ -575,6 +577,10 @@ const mapSenseAnswering = await evaluate(`(() => {
     difficulty: Number(document.querySelector('[data-testid="round-difficulty"]')?.dataset.contentDifficulty),
     prompt: document.querySelector('[data-testid="map-sense-round"] h2')?.textContent?.trim(),
     readGraceVisible: document.querySelector('[data-testid="map-sense-round"]')?.textContent?.includes("3s read grace"),
+    cropVisible: Boolean(crop),
+    cropTreatment: crop?.dataset.treatment,
+    cropLoaded: Boolean(cropImage?.complete && cropImage?.naturalWidth > 0),
+    cropFilter: cropImage ? getComputedStyle(cropImage).filter : null,
     answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
     locked: board?.dataset.mapState === "locked",
     referenceVisible: Boolean(document.querySelector('[data-testid="map-reference-pin"]')),
@@ -606,7 +612,7 @@ await send("Emulation.setDeviceMetricsOverride", {
 await navigate(appUrl);
 await evaluate(`(() => {
   document.querySelector('[data-arcade-mode="map-sense"]')?.click();
-  document.querySelector('[data-skill-level="open"]')?.click();
+  document.querySelector('[data-skill-level="veteran"]')?.click();
   return true;
 })()`);
 await delay(250);
@@ -621,15 +627,20 @@ const mobile = await evaluate(`({
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
 await waitFor(`(() => {
   const main = document.querySelector("main");
-  return main?.dataset.phase === "answering" && main?.dataset.questionKind?.startsWith("map-");
+  return main?.dataset.phase === "answering" && main?.dataset.questionKind === "map-crop";
 })()`);
 const mobileMap = await evaluate(`(() => {
   const board = document.querySelector('[data-testid="map-sense-board"]');
+  const crop = document.querySelector('[data-testid="map-terrain-crop"]');
   const bounds = board?.getBoundingClientRect();
+  const cropBounds = crop?.getBoundingClientRect();
   return {
+    kind: document.querySelector("main")?.dataset.questionKind,
     horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
     boardFits: bounds ? bounds.left >= 0 && bounds.right <= innerWidth : false,
-    square: bounds ? Math.abs(bounds.width - bounds.height) < 1 : false
+    square: bounds ? Math.abs(bounds.width - bounds.height) < 1 : false,
+    cropVisible: Boolean(cropBounds?.height),
+    cropFits: cropBounds ? cropBounds.left >= 0 && cropBounds.right <= innerWidth : false
   };
 })()`);
 await evaluate(`document.querySelector('[data-testid="map-sense-board"]')?.scrollIntoView({ block: "center" })`);
@@ -775,20 +786,21 @@ if (!mapPreview.visible || !mapPreview.imageLoaded || mapPreview.bands !== 4) {
   failures.push("Map Sense lobby preview is incomplete.");
 }
 if (
-  !mapSenseAnswering.kind?.startsWith("map-") ||
+  mapSenseAnswering.kind !== "map-crop" ||
   mapSenseAnswering.game !== "map-sense" ||
-  mapSenseAnswering.difficulty < 2 ||
+  mapSenseAnswering.difficulty !== 3 ||
   mapSenseAnswering.answerCount !== 0 ||
-  (mapSenseAnswering.prompt?.split(/\s+/).filter((word) => word !== "→").length ?? 99) > 8 ||
-  !mapSenseAnswering.readGraceVisible ||
+  (mapSenseAnswering.prompt?.split(/\s+/).length ?? 99) > 4 ||
+  mapSenseAnswering.readGraceVisible ||
+  !mapSenseAnswering.cropVisible ||
+  !mapSenseAnswering.cropLoaded ||
+  mapSenseAnswering.cropTreatment !== "mono" ||
+  !mapSenseAnswering.cropFilter?.includes("grayscale") ||
   !mapSenseAnswering.locked ||
   !mapSenseAnswering.square ||
-  !mapSenseAnswering.imageLoaded ||
-  (mapSenseAnswering.kind !== "map-location" &&
-    mapSenseAnswering.kind !== "map-riddle" &&
-    !mapSenseAnswering.referenceVisible)
+  !mapSenseAnswering.imageLoaded
 ) {
-  failures.push("Map Sense did not render and lock a coordinate answer.");
+  failures.push("Veteran Map Sense did not render and lock an audited terrain-match answer.");
 }
 if (
   !mapSenseReveal.targetVisible ||
@@ -813,7 +825,15 @@ if (
   failures.push("An arcade screen overflows horizontally.");
 }
 if (mobileQuestion.answerCount !== 4) failures.push("The mobile round is missing answers.");
-if (!mobileMap.boardFits || !mobileMap.square) failures.push("The mobile Map Sense board does not fit the viewport.");
+if (
+  mobileMap.kind !== "map-crop" ||
+  !mobileMap.boardFits ||
+  !mobileMap.square ||
+  !mobileMap.cropVisible ||
+  !mobileMap.cropFits
+) {
+  failures.push("The mobile Veteran terrain match does not fit the viewport.");
+}
 if (browserErrors.length) failures.push(`Browser exceptions: ${browserErrors.join(", ")}`);
 
 console.log(

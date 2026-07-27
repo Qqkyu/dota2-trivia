@@ -50,7 +50,7 @@ import {
 import type { CrowdResult, PublicRoomSettings, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
-import type { MapPosition } from "@/lib/map-types";
+import type { MapCrop, MapPosition } from "@/lib/map-types";
 import { MAP_READ_GRACE_MS, speedScoreRatio } from "@/lib/scoring.mjs";
 import styles from "./queue-arcade.module.css";
 
@@ -202,7 +202,7 @@ const MODE_INFO: Record<
     eyebrow: "Pinpoint the play",
     description: "Drop a pin on Dota's terrain, then see the true spot and where the whole room guessed.",
     action: "Read the map",
-    rule: "The first three seconds preserve full speed points. Precision decides the rest.",
+    rule: "Paths, ramps, and treelines are the real tells.",
   },
 };
 
@@ -493,6 +493,39 @@ function percentagePosition(position: MapPosition) {
   } satisfies CSSProperties;
 }
 
+function MapTerrainCrop({ crop }: { crop: MapCrop }) {
+  const imageStyle = {
+    width: `${crop.zoom * 100}%`,
+    height: `${crop.zoom * 100}%`,
+    left: `${50 - crop.center.x * crop.zoom * 100}%`,
+    top: `${50 - crop.center.y * crop.zoom * 100}%`,
+  } satisfies CSSProperties;
+
+  return (
+    <div
+      className={styles.mapTerrainCrop}
+      data-testid="map-terrain-crop"
+      data-treatment={crop.treatment}
+      role="img"
+      aria-label="Battlefield close-up. Match the point under the center reticle on the full map."
+    >
+      <Image
+        src={MAP_SENSE_IMAGE}
+        alt=""
+        width={512}
+        height={512}
+        sizes="190px"
+        className={styles.mapTerrainCropImage}
+        style={imageStyle}
+        unoptimized
+      />
+      <span aria-hidden="true">
+        <Crosshair />
+      </span>
+    </div>
+  );
+}
+
 function MapSenseBoard({
   question,
   phase,
@@ -530,7 +563,11 @@ function MapSenseBoard({
   };
 
   return (
-    <div className={styles.mapSenseQuestion} data-testid="map-sense-round">
+    <div
+      className={clsx(styles.mapSenseQuestion, challenge.crop && styles.mapCropQuestion)}
+      data-testid="map-sense-round"
+      data-has-crop={challenge.crop ? "true" : "false"}
+    >
       <div className={styles.mapBoardFrame}>
         <button
           type="button"
@@ -697,8 +734,8 @@ function MapSenseBoard({
           <MapPin />
           {question.eyebrow}
         </span>
+        {challenge.crop && <MapTerrainCrop crop={challenge.crop} />}
         <h2>{question.prompt}</h2>
-        <p>{MAP_READ_GRACE_MS / 1000}s read grace. Then speed and precision score.</p>
 
         <div className={styles.mapAccuracyScale} aria-label="Map accuracy bands">
           {MAP_SENSE_BAND_LABELS.map((label, index) => (
@@ -710,24 +747,26 @@ function MapSenseBoard({
           ))}
         </div>
 
-        <div className={styles.mapMissionStatus}>
-          {phase === "reveal" ? (
-            <>
-              <small>Correct location</small>
-              <strong>{challenge.targetLabel}</strong>
-            </>
-          ) : selectedPosition ? (
-            <>
-              <small>Answer received</small>
-              <strong>No repings—trust the call</strong>
-            </>
-          ) : (
-            <>
-              <small>Your call</small>
-              <strong>Read the terrain, then commit</strong>
-            </>
-          )}
-        </div>
+        {!challenge.crop && (
+          <div className={styles.mapMissionStatus}>
+            {phase === "reveal" ? (
+              <>
+                <small>Correct location</small>
+                <strong>{challenge.targetLabel}</strong>
+              </>
+            ) : selectedPosition ? (
+              <>
+                <small>Answer received</small>
+                <strong>No repings—trust the call</strong>
+              </>
+            ) : (
+              <>
+                <small>Your call</small>
+                <strong>Read the terrain, then commit</strong>
+              </>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -2283,7 +2322,7 @@ export function QueueArcade() {
                           : currentGame === "quote-hunt"
                             ? "Look for vocabulary, ego, and worldview—the best hero lines reveal all three."
                             : currentGame === "map-sense"
-                              ? "Your first three seconds keep full speed points. Read the arrow call, then pin it."
+                              ? "Paths, ramps, and treelines are stronger tells than faction color."
                               : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
                 </p>
               </div>

@@ -7,7 +7,9 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const locations = JSON.parse(await readFile(join(root, "src", "data", "map-sense-locations.json"), "utf8"));
 const challenges = JSON.parse(await readFile(join(root, "src", "data", "map-sense-challenges.json"), "utf8"));
-const mapPath = join(root, "public", "assets", "dota2", "map", "detailed-7.40.webp");
+const crops = JSON.parse(await readFile(join(root, "src", "data", "map-sense-crops.json"), "utf8"));
+const landmarkSnapshot = JSON.parse(await readFile(join(root, "src", "data", "map-sense-landmarks.json"), "utf8"));
+const mapPath = join(root, "public", "assets", "dota2", "map", "overview-7.41d.webp");
 const failures = [];
 const ids = new Set();
 const difficultyCounts = { 1: 0, 2: 0, 3: 0 };
@@ -26,7 +28,46 @@ if (!Array.isArray(challenges) || challenges.length < 48) {
   failures.push("Map Sense needs at least 48 creative challenges.");
 }
 
-const allDefinitions = [...locations.map((location) => ({ ...location, family: "location" })), ...challenges];
+if (
+  !Array.isArray(crops.tricky) ||
+  crops.tricky.length < 24 ||
+  !Array.isArray(crops.brutal) ||
+  crops.brutal.length < 36
+) {
+  failures.push("Map Sense needs at least 24 Tricky and 36 Brutal terrain crops.");
+}
+
+const cropDefinitions = [
+  ...(crops.tricky ?? []).map((crop) => ({
+    id: `tricky:${crop.id}`,
+    family: "crop",
+    targetLabel: "the marked terrain point",
+    difficulty: 2,
+    target: { x: crop.x, y: crop.y },
+    tolerance: 0.042,
+    eyebrow: "Map Sense · Terrain match",
+    prompt: "Place this reticle.",
+    explanation: "The crop center is the target.",
+    zoom: 5.6,
+  })),
+  ...(crops.brutal ?? []).map((crop) => ({
+    id: `brutal:${crop.id}`,
+    family: "crop",
+    targetLabel: "the marked terrain point",
+    difficulty: 3,
+    target: { x: crop.x, y: crop.y },
+    tolerance: 0.024,
+    eyebrow: "Map Sense · Terrain match",
+    prompt: "Place this reticle.",
+    explanation: "The crop center is the target.",
+    zoom: 8.4,
+  })),
+];
+const allDefinitions = [
+  ...locations.map((location) => ({ ...location, family: "location" })),
+  ...challenges,
+  ...cropDefinitions,
+];
 
 function validPosition(position) {
   const { x, y } = position ?? {};
@@ -113,6 +154,60 @@ for (const challenge of challenges) {
   }
 }
 
+const cropIds = new Set();
+for (const crop of cropDefinitions) {
+  if (cropIds.has(crop.id)) failures.push(`${crop.id}: duplicate terrain crop.`);
+  cropIds.add(crop.id);
+
+  const halfCrop = 0.5 / crop.zoom;
+  if (
+    crop.target.x - halfCrop < 0.02 ||
+    crop.target.x + halfCrop > 0.98 ||
+    crop.target.y - halfCrop < 0.02 ||
+    crop.target.y + halfCrop > 0.98
+  ) {
+    failures.push(`${crop.id}: crop would expose the edge of the overview.`);
+  }
+}
+
+const landmarks = landmarkSnapshot.landmarks ?? {};
+const overview = landmarkSnapshot.snapshot?.overview;
+const worldSpan = overview?.scale * overview?.coordinateSize;
+const samePosition = (left, right, epsilon = 0.0000011) =>
+  Math.abs(left.x - right.x) <= epsilon && Math.abs(left.y - right.y) <= epsilon;
+
+if (
+  landmarkSnapshot.snapshot?.steamBuildId !== "24383975" ||
+  !overview ||
+  !Number.isFinite(worldSpan) ||
+  worldSpan <= 0
+) {
+  failures.push("The authoritative Dota map snapshot metadata is incomplete.");
+} else {
+  for (const [id, landmark] of Object.entries(landmarks)) {
+    const calculated = {
+      x: (landmark.world.x - overview.posX) / worldSpan,
+      y: (overview.posY - landmark.world.y) / worldSpan,
+    };
+    if (!samePosition(calculated, landmark.position)) {
+      failures.push(`${id}: normalized pin does not match its Dota world entity origin.`);
+    }
+
+    const location = locations.find((candidate) => candidate.id === id);
+    if (!location || !samePosition(location.target, landmark.position)) {
+      failures.push(`${id}: entity-backed location drifted from the audited map snapshot.`);
+    }
+  }
+
+  const landmarkByLabel = new Map(Object.values(landmarks).map((landmark) => [landmark.label, landmark.position]));
+  for (const challenge of challenges) {
+    const position = landmarkByLabel.get(challenge.targetLabel);
+    if (position && !samePosition(challenge.target, position)) {
+      failures.push(`${challenge.id}: challenge target drifted from its audited landmark.`);
+    }
+  }
+}
+
 const creativePromptWordCounts = challenges.map(
   (challenge) =>
     challenge.prompt
@@ -131,7 +226,8 @@ if (longestCreativePrompt > 7 || averageCreativePrompt > 5.5) {
 
 const learningCount = allDefinitions.filter((location) => location.difficulty <= 2).length;
 const veteranCount = allDefinitions.filter((location) => location.difficulty === 3).length;
-if (learningCount < 24 || veteranCount < 24) {
+const veteranTerrainCount = cropDefinitions.filter((location) => location.difficulty === 3).length;
+if (learningCount < 24 || veteranCount < 24 || veteranTerrainCount < 24) {
   failures.push(`Map Sense needs 24-round Learning and Veteran pools (found ${learningCount} and ${veteranCount}).`);
 }
 
@@ -150,6 +246,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${allDefinitions.length} Map Sense questions across five families (${difficultyCounts[1]} warm-up, ${difficultyCounts[2]} tricky, ${difficultyCounts[3]} brutal).`,
+    `Validated ${allDefinitions.length} Map Sense questions across six families and ${Object.keys(landmarks).length} entity-backed pins (${difficultyCounts[1]} warm-up, ${difficultyCounts[2]} tricky, ${difficultyCounts[3]} brutal).`,
   );
 }

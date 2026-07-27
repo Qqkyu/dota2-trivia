@@ -36,9 +36,9 @@ if (
   throw new Error("Mixed Arcade can skip or repeat a game inside its guaranteed seven-round rotation.");
 }
 
-const mapKinds = ["map-location", "map-riddle", "map-mirror", "map-relative", "map-scenario"];
+const mapKinds = ["map-location", "map-riddle", "map-mirror", "map-relative", "map-scenario", "map-crop"];
 const mapFixture = mapKinds.flatMap((kind) =>
-  Array.from({ length: kind === "map-location" ? 24 : 6 }, (_, index) => ({
+  Array.from({ length: kind === "map-location" || kind === "map-crop" ? 24 : 6 }, (_, index) => ({
     id: `${kind}-${index}`,
     kind,
   })),
@@ -50,10 +50,10 @@ const mapOpeningCounts = Object.fromEntries(
 
 if (
   mapOpening.some((question, index) => index > 0 && question.kind === mapOpening[index - 1].kind) ||
-  mapKinds.some((kind) => mapOpeningCounts[kind] < 4) ||
+  mapKinds.some((kind) => mapOpeningCounts[kind] < 3) ||
   mapOpeningCounts["map-location"] > 5
 ) {
-  throw new Error(`Map Sense lost its balanced five-family opening: ${JSON.stringify(mapOpeningCounts)}.`);
+  throw new Error(`Map Sense lost its balanced six-family opening: ${JSON.stringify(mapOpeningCounts)}.`);
 }
 
 const roundDuration = 12_000;

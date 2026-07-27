@@ -41,7 +41,8 @@ export type QuestionKind =
   | "map-riddle"
   | "map-mirror"
   | "map-relative"
-  | "map-scenario";
+  | "map-scenario"
+  | "map-crop";
 export type TriviaArtworkKind = "ability" | "hero" | "item";
 
 export interface TriviaQuestion {
@@ -90,7 +91,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-4`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-5`;
 export const triviaQuestions = [
   ...(generatedQuestions as TriviaQuestion[]),
   ...(mapSenseQuestions as TriviaQuestion[]),
@@ -137,7 +138,7 @@ function shuffledPool(seed: string, game: RoundGame, filter: KnowledgeFilter, sk
     if (game === "spell-link") return belongsToSkillLevel(question, skillLevel);
     if (game === "map-sense") {
       if (skillLevel === "Learning") return question.difficulty <= 2;
-      if (skillLevel === "Veteran") return question.difficulty === 3;
+      if (skillLevel === "Veteran") return question.kind === "map-crop" && question.difficulty === 3;
     }
     return true;
   });
