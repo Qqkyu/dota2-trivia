@@ -8,6 +8,9 @@ const appUrl = process.env.APP_URL ?? "http://localhost:3000";
 const mapLocations = JSON.parse(
   await readFile(path.join(process.cwd(), "src", "data", "map-sense-locations.json"), "utf8"),
 );
+const mapChallenges = JSON.parse(
+  await readFile(path.join(process.cwd(), "src", "data", "map-sense-challenges.json"), "utf8"),
+);
 const settings = {
   gameId: "dota2",
   mode: "mixed",
@@ -131,7 +134,19 @@ const mapSettings = {
 };
 const mapPlayer = `multiplayer-map-${randomUUID()}`;
 const mapSnapshot = await answeringRoundWithTime(mapPlayer, mapSettings);
-const mapLocation = mapLocations.find((location) => `map-location:${location.id}` === mapSnapshot.round.questionId);
+const [mapKind, mapDefinitionId] = mapSnapshot.round.questionId.split(":");
+const challengeKinds = {
+  "map-riddle": "riddle",
+  "map-mirror": "mirror",
+  "map-relative": "relative",
+  "map-scenario": "scenario",
+};
+const mapLocation =
+  mapKind === "map-location"
+    ? mapLocations.find((location) => location.id === mapDefinitionId)
+    : mapChallenges.find(
+        (challenge) => challenge.id === mapDefinitionId && challenge.family === challengeKinds[mapKind],
+      );
 if (!mapLocation) throw new Error("The synchronized Map Sense round referenced an unknown location.");
 
 const mapPosition = mapLocation.target;

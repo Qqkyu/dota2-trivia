@@ -626,6 +626,18 @@ function MapSenseBoard({
 
           {phase === "reveal" && <span className={styles.mapTargetRadius} style={targetRingStyle} />}
 
+          {challenge.reference && (
+            <span
+              className={styles.mapReferencePin}
+              data-testid="map-reference-pin"
+              style={percentagePosition(challenge.reference.position)}
+              aria-hidden="true"
+            >
+              <MapPin />
+              <small>{challenge.reference.label}</small>
+            </span>
+          )}
+
           {aimPosition && canChoose && (
             <span className={styles.mapAim} style={percentagePosition(aimPosition)} aria-hidden="true">
               <Crosshair />
@@ -798,7 +810,7 @@ export function QueueArcade() {
       return ACTIVE_QUESTIONS.find((question) => question.kind === "hero-quote") ?? ACTIVE_QUESTIONS[0];
     }
     if (mode === "map-sense") {
-      return ACTIVE_QUESTIONS.find((question) => question.kind === "map-location") ?? ACTIVE_QUESTIONS[0];
+      return ACTIVE_QUESTIONS.find((question) => question.map?.reference) ?? ACTIVE_QUESTIONS[0];
     }
     return ACTIVE_QUESTIONS.find((question) => question.id === "cooldown:lina_dragon_slave:4") ?? ACTIVE_QUESTIONS[0];
   }, [mode]);

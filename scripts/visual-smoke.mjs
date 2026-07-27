@@ -549,7 +549,7 @@ await waitFor(`(() => {
   const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
   const image = document.querySelector('[data-testid="map-sense-board"] img');
   return main?.dataset.phase === "answering" &&
-    main?.dataset.questionKind === "map-location" &&
+    main?.dataset.questionKind?.startsWith("map-") &&
     timer >= 4 &&
     image?.complete &&
     image?.naturalWidth > 0;
@@ -575,6 +575,7 @@ const mapSenseAnswering = await evaluate(`(() => {
     difficulty: Number(document.querySelector('[data-testid="round-difficulty"]')?.dataset.contentDifficulty),
     answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
     locked: board?.dataset.mapState === "locked",
+    referenceVisible: Boolean(document.querySelector('[data-testid="map-reference-pin"]')),
     square: bounds ? Math.abs(bounds.width - bounds.height) < 1 : false,
     imageLoaded: [...(board?.querySelectorAll("img") ?? [])]
       .every((image) => image.complete && image.naturalWidth > 0),
@@ -618,7 +619,7 @@ const mobile = await evaluate(`({
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
 await waitFor(`(() => {
   const main = document.querySelector("main");
-  return main?.dataset.phase === "answering" && main?.dataset.questionKind === "map-location";
+  return main?.dataset.phase === "answering" && main?.dataset.questionKind?.startsWith("map-");
 })()`);
 const mobileMap = await evaluate(`(() => {
   const board = document.querySelector('[data-testid="map-sense-board"]');
@@ -772,13 +773,16 @@ if (!mapPreview.visible || !mapPreview.imageLoaded || mapPreview.bands !== 4) {
   failures.push("Map Sense lobby preview is incomplete.");
 }
 if (
-  mapSenseAnswering.kind !== "map-location" ||
+  !mapSenseAnswering.kind?.startsWith("map-") ||
   mapSenseAnswering.game !== "map-sense" ||
   mapSenseAnswering.difficulty < 2 ||
   mapSenseAnswering.answerCount !== 0 ||
   !mapSenseAnswering.locked ||
   !mapSenseAnswering.square ||
-  !mapSenseAnswering.imageLoaded
+  !mapSenseAnswering.imageLoaded ||
+  (mapSenseAnswering.kind !== "map-location" &&
+    mapSenseAnswering.kind !== "map-riddle" &&
+    !mapSenseAnswering.referenceVisible)
 ) {
   failures.push("Map Sense did not render and lock a coordinate answer.");
 }

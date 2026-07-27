@@ -3,8 +3,14 @@ export interface MapPosition {
   y: number;
 }
 
+export interface MapReference {
+  position: MapPosition;
+  label: string;
+}
+
 export interface MapChallenge {
   target: MapPosition;
   targetLabel: string;
   tolerance: number;
+  reference?: MapReference;
 }

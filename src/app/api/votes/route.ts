@@ -71,7 +71,7 @@ export async function POST(request: Request) {
   }
 
   const mapPosition = isMapPosition(candidate.mapPosition) ? candidate.mapPosition : undefined;
-  if (question.kind === "map-location" && (!question.map || !mapPosition)) {
+  if (question.map && !mapPosition) {
     return NextResponse.json({ error: "Map Sense requires a valid map position." }, { status: 400 });
   }
 

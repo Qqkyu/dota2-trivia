@@ -6,11 +6,12 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const locations = JSON.parse(await readFile(join(root, "src", "data", "map-sense-locations.json"), "utf8"));
+const challenges = JSON.parse(await readFile(join(root, "src", "data", "map-sense-challenges.json"), "utf8"));
 const mapPath = join(root, "public", "assets", "dota2", "map", "detailed-7.40.webp");
 const failures = [];
 const ids = new Set();
-const prompts = new Set();
 const difficultyCounts = { 1: 0, 2: 0, 3: 0 };
+const challengeFamilies = ["riddle", "mirror", "relative", "scenario"];
 const toleranceRanges = {
   1: [0.06, 0.12],
   2: [0.035, 0.06],
@@ -21,12 +22,31 @@ if (!Array.isArray(locations) || locations.length < 36) {
   failures.push("Map Sense needs at least 36 locations.");
 }
 
-for (const [index, location] of locations.entries()) {
-  const label = location?.id ?? `location ${index}`;
-  if (!location?.id || ids.has(location.id)) failures.push(`${label}: missing or duplicate id.`);
-  if (!location?.prompt || prompts.has(location.prompt)) failures.push(`${label}: missing or duplicate prompt.`);
-  ids.add(location.id);
-  prompts.add(location.prompt);
+if (!Array.isArray(challenges) || challenges.length < 48) {
+  failures.push("Map Sense needs at least 48 creative challenges.");
+}
+
+const allDefinitions = [...locations.map((location) => ({ ...location, family: "location" })), ...challenges];
+
+function validPosition(position) {
+  const { x, y } = position ?? {};
+  return (
+    typeof x === "number" &&
+    typeof y === "number" &&
+    Number.isFinite(x) &&
+    Number.isFinite(y) &&
+    x >= 0.02 &&
+    x <= 0.98 &&
+    y >= 0.02 &&
+    y <= 0.98
+  );
+}
+
+for (const [index, location] of allDefinitions.entries()) {
+  const label = location?.id ?? `definition ${index}`;
+  const scopedId = `${location.family}:${location.id}`;
+  if (!location?.id || ids.has(scopedId)) failures.push(`${label}: missing or duplicate family-scoped id.`);
+  ids.add(scopedId);
 
   if (![1, 2, 3].includes(location.difficulty)) {
     failures.push(`${label}: invalid difficulty.`);
@@ -34,17 +54,7 @@ for (const [index, location] of locations.entries()) {
   }
   difficultyCounts[location.difficulty] += 1;
 
-  const { x, y } = location.target ?? {};
-  if (
-    typeof x !== "number" ||
-    typeof y !== "number" ||
-    !Number.isFinite(x) ||
-    !Number.isFinite(y) ||
-    x < 0.02 ||
-    x > 0.98 ||
-    y < 0.02 ||
-    y > 0.98
-  ) {
+  if (!validPosition(location.target)) {
     failures.push(`${label}: target must be a normalized on-map coordinate.`);
   }
 
@@ -66,8 +76,45 @@ for (const [index, location] of locations.entries()) {
   }
 }
 
-const learningCount = locations.filter((location) => location.difficulty <= 2).length;
-const veteranCount = locations.filter((location) => location.difficulty === 3).length;
+for (const family of challengeFamilies) {
+  const familyQuestions = challenges.filter((challenge) => challenge.family === family);
+  const trickyCount = familyQuestions.filter((challenge) => challenge.difficulty === 2).length;
+  const brutalCount = familyQuestions.filter((challenge) => challenge.difficulty === 3).length;
+  if (familyQuestions.length < 12 || trickyCount < 6 || brutalCount < 6) {
+    failures.push(
+      `${family}: needs 12 questions split across Tricky and Brutal (found ${familyQuestions.length}, ${trickyCount}/${brutalCount}).`,
+    );
+  }
+}
+
+for (const challenge of challenges) {
+  if (!challengeFamilies.includes(challenge.family)) {
+    failures.push(`${challenge.id}: unknown Map Sense family.`);
+    continue;
+  }
+
+  if (challenge.family === "riddle") continue;
+  if (
+    !challenge.reference ||
+    !validPosition(challenge.reference.position) ||
+    typeof challenge.reference.label !== "string" ||
+    !challenge.reference.label.trim()
+  ) {
+    failures.push(`${challenge.id}: ${challenge.family} challenges need a labeled normalized reference pin.`);
+    continue;
+  }
+
+  const referenceDistance = Math.hypot(
+    challenge.reference.position.x - challenge.target.x,
+    challenge.reference.position.y - challenge.target.y,
+  );
+  if (referenceDistance < challenge.tolerance * 2) {
+    failures.push(`${challenge.id}: reference and target are too close to read as separate calls.`);
+  }
+}
+
+const learningCount = allDefinitions.filter((location) => location.difficulty <= 2).length;
+const veteranCount = allDefinitions.filter((location) => location.difficulty === 3).length;
 if (learningCount < 24 || veteranCount < 24) {
   failures.push(`Map Sense needs 24-round Learning and Veteran pools (found ${learningCount} and ${veteranCount}).`);
 }
@@ -87,6 +134,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${locations.length} Map Sense locations (${difficultyCounts[1]} warm-up, ${difficultyCounts[2]} tricky, ${difficultyCounts[3]} brutal).`,
+    `Validated ${allDefinitions.length} Map Sense questions across five families (${difficultyCounts[1]} warm-up, ${difficultyCounts[2]} tricky, ${difficultyCounts[3]} brutal).`,
   );
 }

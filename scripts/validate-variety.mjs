@@ -35,6 +35,26 @@ if (
   throw new Error("Mixed Arcade can skip or repeat a game inside its guaranteed seven-round rotation.");
 }
 
+const mapKinds = ["map-location", "map-riddle", "map-mirror", "map-relative", "map-scenario"];
+const mapFixture = mapKinds.flatMap((kind) =>
+  Array.from({ length: kind === "map-location" ? 24 : 6 }, (_, index) => ({
+    id: `${kind}-${index}`,
+    kind,
+  })),
+);
+const mapOpening = varietyShuffle(mapFixture, "map-family-regression").slice(0, 24);
+const mapOpeningCounts = Object.fromEntries(
+  mapKinds.map((kind) => [kind, mapOpening.filter((question) => question.kind === kind).length]),
+);
+
+if (
+  mapOpening.some((question, index) => index > 0 && question.kind === mapOpening[index - 1].kind) ||
+  mapKinds.some((kind) => mapOpeningCounts[kind] < 4) ||
+  mapOpeningCounts["map-location"] > 5
+) {
+  throw new Error(`Map Sense lost its balanced five-family opening: ${JSON.stringify(mapOpeningCounts)}.`);
+}
+
 console.log(
-  `Validated a deterministic ${first.length}-round template rotation and ${mixedRounds.length}-round Mixed Arcade cycle.`,
+  `Validated deterministic template, Mixed Arcade, and Map Sense family rotations (${JSON.stringify(mapOpeningCounts)}).`,
 );

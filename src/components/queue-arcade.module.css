@@ -1466,7 +1466,8 @@
 
 .mapAim,
 .mapPlayerPin,
-.mapTargetPin {
+.mapTargetPin,
+.mapReferencePin {
   position: absolute;
   z-index: 6;
   display: grid;
@@ -1488,12 +1489,14 @@
 }
 
 .mapPlayerPin,
-.mapTargetPin {
+.mapTargetPin,
+.mapReferencePin {
   transform: translate(-50%, -93%);
 }
 
 .mapPlayerPin svg,
-.mapTargetPin svg {
+.mapTargetPin svg,
+.mapReferencePin svg {
   width: 31px;
   height: 31px;
   fill: rgba(31, 73, 77, 0.88);
@@ -1506,8 +1509,21 @@
   color: #88e4ad;
 }
 
+.mapReferencePin {
+  z-index: 5;
+}
+
+.mapReferencePin svg {
+  width: 28px;
+  height: 28px;
+  fill: rgba(105, 68, 18, 0.94);
+  color: #f2bd5b;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.9));
+}
+
 .mapPlayerPin small,
-.mapTargetPin small {
+.mapTargetPin small,
+.mapReferencePin small {
   position: absolute;
   top: 30px;
   padding: 2px 5px;
@@ -1524,6 +1540,12 @@
 .mapTargetPin small {
   border-color: rgba(126, 224, 184, 0.38);
   color: #b6ecc9;
+}
+
+.mapReferencePin small {
+  top: 27px;
+  border-color: rgba(242, 189, 91, 0.46);
+  color: #f5ce80;
 }
 
 .mapRadiantLabel,

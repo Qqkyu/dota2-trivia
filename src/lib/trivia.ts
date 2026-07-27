@@ -37,7 +37,11 @@ export type QuestionKind =
   | "fogged-hero"
   | "hero-voice"
   | "hero-quote"
-  | "map-location";
+  | "map-location"
+  | "map-riddle"
+  | "map-mirror"
+  | "map-relative"
+  | "map-scenario";
 export type TriviaArtworkKind = "ability" | "hero" | "item";
 
 export interface TriviaQuestion {
@@ -86,7 +90,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-2`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-3`;
 export const triviaQuestions = [
   ...(generatedQuestions as TriviaQuestion[]),
   ...(mapSenseQuestions as TriviaQuestion[]),
@@ -116,7 +120,7 @@ function roundGame(question: TriviaQuestion): RoundGame {
   if (question.kind === "fogged-hero") return "fogged-vision";
   if (question.kind === "hero-voice") return "echo-hunt";
   if (question.kind === "hero-quote") return "quote-hunt";
-  if (question.kind === "map-location") return "map-sense";
+  if (question.kind.startsWith("map-")) return "map-sense";
   return "trivia";
 }
 

@@ -1,4 +1,5 @@
 import mapLocations from "@/data/map-sense-locations.json";
+import mapChallenges from "@/data/map-sense-challenges.json";
 import type { MapChallenge, MapPosition } from "@/lib/map-types";
 
 export const MAP_SENSE_IMAGE = "/assets/dota2/map/detailed-7.40.webp";
@@ -17,6 +18,24 @@ interface MapLocationDefinition {
   prompt: string;
   explanation: string;
 }
+
+type MapChallengeFamily = "riddle" | "mirror" | "relative" | "scenario";
+type MapQuestionKind = "map-riddle" | "map-mirror" | "map-relative" | "map-scenario";
+
+interface MapChallengeDefinition extends MapLocationDefinition {
+  family: MapChallengeFamily;
+  reference?: {
+    position: MapPosition;
+    label: string;
+  };
+}
+
+const familyKinds = {
+  riddle: "map-riddle",
+  mirror: "map-mirror",
+  relative: "map-relative",
+  scenario: "map-scenario",
+} as const satisfies Record<MapChallengeFamily, MapQuestionKind>;
 
 export function isMapPosition(value: unknown): value is MapPosition {
   if (!value || typeof value !== "object") return false;
@@ -48,9 +67,9 @@ export function mapAnswerIndex(challenge: MapChallenge, position: MapPosition) {
   return mapAccuracyBand(mapDistance(challenge.target, position), challenge.tolerance);
 }
 
-export const mapSenseQuestions = (mapLocations as MapLocationDefinition[]).map((location) => ({
-  id: `map-location:${location.id}`,
-  kind: "map-location" as const,
+const mapQuestion = (location: MapLocationDefinition, kind: "map-location" | MapQuestionKind) => ({
+  id: `${kind}:${location.id}`,
+  kind,
   category: "Map" as const,
   difficulty: location.difficulty,
   eyebrow: location.eyebrow,
@@ -62,10 +81,18 @@ export const mapSenseQuestions = (mapLocations as MapLocationDefinition[]).map((
     target: location.target,
     targetLabel: location.targetLabel,
     tolerance: location.tolerance,
+    ...("reference" in location && location.reference ? { reference: location.reference } : {}),
   },
   source: {
     label: "Dota 2 7.41 terrain",
     url: "https://www.dota2.com/patches/7.41",
   },
   patch: "7.41d",
-}));
+});
+
+export const mapSenseQuestions = [
+  ...(mapLocations as MapLocationDefinition[]).map((location) => mapQuestion(location, "map-location")),
+  ...(mapChallenges as MapChallengeDefinition[]).map((challenge) =>
+    mapQuestion(challenge, familyKinds[challenge.family]),
+  ),
+];
