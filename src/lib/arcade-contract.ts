@@ -1,4 +1,5 @@
 import type { ArcadeMode, KnowledgeFilter, RoundGame, SkillLevel } from "@/lib/trivia";
+import type { ReportReason } from "@/lib/calibration";
 import type { GameId } from "@/lib/game-catalogs";
 import type { MapPosition } from "@/lib/map-types";
 
@@ -50,9 +51,15 @@ export interface RoomSnapshot {
   round: PublicRound;
   crowd: CrowdResult;
   playerVote: PlayerVote | null;
+  playerReport: ReportReason | null;
 }
 
 export interface VoteResult extends CrowdResult {
   accepted: boolean;
   playerVote: PlayerVote | null;
+}
+
+export interface ReportResult {
+  accepted: boolean;
+  reason: ReportReason;
 }

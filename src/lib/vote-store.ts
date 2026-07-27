@@ -1,7 +1,8 @@
 import { createHash } from "node:crypto";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
-import type { CrowdResult, PlayerVote, VoteResult } from "@/lib/arcade-contract";
+import type { CrowdResult, PlayerVote, ReportResult, VoteResult } from "@/lib/arcade-contract";
+import { emptyReportCounts, isReportReason, type ReportCounts, type ReportReason } from "@/lib/calibration";
 import type { GameId } from "@/lib/game-catalogs";
 import { MAP_SENSE_MAX_CROWD_PINS } from "@/lib/map-sense";
 import type { MapPosition } from "@/lib/map-types";
@@ -24,6 +25,19 @@ interface StoredQuestion {
   counts: CrowdResult["counts"];
   total: number;
   correctIndex: number;
+  reports?: ReportCounts;
+  reporters?: Record<string, ReportReason>;
+  updatedAt: number;
+}
+
+export interface QuestionStats {
+  gameId: GameId;
+  contentVersion: string;
+  questionId: string;
+  counts: CrowdResult["counts"];
+  total: number;
+  correctIndex: number;
+  reports: ReportCounts;
   updatedAt: number;
 }
 
@@ -113,9 +127,24 @@ function crowdFor(round: StoredRound | undefined): CrowdResult {
   };
 }
 
-function voterHash(roomId: string, voterId: string) {
+function anonymousHash(scope: string, voterId: string) {
   const salt = process.env.ARCADE_VOTER_SALT || "queue-arcade-local-v1";
-  return createHash("sha256").update(`${salt}:${roomId}:${voterId}`).digest("base64url");
+  return createHash("sha256").update(`${salt}:${scope}:${voterId}`).digest("base64url");
+}
+
+function reportsFor(question: StoredQuestion | undefined): ReportCounts {
+  const reports = emptyReportCounts();
+  if (!question?.reports || typeof question.reports !== "object") return reports;
+
+  for (const reason of Object.keys(reports) as ReportReason[]) {
+    const count = question.reports[reason];
+    if (typeof count === "number" && Number.isInteger(count) && count >= 0) reports[reason] = count;
+  }
+  return reports;
+}
+
+function questionKey(gameId: GameId, contentVersion: string, questionId: string) {
+  return `${gameId}:${contentVersion}:${questionId}`;
 }
 
 async function persist(state: PersistentVoteState) {
@@ -147,12 +176,48 @@ export async function getRoundCrowd(roundId: string, roomId: string, voterId?: s
   await runtime.writeQueue;
   const state = await stateForRuntime();
   const round = state.rounds[roundId];
-  const hash = voterId ? voterHash(roomId, voterId) : null;
+  const hash = voterId ? anonymousHash(roomId, voterId) : null;
 
   return {
     ...crowdFor(round),
     playerVote: hash && round?.voters[hash] ? { ...round.voters[hash] } : null,
   };
+}
+
+export async function getPlayerQuestionReport(
+  gameId: GameId,
+  contentVersion: string,
+  questionId: string,
+  voterId?: string,
+) {
+  if (!voterId) return null;
+  await runtime.writeQueue;
+  const state = await stateForRuntime();
+  const key = questionKey(gameId, contentVersion, questionId);
+  const question = state.questions[key];
+  const hash = anonymousHash(`report:${key}`, voterId);
+  const reason = question?.reporters?.[hash];
+  return isReportReason(reason) ? reason : null;
+}
+
+export async function getQuestionStats(gameId: GameId, contentVersion: string): Promise<QuestionStats[]> {
+  await runtime.writeQueue;
+  const state = await stateForRuntime();
+  return Object.values(state.questions)
+    .filter((question) => question.gameId === gameId && question.contentVersion === contentVersion)
+    .map((question) => ({
+      gameId: question.gameId,
+      contentVersion: question.contentVersion,
+      questionId: question.questionId,
+      counts: validCounts(question.counts) ? [...question.counts] : [0, 0, 0, 0],
+      total: Number.isInteger(question.total) && question.total >= 0 ? question.total : 0,
+      correctIndex:
+        Number.isInteger(question.correctIndex) && question.correctIndex >= 0 && question.correctIndex <= 3
+          ? question.correctIndex
+          : 0,
+      reports: reportsFor(question),
+      updatedAt: Number.isFinite(question.updatedAt) ? question.updatedAt : 0,
+    }));
 }
 
 export async function recordRoundVote(input: {
@@ -168,7 +233,7 @@ export async function recordRoundVote(input: {
   submittedAt: number;
 }): Promise<VoteResult> {
   return mutate((state) => {
-    const hash = voterHash(input.roomId, input.voterId);
+    const hash = anonymousHash(input.roomId, input.voterId);
     const existingRound = state.rounds[input.roundId];
     const round =
       existingRound ??
@@ -211,9 +276,9 @@ export async function recordRoundVote(input: {
     round.updatedAt = input.submittedAt;
     state.rounds[input.roundId] = round;
 
-    const questionKey = `${input.gameId}:${input.contentVersion}:${input.questionId}`;
+    const key = questionKey(input.gameId, input.contentVersion, input.questionId);
     const question =
-      state.questions[questionKey] ??
+      state.questions[key] ??
       ({
         gameId: input.gameId,
         contentVersion: input.contentVersion,
@@ -227,12 +292,68 @@ export async function recordRoundVote(input: {
     question.counts[input.answerIndex] += 1;
     question.total += 1;
     question.updatedAt = input.submittedAt;
-    state.questions[questionKey] = question;
+    state.questions[key] = question;
 
     return {
       accepted: true,
       ...crowdFor(round),
       playerVote,
     };
+  });
+}
+
+export async function recordQuestionReport(input: {
+  gameId: GameId;
+  contentVersion: string;
+  questionId: string;
+  correctIndex: number;
+  reason: ReportReason;
+  voterId: string;
+  submittedAt: number;
+}): Promise<ReportResult> {
+  return mutate((state) => {
+    const key = questionKey(input.gameId, input.contentVersion, input.questionId);
+    const question =
+      state.questions[key] ??
+      ({
+        gameId: input.gameId,
+        contentVersion: input.contentVersion,
+        questionId: input.questionId,
+        counts: [0, 0, 0, 0],
+        total: 0,
+        correctIndex: input.correctIndex,
+        reports: emptyReportCounts(),
+        reporters: {},
+        updatedAt: input.submittedAt,
+      } satisfies StoredQuestion);
+
+    if (
+      question.gameId !== input.gameId ||
+      question.contentVersion !== input.contentVersion ||
+      question.questionId !== input.questionId
+    ) {
+      throw new Error("Persistent question identity mismatch.");
+    }
+
+    const reporters =
+      question.reporters && typeof question.reporters === "object"
+        ? question.reporters
+        : ({} as Record<string, ReportReason>);
+    const hash = anonymousHash(`report:${key}`, input.voterId);
+    const existingReason = reporters[hash];
+    if (isReportReason(existingReason)) {
+      return { accepted: false, reason: existingReason };
+    }
+
+    const reports = reportsFor(question);
+    reports[input.reason] += 1;
+    reporters[hash] = input.reason;
+    question.correctIndex = input.correctIndex;
+    question.reports = reports;
+    question.reporters = reporters;
+    question.updatedAt = input.submittedAt;
+    state.questions[key] = question;
+
+    return { accepted: true, reason: input.reason };
   });
 }

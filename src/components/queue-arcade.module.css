@@ -3258,6 +3258,85 @@
   -webkit-line-clamp: 2;
 }
 
+.revealCopy {
+  position: relative;
+  min-width: 0;
+}
+
+.reportControl {
+  position: relative;
+  width: fit-content;
+}
+
+.reportButton {
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #727a77;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: color 140ms ease;
+}
+
+.reportButton:hover:not(:disabled),
+.reportButton[aria-expanded="true"] {
+  color: #b8bebb;
+}
+
+.reportButton:focus-visible {
+  outline: 1px solid rgba(111, 202, 203, 0.6);
+  outline-offset: 3px;
+}
+
+.reportButton:disabled {
+  color: #718078;
+  cursor: default;
+}
+
+.reportButton svg {
+  width: 13px;
+  height: 13px;
+}
+
+.reportMenu {
+  position: absolute;
+  z-index: 30;
+  bottom: calc(100% + 7px);
+  left: -10px;
+  display: grid;
+  width: min(400px, calc(100vw - 112px));
+  gap: 1px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 5px;
+  border: 1px solid rgba(210, 214, 207, 0.2);
+  background: #141819;
+  box-shadow: 0 15px 38px rgba(0, 0, 0, 0.48);
+}
+
+.reportMenu button {
+  min-height: 39px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.025);
+  color: #afb6b3;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.reportMenu button:hover,
+.reportMenu button:focus-visible {
+  border-color: rgba(240, 106, 88, 0.34);
+  background: rgba(144, 48, 40, 0.12);
+  color: #f0d7d3;
+  outline: 0;
+}
+
 .pointsAward {
   display: flex;
   min-width: 96px;
@@ -3931,6 +4010,27 @@
   height: 15px;
 }
 
+.footerMeta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.footerMeta > a {
+  flex: 0 0 auto;
+  color: #747c79;
+  text-decoration: none;
+}
+
+.footerMeta > a:hover {
+  color: #aeb5b2;
+}
+
+.footerMeta > span {
+  text-align: right;
+}
+
 @keyframes pulse {
   0%,
   100% {
@@ -4486,6 +4586,10 @@
     grid-template-columns: auto 1fr;
   }
 
+  .reportMenu {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .pointsAward {
     align-items: flex-start;
     grid-column: 2;
@@ -4528,6 +4632,16 @@
     flex-direction: column;
     justify-content: center;
     padding: 18px 0;
+  }
+
+  .footerMeta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .footerMeta > span {
+    text-align: left;
   }
 }
 

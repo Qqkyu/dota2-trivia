@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import {
   AudioLines,
   Brain,
@@ -9,6 +10,7 @@ import {
   CircleStop,
   Clock3,
   Crosshair,
+  Flag,
   Flame,
   Gauge,
   Gamepad2,
@@ -34,6 +36,7 @@ import {
 } from "lucide-react";
 import clsx from "clsx";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { isReportReason, REPORT_REASON_LABELS, REPORT_REASONS, type ReportReason } from "@/lib/calibration";
 import { getPusherClient } from "@/lib/pusher";
 import {
   difficultyLabel,
@@ -47,7 +50,7 @@ import {
   type TriviaArtworkKind,
   type TriviaQuestion,
 } from "@/lib/trivia";
-import type { CrowdResult, PublicRoomSettings, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
+import type { CrowdResult, PublicRoomSettings, ReportResult, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
 import type { MapBounds, MapChoiceChallenge, MapCrop, MapPosition, MapViewport } from "@/lib/map-types";
@@ -275,7 +278,8 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     !("room" in value) ||
     !("round" in value) ||
     !("crowd" in value) ||
-    !("playerVote" in value)
+    !("playerVote" in value) ||
+    !("playerReport" in value)
   ) {
     return null;
   }
@@ -285,6 +289,12 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
   const round = candidate.round;
   const crowd = normalizeCrowd(candidate.crowd);
   const playerVote = normalizePlayerVote(candidate.playerVote);
+  const playerReport =
+    candidate.playerReport === null
+      ? null
+      : isReportReason(candidate.playerReport)
+        ? candidate.playerReport
+        : undefined;
 
   if (
     typeof candidate.serverNow !== "number" ||
@@ -308,7 +318,8 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     typeof round.revealDeadline !== "number" ||
     typeof round.answerDuration !== "number" ||
     !crowd ||
-    playerVote === undefined
+    playerVote === undefined ||
+    playerReport === undefined
   ) {
     return null;
   }
@@ -319,6 +330,7 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     round,
     crowd,
     playerVote,
+    playerReport,
   };
 }
 
@@ -1047,6 +1059,9 @@ export function QueueArcade() {
   const [activeRoundId, setActiveRoundId] = useState("");
   const [voiceState, setVoiceState] = useState<"loading" | "ready" | "playing" | "error">("loading");
   const [voicePlayCount, setVoicePlayCount] = useState(0);
+  const [reportMenuOpen, setReportMenuOpen] = useState(false);
+  const [reportState, setReportState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [reportedReason, setReportedReason] = useState<ReportReason | null>(null);
 
   const phaseRef = useRef<GamePhase>("lobby");
   const currentQuestionRef = useRef<ArcadeRound | null>(null);
@@ -1289,6 +1304,9 @@ export function QueueArcade() {
         setRoundAward(null);
         setVoiceState("loading");
         setVoicePlayCount(0);
+        setReportMenuOpen(false);
+        setReportedReason(snapshot.playerReport);
+        setReportState(snapshot.playerReport ? "sent" : "idle");
 
         const nextRoundIndex = hadRound ? roundIndexRef.current + 1 : 0;
         roundIndexRef.current = nextRoundIndex;
@@ -1322,6 +1340,12 @@ export function QueueArcade() {
 
       currentQuestionRef.current = question;
       setCurrentQuestion(question);
+
+      if (snapshot.playerReport) {
+        setReportedReason(snapshot.playerReport);
+        setReportState("sent");
+        setReportMenuOpen(false);
+      }
 
       if (snapshot.playerVote && selectedIndexRef.current === null) {
         const nextAnswerTimeLeft = Math.max(0, snapshot.round.answerDeadline - snapshot.playerVote.submittedAt);
@@ -1413,6 +1437,9 @@ export function QueueArcade() {
       setHistory([]);
       setRunDuration(0);
       setQueueStartedAt(startedAt);
+      setReportMenuOpen(false);
+      setReportedReason(null);
+      setReportState("idle");
       playSound("start");
       applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
     } catch {
@@ -1424,6 +1451,64 @@ export function QueueArcade() {
       setJoiningRoom(false);
     }
   }, [applyRoomSnapshot, ensurePlayerId, filter, joiningRoom, mode, playSound, requestRoomSnapshot, skillLevel]);
+
+  const submitQuestionReport = useCallback(
+    async (reason: ReportReason) => {
+      const snapshot = roomSnapshotRef.current;
+      const settings = roomSettingsRef.current;
+      const question = currentQuestionRef.current;
+      if (
+        phaseRef.current !== "reveal" ||
+        !snapshot ||
+        !settings ||
+        !question ||
+        snapshot.round.phase !== "reveal" ||
+        snapshot.round.id !== roundIdRef.current ||
+        reportedReason ||
+        reportState === "sending"
+      ) {
+        return;
+      }
+
+      const submittedRoundId = snapshot.round.id;
+      setReportState("sending");
+
+      try {
+        const response = await fetch("/api/reports", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...settings,
+            roundId: submittedRoundId,
+            questionId: question.id,
+            reason,
+            voterId: ensurePlayerId(),
+          }),
+        });
+        const payload: unknown = await response.json();
+        if (!response.ok || !payload || typeof payload !== "object") throw new Error("REPORT_FAILED");
+
+        const candidate = payload as Partial<ReportResult>;
+        if (typeof candidate.accepted !== "boolean" || !isReportReason(candidate.reason)) {
+          throw new Error("REPORT_FAILED");
+        }
+
+        if (roundIdRef.current === submittedRoundId) {
+          setReportedReason(candidate.reason);
+          setReportState("sent");
+          setReportMenuOpen(false);
+        }
+      } catch {
+        if (roundIdRef.current === submittedRoundId) {
+          setReportState("error");
+          setReportMenuOpen(false);
+        }
+      }
+    },
+    [ensurePlayerId, reportState, reportedReason],
+  );
 
   const submitVote = useCallback(
     async (question: TriviaQuestion, answerIndex: number, mapPosition?: MapPosition) => {
@@ -2392,6 +2477,40 @@ export function QueueArcade() {
                 <div className={styles.revealCopy}>
                   <span>{selectedWasCorrect ? "Correct" : selectedIndex === null ? "Time expired" : "Not quite"}</span>
                   <p>{currentQuestion.explanation}</p>
+                  <div className={styles.reportControl}>
+                    <button
+                      type="button"
+                      className={styles.reportButton}
+                      data-testid="report-question"
+                      aria-expanded={reportMenuOpen}
+                      onClick={() => setReportMenuOpen((open) => !open)}
+                      disabled={reportState === "sending" || reportState === "sent"}
+                    >
+                      <Flag />
+                      {reportedReason
+                        ? `Reported · ${REPORT_REASON_LABELS[reportedReason]}`
+                        : reportState === "sending"
+                          ? "Sending…"
+                          : reportState === "error"
+                            ? "Try report again"
+                            : "Report question"}
+                    </button>
+                    {reportMenuOpen && !reportedReason && (
+                      <div className={styles.reportMenu} role="group" aria-label="Why are you reporting this question?">
+                        {REPORT_REASONS.map((reason) => (
+                          <button
+                            key={reason}
+                            type="button"
+                            data-testid="report-reason"
+                            data-report-reason={reason}
+                            onClick={() => void submitQuestionReport(reason)}
+                          >
+                            {REPORT_REASON_LABELS[reason]}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <div className={styles.pointsAward}>
                   <small>
@@ -2670,8 +2789,11 @@ export function QueueArcade() {
           <BrandMark />
           Queue Arcade · Built for the seconds between “Find Match” and “Accept”
         </span>
-        <span>
-          Dota 2 and its assets are trademarks of Valve Corporation. This project is not affiliated with Valve.
+        <span className={styles.footerMeta}>
+          <Link href="/calibration">Calibration lab</Link>
+          <span>
+            Dota 2 and its assets are trademarks of Valve Corporation. This project is not affiliated with Valve.
+          </span>
         </span>
       </footer>
     </main>

@@ -216,6 +216,35 @@ await evaluate(`(() => {
   return true;
 })()`);
 await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`);
+const revealBoundsBeforeReport = await evaluate(`(() => {
+  const panel = document.querySelector('[data-testid="report-question"]')?.closest('[aria-live="polite"]');
+  const bounds = panel?.getBoundingClientRect();
+  return bounds ? { x: bounds.x, y: bounds.y, width: bounds.width, height: bounds.height } : null;
+})()`);
+await evaluate(`document.querySelector('[data-testid="report-question"]')?.click()`);
+await waitFor(`document.querySelectorAll('[data-testid="report-reason"]').length === 4`);
+const reportMenu = await evaluate(`(() => {
+  const panel = document.querySelector('[data-testid="report-question"]')?.closest('[aria-live="polite"]');
+  const panelBounds = panel?.getBoundingClientRect();
+  const buttons = [...document.querySelectorAll('[data-testid="report-reason"]')];
+  const menuBounds = buttons[0]?.parentElement?.getBoundingClientRect();
+  return {
+    reasons: buttons.map((button) => button.dataset.reportReason),
+    panelBounds: panelBounds
+      ? { x: panelBounds.x, y: panelBounds.y, width: panelBounds.width, height: panelBounds.height }
+      : null,
+    menuFits: menuBounds ? menuBounds.left >= 0 && menuBounds.right <= innerWidth : false,
+    horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+  };
+})()`);
+await screenshot("/tmp/queue-arcade-report-menu.png");
+await evaluate(`document.querySelector('[data-report-reason="ambiguous"]')?.click()`);
+await waitFor(`document.querySelector('[data-testid="report-question"]')?.textContent.includes("Reported")`);
+const reportResult = await evaluate(`({
+  label: document.querySelector('[data-testid="report-question"]')?.textContent.trim(),
+  menuClosed: document.querySelectorAll('[data-testid="report-reason"]').length === 0,
+  disabled: document.querySelector('[data-testid="report-question"]')?.disabled
+})`);
 await screenshot("/tmp/queue-arcade-reveal.png");
 
 const reveal = await evaluate(`({
@@ -722,6 +751,53 @@ await evaluate(`(() => {
 await delay(300);
 await screenshot("/tmp/queue-arcade-mobile-question.png");
 
+await send("Emulation.setDeviceMetricsOverride", {
+  width: 1440,
+  height: 1000,
+  deviceScaleFactor: 1,
+  mobile: false,
+});
+await navigate(`${appUrl}/calibration`);
+await waitFor(`document.querySelectorAll('[data-testid="calibration-row"]').length > 0`);
+const calibrationDesktop = await evaluate(`(() => {
+  const rows = [...document.querySelectorAll('[data-testid="calibration-row"]')];
+  const firstQuestion = rows[0]?.querySelector('[role="cell"] strong');
+  return {
+    dashboard: Boolean(document.querySelector('[data-testid="calibration-dashboard"]')),
+    stats: document.querySelectorAll('section[aria-label="Calibration overview"] article').length,
+    filters: document.querySelectorAll('[role="group"][aria-label="Calibration filter"] button').length,
+    rows: rows.length,
+    reportedRows: document.querySelectorAll('[data-calibration-status="reported"]').length,
+    guardrail: document.body.innerText.includes("20 answers before difficulty signals"),
+    aggregateOnly: document.body.innerText.includes("Aggregates only"),
+    questionFontSize: firstQuestion ? parseFloat(getComputedStyle(firstQuestion).fontSize) : 0,
+    horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+  };
+})()`);
+await screenshot("/tmp/queue-arcade-calibration.png");
+
+await send("Emulation.setDeviceMetricsOverride", {
+  width: 390,
+  height: 844,
+  deviceScaleFactor: 1,
+  mobile: true,
+});
+await navigate(`${appUrl}/calibration`);
+await waitFor(`document.querySelectorAll('[data-testid="calibration-row"]').length > 0`);
+const calibrationMobile = await evaluate(`(() => {
+  const row = document.querySelector('[data-testid="calibration-row"]');
+  const bounds = row?.getBoundingClientRect();
+  const question = row?.querySelector('[role="cell"] strong');
+  return {
+    rows: document.querySelectorAll('[data-testid="calibration-row"]').length,
+    filters: document.querySelectorAll('[role="group"][aria-label="Calibration filter"] button').length,
+    rowFits: bounds ? bounds.left >= 0 && bounds.right <= innerWidth : false,
+    questionFontSize: question ? parseFloat(getComputedStyle(question).fontSize) : 0,
+    horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+  };
+})()`);
+await screenshot("/tmp/queue-arcade-calibration-mobile.png");
+
 socket.close();
 
 const failures = [];
@@ -836,6 +912,18 @@ if (
 ) {
   failures.push("The crowd reveal is incomplete.");
 }
+if (
+  !revealBoundsBeforeReport ||
+  !reportMenu.panelBounds ||
+  layoutDelta(revealBoundsBeforeReport, reportMenu.panelBounds) > 1 ||
+  reportMenu.reasons.join(",") !== "incorrect,outdated,ambiguous,unclear" ||
+  !reportMenu.menuFits ||
+  !reportResult.label?.includes("Ambiguous") ||
+  !reportResult.menuClosed ||
+  !reportResult.disabled
+) {
+  failures.push("The reveal report menu shifts the result, loses a reason, or fails to confirm a report.");
+}
 if (!autoAdvanced.answering || !autoAdvanced.endless || autoAdvanced.round === revealedRound) {
   failures.push("Rounds do not advance automatically in the endless session.");
 }
@@ -932,9 +1020,12 @@ if (
   quoteHunt.horizontalOverflow ||
   mapVariants.some((variant) => variant.horizontalOverflow) ||
   mapReveals.some((reveal) => reveal.horizontalOverflow) ||
+  reportMenu.horizontalOverflow ||
   mobile.horizontalOverflow ||
   mobileMap.horizontalOverflow ||
-  mobileQuestion.horizontalOverflow
+  mobileQuestion.horizontalOverflow ||
+  calibrationDesktop.horizontalOverflow ||
+  calibrationMobile.horizontalOverflow
 ) {
   failures.push("An arcade screen overflows horizontally.");
 }
@@ -950,6 +1041,26 @@ if (
 ) {
   failures.push("The mobile Veteran Map Sense puzzle does not fit the viewport.");
 }
+if (
+  !calibrationDesktop.dashboard ||
+  calibrationDesktop.stats !== 4 ||
+  calibrationDesktop.filters !== 5 ||
+  calibrationDesktop.rows < 1 ||
+  calibrationDesktop.reportedRows < 1 ||
+  !calibrationDesktop.guardrail ||
+  !calibrationDesktop.aggregateOnly ||
+  calibrationDesktop.questionFontSize < 14
+) {
+  failures.push("The desktop calibration lab is incomplete, unreadable, or missing its guardrails.");
+}
+if (
+  calibrationMobile.rows < 1 ||
+  calibrationMobile.filters !== 5 ||
+  !calibrationMobile.rowFits ||
+  calibrationMobile.questionFontSize < 14
+) {
+  failures.push("The mobile calibration lab does not fit or keep its question text readable.");
+}
 if (browserErrors.length) failures.push(`Browser exceptions: ${browserErrors.join(", ")}`);
 
 console.log(
@@ -962,6 +1073,9 @@ console.log(
       veteranRound,
       shopkeeper,
       reveal,
+      revealBoundsBeforeReport,
+      reportMenu,
+      reportResult,
       revealedRound,
       autoAdvanced,
       summary,
@@ -992,6 +1106,8 @@ console.log(
       mobile,
       mobileMap,
       mobileQuestion,
+      calibrationDesktop,
+      calibrationMobile,
       browserErrors,
     },
     null,

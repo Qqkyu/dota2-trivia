@@ -113,12 +113,12 @@ function belongsToFilter(question: TriviaQuestion, filter: KnowledgeFilter) {
 
 export function createQuestionDeck(seed: string, filter: KnowledgeFilter) {
   const pool = triviaQuestions.filter(
-    (question) => roundGame(question) === "trivia" && belongsToFilter(question, filter),
+    (question) => gameForQuestion(question) === "trivia" && belongsToFilter(question, filter),
   );
   return varietyShuffle(pool, `${seed}:${filter}:${ARCADE_CONTENT_VERSION}`);
 }
 
-function roundGame(question: TriviaQuestion): RoundGame {
+export function gameForQuestion(question: TriviaQuestion): RoundGame {
   if (question.kind === "recipe-component") return "shopkeeper";
   if (question.kind === "spell-owner") return "spell-link";
   if (question.kind === "fogged-hero") return "fogged-vision";
@@ -136,7 +136,7 @@ function belongsToSkillLevel(question: TriviaQuestion, skillLevel: SkillLevel) {
 
 function shuffledPool(seed: string, game: RoundGame, filter: KnowledgeFilter, skillLevel: SkillLevel) {
   const pool = triviaQuestions.filter((question) => {
-    if (roundGame(question) !== game) return false;
+    if (gameForQuestion(question) !== game) return false;
     if (game === "trivia") return belongsToFilter(question, filter) && belongsToSkillLevel(question, skillLevel);
     if (game === "spell-link") return belongsToSkillLevel(question, skillLevel);
     if (game === "map-sense") {

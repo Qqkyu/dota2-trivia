@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { CrowdResult } from "@/lib/arcade-contract";
 import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
-import { getRoundCrowd } from "@/lib/vote-store";
+import { getPlayerQuestionReport, getRoundCrowd } from "@/lib/vote-store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -29,7 +29,10 @@ export async function GET(request: Request) {
   try {
     const serverNow = Date.now();
     const { room, round } = currentPublicRound(settings, serverNow);
-    const result = await getRoundCrowd(round.id, room.id, playerId);
+    const [result, playerReport] = await Promise.all([
+      getRoundCrowd(round.id, room.id, playerId),
+      getPlayerQuestionReport(room.gameId, room.contentVersion, round.questionId, playerId),
+    ]);
 
     return NextResponse.json(
       {
@@ -42,6 +45,7 @@ export async function GET(request: Request) {
           positions: round.phase === "reveal" ? result.positions : [],
         },
         playerVote: result.playerVote,
+        playerReport,
       },
       {
         headers: {

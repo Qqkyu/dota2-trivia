@@ -63,6 +63,26 @@ async function vote(snapshot, playerId, answerIndex, roomSettings = settings, ex
   return result;
 }
 
+async function report(snapshot, playerId, reason, roomSettings = settings) {
+  const response = await fetch(`${appUrl}/api/reports`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      ...roomSettings,
+      roundId: snapshot.round.id,
+      questionId: snapshot.round.questionId,
+      reason,
+      voterId: playerId,
+    }),
+  });
+  return {
+    status: response.status,
+    body: await response.json(),
+  };
+}
+
 const firstSnapshot = await answeringRoundWithTime(firstPlayer);
 const secondSnapshot = await readRoom(secondPlayer);
 
@@ -113,6 +133,11 @@ if (
   throw new Error("The answering-phase room state is not synchronized or is leaking results.");
 }
 
+const prematureReport = await report(lockedSnapshot, firstPlayer, "unclear");
+if (prematureReport.status !== 409) {
+  throw new Error("A question report was accepted before the synchronized reveal.");
+}
+
 await delay(Math.max(250, lockedSnapshot.round.answerDeadline - lockedSnapshot.serverNow + 200));
 const revealSnapshot = await readRoom(firstPlayer);
 
@@ -125,6 +150,41 @@ if (
   throw new Error("The synchronized reveal did not expose the final round split.");
 }
 
+const acceptedReport = await report(revealSnapshot, firstPlayer, "ambiguous");
+const duplicateReport = await report(revealSnapshot, firstPlayer, "incorrect");
+if (
+  acceptedReport.status !== 200 ||
+  !acceptedReport.body.accepted ||
+  acceptedReport.body.reason !== "ambiguous" ||
+  duplicateReport.status !== 200 ||
+  duplicateReport.body.accepted ||
+  duplicateReport.body.reason !== "ambiguous"
+) {
+  throw new Error("Question report acceptance or per-player deduplication failed.");
+}
+
+const reportedSnapshot = await readRoom(firstPlayer);
+if (reportedSnapshot.round.id !== revealSnapshot.round.id || reportedSnapshot.playerReport !== "ambiguous") {
+  throw new Error("The synchronized room did not restore the player's question report.");
+}
+
+const calibrationResponse = await fetch(`${appUrl}/api/calibration?gameId=dota2`, { cache: "no-store" });
+const calibration = await calibrationResponse.json();
+const calibratedQuestion = calibration.records?.find((record) => record.questionId === revealSnapshot.round.questionId);
+const serializedCalibration = JSON.stringify(calibration);
+if (
+  !calibrationResponse.ok ||
+  calibration.totals?.questions !== calibration.records?.length ||
+  !calibratedQuestion ||
+  calibratedQuestion.reports?.ambiguous < 1 ||
+  calibratedQuestion.reportTotal < 1 ||
+  calibratedQuestion.signal?.status !== "reported" ||
+  serializedCalibration.includes("reporters") ||
+  serializedCalibration.includes(firstPlayer)
+) {
+  throw new Error("The calibration endpoint did not expose safe aggregate report signals.");
+}
+
 const configuredDataFile = process.env.ARCADE_DATA_FILE?.trim();
 const dataFile = path.resolve(process.cwd(), configuredDataFile || ".data/queue-arcade-votes.json");
 const persisted = await readFile(dataFile, "utf8");
@@ -135,6 +195,10 @@ if (!persisted.includes(firstSnapshot.round.id)) {
 
 if (persisted.includes(firstPlayer) || persisted.includes(secondPlayer)) {
   throw new Error("A raw anonymous player ID was written to persistent storage.");
+}
+
+if (!persisted.includes('"ambiguous"')) {
+  throw new Error("The anonymous question report was not written to persistent storage.");
 }
 
 const mapSettings = {
@@ -251,6 +315,10 @@ console.log(
       finalTotal: revealSnapshot.crowd.total,
       persisted: true,
       voterIdsHashed: true,
+      reportRejectedBeforeReveal: true,
+      reportDeduplicated: true,
+      playerReportRestored: true,
+      calibrationAggregates: true,
       mapAnswerScoredOnServer: true,
       mapPinsHiddenUntilReveal: true,
       mapPinRevealed: true,

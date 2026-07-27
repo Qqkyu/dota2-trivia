@@ -27,6 +27,8 @@ The playable MVP includes:
 - per-round crowd results with server-enforced deadlines and duplicate-vote protection;
 - server-scored Map Sense pins plus synchronized A–D mechanic rounds, with coordinates and answer splits hidden until reveal;
 - disk-backed vote history that survives Node server restarts and records per-question accuracy data;
+- reveal-only question reports for incorrect, outdated, ambiguous, or unclear content, deduplicated per anonymous player;
+- a responsive calibration lab at `/calibration`, with report triage and difficulty recommendations only after 20 answers;
 - optional Pusher broadcasts between connected browsers, with automatic polling as the zero-config fallback;
 - keyboard controls, responsive layouts, sound cues, and local lifetime stats;
 - a reproducible data sync and validation pipeline.
@@ -74,7 +76,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Pusher is optional. Copy `.env.example` to `.env.local` and add a Pusher Channels app if you want participation totals broadcast immediately to every connected browser. Without it, clients poll the server and the synchronized game still works.
 
-Votes default to `.data/queue-arcade-votes.json`, which is intentionally ignored by Git. Set `ARCADE_DATA_FILE` to a path on a persistent volume in production. Anonymous player IDs are salted and hashed before they reach disk; set a private `ARCADE_VOTER_SALT` to keep that hash namespace installation-specific.
+Votes and question reports default to `.data/queue-arcade-votes.json`, which is intentionally ignored by Git. Set `ARCADE_DATA_FILE` to a path on a persistent volume in production. Anonymous player IDs are salted and hashed before they reach disk; set a private `ARCADE_VOTER_SALT` to keep that hash namespace installation-specific.
 
 ## Refresh the Dota data
 
@@ -112,29 +114,28 @@ pnpm check
 
 That validates the question deck, template rotation, and visual/audio metadata, runs ESLint, runs strict TypeScript checking, and creates an optimized production build.
 
-With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk persistence, hashed voter IDs, server-scored map coordinates, hidden-then-revealed room pins, and coordinate-free Map Sense choices with a synchronized A–D split.
+With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk persistence, hashed voter IDs, reveal-only report submission, report deduplication, aggregate-only calibration data, server-scored map coordinates, hidden-then-revealed room pins, and coordinate-free Map Sense choices with a synchronized A–D split.
 
-For visual smoke testing, start muted Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the arcade lobby, Shopkeeper Rush, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt audio readiness, Quote Hunt rendering, all four Veteran Map Sense interactions and reveals, synchronized automatic round advancement, the session report, mobile overflow, and saves screenshots under `/tmp`.
+For visual smoke testing, start muted Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the arcade lobby, Shopkeeper Rush, the no-shift question-report popover, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt audio readiness, Quote Hunt rendering, all four Veteran Map Sense interactions and reveals, synchronized automatic round advancement, the session report, desktop/mobile calibration layouts, mobile overflow, and saves screenshots under `/tmp`.
 
 ## Crowd architecture
 
 Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2-map-sense-7:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
-`/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
+`/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` does the inverse: it only accepts the question currently being revealed and stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 
-The default persistent store is an atomic JSON file suited to local development and a single long-running Node instance with a persistent disk. It serializes concurrent writes inside the process and stores aggregate per-question answer counts for later difficulty calibration. For horizontal scaling or serverless deployment, replace `src/lib/vote-store.ts` with Redis or Postgres; Pusher distributes updates but is never the source of truth.
+The default persistent store is an atomic JSON file suited to local development and a single long-running Node instance with a persistent disk. It serializes concurrent writes inside the process and stores aggregate per-question answer counts and report totals for calibration. `/calibration` never exposes voter hashes. It waits for 20 answers before suggesting that a question looks too easy or too hard, while reports remain manual-review signals; neither path silently changes the live deck. For horizontal scaling or serverless deployment, replace `src/lib/vote-store.ts` with Redis or Postgres; Pusher distributes updates but is never the source of truth.
 
 ## Useful next steps
 
 1. Move vote storage to Redis or Postgres before a horizontally scaled public deployment.
-2. Turn observed per-question correct rates into live challenge tiers and an admin calibration view.
-3. Add a question-report flow for ambiguous or outdated facts after patches.
-4. Prototype compact lane-equilibrium, smoke-path, and ward/deward Map Sense rounds before adding another family.
-5. Add more sound formats, such as ability casts, announcer calls, and item activations.
-6. Implement a second game's questions and minigame deck against the existing game-catalog contract.
-7. Add shared daily rooms and friend-room codes.
-8. Add Steam sign-in, leaderboards, and streak challenges only after the anonymous loop proves fun.
-9. Package it as a lightweight desktop/overlay companion for people who want it beside the real Dota queue.
+2. Review calibration bands after enough real traffic, then tune question content and distractors manually.
+3. Prototype compact lane-equilibrium, smoke-path, and ward/deward Map Sense rounds before adding another family.
+4. Add more sound formats, such as ability casts, announcer calls, and item activations.
+5. Implement a second game's questions and minigame deck against the existing game-catalog contract.
+6. Add shared daily rooms and friend-room codes.
+7. Add Steam sign-in, leaderboards, and streak challenges only after the anonymous loop proves fun.
+8. Package it as a lightweight desktop/overlay companion for people who want it beside the real Dota queue.
 
 ## Attribution
 
