@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
   ArrowRight,
   AudioLines,
+  AudioWaveform,
   Brain,
   Check,
   ChevronRight,
@@ -169,9 +170,9 @@ const MODE_INFO: Record<
     label: "Mixed Arcade",
     shortLabel: "Mixed",
     eyebrow: "House pick · Recommended",
-    description: "Facts, recipes, spells, fog, voices, quotes, map calls, and mechanics rotate every round.",
+    description: "Facts, recipes, spells, fog, voices, sounds, quotes, map calls, and mechanics rotate every round.",
     action: "Enter mixed arcade",
-    rule: "Every eight rounds contains all eight games exactly once.",
+    rule: "Every nine rounds contains all nine games exactly once.",
   },
   trivia: {
     label: "Queue Trivia",
@@ -213,6 +214,14 @@ const MODE_INFO: Record<
     action: "Hunt some echoes",
     rule: "Play or replay the voice line while the shared round timer keeps moving.",
   },
+  soundcheck: {
+    label: "Soundcheck",
+    shortLabel: "Soundcheck",
+    eyebrow: "Audio recognition",
+    description: "Identify real ability effects and item activations from their in-game sound alone.",
+    action: "Enter soundcheck",
+    rule: "One verified gameplay sound, four same-type icons, and unlimited replays before the deadline.",
+  },
   "quote-hunt": {
     label: "Quote Hunt",
     shortLabel: "Quotes",
@@ -245,6 +254,7 @@ function ModeIcon({ mode }: { mode: ArcadeMode | RoundGame }) {
   if (mode === "spell-link") return <WandSparkles />;
   if (mode === "fogged-vision") return <ScanEye />;
   if (mode === "echo-hunt") return <AudioLines />;
+  if (mode === "soundcheck") return <AudioWaveform />;
   if (mode === "quote-hunt") return <MessageSquareQuote />;
   if (mode === "map-sense") return <MapPin />;
   if (mode === "counterplay") return <ShieldCheck />;
@@ -1097,8 +1107,8 @@ export function QueueArcade() {
   const [roomError, setRoomError] = useState<string | null>(null);
   const [activeRoomId, setActiveRoomId] = useState("");
   const [activeRoundId, setActiveRoundId] = useState("");
-  const [voiceState, setVoiceState] = useState<"loading" | "ready" | "playing" | "error">("loading");
-  const [voicePlayCount, setVoicePlayCount] = useState(0);
+  const [roundAudioState, setRoundAudioState] = useState<"loading" | "ready" | "playing" | "error">("loading");
+  const [roundAudioPlayCount, setRoundAudioPlayCount] = useState(0);
   const [reportState, setReportState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [reportedReason, setReportedReason] = useState<ReportReason | null>(null);
   const [reportTarget, setReportTarget] = useState<QuestionReportTarget | null>(null);
@@ -1122,7 +1132,7 @@ export function QueueArcade() {
   const roundIdRef = useRef("");
   const syncPromiseRef = useRef<Promise<void> | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
-  const voiceAudioRef = useRef<HTMLAudioElement | null>(null);
+  const roundAudioRef = useRef<HTMLAudioElement | null>(null);
   const reportTargetRef = useRef<QuestionReportTarget | null>(null);
   const reportStateRef = useRef<"idle" | "sending" | "sent" | "error">("idle");
 
@@ -1150,6 +1160,9 @@ export function QueueArcade() {
     }
     if (mode === "echo-hunt") {
       return ACTIVE_QUESTIONS.find((question) => question.kind === "hero-voice") ?? ACTIVE_QUESTIONS[0];
+    }
+    if (mode === "soundcheck") {
+      return ACTIVE_QUESTIONS.find((question) => question.kind === "soundcheck-ability") ?? ACTIVE_QUESTIONS[0];
     }
     if (mode === "quote-hunt") {
       return ACTIVE_QUESTIONS.find((question) => question.kind === "hero-quote") ?? ACTIVE_QUESTIONS[0];
@@ -1238,14 +1251,14 @@ export function QueueArcade() {
     [soundEnabled],
   );
 
-  const playVoiceLine = useCallback(() => {
-    const audio = voiceAudioRef.current;
+  const playRoundAudio = useCallback(() => {
+    const audio = roundAudioRef.current;
     if (!audio) return;
 
     setSoundEnabled(true);
     audio.currentTime = 0;
-    setVoiceState("loading");
-    void audio.play().catch(() => setVoiceState("error"));
+    setRoundAudioState("loading");
+    void audio.play().catch(() => setRoundAudioState("error"));
   }, []);
 
   const requestRoomSnapshot = useCallback(async (settings: PublicRoomSettings, playerId: string) => {
@@ -1359,8 +1372,8 @@ export function QueueArcade() {
         currentQuestionRef.current = question;
         setCurrentQuestion(question);
         setRoundAward(null);
-        setVoiceState("loading");
-        setVoicePlayCount(0);
+        setRoundAudioState("loading");
+        setRoundAudioPlayCount(0);
         setReportedReason(snapshot.playerReport);
         if (!reportTargetRef.current) {
           updateReportState(snapshot.playerReport ? "sent" : "idle");
@@ -1900,14 +1913,14 @@ export function QueueArcade() {
   }, [chooseAnswer]);
 
   useEffect(() => {
-    if (phase !== "answering") voiceAudioRef.current?.pause();
+    if (phase !== "answering") roundAudioRef.current?.pause();
   }, [phase]);
 
   useEffect(() => {
-    const audio = voiceAudioRef.current;
+    const audio = roundAudioRef.current;
     if (
       phase !== "answering" ||
-      currentQuestion?.game !== "echo-hunt" ||
+      (currentQuestion?.game !== "echo-hunt" && currentQuestion?.game !== "soundcheck") ||
       !currentQuestion.audio ||
       !soundEnabled ||
       !audio
@@ -1917,14 +1930,14 @@ export function QueueArcade() {
 
     audio.currentTime = 0;
     void audio.play().catch(() => {
-      setVoiceState(audio.readyState >= 2 ? "ready" : "loading");
+      setRoundAudioState(audio.readyState >= 2 ? "ready" : "loading");
     });
   }, [currentQuestion?.audio, currentQuestion?.game, currentQuestion?.id, phase, soundEnabled]);
 
   useEffect(
     () => () => {
       if (audioContextRef.current) void audioContextRef.current.close();
-      voiceAudioRef.current?.pause();
+      roundAudioRef.current?.pause();
     },
     [],
   );
@@ -1936,6 +1949,7 @@ export function QueueArcade() {
   const selectedWasCorrect =
     selectedIndex !== null && currentQuestion ? selectedIndex === currentQuestion.correctIndex : false;
   const currentGame = currentQuestion?.game ?? "trivia";
+  const isSoundcheckRound = currentGame === "soundcheck";
   const mapChoiceRound = currentGame === "map-sense" && Boolean(currentQuestion?.map?.choice);
   const displayedDifficulty =
     currentGame !== "trivia" && skillLevel !== "Open"
@@ -2008,7 +2022,7 @@ export function QueueArcade() {
             className={styles.iconButton}
             onClick={() =>
               setSoundEnabled((enabled) => {
-                if (enabled) voiceAudioRef.current?.pause();
+                if (enabled) roundAudioRef.current?.pause();
                 return !enabled;
               })
             }
@@ -2025,7 +2039,7 @@ export function QueueArcade() {
           <div className={styles.lobbyCopy}>
             <div className={styles.liveLabel}>
               <span />
-              Eight games live · More in the lab
+              Nine games live · More in the lab
             </div>
             <h1>
               Your queue has
@@ -2178,9 +2192,12 @@ export function QueueArcade() {
                     <span />
                     <Crosshair />
                   </div>
-                ) : mode === "echo-hunt" ? (
-                  <div className={styles.previewEcho} aria-hidden="true">
-                    <Headphones />
+                ) : mode === "echo-hunt" || mode === "soundcheck" ? (
+                  <div
+                    className={clsx(styles.previewEcho, mode === "soundcheck" && styles.previewSoundcheck)}
+                    aria-hidden="true"
+                  >
+                    {mode === "soundcheck" ? <AudioWaveform /> : <Headphones />}
                     <span>
                       <i />
                       <i />
@@ -2211,11 +2228,13 @@ export function QueueArcade() {
                           ? "Name the hero before the fog clears."
                           : mode === "echo-hunt"
                             ? "Whose voice just crossed the river?"
-                            : mode === "quote-hunt"
-                              ? "Who said it?"
-                              : mode === "map-sense"
-                                ? "Where on the map is the call?"
-                                : previewQuestion.prompt}
+                            : mode === "soundcheck"
+                              ? "Match the sound."
+                              : mode === "quote-hunt"
+                                ? "Who said it?"
+                                : mode === "map-sense"
+                                  ? "Where on the map is the call?"
+                                  : previewQuestion.prompt}
                 </h2>
                 <p>{activeModeInfo.description}</p>
               </div>
@@ -2258,6 +2277,7 @@ export function QueueArcade() {
               currentGame === "spell-link" && styles.spellLinkStage,
               currentGame === "fogged-vision" && styles.foggedStage,
               currentGame === "echo-hunt" && styles.echoStage,
+              currentGame === "soundcheck" && styles.soundcheckStage,
               currentGame === "quote-hunt" && styles.quoteStage,
               currentGame === "map-sense" && styles.mapSenseStage,
               currentGame === "counterplay" && styles.counterplayStage,
@@ -2407,38 +2427,61 @@ export function QueueArcade() {
                   <small>Trust the silhouette, palette, and pose.</small>
                 </div>
               </div>
-            ) : currentGame === "echo-hunt" ? (
-              <div className={clsx(styles.questionBlock, styles.echoQuestion)} data-testid="round-prompt">
+            ) : currentGame === "echo-hunt" || isSoundcheckRound ? (
+              <div
+                className={clsx(
+                  styles.questionBlock,
+                  styles.echoQuestion,
+                  isSoundcheckRound && styles.soundcheckQuestion,
+                )}
+                data-testid="round-prompt"
+                data-soundcheck-family={isSoundcheckRound ? currentQuestion.soundcheck?.family : undefined}
+              >
                 <audio
                   key={currentQuestion.id}
-                  ref={voiceAudioRef}
+                  ref={roundAudioRef}
                   src={currentQuestion.audio?.src}
                   preload="auto"
-                  onLoadStart={() => setVoiceState("loading")}
-                  onCanPlay={() => setVoiceState((state) => (state === "playing" ? state : "ready"))}
+                  onLoadStart={() => setRoundAudioState("loading")}
+                  onCanPlay={() => setRoundAudioState((state) => (state === "playing" ? state : "ready"))}
                   onPlay={() => {
-                    setVoiceState("playing");
-                    setVoicePlayCount((count) => count + 1);
+                    setRoundAudioState("playing");
+                    setRoundAudioPlayCount((count) => count + 1);
                   }}
                   onPause={() => {
-                    if (phaseRef.current === "answering") setVoiceState("ready");
+                    if (phaseRef.current === "answering") setRoundAudioState("ready");
                   }}
-                  onEnded={() => setVoiceState("ready")}
-                  onError={() => setVoiceState("error")}
+                  onEnded={() => setRoundAudioState("ready")}
+                  onError={() => setRoundAudioState("error")}
                 />
                 <div
-                  className={styles.echoPlayer}
-                  data-testid="echo-player"
-                  data-voice-state={voiceState}
-                  data-play-count={voicePlayCount}
+                  className={clsx(styles.echoPlayer, isSoundcheckRound && styles.soundcheckPlayer)}
+                  data-testid={isSoundcheckRound ? "soundcheck-player" : "echo-player"}
+                  data-voice-state={roundAudioState}
+                  data-audio-state={roundAudioState}
+                  data-play-count={roundAudioPlayCount}
                 >
                   <button
                     type="button"
-                    data-testid="voice-line-play"
-                    onClick={playVoiceLine}
-                    aria-label={voicePlayCount ? "Replay hero voice line" : "Play hero voice line"}
+                    data-testid={isSoundcheckRound ? "soundcheck-play" : "voice-line-play"}
+                    onClick={playRoundAudio}
+                    aria-label={
+                      roundAudioPlayCount
+                        ? `Replay ${isSoundcheckRound ? "gameplay sound" : "hero voice line"}`
+                        : `Play ${isSoundcheckRound ? "gameplay sound" : "hero voice line"}`
+                    }
                   >
-                    {voiceState === "playing" ? <AudioLines /> : <Headphones />}
+                    {roundAudioState === "playing" ? (
+                      isSoundcheckRound ? (
+                        <AudioWaveform />
+                      ) : (
+                        <AudioLines />
+                      )
+                    ) : isSoundcheckRound ? (
+                      <Volume2 />
+                    ) : (
+                      <Headphones />
+                    )}
                   </button>
                   <div className={styles.echoWave} aria-hidden="true">
                     {Array.from({ length: 15 }, (_, index) => (
@@ -2446,21 +2489,35 @@ export function QueueArcade() {
                     ))}
                   </div>
                   <span>
-                    {voiceState === "error"
+                    {roundAudioState === "error"
                       ? "Audio unavailable"
-                      : voiceState === "loading"
-                        ? "Loading echo"
-                        : voiceState === "playing"
+                      : roundAudioState === "loading"
+                        ? isSoundcheckRound
+                          ? "Loading sound"
+                          : "Loading echo"
+                        : roundAudioState === "playing"
                           ? "Now playing"
-                          : voicePlayCount
-                            ? "Replay echo"
-                            : "Play echo"}
+                          : roundAudioPlayCount
+                            ? isSoundcheckRound
+                              ? "Replay sound"
+                              : "Replay echo"
+                            : isSoundcheckRound
+                              ? "Play sound"
+                              : "Play echo"}
                   </span>
                 </div>
                 <div className={styles.questionCopy}>
-                  <span>Echo Hunt · Hero response</span>
-                  <h2>Whose voice crossed the river?</h2>
-                  <small>The line stays hidden until the reveal.</small>
+                  <span>
+                    {isSoundcheckRound
+                      ? `Soundcheck · ${currentQuestion.soundcheck?.family === "item" ? "Item activation" : "Ability sound"}`
+                      : "Echo Hunt · Hero response"}
+                  </span>
+                  <h2>{isSoundcheckRound ? "Match the sound." : "Whose voice crossed the river?"}</h2>
+                  <small>
+                    {isSoundcheckRound
+                      ? "Replay freely. The source stays hidden until the reveal."
+                      : "The line stays hidden until the reveal."}
+                  </small>
                 </div>
               </div>
             ) : currentGame === "quote-hunt" ? (
@@ -2566,6 +2623,7 @@ export function QueueArcade() {
                   (currentQuestion.answerImageKind === "hero" || currentGame === "spell-link") && styles.heroAnswers,
                   currentGame === "fogged-vision" && styles.fogAnswers,
                   currentGame === "echo-hunt" && styles.echoAnswers,
+                  currentGame === "soundcheck" && styles.soundcheckAnswers,
                   currentGame === "quote-hunt" && styles.quoteAnswers,
                   currentGame === "counterplay" && styles.counterplayAnswers,
                 )}
@@ -2648,11 +2706,13 @@ export function QueueArcade() {
                             ? "Name the silhouette · A–D or 1–4"
                             : currentGame === "echo-hunt"
                               ? "Play the echo, then choose · A–D or 1–4"
-                              : currentGame === "quote-hunt"
-                                ? "Match the line to its hero · A–D or 1–4"
-                                : currentGame === "counterplay"
-                                  ? "Pick the interaction · A–D or 1–4"
-                                  : "Use A–D or 1–4 to answer"}
+                              : currentGame === "soundcheck"
+                                ? "Replay the sound, then choose · A–D or 1–4"
+                                : currentGame === "quote-hunt"
+                                  ? "Match the line to its hero · A–D or 1–4"
+                                  : currentGame === "counterplay"
+                                    ? "Pick the interaction · A–D or 1–4"
+                                    : "Use A–D or 1–4 to answer"}
                       <span>Correct now: {liveAward?.rawPoints ?? 0} pts</span>
                     </>
                   ) : (
@@ -2860,13 +2920,15 @@ export function QueueArcade() {
                         ? "Fogged Vision tip"
                         : currentGame === "echo-hunt"
                           ? "Echo Hunt tip"
-                          : currentGame === "quote-hunt"
-                            ? "Quote Hunt tip"
-                            : currentGame === "map-sense"
-                              ? "Map Sense tip"
-                              : currentGame === "counterplay"
-                                ? "Counterplay tip"
-                                : "Crowd rules"}
+                          : currentGame === "soundcheck"
+                            ? "Soundcheck tip"
+                            : currentGame === "quote-hunt"
+                              ? "Quote Hunt tip"
+                              : currentGame === "map-sense"
+                                ? "Map Sense tip"
+                                : currentGame === "counterplay"
+                                  ? "Counterplay tip"
+                                  : "Crowd rules"}
                 </span>
                 <p>
                   {currentGame === "shopkeeper"
@@ -2877,19 +2939,21 @@ export function QueueArcade() {
                         ? "Silhouette and color are often enough. Every clarity stage is safer, but costs time."
                         : currentGame === "echo-hunt"
                           ? "Accent, cadence, and vocal effects are useful tells. Replay as often as the timer allows."
-                          : currentGame === "quote-hunt"
-                            ? "Look for vocabulary, ego, and worldview—the best hero lines reveal all three."
-                            : currentGame === "map-sense"
-                              ? currentQuestion.kind === "map-camp-block"
-                                ? "Only a ward inside the camp’s real spawn box prevents the next neutral spawn."
-                                : currentQuestion.kind === "map-stack-route"
-                                  ? "Match this camp and timing window to its in-game stack arrow."
-                                  : currentQuestion.kind === "map-tp-in"
-                                    ? "All four marked towers are live. Choose the one nearest the fight ping."
-                                    : "Paths, ramps, and treelines are stronger tells than faction color."
-                              : currentGame === "counterplay"
-                                ? "Read the mechanic first. Every option is plausible; only one matches the stated interaction."
-                                : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
+                          : currentGame === "soundcheck"
+                            ? "Listen for the attack, impact, and tail. Similar spells often differ most in their final half-second."
+                            : currentGame === "quote-hunt"
+                              ? "Look for vocabulary, ego, and worldview—the best hero lines reveal all three."
+                              : currentGame === "map-sense"
+                                ? currentQuestion.kind === "map-camp-block"
+                                  ? "Only a ward inside the camp’s real spawn box prevents the next neutral spawn."
+                                  : currentQuestion.kind === "map-stack-route"
+                                    ? "Match this camp and timing window to its in-game stack arrow."
+                                    : currentQuestion.kind === "map-tp-in"
+                                      ? "All four marked towers are live. Choose the one nearest the fight ping."
+                                      : "Paths, ramps, and treelines are stronger tells than faction color."
+                                : currentGame === "counterplay"
+                                  ? "Read the mechanic first. Every option is plausible; only one matches the stated interaction."
+                                  : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
                 </p>
               </div>
             </div>

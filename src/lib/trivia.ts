@@ -1,6 +1,7 @@
 import counterplayQuestions from "@/data/counterplay-questions.json";
 import generatedQuestions from "@/data/questions.generated.json";
 import generatedMeta from "@/data/trivia-meta.generated.json";
+import soundcheckQuestions from "@/data/soundcheck-questions.json";
 import { mapSenseQuestions } from "@/lib/map-sense";
 import type { MapChallenge } from "@/lib/map-types";
 import { fixedCycleRotation, varietyShuffle } from "@/lib/variety.mjs";
@@ -27,6 +28,7 @@ export type ArcadeMode =
   | "spell-link"
   | "fogged-vision"
   | "echo-hunt"
+  | "soundcheck"
   | "quote-hunt"
   | "map-sense"
   | "counterplay";
@@ -48,6 +50,8 @@ export type QuestionKind =
   | "fogged-hero"
   | "hero-voice"
   | "hero-quote"
+  | "soundcheck-ability"
+  | "soundcheck-item"
   | "map-location"
   | "map-riddle"
   | "map-mirror"
@@ -96,6 +100,16 @@ export interface TriviaQuestion {
   audio?: {
     src: string;
   };
+  soundcheck?: {
+    family: "ability" | "item";
+    event: string;
+    eventFile: string;
+    duration: number;
+    audit: {
+      reviewedAt: string;
+      clientBuild: string;
+    };
+  };
   counterplay?: {
     family: CounterplayFamily;
     tool: string;
@@ -139,11 +153,12 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-4`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-4-soundcheck-1`;
 export const triviaQuestions = [
   ...(generatedQuestions as TriviaQuestion[]),
   ...(mapSenseQuestions as TriviaQuestion[]),
   ...(counterplayQuestions as TriviaQuestion[]),
+  ...(soundcheckQuestions as TriviaQuestion[]),
 ];
 
 export interface ArcadeRound extends TriviaQuestion {
@@ -169,6 +184,7 @@ export function gameForQuestion(question: TriviaQuestion): RoundGame {
   if (question.kind === "spell-owner") return "spell-link";
   if (question.kind === "fogged-hero") return "fogged-vision";
   if (question.kind === "hero-voice") return "echo-hunt";
+  if (question.kind.startsWith("soundcheck-")) return "soundcheck";
   if (question.kind === "hero-quote") return "quote-hunt";
   if (question.kind.startsWith("map-")) return "map-sense";
   if (question.kind.startsWith("counterplay-")) return "counterplay";
@@ -186,6 +202,7 @@ function shuffledPool(seed: string, game: RoundGame, filter: KnowledgeFilter, sk
     if (gameForQuestion(question) !== game) return false;
     if (game === "trivia") return belongsToFilter(question, filter) && belongsToSkillLevel(question, skillLevel);
     if (game === "spell-link") return belongsToSkillLevel(question, skillLevel);
+    if (game === "soundcheck") return belongsToSkillLevel(question, skillLevel);
     if (game === "counterplay") return belongsToSkillLevel(question, skillLevel);
     if (game === "map-sense") {
       if (skillLevel === "Learning") return question.difficulty <= 2;
@@ -217,6 +234,7 @@ export function createArcadeDeck(
     "spell-link",
     "fogged-vision",
     "echo-hunt",
+    "soundcheck",
     "quote-hunt",
     "map-sense",
     "counterplay",
@@ -232,6 +250,7 @@ export function createArcadeDeck(
     "spell-link": shuffledPool(seed, "spell-link", filter, skillLevel),
     "fogged-vision": shuffledPool(seed, "fogged-vision", filter, skillLevel),
     "echo-hunt": shuffledPool(seed, "echo-hunt", filter, skillLevel),
+    soundcheck: shuffledPool(seed, "soundcheck", filter, skillLevel),
     "quote-hunt": shuffledPool(seed, "quote-hunt", filter, skillLevel),
     "map-sense": shuffledPool(seed, "map-sense", filter, skillLevel),
     counterplay: shuffledPool(seed, "counterplay", filter, skillLevel),
@@ -242,6 +261,7 @@ export function createArcadeDeck(
     "spell-link": 0,
     "fogged-vision": 0,
     "echo-hunt": 0,
+    soundcheck: 0,
     "quote-hunt": 0,
     "map-sense": 0,
     counterplay: 0,

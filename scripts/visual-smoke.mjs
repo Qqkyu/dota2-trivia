@@ -553,6 +553,74 @@ await screenshot("/tmp/queue-arcade-echo-hunt.png");
 
 await navigate(appUrl);
 await evaluate(`(() => {
+  document.querySelector('button[aria-label="Mute game sounds"]')?.click();
+  document.querySelector('[data-arcade-mode="soundcheck"]')?.click();
+  document.querySelector('[data-skill-level="veteran"]')?.click();
+  return true;
+})()`);
+await delay(350);
+await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+await waitFor(`(() => {
+  const main = document.querySelector("main");
+  const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
+  const audio = document.querySelector("audio");
+  const answers = [...document.querySelectorAll('[data-testid="arcade-answer"] img')];
+  return main?.dataset.phase === "answering" &&
+    main?.dataset.questionKind?.startsWith("soundcheck-") &&
+    timer >= 4 &&
+    audio?.readyState >= 2 &&
+    answers.length === 4 &&
+    answers.every((image) => image.complete && image.naturalWidth > 0);
+})()`);
+const soundcheckBeforeReplay = await evaluate(`(() => {
+  const main = document.querySelector("main");
+  const prompt = document.querySelector('[data-testid="round-prompt"]');
+  const player = document.querySelector('[data-testid="soundcheck-player"]');
+  return {
+    game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
+    kind: main?.dataset.questionKind,
+    family: prompt?.dataset.soundcheckFamily,
+    prompt: prompt?.querySelector("h2")?.textContent,
+    answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
+    answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
+    answerImagesLoaded: [...document.querySelectorAll('[data-testid="arcade-answer"] img')]
+      .every((image) => image.complete && image.naturalWidth > 0),
+    audioReady: document.querySelector("audio")?.readyState >= 2,
+    audioSource: document.querySelector("audio")?.currentSrc,
+    replayButton: Boolean(document.querySelector('[data-testid="soundcheck-play"]')),
+    playCount: Number(player?.dataset.playCount),
+    soundMuted: Boolean(document.querySelector('button[aria-label="Enable game sounds"]')),
+    horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+  };
+})()`);
+const soundcheckReplayCenter = await evaluate(`(() => {
+  const bounds = document.querySelector('[data-testid="soundcheck-play"]')?.getBoundingClientRect();
+  return bounds ? { x: bounds.left + bounds.width / 2, y: bounds.top + bounds.height / 2 } : null;
+})()`);
+if (!soundcheckReplayCenter) throw new Error("Soundcheck replay control was not found.");
+await send("Input.dispatchMouseEvent", {
+  type: "mousePressed",
+  x: soundcheckReplayCenter.x,
+  y: soundcheckReplayCenter.y,
+  button: "left",
+  clickCount: 1,
+});
+await send("Input.dispatchMouseEvent", {
+  type: "mouseReleased",
+  x: soundcheckReplayCenter.x,
+  y: soundcheckReplayCenter.y,
+  button: "left",
+  clickCount: 1,
+});
+await waitFor(`Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.playCount) >= 1`, 5_000);
+const soundcheckAfterReplay = await evaluate(`({
+  playCount: Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.playCount),
+  soundEnabled: Boolean(document.querySelector('button[aria-label="Mute game sounds"]'))
+})`);
+await screenshot("/tmp/queue-arcade-soundcheck.png");
+
+await navigate(appUrl);
+await evaluate(`(() => {
   document.querySelector('[data-arcade-mode="quote-hunt"]')?.click();
   document.querySelector('[data-skill-level="open"]')?.click();
   return true;
@@ -979,7 +1047,7 @@ const validMapReveal = (reveal) => {
   return commonChoice && !reveal.spawnBox && reveal.routeLines === 0;
 };
 if (!lobby.title.includes("Queue Arcade")) failures.push("The Queue Arcade metadata title is missing.");
-if (!lobby.startButton || lobby.arcadeModes !== 9 || lobby.skillLevels !== 3) {
+if (!lobby.startButton || lobby.arcadeModes !== 10 || lobby.skillLevels !== 3) {
   failures.push("The arcade lobby controls are incomplete.");
 }
 if (lobby.horizontalOverflow) failures.push("The desktop lobby overflows horizontally.");
@@ -1092,6 +1160,27 @@ if (
   !echoHunt.replayButton
 ) {
   failures.push("Echo Hunt audio or hero choices failed.");
+}
+if (
+  soundcheckBeforeReplay.game !== "soundcheck" ||
+  !soundcheckBeforeReplay.kind?.startsWith("soundcheck-") ||
+  !["ability", "item"].includes(soundcheckBeforeReplay.family) ||
+  soundcheckBeforeReplay.kind !== `soundcheck-${soundcheckBeforeReplay.family}` ||
+  soundcheckBeforeReplay.prompt !== "Match the sound." ||
+  soundcheckBeforeReplay.answerCount !== 4 ||
+  soundcheckBeforeReplay.answerImages !== 4 ||
+  !soundcheckBeforeReplay.answerImagesLoaded ||
+  !soundcheckBeforeReplay.audioReady ||
+  !soundcheckBeforeReplay.audioSource?.includes("dotabase.dillerm.io/vpk/sounds/") ||
+  !soundcheckBeforeReplay.audioSource?.endsWith(".wav") ||
+  !soundcheckBeforeReplay.replayButton ||
+  soundcheckBeforeReplay.playCount !== 0 ||
+  !soundcheckBeforeReplay.soundMuted ||
+  soundcheckBeforeReplay.horizontalOverflow ||
+  soundcheckAfterReplay.playCount < 1 ||
+  !soundcheckAfterReplay.soundEnabled
+) {
+  failures.push("Soundcheck audio, same-family choices, mute safety, or manual replay failed.");
 }
 if (
   (quoteHunt.text?.length ?? 0) < 28 ||
@@ -1234,6 +1323,8 @@ console.log(
       fogRound,
       fogNextRound,
       echoHunt,
+      soundcheckBeforeReplay,
+      soundcheckAfterReplay,
       quoteHunt,
       counterplayPreview,
       counterplay,

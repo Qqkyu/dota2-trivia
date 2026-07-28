@@ -28,6 +28,7 @@ const arcadeGames = [
   "spell-link",
   "fogged-vision",
   "echo-hunt",
+  "soundcheck",
   "quote-hunt",
   "map-sense",
   "counterplay",
@@ -42,7 +43,24 @@ if (
   mixedRounds.some((game, index) => index > 0 && game === mixedRounds[index - 1]) ||
   JSON.stringify(mixedRounds) !== JSON.stringify(fixedCycleRotation(arcadeGames, "public-room-regression", 31, 4))
 ) {
-  throw new Error("Mixed Arcade can skip or repeat a game inside its guaranteed eight-round rotation.");
+  throw new Error("Mixed Arcade can skip or repeat a game inside its guaranteed nine-round rotation.");
+}
+
+const soundcheckFixture = ["soundcheck-ability", "soundcheck-item"].flatMap((kind) =>
+  Array.from({ length: 12 }, (_, index) => ({ id: `${kind}-${index}`, kind })),
+);
+const soundcheckOpening = varietyShuffle(soundcheckFixture, "soundcheck-family-regression").slice(0, 16);
+const soundcheckCounts = Object.fromEntries(
+  ["soundcheck-ability", "soundcheck-item"].map((kind) => [
+    kind,
+    soundcheckOpening.filter((question) => question.kind === kind).length,
+  ]),
+);
+if (
+  soundcheckOpening.some((question, index) => index > 0 && question.kind === soundcheckOpening[index - 1].kind) ||
+  Object.values(soundcheckCounts).some((count) => count !== 8)
+) {
+  throw new Error(`Soundcheck lost its ability/item rotation: ${JSON.stringify(soundcheckCounts)}.`);
 }
 
 const counterplayKinds = [
@@ -132,5 +150,5 @@ if (
 }
 
 console.log(
-  `Validated deterministic template, eight-game Mixed Arcade, Counterplay and Map Sense family rotation, and ${MAP_READ_GRACE_MS / 1000}s reading grace (Counterplay ${JSON.stringify(counterplayOpeningCounts)}, Map Open ${JSON.stringify(mapOpeningCounts)}, Veteran ${JSON.stringify(veteranMapCounts)}).`,
+  `Validated deterministic template, nine-game Mixed Arcade, Soundcheck, Counterplay and Map Sense family rotation, and ${MAP_READ_GRACE_MS / 1000}s reading grace (Soundcheck ${JSON.stringify(soundcheckCounts)}, Counterplay ${JSON.stringify(counterplayOpeningCounts)}, Map Open ${JSON.stringify(mapOpeningCounts)}, Veteran ${JSON.stringify(veteranMapCounts)}).`,
 );

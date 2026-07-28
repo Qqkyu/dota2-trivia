@@ -115,6 +115,7 @@ function roomBatch(room: PublicRoom, batchNumber: number) {
     first.id === previousLast?.id ||
     (room.mode === "mixed" && first.game === previousLast?.game) ||
     (room.mode === "trivia" && first.kind === previousLast?.kind) ||
+    (room.mode === "soundcheck" && first.kind === previousLast?.kind) ||
     (room.mode === "map-sense" && first.kind === previousLast?.kind) ||
     (room.mode === "counterplay" && first.kind === previousLast?.kind);
   if (!conflicts) return deck;
@@ -126,6 +127,7 @@ function roomBatch(room: PublicRoom, batchNumber: number) {
       question.id !== previousLast?.id &&
       (room.mode !== "mixed" || question.game !== previousLast?.game) &&
       (room.mode !== "trivia" || question.kind !== previousLast?.kind) &&
+      (room.mode !== "soundcheck" || question.kind !== previousLast?.kind) &&
       (room.mode !== "map-sense" || question.kind !== previousLast?.kind) &&
       (room.mode !== "counterplay" || question.kind !== previousLast?.kind),
   );

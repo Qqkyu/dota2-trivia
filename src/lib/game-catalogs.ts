@@ -48,6 +48,7 @@ export const GAME_CATALOGS: Record<GameId, GameCatalog> = {
       "spell-link",
       "fogged-vision",
       "echo-hunt",
+      "soundcheck",
       "quote-hunt",
       "map-sense",
       "counterplay",

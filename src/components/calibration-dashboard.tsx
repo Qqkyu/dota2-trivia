@@ -32,6 +32,7 @@ const GAME_LABELS = {
   "spell-link": "Spell Link",
   "fogged-vision": "Fogged Vision",
   "echo-hunt": "Echo Hunt",
+  soundcheck: "Soundcheck",
   "quote-hunt": "Quote Hunt",
   "map-sense": "Map Sense",
   counterplay: "Counterplay",
