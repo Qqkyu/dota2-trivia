@@ -69,6 +69,8 @@ import styles from "./queue-arcade.module.css";
 const REVEAL_DURATION_MS = 7_000;
 const MAX_SPEED_BONUS = 100;
 const SPELL_CLUE_PENALTY = 40;
+const DEFAULT_GAME_VOLUME = 0.7;
+const MIN_GAME_VOLUME = 0.1;
 const LETTERS = ["A", "B", "C", "D"] as const;
 const EMPTY_CROWD: CrowdResult = { counts: [0, 0, 0, 0], total: 0, positions: [] };
 const STORAGE_KEY = "queue-arcade:stats:v2";
@@ -1101,6 +1103,7 @@ export function QueueArcade() {
   const [runDuration, setRunDuration] = useState(0);
   const [now, setNow] = useState(0);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [gameVolume, setGameVolume] = useState(DEFAULT_GAME_VOLUME);
   const [lifetimeStats, setLifetimeStats] = useState<LifetimeStats>(EMPTY_STATS);
   const [statsLoaded, setStatsLoaded] = useState(false);
   const [joiningRoom, setJoiningRoom] = useState(false);
@@ -1203,7 +1206,7 @@ export function QueueArcade() {
 
   const playSound = useCallback(
     (kind: "lock" | "correct" | "wrong" | "start") => {
-      if (!soundEnabled || typeof window === "undefined") return;
+      if (!soundEnabled || gameVolume <= 0 || typeof window === "undefined") return;
 
       const AudioContextConstructor = window.AudioContext;
       if (!AudioContextConstructor) return;
@@ -1240,7 +1243,7 @@ export function QueueArcade() {
         oscillator.type = kind === "wrong" ? "sawtooth" : "sine";
         oscillator.frequency.value = frequency;
         gain.gain.setValueAtTime(0.0001, context.currentTime + delay);
-        gain.gain.exponentialRampToValueAtTime(0.065, context.currentTime + delay + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.065 * gameVolume, context.currentTime + delay + 0.01);
         gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + delay + duration);
         oscillator.connect(gain);
         gain.connect(context.destination);
@@ -1248,7 +1251,7 @@ export function QueueArcade() {
         oscillator.stop(context.currentTime + delay + duration + 0.02);
       }
     },
-    [soundEnabled],
+    [gameVolume, soundEnabled],
   );
 
   const playRoundAudio = useCallback(() => {
@@ -1256,10 +1259,11 @@ export function QueueArcade() {
     if (!audio) return;
 
     setSoundEnabled(true);
+    audio.volume = gameVolume;
     audio.currentTime = 0;
     setRoundAudioState("loading");
     void audio.play().catch(() => setRoundAudioState("error"));
-  }, []);
+  }, [gameVolume]);
 
   const requestRoomSnapshot = useCallback(async (settings: PublicRoomSettings, playerId: string) => {
     const requestedAt = Date.now();
@@ -1823,11 +1827,15 @@ export function QueueArcade() {
         if (storedSettings) {
           const settings = JSON.parse(storedSettings) as {
             soundEnabled?: boolean;
+            gameVolume?: number;
             filter?: KnowledgeFilter;
             mode?: ArcadeMode;
             skillLevel?: SkillLevel;
           };
           if (typeof settings.soundEnabled === "boolean") setSoundEnabled(settings.soundEnabled);
+          if (typeof settings.gameVolume === "number" && Number.isFinite(settings.gameVolume)) {
+            setGameVolume(Math.min(1, Math.max(MIN_GAME_VOLUME, settings.gameVolume)));
+          }
           if (settings.filter && KNOWLEDGE_FILTERS.includes(settings.filter)) setFilter(settings.filter);
           if (settings.mode && ARCADE_MODES.includes(settings.mode)) setMode(settings.mode);
           if (settings.skillLevel && SKILL_LEVELS.includes(settings.skillLevel)) setSkillLevel(settings.skillLevel);
@@ -1845,8 +1853,8 @@ export function QueueArcade() {
 
   useEffect(() => {
     if (!statsLoaded) return;
-    window.localStorage.setItem(SETTINGS_KEY, JSON.stringify({ soundEnabled, filter, mode, skillLevel }));
-  }, [filter, mode, skillLevel, soundEnabled, statsLoaded]);
+    window.localStorage.setItem(SETTINGS_KEY, JSON.stringify({ soundEnabled, gameVolume, filter, mode, skillLevel }));
+  }, [filter, gameVolume, mode, skillLevel, soundEnabled, statsLoaded]);
 
   useEffect(() => {
     if (phase !== "summary" || runSavedRef.current) return;
@@ -1915,6 +1923,10 @@ export function QueueArcade() {
   useEffect(() => {
     if (phase !== "answering") roundAudioRef.current?.pause();
   }, [phase]);
+
+  useEffect(() => {
+    if (roundAudioRef.current) roundAudioRef.current.volume = gameVolume;
+  }, [currentQuestion?.id, gameVolume]);
 
   useEffect(() => {
     const audio = roundAudioRef.current;
@@ -2017,20 +2029,38 @@ export function QueueArcade() {
             {ACTIVE_GAME.label} · {ACTIVE_GAME.contentLabel}
           </span>
           <span className={styles.fanBadge}>Unofficial fan project</span>
-          <button
-            type="button"
-            className={styles.iconButton}
-            onClick={() =>
-              setSoundEnabled((enabled) => {
-                if (enabled) roundAudioRef.current?.pause();
-                return !enabled;
-              })
-            }
-            aria-label={soundEnabled ? "Mute game sounds" : "Enable game sounds"}
-            aria-pressed={soundEnabled}
-          >
-            {soundEnabled ? <Volume2 /> : <VolumeX />}
-          </button>
+          <div className={styles.volumeControl} data-muted={!soundEnabled}>
+            <button
+              type="button"
+              className={styles.iconButton}
+              onClick={() =>
+                setSoundEnabled((enabled) => {
+                  if (enabled) roundAudioRef.current?.pause();
+                  return !enabled;
+                })
+              }
+              aria-label={soundEnabled ? "Mute game sounds" : "Enable game sounds"}
+              aria-pressed={soundEnabled}
+            >
+              {soundEnabled ? <Volume2 /> : <VolumeX />}
+            </button>
+            <input
+              className={styles.volumeSlider}
+              data-testid="game-volume"
+              type="range"
+              min={MIN_GAME_VOLUME * 100}
+              max="100"
+              step="5"
+              value={Math.round(gameVolume * 100)}
+              onChange={(event) => {
+                setGameVolume(Number(event.currentTarget.value) / 100);
+                setSoundEnabled(true);
+              }}
+              aria-label="Game volume"
+              aria-valuetext={`${Math.round(gameVolume * 100)} percent`}
+            />
+            <output className={styles.volumeValue}>{Math.round(gameVolume * 100)}%</output>
+          </div>
         </div>
       </header>
 
@@ -2436,6 +2466,7 @@ export function QueueArcade() {
                 )}
                 data-testid="round-prompt"
                 data-soundcheck-family={isSoundcheckRound ? currentQuestion.soundcheck?.family : undefined}
+                data-soundcheck-scope={isSoundcheckRound ? currentQuestion.soundcheck?.choiceScope : undefined}
               >
                 <audio
                   key={currentQuestion.id}

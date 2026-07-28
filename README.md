@@ -19,9 +19,9 @@ The playable MVP includes:
 
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - Open, Learning, and Veteran challenge levels with 12–18 second timers, including a 15-second Counterplay floor;
-- 1,060 prompts across 33 formats for Dota patch 7.41d, including 236 Map Sense challenges and 62 Counterplay matchups;
+- 1,084 prompts across 33 formats for Dota patch 7.41d, including 236 Map Sense challenges and 62 Counterplay matchups;
 - item, hero, and ability artwork for visual answer rounds;
-- 44 remotely verified Echo Hunt clips, 24 audited Soundcheck clips, and 43 Quote Hunt lines sourced through Dotabase;
+- 44 remotely verified Echo Hunt clips, 48 audited Soundcheck clips, and 43 Quote Hunt lines sourced through Dotabase;
 - progressive Spell Link clues at two-thirds and one-third time remaining;
 - deterministic template-aware scheduling, so large numeric pools cannot drown out distinctive question formats;
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
@@ -32,7 +32,7 @@ The playable MVP includes:
 - reveal question reports for incorrect, outdated, ambiguous, or unclear content, with an opened report carrying into the next round and deduplicated per anonymous player;
 - a responsive calibration lab at `/calibration`, with report triage and difficulty recommendations only after 20 answers;
 - optional Pusher broadcasts between connected browsers, with automatic polling as the zero-config fallback;
-- keyboard controls, responsive layouts, sound cues, and local lifetime stats;
+- keyboard controls, responsive layouts, persistent mute and master volume, sound cues, and local lifetime stats;
 - a reproducible data sync and validation pipeline.
 
 ## Challenge levels
@@ -57,9 +57,9 @@ leans into less obvious status and targeting rules. The deck is generated from e
 and ability-behavior fields in the patch-stamped game constants. Break questions are intentionally excluded until
 breakability can be verified without inference.
 
-Soundcheck alternates between ability casts and item activations. Learning uses iconic sounds; Veteran keeps the
-source hidden and presents closer same-family choices. Every clip can be replayed freely, while the global mute
-setting prevents autoplay until the player explicitly asks to hear it.
+Soundcheck alternates between ability sounds and item activations. Learning uses iconic sounds; Veteran removes those
+warm-ups and uses ordinary spells with same-hero choices plus tightly related active items. Every clip can be replayed
+freely, while persistent mute and volume controls apply to clips and interface cues alike.
 
 Spell Link's initial content tier is reproducible: core/iconic abilities are Learning, unusual sub-abilities, innates, upgrades, and helper abilities are Veteran, and the remaining edge cases sit between them. Distractor similarity considers primary attribute, attack type, range, and shared roles. Once the project has durable vote history, observed correct-answer rates should supersede this seed heuristic.
 
@@ -136,7 +136,8 @@ Soundcheck's reviewed event-to-file mappings live in `scripts/soundcheck-audit.m
 icons from current OpenDota constants, verifies each named sound event against the decompiled client event file, and
 checks the browser-ready WAV before writing the deck. Its independent validator enforces exact audit agreement,
 ability/item balance, difficulty coverage, same-family visual choices, unique option sets, compact prompts, and even
-answer-slot distribution.
+answer-slot distribution. Veteran generation additionally rejects mixed-hero ability choices, passive answer
+elimination, and non-active item sets.
 
 ## Verify it
 
@@ -152,7 +153,7 @@ For visual smoke testing, start muted Chrome with a debugging port and then run 
 
 ## Crowd architecture
 
-Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2-map-sense-7-counterplay-4-soundcheck-1:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2-map-sense-7-counterplay-4-soundcheck-2:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` opens with the reveal and keeps the just-finished question reportable for a 20-second rollover grace period. It stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 

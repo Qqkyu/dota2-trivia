@@ -16,6 +16,10 @@ const answerPositionCounts = [0, 0, 0, 0];
 const familyCounts = { ability: 0, item: 0 };
 const learningCounts = { ability: 0, item: 0 };
 const veteranCounts = { ability: 0, item: 0 };
+const difficultyCounts = {
+  ability: [0, 0, 0],
+  item: [0, 0, 0],
+};
 
 function assetKey(image, family) {
   const directory = family === "ability" ? "abilities" : "items";
@@ -41,6 +45,8 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
   const source = soundcheckSource(definition);
   const expectedKind = `soundcheck-${definition.family}`;
   const expectedCategory = definition.family === "ability" ? "Abilities" : "Items";
+  const expectedChoiceScope =
+    definition.difficulty === 1 ? "recognizable" : definition.family === "ability" ? "same-hero" : "active-items";
   const expectedKeys = [definition.subject, ...definition.distractors].sort();
 
   if (ids.has(id)) failures.push(`${id}: duplicate question.`);
@@ -64,6 +70,7 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
   audioUrls.add(question.audio?.src);
   if (
     question.soundcheck?.family !== definition.family ||
+    question.soundcheck?.choiceScope !== expectedChoiceScope ||
     question.soundcheck?.event !== definition.event ||
     question.soundcheck?.eventFile !== definition.eventFile ||
     question.soundcheck?.duration !== definition.duration ||
@@ -110,6 +117,7 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
   if (answerSets.has(answerSet)) failures.push(`${id}: duplicate four-option sound matchup.`);
   answerSets.add(answerSet);
   familyCounts[definition.family] += 1;
+  difficultyCounts[definition.family][definition.difficulty - 1] += 1;
   if (definition.difficulty === 1) learningCounts[definition.family] += 1;
   if (definition.difficulty >= 2) veteranCounts[definition.family] += 1;
 }
@@ -118,9 +126,14 @@ for (const question of questions) {
   if (!ids.has(question.id)) failures.push(`${question.id}: generated question has no reviewed sound definition.`);
 }
 for (const family of ["ability", "item"]) {
-  if (familyCounts[family] !== 12 || learningCounts[family] !== 4 || veteranCounts[family] !== 8) {
+  if (
+    familyCounts[family] !== 24 ||
+    learningCounts[family] !== 12 ||
+    veteranCounts[family] !== 12 ||
+    JSON.stringify(difficultyCounts[family]) !== JSON.stringify([12, 6, 6])
+  ) {
     failures.push(
-      `${family}: expected 12 sounds with 4 Learning and 8 Veteran rounds (${familyCounts[family]}, ${learningCounts[family]}, ${veteranCounts[family]}).`,
+      `${family}: expected 24 sounds split 12 Learning, 6 tricky, and 6 brutal (${familyCounts[family]}, ${JSON.stringify(difficultyCounts[family])}).`,
     );
   }
 }
@@ -133,6 +146,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${questions.length} Soundcheck rounds (${JSON.stringify(familyCounts)}; answer slots ${JSON.stringify(answerPositionCounts)}).`,
+    `Validated ${questions.length} Soundcheck rounds (${JSON.stringify(familyCounts)}; difficulty ${JSON.stringify(difficultyCounts)}; answer slots ${JSON.stringify(answerPositionCounts)}).`,
   );
 }

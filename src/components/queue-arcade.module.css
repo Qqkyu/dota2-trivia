@@ -188,6 +188,51 @@
   width: 16px;
 }
 
+.volumeControl {
+  display: inline-flex;
+  height: 36px;
+  align-items: center;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.volumeControl .iconButton {
+  flex: 0 0 auto;
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: transparent;
+}
+
+.volumeControl[data-muted="true"] .volumeSlider,
+.volumeControl[data-muted="true"] .volumeValue {
+  opacity: 0.42;
+}
+
+.volumeSlider {
+  width: 72px;
+  height: 20px;
+  margin: 0 8px;
+  accent-color: #68c6d9;
+  cursor: pointer;
+  transition: opacity 160ms ease;
+}
+
+.volumeSlider:focus-visible {
+  outline: 2px solid rgba(104, 198, 217, 0.7);
+  outline-offset: 2px;
+}
+
+.volumeValue {
+  width: 34px;
+  margin-right: 6px;
+  color: var(--muted);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  line-height: 1;
+  text-align: right;
+  transition: opacity 160ms ease;
+}
+
 .lobby {
   display: grid;
   width: min(100% - 48px, 1320px);
@@ -4664,6 +4709,15 @@
     font-size: 10px;
   }
 
+  .volumeSlider {
+    width: 38px;
+    margin-inline: 6px;
+  }
+
+  .volumeValue {
+    display: none;
+  }
+
   .lobby {
     min-height: auto;
     gap: 58px;
@@ -5090,6 +5144,12 @@
 
   .footerMeta > span {
     text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerMeta .patchBadge {
+    display: none;
   }
 }
 

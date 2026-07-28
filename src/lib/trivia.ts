@@ -102,6 +102,7 @@ export interface TriviaQuestion {
   };
   soundcheck?: {
     family: "ability" | "item";
+    choiceScope: "recognizable" | "same-hero" | "active-items";
     event: string;
     eventFile: string;
     duration: number;
@@ -153,7 +154,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-4-soundcheck-1`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-4-soundcheck-2`;
 export const triviaQuestions = [
   ...(generatedQuestions as TriviaQuestion[]),
   ...(mapSenseQuestions as TriviaQuestion[]),

@@ -126,6 +126,9 @@ const lobby = await evaluate(`({
   startButton: Boolean(document.querySelector('[data-testid="start-arcade"]')),
   arcadeModes: document.querySelectorAll("[data-arcade-mode]").length,
   skillLevels: document.querySelectorAll("[data-skill-level]").length,
+  volumeControl: Boolean(document.querySelector('[data-testid="game-volume"]')),
+  volumeValue: document.querySelector('[data-testid="game-volume"]')?.value,
+  volumeLabel: document.querySelector('[data-testid="game-volume"]')?.nextElementSibling?.textContent,
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 
@@ -553,6 +556,26 @@ await screenshot("/tmp/queue-arcade-echo-hunt.png");
 
 await navigate(appUrl);
 await evaluate(`(() => {
+  const volume = document.querySelector('[data-testid="game-volume"]');
+  const valueSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+  if (!volume || !valueSetter) return false;
+  valueSetter.call(volume, "35");
+  volume.dispatchEvent(new Event("input", { bubbles: true }));
+  volume.dispatchEvent(new Event("change", { bubbles: true }));
+  return true;
+})()`);
+await waitFor(`(() => {
+  const settings = JSON.parse(localStorage.getItem("queue-arcade:settings:v2") ?? "{}");
+  return document.querySelector('[data-testid="game-volume"]')?.value === "35" &&
+    document.querySelector('[data-testid="game-volume"]')?.nextElementSibling?.textContent === "35%" &&
+    settings.gameVolume === 0.35;
+})()`);
+const volumeAfterAdjustment = await evaluate(`({
+  value: document.querySelector('[data-testid="game-volume"]')?.value,
+  label: document.querySelector('[data-testid="game-volume"]')?.nextElementSibling?.textContent,
+  soundEnabled: Boolean(document.querySelector('button[aria-label="Mute game sounds"]'))
+})`);
+await evaluate(`(() => {
   document.querySelector('button[aria-label="Mute game sounds"]')?.click();
   document.querySelector('[data-arcade-mode="soundcheck"]')?.click();
   document.querySelector('[data-skill-level="veteran"]')?.click();
@@ -576,20 +599,26 @@ const soundcheckBeforeReplay = await evaluate(`(() => {
   const main = document.querySelector("main");
   const prompt = document.querySelector('[data-testid="round-prompt"]');
   const player = document.querySelector('[data-testid="soundcheck-player"]');
+  const difficulty = document.querySelector('[data-testid="round-difficulty"]');
+  const audio = document.querySelector("audio");
   return {
     game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
     kind: main?.dataset.questionKind,
     family: prompt?.dataset.soundcheckFamily,
+    scope: prompt?.dataset.soundcheckScope,
+    difficulty: Number(difficulty?.dataset.contentDifficulty),
     prompt: prompt?.querySelector("h2")?.textContent,
     answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
     answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
     answerImagesLoaded: [...document.querySelectorAll('[data-testid="arcade-answer"] img')]
       .every((image) => image.complete && image.naturalWidth > 0),
-    audioReady: document.querySelector("audio")?.readyState >= 2,
-    audioSource: document.querySelector("audio")?.currentSrc,
+    audioReady: audio?.readyState >= 2,
+    audioSource: audio?.currentSrc,
+    audioVolume: audio?.volume,
     replayButton: Boolean(document.querySelector('[data-testid="soundcheck-play"]')),
     playCount: Number(player?.dataset.playCount),
     soundMuted: Boolean(document.querySelector('button[aria-label="Enable game sounds"]')),
+    volumeValue: document.querySelector('[data-testid="game-volume"]')?.value,
     horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
   };
 })()`);
@@ -620,6 +649,11 @@ const soundcheckAfterReplay = await evaluate(`({
 await screenshot("/tmp/queue-arcade-soundcheck.png");
 
 await navigate(appUrl);
+const persistedVolume = await evaluate(`({
+  value: document.querySelector('[data-testid="game-volume"]')?.value,
+  label: document.querySelector('[data-testid="game-volume"]')?.nextElementSibling?.textContent,
+  stored: JSON.parse(localStorage.getItem("queue-arcade:settings:v2") ?? "{}").gameVolume
+})`);
 await evaluate(`(() => {
   document.querySelector('[data-arcade-mode="quote-hunt"]')?.click();
   document.querySelector('[data-skill-level="open"]')?.click();
@@ -872,7 +906,9 @@ await screenshot("/tmp/queue-arcade-mobile.png");
 const mobile = await evaluate(`({
   viewport: [innerWidth, innerHeight],
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
-  headingVisible: Boolean(document.querySelector("h1")?.getBoundingClientRect().height)
+  headingVisible: Boolean(document.querySelector("h1")?.getBoundingClientRect().height),
+  volumeControl: Boolean(document.querySelector('[data-testid="game-volume"]')),
+  volumeValue: document.querySelector('[data-testid="game-volume"]')?.value
 })`);
 
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
@@ -1047,7 +1083,14 @@ const validMapReveal = (reveal) => {
   return commonChoice && !reveal.spawnBox && reveal.routeLines === 0;
 };
 if (!lobby.title.includes("Queue Arcade")) failures.push("The Queue Arcade metadata title is missing.");
-if (!lobby.startButton || lobby.arcadeModes !== 10 || lobby.skillLevels !== 3) {
+if (
+  !lobby.startButton ||
+  lobby.arcadeModes !== 10 ||
+  lobby.skillLevels !== 3 ||
+  !lobby.volumeControl ||
+  lobby.volumeValue !== "70" ||
+  lobby.volumeLabel !== "70%"
+) {
   failures.push("The arcade lobby controls are incomplete.");
 }
 if (lobby.horizontalOverflow) failures.push("The desktop lobby overflows horizontally.");
@@ -1166,6 +1209,8 @@ if (
   !soundcheckBeforeReplay.kind?.startsWith("soundcheck-") ||
   !["ability", "item"].includes(soundcheckBeforeReplay.family) ||
   soundcheckBeforeReplay.kind !== `soundcheck-${soundcheckBeforeReplay.family}` ||
+  soundcheckBeforeReplay.scope !== (soundcheckBeforeReplay.family === "ability" ? "same-hero" : "active-items") ||
+  soundcheckBeforeReplay.difficulty < 2 ||
   soundcheckBeforeReplay.prompt !== "Match the sound." ||
   soundcheckBeforeReplay.answerCount !== 4 ||
   soundcheckBeforeReplay.answerImages !== 4 ||
@@ -1173,14 +1218,23 @@ if (
   !soundcheckBeforeReplay.audioReady ||
   !soundcheckBeforeReplay.audioSource?.includes("dotabase.dillerm.io/vpk/sounds/") ||
   !soundcheckBeforeReplay.audioSource?.endsWith(".wav") ||
+  typeof soundcheckBeforeReplay.audioVolume !== "number" ||
+  Math.abs(soundcheckBeforeReplay.audioVolume - 0.35) > 0.001 ||
   !soundcheckBeforeReplay.replayButton ||
   soundcheckBeforeReplay.playCount !== 0 ||
   !soundcheckBeforeReplay.soundMuted ||
+  soundcheckBeforeReplay.volumeValue !== "35" ||
   soundcheckBeforeReplay.horizontalOverflow ||
   soundcheckAfterReplay.playCount < 1 ||
-  !soundcheckAfterReplay.soundEnabled
+  !soundcheckAfterReplay.soundEnabled ||
+  volumeAfterAdjustment.value !== "35" ||
+  volumeAfterAdjustment.label !== "35%" ||
+  !volumeAfterAdjustment.soundEnabled ||
+  persistedVolume.value !== "35" ||
+  persistedVolume.label !== "35%" ||
+  persistedVolume.stored !== 0.35
 ) {
-  failures.push("Soundcheck audio, same-family choices, mute safety, or manual replay failed.");
+  failures.push("Soundcheck difficulty, volume persistence, mute safety, or manual replay failed.");
 }
 if (
   (quoteHunt.text?.length ?? 0) < 28 ||
@@ -1247,6 +1301,8 @@ if (
   reportCarryover.horizontalOverflow ||
   reportResult.horizontalOverflow ||
   mobile.horizontalOverflow ||
+  !mobile.volumeControl ||
+  mobile.volumeValue !== "35" ||
   mobileMap.horizontalOverflow ||
   mobileQuestion.horizontalOverflow ||
   calibrationDesktop.horizontalOverflow ||
@@ -1323,8 +1379,10 @@ console.log(
       fogRound,
       fogNextRound,
       echoHunt,
+      volumeAfterAdjustment,
       soundcheckBeforeReplay,
       soundcheckAfterReplay,
+      persistedVolume,
       quoteHunt,
       counterplayPreview,
       counterplay,

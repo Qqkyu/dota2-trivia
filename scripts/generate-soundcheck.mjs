@@ -22,20 +22,40 @@ if (metadata.patch !== SOUNDCHECK_AUDIT.patch) {
   );
 }
 
-const [abilitiesResponse, itemsResponse] = await Promise.all([
+const [abilitiesResponse, itemsResponse, heroAbilitiesResponse] = await Promise.all([
   fetch("https://api.opendota.com/api/constants/abilities"),
   fetch("https://api.opendota.com/api/constants/items"),
+  fetch("https://api.opendota.com/api/constants/hero_abilities"),
 ]);
-if (!abilitiesResponse.ok || !itemsResponse.ok) {
-  throw new Error(`Could not load OpenDota constants (${abilitiesResponse.status}, ${itemsResponse.status}).`);
+if (!abilitiesResponse.ok || !itemsResponse.ok || !heroAbilitiesResponse.ok) {
+  throw new Error(
+    `Could not load OpenDota constants (${abilitiesResponse.status}, ${itemsResponse.status}, ${heroAbilitiesResponse.status}).`,
+  );
 }
-const [abilities, items] = await Promise.all([abilitiesResponse.json(), itemsResponse.json()]);
+const [abilities, items, heroAbilities] = await Promise.all([
+  abilitiesResponse.json(),
+  itemsResponse.json(),
+  heroAbilitiesResponse.json(),
+]);
+const abilityOwners = new Map();
+for (const [hero, data] of Object.entries(heroAbilities)) {
+  for (const ability of data.abilities ?? []) {
+    const owners = abilityOwners.get(ability) ?? [];
+    owners.push(hero);
+    abilityOwners.set(ability, owners);
+  }
+}
 
 function assetUrl(path) {
   if (typeof path !== "string" || !path.startsWith("/apps/dota2/images/")) {
     throw new Error(`Invalid Dota asset path: ${String(path)}`);
   }
   return `${ASSET_ROOT}${path.split("?")[0]}`;
+}
+
+function hasActiveBehavior(record) {
+  const behaviors = Array.isArray(record?.behavior) ? record.behavior : [record?.behavior];
+  return behaviors.some((behavior) => typeof behavior === "string" && behavior !== "Passive" && behavior !== "Hidden");
 }
 
 function eventBody(contents, event) {
@@ -100,6 +120,29 @@ const questions = SOUNDCHECK_DEFINITIONS.map((definition, index) => {
     if (!record?.dname || !record.img) throw new Error(`Missing ${definition.family} ${key}.`);
     return record;
   });
+  if (definition.difficulty >= 2 && definition.family === "ability") {
+    const owners = answerKeys.map((key) => abilityOwners.get(key));
+    const ownerKeys = new Set(owners.flat());
+    if (
+      owners.some((owner) => owner?.length !== 1) ||
+      ownerKeys.size !== 1 ||
+      answerRecords.some((record) => !hasActiveBehavior(record))
+    ) {
+      throw new Error(
+        `${definition.subject}: Veteran ability choices must all be active abilities from one hero (${answerKeys.join(", ")}).`,
+      );
+    }
+  }
+  if (
+    definition.difficulty >= 2 &&
+    definition.family === "item" &&
+    answerRecords.some((record) => !hasActiveBehavior(record))
+  ) {
+    const inactiveItems = answerKeys.filter((_, answerIndex) => !hasActiveBehavior(answerRecords[answerIndex]));
+    throw new Error(
+      `${definition.subject}: every Veteran item choice must have an active behavior (${inactiveItems.join(", ")} does not).`,
+    );
+  }
   const correctIndex = answerKeys.indexOf(definition.subject);
   const answerKind = definition.family === "ability" ? "ability" : "item";
   const subjectName = answerRecords[correctIndex].dname;
@@ -121,6 +164,8 @@ const questions = SOUNDCHECK_DEFINITIONS.map((definition, index) => {
     },
     soundcheck: {
       family: definition.family,
+      choiceScope:
+        definition.difficulty === 1 ? "recognizable" : definition.family === "ability" ? "same-hero" : "active-items",
       event: definition.event,
       eventFile: definition.eventFile,
       duration: definition.duration,
