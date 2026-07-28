@@ -36,7 +36,13 @@ import {
 } from "lucide-react";
 import clsx from "clsx";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { isReportReason, REPORT_REASON_LABELS, REPORT_REASONS, type ReportReason } from "@/lib/calibration";
+import {
+  isReportReason,
+  QUESTION_REPORT_GRACE_MS,
+  REPORT_REASON_LABELS,
+  REPORT_REASONS,
+  type ReportReason,
+} from "@/lib/calibration";
 import { getPusherClient } from "@/lib/pusher";
 import {
   difficultyLabel,
@@ -116,6 +122,19 @@ interface RoundRecord {
   game: RoundGame;
   correct: boolean;
   points: number;
+}
+
+interface QuestionReportTarget {
+  roundId: string;
+  questionId: string;
+  prompt: string;
+  answer: string;
+  expiresAt: number;
+}
+
+interface QuestionReportNotice {
+  reason: ReportReason;
+  expiresAt: number;
 }
 
 interface LifetimeStats {
@@ -1059,9 +1078,10 @@ export function QueueArcade() {
   const [activeRoundId, setActiveRoundId] = useState("");
   const [voiceState, setVoiceState] = useState<"loading" | "ready" | "playing" | "error">("loading");
   const [voicePlayCount, setVoicePlayCount] = useState(0);
-  const [reportMenuOpen, setReportMenuOpen] = useState(false);
   const [reportState, setReportState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [reportedReason, setReportedReason] = useState<ReportReason | null>(null);
+  const [reportTarget, setReportTarget] = useState<QuestionReportTarget | null>(null);
+  const [reportNotice, setReportNotice] = useState<QuestionReportNotice | null>(null);
 
   const phaseRef = useRef<GamePhase>("lobby");
   const currentQuestionRef = useRef<ArcadeRound | null>(null);
@@ -1082,6 +1102,18 @@ export function QueueArcade() {
   const syncPromiseRef = useRef<Promise<void> | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const voiceAudioRef = useRef<HTMLAudioElement | null>(null);
+  const reportTargetRef = useRef<QuestionReportTarget | null>(null);
+  const reportStateRef = useRef<"idle" | "sending" | "sent" | "error">("idle");
+
+  const updateReportTarget = useCallback((target: QuestionReportTarget | null) => {
+    reportTargetRef.current = target;
+    setReportTarget(target);
+  }, []);
+
+  const updateReportState = useCallback((state: "idle" | "sending" | "sent" | "error") => {
+    reportStateRef.current = state;
+    setReportState(state);
+  }, []);
 
   const answerDuration = SKILL_INFO[skillLevel].duration;
   const previewQuestion = useMemo(() => {
@@ -1304,9 +1336,10 @@ export function QueueArcade() {
         setRoundAward(null);
         setVoiceState("loading");
         setVoicePlayCount(0);
-        setReportMenuOpen(false);
         setReportedReason(snapshot.playerReport);
-        setReportState(snapshot.playerReport ? "sent" : "idle");
+        if (!reportTargetRef.current) {
+          updateReportState(snapshot.playerReport ? "sent" : "idle");
+        }
 
         const nextRoundIndex = hadRound ? roundIndexRef.current + 1 : 0;
         roundIndexRef.current = nextRoundIndex;
@@ -1343,8 +1376,10 @@ export function QueueArcade() {
 
       if (snapshot.playerReport) {
         setReportedReason(snapshot.playerReport);
-        setReportState("sent");
-        setReportMenuOpen(false);
+        updateReportState("sent");
+        if (reportTargetRef.current?.roundId === snapshot.round.id) {
+          updateReportTarget(null);
+        }
       }
 
       if (snapshot.playerVote && selectedIndexRef.current === null) {
@@ -1372,7 +1407,7 @@ export function QueueArcade() {
         setPhase("reveal");
       }
     },
-    [finalizeRound, setCrowd, setDeadline, setPhase],
+    [finalizeRound, setCrowd, setDeadline, setPhase, updateReportState, updateReportTarget],
   );
 
   const syncRoom = useCallback(() => {
@@ -1437,9 +1472,10 @@ export function QueueArcade() {
       setHistory([]);
       setRunDuration(0);
       setQueueStartedAt(startedAt);
-      setReportMenuOpen(false);
+      updateReportTarget(null);
+      setReportNotice(null);
       setReportedReason(null);
-      setReportState("idle");
+      updateReportState("idle");
       playSound("start");
       applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
     } catch {
@@ -1450,28 +1486,26 @@ export function QueueArcade() {
     } finally {
       setJoiningRoom(false);
     }
-  }, [applyRoomSnapshot, ensurePlayerId, filter, joiningRoom, mode, playSound, requestRoomSnapshot, skillLevel]);
+  }, [
+    applyRoomSnapshot,
+    ensurePlayerId,
+    filter,
+    joiningRoom,
+    mode,
+    playSound,
+    requestRoomSnapshot,
+    skillLevel,
+    updateReportState,
+    updateReportTarget,
+  ]);
 
   const submitQuestionReport = useCallback(
     async (reason: ReportReason) => {
-      const snapshot = roomSnapshotRef.current;
+      const target = reportTargetRef.current;
       const settings = roomSettingsRef.current;
-      const question = currentQuestionRef.current;
-      if (
-        phaseRef.current !== "reveal" ||
-        !snapshot ||
-        !settings ||
-        !question ||
-        snapshot.round.phase !== "reveal" ||
-        snapshot.round.id !== roundIdRef.current ||
-        reportedReason ||
-        reportState === "sending"
-      ) {
-        return;
-      }
+      if (!target || !settings || reportStateRef.current === "sending") return;
 
-      const submittedRoundId = snapshot.round.id;
-      setReportState("sending");
+      updateReportState("sending");
 
       try {
         const response = await fetch("/api/reports", {
@@ -1481,8 +1515,8 @@ export function QueueArcade() {
           },
           body: JSON.stringify({
             ...settings,
-            roundId: submittedRoundId,
-            questionId: question.id,
+            roundId: target.roundId,
+            questionId: target.questionId,
             reason,
             voterId: ensurePlayerId(),
           }),
@@ -1495,20 +1529,70 @@ export function QueueArcade() {
           throw new Error("REPORT_FAILED");
         }
 
-        if (roundIdRef.current === submittedRoundId) {
+        if (reportTargetRef.current?.roundId !== target.roundId) return;
+
+        if (roundIdRef.current === target.roundId) {
           setReportedReason(candidate.reason);
-          setReportState("sent");
-          setReportMenuOpen(false);
+          updateReportState("sent");
+        } else {
+          const currentReport = roomSnapshotRef.current?.playerReport ?? null;
+          setReportedReason(currentReport);
+          updateReportState(currentReport ? "sent" : "idle");
         }
+        updateReportTarget(null);
+        setReportNotice({
+          reason: candidate.reason,
+          expiresAt: Date.now() + 5_000,
+        });
       } catch {
-        if (roundIdRef.current === submittedRoundId) {
-          setReportState("error");
-          setReportMenuOpen(false);
+        if (reportTargetRef.current?.roundId === target.roundId) {
+          updateReportState("error");
         }
       }
     },
-    [ensurePlayerId, reportState, reportedReason],
+    [ensurePlayerId, updateReportState, updateReportTarget],
   );
+
+  const toggleQuestionReport = useCallback(() => {
+    const snapshot = roomSnapshotRef.current;
+    const question = currentQuestionRef.current;
+    const existingTarget = reportTargetRef.current;
+
+    if (existingTarget?.roundId === snapshot?.round.id) {
+      updateReportTarget(null);
+      updateReportState("idle");
+      return;
+    }
+
+    if (
+      phaseRef.current !== "reveal" ||
+      !snapshot ||
+      !question ||
+      snapshot.round.phase !== "reveal" ||
+      snapshot.round.id !== roundIdRef.current
+    ) {
+      return;
+    }
+
+    updateReportState("idle");
+    updateReportTarget({
+      roundId: snapshot.round.id,
+      questionId: question.id,
+      prompt: question.prompt,
+      answer:
+        question.map && !question.map.choice
+          ? question.map.targetLabel
+          : (question.answers[question.correctIndex] ?? question.eyebrow),
+      expiresAt: Math.max(Date.now() + 1_000, (revealDeadline ?? Date.now()) + QUESTION_REPORT_GRACE_MS),
+    });
+  }, [revealDeadline, updateReportState, updateReportTarget]);
+
+  const dismissQuestionReport = useCallback(() => {
+    updateReportTarget(null);
+    const currentReport = roomSnapshotRef.current?.playerReport ?? null;
+    setReportedReason(currentReport);
+    updateReportState(currentReport ? "sent" : "idle");
+  }, [updateReportState, updateReportTarget]);
 
   const submitVote = useCallback(
     async (question: TriviaQuestion, answerIndex: number, mapPosition?: MapPosition) => {
@@ -1627,11 +1711,38 @@ export function QueueArcade() {
     const startedAt = queueStartedAtRef.current ?? finishedAt;
     roomSettingsRef.current = null;
     roomSnapshotRef.current = null;
+    updateReportTarget(null);
+    setReportNotice(null);
+    updateReportState("idle");
     setRunDuration(finishedAt - startedAt);
     setDeadline(null);
     setRevealDeadlineState(null);
     setPhase("summary");
-  }, [setDeadline, setPhase]);
+  }, [setDeadline, setPhase, updateReportState, updateReportTarget]);
+
+  useEffect(() => {
+    if (!reportTarget) return;
+    const timeout = window.setTimeout(
+      () => {
+        if (reportTargetRef.current?.roundId !== reportTarget.roundId) return;
+        updateReportTarget(null);
+        const currentReport = roomSnapshotRef.current?.playerReport ?? null;
+        setReportedReason(currentReport);
+        updateReportState(currentReport ? "sent" : "idle");
+      },
+      Math.max(0, reportTarget.expiresAt - Date.now()),
+    );
+    return () => window.clearTimeout(timeout);
+  }, [reportTarget, updateReportState, updateReportTarget]);
+
+  useEffect(() => {
+    if (!reportNotice) return;
+    const timeout = window.setTimeout(
+      () => setReportNotice((notice) => (notice?.expiresAt === reportNotice.expiresAt ? null : notice)),
+      Math.max(0, reportNotice.expiresAt - Date.now()),
+    );
+    return () => window.clearTimeout(timeout);
+  }, [reportNotice]);
 
   useEffect(() => {
     if (phase === "lobby" || phase === "summary") return;
@@ -2482,8 +2593,8 @@ export function QueueArcade() {
                       type="button"
                       className={styles.reportButton}
                       data-testid="report-question"
-                      aria-expanded={reportMenuOpen}
-                      onClick={() => setReportMenuOpen((open) => !open)}
+                      aria-expanded={reportTarget?.roundId === activeRoundId}
+                      onClick={toggleQuestionReport}
                       disabled={reportState === "sending" || reportState === "sent"}
                     >
                       <Flag />
@@ -2495,7 +2606,7 @@ export function QueueArcade() {
                             ? "Try report again"
                             : "Report question"}
                     </button>
-                    {reportMenuOpen && !reportedReason && (
+                    {reportTarget?.roundId === activeRoundId && !reportedReason && (
                       <div className={styles.reportMenu} role="group" aria-label="Why are you reporting this question?">
                         {REPORT_REASONS.map((reason) => (
                           <button
@@ -2782,6 +2893,44 @@ export function QueueArcade() {
             </button>
           </div>
         </section>
+      )}
+
+      {reportTarget && reportTarget.roundId !== activeRoundId && (
+        <aside className={styles.reportCarryover} data-testid="report-carryover" aria-label="Report previous question">
+          <div className={styles.reportCarryoverTitle}>
+            <Flag />
+            <span>
+              <small>Report previous question</small>
+              <strong>{reportTarget.prompt}</strong>
+              <em>Answer · {reportTarget.answer}</em>
+            </span>
+            <button type="button" aria-label="Dismiss question report" onClick={dismissQuestionReport}>
+              <X />
+            </button>
+          </div>
+          <div className={styles.reportCarryoverReasons} role="group" aria-label="Why are you reporting this question?">
+            {REPORT_REASONS.map((reason) => (
+              <button
+                key={reason}
+                type="button"
+                data-testid="report-reason"
+                data-report-reason={reason}
+                onClick={() => void submitQuestionReport(reason)}
+                disabled={reportState === "sending"}
+              >
+                {reportState === "sending" ? "Sending…" : REPORT_REASON_LABELS[reason]}
+              </button>
+            ))}
+          </div>
+          {reportState === "error" && <small className={styles.reportCarryoverError}>Couldn’t send · try again</small>}
+        </aside>
+      )}
+
+      {reportNotice && (
+        <div className={styles.reportNotice} data-testid="report-confirmation" aria-live="polite">
+          <Check />
+          Report sent · {REPORT_REASON_LABELS[reportNotice.reason]}
+        </div>
       )}
 
       <footer className={styles.footer}>

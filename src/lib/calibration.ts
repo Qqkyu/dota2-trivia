@@ -1,6 +1,7 @@
 import {
   CALIBRATION_MIN_SAMPLE as minimumSample,
   CALIBRATION_REVIEW_REPORTS as reviewReports,
+  QUESTION_REPORT_GRACE_MS as reportGrace,
   REPORT_REASONS as reportReasons,
   calibrationSignal as buildSignal,
   reportTotal as sumReports,
@@ -18,6 +19,7 @@ export const REPORT_REASON_LABELS: Record<ReportReason, string> = {
 
 export const CALIBRATION_MIN_SAMPLE = minimumSample;
 export const CALIBRATION_REVIEW_REPORTS = reviewReports;
+export const QUESTION_REPORT_GRACE_MS = reportGrace;
 
 export type CalibrationStatus = "reported" | "collecting" | "too-easy" | "too-hard" | "on-target";
 

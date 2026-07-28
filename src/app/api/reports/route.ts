@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { isReportReason } from "@/lib/calibration";
+import { isReportReason, QUESTION_REPORT_GRACE_MS } from "@/lib/calibration";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
-import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
+import { currentPublicRound, parsePublicRoomSettings, publicRoundAt } from "@/lib/public-rooms";
 import { recordQuestionReport } from "@/lib/vote-store";
 
 export const runtime = "nodejs";
@@ -42,15 +42,24 @@ export async function POST(request: Request) {
   }
 
   const submittedAt = Date.now();
-  const { room, round } = currentPublicRound(settings, submittedAt);
-  const question = GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === round.questionId);
+  const { room, round: currentRound } = currentPublicRound(settings, submittedAt);
+  const currentRevealMatches =
+    currentRound.id === roundId &&
+    currentRound.questionId === questionId &&
+    currentRound.phase === "reveal" &&
+    submittedAt < currentRound.revealDeadline;
+  const previousRound = currentRound.number > 0 ? publicRoundAt(room, currentRound.number - 1, submittedAt) : null;
+  const previousGraceMatches =
+    previousRound?.id === roundId &&
+    previousRound.questionId === questionId &&
+    submittedAt < previousRound.revealDeadline + QUESTION_REPORT_GRACE_MS;
+  const reportableRound = currentRevealMatches ? currentRound : previousGraceMatches ? previousRound : null;
+  const question = reportableRound
+    ? GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === reportableRound.questionId)
+    : null;
 
-  if (!question || round.id !== roundId || round.questionId !== questionId) {
-    return NextResponse.json({ error: "That public round has already moved on." }, { status: 409 });
-  }
-
-  if (round.phase !== "reveal" || submittedAt >= round.revealDeadline) {
-    return NextResponse.json({ error: "Reports open with the answer reveal." }, { status: 409 });
+  if (!reportableRound || !question) {
+    return NextResponse.json({ error: "That question is no longer reportable." }, { status: 409 });
   }
 
   try {

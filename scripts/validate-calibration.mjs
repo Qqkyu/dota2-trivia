@@ -3,6 +3,7 @@
 import {
   CALIBRATION_MIN_SAMPLE,
   CALIBRATION_REVIEW_REPORTS,
+  QUESTION_REPORT_GRACE_MS,
   REPORT_REASONS,
   calibrationSignal,
   reportTotal,
@@ -22,6 +23,7 @@ function signal(difficulty, total, correct, reports = noReports) {
 if (
   CALIBRATION_MIN_SAMPLE !== 20 ||
   CALIBRATION_REVIEW_REPORTS !== 3 ||
+  QUESTION_REPORT_GRACE_MS !== 20_000 ||
   REPORT_REASONS.join(",") !== "incorrect,outdated,ambiguous,unclear"
 ) {
   throw new Error("Calibration thresholds or report reasons changed unexpectedly.");
@@ -57,5 +59,5 @@ if (
 }
 
 console.log(
-  `Validated ${REPORT_REASONS.length} report reasons, ${CALIBRATION_MIN_SAMPLE}-answer calibration guardrail, and report escalation at ${CALIBRATION_REVIEW_REPORTS}.`,
+  `Validated ${REPORT_REASONS.length} report reasons, ${QUESTION_REPORT_GRACE_MS / 1000}s carryover, ${CALIBRATION_MIN_SAMPLE}-answer calibration guardrail, and report escalation at ${CALIBRATION_REVIEW_REPORTS}.`,
 );

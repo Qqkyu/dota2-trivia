@@ -238,13 +238,6 @@ const reportMenu = await evaluate(`(() => {
   };
 })()`);
 await screenshot("/tmp/queue-arcade-report-menu.png");
-await evaluate(`document.querySelector('[data-report-reason="ambiguous"]')?.click()`);
-await waitFor(`document.querySelector('[data-testid="report-question"]')?.textContent.includes("Reported")`);
-const reportResult = await evaluate(`({
-  label: document.querySelector('[data-testid="report-question"]')?.textContent.trim(),
-  menuClosed: document.querySelectorAll('[data-testid="report-reason"]').length === 0,
-  disabled: document.querySelector('[data-testid="report-question"]')?.disabled
-})`);
 await screenshot("/tmp/queue-arcade-reveal.png");
 
 const reveal = await evaluate(`({
@@ -264,6 +257,35 @@ await waitFor(`(() => {
   const main = document.querySelector("main");
   return main?.dataset.phase === "answering" && main?.dataset.roundId !== ${JSON.stringify(revealedRound)};
 })()`);
+await waitFor(
+  `document.querySelectorAll('[data-testid="report-carryover"] [data-testid="report-reason"]').length === 4`,
+);
+const reportCarryover = await evaluate(`(() => {
+  const carryover = document.querySelector('[data-testid="report-carryover"]');
+  const bounds = carryover?.getBoundingClientRect();
+  return {
+    visible: Boolean(carryover),
+    phase: document.querySelector("main")?.dataset.phase,
+    prompt: carryover?.querySelector("strong")?.textContent.trim(),
+    answerVisible: carryover?.innerText.includes("Answer"),
+    reasons: carryover?.querySelectorAll('[data-testid="report-reason"]').length,
+    fits: bounds
+      ? bounds.left >= 0 && bounds.right <= innerWidth && bounds.top >= 0 && bounds.bottom <= innerHeight
+      : false,
+    horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+  };
+})()`);
+await screenshot("/tmp/queue-arcade-report-carryover.png");
+await evaluate(`document.querySelector('[data-testid="report-carryover"] [data-report-reason="ambiguous"]')?.click()`);
+await waitFor(`Boolean(document.querySelector('[data-testid="report-confirmation"]'))`);
+const reportResult = await evaluate(`({
+  label: document.querySelector('[data-testid="report-confirmation"]')?.textContent.trim(),
+  menuClosed: document.querySelectorAll('[data-testid="report-reason"]').length === 0,
+  carryoverClosed: !document.querySelector('[data-testid="report-carryover"]'),
+  answering: document.querySelector("main")?.dataset.phase === "answering",
+  horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+})`);
+await screenshot("/tmp/queue-arcade-report-confirmation.png");
 const autoAdvanced = await evaluate(`({
   round: document.querySelector("main")?.dataset.roundId,
   answering: Boolean(document.querySelector('[data-testid="arcade-answer"]:not([disabled])')),
@@ -918,11 +940,18 @@ if (
   layoutDelta(revealBoundsBeforeReport, reportMenu.panelBounds) > 1 ||
   reportMenu.reasons.join(",") !== "incorrect,outdated,ambiguous,unclear" ||
   !reportMenu.menuFits ||
+  !reportCarryover.visible ||
+  reportCarryover.phase !== "answering" ||
+  !reportCarryover.prompt ||
+  !reportCarryover.answerVisible ||
+  reportCarryover.reasons !== 4 ||
+  !reportCarryover.fits ||
   !reportResult.label?.includes("Ambiguous") ||
   !reportResult.menuClosed ||
-  !reportResult.disabled
+  !reportResult.carryoverClosed ||
+  !reportResult.answering
 ) {
-  failures.push("The reveal report menu shifts the result, loses a reason, or fails to confirm a report.");
+  failures.push("The report flow shifts, disappears during round rollover, or fails to confirm.");
 }
 if (!autoAdvanced.answering || !autoAdvanced.endless || autoAdvanced.round === revealedRound) {
   failures.push("Rounds do not advance automatically in the endless session.");
@@ -1021,6 +1050,8 @@ if (
   mapVariants.some((variant) => variant.horizontalOverflow) ||
   mapReveals.some((reveal) => reveal.horizontalOverflow) ||
   reportMenu.horizontalOverflow ||
+  reportCarryover.horizontalOverflow ||
+  reportResult.horizontalOverflow ||
   mobile.horizontalOverflow ||
   mobileMap.horizontalOverflow ||
   mobileQuestion.horizontalOverflow ||
@@ -1075,6 +1106,7 @@ console.log(
       reveal,
       revealBoundsBeforeReport,
       reportMenu,
+      reportCarryover,
       reportResult,
       revealedRound,
       autoAdvanced,

@@ -168,6 +168,25 @@ if (reportedSnapshot.round.id !== revealSnapshot.round.id || reportedSnapshot.pl
   throw new Error("The synchronized room did not restore the player's question report.");
 }
 
+await delay(Math.max(250, reportedSnapshot.round.revealDeadline - reportedSnapshot.serverNow + 200));
+const carryoverSnapshot = await readRoom(secondPlayer);
+if (carryoverSnapshot.round.id === revealSnapshot.round.id || carryoverSnapshot.round.phase !== "answering") {
+  throw new Error("The room did not advance before the report carryover check.");
+}
+
+const carryoverReport = await report(revealSnapshot, secondPlayer, "outdated");
+const carryoverDuplicate = await report(revealSnapshot, secondPlayer, "incorrect");
+if (
+  carryoverReport.status !== 200 ||
+  !carryoverReport.body.accepted ||
+  carryoverReport.body.reason !== "outdated" ||
+  carryoverDuplicate.status !== 200 ||
+  carryoverDuplicate.body.accepted ||
+  carryoverDuplicate.body.reason !== "outdated"
+) {
+  throw new Error("The previous question could not be reported safely after the next round began.");
+}
+
 const calibrationResponse = await fetch(`${appUrl}/api/calibration?gameId=dota2`, { cache: "no-store" });
 const calibration = await calibrationResponse.json();
 const calibratedQuestion = calibration.records?.find((record) => record.questionId === revealSnapshot.round.questionId);
@@ -177,7 +196,8 @@ if (
   calibration.totals?.questions !== calibration.records?.length ||
   !calibratedQuestion ||
   calibratedQuestion.reports?.ambiguous < 1 ||
-  calibratedQuestion.reportTotal < 1 ||
+  calibratedQuestion.reports?.outdated < 1 ||
+  calibratedQuestion.reportTotal < 2 ||
   calibratedQuestion.signal?.status !== "reported" ||
   serializedCalibration.includes("reporters") ||
   serializedCalibration.includes(firstPlayer)
@@ -197,7 +217,7 @@ if (persisted.includes(firstPlayer) || persisted.includes(secondPlayer)) {
   throw new Error("A raw anonymous player ID was written to persistent storage.");
 }
 
-if (!persisted.includes('"ambiguous"')) {
+if (!persisted.includes('"ambiguous"') || !persisted.includes('"outdated"')) {
   throw new Error("The anonymous question report was not written to persistent storage.");
 }
 
@@ -318,6 +338,7 @@ console.log(
       reportRejectedBeforeReveal: true,
       reportDeduplicated: true,
       playerReportRestored: true,
+      reportCarriesIntoNextRound: true,
       calibrationAggregates: true,
       mapAnswerScoredOnServer: true,
       mapPinsHiddenUntilReveal: true,

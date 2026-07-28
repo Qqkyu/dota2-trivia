@@ -27,7 +27,7 @@ The playable MVP includes:
 - per-round crowd results with server-enforced deadlines and duplicate-vote protection;
 - server-scored Map Sense pins plus synchronized A–D mechanic rounds, with coordinates and answer splits hidden until reveal;
 - disk-backed vote history that survives Node server restarts and records per-question accuracy data;
-- reveal-only question reports for incorrect, outdated, ambiguous, or unclear content, deduplicated per anonymous player;
+- reveal question reports for incorrect, outdated, ambiguous, or unclear content, with an opened report carrying into the next round and deduplicated per anonymous player;
 - a responsive calibration lab at `/calibration`, with report triage and difficulty recommendations only after 20 answers;
 - optional Pusher broadcasts between connected browsers, with automatic polling as the zero-config fallback;
 - keyboard controls, responsive layouts, sound cues, and local lifetime stats;
@@ -122,7 +122,7 @@ For visual smoke testing, start muted Chrome with a debugging port and then run 
 
 Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2-map-sense-7:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
-`/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` does the inverse: it only accepts the question currently being revealed and stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
+`/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` opens with the reveal and keeps the just-finished question reportable for a 20-second rollover grace period. It stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 
 The default persistent store is an atomic JSON file suited to local development and a single long-running Node instance with a persistent disk. It serializes concurrent writes inside the process and stores aggregate per-question answer counts and report totals for calibration. `/calibration` never exposes voter hashes. It waits for 20 answers before suggesting that a question looks too easy or too hard, while reports remain manual-review signals; neither path silently changes the live deck. For horizontal scaling or serverless deployment, replace `src/lib/vote-store.ts` with Redis or Postgres; Pusher distributes updates but is never the source of truth.
 

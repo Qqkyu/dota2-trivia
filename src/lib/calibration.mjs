@@ -1,6 +1,7 @@
 export const REPORT_REASONS = Object.freeze(["incorrect", "outdated", "ambiguous", "unclear"]);
 export const CALIBRATION_MIN_SAMPLE = 20;
 export const CALIBRATION_REVIEW_REPORTS = 3;
+export const QUESTION_REPORT_GRACE_MS = 20_000;
 
 const EXPECTED_ACCURACY = {
   1: [0.65, 0.92],
