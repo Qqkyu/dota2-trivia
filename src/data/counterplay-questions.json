@@ -1,0 +1,2668 @@
+[
+  {
+    "id": "counterplay-immunity:axe_berserkers_call",
+    "kind": "counterplay-immunity",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "BKB · Debuff immunity",
+    "prompt": "Which pierces BKB?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png",
+      "alt": "Black King Bar item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Berserker's Call",
+      "Ravage",
+      "Slithereen Crush",
+      "Echo Slam"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/axe_berserkers_call.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tidehunter_ravage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/slardar_slithereen_crush.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/earthshaker_echo_slam.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Berserker's Call pierces debuff immunity. The other three abilities do not.",
+    "counterplay": {
+      "family": "debuff-immunity",
+      "tool": "Black King Bar",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-immunity:pudge_dismember",
+    "kind": "counterplay-immunity",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "BKB · Debuff immunity",
+    "prompt": "Which pierces BKB?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png",
+      "alt": "Black King Bar item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Shackles",
+      "Dismember",
+      "Sinister Gaze",
+      "Life Drain"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shadow_shaman_shackles.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pudge_dismember.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lich_sinister_gaze.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pugna_life_drain.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Dismember pierces debuff immunity. The other three abilities do not.",
+    "counterplay": {
+      "family": "debuff-immunity",
+      "tool": "Black King Bar",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-immunity:enigma_black_hole",
+    "kind": "counterplay-immunity",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "BKB · Debuff immunity",
+    "prompt": "Which pierces BKB?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png",
+      "alt": "Black King Bar item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Static Storm",
+      "Freezing Field",
+      "Black Hole",
+      "Upheaval"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_static_storm.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/crystal_maiden_freezing_field.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/enigma_black_hole.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/warlock_upheaval.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "Black Hole pierces debuff immunity. The other three abilities do not.",
+    "counterplay": {
+      "family": "debuff-immunity",
+      "tool": "Black King Bar",
+      "outcomes": [
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-immunity:beastmaster_primal_roar",
+    "kind": "counterplay-immunity",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "BKB · Debuff immunity",
+    "prompt": "Which pierces BKB?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png",
+      "alt": "Black King Bar item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Reaper's Scythe",
+      "Laguna Blade",
+      "Hex",
+      "Primal Roar"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/necrolyte_reapers_scythe.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lina_laguna_blade.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lion_voodoo.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/beastmaster_primal_roar.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "Primal Roar pierces debuff immunity. The other three abilities do not.",
+    "counterplay": {
+      "family": "debuff-immunity",
+      "tool": "Black King Bar",
+      "outcomes": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-immunity:faceless_void_chronosphere",
+    "kind": "counterplay-immunity",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "BKB · Debuff immunity",
+    "prompt": "Which pierces BKB?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png",
+      "alt": "Black King Bar item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Chronosphere",
+      "Dream Coil",
+      "Arena Of Blood",
+      "Pit of Malice"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/faceless_void_chronosphere.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/puck_dream_coil.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mars_arena_of_blood.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/abyssal_underlord_pit_of_malice.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Chronosphere pierces debuff immunity. The other three abilities do not.",
+    "counterplay": {
+      "family": "debuff-immunity",
+      "tool": "Black King Bar",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-immunity:magnataur_reverse_polarity",
+    "kind": "counterplay-immunity",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "BKB · Debuff immunity",
+    "prompt": "Which pierces BKB?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png",
+      "alt": "Black King Bar item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Ravage",
+      "Reverse Polarity",
+      "Hoof Stomp",
+      "Slithereen Crush"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tidehunter_ravage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/magnataur_reverse_polarity.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/centaur_hoof_stomp.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/slardar_slithereen_crush.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Reverse Polarity pierces debuff immunity. The other three abilities do not.",
+    "counterplay": {
+      "family": "debuff-immunity",
+      "tool": "Black King Bar",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-immunity:legion_commander_duel",
+    "kind": "counterplay-immunity",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "BKB · Debuff immunity",
+    "prompt": "Which pierces BKB?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png",
+      "alt": "Black King Bar item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Sunder",
+      "Glimpse",
+      "Duel",
+      "Reaper's Scythe"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/terrorblade_sunder.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_glimpse.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/legion_commander_duel.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/necrolyte_reapers_scythe.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "Duel pierces debuff immunity. The other three abilities do not.",
+    "counterplay": {
+      "family": "debuff-immunity",
+      "tool": "Black King Bar",
+      "outcomes": [
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-immunity:slardar_amplify_damage",
+    "kind": "counterplay-immunity",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "BKB · Debuff immunity",
+    "prompt": "Which pierces BKB?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png",
+      "alt": "Black King Bar item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Gush",
+      "Wave of Terror",
+      "Enfeeble",
+      "Corrosive Haze"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tidehunter_gush.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/vengefulspirit_wave_of_terror.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bane_enfeeble.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/slardar_amplify_damage.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "Corrosive Haze pierces debuff immunity. The other three abilities do not.",
+    "counterplay": {
+      "family": "debuff-immunity",
+      "tool": "Black King Bar",
+      "outcomes": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-immunity:bloodseeker_rupture",
+    "kind": "counterplay-immunity",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "BKB · Debuff immunity",
+    "prompt": "Which pierces BKB?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png",
+      "alt": "Black King Bar item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Rupture",
+      "Maledict",
+      "Static Storm",
+      "Dream Coil"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bloodseeker_rupture.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/witch_doctor_maledict.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_static_storm.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/puck_dream_coil.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Rupture pierces debuff immunity. The other three abilities do not.",
+    "counterplay": {
+      "family": "debuff-immunity",
+      "tool": "Black King Bar",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-immunity:rattletrap_hookshot",
+    "kind": "counterplay-immunity",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "BKB · Debuff immunity",
+    "prompt": "Which pierces BKB?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png",
+      "alt": "Black King Bar item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Sacred Arrow",
+      "Hookshot",
+      "Spear of Mars",
+      "Rolling Boulder"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mirana_arrow.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/rattletrap_hookshot.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mars_spear.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/earth_spirit_rolling_boulder.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Hookshot pierces debuff immunity. The other three abilities do not.",
+    "counterplay": {
+      "family": "debuff-immunity",
+      "tool": "Black King Bar",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-immunity:winter_wyvern_winters_curse",
+    "kind": "counterplay-immunity",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "BKB · Debuff immunity",
+    "prompt": "Which pierces BKB?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png",
+      "alt": "Black King Bar item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Terrorize",
+      "Reaper's Scythe",
+      "Winter's Curse",
+      "Ensnare"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dark_willow_terrorize.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/necrolyte_reapers_scythe.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/winter_wyvern_winters_curse.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/naga_siren_ensnare.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "Winter's Curse pierces debuff immunity. The other three abilities do not.",
+    "counterplay": {
+      "family": "debuff-immunity",
+      "tool": "Black King Bar",
+      "outcomes": [
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-immunity:primal_beast_pulverize",
+    "kind": "counterplay-immunity",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "BKB · Debuff immunity",
+    "prompt": "Which pierces BKB?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png",
+      "alt": "Black King Bar item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Telekinesis",
+      "Chaos Bolt",
+      "Electric Vortex",
+      "Pulverize"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/rubick_telekinesis.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/chaos_knight_chaos_bolt.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/storm_spirit_electric_vortex.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/primal_beast_pulverize.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "Pulverize pierces debuff immunity. The other three abilities do not.",
+    "counterplay": {
+      "family": "debuff-immunity",
+      "tool": "Black King Bar",
+      "outcomes": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-basic-dispel:crystal_maiden_crystal_nova",
+    "kind": "counterplay-basic-dispel",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "Manta · Basic dispel",
+    "prompt": "Which debuff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png",
+      "alt": "Manta Style item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Crystal Nova",
+      "Fiend's Grip",
+      "Rupture",
+      "Maledict"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/crystal_maiden_crystal_nova.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bane_fiends_grip.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bloodseeker_rupture.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/witch_doctor_maledict.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Manta Style's basic dispel removes Crystal Nova. The other effects need a strong dispel or cannot be dispelled.",
+    "counterplay": {
+      "family": "basic-dispel",
+      "tool": "Manta Style",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-basic-dispel:axe_battle_hunger",
+    "kind": "counterplay-basic-dispel",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "Manta · Basic dispel",
+    "prompt": "Which debuff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png",
+      "alt": "Manta Style item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Dismember",
+      "Battle Hunger",
+      "Doom",
+      "Dream Coil"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pudge_dismember.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/axe_battle_hunger.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/doom_bringer_doom.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/puck_dream_coil.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Manta Style's basic dispel removes Battle Hunger. The other effects need a strong dispel or cannot be dispelled.",
+    "counterplay": {
+      "family": "basic-dispel",
+      "tool": "Manta Style",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-basic-dispel:drow_ranger_wave_of_silence",
+    "kind": "counterplay-basic-dispel",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "Manta · Basic dispel",
+    "prompt": "Which debuff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png",
+      "alt": "Manta Style item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Ravage",
+      "Static Storm",
+      "Gust",
+      "Glimpse"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tidehunter_ravage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_static_storm.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/drow_ranger_wave_of_silence.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_glimpse.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "Manta Style's basic dispel removes Gust. The other effects need a strong dispel or cannot be dispelled.",
+    "counterplay": {
+      "family": "basic-dispel",
+      "tool": "Manta Style",
+      "outcomes": [
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-basic-dispel:slardar_amplify_damage",
+    "kind": "counterplay-basic-dispel",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "Manta · Basic dispel",
+    "prompt": "Which debuff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png",
+      "alt": "Manta Style item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Primal Roar",
+      "Viper Strike",
+      "Reaper's Scythe",
+      "Corrosive Haze"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/beastmaster_primal_roar.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/viper_viper_strike.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/necrolyte_reapers_scythe.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/slardar_amplify_damage.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "Manta Style's basic dispel removes Corrosive Haze. The other effects need a strong dispel or cannot be dispelled.",
+    "counterplay": {
+      "family": "basic-dispel",
+      "tool": "Manta Style",
+      "outcomes": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-basic-dispel:dazzle_poison_touch",
+    "kind": "counterplay-basic-dispel",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "Manta · Basic dispel",
+    "prompt": "Which debuff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png",
+      "alt": "Manta Style item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Poison Touch",
+      "Flaming Lasso",
+      "Maledict",
+      "Rupture"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dazzle_poison_touch.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/batrider_flaming_lasso.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/witch_doctor_maledict.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bloodseeker_rupture.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Manta Style's basic dispel removes Poison Touch. The other effects need a strong dispel or cannot be dispelled.",
+    "counterplay": {
+      "family": "basic-dispel",
+      "tool": "Manta Style",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-basic-dispel:silencer_curse_of_the_silent",
+    "kind": "counterplay-basic-dispel",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "Manta · Basic dispel",
+    "prompt": "Which debuff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png",
+      "alt": "Manta Style item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Duel",
+      "Arcane Curse",
+      "Hex",
+      "Doom"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/legion_commander_duel.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/silencer_curse_of_the_silent.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lion_voodoo.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/doom_bringer_doom.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Manta Style's basic dispel removes Arcane Curse. The other effects need a strong dispel or cannot be dispelled.",
+    "counterplay": {
+      "family": "basic-dispel",
+      "tool": "Manta Style",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-basic-dispel:warlock_fatal_bonds",
+    "kind": "counterplay-basic-dispel",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Manta · Basic dispel",
+    "prompt": "Which debuff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png",
+      "alt": "Manta Style item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Fiend's Grip",
+      "Static Link",
+      "Fatal Bonds",
+      "Maledict"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bane_fiends_grip.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/razor_static_link.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/warlock_fatal_bonds.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/witch_doctor_maledict.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "Manta Style's basic dispel removes Fatal Bonds. The other effects need a strong dispel or cannot be dispelled.",
+    "counterplay": {
+      "family": "basic-dispel",
+      "tool": "Manta Style",
+      "outcomes": [
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-basic-dispel:silencer_last_word",
+    "kind": "counterplay-basic-dispel",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Manta · Basic dispel",
+    "prompt": "Which debuff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png",
+      "alt": "Manta Style item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Reverse Polarity",
+      "Dream Coil",
+      "Static Storm",
+      "Last Word"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/magnataur_reverse_polarity.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/puck_dream_coil.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_static_storm.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/silencer_last_word.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "Manta Style's basic dispel removes Last Word. The other effects need a strong dispel or cannot be dispelled.",
+    "counterplay": {
+      "family": "basic-dispel",
+      "tool": "Manta Style",
+      "outcomes": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-basic-dispel:pugna_decrepify",
+    "kind": "counterplay-basic-dispel",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Manta · Basic dispel",
+    "prompt": "Which debuff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png",
+      "alt": "Manta Style item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Decrepify",
+      "Dismember",
+      "Life Drain",
+      "Reaper's Scythe"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pugna_decrepify.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pudge_dismember.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pugna_life_drain.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/necrolyte_reapers_scythe.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Manta Style's basic dispel removes Decrepify. The other effects need a strong dispel or cannot be dispelled.",
+    "counterplay": {
+      "family": "basic-dispel",
+      "tool": "Manta Style",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-basic-dispel:bane_enfeeble",
+    "kind": "counterplay-basic-dispel",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Manta · Basic dispel",
+    "prompt": "Which debuff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png",
+      "alt": "Manta Style item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Flaming Lasso",
+      "Enfeeble",
+      "Static Storm",
+      "Maledict"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/batrider_flaming_lasso.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bane_enfeeble.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_static_storm.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/witch_doctor_maledict.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Manta Style's basic dispel removes Enfeeble. The other effects need a strong dispel or cannot be dispelled.",
+    "counterplay": {
+      "family": "basic-dispel",
+      "tool": "Manta Style",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-strong-dispel:sven_storm_bolt",
+    "kind": "counterplay-strong-dispel",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "Status · Strong dispel",
+    "prompt": "Which needs strong dispel?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/oracle_false_promise.png",
+      "alt": "False Promise ability icon",
+      "kind": "ability"
+    },
+    "answers": [
+      "Battle Hunger",
+      "Rupture",
+      "Storm Hammer",
+      "Maledict"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/axe_battle_hunger.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bloodseeker_rupture.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sven_storm_bolt.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/witch_doctor_maledict.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "Storm Hammer is removable by a strong dispel, but not by a basic dispel.",
+    "counterplay": {
+      "family": "strong-dispel",
+      "tool": "Strong Dispel",
+      "outcomes": [
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-strong-dispel:lion_voodoo",
+    "kind": "counterplay-strong-dispel",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "Status · Strong dispel",
+    "prompt": "Which needs strong dispel?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/oracle_false_promise.png",
+      "alt": "False Promise ability icon",
+      "kind": "ability"
+    },
+    "answers": [
+      "Enfeeble",
+      "Doom",
+      "Glimpse",
+      "Hex"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bane_enfeeble.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/doom_bringer_doom.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_glimpse.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lion_voodoo.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "Hex is removable by a strong dispel, but not by a basic dispel.",
+    "counterplay": {
+      "family": "strong-dispel",
+      "tool": "Strong Dispel",
+      "outcomes": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-strong-dispel:mirana_arrow",
+    "kind": "counterplay-strong-dispel",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "Status · Strong dispel",
+    "prompt": "Which needs strong dispel?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/oracle_false_promise.png",
+      "alt": "False Promise ability icon",
+      "kind": "ability"
+    },
+    "answers": [
+      "Sacred Arrow",
+      "Gust",
+      "Dream Coil",
+      "Static Storm"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mirana_arrow.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/drow_ranger_wave_of_silence.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/puck_dream_coil.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_static_storm.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Sacred Arrow is removable by a strong dispel, but not by a basic dispel.",
+    "counterplay": {
+      "family": "strong-dispel",
+      "tool": "Strong Dispel",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-strong-dispel:beastmaster_primal_roar",
+    "kind": "counterplay-strong-dispel",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "Status · Strong dispel",
+    "prompt": "Which needs strong dispel?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/oracle_false_promise.png",
+      "alt": "False Promise ability icon",
+      "kind": "ability"
+    },
+    "answers": [
+      "Corrosive Haze",
+      "Primal Roar",
+      "Viper Strike",
+      "Duel"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/slardar_amplify_damage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/beastmaster_primal_roar.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/viper_viper_strike.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/legion_commander_duel.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Primal Roar is removable by a strong dispel, but not by a basic dispel.",
+    "counterplay": {
+      "family": "strong-dispel",
+      "tool": "Strong Dispel",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-strong-dispel:bane_fiends_grip",
+    "kind": "counterplay-strong-dispel",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "Status · Strong dispel",
+    "prompt": "Which needs strong dispel?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/oracle_false_promise.png",
+      "alt": "False Promise ability icon",
+      "kind": "ability"
+    },
+    "answers": [
+      "Fatal Bonds",
+      "Rupture",
+      "Fiend's Grip",
+      "Maledict"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/warlock_fatal_bonds.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bloodseeker_rupture.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bane_fiends_grip.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/witch_doctor_maledict.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "Fiend's Grip is removable by a strong dispel, but not by a basic dispel.",
+    "counterplay": {
+      "family": "strong-dispel",
+      "tool": "Strong Dispel",
+      "outcomes": [
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-strong-dispel:magnataur_reverse_polarity",
+    "kind": "counterplay-strong-dispel",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Status · Strong dispel",
+    "prompt": "Which needs strong dispel?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/oracle_false_promise.png",
+      "alt": "False Promise ability icon",
+      "kind": "ability"
+    },
+    "answers": [
+      "Arcane Curse",
+      "Chronosphere",
+      "Doom",
+      "Reverse Polarity"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/silencer_curse_of_the_silent.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/faceless_void_chronosphere.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/doom_bringer_doom.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/magnataur_reverse_polarity.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "Reverse Polarity is removable by a strong dispel, but not by a basic dispel.",
+    "counterplay": {
+      "family": "strong-dispel",
+      "tool": "Strong Dispel",
+      "outcomes": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-strong-dispel:batrider_flaming_lasso",
+    "kind": "counterplay-strong-dispel",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Status · Strong dispel",
+    "prompt": "Which needs strong dispel?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/oracle_false_promise.png",
+      "alt": "False Promise ability icon",
+      "kind": "ability"
+    },
+    "answers": [
+      "Flaming Lasso",
+      "Poison Touch",
+      "Static Link",
+      "Dream Coil"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/batrider_flaming_lasso.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dazzle_poison_touch.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/razor_static_link.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/puck_dream_coil.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Flaming Lasso is removable by a strong dispel, but not by a basic dispel.",
+    "counterplay": {
+      "family": "strong-dispel",
+      "tool": "Strong Dispel",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-strong-dispel:chaos_knight_chaos_bolt",
+    "kind": "counterplay-strong-dispel",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Status · Strong dispel",
+    "prompt": "Which needs strong dispel?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/oracle_false_promise.png",
+      "alt": "False Promise ability icon",
+      "kind": "ability"
+    },
+    "answers": [
+      "Decrepify",
+      "Chaos Bolt",
+      "Reaper's Scythe",
+      "Glimpse"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pugna_decrepify.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/chaos_knight_chaos_bolt.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/necrolyte_reapers_scythe.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_glimpse.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Chaos Bolt is removable by a strong dispel, but not by a basic dispel.",
+    "counterplay": {
+      "family": "strong-dispel",
+      "tool": "Strong Dispel",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-strong-dispel:pudge_dismember",
+    "kind": "counterplay-strong-dispel",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Status · Strong dispel",
+    "prompt": "Which needs strong dispel?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/oracle_false_promise.png",
+      "alt": "False Promise ability icon",
+      "kind": "ability"
+    },
+    "answers": [
+      "Last Word",
+      "Rupture",
+      "Dismember",
+      "Maledict"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/silencer_last_word.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bloodseeker_rupture.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pudge_dismember.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/witch_doctor_maledict.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "Dismember is removable by a strong dispel, but not by a basic dispel.",
+    "counterplay": {
+      "family": "strong-dispel",
+      "tool": "Strong Dispel",
+      "outcomes": [
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-strong-dispel:tidehunter_ravage",
+    "kind": "counterplay-strong-dispel",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Status · Strong dispel",
+    "prompt": "Which needs strong dispel?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/oracle_false_promise.png",
+      "alt": "False Promise ability icon",
+      "kind": "ability"
+    },
+    "answers": [
+      "Corrosive Haze",
+      "Static Storm",
+      "Doom",
+      "Ravage"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/slardar_amplify_damage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_static_storm.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/doom_bringer_doom.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tidehunter_ravage.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "Ravage is removable by a strong dispel, but not by a basic dispel.",
+    "counterplay": {
+      "family": "strong-dispel",
+      "tool": "Strong Dispel",
+      "outcomes": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-nullifier:windrunner_windrun",
+    "kind": "counterplay-nullifier",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "Nullifier · Enemy buff",
+    "prompt": "Which buff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png",
+      "alt": "Nullifier item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Windrun",
+      "God's Strength",
+      "Blade Fury",
+      "Rage"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/windrunner_windrun.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sven_gods_strength.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/juggernaut_blade_fury.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/life_stealer_rage.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Nullifier's basic offensive dispel removes Windrun. The other three buffs are undispellable.",
+    "counterplay": {
+      "family": "offensive-dispel",
+      "tool": "Nullifier",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-nullifier:necrolyte_ghost_shroud",
+    "kind": "counterplay-nullifier",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "Nullifier · Enemy buff",
+    "prompt": "Which buff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png",
+      "alt": "Nullifier item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Shallow Grave",
+      "Ghost Shroud",
+      "Refraction",
+      "Shadow Realm"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dazzle_shallow_grave.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/necrolyte_ghost_shroud.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/templar_assassin_refraction.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dark_willow_shadow_realm.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Nullifier's basic offensive dispel removes Ghost Shroud. The other three buffs are undispellable.",
+    "counterplay": {
+      "family": "offensive-dispel",
+      "tool": "Nullifier",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-nullifier:sven_warcry",
+    "kind": "counterplay-nullifier",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "Nullifier · Enemy buff",
+    "prompt": "Which buff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png",
+      "alt": "Nullifier item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Guardian Angel",
+      "Borrowed Time",
+      "Warcry",
+      "Metamorphosis"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/omniknight_guardian_angel.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/abaddon_borrowed_time.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sven_warcry.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/terrorblade_metamorphosis.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "Nullifier's basic offensive dispel removes Warcry. The other three buffs are undispellable.",
+    "counterplay": {
+      "family": "offensive-dispel",
+      "tool": "Nullifier",
+      "outcomes": [
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-nullifier:ember_spirit_flame_guard",
+    "kind": "counterplay-nullifier",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "Nullifier · Enemy buff",
+    "prompt": "Which buff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png",
+      "alt": "Nullifier item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Blade Fury",
+      "Pierce the Veil",
+      "Shadow Dance",
+      "Flame Guard"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/juggernaut_blade_fury.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/muerta_pierce_the_veil.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/slark_shadow_dance.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/ember_spirit_flame_guard.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "Nullifier's basic offensive dispel removes Flame Guard. The other three buffs are undispellable.",
+    "counterplay": {
+      "family": "offensive-dispel",
+      "tool": "Nullifier",
+      "outcomes": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-nullifier:ogre_magi_bloodlust",
+    "kind": "counterplay-nullifier",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "Nullifier · Enemy buff",
+    "prompt": "Which buff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png",
+      "alt": "Nullifier item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Bloodlust",
+      "God's Strength",
+      "Focus Fire",
+      "Elder Dragon Form"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/ogre_magi_bloodlust.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sven_gods_strength.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/windrunner_focusfire.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dragon_knight_elder_dragon_form.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Nullifier's basic offensive dispel removes Bloodlust. The other three buffs are undispellable.",
+    "counterplay": {
+      "family": "offensive-dispel",
+      "tool": "Nullifier",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-nullifier:dark_seer_surge",
+    "kind": "counterplay-nullifier",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Nullifier · Enemy buff",
+    "prompt": "Which buff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png",
+      "alt": "Nullifier item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Shapeshift",
+      "Surge",
+      "Stampede",
+      "Skeleton Walk"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lycan_shapeshift.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dark_seer_surge.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/centaur_stampede.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/clinkz_wind_walk.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Nullifier's basic offensive dispel removes Surge. The other three buffs are undispellable.",
+    "counterplay": {
+      "family": "offensive-dispel",
+      "tool": "Nullifier",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-nullifier:treant_living_armor",
+    "kind": "counterplay-nullifier",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Nullifier · Enemy buff",
+    "prompt": "Which buff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png",
+      "alt": "Nullifier item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Shallow Grave",
+      "Cold Embrace",
+      "Living Armor",
+      "False Promise"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dazzle_shallow_grave.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/winter_wyvern_cold_embrace.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/treant_living_armor.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/oracle_false_promise.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "Nullifier's basic offensive dispel removes Living Armor. The other three buffs are undispellable.",
+    "counterplay": {
+      "family": "offensive-dispel",
+      "tool": "Nullifier",
+      "outcomes": [
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-nullifier:lich_frost_shield",
+    "kind": "counterplay-nullifier",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Nullifier · Enemy buff",
+    "prompt": "Which buff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png",
+      "alt": "Nullifier item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Refraction",
+      "Flame Cloak",
+      "Guardian Angel",
+      "Frost Shield"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/templar_assassin_refraction.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lina_flame_cloak.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/omniknight_guardian_angel.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lich_frost_shield.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "Nullifier's basic offensive dispel removes Frost Shield. The other three buffs are undispellable.",
+    "counterplay": {
+      "family": "offensive-dispel",
+      "tool": "Nullifier",
+      "outcomes": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-nullifier:grimstroke_spirit_walk",
+    "kind": "counterplay-nullifier",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Nullifier · Enemy buff",
+    "prompt": "Which buff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png",
+      "alt": "Nullifier item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Ink Swell",
+      "Shadow Realm",
+      "Uproar",
+      "Shadow Dance"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/grimstroke_spirit_walk.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dark_willow_shadow_realm.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/primal_beast_uproar.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/slark_shadow_dance.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Nullifier's basic offensive dispel removes Ink Swell. The other three buffs are undispellable.",
+    "counterplay": {
+      "family": "offensive-dispel",
+      "tool": "Nullifier",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-nullifier:magnataur_empower",
+    "kind": "counterplay-nullifier",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Nullifier · Enemy buff",
+    "prompt": "Which buff gets purged?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png",
+      "alt": "Nullifier item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "God's Strength",
+      "Empower",
+      "Metamorphosis",
+      "True Form"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sven_gods_strength.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/magnataur_empower.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/terrorblade_metamorphosis.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lone_druid_true_form.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Nullifier's basic offensive dispel removes Empower. The other three buffs are undispellable.",
+    "counterplay": {
+      "family": "offensive-dispel",
+      "tool": "Nullifier",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-block:doom_bringer_doom",
+    "kind": "counterplay-spell-block",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "Linken's · Spell block",
+    "prompt": "Which spell gets blocked?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sphere.png",
+      "alt": "Linken's Sphere item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Black Hole",
+      "Reverse Polarity",
+      "Doom",
+      "Chronosphere"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/enigma_black_hole.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/magnataur_reverse_polarity.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/doom_bringer_doom.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/faceless_void_chronosphere.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "Linken's Sphere blocks Doom's unit-targeted cast.",
+    "counterplay": {
+      "family": "spell-block",
+      "tool": "Linken's Sphere",
+      "outcomes": [
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-block:legion_commander_duel",
+    "kind": "counterplay-spell-block",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "Linken's · Spell block",
+    "prompt": "Which spell gets blocked?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sphere.png",
+      "alt": "Linken's Sphere item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Ravage",
+      "Arena Of Blood",
+      "Static Storm",
+      "Duel"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tidehunter_ravage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mars_arena_of_blood.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_static_storm.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/legion_commander_duel.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "Linken's Sphere blocks Duel's unit-targeted cast.",
+    "counterplay": {
+      "family": "spell-block",
+      "tool": "Linken's Sphere",
+      "outcomes": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-block:lion_finger_of_death",
+    "kind": "counterplay-spell-block",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "Linken's · Spell block",
+    "prompt": "Which spell gets blocked?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sphere.png",
+      "alt": "Linken's Sphere item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Finger of Death",
+      "Ghostship",
+      "Sonic Wave",
+      "Echo Slam"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lion_finger_of_death.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/kunkka_ghostship.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/queenofpain_sonic_wave.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/earthshaker_echo_slam.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Linken's Sphere blocks Finger of Death's unit-targeted cast.",
+    "counterplay": {
+      "family": "spell-block",
+      "tool": "Linken's Sphere",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-block:beastmaster_primal_roar",
+    "kind": "counterplay-spell-block",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "Linken's · Spell block",
+    "prompt": "Which spell gets blocked?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sphere.png",
+      "alt": "Linken's Sphere item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Hookshot",
+      "Primal Roar",
+      "Sacred Arrow",
+      "Spear of Mars"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/rattletrap_hookshot.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/beastmaster_primal_roar.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mirana_arrow.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mars_spear.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Linken's Sphere blocks Primal Roar's unit-targeted cast.",
+    "counterplay": {
+      "family": "spell-block",
+      "tool": "Linken's Sphere",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-block:necrolyte_reapers_scythe",
+    "kind": "counterplay-spell-block",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "Linken's · Spell block",
+    "prompt": "Which spell gets blocked?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sphere.png",
+      "alt": "Linken's Sphere item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Death Ward",
+      "Poison Nova",
+      "Reaper's Scythe",
+      "Epicenter"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/witch_doctor_death_ward.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/venomancer_poison_nova.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/necrolyte_reapers_scythe.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sandking_epicenter.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "Linken's Sphere blocks Reaper's Scythe's unit-targeted cast.",
+    "counterplay": {
+      "family": "spell-block",
+      "tool": "Linken's Sphere",
+      "outcomes": [
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-block:pudge_dismember",
+    "kind": "counterplay-spell-block",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "Linken's · Spell block",
+    "prompt": "Which spell gets blocked?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sphere.png",
+      "alt": "Linken's Sphere item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Black Hole",
+      "Freezing Field",
+      "Sun Ray",
+      "Dismember"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/enigma_black_hole.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/crystal_maiden_freezing_field.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/phoenix_sun_ray.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pudge_dismember.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "Linken's Sphere blocks Dismember's unit-targeted cast.",
+    "counterplay": {
+      "family": "spell-block",
+      "tool": "Linken's Sphere",
+      "outcomes": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-block:winter_wyvern_winters_curse",
+    "kind": "counterplay-spell-block",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Linken's · Spell block",
+    "prompt": "Which spell gets blocked?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sphere.png",
+      "alt": "Linken's Sphere item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Winter's Curse",
+      "Terrorize",
+      "Dream Coil",
+      "Song of the Siren"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/winter_wyvern_winters_curse.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dark_willow_terrorize.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/puck_dream_coil.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/naga_siren_song_of_the_siren.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Linken's Sphere blocks Winter's Curse's unit-targeted cast.",
+    "counterplay": {
+      "family": "spell-block",
+      "tool": "Linken's Sphere",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-block:terrorblade_sunder",
+    "kind": "counterplay-spell-block",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Linken's · Spell block",
+    "prompt": "Which spell gets blocked?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sphere.png",
+      "alt": "Linken's Sphere item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Eclipse",
+      "Sunder",
+      "Supernova",
+      "Pierce the Veil"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/luna_eclipse.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/terrorblade_sunder.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/phoenix_supernova.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/muerta_pierce_the_veil.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Linken's Sphere blocks Sunder's unit-targeted cast.",
+    "counterplay": {
+      "family": "spell-block",
+      "tool": "Linken's Sphere",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-block:sniper_assassinate",
+    "kind": "counterplay-spell-block",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Linken's · Spell block",
+    "prompt": "Which spell gets blocked?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sphere.png",
+      "alt": "Linken's Sphere item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Sharpshooter",
+      "Mortimer Kisses",
+      "Assassinate",
+      "Rocket Flare"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/hoodwink_sharpshooter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/snapfire_mortimer_kisses.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sniper_assassinate.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/rattletrap_rocket_flare.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "Linken's Sphere blocks Assassinate's unit-targeted cast.",
+    "counterplay": {
+      "family": "spell-block",
+      "tool": "Linken's Sphere",
+      "outcomes": [
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-block:razor_static_link",
+    "kind": "counterplay-spell-block",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Linken's · Spell block",
+    "prompt": "Which spell gets blocked?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sphere.png",
+      "alt": "Linken's Sphere item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Plasma Field",
+      "Eye of the Storm",
+      "Static Storm",
+      "Static Link"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/razor_plasma_field.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/razor_eye_of_the_storm.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_static_storm.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/razor_static_link.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "Linken's Sphere blocks Static Link's unit-targeted cast.",
+    "counterplay": {
+      "family": "spell-block",
+      "tool": "Linken's Sphere",
+      "outcomes": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-reflect:lina_laguna_blade",
+    "kind": "counterplay-spell-reflect",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "Lotus · Spell reflect",
+    "prompt": "Which spell gets returned?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png",
+      "alt": "Lotus Orb item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Laguna Blade",
+      "Light Strike Array",
+      "Powershot",
+      "Requiem of Souls"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lina_laguna_blade.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lina_light_strike_array.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/windrunner_powershot.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/nevermore_requiem.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Echo Shell re-casts Laguna Blade at its caster. The original spell still affects the shielded hero.",
+    "counterplay": {
+      "family": "spell-reflect",
+      "tool": "Lotus Orb",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-reflect:vengefulspirit_magic_missile",
+    "kind": "counterplay-spell-reflect",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "Lotus · Spell reflect",
+    "prompt": "Which spell gets returned?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png",
+      "alt": "Lotus Orb item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Wave of Terror",
+      "Magic Missile",
+      "Ravage",
+      "Fissure"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/vengefulspirit_wave_of_terror.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/vengefulspirit_magic_missile.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tidehunter_ravage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/earthshaker_fissure.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Echo Shell re-casts Magic Missile at its caster. The original spell still affects the shielded hero.",
+    "counterplay": {
+      "family": "spell-reflect",
+      "tool": "Lotus Orb",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-reflect:lich_frost_nova",
+    "kind": "counterplay-spell-reflect",
+    "category": "Mechanics",
+    "difficulty": 1,
+    "eyebrow": "Lotus · Spell reflect",
+    "prompt": "Which spell gets returned?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png",
+      "alt": "Lotus Orb item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Ice Path",
+      "Macropyre",
+      "Frost Blast",
+      "Crystal Nova"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/jakiro_ice_path.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/jakiro_macropyre.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lich_frost_nova.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/crystal_maiden_crystal_nova.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "Echo Shell re-casts Frost Blast at its caster. The original spell still affects the shielded hero.",
+    "counterplay": {
+      "family": "spell-reflect",
+      "tool": "Lotus Orb",
+      "outcomes": [
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-reflect:sven_storm_bolt",
+    "kind": "counterplay-spell-reflect",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "Lotus · Spell reflect",
+    "prompt": "Which spell gets returned?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png",
+      "alt": "Lotus Orb item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Hoof Stomp",
+      "Avalanche",
+      "Reverse Polarity",
+      "Storm Hammer"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/centaur_hoof_stomp.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tiny_avalanche.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/magnataur_reverse_polarity.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sven_storm_bolt.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "Echo Shell re-casts Storm Hammer at its caster. The original spell still affects the shielded hero.",
+    "counterplay": {
+      "family": "spell-reflect",
+      "tool": "Lotus Orb",
+      "outcomes": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-reflect:lion_finger_of_death",
+    "kind": "counterplay-spell-reflect",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "Lotus · Spell reflect",
+    "prompt": "Which spell gets returned?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png",
+      "alt": "Lotus Orb item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Finger of Death",
+      "Sonic Wave",
+      "Echo Slam",
+      "Shrapnel"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lion_finger_of_death.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/queenofpain_sonic_wave.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/earthshaker_echo_slam.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sniper_shrapnel.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Echo Shell re-casts Finger of Death at its caster. The original spell still affects the shielded hero.",
+    "counterplay": {
+      "family": "spell-reflect",
+      "tool": "Lotus Orb",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-reflect:viper_viper_strike",
+    "kind": "counterplay-spell-reflect",
+    "category": "Mechanics",
+    "difficulty": 2,
+    "eyebrow": "Lotus · Spell reflect",
+    "prompt": "Which spell gets returned?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png",
+      "alt": "Lotus Orb item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Nethertoxin",
+      "Viper Strike",
+      "Poison Nova",
+      "Venomous Gale"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/viper_nethertoxin.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/viper_viper_strike.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/venomancer_poison_nova.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/venomancer_venomous_gale.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Echo Shell re-casts Viper Strike at its caster. The original spell still affects the shielded hero.",
+    "counterplay": {
+      "family": "spell-reflect",
+      "tool": "Lotus Orb",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-reflect:doom_bringer_doom",
+    "kind": "counterplay-spell-reflect",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Lotus · Spell reflect",
+    "prompt": "Which spell gets returned?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png",
+      "alt": "Lotus Orb item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Static Storm",
+      "Dream Coil",
+      "Doom",
+      "Black Hole"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_static_storm.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/puck_dream_coil.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/doom_bringer_doom.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/enigma_black_hole.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "Echo Shell re-casts Doom at its caster. The original spell still affects the shielded hero.",
+    "counterplay": {
+      "family": "spell-reflect",
+      "tool": "Lotus Orb",
+      "outcomes": [
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-reflect:bane_fiends_grip",
+    "kind": "counterplay-spell-reflect",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Lotus · Spell reflect",
+    "prompt": "Which spell gets returned?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png",
+      "alt": "Lotus Orb item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Black Hole",
+      "Sun Ray",
+      "Freezing Field",
+      "Fiend's Grip"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/enigma_black_hole.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/phoenix_sun_ray.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/crystal_maiden_freezing_field.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bane_fiends_grip.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "Echo Shell re-casts Fiend's Grip at its caster. The original spell still affects the shielded hero.",
+    "counterplay": {
+      "family": "spell-reflect",
+      "tool": "Lotus Orb",
+      "outcomes": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-reflect:legion_commander_duel",
+    "kind": "counterplay-spell-reflect",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Lotus · Spell reflect",
+    "prompt": "Which spell gets returned?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png",
+      "alt": "Lotus Orb item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Duel",
+      "Arena Of Blood",
+      "Chronosphere",
+      "Ravage"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/legion_commander_duel.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mars_arena_of_blood.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/faceless_void_chronosphere.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tidehunter_ravage.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "Echo Shell re-casts Duel at its caster. The original spell still affects the shielded hero.",
+    "counterplay": {
+      "family": "spell-reflect",
+      "tool": "Lotus Orb",
+      "outcomes": [
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  },
+  {
+    "id": "counterplay-spell-reflect:vengefulspirit_nether_swap",
+    "kind": "counterplay-spell-reflect",
+    "category": "Mechanics",
+    "difficulty": 3,
+    "eyebrow": "Lotus · Spell reflect",
+    "prompt": "Which spell gets returned?",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png",
+      "alt": "Lotus Orb item icon",
+      "kind": "item"
+    },
+    "answers": [
+      "Vacuum",
+      "Nether Swap",
+      "Ghostship",
+      "Rolling Boulder"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dark_seer_vacuum.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/vengefulspirit_nether_swap.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/kunkka_ghostship.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/earth_spirit_rolling_boulder.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "Echo Shell re-casts Nether Swap at its caster. The original spell still affects the shielded hero.",
+    "counterplay": {
+      "family": "spell-reflect",
+      "tool": "Lotus Orb",
+      "outcomes": [
+        false,
+        true,
+        false,
+        false
+      ]
+    },
+    "source": {
+      "label": "OpenDota game constants · 2026-07-28",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d"
+  }
+]

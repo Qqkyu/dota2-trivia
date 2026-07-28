@@ -1,3 +1,4 @@
+import counterplayQuestions from "@/data/counterplay-questions.json";
 import generatedQuestions from "@/data/questions.generated.json";
 import generatedMeta from "@/data/trivia-meta.generated.json";
 import { mapSenseQuestions } from "@/lib/map-sense";
@@ -9,7 +10,16 @@ export const SKILL_LEVELS = ["Open", "Learning", "Veteran"] as const;
 
 export type KnowledgeFilter = (typeof KNOWLEDGE_FILTERS)[number];
 export type SkillLevel = (typeof SKILL_LEVELS)[number];
-export type TriviaCategory = "Abilities" | "Cooldowns" | "Damage" | "Recipes" | "Items" | "Mana" | "Heroes" | "Map";
+export type TriviaCategory =
+  | "Abilities"
+  | "Cooldowns"
+  | "Damage"
+  | "Recipes"
+  | "Items"
+  | "Mana"
+  | "Heroes"
+  | "Map"
+  | "Mechanics";
 export type ArcadeMode =
   | "mixed"
   | "trivia"
@@ -18,7 +28,8 @@ export type ArcadeMode =
   | "fogged-vision"
   | "echo-hunt"
   | "quote-hunt"
-  | "map-sense";
+  | "map-sense"
+  | "counterplay";
 export type RoundGame = Exclude<ArcadeMode, "mixed">;
 export type QuestionKind =
   | "spell-owner"
@@ -45,8 +56,21 @@ export type QuestionKind =
   | "map-crop"
   | "map-camp-block"
   | "map-stack-route"
-  | "map-tp-in";
+  | "map-tp-in"
+  | "counterplay-immunity"
+  | "counterplay-basic-dispel"
+  | "counterplay-strong-dispel"
+  | "counterplay-nullifier"
+  | "counterplay-spell-block"
+  | "counterplay-spell-reflect";
 export type TriviaArtworkKind = "ability" | "hero" | "item";
+export type CounterplayFamily =
+  | "debuff-immunity"
+  | "basic-dispel"
+  | "strong-dispel"
+  | "offensive-dispel"
+  | "spell-block"
+  | "spell-reflect";
 
 export interface TriviaQuestion {
   id: string;
@@ -69,6 +93,11 @@ export interface TriviaQuestion {
   hint?: string;
   audio?: {
     src: string;
+  };
+  counterplay?: {
+    family: CounterplayFamily;
+    tool: string;
+    outcomes: [boolean, boolean, boolean, boolean];
   };
   map?: MapChallenge;
   source: {
@@ -94,10 +123,11 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-1`;
 export const triviaQuestions = [
   ...(generatedQuestions as TriviaQuestion[]),
   ...(mapSenseQuestions as TriviaQuestion[]),
+  ...(counterplayQuestions as TriviaQuestion[]),
 ];
 
 export interface ArcadeRound extends TriviaQuestion {
@@ -125,6 +155,7 @@ export function gameForQuestion(question: TriviaQuestion): RoundGame {
   if (question.kind === "hero-voice") return "echo-hunt";
   if (question.kind === "hero-quote") return "quote-hunt";
   if (question.kind.startsWith("map-")) return "map-sense";
+  if (question.kind.startsWith("counterplay-")) return "counterplay";
   return "trivia";
 }
 
@@ -139,6 +170,7 @@ function shuffledPool(seed: string, game: RoundGame, filter: KnowledgeFilter, sk
     if (gameForQuestion(question) !== game) return false;
     if (game === "trivia") return belongsToFilter(question, filter) && belongsToSkillLevel(question, skillLevel);
     if (game === "spell-link") return belongsToSkillLevel(question, skillLevel);
+    if (game === "counterplay") return belongsToSkillLevel(question, skillLevel);
     if (game === "map-sense") {
       if (skillLevel === "Learning") return question.difficulty <= 2;
       if (skillLevel === "Veteran") {
@@ -171,6 +203,7 @@ export function createArcadeDeck(
     "echo-hunt",
     "quote-hunt",
     "map-sense",
+    "counterplay",
   ] satisfies RoundGame[];
   const games: RoundGame[] =
     mode === "mixed"
@@ -185,6 +218,7 @@ export function createArcadeDeck(
     "echo-hunt": shuffledPool(seed, "echo-hunt", filter, skillLevel),
     "quote-hunt": shuffledPool(seed, "quote-hunt", filter, skillLevel),
     "map-sense": shuffledPool(seed, "map-sense", filter, skillLevel),
+    counterplay: shuffledPool(seed, "counterplay", filter, skillLevel),
   };
   const cursors: Record<RoundGame, number> = {
     trivia: 0,
@@ -194,6 +228,7 @@ export function createArcadeDeck(
     "echo-hunt": 0,
     "quote-hunt": 0,
     "map-sense": 0,
+    counterplay: 0,
   };
 
   return games.flatMap((game) => {

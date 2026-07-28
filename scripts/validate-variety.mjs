@@ -22,7 +22,16 @@ if (
   throw new Error("The deterministic variety scheduler repeated or lost a question in its balanced opening.");
 }
 
-const arcadeGames = ["trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt", "quote-hunt", "map-sense"];
+const arcadeGames = [
+  "trivia",
+  "shopkeeper",
+  "spell-link",
+  "fogged-vision",
+  "echo-hunt",
+  "quote-hunt",
+  "map-sense",
+  "counterplay",
+];
 const mixedRounds = fixedCycleRotation(arcadeGames, "public-room-regression", 31, 4);
 const mixedWindowsAreComplete = mixedRounds
   .slice(0, mixedRounds.length - arcadeGames.length + 1)
@@ -33,7 +42,32 @@ if (
   mixedRounds.some((game, index) => index > 0 && game === mixedRounds[index - 1]) ||
   JSON.stringify(mixedRounds) !== JSON.stringify(fixedCycleRotation(arcadeGames, "public-room-regression", 31, 4))
 ) {
-  throw new Error("Mixed Arcade can skip or repeat a game inside its guaranteed seven-round rotation.");
+  throw new Error("Mixed Arcade can skip or repeat a game inside its guaranteed eight-round rotation.");
+}
+
+const counterplayKinds = [
+  "counterplay-immunity",
+  "counterplay-basic-dispel",
+  "counterplay-strong-dispel",
+  "counterplay-nullifier",
+  "counterplay-spell-block",
+  "counterplay-spell-reflect",
+];
+const counterplayFixture = counterplayKinds.flatMap((kind) =>
+  Array.from({ length: kind === "counterplay-immunity" ? 12 : 10 }, (_, index) => ({
+    id: `${kind}-${index}`,
+    kind,
+  })),
+);
+const counterplayOpening = varietyShuffle(counterplayFixture, "counterplay-family-regression").slice(0, 24);
+const counterplayOpeningCounts = Object.fromEntries(
+  counterplayKinds.map((kind) => [kind, counterplayOpening.filter((question) => question.kind === kind).length]),
+);
+if (
+  counterplayOpening.some((question, index) => index > 0 && question.kind === counterplayOpening[index - 1].kind) ||
+  counterplayKinds.some((kind) => counterplayOpeningCounts[kind] < 3 || counterplayOpeningCounts[kind] > 5)
+) {
+  throw new Error(`Counterplay lost its balanced six-family opening: ${JSON.stringify(counterplayOpeningCounts)}.`);
 }
 
 const mapKinds = [
@@ -98,5 +132,5 @@ if (
 }
 
 console.log(
-  `Validated deterministic template, Mixed Arcade, Map Sense family rotation, and ${MAP_READ_GRACE_MS / 1000}s reading grace (Open ${JSON.stringify(mapOpeningCounts)}, Veteran ${JSON.stringify(veteranMapCounts)}).`,
+  `Validated deterministic template, eight-game Mixed Arcade, Counterplay and Map Sense family rotation, and ${MAP_READ_GRACE_MS / 1000}s reading grace (Counterplay ${JSON.stringify(counterplayOpeningCounts)}, Map Open ${JSON.stringify(mapOpeningCounts)}, Veteran ${JSON.stringify(veteranMapCounts)}).`,
 );

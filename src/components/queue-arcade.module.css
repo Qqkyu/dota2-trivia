@@ -1192,6 +1192,17 @@
   box-shadow: 0 0 14px rgba(111, 210, 210, 0.44);
 }
 
+.counterplayStage {
+  background: radial-gradient(circle at 31% 22%, rgba(76, 158, 112, 0.12), transparent 31%),
+    radial-gradient(circle at 72% 56%, rgba(102, 148, 180, 0.055), transparent 30%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.025), transparent 28%), rgba(15, 18, 19, 0.88);
+}
+
+.counterplayStage .timerTrack > span {
+  background: linear-gradient(90deg, #316d4b, #76c68f);
+  box-shadow: 0 0 14px rgba(118, 198, 143, 0.42);
+}
+
 .gameStage::after {
   position: absolute;
   z-index: 0;
@@ -1303,6 +1314,10 @@
   color: #79cdce;
 }
 
+.counterplayStage .roundGameLabel svg {
+  color: #79cf99;
+}
+
 .difficulty1 {
   color: var(--green) !important;
 }
@@ -1351,6 +1366,59 @@
   justify-content: center;
   gap: 34px;
   padding: 30px 42px 20px;
+}
+
+.counterplayQuestion {
+  gap: 42px;
+}
+
+.counterplayTool {
+  position: relative;
+  flex: 0 0 auto;
+  padding-bottom: 18px;
+}
+
+.counterplayTool .artGlow {
+  background: rgba(65, 152, 103, 0.25);
+}
+
+.counterplayTool .artCorner {
+  border-color: #79cf99;
+}
+
+.counterplayTool > span {
+  position: absolute;
+  z-index: 5;
+  right: -15px;
+  bottom: 0;
+  display: inline-flex;
+  min-width: 108px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 10px;
+  border: 1px solid rgba(121, 207, 153, 0.42);
+  background: #101817;
+  color: #9bdbb2;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.counterplayTool > span svg {
+  width: 13px;
+  height: 13px;
+}
+
+.counterplayQuestion .questionCopy > span {
+  color: #79cf99;
+}
+
+.counterplayQuestion .questionCopy h2 {
+  font-size: clamp(31px, 3.3vw, 48px);
 }
 
 .mapSenseQuestion {
@@ -3025,6 +3093,16 @@
   border-color: rgba(222, 164, 96, 0.4);
   background: rgba(141, 87, 43, 0.08);
 }
+
+.counterplayAnswers .answer:hover {
+  border-color: rgba(121, 207, 153, 0.42);
+  background: rgba(57, 123, 82, 0.08);
+}
+
+.counterplayAnswers .visualAnswer {
+  min-height: 92px;
+}
+
 .answer:not(:disabled):hover {
   border-color: rgba(240, 106, 88, 0.36);
   background: rgba(210, 76, 63, 0.07);
@@ -4553,7 +4631,8 @@
   .spellQuestion,
   .fogQuestion,
   .echoQuestion,
-  .quoteQuestion {
+  .quoteQuestion,
+  .counterplayQuestion {
     min-height: 270px;
   }
 
@@ -4563,6 +4642,19 @@
   .quoteQuestion {
     height: 340px;
     min-height: 340px;
+  }
+
+  .counterplayQuestion {
+    gap: 24px;
+  }
+
+  .counterplayTool {
+    padding-bottom: 13px;
+  }
+
+  .counterplayTool > span {
+    right: 50%;
+    transform: translateX(50%);
   }
 
   .shopkeeperQuestion .questionCopy,

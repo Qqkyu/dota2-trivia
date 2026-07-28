@@ -6,7 +6,11 @@ import { fileURLToPath } from "node:url";
 import { auditAudioAssets, auditImageAssets, questionAudioUrls, questionImageUrls } from "./image-assets.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const questions = JSON.parse(await readFile(join(root, "src", "data", "questions.generated.json"), "utf8"));
+const [generatedQuestions, counterplayQuestions] = await Promise.all([
+  readFile(join(root, "src", "data", "questions.generated.json"), "utf8").then(JSON.parse),
+  readFile(join(root, "src", "data", "counterplay-questions.json"), "utf8").then(JSON.parse),
+]);
+const questions = [...generatedQuestions, ...counterplayQuestions];
 const [images, audio] = await Promise.all([auditImageAssets(questions), auditAudioAssets(questions)]);
 const failures = questions.flatMap((question) => {
   const missing = [

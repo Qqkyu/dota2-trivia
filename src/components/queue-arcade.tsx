@@ -20,6 +20,7 @@ import {
   MessageSquareQuote,
   Radio,
   RotateCcw,
+  ShieldCheck,
   ShoppingBag,
   Shuffle,
   Signal,
@@ -78,6 +79,7 @@ const ACTIVE_GAME = GAME_CATALOGS[DEFAULT_GAME_ID];
 const ACTIVE_QUESTIONS = ACTIVE_GAME.questions;
 const QUESTIONS_BY_ID = new Map(ACTIVE_QUESTIONS.map((question) => [question.id, question]));
 const ARCADE_MODES: ArcadeMode[] = [...ACTIVE_GAME.modes];
+const ROUND_GAMES: RoundGame[] = ARCADE_MODES.filter((mode): mode is RoundGame => mode !== "mixed");
 
 const SKILL_INFO: Record<
   SkillLevel,
@@ -166,9 +168,9 @@ const MODE_INFO: Record<
     label: "Mixed Arcade",
     shortLabel: "Mixed",
     eyebrow: "House pick · Recommended",
-    description: "Facts, recipes, spells, fog, voices, quotes, and map pings rotate every round.",
+    description: "Facts, recipes, spells, fog, voices, quotes, map calls, and mechanics rotate every round.",
     action: "Enter mixed arcade",
-    rule: "Every seven rounds contains all seven games exactly once.",
+    rule: "Every eight rounds contains all eight games exactly once.",
   },
   trivia: {
     label: "Queue Trivia",
@@ -226,6 +228,14 @@ const MODE_INFO: Record<
     action: "Read the map",
     rule: "Real terrain, spawn boxes, stack guides, and live structures.",
   },
+  counterplay: {
+    label: "Counterplay",
+    shortLabel: "Counterplay",
+    eyebrow: "Mechanics check",
+    description: "Read BKB, dispels, Linken's, Lotus, and Nullifier interactions before the fight is decided.",
+    action: "Test your mechanics",
+    rule: "One mechanic, four abilities, and one interaction that actually works.",
+  },
 };
 
 function ModeIcon({ mode }: { mode: ArcadeMode | RoundGame }) {
@@ -236,6 +246,7 @@ function ModeIcon({ mode }: { mode: ArcadeMode | RoundGame }) {
   if (mode === "echo-hunt") return <AudioLines />;
   if (mode === "quote-hunt") return <MessageSquareQuote />;
   if (mode === "map-sense") return <MapPin />;
+  if (mode === "counterplay") return <ShieldCheck />;
   return <Brain />;
 }
 
@@ -328,9 +339,7 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     typeof round.id !== "string" ||
     typeof round.number !== "number" ||
     (round.phase !== "answering" && round.phase !== "reveal") ||
-    !["trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt", "quote-hunt", "map-sense"].includes(
-      round.game,
-    ) ||
+    !ROUND_GAMES.includes(round.game) ||
     typeof round.questionId !== "string" ||
     typeof round.startedAt !== "number" ||
     typeof round.answerDeadline !== "number" ||
@@ -1134,6 +1143,9 @@ export function QueueArcade() {
     }
     if (mode === "map-sense") {
       return ACTIVE_QUESTIONS.find((question) => question.map?.reference) ?? ACTIVE_QUESTIONS[0];
+    }
+    if (mode === "counterplay") {
+      return ACTIVE_QUESTIONS.find((question) => question.kind === "counterplay-immunity") ?? ACTIVE_QUESTIONS[0];
     }
     return ACTIVE_QUESTIONS.find((question) => question.id === "cooldown:lina_dragon_slave:4") ?? ACTIVE_QUESTIONS[0];
   }, [mode]);
@@ -2000,7 +2012,7 @@ export function QueueArcade() {
           <div className={styles.lobbyCopy}>
             <div className={styles.liveLabel}>
               <span />
-              Seven games live · More in the lab
+              Eight games live · More in the lab
             </div>
             <h1>
               Your queue has
@@ -2235,6 +2247,7 @@ export function QueueArcade() {
               currentGame === "echo-hunt" && styles.echoStage,
               currentGame === "quote-hunt" && styles.quoteStage,
               currentGame === "map-sense" && styles.mapSenseStage,
+              currentGame === "counterplay" && styles.counterplayStage,
             )}
           >
             <div className={styles.timerTrack} aria-hidden="true">
@@ -2449,6 +2462,25 @@ export function QueueArcade() {
                   <h2>Which hero speaks like this?</h2>
                 </div>
               </div>
+            ) : currentGame === "counterplay" ? (
+              <div
+                className={clsx(styles.questionBlock, styles.counterplayQuestion)}
+                data-testid="round-prompt"
+                data-counterplay-family={currentQuestion.counterplay?.family}
+              >
+                <div className={styles.counterplayTool}>
+                  <QuestionArtwork question={currentQuestion} />
+                  <span>
+                    <ShieldCheck />
+                    {currentQuestion.counterplay?.tool}
+                  </span>
+                </div>
+                <div className={styles.questionCopy}>
+                  <span>{currentQuestion.eyebrow}</span>
+                  <h2>{currentQuestion.prompt}</h2>
+                  <small>Base abilities · no talents or upgrades</small>
+                </div>
+              </div>
             ) : (
               <div
                 className={clsx(styles.questionBlock, !currentQuestion.image && styles.textQuestion)}
@@ -2485,6 +2517,7 @@ export function QueueArcade() {
                   currentGame === "fogged-vision" && styles.fogAnswers,
                   currentGame === "echo-hunt" && styles.echoAnswers,
                   currentGame === "quote-hunt" && styles.quoteAnswers,
+                  currentGame === "counterplay" && styles.counterplayAnswers,
                 )}
                 role="group"
                 aria-label="Answer choices"
@@ -2567,7 +2600,9 @@ export function QueueArcade() {
                               ? "Play the echo, then choose · A–D or 1–4"
                               : currentGame === "quote-hunt"
                                 ? "Match the line to its hero · A–D or 1–4"
-                                : "Use A–D or 1–4 to answer"}
+                                : currentGame === "counterplay"
+                                  ? "Pick the interaction · A–D or 1–4"
+                                  : "Use A–D or 1–4 to answer"}
                       <span>Correct now: {liveAward?.rawPoints ?? 0} pts</span>
                     </>
                   ) : (
@@ -2779,7 +2814,9 @@ export function QueueArcade() {
                             ? "Quote Hunt tip"
                             : currentGame === "map-sense"
                               ? "Map Sense tip"
-                              : "Crowd rules"}
+                              : currentGame === "counterplay"
+                                ? "Counterplay tip"
+                                : "Crowd rules"}
                 </span>
                 <p>
                   {currentGame === "shopkeeper"
@@ -2800,7 +2837,9 @@ export function QueueArcade() {
                                   : currentQuestion.kind === "map-tp-in"
                                     ? "All four marked towers are live. Choose the one nearest the fight ping."
                                     : "Paths, ramps, and treelines are stronger tells than faction color."
-                              : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
+                              : currentGame === "counterplay"
+                                ? "Read the mechanic first. Every option is plausible; only one matches the current base interaction."
+                                : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
                 </p>
               </div>
             </div>

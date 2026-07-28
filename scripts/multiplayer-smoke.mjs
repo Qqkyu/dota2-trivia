@@ -12,6 +12,9 @@ const mapChallenges = JSON.parse(
   await readFile(path.join(process.cwd(), "src", "data", "map-sense-challenges.json"), "utf8"),
 );
 const mapCrops = JSON.parse(await readFile(path.join(process.cwd(), "src", "data", "map-sense-crops.json"), "utf8"));
+const counterplayQuestions = JSON.parse(
+  await readFile(path.join(process.cwd(), "src", "data", "counterplay-questions.json"), "utf8"),
+);
 const settings = {
   gameId: "dota2",
   mode: "mixed",
@@ -324,6 +327,45 @@ if (
   throw new Error("Map Sense choice answers did not reveal as a synchronized A–D split.");
 }
 
+const counterplayLearningSettings = {
+  gameId: "dota2",
+  mode: "counterplay",
+  filter: "Mixed",
+  skillLevel: "Learning",
+};
+const counterplayVeteranSettings = {
+  ...counterplayLearningSettings,
+  skillLevel: "Veteran",
+};
+const learningCounterplayPlayer = `multiplayer-counterplay-learning-${randomUUID()}`;
+const veteranCounterplayPlayer = `multiplayer-counterplay-veteran-${randomUUID()}`;
+const [learningCounterplay, veteranCounterplay] = await Promise.all([
+  answeringRoundWithTime(learningCounterplayPlayer, counterplayLearningSettings),
+  answeringRoundWithTime(veteranCounterplayPlayer, counterplayVeteranSettings),
+]);
+const learningDefinition = counterplayQuestions.find(
+  (question) => question.id === learningCounterplay.round.questionId,
+);
+const veteranDefinition = counterplayQuestions.find((question) => question.id === veteranCounterplay.round.questionId);
+if (
+  learningCounterplay.round.game !== "counterplay" ||
+  veteranCounterplay.round.game !== "counterplay" ||
+  learningDefinition?.difficulty !== 1 ||
+  (veteranDefinition?.difficulty ?? 0) < 2
+) {
+  throw new Error("Counterplay public rooms did not respect Learning and Veteran pools.");
+}
+const counterplayVote = await vote(veteranCounterplay, veteranCounterplayPlayer, 0, counterplayVeteranSettings);
+const counterplayDuplicate = await vote(veteranCounterplay, veteranCounterplayPlayer, 3, counterplayVeteranSettings);
+if (
+  !counterplayVote.accepted ||
+  counterplayVote.playerVote?.mapPosition ||
+  counterplayDuplicate.accepted ||
+  counterplayDuplicate.playerVote?.answerIndex !== 0
+) {
+  throw new Error("Counterplay voting or duplicate protection failed.");
+}
+
 console.log(
   JSON.stringify(
     {
@@ -345,6 +387,8 @@ console.log(
       mapPinRevealed: true,
       mapChoiceAcceptedWithoutPin: true,
       mapChoiceSplitRevealed: true,
+      counterplaySkillPoolsVerified: true,
+      counterplayVoteAccepted: true,
     },
     null,
     2,

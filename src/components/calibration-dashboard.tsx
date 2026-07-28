@@ -34,6 +34,7 @@ const GAME_LABELS = {
   "echo-hunt": "Echo Hunt",
   "quote-hunt": "Quote Hunt",
   "map-sense": "Map Sense",
+  counterplay: "Counterplay",
 };
 
 function percentage(value: number | null) {

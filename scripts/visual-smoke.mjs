@@ -580,6 +580,60 @@ const quoteHunt = await evaluate(`({
 })`);
 await screenshot("/tmp/queue-arcade-quote-hunt.png");
 
+await navigate(appUrl);
+await evaluate(`(() => {
+  document.querySelector('[data-arcade-mode="counterplay"]')?.click();
+  document.querySelector('[data-skill-level="veteran"]')?.click();
+  return true;
+})()`);
+await delay(350);
+const counterplayPreview = await evaluate(`({
+  active: Boolean(document.querySelector('[data-arcade-mode="counterplay"][aria-pressed="true"]')),
+  prompt: document.querySelector('[data-testid="mode-preview"] h2')?.innerText,
+  answers: document.querySelectorAll('[data-testid="mode-preview"] [class*="previewAnswers"] > div').length,
+  artworkLoaded: [...document.querySelectorAll('[data-testid="mode-preview"] img')]
+    .some((image) => image.complete && image.naturalWidth > 0)
+})`);
+await screenshot("/tmp/queue-arcade-counterplay-preview.png");
+await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+await waitFor(`(() => {
+  const main = document.querySelector("main");
+  const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
+  const artwork = document.querySelector('[data-testid="question-artwork"]');
+  const answerImages = [...document.querySelectorAll('[data-testid="arcade-answer"] img')];
+  return main?.dataset.phase === "answering" &&
+    main?.dataset.questionKind?.startsWith("counterplay-") &&
+    timer >= 4 &&
+    artwork?.dataset.artworkState === "loaded" &&
+    answerImages.length === 4 &&
+    answerImages.every((image) => image.complete && image.naturalWidth > 0);
+})()`);
+const counterplay = await evaluate(`(() => {
+  const prompt = document.querySelector('[data-testid="round-prompt"]');
+  return {
+    game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
+    kind: document.querySelector("main")?.dataset.questionKind,
+    family: prompt?.dataset.counterplayFamily,
+    prompt: prompt?.querySelector("h2")?.innerText,
+    promptWords: prompt?.querySelector("h2")?.innerText?.trim().split(/\\s+/).length,
+    tool: prompt?.querySelector('[class*="counterplayTool"] > span')?.innerText,
+    difficulty: Number(document.querySelector('[data-testid="round-difficulty"]')?.dataset.contentDifficulty),
+    answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
+    answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
+    horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+  };
+})()`);
+await screenshot("/tmp/queue-arcade-counterplay.png");
+await evaluate(`document.querySelector('[data-testid="arcade-answer"]')?.click()`);
+await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`);
+const counterplayReveal = await evaluate(`({
+  correctAnswers: document.querySelectorAll('[data-testid="arcade-answer"][class*="answerCorrect"]').length,
+  explanation: document.querySelector('[aria-live="polite"] p')?.innerText,
+  sourceLabelVisible: document.body.innerText.includes("OpenDota game constants"),
+  horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+})`);
+await screenshot("/tmp/queue-arcade-counterplay-reveal.png");
+
 async function inspectMapSenseVariant() {
   return evaluate(`(() => {
     const board = document.querySelector('[data-testid="map-sense-board"]');
@@ -908,7 +962,7 @@ const validMapReveal = (reveal) => {
   return commonChoice && !reveal.spawnBox && reveal.routeLines === 0;
 };
 if (!lobby.title.includes("Queue Arcade")) failures.push("The Queue Arcade metadata title is missing.");
-if (!lobby.startButton || lobby.arcadeModes !== 8 || lobby.skillLevels !== 3) {
+if (!lobby.startButton || lobby.arcadeModes !== 9 || lobby.skillLevels !== 3) {
   failures.push("The arcade lobby controls are incomplete.");
 }
 if (lobby.horizontalOverflow) failures.push("The desktop lobby overflows horizontally.");
@@ -1032,6 +1086,32 @@ if (
 ) {
   failures.push("Quote Hunt line or hero choices failed.");
 }
+if (
+  !counterplayPreview.active ||
+  !counterplayPreview.prompt ||
+  counterplayPreview.answers !== 4 ||
+  !counterplayPreview.artworkLoaded
+) {
+  failures.push("Counterplay lobby preview is incomplete.");
+}
+if (
+  counterplay.game !== "counterplay" ||
+  !counterplay.kind?.startsWith("counterplay-") ||
+  !counterplay.family ||
+  !counterplay.prompt ||
+  counterplay.promptWords > 5 ||
+  !counterplay.tool ||
+  counterplay.difficulty < 2 ||
+  counterplay.answerCount !== 4 ||
+  counterplay.answerImages !== 4 ||
+  counterplay.horizontalOverflow ||
+  counterplayReveal.correctAnswers !== 1 ||
+  !counterplayReveal.explanation ||
+  counterplayReveal.sourceLabelVisible ||
+  counterplayReveal.horizontalOverflow
+) {
+  failures.push("Counterplay mechanic round or reveal is incomplete.");
+}
 if (!mapPreview.visible || !mapPreview.imageLoaded || mapPreview.bands !== 4) {
   failures.push("Map Sense lobby preview is incomplete.");
 }
@@ -1047,6 +1127,8 @@ if (
   foggedVision.horizontalOverflow ||
   echoHunt.horizontalOverflow ||
   quoteHunt.horizontalOverflow ||
+  counterplay.horizontalOverflow ||
+  counterplayReveal.horizontalOverflow ||
   mapVariants.some((variant) => variant.horizontalOverflow) ||
   mapReveals.some((reveal) => reveal.horizontalOverflow) ||
   reportMenu.horizontalOverflow ||
@@ -1130,6 +1212,9 @@ console.log(
       fogNextRound,
       echoHunt,
       quoteHunt,
+      counterplayPreview,
+      counterplay,
+      counterplayReveal,
       mapPreview,
       mapSenseAnswering,
       mapVariants,
