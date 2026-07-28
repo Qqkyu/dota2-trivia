@@ -3,7 +3,11 @@ const RETRYABLE_STATUS_CODES = new Set([408, 425, 429, 500, 502, 503, 504]);
 const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
 export function questionImageUrls(question) {
-  return [question.image?.src, ...(question.answerImages ?? [])].filter(Boolean);
+  return [
+    question.image?.src,
+    ...(question.answerImages ?? []),
+    ...(question.counterplay?.toolImages?.map((image) => image.src) ?? []),
+  ].filter(Boolean);
 }
 
 export function questionAudioUrls(question) {

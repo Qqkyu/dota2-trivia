@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
+  ArrowRight,
   AudioLines,
   Brain,
   Check,
@@ -453,13 +454,21 @@ function spellMechanicHint(hint: string) {
 function QuestionArtwork({
   question,
   concealIdentity = false,
+  imageOverride,
+  testId = "question-artwork",
+  className,
+  fallbackLabel,
 }: {
   question: TriviaQuestion;
   concealIdentity?: boolean;
+  imageOverride?: TriviaQuestion["image"];
+  testId?: string;
+  className?: string;
+  fallbackLabel?: string;
 }) {
   const [failedSource, setFailedSource] = useState<string | null>(null);
   const [loadedSource, setLoadedSource] = useState<string | null>(null);
-  const image = question.image;
+  const image = imageOverride ?? question.image;
   const source = image?.src ?? "";
   const failed = failedSource === source;
   const loaded = loadedSource === source;
@@ -468,17 +477,20 @@ function QuestionArtwork({
 
   return (
     <div
-      data-testid="question-artwork"
+      data-testid={testId}
       data-artwork-state={failed ? "fallback" : loaded ? "loaded" : "loading"}
       className={clsx(
         styles.artwork,
         image.kind === "hero" && styles.heroArtwork,
         image.kind === "item" && styles.itemArtwork,
+        className,
       )}
     >
       <div className={styles.artGlow} />
       {failed ? (
-        <span className={styles.artFallback}>{concealIdentity ? "?" : question.eyebrow.slice(0, 2).toUpperCase()}</span>
+        <span className={styles.artFallback}>
+          {concealIdentity ? "?" : (fallbackLabel ?? question.eyebrow).slice(0, 2).toUpperCase()}
+        </span>
       ) : (
         <Image
           src={image.src}
@@ -2470,13 +2482,49 @@ export function QueueArcade() {
                 data-counterplay-family={currentQuestion.counterplay?.family}
                 data-counterplay-format={currentQuestion.counterplay?.format}
               >
-                <div className={styles.counterplayTool}>
-                  <QuestionArtwork question={currentQuestion} />
-                  <span>
-                    <ShieldCheck />
-                    {currentQuestion.counterplay?.tool}
-                  </span>
-                </div>
+                {currentQuestion.counterplay?.format === "interaction-scenario" &&
+                currentQuestion.counterplay.toolImages?.length ? (
+                  <div
+                    className={styles.counterplayScenarioDiagram}
+                    data-testid="counterplay-scenario-diagram"
+                    data-tool-count={currentQuestion.counterplay.toolImages.length}
+                  >
+                    <div className={styles.counterplayScenarioSpell}>
+                      <QuestionArtwork question={currentQuestion} className={styles.counterplayScenarioArtwork} />
+                      <strong>Incoming spell</strong>
+                    </div>
+                    <ArrowRight className={styles.counterplayScenarioArrow} aria-hidden="true" />
+                    <div className={styles.counterplayScenarioTools}>
+                      {currentQuestion.counterplay.toolImages.map((toolImage, index) => (
+                        <div className={styles.counterplayScenarioToolEntry} key={toolImage.src}>
+                          {index > 0 && (
+                            <span className={styles.counterplayScenarioJoin} aria-hidden="true">
+                              +
+                            </span>
+                          )}
+                          <div className={styles.counterplayScenarioTool}>
+                            <QuestionArtwork
+                              question={currentQuestion}
+                              imageOverride={toolImage}
+                              testId="counterplay-tool-artwork"
+                              className={styles.counterplayScenarioArtwork}
+                              fallbackLabel={toolImage.label}
+                            />
+                            <strong data-testid="counterplay-tool-label">{toolImage.label}</strong>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className={styles.counterplayTool}>
+                    <QuestionArtwork question={currentQuestion} />
+                    <span data-testid="counterplay-tool-label">
+                      <ShieldCheck />
+                      {currentQuestion.counterplay?.tool}
+                    </span>
+                  </div>
+                )}
                 <div className={styles.questionCopy}>
                   <span>{currentQuestion.eyebrow}</span>
                   <h2>{currentQuestion.prompt}</h2>

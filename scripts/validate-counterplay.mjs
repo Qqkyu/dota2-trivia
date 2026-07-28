@@ -102,8 +102,33 @@ for (const [index, question] of questions.entries()) {
     ) {
       failures.push(`${label}: Lotus scenario header must compactly show the interaction.`);
     }
+    const toolImages = question.counterplay?.toolImages;
+    if (
+      !Array.isArray(toolImages) ||
+      toolImages.length < 1 ||
+      toolImages.length > 2 ||
+      toolImages[0]?.label !== "Lotus Orb" ||
+      toolImages.some(
+        (image) =>
+          image.kind !== "item" ||
+          !image.label?.trim() ||
+          !/^https:\/\/cdn\.cloudflare\.steamstatic\.com\/apps\/dota2\/images\/dota_react\/items\/.+\.png$/.test(
+            image.src ?? "",
+          ),
+      )
+    ) {
+      failures.push(`${label}: Lotus must be a prominent, audited item target in the interaction diagram.`);
+    }
+    if (
+      question.id.endsWith(":lotus-linkens-order") &&
+      (toolImages?.length !== 2 || toolImages[1]?.label !== "Linken's Sphere")
+    ) {
+      failures.push(`${label}: the two-defense scenario must show both Lotus Orb and Linken's Sphere.`);
+    }
   } else if (!question.counterplay?.note?.trim()) {
     failures.push(`${label}: base-interaction note is missing.`);
+  } else if (question.counterplay?.toolImages !== undefined) {
+    failures.push(`${label}: only interaction scenarios should carry defensive item artwork.`);
   }
 
   if (!Array.isArray(question.answers) || question.answers.length !== 4) {

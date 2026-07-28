@@ -102,6 +102,12 @@ export interface TriviaQuestion {
     outcomes: [boolean, boolean, boolean, boolean];
     format: CounterplayFormat;
     note?: string;
+    toolImages?: Array<{
+      src: string;
+      alt: string;
+      label: string;
+      kind: "item";
+    }>;
     targetedOptions?: [boolean, boolean, boolean, boolean];
   };
   map?: MapChallenge;

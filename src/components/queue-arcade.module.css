@@ -1413,6 +1413,92 @@
   height: 13px;
 }
 
+.counterplayScenarioDiagram {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 16px;
+}
+
+.counterplayScenarioSpell,
+.counterplayScenarioTool {
+  display: grid;
+  flex: 0 0 auto;
+  justify-items: center;
+  gap: 8px;
+}
+
+.counterplayScenarioArtwork {
+  width: 112px;
+  height: 112px;
+}
+
+.counterplayScenarioSpell .artGlow {
+  background: rgba(191, 75, 61, 0.22);
+}
+
+.counterplayScenarioTool .artGlow {
+  background: rgba(65, 152, 103, 0.32);
+}
+
+.counterplayScenarioTool .artCorner {
+  border-color: #79cf99;
+}
+
+.counterplayScenarioSpell > strong,
+.counterplayScenarioTool > strong {
+  display: inline-flex;
+  min-width: 112px;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 8px;
+  border: 1px solid rgba(218, 222, 215, 0.18);
+  background: #111516;
+  color: #8c9693;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.counterplayScenarioTool > strong {
+  border-color: rgba(121, 207, 153, 0.48);
+  background: #101817;
+  color: #9bdbb2;
+}
+
+.counterplayScenarioArrow {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  color: #79cf99;
+  filter: drop-shadow(0 0 10px rgba(78, 180, 116, 0.28));
+}
+
+.counterplayScenarioTools,
+.counterplayScenarioToolEntry {
+  display: flex;
+  align-items: center;
+}
+
+.counterplayScenarioTools {
+  gap: 10px;
+}
+
+.counterplayScenarioToolEntry {
+  gap: 10px;
+}
+
+.counterplayScenarioJoin {
+  color: #83908d;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 22px;
+}
+
 .counterplayQuestion .questionCopy > span {
   color: #79cf99;
 }
@@ -4335,6 +4421,27 @@
     padding-inline: 30px;
   }
 
+  .counterplayScenarioDiagram,
+  .counterplayScenarioTools,
+  .counterplayScenarioToolEntry {
+    gap: 9px;
+  }
+
+  .counterplayScenarioArtwork {
+    width: 96px;
+    height: 96px;
+  }
+
+  .counterplayScenarioSpell > strong,
+  .counterplayScenarioTool > strong {
+    min-width: 96px;
+  }
+
+  .counterplayScenarioArrow {
+    width: 25px;
+    height: 25px;
+  }
+
   .heroArtwork {
     width: 150px;
   }
@@ -4655,6 +4762,34 @@
   .counterplayTool > span {
     right: 50%;
     transform: translateX(50%);
+  }
+
+  .counterplayScenarioDiagram,
+  .counterplayScenarioTools,
+  .counterplayScenarioToolEntry {
+    gap: 7px;
+  }
+
+  .counterplayScenarioArtwork {
+    width: 76px;
+    height: 76px;
+  }
+
+  .counterplayScenarioSpell > strong,
+  .counterplayScenarioTool > strong {
+    min-width: 76px;
+    min-height: 24px;
+    padding: 4px 5px;
+    font-size: 8px;
+  }
+
+  .counterplayScenarioArrow {
+    width: 22px;
+    height: 22px;
+  }
+
+  .counterplayScenarioJoin {
+    font-size: 18px;
   }
 
   .shopkeeperQuestion .questionCopy,

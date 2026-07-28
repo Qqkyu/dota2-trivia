@@ -481,6 +481,10 @@ const definitions = [
     eyebrow: "Doom → Lotus + Linken's",
     prompt: "Defense result:",
     tool: "Lotus + Linken's",
+    toolAnchors: [
+      ["item", "lotus_orb"],
+      ["item", "sphere"],
+    ],
     correctAnswer: "Blocked + reflected",
     distractors: ["Blocked only", "Both Dooms land", "Original Doom lands"],
     explanation:
@@ -594,6 +598,14 @@ function anchorImage([type, key]) {
   };
 }
 
+function labeledAnchorImage(anchor) {
+  const image = anchorImage(anchor);
+  return {
+    ...image,
+    label: image.alt.replace(/ (?:item|ability) icon$/, ""),
+  };
+}
+
 const questions = definitions.map((definition, index) => {
   const family = familyInfo[definition.family];
   if (!family) throw new Error(`Unknown Counterplay family ${definition.family}.`);
@@ -676,6 +688,11 @@ const questions = definitions.map((definition, index) => {
         : isScenario
           ? {}
           : { note: "Base abilities · no talents or upgrades" }),
+      ...(isScenario
+        ? {
+            toolImages: (definition.toolAnchors ?? [family.anchor]).map((anchor) => labeledAnchorImage(anchor)),
+          }
+        : {}),
       ...(targetedOptions && family.format === "curated-exception" ? { targetedOptions } : {}),
     },
     source: family.source ?? SOURCE,

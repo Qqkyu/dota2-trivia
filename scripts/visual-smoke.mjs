@@ -603,13 +603,18 @@ await waitFor(`(() => {
   const artwork = document.querySelector('[data-testid="question-artwork"]');
   const prompt = document.querySelector('[data-testid="round-prompt"]');
   const answerImages = [...document.querySelectorAll('[data-testid="arcade-answer"] img')];
-  const expectedAnswerImages = prompt?.dataset.counterplayFormat === "interaction-scenario" ? 0 : 4;
+  const isScenario = prompt?.dataset.counterplayFormat === "interaction-scenario";
+  const toolArtworks = [...document.querySelectorAll('[data-testid="counterplay-tool-artwork"]')];
+  const expectedAnswerImages = isScenario ? 0 : 4;
   return main?.dataset.phase === "answering" &&
     main?.dataset.questionKind?.startsWith("counterplay-") &&
     timer >= 4 &&
     artwork?.dataset.artworkState === "loaded" &&
     answerImages.length === expectedAnswerImages &&
-    answerImages.every((image) => image.complete && image.naturalWidth > 0);
+    answerImages.every((image) => image.complete && image.naturalWidth > 0) &&
+    (!isScenario ||
+      (toolArtworks.length >= 1 &&
+        toolArtworks.every((toolArtwork) => toolArtwork.dataset.artworkState === "loaded")));
 })()`);
 const counterplay = await evaluate(`(() => {
   const prompt = document.querySelector('[data-testid="round-prompt"]');
@@ -620,8 +625,12 @@ const counterplay = await evaluate(`(() => {
     format: prompt?.dataset.counterplayFormat,
     prompt: prompt?.querySelector("h2")?.innerText,
     promptWords: prompt?.querySelector("h2")?.innerText?.trim().split(/\\s+/).length,
-    tool: prompt?.querySelector('[class*="counterplayTool"] > span')?.innerText,
+    tool: prompt?.querySelector('[data-testid="counterplay-tool-label"]')?.innerText,
     note: prompt?.querySelector('[class*="questionCopy"] small')?.innerText,
+    diagram: Boolean(prompt?.querySelector('[data-testid="counterplay-scenario-diagram"]')),
+    toolArtworks: prompt?.querySelectorAll('[data-testid="counterplay-tool-artwork"]').length,
+    toolArtworksLoaded: [...(prompt?.querySelectorAll('[data-testid="counterplay-tool-artwork"]') ?? [])]
+      .every((artwork) => artwork.dataset.artworkState === "loaded"),
     difficulty: Number(document.querySelector('[data-testid="round-difficulty"]')?.dataset.contentDifficulty),
     answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
     answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
@@ -1112,6 +1121,9 @@ if (
   counterplay.promptWords > 5 ||
   !counterplay.tool ||
   (counterplay.format === "interaction-scenario" ? Boolean(counterplay.note) : !counterplay.note) ||
+  (counterplay.format === "interaction-scenario"
+    ? !counterplay.diagram || counterplay.toolArtworks < 1 || !counterplay.toolArtworksLoaded
+    : counterplay.diagram || counterplay.toolArtworks !== 0) ||
   counterplay.difficulty < 2 ||
   counterplay.answerCount !== 4 ||
   counterplay.answerImages !== (counterplay.format === "interaction-scenario" ? 0 : 4) ||

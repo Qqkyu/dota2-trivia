@@ -117,10 +117,10 @@ clearance, non-ambiguous TP choices, coordinate bounds, reference-pin separation
 
 Counterplay's curated matchups live in `scripts/generate-counterplay.mjs`. BKB and dispel questions are audited against
 the shipped constants. Linken's rounds use a current exception allowlist and reject any option set where all four casts
-are not plausible unit targets; Lotus rounds use sourced, sentence-completion interactions with two-word prompts and
-three-word answer limits instead of target-type elimination. `validate-counterplay.mjs` protects those formats, family
-coverage, challenge-level pools, scan-length, answer balance, artwork shape, source snapshots, and the recorded
-interaction outcome.
+are not plausible unit targets; Lotus rounds use sourced, prominent spell-to-item diagrams and sentence-completion
+interactions with two-word prompts and three-word answer limits instead of target-type elimination.
+`validate-counterplay.mjs` protects those formats, family coverage, challenge-level pools, scan-length, answer balance,
+artwork shape, source snapshots, and the recorded interaction outcome.
 
 ## Verify it
 
