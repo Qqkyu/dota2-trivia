@@ -14,6 +14,30 @@ const SOURCE = {
   label: `OpenDota game constants · ${SNAPSHOT_DATE}`,
   url: "https://docs.opendota.com/",
 };
+const SPELL_BLOCK_SOURCE = {
+  label: `Dota 2 Wiki · Spell Block · ${SNAPSHOT_DATE}`,
+  url: "https://liquipedia.net/dota2/Spell_Block",
+};
+const SPELL_REFLECTION_SOURCE = {
+  label: `Dota 2 Wiki · Spell Reflection · ${SNAPSHOT_DATE}`,
+  url: "https://liquipedia.net/dota2/Spell_Reflection",
+};
+
+// These are current exceptions that still present as unit-targeted casts in the
+// shipped constants. Keeping the allowlist here makes accidental "spot the only
+// targeted spell" matchups fail generation instead of reaching the game.
+const SPELL_BLOCK_BYPASSES = new Set([
+  "tidehunter_gush",
+  "lion_impale",
+  "lina_dragon_slave",
+  "death_prophet_carrion_swarm",
+  "dragon_knight_breathe_fire",
+  "magnataur_shockwave",
+  "tiny_toss_tree",
+  "troll_warlord_whirling_axes_ranged",
+  "viper_poison_attack",
+  "obsidian_destroyer_arcane_orb",
+]);
 
 const familyInfo = {
   "debuff-immunity": {
@@ -70,31 +94,24 @@ const familyInfo = {
   },
   "spell-block": {
     kind: "counterplay-spell-block",
-    eyebrow: "Linken's · Spell block",
-    prompt: "Which spell gets blocked?",
+    eyebrow: "Linken's · Exception",
+    prompt: "Which bypasses Linken's?",
     tool: "Linken's Sphere",
     anchor: ["item", "sphere"],
-    outcome(ability) {
-      const behavior = Array.isArray(ability.behavior) ? ability.behavior : [ability.behavior];
-      return behavior.includes("Unit Target");
-    },
-    explanation(answer) {
-      return `Linken's Sphere blocks ${answer}'s unit-targeted cast.`;
+    format: "curated-exception",
+    source: SPELL_BLOCK_SOURCE,
+    outcome(_ability, key) {
+      return SPELL_BLOCK_BYPASSES.has(key);
     },
   },
   "spell-reflect": {
     kind: "counterplay-spell-reflect",
-    eyebrow: "Lotus · Spell reflect",
-    prompt: "Which spell gets returned?",
+    eyebrow: "Lotus · Interaction",
+    prompt: "What happens?",
     tool: "Lotus Orb",
     anchor: ["item", "lotus_orb"],
-    outcome(ability) {
-      const behavior = Array.isArray(ability.behavior) ? ability.behavior : [ability.behavior];
-      return behavior.includes("Unit Target");
-    },
-    explanation(answer) {
-      return `Echo Shell re-casts ${answer} at its caster. The original spell still affects the shielded hero.`;
-    },
+    format: "interaction-scenario",
+    source: SPELL_REFLECTION_SOURCE,
   },
 };
 
@@ -358,123 +375,210 @@ const definitions = [
   {
     family: "spell-block",
     difficulty: 1,
-    correct: "doom_bringer_doom",
-    distractors: ["enigma_black_hole", "magnataur_reverse_polarity", "faceless_void_chronosphere"],
+    correct: "tidehunter_gush",
+    distractors: ["doom_bringer_doom", "legion_commander_duel", "pudge_dismember"],
+    explanation:
+      "Gush bypasses Linken's Sphere because its hybrid unit-or-ground targeting does not trigger Spell Block.",
   },
   {
     family: "spell-block",
     difficulty: 1,
-    correct: "legion_commander_duel",
-    distractors: ["tidehunter_ravage", "mars_arena_of_blood", "disruptor_static_storm"],
-  },
-  {
-    family: "spell-block",
-    difficulty: 1,
-    correct: "lion_finger_of_death",
-    distractors: ["kunkka_ghostship", "queenofpain_sonic_wave", "earthshaker_echo_slam"],
+    correct: "lion_impale",
+    distractors: ["lion_voodoo", "lion_finger_of_death", "beastmaster_primal_roar"],
+    explanation:
+      "Earth Spike bypasses Linken's Sphere. Since 7.37, its hybrid unit-or-ground cast no longer triggers Spell Block.",
   },
   {
     family: "spell-block",
     difficulty: 2,
-    correct: "beastmaster_primal_roar",
-    distractors: ["rattletrap_hookshot", "mirana_arrow", "mars_spear"],
+    correct: "lina_dragon_slave",
+    distractors: ["lina_laguna_blade", "necrolyte_reapers_scythe", "viper_viper_strike"],
+    explanation:
+      "Dragon Slave bypasses Linken's Sphere because its hybrid unit-or-ground targeting does not trigger Spell Block.",
   },
   {
     family: "spell-block",
     difficulty: 2,
-    correct: "necrolyte_reapers_scythe",
-    distractors: ["witch_doctor_death_ward", "venomancer_poison_nova", "sandking_epicenter"],
+    correct: "death_prophet_carrion_swarm",
+    distractors: ["terrorblade_sunder", "winter_wyvern_winters_curse", "sniper_assassinate"],
+    explanation:
+      "Crypt Swarm bypasses Linken's Sphere because its hybrid unit-or-ground targeting does not trigger Spell Block.",
   },
   {
     family: "spell-block",
     difficulty: 2,
-    correct: "pudge_dismember",
-    distractors: ["enigma_black_hole", "crystal_maiden_freezing_field", "phoenix_sun_ray"],
+    correct: "dragon_knight_breathe_fire",
+    distractors: ["dragon_knight_dragon_tail", "lich_frost_nova", "bane_fiends_grip"],
+    explanation:
+      "Breathe Fire bypasses Linken's Sphere because its hybrid unit-or-ground targeting does not trigger Spell Block.",
+  },
+  {
+    family: "spell-block",
+    difficulty: 2,
+    correct: "magnataur_shockwave",
+    distractors: ["razor_static_link", "doom_bringer_doom", "legion_commander_duel"],
+    explanation:
+      "Shockwave bypasses Linken's Sphere because its hybrid unit-or-ground targeting does not trigger Spell Block.",
   },
   {
     family: "spell-block",
     difficulty: 3,
-    correct: "winter_wyvern_winters_curse",
-    distractors: ["dark_willow_terrorize", "puck_dream_coil", "naga_siren_song_of_the_siren"],
+    correct: "tiny_toss_tree",
+    distractors: ["tiny_toss", "sven_storm_bolt", "vengefulspirit_magic_missile"],
+    explanation:
+      "Tree Throw bypasses Linken's Sphere because its hybrid unit-or-ground targeting does not trigger Spell Block.",
   },
   {
     family: "spell-block",
     difficulty: 3,
-    correct: "terrorblade_sunder",
-    distractors: ["luna_eclipse", "phoenix_supernova", "muerta_pierce_the_veil"],
+    correct: "troll_warlord_whirling_axes_ranged",
+    distractors: ["shadow_shaman_shackles", "pudge_dismember", "terrorblade_sunder"],
+    explanation:
+      "Whirling Axes (Ranged) bypasses Linken's Sphere because its hybrid unit-or-ground targeting does not trigger Spell Block.",
   },
   {
     family: "spell-block",
     difficulty: 3,
-    correct: "sniper_assassinate",
-    distractors: ["hoodwink_sharpshooter", "snapfire_mortimer_kisses", "rattletrap_rocket_flare"],
+    correct: "viper_poison_attack",
+    distractors: ["viper_viper_strike", "huskar_life_break", "necrolyte_reapers_scythe"],
+    explanation: "Poison Attack bypasses Linken's Sphere because active attack modifiers do not trigger Spell Block.",
   },
   {
     family: "spell-block",
     difficulty: 3,
-    correct: "razor_static_link",
-    distractors: ["razor_plasma_field", "razor_eye_of_the_storm", "disruptor_static_storm"],
+    correct: "obsidian_destroyer_arcane_orb",
+    distractors: ["lion_finger_of_death", "lina_laguna_blade", "doom_bringer_doom"],
+    explanation: "Arcane Orb bypasses Linken's Sphere because active attack modifiers do not trigger Spell Block.",
   },
 
   {
     family: "spell-reflect",
     difficulty: 1,
-    correct: "lina_laguna_blade",
-    distractors: ["lina_light_strike_array", "windrunner_powershot", "nevermore_requiem"],
+    id: "nether-swap",
+    subject: "vengefulspirit_nether_swap",
+    eyebrow: "Nether Swap · Echo Shell",
+    prompt: "Nether Swap into Lotus?",
+    note: "Echo Shell is already active",
+    correctAnswer: "They swap, then swap back",
+    distractors: ["Only the first swap happens", "The original swap is blocked", "Neither spell takes effect"],
+    explanation:
+      "They swap, then swap back. Echo Shell reflects Nether Swap after the original move, immediately reversing it.",
   },
   {
     family: "spell-reflect",
     difficulty: 1,
-    correct: "vengefulspirit_magic_missile",
-    distractors: ["vengefulspirit_wave_of_terror", "tidehunter_ravage", "earthshaker_fissure"],
-  },
-  {
-    family: "spell-reflect",
-    difficulty: 1,
-    correct: "lich_frost_nova",
-    distractors: ["jakiro_ice_path", "jakiro_macropyre", "crystal_maiden_crystal_nova"],
-  },
-  {
-    family: "spell-reflect",
-    difficulty: 2,
-    correct: "sven_storm_bolt",
-    distractors: ["centaur_hoof_stomp", "tiny_avalanche", "magnataur_reverse_polarity"],
+    id: "doom",
+    subject: "doom_bringer_doom",
+    eyebrow: "Doom · Echo Shell",
+    prompt: "Doom into Lotus?",
+    note: "No Spell Block is active",
+    correctAnswer: "Doom lands and reflects",
+    distractors: ["Doom is fully blocked", "Only Doom's damage reflects", "Echo Shell dispels Doom"],
+    explanation:
+      "Doom lands and reflects. Echo Shell does not block the original cast; it re-casts Doom at its caster.",
   },
   {
     family: "spell-reflect",
     difficulty: 2,
-    correct: "lion_finger_of_death",
-    distractors: ["queenofpain_sonic_wave", "earthshaker_echo_slam", "sniper_shrapnel"],
+    id: "lotus-linkens-order",
+    subject: "doom_bringer_doom",
+    eyebrow: "Doom · Two defenses",
+    prompt: "Lotus plus Linken's?",
+    note: "Both defensive effects are active",
+    tool: "Lotus + Linken's",
+    correctAnswer: "Doom reflects; original is blocked",
+    distractors: ["Linken's prevents the reflection", "Doom lands on both heroes", "Only the original Doom lands"],
+    explanation:
+      "Doom reflects; original is blocked. Spell Reflection triggers before Spell Block, so the copy returns first.",
   },
   {
     family: "spell-reflect",
     difficulty: 2,
-    correct: "viper_viper_strike",
-    distractors: ["viper_nethertoxin", "venomancer_poison_nova", "venomancer_venomous_gale"],
+    id: "chaos-bolt-roll",
+    subject: "chaos_knight_chaos_bolt",
+    eyebrow: "Chaos Bolt · Reflected roll",
+    prompt: "How does Bolt return?",
+    note: "Compare the original and reflected rolls",
+    correctAnswer: "The reflected bolt rerolls",
+    distractors: ["It copies the first roll", "Only its damage is reflected", "The original bolt is blocked"],
+    explanation:
+      "The reflected bolt rerolls. Chaos Bolt calculates fresh damage and stun values instead of copying the original roll.",
+  },
+  {
+    family: "spell-reflect",
+    difficulty: 2,
+    id: "fireblast-multicast",
+    subject: "ogre_magi_fireblast",
+    eyebrow: "Fireblast · Multicast",
+    prompt: "Multicast into Lotus?",
+    note: "Ogre procs multiple casts",
+    correctAnswer: "Every multicast is reflected",
+    distractors: ["Only the first cast reflects", "Only the last cast reflects", "Multicast is completely blocked"],
+    explanation: "Every multicast is reflected. Echo Shell re-casts each Fireblast instance generated by Multicast.",
+  },
+  {
+    family: "spell-reflect",
+    difficulty: 2,
+    id: "storm-hammer-mid-flight",
+    subject: "sven_storm_bolt",
+    eyebrow: "Storm Hammer · Projectile",
+    prompt: "Lotus applied mid-flight?",
+    note: "Echo Shell lands before impact",
+    correctAnswer: "Storm Hammer still reflects",
+    distractors: ["Too late; nothing reflects", "Storm Hammer gets blocked", "Only splash damage reflects"],
+    explanation:
+      "Storm Hammer still reflects. Most targeted projectiles check Spell Reflection when they hit, not when cast.",
   },
   {
     family: "spell-reflect",
     difficulty: 3,
-    correct: "doom_bringer_doom",
-    distractors: ["disruptor_static_storm", "puck_dream_coil", "enigma_black_hole"],
+    id: "charge-timing",
+    subject: "spirit_breaker_charge_of_darkness",
+    eyebrow: "Charge · Reflection timing",
+    prompt: "When does Charge reflect?",
+    note: "Echo Shell is active on the target",
+    correctAnswer: "Immediately on cast",
+    distractors: ["When the charge connects", "After Greater Bash procs", "It never reflects"],
+    explanation:
+      "Immediately on cast. Charge of Darkness is reflected before impact, and its reflected cast does not Greater Bash.",
   },
   {
     family: "spell-reflect",
     difficulty: 3,
-    correct: "bane_fiends_grip",
-    distractors: ["enigma_black_hole", "phoenix_sun_ray", "crystal_maiden_freezing_field"],
+    id: "freezing-field-frostbite",
+    subject: "crystal_maiden_frostbite",
+    eyebrow: "Frostbite · Freezing Field",
+    prompt: "Freezing Field Frostbite?",
+    note: "Frostbite is applied by the ultimate",
+    correctAnswer: "It is not reflected",
+    distractors: ["Every proc is reflected", "It reflects once on cast", "Freezing Field is blocked"],
+    explanation:
+      "It is not reflected. Lotus only reflects a manually cast Frostbite, not Frostbite applied by Freezing Field.",
   },
   {
     family: "spell-reflect",
     difficulty: 3,
-    correct: "legion_commander_duel",
-    distractors: ["mars_arena_of_blood", "faceless_void_chronosphere", "tidehunter_ravage"],
+    id: "fiends-grip-channel",
+    subject: "bane_fiends_grip",
+    eyebrow: "Fiend's Grip · Channel",
+    prompt: "Who channels the copy?",
+    note: "Echo Shell reflects the cast",
+    correctAnswer: "Echo Shell's target channels",
+    distractors: ["The original Bane channels both", "Lotus Orb's owner channels", "Nobody; channels cannot reflect"],
+    explanation: "Echo Shell's target channels the reflected Fiend's Grip and must stand still to keep the copy going.",
   },
   {
     family: "spell-reflect",
     difficulty: 3,
-    correct: "vengefulspirit_nether_swap",
-    distractors: ["dark_seer_vacuum", "kunkka_ghostship", "earth_spirit_rolling_boulder"],
+    id: "reflected-upgrades",
+    subject: "lion_finger_of_death",
+    eyebrow: "Finger · Reflected upgrade",
+    prompt: "Whose upgrades get copied?",
+    note: "The original caster has an upgrade",
+    correctAnswer: "The original caster's upgrades",
+    distractors: ["The Lotus target's upgrades", "Lotus Orb owner's upgrades", "No upgrades are copied"],
+    explanation:
+      "The original caster's upgrades are retained by the reflected spell, including talents, facet, Scepter, and Shard.",
   },
 ];
 
@@ -510,54 +614,88 @@ const questions = definitions.map((definition, index) => {
   const family = familyInfo[definition.family];
   if (!family) throw new Error(`Unknown Counterplay family ${definition.family}.`);
 
-  const answerKeys = [...definition.distractors];
-  answerKeys.splice(index % 4, 0, definition.correct);
-  const answerRecords = answerKeys.map((key) => {
+  const isScenario = family.format === "interaction-scenario";
+  const correctSlot = index % 4;
+  const answerKeys = isScenario ? null : [...definition.distractors];
+  answerKeys?.splice(correctSlot, 0, definition.correct);
+  const answerRecords = answerKeys?.map((key) => {
     const ability = abilities[key];
     if (!ability?.dname || !ability.img) throw new Error(`Missing ability ${key}.`);
     return ability;
   });
-  const outcomes = answerRecords.map((ability) => family.outcome(ability));
+  const answers = isScenario ? [...definition.distractors] : answerRecords.map((ability) => ability.dname);
+  if (isScenario) answers.splice(correctSlot, 0, definition.correctAnswer);
+  const outcomes = isScenario
+    ? answers.map((_answer, answerIndex) => answerIndex === correctSlot)
+    : answerRecords.map((ability, answerIndex) => family.outcome(ability, answerKeys[answerIndex]));
+  const targetedOptions = answerRecords?.map((ability) => {
+    const behavior = Array.isArray(ability.behavior) ? ability.behavior : [ability.behavior];
+    return behavior.includes("Unit Target");
+  });
+
+  if (family.format === "curated-exception") {
+    if (targetedOptions.some((isTargeted) => !isTargeted)) {
+      throw new Error(
+        `${family.kind}:${definition.correct} includes a visually eliminable non-targeted option: ${answerRecords
+          .filter((_ability, answerIndex) => !targetedOptions[answerIndex])
+          .map((ability) => ability.dname)
+          .join(", ")}.`,
+      );
+    }
+  }
+
   if (outcomes.filter(Boolean).length !== 1) {
     throw new Error(
-      `${family.kind}:${definition.correct} must have exactly one valid answer (${JSON.stringify(
-        answerKeys.map((key, answerIndex) => ({
-          key,
+      `${family.kind}:${definition.correct ?? definition.id} must have exactly one valid answer (${JSON.stringify(
+        answers.map((answer, answerIndex) => ({
+          answer,
           outcome: outcomes[answerIndex],
-          bkbpierce: answerRecords[answerIndex].bkbpierce,
-          dispellable: answerRecords[answerIndex].dispellable,
-          behavior: answerRecords[answerIndex].behavior,
+          ...(answerRecords
+            ? {
+                key: answerKeys[answerIndex],
+                bkbpierce: answerRecords[answerIndex].bkbpierce,
+                dispellable: answerRecords[answerIndex].dispellable,
+                behavior: answerRecords[answerIndex].behavior,
+              }
+            : {}),
         })),
       )}).`,
     );
   }
 
   const correctIndex = outcomes.indexOf(true);
-  const answers = answerRecords.map((ability) => ability.dname);
+  const questionImage = isScenario ? anchorImage(["ability", definition.subject]) : anchorImage(family.anchor);
   return {
-    id: `${family.kind}:${definition.correct}`,
+    id: `${family.kind}:${definition.correct ?? definition.id}`,
     kind: family.kind,
     category: "Mechanics",
     difficulty: definition.difficulty,
-    eyebrow: family.eyebrow,
-    prompt: family.prompt,
-    image: anchorImage(family.anchor),
+    eyebrow: definition.eyebrow ?? family.eyebrow,
+    prompt: definition.prompt ?? family.prompt,
+    image: questionImage,
     answers,
-    answerImages: answerRecords.map((ability) => assetUrl(ability.img)),
-    answerImageKind: "ability",
+    ...(answerRecords
+      ? {
+          answerImages: answerRecords.map((ability) => assetUrl(ability.img)),
+          answerImageKind: "ability",
+        }
+      : {}),
     correctIndex,
-    explanation: family.explanation(answers[correctIndex]),
+    explanation: definition.explanation ?? family.explanation(answers[correctIndex]),
     counterplay: {
       family: definition.family,
-      tool: family.tool,
+      tool: definition.tool ?? family.tool,
       outcomes,
+      format: family.format ?? "constant-matchup",
+      note: definition.note ?? "Base abilities · no talents or upgrades",
+      ...(targetedOptions && family.format === "curated-exception" ? { targetedOptions } : {}),
     },
-    source: SOURCE,
+    source: family.source ?? SOURCE,
     patch: metadata.patch,
   };
 });
 
 await writeFile(outputPath, `${JSON.stringify(questions, null, 2)}\n`);
 console.log(
-  `Generated ${questions.length} audited Counterplay questions from OpenDota's ${SNAPSHOT_DATE} game constants.`,
+  `Generated ${questions.length} audited Counterplay questions from ${SNAPSHOT_DATE} constants and interaction tables.`,
 );

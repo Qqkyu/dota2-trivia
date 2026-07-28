@@ -600,12 +600,14 @@ await waitFor(`(() => {
   const main = document.querySelector("main");
   const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
   const artwork = document.querySelector('[data-testid="question-artwork"]');
+  const prompt = document.querySelector('[data-testid="round-prompt"]');
   const answerImages = [...document.querySelectorAll('[data-testid="arcade-answer"] img')];
+  const expectedAnswerImages = prompt?.dataset.counterplayFormat === "interaction-scenario" ? 0 : 4;
   return main?.dataset.phase === "answering" &&
     main?.dataset.questionKind?.startsWith("counterplay-") &&
     timer >= 4 &&
     artwork?.dataset.artworkState === "loaded" &&
-    answerImages.length === 4 &&
+    answerImages.length === expectedAnswerImages &&
     answerImages.every((image) => image.complete && image.naturalWidth > 0);
 })()`);
 const counterplay = await evaluate(`(() => {
@@ -614,9 +616,11 @@ const counterplay = await evaluate(`(() => {
     game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
     kind: document.querySelector("main")?.dataset.questionKind,
     family: prompt?.dataset.counterplayFamily,
+    format: prompt?.dataset.counterplayFormat,
     prompt: prompt?.querySelector("h2")?.innerText,
     promptWords: prompt?.querySelector("h2")?.innerText?.trim().split(/\\s+/).length,
     tool: prompt?.querySelector('[class*="counterplayTool"] > span')?.innerText,
+    note: prompt?.querySelector('[class*="questionCopy"] small')?.innerText,
     difficulty: Number(document.querySelector('[data-testid="round-difficulty"]')?.dataset.contentDifficulty),
     answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
     answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
@@ -629,7 +633,9 @@ await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`);
 const counterplayReveal = await evaluate(`({
   correctAnswers: document.querySelectorAll('[data-testid="arcade-answer"][class*="answerCorrect"]').length,
   explanation: document.querySelector('[aria-live="polite"] p')?.innerText,
-  sourceLabelVisible: document.body.innerText.includes("OpenDota game constants"),
+  sourceLabelVisible:
+    document.body.innerText.includes("OpenDota game constants") ||
+    document.body.innerText.includes("Dota 2 Wiki · Spell"),
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 await screenshot("/tmp/queue-arcade-counterplay-reveal.png");
@@ -744,7 +750,7 @@ const mapSenseKinds = ["map-crop", "map-camp-block", "map-stack-route", "map-tp-
 const mapVariants = [];
 const mapReveals = [];
 let previousMapRound = null;
-for (let attempt = 0; attempt < mapSenseKinds.length; attempt += 1) {
+for (let attempt = 0; attempt < mapSenseKinds.length * 2; attempt += 1) {
   if (previousMapRound) {
     await waitFor(
       `(() => {
@@ -765,6 +771,7 @@ for (let attempt = 0; attempt < mapSenseKinds.length; attempt += 1) {
   const reveal = await inspectMapSenseReveal();
   mapReveals.push(reveal);
   await screenshot(`/tmp/queue-arcade-map-sense-${variant.kind}-reveal.png`);
+  if (mapSenseKinds.every((kind) => mapVariants.some((candidate) => candidate.kind === kind))) break;
 }
 const mapSenseAnswering = mapVariants[0];
 const mapSenseReveal = mapReveals[0];
@@ -1098,12 +1105,14 @@ if (
   counterplay.game !== "counterplay" ||
   !counterplay.kind?.startsWith("counterplay-") ||
   !counterplay.family ||
+  !counterplay.format ||
   !counterplay.prompt ||
   counterplay.promptWords > 5 ||
   !counterplay.tool ||
+  !counterplay.note ||
   counterplay.difficulty < 2 ||
   counterplay.answerCount !== 4 ||
-  counterplay.answerImages !== 4 ||
+  counterplay.answerImages !== (counterplay.format === "interaction-scenario" ? 0 : 4) ||
   counterplay.horizontalOverflow ||
   counterplayReveal.correctAnswers !== 1 ||
   !counterplayReveal.explanation ||

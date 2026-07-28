@@ -2467,6 +2467,7 @@ export function QueueArcade() {
                 className={clsx(styles.questionBlock, styles.counterplayQuestion)}
                 data-testid="round-prompt"
                 data-counterplay-family={currentQuestion.counterplay?.family}
+                data-counterplay-format={currentQuestion.counterplay?.format}
               >
                 <div className={styles.counterplayTool}>
                   <QuestionArtwork question={currentQuestion} />
@@ -2478,7 +2479,7 @@ export function QueueArcade() {
                 <div className={styles.questionCopy}>
                   <span>{currentQuestion.eyebrow}</span>
                   <h2>{currentQuestion.prompt}</h2>
-                  <small>Base abilities · no talents or upgrades</small>
+                  <small>{currentQuestion.counterplay?.note}</small>
                 </div>
               </div>
             ) : (
@@ -2838,7 +2839,7 @@ export function QueueArcade() {
                                     ? "All four marked towers are live. Choose the one nearest the fight ping."
                                     : "Paths, ramps, and treelines are stronger tells than faction color."
                               : currentGame === "counterplay"
-                                ? "Read the mechanic first. Every option is plausible; only one matches the current base interaction."
+                                ? "Read the mechanic first. Every option is plausible; only one matches the stated interaction."
                                 : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
                 </p>
               </div>

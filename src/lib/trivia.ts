@@ -72,6 +72,8 @@ export type CounterplayFamily =
   | "spell-block"
   | "spell-reflect";
 
+export type CounterplayFormat = "constant-matchup" | "curated-exception" | "interaction-scenario";
+
 export interface TriviaQuestion {
   id: string;
   kind: QuestionKind;
@@ -98,6 +100,9 @@ export interface TriviaQuestion {
     family: CounterplayFamily;
     tool: string;
     outcomes: [boolean, boolean, boolean, boolean];
+    format: CounterplayFormat;
+    note: string;
+    targetedOptions?: [boolean, boolean, boolean, boolean];
   };
   map?: MapChallenge;
   source: {
@@ -123,7 +128,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-1`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-2`;
 export const triviaQuestions = [
   ...(generatedQuestions as TriviaQuestion[]),
   ...(mapSenseQuestions as TriviaQuestion[]),

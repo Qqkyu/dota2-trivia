@@ -16,6 +16,40 @@ const expectedKinds = {
   "spell-block": "counterplay-spell-block",
   "spell-reflect": "counterplay-spell-reflect",
 };
+const expectedFormats = {
+  "debuff-immunity": "constant-matchup",
+  "basic-dispel": "constant-matchup",
+  "strong-dispel": "constant-matchup",
+  "offensive-dispel": "constant-matchup",
+  "spell-block": "curated-exception",
+  "spell-reflect": "interaction-scenario",
+};
+const expectedSources = {
+  "debuff-immunity": {
+    label: "OpenDota game constants · 2026-07-28",
+    url: "https://docs.opendota.com/",
+  },
+  "basic-dispel": {
+    label: "OpenDota game constants · 2026-07-28",
+    url: "https://docs.opendota.com/",
+  },
+  "strong-dispel": {
+    label: "OpenDota game constants · 2026-07-28",
+    url: "https://docs.opendota.com/",
+  },
+  "offensive-dispel": {
+    label: "OpenDota game constants · 2026-07-28",
+    url: "https://docs.opendota.com/",
+  },
+  "spell-block": {
+    label: "Dota 2 Wiki · Spell Block · 2026-07-28",
+    url: "https://liquipedia.net/dota2/Spell_Block",
+  },
+  "spell-reflect": {
+    label: "Dota 2 Wiki · Spell Reflection · 2026-07-28",
+    url: "https://liquipedia.net/dota2/Spell_Reflection",
+  },
+};
 const failures = [];
 const ids = new Set();
 const answerSets = new Set();
@@ -32,6 +66,7 @@ for (const [index, question] of questions.entries()) {
   const label = question?.id ?? `question ${index}`;
   const family = question?.counterplay?.family;
   const expectedKind = expectedKinds[family];
+  const expectedSource = expectedSources[family];
 
   if (!question?.id || ids.has(question.id)) failures.push(`${label}: missing or duplicate id.`);
   ids.add(question.id);
@@ -42,14 +77,18 @@ for (const [index, question] of questions.entries()) {
   if (question.category !== "Mechanics") failures.push(`${label}: Counterplay must use the Mechanics category.`);
   if (![1, 2, 3].includes(question.difficulty)) failures.push(`${label}: invalid difficulty.`);
   if (question.patch !== metadata.patch) failures.push(`${label}: patch does not match trivia metadata.`);
-  if (!/^OpenDota game constants · 2026-07-28$/.test(question.source?.label ?? "")) {
+  if (!expectedSource || question.source?.label !== expectedSource.label) {
     failures.push(`${label}: source snapshot is missing or stale.`);
   }
-  if (question.source?.url !== "https://docs.opendota.com/") failures.push(`${label}: source URL is invalid.`);
+  if (!expectedSource || question.source?.url !== expectedSource.url) failures.push(`${label}: source URL is invalid.`);
   if ((question.prompt?.trim().split(/\s+/).length ?? 99) > 5) {
     failures.push(`${label}: prompt is too slow to scan.`);
   }
   if (!question.counterplay?.tool?.trim()) failures.push(`${label}: mechanic tool is missing.`);
+  if (!question.counterplay?.note?.trim()) failures.push(`${label}: scenario note is missing.`);
+  if (question.counterplay?.format !== expectedFormats[family]) {
+    failures.push(`${label}: family uses the wrong question format.`);
+  }
 
   if (!Array.isArray(question.answers) || question.answers.length !== 4) {
     failures.push(`${label}: must have exactly four answers.`);
@@ -59,25 +98,53 @@ for (const [index, question] of questions.entries()) {
   const answerSet = [...question.answers].sort().join("|");
   if (answerSets.has(answerSet)) failures.push(`${label}: duplicate four-option matchup.`);
   answerSets.add(answerSet);
-  if (
-    !Array.isArray(question.answerImages) ||
-    question.answerImages.length !== 4 ||
-    question.answerImages.some(
-      (image) =>
-        !/^https:\/\/cdn\.cloudflare\.steamstatic\.com\/apps\/dota2\/images\/dota_react\/abilities\/.+\.png$/.test(
-          image,
-        ),
-    )
-  ) {
-    failures.push(`${label}: answer ability artwork is incomplete.`);
+  if (family === "spell-reflect") {
+    if (question.answerImages !== undefined || question.answerImageKind !== undefined) {
+      failures.push(`${label}: interaction outcomes must not masquerade as ability choices.`);
+    }
+    if (question.answers.some((answer) => answer.trim().split(/\s+/).length > 6)) {
+      failures.push(`${label}: interaction outcome is too slow to scan.`);
+    }
+  } else {
+    if (
+      !Array.isArray(question.answerImages) ||
+      question.answerImages.length !== 4 ||
+      question.answerImages.some(
+        (image) =>
+          !/^https:\/\/cdn\.cloudflare\.steamstatic\.com\/apps\/dota2\/images\/dota_react\/abilities\/.+\.png$/.test(
+            image,
+          ),
+      )
+    ) {
+      failures.push(`${label}: answer ability artwork is incomplete.`);
+    }
+    if (question.answerImageKind !== "ability") failures.push(`${label}: answers must use ability artwork.`);
   }
-  if (question.answerImageKind !== "ability") failures.push(`${label}: answers must use ability artwork.`);
   if (
     !/^https:\/\/cdn\.cloudflare\.steamstatic\.com\/apps\/dota2\/images\/dota_react\/(?:items|abilities)\/.+\.png$/.test(
       question.image?.src ?? "",
     )
   ) {
     failures.push(`${label}: mechanic artwork is invalid.`);
+  }
+  if (
+    family === "spell-reflect" &&
+    !/^https:\/\/cdn\.cloudflare\.steamstatic\.com\/apps\/dota2\/images\/dota_react\/abilities\/.+\.png$/.test(
+      question.image?.src ?? "",
+    )
+  ) {
+    failures.push(`${label}: Lotus scenario must show its subject ability.`);
+  }
+  if (
+    family === "spell-block" &&
+    (!Array.isArray(question.counterplay?.targetedOptions) ||
+      question.counterplay.targetedOptions.length !== 4 ||
+      question.counterplay.targetedOptions.some((isTargeted) => isTargeted !== true))
+  ) {
+    failures.push(`${label}: every Linken's option must remain a plausible unit-targeted cast.`);
+  }
+  if (family === "spell-block" && question.prompt !== "Which bypasses Linken's?") {
+    failures.push(`${label}: Linken's round regressed to a target-type giveaway.`);
   }
 
   const outcomes = question.counterplay?.outcomes;

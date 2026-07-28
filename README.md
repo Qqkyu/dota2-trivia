@@ -115,9 +115,11 @@ reference pins are normalized from `0–1` so future terrain artwork can be repl
 storage format. `validate-data` also checks family balance, difficulty coverage, exact camp-box inclusion, stack-route
 clearance, non-ambiguous TP choices, coordinate bounds, reference-pin separation, and local artwork.
 
-Counterplay's curated matchups live in `scripts/generate-counterplay.mjs`. Its generator refuses any four-option set
-unless exactly one answer matches the relevant shipped constant, while `validate-counterplay.mjs` protects family
-coverage, challenge-level pools, scan-length, answer balance, and the recorded interaction outcome.
+Counterplay's curated matchups live in `scripts/generate-counterplay.mjs`. BKB and dispel questions are audited against
+the shipped constants. Linken's rounds use a current exception allowlist and reject any option set where all four casts
+are not plausible unit targets; Lotus rounds use sourced interaction scenarios instead of target-type elimination.
+`validate-counterplay.mjs` protects those formats, family coverage, challenge-level pools, scan-length, answer balance,
+artwork shape, source snapshots, and the recorded interaction outcome.
 
 ## Verify it
 
@@ -133,7 +135,7 @@ For visual smoke testing, start muted Chrome with a debugging port and then run 
 
 ## Crowd architecture
 
-Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2-map-sense-7-counterplay-1:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2-map-sense-7-counterplay-2:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` opens with the reveal and keeps the just-finished question reportable for a 20-second rollover grace period. It stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 
