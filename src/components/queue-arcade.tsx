@@ -102,7 +102,7 @@ const SKILL_INFO: Record<
   Veteran: {
     duration: 12_000,
     label: "Veteran",
-    description: "12s · hard pool",
+    description: "12–15s · hard pool",
   },
 };
 
@@ -1124,7 +1124,8 @@ export function QueueArcade() {
     setReportState(state);
   }, []);
 
-  const answerDuration = SKILL_INFO[skillLevel].duration;
+  const answerDuration =
+    mode === "counterplay" ? Math.max(SKILL_INFO[skillLevel].duration, 15_000) : SKILL_INFO[skillLevel].duration;
   const previewQuestion = useMemo(() => {
     if (mode === "shopkeeper") {
       return ACTIVE_QUESTIONS.find((question) => question.category === "Recipes") ?? ACTIVE_QUESTIONS[0];
@@ -2479,7 +2480,7 @@ export function QueueArcade() {
                 <div className={styles.questionCopy}>
                   <span>{currentQuestion.eyebrow}</span>
                   <h2>{currentQuestion.prompt}</h2>
-                  <small>{currentQuestion.counterplay?.note}</small>
+                  {currentQuestion.counterplay?.note && <small>{currentQuestion.counterplay.note}</small>}
                 </div>
               </div>
             ) : (

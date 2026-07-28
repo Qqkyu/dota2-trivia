@@ -101,7 +101,7 @@ export interface TriviaQuestion {
     tool: string;
     outcomes: [boolean, boolean, boolean, boolean];
     format: CounterplayFormat;
-    note: string;
+    note?: string;
     targetedOptions?: [boolean, boolean, boolean, boolean];
   };
   map?: MapChallenge;
@@ -128,7 +128,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-2`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-3`;
 export const triviaQuestions = [
   ...(generatedQuestions as TriviaQuestion[]),
   ...(mapSenseQuestions as TriviaQuestion[]),

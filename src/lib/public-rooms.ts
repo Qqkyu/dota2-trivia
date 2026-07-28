@@ -18,6 +18,12 @@ const ANSWER_DURATION_MS: Record<SkillLevel, number> = {
   Learning: 18_000,
   Veteran: 12_000,
 };
+const COUNTERPLAY_ANSWER_DURATION_MS = 15_000;
+
+function answerDurationFor(room: PublicRoom) {
+  const skillDuration = ANSWER_DURATION_MS[room.skillLevel];
+  return room.mode === "counterplay" ? Math.max(skillDuration, COUNTERPLAY_ANSWER_DURATION_MS) : skillDuration;
+}
 
 function configuredEpoch() {
   const value = process.env.ARCADE_ROUND_EPOCH;
@@ -137,7 +143,7 @@ export function questionForPublicRound(room: PublicRoom, roundNumber: number): A
 }
 
 export function publicRoundAt(room: PublicRoom, roundNumber: number, now: number): PublicRound {
-  const answerDuration = ANSWER_DURATION_MS[room.skillLevel];
+  const answerDuration = answerDurationFor(room);
   const cycleDuration = answerDuration + PUBLIC_ROUND_REVEAL_MS;
   const startedAt = configuredEpoch() + roundNumber * cycleDuration;
   const answerDeadline = startedAt + answerDuration;
@@ -159,7 +165,7 @@ export function publicRoundAt(room: PublicRoom, roundNumber: number, now: number
 
 export function currentPublicRound(settings: PublicRoomSettings, now = Date.now()) {
   const room = publicRoomFor(settings);
-  const cycleDuration = ANSWER_DURATION_MS[room.skillLevel] + PUBLIC_ROUND_REVEAL_MS;
+  const cycleDuration = answerDurationFor(room) + PUBLIC_ROUND_REVEAL_MS;
   const roundNumber = Math.max(0, Math.floor((now - configuredEpoch()) / cycleDuration));
 
   return {

@@ -350,6 +350,8 @@ const veteranDefinition = counterplayQuestions.find((question) => question.id ==
 if (
   learningCounterplay.round.game !== "counterplay" ||
   veteranCounterplay.round.game !== "counterplay" ||
+  learningCounterplay.round.answerDuration !== 18_000 ||
+  veteranCounterplay.round.answerDuration !== 15_000 ||
   learningDefinition?.difficulty !== 1 ||
   (veteranDefinition?.difficulty ?? 0) < 2
 ) {

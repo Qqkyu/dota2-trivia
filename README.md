@@ -17,7 +17,7 @@ Every mode shares the parts that made the original compelling: short timed round
 The playable MVP includes:
 
 - endless, instantly interruptible arcade sessions with automatic round transitions;
-- Open, Learning, and Veteran challenge levels with 12–18 second timers and filtered trivia pools;
+- Open, Learning, and Veteran challenge levels with 12–18 second timers, including a 15-second Counterplay floor;
 - 1,036 prompts across 31 formats for Dota patch 7.41d, including 236 Map Sense challenges and 62 Counterplay matchups;
 - item, hero, and ability artwork for visual answer rounds;
 - 44 remotely verified Echo Hunt clips and 43 Quote Hunt lines sourced through Dotabase;
@@ -38,7 +38,7 @@ The playable MVP includes:
 
 - **Learning** uses 18-second rounds and recognizable, core Spell Link abilities.
 - **Open** uses 15 seconds and samples every content tier.
-- **Veteran** uses 12 seconds, excludes recognizable core abilities, hides ability-name clues, and selects closer distractor heroes.
+- **Veteran** uses 12 seconds—or 15 in Counterplay—excludes recognizable core abilities, hides ability-name clues, and selects closer distractor heroes.
 
 Fogged Vision also scales the portrait itself: Learning preserves more color and silhouette detail, Open starts
 substantially obscured, and every level retains some fog through the final stage—with Veteran keeping the most.
@@ -117,9 +117,10 @@ clearance, non-ambiguous TP choices, coordinate bounds, reference-pin separation
 
 Counterplay's curated matchups live in `scripts/generate-counterplay.mjs`. BKB and dispel questions are audited against
 the shipped constants. Linken's rounds use a current exception allowlist and reject any option set where all four casts
-are not plausible unit targets; Lotus rounds use sourced interaction scenarios instead of target-type elimination.
-`validate-counterplay.mjs` protects those formats, family coverage, challenge-level pools, scan-length, answer balance,
-artwork shape, source snapshots, and the recorded interaction outcome.
+are not plausible unit targets; Lotus rounds use sourced, sentence-completion interactions with two-word prompts and
+three-word answer limits instead of target-type elimination. `validate-counterplay.mjs` protects those formats, family
+coverage, challenge-level pools, scan-length, answer balance, artwork shape, source snapshots, and the recorded
+interaction outcome.
 
 ## Verify it
 
@@ -135,7 +136,7 @@ For visual smoke testing, start muted Chrome with a debugging port and then run 
 
 ## Crowd architecture
 
-Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2-map-sense-7-counterplay-2:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2-map-sense-7-counterplay-3:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` opens with the reveal and keeps the just-finished question reportable for a 20-second rollover grace period. It stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 

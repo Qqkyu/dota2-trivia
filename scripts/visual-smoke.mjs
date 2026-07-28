@@ -590,6 +590,7 @@ await delay(350);
 const counterplayPreview = await evaluate(`({
   active: Boolean(document.querySelector('[data-arcade-mode="counterplay"][aria-pressed="true"]')),
   prompt: document.querySelector('[data-testid="mode-preview"] h2')?.innerText,
+  timer: document.querySelector('[data-testid="mode-preview"] [class*="previewHeader"] strong')?.innerText,
   answers: document.querySelectorAll('[data-testid="mode-preview"] [class*="previewAnswers"] > div').length,
   artworkLoaded: [...document.querySelectorAll('[data-testid="mode-preview"] img')]
     .some((image) => image.complete && image.naturalWidth > 0)
@@ -1096,6 +1097,7 @@ if (
 if (
   !counterplayPreview.active ||
   !counterplayPreview.prompt ||
+  counterplayPreview.timer !== "00:15" ||
   counterplayPreview.answers !== 4 ||
   !counterplayPreview.artworkLoaded
 ) {
@@ -1109,7 +1111,7 @@ if (
   !counterplay.prompt ||
   counterplay.promptWords > 5 ||
   !counterplay.tool ||
-  !counterplay.note ||
+  (counterplay.format === "interaction-scenario" ? Boolean(counterplay.note) : !counterplay.note) ||
   counterplay.difficulty < 2 ||
   counterplay.answerCount !== 4 ||
   counterplay.answerImages !== (counterplay.format === "interaction-scenario" ? 0 : 4) ||

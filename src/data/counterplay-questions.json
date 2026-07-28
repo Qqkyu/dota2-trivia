@@ -2404,21 +2404,21 @@
     "kind": "counterplay-spell-reflect",
     "category": "Mechanics",
     "difficulty": 1,
-    "eyebrow": "Nether Swap · Echo Shell",
-    "prompt": "Nether Swap into Lotus?",
+    "eyebrow": "Nether Swap → Lotus Orb",
+    "prompt": "Swap sequence:",
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/vengefulspirit_nether_swap.png",
       "alt": "Nether Swap ability icon",
       "kind": "ability"
     },
     "answers": [
-      "They swap, then swap back",
-      "Only the first swap happens",
-      "The original swap is blocked",
-      "Neither spell takes effect"
+      "There and back",
+      "One swap",
+      "Blocked",
+      "No cast"
     ],
     "correctIndex": 0,
-    "explanation": "They swap, then swap back. Echo Shell reflects Nether Swap after the original move, immediately reversing it.",
+    "explanation": "There and back. Echo Shell reflects Nether Swap after the original move, immediately reversing it.",
     "counterplay": {
       "family": "spell-reflect",
       "tool": "Lotus Orb",
@@ -2428,8 +2428,7 @@
         false,
         false
       ],
-      "format": "interaction-scenario",
-      "note": "Echo Shell is already active"
+      "format": "interaction-scenario"
     },
     "source": {
       "label": "Dota 2 Wiki · Spell Reflection · 2026-07-28",
@@ -2442,21 +2441,21 @@
     "kind": "counterplay-spell-reflect",
     "category": "Mechanics",
     "difficulty": 1,
-    "eyebrow": "Doom · Echo Shell",
-    "prompt": "Doom into Lotus?",
+    "eyebrow": "Doom → Lotus Orb",
+    "prompt": "Doomed heroes:",
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/doom_bringer_doom.png",
       "alt": "Doom ability icon",
       "kind": "ability"
     },
     "answers": [
-      "Doom is fully blocked",
-      "Doom lands and reflects",
-      "Only Doom's damage reflects",
-      "Echo Shell dispels Doom"
+      "Target only",
+      "Both",
+      "Caster only",
+      "Neither"
     ],
     "correctIndex": 1,
-    "explanation": "Doom lands and reflects. Echo Shell does not block the original cast; it re-casts Doom at its caster.",
+    "explanation": "Both heroes are Doomed. Echo Shell does not block the original cast; it re-casts Doom at its caster.",
     "counterplay": {
       "family": "spell-reflect",
       "tool": "Lotus Orb",
@@ -2466,8 +2465,7 @@
         false,
         false
       ],
-      "format": "interaction-scenario",
-      "note": "No Spell Block is active"
+      "format": "interaction-scenario"
     },
     "source": {
       "label": "Dota 2 Wiki · Spell Reflection · 2026-07-28",
@@ -2480,21 +2478,21 @@
     "kind": "counterplay-spell-reflect",
     "category": "Mechanics",
     "difficulty": 2,
-    "eyebrow": "Doom · Two defenses",
-    "prompt": "Lotus plus Linken's?",
+    "eyebrow": "Doom → Lotus + Linken's",
+    "prompt": "Defense result:",
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/doom_bringer_doom.png",
       "alt": "Doom ability icon",
       "kind": "ability"
     },
     "answers": [
-      "Linken's prevents the reflection",
-      "Doom lands on both heroes",
-      "Doom reflects; original is blocked",
-      "Only the original Doom lands"
+      "Blocked only",
+      "Both Dooms land",
+      "Blocked + reflected",
+      "Original Doom lands"
     ],
     "correctIndex": 2,
-    "explanation": "Doom reflects; original is blocked. Spell Reflection triggers before Spell Block, so the copy returns first.",
+    "explanation": "Blocked + reflected. Spell Reflection triggers before Spell Block, so Doom returns while the original is blocked.",
     "counterplay": {
       "family": "spell-reflect",
       "tool": "Lotus + Linken's",
@@ -2504,8 +2502,7 @@
         true,
         false
       ],
-      "format": "interaction-scenario",
-      "note": "Both defensive effects are active"
+      "format": "interaction-scenario"
     },
     "source": {
       "label": "Dota 2 Wiki · Spell Reflection · 2026-07-28",
@@ -2518,21 +2515,21 @@
     "kind": "counterplay-spell-reflect",
     "category": "Mechanics",
     "difficulty": 2,
-    "eyebrow": "Chaos Bolt · Reflected roll",
-    "prompt": "How does Bolt return?",
+    "eyebrow": "Chaos Bolt → Lotus Orb",
+    "prompt": "Reflected roll:",
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/chaos_knight_chaos_bolt.png",
       "alt": "Chaos Bolt ability icon",
       "kind": "ability"
     },
     "answers": [
-      "It copies the first roll",
-      "Only its damage is reflected",
-      "The original bolt is blocked",
-      "The reflected bolt rerolls"
+      "Same roll",
+      "Damage only",
+      "No reflection",
+      "New roll"
     ],
     "correctIndex": 3,
-    "explanation": "The reflected bolt rerolls. Chaos Bolt calculates fresh damage and stun values instead of copying the original roll.",
+    "explanation": "New roll. Chaos Bolt calculates fresh damage and stun values instead of copying the original roll.",
     "counterplay": {
       "family": "spell-reflect",
       "tool": "Lotus Orb",
@@ -2542,8 +2539,7 @@
         false,
         true
       ],
-      "format": "interaction-scenario",
-      "note": "Compare the original and reflected rolls"
+      "format": "interaction-scenario"
     },
     "source": {
       "label": "Dota 2 Wiki · Spell Reflection · 2026-07-28",
@@ -2556,21 +2552,21 @@
     "kind": "counterplay-spell-reflect",
     "category": "Mechanics",
     "difficulty": 2,
-    "eyebrow": "Fireblast · Multicast",
-    "prompt": "Multicast into Lotus?",
+    "eyebrow": "Fireblast Multicast → Lotus",
+    "prompt": "Reflected casts:",
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/ogre_magi_fireblast.png",
       "alt": "Fireblast ability icon",
       "kind": "ability"
     },
     "answers": [
-      "Every multicast is reflected",
-      "Only the first cast reflects",
-      "Only the last cast reflects",
-      "Multicast is completely blocked"
+      "Every cast",
+      "First only",
+      "Last only",
+      "None"
     ],
     "correctIndex": 0,
-    "explanation": "Every multicast is reflected. Echo Shell re-casts each Fireblast instance generated by Multicast.",
+    "explanation": "Every cast is reflected. Echo Shell re-casts each Fireblast instance generated by Multicast.",
     "counterplay": {
       "family": "spell-reflect",
       "tool": "Lotus Orb",
@@ -2580,8 +2576,7 @@
         false,
         false
       ],
-      "format": "interaction-scenario",
-      "note": "Ogre procs multiple casts"
+      "format": "interaction-scenario"
     },
     "source": {
       "label": "Dota 2 Wiki · Spell Reflection · 2026-07-28",
@@ -2594,21 +2589,21 @@
     "kind": "counterplay-spell-reflect",
     "category": "Mechanics",
     "difficulty": 2,
-    "eyebrow": "Storm Hammer · Projectile",
-    "prompt": "Lotus applied mid-flight?",
+    "eyebrow": "Storm Hammer → Mid-flight Lotus",
+    "prompt": "On impact:",
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sven_storm_bolt.png",
       "alt": "Storm Hammer ability icon",
       "kind": "ability"
     },
     "answers": [
-      "Too late; nothing reflects",
-      "Storm Hammer still reflects",
-      "Storm Hammer gets blocked",
-      "Only splash damage reflects"
+      "Too late",
+      "Still reflects",
+      "Gets blocked",
+      "Splash only"
     ],
     "correctIndex": 1,
-    "explanation": "Storm Hammer still reflects. Most targeted projectiles check Spell Reflection when they hit, not when cast.",
+    "explanation": "Still reflects. Most targeted projectiles check Spell Reflection when they hit, not when cast.",
     "counterplay": {
       "family": "spell-reflect",
       "tool": "Lotus Orb",
@@ -2618,8 +2613,7 @@
         false,
         false
       ],
-      "format": "interaction-scenario",
-      "note": "Echo Shell lands before impact"
+      "format": "interaction-scenario"
     },
     "source": {
       "label": "Dota 2 Wiki · Spell Reflection · 2026-07-28",
@@ -2632,21 +2626,21 @@
     "kind": "counterplay-spell-reflect",
     "category": "Mechanics",
     "difficulty": 3,
-    "eyebrow": "Charge · Reflection timing",
-    "prompt": "When does Charge reflect?",
+    "eyebrow": "Charge → Lotus Orb",
+    "prompt": "Reflects:",
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/spirit_breaker_charge_of_darkness.png",
       "alt": "Charge of Darkness ability icon",
       "kind": "ability"
     },
     "answers": [
-      "When the charge connects",
-      "After Greater Bash procs",
-      "Immediately on cast",
-      "It never reflects"
+      "On impact",
+      "After Bash",
+      "On cast",
+      "Never"
     ],
     "correctIndex": 2,
-    "explanation": "Immediately on cast. Charge of Darkness is reflected before impact, and its reflected cast does not Greater Bash.",
+    "explanation": "On cast. Charge of Darkness reflects before impact, and its reflected cast does not Greater Bash.",
     "counterplay": {
       "family": "spell-reflect",
       "tool": "Lotus Orb",
@@ -2656,8 +2650,7 @@
         true,
         false
       ],
-      "format": "interaction-scenario",
-      "note": "Echo Shell is active on the target"
+      "format": "interaction-scenario"
     },
     "source": {
       "label": "Dota 2 Wiki · Spell Reflection · 2026-07-28",
@@ -2670,21 +2663,21 @@
     "kind": "counterplay-spell-reflect",
     "category": "Mechanics",
     "difficulty": 3,
-    "eyebrow": "Frostbite · Freezing Field",
-    "prompt": "Freezing Field Frostbite?",
+    "eyebrow": "Upgraded Freezing Field → Lotus",
+    "prompt": "Frostbite reflections:",
     "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/crystal_maiden_frostbite.png",
-      "alt": "Frostbite ability icon",
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/crystal_maiden_freezing_field.png",
+      "alt": "Freezing Field ability icon",
       "kind": "ability"
     },
     "answers": [
-      "Every proc is reflected",
-      "It reflects once on cast",
-      "Freezing Field is blocked",
-      "It is not reflected"
+      "Every proc",
+      "First only",
+      "Last only",
+      "None"
     ],
     "correctIndex": 3,
-    "explanation": "It is not reflected. Lotus only reflects a manually cast Frostbite, not Frostbite applied by Freezing Field.",
+    "explanation": "None. Lotus only reflects manually cast Frostbite, not Frostbite applied by upgraded Freezing Field.",
     "counterplay": {
       "family": "spell-reflect",
       "tool": "Lotus Orb",
@@ -2694,8 +2687,7 @@
         false,
         true
       ],
-      "format": "interaction-scenario",
-      "note": "Frostbite is applied by the ultimate"
+      "format": "interaction-scenario"
     },
     "source": {
       "label": "Dota 2 Wiki · Spell Reflection · 2026-07-28",
@@ -2708,21 +2700,21 @@
     "kind": "counterplay-spell-reflect",
     "category": "Mechanics",
     "difficulty": 3,
-    "eyebrow": "Fiend's Grip · Channel",
-    "prompt": "Who channels the copy?",
+    "eyebrow": "Fiend's Grip → Lotus Orb",
+    "prompt": "Copy channeler:",
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bane_fiends_grip.png",
       "alt": "Fiend's Grip ability icon",
       "kind": "ability"
     },
     "answers": [
-      "Echo Shell's target channels",
-      "The original Bane channels both",
-      "Lotus Orb's owner channels",
-      "Nobody; channels cannot reflect"
+      "Echo Shell target",
+      "Original Bane",
+      "Lotus caster",
+      "Nobody"
     ],
     "correctIndex": 0,
-    "explanation": "Echo Shell's target channels the reflected Fiend's Grip and must stand still to keep the copy going.",
+    "explanation": "Echo Shell target channels the reflected Fiend's Grip and must stand still to keep the copy going.",
     "counterplay": {
       "family": "spell-reflect",
       "tool": "Lotus Orb",
@@ -2732,8 +2724,7 @@
         false,
         false
       ],
-      "format": "interaction-scenario",
-      "note": "Echo Shell reflects the cast"
+      "format": "interaction-scenario"
     },
     "source": {
       "label": "Dota 2 Wiki · Spell Reflection · 2026-07-28",
@@ -2746,21 +2737,21 @@
     "kind": "counterplay-spell-reflect",
     "category": "Mechanics",
     "difficulty": 3,
-    "eyebrow": "Finger · Reflected upgrade",
-    "prompt": "Whose upgrades get copied?",
+    "eyebrow": "Finger → Lotus Orb",
+    "prompt": "Whose upgrades?",
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lion_finger_of_death.png",
       "alt": "Finger of Death ability icon",
       "kind": "ability"
     },
     "answers": [
-      "The Lotus target's upgrades",
-      "The original caster's upgrades",
-      "Lotus Orb owner's upgrades",
-      "No upgrades are copied"
+      "Echo Shell target",
+      "Original caster",
+      "Lotus Orb owner",
+      "Nobody"
     ],
     "correctIndex": 1,
-    "explanation": "The original caster's upgrades are retained by the reflected spell, including talents, facet, Scepter, and Shard.",
+    "explanation": "Original caster upgrades are retained by the reflected spell, including talents, facet, Scepter, and Shard.",
     "counterplay": {
       "family": "spell-reflect",
       "tool": "Lotus Orb",
@@ -2770,8 +2761,7 @@
         false,
         false
       ],
-      "format": "interaction-scenario",
-      "note": "The original caster has an upgrade"
+      "format": "interaction-scenario"
     },
     "source": {
       "label": "Dota 2 Wiki · Spell Reflection · 2026-07-28",

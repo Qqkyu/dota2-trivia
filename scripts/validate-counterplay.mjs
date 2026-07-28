@@ -85,9 +85,25 @@ for (const [index, question] of questions.entries()) {
     failures.push(`${label}: prompt is too slow to scan.`);
   }
   if (!question.counterplay?.tool?.trim()) failures.push(`${label}: mechanic tool is missing.`);
-  if (!question.counterplay?.note?.trim()) failures.push(`${label}: scenario note is missing.`);
   if (question.counterplay?.format !== expectedFormats[family]) {
     failures.push(`${label}: family uses the wrong question format.`);
+  }
+  if (family === "spell-reflect") {
+    if (question.counterplay?.note !== undefined) {
+      failures.push(`${label}: scenario conditions must be encoded in the header, not a second reading line.`);
+    }
+    if ((question.prompt?.trim().split(/\s+/).length ?? 99) > 2) {
+      failures.push(`${label}: Lotus prompt must fit in two words.`);
+    }
+    if (
+      !question.eyebrow?.includes("→") ||
+      question.eyebrow.trim().split(/\s+/).length > 5 ||
+      !question.eyebrow.includes("Lotus")
+    ) {
+      failures.push(`${label}: Lotus scenario header must compactly show the interaction.`);
+    }
+  } else if (!question.counterplay?.note?.trim()) {
+    failures.push(`${label}: base-interaction note is missing.`);
   }
 
   if (!Array.isArray(question.answers) || question.answers.length !== 4) {
@@ -102,7 +118,7 @@ for (const [index, question] of questions.entries()) {
     if (question.answerImages !== undefined || question.answerImageKind !== undefined) {
       failures.push(`${label}: interaction outcomes must not masquerade as ability choices.`);
     }
-    if (question.answers.some((answer) => answer.trim().split(/\s+/).length > 6)) {
+    if (question.answers.some((answer) => answer.trim().split(/\s+/).length > 3)) {
       failures.push(`${label}: interaction outcome is too slow to scan.`);
     }
   } else {
