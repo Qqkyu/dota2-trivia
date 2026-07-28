@@ -115,12 +115,15 @@ reference pins are normalized from `0–1` so future terrain artwork can be repl
 storage format. `validate-data` also checks family balance, difficulty coverage, exact camp-box inclusion, stack-route
 clearance, non-ambiguous TP choices, coordinate bounds, reference-pin separation, and local artwork.
 
-Counterplay's curated matchups live in `scripts/generate-counterplay.mjs`. BKB and dispel questions are audited against
-the shipped constants. Linken's rounds use a current exception allowlist and reject any option set where all four casts
-are not plausible unit targets; Lotus rounds use sourced, prominent spell-to-item diagrams and sentence-completion
-interactions with two-word prompts and three-word answer limits instead of target-type elimination.
-`validate-counterplay.mjs` protects those formats, family coverage, challenge-level pools, scan-length, answer balance,
-artwork shape, source snapshots, and the recorded interaction outcome.
+Counterplay's curated matchups live in `scripts/generate-counterplay.mjs`; its reviewed 7.41d truth set lives separately
+in `scripts/counterplay-audit.mjs`. BKB and dispel fields were cross-checked against the installed 7.41d client build 6869,
+while special Linken's and Lotus interactions were checked against the current mechanics references linked by each
+question. Generation is fail-closed: every displayed ability must have an explicit audited result, every API-derived
+result must agree with it, and every Lotus question must match a named scenario fixture. Linken's rounds also reject any
+option set where all four casts are not plausible unit-targeted casts; Lotus rounds use prominent spell-to-item diagrams,
+a three-word prompt ceiling, and three-word answer limits instead of target-type elimination.
+`validate-counterplay.mjs` independently protects those facts and scenarios as well as format, family coverage,
+challenge-level pools, scan length, answer balance, artwork shape, and source snapshots.
 
 ## Verify it
 
@@ -136,7 +139,7 @@ For visual smoke testing, start muted Chrome with a debugging port and then run 
 
 ## Crowd architecture
 
-Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2-map-sense-7-counterplay-3:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2-map-sense-7-counterplay-4:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` opens with the reveal and keeps the just-finished question reportable for a 20-second rollover grace period. It stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 
@@ -155,4 +158,4 @@ The default persistent store is an atomic JSON file suited to local development 
 
 ## Attribution
 
-Question and Counterplay facts are generated from [OpenDota](https://docs.opendota.com/), hero-response metadata is sourced through [Dotabase](https://github.com/mdiller/dotabase), and game assets are served from public Dota asset hosts. The versioned Map Sense terrain artwork comes from [OpenDota's public map archive](https://github.com/odota/web/tree/master/public/assets/images/dota2/map), with objective changes checked against [Valve's 7.41 notes](https://www.dota2.com/patches/7.41). Camp hulls and tower positions were audited from the installed 7.41d map entity resource; stack windows and arrows come from Valve's matching `scripts/creep_pull_timings.txt`. Dota 2 and its assets are trademarks of Valve Corporation. This fan project is not affiliated with or endorsed by Valve.
+Question constants, names, and artwork mappings are generated from [OpenDota](https://docs.opendota.com/), while Counterplay outcomes are independently audited against the installed client and the current mechanics sources attached to each question. Hero-response metadata is sourced through [Dotabase](https://github.com/mdiller/dotabase), and game assets are served from public Dota asset hosts. The versioned Map Sense terrain artwork comes from [OpenDota's public map archive](https://github.com/odota/web/tree/master/public/assets/images/dota2/map), with objective changes checked against [Valve's 7.41 notes](https://www.dota2.com/patches/7.41). Camp hulls and tower positions were audited from the installed 7.41d map entity resource; stack windows and arrows come from Valve's matching `scripts/creep_pull_timings.txt`. Dota 2 and its assets are trademarks of Valve Corporation. This fan project is not affiliated with or endorsed by Valve.

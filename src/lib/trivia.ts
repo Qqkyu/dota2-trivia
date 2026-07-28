@@ -109,6 +109,11 @@ export interface TriviaQuestion {
       kind: "item";
     }>;
     targetedOptions?: [boolean, boolean, boolean, boolean];
+    audit: {
+      reviewedAt: string;
+      clientBuild: string;
+      rule: string;
+    };
   };
   map?: MapChallenge;
   source: {
@@ -134,7 +139,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-3`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-4`;
 export const triviaQuestions = [
   ...(generatedQuestions as TriviaQuestion[]),
   ...(mapSenseQuestions as TriviaQuestion[]),

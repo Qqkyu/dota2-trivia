@@ -3,41 +3,25 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  COUNTERPLAY_AUDIT,
+  COUNTERPLAY_SOURCES,
+  SPELL_REFLECTION_SCENARIOS,
+  auditedCounterplayOutcome,
+} from "./counterplay-audit.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const outputPath = join(root, "src", "data", "counterplay-questions.json");
 const metadata = JSON.parse(await readFile(join(root, "src", "data", "trivia-meta.generated.json"), "utf8"));
 
-const SNAPSHOT_DATE = "2026-07-28";
+const SNAPSHOT_DATE = COUNTERPLAY_AUDIT.reviewedAt;
 const ASSET_ROOT = "https://cdn.cloudflare.steamstatic.com";
-const SOURCE = {
-  label: `OpenDota game constants · ${SNAPSHOT_DATE}`,
-  url: "https://docs.opendota.com/",
-};
-const SPELL_BLOCK_SOURCE = {
-  label: `Dota 2 Wiki · Spell Block · ${SNAPSHOT_DATE}`,
-  url: "https://liquipedia.net/dota2/Spell_Block",
-};
-const SPELL_REFLECTION_SOURCE = {
-  label: `Dota 2 Wiki · Spell Reflection · ${SNAPSHOT_DATE}`,
-  url: "https://liquipedia.net/dota2/Spell_Reflection",
-};
 
-// These are current exceptions that still present as unit-targeted casts in the
-// shipped constants. Keeping the allowlist here makes accidental "spot the only
-// targeted spell" matchups fail generation instead of reaching the game.
-const SPELL_BLOCK_BYPASSES = new Set([
-  "tidehunter_gush",
-  "lion_impale",
-  "lina_dragon_slave",
-  "death_prophet_carrion_swarm",
-  "dragon_knight_breathe_fire",
-  "magnataur_shockwave",
-  "tiny_toss_tree",
-  "troll_warlord_whirling_axes_ranged",
-  "viper_poison_attack",
-  "obsidian_destroyer_arcane_orb",
-]);
+if (metadata.patch !== COUNTERPLAY_AUDIT.patch) {
+  throw new Error(
+    `Counterplay audit targets ${COUNTERPLAY_AUDIT.patch}, but trivia metadata targets ${metadata.patch}. Re-audit the mechanics before generating a new patch.`,
+  );
+}
 
 const familyInfo = {
   "debuff-immunity": {
@@ -46,6 +30,7 @@ const familyInfo = {
     prompt: "Which pierces BKB?",
     tool: "Black King Bar",
     anchor: ["item", "black_king_bar"],
+    source: COUNTERPLAY_SOURCES["debuff-immunity"],
     outcome(ability) {
       return ability.bkbpierce === "Yes";
     },
@@ -59,6 +44,7 @@ const familyInfo = {
     prompt: "Which debuff gets purged?",
     tool: "Manta Style",
     anchor: ["item", "manta"],
+    source: COUNTERPLAY_SOURCES["basic-dispel"],
     outcome(ability) {
       return ability.dispellable === "Yes";
     },
@@ -72,6 +58,7 @@ const familyInfo = {
     prompt: "Which needs strong dispel?",
     tool: "Strong Dispel",
     anchor: ["ability", "oracle_false_promise"],
+    source: COUNTERPLAY_SOURCES["strong-dispel"],
     outcome(ability) {
       return ability.dispellable === "Strong Dispels Only";
     },
@@ -85,6 +72,7 @@ const familyInfo = {
     prompt: "Which buff gets purged?",
     tool: "Nullifier",
     anchor: ["item", "nullifier"],
+    source: COUNTERPLAY_SOURCES["offensive-dispel"],
     outcome(ability) {
       return ability.dispellable === "Yes";
     },
@@ -99,9 +87,9 @@ const familyInfo = {
     tool: "Linken's Sphere",
     anchor: ["item", "sphere"],
     format: "curated-exception",
-    source: SPELL_BLOCK_SOURCE,
+    source: COUNTERPLAY_SOURCES["spell-block"],
     outcome(_ability, key) {
-      return SPELL_BLOCK_BYPASSES.has(key);
+      return auditedCounterplayOutcome("spell-block", key);
     },
   },
   "spell-reflect": {
@@ -111,7 +99,7 @@ const familyInfo = {
     tool: "Lotus Orb",
     anchor: ["item", "lotus_orb"],
     format: "interaction-scenario",
-    source: SPELL_REFLECTION_SOURCE,
+    source: COUNTERPLAY_SOURCES["spell-reflect"],
   },
 };
 
@@ -375,10 +363,10 @@ const definitions = [
   {
     family: "spell-block",
     difficulty: 1,
-    correct: "tidehunter_gush",
+    correct: "jakiro_dual_breath",
     distractors: ["doom_bringer_doom", "legion_commander_duel", "pudge_dismember"],
     explanation:
-      "Gush bypasses Linken's Sphere because its hybrid unit-or-ground targeting does not trigger Spell Block.",
+      "Dual Breath bypasses Linken's Sphere even when cast directly on its holder; it does not trigger Spell Block.",
   },
   {
     family: "spell-block",
@@ -457,10 +445,7 @@ const definitions = [
     id: "nether-swap",
     subject: "vengefulspirit_nether_swap",
     eyebrow: "Nether Swap → Lotus Orb",
-    prompt: "Swap sequence:",
-    correctAnswer: "There and back",
-    distractors: ["One swap", "Blocked", "No cast"],
-    explanation: "There and back. Echo Shell reflects Nether Swap after the original move, immediately reversing it.",
+    ...SPELL_REFLECTION_SCENARIOS["nether-swap"],
   },
   {
     family: "spell-reflect",
@@ -468,10 +453,7 @@ const definitions = [
     id: "doom",
     subject: "doom_bringer_doom",
     eyebrow: "Doom → Lotus Orb",
-    prompt: "Doomed heroes:",
-    correctAnswer: "Both",
-    distractors: ["Target only", "Caster only", "Neither"],
-    explanation: "Both heroes are Doomed. Echo Shell does not block the original cast; it re-casts Doom at its caster.",
+    ...SPELL_REFLECTION_SCENARIOS.doom,
   },
   {
     family: "spell-reflect",
@@ -479,16 +461,12 @@ const definitions = [
     id: "lotus-linkens-order",
     subject: "doom_bringer_doom",
     eyebrow: "Doom → Lotus + Linken's",
-    prompt: "Defense result:",
     tool: "Lotus + Linken's",
     toolAnchors: [
       ["item", "lotus_orb"],
       ["item", "sphere"],
     ],
-    correctAnswer: "Blocked + reflected",
-    distractors: ["Blocked only", "Both Dooms land", "Original Doom lands"],
-    explanation:
-      "Blocked + reflected. Spell Reflection triggers before Spell Block, so Doom returns while the original is blocked.",
+    ...SPELL_REFLECTION_SCENARIOS["lotus-linkens-order"],
   },
   {
     family: "spell-reflect",
@@ -496,10 +474,7 @@ const definitions = [
     id: "chaos-bolt-roll",
     subject: "chaos_knight_chaos_bolt",
     eyebrow: "Chaos Bolt → Lotus Orb",
-    prompt: "Reflected roll:",
-    correctAnswer: "New roll",
-    distractors: ["Same roll", "Damage only", "No reflection"],
-    explanation: "New roll. Chaos Bolt calculates fresh damage and stun values instead of copying the original roll.",
+    ...SPELL_REFLECTION_SCENARIOS["chaos-bolt-roll"],
   },
   {
     family: "spell-reflect",
@@ -507,10 +482,7 @@ const definitions = [
     id: "fireblast-multicast",
     subject: "ogre_magi_fireblast",
     eyebrow: "Fireblast Multicast → Lotus",
-    prompt: "Reflected casts:",
-    correctAnswer: "Every cast",
-    distractors: ["First only", "Last only", "None"],
-    explanation: "Every cast is reflected. Echo Shell re-casts each Fireblast instance generated by Multicast.",
+    ...SPELL_REFLECTION_SCENARIOS["fireblast-multicast"],
   },
   {
     family: "spell-reflect",
@@ -518,10 +490,7 @@ const definitions = [
     id: "storm-hammer-mid-flight",
     subject: "sven_storm_bolt",
     eyebrow: "Storm Hammer → Mid-flight Lotus",
-    prompt: "On impact:",
-    correctAnswer: "Still reflects",
-    distractors: ["Too late", "Gets blocked", "Splash only"],
-    explanation: "Still reflects. Most targeted projectiles check Spell Reflection when they hit, not when cast.",
+    ...SPELL_REFLECTION_SCENARIOS["storm-hammer-mid-flight"],
   },
   {
     family: "spell-reflect",
@@ -529,10 +498,7 @@ const definitions = [
     id: "charge-timing",
     subject: "spirit_breaker_charge_of_darkness",
     eyebrow: "Charge → Lotus Orb",
-    prompt: "Reflects:",
-    correctAnswer: "On cast",
-    distractors: ["On impact", "After Bash", "Never"],
-    explanation: "On cast. Charge of Darkness reflects before impact, and its reflected cast does not Greater Bash.",
+    ...SPELL_REFLECTION_SCENARIOS["charge-timing"],
   },
   {
     family: "spell-reflect",
@@ -540,10 +506,7 @@ const definitions = [
     id: "freezing-field-frostbite",
     subject: "crystal_maiden_freezing_field",
     eyebrow: "Upgraded Freezing Field → Lotus",
-    prompt: "Frostbite reflections:",
-    correctAnswer: "None",
-    distractors: ["Every proc", "First only", "Last only"],
-    explanation: "None. Lotus only reflects manually cast Frostbite, not Frostbite applied by upgraded Freezing Field.",
+    ...SPELL_REFLECTION_SCENARIOS["freezing-field-frostbite"],
   },
   {
     family: "spell-reflect",
@@ -551,10 +514,7 @@ const definitions = [
     id: "fiends-grip-channel",
     subject: "bane_fiends_grip",
     eyebrow: "Fiend's Grip → Lotus Orb",
-    prompt: "Copy channeler:",
-    correctAnswer: "Echo Shell target",
-    distractors: ["Original Bane", "Lotus caster", "Nobody"],
-    explanation: "Echo Shell target channels the reflected Fiend's Grip and must stand still to keep the copy going.",
+    ...SPELL_REFLECTION_SCENARIOS["fiends-grip-channel"],
   },
   {
     family: "spell-reflect",
@@ -562,11 +522,7 @@ const definitions = [
     id: "reflected-upgrades",
     subject: "lion_finger_of_death",
     eyebrow: "Finger → Lotus Orb",
-    prompt: "Whose upgrades?",
-    correctAnswer: "Original caster",
-    distractors: ["Echo Shell target", "Lotus Orb owner", "Nobody"],
-    explanation:
-      "Original caster upgrades are retained by the reflected spell, including talents, facet, Scepter, and Shard.",
+    ...SPELL_REFLECTION_SCENARIOS["reflected-upgrades"],
   },
 ];
 
@@ -624,10 +580,40 @@ const questions = definitions.map((definition, index) => {
   const outcomes = isScenario
     ? answers.map((_answer, answerIndex) => answerIndex === correctSlot)
     : answerRecords.map((ability, answerIndex) => family.outcome(ability, answerKeys[answerIndex]));
+  const auditRule = isScenario ? `spell-reflect:${definition.id}` : `${definition.family}:all-options`;
   const targetedOptions = answerRecords?.map((ability) => {
     const behavior = Array.isArray(ability.behavior) ? ability.behavior : [ability.behavior];
     return behavior.includes("Unit Target");
   });
+
+  if (isScenario) {
+    const scenario = SPELL_REFLECTION_SCENARIOS[definition.id];
+    if (!scenario) {
+      throw new Error(`${family.kind}:${definition.id} has no reviewed Spell Reflection scenario.`);
+    }
+    const reviewedAnswers = [...scenario.distractors, scenario.correctAnswer].sort();
+    if (
+      definition.prompt !== scenario.prompt ||
+      definition.correctAnswer !== scenario.correctAnswer ||
+      definition.explanation !== scenario.explanation ||
+      JSON.stringify([...answers].sort()) !== JSON.stringify(reviewedAnswers)
+    ) {
+      throw new Error(`${family.kind}:${definition.id} has drifted from its reviewed interaction scenario.`);
+    }
+  } else {
+    const auditedOutcomes = answerKeys.map((key) => auditedCounterplayOutcome(definition.family, key));
+    if (outcomes.some((outcome, answerIndex) => outcome !== auditedOutcomes[answerIndex])) {
+      throw new Error(
+        `${family.kind}:${definition.correct} disagrees with the explicit ${COUNTERPLAY_AUDIT.patch} audit (${JSON.stringify(
+          answerKeys.map((key, answerIndex) => ({
+            key,
+            generated: outcomes[answerIndex],
+            audited: auditedOutcomes[answerIndex],
+          })),
+        )}).`,
+      );
+    }
+  }
 
   if (family.format === "curated-exception") {
     if (targetedOptions.some((isTargeted) => !isTargeted)) {
@@ -694,13 +680,18 @@ const questions = definitions.map((definition, index) => {
           }
         : {}),
       ...(targetedOptions && family.format === "curated-exception" ? { targetedOptions } : {}),
+      audit: {
+        reviewedAt: COUNTERPLAY_AUDIT.reviewedAt,
+        clientBuild: COUNTERPLAY_AUDIT.clientBuild,
+        rule: auditRule,
+      },
     },
-    source: family.source ?? SOURCE,
+    source: family.source,
     patch: metadata.patch,
   };
 });
 
 await writeFile(outputPath, `${JSON.stringify(questions, null, 2)}\n`);
 console.log(
-  `Generated ${questions.length} audited Counterplay questions from ${SNAPSHOT_DATE} constants and interaction tables.`,
+  `Generated ${questions.length} audited Counterplay questions for ${metadata.patch} (client build ${COUNTERPLAY_AUDIT.clientBuild}, reviewed ${SNAPSHOT_DATE}).`,
 );

@@ -3,6 +3,12 @@
 import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  COUNTERPLAY_AUDIT,
+  COUNTERPLAY_SOURCES,
+  SPELL_REFLECTION_SCENARIOS,
+  auditedCounterplayOutcome,
+} from "./counterplay-audit.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questions = JSON.parse(await readFile(join(root, "src", "data", "counterplay-questions.json"), "utf8"));
@@ -24,49 +30,38 @@ const expectedFormats = {
   "spell-block": "curated-exception",
   "spell-reflect": "interaction-scenario",
 };
-const expectedSources = {
-  "debuff-immunity": {
-    label: "OpenDota game constants · 2026-07-28",
-    url: "https://docs.opendota.com/",
-  },
-  "basic-dispel": {
-    label: "OpenDota game constants · 2026-07-28",
-    url: "https://docs.opendota.com/",
-  },
-  "strong-dispel": {
-    label: "OpenDota game constants · 2026-07-28",
-    url: "https://docs.opendota.com/",
-  },
-  "offensive-dispel": {
-    label: "OpenDota game constants · 2026-07-28",
-    url: "https://docs.opendota.com/",
-  },
-  "spell-block": {
-    label: "Dota 2 Wiki · Spell Block · 2026-07-28",
-    url: "https://liquipedia.net/dota2/Spell_Block",
-  },
-  "spell-reflect": {
-    label: "Dota 2 Wiki · Spell Reflection · 2026-07-28",
-    url: "https://liquipedia.net/dota2/Spell_Reflection",
-  },
-};
 const failures = [];
 const ids = new Set();
 const answerSets = new Set();
+const seenReflectionScenarios = new Set();
 const familyCounts = Object.fromEntries(Object.keys(expectedKinds).map((family) => [family, 0]));
 const learningCounts = Object.fromEntries(Object.keys(expectedKinds).map((family) => [family, 0]));
 const veteranCounts = Object.fromEntries(Object.keys(expectedKinds).map((family) => [family, 0]));
 const answerPositionCounts = [0, 0, 0, 0];
 
+function abilityKeyFromImage(image) {
+  return image?.match(/\/abilities\/([^/?]+)\.png(?:[?#].*)?$/)?.[1];
+}
+
 if (!Array.isArray(questions) || questions.length < 60) {
   failures.push(`Counterplay needs at least 60 audited questions (found ${questions.length ?? 0}).`);
+}
+if (metadata.patch !== COUNTERPLAY_AUDIT.patch) {
+  failures.push(
+    `Counterplay audit targets ${COUNTERPLAY_AUDIT.patch}, but trivia metadata targets ${metadata.patch}. Re-audit before shipping.`,
+  );
 }
 
 for (const [index, question] of questions.entries()) {
   const label = question?.id ?? `question ${index}`;
   const family = question?.counterplay?.family;
   const expectedKind = expectedKinds[family];
-  const expectedSource = expectedSources[family];
+  const expectedSource = COUNTERPLAY_SOURCES[family];
+  const questionKey =
+    expectedKind && question?.id?.startsWith(`${expectedKind}:`)
+      ? question.id.slice(`${expectedKind}:`.length)
+      : undefined;
+  const expectedAuditRule = family === "spell-reflect" ? `spell-reflect:${questionKey}` : `${family}:all-options`;
 
   if (!question?.id || ids.has(question.id)) failures.push(`${label}: missing or duplicate id.`);
   ids.add(question.id);
@@ -88,12 +83,20 @@ for (const [index, question] of questions.entries()) {
   if (question.counterplay?.format !== expectedFormats[family]) {
     failures.push(`${label}: family uses the wrong question format.`);
   }
+  if (
+    question.counterplay?.audit?.reviewedAt !== COUNTERPLAY_AUDIT.reviewedAt ||
+    question.counterplay?.audit?.clientBuild !== COUNTERPLAY_AUDIT.clientBuild ||
+    question.counterplay?.audit?.rule !== expectedAuditRule
+  ) {
+    failures.push(`${label}: explicit ${COUNTERPLAY_AUDIT.patch} audit metadata is missing or stale.`);
+  }
   if (family === "spell-reflect") {
+    if (questionKey) seenReflectionScenarios.add(questionKey);
     if (question.counterplay?.note !== undefined) {
       failures.push(`${label}: scenario conditions must be encoded in the header, not a second reading line.`);
     }
-    if ((question.prompt?.trim().split(/\s+/).length ?? 99) > 2) {
-      failures.push(`${label}: Lotus prompt must fit in two words.`);
+    if ((question.prompt?.trim().split(/\s+/).length ?? 99) > 3) {
+      failures.push(`${label}: Lotus prompt must fit in three words.`);
     }
     if (
       !question.eyebrow?.includes("→") ||
@@ -139,6 +142,7 @@ for (const [index, question] of questions.entries()) {
   const answerSet = [...question.answers].sort().join("|");
   if (answerSets.has(answerSet)) failures.push(`${label}: duplicate four-option matchup.`);
   answerSets.add(answerSet);
+  let abilityKeys;
   if (family === "spell-reflect") {
     if (question.answerImages !== undefined || question.answerImageKind !== undefined) {
       failures.push(`${label}: interaction outcomes must not masquerade as ability choices.`);
@@ -147,6 +151,7 @@ for (const [index, question] of questions.entries()) {
       failures.push(`${label}: interaction outcome is too slow to scan.`);
     }
   } else {
+    abilityKeys = question.answerImages?.map(abilityKeyFromImage);
     if (
       !Array.isArray(question.answerImages) ||
       question.answerImages.length !== 4 ||
@@ -158,6 +163,9 @@ for (const [index, question] of questions.entries()) {
       )
     ) {
       failures.push(`${label}: answer ability artwork is incomplete.`);
+    }
+    if (!abilityKeys || abilityKeys.length !== 4 || abilityKeys.some((key) => !key)) {
+      failures.push(`${label}: answer artwork does not expose four auditable ability keys.`);
     }
     if (question.answerImageKind !== "ability") failures.push(`${label}: answers must use ability artwork.`);
   }
@@ -206,11 +214,56 @@ for (const [index, question] of questions.entries()) {
     }
   }
 
+  if (family === "spell-reflect") {
+    const scenario = SPELL_REFLECTION_SCENARIOS[questionKey];
+    if (!scenario) {
+      failures.push(`${label}: no reviewed Spell Reflection scenario exists.`);
+    } else {
+      const reviewedAnswers = [...scenario.distractors, scenario.correctAnswer].sort();
+      const actualCorrectAnswer = question.answers[question.correctIndex];
+      if (question.prompt !== scenario.prompt) failures.push(`${label}: prompt drifted from the reviewed scenario.`);
+      if (question.explanation !== scenario.explanation) {
+        failures.push(`${label}: explanation drifted from the reviewed scenario.`);
+      }
+      if (actualCorrectAnswer !== scenario.correctAnswer) {
+        failures.push(`${label}: correct answer drifted from the reviewed scenario.`);
+      }
+      if (JSON.stringify([...question.answers].sort()) !== JSON.stringify(reviewedAnswers)) {
+        failures.push(`${label}: answer set drifted from the reviewed scenario.`);
+      }
+    }
+  } else if (expectedKind && abilityKeys?.length === 4 && abilityKeys.every(Boolean)) {
+    let auditedOutcomes;
+    try {
+      auditedOutcomes = abilityKeys.map((key) => auditedCounterplayOutcome(family, key));
+    } catch (error) {
+      failures.push(`${label}: ${error instanceof Error ? error.message : String(error)}`);
+    }
+    if (auditedOutcomes && auditedOutcomes.some((outcome, answerIndex) => outcome !== outcomes?.[answerIndex])) {
+      failures.push(`${label}: recorded outcomes disagree with the explicit ${COUNTERPLAY_AUDIT.patch} audit.`);
+    }
+    if (abilityKeys[question.correctIndex] !== questionKey) {
+      failures.push(`${label}: id does not name the audited correct ability.`);
+    }
+  }
+
   if (expectedKind) {
     familyCounts[family] += 1;
     if (question.difficulty === 1) learningCounts[family] += 1;
     if (question.difficulty >= 2) veteranCounts[family] += 1;
   }
+}
+
+for (const scenarioId of Object.keys(SPELL_REFLECTION_SCENARIOS)) {
+  if (!seenReflectionScenarios.has(scenarioId)) {
+    failures.push(`spell-reflect:${scenarioId}: reviewed scenario is missing from the generated deck.`);
+  }
+}
+if (ids.has("counterplay-spell-block:tidehunter_gush")) {
+  failures.push("counterplay-spell-block:tidehunter_gush: base Gush incorrectly bypasses Linken's Sphere.");
+}
+if (!ids.has("counterplay-spell-block:jakiro_dual_breath")) {
+  failures.push("counterplay-spell-block:jakiro_dual_breath: audited Gush replacement is missing.");
 }
 
 for (const family of Object.keys(expectedKinds)) {
