@@ -10,7 +10,13 @@ import {
   soundcheckClips,
   soundcheckSource,
 } from "./soundcheck-audit.mjs";
-import { SOUNDCHECK_SEQUENCE_GAP_SECONDS, soundcheckCutDuration } from "../src/lib/soundcheck.mjs";
+import {
+  ECHO_HUNT_REVEAL_STAGES,
+  SOUNDCHECK_REVEAL_STAGES,
+  SOUNDCHECK_SEQUENCE_GAP_SECONDS,
+  echoHuntCutDuration,
+  soundcheckCutDuration,
+} from "../src/lib/soundcheck.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questions = JSON.parse(await readFile(join(root, "src", "data", "soundcheck-questions.json"), "utf8"));
@@ -90,16 +96,21 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
   }));
   const expectedAudioUrls = clips.map(soundcheckAudioUrl);
   for (const clip of clips) {
-    const cuts = [1, 2, 3].map((stage) => soundcheckCutDuration(clip.duration, stage));
+    const cuts = Array.from({ length: SOUNDCHECK_REVEAL_STAGES }, (_, stage) =>
+      soundcheckCutDuration(clip.duration, stage + 1),
+    );
     progressiveClipCount += 1;
     if (
       cuts[0] <= 0 ||
       cuts[0] >= cuts[1] ||
       cuts[1] >= cuts[2] ||
       cuts[2] >= clip.duration ||
-      cuts[0] > 0.75 ||
-      cuts[1] > 1.75 ||
-      Math.abs(cuts[2] / clip.duration - 0.78) > 0.001
+      cuts[0] > 0.5 ||
+      cuts[1] > 1.15 ||
+      cuts[2] > 3.35 ||
+      cuts[0] / clip.duration > 0.281 ||
+      cuts[1] / clip.duration > 0.481 ||
+      cuts[2] / clip.duration > 0.721
     ) {
       failures.push(`${id}: audited clip ${clip.event} has an invalid progressive cut ${JSON.stringify(cuts)}.`);
     }
@@ -236,6 +247,22 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
   difficultyCounts[definition.family][definition.difficulty - 1] += 1;
   if (definition.difficulty === 1) learningCounts[definition.family] += 1;
   if (definition.difficulty >= 2) veteranCounts[definition.family] += 1;
+}
+
+for (const duration of [1, 2.5, 5]) {
+  const cuts = Array.from({ length: ECHO_HUNT_REVEAL_STAGES }, (_, stage) => echoHuntCutDuration(duration, stage + 1));
+  if (
+    cuts[0] <= 0 ||
+    cuts[0] >= cuts[1] ||
+    cuts[1] >= cuts[2] ||
+    cuts[2] >= duration ||
+    cuts[0] > 0.9 ||
+    cuts[1] > 1.8 ||
+    cuts[2] > 3.4 ||
+    cuts[2] / duration > 0.781
+  ) {
+    failures.push(`Echo Hunt ${duration}s line has an invalid progressive cut ${JSON.stringify(cuts)}.`);
+  }
 }
 
 for (const question of questions) {

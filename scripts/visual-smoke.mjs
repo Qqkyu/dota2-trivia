@@ -5,6 +5,30 @@ import { writeFile } from "node:fs/promises";
 const debuggingUrl = process.env.CHROME_DEBUG_URL ?? "http://127.0.0.1:9222";
 const appUrl = process.env.APP_URL ?? "http://localhost:3000";
 
+function testToneWavBase64(durationSeconds = 2, sampleRate = 8_000) {
+  const sampleCount = Math.round(durationSeconds * sampleRate);
+  const dataLength = sampleCount * 2;
+  const wav = Buffer.alloc(44 + dataLength);
+  wav.write("RIFF", 0);
+  wav.writeUInt32LE(36 + dataLength, 4);
+  wav.write("WAVE", 8);
+  wav.write("fmt ", 12);
+  wav.writeUInt32LE(16, 16);
+  wav.writeUInt16LE(1, 20);
+  wav.writeUInt16LE(1, 22);
+  wav.writeUInt32LE(sampleRate, 24);
+  wav.writeUInt32LE(sampleRate * 2, 28);
+  wav.writeUInt16LE(2, 32);
+  wav.writeUInt16LE(16, 34);
+  wav.write("data", 36);
+  wav.writeUInt32LE(dataLength, 40);
+  for (let sample = 0; sample < sampleCount; sample += 1) {
+    wav.writeInt16LE(Math.round(Math.sin((sample / sampleRate) * Math.PI * 2 * 440) * 512), 44 + sample * 2);
+  }
+  return wav.toString("base64");
+}
+
+const echoTestAudioBase64 = testToneWavBase64();
 const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 const targets = await fetch(`${debuggingUrl}/json/list`).then((response) => response.json());
 const target = targets.find((entry) => entry.type === "page");
@@ -17,6 +41,7 @@ const socket = new WebSocket(target.webSocketDebuggerUrl);
 const pending = new Map();
 const eventWaiters = new Map();
 const browserErrors = [];
+let echoAudioFixtureEnabled = false;
 let requestId = 0;
 
 socket.addEventListener("message", (message) => {
@@ -33,6 +58,24 @@ socket.addEventListener("message", (message) => {
 
   if (payload.method === "Runtime.exceptionThrown") {
     browserErrors.push(payload.params.exceptionDetails.text);
+  }
+
+  if (payload.method === "Fetch.requestPaused") {
+    const request = echoAudioFixtureEnabled
+      ? send("Fetch.fulfillRequest", {
+          requestId: payload.params.requestId,
+          responseCode: 200,
+          responsePhrase: "OK",
+          responseHeaders: [
+            { name: "Content-Type", value: "audio/wav" },
+            { name: "Cache-Control", value: "no-store" },
+            { name: "Access-Control-Allow-Origin", value: "*" },
+          ],
+          body: echoTestAudioBase64,
+        })
+      : send("Fetch.continueRequest", { requestId: payload.params.requestId });
+    void request.catch((error) => browserErrors.push(`Audio fixture interception failed: ${error.message}`));
+    return;
   }
 
   const waiters = eventWaiters.get(payload.method);
@@ -201,6 +244,8 @@ await screenshot("/tmp/queue-arcade-shopkeeper.png");
 const shopkeeper = await evaluate(`({
   prompt: document.querySelector("h2")?.innerText,
   modeVisible: document.body.innerText.toLowerCase().includes("shopkeeper rush"),
+  componentCheckVisible: document.body.innerText.toLowerCase().includes("component check"),
+  targetItemVisible: document.body.innerText.toLowerCase().includes("target item"),
   answers: [...document.querySelectorAll('[data-testid="arcade-answer"]')].map((button) => button.innerText),
   answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
   answerImagesLoaded: [...document.querySelectorAll('[data-testid="arcade-answer"] img')]
@@ -488,16 +533,35 @@ await evaluate(`(() => {
   document.querySelector('[data-arcade-mode="echo-hunt"]')?.click();
   return true;
 })()`);
+echoAudioFixtureEnabled = true;
+await send("Fetch.enable", {
+  patterns: [{ urlPattern: "https://dotabase.dillerm.io/vpk/sounds/vo/*", requestStage: "Request" }],
+});
 await delay(350);
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+let freshEchoRound = false;
+for (let attempt = 0; attempt < 3; attempt += 1) {
+  await waitFor(`(() => {
+    const main = document.querySelector("main");
+    return main?.dataset.phase === "answering" && main?.dataset.questionKind === "hero-voice";
+  })()`);
+  await delay(800);
+  freshEchoRound = await evaluate(`(() => {
+    const prompt = document.querySelector('[data-testid="round-prompt"]');
+    const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
+    const audio = document.querySelector("audio");
+    return prompt?.dataset.echoStage === "1" && timer >= 13 && Boolean(audio);
+  })()`);
+  if (freshEchoRound) break;
+  await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`);
+  await waitFor(`document.querySelector("main")?.dataset.phase === "answering"`);
+}
+if (!freshEchoRound) throw new Error("Could not synchronize onto a fresh Echo Hunt round.");
 await waitFor(`(() => {
-  const main = document.querySelector("main");
-  const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
-  const audio = document.querySelector("audio");
-  return main?.dataset.phase === "answering" &&
-    main?.dataset.questionKind === "hero-voice" &&
-    timer >= 4 &&
-    audio?.readyState >= 2;
+  const audio = document.querySelector('[data-testid="round-audio-clip"]');
+  return audio?.readyState >= 2 &&
+    Number(audio.duration) >= 1.9 &&
+    document.querySelector('[data-testid="echo-player"]')?.dataset.audioState === "ready";
 })()`);
 const echoHunt = await evaluate(`({
   answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
@@ -508,9 +572,40 @@ const echoHunt = await evaluate(`({
   audioSource: document.querySelector("audio")?.currentSrc,
   replayButton: Boolean(document.querySelector('[data-testid="voice-line-play"]')),
   playerState: document.querySelector('[data-testid="echo-player"]')?.dataset.voiceState,
+  revealStage: Number(document.querySelector('[data-testid="echo-player"]')?.dataset.revealStage),
+  revealMeter: document.querySelectorAll('[class*="soundRevealMeterActive"]').length,
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
+const echoStageOne = await evaluate(`(() => {
+  const audio = document.querySelector('[data-testid="round-audio-clip"]');
+  return {
+    stage: Number(document.querySelector('[data-testid="echo-player"]')?.dataset.revealStage),
+    playCount: Number(document.querySelector('[data-testid="echo-player"]')?.dataset.playCount),
+    duration: audio?.duration,
+    cutDurations: [Number(audio?.dataset.cutDuration)],
+    revealMeter: document.querySelectorAll('[class*="soundRevealMeterActive"]').length
+  };
+})()`);
 await screenshot("/tmp/queue-arcade-echo-hunt.png");
+await waitFor(
+  `(() => {
+    const player = document.querySelector('[data-testid="echo-player"]');
+    return player?.dataset.revealStage === "2" && player?.dataset.audioState === "ready";
+  })()`,
+  8_000,
+);
+const echoStageTwo = await evaluate(`(() => {
+  const audio = document.querySelector('[data-testid="round-audio-clip"]');
+  return {
+    stage: Number(document.querySelector('[data-testid="echo-player"]')?.dataset.revealStage),
+    playCount: Number(document.querySelector('[data-testid="echo-player"]')?.dataset.playCount),
+    duration: audio?.duration,
+    cutDurations: [Number(audio?.dataset.cutDuration)],
+    revealMeter: document.querySelectorAll('[class*="soundRevealMeterActive"]').length
+  };
+})()`);
+echoAudioFixtureEnabled = false;
+await send("Fetch.disable");
 
 await navigate(appUrl);
 await evaluate(`(() => {
@@ -867,6 +962,10 @@ async function inspectMapSenseVariant() {
       cropFilter: cropImage ? getComputedStyle(cropImage).filter : null,
       mechanicVisible: Boolean(mechanic),
       mechanicKind: mechanic?.dataset.kind,
+      contextLocator: Boolean(document.querySelector('[data-testid="map-context-locator"]')),
+      contextImageLoaded: [...document.querySelectorAll('[data-testid="map-context-locator"] img')]
+        .every((image) => image.complete && image.naturalWidth > 0),
+      contextViewport: Boolean(document.querySelector('[class*="mapContextViewport"]')),
       choiceOptions: document.querySelectorAll('[data-testid="map-choice-option"]').length,
       choiceAnswers: document.querySelectorAll('[data-testid="map-choice-answer"]').length,
       campMarker: Boolean(document.querySelector('[data-testid="map-camp-marker"]')),
@@ -1116,6 +1215,8 @@ const validMapVariant = (variant) => {
       variant.choiceAnswers === 0 &&
       !variant.campMarker &&
       !variant.fightMarker &&
+      !variant.contextLocator &&
+      !variant.contextViewport &&
       !variant.spawnBox &&
       variant.routeLines === 0
     );
@@ -1134,12 +1235,35 @@ const validMapVariant = (variant) => {
     !variant.cropVisible &&
     !variant.spawnBox;
   if (variant.kind === "map-camp-block") {
-    return commonChoice && variant.campMarker && !variant.fightMarker && variant.routeLines === 0;
+    return (
+      commonChoice &&
+      variant.campMarker &&
+      !variant.fightMarker &&
+      variant.contextLocator &&
+      variant.contextImageLoaded &&
+      variant.contextViewport &&
+      variant.routeLines === 0
+    );
   }
   if (variant.kind === "map-stack-route") {
-    return commonChoice && variant.campMarker && !variant.fightMarker && variant.routeLines === 4;
+    return (
+      commonChoice &&
+      variant.campMarker &&
+      !variant.fightMarker &&
+      variant.contextLocator &&
+      variant.contextImageLoaded &&
+      variant.contextViewport &&
+      variant.routeLines === 4
+    );
   }
-  return commonChoice && !variant.campMarker && variant.fightMarker && variant.routeLines === 0;
+  return (
+    commonChoice &&
+    !variant.campMarker &&
+    variant.fightMarker &&
+    !variant.contextLocator &&
+    !variant.contextViewport &&
+    variant.routeLines === 0
+  );
 };
 const validMapReveal = (reveal) => {
   const common = requiredMapKinds.includes(reveal.kind) && reveal.resultVisible && !reveal.horizontalOverflow;
@@ -1202,7 +1326,16 @@ if (
 ) {
   failures.push("The shared trivia pool still exposes or encodes a player-facing level.");
 }
-if (!shopkeeper.modeVisible || shopkeeper.answers.length !== 4) failures.push("Shopkeeper Rush did not start.");
+if (
+  !shopkeeper.modeVisible ||
+  !shopkeeper.componentCheckVisible ||
+  !shopkeeper.targetItemVisible ||
+  !shopkeeper.prompt?.startsWith("Which component belongs to") ||
+  /finish the recipe/i.test(shopkeeper.prompt ?? "") ||
+  shopkeeper.answers.length !== 4
+) {
+  failures.push("Shopkeeper Rush did not clearly frame its full item as the recipe target.");
+}
 if (shopkeeper.answerImages !== 4 || !shopkeeper.answerImagesLoaded) {
   failures.push("Shopkeeper Rush item artwork did not load.");
 }
@@ -1293,9 +1426,25 @@ if (
   !echoHunt.answerImagesLoaded ||
   !echoHunt.audioReady ||
   !echoHunt.audioSource?.includes("dotabase.dillerm.io") ||
-  !echoHunt.replayButton
+  !echoHunt.replayButton ||
+  echoHunt.revealStage !== 1 ||
+  echoHunt.revealMeter !== 1 ||
+  echoHunt.playerState !== "ready" ||
+  echoStageOne.stage !== 1 ||
+  echoStageOne.playCount !== 0 ||
+  echoStageOne.revealMeter !== 1 ||
+  !Number.isFinite(echoStageOne.duration) ||
+  echoStageOne.cutDurations[0] <= 0 ||
+  echoStageOne.cutDurations[0] > 0.9 ||
+  echoStageOne.cutDurations[0] >= echoStageOne.duration ||
+  echoStageTwo.stage !== 2 ||
+  echoStageTwo.playCount !== 0 ||
+  echoStageTwo.revealMeter !== 2 ||
+  echoStageTwo.cutDurations[0] > 1.8 ||
+  echoStageTwo.cutDurations[0] >= echoStageTwo.duration ||
+  !cutsIncrease(echoStageOne.cutDurations, echoStageTwo.cutDurations)
 ) {
-  failures.push("Echo Hunt audio or hero choices failed.");
+  failures.push("Echo Hunt progressive cut contract, mute safety, or hero choices failed.");
 }
 if (
   soundcheckBeforeReplay.game !== "soundcheck" ||
@@ -1507,6 +1656,8 @@ console.log(
       fogRound,
       fogNextRound,
       echoHunt,
+      echoStageOne,
+      echoStageTwo,
       volumeAfterAdjustment,
       soundcheckBeforeReplay,
       soundcheckAfterReplay,

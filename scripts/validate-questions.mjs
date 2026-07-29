@@ -10,7 +10,11 @@ import {
   ITEM_CONSTANT_OVERRIDES,
 } from "./client-constant-audit.mjs";
 import { DAMAGE_QUESTION_FACTS, damageQuestionPrompt } from "./damage-question-facts.mjs";
-import { NON_TRIVIA_COOLDOWN_KEYS, NON_TRIVIA_DETECTIVE_KEYS } from "./question-quality-audit.mjs";
+import {
+  NON_TRIVIA_COOLDOWN_KEYS,
+  NON_TRIVIA_DETECTIVE_KEYS,
+  NON_TRIVIA_SPELL_OWNER_KEYS,
+} from "./question-quality-audit.mjs";
 import { containsAnswerLeak } from "./spell-hints.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -347,6 +351,11 @@ for (const abilityKey of NON_TRIVIA_COOLDOWN_KEYS) {
 for (const abilityKey of NON_TRIVIA_DETECTIVE_KEYS) {
   if (questions.some((question) => question.id === `ability-detective:${abilityKey}`)) {
     failures.push(`ability-detective:${abilityKey}: source description gives away the same-hero answer.`);
+  }
+}
+for (const abilityKey of NON_TRIVIA_SPELL_OWNER_KEYS) {
+  if (questions.some((question) => question.id === `ability-owner:${abilityKey}`)) {
+    failures.push(`ability-owner:${abilityKey}: official icon directly reveals its owning hero.`);
   }
 }
 

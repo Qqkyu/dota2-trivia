@@ -11,7 +11,11 @@ import {
 } from "./client-constant-audit.mjs";
 import { DAMAGE_QUESTION_FACTS, damageQuestionExplanation, damageQuestionPrompt } from "./damage-question-facts.mjs";
 import { auditAudioAssets, auditImageAssets, questionAudioUrls, questionImageUrls } from "./image-assets.mjs";
-import { NON_TRIVIA_COOLDOWN_KEYS, NON_TRIVIA_DETECTIVE_KEYS } from "./question-quality-audit.mjs";
+import {
+  NON_TRIVIA_COOLDOWN_KEYS,
+  NON_TRIVIA_DETECTIVE_KEYS,
+  NON_TRIVIA_SPELL_OWNER_KEYS,
+} from "./question-quality-audit.mjs";
 import { spellDifficulty, spellDistractors } from "./spell-difficulty.mjs";
 import { buildSpellHint, containsAnswerLeak } from "./spell-hints.mjs";
 
@@ -21,7 +25,7 @@ const META_OUTPUT = join(ROOT, "src", "data", "trivia-meta.generated.json");
 
 const PATCH = process.env.DOTA_PATCH ?? "7.41d";
 const SNAPSHOT_DATE = process.env.DOTA_SNAPSHOT_DATE ?? new Date().toISOString().slice(0, 10);
-const CONTENT_VERSION = `${PATCH}-variety-3`;
+const CONTENT_VERSION = `${PATCH}-variety-4`;
 const CDN = "https://cdn.cloudflare.steamstatic.com";
 const DOTABASE_RAW = "https://raw.githubusercontent.com/mdiller/dotabase/master";
 const DOTABASE_ASSETS = "https://dotabase.dillerm.io/vpk";
@@ -389,7 +393,9 @@ const voiceSource = {
 
 const questions = [];
 
-for (const ability of stableSample(abilities, 72, "ability-owner")) {
+const spellOwnerCandidates = abilities.filter((ability) => !NON_TRIVIA_SPELL_OWNER_KEYS.includes(ability.key));
+
+for (const ability of stableSample(spellOwnerCandidates, 73, "ability-owner")) {
   const ownerAbilityKeys = heroAbilitiesByKey[ability.owner.key]?.abilities ?? [];
   const difficulty = spellDifficulty(ability.key, ownerAbilityKeys);
   const distractors = spellDistractors(ability.owner, heroes, difficulty, ability.key, hash);

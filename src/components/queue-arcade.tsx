@@ -61,7 +61,13 @@ import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
 import type { MapBounds, MapChoiceChallenge, MapCrop, MapPosition, MapViewport } from "@/lib/map-types";
 import { MAP_READ_GRACE_MS, speedScoreRatio } from "@/lib/scoring.mjs";
-import { SOUNDCHECK_REVEAL_STAGES, SOUNDCHECK_SEQUENCE_GAP_SECONDS, soundcheckCutDuration } from "@/lib/soundcheck.mjs";
+import {
+  ECHO_HUNT_REVEAL_STAGES,
+  SOUNDCHECK_REVEAL_STAGES,
+  SOUNDCHECK_SEQUENCE_GAP_SECONDS,
+  echoHuntCutDuration,
+  soundcheckCutDuration,
+} from "@/lib/soundcheck.mjs";
 import styles from "./queue-arcade.module.css";
 
 const REVEAL_DURATION_MS = 7_000;
@@ -251,9 +257,9 @@ const MODE_INFO: Record<
     label: "Shopkeeper Rush",
     shortLabel: "Shopkeeper",
     eyebrow: "Recipe speedrun",
-    description: "The recipe is missing a component. Scan the shelf and finish the item before the courier arrives.",
+    description: "See the finished item, then spot one component that belongs in its recipe.",
     action: "Open the secret shop",
-    rule: "One recipe, one missing component, four items on the shelf.",
+    rule: "One target item and four possible components on the shelf.",
   },
   "spell-link": {
     label: "Spell Link",
@@ -275,9 +281,9 @@ const MODE_INFO: Record<
     label: "Echo Hunt",
     shortLabel: "Echo",
     eyebrow: "Sound check",
-    description: "Hear a hero response and identify its owner from four closely matched portraits.",
+    description: "Identify a hero response as its opening fragment grows into a longer line.",
     action: "Hunt some echoes",
-    rule: "Play or replay the voice line while the shared round timer keeps moving.",
+    rule: "Three timed cuts reveal more of the same spoken line.",
   },
   soundcheck: {
     label: "Soundcheck",
@@ -677,21 +683,63 @@ function viewportBoundsStyle(bounds: MapBounds, viewport: MapViewport) {
   } satisfies CSSProperties;
 }
 
+function fullMapViewportStyle(viewport: MapViewport) {
+  const size = 1 / viewport.zoom;
+  return {
+    left: `${(viewport.center.x - size / 2) * 100}%`,
+    top: `${(viewport.center.y - size / 2) * 100}%`,
+    width: `${size * 100}%`,
+    height: `${size * 100}%`,
+  } satisfies CSSProperties;
+}
+
+function MapContextLocator({
+  camp,
+  viewport,
+}: {
+  camp: NonNullable<MapChoiceChallenge["camp"]>;
+  viewport: MapViewport;
+}) {
+  return (
+    <div
+      className={styles.mapContextLocator}
+      data-testid="map-context-locator"
+      data-side={camp.side}
+      role="img"
+      aria-label={`${camp.side} ${camp.tier} camp location on the full Dota map`}
+    >
+      <Image
+        src={MAP_SENSE_IMAGE}
+        alt=""
+        width={96}
+        height={96}
+        sizes="96px"
+        className={styles.mapContextImage}
+        unoptimized
+      />
+      <span className={styles.mapContextViewport} style={fullMapViewportStyle(viewport)} aria-hidden="true" />
+      <i className={styles.mapContextCamp} style={percentagePosition(camp.position)} aria-hidden="true" />
+    </div>
+  );
+}
+
 function MapMechanicCard({ choice }: { choice: MapChoiceChallenge }) {
   const camp = choice.camp;
   const side = choice.options.find((option) => option.side)?.side;
 
   return (
     <div className={styles.mapMechanicCard} data-testid={`map-${choice.kind}-card`} data-kind={choice.kind}>
-      <span aria-hidden="true">
-        {choice.kind === "camp-block" ? <i /> : choice.kind === "stack-route" ? <Clock3 /> : <MapPin />}
-      </span>
-      <div>
+      {camp ? (
+        <MapContextLocator camp={camp} viewport={choice.viewport} />
+      ) : (
+        <span aria-hidden="true">{choice.kind === "stack-route" ? <Clock3 /> : <MapPin />}</span>
+      )}
+      <div className={styles.mapMechanicCopy}>
         <small>
           {choice.kind === "camp-block"
-            ? "Neutral spawn · :00"
+            ? `${camp?.side} jungle · spawn :00`
             : choice.kind === "stack-route"
-              ? `${camp?.tier} camp`
+              ? `${camp?.side} jungle · ${camp?.tier} camp`
               : `${side} rotation`}
         </small>
         <strong>
@@ -1173,6 +1221,7 @@ export function QueueArcade() {
   const [roundAudioState, setRoundAudioState] = useState<"loading" | "ready" | "playing" | "error">("loading");
   const [roundAudioPlayCount, setRoundAudioPlayCount] = useState(0);
   const [roundAudioClipIndex, setRoundAudioClipIndex] = useState(0);
+  const [roundAudioDurations, setRoundAudioDurations] = useState<Record<string, number>>({});
   const [reportState, setReportState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [reportedReason, setReportedReason] = useState<ReportReason | null>(null);
   const [reportTarget, setReportTarget] = useState<QuestionReportTarget | null>(null);
@@ -1330,9 +1379,11 @@ export function QueueArcade() {
       if (!audios.length) return;
 
       const question = currentQuestionRef.current;
-      const isProgressiveSound = question?.game === "soundcheck";
+      const isSoundcheck = question?.game === "soundcheck";
+      const isEchoHunt = question?.game === "echo-hunt";
+      const isProgressiveAudio = isSoundcheck || isEchoHunt;
       if (enableSound) setSoundEnabled(true);
-      autoPlayedAudioKeyRef.current = isProgressiveSound ? `${roundIdRef.current}:${revealStage}` : roundIdRef.current;
+      autoPlayedAudioKeyRef.current = isProgressiveAudio ? `${roundIdRef.current}:${revealStage}` : roundIdRef.current;
       const controller = new AbortController();
       roundAudioAbortRef.current = controller;
       setRoundAudioClipIndex(0);
@@ -1361,14 +1412,17 @@ export function QueueArcade() {
           }
           if (clipIndex === 0) setRoundAudioPlayCount((count) => count + 1);
 
-          const clipDuration = question?.soundcheck?.clips[clipIndex]?.duration;
+          const sourceDuration = isSoundcheck
+            ? question?.soundcheck?.clips[clipIndex]?.duration
+            : Number.isFinite(audio.duration)
+              ? audio.duration
+              : 5;
+          const clipDuration = isSoundcheck
+            ? soundcheckCutDuration(sourceDuration ?? 0, revealStage)
+            : echoHuntCutDuration(sourceDuration ?? 0, revealStage);
           const endedResult =
-            isProgressiveSound && clipDuration
-              ? await waitForAudioCut(
-                  audio,
-                  soundcheckCutDuration(clipDuration, revealStage) * 1_000,
-                  controller.signal,
-                )
+            isProgressiveAudio && clipDuration
+              ? await waitForAudioCut(audio, clipDuration * 1_000, controller.signal)
               : await waitForMediaEvent(audio, "ended", controller.signal);
           if (endedResult !== "complete") {
             if (endedResult === "error") setRoundAudioState("error");
@@ -2058,6 +2112,8 @@ export function QueueArcade() {
     selectedIndex !== null && currentQuestion ? selectedIndex === currentQuestion.correctIndex : false;
   const currentGame = currentQuestion?.game ?? "trivia";
   const isSoundcheckRound = currentGame === "soundcheck";
+  const isEchoHuntRound = currentGame === "echo-hunt";
+  const isProgressiveAudioRound = isSoundcheckRound || isEchoHuntRound;
   const isSoundSequence = isSoundcheckRound && currentQuestion?.soundcheck?.format === "sequence";
   const mapChoiceRound = currentGame === "map-sense" && Boolean(currentQuestion?.map?.choice);
   const clueStage = phase === "reveal" ? 3 : clueStageAt(answerRemaining, answerDuration);
@@ -2079,27 +2135,28 @@ export function QueueArcade() {
   const activeModeInfo = MODE_INFO[mode];
 
   useEffect(() => {
-    const hasRoundAudio = currentQuestion?.game === "echo-hunt" || currentQuestion?.game === "soundcheck";
-    const autoplayKey = isSoundcheckRound ? `${activeRoundId}:${clueStage}` : activeRoundId;
+    const hasRoundAudio = isProgressiveAudioRound;
+    const autoplayKey = isProgressiveAudioRound ? `${activeRoundId}:${clueStage}` : activeRoundId;
     if (
       phase !== "answering" ||
       !hasRoundAudio ||
-      !currentQuestion.audio ||
+      !currentQuestion?.audio ||
       !soundEnabled ||
       !roundAudioRefs.current.some(Boolean) ||
       autoPlayedAudioKeyRef.current === autoplayKey ||
-      (isSoundcheckRound && selectedIndex !== null)
+      (isProgressiveAudioRound && selectedIndex !== null)
     ) {
       return;
     }
 
-    playRoundAudio(false, isSoundcheckRound ? clueStage : 1);
+    playRoundAudio(false, isProgressiveAudioRound ? clueStage : 1);
   }, [
     activeRoundId,
     clueStage,
     currentQuestion?.audio,
     currentQuestion?.game,
     currentQuestion?.id,
+    isProgressiveAudioRound,
     isSoundcheckRound,
     phase,
     playRoundAudio,
@@ -2469,19 +2526,19 @@ export function QueueArcade() {
                   <span>Target item</span>
                 </div>
                 <div className={styles.questionCopy}>
-                  <span>Shopkeeper Rush · Missing component</span>
+                  <span>Shopkeeper Rush · Component check</span>
                   <h2>
-                    Finish the recipe for <strong>{currentQuestion.eyebrow}</strong>
+                    Which component belongs to <strong>{currentQuestion.eyebrow}</strong>?
                   </h2>
                   <div className={styles.recipeEquation} aria-hidden="true">
                     <span>
                       <ShoppingBag />
-                      Recipe
+                      Target recipe
                     </span>
                     <ChevronRight />
                     <span className={styles.missingSlot}>
                       <strong>?</strong>
-                      Pick from the shelf
+                      Find on the shelf
                     </span>
                   </div>
                   <small>Patch {currentQuestion.patch} · Choose the component that actually belongs</small>
@@ -2560,6 +2617,7 @@ export function QueueArcade() {
                 data-soundcheck-scope={isSoundcheckRound ? currentQuestion.soundcheck?.choiceScope : undefined}
                 data-soundcheck-format={isSoundcheckRound ? currentQuestion.soundcheck?.format : undefined}
                 data-soundcheck-stage={isSoundcheckRound ? clueStage : undefined}
+                data-echo-stage={isEchoHuntRound ? clueStage : undefined}
               >
                 {(currentQuestion.audio?.clips ?? (currentQuestion.audio?.src ? [currentQuestion.audio.src] : [])).map(
                   (audioSource, clipIndex, audioSources) => (
@@ -2576,7 +2634,9 @@ export function QueueArcade() {
                               currentQuestion.soundcheck?.clips[clipIndex]?.duration ?? 0,
                               clueStage,
                             )
-                          : undefined
+                          : isEchoHuntRound
+                            ? echoHuntCutDuration(roundAudioDurations[audioSource] ?? 0, clueStage)
+                            : undefined
                       }
                       src={audioSource}
                       preload="auto"
@@ -2584,6 +2644,12 @@ export function QueueArcade() {
                       onLoadStart={() => setRoundAudioState("loading")}
                       onCanPlay={(event) => {
                         event.currentTarget.volume = gameVolume;
+                        const duration = event.currentTarget.duration;
+                        if (Number.isFinite(duration) && roundAudioDurations[audioSource] !== duration) {
+                          setRoundAudioDurations((current) =>
+                            current[audioSource] === duration ? current : { ...current, [audioSource]: duration },
+                          );
+                        }
                         const loaded = roundAudioRefs.current
                           .slice(0, audioSources.length)
                           .every((audio) => audio && audio.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA);
@@ -2605,16 +2671,28 @@ export function QueueArcade() {
                   data-play-count={roundAudioPlayCount}
                   data-clip-count={currentQuestion.audio?.clips?.length ?? 1}
                   data-active-clip={roundAudioClipIndex + 1}
-                  data-reveal-stage={isSoundcheckRound ? clueStage : undefined}
+                  data-reveal-stage={isProgressiveAudioRound ? clueStage : undefined}
                 >
                   <button
                     type="button"
                     data-testid={isSoundcheckRound ? "soundcheck-play" : "voice-line-play"}
-                    onClick={() => playRoundAudio(true, isSoundcheckRound ? clueStage : 1)}
+                    onClick={() => playRoundAudio(true, isProgressiveAudioRound ? clueStage : 1)}
                     aria-label={
                       roundAudioPlayCount
-                        ? `Replay ${isSoundSequence ? "sound sequence cut" : isSoundcheckRound ? "gameplay sound cut" : "hero voice line"}`
-                        : `Play ${isSoundSequence ? "sound sequence cut" : isSoundcheckRound ? "gameplay sound cut" : "hero voice line"}`
+                        ? `Replay ${
+                            isSoundSequence
+                              ? "sound sequence cut"
+                              : isSoundcheckRound
+                                ? "gameplay sound cut"
+                                : "voice line cut"
+                          }`
+                        : `Play ${
+                            isSoundSequence
+                              ? "sound sequence cut"
+                              : isSoundcheckRound
+                                ? "gameplay sound cut"
+                                : "voice line cut"
+                          }`
                     }
                   >
                     {roundAudioState === "playing" ? (
@@ -2649,18 +2727,16 @@ export function QueueArcade() {
                       : roundAudioState === "loading"
                         ? isSoundcheckRound
                           ? "Loading cut"
-                          : "Loading echo"
+                          : "Loading voice cut"
                         : roundAudioState === "playing"
                           ? isSoundSequence
                             ? `Sound ${roundAudioClipIndex + 1} of 2`
-                            : isSoundcheckRound
-                              ? `Cut ${clueStage} of ${SOUNDCHECK_REVEAL_STAGES}`
-                              : "Now playing"
-                          : isSoundcheckRound
-                            ? `Cut ${clueStage} of ${SOUNDCHECK_REVEAL_STAGES}`
-                            : roundAudioPlayCount
-                              ? "Replay echo"
-                              : "Play echo"}
+                            : `Cut ${clueStage} of ${
+                                isSoundcheckRound ? SOUNDCHECK_REVEAL_STAGES : ECHO_HUNT_REVEAL_STAGES
+                              }`
+                          : `Cut ${clueStage} of ${
+                              isSoundcheckRound ? SOUNDCHECK_REVEAL_STAGES : ECHO_HUNT_REVEAL_STAGES
+                            }`}
                   </span>
                 </div>
                 <div className={styles.questionCopy}>
@@ -2672,14 +2748,21 @@ export function QueueArcade() {
                       : "Echo Hunt · Hero response"}
                   </span>
                   <h2>{isSoundcheckRound ? currentQuestion.prompt : "Whose voice crossed the river?"}</h2>
-                  {isSoundcheckRound && (
+                  {isProgressiveAudioRound && (
                     <div
                       className={styles.soundRevealMeter}
-                      aria-label={`Sound cut ${clueStage} of ${SOUNDCHECK_REVEAL_STAGES}`}
+                      aria-label={`${isSoundcheckRound ? "Sound" : "Voice"} cut ${clueStage} of ${
+                        isSoundcheckRound ? SOUNDCHECK_REVEAL_STAGES : ECHO_HUNT_REVEAL_STAGES
+                      }`}
                     >
-                      {Array.from({ length: SOUNDCHECK_REVEAL_STAGES }, (_, index) => (
-                        <span key={index} className={index < clueStage ? styles.soundRevealMeterActive : undefined} />
-                      ))}
+                      {Array.from(
+                        {
+                          length: isSoundcheckRound ? SOUNDCHECK_REVEAL_STAGES : ECHO_HUNT_REVEAL_STAGES,
+                        },
+                        (_, index) => (
+                          <span key={index} className={index < clueStage ? styles.soundRevealMeterActive : undefined} />
+                        ),
+                      )}
                     </div>
                   )}
                   <small>
@@ -2687,7 +2770,7 @@ export function QueueArcade() {
                       ? isSoundSequence
                         ? "Two sounds. Longer cuts unlock with time."
                         : "Longer cuts unlock with time."
-                      : "The line stays hidden until the reveal."}
+                      : "Longer pieces of the line unlock with time."}
                   </small>
                 </div>
               </div>

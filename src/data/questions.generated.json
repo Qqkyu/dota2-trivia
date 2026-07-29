@@ -1231,12 +1231,12 @@
     "eyebrow": "Mist Coil",
     "prompt": "Which hero owns this ability?",
     "answers": [
-      "Abaddon",
       "Marci",
       "Elder Titan",
+      "Abaddon",
       "Grimstroke"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Mist Coil belongs to Abaddon. Abaddon releases a coil of deathly mist that can damage an enemy unit or heal a friendly unit at the cost of some of Abaddon's health.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1250,9 +1250,9 @@
     },
     "hint": "The caster releases a coil of deathly mist that can damage an enemy unit or heal a friendly unit at the…",
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/abaddon.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/abaddon.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/grimstroke.png"
     ],
     "answerImageKind": "hero"
@@ -1266,11 +1266,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Clockwerk",
+      "Alchemist",
       "Dazzle",
-      "Phantom Assassin",
-      "Alchemist"
+      "Phantom Assassin"
     ],
-    "correctIndex": 3,
+    "correctIndex": 1,
     "explanation": "Acid Spray belongs to Alchemist. Sprays high-pressure acid across a target area. Enemy units who step across the contaminated terrain take damage per second and have their armor reduced.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1285,43 +1285,9 @@
     "hint": "Sprays high-pressure acid across a target area.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_assassin.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/alchemist.png"
-    ],
-    "answerImageKind": "hero"
-  },
-  {
-    "id": "ability-owner:alchemist_chemical_rage",
-    "kind": "spell-owner",
-    "category": "Abilities",
-    "difficulty": 1,
-    "eyebrow": "Chemical Rage",
-    "prompt": "Which hero owns this ability?",
-    "answers": [
-      "Alchemist",
-      "Treant Protector",
-      "Luna",
-      "Dark Seer"
-    ],
-    "correctIndex": 0,
-    "explanation": "Chemical Rage belongs to Alchemist. Alchemist causes his Ogre to enter a chemically induced rage, reducing base attack cooldown and increasing movement speed and health regeneration.\n\nDISPEL TYPE: Basic Dispel",
-    "source": {
-      "label": "Dota 2 live-client audit · build 6872",
-      "url": "https://www.dota2.com/patches/7.41d"
-    },
-    "patch": "7.41d",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/alchemist_chemical_rage.png",
-      "alt": "Chemical Rage ability icon",
-      "kind": "ability"
-    },
-    "hint": "The caster causes his Ogre to enter a chemically induced rage…",
-    "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/alchemist.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/treant.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/luna.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_assassin.png"
     ],
     "answerImageKind": "hero"
   },
@@ -1334,11 +1300,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Doom",
-      "Axe",
       "Kunkka",
-      "Legion Commander"
+      "Legion Commander",
+      "Axe"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Battle Hunger belongs to Axe. Enrages an enemy unit, causing it to take damage over time until it kills another unit or the duration ends. The enemy is slowed as long as they are facing away from Axe.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1353,9 +1319,9 @@
     "hint": "Enrages an enemy unit, causing it to take damage over time until it kills another unit or the duration ends.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/legion_commander.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/legion_commander.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png"
     ],
     "answerImageKind": "hero"
   },
@@ -1367,12 +1333,12 @@
     "eyebrow": "Nightmare End",
     "prompt": "Which hero owns this ability?",
     "answers": [
+      "Bane",
       "Jakiro",
       "Death Prophet",
-      "Bane",
       "Brewmaster"
     ],
-    "correctIndex": 2,
+    "correctIndex": 0,
     "explanation": "Nightmare End belongs to Bane. Ends all ongoing Nightmares.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1386,10 +1352,44 @@
     },
     "hint": "Ends all ongoing Nightmares.",
     "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/death_prophet.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "ability-owner:chaos_knight_phantasm",
+    "kind": "spell-owner",
+    "category": "Abilities",
+    "difficulty": 3,
+    "eyebrow": "Phantasm",
+    "prompt": "Which hero owns this ability?",
+    "answers": [
+      "Chaos Knight",
+      "Centaur Warrunner",
+      "Mars",
+      "Wraith King"
+    ],
+    "correctIndex": 0,
+    "explanation": "Phantasm belongs to Chaos Knight. Summons several phantasmal copies of the Chaos Knight from alternate dimensions. The phantasms are illusions that deal 100% damage, but take 350% damage.\nDISPEL TYPE: Basic Dispel",
+    "source": {
+      "label": "Dota 2 live-client audit · build 6872",
+      "url": "https://www.dota2.com/patches/7.41d"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/chaos_knight_phantasm.png",
+      "alt": "Phantasm ability icon",
+      "kind": "ability"
+    },
+    "hint": "Summons several phantasmal copies of the caster from alternate dimensions.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chaos_knight.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/centaur.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mars.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png"
     ],
     "answerImageKind": "hero"
   },
@@ -1401,12 +1401,12 @@
     "eyebrow": "Wall of Replica",
     "prompt": "Which hero owns this ability?",
     "answers": [
+      "Dark Seer",
       "Vengeful Spirit",
       "Phantom Assassin",
-      "Dark Seer",
       "Enchantress"
     ],
-    "correctIndex": 2,
+    "correctIndex": 0,
     "explanation": "Wall of Replica belongs to Dark Seer. Raises a wall of warping light that slows, damages, and creates replicas of any enemy hero who crosses it. Enemy replicas serve at the Dark Seer's will. Replicas last until they are destroyed, or until the wall's duration ends.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1420,10 +1420,44 @@
     },
     "hint": "Raises a wall of warping light that slows, damages, and creates replicas of any enemy hero who crosses it.",
     "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_assassin.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enchantress.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "ability-owner:dark_willow_bedlam",
+    "kind": "spell-owner",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Bedlam",
+    "prompt": "Which hero owns this ability?",
+    "answers": [
+      "Queen of Pain",
+      "Silencer",
+      "Dark Willow",
+      "Hoodwink"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bedlam belongs to Dark Willow. Dark Willow sends her pet wisp to roam around herself for the duration, rapidly attacking nearby enemies. Bedlam cannot be used while Terrorize is active.",
+    "source": {
+      "label": "Dota 2 live-client audit · build 6872",
+      "url": "https://www.dota2.com/patches/7.41d"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dark_willow_bedlam.png",
+      "alt": "Bedlam ability icon",
+      "kind": "ability"
+    },
+    "hint": "The caster sends her pet wisp to roam around herself for the duration, rapidly attacking nearby enemies.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/queenofpain.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/hoodwink.png"
     ],
     "answerImageKind": "hero"
   },
@@ -1436,11 +1470,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Bristleback",
-      "Dawnbreaker",
       "Chaos Knight",
-      "Earth Spirit"
+      "Earth Spirit",
+      "Dawnbreaker"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Celestial Hammer belongs to Dawnbreaker. Dawnbreaker hurls her weapon at a target, damaging enemies struck along the way. The hammer pauses for 2 seconds at the destination before flying back to her, leaving a trail of fire that slows enemies. Dawnbreaker can recall the hammer at any time, pulling her towards it so they meet in the middle.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1455,9 +1489,43 @@
     "hint": "The caster hurls her weapon at a target, damaging enemies struck along the way.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bristleback.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chaos_knight.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "ability-owner:dawnbreaker_converge",
+    "kind": "spell-owner",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Converge",
+    "prompt": "Which hero owns this ability?",
+    "answers": [
+      "Alchemist",
+      "Dawnbreaker",
+      "Slardar",
+      "Elder Titan"
+    ],
+    "correctIndex": 1,
+    "explanation": "Converge belongs to Dawnbreaker. Dawnbreaker recalls her hammer, pulling them together so they meet in the middle.",
+    "source": {
+      "label": "Dota 2 live-client audit · build 6872",
+      "url": "https://www.dota2.com/patches/7.41d"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dawnbreaker_converge.png",
+      "alt": "Converge ability icon",
+      "kind": "ability"
+    },
+    "hint": "The caster recalls her hammer, pulling them together so they meet in the middle.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/alchemist.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slardar.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png"
     ],
     "answerImageKind": "hero"
   },
@@ -1469,12 +1537,12 @@
     "eyebrow": "Luminosity",
     "prompt": "Which hero owns this ability?",
     "answers": [
-      "Dawnbreaker",
       "Tusk",
       "Pudge",
+      "Dawnbreaker",
       "Primal Beast"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Luminosity belongs to Dawnbreaker.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1488,9 +1556,9 @@
     },
     "hint": "No additional mechanical clue is available for this ability.",
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tusk.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/primal_beast.png"
     ],
     "answerImageKind": "hero"
@@ -1503,12 +1571,12 @@
     "eyebrow": "Weave",
     "prompt": "Which hero owns this ability?",
     "answers": [
-      "Dazzle",
       "Visage",
       "Bane",
+      "Dazzle",
       "Leshrac"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Weave belongs to Dazzle. Dazzle's abilities apply Weave to both allies and enemies they affect, increasing allied armor and reducing enemy armor. Multiple instances of this effect stack.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1522,9 +1590,9 @@
     },
     "hint": "The caster's abilities apply Weave to both allies and enemies they affect, increasing allied armor and reducing enemy armor.",
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/leshrac.png"
     ],
     "answerImageKind": "hero"
@@ -1538,11 +1606,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Witch Doctor",
-      "Techies",
       "Dazzle",
+      "Techies",
       "Winter Wyvern"
     ],
-    "correctIndex": 2,
+    "correctIndex": 1,
     "explanation": "Nothl Projection belongs to Dazzle. Dazzle departs his body, traveling through the Nothl Realm as an invulnerable spirit that can cast spells, attack, and use items, leaving his body behind in the world with a visible tether. While active, Dazzle's basic abilities are empowered: Poison Touch hexes enemies, Shallow Grave heals upon expiration, and Shadow Wave has a shorter cooldown. The effect can be ended early, and Dazzle returns to the body at the end.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1557,8 +1625,8 @@
     "hint": "The caster departs his body, traveling through the Nothl Realm as an invulnerable spirit that can cast spells, attack, and use items…",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/witch_doctor.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/techies.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/techies.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/winter_wyvern.png"
     ],
     "answerImageKind": "hero"
@@ -1598,6 +1666,40 @@
     "answerImageKind": "hero"
   },
   {
+    "id": "ability-owner:earthshaker_aftershock",
+    "kind": "spell-owner",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Aftershock",
+    "prompt": "Which hero owns this ability?",
+    "answers": [
+      "Largo",
+      "Earthshaker",
+      "Slardar",
+      "Lion"
+    ],
+    "correctIndex": 1,
+    "explanation": "Aftershock belongs to Earthshaker. Causes the earth to shake underfoot, adding additional damage and stuns to nearby enemy units when Earthshaker casts his abilities.",
+    "source": {
+      "label": "Dota 2 live-client audit · build 6872",
+      "url": "https://www.dota2.com/patches/7.41d"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/earthshaker_aftershock.png",
+      "alt": "Aftershock ability icon",
+      "kind": "ability"
+    },
+    "hint": "Causes the earth to shake underfoot, adding additional damage and stuns to nearby enemy units when the caster casts his abilities.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earthshaker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slardar.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lion.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
     "id": "ability-owner:elder_titan_echo_stomp",
     "kind": "spell-owner",
     "category": "Abilities",
@@ -1605,12 +1707,12 @@
     "eyebrow": "Echo Stomp",
     "prompt": "Which hero owns this ability?",
     "answers": [
-      "Elder Titan",
       "Chen",
       "Kez",
-      "Centaur Warrunner"
+      "Centaur Warrunner",
+      "Elder Titan"
     ],
-    "correctIndex": 0,
+    "correctIndex": 3,
     "explanation": "Echo Stomp belongs to Elder Titan. CHANNELED - Elder Titan and his Astral Spirit both stomp the ground, damaging and knocking nearby enemy units unconscious around their locations. The Elder Titan stomp deals physical damage, while the Spirit stomp deals magical damage.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1624,10 +1726,10 @@
     },
     "hint": "CHANNELED - the caster and his Astral Spirit both stomp the ground, damaging and knocking nearby enemy units unconscious around their locations.",
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chen.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/centaur.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/centaur.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png"
     ],
     "answerImageKind": "hero"
   },
@@ -1674,11 +1776,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Alchemist",
-      "Ember Spirit",
       "Faceless Void",
-      "Viper"
+      "Viper",
+      "Ember Spirit"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Flame Guard belongs to Ember Spirit. Ember Spirit surrounds himself with a ring of fire that consumes incoming magic damage, absorbing a percentage of the damage taken. Flame Guard deals damage per second in an area around Ember Spirit while Flame Guard is active. If the shield is broken, the damage is also lost.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1693,43 +1795,9 @@
     "hint": "The caster surrounds himself with a ring of fire that consumes incoming magic damage, absorbing a percentage of the damage taken.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/alchemist.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/viper.png"
-    ],
-    "answerImageKind": "hero"
-  },
-  {
-    "id": "ability-owner:enchantress_enchant",
-    "kind": "spell-owner",
-    "category": "Abilities",
-    "difficulty": 2,
-    "eyebrow": "Enchant",
-    "prompt": "Which hero owns this ability?",
-    "answers": [
-      "Troll Warlord",
-      "Warlock",
-      "Winter Wyvern",
-      "Enchantress"
-    ],
-    "correctIndex": 3,
-    "explanation": "Enchant belongs to Enchantress. Enchantress charms an enemy. If the enemy is a hero, they are dispelled and slowed for 3.5s, and Enchantress and her units gain bonus attack range against the target.\n\n If the enemy is a creep, she brings it under her control and receives 40% of their experience bounty. Enchantress can control creeps for up to 30s. \n\nDISPEL TYPE: Basic Dispel",
-    "source": {
-      "label": "Dota 2 live-client audit · build 6872",
-      "url": "https://www.dota2.com/patches/7.41d"
-    },
-    "patch": "7.41d",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/enchantress_enchant.png",
-      "alt": "Enchant ability icon",
-      "kind": "ability"
-    },
-    "hint": "The caster charms an enemy.",
-    "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/troll_warlord.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/winter_wyvern.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enchantress.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/viper.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png"
     ],
     "answerImageKind": "hero"
   },
@@ -1741,12 +1809,12 @@
     "eyebrow": "Scurry",
     "prompt": "Which hero owns this ability?",
     "answers": [
+      "Hoodwink",
       "Medusa",
       "Grimstroke",
-      "Morphling",
-      "Hoodwink"
+      "Morphling"
     ],
-    "correctIndex": 3,
+    "correctIndex": 0,
     "explanation": "Scurry belongs to Hoodwink. Hoodwink gains bonus movement speed, phased movement, and tree-walking for a brief time. While active, the redirect chance of Mistwoods Wayfarer is multiplied by 2.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1760,10 +1828,10 @@
     },
     "hint": "The caster gains bonus movement speed, phased movement, and tree-walking for a brief time.",
     "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/hoodwink.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/medusa.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/grimstroke.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/hoodwink.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png"
     ],
     "answerImageKind": "hero"
   },
@@ -1811,10 +1879,10 @@
     "answers": [
       "Largo",
       "Silencer",
-      "Invoker",
-      "Nature's Prophet"
+      "Nature's Prophet",
+      "Invoker"
     ],
-    "correctIndex": 2,
+    "correctIndex": 3,
     "explanation": "Alacrity belongs to Invoker. Invoker infuses an ally with an immense surge of energy, increasing their attack speed based on the level of Wex and their damage based on the level of Exort.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1830,8 +1898,8 @@
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/furion.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/furion.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png"
     ],
     "answerImageKind": "hero"
   },
@@ -1843,12 +1911,12 @@
     "eyebrow": "Wex",
     "prompt": "Which hero owns this ability?",
     "answers": [
-      "Rubick",
       "Invoker",
+      "Rubick",
       "Ring Master",
       "Enchantress"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Wex belongs to Invoker. Allows manipulation of storm elements. Active Wex instances imbue Invoker with bonus movement and attack speed. Passively grants bonus agility per level of Wex.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1862,8 +1930,8 @@
     },
     "hint": "Allows manipulation of storm elements.",
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enchantress.png"
     ],
@@ -1878,11 +1946,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Skywrath Mage",
+      "Jakiro",
       "Rubick",
-      "Visage",
-      "Jakiro"
+      "Visage"
     ],
-    "correctIndex": 3,
+    "correctIndex": 1,
     "explanation": "Ice Path belongs to Jakiro. Creates a path of ice that stuns and damages enemies that touch it.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1897,9 +1965,9 @@
     "hint": "Creates a path of ice that stuns and damages enemies that touch it.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skywrath_mage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png"
     ],
     "answerImageKind": "hero"
   },
@@ -1946,11 +2014,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Shadow Shaman",
+      "Keeper of the Light",
       "Leshrac",
-      "Crystal Maiden",
-      "Keeper of the Light"
+      "Crystal Maiden"
     ],
-    "correctIndex": 3,
+    "correctIndex": 1,
     "explanation": "Release Illuminate belongs to Keeper of the Light. Release the channel early.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1965,9 +2033,9 @@
     "hint": "Release the channel early.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_shaman.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/keeper_of_the_light.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/leshrac.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crystal_maiden.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/keeper_of_the_light.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crystal_maiden.png"
     ],
     "answerImageKind": "hero"
   },
@@ -1979,12 +2047,12 @@
     "eyebrow": "Falcon Rush",
     "prompt": "Which hero owns this ability?",
     "answers": [
+      "Kez",
       "Naga Siren",
       "Void Spirit",
-      "Kez",
       "Spectre"
     ],
-    "correctIndex": 2,
+    "correctIndex": 0,
     "explanation": "Falcon Rush belongs to Kez. Kez gains the ability to rush towards enemy targets to deliver echoing secondary attacks. While in this state, Kez has phased collision and slow resistance.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -1998,9 +2066,9 @@
     },
     "hint": "The caster gains the ability to rush towards enemy targets to deliver echoing secondary attacks.",
     "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spectre.png"
     ],
     "answerImageKind": "hero"
@@ -2013,12 +2081,12 @@
     "eyebrow": "Kazurai Katana",
     "prompt": "Which hero owns this ability?",
     "answers": [
-      "Anti-Mage",
       "Kez",
+      "Anti-Mage",
       "Bloodseeker",
       "Faceless Void"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Kazurai Katana belongs to Kez. Katana attacks and abilities apply a stacking damage over time to enemies that deals a percentage of the original attack's damage as additional damage over time. \n\nKez may activate the ability to impale the target with his attack, preventing them from moving or turning. The target's Katana debuff bursts, causing some of the stacks to deal damage instantly.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2032,8 +2100,8 @@
     },
     "hint": "Katana attacks and abilities apply a stacking damage over time to enemies that deals a percentage of the original attack's damage…",
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bloodseeker.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png"
     ],
@@ -2047,12 +2115,12 @@
     "eyebrow": "Talon Toss",
     "prompt": "Which hero owns this ability?",
     "answers": [
-      "Kez",
       "Slark",
       "Mirana",
+      "Kez",
       "Riki"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Talon Toss belongs to Kez. Kez throws a Sai at the target unit, applying a fixed damage attack and silence.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2066,9 +2134,9 @@
     },
     "hint": "The caster throws a Sai at the target unit, applying a fixed damage attack and silence.",
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slark.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png"
     ],
     "answerImageKind": "hero"
@@ -2116,11 +2184,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Necrophos",
-      "Lich",
       "Muerta",
-      "Jakiro"
+      "Jakiro",
+      "Lich"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Frost Shield belongs to Lich. Applies a magical frost shield around the target, reducing damage from attacks against it. While the shield is active, ice magic will affect nearby enemy units every 1 seconds, dealing minor damage and slowing them.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2135,9 +2203,9 @@
     "hint": "Applies a magical frost shield around the target, reducing damage from attacks against it.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lich.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lich.png"
     ],
     "answerImageKind": "hero"
   },
@@ -2217,12 +2285,12 @@
     "eyebrow": "Special Delivery",
     "prompt": "Which hero owns this ability?",
     "answers": [
-      "Marci",
       "Pangolier",
       "Windranger",
-      "Magnus"
+      "Magnus",
+      "Marci"
     ],
-    "correctIndex": 0,
+    "correctIndex": 3,
     "explanation": "Special Delivery belongs to Marci. Marci whistles to instantly summon her courier to her. If the courier started in the fountain, it will take items from Marci's stash. After teleporting it will transfer these items to Marci and head back to the fountain.\n\nPassively grants all allied couriers 3 bonus levels and 1 bonus health.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2236,10 +2304,10 @@
     },
     "hint": "The caster whistles to instantly summon her courier to her.",
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/windrunner.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png"
     ],
     "answerImageKind": "hero"
   },
@@ -2312,40 +2380,6 @@
     "answerImageKind": "hero"
   },
   {
-    "id": "ability-owner:meepo_megameepo",
-    "kind": "spell-owner",
-    "category": "Abilities",
-    "difficulty": 2,
-    "eyebrow": "MegaMeepo",
-    "prompt": "Which hero owns this ability?",
-    "answers": [
-      "Brewmaster",
-      "Monkey King",
-      "Meepo",
-      "Invoker"
-    ],
-    "correctIndex": 2,
-    "explanation": "MegaMeepo belongs to Meepo. Primary Meepo mounts all other Meepos in a 600 radius around him on top of his shoulders. While in this form, he gains 40% of the other Meepo stats and can Fling them at enemies, dealing damage and slowing them.\n\n When cast, Earthbind generates additional nets and Poof deals 50% more damage for each Meepo on top.",
-    "source": {
-      "label": "Dota 2 live-client audit · build 6872",
-      "url": "https://www.dota2.com/patches/7.41d"
-    },
-    "patch": "7.41d",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/meepo_megameepo.png",
-      "alt": "MegaMeepo ability icon",
-      "kind": "ability"
-    },
-    "hint": "The primary hero mounts all other copies of the caster in a 600 radius around him on top of his shoulders.",
-    "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png"
-    ],
-    "answerImageKind": "hero"
-  },
-  {
     "id": "ability-owner:meepo_petrify",
     "kind": "spell-owner",
     "category": "Abilities",
@@ -2353,12 +2387,12 @@
     "eyebrow": "Dig",
     "prompt": "Which hero owns this ability?",
     "answers": [
-      "Tiny",
       "Meepo",
+      "Tiny",
       "Riki",
       "Naga Siren"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Dig belongs to Meepo. Digs into the ground for a short duration, dispelling Meepo and causing him to become invulnerable and untargetable for 3s. Restores 25% of his max health over that duration.\n\nDISPEL TYPE: Basic Dispel",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2372,8 +2406,8 @@
     },
     "hint": "Digs into the ground for a short duration, dispelling the caster and causing him to become invulnerable and untargetable for 3s.",
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tiny.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tiny.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png"
     ],
@@ -2388,11 +2422,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Mirana",
-      "Void Spirit",
       "Meepo",
+      "Void Spirit",
       "Broodmother"
     ],
-    "correctIndex": 2,
+    "correctIndex": 1,
     "explanation": "Poof belongs to Meepo. Drawing mystical energies from the earth, a Meepo can teleport to another Meepo or itself after channeling for 1.5 seconds, damaging the enemy in both the departure and arrival locations. \n\nIf the ability is in alt-cast state, all Meepos will also cast Poof to the target. When cast on the ground, all Meepos except the selected one will Poof to the closest location.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2407,8 +2441,8 @@
     "hint": "Drawing mystical energies from the earth, the caster can teleport to another copy or itself after channeling for 1.5 seconds…",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/broodmother.png"
     ],
     "answerImageKind": "hero"
@@ -2422,11 +2456,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Meepo",
-      "Morphling",
       "Necrophos",
-      "Invoker"
+      "Invoker",
+      "Morphling"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Adaptive Strike belongs to Morphling. Launches a surge of water toward an enemy unit, stunning them, knocking them back, and dealing base damage plus additional damage based on Morphling's agility times a multiplier. If Morphling's agility is 50% higher than strength, the maximum agility multiplier is used.\n\nKnockback distance and stun duration are based on Morphling's strength. If his strength is 50% higher than his agility, the maximum knockback distance and stun duration is used.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2441,9 +2475,9 @@
     "hint": "Launches a surge of water toward an enemy unit, stunning them, knocking them back…",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png"
     ],
     "answerImageKind": "hero"
   },
@@ -2455,12 +2489,12 @@
     "eyebrow": "Gunslinger",
     "prompt": "Which hero owns this ability?",
     "answers": [
-      "Rubick",
       "Muerta",
+      "Rubick",
       "Storm Spirit",
       "Zeus"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Gunslinger belongs to Muerta.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2474,8 +2508,8 @@
     },
     "hint": "No additional mechanical clue is available for this ability.",
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/zuus.png"
     ],
@@ -2491,10 +2525,10 @@
     "answers": [
       "Outworld Devourer",
       "Storm Spirit",
-      "Dark Willow",
-      "Muerta"
+      "Muerta",
+      "Dark Willow"
     ],
-    "correctIndex": 3,
+    "correctIndex": 2,
     "explanation": "Supernatural belongs to Muerta.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2510,8 +2544,8 @@
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png"
     ],
     "answerImageKind": "hero"
   },
@@ -2523,12 +2557,12 @@
     "eyebrow": "Ensnare",
     "prompt": "Which hero owns this ability?",
     "answers": [
-      "Naga Siren",
       "Hoodwink",
       "Ember Spirit",
+      "Naga Siren",
       "Bloodseeker"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Ensnare belongs to Naga Siren. Interrupts the target and traps them in place, preventing movement or blinking. Can target units affected by Song of the Siren.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2542,9 +2576,9 @@
     },
     "hint": "Interrupts the target and traps them in place, preventing movement or blinking.",
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/hoodwink.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bloodseeker.png"
     ],
     "answerImageKind": "hero"
@@ -2557,12 +2591,12 @@
     "eyebrow": "Heartstopper Aura",
     "prompt": "Which hero owns this ability?",
     "answers": [
-      "Necrophos",
       "Lina",
       "Shadow Shaman",
-      "Tiny"
+      "Tiny",
+      "Necrophos"
     ],
-    "correctIndex": 0,
+    "correctIndex": 3,
     "explanation": "Heartstopper Aura belongs to Necrophos. Necrophos stills the hearts of his opponents, causing nearby enemy units to lose a percentage of their max health over time.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2576,10 +2610,10 @@
     },
     "hint": "The caster stills the hearts of his opponents, causing nearby enemy units to lose a percentage of their max health over time.",
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_shaman.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tiny.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tiny.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png"
     ],
     "answerImageKind": "hero"
   },
@@ -2593,10 +2627,10 @@
     "answers": [
       "Ember Spirit",
       "Spirit Breaker",
-      "Earth Spirit",
-      "Nyx Assassin"
+      "Nyx Assassin",
+      "Earth Spirit"
     ],
-    "correctIndex": 3,
+    "correctIndex": 2,
     "explanation": "Unburrow belongs to Nyx Assassin. Emerge from the burrow.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2612,8 +2646,8 @@
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spirit_breaker.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nyx_assassin.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nyx_assassin.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png"
     ],
     "answerImageKind": "hero"
   },
@@ -2660,11 +2694,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Ring Master",
+      "Oracle",
       "Disruptor",
-      "Visage",
-      "Oracle"
+      "Visage"
     ],
-    "correctIndex": 3,
+    "correctIndex": 1,
     "explanation": "Fate's Edict belongs to Oracle. Oracle enraptures a target, disarming them and granting them 100% magic damage resistance.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2679,9 +2713,9 @@
     "hint": "The caster enraptures a target, disarming them and granting them 100% magic damage resistance.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/oracle.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/disruptor.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/oracle.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png"
     ],
     "answerImageKind": "hero"
   },
@@ -2796,11 +2830,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Outworld Devourer",
+      "Puck",
       "Silencer",
-      "Invoker",
-      "Puck"
+      "Invoker"
     ],
-    "correctIndex": 3,
+    "correctIndex": 1,
     "explanation": "Ethereal Jaunt belongs to Puck. Teleports Puck to a flying Illusory Orb.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2815,9 +2849,9 @@
     "hint": "Teleports the caster to a flying Illusory Orb.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/puck.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/puck.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png"
     ],
     "answerImageKind": "hero"
   },
@@ -2831,10 +2865,10 @@
     "answers": [
       "Winter Wyvern",
       "Venomancer",
-      "Silencer",
-      "Puck"
+      "Puck",
+      "Silencer"
     ],
-    "correctIndex": 3,
+    "correctIndex": 2,
     "explanation": "Waning Rift belongs to Puck. Puck teleports to the target location and releases a burst of faerie dust that deals damage and silences enemy units nearby.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2850,8 +2884,8 @@
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/winter_wyvern.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/venomancer.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/puck.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/puck.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png"
     ],
     "answerImageKind": "hero"
   },
@@ -2863,12 +2897,12 @@
     "eyebrow": "Tame the Beasts",
     "prompt": "Which hero owns this ability?",
     "answers": [
+      "Ring Master",
       "Bounty Hunter",
       "Lion",
-      "Ring Master",
       "Slardar"
     ],
-    "correctIndex": 2,
+    "correctIndex": 0,
     "explanation": "Tame the Beasts belongs to Ring Master. CHANNELED - Ringmaster twirls his whip for up to 1 second then cracks it. Whipped enemies are damaged and flee in fear from Ringmaster. Channel time exponentially increases damage and extends the fear duration, but reduces the radius.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2882,9 +2916,9 @@
     },
     "hint": "CHANNELED - Ringmaster twirls his whip for up to 1 second then cracks it.",
     "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bounty_hunter.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lion.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slardar.png"
     ],
     "answerImageKind": "hero"
@@ -2898,11 +2932,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Warlock",
-      "Shadow Demon",
       "Morphling",
+      "Shadow Demon",
       "Drow Ranger"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "Disruption belongs to Shadow Demon. Banishes the targeted unit from the battlefield for a short duration. Upon returning, two illusions of the banished unit with bonus base damage are created under Shadow Demon's control.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -2917,8 +2951,8 @@
     "hint": "Banishes the targeted unit from the battlefield for a short duration.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_demon.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_demon.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/drow_ranger.png"
     ],
     "answerImageKind": "hero"
@@ -3033,12 +3067,12 @@
     "eyebrow": "Arcane Bolt",
     "prompt": "Which hero owns this ability?",
     "answers": [
-      "Skywrath Mage",
       "Treant Protector",
       "Medusa",
+      "Skywrath Mage",
       "Naga Siren"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "explanation": "Arcane Bolt belongs to Skywrath Mage. Skywrath Mage launches a slow-moving bolt of arcane magic, dealing damage to an enemy unit based on Skywrath Mage's intelligence.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -3052,44 +3086,10 @@
     },
     "hint": "The caster launches a slow-moving bolt of arcane magic, dealing damage to an enemy unit based on the caster's intelligence.",
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skywrath_mage.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/treant.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/medusa.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skywrath_mage.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png"
-    ],
-    "answerImageKind": "hero"
-  },
-  {
-    "id": "ability-owner:slardar_sprint",
-    "kind": "spell-owner",
-    "category": "Abilities",
-    "difficulty": 1,
-    "eyebrow": "Guardian Sprint",
-    "prompt": "Which hero owns this ability?",
-    "answers": [
-      "Slardar",
-      "Sniper",
-      "Earthshaker",
-      "Kez"
-    ],
-    "correctIndex": 0,
-    "explanation": "Guardian Sprint belongs to Slardar. Slardar slithers ahead, moving significantly faster and passing through units. Slardar has 100% slow resistance for the first 2.5s. The slow resistance gradually fades over the remaining sprint duration.",
-    "source": {
-      "label": "Dota 2 live-client audit · build 6872",
-      "url": "https://www.dota2.com/patches/7.41d"
-    },
-    "patch": "7.41d",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/slardar_sprint.png",
-      "alt": "Guardian Sprint ability icon",
-      "kind": "ability"
-    },
-    "hint": "The caster slithers ahead, moving significantly faster and passing through units.",
-    "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slardar.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earthshaker.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png"
     ],
     "answerImageKind": "hero"
   },
@@ -3101,12 +3101,12 @@
     "eyebrow": "Essence Shift",
     "prompt": "Which hero owns this ability?",
     "answers": [
+      "Slark",
       "Magnus",
       "Skywrath Mage",
-      "Slark",
       "Huskar"
     ],
-    "correctIndex": 2,
+    "correctIndex": 0,
     "explanation": "Essence Shift belongs to Slark. Slark steals the life essence of enemy heroes with his attacks, draining 1 of each of their attributes and converting them to bonus 3 Agility. If Slark kills an affected enemy hero, he permanently steals 1 Agility.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -3120,9 +3120,9 @@
     },
     "hint": "The caster steals the life essence of enemy heroes with his attacks…",
     "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slark.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skywrath_mage.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slark.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/huskar.png"
     ],
     "answerImageKind": "hero"
@@ -3170,11 +3170,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Ember Spirit",
-      "Sven",
       "Earth Spirit",
-      "Dragon Knight"
+      "Dragon Knight",
+      "Sven"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Great Cleave belongs to Sven. Sven strikes with great force, cleaving all nearby enemy units with his attack.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -3189,9 +3189,9 @@
     "hint": "The caster strikes with great force, cleaving all nearby enemy units with his attack.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sven.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sven.png"
     ],
     "answerImageKind": "hero"
   },
@@ -3205,10 +3205,10 @@
     "answers": [
       "Oracle",
       "Shadow Fiend",
-      "Necrophos",
-      "Tinker"
+      "Tinker",
+      "Necrophos"
     ],
-    "correctIndex": 3,
+    "correctIndex": 2,
     "explanation": "March of the Machines belongs to Tinker. Enlists an army of robotic minions to destroy enemy units in an area around Tinker.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -3224,8 +3224,8 @@
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/oracle.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tinker.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tinker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png"
     ],
     "answerImageKind": "hero"
   },
@@ -3238,11 +3238,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Mars",
+      "Tiny",
       "Earthshaker",
-      "Largo",
-      "Tiny"
+      "Largo"
     ],
-    "correctIndex": 3,
+    "correctIndex": 1,
     "explanation": "Toss belongs to Tiny. Grabs the nearest unit in a 300 radius around Tiny, ally or enemy, and launches it at the target unit or rune to deal damage where they land.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -3257,43 +3257,9 @@
     "hint": "Grabs the nearest unit in a 300 radius around the caster, ally or enemy…",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mars.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tiny.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earthshaker.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tiny.png"
-    ],
-    "answerImageKind": "hero"
-  },
-  {
-    "id": "ability-owner:troll_warlord_battle_trance",
-    "kind": "spell-owner",
-    "category": "Abilities",
-    "difficulty": 1,
-    "eyebrow": "Battle Trance",
-    "prompt": "Which hero owns this ability?",
-    "answers": [
-      "Venomancer",
-      "Puck",
-      "Troll Warlord",
-      "Bloodseeker"
-    ],
-    "correctIndex": 2,
-    "explanation": "Battle Trance belongs to Troll Warlord. Troll unleashes a powerful battle trance, that forces you to continuously attack the closest enemy unit within 900 range, prioritizing heroes. Damage does not kill you during this mode. Grants you bonus lifesteal, attack speed and movement speed. Applies a Basic Dispel.\n\nDISPEL TYPE: Basic Dispel",
-    "source": {
-      "label": "Dota 2 live-client audit · build 6872",
-      "url": "https://www.dota2.com/patches/7.41d"
-    },
-    "patch": "7.41d",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/troll_warlord_battle_trance.png",
-      "alt": "Battle Trance ability icon",
-      "kind": "ability"
-    },
-    "hint": "The caster unleashes a powerful battle trance, that forces you to continuously attack the closest enemy unit within 900 range…",
-    "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/venomancer.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/puck.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/troll_warlord.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bloodseeker.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png"
     ],
     "answerImageKind": "hero"
   },
@@ -3332,40 +3298,6 @@
     "answerImageKind": "hero"
   },
   {
-    "id": "ability-owner:vengefulspirit_retribution",
-    "kind": "spell-owner",
-    "category": "Abilities",
-    "difficulty": 3,
-    "eyebrow": "Retribution",
-    "prompt": "Which hero owns this ability?",
-    "answers": [
-      "Shadow Shaman",
-      "Vengeful Spirit",
-      "Puck",
-      "Snapfire"
-    ],
-    "correctIndex": 1,
-    "explanation": "Retribution belongs to Vengeful Spirit. Vengeful Spirit is considered both a ranged and a melee attacker to gain the respective bonuses.\n\nWhen killed by an enemy hero, Vengeful Spirit deals 20% bonus damage to her killer until their next death. Only one debuff can exist at a time.",
-    "source": {
-      "label": "Dota 2 live-client audit · build 6872",
-      "url": "https://www.dota2.com/patches/7.41d"
-    },
-    "patch": "7.41d",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/vengefulspirit_retribution.png",
-      "alt": "Retribution ability icon",
-      "kind": "ability"
-    },
-    "hint": "The caster is considered both a ranged and a melee attacker to gain the respective bonuses.",
-    "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_shaman.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/puck.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/snapfire.png"
-    ],
-    "answerImageKind": "hero"
-  },
-  {
     "id": "ability-owner:venomancer_poison_sting",
     "kind": "spell-owner",
     "category": "Abilities",
@@ -3373,12 +3305,12 @@
     "eyebrow": "Poison Sting",
     "prompt": "Which hero owns this ability?",
     "answers": [
-      "Venomancer",
       "Enchantress",
       "Marci",
-      "Witch Doctor"
+      "Witch Doctor",
+      "Venomancer"
     ],
-    "correctIndex": 0,
+    "correctIndex": 3,
     "explanation": "Poison Sting belongs to Venomancer. Venomancer's attacks slow enemies and deal damage over time.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -3392,10 +3324,44 @@
     },
     "hint": "The caster's attacks slow enemies and deal damage over time.",
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/venomancer.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enchantress.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/witch_doctor.png"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/witch_doctor.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/venomancer.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
+    "id": "ability-owner:venomancer_snakebite",
+    "kind": "spell-owner",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Snakebite",
+    "prompt": "Which hero owns this ability?",
+    "answers": [
+      "Warlock",
+      "Winter Wyvern",
+      "Phoenix",
+      "Venomancer"
+    ],
+    "correctIndex": 3,
+    "explanation": "Snakebite belongs to Venomancer. Venomancer summons a Spawn of Aktok to sink its fangs into a target, dealing magic damage and applying a toxin that does damage every second. When the target attacks while infected, they take the initial damage again.",
+    "source": {
+      "label": "Dota 2 live-client audit · build 6872",
+      "url": "https://www.dota2.com/patches/7.41d"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/venomancer_snakebite.png",
+      "alt": "Snakebite ability icon",
+      "kind": "ability"
+    },
+    "hint": "The caster summons a Spawn of Aktok to sink its fangs into a target…",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/winter_wyvern.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phoenix.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/venomancer.png"
     ],
     "answerImageKind": "hero"
   },
@@ -3434,6 +3400,40 @@
     "answerImageKind": "hero"
   },
   {
+    "id": "ability-owner:visage_summon_familiars",
+    "kind": "spell-owner",
+    "category": "Abilities",
+    "difficulty": 3,
+    "eyebrow": "Summon Familiars",
+    "prompt": "Which hero owns this ability?",
+    "answers": [
+      "Sand King",
+      "Visage",
+      "Brewmaster",
+      "Nature's Prophet"
+    ],
+    "correctIndex": 1,
+    "explanation": "Summon Familiars belongs to Visage. Conjures 2 blind Familiars to fight for Visage. Familiars possess the Stone Form ability, that allows them to turn into stone, stunning enemies upon landing. While in Stone Form, Familiars are invulnerable, and rapidly regenerate their health. Familiars grant high bounty when killed.\n\nThe ability can be cast in the alt-cast state to recall Visages familiars after 4s, during which they cannot attack or act.",
+    "source": {
+      "label": "Dota 2 live-client audit · build 6872",
+      "url": "https://www.dota2.com/patches/7.41d"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/visage_summon_familiars.png",
+      "alt": "Summon Familiars ability icon",
+      "kind": "ability"
+    },
+    "hint": "Conjures 2 blind Familiars to fight for the caster.",
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sand_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/furion.png"
+    ],
+    "answerImageKind": "hero"
+  },
+  {
     "id": "ability-owner:warlock_rain_of_chaos",
     "kind": "spell-owner",
     "category": "Abilities",
@@ -3441,12 +3441,12 @@
     "eyebrow": "Chaotic Offering",
     "prompt": "Which hero owns this ability?",
     "answers": [
+      "Warlock",
       "Storm Spirit",
       "Mirana",
-      "Warlock",
       "Brewmaster"
     ],
-    "correctIndex": 2,
+    "correctIndex": 0,
     "explanation": "Chaotic Offering belongs to Warlock. Summons a Golem from the depths, stunning enemies for 0.8 seconds. The Golem lives 60 seconds, takes reduced damage from spells, has increased Slow Resistance, has Permanent Immolation and Flaming Fists on attack.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -3460,9 +3460,9 @@
     },
     "hint": "Summons a Golem from the depths, stunning enemies for 0.8 seconds.",
     "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster.png"
     ],
     "answerImageKind": "hero"
@@ -3476,11 +3476,11 @@
     "prompt": "Which hero owns this ability?",
     "answers": [
       "Disruptor",
-      "Necrophos",
       "Warlock",
+      "Necrophos",
       "Lina"
     ],
-    "correctIndex": 2,
+    "correctIndex": 1,
     "explanation": "Upheaval belongs to Warlock. CHANNELED - A powerful slowing and damaging current that grows stronger as it's channeled. Lasts up to 10 seconds. Enemies are slowed for 1 second after leaving the area or the spell ends.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -3495,8 +3495,8 @@
     "hint": "CHANNELED - A powerful slowing and damaging current that grows stronger as it's channeled.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/disruptor.png",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png"
     ],
     "answerImageKind": "hero"
