@@ -22,6 +22,32 @@ if (
   throw new Error("The deterministic variety scheduler repeated or lost a question in its balanced opening.");
 }
 
+const hiddenDifficultyFixture = ["abilities", "items"].flatMap((kind) =>
+  [1, 2, 3].flatMap((difficulty) =>
+    Array.from({ length: 6 }, (_, index) => ({
+      id: `${kind}-${difficulty}-${index}`,
+      kind,
+      difficulty,
+    })),
+  ),
+);
+const hiddenDifficultyOpening = varietyShuffle(hiddenDifficultyFixture, "hidden-difficulty-regression").slice(0, 18);
+const hiddenDifficultyCounts = Object.fromEntries(
+  [1, 2, 3].map((difficulty) => [
+    difficulty,
+    hiddenDifficultyOpening.filter((question) => question.difficulty === difficulty).length,
+  ]),
+);
+const hasDifficultyStreak = hiddenDifficultyOpening.some(
+  (question, index) =>
+    index > 1 &&
+    question.difficulty === hiddenDifficultyOpening[index - 1].difficulty &&
+    question.difficulty === hiddenDifficultyOpening[index - 2].difficulty,
+);
+if (hasDifficultyStreak || Object.values(hiddenDifficultyCounts).some((count) => count !== 6)) {
+  throw new Error(`The hidden difficulty cadence drifted: ${JSON.stringify(hiddenDifficultyCounts)}.`);
+}
+
 const arcadeGames = [
   "trivia",
   "shopkeeper",
@@ -145,19 +171,19 @@ if (
   throw new Error(`Map Sense lost its balanced nine-family opening: ${JSON.stringify(mapOpeningCounts)}.`);
 }
 
-const veteranMapKinds = ["map-crop", "map-camp-block", "map-stack-route", "map-tp-in"];
-const veteranMapFixture = veteranMapKinds.flatMap((kind) =>
-  Array.from({ length: 24 }, (_, index) => ({ id: `veteran-${kind}-${index}`, kind })),
+const mechanicMapKinds = ["map-crop", "map-camp-block", "map-stack-route", "map-tp-in"];
+const mechanicMapFixture = mechanicMapKinds.flatMap((kind) =>
+  Array.from({ length: 24 }, (_, index) => ({ id: `mechanic-${kind}-${index}`, kind })),
 );
-const veteranMapOpening = varietyShuffle(veteranMapFixture, "veteran-map-family-regression").slice(0, 24);
-const veteranMapCounts = Object.fromEntries(
-  veteranMapKinds.map((kind) => [kind, veteranMapOpening.filter((question) => question.kind === kind).length]),
+const mechanicMapOpening = varietyShuffle(mechanicMapFixture, "mechanic-map-family-regression").slice(0, 24);
+const mechanicMapCounts = Object.fromEntries(
+  mechanicMapKinds.map((kind) => [kind, mechanicMapOpening.filter((question) => question.kind === kind).length]),
 );
 if (
-  veteranMapOpening.some((question, index) => index > 0 && question.kind === veteranMapOpening[index - 1].kind) ||
-  veteranMapKinds.some((kind) => veteranMapCounts[kind] !== 6)
+  mechanicMapOpening.some((question, index) => index > 0 && question.kind === mechanicMapOpening[index - 1].kind) ||
+  mechanicMapKinds.some((kind) => mechanicMapCounts[kind] !== 6)
 ) {
-  throw new Error(`Veteran Map Sense lost its four-family rotation: ${JSON.stringify(veteranMapCounts)}.`);
+  throw new Error(`Map Sense mechanics lost their four-family rotation: ${JSON.stringify(mechanicMapCounts)}.`);
 }
 
 const roundDuration = 12_000;
@@ -172,5 +198,5 @@ if (
 }
 
 console.log(
-  `Validated deterministic template, nine-game Mixed Arcade, Soundcheck, Counterplay and Map Sense family rotation, and ${MAP_READ_GRACE_MS / 1000}s reading grace (Soundcheck ${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}, Counterplay ${JSON.stringify(counterplayOpeningCounts)}, Map Open ${JSON.stringify(mapOpeningCounts)}, Veteran ${JSON.stringify(veteranMapCounts)}).`,
+  `Validated deterministic templates, hidden difficulty cadence ${JSON.stringify(hiddenDifficultyCounts)}, nine-game Mixed Arcade, Soundcheck, Counterplay and Map Sense family rotation, and ${MAP_READ_GRACE_MS / 1000}s reading grace (Soundcheck ${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}, Counterplay ${JSON.stringify(counterplayOpeningCounts)}, Map all-family ${JSON.stringify(mapOpeningCounts)}, Map mechanics ${JSON.stringify(mechanicMapCounts)}).`,
 );

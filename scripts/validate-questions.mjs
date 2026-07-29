@@ -143,14 +143,14 @@ const magnusSkewer = spellLinkQuestions.find((question) => question.id === "abil
 
 if (learningSpellCount < 12 || veteranSpellCount < 12) {
   failures.push(
-    `Spell Link needs viable Learning and Veteran pools (found ${learningSpellCount} Learning and ${veteranSpellCount} Veteran).`,
+    `Spell Link needs viable approachable and demanding tiers (found ${learningSpellCount} approachable and ${veteranSpellCount} demanding).`,
   );
 }
 if (foggedQuestions.length < 36) failures.push(`Fogged Vision needs at least 36 playable heroes.`);
 if (voiceQuestions.length < 32) failures.push(`Echo Hunt needs at least 32 verified hero clips.`);
 if (quoteQuestions.length < 32) failures.push(`Quote Hunt needs at least 32 proper hero lines.`);
 if (magnusSkewer?.difficulty !== 1) {
-  failures.push("Magnus's highly recognizable Skewer icon must stay out of the Veteran Spell Link pool.");
+  failures.push("Magnus's highly recognizable Skewer icon must remain in the approachable Spell Link tier.");
 }
 
 if (metadata.questionCount !== questions.length) {

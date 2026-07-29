@@ -25,7 +25,6 @@ export async function POST(request: Request) {
     gameId: candidate.gameId,
     mode: candidate.mode,
     filter: candidate.filter,
-    skillLevel: candidate.skillLevel,
   });
   const { roundId, questionId, reason, voterId } = candidate;
 

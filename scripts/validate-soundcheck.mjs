@@ -10,6 +10,7 @@ import {
   soundcheckClips,
   soundcheckSource,
 } from "./soundcheck-audit.mjs";
+import { SOUNDCHECK_SEQUENCE_GAP_SECONDS, soundcheckCutDuration } from "../src/lib/soundcheck.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questions = JSON.parse(await readFile(join(root, "src", "data", "soundcheck-questions.json"), "utf8"));
@@ -30,6 +31,7 @@ const difficultyCounts = {
   ability: [0, 0, 0],
   item: [0, 0, 0],
 };
+let progressiveClipCount = 0;
 
 function assetKey(image, family) {
   const directory = family === "ability" ? "abilities" : "items";
@@ -87,6 +89,27 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
     duration,
   }));
   const expectedAudioUrls = clips.map(soundcheckAudioUrl);
+  for (const clip of clips) {
+    const cuts = [1, 2, 3].map((stage) => soundcheckCutDuration(clip.duration, stage));
+    progressiveClipCount += 1;
+    if (
+      cuts[0] <= 0 ||
+      cuts[0] >= cuts[1] ||
+      cuts[1] >= cuts[2] ||
+      cuts[2] >= clip.duration ||
+      cuts[0] > 0.75 ||
+      cuts[1] > 1.75 ||
+      Math.abs(cuts[2] / clip.duration - 0.78) > 0.001
+    ) {
+      failures.push(`${id}: audited clip ${clip.event} has an invalid progressive cut ${JSON.stringify(cuts)}.`);
+    }
+  }
+  const finalPassDuration =
+    clips.reduce((total, clip) => total + soundcheckCutDuration(clip.duration, 3), 0) +
+    (isSequence ? SOUNDCHECK_SEQUENCE_GAP_SECONDS : 0);
+  if (finalPassDuration >= 4.9) {
+    failures.push(`${id}: final progressive pass cannot finish before the shared deadline (${finalPassDuration}s).`);
+  }
 
   if (ids.has(id)) failures.push(`${id}: duplicate question.`);
   ids.add(id);
@@ -228,7 +251,7 @@ for (const family of ["ability", "item"]) {
     JSON.stringify(difficultyCounts[family]) !== JSON.stringify([12, 6, 6])
   ) {
     failures.push(
-      `${family}: expected 18 single and 6 sequence rounds split 12 Learning, 6 tricky, and 6 brutal (${familyCounts[family]}, ${JSON.stringify(formatCounts[family])}, ${JSON.stringify(difficultyCounts[family])}).`,
+      `${family}: expected 18 single and 6 sequence rounds split 12 approachable, 6 tricky, and 6 brutal (${familyCounts[family]}, ${JSON.stringify(formatCounts[family])}, ${JSON.stringify(difficultyCounts[family])}).`,
     );
   }
 }
@@ -241,6 +264,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${questions.length} Soundcheck rounds (${JSON.stringify(familyCounts)}; formats ${JSON.stringify(formatCounts)}; difficulty ${JSON.stringify(difficultyCounts)}; answer slots ${JSON.stringify(answerPositionCounts)}).`,
+    `Validated ${questions.length} Soundcheck rounds and ${progressiveClipCount} three-stage clip profiles (${JSON.stringify(familyCounts)}; formats ${JSON.stringify(formatCounts)}; difficulty ${JSON.stringify(difficultyCounts)}; answer slots ${JSON.stringify(answerPositionCounts)}).`,
   );
 }

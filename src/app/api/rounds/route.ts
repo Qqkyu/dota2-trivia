@@ -14,7 +14,6 @@ export async function GET(request: Request) {
     gameId: searchParams.get("gameId"),
     mode: searchParams.get("mode"),
     filter: searchParams.get("filter"),
-    skillLevel: searchParams.get("skillLevel"),
   });
   const playerId = searchParams.get("playerId") ?? undefined;
 

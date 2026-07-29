@@ -6,7 +6,6 @@ import {
   type ArcadeMode,
   type ArcadeRound,
   type KnowledgeFilter,
-  type SkillLevel,
   type TriviaQuestion,
 } from "@/lib/trivia";
 
@@ -26,7 +25,6 @@ export interface GameCatalog {
     mode: ArcadeMode,
     filter: KnowledgeFilter,
     length: number,
-    skillLevel: SkillLevel,
     rotationSeed?: string,
     roundOffset?: number,
   ) => ArcadeRound[];

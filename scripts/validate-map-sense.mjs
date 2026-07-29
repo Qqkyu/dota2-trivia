@@ -470,7 +470,9 @@ const veteranFamilyCounts = {
   tp: teleportCandidates.length,
 };
 if (learningCount < 24 || veteranCount < 96 || Object.values(veteranFamilyCounts).some((count) => count < 24)) {
-  failures.push(`Map Sense needs 24-round Learning and Veteran pools (found ${learningCount} and ${veteranCount}).`);
+  failures.push(
+    `Map Sense needs viable approachable and demanding tiers (found ${learningCount} and ${veteranCount}).`,
+  );
 }
 
 try {
@@ -488,6 +490,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${allDefinitions.length} Map Sense questions across nine families, ${mechanics.camps.length} current neutral camps, and ${Object.keys(landmarks).length} entity-backed pins (${difficultyCounts[1]} warm-up, ${difficultyCounts[2]} tricky, ${difficultyCounts[3]} brutal; Veteran ${JSON.stringify(veteranFamilyCounts)}).`,
+    `Validated ${allDefinitions.length} Map Sense questions across nine families, ${mechanics.camps.length} current neutral camps, and ${Object.keys(landmarks).length} entity-backed pins (${difficultyCounts[1]} approachable, ${difficultyCounts[2]} tricky, ${difficultyCounts[3]} brutal; hard mechanics ${JSON.stringify(veteranFamilyCounts)}).`,
   );
 }

@@ -7,7 +7,7 @@ An unofficial browser arcade made for the gap between **Find Match** and **Accep
 - **Spell Link** — match an ability to its hero while timed clues unlock;
 - **Fogged Vision** — identify a hero while its portrait clears through three fixed-layout stages;
 - **Echo Hunt** — identify a hero from a voice response, with autoplay and an always-available replay control;
-- **Soundcheck** — identify verified ability effects, item activations, and ordered two-sound sequences;
+- **Soundcheck** — identify verified effects through three growing audio cuts, including ordered two-sound sequences;
 - **Quote Hunt** — match a substantial written hero response to its speaker;
 - **Map Sense** — match terrain, block camps, follow current stack guides, choose a TP, and solve compact battlefield calls;
 - **Counterplay** — solve BKB, dispel, Nullifier, Linken's, and Lotus interactions from short icon-led matchups;
@@ -18,14 +18,14 @@ Every mode shares the parts that made the original compelling: short timed round
 The playable MVP includes:
 
 - endless, instantly interruptible arcade sessions with automatic round transitions;
-- Open, Learning, and Veteran challenge levels with 12–18 second timers, including a 15-second Counterplay floor;
+- one shared 15-second question pool per mode, without player-facing difficulty queues;
 - 1,084 prompts across 34 formats for Dota patch 7.41d, including 236 Map Sense challenges and 62 Counterplay matchups;
 - item, hero, and ability artwork for visual answer rounds;
 - 44 remotely verified Echo Hunt clips, 48 Soundcheck rounds built from 60 audited clips, and 43 Quote Hunt lines sourced through Dotabase;
 - progressive Spell Link clues at two-thirds and one-third time remaining;
-- deterministic template-aware scheduling, so large numeric pools cannot drown out distinctive question formats;
+- deterministic template- and difficulty-aware scheduling, so large numeric pools cannot drown out distinctive formats or create long runs of trivial questions;
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
-- server-owned public rooms: everyone with the same mode, filter, and challenge level receives the same round and deadlines;
+- server-owned public rooms: everyone with the same mode and trivia filter receives the same round and deadlines;
 - per-round crowd results with server-enforced deadlines and duplicate-vote protection;
 - server-scored Map Sense pins plus synchronized A–D mechanic rounds, with coordinates and answer splits hidden until reveal;
 - disk-backed vote history that survives Node server restarts and records per-question accuracy data;
@@ -35,34 +35,38 @@ The playable MVP includes:
 - keyboard controls, responsive layouts, persistent mute and master volume, sound cues, and local lifetime stats;
 - a reproducible data sync and validation pipeline.
 
-## Challenge levels
+## Shared difficulty pool
 
-- **Learning** uses 18-second rounds and recognizable, core Spell Link abilities.
-- **Open** uses 15 seconds and samples every content tier.
-- **Veteran** uses 12 seconds—or 15 in Counterplay—excludes recognizable core abilities, hides ability-name clues, and selects closer distractor heroes.
+Difficulty remains question metadata, not a room choice. Every player in a mode receives the same approachable,
+intermediate, and demanding rounds on a 15-second clock. The deterministic scheduler uses those hidden tiers to vary
+the cadence and prevent several easy questions in a row; calibration can later replace the seed tiers with observed
+answer rates without fragmenting the room.
 
-Fogged Vision also scales the portrait itself: Learning preserves more color and silhouette detail, Open starts
-substantially obscured, and every level retains some fog through the final stage—with Veteran keeping the most.
+Fogged Vision uses one tuned portrait curve for everyone and retains fog through the final stage.
 
-Map Sense changes both reasoning and interaction: Learning mixes broad calls with approachable riddles and marked-start
-rotations; Open samples all nine families; Veteran rotates evenly through monochrome Terrain Match, Camp Block, Stack
-Route, and TP In. The mechanic rounds use current spawn boxes, Valve's per-camp stack arrows and timing windows, and
-entity-backed tower positions. Prompts stay at four words or fewer for the Veteran rotation. A three-second reading
-grace preserves full speed points before the bonus begins fading; pin rounds also earn a separate center-precision
-bonus.
+Map Sense mixes all nine families in one room, including broad calls, riddles, relative-position puzzles, monochrome
+Terrain Match, Camp Block, Stack Route, and TP In. The mechanic rounds use current spawn boxes, Valve's per-camp stack
+arrows and timing windows, and entity-backed tower positions. The hardest mechanic prompts stay at four words or
+fewer. A three-second reading grace preserves full speed points before the bonus begins fading; pin rounds also earn a
+separate center-precision bonus.
 
 Counterplay uses six audited mechanic families: debuff immunity, basic dispels, strong-dispel-only effects, offensive
-dispels, spell block, and spell reflection. Learning keeps iconic interactions; Veteran removes those warm-ups and
-leans into less obvious status and targeting rules. The deck is generated from explicit `bkbpierce`, `dispellable`,
+dispels, spell block, and spell reflection. Iconic interactions and less obvious status or targeting rules now rotate
+through the same room. The deck is generated from explicit `bkbpierce`, `dispellable`,
 and ability-behavior fields in the patch-stamped game constants. Break questions are intentionally excluded until
 breakability can be verified without inference.
 
-Soundcheck alternates between ability sounds and item activations. Learning uses iconic sounds; Veteran removes those
-warm-ups and alternates single deep cuts with ordered two-sound rounds. Sequence answers are compact icon pairs:
+Soundcheck alternates between ability sounds and item activations, mixing iconic cues, single deep cuts, and ordered
+two-sound rounds. Each third of the clock unlocks and replays a longer prefix; even the final cut stops before the full
+clip. Sequence answers are compact icon pairs:
 recognizing only one clip still leaves two plausible choices. Every sequence can be replayed freely, while persistent
 mute and volume controls apply to clips and interface cues alike.
 
-Spell Link's initial content tier is reproducible: core/iconic abilities are Learning, unusual sub-abilities, innates, upgrades, and helper abilities are Veteran, and the remaining edge cases sit between them. Distractor similarity considers primary attribute, attack type, range, and shared roles. Once the project has durable vote history, observed correct-answer rates should supersede this seed heuristic.
+Spell Link's hidden seed tier is reproducible: core/iconic abilities are approachable, unusual sub-abilities, innates,
+upgrades, and helper abilities are demanding, and the remaining edge cases sit between them. The second clue reveals an
+ability name for approachable questions and only mechanic tags for harder ones. Distractor similarity considers primary
+attribute, attack type, range, and shared roles. Once the project has durable vote history, observed correct-answer
+rates should supersede this seed heuristic.
 
 ## Why this version
 
@@ -130,14 +134,14 @@ question. Generation is fail-closed: every displayed ability must have an explic
 result must agree with it, and every Lotus question must match a named scenario fixture. Linken's rounds also reject any
 option set where all four casts are not plausible unit-targeted casts; Lotus rounds use prominent spell-to-item diagrams,
 a three-word prompt ceiling, and three-word answer limits instead of target-type elimination.
-`validate-counterplay.mjs` independently protects those facts and scenarios as well as format, family coverage,
-challenge-level pools, scan length, answer balance, artwork shape, and source snapshots.
+`validate-counterplay.mjs` independently protects those facts and scenarios as well as format, family and hidden-tier
+coverage, scan length, answer balance, artwork shape, and source snapshots.
 
 Soundcheck's reviewed event-to-file mappings live in `scripts/soundcheck-audit.mjs`. The generator resolves names and
 icons from current OpenDota constants, verifies each named sound event against the decompiled client event file, and
 checks the browser-ready WAV before writing the deck. Its independent validator enforces exact audit agreement,
 ability/item balance, difficulty coverage, same-family visual choices, unique option sets, compact prompts, and even
-answer-slot distribution. Veteran generation additionally rejects mixed-hero ability choices, passive answer
+answer-slot distribution. Higher-tier generation additionally rejects mixed-hero ability choices, passive answer
 elimination, non-active item sets, unaudited sequence clips, and ordered pairs that can be solved from only one sound.
 
 ## Verify it
@@ -148,13 +152,13 @@ pnpm check
 
 That validates the question deck, template rotation, and visual/audio metadata, runs ESLint, runs strict TypeScript checking, and creates an optimized production build.
 
-With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk persistence, hashed voter IDs, reveal-only report submission, report deduplication, aggregate-only calibration data, server-scored map coordinates, hidden-then-revealed room pins, coordinate-free Map Sense choices, and level-filtered Counterplay rooms.
+With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk persistence, hashed voter IDs, reveal-only report submission, report deduplication, aggregate-only calibration data, server-scored Map Sense answers, and that obsolete saved level values cannot split public rooms.
 
-For visual smoke testing, start muted Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the arcade lobby, Shopkeeper Rush, the no-shift question-report popover, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt audio readiness, Soundcheck's ordered playback, compact icon pairs, persistent volume, mute-safe autoplay and manual replay, Quote Hunt rendering, Counterplay prompts and reveals, all four Veteran Map Sense interactions and reveals, synchronized automatic round advancement, the session report, desktop/mobile calibration layouts, mobile overflow, and saves screenshots under `/tmp`.
+For visual smoke testing, start muted Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the level-free arcade lobby, Shopkeeper Rush, the no-shift question-report popover, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt audio readiness, Soundcheck's three growing cuts, ordered playback, compact icon pairs, persistent volume, mute-safe autoplay and manual replay, Quote Hunt rendering, Counterplay prompts and reveals, all four demanding Map Sense interactions inside the shared pool, synchronized automatic round advancement, the session report, desktop/mobile calibration layouts, mobile overflow, and saves screenshots under `/tmp`.
 
 ## Crowd architecture
 
-Each game catalog, content version, mode, trivia filter, and challenge-level combination is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2-map-sense-7-counterplay-4-soundcheck-3:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog, content version, mode, and optional trivia filter is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2-map-sense-7-counterplay-4-soundcheck-3:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` opens with the reveal and keeps the just-finished question reportable for a 20-second rollover grace period. It stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 

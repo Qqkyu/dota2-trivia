@@ -48,14 +48,11 @@ import {
 } from "@/lib/calibration";
 import { getPusherClient } from "@/lib/pusher";
 import {
-  difficultyLabel,
   KNOWLEDGE_FILTERS,
-  SKILL_LEVELS,
   type ArcadeMode,
   type ArcadeRound,
   type KnowledgeFilter,
   type RoundGame,
-  type SkillLevel,
   type TriviaArtworkKind,
   type TriviaQuestion,
 } from "@/lib/trivia";
@@ -64,9 +61,11 @@ import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
 import type { MapBounds, MapChoiceChallenge, MapCrop, MapPosition, MapViewport } from "@/lib/map-types";
 import { MAP_READ_GRACE_MS, speedScoreRatio } from "@/lib/scoring.mjs";
+import { SOUNDCHECK_REVEAL_STAGES, SOUNDCHECK_SEQUENCE_GAP_SECONDS, soundcheckCutDuration } from "@/lib/soundcheck.mjs";
 import styles from "./queue-arcade.module.css";
 
 const REVEAL_DURATION_MS = 7_000;
+const ANSWER_DURATION_MS = 15_000;
 const MAX_SPEED_BONUS = 100;
 const SPELL_CLUE_PENALTY = 40;
 const DEFAULT_GAME_VOLUME = 0.7;
@@ -83,7 +82,6 @@ const ACTIVE_GAME = GAME_CATALOGS[DEFAULT_GAME_ID];
 const ACTIVE_QUESTIONS = ACTIVE_GAME.questions;
 const QUESTIONS_BY_ID = new Map(ACTIVE_QUESTIONS.map((question) => [question.id, question]));
 const ARCADE_MODES: ArcadeMode[] = [...ACTIVE_GAME.modes];
-const AUDIO_SEQUENCE_GAP_MS = 240;
 
 function waitForMediaEvent(
   audio: HTMLAudioElement,
@@ -122,7 +120,7 @@ function waitForAudioGap(signal: AbortSignal): Promise<boolean> {
     const timeout = window.setTimeout(() => {
       signal.removeEventListener("abort", onAbort);
       resolve(true);
-    }, AUDIO_SEQUENCE_GAP_MS);
+    }, SOUNDCHECK_SEQUENCE_GAP_SECONDS * 1_000);
     const onAbort = () => {
       window.clearTimeout(timeout);
       resolve(false);
@@ -130,32 +128,50 @@ function waitForAudioGap(signal: AbortSignal): Promise<boolean> {
     signal.addEventListener("abort", onAbort, { once: true });
   });
 }
-const ROUND_GAMES: RoundGame[] = ARCADE_MODES.filter((mode): mode is RoundGame => mode !== "mixed");
 
-const SKILL_INFO: Record<
-  SkillLevel,
-  {
-    duration: number;
-    label: string;
-    description: string;
-  }
-> = {
-  Open: {
-    duration: 15_000,
-    label: "Open",
-    description: "15s · every level",
-  },
-  Learning: {
-    duration: 18_000,
-    label: "Learning",
-    description: "18s · warm-ups",
-  },
-  Veteran: {
-    duration: 12_000,
-    label: "Veteran",
-    description: "12–15s · hard pool",
-  },
-};
+function waitForAudioCut(
+  audio: HTMLAudioElement,
+  durationMs: number,
+  signal: AbortSignal,
+): Promise<"complete" | "error" | "cancelled"> {
+  return new Promise((resolve) => {
+    if (signal.aborted) {
+      resolve("cancelled");
+      return;
+    }
+
+    const settle = (result: "complete" | "error" | "cancelled") => {
+      window.clearInterval(progressCheck);
+      window.clearTimeout(stallTimeout);
+      audio.removeEventListener("timeupdate", onProgress);
+      audio.removeEventListener("ended", onEnded);
+      audio.removeEventListener("error", onError);
+      signal.removeEventListener("abort", onAbort);
+      resolve(result);
+    };
+    const cutAt = durationMs / 1_000;
+    const onProgress = () => {
+      if (audio.currentTime + 0.01 < cutAt) return;
+      audio.pause();
+      settle("complete");
+    };
+    const onEnded = () => settle("complete");
+    const onError = () => settle("error");
+    const onAbort = () => settle("cancelled");
+    const progressCheck = window.setInterval(onProgress, 20);
+    const stallTimeout = window.setTimeout(() => {
+      audio.pause();
+      settle("error");
+    }, durationMs + 2_000);
+
+    audio.addEventListener("timeupdate", onProgress);
+    audio.addEventListener("ended", onEnded, { once: true });
+    audio.addEventListener("error", onError, { once: true });
+    signal.addEventListener("abort", onAbort, { once: true });
+    onProgress();
+  });
+}
+const ROUND_GAMES: RoundGame[] = ARCADE_MODES.filter((mode): mode is RoundGame => mode !== "mixed");
 
 type GamePhase = "lobby" | "answering" | "reveal" | "summary";
 
@@ -267,9 +283,9 @@ const MODE_INFO: Record<
     label: "Soundcheck",
     shortLabel: "Soundcheck",
     eyebrow: "Audio recognition",
-    description: "Identify real ability effects, item activations, and ordered sound pairs.",
+    description: "Identify real effects and item activations as short audio cuts grow longer.",
     action: "Enter soundcheck",
-    rule: "Veteran chains two sounds together. Match both icons in the right order.",
+    rule: "Three timed cuts reveal more audio. Some rounds chain two sounds in order.",
   },
   "quote-hunt": {
     label: "Quote Hunt",
@@ -394,7 +410,6 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     typeof room.contentVersion !== "string" ||
     !ARCADE_MODES.includes(room.mode) ||
     !KNOWLEDGE_FILTERS.includes(room.filter) ||
-    !SKILL_LEVELS.includes(room.skillLevel) ||
     !round ||
     typeof round.id !== "string" ||
     typeof round.number !== "number" ||
@@ -440,7 +455,6 @@ function publicRoomQuery(settings: PublicRoomSettings, playerId: string) {
     gameId: settings.gameId,
     mode: settings.mode,
     filter: settings.filter,
-    skillLevel: settings.skillLevel,
     playerId,
   });
 }
@@ -1131,7 +1145,6 @@ export function QueueArcade() {
   const [phase, setPhaseState] = useState<GamePhase>("lobby");
   const [mode, setMode] = useState<ArcadeMode>("mixed");
   const [filter, setFilter] = useState<KnowledgeFilter>("Mixed");
-  const [skillLevel, setSkillLevel] = useState<SkillLevel>("Open");
   const [currentQuestion, setCurrentQuestion] = useState<ArcadeRound | null>(null);
   const [roundIndex, setRoundIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -1185,7 +1198,7 @@ export function QueueArcade() {
   const audioContextRef = useRef<AudioContext | null>(null);
   const roundAudioRefs = useRef<Array<HTMLAudioElement | null>>([]);
   const roundAudioAbortRef = useRef<AbortController | null>(null);
-  const autoPlayedRoundRef = useRef("");
+  const autoPlayedAudioKeyRef = useRef("");
   const reportTargetRef = useRef<QuestionReportTarget | null>(null);
   const reportStateRef = useRef<"idle" | "sending" | "sent" | "error">("idle");
 
@@ -1199,8 +1212,7 @@ export function QueueArcade() {
     setReportState(state);
   }, []);
 
-  const answerDuration =
-    mode === "counterplay" ? Math.max(SKILL_INFO[skillLevel].duration, 15_000) : SKILL_INFO[skillLevel].duration;
+  const answerDuration = ANSWER_DURATION_MS;
   const previewQuestion = useMemo(() => {
     if (mode === "shopkeeper") {
       return ACTIVE_QUESTIONS.find((question) => question.category === "Recipes") ?? ACTIVE_QUESTIONS[0];
@@ -1312,13 +1324,15 @@ export function QueueArcade() {
   }, []);
 
   const playRoundAudio = useCallback(
-    (enableSound = true) => {
+    (enableSound = true, revealStage = 1) => {
       stopRoundAudio(false);
       const audios = roundAudioRefs.current.filter((audio): audio is HTMLAudioElement => Boolean(audio));
       if (!audios.length) return;
 
+      const question = currentQuestionRef.current;
+      const isProgressiveSound = question?.game === "soundcheck";
       if (enableSound) setSoundEnabled(true);
-      autoPlayedRoundRef.current = roundIdRef.current;
+      autoPlayedAudioKeyRef.current = isProgressiveSound ? `${roundIdRef.current}:${revealStage}` : roundIdRef.current;
       const controller = new AbortController();
       roundAudioAbortRef.current = controller;
       setRoundAudioClipIndex(0);
@@ -1347,7 +1361,15 @@ export function QueueArcade() {
           }
           if (clipIndex === 0) setRoundAudioPlayCount((count) => count + 1);
 
-          const endedResult = await waitForMediaEvent(audio, "ended", controller.signal);
+          const clipDuration = question?.soundcheck?.clips[clipIndex]?.duration;
+          const endedResult =
+            isProgressiveSound && clipDuration
+              ? await waitForAudioCut(
+                  audio,
+                  soundcheckCutDuration(clipDuration, revealStage) * 1_000,
+                  controller.signal,
+                )
+              : await waitForMediaEvent(audio, "ended", controller.signal);
           if (endedResult !== "complete") {
             if (endedResult === "error") setRoundAudioState("error");
             return;
@@ -1583,7 +1605,6 @@ export function QueueArcade() {
       gameId: DEFAULT_GAME_ID,
       mode,
       filter: mode === "trivia" ? filter : "Mixed",
-      skillLevel,
     };
     setJoiningRoom(true);
     setRoomError(null);
@@ -1636,7 +1657,6 @@ export function QueueArcade() {
     mode,
     playSound,
     requestRoomSnapshot,
-    skillLevel,
     updateReportState,
     updateReportTarget,
   ]);
@@ -1930,7 +1950,6 @@ export function QueueArcade() {
             gameVolume?: number;
             filter?: KnowledgeFilter;
             mode?: ArcadeMode;
-            skillLevel?: SkillLevel;
           };
           if (typeof settings.soundEnabled === "boolean") setSoundEnabled(settings.soundEnabled);
           if (typeof settings.gameVolume === "number" && Number.isFinite(settings.gameVolume)) {
@@ -1938,7 +1957,6 @@ export function QueueArcade() {
           }
           if (settings.filter && KNOWLEDGE_FILTERS.includes(settings.filter)) setFilter(settings.filter);
           if (settings.mode && ARCADE_MODES.includes(settings.mode)) setMode(settings.mode);
-          if (settings.skillLevel && SKILL_LEVELS.includes(settings.skillLevel)) setSkillLevel(settings.skillLevel);
         }
         ensurePlayerId();
       } catch {
@@ -1953,8 +1971,8 @@ export function QueueArcade() {
 
   useEffect(() => {
     if (!statsLoaded) return;
-    window.localStorage.setItem(SETTINGS_KEY, JSON.stringify({ soundEnabled, gameVolume, filter, mode, skillLevel }));
-  }, [filter, gameVolume, mode, skillLevel, soundEnabled, statsLoaded]);
+    window.localStorage.setItem(SETTINGS_KEY, JSON.stringify({ soundEnabled, gameVolume, filter, mode }));
+  }, [filter, gameVolume, mode, soundEnabled, statsLoaded]);
 
   useEffect(() => {
     if (phase !== "summary" || runSavedRef.current) return;
@@ -2024,29 +2042,6 @@ export function QueueArcade() {
     if (phase !== "answering") stopRoundAudio(false);
   }, [phase, stopRoundAudio]);
 
-  useEffect(() => {
-    if (
-      phase !== "answering" ||
-      (currentQuestion?.game !== "echo-hunt" && currentQuestion?.game !== "soundcheck") ||
-      !currentQuestion.audio ||
-      !soundEnabled ||
-      !roundAudioRefs.current.some(Boolean) ||
-      autoPlayedRoundRef.current === activeRoundId
-    ) {
-      return;
-    }
-
-    playRoundAudio(false);
-  }, [
-    activeRoundId,
-    currentQuestion?.audio,
-    currentQuestion?.game,
-    currentQuestion?.id,
-    phase,
-    playRoundAudio,
-    soundEnabled,
-  ]);
-
   useEffect(
     () => () => {
       if (audioContextRef.current) void audioContextRef.current.close();
@@ -2065,16 +2060,6 @@ export function QueueArcade() {
   const isSoundcheckRound = currentGame === "soundcheck";
   const isSoundSequence = isSoundcheckRound && currentQuestion?.soundcheck?.format === "sequence";
   const mapChoiceRound = currentGame === "map-sense" && Boolean(currentQuestion?.map?.choice);
-  const displayedDifficulty =
-    currentGame !== "trivia" && skillLevel !== "Open"
-      ? {
-          className: skillLevel === "Veteran" ? styles.difficulty3 : styles.difficulty1,
-          label: skillLevel,
-        }
-      : {
-          className: styles[`difficulty${currentQuestion?.difficulty ?? 1}`],
-          label: currentQuestion ? difficultyLabel(currentQuestion.difficulty) : "Warm-up",
-        };
   const clueStage = phase === "reveal" ? 3 : clueStageAt(answerRemaining, answerDuration);
   const firstClueAt = Math.round((answerDuration * 2) / 3_000);
   const finalClueAt = Math.round(answerDuration / 3_000);
@@ -2090,8 +2075,37 @@ export function QueueArcade() {
   const recentHistoryStart = history.length - recentHistory.length + 1;
   const spellHint = currentQuestion?.hint ?? "A mechanical clue will appear near the end of the round.";
   const spellClueTwo =
-    skillLevel === "Veteran" ? spellMechanicHint(spellHint) : (currentQuestion?.eyebrow ?? "Ability name");
+    currentQuestion?.difficulty === 1 ? (currentQuestion.eyebrow ?? "Ability name") : spellMechanicHint(spellHint);
   const activeModeInfo = MODE_INFO[mode];
+
+  useEffect(() => {
+    const hasRoundAudio = currentQuestion?.game === "echo-hunt" || currentQuestion?.game === "soundcheck";
+    const autoplayKey = isSoundcheckRound ? `${activeRoundId}:${clueStage}` : activeRoundId;
+    if (
+      phase !== "answering" ||
+      !hasRoundAudio ||
+      !currentQuestion.audio ||
+      !soundEnabled ||
+      !roundAudioRefs.current.some(Boolean) ||
+      autoPlayedAudioKeyRef.current === autoplayKey ||
+      (isSoundcheckRound && selectedIndex !== null)
+    ) {
+      return;
+    }
+
+    playRoundAudio(false, isSoundcheckRound ? clueStage : 1);
+  }, [
+    activeRoundId,
+    clueStage,
+    currentQuestion?.audio,
+    currentQuestion?.game,
+    currentQuestion?.id,
+    isSoundcheckRound,
+    phase,
+    playRoundAudio,
+    selectedIndex,
+    soundEnabled,
+  ]);
 
   return (
     <main
@@ -2265,25 +2279,6 @@ export function QueueArcade() {
                 {joiningRoom ? "Joining public room…" : activeModeInfo.action}
                 <ChevronRight />
               </button>
-              <div className={styles.skillBlock}>
-                <span className={styles.fieldLabel}>Challenge level · endless</span>
-                <div className={styles.skillRow} role="group" aria-label="Challenge level">
-                  {SKILL_LEVELS.map((option) => (
-                    <button
-                      key={option}
-                      type="button"
-                      data-skill-level={option.toLowerCase()}
-                      className={clsx(styles.skillButton, skillLevel === option && styles.skillButtonActive)}
-                      onClick={() => setSkillLevel(option)}
-                      disabled={joiningRoom}
-                      aria-pressed={skillLevel === option}
-                    >
-                      <strong>{SKILL_INFO[option].label}</strong>
-                      <small>{SKILL_INFO[option].description}</small>
-                    </button>
-                  ))}
-                </div>
-              </div>
             </div>
 
             <div className={clsx(styles.roomNotice, roomError && styles.roomNoticeError)} aria-live="polite">
@@ -2396,7 +2391,7 @@ export function QueueArcade() {
               </span>
               <span>
                 <small>Public room ready</small>
-                {SKILL_INFO[skillLevel].label} · {activeModeInfo.shortLabel}
+                {activeModeInfo.shortLabel}
               </span>
               <strong>{answerDuration / 1000}s</strong>
             </div>
@@ -2405,7 +2400,12 @@ export function QueueArcade() {
       )}
 
       {(phase === "answering" || phase === "reveal") && currentQuestion && (
-        <section className={styles.gameLayout} data-testid="public-room" data-round-game={currentGame}>
+        <section
+          className={styles.gameLayout}
+          data-testid="public-room"
+          data-round-game={currentGame}
+          data-content-difficulty={currentQuestion.difficulty}
+        >
           <div
             className={clsx(
               styles.gameStage,
@@ -2433,14 +2433,6 @@ export function QueueArcade() {
                 </span>
                 <i />
                 <span>{currentQuestion.category}</span>
-                <i />
-                <span
-                  className={displayedDifficulty.className}
-                  data-testid="round-difficulty"
-                  data-content-difficulty={currentQuestion.difficulty}
-                >
-                  {displayedDifficulty.label}
-                </span>
               </div>
               <div
                 className={clsx(
@@ -2517,13 +2509,7 @@ export function QueueArcade() {
                       data-testid="spell-clue-2"
                     >
                       <strong>02</strong>
-                      <span>
-                        {clueStage >= 2
-                          ? spellClueTwo
-                          : skillLevel === "Veteran"
-                            ? `Mechanic tags unlock at ${firstClueAt}s`
-                            : `Ability name unlocks at ${firstClueAt}s`}
-                      </span>
+                      <span>{clueStage >= 2 ? spellClueTwo : `Next clue unlocks at ${firstClueAt}s`}</span>
                     </div>
                     <div
                       className={clueStage >= 3 ? styles.clueUnlocked : styles.clueLocked}
@@ -2542,7 +2528,6 @@ export function QueueArcade() {
                 className={clsx(styles.questionBlock, styles.fogQuestion)}
                 data-testid="round-prompt"
                 data-fog-stage={clueStage}
-                data-skill-level={skillLevel.toLowerCase()}
               >
                 <div className={styles.fogArtwork}>
                   <QuestionArtwork question={currentQuestion} concealIdentity />
@@ -2574,6 +2559,7 @@ export function QueueArcade() {
                 data-soundcheck-family={isSoundcheckRound ? currentQuestion.soundcheck?.family : undefined}
                 data-soundcheck-scope={isSoundcheckRound ? currentQuestion.soundcheck?.choiceScope : undefined}
                 data-soundcheck-format={isSoundcheckRound ? currentQuestion.soundcheck?.format : undefined}
+                data-soundcheck-stage={isSoundcheckRound ? clueStage : undefined}
               >
                 {(currentQuestion.audio?.clips ?? (currentQuestion.audio?.src ? [currentQuestion.audio.src] : [])).map(
                   (audioSource, clipIndex, audioSources) => (
@@ -2584,6 +2570,14 @@ export function QueueArcade() {
                       }}
                       data-testid="round-audio-clip"
                       data-clip-index={clipIndex + 1}
+                      data-cut-duration={
+                        isSoundcheckRound
+                          ? soundcheckCutDuration(
+                              currentQuestion.soundcheck?.clips[clipIndex]?.duration ?? 0,
+                              clueStage,
+                            )
+                          : undefined
+                      }
                       src={audioSource}
                       preload="auto"
                       aria-hidden="true"
@@ -2611,15 +2605,16 @@ export function QueueArcade() {
                   data-play-count={roundAudioPlayCount}
                   data-clip-count={currentQuestion.audio?.clips?.length ?? 1}
                   data-active-clip={roundAudioClipIndex + 1}
+                  data-reveal-stage={isSoundcheckRound ? clueStage : undefined}
                 >
                   <button
                     type="button"
                     data-testid={isSoundcheckRound ? "soundcheck-play" : "voice-line-play"}
-                    onClick={() => playRoundAudio(true)}
+                    onClick={() => playRoundAudio(true, isSoundcheckRound ? clueStage : 1)}
                     aria-label={
                       roundAudioPlayCount
-                        ? `Replay ${isSoundSequence ? "sound sequence" : isSoundcheckRound ? "gameplay sound" : "hero voice line"}`
-                        : `Play ${isSoundSequence ? "sound sequence" : isSoundcheckRound ? "gameplay sound" : "hero voice line"}`
+                        ? `Replay ${isSoundSequence ? "sound sequence cut" : isSoundcheckRound ? "gameplay sound cut" : "hero voice line"}`
+                        : `Play ${isSoundSequence ? "sound sequence cut" : isSoundcheckRound ? "gameplay sound cut" : "hero voice line"}`
                     }
                   >
                     {roundAudioState === "playing" ? (
@@ -2652,26 +2647,20 @@ export function QueueArcade() {
                     {roundAudioState === "error"
                       ? "Audio unavailable"
                       : roundAudioState === "loading"
-                        ? isSoundSequence
-                          ? "Loading sequence"
-                          : isSoundcheckRound
-                            ? "Loading sound"
-                            : "Loading echo"
+                        ? isSoundcheckRound
+                          ? "Loading cut"
+                          : "Loading echo"
                         : roundAudioState === "playing"
                           ? isSoundSequence
                             ? `Sound ${roundAudioClipIndex + 1} of 2`
-                            : "Now playing"
-                          : roundAudioPlayCount
-                            ? isSoundSequence
-                              ? "Replay sequence"
-                              : isSoundcheckRound
-                                ? "Replay sound"
-                                : "Replay echo"
-                            : isSoundSequence
-                              ? "Play sequence"
-                              : isSoundcheckRound
-                                ? "Play sound"
-                                : "Play echo"}
+                            : isSoundcheckRound
+                              ? `Cut ${clueStage} of ${SOUNDCHECK_REVEAL_STAGES}`
+                              : "Now playing"
+                          : isSoundcheckRound
+                            ? `Cut ${clueStage} of ${SOUNDCHECK_REVEAL_STAGES}`
+                            : roundAudioPlayCount
+                              ? "Replay echo"
+                              : "Play echo"}
                   </span>
                 </div>
                 <div className={styles.questionCopy}>
@@ -2683,11 +2672,21 @@ export function QueueArcade() {
                       : "Echo Hunt · Hero response"}
                   </span>
                   <h2>{isSoundcheckRound ? currentQuestion.prompt : "Whose voice crossed the river?"}</h2>
+                  {isSoundcheckRound && (
+                    <div
+                      className={styles.soundRevealMeter}
+                      aria-label={`Sound cut ${clueStage} of ${SOUNDCHECK_REVEAL_STAGES}`}
+                    >
+                      {Array.from({ length: SOUNDCHECK_REVEAL_STAGES }, (_, index) => (
+                        <span key={index} className={index < clueStage ? styles.soundRevealMeterActive : undefined} />
+                      ))}
+                    </div>
+                  )}
                   <small>
                     {isSoundcheckRound
                       ? isSoundSequence
-                        ? "Two sounds. Match the order."
-                        : "Replay freely. The source stays hidden until the reveal."
+                        ? "Two sounds. Longer cuts unlock with time."
+                        : "Longer cuts unlock with time."
                       : "The line stays hidden until the reveal."}
                   </small>
                 </div>
@@ -2994,8 +2993,6 @@ export function QueueArcade() {
                 <strong>{formatDuration(sessionElapsed)}</strong>
               </div>
               <div className={styles.queueDetails}>
-                <span>{skillLevel}</span>
-                <i />
                 <span>Server timed</span>
                 <i />
                 <span title={roomError ?? activeRoomId}>{roomError ? "Reconnecting" : "Live room"}</span>

@@ -7,10 +7,8 @@ import type { MapChallenge } from "@/lib/map-types";
 import { fixedCycleRotation, varietyShuffle } from "@/lib/variety.mjs";
 
 export const KNOWLEDGE_FILTERS = ["Mixed", "Abilities", "Items", "Heroes"] as const;
-export const SKILL_LEVELS = ["Open", "Learning", "Veteran"] as const;
 
 export type KnowledgeFilter = (typeof KNOWLEDGE_FILTERS)[number];
-export type SkillLevel = (typeof SKILL_LEVELS)[number];
 export type TriviaCategory =
   | "Abilities"
   | "Cooldowns"
@@ -199,32 +197,13 @@ export function gameForQuestion(question: TriviaQuestion): RoundGame {
   return "trivia";
 }
 
-function belongsToSkillLevel(question: TriviaQuestion, skillLevel: SkillLevel) {
-  if (skillLevel === "Learning") return question.difficulty === 1;
-  if (skillLevel === "Veteran") return question.difficulty >= 2;
-  return true;
-}
-
-function shuffledPool(seed: string, game: RoundGame, filter: KnowledgeFilter, skillLevel: SkillLevel) {
+function shuffledPool(seed: string, game: RoundGame, filter: KnowledgeFilter) {
   const pool = triviaQuestions.filter((question) => {
     if (gameForQuestion(question) !== game) return false;
-    if (game === "trivia") return belongsToFilter(question, filter) && belongsToSkillLevel(question, skillLevel);
-    if (game === "spell-link") return belongsToSkillLevel(question, skillLevel);
-    if (game === "soundcheck") return belongsToSkillLevel(question, skillLevel);
-    if (game === "counterplay") return belongsToSkillLevel(question, skillLevel);
-    if (game === "map-sense") {
-      if (skillLevel === "Learning") return question.difficulty <= 2;
-      if (skillLevel === "Veteran") {
-        return (
-          ["map-crop", "map-camp-block", "map-stack-route", "map-tp-in"].includes(question.kind) &&
-          question.difficulty === 3
-        );
-      }
-    }
-    return true;
+    return game !== "trivia" || belongsToFilter(question, filter);
   });
 
-  return varietyShuffle(pool, `${seed}:${game}:${filter}:${skillLevel}:${ARCADE_CONTENT_VERSION}`);
+  return varietyShuffle(pool, `${seed}:${game}:${filter}:${ARCADE_CONTENT_VERSION}`);
 }
 
 export function createArcadeDeck(
@@ -232,7 +211,6 @@ export function createArcadeDeck(
   mode: ArcadeMode,
   filter: KnowledgeFilter,
   length = 10,
-  skillLevel: SkillLevel = "Open",
   rotationSeed = seed,
   roundOffset = 0,
 ) {
@@ -253,15 +231,15 @@ export function createArcadeDeck(
       : Array.from({ length }, () => mode);
 
   const pools = {
-    trivia: shuffledPool(seed, "trivia", filter, skillLevel),
-    shopkeeper: shuffledPool(seed, "shopkeeper", filter, skillLevel),
-    "spell-link": shuffledPool(seed, "spell-link", filter, skillLevel),
-    "fogged-vision": shuffledPool(seed, "fogged-vision", filter, skillLevel),
-    "echo-hunt": shuffledPool(seed, "echo-hunt", filter, skillLevel),
-    soundcheck: shuffledPool(seed, "soundcheck", filter, skillLevel),
-    "quote-hunt": shuffledPool(seed, "quote-hunt", filter, skillLevel),
-    "map-sense": shuffledPool(seed, "map-sense", filter, skillLevel),
-    counterplay: shuffledPool(seed, "counterplay", filter, skillLevel),
+    trivia: shuffledPool(seed, "trivia", filter),
+    shopkeeper: shuffledPool(seed, "shopkeeper", filter),
+    "spell-link": shuffledPool(seed, "spell-link", filter),
+    "fogged-vision": shuffledPool(seed, "fogged-vision", filter),
+    "echo-hunt": shuffledPool(seed, "echo-hunt", filter),
+    soundcheck: shuffledPool(seed, "soundcheck", filter),
+    "quote-hunt": shuffledPool(seed, "quote-hunt", filter),
+    "map-sense": shuffledPool(seed, "map-sense", filter),
+    counterplay: shuffledPool(seed, "counterplay", filter),
   };
   const cursors: Record<RoundGame, number> = {
     trivia: 0,
@@ -280,10 +258,4 @@ export function createArcadeDeck(
     cursors[game] += 1;
     return question ? [{ ...question, game }] : [];
   });
-}
-
-export function difficultyLabel(difficulty: TriviaQuestion["difficulty"]) {
-  if (difficulty === 1) return "Warm-up";
-  if (difficulty === 2) return "Tricky";
-  return "Brutal";
 }

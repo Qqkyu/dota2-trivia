@@ -19,7 +19,6 @@ const settings = {
   gameId: "dota2",
   mode: "mixed",
   filter: "Mixed",
-  skillLevel: "Open",
 };
 const firstPlayer = `multiplayer-smoke-a-${randomUUID()}`;
 const secondPlayer = `multiplayer-smoke-b-${randomUUID()}`;
@@ -92,9 +91,11 @@ const secondSnapshot = await readRoom(secondPlayer);
 if (
   firstSnapshot.round.id !== secondSnapshot.round.id ||
   firstSnapshot.round.answerDeadline !== secondSnapshot.round.answerDeadline ||
-  firstSnapshot.round.revealDeadline !== secondSnapshot.round.revealDeadline
+  firstSnapshot.round.revealDeadline !== secondSnapshot.round.revealDeadline ||
+  firstSnapshot.round.answerDuration !== 15_000 ||
+  "skillLevel" in firstSnapshot.room
 ) {
-  throw new Error("Two clients did not receive the same synchronized round and deadlines.");
+  throw new Error("Two clients did not receive the same level-free synchronized round and deadlines.");
 }
 
 if (firstSnapshot.crowd.counts.some((count) => count !== 0)) {
@@ -228,12 +229,12 @@ const mapSettings = {
   gameId: "dota2",
   mode: "map-sense",
   filter: "Mixed",
-  skillLevel: "Learning",
 };
 const mapPlayer = `multiplayer-map-${randomUUID()}`;
 const mapSnapshot = await answeringRoundWithTime(mapPlayer, mapSettings);
 const [mapKind, ...mapDefinitionParts] = mapSnapshot.round.questionId.split(":");
 const mapDefinitionId = mapDefinitionParts.join(":");
+const mapIsChoice = ["map-camp-block", "map-stack-route", "map-tp-in"].includes(mapKind);
 const challengeKinds = {
   "map-riddle": "riddle",
   "map-mirror": "mirror",
@@ -249,21 +250,38 @@ const mapLocation = crop
     : mapChallenges.find(
         (challenge) => challenge.id === mapDefinitionId && challenge.family === challengeKinds[mapKind],
       );
-if (!mapLocation) throw new Error("The synchronized Map Sense round referenced an unknown location.");
+if (!mapIsChoice && !mapLocation) {
+  throw new Error("The synchronized Map Sense round referenced an unknown location.");
+}
 
-const mapPosition = mapLocation.target;
-const mapVote = await vote(mapSnapshot, mapPlayer, 3, mapSettings, { mapPosition });
-const mapDuplicate = await vote(mapSnapshot, mapPlayer, 3, mapSettings, {
-  mapPosition: { x: 0.01, y: 0.01 },
-});
+const mapPosition = mapLocation?.target;
+const mapVote = await vote(
+  mapSnapshot,
+  mapPlayer,
+  mapIsChoice ? 0 : 3,
+  mapSettings,
+  mapPosition ? { mapPosition } : {},
+);
+const mapDuplicate = await vote(
+  mapSnapshot,
+  mapPlayer,
+  3,
+  mapSettings,
+  mapPosition ? { mapPosition: { x: 0.01, y: 0.01 } } : {},
+);
 if (
   !mapVote.accepted ||
-  mapVote.playerVote?.answerIndex !== 0 ||
-  mapVote.playerVote?.mapPosition?.x !== mapPosition.x ||
-  mapVote.playerVote?.mapPosition?.y !== mapPosition.y ||
   mapDuplicate.accepted ||
-  mapDuplicate.playerVote?.mapPosition?.x !== mapPosition.x ||
-  mapDuplicate.playerVote?.mapPosition?.y !== mapPosition.y
+  (mapIsChoice &&
+    (mapVote.playerVote?.answerIndex !== 0 ||
+      mapVote.playerVote?.mapPosition ||
+      mapDuplicate.playerVote?.answerIndex !== 0)) ||
+  (!mapIsChoice &&
+    (mapVote.playerVote?.answerIndex !== 0 ||
+      mapVote.playerVote?.mapPosition?.x !== mapPosition?.x ||
+      mapVote.playerVote?.mapPosition?.y !== mapPosition?.y ||
+      mapDuplicate.playerVote?.mapPosition?.x !== mapPosition?.x ||
+      mapDuplicate.playerVote?.mapPosition?.y !== mapPosition?.y))
 ) {
   throw new Error("Map Sense vote validation, server-side scoring, or duplicate protection failed.");
 }
@@ -271,77 +289,49 @@ if (
 const lockedMapSnapshot = await readRoom(mapPlayer, mapSettings);
 if (
   lockedMapSnapshot.crowd.positions.length !== 0 ||
-  lockedMapSnapshot.playerVote?.mapPosition?.x !== mapPosition.x ||
-  lockedMapSnapshot.playerVote?.mapPosition?.y !== mapPosition.y
+  (!mapIsChoice &&
+    (lockedMapSnapshot.playerVote?.mapPosition?.x !== mapPosition?.x ||
+      lockedMapSnapshot.playerVote?.mapPosition?.y !== mapPosition?.y))
 ) {
-  throw new Error("Map Sense leaked room pins before reveal or failed to restore the player's pin.");
+  throw new Error("Map Sense leaked room pins before reveal or failed to restore the player's answer.");
 }
 
 await delay(Math.max(250, lockedMapSnapshot.round.answerDeadline - lockedMapSnapshot.serverNow + 200));
 const revealedMapSnapshot = await readRoom(mapPlayer, mapSettings);
-const ownPinRevealed = revealedMapSnapshot.crowd.positions.some(
-  (position) => position.x === mapPosition.x && position.y === mapPosition.y,
-);
-if (revealedMapSnapshot.round.phase !== "reveal" || !ownPinRevealed) {
-  throw new Error("Map Sense did not reveal the anonymous room pins after the shared deadline.");
-}
-
-const choiceSettings = {
-  gameId: "dota2",
-  mode: "map-sense",
-  filter: "Mixed",
-  skillLevel: "Veteran",
-};
-const choicePlayer = `multiplayer-map-choice-${randomUUID()}`;
-let choiceSnapshot = await answeringRoundWithTime(choicePlayer, choiceSettings);
-if (choiceSnapshot.round.questionId.startsWith("map-crop:")) {
-  await delay(Math.max(250, choiceSnapshot.round.revealDeadline - choiceSnapshot.serverNow + 150));
-  choiceSnapshot = await answeringRoundWithTime(choicePlayer, choiceSettings);
-}
+const ownPinRevealed =
+  !mapIsChoice &&
+  revealedMapSnapshot.crowd.positions.some(
+    (position) => position.x === mapPosition?.x && position.y === mapPosition?.y,
+  );
 if (
-  !["map-camp-block", "map-stack-route", "map-tp-in"].some((kind) => choiceSnapshot.round.questionId.startsWith(kind))
+  revealedMapSnapshot.round.phase !== "reveal" ||
+  revealedMapSnapshot.crowd.total < 1 ||
+  (mapIsChoice &&
+    (revealedMapSnapshot.crowd.counts.reduce((sum, count) => sum + count, 0) !== revealedMapSnapshot.crowd.total ||
+      revealedMapSnapshot.crowd.positions.length !== 0)) ||
+  (!mapIsChoice && !ownPinRevealed)
 ) {
-  throw new Error("The Veteran Map Sense room did not advance to a Dota mechanics choice round.");
+  throw new Error("Map Sense did not reveal the synchronized room result.");
 }
 
-const choiceVote = await vote(choiceSnapshot, choicePlayer, 0, choiceSettings);
-const choiceDuplicate = await vote(choiceSnapshot, choicePlayer, 3, choiceSettings);
-if (
-  !choiceVote.accepted ||
-  choiceVote.playerVote?.answerIndex !== 0 ||
-  choiceVote.playerVote?.mapPosition ||
-  choiceDuplicate.accepted ||
-  choiceDuplicate.playerVote?.answerIndex !== 0
-) {
-  throw new Error("Map Sense choice voting or duplicate protection failed.");
-}
-
-await delay(Math.max(250, choiceSnapshot.round.answerDeadline - choiceSnapshot.serverNow + 200));
-const revealedChoiceSnapshot = await readRoom(choicePlayer, choiceSettings);
-if (
-  revealedChoiceSnapshot.round.phase !== "reveal" ||
-  revealedChoiceSnapshot.crowd.total < 1 ||
-  revealedChoiceSnapshot.crowd.counts.reduce((sum, count) => sum + count, 0) !== revealedChoiceSnapshot.crowd.total ||
-  revealedChoiceSnapshot.crowd.positions.length !== 0
-) {
-  throw new Error("Map Sense choice answers did not reveal as a synchronized A–D split.");
-}
-
-const counterplayLearningSettings = {
+const counterplaySettings = {
   gameId: "dota2",
   mode: "counterplay",
   filter: "Mixed",
+};
+const legacyLearningSettings = {
+  ...counterplaySettings,
   skillLevel: "Learning",
 };
-const counterplayVeteranSettings = {
-  ...counterplayLearningSettings,
+const legacyVeteranSettings = {
+  ...counterplaySettings,
   skillLevel: "Veteran",
 };
 const learningCounterplayPlayer = `multiplayer-counterplay-learning-${randomUUID()}`;
 const veteranCounterplayPlayer = `multiplayer-counterplay-veteran-${randomUUID()}`;
 const [learningCounterplay, veteranCounterplay] = await Promise.all([
-  answeringRoundWithTime(learningCounterplayPlayer, counterplayLearningSettings),
-  answeringRoundWithTime(veteranCounterplayPlayer, counterplayVeteranSettings),
+  answeringRoundWithTime(learningCounterplayPlayer, legacyLearningSettings),
+  answeringRoundWithTime(veteranCounterplayPlayer, legacyVeteranSettings),
 ]);
 const learningDefinition = counterplayQuestions.find(
   (question) => question.id === learningCounterplay.round.questionId,
@@ -350,15 +340,19 @@ const veteranDefinition = counterplayQuestions.find((question) => question.id ==
 if (
   learningCounterplay.round.game !== "counterplay" ||
   veteranCounterplay.round.game !== "counterplay" ||
-  learningCounterplay.round.answerDuration !== 18_000 ||
+  learningCounterplay.room.id !== veteranCounterplay.room.id ||
+  learningCounterplay.round.id !== veteranCounterplay.round.id ||
+  learningCounterplay.round.questionId !== veteranCounterplay.round.questionId ||
+  learningCounterplay.round.answerDuration !== 15_000 ||
   veteranCounterplay.round.answerDuration !== 15_000 ||
-  learningDefinition?.difficulty !== 1 ||
-  (veteranDefinition?.difficulty ?? 0) < 2
+  learningDefinition?.id !== veteranDefinition?.id ||
+  "skillLevel" in learningCounterplay.room ||
+  "skillLevel" in veteranCounterplay.room
 ) {
-  throw new Error("Counterplay public rooms did not respect Learning and Veteran pools.");
+  throw new Error("Legacy level settings still split the shared Counterplay public room.");
 }
-const counterplayVote = await vote(veteranCounterplay, veteranCounterplayPlayer, 0, counterplayVeteranSettings);
-const counterplayDuplicate = await vote(veteranCounterplay, veteranCounterplayPlayer, 3, counterplayVeteranSettings);
+const counterplayVote = await vote(veteranCounterplay, veteranCounterplayPlayer, 0, legacyVeteranSettings);
+const counterplayDuplicate = await vote(veteranCounterplay, veteranCounterplayPlayer, 3, legacyVeteranSettings);
 if (
   !counterplayVote.accepted ||
   counterplayVote.playerVote?.mapPosition ||
@@ -386,10 +380,10 @@ console.log(
       calibrationAggregates: true,
       mapAnswerScoredOnServer: true,
       mapPinsHiddenUntilReveal: true,
-      mapPinRevealed: true,
-      mapChoiceAcceptedWithoutPin: true,
-      mapChoiceSplitRevealed: true,
-      counterplaySkillPoolsVerified: true,
+      mapResultType: mapIsChoice ? "choice" : "pin",
+      mapResultRevealed: true,
+      sharedDifficultyPoolVerified: true,
+      legacyLevelSettingsIgnored: true,
       counterplayVoteAccepted: true,
     },
     null,

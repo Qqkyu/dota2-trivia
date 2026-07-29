@@ -1,4 +1,4 @@
-import type { ArcadeMode, KnowledgeFilter, RoundGame, SkillLevel } from "@/lib/trivia";
+import type { ArcadeMode, KnowledgeFilter, RoundGame } from "@/lib/trivia";
 import type { ReportReason } from "@/lib/calibration";
 import type { GameId } from "@/lib/game-catalogs";
 import type { MapPosition } from "@/lib/map-types";
@@ -19,7 +19,6 @@ export interface PublicRoomSettings {
   gameId: GameId;
   mode: ArcadeMode;
   filter: KnowledgeFilter;
-  skillLevel: SkillLevel;
 }
 
 export interface PublicRoom {
@@ -28,7 +27,6 @@ export interface PublicRoom {
   contentVersion: string;
   mode: ArcadeMode;
   filter: KnowledgeFilter;
-  skillLevel: SkillLevel;
 }
 
 export type PublicRoundPhase = "answering" | "reveal";

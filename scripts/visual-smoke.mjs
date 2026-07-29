@@ -113,7 +113,6 @@ await evaluate("localStorage.clear(); true");
 await navigate(appUrl);
 await evaluate(`(() => {
   document.querySelector('[data-arcade-mode="mixed"]')?.click();
-  document.querySelector('[data-skill-level="open"]')?.click();
   return true;
 })()`);
 await delay(350);
@@ -125,7 +124,7 @@ const lobby = await evaluate(`({
   font: getComputedStyle(document.body).fontFamily,
   startButton: Boolean(document.querySelector('[data-testid="start-arcade"]')),
   arcadeModes: document.querySelectorAll("[data-arcade-mode]").length,
-  skillLevels: document.querySelectorAll("[data-skill-level]").length,
+  levelControls: document.querySelectorAll('[data-skill-level], [aria-label="Challenge level"]').length,
   volumeControl: Boolean(document.querySelector('[data-testid="game-volume"]')),
   volumeValue: document.querySelector('[data-testid="game-volume"]')?.value,
   volumeLabel: document.querySelector('[data-testid="game-volume"]')?.nextElementSibling?.textContent,
@@ -166,20 +165,16 @@ const triviaLobbyLayout = await evaluate(`({
 })`);
 await screenshot("/tmp/queue-arcade-trivia-lobby.png");
 
-await evaluate(`(() => {
-  document.querySelector('[data-skill-level="veteran"]')?.click();
-  return true;
-})()`);
-await delay(250);
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
 await waitFor(`(() => {
   const main = document.querySelector("main");
   const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
   return main?.dataset.phase === "answering" && timer >= 3;
 })()`);
-const veteranRound = await evaluate(`({
-  warmUpVisible: document.body.innerText.includes("Warm-up"),
-  veteranSession: document.body.innerText.includes("Veteran"),
+const sharedPoolRound = await evaluate(`({
+  difficultyLabelVisible: Boolean(document.querySelector('[data-testid="round-difficulty"]')),
+  contentDifficulty: Number(document.querySelector('[data-testid="public-room"]')?.dataset.contentDifficulty),
+  roomId: document.querySelector("main")?.dataset.roomId,
   answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length
 })`);
 await evaluate(`document.querySelector('[data-testid="end-session"]')?.click()`);
@@ -188,7 +183,6 @@ await delay(250);
 await navigate(appUrl);
 await evaluate(`(() => {
   document.querySelector('[data-arcade-mode="shopkeeper"]')?.click();
-  document.querySelector('[data-skill-level="open"]')?.click();
   return true;
 })()`);
 await delay(350);
@@ -313,7 +307,6 @@ const summary = await evaluate(`({
 await navigate(appUrl);
 await evaluate(`(() => {
   document.querySelector('[data-arcade-mode="spell-link"]')?.click();
-  document.querySelector('[data-skill-level="veteran"]')?.click();
   return true;
 })()`);
 await delay(350);
@@ -340,8 +333,8 @@ const spellLink = await evaluate(`({
   questionArtworkFallback:
     document.querySelector('[data-testid="question-artwork"]')?.dataset.artworkState === "fallback",
   answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
-  difficulty: document.querySelector('[data-testid="round-difficulty"]')?.textContent.trim(),
-  contentDifficulty: Number(document.querySelector('[data-testid="round-difficulty"]')?.dataset.contentDifficulty),
+  difficultyLabelVisible: Boolean(document.querySelector('[data-testid="round-difficulty"]')),
+  contentDifficulty: Number(document.querySelector('[data-testid="public-room"]')?.dataset.contentDifficulty),
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 
@@ -390,7 +383,6 @@ await screenshot("/tmp/queue-arcade-spell-link-final-clue.png");
 await navigate(appUrl);
 await evaluate(`(() => {
   document.querySelector('[data-arcade-mode="fogged-vision"]')?.click();
-  document.querySelector('[data-skill-level="open"]')?.click();
   return true;
 })()`);
 await delay(350);
@@ -413,24 +405,9 @@ const fogLayoutOne = await evaluate(`({
   promptHeight: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().height,
   answersTop: document.querySelector('[data-testid="answer-grid"]')?.getBoundingClientRect().top
 })`);
-const fogTierFilters = await evaluate(`(() => {
-  const prompt = document.querySelector('[data-testid="round-prompt"]');
-  const image = document.querySelector('[data-testid="question-artwork"] img');
-  if (!prompt || !image) return {};
-
-  const originalSkill = prompt.dataset.skillLevel;
-  const filters = {};
-  for (const skill of ["learning", "open", "veteran"]) {
-    prompt.dataset.skillLevel = skill;
-    filters[skill] = getComputedStyle(image).filter;
-  }
-  prompt.dataset.skillLevel = originalSkill;
-  return filters;
-})()`);
 const fogClarityOne = await evaluate(`(() => {
   const image = document.querySelector('[data-testid="question-artwork"] img');
   return {
-    skill: document.querySelector('[data-testid="round-prompt"]')?.dataset.skillLevel,
     filter: image ? getComputedStyle(image).filter : "",
     transform: image ? getComputedStyle(image).transform : ""
   };
@@ -468,24 +445,6 @@ const fogClarityThree = await evaluate(`(() => {
     filter: image ? getComputedStyle(image).filter : "",
     transform: image ? getComputedStyle(image).transform : ""
   };
-})()`);
-const fogFinalTierFilters = await evaluate(`(() => {
-  const prompt = document.querySelector('[data-testid="round-prompt"]');
-  const image = document.querySelector('[data-testid="question-artwork"] img');
-  if (!prompt || !image) return {};
-
-  const originalSkill = prompt.dataset.skillLevel;
-  const originalTransition = image.style.transition;
-  image.style.transition = "none";
-  const filters = {};
-  for (const skill of ["learning", "open", "veteran"]) {
-    prompt.dataset.skillLevel = skill;
-    filters[skill] = getComputedStyle(image).filter;
-  }
-  prompt.dataset.skillLevel = originalSkill;
-  getComputedStyle(image).filter;
-  image.style.transition = originalTransition;
-  return filters;
 })()`);
 const foggedVision = await evaluate(`({
   answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
@@ -527,7 +486,6 @@ await navigate(appUrl);
 await evaluate(`(() => {
   document.querySelector('button[aria-label="Mute game sounds"]')?.click();
   document.querySelector('[data-arcade-mode="echo-hunt"]')?.click();
-  document.querySelector('[data-skill-level="open"]')?.click();
   return true;
 })()`);
 await delay(350);
@@ -578,28 +536,36 @@ const volumeAfterAdjustment = await evaluate(`({
 await evaluate(`(() => {
   document.querySelector('button[aria-label="Mute game sounds"]')?.click();
   document.querySelector('[data-arcade-mode="soundcheck"]')?.click();
-  document.querySelector('[data-skill-level="veteran"]')?.click();
   return true;
 })()`);
 await delay(350);
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
 let soundSequenceFound = false;
-for (let attempt = 0; attempt < 5; attempt += 1) {
+for (let attempt = 0; attempt < 8; attempt += 1) {
   await waitFor(`(() => {
     const main = document.querySelector("main");
     return main?.dataset.phase === "answering" &&
       main?.dataset.questionKind?.startsWith("soundcheck-");
   })()`);
+  await delay(600);
   soundSequenceFound = await evaluate(`(() => {
     const prompt = document.querySelector('[data-testid="round-prompt"]');
     const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
-    return prompt?.dataset.soundcheckFormat === "sequence" && timer >= 8;
+    const audio = [...document.querySelectorAll('[data-testid="round-audio-clip"]')];
+    const answers = [...document.querySelectorAll('[data-testid="arcade-answer"] img')];
+    return prompt?.dataset.soundcheckFormat === "sequence" &&
+      prompt?.dataset.soundcheckStage === "1" &&
+      timer >= 13 &&
+      audio.length === 2 &&
+      audio.every((clip) => clip.readyState >= 2) &&
+      answers.length === 8 &&
+      answers.every((image) => image.complete && image.naturalWidth > 0);
   })()`);
   if (soundSequenceFound) break;
   await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`);
   await waitFor(`document.querySelector("main")?.dataset.phase === "answering"`);
 }
-if (!soundSequenceFound) throw new Error("A playable Veteran Soundcheck sequence was not scheduled.");
+if (!soundSequenceFound) throw new Error("A playable Soundcheck sequence was not scheduled in the shared pool.");
 await waitFor(`(() => {
   const main = document.querySelector("main");
   const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
@@ -607,7 +573,8 @@ await waitFor(`(() => {
   const answers = [...document.querySelectorAll('[data-testid="arcade-answer"] img')];
   return main?.dataset.phase === "answering" &&
     main?.dataset.questionKind?.startsWith("soundcheck-") &&
-    timer >= 6 &&
+    document.querySelector('[data-testid="round-prompt"]')?.dataset.soundcheckStage === "1" &&
+    timer >= 12 &&
     audio.length === 2 &&
     audio.every((clip) => clip.readyState >= 2) &&
     answers.length === 8 &&
@@ -617,7 +584,7 @@ const soundcheckBeforeReplay = await evaluate(`(() => {
   const main = document.querySelector("main");
   const prompt = document.querySelector('[data-testid="round-prompt"]');
   const player = document.querySelector('[data-testid="soundcheck-player"]');
-  const difficulty = document.querySelector('[data-testid="round-difficulty"]');
+  const room = document.querySelector('[data-testid="public-room"]');
   const audio = [...document.querySelectorAll('[data-testid="round-audio-clip"]')];
   return {
     game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
@@ -625,7 +592,9 @@ const soundcheckBeforeReplay = await evaluate(`(() => {
     family: prompt?.dataset.soundcheckFamily,
     format: prompt?.dataset.soundcheckFormat,
     scope: prompt?.dataset.soundcheckScope,
-    difficulty: Number(difficulty?.dataset.contentDifficulty),
+    difficulty: Number(room?.dataset.contentDifficulty),
+    revealStage: Number(prompt?.dataset.soundcheckStage),
+    revealMeter: document.querySelectorAll('[class*="soundRevealMeterActive"]').length,
     prompt: prompt?.querySelector("h2")?.textContent,
     answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
     answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
@@ -637,6 +606,8 @@ const soundcheckBeforeReplay = await evaluate(`(() => {
       .every((image) => image.complete && image.naturalWidth > 0),
     audioReady: audio.length === 2 && audio.every((clip) => clip.readyState >= 2),
     audioSources: audio.map((clip) => clip.currentSrc),
+    audioDurations: audio.map((clip) => clip.duration),
+    cutDurations: audio.map((clip) => Number(clip.dataset.cutDuration)),
     audioVolumes: audio.map((clip) => clip.volume),
     clipCount: Number(player?.dataset.clipCount),
     replayButton: Boolean(document.querySelector('[data-testid="soundcheck-play"]')),
@@ -670,7 +641,8 @@ await waitFor(
     const player = document.querySelector('[data-testid="soundcheck-player"]');
     return Number(player?.dataset.playCount) >= 1 &&
       player?.dataset.activeClip === "2" &&
-      player?.dataset.audioState === "playing";
+      player?.dataset.audioState === "playing" &&
+      Number(document.querySelectorAll('[data-testid="round-audio-clip"]')[1]?.currentTime) > 0;
   })()`,
   8_000,
 );
@@ -680,6 +652,63 @@ const soundcheckAfterReplay = await evaluate(`({
   secondClipStarted: Number(document.querySelectorAll('[data-testid="round-audio-clip"]')[1]?.currentTime) > 0,
   soundEnabled: Boolean(document.querySelector('button[aria-label="Mute game sounds"]'))
 })`);
+await waitFor(
+  `(() => {
+    const player = document.querySelector('[data-testid="soundcheck-player"]');
+    return Number(player?.dataset.playCount) === 1 &&
+      player?.dataset.revealStage === "1" &&
+      player?.dataset.audioState === "ready";
+  })()`,
+  5_000,
+);
+const soundcheckStageOne = await evaluate(`(() => {
+  const audio = [...document.querySelectorAll('[data-testid="round-audio-clip"]')];
+  return {
+    stage: Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.revealStage),
+    playCount: Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.playCount),
+    cutDurations: audio.map((clip) => Number(clip.dataset.cutDuration)),
+    playedDurations: audio.map((clip) => clip.currentTime),
+    revealMeter: document.querySelectorAll('[class*="soundRevealMeterActive"]').length
+  };
+})()`);
+await waitFor(
+  `(() => {
+    const player = document.querySelector('[data-testid="soundcheck-player"]');
+    return player?.dataset.revealStage === "2" &&
+      Number(player?.dataset.playCount) >= 2 &&
+      player?.dataset.audioState === "ready";
+  })()`,
+  8_000,
+);
+const soundcheckStageTwo = await evaluate(`(() => {
+  const audio = [...document.querySelectorAll('[data-testid="round-audio-clip"]')];
+  return {
+    stage: Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.revealStage),
+    playCount: Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.playCount),
+    cutDurations: audio.map((clip) => Number(clip.dataset.cutDuration)),
+    playedDurations: audio.map((clip) => clip.currentTime),
+    revealMeter: document.querySelectorAll('[class*="soundRevealMeterActive"]').length
+  };
+})()`);
+await waitFor(
+  `(() => {
+    const player = document.querySelector('[data-testid="soundcheck-player"]');
+    return player?.dataset.revealStage === "3" &&
+      Number(player?.dataset.playCount) >= 3 &&
+      player?.dataset.audioState === "playing";
+  })()`,
+  8_000,
+);
+const soundcheckStageThree = await evaluate(`(() => {
+  const audio = [...document.querySelectorAll('[data-testid="round-audio-clip"]')];
+  return {
+    stage: Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.revealStage),
+    playCount: Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.playCount),
+    cutDurations: audio.map((clip) => Number(clip.dataset.cutDuration)),
+    revealMeter: document.querySelectorAll('[class*="soundRevealMeterActive"]').length,
+    audioState: document.querySelector('[data-testid="soundcheck-player"]')?.dataset.audioState
+  };
+})()`);
 await screenshot("/tmp/queue-arcade-soundcheck.png");
 await send("Emulation.setDeviceMetricsOverride", {
   width: 390,
@@ -719,7 +748,6 @@ const persistedVolume = await evaluate(`({
 })`);
 await evaluate(`(() => {
   document.querySelector('[data-arcade-mode="quote-hunt"]')?.click();
-  document.querySelector('[data-skill-level="open"]')?.click();
   return true;
 })()`);
 await delay(350);
@@ -748,7 +776,6 @@ await screenshot("/tmp/queue-arcade-quote-hunt.png");
 await navigate(appUrl);
 await evaluate(`(() => {
   document.querySelector('[data-arcade-mode="counterplay"]')?.click();
-  document.querySelector('[data-skill-level="veteran"]')?.click();
   return true;
 })()`);
 await delay(350);
@@ -796,7 +823,7 @@ const counterplay = await evaluate(`(() => {
     toolArtworks: prompt?.querySelectorAll('[data-testid="counterplay-tool-artwork"]').length,
     toolArtworksLoaded: [...(prompt?.querySelectorAll('[data-testid="counterplay-tool-artwork"]') ?? [])]
       .every((artwork) => artwork.dataset.artworkState === "loaded"),
-    difficulty: Number(document.querySelector('[data-testid="round-difficulty"]')?.dataset.contentDifficulty),
+    difficulty: Number(document.querySelector('[data-testid="public-room"]')?.dataset.contentDifficulty),
     answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
     answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
     horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
@@ -831,7 +858,7 @@ async function inspectMapSenseVariant() {
       kind: document.querySelector("main")?.dataset.questionKind,
       choiceKind: board?.dataset.choiceKind,
       game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
-      difficulty: Number(document.querySelector('[data-testid="round-difficulty"]')?.dataset.contentDifficulty),
+      difficulty: Number(document.querySelector('[data-testid="public-room"]')?.dataset.contentDifficulty),
       prompt: document.querySelector('[data-testid="map-sense-round"] h2')?.textContent?.trim(),
       readGraceVisible: document.querySelector('[data-testid="map-sense-round"]')?.textContent?.includes("3s read grace"),
       cropVisible: Boolean(crop),
@@ -898,7 +925,6 @@ async function inspectMapSenseReveal() {
 await navigate(appUrl);
 await evaluate(`(() => {
   document.querySelector('[data-arcade-mode="map-sense"]')?.click();
-  document.querySelector('[data-skill-level="veteran"]')?.click();
   return true;
 })()`);
 await delay(350);
@@ -926,17 +952,15 @@ const mapVariants = [];
 const mapReveals = [];
 let previousMapRound = null;
 for (let attempt = 0; attempt < mapSenseKinds.length * 2; attempt += 1) {
-  if (previousMapRound) {
-    await waitFor(
-      `(() => {
-        const main = document.querySelector("main");
-        return main?.dataset.phase === "answering" &&
-          main?.dataset.roundId !== ${JSON.stringify(previousMapRound)} &&
-          ${JSON.stringify(mapSenseKinds)}.includes(main?.dataset.questionKind);
-      })()`,
-      30_000,
-    );
-  }
+  await waitFor(
+    `(() => {
+      const main = document.querySelector("main");
+      return main?.dataset.phase === "answering" &&
+        main?.dataset.roundId !== ${JSON.stringify(previousMapRound)} &&
+        ${JSON.stringify(mapSenseKinds)}.includes(main?.dataset.questionKind);
+    })()`,
+    150_000,
+  );
   await lockCurrentMapRound();
   const variant = await inspectMapSenseVariant();
   mapVariants.push(variant);
@@ -960,7 +984,6 @@ await send("Emulation.setDeviceMetricsOverride", {
 await navigate(appUrl);
 await evaluate(`(() => {
   document.querySelector('[data-arcade-mode="map-sense"]')?.click();
-  document.querySelector('[data-skill-level="veteran"]')?.click();
   return true;
 })()`);
 await delay(250);
@@ -977,8 +1000,7 @@ const mobile = await evaluate(`({
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
 await waitFor(`(() => {
   const main = document.querySelector("main");
-  return main?.dataset.phase === "answering" &&
-    ${JSON.stringify(mapSenseKinds)}.includes(main?.dataset.questionKind);
+  return main?.dataset.phase === "answering" && main?.dataset.questionKind?.startsWith("map-");
 })()`);
 const mobileMap = await inspectMapSenseVariant();
 await evaluate(`document.querySelector(
@@ -990,7 +1012,6 @@ await screenshot("/tmp/queue-arcade-mobile-map-sense.png");
 await navigate(appUrl);
 await evaluate(`(() => {
   document.querySelector('[data-arcade-mode="trivia"]')?.click();
-  document.querySelector('[data-skill-level="open"]')?.click();
   return true;
 })()`);
 await delay(250);
@@ -1145,11 +1166,16 @@ const validMapReveal = (reveal) => {
   }
   return commonChoice && !reveal.spawnBox && reveal.routeLines === 0;
 };
+const playbackMatchesCut = (stage) =>
+  stage.cutDurations.length === stage.playedDurations.length &&
+  stage.cutDurations.every((cut, index) => Math.abs(cut - stage.playedDurations[index]) <= 0.25);
+const cutsIncrease = (earlier, later) =>
+  earlier.length === later.length && earlier.every((cut, index) => cut < later[index]);
 if (!lobby.title.includes("Queue Arcade")) failures.push("The Queue Arcade metadata title is missing.");
 if (
   !lobby.startButton ||
   lobby.arcadeModes !== 10 ||
-  lobby.skillLevels !== 3 ||
+  lobby.levelControls !== 0 ||
   !lobby.volumeControl ||
   lobby.volumeValue !== "70" ||
   lobby.volumeLabel !== "70%"
@@ -1163,8 +1189,14 @@ if (Math.abs(brandAlignment.markCenter - brandAlignment.copyCenter) > 0.5) {
 if (layoutDelta(lobbyLayout, triviaLobbyLayout) > 1) {
   failures.push("Selecting Queue Trivia shifts the lobby layout.");
 }
-if (veteranRound.warmUpVisible || !veteranRound.veteranSession || veteranRound.answerCount !== 4) {
-  failures.push("The Veteran challenge does not produce a valid higher-difficulty trivia round.");
+if (
+  sharedPoolRound.difficultyLabelVisible ||
+  sharedPoolRound.contentDifficulty < 1 ||
+  sharedPoolRound.contentDifficulty > 3 ||
+  /:(?:open|learning|veteran)$/.test(sharedPoolRound.roomId ?? "") ||
+  sharedPoolRound.answerCount !== 4
+) {
+  failures.push("The shared trivia pool still exposes or encodes a player-facing level.");
 }
 if (!shopkeeper.modeVisible || shopkeeper.answers.length !== 4) failures.push("Shopkeeper Rush did not start.");
 if (shopkeeper.answerImages !== 4 || !shopkeeper.answerImagesLoaded) {
@@ -1206,8 +1238,9 @@ if (
   !spellLink.modeVisible ||
   !spellLink.clueOneVisible ||
   spellLink.answerCount !== 4 ||
-  spellLink.difficulty !== "Veteran" ||
-  spellLink.contentDifficulty < 2
+  spellLink.difficultyLabelVisible ||
+  spellLink.contentDifficulty < 1 ||
+  spellLink.contentDifficulty > 3
 ) {
   failures.push("Spell Link did not start.");
 }
@@ -1244,18 +1277,11 @@ if (
   failures.push("Fogged Vision briefly reveals the next round before applying fog.");
 }
 if (
-  fogClarityOne.skill !== "open" ||
   !fogClarityOne.filter.includes("blur(17px)") ||
   !fogClarityTwo.filter.includes("blur(10px)") ||
-  !fogClarityThree.filter.includes("blur(6px)") ||
-  !fogTierFilters.learning?.includes("blur(13px)") ||
-  !fogTierFilters.open?.includes("blur(17px)") ||
-  !fogTierFilters.veteran?.includes("blur(21px)") ||
-  !fogFinalTierFilters.learning?.includes("blur(4px)") ||
-  !fogFinalTierFilters.open?.includes("blur(6px)") ||
-  !fogFinalTierFilters.veteran?.includes("blur(8px)")
+  !fogClarityThree.filter.includes("blur(6px)")
 ) {
-  failures.push("Fogged Vision challenge levels do not produce the intended progressive clarity curve.");
+  failures.push("Fogged Vision does not preserve the intended shared progressive clarity curve.");
 }
 if (
   echoHunt.answerCount !== 4 ||
@@ -1275,6 +1301,8 @@ if (
   soundcheckBeforeReplay.format !== "sequence" ||
   soundcheckBeforeReplay.scope !== "ordered-pair" ||
   soundcheckBeforeReplay.difficulty !== 3 ||
+  soundcheckBeforeReplay.revealStage !== 1 ||
+  soundcheckBeforeReplay.revealMeter !== 1 ||
   soundcheckBeforeReplay.prompt !== "Match both sounds." ||
   soundcheckBeforeReplay.answerCount !== 4 ||
   soundcheckBeforeReplay.answerImages !== 8 ||
@@ -1285,6 +1313,10 @@ if (
   soundcheckBeforeReplay.audioSources.length !== 2 ||
   soundcheckBeforeReplay.audioSources.some(
     (source) => !source?.includes("dotabase.dillerm.io/vpk/sounds/") || !source.endsWith(".wav"),
+  ) ||
+  soundcheckBeforeReplay.audioDurations.some((duration) => !Number.isFinite(duration) || duration <= 0) ||
+  soundcheckBeforeReplay.cutDurations.some(
+    (cut, index) => !Number.isFinite(cut) || cut <= 0 || cut >= soundcheckBeforeReplay.audioDurations[index],
   ) ||
   soundcheckBeforeReplay.audioVolumes.some((volume) => typeof volume !== "number" || Math.abs(volume - 0.35) > 0.001) ||
   soundcheckBeforeReplay.clipCount !== 2 ||
@@ -1297,6 +1329,21 @@ if (
   soundcheckAfterReplay.activeClip !== 2 ||
   !soundcheckAfterReplay.secondClipStarted ||
   !soundcheckAfterReplay.soundEnabled ||
+  soundcheckStageOne.stage !== 1 ||
+  soundcheckStageOne.playCount !== 1 ||
+  soundcheckStageOne.revealMeter !== 1 ||
+  !playbackMatchesCut(soundcheckStageOne) ||
+  soundcheckStageTwo.stage !== 2 ||
+  soundcheckStageTwo.playCount < 2 ||
+  soundcheckStageTwo.revealMeter !== 2 ||
+  !cutsIncrease(soundcheckStageOne.cutDurations, soundcheckStageTwo.cutDurations) ||
+  !playbackMatchesCut(soundcheckStageTwo) ||
+  soundcheckStageThree.stage !== 3 ||
+  soundcheckStageThree.playCount < 3 ||
+  soundcheckStageThree.revealMeter !== 3 ||
+  soundcheckStageThree.audioState !== "playing" ||
+  !cutsIncrease(soundcheckStageTwo.cutDurations, soundcheckStageThree.cutDurations) ||
+  soundcheckStageThree.cutDurations.some((cut, index) => cut >= soundcheckBeforeReplay.audioDurations[index]) ||
   mobileSoundcheck.answerCount !== 4 ||
   mobileSoundcheck.pairChoices !== 4 ||
   mobileSoundcheck.pairImages !== 8 ||
@@ -1310,7 +1357,7 @@ if (
   persistedVolume.label !== "35%" ||
   persistedVolume.stored !== 0.35
 ) {
-  failures.push("Soundcheck sequence, volume persistence, mute safety, or ordered replay failed.");
+  failures.push("Soundcheck progressive cuts, sequence playback, volume persistence, or mute safety failed.");
 }
 if (
   (quoteHunt.text?.length ?? 0) < 28 ||
@@ -1343,7 +1390,8 @@ if (
   (counterplay.format === "interaction-scenario"
     ? !counterplay.diagram || counterplay.toolArtworks < 1 || !counterplay.toolArtworksLoaded
     : counterplay.diagram || counterplay.toolArtworks !== 0) ||
-  counterplay.difficulty < 2 ||
+  counterplay.difficulty < 1 ||
+  counterplay.difficulty > 3 ||
   counterplay.answerCount !== 4 ||
   counterplay.answerImages !== (counterplay.format === "interaction-scenario" ? 0 : 4) ||
   counterplay.horizontalOverflow ||
@@ -1362,7 +1410,7 @@ if (
   mapVariants.some((variant) => !validMapVariant(variant)) ||
   mapReveals.some((reveal) => !validMapReveal(reveal))
 ) {
-  failures.push("Veteran Map Sense did not rotate cleanly through all four Dota-native rounds and reveals.");
+  failures.push("The shared Map Sense pool did not rotate through all four Dota-native rounds and reveals.");
 }
 if (
   spellLink.horizontalOverflow ||
@@ -1388,15 +1436,17 @@ if (
 }
 if (mobileQuestion.answerCount !== 4) failures.push("The mobile round is missing answers.");
 if (
-  !requiredMapKinds.includes(mobileMap.kind) ||
+  !mobileMap.kind?.startsWith("map-") ||
   !mobileMap.boardFits ||
   !mobileMap.square ||
-  !mobileMap.visualFits ||
-  (mobileMap.kind === "map-crop" && !mobileMap.cropVisible) ||
-  (mobileMap.kind !== "map-crop" &&
-    (!mobileMap.mechanicVisible || mobileMap.choiceOptions !== 4 || mobileMap.choiceAnswers !== 4))
+  !mobileMap.imageLoaded ||
+  (requiredMapKinds.includes(mobileMap.kind) &&
+    (!mobileMap.visualFits ||
+      (mobileMap.kind === "map-crop" && !mobileMap.cropVisible) ||
+      (mobileMap.kind !== "map-crop" &&
+        (!mobileMap.mechanicVisible || mobileMap.choiceOptions !== 4 || mobileMap.choiceAnswers !== 4))))
 ) {
-  failures.push("The mobile Veteran Map Sense puzzle does not fit the viewport.");
+  failures.push("The mobile shared-pool Map Sense puzzle does not fit the viewport.");
 }
 if (
   !calibrationDesktop.dashboard ||
@@ -1427,7 +1477,7 @@ console.log(
       lobbyLayout,
       triviaLobbyLayout,
       brandAlignment,
-      veteranRound,
+      sharedPoolRound,
       shopkeeper,
       reveal,
       revealBoundsBeforeReport,
@@ -1447,17 +1497,18 @@ console.log(
       fogLayoutOne,
       fogLayoutTwo,
       fogLayoutThree,
-      fogTierFilters,
       fogClarityOne,
       fogClarityTwo,
       fogClarityThree,
-      fogFinalTierFilters,
       fogRound,
       fogNextRound,
       echoHunt,
       volumeAfterAdjustment,
       soundcheckBeforeReplay,
       soundcheckAfterReplay,
+      soundcheckStageOne,
+      soundcheckStageTwo,
+      soundcheckStageThree,
       mobileSoundcheck,
       persistedVolume,
       quoteHunt,

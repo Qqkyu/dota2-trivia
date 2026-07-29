@@ -132,7 +132,7 @@ const questions = SOUNDCHECK_DEFINITIONS.map((definition, index) => {
       choiceRecords.some((record) => !hasActiveBehavior(record))
     ) {
       throw new Error(
-        `${definition.subject}: Veteran ability choices must all be active abilities from one hero (${choiceKeys.join(", ")}).`,
+        `${definition.subject}: higher-tier ability choices must all be active abilities from one hero (${choiceKeys.join(", ")}).`,
       );
     }
   }
@@ -143,7 +143,7 @@ const questions = SOUNDCHECK_DEFINITIONS.map((definition, index) => {
   ) {
     const inactiveItems = choiceKeys.filter((_, answerIndex) => !hasActiveBehavior(choiceRecords[answerIndex]));
     throw new Error(
-      `${definition.subject}: every Veteran item choice must have an active behavior (${inactiveItems.join(", ")} does not).`,
+      `${definition.subject}: every higher-tier item choice must have an active behavior (${inactiveItems.join(", ")} does not).`,
     );
   }
 

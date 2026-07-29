@@ -272,7 +272,7 @@ for (const family of Object.keys(expectedKinds)) {
   }
   if (learningCounts[family] < 2 || veteranCounts[family] < 7) {
     failures.push(
-      `${family}: needs viable Learning and Veteran pools (found ${learningCounts[family]} and ${veteranCounts[family]}).`,
+      `${family}: needs viable approachable and demanding tiers (found ${learningCounts[family]} and ${veteranCounts[family]}).`,
     );
   }
 }

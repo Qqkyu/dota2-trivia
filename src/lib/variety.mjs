@@ -60,7 +60,11 @@ export function fixedCycleRotation(values, seed, length, offset = 0) {
  * Large pools therefore cannot drown out smaller, more distinctive round types
  * at the front of a public-room batch.
  *
- * @template {{ kind: string, varietyKey?: string }} T
+ * When a template has no explicit variety key, hidden difficulty tiers become
+ * its variants. This keeps approachable and demanding questions moving without
+ * exposing separate player queues.
+ *
+ * @template {{ kind: string, varietyKey?: string, difficulty?: number }} T
  * @param {readonly T[]} values
  * @param {string} seed
  * @returns {T[]}
@@ -77,7 +81,7 @@ export function varietyShuffle(values, seed) {
   for (const [kind, bucket] of buckets) {
     const variantBuckets = new Map();
     for (const value of bucket) {
-      const variant = value.varietyKey ?? kind;
+      const variant = value.varietyKey ?? (value.difficulty ? `${kind}:difficulty:${value.difficulty}` : kind);
       const variants = variantBuckets.get(variant) ?? [];
       variants.push(value);
       variantBuckets.set(variant, variants);
@@ -105,16 +109,40 @@ export function varietyShuffle(values, seed) {
   let kindOrder = seededShuffle([...buckets.keys()], `${seed}:kind-order`);
   const result = [];
   let previousKind = "";
+  let previousDifficulty;
+  let difficultyStreak = 0;
 
   while (result.length < values.length) {
+    const hasQuestions = (kind) => Boolean(buckets.get(kind)?.length);
+    const changesDifficulty = (kind) => {
+      const nextDifficulty = buckets.get(kind)?.[0]?.difficulty;
+      return (
+        difficultyStreak < 2 ||
+        nextDifficulty === undefined ||
+        previousDifficulty === undefined ||
+        nextDifficulty !== previousDifficulty
+      );
+    };
     const nextKind =
-      kindOrder.find((kind) => kind !== previousKind && buckets.get(kind)?.length) ??
-      kindOrder.find((kind) => buckets.get(kind)?.length);
+      kindOrder.find((kind) => kind !== previousKind && hasQuestions(kind) && changesDifficulty(kind)) ??
+      kindOrder.find((kind) => hasQuestions(kind) && changesDifficulty(kind)) ??
+      kindOrder.find((kind) => kind !== previousKind && hasQuestions(kind)) ??
+      kindOrder.find(hasQuestions);
 
     if (!nextKind) break;
 
-    result.push(buckets.get(nextKind).shift());
+    const nextValue = buckets.get(nextKind).shift();
+    result.push(nextValue);
     previousKind = nextKind;
+    if (nextValue.difficulty === undefined) {
+      previousDifficulty = undefined;
+      difficultyStreak = 0;
+    } else if (nextValue.difficulty === previousDifficulty) {
+      difficultyStreak += 1;
+    } else {
+      previousDifficulty = nextValue.difficulty;
+      difficultyStreak = 1;
+    }
     kindOrder = [...kindOrder.filter((kind) => kind !== nextKind), nextKind];
 
     if (kindOrder.every((kind) => !buckets.get(kind)?.length)) break;

@@ -1,29 +1,12 @@
-import {
-  KNOWLEDGE_FILTERS,
-  SKILL_LEVELS,
-  type ArcadeMode,
-  type ArcadeRound,
-  type KnowledgeFilter,
-  type SkillLevel,
-} from "@/lib/trivia";
+import { KNOWLEDGE_FILTERS, type ArcadeMode, type ArcadeRound, type KnowledgeFilter } from "@/lib/trivia";
 import type { PublicRoom, PublicRoomSettings, PublicRound } from "@/lib/arcade-contract";
 import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
 
 export const PUBLIC_ROUND_REVEAL_MS = 7_000;
 export const PUBLIC_ROOM_BATCH_LENGTH = 24;
+export const PUBLIC_ROUND_ANSWER_MS = 15_000;
 
 const DEFAULT_ROUND_EPOCH_MS = Date.UTC(2026, 0, 1);
-const ANSWER_DURATION_MS: Record<SkillLevel, number> = {
-  Open: 15_000,
-  Learning: 18_000,
-  Veteran: 12_000,
-};
-const COUNTERPLAY_ANSWER_DURATION_MS = 15_000;
-
-function answerDurationFor(room: PublicRoom) {
-  const skillDuration = ANSWER_DURATION_MS[room.skillLevel];
-  return room.mode === "counterplay" ? Math.max(skillDuration, COUNTERPLAY_ANSWER_DURATION_MS) : skillDuration;
-}
 
 function configuredEpoch() {
   const value = process.env.ARCADE_ROUND_EPOCH;
@@ -41,9 +24,8 @@ export function parsePublicRoomSettings(values: {
   gameId?: unknown;
   mode?: unknown;
   filter?: unknown;
-  skillLevel?: unknown;
 }): PublicRoomSettings | null {
-  const { gameId, mode, filter, skillLevel } = values;
+  const { gameId, mode, filter } = values;
 
   if (!isGameId(gameId)) return null;
   const catalog = GAME_CATALOGS[gameId];
@@ -52,9 +34,7 @@ export function parsePublicRoomSettings(values: {
     typeof mode !== "string" ||
     !catalog.modes.includes(mode as ArcadeMode) ||
     typeof filter !== "string" ||
-    !KNOWLEDGE_FILTERS.includes(filter as KnowledgeFilter) ||
-    typeof skillLevel !== "string" ||
-    !SKILL_LEVELS.includes(skillLevel as SkillLevel)
+    !KNOWLEDGE_FILTERS.includes(filter as KnowledgeFilter)
   ) {
     return null;
   }
@@ -63,7 +43,6 @@ export function parsePublicRoomSettings(values: {
     gameId,
     mode: mode as ArcadeMode,
     filter: normalizedFilter(mode as ArcadeMode, filter as KnowledgeFilter),
-    skillLevel: skillLevel as SkillLevel,
   };
 }
 
@@ -71,18 +50,11 @@ export function publicRoomFor(settings: PublicRoomSettings): PublicRoom {
   const filter = normalizedFilter(settings.mode, settings.filter);
   const catalog = GAME_CATALOGS[settings.gameId];
   return {
-    id: [
-      catalog.id,
-      catalog.contentVersion,
-      settings.mode,
-      filter.toLowerCase(),
-      settings.skillLevel.toLowerCase(),
-    ].join(":"),
+    id: [catalog.id, catalog.contentVersion, settings.mode, filter.toLowerCase()].join(":"),
     gameId: catalog.id,
     contentVersion: catalog.contentVersion,
     mode: settings.mode,
     filter,
-    skillLevel: settings.skillLevel,
   };
 }
 
@@ -93,7 +65,6 @@ function rawRoomBatch(room: PublicRoom, batchNumber: number) {
     room.mode,
     room.filter,
     PUBLIC_ROOM_BATCH_LENGTH,
-    room.skillLevel,
     `public-room:${room.id}:mode-rotation`,
     batchNumber * PUBLIC_ROOM_BATCH_LENGTH,
   );
@@ -147,7 +118,7 @@ export function questionForPublicRound(room: PublicRoom, roundNumber: number): A
 }
 
 export function publicRoundAt(room: PublicRoom, roundNumber: number, now: number): PublicRound {
-  const answerDuration = answerDurationFor(room);
+  const answerDuration = PUBLIC_ROUND_ANSWER_MS;
   const cycleDuration = answerDuration + PUBLIC_ROUND_REVEAL_MS;
   const startedAt = configuredEpoch() + roundNumber * cycleDuration;
   const answerDeadline = startedAt + answerDuration;
@@ -169,7 +140,7 @@ export function publicRoundAt(room: PublicRoom, roundNumber: number, now: number
 
 export function currentPublicRound(settings: PublicRoomSettings, now = Date.now()) {
   const room = publicRoomFor(settings);
-  const cycleDuration = answerDurationFor(room) + PUBLIC_ROUND_REVEAL_MS;
+  const cycleDuration = PUBLIC_ROUND_ANSWER_MS + PUBLIC_ROUND_REVEAL_MS;
   const roundNumber = Math.max(0, Math.floor((now - configuredEpoch()) / cycleDuration));
 
   return {
