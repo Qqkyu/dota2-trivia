@@ -5,7 +5,7 @@
 
 export const SOUNDCHECK_AUDIT = Object.freeze({
   patch: "7.41d",
-  reviewedAt: "2026-07-28",
+  reviewedAt: "2026-07-29",
   clientBuild: "6869",
   clientVersionDate: "2026-07-24",
 });
@@ -202,6 +202,13 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     eventFile: "soundevents/game_sounds_heroes/game_sounds_void_spirit.vsndevts",
     audioPath: "sounds/weapons/hero/void_spirit/pulse_cast.wav",
     duration: 1.602177,
+    sequence: {
+      subject: "void_spirit_aether_remnant",
+      event: "Hero_VoidSpirit.AetherRemnant.Triggered",
+      eventFile: "soundevents/game_sounds_heroes/game_sounds_void_spirit.vsndevts",
+      audioPath: "sounds/weapons/hero/void_spirit/remnant_triggered.wav",
+      duration: 2.616735,
+    },
   },
   {
     family: "ability",
@@ -212,6 +219,13 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     eventFile: "soundevents/game_sounds_heroes/game_sounds_ember_spirit.vsndevts",
     audioPath: "sounds/weapons/hero/ember_spirit/sleight_of_fist_cast.wav",
     duration: 2.276417,
+    sequence: {
+      subject: "ember_spirit_searing_chains",
+      event: "Hero_EmberSpirit.SearingChains.Target",
+      eventFile: "soundevents/game_sounds_heroes/game_sounds_ember_spirit.vsndevts",
+      audioPath: "sounds/weapons/hero/ember_spirit/searing_chains_target01.wav",
+      duration: 1.308004,
+    },
   },
   {
     family: "ability",
@@ -222,6 +236,13 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     eventFile: "soundevents/game_sounds_heroes/game_sounds_lion.vsndevts",
     audioPath: "sounds/weapons/hero/lion/lion_voodoo.wav",
     duration: 1.889524,
+    sequence: {
+      subject: "lion_impale",
+      event: "Hero_Lion.ImpaleHitTarget",
+      eventFile: "soundevents/game_sounds_heroes/game_sounds_lion.vsndevts",
+      audioPath: "sounds/weapons/hero/lion/lion_impale_target_hit1.wav",
+      duration: 0.641723,
+    },
   },
   {
     family: "ability",
@@ -232,6 +253,13 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     eventFile: "soundevents/game_sounds_heroes/game_sounds_dark_willow.vsndevts",
     audioPath: "sounds/weapons/hero/dark_willow/bramble_cast.wav",
     duration: 3.443991,
+    sequence: {
+      subject: "dark_willow_cursed_crown",
+      event: "Hero_DarkWillow.Ley.Target",
+      eventFile: "soundevents/game_sounds_heroes/game_sounds_dark_willow.vsndevts",
+      audioPath: "sounds/weapons/hero/dark_willow/ley_target.wav",
+      duration: 1.783674,
+    },
   },
   {
     family: "ability",
@@ -242,6 +270,13 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     eventFile: "soundevents/game_sounds_heroes/game_sounds_snapfire.vsndevts",
     audioPath: "sounds/weapons/hero/snapfire/cookie_cast.wav",
     duration: 2.003809,
+    sequence: {
+      subject: "snapfire_scatterblast",
+      event: "Hero_Snapfire.Shotgun.Target",
+      eventFile: "soundevents/game_sounds_heroes/game_sounds_snapfire.vsndevts",
+      audioPath: "sounds/weapons/hero/snapfire/shotgun_target.wav",
+      duration: 0.968367,
+    },
   },
   {
     family: "ability",
@@ -252,6 +287,13 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     eventFile: "soundevents/game_sounds_heroes/game_sounds_queenofpain.vsndevts",
     audioPath: "sounds/weapons/hero/queenofpain/queenofpain_screamofpain.wav",
     duration: 2.694286,
+    sequence: {
+      subject: "queenofpain_shadow_strike",
+      event: "Hero_QueenOfPain.ShadowStrike",
+      eventFile: "soundevents/game_sounds_heroes/game_sounds_queenofpain.vsndevts",
+      audioPath: "sounds/weapons/hero/queenofpain/queenofpain_shadowstrike.wav",
+      duration: 2.260318,
+    },
   },
   {
     family: "item",
@@ -442,6 +484,13 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     eventFile: "soundevents/game_sounds_items.vsndevts",
     audioPath: "sounds/items/bloodstone_cast.wav",
     duration: 2.220113,
+    sequence: {
+      subject: "black_king_bar",
+      event: "DOTA_Item.BlackKingBar.Activate",
+      eventFile: "soundevents/game_sounds_items.vsndevts",
+      audioPath: "sounds/items/black_king_bar.wav",
+      duration: 3.884853,
+    },
   },
   {
     family: "item",
@@ -452,6 +501,13 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     eventFile: "soundevents/game_sounds_items.vsndevts",
     audioPath: "sounds/items/gleipnir_cast.wav",
     duration: 2.502604,
+    sequence: {
+      subject: "orchid",
+      event: "DOTA_Item.Orchid.Activate",
+      eventFile: "soundevents/game_sounds_items.vsndevts",
+      audioPath: "sounds/items/orchid.wav",
+      duration: 1.996463,
+    },
   },
   {
     family: "item",
@@ -462,6 +518,13 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     eventFile: "soundevents/game_sounds_items.vsndevts",
     audioPath: "sounds/items/mask_of_madness.wav",
     duration: 4.782381,
+    sequence: {
+      subject: "armlet",
+      event: "DOTA_Item.Armlet.Activate",
+      eventFile: "soundevents/game_sounds_items.vsndevts",
+      audioPath: "sounds/items/item_armlet_activate.wav",
+      duration: 1.277959,
+    },
   },
   {
     family: "item",
@@ -472,6 +535,13 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     eventFile: "soundevents/game_sounds_items.vsndevts",
     audioPath: "sounds/items/harpoon_cast.wav",
     duration: 1.312,
+    sequence: {
+      subject: "force_staff",
+      event: "DOTA_Item.ForceStaff.Activate",
+      eventFile: "soundevents/game_sounds_items.vsndevts",
+      audioPath: "sounds/items/force_staff.wav",
+      duration: 1.102494,
+    },
   },
   {
     family: "item",
@@ -482,21 +552,46 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     eventFile: "soundevents/game_sounds_items.vsndevts",
     audioPath: "sounds/items/ethereal_blade_cast.wav",
     duration: 2.635828,
+    sequence: {
+      subject: "nullifier",
+      event: "DOTA_Item.Nullifier.Cast",
+      eventFile: "soundevents/game_sounds_items.vsndevts",
+      audioPath: "sounds/items/nullifier_cast.wav",
+      duration: 1.602721,
+    },
   },
   {
     family: "item",
     difficulty: 3,
-    subject: "guardian_greaves",
-    distractors: ["mekansm", "shivas_guard", "pipe"],
-    event: "Item.GuardianGreaves.Activate",
+    subject: "sheepstick",
+    distractors: ["orchid", "rod_of_atos", "nullifier"],
+    event: "DOTA_Item.Sheepstick.Activate",
     eventFile: "soundevents/game_sounds_items.vsndevts",
-    audioPath: "sounds/items/guardian_greaves.wav",
-    duration: 4.484603,
+    audioPath: "sounds/misc/morph_in.wav",
+    duration: 1.333265,
+    sequence: {
+      subject: "rod_of_atos",
+      event: "DOTA_Item.RodOfAtos.Cast",
+      eventFile: "soundevents/game_sounds_items.vsndevts",
+      audioPath: "sounds/items/rod_of_atos.wav",
+      duration: 2.973288,
+    },
   },
 ]);
 
-export function soundcheckAudioUrl(definition) {
-  return `${SOUNDCHECK_ASSET_ROOT}/${definition.audioPath}`;
+export function soundcheckClips(definition) {
+  const primary = {
+    subject: definition.subject,
+    event: definition.event,
+    eventFile: definition.eventFile,
+    audioPath: definition.audioPath,
+    duration: definition.duration,
+  };
+  return definition.sequence ? [primary, definition.sequence] : [primary];
+}
+
+export function soundcheckAudioUrl(clip) {
+  return `${SOUNDCHECK_ASSET_ROOT}/${clip.audioPath}`;
 }
 
 export function soundcheckSource(definition) {

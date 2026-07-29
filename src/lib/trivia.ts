@@ -81,6 +81,7 @@ export type CounterplayFormat = "constant-matchup" | "curated-exception" | "inte
 export interface TriviaQuestion {
   id: string;
   kind: QuestionKind;
+  varietyKey?: string;
   category: TriviaCategory;
   difficulty: 1 | 2 | 3;
   eyebrow: string;
@@ -92,6 +93,7 @@ export interface TriviaQuestion {
   };
   answers: [string, string, string, string];
   answerImages?: [string, string, string, string];
+  answerImagePairs?: [[string, string], [string, string], [string, string], [string, string]];
   answerImageKind?: TriviaArtworkKind;
   correctIndex: number;
   explanation: string;
@@ -99,13 +101,18 @@ export interface TriviaQuestion {
   hint?: string;
   audio?: {
     src: string;
+    clips?: string[];
   };
   soundcheck?: {
     family: "ability" | "item";
-    choiceScope: "recognizable" | "same-hero" | "active-items";
-    event: string;
-    eventFile: string;
-    duration: number;
+    format: "single" | "sequence";
+    choiceScope: "recognizable" | "same-hero" | "active-items" | "ordered-pair";
+    clips: Array<{
+      subject: string;
+      event: string;
+      eventFile: string;
+      duration: number;
+    }>;
     audit: {
       reviewedAt: string;
       clientBuild: string;
@@ -154,12 +161,12 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-4-soundcheck-2`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-4-soundcheck-3`;
 export const triviaQuestions = [
   ...(generatedQuestions as TriviaQuestion[]),
   ...(mapSenseQuestions as TriviaQuestion[]),
   ...(counterplayQuestions as TriviaQuestion[]),
-  ...(soundcheckQuestions as TriviaQuestion[]),
+  ...(soundcheckQuestions as unknown as TriviaQuestion[]),
 ];
 
 export interface ArcadeRound extends TriviaQuestion {

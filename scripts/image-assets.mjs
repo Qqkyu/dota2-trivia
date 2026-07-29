@@ -6,12 +6,13 @@ export function questionImageUrls(question) {
   return [
     question.image?.src,
     ...(question.answerImages ?? []),
+    ...(question.answerImagePairs?.flat() ?? []),
     ...(question.counterplay?.toolImages?.map((image) => image.src) ?? []),
   ].filter(Boolean);
 }
 
 export function questionAudioUrls(question) {
-  return question.audio?.src ? [question.audio.src] : [];
+  return question.audio?.clips ?? (question.audio?.src ? [question.audio.src] : []);
 }
 
 async function probeAsset(url, attempt = 0) {

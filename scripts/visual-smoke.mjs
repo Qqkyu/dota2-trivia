@@ -583,16 +583,34 @@ await evaluate(`(() => {
 })()`);
 await delay(350);
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+let soundSequenceFound = false;
+for (let attempt = 0; attempt < 5; attempt += 1) {
+  await waitFor(`(() => {
+    const main = document.querySelector("main");
+    return main?.dataset.phase === "answering" &&
+      main?.dataset.questionKind?.startsWith("soundcheck-");
+  })()`);
+  soundSequenceFound = await evaluate(`(() => {
+    const prompt = document.querySelector('[data-testid="round-prompt"]');
+    const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
+    return prompt?.dataset.soundcheckFormat === "sequence" && timer >= 8;
+  })()`);
+  if (soundSequenceFound) break;
+  await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`);
+  await waitFor(`document.querySelector("main")?.dataset.phase === "answering"`);
+}
+if (!soundSequenceFound) throw new Error("A playable Veteran Soundcheck sequence was not scheduled.");
 await waitFor(`(() => {
   const main = document.querySelector("main");
   const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
-  const audio = document.querySelector("audio");
+  const audio = [...document.querySelectorAll('[data-testid="round-audio-clip"]')];
   const answers = [...document.querySelectorAll('[data-testid="arcade-answer"] img')];
   return main?.dataset.phase === "answering" &&
     main?.dataset.questionKind?.startsWith("soundcheck-") &&
-    timer >= 4 &&
-    audio?.readyState >= 2 &&
-    answers.length === 4 &&
+    timer >= 6 &&
+    audio.length === 2 &&
+    audio.every((clip) => clip.readyState >= 2) &&
+    answers.length === 8 &&
     answers.every((image) => image.complete && image.naturalWidth > 0);
 })()`);
 const soundcheckBeforeReplay = await evaluate(`(() => {
@@ -600,21 +618,27 @@ const soundcheckBeforeReplay = await evaluate(`(() => {
   const prompt = document.querySelector('[data-testid="round-prompt"]');
   const player = document.querySelector('[data-testid="soundcheck-player"]');
   const difficulty = document.querySelector('[data-testid="round-difficulty"]');
-  const audio = document.querySelector("audio");
+  const audio = [...document.querySelectorAll('[data-testid="round-audio-clip"]')];
   return {
     game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
     kind: main?.dataset.questionKind,
     family: prompt?.dataset.soundcheckFamily,
+    format: prompt?.dataset.soundcheckFormat,
     scope: prompt?.dataset.soundcheckScope,
     difficulty: Number(difficulty?.dataset.contentDifficulty),
     prompt: prompt?.querySelector("h2")?.textContent,
     answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
     answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
+    pairChoices: document.querySelectorAll('[data-testid="sound-sequence-choice"]').length,
+    pairLabels: [...document.querySelectorAll('[data-testid="arcade-answer"]')].map((answer) =>
+      answer.getAttribute("aria-label")
+    ),
     answerImagesLoaded: [...document.querySelectorAll('[data-testid="arcade-answer"] img')]
       .every((image) => image.complete && image.naturalWidth > 0),
-    audioReady: audio?.readyState >= 2,
-    audioSource: audio?.currentSrc,
-    audioVolume: audio?.volume,
+    audioReady: audio.length === 2 && audio.every((clip) => clip.readyState >= 2),
+    audioSources: audio.map((clip) => clip.currentSrc),
+    audioVolumes: audio.map((clip) => clip.volume),
+    clipCount: Number(player?.dataset.clipCount),
     replayButton: Boolean(document.querySelector('[data-testid="soundcheck-play"]')),
     playCount: Number(player?.dataset.playCount),
     soundMuted: Boolean(document.querySelector('button[aria-label="Enable game sounds"]')),
@@ -641,12 +665,51 @@ await send("Input.dispatchMouseEvent", {
   button: "left",
   clickCount: 1,
 });
-await waitFor(`Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.playCount) >= 1`, 5_000);
+await waitFor(
+  `(() => {
+    const player = document.querySelector('[data-testid="soundcheck-player"]');
+    return Number(player?.dataset.playCount) >= 1 &&
+      player?.dataset.activeClip === "2" &&
+      player?.dataset.audioState === "playing";
+  })()`,
+  8_000,
+);
 const soundcheckAfterReplay = await evaluate(`({
   playCount: Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.playCount),
+  activeClip: Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.activeClip),
+  secondClipStarted: Number(document.querySelectorAll('[data-testid="round-audio-clip"]')[1]?.currentTime) > 0,
   soundEnabled: Boolean(document.querySelector('button[aria-label="Mute game sounds"]'))
 })`);
 await screenshot("/tmp/queue-arcade-soundcheck.png");
+await send("Emulation.setDeviceMetricsOverride", {
+  width: 390,
+  height: 844,
+  deviceScaleFactor: 1,
+  mobile: true,
+});
+await delay(300);
+const mobileSoundcheck = await evaluate(`(() => {
+  const answers = [...document.querySelectorAll('[data-testid="arcade-answer"]')];
+  const player = document.querySelector('[data-testid="soundcheck-player"]')?.getBoundingClientRect();
+  return {
+    answerCount: answers.length,
+    pairChoices: document.querySelectorAll('[data-testid="sound-sequence-choice"]').length,
+    pairImages: document.querySelectorAll('[data-testid="sound-sequence-choice"] img').length,
+    answersFit: answers.every((answer) => {
+      const bounds = answer.getBoundingClientRect();
+      return bounds.left >= 0 && bounds.right <= innerWidth;
+    }),
+    playerFits: player ? player.left >= 0 && player.right <= innerWidth : false,
+    horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+  };
+})()`);
+await screenshot("/tmp/queue-arcade-soundcheck-mobile.png");
+await send("Emulation.setDeviceMetricsOverride", {
+  width: 1440,
+  height: 1000,
+  deviceScaleFactor: 1,
+  mobile: false,
+});
 
 await navigate(appUrl);
 const persistedVolume = await evaluate(`({
@@ -1209,24 +1272,37 @@ if (
   !soundcheckBeforeReplay.kind?.startsWith("soundcheck-") ||
   !["ability", "item"].includes(soundcheckBeforeReplay.family) ||
   soundcheckBeforeReplay.kind !== `soundcheck-${soundcheckBeforeReplay.family}` ||
-  soundcheckBeforeReplay.scope !== (soundcheckBeforeReplay.family === "ability" ? "same-hero" : "active-items") ||
-  soundcheckBeforeReplay.difficulty < 2 ||
-  soundcheckBeforeReplay.prompt !== "Match the sound." ||
+  soundcheckBeforeReplay.format !== "sequence" ||
+  soundcheckBeforeReplay.scope !== "ordered-pair" ||
+  soundcheckBeforeReplay.difficulty !== 3 ||
+  soundcheckBeforeReplay.prompt !== "Match both sounds." ||
   soundcheckBeforeReplay.answerCount !== 4 ||
-  soundcheckBeforeReplay.answerImages !== 4 ||
+  soundcheckBeforeReplay.answerImages !== 8 ||
+  soundcheckBeforeReplay.pairChoices !== 4 ||
+  soundcheckBeforeReplay.pairLabels.some((label) => !label?.includes(" → ")) ||
   !soundcheckBeforeReplay.answerImagesLoaded ||
   !soundcheckBeforeReplay.audioReady ||
-  !soundcheckBeforeReplay.audioSource?.includes("dotabase.dillerm.io/vpk/sounds/") ||
-  !soundcheckBeforeReplay.audioSource?.endsWith(".wav") ||
-  typeof soundcheckBeforeReplay.audioVolume !== "number" ||
-  Math.abs(soundcheckBeforeReplay.audioVolume - 0.35) > 0.001 ||
+  soundcheckBeforeReplay.audioSources.length !== 2 ||
+  soundcheckBeforeReplay.audioSources.some(
+    (source) => !source?.includes("dotabase.dillerm.io/vpk/sounds/") || !source.endsWith(".wav"),
+  ) ||
+  soundcheckBeforeReplay.audioVolumes.some((volume) => typeof volume !== "number" || Math.abs(volume - 0.35) > 0.001) ||
+  soundcheckBeforeReplay.clipCount !== 2 ||
   !soundcheckBeforeReplay.replayButton ||
   soundcheckBeforeReplay.playCount !== 0 ||
   !soundcheckBeforeReplay.soundMuted ||
   soundcheckBeforeReplay.volumeValue !== "35" ||
   soundcheckBeforeReplay.horizontalOverflow ||
   soundcheckAfterReplay.playCount < 1 ||
+  soundcheckAfterReplay.activeClip !== 2 ||
+  !soundcheckAfterReplay.secondClipStarted ||
   !soundcheckAfterReplay.soundEnabled ||
+  mobileSoundcheck.answerCount !== 4 ||
+  mobileSoundcheck.pairChoices !== 4 ||
+  mobileSoundcheck.pairImages !== 8 ||
+  !mobileSoundcheck.answersFit ||
+  !mobileSoundcheck.playerFits ||
+  mobileSoundcheck.horizontalOverflow ||
   volumeAfterAdjustment.value !== "35" ||
   volumeAfterAdjustment.label !== "35%" ||
   !volumeAfterAdjustment.soundEnabled ||
@@ -1234,7 +1310,7 @@ if (
   persistedVolume.label !== "35%" ||
   persistedVolume.stored !== 0.35
 ) {
-  failures.push("Soundcheck difficulty, volume persistence, mute safety, or manual replay failed.");
+  failures.push("Soundcheck sequence, volume persistence, mute safety, or ordered replay failed.");
 }
 if (
   (quoteHunt.text?.length ?? 0) < 28 ||
@@ -1382,6 +1458,7 @@ console.log(
       volumeAfterAdjustment,
       soundcheckBeforeReplay,
       soundcheckAfterReplay,
+      mobileSoundcheck,
       persistedVolume,
       quoteHunt,
       counterplayPreview,

@@ -3,7 +3,13 @@
 import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { SOUNDCHECK_AUDIT, SOUNDCHECK_DEFINITIONS, soundcheckAudioUrl, soundcheckSource } from "./soundcheck-audit.mjs";
+import {
+  SOUNDCHECK_AUDIT,
+  SOUNDCHECK_DEFINITIONS,
+  soundcheckAudioUrl,
+  soundcheckClips,
+  soundcheckSource,
+} from "./soundcheck-audit.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questions = JSON.parse(await readFile(join(root, "src", "data", "soundcheck-questions.json"), "utf8"));
@@ -16,6 +22,10 @@ const answerPositionCounts = [0, 0, 0, 0];
 const familyCounts = { ability: 0, item: 0 };
 const learningCounts = { ability: 0, item: 0 };
 const veteranCounts = { ability: 0, item: 0 };
+const formatCounts = {
+  ability: { single: 0, sequence: 0 },
+  item: { single: 0, sequence: 0 },
+};
 const difficultyCounts = {
   ability: [0, 0, 0],
   item: [0, 0, 0],
@@ -24,6 +34,19 @@ const difficultyCounts = {
 function assetKey(image, family) {
   const directory = family === "ability" ? "abilities" : "items";
   return image?.match(new RegExp(`/${directory}/([^/?]+)\\.png(?:[?#].*)?$`))?.[1];
+}
+
+function expectedSequencePairs(definition, correctIndex) {
+  const secondSubject = definition.sequence?.subject;
+  const alternatives = definition.distractors.filter((key) => key !== secondSubject);
+  const correctPair = [definition.subject, secondSubject];
+  const pairs = [
+    [definition.subject, alternatives[0]],
+    [alternatives[1], secondSubject],
+    [secondSubject, definition.subject],
+  ];
+  pairs.splice(correctIndex, 0, correctPair);
+  return pairs;
 }
 
 if (!Array.isArray(questions) || questions.length !== SOUNDCHECK_DEFINITIONS.length) {
@@ -43,80 +66,150 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
     continue;
   }
   const source = soundcheckSource(definition);
+  const clips = soundcheckClips(definition);
+  const isSequence = clips.length === 2;
+  const expectedFormat = isSequence ? "sequence" : "single";
   const expectedKind = `soundcheck-${definition.family}`;
   const expectedCategory = definition.family === "ability" ? "Abilities" : "Items";
   const expectedChoiceScope =
-    definition.difficulty === 1 ? "recognizable" : definition.family === "ability" ? "same-hero" : "active-items";
+    definition.difficulty === 1
+      ? "recognizable"
+      : isSequence
+        ? "ordered-pair"
+        : definition.family === "ability"
+          ? "same-hero"
+          : "active-items";
   const expectedKeys = [definition.subject, ...definition.distractors].sort();
+  const expectedClipMetadata = clips.map(({ subject, event, eventFile, duration }) => ({
+    subject,
+    event,
+    eventFile,
+    duration,
+  }));
+  const expectedAudioUrls = clips.map(soundcheckAudioUrl);
 
   if (ids.has(id)) failures.push(`${id}: duplicate question.`);
   ids.add(id);
   if (question.kind !== expectedKind || question.category !== expectedCategory) {
     failures.push(`${id}: family, kind, and category do not match.`);
   }
+  if (question.varietyKey !== `${expectedKind}:${expectedFormat}`) {
+    failures.push(`${id}: family/format scheduling key is missing or stale.`);
+  }
   if (question.patch !== metadata.patch || question.difficulty !== definition.difficulty) {
     failures.push(`${id}: patch or difficulty drifted from the audit.`);
   }
   if (question.image !== undefined) failures.push(`${id}: the answer must stay hidden behind audio.`);
-  if (question.prompt !== `Match the ${definition.family} sound.`) {
+  if (question.prompt !== (isSequence ? "Match both sounds." : "Match the sound.")) {
     failures.push(`${id}: prompt is no longer short and language-light.`);
   }
   if (question.source?.label !== source.label || question.source?.url !== source.url) {
     failures.push(`${id}: source event is missing or stale.`);
   }
-  if (question.audio?.src !== soundcheckAudioUrl(definition) || audioUrls.has(question.audio?.src)) {
+  if (
+    question.audio?.src !== expectedAudioUrls[0] ||
+    JSON.stringify(question.audio?.clips) !== JSON.stringify(expectedAudioUrls) ||
+    audioUrls.has(question.audio?.src)
+  ) {
     failures.push(`${id}: audio is missing, duplicated, or no longer matches the audited event.`);
   }
   audioUrls.add(question.audio?.src);
   if (
     question.soundcheck?.family !== definition.family ||
+    question.soundcheck?.format !== expectedFormat ||
     question.soundcheck?.choiceScope !== expectedChoiceScope ||
-    question.soundcheck?.event !== definition.event ||
-    question.soundcheck?.eventFile !== definition.eventFile ||
-    question.soundcheck?.duration !== definition.duration ||
+    JSON.stringify(question.soundcheck?.clips) !== JSON.stringify(expectedClipMetadata) ||
     question.soundcheck?.audit?.reviewedAt !== SOUNDCHECK_AUDIT.reviewedAt ||
     question.soundcheck?.audit?.clientBuild !== SOUNDCHECK_AUDIT.clientBuild
   ) {
     failures.push(`${id}: sound-event audit metadata is missing or stale.`);
   }
-  if (definition.duration < 0.5 || definition.duration > 7) {
-    failures.push(`${id}: clip duration is unsuitable for a rapid round.`);
+  if (
+    clips.some((clip) => clip.duration < 0.5 || clip.duration > 7) ||
+    clips.reduce((total, clip) => total + clip.duration, 0) > 7
+  ) {
+    failures.push(`${id}: clip duration is unsuitable for a rapid sequence round.`);
   }
 
   if (
     !Array.isArray(question.answers) ||
     question.answers.length !== 4 ||
     new Set(question.answers).size !== 4 ||
-    !Array.isArray(question.answerImages) ||
-    question.answerImages.length !== 4 ||
     question.answerImageKind !== definition.family
   ) {
     failures.push(`${id}: four same-type visual answers are required.`);
     continue;
   }
-  const answerKeys = question.answerImages.map((image) => assetKey(image, definition.family));
-  if (answerKeys.some((key) => !key) || JSON.stringify([...answerKeys].sort()) !== JSON.stringify(expectedKeys)) {
-    failures.push(`${id}: answer artwork drifted from the reviewed option set.`);
-  }
-  if (
-    !Number.isInteger(question.correctIndex) ||
-    question.correctIndex < 0 ||
-    question.correctIndex > 3 ||
-    answerKeys[question.correctIndex] !== definition.subject
-  ) {
-    failures.push(`${id}: correctIndex does not point to the audited sound source.`);
+
+  let answerSet;
+  if (isSequence) {
+    const answerPairs = question.answerImagePairs?.map((pair) =>
+      pair.map((image) => assetKey(image, definition.family)),
+    );
+    const expectedPairs = expectedSequencePairs(definition, index % 4);
+    if (
+      question.answerImages !== undefined ||
+      !Array.isArray(answerPairs) ||
+      answerPairs.length !== 4 ||
+      answerPairs.some((pair) => pair.length !== 2 || pair.some((key) => !key)) ||
+      JSON.stringify(answerPairs) !== JSON.stringify(expectedPairs)
+    ) {
+      failures.push(`${id}: ordered answer artwork drifted from the reviewed pair set.`);
+      continue;
+    }
+    const usedKeys = [...new Set(answerPairs.flat())].sort();
+    if (JSON.stringify(usedKeys) !== JSON.stringify(expectedKeys)) {
+      failures.push(`${id}: ordered answers do not use exactly the four reviewed choices.`);
+    }
+    if (
+      !Number.isInteger(question.correctIndex) ||
+      question.correctIndex < 0 ||
+      question.correctIndex > 3 ||
+      JSON.stringify(answerPairs[question.correctIndex]) !==
+        JSON.stringify([definition.subject, definition.sequence.subject])
+    ) {
+      failures.push(`${id}: correctIndex does not point to the audited sound sequence.`);
+    }
+    answerSet = `sequence:${answerPairs
+      .map((pair) => pair.join(">"))
+      .sort()
+      .join("|")}`;
   } else {
+    if (
+      question.answerImagePairs !== undefined ||
+      !Array.isArray(question.answerImages) ||
+      question.answerImages.length !== 4
+    ) {
+      failures.push(`${id}: a single-sound round requires four individual answer images.`);
+      continue;
+    }
+    const answerKeys = question.answerImages.map((image) => assetKey(image, definition.family));
+    if (answerKeys.some((key) => !key) || JSON.stringify([...answerKeys].sort()) !== JSON.stringify(expectedKeys)) {
+      failures.push(`${id}: answer artwork drifted from the reviewed option set.`);
+    }
+    if (
+      !Number.isInteger(question.correctIndex) ||
+      question.correctIndex < 0 ||
+      question.correctIndex > 3 ||
+      answerKeys[question.correctIndex] !== definition.subject
+    ) {
+      failures.push(`${id}: correctIndex does not point to the audited sound source.`);
+    }
+    answerSet = `single:${[...answerKeys].sort().join("|")}`;
+  }
+  if (Number.isInteger(question.correctIndex) && question.correctIndex >= 0 && question.correctIndex <= 3) {
     answerPositionCounts[question.correctIndex] += 1;
-    if (!question.explanation?.includes(question.answers[question.correctIndex])) {
-      failures.push(`${id}: explanation does not name the sound source.`);
+    const answerNames = question.answers[question.correctIndex].split(" → ");
+    if (answerNames.some((answer) => !question.explanation?.includes(answer))) {
+      failures.push(`${id}: explanation does not name every sound source.`);
     }
   }
   if (question.correctIndex !== index % 4) failures.push(`${id}: answer-position balancing drifted.`);
 
-  const answerSet = [...answerKeys].sort().join("|");
   if (answerSets.has(answerSet)) failures.push(`${id}: duplicate four-option sound matchup.`);
   answerSets.add(answerSet);
   familyCounts[definition.family] += 1;
+  formatCounts[definition.family][expectedFormat] += 1;
   difficultyCounts[definition.family][definition.difficulty - 1] += 1;
   if (definition.difficulty === 1) learningCounts[definition.family] += 1;
   if (definition.difficulty >= 2) veteranCounts[definition.family] += 1;
@@ -130,10 +223,12 @@ for (const family of ["ability", "item"]) {
     familyCounts[family] !== 24 ||
     learningCounts[family] !== 12 ||
     veteranCounts[family] !== 12 ||
+    formatCounts[family].single !== 18 ||
+    formatCounts[family].sequence !== 6 ||
     JSON.stringify(difficultyCounts[family]) !== JSON.stringify([12, 6, 6])
   ) {
     failures.push(
-      `${family}: expected 24 sounds split 12 Learning, 6 tricky, and 6 brutal (${familyCounts[family]}, ${JSON.stringify(difficultyCounts[family])}).`,
+      `${family}: expected 18 single and 6 sequence rounds split 12 Learning, 6 tricky, and 6 brutal (${familyCounts[family]}, ${JSON.stringify(formatCounts[family])}, ${JSON.stringify(difficultyCounts[family])}).`,
     );
   }
 }
@@ -146,6 +241,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${questions.length} Soundcheck rounds (${JSON.stringify(familyCounts)}; difficulty ${JSON.stringify(difficultyCounts)}; answer slots ${JSON.stringify(answerPositionCounts)}).`,
+    `Validated ${questions.length} Soundcheck rounds (${JSON.stringify(familyCounts)}; formats ${JSON.stringify(formatCounts)}; difficulty ${JSON.stringify(difficultyCounts)}; answer slots ${JSON.stringify(answerPositionCounts)}).`,
   );
 }

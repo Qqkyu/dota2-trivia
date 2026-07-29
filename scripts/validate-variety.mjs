@@ -47,20 +47,42 @@ if (
 }
 
 const soundcheckFixture = ["soundcheck-ability", "soundcheck-item"].flatMap((kind) =>
-  Array.from({ length: 12 }, (_, index) => ({ id: `${kind}-${index}`, kind })),
+  ["single", "sequence"].flatMap((format) =>
+    Array.from({ length: 6 }, (_, index) => ({
+      id: `${kind}-${format}-${index}`,
+      kind,
+      format,
+      varietyKey: `${kind}:${format}`,
+    })),
+  ),
 );
-const soundcheckOpening = varietyShuffle(soundcheckFixture, "soundcheck-family-regression").slice(0, 16);
+const soundcheckOpening = varietyShuffle(soundcheckFixture, "soundcheck-family-regression").slice(0, 24);
 const soundcheckCounts = Object.fromEntries(
   ["soundcheck-ability", "soundcheck-item"].map((kind) => [
     kind,
     soundcheckOpening.filter((question) => question.kind === kind).length,
   ]),
 );
+const soundcheckFormatCounts = Object.fromEntries(
+  ["single", "sequence"].map((format) => [
+    format,
+    soundcheckOpening.filter((question) => question.format === format).length,
+  ]),
+);
 if (
   soundcheckOpening.some((question, index) => index > 0 && question.kind === soundcheckOpening[index - 1].kind) ||
-  Object.values(soundcheckCounts).some((count) => count !== 8)
+  soundcheckOpening.some(
+    (question, index) =>
+      index > 1 &&
+      question.format === soundcheckOpening[index - 1].format &&
+      question.format === soundcheckOpening[index - 2].format,
+  ) ||
+  Object.values(soundcheckCounts).some((count) => count !== 12) ||
+  Object.values(soundcheckFormatCounts).some((count) => count !== 12)
 ) {
-  throw new Error(`Soundcheck lost its ability/item rotation: ${JSON.stringify(soundcheckCounts)}.`);
+  throw new Error(
+    `Soundcheck lost its family/format rotation: ${JSON.stringify(soundcheckCounts)}, ${JSON.stringify(soundcheckFormatCounts)}.`,
+  );
 }
 
 const counterplayKinds = [
@@ -150,5 +172,5 @@ if (
 }
 
 console.log(
-  `Validated deterministic template, nine-game Mixed Arcade, Soundcheck, Counterplay and Map Sense family rotation, and ${MAP_READ_GRACE_MS / 1000}s reading grace (Soundcheck ${JSON.stringify(soundcheckCounts)}, Counterplay ${JSON.stringify(counterplayOpeningCounts)}, Map Open ${JSON.stringify(mapOpeningCounts)}, Veteran ${JSON.stringify(veteranMapCounts)}).`,
+  `Validated deterministic template, nine-game Mixed Arcade, Soundcheck, Counterplay and Map Sense family rotation, and ${MAP_READ_GRACE_MS / 1000}s reading grace (Soundcheck ${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}, Counterplay ${JSON.stringify(counterplayOpeningCounts)}, Map Open ${JSON.stringify(mapOpeningCounts)}, Veteran ${JSON.stringify(veteranMapCounts)}).`,
 );

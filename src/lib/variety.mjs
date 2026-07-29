@@ -56,10 +56,11 @@ export function fixedCycleRotation(values, seed, length, offset = 0) {
 
 /**
  * Deterministically rotates question templates while each template still has
- * candidates. Large pools therefore cannot drown out smaller, more distinctive
- * round types at the front of a public-room batch.
+ * candidates. Optional variety keys also balance variants inside one template.
+ * Large pools therefore cannot drown out smaller, more distinctive round types
+ * at the front of a public-room batch.
  *
- * @template {{ kind: string }} T
+ * @template {{ kind: string, varietyKey?: string }} T
  * @param {readonly T[]} values
  * @param {string} seed
  * @returns {T[]}
@@ -74,7 +75,31 @@ export function varietyShuffle(values, seed) {
   }
 
   for (const [kind, bucket] of buckets) {
-    buckets.set(kind, seededShuffle(bucket, `${seed}:kind:${kind}`));
+    const variantBuckets = new Map();
+    for (const value of bucket) {
+      const variant = value.varietyKey ?? kind;
+      const variants = variantBuckets.get(variant) ?? [];
+      variants.push(value);
+      variantBuckets.set(variant, variants);
+    }
+    for (const [variant, variants] of variantBuckets) {
+      variantBuckets.set(variant, seededShuffle(variants, `${seed}:kind:${kind}:variant:${variant}`));
+    }
+
+    let variantOrder = seededShuffle([...variantBuckets.keys()], `${seed}:kind:${kind}:variant-order`);
+    const balancedBucket = [];
+    let previousVariant = "";
+    while (balancedBucket.length < bucket.length) {
+      const nextVariant =
+        variantOrder.find((variant) => variant !== previousVariant && variantBuckets.get(variant)?.length) ??
+        variantOrder.find((variant) => variantBuckets.get(variant)?.length);
+      if (!nextVariant) break;
+
+      balancedBucket.push(variantBuckets.get(nextVariant).shift());
+      previousVariant = nextVariant;
+      variantOrder = [...variantOrder.filter((variant) => variant !== nextVariant), nextVariant];
+    }
+    buckets.set(kind, balancedBucket);
   }
 
   let kindOrder = seededShuffle([...buckets.keys()], `${seed}:kind-order`);

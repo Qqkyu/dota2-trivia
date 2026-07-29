@@ -8,6 +8,7 @@ import {
   SOUNDCHECK_AUDIT,
   SOUNDCHECK_DEFINITIONS,
   soundcheckAudioUrl,
+  soundcheckClips,
   soundcheckSource,
 } from "./soundcheck-audit.mjs";
 
@@ -76,7 +77,10 @@ function eventBody(contents, event) {
   return null;
 }
 
-const eventFiles = [...new Set(SOUNDCHECK_DEFINITIONS.map((definition) => definition.eventFile))];
+const auditedClips = SOUNDCHECK_DEFINITIONS.flatMap((definition) =>
+  soundcheckClips(definition).map((clip) => ({ definition, clip })),
+);
+const eventFiles = [...new Set(auditedClips.map(({ clip }) => clip.eventFile))];
 const eventFileContents = new Map(
   await Promise.all(
     eventFiles.map(async (eventFile) => {
@@ -88,87 +92,141 @@ const eventFileContents = new Map(
 );
 
 await Promise.all(
-  SOUNDCHECK_DEFINITIONS.map(async (definition) => {
-    const body = eventBody(eventFileContents.get(definition.eventFile) ?? "", definition.event);
-    const sourceVsnd = definition.audioPath.replace(/\.wav$/, ".vsnd");
+  auditedClips.map(async ({ definition, clip }) => {
+    const body = eventBody(eventFileContents.get(clip.eventFile) ?? "", clip.event);
+    const sourceVsnd = clip.audioPath.replace(/\.wav$/, ".vsnd");
     const eventSounds = [...(body?.matchAll(/"([^"]+\.vsnd)"/g) ?? [])].map((match) => match[1]);
     const eventDuration = Number(body?.match(/vsnd_duration\s*=\s*([0-9.]+)/)?.[1]);
     if (!body || !eventSounds.includes(sourceVsnd)) {
       throw new Error(
-        `${definition.family}:${definition.subject} no longer maps ${definition.event} to ${sourceVsnd} (found ${eventSounds.join(", ") || "no sound"}).`,
+        `${definition.family}:${clip.subject} no longer maps ${clip.event} to ${sourceVsnd} (found ${eventSounds.join(", ") || "no sound"}).`,
       );
     }
-    if (!Number.isFinite(eventDuration) || Math.abs(eventDuration - definition.duration) > 0.000001) {
+    if (!Number.isFinite(eventDuration) || Math.abs(eventDuration - clip.duration) > 0.000001) {
       throw new Error(
-        `${definition.family}:${definition.subject} duration drifted from ${definition.duration} to ${String(eventDuration)}.`,
+        `${definition.family}:${clip.subject} duration drifted from ${clip.duration} to ${String(eventDuration)}.`,
       );
     }
 
-    const response = await fetch(soundcheckAudioUrl(definition), { method: "HEAD" });
+    const response = await fetch(soundcheckAudioUrl(clip), { method: "HEAD" });
     if (!response.ok || !response.headers.get("content-type")?.startsWith("audio/")) {
-      throw new Error(`${definition.family}:${definition.subject} has no browser-ready audited audio.`);
+      throw new Error(`${definition.family}:${clip.subject} has no browser-ready audited audio.`);
     }
   }),
 );
 
 const questions = SOUNDCHECK_DEFINITIONS.map((definition, index) => {
   const records = definition.family === "ability" ? abilities : items;
-  const answerKeys = [...definition.distractors];
-  answerKeys.splice(index % 4, 0, definition.subject);
-  const answerRecords = answerKeys.map((key) => {
+  const choiceKeys = [definition.subject, ...definition.distractors];
+  const choiceRecords = choiceKeys.map((key) => {
     const record = records[key];
     if (!record?.dname || !record.img) throw new Error(`Missing ${definition.family} ${key}.`);
     return record;
   });
   if (definition.difficulty >= 2 && definition.family === "ability") {
-    const owners = answerKeys.map((key) => abilityOwners.get(key));
+    const owners = choiceKeys.map((key) => abilityOwners.get(key));
     const ownerKeys = new Set(owners.flat());
     if (
       owners.some((owner) => owner?.length !== 1) ||
       ownerKeys.size !== 1 ||
-      answerRecords.some((record) => !hasActiveBehavior(record))
+      choiceRecords.some((record) => !hasActiveBehavior(record))
     ) {
       throw new Error(
-        `${definition.subject}: Veteran ability choices must all be active abilities from one hero (${answerKeys.join(", ")}).`,
+        `${definition.subject}: Veteran ability choices must all be active abilities from one hero (${choiceKeys.join(", ")}).`,
       );
     }
   }
   if (
     definition.difficulty >= 2 &&
     definition.family === "item" &&
-    answerRecords.some((record) => !hasActiveBehavior(record))
+    choiceRecords.some((record) => !hasActiveBehavior(record))
   ) {
-    const inactiveItems = answerKeys.filter((_, answerIndex) => !hasActiveBehavior(answerRecords[answerIndex]));
+    const inactiveItems = choiceKeys.filter((_, answerIndex) => !hasActiveBehavior(choiceRecords[answerIndex]));
     throw new Error(
       `${definition.subject}: every Veteran item choice must have an active behavior (${inactiveItems.join(", ")} does not).`,
     );
   }
-  const correctIndex = answerKeys.indexOf(definition.subject);
+
+  const clips = soundcheckClips(definition);
+  const isSequence = clips.length === 2;
+  if (isSequence !== (definition.difficulty === 3)) {
+    throw new Error(`${definition.subject}: only brutal Soundcheck rounds may contain an ordered sequence.`);
+  }
+
+  const recordByKey = new Map(choiceKeys.map((key, answerIndex) => [key, choiceRecords[answerIndex]]));
+  let answers;
+  let answerImages;
+  let answerImagePairs;
+  let correctIndex;
+
+  if (isSequence) {
+    const secondSubject = clips[1].subject;
+    const alternatives = definition.distractors.filter((key) => key !== secondSubject);
+    if (!definition.distractors.includes(secondSubject) || alternatives.length !== 2) {
+      throw new Error(`${definition.subject}: the second sound must be one of exactly three reviewed distractors.`);
+    }
+    const correctPair = [definition.subject, secondSubject];
+    const answerPairs = [
+      [definition.subject, alternatives[0]],
+      [alternatives[1], secondSubject],
+      [secondSubject, definition.subject],
+    ];
+    correctIndex = index % 4;
+    answerPairs.splice(correctIndex, 0, correctPair);
+    answers = answerPairs.map((pair) => pair.map((key) => recordByKey.get(key).dname).join(" → "));
+    answerImagePairs = answerPairs.map((pair) => pair.map((key) => assetUrl(recordByKey.get(key).img)));
+  } else {
+    const answerKeys = [...definition.distractors];
+    answerKeys.splice(index % 4, 0, definition.subject);
+    const answerRecords = answerKeys.map((key) => recordByKey.get(key));
+    answers = answerRecords.map((record) => record.dname);
+    answerImages = answerRecords.map((record) => assetUrl(record.img));
+    correctIndex = answerKeys.indexOf(definition.subject);
+  }
+
   const answerKind = definition.family === "ability" ? "ability" : "item";
-  const subjectName = answerRecords[correctIndex].dname;
+  const subjectName = recordByKey.get(definition.subject).dname;
+  const secondSubjectName = isSequence ? recordByKey.get(clips[1].subject).dname : null;
 
   return {
     id: `soundcheck-${definition.family}:${definition.subject}`,
     kind: `soundcheck-${definition.family}`,
+    varietyKey: `soundcheck-${definition.family}:${isSequence ? "sequence" : "single"}`,
     category: definition.family === "ability" ? "Abilities" : "Items",
     difficulty: definition.difficulty,
-    eyebrow: `Soundcheck · ${definition.family === "ability" ? "Ability sound" : "Item activation"}`,
-    prompt: `Match the ${definition.family} sound.`,
-    answers: answerRecords.map((record) => record.dname),
-    answerImages: answerRecords.map((record) => assetUrl(record.img)),
+    eyebrow: isSequence
+      ? "Soundcheck · Ordered pair"
+      : `Soundcheck · ${definition.family === "ability" ? "Ability sound" : "Item activation"}`,
+    prompt: isSequence ? "Match both sounds." : "Match the sound.",
+    answers,
+    ...(answerImages ? { answerImages } : {}),
+    ...(answerImagePairs ? { answerImagePairs } : {}),
     answerImageKind: answerKind,
     correctIndex,
-    explanation: `That was the ${definition.family === "ability" ? "gameplay" : "activation"} sound for ${subjectName}.`,
+    explanation: isSequence
+      ? `The sequence was ${subjectName}, then ${secondSubjectName}.`
+      : `That was the ${definition.family === "ability" ? "gameplay" : "activation"} sound for ${subjectName}.`,
     audio: {
-      src: soundcheckAudioUrl(definition),
+      src: soundcheckAudioUrl(clips[0]),
+      clips: clips.map(soundcheckAudioUrl),
     },
     soundcheck: {
       family: definition.family,
+      format: isSequence ? "sequence" : "single",
       choiceScope:
-        definition.difficulty === 1 ? "recognizable" : definition.family === "ability" ? "same-hero" : "active-items",
-      event: definition.event,
-      eventFile: definition.eventFile,
-      duration: definition.duration,
+        definition.difficulty === 1
+          ? "recognizable"
+          : isSequence
+            ? "ordered-pair"
+            : definition.family === "ability"
+              ? "same-hero"
+              : "active-items",
+      clips: clips.map(({ subject, event, eventFile, duration }) => ({
+        subject,
+        event,
+        eventFile,
+        duration,
+      })),
       audit: {
         reviewedAt: SOUNDCHECK_AUDIT.reviewedAt,
         clientBuild: SOUNDCHECK_AUDIT.clientBuild,

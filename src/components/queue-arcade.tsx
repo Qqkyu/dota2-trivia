@@ -83,6 +83,53 @@ const ACTIVE_GAME = GAME_CATALOGS[DEFAULT_GAME_ID];
 const ACTIVE_QUESTIONS = ACTIVE_GAME.questions;
 const QUESTIONS_BY_ID = new Map(ACTIVE_QUESTIONS.map((question) => [question.id, question]));
 const ARCADE_MODES: ArcadeMode[] = [...ACTIVE_GAME.modes];
+const AUDIO_SEQUENCE_GAP_MS = 240;
+
+function waitForMediaEvent(
+  audio: HTMLAudioElement,
+  eventName: "canplay" | "ended",
+  signal: AbortSignal,
+): Promise<"complete" | "error" | "cancelled"> {
+  return new Promise((resolve) => {
+    if (signal.aborted) {
+      resolve("cancelled");
+      return;
+    }
+
+    const settle = (result: "complete" | "error" | "cancelled") => {
+      audio.removeEventListener(eventName, onComplete);
+      audio.removeEventListener("error", onError);
+      signal.removeEventListener("abort", onAbort);
+      resolve(result);
+    };
+    const onComplete = () => settle("complete");
+    const onError = () => settle("error");
+    const onAbort = () => settle("cancelled");
+
+    audio.addEventListener(eventName, onComplete, { once: true });
+    audio.addEventListener("error", onError, { once: true });
+    signal.addEventListener("abort", onAbort, { once: true });
+  });
+}
+
+function waitForAudioGap(signal: AbortSignal): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (signal.aborted) {
+      resolve(false);
+      return;
+    }
+
+    const timeout = window.setTimeout(() => {
+      signal.removeEventListener("abort", onAbort);
+      resolve(true);
+    }, AUDIO_SEQUENCE_GAP_MS);
+    const onAbort = () => {
+      window.clearTimeout(timeout);
+      resolve(false);
+    };
+    signal.addEventListener("abort", onAbort, { once: true });
+  });
+}
 const ROUND_GAMES: RoundGame[] = ARCADE_MODES.filter((mode): mode is RoundGame => mode !== "mixed");
 
 const SKILL_INFO: Record<
@@ -220,9 +267,9 @@ const MODE_INFO: Record<
     label: "Soundcheck",
     shortLabel: "Soundcheck",
     eyebrow: "Audio recognition",
-    description: "Identify real ability effects and item activations from their in-game sound alone.",
+    description: "Identify real ability effects, item activations, and ordered sound pairs.",
     action: "Enter soundcheck",
-    rule: "One verified gameplay sound, four same-type icons, and unlimited replays before the deadline.",
+    rule: "Veteran chains two sounds together. Match both icons in the right order.",
   },
   "quote-hunt": {
     label: "Quote Hunt",
@@ -1112,6 +1159,7 @@ export function QueueArcade() {
   const [activeRoundId, setActiveRoundId] = useState("");
   const [roundAudioState, setRoundAudioState] = useState<"loading" | "ready" | "playing" | "error">("loading");
   const [roundAudioPlayCount, setRoundAudioPlayCount] = useState(0);
+  const [roundAudioClipIndex, setRoundAudioClipIndex] = useState(0);
   const [reportState, setReportState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [reportedReason, setReportedReason] = useState<ReportReason | null>(null);
   const [reportTarget, setReportTarget] = useState<QuestionReportTarget | null>(null);
@@ -1135,7 +1183,9 @@ export function QueueArcade() {
   const roundIdRef = useRef("");
   const syncPromiseRef = useRef<Promise<void> | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
-  const roundAudioRef = useRef<HTMLAudioElement | null>(null);
+  const roundAudioRefs = useRef<Array<HTMLAudioElement | null>>([]);
+  const roundAudioAbortRef = useRef<AbortController | null>(null);
+  const autoPlayedRoundRef = useRef("");
   const reportTargetRef = useRef<QuestionReportTarget | null>(null);
   const reportStateRef = useRef<"idle" | "sending" | "sent" | "error">("idle");
 
@@ -1254,16 +1304,65 @@ export function QueueArcade() {
     [gameVolume, soundEnabled],
   );
 
-  const playRoundAudio = useCallback(() => {
-    const audio = roundAudioRef.current;
-    if (!audio) return;
+  const stopRoundAudio = useCallback((showReadyState = true) => {
+    roundAudioAbortRef.current?.abort();
+    roundAudioAbortRef.current = null;
+    for (const audio of roundAudioRefs.current) audio?.pause();
+    if (showReadyState && phaseRef.current === "answering") setRoundAudioState("ready");
+  }, []);
 
-    setSoundEnabled(true);
-    audio.volume = gameVolume;
-    audio.currentTime = 0;
-    setRoundAudioState("loading");
-    void audio.play().catch(() => setRoundAudioState("error"));
-  }, [gameVolume]);
+  const playRoundAudio = useCallback(
+    (enableSound = true) => {
+      stopRoundAudio(false);
+      const audios = roundAudioRefs.current.filter((audio): audio is HTMLAudioElement => Boolean(audio));
+      if (!audios.length) return;
+
+      if (enableSound) setSoundEnabled(true);
+      autoPlayedRoundRef.current = roundIdRef.current;
+      const controller = new AbortController();
+      roundAudioAbortRef.current = controller;
+      setRoundAudioClipIndex(0);
+      setRoundAudioState("loading");
+
+      void (async () => {
+        for (const [clipIndex, audio] of audios.entries()) {
+          audio.volume = gameVolume;
+          audio.currentTime = 0;
+          if (audio.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) {
+            const readyResult = await waitForMediaEvent(audio, "canplay", controller.signal);
+            if (readyResult !== "complete") {
+              if (readyResult === "error") setRoundAudioState("error");
+              return;
+            }
+          }
+          if (controller.signal.aborted) return;
+
+          setRoundAudioClipIndex(clipIndex);
+          setRoundAudioState("playing");
+          try {
+            await audio.play();
+          } catch {
+            if (!controller.signal.aborted) setRoundAudioState("error");
+            return;
+          }
+          if (clipIndex === 0) setRoundAudioPlayCount((count) => count + 1);
+
+          const endedResult = await waitForMediaEvent(audio, "ended", controller.signal);
+          if (endedResult !== "complete") {
+            if (endedResult === "error") setRoundAudioState("error");
+            return;
+          }
+          if (clipIndex < audios.length - 1 && !(await waitForAudioGap(controller.signal))) return;
+        }
+
+        if (!controller.signal.aborted) {
+          roundAudioAbortRef.current = null;
+          setRoundAudioState("ready");
+        }
+      })();
+    },
+    [gameVolume, stopRoundAudio],
+  );
 
   const requestRoomSnapshot = useCallback(async (settings: PublicRoomSettings, playerId: string) => {
     const requestedAt = Date.now();
@@ -1378,6 +1477,7 @@ export function QueueArcade() {
         setRoundAward(null);
         setRoundAudioState("loading");
         setRoundAudioPlayCount(0);
+        setRoundAudioClipIndex(0);
         setReportedReason(snapshot.playerReport);
         if (!reportTargetRef.current) {
           updateReportState(snapshot.playerReport ? "sent" : "idle");
@@ -1921,37 +2021,38 @@ export function QueueArcade() {
   }, [chooseAnswer]);
 
   useEffect(() => {
-    if (phase !== "answering") roundAudioRef.current?.pause();
-  }, [phase]);
+    if (phase !== "answering") stopRoundAudio(false);
+  }, [phase, stopRoundAudio]);
 
   useEffect(() => {
-    if (roundAudioRef.current) roundAudioRef.current.volume = gameVolume;
-  }, [currentQuestion?.id, gameVolume]);
-
-  useEffect(() => {
-    const audio = roundAudioRef.current;
     if (
       phase !== "answering" ||
       (currentQuestion?.game !== "echo-hunt" && currentQuestion?.game !== "soundcheck") ||
       !currentQuestion.audio ||
       !soundEnabled ||
-      !audio
+      !roundAudioRefs.current.some(Boolean) ||
+      autoPlayedRoundRef.current === activeRoundId
     ) {
       return;
     }
 
-    audio.currentTime = 0;
-    void audio.play().catch(() => {
-      setRoundAudioState(audio.readyState >= 2 ? "ready" : "loading");
-    });
-  }, [currentQuestion?.audio, currentQuestion?.game, currentQuestion?.id, phase, soundEnabled]);
+    playRoundAudio(false);
+  }, [
+    activeRoundId,
+    currentQuestion?.audio,
+    currentQuestion?.game,
+    currentQuestion?.id,
+    phase,
+    playRoundAudio,
+    soundEnabled,
+  ]);
 
   useEffect(
     () => () => {
       if (audioContextRef.current) void audioContextRef.current.close();
-      roundAudioRef.current?.pause();
+      stopRoundAudio(false);
     },
-    [],
+    [stopRoundAudio],
   );
 
   const answerRemaining = deadline ? Math.max(0, deadline - now) : 0;
@@ -1962,6 +2063,7 @@ export function QueueArcade() {
     selectedIndex !== null && currentQuestion ? selectedIndex === currentQuestion.correctIndex : false;
   const currentGame = currentQuestion?.game ?? "trivia";
   const isSoundcheckRound = currentGame === "soundcheck";
+  const isSoundSequence = isSoundcheckRound && currentQuestion?.soundcheck?.format === "sequence";
   const mapChoiceRound = currentGame === "map-sense" && Boolean(currentQuestion?.map?.choice);
   const displayedDifficulty =
     currentGame !== "trivia" && skillLevel !== "Open"
@@ -2033,12 +2135,10 @@ export function QueueArcade() {
             <button
               type="button"
               className={styles.iconButton}
-              onClick={() =>
-                setSoundEnabled((enabled) => {
-                  if (enabled) roundAudioRef.current?.pause();
-                  return !enabled;
-                })
-              }
+              onClick={() => {
+                if (soundEnabled) stopRoundAudio();
+                setSoundEnabled(!soundEnabled);
+              }}
               aria-label={soundEnabled ? "Mute game sounds" : "Enable game sounds"}
               aria-pressed={soundEnabled}
             >
@@ -2053,7 +2153,13 @@ export function QueueArcade() {
               step="5"
               value={Math.round(gameVolume * 100)}
               onChange={(event) => {
-                setGameVolume(Number(event.currentTarget.value) / 100);
+                const nextVolume = Number(event.currentTarget.value) / 100;
+                document
+                  .querySelectorAll<HTMLAudioElement>('audio[data-testid="round-audio-clip"]')
+                  .forEach((audio) => {
+                    audio.volume = nextVolume;
+                  });
+                setGameVolume(nextVolume);
                 setSoundEnabled(true);
               }}
               aria-label="Game volume"
@@ -2467,39 +2573,53 @@ export function QueueArcade() {
                 data-testid="round-prompt"
                 data-soundcheck-family={isSoundcheckRound ? currentQuestion.soundcheck?.family : undefined}
                 data-soundcheck-scope={isSoundcheckRound ? currentQuestion.soundcheck?.choiceScope : undefined}
+                data-soundcheck-format={isSoundcheckRound ? currentQuestion.soundcheck?.format : undefined}
               >
-                <audio
-                  key={currentQuestion.id}
-                  ref={roundAudioRef}
-                  src={currentQuestion.audio?.src}
-                  preload="auto"
-                  onLoadStart={() => setRoundAudioState("loading")}
-                  onCanPlay={() => setRoundAudioState((state) => (state === "playing" ? state : "ready"))}
-                  onPlay={() => {
-                    setRoundAudioState("playing");
-                    setRoundAudioPlayCount((count) => count + 1);
-                  }}
-                  onPause={() => {
-                    if (phaseRef.current === "answering") setRoundAudioState("ready");
-                  }}
-                  onEnded={() => setRoundAudioState("ready")}
-                  onError={() => setRoundAudioState("error")}
-                />
+                {(currentQuestion.audio?.clips ?? (currentQuestion.audio?.src ? [currentQuestion.audio.src] : [])).map(
+                  (audioSource, clipIndex, audioSources) => (
+                    <audio
+                      key={`${currentQuestion.id}:${clipIndex}`}
+                      ref={(audio) => {
+                        roundAudioRefs.current[clipIndex] = audio;
+                      }}
+                      data-testid="round-audio-clip"
+                      data-clip-index={clipIndex + 1}
+                      src={audioSource}
+                      preload="auto"
+                      aria-hidden="true"
+                      onLoadStart={() => setRoundAudioState("loading")}
+                      onCanPlay={(event) => {
+                        event.currentTarget.volume = gameVolume;
+                        const loaded = roundAudioRefs.current
+                          .slice(0, audioSources.length)
+                          .every((audio) => audio && audio.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA);
+                        if (loaded && !roundAudioAbortRef.current) setRoundAudioState("ready");
+                      }}
+                      onError={() => setRoundAudioState("error")}
+                    />
+                  ),
+                )}
                 <div
-                  className={clsx(styles.echoPlayer, isSoundcheckRound && styles.soundcheckPlayer)}
+                  className={clsx(
+                    styles.echoPlayer,
+                    isSoundcheckRound && styles.soundcheckPlayer,
+                    isSoundSequence && styles.soundcheckSequencePlayer,
+                  )}
                   data-testid={isSoundcheckRound ? "soundcheck-player" : "echo-player"}
                   data-voice-state={roundAudioState}
                   data-audio-state={roundAudioState}
                   data-play-count={roundAudioPlayCount}
+                  data-clip-count={currentQuestion.audio?.clips?.length ?? 1}
+                  data-active-clip={roundAudioClipIndex + 1}
                 >
                   <button
                     type="button"
                     data-testid={isSoundcheckRound ? "soundcheck-play" : "voice-line-play"}
-                    onClick={playRoundAudio}
+                    onClick={() => playRoundAudio(true)}
                     aria-label={
                       roundAudioPlayCount
-                        ? `Replay ${isSoundcheckRound ? "gameplay sound" : "hero voice line"}`
-                        : `Play ${isSoundcheckRound ? "gameplay sound" : "hero voice line"}`
+                        ? `Replay ${isSoundSequence ? "sound sequence" : isSoundcheckRound ? "gameplay sound" : "hero voice line"}`
+                        : `Play ${isSoundSequence ? "sound sequence" : isSoundcheckRound ? "gameplay sound" : "hero voice line"}`
                     }
                   >
                     {roundAudioState === "playing" ? (
@@ -2514,39 +2634,60 @@ export function QueueArcade() {
                       <Headphones />
                     )}
                   </button>
-                  <div className={styles.echoWave} aria-hidden="true">
-                    {Array.from({ length: 15 }, (_, index) => (
-                      <i key={index} />
-                    ))}
+                  <div className={styles.audioVisualization} aria-hidden="true">
+                    <div className={styles.echoWave}>
+                      {Array.from({ length: 15 }, (_, index) => (
+                        <i key={index} />
+                      ))}
+                    </div>
+                    {isSoundSequence && (
+                      <div className={styles.soundSequenceSteps}>
+                        <i data-active={roundAudioState === "playing" && roundAudioClipIndex === 0}>01</i>
+                        <ArrowRight />
+                        <i data-active={roundAudioState === "playing" && roundAudioClipIndex === 1}>02</i>
+                      </div>
+                    )}
                   </div>
                   <span>
                     {roundAudioState === "error"
                       ? "Audio unavailable"
                       : roundAudioState === "loading"
-                        ? isSoundcheckRound
-                          ? "Loading sound"
-                          : "Loading echo"
+                        ? isSoundSequence
+                          ? "Loading sequence"
+                          : isSoundcheckRound
+                            ? "Loading sound"
+                            : "Loading echo"
                         : roundAudioState === "playing"
-                          ? "Now playing"
+                          ? isSoundSequence
+                            ? `Sound ${roundAudioClipIndex + 1} of 2`
+                            : "Now playing"
                           : roundAudioPlayCount
-                            ? isSoundcheckRound
-                              ? "Replay sound"
-                              : "Replay echo"
-                            : isSoundcheckRound
-                              ? "Play sound"
-                              : "Play echo"}
+                            ? isSoundSequence
+                              ? "Replay sequence"
+                              : isSoundcheckRound
+                                ? "Replay sound"
+                                : "Replay echo"
+                            : isSoundSequence
+                              ? "Play sequence"
+                              : isSoundcheckRound
+                                ? "Play sound"
+                                : "Play echo"}
                   </span>
                 </div>
                 <div className={styles.questionCopy}>
                   <span>
                     {isSoundcheckRound
-                      ? `Soundcheck · ${currentQuestion.soundcheck?.family === "item" ? "Item activation" : "Ability sound"}`
+                      ? isSoundSequence
+                        ? "Soundcheck · Ordered pair"
+                        : `Soundcheck · ${currentQuestion.soundcheck?.family === "item" ? "Item activation" : "Ability sound"}`
                       : "Echo Hunt · Hero response"}
                   </span>
-                  <h2>{isSoundcheckRound ? "Match the sound." : "Whose voice crossed the river?"}</h2>
+                  <h2>{isSoundcheckRound ? currentQuestion.prompt : "Whose voice crossed the river?"}</h2>
                   <small>
                     {isSoundcheckRound
-                      ? "Replay freely. The source stays hidden until the reveal."
+                      ? isSoundSequence
+                        ? "Two sounds. Match the order."
+                        : "Replay freely. The source stays hidden until the reveal."
                       : "The line stays hidden until the reveal."}
                   </small>
                 </div>
@@ -2666,6 +2807,8 @@ export function QueueArcade() {
                   const isSelected = selectedIndex === index;
                   const isCorrect = currentQuestion.correctIndex === index;
                   const percentage = crowd.total ? Math.round((crowd.counts[index] / crowd.total) * 100) : 0;
+                  const answerImagePair = currentQuestion.answerImagePairs?.[index];
+                  const answerPairNames = answerImagePair ? answer.split(" → ") : [];
                   const resultStyle = {
                     "--result-width": `${percentage}%`,
                   } as CSSProperties;
@@ -2677,7 +2820,8 @@ export function QueueArcade() {
                       data-testid="arcade-answer"
                       className={clsx(
                         styles.answer,
-                        currentQuestion.answerImages && styles.visualAnswer,
+                        (currentQuestion.answerImages || answerImagePair) && styles.visualAnswer,
+                        answerImagePair && styles.sequenceAnswer,
                         phase === "answering" && isSelected && styles.answerLocked,
                         phase === "answering" && selectedIndex !== null && !isSelected && styles.answerMuted,
                         phase === "reveal" && isCorrect && styles.answerCorrect,
@@ -2686,11 +2830,26 @@ export function QueueArcade() {
                       onClick={() => chooseAnswer(index)}
                       disabled={phase !== "answering" || selectedIndex !== null}
                       aria-pressed={isSelected}
+                      aria-label={answerImagePair ? `${LETTERS[index]}. ${answer}` : undefined}
                       style={resultStyle}
                     >
                       {phase === "reveal" && <span className={styles.resultFill} />}
                       <span className={styles.answerKey}>{LETTERS[index]}</span>
-                      {currentQuestion.answerImages?.[index] && (
+                      {answerImagePair ? (
+                        <span className={styles.sequenceAnswerChoice} data-testid="sound-sequence-choice">
+                          <AnswerArtwork
+                            src={answerImagePair[0]}
+                            alt={answerPairNames[0] ?? "First sound"}
+                            kind={currentQuestion.answerImageKind ?? "ability"}
+                          />
+                          <ArrowRight className={styles.sequenceAnswerArrow} aria-hidden="true" />
+                          <AnswerArtwork
+                            src={answerImagePair[1]}
+                            alt={answerPairNames[1] ?? "Second sound"}
+                            kind={currentQuestion.answerImageKind ?? "ability"}
+                          />
+                        </span>
+                      ) : currentQuestion.answerImages?.[index] ? (
                         <AnswerArtwork
                           src={currentQuestion.answerImages[index]}
                           alt={answer}
@@ -2701,12 +2860,14 @@ export function QueueArcade() {
                               : "item")
                           }
                         />
+                      ) : null}
+                      {!answerImagePair && (
+                        <span className={styles.answerText}>
+                          {answer}
+                          {isSelected && phase === "answering" && <small>Your answer · locked</small>}
+                          {isSelected && phase === "reveal" && <small>Your answer</small>}
+                        </span>
                       )}
-                      <span className={styles.answerText}>
-                        {answer}
-                        {isSelected && phase === "answering" && <small>Your answer · locked</small>}
-                        {isSelected && phase === "reveal" && <small>Your answer</small>}
-                      </span>
                       {phase === "reveal" ? (
                         <span className={styles.answerResult}>
                           <strong>{percentage}%</strong>
@@ -2738,7 +2899,9 @@ export function QueueArcade() {
                             : currentGame === "echo-hunt"
                               ? "Play the echo, then choose · A–D or 1–4"
                               : currentGame === "soundcheck"
-                                ? "Replay the sound, then choose · A–D or 1–4"
+                                ? isSoundSequence
+                                  ? "Match the order · A–D or 1–4"
+                                  : "Replay the sound, then choose · A–D or 1–4"
                                 : currentGame === "quote-hunt"
                                   ? "Match the line to its hero · A–D or 1–4"
                                   : currentGame === "counterplay"

@@ -3045,6 +3045,12 @@
   text-transform: uppercase;
 }
 
+.audioVisualization {
+  display: grid;
+  min-width: 0;
+  align-items: center;
+}
+
 .echoWave {
   display: flex;
   height: 54px;
@@ -3115,6 +3121,45 @@
 
 .soundcheckPlayer .echoWave i {
   background: linear-gradient(to top, #347b84, #89e1e6);
+}
+
+.soundcheckSequencePlayer .echoWave {
+  height: 33px;
+}
+
+.soundSequenceSteps {
+  display: flex;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: #486f73;
+}
+
+.soundSequenceSteps > i {
+  display: grid;
+  width: 27px;
+  height: 18px;
+  place-items: center;
+  border: 1px solid rgba(105, 214, 224, 0.2);
+  color: #6e979b;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  font-style: normal;
+  transition:
+    border-color 140ms ease,
+    background 140ms ease,
+    color 140ms ease;
+}
+
+.soundSequenceSteps > i[data-active="true"] {
+  border-color: rgba(130, 228, 235, 0.7);
+  background: rgba(54, 177, 190, 0.2);
+  color: #a8f3f5;
+}
+
+.soundSequenceSteps > svg {
+  width: 12px;
 }
 
 .echoQuestion .questionCopy > span {
@@ -3225,6 +3270,26 @@
 .visualAnswer {
   min-height: 96px;
   grid-template-columns: auto auto minmax(0, 1fr) auto;
+}
+
+.sequenceAnswer {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.sequenceAnswerChoice {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.sequenceAnswerArrow {
+  width: 17px;
+  flex: 0 0 auto;
+  color: #659399;
 }
 
 .answerArtwork {
