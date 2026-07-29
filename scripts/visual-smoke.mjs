@@ -1090,7 +1090,8 @@ const validMapVariant = (variant) => {
   const common =
     requiredMapKinds.includes(variant.kind) &&
     variant.game === "map-sense" &&
-    variant.difficulty === 3 &&
+    variant.difficulty >= 2 &&
+    variant.difficulty <= 3 &&
     variant.answerCount === 0 &&
     (variant.prompt?.split(/\s+/).length ?? 99) <= 4 &&
     !variant.readGraceVisible &&
@@ -1102,11 +1103,14 @@ const validMapVariant = (variant) => {
     !variant.horizontalOverflow;
   if (!common) return false;
   if (variant.kind === "map-crop") {
+    const validTreatment =
+      variant.difficulty === 3
+        ? variant.cropTreatment === "mono" && variant.cropFilter?.includes("grayscale")
+        : variant.cropTreatment === "color" && !variant.cropFilter?.includes("grayscale");
     return (
       variant.cropVisible &&
       variant.cropLoaded &&
-      variant.cropTreatment === "mono" &&
-      variant.cropFilter?.includes("grayscale") &&
+      validTreatment &&
       !variant.mechanicVisible &&
       variant.choiceOptions === 0 &&
       variant.choiceAnswers === 0 &&

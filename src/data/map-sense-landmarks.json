@@ -2,10 +2,14 @@
   "snapshot": {
     "patch": "7.41d",
     "steamBuildId": "24383975",
-    "verifiedAt": "2026-07-27",
+    "verifiedAgainstSteamBuildId": "24442265",
+    "verifiedAt": "2026-07-29",
     "mapResource": "maps/dota.vpk:maps/dota/entities/default_ents.vents_c",
+    "mapResourceCrc": "02e59797",
     "overviewResource": "pak01_dir.vpk:resource/overviews/dota.txt",
+    "overviewResourceCrc": "490b9ecd",
     "overviewTexture": "pak01_dir.vpk:materials/overviews/dota_tga_d8178876.vtex_c",
+    "overviewTextureCrc": "d9e2fc78",
     "overview": {
       "posX": -9472,
       "posY": 9472,

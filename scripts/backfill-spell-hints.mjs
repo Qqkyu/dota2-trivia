@@ -19,7 +19,7 @@ for (const question of questions) {
     ? question.explanation.slice(explanationPrefix.length)
     : question.explanation.split(". ").slice(1).join(". ");
 
-  question.hint = buildSpellHint(description, ownerName, question.eyebrow);
+  question.hint = buildSpellHint(description, ownerName, question.eyebrow, { redactAbility: false });
   updated += 1;
 }
 

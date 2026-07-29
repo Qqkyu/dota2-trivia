@@ -19,9 +19,10 @@ The playable MVP includes:
 
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - one shared 15-second question pool per mode, without player-facing difficulty queues;
-- 1,084 prompts across 34 formats for Dota patch 7.41d, including 236 Map Sense challenges and 62 Counterplay matchups;
+- 1,083 prompts across 34 formats for Dota patch 7.41d, including 236 Map Sense challenges and 62 Counterplay matchups;
 - item, hero, and ability artwork for visual answer rounds;
 - 44 remotely verified Echo Hunt clips, 48 Soundcheck rounds built from 60 audited clips, and 43 Quote Hunt lines sourced through Dotabase;
+- live-client answer audits plus balanced A–D placement for every generated question family;
 - progressive Spell Link clues at two-thirds and one-third time remaining;
 - deterministic template- and difficulty-aware scheduling, so large numeric pools cannot drown out distinctive formats or create long runs of trivial questions;
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
@@ -97,10 +98,10 @@ Votes and question reports default to `.data/queue-arcade-votes.json`, which is 
 
 ## Refresh the Dota data
 
-Questions and minigame artwork mappings are generated from the current OpenDota constants instead of being hand-maintained:
+Names and artwork mappings are generated from OpenDota, while playable facts are checked against a current Dota client:
 
 ```bash
-DOTA_PATCH=7.41d DOTA_SNAPSHOT_DATE=2026-07-26 pnpm sync-data
+DOTA_PATCH=7.41d DOTA_SNAPSHOT_DATE=2026-07-29 pnpm sync-data
 pnpm sync-counterplay
 pnpm sync-soundcheck
 pnpm validate-data
@@ -114,11 +115,24 @@ The sync writes:
 - `src/data/counterplay-questions.json`
 - `src/data/soundcheck-questions.json`
 
-The sync uses OpenDota for current facts and artwork mappings, and Dotabase for hero-response metadata and playable
-audio paths. It checks every referenced image and audio clip, rejects questions whose assets are unavailable, filters
-hero-name leaks and laugh-heavy/noise responses, and blocks generated clues that leak their answer. `validate-assets`
-can rerun the remote checks against the committed deck. Set the patch and snapshot date deliberately after checking
-the current official gameplay patch; the content pack is explicitly patch-stamped in the UI.
+The sync uses OpenDota for localized metadata and artwork, and Dotabase for hero-response metadata and playable audio
+paths. Because third-party constants can lag behind a patch, every generated ownership, mana, cooldown, damage, hero
+stat, item-price, and recipe answer was independently compared with the installed 7.41d client build 6872. The
+differences are explicit in `scripts/client-constant-audit.mjs`; generation refuses unaudited patch numbers instead of
+silently trusting stale values. `scripts/audit-live-client.mjs` reruns 775 marked-answer checks against decompiled client
+constants:
+
+```bash
+DOTA_CLIENT_AUDIT_ROOT=/path/to/decompiled-client pnpm audit:client
+```
+
+The pipeline checks every referenced image and audio clip, rejects questions whose assets are unavailable, filters
+hero-name leaks and laugh-heavy/noise responses, blocks generated clues that leak their answer, caps timed prompts at
+12 words, rejects duplicate rounds and tied comparisons, and balances correct answers across A–D per format. Damage
+trivia is fail-closed through `scripts/damage-question-facts.mjs`, because Valve's generic `DAMAGE:` header can mean
+direct damage, DPS, a percentage, or one conditional part of a spell. `validate-assets` can rerun the remote checks
+against the committed deck. Set the patch and snapshot date deliberately after checking the current official gameplay
+patch; the content pack is explicitly patch-stamped in the UI.
 
 Map Sense's direct calls live in `src/data/map-sense-locations.json`; its riddle, mirror, relative-position, and scenario
 packs live in `src/data/map-sense-challenges.json`; terrain crops live in `src/data/map-sense-crops.json`; and audited
@@ -128,7 +142,7 @@ storage format. `validate-data` also checks family balance, difficulty coverage,
 clearance, non-ambiguous TP choices, coordinate bounds, reference-pin separation, and local artwork.
 
 Counterplay's curated matchups live in `scripts/generate-counterplay.mjs`; its reviewed 7.41d truth set lives separately
-in `scripts/counterplay-audit.mjs`. BKB and dispel fields were cross-checked against the installed 7.41d client build 6869,
+in `scripts/counterplay-audit.mjs`. BKB and dispel fields were cross-checked against the installed 7.41d client build 6872,
 while special Linken's and Lotus interactions were checked against the current mechanics references linked by each
 question. Generation is fail-closed: every displayed ability must have an explicit audited result, every API-derived
 result must agree with it, and every Lotus question must match a named scenario fixture. Linken's rounds also reject any
@@ -150,15 +164,15 @@ elimination, non-active item sets, unaudited sequence clips, and ordered pairs t
 pnpm check
 ```
 
-That validates the question deck, template rotation, and visual/audio metadata, runs ESLint, runs strict TypeScript checking, and creates an optimized production build.
+That validates the question deck, template rotation, answer balance, scan length, and visual/audio metadata, runs ESLint, runs strict TypeScript checking, and creates an optimized production build.
 
 With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk persistence, hashed voter IDs, reveal-only report submission, report deduplication, aggregate-only calibration data, server-scored Map Sense answers, and that obsolete saved level values cannot split public rooms.
 
-For visual smoke testing, start muted Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the level-free arcade lobby, Shopkeeper Rush, the no-shift question-report popover, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt audio readiness, Soundcheck's three growing cuts, ordered playback, compact icon pairs, persistent volume, mute-safe autoplay and manual replay, Quote Hunt rendering, Counterplay prompts and reveals, all four demanding Map Sense interactions inside the shared pool, synchronized automatic round advancement, the session report, desktop/mobile calibration layouts, mobile overflow, and saves screenshots under `/tmp`.
+For visual smoke testing, start muted Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the level-free arcade lobby, Shopkeeper Rush, the no-shift question-report popover, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt audio readiness, Soundcheck's three growing cuts, ordered playback, compact icon pairs, persistent volume, mute-safe autoplay and manual replay, Quote Hunt rendering, Counterplay prompts and reveals, all four interactive Map Sense families at their scheduled hidden tier, synchronized automatic round advancement, the session report, desktop/mobile calibration layouts, mobile overflow, and saves screenshots under `/tmp`.
 
 ## Crowd architecture
 
-Each game catalog, content version, mode, and optional trivia filter is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-2-map-sense-7-counterplay-4-soundcheck-3:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog, content version, mode, and optional trivia filter is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-3-map-sense-7-counterplay-4-soundcheck-3:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` opens with the reveal and keeps the just-finished question reportable for a 20-second rollover grace period. It stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 
@@ -177,4 +191,4 @@ The default persistent store is an atomic JSON file suited to local development 
 
 ## Attribution
 
-Question constants, names, and artwork mappings are generated from [OpenDota](https://docs.opendota.com/), while Counterplay outcomes are independently audited against the installed client and the current mechanics sources attached to each question. Hero-response metadata and browser-ready Soundcheck WAVs are sourced through [Dotabase](https://github.com/mdiller/dotabase); Soundcheck event mappings are independently checked against the installed client. Game assets are served from public Dota asset hosts. The versioned Map Sense terrain artwork comes from [OpenDota's public map archive](https://github.com/odota/web/tree/master/public/assets/images/dota2/map), with objective changes checked against [Valve's 7.41 notes](https://www.dota2.com/patches/7.41). Camp hulls and tower positions were audited from the installed 7.41d map entity resource; stack windows and arrows come from Valve's matching `scripts/creep_pull_timings.txt`. Dota 2 and its assets are trademarks of Valve Corporation. This fan project is not affiliated with or endorsed by Valve.
+Question names and artwork mappings are generated from [OpenDota](https://docs.opendota.com/); marked answers and numeric constants are independently audited against the installed client. Counterplay outcomes are checked against that client and the current mechanics sources attached to each question. Hero-response metadata and browser-ready Soundcheck WAVs are sourced through [Dotabase](https://github.com/mdiller/dotabase); Soundcheck event mappings are independently checked against the installed client. Game assets are served from public Dota asset hosts. The versioned Map Sense terrain artwork comes from [OpenDota's public map archive](https://github.com/odota/web/tree/master/public/assets/images/dota2/map), with objective changes checked against [Valve's 7.41 notes](https://www.dota2.com/patches/7.41). Camp hulls and tower positions were audited from the installed 7.41d map entity resource; stack windows and arrows come from Valve's matching `scripts/creep_pull_timings.txt`. Dota 2 and its assets are trademarks of Valve Corporation. This fan project is not affiliated with or endorsed by Valve.

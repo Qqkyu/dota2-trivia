@@ -3,7 +3,15 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  applyAbilityConstantAudit,
+  applyHeroConstantAudit,
+  applyItemConstantAudit,
+  CLIENT_CONSTANT_AUDIT,
+} from "./client-constant-audit.mjs";
+import { DAMAGE_QUESTION_FACTS, damageQuestionExplanation, damageQuestionPrompt } from "./damage-question-facts.mjs";
 import { auditAudioAssets, auditImageAssets, questionAudioUrls, questionImageUrls } from "./image-assets.mjs";
+import { NON_TRIVIA_COOLDOWN_KEYS, NON_TRIVIA_DETECTIVE_KEYS } from "./question-quality-audit.mjs";
 import { spellDifficulty, spellDistractors } from "./spell-difficulty.mjs";
 import { buildSpellHint, containsAnswerLeak } from "./spell-hints.mjs";
 
@@ -13,7 +21,7 @@ const META_OUTPUT = join(ROOT, "src", "data", "trivia-meta.generated.json");
 
 const PATCH = process.env.DOTA_PATCH ?? "7.41d";
 const SNAPSHOT_DATE = process.env.DOTA_SNAPSHOT_DATE ?? new Date().toISOString().slice(0, 10);
-const CONTENT_VERSION = `${PATCH}-variety-2`;
+const CONTENT_VERSION = `${PATCH}-variety-3`;
 const CDN = "https://cdn.cloudflare.steamstatic.com";
 const DOTABASE_RAW = "https://raw.githubusercontent.com/mdiller/dotabase/master";
 const DOTABASE_ASSETS = "https://dotabase.dillerm.io/vpk";
@@ -28,6 +36,12 @@ const endpoints = {
 
 const cacheArg = process.argv.find((argument) => argument.startsWith("--cache-dir="));
 const cacheDirectory = cacheArg ? resolve(cacheArg.split("=")[1]) : undefined;
+
+if (PATCH !== CLIENT_CONSTANT_AUDIT.patch) {
+  throw new Error(
+    `Dota ${PATCH} has not been audited against a live client. Update client-constant-audit.mjs before generating it.`,
+  );
+}
 
 function hash(input) {
   let value = 2166136261;
@@ -61,12 +75,14 @@ function numericValue(value) {
   return parsed.every(Number.isFinite) ? parsed : undefined;
 }
 
-function numericOptions(correct, kind, salt) {
-  let step = 5;
-  if (kind === "mana") step = correct < 80 ? 10 : correct < 220 ? 20 : 50;
-  if (kind === "cooldown") step = correct <= 8 ? 1 : correct <= 20 ? 2 : correct <= 60 ? 5 : 10;
-  if (kind === "damage") step = correct < 100 ? 20 : correct < 300 ? 50 : 100;
-  if (kind === "speed") step = 5;
+function numericOptions(correct, kind, salt, configuredStep) {
+  let step = configuredStep ?? 5;
+  if (configuredStep === undefined) {
+    if (kind === "mana") step = correct < 80 ? 10 : correct < 220 ? 20 : 50;
+    if (kind === "cooldown") step = correct <= 8 ? 1 : correct <= 20 ? 2 : correct <= 60 ? 5 : 10;
+    if (kind === "damage") step = correct < 100 ? 20 : correct < 300 ? 50 : 100;
+    if (kind === "speed") step = 5;
+  }
 
   const candidates = [
     correct,
@@ -125,6 +141,43 @@ function makeQuestion({
   }
 
   return question;
+}
+
+function balanceCorrectAnswerSlots(deck) {
+  const byKind = new Map();
+  for (const question of deck) {
+    if (!byKind.has(question.kind)) byKind.set(question.kind, []);
+    byKind.get(question.kind).push(question);
+  }
+
+  for (const [kind, kindQuestions] of byKind) {
+    const slotOrder = [...kindQuestions].sort(
+      (left, right) =>
+        hash(`answer-slot:${kind}:${left.id}`) - hash(`answer-slot:${kind}:${right.id}`) ||
+        left.id.localeCompare(right.id),
+    );
+
+    for (const [index, question] of slotOrder.entries()) {
+      const targetSlot = index % 4;
+      if (question.correctIndex === targetSlot) continue;
+
+      const answers = [...question.answers];
+      const [correctAnswer] = answers.splice(question.correctIndex, 1);
+      answers.splice(targetSlot, 0, correctAnswer);
+      question.answers = answers;
+
+      if (question.answerImages) {
+        const answerImages = [...question.answerImages];
+        const [correctArtwork] = answerImages.splice(question.correctIndex, 1);
+        answerImages.splice(targetSlot, 0, correctArtwork);
+        question.answerImages = answerImages;
+      }
+
+      question.correctIndex = targetSlot;
+    }
+  }
+
+  return deck;
 }
 
 function asset(path) {
@@ -270,20 +323,22 @@ const [heroesById, itemsByKey, abilitiesByKey, heroAbilitiesByKey, dotabaseHeroe
 const dotabaseHeroById = new Map(dotabaseHeroes.map((hero) => [hero.id, hero]));
 const heroes = Object.values(heroesById)
   .filter((hero) => hero.localized_name && hero.name && hero.img)
-  .map((hero) => ({
-    ...hero,
-    key: hero.name,
-    image: asset(hero.img),
-    responseNames: [
-      ...new Set(
-        [
-          dotabaseHeroById.get(hero.id)?.media_name,
-          dotabaseHeroById.get(hero.id)?.name,
-          responseSlug(hero.localized_name),
-        ].filter(Boolean),
-      ),
-    ],
-  }));
+  .map((hero) =>
+    applyHeroConstantAudit({
+      ...hero,
+      key: hero.name,
+      image: asset(hero.img),
+      responseNames: [
+        ...new Set(
+          [
+            dotabaseHeroById.get(hero.id)?.media_name,
+            dotabaseHeroById.get(hero.id)?.name,
+            responseSlug(hero.localized_name),
+          ].filter(Boolean),
+        ),
+      ],
+    }),
+  );
 
 const heroByKey = new Map(heroes.map((hero) => [hero.key, hero]));
 const ownersByAbility = new Map();
@@ -310,16 +365,22 @@ const abilities = [...ownersByAbility.entries()]
       !key.startsWith("special_bonus")
     );
   })
-  .map(([key, owners]) => ({
-    ...abilitiesByKey[key],
-    key,
-    owner: owners[0],
-    image: asset(abilitiesByKey[key].img),
-  }));
+  .map(([key, owners]) =>
+    applyAbilityConstantAudit({
+      ...abilitiesByKey[key],
+      key,
+      owner: owners[0],
+      image: asset(abilitiesByKey[key].img),
+    }),
+  );
 
 const questionSource = {
   label: `OpenDota constants · ${SNAPSHOT_DATE}`,
   url: "https://docs.opendota.com/",
+};
+const clientQuestionSource = {
+  label: `Dota 2 live-client audit · build ${CLIENT_CONSTANT_AUDIT.clientBuild}`,
+  url: `https://www.dota2.com/patches/${CLIENT_CONSTANT_AUDIT.patch}`,
 };
 const voiceSource = {
   label: `Dotabase hero responses · ${SNAPSHOT_DATE}`,
@@ -348,8 +409,10 @@ for (const ability of stableSample(abilities, 72, "ability-owner")) {
       answerImagesByValue: Object.fromEntries(answerHeroes.map((hero) => [hero.localized_name, hero.image])),
       answerImageKind: "hero",
       explanation: `${ability.dname} belongs to ${ability.owner.localized_name}.${ability.desc ? ` ${ability.desc}` : ""}`,
-      hint: buildSpellHint(ability.desc, ability.owner.localized_name, ability.dname),
-      source: questionSource,
+      hint: buildSpellHint(ability.desc, ability.owner.localized_name, ability.dname, {
+        redactAbility: false,
+      }),
+      source: clientQuestionSource,
     }),
   );
 }
@@ -368,13 +431,14 @@ const detectiveCandidates = abilities
   })
   .filter(
     (ability) =>
+      !NON_TRIVIA_DETECTIVE_KEYS.includes(ability.key) &&
       ability.siblings.length >= 3 &&
       ability.detail.length >= 18 &&
       !ability.detail.startsWith("No additional mechanical clue") &&
       !containsAnswerLeak(ability.detail, ability.dname),
   );
 
-for (const ability of stableSample(detectiveCandidates, 48, "ability-detective")) {
+for (const ability of stableSample(detectiveCandidates, 49, "ability-detective")) {
   const siblingAnswers = stableSample(ability.siblings, 3, `ability-detective:${ability.key}`);
   const answerAbilities = [ability, ...siblingAnswers];
 
@@ -397,7 +461,7 @@ for (const ability of stableSample(detectiveCandidates, 48, "ability-detective")
       answerImagesByValue: answerArtworkByName(answerAbilities),
       answerImageKind: "ability",
       explanation: `${ability.dname}: ${ability.desc}`,
-      source: questionSource,
+      source: clientQuestionSource,
     }),
   );
 }
@@ -426,14 +490,18 @@ for (const ability of stableSample(manaAbilities, 60, "mana")) {
       answers: answerValues,
       correctAnswer: formatNumber(correct),
       explanation: `${ability.dname}'s mana cost is ${values.map(formatNumber).join(" / ")}${values.length > 1 ? " across its levels" : ""}, before modifiers.`,
-      source: questionSource,
+      source: clientQuestionSource,
     }),
   );
 }
 
 const cooldownAbilities = abilities.filter((ability) => {
   const values = numericValue(ability.cd);
-  return values?.length && values.every((value) => value > 0 && value <= 300);
+  return (
+    !NON_TRIVIA_COOLDOWN_KEYS.includes(ability.key) &&
+    values?.length &&
+    values.every((value) => value > 0 && value <= 300)
+  );
 });
 
 for (const ability of stableSample(cooldownAbilities, 52, "cooldown")) {
@@ -455,27 +523,29 @@ for (const ability of stableSample(cooldownAbilities, 52, "cooldown")) {
       answers: answerValues.map((answer) => `${answer}s`),
       correctAnswer: `${formatNumber(correct)}s`,
       explanation: `${ability.dname}'s cooldown is ${values.map((value) => `${formatNumber(value)}s`).join(" / ")}${values.length > 1 ? " across its levels" : ""}, before reductions.`,
-      source: questionSource,
+      source: clientQuestionSource,
     }),
   );
 }
 
-const damageAbilities = abilities
-  .map((ability) => {
-    const damageAttribute = ability.attrib?.find((attribute) => attribute.header === "DAMAGE:");
-    return { ability, values: numericValue(damageAttribute?.value) };
-  })
-  .filter(({ values }) => values?.length && values.every((value) => value > 0 && value <= 2000));
+const abilitiesByKeyWithOwner = new Map(abilities.map((ability) => [ability.key, ability]));
 
-for (const { ability, values } of stableSample(
-  damageAbilities.map((entry) => ({ ...entry, key: entry.ability.key })),
-  48,
-  "damage",
-)) {
+for (const [abilityKey, fact] of Object.entries(DAMAGE_QUESTION_FACTS)) {
+  const ability = abilitiesByKeyWithOwner.get(abilityKey);
+  if (!ability) throw new Error(`Audited damage ability ${abilityKey} is missing from the current hero data.`);
+
+  const damageAttribute = ability.attrib?.find(
+    (attribute) => attribute.key === fact.attributeKey && attribute.header === "DAMAGE:",
+  );
+  const values = numericValue(damageAttribute?.value);
+  if (!values?.length || values.some((value) => value <= 0 || value > 2000)) {
+    throw new Error(`Audited damage values for ${abilityKey} are missing or invalid.`);
+  }
+
   const levelIndex = values.length - 1;
   const correct = values[levelIndex];
-  const answerValues = numericOptions(correct, "damage", `damage:${ability.key}`);
-  const levelLabel = values.length > 1 ? " at max level" : "";
+  const answerValues = numericOptions(correct, "damage", `damage:${ability.key}`, fact.optionStep);
+  const suffix = fact.suffix ?? "";
 
   questions.push(
     makeQuestion({
@@ -484,12 +554,12 @@ for (const { ability, values } of stableSample(
       category: "Damage",
       difficulty: 3,
       eyebrow: `${ability.owner.localized_name} · ${ability.dname}`,
-      prompt: `How much damage does ${ability.dname} deal${levelLabel}?`,
+      prompt: damageQuestionPrompt(ability.dname, fact, values.length > 1),
       image: { src: ability.image, alt: `${ability.dname} ability icon`, kind: "ability" },
-      answers: answerValues,
-      correctAnswer: formatNumber(correct),
-      explanation: `${ability.dname} deals ${values.map(formatNumber).join(" / ")}${values.length > 1 ? " damage across its levels" : " damage"}, before talents and upgrades.`,
-      source: questionSource,
+      answers: answerValues.map((answer) => `${answer}${suffix}`),
+      correctAnswer: `${formatNumber(correct)}${suffix}`,
+      explanation: damageQuestionExplanation(ability.dname, fact, values),
+      source: clientQuestionSource,
     }),
   );
 }
@@ -517,7 +587,7 @@ for (const hero of stableSample(heroes, 44, "primary-attribute")) {
       answers: Object.values(attributeNames),
       correctAnswer: correct,
       explanation: `${hero.localized_name} is a ${correct} hero in patch ${PATCH}.`,
-      source: questionSource,
+      source: clientQuestionSource,
     }),
   );
 }
@@ -542,7 +612,7 @@ for (const hero of stableSample(
       answers: answerValues,
       correctAnswer: formatNumber(correct),
       explanation: `${hero.localized_name} has ${formatNumber(correct)} base movement speed, before boots and other modifiers.`,
-      source: questionSource,
+      source: clientQuestionSource,
     }),
   );
 }
@@ -603,7 +673,7 @@ for (const stat of heroStatDefinitions) {
         answerImagesByValue: answerArtworkByName(answerHeroes),
         answerImageKind: "hero",
         explanation: `${hero.localized_name} leads these choices. ${values}.`,
-        source: questionSource,
+        source: clientQuestionSource,
       }),
     );
   }
@@ -643,7 +713,7 @@ for (const hero of stableSample(heroes, 32, "hero-intruder")) {
       answerImagesByValue: answerArtworkByName(answerHeroes),
       answerImageKind: "hero",
       explanation: `${hero.localized_name} is ${heroAttribute}; the other three heroes are ${sharedAttribute}.`,
-      source: questionSource,
+      source: clientQuestionSource,
     }),
   );
 }
@@ -842,7 +912,7 @@ const popularItemKeys = [
 ];
 
 const items = popularItemKeys
-  .map((key) => ({ ...itemsByKey[key], key, image: asset(itemsByKey[key]?.img) }))
+  .map((key) => applyItemConstantAudit({ ...itemsByKey[key], key, image: asset(itemsByKey[key]?.img) }))
   .filter((item) => item.dname && item.image && Number.isFinite(item.cost) && item.cost > 0);
 
 for (const item of items) {
@@ -872,7 +942,7 @@ for (const item of items) {
       answers: [item.cost, ...distractorCosts].map((value) => `${value.toLocaleString("en-US")} gold`),
       correctAnswer: correct,
       explanation: `${item.dname} costs ${item.cost.toLocaleString("en-US")} gold in patch ${PATCH}.`,
-      source: questionSource,
+      source: clientQuestionSource,
     }),
   );
 }
@@ -911,7 +981,7 @@ for (const item of stableSample(
       answerImagesByValue: Object.fromEntries(answerItems.map((answerItem) => [answerItem.dname, answerItem.image])),
       answerImageKind: "item",
       explanation: `${item.dname} is built with ${formatRecipeComponents(item.components, itemsByKey)}.`,
-      source: questionSource,
+      source: clientQuestionSource,
     }),
   );
 }
@@ -950,7 +1020,7 @@ for (const item of stableSample(recipeItems, 36, "recipe-upgrade")) {
       answerImagesByValue: Object.fromEntries(answerItems.map((candidate) => [candidate.dname, candidate.image])),
       answerImageKind: "item",
       explanation: `${component.dname} is one of the components used to build ${item.dname}.`,
-      source: questionSource,
+      source: clientQuestionSource,
     }),
   );
 }
@@ -977,7 +1047,7 @@ for (const item of stableSample(priceDuelAnchors, 28, "item-price-duel")) {
       answerImagesByValue: Object.fromEntries(answerItems.map((candidate) => [candidate.dname, candidate.image])),
       answerImageKind: "item",
       explanation: `${item.dname} is the most expensive of these choices. ${values}.`,
-      source: questionSource,
+      source: clientQuestionSource,
     }),
   );
 }
@@ -989,9 +1059,9 @@ const rejectedQuestions = questions.filter(
     questionImageUrls(question).some((url) => !imageAudit.availability.get(url)) ||
     questionAudioUrls(question).some((url) => !audioAudit.availability.get(url)),
 );
-const sortedQuestions = questions
-  .filter((question) => !rejectedQuestions.includes(question))
-  .sort((left, right) => left.id.localeCompare(right.id));
+const sortedQuestions = balanceCorrectAnswerSlots(
+  questions.filter((question) => !rejectedQuestions.includes(question)),
+).sort((left, right) => left.id.localeCompare(right.id));
 const verifiedAssetCount = new Set(sortedQuestions.flatMap(questionImageUrls)).size;
 const verifiedAudioCount = new Set(sortedQuestions.flatMap(questionAudioUrls)).size;
 const categoryCounts = Object.fromEntries(
@@ -1020,6 +1090,7 @@ await writeFile(
       categoryCounts,
       kindCounts,
       sources: endpoints,
+      clientConstantAudit: CLIENT_CONSTANT_AUDIT,
       assetValidation: {
         checkedAt: SNAPSHOT_DATE,
         verifiedAssetCount,

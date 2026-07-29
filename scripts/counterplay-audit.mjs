@@ -3,16 +3,16 @@
 // newly added option, stale API field, or targeting-mode assumption from
 // silently becoming a "fact" in the game.
 //
-// Constant-backed facts were cross-checked on 2026-07-28 against the installed
-// Dota 2 7.41d client (build 6869, VersionDate Jul 24 2026) and the current
+// Constant-backed facts were cross-checked on 2026-07-29 against the installed
+// Dota 2 7.41d client (build 6872, VersionDate Jul 28 2026) and the current
 // Liquipedia mechanics pages. The interaction scenarios below were reviewed
 // against the same mechanics pages.
 
 export const COUNTERPLAY_AUDIT = Object.freeze({
   patch: "7.41d",
-  reviewedAt: "2026-07-28",
-  clientBuild: "6869",
-  clientVersionDate: "2026-07-24",
+  reviewedAt: "2026-07-29",
+  clientBuild: "6872",
+  clientVersionDate: "2026-07-28",
 });
 
 export const COUNTERPLAY_SOURCES = Object.freeze({

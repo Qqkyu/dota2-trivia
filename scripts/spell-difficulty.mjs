@@ -3,6 +3,7 @@ const ICONIC_OVERRIDES = new Set([
   "dark_seer_wall_of_replica",
   "ember_spirit_fire_remnant",
   "invoker_alacrity",
+  "magnataur_skewer",
   "phantom_assassin_coup_de_grace",
   "silencer_global_silence",
   "skeleton_king_reincarnation",
@@ -42,7 +43,7 @@ export function spellDifficulty(abilityKey, ownerAbilityKeys) {
 
   const slot = ownerAbilityKeys.indexOf(abilityKey);
   if (slot < 0) return 2;
-  if (slot <= 2) return 1;
+  if (slot === 0) return 1;
   if (slot <= 4) return 2;
   return 3;
 }

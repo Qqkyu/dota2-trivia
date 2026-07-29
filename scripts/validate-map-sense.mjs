@@ -257,6 +257,11 @@ const samePosition = (left, right, epsilon = 0.0000011) =>
 
 if (
   landmarkSnapshot.snapshot?.steamBuildId !== "24383975" ||
+  landmarkSnapshot.snapshot?.verifiedAgainstSteamBuildId !== "24442265" ||
+  landmarkSnapshot.snapshot?.verifiedAt !== "2026-07-29" ||
+  landmarkSnapshot.snapshot?.mapResourceCrc !== "02e59797" ||
+  landmarkSnapshot.snapshot?.overviewResourceCrc !== "490b9ecd" ||
+  landmarkSnapshot.snapshot?.overviewTextureCrc !== "d9e2fc78" ||
   !overview ||
   !Number.isFinite(worldSpan) ||
   worldSpan <= 0
@@ -290,6 +295,9 @@ if (
 if (
   mechanics.snapshot?.patch !== landmarkSnapshot.snapshot?.patch ||
   mechanics.snapshot?.steamBuildId !== landmarkSnapshot.snapshot?.steamBuildId ||
+  mechanics.snapshot?.verifiedAgainstSteamBuildId !== landmarkSnapshot.snapshot?.verifiedAgainstSteamBuildId ||
+  mechanics.snapshot?.verifiedAt !== landmarkSnapshot.snapshot?.verifiedAt ||
+  mechanics.snapshot?.entityResourceCrc !== landmarkSnapshot.snapshot?.mapResourceCrc ||
   mechanics.snapshot?.timingResource !== "pak01_dir.vpk:scripts/creep_pull_timings.txt" ||
   mechanics.snapshot?.timingCrc !== "00e3848198"
 ) {

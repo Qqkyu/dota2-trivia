@@ -2,8 +2,10 @@
   "snapshot": {
     "patch": "7.41d",
     "steamBuildId": "24383975",
-    "verifiedAt": "2026-07-27",
+    "verifiedAgainstSteamBuildId": "24442265",
+    "verifiedAt": "2026-07-29",
     "entityResource": "maps/dota.vpk:maps/dota/entities/default_ents.vents_c",
+    "entityResourceCrc": "02e59797",
     "timingResource": "pak01_dir.vpk:scripts/creep_pull_timings.txt",
     "timingCrc": "00e3848198"
   },
