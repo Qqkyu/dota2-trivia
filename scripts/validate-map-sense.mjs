@@ -3,6 +3,7 @@
 import { readFile, stat } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { isDirectTowerLocation, isPlayableMapLocation } from "../src/lib/map-sense-quality.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const locations = JSON.parse(await readFile(join(root, "src", "data", "map-sense-locations.json"), "utf8"));
@@ -23,6 +24,13 @@ const toleranceRanges = {
 
 if (!Array.isArray(locations) || locations.length < 36) {
   failures.push("Map Sense needs at least 36 locations.");
+}
+const playableLocations = locations.filter(isPlayableMapLocation);
+if (playableLocations.length < 24) {
+  failures.push(`Map Sense needs at least 24 knowledge-bearing locations (found ${playableLocations.length}).`);
+}
+if (playableLocations.some(isDirectTowerLocation)) {
+  failures.push("Direct tower-location pings must stay out of the playable Map Sense pool.");
 }
 
 if (!Array.isArray(challenges) || challenges.length < 48) {
@@ -69,30 +77,6 @@ const cropDefinitions = [
     zoom: 8.4,
   })),
 ];
-const teleportCandidates = ["radiant", "dire"].flatMap((side) => {
-  const anchors = Object.entries(landmarks)
-    .filter(([id]) => id.startsWith(`${side}-`) && id.includes("-tier-"))
-    .map(([id, landmark]) => ({ id, position: landmark.position }));
-  return (crops.brutal ?? [])
-    .map((target) => {
-      const ranked = anchors
-        .map((anchor) => ({
-          ...anchor,
-          distance: Math.hypot(anchor.position.x - target.x, anchor.position.y - target.y),
-        }))
-        .sort((left, right) => left.distance - right.distance);
-      return { side, target, ranked, gap: ranked[1].distance - ranked[0].distance };
-    })
-    .filter(
-      (candidate) =>
-        candidate.ranked[0].distance > 0.05 &&
-        candidate.ranked[0].distance < 0.38 &&
-        candidate.gap > 0.025 &&
-        candidate.gap < 0.12,
-    )
-    .sort((left, right) => Math.abs(left.gap - 0.07) - Math.abs(right.gap - 0.07))
-    .slice(0, 12);
-});
 const mechanicDefinitions = [
   ...(mechanics.camps ?? []).map((camp) => ({
     id: camp.id,
@@ -116,20 +100,9 @@ const mechanicDefinitions = [
     prompt: "Which stack path?",
     explanation: "The in-game camp guide marks one route.",
   })),
-  ...teleportCandidates.map(({ side, target, ranked }) => ({
-    id: `${side}:${target.id}`,
-    family: "tp-in",
-    targetLabel: ranked[0].id,
-    difficulty: 3,
-    target: ranked[0].position,
-    tolerance: 0.024,
-    eyebrow: "Map Sense · TP in",
-    prompt: "Nearest TP?",
-    explanation: "One live tower is nearest the fight.",
-  })),
 ];
 const allDefinitions = [
-  ...locations.map((location) => ({ ...location, family: "location" })),
+  ...playableLocations.map((location) => ({ ...location, family: "location" })),
   ...challenges,
   ...cropDefinitions,
   ...mechanicDefinitions,
@@ -439,20 +412,6 @@ for (const [index, camp] of (mechanics.camps ?? []).entries()) {
   }
 }
 
-if (teleportCandidates.length !== 24) {
-  failures.push(`TP In needs 24 unambiguous entity-backed scenarios (found ${teleportCandidates.length}).`);
-}
-for (const candidate of teleportCandidates) {
-  if (
-    candidate.ranked.length !== 9 ||
-    candidate.ranked.slice(0, 4).some((anchor) => !validPosition(anchor.position)) ||
-    candidate.gap <= 0.025 ||
-    candidate.gap >= 0.12
-  ) {
-    failures.push(`${candidate.side}:${candidate.target.id}: ambiguous or invalid TP In scenario.`);
-  }
-}
-
 const creativePromptWordCounts = challenges.map(
   (challenge) =>
     challenge.prompt
@@ -475,7 +434,6 @@ const veteranFamilyCounts = {
   crop: cropDefinitions.filter((location) => location.difficulty === 3).length,
   block: mechanics.camps?.length ?? 0,
   stack: mechanics.camps?.length ?? 0,
-  tp: teleportCandidates.length,
 };
 if (learningCount < 24 || veteranCount < 96 || Object.values(veteranFamilyCounts).some((count) => count < 24)) {
   failures.push(
@@ -498,6 +456,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${allDefinitions.length} Map Sense questions across nine families, ${mechanics.camps.length} current neutral camps, and ${Object.keys(landmarks).length} entity-backed pins (${difficultyCounts[1]} approachable, ${difficultyCounts[2]} tricky, ${difficultyCounts[3]} brutal; hard mechanics ${JSON.stringify(veteranFamilyCounts)}).`,
+    `Validated ${allDefinitions.length} Map Sense questions across eight playable families, ${mechanics.camps.length} current neutral camps, and ${Object.keys(landmarks).length} audited landmarks (${difficultyCounts[1]} approachable, ${difficultyCounts[2]} tricky, ${difficultyCounts[3]} brutal; hard mechanics ${JSON.stringify(veteranFamilyCounts)}).`,
   );
 }

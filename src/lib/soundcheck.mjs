@@ -3,9 +3,9 @@ export const ECHO_HUNT_REVEAL_STAGES = 3;
 export const SOUNDCHECK_SEQUENCE_GAP_SECONDS = 0.12;
 
 const SOUNDCHECK_CUT_PROFILES = [
-  { ratio: 0.12, minimum: 0.1, minimumCeilingRatio: 0.2, maximum: 0.32 },
-  { ratio: 0.28, minimum: 0.2, minimumCeilingRatio: 0.36, maximum: 0.8 },
-  { ratio: 0.48, minimum: 0.34, minimumCeilingRatio: 0.58, maximum: 2.2 },
+  { ratio: 0.065, minimum: 0.07, minimumCeilingRatio: 0.13, maximum: 0.16 },
+  { ratio: 0.15, minimum: 0.14, minimumCeilingRatio: 0.24, maximum: 0.36 },
+  { ratio: 0.28, minimum: 0.24, minimumCeilingRatio: 0.4, maximum: 0.8 },
 ];
 
 const ECHO_HUNT_CUT_PROFILES = [

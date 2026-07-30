@@ -18,6 +18,11 @@ import {
 } from "./question-quality-audit.mjs";
 import { spellDifficulty, spellDistractors } from "./spell-difficulty.mjs";
 import { buildSpellHint, containsAnswerLeak } from "./spell-hints.mjs";
+import {
+  areShopkeeperPricesBalanced,
+  eligibleShopkeeperComponents,
+  selectShopkeeperDistractors,
+} from "../src/lib/shopkeeper-quality.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const OUTPUT = join(ROOT, "src", "data", "questions.generated.json");
@@ -25,7 +30,7 @@ const META_OUTPUT = join(ROOT, "src", "data", "trivia-meta.generated.json");
 
 const PATCH = process.env.DOTA_PATCH ?? "7.41d";
 const SNAPSHOT_DATE = process.env.DOTA_SNAPSHOT_DATE ?? new Date().toISOString().slice(0, 10);
-const CONTENT_VERSION = `${PATCH}-variety-5`;
+const CONTENT_VERSION = `${PATCH}-variety-6`;
 const CDN = "https://cdn.cloudflare.steamstatic.com";
 const DOTABASE_RAW = "https://raw.githubusercontent.com/mdiller/dotabase/master";
 const DOTABASE_ASSETS = "https://dotabase.dillerm.io/vpk";
@@ -117,6 +122,7 @@ function makeQuestion({
   detail,
   hint,
   audio,
+  shopkeeper,
   source,
 }) {
   const orderedAnswers = shuffle(answers, id);
@@ -138,6 +144,7 @@ function makeQuestion({
   if (detail) question.detail = detail;
   if (hint) question.hint = hint;
   if (audio) question.audio = audio;
+  if (shopkeeper) question.shopkeeper = shopkeeper;
 
   if (answerImagesByValue && orderedAnswers.every((answer) => answerImagesByValue[answer])) {
     question.answerImages = orderedAnswers.map((answer) => answerImagesByValue[answer]);
@@ -176,6 +183,14 @@ function balanceCorrectAnswerSlots(deck) {
         answerImages.splice(targetSlot, 0, correctArtwork);
         question.answerImages = answerImages;
       }
+      if (question.shopkeeper) {
+        for (const field of ["answerItemKeys", "answerCosts"]) {
+          const values = [...question.shopkeeper[field]];
+          const [correctValue] = values.splice(question.correctIndex, 1);
+          values.splice(targetSlot, 0, correctValue);
+          question.shopkeeper[field] = values;
+        }
+      }
 
       question.correctIndex = targetSlot;
     }
@@ -192,7 +207,8 @@ function formatRecipeComponents(componentKeys, itemData) {
   const counts = new Map();
 
   for (const key of componentKeys) {
-    const name = itemData[key]?.dname ?? key;
+    const name = itemData[key]?.dname;
+    if (!name || key.startsWith("recipe_")) continue;
     counts.set(name, (counts.get(name) ?? 0) + 1);
   }
 
@@ -964,41 +980,70 @@ for (const item of items) {
 
 const componentPool = [...new Set(items.flatMap((item) => item.components ?? []))]
   .map((key) => ({ ...itemsByKey[key], key, image: asset(itemsByKey[key]?.img) }))
-  .filter((item) => item.dname && item.image);
+  .filter((item) => item.dname && item.image && Number.isFinite(item.cost) && item.cost > 0);
 
-for (const item of stableSample(
-  items.filter((entry) => entry.components?.length),
-  36,
-  "item-components",
-)) {
-  const componentKey = item.components[hash(`component:${item.key}`) % item.components.length];
-  const component = itemsByKey[componentKey];
-  if (!component?.dname) continue;
+const shopkeeperItems = items
+  .map((item) => ({
+    ...item,
+    eligibleComponents: eligibleShopkeeperComponents(item, itemsByKey),
+  }))
+  .filter((item) => item.eligibleComponents.length);
 
-  const distractors = stableSample(
-    componentPool.filter((candidate) => !item.components.includes(candidate.key)),
-    3,
-    `components:${item.key}`,
+const shopkeeperCandidates = shopkeeperItems.flatMap((item) => {
+  const components = [...item.eligibleComponents].sort(
+    (left, right) =>
+      hash(`component:${item.key}:${left.key}`) - hash(`component:${item.key}:${right.key}`) ||
+      left.key.localeCompare(right.key),
   );
-  const answerItems = [{ ...component, key: componentKey, image: asset(component.img) }, ...distractors];
+  for (const component of components) {
+    const correct = { ...component, image: asset(component.img) };
+    const distractors = selectShopkeeperDistractors(
+      componentPool,
+      correct,
+      item.components,
+      `components:${item.key}:${component.key}`,
+    );
+    if (distractors.length === 3 && areShopkeeperPricesBalanced([correct, ...distractors], correct)) {
+      return [{ ...item, component, correct, distractors }];
+    }
+  }
+  return [];
+});
 
-  questions.push(
-    makeQuestion({
-      id: `item-component:${item.key}:${componentKey}`,
-      kind: "recipe-component",
-      category: "Recipes",
-      difficulty: 2,
-      eyebrow: item.dname,
-      prompt: `Which item is part of ${item.dname}'s recipe?`,
-      image: { src: item.image, alt: `${item.dname} item icon`, kind: "item" },
-      answers: answerItems.map((answerItem) => answerItem.dname),
-      correctAnswer: component.dname,
-      answerImagesByValue: Object.fromEntries(answerItems.map((answerItem) => [answerItem.dname, answerItem.image])),
-      answerImageKind: "item",
-      explanation: `${item.dname} is built with ${formatRecipeComponents(item.components, itemsByKey)}.`,
-      source: clientQuestionSource,
-    }),
-  );
+if (shopkeeperCandidates.length < 36) {
+  throw new Error(`Only ${shopkeeperCandidates.length} non-giveaway, price-balanced Shopkeeper recipes are available.`);
+}
+
+for (const item of stableSample(shopkeeperCandidates, 36, "item-components")) {
+  const { component, correct, distractors } = item;
+  const componentKey = component.key;
+  const answerItems = [correct, ...distractors];
+  const answerItemsByName = Object.fromEntries(answerItems.map((answerItem) => [answerItem.dname, answerItem]));
+
+  const question = makeQuestion({
+    id: `item-component:${item.key}:${componentKey}`,
+    kind: "recipe-component",
+    category: "Recipes",
+    difficulty: 2,
+    eyebrow: item.dname,
+    prompt: `Which item is part of ${item.dname}'s recipe?`,
+    image: { src: item.image, alt: `${item.dname} item icon`, kind: "item" },
+    answers: answerItems.map((answerItem) => answerItem.dname),
+    correctAnswer: component.dname,
+    answerImagesByValue: Object.fromEntries(answerItems.map((answerItem) => [answerItem.dname, answerItem.image])),
+    answerImageKind: "item",
+    explanation: `${item.dname} is built with ${formatRecipeComponents(item.components, itemsByKey)}.`,
+    source: clientQuestionSource,
+  });
+  question.shopkeeper = {
+    targetItemKey: item.key,
+    componentKey,
+    recipeComponentKeys: [...new Set(item.components.filter((key) => !key.startsWith("recipe_")))],
+    answerItemKeys: question.answers.map((answer) => answerItemsByName[answer].key),
+    answerCosts: question.answers.map((answer) => answerItemsByName[answer].cost),
+    clientBuild: CLIENT_CONSTANT_AUDIT.clientBuild,
+  };
+  questions.push(question);
 }
 
 const recipeItems = items.filter((item) => item.components?.length);

@@ -3,6 +3,7 @@ import mapChallenges from "@/data/map-sense-challenges.json";
 import mapCrops from "@/data/map-sense-crops.json";
 import mapLandmarks from "@/data/map-sense-landmarks.json";
 import mapMechanics from "@/data/map-sense-mechanics.json";
+import { isPlayableMapLocation } from "@/lib/map-sense-quality.mjs";
 import type {
   MapCamp,
   MapChallenge,
@@ -45,8 +46,7 @@ type MapQuestionKind =
   | "map-scenario"
   | "map-crop"
   | "map-camp-block"
-  | "map-stack-route"
-  | "map-tp-in";
+  | "map-stack-route";
 
 interface MapChallengeDefinition extends MapLocationDefinition {
   family: MapChallengeFamily;
@@ -65,12 +65,6 @@ interface MapCropSeed {
   y: number;
 }
 
-interface AuditedLandmark {
-  label: string;
-  position: MapPosition;
-}
-
-const auditedLandmarks = mapLandmarks.landmarks as Record<string, AuditedLandmark>;
 const mechanicsCamps = mapMechanics.camps as MapCamp[];
 
 function clamp(value: number, minimum: number, maximum: number) {
@@ -244,111 +238,8 @@ function stackRouteQuestion(camp: MapCamp, seedIndex: number): MapLocationDefini
   };
 }
 
-interface TeleportAnchor extends MapReference {
-  id: string;
-  side: "radiant" | "dire";
-}
-
-function teleportTier(id: string) {
-  if (id.endsWith("-one")) return "T1";
-  if (id.endsWith("-two")) return "T2";
-  return "T3";
-}
-
-function teleportLane(id: string) {
-  if (id.includes("-mid-")) return "Mid";
-  if (id.includes("-safe-")) return "Safe";
-  if (id.includes("-offlane-")) return "Offlane";
-  if (id.includes("-top-")) return "Top";
-  return "Bottom";
-}
-
-const teleportAnchors = (["radiant", "dire"] as const).flatMap((side) =>
-  Object.entries(auditedLandmarks)
-    .filter(([id]) => id.startsWith(`${side}-`) && id.includes("-tier-"))
-    .map(
-      ([id, landmark]) =>
-        ({
-          id,
-          side,
-          label: `${teleportLane(id)} ${teleportTier(id)}`,
-          position: landmark.position,
-        }) satisfies TeleportAnchor,
-    ),
-);
-
-function rotate<T>(values: T[], shift: number) {
-  return [...values.slice(shift), ...values.slice(0, shift)];
-}
-
-function teleportQuestions() {
-  const candidates = (["radiant", "dire"] as const).flatMap((side) => {
-    const anchors = teleportAnchors.filter((anchor) => anchor.side === side);
-    return mapCrops.brutal
-      .map((target) => {
-        const ranked = anchors
-          .map((anchor) => ({
-            ...anchor,
-            distance: mapDistance(anchor.position, { x: target.x, y: target.y }),
-          }))
-          .sort((left, right) => left.distance - right.distance);
-        return {
-          side,
-          target,
-          ranked,
-          gap: ranked[1].distance - ranked[0].distance,
-        };
-      })
-      .filter(
-        (candidate) =>
-          candidate.ranked[0].distance > 0.05 &&
-          candidate.ranked[0].distance < 0.38 &&
-          candidate.gap > 0.025 &&
-          candidate.gap < 0.12,
-      )
-      .sort((left, right) => Math.abs(left.gap - 0.07) - Math.abs(right.gap - 0.07))
-      .slice(0, 12);
-  });
-
-  return candidates.map(({ side, target, ranked }, seedIndex): MapLocationDefinition => {
-    const nearest = ranked[0];
-    const orderedAnchors = rotate(ranked.slice(0, 4), (seedIndex * 3 + 1) % 4);
-    const correctIndex = orderedAnchors.findIndex((anchor) => anchor.id === nearest.id);
-    const options = orderedAnchors.map(
-      (anchor) =>
-        ({
-          position: anchor.position,
-          label: anchor.label,
-          marker: "tower",
-          side,
-        }) satisfies MapChoiceOption,
-    ) as MapChoiceChallenge["options"];
-    const fight = { position: { x: target.x, y: target.y }, label: "Fight" };
-
-    return {
-      id: `${side}:${target.id}`,
-      targetLabel: nearest.label,
-      difficulty: 3,
-      target: nearest.position,
-      tolerance: 0.024,
-      eyebrow: "Map Sense · TP in",
-      prompt: "Nearest TP?",
-      answers: options.map((option) => option.label) as AnswerTuple,
-      correctIndex,
-      explanation: `Of the four live ${side} towers shown, ${nearest.label} is nearest to the fight ping.`,
-      choice: {
-        kind: "tp-in",
-        viewport: { center: { x: 0.5, y: 0.5 }, zoom: 1 },
-        options,
-        fight,
-      },
-    };
-  });
-}
-
 const campBlockDefinitions = mechanicsCamps.map(campBlockQuestion);
 const stackRouteDefinitions = mechanicsCamps.map(stackRouteQuestion);
-const teleportDefinitions = teleportQuestions();
 
 export function isMapPosition(value: unknown): value is MapPosition {
   if (!value || typeof value !== "object") return false;
@@ -406,12 +297,13 @@ const mapQuestion = (location: MapLocationDefinition, kind: "map-location" | Map
 });
 
 export const mapSenseQuestions = [
-  ...(mapLocations as MapLocationDefinition[]).map((location) => mapQuestion(location, "map-location")),
+  ...(mapLocations as MapLocationDefinition[])
+    .filter(isPlayableMapLocation)
+    .map((location) => mapQuestion(location, "map-location")),
   ...(mapChallenges as MapChallengeDefinition[]).map((challenge) =>
     mapQuestion(challenge, familyKinds[challenge.family]),
   ),
   ...cropDefinitions.map((crop) => mapQuestion(crop, "map-crop")),
   ...campBlockDefinitions.map((camp) => mapQuestion(camp, "map-camp-block")),
   ...stackRouteDefinitions.map((camp) => mapQuestion(camp, "map-stack-route")),
-  ...teleportDefinitions.map((teleport) => mapQuestion(teleport, "map-tp-in")),
 ];

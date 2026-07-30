@@ -94,7 +94,7 @@ for (const game of arcadeGames) {
 
 const soundcheckFixture = ["soundcheck-ability", "soundcheck-item"].flatMap((kind) =>
   ["single", "sequence"].flatMap((format) =>
-    Array.from({ length: 6 }, (_, index) => ({
+    Array.from({ length: format === "single" ? 18 : 6 }, (_, index) => ({
       id: `${kind}-${format}-${index}`,
       kind,
       format,
@@ -103,6 +103,7 @@ const soundcheckFixture = ["soundcheck-ability", "soundcheck-item"].flatMap((kin
   ),
 );
 const soundcheckOpening = varietyShuffle(soundcheckFixture, "soundcheck-family-regression").slice(0, 24);
+const soundcheckFullRotation = varietyShuffle(soundcheckFixture, "soundcheck-family-regression");
 const soundcheckCounts = Object.fromEntries(
   ["soundcheck-ability", "soundcheck-item"].map((kind) => [
     kind,
@@ -117,14 +118,19 @@ const soundcheckFormatCounts = Object.fromEntries(
 );
 if (
   soundcheckOpening.some((question, index) => index > 0 && question.kind === soundcheckOpening[index - 1].kind) ||
-  soundcheckOpening.some(
-    (question, index) =>
-      index > 1 &&
-      question.format === soundcheckOpening[index - 1].format &&
-      question.format === soundcheckOpening[index - 2].format,
-  ) ||
   Object.values(soundcheckCounts).some((count) => count !== 12) ||
-  Object.values(soundcheckFormatCounts).some((count) => count !== 12)
+  soundcheckFormatCounts.single !== 18 ||
+  soundcheckFormatCounts.sequence !== 6 ||
+  soundcheckFullRotation.some(
+    (question, index) =>
+      index > 5 &&
+      soundcheckFullRotation.slice(index - 6, index + 1).every((candidate) => candidate.format === question.format),
+  ) ||
+  soundcheckFullRotation
+    .slice(0, soundcheckFullRotation.length - 7)
+    .some(
+      (_, index) => new Set(soundcheckFullRotation.slice(index, index + 8).map((question) => question.format)).size < 2,
+    )
 ) {
   throw new Error(
     `Soundcheck lost its family/format rotation: ${JSON.stringify(soundcheckCounts)}, ${JSON.stringify(soundcheckFormatCounts)}.`,
@@ -165,12 +171,11 @@ const mapKinds = [
   "map-crop",
   "map-camp-block",
   "map-stack-route",
-  "map-tp-in",
 ];
 const mapFixture = mapKinds.flatMap((kind) =>
   Array.from(
     {
-      length: ["map-location", "map-crop", "map-camp-block", "map-stack-route", "map-tp-in"].includes(kind) ? 24 : 6,
+      length: ["map-location", "map-crop", "map-camp-block", "map-stack-route"].includes(kind) ? 24 : 6,
     },
     (_, index) => ({
       id: `${kind}-${index}`,
@@ -185,13 +190,13 @@ const mapOpeningCounts = Object.fromEntries(
 
 if (
   mapOpening.some((question, index) => index > 0 && question.kind === mapOpening[index - 1].kind) ||
-  mapKinds.some((kind) => mapOpeningCounts[kind] < 2 || mapOpeningCounts[kind] > 3) ||
+  mapKinds.some((kind) => mapOpeningCounts[kind] !== 3) ||
   mapOpeningCounts["map-location"] > 5
 ) {
-  throw new Error(`Map Sense lost its balanced nine-family opening: ${JSON.stringify(mapOpeningCounts)}.`);
+  throw new Error(`Map Sense lost its balanced eight-family opening: ${JSON.stringify(mapOpeningCounts)}.`);
 }
 
-const mechanicMapKinds = ["map-crop", "map-camp-block", "map-stack-route", "map-tp-in"];
+const mechanicMapKinds = ["map-crop", "map-camp-block", "map-stack-route"];
 const mechanicMapFixture = mechanicMapKinds.flatMap((kind) =>
   Array.from({ length: 24 }, (_, index) => ({ id: `mechanic-${kind}-${index}`, kind })),
 );
@@ -201,9 +206,9 @@ const mechanicMapCounts = Object.fromEntries(
 );
 if (
   mechanicMapOpening.some((question, index) => index > 0 && question.kind === mechanicMapOpening[index - 1].kind) ||
-  mechanicMapKinds.some((kind) => mechanicMapCounts[kind] !== 6)
+  mechanicMapKinds.some((kind) => mechanicMapCounts[kind] !== 8)
 ) {
-  throw new Error(`Map Sense mechanics lost their four-family rotation: ${JSON.stringify(mechanicMapCounts)}.`);
+  throw new Error(`Map Sense mechanics lost their three-family rotation: ${JSON.stringify(mechanicMapCounts)}.`);
 }
 
 const roundDuration = 12_000;

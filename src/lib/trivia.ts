@@ -4,6 +4,7 @@ import generatedMeta from "@/data/trivia-meta.generated.json";
 import soundcheckQuestions from "@/data/soundcheck-questions.json";
 import { mapSenseQuestions } from "@/lib/map-sense";
 import type { MapChallenge } from "@/lib/map-types";
+import { isPlayableShopkeeperQuestion } from "@/lib/shopkeeper-quality.mjs";
 import { fixedCycleOccurrenceCounts, fixedCycleRotation, varietyShuffle } from "@/lib/variety.mjs";
 
 export const KNOWLEDGE_FILTERS = ["Mixed", "Abilities", "Items", "Heroes"] as const;
@@ -116,6 +117,14 @@ export interface TriviaQuestion {
       clientBuild: string;
     };
   };
+  shopkeeper?: {
+    targetItemKey: string;
+    componentKey: string;
+    recipeComponentKeys: string[];
+    answerItemKeys: [string, string, string, string];
+    answerCosts: [number, number, number, number];
+    clientBuild: string;
+  };
   counterplay?: {
     family: CounterplayFamily;
     tool: string;
@@ -159,11 +168,12 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-4-soundcheck-4`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-8-counterplay-4-soundcheck-5`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
-    question.kind !== "spell-owner" ||
-    ((question.hint?.trim().length ?? 0) >= 18 && !question.hint?.startsWith("No additional mechanical clue")),
+    (question.kind !== "spell-owner" ||
+      ((question.hint?.trim().length ?? 0) >= 18 && !question.hint?.startsWith("No additional mechanical clue"))) &&
+    isPlayableShopkeeperQuestion(question),
 );
 export const triviaQuestions = [
   ...playableGeneratedQuestions,

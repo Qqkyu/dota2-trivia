@@ -674,20 +674,34 @@ for (let attempt = 0; attempt < 8; attempt += 1) {
     return main?.dataset.phase === "answering" &&
       main?.dataset.questionKind?.startsWith("soundcheck-");
   })()`);
-  await delay(600);
-  soundSequenceFound = await evaluate(`(() => {
+  const isSoundSequence = await evaluate(`(() => {
     const prompt = document.querySelector('[data-testid="round-prompt"]');
-    const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
-    const audio = [...document.querySelectorAll('[data-testid="round-audio-clip"]')];
-    const answers = [...document.querySelectorAll('[data-testid="arcade-answer"] img')];
-    return prompt?.dataset.soundcheckFormat === "sequence" &&
-      prompt?.dataset.soundcheckStage === "1" &&
-      timer >= 13 &&
-      audio.length === 2 &&
-      audio.every((clip) => clip.readyState >= 2) &&
-      answers.length === 8 &&
-      answers.every((image) => image.complete && image.naturalWidth > 0);
+    return prompt?.dataset.soundcheckFormat === "sequence";
   })()`);
+  if (isSoundSequence) {
+    const sequenceRoundId = await evaluate(`document.querySelector("main")?.dataset.roundId`);
+    while (
+      !soundSequenceFound &&
+      (await evaluate(`(() => {
+        const main = document.querySelector("main");
+        return main?.dataset.roundId === ${JSON.stringify(sequenceRoundId)} &&
+          main?.dataset.phase === "answering" &&
+          document.querySelector('[data-testid="round-prompt"]')?.dataset.soundcheckStage === "1";
+      })()`))
+    ) {
+      soundSequenceFound = await evaluate(`(() => {
+        const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
+        const audio = [...document.querySelectorAll('[data-testid="round-audio-clip"]')];
+        const answers = [...document.querySelectorAll('[data-testid="arcade-answer"] img')];
+        return timer >= 10 &&
+          audio.length === 2 &&
+          audio.every((clip) => clip.readyState >= 2) &&
+          answers.length === 8 &&
+          answers.every((image) => image.complete && image.naturalWidth > 0);
+      })()`);
+      if (!soundSequenceFound) await delay(200);
+    }
+  }
   if (soundSequenceFound) break;
   await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`);
   await waitFor(`document.querySelector("main")?.dataset.phase === "answering"`);
@@ -701,7 +715,7 @@ await waitFor(`(() => {
   return main?.dataset.phase === "answering" &&
     main?.dataset.questionKind?.startsWith("soundcheck-") &&
     document.querySelector('[data-testid="round-prompt"]')?.dataset.soundcheckStage === "1" &&
-    timer >= 12 &&
+    timer >= 9 &&
     Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.playCount) === 1 &&
     document.querySelector('[data-testid="soundcheck-player"]')?.dataset.audioState === "ready" &&
     audio.length === 2 &&
@@ -950,7 +964,7 @@ async function inspectMapSenseVariant() {
     const crop = document.querySelector('[data-testid="map-terrain-crop"]');
     const cropImage = crop?.querySelector("img");
     const mechanic = document.querySelector(
-      '[data-testid="map-camp-block-card"], [data-testid="map-stack-route-card"], [data-testid="map-tp-in-card"]'
+      '[data-testid="map-camp-block-card"], [data-testid="map-stack-route-card"]'
     );
     const visual = crop ?? mechanic;
     const bounds = board?.getBoundingClientRect();
@@ -1053,7 +1067,7 @@ await waitFor(`(() => {
     image?.naturalWidth > 0;
 })()`);
 
-const mapSenseKinds = ["map-crop", "map-camp-block", "map-stack-route", "map-tp-in"];
+const mapSenseKinds = ["map-crop", "map-camp-block", "map-stack-route"];
 const mapVariants = [];
 const mapReveals = [];
 let previousMapRound = null;
@@ -1110,7 +1124,7 @@ await waitFor(`(() => {
 })()`);
 const mobileMap = await inspectMapSenseVariant();
 await evaluate(`document.querySelector(
-  '[data-testid="map-terrain-crop"], [data-testid="map-camp-block-card"], [data-testid="map-stack-route-card"], [data-testid="map-tp-in-card"]'
+  '[data-testid="map-terrain-crop"], [data-testid="map-camp-block-card"], [data-testid="map-stack-route-card"]'
 )?.scrollIntoView({ block: "center" })`);
 await delay(300);
 await screenshot("/tmp/queue-arcade-mobile-map-sense.png");
@@ -1231,7 +1245,6 @@ const validMapVariant = (variant) => {
   const expectedChoiceKind = {
     "map-camp-block": "camp-block",
     "map-stack-route": "stack-route",
-    "map-tp-in": "tp-in",
   }[variant.kind];
   const commonChoice =
     variant.mechanicVisible &&

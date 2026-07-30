@@ -118,19 +118,22 @@ export function varietyShuffle(values, seed) {
       variantBuckets.set(variant, seededShuffle(variants, `${seed}:kind:${kind}:variant:${variant}`));
     }
 
-    let variantOrder = seededShuffle([...variantBuckets.keys()], `${seed}:kind:${kind}:variant-order`);
-    const balancedBucket = [];
-    let previousVariant = "";
-    while (balancedBucket.length < bucket.length) {
-      const nextVariant =
-        variantOrder.find((variant) => variant !== previousVariant && variantBuckets.get(variant)?.length) ??
-        variantOrder.find((variant) => variantBuckets.get(variant)?.length);
-      if (!nextVariant) break;
-
-      balancedBucket.push(variantBuckets.get(nextVariant).shift());
-      previousVariant = nextVariant;
-      variantOrder = [...variantOrder.filter((variant) => variant !== nextVariant), nextVariant];
-    }
+    const variantOrder = seededShuffle([...variantBuckets.keys()], `${seed}:kind:${kind}:variant-order`);
+    const variantTieBreakers = new Map(variantOrder.map((variant, index) => [variant, index]));
+    const balancedBucket = [...variantBuckets.entries()]
+      .flatMap(([variant, variants]) =>
+        variants.map((value, index) => ({
+          value,
+          variant,
+          position: (index + 0.5) / variants.length,
+        })),
+      )
+      .sort(
+        (left, right) =>
+          left.position - right.position ||
+          variantTieBreakers.get(left.variant) - variantTieBreakers.get(right.variant),
+      )
+      .map(({ value }) => value);
     buckets.set(kind, balancedBucket);
   }
 

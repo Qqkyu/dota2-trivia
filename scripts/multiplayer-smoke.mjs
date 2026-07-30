@@ -234,7 +234,7 @@ const mapPlayer = `multiplayer-map-${randomUUID()}`;
 const mapSnapshot = await answeringRoundWithTime(mapPlayer, mapSettings);
 const [mapKind, ...mapDefinitionParts] = mapSnapshot.round.questionId.split(":");
 const mapDefinitionId = mapDefinitionParts.join(":");
-const mapIsChoice = ["map-camp-block", "map-stack-route", "map-tp-in"].includes(mapKind);
+const mapIsChoice = ["map-camp-block", "map-stack-route"].includes(mapKind);
 const challengeKinds = {
   "map-riddle": "riddle",
   "map-mirror": "mirror",

@@ -105,12 +105,12 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
       cuts[0] >= cuts[1] ||
       cuts[1] >= cuts[2] ||
       cuts[2] >= clip.duration ||
-      cuts[0] > 0.32 ||
-      cuts[1] > 0.8 ||
-      cuts[2] > 2.2 ||
-      cuts[0] / clip.duration > 0.201 ||
-      cuts[1] / clip.duration > 0.361 ||
-      cuts[2] / clip.duration > 0.581
+      cuts[0] > 0.16 ||
+      cuts[1] > 0.36 ||
+      cuts[2] > 0.8 ||
+      cuts[0] / clip.duration > 0.131 ||
+      cuts[1] / clip.duration > 0.241 ||
+      cuts[2] / clip.duration > 0.401
     ) {
       failures.push(`${id}: audited clip ${clip.event} has an invalid progressive cut ${JSON.stringify(cuts)}.`);
     }

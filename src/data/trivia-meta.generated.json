@@ -1,34 +1,34 @@
 {
   "patch": "7.41d",
-  "contentVersion": "7.41d-variety-5",
+  "contentVersion": "7.41d-variety-6",
   "snapshotDate": "2026-07-29",
-  "questionCount": 737,
+  "questionCount": 732,
   "categoryCounts": {
     "Abilities": 103,
     "Cooldowns": 52,
     "Damage": 48,
     "Heroes": 301,
-    "Recipes": 36,
     "Items": 137,
-    "Mana": 60
+    "Mana": 60,
+    "Recipes": 31
   },
   "kindCounts": {
-    "ability-detective": 36,
-    "spell-owner": 67,
-    "cooldown": 52,
     "ability-damage": 48,
+    "ability-detective": 36,
+    "cooldown": 52,
     "fogged-hero": 56,
     "hero-intruder": 32,
+    "hero-move-speed": 40,
+    "hero-primary-attribute": 44,
     "hero-quote": 43,
     "hero-stat-duel": 42,
     "hero-voice": 44,
-    "recipe-component": 36,
     "item-cost": 73,
     "item-price-duel": 28,
     "mana-cost": 60,
-    "hero-move-speed": 40,
-    "hero-primary-attribute": 44,
-    "recipe-upgrade": 36
+    "recipe-component": 31,
+    "recipe-upgrade": 36,
+    "spell-owner": 67
   },
   "sources": {
     "heroes": "https://api.opendota.com/api/constants/heroes",
@@ -46,7 +46,7 @@
   },
   "assetValidation": {
     "checkedAt": "2026-07-29",
-    "verifiedAssetCount": 557,
+    "verifiedAssetCount": 550,
     "verifiedAudioCount": 44,
     "rejectedQuestionIds": [
       "ability-detective:abyssal_underlord_pit_of_malice",

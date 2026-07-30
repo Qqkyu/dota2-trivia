@@ -12468,12 +12468,12 @@
     "eyebrow": "Abyssal Blade",
     "prompt": "Which item is part of Abyssal Blade's recipe?",
     "answers": [
-      "Tiara of Selemene",
       "Skull Basher",
-      "Belt of Strength",
-      "Headdress"
+      "Maelstrom",
+      "Mystic Staff",
+      "Ultimate Orb"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Abyssal Blade is built with Skull Basher, Sange.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -12486,12 +12486,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tiara_of_selemene.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/basher.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/belt_of_strength.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/headdress.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/maelstrom.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "abyssal_blade",
+      "componentKey": "basher",
+      "recipeComponentKeys": [
+        "basher",
+        "sange"
+      ],
+      "answerItemKeys": [
+        "basher",
+        "maelstrom",
+        "mystic_staff",
+        "ultimate_orb"
+      ],
+      "answerCosts": [
+        2875,
+        2950,
+        2800,
+        2800
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:armlet:helm_of_iron_will",
@@ -12501,12 +12522,12 @@
     "eyebrow": "Armlet of Mordiggian",
     "prompt": "Which item is part of Armlet of Mordiggian's recipe?",
     "answers": [
-      "Point Booster",
-      "Shawl",
+      "Diadem",
       "Helm of Iron Will",
-      "Energy Booster"
+      "Ogre Axe",
+      "Vitality Booster"
     ],
-    "correctIndex": 2,
+    "correctIndex": 1,
     "explanation": "Armlet of Mordiggian is built with Helm of Iron Will, Gloves of Haste, Blades of Attack.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -12519,12 +12540,34 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/point_booster.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shawl.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/diadem.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/helm_of_iron_will.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/energy_booster.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ogre_axe.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vitality_booster.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "armlet",
+      "componentKey": "helm_of_iron_will",
+      "recipeComponentKeys": [
+        "helm_of_iron_will",
+        "gloves",
+        "blades_of_attack"
+      ],
+      "answerItemKeys": [
+        "diadem",
+        "helm_of_iron_will",
+        "ogre_axe",
+        "vitality_booster"
+      ],
+      "answerCosts": [
+        1000,
+        975,
+        1000,
+        1000
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:assault:hyperstone",
@@ -12534,12 +12577,12 @@
     "eyebrow": "Assault Cuirass",
     "prompt": "Which item is part of Assault Cuirass's recipe?",
     "answers": [
-      "Slippers of Agility",
+      "Kaya",
+      "Crystalys",
       "Hyperstone",
-      "Morbid Mask",
-      "Wind Lace"
+      "Sange"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "Assault Cuirass is built with Buckler, Hyperstone, Platemail.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -12552,12 +12595,34 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/slippers.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/kaya.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lesser_crit.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hyperstone.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lifesteal.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/wind_lace.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sange.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "assault",
+      "componentKey": "hyperstone",
+      "recipeComponentKeys": [
+        "buckler",
+        "hyperstone",
+        "platemail"
+      ],
+      "answerItemKeys": [
+        "kaya",
+        "lesser_crit",
+        "hyperstone",
+        "sange"
+      ],
+      "answerCosts": [
+        2100,
+        2000,
+        2000,
+        2100
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:basher:belt_of_strength",
@@ -12567,9 +12632,9 @@
     "eyebrow": "Skull Basher",
     "prompt": "Which item is part of Skull Basher's recipe?",
     "answers": [
-      "Maelstrom",
-      "Mystic Staff",
-      "Point Booster",
+      "Blades of Attack",
+      "Crown",
+      "Shawl",
       "Belt of Strength"
     ],
     "correctIndex": 3,
@@ -12585,12 +12650,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/maelstrom.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/point_booster.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blades_of_attack.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/crown.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shawl.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/belt_of_strength.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "basher",
+      "componentKey": "belt_of_strength",
+      "recipeComponentKeys": [
+        "mithril_hammer",
+        "belt_of_strength"
+      ],
+      "answerItemKeys": [
+        "blades_of_attack",
+        "crown",
+        "shawl",
+        "belt_of_strength"
+      ],
+      "answerCosts": [
+        450,
+        450,
+        450,
+        450
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:bloodstone:soul_booster",
@@ -12601,9 +12687,9 @@
     "prompt": "Which item is part of Bloodstone's recipe?",
     "answers": [
       "Soul Booster",
-      "Point Booster",
-      "Vitality Booster",
-      "Chasm Stone"
+      "Skull Basher",
+      "Dagon",
+      "Maelstrom"
     ],
     "correctIndex": 0,
     "explanation": "Bloodstone is built with Veil of Discord, Soul Booster.",
@@ -12619,11 +12705,32 @@
     },
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/soul_booster.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/point_booster.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vitality_booster.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chasm_stone.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/basher.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/dagon.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/maelstrom.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "bloodstone",
+      "componentKey": "soul_booster",
+      "recipeComponentKeys": [
+        "veil_of_discord",
+        "soul_booster"
+      ],
+      "answerItemKeys": [
+        "soul_booster",
+        "basher",
+        "dagon",
+        "maelstrom"
+      ],
+      "answerCosts": [
+        3000,
+        2875,
+        3000,
+        2950
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:butterfly:talisman_of_evasion",
@@ -12633,12 +12740,12 @@
     "eyebrow": "Butterfly",
     "prompt": "Which item is part of Butterfly's recipe?",
     "answers": [
-      "Buckler",
-      "Tiara of Selemene",
-      "Ghost Scepter",
-      "Talisman of Evasion"
+      "Point Booster",
+      "Talisman of Evasion",
+      "Perseverance",
+      "Platemail"
     ],
-    "correctIndex": 3,
+    "correctIndex": 1,
     "explanation": "Butterfly is built with Eaglesong, Claymore, Talisman of Evasion.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -12651,12 +12758,34 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/buckler.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tiara_of_selemene.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ghost.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/talisman_of_evasion.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/point_booster.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/talisman_of_evasion.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pers.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/platemail.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "butterfly",
+      "componentKey": "talisman_of_evasion",
+      "recipeComponentKeys": [
+        "eagle",
+        "claymore",
+        "talisman_of_evasion"
+      ],
+      "answerItemKeys": [
+        "point_booster",
+        "talisman_of_evasion",
+        "pers",
+        "platemail"
+      ],
+      "answerCosts": [
+        1200,
+        1300,
+        1400,
+        1400
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:crimson_guard:helm_of_iron_will",
@@ -12666,12 +12795,12 @@
     "eyebrow": "Crimson Guard",
     "prompt": "Which item is part of Crimson Guard's recipe?",
     "answers": [
-      "Broadsword",
+      "Blade of Alacrity",
+      "Staff of Wizardry",
       "Helm of Iron Will",
-      "Kaya",
-      "Boots of Travel"
+      "Vitality Booster"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "Crimson Guard is built with Vanguard, Helm of Iron Will.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -12684,12 +12813,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/broadsword.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blade_of_alacrity.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/staff_of_wizardry.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/helm_of_iron_will.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/kaya.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/travel_boots.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vitality_booster.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "crimson_guard",
+      "componentKey": "helm_of_iron_will",
+      "recipeComponentKeys": [
+        "vanguard",
+        "helm_of_iron_will"
+      ],
+      "answerItemKeys": [
+        "blade_of_alacrity",
+        "staff_of_wizardry",
+        "helm_of_iron_will",
+        "vitality_booster"
+      ],
+      "answerCosts": [
+        1000,
+        1000,
+        975,
+        1000
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:cyclone:staff_of_wizardry",
@@ -12699,12 +12849,12 @@
     "eyebrow": "Eul's Scepter of Divinity",
     "prompt": "Which item is part of Eul's Scepter of Divinity's recipe?",
     "answers": [
-      "Staff of Wizardry",
-      "Crystalys",
-      "Crown",
-      "Gauntlets of Strength"
+      "Blitz Knuckles",
+      "Broadsword",
+      "Diadem",
+      "Staff of Wizardry"
     ],
-    "correctIndex": 0,
+    "correctIndex": 3,
     "explanation": "Eul's Scepter of Divinity is built with Staff of Wizardry, Void Stone, Wind Lace.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -12717,12 +12867,34 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/staff_of_wizardry.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lesser_crit.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/crown.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gauntlets.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blitz_knuckles.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/broadsword.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/diadem.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/staff_of_wizardry.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "cyclone",
+      "componentKey": "staff_of_wizardry",
+      "recipeComponentKeys": [
+        "staff_of_wizardry",
+        "void_stone",
+        "wind_lace"
+      ],
+      "answerItemKeys": [
+        "blitz_knuckles",
+        "broadsword",
+        "diadem",
+        "staff_of_wizardry"
+      ],
+      "answerCosts": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:dagon:wizard_hat",
@@ -12732,12 +12904,12 @@
     "eyebrow": "Dagon",
     "prompt": "Which item is part of Dagon's recipe?",
     "answers": [
-      "Fluffy Hat",
-      "Ring of Tarrasque",
       "Wizard Hat",
-      "Mekansm"
+      "Orb of Frost",
+      "Wind Lace",
+      "Fluffy Hat"
     ],
-    "correctIndex": 2,
+    "correctIndex": 0,
     "explanation": "Dagon is built with Point Booster, Crown, Wizard Hat.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -12750,12 +12922,34 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/fluffy_hat.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_tarrasque.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/wizard_hat.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mekansm.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_frost.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/wind_lace.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/fluffy_hat.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "dagon",
+      "componentKey": "wizard_hat",
+      "recipeComponentKeys": [
+        "point_booster",
+        "crown",
+        "wizard_hat"
+      ],
+      "answerItemKeys": [
+        "wizard_hat",
+        "orb_of_frost",
+        "wind_lace",
+        "fluffy_hat"
+      ],
+      "answerCosts": [
+        250,
+        300,
+        225,
+        250
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:desolator:blight_stone",
@@ -12765,13 +12959,13 @@
     "eyebrow": "Desolator",
     "prompt": "Which item is part of Desolator's recipe?",
     "answers": [
-      "Yasha",
+      "Fluffy Hat",
       "Orb of Blight",
-      "Perseverance",
-      "Boots of Speed"
+      "Orb of Frost",
+      "Wizard Hat"
     ],
     "correctIndex": 1,
-    "explanation": "Desolator is built with Mithril Hammer ×2, Orb of Blight.",
+    "explanation": "Desolator is built with Mithril Hammer, Orb of Blight.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
       "url": "https://www.dota2.com/patches/7.41d"
@@ -12783,12 +12977,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/yasha.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/fluffy_hat.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blight_stone.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pers.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/boots.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_frost.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/wizard_hat.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "desolator",
+      "componentKey": "blight_stone",
+      "recipeComponentKeys": [
+        "mithril_hammer",
+        "blight_stone"
+      ],
+      "answerItemKeys": [
+        "fluffy_hat",
+        "blight_stone",
+        "orb_of_frost",
+        "wizard_hat"
+      ],
+      "answerCosts": [
+        250,
+        300,
+        300,
+        250
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:ethereal_blade:ghost",
@@ -12798,12 +13013,12 @@
     "eyebrow": "Ethereal Blade",
     "prompt": "Which item is part of Ethereal Blade's recipe?",
     "answers": [
-      "Gauntlets of Strength",
+      "Platemail",
+      "Mithril Hammer",
       "Ghost Scepter",
-      "Ring of Tarrasque",
-      "Blitz Knuckles"
+      "Perseverance"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "Ethereal Blade is built with Ultimate Orb, Ghost Scepter.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -12816,12 +13031,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gauntlets.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/platemail.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mithril_hammer.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ghost.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_tarrasque.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blitz_knuckles.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pers.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "ethereal_blade",
+      "componentKey": "ghost",
+      "recipeComponentKeys": [
+        "ultimate_orb",
+        "ghost"
+      ],
+      "answerItemKeys": [
+        "platemail",
+        "mithril_hammer",
+        "ghost",
+        "pers"
+      ],
+      "answerCosts": [
+        1400,
+        1600,
+        1500,
+        1400
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:falcon_blade:sobi_mask",
@@ -12831,12 +13067,12 @@
     "eyebrow": "Falcon Blade",
     "prompt": "Which item is part of Falcon Blade's recipe?",
     "answers": [
-      "Orchid Malevolence",
+      "Ring of Protection",
+      "Slippers of Agility",
       "Magic Stick",
-      "Sage's Mask",
-      "Ogre Axe"
+      "Sage's Mask"
     ],
-    "correctIndex": 2,
+    "correctIndex": 3,
     "explanation": "Falcon Blade is built with Blades of Attack, Fluffy Hat, Sage's Mask.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -12849,27 +13085,49 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orchid.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_protection.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/slippers.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/magic_stick.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sobi_mask.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ogre_axe.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sobi_mask.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "falcon_blade",
+      "componentKey": "sobi_mask",
+      "recipeComponentKeys": [
+        "blades_of_attack",
+        "fluffy_hat",
+        "sobi_mask"
+      ],
+      "answerItemKeys": [
+        "ring_of_protection",
+        "slippers",
+        "magic_stick",
+        "sobi_mask"
+      ],
+      "answerCosts": [
+        175,
+        140,
+        200,
+        175
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
-    "id": "item-component:force_staff:staff_of_wizardry",
+    "id": "item-component:force_staff:fluffy_hat",
     "kind": "recipe-component",
     "category": "Recipes",
     "difficulty": 2,
     "eyebrow": "Force Staff",
     "prompt": "Which item is part of Force Staff's recipe?",
     "answers": [
-      "Orchid Malevolence",
-      "Shawl",
-      "Staff of Wizardry",
-      "Ring of Tarrasque"
+      "Fluffy Hat",
+      "Orb of Frost",
+      "Wind Lace",
+      "Wizard Hat"
     ],
-    "correctIndex": 2,
+    "correctIndex": 0,
     "explanation": "Force Staff is built with Staff of Wizardry, Fluffy Hat.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -12882,12 +13140,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orchid.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shawl.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/staff_of_wizardry.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_tarrasque.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/fluffy_hat.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_frost.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/wind_lace.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/wizard_hat.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "force_staff",
+      "componentKey": "fluffy_hat",
+      "recipeComponentKeys": [
+        "staff_of_wizardry",
+        "fluffy_hat"
+      ],
+      "answerItemKeys": [
+        "fluffy_hat",
+        "orb_of_frost",
+        "wind_lace",
+        "wizard_hat"
+      ],
+      "answerCosts": [
+        250,
+        300,
+        225,
+        250
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:greater_crit:demon_edge",
@@ -12897,12 +13176,12 @@
     "eyebrow": "Daedalus",
     "prompt": "Which item is part of Daedalus's recipe?",
     "answers": [
+      "Sange",
       "Demon Edge",
-      "Mantle of Intelligence",
-      "Mekansm",
-      "Ultimate Orb"
+      "Blink Dagger",
+      "Force Staff"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Daedalus is built with Crystalys, Demon Edge.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -12915,12 +13194,33 @@
       "kind": "item"
     },
     "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sange.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/demon_edge.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mantle.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mekansm.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/force_staff.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "greater_crit",
+      "componentKey": "demon_edge",
+      "recipeComponentKeys": [
+        "lesser_crit",
+        "demon_edge"
+      ],
+      "answerItemKeys": [
+        "sange",
+        "demon_edge",
+        "blink",
+        "force_staff"
+      ],
+      "answerCosts": [
+        2100,
+        2200,
+        2250,
+        2200
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:guardian_greaves:mekansm",
@@ -12930,13 +13230,13 @@
     "eyebrow": "Guardian Greaves",
     "prompt": "Which item is part of Guardian Greaves's recipe?",
     "answers": [
-      "Mystic Staff",
-      "Shadow Amulet",
+      "Ring of Tarrasque",
+      "Tiara of Selemene",
       "Mekansm",
-      "Force Staff"
+      "Vanguard"
     ],
     "correctIndex": 2,
-    "explanation": "Guardian Greaves is built with Arcane Boots, Mekansm.",
+    "explanation": "Guardian Greaves is built with Mekansm.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
       "url": "https://www.dota2.com/patches/7.41d"
@@ -12948,45 +13248,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shadow_amulet.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_tarrasque.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tiara_of_selemene.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mekansm.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/force_staff.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vanguard.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
-  },
-  {
-    "id": "item-component:hand_of_midas:gloves",
-    "kind": "recipe-component",
-    "category": "Recipes",
-    "difficulty": 2,
-    "eyebrow": "Hand of Midas",
-    "prompt": "Which item is part of Hand of Midas's recipe?",
-    "answers": [
-      "Gloves of Haste",
-      "Splintmail",
-      "Chasm Stone",
-      "Oblivion Staff"
-    ],
-    "correctIndex": 0,
-    "explanation": "Hand of Midas is built with Gloves of Haste.",
-    "source": {
-      "label": "Dota 2 live-client audit · build 6872",
-      "url": "https://www.dota2.com/patches/7.41d"
-    },
-    "patch": "7.41d",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hand_of_midas.png?t=1593393829403",
-      "alt": "Hand of Midas item icon",
-      "kind": "item"
-    },
-    "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gloves.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/splintmail.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chasm_stone.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/oblivion_staff.png?t=1593393829403"
-    ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "guardian_greaves",
+      "componentKey": "mekansm",
+      "recipeComponentKeys": [
+        "arcane_boots",
+        "mekansm"
+      ],
+      "answerItemKeys": [
+        "ring_of_tarrasque",
+        "tiara_of_selemene",
+        "mekansm",
+        "vanguard"
+      ],
+      "answerCosts": [
+        1700,
+        1700,
+        1775,
+        1700
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:heart:reaver",
@@ -12996,12 +13284,12 @@
     "eyebrow": "Heart of Tarrasque",
     "prompt": "Which item is part of Heart of Tarrasque's recipe?",
     "answers": [
-      "Broadsword",
-      "Reaver",
-      "Chainmail",
-      "Veil of Discord"
+      "Eaglesong",
+      "Mystic Staff",
+      "Ultimate Orb",
+      "Reaver"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Heart of Tarrasque is built with Reaver, Ring of Tarrasque.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -13014,45 +13302,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/broadsword.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/reaver.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chainmail.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/veil_of_discord.png?t=1593393829403"
-    ],
-    "answerImageKind": "item"
-  },
-  {
-    "id": "item-component:kaya_and_sange:sange",
-    "kind": "recipe-component",
-    "category": "Recipes",
-    "difficulty": 2,
-    "eyebrow": "Kaya and Sange",
-    "prompt": "Which item is part of Kaya and Sange's recipe?",
-    "answers": [
-      "Mystic Staff",
-      "Headdress",
-      "Sange",
-      "Soul Booster"
-    ],
-    "correctIndex": 2,
-    "explanation": "Kaya and Sange is built with Kaya, Sange.",
-    "source": {
-      "label": "Dota 2 live-client audit · build 6872",
-      "url": "https://www.dota2.com/patches/7.41d"
-    },
-    "patch": "7.41d",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/kaya_and_sange.png?t=1593393829403",
-      "alt": "Kaya and Sange item icon",
-      "kind": "item"
-    },
-    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/eagle.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/headdress.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sange.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/soul_booster.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/reaver.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "heart",
+      "componentKey": "reaver",
+      "recipeComponentKeys": [
+        "reaver",
+        "ring_of_tarrasque"
+      ],
+      "answerItemKeys": [
+        "eagle",
+        "mystic_staff",
+        "ultimate_orb",
+        "reaver"
+      ],
+      "answerCosts": [
+        2800,
+        2800,
+        2800,
+        2800
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:lotus_orb:energy_booster",
@@ -13063,9 +13339,9 @@
     "prompt": "Which item is part of Lotus Orb's recipe?",
     "answers": [
       "Energy Booster",
-      "Blade of Alacrity",
-      "Belt of Strength",
-      "Broadsword"
+      "Javelin",
+      "Chasm Stone",
+      "Shadow Amulet"
     ],
     "correctIndex": 0,
     "explanation": "Lotus Orb is built with Perseverance, Platemail, Energy Booster.",
@@ -13081,44 +13357,33 @@
     },
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/energy_booster.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blade_of_alacrity.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/belt_of_strength.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/broadsword.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/javelin.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chasm_stone.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shadow_amulet.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
-  },
-  {
-    "id": "item-component:magic_wand:magic_stick",
-    "kind": "recipe-component",
-    "category": "Recipes",
-    "difficulty": 2,
-    "eyebrow": "Magic Wand",
-    "prompt": "Which item is part of Magic Wand's recipe?",
-    "answers": [
-      "Mystic Staff",
-      "Kaya",
-      "Belt of Strength",
-      "Magic Stick"
-    ],
-    "correctIndex": 3,
-    "explanation": "Magic Wand is built with Magic Stick, Iron Branch ×2.",
-    "source": {
-      "label": "Dota 2 live-client audit · build 6872",
-      "url": "https://www.dota2.com/patches/7.41d"
-    },
-    "patch": "7.41d",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/magic_wand.png?t=1593393829403",
-      "alt": "Magic Wand item icon",
-      "kind": "item"
-    },
-    "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/kaya.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/belt_of_strength.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/magic_stick.png?t=1593393829403"
-    ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "lotus_orb",
+      "componentKey": "energy_booster",
+      "recipeComponentKeys": [
+        "pers",
+        "platemail",
+        "energy_booster"
+      ],
+      "answerItemKeys": [
+        "energy_booster",
+        "javelin",
+        "chasm_stone",
+        "shadow_amulet"
+      ],
+      "answerCosts": [
+        800,
+        900,
+        800,
+        900
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:manta:diadem",
@@ -13128,13 +13393,13 @@
     "eyebrow": "Manta Style",
     "prompt": "Which item is part of Manta Style's recipe?",
     "answers": [
-      "Crown",
-      "Ring of Tarrasque",
+      "Blade of Alacrity",
       "Diadem",
-      "Orb of Frost"
+      "Blitz Knuckles",
+      "Broadsword"
     ],
-    "correctIndex": 2,
-    "explanation": "Manta Style is built with Yasha, Diadem.",
+    "correctIndex": 1,
+    "explanation": "Manta Style is built with Diadem.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
       "url": "https://www.dota2.com/patches/7.41d"
@@ -13146,12 +13411,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/crown.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_tarrasque.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blade_of_alacrity.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/diadem.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_frost.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blitz_knuckles.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/broadsword.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "manta",
+      "componentKey": "diadem",
+      "recipeComponentKeys": [
+        "yasha",
+        "diadem"
+      ],
+      "answerItemKeys": [
+        "blade_of_alacrity",
+        "diadem",
+        "blitz_knuckles",
+        "broadsword"
+      ],
+      "answerCosts": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:mekansm:headdress",
@@ -13161,13 +13447,13 @@
     "eyebrow": "Mekansm",
     "prompt": "Which item is part of Mekansm's recipe?",
     "answers": [
-      "Soul Booster",
-      "Skull Basher",
-      "Perseverance",
-      "Headdress"
+      "Belt of Strength",
+      "Blades of Attack",
+      "Headdress",
+      "Buckler"
     ],
-    "correctIndex": 3,
-    "explanation": "Mekansm is built with Headdress, Chainmail.",
+    "correctIndex": 2,
+    "explanation": "Mekansm is built with Headdress.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
       "url": "https://www.dota2.com/patches/7.41d"
@@ -13179,12 +13465,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/soul_booster.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/basher.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pers.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/headdress.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/belt_of_strength.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blades_of_attack.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/headdress.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/buckler.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "mekansm",
+      "componentKey": "headdress",
+      "recipeComponentKeys": [
+        "headdress",
+        "chainmail"
+      ],
+      "answerItemKeys": [
+        "belt_of_strength",
+        "blades_of_attack",
+        "headdress",
+        "buckler"
+      ],
+      "answerCosts": [
+        450,
+        450,
+        425,
+        425
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:mjollnir:hyperstone",
@@ -13194,12 +13501,12 @@
     "eyebrow": "Mjollnir",
     "prompt": "Which item is part of Mjollnir's recipe?",
     "answers": [
-      "Hyperstone",
-      "Vitality Booster",
-      "Boots of Travel Recipe",
-      "Iron Branch"
+      "Kaya",
+      "Crystalys",
+      "Sange",
+      "Hyperstone"
     ],
-    "correctIndex": 0,
+    "correctIndex": 3,
     "explanation": "Mjollnir is built with Maelstrom, Hyperstone.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -13212,45 +13519,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hyperstone.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vitality_booster.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/branches.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/kaya.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lesser_crit.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sange.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hyperstone.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
-  },
-  {
-    "id": "item-component:moon_shard:hyperstone",
-    "kind": "recipe-component",
-    "category": "Recipes",
-    "difficulty": 2,
-    "eyebrow": "Moon Shard",
-    "prompt": "Which item is part of Moon Shard's recipe?",
-    "answers": [
-      "Hyperstone",
-      "Mystic Staff",
-      "Ring of Protection",
-      "Gauntlets of Strength"
-    ],
-    "correctIndex": 0,
-    "explanation": "Moon Shard is built with Hyperstone ×2.",
-    "source": {
-      "label": "Dota 2 live-client audit · build 6872",
-      "url": "https://www.dota2.com/patches/7.41d"
-    },
-    "patch": "7.41d",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/moon_shard.png?t=1593393829403",
-      "alt": "Moon Shard item icon",
-      "kind": "item"
-    },
-    "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hyperstone.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_protection.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gauntlets.png?t=1593393829403"
-    ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "mjollnir",
+      "componentKey": "hyperstone",
+      "recipeComponentKeys": [
+        "maelstrom",
+        "hyperstone"
+      ],
+      "answerItemKeys": [
+        "kaya",
+        "lesser_crit",
+        "sange",
+        "hyperstone"
+      ],
+      "answerCosts": [
+        2100,
+        2000,
+        2100,
+        2000
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:null_talisman:mantle",
@@ -13260,13 +13555,13 @@
     "eyebrow": "Null Talisman",
     "prompt": "Which item is part of Null Talisman's recipe?",
     "answers": [
-      "Wind Lace",
-      "Blade of Alacrity",
-      "Sange",
-      "Mantle of Intelligence"
+      "Mantle of Intelligence",
+      "Gauntlets of Strength",
+      "Slippers of Agility",
+      "Sage's Mask"
     ],
-    "correctIndex": 3,
-    "explanation": "Null Talisman is built with Circlet, Mantle of Intelligence.",
+    "correctIndex": 0,
+    "explanation": "Null Talisman is built with Mantle of Intelligence.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
       "url": "https://www.dota2.com/patches/7.41d"
@@ -13278,27 +13573,48 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/wind_lace.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blade_of_alacrity.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sange.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mantle.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mantle.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gauntlets.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/slippers.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sobi_mask.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "null_talisman",
+      "componentKey": "mantle",
+      "recipeComponentKeys": [
+        "circlet",
+        "mantle"
+      ],
+      "answerItemKeys": [
+        "mantle",
+        "gauntlets",
+        "slippers",
+        "sobi_mask"
+      ],
+      "answerCosts": [
+        140,
+        140,
+        140,
+        175
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
-    "id": "item-component:overwhelming_blink:blink",
+    "id": "item-component:overwhelming_blink:reaver",
     "kind": "recipe-component",
     "category": "Recipes",
     "difficulty": 2,
     "eyebrow": "Overwhelming Blink",
     "prompt": "Which item is part of Overwhelming Blink's recipe?",
     "answers": [
-      "Sange",
-      "Morbid Mask",
-      "Shadow Amulet",
-      "Blink Dagger"
+      "Eaglesong",
+      "Reaver",
+      "Mystic Staff",
+      "Ultimate Orb"
     ],
-    "correctIndex": 3,
+    "correctIndex": 1,
     "explanation": "Overwhelming Blink is built with Blink Dagger, Reaver.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -13311,12 +13627,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sange.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lifesteal.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shadow_amulet.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/eagle.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/reaver.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "overwhelming_blink",
+      "componentKey": "reaver",
+      "recipeComponentKeys": [
+        "blink",
+        "reaver"
+      ],
+      "answerItemKeys": [
+        "eagle",
+        "reaver",
+        "mystic_staff",
+        "ultimate_orb"
+      ],
+      "answerCosts": [
+        2800,
+        2800,
+        2800,
+        2800
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:power_treads:gloves",
@@ -13326,13 +13663,13 @@
     "eyebrow": "Power Treads",
     "prompt": "Which item is part of Power Treads's recipe?",
     "answers": [
-      "Iron Branch",
+      "Blades of Attack",
+      "Crown",
       "Gloves of Haste",
-      "Claymore",
-      "Buckler"
+      "Shawl"
     ],
-    "correctIndex": 1,
-    "explanation": "Power Treads is built with Boots of Speed, Gloves of Haste, Belt of Strength.",
+    "correctIndex": 2,
+    "explanation": "Power Treads is built with Gloves of Haste, Belt of Strength.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
       "url": "https://www.dota2.com/patches/7.41d"
@@ -13344,12 +13681,34 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/branches.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blades_of_attack.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/crown.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gloves.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/claymore.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/buckler.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shawl.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "power_treads",
+      "componentKey": "gloves",
+      "recipeComponentKeys": [
+        "boots",
+        "gloves",
+        "belt_of_strength"
+      ],
+      "answerItemKeys": [
+        "blades_of_attack",
+        "crown",
+        "gloves",
+        "shawl"
+      ],
+      "answerCosts": [
+        450,
+        450,
+        450,
+        450
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:satanic:lifesteal",
@@ -13359,12 +13718,12 @@
     "eyebrow": "Satanic",
     "prompt": "Which item is part of Satanic's recipe?",
     "answers": [
-      "Morbid Mask",
-      "Wizard Hat",
-      "Maelstrom",
-      "Cloak"
+      "Shadow Amulet",
+      "Javelin",
+      "Cloak",
+      "Morbid Mask"
     ],
-    "correctIndex": 0,
+    "correctIndex": 3,
     "explanation": "Satanic is built with Reaver, Claymore, Morbid Mask.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -13377,12 +13736,34 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lifesteal.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/wizard_hat.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/maelstrom.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cloak.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shadow_amulet.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/javelin.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cloak.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lifesteal.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "satanic",
+      "componentKey": "lifesteal",
+      "recipeComponentKeys": [
+        "reaver",
+        "claymore",
+        "lifesteal"
+      ],
+      "answerItemKeys": [
+        "shadow_amulet",
+        "javelin",
+        "cloak",
+        "lifesteal"
+      ],
+      "answerCosts": [
+        900,
+        900,
+        900,
+        900
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:sheepstick:tiara_of_selemene",
@@ -13392,12 +13773,12 @@
     "eyebrow": "Scythe of Vyse",
     "prompt": "Which item is part of Scythe of Vyse's recipe?",
     "answers": [
-      "Platemail",
-      "Talisman of Evasion",
       "Tiara of Selemene",
-      "Oblivion Staff"
+      "Ring of Tarrasque",
+      "Vanguard",
+      "Veil of Discord"
     ],
-    "correctIndex": 2,
+    "correctIndex": 0,
     "explanation": "Scythe of Vyse is built with Mystic Staff, Tiara of Selemene.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -13410,12 +13791,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/platemail.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/talisman_of_evasion.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tiara_of_selemene.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/oblivion_staff.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_tarrasque.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vanguard.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/veil_of_discord.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "sheepstick",
+      "componentKey": "tiara_of_selemene",
+      "recipeComponentKeys": [
+        "mystic_staff",
+        "tiara_of_selemene"
+      ],
+      "answerItemKeys": [
+        "tiara_of_selemene",
+        "ring_of_tarrasque",
+        "vanguard",
+        "veil_of_discord"
+      ],
+      "answerCosts": [
+        1700,
+        1700,
+        1700,
+        1700
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:shivas_guard:platemail",
@@ -13425,13 +13827,13 @@
     "eyebrow": "Shiva's Guard",
     "prompt": "Which item is part of Shiva's Guard's recipe?",
     "answers": [
-      "Blade of Alacrity",
-      "Boots of Speed",
-      "Boots of Travel",
-      "Platemail"
+      "Claymore",
+      "Platemail",
+      "Ghost Scepter",
+      "Perseverance"
     ],
-    "correctIndex": 3,
-    "explanation": "Shiva's Guard is built with Platemail, Splintmail, Chasm Stone.",
+    "correctIndex": 1,
+    "explanation": "Shiva's Guard is built with Platemail, Chasm Stone.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
       "url": "https://www.dota2.com/patches/7.41d"
@@ -13443,27 +13845,49 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blade_of_alacrity.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/boots.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/travel_boots.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/platemail.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/claymore.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/platemail.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ghost.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pers.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "shivas_guard",
+      "componentKey": "platemail",
+      "recipeComponentKeys": [
+        "platemail",
+        "splintmail",
+        "chasm_stone"
+      ],
+      "answerItemKeys": [
+        "claymore",
+        "platemail",
+        "ghost",
+        "pers"
+      ],
+      "answerCosts": [
+        1350,
+        1400,
+        1500,
+        1400
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
-    "id": "item-component:silver_edge:demon_edge",
+    "id": "item-component:silver_edge:invis_sword",
     "kind": "recipe-component",
     "category": "Recipes",
     "difficulty": 2,
     "eyebrow": "Silver Edge",
     "prompt": "Which item is part of Silver Edge's recipe?",
     "answers": [
-      "Crown",
-      "Belt of Strength",
-      "Slippers of Agility",
-      "Demon Edge"
+      "Dagon",
+      "Orchid Malevolence",
+      "Shadow Blade",
+      "Soul Booster"
     ],
-    "correctIndex": 3,
+    "correctIndex": 2,
     "explanation": "Silver Edge is built with Shadow Blade, Demon Edge.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -13476,12 +13900,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/crown.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/belt_of_strength.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/slippers.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/demon_edge.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/dagon.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orchid.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/invis_sword.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/soul_booster.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "silver_edge",
+      "componentKey": "invis_sword",
+      "recipeComponentKeys": [
+        "invis_sword",
+        "demon_edge"
+      ],
+      "answerItemKeys": [
+        "dagon",
+        "orchid",
+        "invis_sword",
+        "soul_booster"
+      ],
+      "answerCosts": [
+        3000,
+        3275,
+        3250,
+        3000
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:skadi:ultimate_orb",
@@ -13491,13 +13936,13 @@
     "eyebrow": "Eye of Skadi",
     "prompt": "Which item is part of Eye of Skadi's recipe?",
     "answers": [
-      "Vitality Booster",
-      "Slippers of Agility",
-      "Ultimate Orb",
-      "Perseverance"
+      "Eaglesong",
+      "Mystic Staff",
+      "Reaver",
+      "Ultimate Orb"
     ],
-    "correctIndex": 2,
-    "explanation": "Eye of Skadi is built with Ultimate Orb ×2, Orb of Frost.",
+    "correctIndex": 3,
+    "explanation": "Eye of Skadi is built with Ultimate Orb, Orb of Frost.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
       "url": "https://www.dota2.com/patches/7.41d"
@@ -13509,12 +13954,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vitality_booster.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/slippers.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pers.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/eagle.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/reaver.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "skadi",
+      "componentKey": "ultimate_orb",
+      "recipeComponentKeys": [
+        "ultimate_orb",
+        "orb_of_frost"
+      ],
+      "answerItemKeys": [
+        "eagle",
+        "mystic_staff",
+        "reaver",
+        "ultimate_orb"
+      ],
+      "answerCosts": [
+        2800,
+        2800,
+        2800,
+        2800
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:sphere:pers",
@@ -13524,13 +13990,13 @@
     "eyebrow": "Linken's Sphere",
     "prompt": "Which item is part of Linken's Sphere's recipe?",
     "answers": [
-      "Chainmail",
       "Perseverance",
-      "Eaglesong",
-      "Orb of Frost"
+      "Claymore",
+      "Ghost Scepter",
+      "Platemail"
     ],
-    "correctIndex": 1,
-    "explanation": "Linken's Sphere is built with Perseverance, Ultimate Orb, .",
+    "correctIndex": 0,
+    "explanation": "Linken's Sphere is built with Perseverance, Ultimate Orb.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
       "url": "https://www.dota2.com/patches/7.41d"
@@ -13542,27 +14008,48 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chainmail.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pers.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/eagle.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_frost.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/claymore.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ghost.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/platemail.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "sphere",
+      "componentKey": "pers",
+      "recipeComponentKeys": [
+        "pers",
+        "ultimate_orb"
+      ],
+      "answerItemKeys": [
+        "pers",
+        "claymore",
+        "ghost",
+        "platemail"
+      ],
+      "answerCosts": [
+        1400,
+        1350,
+        1500,
+        1400
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
-    "id": "item-component:swift_blink:blink",
+    "id": "item-component:swift_blink:eagle",
     "kind": "recipe-component",
     "category": "Recipes",
     "difficulty": 2,
     "eyebrow": "Swift Blink",
     "prompt": "Which item is part of Swift Blink's recipe?",
     "answers": [
-      "Blink Dagger",
-      "Headdress",
-      "Morbid Mask",
-      "Yasha"
+      "Mystic Staff",
+      "Eaglesong",
+      "Reaver",
+      "Ultimate Orb"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "explanation": "Swift Blink is built with Blink Dagger, Eaglesong.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
@@ -13575,45 +14062,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/headdress.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lifesteal.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/yasha.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/eagle.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/reaver.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
-  },
-  {
-    "id": "item-component:travel_boots_2:recipe_travel_boots",
-    "kind": "recipe-component",
-    "category": "Recipes",
-    "difficulty": 2,
-    "eyebrow": "Boots of Travel 2",
-    "prompt": "Which item is part of Boots of Travel 2's recipe?",
-    "answers": [
-      "Belt of Strength",
-      "Boots of Travel Recipe",
-      "Iron Branch",
-      "Mantle of Intelligence"
-    ],
-    "correctIndex": 1,
-    "explanation": "Boots of Travel 2 is built with Boots of Travel, Boots of Travel Recipe.",
-    "source": {
-      "label": "Dota 2 live-client audit · build 6872",
-      "url": "https://www.dota2.com/patches/7.41d"
-    },
-    "patch": "7.41d",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/travel_boots_2.png?t=1593393829403",
-      "alt": "Boots of Travel 2 item icon",
-      "kind": "item"
-    },
-    "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/belt_of_strength.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/recipe.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/branches.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mantle.png?t=1593393829403"
-    ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "swift_blink",
+      "componentKey": "eagle",
+      "recipeComponentKeys": [
+        "blink",
+        "eagle"
+      ],
+      "answerItemKeys": [
+        "mystic_staff",
+        "eagle",
+        "reaver",
+        "ultimate_orb"
+      ],
+      "answerCosts": [
+        2800,
+        2800,
+        2800,
+        2800
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-component:wraith_band:slippers",
@@ -13623,13 +14098,13 @@
     "eyebrow": "Wraith Band",
     "prompt": "Which item is part of Wraith Band's recipe?",
     "answers": [
-      "Chasm Stone",
-      "Mantle of Intelligence",
-      "Boots of Travel",
-      "Slippers of Agility"
+      "Gauntlets of Strength",
+      "Ring of Protection",
+      "Slippers of Agility",
+      "Mantle of Intelligence"
     ],
-    "correctIndex": 3,
-    "explanation": "Wraith Band is built with Circlet, Slippers of Agility.",
+    "correctIndex": 2,
+    "explanation": "Wraith Band is built with Slippers of Agility.",
     "source": {
       "label": "Dota 2 live-client audit · build 6872",
       "url": "https://www.dota2.com/patches/7.41d"
@@ -13641,12 +14116,33 @@
       "kind": "item"
     },
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chasm_stone.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mantle.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/travel_boots.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/slippers.png?t=1593393829403"
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gauntlets.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_protection.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/slippers.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mantle.png?t=1593393829403"
     ],
-    "answerImageKind": "item"
+    "answerImageKind": "item",
+    "shopkeeper": {
+      "targetItemKey": "wraith_band",
+      "componentKey": "slippers",
+      "recipeComponentKeys": [
+        "circlet",
+        "slippers"
+      ],
+      "answerItemKeys": [
+        "gauntlets",
+        "ring_of_protection",
+        "slippers",
+        "mantle"
+      ],
+      "answerCosts": [
+        140,
+        175,
+        140,
+        140
+      ],
+      "clientBuild": "6872"
+    }
   },
   {
     "id": "item-cost:abyssal_blade",
