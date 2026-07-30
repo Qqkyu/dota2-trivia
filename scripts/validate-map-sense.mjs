@@ -11,6 +11,7 @@ const challenges = JSON.parse(await readFile(join(root, "src", "data", "map-sens
 const crops = JSON.parse(await readFile(join(root, "src", "data", "map-sense-crops.json"), "utf8"));
 const landmarkSnapshot = JSON.parse(await readFile(join(root, "src", "data", "map-sense-landmarks.json"), "utf8"));
 const mechanics = JSON.parse(await readFile(join(root, "src", "data", "map-sense-mechanics.json"), "utf8"));
+const stackAudit = JSON.parse(await readFile(join(root, "src", "data", "map-sense-stack-audit.json"), "utf8"));
 const mapPath = join(root, "public", "assets", "dota2", "map", "overview-7.41d.webp");
 const failures = [];
 const ids = new Set();
@@ -48,6 +49,16 @@ if (
 
 if (!Array.isArray(mechanics.camps) || mechanics.camps.length < 24) {
   failures.push("Map Sense needs at least 24 audited neutral camps.");
+}
+if (
+  stackAudit.snapshot?.patch !== "7.41d" ||
+  stackAudit.snapshot?.clientBuild !== "6872" ||
+  stackAudit.snapshot?.steamBuildId !== mechanics.snapshot?.verifiedAgainstSteamBuildId ||
+  stackAudit.snapshot?.resource !== mechanics.snapshot?.timingResource ||
+  stackAudit.snapshot?.resourceCrc !== mechanics.snapshot?.timingCrc ||
+  Object.keys(stackAudit.camps ?? {}).length !== 31
+) {
+  failures.push("The independent Valve stack-guide audit is incomplete or belongs to another client snapshot.");
 }
 
 const landmarks = landmarkSnapshot.landmarks ?? {};
@@ -356,6 +367,17 @@ for (const [index, camp] of (mechanics.camps ?? []).entries()) {
     camp.stack.direction >= 360
   ) {
     failures.push(`${camp.id}: invalid Valve stack window or arrow direction.`);
+  }
+  const auditedStack = stackAudit.camps?.[camp.id];
+  if (
+    !auditedStack ||
+    camp.stack.start !== auditedStack.start ||
+    camp.stack.end !== auditedStack.end ||
+    camp.stack.direction !== auditedStack.direction
+  ) {
+    failures.push(
+      `${camp.id}: displayed stack guide ${JSON.stringify(camp.stack)} does not match the independently extracted Valve values ${JSON.stringify(auditedStack)}.`,
+    );
   }
 
   const center = {

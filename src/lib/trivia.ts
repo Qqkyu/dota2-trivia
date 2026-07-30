@@ -168,7 +168,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-8-counterplay-4-soundcheck-5`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-8-counterplay-4-soundcheck-6`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
     (question.kind !== "spell-owner" ||

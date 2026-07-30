@@ -9,9 +9,9 @@ const SOUNDCHECK_CUT_PROFILES = [
 ];
 
 const ECHO_HUNT_CUT_PROFILES = [
-  { ratio: 0.2, minimum: 0.18, minimumCeilingRatio: 0.28, maximum: 0.9 },
-  { ratio: 0.44, minimum: 0.38, minimumCeilingRatio: 0.52, maximum: 1.8 },
-  { ratio: 0.7, minimum: 0.6, minimumCeilingRatio: 0.78, maximum: 3.4 },
+  { ratio: 0.09, minimum: 0.12, minimumCeilingRatio: 0.15, maximum: 0.32 },
+  { ratio: 0.22, minimum: 0.28, minimumCeilingRatio: 0.32, maximum: 0.75 },
+  { ratio: 1, minimum: 0, minimumCeilingRatio: 1, maximum: Number.POSITIVE_INFINITY },
 ];
 
 function progressiveCutDuration(duration, stage, stages, profiles) {
@@ -32,8 +32,8 @@ export function soundcheckCutDuration(duration, stage) {
 }
 
 /**
- * Echo Hunt uses a little more speech than Soundcheck, but never opens with
- * the complete response. Later stages reveal progressively longer phrases.
+ * Echo Hunt opens with two deliberately terse fragments. The final stage
+ * reveals the complete response so every round remains solvable.
  */
 export function echoHuntCutDuration(duration, stage) {
   return progressiveCutDuration(duration, stage, ECHO_HUNT_REVEAL_STAGES, ECHO_HUNT_CUT_PROFILES);

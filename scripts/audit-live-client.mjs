@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { createHash } from "node:crypto";
 import { readdir, readFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -16,9 +17,13 @@ const CLIENT_ROOT = resolve(
 );
 const HERO_ABILITY_DIRECTORY = join(CLIENT_ROOT, "npc", "scripts", "npc", "heroes");
 const CORE_NPC_DIRECTORY = join(CLIENT_ROOT, "core", "scripts", "npc");
+const CREEP_PULL_TIMINGS_PATH = join(CLIENT_ROOT, "scripts", "creep_pull_timings.txt");
+const MAP_ENTITY_PATH = join(CLIENT_ROOT, "map", "maps", "dota", "entities", "default_ents.vents");
 
 const questions = JSON.parse(await readFile(join(ROOT, "src", "data", "questions.generated.json"), "utf8"));
 const metadata = JSON.parse(await readFile(join(ROOT, "src", "data", "trivia-meta.generated.json"), "utf8"));
+const mapMechanics = JSON.parse(await readFile(join(ROOT, "src", "data", "map-sense-mechanics.json"), "utf8"));
+const mapStackAudit = JSON.parse(await readFile(join(ROOT, "src", "data", "map-sense-stack-audit.json"), "utf8"));
 const failures = [];
 let checks = 0;
 
@@ -85,6 +90,9 @@ for (const file of heroAbilityFiles) {
 
 const heroes = await loadKeyValues(join(CORE_NPC_DIRECTORY, "npc_heroes.txt"), "DOTAHeroes");
 const items = await loadKeyValues(join(CORE_NPC_DIRECTORY, "items.txt"), "DOTAAbilities");
+const creepPullTimingsSource = await readFile(CREEP_PULL_TIMINGS_PATH, "utf8");
+const creepPullTimings = parseValveKeyValues(creepPullTimingsSource).CREEP_PULL_TIMINGS ?? {};
+const mapEntitySource = await readFile(MAP_ENTITY_PATH, "utf8");
 const recipes = new Map();
 
 for (const item of Object.values(items)) {
@@ -102,6 +110,69 @@ record(
   metadata.clientConstantAudit?.clientBuild === CLIENT_CONSTANT_AUDIT.clientBuild,
   "Generated metadata does not identify the audited Dota client build.",
 );
+record(
+  mapStackAudit.snapshot?.clientBuild === CLIENT_CONSTANT_AUDIT.clientBuild &&
+    mapStackAudit.snapshot?.steamBuildId === CLIENT_CONSTANT_AUDIT.steamBuildId,
+  "Map stack audit does not identify the current audited Dota client.",
+);
+record(
+  createHash("sha256").update(creepPullTimingsSource).digest("hex") === mapStackAudit.snapshot?.extractedSha256,
+  "The extracted creep-pull timing resource changed from the reviewed client snapshot.",
+);
+
+for (const [campId, expected] of Object.entries(mapStackAudit.camps ?? {})) {
+  const current = creepPullTimings[campId];
+  record(
+    Number(current?.stack_start) === expected.start &&
+      Number(current?.stack_end) === expected.end &&
+      Number(current?.stack_arrow_direction) === expected.direction,
+    `${campId}: reviewed stack guide ${JSON.stringify(expected)} does not match the current client resource.`,
+  );
+}
+
+const overview = {
+  posX: -9472,
+  posY: 9472,
+  worldSpan: 18.5 * 1024,
+};
+const neutralTypeTiers = ["small", "medium", "large", "ancient"];
+const spawners = new Map();
+for (const block of mapEntitySource.split(/\r?\n====\d+====\r?\n/)) {
+  if (!/^classname\s+"npc_dota_neutral_spawner"/m.test(block)) continue;
+  const campId = block.match(/^volumename\s+"\[PR#\](neutralcamp_(?:good|evil)_\d+)"/m)?.[1];
+  const origin = block.match(/^origin\s+\[\s*(-?[\d.]+),\s*(-?[\d.]+),\s*(-?[\d.]+)\s*\]/m);
+  const neutralType = Number(block.match(/^neutraltype\s+"?(\d+)"?/m)?.[1]);
+  if (campId && origin) {
+    spawners.set(campId, {
+      position: {
+        x: (Number(origin[1]) - overview.posX) / overview.worldSpan,
+        y: (overview.posY - Number(origin[2])) / overview.worldSpan,
+      },
+      tier: neutralTypeTiers[neutralType],
+      side: campId.includes("_good_") ? "radiant" : "dire",
+    });
+  }
+}
+
+for (const camp of mapMechanics.camps ?? []) {
+  const expectedStack = mapStackAudit.camps?.[camp.id];
+  const spawner = spawners.get(camp.id);
+  record(
+    expectedStack &&
+      camp.stack.start === expectedStack.start &&
+      camp.stack.end === expectedStack.end &&
+      camp.stack.direction === expectedStack.direction,
+    `${camp.id}: playable stack values drifted from the reviewed client extraction.`,
+  );
+  record(
+    spawner &&
+      Math.abs(spawner.position.x - camp.position.x) <= 0.0000011 &&
+      Math.abs(spawner.position.y - camp.position.y) <= 0.0000011 &&
+      spawner.tier === camp.tier &&
+      spawner.side === camp.side,
+    `${camp.id}: displayed camp position, tier, or side does not match the current map entity.`,
+  );
+}
 
 for (const question of questions) {
   const correctAnswer = question.answers[question.correctIndex];

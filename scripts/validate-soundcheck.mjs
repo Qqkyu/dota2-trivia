@@ -255,11 +255,9 @@ for (const duration of [1, 2.5, 5]) {
     cuts[0] <= 0 ||
     cuts[0] >= cuts[1] ||
     cuts[1] >= cuts[2] ||
-    cuts[2] >= duration ||
-    cuts[0] > 0.9 ||
-    cuts[1] > 1.8 ||
-    cuts[2] > 3.4 ||
-    cuts[2] / duration > 0.781
+    cuts[0] > 0.32 ||
+    cuts[1] > 0.75 ||
+    cuts[2] !== duration
   ) {
     failures.push(`Echo Hunt ${duration}s line has an invalid progressive cut ${JSON.stringify(cuts)}.`);
   }

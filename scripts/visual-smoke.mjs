@@ -636,6 +636,23 @@ const echoStageTwo = await evaluate(`(() => {
     revealMeter: document.querySelectorAll('[class*="soundRevealMeterActive"]').length
   };
 })()`);
+await waitFor(
+  `(() => {
+    const player = document.querySelector('[data-testid="echo-player"]');
+    return player?.dataset.revealStage === "3" && player?.dataset.audioState === "ready";
+  })()`,
+  8_000,
+);
+const echoStageThree = await evaluate(`(() => {
+  const audio = document.querySelector('[data-testid="round-audio-clip"]');
+  return {
+    stage: Number(document.querySelector('[data-testid="echo-player"]')?.dataset.revealStage),
+    playCount: Number(document.querySelector('[data-testid="echo-player"]')?.dataset.playCount),
+    duration: audio?.duration,
+    cutDurations: [Number(audio?.dataset.cutDuration)],
+    revealMeter: document.querySelectorAll('[class*="soundRevealMeterActive"]').length
+  };
+})()`);
 echoAudioFixtureEnabled = false;
 await send("Fetch.disable");
 
@@ -880,6 +897,8 @@ await waitFor(`(() => {
 })()`);
 const quoteHunt = await evaluate(`({
   text: document.querySelector('[data-testid="hero-quote"] blockquote')?.innerText,
+  eyebrow: document.querySelector('[data-testid="round-prompt"] [class*="questionCopy"] span')?.textContent,
+  heading: document.querySelector('[data-testid="round-prompt"] [class*="questionCopy"] h2')?.textContent,
   answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
   answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
   answerImagesLoaded: [...document.querySelectorAll('[data-testid="arcade-answer"] img')]
@@ -1460,14 +1479,19 @@ if (
   echoStageOne.revealMeter !== 1 ||
   !Number.isFinite(echoStageOne.duration) ||
   echoStageOne.cutDurations[0] <= 0 ||
-  echoStageOne.cutDurations[0] > 0.9 ||
+  echoStageOne.cutDurations[0] > 0.32 ||
   echoStageOne.cutDurations[0] >= echoStageOne.duration ||
   echoStageTwo.stage !== 2 ||
   echoStageTwo.playCount !== 0 ||
   echoStageTwo.revealMeter !== 2 ||
-  echoStageTwo.cutDurations[0] > 1.8 ||
+  echoStageTwo.cutDurations[0] > 0.75 ||
   echoStageTwo.cutDurations[0] >= echoStageTwo.duration ||
-  !cutsIncrease(echoStageOne.cutDurations, echoStageTwo.cutDurations)
+  !cutsIncrease(echoStageOne.cutDurations, echoStageTwo.cutDurations) ||
+  echoStageThree.stage !== 3 ||
+  echoStageThree.playCount !== 0 ||
+  echoStageThree.revealMeter !== 3 ||
+  Math.abs(echoStageThree.cutDurations[0] - echoStageThree.duration) > 0.01 ||
+  !cutsIncrease(echoStageTwo.cutDurations, echoStageThree.cutDurations)
 ) {
   failures.push("Echo Hunt progressive cut contract, mute safety, or hero choices failed.");
 }
@@ -1540,6 +1564,8 @@ if (
 if (
   (quoteHunt.text?.length ?? 0) < 28 ||
   (quoteHunt.text?.match(/[a-z]+(?:['’-][a-z]+)*/gi)?.length ?? 0) < 5 ||
+  quoteHunt.eyebrow !== "Quote Hunt" ||
+  quoteHunt.heading !== "Who said it?" ||
   quoteHunt.answerCount !== 4 ||
   quoteHunt.answerImages !== 4 ||
   !quoteHunt.answerImagesLoaded ||
@@ -1683,6 +1709,7 @@ console.log(
       echoHunt,
       echoStageOne,
       echoStageTwo,
+      echoStageThree,
       volumeAfterAdjustment,
       soundcheckInitial,
       soundcheckLockedAnswer,

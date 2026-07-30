@@ -283,7 +283,7 @@ const MODE_INFO: Record<
     eyebrow: "Sound check",
     description: "Identify a hero response as its opening fragment grows into a longer line.",
     action: "Hunt some echoes",
-    rule: "Three timed cuts reveal more of the same spoken line.",
+    rule: "Two short fragments unlock before the complete spoken line.",
   },
   soundcheck: {
     label: "Soundcheck",
@@ -296,7 +296,7 @@ const MODE_INFO: Record<
   "quote-hunt": {
     label: "Quote Hunt",
     shortLabel: "Quotes",
-    eyebrow: "Who said it?",
+    eyebrow: "Hero responses",
     description: "Read a real hero response and identify the speaker from their attitude, diction, and worldview.",
     action: "Read between the lines",
     rule: "One proper hero line, four closely matched portraits, no laughs or throwaway noises.",
@@ -305,9 +305,9 @@ const MODE_INFO: Record<
     label: "Map Sense",
     shortLabel: "Map Sense",
     eyebrow: "Pinpoint the play",
-    description: "Read terrain, block camps, stack neutrals, and choose the right TP before the room reveal.",
+    description: "Read terrain, block camps, stack neutrals, and solve compact battlefield calls.",
     action: "Read the map",
-    rule: "Real terrain, spawn boxes, stack guides, and live structures.",
+    rule: "Real terrain, current spawn boxes, and Valve's in-game stack guides.",
   },
   counterplay: {
     label: "Counterplay",
@@ -2759,8 +2759,8 @@ export function QueueArcade() {
                   <span>Hero response</span>
                 </div>
                 <div className={styles.questionCopy}>
-                  <span>Quote Hunt · Who said it?</span>
-                  <h2>Which hero speaks like this?</h2>
+                  <span>Quote Hunt</span>
+                  <h2>Who said it?</h2>
                 </div>
               </div>
             ) : currentGame === "counterplay" ? (
