@@ -19,7 +19,10 @@ for (const question of questions) {
     ? question.explanation.slice(explanationPrefix.length)
     : question.explanation.split(". ").slice(1).join(". ");
 
-  question.hint = buildSpellHint(description, ownerName, question.eyebrow, { redactAbility: false });
+  question.hint = buildSpellHint(description, ownerName, question.eyebrow, {
+    maxWords: 18,
+    maxCharacters: 112,
+  });
   updated += 1;
 }
 

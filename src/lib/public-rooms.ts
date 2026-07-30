@@ -59,7 +59,7 @@ export function publicRoomFor(settings: PublicRoomSettings): PublicRoom {
 }
 
 function rawRoomBatch(room: PublicRoom, batchNumber: number) {
-  const seed = `public-room:${room.id}:batch:${batchNumber}`;
+  const seed = `public-room:${room.id}:questions`;
   const deck = GAME_CATALOGS[room.gameId].createDeck(
     seed,
     room.mode,

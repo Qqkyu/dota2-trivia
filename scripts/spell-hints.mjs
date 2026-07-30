@@ -6,7 +6,8 @@ function escapeRegExp(value) {
 
 export function answerLeakTerms(answer) {
   const words = answer.match(/\p{L}+/gu) ?? [];
-  return [...new Set([answer, ...words.filter((word) => word.length >= 4)])].sort(
+  const collapsed = words.length > 1 ? words.join("") : "";
+  return [...new Set([answer, collapsed, ...words.filter((word) => word.length >= 4)].filter(Boolean))].sort(
     (left, right) => right.length - left.length,
   );
 }
@@ -20,7 +21,18 @@ export function containsAnswerLeak(text, answer) {
   return answerLeakTerms(answer).some((term) => termPattern(term, term === answer).test(text));
 }
 
-export function buildSpellHint(description, ownerName, abilityName, { redactAbility = true } = {}) {
+export function containsFullNameLeak(text, name) {
+  const words = name.match(/\p{L}+/gu) ?? [];
+  const collapsed = words.length > 1 ? words.join("") : "";
+  return [name, collapsed].filter(Boolean).some((term) => termPattern(term).test(text));
+}
+
+export function buildSpellHint(
+  description,
+  ownerName,
+  abilityName,
+  { redactAbility = true, maxWords = 22, maxCharacters = 145 } = {},
+) {
   let hint = String(description ?? "")
     .replace(/\s+/g, " ")
     .replace(/\s*DISPEL TYPE:.*$/i, "")
@@ -28,7 +40,7 @@ export function buildSpellHint(description, ownerName, abilityName, { redactAbil
 
   if (!hint) return GENERIC_HINT;
 
-  if (redactAbility) hint = hint.replace(termPattern(abilityName, true), "this ability");
+  if (redactAbility) hint = hint.replace(termPattern(abilityName), "this ability");
 
   for (const term of answerLeakTerms(ownerName)) {
     hint = hint.replace(termPattern(term, term === ownerName), (match) => {
@@ -43,6 +55,7 @@ export function buildSpellHint(description, ownerName, abilityName, { redactAbil
   hint = hint.split(/(?<=[.!?])\s+/)[0]?.trim() ?? "";
   hint = hint
     .replace(/\b(?:a|an|the) this ability\b/gi, "this ability")
+    .replace(/\b(?:a|an|the)(?:\s+[\p{L}-]+){1,2}\s+this ability\b/giu, "this ability")
     .replace(/\b(?:a|an|the) the caster\b/gi, "the caster")
     .replace(/\banother the caster\b/gi, "another copy")
     .replace(/\bcreates this ability over\b/gi, "creates an effect over")
@@ -55,8 +68,11 @@ export function buildSpellHint(description, ownerName, abilityName, { redactAbil
     .replace(/^[a-z]/, (letter) => letter.toUpperCase());
 
   const words = hint.split(/\s+/);
-  if (hint.length > 145 || words.length > 22) {
-    let shortened = words.slice(0, 22).join(" ").slice(0, 142);
+  if (hint.length > maxCharacters || words.length > maxWords) {
+    let shortened = words
+      .slice(0, maxWords)
+      .join(" ")
+      .slice(0, Math.max(1, maxCharacters - 3));
     const clauseEnd = shortened.lastIndexOf(",");
     if (clauseEnd >= 55) shortened = shortened.slice(0, clauseEnd);
     else shortened = shortened.slice(0, shortened.lastIndexOf(" "));

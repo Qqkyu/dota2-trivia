@@ -517,19 +517,6 @@ function scoreBreakdown(
   };
 }
 
-function spellMechanicHint(hint: string) {
-  const mechanics = [
-    [/\b(move|movement|speed|dash|blink|teleport|leap|walk|rush)\w*/i, "Mobility"],
-    [/\b(stun|slow|silence|root|disable|knock|trap)\w*|prevent\w*[^.]{0,40}\bcast\w*/i, "Control"],
-    [/\b(damage|attack|critical|strike)\w*/i, "Damage"],
-    [/\b(heal|health|regen|lifesteal|restore)\w*/i, "Sustain"],
-    [/\b(armor|shield|resist|invulnerable|evasion)\w*/i, "Defense"],
-    [/\b(summon|illusion|replica|remnant|golem)\w*/i, "Summon"],
-  ] as const;
-  const matches = mechanics.filter(([pattern]) => pattern.test(hint)).map(([, label]) => label);
-  return matches.length ? matches.slice(0, 2).join(" · ") : "Utility effect";
-}
-
 function QuestionArtwork({
   question,
   concealIdentity = false,
@@ -1663,6 +1650,7 @@ export function QueueArcade() {
     setJoiningRoom(true);
     setRoomError(null);
     roomSettingsRef.current = settings;
+    playSound("start");
 
     try {
       const result = await requestRoomSnapshot(settings, ensurePlayerId());
@@ -1693,7 +1681,6 @@ export function QueueArcade() {
       setReportNotice(null);
       setReportedReason(null);
       updateReportState("idle");
-      playSound("start");
       applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
     } catch {
       if (roomSettingsRef.current === settings) {
@@ -2130,8 +2117,6 @@ export function QueueArcade() {
   const recentHistory = history.slice(phase === "answering" ? -9 : -10);
   const recentHistoryStart = history.length - recentHistory.length + 1;
   const spellHint = currentQuestion?.hint ?? "A mechanical clue will appear near the end of the round.";
-  const spellClueTwo =
-    currentQuestion?.difficulty === 1 ? (currentQuestion.eyebrow ?? "Ability name") : spellMechanicHint(spellHint);
   const activeModeInfo = MODE_INFO[mode];
 
   useEffect(() => {
@@ -2143,8 +2128,7 @@ export function QueueArcade() {
       !currentQuestion?.audio ||
       !soundEnabled ||
       !roundAudioRefs.current.some(Boolean) ||
-      autoPlayedAudioKeyRef.current === autoplayKey ||
-      (isProgressiveAudioRound && selectedIndex !== null)
+      autoPlayedAudioKeyRef.current === autoplayKey
     ) {
       return;
     }
@@ -2160,7 +2144,6 @@ export function QueueArcade() {
     isSoundcheckRound,
     phase,
     playRoundAudio,
-    selectedIndex,
     soundEnabled,
   ]);
 
@@ -2547,7 +2530,19 @@ export function QueueArcade() {
             ) : currentGame === "spell-link" ? (
               <div className={clsx(styles.questionBlock, styles.spellQuestion)} data-testid="round-prompt">
                 <div className={styles.spellArtwork}>
-                  <QuestionArtwork question={currentQuestion} />
+                  {clueStage >= 3 ? (
+                    <QuestionArtwork question={currentQuestion} testId="spell-ability-artwork" />
+                  ) : (
+                    <div
+                      className={clsx(styles.artwork, styles.spellLockedArtwork)}
+                      data-testid="spell-artwork-locked"
+                      aria-label={`Ability icon unlocks at ${finalClueAt} seconds`}
+                    >
+                      <div className={styles.artGlow} />
+                      <WandSparkles />
+                      <span className={styles.artCorner} />
+                    </div>
+                  )}
                   <span>
                     Clue {clueStage}
                     <small>/ 3</small>
@@ -2557,23 +2552,25 @@ export function QueueArcade() {
                   <span>Spell Link · Clues unlock with time</span>
                   <h2>Which hero owns this ability?</h2>
                   <div className={styles.clueList}>
-                    <div className={styles.clueUnlocked}>
+                    <div className={styles.clueUnlocked} data-testid="spell-clue-1">
                       <strong>01</strong>
-                      <span>Ability icon revealed</span>
+                      <span>{spellHint}</span>
                     </div>
                     <div
                       className={clueStage >= 2 ? styles.clueUnlocked : styles.clueLocked}
                       data-testid="spell-clue-2"
                     >
                       <strong>02</strong>
-                      <span>{clueStage >= 2 ? spellClueTwo : `Next clue unlocks at ${firstClueAt}s`}</span>
+                      <span>
+                        {clueStage >= 2 ? currentQuestion.eyebrow : `Ability name unlocks at ${firstClueAt}s`}
+                      </span>
                     </div>
                     <div
                       className={clueStage >= 3 ? styles.clueUnlocked : styles.clueLocked}
                       data-testid="spell-clue-3"
                     >
                       <strong>03</strong>
-                      <span>{clueStage >= 3 ? spellHint : `Description unlocks at ${finalClueAt}s`}</span>
+                      <span>{clueStage >= 3 ? "Ability icon revealed" : `Icon unlocks at ${finalClueAt}s`}</span>
                     </div>
                   </div>
                   <small>Every extra clue costs {SPELL_CLUE_PENALTY} points, on top of the fading speed bonus</small>
@@ -2673,40 +2670,20 @@ export function QueueArcade() {
                   data-active-clip={roundAudioClipIndex + 1}
                   data-reveal-stage={isProgressiveAudioRound ? clueStage : undefined}
                 >
-                  <button
-                    type="button"
-                    data-testid={isSoundcheckRound ? "soundcheck-play" : "voice-line-play"}
-                    onClick={() => playRoundAudio(true, isProgressiveAudioRound ? clueStage : 1)}
-                    aria-label={
-                      roundAudioPlayCount
-                        ? `Replay ${
-                            isSoundSequence
-                              ? "sound sequence cut"
-                              : isSoundcheckRound
-                                ? "gameplay sound cut"
-                                : "voice line cut"
-                          }`
-                        : `Play ${
-                            isSoundSequence
-                              ? "sound sequence cut"
-                              : isSoundcheckRound
-                                ? "gameplay sound cut"
-                                : "voice line cut"
-                          }`
-                    }
-                  >
-                    {roundAudioState === "playing" ? (
-                      isSoundcheckRound ? (
-                        <AudioWaveform />
-                      ) : (
-                        <AudioLines />
-                      )
-                    ) : isSoundcheckRound ? (
-                      <Volume2 />
-                    ) : (
-                      <Headphones />
-                    )}
-                  </button>
+                  {isSoundcheckRound ? (
+                    <div className={styles.audioAutoplayIcon} data-testid="soundcheck-autoplay" aria-hidden="true">
+                      {roundAudioState === "playing" ? <AudioWaveform /> : <Volume2 />}
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      data-testid="voice-line-play"
+                      onClick={() => playRoundAudio(true, clueStage)}
+                      aria-label={roundAudioPlayCount ? "Replay voice line cut" : "Play voice line cut"}
+                    >
+                      {roundAudioState === "playing" ? <AudioLines /> : <Headphones />}
+                    </button>
+                  )}
                   <div className={styles.audioVisualization} aria-hidden="true">
                     <div className={styles.echoWave}>
                       {Array.from({ length: 15 }, (_, index) => (

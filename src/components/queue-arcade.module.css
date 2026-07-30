@@ -2705,6 +2705,21 @@
   background: rgba(76, 143, 174, 0.24);
 }
 
+.spellLockedArtwork {
+  overflow: hidden;
+  border: 1px solid rgba(114, 169, 196, 0.18);
+  background: linear-gradient(135deg, rgba(103, 176, 208, 0.08), transparent 55%),
+    repeating-linear-gradient(135deg, rgba(118, 182, 210, 0.035) 0 1px, transparent 1px 10px), #0d1417;
+  color: #5f8495;
+}
+
+.spellLockedArtwork > svg {
+  width: 34px;
+  height: 34px;
+  opacity: 0.62;
+  stroke-width: 1.25;
+}
+
 .spellQuestion .questionCopy > span {
   color: #79b7d3;
 }
@@ -2712,7 +2727,7 @@
 .clueList {
   display: grid;
   gap: 6px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
   margin: 16px 0 12px;
 }
 
@@ -2750,6 +2765,10 @@
   line-height: 1.45;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+
+.clueList > div:first-child span {
+  font-size: 12px;
 }
 
 .clueList .clueUnlocked {
@@ -2935,6 +2954,20 @@
 
 .echoPlayer > button svg {
   width: 23px;
+}
+
+.audioAutoplayIcon {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  color: #83dfe5;
+  pointer-events: none;
+}
+
+.audioAutoplayIcon svg {
+  width: 28px;
+  stroke-width: 1.45;
 }
 
 .echoPlayer > span {
@@ -4932,6 +4965,11 @@
   }
 
   .echoPlayer > button {
+    width: 46px;
+    height: 46px;
+  }
+
+  .audioAutoplayIcon {
     width: 46px;
     height: 46px;
   }

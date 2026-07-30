@@ -25,7 +25,7 @@ const META_OUTPUT = join(ROOT, "src", "data", "trivia-meta.generated.json");
 
 const PATCH = process.env.DOTA_PATCH ?? "7.41d";
 const SNAPSHOT_DATE = process.env.DOTA_SNAPSHOT_DATE ?? new Date().toISOString().slice(0, 10);
-const CONTENT_VERSION = `${PATCH}-variety-4`;
+const CONTENT_VERSION = `${PATCH}-variety-5`;
 const CDN = "https://cdn.cloudflare.steamstatic.com";
 const DOTABASE_RAW = "https://raw.githubusercontent.com/mdiller/dotabase/master";
 const DOTABASE_ASSETS = "https://dotabase.dillerm.io/vpk";
@@ -393,7 +393,18 @@ const voiceSource = {
 
 const questions = [];
 
-const spellOwnerCandidates = abilities.filter((ability) => !NON_TRIVIA_SPELL_OWNER_KEYS.includes(ability.key));
+const spellOwnerCandidates = abilities
+  .filter((ability) => !NON_TRIVIA_SPELL_OWNER_KEYS.includes(ability.key))
+  .map((ability) => ({
+    ...ability,
+    spellHint: buildSpellHint(ability.desc, ability.owner.localized_name, ability.dname, {
+      maxWords: 18,
+      maxCharacters: 112,
+    }),
+  }))
+  .filter(
+    (ability) => ability.spellHint.length >= 18 && !ability.spellHint.startsWith("No additional mechanical clue"),
+  );
 
 for (const ability of stableSample(spellOwnerCandidates, 73, "ability-owner")) {
   const ownerAbilityKeys = heroAbilitiesByKey[ability.owner.key]?.abilities ?? [];
@@ -415,9 +426,7 @@ for (const ability of stableSample(spellOwnerCandidates, 73, "ability-owner")) {
       answerImagesByValue: Object.fromEntries(answerHeroes.map((hero) => [hero.localized_name, hero.image])),
       answerImageKind: "hero",
       explanation: `${ability.dname} belongs to ${ability.owner.localized_name}.${ability.desc ? ` ${ability.desc}` : ""}`,
-      hint: buildSpellHint(ability.desc, ability.owner.localized_name, ability.dname, {
-        redactAbility: false,
-      }),
+      hint: ability.spellHint,
       source: clientQuestionSource,
     }),
   );

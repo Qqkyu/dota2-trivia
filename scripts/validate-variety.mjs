@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { fixedCycleRotation, varietyShuffle } from "../src/lib/variety.mjs";
+import { fixedCycleOccurrenceCounts, fixedCycleRotation, varietyShuffle } from "../src/lib/variety.mjs";
 import { MAP_READ_GRACE_MS, speedScoreRatio } from "../src/lib/scoring.mjs";
 
 const fixture = [
@@ -70,6 +70,26 @@ if (
   JSON.stringify(mixedRounds) !== JSON.stringify(fixedCycleRotation(arcadeGames, "public-room-regression", 31, 4))
 ) {
   throw new Error("Mixed Arcade can skip or repeat a game inside its guaranteed nine-round rotation.");
+}
+
+const boundaryPoolSize = 7;
+const batchedMixedQuestions = [];
+for (let roundOffset = 0; roundOffset < 120; roundOffset += 24) {
+  const batchGames = fixedCycleRotation(arcadeGames, "public-room-regression", 24, roundOffset);
+  const cursors = fixedCycleOccurrenceCounts(arcadeGames, "public-room-regression", roundOffset);
+  for (const game of batchGames) {
+    const cursor = cursors.get(game) ?? 0;
+    batchedMixedQuestions.push({ game, id: `${game}:question-${cursor % boundaryPoolSize}` });
+    cursors.set(game, cursor + 1);
+  }
+}
+for (const game of arcadeGames) {
+  const scheduled = batchedMixedQuestions.filter((question) => question.game === game);
+  const repeatedAtBoundary = scheduled.some((question, index) => index > 0 && question.id === scheduled[index - 1].id);
+  const firstCycle = scheduled.slice(0, boundaryPoolSize).map((question) => question.id);
+  if (repeatedAtBoundary || new Set(firstCycle).size !== boundaryPoolSize) {
+    throw new Error(`${game} restarted its question pool at a public-room batch boundary.`);
+  }
 }
 
 const soundcheckFixture = ["soundcheck-ability", "soundcheck-item"].flatMap((kind) =>
@@ -198,5 +218,5 @@ if (
 }
 
 console.log(
-  `Validated deterministic templates, hidden difficulty cadence ${JSON.stringify(hiddenDifficultyCounts)}, nine-game Mixed Arcade, Soundcheck, Counterplay and Map Sense family rotation, and ${MAP_READ_GRACE_MS / 1000}s reading grace (Soundcheck ${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}, Counterplay ${JSON.stringify(counterplayOpeningCounts)}, Map all-family ${JSON.stringify(mapOpeningCounts)}, Map mechanics ${JSON.stringify(mechanicMapCounts)}).`,
+  `Validated deterministic templates, hidden difficulty cadence ${JSON.stringify(hiddenDifficultyCounts)}, nine-game Mixed Arcade with continuous per-game question pools, Soundcheck, Counterplay and Map Sense family rotation, and ${MAP_READ_GRACE_MS / 1000}s reading grace (Soundcheck ${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}, Counterplay ${JSON.stringify(counterplayOpeningCounts)}, Map all-family ${JSON.stringify(mapOpeningCounts)}, Map mechanics ${JSON.stringify(mechanicMapCounts)}).`,
 );

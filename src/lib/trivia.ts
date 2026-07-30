@@ -4,7 +4,7 @@ import generatedMeta from "@/data/trivia-meta.generated.json";
 import soundcheckQuestions from "@/data/soundcheck-questions.json";
 import { mapSenseQuestions } from "@/lib/map-sense";
 import type { MapChallenge } from "@/lib/map-types";
-import { fixedCycleRotation, varietyShuffle } from "@/lib/variety.mjs";
+import { fixedCycleOccurrenceCounts, fixedCycleRotation, varietyShuffle } from "@/lib/variety.mjs";
 
 export const KNOWLEDGE_FILTERS = ["Mixed", "Abilities", "Items", "Heroes"] as const;
 
@@ -159,9 +159,14 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-4-soundcheck-3`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-7-counterplay-4-soundcheck-4`;
+const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
+  (question) =>
+    question.kind !== "spell-owner" ||
+    ((question.hint?.trim().length ?? 0) >= 18 && !question.hint?.startsWith("No additional mechanical clue")),
+);
 export const triviaQuestions = [
-  ...(generatedQuestions as TriviaQuestion[]),
+  ...playableGeneratedQuestions,
   ...(mapSenseQuestions as TriviaQuestion[]),
   ...(counterplayQuestions as TriviaQuestion[]),
   ...(soundcheckQuestions as unknown as TriviaQuestion[]),
@@ -252,9 +257,16 @@ export function createArcadeDeck(
     "map-sense": 0,
     counterplay: 0,
   };
+  if (mode === "mixed") {
+    const previousOccurrences = fixedCycleOccurrenceCounts(mixedGames, rotationSeed, roundOffset);
+    for (const game of mixedGames) cursors[game] = previousOccurrences.get(game) ?? 0;
+  } else {
+    cursors[mode] = Math.max(0, roundOffset);
+  }
 
   return games.flatMap((game) => {
-    const question = pools[game][cursors[game]];
+    const pool = pools[game];
+    const question = pool.length ? pool[cursors[game] % pool.length] : undefined;
     cursors[game] += 1;
     return question ? [{ ...question, game }] : [];
   });

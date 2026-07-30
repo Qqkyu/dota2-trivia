@@ -133,6 +133,28 @@ async function screenshot(path) {
   await writeFile(path, Buffer.from(result.data, "base64"));
 }
 
+async function trustedClick(selector) {
+  const center = await evaluate(`(() => {
+    const bounds = document.querySelector(${JSON.stringify(selector)})?.getBoundingClientRect();
+    return bounds ? { x: bounds.left + bounds.width / 2, y: bounds.top + bounds.height / 2 } : null;
+  })()`);
+  if (!center) throw new Error(`Could not click missing element: ${selector}`);
+  await send("Input.dispatchMouseEvent", {
+    type: "mousePressed",
+    x: center.x,
+    y: center.y,
+    button: "left",
+    clickCount: 1,
+  });
+  await send("Input.dispatchMouseEvent", {
+    type: "mouseReleased",
+    x: center.x,
+    y: center.y,
+    button: "left",
+    clickCount: 1,
+  });
+}
+
 async function waitFor(expression, timeout = 30_000) {
   const startedAt = Date.now();
   while (Date.now() - startedAt < timeout) {
@@ -362,21 +384,22 @@ await evaluate(`(() => {
 await waitFor(`(() => {
   const main = document.querySelector("main");
   const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
-  const artwork = document.querySelector('[data-testid="question-artwork"]');
-  return main?.dataset.phase === "answering" && timer >= 10 && artwork?.dataset.artworkState === "loaded";
+  return main?.dataset.phase === "answering" &&
+    timer >= 10 &&
+    Boolean(document.querySelector('[data-testid="spell-artwork-locked"]')) &&
+    !document.querySelector('[data-testid="spell-ability-artwork"]');
 })()`);
 await screenshot("/tmp/queue-arcade-spell-link.png");
 
 const spellLink = await evaluate(`({
   modeVisible: document.body.innerText.toLowerCase().includes("spell link"),
-  clueOneVisible: document.body.innerText.includes("Ability icon revealed"),
+  clueOneText: document.querySelector('[data-testid="spell-clue-1"]')?.innerText,
   heroAnswers: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
   heroImagesLoaded: [...document.querySelectorAll('[data-testid="arcade-answer"] img')]
     .every((image) => image.complete && image.naturalWidth > 0),
-  questionArtworkLoaded:
-    document.querySelector('[data-testid="question-artwork"]')?.dataset.artworkState === "loaded",
-  questionArtworkFallback:
-    document.querySelector('[data-testid="question-artwork"]')?.dataset.artworkState === "fallback",
+  questionArtworkHidden:
+    Boolean(document.querySelector('[data-testid="spell-artwork-locked"]')) &&
+    !document.querySelector('[data-testid="spell-ability-artwork"]'),
   answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
   difficultyLabelVisible: Boolean(document.querySelector('[data-testid="round-difficulty"]')),
   contentDifficulty: Number(document.querySelector('[data-testid="public-room"]')?.dataset.contentDifficulty),
@@ -399,6 +422,9 @@ await waitFor(
 const spellClue = await evaluate(`({
   clueTwoUnlocked: !document.querySelector('[data-testid="spell-clue-2"]')?.innerText.includes("unlock"),
   clueTwoText: document.querySelector('[data-testid="spell-clue-2"]')?.innerText,
+  artworkStillHidden:
+    Boolean(document.querySelector('[data-testid="spell-artwork-locked"]')) &&
+    !document.querySelector('[data-testid="spell-ability-artwork"]'),
   clueCounter: [...document.querySelectorAll("span")].find((entry) =>
     entry.textContent.trim().startsWith("Clue 2")
   )?.textContent
@@ -412,10 +438,16 @@ const spellLayoutTwo = await evaluate(`({
 })`);
 await waitFor(
   `document.querySelector("main")?.dataset.phase === "answering" &&
-    !document.querySelector('[data-testid="spell-clue-3"]')?.innerText.includes("unlock")`,
+    !document.querySelector('[data-testid="spell-clue-3"]')?.innerText.includes("unlock") &&
+    document.querySelector('[data-testid="spell-ability-artwork"]')?.dataset.artworkState === "loaded"`,
   8_000,
 );
-const spellFinalClue = await evaluate(`document.querySelector('[data-testid="spell-clue-3"]')?.innerText`);
+const spellFinalClue = await evaluate(`({
+  text: document.querySelector('[data-testid="spell-clue-3"]')?.innerText,
+  artworkLoaded:
+    document.querySelector('[data-testid="spell-ability-artwork"]')?.dataset.artworkState === "loaded",
+  lockedArtworkGone: !document.querySelector('[data-testid="spell-artwork-locked"]')
+})`);
 const spellLayoutThree = await evaluate(`({
   promptTop: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().top,
   promptLeft: document.querySelector('[data-testid="round-prompt"]')?.getBoundingClientRect().left,
@@ -629,12 +661,12 @@ const volumeAfterAdjustment = await evaluate(`({
   soundEnabled: Boolean(document.querySelector('button[aria-label="Mute game sounds"]'))
 })`);
 await evaluate(`(() => {
-  document.querySelector('button[aria-label="Mute game sounds"]')?.click();
+  document.querySelector('button[aria-label="Enable game sounds"]')?.click();
   document.querySelector('[data-arcade-mode="soundcheck"]')?.click();
   return true;
 })()`);
 await delay(350);
-await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+await trustedClick('[data-testid="start-arcade"]');
 let soundSequenceFound = false;
 for (let attempt = 0; attempt < 8; attempt += 1) {
   await waitFor(`(() => {
@@ -670,12 +702,14 @@ await waitFor(`(() => {
     main?.dataset.questionKind?.startsWith("soundcheck-") &&
     document.querySelector('[data-testid="round-prompt"]')?.dataset.soundcheckStage === "1" &&
     timer >= 12 &&
+    Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.playCount) === 1 &&
+    document.querySelector('[data-testid="soundcheck-player"]')?.dataset.audioState === "ready" &&
     audio.length === 2 &&
     audio.every((clip) => clip.readyState >= 2) &&
     answers.length === 8 &&
     answers.every((image) => image.complete && image.naturalWidth > 0);
 })()`);
-const soundcheckBeforeReplay = await evaluate(`(() => {
+const soundcheckInitial = await evaluate(`(() => {
   const main = document.querySelector("main");
   const prompt = document.querySelector('[data-testid="round-prompt"]');
   const player = document.querySelector('[data-testid="soundcheck-player"]');
@@ -706,47 +740,13 @@ const soundcheckBeforeReplay = await evaluate(`(() => {
     audioVolumes: audio.map((clip) => clip.volume),
     clipCount: Number(player?.dataset.clipCount),
     replayButton: Boolean(document.querySelector('[data-testid="soundcheck-play"]')),
+    autoplayIndicator: Boolean(document.querySelector('[data-testid="soundcheck-autoplay"]')),
     playCount: Number(player?.dataset.playCount),
-    soundMuted: Boolean(document.querySelector('button[aria-label="Enable game sounds"]')),
+    soundEnabled: Boolean(document.querySelector('button[aria-label="Mute game sounds"]')),
     volumeValue: document.querySelector('[data-testid="game-volume"]')?.value,
     horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
   };
 })()`);
-const soundcheckReplayCenter = await evaluate(`(() => {
-  const bounds = document.querySelector('[data-testid="soundcheck-play"]')?.getBoundingClientRect();
-  return bounds ? { x: bounds.left + bounds.width / 2, y: bounds.top + bounds.height / 2 } : null;
-})()`);
-if (!soundcheckReplayCenter) throw new Error("Soundcheck replay control was not found.");
-await send("Input.dispatchMouseEvent", {
-  type: "mousePressed",
-  x: soundcheckReplayCenter.x,
-  y: soundcheckReplayCenter.y,
-  button: "left",
-  clickCount: 1,
-});
-await send("Input.dispatchMouseEvent", {
-  type: "mouseReleased",
-  x: soundcheckReplayCenter.x,
-  y: soundcheckReplayCenter.y,
-  button: "left",
-  clickCount: 1,
-});
-await waitFor(
-  `(() => {
-    const player = document.querySelector('[data-testid="soundcheck-player"]');
-    return Number(player?.dataset.playCount) >= 1 &&
-      player?.dataset.activeClip === "2" &&
-      player?.dataset.audioState === "playing" &&
-      Number(document.querySelectorAll('[data-testid="round-audio-clip"]')[1]?.currentTime) > 0;
-  })()`,
-  8_000,
-);
-const soundcheckAfterReplay = await evaluate(`({
-  playCount: Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.playCount),
-  activeClip: Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.activeClip),
-  secondClipStarted: Number(document.querySelectorAll('[data-testid="round-audio-clip"]')[1]?.currentTime) > 0,
-  soundEnabled: Boolean(document.querySelector('button[aria-label="Mute game sounds"]'))
-})`);
 await waitFor(
   `(() => {
     const player = document.querySelector('[data-testid="soundcheck-player"]');
@@ -766,11 +766,17 @@ const soundcheckStageOne = await evaluate(`(() => {
     revealMeter: document.querySelectorAll('[class*="soundRevealMeterActive"]').length
   };
 })()`);
+await evaluate(`document.querySelector('[data-testid="arcade-answer"]')?.click()`);
+await waitFor(`document.querySelectorAll('[data-testid="arcade-answer"][disabled]').length === 4`);
+const soundcheckLockedAnswer = await evaluate(`({
+  locked: document.querySelectorAll('[data-testid="arcade-answer"][disabled]').length === 4,
+  playCount: Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.playCount)
+})`);
 await waitFor(
   `(() => {
     const player = document.querySelector('[data-testid="soundcheck-player"]');
     return player?.dataset.revealStage === "2" &&
-      Number(player?.dataset.playCount) >= 2 &&
+      Number(player?.dataset.playCount) === 2 &&
       player?.dataset.audioState === "ready";
   })()`,
   8_000,
@@ -789,8 +795,8 @@ await waitFor(
   `(() => {
     const player = document.querySelector('[data-testid="soundcheck-player"]');
     return player?.dataset.revealStage === "3" &&
-      Number(player?.dataset.playCount) >= 3 &&
-      player?.dataset.audioState === "playing";
+      Number(player?.dataset.playCount) === 3 &&
+      player?.dataset.audioState === "ready";
   })()`,
   8_000,
 );
@@ -800,6 +806,7 @@ const soundcheckStageThree = await evaluate(`(() => {
     stage: Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.revealStage),
     playCount: Number(document.querySelector('[data-testid="soundcheck-player"]')?.dataset.playCount),
     cutDurations: audio.map((clip) => Number(clip.dataset.cutDuration)),
+    playedDurations: audio.map((clip) => clip.currentTime),
     revealMeter: document.querySelectorAll('[class*="soundRevealMeterActive"]').length,
     audioState: document.querySelector('[data-testid="soundcheck-player"]')?.dataset.audioState
   };
@@ -1373,7 +1380,8 @@ if (!autoAdvanced.answering || !autoAdvanced.endless || autoAdvanced.round === r
 if (!summary.scoreVisible || !summary.playAgain) failures.push("The session report is incomplete.");
 if (
   !spellLink.modeVisible ||
-  !spellLink.clueOneVisible ||
+  !spellLink.clueOneText ||
+  /no additional mechanical clue|belongs to/i.test(spellLink.clueOneText) ||
   spellLink.answerCount !== 4 ||
   spellLink.difficultyLabelVisible ||
   spellLink.contentDifficulty < 1 ||
@@ -1384,14 +1392,18 @@ if (
 if (
   spellLink.heroAnswers !== 4 ||
   !spellLink.heroImagesLoaded ||
-  !spellLink.questionArtworkLoaded ||
-  spellLink.questionArtworkFallback ||
-  !spellClue.clueTwoUnlocked
+  !spellLink.questionArtworkHidden ||
+  !spellClue.clueTwoUnlocked ||
+  !spellClue.artworkStillHidden
 ) {
   failures.push("Spell Link artwork or progressive clues failed.");
 }
-if (!spellFinalClue || /belongs to/i.test(spellFinalClue)) {
-  failures.push("Spell Link did not render an answer-safe final clue.");
+if (
+  !spellFinalClue.text?.includes("Ability icon revealed") ||
+  !spellFinalClue.artworkLoaded ||
+  !spellFinalClue.lockedArtworkGone
+) {
+  failures.push("Spell Link did not preserve description → name → icon reveal order.");
 }
 if (layoutDelta(spellLayoutOne, spellLayoutTwo) > 1 || layoutDelta(spellLayoutOne, spellLayoutThree) > 1) {
   failures.push("Unlocking Spell Link clues shifts the round layout.");
@@ -1447,56 +1459,56 @@ if (
   failures.push("Echo Hunt progressive cut contract, mute safety, or hero choices failed.");
 }
 if (
-  soundcheckBeforeReplay.game !== "soundcheck" ||
-  !soundcheckBeforeReplay.kind?.startsWith("soundcheck-") ||
-  !["ability", "item"].includes(soundcheckBeforeReplay.family) ||
-  soundcheckBeforeReplay.kind !== `soundcheck-${soundcheckBeforeReplay.family}` ||
-  soundcheckBeforeReplay.format !== "sequence" ||
-  soundcheckBeforeReplay.scope !== "ordered-pair" ||
-  soundcheckBeforeReplay.difficulty !== 3 ||
-  soundcheckBeforeReplay.revealStage !== 1 ||
-  soundcheckBeforeReplay.revealMeter !== 1 ||
-  soundcheckBeforeReplay.prompt !== "Match both sounds." ||
-  soundcheckBeforeReplay.answerCount !== 4 ||
-  soundcheckBeforeReplay.answerImages !== 8 ||
-  soundcheckBeforeReplay.pairChoices !== 4 ||
-  soundcheckBeforeReplay.pairLabels.some((label) => !label?.includes(" → ")) ||
-  !soundcheckBeforeReplay.answerImagesLoaded ||
-  !soundcheckBeforeReplay.audioReady ||
-  soundcheckBeforeReplay.audioSources.length !== 2 ||
-  soundcheckBeforeReplay.audioSources.some(
+  soundcheckInitial.game !== "soundcheck" ||
+  !soundcheckInitial.kind?.startsWith("soundcheck-") ||
+  !["ability", "item"].includes(soundcheckInitial.family) ||
+  soundcheckInitial.kind !== `soundcheck-${soundcheckInitial.family}` ||
+  soundcheckInitial.format !== "sequence" ||
+  soundcheckInitial.scope !== "ordered-pair" ||
+  soundcheckInitial.difficulty !== 3 ||
+  soundcheckInitial.revealStage !== 1 ||
+  soundcheckInitial.revealMeter !== 1 ||
+  soundcheckInitial.prompt !== "Match both sounds." ||
+  soundcheckInitial.answerCount !== 4 ||
+  soundcheckInitial.answerImages !== 8 ||
+  soundcheckInitial.pairChoices !== 4 ||
+  soundcheckInitial.pairLabels.some((label) => !label?.includes(" → ")) ||
+  !soundcheckInitial.answerImagesLoaded ||
+  !soundcheckInitial.audioReady ||
+  soundcheckInitial.audioSources.length !== 2 ||
+  soundcheckInitial.audioSources.some(
     (source) => !source?.includes("dotabase.dillerm.io/vpk/sounds/") || !source.endsWith(".wav"),
   ) ||
-  soundcheckBeforeReplay.audioDurations.some((duration) => !Number.isFinite(duration) || duration <= 0) ||
-  soundcheckBeforeReplay.cutDurations.some(
-    (cut, index) => !Number.isFinite(cut) || cut <= 0 || cut >= soundcheckBeforeReplay.audioDurations[index],
+  soundcheckInitial.audioDurations.some((duration) => !Number.isFinite(duration) || duration <= 0) ||
+  soundcheckInitial.cutDurations.some(
+    (cut, index) => !Number.isFinite(cut) || cut <= 0 || cut >= soundcheckInitial.audioDurations[index],
   ) ||
-  soundcheckBeforeReplay.audioVolumes.some((volume) => typeof volume !== "number" || Math.abs(volume - 0.35) > 0.001) ||
-  soundcheckBeforeReplay.clipCount !== 2 ||
-  !soundcheckBeforeReplay.replayButton ||
-  soundcheckBeforeReplay.playCount !== 0 ||
-  !soundcheckBeforeReplay.soundMuted ||
-  soundcheckBeforeReplay.volumeValue !== "35" ||
-  soundcheckBeforeReplay.horizontalOverflow ||
-  soundcheckAfterReplay.playCount < 1 ||
-  soundcheckAfterReplay.activeClip !== 2 ||
-  !soundcheckAfterReplay.secondClipStarted ||
-  !soundcheckAfterReplay.soundEnabled ||
+  soundcheckInitial.audioVolumes.some((volume) => typeof volume !== "number" || Math.abs(volume - 0.35) > 0.001) ||
+  soundcheckInitial.clipCount !== 2 ||
+  soundcheckInitial.replayButton ||
+  !soundcheckInitial.autoplayIndicator ||
+  soundcheckInitial.playCount !== 1 ||
+  !soundcheckInitial.soundEnabled ||
+  soundcheckInitial.volumeValue !== "35" ||
+  soundcheckInitial.horizontalOverflow ||
   soundcheckStageOne.stage !== 1 ||
   soundcheckStageOne.playCount !== 1 ||
   soundcheckStageOne.revealMeter !== 1 ||
   !playbackMatchesCut(soundcheckStageOne) ||
+  !soundcheckLockedAnswer.locked ||
+  soundcheckLockedAnswer.playCount !== 1 ||
   soundcheckStageTwo.stage !== 2 ||
-  soundcheckStageTwo.playCount < 2 ||
+  soundcheckStageTwo.playCount !== 2 ||
   soundcheckStageTwo.revealMeter !== 2 ||
   !cutsIncrease(soundcheckStageOne.cutDurations, soundcheckStageTwo.cutDurations) ||
   !playbackMatchesCut(soundcheckStageTwo) ||
   soundcheckStageThree.stage !== 3 ||
-  soundcheckStageThree.playCount < 3 ||
+  soundcheckStageThree.playCount !== 3 ||
   soundcheckStageThree.revealMeter !== 3 ||
-  soundcheckStageThree.audioState !== "playing" ||
+  soundcheckStageThree.audioState !== "ready" ||
   !cutsIncrease(soundcheckStageTwo.cutDurations, soundcheckStageThree.cutDurations) ||
-  soundcheckStageThree.cutDurations.some((cut, index) => cut >= soundcheckBeforeReplay.audioDurations[index]) ||
+  !playbackMatchesCut(soundcheckStageThree) ||
+  soundcheckStageThree.cutDurations.some((cut, index) => cut >= soundcheckInitial.audioDurations[index]) ||
   mobileSoundcheck.answerCount !== 4 ||
   mobileSoundcheck.pairChoices !== 4 ||
   mobileSoundcheck.pairImages !== 8 ||
@@ -1659,8 +1671,8 @@ console.log(
       echoStageOne,
       echoStageTwo,
       volumeAfterAdjustment,
-      soundcheckBeforeReplay,
-      soundcheckAfterReplay,
+      soundcheckInitial,
+      soundcheckLockedAnswer,
       soundcheckStageOne,
       soundcheckStageTwo,
       soundcheckStageThree,

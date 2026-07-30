@@ -15,7 +15,7 @@ import {
   NON_TRIVIA_DETECTIVE_KEYS,
   NON_TRIVIA_SPELL_OWNER_KEYS,
 } from "./question-quality-audit.mjs";
-import { containsAnswerLeak } from "./spell-hints.mjs";
+import { containsAnswerLeak, containsFullNameLeak } from "./spell-hints.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questions = JSON.parse(await readFile(join(root, "src", "data", "questions.generated.json"), "utf8"));
@@ -144,11 +144,17 @@ for (const [index, question] of questions.entries()) {
   if (question.kind === "spell-owner") {
     const correctAnswer = question.answers[question.correctIndex];
     if (!question.hint?.trim()) failures.push(`${label}: Spell Link requires an answer-safe hint.`);
-    if ((question.hint?.trim().split(/\s+/).filter(Boolean).length ?? 99) > 22) {
+    if (
+      !question.hint?.startsWith("No additional mechanical clue") &&
+      ((question.hint?.trim().split(/\s+/).filter(Boolean).length ?? 99) > 18 || (question.hint?.length ?? 999) > 112)
+    ) {
       failures.push(`${label}: Spell Link hint is too slow to scan.`);
     }
     if (question.hint && containsAnswerLeak(question.hint, correctAnswer)) {
       failures.push(`${label}: Spell Link hint leaks the correct hero (${correctAnswer}).`);
+    }
+    if (question.hint && containsFullNameLeak(question.hint, question.eyebrow)) {
+      failures.push(`${label}: the opening Spell Link description leaks ${question.eyebrow}.`);
     }
   }
   if (
@@ -212,13 +218,17 @@ for (const [index, question] of questions.entries()) {
 }
 
 const spellLinkQuestions = questions.filter((question) => question.kind === "spell-owner");
+const playableSpellLinkQuestions = spellLinkQuestions.filter(
+  (question) =>
+    (question.hint?.trim().length ?? 0) >= 18 && !question.hint?.startsWith("No additional mechanical clue"),
+);
 const foggedQuestions = questions.filter((question) => question.kind === "fogged-hero");
 const voiceQuestions = questions.filter((question) => question.kind === "hero-voice");
 const quoteQuestions = questions.filter((question) => question.kind === "hero-quote");
 const damageQuestions = questions.filter((question) => question.kind === "ability-damage");
-const learningSpellCount = spellLinkQuestions.filter((question) => question.difficulty === 1).length;
-const intermediateSpellCount = spellLinkQuestions.filter((question) => question.difficulty === 2).length;
-const demandingSpellCount = spellLinkQuestions.filter((question) => question.difficulty === 3).length;
+const learningSpellCount = playableSpellLinkQuestions.filter((question) => question.difficulty === 1).length;
+const intermediateSpellCount = playableSpellLinkQuestions.filter((question) => question.difficulty === 2).length;
+const demandingSpellCount = playableSpellLinkQuestions.filter((question) => question.difficulty === 3).length;
 const magnusSkewer = spellLinkQuestions.find((question) => question.id === "ability-owner:magnataur_skewer");
 
 if (learningSpellCount < 12 || intermediateSpellCount < 20 || demandingSpellCount < 12) {
@@ -229,6 +239,16 @@ if (learningSpellCount < 12 || intermediateSpellCount < 20 || demandingSpellCoun
 if (foggedQuestions.length < 36) failures.push(`Fogged Vision needs at least 36 playable heroes.`);
 if (voiceQuestions.length < 32) failures.push(`Echo Hunt needs at least 32 verified hero clips.`);
 if (quoteQuestions.length < 32) failures.push(`Quote Hunt needs at least 32 proper hero lines.`);
+const quoteDetails = new Map();
+for (const question of quoteQuestions) {
+  const signature = question.detail
+    ?.toLocaleLowerCase("en-US")
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
+  const duplicate = signature ? quoteDetails.get(signature) : undefined;
+  if (duplicate) failures.push(`${question.id}: duplicates the Quote Hunt line from ${duplicate}.`);
+  if (signature) quoteDetails.set(signature, question.id);
+}
 if (magnusSkewer?.difficulty !== 1) {
   failures.push("Magnus's highly recognizable Skewer icon must remain in the approachable Spell Link tier.");
 }

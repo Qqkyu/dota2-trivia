@@ -55,6 +55,34 @@ export function fixedCycleRotation(values, seed, length, offset = 0) {
 }
 
 /**
+ * Counts how often each value appears before an offset in the same fixed
+ * cycle. Batched consumers use this to resume every per-value question pool
+ * instead of restarting those pools at each batch boundary.
+ *
+ * @template T
+ * @param {readonly T[]} values
+ * @param {string} seed
+ * @param {number} [offset]
+ * @returns {Map<T, number>}
+ */
+export function fixedCycleOccurrenceCounts(values, seed, offset = 0) {
+  const counts = new Map(values.map((value) => [value, 0]));
+  if (!values.length || offset <= 0) return counts;
+
+  const order = fixedCycleRotation(values, seed, values.length);
+  const completeCycles = Math.floor(offset / order.length);
+  const remainder = offset % order.length;
+
+  for (const value of values) counts.set(value, completeCycles);
+  for (let index = 0; index < remainder; index += 1) {
+    const value = order[index];
+    counts.set(value, (counts.get(value) ?? 0) + 1);
+  }
+
+  return counts;
+}
+
+/**
  * Deterministically rotates question templates while each template still has
  * candidates. Optional variety keys also balance variants inside one template.
  * Large pools therefore cannot drown out smaller, more distinctive round types
