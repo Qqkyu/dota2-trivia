@@ -189,6 +189,9 @@ const lobby = await evaluate(`({
   font: getComputedStyle(document.body).fontFamily,
   startButton: Boolean(document.querySelector('[data-testid="start-arcade"]')),
   arcadeModes: document.querySelectorAll("[data-arcade-mode]").length,
+  arcadeModeLinks: [...document.querySelectorAll("[data-arcade-mode]")]
+    .filter((element) => element.tagName === "A" && element.getAttribute("href"))
+    .length,
   levelControls: document.querySelectorAll('[data-skill-level], [aria-label="Challenge level"]').length,
   volumeControl: Boolean(document.querySelector('[data-testid="game-volume"]')),
   volumeValue: document.querySelector('[data-testid="game-volume"]')?.value,
@@ -229,7 +232,8 @@ const triviaLobbyLayout = await evaluate(`({
   previewHeight: document.querySelector('[data-testid="mode-preview"]')?.getBoundingClientRect().height
 })`);
 const triviaLobby = await evaluate(`({
-  selectedLabel: document.querySelector('[data-arcade-mode="trivia"][aria-pressed="true"] strong')?.textContent,
+  selectedLabel: document.querySelector('[data-arcade-mode="trivia"][aria-current="page"] strong')?.textContent,
+  selectedUrl: location.pathname + location.search,
   categoryControls: document.querySelectorAll('[role="group"][aria-label="Question pool"] button').length,
   rule: document.querySelector('[data-testid="mode-settings"] p')?.textContent
 })`);
@@ -923,7 +927,7 @@ await evaluate(`(() => {
 })()`);
 await delay(350);
 const counterplayPreview = await evaluate(`({
-  active: Boolean(document.querySelector('[data-arcade-mode="counterplay"][aria-pressed="true"]')),
+  active: Boolean(document.querySelector('[data-arcade-mode="counterplay"][aria-current="page"]')),
   prompt: document.querySelector('[data-testid="mode-preview"] h2')?.innerText,
   timer: document.querySelector('[data-testid="mode-preview"] [class*="previewHeader"] strong')?.innerText,
   answers: document.querySelectorAll('[data-testid="mode-preview"] [class*="previewAnswers"] > div').length,
@@ -1062,7 +1066,7 @@ await evaluate(`(() => {
 })()`);
 await delay(350);
 const mapPreview = await evaluate(`({
-  visible: Boolean(document.querySelector('[data-arcade-mode="map-sense"][aria-pressed="true"]')),
+  visible: Boolean(document.querySelector('[data-arcade-mode="map-sense"][aria-current="page"]')),
   imageLoaded: [...document.querySelectorAll('[data-testid="mode-preview"] img')]
     .some((image) => image.complete && image.naturalWidth > 0),
   bands: document.querySelectorAll('[data-testid="mode-preview"] [class*="previewAnswers"] > div').length
@@ -1307,6 +1311,7 @@ if (!lobby.title.includes("Queue Arcade")) failures.push("The Queue Arcade metad
 if (
   !lobby.startButton ||
   lobby.arcadeModes !== 10 ||
+  lobby.arcadeModeLinks !== 10 ||
   lobby.levelControls !== 0 ||
   !lobby.volumeControl ||
   lobby.volumeValue !== "70" ||
@@ -1323,6 +1328,7 @@ if (layoutDelta(lobbyLayout, triviaLobbyLayout) > 1) {
 }
 if (
   triviaLobby.selectedLabel !== "Classic Trivia" ||
+  triviaLobby.selectedUrl !== "/?mode=trivia" ||
   triviaLobby.categoryControls !== 0 ||
   !triviaLobby.rule?.includes("One shared pool")
 ) {

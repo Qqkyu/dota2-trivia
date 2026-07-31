@@ -328,6 +328,7 @@
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.025), transparent 54%), rgba(255, 255, 255, 0.012);
   color: var(--muted);
   text-align: left;
+  text-decoration: none;
   cursor: pointer;
   transition:
     border-color 160ms ease,
@@ -580,7 +581,8 @@
 }
 
 .primaryButton:disabled,
-.modeCard:disabled {
+.modeCard:disabled,
+.modeCard[aria-disabled="true"] {
   cursor: wait;
   filter: saturate(0.65);
   opacity: 0.72;

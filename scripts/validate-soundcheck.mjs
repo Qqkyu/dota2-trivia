@@ -249,15 +249,19 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
   if (definition.difficulty >= 2) veteranCounts[definition.family] += 1;
 }
 
-for (const duration of [1, 2.5, 5]) {
+const expectedEchoCuts = new Map([
+  [1, [0.1, 0.22, 1]],
+  [2.5, [0.175, 0.425, 2.5]],
+  [5, [0.24, 0.56, 5]],
+]);
+
+for (const [duration, expectedCuts] of expectedEchoCuts) {
   const cuts = Array.from({ length: ECHO_HUNT_REVEAL_STAGES }, (_, stage) => echoHuntCutDuration(duration, stage + 1));
   if (
     cuts[0] <= 0 ||
     cuts[0] >= cuts[1] ||
     cuts[1] >= cuts[2] ||
-    cuts[0] > 0.32 ||
-    cuts[1] > 0.75 ||
-    cuts[2] !== duration
+    cuts.some((cut, index) => Math.abs(cut - expectedCuts[index]) > 0.000_001)
   ) {
     failures.push(`Echo Hunt ${duration}s line has an invalid progressive cut ${JSON.stringify(cuts)}.`);
   }

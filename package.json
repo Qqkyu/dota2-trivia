@@ -14,7 +14,7 @@
     "sync-shopkeeper": "node scripts/generate-shopkeeper.mjs",
     "sync-map-landmarks": "node scripts/sync-map-landmarks.mjs",
     "backfill-hints": "node scripts/backfill-spell-hints.mjs",
-    "validate-data": "node scripts/validate-questions.mjs && node scripts/validate-shopkeeper.mjs && node scripts/validate-map-sense.mjs && node scripts/validate-counterplay.mjs && node scripts/validate-soundcheck.mjs && node scripts/validate-variety.mjs && node scripts/validate-calibration.mjs",
+    "validate-data": "node scripts/validate-questions.mjs && node scripts/validate-shopkeeper.mjs && node scripts/validate-map-sense.mjs && node scripts/validate-counterplay.mjs && node scripts/validate-soundcheck.mjs && node scripts/validate-variety.mjs && node scripts/validate-calibration.mjs && node scripts/validate-navigation.mjs",
     "audit:client": "node scripts/audit-live-client.mjs",
     "validate-assets": "node scripts/validate-image-assets.mjs",
     "check:multiplayer": "node scripts/multiplayer-smoke.mjs",

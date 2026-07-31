@@ -9,8 +9,8 @@ const SOUNDCHECK_CUT_PROFILES = [
 ];
 
 const ECHO_HUNT_CUT_PROFILES = [
-  { ratio: 0.09, minimum: 0.12, minimumCeilingRatio: 0.15, maximum: 0.32 },
-  { ratio: 0.22, minimum: 0.28, minimumCeilingRatio: 0.32, maximum: 0.75 },
+  { ratio: 0.07, minimum: 0.1, minimumCeilingRatio: 0.12, maximum: 0.24 },
+  { ratio: 0.17, minimum: 0.22, minimumCeilingRatio: 0.27, maximum: 0.56 },
   { ratio: 1, minimum: 0, minimumCeilingRatio: 1, maximum: Number.POSITIVE_INFINITY },
 ];
 

@@ -54,6 +54,7 @@ import {
   type TriviaQuestion,
 } from "@/lib/trivia";
 import type { CrowdResult, PublicRoomSettings, ReportResult, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
+import { arcadeModeHref } from "@/lib/arcade-navigation.mjs";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
 import type { MapBounds, MapChoiceChallenge, MapCrop, MapPosition, MapViewport } from "@/lib/map-types";
@@ -1237,9 +1238,9 @@ function BrandMark() {
   );
 }
 
-export function QueueArcade() {
+export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMode }) {
   const [phase, setPhaseState] = useState<GamePhase>("lobby");
-  const [mode, setMode] = useState<ArcadeMode>("mixed");
+  const [mode, setMode] = useState<ArcadeMode>(initialMode);
   const [currentQuestion, setCurrentQuestion] = useState<ArcadeRound | null>(null);
   const [roundIndex, setRoundIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -2048,13 +2049,11 @@ export function QueueArcade() {
           const settings = JSON.parse(storedSettings) as {
             soundEnabled?: boolean;
             gameVolume?: number;
-            mode?: ArcadeMode;
           };
           if (typeof settings.soundEnabled === "boolean") setSoundEnabled(settings.soundEnabled);
           if (typeof settings.gameVolume === "number" && Number.isFinite(settings.gameVolume)) {
             setGameVolume(Math.min(1, Math.max(MIN_GAME_VOLUME, settings.gameVolume)));
           }
-          if (settings.mode && ARCADE_MODES.includes(settings.mode)) setMode(settings.mode);
         }
         ensurePlayerId();
       } catch {
@@ -2069,8 +2068,8 @@ export function QueueArcade() {
 
   useEffect(() => {
     if (!statsLoaded) return;
-    window.localStorage.setItem(SETTINGS_KEY, JSON.stringify({ soundEnabled, gameVolume, mode }));
-  }, [gameVolume, mode, soundEnabled, statsLoaded]);
+    window.localStorage.setItem(SETTINGS_KEY, JSON.stringify({ soundEnabled, gameVolume }));
+  }, [gameVolume, soundEnabled, statsLoaded]);
 
   useEffect(() => {
     if (phase !== "summary" || runSavedRef.current) return;
@@ -2304,14 +2303,21 @@ export function QueueArcade() {
                 {ARCADE_MODES.map((option) => {
                   const info = MODE_INFO[option];
                   return (
-                    <button
+                    <Link
                       key={option}
-                      type="button"
+                      href={arcadeModeHref(option)}
+                      scroll={false}
                       data-arcade-mode={option}
                       className={clsx(styles.modeCard, mode === option && styles.modeCardActive)}
-                      onClick={() => setMode(option)}
-                      disabled={joiningRoom}
-                      aria-pressed={mode === option}
+                      onClick={(event) => {
+                        if (joiningRoom) {
+                          event.preventDefault();
+                          return;
+                        }
+                        setMode(option);
+                      }}
+                      aria-current={mode === option ? "page" : undefined}
+                      aria-disabled={joiningRoom}
                     >
                       <span className={styles.modeIcon}>
                         <ModeIcon mode={option} />
@@ -2322,7 +2328,7 @@ export function QueueArcade() {
                       </span>
                       {option === "mixed" && <i>Hot</i>}
                       <ChevronRight />
-                    </button>
+                    </Link>
                   );
                 })}
               </div>
