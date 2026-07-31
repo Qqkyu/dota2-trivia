@@ -11,13 +11,9 @@ import {
 } from "./client-constant-audit.mjs";
 import { DAMAGE_QUESTION_FACTS, damageQuestionExplanation, damageQuestionPrompt } from "./damage-question-facts.mjs";
 import { auditAudioAssets, auditImageAssets, questionAudioUrls, questionImageUrls } from "./image-assets.mjs";
-import {
-  NON_TRIVIA_COOLDOWN_KEYS,
-  NON_TRIVIA_DETECTIVE_KEYS,
-  NON_TRIVIA_SPELL_OWNER_KEYS,
-} from "./question-quality-audit.mjs";
+import { NON_TRIVIA_COOLDOWN_KEYS, NON_TRIVIA_SPELL_OWNER_KEYS } from "./question-quality-audit.mjs";
 import { spellDifficulty, spellDistractors } from "./spell-difficulty.mjs";
-import { buildSpellHint, containsAnswerLeak } from "./spell-hints.mjs";
+import { buildSpellHint } from "./spell-hints.mjs";
 import {
   areShopkeeperPricesBalanced,
   eligibleShopkeeperComponents,
@@ -443,55 +439,6 @@ for (const ability of stableSample(spellOwnerCandidates, 73, "ability-owner")) {
       answerImageKind: "hero",
       explanation: `${ability.dname} belongs to ${ability.owner.localized_name}.${ability.desc ? ` ${ability.desc}` : ""}`,
       hint: ability.spellHint,
-      source: clientQuestionSource,
-    }),
-  );
-}
-
-const detectiveCandidates = abilities
-  .map((ability) => {
-    const siblings = abilities.filter(
-      (candidate) =>
-        candidate.owner.key === ability.owner.key &&
-        candidate.key !== ability.key &&
-        candidate.dname !== ability.dname &&
-        candidate.image,
-    );
-    const detail = buildSpellHint(ability.desc, ability.owner.localized_name, ability.dname);
-    return { ...ability, siblings, detail };
-  })
-  .filter(
-    (ability) =>
-      !NON_TRIVIA_DETECTIVE_KEYS.includes(ability.key) &&
-      ability.siblings.length >= 3 &&
-      ability.detail.length >= 18 &&
-      !ability.detail.startsWith("No additional mechanical clue") &&
-      !containsAnswerLeak(ability.detail, ability.dname),
-  );
-
-for (const ability of stableSample(detectiveCandidates, 49, "ability-detective")) {
-  const siblingAnswers = stableSample(ability.siblings, 3, `ability-detective:${ability.key}`);
-  const answerAbilities = [ability, ...siblingAnswers];
-
-  questions.push(
-    makeQuestion({
-      id: `ability-detective:${ability.key}`,
-      kind: "ability-detective",
-      category: "Abilities",
-      difficulty: 2,
-      eyebrow: `${ability.owner.localized_name} · Ability Detective`,
-      prompt: "Which of this hero’s abilities matches the effect below?",
-      detail: ability.detail,
-      image: {
-        src: ability.owner.image,
-        alt: `${ability.owner.localized_name} hero portrait`,
-        kind: "hero",
-      },
-      answers: answerAbilities.map((candidate) => candidate.dname),
-      correctAnswer: ability.dname,
-      answerImagesByValue: answerArtworkByName(answerAbilities),
-      answerImageKind: "ability",
-      explanation: `${ability.dname}: ${ability.desc}`,
       source: clientQuestionSource,
     }),
   );

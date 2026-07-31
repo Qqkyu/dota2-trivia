@@ -273,7 +273,7 @@ if (!isPlayableClassicTriviaQuestion({ kind: "mana-cost" })) {
   failures.push("The Classic Trivia quality gate rejected a retained knowledge template.");
 }
 if (playableGeneratedQuestions.some((question) => RETIRED_CLASSIC_TRIVIA_KINDS.has(question.kind))) {
-  failures.push("A retired primary-attribute template remains in the playable generated pool.");
+  failures.push("A retired Classic Trivia template remains in the playable generated pool.");
 }
 
 const auditedDamageKeys = new Set(Object.keys(DAMAGE_QUESTION_FACTS));
@@ -300,7 +300,13 @@ for (const question of damageQuestions) {
   if (question.prompt !== expectedPrompt) {
     failures.push(`${question.id}: damage prompt does not identify the audited mechanic.`);
   }
-  if (question.prompt.trim().split(/\s+/).length > 10) {
+  if (!/^(?:How|What)\b.+\?$/.test(question.prompt)) {
+    failures.push(`${question.id}: damage prompt is not a complete English question.`);
+  }
+  if (question.prompt.includes(":")) {
+    failures.push(`${question.id}: damage prompt still uses fragment-style punctuation.`);
+  }
+  if (question.prompt.trim().split(/\s+/).length > 12) {
     failures.push(`${question.id}: damage prompt is too slow to scan.`);
   }
   if (fact.note && !question.explanation.endsWith(fact.note)) {
@@ -452,6 +458,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${questions.length} source questions (${playableGeneratedQuestions.length} live; ${retiredGeneratedQuestions.length} attribute templates retired; ${otherExcludedQuestionCount} excluded by other quality gates) across ${Object.keys(metadata.categoryCounts).length} categories for patch ${metadata.patch}.`,
+    `Validated ${questions.length} source questions (${playableGeneratedQuestions.length} live; ${retiredGeneratedQuestions.length} low-signal templates retired; ${otherExcludedQuestionCount} excluded by other quality gates) across ${Object.keys(metadata.categoryCounts).length} categories for patch ${metadata.patch}.`,
   );
 }

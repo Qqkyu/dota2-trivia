@@ -4859,7 +4859,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Ancient Apparition · Chilling Touch",
-    "prompt": "Chilling Touch: bonus damage per attack at max level?",
+    "prompt": "What is Chilling Touch's bonus attack damage at max level?",
     "answers": [
       "175",
       "125",
@@ -4885,7 +4885,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Axe · Culling Blade",
-    "prompt": "Culling Blade: damage at max level?",
+    "prompt": "How much damage does Culling Blade deal at max level?",
     "answers": [
       "375",
       "575",
@@ -4911,7 +4911,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Bane · Enfeeble",
-    "prompt": "Enfeeble: damage per second at max level?",
+    "prompt": "How much damage per second does Enfeeble deal at max level?",
     "answers": [
       "50",
       "70",
@@ -4937,7 +4937,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Bane · Fiend's Grip",
-    "prompt": "Fiend's Grip: damage per second at max level?",
+    "prompt": "How much damage per second does Fiend's Grip deal at max level?",
     "answers": [
       "200",
       "250",
@@ -4963,7 +4963,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Brewmaster · Thunder Clap",
-    "prompt": "Thunder Clap: damage at max level?",
+    "prompt": "How much damage does Thunder Clap deal at max level?",
     "answers": [
       "520",
       "320",
@@ -4989,7 +4989,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Dark Seer · Vacuum",
-    "prompt": "Vacuum: damage at max level?",
+    "prompt": "How much damage does Vacuum deal at max level?",
     "answers": [
       "350",
       "200",
@@ -5015,7 +5015,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Dazzle · Shadow Wave",
-    "prompt": "Shadow Wave: damage per healing pulse at max level?",
+    "prompt": "How much damage does each Shadow Wave pulse deal at max level?",
     "answers": [
       "145",
       "195",
@@ -5041,7 +5041,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Death Prophet · Crypt Swarm",
-    "prompt": "Crypt Swarm: damage at max level?",
+    "prompt": "How much damage does Crypt Swarm deal at max level?",
     "answers": [
       "425",
       "325",
@@ -5067,7 +5067,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Dragon Knight · Breathe Fire",
-    "prompt": "Breathe Fire: damage at max level?",
+    "prompt": "How much damage does Breathe Fire deal at max level?",
     "answers": [
       "520",
       "220",
@@ -5093,7 +5093,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Dragon Knight · Dragon Tail",
-    "prompt": "Dragon Tail: damage at max level?",
+    "prompt": "How much damage does Dragon Tail deal at max level?",
     "answers": [
       "250",
       "200",
@@ -5119,7 +5119,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Earth Spirit · Boulder Smash",
-    "prompt": "Boulder Smash: damage at max level?",
+    "prompt": "How much damage does Boulder Smash deal at max level?",
     "answers": [
       "420",
       "220",
@@ -5145,7 +5145,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Earth Spirit · Rolling Boulder",
-    "prompt": "Rolling Boulder: base damage at max level?",
+    "prompt": "How much base damage does Rolling Boulder deal at max level?",
     "answers": [
       "130",
       "70",
@@ -5171,7 +5171,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Nature's Prophet · Sprout",
-    "prompt": "Sprout: damage at max level?",
+    "prompt": "How much damage does Sprout deal at max level?",
     "answers": [
       "300",
       "200",
@@ -5197,7 +5197,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Kez · Talon Toss",
-    "prompt": "Talon Toss: damage at max level?",
+    "prompt": "How much damage does Talon Toss deal at max level?",
     "answers": [
       "240",
       "340",
@@ -5223,7 +5223,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Kunkka · Torrent",
-    "prompt": "Torrent: damage at max level?",
+    "prompt": "How much damage does Torrent deal at max level?",
     "answers": [
       "520",
       "420",
@@ -5249,7 +5249,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Lina · Laguna Blade",
-    "prompt": "Laguna Blade: damage at max level?",
+    "prompt": "How much damage does Laguna Blade deal at max level?",
     "answers": [
       "660",
       "860",
@@ -5275,7 +5275,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Lion · Finger of Death",
-    "prompt": "Finger of Death: base damage at max level?",
+    "prompt": "How much base damage does Finger of Death deal at max level?",
     "answers": [
       "850",
       "750",
@@ -5301,7 +5301,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Magnus · Reverse Polarity",
-    "prompt": "Reverse Polarity: damage at max level?",
+    "prompt": "How much damage does Reverse Polarity deal at max level?",
     "answers": [
       "500",
       "300",
@@ -5327,7 +5327,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Magnus · Skewer",
-    "prompt": "Skewer: base damage at max level?",
+    "prompt": "How much base damage does Skewer deal at max level?",
     "answers": [
       "320",
       "520",
@@ -5353,7 +5353,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Mars · Spear of Mars",
-    "prompt": "Spear of Mars: damage at max level?",
+    "prompt": "How much damage does Spear of Mars deal at max level?",
     "answers": [
       "225",
       "525",
@@ -5379,7 +5379,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Mirana · Starstorm",
-    "prompt": "Starstorm: damage per meteor at max level?",
+    "prompt": "How much damage does each Starstorm meteor deal at max level?",
     "answers": [
       "300",
       "500",
@@ -5405,7 +5405,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Monkey King · Primal Spring",
-    "prompt": "Primal Spring: full-channel damage at max level?",
+    "prompt": "What is Primal Spring's full-channel damage at max level?",
     "answers": [
       "580",
       "380",
@@ -5431,7 +5431,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Muerta · Dead Shot",
-    "prompt": "Dead Shot: damage at max level?",
+    "prompt": "How much damage does Dead Shot deal at max level?",
     "answers": [
       "325",
       "525",
@@ -5457,7 +5457,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Outworld Devourer · Astral Imprisonment",
-    "prompt": "Astral Imprisonment: damage at max level?",
+    "prompt": "How much damage does Astral Imprisonment deal at max level?",
     "answers": [
       "260",
       "460",
@@ -5483,7 +5483,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Pudge · Meat Hook",
-    "prompt": "Meat Hook: damage at max level?",
+    "prompt": "How much damage does Meat Hook deal at max level?",
     "answers": [
       "360",
       "260",
@@ -5509,7 +5509,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Queen of Pain · Scream Of Pain",
-    "prompt": "Scream Of Pain: damage at max level?",
+    "prompt": "How much damage does Scream Of Pain deal at max level?",
     "answers": [
       "345",
       "245",
@@ -5535,7 +5535,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Razor · Eye of the Storm",
-    "prompt": "Eye of the Storm: damage per strike at max level?",
+    "prompt": "What is Eye of the Storm's damage per strike at max level?",
     "answers": [
       "130",
       "70",
@@ -5561,7 +5561,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Rubick · Fade Bolt",
-    "prompt": "Fade Bolt: first-target damage at max level?",
+    "prompt": "What is Fade Bolt's first-target damage at max level?",
     "answers": [
       "425",
       "225",
@@ -5587,7 +5587,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Shadow Shaman · Ether Shock",
-    "prompt": "Ether Shock: damage at max level?",
+    "prompt": "How much damage does Ether Shock deal at max level?",
     "answers": [
       "420",
       "220",
@@ -5613,7 +5613,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Timbersaw · Timber Chain",
-    "prompt": "Timber Chain: damage at max level?",
+    "prompt": "How much damage does Timber Chain deal at max level?",
     "answers": [
       "275",
       "225",
@@ -5639,7 +5639,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Silencer · Arcane Curse",
-    "prompt": "Arcane Curse: damage per second at max level?",
+    "prompt": "How much damage per second does Arcane Curse deal at max level?",
     "answers": [
       "40",
       "20",
@@ -5665,7 +5665,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Skywrath Mage · Mystic Flare",
-    "prompt": "Mystic Flare: total damage at max level?",
+    "prompt": "How much total damage does Mystic Flare deal at max level?",
     "answers": [
       "1800",
       "1700",
@@ -5691,7 +5691,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Slark · Dark Pact",
-    "prompt": "Dark Pact: total damage at max level?",
+    "prompt": "How much total damage does Dark Pact deal at max level?",
     "answers": [
       "200",
       "500",
@@ -5717,7 +5717,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Snapfire · Scatterblast",
-    "prompt": "Scatterblast: base damage at max level?",
+    "prompt": "How much base damage does Scatterblast deal at max level?",
     "answers": [
       "230",
       "280",
@@ -5743,7 +5743,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Sniper · Assassinate",
-    "prompt": "Assassinate: bonus damage at max level?",
+    "prompt": "How much bonus damage does Assassinate deal at max level?",
     "answers": [
       "500",
       "400",
@@ -5769,7 +5769,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Sniper · Shrapnel",
-    "prompt": "Shrapnel: damage per second at max level?",
+    "prompt": "How much damage per second does Shrapnel deal at max level?",
     "answers": [
       "55",
       "95",
@@ -5795,7 +5795,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Spectre · Desolate",
-    "prompt": "Desolate: bonus damage per attack?",
+    "prompt": "What is Desolate's bonus attack damage?",
     "answers": [
       "43",
       "20",
@@ -5821,7 +5821,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Storm Spirit · Overload",
-    "prompt": "Overload: burst damage at max level?",
+    "prompt": "How much burst damage does Overload deal at max level?",
     "answers": [
       "200",
       "150",
@@ -5847,7 +5847,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Techies · Proximity Mines",
-    "prompt": "Proximity Mines: inner-radius damage at max level?",
+    "prompt": "How much inner-radius damage does Proximity Mines deal at max level?",
     "answers": [
       "700",
       "600",
@@ -5873,7 +5873,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Terrorblade · Terror Wave",
-    "prompt": "Terror Wave: damage?",
+    "prompt": "How much damage does Terror Wave deal?",
     "answers": [
       "300",
       "200",
@@ -5899,7 +5899,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Tidehunter · Gush",
-    "prompt": "Gush: damage at max level?",
+    "prompt": "How much damage does Gush deal at max level?",
     "answers": [
       "330",
       "280",
@@ -5925,7 +5925,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Tinker · March of the Machines",
-    "prompt": "March of the Machines: damage per machine at max level?",
+    "prompt": "What is March of the Machines' damage per machine at max level?",
     "answers": [
       "80",
       "40",
@@ -5951,7 +5951,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Tiny · Toss",
-    "prompt": "Toss: landing damage at max level?",
+    "prompt": "How much landing damage does Toss deal at max level?",
     "answers": [
       "260",
       "560",
@@ -5977,7 +5977,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Vengeful Spirit · Magic Missile",
-    "prompt": "Magic Missile: damage at max level?",
+    "prompt": "How much damage does Magic Missile deal at max level?",
     "answers": [
       "540",
       "440",
@@ -6003,7 +6003,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Visage · Stone Form",
-    "prompt": "Stone Form: stun damage at max level?",
+    "prompt": "How much stun damage does Stone Form deal at max level?",
     "answers": [
       "140",
       "90",
@@ -6029,7 +6029,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Windranger · Powershot",
-    "prompt": "Powershot: full-charge first-target damage at max level?",
+    "prompt": "What is Powershot's full-charge first-target damage at max level?",
     "answers": [
       "570",
       "470",
@@ -6055,7 +6055,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Zeus · Static Field",
-    "prompt": "Static Field: current-health damage?",
+    "prompt": "What percentage of current health does Static Field remove?",
     "answers": [
       "3.95%",
       "4.45%",
@@ -6081,7 +6081,7 @@
     "category": "Damage",
     "difficulty": 3,
     "eyebrow": "Zeus · Thundergod's Wrath",
-    "prompt": "Thundergod's Wrath: damage at max level?",
+    "prompt": "How much damage does Thundergod's Wrath deal at max level?",
     "answers": [
       "850",
       "650",

@@ -223,8 +223,38 @@ export const DAMAGE_QUESTION_FACTS = Object.freeze({
   },
 });
 
+function possessiveAbilityName(abilityName) {
+  return /s$/i.test(abilityName) ? `${abilityName}'` : `${abilityName}'s`;
+}
+
+const DAMAGE_QUESTION_BUILDERS = Object.freeze({
+  "base damage": (abilityName) => `how much base damage does ${abilityName} deal`,
+  "bonus damage": (abilityName) => `how much bonus damage does ${abilityName} deal`,
+  "bonus damage per attack": (abilityName) => `what is ${possessiveAbilityName(abilityName)} bonus attack damage`,
+  "burst damage": (abilityName) => `how much burst damage does ${abilityName} deal`,
+  "current-health damage": (abilityName) => `what percentage of current health does ${abilityName} remove`,
+  damage: (abilityName) => `how much damage does ${abilityName} deal`,
+  "damage per healing pulse": (abilityName) => `how much damage does each ${abilityName} pulse deal`,
+  "damage per machine": (abilityName) => `what is ${possessiveAbilityName(abilityName)} damage per machine`,
+  "damage per meteor": (abilityName) => `how much damage does each ${abilityName} meteor deal`,
+  "damage per second": (abilityName) => `how much damage per second does ${abilityName} deal`,
+  "damage per strike": (abilityName) => `what is ${possessiveAbilityName(abilityName)} damage per strike`,
+  "first-target damage": (abilityName) => `what is ${possessiveAbilityName(abilityName)} first-target damage`,
+  "full-channel damage": (abilityName) => `what is ${possessiveAbilityName(abilityName)} full-channel damage`,
+  "full-charge first-target damage": (abilityName) =>
+    `what is ${possessiveAbilityName(abilityName)} full-charge first-target damage`,
+  "inner-radius damage": (abilityName) => `how much inner-radius damage does ${abilityName} deal`,
+  "landing damage": (abilityName) => `how much landing damage does ${abilityName} deal`,
+  "stun damage": (abilityName) => `how much stun damage does ${abilityName} deal`,
+  "total damage": (abilityName) => `how much total damage does ${abilityName} deal`,
+});
+
 export function damageQuestionPrompt(abilityName, fact, hasLevels) {
-  return `${abilityName}: ${fact.measure}${hasLevels ? " at max level" : ""}?`;
+  const buildQuestion = DAMAGE_QUESTION_BUILDERS[fact.measure];
+  if (!buildQuestion) throw new Error(`Missing full-sentence damage prompt for ${fact.measure}.`);
+
+  const body = buildQuestion(abilityName);
+  return `${body[0].toUpperCase()}${body.slice(1)}${hasLevels ? " at max level" : ""}?`;
 }
 
 export function damageQuestionExplanation(abilityName, fact, values) {
