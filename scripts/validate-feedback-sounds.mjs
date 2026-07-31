@@ -4,38 +4,51 @@ import { fileURLToPath } from "node:url";
 import { answerFeedbackKind, DOTA_FEEDBACK_SOUNDS, dotaFeedbackSoundForKind } from "../src/lib/feedback-sounds.mjs";
 
 const failures = [];
+const correctSound = DOTA_FEEDBACK_SOUNDS.correct;
 const wrongSound = DOTA_FEEDBACK_SOUNDS.wrong;
-const soundPath = fileURLToPath(new URL(`../public${wrongSound.src}`, import.meta.url));
 const componentPath = fileURLToPath(new URL("../src/components/queue-arcade.tsx", import.meta.url));
 
-const sound = await readFile(soundPath);
 const component = await readFile(componentPath, "utf8");
 
-if (sound.subarray(0, 4).toString("ascii") !== "RIFF" || sound.subarray(8, 12).toString("ascii") !== "WAVE") {
-  failures.push("The wrong-answer feedback asset is not a valid RIFF/WAVE file.");
-}
+for (const [kind, definition] of Object.entries(DOTA_FEEDBACK_SOUNDS)) {
+  const soundPath = fileURLToPath(new URL(`../public${definition.src}`, import.meta.url));
+  const sound = await readFile(soundPath);
+  if (sound.subarray(0, 4).toString("ascii") !== "RIFF" || sound.subarray(8, 12).toString("ascii") !== "WAVE") {
+    failures.push(`The ${kind}-answer feedback asset is not a valid RIFF/WAVE file.`);
+  }
 
-const digest = createHash("sha256").update(sound).digest("hex");
-if (digest !== wrongSound.sha256) {
-  failures.push(`The wrong-answer feedback asset hash changed: expected ${wrongSound.sha256}, received ${digest}.`);
+  const digest = createHash("sha256").update(sound).digest("hex");
+  if (digest !== definition.sha256) {
+    failures.push(`The ${kind}-answer feedback asset hash changed: expected ${definition.sha256}, received ${digest}.`);
+  }
 }
 
 if (answerFeedbackKind(true) !== "correct" || answerFeedbackKind(false) !== "wrong") {
   failures.push("Answer results no longer map to the expected feedback kinds.");
 }
 
-for (const kind of ["lock", "correct", "start"]) {
+for (const kind of ["lock", "start"]) {
   if (dotaFeedbackSoundForKind(kind) !== null) {
-    failures.push(`${kind} unexpectedly triggers the Dota failure cue.`);
+    failures.push(`${kind} unexpectedly triggers a Dota answer-result cue.`);
   }
 }
 
+if (dotaFeedbackSoundForKind("correct") !== correctSound) {
+  failures.push("Correct answers no longer resolve to the Dota success cue.");
+}
 if (dotaFeedbackSoundForKind("wrong") !== wrongSound) {
   failures.push("Wrong answers no longer resolve to the Dota failure cue.");
 }
+if (correctSound.gain < 0.15 || correctSound.gain > 0.3 || wrongSound.gain !== 1) {
+  failures.push("Feedback normalization no longer keeps the louder success sting in a safe range.");
+}
 
 const feedbackCalls = component.match(/playSound\(answerFeedbackKind\(isCorrect\)\)/g) ?? [];
-if (feedbackCalls.length !== 1 || component.includes('playSound("wrong")')) {
+if (
+  feedbackCalls.length !== 1 ||
+  component.includes('playSound("correct")') ||
+  component.includes('playSound("wrong")')
+) {
   failures.push("Round feedback must be emitted once from the finalized answer result, never from transitions.");
 }
 
@@ -45,5 +58,5 @@ if (failures.length) {
 }
 
 console.log(
-  `Validated the Dota wrong-answer cue (${wrongSound.event}, ${wrongSound.durationSeconds}s, ${sound.length} bytes) and result-only trigger.`,
+  `Validated Dota answer-result cues (${correctSound.source} / ${wrongSound.source}), normalized playback, and the result-only trigger.`,
 );

@@ -1295,7 +1295,11 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
   const roundIdRef = useRef("");
   const syncPromiseRef = useRef<Promise<void> | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
-  const feedbackAudioRef = useRef<HTMLAudioElement | null>(null);
+  const feedbackAudioRef = useRef<{
+    audio: HTMLAudioElement;
+    gain: number;
+    src: string;
+  } | null>(null);
   const roundAudioRefs = useRef<Array<HTMLAudioElement | null>>([]);
   const roundAudioAbortRef = useRef<AbortController | null>(null);
   const autoPlayedAudioKeyRef = useRef("");
@@ -1372,12 +1376,21 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
 
       const dotaSound = dotaFeedbackSoundForKind(kind);
       if (dotaSound) {
-        const audio = feedbackAudioRef.current ?? new Audio(dotaSound.src);
-        feedbackAudioRef.current = audio;
+        let feedbackAudio = feedbackAudioRef.current;
+        if (!feedbackAudio || feedbackAudio.src !== dotaSound.src) {
+          feedbackAudio?.audio.pause();
+          feedbackAudio = {
+            audio: new Audio(dotaSound.src),
+            gain: dotaSound.gain,
+            src: dotaSound.src,
+          };
+          feedbackAudioRef.current = feedbackAudio;
+        }
+        const audio = feedbackAudio.audio;
         audio.preload = "auto";
         audio.pause();
         audio.currentTime = 0;
-        audio.volume = gameVolume;
+        audio.volume = Math.min(1, gameVolume * dotaSound.gain);
         void audio.play().catch(() => {
           // A browser may reject playback before the first user gesture.
         });
@@ -2158,7 +2171,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
   useEffect(
     () => () => {
       if (audioContextRef.current) void audioContextRef.current.close();
-      feedbackAudioRef.current?.pause();
+      feedbackAudioRef.current?.audio.pause();
       stopRoundAudio(false);
     },
     [stopRoundAudio],
@@ -2270,7 +2283,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
               onClick={() => {
                 if (soundEnabled) {
                   stopRoundAudio();
-                  feedbackAudioRef.current?.pause();
+                  feedbackAudioRef.current?.audio.pause();
                 }
                 setSoundEnabled(!soundEnabled);
               }}
@@ -2294,7 +2307,9 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
                   .forEach((audio) => {
                     audio.volume = nextVolume;
                   });
-                if (feedbackAudioRef.current) feedbackAudioRef.current.volume = nextVolume;
+                if (feedbackAudioRef.current) {
+                  feedbackAudioRef.current.audio.volume = Math.min(1, nextVolume * feedbackAudioRef.current.gain);
+                }
                 setGameVolume(nextVolume);
                 setSoundEnabled(true);
               }}
