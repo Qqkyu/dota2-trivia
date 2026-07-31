@@ -2,11 +2,16 @@ import generatedQuestions from "@/data/questions.generated.json";
 import shopkeeperQuestions from "@/data/shopkeeper-questions.json";
 import generatedMeta from "@/data/trivia-meta.generated.json";
 import soundcheckQuestions from "@/data/soundcheck-questions.json";
-import { LIVE_ROUND_GAMES } from "@/lib/arcade-games.mjs";
+import {
+  PUBLIC_ROUND_FORMATS,
+  publicRoundFormatOccurrenceCounts,
+  publicRoundFormatRotation,
+  roundFormatForQuestion,
+} from "@/lib/arcade-games.mjs";
 import type { MapChallenge } from "@/lib/map-types";
 import { isPlayableShopkeeperQuestion } from "@/lib/shopkeeper-quality.mjs";
 import { isPlayableClassicTriviaQuestion } from "@/lib/classic-trivia-quality.mjs";
-import { fixedCycleOccurrenceCounts, fixedCycleRotation, varietyShuffle } from "@/lib/variety.mjs";
+import { varietyShuffle } from "@/lib/variety.mjs";
 
 export const KNOWLEDGE_FILTERS = ["Mixed", "Abilities", "Items", "Heroes"] as const;
 
@@ -195,7 +200,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-4-shopkeeper-2-arcade-7-soundcheck-8`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-4-shopkeeper-2-public-arcade-1-soundcheck-8`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
     isPlayableClassicTriviaQuestion(question) &&
@@ -250,13 +255,29 @@ export function createArcadeDeck(
   rotationSeed = seed,
   roundOffset = 0,
 ) {
-  const mixedGames = [...LIVE_ROUND_GAMES] as RoundGame[];
-  const games: RoundGame[] =
-    mode === "mixed"
-      ? fixedCycleRotation(mixedGames, rotationSeed, length, roundOffset)
-      : Array.from({ length }, () => mode);
+  if (mode === "mixed") {
+    const formats = publicRoundFormatRotation(length, roundOffset);
+    const cursors = publicRoundFormatOccurrenceCounts(roundOffset);
+    const pools = new Map(
+      PUBLIC_ROUND_FORMATS.map((format) => [
+        format,
+        varietyShuffle(
+          triviaQuestions.filter((question) => roundFormatForQuestion(question) === format),
+          `${seed}:format:${format}:${sharedKnowledgeFilter(filter)}:${ARCADE_CONTENT_VERSION}`,
+        ),
+      ]),
+    );
 
-  const pools = {
+    return formats.flatMap((format) => {
+      const pool = pools.get(format) ?? [];
+      const cursor = cursors.get(format) ?? 0;
+      const question = pool.length ? pool[cursor % pool.length] : undefined;
+      cursors.set(format, cursor + 1);
+      return question ? [{ ...question, game: gameForQuestion(question) }] : [];
+    });
+  }
+
+  const gamePools = {
     trivia: shuffledPool(seed, "trivia", filter),
     shopkeeper: shuffledPool(seed, "shopkeeper", filter),
     "spell-link": shuffledPool(seed, "spell-link", filter),
@@ -267,6 +288,7 @@ export function createArcadeDeck(
     "map-sense": shuffledPool(seed, "map-sense", filter),
     counterplay: shuffledPool(seed, "counterplay", filter),
   };
+  const games = Array.from({ length }, () => mode);
   const cursors: Record<RoundGame, number> = {
     trivia: 0,
     shopkeeper: 0,
@@ -278,15 +300,11 @@ export function createArcadeDeck(
     "map-sense": 0,
     counterplay: 0,
   };
-  if (mode === "mixed") {
-    const previousOccurrences = fixedCycleOccurrenceCounts(mixedGames, rotationSeed, roundOffset);
-    for (const game of mixedGames) cursors[game] = previousOccurrences.get(game) ?? 0;
-  } else {
-    cursors[mode] = Math.max(0, roundOffset);
-  }
+  void rotationSeed;
+  cursors[mode] = Math.max(0, roundOffset);
 
   return games.flatMap((game) => {
-    const pool = pools[game];
+    const pool = gamePools[game];
     const question = pool.length ? pool[cursors[game] % pool.length] : undefined;
     cursors[game] += 1;
     return question ? [{ ...question, game }] : [];

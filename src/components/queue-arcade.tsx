@@ -36,7 +36,7 @@ import {
   X,
 } from "lucide-react";
 import clsx from "clsx";
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import {
   isReportReason,
   QUESTION_REPORT_GRACE_MS,
@@ -54,7 +54,7 @@ import {
   type TriviaQuestion,
 } from "@/lib/trivia";
 import type { CrowdResult, PublicRoomSettings, ReportResult, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
-import { arcadeModeHref } from "@/lib/arcade-navigation.mjs";
+import { LIVE_ROUND_GAMES, PUBLIC_ARCADE_MODE, PUBLIC_ROUND_FORMATS } from "@/lib/arcade-games.mjs";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
 import { answerFeedbackKind, dotaFeedbackSoundForKind } from "@/lib/feedback-sounds.mjs";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
@@ -87,7 +87,9 @@ const LEGACY_SETTINGS_KEY = "queue-trivia:settings:v1";
 const ACTIVE_GAME = GAME_CATALOGS[DEFAULT_GAME_ID];
 const ACTIVE_QUESTIONS = ACTIVE_GAME.questions;
 const QUESTIONS_BY_ID = new Map(ACTIVE_QUESTIONS.map((question) => [question.id, question]));
-const ARCADE_MODES: ArcadeMode[] = [...ACTIVE_GAME.modes];
+const ROUND_GAMES: RoundGame[] = [...LIVE_ROUND_GAMES] as RoundGame[];
+const PREVIEW_QUESTION =
+  ACTIVE_QUESTIONS.find((question) => question.id === "cooldown:lina_dragon_slave:4") ?? ACTIVE_QUESTIONS[0];
 
 function waitForMediaEvent(
   audio: HTMLAudioElement,
@@ -177,8 +179,6 @@ function waitForAudioCut(
     onProgress();
   });
 }
-const ROUND_GAMES: RoundGame[] = ARCADE_MODES.filter((mode): mode is RoundGame => mode !== "mixed");
-
 type GamePhase = "lobby" | "answering" | "reveal" | "summary";
 
 interface RoundAward {
@@ -238,12 +238,12 @@ const MODE_INFO: Record<
   }
 > = {
   mixed: {
-    label: "Mixed Arcade",
-    shortLabel: "Mixed",
-    eyebrow: "House pick · Recommended",
-    description: "Facts, recipes, spells, fog, voices, sounds, and quotes rotate every round.",
-    action: "Enter mixed arcade",
-    rule: "Every seven rounds contains all seven games exactly once.",
+    label: "Queue Arcade",
+    shortLabel: "Public Arcade",
+    eyebrow: "One room · Endless",
+    description: "Dota facts, recipes, spells, fog, voices, sounds, and quotes—one round at a time.",
+    action: "Join public arcade",
+    rule: "Ten distinct round formats rotate without repeating the same family back-to-back.",
   },
   trivia: {
     label: "Classic Trivia",
@@ -414,7 +414,7 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     typeof room.id !== "string" ||
     !GAME_IDS.includes(room.gameId) ||
     typeof room.contentVersion !== "string" ||
-    !ARCADE_MODES.includes(room.mode) ||
+    room.mode !== PUBLIC_ARCADE_MODE ||
     room.filter !== "Mixed" ||
     !round ||
     typeof round.id !== "string" ||
@@ -1240,9 +1240,8 @@ function BrandMark() {
   );
 }
 
-export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMode }) {
+export function QueueArcade() {
   const [phase, setPhaseState] = useState<GamePhase>("lobby");
-  const [mode, setMode] = useState<ArcadeMode>(initialMode);
   const [currentQuestion, setCurrentQuestion] = useState<ArcadeRound | null>(null);
   const [roundIndex, setRoundIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -1315,34 +1314,6 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
   }, []);
 
   const answerDuration = ANSWER_DURATION_MS;
-  const previewQuestion = useMemo(() => {
-    if (mode === "shopkeeper") {
-      return ACTIVE_QUESTIONS.find((question) => question.kind.startsWith("shopkeeper-")) ?? ACTIVE_QUESTIONS[0];
-    }
-    if (mode === "spell-link") {
-      return ACTIVE_QUESTIONS.find((question) => question.kind === "spell-owner") ?? ACTIVE_QUESTIONS[0];
-    }
-    if (mode === "fogged-vision") {
-      return ACTIVE_QUESTIONS.find((question) => question.kind === "fogged-hero") ?? ACTIVE_QUESTIONS[0];
-    }
-    if (mode === "echo-hunt") {
-      return ACTIVE_QUESTIONS.find((question) => question.kind === "hero-voice") ?? ACTIVE_QUESTIONS[0];
-    }
-    if (mode === "soundcheck") {
-      return ACTIVE_QUESTIONS.find((question) => question.kind === "soundcheck-ability") ?? ACTIVE_QUESTIONS[0];
-    }
-    if (mode === "quote-hunt") {
-      return ACTIVE_QUESTIONS.find((question) => question.kind === "hero-quote") ?? ACTIVE_QUESTIONS[0];
-    }
-    if (mode === "map-sense") {
-      return ACTIVE_QUESTIONS.find((question) => question.map?.reference) ?? ACTIVE_QUESTIONS[0];
-    }
-    if (mode === "counterplay") {
-      return ACTIVE_QUESTIONS.find((question) => question.kind === "counterplay-immunity") ?? ACTIVE_QUESTIONS[0];
-    }
-    return ACTIVE_QUESTIONS.find((question) => question.id === "cooldown:lina_dragon_slave:4") ?? ACTIVE_QUESTIONS[0];
-  }, [mode]);
-
   const setPhase = useCallback((nextPhase: GamePhase) => {
     phaseRef.current = nextPhase;
     setPhaseState(nextPhase);
@@ -1692,7 +1663,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
 
     const settings: PublicRoomSettings = {
       gameId: DEFAULT_GAME_ID,
-      mode,
+      mode: PUBLIC_ARCADE_MODE,
       filter: "Mixed",
     };
     setJoiningRoom(true);
@@ -1742,7 +1713,6 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
     applyRoomSnapshot,
     ensurePlayerId,
     joiningRoom,
-    mode,
     playSound,
     requestRoomSnapshot,
     updateReportState,
@@ -2165,7 +2135,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
   const recentHistory = history.slice(phase === "answering" ? -9 : -10);
   const recentHistoryStart = history.length - recentHistory.length + 1;
   const spellHint = currentQuestion?.hint ?? "A mechanical clue will appear near the end of the round.";
-  const activeModeInfo = MODE_INFO[mode];
+  const activeModeInfo = MODE_INFO[PUBLIC_ARCADE_MODE];
 
   useEffect(() => {
     const hasRoundAudio = isProgressiveAudioRound;
@@ -2285,7 +2255,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
           <div className={styles.lobbyCopy}>
             <div className={styles.liveLabel}>
               <span />
-              Seven games live · More in the lab
+              One public room · Ten round formats
             </div>
             <h1>
               Your queue has
@@ -2293,56 +2263,19 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
               <em>side quests.</em>
             </h1>
             <p className={styles.lead}>
-              A tiny Dota arcade built for the gap between Find Match and Accept. Pick a game—or let Mixed Arcade keep
-              changing the rules.
+              A tiny Dota arcade built for the gap between Find Match and Accept. Everyone plays the same endless
+              rotation; the challenge changes every round.
             </p>
 
-            <div className={styles.modeBlock}>
-              <span className={styles.fieldLabel}>Choose your side quest</span>
-              <div className={styles.modePicker} role="group" aria-label="Arcade game">
-                {ARCADE_MODES.map((option) => {
-                  const info = MODE_INFO[option];
-                  return (
-                    <Link
-                      key={option}
-                      href={arcadeModeHref(option)}
-                      scroll={false}
-                      data-arcade-mode={option}
-                      className={clsx(styles.modeCard, mode === option && styles.modeCardActive)}
-                      onClick={(event) => {
-                        if (joiningRoom) {
-                          event.preventDefault();
-                          return;
-                        }
-                        setMode(option);
-                      }}
-                      aria-current={mode === option ? "page" : undefined}
-                      aria-disabled={joiningRoom}
-                    >
-                      <span className={styles.modeIcon}>
-                        <ModeIcon mode={option} />
-                      </span>
-                      <span>
-                        <small>{info.eyebrow}</small>
-                        <strong>{info.label}</strong>
-                      </span>
-                      {option === "mixed" && <i>Hot</i>}
-                      <ChevronRight />
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className={styles.modeSettingsSlot} data-testid="mode-settings">
-              <div className={styles.modeRule}>
-                <span>
-                  <ModeIcon mode={mode} />
-                </span>
-                <div>
-                  <small>{activeModeInfo.label} rules</small>
-                  <p>{activeModeInfo.rule}</p>
-                </div>
+            <div className={styles.roundMix} data-testid="round-mix">
+              <span className={styles.fieldLabel}>Round mix</span>
+              <div className={styles.roundMixRail} aria-label="Round identities">
+                {ROUND_GAMES.map((game) => (
+                  <span key={game} data-round-family={game}>
+                    <ModeIcon mode={game} />
+                    <strong>{MODE_INFO[game].shortLabel}</strong>
+                  </span>
+                ))}
               </div>
             </div>
 
@@ -2362,13 +2295,13 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
 
             <div className={clsx(styles.roomNotice, roomError && styles.roomNoticeError)} aria-live="polite">
               <Signal />
-              {roomError ?? "Public rooms are synchronized to one server-owned round and reveal."}
+              {roomError ?? "Live room · one shared round and reveal"}
             </div>
 
             <div className={styles.featureStrip}>
               <div>
-                <strong>{ARCADE_MODES.length - 1}</strong>
-                <span>games live</span>
+                <strong>{PUBLIC_ROUND_FORMATS.length}</strong>
+                <span>round formats</span>
               </div>
               <div>
                 <strong>{ACTIVE_QUESTIONS.length}</strong>
@@ -2390,70 +2323,19 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
             <div className={styles.previewCard} data-testid="mode-preview">
               <div className={styles.previewHeader}>
                 <span>
-                  <ModeIcon mode={mode} />
+                  <ModeIcon mode={PUBLIC_ARCADE_MODE} />
                   {activeModeInfo.label}
                 </span>
                 <strong>00:{String(answerDuration / 1000).padStart(2, "0")}</strong>
               </div>
               <div className={styles.previewQuestion}>
-                {mode === "map-sense" ? (
-                  <div className={styles.previewMap} aria-hidden="true">
-                    <Image src={MAP_SENSE_IMAGE} alt="" fill sizes="190px" />
-                    <span />
-                    <Crosshair />
-                  </div>
-                ) : mode === "shopkeeper" ? (
-                  <div className={styles.previewShopkeeper}>
-                    <ShopkeeperTray items={previewQuestion.shopkeeper?.promptItems ?? []} compact />
-                  </div>
-                ) : mode === "echo-hunt" || mode === "soundcheck" ? (
-                  <div
-                    className={clsx(styles.previewEcho, mode === "soundcheck" && styles.previewSoundcheck)}
-                    aria-hidden="true"
-                  >
-                    {mode === "soundcheck" ? <AudioWaveform /> : <Headphones />}
-                    <span>
-                      <i />
-                      <i />
-                      <i />
-                      <i />
-                      <i />
-                    </span>
-                  </div>
-                ) : mode === "quote-hunt" ? (
-                  <div className={styles.previewQuote} aria-hidden="true">
-                    <MessageSquareQuote />
-                    <p>“{previewQuestion.detail}”</p>
-                  </div>
-                ) : (
-                  <div className={clsx(mode === "fogged-vision" && styles.previewFog)} data-fog-stage="1">
-                    <QuestionArtwork question={previewQuestion} concealIdentity={mode === "fogged-vision"} />
-                  </div>
-                )}
+                <QuestionArtwork question={PREVIEW_QUESTION} />
                 <span>{activeModeInfo.eyebrow}</span>
-                <h2>
-                  {mode === "mixed"
-                    ? "The next round could be anything."
-                    : mode === "shopkeeper"
-                      ? previewQuestion.prompt
-                      : mode === "spell-link"
-                        ? "Who cast this? Link the spell to its hero."
-                        : mode === "fogged-vision"
-                          ? "Name the hero before the fog clears."
-                          : mode === "echo-hunt"
-                            ? "Whose voice just crossed the river?"
-                            : mode === "soundcheck"
-                              ? "Match the sound."
-                              : mode === "quote-hunt"
-                                ? "Who said it?"
-                                : mode === "map-sense"
-                                  ? "Where on the map is the call?"
-                                  : previewQuestion.prompt}
-                </h2>
+                <h2>The next round could be anything.</h2>
                 <p>{activeModeInfo.description}</p>
               </div>
-              <div className={clsx(styles.previewAnswers, mode === "map-sense" && styles.previewMapBands)}>
-                {previewQuestion.answers.map((answer, index) => (
+              <div className={styles.previewAnswers}>
+                {PREVIEW_QUESTION.answers.map((answer, index) => (
                   <div key={answer}>
                     <span>{LETTERS[index]}</span>
                     {answer}
@@ -2462,9 +2344,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
               </div>
               <div className={styles.previewFooter}>
                 <Users />
-                {mode === "map-sense"
-                  ? "One synchronized deadline, then the room heatmap"
-                  : "One synchronized round, deadline, and answer split for everyone"}
+                One synchronized round, deadline, and answer split for everyone
               </div>
             </div>
 
@@ -3105,7 +2985,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
                   <Gamepad2 />
                 </span>
                 <span>
-                  <small>{MODE_INFO[mode].shortLabel} public room</small>
+                  <small>{MODE_INFO[PUBLIC_ARCADE_MODE].shortLabel}</small>
                   Endless synchronized rounds
                 </span>
                 <strong>{formatDuration(sessionElapsed)}</strong>
@@ -3323,7 +3203,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
           <div className={styles.summaryRounds}>
             <div className={styles.cardTitle}>
               <span>{history.length > 20 ? "Last 20 rounds" : "Round breakdown"}</span>
-              <strong>{MODE_INFO[mode].label}</strong>
+              <strong>{MODE_INFO[PUBLIC_ARCADE_MODE].label}</strong>
             </div>
             <div>
               {history.slice(-20).map((record, index) => (
@@ -3351,7 +3231,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
               <ChevronRight />
             </button>
             <button type="button" className={styles.secondaryButton} onClick={() => setPhase("lobby")}>
-              Choose another game
+              Back to arcade
             </button>
           </div>
         </section>

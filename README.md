@@ -1,6 +1,6 @@
 # Queue Arcade
 
-An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now wraps that loop around seven fast minigames:
+An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now rotates seven named round identities inside one endless public arcade:
 
 - **Classic Trivia** — mana, cooldowns, damage, stat comparisons, and item prices;
 - **Shopkeeper Rush** — build finished items, spot exact recipes, find shared parts, and trace upgrade paths;
@@ -8,23 +8,22 @@ An unofficial browser arcade made for the gap between **Find Match** and **Accep
 - **Fogged Vision** — identify a hero while its portrait clears through three fixed-layout stages;
 - **Echo Hunt** — identify a hero from two terse voice fragments before the complete response unlocks;
 - **Soundcheck** — identify verified effects through three growing audio cuts, including ordered two-sound sequences;
-- **Quote Hunt** — match a substantial written hero response to its speaker;
-- **Mixed Arcade** — repeats a shuffled seven-round cycle, guaranteeing every game appears exactly once per cycle.
+- **Quote Hunt** — match a substantial written hero response to its speaker.
 
-Every mode shares the parts that made the original compelling: short timed rounds, a shared answer reveal, speed and streak scoring, and double points when you are right while most of the crowd is wrong.
+These are round formats, not separate queues. Everyone shares the parts that made the original compelling: short timed rounds, a global answer reveal, speed and streak scoring, and double points when you are right while most of the crowd is wrong.
 
 The playable MVP includes:
 
 - endless, instantly interruptible arcade sessions with automatic round transitions;
-- one shared 15-second question pool per mode, without player-facing difficulty queues;
+- one shared public room of 15-second rounds, without mode, category, or player-facing difficulty queues;
 - 645 live prompts for Dota patch 7.41d, including 48 Shopkeeper rounds and 48 Soundcheck rounds;
 - item, hero, and ability artwork for visual answer rounds;
 - 44 remotely verified Echo Hunt clips, 48 Soundcheck rounds built from 60 audited clips, and 43 Quote Hunt lines sourced through Dotabase;
 - live-client answer audits plus balanced A–D placement for every generated question family;
 - progressive Spell Link clues at two-thirds and one-third time remaining;
-- deterministic template- and difficulty-aware scheduling, so large numeric pools cannot drown out distinctive formats or create long runs of trivial questions;
+- a deterministic ten-format cadence that gives Classic three slots, Shopkeeper two, every distinctive sensory format one, and never repeats a family back-to-back;
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
-- server-owned public rooms: everyone in the same mode receives the same round and deadlines;
+- one server-owned public room: everyone receives the same round and deadlines;
 - per-round crowd results with server-enforced deadlines and duplicate-vote protection;
 - disk-backed vote history that survives Node server restarts and records per-question accuracy data;
 - reveal question reports for incorrect, outdated, ambiguous, or unclear content, with an opened report carrying into the next round and deduplicated per anonymous player;
@@ -35,7 +34,7 @@ The playable MVP includes:
 
 ## Shared difficulty pool
 
-Difficulty remains question metadata, not a room choice. Every player in a mode receives the same approachable,
+Difficulty remains question metadata, not a room choice. Every player receives the same approachable,
 intermediate, and demanding rounds on a 15-second clock. The deterministic scheduler uses those hidden tiers to vary
 the cadence and prevent several easy questions in a row; calibration can later replace the seed tiers with observed
 answer rates without fragmenting the room.
@@ -125,8 +124,9 @@ direct damage, DPS, a percentage, or one conditional part of a spell. `validate-
 against the committed deck. Set the patch and snapshot date deliberately after checking the current official gameplay
 patch; the content pack is explicitly patch-stamped in the UI.
 
-The retired Map Sense and Counterplay prototypes remain preserved but are not exposed in the lobby, accepted as public
-rooms, included in Mixed Arcade, or maintained by the normal release and asset checks. Map Sense lives in
+The retired Map Sense and Counterplay prototypes remain preserved but are not exposed in the lobby, included in the
+public rotation, or maintained by the normal release and asset checks. Legacy mode values are normalized into the one
+Queue Arcade room and cannot resurrect either prototype. Map Sense lives in
 `src/lib/map-sense.ts` and `src/data/map-sense-*.json`; Counterplay lives in `src/data/counterplay-questions.json`,
 `scripts/generate-counterplay.mjs`, and `scripts/counterplay-audit.mjs`. Run `pnpm validate-map-archive` or
 `pnpm validate-counterplay-archive` when deliberately working on either archived experiment.
@@ -146,13 +146,13 @@ pnpm check
 
 That validates the question deck, template rotation, answer balance, scan length, and visual/audio metadata, runs ESLint, runs strict TypeScript checking, and creates an optimized production build.
 
-With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk persistence, hashed voter IDs, reveal-only report submission, report deduplication, aggregate-only calibration data, rejection of retired rooms, and that obsolete saved level or trivia-category values cannot split public rooms.
+With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk persistence, hashed voter IDs, reveal-only report submission, report deduplication, aggregate-only calibration data, and that obsolete mode, level, or category values cannot split the public room.
 
-For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run `node scripts/visual-smoke.mjs`. The script checks the level-free, category-free arcade lobby, retired-mode deep-link fallbacks, Shopkeeper Rush's four-format framing, the no-shift question-report popover, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt's two terse fragments and complete final line, Soundcheck's shorter three-stage cuts, ordered playback, compact icon pairs, persistent volume, mute-safe autoplay and manual replay, Quote Hunt rendering, synchronized automatic round advancement, the session report, desktop/mobile calibration layouts, mobile overflow, and saves screenshots under `/tmp`.
+For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run `node scripts/visual-smoke.mjs`. The script disables media playback again inside the page before loading anything, then checks the one-room lobby, legacy-mode redirect, seven compact round identities, synchronized answering/reveal/automatic-advance journey, no-shift question-report popover, session report, mobile lobby, mobile calibration layout, overflow, and saves screenshots under `/tmp`.
 
 ## Crowd architecture
 
-Each game catalog, content version, and mode is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-6-classic-trivia-4-shopkeeper-2-arcade-7-soundcheck-8:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog and content version owns exactly one public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-6-classic-trivia-4-shopkeeper-2-public-arcade-1-soundcheck-8:public`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` opens with the reveal and keeps the just-finished question reportable for a 20-second rollover grace period. It stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 

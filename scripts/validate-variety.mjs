@@ -1,7 +1,14 @@
 #!/usr/bin/env node
 
-import { fixedCycleOccurrenceCounts, fixedCycleRotation, varietyShuffle } from "../src/lib/variety.mjs";
-import { LIVE_ROUND_GAMES } from "../src/lib/arcade-games.mjs";
+import { varietyShuffle } from "../src/lib/variety.mjs";
+import {
+  LIVE_ROUND_GAMES,
+  PUBLIC_ROUND_FORMATS,
+  publicRoundFormatOccurrenceCounts,
+  publicRoundFormatRotation,
+  roundFormatForQuestion,
+  roundGameForFormat,
+} from "../src/lib/arcade-games.mjs";
 import { speedScoreRatio } from "../src/lib/scoring.mjs";
 
 const fixture = [
@@ -50,39 +57,74 @@ if (hasDifficultyStreak || Object.values(hiddenDifficultyCounts).some((count) =>
 }
 
 const arcadeGames = [...LIVE_ROUND_GAMES];
-const mixedRounds = fixedCycleRotation(arcadeGames, "public-room-regression", 31, 4);
-const mixedWindowsAreComplete = mixedRounds
-  .slice(0, mixedRounds.length - arcadeGames.length + 1)
-  .every((_, index) => new Set(mixedRounds.slice(index, index + arcadeGames.length)).size === arcadeGames.length);
+const arcadeFormats = [...PUBLIC_ROUND_FORMATS];
+const mixedFormats = publicRoundFormatRotation(37, 4);
+const mixedWindowsAreComplete = mixedFormats
+  .slice(0, mixedFormats.length - arcadeFormats.length + 1)
+  .every((_, index) => new Set(mixedFormats.slice(index, index + arcadeFormats.length)).size === arcadeFormats.length);
+const gameCounts = Object.fromEntries(
+  arcadeGames.map((game) => [game, arcadeFormats.filter((format) => roundGameForFormat(format) === game).length]),
+);
+const adjacentFamilyRepeat = arcadeFormats.some(
+  (format, index) =>
+    roundGameForFormat(format) === roundGameForFormat(arcadeFormats[(index + 1) % arcadeFormats.length]),
+);
 
 if (
   arcadeGames.length !== 7 ||
   arcadeGames.includes("map-sense") ||
   arcadeGames.includes("counterplay") ||
+  arcadeFormats.length !== 10 ||
+  new Set(arcadeFormats).size !== arcadeFormats.length ||
   !mixedWindowsAreComplete ||
-  mixedRounds.some((game, index) => index > 0 && game === mixedRounds[index - 1]) ||
-  JSON.stringify(mixedRounds) !== JSON.stringify(fixedCycleRotation(arcadeGames, "public-room-regression", 31, 4))
+  adjacentFamilyRepeat ||
+  gameCounts.trivia !== 3 ||
+  gameCounts.shopkeeper !== 2 ||
+  arcadeGames.some((game) => !["trivia", "shopkeeper"].includes(game) && gameCounts[game] !== 1) ||
+  JSON.stringify(mixedFormats) !== JSON.stringify(publicRoundFormatRotation(37, 4))
 ) {
-  throw new Error("Mixed Arcade can skip or repeat a game inside its guaranteed seven-round rotation.");
+  throw new Error(`The public arcade format cadence drifted: ${JSON.stringify(gameCounts)}.`);
+}
+
+const expectedFormatsByKind = {
+  "mana-cost": "classic-ability-values",
+  "hero-stat-duel": "classic-hero-stats",
+  "item-price-duel": "classic-item-prices",
+  "shopkeeper-real-recipe": "shopkeeper-builds",
+  "shopkeeper-upgrade-path": "shopkeeper-paths",
+  "spell-owner": "spell-link",
+  "fogged-hero": "fogged-vision",
+  "hero-voice": "echo-hunt",
+  "soundcheck-item": "soundcheck",
+  "hero-quote": "quote-hunt",
+};
+if (
+  Object.entries(expectedFormatsByKind).some(
+    ([kind, expectedFormat]) => roundFormatForQuestion({ kind }) !== expectedFormat,
+  ) ||
+  roundFormatForQuestion({ kind: "map-crop" }) !== null ||
+  roundFormatForQuestion({ kind: "counterplay-immunity" }) !== null
+) {
+  throw new Error("A live question kind maps to the wrong public round format, or a retired kind returned.");
 }
 
 const boundaryPoolSize = 7;
 const batchedMixedQuestions = [];
 for (let roundOffset = 0; roundOffset < 120; roundOffset += 24) {
-  const batchGames = fixedCycleRotation(arcadeGames, "public-room-regression", 24, roundOffset);
-  const cursors = fixedCycleOccurrenceCounts(arcadeGames, "public-room-regression", roundOffset);
-  for (const game of batchGames) {
-    const cursor = cursors.get(game) ?? 0;
-    batchedMixedQuestions.push({ game, id: `${game}:question-${cursor % boundaryPoolSize}` });
-    cursors.set(game, cursor + 1);
+  const batchFormats = publicRoundFormatRotation(24, roundOffset);
+  const cursors = publicRoundFormatOccurrenceCounts(roundOffset);
+  for (const format of batchFormats) {
+    const cursor = cursors.get(format) ?? 0;
+    batchedMixedQuestions.push({ format, id: `${format}:question-${cursor % boundaryPoolSize}` });
+    cursors.set(format, cursor + 1);
   }
 }
-for (const game of arcadeGames) {
-  const scheduled = batchedMixedQuestions.filter((question) => question.game === game);
+for (const format of arcadeFormats) {
+  const scheduled = batchedMixedQuestions.filter((question) => question.format === format);
   const repeatedAtBoundary = scheduled.some((question, index) => index > 0 && question.id === scheduled[index - 1].id);
   const firstCycle = scheduled.slice(0, boundaryPoolSize).map((question) => question.id);
   if (repeatedAtBoundary || new Set(firstCycle).size !== boundaryPoolSize) {
-    throw new Error(`${game} restarted its question pool at a public-room batch boundary.`);
+    throw new Error(`${format} restarted its question pool at a public-room batch boundary.`);
   }
 }
 
@@ -141,5 +183,5 @@ if (
 }
 
 console.log(
-  `Validated deterministic templates, hidden difficulty cadence ${JSON.stringify(hiddenDifficultyCounts)}, seven-game Mixed Arcade with continuous per-game question pools, and Soundcheck family rotation (${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}).`,
+  `Validated deterministic templates, hidden difficulty cadence ${JSON.stringify(hiddenDifficultyCounts)}, ten-format public arcade cadence ${JSON.stringify(gameCounts)}, continuous per-format question pools, and Soundcheck family rotation (${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}).`,
 );

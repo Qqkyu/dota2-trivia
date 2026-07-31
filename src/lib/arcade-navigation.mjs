@@ -15,12 +15,7 @@ export function resolveArcadeMode(value, modes, fallback = /** @type {Mode} */ (
     : fallback;
 }
 
-/**
- * Mixed Arcade owns the canonical home URL; every other game gets a stable,
- * shareable query URL that the browser can put in its history.
- *
- * @param {string} mode
- */
-export function arcadeModeHref(mode) {
-  return mode === DEFAULT_ARCADE_MODE ? "/" : `/?mode=${encodeURIComponent(mode)}`;
+/** Every retired mode link now resolves to the one canonical public arcade. */
+export function arcadeModeHref() {
+  return "/";
 }

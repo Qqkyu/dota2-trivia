@@ -305,6 +305,46 @@
   text-transform: uppercase;
 }
 
+.roundMix {
+  margin-top: 30px;
+}
+
+.roundMixRail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.roundMixRail > span {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px 4px 5px;
+  border: 1px solid var(--line);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.025), transparent 68%);
+  color: #adb3b0;
+}
+
+.roundMixRail .modeIcon {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  color: #cf7b70;
+}
+
+.roundMixRail .modeIcon svg {
+  width: 15px;
+}
+
+.roundMixRail strong {
+  font-size: 11px;
+  font-weight: 580;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
 .modeBlock {
   margin-top: 30px;
 }

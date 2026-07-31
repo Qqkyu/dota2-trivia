@@ -88,22 +88,30 @@ if (
   throw new Error("Two clients did not receive the same level-free synchronized round and deadlines.");
 }
 
-const legacyHeroesSettings = { gameId: "dota2", mode: "trivia", filter: "Heroes" };
-const legacyItemsSettings = { gameId: "dota2", mode: "trivia", filter: "Items" };
-const [legacyHeroesRoom, legacyItemsRoom] = await Promise.all([
-  readRoom(`multiplayer-classic-heroes-${randomUUID()}`, legacyHeroesSettings),
-  readRoom(`multiplayer-classic-items-${randomUUID()}`, legacyItemsSettings),
-]);
+const legacySettings = [
+  { gameId: "dota2", mode: "trivia", filter: "Heroes" },
+  { gameId: "dota2", mode: "shopkeeper", filter: "Items" },
+  { gameId: "dota2", mode: "fogged-vision", filter: "Mixed" },
+  { gameId: "dota2", mode: "map-sense", filter: "Mixed" },
+  { gameId: "dota2", mode: "counterplay", filter: "Mixed" },
+  { gameId: "dota2", mode: "not-a-mode", filter: "not-a-filter" },
+];
+const legacyRooms = await Promise.all(
+  legacySettings.map((roomSettings, index) =>
+    readRoom(`multiplayer-legacy-room-${index}-${randomUUID()}`, roomSettings),
+  ),
+);
 if (
-  legacyHeroesRoom.room.filter !== "Mixed" ||
-  legacyItemsRoom.room.filter !== "Mixed" ||
-  legacyHeroesRoom.room.id !== legacyItemsRoom.room.id ||
-  legacyHeroesRoom.round.id !== legacyItemsRoom.round.id ||
-  legacyHeroesRoom.round.questionId !== legacyItemsRoom.round.questionId ||
-  legacyHeroesRoom.round.game !== "trivia" ||
-  legacyItemsRoom.round.game !== "trivia"
+  legacyRooms.some(
+    (snapshot) =>
+      snapshot.room.mode !== "mixed" ||
+      snapshot.room.filter !== "Mixed" ||
+      snapshot.room.id !== firstSnapshot.room.id ||
+      snapshot.round.id !== firstSnapshot.round.id ||
+      snapshot.round.questionId !== firstSnapshot.round.questionId,
+  )
 ) {
-  throw new Error("Legacy category settings still split the shared Classic Trivia public room.");
+  throw new Error("A legacy mode or category setting still splits the one public Queue Arcade room.");
 }
 
 if (firstSnapshot.crowd.counts.some((count) => count !== 0)) {
@@ -223,19 +231,6 @@ if (!persisted.includes('"ambiguous"') || !persisted.includes('"outdated"')) {
   throw new Error("The anonymous question report was not written to persistent storage.");
 }
 
-for (const retiredMode of ["map-sense", "counterplay"]) {
-  const retiredSettings = {
-    gameId: "dota2",
-    mode: retiredMode,
-    filter: "Mixed",
-  };
-  const retiredPlayer = `multiplayer-retired-${retiredMode}-${randomUUID()}`;
-  const retiredResponse = await fetch(roomUrl(retiredPlayer, retiredSettings), { cache: "no-store" });
-  if (retiredResponse.status !== 400) {
-    throw new Error(`The retired ${retiredMode} room is still reachable (${retiredResponse.status}).`);
-  }
-}
-
 console.log(
   JSON.stringify(
     {
@@ -252,10 +247,10 @@ console.log(
       playerReportRestored: true,
       reportCarriesIntoNextRound: true,
       calibrationAggregates: true,
-      retiredModesRejected: ["map-sense", "counterplay"],
+      legacyModesCollapsedIntoPublicRoom: legacySettings.map(({ mode }) => mode),
       sharedDifficultyPoolVerified: true,
       legacyLevelSettingsIgnored: true,
-      classicTriviaCategorySilosRemoved: true,
+      allPublicModeAndCategorySilosRemoved: true,
     },
     null,
     2,

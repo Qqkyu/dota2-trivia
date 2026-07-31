@@ -1,6 +1,7 @@
-import { KNOWLEDGE_FILTERS, type ArcadeMode, type ArcadeRound, type KnowledgeFilter } from "@/lib/trivia";
+import { type ArcadeRound, type KnowledgeFilter } from "@/lib/trivia";
 import type { PublicRoom, PublicRoomSettings, PublicRound } from "@/lib/arcade-contract";
 import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
+import { PUBLIC_ARCADE_MODE, roundFormatForQuestion } from "@/lib/arcade-games.mjs";
 
 export const PUBLIC_ROUND_REVEAL_MS = 7_000;
 export const PUBLIC_ROOM_BATCH_LENGTH = 24;
@@ -25,23 +26,13 @@ export function parsePublicRoomSettings(values: {
   mode?: unknown;
   filter?: unknown;
 }): PublicRoomSettings | null {
-  const { gameId, mode, filter } = values;
+  const { gameId } = values;
 
   if (!isGameId(gameId)) return null;
-  const catalog = GAME_CATALOGS[gameId];
-
-  if (
-    typeof mode !== "string" ||
-    !catalog.modes.includes(mode as ArcadeMode) ||
-    typeof filter !== "string" ||
-    !KNOWLEDGE_FILTERS.includes(filter as KnowledgeFilter)
-  ) {
-    return null;
-  }
 
   return {
     gameId,
-    mode: mode as ArcadeMode,
+    mode: PUBLIC_ARCADE_MODE,
     filter: normalizedFilter(),
   };
 }
@@ -50,10 +41,10 @@ export function publicRoomFor(settings: PublicRoomSettings): PublicRoom {
   const filter = normalizedFilter();
   const catalog = GAME_CATALOGS[settings.gameId];
   return {
-    id: [catalog.id, catalog.contentVersion, settings.mode, filter.toLowerCase()].join(":"),
+    id: [catalog.id, catalog.contentVersion, "public"].join(":"),
     gameId: catalog.id,
     contentVersion: catalog.contentVersion,
-    mode: settings.mode,
+    mode: PUBLIC_ARCADE_MODE,
     filter,
   };
 }
@@ -65,7 +56,7 @@ function rawRoomBatch(room: PublicRoom, batchNumber: number) {
     room.mode,
     room.filter,
     PUBLIC_ROOM_BATCH_LENGTH,
-    `public-room:${room.id}:mode-rotation`,
+    `public-room:${room.id}:format-rotation`,
     batchNumber * PUBLIC_ROOM_BATCH_LENGTH,
   );
 
@@ -84,12 +75,8 @@ function roomBatch(room: PublicRoom, batchNumber: number) {
   const first = deck[0];
   const conflicts =
     first.id === previousLast?.id ||
-    (room.mode === "mixed" && first.game === previousLast?.game) ||
-    (room.mode === "trivia" && first.kind === previousLast?.kind) ||
-    (room.mode === "soundcheck" &&
-      (first.kind === previousLast?.kind || first.soundcheck?.format === previousLast?.soundcheck?.format)) ||
-    (room.mode === "map-sense" && first.kind === previousLast?.kind) ||
-    (room.mode === "counterplay" && first.kind === previousLast?.kind);
+    first.game === previousLast?.game ||
+    roundFormatForQuestion(first) === roundFormatForQuestion(previousLast);
   if (!conflicts) return deck;
 
   const replacementIndex = deck.findIndex(
@@ -97,12 +84,8 @@ function roomBatch(room: PublicRoom, batchNumber: number) {
       index > 0 &&
       index < deck.length - 1 &&
       question.id !== previousLast?.id &&
-      (room.mode !== "mixed" || question.game !== previousLast?.game) &&
-      (room.mode !== "trivia" || question.kind !== previousLast?.kind) &&
-      (room.mode !== "soundcheck" ||
-        (question.kind !== previousLast?.kind && question.soundcheck?.format !== previousLast?.soundcheck?.format)) &&
-      (room.mode !== "map-sense" || question.kind !== previousLast?.kind) &&
-      (room.mode !== "counterplay" || question.kind !== previousLast?.kind),
+      question.game !== previousLast?.game &&
+      roundFormatForQuestion(question) !== roundFormatForQuestion(previousLast),
   );
   if (replacementIndex < 1) return deck;
 
