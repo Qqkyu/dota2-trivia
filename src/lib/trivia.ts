@@ -1,5 +1,6 @@
 import counterplayQuestions from "@/data/counterplay-questions.json";
 import generatedQuestions from "@/data/questions.generated.json";
+import shopkeeperQuestions from "@/data/shopkeeper-questions.json";
 import generatedMeta from "@/data/trivia-meta.generated.json";
 import soundcheckQuestions from "@/data/soundcheck-questions.json";
 import { mapSenseQuestions } from "@/lib/map-sense";
@@ -43,6 +44,10 @@ export type QuestionKind =
   | "hero-move-speed"
   | "item-cost"
   | "recipe-component"
+  | "shopkeeper-build-result"
+  | "shopkeeper-real-recipe"
+  | "shopkeeper-shared-part"
+  | "shopkeeper-upgrade-path"
   | "hero-stat-duel"
   | "hero-intruder"
   | "ability-detective"
@@ -78,6 +83,14 @@ export type CounterplayFamily =
   | "spell-reflect";
 
 export type CounterplayFormat = "constant-matchup" | "curated-exception" | "interaction-scenario";
+export type ShopkeeperFormat = "build-result" | "real-recipe" | "shared-part" | "upgrade-path";
+
+export interface ShopkeeperItemReference {
+  key: string;
+  name: string;
+  image: string;
+  count: number;
+}
 
 export interface TriviaQuestion {
   id: string;
@@ -120,11 +133,25 @@ export interface TriviaQuestion {
     };
   };
   shopkeeper?: {
-    targetItemKey: string;
-    componentKey: string;
-    recipeComponentKeys: string[];
-    answerItemKeys: [string, string, string, string];
-    answerCosts: [number, number, number, number];
+    format?: ShopkeeperFormat;
+    targetItemKey?: string;
+    targetItemKeys?: [string, string];
+    sourceItemKey?: string;
+    sharedComponentKey?: string;
+    componentKey?: string;
+    promptItems?: ShopkeeperItemReference[];
+    recipeComponentKeys?: string[];
+    targetRecipeKeys?: [string[], string[]];
+    answerItemKeys?: [string, string, string, string];
+    answerRecipeKeys?: [string[], string[], string[], string[]];
+    answerIngredientKeys?: [string[], string[], string[], string[]];
+    answerGroups?: [
+      ShopkeeperItemReference[],
+      ShopkeeperItemReference[],
+      ShopkeeperItemReference[],
+      ShopkeeperItemReference[],
+    ];
+    answerCosts?: [number, number, number, number];
     clientBuild: string;
   };
   counterplay?: {
@@ -170,7 +197,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-3-map-sense-9-counterplay-4-soundcheck-6`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-4-shopkeeper-2-map-sense-9-counterplay-4-soundcheck-6`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
     isPlayableClassicTriviaQuestion(question) &&
@@ -180,6 +207,7 @@ const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filt
 );
 export const triviaQuestions = [
   ...playableGeneratedQuestions,
+  ...(shopkeeperQuestions as TriviaQuestion[]).filter(isPlayableShopkeeperQuestion),
   ...(mapSenseQuestions as TriviaQuestion[]).filter(isKnowledgeBearingMapQuestion),
   ...(counterplayQuestions as TriviaQuestion[]),
   ...(soundcheckQuestions as unknown as TriviaQuestion[]),
@@ -201,7 +229,7 @@ export function createQuestionDeck(seed: string, filter: KnowledgeFilter) {
 }
 
 export function gameForQuestion(question: TriviaQuestion): RoundGame {
-  if (question.kind === "recipe-component") return "shopkeeper";
+  if (question.kind.startsWith("shopkeeper-")) return "shopkeeper";
   if (question.kind === "spell-owner") return "spell-link";
   if (question.kind === "fogged-hero") return "fogged-vision";
   if (question.kind === "hero-voice") return "echo-hunt";

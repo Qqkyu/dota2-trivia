@@ -7,6 +7,8 @@ export function questionImageUrls(question) {
     question.image?.src,
     ...(question.answerImages ?? []),
     ...(question.answerImagePairs?.flat() ?? []),
+    ...(question.shopkeeper?.promptItems?.map((item) => item.image) ?? []),
+    ...(question.shopkeeper?.answerGroups?.flat().map((item) => item.image) ?? []),
     ...(question.counterplay?.toolImages?.map((image) => image.src) ?? []),
   ].filter(Boolean);
 }

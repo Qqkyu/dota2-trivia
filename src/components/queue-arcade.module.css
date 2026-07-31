@@ -2583,6 +2583,147 @@
   font-weight: 400;
 }
 
+.shopkeeperQuestion {
+  height: 272px;
+  overflow: hidden;
+}
+
+.shopkeeperQuestion .questionCopy {
+  flex: 0 1 520px;
+}
+
+.shopkeeperPromptTray {
+  display: grid;
+  width: min(440px, 48%);
+  min-width: 250px;
+  place-items: center;
+}
+
+.shopkeeperTray {
+  display: grid;
+  width: 100%;
+  align-items: stretch;
+  gap: 8px;
+  grid-template-columns: repeat(var(--shopkeeper-item-count), minmax(0, 1fr));
+}
+
+.shopkeeperPromptTray > .shopkeeperTray {
+  padding: 15px;
+  border: 1px solid rgba(210, 163, 74, 0.2);
+  background: linear-gradient(145deg, rgba(210, 163, 74, 0.07), transparent 62%), rgba(0, 0, 0, 0.16);
+  box-shadow:
+    inset 0 0 34px rgba(210, 163, 74, 0.025),
+    0 18px 36px rgba(0, 0, 0, 0.19);
+}
+
+.shopkeeperPromptTray > .shopkeeperTray[data-item-count="1"] {
+  width: 150px;
+}
+
+.shopkeeperPromptTray > .shopkeeperTray[data-item-count="2"] {
+  width: min(100%, 270px);
+}
+
+.shopkeeperItem {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.shopkeeperItemArt {
+  position: relative;
+  width: min(100%, 82px);
+  aspect-ratio: 1.35;
+  overflow: hidden;
+  border: 1px solid rgba(210, 163, 74, 0.28);
+  background: #0d0f0f;
+  box-shadow: 0 9px 20px rgba(0, 0, 0, 0.28);
+}
+
+.shopkeeperItemArt img {
+  object-fit: cover;
+}
+
+.shopkeeperItemArt b {
+  position: absolute;
+  z-index: 2;
+  right: 3px;
+  bottom: 3px;
+  display: grid;
+  min-width: 24px;
+  height: 20px;
+  place-items: center;
+  padding: 0 4px;
+  border: 1px solid rgba(230, 188, 93, 0.5);
+  background: rgba(12, 13, 12, 0.92);
+  color: #e5c069;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  font-weight: 550;
+}
+
+.shopkeeperItem > strong {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #c8c4b8;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.shopkeeperTrayCompact {
+  min-width: 0;
+  gap: 6px;
+}
+
+.shopkeeperItemCompact {
+  gap: 5px;
+}
+
+.shopkeeperItemCompact .shopkeeperItemArt {
+  width: min(100%, 56px);
+}
+
+.shopkeeperItemCompact > strong {
+  color: #b8b8ae;
+  font-size: 10px;
+  line-height: 1.18;
+}
+
+.shopkeeperRecipeAnswer {
+  min-height: 112px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.shopkeeperRecipeAnswer .shopkeeperTray {
+  position: relative;
+  z-index: 2;
+}
+
+.previewShopkeeper {
+  display: grid;
+  width: min(100%, 310px);
+  min-height: 104px;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 1px solid rgba(210, 163, 74, 0.22);
+  background: radial-gradient(circle at 50% 20%, rgba(210, 163, 74, 0.1), transparent 68%), rgba(0, 0, 0, 0.15);
+}
+
+.previewShopkeeper .shopkeeperItemArt {
+  width: min(100%, 52px);
+}
+
+.previewShopkeeper .shopkeeperItem > strong {
+  font-size: 8px;
+}
+
 .recipeEquation {
   display: flex;
   width: min(100%, 470px);
@@ -4830,6 +4971,32 @@
   .quoteQuestion,
   .counterplayQuestion {
     min-height: 270px;
+  }
+
+  .shopkeeperQuestion {
+    height: auto;
+    min-height: 340px;
+  }
+
+  .shopkeeperPromptTray {
+    width: min(100%, 430px);
+    min-width: 0;
+  }
+
+  .shopkeeperPromptTray > .shopkeeperTray {
+    padding: 11px;
+  }
+
+  .shopkeeperItemArt {
+    width: min(100%, 68px);
+  }
+
+  .shopkeeperRecipeAnswer {
+    min-height: 104px;
+  }
+
+  .shopkeeperRecipeAnswer .shopkeeperItemCompact > strong {
+    font-size: 10px;
   }
 
   .spellQuestion,

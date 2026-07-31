@@ -271,8 +271,11 @@ await screenshot("/tmp/queue-arcade-shopkeeper.png");
 const shopkeeper = await evaluate(`({
   prompt: document.querySelector("h2")?.innerText,
   modeVisible: document.body.innerText.toLowerCase().includes("shopkeeper rush"),
-  componentCheckVisible: document.body.innerText.toLowerCase().includes("component check"),
+  oldComponentCheckVisible: document.body.innerText.toLowerCase().includes("component check"),
+  format: document.querySelector('[data-shopkeeper-format]')?.dataset.shopkeeperFormat,
   targetItemVisible: document.body.innerText.toLowerCase().includes("target item"),
+  promptItemCount: document.querySelectorAll('[data-testid="shopkeeper-prompt-items"] img').length,
+  recipeChoiceCount: document.querySelectorAll('[data-testid="shopkeeper-recipe-choice"]').length,
   answers: [...document.querySelectorAll('[data-testid="arcade-answer"]')].map((button) => button.innerText),
   answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
   answerImagesLoaded: [...document.querySelectorAll('[data-testid="arcade-answer"] img')]
@@ -1336,15 +1339,17 @@ if (
 }
 if (
   !shopkeeper.modeVisible ||
-  !shopkeeper.componentCheckVisible ||
-  !shopkeeper.targetItemVisible ||
-  !shopkeeper.prompt?.startsWith("Which component belongs to") ||
-  /finish the recipe/i.test(shopkeeper.prompt ?? "") ||
+  shopkeeper.oldComponentCheckVisible ||
+  !["build-result", "real-recipe", "shared-part", "upgrade-path"].includes(shopkeeper.format) ||
+  (shopkeeper.format === "real-recipe"
+    ? !shopkeeper.targetItemVisible || shopkeeper.recipeChoiceCount !== 4
+    : shopkeeper.promptItemCount < 1) ||
+  /which component belongs|finish the recipe/i.test(shopkeeper.prompt ?? "") ||
   shopkeeper.answers.length !== 4
 ) {
-  failures.push("Shopkeeper Rush did not clearly frame its full item as the recipe target.");
+  failures.push("Shopkeeper Rush did not render one of its four recipe formats clearly.");
 }
-if (shopkeeper.answerImages !== 4 || !shopkeeper.answerImagesLoaded) {
+if (shopkeeper.answerImages < 4 || !shopkeeper.answerImagesLoaded) {
   failures.push("Shopkeeper Rush item artwork did not load.");
 }
 if (

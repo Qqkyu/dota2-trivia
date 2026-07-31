@@ -49,6 +49,7 @@ import {
   type ArcadeMode,
   type ArcadeRound,
   type RoundGame,
+  type ShopkeeperItemReference,
   type TriviaArtworkKind,
   type TriviaQuestion,
 } from "@/lib/trivia";
@@ -252,10 +253,10 @@ const MODE_INFO: Record<
   shopkeeper: {
     label: "Shopkeeper Rush",
     shortLabel: "Shopkeeper",
-    eyebrow: "Recipe speedrun",
-    description: "See the finished item, then spot one component that belongs in its recipe.",
+    eyebrow: "Recipe knowledge",
+    description: "Build items, spot exact recipes, find shared parts, and trace direct upgrades.",
     action: "Open the secret shop",
-    rule: "One target item and four possible components on the shelf.",
+    rule: "Four recipe formats rotate evenly from the audited live-client shop.",
   },
   "spell-link": {
     label: "Spell Link",
@@ -597,6 +598,70 @@ function AnswerArtwork({ src, alt, kind }: { src: string; alt: string; kind: Tri
       )}
     </span>
   );
+}
+
+function ShopkeeperItem({ item, compact = false }: { item: ShopkeeperItemReference; compact?: boolean }) {
+  return (
+    <span className={clsx(styles.shopkeeperItem, compact && styles.shopkeeperItemCompact)}>
+      <span className={styles.shopkeeperItemArt}>
+        <Image src={item.image} alt="" fill sizes={compact ? "54px" : "82px"} unoptimized />
+        {item.count > 1 && <b>×{item.count}</b>}
+      </span>
+      <strong>{item.name}</strong>
+    </span>
+  );
+}
+
+function ShopkeeperTray({
+  items,
+  compact = false,
+  testId,
+}: {
+  items: ShopkeeperItemReference[];
+  compact?: boolean;
+  testId?: string;
+}) {
+  return (
+    <span
+      className={clsx(styles.shopkeeperTray, compact && styles.shopkeeperTrayCompact)}
+      data-testid={testId}
+      data-item-count={items.length}
+      style={{ "--shopkeeper-item-count": Math.max(1, items.length) } as CSSProperties}
+      aria-label={items.map((item) => `${item.name}${item.count > 1 ? ` times ${item.count}` : ""}`).join(", ")}
+    >
+      {items.map((item) => (
+        <ShopkeeperItem key={item.key} item={item} compact={compact} />
+      ))}
+    </span>
+  );
+}
+
+function shopkeeperFormatLabel(question: TriviaQuestion) {
+  if (question.shopkeeper?.format === "build-result") return "Build Result";
+  if (question.shopkeeper?.format === "real-recipe") return "Real Recipe";
+  if (question.shopkeeper?.format === "shared-part") return "Shared Part";
+  return "Upgrade Path";
+}
+
+function shopkeeperRoundNote(question: TriviaQuestion) {
+  if (question.shopkeeper?.format === "build-result") return "Every shown component is part of the direct recipe";
+  if (question.shopkeeper?.format === "real-recipe") return "Three trays contain exactly one wrong component";
+  if (question.shopkeeper?.format === "shared-part") return "Compare the two direct shop recipes";
+  return "Choose the item that directly upgrades from the shown part";
+}
+
+function shopkeeperAnswerAction(question: TriviaQuestion) {
+  if (question.shopkeeper?.format === "build-result") return "Choose the finished item";
+  if (question.shopkeeper?.format === "real-recipe") return "Choose the real recipe";
+  if (question.shopkeeper?.format === "shared-part") return "Choose the shared component";
+  return "Choose the direct upgrade";
+}
+
+function shopkeeperTip(question: TriviaQuestion) {
+  if (question.shopkeeper?.format === "build-result") return "Read the whole tray—duplicate components count.";
+  if (question.shopkeeper?.format === "real-recipe") return "Each false tray swaps exactly one component.";
+  if (question.shopkeeper?.format === "shared-part") return "Only direct shop components count here.";
+  return "The correct answer uses the shown item in its direct recipe.";
 }
 
 function percentagePosition(position: MapPosition) {
@@ -1246,7 +1311,7 @@ export function QueueArcade() {
   const answerDuration = ANSWER_DURATION_MS;
   const previewQuestion = useMemo(() => {
     if (mode === "shopkeeper") {
-      return ACTIVE_QUESTIONS.find((question) => question.category === "Recipes") ?? ACTIVE_QUESTIONS[0];
+      return ACTIVE_QUESTIONS.find((question) => question.kind.startsWith("shopkeeper-")) ?? ACTIVE_QUESTIONS[0];
     }
     if (mode === "spell-link") {
       return ACTIVE_QUESTIONS.find((question) => question.kind === "spell-owner") ?? ACTIVE_QUESTIONS[0];
@@ -2331,6 +2396,10 @@ export function QueueArcade() {
                     <span />
                     <Crosshair />
                   </div>
+                ) : mode === "shopkeeper" ? (
+                  <div className={styles.previewShopkeeper}>
+                    <ShopkeeperTray items={previewQuestion.shopkeeper?.promptItems ?? []} compact />
+                  </div>
                 ) : mode === "echo-hunt" || mode === "soundcheck" ? (
                   <div
                     className={clsx(styles.previewEcho, mode === "soundcheck" && styles.previewSoundcheck)}
@@ -2360,7 +2429,7 @@ export function QueueArcade() {
                   {mode === "mixed"
                     ? "The next round could be anything."
                     : mode === "shopkeeper"
-                      ? `Finish ${previewQuestion.eyebrow}'s recipe.`
+                      ? previewQuestion.prompt
                       : mode === "spell-link"
                         ? "Who cast this? Link the spell to its hero."
                         : mode === "fogged-vision"
@@ -2471,28 +2540,30 @@ export function QueueArcade() {
                 onChooseIndex={chooseAnswer}
               />
             ) : currentGame === "shopkeeper" ? (
-              <div className={clsx(styles.questionBlock, styles.shopkeeperQuestion)} data-testid="round-prompt">
-                <div className={styles.recipeTarget}>
-                  <QuestionArtwork question={currentQuestion} />
-                  <span>Target item</span>
-                </div>
-                <div className={styles.questionCopy}>
-                  <span>Shopkeeper Rush · Component check</span>
-                  <h2>
-                    Which component belongs to <strong>{currentQuestion.eyebrow}</strong>?
-                  </h2>
-                  <div className={styles.recipeEquation} aria-hidden="true">
-                    <span>
-                      <ShoppingBag />
-                      Target recipe
-                    </span>
-                    <ChevronRight />
-                    <span className={styles.missingSlot}>
-                      <strong>?</strong>
-                      Find on the shelf
-                    </span>
+              <div
+                className={clsx(styles.questionBlock, styles.shopkeeperQuestion)}
+                data-testid="round-prompt"
+                data-shopkeeper-format={currentQuestion.shopkeeper?.format}
+              >
+                {currentQuestion.shopkeeper?.format === "real-recipe" ? (
+                  <div className={styles.recipeTarget}>
+                    <QuestionArtwork question={currentQuestion} />
+                    <span>Target item</span>
                   </div>
-                  <small>Patch {currentQuestion.patch} · Choose the component that actually belongs</small>
+                ) : (
+                  <div className={styles.shopkeeperPromptTray}>
+                    <ShopkeeperTray
+                      items={currentQuestion.shopkeeper?.promptItems ?? []}
+                      testId="shopkeeper-prompt-items"
+                    />
+                  </div>
+                )}
+                <div className={styles.questionCopy}>
+                  <span>Shopkeeper Rush · {shopkeeperFormatLabel(currentQuestion)}</span>
+                  <h2>{currentQuestion.prompt}</h2>
+                  <small>
+                    Patch {currentQuestion.patch} · {shopkeeperRoundNote(currentQuestion)}
+                  </small>
                 </div>
               </div>
             ) : currentGame === "spell-link" ? (
@@ -2835,6 +2906,7 @@ export function QueueArcade() {
                   const isCorrect = currentQuestion.correctIndex === index;
                   const percentage = crowd.total ? Math.round((crowd.counts[index] / crowd.total) * 100) : 0;
                   const answerImagePair = currentQuestion.answerImagePairs?.[index];
+                  const shopkeeperAnswerGroup = currentQuestion.shopkeeper?.answerGroups?.[index];
                   const answerPairNames = answerImagePair ? answer.split(" → ") : [];
                   const resultStyle = {
                     "--result-width": `${percentage}%`,
@@ -2847,8 +2919,10 @@ export function QueueArcade() {
                       data-testid="arcade-answer"
                       className={clsx(
                         styles.answer,
-                        (currentQuestion.answerImages || answerImagePair) && styles.visualAnswer,
+                        (currentQuestion.answerImages || answerImagePair || shopkeeperAnswerGroup) &&
+                          styles.visualAnswer,
                         answerImagePair && styles.sequenceAnswer,
+                        shopkeeperAnswerGroup && styles.shopkeeperRecipeAnswer,
                         phase === "answering" && isSelected && styles.answerLocked,
                         phase === "answering" && selectedIndex !== null && !isSelected && styles.answerMuted,
                         phase === "reveal" && isCorrect && styles.answerCorrect,
@@ -2857,12 +2931,22 @@ export function QueueArcade() {
                       onClick={() => chooseAnswer(index)}
                       disabled={phase !== "answering" || selectedIndex !== null}
                       aria-pressed={isSelected}
-                      aria-label={answerImagePair ? `${LETTERS[index]}. ${answer}` : undefined}
+                      aria-label={
+                        answerImagePair
+                          ? `${LETTERS[index]}. ${answer}`
+                          : shopkeeperAnswerGroup
+                            ? `${LETTERS[index]}. ${shopkeeperAnswerGroup
+                                .map((item) => `${item.name}${item.count > 1 ? ` times ${item.count}` : ""}`)
+                                .join(", ")}`
+                            : undefined
+                      }
                       style={resultStyle}
                     >
                       {phase === "reveal" && <span className={styles.resultFill} />}
                       <span className={styles.answerKey}>{LETTERS[index]}</span>
-                      {answerImagePair ? (
+                      {shopkeeperAnswerGroup ? (
+                        <ShopkeeperTray items={shopkeeperAnswerGroup} compact testId="shopkeeper-recipe-choice" />
+                      ) : answerImagePair ? (
                         <span className={styles.sequenceAnswerChoice} data-testid="sound-sequence-choice">
                           <AnswerArtwork
                             src={answerImagePair[0]}
@@ -2888,7 +2972,7 @@ export function QueueArcade() {
                           }
                         />
                       ) : null}
-                      {!answerImagePair && (
+                      {!answerImagePair && !shopkeeperAnswerGroup && (
                         <span className={styles.answerText}>
                           {answer}
                           {isSelected && phase === "answering" && <small>Your answer · locked</small>}
@@ -2918,7 +3002,7 @@ export function QueueArcade() {
                     <>
                       <Keyboard />
                       {currentGame === "shopkeeper"
-                        ? "Pick the missing component · A–D or 1–4"
+                        ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
                         : currentGame === "spell-link"
                           ? "Link the spell to a hero · A–D or 1–4"
                           : currentGame === "fogged-vision"
@@ -3151,7 +3235,7 @@ export function QueueArcade() {
                 </span>
                 <p>
                   {currentGame === "shopkeeper"
-                    ? "Look for the real component, not an item that merely has a similar cost or stat."
+                    ? shopkeeperTip(currentQuestion)
                     : currentGame === "spell-link"
                       ? `Each extra clue costs ${SPELL_CLUE_PENALTY} points. Answering sooner also preserves up to ${MAX_SPEED_BONUS} speed points.`
                       : currentGame === "fogged-vision"

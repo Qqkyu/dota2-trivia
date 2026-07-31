@@ -2,8 +2,8 @@
 
 An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now wraps that loop around nine fast minigames:
 
-- **Classic Trivia** — mana, cooldowns, damage, stat comparisons, item prices, and reverse recipes;
-- **Shopkeeper Rush** — finish item recipes by finding the missing component;
+- **Classic Trivia** — mana, cooldowns, damage, stat comparisons, and item prices;
+- **Shopkeeper Rush** — build finished items, spot exact recipes, find shared parts, and trace upgrade paths;
 - **Spell Link** — match an ability to its hero while timed clues unlock;
 - **Fogged Vision** — identify a hero while its portrait clears through three fixed-layout stages;
 - **Echo Hunt** — identify a hero from two terse voice fragments before the complete response unlocks;
@@ -19,7 +19,7 @@ The playable MVP includes:
 
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - one shared 15-second question pool per mode, without player-facing difficulty queues;
-- 860 prompts across 28 formats for Dota patch 7.41d, including 134 Map Sense challenges and 62 Counterplay matchups;
+- 841 prompts across 30 formats for Dota patch 7.41d, including 48 Shopkeeper rounds, 134 Map Sense challenges, and 62 Counterplay matchups;
 - item, hero, and ability artwork for visual answer rounds;
 - 44 remotely verified Echo Hunt clips, 48 Soundcheck rounds built from 60 audited clips, and 43 Quote Hunt lines sourced through Dotabase;
 - live-client answer audits plus balanced A–D placement for every generated question family;
@@ -104,6 +104,7 @@ Names and artwork mappings are generated from OpenDota, while playable facts are
 DOTA_PATCH=7.41d DOTA_SNAPSHOT_DATE=2026-07-29 pnpm sync-data
 pnpm sync-counterplay
 pnpm sync-soundcheck
+pnpm sync-shopkeeper -- --items-cache=/path/to/opendota-items.json --client-root=/path/to/decompiled-client
 pnpm validate-data
 pnpm validate-assets
 ```
@@ -114,6 +115,7 @@ The sync writes:
 - `src/data/trivia-meta.generated.json`
 - `src/data/counterplay-questions.json`
 - `src/data/soundcheck-questions.json`
+- `src/data/shopkeeper-questions.json`
 
 The sync uses OpenDota for localized metadata and artwork, and Dotabase for hero-response metadata and playable audio
 paths. Because third-party constants can lag behind a patch, every generated ownership, mana, cooldown, damage, hero
@@ -125,6 +127,12 @@ constants:
 ```bash
 DOTA_CLIENT_AUDIT_ROOT=/path/to/decompiled-client pnpm audit:client
 ```
+
+Shopkeeper generation reads names and artwork from the matching OpenDota item snapshot, but derives every recipe from
+the audited client `items.txt`. Its 48-round deck is split evenly between Build Result, Real Recipe, Shared Part, and
+Upgrade Path. Real Recipe distractors swap exactly one component; Shared Part accepts exactly one direct intersection;
+and Upgrade Path rejects any distractor whose full build tree contains the shown item. The old single-component and
+random reverse-recipe templates remain excluded by the playable quality gates.
 
 The pipeline checks every referenced image and audio clip, rejects questions whose assets are unavailable, filters
 hero-name leaks and laugh-heavy/noise responses, blocks generated clues that leak their answer, caps timed prompts at
@@ -168,11 +176,11 @@ That validates the question deck, template rotation, answer balance, scan length
 
 With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk persistence, hashed voter IDs, reveal-only report submission, report deduplication, aggregate-only calibration data, server-scored Map Sense answers, and that obsolete saved level or trivia-category values cannot split public rooms.
 
-For visual smoke testing, start muted Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the level-free, category-free arcade lobby, Shopkeeper Rush's target/component framing, the no-shift question-report popover, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt's two terse fragments and complete final line, Soundcheck's shorter three-stage cuts, ordered playback, compact icon pairs, persistent volume, mute-safe autoplay and manual replay, Quote Hunt rendering, Counterplay prompts and reveals, both interactive Map Sense mechanics plus full-map knowledge calls, synchronized automatic round advancement, the session report, desktop/mobile calibration layouts, mobile overflow, and saves screenshots under `/tmp`.
+For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run `node scripts/visual-smoke.mjs`. The script checks the level-free, category-free arcade lobby, Shopkeeper Rush's four-format framing, the no-shift question-report popover, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt's two terse fragments and complete final line, Soundcheck's shorter three-stage cuts, ordered playback, compact icon pairs, persistent volume, mute-safe autoplay and manual replay, Quote Hunt rendering, Counterplay prompts and reveals, both interactive Map Sense mechanics plus full-map knowledge calls, synchronized automatic round advancement, the session report, desktop/mobile calibration layouts, mobile overflow, and saves screenshots under `/tmp`.
 
 ## Crowd architecture
 
-Each game catalog, content version, and mode is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-6-classic-trivia-3-map-sense-9-counterplay-4-soundcheck-6:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog, content version, and mode is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-6-classic-trivia-4-shopkeeper-2-map-sense-9-counterplay-4-soundcheck-6:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` opens with the reveal and keeps the just-finished question reportable for a 20-second rollover grace period. It stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 
