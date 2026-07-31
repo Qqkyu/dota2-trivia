@@ -3,8 +3,7 @@ import generatedQuestions from "@/data/questions.generated.json";
 import shopkeeperQuestions from "@/data/shopkeeper-questions.json";
 import generatedMeta from "@/data/trivia-meta.generated.json";
 import soundcheckQuestions from "@/data/soundcheck-questions.json";
-import { mapSenseQuestions } from "@/lib/map-sense";
-import { isKnowledgeBearingMapQuestion } from "@/lib/map-sense-quality.mjs";
+import { LIVE_ROUND_GAMES } from "@/lib/arcade-games.mjs";
 import type { MapChallenge } from "@/lib/map-types";
 import { isPlayableShopkeeperQuestion } from "@/lib/shopkeeper-quality.mjs";
 import { isPlayableClassicTriviaQuestion } from "@/lib/classic-trivia-quality.mjs";
@@ -197,7 +196,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-4-shopkeeper-2-map-sense-9-counterplay-4-soundcheck-8`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-4-shopkeeper-2-arcade-8-counterplay-4-soundcheck-8`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
     isPlayableClassicTriviaQuestion(question) &&
@@ -208,7 +207,6 @@ const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filt
 export const triviaQuestions = [
   ...playableGeneratedQuestions,
   ...(shopkeeperQuestions as TriviaQuestion[]).filter(isPlayableShopkeeperQuestion),
-  ...(mapSenseQuestions as TriviaQuestion[]).filter(isKnowledgeBearingMapQuestion),
   ...(counterplayQuestions as TriviaQuestion[]),
   ...(soundcheckQuestions as unknown as TriviaQuestion[]),
 ];
@@ -254,17 +252,7 @@ export function createArcadeDeck(
   rotationSeed = seed,
   roundOffset = 0,
 ) {
-  const mixedGames = [
-    "trivia",
-    "shopkeeper",
-    "spell-link",
-    "fogged-vision",
-    "echo-hunt",
-    "soundcheck",
-    "quote-hunt",
-    "map-sense",
-    "counterplay",
-  ] satisfies RoundGame[];
+  const mixedGames = [...LIVE_ROUND_GAMES] as RoundGame[];
   const games: RoundGame[] =
     mode === "mixed"
       ? fixedCycleRotation(mixedGames, rotationSeed, length, roundOffset)

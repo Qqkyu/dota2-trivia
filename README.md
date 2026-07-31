@@ -1,6 +1,6 @@
 # Queue Arcade
 
-An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now wraps that loop around nine fast minigames:
+An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now wraps that loop around eight fast minigames:
 
 - **Classic Trivia** — mana, cooldowns, damage, stat comparisons, and item prices;
 - **Shopkeeper Rush** — build finished items, spot exact recipes, find shared parts, and trace upgrade paths;
@@ -9,9 +9,8 @@ An unofficial browser arcade made for the gap between **Find Match** and **Accep
 - **Echo Hunt** — identify a hero from two terse voice fragments before the complete response unlocks;
 - **Soundcheck** — identify verified effects through three growing audio cuts, including ordered two-sound sequences;
 - **Quote Hunt** — match a substantial written hero response to its speaker;
-- **Map Sense** — read map calls, block camps, follow current stack guides, and solve compact battlefield decisions;
 - **Counterplay** — solve BKB, dispel, Nullifier, Linken's, and Lotus interactions from short icon-led matchups;
-- **Mixed Arcade** — repeats a shuffled nine-round cycle, guaranteeing every game appears exactly once per cycle.
+- **Mixed Arcade** — repeats a shuffled eight-round cycle, guaranteeing every game appears exactly once per cycle.
 
 Every mode shares the parts that made the original compelling: short timed rounds, a shared answer reveal, speed and streak scoring, and double points when you are right while most of the crowd is wrong.
 
@@ -19,7 +18,7 @@ The playable MVP includes:
 
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - one shared 15-second question pool per mode, without player-facing difficulty queues;
-- 841 prompts across 30 formats for Dota patch 7.41d, including 48 Shopkeeper rounds, 134 Map Sense challenges, and 62 Counterplay matchups;
+- 707 live prompts for Dota patch 7.41d, including 48 Shopkeeper rounds, 62 Counterplay matchups, and 48 Soundcheck rounds;
 - item, hero, and ability artwork for visual answer rounds;
 - 44 remotely verified Echo Hunt clips, 48 Soundcheck rounds built from 60 audited clips, and 43 Quote Hunt lines sourced through Dotabase;
 - live-client answer audits plus balanced A–D placement for every generated question family;
@@ -28,7 +27,6 @@ The playable MVP includes:
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
 - server-owned public rooms: everyone in the same mode receives the same round and deadlines;
 - per-round crowd results with server-enforced deadlines and duplicate-vote protection;
-- server-scored Map Sense pins plus synchronized A–D mechanic rounds, with coordinates and answer splits hidden until reveal;
 - disk-backed vote history that survives Node server restarts and records per-question accuracy data;
 - reveal question reports for incorrect, outdated, ambiguous, or unclear content, with an opened report carrying into the next round and deduplicated per anonymous player;
 - a responsive calibration lab at `/calibration`, with report triage and difficulty recommendations only after 20 answers;
@@ -45,12 +43,6 @@ answer rates without fragmenting the room.
 
 Fogged Vision uses one tuned portrait curve for everyone and retains fog through the final stage.
 
-Map Sense mixes seven knowledge-bearing families in one room, including broad calls, riddles, relative-position
-puzzles, Camp Block, and Stack Route. The mechanic rounds use current spawn boxes and Valve's per-camp stack
-arrows and timing windows. The hardest mechanic prompts stay at four words or
-fewer. A three-second reading grace preserves full speed points before the bonus begins fading; pin rounds also earn a
-separate center-precision bonus.
-
 Counterplay uses six audited mechanic families: debuff immunity, basic dispels, strong-dispel-only effects, offensive
 dispels, spell block, and spell reflection. Iconic interactions and less obvious status or targeting rules now rotate
 through the same room. The deck is generated from explicit `bkbpierce`, `dispellable`,
@@ -58,8 +50,8 @@ and ability-behavior fields in the patch-stamped game constants. Break questions
 breakability can be verified without inference.
 
 Soundcheck alternates between ability sounds and item activations, mixing iconic cues, single deep cuts, and ordered
-two-sound rounds. Each third of the clock unlocks and replays a longer prefix; even the final cut stops before the full
-clip. Sequence answers are compact icon pairs:
+two-sound rounds. Each third of the clock unlocks and replays a longer cut: two tiny prefixes, then the complete effect.
+Sequence answers are compact icon pairs:
 recognizing only one clip still leaves two plausible choices. Every sequence can be replayed freely, while persistent
 mute and volume controls apply to clips and interface cues alike.
 
@@ -142,12 +134,9 @@ direct damage, DPS, a percentage, or one conditional part of a spell. `validate-
 against the committed deck. Set the patch and snapshot date deliberately after checking the current official gameplay
 patch; the content pack is explicitly patch-stamped in the UI.
 
-Map Sense's direct calls live in `src/data/map-sense-locations.json`; its riddle, mirror, relative-position, and scenario
-packs live in `src/data/map-sense-challenges.json`; audited camp geometry, tiers, stack windows, and arrows live in
-`src/data/map-sense-mechanics.json`. Coordinates and optional
-reference pins are normalized from `0–1` so future terrain artwork can be replaced without changing the interaction or
-storage format. `validate-data` also checks family balance, difficulty coverage, exact camp-box inclusion, stack-route
-clearance, Valve stack-guide parity, coordinate bounds, reference-pin separation, and local artwork.
+The retired Map Sense prototype is preserved in `src/lib/map-sense.ts`, `src/data/map-sense-*.json`, and its existing
+renderer. It is not exposed in the lobby, accepted as a public-room mode, included in Mixed Arcade, or maintained by the
+normal release check. Run `pnpm validate-map-archive` if you deliberately work on the archived experiment.
 
 Counterplay's curated matchups live in `scripts/generate-counterplay.mjs`; its reviewed 7.41d truth set lives separately
 in `scripts/counterplay-audit.mjs`. BKB and dispel fields were cross-checked against the installed 7.41d client build 6872,
@@ -174,13 +163,13 @@ pnpm check
 
 That validates the question deck, template rotation, answer balance, scan length, and visual/audio metadata, runs ESLint, runs strict TypeScript checking, and creates an optimized production build.
 
-With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk persistence, hashed voter IDs, reveal-only report submission, report deduplication, aggregate-only calibration data, server-scored Map Sense answers, and that obsolete saved level or trivia-category values cannot split public rooms.
+With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk persistence, hashed voter IDs, reveal-only report submission, report deduplication, aggregate-only calibration data, rejection of the retired Map Sense room, and that obsolete saved level or trivia-category values cannot split public rooms.
 
-For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run `node scripts/visual-smoke.mjs`. The script checks the level-free, category-free arcade lobby, Shopkeeper Rush's four-format framing, the no-shift question-report popover, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt's two terse fragments and complete final line, Soundcheck's shorter three-stage cuts, ordered playback, compact icon pairs, persistent volume, mute-safe autoplay and manual replay, Quote Hunt rendering, Counterplay prompts and reveals, both interactive Map Sense mechanics plus full-map knowledge calls, synchronized automatic round advancement, the session report, desktop/mobile calibration layouts, mobile overflow, and saves screenshots under `/tmp`.
+For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run `node scripts/visual-smoke.mjs`. The script checks the level-free, category-free arcade lobby, the retired Map Sense deep-link fallback, Shopkeeper Rush's four-format framing, the no-shift question-report popover, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt's two terse fragments and complete final line, Soundcheck's shorter three-stage cuts, ordered playback, compact icon pairs, persistent volume, mute-safe autoplay and manual replay, Quote Hunt rendering, Counterplay prompts and reveals, synchronized automatic round advancement, the session report, desktop/mobile calibration layouts, mobile overflow, and saves screenshots under `/tmp`.
 
 ## Crowd architecture
 
-Each game catalog, content version, and mode is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-6-classic-trivia-4-shopkeeper-2-map-sense-9-counterplay-4-soundcheck-6:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog, content version, and mode is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-6-classic-trivia-4-shopkeeper-2-arcade-8-counterplay-4-soundcheck-8:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` opens with the reveal and keeps the just-finished question reportable for a 20-second rollover grace period. It stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 
@@ -191,12 +180,11 @@ The default persistent store is an atomic JSON file suited to local development 
 1. Move vote storage to Redis or Postgres before a horizontally scaled public deployment.
 2. Review calibration bands after enough real traffic, then tune question content and distractors manually.
 3. Audit breakable passives and targeted-spell exceptions before expanding Counterplay beyond its explicit constants.
-4. Prototype compact lane-equilibrium, smoke-path, and ward/deward Map Sense rounds before adding another family.
-5. Review ordered-pair accuracy, then expand Soundcheck with carefully audited channel and announcer families.
-6. Implement a second game's questions and minigame deck against the existing game-catalog contract.
-7. Add Steam sign-in, leaderboards, and streak challenges only after the anonymous loop proves fun.
-8. Package it as a lightweight desktop/overlay companion for people who want it beside the real Dota queue.
+4. Review ordered-pair accuracy, then expand Soundcheck with carefully audited channel and announcer families.
+5. Implement a second game's questions and minigame deck against the existing game-catalog contract.
+6. Add Steam sign-in, leaderboards, and streak challenges only after the anonymous loop proves fun.
+7. Package it as a lightweight desktop/overlay companion for people who want it beside the real Dota queue.
 
 ## Attribution
 
-Question names and artwork mappings are generated from [OpenDota](https://docs.opendota.com/); marked answers and numeric constants are independently audited against the installed client. Counterplay outcomes are checked against that client and the current mechanics sources attached to each question. Hero-response metadata and browser-ready Soundcheck WAVs are sourced through [Dotabase](https://github.com/mdiller/dotabase); Soundcheck event mappings are independently checked against the installed client. Game assets are served from public Dota asset hosts. The versioned Map Sense terrain artwork comes from [OpenDota's public map archive](https://github.com/odota/web/tree/master/public/assets/images/dota2/map), with objective changes checked against [Valve's 7.41 notes](https://www.dota2.com/patches/7.41). Camp positions, sides, and tiers are checked against the installed 7.41d map entity resource; every displayed stack window and arrow is checked against Valve's matching `scripts/creep_pull_timings.txt`. Dota 2 and its assets are trademarks of Valve Corporation. This fan project is not affiliated with or endorsed by Valve.
+Question names and artwork mappings are generated from [OpenDota](https://docs.opendota.com/); marked answers and numeric constants are independently audited against the installed client. Counterplay outcomes are checked against that client and the current mechanics sources attached to each question. Hero-response metadata and browser-ready Soundcheck WAVs are sourced through [Dotabase](https://github.com/mdiller/dotabase); Soundcheck event mappings are independently checked against the installed client. Game assets are served from public Dota asset hosts. The archived Map Sense terrain artwork comes from [OpenDota's public map archive](https://github.com/odota/web/tree/master/public/assets/images/dota2/map), with its historical objective changes checked against [Valve's 7.41 notes](https://www.dota2.com/patches/7.41). Dota 2 and its assets are trademarks of Valve Corporation. This fan project is not affiliated with or endorsed by Valve.

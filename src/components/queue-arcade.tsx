@@ -240,9 +240,9 @@ const MODE_INFO: Record<
     label: "Mixed Arcade",
     shortLabel: "Mixed",
     eyebrow: "House pick · Recommended",
-    description: "Facts, recipes, spells, fog, voices, sounds, quotes, map calls, and mechanics rotate every round.",
+    description: "Facts, recipes, spells, fog, voices, sounds, quotes, and mechanics rotate every round.",
     action: "Enter mixed arcade",
-    rule: "Every nine rounds contains all nine games exactly once.",
+    rule: "Every eight rounds contains all eight games exactly once.",
   },
   trivia: {
     label: "Classic Trivia",
@@ -2291,7 +2291,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
           <div className={styles.lobbyCopy}>
             <div className={styles.liveLabel}>
               <span />
-              Nine games live · More in the lab
+              Eight games live · More in the lab
             </div>
             <h1>
               Your queue has

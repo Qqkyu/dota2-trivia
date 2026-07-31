@@ -11,6 +11,9 @@ if (resolveArcadeMode("echo-hunt", modes, DEFAULT_ARCADE_MODE) !== "echo-hunt") 
 if (resolveArcadeMode("not-a-game", modes, DEFAULT_ARCADE_MODE) !== DEFAULT_ARCADE_MODE) {
   failures.push("An invalid mode URL does not fall back to Mixed Arcade.");
 }
+if (resolveArcadeMode("map-sense", modes, DEFAULT_ARCADE_MODE) !== DEFAULT_ARCADE_MODE) {
+  failures.push("The retired Map Sense deep link is still treated as a live mode.");
+}
 if (resolveArcadeMode(["trivia"], modes, DEFAULT_ARCADE_MODE) !== DEFAULT_ARCADE_MODE) {
   failures.push("A repeated mode query should not silently choose one value.");
 }

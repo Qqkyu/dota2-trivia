@@ -8,6 +8,7 @@ import {
   type KnowledgeFilter,
   type TriviaQuestion,
 } from "@/lib/trivia";
+import { LIVE_ARCADE_MODES } from "@/lib/arcade-games.mjs";
 
 export const GAME_IDS = ["dota2"] as const;
 export type GameId = (typeof GAME_IDS)[number];
@@ -39,18 +40,7 @@ export const GAME_CATALOGS: Record<GameId, GameCatalog> = {
     logoUrl: "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
     contentVersion: ARCADE_CONTENT_VERSION,
     contentLabel: `Patch ${triviaMeta.patch}`,
-    modes: [
-      "mixed",
-      "trivia",
-      "shopkeeper",
-      "spell-link",
-      "fogged-vision",
-      "echo-hunt",
-      "soundcheck",
-      "quote-hunt",
-      "map-sense",
-      "counterplay",
-    ],
+    modes: LIVE_ARCADE_MODES as readonly ArcadeMode[],
     questions: triviaQuestions,
     createDeck: createArcadeDeck,
   },

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 import { fixedCycleOccurrenceCounts, fixedCycleRotation, varietyShuffle } from "../src/lib/variety.mjs";
-import { MAP_READ_GRACE_MS, speedScoreRatio } from "../src/lib/scoring.mjs";
+import { LIVE_ROUND_GAMES } from "../src/lib/arcade-games.mjs";
+import { speedScoreRatio } from "../src/lib/scoring.mjs";
 
 const fixture = [
   ...Array.from({ length: 12 }, (_, index) => ({ id: `numeric-${index}`, kind: "numeric" })),
@@ -48,28 +49,20 @@ if (hasDifficultyStreak || Object.values(hiddenDifficultyCounts).some((count) =>
   throw new Error(`The hidden difficulty cadence drifted: ${JSON.stringify(hiddenDifficultyCounts)}.`);
 }
 
-const arcadeGames = [
-  "trivia",
-  "shopkeeper",
-  "spell-link",
-  "fogged-vision",
-  "echo-hunt",
-  "soundcheck",
-  "quote-hunt",
-  "map-sense",
-  "counterplay",
-];
+const arcadeGames = [...LIVE_ROUND_GAMES];
 const mixedRounds = fixedCycleRotation(arcadeGames, "public-room-regression", 31, 4);
 const mixedWindowsAreComplete = mixedRounds
   .slice(0, mixedRounds.length - arcadeGames.length + 1)
   .every((_, index) => new Set(mixedRounds.slice(index, index + arcadeGames.length)).size === arcadeGames.length);
 
 if (
+  arcadeGames.length !== 8 ||
+  arcadeGames.includes("map-sense") ||
   !mixedWindowsAreComplete ||
   mixedRounds.some((game, index) => index > 0 && game === mixedRounds[index - 1]) ||
   JSON.stringify(mixedRounds) !== JSON.stringify(fixedCycleRotation(arcadeGames, "public-room-regression", 31, 4))
 ) {
-  throw new Error("Mixed Arcade can skip or repeat a game inside its guaranteed nine-round rotation.");
+  throw new Error("Mixed Arcade can skip or repeat a game inside its guaranteed eight-round rotation.");
 }
 
 const boundaryPoolSize = 7;
@@ -162,65 +155,15 @@ if (
   throw new Error(`Counterplay lost its balanced six-family opening: ${JSON.stringify(counterplayOpeningCounts)}.`);
 }
 
-const mapKinds = [
-  "map-location",
-  "map-riddle",
-  "map-mirror",
-  "map-relative",
-  "map-scenario",
-  "map-camp-block",
-  "map-stack-route",
-];
-const mapFixture = mapKinds.flatMap((kind) =>
-  Array.from(
-    {
-      length: ["map-location", "map-camp-block", "map-stack-route"].includes(kind) ? 24 : 6,
-    },
-    (_, index) => ({
-      id: `${kind}-${index}`,
-      kind,
-    }),
-  ),
-);
-const mapOpening = varietyShuffle(mapFixture, "map-family-regression").slice(0, 21);
-const mapOpeningCounts = Object.fromEntries(
-  mapKinds.map((kind) => [kind, mapOpening.filter((question) => question.kind === kind).length]),
-);
-
-if (
-  mapOpening.some((question, index) => index > 0 && question.kind === mapOpening[index - 1].kind) ||
-  mapKinds.some((kind) => mapOpeningCounts[kind] !== 3) ||
-  mapOpeningCounts["map-location"] > 5
-) {
-  throw new Error(`Map Sense lost its balanced seven-family opening: ${JSON.stringify(mapOpeningCounts)}.`);
-}
-
-const mechanicMapKinds = ["map-camp-block", "map-stack-route"];
-const mechanicMapFixture = mechanicMapKinds.flatMap((kind) =>
-  Array.from({ length: 24 }, (_, index) => ({ id: `mechanic-${kind}-${index}`, kind })),
-);
-const mechanicMapOpening = varietyShuffle(mechanicMapFixture, "mechanic-map-family-regression").slice(0, 24);
-const mechanicMapCounts = Object.fromEntries(
-  mechanicMapKinds.map((kind) => [kind, mechanicMapOpening.filter((question) => question.kind === kind).length]),
-);
-if (
-  mechanicMapOpening.some((question, index) => index > 0 && question.kind === mechanicMapOpening[index - 1].kind) ||
-  mechanicMapKinds.some((kind) => mechanicMapCounts[kind] !== 12)
-) {
-  throw new Error(`Map Sense mechanics lost their two-family rotation: ${JSON.stringify(mechanicMapCounts)}.`);
-}
-
 const roundDuration = 12_000;
 if (
   speedScoreRatio(roundDuration, roundDuration) !== 1 ||
-  speedScoreRatio(roundDuration - MAP_READ_GRACE_MS, roundDuration, MAP_READ_GRACE_MS) !== 1 ||
-  speedScoreRatio(roundDuration - MAP_READ_GRACE_MS - 1, roundDuration, MAP_READ_GRACE_MS) >= 1 ||
-  speedScoreRatio(0, roundDuration, MAP_READ_GRACE_MS) !== 0 ||
+  speedScoreRatio(0, roundDuration) !== 0 ||
   speedScoreRatio(roundDuration / 2, roundDuration) !== 0.5
 ) {
-  throw new Error("The Map Sense reading grace or the standard speed curve regressed.");
+  throw new Error("The standard speed curve regressed.");
 }
 
 console.log(
-  `Validated deterministic templates, hidden difficulty cadence ${JSON.stringify(hiddenDifficultyCounts)}, nine-game Mixed Arcade with continuous per-game question pools, Soundcheck, Counterplay and Map Sense family rotation, and ${MAP_READ_GRACE_MS / 1000}s reading grace (Soundcheck ${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}, Counterplay ${JSON.stringify(counterplayOpeningCounts)}, Map all-family ${JSON.stringify(mapOpeningCounts)}, Map mechanics ${JSON.stringify(mechanicMapCounts)}).`,
+  `Validated deterministic templates, hidden difficulty cadence ${JSON.stringify(hiddenDifficultyCounts)}, eight-game Mixed Arcade with continuous per-game question pools, Soundcheck and Counterplay family rotation (Soundcheck ${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}, Counterplay ${JSON.stringify(counterplayOpeningCounts)}).`,
 );

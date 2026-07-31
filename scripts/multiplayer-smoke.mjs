@@ -5,12 +5,6 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 const appUrl = process.env.APP_URL ?? "http://localhost:3000";
-const mapLocations = JSON.parse(
-  await readFile(path.join(process.cwd(), "src", "data", "map-sense-locations.json"), "utf8"),
-);
-const mapChallenges = JSON.parse(
-  await readFile(path.join(process.cwd(), "src", "data", "map-sense-challenges.json"), "utf8"),
-);
 const counterplayQuestions = JSON.parse(
   await readFile(path.join(process.cwd(), "src", "data", "counterplay-questions.json"), "utf8"),
 );
@@ -120,21 +114,11 @@ if (firstSnapshot.crowd.counts.some((count) => count !== 0)) {
 }
 
 const baselineTotal = firstSnapshot.crowd.total;
-const mixedMapPositions =
-  firstSnapshot.round.game === "map-sense"
-    ? [{ mapPosition: { x: 0.42, y: 0.42 } }, { mapPosition: { x: 0.58, y: 0.58 } }]
-    : [{}, {}];
 const [firstVote, secondVote] = await Promise.all([
-  vote(firstSnapshot, firstPlayer, 0, settings, mixedMapPositions[0]),
-  vote(secondSnapshot, secondPlayer, 1, settings, mixedMapPositions[1]),
+  vote(firstSnapshot, firstPlayer, 0),
+  vote(secondSnapshot, secondPlayer, 1),
 ]);
-const duplicateVote = await vote(
-  firstSnapshot,
-  firstPlayer,
-  3,
-  settings,
-  firstSnapshot.round.game === "map-sense" ? { mapPosition: { x: 0.01, y: 0.01 } } : {},
-);
+const duplicateVote = await vote(firstSnapshot, firstPlayer, 3);
 
 if (!firstVote.accepted || !secondVote.accepted || duplicateVote.accepted) {
   throw new Error("Vote acceptance or duplicate-vote protection failed.");
@@ -247,85 +231,10 @@ const mapSettings = {
   mode: "map-sense",
   filter: "Mixed",
 };
-const mapPlayer = `multiplayer-map-${randomUUID()}`;
-const mapSnapshot = await answeringRoundWithTime(mapPlayer, mapSettings);
-const [mapKind, ...mapDefinitionParts] = mapSnapshot.round.questionId.split(":");
-const mapDefinitionId = mapDefinitionParts.join(":");
-const mapIsChoice = ["map-camp-block", "map-stack-route"].includes(mapKind);
-const challengeKinds = {
-  "map-riddle": "riddle",
-  "map-mirror": "mirror",
-  "map-relative": "relative",
-  "map-scenario": "scenario",
-};
-const mapLocation =
-  mapKind === "map-location"
-    ? mapLocations.find((location) => location.id === mapDefinitionId)
-    : mapChallenges.find(
-        (challenge) => challenge.id === mapDefinitionId && challenge.family === challengeKinds[mapKind],
-      );
-if (!mapIsChoice && !mapLocation) {
-  throw new Error("The synchronized Map Sense round referenced an unknown location.");
-}
-
-const mapPosition = mapLocation?.target;
-const mapVote = await vote(
-  mapSnapshot,
-  mapPlayer,
-  mapIsChoice ? 0 : 3,
-  mapSettings,
-  mapPosition ? { mapPosition } : {},
-);
-const mapDuplicate = await vote(
-  mapSnapshot,
-  mapPlayer,
-  3,
-  mapSettings,
-  mapPosition ? { mapPosition: { x: 0.01, y: 0.01 } } : {},
-);
-if (
-  !mapVote.accepted ||
-  mapDuplicate.accepted ||
-  (mapIsChoice &&
-    (mapVote.playerVote?.answerIndex !== 0 ||
-      mapVote.playerVote?.mapPosition ||
-      mapDuplicate.playerVote?.answerIndex !== 0)) ||
-  (!mapIsChoice &&
-    (mapVote.playerVote?.answerIndex !== 0 ||
-      mapVote.playerVote?.mapPosition?.x !== mapPosition?.x ||
-      mapVote.playerVote?.mapPosition?.y !== mapPosition?.y ||
-      mapDuplicate.playerVote?.mapPosition?.x !== mapPosition?.x ||
-      mapDuplicate.playerVote?.mapPosition?.y !== mapPosition?.y))
-) {
-  throw new Error("Map Sense vote validation, server-side scoring, or duplicate protection failed.");
-}
-
-const lockedMapSnapshot = await readRoom(mapPlayer, mapSettings);
-if (
-  lockedMapSnapshot.crowd.positions.length !== 0 ||
-  (!mapIsChoice &&
-    (lockedMapSnapshot.playerVote?.mapPosition?.x !== mapPosition?.x ||
-      lockedMapSnapshot.playerVote?.mapPosition?.y !== mapPosition?.y))
-) {
-  throw new Error("Map Sense leaked room pins before reveal or failed to restore the player's answer.");
-}
-
-await delay(Math.max(250, lockedMapSnapshot.round.answerDeadline - lockedMapSnapshot.serverNow + 200));
-const revealedMapSnapshot = await readRoom(mapPlayer, mapSettings);
-const ownPinRevealed =
-  !mapIsChoice &&
-  revealedMapSnapshot.crowd.positions.some(
-    (position) => position.x === mapPosition?.x && position.y === mapPosition?.y,
-  );
-if (
-  revealedMapSnapshot.round.phase !== "reveal" ||
-  revealedMapSnapshot.crowd.total < 1 ||
-  (mapIsChoice &&
-    (revealedMapSnapshot.crowd.counts.reduce((sum, count) => sum + count, 0) !== revealedMapSnapshot.crowd.total ||
-      revealedMapSnapshot.crowd.positions.length !== 0)) ||
-  (!mapIsChoice && !ownPinRevealed)
-) {
-  throw new Error("Map Sense did not reveal the synchronized room result.");
+const retiredMapPlayer = `multiplayer-retired-map-${randomUUID()}`;
+const retiredMapResponse = await fetch(roomUrl(retiredMapPlayer, mapSettings), { cache: "no-store" });
+if (retiredMapResponse.status !== 400) {
+  throw new Error(`The retired Map Sense room is still reachable (${retiredMapResponse.status}).`);
 }
 
 const counterplaySettings = {
@@ -392,10 +301,7 @@ console.log(
       playerReportRestored: true,
       reportCarriesIntoNextRound: true,
       calibrationAggregates: true,
-      mapAnswerScoredOnServer: true,
-      mapPinsHiddenUntilReveal: true,
-      mapResultType: mapIsChoice ? "choice" : "pin",
-      mapResultRevealed: true,
+      retiredMapModeRejected: true,
       sharedDifficultyPoolVerified: true,
       legacyLevelSettingsIgnored: true,
       classicTriviaCategorySilosRemoved: true,

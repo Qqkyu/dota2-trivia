@@ -989,130 +989,14 @@ const counterplayReveal = await evaluate(`({
 })`);
 await screenshot("/tmp/queue-arcade-counterplay-reveal.png");
 
-async function inspectMapSenseVariant() {
-  return evaluate(`(() => {
-    const board = document.querySelector('[data-testid="map-sense-board"]');
-    const crop = document.querySelector('[data-testid="map-terrain-crop"]');
-    const cropImage = crop?.querySelector("img");
-    const mechanic = document.querySelector(
-      '[data-testid="map-camp-block-card"], [data-testid="map-stack-route-card"]'
-    );
-    const visual = crop ?? mechanic;
-    const bounds = board?.getBoundingClientRect();
-    const visualBounds = visual?.getBoundingClientRect();
-    return {
-      roundId: document.querySelector("main")?.dataset.roundId,
-      kind: document.querySelector("main")?.dataset.questionKind,
-      choiceKind: board?.dataset.choiceKind,
-      game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
-      difficulty: Number(document.querySelector('[data-testid="public-room"]')?.dataset.contentDifficulty),
-      prompt: document.querySelector('[data-testid="map-sense-round"] h2')?.textContent?.trim(),
-      readGraceVisible: document.querySelector('[data-testid="map-sense-round"]')?.textContent?.includes("3s read grace"),
-      cropVisible: Boolean(crop),
-      cropTreatment: crop?.dataset.treatment,
-      cropLoaded: Boolean(cropImage?.complete && cropImage?.naturalWidth > 0),
-      cropFilter: cropImage ? getComputedStyle(cropImage).filter : null,
-      mechanicVisible: Boolean(mechanic),
-      mechanicKind: mechanic?.dataset.kind,
-      contextLocator: Boolean(document.querySelector('[data-testid="map-context-locator"]')),
-      contextImageLoaded: [...document.querySelectorAll('[data-testid="map-context-locator"] img')]
-        .every((image) => image.complete && image.naturalWidth > 0),
-      contextViewport: Boolean(document.querySelector('[class*="mapContextViewport"]')),
-      choiceOptions: document.querySelectorAll('[data-testid="map-choice-option"]').length,
-      choiceAnswers: document.querySelectorAll('[data-testid="map-choice-answer"]').length,
-      campMarker: Boolean(document.querySelector('[data-testid="map-camp-marker"]')),
-      fightMarker: Boolean(document.querySelector('[data-testid="map-fight-marker"]')),
-      spawnBox: Boolean(document.querySelector('[data-testid="map-spawn-box"]')),
-      routeLines: document.querySelectorAll('[class*="mapRouteLines"] line').length,
-      answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
-      locked: board?.dataset.mapState === "locked",
-      referenceVisible: Boolean(document.querySelector('[data-testid="map-reference-pin"]')),
-      boardFits: bounds ? bounds.left >= 0 && bounds.right <= innerWidth : false,
-      square: bounds ? Math.abs(bounds.width - bounds.height) < 1 : false,
-      visualFits: visualBounds ? visualBounds.left >= 0 && visualBounds.right <= innerWidth : false,
-      imageLoaded: [...(board?.querySelectorAll("img") ?? [])]
-        .every((image) => image.complete && image.naturalWidth > 0),
-      horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
-    };
-  })()`);
-}
-
-async function lockCurrentMapRound() {
-  await evaluate(`document.querySelector('[data-testid="map-choice-answer"]')?.click()`);
-  await waitFor(`document.querySelector('[data-testid="map-sense-board"]')?.dataset.mapState === "locked"`);
-}
-
-async function inspectMapSenseReveal() {
-  return evaluate(`({
-    kind: document.querySelector("main")?.dataset.questionKind,
-    targetVisible: Boolean(document.querySelector('[data-testid="map-target-pin"]')),
-    playerVisible: Boolean(document.querySelector('[data-testid="map-player-pin"]')),
-    heatmapVisible: Boolean(document.querySelector('[data-testid="map-heatmap"]')),
-    crowdDots: document.querySelectorAll('[data-testid="map-heatmap"] circle').length,
-    spawnBox: Boolean(document.querySelector('[data-testid="map-spawn-box"]')),
-    routeLines: document.querySelectorAll('[class*="mapRouteLines"] line').length,
-    correctMarkers: document.querySelectorAll('[data-testid="map-choice-option"][data-state="correct"]').length,
-    correctAnswers: document.querySelectorAll('[data-testid="map-choice-answer"][data-state="correct"]').length,
-    markerPercentages: document.querySelectorAll('[data-testid="map-choice-option"] em').length,
-    resultVisible: Boolean(document.querySelector('[aria-live="polite"]')),
-    horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
-  })`);
-}
-
-await navigate(appUrl);
-await evaluate(`(() => {
-  document.querySelector('[data-arcade-mode="map-sense"]')?.click();
-  return true;
-})()`);
+await navigate(`${appUrl}/?mode=map-sense`);
 await delay(350);
-const mapPreview = await evaluate(`({
-  visible: Boolean(document.querySelector('[data-arcade-mode="map-sense"][aria-current="page"]')),
-  imageLoaded: [...document.querySelectorAll('[data-testid="mode-preview"] img')]
-    .some((image) => image.complete && image.naturalWidth > 0),
-  bands: document.querySelectorAll('[data-testid="mode-preview"] [class*="previewAnswers"] > div').length
+const retiredMapSense = await evaluate(`({
+  cardVisible: Boolean(document.querySelector('[data-arcade-mode="map-sense"]')),
+  mixedSelected: Boolean(document.querySelector('[data-arcade-mode="mixed"][aria-current="page"]')),
+  mapCopyVisible: document.body.innerText.includes("Map Sense")
 })`);
-await screenshot("/tmp/queue-arcade-map-sense-preview.png");
-await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
-await waitFor(`(() => {
-  const main = document.querySelector("main");
-  const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
-  const image = document.querySelector('[data-testid="map-sense-board"] img');
-  return main?.dataset.phase === "answering" &&
-    main?.dataset.questionKind?.startsWith("map-") &&
-    timer >= 4 &&
-    image?.complete &&
-    image?.naturalWidth > 0;
-})()`);
-
-const mapSenseKinds = ["map-camp-block", "map-stack-route"];
-const mapVariants = [];
-const mapReveals = [];
-let previousMapRound = null;
-for (let attempt = 0; attempt < mapSenseKinds.length * 2; attempt += 1) {
-  await waitFor(
-    `(() => {
-      const main = document.querySelector("main");
-      const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
-      return main?.dataset.phase === "answering" &&
-        main?.dataset.roundId !== ${JSON.stringify(previousMapRound)} &&
-        ${JSON.stringify(mapSenseKinds)}.includes(main?.dataset.questionKind) &&
-        timer >= 4;
-    })()`,
-    150_000,
-  );
-  await lockCurrentMapRound();
-  const variant = await inspectMapSenseVariant();
-  mapVariants.push(variant);
-  previousMapRound = variant.roundId;
-  await screenshot(`/tmp/queue-arcade-map-sense-${variant.kind}.png`);
-  await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
-  const reveal = await inspectMapSenseReveal();
-  mapReveals.push(reveal);
-  await screenshot(`/tmp/queue-arcade-map-sense-${variant.kind}-reveal.png`);
-  if (mapSenseKinds.every((kind) => mapVariants.some((candidate) => candidate.kind === kind))) break;
-}
-const mapSenseAnswering = mapVariants[0];
-const mapSenseReveal = mapReveals[0];
+await screenshot("/tmp/queue-arcade-retired-map-sense.png");
 
 await send("Emulation.setDeviceMetricsOverride", {
   width: 390,
@@ -1121,10 +1005,6 @@ await send("Emulation.setDeviceMetricsOverride", {
   mobile: true,
 });
 await navigate(appUrl);
-await evaluate(`(() => {
-  document.querySelector('[data-arcade-mode="map-sense"]')?.click();
-  return true;
-})()`);
 await delay(250);
 await screenshot("/tmp/queue-arcade-mobile.png");
 
@@ -1135,18 +1015,6 @@ const mobile = await evaluate(`({
   volumeControl: Boolean(document.querySelector('[data-testid="game-volume"]')),
   volumeValue: document.querySelector('[data-testid="game-volume"]')?.value
 })`);
-
-await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
-await waitFor(`(() => {
-  const main = document.querySelector("main");
-  return main?.dataset.phase === "answering" && main?.dataset.questionKind?.startsWith("map-");
-})()`);
-const mobileMap = await inspectMapSenseVariant();
-await evaluate(`document.querySelector(
-  '[data-testid="map-terrain-crop"], [data-testid="map-camp-block-card"], [data-testid="map-stack-route-card"]'
-)?.scrollIntoView({ block: "center" })`);
-await delay(300);
-await screenshot("/tmp/queue-arcade-mobile-map-sense.png");
 
 await navigate(appUrl);
 await evaluate(`(() => {
@@ -1223,85 +1091,6 @@ socket.close();
 const failures = [];
 const layoutDelta = (left, right) =>
   Object.keys(left).reduce((largest, key) => Math.max(largest, Math.abs((left[key] ?? 0) - (right[key] ?? 0))), 0);
-const requiredMapKinds = mapSenseKinds;
-const mapVariantKinds = new Set(mapVariants.map((variant) => variant.kind));
-const validMapVariant = (variant) => {
-  const common =
-    requiredMapKinds.includes(variant.kind) &&
-    variant.game === "map-sense" &&
-    variant.difficulty >= 2 &&
-    variant.difficulty <= 3 &&
-    variant.answerCount === 0 &&
-    (variant.prompt?.split(/\s+/).length ?? 99) <= 4 &&
-    !variant.readGraceVisible &&
-    variant.locked &&
-    variant.boardFits &&
-    variant.square &&
-    variant.visualFits &&
-    variant.imageLoaded &&
-    !variant.horizontalOverflow;
-  if (!common) return false;
-  const expectedChoiceKind = {
-    "map-camp-block": "camp-block",
-    "map-stack-route": "stack-route",
-  }[variant.kind];
-  const commonChoice =
-    variant.mechanicVisible &&
-    variant.mechanicKind === expectedChoiceKind &&
-    variant.choiceKind === expectedChoiceKind &&
-    variant.choiceOptions === 4 &&
-    variant.choiceAnswers === 4 &&
-    !variant.cropVisible &&
-    !variant.spawnBox;
-  if (variant.kind === "map-camp-block") {
-    return (
-      commonChoice &&
-      variant.campMarker &&
-      !variant.fightMarker &&
-      variant.contextLocator &&
-      variant.contextImageLoaded &&
-      variant.contextViewport &&
-      variant.routeLines === 0
-    );
-  }
-  if (variant.kind === "map-stack-route") {
-    return (
-      commonChoice &&
-      variant.campMarker &&
-      !variant.fightMarker &&
-      variant.contextLocator &&
-      variant.contextImageLoaded &&
-      variant.contextViewport &&
-      variant.routeLines === 4
-    );
-  }
-  return (
-    commonChoice &&
-    !variant.campMarker &&
-    variant.fightMarker &&
-    !variant.contextLocator &&
-    !variant.contextViewport &&
-    variant.routeLines === 0
-  );
-};
-const validMapReveal = (reveal) => {
-  const common = requiredMapKinds.includes(reveal.kind) && reveal.resultVisible && !reveal.horizontalOverflow;
-  if (!common) return false;
-  const commonChoice =
-    !reveal.targetVisible &&
-    !reveal.playerVisible &&
-    !reveal.heatmapVisible &&
-    reveal.correctMarkers === 1 &&
-    reveal.correctAnswers === 1 &&
-    reveal.markerPercentages === 4;
-  if (reveal.kind === "map-camp-block") {
-    return commonChoice && reveal.spawnBox && reveal.routeLines === 0;
-  }
-  if (reveal.kind === "map-stack-route") {
-    return commonChoice && reveal.spawnBox && reveal.routeLines === 4;
-  }
-  return commonChoice && !reveal.spawnBox && reveal.routeLines === 0;
-};
 const playbackMatchesCut = (stage) =>
   stage.cutDurations.length === stage.playedDurations.length &&
   stage.cutDurations.every((cut, index) => Math.abs(cut - stage.playedDurations[index]) <= 0.25);
@@ -1313,8 +1102,8 @@ const cutsIncrease = (earlier, later) =>
 if (!lobby.title.includes("Queue Arcade")) failures.push("The Queue Arcade metadata title is missing.");
 if (
   !lobby.startButton ||
-  lobby.arcadeModes !== 10 ||
-  lobby.arcadeModeLinks !== 10 ||
+  lobby.arcadeModes !== 9 ||
+  lobby.arcadeModeLinks !== 9 ||
   lobby.levelControls !== 0 ||
   !lobby.volumeControl ||
   lobby.volumeValue !== "70" ||
@@ -1588,15 +1377,8 @@ if (
 ) {
   failures.push("Counterplay mechanic round or reveal is incomplete.");
 }
-if (!mapPreview.visible || !mapPreview.imageLoaded || mapPreview.bands !== 4) {
-  failures.push("Map Sense lobby preview is incomplete.");
-}
-if (
-  requiredMapKinds.some((kind) => !mapVariantKinds.has(kind)) ||
-  mapVariants.some((variant) => !validMapVariant(variant)) ||
-  mapReveals.some((reveal) => !validMapReveal(reveal))
-) {
-  failures.push("The shared Map Sense pool did not rotate through both knowledge-bearing mechanics and reveals.");
+if (retiredMapSense.cardVisible || !retiredMapSense.mixedSelected || retiredMapSense.mapCopyVisible) {
+  failures.push("The retired Map Sense mode is still discoverable or its old deep link does not fall back safely.");
 }
 if (
   spellLink.horizontalOverflow ||
@@ -1605,15 +1387,12 @@ if (
   quoteHunt.horizontalOverflow ||
   counterplay.horizontalOverflow ||
   counterplayReveal.horizontalOverflow ||
-  mapVariants.some((variant) => variant.horizontalOverflow) ||
-  mapReveals.some((reveal) => reveal.horizontalOverflow) ||
   reportMenu.horizontalOverflow ||
   reportCarryover.horizontalOverflow ||
   reportResult.horizontalOverflow ||
   mobile.horizontalOverflow ||
   !mobile.volumeControl ||
   mobile.volumeValue !== "35" ||
-  mobileMap.horizontalOverflow ||
   mobileQuestion.horizontalOverflow ||
   calibrationDesktop.horizontalOverflow ||
   calibrationMobile.horizontalOverflow
@@ -1621,19 +1400,6 @@ if (
   failures.push("An arcade screen overflows horizontally.");
 }
 if (mobileQuestion.answerCount !== 4) failures.push("The mobile round is missing answers.");
-if (
-  !mobileMap.kind?.startsWith("map-") ||
-  !mobileMap.boardFits ||
-  !mobileMap.square ||
-  !mobileMap.imageLoaded ||
-  (requiredMapKinds.includes(mobileMap.kind) &&
-    (!mobileMap.visualFits ||
-      !mobileMap.mechanicVisible ||
-      mobileMap.choiceOptions !== 4 ||
-      mobileMap.choiceAnswers !== 4))
-) {
-  failures.push("The mobile shared-pool Map Sense puzzle does not fit the viewport.");
-}
 if (
   !calibrationDesktop.dashboard ||
   calibrationDesktop.stats !== 4 ||
@@ -1705,13 +1471,8 @@ console.log(
       counterplayPreview,
       counterplay,
       counterplayReveal,
-      mapPreview,
-      mapSenseAnswering,
-      mapVariants,
-      mapSenseReveal,
-      mapReveals,
+      retiredMapSense,
       mobile,
-      mobileMap,
       mobileQuestion,
       calibrationDesktop,
       calibrationMobile,
