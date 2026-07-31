@@ -12,6 +12,16 @@ export const SOUNDCHECK_AUDIT = Object.freeze({
 
 export const SOUNDCHECK_ASSET_ROOT = "https://dotabase.dillerm.io/vpk";
 
+// Hurricane Pike calls the Force Staff cue on self/allied casts. Its separate
+// enemy-target cue does not make the generic Force Staff clip uniquely
+// attributable, so these items must never oppose one another as answers.
+export const SOUNDCHECK_SHARED_AUDIO_GROUPS = Object.freeze([Object.freeze(["force_staff", "hurricane_pike"])]);
+
+export function soundcheckSharedAudioAlternatives(subject, choices) {
+  const group = SOUNDCHECK_SHARED_AUDIO_GROUPS.find((subjects) => subjects.includes(subject));
+  return group ? choices.filter((choice) => choice !== subject && group.includes(choice)) : [];
+}
+
 export const SOUNDCHECK_DEFINITIONS = Object.freeze([
   {
     family: "ability",
@@ -349,7 +359,7 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     family: "item",
     difficulty: 1,
     subject: "force_staff",
-    distractors: ["hurricane_pike", "blink", "disperser"],
+    distractors: ["glimmer_cape", "blink", "disperser"],
     event: "DOTA_Item.ForceStaff.Activate",
     eventFile: "soundevents/game_sounds_items.vsndevts",
     audioPath: "sounds/items/force_staff.wav",
@@ -530,7 +540,7 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     family: "item",
     difficulty: 3,
     subject: "harpoon",
-    distractors: ["force_staff", "hurricane_pike", "blink"],
+    distractors: ["force_staff", "disperser", "blink"],
     event: "Item.Harpoon.Cast",
     eventFile: "soundevents/game_sounds_items.vsndevts",
     audioPath: "sounds/items/harpoon_cast.wav",

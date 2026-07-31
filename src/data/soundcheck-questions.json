@@ -1463,9 +1463,9 @@
     "difficulty": 1,
     "eyebrow": "Soundcheck · Item activation",
     "prompt": "Match the sound.",
-    "answers": ["Hurricane Pike", "Force Staff", "Blink Dagger", "Disperser"],
+    "answers": ["Glimmer Cape", "Force Staff", "Blink Dagger", "Disperser"],
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hurricane_pike.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/glimmer_cape.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/force_staff.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/disperser.png"
@@ -2261,16 +2261,11 @@
     "difficulty": 3,
     "eyebrow": "Soundcheck · Ordered pair",
     "prompt": "Match both sounds.",
-    "answers": [
-      "Harpoon → Hurricane Pike",
-      "Harpoon → Force Staff",
-      "Blink Dagger → Force Staff",
-      "Force Staff → Harpoon"
-    ],
+    "answers": ["Harpoon → Disperser", "Harpoon → Force Staff", "Blink Dagger → Force Staff", "Force Staff → Harpoon"],
     "answerImagePairs": [
       [
         "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/harpoon.png",
-        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hurricane_pike.png"
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/disperser.png"
       ],
       [
         "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/harpoon.png",

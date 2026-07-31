@@ -1305,6 +1305,9 @@ const validMapReveal = (reveal) => {
 const playbackMatchesCut = (stage) =>
   stage.cutDurations.length === stage.playedDurations.length &&
   stage.cutDurations.every((cut, index) => Math.abs(cut - stage.playedDurations[index]) <= 0.25);
+const playbackReachedEnd = (stage, durations) =>
+  stage.playedDurations.length === durations.length &&
+  stage.playedDurations.every((played, index) => Math.abs(played - durations[index]) <= 0.25);
 const cutsIncrease = (earlier, later) =>
   earlier.length === later.length && earlier.every((cut, index) => cut < later[index]);
 if (!lobby.title.includes("Queue Arcade")) failures.push("The Queue Arcade metadata title is missing.");
@@ -1524,8 +1527,7 @@ if (
   soundcheckStageThree.revealMeter !== 3 ||
   soundcheckStageThree.audioState !== "ready" ||
   !cutsIncrease(soundcheckStageTwo.cutDurations, soundcheckStageThree.cutDurations) ||
-  !playbackMatchesCut(soundcheckStageThree) ||
-  soundcheckStageThree.cutDurations.some((cut, index) => cut >= soundcheckInitial.audioDurations[index]) ||
+  !playbackReachedEnd(soundcheckStageThree, soundcheckInitial.audioDurations) ||
   mobileSoundcheck.answerCount !== 4 ||
   mobileSoundcheck.pairChoices !== 4 ||
   mobileSoundcheck.pairImages !== 8 ||

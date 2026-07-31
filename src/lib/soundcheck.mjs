@@ -1,11 +1,12 @@
 export const SOUNDCHECK_REVEAL_STAGES = 3;
 export const ECHO_HUNT_REVEAL_STAGES = 3;
 export const SOUNDCHECK_SEQUENCE_GAP_SECONDS = 0.12;
+export const SOUNDCHECK_FINAL_REVEAL_SECONDS = 7;
 
 const SOUNDCHECK_CUT_PROFILES = [
-  { ratio: 0.065, minimum: 0.07, minimumCeilingRatio: 0.13, maximum: 0.16 },
-  { ratio: 0.15, minimum: 0.14, minimumCeilingRatio: 0.24, maximum: 0.36 },
-  { ratio: 0.28, minimum: 0.24, minimumCeilingRatio: 0.4, maximum: 0.8 },
+  { ratio: 0.05, minimum: 0.055, minimumCeilingRatio: 0.1, maximum: 0.12 },
+  { ratio: 0.11, minimum: 0.11, minimumCeilingRatio: 0.2, maximum: 0.27 },
+  { ratio: 1, minimum: 0, minimumCeilingRatio: 1, maximum: Number.POSITIVE_INFINITY },
 ];
 
 const ECHO_HUNT_CUT_PROFILES = [
@@ -29,6 +30,16 @@ function progressiveCutDuration(duration, stage, stages, profiles) {
  */
 export function soundcheckCutDuration(duration, stage) {
   return progressiveCutDuration(duration, stage, SOUNDCHECK_REVEAL_STAGES, SOUNDCHECK_CUT_PROFILES);
+}
+
+/**
+ * The complete final pass needs a little more than one third of a 15-second
+ * round so even the longest reviewed two-sound sequence can finish.
+ */
+export function soundcheckRevealStage(timeRemainingMs, roundDurationMs) {
+  if (timeRemainingMs <= SOUNDCHECK_FINAL_REVEAL_SECONDS * 1_000) return 3;
+  if (timeRemainingMs <= (roundDurationMs * 2) / 3) return 2;
+  return 1;
 }
 
 /**

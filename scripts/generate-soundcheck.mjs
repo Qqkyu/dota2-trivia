@@ -9,6 +9,7 @@ import {
   SOUNDCHECK_DEFINITIONS,
   soundcheckAudioUrl,
   soundcheckClips,
+  soundcheckSharedAudioAlternatives,
   soundcheckSource,
 } from "./soundcheck-audit.mjs";
 
@@ -148,6 +149,14 @@ const questions = SOUNDCHECK_DEFINITIONS.map((definition, index) => {
   }
 
   const clips = soundcheckClips(definition);
+  for (const clip of clips) {
+    const ambiguousChoices = soundcheckSharedAudioAlternatives(clip.subject, choiceKeys);
+    if (ambiguousChoices.length) {
+      throw new Error(
+        `${definition.subject}: ${clip.subject} shares its audited cue with ${ambiguousChoices.join(", ")}.`,
+      );
+    }
+  }
   const isSequence = clips.length === 2;
   if (isSequence !== (definition.difficulty === 3)) {
     throw new Error(`${definition.subject}: only brutal Soundcheck rounds may contain an ordered sequence.`);

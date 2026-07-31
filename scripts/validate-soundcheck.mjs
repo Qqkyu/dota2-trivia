@@ -8,14 +8,17 @@ import {
   SOUNDCHECK_DEFINITIONS,
   soundcheckAudioUrl,
   soundcheckClips,
+  soundcheckSharedAudioAlternatives,
   soundcheckSource,
 } from "./soundcheck-audit.mjs";
 import {
   ECHO_HUNT_REVEAL_STAGES,
+  SOUNDCHECK_FINAL_REVEAL_SECONDS,
   SOUNDCHECK_REVEAL_STAGES,
   SOUNDCHECK_SEQUENCE_GAP_SECONDS,
   echoHuntCutDuration,
   soundcheckCutDuration,
+  soundcheckRevealStage,
 } from "../src/lib/soundcheck.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -96,6 +99,13 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
   }));
   const expectedAudioUrls = clips.map(soundcheckAudioUrl);
   for (const clip of clips) {
+    const ambiguousChoices = soundcheckSharedAudioAlternatives(clip.subject, [
+      definition.subject,
+      ...definition.distractors,
+    ]);
+    if (ambiguousChoices.length) {
+      failures.push(`${id}: ${clip.subject} shares its cue with option ${ambiguousChoices.join(", ")}.`);
+    }
     const cuts = Array.from({ length: SOUNDCHECK_REVEAL_STAGES }, (_, stage) =>
       soundcheckCutDuration(clip.duration, stage + 1),
     );
@@ -104,13 +114,11 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
       cuts[0] <= 0 ||
       cuts[0] >= cuts[1] ||
       cuts[1] >= cuts[2] ||
-      cuts[2] >= clip.duration ||
-      cuts[0] > 0.16 ||
-      cuts[1] > 0.36 ||
-      cuts[2] > 0.8 ||
-      cuts[0] / clip.duration > 0.131 ||
-      cuts[1] / clip.duration > 0.241 ||
-      cuts[2] / clip.duration > 0.401
+      cuts[2] !== clip.duration ||
+      cuts[0] > 0.12 ||
+      cuts[1] > 0.27 ||
+      cuts[0] / clip.duration > 0.101 ||
+      cuts[1] / clip.duration > 0.201
     ) {
       failures.push(`${id}: audited clip ${clip.event} has an invalid progressive cut ${JSON.stringify(cuts)}.`);
     }
@@ -118,7 +126,7 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
   const finalPassDuration =
     clips.reduce((total, clip) => total + soundcheckCutDuration(clip.duration, 3), 0) +
     (isSequence ? SOUNDCHECK_SEQUENCE_GAP_SECONDS : 0);
-  if (finalPassDuration >= 4.9) {
+  if (finalPassDuration > SOUNDCHECK_FINAL_REVEAL_SECONDS) {
     failures.push(`${id}: final progressive pass cannot finish before the shared deadline (${finalPassDuration}s).`);
   }
 
@@ -254,6 +262,30 @@ const expectedEchoCuts = new Map([
   [2.5, [0.175, 0.425, 2.5]],
   [5, [0.24, 0.56, 5]],
 ]);
+
+const expectedSoundcheckCuts = new Map([
+  [1, [0.055, 0.11, 1]],
+  [2.5, [0.12, 0.27, 2.5]],
+  [5, [0.12, 0.27, 5]],
+]);
+
+for (const [duration, expectedCuts] of expectedSoundcheckCuts) {
+  const cuts = Array.from({ length: SOUNDCHECK_REVEAL_STAGES }, (_, stage) =>
+    soundcheckCutDuration(duration, stage + 1),
+  );
+  if (cuts.some((cut, index) => Math.abs(cut - expectedCuts[index]) > 0.000_001)) {
+    failures.push(`Soundcheck ${duration}s effect has an invalid progressive cut ${JSON.stringify(cuts)}.`);
+  }
+}
+
+if (
+  soundcheckRevealStage(10_001, 15_000) !== 1 ||
+  soundcheckRevealStage(10_000, 15_000) !== 2 ||
+  soundcheckRevealStage(7_001, 15_000) !== 2 ||
+  soundcheckRevealStage(7_000, 15_000) !== 3
+) {
+  failures.push("Soundcheck reveal timing no longer reserves seven seconds for the complete final pass.");
+}
 
 for (const [duration, expectedCuts] of expectedEchoCuts) {
   const cuts = Array.from({ length: ECHO_HUNT_REVEAL_STAGES }, (_, stage) => echoHuntCutDuration(duration, stage + 1));

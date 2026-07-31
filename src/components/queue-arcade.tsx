@@ -65,6 +65,7 @@ import {
   SOUNDCHECK_SEQUENCE_GAP_SECONDS,
   echoHuntCutDuration,
   soundcheckCutDuration,
+  soundcheckRevealStage,
 } from "@/lib/soundcheck.mjs";
 import styles from "./queue-arcade.module.css";
 
@@ -278,7 +279,7 @@ const MODE_INFO: Record<
   "echo-hunt": {
     label: "Echo Hunt",
     shortLabel: "Echo",
-    eyebrow: "Sound check",
+    eyebrow: "Hero voices",
     description: "Identify a hero response as its opening fragment grows into a longer line.",
     action: "Hunt some echoes",
     rule: "Two short fragments unlock before the complete spoken line.",
@@ -289,7 +290,7 @@ const MODE_INFO: Record<
     eyebrow: "Audio recognition",
     description: "Identify real effects and item activations as short audio cuts grow longer.",
     action: "Enter soundcheck",
-    rule: "Three timed cuts reveal more audio. Some rounds chain two sounds in order.",
+    rule: "Two tiny cuts lead to the complete effect. Some rounds chain two sounds in order.",
   },
   "quote-hunt": {
     label: "Quote Hunt",
@@ -2159,7 +2160,12 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
   const isProgressiveAudioRound = isSoundcheckRound || isEchoHuntRound;
   const isSoundSequence = isSoundcheckRound && currentQuestion?.soundcheck?.format === "sequence";
   const mapChoiceRound = currentGame === "map-sense" && Boolean(currentQuestion?.map?.choice);
-  const clueStage = phase === "reveal" ? 3 : clueStageAt(answerRemaining, answerDuration);
+  const clueStage =
+    phase === "reveal"
+      ? 3
+      : isSoundcheckRound
+        ? soundcheckRevealStage(answerRemaining, answerDuration)
+        : clueStageAt(answerRemaining, answerDuration);
   const firstClueAt = Math.round((answerDuration * 2) / 3_000);
   const finalClueAt = Math.round(answerDuration / 3_000);
   const liveAward = currentQuestion
@@ -2790,8 +2796,8 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
                   <small>
                     {isSoundcheckRound
                       ? isSoundSequence
-                        ? "Two sounds. Longer cuts unlock with time."
-                        : "Longer cuts unlock with time."
+                        ? "Two sounds. The last cut plays both in full."
+                        : "The last cut plays the full sound."
                       : "Longer pieces of the line unlock with time."}
                   </small>
                 </div>
