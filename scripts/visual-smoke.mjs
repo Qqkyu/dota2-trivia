@@ -920,83 +920,20 @@ const quoteHunt = await evaluate(`({
 })`);
 await screenshot("/tmp/queue-arcade-quote-hunt.png");
 
-await navigate(appUrl);
-await evaluate(`(() => {
-  document.querySelector('[data-arcade-mode="counterplay"]')?.click();
-  return true;
-})()`);
-await delay(350);
-const counterplayPreview = await evaluate(`({
-  active: Boolean(document.querySelector('[data-arcade-mode="counterplay"][aria-current="page"]')),
-  prompt: document.querySelector('[data-testid="mode-preview"] h2')?.innerText,
-  timer: document.querySelector('[data-testid="mode-preview"] [class*="previewHeader"] strong')?.innerText,
-  answers: document.querySelectorAll('[data-testid="mode-preview"] [class*="previewAnswers"] > div').length,
-  artworkLoaded: [...document.querySelectorAll('[data-testid="mode-preview"] img')]
-    .some((image) => image.complete && image.naturalWidth > 0)
-})`);
-await screenshot("/tmp/queue-arcade-counterplay-preview.png");
-await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
-await waitFor(`(() => {
-  const main = document.querySelector("main");
-  const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
-  const artwork = document.querySelector('[data-testid="question-artwork"]');
-  const prompt = document.querySelector('[data-testid="round-prompt"]');
-  const answerImages = [...document.querySelectorAll('[data-testid="arcade-answer"] img')];
-  const isScenario = prompt?.dataset.counterplayFormat === "interaction-scenario";
-  const toolArtworks = [...document.querySelectorAll('[data-testid="counterplay-tool-artwork"]')];
-  const expectedAnswerImages = isScenario ? 0 : 4;
-  return main?.dataset.phase === "answering" &&
-    main?.dataset.questionKind?.startsWith("counterplay-") &&
-    timer >= 4 &&
-    artwork?.dataset.artworkState === "loaded" &&
-    answerImages.length === expectedAnswerImages &&
-    answerImages.every((image) => image.complete && image.naturalWidth > 0) &&
-    (!isScenario ||
-      (toolArtworks.length >= 1 &&
-        toolArtworks.every((toolArtwork) => toolArtwork.dataset.artworkState === "loaded")));
-})()`);
-const counterplay = await evaluate(`(() => {
-  const prompt = document.querySelector('[data-testid="round-prompt"]');
-  return {
-    game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
-    kind: document.querySelector("main")?.dataset.questionKind,
-    family: prompt?.dataset.counterplayFamily,
-    format: prompt?.dataset.counterplayFormat,
-    prompt: prompt?.querySelector("h2")?.innerText,
-    promptWords: prompt?.querySelector("h2")?.innerText?.trim().split(/\\s+/).length,
-    tool: prompt?.querySelector('[data-testid="counterplay-tool-label"]')?.innerText,
-    note: prompt?.querySelector('[class*="questionCopy"] small')?.innerText,
-    diagram: Boolean(prompt?.querySelector('[data-testid="counterplay-scenario-diagram"]')),
-    toolArtworks: prompt?.querySelectorAll('[data-testid="counterplay-tool-artwork"]').length,
-    toolArtworksLoaded: [...(prompt?.querySelectorAll('[data-testid="counterplay-tool-artwork"]') ?? [])]
-      .every((artwork) => artwork.dataset.artworkState === "loaded"),
-    difficulty: Number(document.querySelector('[data-testid="public-room"]')?.dataset.contentDifficulty),
-    answerCount: document.querySelectorAll('[data-testid="arcade-answer"]').length,
-    answerImages: document.querySelectorAll('[data-testid="arcade-answer"] img').length,
-    horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
-  };
-})()`);
-await screenshot("/tmp/queue-arcade-counterplay.png");
-await evaluate(`document.querySelector('[data-testid="arcade-answer"]')?.click()`);
-await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`);
-const counterplayReveal = await evaluate(`({
-  correctAnswers: document.querySelectorAll('[data-testid="arcade-answer"][class*="answerCorrect"]').length,
-  explanation: document.querySelector('[aria-live="polite"] p')?.innerText,
-  sourceLabelVisible:
-    document.body.innerText.includes("OpenDota game constants") ||
-    document.body.innerText.includes("Dota 2 Wiki · Spell"),
-  horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
-})`);
-await screenshot("/tmp/queue-arcade-counterplay-reveal.png");
-
-await navigate(`${appUrl}/?mode=map-sense`);
-await delay(350);
-const retiredMapSense = await evaluate(`({
-  cardVisible: Boolean(document.querySelector('[data-arcade-mode="map-sense"]')),
-  mixedSelected: Boolean(document.querySelector('[data-arcade-mode="mixed"][aria-current="page"]')),
-  mapCopyVisible: document.body.innerText.includes("Map Sense")
-})`);
-await screenshot("/tmp/queue-arcade-retired-map-sense.png");
+const retiredModes = {};
+for (const [retiredMode, retiredLabel] of [
+  ["map-sense", "Map Sense"],
+  ["counterplay", "Counterplay"],
+]) {
+  await navigate(`${appUrl}/?mode=${retiredMode}`);
+  await delay(350);
+  retiredModes[retiredMode] = await evaluate(`({
+    cardVisible: Boolean(document.querySelector('[data-arcade-mode=${JSON.stringify(retiredMode)}]')),
+    mixedSelected: Boolean(document.querySelector('[data-arcade-mode="mixed"][aria-current="page"]')),
+    copyVisible: document.body.innerText.includes(${JSON.stringify(retiredLabel)})
+  })`);
+  await screenshot(`/tmp/queue-arcade-retired-${retiredMode}.png`);
+}
 
 await send("Emulation.setDeviceMetricsOverride", {
   width: 390,
@@ -1102,8 +1039,8 @@ const cutsIncrease = (earlier, later) =>
 if (!lobby.title.includes("Queue Arcade")) failures.push("The Queue Arcade metadata title is missing.");
 if (
   !lobby.startButton ||
-  lobby.arcadeModes !== 9 ||
-  lobby.arcadeModeLinks !== 9 ||
+  lobby.arcadeModes !== 8 ||
+  lobby.arcadeModeLinks !== 8 ||
   lobby.levelControls !== 0 ||
   !lobby.volumeControl ||
   lobby.volumeValue !== "70" ||
@@ -1345,48 +1282,17 @@ if (
   failures.push("Quote Hunt line or hero choices failed.");
 }
 if (
-  !counterplayPreview.active ||
-  !counterplayPreview.prompt ||
-  counterplayPreview.timer !== "00:15" ||
-  counterplayPreview.answers !== 4 ||
-  !counterplayPreview.artworkLoaded
+  Object.values(retiredModes).some(
+    (retiredMode) => retiredMode.cardVisible || !retiredMode.mixedSelected || retiredMode.copyVisible,
+  )
 ) {
-  failures.push("Counterplay lobby preview is incomplete.");
-}
-if (
-  counterplay.game !== "counterplay" ||
-  !counterplay.kind?.startsWith("counterplay-") ||
-  !counterplay.family ||
-  !counterplay.format ||
-  !counterplay.prompt ||
-  counterplay.promptWords > 5 ||
-  !counterplay.tool ||
-  (counterplay.format === "interaction-scenario" ? Boolean(counterplay.note) : !counterplay.note) ||
-  (counterplay.format === "interaction-scenario"
-    ? !counterplay.diagram || counterplay.toolArtworks < 1 || !counterplay.toolArtworksLoaded
-    : counterplay.diagram || counterplay.toolArtworks !== 0) ||
-  counterplay.difficulty < 1 ||
-  counterplay.difficulty > 3 ||
-  counterplay.answerCount !== 4 ||
-  counterplay.answerImages !== (counterplay.format === "interaction-scenario" ? 0 : 4) ||
-  counterplay.horizontalOverflow ||
-  counterplayReveal.correctAnswers !== 1 ||
-  !counterplayReveal.explanation ||
-  counterplayReveal.sourceLabelVisible ||
-  counterplayReveal.horizontalOverflow
-) {
-  failures.push("Counterplay mechanic round or reveal is incomplete.");
-}
-if (retiredMapSense.cardVisible || !retiredMapSense.mixedSelected || retiredMapSense.mapCopyVisible) {
-  failures.push("The retired Map Sense mode is still discoverable or its old deep link does not fall back safely.");
+  failures.push("A retired mode is still discoverable or its old deep link does not fall back safely.");
 }
 if (
   spellLink.horizontalOverflow ||
   foggedVision.horizontalOverflow ||
   echoHunt.horizontalOverflow ||
   quoteHunt.horizontalOverflow ||
-  counterplay.horizontalOverflow ||
-  counterplayReveal.horizontalOverflow ||
   reportMenu.horizontalOverflow ||
   reportCarryover.horizontalOverflow ||
   reportResult.horizontalOverflow ||
@@ -1468,10 +1374,7 @@ console.log(
       mobileSoundcheck,
       persistedVolume,
       quoteHunt,
-      counterplayPreview,
-      counterplay,
-      counterplayReveal,
-      retiredMapSense,
+      retiredModes,
       mobile,
       mobileQuestion,
       calibrationDesktop,

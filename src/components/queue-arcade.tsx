@@ -56,6 +56,7 @@ import {
 import type { CrowdResult, PublicRoomSettings, ReportResult, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
 import { arcadeModeHref } from "@/lib/arcade-navigation.mjs";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
+import { answerFeedbackKind, dotaFeedbackSoundForKind } from "@/lib/feedback-sounds.mjs";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
 import type { MapBounds, MapChoiceChallenge, MapCrop, MapPosition, MapViewport } from "@/lib/map-types";
 import { MAP_READ_GRACE_MS, speedScoreRatio } from "@/lib/scoring.mjs";
@@ -240,9 +241,9 @@ const MODE_INFO: Record<
     label: "Mixed Arcade",
     shortLabel: "Mixed",
     eyebrow: "House pick · Recommended",
-    description: "Facts, recipes, spells, fog, voices, sounds, quotes, and mechanics rotate every round.",
+    description: "Facts, recipes, spells, fog, voices, sounds, and quotes rotate every round.",
     action: "Enter mixed arcade",
-    rule: "Every eight rounds contains all eight games exactly once.",
+    rule: "Every seven rounds contains all seven games exactly once.",
   },
   trivia: {
     label: "Classic Trivia",
@@ -1294,6 +1295,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
   const roundIdRef = useRef("");
   const syncPromiseRef = useRef<Promise<void> | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const feedbackAudioRef = useRef<HTMLAudioElement | null>(null);
   const roundAudioRefs = useRef<Array<HTMLAudioElement | null>>([]);
   const roundAudioAbortRef = useRef<AbortController | null>(null);
   const autoPlayedAudioKeyRef = useRef("");
@@ -1367,6 +1369,20 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
   const playSound = useCallback(
     (kind: "lock" | "correct" | "wrong" | "start") => {
       if (!soundEnabled || gameVolume <= 0 || typeof window === "undefined") return;
+
+      const dotaSound = dotaFeedbackSoundForKind(kind);
+      if (dotaSound) {
+        const audio = feedbackAudioRef.current ?? new Audio(dotaSound.src);
+        feedbackAudioRef.current = audio;
+        audio.preload = "auto";
+        audio.pause();
+        audio.currentTime = 0;
+        audio.volume = gameVolume;
+        void audio.play().catch(() => {
+          // A browser may reject playback before the first user gesture.
+        });
+        return;
+      }
 
       const AudioContextConstructor = window.AudioContext;
       if (!AudioContextConstructor) return;
@@ -1569,11 +1585,10 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
           setBestStreak((currentBest) => Math.max(currentBest, nextStreak));
           return nextStreak;
         });
-        playSound("correct");
       } else {
         setStreak(0);
-        playSound("wrong");
       }
+      playSound(answerFeedbackKind(isCorrect));
     },
     [playSound, setCrowd, setDeadline, setPhase],
   );
@@ -2143,6 +2158,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
   useEffect(
     () => () => {
       if (audioContextRef.current) void audioContextRef.current.close();
+      feedbackAudioRef.current?.pause();
       stopRoundAudio(false);
     },
     [stopRoundAudio],
@@ -2252,7 +2268,10 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
               type="button"
               className={styles.iconButton}
               onClick={() => {
-                if (soundEnabled) stopRoundAudio();
+                if (soundEnabled) {
+                  stopRoundAudio();
+                  feedbackAudioRef.current?.pause();
+                }
                 setSoundEnabled(!soundEnabled);
               }}
               aria-label={soundEnabled ? "Mute game sounds" : "Enable game sounds"}
@@ -2275,6 +2294,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
                   .forEach((audio) => {
                     audio.volume = nextVolume;
                   });
+                if (feedbackAudioRef.current) feedbackAudioRef.current.volume = nextVolume;
                 setGameVolume(nextVolume);
                 setSoundEnabled(true);
               }}
@@ -2291,7 +2311,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
           <div className={styles.lobbyCopy}>
             <div className={styles.liveLabel}>
               <span />
-              Eight games live · More in the lab
+              Seven games live · More in the lab
             </div>
             <h1>
               Your queue has

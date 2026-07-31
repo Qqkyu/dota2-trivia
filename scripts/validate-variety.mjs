@@ -56,13 +56,14 @@ const mixedWindowsAreComplete = mixedRounds
   .every((_, index) => new Set(mixedRounds.slice(index, index + arcadeGames.length)).size === arcadeGames.length);
 
 if (
-  arcadeGames.length !== 8 ||
+  arcadeGames.length !== 7 ||
   arcadeGames.includes("map-sense") ||
+  arcadeGames.includes("counterplay") ||
   !mixedWindowsAreComplete ||
   mixedRounds.some((game, index) => index > 0 && game === mixedRounds[index - 1]) ||
   JSON.stringify(mixedRounds) !== JSON.stringify(fixedCycleRotation(arcadeGames, "public-room-regression", 31, 4))
 ) {
-  throw new Error("Mixed Arcade can skip or repeat a game inside its guaranteed eight-round rotation.");
+  throw new Error("Mixed Arcade can skip or repeat a game inside its guaranteed seven-round rotation.");
 }
 
 const boundaryPoolSize = 7;
@@ -130,31 +131,6 @@ if (
   );
 }
 
-const counterplayKinds = [
-  "counterplay-immunity",
-  "counterplay-basic-dispel",
-  "counterplay-strong-dispel",
-  "counterplay-nullifier",
-  "counterplay-spell-block",
-  "counterplay-spell-reflect",
-];
-const counterplayFixture = counterplayKinds.flatMap((kind) =>
-  Array.from({ length: kind === "counterplay-immunity" ? 12 : 10 }, (_, index) => ({
-    id: `${kind}-${index}`,
-    kind,
-  })),
-);
-const counterplayOpening = varietyShuffle(counterplayFixture, "counterplay-family-regression").slice(0, 24);
-const counterplayOpeningCounts = Object.fromEntries(
-  counterplayKinds.map((kind) => [kind, counterplayOpening.filter((question) => question.kind === kind).length]),
-);
-if (
-  counterplayOpening.some((question, index) => index > 0 && question.kind === counterplayOpening[index - 1].kind) ||
-  counterplayKinds.some((kind) => counterplayOpeningCounts[kind] < 3 || counterplayOpeningCounts[kind] > 5)
-) {
-  throw new Error(`Counterplay lost its balanced six-family opening: ${JSON.stringify(counterplayOpeningCounts)}.`);
-}
-
 const roundDuration = 12_000;
 if (
   speedScoreRatio(roundDuration, roundDuration) !== 1 ||
@@ -165,5 +141,5 @@ if (
 }
 
 console.log(
-  `Validated deterministic templates, hidden difficulty cadence ${JSON.stringify(hiddenDifficultyCounts)}, eight-game Mixed Arcade with continuous per-game question pools, Soundcheck and Counterplay family rotation (Soundcheck ${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}, Counterplay ${JSON.stringify(counterplayOpeningCounts)}).`,
+  `Validated deterministic templates, hidden difficulty cadence ${JSON.stringify(hiddenDifficultyCounts)}, seven-game Mixed Arcade with continuous per-game question pools, and Soundcheck family rotation (${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}).`,
 );

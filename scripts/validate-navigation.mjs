@@ -14,6 +14,9 @@ if (resolveArcadeMode("not-a-game", modes, DEFAULT_ARCADE_MODE) !== DEFAULT_ARCA
 if (resolveArcadeMode("map-sense", modes, DEFAULT_ARCADE_MODE) !== DEFAULT_ARCADE_MODE) {
   failures.push("The retired Map Sense deep link is still treated as a live mode.");
 }
+if (resolveArcadeMode("counterplay", modes, DEFAULT_ARCADE_MODE) !== DEFAULT_ARCADE_MODE) {
+  failures.push("The retired Counterplay deep link is still treated as a live mode.");
+}
 if (resolveArcadeMode(["trivia"], modes, DEFAULT_ARCADE_MODE) !== DEFAULT_ARCADE_MODE) {
   failures.push("A repeated mode query should not silently choose one value.");
 }

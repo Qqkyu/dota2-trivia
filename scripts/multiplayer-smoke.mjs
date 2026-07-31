@@ -5,9 +5,6 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 const appUrl = process.env.APP_URL ?? "http://localhost:3000";
-const counterplayQuestions = JSON.parse(
-  await readFile(path.join(process.cwd(), "src", "data", "counterplay-questions.json"), "utf8"),
-);
 const settings = {
   gameId: "dota2",
   mode: "mixed",
@@ -226,63 +223,17 @@ if (!persisted.includes('"ambiguous"') || !persisted.includes('"outdated"')) {
   throw new Error("The anonymous question report was not written to persistent storage.");
 }
 
-const mapSettings = {
-  gameId: "dota2",
-  mode: "map-sense",
-  filter: "Mixed",
-};
-const retiredMapPlayer = `multiplayer-retired-map-${randomUUID()}`;
-const retiredMapResponse = await fetch(roomUrl(retiredMapPlayer, mapSettings), { cache: "no-store" });
-if (retiredMapResponse.status !== 400) {
-  throw new Error(`The retired Map Sense room is still reachable (${retiredMapResponse.status}).`);
-}
-
-const counterplaySettings = {
-  gameId: "dota2",
-  mode: "counterplay",
-  filter: "Mixed",
-};
-const legacyLearningSettings = {
-  ...counterplaySettings,
-  skillLevel: "Learning",
-};
-const legacyVeteranSettings = {
-  ...counterplaySettings,
-  skillLevel: "Veteran",
-};
-const learningCounterplayPlayer = `multiplayer-counterplay-learning-${randomUUID()}`;
-const veteranCounterplayPlayer = `multiplayer-counterplay-veteran-${randomUUID()}`;
-const [learningCounterplay, veteranCounterplay] = await Promise.all([
-  answeringRoundWithTime(learningCounterplayPlayer, legacyLearningSettings),
-  answeringRoundWithTime(veteranCounterplayPlayer, legacyVeteranSettings),
-]);
-const learningDefinition = counterplayQuestions.find(
-  (question) => question.id === learningCounterplay.round.questionId,
-);
-const veteranDefinition = counterplayQuestions.find((question) => question.id === veteranCounterplay.round.questionId);
-if (
-  learningCounterplay.round.game !== "counterplay" ||
-  veteranCounterplay.round.game !== "counterplay" ||
-  learningCounterplay.room.id !== veteranCounterplay.room.id ||
-  learningCounterplay.round.id !== veteranCounterplay.round.id ||
-  learningCounterplay.round.questionId !== veteranCounterplay.round.questionId ||
-  learningCounterplay.round.answerDuration !== 15_000 ||
-  veteranCounterplay.round.answerDuration !== 15_000 ||
-  learningDefinition?.id !== veteranDefinition?.id ||
-  "skillLevel" in learningCounterplay.room ||
-  "skillLevel" in veteranCounterplay.room
-) {
-  throw new Error("Legacy level settings still split the shared Counterplay public room.");
-}
-const counterplayVote = await vote(veteranCounterplay, veteranCounterplayPlayer, 0, legacyVeteranSettings);
-const counterplayDuplicate = await vote(veteranCounterplay, veteranCounterplayPlayer, 3, legacyVeteranSettings);
-if (
-  !counterplayVote.accepted ||
-  counterplayVote.playerVote?.mapPosition ||
-  counterplayDuplicate.accepted ||
-  counterplayDuplicate.playerVote?.answerIndex !== 0
-) {
-  throw new Error("Counterplay voting or duplicate protection failed.");
+for (const retiredMode of ["map-sense", "counterplay"]) {
+  const retiredSettings = {
+    gameId: "dota2",
+    mode: retiredMode,
+    filter: "Mixed",
+  };
+  const retiredPlayer = `multiplayer-retired-${retiredMode}-${randomUUID()}`;
+  const retiredResponse = await fetch(roomUrl(retiredPlayer, retiredSettings), { cache: "no-store" });
+  if (retiredResponse.status !== 400) {
+    throw new Error(`The retired ${retiredMode} room is still reachable (${retiredResponse.status}).`);
+  }
 }
 
 console.log(
@@ -301,11 +252,10 @@ console.log(
       playerReportRestored: true,
       reportCarriesIntoNextRound: true,
       calibrationAggregates: true,
-      retiredMapModeRejected: true,
+      retiredModesRejected: ["map-sense", "counterplay"],
       sharedDifficultyPoolVerified: true,
       legacyLevelSettingsIgnored: true,
       classicTriviaCategorySilosRemoved: true,
-      counterplayVoteAccepted: true,
     },
     null,
     2,

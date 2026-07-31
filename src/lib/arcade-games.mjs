@@ -7,7 +7,6 @@ export const LIVE_ROUND_GAMES = Object.freeze([
   "echo-hunt",
   "soundcheck",
   "quote-hunt",
-  "counterplay",
 ]);
 
 export const LIVE_ARCADE_MODES = Object.freeze(["mixed", ...LIVE_ROUND_GAMES]);

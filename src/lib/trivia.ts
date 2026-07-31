@@ -1,4 +1,3 @@
-import counterplayQuestions from "@/data/counterplay-questions.json";
 import generatedQuestions from "@/data/questions.generated.json";
 import shopkeeperQuestions from "@/data/shopkeeper-questions.json";
 import generatedMeta from "@/data/trivia-meta.generated.json";
@@ -196,7 +195,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-4-shopkeeper-2-arcade-8-counterplay-4-soundcheck-8`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-4-shopkeeper-2-arcade-7-soundcheck-8`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
     isPlayableClassicTriviaQuestion(question) &&
@@ -207,7 +206,6 @@ const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filt
 export const triviaQuestions = [
   ...playableGeneratedQuestions,
   ...(shopkeeperQuestions as TriviaQuestion[]).filter(isPlayableShopkeeperQuestion),
-  ...(counterplayQuestions as TriviaQuestion[]),
   ...(soundcheckQuestions as unknown as TriviaQuestion[]),
 ];
 
