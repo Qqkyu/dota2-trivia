@@ -1,5 +1,19 @@
 # Dota 2 feedback sounds
 
+`panorama_generic_button_click_01.wav` is the clip behind
+`ui_generic_button_click`. The surviving Queue Trivia stylesheet assigns that
+event to an activated answer button, so it now confirms a locked answer here.
+
+- Browser-ready source: <https://dotabase.dillerm.io/vpk/sounds/ui/panorama/panorama_generic_button_click_01.wav>
+- SHA-256: `10abf2f53e7b3f9af78b843cac79eaef053c463663a5f099dcd5c538b2d62fe0`
+
+`panorama_find_match_find_01.wav` and `panorama_select_md_01.wav` are the two
+layers of `ui.matchmaking_find`. They play together when a player enters an
+arcade room, preserving the event's original `0.6` and `1.0` gains.
+
+- Browser-ready sources: <https://dotabase.dillerm.io/vpk/sounds/ui/panorama/panorama_find_match_find_01.wav> and <https://dotabase.dillerm.io/vpk/sounds/ui/panorama/panorama_select_md_01.wav>
+- SHA-256: `cadf33b5f47ca29cbeb37e063a8f5364cd92db4dadd2c8befabfa6fe623fcd33` and `7b39cbbd7e80f9ff671b3c45f4e6d5818dd04e5057ab391faa1929f028cae5ad`
+
 `challenge_success.wav` is a legacy Dota 2 UI success sting. The file survives
 in the current VPK, but no current sound-event manifest references it. It is a
 fitting authentic Dota cue; there is not enough evidence to claim Queue Trivia
@@ -12,8 +26,10 @@ itself used it.
 `General.InvalidTarget_Invulnerable` sound event (the familiar “meep merp”).
 
 - Browser-ready source: <https://dotabase.dillerm.io/vpk/sounds/ui/magic_immune.wav>
-- Client files and mappings checked against Dota 2 build `6872` / patch `7.41d`
 - SHA-256: `b4fcca8d22df1e73d70b4bffefec2df17fb45451b82e14f22194a4cf6223dd96`
+
+Client files, Queue Trivia styling, event composition, and mappings were checked
+against Dota 2 build `6872` / patch `7.41d`.
 
 Dota 2 and these sounds are property of Valve Corporation. This unofficial fan
 project is not affiliated with or endorsed by Valve.

@@ -1294,11 +1294,9 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
   const roomSnapshotRef = useRef<RoomSnapshot | null>(null);
   const roundIdRef = useRef("");
   const syncPromiseRef = useRef<Promise<void> | null>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
   const feedbackAudioRef = useRef<{
-    audio: HTMLAudioElement;
-    gain: number;
-    src: string;
+    clips: Array<{ audio: HTMLAudioElement; gain: number; src: string }>;
+    kind: "lock" | "correct" | "wrong" | "start";
   } | null>(null);
   const roundAudioRefs = useRef<Array<HTMLAudioElement | null>>([]);
   const roundAudioAbortRef = useRef<AbortController | null>(null);
@@ -1375,69 +1373,29 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
       if (!soundEnabled || gameVolume <= 0 || typeof window === "undefined") return;
 
       const dotaSound = dotaFeedbackSoundForKind(kind);
-      if (dotaSound) {
-        let feedbackAudio = feedbackAudioRef.current;
-        if (!feedbackAudio || feedbackAudio.src !== dotaSound.src) {
-          feedbackAudio?.audio.pause();
-          feedbackAudio = {
-            audio: new Audio(dotaSound.src),
-            gain: dotaSound.gain,
-            src: dotaSound.src,
-          };
-          feedbackAudioRef.current = feedbackAudio;
-        }
-        const audio = feedbackAudio.audio;
-        audio.preload = "auto";
+      if (!dotaSound) return;
+
+      let feedbackAudio = feedbackAudioRef.current;
+      if (!feedbackAudio || feedbackAudio.kind !== kind) {
+        feedbackAudio?.clips.forEach(({ audio }) => audio.pause());
+        feedbackAudio = {
+          clips: dotaSound.clips.map((clip: { gain: number; src: string }) => {
+            const audio = new Audio(clip.src);
+            audio.preload = "auto";
+            return { audio, gain: clip.gain, src: clip.src };
+          }),
+          kind,
+        };
+        feedbackAudioRef.current = feedbackAudio;
+      }
+
+      for (const { audio, gain } of feedbackAudio.clips) {
         audio.pause();
         audio.currentTime = 0;
-        audio.volume = Math.min(1, gameVolume * dotaSound.gain);
+        audio.volume = Math.min(1, gameVolume * gain);
         void audio.play().catch(() => {
           // A browser may reject playback before the first user gesture.
         });
-        return;
-      }
-
-      const AudioContextConstructor = window.AudioContext;
-      if (!AudioContextConstructor) return;
-
-      const context = audioContextRef.current ?? new AudioContextConstructor();
-      audioContextRef.current = context;
-
-      if (context.state === "suspended") void context.resume();
-
-      const sequences = {
-        lock: [
-          [320, 0, 0.06],
-          [470, 0.05, 0.07],
-        ],
-        correct: [
-          [440, 0, 0.08],
-          [660, 0.09, 0.1],
-          [880, 0.19, 0.12],
-        ],
-        wrong: [
-          [220, 0, 0.12],
-          [150, 0.11, 0.18],
-        ],
-        start: [
-          [260, 0, 0.06],
-          [390, 0.07, 0.08],
-          [520, 0.14, 0.1],
-        ],
-      } satisfies Record<typeof kind, number[][]>;
-
-      for (const [frequency, delay, duration] of sequences[kind]) {
-        const oscillator = context.createOscillator();
-        const gain = context.createGain();
-        oscillator.type = kind === "wrong" ? "sawtooth" : "sine";
-        oscillator.frequency.value = frequency;
-        gain.gain.setValueAtTime(0.0001, context.currentTime + delay);
-        gain.gain.exponentialRampToValueAtTime(0.065 * gameVolume, context.currentTime + delay + 0.01);
-        gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + delay + duration);
-        oscillator.connect(gain);
-        gain.connect(context.destination);
-        oscillator.start(context.currentTime + delay);
-        oscillator.stop(context.currentTime + delay + duration + 0.02);
       }
     },
     [gameVolume, soundEnabled],
@@ -2170,8 +2128,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
 
   useEffect(
     () => () => {
-      if (audioContextRef.current) void audioContextRef.current.close();
-      feedbackAudioRef.current?.audio.pause();
+      feedbackAudioRef.current?.clips.forEach(({ audio }) => audio.pause());
       stopRoundAudio(false);
     },
     [stopRoundAudio],
@@ -2283,7 +2240,7 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
               onClick={() => {
                 if (soundEnabled) {
                   stopRoundAudio();
-                  feedbackAudioRef.current?.audio.pause();
+                  feedbackAudioRef.current?.clips.forEach(({ audio }) => audio.pause());
                 }
                 setSoundEnabled(!soundEnabled);
               }}
@@ -2308,7 +2265,9 @@ export function QueueArcade({ initialMode = "mixed" }: { initialMode?: ArcadeMod
                     audio.volume = nextVolume;
                   });
                 if (feedbackAudioRef.current) {
-                  feedbackAudioRef.current.audio.volume = Math.min(1, nextVolume * feedbackAudioRef.current.gain);
+                  feedbackAudioRef.current.clips.forEach(({ audio, gain }) => {
+                    audio.volume = Math.min(1, nextVolume * gain);
+                  });
                 }
                 setGameVolume(nextVolume);
                 setSoundEnabled(true);
