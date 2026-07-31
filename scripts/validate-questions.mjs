@@ -10,6 +10,8 @@ import {
   ITEM_CONSTANT_OVERRIDES,
 } from "./client-constant-audit.mjs";
 import { DAMAGE_QUESTION_FACTS, damageQuestionPrompt } from "./damage-question-facts.mjs";
+import { isPlayableClassicTriviaQuestion, RETIRED_CLASSIC_TRIVIA_KINDS } from "../src/lib/classic-trivia-quality.mjs";
+import { isPlayableShopkeeperQuestion } from "../src/lib/shopkeeper-quality.mjs";
 import {
   NON_TRIVIA_COOLDOWN_KEYS,
   NON_TRIVIA_DETECTIVE_KEYS,
@@ -226,6 +228,16 @@ const foggedQuestions = questions.filter((question) => question.kind === "fogged
 const voiceQuestions = questions.filter((question) => question.kind === "hero-voice");
 const quoteQuestions = questions.filter((question) => question.kind === "hero-quote");
 const damageQuestions = questions.filter((question) => question.kind === "ability-damage");
+const playableGeneratedQuestions = questions.filter(
+  (question) =>
+    isPlayableClassicTriviaQuestion(question) &&
+    (question.kind !== "spell-owner" ||
+      ((question.hint?.trim().length ?? 0) >= 18 && !question.hint?.startsWith("No additional mechanical clue"))) &&
+    isPlayableShopkeeperQuestion(question),
+);
+const retiredGeneratedQuestions = questions.filter((question) => !isPlayableClassicTriviaQuestion(question));
+const otherExcludedQuestionCount =
+  questions.length - playableGeneratedQuestions.length - retiredGeneratedQuestions.length;
 const learningSpellCount = playableSpellLinkQuestions.filter((question) => question.difficulty === 1).length;
 const intermediateSpellCount = playableSpellLinkQuestions.filter((question) => question.difficulty === 2).length;
 const demandingSpellCount = playableSpellLinkQuestions.filter((question) => question.difficulty === 3).length;
@@ -251,6 +263,17 @@ for (const question of quoteQuestions) {
 }
 if (magnusSkewer?.difficulty !== 1) {
   failures.push("Magnus's highly recognizable Skewer icon must remain in the approachable Spell Link tier.");
+}
+for (const kind of RETIRED_CLASSIC_TRIVIA_KINDS) {
+  if (isPlayableClassicTriviaQuestion({ kind })) {
+    failures.push(`${kind}: retired Classic Trivia template passed the playable-quality gate.`);
+  }
+}
+if (!isPlayableClassicTriviaQuestion({ kind: "mana-cost" })) {
+  failures.push("The Classic Trivia quality gate rejected a retained knowledge template.");
+}
+if (playableGeneratedQuestions.some((question) => RETIRED_CLASSIC_TRIVIA_KINDS.has(question.kind))) {
+  failures.push("A retired primary-attribute template remains in the playable generated pool.");
 }
 
 const auditedDamageKeys = new Set(Object.keys(DAMAGE_QUESTION_FACTS));
@@ -429,6 +452,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${questions.length} questions across ${Object.keys(metadata.categoryCounts).length} categories for patch ${metadata.patch}.`,
+    `Validated ${questions.length} source questions (${playableGeneratedQuestions.length} live; ${retiredGeneratedQuestions.length} attribute templates retired; ${otherExcludedQuestionCount} excluded by other quality gates) across ${Object.keys(metadata.categoryCounts).length} categories for patch ${metadata.patch}.`,
   );
 }

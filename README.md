@@ -2,7 +2,7 @@
 
 An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now wraps that loop around nine fast minigames:
 
-- **Queue Trivia** — facts, comparisons, odd-one-out rounds, reverse recipes, and ability detective prompts;
+- **Classic Trivia** — mana, cooldowns, damage, stat comparisons, item prices, reverse recipes, and ability detective prompts;
 - **Shopkeeper Rush** — finish item recipes by finding the missing component;
 - **Spell Link** — match an ability to its hero while timed clues unlock;
 - **Fogged Vision** — identify a hero while its portrait clears through three fixed-layout stages;
@@ -19,14 +19,14 @@ The playable MVP includes:
 
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - one shared 15-second question pool per mode, without player-facing difficulty queues;
-- 1,083 prompts across 34 formats for Dota patch 7.41d, including 236 Map Sense challenges and 62 Counterplay matchups;
+- 896 prompts across 29 formats for Dota patch 7.41d, including 134 Map Sense challenges and 62 Counterplay matchups;
 - item, hero, and ability artwork for visual answer rounds;
 - 44 remotely verified Echo Hunt clips, 48 Soundcheck rounds built from 60 audited clips, and 43 Quote Hunt lines sourced through Dotabase;
 - live-client answer audits plus balanced A–D placement for every generated question family;
 - progressive Spell Link clues at two-thirds and one-third time remaining;
 - deterministic template- and difficulty-aware scheduling, so large numeric pools cannot drown out distinctive formats or create long runs of trivial questions;
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
-- server-owned public rooms: everyone with the same mode and trivia filter receives the same round and deadlines;
+- server-owned public rooms: everyone in the same mode receives the same round and deadlines;
 - per-round crowd results with server-enforced deadlines and duplicate-vote protection;
 - server-scored Map Sense pins plus synchronized A–D mechanic rounds, with coordinates and answer splits hidden until reveal;
 - disk-backed vote history that survives Node server restarts and records per-question accuracy data;
@@ -166,13 +166,13 @@ pnpm check
 
 That validates the question deck, template rotation, answer balance, scan length, and visual/audio metadata, runs ESLint, runs strict TypeScript checking, and creates an optimized production build.
 
-With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk persistence, hashed voter IDs, reveal-only report submission, report deduplication, aggregate-only calibration data, server-scored Map Sense answers, and that obsolete saved level values cannot split public rooms.
+With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk persistence, hashed voter IDs, reveal-only report submission, report deduplication, aggregate-only calibration data, server-scored Map Sense answers, and that obsolete saved level or trivia-category values cannot split public rooms.
 
-For visual smoke testing, start muted Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the level-free arcade lobby, Shopkeeper Rush's target/component framing, the no-shift question-report popover, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt's two terse fragments and complete final line, Soundcheck's shorter three-stage cuts, ordered playback, compact icon pairs, persistent volume, mute-safe autoplay and manual replay, Quote Hunt rendering, Counterplay prompts and reveals, both interactive Map Sense mechanics plus full-map knowledge calls, synchronized automatic round advancement, the session report, desktop/mobile calibration layouts, mobile overflow, and saves screenshots under `/tmp`.
+For visual smoke testing, start muted Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the level-free, category-free arcade lobby, Shopkeeper Rush's target/component framing, the no-shift question-report popover, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt's two terse fragments and complete final line, Soundcheck's shorter three-stage cuts, ordered playback, compact icon pairs, persistent volume, mute-safe autoplay and manual replay, Quote Hunt rendering, Counterplay prompts and reveals, both interactive Map Sense mechanics plus full-map knowledge calls, synchronized automatic round advancement, the session report, desktop/mobile calibration layouts, mobile overflow, and saves screenshots under `/tmp`.
 
 ## Crowd architecture
 
-Each game catalog, content version, mode, and optional trivia filter is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-6-map-sense-9-counterplay-4-soundcheck-6:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog, content version, and mode is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-6-classic-trivia-2-map-sense-9-counterplay-4-soundcheck-6:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` opens with the reveal and keeps the just-finished question reportable for a 20-second rollover grace period. It stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 

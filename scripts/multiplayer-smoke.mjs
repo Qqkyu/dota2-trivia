@@ -97,6 +97,24 @@ if (
   throw new Error("Two clients did not receive the same level-free synchronized round and deadlines.");
 }
 
+const legacyHeroesSettings = { gameId: "dota2", mode: "trivia", filter: "Heroes" };
+const legacyItemsSettings = { gameId: "dota2", mode: "trivia", filter: "Items" };
+const [legacyHeroesRoom, legacyItemsRoom] = await Promise.all([
+  readRoom(`multiplayer-classic-heroes-${randomUUID()}`, legacyHeroesSettings),
+  readRoom(`multiplayer-classic-items-${randomUUID()}`, legacyItemsSettings),
+]);
+if (
+  legacyHeroesRoom.room.filter !== "Mixed" ||
+  legacyItemsRoom.room.filter !== "Mixed" ||
+  legacyHeroesRoom.room.id !== legacyItemsRoom.room.id ||
+  legacyHeroesRoom.round.id !== legacyItemsRoom.round.id ||
+  legacyHeroesRoom.round.questionId !== legacyItemsRoom.round.questionId ||
+  legacyHeroesRoom.round.game !== "trivia" ||
+  legacyItemsRoom.round.game !== "trivia"
+) {
+  throw new Error("Legacy category settings still split the shared Classic Trivia public room.");
+}
+
 if (firstSnapshot.crowd.counts.some((count) => count !== 0)) {
   throw new Error("The answer split leaked before the reveal.");
 }
@@ -380,6 +398,7 @@ console.log(
       mapResultRevealed: true,
       sharedDifficultyPoolVerified: true,
       legacyLevelSettingsIgnored: true,
+      classicTriviaCategorySilosRemoved: true,
       counterplayVoteAccepted: true,
     },
     null,

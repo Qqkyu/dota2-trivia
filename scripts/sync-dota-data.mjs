@@ -595,34 +595,6 @@ for (const [abilityKey, fact] of Object.entries(DAMAGE_QUESTION_FACTS)) {
   );
 }
 
-const attributeNames = {
-  str: "Strength",
-  agi: "Agility",
-  int: "Intelligence",
-  all: "Universal",
-};
-
-for (const hero of stableSample(heroes, 44, "primary-attribute")) {
-  const correct = attributeNames[hero.primary_attr];
-  if (!correct) continue;
-
-  questions.push(
-    makeQuestion({
-      id: `primary-attribute:${hero.key}`,
-      kind: "hero-primary-attribute",
-      category: "Heroes",
-      difficulty: 1,
-      eyebrow: hero.localized_name,
-      prompt: `What is ${hero.localized_name}'s primary attribute?`,
-      image: { src: hero.image, alt: `${hero.localized_name} hero portrait`, kind: "hero" },
-      answers: Object.values(attributeNames),
-      correctAnswer: correct,
-      explanation: `${hero.localized_name} is a ${correct} hero in patch ${PATCH}.`,
-      source: clientQuestionSource,
-    }),
-  );
-}
-
 for (const hero of stableSample(
   heroes.filter((entry) => Number.isFinite(entry.move_speed)),
   40,
@@ -708,45 +680,6 @@ for (const stat of heroStatDefinitions) {
       }),
     );
   }
-}
-
-const heroesByAttribute = heroes.reduce((groups, hero) => {
-  groups[hero.primary_attr] ??= [];
-  groups[hero.primary_attr].push(hero);
-  return groups;
-}, {});
-for (const hero of stableSample(heroes, 32, "hero-intruder")) {
-  const distractorAttributes = Object.keys(heroesByAttribute).filter(
-    (attribute) => attribute !== hero.primary_attr && (heroesByAttribute[attribute]?.length ?? 0) >= 3,
-  );
-  const distractorAttribute = distractorAttributes[hash(`hero-intruder:${hero.key}`) % distractorAttributes.length];
-  const distractors = stableSample(
-    heroesByAttribute[distractorAttribute] ?? [],
-    3,
-    `hero-intruder:${hero.key}:${distractorAttribute}`,
-  );
-  if (distractors.length !== 3) continue;
-
-  const answerHeroes = [hero, ...distractors];
-  const heroAttribute = attributeNames[hero.primary_attr];
-  const sharedAttribute = attributeNames[distractorAttribute];
-
-  questions.push(
-    makeQuestion({
-      id: `hero-intruder:${hero.key}:${distractorAttribute}`,
-      kind: "hero-intruder",
-      category: "Heroes",
-      difficulty: 2,
-      eyebrow: "Draft Intruder · Primary attributes",
-      prompt: "Which hero does not share the others’ primary attribute?",
-      answers: answerHeroes.map((candidate) => candidate.localized_name),
-      correctAnswer: hero.localized_name,
-      answerImagesByValue: answerArtworkByName(answerHeroes),
-      answerImageKind: "hero",
-      explanation: `${hero.localized_name} is ${heroAttribute}; the other three heroes are ${sharedAttribute}.`,
-      source: clientQuestionSource,
-    }),
-  );
 }
 
 for (const hero of stableSample(heroes, 56, "fogged-hero")) {

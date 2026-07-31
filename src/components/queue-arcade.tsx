@@ -27,7 +27,6 @@ import {
   Shuffle,
   Signal,
   ScanEye,
-  Sparkles,
   Swords,
   Trophy,
   Users,
@@ -35,7 +34,6 @@ import {
   VolumeX,
   WandSparkles,
   X,
-  Zap,
 } from "lucide-react";
 import clsx from "clsx";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
@@ -48,10 +46,8 @@ import {
 } from "@/lib/calibration";
 import { getPusherClient } from "@/lib/pusher";
 import {
-  KNOWLEDGE_FILTERS,
   type ArcadeMode,
   type ArcadeRound,
-  type KnowledgeFilter,
   type RoundGame,
   type TriviaArtworkKind,
   type TriviaQuestion,
@@ -246,12 +242,12 @@ const MODE_INFO: Record<
     rule: "Every nine rounds contains all nine games exactly once.",
   },
   trivia: {
-    label: "Queue Trivia",
-    shortLabel: "Trivia",
+    label: "Classic Trivia",
+    shortLabel: "Classic Trivia",
     eyebrow: "The original",
     description: "Mana, damage, cooldowns, heroes, and items—the classic global-results loop.",
-    action: "Start trivia queue",
-    rule: "Choose which corner of Dota knowledge you want to practice.",
+    action: "Enter classic trivia",
+    rule: "One shared pool rotates abilities, items, stats, and comparisons.",
   },
   shopkeeper: {
     label: "Shopkeeper Rush",
@@ -415,7 +411,7 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     !GAME_IDS.includes(room.gameId) ||
     typeof room.contentVersion !== "string" ||
     !ARCADE_MODES.includes(room.mode) ||
-    !KNOWLEDGE_FILTERS.includes(room.filter) ||
+    room.filter !== "Mixed" ||
     !round ||
     typeof round.id !== "string" ||
     typeof round.number !== "number" ||
@@ -1179,7 +1175,6 @@ function BrandMark() {
 export function QueueArcade() {
   const [phase, setPhaseState] = useState<GamePhase>("lobby");
   const [mode, setMode] = useState<ArcadeMode>("mixed");
-  const [filter, setFilter] = useState<KnowledgeFilter>("Mixed");
   const [currentQuestion, setCurrentQuestion] = useState<ArcadeRound | null>(null);
   const [roundIndex, setRoundIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -1645,7 +1640,7 @@ export function QueueArcade() {
     const settings: PublicRoomSettings = {
       gameId: DEFAULT_GAME_ID,
       mode,
-      filter: mode === "trivia" ? filter : "Mixed",
+      filter: "Mixed",
     };
     setJoiningRoom(true);
     setRoomError(null);
@@ -1693,7 +1688,6 @@ export function QueueArcade() {
   }, [
     applyRoomSnapshot,
     ensurePlayerId,
-    filter,
     joiningRoom,
     mode,
     playSound,
@@ -1989,14 +1983,12 @@ export function QueueArcade() {
           const settings = JSON.parse(storedSettings) as {
             soundEnabled?: boolean;
             gameVolume?: number;
-            filter?: KnowledgeFilter;
             mode?: ArcadeMode;
           };
           if (typeof settings.soundEnabled === "boolean") setSoundEnabled(settings.soundEnabled);
           if (typeof settings.gameVolume === "number" && Number.isFinite(settings.gameVolume)) {
             setGameVolume(Math.min(1, Math.max(MIN_GAME_VOLUME, settings.gameVolume)));
           }
-          if (settings.filter && KNOWLEDGE_FILTERS.includes(settings.filter)) setFilter(settings.filter);
           if (settings.mode && ARCADE_MODES.includes(settings.mode)) setMode(settings.mode);
         }
         ensurePlayerId();
@@ -2012,8 +2004,8 @@ export function QueueArcade() {
 
   useEffect(() => {
     if (!statsLoaded) return;
-    window.localStorage.setItem(SETTINGS_KEY, JSON.stringify({ soundEnabled, gameVolume, filter, mode }));
-  }, [filter, gameVolume, mode, soundEnabled, statsLoaded]);
+    window.localStorage.setItem(SETTINGS_KEY, JSON.stringify({ soundEnabled, gameVolume, mode }));
+  }, [gameVolume, mode, soundEnabled, statsLoaded]);
 
   useEffect(() => {
     if (phase !== "summary" || runSavedRef.current) return;
@@ -2272,39 +2264,15 @@ export function QueueArcade() {
             </div>
 
             <div className={styles.modeSettingsSlot} data-testid="mode-settings">
-              {mode === "trivia" ? (
-                <div className={styles.filterBlock}>
-                  <span className={styles.fieldLabel}>Tune the trivia pool</span>
-                  <div className={styles.filterRow} role="group" aria-label="Question pool">
-                    {KNOWLEDGE_FILTERS.map((option) => (
-                      <button
-                        key={option}
-                        type="button"
-                        className={clsx(styles.filterButton, filter === option && styles.filterButtonActive)}
-                        onClick={() => setFilter(option)}
-                        disabled={joiningRoom}
-                        aria-pressed={filter === option}
-                      >
-                        {option === "Mixed" && <Sparkles />}
-                        {option === "Abilities" && <Zap />}
-                        {option === "Items" && <Trophy />}
-                        {option === "Heroes" && <Swords />}
-                        {option}
-                      </button>
-                    ))}
-                  </div>
+              <div className={styles.modeRule}>
+                <span>
+                  <ModeIcon mode={mode} />
+                </span>
+                <div>
+                  <small>{activeModeInfo.label} rules</small>
+                  <p>{activeModeInfo.rule}</p>
                 </div>
-              ) : (
-                <div className={styles.modeRule}>
-                  <span>
-                    <ModeIcon mode={mode} />
-                  </span>
-                  <div>
-                    <small>{activeModeInfo.label} rules</small>
-                    <p>{activeModeInfo.rule}</p>
-                  </div>
-                </div>
-              )}
+              </div>
             </div>
 
             <div className={styles.lobbyActions}>
@@ -3265,7 +3233,7 @@ export function QueueArcade() {
           <div className={styles.summaryRounds}>
             <div className={styles.cardTitle}>
               <span>{history.length > 20 ? "Last 20 rounds" : "Round breakdown"}</span>
-              <strong>{mode === "trivia" ? `${filter} · ${MODE_INFO[mode].label}` : MODE_INFO[mode].label}</strong>
+              <strong>{MODE_INFO[mode].label}</strong>
             </div>
             <div>
               {history.slice(-20).map((record, index) => (

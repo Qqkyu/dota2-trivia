@@ -228,6 +228,11 @@ const triviaLobbyLayout = await evaluate(`({
   previewTop: document.querySelector('[data-testid="mode-preview"]')?.getBoundingClientRect().top,
   previewHeight: document.querySelector('[data-testid="mode-preview"]')?.getBoundingClientRect().height
 })`);
+const triviaLobby = await evaluate(`({
+  selectedLabel: document.querySelector('[data-arcade-mode="trivia"][aria-pressed="true"] strong')?.textContent,
+  categoryControls: document.querySelectorAll('[role="group"][aria-label="Question pool"] button').length,
+  rule: document.querySelector('[data-testid="mode-settings"] p')?.textContent
+})`);
 await screenshot("/tmp/queue-arcade-trivia-lobby.png");
 
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
@@ -1311,7 +1316,14 @@ if (Math.abs(brandAlignment.markCenter - brandAlignment.copyCenter) > 0.5) {
   failures.push("The header logo and brand copy are not vertically aligned.");
 }
 if (layoutDelta(lobbyLayout, triviaLobbyLayout) > 1) {
-  failures.push("Selecting Queue Trivia shifts the lobby layout.");
+  failures.push("Selecting Classic Trivia shifts the lobby layout.");
+}
+if (
+  triviaLobby.selectedLabel !== "Classic Trivia" ||
+  triviaLobby.categoryControls !== 0 ||
+  !triviaLobby.rule?.includes("One shared pool")
+) {
+  failures.push("Classic Trivia still exposes category silos or has unclear lobby framing.");
 }
 if (
   sharedPoolRound.difficultyLabelVisible ||
@@ -1637,6 +1649,7 @@ console.log(
       lobby,
       lobbyLayout,
       triviaLobbyLayout,
+      triviaLobby,
       brandAlignment,
       sharedPoolRound,
       shopkeeper,

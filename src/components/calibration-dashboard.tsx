@@ -27,7 +27,7 @@ const STATUS_LABELS: Record<CalibrationStatus, string> = {
 };
 
 const GAME_LABELS = {
-  trivia: "Trivia",
+  trivia: "Classic Trivia",
   shopkeeper: "Shopkeeper",
   "spell-link": "Spell Link",
   "fogged-vision": "Fogged Vision",

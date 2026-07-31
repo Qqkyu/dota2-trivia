@@ -16,8 +16,8 @@ function configuredEpoch() {
   return Number.isFinite(parsed) ? parsed : DEFAULT_ROUND_EPOCH_MS;
 }
 
-function normalizedFilter(mode: ArcadeMode, filter: KnowledgeFilter) {
-  return mode === "trivia" ? filter : "Mixed";
+function normalizedFilter(): KnowledgeFilter {
+  return "Mixed";
 }
 
 export function parsePublicRoomSettings(values: {
@@ -42,12 +42,12 @@ export function parsePublicRoomSettings(values: {
   return {
     gameId,
     mode: mode as ArcadeMode,
-    filter: normalizedFilter(mode as ArcadeMode, filter as KnowledgeFilter),
+    filter: normalizedFilter(),
   };
 }
 
 export function publicRoomFor(settings: PublicRoomSettings): PublicRoom {
-  const filter = normalizedFilter(settings.mode, settings.filter);
+  const filter = normalizedFilter();
   const catalog = GAME_CATALOGS[settings.gameId];
   return {
     id: [catalog.id, catalog.contentVersion, settings.mode, filter.toLowerCase()].join(":"),

@@ -6,6 +6,7 @@ import { mapSenseQuestions } from "@/lib/map-sense";
 import { isKnowledgeBearingMapQuestion } from "@/lib/map-sense-quality.mjs";
 import type { MapChallenge } from "@/lib/map-types";
 import { isPlayableShopkeeperQuestion } from "@/lib/shopkeeper-quality.mjs";
+import { isPlayableClassicTriviaQuestion } from "@/lib/classic-trivia-quality.mjs";
 import { fixedCycleOccurrenceCounts, fixedCycleRotation, varietyShuffle } from "@/lib/variety.mjs";
 
 export const KNOWLEDGE_FILTERS = ["Mixed", "Abilities", "Items", "Heroes"] as const;
@@ -169,9 +170,10 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-9-counterplay-4-soundcheck-6`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-2-map-sense-9-counterplay-4-soundcheck-6`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
+    isPlayableClassicTriviaQuestion(question) &&
     (question.kind !== "spell-owner" ||
       ((question.hint?.trim().length ?? 0) >= 18 && !question.hint?.startsWith("No additional mechanical clue"))) &&
     isPlayableShopkeeperQuestion(question),
@@ -187,18 +189,15 @@ export interface ArcadeRound extends TriviaQuestion {
   game: RoundGame;
 }
 
-function belongsToFilter(question: TriviaQuestion, filter: KnowledgeFilter) {
-  if (filter === "Mixed") return true;
-  if (filter === "Abilities") return ["Abilities", "Cooldowns", "Damage", "Mana"].includes(question.category);
-  if (filter === "Items") return ["Items", "Recipes"].includes(question.category);
-  return question.category === "Heroes";
+function sharedKnowledgeFilter(filter: KnowledgeFilter): KnowledgeFilter {
+  void filter;
+  return "Mixed";
 }
 
 export function createQuestionDeck(seed: string, filter: KnowledgeFilter) {
-  const pool = triviaQuestions.filter(
-    (question) => gameForQuestion(question) === "trivia" && belongsToFilter(question, filter),
-  );
-  return varietyShuffle(pool, `${seed}:${filter}:${ARCADE_CONTENT_VERSION}`);
+  const roomFilter = sharedKnowledgeFilter(filter);
+  const pool = triviaQuestions.filter((question) => gameForQuestion(question) === "trivia");
+  return varietyShuffle(pool, `${seed}:${roomFilter}:${ARCADE_CONTENT_VERSION}`);
 }
 
 export function gameForQuestion(question: TriviaQuestion): RoundGame {
@@ -214,12 +213,9 @@ export function gameForQuestion(question: TriviaQuestion): RoundGame {
 }
 
 function shuffledPool(seed: string, game: RoundGame, filter: KnowledgeFilter) {
-  const pool = triviaQuestions.filter((question) => {
-    if (gameForQuestion(question) !== game) return false;
-    return game !== "trivia" || belongsToFilter(question, filter);
-  });
-
-  return varietyShuffle(pool, `${seed}:${game}:${filter}:${ARCADE_CONTENT_VERSION}`);
+  const roomFilter = sharedKnowledgeFilter(filter);
+  const pool = triviaQuestions.filter((question) => gameForQuestion(question) === game);
+  return varietyShuffle(pool, `${seed}:${game}:${roomFilter}:${ARCADE_CONTENT_VERSION}`);
 }
 
 export function createArcadeDeck(
