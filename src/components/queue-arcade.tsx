@@ -305,7 +305,7 @@ const MODE_INFO: Record<
     label: "Map Sense",
     shortLabel: "Map Sense",
     eyebrow: "Pinpoint the play",
-    description: "Read terrain, block camps, stack neutrals, and solve compact battlefield calls.",
+    description: "Read map calls, block camps, stack neutrals, and solve compact battlefield decisions.",
     action: "Read the map",
     rule: "Real terrain, current spawn boxes, and Valve's in-game stack guides.",
   },

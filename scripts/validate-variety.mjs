@@ -168,14 +168,13 @@ const mapKinds = [
   "map-mirror",
   "map-relative",
   "map-scenario",
-  "map-crop",
   "map-camp-block",
   "map-stack-route",
 ];
 const mapFixture = mapKinds.flatMap((kind) =>
   Array.from(
     {
-      length: ["map-location", "map-crop", "map-camp-block", "map-stack-route"].includes(kind) ? 24 : 6,
+      length: ["map-location", "map-camp-block", "map-stack-route"].includes(kind) ? 24 : 6,
     },
     (_, index) => ({
       id: `${kind}-${index}`,
@@ -183,7 +182,7 @@ const mapFixture = mapKinds.flatMap((kind) =>
     }),
   ),
 );
-const mapOpening = varietyShuffle(mapFixture, "map-family-regression").slice(0, 24);
+const mapOpening = varietyShuffle(mapFixture, "map-family-regression").slice(0, 21);
 const mapOpeningCounts = Object.fromEntries(
   mapKinds.map((kind) => [kind, mapOpening.filter((question) => question.kind === kind).length]),
 );
@@ -193,10 +192,10 @@ if (
   mapKinds.some((kind) => mapOpeningCounts[kind] !== 3) ||
   mapOpeningCounts["map-location"] > 5
 ) {
-  throw new Error(`Map Sense lost its balanced eight-family opening: ${JSON.stringify(mapOpeningCounts)}.`);
+  throw new Error(`Map Sense lost its balanced seven-family opening: ${JSON.stringify(mapOpeningCounts)}.`);
 }
 
-const mechanicMapKinds = ["map-crop", "map-camp-block", "map-stack-route"];
+const mechanicMapKinds = ["map-camp-block", "map-stack-route"];
 const mechanicMapFixture = mechanicMapKinds.flatMap((kind) =>
   Array.from({ length: 24 }, (_, index) => ({ id: `mechanic-${kind}-${index}`, kind })),
 );
@@ -206,9 +205,9 @@ const mechanicMapCounts = Object.fromEntries(
 );
 if (
   mechanicMapOpening.some((question, index) => index > 0 && question.kind === mechanicMapOpening[index - 1].kind) ||
-  mechanicMapKinds.some((kind) => mechanicMapCounts[kind] !== 8)
+  mechanicMapKinds.some((kind) => mechanicMapCounts[kind] !== 12)
 ) {
-  throw new Error(`Map Sense mechanics lost their three-family rotation: ${JSON.stringify(mechanicMapCounts)}.`);
+  throw new Error(`Map Sense mechanics lost their two-family rotation: ${JSON.stringify(mechanicMapCounts)}.`);
 }
 
 const roundDuration = 12_000;

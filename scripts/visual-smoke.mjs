@@ -1026,21 +1026,7 @@ async function inspectMapSenseVariant() {
 }
 
 async function lockCurrentMapRound() {
-  const kind = await evaluate(`document.querySelector("main")?.dataset.questionKind`);
-  if (kind === "map-crop") {
-    const mapBounds = await evaluate(`(() => {
-      const bounds = document.querySelector('[data-testid="map-sense-board"]')?.getBoundingClientRect();
-      return bounds ? { x: bounds.x, y: bounds.y, width: bounds.width, height: bounds.height } : null;
-    })()`);
-    if (!mapBounds) throw new Error("The Terrain Match board is missing.");
-    const x = mapBounds.x + mapBounds.width * 0.46;
-    const y = mapBounds.y + mapBounds.height * 0.54;
-    await send("Input.dispatchMouseEvent", { type: "mousePressed", x, y, button: "left", clickCount: 1 });
-    await send("Input.dispatchMouseEvent", { type: "mouseReleased", x, y, button: "left", clickCount: 1 });
-    await waitFor(`Boolean(document.querySelector('[data-testid="map-player-pin"]'))`);
-  } else {
-    await evaluate(`document.querySelector('[data-testid="map-choice-answer"]')?.click()`);
-  }
+  await evaluate(`document.querySelector('[data-testid="map-choice-answer"]')?.click()`);
   await waitFor(`document.querySelector('[data-testid="map-sense-board"]')?.dataset.mapState === "locked"`);
 }
 
@@ -1086,7 +1072,7 @@ await waitFor(`(() => {
     image?.naturalWidth > 0;
 })()`);
 
-const mapSenseKinds = ["map-crop", "map-camp-block", "map-stack-route"];
+const mapSenseKinds = ["map-camp-block", "map-stack-route"];
 const mapVariants = [];
 const mapReveals = [];
 let previousMapRound = null;
@@ -1094,9 +1080,11 @@ for (let attempt = 0; attempt < mapSenseKinds.length * 2; attempt += 1) {
   await waitFor(
     `(() => {
       const main = document.querySelector("main");
+      const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
       return main?.dataset.phase === "answering" &&
         main?.dataset.roundId !== ${JSON.stringify(previousMapRound)} &&
-        ${JSON.stringify(mapSenseKinds)}.includes(main?.dataset.questionKind);
+        ${JSON.stringify(mapSenseKinds)}.includes(main?.dataset.questionKind) &&
+        timer >= 4;
     })()`,
     150_000,
   );
@@ -1241,26 +1229,6 @@ const validMapVariant = (variant) => {
     variant.imageLoaded &&
     !variant.horizontalOverflow;
   if (!common) return false;
-  if (variant.kind === "map-crop") {
-    const validTreatment =
-      variant.difficulty === 3
-        ? variant.cropTreatment === "mono" && variant.cropFilter?.includes("grayscale")
-        : variant.cropTreatment === "color" && !variant.cropFilter?.includes("grayscale");
-    return (
-      variant.cropVisible &&
-      variant.cropLoaded &&
-      validTreatment &&
-      !variant.mechanicVisible &&
-      variant.choiceOptions === 0 &&
-      variant.choiceAnswers === 0 &&
-      !variant.campMarker &&
-      !variant.fightMarker &&
-      !variant.contextLocator &&
-      !variant.contextViewport &&
-      !variant.spawnBox &&
-      variant.routeLines === 0
-    );
-  }
   const expectedChoiceKind = {
     "map-camp-block": "camp-block",
     "map-stack-route": "stack-route",
@@ -1307,17 +1275,6 @@ const validMapVariant = (variant) => {
 const validMapReveal = (reveal) => {
   const common = requiredMapKinds.includes(reveal.kind) && reveal.resultVisible && !reveal.horizontalOverflow;
   if (!common) return false;
-  if (reveal.kind === "map-crop") {
-    return (
-      reveal.targetVisible &&
-      reveal.playerVisible &&
-      reveal.heatmapVisible &&
-      reveal.crowdDots >= 2 &&
-      !reveal.spawnBox &&
-      reveal.correctMarkers === 0 &&
-      reveal.correctAnswers === 0
-    );
-  }
   const commonChoice =
     !reveal.targetVisible &&
     !reveal.playerVisible &&
@@ -1614,7 +1571,7 @@ if (
   mapVariants.some((variant) => !validMapVariant(variant)) ||
   mapReveals.some((reveal) => !validMapReveal(reveal))
 ) {
-  failures.push("The shared Map Sense pool did not rotate through all four Dota-native rounds and reveals.");
+  failures.push("The shared Map Sense pool did not rotate through both knowledge-bearing mechanics and reveals.");
 }
 if (
   spellLink.horizontalOverflow ||
@@ -1646,9 +1603,9 @@ if (
   !mobileMap.imageLoaded ||
   (requiredMapKinds.includes(mobileMap.kind) &&
     (!mobileMap.visualFits ||
-      (mobileMap.kind === "map-crop" && !mobileMap.cropVisible) ||
-      (mobileMap.kind !== "map-crop" &&
-        (!mobileMap.mechanicVisible || mobileMap.choiceOptions !== 4 || mobileMap.choiceAnswers !== 4))))
+      !mobileMap.mechanicVisible ||
+      mobileMap.choiceOptions !== 4 ||
+      mobileMap.choiceAnswers !== 4))
 ) {
   failures.push("The mobile shared-pool Map Sense puzzle does not fit the viewport.");
 }

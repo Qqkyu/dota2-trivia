@@ -3,6 +3,7 @@ import generatedQuestions from "@/data/questions.generated.json";
 import generatedMeta from "@/data/trivia-meta.generated.json";
 import soundcheckQuestions from "@/data/soundcheck-questions.json";
 import { mapSenseQuestions } from "@/lib/map-sense";
+import { isKnowledgeBearingMapQuestion } from "@/lib/map-sense-quality.mjs";
 import type { MapChallenge } from "@/lib/map-types";
 import { isPlayableShopkeeperQuestion } from "@/lib/shopkeeper-quality.mjs";
 import { fixedCycleOccurrenceCounts, fixedCycleRotation, varietyShuffle } from "@/lib/variety.mjs";
@@ -168,7 +169,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-8-counterplay-4-soundcheck-6`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-map-sense-9-counterplay-4-soundcheck-6`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
     (question.kind !== "spell-owner" ||
@@ -177,7 +178,7 @@ const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filt
 );
 export const triviaQuestions = [
   ...playableGeneratedQuestions,
-  ...(mapSenseQuestions as TriviaQuestion[]),
+  ...(mapSenseQuestions as TriviaQuestion[]).filter(isKnowledgeBearingMapQuestion),
   ...(counterplayQuestions as TriviaQuestion[]),
   ...(soundcheckQuestions as unknown as TriviaQuestion[]),
 ];

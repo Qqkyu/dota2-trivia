@@ -11,7 +11,6 @@ const mapLocations = JSON.parse(
 const mapChallenges = JSON.parse(
   await readFile(path.join(process.cwd(), "src", "data", "map-sense-challenges.json"), "utf8"),
 );
-const mapCrops = JSON.parse(await readFile(path.join(process.cwd(), "src", "data", "map-sense-crops.json"), "utf8"));
 const counterplayQuestions = JSON.parse(
   await readFile(path.join(process.cwd(), "src", "data", "counterplay-questions.json"), "utf8"),
 );
@@ -241,11 +240,8 @@ const challengeKinds = {
   "map-relative": "relative",
   "map-scenario": "scenario",
 };
-const [cropTier, cropId] = mapDefinitionId.split(":");
-const crop = mapKind === "map-crop" ? mapCrops[cropTier]?.find((candidate) => candidate.id === cropId) : null;
-const mapLocation = crop
-  ? { target: { x: crop.x, y: crop.y } }
-  : mapKind === "map-location"
+const mapLocation =
+  mapKind === "map-location"
     ? mapLocations.find((location) => location.id === mapDefinitionId)
     : mapChallenges.find(
         (challenge) => challenge.id === mapDefinitionId && challenge.family === challengeKinds[mapKind],

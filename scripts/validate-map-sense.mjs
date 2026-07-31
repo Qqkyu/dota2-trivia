@@ -3,12 +3,15 @@
 import { readFile, stat } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { isDirectTowerLocation, isPlayableMapLocation } from "../src/lib/map-sense-quality.mjs";
+import {
+  isDirectTowerLocation,
+  isKnowledgeBearingMapQuestion,
+  isPlayableMapLocation,
+} from "../src/lib/map-sense-quality.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const locations = JSON.parse(await readFile(join(root, "src", "data", "map-sense-locations.json"), "utf8"));
 const challenges = JSON.parse(await readFile(join(root, "src", "data", "map-sense-challenges.json"), "utf8"));
-const crops = JSON.parse(await readFile(join(root, "src", "data", "map-sense-crops.json"), "utf8"));
 const landmarkSnapshot = JSON.parse(await readFile(join(root, "src", "data", "map-sense-landmarks.json"), "utf8"));
 const mechanics = JSON.parse(await readFile(join(root, "src", "data", "map-sense-mechanics.json"), "utf8"));
 const stackAudit = JSON.parse(await readFile(join(root, "src", "data", "map-sense-stack-audit.json"), "utf8"));
@@ -38,15 +41,6 @@ if (!Array.isArray(challenges) || challenges.length < 48) {
   failures.push("Map Sense needs at least 48 creative challenges.");
 }
 
-if (
-  !Array.isArray(crops.tricky) ||
-  crops.tricky.length < 24 ||
-  !Array.isArray(crops.brutal) ||
-  crops.brutal.length < 36
-) {
-  failures.push("Map Sense needs at least 24 Tricky and 36 Brutal terrain crops.");
-}
-
 if (!Array.isArray(mechanics.camps) || mechanics.camps.length < 24) {
   failures.push("Map Sense needs at least 24 audited neutral camps.");
 }
@@ -62,32 +56,6 @@ if (
 }
 
 const landmarks = landmarkSnapshot.landmarks ?? {};
-const cropDefinitions = [
-  ...(crops.tricky ?? []).map((crop) => ({
-    id: `tricky:${crop.id}`,
-    family: "crop",
-    targetLabel: "the marked terrain point",
-    difficulty: 2,
-    target: { x: crop.x, y: crop.y },
-    tolerance: 0.042,
-    eyebrow: "Map Sense · Terrain match",
-    prompt: "Place this reticle.",
-    explanation: "The crop center is the target.",
-    zoom: 5.6,
-  })),
-  ...(crops.brutal ?? []).map((crop) => ({
-    id: `brutal:${crop.id}`,
-    family: "crop",
-    targetLabel: "the marked terrain point",
-    difficulty: 3,
-    target: { x: crop.x, y: crop.y },
-    tolerance: 0.024,
-    eyebrow: "Map Sense · Terrain match",
-    prompt: "Place this reticle.",
-    explanation: "The crop center is the target.",
-    zoom: 8.4,
-  })),
-];
 const mechanicDefinitions = [
   ...(mechanics.camps ?? []).map((camp) => ({
     id: camp.id,
@@ -115,9 +83,16 @@ const mechanicDefinitions = [
 const allDefinitions = [
   ...playableLocations.map((location) => ({ ...location, family: "location" })),
   ...challenges,
-  ...cropDefinitions,
   ...mechanicDefinitions,
 ];
+
+if (
+  isKnowledgeBearingMapQuestion({ kind: "map-crop" }) ||
+  isKnowledgeBearingMapQuestion({ kind: "map-tp-in" }) ||
+  !isKnowledgeBearingMapQuestion({ kind: "map-stack-route" })
+) {
+  failures.push("Retired visual-matching and nearest-tower rounds leaked through the Map Sense quality policy.");
+}
 
 function validPosition(position) {
   const { x, y } = position ?? {};
@@ -215,22 +190,6 @@ for (const challenge of challenges) {
   );
   if (referenceDistance < challenge.tolerance * 2) {
     failures.push(`${challenge.id}: reference and target are too close to read as separate calls.`);
-  }
-}
-
-const cropIds = new Set();
-for (const crop of cropDefinitions) {
-  if (cropIds.has(crop.id)) failures.push(`${crop.id}: duplicate terrain crop.`);
-  cropIds.add(crop.id);
-
-  const halfCrop = 0.5 / crop.zoom;
-  if (
-    crop.target.x - halfCrop < 0.02 ||
-    crop.target.x + halfCrop > 0.98 ||
-    crop.target.y - halfCrop < 0.02 ||
-    crop.target.y + halfCrop > 0.98
-  ) {
-    failures.push(`${crop.id}: crop would expose the edge of the overview.`);
   }
 }
 
@@ -453,11 +412,10 @@ if (longestCreativePrompt > 7 || averageCreativePrompt > 5.5) {
 const learningCount = allDefinitions.filter((location) => location.difficulty <= 2).length;
 const veteranCount = allDefinitions.filter((location) => location.difficulty === 3).length;
 const veteranFamilyCounts = {
-  crop: cropDefinitions.filter((location) => location.difficulty === 3).length,
   block: mechanics.camps?.length ?? 0,
   stack: mechanics.camps?.length ?? 0,
 };
-if (learningCount < 24 || veteranCount < 96 || Object.values(veteranFamilyCounts).some((count) => count < 24)) {
+if (learningCount < 24 || veteranCount < 80 || Object.values(veteranFamilyCounts).some((count) => count < 24)) {
   failures.push(
     `Map Sense needs viable approachable and demanding tiers (found ${learningCount} and ${veteranCount}).`,
   );
@@ -478,6 +436,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${allDefinitions.length} Map Sense questions across eight playable families, ${mechanics.camps.length} current neutral camps, and ${Object.keys(landmarks).length} audited landmarks (${difficultyCounts[1]} approachable, ${difficultyCounts[2]} tricky, ${difficultyCounts[3]} brutal; hard mechanics ${JSON.stringify(veteranFamilyCounts)}).`,
+    `Validated ${allDefinitions.length} Map Sense questions across seven knowledge-bearing families, ${mechanics.camps.length} current neutral camps, and ${Object.keys(landmarks).length} audited landmarks (${difficultyCounts[1]} approachable, ${difficultyCounts[2]} tricky, ${difficultyCounts[3]} brutal; hard mechanics ${JSON.stringify(veteranFamilyCounts)}).`,
   );
 }

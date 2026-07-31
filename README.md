@@ -9,7 +9,7 @@ An unofficial browser arcade made for the gap between **Find Match** and **Accep
 - **Echo Hunt** — identify a hero from two terse voice fragments before the complete response unlocks;
 - **Soundcheck** — identify verified effects through three growing audio cuts, including ordered two-sound sequences;
 - **Quote Hunt** — match a substantial written hero response to its speaker;
-- **Map Sense** — match terrain, block camps, follow current stack guides, and solve compact battlefield calls;
+- **Map Sense** — read map calls, block camps, follow current stack guides, and solve compact battlefield decisions;
 - **Counterplay** — solve BKB, dispel, Nullifier, Linken's, and Lotus interactions from short icon-led matchups;
 - **Mixed Arcade** — repeats a shuffled nine-round cycle, guaranteeing every game appears exactly once per cycle.
 
@@ -45,8 +45,8 @@ answer rates without fragmenting the room.
 
 Fogged Vision uses one tuned portrait curve for everyone and retains fog through the final stage.
 
-Map Sense mixes eight families in one room, including broad calls, riddles, relative-position puzzles, monochrome
-Terrain Match, Camp Block, and Stack Route. The mechanic rounds use current spawn boxes and Valve's per-camp stack
+Map Sense mixes seven knowledge-bearing families in one room, including broad calls, riddles, relative-position
+puzzles, Camp Block, and Stack Route. The mechanic rounds use current spawn boxes and Valve's per-camp stack
 arrows and timing windows. The hardest mechanic prompts stay at four words or
 fewer. A three-second reading grace preserves full speed points before the bonus begins fading; pin rounds also earn a
 separate center-precision bonus.
@@ -135,8 +135,8 @@ against the committed deck. Set the patch and snapshot date deliberately after c
 patch; the content pack is explicitly patch-stamped in the UI.
 
 Map Sense's direct calls live in `src/data/map-sense-locations.json`; its riddle, mirror, relative-position, and scenario
-packs live in `src/data/map-sense-challenges.json`; terrain crops live in `src/data/map-sense-crops.json`; and audited
-camp geometry, tiers, stack windows, and arrows live in `src/data/map-sense-mechanics.json`. Coordinates and optional
+packs live in `src/data/map-sense-challenges.json`; audited camp geometry, tiers, stack windows, and arrows live in
+`src/data/map-sense-mechanics.json`. Coordinates and optional
 reference pins are normalized from `0–1` so future terrain artwork can be replaced without changing the interaction or
 storage format. `validate-data` also checks family balance, difficulty coverage, exact camp-box inclusion, stack-route
 clearance, Valve stack-guide parity, coordinate bounds, reference-pin separation, and local artwork.
@@ -168,11 +168,11 @@ That validates the question deck, template rotation, answer balance, scan length
 
 With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk persistence, hashed voter IDs, reveal-only report submission, report deduplication, aggregate-only calibration data, server-scored Map Sense answers, and that obsolete saved level values cannot split public rooms.
 
-For visual smoke testing, start muted Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the level-free arcade lobby, Shopkeeper Rush's target/component framing, the no-shift question-report popover, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt's two terse fragments and complete final line, Soundcheck's shorter three-stage cuts, ordered playback, compact icon pairs, persistent volume, mute-safe autoplay and manual replay, Quote Hunt rendering, Counterplay prompts and reveals, all three interactive Map Sense mechanics plus full-map knowledge calls, synchronized automatic round advancement, the session report, desktop/mobile calibration layouts, mobile overflow, and saves screenshots under `/tmp`.
+For visual smoke testing, start muted Chrome with a debugging port and then run `node scripts/visual-smoke.mjs`. The script checks the level-free arcade lobby, Shopkeeper Rush's target/component framing, the no-shift question-report popover, Spell Link's progressive clues, all three fixed Fogged Vision stages and the next-round reset, Echo Hunt's two terse fragments and complete final line, Soundcheck's shorter three-stage cuts, ordered playback, compact icon pairs, persistent volume, mute-safe autoplay and manual replay, Quote Hunt rendering, Counterplay prompts and reveals, both interactive Map Sense mechanics plus full-map knowledge calls, synchronized automatic round advancement, the session report, desktop/mobile calibration layouts, mobile overflow, and saves screenshots under `/tmp`.
 
 ## Crowd architecture
 
-Each game catalog, content version, mode, and optional trivia filter is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-6-map-sense-8-counterplay-4-soundcheck-6:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog, content version, mode, and optional trivia filter is a public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-6-map-sense-9-counterplay-4-soundcheck-6:...`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` opens with the reveal and keeps the just-finished question reportable for a 20-second rollover grace period. It stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 

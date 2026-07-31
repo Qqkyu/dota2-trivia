@@ -1,6 +1,5 @@
 import mapLocations from "@/data/map-sense-locations.json";
 import mapChallenges from "@/data/map-sense-challenges.json";
-import mapCrops from "@/data/map-sense-crops.json";
 import mapLandmarks from "@/data/map-sense-landmarks.json";
 import mapMechanics from "@/data/map-sense-mechanics.json";
 import { isPlayableMapLocation } from "@/lib/map-sense-quality.mjs";
@@ -9,7 +8,6 @@ import type {
   MapChallenge,
   MapChoiceChallenge,
   MapChoiceOption,
-  MapCrop,
   MapPosition,
   MapReference,
   MapViewport,
@@ -33,7 +31,6 @@ interface MapLocationDefinition {
   explanation: string;
   answers?: AnswerTuple;
   correctIndex?: number;
-  crop?: MapCrop;
   reference?: MapReference;
   choice?: MapChoiceChallenge;
 }
@@ -44,7 +41,6 @@ type MapQuestionKind =
   | "map-mirror"
   | "map-relative"
   | "map-scenario"
-  | "map-crop"
   | "map-camp-block"
   | "map-stack-route";
 
@@ -59,41 +55,11 @@ const familyKinds = {
   scenario: "map-scenario",
 } as const satisfies Record<MapChallengeFamily, MapQuestionKind>;
 
-interface MapCropSeed {
-  id: string;
-  x: number;
-  y: number;
-}
-
 const mechanicsCamps = mapMechanics.camps as MapCamp[];
 
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.max(minimum, Math.min(maximum, value));
 }
-
-function cropQuestion(seed: MapCropSeed, difficulty: 2 | 3): MapLocationDefinition {
-  const center = { x: seed.x, y: seed.y };
-  return {
-    id: `${difficulty === 3 ? "brutal" : "tricky"}:${seed.id}`,
-    targetLabel: "the marked terrain point",
-    difficulty,
-    target: center,
-    tolerance: difficulty === 3 ? 0.024 : 0.042,
-    eyebrow: "Map Sense · Terrain match",
-    prompt: "Place this reticle.",
-    explanation: "The reticle was centered on this exact point of the current battlefield overview.",
-    crop: {
-      center,
-      zoom: difficulty === 3 ? 8.4 : 5.6,
-      treatment: difficulty === 3 ? "mono" : "color",
-    },
-  };
-}
-
-const cropDefinitions = [
-  ...mapCrops.tricky.map((seed) => cropQuestion(seed, 2)),
-  ...mapCrops.brutal.map((seed) => cropQuestion(seed, 3)),
-];
 
 function boxCenter(camp: MapCamp): MapPosition {
   return {
@@ -286,7 +252,6 @@ const mapQuestion = (location: MapLocationDefinition, kind: "map-location" | Map
     targetLabel: location.targetLabel,
     tolerance: location.tolerance,
     ...(location.reference ? { reference: location.reference } : {}),
-    ...(location.crop ? { crop: location.crop } : {}),
     ...(location.choice ? { choice: location.choice } : {}),
   },
   source: {
@@ -303,7 +268,6 @@ export const mapSenseQuestions = [
   ...(mapChallenges as MapChallengeDefinition[]).map((challenge) =>
     mapQuestion(challenge, familyKinds[challenge.family]),
   ),
-  ...cropDefinitions.map((crop) => mapQuestion(crop, "map-crop")),
   ...campBlockDefinitions.map((camp) => mapQuestion(camp, "map-camp-block")),
   ...stackRouteDefinitions.map((camp) => mapQuestion(camp, "map-stack-route")),
 ];
