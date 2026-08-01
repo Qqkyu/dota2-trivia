@@ -27,6 +27,16 @@ export default function PrivacyPage() {
       </section>
 
       <section>
+        <h2>Alpha measurements</h2>
+        <p>
+          To improve the arcade, we count visits, completed rounds, correct answers, return visits, and one optional
+          session rating chosen from four fixed buttons. Player and visit identifiers are salted and hashed before they
+          are stored; the private owner dashboard shows aggregates only. Alpha visit summaries expire after 30 days. The
+          live “playing now” count stays only in server memory and forgets inactive players after 45 seconds.
+        </p>
+      </section>
+
+      <section>
         <h2>When you connect Steam</h2>
         <p>We store only the data needed for your Queue Arcade profile:</p>
         <ul>
@@ -43,7 +53,7 @@ export default function PrivacyPage() {
         <p>
           Connected profile results remain until you delete the profile. Sessions expire after 30 days. “Delete profile”
           removes the Steam identity, sessions, and saved personal results together. Connected data is stored in{" "}
-          <strong>{dataCountries}</strong>.
+          <strong>{dataCountries}</strong>. Deletion also removes alpha visit summaries linked to that account.
         </p>
       </section>
 

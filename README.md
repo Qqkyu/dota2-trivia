@@ -31,6 +31,8 @@ The playable MVP includes:
 - expiring raw round votes while durable per-question answer and report aggregates remain available;
 - reveal question reports for incorrect, outdated, ambiguous, or unclear content, with an opened report carrying into the next round and deduplicated per anonymous player;
 - a responsive calibration lab at `/calibration`, with Steam-protected reviewed/quarantined states and automatic reopening when new reports arrive;
+- ephemeral live-room presence plus a Steam-protected `/ops` dashboard for visits, return rate, rounds per visit, fixed feedback, and format health;
+- a compact Web Share/copy-link action and a proper social preview card;
 - optional Pusher broadcasts between connected browsers, with automatic polling as the zero-config fallback;
 - keyboard controls, responsive layouts, persistent mute and master volume, sound cues, and local lifetime stats;
 - optional Steam OpenID profiles with cross-browser accuracy, streaks, best-ten records, early solves, and per-format mastery;
@@ -106,10 +108,10 @@ ARCADE_DATA_COUNTRIES=Poland
 ARCADE_REVIEWER_STEAM_IDS=7656119xxxxxxxxxx
 ```
 
-`DATABASE_POOL_SIZE` defaults to 5. `ARCADE_ROUND_RETENTION_HOURS` defaults to 2: expired raw rounds and their voter hashes are deleted, while question-level accuracy and deduplicated reports remain. A single long-running instance with a persistent disk can deliberately retain the file backend by setting `ARCADE_ALLOW_FILE_STORE=true`, but Postgres is the supported public-alpha path.
+`DATABASE_POOL_SIZE` defaults to 5. `ARCADE_ROUND_RETENTION_HOURS` defaults to 2: expired raw rounds and their voter hashes are deleted, while question-level accuracy and deduplicated reports remain. Alpha visits contain only salted player/session hashes, timestamps, round/correct totals, and one optional fixed feedback value; they expire after 30 days. A single long-running instance with a persistent disk can deliberately retain the file backend by setting `ARCADE_ALLOW_FILE_STORE=true`, but Postgres is the supported public-alpha path.
 
 Use `GET /api/health` as the deployment readiness check. It verifies production configuration, initializes and queries
-the vote and account stores, and reports the active content version without exposing secrets. `ARCADE_APP_URL` must be
+the vote, account, and alpha stores, and reports the active content version without exposing secrets. `ARCADE_APP_URL` must be
 the canonical HTTPS origin used in Steam's return URL. `ARCADE_DATA_COUNTRIES` is displayed in `/privacy`, as required
 when Steam-linked data is stored. The authentication secret must be at least 32 characters and distinct from the voter
 salt. A standard [Steam Web API key](https://steamcommunity.com/dev/apikey) is optional and stays server-side; when it is
@@ -121,21 +123,25 @@ an open calibration signal as reviewed or quarantined. A reviewed question autom
 receives another report or its difficulty signal changes. Quarantine remains an explicit release decision and never
 silently removes a question from the running room.
 
+The same reviewer allowlist protects `/ops`. It shows aggregate alpha visits, unique and returning player counts, rounds
+per visit, fixed session feedback, and current-revision format accuracy/report rates. It never exposes a player hash or
+individual answer. The “playing now” number is an in-memory 45-second pulse and is not written to storage.
+
 Unhandled server failures and sanitized browser failures are emitted as structured host logs with a release identifier
 and stable fingerprint. Browser diagnostics contain only an error type, page path, fingerprint, and optional framework
 digest—never error text, stack traces, query strings, or player identifiers. The app shows a retry screen instead of a
 blank page when a React render fails.
 
 Connected sessions are represented by random HttpOnly, SameSite cookies; only a one-way token hash is stored. Deleting
-the profile cascades through the Steam identity, active sessions, and personal round results. Public leaderboards are
+the profile cascades through the Steam identity, active sessions, personal round results, and linked alpha visits. Public leaderboards are
 intentionally excluded from this alpha: the browser currently ships the playable question catalog, so a public ranking
 would reward scripting. Personal records are still calculated from server-accepted synchronized votes rather than a
 client-submitted score.
 
 Every push and pull request runs the full build in GitHub Actions, boots the production server against Postgres 17, and
 exercises synchronized rounds, hidden results, duplicate votes, reports, protected calibration review transitions,
-stable question revisions, Steam-state rejection, account sessions, personal-result idempotency, and cascading profile
-deletion.
+stable question revisions, Steam-state rejection, account sessions, personal-result idempotency, protected alpha ops,
+hashed visit summaries, fixed feedback, and cascading profile deletion.
 
 ## Refresh the Dota data
 
@@ -205,17 +211,17 @@ That validates the question deck, template rotation, answer balance, scan length
 
 With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared
 round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk
-persistence, hashed voter IDs, Steam OpenID state boundaries, account-store readiness, reveal-only report submission,
+persistence, hashed voter IDs, Steam OpenID state boundaries, account/alpha-store readiness, reveal-only report submission,
 report deduplication, aggregate-only calibration data, and that obsolete mode, level, or category values cannot split
 the public room. Against Postgres, it additionally seeds a reviewer session, verifies unauthorized review rejection plus
 reviewed/quarantined persistence and automatic reopening, proves a forged browser player ID cannot double vote, checks
-the stored personal record and profile summary, and verifies deletion cascades.
+the stored personal record and profile summary, tests protected alpha ops plus visit/feedback persistence, and verifies deletion cascades.
 
 For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run
 `node scripts/visual-smoke.mjs`. The script disables media playback again inside the page before loading anything, then
-checks the one-room lobby, fixed-size account entry, guest profile, privacy page, `/play` navigation, browser Back and
+checks the one-room lobby, share metadata/action, fixed-size account entry, guest profile, privacy page and private ops gate, `/play` navigation, browser Back and
 Forward, legacy-mode redirect, seven compact round identities, synchronized answering/reveal/automatic-advance journey,
-no-shift question-report popover, session report, mobile lobby, mobile calibration layout, overflow, and saves screenshots
+no-shift question-report popover, optional session feedback, session report, mobile lobby, mobile calibration layout, overflow, and saves screenshots
 under `/tmp`.
 
 ## Crowd architecture
@@ -229,10 +235,11 @@ The local persistent store is an atomic JSON file suited to development and a si
 ## Useful next steps
 
 1. Add the maintainer SteamID to `ARCADE_REVIEWER_STEAM_IDS`, then work the first real report and difficulty signals.
-2. Collect public-alpha samples and watch structured error fingerprints by release in the deployment logs.
-3. Review ordered-pair accuracy, then expand Soundcheck with carefully audited channel and announcer families.
-4. Prototype one low-reading interaction such as ordering four audited Dota values.
-5. Implement a second game's content pack only after the Dota public loop proves sticky.
+2. Share the production lobby with 5–15 Dota players, then review `/ops` after the first few sessions.
+3. Collect public-alpha samples and watch structured error fingerprints by release in the deployment logs.
+4. Review ordered-pair accuracy, then expand Soundcheck with carefully audited channel and announcer families.
+5. Prototype one low-reading interaction such as ordering four audited Dota values.
+6. Implement a second game's content pack only after the Dota public loop proves sticky.
 
 ## Attribution
 

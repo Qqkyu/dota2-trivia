@@ -1,5 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import Pusher from "pusher";
+import { isAlphaSessionId } from "@/lib/alpha-analytics.mjs";
+import { recordAlphaSessionRound } from "@/lib/alpha-store";
 import { sessionUserForRequest } from "@/lib/auth-session";
 import { rateLimitRequest } from "@/lib/api-protection";
 import { roundFormatForQuestion } from "@/lib/arcade-games.mjs";
@@ -51,7 +53,7 @@ export async function POST(request: NextRequest) {
     mode: candidate.mode,
     filter: candidate.filter,
   });
-  const { roundId, questionId, answerIndex, voterId } = candidate;
+  const { roundId, questionId, answerIndex, voterId, sessionId } = candidate;
 
   if (
     !settings ||
@@ -63,7 +65,8 @@ export async function POST(request: NextRequest) {
     answerIndex > 3 ||
     typeof voterId !== "string" ||
     voterId.length < 8 ||
-    voterId.length > 80
+    voterId.length > 80 ||
+    (sessionId !== undefined && !isAlphaSessionId(sessionId))
   ) {
     return NextResponse.json({ error: "Invalid vote." }, { status: 400 });
   }
@@ -134,6 +137,18 @@ export async function POST(request: NextRequest) {
         ),
         submittedAt: storedVote.submittedAt,
       });
+    }
+
+    if (result.accepted && typeof sessionId === "string") {
+      try {
+        await recordAlphaSessionRound(
+          { sessionId, voterId: effectiveVoterId },
+          resolvedAnswerIndex === question.correctIndex,
+          submittedAt,
+        );
+      } catch (error) {
+        logServerError("alpha-session.round", error, { roundId: roundId.slice(0, 160) });
+      }
     }
 
     if (result.accepted) {

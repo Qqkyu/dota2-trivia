@@ -27,6 +27,7 @@ import {
   Shuffle,
   Signal,
   ScanEye,
+  Share2,
   Swords,
   Trophy,
   Users,
@@ -59,6 +60,8 @@ import { LIVE_ROUND_GAMES, PUBLIC_ARCADE_MODE, PUBLIC_ROUND_FORMATS } from "@/li
 import { ARCADE_LOBBY_PATH, PUBLIC_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
 import { answerFeedbackKind, dotaFeedbackSoundForKind } from "@/lib/feedback-sounds.mjs";
+import { ALPHA_FEEDBACK_OPTIONS } from "@/lib/alpha-analytics.mjs";
+import type { AlphaFeedback } from "@/lib/alpha-store";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
 import type { MapBounds, MapChoiceChallenge, MapCrop, MapPosition, MapViewport } from "@/lib/map-types";
 import { MAP_READ_GRACE_MS, speedScoreRatio } from "@/lib/scoring.mjs";
@@ -392,6 +395,7 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     !("serverNow" in value) ||
     !("room" in value) ||
     !("round" in value) ||
+    !("presence" in value) ||
     !("crowd" in value) ||
     !("playerVote" in value) ||
     !("playerReport" in value)
@@ -402,6 +406,7 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
   const candidate = value as Partial<RoomSnapshot>;
   const room = candidate.room;
   const round = candidate.round;
+  const presence = candidate.presence;
   const crowd = normalizeCrowd(candidate.crowd);
   const playerVote = normalizePlayerVote(candidate.playerVote);
   const playerReport =
@@ -429,6 +434,10 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     typeof round.answerDeadline !== "number" ||
     typeof round.revealDeadline !== "number" ||
     typeof round.answerDuration !== "number" ||
+    !presence ||
+    typeof presence.activePlayers !== "number" ||
+    !Number.isInteger(presence.activePlayers) ||
+    presence.activePlayers < 0 ||
     !crowd ||
     playerVote === undefined ||
     playerReport === undefined
@@ -440,6 +449,7 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     serverNow: candidate.serverNow,
     room,
     round,
+    presence,
     crowd,
     playerVote,
     playerReport,
@@ -1275,6 +1285,10 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   const [roomError, setRoomError] = useState<string | null>(null);
   const [activeRoomId, setActiveRoomId] = useState("");
   const [activeRoundId, setActiveRoundId] = useState("");
+  const [activePlayers, setActivePlayers] = useState(0);
+  const [shareState, setShareState] = useState<"idle" | "shared" | "error">("idle");
+  const [sessionFeedback, setSessionFeedback] = useState<AlphaFeedback | null>(null);
+  const [feedbackState, setFeedbackState] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [roundAudioState, setRoundAudioState] = useState<"loading" | "ready" | "playing" | "error">("loading");
   const [roundAudioPlayCount, setRoundAudioPlayCount] = useState(0);
   const [roundAudioClipIndex, setRoundAudioClipIndex] = useState(0);
@@ -1311,6 +1325,8 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   const reportTargetRef = useRef<QuestionReportTarget | null>(null);
   const reportStateRef = useRef<"idle" | "sending" | "sent" | "error">("idle");
   const autoStartAttemptedRef = useRef(false);
+  const alphaSessionIdRef = useRef("");
+  const alphaSessionFinishedRef = useRef(false);
 
   const updateReportTarget = useCallback((target: QuestionReportTarget | null) => {
     reportTargetRef.current = target;
@@ -1356,6 +1372,50 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
     window.localStorage.setItem(PLAYER_KEY, id);
     playerIdRef.current = id;
     return id;
+  }, []);
+
+  const sendAlphaSessionEvent = useCallback(
+    async (action: "start" | "finish" | "feedback", sessionId: string, feedback?: AlphaFeedback) => {
+      const response = await fetch("/api/sessions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        keepalive: action === "finish",
+        body: JSON.stringify({ action, sessionId, voterId: ensurePlayerId(), ...(feedback ? { feedback } : {}) }),
+      });
+      if (!response.ok) throw new Error("Alpha session unavailable.");
+    },
+    [ensurePlayerId],
+  );
+
+  const finishAlphaSession = useCallback(() => {
+    const sessionId = alphaSessionIdRef.current;
+    if (!sessionId || alphaSessionFinishedRef.current) return;
+    alphaSessionFinishedRef.current = true;
+    void sendAlphaSessionEvent("finish", sessionId).catch(() => undefined);
+  }, [sendAlphaSessionEvent]);
+
+  const shareArcade = useCallback(async () => {
+    const url = new URL(ARCADE_LOBBY_PATH, window.location.origin).href;
+    const shareData = {
+      title: "Queue Arcade",
+      text: "Dota side quests for the time between Find Match and Accept.",
+      url,
+    };
+    try {
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+          setShareState("shared");
+          return;
+        } catch (error) {
+          if (error instanceof DOMException && error.name === "AbortError") return;
+        }
+      }
+      await navigator.clipboard.writeText(url);
+      setShareState("shared");
+    } catch {
+      setShareState("error");
+    }
   }, []);
 
   const playSound = useCallback(
@@ -1567,6 +1627,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       roomSnapshotRef.current = snapshot;
       setActiveRoomId(snapshot.room.id);
       setActiveRoundId(snapshot.round.id);
+      setActivePlayers(snapshot.presence.activePlayers);
       setCrowd(snapshot.crowd);
       setRoomError(null);
       setNow(receivedAt);
@@ -1716,11 +1777,17 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
         setHistory([]);
         setRunDuration(0);
         setQueueStartedAt(startedAt);
+        const alphaSessionId = window.crypto.randomUUID();
+        alphaSessionIdRef.current = alphaSessionId;
+        alphaSessionFinishedRef.current = false;
+        setSessionFeedback(null);
+        setFeedbackState("idle");
         updateReportTarget(null);
         setReportNotice(null);
         setReportedReason(null);
         updateReportState("idle");
         applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
+        void sendAlphaSessionEvent("start", alphaSessionId).catch(() => undefined);
         if (updateHistory && window.location.pathname !== PUBLIC_ARCADE_PATH) {
           window.history.pushState({ queueArcadeView: "play" }, "", PUBLIC_ARCADE_PATH);
         }
@@ -1739,6 +1806,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       joiningRoom,
       playSound,
       requestRoomSnapshot,
+      sendAlphaSessionEvent,
       updateReportState,
       updateReportTarget,
     ],
@@ -1866,6 +1934,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
             answerIndex,
             ...(mapPosition ? { mapPosition } : {}),
             voterId: ensurePlayerId(),
+            ...(alphaSessionIdRef.current ? { sessionId: alphaSessionIdRef.current } : {}),
           }),
         });
         const payload: unknown = await response.json();
@@ -1962,6 +2031,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
     if (phaseRef.current === "lobby" || phaseRef.current === "summary") return;
     const finishedAt = Date.now();
     const startedAt = queueStartedAtRef.current ?? finishedAt;
+    finishAlphaSession();
     roomSettingsRef.current = null;
     roomSnapshotRef.current = null;
     updateReportTarget(null);
@@ -1971,10 +2041,11 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
     setDeadline(null);
     setRevealDeadlineState(null);
     setPhase("summary");
-  }, [setDeadline, setPhase, updateReportState, updateReportTarget]);
+  }, [finishAlphaSession, setDeadline, setPhase, updateReportState, updateReportTarget]);
 
   const returnToLobby = useCallback(
     (historyAction: "push" | "replace" | "none" = "push") => {
+      if (phaseRef.current === "answering" || phaseRef.current === "reveal") finishAlphaSession();
       roomSettingsRef.current = null;
       roomSnapshotRef.current = null;
       roundIdRef.current = "";
@@ -1995,7 +2066,25 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
         window.history[method]({ queueArcadeView: "lobby" }, "", ARCADE_LOBBY_PATH);
       }
     },
-    [setDeadline, setPhase, stopRoundAudio, updateReportState, updateReportTarget],
+    [finishAlphaSession, setDeadline, setPhase, stopRoundAudio, updateReportState, updateReportTarget],
+  );
+
+  const submitSessionFeedback = useCallback(
+    async (feedback: AlphaFeedback) => {
+      const sessionId = alphaSessionIdRef.current;
+      if (!sessionId || feedbackState === "saving") return;
+      const previous = sessionFeedback;
+      setSessionFeedback(feedback);
+      setFeedbackState("saving");
+      try {
+        await sendAlphaSessionEvent("feedback", sessionId, feedback);
+        setFeedbackState("saved");
+      } catch {
+        setSessionFeedback(previous);
+        setFeedbackState("error");
+      }
+    },
+    [feedbackState, sendAlphaSessionEvent, sessionFeedback],
   );
 
   useEffect(() => {
@@ -2057,6 +2146,49 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, [phase, syncRoom]);
+
+  useEffect(() => {
+    if (phase !== "lobby") return;
+    let active = true;
+    const loadPresence = async () => {
+      try {
+        const response = await fetch("/api/presence", { cache: "no-store" });
+        const payload: unknown = await response.json();
+        if (
+          active &&
+          response.ok &&
+          payload &&
+          typeof payload === "object" &&
+          "activePlayers" in payload &&
+          typeof payload.activePlayers === "number" &&
+          Number.isInteger(payload.activePlayers) &&
+          payload.activePlayers >= 0
+        ) {
+          setActivePlayers(payload.activePlayers);
+        }
+      } catch {
+        // Presence is decorative; room entry must stay independent from it.
+      }
+    };
+    void loadPresence();
+    const interval = window.setInterval(() => void loadPresence(), 15_000);
+    return () => {
+      active = false;
+      window.clearInterval(interval);
+    };
+  }, [phase]);
+
+  useEffect(() => {
+    if (shareState === "idle") return;
+    const timeout = window.setTimeout(() => setShareState("idle"), 2_500);
+    return () => window.clearTimeout(timeout);
+  }, [shareState]);
+
+  useEffect(() => {
+    const handlePageHide = () => finishAlphaSession();
+    window.addEventListener("pagehide", handlePageHide);
+    return () => window.removeEventListener("pagehide", handlePageHide);
+  }, [finishAlphaSession]);
 
   useEffect(() => {
     if (phase === "answering" && deadline && now >= deadline) void syncRoom();
@@ -2337,7 +2469,9 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
           <div className={styles.lobbyCopy}>
             <div className={styles.liveLabel}>
               <span />
-              One public room · Ten round formats
+              {activePlayers > 0
+                ? `${activePlayers.toLocaleString("en-US")} playing now · Ten round formats`
+                : "One public room · Ten round formats"}
             </div>
             <h1>
               Your queue has
@@ -2373,6 +2507,16 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 {joiningRoom ? "Joining public room…" : activeModeInfo.action}
                 <ChevronRight />
               </button>
+              <button
+                type="button"
+                className={styles.shareButton}
+                data-testid="share-arcade"
+                onClick={() => void shareArcade()}
+                aria-label="Share Queue Arcade"
+              >
+                <Share2 />
+                <span>{shareState === "shared" ? "Link ready" : shareState === "error" ? "Try again" : "Share"}</span>
+              </button>
               <div className={styles.accountActionSlot} data-testid="account-action-slot">
                 {account === null ? (
                   <span className={styles.accountLoading} aria-hidden="true" />
@@ -2396,7 +2540,10 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
 
             <div className={clsx(styles.roomNotice, roomError && styles.roomNoticeError)} aria-live="polite">
               <Signal />
-              {roomError ?? "Live room · one shared round and reveal"}
+              {roomError ??
+                (activePlayers > 0
+                  ? `${activePlayers.toLocaleString("en-US")} playing now · one shared round`
+                  : "Live room · one shared round and reveal")}
             </div>
 
             <div className={styles.featureStrip}>
@@ -3098,7 +3245,9 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 <strong>{formatDuration(sessionElapsed)}</strong>
               </div>
               <div className={styles.queueDetails}>
-                <span>Server timed</span>
+                <span data-testid="room-presence">
+                  {activePlayers.toLocaleString("en-US")} {activePlayers === 1 ? "player" : "players"} online
+                </span>
                 <i />
                 <span title={roomError ?? activeRoomId}>{roomError ? "Reconnecting" : "Live room"}</span>
               </div>
@@ -3331,11 +3480,37 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
             </div>
           </div>
 
+          <div className={styles.sessionFeedback} data-testid="session-feedback">
+            <span>
+              <strong>How did that feel?</strong>
+              <small>{feedbackState === "saved" ? "Saved—thank you" : "Optional"}</small>
+            </span>
+            <div role="group" aria-label="Session feedback">
+              {ALPHA_FEEDBACK_OPTIONS.map((option) => (
+                <button
+                  key={option.id}
+                  type="button"
+                  data-testid="session-feedback-option"
+                  aria-pressed={sessionFeedback === option.id}
+                  onClick={() => void submitSessionFeedback(option.id as AlphaFeedback)}
+                  disabled={feedbackState === "saving"}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+            {feedbackState === "error" && <small role="alert">Couldn’t save · try again</small>}
+          </div>
+
           <div className={styles.summaryActions}>
             <button type="button" className={styles.primaryButton} onClick={() => void startRun()}>
               <RotateCcw />
               Play again
               <ChevronRight />
+            </button>
+            <button type="button" className={styles.secondaryButton} onClick={() => void shareArcade()}>
+              <Share2 />
+              {shareState === "shared" ? "Link ready" : "Share arcade"}
             </button>
             <button type="button" className={styles.secondaryButton} onClick={() => returnToLobby("replace")}>
               Back to arcade

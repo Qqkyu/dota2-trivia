@@ -31,7 +31,7 @@ export function safeReturnTo(value) {
   try {
     const parsed = new URL(value, "https://queue-arcade.invalid");
     if (parsed.origin !== "https://queue-arcade.invalid") return "/";
-    if (!["/", "/play", "/profile"].includes(parsed.pathname)) return "/";
+    if (!["/", "/play", "/profile", "/ops"].includes(parsed.pathname)) return "/";
     return `${parsed.pathname}${parsed.search}`;
   } catch {
     return "/";

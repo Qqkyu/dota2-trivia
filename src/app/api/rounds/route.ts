@@ -5,6 +5,7 @@ import { rateLimitRequest } from "@/lib/api-protection";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
 import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
+import { touchRoomPresence } from "@/lib/room-presence.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 import { getPlayerQuestionReport, getRoundCrowd } from "@/lib/vote-store";
 
@@ -37,6 +38,7 @@ export async function GET(request: NextRequest) {
     if (rateLimited) return rateLimited;
     const serverNow = Date.now();
     const { room, round } = currentPublicRound(settings, serverNow);
+    const activePlayers = effectivePlayerId ? touchRoomPresence(room.id, effectivePlayerId, serverNow) : 0;
     const question = GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === round.questionId);
     if (!question) throw new Error(`Public question ${round.questionId} is missing from the active catalog.`);
     const [result, playerReport] = await Promise.all([
@@ -55,6 +57,7 @@ export async function GET(request: NextRequest) {
         serverNow,
         room,
         round,
+        presence: { activePlayers },
         crowd: {
           counts: round.phase === "reveal" ? result.counts : HIDDEN_COUNTS,
           total: result.total,

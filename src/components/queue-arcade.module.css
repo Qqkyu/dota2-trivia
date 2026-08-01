@@ -569,6 +569,34 @@
   margin-top: 0;
 }
 
+.shareButton {
+  display: inline-flex;
+  width: 104px;
+  height: 52px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 10px;
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 255, 255, 0.025);
+  color: var(--muted);
+  font-size: 12px;
+  cursor: pointer;
+  transition: 150ms ease;
+}
+
+.shareButton:hover,
+.shareButton:focus-visible {
+  border-color: rgba(104, 198, 217, 0.4);
+  background: rgba(104, 198, 217, 0.05);
+  color: #c7e8ed;
+}
+
+.shareButton svg {
+  width: 15px;
+}
+
 .accountActionSlot {
   display: grid;
   width: 180px;
@@ -4609,6 +4637,71 @@
   text-align: center;
 }
 
+.sessionFeedback {
+  display: grid;
+  align-items: center;
+  gap: 14px;
+  grid-template-columns: minmax(150px, 1fr) auto;
+  margin-top: 12px;
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.11);
+}
+
+.sessionFeedback > span {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sessionFeedback > span strong {
+  color: #d5d9d5;
+  font-size: 12px;
+  font-weight: 590;
+}
+
+.sessionFeedback > span small,
+.sessionFeedback > small {
+  color: var(--faint);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sessionFeedback > div {
+  display: flex;
+  gap: 6px;
+}
+
+.sessionFeedback button {
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--muted);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.sessionFeedback button:hover:not(:disabled),
+.sessionFeedback button:focus-visible,
+.sessionFeedback button[aria-pressed="true"] {
+  border-color: rgba(118, 198, 138, 0.35);
+  background: rgba(64, 120, 76, 0.1);
+  color: #bee2c7;
+}
+
+.sessionFeedback button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.sessionFeedback > small {
+  grid-column: 1 / -1;
+  color: var(--red-bright);
+}
+
 .summaryActions {
   display: flex;
   justify-content: center;
@@ -4633,6 +4726,12 @@
   border-color: rgba(255, 255, 255, 0.28);
   background: rgba(255, 255, 255, 0.045);
   color: var(--text);
+}
+
+.secondaryButton svg {
+  width: 14px;
+  margin-right: 7px;
+  vertical-align: middle;
 }
 
 .footer {
@@ -5026,7 +5125,8 @@
 
   .accountActionSlot,
   .accountLoading,
-  .profileAction {
+  .profileAction,
+  .shareButton {
     width: 100%;
   }
 
@@ -5418,6 +5518,16 @@
 
   .summaryActions {
     flex-direction: column;
+  }
+
+  .sessionFeedback {
+    align-items: stretch;
+    grid-template-columns: 1fr;
+  }
+
+  .sessionFeedback > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 
   .secondaryButton {

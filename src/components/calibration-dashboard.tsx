@@ -156,10 +156,18 @@ export function CalibrationDashboard({
             <small>Calibration lab</small>
           </span>
         </Link>
-        <Link href="/" className={styles.backLink}>
-          <ArrowLeft />
-          Back to arcade
-        </Link>
+        <div className={styles.headerActions}>
+          {canReview && (
+            <Link href="/ops" className={styles.backLink}>
+              <BarChart3 />
+              Alpha ops
+            </Link>
+          )}
+          <Link href="/" className={styles.backLink}>
+            <ArrowLeft />
+            Back to arcade
+          </Link>
+        </div>
       </header>
 
       <section className={styles.hero}>

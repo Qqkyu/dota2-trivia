@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAccountStoreHealth } from "@/lib/account-store";
+import { getAlphaStoreHealth } from "@/lib/alpha-store";
 import { configuredApplicationOrigin, configuredAuthSecret, configuredDataCountries } from "@/lib/auth-session";
 import { DEFAULT_GAME_ID, GAME_CATALOGS } from "@/lib/game-catalogs";
 import { configuredReviewerSteamIds, invalidReviewerSteamIds } from "@/lib/question-review";
@@ -26,12 +27,17 @@ export async function GET(request: Request) {
     ) {
       throw new Error("Production file storage requires an explicit ARCADE_ALLOW_FILE_STORE=true opt-in.");
     }
-    const [storage, accounts] = await Promise.all([getVoteStoreHealth(), getAccountStoreHealth()]);
+    const [storage, accounts, alpha] = await Promise.all([
+      getVoteStoreHealth(),
+      getAccountStoreHealth(),
+      getAlphaStoreHealth(),
+    ]);
     return NextResponse.json(
       {
         status: "ready",
         storage,
         accounts,
+        alpha,
         steam: { profileEnrichment: Boolean(process.env.STEAM_WEB_API_KEY?.trim()) },
         reviews: { reviewersConfigured: configuredReviewerSteamIds().length },
         content: {

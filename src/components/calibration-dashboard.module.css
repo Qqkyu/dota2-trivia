@@ -85,6 +85,11 @@
   width: 15px;
 }
 
+.headerActions {
+  display: flex;
+  gap: 8px;
+}
+
 .hero {
   display: grid;
   align-items: end;

@@ -43,10 +43,15 @@ export interface PublicRound {
   answerDuration: number;
 }
 
+export interface RoomPresence {
+  activePlayers: number;
+}
+
 export interface RoomSnapshot {
   serverNow: number;
   room: PublicRoom;
   round: PublicRound;
+  presence: RoomPresence;
   crowd: CrowdResult;
   playerVote: PlayerVote | null;
   playerReport: ReportReason | null;

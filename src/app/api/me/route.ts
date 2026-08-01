@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { deleteAlphaVisitor } from "@/lib/alpha-store";
 import { clearAccountSessionCookie, isSameOriginMutation, sessionUserForRequest } from "@/lib/auth-session";
 import { deleteAccount, getAccountProfile } from "@/lib/account-store";
 import { DEFAULT_GAME_ID } from "@/lib/game-catalogs";
@@ -30,6 +31,7 @@ export async function DELETE(request: NextRequest) {
   try {
     const user = await sessionUserForRequest(request);
     if (!user) return NextResponse.json({ error: "Sign in required." }, { status: 401 });
+    await deleteAlphaVisitor(`account:${user.id}`);
     await deleteAccount(user.id);
     const response = NextResponse.json({ deleted: true });
     clearAccountSessionCookie(response);

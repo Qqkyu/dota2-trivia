@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { PROGRESSIVE_ROUND_GAMES } from "../src/lib/player-profile.mjs";
@@ -24,6 +24,7 @@ const settings = {
 };
 const firstPlayer = `multiplayer-smoke-a-${randomUUID()}`;
 const secondPlayer = `multiplayer-smoke-b-${randomUUID()}`;
+const alphaSessionId = randomUUID();
 const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 const expectedStorageBackend = process.env.DATABASE_URL?.trim() ? "postgres" : "file";
 const healthResponse = await fetch(`${appUrl}/api/health`, { cache: "no-store" });
@@ -34,10 +35,14 @@ if (
   health.status !== "ready" ||
   health.storage?.backend !== expectedStorageBackend ||
   health.accounts?.backend !== expectedStorageBackend ||
+  health.alpha?.backend !== expectedStorageBackend ||
+  health.alpha?.retentionDays !== 30 ||
   health.accounts?.ok !== true ||
   health.reviews?.reviewersConfigured !== configuredReviewerIds.length
 ) {
-  throw new Error(`The readiness endpoint did not confirm the ${expectedStorageBackend} vote and account stores.`);
+  throw new Error(
+    `The readiness endpoint did not confirm the ${expectedStorageBackend} vote, account, and alpha stores.`,
+  );
 }
 
 const invalidDiagnostic = await fetch(`${appUrl}/api/diagnostics`, {
@@ -125,6 +130,20 @@ async function seedPostgresAccount() {
 const smokeAccount = await seedPostgresAccount();
 const accountHeaders = smokeAccount?.headers ?? {};
 const secondAccountHeaders = smokeAccount?.secondHeaders ?? accountHeaders;
+const effectiveAlphaVoterId = smokeAccount ? `account:${smokeAccount.userId}` : firstPlayer;
+const alphaSalt = process.env.ARCADE_VOTER_SALT || "queue-arcade-local-v1";
+const alphaSessionHash = createHash("sha256")
+  .update(`${alphaSalt}:alpha-session:${effectiveAlphaVoterId}:${alphaSessionId}`)
+  .digest("base64url");
+const alphaVisitorHash = createHash("sha256")
+  .update(`${alphaSalt}:alpha-visitor:${effectiveAlphaVoterId}`)
+  .digest("base64url");
+
+const guestOpsResponse = await fetch(`${appUrl}/ops`, { cache: "no-store" });
+const guestOpsPage = await guestOpsResponse.text();
+if (!guestOpsResponse.ok || !guestOpsPage.includes('data-access="signed-out"')) {
+  throw new Error("The private alpha dashboard did not gate anonymous visitors.");
+}
 
 if (smokeAccount) {
   const meResponse = await fetch(`${appUrl}/api/me`, { headers: accountHeaders, cache: "no-store" });
@@ -203,6 +222,26 @@ async function report(snapshot, playerId, reason, roomSettings = settings, reque
   };
 }
 
+async function alphaSessionEvent(action, extraFields = {}, requestHeaders = {}, includeOrigin = true) {
+  const response = await fetch(`${appUrl}/api/sessions`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(includeOrigin ? { Origin: appOrigin } : {}),
+      ...requestHeaders,
+    },
+    body: JSON.stringify({ action, sessionId: alphaSessionId, voterId: firstPlayer, ...extraFields }),
+  });
+  return { status: response.status, body: await response.json() };
+}
+
+const crossOriginlessSession = await alphaSessionEvent("start", {}, accountHeaders, false);
+const invalidFeedback = await alphaSessionEvent("feedback", { feedback: "raw-comment" }, accountHeaders);
+const startedAlphaSession = await alphaSessionEvent("start", {}, accountHeaders);
+if (crossOriginlessSession.status !== 403 || invalidFeedback.status !== 400 || startedAlphaSession.status !== 200) {
+  throw new Error("Alpha session writes do not enforce origin, fixed feedback, and valid starts.");
+}
+
 const firstSnapshot = await answeringRoundWithTime(firstPlayer, settings, accountHeaders);
 const secondSnapshot = await readRoom(secondPlayer);
 
@@ -211,6 +250,8 @@ if (
   firstSnapshot.round.answerDeadline !== secondSnapshot.round.answerDeadline ||
   firstSnapshot.round.revealDeadline !== secondSnapshot.round.revealDeadline ||
   firstSnapshot.round.answerDuration !== 15_000 ||
+  firstSnapshot.presence?.activePlayers < 1 ||
+  secondSnapshot.presence?.activePlayers < 2 ||
   "skillLevel" in firstSnapshot.room
 ) {
   throw new Error("Two clients did not receive the same level-free synchronized round and deadlines.");
@@ -248,7 +289,7 @@ if (firstSnapshot.crowd.counts.some((count) => count !== 0)) {
 
 const baselineTotal = firstSnapshot.crowd.total;
 const [firstVote, secondVote] = await Promise.all([
-  vote(firstSnapshot, firstPlayer, 0, settings, {}, accountHeaders),
+  vote(firstSnapshot, firstPlayer, 0, settings, { sessionId: alphaSessionId }, accountHeaders),
   vote(secondSnapshot, secondPlayer, 1),
 ]);
 const duplicateVote = await vote(
@@ -264,6 +305,12 @@ if (!firstVote.accepted || !secondVote.accepted || duplicateVote.accepted) {
   throw new Error(
     `Vote acceptance or duplicate-vote protection failed: ${JSON.stringify({ firstVote, secondVote, duplicateVote })}`,
   );
+}
+
+const finishedAlphaSession = await alphaSessionEvent("finish", {}, accountHeaders);
+const alphaFeedback = await alphaSessionEvent("feedback", { feedback: "fun" }, accountHeaders);
+if (finishedAlphaSession.status !== 200 || alphaFeedback.status !== 200 || alphaFeedback.body.feedback !== "fun") {
+  throw new Error("A completed alpha visit or its fixed feedback could not be saved.");
 }
 
 if (duplicateVote.playerVote?.answerIndex !== firstVote.playerVote?.answerIndex) {
@@ -484,6 +531,22 @@ if (smokeAccount && smokeReviewerSteamId === smokeAccount.steamId) {
   reviewWorkflowVerified = true;
 }
 
+let alphaOpsVerified = false;
+if (smokeAccount && smokeReviewerSteamId === smokeAccount.steamId) {
+  const opsResponse = await fetch(`${appUrl}/ops`, { headers: accountHeaders, cache: "no-store" });
+  const opsPage = await opsResponse.text();
+  if (
+    !opsResponse.ok ||
+    !opsPage.includes('data-testid="ops-dashboard"') ||
+    !opsPage.includes('data-access="granted"') ||
+    !opsPage.includes("Format health") ||
+    !opsPage.includes("Rounds / visit")
+  ) {
+    throw new Error("The allowlisted Steam reviewer could not open the private alpha dashboard.");
+  }
+  alphaOpsVerified = true;
+}
+
 let persisted;
 let questionRevision;
 let accountStoreVerified = false;
@@ -521,6 +584,12 @@ if (expectedStorageBackend === "postgres") {
         AND question_id = ${calibratedQuestion.questionId}
         AND question_revision = ${calibratedQuestion.questionRevision}
     `;
+    const alphaSessions = await sql`
+      SELECT session_hash, visitor_hash, started_at, last_seen_at, finished_at,
+        rounds_answered, correct_answers, feedback
+      FROM queue_arcade_alpha_sessions
+      WHERE session_hash = ${alphaSessionHash}
+    `;
     const personalRounds = smokeAccount
       ? await sql`
           SELECT round_id, question_id, round_game, round_format, correct, answer_stage, submitted_at
@@ -535,7 +604,7 @@ if (expectedStorageBackend === "postgres") {
           WHERE user_id = ${smokeAccount.userId}
         `
       : [];
-    const storedText = JSON.stringify({ rounds, questions, voterHashes, reporterHashes });
+    const storedText = JSON.stringify({ rounds, questions, voterHashes, reporterHashes, alphaSessions });
     persisted = rounds.length === 1;
     questionRevision = questions[0]?.question_revision;
     if (storedText.includes(firstPlayer) || storedText.includes(secondPlayer)) {
@@ -547,6 +616,18 @@ if (expectedStorageBackend === "postgres") {
       [...voterHashes, ...reporterHashes].some((row) => !/^[A-Za-z0-9_-]{43}$/.test(Object.values(row)[0]))
     ) {
       throw new Error("Postgres did not persist salted anonymous voter hashes.");
+    }
+    const alphaSession = alphaSessions[0];
+    if (
+      !alphaSession ||
+      alphaSession.session_hash !== alphaSessionHash ||
+      alphaSession.visitor_hash !== alphaVisitorHash ||
+      Number(alphaSession.rounds_answered) !== 1 ||
+      alphaSession.finished_at === null ||
+      alphaSession.feedback !== "fun" ||
+      storedText.includes(alphaSessionId)
+    ) {
+      throw new Error("Postgres did not persist the minimal hashed alpha visit and feedback.");
     }
     if (Number(questions[0]?.report_ambiguous) < 1 || Number(questions[0]?.report_outdated) < 1) {
       throw new Error("The anonymous question reports were not written to Postgres.");
@@ -601,6 +682,22 @@ if (expectedStorageBackend === "postgres") {
   if (!persistedText.includes('"ambiguous"') || !persistedText.includes('"outdated"')) {
     throw new Error("The anonymous question reports were not written to file storage.");
   }
+  const configuredAlphaFile = process.env.ARCADE_ALPHA_DATA_FILE?.trim();
+  const alphaFile = path.resolve(process.cwd(), configuredAlphaFile || ".data/queue-arcade-alpha.json");
+  const alphaText = await readFile(alphaFile, "utf8");
+  const alphaState = JSON.parse(alphaText);
+  const alphaSession = alphaState.sessions?.[alphaSessionHash];
+  if (
+    alphaState.version !== 1 ||
+    !alphaSession ||
+    alphaSession.visitorHash !== alphaVisitorHash ||
+    alphaSession.roundsAnswered !== 1 ||
+    !alphaSession.finishedAt ||
+    alphaText.includes(firstPlayer) ||
+    alphaText.includes(alphaSessionId)
+  ) {
+    throw new Error("The file backend did not persist the minimal hashed alpha visit safely.");
+  }
 }
 
 if (!persisted) {
@@ -641,7 +738,8 @@ if (smokeAccount) {
         (SELECT COUNT(*) FROM queue_arcade_users WHERE id = ${smokeAccount.userId}) AS users,
         (SELECT COUNT(*) FROM queue_arcade_user_identities WHERE user_id = ${smokeAccount.userId}) AS identities,
         (SELECT COUNT(*) FROM queue_arcade_user_sessions WHERE user_id = ${smokeAccount.userId}) AS sessions,
-        (SELECT COUNT(*) FROM queue_arcade_player_rounds WHERE user_id = ${smokeAccount.userId}) AS rounds
+        (SELECT COUNT(*) FROM queue_arcade_player_rounds WHERE user_id = ${smokeAccount.userId}) AS rounds,
+        (SELECT COUNT(*) FROM queue_arcade_alpha_sessions WHERE session_hash = ${alphaSessionHash}) AS alpha_sessions
     `;
     if (Object.values(remaining[0] ?? {}).some((count) => Number(count) !== 0)) {
       throw new Error("Profile deletion did not cascade through identity, session, and result records.");
@@ -678,6 +776,9 @@ console.log(
       calibrationAggregates: true,
       diagnosticsBoundaryVerified: true,
       reviewWorkflowVerified,
+      roomPresenceVerified: firstSnapshot.presence?.activePlayers >= 1 && secondSnapshot.presence?.activePlayers >= 2,
+      alphaSessionVerified: true,
+      alphaOpsVerified,
       legacyModesCollapsedIntoPublicRoom: legacySettings.map(({ mode }) => mode),
       sharedDifficultyPoolVerified: true,
       legacyLevelSettingsIgnored: true,
