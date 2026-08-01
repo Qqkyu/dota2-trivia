@@ -262,9 +262,7 @@
 }
 
 .steamSignIn {
-  display: inline-grid;
-  min-height: 45px;
-  align-items: center;
+  margin-top: 1px;
 }
 
 .privacyNote {

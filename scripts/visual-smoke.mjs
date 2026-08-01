@@ -142,9 +142,15 @@ const lobby = await evaluate(`(() => {
     muted: Boolean(document.querySelector('button[aria-label="Enable game sounds"]')),
     volume: document.querySelector('[data-testid="game-volume"]')?.value,
     steamButtons: document.querySelectorAll('[data-testid="steam-sign-in"]').length,
-    steamImageLoaded: (() => {
-      const image = document.querySelector('[data-testid="steam-sign-in"] img');
-      return image?.complete && image.naturalWidth === 180 && image.naturalHeight === 35;
+    steamButton: (() => {
+      const button = document.querySelector('[data-testid="steam-sign-in"]');
+      const bounds = button?.getBoundingClientRect();
+      return bounds ? {
+        width: bounds.width,
+        height: bounds.height,
+        hasMark: Boolean(button.querySelector("svg")),
+        label: button.textContent?.trim()
+      } : null;
     })(),
     accountSlot: (() => {
       const bounds = document.querySelector('[data-testid="account-action-slot"]')?.getBoundingClientRect();
@@ -162,9 +168,15 @@ const profile = await evaluate(`({
   title: document.title,
   heading: document.querySelector("h1")?.innerText,
   steamButtons: document.querySelectorAll('[data-testid="steam-sign-in"]').length,
-  steamImageLoaded: (() => {
-    const image = document.querySelector('[data-testid="steam-sign-in"] img');
-    return image?.complete && image.naturalWidth === 180 && image.naturalHeight === 35;
+  steamButton: (() => {
+    const button = document.querySelector('[data-testid="steam-sign-in"]');
+    const bounds = button?.getBoundingClientRect();
+    return bounds ? {
+      width: bounds.width,
+      height: bounds.height,
+      hasMark: Boolean(button.querySelector("svg")),
+      label: button.textContent?.trim()
+    } : null;
   })(),
   anonymousPlay: document.body.innerText.includes("Anonymous play stays available"),
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
@@ -344,7 +356,10 @@ if (
   Math.abs(lobby.markCenter - lobby.copyCenter) > 0.5 ||
   lobby.horizontalOverflow ||
   lobby.steamButtons !== 1 ||
-  !lobby.steamImageLoaded ||
+  !lobby.steamButton?.hasMark ||
+  lobby.steamButton?.label !== "Sign in with Steam" ||
+  (lobby.steamButton?.width ?? 999) > 160 ||
+  Math.abs((lobby.steamButton?.height ?? 0) - 38) > 0.5 ||
   Math.abs((lobby.accountSlot?.width ?? 0) - 180) > 0.5 ||
   Math.abs((lobby.accountSlot?.height ?? 0) - 52) > 0.5
 ) {
@@ -354,7 +369,10 @@ if (
   !profile.title.includes("Profile") ||
   !profile.heading?.includes("Keep your streak") ||
   profile.steamButtons !== 1 ||
-  !profile.steamImageLoaded ||
+  !profile.steamButton?.hasMark ||
+  profile.steamButton?.label !== "Sign in with Steam" ||
+  (profile.steamButton?.width ?? 999) > 160 ||
+  Math.abs((profile.steamButton?.height ?? 0) - 38) > 0.5 ||
   !profile.anonymousPlay ||
   profile.horizontalOverflow
 ) {
