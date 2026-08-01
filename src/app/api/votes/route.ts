@@ -9,6 +9,7 @@ import { isMapPosition, mapAnswerIndex } from "@/lib/map-sense";
 import { answerStageForRound } from "@/lib/player-profile.mjs";
 import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
+import { logServerError } from "@/lib/server-diagnostics";
 import { recordRoundVote } from "@/lib/vote-store";
 
 export const runtime = "nodejs";
@@ -71,7 +72,7 @@ export async function POST(request: NextRequest) {
   try {
     accountUser = await sessionUserForRequest(request);
   } catch (error) {
-    console.error("Could not resolve the voting account.", error);
+    logServerError("votes.account-session", error);
     return NextResponse.json({ error: "Vote storage unavailable." }, { status: 503 });
   }
   const effectiveVoterId = accountUser ? `account:${accountUser.id}` : voterId;
@@ -148,7 +149,7 @@ export async function POST(request: NextRequest) {
             positions: [],
           });
         } catch (error) {
-          console.error("Could not broadcast arcade vote.", error);
+          logServerError("votes.broadcast", error, { roundId: roundId.slice(0, 160) });
         }
       }
     }
@@ -168,7 +169,7 @@ export async function POST(request: NextRequest) {
       },
     );
   } catch (error) {
-    console.error("Could not persist the arcade vote.", error);
+    logServerError("votes.persist", error, { roundId: roundId.slice(0, 160), questionId: questionId.slice(0, 120) });
     return NextResponse.json({ error: "Vote storage unavailable." }, { status: 503 });
   }
 }

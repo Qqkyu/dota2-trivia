@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { clearAccountSessionCookie, isSameOriginMutation, sessionUserForRequest } from "@/lib/auth-session";
 import { deleteAccount, getAccountProfile } from "@/lib/account-store";
 import { DEFAULT_GAME_ID } from "@/lib/game-catalogs";
+import { logServerError } from "@/lib/server-diagnostics";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -17,7 +18,7 @@ export async function GET(request: NextRequest) {
       headers: { "Cache-Control": "no-store" },
     });
   } catch (error) {
-    console.error("Could not load the Queue Arcade profile.", error);
+    logServerError("profile.load", error);
     return NextResponse.json({ error: "Profile storage unavailable." }, { status: 503 });
   }
 }
@@ -34,7 +35,7 @@ export async function DELETE(request: NextRequest) {
     clearAccountSessionCookie(response);
     return response;
   } catch (error) {
-    console.error("Could not delete the Queue Arcade profile.", error);
+    logServerError("profile.delete", error);
     return NextResponse.json({ error: "Profile deletion failed." }, { status: 503 });
   }
 }

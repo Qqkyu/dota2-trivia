@@ -5,6 +5,7 @@ import { emptyReportCounts, isReportReason, type ReportCounts, type ReportReason
 import type { GameId } from "@/lib/game-catalogs";
 import { MAP_SENSE_MAX_CROWD_PINS } from "@/lib/map-sense";
 import type { MapPosition } from "@/lib/map-types";
+import type { QuestionReviewState, StoredQuestionReview } from "@/lib/question-review";
 import { anonymousVoterHash } from "@/lib/voter-hash";
 
 interface StoredRound {
@@ -67,15 +68,26 @@ export interface QuestionReportInput {
   submittedAt: number;
 }
 
+export interface QuestionReviewInput {
+  gameId: GameId;
+  questionId: string;
+  questionRevision: string;
+  state: QuestionReviewState;
+  reportTotalAtReview: number;
+  signalStatusAtReview: StoredQuestionReview["signalStatusAtReview"];
+  updatedAt: number;
+}
+
 export interface VoteStoreHealth {
   backend: "file" | "postgres";
   ok: true;
 }
 
 interface PersistentVoteState {
-  version: 1 | 2;
+  version: 1 | 2 | 3;
   rounds: Record<string, StoredRound>;
   questions: Record<string, StoredQuestion>;
+  reviews?: Record<string, StoredQuestionReview>;
 }
 
 interface RuntimeVoteStore {
@@ -106,9 +118,10 @@ globalVoteStore.__queueArcadePersistentVotes = runtime;
 
 function emptyState(): PersistentVoteState {
   return {
-    version: 2,
+    version: 3,
     rounds: {},
     questions: {},
+    reviews: {},
   };
 }
 
@@ -124,7 +137,9 @@ function validState(value: unknown): value is PersistentVoteState {
   if (!value || typeof value !== "object") return false;
   const candidate = value as Partial<PersistentVoteState>;
   return (
-    (candidate.version === 1 || candidate.version === 2) && Boolean(candidate.rounds) && Boolean(candidate.questions)
+    (candidate.version === 1 || candidate.version === 2 || candidate.version === 3) &&
+    Boolean(candidate.rounds) &&
+    Boolean(candidate.questions)
   );
 }
 
@@ -133,7 +148,7 @@ async function loadState(): Promise<PersistentVoteState> {
     const raw = await readFile(/* turbopackIgnore: true */ runtime.filePath, "utf8");
     const parsed: unknown = JSON.parse(raw);
     if (!validState(parsed)) throw new Error("Unsupported persistent vote format.");
-    return { ...parsed, version: 2 as const };
+    return { ...parsed, version: 3 as const, reviews: parsed.reviews ?? {} };
   } catch (error) {
     const code = error && typeof error === "object" && "code" in error ? error.code : null;
     if (code === "ENOENT") return emptyState();
@@ -322,6 +337,29 @@ async function fileGetQuestionStats(
   }));
 }
 
+async function fileGetQuestionReviews(
+  gameId: GameId,
+  questionRevisions: ReadonlyMap<string, string>,
+): Promise<StoredQuestionReview[]> {
+  await runtime.writeQueue;
+  const state = await stateForRuntime();
+  return Object.values(state.reviews ?? {})
+    .filter(
+      (review) => review.gameId === gameId && questionRevisions.get(review.questionId) === review.questionRevision,
+    )
+    .map((review) => ({ ...review }));
+}
+
+async function fileSetQuestionReview(input: QuestionReviewInput): Promise<StoredQuestionReview> {
+  return mutate((state) => {
+    const key = questionKey(input.gameId, input.questionId, input.questionRevision);
+    const review: StoredQuestionReview = { ...input };
+    state.reviews ??= {};
+    state.reviews[key] = review;
+    return { ...review };
+  });
+}
+
 async function fileRecordRoundVote(input: RoundVoteInput): Promise<VoteResult> {
   return mutate((state) => {
     const hash = anonymousVoterHash(input.roomId, input.voterId);
@@ -470,6 +508,14 @@ export async function getQuestionStats(
   return fileGetQuestionStats(gameId, contentVersion, questionRevisions);
 }
 
+export async function getQuestionReviews(
+  gameId: GameId,
+  questionRevisions: ReadonlyMap<string, string>,
+): Promise<StoredQuestionReview[]> {
+  if (usesPostgres()) return (await postgresStore()).getQuestionReviews(gameId, questionRevisions);
+  return fileGetQuestionReviews(gameId, questionRevisions);
+}
+
 export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult> {
   if (usesPostgres()) return (await postgresStore()).recordRoundVote(input);
   return fileRecordRoundVote(input);
@@ -478,4 +524,9 @@ export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult
 export async function recordQuestionReport(input: QuestionReportInput): Promise<ReportResult> {
   if (usesPostgres()) return (await postgresStore()).recordQuestionReport(input);
   return fileRecordQuestionReport(input);
+}
+
+export async function setQuestionReview(input: QuestionReviewInput): Promise<StoredQuestionReview> {
+  if (usesPostgres()) return (await postgresStore()).setQuestionReview(input);
+  return fileSetQuestionReview(input);
 }

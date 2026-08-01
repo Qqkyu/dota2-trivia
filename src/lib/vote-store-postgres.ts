@@ -4,7 +4,15 @@ import { isReportReason } from "@/lib/calibration";
 import type { GameId } from "@/lib/game-catalogs";
 import { MAP_SENSE_MAX_CROWD_PINS } from "@/lib/map-sense";
 import type { MapPosition } from "@/lib/map-types";
-import type { QuestionReportInput, QuestionStats, RoundVoteInput, VoteStoreHealth } from "@/lib/vote-store";
+import type { StoredQuestionReview } from "@/lib/question-review";
+import type {
+  QuestionReportInput,
+  QuestionReviewInput,
+  QuestionStats,
+  RoundVoteInput,
+  VoteStoreHealth,
+} from "@/lib/vote-store";
+import { logServerError } from "@/lib/server-diagnostics";
 import { anonymousVoterHash } from "@/lib/voter-hash";
 
 type Numeric = number | string;
@@ -46,6 +54,16 @@ interface QuestionRow extends CountRow {
   report_outdated: Numeric;
   report_ambiguous: Numeric;
   report_unclear: Numeric;
+  updated_at: Numeric;
+}
+
+interface QuestionReviewRow {
+  game_id: string;
+  question_id: string;
+  question_revision: string;
+  state: StoredQuestionReview["state"];
+  report_total_at_review: Numeric;
+  signal_status_at_review: StoredQuestionReview["signalStatusAtReview"];
   updated_at: Numeric;
 }
 
@@ -138,6 +156,18 @@ async function ensureSchema() {
             ON DELETE CASCADE
         )
       `;
+      await transaction`
+        CREATE TABLE IF NOT EXISTS queue_arcade_question_reviews (
+          game_id TEXT NOT NULL,
+          question_id TEXT NOT NULL,
+          question_revision TEXT NOT NULL,
+          state TEXT NOT NULL CHECK (state IN ('open', 'reviewed', 'quarantined')),
+          report_total_at_review BIGINT NOT NULL DEFAULT 0,
+          signal_status_at_review TEXT NOT NULL,
+          updated_at BIGINT NOT NULL,
+          PRIMARY KEY (game_id, question_id, question_revision)
+        )
+      `;
     });
   })();
   globalPostgres.__queueArcadePostgresSchema = schemaPromise.catch((error) => {
@@ -186,7 +216,7 @@ async function maybePruneRounds() {
     await configuredPostgres()`DELETE FROM queue_arcade_rounds WHERE updated_at < ${expiresBefore}`;
     globalPostgres.__queueArcadePostgresLastPrune = now;
   } catch (error) {
-    console.error("Could not prune expired Queue Arcade rounds.", error);
+    logServerError("rounds.prune", error);
   }
 }
 
@@ -283,6 +313,55 @@ export async function getQuestionStats(
       },
       updatedAt: Number(row.updated_at),
     }));
+}
+
+function reviewFromRow(row: QuestionReviewRow): StoredQuestionReview {
+  return {
+    gameId: row.game_id,
+    questionId: row.question_id,
+    questionRevision: row.question_revision,
+    state: row.state,
+    reportTotalAtReview: Number(row.report_total_at_review),
+    signalStatusAtReview: row.signal_status_at_review,
+    updatedAt: Number(row.updated_at),
+  };
+}
+
+export async function getQuestionReviews(
+  gameId: GameId,
+  questionRevisions: ReadonlyMap<string, string>,
+): Promise<StoredQuestionReview[]> {
+  await ensureSchema();
+  const rows = await configuredPostgres()<QuestionReviewRow[]>`
+    SELECT game_id, question_id, question_revision, state, report_total_at_review,
+      signal_status_at_review, updated_at
+    FROM queue_arcade_question_reviews
+    WHERE game_id = ${gameId}
+  `;
+  return rows.filter((row) => questionRevisions.get(row.question_id) === row.question_revision).map(reviewFromRow);
+}
+
+export async function setQuestionReview(input: QuestionReviewInput): Promise<StoredQuestionReview> {
+  await ensureSchema();
+  const rows = await configuredPostgres()<QuestionReviewRow[]>`
+    INSERT INTO queue_arcade_question_reviews (
+      game_id, question_id, question_revision, state, report_total_at_review,
+      signal_status_at_review, updated_at
+    )
+    VALUES (
+      ${input.gameId}, ${input.questionId}, ${input.questionRevision}, ${input.state},
+      ${input.reportTotalAtReview}, ${input.signalStatusAtReview}, ${input.updatedAt}
+    )
+    ON CONFLICT (game_id, question_id, question_revision) DO UPDATE SET
+      state = EXCLUDED.state,
+      report_total_at_review = EXCLUDED.report_total_at_review,
+      signal_status_at_review = EXCLUDED.signal_status_at_review,
+      updated_at = EXCLUDED.updated_at
+    RETURNING game_id, question_id, question_revision, state, report_total_at_review,
+      signal_status_at_review, updated_at
+  `;
+  if (!rows[0]) throw new Error("Question review update did not return a record.");
+  return reviewFromRow(rows[0]);
 }
 
 export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult> {

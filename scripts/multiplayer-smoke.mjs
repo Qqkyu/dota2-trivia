@@ -4,9 +4,19 @@ import { randomUUID } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { PROGRESSIVE_ROUND_GAMES } from "../src/lib/player-profile.mjs";
+import { reviewerSteamIds } from "../src/lib/question-review.mjs";
 import { ACCOUNT_SESSION_COOKIE, sessionTokenHash } from "../src/lib/steam-auth.mjs";
 
 const appUrl = process.env.APP_URL ?? process.env.ARCADE_APP_URL ?? "http://localhost:3000";
+const appOrigin = new URL(appUrl).origin;
+const configuredReviewerIds = reviewerSteamIds();
+const smokeReviewerSteamId = process.env.ARCADE_SMOKE_REVIEWER_STEAM_ID?.trim() || null;
+if (smokeReviewerSteamId && !/^\d{17}$/.test(smokeReviewerSteamId)) {
+  throw new Error("ARCADE_SMOKE_REVIEWER_STEAM_ID must be a 17-digit SteamID64.");
+}
+if (smokeReviewerSteamId && !configuredReviewerIds.includes(smokeReviewerSteamId)) {
+  throw new Error("The smoke reviewer must also be present in ARCADE_REVIEWER_STEAM_IDS.");
+}
 const settings = {
   gameId: "dota2",
   mode: "mixed",
@@ -24,9 +34,24 @@ if (
   health.status !== "ready" ||
   health.storage?.backend !== expectedStorageBackend ||
   health.accounts?.backend !== expectedStorageBackend ||
-  health.accounts?.ok !== true
+  health.accounts?.ok !== true ||
+  health.reviews?.reviewersConfigured !== configuredReviewerIds.length
 ) {
   throw new Error(`The readiness endpoint did not confirm the ${expectedStorageBackend} vote and account stores.`);
+}
+
+const invalidDiagnostic = await fetch(`${appUrl}/api/diagnostics`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ message: "raw browser failure text" }),
+});
+const acceptedDiagnostic = await fetch(`${appUrl}/api/diagnostics`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ kind: "window-error", path: "/play?private=value", fingerprint: "a1b2c3d4" }),
+});
+if (invalidDiagnostic.status !== 400 || acceptedDiagnostic.status !== 202) {
+  throw new Error("The browser diagnostic endpoint did not reject raw payloads and accept sanitized fingerprints.");
 }
 
 const authStart = await fetch(`${appUrl}/api/auth/steam?returnTo=${encodeURIComponent("/profile")}`, {
@@ -58,7 +83,7 @@ async function seedPostgresAccount() {
   const sql = postgres(process.env.DATABASE_URL, { max: 1, idle_timeout: 2, prepare: false });
   const suffix = randomUUID().replaceAll("-", "");
   const userId = `usr_smoke_${suffix}`;
-  const steamId = `7656119${suffix.replace(/\D/g, "").padEnd(10, "0").slice(0, 10)}`;
+  const steamId = smokeReviewerSteamId ?? `7656119${suffix.replace(/\D/g, "").padEnd(10, "0").slice(0, 10)}`;
   const token = `smoke_${suffix}`;
   const secondToken = `smoke_alt_${suffix}`;
   const now = Date.now();
@@ -388,10 +413,75 @@ if (
   calibratedQuestion.reports?.outdated < 1 ||
   calibratedQuestion.reportTotal < 2 ||
   calibratedQuestion.signal?.status !== "reported" ||
+  calibratedQuestion.review?.status !== "open" ||
   serializedCalibration.includes("reporters") ||
   serializedCalibration.includes(firstPlayer)
 ) {
   throw new Error("The calibration endpoint did not expose safe aggregate report signals.");
+}
+
+const reviewPayload = {
+  gameId: "dota2",
+  questionId: calibratedQuestion.questionId,
+  questionRevision: calibratedQuestion.questionRevision,
+  state: "reviewed",
+};
+const unauthenticatedReview = await fetch(`${appUrl}/api/calibration`, {
+  method: "PATCH",
+  headers: { "Content-Type": "application/json", Origin: appOrigin },
+  body: JSON.stringify(reviewPayload),
+});
+if (unauthenticatedReview.status !== 401) {
+  throw new Error("An anonymous player was allowed to mutate the question review queue.");
+}
+
+let reviewWorkflowVerified = false;
+if (smokeAccount && smokeReviewerSteamId === smokeAccount.steamId) {
+  const saveReview = await fetch(`${appUrl}/api/calibration`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json", Origin: appOrigin, ...accountHeaders },
+    body: JSON.stringify(reviewPayload),
+  });
+  const savedReview = await saveReview.json();
+  if (!saveReview.ok || savedReview.review?.status !== "reviewed") {
+    throw new Error("The allowlisted Steam reviewer could not resolve an open question signal.");
+  }
+
+  const reviewedCalibration = await fetch(`${appUrl}/api/calibration?gameId=dota2`, { cache: "no-store" }).then(
+    (response) => response.json(),
+  );
+  const reviewedQuestion = reviewedCalibration.records?.find(
+    (record) => record.questionId === calibratedQuestion.questionId,
+  );
+  if (reviewedQuestion?.review?.status !== "reviewed") {
+    throw new Error("The reviewed question state was not restored from persistent calibration storage.");
+  }
+
+  const reopeningReport = await report(revealSnapshot, `multiplayer-review-reopen-${randomUUID()}`, "unclear");
+  if (reopeningReport.status !== 200 || !reopeningReport.body.accepted) {
+    throw new Error("A fresh player report could not be recorded for the review reopening check.");
+  }
+
+  const reopenedCalibration = await fetch(`${appUrl}/api/calibration?gameId=dota2`, { cache: "no-store" }).then(
+    (response) => response.json(),
+  );
+  const reopenedQuestion = reopenedCalibration.records?.find(
+    (record) => record.questionId === calibratedQuestion.questionId,
+  );
+  if (reopenedQuestion?.review?.status !== "open") {
+    throw new Error("A reviewed question did not reopen when a new independent report arrived.");
+  }
+
+  const quarantineReview = await fetch(`${appUrl}/api/calibration`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json", Origin: appOrigin, ...accountHeaders },
+    body: JSON.stringify({ ...reviewPayload, state: "quarantined" }),
+  });
+  const quarantined = await quarantineReview.json();
+  if (!quarantineReview.ok || quarantined.review?.status !== "quarantined") {
+    throw new Error("The allowlisted Steam reviewer could not quarantine a reviewed question.");
+  }
+  reviewWorkflowVerified = true;
 }
 
 let persisted;
@@ -424,6 +514,13 @@ if (expectedStorageBackend === "postgres") {
       FROM queue_arcade_question_reporters
       WHERE game_id = 'dota2' AND question_id = ${revealSnapshot.round.questionId}
     `;
+    const questionReviews = await sql`
+      SELECT state, report_total_at_review, signal_status_at_review
+      FROM queue_arcade_question_reviews
+      WHERE game_id = 'dota2'
+        AND question_id = ${calibratedQuestion.questionId}
+        AND question_revision = ${calibratedQuestion.questionRevision}
+    `;
     const personalRounds = smokeAccount
       ? await sql`
           SELECT round_id, question_id, round_game, round_format, correct, answer_stage, submitted_at
@@ -453,6 +550,15 @@ if (expectedStorageBackend === "postgres") {
     }
     if (Number(questions[0]?.report_ambiguous) < 1 || Number(questions[0]?.report_outdated) < 1) {
       throw new Error("The anonymous question reports were not written to Postgres.");
+    }
+    if (
+      reviewWorkflowVerified &&
+      (questionReviews.length !== 1 ||
+        questionReviews[0]?.state !== "quarantined" ||
+        Number(questionReviews[0]?.report_total_at_review) < 3 ||
+        questionReviews[0]?.signal_status_at_review !== "reported")
+    ) {
+      throw new Error("The protected question review state was not persisted safely in Postgres.");
     }
     if (smokeAccount) {
       const personalRound = personalRounds[0];
@@ -486,7 +592,7 @@ if (expectedStorageBackend === "postgres") {
   const question = Object.values(persistedState.questions ?? {}).find(
     (candidate) => candidate.questionId === revealSnapshot.round.questionId && candidate.questionRevision,
   );
-  persisted = persistedText.includes(firstSnapshot.round.id) && persistedState.version === 2;
+  persisted = persistedText.includes(firstSnapshot.round.id) && persistedState.version === 3;
   questionRevision = question?.questionRevision;
 
   if (persistedText.includes(firstPlayer) || persistedText.includes(secondPlayer)) {
@@ -570,6 +676,8 @@ console.log(
       playerReportRestored: true,
       reportCarriesIntoNextRound: true,
       calibrationAggregates: true,
+      diagnosticsBoundaryVerified: true,
+      reviewWorkflowVerified,
       legacyModesCollapsedIntoPublicRoom: legacySettings.map(({ mode }) => mode),
       sharedDifficultyPoolVerified: true,
       legacyLevelSettingsIgnored: true,

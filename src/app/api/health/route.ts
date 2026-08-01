@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { getAccountStoreHealth } from "@/lib/account-store";
 import { configuredApplicationOrigin, configuredAuthSecret, configuredDataCountries } from "@/lib/auth-session";
 import { DEFAULT_GAME_ID, GAME_CATALOGS } from "@/lib/game-catalogs";
+import { configuredReviewerSteamIds, invalidReviewerSteamIds } from "@/lib/question-review";
+import { logServerError } from "@/lib/server-diagnostics";
 import { getVoteStoreHealth } from "@/lib/vote-store";
 
 export const runtime = "nodejs";
@@ -16,6 +18,7 @@ export async function GET(request: Request) {
     configuredAuthSecret();
     configuredApplicationOrigin(request);
     configuredDataCountries();
+    if (invalidReviewerSteamIds().length) throw new Error("ARCADE_REVIEWER_STEAM_IDS contains an invalid SteamID.");
     if (
       process.env.NODE_ENV === "production" &&
       !process.env.DATABASE_URL?.trim() &&
@@ -30,6 +33,7 @@ export async function GET(request: Request) {
         storage,
         accounts,
         steam: { profileEnrichment: Boolean(process.env.STEAM_WEB_API_KEY?.trim()) },
+        reviews: { reviewersConfigured: configuredReviewerSteamIds().length },
         content: {
           gameId: catalog.id,
           version: catalog.contentVersion,
@@ -40,7 +44,7 @@ export async function GET(request: Request) {
       { headers: { "Cache-Control": "no-store" } },
     );
   } catch (error) {
-    console.error("Queue Arcade readiness check failed.", error);
+    logServerError("health.readiness", error);
     return NextResponse.json(
       { status: "unavailable", storage: { backend: process.env.DATABASE_URL ? "postgres" : "file", ok: false } },
       { status: 503, headers: { "Cache-Control": "no-store" } },

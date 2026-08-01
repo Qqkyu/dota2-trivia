@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { configuredApplicationOrigin, configuredAuthSecret } from "@/lib/auth-session";
 import { rateLimitRequest } from "@/lib/api-protection";
+import { logServerError } from "@/lib/server-diagnostics";
 import { createSteamState, safeReturnTo, STEAM_STATE_COOKIE, steamLoginUrl } from "@/lib/steam-auth.mjs";
 
 export const runtime = "nodejs";
@@ -27,7 +28,7 @@ export async function GET(request: NextRequest) {
     response.headers.set("Cache-Control", "no-store");
     return response;
   } catch (error) {
-    console.error("Could not start Steam authentication.", error);
+    logServerError("auth.steam-start", error);
     return NextResponse.json({ error: "Steam sign-in is unavailable." }, { status: 503 });
   }
 }

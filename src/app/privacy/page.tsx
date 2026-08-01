@@ -48,6 +48,14 @@ export default function PrivacyPage() {
       </section>
 
       <section>
+        <h2>Crash diagnostics</h2>
+        <p>
+          If the app fails, it sends a short error fingerprint, error type, and page path so the failure can be counted
+          and fixed. Error text, stack traces, URL queries, and player identifiers are not sent by the browser.
+        </p>
+      </section>
+
+      <section>
         <h2>Steam and contact</h2>
         <p>
           Steam authentication and optional public-profile enrichment are provided by Valve under the{" "}

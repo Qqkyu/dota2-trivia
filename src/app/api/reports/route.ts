@@ -5,6 +5,7 @@ import { isReportReason, QUESTION_REPORT_GRACE_MS } from "@/lib/calibration";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
 import { currentPublicRound, parsePublicRoomSettings, publicRoundAt } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
+import { logServerError } from "@/lib/server-diagnostics";
 import { recordQuestionReport } from "@/lib/vote-store";
 
 export const runtime = "nodejs";
@@ -47,7 +48,7 @@ export async function POST(request: NextRequest) {
   try {
     accountUser = await sessionUserForRequest(request);
   } catch (error) {
-    console.error("Could not resolve the reporting account.", error);
+    logServerError("reports.account-session", error);
     return NextResponse.json({ error: "Report storage unavailable." }, { status: 503 });
   }
   const effectiveVoterId = accountUser ? `account:${accountUser.id}` : voterId;
@@ -93,7 +94,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Could not persist the question report.", error);
+    logServerError("reports.persist", error, { questionId: questionId.slice(0, 120) });
     return NextResponse.json({ error: "Report storage unavailable." }, { status: 503 });
   }
 }

@@ -323,6 +323,15 @@
   background: rgba(255, 255, 255, 0.022);
 }
 
+.row[data-review-status="quarantined"] {
+  border-left: 2px solid rgba(240, 106, 88, 0.58);
+  background: rgba(114, 35, 30, 0.055);
+}
+
+.row[data-review-status="reviewed"] {
+  border-left: 2px solid rgba(118, 198, 138, 0.36);
+}
+
 .questionCell {
   display: flex;
   min-width: 0;
@@ -448,6 +457,89 @@
   width: 11px;
 }
 
+.reviewState {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+  grid-column: 1 / -1;
+}
+
+.reviewState > span {
+  display: inline-flex;
+  min-height: 23px;
+  align-items: center;
+  padding: 0 7px;
+  border: 1px solid var(--line);
+  color: #737b79;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.reviewState[data-review-status="open"] > span {
+  border-color: rgba(210, 163, 74, 0.32);
+  color: #d8ae5f;
+}
+
+.reviewState[data-review-status="reviewed"] > span {
+  border-color: rgba(118, 198, 138, 0.3);
+  color: #83ca98;
+}
+
+.reviewState[data-review-status="quarantined"] > span {
+  border-color: rgba(240, 106, 88, 0.34);
+  color: #ee8a7c;
+}
+
+.reviewState > small {
+  color: #db8175;
+  font-size: 11px;
+}
+
+.reviewActions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.reviewActions button {
+  display: inline-flex;
+  min-height: 27px;
+  align-items: center;
+  gap: 5px;
+  padding: 0 7px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.018);
+  color: #9da5a2;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.reviewActions button:hover {
+  border-color: var(--line-strong);
+  color: #e5e8e3;
+}
+
+.reviewActions button svg,
+.reviewSaving svg {
+  width: 11px;
+  height: 11px;
+}
+
+.reviewSaving {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #7f8885;
+  font-size: 11px;
+}
+
+.reviewSaving svg {
+  animation: reviewSpin 850ms linear infinite;
+}
+
 .empty {
   display: grid;
   min-height: 250px;
@@ -480,6 +572,12 @@
   justify-content: space-between;
   color: #59615f;
   font-size: 11px;
+}
+
+@keyframes reviewSpin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 1050px) {
@@ -627,6 +725,11 @@
 
   .signalCell > strong {
     white-space: normal;
+  }
+
+  .reviewState {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .footer {

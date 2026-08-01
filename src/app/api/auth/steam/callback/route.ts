@@ -16,6 +16,7 @@ import {
   verifySteamState,
 } from "@/lib/steam-auth.mjs";
 import { steamIdentityProfile } from "@/lib/steam-profile";
+import { logServerError } from "@/lib/server-diagnostics";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -81,7 +82,7 @@ export async function GET(request: NextRequest) {
     setAccountSessionCookie(response, session.token);
     return clearState(response);
   } catch (error) {
-    console.error("Could not complete Steam authentication.", error);
+    logServerError("auth.steam-callback", error);
     return origin ? failed(origin) : NextResponse.json({ error: "Steam sign-in is unavailable." }, { status: 503 });
   }
 }

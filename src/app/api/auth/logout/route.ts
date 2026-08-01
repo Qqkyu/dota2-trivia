@@ -5,6 +5,7 @@ import {
   isSameOriginMutation,
   revokeAccountSession,
 } from "@/lib/auth-session";
+import { logServerError } from "@/lib/server-diagnostics";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -16,7 +17,7 @@ export async function POST(request: NextRequest) {
   try {
     await revokeAccountSession(request);
   } catch (error) {
-    console.error("Could not revoke the Queue Arcade session during sign-out.", error);
+    logServerError("auth.logout", error);
   }
   const response = NextResponse.redirect(new URL("/", configuredApplicationOrigin(request)), 303);
   clearAccountSessionCookie(response);

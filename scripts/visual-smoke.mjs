@@ -189,6 +189,7 @@ const privacy = await evaluate(`({
   heading: document.querySelector("h1")?.innerText,
   optionalSteam: document.body.innerText.includes("Connecting Steam is optional"),
   deletion: document.body.innerText.includes("Delete profile"),
+  diagnostics: document.body.innerText.includes("Error text, stack traces, URL queries, and player identifiers are not sent"),
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 await screenshot("/tmp/queue-arcade-privacy.png");
@@ -237,7 +238,12 @@ const revealBoundsBeforeReport = await evaluate(`(() => {
   const bounds = panel?.getBoundingClientRect();
   return bounds ? { x: bounds.x, y: bounds.y, width: bounds.width, height: bounds.height } : null;
 })()`);
-await evaluate(`document.querySelector('[data-testid="report-question"]')?.click()`);
+await evaluate(`document.querySelector('[data-testid="report-reason"]')?.click()`);
+await waitFor(`Boolean(document.querySelector('[data-testid="report-confirmation"]'))`);
+const reportSubmitted = await evaluate(`({
+  confirmed: Boolean(document.querySelector('[data-testid="report-confirmation"]')),
+  reasonMenuClosed: document.querySelectorAll('[data-testid="report-reason"]').length === 0
+})`);
 await waitFor(`document.querySelectorAll('[data-testid="report-reason"]').length === 4`);
 const reveal = await evaluate(`(() => {
   const panel = document.querySelector('[data-testid="report-question"]')?.closest('[aria-live="polite"]');
@@ -324,6 +330,7 @@ await navigate(`${appUrl}/calibration`);
 await waitFor(`document.querySelectorAll('[data-testid="calibration-row"]').length > 0`);
 const calibration = await evaluate(`({
   rows: document.querySelectorAll('[data-testid="calibration-row"]').length,
+  openReviewRows: document.querySelectorAll('[data-review-status="open"]').length,
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 await screenshot("/tmp/queue-arcade-calibration-mobile.png");
@@ -383,6 +390,7 @@ if (
   !privacy.heading?.includes("without fog") ||
   !privacy.optionalSteam ||
   !privacy.deletion ||
+  !privacy.diagnostics ||
   privacy.horizontalOverflow
 ) {
   failures.push("The account privacy and deletion explanation is incomplete or overflows.");
@@ -413,6 +421,9 @@ if (
   reveal.internalSourceLabel
 ) {
   failures.push("The shared reveal or no-shift report menu regressed.");
+}
+if (!reportSubmitted.confirmed || !reportSubmitted.reasonMenuClosed) {
+  failures.push("A reveal report no longer reaches the calibration review queue.");
 }
 if (
   autoAdvanced.phase !== "answering" ||
@@ -446,8 +457,8 @@ if (
 ) {
   failures.push("The mobile public lobby does not fit or lost its round mix.");
 }
-if (calibration.rows < 1 || calibration.horizontalOverflow) {
-  failures.push("The mobile calibration lab is empty or overflows.");
+if (calibration.rows < 1 || calibration.openReviewRows < 1 || calibration.horizontalOverflow) {
+  failures.push("The mobile calibration review queue is empty or overflows.");
 }
 if (browserErrors.length) failures.push(`Browser errors: ${browserErrors.join("; ")}`);
 
@@ -483,6 +494,7 @@ console.log(
       legacyModeRedirect: true,
       roundFamilies: lobby.roundFamilies,
       synchronizedReveal: true,
+      reportSubmitted: true,
       automaticAdvance: true,
       browserHistory: [historyBack.url, historyForward.url],
       directPlay: directPlay.url,

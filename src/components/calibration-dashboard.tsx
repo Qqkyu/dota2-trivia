@@ -2,20 +2,33 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { AlertTriangle, ArrowLeft, BarChart3, Check, Flag, Search, ShieldCheck, Users } from "lucide-react";
+import {
+  AlertTriangle,
+  ArchiveX,
+  ArrowLeft,
+  BarChart3,
+  Check,
+  Flag,
+  LoaderCircle,
+  RotateCcw,
+  Search,
+  ShieldCheck,
+  Users,
+} from "lucide-react";
 import { useMemo, useState } from "react";
 import { REPORT_REASON_LABELS, type CalibrationStatus, type ReportReason } from "@/lib/calibration";
 import type { CalibrationRecord, CalibrationSnapshot } from "@/lib/calibration-data";
+import type { QuestionReviewState, QuestionReviewStatus } from "@/lib/question-review";
 import styles from "./calibration-dashboard.module.css";
 
-type CalibrationFilter = "all" | "attention" | "reported" | "sampled" | "collecting";
+type CalibrationFilter = "all" | "review" | "reported" | "reviewed" | "quarantined";
 
 const FILTERS: Array<{ id: CalibrationFilter; label: string }> = [
   { id: "all", label: "All questions" },
-  { id: "attention", label: "Needs attention" },
+  { id: "review", label: "Review queue" },
   { id: "reported", label: "Reported" },
-  { id: "sampled", label: "Sample ready" },
-  { id: "collecting", label: "Collecting" },
+  { id: "reviewed", label: "Reviewed" },
+  { id: "quarantined", label: "Quarantined" },
 ];
 
 const STATUS_LABELS: Record<CalibrationStatus, string> = {
@@ -24,6 +37,13 @@ const STATUS_LABELS: Record<CalibrationStatus, string> = {
   "too-easy": "Too easy",
   "too-hard": "Too hard",
   "on-target": "On target",
+};
+
+const REVIEW_LABELS: Record<QuestionReviewStatus, string> = {
+  unreviewed: "No signal",
+  open: "Open review",
+  reviewed: "Reviewed",
+  quarantined: "Quarantined",
 };
 
 const GAME_LABELS = {
@@ -54,20 +74,31 @@ function leadingReport(record: CalibrationRecord) {
 }
 
 function matchesFilter(record: CalibrationRecord, filter: CalibrationFilter) {
-  if (filter === "attention") return ["reported", "too-easy", "too-hard"].includes(record.signal.status);
+  if (filter === "review") return record.review.status === "open";
   if (filter === "reported") return record.reportTotal > 0;
-  if (filter === "sampled") return record.signal.sampleReady;
-  if (filter === "collecting") return !record.signal.sampleReady && record.reportTotal === 0;
+  if (filter === "reviewed") return record.review.status === "reviewed";
+  if (filter === "quarantined") return record.review.status === "quarantined";
   return true;
 }
 
-export function CalibrationDashboard({ snapshot, logoUrl }: { snapshot: CalibrationSnapshot; logoUrl: string }) {
+export function CalibrationDashboard({
+  snapshot,
+  logoUrl,
+  canReview,
+}: {
+  snapshot: CalibrationSnapshot;
+  logoUrl: string;
+  canReview: boolean;
+}) {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<CalibrationFilter>("all");
+  const [records, setRecords] = useState(snapshot.records);
+  const [savingQuestion, setSavingQuestion] = useState<string | null>(null);
+  const [reviewError, setReviewError] = useState<string | null>(null);
   const normalizedQuery = query.trim().toLowerCase();
   const filtered = useMemo(
     () =>
-      snapshot.records.filter(
+      records.filter(
         (record) =>
           matchesFilter(record, filter) &&
           (!normalizedQuery ||
@@ -75,9 +106,43 @@ export function CalibrationDashboard({ snapshot, logoUrl }: { snapshot: Calibrat
             record.questionId.toLowerCase().includes(normalizedQuery) ||
             record.kind.toLowerCase().includes(normalizedQuery)),
       ),
-    [filter, normalizedQuery, snapshot.records],
+    [filter, normalizedQuery, records],
   );
   const visible = filtered.slice(0, 80);
+  const reviewTotals = useMemo(
+    () => ({
+      open: records.filter((record) => record.review.status === "open").length,
+      reviewed: records.filter((record) => record.review.status === "reviewed").length,
+      quarantined: records.filter((record) => record.review.status === "quarantined").length,
+    }),
+    [records],
+  );
+
+  async function updateReview(record: CalibrationRecord, state: QuestionReviewState) {
+    setSavingQuestion(record.questionId);
+    setReviewError(null);
+    try {
+      const response = await fetch("/api/calibration", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          gameId: snapshot.gameId,
+          questionId: record.questionId,
+          questionRevision: record.questionRevision,
+          state,
+        }),
+      });
+      const result = (await response.json()) as { review?: CalibrationRecord["review"]; error?: string };
+      if (!response.ok || !result.review) throw new Error(result.error || "Review update failed.");
+      setRecords((current) =>
+        current.map((entry) => (entry.questionId === record.questionId ? { ...entry, review: result.review! } : entry)),
+      );
+    } catch {
+      setReviewError(record.questionId);
+    } finally {
+      setSavingQuestion(null);
+    }
+  }
 
   return (
     <main className={styles.shell} data-testid="calibration-dashboard">
@@ -105,15 +170,15 @@ export function CalibrationDashboard({ snapshot, logoUrl }: { snapshot: Calibrat
           </span>
           <h1>Question calibration</h1>
           <p>
-            Real answer rates and anonymous reports, separated from the live deck. These are recommendations only:
-            challenge tiers never change automatically.
+            Real answer rates, anonymous reports, and explicit review state. Quarantine marks content for the next
+            release; it never changes the live deck automatically.
           </p>
         </div>
         <div className={styles.guardrail}>
           <ShieldCheck />
           <span>
-            <small>Calibration guardrail</small>
-            <strong>20 answers before difficulty signals</strong>
+            <small>{canReview ? "Reviewer controls" : "Calibration guardrail"}</small>
+            <strong>{canReview ? "Protected by your Steam account" : "20 answers before difficulty signals"}</strong>
           </span>
         </div>
       </section>
@@ -133,9 +198,9 @@ export function CalibrationDashboard({ snapshot, logoUrl }: { snapshot: Calibrat
         </article>
         <article>
           <AlertTriangle />
-          <span>Needs attention</span>
-          <strong>{snapshot.totals.attention}</strong>
-          <small>reports or tier mismatch</small>
+          <span>Review queue</span>
+          <strong>{reviewTotals.open}</strong>
+          <small>{reviewTotals.quarantined} quarantined</small>
         </article>
         <article>
           <Flag />
@@ -189,12 +254,14 @@ export function CalibrationDashboard({ snapshot, logoUrl }: { snapshot: Calibrat
           </div>
           {visible.map((record) => {
             const report = leadingReport(record);
+            const saving = savingQuestion === record.questionId;
             return (
               <article
                 key={record.questionId}
                 className={styles.row}
                 data-testid="calibration-row"
                 data-calibration-status={record.signal.status}
+                data-review-status={record.review.status}
                 role="row"
               >
                 <div className={styles.questionCell} role="cell">
@@ -225,6 +292,32 @@ export function CalibrationDashboard({ snapshot, logoUrl }: { snapshot: Calibrat
                       {record.reportTotal} · {report}
                     </small>
                   )}
+                  <div className={styles.reviewState} data-review-status={record.review.status}>
+                    <span>{REVIEW_LABELS[record.review.status]}</span>
+                    {canReview && record.review.status !== "unreviewed" && (
+                      <div className={styles.reviewActions}>
+                        {saving ? (
+                          <span className={styles.reviewSaving}>
+                            <LoaderCircle /> Saving
+                          </span>
+                        ) : record.review.status === "open" ? (
+                          <>
+                            <button type="button" onClick={() => void updateReview(record, "reviewed")}>
+                              <Check /> Keep
+                            </button>
+                            <button type="button" onClick={() => void updateReview(record, "quarantined")}>
+                              <ArchiveX /> Quarantine
+                            </button>
+                          </>
+                        ) : (
+                          <button type="button" onClick={() => void updateReview(record, "open")}>
+                            <RotateCcw /> Reopen
+                          </button>
+                        )}
+                      </div>
+                    )}
+                    {reviewError === record.questionId && <small role="alert">Couldn’t save · retry</small>}
+                  </div>
                 </div>
               </article>
             );
@@ -240,8 +333,7 @@ export function CalibrationDashboard({ snapshot, logoUrl }: { snapshot: Calibrat
       </section>
 
       <footer className={styles.footer}>
-        <span>Aggregates only · no raw player IDs</span>
-        <span>Generated {new Date(snapshot.generatedAt).toLocaleString("en-GB")}</span>
+        <span>Aggregates only · no raw player IDs · {reviewTotals.reviewed} reviewed</span>
       </footer>
     </main>
   );

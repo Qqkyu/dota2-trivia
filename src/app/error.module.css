@@ -1,0 +1,76 @@
+.shell {
+  display: grid;
+  min-width: 320px;
+  min-height: 100vh;
+  place-items: center;
+  padding: 24px;
+  background: radial-gradient(circle at 50% 15%, rgba(151, 53, 44, 0.18), transparent 34rem), #090b0c;
+  color: #f1f0ea;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.panel {
+  width: min(100%, 620px);
+  padding: 44px;
+  border: 1px solid rgba(240, 106, 88, 0.28);
+  background: rgba(15, 19, 20, 0.95);
+}
+
+.panel small {
+  color: #f06a58;
+  font-family: monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.panel h1 {
+  margin: 13px 0 12px;
+  font-size: clamp(40px, 8vw, 64px);
+  font-weight: 450;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+}
+
+.panel p {
+  max-width: 480px;
+  margin: 0;
+  color: #9ca3a0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 26px;
+}
+
+.actions button,
+.actions a {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  padding: 0 15px;
+  border: 1px solid rgba(240, 106, 88, 0.46);
+  background: rgba(177, 57, 47, 0.15);
+  color: #f6d7d2;
+  font-size: 13px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.actions a {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: transparent;
+  color: #aab0ad;
+}
+
+.reference {
+  display: block;
+  margin-top: 20px;
+  color: #59615f;
+  font-family: monospace;
+  font-size: 11px;
+}

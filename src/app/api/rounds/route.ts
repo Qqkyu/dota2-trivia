@@ -5,6 +5,7 @@ import { rateLimitRequest } from "@/lib/api-protection";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
 import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
+import { logServerError } from "@/lib/server-diagnostics";
 import { getPlayerQuestionReport, getRoundCrowd } from "@/lib/vote-store";
 
 export const runtime = "nodejs";
@@ -69,7 +70,7 @@ export async function GET(request: NextRequest) {
       },
     );
   } catch (error) {
-    console.error("Could not read the public arcade room.", error);
+    logServerError("rounds.read", error);
     return NextResponse.json({ error: "Public room storage unavailable." }, { status: 503 });
   }
 }

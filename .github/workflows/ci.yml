@@ -36,6 +36,8 @@ jobs:
       ARCADE_AUTH_SECRET: queue-arcade-ci-auth-only-at-least-32-characters
       ARCADE_APP_URL: http://127.0.0.1:3000
       ARCADE_DATA_COUNTRIES: United States (ephemeral CI database)
+      ARCADE_REVIEWER_STEAM_IDS: "76561198000000000"
+      ARCADE_SMOKE_REVIEWER_STEAM_ID: "76561198000000000"
       NEXT_TELEMETRY_DISABLED: 1
     steps:
       - uses: actions/checkout@v6
