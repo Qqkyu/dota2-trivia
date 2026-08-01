@@ -2833,6 +2833,307 @@
   z-index: 2;
 }
 
+.shopkeeperOpenQuestion {
+  height: 214px;
+  min-height: 214px;
+  padding-block: 22px 14px;
+}
+
+.shopkeeperOpenQuestion .shopkeeperPromptTray {
+  width: min(390px, 45%);
+}
+
+.shopkeeperOpenQuestion .shopkeeperPromptTray > .shopkeeperTray {
+  padding: 11px;
+}
+
+.shopkeeperStore {
+  margin: 0 28px 12px;
+  overflow: hidden;
+  border: 1px solid rgba(210, 163, 74, 0.24);
+  background: linear-gradient(180deg, rgba(210, 163, 74, 0.055), transparent 46px), rgba(6, 8, 8, 0.62);
+  box-shadow:
+    inset 0 0 38px rgba(210, 163, 74, 0.018),
+    0 18px 34px rgba(0, 0, 0, 0.16);
+}
+
+.shopkeeperStoreToolbar {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 8px 6px 11px;
+  border-bottom: 1px solid rgba(210, 163, 74, 0.16);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.shopkeeperStoreTabs {
+  display: flex;
+  align-self: stretch;
+}
+
+.shopkeeperStoreTabs button {
+  min-width: 88px;
+  padding: 0 13px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: #777a74;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.shopkeeperStoreTabs button[aria-selected="true"] {
+  border-bottom-color: #d6a33f;
+  color: #e2bf72;
+  background: linear-gradient(180deg, transparent, rgba(210, 163, 74, 0.08));
+}
+
+.shopkeeperSearch {
+  display: flex;
+  width: min(230px, 36%);
+  min-height: 29px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 9px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(0, 0, 0, 0.26);
+  color: #707873;
+}
+
+.shopkeeperSearch:focus-within {
+  border-color: rgba(210, 163, 74, 0.42);
+  color: #c7a45e;
+}
+
+.shopkeeperSearch svg {
+  width: 13px;
+  flex: 0 0 auto;
+}
+
+.shopkeeperSearch input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #d1d2ca;
+  font:
+    11px var(--font-geist-sans),
+    sans-serif;
+}
+
+.shopkeeperSearch input::placeholder {
+  color: #626864;
+}
+
+.shopkeeperGroups {
+  display: grid;
+  min-width: 880px;
+  min-height: 190px;
+  gap: 7px;
+  grid-template-columns: repeat(6, minmax(136px, 1fr));
+  padding: 9px;
+  overflow-x: auto;
+  scrollbar-color: rgba(210, 163, 74, 0.35) rgba(0, 0, 0, 0.2);
+}
+
+.shopkeeperGroup {
+  min-width: 0;
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.shopkeeperGroup h3 {
+  margin: 0 0 6px;
+  color: #8f928a;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.shopkeeperGroup > div {
+  display: grid;
+  gap: 3px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.shopkeeperGroup button {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 1.32;
+  overflow: visible;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #101312;
+  color: #ddd;
+  cursor: pointer;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.26);
+}
+
+.shopkeeperGroup button > img {
+  object-fit: cover;
+}
+
+.shopkeeperGroup button:hover,
+.shopkeeperGroup button:focus-visible {
+  z-index: 5;
+  border-color: rgba(226, 191, 114, 0.72);
+  outline: 0;
+  filter: brightness(1.12);
+}
+
+.shopkeeperGroup button:disabled {
+  cursor: default;
+}
+
+.shopkeeperGroup button[data-state="selected"] {
+  border-color: #e3b452;
+  box-shadow:
+    0 0 0 2px rgba(227, 180, 82, 0.24),
+    0 0 15px rgba(227, 180, 82, 0.18);
+}
+
+.shopkeeperGroup button[data-state="correct"] {
+  border-color: #79cf99;
+  box-shadow:
+    0 0 0 2px rgba(121, 207, 153, 0.24),
+    0 0 16px rgba(121, 207, 153, 0.2);
+}
+
+.shopkeeperGroup button[data-state="wrong"] {
+  border-color: #f06a58;
+  box-shadow: 0 0 0 2px rgba(240, 106, 88, 0.2);
+}
+
+.shopkeeperGroup button > span {
+  position: absolute;
+  z-index: 8;
+  top: calc(100% + 5px);
+  left: 50%;
+  display: none;
+  width: max-content;
+  max-width: 180px;
+  gap: 2px;
+  padding: 7px 9px;
+  border: 1px solid rgba(210, 163, 74, 0.3);
+  background: rgba(9, 11, 10, 0.97);
+  box-shadow: 0 9px 24px rgba(0, 0, 0, 0.46);
+  text-align: left;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.shopkeeperGroup button:hover > span,
+.shopkeeperGroup button:focus-visible > span {
+  display: grid;
+}
+
+.shopkeeperGroup button > span strong {
+  color: #dcddd5;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.shopkeeperGroup button > span small {
+  color: #d4aa56;
+  font:
+    9px var(--font-geist-mono),
+    monospace;
+}
+
+.shopkeeperGroup button > i {
+  position: absolute;
+  z-index: 3;
+  right: 2px;
+  bottom: 2px;
+  padding: 1px 3px;
+  background: rgba(5, 7, 6, 0.88);
+  color: #e2d4ae;
+  font:
+    normal 8px var(--font-geist-mono),
+    monospace;
+}
+
+.shopkeeperSearchResults {
+  min-width: 0;
+  grid-template-columns: 1fr;
+}
+
+.shopkeeperSearchResults .shopkeeperGroup > div {
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+}
+
+.shopkeeperSearchResults .shopkeeperGroup button {
+  max-width: 66px;
+}
+
+.shopkeeperNoResults {
+  display: grid;
+  min-height: 140px;
+  place-items: center;
+  margin: 0;
+  color: #777c78;
+  font-size: 12px;
+}
+
+.shopkeeperRevealPicks {
+  display: flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.shopkeeperRevealPicks > svg {
+  width: 15px;
+  color: #777d77;
+}
+
+.shopkeeperPick {
+  display: grid;
+  min-width: 145px;
+  gap: 3px;
+}
+
+.shopkeeperPick > small {
+  color: #777c76;
+  font:
+    8px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.shopkeeperPick > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shopkeeperPick img {
+  width: 42px;
+  height: 31px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.shopkeeperPick strong {
+  color: #d4d5ce;
+  font-size: 11px;
+  font-weight: 600;
+}
+
 .previewShopkeeper {
   display: grid;
   width: min(100%, 310px);
@@ -4271,6 +4572,94 @@
 
 .crowdPulse span:nth-child(7) {
   animation-delay: -0.18s;
+}
+
+.shopkeeperCrowdPicks {
+  display: grid;
+  gap: 5px;
+}
+
+.shopkeeperCrowdPicks > span {
+  display: grid;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.shopkeeperCrowdPicks img {
+  width: 38px;
+  height: 28px;
+  object-fit: cover;
+}
+
+.shopkeeperCrowdPicks strong {
+  overflow: hidden;
+  color: #b9bcb5;
+  font-size: 10px;
+  font-weight: 550;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shopkeeperCrowdPicks small {
+  color: #d6ae5c;
+  font:
+    9px var(--font-geist-mono),
+    monospace;
+}
+
+@media (max-width: 680px) {
+  .shopkeeperOpenQuestion {
+    height: auto;
+    min-height: 286px;
+  }
+
+  .shopkeeperOpenQuestion .shopkeeperPromptTray {
+    width: min(100%, 390px);
+  }
+
+  .shopkeeperStore {
+    margin-inline: 14px;
+  }
+
+  .shopkeeperStoreToolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .shopkeeperStoreTabs {
+    height: 32px;
+  }
+
+  .shopkeeperStoreTabs button {
+    flex: 1;
+  }
+
+  .shopkeeperSearch {
+    width: 100%;
+  }
+
+  .shopkeeperGroups {
+    min-width: 0;
+    max-height: 390px;
+    grid-template-columns: repeat(2, minmax(138px, 1fr));
+    overflow: auto;
+  }
+
+  .shopkeeperSearchResults {
+    grid-template-columns: 1fr;
+  }
+
+  .shopkeeperRevealPicks {
+    gap: 7px;
+  }
+
+  .shopkeeperPick {
+    min-width: 0;
+  }
 }
 
 .tipCard {

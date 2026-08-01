@@ -22,6 +22,10 @@ const settings = {
   mode: "mixed",
   filter: "Mixed",
 };
+const shopkeeperQuestions = JSON.parse(
+  await readFile(path.join(process.cwd(), "src", "data", "shopkeeper-questions.json"), "utf8"),
+);
+const shopkeeperQuestionById = new Map(shopkeeperQuestions.map((question) => [question.id, question]));
 const firstPlayer = `multiplayer-smoke-a-${randomUUID()}`;
 const secondPlayer = `multiplayer-smoke-b-${randomUUID()}`;
 const alphaSessionId = randomUUID();
@@ -181,6 +185,11 @@ async function answeringRoundWithTime(playerId, roomSettings = settings, request
 }
 
 async function vote(snapshot, playerId, answerIndex, roomSettings = settings, extraFields = {}, requestHeaders = {}) {
+  const question = shopkeeperQuestionById.get(snapshot.round.questionId);
+  const answer =
+    question?.shopkeeper?.format === "build-result"
+      ? { answerKey: question.shopkeeper.answerItemKeys[answerIndex] }
+      : { answerIndex };
   const response = await fetch(`${appUrl}/api/votes`, {
     method: "POST",
     headers: {
@@ -191,7 +200,7 @@ async function vote(snapshot, playerId, answerIndex, roomSettings = settings, ex
       ...roomSettings,
       roundId: snapshot.round.id,
       questionId: snapshot.round.questionId,
-      answerIndex,
+      ...answer,
       voterId: playerId,
       ...extraFields,
     }),
@@ -283,7 +292,7 @@ if (
   throw new Error("A legacy mode or category setting still splits the one public Queue Arcade room.");
 }
 
-if (firstSnapshot.crowd.counts.some((count) => count !== 0)) {
+if (firstSnapshot.crowd.counts.some((count) => count !== 0) || firstSnapshot.crowd.itemCounts?.length) {
   throw new Error("The answer split leaked before the reveal.");
 }
 
@@ -314,6 +323,9 @@ if (finishedAlphaSession.status !== 200) {
 
 if (duplicateVote.playerVote?.answerIndex !== firstVote.playerVote?.answerIndex) {
   throw new Error("A duplicate vote did not preserve the player’s original answer.");
+}
+if (duplicateVote.playerVote?.answerKey !== firstVote.playerVote?.answerKey) {
+  throw new Error("A duplicate open-shop vote did not preserve the player’s original item.");
 }
 
 let accountProfileVerified = false;
@@ -362,8 +374,10 @@ const lockedSnapshot = await readRoom(
 if (
   lockedSnapshot.round.id !== firstSnapshot.round.id ||
   lockedSnapshot.playerVote?.answerIndex !== firstVote.playerVote?.answerIndex ||
+  lockedSnapshot.playerVote?.answerKey !== firstVote.playerVote?.answerKey ||
   lockedSnapshot.crowd.total < baselineTotal + 2 ||
-  lockedSnapshot.crowd.counts.some((count) => count !== 0)
+  lockedSnapshot.crowd.counts.some((count) => count !== 0) ||
+  lockedSnapshot.crowd.itemCounts?.length
 ) {
   throw new Error("The answering-phase room state is not synchronized or is leaking results.");
 }
@@ -375,12 +389,18 @@ if (prematureReport.status !== 409) {
 
 await delay(Math.max(250, lockedSnapshot.round.answerDeadline - lockedSnapshot.serverNow + 200));
 const revealSnapshot = await readRoom(firstPlayer, settings, accountHeaders);
+const openShopRound =
+  shopkeeperQuestionById.get(revealSnapshot.round.questionId)?.shopkeeper?.format === "build-result";
+const revealedItemVoteTotal = (revealSnapshot.crowd.itemCounts ?? []).reduce((total, entry) => total + entry.count, 0);
 
 if (
   revealSnapshot.round.id !== firstSnapshot.round.id ||
   revealSnapshot.round.phase !== "reveal" ||
   revealSnapshot.crowd.total < baselineTotal + 2 ||
-  revealSnapshot.crowd.counts.reduce((sum, count) => sum + count, 0) !== revealSnapshot.crowd.total
+  revealSnapshot.crowd.counts.reduce((sum, count) => sum + count, 0) !== revealSnapshot.crowd.total ||
+  (openShopRound
+    ? revealedItemVoteTotal !== revealSnapshot.crowd.total || !revealSnapshot.playerVote?.answerKey
+    : revealedItemVoteTotal !== 0)
 ) {
   throw new Error("The synchronized reveal did not expose the final round split.");
 }

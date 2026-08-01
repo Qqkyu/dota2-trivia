@@ -12,6 +12,12 @@ import { answerStageForRound } from "@/lib/player-profile.mjs";
 import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
+import {
+  isBuildResultQuestion,
+  isQuestionAnswerCorrect,
+  isShopkeeperCatalogKey,
+  shopkeeperAnswerIndex,
+} from "@/lib/shopkeeper-catalog";
 import { recordRoundVote } from "@/lib/vote-store";
 
 export const runtime = "nodejs";
@@ -53,16 +59,20 @@ export async function POST(request: NextRequest) {
     mode: candidate.mode,
     filter: candidate.filter,
   });
-  const { roundId, questionId, answerIndex, voterId, sessionId } = candidate;
+  const { roundId, questionId, voterId, sessionId } = candidate;
+  const answerIndex =
+    typeof candidate.answerIndex === "number" &&
+    Number.isInteger(candidate.answerIndex) &&
+    candidate.answerIndex >= 0 &&
+    candidate.answerIndex <= 3
+      ? candidate.answerIndex
+      : null;
+  const answerKey = candidate.answerKey;
 
   if (
     !settings ||
     typeof roundId !== "string" ||
     typeof questionId !== "string" ||
-    typeof answerIndex !== "number" ||
-    !Number.isInteger(answerIndex) ||
-    answerIndex < 0 ||
-    answerIndex > 3 ||
     typeof voterId !== "string" ||
     voterId.length < 8 ||
     voterId.length > 80 ||
@@ -90,6 +100,16 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "That public round has already moved on." }, { status: 409 });
   }
 
+  const isOpenShopAnswer = isBuildResultQuestion(question);
+  const resolvedShopAnswerIndex =
+    isOpenShopAnswer && isShopkeeperCatalogKey(answerKey) ? shopkeeperAnswerIndex(question, answerKey) : null;
+  if (
+    (isOpenShopAnswer && resolvedShopAnswerIndex === null) ||
+    (!isOpenShopAnswer && (answerIndex === null || answerKey !== undefined))
+  ) {
+    return NextResponse.json({ error: "Invalid answer for this round." }, { status: 400 });
+  }
+
   const mapPosition = isMapPosition(candidate.mapPosition) ? candidate.mapPosition : undefined;
   const requiresMapPosition = Boolean(question.map && !question.map.choice);
   if (requiresMapPosition && !mapPosition) {
@@ -101,8 +121,12 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const resolvedAnswerIndex =
-      requiresMapPosition && question.map && mapPosition ? mapAnswerIndex(question.map, mapPosition) : answerIndex;
+    const resolvedAnswerIndex = isOpenShopAnswer
+      ? (resolvedShopAnswerIndex as number)
+      : requiresMapPosition && question.map && mapPosition
+        ? mapAnswerIndex(question.map, mapPosition)
+        : (answerIndex as number);
+    const resolvedAnswerKey = isOpenShopAnswer ? (answerKey as string) : undefined;
     const result = await recordRoundVote({
       roundId,
       roomId: room.id,
@@ -112,6 +136,7 @@ export async function POST(request: NextRequest) {
       questionRevision: questionCalibrationRevision(question),
       correctIndex: question.correctIndex,
       answerIndex: resolvedAnswerIndex,
+      answerKey: resolvedAnswerKey,
       mapPosition: requiresMapPosition ? mapPosition : undefined,
       voterId: effectiveVoterId,
       submittedAt,
@@ -129,7 +154,7 @@ export async function POST(request: NextRequest) {
         questionRevision: questionCalibrationRevision(question),
         roundGame: round.game,
         roundFormat,
-        correct: storedVote.answerIndex === question.correctIndex,
+        correct: isQuestionAnswerCorrect(question, storedVote.answerIndex, storedVote.answerKey),
         answerStage: answerStageForRound(
           round.game,
           Math.max(0, round.answerDeadline - storedVote.submittedAt),
@@ -143,7 +168,7 @@ export async function POST(request: NextRequest) {
       try {
         await recordAlphaSessionRound(
           { sessionId, voterId: effectiveVoterId },
-          resolvedAnswerIndex === question.correctIndex,
+          isQuestionAnswerCorrect(question, resolvedAnswerIndex, resolvedAnswerKey),
           submittedAt,
         );
       } catch (error) {
@@ -162,6 +187,7 @@ export async function POST(request: NextRequest) {
             counts: [0, 0, 0, 0],
             total: result.total,
             positions: [],
+            itemCounts: [],
           });
         } catch (error) {
           logServerError("votes.broadcast", error, { roundId: roundId.slice(0, 160) });
@@ -175,6 +201,7 @@ export async function POST(request: NextRequest) {
         counts: [0, 0, 0, 0],
         total: result.total,
         positions: [],
+        itemCounts: [],
         playerVote: result.playerVote,
       },
       {

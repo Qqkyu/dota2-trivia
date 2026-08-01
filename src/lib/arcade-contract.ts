@@ -7,11 +7,16 @@ export interface CrowdResult {
   counts: [number, number, number, number];
   total: number;
   positions: MapPosition[];
+  itemCounts: Array<{
+    itemKey: string;
+    count: number;
+  }>;
 }
 
 export interface PlayerVote {
   answerIndex: number;
   submittedAt: number;
+  answerKey?: string;
   mapPosition?: MapPosition;
 }
 

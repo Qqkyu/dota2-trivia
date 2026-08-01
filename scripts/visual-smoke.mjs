@@ -253,14 +253,22 @@ const answering = await evaluate(`({
   roundId: document.querySelector("main")?.dataset.roundId,
   game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
   answers: document.querySelectorAll('[data-testid="arcade-answer"]').length,
+  openShop: Boolean(document.querySelector('[data-testid="shopkeeper-store"]')),
+  shopItems: document.querySelectorAll('[data-testid="shopkeeper-store-item"]').length,
   difficultyControls: document.querySelectorAll('[data-skill-level], [aria-label="Challenge level"]').length,
   publicRoomVisible: Boolean(document.querySelector('[data-testid="public-room"]')),
   presence: document.querySelector('[data-testid="room-presence"]')?.innerText,
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 
-await evaluate(`document.querySelector('[data-testid="arcade-answer"]')?.click()`);
-await waitFor(`Boolean(document.querySelector('[data-testid="arcade-answer"][aria-pressed="true"]'))`);
+await evaluate(`(
+  document.querySelector('[data-testid="shopkeeper-store-item"]') ??
+  document.querySelector('[data-testid="arcade-answer"]')
+)?.click()`);
+await waitFor(`Boolean(
+  document.querySelector('[data-testid="shopkeeper-store-item"][aria-pressed="true"]') ??
+  document.querySelector('[data-testid="arcade-answer"][aria-pressed="true"]')
+)`);
 await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
 await screenshot("/tmp/queue-arcade-public-reveal.png");
 
@@ -280,6 +288,9 @@ const reveal = await evaluate(`(() => {
     )?.textContent,
     percentages: [...document.querySelectorAll('[data-testid="arcade-answer"]')]
       .filter((button) => /%/.test(button.innerText)).length,
+    shopPercentages: [...document.querySelectorAll('[data-testid="shopkeeper-store-item"]')]
+      .filter((button) => /%/.test(button.innerText)).length,
+    openShopReveal: Boolean(document.querySelector('[data-testid="shopkeeper-open-reveal"]')),
     reportReasons: document.querySelectorAll('[data-testid="report-reason"]').length,
     reportBounds: bounds ? { x: bounds.x, y: bounds.y, width: bounds.width, height: bounds.height } : null,
     nextButton: [...document.querySelectorAll("button")].some((button) => button.textContent.includes("Next round")),
@@ -441,7 +452,7 @@ if (
   !["trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt", "soundcheck", "quote-hunt"].includes(
     answering.game,
   ) ||
-  answering.answers !== 4 ||
+  (answering.openShop ? answering.answers !== 0 || answering.shopItems < 70 : answering.answers !== 4) ||
   answering.difficultyControls !== 0 ||
   !answering.publicRoomVisible ||
   !/player/.test(answering.presence ?? "") ||
@@ -451,7 +462,9 @@ if (
 }
 if (
   !reveal.result ||
-  reveal.percentages !== 4 ||
+  (answering.openShop
+    ? !reveal.openShopReveal || reveal.shopPercentages < 1
+    : reveal.percentages !== 4 || reveal.openShopReveal) ||
   reveal.reportReasons !== 4 ||
   !sameBounds ||
   reveal.nextButton ||

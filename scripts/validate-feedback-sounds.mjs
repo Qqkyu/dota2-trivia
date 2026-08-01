@@ -70,7 +70,7 @@ const lockCalls = component.match(/playSound\("lock"\)/g) ?? [];
 if (
   resultCalls.length !== 1 ||
   startCalls.length !== 1 ||
-  lockCalls.length !== 2 ||
+  lockCalls.length !== 3 ||
   component.includes('playSound("correct")') ||
   component.includes('playSound("wrong")')
 ) {

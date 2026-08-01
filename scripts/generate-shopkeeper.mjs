@@ -9,6 +9,7 @@ import { parseValveKeyValues } from "./valve-keyvalues.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const OUTPUT = join(ROOT, "src", "data", "shopkeeper-questions.json");
+const CATALOG_OUTPUT = join(ROOT, "src", "data", "shopkeeper-catalog.json");
 const CDN = "https://cdn.cloudflare.steamstatic.com";
 const PATCH = CLIENT_CONSTANT_AUDIT.patch;
 
@@ -80,6 +81,271 @@ const UPGRADE_PATHS = [
   ["phylactery", "angels_demise"],
   ["echo_sabre", "harpoon"],
   ["invis_sword", "silver_edge"],
+];
+
+// The group names and item order mirror dota/scripts/shops.txt. The file is
+// compiled into Valve's VPKs, so we keep the audited layout here and validate
+// every item against the same live-client constants used for the questions.
+const SHOP_CATALOG_GROUPS = [
+  {
+    key: "consumables",
+    label: "Consumables",
+    section: "basics",
+    items: [
+      "tpscroll",
+      "clarity",
+      "faerie_fire",
+      "smoke_of_deceit",
+      "ward_observer",
+      "ward_sentry",
+      "enchanted_mango",
+      "flask",
+      "tango",
+      "blood_grenade",
+      "dust",
+      "bottle",
+      "infused_raindrop",
+      "aghanims_shard",
+    ],
+  },
+  {
+    key: "attributes",
+    label: "Attributes",
+    section: "basics",
+    items: [
+      "branches",
+      "gauntlets",
+      "slippers",
+      "mantle",
+      "circlet",
+      "belt_of_strength",
+      "boots_of_elves",
+      "robe",
+      "crown",
+      "ogre_axe",
+      "blade_of_alacrity",
+      "staff_of_wizardry",
+      "diadem",
+      "ghost",
+    ],
+  },
+  {
+    key: "weapons_armor",
+    label: "Armaments",
+    section: "basics",
+    items: [
+      "quelling_blade",
+      "ring_of_protection",
+      "blades_of_attack",
+      "orb_of_frost",
+      "gloves",
+      "chainmail",
+      "broadsword",
+      "blight_stone",
+      "blitz_knuckles",
+      "splintmail",
+      "claymore",
+      "orb_of_venom",
+      "javelin",
+      "helm_of_iron_will",
+      "mithril_hammer",
+    ],
+  },
+  {
+    key: "misc",
+    label: "Arcane",
+    section: "basics",
+    items: [
+      "ring_of_regen",
+      "sobi_mask",
+      "wind_lace",
+      "magic_stick",
+      "fluffy_hat",
+      "wizard_hat",
+      "boots",
+      "voodoo_mask",
+      "shawl",
+      "shadow_amulet",
+      "gem",
+      "lifesteal",
+      "cloak",
+      "chasm_stone",
+      "blink",
+    ],
+  },
+  {
+    key: "secretshop",
+    label: "Secret Shop",
+    section: "basics",
+    items: [
+      "ring_of_health",
+      "void_stone",
+      "talisman_of_evasion",
+      "platemail",
+      "ring_of_tarrasque",
+      "tiara_of_selemene",
+      "hyperstone",
+      "demon_edge",
+      "vitality_booster",
+      "energy_booster",
+      "point_booster",
+      "relic",
+      "reaver",
+      "eagle",
+      "mystic_staff",
+      "ultimate_orb",
+    ],
+  },
+  {
+    key: "basics",
+    label: "Common",
+    section: "upgrades",
+    items: [
+      "magic_wand",
+      "bracer",
+      "wraith_band",
+      "null_talisman",
+      "power_treads",
+      "soul_ring",
+      "orb_of_corrosion",
+      "falcon_blade",
+      "phase_boots",
+      "pers",
+      "mask_of_madness",
+      "oblivion_staff",
+      "travel_boots",
+      "hand_of_midas",
+      "moon_shard",
+      "soul_booster",
+    ],
+  },
+  {
+    key: "support",
+    label: "Support",
+    section: "upgrades",
+    items: [
+      "ring_of_basilius",
+      "headdress",
+      "urn_of_shadows",
+      "tranquil_boots",
+      "arcane_boots",
+      "mekansm",
+      "essence_distiller",
+      "ancient_janggo",
+      "pavise",
+      "guardian_greaves",
+      "spirit_vessel",
+      "boots_of_bearing",
+      "solar_crest",
+      "glimmer_cape",
+      "holy_locket",
+      "pipe",
+    ],
+  },
+  {
+    key: "magics",
+    label: "Caster",
+    section: "upgrades",
+    items: [
+      "veil_of_discord",
+      "rod_of_atos",
+      "cyclone",
+      "phylactery",
+      "bloodstone",
+      "gungir",
+      "wind_waker",
+      "angels_demise",
+      "force_staff",
+      "aether_lens",
+      "meteor_hammer",
+      "dagon",
+      "ultimate_scepter",
+      "crellas_crozier",
+      "octarine_core",
+      "orchid",
+      "refresher",
+      "ethereal_blade",
+      "sheepstick",
+      "bloodthorn",
+    ],
+  },
+  {
+    key: "defense",
+    label: "Armor",
+    section: "upgrades",
+    items: [
+      "buckler",
+      "vanguard",
+      "blade_mail",
+      "helm_of_the_dominator",
+      "vladmir",
+      "crimson_guard",
+      "armlet",
+      "helm_of_the_overlord",
+      "consecrated_wraps",
+      "aeon_disk",
+      "lotus_orb",
+      "black_king_bar",
+      "shivas_guard",
+      "sphere",
+      "assault",
+      "heart",
+    ],
+  },
+  {
+    key: "weapons",
+    label: "Weapons",
+    section: "upgrades",
+    items: [
+      "lesser_crit",
+      "mage_slayer",
+      "heavens_halberd",
+      "desolator",
+      "revenants_brooch",
+      "basher",
+      "maelstrom",
+      "invis_sword",
+      "greater_crit",
+      "abyssal_blade",
+      "mjollnir",
+      "silver_edge",
+      "bfury",
+      "nullifier",
+      "manta",
+      "radiance",
+      "rapier",
+      "monkey_king_bar",
+      "butterfly",
+      "satanic",
+    ],
+  },
+  {
+    key: "artifacts",
+    label: "Armaments",
+    section: "upgrades",
+    items: [
+      "sange",
+      "yasha",
+      "kaya",
+      "dragon_lance",
+      "kaya_and_sange",
+      "sange_and_yasha",
+      "yasha_and_kaya",
+      "hurricane_pike",
+      "echo_sabre",
+      "diffusal_blade",
+      "witch_blade",
+      "specialists_array",
+      "harpoon",
+      "disperser",
+      "devastator",
+      "hydras_breath",
+      "overwhelming_blink",
+      "swift_blink",
+      "arcane_blink",
+      "skadi",
+    ],
+  },
 ];
 
 function hash(input) {
@@ -514,9 +780,41 @@ const serializedQuestions = await format(
   JSON.stringify(questions.sort((left, right) => left.id.localeCompare(right.id))),
   { parser: "json", printWidth: 120 },
 );
+const catalog = {
+  patch: PATCH,
+  clientBuild: CLIENT_CONSTANT_AUDIT.clientBuild,
+  source: "Dota 2 client scripts/shops.txt",
+  groups: SHOP_CATALOG_GROUPS.map((group) => ({
+    key: group.key,
+    label: group.label,
+    section: group.section,
+    items: group.items.map((key) => {
+      const definition = itemDefinitions[`item_${key}`];
+      const cost = liveCost(key);
+      if (
+        !definition ||
+        String(scalar(definition.ItemPurchasable) ?? "1") === "0" ||
+        String(scalar(definition.IsObsolete) ?? "0") === "1" ||
+        !Number.isFinite(cost) ||
+        cost < 0 ||
+        !canDisplay(key)
+      ) {
+        throw new Error(`Shop catalog item ${key} is not valid in client build ${CLIENT_CONSTANT_AUDIT.clientBuild}.`);
+      }
+      return {
+        key,
+        name: itemsByKey[key].dname,
+        image: artwork(itemsByKey[key].img),
+        cost,
+      };
+    }),
+  })),
+};
+const serializedCatalog = await format(JSON.stringify(catalog), { parser: "json", printWidth: 120 });
 await writeFile(OUTPUT, serializedQuestions);
+await writeFile(CATALOG_OUTPUT, serializedCatalog);
 console.log(
-  `Generated ${questions.length} Shopkeeper questions from Dota ${PATCH} client build ${CLIENT_CONSTANT_AUDIT.clientBuild}.`,
+  `Generated ${questions.length} Shopkeeper questions and ${catalog.groups.reduce((total, group) => total + group.items.length, 0)} shop entries from Dota ${PATCH} client build ${CLIENT_CONSTANT_AUDIT.clientBuild}.`,
 );
 console.log(
   Object.fromEntries(

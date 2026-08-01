@@ -62,6 +62,7 @@ export async function GET(request: NextRequest) {
           counts: round.phase === "reveal" ? result.counts : HIDDEN_COUNTS,
           total: result.total,
           positions: round.phase === "reveal" ? result.positions : [],
+          itemCounts: round.phase === "reveal" ? result.itemCounts : [],
         },
         playerVote: result.playerVote,
         playerReport,

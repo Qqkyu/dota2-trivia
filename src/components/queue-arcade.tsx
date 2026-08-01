@@ -20,6 +20,7 @@ import {
   MessageSquareQuote,
   Radio,
   RotateCcw,
+  Search,
   ShieldCheck,
   ShoppingBag,
   Shuffle,
@@ -61,6 +62,16 @@ import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, is
 import type { MapBounds, MapChoiceChallenge, MapCrop, MapPosition, MapViewport } from "@/lib/map-types";
 import { MAP_READ_GRACE_MS, speedScoreRatio } from "@/lib/scoring.mjs";
 import {
+  isBuildResultQuestion,
+  isQuestionAnswerCorrect,
+  isShopkeeperCatalogKey,
+  SHOPKEEPER_CATALOG,
+  SHOPKEEPER_CATALOG_BY_KEY,
+  SHOPKEEPER_CATALOG_ITEMS,
+  shopkeeperAnswerIndex,
+  type ShopkeeperCatalogItem,
+} from "@/lib/shopkeeper-catalog";
+import {
   ECHO_HUNT_REVEAL_STAGES,
   SOUNDCHECK_REVEAL_STAGES,
   SOUNDCHECK_SEQUENCE_GAP_SECONDS,
@@ -78,7 +89,7 @@ const SPELL_CLUE_PENALTY = 40;
 const DEFAULT_GAME_VOLUME = 0.1;
 const MIN_GAME_VOLUME = 0.1;
 const LETTERS = ["A", "B", "C", "D"] as const;
-const EMPTY_CROWD: CrowdResult = { counts: [0, 0, 0, 0], total: 0, positions: [] };
+const EMPTY_CROWD: CrowdResult = { counts: [0, 0, 0, 0], total: 0, positions: [], itemCounts: [] };
 const STORAGE_KEY = "queue-arcade:stats:v2";
 const PLAYER_KEY = "queue-arcade:player:v2";
 const SETTINGS_KEY = "queue-arcade:settings:v3";
@@ -343,6 +354,23 @@ function normalizeCrowd(value: unknown): CrowdResult | null {
   const { counts, total } = value;
   const positions =
     "positions" in value && Array.isArray(value.positions) ? value.positions.filter(isMapPosition).slice(-400) : [];
+  const itemCounts =
+    "itemCounts" in value && Array.isArray(value.itemCounts)
+      ? value.itemCounts
+          .filter((entry): entry is { itemKey: string; count: number } =>
+            Boolean(
+              entry &&
+                typeof entry === "object" &&
+                "itemKey" in entry &&
+                isShopkeeperCatalogKey(entry.itemKey) &&
+                "count" in entry &&
+                typeof entry.count === "number" &&
+                Number.isInteger(entry.count) &&
+                entry.count > 0,
+            ),
+          )
+          .slice(0, SHOPKEEPER_CATALOG_ITEMS.length)
+      : [];
 
   if (
     !Array.isArray(counts) ||
@@ -358,6 +386,7 @@ function normalizeCrowd(value: unknown): CrowdResult | null {
     counts: [counts[0], counts[1], counts[2], counts[3]],
     total,
     positions,
+    itemCounts,
   };
 }
 
@@ -369,6 +398,7 @@ function normalizePlayerVote(value: unknown) {
 
   const { answerIndex, submittedAt } = value;
   const mapPosition = "mapPosition" in value ? value.mapPosition : undefined;
+  const answerKey = "answerKey" in value ? value.answerKey : undefined;
   if (
     typeof answerIndex !== "number" ||
     !Number.isInteger(answerIndex) ||
@@ -376,12 +406,18 @@ function normalizePlayerVote(value: unknown) {
     answerIndex > 3 ||
     typeof submittedAt !== "number" ||
     !Number.isFinite(submittedAt) ||
+    (answerKey !== undefined && !isShopkeeperCatalogKey(answerKey)) ||
     (mapPosition !== undefined && !isMapPosition(mapPosition))
   ) {
     return undefined;
   }
 
-  return { answerIndex, submittedAt, ...(mapPosition ? { mapPosition } : {}) };
+  return {
+    answerIndex,
+    submittedAt,
+    ...(answerKey ? { answerKey } : {}),
+    ...(mapPosition ? { mapPosition } : {}),
+  };
 }
 
 function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
@@ -649,6 +685,143 @@ function ShopkeeperTray({
         <ShopkeeperItem key={item.key} item={item} compact={compact} />
       ))}
     </span>
+  );
+}
+
+function ShopkeeperPick({ item, label }: { item: ShopkeeperCatalogItem | undefined; label: string }) {
+  return (
+    <span className={styles.shopkeeperPick}>
+      <small>{label}</small>
+      {item ? (
+        <span>
+          <Image src={item.image} alt="" width={54} height={40} unoptimized />
+          <strong>{item.name}</strong>
+        </span>
+      ) : (
+        <strong>No pick</strong>
+      )}
+    </span>
+  );
+}
+
+function ShopkeeperStore({
+  question,
+  phase,
+  selectedKey,
+  crowd,
+  onChoose,
+}: {
+  question: TriviaQuestion;
+  phase: GamePhase;
+  selectedKey: string | null;
+  crowd: CrowdResult;
+  onChoose: (itemKey: string) => void;
+}) {
+  const [section, setSection] = useState<"basics" | "upgrades">("upgrades");
+  const [query, setQuery] = useState("");
+  const targetKey = question.shopkeeper?.targetItemKey;
+  const targetItem = targetKey ? SHOPKEEPER_CATALOG_BY_KEY.get(targetKey) : undefined;
+  const selectedItem = selectedKey ? SHOPKEEPER_CATALOG_BY_KEY.get(selectedKey) : undefined;
+  const normalizedQuery = query.trim().toLocaleLowerCase("en-US");
+  const countByItem = new Map(crowd.itemCounts.map((entry) => [entry.itemKey, entry.count]));
+  const searchItems = normalizedQuery
+    ? SHOPKEEPER_CATALOG_ITEMS.filter(
+        (item) => item.name.toLocaleLowerCase("en-US").includes(normalizedQuery) || item.key.includes(normalizedQuery),
+      )
+    : [];
+  const groups = normalizedQuery
+    ? [{ key: "search", label: `${searchItems.length} found`, section, items: searchItems }]
+    : SHOPKEEPER_CATALOG.groups.filter((group) => group.section === section);
+
+  return (
+    <div className={styles.shopkeeperStore} data-testid="shopkeeper-store" data-phase={phase}>
+      <div className={styles.shopkeeperStoreToolbar}>
+        <div className={styles.shopkeeperStoreTabs} role="tablist" aria-label="Shop section">
+          {(["basics", "upgrades"] as const).map((tab) => (
+            <button
+              key={tab}
+              type="button"
+              role="tab"
+              aria-selected={section === tab}
+              data-testid={`shopkeeper-tab-${tab}`}
+              onClick={() => setSection(tab)}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+        <label className={styles.shopkeeperSearch}>
+          <Search aria-hidden="true" />
+          <input
+            type="search"
+            value={query}
+            data-testid="shopkeeper-search"
+            placeholder="Search items"
+            onChange={(event) => setQuery(event.currentTarget.value)}
+            disabled={phase !== "answering" || selectedKey !== null}
+          />
+        </label>
+      </div>
+
+      {phase === "reveal" && (
+        <div className={styles.shopkeeperRevealPicks} data-testid="shopkeeper-open-reveal">
+          <ShopkeeperPick item={selectedItem} label="Your pick" />
+          <ArrowRight aria-hidden="true" />
+          <ShopkeeperPick item={targetItem} label="Build result" />
+        </div>
+      )}
+
+      <div
+        className={clsx(styles.shopkeeperGroups, normalizedQuery && styles.shopkeeperSearchResults)}
+        data-shop-section={section}
+      >
+        {groups.map((group) => (
+          <section key={group.key} className={styles.shopkeeperGroup} aria-label={group.label}>
+            <h3>{group.label}</h3>
+            <div>
+              {group.items.map((item) => {
+                const isSelected = selectedKey === item.key;
+                const isCorrect = phase === "reveal" && targetKey === item.key;
+                const count = countByItem.get(item.key) ?? 0;
+                const percentage = crowd.total ? Math.round((count / crowd.total) * 100) : 0;
+                const state = isCorrect
+                  ? "correct"
+                  : phase === "reveal" && isSelected
+                    ? "wrong"
+                    : isSelected
+                      ? "selected"
+                      : "idle";
+
+                return (
+                  <button
+                    key={item.key}
+                    type="button"
+                    data-testid="shopkeeper-store-item"
+                    data-item-key={item.key}
+                    data-state={state}
+                    onClick={() => onChoose(item.key)}
+                    disabled={phase !== "answering" || selectedKey !== null}
+                    aria-label={`${item.name}, ${item.cost.toLocaleString("en-US")} gold`}
+                    title={`${item.name} · ${item.cost.toLocaleString("en-US")} gold`}
+                    aria-pressed={isSelected}
+                  >
+                    <Image src={item.image} alt="" fill sizes="48px" loading="eager" unoptimized />
+                    <span>
+                      <strong>{item.name}</strong>
+                      <small>{item.cost.toLocaleString("en-US")} gold</small>
+                    </span>
+                    {phase === "reveal" && count > 0 && <i>{percentage}%</i>}
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+        {normalizedQuery && searchItems.length === 0 && (
+          <p className={styles.shopkeeperNoResults}>No shop item matches “{query.trim()}”.</p>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -1258,6 +1431,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   const [currentQuestion, setCurrentQuestion] = useState<ArcadeRound | null>(null);
   const [roundIndex, setRoundIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [selectedAnswerKey, setSelectedAnswerKey] = useState<string | null>(null);
   const [selectedMapPosition, setSelectedMapPosition] = useState<MapPosition | null>(null);
   const [answerTimeLeft, setAnswerTimeLeft] = useState(0);
   const [crowd, setCrowdState] = useState<CrowdResult>(EMPTY_CROWD);
@@ -1295,6 +1469,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   const currentQuestionRef = useRef<ArcadeRound | null>(null);
   const roundIndexRef = useRef(0);
   const selectedIndexRef = useRef<number | null>(null);
+  const selectedAnswerKeyRef = useRef<string | null>(null);
   const selectedMapPositionRef = useRef<MapPosition | null>(null);
   const answerTimeLeftRef = useRef(0);
   const crowdRef = useRef<CrowdResult>(EMPTY_CROWD);
@@ -1529,7 +1704,11 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       setPhase("reveal");
       setCrowd(snapshot.crowd);
 
-      const isCorrect = selectedIndexRef.current === question.correctIndex;
+      const isCorrect = isQuestionAnswerCorrect(
+        question,
+        selectedIndexRef.current ?? -1,
+        selectedAnswerKeyRef.current ?? undefined,
+      );
       const correctVotes = snapshot.crowd.counts[question.correctIndex];
       const majorityBonus = isCorrect && snapshot.crowd.total > 0 && correctVotes / snapshot.crowd.total < 0.5;
       const {
@@ -1620,12 +1799,15 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
 
         const playerVote = snapshot.playerVote;
         const nextSelectedIndex = playerVote?.answerIndex ?? null;
+        const nextSelectedAnswerKey = playerVote?.answerKey ?? null;
         const nextMapPosition = playerVote?.mapPosition ?? null;
         const nextAnswerTimeLeft = playerVote ? Math.max(0, snapshot.round.answerDeadline - playerVote.submittedAt) : 0;
         selectedIndexRef.current = nextSelectedIndex;
+        selectedAnswerKeyRef.current = nextSelectedAnswerKey;
         selectedMapPositionRef.current = nextMapPosition;
         answerTimeLeftRef.current = nextAnswerTimeLeft;
         setSelectedIndex(nextSelectedIndex);
+        setSelectedAnswerKey(nextSelectedAnswerKey);
         setSelectedMapPosition(nextMapPosition);
         setAnswerTimeLeft(nextAnswerTimeLeft);
 
@@ -1658,9 +1840,11 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       if (snapshot.playerVote && selectedIndexRef.current === null) {
         const nextAnswerTimeLeft = Math.max(0, snapshot.round.answerDeadline - snapshot.playerVote.submittedAt);
         selectedIndexRef.current = snapshot.playerVote.answerIndex;
+        selectedAnswerKeyRef.current = snapshot.playerVote.answerKey ?? null;
         selectedMapPositionRef.current = snapshot.playerVote.mapPosition ?? null;
         answerTimeLeftRef.current = nextAnswerTimeLeft;
         setSelectedIndex(snapshot.playerVote.answerIndex);
+        setSelectedAnswerKey(snapshot.playerVote.answerKey ?? null);
         setSelectedMapPosition(snapshot.playerVote.mapPosition ?? null);
         setAnswerTimeLeft(nextAnswerTimeLeft);
       }
@@ -1735,8 +1919,10 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
         participatedRef.current = false;
         setCurrentQuestion(null);
         selectedIndexRef.current = null;
+        selectedAnswerKeyRef.current = null;
         selectedMapPositionRef.current = null;
         setSelectedIndex(null);
+        setSelectedAnswerKey(null);
         setSelectedMapPosition(null);
         setRoundIndex(0);
         setScore(0);
@@ -1883,7 +2069,11 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   }, [updateReportState, updateReportTarget]);
 
   const submitVote = useCallback(
-    async (question: TriviaQuestion, answerIndex: number, mapPosition?: MapPosition) => {
+    async (
+      question: TriviaQuestion,
+      answerIndex: number,
+      options?: { mapPosition?: MapPosition; answerKey?: string },
+    ) => {
       const snapshot = roomSnapshotRef.current;
       const settings = roomSettingsRef.current;
       if (!snapshot || !settings || snapshot.round.id !== roundIdRef.current) return;
@@ -1899,7 +2089,8 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
             roundId: snapshot.round.id,
             questionId: question.id,
             answerIndex,
-            ...(mapPosition ? { mapPosition } : {}),
+            ...(options?.answerKey ? { answerKey: options.answerKey } : {}),
+            ...(options?.mapPosition ? { mapPosition: options.mapPosition } : {}),
             voterId: ensurePlayerId(),
             ...(alphaSessionIdRef.current ? { sessionId: alphaSessionIdRef.current } : {}),
           }),
@@ -1914,13 +2105,20 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
         if (!result) throw new Error("VOTE_FAILED");
 
         if (roundIdRef.current === snapshot.round.id) {
-          setCrowd({ counts: result.counts, total: result.total, positions: result.positions });
+          setCrowd({
+            counts: result.counts,
+            total: result.total,
+            positions: result.positions,
+            itemCounts: result.itemCounts,
+          });
           if (result.playerVote) {
             const serverTimeLeft = Math.max(0, snapshot.round.answerDeadline - result.playerVote.submittedAt);
             selectedIndexRef.current = result.playerVote.answerIndex;
+            selectedAnswerKeyRef.current = result.playerVote.answerKey ?? null;
             selectedMapPositionRef.current = result.playerVote.mapPosition ?? null;
             answerTimeLeftRef.current = serverTimeLeft;
             setSelectedIndex(result.playerVote.answerIndex);
+            setSelectedAnswerKey(result.playerVote.answerKey ?? null);
             setSelectedMapPosition(result.playerVote.mapPosition ?? null);
             setAnswerTimeLeft(serverTimeLeft);
           }
@@ -1929,9 +2127,11 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       } catch {
         if (roundIdRef.current === snapshot.round.id) {
           selectedIndexRef.current = null;
+          selectedAnswerKeyRef.current = null;
           selectedMapPositionRef.current = null;
           answerTimeLeftRef.current = 0;
           setSelectedIndex(null);
+          setSelectedAnswerKey(null);
           setSelectedMapPosition(null);
           setAnswerTimeLeft(0);
           setRoomError("Vote confirmation delayed · checking the room");
@@ -1948,6 +2148,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       if (
         phaseRef.current !== "answering" ||
         !question ||
+        isBuildResultQuestion(question) ||
         (question.game === "map-sense" && !question.map?.choice) ||
         selectedIndexRef.current !== null ||
         !deadlineRef.current ||
@@ -1963,6 +2164,35 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       setAnswerTimeLeft(timeLeft);
       playSound("lock");
       void submitVote(question, answerIndex);
+    },
+    [playSound, submitVote],
+  );
+
+  const chooseShopkeeperItem = useCallback(
+    (answerKey: string) => {
+      const question = currentQuestionRef.current;
+      if (
+        phaseRef.current !== "answering" ||
+        !question ||
+        !isBuildResultQuestion(question) ||
+        selectedIndexRef.current !== null ||
+        !deadlineRef.current ||
+        Date.now() >= deadlineRef.current
+      ) {
+        return;
+      }
+
+      const answerIndex = shopkeeperAnswerIndex(question, answerKey);
+      if (answerIndex === null) return;
+      const timeLeft = Math.max(0, deadlineRef.current - Date.now());
+      selectedIndexRef.current = answerIndex;
+      selectedAnswerKeyRef.current = answerKey;
+      answerTimeLeftRef.current = timeLeft;
+      setSelectedIndex(answerIndex);
+      setSelectedAnswerKey(answerKey);
+      setAnswerTimeLeft(timeLeft);
+      playSound("lock");
+      void submitVote(question, answerIndex, { answerKey });
     },
     [playSound, submitVote],
   );
@@ -1989,7 +2219,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       setSelectedMapPosition(position);
       setAnswerTimeLeft(timeLeft);
       playSound("lock");
-      void submitVote(question, answerIndex, position);
+      void submitVote(question, answerIndex, { mapPosition: position });
     },
     [playSound, submitVote],
   );
@@ -2272,8 +2502,11 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   const timerRatio = phase === "answering" ? answerRemaining / answerDuration : revealRemaining / REVEAL_DURATION_MS;
   const sessionElapsed = queueStartedAt ? Math.max(0, now - queueStartedAt) : 0;
   const selectedWasCorrect =
-    selectedIndex !== null && currentQuestion ? selectedIndex === currentQuestion.correctIndex : false;
+    selectedIndex !== null && currentQuestion
+      ? isQuestionAnswerCorrect(currentQuestion, selectedIndex, selectedAnswerKey ?? undefined)
+      : false;
   const currentGame = currentQuestion?.game ?? "trivia";
+  const isOpenShopRound = Boolean(currentQuestion && isBuildResultQuestion(currentQuestion));
   const isSoundcheckRound = currentGame === "soundcheck";
   const isEchoHuntRound = currentGame === "echo-hunt";
   const isProgressiveAudioRound = isSoundcheckRound || isEchoHuntRound;
@@ -2620,7 +2853,11 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
               />
             ) : currentGame === "shopkeeper" ? (
               <div
-                className={clsx(styles.questionBlock, styles.shopkeeperQuestion)}
+                className={clsx(
+                  styles.questionBlock,
+                  styles.shopkeeperQuestion,
+                  isOpenShopRound && styles.shopkeeperOpenQuestion,
+                )}
                 data-testid="round-prompt"
                 data-shopkeeper-format={currentQuestion.shopkeeper?.format}
               >
@@ -2641,7 +2878,8 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                   <span>Shopkeeper Rush · {shopkeeperFormatLabel(currentQuestion)}</span>
                   <h2>{currentQuestion.prompt}</h2>
                   <small>
-                    Patch {currentQuestion.patch} · {shopkeeperRoundNote(currentQuestion)}
+                    Patch {currentQuestion.patch}
+                    {!isOpenShopRound && ` · ${shopkeeperRoundNote(currentQuestion)}`}
                   </small>
                 </div>
               </div>
@@ -2950,7 +3188,18 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
               </div>
             )}
 
-            {currentGame !== "map-sense" && (
+            {isOpenShopRound && (
+              <ShopkeeperStore
+                key={`${activeRoundId}:${phase}`}
+                question={currentQuestion}
+                phase={phase}
+                selectedKey={selectedAnswerKey}
+                crowd={crowd}
+                onChoose={chooseShopkeeperItem}
+              />
+            )}
+
+            {!isOpenShopRound && currentGame !== "map-sense" && (
               <div
                 className={clsx(
                   styles.answers,
@@ -3065,24 +3314,26 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 <div className={styles.answerHelper}>
                   {selectedIndex === null ? (
                     <>
-                      <Keyboard />
-                      {currentGame === "shopkeeper"
-                        ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
-                        : currentGame === "spell-link"
-                          ? "Link the spell to a hero · A–D or 1–4"
-                          : currentGame === "fogged-vision"
-                            ? "Name the silhouette · A–D or 1–4"
-                            : currentGame === "echo-hunt"
-                              ? "Match the voice · A–D or 1–4"
-                              : currentGame === "soundcheck"
-                                ? isSoundSequence
-                                  ? "Match the order · A–D or 1–4"
-                                  : "Match the sound · A–D or 1–4"
-                                : currentGame === "quote-hunt"
-                                  ? "Match the line to its hero · A–D or 1–4"
-                                  : currentGame === "counterplay"
-                                    ? "Pick the interaction · A–D or 1–4"
-                                    : "Use A–D or 1–4 to answer"}
+                      {isOpenShopRound ? <ShoppingBag /> : <Keyboard />}
+                      {isOpenShopRound
+                        ? "Choose an item from the shop"
+                        : currentGame === "shopkeeper"
+                          ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
+                          : currentGame === "spell-link"
+                            ? "Link the spell to a hero · A–D or 1–4"
+                            : currentGame === "fogged-vision"
+                              ? "Name the silhouette · A–D or 1–4"
+                              : currentGame === "echo-hunt"
+                                ? "Match the voice · A–D or 1–4"
+                                : currentGame === "soundcheck"
+                                  ? isSoundSequence
+                                    ? "Match the order · A–D or 1–4"
+                                    : "Match the sound · A–D or 1–4"
+                                  : currentGame === "quote-hunt"
+                                    ? "Match the line to its hero · A–D or 1–4"
+                                    : currentGame === "counterplay"
+                                      ? "Pick the interaction · A–D or 1–4"
+                                      : "Use A–D or 1–4 to answer"}
                       <span>Correct now: {liveAward?.rawPoints ?? 0} pts</span>
                     </>
                   ) : (
@@ -3267,15 +3518,31 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                       ? "Final answer split for this synchronized public round."
                       : "Nobody answered before this room’s deadline."}
               </p>
-              <div className={styles.crowdPulse} aria-hidden="true">
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-              </div>
+              {isOpenShopRound && phase === "reveal" && crowd.itemCounts.length > 0 ? (
+                <div className={styles.shopkeeperCrowdPicks} data-testid="shopkeeper-crowd-picks">
+                  {crowd.itemCounts.slice(0, 3).map(({ itemKey, count }) => {
+                    const item = SHOPKEEPER_CATALOG_BY_KEY.get(itemKey);
+                    if (!item) return null;
+                    return (
+                      <span key={itemKey}>
+                        <Image src={item.image} alt="" width={38} height={28} unoptimized />
+                        <strong>{item.name}</strong>
+                        <small>{Math.round((count / crowd.total) * 100)}%</small>
+                      </span>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className={styles.crowdPulse} aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </div>
+              )}
             </div>
 
             <div className={styles.tipCard}>

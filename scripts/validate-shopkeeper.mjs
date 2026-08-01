@@ -14,6 +14,12 @@ import { varietyShuffle } from "../src/lib/variety.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questions = JSON.parse(await readFile(join(root, "src", "data", "shopkeeper-questions.json"), "utf8"));
+const catalog = JSON.parse(await readFile(join(root, "src", "data", "shopkeeper-catalog.json"), "utf8"));
+const [voteRouteSource, postgresStoreSource, arcadeSource] = await Promise.all([
+  readFile(join(root, "src", "app", "api", "votes", "route.ts"), "utf8"),
+  readFile(join(root, "src", "lib", "vote-store-postgres.ts"), "utf8"),
+  readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8"),
+]);
 const failures = [];
 const ids = new Set();
 const expectedSource = `Dota 2 live-client recipes · build ${CLIENT_CONSTANT_AUDIT.clientBuild}`;
@@ -55,6 +61,57 @@ const sameMultiset = (left = [], right = []) =>
 const matchesLiveRecipe = (targetKey, componentKeys) =>
   liveRecipes?.get(targetKey)?.some((variant) => sameMultiset(variant, componentKeys)) ?? false;
 
+const expectedCatalogGroups = [
+  "consumables",
+  "attributes",
+  "weapons_armor",
+  "misc",
+  "secretshop",
+  "basics",
+  "support",
+  "magics",
+  "defense",
+  "weapons",
+  "artifacts",
+];
+const catalogItems = catalog.groups?.flatMap((group) => group.items ?? []) ?? [];
+const catalogKeys = new Set(catalogItems.map((item) => item.key));
+
+if (
+  catalog.patch !== CLIENT_CONSTANT_AUDIT.patch ||
+  catalog.clientBuild !== CLIENT_CONSTANT_AUDIT.clientBuild ||
+  JSON.stringify(catalog.groups?.map((group) => group.key)) !== JSON.stringify(expectedCatalogGroups) ||
+  catalog.groups?.filter((group) => group.section === "basics").length !== 5 ||
+  catalog.groups?.filter((group) => group.section === "upgrades").length !== 6
+) {
+  failures.push("The open-answer shop no longer matches the audited Dota shop section layout.");
+}
+if (catalogItems.length !== 182 || catalogKeys.size !== catalogItems.length) {
+  failures.push(`The open-answer shop needs 182 unique purchasable entries (found ${catalogItems.length}).`);
+}
+for (const item of catalogItems) {
+  if (
+    typeof item.key !== "string" ||
+    typeof item.name !== "string" ||
+    !item.image?.includes(`/items/${item.key}.png`) ||
+    !Number.isFinite(item.cost) ||
+    item.cost < 0 ||
+    item.key.startsWith("recipe_")
+  ) {
+    failures.push(`Open-shop catalog entry ${item.key ?? "unknown"} is incomplete or invalid.`);
+  }
+}
+if (
+  !voteRouteSource.includes("shopkeeperAnswerIndex(question, answerKey)") ||
+  !voteRouteSource.includes("answerKey: resolvedAnswerKey") ||
+  !postgresStoreSource.includes("ADD COLUMN IF NOT EXISTS answer_key TEXT") ||
+  !postgresStoreSource.includes("GROUP BY answer_key") ||
+  !arcadeSource.includes('data-testid="shopkeeper-store"') ||
+  !arcadeSource.includes("onChoose={chooseShopkeeperItem}")
+) {
+  failures.push("The Build Result item-key vote, reconnect, or store UI contract was removed.");
+}
+
 if (questions.length !== 48) failures.push(`Shopkeeper needs 48 curated rounds (found ${questions.length}).`);
 
 for (const kind of SHOPKEEPER_KINDS) {
@@ -95,6 +152,13 @@ for (const question of questions) {
     const artworkKeys = (question.answerImages ?? []).map(itemKeyFromArtwork);
     if (JSON.stringify(artworkKeys) !== JSON.stringify(question.shopkeeper.answerItemKeys)) {
       failures.push(`${question.id}: answer artwork drifted from audited item keys.`);
+    }
+  }
+  if (question.shopkeeper?.format === "build-result") {
+    const targetKey = question.shopkeeper.targetItemKey;
+    const target = catalogItems.find((item) => item.key === targetKey);
+    if (!target || question.answers[question.correctIndex] !== target.name) {
+      failures.push(`${question.id}: open-shop target is missing or disagrees with the correct answer.`);
     }
   }
 
@@ -156,6 +220,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${questions.length} client-audited Shopkeeper rounds: 12 each across Build Result, Real Recipe, Shared Part, and Upgrade Path${liveRecipes ? `, with build ${CLIENT_CONSTANT_AUDIT.clientBuild} recipe parity` : ""}.`,
+    `Validated ${questions.length} client-audited Shopkeeper rounds and the ${catalogItems.length}-item Dota shop picker: 12 each across Build Result, Real Recipe, Shared Part, and Upgrade Path${liveRecipes ? `, with build ${CLIENT_CONSTANT_AUDIT.clientBuild} recipe parity` : ""}.`,
   );
 }

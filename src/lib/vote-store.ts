@@ -52,6 +52,7 @@ export interface RoundVoteInput {
   questionRevision: string;
   correctIndex: number;
   answerIndex: number;
+  answerKey?: string;
   mapPosition?: MapPosition;
   voterId: string;
   submittedAt: number;
@@ -170,10 +171,18 @@ function crowdFor(round: StoredRound | undefined): CrowdResult {
         .flatMap((vote) => (vote.mapPosition ? [{ ...vote.mapPosition }] : []))
         .slice(-MAP_SENSE_MAX_CROWD_PINS)
     : [];
+  const itemCountMap = new Map<string, number>();
+  for (const vote of Object.values(round?.voters ?? {})) {
+    if (vote.answerKey) itemCountMap.set(vote.answerKey, (itemCountMap.get(vote.answerKey) ?? 0) + 1);
+  }
+  const itemCounts = [...itemCountMap.entries()]
+    .map(([itemKey, count]) => ({ itemKey, count }))
+    .sort((left, right) => right.count - left.count || left.itemKey.localeCompare(right.itemKey));
   return {
     counts,
     total: counts.reduce((sum, count) => sum + count, 0),
     positions,
+    itemCounts,
   };
 }
 
@@ -400,6 +409,7 @@ async function fileRecordRoundVote(input: RoundVoteInput): Promise<VoteResult> {
     const playerVote = {
       answerIndex: input.answerIndex,
       submittedAt: input.submittedAt,
+      ...(input.answerKey ? { answerKey: input.answerKey } : {}),
       ...(input.mapPosition ? { mapPosition: { ...input.mapPosition } } : {}),
     };
     round.voters[hash] = playerVote;
