@@ -1,11 +1,6 @@
 #!/usr/bin/env node
 
-import {
-  ALPHA_FEEDBACK_OPTIONS,
-  isAlphaFeedback,
-  isAlphaSessionId,
-  summarizeAlphaSessions,
-} from "../src/lib/alpha-analytics.mjs";
+import { isAlphaSessionId, summarizeAlphaSessions } from "../src/lib/alpha-analytics.mjs";
 import { getRoomPresence, ROOM_PRESENCE_TTL_MS, touchRoomPresence } from "../src/lib/room-presence.mjs";
 import { safeReturnTo } from "../src/lib/steam-auth.mjs";
 
@@ -17,10 +12,9 @@ const sessions = [
     visitorHash: "player-a",
     startedAt: now - 3 * 24 * 60 * 60 * 1_000,
     lastSeenAt: now - 3 * 24 * 60 * 60 * 1_000 + 5 * 60_000,
-    finishedAt: now - 3 * 24 * 60 * 60 * 1_000 + 5 * 60_000,
+    finishedAt: now - 3 * 24 * 60 * 60 * 1_000 + 60_000,
     roundsAnswered: 2,
     correctAnswers: 1,
-    feedback: "fun",
   },
   {
     visitorHash: "player-a",
@@ -29,7 +23,6 @@ const sessions = [
     finishedAt: null,
     roundsAnswered: 3,
     correctAnswers: 3,
-    feedback: "too-easy",
   },
   {
     visitorHash: "player-b",
@@ -38,7 +31,6 @@ const sessions = [
     finishedAt: null,
     roundsAnswered: 0,
     correctAnswers: 0,
-    feedback: "confusing",
   },
   {
     visitorHash: "expired-player",
@@ -47,19 +39,12 @@ const sessions = [
     finishedAt: null,
     roundsAnswered: 100,
     correctAnswers: 100,
-    feedback: "repetitive",
   },
 ];
 const summary = summarizeAlphaSessions(sessions, { now, windowDays: 30, dailyDays: 14 });
 
-if (
-  ALPHA_FEEDBACK_OPTIONS.length !== 4 ||
-  !["fun", "too-easy", "repetitive", "confusing"].every(isAlphaFeedback) ||
-  isAlphaFeedback("raw-comment") ||
-  !isAlphaSessionId(sessionId) ||
-  isAlphaSessionId("predictable-session")
-) {
-  failures.push("Alpha feedback or browser-session validation is too permissive.");
+if (!isAlphaSessionId(sessionId) || isAlphaSessionId("predictable-session")) {
+  failures.push("Alpha browser-session validation is too permissive.");
 }
 
 if (
@@ -71,13 +56,11 @@ if (
   summary.correct !== 4 ||
   summary.accuracy !== 80 ||
   summary.roundsPerSession !== 1.7 ||
-  summary.feedbackTotal !== 3 ||
-  summary.feedback.fun !== 1 ||
-  summary.feedback.repetitive !== 0 ||
+  summary.averageMinutes !== 4.5 ||
   summary.daily.length !== 14 ||
   summary.daily.reduce((total, day) => total + day.sessions, 0) !== 3
 ) {
-  failures.push("The private alpha summary does not calculate visits, returns, rounds, or feedback correctly.");
+  failures.push("The private alpha summary does not calculate visits, returns, and rounds correctly.");
 }
 
 const roomId = `alpha-presence-test-${sessionId}`;
@@ -96,6 +79,4 @@ if (safeReturnTo("/ops") !== "/ops" || safeReturnTo("/ops/anything") !== "/") {
 
 if (failures.length) throw new Error(failures.join("\n"));
 
-console.log(
-  "Validated ephemeral room presence, 30-day alpha summaries, fixed feedback, and protected ops return URLs.",
-);
+console.log("Validated ephemeral room presence, 30-day alpha summaries, and protected ops return URLs.");

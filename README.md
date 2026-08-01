@@ -31,8 +31,8 @@ The playable MVP includes:
 - expiring raw round votes while durable per-question answer and report aggregates remain available;
 - reveal question reports for incorrect, outdated, ambiguous, or unclear content, with an opened report carrying into the next round and deduplicated per anonymous player;
 - a responsive calibration lab at `/calibration`, with Steam-protected reviewed/quarantined states and automatic reopening when new reports arrive;
-- ephemeral live-room presence plus a Steam-protected `/ops` dashboard for visits, return rate, rounds per visit, fixed feedback, and format health;
-- a compact Web Share/copy-link action and a proper social preview card;
+- ephemeral live-room presence plus a Steam-protected `/ops` dashboard for visits, return rate, rounds per visit, and format health;
+- proper social preview metadata for links pasted outside the app;
 - optional Pusher broadcasts between connected browsers, with automatic polling as the zero-config fallback;
 - keyboard controls, responsive layouts, persistent mute and master volume, sound cues, and local lifetime stats;
 - optional Steam OpenID profiles with cross-browser accuracy, streaks, best-ten records, early solves, and per-format mastery;
@@ -54,7 +54,8 @@ Soundcheck alternates between ability sounds and item activations, mixing iconic
 two-sound rounds. Each third of the clock unlocks and replays a longer cut: two tiny prefixes, then the complete effect.
 Sequence answers are compact icon pairs:
 recognizing only one clip still leaves two plausible choices. Every sequence can be replayed freely, while persistent
-mute and volume controls apply to clips and interface cues alike.
+mute and volume controls apply to clips and interface cues alike. Fresh profiles start at 10% volume; the retired 70%
+default migrates once, while other explicitly chosen levels remain unchanged.
 
 Spell Link's hidden seed tier is reproducible: core/iconic abilities are approachable, unusual sub-abilities, innates,
 upgrades, and helper abilities are demanding, and the remaining edge cases sit between them. The second clue reveals an
@@ -108,7 +109,7 @@ ARCADE_DATA_COUNTRIES=Poland
 ARCADE_REVIEWER_STEAM_IDS=7656119xxxxxxxxxx
 ```
 
-`DATABASE_POOL_SIZE` defaults to 5. `ARCADE_ROUND_RETENTION_HOURS` defaults to 2: expired raw rounds and their voter hashes are deleted, while question-level accuracy and deduplicated reports remain. Alpha visits contain only salted player/session hashes, timestamps, round/correct totals, and one optional fixed feedback value; they expire after 30 days. A single long-running instance with a persistent disk can deliberately retain the file backend by setting `ARCADE_ALLOW_FILE_STORE=true`, but Postgres is the supported public-alpha path.
+`DATABASE_POOL_SIZE` defaults to 5. `ARCADE_ROUND_RETENTION_HOURS` defaults to 2: expired raw rounds and their voter hashes are deleted, while question-level accuracy and deduplicated reports remain. Alpha visits contain only salted player/session hashes, timestamps, and round/correct totals; they expire after 30 days. A single long-running instance with a persistent disk can deliberately retain the file backend by setting `ARCADE_ALLOW_FILE_STORE=true`, but Postgres is the supported public-alpha path.
 
 Use `GET /api/health` as the deployment readiness check. It verifies production configuration, initializes and queries
 the vote, account, and alpha stores, and reports the active content version without exposing secrets. `ARCADE_APP_URL` must be
@@ -124,7 +125,7 @@ receives another report or its difficulty signal changes. Quarantine remains an 
 silently removes a question from the running room.
 
 The same reviewer allowlist protects `/ops`. It shows aggregate alpha visits, unique and returning player counts, rounds
-per visit, fixed session feedback, and current-revision format accuracy/report rates. It never exposes a player hash or
+per visit, and current-revision format accuracy/report rates. It never exposes a player hash or
 individual answer. The “playing now” number is an in-memory 45-second pulse and is not written to storage.
 
 Unhandled server failures and sanitized browser failures are emitted as structured host logs with a release identifier
@@ -141,7 +142,7 @@ client-submitted score.
 Every push and pull request runs the full build in GitHub Actions, boots the production server against Postgres 17, and
 exercises synchronized rounds, hidden results, duplicate votes, reports, protected calibration review transitions,
 stable question revisions, Steam-state rejection, account sessions, personal-result idempotency, protected alpha ops,
-hashed visit summaries, fixed feedback, and cascading profile deletion.
+hashed visit summaries and cascading profile deletion.
 
 ## Refresh the Dota data
 
@@ -215,13 +216,13 @@ persistence, hashed voter IDs, Steam OpenID state boundaries, account/alpha-stor
 report deduplication, aggregate-only calibration data, and that obsolete mode, level, or category values cannot split
 the public room. Against Postgres, it additionally seeds a reviewer session, verifies unauthorized review rejection plus
 reviewed/quarantined persistence and automatic reopening, proves a forged browser player ID cannot double vote, checks
-the stored personal record and profile summary, tests protected alpha ops plus visit/feedback persistence, and verifies deletion cascades.
+the stored personal record and profile summary, tests protected alpha ops plus visit persistence, and verifies deletion cascades.
 
 For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run
 `node scripts/visual-smoke.mjs`. The script disables media playback again inside the page before loading anything, then
-checks the one-room lobby, share metadata/action, fixed-size account entry, guest profile, privacy page and private ops gate, `/play` navigation, browser Back and
+checks the one-room lobby, social metadata, fixed-size account entry, guest profile, privacy page and private ops gate, `/play` navigation, browser Back and
 Forward, legacy-mode redirect, seven compact round identities, synchronized answering/reveal/automatic-advance journey,
-no-shift question-report popover, optional session feedback, session report, mobile lobby, mobile calibration layout, overflow, and saves screenshots
+no-shift question-report popover, the optional session summary, the 10% fresh-install volume default, mobile lobby, mobile calibration layout, overflow, and saves screenshots
 under `/tmp`.
 
 ## Crowd architecture

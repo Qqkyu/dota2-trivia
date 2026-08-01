@@ -106,16 +106,6 @@ await send("Page.addScriptToEvaluateOnNewDocument", {
       configurable: true,
       value() { return Promise.resolve(); }
     });
-    Object.defineProperty(navigator, "share", { configurable: true, value: undefined });
-    Object.defineProperty(navigator, "clipboard", {
-      configurable: true,
-      value: {
-        writeText(value) {
-          window.__queueArcadeSharedUrl = value;
-          return Promise.resolve();
-        }
-      }
-    });
   })();`,
 });
 await send("Emulation.setDeviceMetricsOverride", {
@@ -128,6 +118,15 @@ await send("Emulation.setDeviceMetricsOverride", {
 await navigate(appUrl);
 await evaluate(`(() => {
   localStorage.clear();
+  return true;
+})()`);
+await navigate(appUrl);
+await waitFor(
+  `document.querySelector("main")?.dataset.clientReady === "true" && document.querySelector("main")?.dataset.accountReady === "true"`,
+);
+const defaultVolume = await evaluate(`document.querySelector('[data-testid="game-volume"]')?.value`);
+await evaluate(`(() => {
+  localStorage.clear();
   localStorage.setItem("queue-arcade:settings:v2", JSON.stringify({ soundEnabled: false, gameVolume: 0.7 }));
   return true;
 })()`);
@@ -135,9 +134,16 @@ await navigate(appUrl);
 await waitFor(
   `document.querySelector("main")?.dataset.clientReady === "true" && document.querySelector("main")?.dataset.accountReady === "true"`,
 );
+const migratedVolume = await evaluate(`document.querySelector('[data-testid="game-volume"]')?.value`);
+await evaluate(`(() => {
+  localStorage.setItem("queue-arcade:settings:v3", JSON.stringify({ soundEnabled: false, gameVolume: 0.7 }));
+  return true;
+})()`);
+await navigate(appUrl);
+await waitFor(
+  `document.querySelector("main")?.dataset.clientReady === "true" && document.querySelector("main")?.dataset.accountReady === "true"`,
+);
 await screenshot("/tmp/queue-arcade-lobby.png");
-await evaluate(`document.querySelector('[data-testid="share-arcade"]')?.click()`);
-await waitFor(`document.querySelector('[data-testid="share-arcade"]')?.textContent.includes("Link ready")`);
 
 const lobby = await evaluate(`(() => {
   const brand = document.querySelector('a[aria-label="Queue Arcade home"]');
@@ -148,7 +154,6 @@ const lobby = await evaluate(`(() => {
     heading: document.querySelector("h1")?.innerText,
     startButtons: document.querySelectorAll('[data-testid="start-arcade"]').length,
     shareButtons: document.querySelectorAll('[data-testid="share-arcade"]').length,
-    sharedUrl: window.__queueArcadeSharedUrl,
     canonical: document.querySelector('link[rel="canonical"]')?.href,
     openGraphImage: document.querySelector('meta[property="og:image"]')?.content,
     modeCards: document.querySelectorAll("[data-arcade-mode]").length,
@@ -293,20 +298,15 @@ const autoAdvanced = await evaluate(`({
   roundId: document.querySelector("main")?.dataset.roundId,
   roomId: document.querySelector("main")?.dataset.roomId
 })`);
-await evaluate(`document.querySelector('[data-testid="end-session"]')?.click()`);
+await evaluate(`document.querySelector('[data-testid="view-summary"]')?.click()`);
 await waitFor(`document.querySelector("main")?.dataset.phase === "summary"`);
-await evaluate(`document.querySelector('[data-testid="session-feedback-option"]')?.click()`);
-await waitFor(
-  `document.querySelector('[data-testid="session-feedback-option"][aria-pressed="true"]') && document.querySelector('[data-testid="session-feedback"]')?.textContent.includes("Saved")`,
-);
 const summary = await evaluate(`({
   heading: document.querySelector("h1")?.innerText,
   scoreVisible: document.body.textContent?.includes("Final score"),
   playAgain: [...document.querySelectorAll("button")].some((button) => button.textContent.includes("Play again")),
   backLabel: [...document.querySelectorAll("button")].some((button) => button.textContent.includes("Back to arcade")),
   feedbackOptions: document.querySelectorAll('[data-testid="session-feedback-option"]').length,
-  feedbackSaved: document.querySelector('[data-testid="session-feedback"]')?.textContent.includes("Saved"),
-  shareAction: [...document.querySelectorAll("button")].some((button) => button.textContent.includes("Share arcade"))
+  shareActions: document.querySelectorAll('[data-testid="share-arcade"]').length
 })`);
 await screenshot("/tmp/queue-arcade-summary.png");
 
@@ -350,7 +350,6 @@ const mobile = await evaluate(`({
   steamButtons: document.querySelectorAll('[data-testid="steam-sign-in"]').length,
   accountSlotWidth: document.querySelector('[data-testid="account-action-slot"]')?.getBoundingClientRect().width,
   startButtonWidth: document.querySelector('[data-testid="start-arcade"]')?.getBoundingClientRect().width,
-  shareButtonWidth: document.querySelector('[data-testid="share-arcade"]')?.getBoundingClientRect().width,
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 await screenshot("/tmp/queue-arcade-mobile.png");
@@ -377,8 +376,9 @@ if (!lobby.title.includes("Queue Arcade") || !lobby.heading?.includes("side ques
 }
 if (
   lobby.startButtons !== 1 ||
-  lobby.shareButtons !== 1 ||
-  lobby.sharedUrl !== `${new URL(appUrl).origin}/` ||
+  defaultVolume !== "10" ||
+  migratedVolume !== "10" ||
+  lobby.shareButtons !== 0 ||
   lobby.canonical !== `${new URL(appUrl).origin}/` ||
   !lobby.openGraphImage?.includes("opengraph-image") ||
   lobby.modeCards !== 0 ||
@@ -471,9 +471,8 @@ if (
   !summary.scoreVisible ||
   !summary.playAgain ||
   !summary.backLabel ||
-  summary.feedbackOptions !== 4 ||
-  !summary.feedbackSaved ||
-  !summary.shareAction
+  summary.feedbackOptions !== 0 ||
+  summary.shareActions !== 0
 ) {
   failures.push("The session report no longer completes the one-room journey.");
 }
@@ -495,7 +494,6 @@ if (
   mobile.roundFamilies !== 7 ||
   mobile.steamButtons !== 1 ||
   Math.abs((mobile.accountSlotWidth ?? 0) - (mobile.startButtonWidth ?? 0)) > 1 ||
-  Math.abs((mobile.shareButtonWidth ?? 0) - (mobile.startButtonWidth ?? 0)) > 1 ||
   mobile.horizontalOverflow
 ) {
   failures.push("The mobile public lobby does not fit or lost its round mix.");
@@ -545,7 +543,9 @@ console.log(
       optionalSteamProfile: true,
       privacyControls: true,
       sharePreview: true,
-      alphaFeedback: true,
+      freshVolume: `${defaultVolume}%`,
+      migratedOldDefault: `${migratedVolume}%`,
+      leanSessionSummary: true,
       privateOpsGate: true,
       mobileFits: true,
       screenshots: [

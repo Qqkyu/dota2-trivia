@@ -1,5 +1,5 @@
-import { ALPHA_SESSION_RETENTION_DAYS, isAlphaFeedback } from "@/lib/alpha-analytics.mjs";
-import type { AlphaFeedback, AlphaSessionIdentity, AlphaStoreHealth, StoredAlphaSession } from "@/lib/alpha-store";
+import { ALPHA_SESSION_RETENTION_DAYS } from "@/lib/alpha-analytics.mjs";
+import type { AlphaSessionIdentity, AlphaStoreHealth, StoredAlphaSession } from "@/lib/alpha-store";
 import { configuredPostgres } from "@/lib/vote-store-postgres";
 import { anonymousVoterHash } from "@/lib/voter-hash";
 
@@ -13,7 +13,6 @@ interface AlphaSessionRow {
   finished_at: Numeric | null;
   rounds_answered: Numeric;
   correct_answers: Numeric;
-  feedback: string | null;
 }
 
 const globalAlphaPostgres = globalThis as typeof globalThis & {
@@ -41,7 +40,6 @@ function storedSession(row: AlphaSessionRow): StoredAlphaSession {
     finishedAt: row.finished_at === null ? null : Number(row.finished_at),
     roundsAnswered: Number(row.rounds_answered),
     correctAnswers: Number(row.correct_answers),
-    feedback: isAlphaFeedback(row.feedback) ? (row.feedback as AlphaFeedback) : null,
   };
 }
 
@@ -60,8 +58,7 @@ async function ensureSchema() {
           last_seen_at BIGINT NOT NULL,
           finished_at BIGINT,
           rounds_answered BIGINT NOT NULL DEFAULT 0,
-          correct_answers BIGINT NOT NULL DEFAULT 0,
-          feedback TEXT CHECK (feedback IN ('fun', 'too-easy', 'repetitive', 'confusing'))
+          correct_answers BIGINT NOT NULL DEFAULT 0
         )
       `;
       await transaction`
@@ -101,9 +98,9 @@ export async function recordAlphaSessionStart(identity: AlphaSessionIdentity, at
   const { sessionHash, visitorHash } = hashesFor(identity);
   await configuredPostgres()`
     INSERT INTO queue_arcade_alpha_sessions (
-      session_hash, visitor_hash, started_at, last_seen_at, finished_at, rounds_answered, correct_answers, feedback
+      session_hash, visitor_hash, started_at, last_seen_at, finished_at, rounds_answered, correct_answers
     )
-    VALUES (${sessionHash}, ${visitorHash}, ${at}, ${at}, NULL, 0, 0, NULL)
+    VALUES (${sessionHash}, ${visitorHash}, ${at}, ${at}, NULL, 0, 0)
     ON CONFLICT (session_hash) DO UPDATE SET
       started_at = LEAST(queue_arcade_alpha_sessions.started_at, EXCLUDED.started_at),
       last_seen_at = GREATEST(queue_arcade_alpha_sessions.last_seen_at, EXCLUDED.last_seen_at)
@@ -116,9 +113,9 @@ export async function recordAlphaSessionRound(identity: AlphaSessionIdentity, co
   const { sessionHash, visitorHash } = hashesFor(identity);
   await configuredPostgres()`
     INSERT INTO queue_arcade_alpha_sessions (
-      session_hash, visitor_hash, started_at, last_seen_at, finished_at, rounds_answered, correct_answers, feedback
+      session_hash, visitor_hash, started_at, last_seen_at, finished_at, rounds_answered, correct_answers
     )
-    VALUES (${sessionHash}, ${visitorHash}, ${at}, ${at}, NULL, 1, ${Number(correct)}, NULL)
+    VALUES (${sessionHash}, ${visitorHash}, ${at}, ${at}, NULL, 1, ${Number(correct)})
     ON CONFLICT (session_hash) DO UPDATE SET
       last_seen_at = GREATEST(queue_arcade_alpha_sessions.last_seen_at, EXCLUDED.last_seen_at),
       rounds_answered = queue_arcade_alpha_sessions.rounds_answered + 1,
@@ -132,27 +129,12 @@ export async function recordAlphaSessionFinish(identity: AlphaSessionIdentity, a
   const { sessionHash, visitorHash } = hashesFor(identity);
   await configuredPostgres()`
     INSERT INTO queue_arcade_alpha_sessions (
-      session_hash, visitor_hash, started_at, last_seen_at, finished_at, rounds_answered, correct_answers, feedback
+      session_hash, visitor_hash, started_at, last_seen_at, finished_at, rounds_answered, correct_answers
     )
-    VALUES (${sessionHash}, ${visitorHash}, ${at}, ${at}, ${at}, 0, 0, NULL)
+    VALUES (${sessionHash}, ${visitorHash}, ${at}, ${at}, ${at}, 0, 0)
     ON CONFLICT (session_hash) DO UPDATE SET
       last_seen_at = GREATEST(queue_arcade_alpha_sessions.last_seen_at, EXCLUDED.last_seen_at),
       finished_at = GREATEST(COALESCE(queue_arcade_alpha_sessions.finished_at, 0), EXCLUDED.finished_at)
-  `;
-  await maybePruneSessions();
-}
-
-export async function recordAlphaSessionFeedback(identity: AlphaSessionIdentity, feedback: AlphaFeedback, at: number) {
-  await ensureSchema();
-  const { sessionHash, visitorHash } = hashesFor(identity);
-  await configuredPostgres()`
-    INSERT INTO queue_arcade_alpha_sessions (
-      session_hash, visitor_hash, started_at, last_seen_at, finished_at, rounds_answered, correct_answers, feedback
-    )
-    VALUES (${sessionHash}, ${visitorHash}, ${at}, ${at}, NULL, 0, 0, ${feedback})
-    ON CONFLICT (session_hash) DO UPDATE SET
-      last_seen_at = GREATEST(queue_arcade_alpha_sessions.last_seen_at, EXCLUDED.last_seen_at),
-      feedback = EXCLUDED.feedback
   `;
   await maybePruneSessions();
 }
@@ -161,7 +143,7 @@ export async function getAlphaSessionsSince(since: number): Promise<StoredAlphaS
   await ensureSchema();
   const rows = await configuredPostgres()<AlphaSessionRow[]>`
     SELECT session_hash, visitor_hash, started_at, last_seen_at, finished_at,
-      rounds_answered, correct_answers, feedback
+      rounds_answered, correct_answers
     FROM queue_arcade_alpha_sessions
     WHERE started_at >= ${since}
     ORDER BY started_at DESC

@@ -9,7 +9,6 @@ import {
   Brain,
   Check,
   ChevronRight,
-  CircleStop,
   Clock3,
   Crosshair,
   Flag,
@@ -27,7 +26,6 @@ import {
   Shuffle,
   Signal,
   ScanEye,
-  Share2,
   Swords,
   Trophy,
   Users,
@@ -60,8 +58,6 @@ import { LIVE_ROUND_GAMES, PUBLIC_ARCADE_MODE, PUBLIC_ROUND_FORMATS } from "@/li
 import { ARCADE_LOBBY_PATH, PUBLIC_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
 import { answerFeedbackKind, dotaFeedbackSoundForKind } from "@/lib/feedback-sounds.mjs";
-import { ALPHA_FEEDBACK_OPTIONS } from "@/lib/alpha-analytics.mjs";
-import type { AlphaFeedback } from "@/lib/alpha-store";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
 import type { MapBounds, MapChoiceChallenge, MapCrop, MapPosition, MapViewport } from "@/lib/map-types";
 import { MAP_READ_GRACE_MS, speedScoreRatio } from "@/lib/scoring.mjs";
@@ -80,13 +76,14 @@ const REVEAL_DURATION_MS = 7_000;
 const ANSWER_DURATION_MS = 15_000;
 const MAX_SPEED_BONUS = 100;
 const SPELL_CLUE_PENALTY = 40;
-const DEFAULT_GAME_VOLUME = 0.7;
+const DEFAULT_GAME_VOLUME = 0.1;
 const MIN_GAME_VOLUME = 0.1;
 const LETTERS = ["A", "B", "C", "D"] as const;
 const EMPTY_CROWD: CrowdResult = { counts: [0, 0, 0, 0], total: 0, positions: [] };
 const STORAGE_KEY = "queue-arcade:stats:v2";
 const PLAYER_KEY = "queue-arcade:player:v2";
-const SETTINGS_KEY = "queue-arcade:settings:v2";
+const SETTINGS_KEY = "queue-arcade:settings:v3";
+const PREVIOUS_SETTINGS_KEY = "queue-arcade:settings:v2";
 const LEGACY_STORAGE_KEY = "queue-trivia:stats:v1";
 const LEGACY_PLAYER_KEY = "queue-trivia:player:v1";
 const LEGACY_SETTINGS_KEY = "queue-trivia:settings:v1";
@@ -1286,9 +1283,6 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   const [activeRoomId, setActiveRoomId] = useState("");
   const [activeRoundId, setActiveRoundId] = useState("");
   const [activePlayers, setActivePlayers] = useState(0);
-  const [shareState, setShareState] = useState<"idle" | "shared" | "error">("idle");
-  const [sessionFeedback, setSessionFeedback] = useState<AlphaFeedback | null>(null);
-  const [feedbackState, setFeedbackState] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [roundAudioState, setRoundAudioState] = useState<"loading" | "ready" | "playing" | "error">("loading");
   const [roundAudioPlayCount, setRoundAudioPlayCount] = useState(0);
   const [roundAudioClipIndex, setRoundAudioClipIndex] = useState(0);
@@ -1375,12 +1369,12 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   }, []);
 
   const sendAlphaSessionEvent = useCallback(
-    async (action: "start" | "finish" | "feedback", sessionId: string, feedback?: AlphaFeedback) => {
+    async (action: "start" | "finish", sessionId: string) => {
       const response = await fetch("/api/sessions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         keepalive: action === "finish",
-        body: JSON.stringify({ action, sessionId, voterId: ensurePlayerId(), ...(feedback ? { feedback } : {}) }),
+        body: JSON.stringify({ action, sessionId, voterId: ensurePlayerId() }),
       });
       if (!response.ok) throw new Error("Alpha session unavailable.");
     },
@@ -1393,30 +1387,6 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
     alphaSessionFinishedRef.current = true;
     void sendAlphaSessionEvent("finish", sessionId).catch(() => undefined);
   }, [sendAlphaSessionEvent]);
-
-  const shareArcade = useCallback(async () => {
-    const url = new URL(ARCADE_LOBBY_PATH, window.location.origin).href;
-    const shareData = {
-      title: "Queue Arcade",
-      text: "Dota side quests for the time between Find Match and Accept.",
-      url,
-    };
-    try {
-      if (navigator.share) {
-        try {
-          await navigator.share(shareData);
-          setShareState("shared");
-          return;
-        } catch (error) {
-          if (error instanceof DOMException && error.name === "AbortError") return;
-        }
-      }
-      await navigator.clipboard.writeText(url);
-      setShareState("shared");
-    } catch {
-      setShareState("error");
-    }
-  }, []);
 
   const playSound = useCallback(
     (kind: "lock" | "correct" | "wrong" | "start") => {
@@ -1780,8 +1750,6 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
         const alphaSessionId = window.crypto.randomUUID();
         alphaSessionIdRef.current = alphaSessionId;
         alphaSessionFinishedRef.current = false;
-        setSessionFeedback(null);
-        setFeedbackState("idle");
         updateReportTarget(null);
         setReportNotice(null);
         setReportedReason(null);
@@ -2069,24 +2037,6 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
     [finishAlphaSession, setDeadline, setPhase, stopRoundAudio, updateReportState, updateReportTarget],
   );
 
-  const submitSessionFeedback = useCallback(
-    async (feedback: AlphaFeedback) => {
-      const sessionId = alphaSessionIdRef.current;
-      if (!sessionId || feedbackState === "saving") return;
-      const previous = sessionFeedback;
-      setSessionFeedback(feedback);
-      setFeedbackState("saving");
-      try {
-        await sendAlphaSessionEvent("feedback", sessionId, feedback);
-        setFeedbackState("saved");
-      } catch {
-        setSessionFeedback(previous);
-        setFeedbackState("error");
-      }
-    },
-    [feedbackState, sendAlphaSessionEvent, sessionFeedback],
-  );
-
   useEffect(() => {
     const handlePopState = () => {
       if (window.location.pathname === PUBLIC_ARCADE_PATH) {
@@ -2179,12 +2129,6 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   }, [phase]);
 
   useEffect(() => {
-    if (shareState === "idle") return;
-    const timeout = window.setTimeout(() => setShareState("idle"), 2_500);
-    return () => window.clearTimeout(timeout);
-  }, [shareState]);
-
-  useEffect(() => {
     const handlePageHide = () => finishAlphaSession();
     window.addEventListener("pagehide", handlePageHide);
     return () => window.removeEventListener("pagehide", handlePageHide);
@@ -2213,8 +2157,11 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
     const hydration = window.setTimeout(() => {
       try {
         const storedStats = window.localStorage.getItem(STORAGE_KEY) ?? window.localStorage.getItem(LEGACY_STORAGE_KEY);
+        const currentSettings = window.localStorage.getItem(SETTINGS_KEY);
         const storedSettings =
-          window.localStorage.getItem(SETTINGS_KEY) ?? window.localStorage.getItem(LEGACY_SETTINGS_KEY);
+          currentSettings ??
+          window.localStorage.getItem(PREVIOUS_SETTINGS_KEY) ??
+          window.localStorage.getItem(LEGACY_SETTINGS_KEY);
         if (storedStats) setLifetimeStats({ ...EMPTY_STATS, ...JSON.parse(storedStats) });
         if (storedSettings) {
           const settings = JSON.parse(storedSettings) as {
@@ -2223,7 +2170,10 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
           };
           if (typeof settings.soundEnabled === "boolean") setSoundEnabled(settings.soundEnabled);
           if (typeof settings.gameVolume === "number" && Number.isFinite(settings.gameVolume)) {
-            setGameVolume(Math.min(1, Math.max(MIN_GAME_VOLUME, settings.gameVolume)));
+            const wasOldDefault = !currentSettings && settings.gameVolume === 0.7;
+            setGameVolume(
+              wasOldDefault ? DEFAULT_GAME_VOLUME : Math.min(1, Math.max(MIN_GAME_VOLUME, settings.gameVolume)),
+            );
           }
         }
         ensurePlayerId();
@@ -2506,16 +2456,6 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 <Gamepad2 />
                 {joiningRoom ? "Joining public room…" : activeModeInfo.action}
                 <ChevronRight />
-              </button>
-              <button
-                type="button"
-                className={styles.shareButton}
-                data-testid="share-arcade"
-                onClick={() => void shareArcade()}
-                aria-label="Share Queue Arcade"
-              >
-                <Share2 />
-                <span>{shareState === "shared" ? "Link ready" : shareState === "error" ? "Try again" : "Share"}</span>
               </button>
               <div className={styles.accountActionSlot} data-testid="account-action-slot">
                 {account === null ? (
@@ -3251,9 +3191,9 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 <i />
                 <span title={roomError ?? activeRoomId}>{roomError ? "Reconnecting" : "Live room"}</span>
               </div>
-              <button type="button" data-testid="end-session" onClick={finishSession}>
-                <CircleStop />
-                End session
+              <button type="button" data-testid="view-summary" onClick={finishSession}>
+                <Trophy />
+                View summary
               </button>
             </div>
 
@@ -3480,37 +3420,11 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
             </div>
           </div>
 
-          <div className={styles.sessionFeedback} data-testid="session-feedback">
-            <span>
-              <strong>How did that feel?</strong>
-              <small>{feedbackState === "saved" ? "Saved—thank you" : "Optional"}</small>
-            </span>
-            <div role="group" aria-label="Session feedback">
-              {ALPHA_FEEDBACK_OPTIONS.map((option) => (
-                <button
-                  key={option.id}
-                  type="button"
-                  data-testid="session-feedback-option"
-                  aria-pressed={sessionFeedback === option.id}
-                  onClick={() => void submitSessionFeedback(option.id as AlphaFeedback)}
-                  disabled={feedbackState === "saving"}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-            {feedbackState === "error" && <small role="alert">Couldn’t save · try again</small>}
-          </div>
-
           <div className={styles.summaryActions}>
             <button type="button" className={styles.primaryButton} onClick={() => void startRun()}>
               <RotateCcw />
               Play again
               <ChevronRight />
-            </button>
-            <button type="button" className={styles.secondaryButton} onClick={() => void shareArcade()}>
-              <Share2 />
-              {shareState === "shared" ? "Link ready" : "Share arcade"}
             </button>
             <button type="button" className={styles.secondaryButton} onClick={() => returnToLobby("replace")}>
               Back to arcade

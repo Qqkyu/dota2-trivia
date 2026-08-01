@@ -1,19 +1,6 @@
 export const ALPHA_SESSION_RETENTION_DAYS = 30;
 
-export const ALPHA_FEEDBACK_OPTIONS = Object.freeze([
-  Object.freeze({ id: "fun", label: "Fun" }),
-  Object.freeze({ id: "too-easy", label: "Too easy" }),
-  Object.freeze({ id: "repetitive", label: "Repetitive" }),
-  Object.freeze({ id: "confusing", label: "Confusing" }),
-]);
-
-const ALPHA_FEEDBACK_IDS = new Set(ALPHA_FEEDBACK_OPTIONS.map(({ id }) => id));
 const SESSION_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-
-/** @param {unknown} value */
-export function isAlphaFeedback(value) {
-  return typeof value === "string" && ALPHA_FEEDBACK_IDS.has(value);
-}
 
 /** @param {unknown} value */
 export function isAlphaSessionId(value) {
@@ -32,7 +19,6 @@ function utcDay(timestamp) {
  *   finishedAt: number | null;
  *   roundsAnswered: number;
  *   correctAnswers: number;
- *   feedback: string | null;
  * }>} sessions
  * @param {{ now?: number; windowDays?: number; dailyDays?: number }} [options]
  */
@@ -49,7 +35,6 @@ export function summarizeAlphaSessions(sessions, options = {}) {
       session.startedAt <= now + 60_000,
   );
   const visitsByPlayer = new Map();
-  const feedback = Object.fromEntries(ALPHA_FEEDBACK_OPTIONS.map(({ id }) => [id, 0]));
   let rounds = 0;
   let correct = 0;
   let totalDurationMs = 0;
@@ -58,8 +43,10 @@ export function summarizeAlphaSessions(sessions, options = {}) {
     visitsByPlayer.set(session.visitorHash, (visitsByPlayer.get(session.visitorHash) ?? 0) + 1);
     rounds += Math.max(0, Number(session.roundsAnswered) || 0);
     correct += Math.max(0, Number(session.correctAnswers) || 0);
-    if (isAlphaFeedback(session.feedback)) feedback[session.feedback] += 1;
-    const end = Number.isFinite(session.finishedAt) ? session.finishedAt : session.lastSeenAt;
+    const end = Math.max(
+      Number.isFinite(session.lastSeenAt) ? session.lastSeenAt : session.startedAt,
+      Number.isFinite(session.finishedAt) ? session.finishedAt : session.startedAt,
+    );
     totalDurationMs += Math.max(0, Math.min(24 * 60 * 60 * 1_000, end - session.startedAt));
   }
 
@@ -92,8 +79,6 @@ export function summarizeAlphaSessions(sessions, options = {}) {
     accuracy: rounds ? Math.round((correct / rounds) * 100) : 0,
     roundsPerSession: eligible.length ? Math.round((rounds / eligible.length) * 10) / 10 : 0,
     averageMinutes: eligible.length ? Math.round((totalDurationMs / eligible.length / 60_000) * 10) / 10 : 0,
-    feedback,
-    feedbackTotal: Object.values(feedback).reduce((sum, count) => sum + count, 0),
     daily: daily.map(({ playerHashes, ...day }) => ({ ...day, players: playerHashes.size })),
   };
 }

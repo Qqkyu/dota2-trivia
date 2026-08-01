@@ -175,19 +175,17 @@
 .grid {
   display: grid;
   gap: 12px;
-  grid-template-columns: minmax(0, 1.7fr) minmax(300px, 0.7fr);
+  grid-template-columns: minmax(0, 1fr);
   margin-top: 12px;
 }
 
 .activityPanel,
-.feedbackPanel,
 .formatPanel {
   border: 1px solid var(--line);
   background: rgba(13, 17, 18, 0.9);
 }
 
-.activityPanel,
-.feedbackPanel {
+.activityPanel {
   min-height: 230px;
   padding: 20px;
 }
@@ -239,59 +237,6 @@
   font-size: 9px;
   text-align: center;
   white-space: nowrap;
-}
-
-.feedbackPanel > header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.feedbackPanel > header svg {
-  width: 25px;
-  color: var(--gold);
-}
-
-.feedbackPanel > header span {
-  display: flex;
-  flex-direction: column;
-}
-
-.feedbackPanel > header small {
-  color: var(--faint);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.feedbackPanel > header strong {
-  margin-top: 4px;
-  font-size: 14px;
-  font-weight: 570;
-}
-
-.feedbackPanel > div {
-  display: grid;
-  gap: 7px;
-  margin-top: 20px;
-}
-
-.feedbackPanel > div span {
-  display: flex;
-  min-height: 32px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 10px;
-  border: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.feedbackPanel > div strong {
-  color: var(--text);
-  font-family: var(--font-geist-mono), monospace;
-  font-weight: 450;
 }
 
 .formatPanel {

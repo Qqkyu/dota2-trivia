@@ -1,11 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { isAlphaFeedback, isAlphaSessionId } from "@/lib/alpha-analytics.mjs";
-import {
-  recordAlphaSessionFeedback,
-  recordAlphaSessionFinish,
-  recordAlphaSessionStart,
-  type AlphaFeedback,
-} from "@/lib/alpha-store";
+import { isAlphaSessionId } from "@/lib/alpha-analytics.mjs";
+import { recordAlphaSessionFinish, recordAlphaSessionStart } from "@/lib/alpha-store";
 import { isSameOriginMutation, sessionUserForRequest } from "@/lib/auth-session";
 import { rateLimitRequest } from "@/lib/api-protection";
 import { logServerError } from "@/lib/server-diagnostics";
@@ -13,10 +8,10 @@ import { logServerError } from "@/lib/server-diagnostics";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-type AlphaSessionAction = "start" | "finish" | "feedback";
+type AlphaSessionAction = "start" | "finish";
 
 function isAlphaSessionAction(value: unknown): value is AlphaSessionAction {
-  return value === "start" || value === "finish" || value === "feedback";
+  return value === "start" || value === "finish";
 }
 
 export async function POST(request: NextRequest) {
@@ -40,8 +35,7 @@ export async function POST(request: NextRequest) {
     !isAlphaSessionId(candidate.sessionId) ||
     typeof candidate.voterId !== "string" ||
     candidate.voterId.length < 8 ||
-    candidate.voterId.length > 80 ||
-    (candidate.action === "feedback" && !isAlphaFeedback(candidate.feedback))
+    candidate.voterId.length > 80
   ) {
     return NextResponse.json({ error: "Invalid session payload." }, { status: 400 });
   }
@@ -63,16 +57,7 @@ export async function POST(request: NextRequest) {
   try {
     if (candidate.action === "start") await recordAlphaSessionStart(identity, now);
     if (candidate.action === "finish") await recordAlphaSessionFinish(identity, now);
-    if (candidate.action === "feedback") {
-      await recordAlphaSessionFeedback(identity, candidate.feedback as AlphaFeedback, now);
-    }
-    return NextResponse.json(
-      {
-        accepted: true,
-        ...(candidate.action === "feedback" ? { feedback: candidate.feedback } : {}),
-      },
-      { headers: { "Cache-Control": "no-store" } },
-    );
+    return NextResponse.json({ accepted: true }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     logServerError("alpha-session.persist", error, { action: candidate.action });
     return NextResponse.json({ error: "Session storage unavailable." }, { status: 503 });

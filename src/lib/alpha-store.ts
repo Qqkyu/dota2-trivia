@@ -1,9 +1,7 @@
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { ALPHA_SESSION_RETENTION_DAYS, isAlphaFeedback } from "@/lib/alpha-analytics.mjs";
+import { ALPHA_SESSION_RETENTION_DAYS } from "@/lib/alpha-analytics.mjs";
 import { anonymousVoterHash } from "@/lib/voter-hash";
-
-export type AlphaFeedback = "fun" | "too-easy" | "repetitive" | "confusing";
 
 export interface AlphaSessionIdentity {
   sessionId: string;
@@ -18,7 +16,6 @@ export interface StoredAlphaSession {
   finishedAt: number | null;
   roundsAnswered: number;
   correctAnswers: number;
-  feedback: AlphaFeedback | null;
 }
 
 interface AlphaFileState {
@@ -76,8 +73,7 @@ function isStoredAlphaSession(value: unknown): value is StoredAlphaSession {
     typeof candidate.lastSeenAt === "number" &&
     (candidate.finishedAt === null || typeof candidate.finishedAt === "number") &&
     typeof candidate.roundsAnswered === "number" &&
-    typeof candidate.correctAnswers === "number" &&
-    (candidate.feedback === null || isAlphaFeedback(candidate.feedback))
+    typeof candidate.correctAnswers === "number"
   );
 }
 
@@ -126,7 +122,6 @@ function newSession(identity: AlphaSessionIdentity, at: number): StoredAlphaSess
     finishedAt: null,
     roundsAnswered: 0,
     correctAnswers: 0,
-    feedback: null,
   };
 }
 
@@ -195,18 +190,6 @@ async function fileRecordFinish(identity: AlphaSessionIdentity, at: number) {
   });
 }
 
-async function fileRecordFeedback(identity: AlphaSessionIdentity, feedback: AlphaFeedback, at: number) {
-  return mutate((state) => {
-    const { sessionHash, visitorHash } = hashesFor(identity);
-    const session = state.sessions[sessionHash] ?? newSession(identity, at);
-    if (session.visitorHash !== visitorHash) throw new Error("Alpha session identity mismatch.");
-    session.lastSeenAt = Math.max(session.lastSeenAt, at);
-    session.feedback = feedback;
-    state.sessions[sessionHash] = session;
-    return { ...session };
-  });
-}
-
 async function fileSessionsSince(since: number) {
   await runtime.writeQueue;
   const state = await stateForRuntime();
@@ -260,11 +243,6 @@ export async function recordAlphaSessionRound(identity: AlphaSessionIdentity, co
 export async function recordAlphaSessionFinish(identity: AlphaSessionIdentity, at: number) {
   if (usesPostgres()) return (await postgresStore()).recordAlphaSessionFinish(identity, at);
   return fileRecordFinish(identity, at);
-}
-
-export async function recordAlphaSessionFeedback(identity: AlphaSessionIdentity, feedback: AlphaFeedback, at: number) {
-  if (usesPostgres()) return (await postgresStore()).recordAlphaSessionFeedback(identity, feedback, at);
-  return fileRecordFeedback(identity, feedback, at);
 }
 
 export async function getAlphaSessionsSince(since: number): Promise<StoredAlphaSession[]> {

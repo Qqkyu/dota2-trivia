@@ -236,10 +236,10 @@ async function alphaSessionEvent(action, extraFields = {}, requestHeaders = {}, 
 }
 
 const crossOriginlessSession = await alphaSessionEvent("start", {}, accountHeaders, false);
-const invalidFeedback = await alphaSessionEvent("feedback", { feedback: "raw-comment" }, accountHeaders);
+const retiredFeedback = await alphaSessionEvent("feedback", { feedback: "fun" }, accountHeaders);
 const startedAlphaSession = await alphaSessionEvent("start", {}, accountHeaders);
-if (crossOriginlessSession.status !== 403 || invalidFeedback.status !== 400 || startedAlphaSession.status !== 200) {
-  throw new Error("Alpha session writes do not enforce origin, fixed feedback, and valid starts.");
+if (crossOriginlessSession.status !== 403 || retiredFeedback.status !== 400 || startedAlphaSession.status !== 200) {
+  throw new Error("Alpha session writes do not enforce origin, retired actions, and valid starts.");
 }
 
 const firstSnapshot = await answeringRoundWithTime(firstPlayer, settings, accountHeaders);
@@ -308,9 +308,8 @@ if (!firstVote.accepted || !secondVote.accepted || duplicateVote.accepted) {
 }
 
 const finishedAlphaSession = await alphaSessionEvent("finish", {}, accountHeaders);
-const alphaFeedback = await alphaSessionEvent("feedback", { feedback: "fun" }, accountHeaders);
-if (finishedAlphaSession.status !== 200 || alphaFeedback.status !== 200 || alphaFeedback.body.feedback !== "fun") {
-  throw new Error("A completed alpha visit or its fixed feedback could not be saved.");
+if (finishedAlphaSession.status !== 200) {
+  throw new Error("A completed alpha visit could not be saved.");
 }
 
 if (duplicateVote.playerVote?.answerIndex !== firstVote.playerVote?.answerIndex) {
@@ -586,7 +585,7 @@ if (expectedStorageBackend === "postgres") {
     `;
     const alphaSessions = await sql`
       SELECT session_hash, visitor_hash, started_at, last_seen_at, finished_at,
-        rounds_answered, correct_answers, feedback
+        rounds_answered, correct_answers
       FROM queue_arcade_alpha_sessions
       WHERE session_hash = ${alphaSessionHash}
     `;
@@ -624,10 +623,9 @@ if (expectedStorageBackend === "postgres") {
       alphaSession.visitor_hash !== alphaVisitorHash ||
       Number(alphaSession.rounds_answered) !== 1 ||
       alphaSession.finished_at === null ||
-      alphaSession.feedback !== "fun" ||
       storedText.includes(alphaSessionId)
     ) {
-      throw new Error("Postgres did not persist the minimal hashed alpha visit and feedback.");
+      throw new Error("Postgres did not persist the minimal hashed alpha visit.");
     }
     if (Number(questions[0]?.report_ambiguous) < 1 || Number(questions[0]?.report_outdated) < 1) {
       throw new Error("The anonymous question reports were not written to Postgres.");

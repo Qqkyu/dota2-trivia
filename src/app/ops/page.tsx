@@ -10,14 +10,12 @@ import {
   BarChart3,
   Clock3,
   Gamepad2,
-  MessageSquareMore,
   RefreshCw,
   Repeat2,
   ShieldCheck,
   Users,
 } from "lucide-react";
 import { SteamSignIn } from "@/components/steam-sign-in";
-import { ALPHA_FEEDBACK_OPTIONS } from "@/lib/alpha-analytics.mjs";
 import { getAlphaOpsSnapshot, type AlphaFormatSignal } from "@/lib/alpha-ops";
 import { getUserBySession } from "@/lib/account-store";
 import { DEFAULT_GAME_ID, GAME_CATALOGS } from "@/lib/game-catalogs";
@@ -115,9 +113,7 @@ export default async function OpsPage() {
           <Activity /> Private alpha pulse
         </span>
         <h1>Is the arcade landing?</h1>
-        <p>
-          Visits and feedback from the last {sessions.windowDays} days. Format health uses current question revisions.
-        </p>
+        <p>Anonymous visits from the last {sessions.windowDays} days. Format health uses current question revisions.</p>
       </section>
 
       <section className={styles.stats} aria-label="Alpha overview">
@@ -167,24 +163,6 @@ export default async function OpsPage() {
                 />
                 <small>{day.date.slice(5)}</small>
               </div>
-            ))}
-          </div>
-        </article>
-
-        <article className={styles.feedbackPanel}>
-          <header>
-            <MessageSquareMore />
-            <span>
-              <small>Session feedback</small>
-              <strong>{sessions.feedbackTotal} responses</strong>
-            </span>
-          </header>
-          <div>
-            {ALPHA_FEEDBACK_OPTIONS.map((option) => (
-              <span key={option.id}>
-                {option.label}
-                <strong>{sessions.feedback[option.id] ?? 0}</strong>
-              </span>
             ))}
           </div>
         </article>
