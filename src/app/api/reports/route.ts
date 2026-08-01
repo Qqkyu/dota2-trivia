@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
+import { rateLimitRequest } from "@/lib/api-protection";
 import { isReportReason, QUESTION_REPORT_GRACE_MS } from "@/lib/calibration";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
 import { currentPublicRound, parsePublicRoomSettings, publicRoundAt } from "@/lib/public-rooms";
+import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { recordQuestionReport } from "@/lib/vote-store";
 
 export const runtime = "nodejs";
@@ -40,6 +42,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid report." }, { status: 400 });
   }
 
+  const rateLimited = rateLimitRequest(request, "reports", voterId, 6);
+  if (rateLimited) return rateLimited;
+
   const submittedAt = Date.now();
   const { room, round: currentRound } = currentPublicRound(settings, submittedAt);
   const currentRevealMatches =
@@ -66,6 +71,7 @@ export async function POST(request: Request) {
       gameId: room.gameId,
       contentVersion: room.contentVersion,
       questionId,
+      questionRevision: questionCalibrationRevision(question),
       correctIndex: question.correctIndex,
       reason,
       voterId,

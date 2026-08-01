@@ -1,4 +1,3 @@
-import { createHash } from "node:crypto";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { CrowdResult, PlayerVote, ReportResult, VoteResult } from "@/lib/arcade-contract";
@@ -6,6 +5,7 @@ import { emptyReportCounts, isReportReason, type ReportCounts, type ReportReason
 import type { GameId } from "@/lib/game-catalogs";
 import { MAP_SENSE_MAX_CROWD_PINS } from "@/lib/map-sense";
 import type { MapPosition } from "@/lib/map-types";
+import { anonymousVoterHash } from "@/lib/voter-hash";
 
 interface StoredRound {
   roomId: string;
@@ -20,8 +20,9 @@ interface StoredRound {
 
 interface StoredQuestion {
   gameId: GameId;
-  contentVersion: string;
+  contentVersion?: string;
   questionId: string;
+  questionRevision?: string;
   counts: CrowdResult["counts"];
   total: number;
   correctIndex: number;
@@ -41,8 +42,38 @@ export interface QuestionStats {
   updatedAt: number;
 }
 
+export interface RoundVoteInput {
+  roundId: string;
+  roomId: string;
+  gameId: GameId;
+  contentVersion: string;
+  questionId: string;
+  questionRevision: string;
+  correctIndex: number;
+  answerIndex: number;
+  mapPosition?: MapPosition;
+  voterId: string;
+  submittedAt: number;
+}
+
+export interface QuestionReportInput {
+  gameId: GameId;
+  contentVersion: string;
+  questionId: string;
+  questionRevision: string;
+  correctIndex: number;
+  reason: ReportReason;
+  voterId: string;
+  submittedAt: number;
+}
+
+export interface VoteStoreHealth {
+  backend: "file" | "postgres";
+  ok: true;
+}
+
 interface PersistentVoteState {
-  version: 1;
+  version: 1 | 2;
   rounds: Record<string, StoredRound>;
   questions: Record<string, StoredQuestion>;
 }
@@ -75,7 +106,7 @@ globalVoteStore.__queueArcadePersistentVotes = runtime;
 
 function emptyState(): PersistentVoteState {
   return {
-    version: 1,
+    version: 2,
     rounds: {},
     questions: {},
   };
@@ -92,15 +123,17 @@ function validCounts(value: unknown): value is CrowdResult["counts"] {
 function validState(value: unknown): value is PersistentVoteState {
   if (!value || typeof value !== "object") return false;
   const candidate = value as Partial<PersistentVoteState>;
-  return candidate.version === 1 && Boolean(candidate.rounds) && Boolean(candidate.questions);
+  return (
+    (candidate.version === 1 || candidate.version === 2) && Boolean(candidate.rounds) && Boolean(candidate.questions)
+  );
 }
 
-async function loadState() {
+async function loadState(): Promise<PersistentVoteState> {
   try {
     const raw = await readFile(/* turbopackIgnore: true */ runtime.filePath, "utf8");
     const parsed: unknown = JSON.parse(raw);
     if (!validState(parsed)) throw new Error("Unsupported persistent vote format.");
-    return parsed;
+    return { ...parsed, version: 2 as const };
   } catch (error) {
     const code = error && typeof error === "object" && "code" in error ? error.code : null;
     if (code === "ENOENT") return emptyState();
@@ -108,9 +141,11 @@ async function loadState() {
   }
 }
 
-function stateForRuntime() {
-  runtime.statePromise ??= loadState();
-  return runtime.statePromise;
+function stateForRuntime(): Promise<PersistentVoteState> {
+  if (runtime.statePromise) return runtime.statePromise;
+  const statePromise = loadState();
+  runtime.statePromise = statePromise;
+  return statePromise;
 }
 
 function crowdFor(round: StoredRound | undefined): CrowdResult {
@@ -127,11 +162,6 @@ function crowdFor(round: StoredRound | undefined): CrowdResult {
   };
 }
 
-function anonymousHash(scope: string, voterId: string) {
-  const salt = process.env.ARCADE_VOTER_SALT || "queue-arcade-local-v1";
-  return createHash("sha256").update(`${salt}:${scope}:${voterId}`).digest("base64url");
-}
-
 function reportsFor(question: StoredQuestion | undefined): ReportCounts {
   const reports = emptyReportCounts();
   if (!question?.reports || typeof question.reports !== "object") return reports;
@@ -143,8 +173,57 @@ function reportsFor(question: StoredQuestion | undefined): ReportCounts {
   return reports;
 }
 
-function questionKey(gameId: GameId, contentVersion: string, questionId: string) {
+function questionKey(gameId: GameId, questionId: string, questionRevision: string) {
+  return `${gameId}:${questionId}:${questionRevision}`;
+}
+
+function legacyQuestionKey(gameId: GameId, contentVersion: string, questionId: string) {
   return `${gameId}:${contentVersion}:${questionId}`;
+}
+
+function questionForMutation(
+  state: PersistentVoteState,
+  input: {
+    gameId: GameId;
+    contentVersion: string;
+    questionId: string;
+    questionRevision: string;
+    correctIndex: number;
+    submittedAt: number;
+  },
+) {
+  const key = questionKey(input.gameId, input.questionId, input.questionRevision);
+  const legacyKey = legacyQuestionKey(input.gameId, input.contentVersion, input.questionId);
+  let question = state.questions[key];
+
+  if (!question) {
+    const legacy = state.questions[legacyKey];
+    if (legacy && !legacy.questionRevision && legacy.contentVersion === input.contentVersion) {
+      question = { ...legacy, contentVersion: undefined, questionRevision: input.questionRevision };
+      delete state.questions[legacyKey];
+    }
+  }
+
+  question ??= {
+    gameId: input.gameId,
+    questionId: input.questionId,
+    questionRevision: input.questionRevision,
+    counts: [0, 0, 0, 0],
+    total: 0,
+    correctIndex: input.correctIndex,
+    updatedAt: input.submittedAt,
+  };
+
+  if (
+    question.gameId !== input.gameId ||
+    question.questionId !== input.questionId ||
+    question.questionRevision !== input.questionRevision
+  ) {
+    throw new Error("Persistent question identity mismatch.");
+  }
+
+  state.questions[key] = question;
+  return { key, question };
 }
 
 async function persist(state: PersistentVoteState) {
@@ -161,6 +240,12 @@ async function mutate<T>(operation: (state: PersistentVoteState) => T) {
     .then(async () => {
       const state = await stateForRuntime();
       const result = operation(state);
+      const retentionHours = Number(process.env.ARCADE_ROUND_RETENTION_HOURS ?? 2);
+      const retentionMs = (Number.isFinite(retentionHours) && retentionHours > 0 ? retentionHours : 2) * 60 * 60 * 1000;
+      const expiresBefore = Date.now() - retentionMs;
+      for (const [roundId, round] of Object.entries(state.rounds)) {
+        if (round.updatedAt < expiresBefore) delete state.rounds[roundId];
+      }
       await persist(state);
       return result;
     });
@@ -172,11 +257,11 @@ async function mutate<T>(operation: (state: PersistentVoteState) => T) {
   return task;
 }
 
-export async function getRoundCrowd(roundId: string, roomId: string, voterId?: string) {
+async function fileGetRoundCrowd(roundId: string, roomId: string, voterId?: string) {
   await runtime.writeQueue;
   const state = await stateForRuntime();
   const round = state.rounds[roundId];
-  const hash = voterId ? anonymousHash(roomId, voterId) : null;
+  const hash = voterId ? anonymousVoterHash(roomId, voterId) : null;
 
   return {
     ...crowdFor(round),
@@ -184,56 +269,62 @@ export async function getRoundCrowd(roundId: string, roomId: string, voterId?: s
   };
 }
 
-export async function getPlayerQuestionReport(
+async function fileGetPlayerQuestionReport(
   gameId: GameId,
   contentVersion: string,
   questionId: string,
+  questionRevision: string,
   voterId?: string,
 ) {
   if (!voterId) return null;
   await runtime.writeQueue;
   const state = await stateForRuntime();
-  const key = questionKey(gameId, contentVersion, questionId);
-  const question = state.questions[key];
-  const hash = anonymousHash(`report:${key}`, voterId);
-  const reason = question?.reporters?.[hash];
+  const key = questionKey(gameId, questionId, questionRevision);
+  const legacyKey = legacyQuestionKey(gameId, contentVersion, questionId);
+  const question = state.questions[key] ?? state.questions[legacyKey];
+  const hash = anonymousVoterHash(`report:${key}`, voterId);
+  const legacyHash = anonymousVoterHash(`report:${legacyKey}`, voterId);
+  const reason = question?.reporters?.[hash] ?? question?.reporters?.[legacyHash];
   return isReportReason(reason) ? reason : null;
 }
 
-export async function getQuestionStats(gameId: GameId, contentVersion: string): Promise<QuestionStats[]> {
+async function fileGetQuestionStats(
+  gameId: GameId,
+  contentVersion: string,
+  questionRevisions: ReadonlyMap<string, string>,
+): Promise<QuestionStats[]> {
   await runtime.writeQueue;
   const state = await stateForRuntime();
-  return Object.values(state.questions)
-    .filter((question) => question.gameId === gameId && question.contentVersion === contentVersion)
-    .map((question) => ({
-      gameId: question.gameId,
-      contentVersion: question.contentVersion,
-      questionId: question.questionId,
-      counts: validCounts(question.counts) ? [...question.counts] : [0, 0, 0, 0],
-      total: Number.isInteger(question.total) && question.total >= 0 ? question.total : 0,
-      correctIndex:
-        Number.isInteger(question.correctIndex) && question.correctIndex >= 0 && question.correctIndex <= 3
-          ? question.correctIndex
-          : 0,
-      reports: reportsFor(question),
-      updatedAt: Number.isFinite(question.updatedAt) ? question.updatedAt : 0,
-    }));
+  const currentQuestions = new Map<string, StoredQuestion>();
+  for (const question of Object.values(state.questions)) {
+    if (question.gameId !== gameId) continue;
+    const expectedRevision = questionRevisions.get(question.questionId);
+    if (!expectedRevision) continue;
+    const isCurrentRevision = question.questionRevision === expectedRevision;
+    const isCurrentLegacy = !question.questionRevision && question.contentVersion === contentVersion;
+    if (!isCurrentRevision && !isCurrentLegacy) continue;
+    const existing = currentQuestions.get(question.questionId);
+    if (!existing || isCurrentRevision) currentQuestions.set(question.questionId, question);
+  }
+
+  return [...currentQuestions.values()].map((question) => ({
+    gameId: question.gameId,
+    contentVersion,
+    questionId: question.questionId,
+    counts: validCounts(question.counts) ? [...question.counts] : [0, 0, 0, 0],
+    total: Number.isInteger(question.total) && question.total >= 0 ? question.total : 0,
+    correctIndex:
+      Number.isInteger(question.correctIndex) && question.correctIndex >= 0 && question.correctIndex <= 3
+        ? question.correctIndex
+        : 0,
+    reports: reportsFor(question),
+    updatedAt: Number.isFinite(question.updatedAt) ? question.updatedAt : 0,
+  }));
 }
 
-export async function recordRoundVote(input: {
-  roundId: string;
-  roomId: string;
-  gameId: GameId;
-  contentVersion: string;
-  questionId: string;
-  correctIndex: number;
-  answerIndex: number;
-  mapPosition?: MapPosition;
-  voterId: string;
-  submittedAt: number;
-}): Promise<VoteResult> {
+async function fileRecordRoundVote(input: RoundVoteInput): Promise<VoteResult> {
   return mutate((state) => {
-    const hash = anonymousHash(input.roomId, input.voterId);
+    const hash = anonymousVoterHash(input.roomId, input.voterId);
     const existingRound = state.rounds[input.roundId];
     const round =
       existingRound ??
@@ -276,18 +367,7 @@ export async function recordRoundVote(input: {
     round.updatedAt = input.submittedAt;
     state.rounds[input.roundId] = round;
 
-    const key = questionKey(input.gameId, input.contentVersion, input.questionId);
-    const question =
-      state.questions[key] ??
-      ({
-        gameId: input.gameId,
-        contentVersion: input.contentVersion,
-        questionId: input.questionId,
-        counts: [0, 0, 0, 0],
-        total: 0,
-        correctIndex: input.correctIndex,
-        updatedAt: input.submittedAt,
-      } satisfies StoredQuestion);
+    const { key, question } = questionForMutation(state, input);
     question.correctIndex = input.correctIndex;
     question.counts[input.answerIndex] += 1;
     question.total += 1;
@@ -302,45 +382,18 @@ export async function recordRoundVote(input: {
   });
 }
 
-export async function recordQuestionReport(input: {
-  gameId: GameId;
-  contentVersion: string;
-  questionId: string;
-  correctIndex: number;
-  reason: ReportReason;
-  voterId: string;
-  submittedAt: number;
-}): Promise<ReportResult> {
+async function fileRecordQuestionReport(input: QuestionReportInput): Promise<ReportResult> {
   return mutate((state) => {
-    const key = questionKey(input.gameId, input.contentVersion, input.questionId);
-    const question =
-      state.questions[key] ??
-      ({
-        gameId: input.gameId,
-        contentVersion: input.contentVersion,
-        questionId: input.questionId,
-        counts: [0, 0, 0, 0],
-        total: 0,
-        correctIndex: input.correctIndex,
-        reports: emptyReportCounts(),
-        reporters: {},
-        updatedAt: input.submittedAt,
-      } satisfies StoredQuestion);
-
-    if (
-      question.gameId !== input.gameId ||
-      question.contentVersion !== input.contentVersion ||
-      question.questionId !== input.questionId
-    ) {
-      throw new Error("Persistent question identity mismatch.");
-    }
+    const { key, question } = questionForMutation(state, input);
 
     const reporters =
       question.reporters && typeof question.reporters === "object"
         ? question.reporters
         : ({} as Record<string, ReportReason>);
-    const hash = anonymousHash(`report:${key}`, input.voterId);
-    const existingReason = reporters[hash];
+    const hash = anonymousVoterHash(`report:${key}`, input.voterId);
+    const legacyKey = legacyQuestionKey(input.gameId, input.contentVersion, input.questionId);
+    const legacyHash = anonymousVoterHash(`report:${legacyKey}`, input.voterId);
+    const existingReason = reporters[hash] ?? reporters[legacyHash];
     if (isReportReason(existingReason)) {
       return { accepted: false, reason: existingReason };
     }
@@ -356,4 +409,73 @@ export async function recordQuestionReport(input: {
 
     return { accepted: true, reason: input.reason };
   });
+}
+
+type PostgresVoteStore = typeof import("@/lib/vote-store-postgres");
+
+let postgresStorePromise: Promise<PostgresVoteStore> | null = null;
+
+function usesPostgres() {
+  return Boolean(process.env.DATABASE_URL?.trim());
+}
+
+function postgresStore() {
+  postgresStorePromise ??= import("@/lib/vote-store-postgres");
+  return postgresStorePromise;
+}
+
+export function configuredVoteStoreBackend(): VoteStoreHealth["backend"] {
+  return usesPostgres() ? "postgres" : "file";
+}
+
+export async function getVoteStoreHealth(): Promise<VoteStoreHealth> {
+  if (usesPostgres()) return (await postgresStore()).getPostgresVoteStoreHealth();
+  await runtime.writeQueue;
+  await stateForRuntime();
+  return { backend: "file", ok: true };
+}
+
+export async function getRoundCrowd(roundId: string, roomId: string, voterId?: string) {
+  if (usesPostgres()) return (await postgresStore()).getRoundCrowd(roundId, roomId, voterId);
+  return fileGetRoundCrowd(roundId, roomId, voterId);
+}
+
+export async function getPlayerQuestionReport(
+  gameId: GameId,
+  contentVersion: string,
+  questionId: string,
+  questionRevision: string,
+  voterId?: string,
+) {
+  if (usesPostgres()) {
+    return (await postgresStore()).getPlayerQuestionReport(
+      gameId,
+      contentVersion,
+      questionId,
+      questionRevision,
+      voterId,
+    );
+  }
+  return fileGetPlayerQuestionReport(gameId, contentVersion, questionId, questionRevision, voterId);
+}
+
+export async function getQuestionStats(
+  gameId: GameId,
+  contentVersion: string,
+  questionRevisions: ReadonlyMap<string, string>,
+): Promise<QuestionStats[]> {
+  if (usesPostgres()) {
+    return (await postgresStore()).getQuestionStats(gameId, contentVersion, questionRevisions);
+  }
+  return fileGetQuestionStats(gameId, contentVersion, questionRevisions);
+}
+
+export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult> {
+  if (usesPostgres()) return (await postgresStore()).recordRoundVote(input);
+  return fileRecordRoundVote(input);
+}
+
+export async function recordQuestionReport(input: QuestionReportInput): Promise<ReportResult> {
+  if (usesPostgres()) return (await postgresStore()).recordQuestionReport(input);
+  return fileRecordQuestionReport(input);
 }

@@ -2,6 +2,7 @@
   "name": "queue-arcade",
   "version": "0.2.0",
   "private": true,
+  "packageManager": "pnpm@9.12.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -16,7 +17,7 @@
     "validate-map-archive": "node scripts/validate-map-sense.mjs",
     "validate-counterplay-archive": "node scripts/validate-counterplay.mjs",
     "backfill-hints": "node scripts/backfill-spell-hints.mjs",
-    "validate-data": "node scripts/validate-questions.mjs && node scripts/validate-shopkeeper.mjs && node scripts/validate-soundcheck.mjs && node scripts/validate-feedback-sounds.mjs && node scripts/validate-variety.mjs && node scripts/validate-public-arcade.mjs && node scripts/validate-calibration.mjs && node scripts/validate-navigation.mjs",
+    "validate-data": "node scripts/validate-questions.mjs && node scripts/validate-shopkeeper.mjs && node scripts/validate-soundcheck.mjs && node scripts/validate-feedback-sounds.mjs && node scripts/validate-variety.mjs && node scripts/validate-public-arcade.mjs && node scripts/validate-calibration.mjs && node scripts/validate-navigation.mjs && node scripts/validate-question-revisions.mjs && node scripts/validate-rate-limit.mjs",
     "audit:client": "node scripts/audit-live-client.mjs",
     "validate-assets": "node scripts/validate-image-assets.mjs",
     "check:multiplayer": "node scripts/multiplayer-smoke.mjs",
@@ -25,10 +26,19 @@
   "engines": {
     "node": ">=20.9.0"
   },
+  "pnpm": {
+    "overrides": {
+      "form-data": "4.0.6",
+      "nanoid": "3.3.8",
+      "postcss": "8.5.18",
+      "sharp": "0.35.0"
+    }
+  },
   "dependencies": {
     "clsx": "2.1.1",
     "lucide-react": "1.26.0",
     "next": "16.2.12",
+    "postgres": "3.4.9",
     "pusher": "5.3.4",
     "pusher-js": "8.6.0",
     "react": "19.2.7",

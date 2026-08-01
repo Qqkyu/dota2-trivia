@@ -6,6 +6,7 @@ import {
   type ReportCounts,
 } from "@/lib/calibration";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, type GameId } from "@/lib/game-catalogs";
+import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { gameForQuestion, type QuestionKind, type RoundGame, type TriviaCategory } from "@/lib/trivia";
 import { getQuestionStats } from "@/lib/vote-store";
 
@@ -45,7 +46,10 @@ export interface CalibrationSnapshot {
 
 export async function getCalibrationSnapshot(gameId: GameId = DEFAULT_GAME_ID): Promise<CalibrationSnapshot> {
   const catalog = GAME_CATALOGS[gameId];
-  const storedStats = await getQuestionStats(gameId, catalog.contentVersion);
+  const questionRevisions = new Map(
+    catalog.questions.map((question) => [question.id, questionCalibrationRevision(question)]),
+  );
+  const storedStats = await getQuestionStats(gameId, catalog.contentVersion, questionRevisions);
   const statsByQuestion = new Map(storedStats.map((stats) => [stats.questionId, stats]));
   const records = catalog.questions.map((question): CalibrationRecord => {
     const stats = statsByQuestion.get(question.id);

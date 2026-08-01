@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import Pusher from "pusher";
+import { rateLimitRequest } from "@/lib/api-protection";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
 import { isMapPosition, mapAnswerIndex } from "@/lib/map-sense";
 import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
+import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { recordRoundVote } from "@/lib/vote-store";
 
 export const runtime = "nodejs";
@@ -61,6 +63,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid vote." }, { status: 400 });
   }
 
+  const rateLimited = rateLimitRequest(request, "votes", voterId, 12);
+  if (rateLimited) return rateLimited;
+
   const submittedAt = Date.now();
   const { room, round } = currentPublicRound(settings, submittedAt);
   const question = GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === round.questionId);
@@ -86,6 +91,7 @@ export async function POST(request: Request) {
       gameId: room.gameId,
       contentVersion: room.contentVersion,
       questionId,
+      questionRevision: questionCalibrationRevision(question),
       correctIndex: question.correctIndex,
       answerIndex:
         requiresMapPosition && question.map && mapPosition ? mapAnswerIndex(question.map, mapPosition) : answerIndex,

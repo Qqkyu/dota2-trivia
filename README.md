@@ -26,12 +26,15 @@ The playable MVP includes:
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
 - one server-owned public room: everyone receives the same round and deadlines;
 - per-round crowd results with server-enforced deadlines and duplicate-vote protection;
-- disk-backed vote history that survives Node server restarts and records per-question accuracy data;
+- Postgres-backed production votes and calibration, with a zero-config local file fallback;
+- stable question revisions that preserve unchanged calibration history across content releases;
+- expiring raw round votes while durable per-question answer and report aggregates remain available;
 - reveal question reports for incorrect, outdated, ambiguous, or unclear content, with an opened report carrying into the next round and deduplicated per anonymous player;
 - a responsive calibration lab at `/calibration`, with report triage and difficulty recommendations only after 20 answers;
 - optional Pusher broadcasts between connected browsers, with automatic polling as the zero-config fallback;
 - keyboard controls, responsive layouts, persistent mute and master volume, sound cues, and local lifetime stats;
-- a reproducible data sync and validation pipeline.
+- a reproducible data sync and validation pipeline;
+- a readiness endpoint, standalone production container, basic API throttles, and Postgres-backed CI.
 
 ## Shared difficulty pool
 
@@ -79,7 +82,22 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Pusher is optional. Copy `.env.example` to `.env.local` and add a Pusher Channels app if you want participation totals broadcast immediately to every connected browser. Without it, clients poll the server and the synchronized game still works.
 
-Votes and question reports default to `.data/queue-arcade-votes.json`, which is intentionally ignored by Git. Set `ARCADE_DATA_FILE` to a path on a persistent volume in production. Anonymous player IDs are salted and hashed before they reach disk; set a private `ARCADE_VOTER_SALT` to keep that hash namespace installation-specific.
+Votes and question reports default to `.data/queue-arcade-votes.json`, which is intentionally ignored by Git. Set `DATABASE_URL` to use the production Postgres store; the application creates its Queue Arcade tables on the first readiness check. Anonymous player IDs are salted and hashed before persistence, and production requires a private `ARCADE_VOTER_SALT`.
+
+## Production alpha
+
+The repository includes a standalone multi-stage `Dockerfile`. A production deployment should provide:
+
+```bash
+DATABASE_URL=postgres://...
+ARCADE_VOTER_SALT=a-long-private-random-value
+```
+
+`DATABASE_POOL_SIZE` defaults to 5. `ARCADE_ROUND_RETENTION_HOURS` defaults to 2: expired raw rounds and their voter hashes are deleted, while question-level accuracy and deduplicated reports remain. A single long-running instance with a persistent disk can deliberately retain the file backend by setting `ARCADE_ALLOW_FILE_STORE=true`, but Postgres is the supported public-alpha path.
+
+Use `GET /api/health` as the deployment readiness check. It verifies production configuration, initializes and queries the selected store, and reports the active content version without exposing secrets. The vote, report, and room APIs also apply per-player in-process guardrails; a public host should add IP-level throttling at its edge.
+
+Every push and pull request runs the full build in GitHub Actions, boots the production server against Postgres 17, and exercises synchronized rounds, hidden results, duplicate votes, reports, calibration, stable question revisions, and persistence.
 
 ## Refresh the Dota data
 
@@ -157,16 +175,15 @@ Each game catalog and content version owns exactly one public room. Dota rooms a
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` opens with the reveal and keeps the just-finished question reportable for a 20-second rollover grace period. It stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 
-The default persistent store is an atomic JSON file suited to local development and a single long-running Node instance with a persistent disk. It serializes concurrent writes inside the process and stores aggregate per-question answer counts and report totals for calibration. `/calibration` never exposes voter hashes. It waits for 20 answers before suggesting that a question looks too easy or too hard, while reports remain manual-review signals; neither path silently changes the live deck. For horizontal scaling or serverless deployment, replace `src/lib/vote-store.ts` with Redis or Postgres; Pusher distributes updates but is never the source of truth.
+The local persistent store is an atomic JSON file suited to development and a single long-running Node instance with a persistent disk. Public deployments switch automatically to transactional Postgres when `DATABASE_URL` is configured. Raw per-round votes expire independently from durable question aggregates. Calibration keys include a stable fingerprint of the playable prompt, choices, marked answer, clues, and assets, so an unchanged question keeps its history across room releases while an edited question starts cleanly. `/calibration` never exposes voter hashes. It waits for 20 answers before suggesting that a question looks too easy or too hard, while reports remain manual-review signals; neither path silently changes the live deck. Pusher distributes updates but is never the source of truth.
 
 ## Useful next steps
 
-1. Move vote storage to Redis or Postgres before a horizontally scaled public deployment.
-2. Review calibration bands after enough real traffic, then tune question content and distractors manually.
+1. Deploy the Postgres-backed build to a small public alpha and collect real calibration samples.
+2. Add a reviewed/quarantined workflow to the calibration lab before changing questions automatically.
 3. Review ordered-pair accuracy, then expand Soundcheck with carefully audited channel and announcer families.
-4. Implement a second game's questions and minigame deck against the existing game-catalog contract.
-5. Add Steam sign-in, leaderboards, and streak challenges only after the anonymous loop proves fun.
-6. Package it as a lightweight desktop/overlay companion for people who want it beside the real Dota queue.
+4. Prototype one low-reading interaction such as ordering four audited Dota values.
+5. Implement a second game's content pack only after the Dota public loop proves sticky.
 
 ## Attribution
 
