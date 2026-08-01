@@ -1,4 +1,6 @@
 export const DEFAULT_ARCADE_MODE = "mixed";
+export const ARCADE_LOBBY_PATH = "/";
+export const PUBLIC_ARCADE_PATH = "/play";
 
 /**
  * Resolve one URL value against the modes supported by the active game.
@@ -17,5 +19,10 @@ export function resolveArcadeMode(value, modes, fallback = /** @type {Mode} */ (
 
 /** Every retired mode link now resolves to the one canonical public arcade. */
 export function arcadeModeHref() {
-  return "/";
+  return ARCADE_LOBBY_PATH;
+}
+
+/** @param {unknown} pathname */
+export function arcadeViewForPathname(pathname) {
+  return pathname === PUBLIC_ARCADE_PATH ? "play" : "lobby";
 }

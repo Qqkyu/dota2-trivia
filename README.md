@@ -15,6 +15,7 @@ These are round formats, not separate queues. Everyone shares the parts that mad
 The playable MVP includes:
 
 - endless, instantly interruptible arcade sessions with automatic round transitions;
+- canonical `/` lobby and `/play` session URLs with direct loading plus browser Back and Forward support;
 - one shared public room of 15-second rounds, without mode, category, or player-facing difficulty queues;
 - 645 live prompts for Dota patch 7.41d, including 48 Shopkeeper rounds and 48 Soundcheck rounds;
 - item, hero, and ability artwork for visual answer rounds;
@@ -148,7 +149,7 @@ That validates the question deck, template rotation, answer balance, scan length
 
 With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk persistence, hashed voter IDs, reveal-only report submission, report deduplication, aggregate-only calibration data, and that obsolete mode, level, or category values cannot split the public room.
 
-For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run `node scripts/visual-smoke.mjs`. The script disables media playback again inside the page before loading anything, then checks the one-room lobby, legacy-mode redirect, seven compact round identities, synchronized answering/reveal/automatic-advance journey, no-shift question-report popover, session report, mobile lobby, mobile calibration layout, overflow, and saves screenshots under `/tmp`.
+For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run `node scripts/visual-smoke.mjs`. The script disables media playback again inside the page before loading anything, then checks the one-room lobby, `/play` navigation, browser Back and Forward, legacy-mode redirect, seven compact round identities, synchronized answering/reveal/automatic-advance journey, no-shift question-report popover, session report, mobile lobby, mobile calibration layout, overflow, and saves screenshots under `/tmp`.
 
 ## Crowd architecture
 

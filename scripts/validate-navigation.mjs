@@ -1,6 +1,13 @@
 #!/usr/bin/env node
 
-import { DEFAULT_ARCADE_MODE, arcadeModeHref, resolveArcadeMode } from "../src/lib/arcade-navigation.mjs";
+import {
+  ARCADE_LOBBY_PATH,
+  DEFAULT_ARCADE_MODE,
+  PUBLIC_ARCADE_PATH,
+  arcadeModeHref,
+  arcadeViewForPathname,
+  resolveArcadeMode,
+} from "../src/lib/arcade-navigation.mjs";
 import { LIVE_ARCADE_MODES } from "../src/lib/arcade-games.mjs";
 
 const modes = [...LIVE_ARCADE_MODES];
@@ -36,9 +43,18 @@ if (arcadeModeHref("mixed") !== "/") {
 if (arcadeModeHref("echo-hunt") !== "/") {
   failures.push("A retired mode link still creates a separate browser destination.");
 }
+if (
+  ARCADE_LOBBY_PATH !== "/" ||
+  PUBLIC_ARCADE_PATH !== "/play" ||
+  arcadeViewForPathname(ARCADE_LOBBY_PATH) !== "lobby" ||
+  arcadeViewForPathname(PUBLIC_ARCADE_PATH) !== "play" ||
+  arcadeViewForPathname("/calibration") !== "lobby"
+) {
+  failures.push("The lobby and live arcade no longer resolve to distinct canonical paths.");
+}
 
 if (failures.length) {
   throw new Error(failures.join("\n"));
 }
 
-console.log("Navigation validation passed: one canonical public arcade and legacy mode fallbacks are intact.");
+console.log("Navigation validation passed: canonical / and /play views plus legacy mode fallbacks are intact.");

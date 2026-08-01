@@ -55,6 +55,7 @@ import {
 } from "@/lib/trivia";
 import type { CrowdResult, PublicRoomSettings, ReportResult, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
 import { LIVE_ROUND_GAMES, PUBLIC_ARCADE_MODE, PUBLIC_ROUND_FORMATS } from "@/lib/arcade-games.mjs";
+import { ARCADE_LOBBY_PATH, PUBLIC_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
 import { answerFeedbackKind, dotaFeedbackSoundForKind } from "@/lib/feedback-sounds.mjs";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
@@ -1240,7 +1241,7 @@ function BrandMark() {
   );
 }
 
-export function QueueArcade() {
+export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   const [phase, setPhaseState] = useState<GamePhase>("lobby");
   const [currentQuestion, setCurrentQuestion] = useState<ArcadeRound | null>(null);
   const [roundIndex, setRoundIndex] = useState(0);
@@ -1302,6 +1303,7 @@ export function QueueArcade() {
   const autoPlayedAudioKeyRef = useRef("");
   const reportTargetRef = useRef<QuestionReportTarget | null>(null);
   const reportStateRef = useRef<"idle" | "sending" | "sent" | "error">("idle");
+  const autoStartAttemptedRef = useRef(false);
 
   const updateReportTarget = useCallback((target: QuestionReportTarget | null) => {
     reportTargetRef.current = target;
@@ -1658,66 +1660,80 @@ export function QueueArcade() {
     return task;
   }, [applyRoomSnapshot, ensurePlayerId, requestRoomSnapshot]);
 
-  const startRun = useCallback(async () => {
-    if (joiningRoom) return;
+  const startRun = useCallback(
+    async (updateHistory = true) => {
+      if (joiningRoom) return;
 
-    const settings: PublicRoomSettings = {
-      gameId: DEFAULT_GAME_ID,
-      mode: PUBLIC_ARCADE_MODE,
-      filter: "Mixed",
-    };
-    setJoiningRoom(true);
-    setRoomError(null);
-    roomSettingsRef.current = settings;
-    playSound("start");
+      const settings: PublicRoomSettings = {
+        gameId: DEFAULT_GAME_ID,
+        mode: PUBLIC_ARCADE_MODE,
+        filter: "Mixed",
+      };
+      setJoiningRoom(true);
+      setRoomError(null);
+      roomSettingsRef.current = settings;
+      playSound("start");
 
-    try {
-      const result = await requestRoomSnapshot(settings, ensurePlayerId());
-      if (roomSettingsRef.current !== settings) return;
+      try {
+        const result = await requestRoomSnapshot(settings, ensurePlayerId());
+        if (roomSettingsRef.current !== settings) return;
 
-      const startedAt = Date.now();
-      roundIdRef.current = "";
-      currentQuestionRef.current = null;
-      roundIndexRef.current = 0;
-      queueStartedAtRef.current = startedAt;
-      runSavedRef.current = false;
-      finalizedRef.current = false;
-      participatedRef.current = false;
-      setCurrentQuestion(null);
-      selectedIndexRef.current = null;
-      selectedMapPositionRef.current = null;
-      setSelectedIndex(null);
-      setSelectedMapPosition(null);
-      setRoundIndex(0);
-      setScore(0);
-      setStreak(0);
-      setBestStreak(0);
-      setCorrectCount(0);
-      setHistory([]);
-      setRunDuration(0);
-      setQueueStartedAt(startedAt);
-      updateReportTarget(null);
-      setReportNotice(null);
-      setReportedReason(null);
-      updateReportState("idle");
-      applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
-    } catch {
-      if (roomSettingsRef.current === settings) {
-        roomSettingsRef.current = null;
-        setRoomError("Could not join the public room. The arcade will keep your settings.");
+        const startedAt = Date.now();
+        roundIdRef.current = "";
+        currentQuestionRef.current = null;
+        roundIndexRef.current = 0;
+        queueStartedAtRef.current = startedAt;
+        runSavedRef.current = false;
+        finalizedRef.current = false;
+        participatedRef.current = false;
+        setCurrentQuestion(null);
+        selectedIndexRef.current = null;
+        selectedMapPositionRef.current = null;
+        setSelectedIndex(null);
+        setSelectedMapPosition(null);
+        setRoundIndex(0);
+        setScore(0);
+        setStreak(0);
+        setBestStreak(0);
+        setCorrectCount(0);
+        setHistory([]);
+        setRunDuration(0);
+        setQueueStartedAt(startedAt);
+        updateReportTarget(null);
+        setReportNotice(null);
+        setReportedReason(null);
+        updateReportState("idle");
+        applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
+        if (updateHistory && window.location.pathname !== PUBLIC_ARCADE_PATH) {
+          window.history.pushState({ queueArcadeView: "play" }, "", PUBLIC_ARCADE_PATH);
+        }
+      } catch {
+        if (roomSettingsRef.current === settings) {
+          roomSettingsRef.current = null;
+          setRoomError("Could not join the public room. The arcade will keep your settings.");
+        }
+      } finally {
+        setJoiningRoom(false);
       }
-    } finally {
-      setJoiningRoom(false);
+    },
+    [
+      applyRoomSnapshot,
+      ensurePlayerId,
+      joiningRoom,
+      playSound,
+      requestRoomSnapshot,
+      updateReportState,
+      updateReportTarget,
+    ],
+  );
+
+  useEffect(() => {
+    if (!autoStart || window.location.pathname !== PUBLIC_ARCADE_PATH || autoStartAttemptedRef.current) {
+      return;
     }
-  }, [
-    applyRoomSnapshot,
-    ensurePlayerId,
-    joiningRoom,
-    playSound,
-    requestRoomSnapshot,
-    updateReportState,
-    updateReportTarget,
-  ]);
+    autoStartAttemptedRef.current = true;
+    void startRun(false);
+  }, [autoStart, startRun]);
 
   const submitQuestionReport = useCallback(
     async (reason: ReportReason) => {
@@ -1939,6 +1955,44 @@ export function QueueArcade() {
     setRevealDeadlineState(null);
     setPhase("summary");
   }, [setDeadline, setPhase, updateReportState, updateReportTarget]);
+
+  const returnToLobby = useCallback(
+    (historyAction: "push" | "replace" | "none" = "push") => {
+      roomSettingsRef.current = null;
+      roomSnapshotRef.current = null;
+      roundIdRef.current = "";
+      autoStartAttemptedRef.current = false;
+      feedbackAudioRef.current?.clips.forEach(({ audio }) => audio.pause());
+      stopRoundAudio(false);
+      updateReportTarget(null);
+      setReportNotice(null);
+      updateReportState("idle");
+      setDeadline(null);
+      setRevealDeadlineState(null);
+      setActiveRoomId("");
+      setActiveRoundId("");
+      setPhase("lobby");
+
+      if (historyAction !== "none" && window.location.pathname !== ARCADE_LOBBY_PATH) {
+        const method = historyAction === "replace" ? "replaceState" : "pushState";
+        window.history[method]({ queueArcadeView: "lobby" }, "", ARCADE_LOBBY_PATH);
+      }
+    },
+    [setDeadline, setPhase, stopRoundAudio, updateReportState, updateReportTarget],
+  );
+
+  useEffect(() => {
+    const handlePopState = () => {
+      if (window.location.pathname === PUBLIC_ARCADE_PATH) {
+        if (phaseRef.current === "lobby" || phaseRef.current === "summary") void startRun(false);
+        return;
+      }
+      returnToLobby("none");
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [returnToLobby, startRun]);
 
   useEffect(() => {
     if (!reportTarget) return;
@@ -2169,6 +2223,7 @@ export function QueueArcade() {
     <main
       className={styles.shell}
       data-phase={phase}
+      data-client-ready={statsLoaded}
       data-room-id={activeRoomId || undefined}
       data-round-id={activeRoundId || undefined}
       data-question-kind={currentQuestion?.kind}
@@ -2181,14 +2236,12 @@ export function QueueArcade() {
 
       <header className={styles.header}>
         <a
-          href="#arcade"
+          href={ARCADE_LOBBY_PATH}
           className={styles.brand}
           aria-label="Queue Arcade home"
           onClick={(event) => {
             event.preventDefault();
-            roomSettingsRef.current = null;
-            roomSnapshotRef.current = null;
-            setPhase("lobby");
+            returnToLobby("push");
           }}
         >
           <BrandMark />
@@ -3230,7 +3283,7 @@ export function QueueArcade() {
               Play again
               <ChevronRight />
             </button>
-            <button type="button" className={styles.secondaryButton} onClick={() => setPhase("lobby")}>
+            <button type="button" className={styles.secondaryButton} onClick={() => returnToLobby("replace")}>
               Back to arcade
             </button>
           </div>

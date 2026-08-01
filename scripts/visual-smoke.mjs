@@ -122,6 +122,7 @@ await evaluate(`(() => {
   return true;
 })()`);
 await navigate(appUrl);
+await waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
 await screenshot("/tmp/queue-arcade-lobby.png");
 
 const lobby = await evaluate(`(() => {
@@ -145,6 +146,7 @@ const lobby = await evaluate(`(() => {
 })()`);
 
 await navigate(`${appUrl}/?mode=fogged-vision`);
+await waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
 const legacyLink = await evaluate(`({
   url: location.pathname + location.search,
   modeCards: document.querySelectorAll("[data-arcade-mode]").length,
@@ -152,6 +154,7 @@ const legacyLink = await evaluate(`({
 })`);
 
 await navigate(appUrl);
+await waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
 await waitFor(`(() => {
   const main = document.querySelector("main");
@@ -161,13 +164,14 @@ await waitFor(`(() => {
 await screenshot("/tmp/queue-arcade-public-round.png");
 
 const answering = await evaluate(`({
+  url: location.pathname + location.search,
   phase: document.querySelector("main")?.dataset.phase,
   roomId: document.querySelector("main")?.dataset.roomId,
   roundId: document.querySelector("main")?.dataset.roundId,
   game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
   answers: document.querySelectorAll('[data-testid="arcade-answer"]').length,
   difficultyControls: document.querySelectorAll('[data-skill-level], [aria-label="Challenge level"]').length,
-  publicRoomLabel: document.body.innerText.includes("Public Arcade"),
+  publicRoomVisible: Boolean(document.querySelector('[data-testid="public-room"]')),
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 
@@ -214,11 +218,34 @@ await evaluate(`document.querySelector('[data-testid="end-session"]')?.click()`)
 await waitFor(`document.querySelector("main")?.dataset.phase === "summary"`);
 const summary = await evaluate(`({
   heading: document.querySelector("h1")?.innerText,
-  scoreVisible: document.body.innerText.includes("Final score"),
+  scoreVisible: document.body.textContent?.includes("Final score"),
   playAgain: [...document.querySelectorAll("button")].some((button) => button.textContent.includes("Play again")),
   backLabel: [...document.querySelectorAll("button")].some((button) => button.textContent.includes("Back to arcade"))
 })`);
 await screenshot("/tmp/queue-arcade-summary.png");
+
+await evaluate(`history.back(); true`);
+await waitFor(`location.pathname === "/" && document.querySelector("main")?.dataset.phase === "lobby"`);
+const historyBack = await evaluate(`({
+  url: location.pathname + location.search,
+  lobby: document.querySelector("main")?.dataset.phase === "lobby"
+})`);
+await evaluate(`history.forward(); true`);
+await waitFor(`location.pathname === "/play" && document.querySelector("main")?.dataset.phase === "answering"`, 12_000);
+const historyForward = await evaluate(`({
+  url: location.pathname + location.search,
+  answering: document.querySelector("main")?.dataset.phase === "answering",
+  roomId: document.querySelector("main")?.dataset.roomId
+})`);
+
+await navigate(`${appUrl}/play`);
+await waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
+await waitFor(`location.pathname === "/play" && document.querySelector("main")?.dataset.phase === "answering"`);
+const directPlay = await evaluate(`({
+  url: location.pathname + location.search,
+  answering: document.querySelector("main")?.dataset.phase === "answering",
+  roomId: document.querySelector("main")?.dataset.roomId
+})`);
 
 await send("Emulation.setDeviceMetricsOverride", {
   width: 390,
@@ -227,6 +254,7 @@ await send("Emulation.setDeviceMetricsOverride", {
   mobile: true,
 });
 await navigate(appUrl);
+await waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
 const mobile = await evaluate(`({
   headingVisible: Boolean(document.querySelector("h1")?.getBoundingClientRect().height),
   startButton: Boolean(document.querySelector('[data-testid="start-arcade"]')),
@@ -260,8 +288,8 @@ if (
   lobby.modeCards !== 0 ||
   lobby.roundFamilies !== 7 ||
   !lobby.roundMix?.includes("Classic Trivia") ||
-  !lobby.copy?.includes("Ten round formats") ||
-  lobby.copy?.includes("Choose your side quest") ||
+  !lobby.copy?.toLowerCase().includes("ten round formats") ||
+  lobby.copy?.toLowerCase().includes("choose your side quest") ||
   !lobby.muted ||
   lobby.volume !== "70"
 ) {
@@ -274,6 +302,7 @@ if (legacyLink.url !== "/" || legacyLink.modeCards !== 0 || legacyLink.startButt
   failures.push("A legacy mode deep link did not return to the canonical public arcade.");
 }
 if (
+  answering.url !== "/play" ||
   answering.phase !== "answering" ||
   !answering.roomId?.endsWith(":public") ||
   !["trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt", "soundcheck", "quote-hunt"].includes(
@@ -281,7 +310,7 @@ if (
   ) ||
   answering.answers !== 4 ||
   answering.difficultyControls !== 0 ||
-  !answering.publicRoomLabel ||
+  !answering.publicRoomVisible ||
   answering.horizontalOverflow
 ) {
   failures.push("The synchronized public round is incomplete or still exposes a player queue choice.");
@@ -306,6 +335,18 @@ if (
 if (!summary.heading || !summary.scoreVisible || !summary.playAgain || !summary.backLabel) {
   failures.push("The session report no longer completes the one-room journey.");
 }
+if (
+  historyBack.url !== "/" ||
+  !historyBack.lobby ||
+  historyForward.url !== "/play" ||
+  !historyForward.answering ||
+  !historyForward.roomId?.endsWith(":public")
+) {
+  failures.push("Browser Back or Forward no longer moves between the lobby and live arcade URLs.");
+}
+if (directPlay.url !== "/play" || !directPlay.answering || !directPlay.roomId?.endsWith(":public")) {
+  failures.push("Loading /play directly no longer joins the public arcade.");
+}
 if (!mobile.headingVisible || !mobile.startButton || mobile.roundFamilies !== 7 || mobile.horizontalOverflow) {
   failures.push("The mobile public lobby does not fit or lost its round mix.");
 }
@@ -314,7 +355,28 @@ if (calibration.rows < 1 || calibration.horizontalOverflow) {
 }
 if (browserErrors.length) failures.push(`Browser errors: ${browserErrors.join("; ")}`);
 
-if (failures.length) throw new Error(failures.join("\n"));
+if (failures.length) {
+  console.error(
+    JSON.stringify(
+      {
+        lobby,
+        legacyLink,
+        answering,
+        reveal,
+        autoAdvanced,
+        summary,
+        historyBack,
+        historyForward,
+        directPlay,
+        mobile,
+        calibration,
+      },
+      null,
+      2,
+    ),
+  );
+  throw new Error(failures.join("\n"));
+}
 
 console.log(
   JSON.stringify(
@@ -324,6 +386,8 @@ console.log(
       roundFamilies: lobby.roundFamilies,
       synchronizedReveal: true,
       automaticAdvance: true,
+      browserHistory: [historyBack.url, historyForward.url],
+      directPlay: directPlay.url,
       mediaPlaybackDisabled: true,
       mobileFits: true,
       screenshots: [
