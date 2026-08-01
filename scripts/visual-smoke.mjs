@@ -148,7 +148,7 @@ const lobby = await evaluate(`(() => {
       return bounds ? {
         width: bounds.width,
         height: bounds.height,
-        hasMark: Boolean(button.querySelector("svg")),
+        markPath: button.querySelector('[data-brand-icon="steam"] path')?.getAttribute("d"),
         label: button.textContent?.trim()
       } : null;
     })(),
@@ -174,7 +174,7 @@ const profile = await evaluate(`({
     return bounds ? {
       width: bounds.width,
       height: bounds.height,
-      hasMark: Boolean(button.querySelector("svg")),
+      markPath: button.querySelector('[data-brand-icon="steam"] path')?.getAttribute("d"),
       label: button.textContent?.trim()
     } : null;
   })(),
@@ -356,7 +356,7 @@ if (
   Math.abs(lobby.markCenter - lobby.copyCenter) > 0.5 ||
   lobby.horizontalOverflow ||
   lobby.steamButtons !== 1 ||
-  !lobby.steamButton?.hasMark ||
+  !lobby.steamButton?.markPath?.startsWith("M11.979 0C5.678") ||
   lobby.steamButton?.label !== "Sign in with Steam" ||
   (lobby.steamButton?.width ?? 999) > 160 ||
   Math.abs((lobby.steamButton?.height ?? 0) - 38) > 0.5 ||
@@ -369,7 +369,7 @@ if (
   !profile.title.includes("Profile") ||
   !profile.heading?.includes("Keep your streak") ||
   profile.steamButtons !== 1 ||
-  !profile.steamButton?.hasMark ||
+  !profile.steamButton?.markPath?.startsWith("M11.979 0C5.678") ||
   profile.steamButton?.label !== "Sign in with Steam" ||
   (profile.steamButton?.width ?? 999) > 160 ||
   Math.abs((profile.steamButton?.height ?? 0) - 38) > 0.5 ||

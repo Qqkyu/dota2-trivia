@@ -38,9 +38,5 @@
   width: 17px;
   height: 17px;
   flex: 0 0 auto;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.65;
+  fill: currentColor;
 }
