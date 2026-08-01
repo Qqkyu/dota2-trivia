@@ -33,6 +33,8 @@ The playable MVP includes:
 - a responsive calibration lab at `/calibration`, with report triage and difficulty recommendations only after 20 answers;
 - optional Pusher broadcasts between connected browsers, with automatic polling as the zero-config fallback;
 - keyboard controls, responsive layouts, persistent mute and master volume, sound cues, and local lifetime stats;
+- optional Steam OpenID profiles with cross-browser accuracy, streaks, best-ten records, early solves, and per-format mastery;
+- server-recorded connected results, 30-day hashed sessions, a plain-language privacy page, and self-service profile deletion;
 - a reproducible data sync and validation pipeline;
 - a readiness endpoint, standalone production container, basic API throttles, and Postgres-backed CI.
 
@@ -84,6 +86,12 @@ Pusher is optional. Copy `.env.example` to `.env.local` and add a Pusher Channel
 
 Votes and question reports default to `.data/queue-arcade-votes.json`, which is intentionally ignored by Git. Set `DATABASE_URL` to use the production Postgres store; the application creates its Queue Arcade tables on the first readiness check. Anonymous player IDs are salted and hashed before persistence, and production requires a private `ARCADE_VOTER_SALT`.
 
+Steam connection is optional. Anonymous players can enter the public arcade immediately and keep browser-local lifetime
+stats. A connected player receives the same public rounds, but accepted answers are also recorded against an internal
+Queue Arcade account so personal records survive another browser. Steam OpenID verifies only the SteamID; Queue Arcade
+never receives a Steam password. Set `STEAM_WEB_API_KEY` only if you want to enrich profiles with the player's current
+public Steam name and avatar.
+
 ## Production alpha
 
 The repository includes a standalone multi-stage `Dockerfile`. A production deployment should provide:
@@ -91,13 +99,30 @@ The repository includes a standalone multi-stage `Dockerfile`. A production depl
 ```bash
 DATABASE_URL=postgres://...
 ARCADE_VOTER_SALT=a-long-private-random-value
+ARCADE_APP_URL=https://arcade.example
+ARCADE_AUTH_SECRET=a-separate-long-private-random-value
+ARCADE_DATA_COUNTRIES=Poland
 ```
 
 `DATABASE_POOL_SIZE` defaults to 5. `ARCADE_ROUND_RETENTION_HOURS` defaults to 2: expired raw rounds and their voter hashes are deleted, while question-level accuracy and deduplicated reports remain. A single long-running instance with a persistent disk can deliberately retain the file backend by setting `ARCADE_ALLOW_FILE_STORE=true`, but Postgres is the supported public-alpha path.
 
-Use `GET /api/health` as the deployment readiness check. It verifies production configuration, initializes and queries the selected store, and reports the active content version without exposing secrets. The vote, report, and room APIs also apply per-player in-process guardrails; a public host should add IP-level throttling at its edge.
+Use `GET /api/health` as the deployment readiness check. It verifies production configuration, initializes and queries
+the vote and account stores, and reports the active content version without exposing secrets. `ARCADE_APP_URL` must be
+the canonical HTTPS origin used in Steam's return URL. `ARCADE_DATA_COUNTRIES` is displayed in `/privacy`, as required
+when Steam-linked data is stored. The authentication secret must be at least 32 characters and distinct from the voter
+salt. A standard [Steam Web API key](https://steamcommunity.com/dev/apikey) is optional and stays server-side; when it is
+absent, authenticated profiles use a generic Steam-player label. The vote, report, room, and Steam authentication APIs
+also apply per-player or per-IP in-process guardrails; a public host should add IP-level throttling at its edge.
 
-Every push and pull request runs the full build in GitHub Actions, boots the production server against Postgres 17, and exercises synchronized rounds, hidden results, duplicate votes, reports, calibration, stable question revisions, and persistence.
+Connected sessions are represented by random HttpOnly, SameSite cookies; only a one-way token hash is stored. Deleting
+the profile cascades through the Steam identity, active sessions, and personal round results. Public leaderboards are
+intentionally excluded from this alpha: the browser currently ships the playable question catalog, so a public ranking
+would reward scripting. Personal records are still calculated from server-accepted synchronized votes rather than a
+client-submitted score.
+
+Every push and pull request runs the full build in GitHub Actions, boots the production server against Postgres 17, and
+exercises synchronized rounds, hidden results, duplicate votes, reports, calibration, stable question revisions,
+Steam-state rejection, account sessions, personal-result idempotency, and cascading profile deletion.
 
 ## Refresh the Dota data
 
@@ -165,9 +190,19 @@ pnpm check
 
 That validates the question deck, template rotation, answer balance, scan length, and visual/audio metadata, runs ESLint, runs strict TypeScript checking, and creates an optimized production build.
 
-With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk persistence, hashed voter IDs, reveal-only report submission, report deduplication, aggregate-only calibration data, and that obsolete mode, level, or category values cannot split the public room.
+With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared
+round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk
+persistence, hashed voter IDs, Steam OpenID state boundaries, account-store readiness, reveal-only report submission,
+report deduplication, aggregate-only calibration data, and that obsolete mode, level, or category values cannot split
+the public room. Against Postgres, it additionally seeds a session, proves a forged browser player ID cannot double
+vote, checks the stored personal record and profile summary, and verifies deletion cascades.
 
-For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run `node scripts/visual-smoke.mjs`. The script disables media playback again inside the page before loading anything, then checks the one-room lobby, `/play` navigation, browser Back and Forward, legacy-mode redirect, seven compact round identities, synchronized answering/reveal/automatic-advance journey, no-shift question-report popover, session report, mobile lobby, mobile calibration layout, overflow, and saves screenshots under `/tmp`.
+For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run
+`node scripts/visual-smoke.mjs`. The script disables media playback again inside the page before loading anything, then
+checks the one-room lobby, fixed-size account entry, guest profile, privacy page, `/play` navigation, browser Back and
+Forward, legacy-mode redirect, seven compact round identities, synchronized answering/reveal/automatic-advance journey,
+no-shift question-report popover, session report, mobile lobby, mobile calibration layout, overflow, and saves screenshots
+under `/tmp`.
 
 ## Crowd architecture
 
@@ -180,11 +215,12 @@ The local persistent store is an atomic JSON file suited to development and a si
 ## Useful next steps
 
 1. Deploy the Postgres-backed build to a small public alpha and collect real calibration samples.
-2. Add a reviewed/quarantined workflow to the calibration lab before changing questions automatically.
-3. Review ordered-pair accuracy, then expand Soundcheck with carefully audited channel and announcer families.
-4. Prototype one low-reading interaction such as ordering four audited Dota values.
-5. Implement a second game's content pack only after the Dota public loop proves sticky.
+2. Complete one live Steam callback on the final HTTPS domain and add the optional Web API key if public names are useful.
+3. Add a reviewed/quarantined workflow to the calibration lab before changing questions automatically.
+4. Review ordered-pair accuracy, then expand Soundcheck with carefully audited channel and announcer families.
+5. Prototype one low-reading interaction such as ordering four audited Dota values.
+6. Implement a second game's content pack only after the Dota public loop proves sticky.
 
 ## Attribution
 
-Question names and artwork mappings are generated from [OpenDota](https://docs.opendota.com/); marked answers and numeric constants are independently audited against the installed client. Hero-response metadata, browser-ready Soundcheck WAVs, and every audible arcade UI cue are sourced through [Dotabase](https://github.com/mdiller/dotabase). Queue Trivia's original answer click, the layered matchmaking-start event, the legacy `challenge_success` sting, and `General.InvalidTarget_Invulnerable` (“meep merp”) are independently checked against the installed client; the runtime synthesizes no substitute tones. Game assets are served from public Dota asset hosts. The archived Map Sense terrain artwork comes from [OpenDota's public map archive](https://github.com/odota/web/tree/master/public/assets/images/dota2/map), with its historical objective changes checked against [Valve's 7.41 notes](https://www.dota2.com/patches/7.41). Archived Counterplay outcomes were checked against the matching client and mechanics sources. Dota 2 and its assets are trademarks of Valve Corporation. This fan project is not affiliated with or endorsed by Valve.
+Question names and artwork mappings are generated from [OpenDota](https://docs.opendota.com/); marked answers and numeric constants are independently audited against the installed client. Hero-response metadata, browser-ready Soundcheck WAVs, and every audible arcade UI cue are sourced through [Dotabase](https://github.com/mdiller/dotabase). Queue Trivia's original answer click, the layered matchmaking-start event, the legacy `challenge_success` sting, and `General.InvalidTarget_Invulnerable` (“meep merp”) are independently checked against the installed client; the runtime synthesizes no substitute tones. Game assets are served from public Dota asset hosts. Steam connection uses Valve's OpenID provider and locally serves Valve's requested official sign-in artwork. The archived Map Sense terrain artwork comes from [OpenDota's public map archive](https://github.com/odota/web/tree/master/public/assets/images/dota2/map), with its historical objective changes checked against [Valve's 7.41 notes](https://www.dota2.com/patches/7.41). Archived Counterplay outcomes were checked against the matching client and mechanics sources. Dota 2 and its assets are trademarks of Valve Corporation. This fan project is not affiliated with or endorsed by Valve.

@@ -1,8 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import Pusher from "pusher";
+import { sessionUserForRequest } from "@/lib/auth-session";
 import { rateLimitRequest } from "@/lib/api-protection";
+import { roundFormatForQuestion } from "@/lib/arcade-games.mjs";
+import { recordPlayerRound } from "@/lib/account-store";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
 import { isMapPosition, mapAnswerIndex } from "@/lib/map-sense";
+import { answerStageForRound } from "@/lib/player-profile.mjs";
 import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { recordRoundVote } from "@/lib/vote-store";
@@ -27,7 +31,7 @@ function getPusherServer() {
   });
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   let body: unknown;
 
   try {
@@ -63,7 +67,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid vote." }, { status: 400 });
   }
 
-  const rateLimited = rateLimitRequest(request, "votes", voterId, 12);
+  let accountUser: Awaited<ReturnType<typeof sessionUserForRequest>>;
+  try {
+    accountUser = await sessionUserForRequest(request);
+  } catch (error) {
+    console.error("Could not resolve the voting account.", error);
+    return NextResponse.json({ error: "Vote storage unavailable." }, { status: 503 });
+  }
+  const effectiveVoterId = accountUser ? `account:${accountUser.id}` : voterId;
+  const rateLimited = rateLimitRequest(request, "votes", effectiveVoterId, 12);
   if (rateLimited) return rateLimited;
 
   const submittedAt = Date.now();
@@ -85,6 +97,8 @@ export async function POST(request: Request) {
   }
 
   try {
+    const resolvedAnswerIndex =
+      requiresMapPosition && question.map && mapPosition ? mapAnswerIndex(question.map, mapPosition) : answerIndex;
     const result = await recordRoundVote({
       roundId,
       roomId: room.id,
@@ -93,12 +107,33 @@ export async function POST(request: Request) {
       questionId,
       questionRevision: questionCalibrationRevision(question),
       correctIndex: question.correctIndex,
-      answerIndex:
-        requiresMapPosition && question.map && mapPosition ? mapAnswerIndex(question.map, mapPosition) : answerIndex,
+      answerIndex: resolvedAnswerIndex,
       mapPosition: requiresMapPosition ? mapPosition : undefined,
-      voterId,
+      voterId: effectiveVoterId,
       submittedAt,
     });
+
+    if (accountUser && result.playerVote) {
+      const roundFormat = roundFormatForQuestion(question);
+      if (!roundFormat) throw new Error(`Question ${question.id} has no public round format.`);
+      const storedVote = result.playerVote;
+      await recordPlayerRound(accountUser.id, {
+        roundId: round.id,
+        roundNumber: round.number,
+        gameId: room.gameId,
+        questionId: question.id,
+        questionRevision: questionCalibrationRevision(question),
+        roundGame: round.game,
+        roundFormat,
+        correct: storedVote.answerIndex === question.correctIndex,
+        answerStage: answerStageForRound(
+          round.game,
+          Math.max(0, round.answerDeadline - storedVote.submittedAt),
+          round.answerDuration,
+        ),
+        submittedAt: storedVote.submittedAt,
+      });
+    }
 
     if (result.accepted) {
       const pusher = getPusherServer();

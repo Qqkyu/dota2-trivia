@@ -14,6 +14,13 @@ const nextConfig = {
         hostname: "cdn.steamstatic.com",
         pathname: "/apps/dota2/images/**",
       },
+      ...[
+        "avatars.steamstatic.com",
+        "avatars.akamai.steamstatic.com",
+        "avatars.cloudflare.steamstatic.com",
+        "avatars.fastly.steamstatic.com",
+        "media.steampowered.com",
+      ].map((hostname) => ({ protocol: "https", hostname, pathname: "/**" })),
     ],
   },
 };

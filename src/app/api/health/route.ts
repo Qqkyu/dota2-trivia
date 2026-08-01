@@ -1,16 +1,21 @@
 import { NextResponse } from "next/server";
+import { getAccountStoreHealth } from "@/lib/account-store";
+import { configuredApplicationOrigin, configuredAuthSecret, configuredDataCountries } from "@/lib/auth-session";
 import { DEFAULT_GAME_ID, GAME_CATALOGS } from "@/lib/game-catalogs";
 import { getVoteStoreHealth } from "@/lib/vote-store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(request: Request) {
   const catalog = GAME_CATALOGS[DEFAULT_GAME_ID];
   try {
     if (process.env.NODE_ENV === "production" && !process.env.ARCADE_VOTER_SALT?.trim()) {
       throw new Error("ARCADE_VOTER_SALT is required in production.");
     }
+    configuredAuthSecret();
+    configuredApplicationOrigin(request);
+    configuredDataCountries();
     if (
       process.env.NODE_ENV === "production" &&
       !process.env.DATABASE_URL?.trim() &&
@@ -18,11 +23,13 @@ export async function GET() {
     ) {
       throw new Error("Production file storage requires an explicit ARCADE_ALLOW_FILE_STORE=true opt-in.");
     }
-    const storage = await getVoteStoreHealth();
+    const [storage, accounts] = await Promise.all([getVoteStoreHealth(), getAccountStoreHealth()]);
     return NextResponse.json(
       {
         status: "ready",
         storage,
+        accounts,
+        steam: { profileEnrichment: Boolean(process.env.STEAM_WEB_API_KEY?.trim()) },
         content: {
           gameId: catalog.id,
           version: catalog.contentVersion,

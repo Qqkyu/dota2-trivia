@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
+import { sessionUserForRequest } from "@/lib/auth-session";
 import { rateLimitRequest } from "@/lib/api-protection";
 import { isReportReason, QUESTION_REPORT_GRACE_MS } from "@/lib/calibration";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
@@ -9,7 +10,7 @@ import { recordQuestionReport } from "@/lib/vote-store";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   let body: unknown;
 
   try {
@@ -42,7 +43,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid report." }, { status: 400 });
   }
 
-  const rateLimited = rateLimitRequest(request, "reports", voterId, 6);
+  let accountUser: Awaited<ReturnType<typeof sessionUserForRequest>>;
+  try {
+    accountUser = await sessionUserForRequest(request);
+  } catch (error) {
+    console.error("Could not resolve the reporting account.", error);
+    return NextResponse.json({ error: "Report storage unavailable." }, { status: 503 });
+  }
+  const effectiveVoterId = accountUser ? `account:${accountUser.id}` : voterId;
+  const rateLimited = rateLimitRequest(request, "reports", effectiveVoterId, 6);
   if (rateLimited) return rateLimited;
 
   const submittedAt = Date.now();
@@ -74,7 +83,7 @@ export async function POST(request: Request) {
       questionRevision: questionCalibrationRevision(question),
       correctIndex: question.correctIndex,
       reason,
-      voterId,
+      voterId: effectiveVoterId,
       submittedAt,
     });
 

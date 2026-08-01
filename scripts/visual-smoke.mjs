@@ -3,7 +3,7 @@
 import { writeFile } from "node:fs/promises";
 
 const debuggingUrl = process.env.CHROME_DEBUG_URL ?? "http://127.0.0.1:9222";
-const appUrl = process.env.APP_URL ?? "http://localhost:3000";
+const appUrl = process.env.APP_URL ?? process.env.ARCADE_APP_URL ?? "http://localhost:3000";
 const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 const targets = await fetch(`${debuggingUrl}/json/list`).then((response) => response.json());
 const target = targets.find((entry) => entry.type === "page");
@@ -122,7 +122,9 @@ await evaluate(`(() => {
   return true;
 })()`);
 await navigate(appUrl);
-await waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
+await waitFor(
+  `document.querySelector("main")?.dataset.clientReady === "true" && document.querySelector("main")?.dataset.accountReady === "true"`,
+);
 await screenshot("/tmp/queue-arcade-lobby.png");
 
 const lobby = await evaluate(`(() => {
@@ -139,14 +141,50 @@ const lobby = await evaluate(`(() => {
     copy: document.querySelector("main")?.innerText,
     muted: Boolean(document.querySelector('button[aria-label="Enable game sounds"]')),
     volume: document.querySelector('[data-testid="game-volume"]')?.value,
+    steamButtons: document.querySelectorAll('[data-testid="steam-sign-in"]').length,
+    steamImageLoaded: (() => {
+      const image = document.querySelector('[data-testid="steam-sign-in"] img');
+      return image?.complete && image.naturalWidth === 180 && image.naturalHeight === 35;
+    })(),
+    accountSlot: (() => {
+      const bounds = document.querySelector('[data-testid="account-action-slot"]')?.getBoundingClientRect();
+      return bounds ? { width: bounds.width, height: bounds.height } : null;
+    })(),
     markCenter: mark ? mark.top + mark.height / 2 : 0,
     copyCenter: copy ? copy.top + copy.height / 2 : 0,
     horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
   };
 })()`);
 
+await navigate(`${appUrl}/profile`);
+await waitFor(`document.querySelector('[data-testid="profile-page"]')?.dataset.authenticated === "false"`);
+const profile = await evaluate(`({
+  title: document.title,
+  heading: document.querySelector("h1")?.innerText,
+  steamButtons: document.querySelectorAll('[data-testid="steam-sign-in"]').length,
+  steamImageLoaded: (() => {
+    const image = document.querySelector('[data-testid="steam-sign-in"] img');
+    return image?.complete && image.naturalWidth === 180 && image.naturalHeight === 35;
+  })(),
+  anonymousPlay: document.body.innerText.includes("Anonymous play stays available"),
+  horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+})`);
+await screenshot("/tmp/queue-arcade-profile-guest.png");
+
+await navigate(`${appUrl}/privacy`);
+const privacy = await evaluate(`({
+  title: document.title,
+  heading: document.querySelector("h1")?.innerText,
+  optionalSteam: document.body.innerText.includes("Connecting Steam is optional"),
+  deletion: document.body.innerText.includes("Delete profile"),
+  horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+})`);
+await screenshot("/tmp/queue-arcade-privacy.png");
+
 await navigate(`${appUrl}/?mode=fogged-vision`);
-await waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
+await waitFor(
+  `document.querySelector("main")?.dataset.clientReady === "true" && document.querySelector("main")?.dataset.accountReady === "true"`,
+);
 const legacyLink = await evaluate(`({
   url: location.pathname + location.search,
   modeCards: document.querySelectorAll("[data-arcade-mode]").length,
@@ -154,7 +192,9 @@ const legacyLink = await evaluate(`({
 })`);
 
 await navigate(appUrl);
-await waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
+await waitFor(
+  `document.querySelector("main")?.dataset.clientReady === "true" && document.querySelector("main")?.dataset.accountReady === "true"`,
+);
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
 await waitFor(`(() => {
   const main = document.querySelector("main");
@@ -254,11 +294,16 @@ await send("Emulation.setDeviceMetricsOverride", {
   mobile: true,
 });
 await navigate(appUrl);
-await waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
+await waitFor(
+  `document.querySelector("main")?.dataset.clientReady === "true" && document.querySelector("main")?.dataset.accountReady === "true"`,
+);
 const mobile = await evaluate(`({
   headingVisible: Boolean(document.querySelector("h1")?.getBoundingClientRect().height),
   startButton: Boolean(document.querySelector('[data-testid="start-arcade"]')),
   roundFamilies: document.querySelectorAll("[data-round-family]").length,
+  steamButtons: document.querySelectorAll('[data-testid="steam-sign-in"]').length,
+  accountSlotWidth: document.querySelector('[data-testid="account-action-slot"]')?.getBoundingClientRect().width,
+  startButtonWidth: document.querySelector('[data-testid="start-arcade"]')?.getBoundingClientRect().width,
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 await screenshot("/tmp/queue-arcade-mobile.png");
@@ -295,8 +340,34 @@ if (
 ) {
   failures.push("The one-room lobby still exposes modes or lost its compact round mix.");
 }
-if (Math.abs(lobby.markCenter - lobby.copyCenter) > 0.5 || lobby.horizontalOverflow) {
+if (
+  Math.abs(lobby.markCenter - lobby.copyCenter) > 0.5 ||
+  lobby.horizontalOverflow ||
+  lobby.steamButtons !== 1 ||
+  !lobby.steamImageLoaded ||
+  Math.abs((lobby.accountSlot?.width ?? 0) - 180) > 0.5 ||
+  Math.abs((lobby.accountSlot?.height ?? 0) - 52) > 0.5
+) {
   failures.push("The desktop lobby alignment or overflow regressed.");
+}
+if (
+  !profile.title.includes("Profile") ||
+  !profile.heading?.includes("Keep your streak") ||
+  profile.steamButtons !== 1 ||
+  !profile.steamImageLoaded ||
+  !profile.anonymousPlay ||
+  profile.horizontalOverflow
+) {
+  failures.push("The optional guest profile entry point is incomplete or overflows.");
+}
+if (
+  !privacy.title.includes("Privacy") ||
+  !privacy.heading?.includes("without fog") ||
+  !privacy.optionalSteam ||
+  !privacy.deletion ||
+  privacy.horizontalOverflow
+) {
+  failures.push("The account privacy and deletion explanation is incomplete or overflows.");
 }
 if (legacyLink.url !== "/" || legacyLink.modeCards !== 0 || legacyLink.startButtons !== 1) {
   failures.push("A legacy mode deep link did not return to the canonical public arcade.");
@@ -347,7 +418,14 @@ if (
 if (directPlay.url !== "/play" || !directPlay.answering || !directPlay.roomId?.endsWith(":public")) {
   failures.push("Loading /play directly no longer joins the public arcade.");
 }
-if (!mobile.headingVisible || !mobile.startButton || mobile.roundFamilies !== 7 || mobile.horizontalOverflow) {
+if (
+  !mobile.headingVisible ||
+  !mobile.startButton ||
+  mobile.roundFamilies !== 7 ||
+  mobile.steamButtons !== 1 ||
+  Math.abs((mobile.accountSlotWidth ?? 0) - (mobile.startButtonWidth ?? 0)) > 1 ||
+  mobile.horizontalOverflow
+) {
   failures.push("The mobile public lobby does not fit or lost its round mix.");
 }
 if (calibration.rows < 1 || calibration.horizontalOverflow) {
@@ -360,6 +438,8 @@ if (failures.length) {
     JSON.stringify(
       {
         lobby,
+        profile,
+        privacy,
         legacyLink,
         answering,
         reveal,
@@ -389,9 +469,13 @@ console.log(
       browserHistory: [historyBack.url, historyForward.url],
       directPlay: directPlay.url,
       mediaPlaybackDisabled: true,
+      optionalSteamProfile: true,
+      privacyControls: true,
       mobileFits: true,
       screenshots: [
         "/tmp/queue-arcade-lobby.png",
+        "/tmp/queue-arcade-profile-guest.png",
+        "/tmp/queue-arcade-privacy.png",
         "/tmp/queue-arcade-public-round.png",
         "/tmp/queue-arcade-public-reveal.png",
         "/tmp/queue-arcade-summary.png",

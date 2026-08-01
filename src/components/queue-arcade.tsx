@@ -45,6 +45,7 @@ import {
   type ReportReason,
 } from "@/lib/calibration";
 import { getPusherClient } from "@/lib/pusher";
+import type { AccountSnapshot } from "@/lib/account-contract";
 import {
   type ArcadeMode,
   type ArcadeRound,
@@ -69,6 +70,7 @@ import {
   soundcheckCutDuration,
   soundcheckRevealStage,
 } from "@/lib/soundcheck.mjs";
+import { SteamSignIn } from "./steam-sign-in";
 import styles from "./queue-arcade.module.css";
 
 const REVEAL_DURATION_MS = 7_000;
@@ -475,6 +477,10 @@ function formatDuration(milliseconds: number) {
 function accuracy(correct: number, answered: number) {
   if (!answered) return 0;
   return Math.round((correct / answered) * 100);
+}
+
+function playerInitials(displayName: string) {
+  return Array.from(displayName).slice(0, 2).join("").toUpperCase();
 }
 
 function summaryTitle(correct: number, answered: number) {
@@ -1264,6 +1270,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   const [gameVolume, setGameVolume] = useState(DEFAULT_GAME_VOLUME);
   const [lifetimeStats, setLifetimeStats] = useState<LifetimeStats>(EMPTY_STATS);
   const [statsLoaded, setStatsLoaded] = useState(false);
+  const [account, setAccount] = useState<AccountSnapshot | null>(null);
   const [joiningRoom, setJoiningRoom] = useState(false);
   const [roomError, setRoomError] = useState<string | null>(null);
   const [activeRoomId, setActiveRoomId] = useState("");
@@ -1316,6 +1323,16 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   }, []);
 
   const answerDuration = ANSWER_DURATION_MS;
+  const loadAccount = useCallback(async () => {
+    try {
+      const response = await fetch("/api/me", { cache: "no-store" });
+      if (!response.ok) throw new Error("Profile request failed.");
+      setAccount((await response.json()) as AccountSnapshot);
+    } catch {
+      setAccount({ authenticated: false });
+    }
+  }, []);
+
   const setPhase = useCallback((nextPhase: GamePhase) => {
     phaseRef.current = nextPhase;
     setPhaseState(nextPhase);
@@ -2050,6 +2067,17 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   }, [now, phase, revealDeadline, syncRoom]);
 
   useEffect(() => {
+    const timeout = window.setTimeout(() => void loadAccount(), 0);
+    return () => window.clearTimeout(timeout);
+  }, [loadAccount]);
+
+  useEffect(() => {
+    if (phase !== "summary") return;
+    const timeout = window.setTimeout(() => void loadAccount(), 0);
+    return () => window.clearTimeout(timeout);
+  }, [loadAccount, phase]);
+
+  useEffect(() => {
     const hydration = window.setTimeout(() => {
       try {
         const storedStats = window.localStorage.getItem(STORAGE_KEY) ?? window.localStorage.getItem(LEGACY_STORAGE_KEY);
@@ -2224,6 +2252,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       className={styles.shell}
       data-phase={phase}
       data-client-ready={statsLoaded}
+      data-account-ready={account !== null}
       data-room-id={activeRoomId || undefined}
       data-round-id={activeRoundId || undefined}
       data-question-kind={currentQuestion?.kind}
@@ -2344,6 +2373,25 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 {joiningRoom ? "Joining public room…" : activeModeInfo.action}
                 <ChevronRight />
               </button>
+              <div className={styles.accountActionSlot} data-testid="account-action-slot">
+                {account === null ? (
+                  <span className={styles.accountLoading} aria-hidden="true" />
+                ) : account.authenticated ? (
+                  <Link href="/profile" className={styles.profileAction} data-testid="profile-action">
+                    {account.profile.user.avatarUrl ? (
+                      <Image src={account.profile.user.avatarUrl} alt="" width={34} height={34} />
+                    ) : (
+                      <span>{playerInitials(account.profile.user.displayName)}</span>
+                    )}
+                    <span>
+                      <strong>{account.profile.user.displayName}</strong>
+                      <small>{account.profile.stats.accuracy}% accuracy</small>
+                    </span>
+                  </Link>
+                ) : (
+                  <SteamSignIn returnTo="/" className={styles.steamSignIn} />
+                )}
+              </div>
             </div>
 
             <div className={clsx(styles.roomNotice, roomError && styles.roomNoticeError)} aria-live="polite">
@@ -2365,7 +2413,13 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 <span>crowd-breaker bonus</span>
               </div>
               <div>
-                <strong>{statsLoaded ? `${accuracy(lifetimeStats.correct, lifetimeStats.answered)}%` : "—"}</strong>
+                <strong>
+                  {account?.authenticated
+                    ? `${account.profile.stats.accuracy}%`
+                    : statsLoaded
+                      ? `${accuracy(lifetimeStats.correct, lifetimeStats.answered)}%`
+                      : "—"}
+                </strong>
                 <span>your lifetime accuracy</span>
               </div>
             </div>
@@ -3334,6 +3388,8 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
           Queue Arcade · Built for the seconds between “Find Match” and “Accept”
         </span>
         <span className={styles.footerMeta}>
+          <Link href="/profile">Profile</Link>
+          <Link href="/privacy">Privacy</Link>
           <Link href="/calibration">Calibration lab</Link>
           <span>
             Dota 2 and its assets are trademarks of Valve Corporation. This project is not affiliated with Valve.

@@ -3,8 +3,10 @@
 import { randomUUID } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { PROGRESSIVE_ROUND_GAMES } from "../src/lib/player-profile.mjs";
+import { ACCOUNT_SESSION_COOKIE, sessionTokenHash } from "../src/lib/steam-auth.mjs";
 
-const appUrl = process.env.APP_URL ?? "http://localhost:3000";
+const appUrl = process.env.APP_URL ?? process.env.ARCADE_APP_URL ?? "http://localhost:3000";
 const settings = {
   gameId: "dota2",
   mode: "mixed",
@@ -14,21 +16,119 @@ const firstPlayer = `multiplayer-smoke-a-${randomUUID()}`;
 const secondPlayer = `multiplayer-smoke-b-${randomUUID()}`;
 const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 const expectedStorageBackend = process.env.DATABASE_URL?.trim() ? "postgres" : "file";
+const healthResponse = await fetch(`${appUrl}/api/health`, { cache: "no-store" });
+const health = await healthResponse.json();
+
+if (
+  !healthResponse.ok ||
+  health.status !== "ready" ||
+  health.storage?.backend !== expectedStorageBackend ||
+  health.accounts?.backend !== expectedStorageBackend ||
+  health.accounts?.ok !== true
+) {
+  throw new Error(`The readiness endpoint did not confirm the ${expectedStorageBackend} vote and account stores.`);
+}
+
+const authStart = await fetch(`${appUrl}/api/auth/steam?returnTo=${encodeURIComponent("/profile")}`, {
+  redirect: "manual",
+});
+const authLocation = authStart.headers.get("location");
+const authCookie = authStart.headers.get("set-cookie") ?? "";
+if (
+  authStart.status !== 302 ||
+  !authLocation?.startsWith("https://steamcommunity.com/openid/login?") ||
+  !authCookie.includes("queue_arcade_steam_state=") ||
+  !/HttpOnly/i.test(authCookie) ||
+  !/SameSite=Lax/i.test(authCookie)
+) {
+  throw new Error("Steam OpenID did not start with a protected state cookie and official provider redirect.");
+}
+
+const rejectedCallback = await fetch(`${appUrl}/api/auth/steam/callback?openid.mode=id_res`, { redirect: "manual" });
+if (
+  rejectedCallback.status !== 303 ||
+  !rejectedCallback.headers.get("location")?.includes("/profile?authError=steam")
+) {
+  throw new Error("A Steam callback without matching signed state was not rejected safely.");
+}
+
+async function seedPostgresAccount() {
+  if (expectedStorageBackend !== "postgres") return null;
+  const { default: postgres } = await import("postgres");
+  const sql = postgres(process.env.DATABASE_URL, { max: 1, idle_timeout: 2, prepare: false });
+  const suffix = randomUUID().replaceAll("-", "");
+  const userId = `usr_smoke_${suffix}`;
+  const steamId = `7656119${suffix.replace(/\D/g, "").padEnd(10, "0").slice(0, 10)}`;
+  const token = `smoke_${suffix}`;
+  const secondToken = `smoke_alt_${suffix}`;
+  const now = Date.now();
+  try {
+    await sql`
+      INSERT INTO queue_arcade_users (id, created_at, updated_at)
+      VALUES (${userId}, ${now}, ${now})
+    `;
+    await sql`
+      INSERT INTO queue_arcade_user_identities (
+        provider, provider_user_id, user_id, display_name, avatar_url, profile_url, updated_at
+      )
+      VALUES (
+        'steam', ${steamId}, ${userId}, 'Smoke Tester', NULL,
+        ${`https://steamcommunity.com/profiles/${steamId}`}, ${now}
+      )
+    `;
+    await sql`
+      INSERT INTO queue_arcade_user_sessions (token_hash, user_id, created_at, expires_at)
+      VALUES (${sessionTokenHash(token)}, ${userId}, ${now}, ${now + 60 * 60 * 1_000})
+    `;
+    await sql`
+      INSERT INTO queue_arcade_user_sessions (token_hash, user_id, created_at, expires_at)
+      VALUES (${sessionTokenHash(secondToken)}, ${userId}, ${now}, ${now + 60 * 60 * 1_000})
+    `;
+  } finally {
+    await sql.end({ timeout: 2 });
+  }
+  return {
+    userId,
+    steamId,
+    token,
+    secondToken,
+    headers: { Cookie: `${ACCOUNT_SESSION_COOKIE}=${token}` },
+    secondHeaders: { Cookie: `${ACCOUNT_SESSION_COOKIE}=${secondToken}` },
+  };
+}
+
+const smokeAccount = await seedPostgresAccount();
+const accountHeaders = smokeAccount?.headers ?? {};
+const secondAccountHeaders = smokeAccount?.secondHeaders ?? accountHeaders;
+
+if (smokeAccount) {
+  const meResponse = await fetch(`${appUrl}/api/me`, { headers: accountHeaders, cache: "no-store" });
+  const me = await meResponse.json();
+  if (
+    !meResponse.ok ||
+    !me.authenticated ||
+    me.profile?.user?.id !== smokeAccount.userId ||
+    me.profile?.user?.steamId !== smokeAccount.steamId ||
+    me.profile?.stats?.answered !== 0
+  ) {
+    throw new Error("The seeded Steam session did not resolve to an empty Queue Arcade profile.");
+  }
+}
 
 function roomUrl(playerId, roomSettings = settings) {
   const query = new URLSearchParams({ ...roomSettings, playerId });
   return `${appUrl}/api/rounds?${query}`;
 }
 
-async function readRoom(playerId, roomSettings = settings) {
-  const response = await fetch(roomUrl(playerId, roomSettings), { cache: "no-store" });
+async function readRoom(playerId, roomSettings = settings, requestHeaders = {}) {
+  const response = await fetch(roomUrl(playerId, roomSettings), { cache: "no-store", headers: requestHeaders });
   if (!response.ok) throw new Error(`Room request failed with ${response.status}.`);
   return response.json();
 }
 
-async function answeringRoundWithTime(playerId, roomSettings = settings) {
+async function answeringRoundWithTime(playerId, roomSettings = settings, requestHeaders = {}) {
   for (let attempt = 0; attempt < 3; attempt += 1) {
-    const snapshot = await readRoom(playerId, roomSettings);
+    const snapshot = await readRoom(playerId, roomSettings, requestHeaders);
     const timeLeft = snapshot.round.answerDeadline - snapshot.serverNow;
     if (snapshot.round.phase === "answering" && timeLeft >= 4_000) return snapshot;
     await delay(Math.max(250, snapshot.round.revealDeadline - snapshot.serverNow + 150));
@@ -36,11 +136,12 @@ async function answeringRoundWithTime(playerId, roomSettings = settings) {
   throw new Error("Could not join an answering phase with enough time to run the smoke test.");
 }
 
-async function vote(snapshot, playerId, answerIndex, roomSettings = settings, extraFields = {}) {
+async function vote(snapshot, playerId, answerIndex, roomSettings = settings, extraFields = {}, requestHeaders = {}) {
   const response = await fetch(`${appUrl}/api/votes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ...requestHeaders,
     },
     body: JSON.stringify({
       ...roomSettings,
@@ -56,11 +157,12 @@ async function vote(snapshot, playerId, answerIndex, roomSettings = settings, ex
   return result;
 }
 
-async function report(snapshot, playerId, reason, roomSettings = settings) {
+async function report(snapshot, playerId, reason, roomSettings = settings, requestHeaders = {}) {
   const response = await fetch(`${appUrl}/api/reports`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ...requestHeaders,
     },
     body: JSON.stringify({
       ...roomSettings,
@@ -76,14 +178,8 @@ async function report(snapshot, playerId, reason, roomSettings = settings) {
   };
 }
 
-const firstSnapshot = await answeringRoundWithTime(firstPlayer);
+const firstSnapshot = await answeringRoundWithTime(firstPlayer, settings, accountHeaders);
 const secondSnapshot = await readRoom(secondPlayer);
-const healthResponse = await fetch(`${appUrl}/api/health`, { cache: "no-store" });
-const health = await healthResponse.json();
-
-if (!healthResponse.ok || health.status !== "ready" || health.storage?.backend !== expectedStorageBackend) {
-  throw new Error(`The readiness endpoint did not confirm the ${expectedStorageBackend} vote store.`);
-}
 
 if (
   firstSnapshot.round.id !== secondSnapshot.round.id ||
@@ -127,20 +223,71 @@ if (firstSnapshot.crowd.counts.some((count) => count !== 0)) {
 
 const baselineTotal = firstSnapshot.crowd.total;
 const [firstVote, secondVote] = await Promise.all([
-  vote(firstSnapshot, firstPlayer, 0),
+  vote(firstSnapshot, firstPlayer, 0, settings, {}, accountHeaders),
   vote(secondSnapshot, secondPlayer, 1),
 ]);
-const duplicateVote = await vote(firstSnapshot, firstPlayer, 3);
+const duplicateVote = await vote(
+  firstSnapshot,
+  smokeAccount ? `forged-player-${randomUUID()}` : firstPlayer,
+  3,
+  settings,
+  {},
+  secondAccountHeaders,
+);
 
 if (!firstVote.accepted || !secondVote.accepted || duplicateVote.accepted) {
-  throw new Error("Vote acceptance or duplicate-vote protection failed.");
+  throw new Error(
+    `Vote acceptance or duplicate-vote protection failed: ${JSON.stringify({ firstVote, secondVote, duplicateVote })}`,
+  );
 }
 
 if (duplicateVote.playerVote?.answerIndex !== firstVote.playerVote?.answerIndex) {
   throw new Error("A duplicate vote did not preserve the player’s original answer.");
 }
 
-const lockedSnapshot = await readRoom(firstPlayer);
+let accountProfileVerified = false;
+let accountProfilePageVerified = false;
+if (smokeAccount) {
+  const meResponse = await fetch(`${appUrl}/api/me`, { headers: accountHeaders, cache: "no-store" });
+  const me = await meResponse.json();
+  const recent = me.profile?.stats?.recentRounds?.[0];
+  if (
+    !meResponse.ok ||
+    !me.authenticated ||
+    me.profile.stats.answered !== 1 ||
+    ![0, 100].includes(me.profile.stats.accuracy) ||
+    recent?.roundId !== firstSnapshot.round.id ||
+    recent?.questionId !== firstSnapshot.round.questionId ||
+    recent?.roundGame !== firstSnapshot.round.game ||
+    typeof recent?.roundFormat !== "string" ||
+    !recent.roundFormat ||
+    (PROGRESSIVE_ROUND_GAMES.has(firstSnapshot.round.game)
+      ? ![1, 2, 3].includes(recent.answerStage)
+      : recent.answerStage !== null)
+  ) {
+    throw new Error("An authenticated vote did not create the expected personal result exactly once.");
+  }
+  accountProfileVerified = true;
+
+  const profilePageResponse = await fetch(`${appUrl}/profile`, { headers: accountHeaders, cache: "no-store" });
+  const profilePage = await profilePageResponse.text();
+  if (
+    !profilePageResponse.ok ||
+    !profilePage.includes('data-authenticated="true"') ||
+    !profilePage.includes("Smoke Tester") ||
+    !profilePage.includes("Format mastery") ||
+    !profilePage.includes("Recent answers")
+  ) {
+    throw new Error("The authenticated profile page did not render the saved personal record.");
+  }
+  accountProfilePageVerified = true;
+}
+
+const lockedSnapshot = await readRoom(
+  smokeAccount ? `different-client-${randomUUID()}` : firstPlayer,
+  settings,
+  secondAccountHeaders,
+);
 if (
   lockedSnapshot.round.id !== firstSnapshot.round.id ||
   lockedSnapshot.playerVote?.answerIndex !== firstVote.playerVote?.answerIndex ||
@@ -150,13 +297,13 @@ if (
   throw new Error("The answering-phase room state is not synchronized or is leaking results.");
 }
 
-const prematureReport = await report(lockedSnapshot, firstPlayer, "unclear");
+const prematureReport = await report(lockedSnapshot, firstPlayer, "unclear", settings, accountHeaders);
 if (prematureReport.status !== 409) {
   throw new Error("A question report was accepted before the synchronized reveal.");
 }
 
 await delay(Math.max(250, lockedSnapshot.round.answerDeadline - lockedSnapshot.serverNow + 200));
-const revealSnapshot = await readRoom(firstPlayer);
+const revealSnapshot = await readRoom(firstPlayer, settings, accountHeaders);
 
 if (
   revealSnapshot.round.id !== firstSnapshot.round.id ||
@@ -167,8 +314,8 @@ if (
   throw new Error("The synchronized reveal did not expose the final round split.");
 }
 
-const acceptedReport = await report(revealSnapshot, firstPlayer, "ambiguous");
-const duplicateReport = await report(revealSnapshot, firstPlayer, "incorrect");
+const acceptedReport = await report(revealSnapshot, firstPlayer, "ambiguous", settings, accountHeaders);
+const duplicateReport = await report(revealSnapshot, firstPlayer, "incorrect", settings, accountHeaders);
 if (
   acceptedReport.status !== 200 ||
   !acceptedReport.body.accepted ||
@@ -180,7 +327,7 @@ if (
   throw new Error("Question report acceptance or per-player deduplication failed.");
 }
 
-const reportedSnapshot = await readRoom(firstPlayer);
+const reportedSnapshot = await readRoom(firstPlayer, settings, accountHeaders);
 if (reportedSnapshot.round.id !== revealSnapshot.round.id || reportedSnapshot.playerReport !== "ambiguous") {
   throw new Error("The synchronized room did not restore the player's question report.");
 }
@@ -249,6 +396,7 @@ if (
 
 let persisted;
 let questionRevision;
+let accountStoreVerified = false;
 
 if (expectedStorageBackend === "postgres") {
   const { default: postgres } = await import("postgres");
@@ -276,6 +424,20 @@ if (expectedStorageBackend === "postgres") {
       FROM queue_arcade_question_reporters
       WHERE game_id = 'dota2' AND question_id = ${revealSnapshot.round.questionId}
     `;
+    const personalRounds = smokeAccount
+      ? await sql`
+          SELECT round_id, question_id, round_game, round_format, correct, answer_stage, submitted_at
+          FROM queue_arcade_player_rounds
+          WHERE user_id = ${smokeAccount.userId} AND round_id = ${firstSnapshot.round.id}
+        `
+      : [];
+    const sessions = smokeAccount
+      ? await sql`
+          SELECT token_hash
+          FROM queue_arcade_user_sessions
+          WHERE user_id = ${smokeAccount.userId}
+        `
+      : [];
     const storedText = JSON.stringify({ rounds, questions, voterHashes, reporterHashes });
     persisted = rounds.length === 1;
     questionRevision = questions[0]?.question_revision;
@@ -291,6 +453,27 @@ if (expectedStorageBackend === "postgres") {
     }
     if (Number(questions[0]?.report_ambiguous) < 1 || Number(questions[0]?.report_outdated) < 1) {
       throw new Error("The anonymous question reports were not written to Postgres.");
+    }
+    if (smokeAccount) {
+      const personalRound = personalRounds[0];
+      if (
+        personalRounds.length !== 1 ||
+        personalRound.round_id !== firstSnapshot.round.id ||
+        personalRound.question_id !== firstSnapshot.round.questionId ||
+        personalRound.round_game !== firstSnapshot.round.game ||
+        typeof personalRound.round_format !== "string" ||
+        !personalRound.round_format ||
+        Number(personalRound.submitted_at) !== firstVote.playerVote.submittedAt ||
+        typeof personalRound.correct !== "boolean" ||
+        sessions.length !== 2 ||
+        !sessions.some((session) => session.token_hash === sessionTokenHash(smokeAccount.token)) ||
+        !sessions.some((session) => session.token_hash === sessionTokenHash(smokeAccount.secondToken)) ||
+        JSON.stringify(sessions).includes(smokeAccount.token) ||
+        JSON.stringify(sessions).includes(smokeAccount.secondToken)
+      ) {
+        throw new Error("Postgres did not persist the authenticated result and hashed session safely.");
+      }
+      accountStoreVerified = true;
     }
   } finally {
     await sql.end({ timeout: 2 });
@@ -321,6 +504,48 @@ if (!/^q1_[A-Za-z0-9_-]{22}$/.test(questionRevision ?? "")) {
   throw new Error("Persistent calibration data is not keyed by a stable question revision.");
 }
 
+let accountDeletionVerified = false;
+if (smokeAccount) {
+  const deletion = await fetch(`${appUrl}/api/me`, {
+    method: "DELETE",
+    headers: { ...accountHeaders, Origin: new URL(appUrl).origin },
+  });
+  const deletionBody = await deletion.json();
+  const signedOut = await fetch(`${appUrl}/api/me`, { headers: accountHeaders, cache: "no-store" }).then((response) =>
+    response.json(),
+  );
+  const secondSignedOut = await fetch(`${appUrl}/api/me`, {
+    headers: secondAccountHeaders,
+    cache: "no-store",
+  }).then((response) => response.json());
+  if (
+    !deletion.ok ||
+    !deletionBody.deleted ||
+    signedOut.authenticated !== false ||
+    secondSignedOut.authenticated !== false
+  ) {
+    throw new Error("Deleting a connected profile did not invalidate its active session.");
+  }
+
+  const { default: postgres } = await import("postgres");
+  const sql = postgres(process.env.DATABASE_URL, { max: 1, idle_timeout: 2, prepare: false });
+  try {
+    const remaining = await sql`
+      SELECT
+        (SELECT COUNT(*) FROM queue_arcade_users WHERE id = ${smokeAccount.userId}) AS users,
+        (SELECT COUNT(*) FROM queue_arcade_user_identities WHERE user_id = ${smokeAccount.userId}) AS identities,
+        (SELECT COUNT(*) FROM queue_arcade_user_sessions WHERE user_id = ${smokeAccount.userId}) AS sessions,
+        (SELECT COUNT(*) FROM queue_arcade_player_rounds WHERE user_id = ${smokeAccount.userId}) AS rounds
+    `;
+    if (Object.values(remaining[0] ?? {}).some((count) => Number(count) !== 0)) {
+      throw new Error("Profile deletion did not cascade through identity, session, and result records.");
+    }
+    accountDeletionVerified = true;
+  } finally {
+    await sql.end({ timeout: 2 });
+  }
+}
+
 console.log(
   JSON.stringify(
     {
@@ -332,6 +557,11 @@ console.log(
       finalTotal: revealSnapshot.crowd.total,
       persisted: true,
       persistenceBackend: expectedStorageBackend,
+      steamOpenIdBoundaryVerified: true,
+      accountProfileVerified,
+      accountProfilePageVerified,
+      accountStoreVerified,
+      accountDeletionVerified,
       stableQuestionRevision: true,
       apiRateLimitVerified: true,
       voterIdsHashed: true,

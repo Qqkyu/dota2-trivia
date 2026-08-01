@@ -55,7 +55,7 @@ const globalPostgres = globalThis as typeof globalThis & {
   __queueArcadePostgresLastPrune?: number;
 };
 
-function configuredPostgres() {
+export function configuredPostgres() {
   const connectionString = process.env.DATABASE_URL?.trim();
   if (!connectionString) throw new Error("DATABASE_URL is required for the Postgres vote store.");
 
