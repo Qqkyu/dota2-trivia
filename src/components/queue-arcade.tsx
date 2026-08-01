@@ -36,6 +36,7 @@ import {
 } from "lucide-react";
 import clsx from "clsx";
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { createPortal } from "react-dom";
 import {
   isReportReason,
   QUESTION_REPORT_GRACE_MS,
@@ -719,6 +720,13 @@ function ShopkeeperStore({
 }) {
   const [section, setSection] = useState<"basics" | "upgrades">("upgrades");
   const [query, setQuery] = useState("");
+  const [tooltip, setTooltip] = useState<{
+    item: ShopkeeperCatalogItem;
+    left: number;
+    top: number;
+    width: number;
+    placement: "above" | "below";
+  } | null>(null);
   const targetKey = question.shopkeeper?.targetItemKey;
   const targetItem = targetKey ? SHOPKEEPER_CATALOG_BY_KEY.get(targetKey) : undefined;
   const selectedItem = selectedKey ? SHOPKEEPER_CATALOG_BY_KEY.get(selectedKey) : undefined;
@@ -733,95 +741,152 @@ function ShopkeeperStore({
     ? [{ key: "search", label: `${searchItems.length} found`, section, items: searchItems }]
     : SHOPKEEPER_CATALOG.groups.filter((group) => group.section === section);
 
+  const showItemTooltip = (item: ShopkeeperCatalogItem, button: HTMLButtonElement) => {
+    const bounds = button.getBoundingClientRect();
+    const viewportPadding = 8;
+    const width = Math.min(190, window.innerWidth - viewportPadding * 2);
+    const left = Math.min(
+      window.innerWidth - width - viewportPadding,
+      Math.max(viewportPadding, bounds.left + bounds.width / 2 - width / 2),
+    );
+    const placement = bounds.bottom + 72 <= window.innerHeight || bounds.top < 80 ? "below" : "above";
+    setTooltip({
+      item,
+      left,
+      top: placement === "below" ? bounds.bottom + 7 : bounds.top - 7,
+      width,
+      placement,
+    });
+  };
+
+  useEffect(() => {
+    if (!tooltip) return;
+    const hideTooltip = () => setTooltip(null);
+    window.addEventListener("resize", hideTooltip);
+    window.addEventListener("scroll", hideTooltip, true);
+    return () => {
+      window.removeEventListener("resize", hideTooltip);
+      window.removeEventListener("scroll", hideTooltip, true);
+    };
+  }, [tooltip]);
+
   return (
-    <div className={styles.shopkeeperStore} data-testid="shopkeeper-store" data-phase={phase}>
-      <div className={styles.shopkeeperStoreToolbar}>
-        <div className={styles.shopkeeperStoreTabs} role="tablist" aria-label="Shop section">
-          {(["basics", "upgrades"] as const).map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              role="tab"
-              aria-selected={section === tab}
-              data-testid={`shopkeeper-tab-${tab}`}
-              onClick={() => setSection(tab)}
-            >
-              {tab}
-            </button>
-          ))}
+    <>
+      <div className={styles.shopkeeperStore} data-testid="shopkeeper-store" data-phase={phase}>
+        <div className={styles.shopkeeperStoreToolbar}>
+          <div className={styles.shopkeeperStoreTabs} role="tablist" aria-label="Shop section">
+            {(["basics", "upgrades"] as const).map((tab) => (
+              <button
+                key={tab}
+                type="button"
+                role="tab"
+                aria-selected={section === tab}
+                data-testid={`shopkeeper-tab-${tab}`}
+                onClick={() => {
+                  setTooltip(null);
+                  setSection(tab);
+                }}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+          <label className={styles.shopkeeperSearch}>
+            <Search aria-hidden="true" />
+            <input
+              type="search"
+              value={query}
+              data-testid="shopkeeper-search"
+              placeholder="Search items"
+              onChange={(event) => {
+                setTooltip(null);
+                setQuery(event.currentTarget.value);
+              }}
+              disabled={phase !== "answering" || selectedKey !== null}
+            />
+          </label>
         </div>
-        <label className={styles.shopkeeperSearch}>
-          <Search aria-hidden="true" />
-          <input
-            type="search"
-            value={query}
-            data-testid="shopkeeper-search"
-            placeholder="Search items"
-            onChange={(event) => setQuery(event.currentTarget.value)}
-            disabled={phase !== "answering" || selectedKey !== null}
-          />
-        </label>
-      </div>
 
-      {phase === "reveal" && (
-        <div className={styles.shopkeeperRevealPicks} data-testid="shopkeeper-open-reveal">
-          <ShopkeeperPick item={selectedItem} label="Your pick" />
-          <ArrowRight aria-hidden="true" />
-          <ShopkeeperPick item={targetItem} label="Build result" />
-        </div>
-      )}
-
-      <div
-        className={clsx(styles.shopkeeperGroups, normalizedQuery && styles.shopkeeperSearchResults)}
-        data-shop-section={section}
-      >
-        {groups.map((group) => (
-          <section key={group.key} className={styles.shopkeeperGroup} aria-label={group.label}>
-            <h3>{group.label}</h3>
-            <div>
-              {group.items.map((item) => {
-                const isSelected = selectedKey === item.key;
-                const isCorrect = phase === "reveal" && targetKey === item.key;
-                const count = countByItem.get(item.key) ?? 0;
-                const percentage = crowd.total ? Math.round((count / crowd.total) * 100) : 0;
-                const state = isCorrect
-                  ? "correct"
-                  : phase === "reveal" && isSelected
-                    ? "wrong"
-                    : isSelected
-                      ? "selected"
-                      : "idle";
-
-                return (
-                  <button
-                    key={item.key}
-                    type="button"
-                    data-testid="shopkeeper-store-item"
-                    data-item-key={item.key}
-                    data-state={state}
-                    onClick={() => onChoose(item.key)}
-                    disabled={phase !== "answering" || selectedKey !== null}
-                    aria-label={`${item.name}, ${item.cost.toLocaleString("en-US")} gold`}
-                    title={`${item.name} · ${item.cost.toLocaleString("en-US")} gold`}
-                    aria-pressed={isSelected}
-                  >
-                    <Image src={item.image} alt="" fill sizes="48px" loading="eager" unoptimized />
-                    <span>
-                      <strong>{item.name}</strong>
-                      <small>{item.cost.toLocaleString("en-US")} gold</small>
-                    </span>
-                    {phase === "reveal" && count > 0 && <i>{percentage}%</i>}
-                  </button>
-                );
-              })}
-            </div>
-          </section>
-        ))}
-        {normalizedQuery && searchItems.length === 0 && (
-          <p className={styles.shopkeeperNoResults}>No shop item matches “{query.trim()}”.</p>
+        {phase === "reveal" && (
+          <div className={styles.shopkeeperRevealPicks} data-testid="shopkeeper-open-reveal">
+            <ShopkeeperPick item={selectedItem} label="Your pick" />
+            <ArrowRight aria-hidden="true" />
+            <ShopkeeperPick item={targetItem} label="Build result" />
+          </div>
         )}
+
+        <div
+          className={clsx(styles.shopkeeperGroups, normalizedQuery && styles.shopkeeperSearchResults)}
+          data-shop-section={section}
+          onScroll={() => setTooltip(null)}
+        >
+          {groups.map((group) => (
+            <section key={group.key} className={styles.shopkeeperGroup} aria-label={group.label}>
+              <h3>{group.label}</h3>
+              <div>
+                {group.items.map((item) => {
+                  const isSelected = selectedKey === item.key;
+                  const isCorrect = phase === "reveal" && targetKey === item.key;
+                  const count = countByItem.get(item.key) ?? 0;
+                  const percentage = crowd.total ? Math.round((count / crowd.total) * 100) : 0;
+                  const state = isCorrect
+                    ? "correct"
+                    : phase === "reveal" && isSelected
+                      ? "wrong"
+                      : isSelected
+                        ? "selected"
+                        : "idle";
+
+                  return (
+                    <button
+                      key={item.key}
+                      type="button"
+                      data-testid="shopkeeper-store-item"
+                      data-item-key={item.key}
+                      data-state={state}
+                      onClick={() => {
+                        setTooltip(null);
+                        onChoose(item.key);
+                      }}
+                      onPointerEnter={(event) => showItemTooltip(item, event.currentTarget)}
+                      onPointerLeave={() => setTooltip(null)}
+                      onFocus={(event) => showItemTooltip(item, event.currentTarget)}
+                      onBlur={() => setTooltip(null)}
+                      disabled={phase !== "answering" || selectedKey !== null}
+                      aria-label={`${item.name}, ${item.cost.toLocaleString("en-US")} gold`}
+                      aria-describedby={tooltip?.item.key === item.key ? "shopkeeper-item-tooltip" : undefined}
+                      aria-pressed={isSelected}
+                    >
+                      <Image src={item.image} alt="" fill sizes="48px" loading="eager" unoptimized />
+                      {phase === "reveal" && count > 0 && <i>{percentage}%</i>}
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+          ))}
+          {normalizedQuery && searchItems.length === 0 && (
+            <p className={styles.shopkeeperNoResults}>No shop item matches “{query.trim()}”.</p>
+          )}
+        </div>
       </div>
-    </div>
+      {tooltip &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div
+            id="shopkeeper-item-tooltip"
+            role="tooltip"
+            className={styles.shopkeeperTooltip}
+            data-testid="shopkeeper-item-tooltip"
+            data-placement={tooltip.placement}
+            style={{ left: tooltip.left, top: tooltip.top, width: tooltip.width }}
+          >
+            <strong>{tooltip.item.name}</strong>
+            <small>{tooltip.item.cost.toLocaleString("en-US")} gold</small>
+          </div>,
+          document.body,
+        )}
+    </>
   );
 }
 

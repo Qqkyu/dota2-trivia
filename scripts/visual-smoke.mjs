@@ -261,6 +261,51 @@ const answering = await evaluate(`({
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 
+let shopTooltip = null;
+if (answering.openShop) {
+  await evaluate(`(() => {
+    const store = document.querySelector('[data-testid="shopkeeper-store"]');
+    const groups = store?.querySelector('[data-shop-section]');
+    const item = store?.querySelector('[data-testid="shopkeeper-store-item"]');
+    const measure = (element) => element ? ({
+      clientWidth: element.clientWidth,
+      clientHeight: element.clientHeight,
+      scrollWidth: element.scrollWidth,
+      scrollHeight: element.scrollHeight,
+      scrollLeft: element.scrollLeft,
+      scrollTop: element.scrollTop
+    }) : null;
+    window.__queueArcadeShopBeforeTooltip = { store: measure(store), groups: measure(groups) };
+    item?.focus();
+    return Boolean(item);
+  })()`);
+  await waitFor(`Boolean(document.querySelector('[data-testid="shopkeeper-item-tooltip"]'))`);
+  shopTooltip = await evaluate(`(() => {
+    const store = document.querySelector('[data-testid="shopkeeper-store"]');
+    const groups = store?.querySelector('[data-shop-section]');
+    const tooltip = document.querySelector('[data-testid="shopkeeper-item-tooltip"]');
+    const bounds = tooltip?.getBoundingClientRect();
+    const measure = (element) => element ? ({
+      clientWidth: element.clientWidth,
+      clientHeight: element.clientHeight,
+      scrollWidth: element.scrollWidth,
+      scrollHeight: element.scrollHeight,
+      scrollLeft: element.scrollLeft,
+      scrollTop: element.scrollTop
+    }) : null;
+    const after = { store: measure(store), groups: measure(groups) };
+    return {
+      visible: Boolean(bounds?.width && bounds?.height),
+      stable: JSON.stringify(window.__queueArcadeShopBeforeTooltip) === JSON.stringify(after),
+      insideViewport: Boolean(
+        bounds && bounds.left >= 0 && bounds.top >= 0 &&
+        bounds.right <= window.innerWidth && bounds.bottom <= window.innerHeight
+      )
+    };
+  })()`);
+  await evaluate(`document.activeElement?.blur()`);
+}
+
 await evaluate(`(
   document.querySelector('[data-testid="shopkeeper-store-item"]') ??
   document.querySelector('[data-testid="arcade-answer"]')
@@ -456,7 +501,8 @@ if (
   answering.difficultyControls !== 0 ||
   !answering.publicRoomVisible ||
   !/player/.test(answering.presence ?? "") ||
-  answering.horizontalOverflow
+  answering.horizontalOverflow ||
+  (answering.openShop && (!shopTooltip?.visible || !shopTooltip.stable || !shopTooltip.insideViewport))
 ) {
   failures.push("The synchronized public round is incomplete or still exposes a player queue choice.");
 }
@@ -526,6 +572,7 @@ if (failures.length) {
         opsGuest,
         legacyLink,
         answering,
+        shopTooltip,
         reveal,
         autoAdvanced,
         summary,
@@ -549,6 +596,7 @@ console.log(
       legacyModeRedirect: true,
       roundFamilies: lobby.roundFamilies,
       synchronizedReveal: true,
+      stableShopTooltip: answering.openShop ? shopTooltip?.stable : "not-current-round",
       automaticAdvance: true,
       browserHistory: [historyBack.url, historyForward.url],
       directPlay: directPlay.url,

@@ -15,10 +15,11 @@ import { varietyShuffle } from "../src/lib/variety.mjs";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questions = JSON.parse(await readFile(join(root, "src", "data", "shopkeeper-questions.json"), "utf8"));
 const catalog = JSON.parse(await readFile(join(root, "src", "data", "shopkeeper-catalog.json"), "utf8"));
-const [voteRouteSource, postgresStoreSource, arcadeSource] = await Promise.all([
+const [voteRouteSource, postgresStoreSource, arcadeSource, arcadeStyles] = await Promise.all([
   readFile(join(root, "src", "app", "api", "votes", "route.ts"), "utf8"),
   readFile(join(root, "src", "lib", "vote-store-postgres.ts"), "utf8"),
   readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8"),
+  readFile(join(root, "src", "components", "queue-arcade.module.css"), "utf8"),
 ]);
 const failures = [];
 const ids = new Set();
@@ -76,6 +77,8 @@ const expectedCatalogGroups = [
 ];
 const catalogItems = catalog.groups?.flatMap((group) => group.items ?? []) ?? [];
 const catalogKeys = new Set(catalogItems.map((item) => item.key));
+const itemButtonRule = arcadeStyles.match(/\.shopkeeperGroup button \{([^}]*)\}/)?.[1] ?? "";
+const tooltipRule = arcadeStyles.match(/\.shopkeeperTooltip \{([^}]*)\}/)?.[1] ?? "";
 
 if (
   catalog.patch !== CLIENT_CONSTANT_AUDIT.patch ||
@@ -107,9 +110,14 @@ if (
   !postgresStoreSource.includes("ADD COLUMN IF NOT EXISTS answer_key TEXT") ||
   !postgresStoreSource.includes("GROUP BY answer_key") ||
   !arcadeSource.includes('data-testid="shopkeeper-store"') ||
-  !arcadeSource.includes("onChoose={chooseShopkeeperItem}")
+  !arcadeSource.includes("onChoose={chooseShopkeeperItem}") ||
+  !arcadeSource.includes('data-testid="shopkeeper-item-tooltip"') ||
+  !arcadeSource.includes("createPortal(") ||
+  !itemButtonRule.includes("overflow: hidden;") ||
+  !tooltipRule.includes("position: fixed;") ||
+  arcadeStyles.includes(".shopkeeperGroup button > span")
 ) {
-  failures.push("The Build Result item-key vote, reconnect, or store UI contract was removed.");
+  failures.push("The Build Result item-key vote, reconnect, store UI, or stable tooltip contract was removed.");
 }
 
 if (questions.length !== 48) failures.push(`Shopkeeper needs 48 curated rounds (found ${questions.length}).`);
