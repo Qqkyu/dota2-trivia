@@ -29,10 +29,10 @@ export default function PrivacyPage() {
       <section>
         <h2>Alpha measurements</h2>
         <p>
-          To improve the arcade, we count visits, completed rounds, correct answers, return visits, and one optional
-          session rating chosen from four fixed buttons. Player and visit identifiers are salted and hashed before they
-          are stored; the private owner dashboard shows aggregates only. Alpha visit summaries expire after 30 days. The
-          live “playing now” count stays only in server memory and forgets inactive players after 45 seconds.
+          To improve the arcade, we count visits, completed rounds, correct answers, and return visits. Player and visit
+          identifiers are salted and hashed before they are stored; the private owner dashboard shows aggregates only.
+          Alpha visit summaries expire after 30 days. The live “playing now” count stays only in server memory and
+          forgets inactive players after 45 seconds.
         </p>
       </section>
 

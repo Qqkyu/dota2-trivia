@@ -13,6 +13,7 @@ import {
   roundFormatForQuestion,
   roundGameForFormat,
 } from "../src/lib/arcade-games.mjs";
+import { MIN_INITIAL_ANSWER_TIME_MS, shouldWaitForNextRoundOnEntry } from "../src/lib/arcade-entry.mjs";
 import { isPlayableClassicTriviaQuestion } from "../src/lib/classic-trivia-quality.mjs";
 import { isPlayableShopkeeperQuestion } from "../src/lib/shopkeeper-quality.mjs";
 import { varietyShuffle } from "../src/lib/variety.mjs";
@@ -34,6 +35,20 @@ const generatedLive = generated.filter(
 );
 const liveQuestions = [...generatedLive, ...shopkeeper.filter(isPlayableShopkeeperQuestion), ...soundcheck];
 const failures = [];
+
+const entryBoundary = 1_000_000;
+const entryRound = {
+  phase: "answering",
+  answerDeadline: entryBoundary + MIN_INITIAL_ANSWER_TIME_MS,
+};
+if (
+  shouldWaitForNextRoundOnEntry({ ...entryRound, phase: "reveal" }, entryBoundary) !== true ||
+  shouldWaitForNextRoundOnEntry(entryRound, entryBoundary + 1) !== true ||
+  shouldWaitForNextRoundOnEntry(entryRound, entryBoundary) !== false ||
+  shouldWaitForNextRoundOnEntry({ ...entryRound, answerDeadline: entryBoundary + 15_000 }, entryBoundary) !== false
+) {
+  failures.push("The first-entry gate no longer waits through reveals and short answer windows.");
+}
 
 if (LIVE_ARCADE_MODES.length !== 1 || LIVE_ARCADE_MODES[0] !== PUBLIC_ARCADE_MODE) {
   failures.push("More than one public mode is exposed.");

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { writeFile } from "node:fs/promises";
+import { MIN_INITIAL_ANSWER_TIME_MS } from "../src/lib/arcade-entry.mjs";
 
 const debuggingUrl = process.env.CHROME_DEBUG_URL ?? "http://127.0.0.1:9222";
 const appUrl = process.env.APP_URL ?? process.env.ARCADE_APP_URL ?? "http://localhost:3000";
@@ -96,6 +97,30 @@ async function waitFor(expression, timeout = 30_000) {
     await delay(200);
   }
   throw new Error(`Timed out waiting for: ${expression}`);
+}
+
+async function waitForRevealEntryWindow() {
+  const roomUrl = new URL("/api/rounds", appUrl);
+  roomUrl.search = new URLSearchParams({
+    gameId: "dota2",
+    mode: "mixed",
+    filter: "Mixed",
+    playerId: `visual-entry-${Date.now()}`,
+  });
+
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    const snapshot = await fetch(roomUrl, { cache: "no-store" }).then((response) => response.json());
+    const revealRemaining = snapshot.round.revealDeadline - snapshot.serverNow;
+    if (snapshot.round.phase === "reveal" && revealRemaining >= 2_000) return;
+
+    const wait =
+      snapshot.round.phase === "answering"
+        ? snapshot.round.answerDeadline - snapshot.serverNow + 150
+        : snapshot.round.revealDeadline - snapshot.serverNow + 150;
+    await delay(Math.max(150, wait));
+  }
+
+  throw new Error("Could not reach a reveal window for the first-entry smoke test.");
 }
 
 await send("Page.enable");
@@ -212,6 +237,7 @@ const privacy = await evaluate(`({
   deletion: document.body.innerText.includes("Delete profile"),
   diagnostics: document.body.innerText.includes("Error text, stack traces, URL queries, and player identifiers are not sent"),
   alphaAnalytics: document.body.innerText.includes("Alpha visit summaries expire after 30 days"),
+  retiredSessionRating: !document.body.innerText.includes("session rating"),
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 await screenshot("/tmp/queue-arcade-privacy.png");
@@ -238,7 +264,17 @@ await navigate(appUrl);
 await waitFor(
   `document.querySelector("main")?.dataset.clientReady === "true" && document.querySelector("main")?.dataset.accountReady === "true"`,
 );
+await waitForRevealEntryWindow();
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+await waitFor(`document.querySelector("main")?.dataset.phase === "waiting"`);
+const entryWait = await evaluate(`({
+  phase: document.querySelector("main")?.dataset.phase,
+  roomId: document.querySelector("main")?.dataset.roomId,
+  heading: document.querySelector('[data-testid="round-entry-wait"] h1')?.innerText,
+  countdown: Number(document.querySelector('[data-testid="entry-wait-timer"]')?.textContent?.split(":").at(-1)),
+  horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+})`);
+await screenshot("/tmp/queue-arcade-entry-wait.png");
 await waitFor(`(() => {
   const main = document.querySelector("main");
   const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
@@ -251,6 +287,7 @@ const answering = await evaluate(`({
   phase: document.querySelector("main")?.dataset.phase,
   roomId: document.querySelector("main")?.dataset.roomId,
   roundId: document.querySelector("main")?.dataset.roundId,
+  timer: Number(document.querySelector('[data-testid="round-timer"]')?.textContent),
   game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
   answers: document.querySelectorAll('[data-testid="arcade-answer"]').length,
   openShop: Boolean(document.querySelector('[data-testid="shopkeeper-store"]')),
@@ -480,6 +517,7 @@ if (
   !privacy.deletion ||
   !privacy.diagnostics ||
   !privacy.alphaAnalytics ||
+  !privacy.retiredSessionRating ||
   privacy.horizontalOverflow
 ) {
   failures.push("The account privacy and deletion explanation is incomplete or overflows.");
@@ -489,6 +527,16 @@ if (opsGuest.access !== "signed-out" || opsGuest.steamButtons !== 1 || opsGuest.
 }
 if (legacyLink.url !== "/" || legacyLink.modeCards !== 0 || legacyLink.startButtons !== 1) {
   failures.push("A legacy mode deep link did not return to the canonical public arcade.");
+}
+if (
+  entryWait.phase !== "waiting" ||
+  !entryWait.roomId?.endsWith(":public") ||
+  entryWait.heading !== "Next round" ||
+  !Number.isFinite(entryWait.countdown) ||
+  entryWait.countdown < 1 ||
+  entryWait.horizontalOverflow
+) {
+  failures.push("A late first entry no longer waits cleanly for the next synchronized round.");
 }
 if (
   answering.url !== "/play" ||
@@ -501,6 +549,7 @@ if (
   answering.difficultyControls !== 0 ||
   !answering.publicRoomVisible ||
   !/player/.test(answering.presence ?? "") ||
+  answering.timer < MIN_INITIAL_ANSWER_TIME_MS / 1_000 - 2 ||
   answering.horizontalOverflow ||
   (answering.openShop && (!shopTooltip?.visible || !shopTooltip.stable || !shopTooltip.insideViewport))
 ) {
@@ -571,6 +620,7 @@ if (failures.length) {
         privacy,
         opsGuest,
         legacyLink,
+        entryWait,
         answering,
         shopTooltip,
         reveal,
@@ -596,6 +646,7 @@ console.log(
       legacyModeRedirect: true,
       roundFamilies: lobby.roundFamilies,
       synchronizedReveal: true,
+      fairFirstEntry: true,
       stableShopTooltip: answering.openShop ? shopTooltip?.stable : "not-current-round",
       automaticAdvance: true,
       browserHistory: [historyBack.url, historyForward.url],
@@ -614,6 +665,7 @@ console.log(
         "/tmp/queue-arcade-profile-guest.png",
         "/tmp/queue-arcade-privacy.png",
         "/tmp/queue-arcade-ops-guest.png",
+        "/tmp/queue-arcade-entry-wait.png",
         "/tmp/queue-arcade-public-round.png",
         "/tmp/queue-arcade-public-reveal.png",
         "/tmp/queue-arcade-summary.png",

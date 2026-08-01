@@ -56,6 +56,7 @@ import {
 } from "@/lib/trivia";
 import type { CrowdResult, PublicRoomSettings, ReportResult, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
 import { LIVE_ROUND_GAMES, PUBLIC_ARCADE_MODE, PUBLIC_ROUND_FORMATS } from "@/lib/arcade-games.mjs";
+import { shouldWaitForNextRoundOnEntry } from "@/lib/arcade-entry.mjs";
 import { ARCADE_LOBBY_PATH, PUBLIC_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
 import { answerFeedbackKind, dotaFeedbackSoundForKind } from "@/lib/feedback-sounds.mjs";
@@ -193,7 +194,7 @@ function waitForAudioCut(
     onProgress();
   });
 }
-type GamePhase = "lobby" | "answering" | "reveal" | "summary";
+type GamePhase = "lobby" | "waiting" | "answering" | "reveal" | "summary";
 
 interface RoundAward {
   points: number;
@@ -1508,6 +1509,8 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   const [history, setHistory] = useState<RoundRecord[]>([]);
   const [deadline, setDeadlineState] = useState<number | null>(null);
   const [revealDeadline, setRevealDeadlineState] = useState<number | null>(null);
+  const [entryWaitDeadline, setEntryWaitDeadline] = useState<number | null>(null);
+  const [entryWaitDuration, setEntryWaitDuration] = useState(0);
   const [queueStartedAt, setQueueStartedAt] = useState<number | null>(null);
   const [runDuration, setRunDuration] = useState(0);
   const [now, setNow] = useState(0);
@@ -1547,6 +1550,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   const roomSettingsRef = useRef<PublicRoomSettings | null>(null);
   const roomSnapshotRef = useRef<RoomSnapshot | null>(null);
   const roundIdRef = useRef("");
+  const entryWaitRoundIdRef = useRef("");
   const syncPromiseRef = useRef<Promise<void> | null>(null);
   const feedbackAudioRef = useRef<{
     clips: Array<{ audio: HTMLAudioElement; gain: number; src: string }>;
@@ -1845,6 +1849,33 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       setRoomError(null);
       setNow(receivedAt);
 
+      if (entryWaitRoundIdRef.current) {
+        const waitingForRoundId = entryWaitRoundIdRef.current;
+        const nextRoundIsStillTooLate = shouldWaitForNextRoundOnEntry(snapshot.round, snapshot.serverNow);
+        const keepWaiting = snapshot.round.id === waitingForRoundId || nextRoundIsStillTooLate;
+
+        if (keepWaiting) {
+          const skippedAnotherRound = snapshot.round.id !== waitingForRoundId;
+          entryWaitRoundIdRef.current = snapshot.round.id;
+          currentQuestionRef.current = null;
+          setCurrentQuestion(null);
+          setDeadline(null);
+          setRevealDeadlineState(null);
+          setEntryWaitDeadline(localRevealDeadline);
+          setEntryWaitDuration((currentDuration) =>
+            currentDuration <= 0 || skippedAnotherRound
+              ? Math.max(1_000, localRevealDeadline - receivedAt)
+              : currentDuration,
+          );
+          setPhase("waiting");
+          return;
+        }
+
+        entryWaitRoundIdRef.current = "";
+        setEntryWaitDeadline(null);
+        setEntryWaitDuration(0);
+      }
+
       if (isNewRound) {
         roundIdRef.current = snapshot.round.id;
         currentQuestionRef.current = question;
@@ -1976,6 +2007,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
 
         const startedAt = Date.now();
         roundIdRef.current = "";
+        entryWaitRoundIdRef.current = "";
         currentQuestionRef.current = null;
         roundIndexRef.current = 0;
         queueStartedAtRef.current = startedAt;
@@ -1997,6 +2029,8 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
         setHistory([]);
         setRunDuration(0);
         setQueueStartedAt(startedAt);
+        setEntryWaitDeadline(null);
+        setEntryWaitDuration(0);
         const alphaSessionId = window.crypto.randomUUID();
         alphaSessionIdRef.current = alphaSessionId;
         alphaSessionFinishedRef.current = false;
@@ -2004,6 +2038,9 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
         setReportNotice(null);
         setReportedReason(null);
         updateReportState("idle");
+        if (shouldWaitForNextRoundOnEntry(result.snapshot.round, result.snapshot.serverNow)) {
+          entryWaitRoundIdRef.current = result.snapshot.round.id;
+        }
         applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
         void sendAlphaSessionEvent("start", alphaSessionId).catch(() => undefined);
         if (updateHistory && window.location.pathname !== PUBLIC_ARCADE_PATH) {
@@ -2307,10 +2344,11 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
 
   const returnToLobby = useCallback(
     (historyAction: "push" | "replace" | "none" = "push") => {
-      if (phaseRef.current === "answering" || phaseRef.current === "reveal") finishAlphaSession();
+      if (phaseRef.current !== "lobby" && phaseRef.current !== "summary") finishAlphaSession();
       roomSettingsRef.current = null;
       roomSnapshotRef.current = null;
       roundIdRef.current = "";
+      entryWaitRoundIdRef.current = "";
       autoStartAttemptedRef.current = false;
       feedbackAudioRef.current?.clips.forEach(({ audio }) => audio.pause());
       stopRoundAudio(false);
@@ -2319,6 +2357,8 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       updateReportState("idle");
       setDeadline(null);
       setRevealDeadlineState(null);
+      setEntryWaitDeadline(null);
+      setEntryWaitDuration(0);
       setActiveRoomId("");
       setActiveRoundId("");
       setPhase("lobby");
@@ -2564,6 +2604,8 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
 
   const answerRemaining = deadline ? Math.max(0, deadline - now) : 0;
   const revealRemaining = revealDeadline ? Math.max(0, revealDeadline - now) : 0;
+  const entryWaitRemaining = entryWaitDeadline ? Math.max(0, entryWaitDeadline - now) : 0;
+  const entryWaitRatio = entryWaitDuration > 0 ? entryWaitRemaining / entryWaitDuration : 0;
   const timerRatio = phase === "answering" ? answerRemaining / answerDuration : revealRemaining / REVEAL_DURATION_MS;
   const sessionElapsed = queueStartedAt ? Math.max(0, now - queueStartedAt) : 0;
   const selectedWasCorrect =
@@ -2848,6 +2890,42 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 {activeModeInfo.shortLabel}
               </span>
               <strong>{answerDuration / 1000}s</strong>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {phase === "waiting" && (
+        <section className={styles.entryWait} data-testid="round-entry-wait" aria-label="Waiting for the next round">
+          <div className={styles.entryWaitStage}>
+            <div className={styles.timerTrack} aria-hidden="true">
+              <span style={{ transform: `scaleX(${Math.max(0, Math.min(1, entryWaitRatio))})` }} />
+            </div>
+            <div className={styles.entryWaitContent}>
+              <span className={styles.entryWaitIcon} aria-hidden="true">
+                <Radio />
+              </span>
+              <small>Public arcade · synchronized</small>
+              <h1>Next round</h1>
+              <strong data-testid="entry-wait-timer">
+                00:{String(Math.ceil(entryWaitRemaining / 1_000)).padStart(2, "0")}
+              </strong>
+              <div className={styles.entryWaitPulse} aria-hidden="true">
+                {Array.from({ length: 7 }, (_, index) => (
+                  <i key={index} />
+                ))}
+              </div>
+              <span
+                className={clsx(styles.entryWaitStatus, roomError && styles.entryWaitStatusError)}
+                aria-live="polite"
+              >
+                {roomError && (
+                  <>
+                    <Signal />
+                    {roomError}
+                  </>
+                )}
+              </span>
             </div>
           </div>
         </section>

@@ -231,12 +231,14 @@ Each game catalog and content version owns exactly one public room. Dota rooms a
 
 `/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` opens with the reveal and keeps the just-finished question reportable for a 20-second rollover grace period. It stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
 
+First-time room entry is gated separately from the shared clock. A player joins the active question when at least eight seconds remain; otherwise the client holds on a synchronized countdown and begins with the next full round. Existing players never pause or leave the global timeline.
+
 The local persistent store is an atomic JSON file suited to development and a single long-running Node instance with a persistent disk. Public deployments switch automatically to transactional Postgres when `DATABASE_URL` is configured. Raw per-round votes expire independently from durable question aggregates. Calibration keys include a stable fingerprint of the playable prompt, choices, marked answer, clues, and assets, so an unchanged question keeps its history across room releases while an edited question starts cleanly. `/calibration` never exposes voter hashes. It waits for 20 answers before suggesting that a question looks too easy or too hard. Reports and sampled difficulty outliers open the review queue; allowlisted Steam reviewers can mark a signal reviewed or quarantined, and a reviewed signal reopens when new evidence arrives. None of those states silently changes the live deck. Pusher distributes updates but is never the source of truth.
 
 ## Useful next steps
 
 1. Add the maintainer SteamID to `ARCADE_REVIEWER_STEAM_IDS`, then work the first real report and difficulty signals.
-2. Share the production lobby with 5–15 Dota players, then review `/ops` after the first few sessions.
+2. Run a concentrated public soft launch, then review `/ops` after the first real sessions.
 3. Collect public-alpha samples and watch structured error fingerprints by release in the deployment logs.
 4. Review ordered-pair accuracy, then expand Soundcheck with carefully audited channel and announcer families.
 5. Prototype one low-reading interaction such as ordering four audited Dota values.

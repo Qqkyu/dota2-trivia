@@ -1189,6 +1189,162 @@
   height: 15px;
 }
 
+.entryWait {
+  display: grid;
+  width: min(100% - 48px, 1120px);
+  min-height: calc(100vh - 154px);
+  place-items: center;
+  margin: 0 auto;
+  padding: 40px 0 56px;
+}
+
+.entryWaitStage {
+  position: relative;
+  display: grid;
+  width: 100%;
+  min-height: 520px;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: radial-gradient(circle at 50% 46%, rgba(91, 137, 160, 0.13), transparent 31%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.026), transparent 34%), rgba(15, 18, 19, 0.9);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.26);
+}
+
+.entryWaitStage::before,
+.entryWaitStage::after {
+  position: absolute;
+  width: 310px;
+  height: 310px;
+  border: 1px solid rgba(114, 183, 213, 0.06);
+  content: "";
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.entryWaitStage::before {
+  top: -220px;
+  left: -100px;
+}
+
+.entryWaitStage::after {
+  right: -100px;
+  bottom: -220px;
+}
+
+.entryWaitStage .timerTrack > span {
+  background: linear-gradient(90deg, #3e6f87, #72b7d5);
+  box-shadow: 0 0 14px rgba(114, 183, 213, 0.42);
+}
+
+.entryWaitContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.entryWaitIcon {
+  display: inline-grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  margin-bottom: 24px;
+  border: 1px solid rgba(114, 183, 213, 0.34);
+  background: rgba(114, 183, 213, 0.07);
+  color: #78bedb;
+  box-shadow:
+    0 0 0 9px rgba(114, 183, 213, 0.025),
+    0 0 44px rgba(114, 183, 213, 0.13);
+  animation: entryWaitSignal 1.8s ease-in-out infinite;
+}
+
+.entryWaitIcon svg {
+  width: 25px;
+  height: 25px;
+}
+
+.entryWaitContent > small {
+  color: #78bedb;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.entryWaitContent h1 {
+  margin: 16px 0 4px;
+  font-size: clamp(45px, 6vw, 72px);
+  font-weight: 380;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.entryWaitContent > strong {
+  color: #c6ced0;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 24px;
+  font-weight: 450;
+  letter-spacing: 0.08em;
+}
+
+.entryWaitPulse {
+  display: flex;
+  height: 34px;
+  align-items: center;
+  gap: 5px;
+  margin: 27px 0 23px;
+}
+
+.entryWaitPulse i {
+  display: block;
+  width: 3px;
+  height: 10px;
+  background: #72b7d5;
+  opacity: 0.32;
+  animation: entryWaitBar 900ms ease-in-out infinite alternate;
+}
+
+.entryWaitPulse i:nth-child(2),
+.entryWaitPulse i:nth-child(6) {
+  height: 18px;
+  animation-delay: -180ms;
+}
+
+.entryWaitPulse i:nth-child(3),
+.entryWaitPulse i:nth-child(5) {
+  height: 27px;
+  animation-delay: -360ms;
+}
+
+.entryWaitPulse i:nth-child(4) {
+  height: 34px;
+  animation-delay: -540ms;
+}
+
+.entryWaitStatus {
+  display: inline-flex;
+  min-height: 18px;
+  align-items: center;
+  gap: 7px;
+  color: var(--faint);
+  font-size: 12px;
+}
+
+.entryWaitStatus svg {
+  width: 13px;
+  height: 13px;
+  color: var(--green);
+}
+
+.entryWaitStatusError,
+.entryWaitStatusError svg {
+  color: var(--red-bright);
+}
+
 .gameLayout {
   display: grid;
   width: min(100% - 48px, 1420px);
@@ -5073,6 +5229,28 @@
   }
 }
 
+@keyframes entryWaitSignal {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 9px rgba(114, 183, 213, 0.025),
+      0 0 32px rgba(114, 183, 213, 0.09);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 14px rgba(114, 183, 213, 0.045),
+      0 0 52px rgba(114, 183, 213, 0.2);
+  }
+}
+
+@keyframes entryWaitBar {
+  to {
+    opacity: 0.95;
+    transform: scaleY(0.45);
+  }
+}
+
 @keyframes crowd {
   0% {
     height: 16%;
@@ -5296,6 +5474,7 @@
 @media (max-width: 680px) {
   .header,
   .lobby,
+  .entryWait,
   .gameLayout,
   .summary,
   .footer {
@@ -5409,6 +5588,15 @@
 
   .gameLayout {
     padding-top: 12px;
+  }
+
+  .entryWait {
+    min-height: calc(100vh - 122px);
+    padding: 20px 0 36px;
+  }
+
+  .entryWaitStage {
+    min-height: 430px;
   }
 
   .gameStage {
