@@ -3152,37 +3152,6 @@
     0 18px 40px rgba(0, 0, 0, 0.2);
 }
 
-.echoPlayer > button {
-  display: grid;
-  width: 54px;
-  height: 54px;
-  place-items: center;
-  border: 1px solid rgba(183, 145, 229, 0.38);
-  border-radius: 50%;
-  background: rgba(117, 79, 166, 0.12);
-  color: #c5a4ec;
-  cursor: pointer;
-  transition:
-    background 150ms ease,
-    border-color 150ms ease,
-    transform 150ms ease;
-}
-
-.echoPlayer > button:hover {
-  border-color: rgba(205, 172, 244, 0.65);
-  background: rgba(140, 95, 197, 0.22);
-  transform: scale(1.03);
-}
-
-.echoPlayer > button:focus-visible {
-  outline: 2px solid rgba(196, 158, 237, 0.7);
-  outline-offset: 3px;
-}
-
-.echoPlayer > button svg {
-  width: 23px;
-}
-
 .audioAutoplayIcon {
   display: grid;
   width: 54px;
@@ -3260,21 +3229,6 @@
   box-shadow:
     inset 0 0 40px rgba(48, 158, 170, 0.045),
     0 18px 40px rgba(0, 0, 0, 0.2);
-}
-
-.soundcheckPlayer > button {
-  border-color: rgba(105, 214, 224, 0.4);
-  background: rgba(44, 154, 166, 0.13);
-  color: #83dfe5;
-}
-
-.soundcheckPlayer > button:hover {
-  border-color: rgba(130, 228, 235, 0.68);
-  background: rgba(54, 177, 190, 0.23);
-}
-
-.soundcheckPlayer > button:focus-visible {
-  outline-color: rgba(118, 215, 223, 0.74);
 }
 
 .soundcheckPlayer > span {
@@ -5232,11 +5186,6 @@
 
   .soundRevealMeter {
     margin-inline: auto;
-  }
-
-  .echoPlayer > button {
-    width: 46px;
-    height: 46px;
   }
 
   .audioAutoplayIcon {

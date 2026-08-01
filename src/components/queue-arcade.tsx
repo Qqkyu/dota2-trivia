@@ -15,7 +15,6 @@ import {
   Flame,
   Gauge,
   Gamepad2,
-  Headphones,
   Keyboard,
   MapPin,
   MessageSquareQuote,
@@ -268,9 +267,9 @@ const MODE_INFO: Record<
     label: "Spell Link",
     shortLabel: "Spell Link",
     eyebrow: "Icon recognition",
-    description: "Match an ability to its hero while extra clues unlock as the clock burns down.",
+    description: "Match an ability to its hero from mechanics, name, and icon.",
     action: "Link some spells",
-    rule: "Extra clues unlock as time burns down, and each one reduces the available score.",
+    rule: "Each extra clue reduces the available score.",
   },
   "fogged-vision": {
     label: "Fogged Vision",
@@ -2668,7 +2667,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                   </span>
                 </div>
                 <div className={styles.questionCopy}>
-                  <span>Spell Link · Clues unlock with time</span>
+                  <span>Spell Link</span>
                   <h2>Which hero owns this ability?</h2>
                   <div className={styles.clueList}>
                     <div className={styles.clueUnlocked} data-testid="spell-clue-1">
@@ -2789,20 +2788,13 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                   data-active-clip={roundAudioClipIndex + 1}
                   data-reveal-stage={isProgressiveAudioRound ? clueStage : undefined}
                 >
-                  {isSoundcheckRound ? (
-                    <div className={styles.audioAutoplayIcon} data-testid="soundcheck-autoplay" aria-hidden="true">
-                      {roundAudioState === "playing" ? <AudioWaveform /> : <Volume2 />}
-                    </div>
-                  ) : (
-                    <button
-                      type="button"
-                      data-testid="voice-line-play"
-                      onClick={() => playRoundAudio(true, clueStage)}
-                      aria-label={roundAudioPlayCount ? "Replay voice line cut" : "Play voice line cut"}
-                    >
-                      {roundAudioState === "playing" ? <AudioLines /> : <Headphones />}
-                    </button>
-                  )}
+                  <div
+                    className={styles.audioAutoplayIcon}
+                    data-testid={isSoundcheckRound ? "soundcheck-autoplay" : "echo-autoplay"}
+                    aria-hidden="true"
+                  >
+                    {roundAudioState === "playing" ? <AudioWaveform /> : <Volume2 />}
+                  </div>
                   <div className={styles.audioVisualization} aria-hidden="true">
                     <div className={styles.echoWave}>
                       {Array.from({ length: 15 }, (_, index) => (
@@ -2861,13 +2853,6 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                       )}
                     </div>
                   )}
-                  <small>
-                    {isSoundcheckRound
-                      ? isSoundSequence
-                        ? "Two sounds. The last cut plays both in full."
-                        : "The last cut plays the full sound."
-                      : "Longer pieces of the line unlock with time."}
-                  </small>
                 </div>
               </div>
             ) : currentGame === "quote-hunt" ? (
@@ -3088,11 +3073,11 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                           : currentGame === "fogged-vision"
                             ? "Name the silhouette · A–D or 1–4"
                             : currentGame === "echo-hunt"
-                              ? "Play the echo, then choose · A–D or 1–4"
+                              ? "Match the voice · A–D or 1–4"
                               : currentGame === "soundcheck"
                                 ? isSoundSequence
                                   ? "Match the order · A–D or 1–4"
-                                  : "Replay the sound, then choose · A–D or 1–4"
+                                  : "Match the sound · A–D or 1–4"
                                 : currentGame === "quote-hunt"
                                   ? "Match the line to its hero · A–D or 1–4"
                                   : currentGame === "counterplay"
@@ -3323,7 +3308,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                       : currentGame === "fogged-vision"
                         ? "Silhouette and color are often enough. Every clarity stage is safer, but costs time."
                         : currentGame === "echo-hunt"
-                          ? "Accent, cadence, and vocal effects are useful tells. Replay as often as the timer allows."
+                          ? "Accent, cadence, and vocal effects are useful tells."
                           : currentGame === "soundcheck"
                             ? "Listen for the attack, impact, and tail. Similar spells often differ most in their final half-second."
                             : currentGame === "quote-hunt"

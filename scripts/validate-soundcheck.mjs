@@ -24,6 +24,7 @@ import {
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questions = JSON.parse(await readFile(join(root, "src", "data", "soundcheck-questions.json"), "utf8"));
 const metadata = JSON.parse(await readFile(join(root, "src", "data", "trivia-meta.generated.json"), "utf8"));
+const arcadeComponent = await readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8");
 const failures = [];
 const ids = new Set();
 const audioUrls = new Set();
@@ -296,6 +297,25 @@ for (const [duration, expectedCuts] of expectedEchoCuts) {
     cuts.some((cut, index) => Math.abs(cut - expectedCuts[index]) > 0.000_001)
   ) {
     failures.push(`Echo Hunt ${duration}s line has an invalid progressive cut ${JSON.stringify(cuts)}.`);
+  }
+}
+
+if (
+  arcadeComponent.includes('data-testid="voice-line-play"') ||
+  arcadeComponent.includes("playRoundAudio(true") ||
+  !arcadeComponent.includes('data-testid={isSoundcheckRound ? "soundcheck-autoplay" : "echo-autoplay"}')
+) {
+  failures.push("Echo Hunt must autoplay exactly one cut per reveal stage without a replay control.");
+}
+
+for (const redundantInstruction of [
+  "The last cut plays both in full.",
+  "The last cut plays the full sound.",
+  "Clues unlock with time",
+  "Replay as often as the timer allows.",
+]) {
+  if (arcadeComponent.includes(redundantInstruction)) {
+    failures.push(`Redundant in-round instruction returned: ${redundantInstruction}`);
   }
 }
 
