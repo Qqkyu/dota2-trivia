@@ -17,7 +17,7 @@ The playable MVP includes:
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - canonical `/` lobby and `/play` session URLs with direct loading plus browser Back and Forward support;
 - one shared public room of 15-second rounds, without mode, category, or player-facing difficulty queues;
-- 645 live prompts for Dota patch 7.41d, including 48 Shopkeeper rounds and 48 Soundcheck rounds;
+- 716 live prompts for Dota patch 7.41d, including all 127 enabled heroes in Fogged Vision, 48 Shopkeeper rounds, and 48 Soundcheck rounds;
 - item, hero, and ability artwork for visual answer rounds;
 - 44 remotely verified Echo Hunt clips, 48 Soundcheck rounds built from 60 audited clips, and 43 Quote Hunt lines sourced through Dotabase;
 - live-client answer audits plus balanced A–D placement for every generated question family;
@@ -232,7 +232,7 @@ under `/tmp`.
 
 ## Crowd architecture
 
-Each game catalog and content version owns exactly one public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-6-classic-trivia-5-shopkeeper-5-public-arcade-2-soundcheck-9-fogged-vision-2:public`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog and content version owns exactly one public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-6-classic-trivia-5-shopkeeper-5-public-arcade-2-soundcheck-9-fogged-vision-3:public`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/rounds` converts the private catalog entry into an explicit public payload. During answering it omits the internal
 question ID, marked answer, explanation, source/audit metadata, hidden Shopkeeper keys, and locked Spell Link clues. The

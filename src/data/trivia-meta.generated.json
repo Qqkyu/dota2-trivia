@@ -2,12 +2,12 @@
   "patch": "7.41d",
   "contentVersion": "7.41d-variety-6",
   "snapshotDate": "2026-07-29",
-  "questionCount": 732,
+  "questionCount": 803,
   "categoryCounts": {
     "Abilities": 103,
     "Cooldowns": 52,
     "Damage": 48,
-    "Heroes": 301,
+    "Heroes": 372,
     "Items": 137,
     "Mana": 60,
     "Recipes": 31
@@ -16,7 +16,7 @@
     "ability-damage": 48,
     "ability-detective": 36,
     "cooldown": 52,
-    "fogged-hero": 56,
+    "fogged-hero": 127,
     "hero-intruder": 32,
     "hero-move-speed": 40,
     "hero-primary-attribute": 44,

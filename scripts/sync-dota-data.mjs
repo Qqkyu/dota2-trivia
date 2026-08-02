@@ -291,6 +291,10 @@ function voiceLineLeaksHero(response, hero, dotabaseHero) {
   );
 }
 
+function heroPickerDisplayName(hero) {
+  return hero.key === "npc_dota_hero_ringmaster" ? "Ringmaster" : hero.localized_name;
+}
+
 async function loadDataset(name, url) {
   if (cacheDirectory) {
     const cacheName =
@@ -628,10 +632,11 @@ for (const stat of heroStatDefinitions) {
   }
 }
 
-for (const hero of stableSample(heroes, 56, "fogged-hero")) {
+for (const hero of heroes) {
   const distractors = spellDistractors(hero, heroes, 2, `fogged:${hero.key}`, hash);
   if (distractors.length !== 3) continue;
   const answerHeroes = [hero, ...distractors];
+  const heroName = heroPickerDisplayName(hero);
 
   questions.push(
     makeQuestion({
@@ -641,10 +646,10 @@ for (const hero of stableSample(heroes, 56, "fogged-hero")) {
       difficulty: 2,
       eyebrow: "Fogged Vision",
       prompt: "Which hero is hidden in the fog?",
-      image: { src: hero.image, alt: `${hero.localized_name} hero portrait`, kind: "hero" },
-      answers: answerHeroes.map((candidate) => candidate.localized_name),
-      correctAnswer: hero.localized_name,
-      explanation: `${hero.localized_name} was hiding behind the fog.`,
+      image: { src: hero.image, alt: `${heroName} hero portrait`, kind: "hero" },
+      answers: answerHeroes.map(heroPickerDisplayName),
+      correctAnswer: heroName,
+      explanation: `${heroName} was hiding behind the fog.`,
       source: questionSource,
     }),
   );

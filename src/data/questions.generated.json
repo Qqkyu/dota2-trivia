@@ -6,12 +6,7 @@
     "difficulty": 2,
     "eyebrow": "Abaddon · Ability Detective",
     "prompt": "Which of this hero’s abilities matches the effect below?",
-    "answers": [
-      "Mist Coil",
-      "Withering Mist",
-      "Borrowed Time",
-      "Curse of Avernus"
-    ],
+    "answers": ["Mist Coil", "Withering Mist", "Borrowed Time", "Curse of Avernus"],
     "correctIndex": 2,
     "explanation": "Borrowed Time: When activated, dispels you and all damage dealt to you will heal instead of harm. If the ability is not on cooldown, it will automatically activate if your health falls below 400.\n\nDISPEL TYPE: Strong Dispel",
     "source": {
@@ -69,12 +64,7 @@
     "difficulty": 2,
     "eyebrow": "Brewmaster · Ability Detective",
     "prompt": "Which of this hero’s abilities matches the effect below?",
-    "answers": [
-      "Liquid Courage",
-      "Thunder Clap",
-      "Drunken Brawler",
-      "Cinder Brew"
-    ],
+    "answers": ["Liquid Courage", "Thunder Clap", "Drunken Brawler", "Cinder Brew"],
     "correctIndex": 3,
     "explanation": "Cinder Brew: Rolls a barrel of ale at enemies that damages enemies along its path and spills out at the target location.\n\nAny enemy in the path or the spill area is drenched in cinder brew, becoming slowed. If the enemy receives Magic or Pure damage, they will be ignited, extending the duration by 3s and causing them to take damage over time.",
     "source": {
@@ -219,12 +209,7 @@
     "difficulty": 2,
     "eyebrow": "Earth Spirit · Ability Detective",
     "prompt": "Which of this hero’s abilities matches the effect below?",
-    "answers": [
-      "Magnetize",
-      "Boulder Smash",
-      "Enchant Remnant",
-      "Stone Remnant"
-    ],
+    "answers": ["Magnetize", "Boulder Smash", "Enchant Remnant", "Stone Remnant"],
     "correctIndex": 1,
     "explanation": "Boulder Smash: Earth Spirit smashes the target enemy or ally, sending them in the direction he is facing. If Earth Spirit targets an area, he will smash the nearest unit in a 200 radius, prioritizing Stone Remnants. The travelling unit or Remnant damages all enemy units it hits. If an enemy is hit by a Stone Remnant, they are also slowed. Stone Remnants travel further than other units.",
     "source": {
@@ -340,12 +325,7 @@
     "difficulty": 2,
     "eyebrow": "Legion Commander · Ability Detective",
     "prompt": "Which of this hero’s abilities matches the effect below?",
-    "answers": [
-      "Duel",
-      "Outfight Them!",
-      "Moment of Courage",
-      "Overwhelming Odds"
-    ],
+    "answers": ["Duel", "Outfight Them!", "Moment of Courage", "Overwhelming Odds"],
     "correctIndex": 1,
     "explanation": "Outfight Them!: Passively grants Legion Commander armor.\n\nIf Legion or an allied Hero within 1200 range casts an ability, they gain bonus armor for 6s; allies gain 50% of the value. This bonus stacks independently.",
     "source": {
@@ -374,12 +354,7 @@
     "difficulty": 2,
     "eyebrow": "Legion Commander · Ability Detective",
     "prompt": "Which of this hero’s abilities matches the effect below?",
-    "answers": [
-      "Outfight Them!",
-      "Duel",
-      "Moment of Courage",
-      "Overwhelming Odds"
-    ],
+    "answers": ["Outfight Them!", "Duel", "Moment of Courage", "Overwhelming Odds"],
     "correctIndex": 3,
     "explanation": "Overwhelming Odds: Turns the foes' numbers against them, dealing a 100% impact slow for 0.3s and damage to all enemies in the area. Damage increases with each enemy unit or hero in the area, and grants Legion Commander bonus attack speed.",
     "source": {
@@ -582,12 +557,7 @@
     "difficulty": 2,
     "eyebrow": "Morphling · Ability Detective",
     "prompt": "Which of this hero’s abilities matches the effect below?",
-    "answers": [
-      "Morph",
-      "Attribute Shift (Strength Gain)",
-      "Adaptive Strike",
-      "Waveform"
-    ],
+    "answers": ["Morph", "Attribute Shift (Strength Gain)", "Adaptive Strike", "Waveform"],
     "correctIndex": 2,
     "explanation": "Adaptive Strike: Launches a surge of water toward an enemy unit, stunning them, knocking them back, and dealing base damage plus additional damage based on Morphling's agility times a multiplier. If Morphling's agility is 50% higher than strength, the maximum agility multiplier is used.\n\nKnockback distance and stun duration are based on Morphling's strength. If his strength is 50% higher than his agility, the maximum knockback distance and stun duration is used.",
     "source": {
@@ -616,12 +586,7 @@
     "difficulty": 2,
     "eyebrow": "Morphling · Ability Detective",
     "prompt": "Which of this hero’s abilities matches the effect below?",
-    "answers": [
-      "Waveform",
-      "Adaptive Strike",
-      "Attribute Shift (Agility Gain)",
-      "Morph Replicate"
-    ],
+    "answers": ["Waveform", "Adaptive Strike", "Attribute Shift (Agility Gain)", "Morph Replicate"],
     "correctIndex": 3,
     "explanation": "Morph Replicate: Toggles Morphling's form between his own and the replicated enemy.",
     "source": {
@@ -708,12 +673,7 @@
     "difficulty": 2,
     "eyebrow": "Necrophos · Ability Detective",
     "prompt": "Which of this hero’s abilities matches the effect below?",
-    "answers": [
-      "Reaper's Scythe",
-      "Heartstopper Aura",
-      "Sadist",
-      "Death Pulse"
-    ],
+    "answers": ["Reaper's Scythe", "Heartstopper Aura", "Sadist", "Death Pulse"],
     "correctIndex": 2,
     "explanation": "Sadist: Necrophos gains stacking regen for 8 seconds for each unit he kills. Hero kills multiply the effect.",
     "source": {
@@ -742,12 +702,7 @@
     "difficulty": 2,
     "eyebrow": "Shadow Fiend · Ability Detective",
     "prompt": "Which of this hero’s abilities matches the effect below?",
-    "answers": [
-      "Presence of the Dark Lord",
-      "Necromastery",
-      "Feast of Souls",
-      "Requiem of Souls"
-    ],
+    "answers": ["Presence of the Dark Lord", "Necromastery", "Feast of Souls", "Requiem of Souls"],
     "correctIndex": 1,
     "explanation": "Necromastery: Shadow Fiend steals the soul from units he kills, gaining 1.35 bonus damage per soul. Hero kills grant 4 souls. On death, he releases 30% of them from bondage.",
     "source": {
@@ -834,12 +789,7 @@
     "difficulty": 2,
     "eyebrow": "Riki · Ability Detective",
     "prompt": "Which of this hero’s abilities matches the effect below?",
-    "answers": [
-      "Backstab",
-      "Tricks of the Trade",
-      "Blink Strike",
-      "Cloak and Dagger"
-    ],
+    "answers": ["Backstab", "Tricks of the Trade", "Blink Strike", "Cloak and Dagger"],
     "correctIndex": 3,
     "explanation": "Cloak and Dagger: Riki fades into the shadows, becoming invisible until he attacks. Hero kills and assists grant additional experience.",
     "source": {
@@ -868,12 +818,7 @@
     "difficulty": 2,
     "eyebrow": "Wraith King · Ability Detective",
     "prompt": "Which of this hero’s abilities matches the effect below?",
-    "answers": [
-      "Reincarnation",
-      "Mortal Strike",
-      "Wraithfire Blast",
-      "Bone Guard"
-    ],
+    "answers": ["Reincarnation", "Mortal Strike", "Wraithfire Blast", "Bone Guard"],
     "correctIndex": 1,
     "explanation": "Mortal Strike: Wraith King passively deals bonus damage on an attack with a cooldown.",
     "source": {
@@ -902,12 +847,7 @@
     "difficulty": 2,
     "eyebrow": "Spirit Breaker · Ability Detective",
     "prompt": "Which of this hero’s abilities matches the effect below?",
-    "answers": [
-      "Empowering Haste",
-      "Charge of Darkness",
-      "Bulldoze",
-      "Nether Strike"
-    ],
+    "answers": ["Empowering Haste", "Charge of Darkness", "Bulldoze", "Nether Strike"],
     "correctIndex": 0,
     "explanation": "Empowering Haste: Spirit Breaker gains bonus Movement Speed for a duration whenever he stuns an enemy. Effects from multiple stuns stack and have independent durations. Duration pauses during Charge of Darkness.",
     "source": {
@@ -965,12 +905,7 @@
     "difficulty": 2,
     "eyebrow": "Techies · Ability Detective",
     "prompt": "Which of this hero’s abilities matches the effect below?",
-    "answers": [
-      "Detonate M.A.D.",
-      "Minefield Sign",
-      "Detonate Tazer",
-      "Reactive Tazer"
-    ],
+    "answers": ["Detonate M.A.D.", "Minefield Sign", "Detonate Tazer", "Reactive Tazer"],
     "correctIndex": 3,
     "explanation": "Reactive Tazer: Techies trigger an electric charge on the target ally, giving them bonus movement speed for a short period of time. Enemies attacking the target take damage and are temporarily disarmed and get a Basic Dispel.\n\nAt the end of the effect or if detonated early with the sub-ability, the charge explodes, disarming all enemies within the radius and dealing damage.",
     "source": {
@@ -1028,12 +963,7 @@
     "difficulty": 2,
     "eyebrow": "Troll Warlord · Ability Detective",
     "prompt": "Which of this hero’s abilities matches the effect below?",
-    "answers": [
-      "Whirling Axes (Melee)",
-      "Battle Trance",
-      "Fervor",
-      "Berserker's Rage"
-    ],
+    "answers": ["Whirling Axes (Melee)", "Battle Trance", "Fervor", "Berserker's Rage"],
     "correctIndex": 3,
     "explanation": "Berserker's Rage: While in melee form, Troll Warlord's attacks have a chance to ensnare, preventing the target from moving or using mobility spells and has additional movement speed.\n\nWhen in ranged form, Troll Warlord's attacks have a chance to Maim the target, dealing bonus damage, and slowing the target's movement and attack speed.",
     "source": {
@@ -1062,12 +992,7 @@
     "difficulty": 2,
     "eyebrow": "Vengeful Spirit · Ability Detective",
     "prompt": "Which of this hero’s abilities matches the effect below?",
-    "answers": [
-      "Vengeance Aura",
-      "Nether Swap",
-      "Wave of Terror",
-      "Magic Missile"
-    ],
+    "answers": ["Vengeance Aura", "Nether Swap", "Wave of Terror", "Magic Missile"],
     "correctIndex": 0,
     "explanation": "Vengeance Aura: Vengeful Spirit's presence increases the damage of nearby friendly heroes. Vengeful Spirit herself receives 20% extra bonus.",
     "source": {
@@ -1270,12 +1195,7 @@
     "difficulty": 1,
     "eyebrow": "Wall of Replica",
     "prompt": "Which hero owns this ability?",
-    "answers": [
-      "Dark Seer",
-      "Vengeful Spirit",
-      "Phantom Assassin",
-      "Enchantress"
-    ],
+    "answers": ["Dark Seer", "Vengeful Spirit", "Phantom Assassin", "Enchantress"],
     "correctIndex": 0,
     "explanation": "Wall of Replica belongs to Dark Seer. Raises a wall of warping light that slows, damages, and creates replicas of any enemy hero who crosses it. Enemy replicas serve at the Dark Seer's will. Replicas last until they are destroyed, or until the wall's duration ends.",
     "source": {
@@ -1797,12 +1717,7 @@
     "difficulty": 3,
     "eyebrow": "Release Illuminate",
     "prompt": "Which hero owns this ability?",
-    "answers": [
-      "Shadow Shaman",
-      "Keeper of the Light",
-      "Leshrac",
-      "Crystal Maiden"
-    ],
+    "answers": ["Shadow Shaman", "Keeper of the Light", "Leshrac", "Crystal Maiden"],
     "correctIndex": 1,
     "explanation": "Release Illuminate belongs to Keeper of the Light. Release the channel early.",
     "source": {
@@ -2324,12 +2239,7 @@
     "difficulty": 3,
     "eyebrow": "Unburrow",
     "prompt": "Which hero owns this ability?",
-    "answers": [
-      "Ember Spirit",
-      "Spirit Breaker",
-      "Nyx Assassin",
-      "Earth Spirit"
-    ],
+    "answers": ["Ember Spirit", "Spirit Breaker", "Nyx Assassin", "Earth Spirit"],
     "correctIndex": 2,
     "explanation": "Unburrow belongs to Nyx Assassin. Emerge from the burrow.",
     "source": {
@@ -2445,12 +2355,7 @@
     "difficulty": 1,
     "eyebrow": "Coup de Grace",
     "prompt": "Which hero owns this ability?",
-    "answers": [
-      "Void Spirit",
-      "Ring Master",
-      "Phantom Assassin",
-      "Faceless Void"
-    ],
+    "answers": ["Void Spirit", "Ring Master", "Phantom Assassin", "Faceless Void"],
     "correctIndex": 2,
     "explanation": "Coup de Grace belongs to Phantom Assassin. Phantom Assassin refines her combat abilities, acquiring a chance of gaining Deadly Focus with each attack. When attacking with Deadly Focus, Phantom Assassin will consume the buff and guarantee a critical hit. Stifling Dagger has a bonus chance to cause Deadly Focus.",
     "source": {
@@ -5224,6 +5129,48 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_alchemist",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Tidehunter", "Mars", "Alchemist", "Dawnbreaker"],
+    "correctIndex": 2,
+    "explanation": "Alchemist was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/alchemist.png",
+      "alt": "Alchemist hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_ancient_apparition",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Muerta", "Ancient Apparition", "Grimstroke", "Pugna"],
+    "correctIndex": 1,
+    "explanation": "Ancient Apparition was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ancient_apparition.png",
+      "alt": "Ancient Apparition hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_antimage",
     "kind": "fogged-hero",
     "category": "Heroes",
@@ -5241,6 +5188,27 @@
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png",
       "alt": "Anti-Mage hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_arc_warden",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Pangolier", "Arc Warden", "Leshrac", "Queen of Pain"],
+    "correctIndex": 1,
+    "explanation": "Arc Warden was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/arc_warden.png",
+      "alt": "Arc Warden hero portrait",
       "kind": "hero"
     }
   },
@@ -5287,6 +5255,48 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_batrider",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Nature's Prophet", "Pangolier", "Nyx Assassin", "Batrider"],
+    "correctIndex": 3,
+    "explanation": "Batrider was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/batrider.png",
+      "alt": "Batrider hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_beastmaster",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Visage", "Beastmaster", "Wraith King", "Brewmaster"],
+    "correctIndex": 1,
+    "explanation": "Beastmaster was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/beastmaster.png",
+      "alt": "Beastmaster hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_bloodseeker",
     "kind": "fogged-hero",
     "category": "Heroes",
@@ -5329,6 +5339,48 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_brewmaster",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Wraith King", "Brewmaster", "Kunkka", "Death Prophet"],
+    "correctIndex": 1,
+    "explanation": "Brewmaster was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster.png",
+      "alt": "Brewmaster hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_bristleback",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Bristleback", "Chaos Knight", "Tidehunter", "Lifestealer"],
+    "correctIndex": 0,
+    "explanation": "Bristleback was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bristleback.png",
+      "alt": "Bristleback hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_broodmother",
     "kind": "fogged-hero",
     "category": "Heroes",
@@ -5350,6 +5402,27 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_centaur",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Bristleback", "Centaur Warrunner", "Earthshaker", "Primal Beast"],
+    "correctIndex": 1,
+    "explanation": "Centaur Warrunner was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/centaur.png",
+      "alt": "Centaur Warrunner hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_chaos_knight",
     "kind": "fogged-hero",
     "category": "Heroes",
@@ -5367,6 +5440,27 @@
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chaos_knight.png",
       "alt": "Chaos Knight hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_chen",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Disruptor", "Lion", "Chen", "Winter Wyvern"],
+    "correctIndex": 2,
+    "explanation": "Chen was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chen.png",
+      "alt": "Chen hero portrait",
       "kind": "hero"
     }
   },
@@ -5434,6 +5528,27 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_dark_willow",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Dark Willow", "Visage", "Tinker", "Skywrath Mage"],
+    "correctIndex": 0,
+    "explanation": "Dark Willow was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png",
+      "alt": "Dark Willow hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_dawnbreaker",
     "kind": "fogged-hero",
     "category": "Heroes",
@@ -5451,6 +5566,27 @@
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png",
       "alt": "Dawnbreaker hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_dazzle",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Beastmaster", "Mirana", "Arc Warden", "Dazzle"],
+    "correctIndex": 3,
+    "explanation": "Dazzle was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png",
+      "alt": "Dazzle hero portrait",
       "kind": "hero"
     }
   },
@@ -5497,18 +5633,76 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_doom_bringer",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Axe", "Ogre Magi", "Lifestealer", "Doom"],
+    "correctIndex": 3,
+    "explanation": "Doom was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png",
+      "alt": "Doom hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_dragon_knight",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Dragon Knight", "Tidehunter", "Bloodseeker", "Bristleback"],
+    "correctIndex": 0,
+    "explanation": "Dragon Knight was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png",
+      "alt": "Dragon Knight hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_drow_ranger",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Tinker", "Drow Ranger", "Weaver", "Clinkz"],
+    "correctIndex": 1,
+    "explanation": "Drow Ranger was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/drow_ranger.png",
+      "alt": "Drow Ranger hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_earth_spirit",
     "kind": "fogged-hero",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Fogged Vision",
     "prompt": "Which hero is hidden in the fog?",
-    "answers": [
-      "Underlord",
-      "Elder Titan",
-      "Earth Spirit",
-      "Centaur Warrunner"
-    ],
+    "answers": ["Underlord", "Elder Titan", "Earth Spirit", "Centaur Warrunner"],
     "correctIndex": 2,
     "explanation": "Earth Spirit was hiding behind the fog.",
     "source": {
@@ -5519,6 +5713,48 @@
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png",
       "alt": "Earth Spirit hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_earthshaker",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Earthshaker", "Night Stalker", "Spirit Breaker", "Dragon Knight"],
+    "correctIndex": 0,
+    "explanation": "Earthshaker was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earthshaker.png",
+      "alt": "Earthshaker hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_elder_titan",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Tidehunter", "Timbersaw", "Elder Titan", "Largo"],
+    "correctIndex": 2,
+    "explanation": "Elder Titan was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png",
+      "alt": "Elder Titan hero portrait",
       "kind": "hero"
     }
   },
@@ -5540,6 +5776,69 @@
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png",
       "alt": "Ember Spirit hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_enchantress",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Pugna", "Jakiro", "Razor", "Enchantress"],
+    "correctIndex": 3,
+    "explanation": "Enchantress was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enchantress.png",
+      "alt": "Enchantress hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_enigma",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Enchantress", "Drow Ranger", "Leshrac", "Enigma"],
+    "correctIndex": 3,
+    "explanation": "Enigma was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enigma.png",
+      "alt": "Enigma hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_faceless_void",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Phantom Assassin", "Brewmaster", "Night Stalker", "Faceless Void"],
+    "correctIndex": 3,
+    "explanation": "Faceless Void was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png",
+      "alt": "Faceless Void hero portrait",
       "kind": "hero"
     }
   },
@@ -5628,6 +5927,69 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_huskar",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Tiny", "Centaur Warrunner", "Huskar", "Faceless Void"],
+    "correctIndex": 2,
+    "explanation": "Huskar was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/huskar.png",
+      "alt": "Huskar hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_invoker",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Windranger", "Invoker", "Jakiro", "Winter Wyvern"],
+    "correctIndex": 1,
+    "explanation": "Invoker was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
+      "alt": "Invoker hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_jakiro",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Visage", "Shadow Demon", "Jakiro", "Necrophos"],
+    "correctIndex": 2,
+    "explanation": "Jakiro was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png",
+      "alt": "Jakiro hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_juggernaut",
     "kind": "fogged-hero",
     "category": "Heroes",
@@ -5645,6 +6007,48 @@
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/juggernaut.png",
       "alt": "Juggernaut hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_keeper_of_the_light",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Jakiro", "Snapfire", "Keeper of the Light", "Grimstroke"],
+    "correctIndex": 2,
+    "explanation": "Keeper of the Light was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/keeper_of_the_light.png",
+      "alt": "Keeper of the Light hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_kez",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Templar Assassin", "Clinkz", "Doom", "Kez"],
+    "correctIndex": 3,
+    "explanation": "Kez was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
+      "alt": "Kez hero portrait",
       "kind": "hero"
     }
   },
@@ -5670,6 +6074,27 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_largo",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Slardar", "Faceless Void", "Dawnbreaker", "Largo"],
+    "correctIndex": 3,
+    "explanation": "Largo was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
+      "alt": "Largo hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_legion_commander",
     "kind": "fogged-hero",
     "category": "Heroes",
@@ -5687,6 +6112,132 @@
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/legion_commander.png",
       "alt": "Legion Commander hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_leshrac",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Winter Wyvern", "Outworld Devourer", "Leshrac", "Rubick"],
+    "correctIndex": 2,
+    "explanation": "Leshrac was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/leshrac.png",
+      "alt": "Leshrac hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_lich",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Winter Wyvern", "Mirana", "Queen of Pain", "Lich"],
+    "correctIndex": 3,
+    "explanation": "Lich was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lich.png",
+      "alt": "Lich hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_life_stealer",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Riki", "Kunkka", "Treant Protector", "Lifestealer"],
+    "correctIndex": 3,
+    "explanation": "Lifestealer was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/life_stealer.png",
+      "alt": "Lifestealer hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_lina",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Dark Willow", "Puck", "Tinker", "Lina"],
+    "correctIndex": 3,
+    "explanation": "Lina was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png",
+      "alt": "Lina hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_lion",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Visage", "Rubick", "Lion", "Ancient Apparition"],
+    "correctIndex": 2,
+    "explanation": "Lion was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lion.png",
+      "alt": "Lion hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_lone_druid",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Necrophos", "Visage", "Phantom Lancer", "Lone Druid"],
+    "correctIndex": 3,
+    "explanation": "Lone Druid was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lone_druid.png",
+      "alt": "Lone Druid hero portrait",
       "kind": "hero"
     }
   },
@@ -5729,6 +6280,48 @@
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lycan.png",
       "alt": "Lycan hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_magnataur",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Void Spirit", "Tiny", "Magnus", "Beastmaster"],
+    "correctIndex": 2,
+    "explanation": "Magnus was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png",
+      "alt": "Magnus hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_marci",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Doom", "Wraith King", "Mars", "Marci"],
+    "correctIndex": 3,
+    "explanation": "Marci was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
+      "alt": "Marci hero portrait",
       "kind": "hero"
     }
   },
@@ -5796,6 +6389,27 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_mirana",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Drow Ranger", "Bloodseeker", "Mirana", "Morphling"],
+    "correctIndex": 2,
+    "explanation": "Mirana was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png",
+      "alt": "Mirana hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_monkey_king",
     "kind": "fogged-hero",
     "category": "Heroes",
@@ -5813,6 +6427,69 @@
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png",
       "alt": "Monkey King hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_morphling",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Morphling", "Gyrocopter", "Bane", "Doom"],
+    "correctIndex": 0,
+    "explanation": "Morphling was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png",
+      "alt": "Morphling hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_muerta",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Muerta", "Grimstroke", "Pugna", "Ring Master"],
+    "correctIndex": 0,
+    "explanation": "Muerta was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png",
+      "alt": "Muerta hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_naga_siren",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Terrorblade", "Chaos Knight", "Naga Siren", "Slardar"],
+    "correctIndex": 2,
+    "explanation": "Naga Siren was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png",
+      "alt": "Naga Siren hero portrait",
       "kind": "hero"
     }
   },
@@ -5838,6 +6515,69 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_nevermore",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Phantom Assassin", "Outworld Devourer", "Shadow Fiend", "Medusa"],
+    "correctIndex": 2,
+    "explanation": "Shadow Fiend was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png",
+      "alt": "Shadow Fiend hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_night_stalker",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Slardar", "Spirit Breaker", "Omniknight", "Night Stalker"],
+    "correctIndex": 3,
+    "explanation": "Night Stalker was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/night_stalker.png",
+      "alt": "Night Stalker hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_nyx_assassin",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Dragon Knight", "Tiny", "Nyx Assassin", "Naga Siren"],
+    "correctIndex": 2,
+    "explanation": "Nyx Assassin was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nyx_assassin.png",
+      "alt": "Nyx Assassin hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_obsidian_destroyer",
     "kind": "fogged-hero",
     "category": "Heroes",
@@ -5855,6 +6595,48 @@
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png",
       "alt": "Outworld Devourer hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_ogre_magi",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Phoenix", "Tiny", "Doom", "Ogre Magi"],
+    "correctIndex": 3,
+    "explanation": "Ogre Magi was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ogre_magi.png",
+      "alt": "Ogre Magi hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_omniknight",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Omniknight", "Kunkka", "Doom", "Clockwerk"],
+    "correctIndex": 0,
+    "explanation": "Omniknight was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/omniknight.png",
+      "alt": "Omniknight hero portrait",
       "kind": "hero"
     }
   },
@@ -5901,18 +6683,34 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_phantom_assassin",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Phantom Assassin", "Ursa", "Drow Ranger", "Riki"],
+    "correctIndex": 0,
+    "explanation": "Phantom Assassin was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_assassin.png",
+      "alt": "Phantom Assassin hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_phantom_lancer",
     "kind": "fogged-hero",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Fogged Vision",
     "prompt": "Which hero is hidden in the fog?",
-    "answers": [
-      "Phantom Lancer",
-      "Terrorblade",
-      "Dragon Knight",
-      "Bloodseeker"
-    ],
+    "answers": ["Phantom Lancer", "Terrorblade", "Dragon Knight", "Bloodseeker"],
     "correctIndex": 0,
     "explanation": "Phantom Lancer was hiding behind the fog.",
     "source": {
@@ -5969,15 +6767,162 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_puck",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Ancient Apparition", "Puck", "Leshrac", "Shadow Shaman"],
+    "correctIndex": 1,
+    "explanation": "Puck was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/puck.png",
+      "alt": "Puck hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_pudge",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Pudge", "Ember Spirit", "Pangolier", "Night Stalker"],
+    "correctIndex": 0,
+    "explanation": "Pudge was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png",
+      "alt": "Pudge hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_pugna",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Oracle", "Ring Master", "Pugna", "Lion"],
+    "correctIndex": 2,
+    "explanation": "Pugna was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pugna.png",
+      "alt": "Pugna hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_queenofpain",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Witch Doctor", "Queen of Pain", "Keeper of the Light", "Io"],
+    "correctIndex": 1,
+    "explanation": "Queen of Pain was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/queenofpain.png",
+      "alt": "Queen of Pain hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_rattletrap",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Largo", "Earth Spirit", "Clockwerk", "Pudge"],
+    "correctIndex": 2,
+    "explanation": "Clockwerk was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png",
+      "alt": "Clockwerk hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_razor",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Razor", "Invoker", "Necrophos", "Anti-Mage"],
+    "correctIndex": 0,
+    "explanation": "Razor was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/razor.png",
+      "alt": "Razor hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_riki",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Juggernaut", "Riki", "Ursa", "Faceless Void"],
+    "correctIndex": 1,
+    "explanation": "Riki was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png",
+      "alt": "Riki hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_ringmaster",
     "kind": "fogged-hero",
     "category": "Heroes",
     "difficulty": 2,
     "eyebrow": "Fogged Vision",
     "prompt": "Which hero is hidden in the fog?",
-    "answers": ["Mirana", "Witch Doctor", "Ancient Apparition", "Ring Master"],
+    "answers": ["Mirana", "Witch Doctor", "Ancient Apparition", "Ringmaster"],
     "correctIndex": 3,
-    "explanation": "Ring Master was hiding behind the fog.",
+    "explanation": "Ringmaster was hiding behind the fog.",
     "source": {
       "label": "OpenDota constants · 2026-07-29",
       "url": "https://docs.opendota.com/"
@@ -5985,7 +6930,28 @@
     "patch": "7.41d",
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
-      "alt": "Ring Master hero portrait",
+      "alt": "Ringmaster hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_rubick",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Vengeful Spirit", "Snapfire", "Rubick", "Necrophos"],
+    "correctIndex": 2,
+    "explanation": "Rubick was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png",
+      "alt": "Rubick hero portrait",
       "kind": "hero"
     }
   },
@@ -6028,6 +6994,48 @@
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_demon.png",
       "alt": "Shadow Demon hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_shadow_shaman",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Ancient Apparition", "Zeus", "Lina", "Shadow Shaman"],
+    "correctIndex": 3,
+    "explanation": "Shadow Shaman was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_shaman.png",
+      "alt": "Shadow Shaman hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_shredder",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Bristleback", "Timbersaw", "Anti-Mage", "Undying"],
+    "correctIndex": 1,
+    "explanation": "Timbersaw was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shredder.png",
+      "alt": "Timbersaw hero portrait",
       "kind": "hero"
     }
   },
@@ -6116,6 +7124,27 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_slark",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Slark", "Spectre", "Void Spirit", "Sand King"],
+    "correctIndex": 0,
+    "explanation": "Slark was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slark.png",
+      "alt": "Slark hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_snapfire",
     "kind": "fogged-hero",
     "category": "Heroes",
@@ -6179,6 +7208,69 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_spirit_breaker",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Spirit Breaker", "Treant Protector", "Tidehunter", "Pudge"],
+    "correctIndex": 0,
+    "explanation": "Spirit Breaker was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spirit_breaker.png",
+      "alt": "Spirit Breaker hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_storm_spirit",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Invoker", "Storm Spirit", "Puck", "Ancient Apparition"],
+    "correctIndex": 1,
+    "explanation": "Storm Spirit was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png",
+      "alt": "Storm Spirit hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_sven",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Treant Protector", "Sven", "Phoenix", "Faceless Void"],
+    "correctIndex": 1,
+    "explanation": "Sven was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sven.png",
+      "alt": "Sven hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_techies",
     "kind": "fogged-hero",
     "category": "Heroes",
@@ -6196,6 +7288,27 @@
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/techies.png",
       "alt": "Techies hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_templar_assassin",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Ursa", "Arc Warden", "Templar Assassin", "Riki"],
+    "correctIndex": 2,
+    "explanation": "Templar Assassin was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/templar_assassin.png",
+      "alt": "Templar Assassin hero portrait",
       "kind": "hero"
     }
   },
@@ -6263,6 +7376,111 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_tiny",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Tiny", "Clockwerk", "Timbersaw", "Tidehunter"],
+    "correctIndex": 0,
+    "explanation": "Tiny was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tiny.png",
+      "alt": "Tiny hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_treant",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Elder Titan", "Treant Protector", "Marci", "Slardar"],
+    "correctIndex": 1,
+    "explanation": "Treant Protector was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/treant.png",
+      "alt": "Treant Protector hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_troll_warlord",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Invoker", "Troll Warlord", "Gyrocopter", "Mirana"],
+    "correctIndex": 1,
+    "explanation": "Troll Warlord was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/troll_warlord.png",
+      "alt": "Troll Warlord hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_tusk",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Tusk", "Treant Protector", "Marci", "Legion Commander"],
+    "correctIndex": 0,
+    "explanation": "Tusk was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tusk.png",
+      "alt": "Tusk hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_undying",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Treant Protector", "Undying", "Chaos Knight", "Slardar"],
+    "correctIndex": 1,
+    "explanation": "Undying was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/undying.png",
+      "alt": "Undying hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_ursa",
     "kind": "fogged-hero",
     "category": "Heroes",
@@ -6280,6 +7498,27 @@
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ursa.png",
       "alt": "Ursa hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_vengefulspirit",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Ember Spirit", "Vengeful Spirit", "Naga Siren", "Oracle"],
+    "correctIndex": 1,
+    "explanation": "Vengeful Spirit was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png",
+      "alt": "Vengeful Spirit hero portrait",
       "kind": "hero"
     }
   },
@@ -6305,6 +7544,27 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_viper",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Viper", "Ursa", "Troll Warlord", "Tiny"],
+    "correctIndex": 0,
+    "explanation": "Viper was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/viper.png",
+      "alt": "Viper hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_visage",
     "kind": "fogged-hero",
     "category": "Heroes",
@@ -6322,6 +7582,27 @@
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
       "alt": "Visage hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_void_spirit",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Underlord", "Kez", "Slardar", "Void Spirit"],
+    "correctIndex": 3,
+    "explanation": "Void Spirit was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
+      "alt": "Void Spirit hero portrait",
       "kind": "hero"
     }
   },
@@ -6347,6 +7628,90 @@
     }
   },
   {
+    "id": "fogged-hero:npc_dota_hero_weaver",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Morphling", "Windranger", "Weaver", "Drow Ranger"],
+    "correctIndex": 2,
+    "explanation": "Weaver was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/weaver.png",
+      "alt": "Weaver hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_windrunner",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Windranger", "Hoodwink", "Sand King", "Silencer"],
+    "correctIndex": 0,
+    "explanation": "Windranger was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/windrunner.png",
+      "alt": "Windranger hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_winter_wyvern",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Mirana", "Winter Wyvern", "Chen", "Lich"],
+    "correctIndex": 1,
+    "explanation": "Winter Wyvern was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/winter_wyvern.png",
+      "alt": "Winter Wyvern hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_wisp",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Io", "Batrider", "Magnus", "Shadow Demon"],
+    "correctIndex": 0,
+    "explanation": "Io was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/wisp.png",
+      "alt": "Io hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "fogged-hero:npc_dota_hero_witch_doctor",
     "kind": "fogged-hero",
     "category": "Heroes",
@@ -6364,6 +7729,27 @@
     "image": {
       "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/witch_doctor.png",
       "alt": "Witch Doctor hero portrait",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_zuus",
+    "kind": "fogged-hero",
+    "category": "Heroes",
+    "difficulty": 2,
+    "eyebrow": "Fogged Vision",
+    "prompt": "Which hero is hidden in the fog?",
+    "answers": ["Zeus", "Rubick", "Storm Spirit", "Shadow Demon"],
+    "correctIndex": 0,
+    "explanation": "Zeus was hiding behind the fog.",
+    "source": {
+      "label": "OpenDota constants · 2026-07-29",
+      "url": "https://docs.opendota.com/"
+    },
+    "patch": "7.41d",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/zuus.png",
+      "alt": "Zeus hero portrait",
       "kind": "hero"
     }
   },
@@ -6765,12 +8151,7 @@
     "difficulty": 2,
     "eyebrow": "Draft Intruder · Primary attributes",
     "prompt": "Which hero does not share the others’ primary attribute?",
-    "answers": [
-      "Queen of Pain",
-      "Phantom Assassin",
-      "Ancient Apparition",
-      "Silencer"
-    ],
+    "answers": ["Queen of Pain", "Phantom Assassin", "Ancient Apparition", "Silencer"],
     "correctIndex": 1,
     "explanation": "Phantom Assassin is Agility; the other three heroes are Intelligence.",
     "source": {
@@ -8282,12 +9663,7 @@
     "difficulty": 2,
     "eyebrow": "Stat Duel · attack range",
     "prompt": "Which hero has the highest attack range?",
-    "answers": [
-      "Silencer",
-      "Nature's Prophet",
-      "Drow Ranger",
-      "Crystal Maiden"
-    ],
+    "answers": ["Silencer", "Nature's Prophet", "Drow Ranger", "Crystal Maiden"],
     "correctIndex": 2,
     "explanation": "Drow Ranger leads these choices. Drow Ranger 625 · Nature's Prophet 600 · Crystal Maiden 600 · Silencer 600.",
     "source": {
@@ -10584,17 +11960,8 @@
     "shopkeeper": {
       "targetItemKey": "armlet",
       "componentKey": "helm_of_iron_will",
-      "recipeComponentKeys": [
-        "helm_of_iron_will",
-        "gloves",
-        "blades_of_attack"
-      ],
-      "answerItemKeys": [
-        "diadem",
-        "helm_of_iron_will",
-        "ogre_axe",
-        "vitality_booster"
-      ],
+      "recipeComponentKeys": ["helm_of_iron_will", "gloves", "blades_of_attack"],
+      "answerItemKeys": ["diadem", "helm_of_iron_will", "ogre_axe", "vitality_booster"],
       "answerCosts": [1000, 975, 1000, 1000],
       "clientBuild": "6872"
     }
@@ -10666,12 +12033,7 @@
       "targetItemKey": "basher",
       "componentKey": "belt_of_strength",
       "recipeComponentKeys": ["mithril_hammer", "belt_of_strength"],
-      "answerItemKeys": [
-        "blades_of_attack",
-        "crown",
-        "shawl",
-        "belt_of_strength"
-      ],
+      "answerItemKeys": ["blades_of_attack", "crown", "shawl", "belt_of_strength"],
       "answerCosts": [450, 450, 450, 450],
       "clientBuild": "6872"
     }
@@ -10719,12 +12081,7 @@
     "difficulty": 2,
     "eyebrow": "Butterfly",
     "prompt": "Which item is part of Butterfly's recipe?",
-    "answers": [
-      "Point Booster",
-      "Talisman of Evasion",
-      "Perseverance",
-      "Platemail"
-    ],
+    "answers": ["Point Booster", "Talisman of Evasion", "Perseverance", "Platemail"],
     "correctIndex": 1,
     "explanation": "Butterfly is built with Eaglesong, Claymore, Talisman of Evasion.",
     "source": {
@@ -10748,12 +12105,7 @@
       "targetItemKey": "butterfly",
       "componentKey": "talisman_of_evasion",
       "recipeComponentKeys": ["eagle", "claymore", "talisman_of_evasion"],
-      "answerItemKeys": [
-        "point_booster",
-        "talisman_of_evasion",
-        "pers",
-        "platemail"
-      ],
+      "answerItemKeys": ["point_booster", "talisman_of_evasion", "pers", "platemail"],
       "answerCosts": [1200, 1300, 1400, 1400],
       "clientBuild": "6872"
     }
@@ -10765,12 +12117,7 @@
     "difficulty": 2,
     "eyebrow": "Crimson Guard",
     "prompt": "Which item is part of Crimson Guard's recipe?",
-    "answers": [
-      "Blade of Alacrity",
-      "Staff of Wizardry",
-      "Helm of Iron Will",
-      "Vitality Booster"
-    ],
+    "answers": ["Blade of Alacrity", "Staff of Wizardry", "Helm of Iron Will", "Vitality Booster"],
     "correctIndex": 2,
     "explanation": "Crimson Guard is built with Vanguard, Helm of Iron Will.",
     "source": {
@@ -10794,12 +12141,7 @@
       "targetItemKey": "crimson_guard",
       "componentKey": "helm_of_iron_will",
       "recipeComponentKeys": ["vanguard", "helm_of_iron_will"],
-      "answerItemKeys": [
-        "blade_of_alacrity",
-        "staff_of_wizardry",
-        "helm_of_iron_will",
-        "vitality_booster"
-      ],
+      "answerItemKeys": ["blade_of_alacrity", "staff_of_wizardry", "helm_of_iron_will", "vitality_booster"],
       "answerCosts": [1000, 1000, 975, 1000],
       "clientBuild": "6872"
     }
@@ -10835,12 +12177,7 @@
       "targetItemKey": "cyclone",
       "componentKey": "staff_of_wizardry",
       "recipeComponentKeys": ["staff_of_wizardry", "void_stone", "wind_lace"],
-      "answerItemKeys": [
-        "blitz_knuckles",
-        "broadsword",
-        "diadem",
-        "staff_of_wizardry"
-      ],
+      "answerItemKeys": ["blitz_knuckles", "broadsword", "diadem", "staff_of_wizardry"],
       "answerCosts": [1000, 1000, 1000, 1000],
       "clientBuild": "6872"
     }
@@ -10876,12 +12213,7 @@
       "targetItemKey": "dagon",
       "componentKey": "wizard_hat",
       "recipeComponentKeys": ["point_booster", "crown", "wizard_hat"],
-      "answerItemKeys": [
-        "wizard_hat",
-        "orb_of_frost",
-        "wind_lace",
-        "fluffy_hat"
-      ],
+      "answerItemKeys": ["wizard_hat", "orb_of_frost", "wind_lace", "fluffy_hat"],
       "answerCosts": [250, 300, 225, 250],
       "clientBuild": "6872"
     }
@@ -10917,12 +12249,7 @@
       "targetItemKey": "desolator",
       "componentKey": "blight_stone",
       "recipeComponentKeys": ["mithril_hammer", "blight_stone"],
-      "answerItemKeys": [
-        "fluffy_hat",
-        "blight_stone",
-        "orb_of_frost",
-        "wizard_hat"
-      ],
+      "answerItemKeys": ["fluffy_hat", "blight_stone", "orb_of_frost", "wizard_hat"],
       "answerCosts": [250, 300, 300, 250],
       "clientBuild": "6872"
     }
@@ -10970,12 +12297,7 @@
     "difficulty": 2,
     "eyebrow": "Falcon Blade",
     "prompt": "Which item is part of Falcon Blade's recipe?",
-    "answers": [
-      "Ring of Protection",
-      "Slippers of Agility",
-      "Magic Stick",
-      "Sage's Mask"
-    ],
+    "answers": ["Ring of Protection", "Slippers of Agility", "Magic Stick", "Sage's Mask"],
     "correctIndex": 3,
     "explanation": "Falcon Blade is built with Blades of Attack, Fluffy Hat, Sage's Mask.",
     "source": {
@@ -10999,12 +12321,7 @@
       "targetItemKey": "falcon_blade",
       "componentKey": "sobi_mask",
       "recipeComponentKeys": ["blades_of_attack", "fluffy_hat", "sobi_mask"],
-      "answerItemKeys": [
-        "ring_of_protection",
-        "slippers",
-        "magic_stick",
-        "sobi_mask"
-      ],
+      "answerItemKeys": ["ring_of_protection", "slippers", "magic_stick", "sobi_mask"],
       "answerCosts": [175, 140, 200, 175],
       "clientBuild": "6872"
     }
@@ -11040,12 +12357,7 @@
       "targetItemKey": "force_staff",
       "componentKey": "fluffy_hat",
       "recipeComponentKeys": ["staff_of_wizardry", "fluffy_hat"],
-      "answerItemKeys": [
-        "fluffy_hat",
-        "orb_of_frost",
-        "wind_lace",
-        "wizard_hat"
-      ],
+      "answerItemKeys": ["fluffy_hat", "orb_of_frost", "wind_lace", "wizard_hat"],
       "answerCosts": [250, 300, 225, 250],
       "clientBuild": "6872"
     }
@@ -11093,12 +12405,7 @@
     "difficulty": 2,
     "eyebrow": "Guardian Greaves",
     "prompt": "Which item is part of Guardian Greaves's recipe?",
-    "answers": [
-      "Ring of Tarrasque",
-      "Tiara of Selemene",
-      "Mekansm",
-      "Vanguard"
-    ],
+    "answers": ["Ring of Tarrasque", "Tiara of Selemene", "Mekansm", "Vanguard"],
     "correctIndex": 2,
     "explanation": "Guardian Greaves is built with Mekansm.",
     "source": {
@@ -11122,12 +12429,7 @@
       "targetItemKey": "guardian_greaves",
       "componentKey": "mekansm",
       "recipeComponentKeys": ["arcane_boots", "mekansm"],
-      "answerItemKeys": [
-        "ring_of_tarrasque",
-        "tiara_of_selemene",
-        "mekansm",
-        "vanguard"
-      ],
+      "answerItemKeys": ["ring_of_tarrasque", "tiara_of_selemene", "mekansm", "vanguard"],
       "answerCosts": [1700, 1700, 1775, 1700],
       "clientBuild": "6872"
     }
@@ -11199,12 +12501,7 @@
       "targetItemKey": "lotus_orb",
       "componentKey": "energy_booster",
       "recipeComponentKeys": ["pers", "platemail", "energy_booster"],
-      "answerItemKeys": [
-        "energy_booster",
-        "javelin",
-        "chasm_stone",
-        "shadow_amulet"
-      ],
+      "answerItemKeys": ["energy_booster", "javelin", "chasm_stone", "shadow_amulet"],
       "answerCosts": [800, 900, 800, 900],
       "clientBuild": "6872"
     }
@@ -11240,12 +12537,7 @@
       "targetItemKey": "manta",
       "componentKey": "diadem",
       "recipeComponentKeys": ["yasha", "diadem"],
-      "answerItemKeys": [
-        "blade_of_alacrity",
-        "diadem",
-        "blitz_knuckles",
-        "broadsword"
-      ],
+      "answerItemKeys": ["blade_of_alacrity", "diadem", "blitz_knuckles", "broadsword"],
       "answerCosts": [1000, 1000, 1000, 1000],
       "clientBuild": "6872"
     }
@@ -11281,12 +12573,7 @@
       "targetItemKey": "mekansm",
       "componentKey": "headdress",
       "recipeComponentKeys": ["headdress", "chainmail"],
-      "answerItemKeys": [
-        "belt_of_strength",
-        "blades_of_attack",
-        "headdress",
-        "buckler"
-      ],
+      "answerItemKeys": ["belt_of_strength", "blades_of_attack", "headdress", "buckler"],
       "answerCosts": [450, 450, 425, 425],
       "clientBuild": "6872"
     }
@@ -11334,12 +12621,7 @@
     "difficulty": 2,
     "eyebrow": "Null Talisman",
     "prompt": "Which item is part of Null Talisman's recipe?",
-    "answers": [
-      "Mantle of Intelligence",
-      "Gauntlets of Strength",
-      "Slippers of Agility",
-      "Sage's Mask"
-    ],
+    "answers": ["Mantle of Intelligence", "Gauntlets of Strength", "Slippers of Agility", "Sage's Mask"],
     "correctIndex": 0,
     "explanation": "Null Talisman is built with Mantle of Intelligence.",
     "source": {
@@ -11483,12 +12765,7 @@
     "difficulty": 2,
     "eyebrow": "Scythe of Vyse",
     "prompt": "Which item is part of Scythe of Vyse's recipe?",
-    "answers": [
-      "Tiara of Selemene",
-      "Ring of Tarrasque",
-      "Vanguard",
-      "Veil of Discord"
-    ],
+    "answers": ["Tiara of Selemene", "Ring of Tarrasque", "Vanguard", "Veil of Discord"],
     "correctIndex": 0,
     "explanation": "Scythe of Vyse is built with Mystic Staff, Tiara of Selemene.",
     "source": {
@@ -11512,12 +12789,7 @@
       "targetItemKey": "sheepstick",
       "componentKey": "tiara_of_selemene",
       "recipeComponentKeys": ["mystic_staff", "tiara_of_selemene"],
-      "answerItemKeys": [
-        "tiara_of_selemene",
-        "ring_of_tarrasque",
-        "vanguard",
-        "veil_of_discord"
-      ],
+      "answerItemKeys": ["tiara_of_selemene", "ring_of_tarrasque", "vanguard", "veil_of_discord"],
       "answerCosts": [1700, 1700, 1700, 1700],
       "clientBuild": "6872"
     }
@@ -11709,12 +12981,7 @@
     "difficulty": 2,
     "eyebrow": "Wraith Band",
     "prompt": "Which item is part of Wraith Band's recipe?",
-    "answers": [
-      "Gauntlets of Strength",
-      "Ring of Protection",
-      "Slippers of Agility",
-      "Mantle of Intelligence"
-    ],
+    "answers": ["Gauntlets of Strength", "Ring of Protection", "Slippers of Agility", "Mantle of Intelligence"],
     "correctIndex": 2,
     "explanation": "Wraith Band is built with Slippers of Agility.",
     "source": {
@@ -11738,12 +13005,7 @@
       "targetItemKey": "wraith_band",
       "componentKey": "slippers",
       "recipeComponentKeys": ["circlet", "slippers"],
-      "answerItemKeys": [
-        "gauntlets",
-        "ring_of_protection",
-        "slippers",
-        "mantle"
-      ],
+      "answerItemKeys": ["gauntlets", "ring_of_protection", "slippers", "mantle"],
       "answerCosts": [140, 175, 140, 140],
       "clientBuild": "6872"
     }
@@ -13288,12 +14550,7 @@
     "difficulty": 2,
     "eyebrow": "Price Duel · Main shop",
     "prompt": "Which item is the most expensive?",
-    "answers": [
-      "Maelstrom",
-      "Eul's Scepter of Divinity",
-      "Aeon Disk",
-      "Skull Basher"
-    ],
+    "answers": ["Maelstrom", "Eul's Scepter of Divinity", "Aeon Disk", "Skull Basher"],
     "correctIndex": 2,
     "explanation": "Aeon Disk is the most expensive of these choices. Aeon Disk 3,000g · Maelstrom 2,950g · Skull Basher 2,875g · Eul's Scepter of Divinity 2,600g.",
     "source": {
@@ -13316,12 +14573,7 @@
     "difficulty": 2,
     "eyebrow": "Price Duel · Main shop",
     "prompt": "Which item is the most expensive?",
-    "answers": [
-      "Blink Dagger",
-      "Force Staff",
-      "Armlet of Mordiggian",
-      "Blade Mail"
-    ],
+    "answers": ["Blink Dagger", "Force Staff", "Armlet of Mordiggian", "Blade Mail"],
     "correctIndex": 2,
     "explanation": "Armlet of Mordiggian is the most expensive of these choices. Armlet of Mordiggian 2,500g · Blade Mail 2,400g · Blink Dagger 2,250g · Force Staff 2,200g.",
     "source": {
@@ -13344,12 +14596,7 @@
     "difficulty": 2,
     "eyebrow": "Price Duel · Main shop",
     "prompt": "Which item is the most expensive?",
-    "answers": [
-      "Armlet of Mordiggian",
-      "Boots of Travel",
-      "Skull Basher",
-      "Eul's Scepter of Divinity"
-    ],
+    "answers": ["Armlet of Mordiggian", "Boots of Travel", "Skull Basher", "Eul's Scepter of Divinity"],
     "correctIndex": 2,
     "explanation": "Skull Basher is the most expensive of these choices. Skull Basher 2,875g · Eul's Scepter of Divinity 2,600g · Armlet of Mordiggian 2,500g · Boots of Travel 2,500g.",
     "source": {
@@ -13395,12 +14642,7 @@
     "difficulty": 2,
     "eyebrow": "Price Duel · Main shop",
     "prompt": "Which item is the most expensive?",
-    "answers": [
-      "Blade Mail",
-      "Eul's Scepter of Divinity",
-      "Boots of Travel",
-      "Armlet of Mordiggian"
-    ],
+    "answers": ["Blade Mail", "Eul's Scepter of Divinity", "Boots of Travel", "Armlet of Mordiggian"],
     "correctIndex": 1,
     "explanation": "Eul's Scepter of Divinity is the most expensive of these choices. Eul's Scepter of Divinity 2,600g · Boots of Travel 2,500g · Armlet of Mordiggian 2,500g · Blade Mail 2,400g.",
     "source": {
@@ -13423,12 +14665,7 @@
     "difficulty": 2,
     "eyebrow": "Price Duel · Main shop",
     "prompt": "Which item is the most expensive?",
-    "answers": [
-      "Dagon",
-      "Eul's Scepter of Divinity",
-      "Maelstrom",
-      "Skull Basher"
-    ],
+    "answers": ["Dagon", "Eul's Scepter of Divinity", "Maelstrom", "Skull Basher"],
     "correctIndex": 0,
     "explanation": "Dagon is the most expensive of these choices. Dagon 3,000g · Maelstrom 2,950g · Skull Basher 2,875g · Eul's Scepter of Divinity 2,600g.",
     "source": {
@@ -13474,12 +14711,7 @@
     "difficulty": 2,
     "eyebrow": "Price Duel · Main shop",
     "prompt": "Which item is the most expensive?",
-    "answers": [
-      "Dust of Appearance",
-      "Enchanted Mango",
-      "Tango",
-      "Healing Salve"
-    ],
+    "answers": ["Dust of Appearance", "Enchanted Mango", "Tango", "Healing Salve"],
     "correctIndex": 3,
     "explanation": "Healing Salve is the most expensive of these choices. Healing Salve 100g · Tango 90g · Dust of Appearance 80g · Enchanted Mango 65g.",
     "source": {
@@ -13525,12 +14757,7 @@
     "difficulty": 2,
     "eyebrow": "Price Duel · Main shop",
     "prompt": "Which item is the most expensive?",
-    "answers": [
-      "Sange and Yasha",
-      "Kaya and Sange",
-      "Guardian Greaves",
-      "Yasha and Kaya"
-    ],
+    "answers": ["Sange and Yasha", "Kaya and Sange", "Guardian Greaves", "Yasha and Kaya"],
     "correctIndex": 2,
     "explanation": "Guardian Greaves is the most expensive of these choices. Guardian Greaves 4,450g · Kaya and Sange 4,200g · Sange and Yasha 4,200g · Yasha and Kaya 4,200g.",
     "source": {
@@ -13599,12 +14826,7 @@
     "difficulty": 2,
     "eyebrow": "Price Duel · Main shop",
     "prompt": "Which item is the most expensive?",
-    "answers": [
-      "Maelstrom",
-      "Eul's Scepter of Divinity",
-      "Skull Basher",
-      "Armlet of Mordiggian"
-    ],
+    "answers": ["Maelstrom", "Eul's Scepter of Divinity", "Skull Basher", "Armlet of Mordiggian"],
     "correctIndex": 0,
     "explanation": "Maelstrom is the most expensive of these choices. Maelstrom 2,950g · Skull Basher 2,875g · Eul's Scepter of Divinity 2,600g · Armlet of Mordiggian 2,500g.",
     "source": {
@@ -13650,12 +14872,7 @@
     "difficulty": 2,
     "eyebrow": "Price Duel · Main shop",
     "prompt": "Which item is the most expensive?",
-    "answers": [
-      "Boots of Travel 2",
-      "Manta Style",
-      "Guardian Greaves",
-      "Shiva's Guard"
-    ],
+    "answers": ["Boots of Travel 2", "Manta Style", "Guardian Greaves", "Shiva's Guard"],
     "correctIndex": 1,
     "explanation": "Manta Style is the most expensive of these choices. Manta Style 4,650g · Shiva's Guard 4,500g · Boots of Travel 2 4,500g · Guardian Greaves 4,450g.",
     "source": {
@@ -13678,12 +14895,7 @@
     "difficulty": 2,
     "eyebrow": "Price Duel · Main shop",
     "prompt": "Which item is the most expensive?",
-    "answers": [
-      "Quelling Blade",
-      "Null Talisman",
-      "Magic Wand",
-      "Healing Salve"
-    ],
+    "answers": ["Quelling Blade", "Null Talisman", "Magic Wand", "Healing Salve"],
     "correctIndex": 1,
     "explanation": "Null Talisman is the most expensive of these choices. Null Talisman 505g · Magic Wand 460g · Quelling Blade 100g · Healing Salve 100g.",
     "source": {
@@ -13752,12 +14964,7 @@
     "difficulty": 2,
     "eyebrow": "Price Duel · Main shop",
     "prompt": "Which item is the most expensive?",
-    "answers": [
-      "Overwhelming Blink",
-      "Abyssal Blade",
-      "Bloodthorn",
-      "Eye of Skadi"
-    ],
+    "answers": ["Overwhelming Blink", "Abyssal Blade", "Bloodthorn", "Eye of Skadi"],
     "correctIndex": 0,
     "explanation": "Overwhelming Blink is the most expensive of these choices. Overwhelming Blink 6,800g · Bloodthorn 6,400g · Abyssal Blade 6,250g · Eye of Skadi 5,900g.",
     "source": {
@@ -13780,12 +14987,7 @@
     "difficulty": 2,
     "eyebrow": "Price Duel · Main shop",
     "prompt": "Which item is the most expensive?",
-    "answers": [
-      "Refresher Orb",
-      "Linken's Sphere",
-      "Bloodstone",
-      "Octarine Core"
-    ],
+    "answers": ["Refresher Orb", "Linken's Sphere", "Bloodstone", "Octarine Core"],
     "correctIndex": 0,
     "explanation": "Refresher Orb is the most expensive of these choices. Refresher Orb 5,000g · Octarine Core 4,900g · Linken's Sphere 4,800g · Bloodstone 4,700g.",
     "source": {
@@ -13854,12 +15056,7 @@
     "difficulty": 2,
     "eyebrow": "Price Duel · Main shop",
     "prompt": "Which item is the most expensive?",
-    "answers": [
-      "Shiva's Guard",
-      "Hurricane Pike",
-      "Guardian Greaves",
-      "Aghanim's Scepter"
-    ],
+    "answers": ["Shiva's Guard", "Hurricane Pike", "Guardian Greaves", "Aghanim's Scepter"],
     "correctIndex": 0,
     "explanation": "Shiva's Guard is the most expensive of these choices. Shiva's Guard 4,500g · Guardian Greaves 4,450g · Hurricane Pike 4,450g · Aghanim's Scepter 4,200g.",
     "source": {
@@ -13974,12 +15171,7 @@
     "difficulty": 2,
     "eyebrow": "Price Duel · Main shop",
     "prompt": "Which item is the most expensive?",
-    "answers": [
-      "Aghanim's Scepter",
-      "Black King Bar",
-      "Moon Shard",
-      "Lotus Orb"
-    ],
+    "answers": ["Aghanim's Scepter", "Black King Bar", "Moon Shard", "Lotus Orb"],
     "correctIndex": 0,
     "explanation": "Aghanim's Scepter is the most expensive of these choices. Aghanim's Scepter 4,200g · Black King Bar 4,050g · Moon Shard 4,000g · Lotus Orb 3,850g.",
     "source": {
@@ -17082,12 +18274,7 @@
     "difficulty": 2,
     "eyebrow": "Blink Dagger · Reverse Shopkeeper",
     "prompt": "Which item can be built using Blink Dagger?",
-    "answers": [
-      "Assault Cuirass",
-      "Kaya and Sange",
-      "Swift Blink",
-      "Crimson Guard"
-    ],
+    "answers": ["Assault Cuirass", "Kaya and Sange", "Swift Blink", "Crimson Guard"],
     "correctIndex": 2,
     "explanation": "Blink Dagger is one of the components used to build Swift Blink.",
     "source": {
@@ -17115,12 +18302,7 @@
     "difficulty": 2,
     "eyebrow": "Claymore · Reverse Shopkeeper",
     "prompt": "Which item can be built using Claymore?",
-    "answers": [
-      "Abyssal Blade",
-      "Eye of Skadi",
-      "Shadow Blade",
-      "Pipe of Insight"
-    ],
+    "answers": ["Abyssal Blade", "Eye of Skadi", "Shadow Blade", "Pipe of Insight"],
     "correctIndex": 2,
     "explanation": "Claymore is one of the components used to build Shadow Blade.",
     "source": {
@@ -17232,12 +18414,7 @@
     "difficulty": 2,
     "eyebrow": "Eaglesong · Reverse Shopkeeper",
     "prompt": "Which item can be built using Eaglesong?",
-    "answers": [
-      "Butterfly",
-      "Black King Bar",
-      "Kaya and Sange",
-      "Null Talisman"
-    ],
+    "answers": ["Butterfly", "Black King Bar", "Kaya and Sange", "Null Talisman"],
     "correctIndex": 0,
     "explanation": "Eaglesong is one of the components used to build Butterfly.",
     "source": {
@@ -17349,12 +18526,7 @@
     "difficulty": 2,
     "eyebrow": "Ghost Scepter · Reverse Shopkeeper",
     "prompt": "Which item can be built using Ghost Scepter?",
-    "answers": [
-      "Pipe of Insight",
-      "Divine Rapier",
-      "Ethereal Blade",
-      "Manta Style"
-    ],
+    "answers": ["Pipe of Insight", "Divine Rapier", "Ethereal Blade", "Manta Style"],
     "correctIndex": 2,
     "explanation": "Ghost Scepter is one of the components used to build Ethereal Blade.",
     "source": {
@@ -17382,12 +18554,7 @@
     "difficulty": 2,
     "eyebrow": "Gloves of Haste · Reverse Shopkeeper",
     "prompt": "Which item can be built using Gloves of Haste?",
-    "answers": [
-      "Wraith Band",
-      "Satanic",
-      "Armlet of Mordiggian",
-      "Yasha and Kaya"
-    ],
+    "answers": ["Wraith Band", "Satanic", "Armlet of Mordiggian", "Yasha and Kaya"],
     "correctIndex": 2,
     "explanation": "Gloves of Haste is one of the components used to build Armlet of Mordiggian.",
     "source": {
@@ -17415,12 +18582,7 @@
     "difficulty": 2,
     "eyebrow": "Gloves of Haste · Reverse Shopkeeper",
     "prompt": "Which item can be built using Gloves of Haste?",
-    "answers": [
-      "Hand of Midas",
-      "Overwhelming Blink",
-      "Radiance",
-      "Shadow Blade"
-    ],
+    "answers": ["Hand of Midas", "Overwhelming Blink", "Radiance", "Shadow Blade"],
     "correctIndex": 0,
     "explanation": "Gloves of Haste is one of the components used to build Hand of Midas.",
     "source": {
@@ -17560,12 +18722,7 @@
     "difficulty": 2,
     "eyebrow": "Hyperstone · Reverse Shopkeeper",
     "prompt": "Which item can be built using Hyperstone?",
-    "answers": [
-      "Guardian Greaves",
-      "Black King Bar",
-      "Moon Shard",
-      "Ethereal Blade"
-    ],
+    "answers": ["Guardian Greaves", "Black King Bar", "Moon Shard", "Ethereal Blade"],
     "correctIndex": 2,
     "explanation": "Hyperstone is one of the components used to build Moon Shard.",
     "source": {
@@ -17649,12 +18806,7 @@
     "difficulty": 2,
     "eyebrow": "Mantle of Intelligence · Reverse Shopkeeper",
     "prompt": "Which item can be built using Mantle of Intelligence?",
-    "answers": [
-      "Hand of Midas",
-      "Heart of Tarrasque",
-      "Bracer",
-      "Null Talisman"
-    ],
+    "answers": ["Hand of Midas", "Heart of Tarrasque", "Bracer", "Null Talisman"],
     "correctIndex": 3,
     "explanation": "Mantle of Intelligence is one of the components used to build Null Talisman.",
     "source": {
@@ -17682,12 +18834,7 @@
     "difficulty": 2,
     "eyebrow": "Mithril Hammer · Reverse Shopkeeper",
     "prompt": "Which item can be built using Mithril Hammer?",
-    "answers": [
-      "Monkey King Bar",
-      "Desolator",
-      "Boots of Travel",
-      "Yasha and Kaya"
-    ],
+    "answers": ["Monkey King Bar", "Desolator", "Boots of Travel", "Yasha and Kaya"],
     "correctIndex": 1,
     "explanation": "Mithril Hammer is one of the components used to build Desolator.",
     "source": {
@@ -17715,12 +18862,7 @@
     "difficulty": 2,
     "eyebrow": "Mithril Hammer · Reverse Shopkeeper",
     "prompt": "Which item can be built using Mithril Hammer?",
-    "answers": [
-      "Guardian Greaves",
-      "Ethereal Blade",
-      "Maelstrom",
-      "Boots of Travel 2"
-    ],
+    "answers": ["Guardian Greaves", "Ethereal Blade", "Maelstrom", "Boots of Travel 2"],
     "correctIndex": 2,
     "explanation": "Mithril Hammer is one of the components used to build Maelstrom.",
     "source": {
@@ -17748,12 +18890,7 @@
     "difficulty": 2,
     "eyebrow": "Ogre Axe · Reverse Shopkeeper",
     "prompt": "Which item can be built using Ogre Axe?",
-    "answers": [
-      "Guardian Greaves",
-      "Aghanim's Scepter",
-      "Heart of Tarrasque",
-      "Mjollnir"
-    ],
+    "answers": ["Guardian Greaves", "Aghanim's Scepter", "Heart of Tarrasque", "Mjollnir"],
     "correctIndex": 1,
     "explanation": "Ogre Axe is one of the components used to build Aghanim's Scepter.",
     "source": {
@@ -17781,12 +18918,7 @@
     "difficulty": 2,
     "eyebrow": "Perseverance · Reverse Shopkeeper",
     "prompt": "Which item can be built using Perseverance?",
-    "answers": [
-      "Abyssal Blade",
-      "Aghanim's Scepter",
-      "Eye of Skadi",
-      "Linken's Sphere"
-    ],
+    "answers": ["Abyssal Blade", "Aghanim's Scepter", "Eye of Skadi", "Linken's Sphere"],
     "correctIndex": 3,
     "explanation": "Perseverance is one of the components used to build Linken's Sphere.",
     "source": {
@@ -17870,12 +19002,7 @@
     "difficulty": 2,
     "eyebrow": "Sange · Reverse Shopkeeper",
     "prompt": "Which item can be built using Sange?",
-    "answers": [
-      "Hurricane Pike",
-      "Kaya and Sange",
-      "Heart of Tarrasque",
-      "Eul's Scepter of Divinity"
-    ],
+    "answers": ["Hurricane Pike", "Kaya and Sange", "Heart of Tarrasque", "Eul's Scepter of Divinity"],
     "correctIndex": 1,
     "explanation": "Sange is one of the components used to build Kaya and Sange.",
     "source": {
@@ -18015,12 +19142,7 @@
     "difficulty": 2,
     "eyebrow": "Ultimate Orb · Reverse Shopkeeper",
     "prompt": "Which item can be built using Ultimate Orb?",
-    "answers": [
-      "Eye of Skadi",
-      "Blade Mail",
-      "Armlet of Mordiggian",
-      "Abyssal Blade"
-    ],
+    "answers": ["Eye of Skadi", "Blade Mail", "Armlet of Mordiggian", "Abyssal Blade"],
     "correctIndex": 0,
     "explanation": "Ultimate Orb is one of the components used to build Eye of Skadi.",
     "source": {
@@ -18048,12 +19170,7 @@
     "difficulty": 2,
     "eyebrow": "Vitality Booster · Reverse Shopkeeper",
     "prompt": "Which item can be built using Vitality Booster?",
-    "answers": [
-      "Butterfly",
-      "Eul's Scepter of Divinity",
-      "Linken's Sphere",
-      "Vanguard"
-    ],
+    "answers": ["Butterfly", "Eul's Scepter of Divinity", "Linken's Sphere", "Vanguard"],
     "correctIndex": 3,
     "explanation": "Vitality Booster is one of the components used to build Vanguard.",
     "source": {
@@ -18081,12 +19198,7 @@
     "difficulty": 2,
     "eyebrow": "Void Stone · Reverse Shopkeeper",
     "prompt": "Which item can be built using Void Stone?",
-    "answers": [
-      "Bloodstone",
-      "Eul's Scepter of Divinity",
-      "Satanic",
-      "Null Talisman"
-    ],
+    "answers": ["Bloodstone", "Eul's Scepter of Divinity", "Satanic", "Null Talisman"],
     "correctIndex": 1,
     "explanation": "Void Stone is one of the components used to build Eul's Scepter of Divinity.",
     "source": {
