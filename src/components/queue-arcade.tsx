@@ -35,7 +35,7 @@ import {
   X,
 } from "lucide-react";
 import clsx from "clsx";
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import {
   isReportReason,
@@ -51,6 +51,7 @@ import type { CrowdResult, PublicRoomSettings, ReportResult, RoomSnapshot, VoteR
 import { LIVE_ROUND_GAMES, PUBLIC_ARCADE_MODE, PUBLIC_ROUND_FORMATS } from "@/lib/arcade-games.mjs";
 import { shouldWaitForNextRoundOnEntry } from "@/lib/arcade-entry.mjs";
 import { ARCADE_LOBBY_PATH, PUBLIC_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
+import { crowdPercentage, keyedCrowdSplitRows } from "@/lib/crowd-split.mjs";
 import { DEFAULT_GAME_ID, GAME_IDS, type PublicGameInfo } from "@/lib/game-identity";
 import { answerFeedbackKind, dotaFeedbackSoundForKind } from "@/lib/feedback-sounds.mjs";
 import {
@@ -771,6 +772,133 @@ function keyedAnswerLabel(answerKey: string, fallback: string) {
       .join(", ");
   }
   return SHOPKEEPER_CATALOG_BY_KEY.get(answerKey)?.name ?? HERO_PICKER_BY_KEY.get(answerKey)?.name ?? fallback;
+}
+
+function CrowdSplitBar({
+  marker,
+  label,
+  count,
+  total,
+  correct = false,
+  selected = false,
+}: {
+  marker: ReactNode;
+  label: string;
+  count: number;
+  total: number;
+  correct?: boolean;
+  selected?: boolean;
+}) {
+  const percentage = crowdPercentage(count, total);
+  const status = [correct ? "correct answer" : "", selected ? "your pick" : ""].filter(Boolean).join(", ");
+
+  return (
+    <div
+      className={styles.crowdSplitRow}
+      data-testid="crowd-split-row"
+      data-count={count}
+      data-percentage={percentage}
+      data-correct={correct ? "true" : "false"}
+      data-selected={selected ? "true" : "false"}
+      style={{ "--crowd-share": `${percentage}%` } as CSSProperties}
+      aria-label={`${label}: ${percentage}%${status ? `, ${status}` : ""}`}
+    >
+      <span className={styles.crowdSplitMeta}>
+        <i className={styles.crowdSplitMarker}>{marker}</i>
+        <strong title={label}>{label}</strong>
+        {selected && <em>You</em>}
+        {correct && <Check aria-label="Correct answer" />}
+        <small>{percentage}%</small>
+      </span>
+      <span className={styles.crowdSplitTrack} aria-hidden="true">
+        <i />
+      </span>
+    </div>
+  );
+}
+
+function ChoiceCrowdSplit({
+  question,
+  crowd,
+  selectedIndex,
+}: {
+  question: PublicArcadeQuestion;
+  crowd: CrowdResult;
+  selectedIndex: number | null;
+}) {
+  const correctIndex = publicCorrectIndex(question);
+
+  return (
+    <div className={styles.crowdSplit} data-testid="crowd-split" data-split-kind="choices" data-total={crowd.total}>
+      {question.answers.map((answer, index) => (
+        <CrowdSplitBar
+          key={`${index}:${answer}`}
+          marker={LETTERS[index]}
+          label={answer}
+          count={crowd.counts[index]}
+          total={crowd.total}
+          correct={correctIndex === index}
+          selected={selectedIndex === index}
+        />
+      ))}
+    </div>
+  );
+}
+
+function KeyedCrowdSplit({
+  question,
+  crowd,
+  selectedKey,
+}: {
+  question: PublicArcadeQuestion;
+  crowd: CrowdResult;
+  selectedKey: string | null;
+}) {
+  const correctKey = question.reveal?.correctAnswerKey ?? null;
+  const split = keyedCrowdSplitRows(crowd.keyCounts, crowd.total, {
+    correctKey,
+    selectedKey,
+    maxChoices: 4,
+  });
+
+  return (
+    <div className={styles.crowdSplit} data-testid="crowd-split" data-split-kind="open-grid" data-total={crowd.total}>
+      {split.rows.map(({ answerKey, count }) => {
+        const hero = HERO_PICKER_BY_KEY.get(answerKey);
+        const item = SHOPKEEPER_CATALOG_BY_KEY.get(answerKey);
+        const recipeKeys = recipeItemsFromAnswerKey(answerKey);
+        const recipeItems = recipeKeys ? shopkeeperReferencesForKeys(recipeKeys) : [];
+        const label = keyedAnswerLabel(answerKey, "Unknown pick");
+        const marker =
+          hero || item ? (
+            <Image src={(hero ?? item)?.image ?? ""} alt="" fill sizes="34px" unoptimized />
+          ) : recipeItems.length ? (
+            <span className={styles.crowdSplitRecipe} aria-hidden="true">
+              {recipeItems.slice(0, 3).map((recipeItem) => (
+                <Image key={recipeItem.key} src={recipeItem.image} alt="" width={20} height={15} unoptimized />
+              ))}
+            </span>
+          ) : (
+            "?"
+          );
+
+        return (
+          <CrowdSplitBar
+            key={answerKey}
+            marker={marker}
+            label={label}
+            count={count}
+            total={crowd.total}
+            correct={answerKey === correctKey}
+            selected={answerKey === selectedKey}
+          />
+        );
+      })}
+      {split.otherCount > 0 && (
+        <CrowdSplitBar marker="…" label="Other picks" count={split.otherCount} total={crowd.total} />
+      )}
+    </div>
+  );
 }
 
 function ShopkeeperRecipePick({ itemKeys, label }: { itemKeys: string[]; label: string }) {
@@ -4079,13 +4207,19 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               </div>
             </div>
 
-            <div className={styles.crowdCard}>
+            <div className={styles.crowdCard} data-testid="crowd-card" data-phase={phase}>
               <div className={styles.cardTitle}>
                 <span>
                   <Radio />
-                  {currentGame === "map-sense" ? (mapChoiceRound ? "Room answers" : "Room pings") : "Global answers"}
+                  {currentGame === "map-sense"
+                    ? mapChoiceRound
+                      ? "Room answers"
+                      : "Room pings"
+                    : phase === "reveal"
+                      ? "Global split"
+                      : "Global answers"}
                 </span>
-                <span className={styles.livePill}>Live room</span>
+                <span className={styles.livePill}>{phase === "reveal" ? "Final" : "Live room"}</span>
               </div>
               <strong>
                 {crowd.total.toLocaleString("en-US")}{" "}
@@ -4097,60 +4231,34 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                     ? "answer"
                     : "answers"}
               </strong>
-              <p>
-                {currentGame === "map-sense" && !mapChoiceRound
-                  ? phase === "answering"
-                    ? crowd.total
-                      ? `${crowd.total.toLocaleString("en-US")} locked in.`
-                      : "The room is reading the map."
-                    : crowd.total
-                      ? "Every anonymous pin is now visible on the map."
-                      : "No pins landed before the deadline."
-                  : phase === "answering"
-                    ? crowd.total
-                      ? `${crowd.total.toLocaleString("en-US")} ${
-                          crowd.total === 1 ? "player has" : "players have"
-                        } locked in. The split stays hidden until the shared deadline.`
-                      : "Answers appear here as players lock in. The split stays hidden until the shared deadline."
-                    : crowd.total
-                      ? "Final answer split for this synchronized public round."
+              {(phase === "answering" || crowd.total === 0) && (
+                <p>
+                  {currentGame === "map-sense" && !mapChoiceRound
+                    ? phase === "answering"
+                      ? crowd.total
+                        ? `${crowd.total.toLocaleString("en-US")} locked in.`
+                        : "The room is reading the map."
+                      : crowd.total
+                        ? "Every anonymous pin is now visible on the map."
+                        : "No pins landed before the deadline."
+                    : phase === "answering"
+                      ? crowd.total
+                        ? `${crowd.total.toLocaleString("en-US")} ${
+                            crowd.total === 1 ? "player has" : "players have"
+                          } locked in. The split stays hidden until the shared deadline.`
+                        : "Answers appear here as players lock in. The split stays hidden until the shared deadline."
                       : "Nobody answered before this room’s deadline."}
-              </p>
-              {(isOpenShopRound || isHeroPickerRound) && phase === "reveal" && crowd.keyCounts.length > 0 ? (
-                <div
-                  className={styles.shopkeeperCrowdPicks}
-                  data-testid={
-                    isRecipeBuilderRound
-                      ? "shopkeeper-recipe-crowd-picks"
-                      : isOpenShopRound
-                        ? "shopkeeper-crowd-picks"
-                        : "hero-crowd-picks"
-                  }
-                  data-answer-mode={isRecipeBuilderRound ? "item-recipe" : undefined}
-                >
-                  {crowd.keyCounts.slice(0, 3).map(({ answerKey, count }) => {
-                    if (isRecipeBuilderRound) {
-                      const itemKeys = recipeItemsFromAnswerKey(answerKey);
-                      if (!itemKeys) return null;
-                      return (
-                        <span key={answerKey}>
-                          <ShopkeeperTray items={shopkeeperReferencesForKeys(itemKeys)} compact />
-                          <small>{Math.round((count / crowd.total) * 100)}%</small>
-                        </span>
-                      );
-                    }
-                    const answer = isOpenShopRound
-                      ? SHOPKEEPER_CATALOG_BY_KEY.get(answerKey)
-                      : HERO_PICKER_BY_KEY.get(answerKey);
-                    if (!answer) return null;
-                    return (
-                      <span key={answerKey}>
-                        <Image src={answer.image} alt="" width={38} height={28} unoptimized />
-                        <strong>{answer.name}</strong>
-                        <small>{Math.round((count / crowd.total) * 100)}%</small>
-                      </span>
-                    );
-                  })}
+                </p>
+              )}
+              {phase === "reveal" && crowd.total > 0 && currentGame !== "map-sense" ? (
+                isPublicKeyedAnswerQuestion(currentQuestion) ? (
+                  <KeyedCrowdSplit question={currentQuestion} crowd={crowd} selectedKey={selectedAnswerKey} />
+                ) : (
+                  <ChoiceCrowdSplit question={currentQuestion} crowd={crowd} selectedIndex={selectedIndex} />
+                )
+              ) : phase === "reveal" ? (
+                <div className={styles.crowdSplitEmpty} aria-hidden="true">
+                  —
                 </div>
               ) : (
                 <div className={styles.crowdPulse} aria-hidden="true">

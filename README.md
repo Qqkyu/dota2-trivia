@@ -225,7 +225,8 @@ the stored personal record and profile summary, tests protected alpha ops plus v
 For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run
 `node scripts/visual-smoke.mjs`. The script disables media playback again inside the page before loading anything, then
 checks the one-room lobby, social metadata, fixed-size account entry, guest profile, privacy page and private ops gate, `/play` navigation, browser Back and
-Forward, legacy-mode redirect, seven compact round identities, synchronized answering/reveal/automatic-advance journey,
+Forward, legacy-mode redirect, seven compact round identities, synchronized answering/reveal/automatic-advance journey, reveal-only crowd splits,
+full-catalog 127-hero and 182-item result stress cases,
 no-shift question-report popover, the optional session summary, the 10% fresh-install volume default, mobile lobby, mobile calibration layout, overflow, and saves screenshots
 under `/tmp`.
 

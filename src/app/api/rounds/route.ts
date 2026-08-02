@@ -2,11 +2,12 @@ import { NextResponse, type NextRequest } from "next/server";
 import type { CrowdResult } from "@/lib/arcade-contract";
 import { sessionUserForRequest } from "@/lib/auth-session";
 import { rateLimitRequest } from "@/lib/api-protection";
+import { prioritizedKeyCounts } from "@/lib/crowd-split.mjs";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
 import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
 import { publicQuestionForRound, publicQuestionRevision } from "@/lib/public-question";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
-import { isKeyedAnswerQuestion } from "@/lib/keyed-answer";
+import { correctAnswerKey, isKeyedAnswerQuestion } from "@/lib/keyed-answer";
 import { touchRoomPresence } from "@/lib/room-presence.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 import { getPlayerQuestionReport, getRoundCrowd } from "@/lib/vote-store";
@@ -87,7 +88,14 @@ export async function GET(request: NextRequest) {
           counts: round.phase === "reveal" ? result.counts : HIDDEN_COUNTS,
           total: result.total,
           positions: round.phase === "reveal" ? result.positions : [],
-          keyCounts: round.phase === "reveal" ? result.keyCounts.slice(0, MAX_REVEALED_KEY_CHOICES) : [],
+          keyCounts:
+            round.phase === "reveal"
+              ? prioritizedKeyCounts(
+                  result.keyCounts,
+                  [correctAnswerKey(question), playerVote?.answerKey],
+                  MAX_REVEALED_KEY_CHOICES,
+                )
+              : [],
         },
         playerVote,
         playerReport,

@@ -1,11 +1,56 @@
 #!/usr/bin/env node
 
-import { writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
+import path from "node:path";
 import { MIN_INITIAL_ANSWER_TIME_MS } from "../src/lib/arcade-entry.mjs";
 
 const debuggingUrl = process.env.CHROME_DEBUG_URL ?? "http://127.0.0.1:9222";
 const appUrl = process.env.APP_URL ?? process.env.ARCADE_APP_URL ?? "http://localhost:3000";
 const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+const [heroPickerCatalog, shopkeeperCatalog] = await Promise.all(
+  ["hero-picker.json", "shopkeeper-catalog.json"].map(async (file) =>
+    JSON.parse(await readFile(path.join(process.cwd(), "src", "data", file), "utf8")),
+  ),
+);
+const heroStressEntries = heroPickerCatalog.groups
+  .flatMap((group) => group.heroes)
+  .map((hero) => ({ answerKey: hero.key, count: 1 }));
+const itemStressItems = shopkeeperCatalog.groups.flatMap((group) => group.items);
+const itemStressEntries = itemStressItems.map((item) => ({ answerKey: item.key, count: 1 }));
+const crowdStressFixtures = {
+  heroes: {
+    game: "quote-hunt",
+    question: {
+      kind: "hero-quote",
+      category: "Heroes",
+      eyebrow: "Crowd split stress",
+      prompt: "Who said it?",
+      detail: "Every hero received one vote in this visual fixture.",
+      answerMode: "hero-grid",
+    },
+    entries: heroStressEntries,
+  },
+  items: {
+    game: "shopkeeper",
+    question: {
+      kind: "shopkeeper-build-result",
+      category: "Recipes",
+      eyebrow: "Crowd split stress",
+      prompt: "What do these components build?",
+      answerMode: "item-grid",
+      shopkeeper: {
+        format: "build-result",
+        promptItems: itemStressItems.slice(0, 3).map((item) => ({
+          key: item.key,
+          name: item.name,
+          image: item.image,
+          count: 1,
+        })),
+      },
+    },
+    entries: itemStressEntries,
+  },
+};
 const targets = await fetch(`${debuggingUrl}/json/list`).then((response) => response.json());
 const target = targets.find((entry) => entry.type === "page");
 
@@ -99,6 +144,70 @@ async function waitFor(expression, timeout = 30_000) {
   throw new Error(`Timed out waiting for: ${expression}`);
 }
 
+async function runCrowdStress(kind, expectedTotal) {
+  await evaluate(`window.__queueArcadeCrowdStress = { kind: ${JSON.stringify(kind)}, phase: "answering" }`);
+  await waitFor(
+    `(() => {
+    const main = document.querySelector("main");
+    const expectedPicker = ${JSON.stringify(kind)} === "heroes" ? "hero-picker" : "shopkeeper-store";
+    return main?.dataset.phase === "answering" &&
+      main?.dataset.roundId === "visual-crowd-stress-${kind}" &&
+      Boolean(document.querySelector('[data-testid="' + expectedPicker + '"]')) &&
+      !document.querySelector('[data-testid="crowd-split"]');
+  })()`,
+    12_000,
+  );
+  const hiddenBeforeReveal = await evaluate(`!document.querySelector('[data-testid="crowd-split"]')`);
+
+  await evaluate(`window.__queueArcadeCrowdStress.phase = "reveal"`);
+  await waitFor(
+    `(() => {
+    const split = document.querySelector('[data-testid="crowd-split"]');
+    return document.querySelector("main")?.dataset.phase === "reveal" &&
+      split?.dataset.splitKind === "open-grid" &&
+      Number(split?.dataset.total) === ${expectedTotal};
+  })()`,
+    12_000,
+  );
+  await delay(650);
+  await screenshot(`/tmp/queue-arcade-crowd-${kind}.png`);
+
+  return evaluate(`(() => {
+    const card = document.querySelector('[data-testid="crowd-card"]');
+    const split = document.querySelector('[data-testid="crowd-split"]');
+    const rows = [...document.querySelectorAll('[data-testid="crowd-split-row"]')];
+    const other = rows.find((row) => row.textContent.includes("Other picks"));
+    const cardBounds = card?.getBoundingClientRect();
+    const rowBounds = rows.map((row) => row.getBoundingClientRect());
+    return {
+      kind: split?.dataset.splitKind,
+      hiddenBeforeReveal: ${hiddenBeforeReveal},
+      total: Number(split?.dataset.total),
+      rowCount: rows.length,
+      namedRows: rows.filter((row) => !row.textContent.includes("Other picks")).length,
+      countTotal: rows.reduce((sum, row) => sum + Number(row.dataset.count), 0),
+      otherCount: Number(other?.dataset.count),
+      otherPercentage: Number(other?.dataset.percentage),
+      correctRows: rows.filter((row) => row.dataset.correct === "true").length,
+      selectedRows: rows.filter((row) => row.dataset.selected === "true").length,
+      labelsVisible: rows.every((row) => (row.querySelector("strong")?.getBoundingClientRect().width ?? 0) > 0),
+      rowsInsideCard: Boolean(cardBounds) && rowBounds.every((bounds) =>
+        bounds.left >= cardBounds.left && bounds.right <= cardBounds.right && bounds.bottom <= cardBounds.bottom
+      ),
+      cardHeight: cardBounds?.height,
+      cardInsideViewport: Boolean(cardBounds && cardBounds.bottom <= window.innerHeight),
+      clipped: Boolean(card && (card.scrollWidth > card.clientWidth || card.scrollHeight > card.clientHeight)),
+      horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+      catalogResults: ${JSON.stringify(kind)} === "heroes"
+        ? [...document.querySelectorAll('[data-testid="hero-picker-hero"]')].filter((entry) => /%/.test(entry.innerText)).length
+        : [...document.querySelectorAll('[data-testid="shopkeeper-store-item"]')].filter((entry) => /%/.test(entry.innerText)).length,
+      catalogVisible: ${JSON.stringify(kind)} === "heroes"
+        ? document.querySelectorAll('[data-testid="hero-picker-hero"]').length
+        : document.querySelectorAll('[data-testid="shopkeeper-store-item"]').length
+    };
+  })()`);
+}
+
 async function waitForRevealEntryWindow() {
   const roomUrl = new URL("/api/rounds", appUrl);
   roomUrl.search = new URLSearchParams({
@@ -127,10 +236,83 @@ await send("Page.enable");
 await send("Runtime.enable");
 await send("Page.addScriptToEvaluateOnNewDocument", {
   source: `(() => {
+    const fixtures = ${JSON.stringify(crowdStressFixtures)};
+    const originalFetch = window.fetch.bind(window);
+    window.__queueArcadeCrowdStress = null;
+
     Object.defineProperty(HTMLMediaElement.prototype, "play", {
       configurable: true,
       value() { return Promise.resolve(); }
     });
+
+    window.fetch = async (...args) => {
+      const response = await originalFetch(...args);
+      const state = window.__queueArcadeCrowdStress;
+      const input = args[0];
+      const requestUrl = typeof input === "string" || input instanceof URL ? String(input) : input?.url;
+      if (!state || !requestUrl || new URL(requestUrl, location.href).pathname !== "/api/rounds") return response;
+
+      try {
+        const fixture = fixtures[state.kind];
+        if (!fixture) return response;
+        const payload = await response.clone().json();
+        if (!payload?.round || !payload?.room) return response;
+
+        const now = Date.now();
+        const reveal = state.phase === "reveal";
+        const total = fixture.entries.length;
+        const correctKey = fixture.entries.at(-1).answerKey;
+        const selectedKey = fixture.entries.at(-2).answerKey;
+        const roundId = "visual-crowd-stress-" + state.kind;
+        payload.serverNow = now;
+        payload.round = {
+          ...payload.round,
+          id: roundId,
+          phase: reveal ? "reveal" : "answering",
+          game: fixture.game,
+          startedAt: now - 3_000,
+          answerDeadline: reveal ? now - 1_000 : now + 12_000,
+          revealDeadline: now + 6_000,
+          answerDuration: 15_000
+        };
+        payload.questionRevision = roundId + ":" + state.phase;
+        payload.question = {
+          id: roundId,
+          game: fixture.game,
+          ...fixture.question,
+          difficulty: 3,
+          answers: ["", "", "", ""],
+          patch: "visual-test",
+          clueStage: reveal ? 3 : 1,
+          reveal: reveal ? {
+            correctIndex: 0,
+            correctAnswerKey: correctKey,
+            explanation: "Full-catalog crowd split visual fixture."
+          } : null
+        };
+        payload.presence = { activePlayers: total };
+        payload.crowd = {
+          counts: reveal ? [total, 0, 0, 0] : [0, 0, 0, 0],
+          total,
+          positions: [],
+          keyCounts: reveal ? fixture.entries : []
+        };
+        payload.playerVote = {
+          answerIndex: 0,
+          answerKey: selectedKey,
+          submittedAt: now - 1_000
+        };
+        payload.playerReport = null;
+
+        return new Response(JSON.stringify(payload), {
+          status: response.status,
+          statusText: response.statusText,
+          headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+        });
+      } catch {
+        return response;
+      }
+    };
   })();`,
 });
 await send("Emulation.setDeviceMetricsOverride", {
@@ -303,6 +485,7 @@ const answering = await evaluate(`({
   })),
   difficultyControls: document.querySelectorAll('[data-skill-level], [aria-label="Challenge level"]').length,
   tipCards: document.querySelectorAll('[class*="tipCard"]').length,
+  crowdSplitVisible: Boolean(document.querySelector('[data-testid="crowd-split"]')),
   publicRoomVisible: Boolean(document.querySelector('[data-testid="public-room"]')),
   presence: document.querySelector('[data-testid="room-presence"]')?.innerText,
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
@@ -450,8 +633,19 @@ const reveal = await evaluate(`(() => {
     heroPercentages: [...document.querySelectorAll('[data-testid="hero-picker-hero"]')]
       .filter((button) => /%/.test(button.innerText)).length,
     heroCorrect: document.querySelectorAll('[data-testid="hero-picker-hero"][data-state="correct"]').length,
-    heroCrowd: Boolean(document.querySelector('[data-testid="hero-crowd-picks"]')),
-    recipeCrowd: Boolean(document.querySelector('[data-testid="shopkeeper-recipe-crowd-picks"]')),
+    crowdSplit: (() => {
+      const split = document.querySelector('[data-testid="crowd-split"]');
+      const rows = [...document.querySelectorAll('[data-testid="crowd-split-row"]')];
+      return {
+        visible: Boolean(split),
+        kind: split?.dataset.splitKind,
+        total: Number(split?.dataset.total),
+        rows: rows.length,
+        countTotal: rows.reduce((sum, row) => sum + Number(row.dataset.count), 0),
+        correctRows: rows.filter((row) => row.dataset.correct === "true").length,
+        selectedRows: rows.filter((row) => row.dataset.selected === "true").length,
+      };
+    })(),
     recipeReveal: Boolean(document.querySelector('[data-testid="shopkeeper-recipe-reveal-tray"]')),
     openShopReveal: Boolean(document.querySelector('[data-testid="shopkeeper-open-reveal"]')),
     reportReasons: document.querySelectorAll('[data-testid="report-reason"]').length,
@@ -506,6 +700,10 @@ const directPlay = await evaluate(`({
   answering: document.querySelector("main")?.dataset.phase === "answering",
   roomId: document.querySelector("main")?.dataset.roomId
 })`);
+
+const heroCrowdStress = await runCrowdStress("heroes", heroStressEntries.length);
+const itemCrowdStress = await runCrowdStress("items", itemStressEntries.length);
+await evaluate(`window.__queueArcadeCrowdStress = null`);
 
 await send("Emulation.setDeviceMetricsOverride", {
   width: 390,
@@ -642,6 +840,7 @@ if (
       : answering.answers !== 4) ||
   answering.difficultyControls !== 0 ||
   answering.tipCards !== 0 ||
+  answering.crowdSplitVisible ||
   !answering.publicRoomVisible ||
   !/player/.test(answering.presence ?? "") ||
   answering.timer < MIN_INITIAL_ANSWER_TIME_MS / 1_000 - 2 ||
@@ -659,12 +858,17 @@ if (
 }
 if (
   !reveal.result ||
+  !reveal.crowdSplit.visible ||
+  reveal.crowdSplit.rows < 1 ||
+  reveal.crowdSplit.countTotal !== reveal.crowdSplit.total ||
+  reveal.crowdSplit.correctRows !== 1 ||
+  reveal.crowdSplit.selectedRows !== 1 ||
   (answering.openShop
     ? answering.recipeBuilder
-      ? !reveal.openShopReveal || !reveal.recipeReveal || !reveal.recipeCrowd || reveal.shopPercentages !== 0
-      : !reveal.openShopReveal || reveal.shopPercentages < 1 || reveal.recipeReveal || reveal.recipeCrowd
+      ? !reveal.openShopReveal || !reveal.recipeReveal || reveal.shopPercentages !== 0
+      : !reveal.openShopReveal || reveal.shopPercentages < 1 || reveal.recipeReveal
     : answering.heroPicker
-      ? reveal.heroPercentages < 1 || reveal.heroCorrect !== 1 || !reveal.heroCrowd || reveal.openShopReveal
+      ? reveal.heroPercentages < 1 || reveal.heroCorrect !== 1 || reveal.openShopReveal
       : reveal.percentages !== 4 || reveal.openShopReveal) ||
   reveal.reportReasons !== 4 ||
   !sameBounds ||
@@ -702,6 +906,32 @@ if (
 if (directPlay.url !== "/play" || !directPlay.answering || !directPlay.roomId?.endsWith(":public")) {
   failures.push("Loading /play directly no longer joins the public arcade.");
 }
+for (const [label, result, expectedTotal] of [
+  ["hero", heroCrowdStress, heroStressEntries.length],
+  ["item", itemCrowdStress, itemStressEntries.length],
+]) {
+  if (
+    result.kind !== "open-grid" ||
+    !result.hiddenBeforeReveal ||
+    result.total !== expectedTotal ||
+    result.rowCount !== 5 ||
+    result.namedRows !== 4 ||
+    result.countTotal !== expectedTotal ||
+    result.otherCount !== expectedTotal - 4 ||
+    result.otherPercentage !== Math.round(((expectedTotal - 4) / expectedTotal) * 100) ||
+    result.correctRows !== 1 ||
+    result.selectedRows !== 1 ||
+    !result.labelsVisible ||
+    !result.rowsInsideCard ||
+    (result.cardHeight ?? Infinity) > 360 ||
+    !result.cardInsideViewport ||
+    result.clipped ||
+    result.horizontalOverflow ||
+    result.catalogResults !== result.catalogVisible
+  ) {
+    failures.push(`The all-${label} crowd result is unbounded, clipped, incomplete, or leaked before reveal.`);
+  }
+}
 if (
   !mobile.headingVisible ||
   !mobile.startButton ||
@@ -736,6 +966,8 @@ if (failures.length) {
         historyBack,
         historyForward,
         directPlay,
+        heroCrowdStress,
+        itemCrowdStress,
         mobile,
         calibration,
       },
@@ -758,6 +990,10 @@ console.log(
       automaticAdvance: true,
       browserHistory: [historyBack.url, historyForward.url],
       directPlay: directPlay.url,
+      fullCatalogCrowdSplits: {
+        heroes: `${heroCrowdStress.namedRows} named + Other (${heroCrowdStress.total} votes)`,
+        items: `${itemCrowdStress.namedRows} named + Other (${itemCrowdStress.total} votes)`,
+      },
       mediaPlaybackDisabled: true,
       optionalSteamProfile: true,
       privacyControls: true,
@@ -776,6 +1012,8 @@ console.log(
         "/tmp/queue-arcade-public-round.png",
         "/tmp/queue-arcade-public-reveal.png",
         "/tmp/queue-arcade-summary.png",
+        "/tmp/queue-arcade-crowd-heroes.png",
+        "/tmp/queue-arcade-crowd-items.png",
         "/tmp/queue-arcade-mobile.png",
         "/tmp/queue-arcade-calibration-mobile.png",
       ],

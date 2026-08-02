@@ -5234,63 +5234,136 @@ button[data-state="wrong"] > .heroPickerVerdict {
   animation-delay: -0.18s;
 }
 
-.shopkeeperCrowdPicks {
+.crowdSplit {
   display: grid;
-  gap: 5px;
+  gap: 9px;
+  margin-top: 13px;
 }
 
-.shopkeeperCrowdPicks > span {
+.crowdSplitRow {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+
+.crowdSplitMeta {
   display: grid;
   min-width: 0;
   align-items: center;
-  gap: 7px;
-  grid-template-columns: 38px minmax(0, 1fr) auto;
-  padding: 4px;
-  background: rgba(255, 255, 255, 0.025);
+  gap: 6px;
+  grid-template-columns: 34px minmax(0, 1fr) auto auto 34px;
 }
 
-.shopkeeperCrowdPicks img {
-  width: 38px;
-  height: 28px;
+.crowdSplitMarker {
+  position: relative;
+  display: grid;
+  width: 34px;
+  height: 24px;
+  overflow: hidden;
+  place-items: center;
+  border: 1px solid rgba(210, 214, 207, 0.14);
+  background: rgba(255, 255, 255, 0.025);
+  color: #a8afac;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  font-style: normal;
+}
+
+.crowdSplitMarker > img {
   object-fit: cover;
 }
 
-.shopkeeperCrowdPicks strong {
+.crowdSplitMeta > strong {
   overflow: hidden;
-  color: #b9bcb5;
-  font-size: 10px;
+  color: #b7bdb9;
+  font-size: 12px;
   font-weight: 550;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.shopkeeperCrowdPicks small {
-  color: #d6ae5c;
-  font:
-    9px var(--font-geist-mono),
-    monospace;
+.crowdSplitMeta > em {
+  grid-column: 3;
+  padding: 2px 4px;
+  border: 1px solid rgba(240, 106, 88, 0.3);
+  color: #d78276;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 8px;
+  font-style: normal;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.shopkeeperCrowdPicks[data-answer-mode="item-recipe"] > span {
-  grid-template-columns: minmax(0, 1fr) auto;
-  padding: 5px 6px;
+.crowdSplitMeta > svg {
+  width: 12px;
+  grid-column: 4;
+  color: var(--green);
+  stroke-width: 2;
 }
 
-.shopkeeperCrowdPicks[data-answer-mode="item-recipe"] .shopkeeperTray {
-  width: min(100%, 158px);
-  gap: 3px;
+.crowdSplitMeta > small {
+  grid-column: 5;
+  color: #d4d8d4;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  text-align: right;
 }
 
-.shopkeeperCrowdPicks[data-answer-mode="item-recipe"] .shopkeeperItem {
-  gap: 2px;
+.crowdSplitTrack {
+  display: block;
+  height: 5px;
+  margin-left: 40px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.045);
 }
 
-.shopkeeperCrowdPicks[data-answer-mode="item-recipe"] .shopkeeperItemArt {
-  width: min(100%, 42px);
+.crowdSplitTrack > i {
+  display: block;
+  width: var(--crowd-share);
+  height: 100%;
+  background: linear-gradient(90deg, rgba(190, 70, 57, 0.66), rgba(231, 101, 83, 0.92));
+  transform-origin: left;
+  animation: crowdSplitReveal 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
-.shopkeeperCrowdPicks[data-answer-mode="item-recipe"] .shopkeeperItem > strong {
-  display: none;
+.crowdSplitRow[data-correct="true"] .crowdSplitMarker {
+  border-color: rgba(118, 198, 138, 0.42);
+  background: rgba(71, 133, 86, 0.14);
+  color: var(--green);
+}
+
+.crowdSplitRow[data-correct="true"] .crowdSplitTrack > i {
+  background: linear-gradient(90deg, rgba(76, 145, 92, 0.7), rgba(118, 198, 138, 0.95));
+}
+
+.crowdSplitRow[data-correct="true"] .crowdSplitMeta > strong {
+  color: #c7dccb;
+}
+
+.crowdSplitRecipe {
+  display: flex;
+  width: 32px;
+  align-items: center;
+  justify-content: center;
+}
+
+.crowdSplitRecipe img {
+  width: 20px;
+  height: 15px;
+  border: 1px solid rgba(210, 214, 207, 0.2);
+  object-fit: cover;
+}
+
+.crowdSplitRecipe img + img {
+  margin-left: -10px;
+}
+
+.crowdSplitEmpty {
+  display: grid;
+  height: 28px;
+  margin-top: 8px;
+  place-items: center;
+  color: rgba(126, 133, 131, 0.35);
 }
 
 @media (max-width: 680px) {
@@ -5798,6 +5871,18 @@ button[data-state="wrong"] > .heroPickerVerdict {
   100% {
     height: 92%;
     opacity: 0.92;
+  }
+}
+
+@keyframes crowdSplitReveal {
+  from {
+    opacity: 0.25;
+    transform: scaleX(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
   }
 }
 
