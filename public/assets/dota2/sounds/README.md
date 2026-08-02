@@ -14,10 +14,18 @@ arcade room, preserving the event's original `0.6` and `1.0` gains.
 - Browser-ready sources: <https://dotabase.dillerm.io/vpk/sounds/ui/panorama/panorama_find_match_find_01.wav> and <https://dotabase.dillerm.io/vpk/sounds/ui/panorama/panorama_select_md_01.wav>
 - SHA-256: `cadf33b5f47ca29cbeb37e063a8f5364cd92db4dadd2c8befabfa6fe623fcd33` and `7b39cbbd7e80f9ff671b3c45f4e6d5818dd04e5057ab391faa1929f028cae5ad`
 
-`challenge_success.wav` is a legacy Dota 2 UI success sting. The file survives
-in the current VPK, but no current sound-event manifest references it. It is a
-fitting authentic Dota cue; there is not enough evidence to claim Queue Trivia
-itself used it.
+`coins.wav` is the payoff in the linked “farming” soundboard and the current
+client asset behind the 2D `General.Coins` event. Queue Arcade uses that event's
+original `1.0` gain as its correct-answer cue. The soundboard WAV and current
+client WAV have identical decoded audio; the checked-in file is the current
+client encoding.
+
+- Browser-ready source: <https://dotabase.dillerm.io/vpk/sounds/ui/coins.wav>
+- Referenced soundboard: <https://howdoiplay.com/meepmerp/#farming>
+- SHA-256: `f9f3e5565295588e4714adae9c645e149bf5c2191d0e3aa71e9177902c8e88e5`
+
+`challenge_success.wav` is a legacy Dota 2 UI success sting. It remains in the
+asset audit as a reviewed archive, but Queue Arcade no longer plays it.
 
 - Browser-ready source: <https://dotabase.dillerm.io/vpk/sounds/ui/challenge_success.wav>
 - SHA-256: `d2ed6c53d6ce4a0c437ebc8fcde95959bf0284089e56d0c224e17d497a3bdacb`

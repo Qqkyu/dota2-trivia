@@ -1,5 +1,17 @@
 import catalogData from "@/data/shopkeeper-catalog.json";
 import type { TriviaQuestion } from "@/lib/trivia";
+import {
+  isBuildResultItemPickerQuestion,
+  isItemPickerQuestion as hasItemPickerAnswer,
+  isRealRecipeBuilderQuestion as hasRealRecipeBuilderAnswer,
+  isSingleItemSoundPickerQuestion as hasSingleItemSoundPickerAnswer,
+  isUpgradePathItemPickerQuestion,
+  itemPickerCorrectAnswerKey as findItemPickerCorrectAnswerKey,
+  recipeAnswerKeyForItems as buildRecipeAnswerKey,
+  recipeBuilderAnswerIndex as findRecipeBuilderAnswerIndex,
+  recipeBuilderCorrectAnswerKey as findRecipeBuilderCorrectAnswerKey,
+  recipeItemsFromAnswerKey as parseRecipeAnswerKey,
+} from "@/lib/item-picker.mjs";
 
 export interface ShopkeeperCatalogItem {
   key: string;
@@ -27,21 +39,66 @@ export const SHOPKEEPER_CATALOG_ITEMS = SHOPKEEPER_CATALOG.groups.flatMap((group
 export const SHOPKEEPER_CATALOG_BY_KEY = new Map(SHOPKEEPER_CATALOG_ITEMS.map((item) => [item.key, item]));
 
 export function isBuildResultQuestion(question: TriviaQuestion) {
-  return question.shopkeeper?.format === "build-result" && Boolean(question.shopkeeper.targetItemKey);
+  return isBuildResultItemPickerQuestion(question);
+}
+
+export function isUpgradePathQuestion(question: TriviaQuestion) {
+  return isUpgradePathItemPickerQuestion(question);
+}
+
+export function isSingleItemSoundPickerQuestion(question: TriviaQuestion) {
+  return hasSingleItemSoundPickerAnswer(question);
+}
+
+export function isRealRecipeBuilderQuestion(question: TriviaQuestion) {
+  return hasRealRecipeBuilderAnswer(question);
+}
+
+export function isItemPickerQuestion(question: TriviaQuestion) {
+  return hasItemPickerAnswer(question);
 }
 
 export function isShopkeeperCatalogKey(value: unknown): value is string {
   return typeof value === "string" && SHOPKEEPER_CATALOG_BY_KEY.has(value);
 }
 
+export function recipeAnswerKeyForItems(itemKeys: string[]) {
+  const answerKey = buildRecipeAnswerKey(itemKeys);
+  if (!answerKey || itemKeys.some((key) => !isShopkeeperCatalogKey(key))) return null;
+  return answerKey;
+}
+
+export function recipeItemsFromAnswerKey(answerKey: unknown): string[] | null {
+  const itemKeys = parseRecipeAnswerKey(answerKey);
+  return itemKeys?.every(isShopkeeperCatalogKey) ? itemKeys : null;
+}
+
+export function isRecipeAnswerKey(value: unknown): value is string {
+  return recipeItemsFromAnswerKey(value) !== null;
+}
+
 export function shopkeeperAnswerIndex(question: TriviaQuestion, answerKey: string) {
-  if (!isBuildResultQuestion(question) || !isShopkeeperCatalogKey(answerKey)) return null;
+  if (!(isBuildResultQuestion(question) || isUpgradePathQuestion(question)) || !isShopkeeperCatalogKey(answerKey)) {
+    return null;
+  }
   if (answerKey === question.shopkeeper?.targetItemKey) return question.correctIndex;
   return [0, 1, 2, 3].find((index) => index !== question.correctIndex) ?? null;
 }
 
-export function isQuestionAnswerCorrect(question: TriviaQuestion, answerIndex: number, answerKey?: string) {
-  return isBuildResultQuestion(question)
-    ? Boolean(answerKey && answerKey === question.shopkeeper?.targetItemKey)
-    : answerIndex === question.correctIndex;
+export function itemPickerCorrectAnswerKey(question: TriviaQuestion) {
+  return findItemPickerCorrectAnswerKey(question) as string | null;
+}
+
+export function itemPickerAnswerIndex(question: TriviaQuestion, answerKey: string) {
+  if (!isItemPickerQuestion(question) || !isShopkeeperCatalogKey(answerKey)) return null;
+  if (answerKey === itemPickerCorrectAnswerKey(question)) return question.correctIndex;
+  return [0, 1, 2, 3].find((index) => index !== question.correctIndex) ?? null;
+}
+
+export function recipeBuilderCorrectAnswerKey(question: TriviaQuestion) {
+  return findRecipeBuilderCorrectAnswerKey(question) as string | null;
+}
+
+export function recipeBuilderAnswerIndex(question: TriviaQuestion, answerKey: string) {
+  return isRecipeAnswerKey(answerKey) ? findRecipeBuilderAnswerIndex(question, answerKey) : null;
 }

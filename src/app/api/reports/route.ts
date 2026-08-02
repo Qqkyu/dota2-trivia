@@ -30,12 +30,11 @@ export async function POST(request: NextRequest) {
     mode: candidate.mode,
     filter: candidate.filter,
   });
-  const { roundId, questionId, reason, voterId } = candidate;
+  const { roundId, reason, voterId } = candidate;
 
   if (
     !settings ||
     typeof roundId !== "string" ||
-    typeof questionId !== "string" ||
     !isReportReason(reason) ||
     typeof voterId !== "string" ||
     voterId.length < 8 ||
@@ -58,15 +57,10 @@ export async function POST(request: NextRequest) {
   const submittedAt = Date.now();
   const { room, round: currentRound } = currentPublicRound(settings, submittedAt);
   const currentRevealMatches =
-    currentRound.id === roundId &&
-    currentRound.questionId === questionId &&
-    currentRound.phase === "reveal" &&
-    submittedAt < currentRound.revealDeadline;
+    currentRound.id === roundId && currentRound.phase === "reveal" && submittedAt < currentRound.revealDeadline;
   const previousRound = currentRound.number > 0 ? publicRoundAt(room, currentRound.number - 1, submittedAt) : null;
   const previousGraceMatches =
-    previousRound?.id === roundId &&
-    previousRound.questionId === questionId &&
-    submittedAt < previousRound.revealDeadline + QUESTION_REPORT_GRACE_MS;
+    previousRound?.id === roundId && submittedAt < previousRound.revealDeadline + QUESTION_REPORT_GRACE_MS;
   const reportableRound = currentRevealMatches ? currentRound : previousGraceMatches ? previousRound : null;
   const question = reportableRound
     ? GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === reportableRound.questionId)
@@ -80,7 +74,7 @@ export async function POST(request: NextRequest) {
     const result = await recordQuestionReport({
       gameId: room.gameId,
       contentVersion: room.contentVersion,
-      questionId,
+      questionId: reportableRound.questionId,
       questionRevision: questionCalibrationRevision(question),
       correctIndex: question.correctIndex,
       reason,
@@ -94,7 +88,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    logServerError("reports.persist", error, { questionId: questionId.slice(0, 120) });
+    logServerError("reports.persist", error, { questionId: reportableRound.questionId.slice(0, 120) });
     return NextResponse.json({ error: "Report storage unavailable." }, { status: 503 });
   }
 }

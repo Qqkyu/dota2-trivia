@@ -46,33 +46,43 @@ import {
 } from "@/lib/calibration";
 import { getPusherClient } from "@/lib/pusher";
 import type { AccountSnapshot } from "@/lib/account-contract";
-import {
-  type ArcadeMode,
-  type ArcadeRound,
-  type RoundGame,
-  type ShopkeeperItemReference,
-  type TriviaArtworkKind,
-  type TriviaQuestion,
-} from "@/lib/trivia";
+import { type ArcadeMode, type RoundGame, type ShopkeeperItemReference, type TriviaArtworkKind } from "@/lib/trivia";
 import type { CrowdResult, PublicRoomSettings, ReportResult, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
 import { LIVE_ROUND_GAMES, PUBLIC_ARCADE_MODE, PUBLIC_ROUND_FORMATS } from "@/lib/arcade-games.mjs";
 import { shouldWaitForNextRoundOnEntry } from "@/lib/arcade-entry.mjs";
 import { ARCADE_LOBBY_PATH, PUBLIC_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
-import { DEFAULT_GAME_ID, GAME_CATALOGS, GAME_IDS } from "@/lib/game-catalogs";
+import { DEFAULT_GAME_ID, GAME_IDS, type PublicGameInfo } from "@/lib/game-identity";
 import { answerFeedbackKind, dotaFeedbackSoundForKind } from "@/lib/feedback-sounds.mjs";
+import {
+  HERO_PICKER_BY_KEY,
+  HERO_PICKER_CATALOG,
+  HERO_PICKER_HEROES,
+  isHeroCatalogKey,
+  type HeroPickerHero,
+} from "@/lib/hero-picker";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
 import type { MapBounds, MapChoiceChallenge, MapCrop, MapPosition, MapViewport } from "@/lib/map-types";
 import { MAP_READ_GRACE_MS, speedScoreRatio } from "@/lib/scoring.mjs";
 import {
-  isBuildResultQuestion,
-  isQuestionAnswerCorrect,
+  isRecipeAnswerKey,
   isShopkeeperCatalogKey,
+  recipeAnswerKeyForItems,
+  recipeItemsFromAnswerKey,
   SHOPKEEPER_CATALOG,
   SHOPKEEPER_CATALOG_BY_KEY,
   SHOPKEEPER_CATALOG_ITEMS,
-  shopkeeperAnswerIndex,
   type ShopkeeperCatalogItem,
 } from "@/lib/shopkeeper-catalog";
+import {
+  isPublicArcadeQuestion,
+  isPublicBuildResultQuestion,
+  isPublicHeroPickerQuestion,
+  isPublicKeyedAnswerQuestion,
+  isPublicQuestionAnswerCorrect,
+  isPublicRecipeBuilderQuestion,
+  publicCorrectIndex,
+  type PublicArcadeQuestion,
+} from "@/lib/public-question";
 import {
   ECHO_HUNT_REVEAL_STAGES,
   SOUNDCHECK_REVEAL_STAGES,
@@ -91,7 +101,7 @@ const SPELL_CLUE_PENALTY = 40;
 const DEFAULT_GAME_VOLUME = 0.1;
 const MIN_GAME_VOLUME = 0.1;
 const LETTERS = ["A", "B", "C", "D"] as const;
-const EMPTY_CROWD: CrowdResult = { counts: [0, 0, 0, 0], total: 0, positions: [], itemCounts: [] };
+const EMPTY_CROWD: CrowdResult = { counts: [0, 0, 0, 0], total: 0, positions: [], keyCounts: [] };
 const STORAGE_KEY = "queue-arcade:stats:v2";
 const PLAYER_KEY = "queue-arcade:player:v2";
 const SETTINGS_KEY = "queue-arcade:settings:v3";
@@ -99,12 +109,25 @@ const PREVIOUS_SETTINGS_KEY = "queue-arcade:settings:v2";
 const LEGACY_STORAGE_KEY = "queue-trivia:stats:v1";
 const LEGACY_PLAYER_KEY = "queue-trivia:player:v1";
 const LEGACY_SETTINGS_KEY = "queue-trivia:settings:v1";
-const ACTIVE_GAME = GAME_CATALOGS[DEFAULT_GAME_ID];
-const ACTIVE_QUESTIONS = ACTIVE_GAME.questions;
-const QUESTIONS_BY_ID = new Map(ACTIVE_QUESTIONS.map((question) => [question.id, question]));
 const ROUND_GAMES: RoundGame[] = [...LIVE_ROUND_GAMES] as RoundGame[];
-const PREVIEW_QUESTION =
-  ACTIVE_QUESTIONS.find((question) => question.id === "cooldown:lina_dragon_slave:4") ?? ACTIVE_QUESTIONS[0];
+const PREVIEW_QUESTION: PublicArcadeQuestion = {
+  id: "preview",
+  game: "trivia",
+  kind: "cooldown",
+  category: "Abilities",
+  difficulty: 2,
+  eyebrow: "Endless rotation",
+  prompt: "The next round could be anything.",
+  image: {
+    src: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lina_dragon_slave.png",
+    alt: "Dota ability artwork",
+    kind: "ability",
+  },
+  answers: ["Ability values", "Item recipes", "Hero voices", "Fogged portraits"],
+  patch: "live",
+  clueStage: 1,
+  reveal: null,
+};
 
 function waitForMediaEvent(
   audio: HTMLAudioElement,
@@ -208,7 +231,7 @@ interface RoundAward {
 
 interface RoundRecord {
   id: string;
-  category: TriviaQuestion["category"];
+  category: PublicArcadeQuestion["category"];
   game: RoundGame;
   correct: boolean;
   points: number;
@@ -216,7 +239,6 @@ interface RoundRecord {
 
 interface QuestionReportTarget {
   roundId: string;
-  questionId: string;
   prompt: string;
   answer: string;
   expiresAt: number;
@@ -356,22 +378,24 @@ function normalizeCrowd(value: unknown): CrowdResult | null {
   const { counts, total } = value;
   const positions =
     "positions" in value && Array.isArray(value.positions) ? value.positions.filter(isMapPosition).slice(-400) : [];
-  const itemCounts =
-    "itemCounts" in value && Array.isArray(value.itemCounts)
-      ? value.itemCounts
-          .filter((entry): entry is { itemKey: string; count: number } =>
+  const keyCounts =
+    "keyCounts" in value && Array.isArray(value.keyCounts)
+      ? value.keyCounts
+          .filter((entry): entry is { answerKey: string; count: number } =>
             Boolean(
               entry &&
                 typeof entry === "object" &&
-                "itemKey" in entry &&
-                isShopkeeperCatalogKey(entry.itemKey) &&
+                "answerKey" in entry &&
+                (isShopkeeperCatalogKey(entry.answerKey) ||
+                  isRecipeAnswerKey(entry.answerKey) ||
+                  isHeroCatalogKey(entry.answerKey)) &&
                 "count" in entry &&
                 typeof entry.count === "number" &&
                 Number.isInteger(entry.count) &&
                 entry.count > 0,
             ),
           )
-          .slice(0, SHOPKEEPER_CATALOG_ITEMS.length)
+          .slice(0, SHOPKEEPER_CATALOG_ITEMS.length + HERO_PICKER_HEROES.length)
       : [];
 
   if (
@@ -388,7 +412,7 @@ function normalizeCrowd(value: unknown): CrowdResult | null {
     counts: [counts[0], counts[1], counts[2], counts[3]],
     total,
     positions,
-    itemCounts,
+    keyCounts,
   };
 }
 
@@ -408,7 +432,10 @@ function normalizePlayerVote(value: unknown) {
     answerIndex > 3 ||
     typeof submittedAt !== "number" ||
     !Number.isFinite(submittedAt) ||
-    (answerKey !== undefined && !isShopkeeperCatalogKey(answerKey)) ||
+    (answerKey !== undefined &&
+      !isShopkeeperCatalogKey(answerKey) &&
+      !isRecipeAnswerKey(answerKey) &&
+      !isHeroCatalogKey(answerKey)) ||
     (mapPosition !== undefined && !isMapPosition(mapPosition))
   ) {
     return undefined;
@@ -429,6 +456,8 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     !("serverNow" in value) ||
     !("room" in value) ||
     !("round" in value) ||
+    !("questionRevision" in value) ||
+    !("question" in value) ||
     !("presence" in value) ||
     !("crowd" in value) ||
     !("playerVote" in value) ||
@@ -440,6 +469,7 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
   const candidate = value as Partial<RoomSnapshot>;
   const room = candidate.room;
   const round = candidate.round;
+  const question = candidate.question;
   const presence = candidate.presence;
   const crowd = normalizeCrowd(candidate.crowd);
   const playerVote = normalizePlayerVote(candidate.playerVote);
@@ -463,11 +493,15 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     typeof round.number !== "number" ||
     (round.phase !== "answering" && round.phase !== "reveal") ||
     !ROUND_GAMES.includes(round.game) ||
-    typeof round.questionId !== "string" ||
     typeof round.startedAt !== "number" ||
     typeof round.answerDeadline !== "number" ||
     typeof round.revealDeadline !== "number" ||
     typeof round.answerDuration !== "number" ||
+    typeof candidate.questionRevision !== "string" ||
+    (question !== null && !isPublicArcadeQuestion(question)) ||
+    (question !== null && (question.id !== round.id || question.game !== round.game)) ||
+    (question !== null && round.phase === "answering" && question.reveal !== null) ||
+    (question !== null && round.phase === "reveal" && question.reveal === null) ||
     !presence ||
     typeof presence.activePlayers !== "number" ||
     !Number.isInteger(presence.activePlayers) ||
@@ -483,6 +517,8 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     serverNow: candidate.serverNow,
     room,
     round,
+    questionRevision: candidate.questionRevision,
+    question,
     presence,
     crowd,
     playerVote,
@@ -503,12 +539,13 @@ function normalizeVoteResult(value: unknown): VoteResult | null {
   };
 }
 
-function publicRoomQuery(settings: PublicRoomSettings, playerId: string) {
+function publicRoomQuery(settings: PublicRoomSettings, playerId: string, questionRevision?: string) {
   return new URLSearchParams({
     gameId: settings.gameId,
     mode: settings.mode,
     filter: settings.filter,
     playerId,
+    ...(questionRevision ? { questionRevision } : {}),
   });
 }
 
@@ -542,7 +579,7 @@ function clueStageAt(timeRemaining: number, duration: number) {
 }
 
 function scoreBreakdown(
-  question: ArcadeRound,
+  question: PublicArcadeQuestion,
   timeRemaining: number,
   duration: number,
   selectedMapPosition?: MapPosition | null,
@@ -576,9 +613,9 @@ function QuestionArtwork({
   className,
   fallbackLabel,
 }: {
-  question: TriviaQuestion;
+  question: PublicArcadeQuestion;
   concealIdentity?: boolean;
-  imageOverride?: TriviaQuestion["image"];
+  imageOverride?: PublicArcadeQuestion["image"];
   testId?: string;
   className?: string;
   fallbackLabel?: string;
@@ -706,6 +743,50 @@ function ShopkeeperPick({ item, label }: { item: ShopkeeperCatalogItem | undefin
   );
 }
 
+function shopkeeperReferencesForKeys(itemKeys: string[]): ShopkeeperItemReference[] {
+  const references: ShopkeeperItemReference[] = [];
+  const referenceByKey = new Map<string, ShopkeeperItemReference>();
+
+  for (const itemKey of itemKeys) {
+    const item = SHOPKEEPER_CATALOG_BY_KEY.get(itemKey);
+    if (!item) continue;
+    const existing = referenceByKey.get(itemKey);
+    if (existing) {
+      existing.count += 1;
+      continue;
+    }
+    const reference = { key: item.key, name: item.name, image: item.image, count: 1 };
+    referenceByKey.set(itemKey, reference);
+    references.push(reference);
+  }
+
+  return references;
+}
+
+function keyedAnswerLabel(answerKey: string, fallback: string) {
+  const recipeItems = recipeItemsFromAnswerKey(answerKey);
+  if (recipeItems) {
+    return shopkeeperReferencesForKeys(recipeItems)
+      .map((item) => `${item.name}${item.count > 1 ? ` ×${item.count}` : ""}`)
+      .join(", ");
+  }
+  return SHOPKEEPER_CATALOG_BY_KEY.get(answerKey)?.name ?? HERO_PICKER_BY_KEY.get(answerKey)?.name ?? fallback;
+}
+
+function ShopkeeperRecipePick({ itemKeys, label }: { itemKeys: string[]; label: string }) {
+  const items = shopkeeperReferencesForKeys(itemKeys);
+  return (
+    <span className={styles.shopkeeperRecipePick}>
+      <small>{label}</small>
+      {items.length ? (
+        <ShopkeeperTray items={items} compact testId="shopkeeper-recipe-reveal-tray" />
+      ) : (
+        <strong>No build</strong>
+      )}
+    </span>
+  );
+}
+
 function ShopkeeperStore({
   question,
   phase,
@@ -713,7 +794,7 @@ function ShopkeeperStore({
   crowd,
   onChoose,
 }: {
-  question: TriviaQuestion;
+  question: PublicArcadeQuestion;
   phase: GamePhase;
   selectedKey: string | null;
   crowd: CrowdResult;
@@ -728,11 +809,17 @@ function ShopkeeperStore({
     width: number;
     placement: "above" | "below";
   } | null>(null);
-  const targetKey = question.shopkeeper?.targetItemKey;
-  const targetItem = targetKey ? SHOPKEEPER_CATALOG_BY_KEY.get(targetKey) : undefined;
+  const recipeBuilder = isPublicRecipeBuilderQuestion(question);
+  const recipeSize = recipeBuilder ? (question.shopkeeper?.recipeSize ?? 0) : 0;
+  const submittedRecipeKeys = recipeItemsFromAnswerKey(selectedKey) ?? [];
+  const [draftRecipeKeys, setDraftRecipeKeys] = useState<string[]>(() => submittedRecipeKeys);
+  const activeRecipeKeys = selectedKey ? submittedRecipeKeys : draftRecipeKeys;
+  const targetKey = question.reveal?.correctAnswerKey;
+  const correctRecipeKeys = recipeItemsFromAnswerKey(targetKey) ?? [];
+  const targetItem = !recipeBuilder && targetKey ? SHOPKEEPER_CATALOG_BY_KEY.get(targetKey) : undefined;
   const selectedItem = selectedKey ? SHOPKEEPER_CATALOG_BY_KEY.get(selectedKey) : undefined;
   const normalizedQuery = query.trim().toLocaleLowerCase("en-US");
-  const countByItem = new Map(crowd.itemCounts.map((entry) => [entry.itemKey, entry.count]));
+  const countByItem = new Map(crowd.keyCounts.map((entry) => [entry.answerKey, entry.count]));
   const searchItems = normalizedQuery
     ? SHOPKEEPER_CATALOG_ITEMS.filter(
         (item) => item.name.toLocaleLowerCase("en-US").includes(normalizedQuery) || item.key.includes(normalizedQuery),
@@ -741,6 +828,32 @@ function ShopkeeperStore({
   const groups = normalizedQuery
     ? [{ key: "search", label: `${searchItems.length} found`, section, items: searchItems }]
     : SHOPKEEPER_CATALOG.groups.filter((group) => group.section === section);
+
+  const chooseItem = (itemKey: string) => {
+    setQuery("");
+    setTooltip(null);
+    onChoose(itemKey);
+  };
+
+  const addRecipeItem = (itemKey: string) => {
+    setQuery("");
+    setTooltip(null);
+    setDraftRecipeKeys((itemKeys) => (itemKeys.length < recipeSize ? [...itemKeys, itemKey] : itemKeys));
+  };
+
+  const removeRecipeItem = (slot: number) => {
+    setTooltip(null);
+    setDraftRecipeKeys((itemKeys) => itemKeys.filter((_, index) => index !== slot));
+  };
+
+  const submitRecipe = () => {
+    if (draftRecipeKeys.length !== recipeSize) return;
+    const answerKey = recipeAnswerKeyForItems(draftRecipeKeys);
+    if (!answerKey) return;
+    setQuery("");
+    setTooltip(null);
+    onChoose(answerKey);
+  };
 
   const showItemTooltip = (item: ShopkeeperCatalogItem, button: HTMLButtonElement) => {
     const bounds = button.getBoundingClientRect();
@@ -773,7 +886,13 @@ function ShopkeeperStore({
 
   return (
     <>
-      <div className={styles.shopkeeperStore} data-testid="shopkeeper-store" data-phase={phase}>
+      <div
+        className={styles.shopkeeperStore}
+        data-testid="shopkeeper-store"
+        data-phase={phase}
+        data-answer-mode={question.answerMode}
+        data-locked={selectedKey ? "true" : "false"}
+      >
         <div className={styles.shopkeeperStoreToolbar}>
           <div className={styles.shopkeeperStoreTabs} role="tablist" aria-label="Shop section">
             {(["basics", "upgrades"] as const).map((tab) => (
@@ -808,13 +927,78 @@ function ShopkeeperStore({
           </label>
         </div>
 
-        {phase === "reveal" && (
+        {recipeBuilder && phase === "answering" && (
+          <div
+            className={styles.shopkeeperRecipeBuilder}
+            data-testid="shopkeeper-recipe-builder"
+            data-recipe-size={recipeSize}
+            data-selection-count={activeRecipeKeys.length}
+          >
+            <span className={styles.shopkeeperRecipeBuilderLabel}>
+              <small>Direct recipe</small>
+              <strong>
+                {activeRecipeKeys.length}/{recipeSize}
+              </strong>
+            </span>
+            <div className={styles.shopkeeperRecipeSlots}>
+              {Array.from({ length: recipeSize }, (_, slot) => {
+                const itemKey = activeRecipeKeys[slot];
+                const item = itemKey ? SHOPKEEPER_CATALOG_BY_KEY.get(itemKey) : undefined;
+                return item ? (
+                  <button
+                    key={`${slot}:${itemKey}`}
+                    type="button"
+                    data-testid="shopkeeper-recipe-slot"
+                    data-item-key={item.key}
+                    aria-label={`Remove ${item.name}`}
+                    onClick={() => removeRecipeItem(slot)}
+                    disabled={selectedKey !== null}
+                  >
+                    <Image src={item.image} alt="" fill sizes="58px" unoptimized />
+                    <X aria-hidden="true" />
+                  </button>
+                ) : (
+                  <span key={slot} data-testid="shopkeeper-recipe-slot" data-empty="true" aria-hidden="true">
+                    +
+                  </span>
+                );
+              })}
+            </div>
+            <button
+              type="button"
+              className={styles.shopkeeperBuildButton}
+              data-testid="shopkeeper-recipe-build"
+              onClick={submitRecipe}
+              disabled={selectedKey !== null || activeRecipeKeys.length !== recipeSize}
+            >
+              <Check aria-hidden="true" />
+              {selectedKey ? "Locked" : "Build"}
+            </button>
+          </div>
+        )}
+
+        {phase === "reveal" && recipeBuilder ? (
+          <div className={styles.shopkeeperRecipeReveal} data-testid="shopkeeper-open-reveal">
+            <ShopkeeperRecipePick itemKeys={submittedRecipeKeys} label="Your recipe" />
+            <ArrowRight aria-hidden="true" />
+            <ShopkeeperRecipePick itemKeys={correctRecipeKeys} label="Correct recipe" />
+          </div>
+        ) : phase === "reveal" ? (
           <div className={styles.shopkeeperRevealPicks} data-testid="shopkeeper-open-reveal">
             <ShopkeeperPick item={selectedItem} label="Your pick" />
             <ArrowRight aria-hidden="true" />
-            <ShopkeeperPick item={targetItem} label="Build result" />
+            <ShopkeeperPick
+              item={targetItem}
+              label={
+                question.soundcheck?.family === "item"
+                  ? "Sound source"
+                  : question.shopkeeper?.format === "upgrade-path"
+                    ? "Direct upgrade"
+                    : "Build result"
+              }
+            />
           </div>
-        )}
+        ) : null}
 
         <div
           className={clsx(styles.shopkeeperGroups, normalizedQuery && styles.shopkeeperSearchResults)}
@@ -826,8 +1010,18 @@ function ShopkeeperStore({
               <h3>{group.label}</h3>
               <div>
                 {group.items.map((item) => {
-                  const isSelected = selectedKey === item.key;
-                  const isCorrect = phase === "reveal" && targetKey === item.key;
+                  const selectedCount = recipeBuilder
+                    ? activeRecipeKeys.filter((itemKey) => itemKey === item.key).length
+                    : selectedKey === item.key
+                      ? 1
+                      : 0;
+                  const correctCount = recipeBuilder
+                    ? correctRecipeKeys.filter((itemKey) => itemKey === item.key).length
+                    : targetKey === item.key
+                      ? 1
+                      : 0;
+                  const isSelected = selectedCount > 0;
+                  const isCorrect = phase === "reveal" && correctCount > 0;
                   const count = countByItem.get(item.key) ?? 0;
                   const percentage = crowd.total ? Math.round((count / crowd.total) * 100) : 0;
                   const state = isCorrect
@@ -845,21 +1039,27 @@ function ShopkeeperStore({
                       data-testid="shopkeeper-store-item"
                       data-item-key={item.key}
                       data-state={state}
-                      onClick={() => {
-                        setTooltip(null);
-                        onChoose(item.key);
-                      }}
+                      data-pick-count={selectedCount}
+                      onClick={() => (recipeBuilder ? addRecipeItem(item.key) : chooseItem(item.key))}
                       onPointerEnter={(event) => showItemTooltip(item, event.currentTarget)}
                       onPointerLeave={() => setTooltip(null)}
                       onFocus={(event) => showItemTooltip(item, event.currentTarget)}
                       onBlur={() => setTooltip(null)}
-                      disabled={phase !== "answering" || selectedKey !== null}
+                      disabled={
+                        phase !== "answering" ||
+                        selectedKey !== null ||
+                        (recipeBuilder && activeRecipeKeys.length >= recipeSize)
+                      }
                       aria-label={`${item.name}, ${item.cost.toLocaleString("en-US")} gold`}
                       aria-describedby={tooltip?.item.key === item.key ? "shopkeeper-item-tooltip" : undefined}
                       aria-pressed={isSelected}
                     >
                       <Image src={item.image} alt="" fill sizes="48px" loading="eager" unoptimized />
-                      {phase === "reveal" && count > 0 && <i>{percentage}%</i>}
+                      {recipeBuilder && selectedCount > 0 ? (
+                        <i>×{selectedCount}</i>
+                      ) : phase === "reveal" && count > 0 ? (
+                        <i>{percentage}%</i>
+                      ) : null}
                     </button>
                   );
                 })}
@@ -891,32 +1091,209 @@ function ShopkeeperStore({
   );
 }
 
-function shopkeeperFormatLabel(question: TriviaQuestion) {
+const HERO_ATTRIBUTE_ICONS = {
+  strength: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png",
+  agility: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png",
+  intelligence: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png",
+  universal: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_universal.png",
+} satisfies Record<(typeof HERO_PICKER_CATALOG.groups)[number]["key"], string>;
+
+function HeroPickerPortrait({ hero }: { hero: HeroPickerHero }) {
+  return <Image src={hero.image} alt="" fill sizes="44px" loading="eager" unoptimized />;
+}
+
+function HeroPicker({
+  question,
+  phase,
+  selectedKey,
+  crowd,
+  onChoose,
+}: {
+  question: PublicArcadeQuestion;
+  phase: GamePhase;
+  selectedKey: string | null;
+  crowd: CrowdResult;
+  onChoose: (heroKey: string) => void;
+}) {
+  const [query, setQuery] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const targetKey = question.reveal?.correctAnswerKey;
+  const countByHero = new Map(crowd.keyCounts.map((entry) => [entry.answerKey, entry.count]));
+  const normalizedQuery = query.trim().toLocaleLowerCase("en-US");
+  const heroMatches = (hero: HeroPickerHero) => {
+    if (!normalizedQuery) return true;
+    const name = hero.name.toLocaleLowerCase("en-US");
+    const slug = hero.key.replace(/^npc_dota_hero_/, "").replaceAll("_", " ");
+    const initials = name
+      .split(/\s+/)
+      .map((part) => part[0])
+      .join("");
+    return name.includes(normalizedQuery) || slug.includes(normalizedQuery) || initials.startsWith(normalizedQuery);
+  };
+  const matchCount = normalizedQuery ? HERO_PICKER_HEROES.filter(heroMatches).length : HERO_PICKER_HEROES.length;
+
+  const chooseHero = (heroKey: string) => {
+    setQuery("");
+    onChoose(heroKey);
+  };
+
+  useEffect(() => {
+    if (phase !== "answering" || selectedKey !== null) return;
+
+    const startSearching = (event: KeyboardEvent) => {
+      if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return;
+      const target = event.target;
+      if (
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        target instanceof HTMLSelectElement ||
+        (target instanceof HTMLElement && target.isContentEditable)
+      ) {
+        return;
+      }
+
+      if (event.key === "Escape") {
+        setQuery("");
+        return;
+      }
+      if (event.key === "Backspace" && query) {
+        event.preventDefault();
+        setQuery((value) => value.slice(0, -1));
+        searchInputRef.current?.focus({ preventScroll: true });
+        return;
+      }
+      if (event.key.length !== 1 || (!query && event.key.trim() === "")) return;
+
+      event.preventDefault();
+      setQuery((value) => `${value}${event.key}`);
+      searchInputRef.current?.focus({ preventScroll: true });
+    };
+
+    window.addEventListener("keydown", startSearching);
+    return () => window.removeEventListener("keydown", startSearching);
+  }, [phase, query, selectedKey]);
+
+  return (
+    <div
+      className={styles.heroPicker}
+      data-testid="hero-picker"
+      data-phase={phase}
+      data-locked={selectedKey ? "true" : "false"}
+      data-searching={normalizedQuery ? "true" : "false"}
+      style={{ "--hero-grid-columns": HERO_PICKER_CATALOG.columns } as CSSProperties}
+    >
+      <label className={styles.heroPickerSearch}>
+        <Search aria-hidden="true" />
+        <input
+          ref={searchInputRef}
+          type="search"
+          value={query}
+          data-testid="hero-search"
+          placeholder="Type to search heroes"
+          aria-label="Search heroes"
+          onChange={(event) => setQuery(event.currentTarget.value)}
+          onKeyDown={(event) => {
+            if (event.key !== "Escape") return;
+            event.preventDefault();
+            setQuery("");
+            event.currentTarget.blur();
+          }}
+          disabled={phase !== "answering" || selectedKey !== null}
+        />
+        {normalizedQuery && <small>{matchCount}</small>}
+        {normalizedQuery && (
+          <button
+            type="button"
+            data-testid="hero-search-clear"
+            aria-label="Clear hero search"
+            onClick={() => {
+              setQuery("");
+              searchInputRef.current?.focus({ preventScroll: true });
+            }}
+          >
+            <X aria-hidden="true" />
+          </button>
+        )}
+      </label>
+      <div className={styles.heroPickerBoard}>
+        {HERO_PICKER_CATALOG.groups.map((group) => (
+          <section
+            key={group.key}
+            className={styles.heroPickerGroup}
+            data-attribute={group.key}
+            data-hero-count={group.heroes.length}
+            aria-label={`${group.label} heroes`}
+          >
+            <h3>
+              <Image src={HERO_ATTRIBUTE_ICONS[group.key]} alt="" width={18} height={18} unoptimized />
+              {group.label}
+            </h3>
+            <div>
+              {group.heroes.map((hero) => {
+                const isSearchMatch = heroMatches(hero);
+                const isSelected = selectedKey === hero.key;
+                const isCorrect = phase === "reveal" && targetKey === hero.key;
+                const count = countByHero.get(hero.key) ?? 0;
+                const percentage = crowd.total ? Math.round((count / crowd.total) * 100) : 0;
+                const state = isCorrect
+                  ? "correct"
+                  : phase === "reveal" && isSelected
+                    ? "wrong"
+                    : isSelected
+                      ? "selected"
+                      : "idle";
+
+                return (
+                  <button
+                    key={hero.key}
+                    type="button"
+                    data-testid="hero-picker-hero"
+                    data-hero-key={hero.key}
+                    data-state={state}
+                    data-search-match={isSearchMatch ? "true" : "false"}
+                    title={hero.name}
+                    aria-label={hero.name}
+                    aria-pressed={isSelected}
+                    disabled={phase !== "answering" || selectedKey !== null}
+                    onClick={() => chooseHero(hero.key)}
+                  >
+                    <HeroPickerPortrait hero={hero} />
+                    {phase === "reveal" && count > 0 && <i>{percentage}%</i>}
+                    {phase === "reveal" && (isCorrect || isSelected) && (
+                      <span className={styles.heroPickerVerdict} aria-hidden="true">
+                        {isCorrect ? <Check /> : <X />}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function shopkeeperFormatLabel(question: PublicArcadeQuestion) {
   if (question.shopkeeper?.format === "build-result") return "Build Result";
   if (question.shopkeeper?.format === "real-recipe") return "Real Recipe";
   if (question.shopkeeper?.format === "shared-part") return "Shared Part";
   return "Upgrade Path";
 }
 
-function shopkeeperRoundNote(question: TriviaQuestion) {
+function shopkeeperRoundNote(question: PublicArcadeQuestion) {
   if (question.shopkeeper?.format === "build-result") return "Every shown component is part of the direct recipe";
-  if (question.shopkeeper?.format === "real-recipe") return "Three trays contain exactly one wrong component";
+  if (question.shopkeeper?.format === "real-recipe") return "Build the direct recipe from the shop";
   if (question.shopkeeper?.format === "shared-part") return "Compare the two direct shop recipes";
   return "Choose the item that directly upgrades from the shown part";
 }
 
-function shopkeeperAnswerAction(question: TriviaQuestion) {
+function shopkeeperAnswerAction(question: PublicArcadeQuestion) {
   if (question.shopkeeper?.format === "build-result") return "Choose the finished item";
-  if (question.shopkeeper?.format === "real-recipe") return "Choose the real recipe";
+  if (question.shopkeeper?.format === "real-recipe") return "Build the direct recipe";
   if (question.shopkeeper?.format === "shared-part") return "Choose the shared component";
   return "Choose the direct upgrade";
-}
-
-function shopkeeperTip(question: TriviaQuestion) {
-  if (question.shopkeeper?.format === "build-result") return "Read the whole tray—duplicate components count.";
-  if (question.shopkeeper?.format === "real-recipe") return "Each false tray swaps exactly one component.";
-  if (question.shopkeeper?.format === "shared-part") return "Only direct shop components count here.";
-  return "The correct answer uses the shown item in its direct recipe.";
 }
 
 function percentagePosition(position: MapPosition) {
@@ -1066,7 +1443,7 @@ function MapSenseBoard({
   onChoosePosition,
   onChooseIndex,
 }: {
-  question: ArcadeRound;
+  question: PublicArcadeQuestion;
   phase: GamePhase;
   selectedIndex: number | null;
   selectedPosition: MapPosition | null;
@@ -1150,7 +1527,7 @@ function MapSenseBoard({
                 const end = viewportPosition(option.position, viewport);
                 const state =
                   phase === "reveal"
-                    ? index === question.correctIndex
+                    ? index === publicCorrectIndex(question)
                       ? "correct"
                       : index === selectedIndex
                         ? "wrong"
@@ -1250,7 +1627,7 @@ function MapSenseBoard({
           {choice?.options.map((option, index) => {
             const position = viewportPosition(option.position, viewport);
             const isSelected = selectedIndex === index;
-            const isCorrect = question.correctIndex === index;
+            const isCorrect = publicCorrectIndex(question) === index;
             const state =
               phase === "reveal"
                 ? isCorrect
@@ -1418,7 +1795,7 @@ function MapSenseBoard({
           <div className={styles.mapChoiceList} role="group" aria-label="Map choices">
             {choice.options.map((option, index) => {
               const isSelected = selectedIndex === index;
-              const isCorrect = question.correctIndex === index;
+              const isCorrect = publicCorrectIndex(question) === index;
               const percentage = crowd.total ? Math.round((crowd.counts[index] / crowd.total) * 100) : 0;
               return (
                 <button
@@ -1484,17 +1861,17 @@ function MapSenseBoard({
   );
 }
 
-function BrandMark() {
+function BrandMark({ logoUrl }: { logoUrl: string }) {
   return (
     <span className={styles.brandMark} aria-hidden="true">
-      <Image src={ACTIVE_GAME.logoUrl} alt="" width={30} height={30} unoptimized />
+      <Image src={logoUrl} alt="" width={30} height={30} unoptimized />
     </span>
   );
 }
 
-export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
+export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boolean; gameInfo: PublicGameInfo }) {
   const [phase, setPhaseState] = useState<GamePhase>("lobby");
-  const [currentQuestion, setCurrentQuestion] = useState<ArcadeRound | null>(null);
+  const [currentQuestion, setCurrentQuestion] = useState<PublicArcadeQuestion | null>(null);
   const [roundIndex, setRoundIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [selectedAnswerKey, setSelectedAnswerKey] = useState<string | null>(null);
@@ -1534,7 +1911,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   const [reportNotice, setReportNotice] = useState<QuestionReportNotice | null>(null);
 
   const phaseRef = useRef<GamePhase>("lobby");
-  const currentQuestionRef = useRef<ArcadeRound | null>(null);
+  const currentQuestionRef = useRef<PublicArcadeQuestion | null>(null);
   const roundIndexRef = useRef(0);
   const selectedIndexRef = useRef<number | null>(null);
   const selectedAnswerKeyRef = useRef<string | null>(null);
@@ -1550,6 +1927,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   const roomSettingsRef = useRef<PublicRoomSettings | null>(null);
   const roomSnapshotRef = useRef<RoomSnapshot | null>(null);
   const roundIdRef = useRef("");
+  const questionRevisionRef = useRef("");
   const entryWaitRoundIdRef = useRef("");
   const syncPromiseRef = useRef<Promise<void> | null>(null);
   const feedbackAudioRef = useRef<{
@@ -1564,6 +1942,22 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   const autoStartAttemptedRef = useRef(false);
   const alphaSessionIdRef = useRef("");
   const alphaSessionFinishedRef = useRef(false);
+  const heroPreloadsRef = useRef<HTMLImageElement[]>([]);
+
+  useEffect(() => {
+    const sources = [...Object.values(HERO_ATTRIBUTE_ICONS), ...HERO_PICKER_HEROES.map((hero) => hero.image)];
+    heroPreloadsRef.current = sources.map((src) => {
+      const image = new window.Image();
+      image.decoding = "async";
+      image.fetchPriority = "low";
+      image.src = src;
+      return image;
+    });
+
+    return () => {
+      heroPreloadsRef.current = [];
+    };
+  }, []);
 
   const updateReportTarget = useCallback((target: QuestionReportTarget | null) => {
     reportTargetRef.current = target;
@@ -1741,7 +2135,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
 
   const requestRoomSnapshot = useCallback(async (settings: PublicRoomSettings, playerId: string) => {
     const requestedAt = Date.now();
-    const response = await fetch(`/api/rounds?${publicRoomQuery(settings, playerId)}`, {
+    const response = await fetch(`/api/rounds?${publicRoomQuery(settings, playerId, questionRevisionRef.current)}`, {
       cache: "no-store",
     });
     const payload: unknown = await response.json();
@@ -1749,9 +2143,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
 
     if (!response.ok) throw new Error("Public room unavailable.");
     const snapshot = normalizeRoomSnapshot(payload);
-    if (!snapshot || !QUESTIONS_BY_ID.has(snapshot.round.questionId)) {
-      throw new Error("Public room returned an unknown round.");
-    }
+    if (!snapshot) throw new Error("Public room returned an invalid round.");
 
     return {
       snapshot,
@@ -1773,12 +2165,14 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       setPhase("reveal");
       setCrowd(snapshot.crowd);
 
-      const isCorrect = isQuestionAnswerCorrect(
+      const isCorrect = isPublicQuestionAnswerCorrect(
         question,
         selectedIndexRef.current ?? -1,
         selectedAnswerKeyRef.current ?? undefined,
       );
-      const correctVotes = snapshot.crowd.counts[question.correctIndex];
+      const correctIndex = publicCorrectIndex(question);
+      if (correctIndex < 0) throw new Error("The reveal did not include a correct answer.");
+      const correctVotes = snapshot.crowd.counts[correctIndex];
       const majorityBonus = isCorrect && snapshot.crowd.total > 0 && correctVotes / snapshot.crowd.total < 0.5;
       const {
         speedBonus,
@@ -1833,9 +2227,6 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
 
   const applyRoomSnapshot = useCallback(
     (snapshot: RoomSnapshot, clockOffset: number, receivedAt: number) => {
-      const baseQuestion = QUESTIONS_BY_ID.get(snapshot.round.questionId);
-      if (!baseQuestion) throw new Error("The synchronized round references an unknown question.");
-      const question: ArcadeRound = { ...baseQuestion, game: snapshot.round.game };
       const localAnswerDeadline = snapshot.round.answerDeadline + clockOffset;
       const localRevealDeadline = snapshot.round.revealDeadline + clockOffset;
       const isNewRound = roundIdRef.current !== snapshot.round.id;
@@ -1875,6 +2266,17 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
         setEntryWaitDeadline(null);
         setEntryWaitDuration(0);
       }
+
+      const question = snapshot.question ?? currentQuestionRef.current;
+      if (
+        !question ||
+        question.id !== snapshot.round.id ||
+        question.game !== snapshot.round.game ||
+        (snapshot.question === null && questionRevisionRef.current !== snapshot.questionRevision)
+      ) {
+        throw new Error("The synchronized round did not include its public question payload.");
+      }
+      if (snapshot.question) questionRevisionRef.current = snapshot.questionRevision;
 
       if (isNewRound) {
         roundIdRef.current = snapshot.round.id;
@@ -1999,6 +2401,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       setJoiningRoom(true);
       setRoomError(null);
       roomSettingsRef.current = settings;
+      questionRevisionRef.current = "";
       playSound("start");
 
       try {
@@ -2092,7 +2495,6 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
           body: JSON.stringify({
             ...settings,
             roundId: target.roundId,
-            questionId: target.questionId,
             reason,
             voterId: ensurePlayerId(),
           }),
@@ -2153,12 +2555,13 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
     updateReportState("idle");
     updateReportTarget({
       roundId: snapshot.round.id,
-      questionId: question.id,
       prompt: question.prompt,
       answer:
         question.map && !question.map.choice
           ? question.map.targetLabel
-          : (question.answers[question.correctIndex] ?? question.eyebrow),
+          : question.reveal?.correctAnswerKey
+            ? keyedAnswerLabel(question.reveal.correctAnswerKey, question.eyebrow)
+            : (question.answers[publicCorrectIndex(question)] ?? question.eyebrow),
       expiresAt: Math.max(Date.now() + 1_000, (revealDeadline ?? Date.now()) + QUESTION_REPORT_GRACE_MS),
     });
   }, [revealDeadline, updateReportState, updateReportTarget]);
@@ -2171,11 +2574,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   }, [updateReportState, updateReportTarget]);
 
   const submitVote = useCallback(
-    async (
-      question: TriviaQuestion,
-      answerIndex: number,
-      options?: { mapPosition?: MapPosition; answerKey?: string },
-    ) => {
+    async (answerIndex: number, options?: { mapPosition?: MapPosition; answerKey?: string }) => {
       const snapshot = roomSnapshotRef.current;
       const settings = roomSettingsRef.current;
       if (!snapshot || !settings || snapshot.round.id !== roundIdRef.current) return;
@@ -2189,7 +2588,6 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
           body: JSON.stringify({
             ...settings,
             roundId: snapshot.round.id,
-            questionId: question.id,
             answerIndex,
             ...(options?.answerKey ? { answerKey: options.answerKey } : {}),
             ...(options?.mapPosition ? { mapPosition: options.mapPosition } : {}),
@@ -2211,7 +2609,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
             counts: result.counts,
             total: result.total,
             positions: result.positions,
-            itemCounts: result.itemCounts,
+            keyCounts: result.keyCounts,
           });
           if (result.playerVote) {
             const serverTimeLeft = Math.max(0, snapshot.round.answerDeadline - result.playerVote.submittedAt);
@@ -2250,7 +2648,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       if (
         phaseRef.current !== "answering" ||
         !question ||
-        isBuildResultQuestion(question) ||
+        isPublicKeyedAnswerQuestion(question) ||
         (question.game === "map-sense" && !question.map?.choice) ||
         selectedIndexRef.current !== null ||
         !deadlineRef.current ||
@@ -2265,18 +2663,23 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       setSelectedIndex(answerIndex);
       setAnswerTimeLeft(timeLeft);
       playSound("lock");
-      void submitVote(question, answerIndex);
+      void submitVote(answerIndex);
     },
     [playSound, submitVote],
   );
 
-  const chooseShopkeeperItem = useCallback(
+  const chooseKeyedAnswer = useCallback(
     (answerKey: string) => {
       const question = currentQuestionRef.current;
       if (
         phaseRef.current !== "answering" ||
         !question ||
-        !isBuildResultQuestion(question) ||
+        !isPublicKeyedAnswerQuestion(question) ||
+        (isPublicBuildResultQuestion(question) && !isShopkeeperCatalogKey(answerKey)) ||
+        (isPublicRecipeBuilderQuestion(question) &&
+          (!isRecipeAnswerKey(answerKey) ||
+            recipeItemsFromAnswerKey(answerKey)?.length !== question.shopkeeper?.recipeSize)) ||
+        (isPublicHeroPickerQuestion(question) && !isHeroCatalogKey(answerKey)) ||
         selectedIndexRef.current !== null ||
         !deadlineRef.current ||
         Date.now() >= deadlineRef.current
@@ -2284,8 +2687,9 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
         return;
       }
 
-      const answerIndex = shopkeeperAnswerIndex(question, answerKey);
-      if (answerIndex === null) return;
+      // The browser intentionally does not know which catalog entry is correct.
+      // The vote service resolves this opaque key against the private question.
+      const answerIndex = 0;
       const timeLeft = Math.max(0, deadlineRef.current - Date.now());
       selectedIndexRef.current = answerIndex;
       selectedAnswerKeyRef.current = answerKey;
@@ -2294,7 +2698,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       setSelectedAnswerKey(answerKey);
       setAnswerTimeLeft(timeLeft);
       playSound("lock");
-      void submitVote(question, answerIndex, { answerKey });
+      void submitVote(answerIndex, { answerKey });
     },
     [playSound, submitVote],
   );
@@ -2321,7 +2725,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       setSelectedMapPosition(position);
       setAnswerTimeLeft(timeLeft);
       playSound("lock");
-      void submitVote(question, answerIndex, { mapPosition: position });
+      void submitVote(answerIndex, { mapPosition: position });
     },
     [playSound, submitVote],
   );
@@ -2348,6 +2752,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       roomSettingsRef.current = null;
       roomSnapshotRef.current = null;
       roundIdRef.current = "";
+      questionRevisionRef.current = "";
       entryWaitRoundIdRef.current = "";
       autoStartAttemptedRef.current = false;
       feedbackAudioRef.current?.clips.forEach(({ audio }) => audio.pause());
@@ -2568,6 +2973,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
       if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
 
       if (phaseRef.current === "answering") {
+        if (currentQuestionRef.current && isPublicKeyedAnswerQuestion(currentQuestionRef.current)) return;
         const keyMap: Record<string, number> = {
           "1": 0,
           a: 0,
@@ -2610,10 +3016,14 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   const sessionElapsed = queueStartedAt ? Math.max(0, now - queueStartedAt) : 0;
   const selectedWasCorrect =
     selectedIndex !== null && currentQuestion
-      ? isQuestionAnswerCorrect(currentQuestion, selectedIndex, selectedAnswerKey ?? undefined)
+      ? isPublicQuestionAnswerCorrect(currentQuestion, selectedIndex, selectedAnswerKey ?? undefined)
       : false;
   const currentGame = currentQuestion?.game ?? "trivia";
-  const isOpenShopRound = Boolean(currentQuestion && isBuildResultQuestion(currentQuestion));
+  const isRecipeBuilderRound = Boolean(currentQuestion && isPublicRecipeBuilderQuestion(currentQuestion));
+  const isOpenShopRound = Boolean(
+    currentQuestion && (isPublicBuildResultQuestion(currentQuestion) || isPublicRecipeBuilderQuestion(currentQuestion)),
+  );
+  const isHeroPickerRound = Boolean(currentQuestion && isPublicHeroPickerQuestion(currentQuestion));
   const isSoundcheckRound = currentGame === "soundcheck";
   const isEchoHuntRound = currentGame === "echo-hunt";
   const isProgressiveAudioRound = isSoundcheckRound || isEchoHuntRound;
@@ -2622,9 +3032,11 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
   const clueStage =
     phase === "reveal"
       ? 3
-      : isSoundcheckRound
-        ? soundcheckRevealStage(answerRemaining, answerDuration)
-        : clueStageAt(answerRemaining, answerDuration);
+      : currentGame === "spell-link" || currentGame === "quote-hunt"
+        ? (currentQuestion?.clueStage ?? 1)
+        : isSoundcheckRound
+          ? soundcheckRevealStage(answerRemaining, answerDuration)
+          : clueStageAt(answerRemaining, answerDuration);
   const firstClueAt = Math.round((answerDuration * 2) / 3_000);
   const finalClueAt = Math.round(answerDuration / 3_000);
   const liveAward = currentQuestion
@@ -2694,7 +3106,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
             returnToLobby("push");
           }}
         >
-          <BrandMark />
+          <BrandMark logoUrl={gameInfo.logoUrl} />
           <span>
             <strong>Queue Arcade</strong>
             <small>Side quests, between matches</small>
@@ -2703,7 +3115,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
 
         <div className={styles.headerMeta}>
           <span className={styles.patchBadge}>
-            {ACTIVE_GAME.label} · {ACTIVE_GAME.contentLabel}
+            {gameInfo.label} · {gameInfo.contentLabel}
           </span>
           <span className={styles.fanBadge}>Unofficial fan project</span>
           <div className={styles.volumeControl} data-muted={!soundEnabled}>
@@ -2831,7 +3243,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 <span>round formats</span>
               </div>
               <div>
-                <strong>{ACTIVE_QUESTIONS.length}</strong>
+                <strong>{gameInfo.questionCount}</strong>
                 <span>patch-current prompts</span>
               </div>
               <div>
@@ -3027,7 +3439,10 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 </div>
               </div>
             ) : currentGame === "spell-link" ? (
-              <div className={clsx(styles.questionBlock, styles.spellQuestion)} data-testid="round-prompt">
+              <div
+                className={clsx(styles.questionBlock, styles.spellQuestion, styles.heroPickerQuestion)}
+                data-testid="round-prompt"
+              >
                 <div className={styles.spellArtwork}>
                   {clueStage >= 3 ? (
                     <QuestionArtwork question={currentQuestion} testId="spell-ability-artwork" />
@@ -3078,7 +3493,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
             ) : currentGame === "fogged-vision" ? (
               <div
                 key={`${activeRoundId}:fog`}
-                className={clsx(styles.questionBlock, styles.fogQuestion)}
+                className={clsx(styles.questionBlock, styles.fogQuestion, styles.heroPickerQuestion)}
                 data-testid="round-prompt"
                 data-fog-stage={clueStage}
               >
@@ -3106,6 +3521,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 className={clsx(
                   styles.questionBlock,
                   styles.echoQuestion,
+                  isHeroPickerRound && styles.heroPickerQuestion,
                   isSoundcheckRound && styles.soundcheckQuestion,
                 )}
                 data-testid="round-prompt"
@@ -3237,7 +3653,10 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 </div>
               </div>
             ) : currentGame === "quote-hunt" ? (
-              <div className={clsx(styles.questionBlock, styles.quoteQuestion)} data-testid="round-prompt">
+              <div
+                className={clsx(styles.questionBlock, styles.quoteQuestion, styles.heroPickerQuestion)}
+                data-testid="round-prompt"
+              >
                 <div className={styles.quoteCard} data-testid="hero-quote">
                   <MessageSquareQuote />
                   <blockquote>“{currentQuestion.detail}”</blockquote>
@@ -3246,6 +3665,21 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 <div className={styles.questionCopy}>
                   <span>Quote Hunt</span>
                   <h2>Who said it?</h2>
+                  <div className={styles.quoteHints} aria-label={`Identity clue stage ${clueStage} of 3`}>
+                    {[0, 1].map((index) => {
+                      const hint = currentQuestion.quoteHints?.[index];
+                      return (
+                        <span
+                          key={index}
+                          data-testid={`quote-hint-${index + 1}`}
+                          data-state={hint ? "revealed" : "locked"}
+                        >
+                          <b>{String(index + 1).padStart(2, "0")}</b>
+                          {hint ?? "?"}
+                        </span>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             ) : currentGame === "counterplay" ? (
@@ -3338,11 +3772,22 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 phase={phase}
                 selectedKey={selectedAnswerKey}
                 crowd={crowd}
-                onChoose={chooseShopkeeperItem}
+                onChoose={chooseKeyedAnswer}
               />
             )}
 
-            {!isOpenShopRound && currentGame !== "map-sense" && (
+            {isHeroPickerRound && (
+              <HeroPicker
+                key={`${activeRoundId}:${phase}`}
+                question={currentQuestion}
+                phase={phase}
+                selectedKey={selectedAnswerKey}
+                crowd={crowd}
+                onChoose={chooseKeyedAnswer}
+              />
+            )}
+
+            {!isOpenShopRound && !isHeroPickerRound && currentGame !== "map-sense" && (
               <div
                 className={clsx(
                   styles.answers,
@@ -3360,7 +3805,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
               >
                 {currentQuestion.answers.map((answer, index) => {
                   const isSelected = selectedIndex === index;
-                  const isCorrect = currentQuestion.correctIndex === index;
+                  const isCorrect = publicCorrectIndex(currentQuestion) === index;
                   const percentage = crowd.total ? Math.round((crowd.counts[index] / crowd.total) * 100) : 0;
                   const answerImagePair = currentQuestion.answerImagePairs?.[index];
                   const shopkeeperAnswerGroup = currentQuestion.shopkeeper?.answerGroups?.[index];
@@ -3457,26 +3902,32 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 <div className={styles.answerHelper}>
                   {selectedIndex === null ? (
                     <>
-                      {isOpenShopRound ? <ShoppingBag /> : <Keyboard />}
+                      {isOpenShopRound ? <ShoppingBag /> : isHeroPickerRound ? <Users /> : <Keyboard />}
                       {isOpenShopRound
-                        ? "Choose an item from the shop"
-                        : currentGame === "shopkeeper"
-                          ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
-                          : currentGame === "spell-link"
-                            ? "Link the spell to a hero · A–D or 1–4"
-                            : currentGame === "fogged-vision"
-                              ? "Name the silhouette · A–D or 1–4"
-                              : currentGame === "echo-hunt"
-                                ? "Match the voice · A–D or 1–4"
-                                : currentGame === "soundcheck"
-                                  ? isSoundSequence
-                                    ? "Match the order · A–D or 1–4"
-                                    : "Match the sound · A–D or 1–4"
-                                  : currentGame === "quote-hunt"
-                                    ? "Match the line to its hero · A–D or 1–4"
-                                    : currentGame === "counterplay"
-                                      ? "Pick the interaction · A–D or 1–4"
-                                      : "Use A–D or 1–4 to answer"}
+                        ? isRecipeBuilderRound
+                          ? "Build the direct recipe"
+                          : isSoundcheckRound
+                            ? "Choose the item that made the sound"
+                            : "Choose an item from the shop"
+                        : isHeroPickerRound
+                          ? "Choose a hero"
+                          : currentGame === "shopkeeper"
+                            ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
+                            : currentGame === "spell-link"
+                              ? "Link the spell to a hero · A–D or 1–4"
+                              : currentGame === "fogged-vision"
+                                ? "Name the silhouette · A–D or 1–4"
+                                : currentGame === "echo-hunt"
+                                  ? "Match the voice · A–D or 1–4"
+                                  : currentGame === "soundcheck"
+                                    ? isSoundSequence
+                                      ? "Match the order · A–D or 1–4"
+                                      : "Match the sound · A–D or 1–4"
+                                    : currentGame === "quote-hunt"
+                                      ? "Match the line to its hero · A–D or 1–4"
+                                      : currentGame === "counterplay"
+                                        ? "Pick the interaction · A–D or 1–4"
+                                        : "Use A–D or 1–4 to answer"}
                       <span>Correct now: {liveAward?.rawPoints ?? 0} pts</span>
                     </>
                   ) : (
@@ -3496,7 +3947,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 <div className={styles.revealIcon}>{selectedWasCorrect ? <Check /> : <X />}</div>
                 <div className={styles.revealCopy}>
                   <span>{selectedWasCorrect ? "Correct" : selectedIndex === null ? "Time expired" : "Not quite"}</span>
-                  <p>{currentQuestion.explanation}</p>
+                  <p>{currentQuestion.reveal?.explanation}</p>
                   <div className={styles.reportControl}>
                     <button
                       type="button"
@@ -3661,15 +4112,37 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                       ? "Final answer split for this synchronized public round."
                       : "Nobody answered before this room’s deadline."}
               </p>
-              {isOpenShopRound && phase === "reveal" && crowd.itemCounts.length > 0 ? (
-                <div className={styles.shopkeeperCrowdPicks} data-testid="shopkeeper-crowd-picks">
-                  {crowd.itemCounts.slice(0, 3).map(({ itemKey, count }) => {
-                    const item = SHOPKEEPER_CATALOG_BY_KEY.get(itemKey);
-                    if (!item) return null;
+              {(isOpenShopRound || isHeroPickerRound) && phase === "reveal" && crowd.keyCounts.length > 0 ? (
+                <div
+                  className={styles.shopkeeperCrowdPicks}
+                  data-testid={
+                    isRecipeBuilderRound
+                      ? "shopkeeper-recipe-crowd-picks"
+                      : isOpenShopRound
+                        ? "shopkeeper-crowd-picks"
+                        : "hero-crowd-picks"
+                  }
+                  data-answer-mode={isRecipeBuilderRound ? "item-recipe" : undefined}
+                >
+                  {crowd.keyCounts.slice(0, 3).map(({ answerKey, count }) => {
+                    if (isRecipeBuilderRound) {
+                      const itemKeys = recipeItemsFromAnswerKey(answerKey);
+                      if (!itemKeys) return null;
+                      return (
+                        <span key={answerKey}>
+                          <ShopkeeperTray items={shopkeeperReferencesForKeys(itemKeys)} compact />
+                          <small>{Math.round((count / crowd.total) * 100)}%</small>
+                        </span>
+                      );
+                    }
+                    const answer = isOpenShopRound
+                      ? SHOPKEEPER_CATALOG_BY_KEY.get(answerKey)
+                      : HERO_PICKER_BY_KEY.get(answerKey);
+                    if (!answer) return null;
                     return (
-                      <span key={itemKey}>
-                        <Image src={item.image} alt="" width={38} height={28} unoptimized />
-                        <strong>{item.name}</strong>
+                      <span key={answerKey}>
+                        <Image src={answer.image} alt="" width={38} height={28} unoptimized />
+                        <strong>{answer.name}</strong>
                         <small>{Math.round((count / crowd.total) * 100)}%</small>
                       </span>
                     );
@@ -3687,56 +4160,6 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
                 </div>
               )}
             </div>
-
-            <div className={styles.tipCard}>
-              <ModeIcon mode={currentGame} />
-              <div>
-                <span>
-                  {currentGame === "shopkeeper"
-                    ? "Shopkeeper tip"
-                    : currentGame === "spell-link"
-                      ? "Spell Link tip"
-                      : currentGame === "fogged-vision"
-                        ? "Fogged Vision tip"
-                        : currentGame === "echo-hunt"
-                          ? "Echo Hunt tip"
-                          : currentGame === "soundcheck"
-                            ? "Soundcheck tip"
-                            : currentGame === "quote-hunt"
-                              ? "Quote Hunt tip"
-                              : currentGame === "map-sense"
-                                ? "Map Sense tip"
-                                : currentGame === "counterplay"
-                                  ? "Counterplay tip"
-                                  : "Crowd rules"}
-                </span>
-                <p>
-                  {currentGame === "shopkeeper"
-                    ? shopkeeperTip(currentQuestion)
-                    : currentGame === "spell-link"
-                      ? `Each extra clue costs ${SPELL_CLUE_PENALTY} points. Answering sooner also preserves up to ${MAX_SPEED_BONUS} speed points.`
-                      : currentGame === "fogged-vision"
-                        ? "Silhouette and color are often enough. Every clarity stage is safer, but costs time."
-                        : currentGame === "echo-hunt"
-                          ? "Accent, cadence, and vocal effects are useful tells."
-                          : currentGame === "soundcheck"
-                            ? "Listen for the attack, impact, and tail. Similar spells often differ most in their final half-second."
-                            : currentGame === "quote-hunt"
-                              ? "Look for vocabulary, ego, and worldview—the best hero lines reveal all three."
-                              : currentGame === "map-sense"
-                                ? currentQuestion.kind === "map-camp-block"
-                                  ? "Only a ward inside the camp’s real spawn box prevents the next neutral spawn."
-                                  : currentQuestion.kind === "map-stack-route"
-                                    ? "Match this camp and timing window to its in-game stack arrow."
-                                    : currentQuestion.kind === "map-tp-in"
-                                      ? "All four marked towers are live. Choose the one nearest the fight ping."
-                                      : "Paths, ramps, and treelines are stronger tells than faction color."
-                                : currentGame === "counterplay"
-                                  ? "Read the mechanic first. Every option is plausible; only one matches the stated interaction."
-                                  : `Correct answers start at 100 points. Speed adds up to ${MAX_SPEED_BONUS}; harder questions add more.`}
-                </p>
-              </div>
-            </div>
           </aside>
         </section>
       )}
@@ -3751,12 +4174,12 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
               </span>
               Session ended
             </div>
-            <span className={styles.summaryPatch}>{ACTIVE_GAME.contentLabel}</span>
+            <span className={styles.summaryPatch}>{gameInfo.contentLabel}</span>
           </div>
 
           <div className={styles.summaryHero}>
             <div className={styles.rankMedallion}>
-              <BrandMark />
+              <BrandMark logoUrl={gameInfo.logoUrl} />
               <span>{accuracy(correctCount, history.length)}</span>
               <small>%</small>
             </div>
@@ -3868,7 +4291,7 @@ export function QueueArcade({ autoStart = false }: { autoStart?: boolean }) {
 
       <footer className={styles.footer}>
         <span>
-          <BrandMark />
+          <BrandMark logoUrl={gameInfo.logoUrl} />
           Queue Arcade · Built for the seconds between “Find Match” and “Accept”
         </span>
         <span className={styles.footerMeta}>

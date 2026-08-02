@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
-import type { AccountProfile, AccountUser, PlayerRoundRecord } from "@/lib/account-contract";
+import type { AccountProfile, AccountUser, StoredPlayerRoundRecord } from "@/lib/account-contract";
 import type { AccountSessionInput, AccountStoreHealth, SteamIdentityInput } from "@/lib/account-store";
-import type { GameId } from "@/lib/game-catalogs";
+import type { GameId } from "@/lib/game-identity";
 import { summarizePlayerRounds } from "@/lib/player-profile.mjs";
 import { configuredPostgres } from "@/lib/vote-store-postgres";
 
@@ -20,7 +20,7 @@ interface PlayerRoundRow {
   game_id: string;
   question_id: string;
   question_revision: string;
-  round_game: PlayerRoundRecord["roundGame"];
+  round_game: StoredPlayerRoundRecord["roundGame"];
   round_format: string;
   correct: boolean;
   answer_stage: 1 | 2 | 3 | null;
@@ -108,7 +108,7 @@ function accountUserFrom(row: UserRow): AccountUser {
   };
 }
 
-function playerRoundFrom(row: PlayerRoundRow): PlayerRoundRecord {
+function playerRoundFrom(row: PlayerRoundRow): StoredPlayerRoundRecord {
   return {
     roundId: row.round_id,
     roundNumber: Number(row.round_number),
@@ -216,7 +216,7 @@ export async function deleteAccount(userId: string) {
   await configuredPostgres()`DELETE FROM queue_arcade_users WHERE id = ${userId}`;
 }
 
-export async function recordPlayerRound(userId: string, round: PlayerRoundRecord) {
+export async function recordPlayerRound(userId: string, round: StoredPlayerRoundRecord) {
   await ensureAccountSchema();
   await configuredPostgres()`
     INSERT INTO queue_arcade_player_rounds (

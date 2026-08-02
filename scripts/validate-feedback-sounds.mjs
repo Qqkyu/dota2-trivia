@@ -9,13 +9,13 @@ const component = await readFile(componentPath, "utf8");
 const expectedKinds = ["lock", "correct", "wrong", "start"];
 const expectedEvents = {
   lock: "ui_generic_button_click",
-  correct: "Legacy challenge_success",
+  correct: "General.Coins",
   wrong: "General.InvalidTarget_Invulnerable",
   start: "ui.matchmaking_find",
 };
 const expectedGains = {
   lock: [0.8],
-  correct: [0.22],
+  correct: [1],
   wrong: [1],
   start: [0.6, 1],
 };

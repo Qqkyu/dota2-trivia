@@ -9,9 +9,9 @@ import {
   type TriviaQuestion,
 } from "@/lib/trivia";
 import { LIVE_ARCADE_MODES } from "@/lib/arcade-games.mjs";
+import { DEFAULT_GAME_ID, type GameId, type PublicGameInfo } from "@/lib/game-identity";
 
-export const GAME_IDS = ["dota2"] as const;
-export type GameId = (typeof GAME_IDS)[number];
+export { DEFAULT_GAME_ID, GAME_IDS, isGameId, type GameId } from "@/lib/game-identity";
 
 export interface GameCatalog {
   id: GameId;
@@ -31,8 +31,6 @@ export interface GameCatalog {
   ) => ArcadeRound[];
 }
 
-export const DEFAULT_GAME_ID: GameId = "dota2";
-
 export const GAME_CATALOGS: Record<GameId, GameCatalog> = {
   dota2: {
     id: "dota2",
@@ -46,6 +44,13 @@ export const GAME_CATALOGS: Record<GameId, GameCatalog> = {
   },
 };
 
-export function isGameId(value: unknown): value is GameId {
-  return typeof value === "string" && GAME_IDS.includes(value as GameId);
+export function publicGameInfo(gameId: GameId = DEFAULT_GAME_ID): PublicGameInfo {
+  const catalog = GAME_CATALOGS[gameId];
+  return {
+    id: catalog.id,
+    label: catalog.label,
+    logoUrl: catalog.logoUrl,
+    contentLabel: catalog.contentLabel,
+    questionCount: catalog.questions.length,
+  };
 }

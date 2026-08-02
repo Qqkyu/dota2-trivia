@@ -7,17 +7,17 @@ import { rateLimitRequest } from "@/lib/api-protection";
 import { roundFormatForQuestion } from "@/lib/arcade-games.mjs";
 import { recordPlayerRound } from "@/lib/account-store";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
+import {
+  isKeyedAnswerQuestion,
+  isQuestionAnswerCorrect,
+  isValidAnswerKeyForQuestion,
+  keyedAnswerIndex,
+} from "@/lib/keyed-answer";
 import { isMapPosition, mapAnswerIndex } from "@/lib/map-sense";
 import { answerStageForRound } from "@/lib/player-profile.mjs";
 import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
-import {
-  isBuildResultQuestion,
-  isQuestionAnswerCorrect,
-  isShopkeeperCatalogKey,
-  shopkeeperAnswerIndex,
-} from "@/lib/shopkeeper-catalog";
 import { recordRoundVote } from "@/lib/vote-store";
 
 export const runtime = "nodejs";
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
     mode: candidate.mode,
     filter: candidate.filter,
   });
-  const { roundId, questionId, voterId, sessionId } = candidate;
+  const { roundId, voterId, sessionId } = candidate;
   const answerIndex =
     typeof candidate.answerIndex === "number" &&
     Number.isInteger(candidate.answerIndex) &&
@@ -72,7 +72,6 @@ export async function POST(request: NextRequest) {
   if (
     !settings ||
     typeof roundId !== "string" ||
-    typeof questionId !== "string" ||
     typeof voterId !== "string" ||
     voterId.length < 8 ||
     voterId.length > 80 ||
@@ -96,16 +95,16 @@ export async function POST(request: NextRequest) {
   const { room, round } = currentPublicRound(settings, submittedAt);
   const question = GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === round.questionId);
 
-  if (!question || round.id !== roundId || round.questionId !== questionId) {
+  if (!question || round.id !== roundId) {
     return NextResponse.json({ error: "That public round has already moved on." }, { status: 409 });
   }
 
-  const isOpenShopAnswer = isBuildResultQuestion(question);
-  const resolvedShopAnswerIndex =
-    isOpenShopAnswer && isShopkeeperCatalogKey(answerKey) ? shopkeeperAnswerIndex(question, answerKey) : null;
+  const isKeyedAnswer = isKeyedAnswerQuestion(question);
+  const resolvedKeyedAnswerIndex =
+    isKeyedAnswer && isValidAnswerKeyForQuestion(question, answerKey) ? keyedAnswerIndex(question, answerKey) : null;
   if (
-    (isOpenShopAnswer && resolvedShopAnswerIndex === null) ||
-    (!isOpenShopAnswer && (answerIndex === null || answerKey !== undefined))
+    (isKeyedAnswer && resolvedKeyedAnswerIndex === null) ||
+    (!isKeyedAnswer && (answerIndex === null || answerKey !== undefined))
   ) {
     return NextResponse.json({ error: "Invalid answer for this round." }, { status: 400 });
   }
@@ -121,18 +120,18 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const resolvedAnswerIndex = isOpenShopAnswer
-      ? (resolvedShopAnswerIndex as number)
+    const resolvedAnswerIndex = isKeyedAnswer
+      ? (resolvedKeyedAnswerIndex as number)
       : requiresMapPosition && question.map && mapPosition
         ? mapAnswerIndex(question.map, mapPosition)
         : (answerIndex as number);
-    const resolvedAnswerKey = isOpenShopAnswer ? (answerKey as string) : undefined;
+    const resolvedAnswerKey = isKeyedAnswer ? (answerKey as string) : undefined;
     const result = await recordRoundVote({
       roundId,
       roomId: room.id,
       gameId: room.gameId,
       contentVersion: room.contentVersion,
-      questionId,
+      questionId: round.questionId,
       questionRevision: questionCalibrationRevision(question),
       correctIndex: question.correctIndex,
       answerIndex: resolvedAnswerIndex,
@@ -183,11 +182,10 @@ export async function POST(request: NextRequest) {
           await pusher.trigger("queue-arcade", "vote-update", {
             roomId: room.id,
             roundId,
-            questionId,
             counts: [0, 0, 0, 0],
             total: result.total,
             positions: [],
-            itemCounts: [],
+            keyCounts: [],
           });
         } catch (error) {
           logServerError("votes.broadcast", error, { roundId: roundId.slice(0, 160) });
@@ -195,14 +193,17 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    const playerVote =
+      result.playerVote && isKeyedAnswer ? { ...result.playerVote, answerIndex: 0 } : result.playerVote;
+
     return NextResponse.json(
       {
         accepted: result.accepted,
         counts: [0, 0, 0, 0],
         total: result.total,
         positions: [],
-        itemCounts: [],
-        playerVote: result.playerVote,
+        keyCounts: [],
+        playerVote,
       },
       {
         headers: {
@@ -211,7 +212,10 @@ export async function POST(request: NextRequest) {
       },
     );
   } catch (error) {
-    logServerError("votes.persist", error, { roundId: roundId.slice(0, 160), questionId: questionId.slice(0, 120) });
+    logServerError("votes.persist", error, {
+      roundId: roundId.slice(0, 160),
+      questionId: round.questionId.slice(0, 120),
+    });
     return NextResponse.json({ error: "Vote storage unavailable." }, { status: 503 });
   }
 }

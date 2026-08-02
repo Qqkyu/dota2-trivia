@@ -13,6 +13,17 @@ const NON_PLAYABLE_FIELDS = new Set([
   "varietyKey",
 ]);
 
+const PLAYABLE_PRESENTATION_REVISIONS = Object.freeze({
+  "fogged-hero": "fog-veteran-curve-1",
+  "shopkeeper-real-recipe": "real-recipe-builder-1",
+  "shopkeeper-upgrade-path": "open-shop-1",
+});
+
+/** @param {{ kind?: string } | null | undefined} question */
+export function questionPresentationRevision(question) {
+  return PLAYABLE_PRESENTATION_REVISIONS[question?.kind] ?? null;
+}
+
 /** @param {unknown} value */
 function stablePlayableValue(value) {
   if (Array.isArray(value)) return value.map(stablePlayableValue);
@@ -44,7 +55,9 @@ function stablePlayableValue(value) {
  * @param {object} question
  */
 export function questionCalibrationRevision(question) {
-  const serialized = JSON.stringify(stablePlayableValue(question));
+  const playableValue = stablePlayableValue(question);
+  const presentationRevision = questionPresentationRevision(question);
+  const serialized = JSON.stringify(presentationRevision ? { ...playableValue, presentationRevision } : playableValue);
   const digest = createHash("sha256").update(serialized).digest("base64url").slice(0, 22);
   return `q1_${digest}`;
 }

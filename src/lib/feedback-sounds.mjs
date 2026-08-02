@@ -12,14 +12,14 @@ export const DOTA_FEEDBACK_SOUNDS = Object.freeze({
     ]),
   }),
   correct: Object.freeze({
-    event: "Legacy challenge_success",
+    event: "General.Coins",
     clips: Object.freeze([
       Object.freeze({
-        src: "/assets/dota2/sounds/challenge_success.wav",
-        source: "sounds/ui/challenge_success.wav",
-        durationSeconds: 2.346644,
-        sha256: "d2ed6c53d6ce4a0c437ebc8fcde95959bf0284089e56d0c224e17d497a3bdacb",
-        gain: 0.22,
+        src: "/assets/dota2/sounds/coins.wav",
+        source: "sounds/ui/coins.vsnd",
+        durationSeconds: 1.589909,
+        sha256: "f9f3e5565295588e4714adae9c645e149bf5c2191d0e3aa71e9177902c8e88e5",
+        gain: 1,
       }),
     ]),
   }),

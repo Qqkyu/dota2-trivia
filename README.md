@@ -25,6 +25,7 @@ The playable MVP includes:
 - a deterministic ten-format cadence that gives Classic three slots, Shopkeeper two, every distinctive sensory format one, and never repeats a family back-to-back;
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
 - one server-owned public room: everyone receives the same round and deadlines;
+- server-delivered, phase-aware question payloads: the browser never imports the playable answer catalog;
 - per-round crowd results with server-enforced deadlines and duplicate-vote protection;
 - Postgres-backed production votes and calibration, with a zero-config local file fallback;
 - stable question revisions that preserve unchanged calibration history across content releases;
@@ -53,7 +54,7 @@ Fogged Vision uses one tuned portrait curve for everyone and retains fog through
 Soundcheck alternates between ability sounds and item activations, mixing iconic cues, single deep cuts, and ordered
 two-sound rounds. Each third of the clock unlocks and replays a longer cut: two tiny prefixes, then the complete effect.
 Sequence answers are compact icon pairs:
-recognizing only one clip still leaves two plausible choices. Every sequence can be replayed freely, while persistent
+recognizing only one clip still leaves two plausible choices. Each cut plays once automatically, while persistent
 mute and volume controls apply to clips and interface cues alike. Fresh profiles start at 10% volume; the retired 70%
 default migrates once, while other explicitly chosen levels remain unchanged.
 
@@ -134,10 +135,12 @@ digest—never error text, stack traces, query strings, or player identifiers. T
 blank page when a React render fails.
 
 Connected sessions are represented by random HttpOnly, SameSite cookies; only a one-way token hash is stored. Deleting
-the profile cascades through the Steam identity, active sessions, personal round results, and linked alpha visits. Public leaderboards are
-intentionally excluded from this alpha: the browser currently ships the playable question catalog, so a public ranking
-would reward scripting. Personal records are still calculated from server-accepted synchronized votes rather than a
-client-submitted score.
+the profile cascades through the Steam identity, active sessions, personal round results, and linked alpha visits. Public
+profile responses omit the internal question IDs and revision keys retained for server-side auditing. Public leaderboards
+remain intentionally excluded from this alpha. Questions and marked answers are now server-delivered by
+phase, but hidden-identity audio and artwork still use descriptive upstream asset paths, and a determined player can
+harvest answers across completed reveals. Personal records are calculated from server-accepted synchronized votes rather
+than a client-submitted result.
 
 Every push and pull request runs the full build in GitHub Actions, boots the production server against Postgres 17, and
 exercises synchronized rounds, hidden results, duplicate votes, reports, protected calibration review transitions,
@@ -176,9 +179,10 @@ DOTA_CLIENT_AUDIT_ROOT=/path/to/decompiled-client pnpm audit:client
 
 Shopkeeper generation reads names and artwork from the matching OpenDota item snapshot, but derives every recipe from
 the audited client `items.txt`. Its 48-round deck is split evenly between Build Result, Real Recipe, Shared Part, and
-Upgrade Path. Real Recipe distractors swap exactly one component; Shared Part accepts exactly one direct intersection;
-and Upgrade Path rejects any distractor whose full build tree contains the shown item. The old single-component and
-random reverse-recipe templates remain excluded by the playable quality gates.
+Upgrade Path. Real Recipe uses the full Dota shop as a three-slot, duplicate-safe recipe builder while keeping the marked
+components server-side until reveal; Upgrade Path also uses the full shop and keeps its direct upgrade hidden until
+reveal; and Shared Part accepts exactly one direct intersection. The old single-component and random reverse-recipe
+templates remain excluded by the playable quality gates.
 
 The pipeline checks every referenced image and audio clip, rejects questions whose assets are unavailable, filters
 hero-name leaks and laugh-heavy/noise responses, blocks generated clues that leak their answer, caps timed prompts at
@@ -211,7 +215,7 @@ pnpm check
 That validates the question deck, template rotation, answer balance, scan length, and visual/audio metadata, runs ESLint, runs strict TypeScript checking, and creates an optimized production build.
 
 With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared
-round IDs and deadlines, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk
+round IDs and deadlines, sanitized answering payloads, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk
 persistence, hashed voter IDs, Steam OpenID state boundaries, account/alpha-store readiness, reveal-only report submission,
 report deduplication, aggregate-only calibration data, and that obsolete mode, level, or category values cannot split
 the public room. Against Postgres, it additionally seeds a reviewer session, verifies unauthorized review rejection plus
@@ -227,13 +231,27 @@ under `/tmp`.
 
 ## Crowd architecture
 
-Each game catalog and content version owns exactly one public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-6-classic-trivia-4-shopkeeper-2-public-arcade-1-soundcheck-8:public`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog and content version owns exactly one public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-6-classic-trivia-4-shopkeeper-5-public-arcade-2-soundcheck-9-fogged-vision-2:public`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
-`/api/votes` only accepts the current room's question before its server deadline. Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room enters its reveal phase. `/api/reports` opens with the reveal and keeps the just-finished question reportable for a 20-second rollover grace period. It stores one reason per hashed player and content-versioned question. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and uses optional Pusher events to surface participation immediately.
+`/api/rounds` converts the private catalog entry into an explicit public payload. During answering it omits the internal
+question ID, marked answer, explanation, source/audit metadata, hidden Shopkeeper keys, and locked Spell Link clues. The
+reveal payload adds only the marked answer, explanation, and any open-shop answer key needed to render the result. A
+phase-aware revision lets the browser cache the current payload while its one-second room poll continues; most rounds are
+sent once for answering and once for reveal, while Spell Link receives a new payload when each server-timed clue unlocks.
+
+`/api/votes` only accepts a round ID before its server deadline and resolves the corresponding private question itself.
+Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room
+enters its reveal phase. `/api/reports` similarly resolves the reportable current or previous round instead of trusting a
+browser-supplied question ID. It opens with the reveal and keeps the just-finished question reportable for a 20-second
+rollover grace period. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and
+uses optional Pusher events to surface participation immediately.
 
 First-time room entry is gated separately from the shared clock. A player joins the active question when at least eight seconds remain; otherwise the client holds on a synchronized countdown and begins with the next full round. Existing players never pause or leave the global timeline.
 
 The local persistent store is an atomic JSON file suited to development and a single long-running Node instance with a persistent disk. Public deployments switch automatically to transactional Postgres when `DATABASE_URL` is configured. Raw per-round votes expire independently from durable question aggregates. Calibration keys include a stable fingerprint of the playable prompt, choices, marked answer, clues, and assets, so an unchanged question keeps its history across room releases while an edited question starts cleanly. `/calibration` never exposes voter hashes. It waits for 20 answers before suggesting that a question looks too easy or too hard. Reports and sampled difficulty outliers open the review queue; allowlisted Steam reviewers can mark a signal reviewed or quarantined, and a reviewed signal reopens when new evidence arrives. None of those states silently changes the live deck. Pusher distributes updates but is never the source of truth.
+Public calibration responses also replace answer-bearing catalog IDs with their opaque revision fingerprints. Allowlisted
+reviewers receive the internal IDs only after their Steam session is verified, because those IDs are needed for explicit
+review and quarantine writes.
 
 ## Useful next steps
 
@@ -242,7 +260,8 @@ The local persistent store is an atomic JSON file suited to development and a si
 3. Collect public-alpha samples and watch structured error fingerprints by release in the deployment logs.
 4. Review ordered-pair accuracy, then expand Soundcheck with carefully audited channel and announcer families.
 5. Prototype one low-reading interaction such as ordering four audited Dota values.
-6. Implement a second game's content pack only after the Dota public loop proves sticky.
+6. Replace descriptive hidden-identity asset paths with opaque delivery before considering competitive rankings.
+7. Implement a second game's content pack only after the Dota public loop proves sticky.
 
 ## Attribution
 

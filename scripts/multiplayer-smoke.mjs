@@ -3,7 +3,9 @@
 import { createHash, randomUUID } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { recipeAnswerKeyForItems, recipeBuilderCorrectAnswerKey } from "../src/lib/item-picker.mjs";
 import { PROGRESSIVE_ROUND_GAMES } from "../src/lib/player-profile.mjs";
+import { questionCalibrationRevision } from "../src/lib/question-revision.mjs";
 import { reviewerSteamIds } from "../src/lib/question-review.mjs";
 import { ACCOUNT_SESSION_COOKIE, sessionTokenHash } from "../src/lib/steam-auth.mjs";
 
@@ -22,10 +24,19 @@ const settings = {
   mode: "mixed",
   filter: "Mixed",
 };
-const shopkeeperQuestions = JSON.parse(
-  await readFile(path.join(process.cwd(), "src", "data", "shopkeeper-questions.json"), "utf8"),
-);
-const shopkeeperQuestionById = new Map(shopkeeperQuestions.map((question) => [question.id, question]));
+const [generatedQuestions, shopkeeperQuestions, soundcheckQuestions, shopkeeperCatalog, heroPickerCatalog] =
+  await Promise.all(
+    [
+      "questions.generated.json",
+      "shopkeeper-questions.json",
+      "soundcheck-questions.json",
+      "shopkeeper-catalog.json",
+      "hero-picker.json",
+    ].map(async (file) => JSON.parse(await readFile(path.join(process.cwd(), "src", "data", file), "utf8"))),
+  );
+const privateQuestions = [...generatedQuestions, ...shopkeeperQuestions, ...soundcheckQuestions];
+const shopkeeperCatalogItems = shopkeeperCatalog.groups.flatMap((group) => group.items);
+const heroPickerHeroes = heroPickerCatalog.groups.flatMap((group) => group.heroes);
 const firstPlayer = `multiplayer-smoke-a-${randomUUID()}`;
 const secondPlayer = `multiplayer-smoke-b-${randomUUID()}`;
 const alphaSessionId = randomUUID();
@@ -185,11 +196,21 @@ async function answeringRoundWithTime(playerId, roomSettings = settings, request
 }
 
 async function vote(snapshot, playerId, answerIndex, roomSettings = settings, extraFields = {}, requestHeaders = {}) {
-  const question = shopkeeperQuestionById.get(snapshot.round.questionId);
   const answer =
-    question?.shopkeeper?.format === "build-result"
-      ? { answerKey: question.shopkeeper.answerItemKeys[answerIndex] }
-      : { answerIndex };
+    snapshot.question?.answerMode === "item-grid"
+      ? { answerIndex: 0, answerKey: shopkeeperCatalogItems[answerIndex % shopkeeperCatalogItems.length].key }
+      : snapshot.question?.answerMode === "item-recipe"
+        ? {
+            answerIndex: 0,
+            answerKey: recipeAnswerKeyForItems(
+              shopkeeperCatalogItems
+                .slice(answerIndex, answerIndex + snapshot.question.shopkeeper.recipeSize)
+                .map((item) => item.key),
+            ),
+          }
+        : snapshot.question?.answerMode === "hero-grid"
+          ? { answerIndex: 0, answerKey: heroPickerHeroes[answerIndex % heroPickerHeroes.length].key }
+          : { answerIndex };
   const response = await fetch(`${appUrl}/api/votes`, {
     method: "POST",
     headers: {
@@ -199,7 +220,6 @@ async function vote(snapshot, playerId, answerIndex, roomSettings = settings, ex
     body: JSON.stringify({
       ...roomSettings,
       roundId: snapshot.round.id,
-      questionId: snapshot.round.questionId,
       ...answer,
       voterId: playerId,
       ...extraFields,
@@ -220,7 +240,6 @@ async function report(snapshot, playerId, reason, roomSettings = settings, reque
     body: JSON.stringify({
       ...roomSettings,
       roundId: snapshot.round.id,
-      questionId: snapshot.round.questionId,
       reason,
       voterId: playerId,
     }),
@@ -229,6 +248,44 @@ async function report(snapshot, playerId, reason, roomSettings = settings, reque
     status: response.status,
     body: await response.json(),
   };
+}
+
+function privateQuestionFor(snapshot) {
+  const publicQuestion = snapshot.question;
+  const keyedRound = Boolean(publicQuestion?.answerMode);
+  const revealedAnswerKey = publicQuestion?.reveal?.correctAnswerKey;
+  const candidates = privateQuestions.filter(
+    (question) =>
+      question.kind === publicQuestion?.kind &&
+      question.prompt === publicQuestion?.prompt &&
+      (publicQuestion?.answerMode === "item-grid"
+        ? revealedAnswerKey &&
+          ((["build-result", "upgrade-path"].includes(question.shopkeeper?.format) &&
+            question.shopkeeper.targetItemKey === revealedAnswerKey &&
+            JSON.stringify(question.shopkeeper.promptItems) ===
+              JSON.stringify(publicQuestion.shopkeeper.promptItems)) ||
+            (question.soundcheck?.family === "item" &&
+              question.soundcheck.format === "single" &&
+              question.soundcheck.clips?.[0]?.subject === revealedAnswerKey &&
+              question.explanation === publicQuestion.reveal.explanation))
+        : publicQuestion?.answerMode === "item-recipe"
+          ? revealedAnswerKey &&
+            recipeBuilderCorrectAnswerKey(question) === revealedAnswerKey &&
+            question.explanation === publicQuestion.reveal.explanation
+          : keyedRound
+            ? publicQuestion.answerMode === "hero-grid" && revealedAnswerKey
+              ? (question.answerImages?.[question.correctIndex] ?? question.image?.src)?.includes(
+                  `/${revealedAnswerKey.replace("npc_dota_hero_", "")}.png`,
+                ) && question.explanation === publicQuestion.reveal.explanation
+              : question.shopkeeper?.targetItemKey === revealedAnswerKey
+            : JSON.stringify(question.answers) === JSON.stringify(publicQuestion?.answers)),
+  );
+  if (candidates.length !== 1) {
+    throw new Error(
+      `Could not resolve one private smoke-test question from the public payload (${candidates.length}).`,
+    );
+  }
+  return candidates[0];
 }
 
 async function alphaSessionEvent(action, extraFields = {}, requestHeaders = {}, includeOrigin = true) {
@@ -253,6 +310,10 @@ if (crossOriginlessSession.status !== 403 || retiredFeedback.status !== 400 || s
 
 const firstSnapshot = await answeringRoundWithTime(firstPlayer, settings, accountHeaders);
 const secondSnapshot = await readRoom(secondPlayer);
+const cachedQuestionUrl = new URL(roomUrl(firstPlayer));
+cachedQuestionUrl.searchParams.set("questionRevision", firstSnapshot.questionRevision);
+const cachedQuestionResponse = await fetch(cachedQuestionUrl, { cache: "no-store", headers: accountHeaders });
+const cachedQuestionSnapshot = await cachedQuestionResponse.json();
 
 if (
   firstSnapshot.round.id !== secondSnapshot.round.id ||
@@ -261,9 +322,17 @@ if (
   firstSnapshot.round.answerDuration !== 15_000 ||
   firstSnapshot.presence?.activePlayers < 1 ||
   secondSnapshot.presence?.activePlayers < 2 ||
-  "skillLevel" in firstSnapshot.room
+  "skillLevel" in firstSnapshot.room ||
+  "questionId" in firstSnapshot.round ||
+  firstSnapshot.question?.id !== firstSnapshot.round.id ||
+  firstSnapshot.question?.reveal !== null ||
+  privateQuestions.some((question) => JSON.stringify(firstSnapshot.question).includes(question.id)) ||
+  !cachedQuestionResponse.ok ||
+  cachedQuestionSnapshot.round?.id !== firstSnapshot.round.id ||
+  cachedQuestionSnapshot.questionRevision !== firstSnapshot.questionRevision ||
+  cachedQuestionSnapshot.question !== null
 ) {
-  throw new Error("Two clients did not receive the same level-free synchronized round and deadlines.");
+  throw new Error("The synchronized answering round is split, malformed, or leaking private catalog data.");
 }
 
 const legacySettings = [
@@ -286,13 +355,13 @@ if (
       snapshot.room.filter !== "Mixed" ||
       snapshot.room.id !== firstSnapshot.room.id ||
       snapshot.round.id !== firstSnapshot.round.id ||
-      snapshot.round.questionId !== firstSnapshot.round.questionId,
+      snapshot.question?.id !== firstSnapshot.question?.id,
   )
 ) {
   throw new Error("A legacy mode or category setting still splits the one public Queue Arcade room.");
 }
 
-if (firstSnapshot.crowd.counts.some((count) => count !== 0) || firstSnapshot.crowd.itemCounts?.length) {
+if (firstSnapshot.crowd.counts.some((count) => count !== 0) || firstSnapshot.crowd.keyCounts?.length) {
   throw new Error("The answer split leaked before the reveal.");
 }
 
@@ -325,7 +394,7 @@ if (duplicateVote.playerVote?.answerIndex !== firstVote.playerVote?.answerIndex)
   throw new Error("A duplicate vote did not preserve the player’s original answer.");
 }
 if (duplicateVote.playerVote?.answerKey !== firstVote.playerVote?.answerKey) {
-  throw new Error("A duplicate open-shop vote did not preserve the player’s original item.");
+  throw new Error("A duplicate keyed vote did not preserve the player’s original choice.");
 }
 
 let accountProfileVerified = false;
@@ -340,7 +409,8 @@ if (smokeAccount) {
     me.profile.stats.answered !== 1 ||
     ![0, 100].includes(me.profile.stats.accuracy) ||
     recent?.roundId !== firstSnapshot.round.id ||
-    recent?.questionId !== firstSnapshot.round.questionId ||
+    "questionId" in recent ||
+    "questionRevision" in recent ||
     recent?.roundGame !== firstSnapshot.round.game ||
     typeof recent?.roundFormat !== "string" ||
     !recent.roundFormat ||
@@ -377,7 +447,7 @@ if (
   lockedSnapshot.playerVote?.answerKey !== firstVote.playerVote?.answerKey ||
   lockedSnapshot.crowd.total < baselineTotal + 2 ||
   lockedSnapshot.crowd.counts.some((count) => count !== 0) ||
-  lockedSnapshot.crowd.itemCounts?.length
+  lockedSnapshot.crowd.keyCounts?.length
 ) {
   throw new Error("The answering-phase room state is not synchronized or is leaking results.");
 }
@@ -389,21 +459,26 @@ if (prematureReport.status !== 409) {
 
 await delay(Math.max(250, lockedSnapshot.round.answerDeadline - lockedSnapshot.serverNow + 200));
 const revealSnapshot = await readRoom(firstPlayer, settings, accountHeaders);
-const openShopRound =
-  shopkeeperQuestionById.get(revealSnapshot.round.questionId)?.shopkeeper?.format === "build-result";
-const revealedItemVoteTotal = (revealSnapshot.crowd.itemCounts ?? []).reduce((total, entry) => total + entry.count, 0);
+const keyedRound = Boolean(revealSnapshot.question?.answerMode);
+const revealedKeyVoteTotal = (revealSnapshot.crowd.keyCounts ?? []).reduce((total, entry) => total + entry.count, 0);
 
 if (
   revealSnapshot.round.id !== firstSnapshot.round.id ||
   revealSnapshot.round.phase !== "reveal" ||
+  revealSnapshot.question?.reveal === null ||
+  typeof revealSnapshot.question?.reveal?.correctIndex !== "number" ||
   revealSnapshot.crowd.total < baselineTotal + 2 ||
   revealSnapshot.crowd.counts.reduce((sum, count) => sum + count, 0) !== revealSnapshot.crowd.total ||
-  (openShopRound
-    ? revealedItemVoteTotal !== revealSnapshot.crowd.total || !revealSnapshot.playerVote?.answerKey
-    : revealedItemVoteTotal !== 0)
+  (keyedRound
+    ? revealedKeyVoteTotal !== revealSnapshot.crowd.total || !revealSnapshot.playerVote?.answerKey
+    : revealedKeyVoteTotal !== 0)
 ) {
   throw new Error("The synchronized reveal did not expose the final round split.");
 }
+
+const firstPrivateQuestion = privateQuestionFor(revealSnapshot);
+const privateQuestionId = firstPrivateQuestion.id;
+const privateCalibrationRevision = questionCalibrationRevision(firstPrivateQuestion);
 
 const acceptedReport = await report(revealSnapshot, firstPlayer, "ambiguous", settings, accountHeaders);
 const duplicateReport = await report(revealSnapshot, firstPlayer, "incorrect", settings, accountHeaders);
@@ -452,7 +527,6 @@ for (let attempt = 0; attempt < 13; attempt += 1) {
       body: JSON.stringify({
         ...settings,
         roundId: revealSnapshot.round.id,
-        questionId: revealSnapshot.round.questionId,
         answerIndex: 0,
         voterId: rateLimitPlayer,
       }),
@@ -469,7 +543,9 @@ if (
 
 const calibrationResponse = await fetch(`${appUrl}/api/calibration?gameId=dota2`, { cache: "no-store" });
 const calibration = await calibrationResponse.json();
-const calibratedQuestion = calibration.records?.find((record) => record.questionId === revealSnapshot.round.questionId);
+const calibratedQuestion = calibration.records?.find(
+  (record) => record.questionRevision === privateCalibrationRevision,
+);
 const serializedCalibration = JSON.stringify(calibration);
 if (
   !calibrationResponse.ok ||
@@ -480,6 +556,8 @@ if (
   calibratedQuestion.reportTotal < 2 ||
   calibratedQuestion.signal?.status !== "reported" ||
   calibratedQuestion.review?.status !== "open" ||
+  calibratedQuestion.questionId !== calibratedQuestion.questionRevision ||
+  serializedCalibration.includes(privateQuestionId) ||
   serializedCalibration.includes("reporters") ||
   serializedCalibration.includes(firstPlayer)
 ) {
@@ -488,7 +566,7 @@ if (
 
 const reviewPayload = {
   gameId: "dota2",
-  questionId: calibratedQuestion.questionId,
+  questionId: privateQuestionId,
   questionRevision: calibratedQuestion.questionRevision,
   state: "reviewed",
 };
@@ -517,7 +595,7 @@ if (smokeAccount && smokeReviewerSteamId === smokeAccount.steamId) {
     (response) => response.json(),
   );
   const reviewedQuestion = reviewedCalibration.records?.find(
-    (record) => record.questionId === calibratedQuestion.questionId,
+    (record) => record.questionRevision === calibratedQuestion.questionRevision,
   );
   if (reviewedQuestion?.review?.status !== "reviewed") {
     throw new Error("The reviewed question state was not restored from persistent calibration storage.");
@@ -532,7 +610,7 @@ if (smokeAccount && smokeReviewerSteamId === smokeAccount.steamId) {
     (response) => response.json(),
   );
   const reopenedQuestion = reopenedCalibration.records?.find(
-    (record) => record.questionId === calibratedQuestion.questionId,
+    (record) => record.questionRevision === calibratedQuestion.questionRevision,
   );
   if (reopenedQuestion?.review?.status !== "open") {
     throw new Error("A reviewed question did not reopen when a new independent report arrived.");
@@ -582,7 +660,7 @@ if (expectedStorageBackend === "postgres") {
     const questions = await sql`
       SELECT question_revision, report_ambiguous, report_outdated
       FROM queue_arcade_question_stats
-      WHERE game_id = 'dota2' AND question_id = ${revealSnapshot.round.questionId}
+      WHERE game_id = 'dota2' AND question_id = ${privateQuestionId}
       ORDER BY updated_at DESC
       LIMIT 1
     `;
@@ -594,13 +672,13 @@ if (expectedStorageBackend === "postgres") {
     const reporterHashes = await sql`
       SELECT reporter_hash
       FROM queue_arcade_question_reporters
-      WHERE game_id = 'dota2' AND question_id = ${revealSnapshot.round.questionId}
+      WHERE game_id = 'dota2' AND question_id = ${privateQuestionId}
     `;
     const questionReviews = await sql`
       SELECT state, report_total_at_review, signal_status_at_review
       FROM queue_arcade_question_reviews
       WHERE game_id = 'dota2'
-        AND question_id = ${calibratedQuestion.questionId}
+        AND question_id = ${privateQuestionId}
         AND question_revision = ${calibratedQuestion.questionRevision}
     `;
     const alphaSessions = await sql`
@@ -664,7 +742,7 @@ if (expectedStorageBackend === "postgres") {
       if (
         personalRounds.length !== 1 ||
         personalRound.round_id !== firstSnapshot.round.id ||
-        personalRound.question_id !== firstSnapshot.round.questionId ||
+        personalRound.question_id !== privateQuestionId ||
         personalRound.round_game !== firstSnapshot.round.game ||
         typeof personalRound.round_format !== "string" ||
         !personalRound.round_format ||
@@ -689,7 +767,7 @@ if (expectedStorageBackend === "postgres") {
   const persistedText = await readFile(dataFile, "utf8");
   const persistedState = JSON.parse(persistedText);
   const question = Object.values(persistedState.questions ?? {}).find(
-    (candidate) => candidate.questionId === revealSnapshot.round.questionId && candidate.questionRevision,
+    (candidate) => candidate.questionId === privateQuestionId && candidate.questionRevision,
   );
   persisted = persistedText.includes(firstSnapshot.round.id) && persistedState.version === 3;
   questionRevision = question?.questionRevision;
@@ -801,6 +879,7 @@ console.log(
       sharedDifficultyPoolVerified: true,
       legacyLevelSettingsIgnored: true,
       allPublicModeAndCategorySilosRemoved: true,
+      questionPayloadCacheVerified: true,
     },
     null,
     2,

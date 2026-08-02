@@ -1,14 +1,15 @@
 import type { ArcadeMode, KnowledgeFilter, RoundGame } from "@/lib/trivia";
 import type { ReportReason } from "@/lib/calibration";
-import type { GameId } from "@/lib/game-catalogs";
+import type { GameId } from "@/lib/game-identity";
 import type { MapPosition } from "@/lib/map-types";
+import type { PublicArcadeQuestion } from "@/lib/public-question";
 
 export interface CrowdResult {
   counts: [number, number, number, number];
   total: number;
   positions: MapPosition[];
-  itemCounts: Array<{
-    itemKey: string;
+  keyCounts: Array<{
+    answerKey: string;
     count: number;
   }>;
 }
@@ -48,6 +49,8 @@ export interface PublicRound {
   answerDuration: number;
 }
 
+export type PublicRoundSnapshot = Omit<PublicRound, "questionId">;
+
 export interface RoomPresence {
   activePlayers: number;
 }
@@ -55,7 +58,9 @@ export interface RoomPresence {
 export interface RoomSnapshot {
   serverNow: number;
   room: PublicRoom;
-  round: PublicRound;
+  round: PublicRoundSnapshot;
+  questionRevision: string;
+  question: PublicArcadeQuestion | null;
   presence: RoomPresence;
   crowd: CrowdResult;
   playerVote: PlayerVote | null;

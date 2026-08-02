@@ -1,6 +1,12 @@
 import { soundcheckRevealStage } from "./soundcheck.mjs";
 
-export const PROGRESSIVE_ROUND_GAMES = new Set(["spell-link", "fogged-vision", "echo-hunt", "soundcheck"]);
+export const PROGRESSIVE_ROUND_GAMES = new Set([
+  "spell-link",
+  "fogged-vision",
+  "echo-hunt",
+  "soundcheck",
+  "quote-hunt",
+]);
 
 /**
  * @param {string} roundGame
@@ -93,6 +99,18 @@ export function summarizePlayerRounds(inputRounds) {
         accuracy: Math.round((format.correct / format.answered) * 100),
       }))
       .sort((left, right) => right.answered - left.answered || left.format.localeCompare(right.format)),
-    recentRounds: rounds.slice(-10).reverse(),
+    recentRounds: rounds
+      .slice(-10)
+      .reverse()
+      .map((round) => ({
+        roundId: round.roundId,
+        roundNumber: round.roundNumber,
+        gameId: round.gameId,
+        roundGame: round.roundGame,
+        roundFormat: round.roundFormat,
+        correct: round.correct,
+        answerStage: round.answerStage,
+        submittedAt: round.submittedAt,
+      })),
   };
 }

@@ -4,7 +4,9 @@ import { sessionUserForRequest } from "@/lib/auth-session";
 import { rateLimitRequest } from "@/lib/api-protection";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
 import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
+import { publicQuestionForRound, publicQuestionRevision } from "@/lib/public-question";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
+import { isKeyedAnswerQuestion } from "@/lib/keyed-answer";
 import { touchRoomPresence } from "@/lib/room-presence.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 import { getPlayerQuestionReport, getRoundCrowd } from "@/lib/vote-store";
@@ -13,6 +15,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const HIDDEN_COUNTS: CrowdResult["counts"] = [0, 0, 0, 0];
+const MAX_REVEALED_KEY_CHOICES = 12;
 
 export async function GET(request: NextRequest) {
   const searchParams = new URL(request.url).searchParams;
@@ -22,6 +25,7 @@ export async function GET(request: NextRequest) {
     filter: searchParams.get("filter"),
   });
   const playerId = searchParams.get("playerId") ?? undefined;
+  const knownQuestionRevision = searchParams.get("questionRevision") ?? undefined;
 
   if (!settings) {
     return NextResponse.json({ error: "Invalid public room settings." }, { status: 400 });
@@ -29,6 +33,9 @@ export async function GET(request: NextRequest) {
 
   if (playerId && (playerId.length < 8 || playerId.length > 80)) {
     return NextResponse.json({ error: "Invalid player ID." }, { status: 400 });
+  }
+  if (knownQuestionRevision && knownQuestionRevision.length > 240) {
+    return NextResponse.json({ error: "Invalid question revision." }, { status: 400 });
   }
 
   try {
@@ -41,6 +48,17 @@ export async function GET(request: NextRequest) {
     const activePlayers = effectivePlayerId ? touchRoomPresence(room.id, effectivePlayerId, serverNow) : 0;
     const question = GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === round.questionId);
     if (!question) throw new Error(`Public question ${round.questionId} is missing from the active catalog.`);
+    const questionRevision = publicQuestionRevision(round, serverNow);
+    const publicRound = {
+      id: round.id,
+      number: round.number,
+      phase: round.phase,
+      game: round.game,
+      startedAt: round.startedAt,
+      answerDeadline: round.answerDeadline,
+      revealDeadline: round.revealDeadline,
+      answerDuration: round.answerDuration,
+    };
     const [result, playerReport] = await Promise.all([
       getRoundCrowd(round.id, room.id, effectivePlayerId),
       getPlayerQuestionReport(
@@ -51,20 +69,27 @@ export async function GET(request: NextRequest) {
         effectivePlayerId,
       ),
     ]);
+    const playerVote =
+      result.playerVote && isKeyedAnswerQuestion(question)
+        ? { ...result.playerVote, answerIndex: 0 }
+        : result.playerVote;
 
     return NextResponse.json(
       {
         serverNow,
         room,
-        round,
+        round: publicRound,
+        questionRevision,
+        question:
+          knownQuestionRevision === questionRevision ? null : publicQuestionForRound(question, round, serverNow),
         presence: { activePlayers },
         crowd: {
           counts: round.phase === "reveal" ? result.counts : HIDDEN_COUNTS,
           total: result.total,
           positions: round.phase === "reveal" ? result.positions : [],
-          itemCounts: round.phase === "reveal" ? result.itemCounts : [],
+          keyCounts: round.phase === "reveal" ? result.keyCounts.slice(0, MAX_REVEALED_KEY_CHOICES) : [],
         },
-        playerVote: result.playerVote,
+        playerVote,
         playerReport,
       },
       {

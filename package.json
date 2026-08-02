@@ -9,19 +9,22 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "sync-data": "node scripts/sync-dota-data.mjs",
+    "sync-data": "node scripts/sync-dota-data.mjs && node scripts/backfill-quote-hints.mjs",
+    "backfill-quote-hints": "node scripts/backfill-quote-hints.mjs",
     "sync-counterplay": "node scripts/generate-counterplay.mjs",
     "sync-soundcheck": "node scripts/generate-soundcheck.mjs",
     "sync-shopkeeper": "node scripts/generate-shopkeeper.mjs",
+    "sync-hero-picker": "node scripts/generate-hero-picker.mjs",
     "sync-map-landmarks": "node scripts/sync-map-landmarks.mjs",
     "validate-map-archive": "node scripts/validate-map-sense.mjs",
     "validate-counterplay-archive": "node scripts/validate-counterplay.mjs",
     "backfill-hints": "node scripts/backfill-spell-hints.mjs",
-    "validate-data": "node scripts/validate-questions.mjs && node scripts/validate-shopkeeper.mjs && node scripts/validate-soundcheck.mjs && node scripts/validate-feedback-sounds.mjs && node scripts/validate-variety.mjs && node scripts/validate-public-arcade.mjs && node scripts/validate-calibration.mjs && node scripts/validate-question-reviews.mjs && node scripts/validate-observability.mjs && node scripts/validate-navigation.mjs && node scripts/validate-question-revisions.mjs && node scripts/validate-rate-limit.mjs && node scripts/validate-player-profiles.mjs && node scripts/validate-alpha-launch.mjs",
+    "validate-data": "node scripts/validate-questions.mjs && node scripts/validate-shopkeeper.mjs && node scripts/validate-hero-picker.mjs && node scripts/validate-fogged-vision.mjs && node scripts/validate-soundcheck.mjs && node scripts/validate-feedback-sounds.mjs && node scripts/validate-variety.mjs && node scripts/validate-public-arcade.mjs && node scripts/validate-question-delivery.mjs && node scripts/validate-calibration.mjs && node scripts/validate-question-reviews.mjs && node scripts/validate-observability.mjs && node scripts/validate-navigation.mjs && node scripts/validate-question-revisions.mjs && node scripts/validate-rate-limit.mjs && node scripts/validate-player-profiles.mjs && node scripts/validate-alpha-launch.mjs",
+    "validate-client-bundle": "node scripts/validate-client-bundle.mjs",
     "audit:client": "node scripts/audit-live-client.mjs",
     "validate-assets": "node scripts/validate-image-assets.mjs",
     "check:multiplayer": "node scripts/multiplayer-smoke.mjs",
-    "check": "pnpm validate-data && pnpm lint && pnpm typecheck && pnpm build"
+    "check": "pnpm validate-data && pnpm lint && pnpm typecheck && pnpm build && pnpm validate-client-bundle"
   },
   "engines": {
     "node": ">=20.9.0"

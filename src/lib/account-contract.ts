@@ -1,4 +1,4 @@
-import type { GameId } from "@/lib/game-catalogs";
+import type { GameId } from "@/lib/game-identity";
 import type { RoundGame } from "@/lib/trivia";
 
 export interface AccountUser {
@@ -14,13 +14,16 @@ export interface PlayerRoundRecord {
   roundId: string;
   roundNumber: number;
   gameId: GameId;
-  questionId: string;
-  questionRevision: string;
   roundGame: RoundGame;
   roundFormat: string;
   correct: boolean;
   answerStage: 1 | 2 | 3 | null;
   submittedAt: number;
+}
+
+export interface StoredPlayerRoundRecord extends PlayerRoundRecord {
+  questionId: string;
+  questionRevision: string;
 }
 
 export interface PlayerFormatStats {

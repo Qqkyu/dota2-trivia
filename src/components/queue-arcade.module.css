@@ -3003,6 +3003,287 @@
   padding: 11px;
 }
 
+.heroPickerQuestion {
+  height: 190px;
+  min-height: 168px;
+  padding-top: 18px;
+  padding-bottom: 10px;
+}
+
+.heroPicker {
+  position: relative;
+  margin: 0 28px 10px;
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.085);
+  background: linear-gradient(90deg, rgba(172, 65, 53, 0.035), transparent 48%, rgba(65, 146, 103, 0.028)),
+    rgba(4, 7, 7, 0.74);
+  box-shadow:
+    inset 0 0 45px rgba(0, 0, 0, 0.3),
+    0 18px 34px rgba(0, 0, 0, 0.16);
+  scrollbar-color: rgba(124, 166, 166, 0.35) rgba(0, 0, 0, 0.2);
+}
+
+.heroPickerSearch {
+  position: absolute;
+  z-index: 8;
+  top: 5px;
+  right: 10px;
+  display: grid;
+  width: 226px;
+  height: 27px;
+  align-items: center;
+  grid-template-columns: 24px minmax(0, 1fr) auto auto;
+  border: 1px solid rgba(137, 172, 174, 0.22);
+  background: rgba(7, 11, 11, 0.94);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.heroPickerSearch > svg {
+  width: 12px;
+  height: 12px;
+  justify-self: center;
+  color: #7c9899;
+}
+
+.heroPickerSearch input {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #d8dfda;
+  font:
+    10px var(--font-geist-mono),
+    monospace;
+}
+
+.heroPickerSearch input::placeholder {
+  color: #657170;
+}
+
+.heroPickerSearch input:disabled {
+  cursor: default;
+}
+
+.heroPickerSearch small {
+  color: #84c6cb;
+  font:
+    8px var(--font-geist-mono),
+    monospace;
+}
+
+.heroPickerSearch button {
+  display: grid;
+  width: 24px;
+  height: 25px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #7f8b89;
+  cursor: pointer;
+  place-items: center;
+}
+
+.heroPickerSearch button:hover,
+.heroPickerSearch button:focus-visible {
+  color: #d9e3de;
+  outline: 0;
+}
+
+.heroPickerSearch button svg {
+  width: 12px;
+  height: 12px;
+}
+
+.heroPickerBoard {
+  display: grid;
+  min-width: 890px;
+  gap: 8px 15px;
+  grid-template-areas:
+    "strength agility"
+    "intelligence universal";
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 8px 10px 10px;
+}
+
+.heroPickerGroup {
+  min-width: 0;
+}
+
+.heroPickerGroup[data-attribute="strength"] {
+  grid-area: strength;
+}
+
+.heroPickerGroup[data-attribute="agility"] {
+  grid-area: agility;
+}
+
+.heroPickerGroup[data-attribute="intelligence"] {
+  grid-area: intelligence;
+}
+
+.heroPickerGroup[data-attribute="universal"] {
+  grid-area: universal;
+}
+
+.heroPickerGroup h3 {
+  display: flex;
+  height: 23px;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: #a7aaa5;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  font-weight: 550;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.heroPickerGroup h3 img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.heroPickerGroup[data-attribute="strength"] h3 {
+  color: #ce6a5e;
+}
+
+.heroPickerGroup[data-attribute="agility"] h3 {
+  color: #73bd78;
+}
+
+.heroPickerGroup[data-attribute="intelligence"] h3 {
+  color: #67b6cc;
+}
+
+.heroPickerGroup[data-attribute="universal"] h3 {
+  color: #b38bc6;
+}
+
+.heroPickerGroup > div {
+  display: grid;
+  gap: 3px;
+  grid-template-columns: repeat(var(--hero-grid-columns), minmax(0, 1fr));
+}
+
+.heroPickerGroup button {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 1.05;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  background: #0a0d0e;
+  cursor: pointer;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.4);
+  transition:
+    border-color 120ms ease,
+    box-shadow 120ms ease,
+    filter 120ms ease,
+    opacity 120ms ease,
+    transform 120ms ease;
+}
+
+.heroPickerGroup button > img {
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.heroPickerGroup button:not(:disabled):hover,
+.heroPickerGroup button:focus-visible {
+  z-index: 3;
+  border-color: rgba(222, 229, 222, 0.78);
+  outline: 0;
+  filter: brightness(1.18);
+  transform: scale(1.08);
+}
+
+.heroPickerGroup button:disabled {
+  cursor: default;
+}
+
+.heroPicker[data-locked="true"][data-phase="answering"] button[data-state="idle"] {
+  opacity: 0.4;
+  filter: saturate(0.65);
+}
+
+.heroPicker[data-searching="true"] .heroPickerGroup button[data-search-match="false"] {
+  opacity: 0.12;
+  filter: grayscale(0.85) brightness(0.6);
+}
+
+.heroPicker[data-searching="true"] .heroPickerGroup button[data-search-match="true"] {
+  border-color: rgba(202, 221, 216, 0.32);
+  filter: brightness(1.08);
+}
+
+.heroPickerGroup button[data-state="selected"] {
+  z-index: 2;
+  border-color: #e6b74f;
+  box-shadow:
+    0 0 0 2px rgba(230, 183, 79, 0.3),
+    0 0 15px rgba(230, 183, 79, 0.22);
+}
+
+.heroPickerGroup button[data-state="correct"] {
+  z-index: 2;
+  border-color: #79cf99;
+  box-shadow:
+    0 0 0 2px rgba(121, 207, 153, 0.3),
+    0 0 17px rgba(121, 207, 153, 0.25);
+}
+
+.heroPickerGroup button[data-state="correct"] > img {
+  filter: brightness(1.15) saturate(1.08);
+}
+
+.heroPickerGroup button[data-state="wrong"] {
+  z-index: 2;
+  border-color: #f06a58;
+  box-shadow: 0 0 0 2px rgba(240, 106, 88, 0.28);
+}
+
+.heroPickerGroup button > i {
+  position: absolute;
+  z-index: 3;
+  right: 1px;
+  bottom: 1px;
+  padding: 1px 2px;
+  background: rgba(4, 6, 6, 0.9);
+  color: #dde2dc;
+  font:
+    normal 7px var(--font-geist-mono),
+    monospace;
+}
+
+.heroPickerVerdict {
+  position: absolute;
+  z-index: 4;
+  top: 1px;
+  right: 1px;
+  display: grid;
+  width: 14px;
+  height: 14px;
+  border: 1px solid currentcolor;
+  background: rgba(5, 9, 8, 0.94);
+  color: #79cf99;
+  place-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+button[data-state="wrong"] > .heroPickerVerdict {
+  color: #f06a58;
+}
+
+.heroPickerVerdict svg {
+  width: 9px;
+  height: 9px;
+  stroke-width: 2.5;
+}
+
 .shopkeeperStore {
   margin: 0 28px 12px;
   overflow: hidden;
@@ -3022,6 +3303,174 @@
   padding: 6px 8px 6px 11px;
   border-bottom: 1px solid rgba(210, 163, 74, 0.16);
   background: rgba(0, 0, 0, 0.2);
+}
+
+.shopkeeperRecipeBuilder {
+  display: grid;
+  min-height: 66px;
+  align-items: center;
+  gap: 13px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  padding: 8px 10px 8px 13px;
+  border-bottom: 1px solid rgba(210, 163, 74, 0.16);
+  background: linear-gradient(90deg, rgba(210, 163, 74, 0.055), transparent 52%), rgba(0, 0, 0, 0.14);
+}
+
+.shopkeeperRecipeBuilderLabel {
+  display: grid;
+  min-width: 82px;
+  gap: 3px;
+}
+
+.shopkeeperRecipeBuilderLabel small,
+.shopkeeperRecipePick > small {
+  color: #8a8d85;
+  font:
+    8px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.shopkeeperRecipeBuilderLabel strong {
+  color: #d8b45e;
+  font:
+    12px var(--font-geist-mono),
+    monospace;
+  font-weight: 550;
+}
+
+.shopkeeperRecipeSlots {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+}
+
+.shopkeeperRecipeSlots > button,
+.shopkeeperRecipeSlots > span {
+  position: relative;
+  display: grid;
+  width: 58px;
+  height: 43px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid rgba(210, 163, 74, 0.28);
+  background: #0e1110;
+  color: #84714a;
+  place-items: center;
+}
+
+.shopkeeperRecipeSlots > span {
+  border-style: dashed;
+  color: #62563d;
+  font:
+    17px var(--font-geist-mono),
+    monospace;
+}
+
+.shopkeeperRecipeSlots > button {
+  cursor: pointer;
+}
+
+.shopkeeperRecipeSlots > button:hover,
+.shopkeeperRecipeSlots > button:focus-visible {
+  border-color: #dfb656;
+  outline: 0;
+  filter: brightness(1.08);
+}
+
+.shopkeeperRecipeSlots > button:disabled {
+  cursor: default;
+}
+
+.shopkeeperRecipeSlots img {
+  object-fit: cover;
+}
+
+.shopkeeperRecipeSlots svg {
+  position: absolute;
+  z-index: 2;
+  top: 2px;
+  right: 2px;
+  width: 11px;
+  height: 11px;
+  padding: 1px;
+  border: 1px solid rgba(240, 106, 88, 0.5);
+  background: rgba(7, 8, 8, 0.88);
+  color: #ef7969;
+}
+
+.shopkeeperBuildButton {
+  display: inline-flex;
+  min-width: 92px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 13px;
+  border: 1px solid #c89536;
+  background: linear-gradient(180deg, rgba(226, 175, 73, 0.18), rgba(110, 77, 20, 0.13));
+  color: #e6c477;
+  font:
+    10px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.shopkeeperBuildButton svg {
+  width: 14px;
+  height: 14px;
+}
+
+.shopkeeperBuildButton:hover:not(:disabled),
+.shopkeeperBuildButton:focus-visible:not(:disabled) {
+  border-color: #efc86d;
+  outline: 0;
+  background: rgba(210, 163, 74, 0.2);
+}
+
+.shopkeeperBuildButton:disabled {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.025);
+  color: #555b56;
+  cursor: default;
+}
+
+.shopkeeperRecipeReveal {
+  display: flex;
+  min-height: 68px;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 7px 11px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.shopkeeperRecipeReveal > svg {
+  width: 15px;
+  flex: 0 0 auto;
+  color: #777d77;
+}
+
+.shopkeeperRecipePick {
+  display: grid;
+  width: min(280px, 42%);
+  gap: 5px;
+}
+
+.shopkeeperRecipePick > strong {
+  color: #777c76;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.shopkeeperRecipePick .shopkeeperTray {
+  width: min(100%, 210px);
 }
 
 .shopkeeperStoreTabs {
@@ -3472,24 +3921,24 @@
 }
 
 .fogQuestion {
-  --fog-start-blur: 17px;
-  --fog-start-grayscale: 0.5;
-  --fog-start-brightness: 0.62;
-  --fog-start-saturation: 0.68;
-  --fog-start-contrast: 0.92;
-  --fog-start-scale: 1.3;
-  --fog-middle-blur: 10px;
-  --fog-middle-grayscale: 0.34;
-  --fog-middle-brightness: 0.65;
-  --fog-middle-saturation: 0.79;
-  --fog-middle-contrast: 0.99;
-  --fog-middle-scale: 1.16;
-  --fog-final-blur: 6px;
-  --fog-final-grayscale: 0.22;
-  --fog-final-brightness: 0.75;
-  --fog-final-saturation: 0.8;
-  --fog-final-contrast: 0.98;
-  --fog-final-scale: 1.08;
+  --fog-start-blur: 21px;
+  --fog-start-grayscale: 0.7;
+  --fog-start-brightness: 0.5;
+  --fog-start-saturation: 0.44;
+  --fog-start-contrast: 0.88;
+  --fog-start-scale: 1.42;
+  --fog-middle-blur: 14px;
+  --fog-middle-grayscale: 0.56;
+  --fog-middle-brightness: 0.56;
+  --fog-middle-saturation: 0.6;
+  --fog-middle-contrast: 0.9;
+  --fog-middle-scale: 1.25;
+  --fog-final-blur: 8px;
+  --fog-final-grayscale: 0.42;
+  --fog-final-brightness: 0.65;
+  --fog-final-saturation: 0.6;
+  --fog-final-contrast: 0.92;
+  --fog-final-scale: 1.13;
 }
 
 .fogArtwork::after {
@@ -3820,6 +4269,45 @@
 
 .quoteQuestion .questionCopy h2 {
   max-width: 310px;
+}
+
+.quoteHints {
+  display: grid;
+  width: min(100%, 310px);
+  gap: 7px;
+  margin-top: 17px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.quoteHints > span {
+  display: grid;
+  min-height: 35px;
+  align-items: center;
+  gap: 8px;
+  grid-template-columns: 20px minmax(0, 1fr);
+  padding: 6px 9px;
+  border: 1px solid rgba(222, 164, 96, 0.2);
+  background: rgba(222, 164, 96, 0.045);
+  color: #d8c1a6;
+  font:
+    10px var(--font-geist-mono),
+    monospace;
+}
+
+.quoteHints > span > b {
+  color: #9b6e45;
+  font-size: 8px;
+  font-weight: 500;
+}
+
+.quoteHints > span[data-state="locked"] {
+  border-color: rgba(255, 255, 255, 0.065);
+  background: rgba(255, 255, 255, 0.012);
+  color: #3f4644;
+}
+
+.quoteHints > span[data-state="locked"] > b {
+  color: #404542;
 }
 
 .answers {
@@ -4444,8 +4932,7 @@
 
 .queueCard,
 .progressCard,
-.crowdCard,
-.tipCard {
+.crowdCard {
   border: 1px solid var(--line);
   background: var(--surface-soft);
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.02);
@@ -4762,7 +5249,37 @@
     monospace;
 }
 
+.shopkeeperCrowdPicks[data-answer-mode="item-recipe"] > span {
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 5px 6px;
+}
+
+.shopkeeperCrowdPicks[data-answer-mode="item-recipe"] .shopkeeperTray {
+  width: min(100%, 158px);
+  gap: 3px;
+}
+
+.shopkeeperCrowdPicks[data-answer-mode="item-recipe"] .shopkeeperItem {
+  gap: 2px;
+}
+
+.shopkeeperCrowdPicks[data-answer-mode="item-recipe"] .shopkeeperItemArt {
+  width: min(100%, 42px);
+}
+
+.shopkeeperCrowdPicks[data-answer-mode="item-recipe"] .shopkeeperItem > strong {
+  display: none;
+}
+
 @media (max-width: 680px) {
+  .heroPickerQuestion {
+    min-height: 170px;
+  }
+
+  .heroPicker {
+    margin-inline: 14px;
+  }
+
   .shopkeeperOpenQuestion {
     height: auto;
     min-height: 286px;
@@ -4793,6 +5310,33 @@
     width: 100%;
   }
 
+  .shopkeeperRecipeBuilder {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .shopkeeperRecipeBuilderLabel {
+    display: none;
+  }
+
+  .shopkeeperRecipeSlots > button,
+  .shopkeeperRecipeSlots > span {
+    width: 48px;
+    height: 36px;
+  }
+
+  .shopkeeperBuildButton {
+    min-width: 78px;
+    padding-inline: 9px;
+  }
+
+  .shopkeeperRecipeReveal {
+    gap: 7px;
+  }
+
+  .shopkeeperRecipePick {
+    width: 46%;
+  }
+
   .shopkeeperGroups {
     min-width: 0;
     max-height: 390px;
@@ -4811,33 +5355,6 @@
   .shopkeeperPick {
     min-width: 0;
   }
-}
-
-.tipCard {
-  display: flex;
-  gap: 11px;
-  padding: 14px;
-}
-
-.tipCard > svg {
-  width: 17px;
-  flex: 0 0 auto;
-  color: var(--gold);
-}
-
-.tipCard span {
-  color: #b3b7b3;
-  font-size: 11px;
-  font-weight: 630;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.tipCard p {
-  margin: 5px 0 0;
-  color: var(--faint);
-  font-size: 12px;
-  line-height: 1.48;
 }
 
 .summary {
@@ -5393,10 +5910,6 @@
 
   .crowdCard {
     order: 4;
-  }
-
-  .tipCard {
-    order: 5;
   }
 
   .summary {

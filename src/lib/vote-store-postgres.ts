@@ -45,7 +45,7 @@ interface PositionRow {
   map_y: number;
 }
 
-interface ItemCountRow {
+interface KeyCountRow {
   answer_key: string;
   count: Numeric;
 }
@@ -213,8 +213,8 @@ function positionsFrom(rows: PositionRow[]): MapPosition[] {
   return rows.map((row) => ({ x: row.map_x, y: row.map_y })).reverse();
 }
 
-function itemCountsFrom(rows: ItemCountRow[]): CrowdResult["itemCounts"] {
-  return rows.map((row) => ({ itemKey: row.answer_key, count: Number(row.count) }));
+function keyCountsFrom(rows: KeyCountRow[]): CrowdResult["keyCounts"] {
+  return rows.map((row) => ({ answerKey: row.answer_key, count: Number(row.count) }));
 }
 
 function reportScope(gameId: GameId, questionId: string, questionRevision: string) {
@@ -267,7 +267,7 @@ export async function getRoundCrowd(roundId: string, roomId: string, voterId?: s
       ORDER BY submitted_at DESC
       LIMIT ${MAP_SENSE_MAX_CROWD_PINS}
     `,
-    sql<ItemCountRow[]>`
+    sql<KeyCountRow[]>`
       SELECT answer_key, COUNT(*) AS count
       FROM queue_arcade_round_votes
       WHERE round_id = ${roundId} AND answer_key IS NOT NULL
@@ -280,7 +280,7 @@ export async function getRoundCrowd(roundId: string, roomId: string, voterId?: s
     counts,
     total: totalFor(counts),
     positions: positionsFrom(positionRows),
-    itemCounts: itemCountsFrom(itemCountRows),
+    keyCounts: keyCountsFrom(itemCountRows),
     playerVote: playerVoteFrom(voteRows[0]),
   };
 }
@@ -449,7 +449,7 @@ export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult
         ORDER BY submitted_at DESC
         LIMIT ${MAP_SENSE_MAX_CROWD_PINS}
       `;
-      const itemCountRows = await transaction<ItemCountRow[]>`
+      const itemCountRows = await transaction<KeyCountRow[]>`
         SELECT answer_key, COUNT(*) AS count
         FROM queue_arcade_round_votes
         WHERE round_id = ${input.roundId} AND answer_key IS NOT NULL
@@ -462,7 +462,7 @@ export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult
         counts,
         total: totalFor(counts),
         positions: positionsFrom(positionRows),
-        itemCounts: itemCountsFrom(itemCountRows),
+        keyCounts: keyCountsFrom(itemCountRows),
         playerVote: playerVoteFrom(existingVotes[0]),
       };
     }
@@ -505,7 +505,7 @@ export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult
       ORDER BY submitted_at DESC
       LIMIT ${MAP_SENSE_MAX_CROWD_PINS}
     `;
-    const itemCountRows = await transaction<ItemCountRow[]>`
+    const itemCountRows = await transaction<KeyCountRow[]>`
       SELECT answer_key, COUNT(*) AS count
       FROM queue_arcade_round_votes
       WHERE round_id = ${input.roundId} AND answer_key IS NOT NULL
@@ -518,7 +518,7 @@ export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult
       counts,
       total: totalFor(counts),
       positions: positionsFrom(positionRows),
-      itemCounts: itemCountsFrom(itemCountRows),
+      keyCounts: keyCountsFrom(itemCountRows),
       playerVote: playerVoteFrom(insertedVotes[0]),
     };
   });

@@ -116,6 +116,7 @@ export interface TriviaQuestion {
   explanation: string;
   detail?: string;
   hint?: string;
+  quoteHints?: [string, string];
   audio?: {
     src: string;
     clips?: string[];
@@ -200,7 +201,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-4-shopkeeper-3-public-arcade-1-soundcheck-8`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-4-shopkeeper-5-public-arcade-2-soundcheck-9-fogged-vision-2`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
     isPlayableClassicTriviaQuestion(question) &&

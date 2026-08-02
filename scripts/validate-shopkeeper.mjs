@@ -6,6 +6,16 @@ import { fileURLToPath } from "node:url";
 import { CLIENT_CONSTANT_AUDIT } from "./client-constant-audit.mjs";
 import { parseValveKeyValues } from "./valve-keyvalues.mjs";
 import {
+  isItemPickerQuestion,
+  isRealRecipeBuilderQuestion,
+  itemPickerCorrectAnswerKey,
+  recipeAnswerKeyForItems,
+  recipeBuilderAnswerIndex,
+  recipeBuilderCorrectAnswerKey,
+  recipeItemsFromAnswerKey,
+} from "../src/lib/item-picker.mjs";
+import { questionPresentationRevision } from "../src/lib/question-revision.mjs";
+import {
   isPlayableShopkeeperQuestion,
   SHOPKEEPER_KINDS,
   shopkeeperQuestionIssues,
@@ -105,14 +115,24 @@ for (const item of catalogItems) {
   }
 }
 if (
-  !voteRouteSource.includes("shopkeeperAnswerIndex(question, answerKey)") ||
+  !voteRouteSource.includes("keyedAnswerIndex(question, answerKey)") ||
+  !voteRouteSource.includes("isValidAnswerKeyForQuestion(question, answerKey)") ||
   !voteRouteSource.includes("answerKey: resolvedAnswerKey") ||
   !postgresStoreSource.includes("ADD COLUMN IF NOT EXISTS answer_key TEXT") ||
   !postgresStoreSource.includes("GROUP BY answer_key") ||
   !arcadeSource.includes('data-testid="shopkeeper-store"') ||
-  !arcadeSource.includes("onChoose={chooseShopkeeperItem}") ||
+  !arcadeSource.includes("onChoose={chooseKeyedAnswer}") ||
   !arcadeSource.includes('data-testid="shopkeeper-item-tooltip"') ||
+  !arcadeSource.includes('data-testid="shopkeeper-recipe-builder"') ||
+  !arcadeSource.includes('data-testid="shopkeeper-recipe-slot"') ||
+  !arcadeSource.includes('data-testid="shopkeeper-recipe-build"') ||
+  !arcadeSource.includes("recipeAnswerKeyForItems(draftRecipeKeys)") ||
+  !arcadeSource.includes("setDraftRecipeKeys((itemKeys) => itemKeys.filter") ||
   !arcadeSource.includes("createPortal(") ||
+  !arcadeSource.includes("recipeBuilder ? addRecipeItem(item.key) : chooseItem(item.key)") ||
+  !arcadeSource.match(
+    /const chooseItem = \(itemKey: string\) => \{\s*setQuery\(""\);\s*setTooltip\(null\);\s*onChoose\(itemKey\);/s,
+  ) ||
   !itemButtonRule.includes("overflow: hidden;") ||
   !tooltipRule.includes("position: fixed;") ||
   arcadeStyles.includes(".shopkeeperGroup button > span")
@@ -169,6 +189,36 @@ for (const question of questions) {
       failures.push(`${question.id}: open-shop target is missing or disagrees with the correct answer.`);
     }
   }
+  if (question.shopkeeper?.format === "real-recipe") {
+    const answerKey = recipeBuilderCorrectAnswerKey(question);
+    const parsedKeys = recipeItemsFromAnswerKey(answerKey);
+    const wrongItem = catalogItems.find((item) => !question.shopkeeper.recipeComponentKeys.includes(item.key));
+    const wrongAnswerKey = recipeAnswerKeyForItems([
+      wrongItem.key,
+      ...question.shopkeeper.recipeComponentKeys.slice(1),
+    ]);
+    if (
+      !isRealRecipeBuilderQuestion(question) ||
+      !answerKey ||
+      !parsedKeys ||
+      !sameMultiset(parsedKeys, question.shopkeeper.recipeComponentKeys) ||
+      recipeBuilderAnswerIndex(question, answerKey) !== question.correctIndex ||
+      recipeBuilderAnswerIndex(question, wrongAnswerKey) === question.correctIndex ||
+      question.prompt !== `Build ${question.eyebrow}.` ||
+      questionPresentationRevision(question) !== "real-recipe-builder-1"
+    ) {
+      failures.push(`${question.id}: open-shop recipe builder contract drifted.`);
+    }
+  }
+  if (question.shopkeeper?.format === "upgrade-path") {
+    if (
+      !isItemPickerQuestion(question) ||
+      itemPickerCorrectAnswerKey(question) !== question.shopkeeper.targetItemKey ||
+      questionPresentationRevision(question) !== "open-shop-1"
+    ) {
+      failures.push(`${question.id}: Upgrade Path no longer uses the full-shop keyed-answer contract.`);
+    }
+  }
 
   if (liveRecipes) {
     const audit = question.shopkeeper;
@@ -223,11 +273,22 @@ if (isPlayableShopkeeperQuestion({ kind: "recipe-component" })) {
   failures.push("The retired single-component Shopkeeper format passed the playable gate.");
 }
 
+const duplicateRecipeKey = recipeAnswerKeyForItems(["broadsword", "claymore", "broadsword"]);
+if (
+  duplicateRecipeKey !== "recipe-v1:broadsword+broadsword+claymore" ||
+  JSON.stringify(recipeItemsFromAnswerKey(duplicateRecipeKey)) !==
+    JSON.stringify(["broadsword", "broadsword", "claymore"]) ||
+  recipeItemsFromAnswerKey("recipe-v1:claymore+broadsword") !== null ||
+  recipeItemsFromAnswerKey("recipe-v1:../../private") !== null
+) {
+  failures.push("Canonical recipe answers no longer preserve duplicates or reject malformed keys.");
+}
+
 if (failures.length) {
   console.error(failures.join("\n"));
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${questions.length} client-audited Shopkeeper rounds and the ${catalogItems.length}-item Dota shop picker: 12 each across Build Result, Real Recipe, Shared Part, and Upgrade Path${liveRecipes ? `, with build ${CLIENT_CONSTANT_AUDIT.clientBuild} recipe parity` : ""}.`,
+    `Validated ${questions.length} client-audited Shopkeeper rounds, 12 full-shop recipe builders, and the ${catalogItems.length}-item Dota shop picker${liveRecipes ? `, with build ${CLIENT_CONSTANT_AUDIT.clientBuild} recipe parity` : ""}.`,
   );
 }

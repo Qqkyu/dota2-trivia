@@ -291,16 +291,27 @@ const answering = await evaluate(`({
   game: document.querySelector('[data-testid="public-room"]')?.dataset.roundGame,
   answers: document.querySelectorAll('[data-testid="arcade-answer"]').length,
   openShop: Boolean(document.querySelector('[data-testid="shopkeeper-store"]')),
+  recipeBuilder: Boolean(document.querySelector('[data-testid="shopkeeper-recipe-builder"]')),
+  recipeSize: Number(document.querySelector('[data-testid="shopkeeper-recipe-builder"]')?.dataset.recipeSize ?? 0),
   shopItems: document.querySelectorAll('[data-testid="shopkeeper-store-item"]').length,
+  heroPicker: Boolean(document.querySelector('[data-testid="hero-picker"]')),
+  heroSearch: Boolean(document.querySelector('[data-testid="hero-search"]')),
+  heroItems: document.querySelectorAll('[data-testid="hero-picker-hero"]').length,
+  heroGroups: [...document.querySelectorAll('[data-testid="hero-picker"] [data-attribute]')].map((group) => ({
+    attribute: group.dataset.attribute,
+    count: Number(group.dataset.heroCount)
+  })),
   difficultyControls: document.querySelectorAll('[data-skill-level], [aria-label="Challenge level"]').length,
+  tipCards: document.querySelectorAll('[class*="tipCard"]').length,
   publicRoomVisible: Boolean(document.querySelector('[data-testid="public-room"]')),
   presence: document.querySelector('[data-testid="room-presence"]')?.innerText,
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 
 let shopTooltip = null;
+let shopSearchCleared = null;
 if (answering.openShop) {
-  await evaluate(`(() => {
+  const shopHoverPoint = await evaluate(`(() => {
     const store = document.querySelector('[data-testid="shopkeeper-store"]');
     const groups = store?.querySelector('[data-shop-section]');
     const item = store?.querySelector('[data-testid="shopkeeper-store-item"]');
@@ -313,9 +324,12 @@ if (answering.openShop) {
       scrollTop: element.scrollTop
     }) : null;
     window.__queueArcadeShopBeforeTooltip = { store: measure(store), groups: measure(groups) };
-    item?.focus();
-    return Boolean(item);
+    const bounds = item?.getBoundingClientRect();
+    return bounds ? { x: bounds.left + bounds.width / 2, y: bounds.top + bounds.height / 2 } : null;
   })()`);
+  if (shopHoverPoint) {
+    await send("Input.dispatchMouseEvent", { type: "mouseMoved", ...shopHoverPoint });
+  }
   await waitFor(`Boolean(document.querySelector('[data-testid="shopkeeper-item-tooltip"]'))`);
   shopTooltip = await evaluate(`(() => {
     const store = document.querySelector('[data-testid="shopkeeper-store"]');
@@ -340,15 +354,76 @@ if (answering.openShop) {
       )
     };
   })()`);
-  await evaluate(`document.activeElement?.blur()`);
+  await send("Input.dispatchMouseEvent", { type: "mouseMoved", x: 2, y: 2 });
+  await waitFor(`!document.querySelector('[data-testid="shopkeeper-item-tooltip"]')`);
+
+  await evaluate(`(() => {
+    const input = document.querySelector('[data-testid="shopkeeper-search"]');
+    const item = document.querySelector('[data-testid="shopkeeper-store-item"]');
+    const name = item?.getAttribute("aria-label")?.split(",")[0] ?? "";
+    const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+    setter?.call(input, name);
+    input?.dispatchEvent(new Event("input", { bubbles: true }));
+  })()`);
+  await waitFor(`Boolean(document.querySelector('[data-testid="shopkeeper-search"]')?.value)`);
+  await evaluate(`document.querySelector('[data-testid="shopkeeper-store-item"]')?.click()`);
+  await waitFor(`document.querySelector('[data-testid="shopkeeper-search"]')?.value === ""`);
+  shopSearchCleared = await evaluate(`document.querySelector('[data-testid="shopkeeper-search"]')?.value === ""`);
+
+  if (answering.recipeBuilder) {
+    await waitFor(
+      `Number(document.querySelector('[data-testid="shopkeeper-recipe-builder"]')?.dataset.selectionCount) === 1`,
+    );
+    for (let slot = 1; slot < answering.recipeSize; slot += 1) {
+      await evaluate(`document.querySelector('[data-testid="shopkeeper-store-item"]:not(:disabled)')?.click()`);
+      await waitFor(
+        `Number(document.querySelector('[data-testid="shopkeeper-recipe-builder"]')?.dataset.selectionCount) === ${slot + 1}`,
+      );
+    }
+    await evaluate(`document.querySelector('[data-testid="shopkeeper-recipe-build"]')?.click()`);
+  }
 }
 
-await evaluate(`(
-  document.querySelector('[data-testid="shopkeeper-store-item"]') ??
-  document.querySelector('[data-testid="arcade-answer"]')
-)?.click()`);
+let heroSearch = null;
+if (answering.heroPicker) {
+  await evaluate(`(() => {
+    window.__queueArcadeHeroPositions = [...document.querySelectorAll('[data-testid="hero-picker-hero"]')]
+      .map((hero) => {
+        const bounds = hero.getBoundingClientRect();
+        return [hero.dataset.heroKey, bounds.x, bounds.y];
+      });
+    window.dispatchEvent(new KeyboardEvent("keydown", { key: "z", bubbles: true }));
+  })()`);
+  await waitFor(`document.querySelector('[data-testid="hero-search"]')?.value === "z"`);
+  await waitFor(`[
+    ...document.querySelectorAll('[data-testid="hero-picker-hero"][data-search-match="false"]')
+  ].some((hero) => Number(getComputedStyle(hero).opacity) < 0.2)`);
+  heroSearch = await evaluate(`(() => {
+    const heroes = [...document.querySelectorAll('[data-testid="hero-picker-hero"]')];
+    const positions = heroes.map((hero) => {
+      const bounds = hero.getBoundingClientRect();
+      return [hero.dataset.heroKey, bounds.x, bounds.y];
+    });
+    return {
+      value: document.querySelector('[data-testid="hero-search"]')?.value,
+      matches: heroes.filter((hero) => hero.dataset.searchMatch === "true").length,
+      dimmed: heroes.filter((hero) => hero.dataset.searchMatch === "false" && Number(getComputedStyle(hero).opacity) < 0.2).length,
+      fixed: JSON.stringify(window.__queueArcadeHeroPositions) === JSON.stringify(positions)
+    };
+  })()`);
+  await evaluate(`document.querySelector('[data-testid="hero-search-clear"]')?.click()`);
+  await waitFor(`document.querySelector('[data-testid="hero-search"]')?.value === ""`);
+}
+
+if (!answering.openShop) {
+  await evaluate(`(
+    document.querySelector('[data-testid="hero-picker-hero"]') ??
+    document.querySelector('[data-testid="arcade-answer"]')
+  )?.click()`);
+}
 await waitFor(`Boolean(
-  document.querySelector('[data-testid="shopkeeper-store-item"][aria-pressed="true"]') ??
+  document.querySelector('[data-testid="shopkeeper-store"][data-locked="true"]') ??
+  document.querySelector('[data-testid="hero-picker-hero"][aria-pressed="true"]') ??
   document.querySelector('[data-testid="arcade-answer"][aria-pressed="true"]')
 )`);
 await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
@@ -372,6 +447,12 @@ const reveal = await evaluate(`(() => {
       .filter((button) => /%/.test(button.innerText)).length,
     shopPercentages: [...document.querySelectorAll('[data-testid="shopkeeper-store-item"]')]
       .filter((button) => /%/.test(button.innerText)).length,
+    heroPercentages: [...document.querySelectorAll('[data-testid="hero-picker-hero"]')]
+      .filter((button) => /%/.test(button.innerText)).length,
+    heroCorrect: document.querySelectorAll('[data-testid="hero-picker-hero"][data-state="correct"]').length,
+    heroCrowd: Boolean(document.querySelector('[data-testid="hero-crowd-picks"]')),
+    recipeCrowd: Boolean(document.querySelector('[data-testid="shopkeeper-recipe-crowd-picks"]')),
+    recipeReveal: Boolean(document.querySelector('[data-testid="shopkeeper-recipe-reveal-tray"]')),
     openShopReveal: Boolean(document.querySelector('[data-testid="shopkeeper-open-reveal"]')),
     reportReasons: document.querySelectorAll('[data-testid="report-reason"]').length,
     reportBounds: bounds ? { x: bounds.x, y: bounds.y, width: bounds.width, height: bounds.height } : null,
@@ -545,21 +626,46 @@ if (
   !["trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt", "soundcheck", "quote-hunt"].includes(
     answering.game,
   ) ||
-  (answering.openShop ? answering.answers !== 0 || answering.shopItems < 70 : answering.answers !== 4) ||
+  (answering.openShop
+    ? answering.answers !== 0 || answering.shopItems < 70 || answering.heroPicker
+    : answering.heroPicker
+      ? answering.answers !== 0 ||
+        !answering.heroSearch ||
+        answering.heroItems !== 127 ||
+        JSON.stringify(answering.heroGroups) !==
+          JSON.stringify([
+            { attribute: "strength", count: 36 },
+            { attribute: "agility", count: 35 },
+            { attribute: "intelligence", count: 34 },
+            { attribute: "universal", count: 22 },
+          ])
+      : answering.answers !== 4) ||
   answering.difficultyControls !== 0 ||
+  answering.tipCards !== 0 ||
   !answering.publicRoomVisible ||
   !/player/.test(answering.presence ?? "") ||
   answering.timer < MIN_INITIAL_ANSWER_TIME_MS / 1_000 - 2 ||
   answering.horizontalOverflow ||
-  (answering.openShop && (!shopTooltip?.visible || !shopTooltip.stable || !shopTooltip.insideViewport))
+  (answering.openShop &&
+    (!shopTooltip?.visible || !shopTooltip.stable || !shopTooltip.insideViewport || !shopSearchCleared))
 ) {
   failures.push("The synchronized public round is incomplete or still exposes a player queue choice.");
 }
 if (
+  answering.heroPicker &&
+  (!heroSearch || heroSearch.value !== "z" || heroSearch.matches < 1 || heroSearch.dimmed < 1 || !heroSearch.fixed)
+) {
+  failures.push("Type-to-search no longer dims heroes in place without rearranging the Dota grid.");
+}
+if (
   !reveal.result ||
   (answering.openShop
-    ? !reveal.openShopReveal || reveal.shopPercentages < 1
-    : reveal.percentages !== 4 || reveal.openShopReveal) ||
+    ? answering.recipeBuilder
+      ? !reveal.openShopReveal || !reveal.recipeReveal || !reveal.recipeCrowd || reveal.shopPercentages !== 0
+      : !reveal.openShopReveal || reveal.shopPercentages < 1 || reveal.recipeReveal || reveal.recipeCrowd
+    : answering.heroPicker
+      ? reveal.heroPercentages < 1 || reveal.heroCorrect !== 1 || !reveal.heroCrowd || reveal.openShopReveal
+      : reveal.percentages !== 4 || reveal.openShopReveal) ||
   reveal.reportReasons !== 4 ||
   !sameBounds ||
   reveal.nextButton ||
@@ -623,6 +729,7 @@ if (failures.length) {
         entryWait,
         answering,
         shopTooltip,
+        heroSearch,
         reveal,
         autoAdvanced,
         summary,

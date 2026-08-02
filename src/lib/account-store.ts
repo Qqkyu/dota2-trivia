@@ -1,8 +1,8 @@
 import { randomBytes } from "node:crypto";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
-import type { AccountProfile, AccountUser, PlayerRoundRecord } from "@/lib/account-contract";
-import type { GameId } from "@/lib/game-catalogs";
+import type { AccountProfile, AccountUser, StoredPlayerRoundRecord } from "@/lib/account-contract";
+import type { GameId } from "@/lib/game-identity";
 import { summarizePlayerRounds } from "@/lib/player-profile.mjs";
 
 export interface SteamIdentityInput {
@@ -40,7 +40,7 @@ interface AccountState {
   users: Record<string, StoredUser>;
   identities: Record<string, string>;
   sessions: Record<string, StoredSession>;
-  rounds: Record<string, PlayerRoundRecord & { userId: string }>;
+  rounds: Record<string, StoredPlayerRoundRecord & { userId: string }>;
 }
 
 interface RuntimeAccountStore {
@@ -212,7 +212,7 @@ async function fileDeleteAccount(userId: string) {
   });
 }
 
-async function fileRecordPlayerRound(userId: string, round: PlayerRoundRecord) {
+async function fileRecordPlayerRound(userId: string, round: StoredPlayerRoundRecord) {
   return mutate((state) => {
     if (!state.users[userId]) throw new Error("Cannot record a result for an unknown Queue Arcade user.");
     const key = playerRoundKey(userId, round.roundId);
@@ -276,7 +276,7 @@ export async function deleteAccount(userId: string) {
   return fileDeleteAccount(userId);
 }
 
-export async function recordPlayerRound(userId: string, round: PlayerRoundRecord) {
+export async function recordPlayerRound(userId: string, round: StoredPlayerRoundRecord) {
   if (usesPostgres()) return (await postgresStore()).recordPlayerRound(userId, round);
   return fileRecordPlayerRound(userId, round);
 }

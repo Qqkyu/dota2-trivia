@@ -58,6 +58,19 @@ export interface CalibrationSnapshot {
   records: CalibrationRecord[];
 }
 
+export function publicCalibrationSnapshot(snapshot: CalibrationSnapshot): CalibrationSnapshot {
+  return {
+    ...snapshot,
+    records: snapshot.records.map((record) => ({
+      ...record,
+      // Calibration revisions are opaque and stable. Public players can still
+      // inspect aggregate quality signals without receiving catalog IDs that
+      // encode a hero, ability, or item answer.
+      questionId: record.questionRevision,
+    })),
+  };
+}
+
 export async function getCalibrationSnapshot(gameId: GameId = DEFAULT_GAME_ID): Promise<CalibrationSnapshot> {
   const catalog = GAME_CATALOGS[gameId];
   const questionRevisions = new Map(

@@ -171,18 +171,18 @@ function crowdFor(round: StoredRound | undefined): CrowdResult {
         .flatMap((vote) => (vote.mapPosition ? [{ ...vote.mapPosition }] : []))
         .slice(-MAP_SENSE_MAX_CROWD_PINS)
     : [];
-  const itemCountMap = new Map<string, number>();
+  const keyCountMap = new Map<string, number>();
   for (const vote of Object.values(round?.voters ?? {})) {
-    if (vote.answerKey) itemCountMap.set(vote.answerKey, (itemCountMap.get(vote.answerKey) ?? 0) + 1);
+    if (vote.answerKey) keyCountMap.set(vote.answerKey, (keyCountMap.get(vote.answerKey) ?? 0) + 1);
   }
-  const itemCounts = [...itemCountMap.entries()]
-    .map(([itemKey, count]) => ({ itemKey, count }))
-    .sort((left, right) => right.count - left.count || left.itemKey.localeCompare(right.itemKey));
+  const keyCounts = [...keyCountMap.entries()]
+    .map(([answerKey, count]) => ({ answerKey, count }))
+    .sort((left, right) => right.count - left.count || left.answerKey.localeCompare(right.answerKey));
   return {
     counts,
     total: counts.reduce((sum, count) => sum + count, 0),
     positions,
-    itemCounts,
+    keyCounts,
   };
 }
 

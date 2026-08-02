@@ -208,6 +208,19 @@ for (const [index, question] of questions.entries()) {
     if (/(?:^|[_:-])(laugh|chuckle|giggle)(?:[_:-]|$)/i.test(question.id)) {
       failures.push(`${label}: Quote Hunt must never use a laugh or vocalization.`);
     }
+    if (
+      !Array.isArray(question.quoteHints) ||
+      question.quoteHints.length !== 2 ||
+      !/^(?:Strength|Agility|Intelligence|Universal) hero$/.test(question.quoteHints[0] ?? "") ||
+      !/^(?:Melee|Ranged) · (?:Carry|Support|Nuker|Disabler|Jungler|Durable|Escape|Pusher|Initiator)$/.test(
+        question.quoteHints[1] ?? "",
+      )
+    ) {
+      failures.push(`${label}: Quote Hunt needs two compact live-client identity clues.`);
+    }
+    if (question.quoteHints?.some((hint) => containsAnswerLeak(hint, correctAnswer))) {
+      failures.push(`${label}: a Quote Hunt identity clue leaks ${correctAnswer}.`);
+    }
   }
   if (!/^https:\/\//.test(question.source?.url ?? "")) failures.push(`${label}: source URL is invalid.`);
   if (

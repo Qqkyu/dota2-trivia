@@ -29,6 +29,7 @@ const crossReleaseSummary = summarizePlayerRounds([
   { ...rounds[0], roundId: "old-release", roundNumber: 99_999, correct: true, submittedAt: 1_000 },
   { ...rounds[1], roundId: "new-release", roundNumber: 1, correct: false, submittedAt: 2_000 },
 ]);
+const serializedRecentRounds = JSON.stringify(summary.recentRounds);
 
 if (
   summary.answered !== 11 ||
@@ -40,9 +41,12 @@ if (
   summary.firstStageCorrect !== 1 ||
   summary.progressiveAnswered !== 3 ||
   summary.formats.length !== 2 ||
-  summary.recentRounds.length !== 10
+  summary.recentRounds.length !== 10 ||
+  serializedRecentRounds.includes("questionId") ||
+  serializedRecentRounds.includes("questionRevision") ||
+  serializedRecentRounds.includes("question-10")
 ) {
-  failures.push("Player streak, rolling record, stage, or format summaries are incorrect.");
+  failures.push("Player summaries are incorrect or expose private catalog identifiers.");
 }
 if (crossReleaseSummary.currentStreak !== 0 || crossReleaseSummary.recentRounds[0]?.roundId !== "new-release") {
   failures.push("Player chronology incorrectly depends on a content release's round-number sequence.");
@@ -50,7 +54,10 @@ if (crossReleaseSummary.currentStreak !== 0 || crossReleaseSummary.recentRounds[
 if (
   answerStageForRound("soundcheck", 7_001, 15_000) !== 2 ||
   answerStageForRound("soundcheck", 7_000, 15_000) !== 3 ||
-  answerStageForRound("echo-hunt", 7_000, 15_000) !== 2
+  answerStageForRound("echo-hunt", 7_000, 15_000) !== 2 ||
+  answerStageForRound("quote-hunt", 11_000, 15_000) !== 1 ||
+  answerStageForRound("quote-hunt", 9_000, 15_000) !== 2 ||
+  answerStageForRound("quote-hunt", 4_000, 15_000) !== 3
 ) {
   failures.push("Saved progressive-answer stages do not match their live reveal schedules.");
 }

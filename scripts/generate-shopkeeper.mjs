@@ -665,7 +665,7 @@ for (const targetKey of REAL_RECIPE_TARGETS) {
     category: "Recipes",
     difficulty: 3,
     eyebrow: target.name,
-    prompt: `Which recipe builds ${target.name}?`,
+    prompt: `Build ${target.name}.`,
     image: { src: target.image, alt: `${target.name} item icon`, kind: "item" },
     answers: ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
     correctIndex: correctSlot,

@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isSameOriginMutation, sessionUserForRequest } from "@/lib/auth-session";
 import { rateLimitRequest } from "@/lib/api-protection";
-import { getCalibrationSnapshot } from "@/lib/calibration-data";
+import { getCalibrationSnapshot, publicCalibrationSnapshot } from "@/lib/calibration-data";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { effectiveQuestionReviewStatus, isQuestionReviewer, isQuestionReviewState } from "@/lib/question-review";
@@ -11,14 +11,18 @@ import { setQuestionReview } from "@/lib/vote-store";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const candidate = new URL(request.url).searchParams.get("gameId") ?? DEFAULT_GAME_ID;
   if (!isGameId(candidate)) {
     return NextResponse.json({ error: "Unknown game catalog." }, { status: 400 });
   }
 
   try {
-    return NextResponse.json(await getCalibrationSnapshot(candidate), {
+    const [snapshot, user] = await Promise.all([
+      getCalibrationSnapshot(candidate),
+      sessionUserForRequest(request).catch(() => null),
+    ]);
+    return NextResponse.json(isQuestionReviewer(user) ? snapshot : publicCalibrationSnapshot(snapshot), {
       headers: {
         "Cache-Control": "no-store",
       },
