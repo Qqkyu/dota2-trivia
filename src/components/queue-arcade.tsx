@@ -3558,7 +3558,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                   </div>
                 )}
                 <div className={styles.questionCopy}>
-                  <span>Shopkeeper Rush · {shopkeeperFormatLabel(currentQuestion)}</span>
+                  <span>{shopkeeperFormatLabel(currentQuestion)}</span>
                   <h2>{currentQuestion.prompt}</h2>
                   <small>
                     Patch {currentQuestion.patch}
@@ -3591,7 +3591,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                   </span>
                 </div>
                 <div className={styles.questionCopy}>
-                  <span>Spell Link</span>
+                  <span>Ability identity</span>
                   <h2>Which hero owns this ability?</h2>
                   <div className={styles.clueList}>
                     <div
@@ -3638,7 +3638,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                   </span>
                 </div>
                 <div className={styles.questionCopy}>
-                  <span>Fogged Vision · Progressive reveal</span>
+                  <span>Progressive reveal</span>
                   <h2>Which hero is hiding in the fog?</h2>
                   <div className={styles.fogMeter} aria-label={`Portrait clarity stage ${clueStage} of 3`}>
                     {Array.from({ length: 3 }, (_, index) => (
@@ -3760,9 +3760,11 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                   <span>
                     {isSoundcheckRound
                       ? isSoundSequence
-                        ? "Soundcheck · Ordered pair"
-                        : `Soundcheck · ${currentQuestion.soundcheck?.family === "item" ? "Item activation" : "Ability sound"}`
-                      : "Echo Hunt · Hero response"}
+                        ? "Ordered pair"
+                        : currentQuestion.soundcheck?.family === "item"
+                          ? "Item activation"
+                          : "Ability sound"
+                      : "Hero response"}
                   </span>
                   <h2>{isSoundcheckRound ? currentQuestion.prompt : "Whose voice crossed the river?"}</h2>
                   {isProgressiveAudioRound && (
@@ -3795,7 +3797,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                   <span>Hero response</span>
                 </div>
                 <div className={styles.questionCopy}>
-                  <span>Quote Hunt</span>
+                  <span>Hero quote</span>
                   <h2>Who said it?</h2>
                   <div className={styles.quoteHints} aria-label={`Identity clue stage ${clueStage} of 3`}>
                     {[0, 1].map((index) => {

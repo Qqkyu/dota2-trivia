@@ -20,10 +20,11 @@ import { varietyShuffle } from "../src/lib/variety.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const readQuestions = async (file) => JSON.parse(await readFile(join(root, "src", "data", file), "utf8"));
-const [generated, shopkeeper, soundcheck] = await Promise.all([
+const [generated, shopkeeper, soundcheck, component] = await Promise.all([
   readQuestions("questions.generated.json"),
   readQuestions("shopkeeper-questions.json"),
   readQuestions("soundcheck-questions.json"),
+  readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8"),
 ]);
 
 const generatedLive = generated.filter(
@@ -55,6 +56,21 @@ if (LIVE_ARCADE_MODES.length !== 1 || LIVE_ARCADE_MODES[0] !== PUBLIC_ARCADE_MOD
 }
 if (LIVE_ROUND_GAMES.length !== 7 || PUBLIC_ROUND_FORMATS.length !== 10) {
   failures.push("The public arcade no longer has seven round identities and ten scheduling formats.");
+}
+for (const [mode, repeatedLabel] of [
+  ["Shopkeeper Rush", /<span>Shopkeeper Rush\b/],
+  ["Spell Link", /<span>Spell Link<\/span>/],
+  ["Fogged Vision", /<span>Fogged Vision\b/],
+  ["Soundcheck", /["`]Soundcheck ·/],
+  ["Echo Hunt", /["`]Echo Hunt ·/],
+  ["Quote Hunt", /<span>Quote Hunt<\/span>/],
+]) {
+  if (repeatedLabel.test(component)) {
+    failures.push(`The in-round context repeats the top-bar ${mode} label.`);
+  }
+}
+if (!component.includes("<span>Ability identity</span>") || !component.includes("<span>Hero quote</span>")) {
+  failures.push("Spell Link or Quote Hunt lost its non-repeating round subtype label.");
 }
 
 const pools = new Map(
