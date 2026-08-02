@@ -26,7 +26,7 @@ const META_OUTPUT = join(ROOT, "src", "data", "trivia-meta.generated.json");
 
 const PATCH = process.env.DOTA_PATCH ?? "7.41d";
 const SNAPSHOT_DATE = process.env.DOTA_SNAPSHOT_DATE ?? new Date().toISOString().slice(0, 10);
-const CONTENT_VERSION = `${PATCH}-variety-6`;
+const CONTENT_VERSION = `${PATCH}-variety-7`;
 const CDN = "https://cdn.cloudflare.steamstatic.com";
 const DOTABASE_RAW = "https://raw.githubusercontent.com/mdiller/dotabase/master";
 const DOTABASE_ASSETS = "https://dotabase.dillerm.io/vpk";
@@ -41,6 +41,7 @@ const endpoints = {
 
 const cacheArg = process.argv.find((argument) => argument.startsWith("--cache-dir="));
 const cacheDirectory = cacheArg ? resolve(cacheArg.split("=")[1]) : undefined;
+const responsesOnly = process.argv.includes("--responses-only");
 
 if (PATCH !== CLIENT_CONSTANT_AUDIT.patch) {
   throw new Error(
@@ -59,6 +60,22 @@ function hash(input) {
 
 function stableSample(values, amount, salt) {
   return [...values].sort((left, right) => hash(`${salt}:${left.key}`) - hash(`${salt}:${right.key}`)).slice(0, amount);
+}
+
+async function mapWithConcurrency(values, concurrency, operation) {
+  const results = new Array(values.length);
+  let cursor = 0;
+
+  async function worker() {
+    while (cursor < values.length) {
+      const index = cursor;
+      cursor += 1;
+      results[index] = await operation(values[index], index);
+    }
+  }
+
+  await Promise.all(Array.from({ length: Math.min(concurrency, values.length) }, worker));
+  return results;
 }
 
 function shuffle(values, salt) {
@@ -105,6 +122,7 @@ function numericOptions(correct, kind, salt, configuredStep) {
 function makeQuestion({
   id,
   kind,
+  varietyKey,
   category,
   difficulty,
   eyebrow,
@@ -135,6 +153,8 @@ function makeQuestion({
     source,
     patch: PATCH,
   };
+
+  if (varietyKey) question.varietyKey = varietyKey;
 
   if (image) question.image = image;
   if (detail) question.detail = detail;
@@ -266,6 +286,10 @@ function isProperVoiceLine(response, minimumCharacters, minimumWords) {
   const text = voiceLineText(response);
   const assetName = [response.name, response.fullname, response.mp3].filter(Boolean).join(" ");
   const vocalizations = (text.match(/[a-z]+/gi) ?? []).filter(isVoiceVocalization);
+  const laughVocalization =
+    /\b(?:ha(?:ha)+|he(?:he)+|heh+|nyaheh+|hehehaaha|hau+h+(?:-h+)?)\b|(?:\bha[!,.\s-]*){2,}|(?:\bhe[!,.\s-]*){2,}/i.test(
+      text,
+    );
 
   return (
     text.length >= minimumCharacters &&
@@ -273,9 +297,53 @@ function isProperVoiceLine(response, minimumCharacters, minimumWords) {
     meaningfulVoiceWords(text).length >= minimumWords &&
     !vocalizations.some((word) => word.length >= 4) &&
     vocalizations.length < 2 &&
+    !laughVocalization &&
     !/[<>{}]/.test(text) &&
     !/(?:^|[_\s-])(laugh|chuckle|giggle)(?:[_\s.-]|$)/i.test(assetName)
   );
+}
+
+function voiceLineStartsWithVocalization(response) {
+  return /^(?:a+h+|a+gh+|u+gh+|h+m+|h+au+h+|gr+r+|heh+|ha(?:ha)+)(?:\b|[-,.!])/i.test(response.normalizedText);
+}
+
+function voiceResponseContextIsPlayable(response) {
+  const criteria = response.pretty_criteria ?? "";
+  return Boolean(criteria) && !/(?:Unused|Laughing|Dying|Taking damage|Pain sounds)/i.test(criteria);
+}
+
+function voiceResponseQuality(response, purpose) {
+  const text = response.normalizedText;
+  const words = meaningfulVoiceWords(text);
+  const criteria = response.pretty_criteria ?? "";
+  const targetWords = purpose === "quote" ? 9 : 6;
+  const targetLength = purpose === "quote" ? 58 : 38;
+  let score = 60 - Math.abs(words.length - targetWords) * 3 - Math.abs(text.length - targetLength) * 0.2;
+
+  if (/[!?]/.test(text)) score += 2;
+  if (/[,:;—]/.test(text)) score += 1;
+  if (/(?:Killing a hero|Killing a specific hero|First Blood|Meeting an ally|Meeting a rival)/i.test(criteria)) {
+    score += 8;
+  } else if (/(?:Spawning|Respawning|Leveling up|Purchasing|Victory|Beginning battle)/i.test(criteria)) {
+    score += 5;
+  }
+  if (
+    /\b(?:battle|blood|death|destiny|fate|fear|glory|honor|magic|nightmare|power|shadow|soul|war|world)\b/i.test(text)
+  ) {
+    score += 4;
+  }
+  if (/^(?:I move|Yes|Indeed|Forward|As you wish|Very well)[.!]?$/i.test(text)) score -= 20;
+  return score;
+}
+
+function rankedVoiceResponses(candidates, amount, purpose, salt) {
+  return [...candidates]
+    .sort(
+      (left, right) =>
+        voiceResponseQuality(right, purpose) - voiceResponseQuality(left, purpose) ||
+        hash(`${salt}:${left.key}`) - hash(`${salt}:${right.key}`),
+    )
+    .slice(0, amount);
 }
 
 function voiceLineLeaksHero(response, hero, dotabaseHero) {
@@ -655,90 +723,107 @@ for (const hero of heroes) {
   );
 }
 
-const voiceHeroes = stableSample(
-  heroes.filter((hero) => hero.responseNames.length),
-  48,
-  "hero-voice",
-);
-const voiceResponses = await Promise.all(
-  voiceHeroes.map(async (hero) => {
-    try {
-      return [hero, await loadHeroResponses(hero.responseNames)];
-    } catch (error) {
-      console.warn(`Skipping voice responses for ${hero.localized_name}: ${error.message}`);
-      return [hero, []];
-    }
-  }),
-);
+const voiceHeroes = heroes.filter((hero) => hero.responseNames.length);
+const voiceResponses = await mapWithConcurrency(voiceHeroes, 8, async (hero) => {
+  try {
+    return [hero, await loadHeroResponses(hero.responseNames)];
+  } catch (error) {
+    console.warn(`Skipping voice responses for ${hero.localized_name}: ${error.message}`);
+    return [hero, []];
+  }
+});
 
 for (const [hero, responses] of voiceResponses) {
   const dotabaseHero = dotabaseHeroById.get(hero.id);
-  const candidates = responses
-    .filter((response) => {
-      return (
-        response.hero_id === hero.id &&
-        typeof response.mp3 === "string" &&
-        response.mp3.endsWith(".mp3") &&
-        isProperVoiceLine(response, 18, 3) &&
-        /(Moving|Attacking|Spawning|Killing a hero)/.test(response.pretty_criteria ?? "") &&
-        !voiceLineLeaksHero(response, hero, dotabaseHero)
-      );
-    })
-    .map((response) => ({
+  const heroName = heroPickerDisplayName(hero);
+  const candidateMap = new Map();
+  for (const response of responses) {
+    if (
+      response.hero_id !== hero.id ||
+      typeof response.mp3 !== "string" ||
+      !response.mp3.endsWith(".mp3") ||
+      !isProperVoiceLine(response, 18, 3) ||
+      !voiceResponseContextIsPlayable(response) ||
+      voiceLineLeaksHero(response, hero, dotabaseHero)
+    ) {
+      continue;
+    }
+    const candidate = {
       ...response,
       key: response.fullname ?? response.name,
       normalizedText: voiceLineText(response),
-    }));
-  const audioLine = stableSample(candidates, 1, `hero-voice:${hero.key}`)[0];
+    };
+    const textKey = candidate.normalizedText
+      .toLocaleLowerCase("en-US")
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim();
+    const existing = candidateMap.get(textKey);
+    if (!existing || voiceResponseQuality(candidate, "quote") > voiceResponseQuality(existing, "quote")) {
+      candidateMap.set(textKey, candidate);
+    }
+  }
+  const candidates = [...candidateMap.values()];
+  const audioLine = rankedVoiceResponses(
+    candidates.filter((response) => !voiceLineStartsWithVocalization(response)),
+    1,
+    "echo",
+    `hero-voice:${hero.key}`,
+  )[0];
   const quoteCandidates = candidates.filter(
     (response) =>
       response.key !== audioLine?.key &&
       response.normalizedText.length >= 28 &&
       meaningfulVoiceWords(response.normalizedText).length >= 5,
   );
-  const quoteLine = stableSample(quoteCandidates, 1, `hero-quote:${hero.key}`)[0];
-  if (!audioLine && !quoteLine) continue;
+  const quoteLines = rankedVoiceResponses(quoteCandidates, 2, "quote", `hero-quote:${hero.key}`);
+  if (!audioLine && !quoteLines.length) continue;
 
   const distractors = spellDistractors(hero, heroes, 2, `hero-voice:${hero.key}`, hash);
   if (distractors.length !== 3) continue;
   const answerHeroes = [hero, ...distractors];
+  const answerNames = answerHeroes.map(heroPickerDisplayName);
+  const answerArtwork = Object.fromEntries(
+    answerHeroes.map((candidate) => [heroPickerDisplayName(candidate), candidate.image]),
+  );
 
   if (audioLine) {
     questions.push(
       makeQuestion({
         id: `hero-voice:${hero.key}:${audioLine.name}`,
         kind: "hero-voice",
+        varietyKey: hero.key,
         category: "Heroes",
         difficulty: 2,
         eyebrow: "Echo Hunt",
         prompt: "Which hero said this?",
-        image: { src: hero.image, alt: `${hero.localized_name} hero portrait`, kind: "hero" },
-        answers: answerHeroes.map((candidate) => candidate.localized_name),
-        correctAnswer: hero.localized_name,
-        answerImagesByValue: answerArtworkByName(answerHeroes),
+        image: { src: hero.image, alt: `${heroName} hero portrait`, kind: "hero" },
+        answers: answerNames,
+        correctAnswer: heroName,
+        answerImagesByValue: answerArtwork,
         answerImageKind: "hero",
-        explanation: `“${audioLine.normalizedText}” is spoken by ${hero.localized_name}.`,
+        explanation: `“${audioLine.normalizedText}” is spoken by ${heroName}.`,
         audio: { src: `${DOTABASE_ASSETS}${audioLine.mp3}` },
         source: voiceSource,
       }),
     );
   }
 
-  if (quoteLine) {
+  for (const quoteLine of quoteLines) {
     questions.push(
       makeQuestion({
         id: `hero-quote:${hero.key}:${quoteLine.name}`,
         kind: "hero-quote",
+        varietyKey: hero.key,
         category: "Heroes",
         difficulty: 2,
         eyebrow: "Quote Hunt",
         prompt: "Which hero said this line?",
         detail: quoteLine.normalizedText,
-        answers: answerHeroes.map((candidate) => candidate.localized_name),
-        correctAnswer: hero.localized_name,
-        answerImagesByValue: answerArtworkByName(answerHeroes),
+        answers: answerNames,
+        correctAnswer: heroName,
+        answerImagesByValue: answerArtwork,
         answerImageKind: "hero",
-        explanation: `“${quoteLine.normalizedText}” is spoken by ${hero.localized_name}.`,
+        explanation: `“${quoteLine.normalizedText}” is spoken by ${heroName}.`,
         source: voiceSource,
       }),
     );
@@ -1006,23 +1091,46 @@ const rejectedQuestions = questions.filter(
 const sortedQuestions = balanceCorrectAnswerSlots(
   questions.filter((question) => !rejectedQuestions.includes(question)),
 ).sort((left, right) => left.id.localeCompare(right.id));
-const verifiedAssetCount = new Set(sortedQuestions.flatMap(questionImageUrls)).size;
-const verifiedAudioCount = new Set(sortedQuestions.flatMap(questionAudioUrls)).size;
+const [existingQuestions, existingMetadata] = responsesOnly
+  ? await Promise.all([readFile(OUTPUT, "utf8").then(JSON.parse), readFile(META_OUTPUT, "utf8").then(JSON.parse)])
+  : [[], null];
+const responseKinds = new Set(["hero-voice", "hero-quote"]);
+const outputQuestions = responsesOnly
+  ? [
+      ...existingQuestions.filter((question) => !responseKinds.has(question.kind)),
+      ...sortedQuestions.filter((question) => responseKinds.has(question.kind)),
+    ].sort((left, right) => left.id.localeCompare(right.id))
+  : sortedQuestions;
+const scopedRejectedQuestions = responsesOnly
+  ? rejectedQuestions.filter((question) => responseKinds.has(question.kind))
+  : rejectedQuestions;
+const rejectedQuestionIds = [
+  ...new Set([
+    ...(responsesOnly
+      ? (existingMetadata?.assetValidation?.rejectedQuestionIds ?? []).filter(
+          (questionId) => ![...responseKinds].some((kind) => questionId.startsWith(`${kind}:`)),
+        )
+      : []),
+    ...scopedRejectedQuestions.map((question) => question.id),
+  ]),
+].sort();
+const verifiedAssetCount = new Set(outputQuestions.flatMap(questionImageUrls)).size;
+const verifiedAudioCount = new Set(outputQuestions.flatMap(questionAudioUrls)).size;
 const categoryCounts = Object.fromEntries(
-  [...new Set(sortedQuestions.map((question) => question.category))].map((category) => [
+  [...new Set(outputQuestions.map((question) => question.category))].map((category) => [
     category,
-    sortedQuestions.filter((question) => question.category === category).length,
+    outputQuestions.filter((question) => question.category === category).length,
   ]),
 );
 const kindCounts = Object.fromEntries(
-  [...new Set(sortedQuestions.map((question) => question.kind))].map((kind) => [
+  [...new Set(outputQuestions.map((question) => question.kind))].map((kind) => [
     kind,
-    sortedQuestions.filter((question) => question.kind === kind).length,
+    outputQuestions.filter((question) => question.kind === kind).length,
   ]),
 );
 
 await mkdir(dirname(OUTPUT), { recursive: true });
-await writeFile(OUTPUT, `${JSON.stringify(sortedQuestions, null, 2)}\n`);
+await writeFile(OUTPUT, `${JSON.stringify(outputQuestions, null, 2)}\n`);
 await writeFile(
   META_OUTPUT,
   `${JSON.stringify(
@@ -1030,7 +1138,7 @@ await writeFile(
       patch: PATCH,
       contentVersion: CONTENT_VERSION,
       snapshotDate: SNAPSHOT_DATE,
-      questionCount: sortedQuestions.length,
+      questionCount: outputQuestions.length,
       categoryCounts,
       kindCounts,
       sources: endpoints,
@@ -1039,7 +1147,7 @@ await writeFile(
         checkedAt: SNAPSHOT_DATE,
         verifiedAssetCount,
         verifiedAudioCount,
-        rejectedQuestionIds: rejectedQuestions.map((question) => question.id).sort(),
+        rejectedQuestionIds,
       },
     },
     null,
@@ -1047,13 +1155,15 @@ await writeFile(
   )}\n`,
 );
 
-console.log(`Generated ${sortedQuestions.length} questions for Dota ${PATCH}.`);
+console.log(
+  `${responsesOnly ? "Refreshed hero responses in" : "Generated"} ${outputQuestions.length} questions for Dota ${PATCH}.`,
+);
 console.log(categoryCounts);
 console.log(kindCounts);
-if (rejectedQuestions.length) {
-  console.warn(`Rejected ${rejectedQuestions.length} questions with unavailable assets:`);
+if (scopedRejectedQuestions.length) {
+  console.warn(`Rejected ${scopedRejectedQuestions.length} questions with unavailable assets:`);
   console.warn(
-    rejectedQuestions
+    scopedRejectedQuestions
       .map((question) => question.id)
       .sort()
       .join("\n"),
