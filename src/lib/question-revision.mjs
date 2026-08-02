@@ -15,6 +15,7 @@ const NON_PLAYABLE_FIELDS = new Set([
 
 const PLAYABLE_PRESENTATION_REVISIONS = Object.freeze({
   "fogged-hero": "fog-veteran-curve-1",
+  "spell-owner": "full-description-1",
   "shopkeeper-real-recipe": "real-recipe-builder-1",
   "shopkeeper-upgrade-path": "open-shop-1",
 });

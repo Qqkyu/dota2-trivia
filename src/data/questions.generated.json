@@ -1138,7 +1138,7 @@
       "alt": "Mist Coil ability icon",
       "kind": "ability"
     },
-    "hint": "The caster releases a coil of deathly mist that can damage an enemy unit or heal a…",
+    "hint": "The caster releases a coil of deathly mist that can damage an enemy unit or heal a friendly unit at the cost of some of the caster's health.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png",
@@ -1167,7 +1167,7 @@
       "alt": "Acid Spray ability icon",
       "kind": "ability"
     },
-    "hint": "Sprays high-pressure acid across a target area.",
+    "hint": "Sprays high-pressure acid across a target area. Enemy units who step across the contaminated terrain take damage per second and have their armor reduced.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/alchemist.png",
@@ -1196,7 +1196,7 @@
       "alt": "Battle Hunger ability icon",
       "kind": "ability"
     },
-    "hint": "Enrages an enemy unit, causing it to take damage over time until it kills another unit or…",
+    "hint": "Enrages an enemy unit, causing it to take damage over time until it kills another unit or the duration ends. The enemy is slowed as long as they are facing away from the caster.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png",
@@ -1254,7 +1254,7 @@
       "alt": "Phantasm ability icon",
       "kind": "ability"
     },
-    "hint": "Summons several phantasmal copies of the caster from alternate dimensions.",
+    "hint": "Summons several phantasmal copies of the caster from alternate dimensions. The phantasms are illusions that deal 100% damage, but take 350% damage.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chaos_knight.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/centaur.png",
@@ -1288,7 +1288,7 @@
       "alt": "Wall of Replica ability icon",
       "kind": "ability"
     },
-    "hint": "Raises a wall of warping light that slows, damages, and creates replicas of any enemy hero who…",
+    "hint": "Raises a wall of warping light that slows, damages, and creates replicas of any enemy hero who crosses it. Enemy replicas serve at the caster's will. Replicas last until they are destroyed, or until the wall's duration ends.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png",
@@ -1317,7 +1317,7 @@
       "alt": "Bedlam ability icon",
       "kind": "ability"
     },
-    "hint": "The caster sends her pet wisp to roam around herself for the duration, rapidly attacking nearby enemies.",
+    "hint": "The caster sends her pet wisp to roam around herself for the duration, rapidly attacking nearby enemies. This ability cannot be used while Terrorize is active.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/queenofpain.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
@@ -1346,7 +1346,7 @@
       "alt": "Celestial Hammer ability icon",
       "kind": "ability"
     },
-    "hint": "The caster hurls her weapon at a target, damaging enemies struck along the way.",
+    "hint": "The caster hurls her weapon at a target, damaging enemies struck along the way. The hammer pauses for 2 seconds at the destination before flying back to her, leaving a trail of fire that slows enemies. The caster can recall the hammer at any time, pulling her towards it so they meet in the middle.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bristleback.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chaos_knight.png",
@@ -1433,7 +1433,7 @@
       "alt": "Weave ability icon",
       "kind": "ability"
     },
-    "hint": "The caster's abilities apply this ability to both allies and enemies they affect…",
+    "hint": "The caster's abilities apply this ability to both allies and enemies they affect, increasing allied armor and reducing enemy armor. Multiple instances of this effect stack.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png",
@@ -1462,7 +1462,7 @@
       "alt": "Nothl Projection ability icon",
       "kind": "ability"
     },
-    "hint": "The caster departs his body, traveling through the Nothl Realm as an invulnerable spirit that can cast…",
+    "hint": "The caster departs his body, traveling through the Nothl Realm as an invulnerable spirit that can cast spells, attack, and use items, leaving his body behind in the world with a visible tether. While active, the caster's basic abilities are empowered: Poison Touch hexes enemies, Shallow Grave heals upon expiration, and Shadow Wave has a shorter cooldown. The effect can be ended early, and the caster returns to the body at the end.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/witch_doctor.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png",
@@ -1491,7 +1491,7 @@
       "alt": "Enchant Remnant ability icon",
       "kind": "ability"
     },
-    "hint": "The caster temporarily enchants a hero, granting them the properties of a Stone Remnant.",
+    "hint": "The caster temporarily enchants a hero, granting them the properties of a Stone Remnant. After a short duration the remnant shatters, releasing the hero and damaging nearby enemies. Can be cast on Stone Remnants. Has a 5 second cooldown when used that way. Has a larger cast range when cast on an ally hero.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png",
@@ -1520,7 +1520,7 @@
       "alt": "Aftershock ability icon",
       "kind": "ability"
     },
-    "hint": "Causes the earth to shake underfoot, adding additional damage and stuns to nearby enemy units when the…",
+    "hint": "Causes the earth to shake underfoot, adding additional damage and stuns to nearby enemy units when the caster casts his abilities.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earthshaker.png",
@@ -1549,7 +1549,7 @@
       "alt": "Echo Stomp ability icon",
       "kind": "ability"
     },
-    "hint": "CHANNELED - the caster and his Astral Spirit both stomp the ground…",
+    "hint": "CHANNELED - the caster and his Astral Spirit both stomp the ground, damaging and knocking nearby enemy units unconscious around their locations. The caster's stomp deals physical damage, while the Spirit stomp deals magical damage.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chen.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
@@ -1578,7 +1578,7 @@
       "alt": "Fire Remnant ability icon",
       "kind": "ability"
     },
-    "hint": "Sends this ability that runs to the target location at 250% the caster's speed.",
+    "hint": "Sends this ability that runs to the target location at 250% the caster's speed. Using its activation sub-ability, the caster will dash out to all active Fire Remnants, destroying them and dealing damage in an area and then moving to the nearest Remnant. The caster will end at the Remnant closest to the targeted location.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/weaver.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png",
@@ -1607,7 +1607,7 @@
       "alt": "Flame Guard ability icon",
       "kind": "ability"
     },
-    "hint": "The caster surrounds himself with a ring of fire that consumes incoming magic damage…",
+    "hint": "The caster surrounds himself with a ring of fire that consumes incoming magic damage, absorbing a percentage of the damage taken. This ability deals damage per second around the caster while active. If the shield is broken, the damage is also lost.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/alchemist.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png",
@@ -1636,7 +1636,7 @@
       "alt": "Scurry ability icon",
       "kind": "ability"
     },
-    "hint": "The caster gains bonus movement speed, phased movement, and tree-walking for a brief time.",
+    "hint": "The caster gains bonus movement speed, phased movement, and tree-walking for a brief time. While active, the redirect chance of Mistwoods Wayfarer is multiplied by 2.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/hoodwink.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/medusa.png",
@@ -1665,7 +1665,7 @@
       "alt": "Burning Spear ability icon",
       "kind": "ability"
     },
-    "hint": "The caster sets his spears aflame, dealing damage over time with his regular attack.",
+    "hint": "The caster sets his spears aflame, dealing damage over time with his regular attack. Multiple attacks will stack additional damage. Each attack drains some of the caster's health.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slardar.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/legion_commander.png",
@@ -1694,7 +1694,7 @@
       "alt": "Alacrity ability icon",
       "kind": "ability"
     },
-    "hint": "The caster infuses an ally with an immense surge of energy…",
+    "hint": "The caster infuses an ally with an immense surge of energy, increasing their attack speed based on the level of Wex and their damage based on the level of Exort.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
@@ -1723,7 +1723,7 @@
       "alt": "Wex ability icon",
       "kind": "ability"
     },
-    "hint": "Allows manipulation of storm elements.",
+    "hint": "Allows manipulation of storm elements. Active instances of this ability imbue the caster with bonus movement and attack speed. Passively grants bonus agility per level of this ability.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png",
@@ -1844,7 +1844,7 @@
       "alt": "Falcon Rush ability icon",
       "kind": "ability"
     },
-    "hint": "The caster gains the ability to rush towards enemy targets to deliver echoing secondary attacks.",
+    "hint": "The caster gains the ability to rush towards enemy targets to deliver echoing secondary attacks. While in this state, the caster has phased collision and slow resistance.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png",
@@ -1873,7 +1873,7 @@
       "alt": "Kazurai Katana ability icon",
       "kind": "ability"
     },
-    "hint": "Katana attacks and abilities apply a stacking damage over time to enemies that deals a percentage of…",
+    "hint": "Katana attacks and abilities apply a stacking damage over time to enemies that deals a percentage of the original attack's damage as additional damage over time. The caster may activate the ability to impale the target with his attack, preventing them from moving or turning. The target's Katana debuff bursts, causing some of the stacks to deal damage instantly.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png",
@@ -1931,7 +1931,7 @@
       "alt": "Nihilism ability icon",
       "kind": "ability"
     },
-    "hint": "Causes the caster and all nearby enemies to turn ethereal, preventing them from attacking, slowing them…",
+    "hint": "Causes the caster and all nearby enemies to turn ethereal, preventing them from attacking, slowing them, and making them take more magic damage. Increases the caster's speed rather than reducing it. Does not cause the caster to take amplified damage.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/leshrac.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png",
@@ -1960,7 +1960,7 @@
       "alt": "Frost Shield ability icon",
       "kind": "ability"
     },
-    "hint": "Applies this ability around the target, reducing damage from attacks against it.",
+    "hint": "Applies this ability around the target, reducing damage from attacks against it. While the shield is active, ice magic will affect nearby enemy units every 1 seconds, dealing minor damage and slowing them.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png",
@@ -1989,7 +1989,7 @@
       "alt": "Shockwave ability icon",
       "kind": "ability"
     },
-    "hint": "The caster sends out a wave of force, damaging enemy units in a line, pulling them towards him…",
+    "hint": "The caster sends out a wave of force, damaging enemy units in a line, pulling them towards him, and slowing them for a brief period.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lion.png",
@@ -2018,7 +2018,7 @@
       "alt": "Skewer ability icon",
       "kind": "ability"
     },
-    "hint": "The caster rushes forward, goring enemy units on his massive tusk.",
+    "hint": "The caster rushes forward, goring enemy units on his massive tusk. Heroes hit on the way will be dragged to the destination, then damaged and affected by slowed movement speed. The damage is increased based on distance traveled.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/oracle.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nyx_assassin.png",
@@ -2047,7 +2047,7 @@
       "alt": "Special Delivery ability icon",
       "kind": "ability"
     },
-    "hint": "The caster whistles to instantly summon her courier to her.",
+    "hint": "The caster whistles to instantly summon her courier to her. If the courier started in the fountain, it will take items from the caster's stash. After teleporting it will transfer these items to the caster and head back to the fountain. Passively grants all allied couriers 3 bonus levels and 1 bonus health.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/windrunner.png",
@@ -2076,7 +2076,7 @@
       "alt": "Mystic Snake ability icon",
       "kind": "ability"
     },
-    "hint": "This ability made of energy jumps from target to target dealing damage.",
+    "hint": "This ability made of energy jumps from target to target dealing damage. Damage and speed increases with each jump. After it reaches its last target, it returns to the caster to replenish her with mana. The snake returns a percentage of the targets' total mana.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/medusa.png",
@@ -2105,7 +2105,7 @@
       "alt": "Split Shot ability icon",
       "kind": "ability"
     },
-    "hint": "The caster magically splits her shot into several arrows.",
+    "hint": "The caster magically splits her shot into several arrows. These arrows deal a lower percent of her normal damage.The extra targets will not receive other attack effects (such as critical strike).",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/medusa.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slark.png",
@@ -2134,7 +2134,7 @@
       "alt": "Dig ability icon",
       "kind": "ability"
     },
-    "hint": "Digs into the ground for a short duration, dispelling the caster and causing him to become invulnerable…",
+    "hint": "Digs into the ground for a short duration, dispelling the caster and causing him to become invulnerable and untargetable for 3s. Restores 25% of his max health over that duration.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tiny.png",
@@ -2163,7 +2163,7 @@
       "alt": "Poof ability icon",
       "kind": "ability"
     },
-    "hint": "Drawing mystical energies from the earth, the caster can teleport to another copy or itself after channeling…",
+    "hint": "Drawing mystical energies from the earth, the caster can teleport to another copy or itself after channeling for 1.5 seconds, damaging the enemy in both the departure and arrival locations. If the ability is in alt-cast state, all copies of the caster will also cast this ability to the target. When cast on the ground, all copies of the caster except the selected one will teleport to the closest location.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
@@ -2192,7 +2192,7 @@
       "alt": "Adaptive Strike ability icon",
       "kind": "ability"
     },
-    "hint": "Launches a surge of water toward an enemy unit, stunning them, knocking them back…",
+    "hint": "Launches a surge of water toward an enemy unit, stunning them, knocking them back, and dealing base damage plus additional damage based on the caster's agility times a multiplier. If the caster's agility is 50% higher than strength, the maximum agility multiplier is used. Knockback distance and stun duration are based on the caster's strength. If his strength is 50% higher than his agility, the maximum knockback distance and stun duration is used.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
@@ -2279,7 +2279,7 @@
       "alt": "Ensnare ability icon",
       "kind": "ability"
     },
-    "hint": "Interrupts the target and traps them in place, preventing movement or blinking.",
+    "hint": "Interrupts the target and traps them in place, preventing movement or blinking. Can target units affected by Song of the caster.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/hoodwink.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png",
@@ -2308,7 +2308,7 @@
       "alt": "Heartstopper Aura ability icon",
       "kind": "ability"
     },
-    "hint": "The caster stills the hearts of his opponents, causing nearby enemy units to lose a percentage of…",
+    "hint": "The caster stills the hearts of his opponents, causing nearby enemy units to lose a percentage of their max health over time.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_shaman.png",
@@ -2429,7 +2429,7 @@
       "alt": "Swashbuckle ability icon",
       "kind": "ability"
     },
-    "hint": "The caster dashes along the target line, then slashes and briefly slows all enemies in the drawn…",
+    "hint": "The caster dashes along the target line, then slashes and briefly slows all enemies in the drawn direction with several quick swipes. Lucky Shot has a chance to activate from this damage.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/undying.png",
@@ -2463,7 +2463,7 @@
       "alt": "Coup de Grace ability icon",
       "kind": "ability"
     },
-    "hint": "The caster refines her combat abilities, acquiring a chance of gaining Deadly Focus with each attack.",
+    "hint": "The caster refines her combat abilities, acquiring a chance of gaining Deadly Focus with each attack. When attacking with Deadly Focus, the caster will consume the buff and guarantee a critical hit. Stifling Dagger has a bonus chance to cause Deadly Focus.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
@@ -2492,7 +2492,7 @@
       "alt": "Dying Light ability icon",
       "kind": "ability"
     },
-    "hint": "The caster deals 3.5% of its missing health as magic damage to all enemies in a 400…",
+    "hint": "The caster deals 3.5% of its missing health as magic damage to all enemies in a 400 radius every second.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/centaur.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_shaman.png",
@@ -2550,7 +2550,7 @@
       "alt": "Waning Rift ability icon",
       "kind": "ability"
     },
-    "hint": "The caster teleports to the target location and releases a burst of faerie dust that deals damage…",
+    "hint": "The caster teleports to the target location and releases a burst of faerie dust that deals damage and silences enemy units nearby.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/winter_wyvern.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/venomancer.png",
@@ -2579,7 +2579,7 @@
       "alt": "Tame the Beasts ability icon",
       "kind": "ability"
     },
-    "hint": "CHANNELED - the caster twirls his whip for up to 1 second then cracks it.",
+    "hint": "CHANNELED - the caster twirls his whip for up to 1 second then cracks it. Whipped enemies are damaged and flee in fear from the caster. Channel time exponentially increases damage and extends the fear duration, but reduces the radius.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bounty_hunter.png",
@@ -2608,7 +2608,7 @@
       "alt": "Disruption ability icon",
       "kind": "ability"
     },
-    "hint": "Banishes the targeted unit from the battlefield for a short duration.",
+    "hint": "Banishes the targeted unit from the battlefield for a short duration. Upon returning, two illusions of the banished unit with bonus base damage are created under the caster's control.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png",
@@ -2637,7 +2637,7 @@
       "alt": "Glaives of Wisdom ability icon",
       "kind": "ability"
     },
-    "hint": "The caster enchants his glaives with his wisdom, stealing his target's Intelligence with each hit and…",
+    "hint": "The caster enchants his glaives with his wisdom, stealing his target's Intelligence with each hit and dealing additional damage based on his Intelligence.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
@@ -2695,7 +2695,7 @@
       "alt": "Reincarnation ability icon",
       "kind": "ability"
     },
-    "hint": "The caster's form regroups after death, allowing him to resurrect when killed in battle.",
+    "hint": "The caster's form regroups after death, allowing him to resurrect when killed in battle. Upon death, enemy units in a 600 radius are slowed. Skeletons spawn and attack each nearby enemy hero. Can be self-cast to kill the caster instantly.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/arc_warden.png",
@@ -2724,7 +2724,7 @@
       "alt": "Arcane Bolt ability icon",
       "kind": "ability"
     },
-    "hint": "The caster launches a slow-moving bolt of arcane magic, dealing damage to an enemy unit based on…",
+    "hint": "The caster launches a slow-moving bolt of arcane magic, dealing damage to an enemy unit based on the caster's intelligence.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/treant.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/medusa.png",
@@ -2753,7 +2753,7 @@
       "alt": "Essence Shift ability icon",
       "kind": "ability"
     },
-    "hint": "The caster steals the life essence of enemy heroes with his attacks…",
+    "hint": "The caster steals the life essence of enemy heroes with his attacks, draining 1 of each of their attributes and converting them to bonus 3 Agility. If the caster kills an affected enemy hero, he permanently steals 1 Agility.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slark.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png",
@@ -2782,7 +2782,7 @@
       "alt": "Dispersion ability icon",
       "kind": "ability"
     },
-    "hint": "The caster disperses part of the damage dealt to her, reflecting it to all nearby enemies.",
+    "hint": "The caster disperses part of the damage dealt to her, reflecting it to all nearby enemies. The effect lessens with distance.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/viper.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/night_stalker.png",
@@ -2869,7 +2869,7 @@
       "alt": "Toss ability icon",
       "kind": "ability"
     },
-    "hint": "Grabs the nearest unit in a 300 radius around the caster, ally or enemy…",
+    "hint": "Grabs the nearest unit in a 300 radius around the caster, ally or enemy, and launches it at the target unit or rune to deal damage where they land.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mars.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tiny.png",
@@ -2956,7 +2956,7 @@
       "alt": "Snakebite ability icon",
       "kind": "ability"
     },
-    "hint": "The caster summons a Spawn of Aktok to sink its fangs into a target…",
+    "hint": "The caster summons a Spawn of Aktok to sink its fangs into a target, dealing magic damage and applying a toxin that does damage every second. When the target attacks while infected, they take the initial damage again.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/winter_wyvern.png",
@@ -2985,7 +2985,7 @@
       "alt": "Grave Chill ability icon",
       "kind": "ability"
     },
-    "hint": "The caster drains the movement and attack speed of the targeted unit…",
+    "hint": "The caster drains the movement and attack speed of the targeted unit, gaining the drained speed for itself and nearby Familiars.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bloodseeker.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lycan.png",
@@ -3014,7 +3014,7 @@
       "alt": "Summon Familiars ability icon",
       "kind": "ability"
     },
-    "hint": "Conjures 2 blind Familiars to fight for the caster.",
+    "hint": "Conjures 2 blind Familiars to fight for the caster. Familiars possess the Stone Form ability, that allows them to turn into stone, stunning enemies upon landing. While in Stone Form, Familiars are invulnerable, and rapidly regenerate their health. Familiars grant high bounty when killed. The ability can be cast in the alt-cast state to recall copies of the caster familiars after 4s, during which they cannot attack or act.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sand_king.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
@@ -3043,7 +3043,7 @@
       "alt": "Chaotic Offering ability icon",
       "kind": "ability"
     },
-    "hint": "Summons a Golem from the depths, stunning enemies for 0.8 seconds.",
+    "hint": "Summons a Golem from the depths, stunning enemies for 0.8 seconds. The Golem lives 60 seconds, takes reduced damage from spells, has increased Slow Resistance, has Permanent Immolation and Flaming Fists on attack.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png",
@@ -3072,7 +3072,7 @@
       "alt": "Upheaval ability icon",
       "kind": "ability"
     },
-    "hint": "CHANNELED - A powerful slowing and damaging current that grows stronger as it's channeled.",
+    "hint": "CHANNELED - A powerful slowing and damaging current that grows stronger as it's channeled. Lasts up to 10 seconds. Enemies are slowed for 1 second after leaving the area or the spell ends.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/disruptor.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png",

@@ -7,7 +7,8 @@ import { buildSpellHint } from "./spell-hints.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questionsPath = join(root, "src", "data", "questions.generated.json");
-const questions = JSON.parse(await readFile(questionsPath, "utf8"));
+let source = await readFile(questionsPath, "utf8");
+const questions = JSON.parse(source);
 let updated = 0;
 
 for (const question of questions) {
@@ -19,12 +20,17 @@ for (const question of questions) {
     ? question.explanation.slice(explanationPrefix.length)
     : question.explanation.split(". ").slice(1).join(". ");
 
-  question.hint = buildSpellHint(description, ownerName, question.eyebrow, {
-    maxWords: 18,
-    maxCharacters: 112,
+  const nextHint = buildSpellHint(description, ownerName, question.eyebrow, {
+    fullDescription: true,
   });
+  const currentField = `"hint": ${JSON.stringify(question.hint)}`;
+  const nextField = `"hint": ${JSON.stringify(nextHint)}`;
+  if (!source.includes(currentField)) {
+    throw new Error(`${question.id}: could not find the existing hint in the generated source.`);
+  }
+  source = source.replace(currentField, nextField);
   updated += 1;
 }
 
-await writeFile(questionsPath, `${JSON.stringify(questions, null, 2)}\n`);
+await writeFile(questionsPath, source);
 console.log(`Backfilled ${updated} answer-safe Spell Link hints.`);

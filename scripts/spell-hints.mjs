@@ -31,7 +31,7 @@ export function buildSpellHint(
   description,
   ownerName,
   abilityName,
-  { redactAbility = true, maxWords = 22, maxCharacters = 145 } = {},
+  { redactAbility = true, fullDescription = false, maxWords = 22, maxCharacters = 145 } = {},
 ) {
   let hint = String(description ?? "")
     .replace(/\s+/g, " ")
@@ -52,7 +52,7 @@ export function buildSpellHint(
     });
   }
 
-  hint = hint.split(/(?<=[.!?])\s+/)[0]?.trim() ?? "";
+  if (!fullDescription) hint = hint.split(/(?<=[.!?])\s+/)[0]?.trim() ?? "";
   hint = hint
     .replace(/\b(?:a|an|the) this ability\b/gi, "this ability")
     .replace(/\b(?:a|an|the)(?:\s+[\p{L}-]+){1,2}\s+this ability\b/giu, "this ability")
@@ -61,14 +61,26 @@ export function buildSpellHint(
     .replace(/\bcreates this ability over\b/gi, "creates an effect over")
     .replace(/\bSummons this ability of\b/gi, "Summons a mass of")
     .replace(/\bthe caster this ability the body\b/gi, "the caster enters the body")
+    .replace(/\bUsing Activate this ability\b/gi, "Using its activation sub-ability")
+    .replace(/\bActive this ability instances\b/gi, "Active instances of this ability")
+    .replace(
+      /\bthis ability deals damage per second in an area around this ability is active\b/gi,
+      "this ability deals damage per second around the caster while active",
+    )
+    .replace(/\bwill this ability to\b/gi, "will teleport to")
+    .replace(/\bthe caster stomp\b/gi, "the caster's stomp")
     .replace(/^Primary the caster\b/i, "The primary hero")
     .replace(/\bthe caster gain\b/gi, "the caster gains")
     .replace(/\bthe caster trigger\b/gi, "the caster triggers")
     .replace(/\s+/g, " ")
+    .replace(
+      /(^|[.!?]\s+)(the caster|this ability)\b/gi,
+      (_, lead, subject) => `${lead}${subject[0].toUpperCase()}${subject.slice(1)}`,
+    )
     .replace(/^[a-z]/, (letter) => letter.toUpperCase());
 
   const words = hint.split(/\s+/);
-  if (hint.length > maxCharacters || words.length > maxWords) {
+  if (!fullDescription && (hint.length > maxCharacters || words.length > maxWords)) {
     let shortened = words
       .slice(0, maxWords)
       .join(" ")

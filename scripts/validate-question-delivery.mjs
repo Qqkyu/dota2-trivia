@@ -225,7 +225,10 @@ if (spell) {
   const first = publicQuestionForRound(spell, baseRound, 1_000);
   const second = publicQuestionForRound(spell, baseRound, 6_000);
   const third = publicQuestionForRound(spell, baseRound, 11_000);
-  record(first.clueStage === 1 && first.eyebrow === "Spell Link" && !first.image, "Spell Link clue one leaked.");
+  record(
+    first.clueStage === 1 && first.eyebrow === "Spell Link" && first.hint === spell.hint && !first.image,
+    "Spell Link clue one did not deliver the complete answer-safe description.",
+  );
   record(second.clueStage === 2 && second.eyebrow === spell.eyebrow && !second.image, "Spell Link clue two drifted.");
   record(third.clueStage === 3 && third.image?.src === spell.image?.src, "Spell Link clue three did not unlock.");
   record(
@@ -260,9 +263,10 @@ if (quote) {
   );
 }
 
-const [clientSource, roundsSource, votesSource, reportsSource, roundAudioSource] = await Promise.all(
+const [clientSource, clientStyles, roundsSource, votesSource, reportsSource, roundAudioSource] = await Promise.all(
   [
     "src/components/queue-arcade.tsx",
+    "src/components/queue-arcade.module.css",
     "src/app/api/rounds/route.ts",
     "src/app/api/votes/route.ts",
     "src/app/api/reports/route.ts",
@@ -271,6 +275,12 @@ const [clientSource, roundsSource, votesSource, reportsSource, roundAudioSource]
 );
 record(!clientSource.includes("@/lib/game-catalogs"), "The gameplay client imports the private game catalog.");
 record(!clientSource.includes("QUESTIONS_BY_ID"), "The gameplay client still builds a local answer catalog.");
+record(
+  clientSource.includes('data-testid="spell-clue-description"') &&
+    clientStyles.includes(".clueList > div:first-child span") &&
+    clientStyles.includes("-webkit-line-clamp: unset"),
+  "The full Spell Link description is no longer rendered without a line clamp.",
+);
 record(roundsSource.includes("publicQuestionForRound"), "The round API bypasses the public question serializer.");
 record(!votesSource.includes("candidate.questionId"), "The vote API still trusts a client question ID.");
 record(!reportsSource.includes("candidate.questionId"), "The report API still trusts a client question ID.");

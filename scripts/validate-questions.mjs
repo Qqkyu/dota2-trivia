@@ -17,7 +17,7 @@ import {
   NON_TRIVIA_DETECTIVE_KEYS,
   NON_TRIVIA_SPELL_OWNER_KEYS,
 } from "./question-quality-audit.mjs";
-import { containsAnswerLeak, containsFullNameLeak } from "./spell-hints.mjs";
+import { buildSpellHint, containsAnswerLeak, containsFullNameLeak } from "./spell-hints.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questions = JSON.parse(await readFile(join(root, "src", "data", "questions.generated.json"), "utf8"));
@@ -146,11 +146,15 @@ for (const [index, question] of questions.entries()) {
   if (question.kind === "spell-owner") {
     const correctAnswer = question.answers[question.correctIndex];
     if (!question.hint?.trim()) failures.push(`${label}: Spell Link requires an answer-safe hint.`);
-    if (
-      !question.hint?.startsWith("No additional mechanical clue") &&
-      ((question.hint?.trim().split(/\s+/).filter(Boolean).length ?? 99) > 18 || (question.hint?.length ?? 999) > 112)
-    ) {
-      failures.push(`${label}: Spell Link hint is too slow to scan.`);
+    const explanationPrefix = `${question.eyebrow} belongs to ${correctAnswer}.`;
+    const fullDescription = question.explanation?.startsWith(explanationPrefix)
+      ? question.explanation.slice(explanationPrefix.length)
+      : question.explanation?.split(". ").slice(1).join(". ");
+    const expectedHint = buildSpellHint(fullDescription, correctAnswer, question.eyebrow, {
+      fullDescription: true,
+    });
+    if (question.hint !== expectedHint) {
+      failures.push(`${label}: Spell Link must expose the complete answer-safe ability description.`);
     }
     if (question.hint && containsAnswerLeak(question.hint, correctAnswer)) {
       failures.push(`${label}: Spell Link hint leaks the correct hero (${correctAnswer}).`);
@@ -174,11 +178,13 @@ for (const [index, question] of questions.entries()) {
       failures.push(`${label}: Ability Detective clue contains broken redaction grammar.`);
     }
   }
+  const clueText = question.hint ?? question.detail ?? "";
   if (
     ["spell-owner", "ability-detective"].includes(question.kind) &&
-    /\b(?:a|an|the) (?:this ability|the caster)\b|Primary the caster|\bthe caster (?:gain|trigger|this ability)\b/i.test(
-      question.hint ?? question.detail ?? "",
-    )
+    (/\b(?:a|an|the) (?:this ability|the caster)\b|Primary the caster|\bthe caster (?:gain|trigger|this ability)\b/i.test(
+      clueText,
+    ) ||
+      /[.!?]\s+(?:the caster|this ability)\b/.test(clueText))
   ) {
     failures.push(`${label}: clue contains broken redaction grammar.`);
   }

@@ -3466,9 +3466,13 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                   <span>Spell Link</span>
                   <h2>Which hero owns this ability?</h2>
                   <div className={styles.clueList}>
-                    <div className={styles.clueUnlocked} data-testid="spell-clue-1">
+                    <div
+                      className={styles.clueUnlocked}
+                      data-testid="spell-clue-1"
+                      data-density={spellHint.length > 320 ? "dense" : "normal"}
+                    >
                       <strong>01</strong>
-                      <span>{spellHint}</span>
+                      <span data-testid="spell-clue-description">{spellHint}</span>
                     </div>
                     <div
                       className={clueStage >= 2 ? styles.clueUnlocked : styles.clueLocked}

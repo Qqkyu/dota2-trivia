@@ -410,8 +410,7 @@ const spellOwnerCandidates = abilities
   .map((ability) => ({
     ...ability,
     spellHint: buildSpellHint(ability.desc, ability.owner.localized_name, ability.dname, {
-      maxWords: 18,
-      maxCharacters: 112,
+      fullDescription: true,
     }),
   }))
   .filter(
