@@ -326,6 +326,7 @@ if (
   "questionId" in firstSnapshot.round ||
   firstSnapshot.question?.id !== firstSnapshot.round.id ||
   firstSnapshot.question?.reveal !== null ||
+  firstSnapshot.crowd.scoreSummary !== null ||
   privateQuestions.some((question) => JSON.stringify(firstSnapshot.question).includes(question.id)) ||
   !cachedQuestionResponse.ok ||
   cachedQuestionSnapshot.round?.id !== firstSnapshot.round.id ||
@@ -361,7 +362,11 @@ if (
   throw new Error("A legacy mode or category setting still splits the one public Queue Arcade room.");
 }
 
-if (firstSnapshot.crowd.counts.some((count) => count !== 0) || firstSnapshot.crowd.keyCounts?.length) {
+if (
+  firstSnapshot.crowd.counts.some((count) => count !== 0) ||
+  firstSnapshot.crowd.keyCounts?.length ||
+  firstSnapshot.crowd.scoreSummary !== null
+) {
   throw new Error("The answer split leaked before the reveal.");
 }
 
@@ -383,6 +388,9 @@ if (!firstVote.accepted || !secondVote.accepted || duplicateVote.accepted) {
   throw new Error(
     `Vote acceptance or duplicate-vote protection failed: ${JSON.stringify({ firstVote, secondVote, duplicateVote })}`,
   );
+}
+if (firstVote.scoreSummary !== null || secondVote.scoreSummary !== null || duplicateVote.scoreSummary !== null) {
+  throw new Error("A score aggregate leaked while the room was still accepting answers.");
 }
 
 const finishedAlphaSession = await alphaSessionEvent("finish", {}, accountHeaders);
@@ -447,7 +455,8 @@ if (
   lockedSnapshot.playerVote?.answerKey !== firstVote.playerVote?.answerKey ||
   lockedSnapshot.crowd.total < baselineTotal + 2 ||
   lockedSnapshot.crowd.counts.some((count) => count !== 0) ||
-  lockedSnapshot.crowd.keyCounts?.length
+  lockedSnapshot.crowd.keyCounts?.length ||
+  lockedSnapshot.crowd.scoreSummary !== null
 ) {
   throw new Error("The answering-phase room state is not synchronized or is leaking results.");
 }
@@ -461,6 +470,7 @@ await delay(Math.max(250, lockedSnapshot.round.answerDeadline - lockedSnapshot.s
 const revealSnapshot = await readRoom(firstPlayer, settings, accountHeaders);
 const keyedRound = Boolean(revealSnapshot.question?.answerMode);
 const revealedKeyVoteTotal = (revealSnapshot.crowd.keyCounts ?? []).reduce((total, entry) => total + entry.count, 0);
+const revealedScores = revealSnapshot.crowd.scoreSummary;
 
 if (
   revealSnapshot.round.id !== firstSnapshot.round.id ||
@@ -469,6 +479,14 @@ if (
   typeof revealSnapshot.question?.reveal?.correctIndex !== "number" ||
   revealSnapshot.crowd.total < baselineTotal + 2 ||
   revealSnapshot.crowd.counts.reduce((sum, count) => sum + count, 0) !== revealSnapshot.crowd.total ||
+  !revealedScores ||
+  !Number.isInteger(revealedScores.correctCount) ||
+  revealedScores.correctCount < 0 ||
+  revealedScores.correctCount > revealSnapshot.crowd.total ||
+  typeof revealedScores.playerPoints !== "number" ||
+  (revealedScores.correctCount === 0
+    ? revealedScores.average !== null || revealedScores.best !== null
+    : !Number.isInteger(revealedScores.average) || !Number.isInteger(revealedScores.best)) ||
   (keyedRound
     ? revealedKeyVoteTotal !== revealSnapshot.crowd.total || !revealSnapshot.playerVote?.answerKey
     : revealedKeyVoteTotal !== 0)

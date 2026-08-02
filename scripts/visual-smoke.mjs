@@ -176,6 +176,7 @@ async function runCrowdStress(kind, expectedTotal) {
     const card = document.querySelector('[data-testid="crowd-card"]');
     const split = document.querySelector('[data-testid="crowd-split"]');
     const rows = [...document.querySelectorAll('[data-testid="crowd-split-row"]')];
+    const score = document.querySelector('[data-testid="crowd-score-summary"]');
     const other = rows.find((row) => row.textContent.includes("Other picks"));
     const cardBounds = card?.getBoundingClientRect();
     const rowBounds = rows.map((row) => row.getBoundingClientRect());
@@ -194,6 +195,9 @@ async function runCrowdStress(kind, expectedTotal) {
       rowsInsideCard: Boolean(cardBounds) && rowBounds.every((bounds) =>
         bounds.left >= cardBounds.left && bounds.right <= cardBounds.right && bounds.bottom <= cardBounds.bottom
       ),
+      scoreVisible: Boolean(score) && score.querySelectorAll("span").length === 3 &&
+        score.textContent.includes("Correct avg") && score.textContent.includes("Best"),
+      scoreInsideCard: Boolean(cardBounds && score) && score.getBoundingClientRect().bottom <= cardBounds.bottom,
       cardHeight: cardBounds?.height,
       cardInsideViewport: Boolean(cardBounds && cardBounds.bottom <= window.innerHeight),
       clipped: Boolean(card && (card.scrollWidth > card.clientWidth || card.scrollHeight > card.clientHeight)),
@@ -295,7 +299,13 @@ await send("Page.addScriptToEvaluateOnNewDocument", {
           counts: reveal ? [total, 0, 0, 0] : [0, 0, 0, 0],
           total,
           positions: [],
-          keyCounts: reveal ? fixture.entries : []
+          keyCounts: reveal ? fixture.entries : [],
+          scoreSummary: reveal ? {
+            correctCount: Math.ceil(total / 3),
+            average: 164,
+            best: 218,
+            playerPoints: 176
+          } : null
         };
         payload.playerVote = {
           answerIndex: 0,
@@ -923,7 +933,9 @@ for (const [label, result, expectedTotal] of [
     result.selectedRows !== 1 ||
     !result.labelsVisible ||
     !result.rowsInsideCard ||
-    (result.cardHeight ?? Infinity) > 360 ||
+    !result.scoreVisible ||
+    !result.scoreInsideCard ||
+    (result.cardHeight ?? Infinity) > 420 ||
     !result.cardInsideViewport ||
     result.clipped ||
     result.horizontalOverflow ||

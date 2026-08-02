@@ -12,6 +12,14 @@ export interface CrowdResult {
     answerKey: string;
     count: number;
   }>;
+  scoreSummary: CrowdScoreSummary | null;
+}
+
+export interface CrowdScoreSummary {
+  correctCount: number;
+  average: number | null;
+  best: number | null;
+  playerPoints: number | null;
 }
 
 export interface PlayerVote {

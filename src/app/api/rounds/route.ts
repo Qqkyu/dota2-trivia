@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
       answerDuration: round.answerDuration,
     };
     const [result, playerReport] = await Promise.all([
-      getRoundCrowd(round.id, room.id, effectivePlayerId),
+      getRoundCrowd(round.id, room.id, effectivePlayerId, round.phase === "reveal"),
       getPlayerQuestionReport(
         room.gameId,
         room.contentVersion,
@@ -96,6 +96,7 @@ export async function GET(request: NextRequest) {
                   MAX_REVEALED_KEY_CHOICES,
                 )
               : [],
+          scoreSummary: round.phase === "reveal" ? result.scoreSummary : null,
         },
         playerVote,
         playerReport,

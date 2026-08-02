@@ -6,7 +6,12 @@ import type { GameId } from "@/lib/game-catalogs";
 import { MAP_SENSE_MAX_CROWD_PINS } from "@/lib/map-sense";
 import type { MapPosition } from "@/lib/map-types";
 import type { QuestionReviewState, StoredQuestionReview } from "@/lib/question-review";
+import { roundScoreSummary } from "@/lib/scoring.mjs";
 import { anonymousVoterHash } from "@/lib/voter-hash";
+
+interface StoredPlayerVote extends PlayerVote {
+  basePoints?: number;
+}
 
 interface StoredRound {
   roomId: string;
@@ -14,7 +19,7 @@ interface StoredRound {
   contentVersion: string;
   questionId: string;
   counts: CrowdResult["counts"];
-  voters: Record<string, PlayerVote>;
+  voters: Record<string, StoredPlayerVote>;
   createdAt: number;
   updatedAt: number;
 }
@@ -54,6 +59,7 @@ export interface RoundVoteInput {
   answerIndex: number;
   answerKey?: string;
   mapPosition?: MapPosition;
+  basePoints: number;
   voterId: string;
   submittedAt: number;
 }
@@ -164,7 +170,17 @@ function stateForRuntime(): Promise<PersistentVoteState> {
   return statePromise;
 }
 
-function crowdFor(round: StoredRound | undefined): CrowdResult {
+function publicPlayerVote(vote: StoredPlayerVote | undefined): PlayerVote | null {
+  if (!vote) return null;
+  return {
+    answerIndex: vote.answerIndex,
+    submittedAt: vote.submittedAt,
+    ...(vote.answerKey ? { answerKey: vote.answerKey } : {}),
+    ...(vote.mapPosition ? { mapPosition: { ...vote.mapPosition } } : {}),
+  };
+}
+
+function crowdFor(round: StoredRound | undefined, includeScores = false, playerHash?: string | null): CrowdResult {
   const counts: CrowdResult["counts"] = round && validCounts(round.counts) ? [...round.counts] : [0, 0, 0, 0];
   const positions = round
     ? Object.values(round.voters)
@@ -178,11 +194,25 @@ function crowdFor(round: StoredRound | undefined): CrowdResult {
   const keyCounts = [...keyCountMap.entries()]
     .map(([answerKey, count]) => ({ answerKey, count }))
     .sort((left, right) => right.count - left.count || left.answerKey.localeCompare(right.answerKey));
+  const basePoints = Object.values(round?.voters ?? {}).map((vote) =>
+    typeof vote.basePoints === "number" && Number.isFinite(vote.basePoints) ? Math.max(0, vote.basePoints) : 0,
+  );
+  const correctScores = basePoints.filter((points) => points > 0);
+  const playerBasePoints = playerHash && round?.voters[playerHash] ? (round.voters[playerHash].basePoints ?? 0) : null;
   return {
     counts,
     total: counts.reduce((sum, count) => sum + count, 0),
     positions,
     keyCounts,
+    scoreSummary: includeScores
+      ? roundScoreSummary({
+          correctCount: correctScores.length,
+          total: counts.reduce((sum, count) => sum + count, 0),
+          basePointsTotal: correctScores.reduce((sum, points) => sum + points, 0),
+          basePointsBest: correctScores.length ? Math.max(...correctScores) : 0,
+          playerBasePoints,
+        })
+      : null,
   };
 }
 
@@ -283,15 +313,15 @@ async function mutate<T>(operation: (state: PersistentVoteState) => T) {
   return task;
 }
 
-async function fileGetRoundCrowd(roundId: string, roomId: string, voterId?: string) {
+async function fileGetRoundCrowd(roundId: string, roomId: string, voterId?: string, includeScores = false) {
   await runtime.writeQueue;
   const state = await stateForRuntime();
   const round = state.rounds[roundId];
   const hash = voterId ? anonymousVoterHash(roomId, voterId) : null;
 
   return {
-    ...crowdFor(round),
-    playerVote: hash && round?.voters[hash] ? { ...round.voters[hash] } : null,
+    ...crowdFor(round, includeScores, hash),
+    playerVote: hash ? publicPlayerVote(round?.voters[hash]) : null,
   };
 }
 
@@ -402,7 +432,7 @@ async function fileRecordRoundVote(input: RoundVoteInput): Promise<VoteResult> {
       return {
         accepted: false,
         ...crowdFor(round),
-        playerVote: { ...existingVote },
+        playerVote: publicPlayerVote(existingVote),
       };
     }
 
@@ -411,6 +441,7 @@ async function fileRecordRoundVote(input: RoundVoteInput): Promise<VoteResult> {
       submittedAt: input.submittedAt,
       ...(input.answerKey ? { answerKey: input.answerKey } : {}),
       ...(input.mapPosition ? { mapPosition: { ...input.mapPosition } } : {}),
+      basePoints: input.basePoints,
     };
     round.voters[hash] = playerVote;
     round.counts[input.answerIndex] += 1;
@@ -427,7 +458,7 @@ async function fileRecordRoundVote(input: RoundVoteInput): Promise<VoteResult> {
     return {
       accepted: true,
       ...crowdFor(round),
-      playerVote,
+      playerVote: publicPlayerVote(playerVote),
     };
   });
 }
@@ -485,9 +516,9 @@ export async function getVoteStoreHealth(): Promise<VoteStoreHealth> {
   return { backend: "file", ok: true };
 }
 
-export async function getRoundCrowd(roundId: string, roomId: string, voterId?: string) {
-  if (usesPostgres()) return (await postgresStore()).getRoundCrowd(roundId, roomId, voterId);
-  return fileGetRoundCrowd(roundId, roomId, voterId);
+export async function getRoundCrowd(roundId: string, roomId: string, voterId?: string, includeScores = false) {
+  if (usesPostgres()) return (await postgresStore()).getRoundCrowd(roundId, roomId, voterId, includeScores);
+  return fileGetRoundCrowd(roundId, roomId, voterId, includeScores);
 }
 
 export async function getPlayerQuestionReport(

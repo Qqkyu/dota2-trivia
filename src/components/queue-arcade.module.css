@@ -5366,6 +5366,42 @@ button[data-state="wrong"] > .heroPickerVerdict {
   color: rgba(126, 133, 131, 0.35);
 }
 
+.crowdScoreSummary {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 14px;
+  padding-top: 11px;
+  border-top: 1px solid var(--line);
+}
+
+.crowdScoreSummary > span {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.crowdScoreSummary small {
+  overflow: hidden;
+  color: var(--faint);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.crowdScoreSummary strong {
+  color: #d4d8d4;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.crowdScoreSummary > span:first-child strong {
+  color: var(--green);
+}
+
 @media (max-width: 680px) {
   .heroPickerQuestion {
     min-height: 170px;

@@ -17,6 +17,7 @@ import { isMapPosition, mapAnswerIndex } from "@/lib/map-sense";
 import { answerStageForRound } from "@/lib/player-profile.mjs";
 import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
+import { scoreBreakdown } from "@/lib/scoring.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 import { recordRoundVote } from "@/lib/vote-store";
 
@@ -126,6 +127,15 @@ export async function POST(request: NextRequest) {
         ? mapAnswerIndex(question.map, mapPosition)
         : (answerIndex as number);
     const resolvedAnswerKey = isKeyedAnswer ? (answerKey as string) : undefined;
+    const isCorrect = isQuestionAnswerCorrect(question, resolvedAnswerIndex, resolvedAnswerKey);
+    const basePoints = isCorrect
+      ? scoreBreakdown(
+          { difficulty: question.difficulty, game: round.game, map: question.map },
+          Math.max(0, round.answerDeadline - submittedAt),
+          round.answerDuration,
+          requiresMapPosition ? mapPosition : undefined,
+        ).rawPoints
+      : 0;
     const result = await recordRoundVote({
       roundId,
       roomId: room.id,
@@ -137,6 +147,7 @@ export async function POST(request: NextRequest) {
       answerIndex: resolvedAnswerIndex,
       answerKey: resolvedAnswerKey,
       mapPosition: requiresMapPosition ? mapPosition : undefined,
+      basePoints,
       voterId: effectiveVoterId,
       submittedAt,
     });
@@ -186,6 +197,7 @@ export async function POST(request: NextRequest) {
             total: result.total,
             positions: [],
             keyCounts: [],
+            scoreSummary: null,
           });
         } catch (error) {
           logServerError("votes.broadcast", error, { roundId: roundId.slice(0, 160) });
@@ -203,6 +215,7 @@ export async function POST(request: NextRequest) {
         total: result.total,
         positions: [],
         keyCounts: [],
+        scoreSummary: null,
         playerVote,
       },
       {

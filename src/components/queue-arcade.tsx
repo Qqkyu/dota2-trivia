@@ -63,7 +63,7 @@ import {
 } from "@/lib/hero-picker";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
 import type { MapBounds, MapChoiceChallenge, MapCrop, MapPosition, MapViewport } from "@/lib/map-types";
-import { MAP_READ_GRACE_MS, speedScoreRatio } from "@/lib/scoring.mjs";
+import { SPELL_CLUE_PENALTY, clueStageAt, crowdScoreMultiplier, scoreBreakdown } from "@/lib/scoring.mjs";
 import {
   isRecipeAnswerKey,
   isShopkeeperCatalogKey,
@@ -97,12 +97,16 @@ import styles from "./queue-arcade.module.css";
 
 const REVEAL_DURATION_MS = 7_000;
 const ANSWER_DURATION_MS = 15_000;
-const MAX_SPEED_BONUS = 100;
-const SPELL_CLUE_PENALTY = 40;
 const DEFAULT_GAME_VOLUME = 0.1;
 const MIN_GAME_VOLUME = 0.1;
 const LETTERS = ["A", "B", "C", "D"] as const;
-const EMPTY_CROWD: CrowdResult = { counts: [0, 0, 0, 0], total: 0, positions: [], keyCounts: [] };
+const EMPTY_CROWD: CrowdResult = {
+  counts: [0, 0, 0, 0],
+  total: 0,
+  positions: [],
+  keyCounts: [],
+  scoreSummary: null,
+};
 const STORAGE_KEY = "queue-arcade:stats:v2";
 const PLAYER_KEY = "queue-arcade:player:v2";
 const SETTINGS_KEY = "queue-arcade:settings:v3";
@@ -398,13 +402,40 @@ function normalizeCrowd(value: unknown): CrowdResult | null {
           )
           .slice(0, SHOPKEEPER_CATALOG_ITEMS.length + HERO_PICKER_HEROES.length)
       : [];
+  const rawScoreSummary = "scoreSummary" in value ? value.scoreSummary : undefined;
+  const scoreSummary =
+    rawScoreSummary === null
+      ? null
+      : rawScoreSummary &&
+          typeof rawScoreSummary === "object" &&
+          "correctCount" in rawScoreSummary &&
+          typeof rawScoreSummary.correctCount === "number" &&
+          Number.isInteger(rawScoreSummary.correctCount) &&
+          rawScoreSummary.correctCount >= 0 &&
+          "average" in rawScoreSummary &&
+          (rawScoreSummary.average === null ||
+            (typeof rawScoreSummary.average === "number" && Number.isInteger(rawScoreSummary.average))) &&
+          "best" in rawScoreSummary &&
+          (rawScoreSummary.best === null ||
+            (typeof rawScoreSummary.best === "number" && Number.isInteger(rawScoreSummary.best))) &&
+          "playerPoints" in rawScoreSummary &&
+          (rawScoreSummary.playerPoints === null ||
+            (typeof rawScoreSummary.playerPoints === "number" && Number.isInteger(rawScoreSummary.playerPoints)))
+        ? {
+            correctCount: rawScoreSummary.correctCount,
+            average: rawScoreSummary.average,
+            best: rawScoreSummary.best,
+            playerPoints: rawScoreSummary.playerPoints,
+          }
+        : undefined;
 
   if (
     !Array.isArray(counts) ||
     counts.length !== 4 ||
     !counts.every((count) => typeof count === "number" && count >= 0) ||
     typeof total !== "number" ||
-    total < 0
+    total < 0 ||
+    scoreSummary === undefined
   ) {
     return null;
   }
@@ -414,6 +445,7 @@ function normalizeCrowd(value: unknown): CrowdResult | null {
     total,
     positions,
     keyCounts,
+    scoreSummary,
   };
 }
 
@@ -571,39 +603,6 @@ function summaryTitle(correct: number, answered: number) {
   if (rate >= 70) return "Ready for the horn";
   if (rate >= 50) return "Knowledge is power";
   return "One more queue";
-}
-
-function clueStageAt(timeRemaining: number, duration: number) {
-  if (timeRemaining <= duration / 3) return 3;
-  if (timeRemaining <= (duration * 2) / 3) return 2;
-  return 1;
-}
-
-function scoreBreakdown(
-  question: PublicArcadeQuestion,
-  timeRemaining: number,
-  duration: number,
-  selectedMapPosition?: MapPosition | null,
-) {
-  const speedRatio = speedScoreRatio(timeRemaining, duration, question.map ? MAP_READ_GRACE_MS : 0);
-  const speedBonus = Math.round(speedRatio * MAX_SPEED_BONUS);
-  const difficultyBonus = (question.difficulty - 1) * 25;
-  const cluePenalty =
-    question.game === "spell-link" ? (clueStageAt(timeRemaining, duration) - 1) * SPELL_CLUE_PENALTY : 0;
-  const distance = question.map && selectedMapPosition ? mapDistance(question.map.target, selectedMapPosition) : null;
-  const precisionBonus =
-    question.map && !question.map.choice && distance !== null
-      ? Math.round(Math.max(0, 1 - distance / question.map.tolerance) * 100)
-      : 0;
-
-  return {
-    speedBonus,
-    difficultyBonus,
-    cluePenalty,
-    precisionBonus,
-    mapDistance: distance,
-    rawPoints: Math.max(25, 100 + speedBonus + difficultyBonus + precisionBonus - cluePenalty),
-  };
 }
 
 function QuestionArtwork({
@@ -2301,7 +2300,8 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       const correctIndex = publicCorrectIndex(question);
       if (correctIndex < 0) throw new Error("The reveal did not include a correct answer.");
       const correctVotes = snapshot.crowd.counts[correctIndex];
-      const majorityBonus = isCorrect && snapshot.crowd.total > 0 && correctVotes / snapshot.crowd.total < 0.5;
+      const correctCount = snapshot.crowd.scoreSummary?.correctCount ?? correctVotes;
+      const majorityBonus = isCorrect && crowdScoreMultiplier(correctCount, snapshot.crowd.total) === 2;
       const {
         speedBonus,
         cluePenalty,
@@ -2315,7 +2315,8 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         selectedMapPositionRef.current,
       );
       const rawPoints = isCorrect ? correctPoints : 0;
-      const points = majorityBonus ? rawPoints * 2 : rawPoints;
+      const localPoints = majorityBonus ? rawPoints * 2 : rawPoints;
+      const points = snapshot.crowd.scoreSummary?.playerPoints ?? localPoints;
 
       setRoundAward({
         points,
@@ -2738,6 +2739,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
             total: result.total,
             positions: result.positions,
             keyCounts: result.keyCounts,
+            scoreSummary: result.scoreSummary,
           });
           if (result.playerVote) {
             const serverTimeLeft = Math.max(0, snapshot.round.answerDeadline - result.playerVote.submittedAt);
@@ -4271,6 +4273,24 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                   <span />
                   <span />
                   <span />
+                </div>
+              )}
+              {phase === "reveal" && crowd.total > 0 && crowd.scoreSummary && (
+                <div className={styles.crowdScoreSummary} data-testid="crowd-score-summary">
+                  <span>
+                    <small>You</small>
+                    <strong>
+                      {crowd.scoreSummary.playerPoints === null ? "—" : `+${crowd.scoreSummary.playerPoints}`}
+                    </strong>
+                  </span>
+                  <span>
+                    <small>Correct avg</small>
+                    <strong>{crowd.scoreSummary.average === null ? "—" : `+${crowd.scoreSummary.average}`}</strong>
+                  </span>
+                  <span>
+                    <small>Best</small>
+                    <strong>{crowd.scoreSummary.best === null ? "—" : `+${crowd.scoreSummary.best}`}</strong>
+                  </span>
                 </div>
               )}
             </div>
