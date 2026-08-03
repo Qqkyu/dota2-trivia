@@ -1402,18 +1402,16 @@ function HeroPicker({
   );
 }
 
-function shopkeeperFormatLabel(question: PublicArcadeQuestion) {
-  if (question.shopkeeper?.format === "build-result") return "Build Result";
-  if (question.shopkeeper?.format === "real-recipe") return "Real Recipe";
-  if (question.shopkeeper?.format === "shared-part") return "Shared Part";
-  return "Upgrade Path";
-}
-
 function shopkeeperRoundNote(question: PublicArcadeQuestion) {
   if (question.shopkeeper?.format === "build-result") return "Every shown component is part of the direct recipe";
   if (question.shopkeeper?.format === "real-recipe") return "Build the direct recipe from the shop";
   if (question.shopkeeper?.format === "shared-part") return "Compare the two direct shop recipes";
   return "Choose the item that directly upgrades from the shown part";
+}
+
+function classicQuestionContext(question: PublicArcadeQuestion) {
+  if (question.kind !== "ability-detective") return null;
+  return question.eyebrow.split("·", 1)[0]?.trim() || null;
 }
 
 function shopkeeperAnswerAction(question: PublicArcadeQuestion) {
@@ -2015,7 +2013,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   const [revealDeadline, setRevealDeadlineState] = useState<number | null>(null);
   const [entryWaitDeadline, setEntryWaitDeadline] = useState<number | null>(null);
   const [entryWaitDuration, setEntryWaitDuration] = useState(0);
-  const [queueStartedAt, setQueueStartedAt] = useState<number | null>(null);
   const [runDuration, setRunDuration] = useState(0);
   const [now, setNow] = useState(0);
   const [soundEnabled, setSoundEnabled] = useState(true);
@@ -2560,7 +2557,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         setCorrectCount(0);
         setHistory([]);
         setRunDuration(0);
-        setQueueStartedAt(startedAt);
         setEntryWaitDeadline(null);
         setEntryWaitDuration(0);
         const alphaSessionId = window.crypto.randomUUID();
@@ -3143,7 +3139,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   const entryWaitRemaining = entryWaitDeadline ? Math.max(0, entryWaitDeadline - now) : 0;
   const entryWaitRatio = entryWaitDuration > 0 ? entryWaitRemaining / entryWaitDuration : 0;
   const timerRatio = phase === "answering" ? answerRemaining / answerDuration : revealRemaining / REVEAL_DURATION_MS;
-  const sessionElapsed = queueStartedAt ? Math.max(0, now - queueStartedAt) : 0;
   const selectedWasCorrect =
     selectedIndex !== null && currentQuestion
       ? isPublicQuestionAnswerCorrect(currentQuestion, selectedIndex, selectedAnswerKey ?? undefined)
@@ -3560,7 +3555,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                   </div>
                 )}
                 <div className={styles.questionCopy}>
-                  <span>{shopkeeperFormatLabel(currentQuestion)}</span>
                   <h2>{currentQuestion.prompt}</h2>
                   <small>
                     Patch {currentQuestion.patch}
@@ -3869,7 +3863,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                   </div>
                 )}
                 <div className={styles.questionCopy}>
-                  <span>{currentQuestion.eyebrow}</span>
                   <h2>{currentQuestion.prompt}</h2>
                   {currentQuestion.counterplay?.note && <small>{currentQuestion.counterplay.note}</small>}
                 </div>
@@ -3893,7 +3886,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                   </div>
                 )}
                 <div className={styles.questionCopy}>
-                  <span>{currentQuestion.eyebrow}</span>
+                  {classicQuestionContext(currentQuestion) && <span>{classicQuestionContext(currentQuestion)}</span>}
                   <h2>{currentQuestion.prompt}</h2>
                   {currentQuestion.detail && <p className={styles.questionDetail}>{currentQuestion.detail}</p>}
                   <small>Patch {currentQuestion.patch} · No talents or upgrades unless stated</small>
@@ -4139,30 +4132,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
           </div>
 
           <aside className={styles.sideRail}>
-            <div className={styles.queueCard}>
-              <div className={styles.queueStatus}>
-                <span className={styles.sessionIcon}>
-                  <Gamepad2 />
-                </span>
-                <span>
-                  <small>{MODE_INFO[PUBLIC_ARCADE_MODE].shortLabel}</small>
-                  Endless synchronized rounds
-                </span>
-                <strong>{formatDuration(sessionElapsed)}</strong>
-              </div>
-              <div className={styles.queueDetails}>
-                <span data-testid="room-presence">
-                  {activePlayers.toLocaleString("en-US")} {activePlayers === 1 ? "player" : "players"} online
-                </span>
-                <i />
-                <span title={roomError ?? activeRoomId}>{roomError ? "Reconnecting" : "Live room"}</span>
-              </div>
-              <button type="button" data-testid="view-summary" onClick={finishSession}>
-                <Trophy />
-                View summary
-              </button>
-            </div>
-
             <div className={styles.scoreGrid}>
               <div>
                 <span>Score</span>
@@ -4179,7 +4148,23 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
             <div className={styles.progressCard}>
               <div className={styles.cardTitle}>
                 <span>Recent rounds</span>
-                <strong>Round {roundIndex + 1}</strong>
+                <div className={styles.progressActions}>
+                  {roomError && (
+                    <span className={styles.roomSyncStatus} title={roomError} role="status">
+                      Syncing
+                    </span>
+                  )}
+                  <strong>Round {roundIndex + 1}</strong>
+                  <button
+                    type="button"
+                    data-testid="view-summary"
+                    onClick={finishSession}
+                    title="View summary"
+                    aria-label="View summary"
+                  >
+                    <Trophy />
+                  </button>
+                </div>
               </div>
               <div className={styles.roundPips}>
                 {Array.from({ length: 10 }, (_, index) => {
@@ -4211,89 +4196,63 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               </div>
             </div>
 
-            <div className={styles.crowdCard} data-testid="crowd-card" data-phase={phase}>
-              <div className={styles.cardTitle}>
-                <span>
-                  <Radio />
-                  {currentGame === "map-sense"
-                    ? mapChoiceRound
-                      ? "Room answers"
-                      : "Room pings"
-                    : phase === "reveal"
-                      ? "Global split"
-                      : "Global answers"}
-                </span>
-                <span className={styles.livePill}>{phase === "reveal" ? "Final" : "Live room"}</span>
-              </div>
-              <strong>
-                {crowd.total.toLocaleString("en-US")}{" "}
-                {currentGame === "map-sense" && !mapChoiceRound
-                  ? crowd.total === 1
-                    ? "pin"
-                    : "pins"
-                  : crowd.total === 1
-                    ? "answer"
-                    : "answers"}
-              </strong>
-              {(phase === "answering" || crowd.total === 0) && (
-                <p>
+            {phase === "reveal" && (
+              <div className={styles.crowdCard} data-testid="crowd-card" data-phase={phase}>
+                <div className={styles.cardTitle}>
+                  <span>
+                    <Radio />
+                    {currentGame === "map-sense" ? (mapChoiceRound ? "Room answers" : "Room pings") : "Global split"}
+                  </span>
+                  <span className={styles.livePill}>Final</span>
+                </div>
+                <strong>
+                  {crowd.total.toLocaleString("en-US")}{" "}
                   {currentGame === "map-sense" && !mapChoiceRound
-                    ? phase === "answering"
-                      ? crowd.total
-                        ? `${crowd.total.toLocaleString("en-US")} locked in.`
-                        : "The room is reading the map."
-                      : crowd.total
-                        ? "Every anonymous pin is now visible on the map."
-                        : "No pins landed before the deadline."
-                    : phase === "answering"
-                      ? crowd.total
-                        ? `${crowd.total.toLocaleString("en-US")} ${
-                            crowd.total === 1 ? "player has" : "players have"
-                          } locked in. The split stays hidden until the shared deadline.`
-                        : "Answers appear here as players lock in. The split stays hidden until the shared deadline."
+                    ? crowd.total === 1
+                      ? "pin"
+                      : "pins"
+                    : crowd.total === 1
+                      ? "answer"
+                      : "answers"}
+                </strong>
+                {crowd.total === 0 && (
+                  <p>
+                    {currentGame === "map-sense" && !mapChoiceRound
+                      ? "No pins landed before the deadline."
                       : "Nobody answered before this room’s deadline."}
-                </p>
-              )}
-              {phase === "reveal" && crowd.total > 0 && currentGame !== "map-sense" ? (
-                isPublicKeyedAnswerQuestion(currentQuestion) ? (
-                  <KeyedCrowdSplit question={currentQuestion} crowd={crowd} selectedKey={selectedAnswerKey} />
+                  </p>
+                )}
+                {crowd.total > 0 && currentGame !== "map-sense" ? (
+                  isPublicKeyedAnswerQuestion(currentQuestion) ? (
+                    <KeyedCrowdSplit question={currentQuestion} crowd={crowd} selectedKey={selectedAnswerKey} />
+                  ) : (
+                    <ChoiceCrowdSplit question={currentQuestion} crowd={crowd} selectedIndex={selectedIndex} />
+                  )
                 ) : (
-                  <ChoiceCrowdSplit question={currentQuestion} crowd={crowd} selectedIndex={selectedIndex} />
-                )
-              ) : phase === "reveal" ? (
-                <div className={styles.crowdSplitEmpty} aria-hidden="true">
-                  —
-                </div>
-              ) : (
-                <div className={styles.crowdPulse} aria-hidden="true">
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                </div>
-              )}
-              {phase === "reveal" && crowd.total > 0 && crowd.scoreSummary && (
-                <div className={styles.crowdScoreSummary} data-testid="crowd-score-summary">
-                  <span>
-                    <small>You</small>
-                    <strong>
-                      {crowd.scoreSummary.playerPoints === null ? "—" : `+${crowd.scoreSummary.playerPoints}`}
-                    </strong>
-                  </span>
-                  <span>
-                    <small>Correct avg</small>
-                    <strong>{crowd.scoreSummary.average === null ? "—" : `+${crowd.scoreSummary.average}`}</strong>
-                  </span>
-                  <span>
-                    <small>Best</small>
-                    <strong>{crowd.scoreSummary.best === null ? "—" : `+${crowd.scoreSummary.best}`}</strong>
-                  </span>
-                </div>
-              )}
-            </div>
+                  <div className={styles.crowdSplitEmpty} aria-hidden="true">
+                    —
+                  </div>
+                )}
+                {crowd.total > 0 && crowd.scoreSummary && (
+                  <div className={styles.crowdScoreSummary} data-testid="crowd-score-summary">
+                    <span>
+                      <small>You</small>
+                      <strong>
+                        {crowd.scoreSummary.playerPoints === null ? "—" : `+${crowd.scoreSummary.playerPoints}`}
+                      </strong>
+                    </span>
+                    <span>
+                      <small>Correct avg</small>
+                      <strong>{crowd.scoreSummary.average === null ? "—" : `+${crowd.scoreSummary.average}`}</strong>
+                    </span>
+                    <span>
+                      <small>Best</small>
+                      <strong>{crowd.scoreSummary.best === null ? "—" : `+${crowd.scoreSummary.best}`}</strong>
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
           </aside>
         </section>
       )}

@@ -50,6 +50,17 @@ const crowdStressFixtures = {
     },
     entries: itemStressEntries,
   },
+  classic: {
+    game: "trivia",
+    question: {
+      kind: "item-cost",
+      category: "Items",
+      eyebrow: "Pipe of Insight",
+      prompt: "How much does Pipe of Insight cost?",
+      answers: ["3,250 gold", "3,275 gold", "3,725 gold", "4,000 gold"],
+    },
+    entries: ["a", "b", "c", "d"].map((answerKey) => ({ answerKey, count: 1 })),
+  },
 };
 const targets = await fetch(`${debuggingUrl}/json/list`).then((response) => response.json());
 const target = targets.find((entry) => entry.type === "page");
@@ -153,11 +164,17 @@ async function runCrowdStress(kind, expectedTotal) {
     return main?.dataset.phase === "answering" &&
       main?.dataset.roundId === "visual-crowd-stress-${kind}" &&
       Boolean(document.querySelector('[data-testid="' + expectedPicker + '"]')) &&
-      !document.querySelector('[data-testid="crowd-split"]');
+      !document.querySelector('[data-testid="crowd-split"]') &&
+      !document.querySelector('[data-testid="crowd-card"]');
   })()`,
     12_000,
   );
-  const hiddenBeforeReveal = await evaluate(`!document.querySelector('[data-testid="crowd-split"]')`);
+  const hiddenBeforeReveal = await evaluate(
+    `!document.querySelector('[data-testid="crowd-split"]') && !document.querySelector('[data-testid="crowd-card"]')`,
+  );
+  const promptContextHiddenBeforeReveal = await evaluate(
+    `!document.querySelector('[data-testid="round-prompt"] [class*="questionCopy"] > span')`,
+  );
 
   await evaluate(`window.__queueArcadeCrowdStress.phase = "reveal"`);
   await waitFor(
@@ -183,6 +200,7 @@ async function runCrowdStress(kind, expectedTotal) {
     return {
       kind: split?.dataset.splitKind,
       hiddenBeforeReveal: ${hiddenBeforeReveal},
+      promptContextHiddenBeforeReveal: ${promptContextHiddenBeforeReveal},
       total: Number(split?.dataset.total),
       rowCount: rows.length,
       namedRows: rows.filter((row) => !row.textContent.includes("Other picks")).length,
@@ -210,6 +228,23 @@ async function runCrowdStress(kind, expectedTotal) {
         : document.querySelectorAll('[data-testid="shopkeeper-store-item"]').length
     };
   })()`);
+}
+
+async function runClassicChromeStress() {
+  await evaluate(`window.__queueArcadeCrowdStress = { kind: "classic", phase: "answering" }`);
+  await evaluate(`window.dispatchEvent(new Event("focus")); true`);
+  await waitFor(
+    `document.querySelector("main")?.dataset.phase === "answering" &&
+      document.querySelector("main")?.dataset.roundId === "visual-crowd-stress-classic"`,
+    12_000,
+  );
+  return evaluate(`({
+    promptContextVisible: Boolean(
+      document.querySelector('[data-testid="round-prompt"] [class*="questionCopy"] > span')
+    ),
+    crowdCardVisible: Boolean(document.querySelector('[data-testid="crowd-card"]')),
+    roomCardVisible: Boolean(document.querySelector('[class*="queueCard"]'))
+  })`);
 }
 
 async function waitForRevealEntryWindow() {
@@ -285,7 +320,7 @@ await send("Page.addScriptToEvaluateOnNewDocument", {
           game: fixture.game,
           ...fixture.question,
           difficulty: 3,
-          answers: ["", "", "", ""],
+          answers: fixture.question.answers ?? ["", "", "", ""],
           patch: "visual-test",
           clueStage: reveal ? 3 : 1,
           reveal: reveal ? {
@@ -309,7 +344,7 @@ await send("Page.addScriptToEvaluateOnNewDocument", {
         };
         payload.playerVote = {
           answerIndex: 0,
-          answerKey: selectedKey,
+          ...(fixture.question.answerMode ? { answerKey: selectedKey } : {}),
           submittedAt: now - 1_000
         };
         payload.playerReport = null;
@@ -496,8 +531,12 @@ const answering = await evaluate(`({
   difficultyControls: document.querySelectorAll('[data-skill-level], [aria-label="Challenge level"]').length,
   tipCards: document.querySelectorAll('[class*="tipCard"]').length,
   crowdSplitVisible: Boolean(document.querySelector('[data-testid="crowd-split"]')),
+  crowdCardVisible: Boolean(document.querySelector('[data-testid="crowd-card"]')),
   publicRoomVisible: Boolean(document.querySelector('[data-testid="public-room"]')),
-  presence: document.querySelector('[data-testid="room-presence"]')?.innerText,
+  roomPresenceVisible: Boolean(document.querySelector('[data-testid="room-presence"]')),
+  roomElapsedVisible: Boolean(document.querySelector('[class*="queueStatus"] > strong')),
+  promptContext: document.querySelector('[data-testid="round-prompt"] [class*="questionCopy"] > span')?.textContent,
+  promptText: document.querySelector('[data-testid="round-prompt"] [class*="questionCopy"] > h2')?.textContent,
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 
@@ -713,6 +752,7 @@ const directPlay = await evaluate(`({
 
 const heroCrowdStress = await runCrowdStress("heroes", heroStressEntries.length);
 const itemCrowdStress = await runCrowdStress("items", itemStressEntries.length);
+const classicChromeStress = await runClassicChromeStress();
 await evaluate(`window.__queueArcadeCrowdStress = null`);
 
 await send("Emulation.setDeviceMetricsOverride", {
@@ -851,8 +891,16 @@ if (
   answering.difficultyControls !== 0 ||
   answering.tipCards !== 0 ||
   answering.crowdSplitVisible ||
+  answering.crowdCardVisible ||
   !answering.publicRoomVisible ||
-  !/player/.test(answering.presence ?? "") ||
+  answering.roomPresenceVisible ||
+  answering.roomElapsedVisible ||
+  (answering.game === "shopkeeper" && Boolean(answering.promptContext)) ||
+  (answering.game === "trivia" &&
+    Boolean(
+      answering.promptContext &&
+        answering.promptText?.toLocaleLowerCase().includes(answering.promptContext.toLocaleLowerCase()),
+    )) ||
   answering.timer < MIN_INITIAL_ANSWER_TIME_MS / 1_000 - 2 ||
   answering.horizontalOverflow ||
   (answering.openShop &&
@@ -923,6 +971,7 @@ for (const [label, result, expectedTotal] of [
   if (
     result.kind !== "open-grid" ||
     !result.hiddenBeforeReveal ||
+    (label === "item" && !result.promptContextHiddenBeforeReveal) ||
     result.total !== expectedTotal ||
     result.rowCount !== 5 ||
     result.namedRows !== 4 ||
@@ -943,6 +992,13 @@ for (const [label, result, expectedTotal] of [
   ) {
     failures.push(`The all-${label} crowd result is unbounded, clipped, incomplete, or leaked before reveal.`);
   }
+}
+if (
+  classicChromeStress.promptContextVisible ||
+  classicChromeStress.crowdCardVisible ||
+  classicChromeStress.roomCardVisible
+) {
+  failures.push("Classic Trivia restored redundant prompt or live-room chrome during the answering phase.");
 }
 if (
   !mobile.headingVisible ||
@@ -980,6 +1036,7 @@ if (failures.length) {
         directPlay,
         heroCrowdStress,
         itemCrowdStress,
+        classicChromeStress,
         mobile,
         calibration,
       },

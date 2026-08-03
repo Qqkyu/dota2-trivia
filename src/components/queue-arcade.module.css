@@ -1171,8 +1171,7 @@
   font-weight: 450;
 }
 
-.readyIcon,
-.sessionIcon {
+.readyIcon {
   display: inline-grid;
   width: 31px;
   height: 31px;
@@ -1183,8 +1182,7 @@
   color: var(--green);
 }
 
-.readyIcon svg,
-.sessionIcon svg {
+.readyIcon svg {
   width: 15px;
   height: 15px;
 }
@@ -4952,99 +4950,11 @@ button[data-state="wrong"] > .heroPickerVerdict {
   gap: 12px;
 }
 
-.queueCard,
 .progressCard,
 .crowdCard {
   border: 1px solid var(--line);
   background: var(--surface-soft);
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.02);
-}
-
-.queueCard {
-  overflow: hidden;
-  border-color: rgba(118, 198, 138, 0.19);
-  background: linear-gradient(135deg, rgba(91, 155, 107, 0.08), transparent 55%), rgba(15, 20, 17, 0.9);
-}
-
-.queueStatus {
-  display: flex;
-  min-height: 66px;
-  align-items: center;
-  gap: 11px;
-  padding: 0 14px;
-}
-
-.queueStatus > span:nth-child(2) {
-  display: flex;
-  min-width: 0;
-  flex: 1;
-  flex-direction: column;
-  color: #dce2dc;
-  font-size: 13px;
-}
-
-.queueStatus small {
-  margin-bottom: 4px;
-  color: var(--green);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.queueStatus > strong {
-  color: #aeb6ae;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 14px;
-  font-weight: 450;
-}
-
-.queueDetails {
-  display: flex;
-  min-height: 36px;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  border-top: 1px solid rgba(118, 198, 138, 0.09);
-  border-bottom: 1px solid rgba(118, 198, 138, 0.09);
-  color: #78827a;
-  font-size: 11px;
-}
-
-.queueDetails i {
-  width: 2px;
-  height: 2px;
-  border-radius: 50%;
-  background: #4c544d;
-}
-
-.queueCard > button {
-  display: flex;
-  width: 100%;
-  min-height: 42px;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  border: 0;
-  background: rgba(118, 198, 138, 0.025);
-  color: #929b94;
-  font-size: 11px;
-  cursor: pointer;
-  transition: 150ms ease;
-}
-
-.queueCard > button:hover {
-  background: rgba(118, 198, 138, 0.05);
-  color: #b6bdb7;
-}
-
-.queueCard > button:disabled {
-  opacity: 0.45;
-  cursor: wait;
-}
-
-.queueCard > button svg {
-  width: 12px;
 }
 
 .scoreGrid {
@@ -5124,6 +5034,48 @@ button[data-state="wrong"] > .heroPickerVerdict {
   font-weight: 450;
 }
 
+.progressActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progressActions > strong {
+  color: var(--faint);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  font-weight: 450;
+}
+
+.roomSyncStatus {
+  color: var(--red-bright);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.progressActions > button {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--faint);
+  cursor: pointer;
+  transition: 150ms ease;
+}
+
+.progressActions > button:hover {
+  border-color: rgba(118, 198, 138, 0.28);
+  color: var(--green);
+}
+
+.progressActions > button svg {
+  width: 11px;
+}
+
 .roundPips {
   display: grid;
   gap: 5px;
@@ -5192,46 +5144,6 @@ button[data-state="wrong"] > .heroPickerVerdict {
   color: var(--faint);
   font-size: 12px;
   line-height: 1.5;
-}
-
-.crowdPulse {
-  display: flex;
-  height: 28px;
-  align-items: flex-end;
-  gap: 4px;
-  padding: 0 2px;
-}
-
-.crowdPulse span {
-  width: 100%;
-  height: 20%;
-  background: linear-gradient(to top, rgba(210, 76, 63, 0.3), rgba(240, 106, 88, 0.65));
-  transform-origin: bottom;
-  animation: crowd 1.35s ease-in-out infinite alternate;
-}
-
-.crowdPulse span:nth-child(2) {
-  animation-delay: -0.25s;
-}
-
-.crowdPulse span:nth-child(3) {
-  animation-delay: -0.55s;
-}
-
-.crowdPulse span:nth-child(4) {
-  animation-delay: -0.8s;
-}
-
-.crowdPulse span:nth-child(5) {
-  animation-delay: -0.45s;
-}
-
-.crowdPulse span:nth-child(6) {
-  animation-delay: -0.95s;
-}
-
-.crowdPulse span:nth-child(7) {
-  animation-delay: -0.18s;
 }
 
 .crowdSplit {
@@ -5896,17 +5808,6 @@ button[data-state="wrong"] > .heroPickerVerdict {
   to {
     opacity: 0.95;
     transform: scaleY(0.45);
-  }
-}
-
-@keyframes crowd {
-  0% {
-    height: 16%;
-    opacity: 0.42;
-  }
-  100% {
-    height: 92%;
-    opacity: 0.92;
   }
 }
 
