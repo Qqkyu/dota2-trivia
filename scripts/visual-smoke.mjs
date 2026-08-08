@@ -278,6 +278,7 @@ await send("Page.addScriptToEvaluateOnNewDocument", {
     const fixtures = ${JSON.stringify(crowdStressFixtures)};
     const originalFetch = window.fetch.bind(window);
     window.__queueArcadeCrowdStress = null;
+    window.__queueArcadeAudioPrewarmRequests = 0;
 
     Object.defineProperty(HTMLMediaElement.prototype, "play", {
       configurable: true,
@@ -285,11 +286,18 @@ await send("Page.addScriptToEvaluateOnNewDocument", {
     });
 
     window.fetch = async (...args) => {
+      const input = args[0];
+      const init = args[1];
+      const requestUrl = typeof input === "string" || input instanceof URL ? String(input) : input?.url;
+      const requestMethod = String(init?.method ?? input?.method ?? "GET").toUpperCase();
+      const requestPath = requestUrl ? new URL(requestUrl, location.href).pathname : "";
+      if (requestPath === "/api/round-audio" && requestMethod === "HEAD") {
+        window.__queueArcadeAudioPrewarmRequests += 1;
+      }
+
       const response = await originalFetch(...args);
       const state = window.__queueArcadeCrowdStress;
-      const input = args[0];
-      const requestUrl = typeof input === "string" || input instanceof URL ? String(input) : input?.url;
-      if (!state || !requestUrl || new URL(requestUrl, location.href).pathname !== "/api/rounds") return response;
+      if (!state || requestPath !== "/api/rounds") return response;
 
       try {
         const fixture = fixtures[state.kind];
@@ -700,7 +708,8 @@ const reveal = await evaluate(`(() => {
     reportReasons: document.querySelectorAll('[data-testid="report-reason"]').length,
     reportBounds: bounds ? { x: bounds.x, y: bounds.y, width: bounds.width, height: bounds.height } : null,
     nextButton: [...document.querySelectorAll("button")].some((button) => button.textContent.includes("Next round")),
-    internalSourceLabel: document.body.innerText.includes("OpenDota constants")
+    internalSourceLabel: document.body.innerText.includes("OpenDota constants"),
+    audioPrewarmRequests: Number(window.__queueArcadeAudioPrewarmRequests ?? 0)
   };
 })()`);
 await evaluate(`document.querySelector('[data-testid="report-question"]')?.click()`);
@@ -929,6 +938,7 @@ if (
       ? reveal.heroPercentages < 1 || reveal.heroCorrect !== 1 || reveal.openShopReveal
       : reveal.percentages !== 4 || reveal.openShopReveal) ||
   reveal.reportReasons !== 4 ||
+  reveal.audioPrewarmRequests < 1 ||
   !sameBounds ||
   reveal.nextButton ||
   reveal.internalSourceLabel

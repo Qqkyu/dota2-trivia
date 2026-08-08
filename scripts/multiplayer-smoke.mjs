@@ -309,6 +309,14 @@ if (crossOriginlessSession.status !== 403 || retiredFeedback.status !== 400 || s
 }
 
 const firstSnapshot = await answeringRoundWithTime(firstPlayer, settings, accountHeaders);
+const prematureAudioPreload = await fetch(
+  `${appUrl}/api/round-audio?roundId=${encodeURIComponent(firstSnapshot.round.id)}`,
+  { method: "HEAD", cache: "no-store" },
+);
+if (prematureAudioPreload.status !== 409) {
+  throw new Error("Upcoming audio could be preloaded before the current round reveal.");
+}
+
 const secondSnapshot = await readRoom(secondPlayer);
 const cachedQuestionUrl = new URL(roomUrl(firstPlayer));
 cachedQuestionUrl.searchParams.set("questionRevision", firstSnapshot.questionRevision);
@@ -492,6 +500,15 @@ if (
     : revealedKeyVoteTotal !== 0)
 ) {
   throw new Error("The synchronized reveal did not expose the final round split.");
+}
+
+const upcomingAudioPreload = await fetch(
+  `${appUrl}/api/round-audio?roundId=${encodeURIComponent(revealSnapshot.round.id)}`,
+  { method: "HEAD", cache: "no-store" },
+);
+const audioPreloadState = upcomingAudioPreload.headers.get("x-queue-arcade-audio-preload");
+if (upcomingAudioPreload.status !== 204 || !["ready", "not-needed"].includes(audioPreloadState ?? "")) {
+  throw new Error("The reveal phase did not safely prepare the upcoming round audio.");
 }
 
 const firstPrivateQuestion = privateQuestionFor(revealSnapshot);
@@ -898,6 +915,8 @@ console.log(
       legacyLevelSettingsIgnored: true,
       allPublicModeAndCategorySilosRemoved: true,
       questionPayloadCacheVerified: true,
+      audioPreloadGuardedUntilReveal: true,
+      upcomingAudioPreloadVerified: audioPreloadState,
     },
     null,
     2,

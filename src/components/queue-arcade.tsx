@@ -2061,6 +2061,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   const roundAudioRefs = useRef<Array<HTMLAudioElement | null>>([]);
   const roundAudioAbortRef = useRef<AbortController | null>(null);
   const autoPlayedAudioKeyRef = useRef("");
+  const prewarmedAfterRoundIdRef = useRef("");
   const reportTargetRef = useRef<QuestionReportTarget | null>(null);
   const reportStateRef = useRef<"idle" | "sending" | "sent" | "error">("idle");
   const autoStartAttemptedRef = useRef(false);
@@ -2366,6 +2367,14 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       setRoomError(null);
       setNow(receivedAt);
 
+      if (snapshot.round.phase === "reveal" && prewarmedAfterRoundIdRef.current !== snapshot.round.id) {
+        prewarmedAfterRoundIdRef.current = snapshot.round.id;
+        void fetch(`/api/round-audio?roundId=${encodeURIComponent(snapshot.round.id)}`, {
+          method: "HEAD",
+          cache: "no-store",
+        }).catch(() => undefined);
+      }
+
       if (entryWaitRoundIdRef.current) {
         const waitingForRoundId = entryWaitRoundIdRef.current;
         const nextRoundIsStillTooLate = shouldWaitForNextRoundOnEntry(snapshot.round, snapshot.serverNow);
@@ -2537,6 +2546,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         const startedAt = Date.now();
         roundIdRef.current = "";
         entryWaitRoundIdRef.current = "";
+        prewarmedAfterRoundIdRef.current = "";
         currentQuestionRef.current = null;
         roundIndexRef.current = 0;
         queueStartedAtRef.current = startedAt;
@@ -2880,6 +2890,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       roundIdRef.current = "";
       questionRevisionRef.current = "";
       entryWaitRoundIdRef.current = "";
+      prewarmedAfterRoundIdRef.current = "";
       autoStartAttemptedRef.current = false;
       feedbackAudioRef.current?.clips.forEach(({ audio }) => audio.pause());
       stopRoundAudio(false);
