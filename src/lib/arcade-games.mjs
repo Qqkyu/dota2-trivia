@@ -84,11 +84,3 @@ export function publicRoundFormatRotation(length, offset = 0) {
     (_, index) => PUBLIC_ROUND_FORMATS[(normalizedOffset + index) % PUBLIC_ROUND_FORMATS.length],
   );
 }
-
-/** @param {number} [offset] */
-export function publicRoundFormatOccurrenceCounts(offset = 0) {
-  const normalizedOffset = Math.max(0, Math.floor(offset));
-  const completeCycles = Math.floor(normalizedOffset / PUBLIC_ROUND_FORMATS.length);
-  const remainder = normalizedOffset % PUBLIC_ROUND_FORMATS.length;
-  return new Map(PUBLIC_ROUND_FORMATS.map((format, index) => [format, completeCycles + (index < remainder ? 1 : 0)]));
-}

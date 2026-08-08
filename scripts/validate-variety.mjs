@@ -4,7 +4,6 @@ import { varietyShuffle } from "../src/lib/variety.mjs";
 import {
   LIVE_ROUND_GAMES,
   PUBLIC_ROUND_FORMATS,
-  publicRoundFormatOccurrenceCounts,
   publicRoundFormatRotation,
   roundFormatForQuestion,
   roundGameForFormat,
@@ -108,26 +107,6 @@ if (
   throw new Error("A live question kind maps to the wrong public round format, or a retired kind returned.");
 }
 
-const boundaryPoolSize = 7;
-const batchedMixedQuestions = [];
-for (let roundOffset = 0; roundOffset < 120; roundOffset += 24) {
-  const batchFormats = publicRoundFormatRotation(24, roundOffset);
-  const cursors = publicRoundFormatOccurrenceCounts(roundOffset);
-  for (const format of batchFormats) {
-    const cursor = cursors.get(format) ?? 0;
-    batchedMixedQuestions.push({ format, id: `${format}:question-${cursor % boundaryPoolSize}` });
-    cursors.set(format, cursor + 1);
-  }
-}
-for (const format of arcadeFormats) {
-  const scheduled = batchedMixedQuestions.filter((question) => question.format === format);
-  const repeatedAtBoundary = scheduled.some((question, index) => index > 0 && question.id === scheduled[index - 1].id);
-  const firstCycle = scheduled.slice(0, boundaryPoolSize).map((question) => question.id);
-  if (repeatedAtBoundary || new Set(firstCycle).size !== boundaryPoolSize) {
-    throw new Error(`${format} restarted its question pool at a public-room batch boundary.`);
-  }
-}
-
 const soundcheckFixture = ["soundcheck-ability", "soundcheck-item"].flatMap((kind) =>
   ["single", "sequence"].flatMap((format) =>
     Array.from({ length: format === "single" ? 18 : 6 }, (_, index) => ({
@@ -183,5 +162,5 @@ if (
 }
 
 console.log(
-  `Validated deterministic templates, hidden difficulty cadence ${JSON.stringify(hiddenDifficultyCounts)}, ten-format public arcade cadence ${JSON.stringify(gameCounts)}, continuous per-format question pools, and Soundcheck family rotation (${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}).`,
+  `Validated deterministic templates, hidden difficulty cadence ${JSON.stringify(hiddenDifficultyCounts)}, ten-format public arcade cadence ${JSON.stringify(gameCounts)}, and Soundcheck family rotation (${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}).`,
 );

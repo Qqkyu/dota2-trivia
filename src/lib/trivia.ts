@@ -2,15 +2,11 @@ import generatedQuestions from "@/data/questions.generated.json";
 import shopkeeperQuestions from "@/data/shopkeeper-questions.json";
 import generatedMeta from "@/data/trivia-meta.generated.json";
 import soundcheckQuestions from "@/data/soundcheck-questions.json";
-import {
-  PUBLIC_ROUND_FORMATS,
-  publicRoundFormatOccurrenceCounts,
-  publicRoundFormatRotation,
-  roundFormatForQuestion,
-} from "@/lib/arcade-games.mjs";
+import { PUBLIC_ROUND_FORMATS, roundFormatForQuestion } from "@/lib/arcade-games.mjs";
 import type { MapChallenge } from "@/lib/map-types";
 import { isPlayableShopkeeperQuestion } from "@/lib/shopkeeper-quality.mjs";
 import { isPlayableClassicTriviaQuestion } from "@/lib/classic-trivia-quality.mjs";
+import { createSemanticPublicDeck } from "@/lib/semantic-schedule.mjs";
 import { varietyShuffle } from "@/lib/variety.mjs";
 
 export const KNOWLEDGE_FILTERS = ["Mixed", "Abilities", "Items", "Heroes"] as const;
@@ -201,7 +197,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-5-shopkeeper-5-public-arcade-2-soundcheck-9-fogged-vision-3-global-score-1`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-5-shopkeeper-5-public-arcade-3-soundcheck-9-fogged-vision-3-global-score-1`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
     isPlayableClassicTriviaQuestion(question) &&
@@ -257,25 +253,15 @@ export function createArcadeDeck(
   roundOffset = 0,
 ) {
   if (mode === "mixed") {
-    const formats = publicRoundFormatRotation(length, roundOffset);
-    const cursors = publicRoundFormatOccurrenceCounts(roundOffset);
-    const pools = new Map(
-      PUBLIC_ROUND_FORMATS.map((format) => [
-        format,
-        varietyShuffle(
-          triviaQuestions.filter((question) => roundFormatForQuestion(question) === format),
-          `${seed}:format:${format}:${sharedKnowledgeFilter(filter)}:${ARCADE_CONTENT_VERSION}`,
-        ),
-      ]),
-    );
-
-    return formats.flatMap((format) => {
-      const pool = pools.get(format) ?? [];
-      const cursor = cursors.get(format) ?? 0;
-      const question = pool.length ? pool[cursor % pool.length] : undefined;
-      cursors.set(format, cursor + 1);
-      return question ? [{ ...question, game: gameForQuestion(question) }] : [];
-    });
+    const roomFilter = sharedKnowledgeFilter(filter);
+    return createSemanticPublicDeck(triviaQuestions, {
+      formats: PUBLIC_ROUND_FORMATS,
+      getFormat: roundFormatForQuestion,
+      seed: `${seed}:semantic-subjects:${roomFilter}:${ARCADE_CONTENT_VERSION}`,
+      poolSeedForFormat: (format: string) => `${seed}:format:${format}:${roomFilter}:${ARCADE_CONTENT_VERSION}`,
+      length,
+      roundOffset,
+    }).map((question: TriviaQuestion) => ({ ...question, game: gameForQuestion(question) }));
   }
 
   const gamePools = {

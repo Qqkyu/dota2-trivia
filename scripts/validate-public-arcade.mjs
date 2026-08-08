@@ -8,14 +8,13 @@ import {
   LIVE_ROUND_GAMES,
   PUBLIC_ARCADE_MODE,
   PUBLIC_ROUND_FORMATS,
-  publicRoundFormatOccurrenceCounts,
-  publicRoundFormatRotation,
   roundFormatForQuestion,
   roundGameForFormat,
 } from "../src/lib/arcade-games.mjs";
 import { MIN_INITIAL_ANSWER_TIME_MS, shouldWaitForNextRoundOnEntry } from "../src/lib/arcade-entry.mjs";
 import { isPlayableClassicTriviaQuestion } from "../src/lib/classic-trivia-quality.mjs";
 import { isPlayableShopkeeperQuestion } from "../src/lib/shopkeeper-quality.mjs";
+import { createSemanticPublicDeck } from "../src/lib/semantic-schedule.mjs";
 import { varietyShuffle } from "../src/lib/variety.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -93,18 +92,17 @@ for (const [format, pool] of pools) {
   }
 }
 
-const scheduled = [];
-for (let roundOffset = 0; roundOffset < 240; roundOffset += 24) {
-  const formats = publicRoundFormatRotation(24, roundOffset);
-  const cursors = publicRoundFormatOccurrenceCounts(roundOffset);
-  for (const format of formats) {
-    const pool = pools.get(format) ?? [];
-    const cursor = cursors.get(format) ?? 0;
-    const question = pool[cursor % pool.length];
-    cursors.set(format, cursor + 1);
-    if (question) scheduled.push({ format, game: roundGameForFormat(format), question });
-  }
-}
+const semanticSeed = "public-arcade-validation:semantic";
+const scheduled = createSemanticPublicDeck(liveQuestions, {
+  formats: PUBLIC_ROUND_FORMATS,
+  getFormat: roundFormatForQuestion,
+  seed: semanticSeed,
+  poolSeedForFormat: (format) => `public-arcade-validation:${format}`,
+  length: 240,
+}).map((question) => {
+  const format = roundFormatForQuestion(question);
+  return { format, game: roundGameForFormat(format), question };
+});
 
 if (scheduled.length !== 240)
   failures.push(`The public scheduler returned ${scheduled.length} of 240 requested rounds.`);
@@ -128,12 +126,11 @@ if (
 ) {
   failures.push("A rolling ten-round window skipped or repeated a public format.");
 }
-for (const format of PUBLIC_ROUND_FORMATS) {
-  const pool = pools.get(format) ?? [];
-  const formatRounds = scheduled.filter((round) => round.format === format);
-  const opening = formatRounds.slice(0, Math.min(pool.length, formatRounds.length));
-  if (new Set(opening.map((round) => round.question.id)).size !== opening.length) {
-    failures.push(`${format} repeated a question before exhausting its format pool.`);
+for (let index = 0; index < scheduled.length; index += 1) {
+  const recent = scheduled.slice(Math.max(0, index - 50), index);
+  if (recent.some((round) => round.question.id === scheduled[index].question.id)) {
+    failures.push(`${scheduled[index].question.id} repeated inside a 50-round public session.`);
+    break;
   }
 }
 

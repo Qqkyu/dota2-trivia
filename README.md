@@ -232,7 +232,7 @@ under `/tmp`.
 
 ## Crowd architecture
 
-Each game catalog and content version owns exactly one public room. Dota rooms are explicitly namespaced like `dota2:7.41d-variety-6-classic-trivia-5-shopkeeper-5-public-arcade-2-soundcheck-9-fogged-vision-3:public`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog and content version owns exactly one public room. Room IDs are explicitly namespaced as `<game>:<content-version>:public`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/rounds` converts the private catalog entry into an explicit public payload. During answering it omits the internal
 question ID, marked answer, explanation, source/audit metadata, hidden Shopkeeper keys, and locked Spell Link clues. The
