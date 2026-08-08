@@ -3863,6 +3863,15 @@ button[data-state="wrong"] > .heroPickerVerdict {
   margin: 16px 0 12px;
 }
 
+.spellQuestion .clueList {
+  margin: 12px 0 2px;
+}
+
+.spellQuestion .questionCopy > small {
+  display: block;
+  line-height: 1.35;
+}
+
 .clueList > div {
   position: relative;
   display: grid;

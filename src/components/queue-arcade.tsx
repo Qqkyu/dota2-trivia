@@ -3626,7 +3626,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                       <span>{clueStage >= 3 ? "Ability icon revealed" : `Icon unlocks at ${finalClueAt}s`}</span>
                     </div>
                   </div>
-                  <small>Every extra clue costs {SPELL_CLUE_PENALTY} points, on top of the fading speed bonus</small>
+                  <small data-testid="spell-clue-scoring">Later clues cost {SPELL_CLUE_PENALTY} points each.</small>
                 </div>
               </div>
             ) : currentGame === "fogged-vision" ? (

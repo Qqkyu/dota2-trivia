@@ -61,6 +61,18 @@ const crowdStressFixtures = {
     },
     entries: ["a", "b", "c", "d"].map((answerKey) => ({ answerKey, count: 1 })),
   },
+  spell: {
+    game: "spell-link",
+    question: {
+      kind: "spell-owner",
+      category: "Abilities",
+      eyebrow: "Ensnare",
+      prompt: "Which hero owns this ability?",
+      hint: "Interrupts the target and traps them in place, preventing movement or blinking. Can target units affected by Song of the caster.",
+      answerMode: "hero-grid",
+    },
+    entries: heroStressEntries.slice(0, 4),
+  },
 };
 const targets = await fetch(`${debuggingUrl}/json/list`).then((response) => response.json());
 const target = targets.find((entry) => entry.type === "page");
@@ -245,6 +257,40 @@ async function runClassicChromeStress() {
     crowdCardVisible: Boolean(document.querySelector('[data-testid="crowd-card"]')),
     roomCardVisible: Boolean(document.querySelector('[class*="queueCard"]'))
   })`);
+}
+
+async function runSpellLayoutStress() {
+  await evaluate(`window.__queueArcadeCrowdStress = { kind: "spell", phase: "answering" }`);
+  await evaluate(`window.dispatchEvent(new Event("focus")); true`);
+  await waitFor(
+    `document.querySelector("main")?.dataset.phase === "answering" &&
+      document.querySelector("main")?.dataset.roundId === "visual-crowd-stress-spell" &&
+      Boolean(document.querySelector('[data-testid="spell-clue-scoring"]'))`,
+    12_000,
+  );
+  await delay(300);
+  await screenshot("/tmp/queue-arcade-spell-layout.png");
+
+  return evaluate(`(() => {
+    const prompt = document.querySelector('[data-testid="round-prompt"]');
+    const helper = document.querySelector('[data-testid="spell-clue-scoring"]');
+    const picker = document.querySelector('[data-testid="hero-picker"]');
+    const promptBounds = prompt?.getBoundingClientRect();
+    const helperBounds = helper?.getBoundingClientRect();
+    const pickerBounds = picker?.getBoundingClientRect();
+    return {
+      visible: Boolean(helperBounds?.width && helperBounds?.height),
+      fullyVisible: Boolean(
+        promptBounds &&
+          helperBounds &&
+          helperBounds.top >= promptBounds.top &&
+          helperBounds.bottom <= promptBounds.bottom
+      ),
+      bottomInset: promptBounds && helperBounds ? promptBounds.bottom - helperBounds.bottom : -1,
+      pickerGap: pickerBounds && helperBounds ? pickerBounds.top - helperBounds.bottom : -1,
+      horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+    };
+  })()`);
 }
 
 async function waitForRevealEntryWindow() {
@@ -761,6 +807,7 @@ const directPlay = await evaluate(`({
 
 const heroCrowdStress = await runCrowdStress("heroes", heroStressEntries.length);
 const itemCrowdStress = await runCrowdStress("items", itemStressEntries.length);
+const spellLayoutStress = await runSpellLayoutStress();
 const classicChromeStress = await runClassicChromeStress();
 await evaluate(`window.__queueArcadeCrowdStress = null`);
 
@@ -1011,6 +1058,15 @@ if (
   failures.push("Classic Trivia restored redundant prompt or live-room chrome during the answering phase.");
 }
 if (
+  !spellLayoutStress.visible ||
+  !spellLayoutStress.fullyVisible ||
+  spellLayoutStress.bottomInset < 5 ||
+  spellLayoutStress.pickerGap < 6 ||
+  spellLayoutStress.horizontalOverflow
+) {
+  failures.push("The Spell Link scoring note is clipped or crowded by the hero picker.");
+}
+if (
   !mobile.headingVisible ||
   !mobile.startButton ||
   mobile.roundFamilies !== 7 ||
@@ -1046,6 +1102,7 @@ if (failures.length) {
         directPlay,
         heroCrowdStress,
         itemCrowdStress,
+        spellLayoutStress,
         classicChromeStress,
         mobile,
         calibration,
@@ -1073,6 +1130,7 @@ console.log(
         heroes: `${heroCrowdStress.namedRows} named + Other (${heroCrowdStress.total} votes)`,
         items: `${itemCrowdStress.namedRows} named + Other (${itemCrowdStress.total} votes)`,
       },
+      spellLinkHelperClearance: `${Math.round(spellLayoutStress.pickerGap)}px`,
       mediaPlaybackDisabled: true,
       optionalSteamProfile: true,
       privacyControls: true,
@@ -1093,6 +1151,7 @@ console.log(
         "/tmp/queue-arcade-summary.png",
         "/tmp/queue-arcade-crowd-heroes.png",
         "/tmp/queue-arcade-crowd-items.png",
+        "/tmp/queue-arcade-spell-layout.png",
         "/tmp/queue-arcade-mobile.png",
         "/tmp/queue-arcade-calibration-mobile.png",
       ],
