@@ -197,7 +197,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-5-shopkeeper-5-public-arcade-3-soundcheck-9-fogged-vision-3-global-score-1`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-5-shopkeeper-6-public-arcade-3-soundcheck-10-spell-link-4-fogged-vision-3-global-score-1`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
     isPlayableClassicTriviaQuestion(question) &&

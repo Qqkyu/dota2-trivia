@@ -1,5 +1,60 @@
 [
   {
+    "id": "shopkeeper-build:assault",
+    "kind": "shopkeeper-build-result",
+    "varietyKey": "shopkeeper-build-result",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Build Result",
+    "prompt": "What do these components build?",
+    "answers": ["Shiva's Guard", "Assault Cuirass", "Lotus Orb", "Mjollnir"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shivas_guard.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/assault.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mjollnir.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 1,
+    "explanation": "Assault Cuirass is built from Buckler, Hyperstone, Platemail.",
+    "shopkeeper": {
+      "format": "build-result",
+      "targetItemKey": "assault",
+      "promptItems": [
+        {
+          "key": "buckler",
+          "name": "Buckler",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/buckler.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "hyperstone",
+          "name": "Hyperstone",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hyperstone.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "platemail",
+          "name": "Platemail",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/platemail.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["buckler", "hyperstone", "platemail"],
+      "answerItemKeys": ["shivas_guard", "assault", "lotus_orb", "mjollnir"],
+      "answerRecipeKeys": [
+        ["platemail", "splintmail", "chasm_stone"],
+        ["buckler", "hyperstone", "platemail"],
+        ["pers", "platemail", "energy_booster"],
+        ["maelstrom", "hyperstone"]
+      ],
+      "answerCosts": [4500, 5125, 3850, 5500],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
     "id": "shopkeeper-build:bfury",
     "kind": "shopkeeper-build-result",
     "varietyKey": "shopkeeper-build-result",
@@ -49,6 +104,55 @@
         ["ogre_axe", "broadsword", "void_stone"]
       ],
       "answerCosts": [3900, 3100, 3850, 2700],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-build:black_king_bar",
+    "kind": "shopkeeper-build-result",
+    "varietyKey": "shopkeeper-build-result",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Build Result",
+    "prompt": "What do these components build?",
+    "answers": ["Skull Basher", "Aghanim's Scepter", "Black King Bar", "Desolator"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/basher.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_scepter.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/desolator.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 2,
+    "explanation": "Black King Bar is built from Mithril Hammer, Ogre Axe.",
+    "shopkeeper": {
+      "format": "build-result",
+      "targetItemKey": "black_king_bar",
+      "promptItems": [
+        {
+          "key": "mithril_hammer",
+          "name": "Mithril Hammer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mithril_hammer.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "ogre_axe",
+          "name": "Ogre Axe",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ogre_axe.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["mithril_hammer", "ogre_axe"],
+      "answerItemKeys": ["basher", "ultimate_scepter", "black_king_bar", "desolator"],
+      "answerRecipeKeys": [
+        ["mithril_hammer", "belt_of_strength"],
+        ["point_booster", "staff_of_wizardry", "ogre_axe", "blade_of_alacrity"],
+        ["mithril_hammer", "ogre_axe"],
+        ["mithril_hammer", "mithril_hammer", "blight_stone"]
+      ],
+      "answerCosts": [2875, 4200, 4050, 3500],
       "clientBuild": "6872"
     },
     "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
@@ -220,6 +324,104 @@
     "patch": "7.41d"
   },
   {
+    "id": "shopkeeper-build:desolator",
+    "kind": "shopkeeper-build-result",
+    "varietyKey": "shopkeeper-build-result",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Build Result",
+    "prompt": "What do these components build?",
+    "answers": ["Black King Bar", "Skull Basher", "Maelstrom", "Desolator"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/basher.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/maelstrom.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/desolator.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 3,
+    "explanation": "Desolator is built from Mithril Hammer ×2, Orb of Blight.",
+    "shopkeeper": {
+      "format": "build-result",
+      "targetItemKey": "desolator",
+      "promptItems": [
+        {
+          "key": "mithril_hammer",
+          "name": "Mithril Hammer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mithril_hammer.png?t=1593393829403",
+          "count": 2
+        },
+        {
+          "key": "blight_stone",
+          "name": "Orb of Blight",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blight_stone.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["mithril_hammer", "mithril_hammer", "blight_stone"],
+      "answerItemKeys": ["black_king_bar", "basher", "maelstrom", "desolator"],
+      "answerRecipeKeys": [
+        ["mithril_hammer", "ogre_axe"],
+        ["mithril_hammer", "belt_of_strength"],
+        ["mithril_hammer", "javelin", "gloves"],
+        ["mithril_hammer", "mithril_hammer", "blight_stone"]
+      ],
+      "answerCosts": [4050, 2875, 2950, 3500],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-build:heart",
+    "kind": "shopkeeper-build-result",
+    "varietyKey": "shopkeeper-build-result",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Build Result",
+    "prompt": "What do these components build?",
+    "answers": ["Heart of Tarrasque", "Overwhelming Blink", "Refresher Orb", "Satanic"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/heart.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/overwhelming_blink.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/refresher.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/satanic.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 0,
+    "explanation": "Heart of Tarrasque is built from Reaver, Ring of Tarrasque.",
+    "shopkeeper": {
+      "format": "build-result",
+      "targetItemKey": "heart",
+      "promptItems": [
+        {
+          "key": "reaver",
+          "name": "Reaver",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/reaver.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "ring_of_tarrasque",
+          "name": "Ring of Tarrasque",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_tarrasque.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["reaver", "ring_of_tarrasque"],
+      "answerItemKeys": ["heart", "overwhelming_blink", "refresher", "satanic"],
+      "answerRecipeKeys": [
+        ["reaver", "ring_of_tarrasque"],
+        ["blink", "reaver"],
+        ["ring_of_tarrasque", "tiara_of_selemene"],
+        ["reaver", "claymore", "lifesteal"]
+      ],
+      "answerCosts": [5200, 6800, 5000, 5050],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
     "id": "shopkeeper-build:lotus_orb",
     "kind": "shopkeeper-build-result",
     "varietyKey": "shopkeeper-build-result",
@@ -336,6 +538,55 @@
     "patch": "7.41d"
   },
   {
+    "id": "shopkeeper-build:manta",
+    "kind": "shopkeeper-build-result",
+    "varietyKey": "shopkeeper-build-result",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Build Result",
+    "prompt": "What do these components build?",
+    "answers": ["Yasha and Kaya", "Manta Style", "Sange and Yasha", "Harpoon"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/yasha_and_kaya.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sange_and_yasha.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/harpoon.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 1,
+    "explanation": "Manta Style is built from Yasha, Diadem.",
+    "shopkeeper": {
+      "format": "build-result",
+      "targetItemKey": "manta",
+      "promptItems": [
+        {
+          "key": "yasha",
+          "name": "Yasha",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/yasha.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "diadem",
+          "name": "Diadem",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/diadem.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["yasha", "diadem"],
+      "answerItemKeys": ["yasha_and_kaya", "manta", "sange_and_yasha", "harpoon"],
+      "answerRecipeKeys": [
+        ["yasha", "kaya"],
+        ["yasha", "diadem"],
+        ["sange", "yasha"],
+        ["echo_sabre", "diadem"]
+      ],
+      "answerCosts": [4200, 4650, 4200, 4700],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
     "id": "shopkeeper-build:monkey_king_bar",
     "kind": "shopkeeper-build-result",
     "varietyKey": "shopkeeper-build-result",
@@ -391,6 +642,153 @@
     "patch": "7.41d"
   },
   {
+    "id": "shopkeeper-build:nullifier",
+    "kind": "shopkeeper-build-result",
+    "varietyKey": "shopkeeper-build-result",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Build Result",
+    "prompt": "What do these components build?",
+    "answers": ["Radiance", "Divine Rapier", "Nullifier", "Shiva's Guard"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/radiance.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/rapier.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shivas_guard.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 2,
+    "explanation": "Nullifier is built from Sacred Relic, Splintmail.",
+    "shopkeeper": {
+      "format": "build-result",
+      "targetItemKey": "nullifier",
+      "promptItems": [
+        {
+          "key": "relic",
+          "name": "Sacred Relic",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/relic.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "splintmail",
+          "name": "Splintmail",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/splintmail.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["relic", "splintmail"],
+      "answerItemKeys": ["radiance", "rapier", "nullifier", "shivas_guard"],
+      "answerRecipeKeys": [
+        ["relic", "talisman_of_evasion"],
+        ["relic", "demon_edge"],
+        ["relic", "splintmail"],
+        ["platemail", "splintmail", "chasm_stone"]
+      ],
+      "answerCosts": [4700, 5600, 4350, 4500],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-build:octarine_core",
+    "kind": "shopkeeper-build-result",
+    "varietyKey": "shopkeeper-build-result",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Build Result",
+    "prompt": "What do these components build?",
+    "answers": ["Refresher Orb", "Bloodstone", "Crella's Crozier", "Octarine Core"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/refresher.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bloodstone.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/crellas_crozier.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/octarine_core.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 3,
+    "explanation": "Octarine Core is built from Soul Booster, Tiara of Selemene.",
+    "shopkeeper": {
+      "format": "build-result",
+      "targetItemKey": "octarine_core",
+      "promptItems": [
+        {
+          "key": "soul_booster",
+          "name": "Soul Booster",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/soul_booster.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "tiara_of_selemene",
+          "name": "Tiara of Selemene",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tiara_of_selemene.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["soul_booster", "tiara_of_selemene"],
+      "answerItemKeys": ["refresher", "bloodstone", "crellas_crozier", "octarine_core"],
+      "answerRecipeKeys": [
+        ["ring_of_tarrasque", "tiara_of_selemene"],
+        ["veil_of_discord", "soul_booster"],
+        ["ghost", "soul_booster"],
+        ["soul_booster", "tiara_of_selemene"]
+      ],
+      "answerCosts": [5000, 4700, 4800, 4900],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-build:orchid",
+    "kind": "shopkeeper-build-result",
+    "varietyKey": "shopkeeper-build-result",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Build Result",
+    "prompt": "What do these components build?",
+    "answers": ["Orchid Malevolence", "Shadow Blade", "Witch Blade", "Crystalys"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orchid.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/invis_sword.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/witch_blade.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lesser_crit.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 0,
+    "explanation": "Orchid Malevolence is built from Oblivion Staff, Claymore.",
+    "shopkeeper": {
+      "format": "build-result",
+      "targetItemKey": "orchid",
+      "promptItems": [
+        {
+          "key": "oblivion_staff",
+          "name": "Oblivion Staff",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/oblivion_staff.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "claymore",
+          "name": "Claymore",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/claymore.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["oblivion_staff", "claymore"],
+      "answerItemKeys": ["orchid", "invis_sword", "witch_blade", "lesser_crit"],
+      "answerRecipeKeys": [
+        ["oblivion_staff", "claymore"],
+        ["claymore", "blitz_knuckles", "shadow_amulet"],
+        ["oblivion_staff", "chainmail", "orb_of_venom"],
+        ["claymore", "blades_of_attack"]
+      ],
+      "answerCosts": [3275, 3250, 2775, 2000],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
     "id": "shopkeeper-build:phase_boots",
     "kind": "shopkeeper-build-result",
     "varietyKey": "shopkeeper-build-result",
@@ -440,6 +838,159 @@
         ["boots", "chainmail", "blades_of_attack"]
       ],
       "answerCosts": [1775, 1500, 1125, 1450],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-build:pipe",
+    "kind": "shopkeeper-build-result",
+    "varietyKey": "shopkeeper-build-result",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Build Result",
+    "prompt": "What do these components build?",
+    "answers": ["Mage Slayer", "Pipe of Insight", "Boots of Bearing", "Consecrated Wraps"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mage_slayer.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pipe.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/boots_of_bearing.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/consecrated_wraps.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 1,
+    "explanation": "Pipe of Insight is built from Ring of Tarrasque, Cloak, Shawl.",
+    "shopkeeper": {
+      "format": "build-result",
+      "targetItemKey": "pipe",
+      "promptItems": [
+        {
+          "key": "ring_of_tarrasque",
+          "name": "Ring of Tarrasque",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_tarrasque.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "cloak",
+          "name": "Cloak",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cloak.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "shawl",
+          "name": "Shawl",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shawl.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["ring_of_tarrasque", "cloak", "shawl"],
+      "answerItemKeys": ["mage_slayer", "pipe", "boots_of_bearing", "consecrated_wraps"],
+      "answerRecipeKeys": [
+        ["pers", "cloak", "blades_of_attack", "orb_of_venom"],
+        ["ring_of_tarrasque", "cloak", "shawl"],
+        ["tranquil_boots", "ancient_janggo", "ring_of_tarrasque"],
+        ["vitality_booster", "shawl", "crown"]
+      ],
+      "answerCosts": [3100, 3725, 4225, 2600],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-build:radiance",
+    "kind": "shopkeeper-build-result",
+    "varietyKey": "shopkeeper-build-result",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Build Result",
+    "prompt": "What do these components build?",
+    "answers": ["Butterfly", "Divine Rapier", "Radiance", "Nullifier"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/butterfly.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/rapier.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/radiance.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 2,
+    "explanation": "Radiance is built from Sacred Relic, Talisman of Evasion.",
+    "shopkeeper": {
+      "format": "build-result",
+      "targetItemKey": "radiance",
+      "promptItems": [
+        {
+          "key": "relic",
+          "name": "Sacred Relic",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/relic.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "talisman_of_evasion",
+          "name": "Talisman of Evasion",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/talisman_of_evasion.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["relic", "talisman_of_evasion"],
+      "answerItemKeys": ["butterfly", "rapier", "radiance", "nullifier"],
+      "answerRecipeKeys": [
+        ["eagle", "claymore", "talisman_of_evasion"],
+        ["relic", "demon_edge"],
+        ["relic", "talisman_of_evasion"],
+        ["relic", "splintmail"]
+      ],
+      "answerCosts": [5450, 5600, 4700, 4350],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-build:refresher",
+    "kind": "shopkeeper-build-result",
+    "varietyKey": "shopkeeper-build-result",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Build Result",
+    "prompt": "What do these components build?",
+    "answers": ["Scythe of Vyse", "Octarine Core", "Heart of Tarrasque", "Refresher Orb"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sheepstick.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/octarine_core.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/heart.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/refresher.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 3,
+    "explanation": "Refresher Orb is built from Ring of Tarrasque, Tiara of Selemene.",
+    "shopkeeper": {
+      "format": "build-result",
+      "targetItemKey": "refresher",
+      "promptItems": [
+        {
+          "key": "ring_of_tarrasque",
+          "name": "Ring of Tarrasque",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_tarrasque.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "tiara_of_selemene",
+          "name": "Tiara of Selemene",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tiara_of_selemene.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["ring_of_tarrasque", "tiara_of_selemene"],
+      "answerItemKeys": ["sheepstick", "octarine_core", "heart", "refresher"],
+      "answerRecipeKeys": [
+        ["mystic_staff", "tiara_of_selemene"],
+        ["soul_booster", "tiara_of_selemene"],
+        ["reaver", "ring_of_tarrasque"],
+        ["ring_of_tarrasque", "tiara_of_selemene"]
+      ],
+      "answerCosts": [5200, 4900, 5200, 5000],
       "clientBuild": "6872"
     },
     "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
@@ -550,6 +1101,159 @@
         ["buckler", "hyperstone", "platemail"]
       ],
       "answerCosts": [3850, 4500, 4650, 5125],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-build:skadi",
+    "kind": "shopkeeper-build-result",
+    "varietyKey": "shopkeeper-build-result",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Build Result",
+    "prompt": "What do these components build?",
+    "answers": ["Eye of Skadi", "Ethereal Blade", "Linken's Sphere", "Helm of the Overlord"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/skadi.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ethereal_blade.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sphere.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/helm_of_the_overlord.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 0,
+    "explanation": "Eye of Skadi is built from Ultimate Orb ×2, Orb of Frost.",
+    "shopkeeper": {
+      "format": "build-result",
+      "targetItemKey": "skadi",
+      "promptItems": [
+        {
+          "key": "ultimate_orb",
+          "name": "Ultimate Orb",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403",
+          "count": 2
+        },
+        {
+          "key": "orb_of_frost",
+          "name": "Orb of Frost",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_frost.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["ultimate_orb", "ultimate_orb", "orb_of_frost"],
+      "answerItemKeys": ["skadi", "ethereal_blade", "sphere", "helm_of_the_overlord"],
+      "answerRecipeKeys": [
+        ["ultimate_orb", "ultimate_orb", "orb_of_frost"],
+        ["ultimate_orb", "ghost"],
+        ["pers", "ultimate_orb"],
+        ["helm_of_the_dominator", "ultimate_orb"]
+      ],
+      "answerCosts": [5900, 5200, 4800, 5650],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-build:soul_booster",
+    "kind": "shopkeeper-build-result",
+    "varietyKey": "shopkeeper-build-result",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Build Result",
+    "prompt": "What do these components build?",
+    "answers": ["Soul Booster", "Aeon Disk", "Consecrated Wraps", "Dagon"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/soul_booster.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aeon_disk.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/consecrated_wraps.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/dagon.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 0,
+    "explanation": "Soul Booster is built from Point Booster, Vitality Booster, Energy Booster.",
+    "shopkeeper": {
+      "format": "build-result",
+      "targetItemKey": "soul_booster",
+      "promptItems": [
+        {
+          "key": "point_booster",
+          "name": "Point Booster",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/point_booster.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "vitality_booster",
+          "name": "Vitality Booster",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vitality_booster.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "energy_booster",
+          "name": "Energy Booster",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/energy_booster.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["point_booster", "vitality_booster", "energy_booster"],
+      "answerItemKeys": ["soul_booster", "aeon_disk", "consecrated_wraps", "dagon"],
+      "answerRecipeKeys": [
+        ["point_booster", "vitality_booster", "energy_booster"],
+        ["vitality_booster", "energy_booster"],
+        ["vitality_booster", "shawl", "crown"],
+        ["point_booster", "crown", "wizard_hat"]
+      ],
+      "answerCosts": [3000, 3000, 2600, 3000],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-build:spirit_vessel",
+    "kind": "shopkeeper-build-result",
+    "varietyKey": "shopkeeper-build-result",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Build Result",
+    "prompt": "What do these components build?",
+    "answers": ["Harpoon", "Spirit Vessel", "Manta Style", "Phylactery"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/harpoon.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/spirit_vessel.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/phylactery.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 1,
+    "explanation": "Spirit Vessel is built from Urn of Shadows, Diadem.",
+    "shopkeeper": {
+      "format": "build-result",
+      "targetItemKey": "spirit_vessel",
+      "promptItems": [
+        {
+          "key": "urn_of_shadows",
+          "name": "Urn of Shadows",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/urn_of_shadows.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "diadem",
+          "name": "Diadem",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/diadem.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["urn_of_shadows", "diadem"],
+      "answerItemKeys": ["harpoon", "spirit_vessel", "manta", "phylactery"],
+      "answerRecipeKeys": [
+        ["echo_sabre", "diadem"],
+        ["urn_of_shadows", "diadem"],
+        ["yasha", "diadem"],
+        ["pers", "diadem"]
+      ],
+      "answerCosts": [4700, 2725, 4650, 2600],
       "clientBuild": "6872"
     },
     "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
@@ -678,6 +1382,103 @@
     "patch": "7.41d"
   },
   {
+    "id": "shopkeeper-recipe:abyssal_blade",
+    "kind": "shopkeeper-real-recipe",
+    "varietyKey": "shopkeeper-real-recipe",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Abyssal Blade",
+    "prompt": "Build Abyssal Blade.",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/abyssal_blade.png?t=1593393829403",
+      "alt": "Abyssal Blade item icon",
+      "kind": "item"
+    },
+    "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
+    "correctIndex": 0,
+    "explanation": "Abyssal Blade uses Skull Basher, Sange.",
+    "shopkeeper": {
+      "format": "real-recipe",
+      "targetItemKey": "abyssal_blade",
+      "promptItems": [
+        {
+          "key": "abyssal_blade",
+          "name": "Abyssal Blade",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/abyssal_blade.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["basher", "sange"],
+      "answerRecipeKeys": [
+        ["basher", "sange"],
+        ["basher", "demon_edge"],
+        ["kaya", "sange"],
+        ["yasha", "sange"]
+      ],
+      "answerGroups": [
+        [
+          {
+            "key": "basher",
+            "name": "Skull Basher",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/basher.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "sange",
+            "name": "Sange",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sange.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "basher",
+            "name": "Skull Basher",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/basher.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "demon_edge",
+            "name": "Demon Edge",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/demon_edge.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "kaya",
+            "name": "Kaya",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/kaya.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "sange",
+            "name": "Sange",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sange.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "yasha",
+            "name": "Yasha",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/yasha.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "sange",
+            "name": "Sange",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sange.png?t=1593393829403",
+            "count": 1
+          }
+        ]
+      ],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
     "id": "shopkeeper-recipe:armlet",
     "kind": "shopkeeper-real-recipe",
     "varietyKey": "shopkeeper-real-recipe",
@@ -789,6 +1590,224 @@
             "key": "blades_of_attack",
             "name": "Blades of Attack",
             "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blades_of_attack.png?t=1593393829403",
+            "count": 1
+          }
+        ]
+      ],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-recipe:bloodstone",
+    "kind": "shopkeeper-real-recipe",
+    "varietyKey": "shopkeeper-real-recipe",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Bloodstone",
+    "prompt": "Build Bloodstone.",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bloodstone.png?t=1593393829403",
+      "alt": "Bloodstone item icon",
+      "kind": "item"
+    },
+    "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
+    "correctIndex": 0,
+    "explanation": "Bloodstone uses Veil of Discord, Soul Booster.",
+    "shopkeeper": {
+      "format": "real-recipe",
+      "targetItemKey": "bloodstone",
+      "promptItems": [
+        {
+          "key": "bloodstone",
+          "name": "Bloodstone",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bloodstone.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["veil_of_discord", "soul_booster"],
+      "answerRecipeKeys": [
+        ["veil_of_discord", "soul_booster"],
+        ["veil_of_discord", "mystic_staff"],
+        ["tiara_of_selemene", "soul_booster"],
+        ["veil_of_discord", "ultimate_orb"]
+      ],
+      "answerGroups": [
+        [
+          {
+            "key": "veil_of_discord",
+            "name": "Veil of Discord",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/veil_of_discord.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "soul_booster",
+            "name": "Soul Booster",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/soul_booster.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "veil_of_discord",
+            "name": "Veil of Discord",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/veil_of_discord.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "mystic_staff",
+            "name": "Mystic Staff",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "tiara_of_selemene",
+            "name": "Tiara of Selemene",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tiara_of_selemene.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "soul_booster",
+            "name": "Soul Booster",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/soul_booster.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "veil_of_discord",
+            "name": "Veil of Discord",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/veil_of_discord.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "ultimate_orb",
+            "name": "Ultimate Orb",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403",
+            "count": 1
+          }
+        ]
+      ],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-recipe:consecrated_wraps",
+    "kind": "shopkeeper-real-recipe",
+    "varietyKey": "shopkeeper-real-recipe",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Consecrated Wraps",
+    "prompt": "Build Consecrated Wraps.",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/consecrated_wraps.png?t=1593393829403",
+      "alt": "Consecrated Wraps item icon",
+      "kind": "item"
+    },
+    "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
+    "correctIndex": 1,
+    "explanation": "Consecrated Wraps uses Vitality Booster, Shawl, Crown.",
+    "shopkeeper": {
+      "format": "real-recipe",
+      "targetItemKey": "consecrated_wraps",
+      "promptItems": [
+        {
+          "key": "consecrated_wraps",
+          "name": "Consecrated Wraps",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/consecrated_wraps.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["vitality_booster", "shawl", "crown"],
+      "answerRecipeKeys": [
+        ["helm_of_iron_will", "shawl", "crown"],
+        ["vitality_booster", "shawl", "crown"],
+        ["vitality_booster", "magic_wand", "crown"],
+        ["vitality_booster", "shawl", "ring_of_health"]
+      ],
+      "answerGroups": [
+        [
+          {
+            "key": "helm_of_iron_will",
+            "name": "Helm of Iron Will",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/helm_of_iron_will.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "shawl",
+            "name": "Shawl",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shawl.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "crown",
+            "name": "Crown",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/crown.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "vitality_booster",
+            "name": "Vitality Booster",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vitality_booster.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "shawl",
+            "name": "Shawl",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shawl.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "crown",
+            "name": "Crown",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/crown.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "vitality_booster",
+            "name": "Vitality Booster",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vitality_booster.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "magic_wand",
+            "name": "Magic Wand",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/magic_wand.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "crown",
+            "name": "Crown",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/crown.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "vitality_booster",
+            "name": "Vitality Booster",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vitality_booster.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "shawl",
+            "name": "Shawl",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shawl.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "ring_of_health",
+            "name": "Ring of Health",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_health.png?t=1593393829403",
             "count": 1
           }
         ]
@@ -1041,6 +2060,103 @@
     "patch": "7.41d"
   },
   {
+    "id": "shopkeeper-recipe:disperser",
+    "kind": "shopkeeper-real-recipe",
+    "varietyKey": "shopkeeper-real-recipe",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Disperser",
+    "prompt": "Build Disperser.",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/disperser.png?t=1593393829403",
+      "alt": "Disperser item icon",
+      "kind": "item"
+    },
+    "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
+    "correctIndex": 1,
+    "explanation": "Disperser uses Diffusal Blade, Eaglesong.",
+    "shopkeeper": {
+      "format": "real-recipe",
+      "targetItemKey": "disperser",
+      "promptItems": [
+        {
+          "key": "disperser",
+          "name": "Disperser",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/disperser.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["diffusal_blade", "eagle"],
+      "answerRecipeKeys": [
+        ["diffusal_blade", "ultimate_orb"],
+        ["diffusal_blade", "eagle"],
+        ["diffusal_blade", "mystic_staff"],
+        ["blink", "eagle"]
+      ],
+      "answerGroups": [
+        [
+          {
+            "key": "diffusal_blade",
+            "name": "Diffusal Blade",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/diffusal_blade.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "ultimate_orb",
+            "name": "Ultimate Orb",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "diffusal_blade",
+            "name": "Diffusal Blade",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/diffusal_blade.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "eagle",
+            "name": "Eaglesong",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/eagle.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "diffusal_blade",
+            "name": "Diffusal Blade",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/diffusal_blade.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "mystic_staff",
+            "name": "Mystic Staff",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "blink",
+            "name": "Blink Dagger",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "eagle",
+            "name": "Eaglesong",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/eagle.png?t=1593393829403",
+            "count": 1
+          }
+        ]
+      ],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
     "id": "shopkeeper-recipe:echo_sabre",
     "kind": "shopkeeper-real-recipe",
     "varietyKey": "shopkeeper-real-recipe",
@@ -1162,6 +2278,103 @@
     "patch": "7.41d"
   },
   {
+    "id": "shopkeeper-recipe:ethereal_blade",
+    "kind": "shopkeeper-real-recipe",
+    "varietyKey": "shopkeeper-real-recipe",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Ethereal Blade",
+    "prompt": "Build Ethereal Blade.",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ethereal_blade.png?t=1593393829403",
+      "alt": "Ethereal Blade item icon",
+      "kind": "item"
+    },
+    "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
+    "correctIndex": 1,
+    "explanation": "Ethereal Blade uses Ultimate Orb, Ghost Scepter.",
+    "shopkeeper": {
+      "format": "real-recipe",
+      "targetItemKey": "ethereal_blade",
+      "promptItems": [
+        {
+          "key": "ethereal_blade",
+          "name": "Ethereal Blade",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ethereal_blade.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["ultimate_orb", "ghost"],
+      "answerRecipeKeys": [
+        ["soul_booster", "ghost"],
+        ["ultimate_orb", "ghost"],
+        ["ultimate_orb", "helm_of_the_dominator"],
+        ["ultimate_orb", "pers"]
+      ],
+      "answerGroups": [
+        [
+          {
+            "key": "soul_booster",
+            "name": "Soul Booster",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/soul_booster.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "ghost",
+            "name": "Ghost Scepter",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ghost.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "ultimate_orb",
+            "name": "Ultimate Orb",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "ghost",
+            "name": "Ghost Scepter",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ghost.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "ultimate_orb",
+            "name": "Ultimate Orb",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "helm_of_the_dominator",
+            "name": "Helm of the Dominator",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/helm_of_the_dominator.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "ultimate_orb",
+            "name": "Ultimate Orb",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "pers",
+            "name": "Perseverance",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pers.png?t=1593393829403",
+            "count": 1
+          }
+        ]
+      ],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
     "id": "shopkeeper-recipe:falcon_blade",
     "kind": "shopkeeper-real-recipe",
     "varietyKey": "shopkeeper-real-recipe",
@@ -1273,6 +2486,636 @@
             "key": "sobi_mask",
             "name": "Sage's Mask",
             "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sobi_mask.png?t=1593393829403",
+            "count": 1
+          }
+        ]
+      ],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-recipe:greater_crit",
+    "kind": "shopkeeper-real-recipe",
+    "varietyKey": "shopkeeper-real-recipe",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Daedalus",
+    "prompt": "Build Daedalus.",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/greater_crit.png?t=1593393829403",
+      "alt": "Daedalus item icon",
+      "kind": "item"
+    },
+    "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
+    "correctIndex": 3,
+    "explanation": "Daedalus uses Crystalys, Demon Edge.",
+    "shopkeeper": {
+      "format": "real-recipe",
+      "targetItemKey": "greater_crit",
+      "promptItems": [
+        {
+          "key": "greater_crit",
+          "name": "Daedalus",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/greater_crit.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["lesser_crit", "demon_edge"],
+      "answerRecipeKeys": [
+        ["lesser_crit", "kaya"],
+        ["lesser_crit", "blink"],
+        ["relic", "demon_edge"],
+        ["lesser_crit", "demon_edge"]
+      ],
+      "answerGroups": [
+        [
+          {
+            "key": "lesser_crit",
+            "name": "Crystalys",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lesser_crit.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "kaya",
+            "name": "Kaya",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/kaya.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "lesser_crit",
+            "name": "Crystalys",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lesser_crit.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "blink",
+            "name": "Blink Dagger",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "relic",
+            "name": "Sacred Relic",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/relic.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "demon_edge",
+            "name": "Demon Edge",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/demon_edge.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "lesser_crit",
+            "name": "Crystalys",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lesser_crit.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "demon_edge",
+            "name": "Demon Edge",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/demon_edge.png?t=1593393829403",
+            "count": 1
+          }
+        ]
+      ],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-recipe:gungir",
+    "kind": "shopkeeper-real-recipe",
+    "varietyKey": "shopkeeper-real-recipe",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Gleipnir",
+    "prompt": "Build Gleipnir.",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gungir.png?t=1593393829403",
+      "alt": "Gleipnir item icon",
+      "kind": "item"
+    },
+    "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
+    "correctIndex": 2,
+    "explanation": "Gleipnir uses Rod of Atos, Point Booster, Chasm Stone.",
+    "shopkeeper": {
+      "format": "real-recipe",
+      "targetItemKey": "gungir",
+      "promptItems": [
+        {
+          "key": "gungir",
+          "name": "Gleipnir",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gungir.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["rod_of_atos", "point_booster", "chasm_stone"],
+      "answerRecipeKeys": [
+        ["platemail", "point_booster", "chasm_stone"],
+        ["rod_of_atos", "splintmail", "chasm_stone"],
+        ["rod_of_atos", "point_booster", "chasm_stone"],
+        ["rod_of_atos", "point_booster", "energy_booster"]
+      ],
+      "answerGroups": [
+        [
+          {
+            "key": "platemail",
+            "name": "Platemail",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/platemail.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "point_booster",
+            "name": "Point Booster",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/point_booster.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "chasm_stone",
+            "name": "Chasm Stone",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chasm_stone.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "rod_of_atos",
+            "name": "Rod of Atos",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/rod_of_atos.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "splintmail",
+            "name": "Splintmail",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/splintmail.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "chasm_stone",
+            "name": "Chasm Stone",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chasm_stone.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "rod_of_atos",
+            "name": "Rod of Atos",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/rod_of_atos.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "point_booster",
+            "name": "Point Booster",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/point_booster.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "chasm_stone",
+            "name": "Chasm Stone",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chasm_stone.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "rod_of_atos",
+            "name": "Rod of Atos",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/rod_of_atos.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "point_booster",
+            "name": "Point Booster",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/point_booster.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "energy_booster",
+            "name": "Energy Booster",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/energy_booster.png?t=1593393829403",
+            "count": 1
+          }
+        ]
+      ],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-recipe:harpoon",
+    "kind": "shopkeeper-real-recipe",
+    "varietyKey": "shopkeeper-real-recipe",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Harpoon",
+    "prompt": "Build Harpoon.",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/harpoon.png?t=1593393829403",
+      "alt": "Harpoon item icon",
+      "kind": "item"
+    },
+    "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
+    "correctIndex": 1,
+    "explanation": "Harpoon uses Echo Sabre, Diadem.",
+    "shopkeeper": {
+      "format": "real-recipe",
+      "targetItemKey": "harpoon",
+      "promptItems": [
+        {
+          "key": "harpoon",
+          "name": "Harpoon",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/harpoon.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["echo_sabre", "diadem"],
+      "answerRecipeKeys": [
+        ["yasha", "diadem"],
+        ["echo_sabre", "diadem"],
+        ["echo_sabre", "broadsword"],
+        ["echo_sabre", "vitality_booster"]
+      ],
+      "answerGroups": [
+        [
+          {
+            "key": "yasha",
+            "name": "Yasha",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/yasha.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "diadem",
+            "name": "Diadem",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/diadem.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "echo_sabre",
+            "name": "Echo Sabre",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/echo_sabre.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "diadem",
+            "name": "Diadem",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/diadem.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "echo_sabre",
+            "name": "Echo Sabre",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/echo_sabre.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "broadsword",
+            "name": "Broadsword",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/broadsword.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "echo_sabre",
+            "name": "Echo Sabre",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/echo_sabre.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "vitality_booster",
+            "name": "Vitality Booster",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vitality_booster.png?t=1593393829403",
+            "count": 1
+          }
+        ]
+      ],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-recipe:helm_of_the_overlord",
+    "kind": "shopkeeper-real-recipe",
+    "varietyKey": "shopkeeper-real-recipe",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Helm of the Overlord",
+    "prompt": "Build Helm of the Overlord.",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/helm_of_the_overlord.png?t=1593393829403",
+      "alt": "Helm of the Overlord item icon",
+      "kind": "item"
+    },
+    "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
+    "correctIndex": 3,
+    "explanation": "Helm of the Overlord uses Helm of the Dominator, Ultimate Orb.",
+    "shopkeeper": {
+      "format": "real-recipe",
+      "targetItemKey": "helm_of_the_overlord",
+      "promptItems": [
+        {
+          "key": "helm_of_the_overlord",
+          "name": "Helm of the Overlord",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/helm_of_the_overlord.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["helm_of_the_dominator", "ultimate_orb"],
+      "answerRecipeKeys": [
+        ["helm_of_the_dominator", "mystic_staff"],
+        ["demon_edge", "ultimate_orb"],
+        ["ghost", "ultimate_orb"],
+        ["helm_of_the_dominator", "ultimate_orb"]
+      ],
+      "answerGroups": [
+        [
+          {
+            "key": "helm_of_the_dominator",
+            "name": "Helm of the Dominator",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/helm_of_the_dominator.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "mystic_staff",
+            "name": "Mystic Staff",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "demon_edge",
+            "name": "Demon Edge",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/demon_edge.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "ultimate_orb",
+            "name": "Ultimate Orb",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "ghost",
+            "name": "Ghost Scepter",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ghost.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "ultimate_orb",
+            "name": "Ultimate Orb",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "helm_of_the_dominator",
+            "name": "Helm of the Dominator",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/helm_of_the_dominator.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "ultimate_orb",
+            "name": "Ultimate Orb",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_orb.png?t=1593393829403",
+            "count": 1
+          }
+        ]
+      ],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-recipe:hurricane_pike",
+    "kind": "shopkeeper-real-recipe",
+    "varietyKey": "shopkeeper-real-recipe",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Hurricane Pike",
+    "prompt": "Build Hurricane Pike.",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hurricane_pike.png?t=1593393829403",
+      "alt": "Hurricane Pike item icon",
+      "kind": "item"
+    },
+    "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
+    "correctIndex": 3,
+    "explanation": "Hurricane Pike uses Force Staff, Dragon Lance.",
+    "shopkeeper": {
+      "format": "real-recipe",
+      "targetItemKey": "hurricane_pike",
+      "promptItems": [
+        {
+          "key": "hurricane_pike",
+          "name": "Hurricane Pike",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hurricane_pike.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["force_staff", "dragon_lance"],
+      "answerRecipeKeys": [
+        ["force_staff", "demon_edge"],
+        ["force_staff", "ring_of_tarrasque"],
+        ["specialists_array", "dragon_lance"],
+        ["force_staff", "dragon_lance"]
+      ],
+      "answerGroups": [
+        [
+          {
+            "key": "force_staff",
+            "name": "Force Staff",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/force_staff.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "demon_edge",
+            "name": "Demon Edge",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/demon_edge.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "force_staff",
+            "name": "Force Staff",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/force_staff.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "ring_of_tarrasque",
+            "name": "Ring of Tarrasque",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_tarrasque.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "specialists_array",
+            "name": "Specialist's Array",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/specialists_array.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "dragon_lance",
+            "name": "Dragon Lance",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/dragon_lance.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "force_staff",
+            "name": "Force Staff",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/force_staff.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "dragon_lance",
+            "name": "Dragon Lance",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/dragon_lance.png?t=1593393829403",
+            "count": 1
+          }
+        ]
+      ],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-recipe:hydras_breath",
+    "kind": "shopkeeper-real-recipe",
+    "varietyKey": "shopkeeper-real-recipe",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Hydra's Breath",
+    "prompt": "Build Hydra's Breath.",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hydras_breath.png?t=1593393829403",
+      "alt": "Hydra's Breath item icon",
+      "kind": "item"
+    },
+    "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
+    "correctIndex": 0,
+    "explanation": "Hydra's Breath uses Specialist's Array, Dragon Lance, Orb of Venom.",
+    "shopkeeper": {
+      "format": "real-recipe",
+      "targetItemKey": "hydras_breath",
+      "promptItems": [
+        {
+          "key": "hydras_breath",
+          "name": "Hydra's Breath",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hydras_breath.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["specialists_array", "dragon_lance", "orb_of_venom"],
+      "answerRecipeKeys": [
+        ["specialists_array", "dragon_lance", "orb_of_venom"],
+        ["force_staff", "dragon_lance", "orb_of_venom"],
+        ["specialists_array", "pers", "orb_of_venom"],
+        ["specialists_array", "dragon_lance", "blades_of_attack"]
+      ],
+      "answerGroups": [
+        [
+          {
+            "key": "specialists_array",
+            "name": "Specialist's Array",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/specialists_array.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "dragon_lance",
+            "name": "Dragon Lance",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/dragon_lance.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "orb_of_venom",
+            "name": "Orb of Venom",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_venom.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "force_staff",
+            "name": "Force Staff",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/force_staff.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "dragon_lance",
+            "name": "Dragon Lance",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/dragon_lance.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "orb_of_venom",
+            "name": "Orb of Venom",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_venom.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "specialists_array",
+            "name": "Specialist's Array",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/specialists_array.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "pers",
+            "name": "Perseverance",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pers.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "orb_of_venom",
+            "name": "Orb of Venom",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_venom.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "specialists_array",
+            "name": "Specialist's Array",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/specialists_array.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "dragon_lance",
+            "name": "Dragon Lance",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/dragon_lance.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "blades_of_attack",
+            "name": "Blades of Attack",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blades_of_attack.png?t=1593393829403",
             "count": 1
           }
         ]
@@ -1525,6 +3368,103 @@
     "patch": "7.41d"
   },
   {
+    "id": "shopkeeper-recipe:mjollnir",
+    "kind": "shopkeeper-real-recipe",
+    "varietyKey": "shopkeeper-real-recipe",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Mjollnir",
+    "prompt": "Build Mjollnir.",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mjollnir.png?t=1593393829403",
+      "alt": "Mjollnir item icon",
+      "kind": "item"
+    },
+    "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
+    "correctIndex": 0,
+    "explanation": "Mjollnir uses Maelstrom, Hyperstone.",
+    "shopkeeper": {
+      "format": "real-recipe",
+      "targetItemKey": "mjollnir",
+      "promptItems": [
+        {
+          "key": "mjollnir",
+          "name": "Mjollnir",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mjollnir.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["maelstrom", "hyperstone"],
+      "answerRecipeKeys": [
+        ["maelstrom", "hyperstone"],
+        ["maelstrom", "demon_edge"],
+        ["maelstrom", "yasha"],
+        ["soul_booster", "hyperstone"]
+      ],
+      "answerGroups": [
+        [
+          {
+            "key": "maelstrom",
+            "name": "Maelstrom",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/maelstrom.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "hyperstone",
+            "name": "Hyperstone",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hyperstone.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "maelstrom",
+            "name": "Maelstrom",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/maelstrom.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "demon_edge",
+            "name": "Demon Edge",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/demon_edge.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "maelstrom",
+            "name": "Maelstrom",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/maelstrom.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "yasha",
+            "name": "Yasha",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/yasha.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "soul_booster",
+            "name": "Soul Booster",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/soul_booster.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "hyperstone",
+            "name": "Hyperstone",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hyperstone.png?t=1593393829403",
+            "count": 1
+          }
+        ]
+      ],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
     "id": "shopkeeper-recipe:oblivion_staff",
     "kind": "shopkeeper-real-recipe",
     "varietyKey": "shopkeeper-real-recipe",
@@ -1636,6 +3576,200 @@
             "key": "sobi_mask",
             "name": "Sage's Mask",
             "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sobi_mask.png?t=1593393829403",
+            "count": 1
+          }
+        ]
+      ],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-recipe:sheepstick",
+    "kind": "shopkeeper-real-recipe",
+    "varietyKey": "shopkeeper-real-recipe",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Scythe of Vyse",
+    "prompt": "Build Scythe of Vyse.",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sheepstick.png?t=1593393829403",
+      "alt": "Scythe of Vyse item icon",
+      "kind": "item"
+    },
+    "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
+    "correctIndex": 2,
+    "explanation": "Scythe of Vyse uses Mystic Staff, Tiara of Selemene.",
+    "shopkeeper": {
+      "format": "real-recipe",
+      "targetItemKey": "sheepstick",
+      "promptItems": [
+        {
+          "key": "sheepstick",
+          "name": "Scythe of Vyse",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sheepstick.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["mystic_staff", "tiara_of_selemene"],
+      "answerRecipeKeys": [
+        ["soul_booster", "tiara_of_selemene"],
+        ["mystic_staff", "blink"],
+        ["mystic_staff", "tiara_of_selemene"],
+        ["mystic_staff", "cyclone"]
+      ],
+      "answerGroups": [
+        [
+          {
+            "key": "soul_booster",
+            "name": "Soul Booster",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/soul_booster.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "tiara_of_selemene",
+            "name": "Tiara of Selemene",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tiara_of_selemene.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "mystic_staff",
+            "name": "Mystic Staff",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "blink",
+            "name": "Blink Dagger",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "mystic_staff",
+            "name": "Mystic Staff",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "tiara_of_selemene",
+            "name": "Tiara of Selemene",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tiara_of_selemene.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "mystic_staff",
+            "name": "Mystic Staff",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mystic_staff.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "cyclone",
+            "name": "Eul's Scepter of Divinity",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cyclone.png?t=1593393829403",
+            "count": 1
+          }
+        ]
+      ],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-recipe:silver_edge",
+    "kind": "shopkeeper-real-recipe",
+    "varietyKey": "shopkeeper-real-recipe",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Silver Edge",
+    "prompt": "Build Silver Edge.",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/silver_edge.png?t=1593393829403",
+      "alt": "Silver Edge item icon",
+      "kind": "item"
+    },
+    "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
+    "correctIndex": 2,
+    "explanation": "Silver Edge uses Shadow Blade, Demon Edge.",
+    "shopkeeper": {
+      "format": "real-recipe",
+      "targetItemKey": "silver_edge",
+      "promptItems": [
+        {
+          "key": "silver_edge",
+          "name": "Silver Edge",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/silver_edge.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "recipeComponentKeys": ["invis_sword", "demon_edge"],
+      "answerRecipeKeys": [
+        ["invis_sword", "sange"],
+        ["invis_sword", "blink"],
+        ["invis_sword", "demon_edge"],
+        ["relic", "demon_edge"]
+      ],
+      "answerGroups": [
+        [
+          {
+            "key": "invis_sword",
+            "name": "Shadow Blade",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/invis_sword.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "sange",
+            "name": "Sange",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sange.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "invis_sword",
+            "name": "Shadow Blade",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/invis_sword.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "blink",
+            "name": "Blink Dagger",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "invis_sword",
+            "name": "Shadow Blade",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/invis_sword.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "demon_edge",
+            "name": "Demon Edge",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/demon_edge.png?t=1593393829403",
+            "count": 1
+          }
+        ],
+        [
+          {
+            "key": "relic",
+            "name": "Sacred Relic",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/relic.png?t=1593393829403",
+            "count": 1
+          },
+          {
+            "key": "demon_edge",
+            "name": "Demon Edge",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/demon_edge.png?t=1593393829403",
             "count": 1
           }
         ]
@@ -2130,6 +4264,144 @@
     "patch": "7.41d"
   },
   {
+    "id": "shopkeeper-shared:armlet:mage_slayer",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Cloak", "Gloves of Haste", "Orb of Venom", "Blades of Attack"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cloak.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gloves.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_venom.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blades_of_attack.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 3,
+    "explanation": "Armlet of Mordiggian and Mage Slayer both use Blades of Attack in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["armlet", "mage_slayer"],
+      "promptItems": [
+        {
+          "key": "armlet",
+          "name": "Armlet of Mordiggian",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/armlet.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "mage_slayer",
+          "name": "Mage Slayer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mage_slayer.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["helm_of_iron_will", "gloves", "blades_of_attack"],
+        ["pers", "cloak", "blades_of_attack", "orb_of_venom"]
+      ],
+      "sharedComponentKey": "blades_of_attack",
+      "answerItemKeys": ["cloak", "gloves", "orb_of_venom", "blades_of_attack"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:assault:mjollnir",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Maelstrom", "Platemail", "Hyperstone", "Buckler"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/maelstrom.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/platemail.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hyperstone.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/buckler.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 2,
+    "explanation": "Assault Cuirass and Mjollnir both use Hyperstone in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["assault", "mjollnir"],
+      "promptItems": [
+        {
+          "key": "assault",
+          "name": "Assault Cuirass",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/assault.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "mjollnir",
+          "name": "Mjollnir",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mjollnir.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["buckler", "hyperstone", "platemail"],
+        ["maelstrom", "hyperstone"]
+      ],
+      "sharedComponentKey": "hyperstone",
+      "answerItemKeys": ["maelstrom", "platemail", "hyperstone", "buckler"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:basher:ancient_janggo",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Mithril Hammer", "Belt of Strength", "Wind Lace", "Headdress"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mithril_hammer.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/belt_of_strength.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/wind_lace.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/headdress.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 1,
+    "explanation": "Skull Basher and Drum of Endurance both use Belt of Strength in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["basher", "ancient_janggo"],
+      "promptItems": [
+        {
+          "key": "basher",
+          "name": "Skull Basher",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/basher.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "ancient_janggo",
+          "name": "Drum of Endurance",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ancient_janggo.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["mithril_hammer", "belt_of_strength"],
+        ["headdress", "belt_of_strength", "wind_lace"]
+      ],
+      "sharedComponentKey": "belt_of_strength",
+      "answerItemKeys": ["mithril_hammer", "belt_of_strength", "wind_lace", "headdress"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
     "id": "shopkeeper-shared:black_king_bar:echo_sabre",
     "kind": "shopkeeper-shared-part",
     "varietyKey": "shopkeeper-shared-part",
@@ -2170,6 +4442,98 @@
       ],
       "sharedComponentKey": "ogre_axe",
       "answerItemKeys": ["broadsword", "void_stone", "ogre_axe", "mithril_hammer"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:black_king_bar:maelstrom",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Mithril Hammer", "Javelin", "Gloves of Haste", "Ogre Axe"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mithril_hammer.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/javelin.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gloves.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ogre_axe.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 0,
+    "explanation": "Black King Bar and Maelstrom both use Mithril Hammer in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["black_king_bar", "maelstrom"],
+      "promptItems": [
+        {
+          "key": "black_king_bar",
+          "name": "Black King Bar",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "maelstrom",
+          "name": "Maelstrom",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/maelstrom.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["mithril_hammer", "ogre_axe"],
+        ["mithril_hammer", "javelin", "gloves"]
+      ],
+      "sharedComponentKey": "mithril_hammer",
+      "answerItemKeys": ["mithril_hammer", "javelin", "gloves", "ogre_axe"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:bloodthorn:maelstrom",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Oblivion Staff", "Gloves of Haste", "Mithril Hammer", "Javelin"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/oblivion_staff.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gloves.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mithril_hammer.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/javelin.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 3,
+    "explanation": "Bloodthorn and Maelstrom both use Javelin in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["bloodthorn", "maelstrom"],
+      "promptItems": [
+        {
+          "key": "bloodthorn",
+          "name": "Bloodthorn",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bloodthorn.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "maelstrom",
+          "name": "Maelstrom",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/maelstrom.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["orchid", "oblivion_staff", "javelin"],
+        ["mithril_hammer", "javelin", "gloves"]
+      ],
+      "sharedComponentKey": "javelin",
+      "answerItemKeys": ["oblivion_staff", "gloves", "mithril_hammer", "javelin"],
       "clientBuild": "6872"
     },
     "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
@@ -2314,6 +4678,52 @@
     "patch": "7.41d"
   },
   {
+    "id": "shopkeeper-shared:butterfly:satanic",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Talisman of Evasion", "Claymore", "Reaver", "Morbid Mask"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/talisman_of_evasion.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/claymore.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/reaver.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lifesteal.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 1,
+    "explanation": "Butterfly and Satanic both use Claymore in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["butterfly", "satanic"],
+      "promptItems": [
+        {
+          "key": "butterfly",
+          "name": "Butterfly",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/butterfly.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "satanic",
+          "name": "Satanic",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/satanic.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["eagle", "claymore", "talisman_of_evasion"],
+        ["reaver", "claymore", "lifesteal"]
+      ],
+      "sharedComponentKey": "claymore",
+      "answerItemKeys": ["talisman_of_evasion", "claymore", "reaver", "lifesteal"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
     "id": "shopkeeper-shared:cyclone:aether_lens",
     "kind": "shopkeeper-shared-part",
     "varietyKey": "shopkeeper-shared-part",
@@ -2400,6 +4810,282 @@
       ],
       "sharedComponentKey": "crown",
       "answerItemKeys": ["point_booster", "wizard_hat", "magic_wand", "crown"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:dagon:meteor_hammer",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Point Booster", "Wizard Hat", "Kaya", "Crown"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/point_booster.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/wizard_hat.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/kaya.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/crown.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 3,
+    "explanation": "Dagon and Meteor Hammer both use Crown in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["dagon", "meteor_hammer"],
+      "promptItems": [
+        {
+          "key": "dagon",
+          "name": "Dagon",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/dagon.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "meteor_hammer",
+          "name": "Meteor Hammer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/meteor_hammer.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["point_booster", "crown", "wizard_hat"],
+        ["kaya", "crown"]
+      ],
+      "sharedComponentKey": "crown",
+      "answerItemKeys": ["point_booster", "wizard_hat", "kaya", "crown"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:force_staff:veil_of_discord",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Fluffy Hat", "Robe of the Magi", "Staff of Wizardry", "Voodoo Mask"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/fluffy_hat.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/robe.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/staff_of_wizardry.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/voodoo_mask.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 0,
+    "explanation": "Force Staff and Veil of Discord both use Fluffy Hat in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["force_staff", "veil_of_discord"],
+      "promptItems": [
+        {
+          "key": "force_staff",
+          "name": "Force Staff",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/force_staff.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "veil_of_discord",
+          "name": "Veil of Discord",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/veil_of_discord.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["staff_of_wizardry", "fluffy_hat"],
+        ["voodoo_mask", "robe", "fluffy_hat"]
+      ],
+      "sharedComponentKey": "fluffy_hat",
+      "answerItemKeys": ["fluffy_hat", "robe", "staff_of_wizardry", "voodoo_mask"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:heart:satanic",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Ring of Tarrasque", "Morbid Mask", "Reaver", "Claymore"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_tarrasque.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lifesteal.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/reaver.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/claymore.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 2,
+    "explanation": "Heart of Tarrasque and Satanic both use Reaver in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["heart", "satanic"],
+      "promptItems": [
+        {
+          "key": "heart",
+          "name": "Heart of Tarrasque",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/heart.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "satanic",
+          "name": "Satanic",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/satanic.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["reaver", "ring_of_tarrasque"],
+        ["reaver", "claymore", "lifesteal"]
+      ],
+      "sharedComponentKey": "reaver",
+      "answerItemKeys": ["ring_of_tarrasque", "lifesteal", "reaver", "claymore"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:hurricane_pike:hydras_breath",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Orb of Venom", "Dragon Lance", "Force Staff", "Specialist's Array"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_venom.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/dragon_lance.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/force_staff.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/specialists_array.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 1,
+    "explanation": "Hurricane Pike and Hydra's Breath both use Dragon Lance in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["hurricane_pike", "hydras_breath"],
+      "promptItems": [
+        {
+          "key": "hurricane_pike",
+          "name": "Hurricane Pike",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hurricane_pike.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "hydras_breath",
+          "name": "Hydra's Breath",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hydras_breath.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["force_staff", "dragon_lance"],
+        ["specialists_array", "dragon_lance", "orb_of_venom"]
+      ],
+      "sharedComponentKey": "dragon_lance",
+      "answerItemKeys": ["orb_of_venom", "dragon_lance", "force_staff", "specialists_array"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:invis_sword:glimmer_cape",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Shawl", "Blitz Knuckles", "Claymore", "Shadow Amulet"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shawl.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blitz_knuckles.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/claymore.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shadow_amulet.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 3,
+    "explanation": "Shadow Blade and Glimmer Cape both use Shadow Amulet in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["invis_sword", "glimmer_cape"],
+      "promptItems": [
+        {
+          "key": "invis_sword",
+          "name": "Shadow Blade",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/invis_sword.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "glimmer_cape",
+          "name": "Glimmer Cape",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/glimmer_cape.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["claymore", "blitz_knuckles", "shadow_amulet"],
+        ["shadow_amulet", "shawl"]
+      ],
+      "sharedComponentKey": "shadow_amulet",
+      "answerItemKeys": ["shawl", "blitz_knuckles", "claymore", "shadow_amulet"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:lotus_orb:aeon_disk",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Vitality Booster", "Platemail", "Perseverance", "Energy Booster"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vitality_booster.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/platemail.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pers.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/energy_booster.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 3,
+    "explanation": "Lotus Orb and Aeon Disk both use Energy Booster in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["lotus_orb", "aeon_disk"],
+      "promptItems": [
+        {
+          "key": "lotus_orb",
+          "name": "Lotus Orb",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "aeon_disk",
+          "name": "Aeon Disk",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aeon_disk.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["pers", "platemail", "energy_booster"],
+        ["vitality_booster", "energy_booster"]
+      ],
+      "sharedComponentKey": "energy_booster",
+      "answerItemKeys": ["vitality_booster", "platemail", "pers", "energy_booster"],
       "clientBuild": "6872"
     },
     "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
@@ -2498,6 +5184,236 @@
     "patch": "7.41d"
   },
   {
+    "id": "shopkeeper-shared:mekansm:ancient_janggo",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Chainmail", "Headdress", "Belt of Strength", "Wind Lace"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chainmail.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/headdress.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/belt_of_strength.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/wind_lace.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 1,
+    "explanation": "Mekansm and Drum of Endurance both use Headdress in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["mekansm", "ancient_janggo"],
+      "promptItems": [
+        {
+          "key": "mekansm",
+          "name": "Mekansm",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mekansm.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "ancient_janggo",
+          "name": "Drum of Endurance",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ancient_janggo.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["headdress", "chainmail"],
+        ["headdress", "belt_of_strength", "wind_lace"]
+      ],
+      "sharedComponentKey": "headdress",
+      "answerItemKeys": ["chainmail", "headdress", "belt_of_strength", "wind_lace"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:monkey_king_bar:invis_sword",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Blitz Knuckles", "Javelin", "Shadow Amulet", "Claymore"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blitz_knuckles.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/javelin.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shadow_amulet.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/claymore.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 0,
+    "explanation": "Monkey King Bar and Shadow Blade both use Blitz Knuckles in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["monkey_king_bar", "invis_sword"],
+      "promptItems": [
+        {
+          "key": "monkey_king_bar",
+          "name": "Monkey King Bar",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/monkey_king_bar.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "invis_sword",
+          "name": "Shadow Blade",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/invis_sword.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["demon_edge", "blitz_knuckles", "javelin"],
+        ["claymore", "blitz_knuckles", "shadow_amulet"]
+      ],
+      "sharedComponentKey": "blitz_knuckles",
+      "answerItemKeys": ["blitz_knuckles", "javelin", "shadow_amulet", "claymore"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:monkey_king_bar:silver_edge",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Demon Edge", "Blitz Knuckles", "Shadow Blade", "Javelin"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/demon_edge.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blitz_knuckles.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/invis_sword.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/javelin.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 0,
+    "explanation": "Monkey King Bar and Silver Edge both use Demon Edge in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["monkey_king_bar", "silver_edge"],
+      "promptItems": [
+        {
+          "key": "monkey_king_bar",
+          "name": "Monkey King Bar",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/monkey_king_bar.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "silver_edge",
+          "name": "Silver Edge",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/silver_edge.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["demon_edge", "blitz_knuckles", "javelin"],
+        ["invis_sword", "demon_edge"]
+      ],
+      "sharedComponentKey": "demon_edge",
+      "answerItemKeys": ["demon_edge", "blitz_knuckles", "invis_sword", "javelin"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:orchid:bloodthorn",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Javelin", "Oblivion Staff", "Claymore", "Orchid Malevolence"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/javelin.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/oblivion_staff.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/claymore.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orchid.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 1,
+    "explanation": "Orchid Malevolence and Bloodthorn both use Oblivion Staff in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["orchid", "bloodthorn"],
+      "promptItems": [
+        {
+          "key": "orchid",
+          "name": "Orchid Malevolence",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orchid.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "bloodthorn",
+          "name": "Bloodthorn",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bloodthorn.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["oblivion_staff", "claymore"],
+        ["orchid", "oblivion_staff", "javelin"]
+      ],
+      "sharedComponentKey": "oblivion_staff",
+      "answerItemKeys": ["javelin", "oblivion_staff", "claymore", "orchid"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:phase_boots:arcane_boots",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Chainmail", "Boots of Speed", "Ring of Basilius", "Blades of Attack"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chainmail.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/boots.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_basilius.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blades_of_attack.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 1,
+    "explanation": "Phase Boots and Arcane Boots both use Boots of Speed in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["phase_boots", "arcane_boots"],
+      "promptItems": [
+        {
+          "key": "phase_boots",
+          "name": "Phase Boots",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/phase_boots.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "arcane_boots",
+          "name": "Arcane Boots",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/arcane_boots.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["boots", "chainmail", "blades_of_attack"],
+        ["boots", "ring_of_basilius", "wizard_hat"]
+      ],
+      "sharedComponentKey": "boots",
+      "answerItemKeys": ["chainmail", "boots", "ring_of_basilius", "blades_of_attack"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
     "id": "shopkeeper-shared:pipe:boots_of_bearing",
     "kind": "shopkeeper-shared-part",
     "varietyKey": "shopkeeper-shared-part",
@@ -2538,6 +5454,52 @@
       ],
       "sharedComponentKey": "ring_of_tarrasque",
       "answerItemKeys": ["ring_of_tarrasque", "cloak", "tranquil_boots", "ancient_janggo"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:pipe:consecrated_wraps",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Vitality Booster", "Crown", "Shawl", "Cloak"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vitality_booster.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/crown.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shawl.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cloak.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 2,
+    "explanation": "Pipe of Insight and Consecrated Wraps both use Shawl in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["pipe", "consecrated_wraps"],
+      "promptItems": [
+        {
+          "key": "pipe",
+          "name": "Pipe of Insight",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pipe.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "consecrated_wraps",
+          "name": "Consecrated Wraps",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/consecrated_wraps.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["ring_of_tarrasque", "cloak", "shawl"],
+        ["vitality_booster", "shawl", "crown"]
+      ],
+      "sharedComponentKey": "shawl",
+      "answerItemKeys": ["vitality_booster", "crown", "shawl", "cloak"],
       "clientBuild": "6872"
     },
     "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
@@ -2636,6 +5598,144 @@
     "patch": "7.41d"
   },
   {
+    "id": "shopkeeper-shared:shivas_guard:gungir",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Chasm Stone", "Platemail", "Point Booster", "Splintmail"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chasm_stone.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/platemail.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/point_booster.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/splintmail.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 0,
+    "explanation": "Shiva's Guard and Gleipnir both use Chasm Stone in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["shivas_guard", "gungir"],
+      "promptItems": [
+        {
+          "key": "shivas_guard",
+          "name": "Shiva's Guard",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shivas_guard.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "gungir",
+          "name": "Gleipnir",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gungir.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["platemail", "splintmail", "chasm_stone"],
+        ["rod_of_atos", "point_booster", "chasm_stone"]
+      ],
+      "sharedComponentKey": "chasm_stone",
+      "answerItemKeys": ["chasm_stone", "platemail", "point_booster", "splintmail"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:spirit_vessel:essence_distiller",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Urn of Shadows", "Wizard Hat", "Diadem", "Chainmail"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/urn_of_shadows.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/wizard_hat.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/diadem.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chainmail.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 0,
+    "explanation": "Spirit Vessel and Essence Distiller both use Urn of Shadows in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["spirit_vessel", "essence_distiller"],
+      "promptItems": [
+        {
+          "key": "spirit_vessel",
+          "name": "Spirit Vessel",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/spirit_vessel.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "essence_distiller",
+          "name": "Essence Distiller",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/essence_distiller.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["urn_of_shadows", "diadem"],
+        ["urn_of_shadows", "chainmail", "wizard_hat"]
+      ],
+      "sharedComponentKey": "urn_of_shadows",
+      "answerItemKeys": ["urn_of_shadows", "wizard_hat", "diadem", "chainmail"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:swift_blink:butterfly",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Blink Dagger", "Talisman of Evasion", "Eaglesong", "Claymore"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/talisman_of_evasion.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/eagle.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/claymore.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 2,
+    "explanation": "Swift Blink and Butterfly both use Eaglesong in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["swift_blink", "butterfly"],
+      "promptItems": [
+        {
+          "key": "swift_blink",
+          "name": "Swift Blink",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/swift_blink.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "butterfly",
+          "name": "Butterfly",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/butterfly.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["blink", "eagle"],
+        ["eagle", "claymore", "talisman_of_evasion"]
+      ],
+      "sharedComponentKey": "eagle",
+      "answerItemKeys": ["blink", "talisman_of_evasion", "eagle", "claymore"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
     "id": "shopkeeper-shared:ultimate_scepter:dragon_lance",
     "kind": "shopkeeper-shared-part",
     "varietyKey": "shopkeeper-shared-part",
@@ -2676,6 +5776,236 @@
       ],
       "sharedComponentKey": "blade_of_alacrity",
       "answerItemKeys": ["blade_of_alacrity", "ogre_axe", "staff_of_wizardry", "point_booster"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:ultimate_scepter:specialists_array",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Ogre Axe", "Broadsword", "Blade of Alacrity", "Staff of Wizardry"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ogre_axe.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/broadsword.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blade_of_alacrity.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/staff_of_wizardry.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 2,
+    "explanation": "Aghanim's Scepter and Specialist's Array both use Blade of Alacrity in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["ultimate_scepter", "specialists_array"],
+      "promptItems": [
+        {
+          "key": "ultimate_scepter",
+          "name": "Aghanim's Scepter",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_scepter.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "specialists_array",
+          "name": "Specialist's Array",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/specialists_array.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["point_booster", "staff_of_wizardry", "ogre_axe", "blade_of_alacrity"],
+        ["blade_of_alacrity", "broadsword"]
+      ],
+      "sharedComponentKey": "blade_of_alacrity",
+      "answerItemKeys": ["ogre_axe", "broadsword", "blade_of_alacrity", "staff_of_wizardry"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:veil_of_discord:revenants_brooch",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Crystalys", "Voodoo Mask", "Robe of the Magi", "Fluffy Hat"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lesser_crit.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/voodoo_mask.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/robe.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/fluffy_hat.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 1,
+    "explanation": "Veil of Discord and Revenant's Brooch both use Voodoo Mask in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["veil_of_discord", "revenants_brooch"],
+      "promptItems": [
+        {
+          "key": "veil_of_discord",
+          "name": "Veil of Discord",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/veil_of_discord.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "revenants_brooch",
+          "name": "Revenant's Brooch",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/revenants_brooch.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["voodoo_mask", "robe", "fluffy_hat"],
+        ["lesser_crit", "voodoo_mask"]
+      ],
+      "sharedComponentKey": "voodoo_mask",
+      "answerItemKeys": ["lesser_crit", "voodoo_mask", "robe", "fluffy_hat"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:vladmir:assault",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Blades of Attack", "Morbid Mask", "Buckler", "Ring of Basilius"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blades_of_attack.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lifesteal.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/buckler.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_basilius.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 2,
+    "explanation": "Vladmir's Offering and Assault Cuirass both use Buckler in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["vladmir", "assault"],
+      "promptItems": [
+        {
+          "key": "vladmir",
+          "name": "Vladmir's Offering",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vladmir.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "assault",
+          "name": "Assault Cuirass",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/assault.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["buckler", "ring_of_basilius", "lifesteal", "blades_of_attack"],
+        ["buckler", "hyperstone", "platemail"]
+      ],
+      "sharedComponentKey": "buckler",
+      "answerItemKeys": ["blades_of_attack", "lifesteal", "buckler", "ring_of_basilius"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:witch_blade:solar_crest",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Orb of Venom", "Pavise", "Wind Lace", "Chainmail"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_venom.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pavise.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/wind_lace.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chainmail.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 3,
+    "explanation": "Witch Blade and Solar Crest both use Chainmail in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["witch_blade", "solar_crest"],
+      "promptItems": [
+        {
+          "key": "witch_blade",
+          "name": "Witch Blade",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/witch_blade.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "solar_crest",
+          "name": "Solar Crest",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/solar_crest.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["oblivion_staff", "chainmail", "orb_of_venom"],
+        ["pavise", "chainmail", "wind_lace"]
+      ],
+      "sharedComponentKey": "chainmail",
+      "answerItemKeys": ["orb_of_venom", "pavise", "wind_lace", "chainmail"],
+      "clientBuild": "6872"
+    },
+    "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },
+    "patch": "7.41d"
+  },
+  {
+    "id": "shopkeeper-shared:yasha:orb_of_corrosion",
+    "kind": "shopkeeper-shared-part",
+    "varietyKey": "shopkeeper-shared-part",
+    "category": "Recipes",
+    "difficulty": 3,
+    "eyebrow": "Shared Part",
+    "prompt": "What component do both items use?",
+    "answers": ["Band of Elvenskin", "Blade of Alacrity", "Orb of Blight", "Orb of Frost"],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/boots_of_elves.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blade_of_alacrity.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blight_stone.png?t=1593393829403",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_frost.png?t=1593393829403"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 0,
+    "explanation": "Yasha and Orb of Corrosion both use Band of Elvenskin in their direct recipes.",
+    "shopkeeper": {
+      "format": "shared-part",
+      "targetItemKeys": ["yasha", "orb_of_corrosion"],
+      "promptItems": [
+        {
+          "key": "yasha",
+          "name": "Yasha",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/yasha.png?t=1593393829403",
+          "count": 1
+        },
+        {
+          "key": "orb_of_corrosion",
+          "name": "Orb of Corrosion",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_corrosion.png?t=1593393829403",
+          "count": 1
+        }
+      ],
+      "targetRecipeKeys": [
+        ["blade_of_alacrity", "boots_of_elves"],
+        ["boots_of_elves", "orb_of_frost", "blight_stone"]
+      ],
+      "sharedComponentKey": "boots_of_elves",
+      "answerItemKeys": ["boots_of_elves", "blade_of_alacrity", "blight_stone", "orb_of_frost"],
       "clientBuild": "6872"
     },
     "source": { "label": "Dota 2 live-client recipes · build 6872", "url": "https://www.dota2.com/patches/7.41d" },

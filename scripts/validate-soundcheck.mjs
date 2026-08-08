@@ -329,15 +329,15 @@ for (const question of questions) {
 }
 for (const family of ["ability", "item"]) {
   if (
-    familyCounts[family] !== 24 ||
+    familyCounts[family] !== 32 ||
     learningCounts[family] !== 12 ||
-    veteranCounts[family] !== 12 ||
-    formatCounts[family].single !== 18 ||
+    veteranCounts[family] !== 20 ||
+    formatCounts[family].single !== 26 ||
     formatCounts[family].sequence !== 6 ||
-    JSON.stringify(difficultyCounts[family]) !== JSON.stringify([12, 6, 6])
+    JSON.stringify(difficultyCounts[family]) !== JSON.stringify([12, 14, 6])
   ) {
     failures.push(
-      `${family}: expected 18 single and 6 sequence rounds split 12 approachable, 6 tricky, and 6 brutal (${familyCounts[family]}, ${JSON.stringify(formatCounts[family])}, ${JSON.stringify(difficultyCounts[family])}).`,
+      `${family}: expected 26 single and 6 sequence rounds split 12 approachable, 14 tricky, and 6 brutal (${familyCounts[family]}, ${JSON.stringify(formatCounts[family])}, ${JSON.stringify(difficultyCounts[family])}).`,
     );
   }
 }

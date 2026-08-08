@@ -140,13 +140,24 @@ if (
   failures.push("The Build Result item-key vote, reconnect, store UI, or stable tooltip contract was removed.");
 }
 
-if (questions.length !== 48) failures.push(`Shopkeeper needs 48 curated rounds (found ${questions.length}).`);
+const expectedKindCounts = new Map([
+  ["shopkeeper-build-result", 26],
+  ["shopkeeper-real-recipe", 26],
+  ["shopkeeper-shared-part", 38],
+  ["shopkeeper-upgrade-path", 12],
+]);
+const expectedQuestionCount = [...expectedKindCounts.values()].reduce((total, count) => total + count, 0);
+if (questions.length !== expectedQuestionCount) {
+  failures.push(`Shopkeeper needs ${expectedQuestionCount} curated rounds (found ${questions.length}).`);
+}
 
 for (const kind of SHOPKEEPER_KINDS) {
   const family = questions.filter((question) => question.kind === kind);
-  if (family.length !== 12) failures.push(`${kind}: expected 12 rounds, found ${family.length}.`);
+  const expectedCount = expectedKindCounts.get(kind);
+  if (family.length !== expectedCount)
+    failures.push(`${kind}: expected ${expectedCount} rounds, found ${family.length}.`);
   const answerSlots = [0, 1, 2, 3].map((slot) => family.filter((question) => question.correctIndex === slot).length);
-  if (answerSlots.some((count) => count !== 3)) {
+  if (Math.max(...answerSlots) - Math.min(...answerSlots) > 1) {
     failures.push(`${kind}: correct answers are not balanced across A–D (${answerSlots.join(" / ")}).`);
   }
 }
@@ -289,6 +300,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${questions.length} client-audited Shopkeeper rounds, 12 full-shop recipe builders, and the ${catalogItems.length}-item Dota shop picker${liveRecipes ? `, with build ${CLIENT_CONSTANT_AUDIT.clientBuild} recipe parity` : ""}.`,
+    `Validated ${questions.length} client-audited Shopkeeper rounds, ${expectedKindCounts.get("shopkeeper-real-recipe")} full-shop recipe builders, and the ${catalogItems.length}-item Dota shop picker${liveRecipes ? `, with build ${CLIENT_CONSTANT_AUDIT.clientBuild} recipe parity` : ""}.`,
   );
 }

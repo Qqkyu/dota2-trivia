@@ -17,6 +17,7 @@ export const NON_TRIVIA_SPELL_OWNER_KEYS = Object.freeze([
   "enchantress_enchant",
   "meepo_megameepo",
   "phantom_assassin_blur",
+  "queenofpain_succubus",
   "slardar_sprint",
   "troll_warlord_battle_trance",
   "vengefulspirit_retribution",

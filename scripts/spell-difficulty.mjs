@@ -78,3 +78,55 @@ export function spellDistractors(owner, heroes, difficulty, salt, hash) {
     .slice(0, 3)
     .map(({ hero }) => hero);
 }
+
+const HELPER_ABILITY_PATTERN =
+  /(?:^|_)(?:cancel|end|land|launch|release|return|stop|toggle|unburrow)(?:_|$)|_focusfire_cancel$/;
+
+function spellCandidateQuality(ability, ownerAbilityKeys) {
+  const slot = ownerAbilityKeys.indexOf(ability.key);
+  const difficulty = spellDifficulty(ability.key, ownerAbilityKeys);
+  const descriptionWords = String(ability.spellHint ?? ability.desc ?? "")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+  const behaviors = Array.isArray(ability.behavior) ? ability.behavior : [ability.behavior];
+  const hasActiveBehavior = behaviors.some(
+    (behavior) => typeof behavior === "string" && behavior !== "Passive" && behavior !== "Hidden",
+  );
+
+  let score = difficulty === 2 ? 100 : difficulty === 1 ? 58 : 46;
+  if (slot >= 1 && slot <= 3) score += 28;
+  else if (slot === 4) score += 18;
+  else if (slot === 0) score += 8;
+  if (hasActiveBehavior) score += 8;
+  score += Math.min(descriptionWords, 48);
+  if (descriptionWords < 12) score -= 90;
+  if (HELPER_ABILITY_PATTERN.test(ability.key)) score -= 120;
+  return score;
+}
+
+// Spell Link is more varied when every hero contributes one strong clue than
+// when a global random sample happens to select several spells from a handful
+// of heroes. The selection remains deterministic across data refreshes.
+export function selectSpellOwnerCandidates(candidates, heroAbilitiesByKey, hash) {
+  const byHero = new Map();
+  for (const ability of candidates) {
+    const heroKey = ability.owner.key;
+    const group = byHero.get(heroKey) ?? [];
+    group.push(ability);
+    byHero.set(heroKey, group);
+  }
+
+  return [...byHero.entries()]
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([heroKey, heroCandidates]) => {
+      const ownerAbilityKeys = heroAbilitiesByKey[heroKey]?.abilities ?? [];
+      return [...heroCandidates].sort(
+        (left, right) =>
+          spellCandidateQuality(right, ownerAbilityKeys) - spellCandidateQuality(left, ownerAbilityKeys) ||
+          hash(`ability-owner:${left.key}`) - hash(`ability-owner:${right.key}`) ||
+          left.key.localeCompare(right.key),
+      )[0];
+    })
+    .filter(Boolean);
+}

@@ -12,7 +12,7 @@ import {
 import { DAMAGE_QUESTION_FACTS, damageQuestionExplanation, damageQuestionPrompt } from "./damage-question-facts.mjs";
 import { auditAudioAssets, auditImageAssets, questionAudioUrls, questionImageUrls } from "./image-assets.mjs";
 import { NON_TRIVIA_COOLDOWN_KEYS, NON_TRIVIA_SPELL_OWNER_KEYS } from "./question-quality-audit.mjs";
-import { spellDifficulty, spellDistractors } from "./spell-difficulty.mjs";
+import { selectSpellOwnerCandidates, spellDifficulty, spellDistractors } from "./spell-difficulty.mjs";
 import { buildSpellHint } from "./spell-hints.mjs";
 import {
   areShopkeeperPricesBalanced,
@@ -42,6 +42,11 @@ const endpoints = {
 const cacheArg = process.argv.find((argument) => argument.startsWith("--cache-dir="));
 const cacheDirectory = cacheArg ? resolve(cacheArg.split("=")[1]) : undefined;
 const responsesOnly = process.argv.includes("--responses-only");
+const preserveResponses = process.argv.includes("--preserve-responses");
+
+if (responsesOnly && preserveResponses) {
+  throw new Error("Choose either --responses-only or --preserve-responses, not both.");
+}
 
 if (PATCH !== CLIENT_CONSTANT_AUDIT.patch) {
   throw new Error(
@@ -489,7 +494,7 @@ const spellOwnerCandidates = abilities
     (ability) => ability.spellHint.length >= 18 && !ability.spellHint.startsWith("No additional mechanical clue"),
   );
 
-for (const ability of stableSample(spellOwnerCandidates, 73, "ability-owner")) {
+for (const ability of selectSpellOwnerCandidates(spellOwnerCandidates, heroAbilitiesByKey, hash)) {
   const ownerAbilityKeys = heroAbilitiesByKey[ability.owner.key]?.abilities ?? [];
   const difficulty = spellDifficulty(ability.key, ownerAbilityKeys);
   const distractors = spellDistractors(ability.owner, heroes, difficulty, ability.key, hash);
@@ -723,7 +728,7 @@ for (const hero of heroes) {
   );
 }
 
-const voiceHeroes = heroes.filter((hero) => hero.responseNames.length);
+const voiceHeroes = preserveResponses ? [] : heroes.filter((hero) => hero.responseNames.length);
 const voiceResponses = await mapWithConcurrency(voiceHeroes, 8, async (hero) => {
   try {
     return [hero, await loadHeroResponses(hero.responseNames)];
@@ -1091,25 +1096,34 @@ const rejectedQuestions = questions.filter(
 const sortedQuestions = balanceCorrectAnswerSlots(
   questions.filter((question) => !rejectedQuestions.includes(question)),
 ).sort((left, right) => left.id.localeCompare(right.id));
-const [existingQuestions, existingMetadata] = responsesOnly
-  ? await Promise.all([readFile(OUTPUT, "utf8").then(JSON.parse), readFile(META_OUTPUT, "utf8").then(JSON.parse)])
-  : [[], null];
+const [existingQuestions, existingMetadata] =
+  responsesOnly || preserveResponses
+    ? await Promise.all([readFile(OUTPUT, "utf8").then(JSON.parse), readFile(META_OUTPUT, "utf8").then(JSON.parse)])
+    : [[], null];
 const responseKinds = new Set(["hero-voice", "hero-quote"]);
 const outputQuestions = responsesOnly
   ? [
       ...existingQuestions.filter((question) => !responseKinds.has(question.kind)),
       ...sortedQuestions.filter((question) => responseKinds.has(question.kind)),
     ].sort((left, right) => left.id.localeCompare(right.id))
-  : sortedQuestions;
+  : preserveResponses
+    ? [
+        ...sortedQuestions.filter((question) => !responseKinds.has(question.kind)),
+        ...existingQuestions.filter((question) => responseKinds.has(question.kind)),
+      ].sort((left, right) => left.id.localeCompare(right.id))
+    : sortedQuestions;
 const scopedRejectedQuestions = responsesOnly
   ? rejectedQuestions.filter((question) => responseKinds.has(question.kind))
-  : rejectedQuestions;
+  : preserveResponses
+    ? rejectedQuestions.filter((question) => !responseKinds.has(question.kind))
+    : rejectedQuestions;
 const rejectedQuestionIds = [
   ...new Set([
-    ...(responsesOnly
-      ? (existingMetadata?.assetValidation?.rejectedQuestionIds ?? []).filter(
-          (questionId) => ![...responseKinds].some((kind) => questionId.startsWith(`${kind}:`)),
-        )
+    ...(responsesOnly || preserveResponses
+      ? (existingMetadata?.assetValidation?.rejectedQuestionIds ?? []).filter((questionId) => {
+          const isResponseQuestion = [...responseKinds].some((kind) => questionId.startsWith(`${kind}:`));
+          return responsesOnly ? !isResponseQuestion : isResponseQuestion;
+        })
       : []),
     ...scopedRejectedQuestions.map((question) => question.id),
   ]),

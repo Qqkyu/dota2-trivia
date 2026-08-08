@@ -257,15 +257,14 @@ const playableGeneratedQuestions = questions.filter(
 const retiredGeneratedQuestions = questions.filter((question) => !isPlayableClassicTriviaQuestion(question));
 const otherExcludedQuestionCount =
   questions.length - playableGeneratedQuestions.length - retiredGeneratedQuestions.length;
-const learningSpellCount = playableSpellLinkQuestions.filter((question) => question.difficulty === 1).length;
-const intermediateSpellCount = playableSpellLinkQuestions.filter((question) => question.difficulty === 2).length;
-const demandingSpellCount = playableSpellLinkQuestions.filter((question) => question.difficulty === 3).length;
-const magnusSkewer = spellLinkQuestions.find((question) => question.id === "ability-owner:magnataur_skewer");
-
-if (learningSpellCount < 12 || intermediateSpellCount < 20 || demandingSpellCount < 12) {
+const spellLinkHeroes = playableSpellLinkQuestions.map((question) => question.answers[question.correctIndex]);
+if (playableSpellLinkQuestions.length < 120 || new Set(spellLinkHeroes).size !== playableSpellLinkQuestions.length) {
   failures.push(
-    `Spell Link needs a balanced hidden cadence (found ${learningSpellCount} approachable, ${intermediateSpellCount} intermediate, and ${demandingSpellCount} demanding).`,
+    `Spell Link needs one strong clue per hero before repeating subjects (found ${playableSpellLinkQuestions.length} clues for ${new Set(spellLinkHeroes).size} heroes).`,
   );
+}
+if (playableSpellLinkQuestions.some((question) => question.difficulty !== 2)) {
+  failures.push("Spell Link must keep one consistent hidden scoring tier now that player-facing levels are retired.");
 }
 if (foggedQuestions.length < 36) failures.push(`Fogged Vision needs at least 36 playable heroes.`);
 if (voiceQuestions.length < 32) failures.push(`Echo Hunt needs at least 32 verified hero clips.`);
@@ -279,9 +278,6 @@ for (const question of quoteQuestions) {
   const duplicate = signature ? quoteDetails.get(signature) : undefined;
   if (duplicate) failures.push(`${question.id}: duplicates the Quote Hunt line from ${duplicate}.`);
   if (signature) quoteDetails.set(signature, question.id);
-}
-if (magnusSkewer?.difficulty !== 1) {
-  failures.push("Magnus's highly recognizable Skewer icon must remain in the approachable Spell Link tier.");
 }
 for (const kind of RETIRED_CLASSIC_TRIVIA_KINDS) {
   if (isPlayableClassicTriviaQuestion({ kind })) {

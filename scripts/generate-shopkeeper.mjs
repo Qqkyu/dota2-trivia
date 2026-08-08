@@ -36,6 +36,20 @@ const BUILD_RESULT_TARGETS = [
   "shivas_guard",
   "vladmir",
   "phase_boots",
+  "skadi",
+  "assault",
+  "black_king_bar",
+  "desolator",
+  "heart",
+  "manta",
+  "nullifier",
+  "octarine_core",
+  "orchid",
+  "pipe",
+  "radiance",
+  "refresher",
+  "soul_booster",
+  "spirit_vessel",
 ];
 
 const REAL_RECIPE_TARGETS = [
@@ -51,6 +65,20 @@ const REAL_RECIPE_TARGETS = [
   "tranquil_boots",
   "solar_crest",
   "veil_of_discord",
+  "abyssal_blade",
+  "disperser",
+  "silver_edge",
+  "helm_of_the_overlord",
+  "mjollnir",
+  "ethereal_blade",
+  "sheepstick",
+  "greater_crit",
+  "bloodstone",
+  "harpoon",
+  "gungir",
+  "hurricane_pike",
+  "hydras_breath",
+  "consecrated_wraps",
 ];
 
 const SHARED_PART_PAIRS = [
@@ -66,6 +94,32 @@ const SHARED_PART_PAIRS = [
   ["bracer", "urn_of_shadows"],
   ["cyclone", "aether_lens"],
   ["dagon", "holy_locket"],
+  ["yasha", "orb_of_corrosion"],
+  ["basher", "ancient_janggo"],
+  ["ultimate_scepter", "specialists_array"],
+  ["armlet", "mage_slayer"],
+  ["monkey_king_bar", "invis_sword"],
+  ["phase_boots", "arcane_boots"],
+  ["vladmir", "assault"],
+  ["witch_blade", "solar_crest"],
+  ["shivas_guard", "gungir"],
+  ["butterfly", "satanic"],
+  ["pipe", "consecrated_wraps"],
+  ["dagon", "meteor_hammer"],
+  ["monkey_king_bar", "silver_edge"],
+  ["hurricane_pike", "hydras_breath"],
+  ["swift_blink", "butterfly"],
+  ["lotus_orb", "aeon_disk"],
+  ["force_staff", "veil_of_discord"],
+  ["mekansm", "ancient_janggo"],
+  ["assault", "mjollnir"],
+  ["bloodthorn", "maelstrom"],
+  ["black_king_bar", "maelstrom"],
+  ["orchid", "bloodthorn"],
+  ["heart", "satanic"],
+  ["invis_sword", "glimmer_cape"],
+  ["spirit_vessel", "essence_distiller"],
+  ["veil_of_discord", "revenants_brooch"],
 ];
 
 const UPGRADE_PATHS = [
@@ -765,15 +819,15 @@ for (const [sourceKey, targetKey] of UPGRADE_PATHS) {
   });
 }
 
-const expectedKinds = [
-  "shopkeeper-build-result",
-  "shopkeeper-real-recipe",
-  "shopkeeper-shared-part",
-  "shopkeeper-upgrade-path",
-];
-for (const kind of expectedKinds) {
+const expectedKindCounts = new Map([
+  ["shopkeeper-build-result", 26],
+  ["shopkeeper-real-recipe", 26],
+  ["shopkeeper-shared-part", 38],
+  ["shopkeeper-upgrade-path", 12],
+]);
+for (const [kind, expectedCount] of expectedKindCounts) {
   const count = questions.filter((question) => question.kind === kind).length;
-  if (count !== 12) throw new Error(`${kind}: expected 12 questions, generated ${count}.`);
+  if (count !== expectedCount) throw new Error(`${kind}: expected ${expectedCount} questions, generated ${count}.`);
 }
 
 const serializedQuestions = await format(
@@ -818,6 +872,6 @@ console.log(
 );
 console.log(
   Object.fromEntries(
-    expectedKinds.map((kind) => [kind, questions.filter((question) => question.kind === kind).length]),
+    [...expectedKindCounts.keys()].map((kind) => [kind, questions.filter((question) => question.kind === kind).length]),
   ),
 );

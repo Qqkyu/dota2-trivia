@@ -2,32 +2,29 @@
   "patch": "7.41d",
   "contentVersion": "7.41d-variety-7",
   "snapshotDate": "2026-08-02",
-  "questionCount": 1084,
+  "questionCount": 1036,
   "categoryCounts": {
-    "Abilities": 103,
+    "Abilities": 126,
     "Cooldowns": 52,
     "Damage": 48,
-    "Heroes": 653,
-    "Recipes": 31,
+    "Heroes": 577,
+    "Recipes": 36,
     "Items": 137,
     "Mana": 60
   },
   "kindCounts": {
-    "ability-detective": 36,
-    "spell-owner": 67,
+    "spell-owner": 126,
     "cooldown": 52,
     "ability-damage": 48,
     "fogged-hero": 127,
-    "hero-intruder": 32,
     "hero-quote": 245,
     "hero-stat-duel": 42,
     "hero-voice": 123,
-    "recipe-component": 31,
+    "recipe-component": 36,
     "item-cost": 73,
     "item-price-duel": 28,
     "mana-cost": 60,
     "hero-move-speed": 40,
-    "hero-primary-attribute": 44,
     "recipe-upgrade": 36
   },
   "sources": {
@@ -46,28 +43,8 @@
   },
   "assetValidation": {
     "checkedAt": "2026-08-02",
-    "verifiedAssetCount": 550,
+    "verifiedAssetCount": 505,
     "verifiedAudioCount": 123,
-    "rejectedQuestionIds": [
-      "ability-detective:abyssal_underlord_pit_of_malice",
-      "ability-detective:abyssal_underlord_raid_boss",
-      "ability-detective:axe_berserkers_call",
-      "ability-detective:batrider_smoldering_resin",
-      "ability-detective:bounty_hunter_jinada",
-      "ability-detective:enchantress_little_friends",
-      "ability-detective:hoodwink_bushwhack",
-      "ability-detective:primal_beast_trample",
-      "ability-detective:rattletrap_battery_assault",
-      "ability-detective:shredder_exposure_therapy",
-      "ability-detective:sniper_keen_scope",
-      "ability-detective:terrorblade_metamorphosis",
-      "ability-detective:viper_corrosive_skin",
-      "ability-owner:batrider_smoldering_resin",
-      "ability-owner:faceless_void_distortion_field",
-      "ability-owner:mars_dauntless",
-      "ability-owner:primal_beast_colossal",
-      "ability-owner:sniper_keen_scope",
-      "ability-owner:witch_doctor_gris_gris"
-    ]
+    "rejectedQuestionIds": []
   }
 }
