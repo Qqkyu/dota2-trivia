@@ -10,6 +10,7 @@ export const SEMANTIC_SLOT_COUNT = SEMANTIC_REPEAT_GAP_ROUNDS + 1;
 
 const HERO_ANSWER_KINDS = new Set(["fogged-hero", "hero-quote", "hero-stat-duel", "hero-voice", "spell-owner"]);
 const ABILITY_VALUE_KINDS = new Set(["ability-damage", "cooldown", "mana-cost"]);
+const ABILITY_HERO_PREFIX_ALIASES = new Map([["sandking", "sand_king"]]);
 const preparedScheduleCache = new WeakMap();
 
 function normalizedToken(value) {
@@ -71,7 +72,10 @@ export function createSemanticSubjectContext(questions) {
     if (question.kind !== "soundcheck-ability") continue;
     const abilityKey = abilityKeyForQuestion(question);
     if (!abilityKey || abilityOwnerByKey.has(abilityKey)) continue;
-    const heroKey = heroPrefixes.find((candidate) => abilityKey.startsWith(`${candidate}_`));
+    const aliasedHeroKey = [...ABILITY_HERO_PREFIX_ALIASES].find(([abilityPrefix]) =>
+      abilityKey.startsWith(`${abilityPrefix}_`),
+    )?.[1];
+    const heroKey = aliasedHeroKey ?? heroPrefixes.find((candidate) => abilityKey.startsWith(`${candidate}_`));
     if (heroKey) abilityOwnerByKey.set(abilityKey, heroSubjectByInternalKey.get(heroKey));
   }
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -108,13 +109,36 @@ await Promise.all(
         `${definition.family}:${clip.subject} duration drifted from ${clip.duration} to ${String(eventDuration)}.`,
       );
     }
-
-    const response = await fetch(soundcheckAudioUrl(clip), { method: "HEAD" });
-    if (!response.ok || !response.headers.get("content-type")?.startsWith("audio/")) {
-      throw new Error(`${definition.family}:${clip.subject} has no browser-ready audited audio.`);
-    }
   }),
 );
+
+const uniqueAudioClips = new Map(auditedClips.map(({ clip }) => [soundcheckAudioUrl(clip), clip]));
+const browserAudioResults = await Promise.all(
+  [...uniqueAudioClips.entries()].map(async ([url, clip]) => {
+    const response = await fetch(url);
+    if (!response.ok || !response.headers.get("content-type")?.startsWith("audio/")) {
+      return { error: `${clip.subject} has no browser-ready audited audio (${response.status} ${url}).` };
+    }
+    const bytes = Buffer.from(await response.arrayBuffer());
+    if (bytes.length < 128) return { error: `${clip.subject} returned an empty browser audio asset (${url}).` };
+    return { digest: createHash("sha256").update(bytes).digest("hex"), url };
+  }),
+);
+const browserAudioFailures = browserAudioResults.flatMap((result) => (result.error ? [result.error] : []));
+if (browserAudioFailures.length) throw new Error(browserAudioFailures.join("\n"));
+const browserAudioDigests = new Map(browserAudioResults.map((result) => [result.url, result.digest]));
+const digestOwners = new Map();
+for (const { clip } of auditedClips) {
+  const digest = browserAudioDigests.get(soundcheckAudioUrl(clip));
+  const owners = digestOwners.get(digest) ?? new Set();
+  owners.add(clip.subject);
+  digestOwners.set(digest, owners);
+}
+for (const [digest, owners] of digestOwners) {
+  if (owners.size > 1) {
+    throw new Error(`Different answers share the same browser audio (${digest}: ${[...owners].join(", ")}).`);
+  }
+}
 
 const questions = SOUNDCHECK_DEFINITIONS.map((definition, index) => {
   const records = definition.family === "ability" ? abilities : items;
@@ -230,11 +254,12 @@ const questions = SOUNDCHECK_DEFINITIONS.map((definition, index) => {
             : definition.family === "ability"
               ? "same-hero"
               : "active-items",
-      clips: clips.map(({ subject, event, eventFile, duration }) => ({
-        subject,
-        event,
-        eventFile,
-        duration,
+      clips: clips.map((clip) => ({
+        subject: clip.subject,
+        event: clip.event,
+        eventFile: clip.eventFile,
+        duration: clip.duration,
+        audioSha256: browserAudioDigests.get(soundcheckAudioUrl(clip)),
       })),
       audit: {
         reviewedAt: SOUNDCHECK_AUDIT.reviewedAt,

@@ -30,6 +30,7 @@ const failures = [];
 const shopItemKeys = new Set(shopkeeperCatalog.groups.flatMap((group) => group.items.map((item) => item.key)));
 const ids = new Set();
 const audioUrls = new Set();
+const audioDigestSubjects = new Map();
 const answerSets = new Set();
 const answerPositionCounts = [0, 0, 0, 0];
 const familyCounts = { ability: 0, item: 0 };
@@ -101,7 +102,7 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
     duration,
   }));
   const expectedAudioUrls = clips.map(soundcheckAudioUrl);
-  for (const clip of clips) {
+  for (const [clipIndex, clip] of clips.entries()) {
     const ambiguousChoices = soundcheckSharedAudioAlternatives(clip.subject, [
       definition.subject,
       ...definition.distractors,
@@ -112,6 +113,17 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
     const cuts = Array.from({ length: SOUNDCHECK_REVEAL_STAGES }, (_, stage) =>
       soundcheckCutDuration(clip.duration, stage + 1),
     );
+    const digest = question.soundcheck?.clips?.[clipIndex]?.audioSha256;
+    if (!/^[a-f0-9]{64}$/.test(digest ?? "")) {
+      failures.push(`${id}: audited clip ${clip.event} is missing its browser-audio fingerprint.`);
+    } else {
+      const subjects = audioDigestSubjects.get(digest) ?? new Set();
+      subjects.add(clip.subject);
+      audioDigestSubjects.set(digest, subjects);
+      if (subjects.size > 1) {
+        failures.push(`${id}: browser-audio fingerprint is shared by ${[...subjects].join(", ")}.`);
+      }
+    }
     progressiveClipCount += 1;
     if (
       cuts[0] <= 0 ||
@@ -163,7 +175,14 @@ for (const [index, definition] of SOUNDCHECK_DEFINITIONS.entries()) {
     question.soundcheck?.family !== definition.family ||
     question.soundcheck?.format !== expectedFormat ||
     question.soundcheck?.choiceScope !== expectedChoiceScope ||
-    JSON.stringify(question.soundcheck?.clips) !== JSON.stringify(expectedClipMetadata) ||
+    JSON.stringify(
+      question.soundcheck?.clips?.map(({ subject, event, eventFile, duration }) => ({
+        subject,
+        event,
+        eventFile,
+        duration,
+      })),
+    ) !== JSON.stringify(expectedClipMetadata) ||
     question.soundcheck?.audit?.reviewedAt !== SOUNDCHECK_AUDIT.reviewedAt ||
     question.soundcheck?.audit?.clientBuild !== SOUNDCHECK_AUDIT.clientBuild
   ) {
@@ -333,15 +352,15 @@ for (const question of questions) {
 }
 for (const family of ["ability", "item"]) {
   if (
-    familyCounts[family] !== 32 ||
-    learningCounts[family] !== 12 ||
-    veteranCounts[family] !== 20 ||
-    formatCounts[family].single !== 26 ||
-    formatCounts[family].sequence !== 6 ||
-    JSON.stringify(difficultyCounts[family]) !== JSON.stringify([12, 14, 6])
+    familyCounts[family] !== 48 ||
+    learningCounts[family] !== 18 ||
+    veteranCounts[family] !== 30 ||
+    formatCounts[family].single !== 39 ||
+    formatCounts[family].sequence !== 9 ||
+    JSON.stringify(difficultyCounts[family]) !== JSON.stringify([18, 21, 9])
   ) {
     failures.push(
-      `${family}: expected 26 single and 6 sequence rounds split 12 approachable, 14 tricky, and 6 brutal (${familyCounts[family]}, ${JSON.stringify(formatCounts[family])}, ${JSON.stringify(difficultyCounts[family])}).`,
+      `${family}: expected 39 single and 9 sequence rounds split 18 approachable, 21 tricky, and 9 brutal (${familyCounts[family]}, ${JSON.stringify(formatCounts[family])}, ${JSON.stringify(difficultyCounts[family])}).`,
     );
   }
 }

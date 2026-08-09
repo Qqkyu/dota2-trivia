@@ -126,6 +126,7 @@ export interface TriviaQuestion {
       event: string;
       eventFile: string;
       duration: number;
+      audioSha256: string;
     }>;
     audit: {
       reviewedAt: string;

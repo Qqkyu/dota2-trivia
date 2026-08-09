@@ -37,7 +37,8 @@
           "subject": "pudge_meat_hook",
           "event": "Hero_Pudge.AttackHookExtend",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_pudge.vsndevts",
-          "duration": 2.867007
+          "duration": 2.867007,
+          "audioSha256": "3bf393dd1d48b4c5a6a4abfe5444f5f06b0a696a043f25c3152c7143903bc084"
         }
       ],
       "audit": {
@@ -89,7 +90,8 @@
           "subject": "earthshaker_echo_slam",
           "event": "Hero_EarthShaker.EchoSlam",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_earthshaker.vsndevts",
-          "duration": 4.328481
+          "duration": 4.328481,
+          "audioSha256": "17cdc093765353bef72e0f5914904e3a5837d7142fb8a87a588d40abf782ad5f"
         }
       ],
       "audit": {
@@ -141,7 +143,8 @@
           "subject": "faceless_void_chronosphere",
           "event": "Hero_FacelessVoid.Chronosphere",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_faceless_void.vsndevts",
-          "duration": 5.840658
+          "duration": 5.840658,
+          "audioSha256": "bf169f8bb7385317e88baaba0b977b7e41ec03766fa450a71755e7eee86f9f67"
         }
       ],
       "audit": {
@@ -193,7 +196,8 @@
           "subject": "invoker_sun_strike",
           "event": "Hero_Invoker.SunStrike.Ignite",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts",
-          "duration": 2.002903
+          "duration": 2.002903,
+          "audioSha256": "379211547633ac941d2b360fb528c9164db2ddd4e499f4526a2d2353d856a143"
         }
       ],
       "audit": {
@@ -245,7 +249,8 @@
           "subject": "kunkka_ghostship",
           "event": "Ability.Ghostship.bell",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_kunkka.vsndevts",
-          "duration": 3.72576
+          "duration": 3.72576,
+          "audioSha256": "cfea76821e8d47ff06d9d66cdbbe4f566e03bc4810ede16192a51e0c590be98b"
         }
       ],
       "audit": {
@@ -297,7 +302,8 @@
           "subject": "sniper_assassinate",
           "event": "Ability.AssassinateLoad",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts",
-          "duration": 0.786576
+          "duration": 0.786576,
+          "audioSha256": "f3f3064698136a8efb2c169fb6961042c49333611ca0524511f8aa87e033ed49"
         }
       ],
       "audit": {
@@ -349,7 +355,8 @@
           "subject": "tidehunter_ravage",
           "event": "Ability.Ravage",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_tidehunter.vsndevts",
-          "duration": 4.148118
+          "duration": 4.148118,
+          "audioSha256": "27c026678d22e97dd7d516c9b91b4991118e26ea9270d7551fbaaac73a83c76b"
         }
       ],
       "audit": {
@@ -401,7 +408,8 @@
           "subject": "magnataur_reverse_polarity",
           "event": "Hero_Magnataur.ReversePolarity.Cast",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_magnataur.vsndevts",
-          "duration": 3.153333
+          "duration": 3.153333,
+          "audioSha256": "66b9973102fc9a4686b86b41ae97ea054a9bab76b632be6bde8ce2ec6426468a"
         }
       ],
       "audit": {
@@ -453,7 +461,8 @@
           "subject": "phoenix_supernova",
           "event": "Hero_Phoenix.SuperNova.Explode",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_phoenix.vsndevts",
-          "duration": 4.082857
+          "duration": 4.082857,
+          "audioSha256": "8d32165afc14d109f14d345f06dd04221a781f850f9156f5de74bb3ca9aaa7c5"
         }
       ],
       "audit": {
@@ -505,7 +514,8 @@
           "subject": "skeleton_king_reincarnation",
           "event": "Hero_SkeletonKing.Reincarnate",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_skeletonking.vsndevts",
-          "duration": 6.183356
+          "duration": 6.183356,
+          "audioSha256": "88a064a936de3bb0cf9ca16e0bec2759f87591e8b0d7d90f22107b4841f40342"
         }
       ],
       "audit": {
@@ -557,7 +567,8 @@
           "subject": "axe_culling_blade",
           "event": "Hero_Axe.Culling_Blade_Success",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_axe.vsndevts",
-          "duration": 1.734558
+          "duration": 1.734558,
+          "audioSha256": "0546879cd9bc10f3be1ac4e56ed69d240764c2b76d789eea3777ffd036776b39"
         }
       ],
       "audit": {
@@ -609,7 +620,8 @@
           "subject": "zuus_thundergods_wrath",
           "event": "Hero_Zuus.GodsWrath",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_zuus.vsndevts",
-          "duration": 5.025012
+          "duration": 5.025012,
+          "audioSha256": "559dbfc9c186dbf98f42b5ca38c09a017d7497bab2477b2e795b7f2f8829c337"
         }
       ],
       "audit": {
@@ -661,7 +673,8 @@
           "subject": "pangolier_shield_crash",
           "event": "Hero_Pangolier.TailThump",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_pangolier.vsndevts",
-          "duration": 2.510333
+          "duration": 2.510333,
+          "audioSha256": "e76b80f5123082972ad3be66b3802f6bd26cf75ef0338488794c0751b3b5d7f8"
         }
       ],
       "audit": {
@@ -713,7 +726,8 @@
           "subject": "puck_waning_rift",
           "event": "Hero_Puck.Waning_Rift",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_puck.vsndevts",
-          "duration": 2.197755
+          "duration": 2.197755,
+          "audioSha256": "bce08b31cdd8405d35165470590ab8abc925be2f559ee91670513028329410f6"
         }
       ],
       "audit": {
@@ -765,7 +779,8 @@
           "subject": "nyx_assassin_spiked_carapace",
           "event": "Hero_NyxAssassin.SpikedCarapace",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_nyx_assassin.vsndevts",
-          "duration": 0.53059
+          "duration": 0.53059,
+          "audioSha256": "58cbf6dd2a805471efad8c06a65bacc7a0bbb599e0bab848e753259943cbc816"
         }
       ],
       "audit": {
@@ -817,7 +832,8 @@
           "subject": "slark_dark_pact",
           "event": "Hero_Slark.DarkPact.Cast",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_slark.vsndevts",
-          "duration": 2.893016
+          "duration": 2.893016,
+          "audioSha256": "4b135dcfba4bddf34e3b8a82df52dfde648b12d942c20de412e0c98fe4f52318"
         }
       ],
       "audit": {
@@ -869,7 +885,8 @@
           "subject": "oracle_fates_edict",
           "event": "Hero_Oracle.FatesEdict.Cast",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_oracle.vsndevts",
-          "duration": 2.73
+          "duration": 2.73,
+          "audioSha256": "cb68941df7c2ea753eb9933ee60afe0f7a205a6fd4ca5b46787f75a898a8a19b"
         }
       ],
       "audit": {
@@ -921,7 +938,8 @@
           "subject": "hoodwink_bushwhack",
           "event": "Hero_Hoodwink.Bushwhack.Cast",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_hoodwink.vsndevts",
-          "duration": 2.166104
+          "duration": 2.166104,
+          "audioSha256": "0cf1d3781ffe6cfa0592633abee77c1d3dc26b64a046cc684044d216f21f2ae9"
         }
       ],
       "audit": {
@@ -973,7 +991,8 @@
           "subject": "earth_spirit_rolling_boulder",
           "event": "Hero_EarthSpirit.RollingBoulder.Cast",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_earth_spirit.vsndevts",
-          "duration": 1.01059
+          "duration": 1.01059,
+          "audioSha256": "35a62cbd997a01acc185b222d31678b4cf3147675a6f47e3604b0a9e1bcb1105"
         }
       ],
       "audit": {
@@ -1025,7 +1044,8 @@
           "subject": "windrunner_shackleshot",
           "event": "Hero_Windrunner.ShackleshotCast",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_windrunner.vsndevts",
-          "duration": 1.332313
+          "duration": 1.332313,
+          "audioSha256": "a3d77df186d7485f661025858816b48d798d1cc27bb06ca60190a1cb77a80baa"
         }
       ],
       "audit": {
@@ -1077,7 +1097,8 @@
           "subject": "shadow_shaman_voodoo",
           "event": "Hero_ShadowShaman.Hex.Target",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_shadowshaman.vsndevts",
-          "duration": 1.397347
+          "duration": 1.397347,
+          "audioSha256": "d52e22acaf31cc9eace2a84ebe78a7c8f1609d6b0b2d3913732c6ef4dc236f4a"
         }
       ],
       "audit": {
@@ -1129,7 +1150,8 @@
           "subject": "tusk_ice_shards",
           "event": "Hero_Tusk.IceShards.Cast",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_tusk.vsndevts",
-          "duration": 3.010975
+          "duration": 3.010975,
+          "audioSha256": "a777eb88a996d8644f18cb41797e90dd16575392b208cde76cda316a3c0e0b3a"
         }
       ],
       "audit": {
@@ -1181,7 +1203,8 @@
           "subject": "muerta_dead_shot",
           "event": "Hero_Muerta.DeadShot.Cast",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_muerta.vsndevts",
-          "duration": 1.433708
+          "duration": 1.433708,
+          "audioSha256": "494c2c92f4cc8ff96d30a940349132212f2579400f5f4675ffc448dad7ed1755"
         }
       ],
       "audit": {
@@ -1233,7 +1256,8 @@
           "subject": "dawnbreaker_celestial_hammer",
           "event": "Hero_Dawnbreaker.Celestial_Hammer.Cast",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_dawnbreaker.vsndevts",
-          "duration": 1.190167
+          "duration": 1.190167,
+          "audioSha256": "541b3eae99311662e47d81eeef3c5cad5b123874de73be845d86c71653955d9f"
         }
       ],
       "audit": {
@@ -1285,7 +1309,8 @@
           "subject": "mars_gods_rebuke",
           "event": "Hero_Mars.Shield.Cast",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_mars.vsndevts",
-          "duration": 3.448163
+          "duration": 3.448163,
+          "audioSha256": "ec1c1ab40d9ccdabd52b7a053bbe95f92e713a819763a393bba66ef57e3f96e0"
         }
       ],
       "audit": {
@@ -1337,7 +1362,8 @@
           "subject": "mirana_starfall",
           "event": "Ability.Starfall",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_mirana.vsndevts",
-          "duration": 2.887982
+          "duration": 2.887982,
+          "audioSha256": "ac94c045a9bf129f874f55793ef1023e346828e5a81ba44bd72a71e84fdff311"
         }
       ],
       "audit": {
@@ -1402,13 +1428,15 @@
           "subject": "void_spirit_resonant_pulse",
           "event": "Hero_VoidSpirit.Pulse.Cast",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_void_spirit.vsndevts",
-          "duration": 1.602177
+          "duration": 1.602177,
+          "audioSha256": "8ee62b6eed257daf8ec2e86aeb4a1273371635a7d872bc5f64ffcff642caf2bd"
         },
         {
           "subject": "void_spirit_aether_remnant",
           "event": "Hero_VoidSpirit.AetherRemnant.Triggered",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_void_spirit.vsndevts",
-          "duration": 2.616735
+          "duration": 2.616735,
+          "audioSha256": "738b8674a8244d8365d6fb0d19517d288c19f27732dd55f23672052f932d1715"
         }
       ],
       "audit": {
@@ -1473,13 +1501,15 @@
           "subject": "ember_spirit_sleight_of_fist",
           "event": "Hero_EmberSpirit.SleightOfFist.Cast",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_ember_spirit.vsndevts",
-          "duration": 2.276417
+          "duration": 2.276417,
+          "audioSha256": "bd975c7eb98329cd4c6186fa21988e0818970ed03018de10110d82f6c88aed66"
         },
         {
           "subject": "ember_spirit_searing_chains",
           "event": "Hero_EmberSpirit.SearingChains.Target",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_ember_spirit.vsndevts",
-          "duration": 1.308004
+          "duration": 1.308004,
+          "audioSha256": "ab42bab17edbc60b79faa82118bb77c1f18ddcafa9dc51024315fbdbc3f83fd3"
         }
       ],
       "audit": {
@@ -1544,13 +1574,15 @@
           "subject": "lion_voodoo",
           "event": "Hero_Lion.Voodoo",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_lion.vsndevts",
-          "duration": 1.889524
+          "duration": 1.889524,
+          "audioSha256": "637d9a1077e8cf5f86f747fca626e70d3db3fe29e4e8a1e7d4528f5ee27be03e"
         },
         {
           "subject": "lion_impale",
           "event": "Hero_Lion.ImpaleHitTarget",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_lion.vsndevts",
-          "duration": 0.641723
+          "duration": 0.641723,
+          "audioSha256": "71daf0c6f66cc0e8b5ac6d0f71f2126bec0b637562a0458cbe3165b413450478"
         }
       ],
       "audit": {
@@ -1615,13 +1647,15 @@
           "subject": "dark_willow_bramble_maze",
           "event": "Hero_DarkWillow.Brambles.Cast",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_dark_willow.vsndevts",
-          "duration": 3.443991
+          "duration": 3.443991,
+          "audioSha256": "d92673945b82beea9d4f7fee32c72f588bdc9b81638c800d218fe76fd7ba14b6"
         },
         {
           "subject": "dark_willow_cursed_crown",
           "event": "Hero_DarkWillow.Ley.Target",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_dark_willow.vsndevts",
-          "duration": 1.783674
+          "duration": 1.783674,
+          "audioSha256": "da0e6a397b75fca1a309aac792bd407deb9864afc307e8be7a39f1287940e8f8"
         }
       ],
       "audit": {
@@ -1686,13 +1720,15 @@
           "subject": "snapfire_firesnap_cookie",
           "event": "Hero_Snapfire.FeedCookie.Cast",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_snapfire.vsndevts",
-          "duration": 2.003809
+          "duration": 2.003809,
+          "audioSha256": "825f19e3d17a35d2bb46bb109783c7d3e0d5a715c00073e4faef7d488f0a3a49"
         },
         {
           "subject": "snapfire_scatterblast",
           "event": "Hero_Snapfire.Shotgun.Target",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_snapfire.vsndevts",
-          "duration": 0.968367
+          "duration": 0.968367,
+          "audioSha256": "2c1e21643544141b3f614fdaf06deac2e6013ac07d4dad49548391214a8e341a"
         }
       ],
       "audit": {
@@ -1757,13 +1793,15 @@
           "subject": "queenofpain_scream_of_pain",
           "event": "Hero_QueenOfPain.ScreamOfPain",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_queenofpain.vsndevts",
-          "duration": 2.694286
+          "duration": 2.694286,
+          "audioSha256": "dd0f7af74b1dca402f3810a439f02de61b47c24b0593956b88259e66a8acc10e"
         },
         {
           "subject": "queenofpain_shadow_strike",
           "event": "Hero_QueenOfPain.ShadowStrike",
           "eventFile": "soundevents/game_sounds_heroes/game_sounds_queenofpain.vsndevts",
-          "duration": 2.260318
+          "duration": 2.260318,
+          "audioSha256": "b13a73e291b1c4dabc465a9b802a9fcaf35ab82913dd989a465a100c30819c64"
         }
       ],
       "audit": {
@@ -1774,6 +1812,914 @@
     "source": {
       "label": "Dota 2 client sound event · 7.41e build 6882",
       "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_queenofpain.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:enigma_black_hole",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:single",
+    "category": "Abilities",
+    "difficulty": 1,
+    "eyebrow": "Soundcheck · Ability sound",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Black Hole",
+      "Wall of Replica",
+      "Upheaval",
+      "Epicenter"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/enigma_black_hole.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dark_seer_wall_of_replica.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/warlock_upheaval.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sandking_epicenter.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "That was the gameplay sound for Black Hole.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/enigma/black_hole_chasm.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/enigma/black_hole_chasm.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "single",
+      "choiceScope": "recognizable",
+      "clips": [
+        {
+          "subject": "enigma_black_hole",
+          "event": "Hero_Enigma.BlackHole.Cast.Chasm",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_enigma.vsndevts",
+          "duration": 4.920068,
+          "audioSha256": "65d3dcc2cb207c4dc6c78258b5eb0798955157a2fbd7ded2fc1dceb38735264b"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_enigma.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:legion_commander_duel",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:single",
+    "category": "Abilities",
+    "difficulty": 1,
+    "eyebrow": "Soundcheck · Ability sound",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Culling Blade",
+      "Duel",
+      "Life Break",
+      "Reaper's Scythe"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/axe_culling_blade.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/legion_commander_duel.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/huskar_life_break.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/necrolyte_reapers_scythe.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "That was the gameplay sound for Duel.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/legion_commander/duel_cast.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/legion_commander/duel_cast.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "single",
+      "choiceScope": "recognizable",
+      "clips": [
+        {
+          "subject": "legion_commander_duel",
+          "event": "Hero_LegionCommander.Duel.Cast",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_legion_commander.vsndevts",
+          "duration": 4.167075,
+          "audioSha256": "f018683153635e128a03d70c4fdac185320035056ee3b600cd0904120a4f6231"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_legion_commander.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:juggernaut_omni_slash",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:single",
+    "category": "Abilities",
+    "difficulty": 1,
+    "eyebrow": "Soundcheck · Ability sound",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Sleight of Fist",
+      "Tricks of the Trade",
+      "Omnislash",
+      "Phantom Strike"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/ember_spirit_sleight_of_fist.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/riki_tricks_of_the_trade.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/juggernaut_omni_slash.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/phantom_assassin_phantom_strike.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "That was the gameplay sound for Omnislash.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/juggernaut/omnislash_attack1.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/juggernaut/omnislash_attack1.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "single",
+      "choiceScope": "recognizable",
+      "clips": [
+        {
+          "subject": "juggernaut_omni_slash",
+          "event": "Hero_Juggernaut.OmniSlash",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_juggernaut.vsndevts",
+          "duration": 3.334354,
+          "audioSha256": "8b449e6b8ebcc7e47fbddf39e247fec06408077075b2965f8bcd879df423cec2"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_juggernaut.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:witch_doctor_death_ward",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:single",
+    "category": "Abilities",
+    "difficulty": 1,
+    "eyebrow": "Soundcheck · Ability sound",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Mass Serpent Ward",
+      "Eclipse",
+      "Chaotic Offering",
+      "Death Ward"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shadow_shaman_mass_serpent_ward.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/luna_eclipse.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/warlock_rain_of_chaos.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/witch_doctor_death_ward.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "That was the gameplay sound for Death Ward.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/witch_doctor/deathward_attack.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/witch_doctor/deathward_attack.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "single",
+      "choiceScope": "recognizable",
+      "clips": [
+        {
+          "subject": "witch_doctor_death_ward",
+          "event": "Hero_WitchDoctor_Ward.Attack",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_witchdoctor.vsndevts",
+          "duration": 1.497166,
+          "audioSha256": "27070c44918c50f20be230a25f78b93a88083fe29cfd7fb40491f20681ca215c"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_witchdoctor.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:sandking_epicenter",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:single",
+    "category": "Abilities",
+    "difficulty": 1,
+    "eyebrow": "Soundcheck · Ability sound",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Epicenter",
+      "Upheaval",
+      "Freezing Field",
+      "Static Storm"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sandking_epicenter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/warlock_upheaval.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/crystal_maiden_freezing_field.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_static_storm.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "That was the gameplay sound for Epicenter.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/sand_king/sand_king_epicenter_spell.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/sand_king/sand_king_epicenter_spell.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "single",
+      "choiceScope": "recognizable",
+      "clips": [
+        {
+          "subject": "sandking_epicenter",
+          "event": "Ability.SandKing_Epicenter.spell",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_sandking.vsndevts",
+          "duration": 5.079138,
+          "audioSha256": "fd9e37bcb901b4bc9c159c7f4f70707d72f2c7d5dfce1ca490aba5e19d15019f"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_sandking.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:warlock_rain_of_chaos",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:single",
+    "category": "Abilities",
+    "difficulty": 1,
+    "eyebrow": "Soundcheck · Ability sound",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Echo Slam",
+      "Chaotic Offering",
+      "Solar Guardian",
+      "Arena Of Blood"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/earthshaker_echo_slam.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/warlock_rain_of_chaos.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dawnbreaker_solar_guardian.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mars_arena_of_blood.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "That was the gameplay sound for Chaotic Offering.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/warlock/rain_of_chaos_cast.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/warlock/rain_of_chaos_cast.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "single",
+      "choiceScope": "recognizable",
+      "clips": [
+        {
+          "subject": "warlock_rain_of_chaos",
+          "event": "Hero_Warlock.RainOfChaos",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_warlock.vsndevts",
+          "duration": 5.028368,
+          "audioSha256": "f469185a37008e37cd1792311f4e46599130d6e083f1817f20d77c10e4343a21"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_warlock.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:disruptor_glimpse",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:single",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Soundcheck · Ability sound",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Thunder Strike",
+      "Kinetic Field",
+      "Glimpse",
+      "Static Storm"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_thunder_strike.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_kinetic_field.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_glimpse.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_static_storm.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "That was the gameplay sound for Glimpse.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/disruptor/glimpse_end.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/disruptor/glimpse_end.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "single",
+      "choiceScope": "same-hero",
+      "clips": [
+        {
+          "subject": "disruptor_glimpse",
+          "event": "Hero_Disruptor.Glimpse.End",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_disruptor.vsndevts",
+          "duration": 2.345964,
+          "audioSha256": "a81f03f522c6bb85da17da2d4da097c983ced6a14049921bfc39a2ad1acba49e"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_disruptor.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:primal_beast_onslaught",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:single",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Soundcheck · Ability sound",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Trample",
+      "Uproar",
+      "Pulverize",
+      "Onslaught"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/primal_beast_trample.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/primal_beast_uproar.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/primal_beast_pulverize.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/primal_beast_onslaught.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "That was the gameplay sound for Onslaught.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/primal_beast/onslaught_cast.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/primal_beast/onslaught_cast.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "single",
+      "choiceScope": "same-hero",
+      "clips": [
+        {
+          "subject": "primal_beast_onslaught",
+          "event": "Hero_PrimalBeast.Onslaught.Cast",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_primal_beast.vsndevts",
+          "duration": 3.256508,
+          "audioSha256": "1e67acce479df203d1e47c851c31b6e577570b611f121c4917eff8e5c015e731"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_primal_beast.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:ringmaster_tame_the_beasts",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:single",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Soundcheck · Ability sound",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Tame the Beasts",
+      "Escape Act",
+      "Impalement Arts",
+      "Wheel of Wonder"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/ringmaster_tame_the_beasts.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/ringmaster_the_box.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/ringmaster_impalement.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/ringmaster_wheel.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "That was the gameplay sound for Tame the Beasts.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ringmaster/whip_cast.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ringmaster/whip_cast.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "single",
+      "choiceScope": "same-hero",
+      "clips": [
+        {
+          "subject": "ringmaster_tame_the_beasts",
+          "event": "Hero_Ringmaster.Whip.Cast",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_ringmaster.vsndevts",
+          "duration": 3.015079,
+          "audioSha256": "f97610adc351f5f4418f380cb8f110a5fa27ee12dcb39d603ed8482bd875aa9c"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_ringmaster.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:grimstroke_dark_artistry",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:single",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Soundcheck · Ability sound",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Phantom's Embrace",
+      "Stroke of Fate",
+      "Ink Swell",
+      "Soulbind"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/grimstroke_ink_creature.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/grimstroke_dark_artistry.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/grimstroke_spirit_walk.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/grimstroke_soul_chain.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "That was the gameplay sound for Stroke of Fate.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/grimstroke/dark_artistry_cast.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/grimstroke/dark_artistry_cast.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "single",
+      "choiceScope": "same-hero",
+      "clips": [
+        {
+          "subject": "grimstroke_dark_artistry",
+          "event": "Hero_Grimstroke.DarkArtistry.Cast",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_grimstroke.vsndevts",
+          "duration": 4.628572,
+          "audioSha256": "0007959d20b0a9d7c8a866f9db55776f30075dae1560141e90858931ceb0628f"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_grimstroke.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:dark_seer_vacuum",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:single",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Soundcheck · Ability sound",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Ion Shell",
+      "Surge",
+      "Vacuum",
+      "Wall of Replica"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dark_seer_ion_shell.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dark_seer_surge.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dark_seer_vacuum.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dark_seer_wall_of_replica.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "That was the gameplay sound for Vacuum.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_seer/dota_dark_seer_vacuum.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_seer/dota_dark_seer_vacuum.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "single",
+      "choiceScope": "same-hero",
+      "clips": [
+        {
+          "subject": "dark_seer_vacuum",
+          "event": "Hero_Dark_Seer.Vacuum",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_dark_seer.vsndevts",
+          "duration": 2.241905,
+          "audioSha256": "40e78a495674dee3bb3524fdbe1a99417cd9ce487ac9313cd4839d39338fdcb2"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_dark_seer.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:warlock_fatal_bonds",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:single",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Soundcheck · Ability sound",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Shadow Word",
+      "Upheaval",
+      "Chaotic Offering",
+      "Fatal Bonds"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/warlock_shadow_word.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/warlock_upheaval.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/warlock_rain_of_chaos.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/warlock_fatal_bonds.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "That was the gameplay sound for Fatal Bonds.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/warlock/fatal_bonds_cast.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/warlock/fatal_bonds_cast.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "single",
+      "choiceScope": "same-hero",
+      "clips": [
+        {
+          "subject": "warlock_fatal_bonds",
+          "event": "Hero_Warlock.FatalBonds",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_warlock.vsndevts",
+          "duration": 2.517007,
+          "audioSha256": "8a38fe713b5ffbaa81e3589a172d314a7173dde42d545613aeca84d5ffe6eae2"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_warlock.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:kez_echo_slash",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:single",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Soundcheck · Ability sound",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Echo Slash",
+      "Grappling Claw",
+      "Falcon Rush",
+      "Raptor Dance"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/kez_echo_slash.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/kez_grappling_claw.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/kez_falcon_rush.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/kez_raptor_dance.png"
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 0,
+    "explanation": "That was the gameplay sound for Echo Slash.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/kez/echo_katana_cast.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/kez/echo_katana_cast.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "single",
+      "choiceScope": "same-hero",
+      "clips": [
+        {
+          "subject": "kez_echo_slash",
+          "event": "Hero_Kez.EchoSlash.Katana.Start",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_kez.vsndevts",
+          "duration": 1.50449,
+          "audioSha256": "284555a6f0f3ddbf33575f46533779f321ef83b0a52eb2011503e42f9abb62bd"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_kez.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:shadow_demon_disruption",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:sequence",
+    "category": "Abilities",
+    "difficulty": 3,
+    "eyebrow": "Soundcheck · Ordered pair",
+    "prompt": "Match both sounds.",
+    "answers": [
+      "Disruption → Disseminate",
+      "Disruption → Demonic Purge",
+      "Shadow Poison → Demonic Purge",
+      "Demonic Purge → Disruption"
+    ],
+    "answerImagePairs": [
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shadow_demon_disruption.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shadow_demon_disseminate.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shadow_demon_disruption.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shadow_demon_demonic_purge.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shadow_demon_shadow_poison.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shadow_demon_demonic_purge.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shadow_demon_demonic_purge.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shadow_demon_disruption.png"
+      ]
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 1,
+    "explanation": "The sequence was Disruption, then Demonic Purge.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shadow_demon/disruption.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shadow_demon/disruption.wav",
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shadow_demon/demonic_purge_cast.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "sequence",
+      "choiceScope": "ordered-pair",
+      "clips": [
+        {
+          "subject": "shadow_demon_disruption",
+          "event": "Hero_ShadowDemon.Disruption",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_shadow_demon.vsndevts",
+          "duration": 3.69932,
+          "audioSha256": "66fe906f726698b714aec0f4f6238e01cbc213730107a52e7b59e6a1ceccd4e0"
+        },
+        {
+          "subject": "shadow_demon_demonic_purge",
+          "event": "Hero_ShadowDemon.DemonicPurge.Cast",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_shadow_demon.vsndevts",
+          "duration": 2.498685,
+          "audioSha256": "531b5b034d79bb0392d3be4ee918097ba4ee7705884230e7ce82ab4cde6aa9fc"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_shadow_demon.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:lich_frost_nova",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:sequence",
+    "category": "Abilities",
+    "difficulty": 3,
+    "eyebrow": "Soundcheck · Ordered pair",
+    "prompt": "Match both sounds.",
+    "answers": [
+      "Frost Blast → Frost Shield",
+      "Sinister Gaze → Chain Frost",
+      "Frost Blast → Chain Frost",
+      "Chain Frost → Frost Blast"
+    ],
+    "answerImagePairs": [
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lich_frost_nova.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lich_frost_shield.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lich_sinister_gaze.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lich_chain_frost.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lich_frost_nova.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lich_chain_frost.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lich_chain_frost.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lich_frost_nova.png"
+      ]
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 2,
+    "explanation": "The sequence was Frost Blast, then Chain Frost.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lich/frost_nova.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lich/frost_nova.wav",
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lich/chain_frost_impact_hero01.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "sequence",
+      "choiceScope": "ordered-pair",
+      "clips": [
+        {
+          "subject": "lich_frost_nova",
+          "event": "Ability.FrostNova",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_lich.vsndevts",
+          "duration": 4.005986,
+          "audioSha256": "a3c233aebc41dd334a002916b5514f84266af684b0cef0b5dd112342e1c360d5"
+        },
+        {
+          "subject": "lich_chain_frost",
+          "event": "Hero_Lich.ChainFrostImpact.Hero",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_lich.vsndevts",
+          "duration": 1.705215,
+          "audioSha256": "4a3bc4457bed938ec60cd2e6f3151d1f3992960a7517cc02022b977a23e4e0ad"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_lich.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-ability:skywrath_mage_concussive_shot",
+    "kind": "soundcheck-ability",
+    "varietyKey": "soundcheck-ability:sequence",
+    "category": "Abilities",
+    "difficulty": 3,
+    "eyebrow": "Soundcheck · Ordered pair",
+    "prompt": "Match both sounds.",
+    "answers": [
+      "Concussive Shot → Arcane Bolt",
+      "Ancient Seal → Mystic Flare",
+      "Mystic Flare → Concussive Shot",
+      "Concussive Shot → Mystic Flare"
+    ],
+    "answerImagePairs": [
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/skywrath_mage_concussive_shot.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/skywrath_mage_arcane_bolt.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/skywrath_mage_ancient_seal.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/skywrath_mage_mystic_flare.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/skywrath_mage_mystic_flare.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/skywrath_mage_concussive_shot.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/skywrath_mage_concussive_shot.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/skywrath_mage_mystic_flare.png"
+      ]
+    ],
+    "answerImageKind": "ability",
+    "correctIndex": 3,
+    "explanation": "The sequence was Concussive Shot, then Mystic Flare.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skywrath/concussive_shot_cast.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skywrath/concussive_shot_cast.wav",
+        "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skywrath/mystic_flare_cast.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "ability",
+      "format": "sequence",
+      "choiceScope": "ordered-pair",
+      "clips": [
+        {
+          "subject": "skywrath_mage_concussive_shot",
+          "event": "Hero_SkywrathMage.ConcussiveShot.Cast",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_skywrath_mage.vsndevts",
+          "duration": 2.249864,
+          "audioSha256": "b082f4710590aaa3426814df575c4f45b1e449c701d972e3c3998b4d9350995a"
+        },
+        {
+          "subject": "skywrath_mage_mystic_flare",
+          "event": "Hero_SkywrathMage.MysticFlare.Cast",
+          "eventFile": "soundevents/game_sounds_heroes/game_sounds_skywrath_mage.vsndevts",
+          "duration": 2.063469,
+          "audioSha256": "d40444703c690c9d66e9d8137bf8ba6067a12ce0ab62efba2a61878b63a7a259"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_skywrath_mage.vsndevts"
     },
     "patch": "7.41e"
   },
@@ -1815,7 +2761,8 @@
           "subject": "black_king_bar",
           "event": "DOTA_Item.BlackKingBar.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 3.884853
+          "duration": 3.884853,
+          "audioSha256": "bd67f60c7147b3fcb226f7ed850de6b6c0022b9432542293a4306c696dd29270"
         }
       ],
       "audit": {
@@ -1867,7 +2814,8 @@
           "subject": "blink",
           "event": "DOTA_Item.BlinkDagger.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 2.037143
+          "duration": 2.037143,
+          "audioSha256": "ba6f923a870b3b4aed0519fdda114ea8170bd1f5865d8b84ea73df8bff0b59cf"
         }
       ],
       "audit": {
@@ -1919,7 +2867,8 @@
           "subject": "manta",
           "event": "DOTA_Item.Manta.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 2.457143
+          "duration": 2.457143,
+          "audioSha256": "bbbb26d1e452908606ea148d2458cd3d92e5725039e3f66f40d4a720b2cf3cb6"
         }
       ],
       "audit": {
@@ -1971,7 +2920,8 @@
           "subject": "refresher",
           "event": "DOTA_Item.Refresher.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 2.902154
+          "duration": 2.902154,
+          "audioSha256": "94631d2ebf6be351fa4f290d518f258c6f3570e205242021ea2c9b9bdeea1fde"
         }
       ],
       "audit": {
@@ -2023,7 +2973,8 @@
           "subject": "hand_of_midas",
           "event": "DOTA_Item.Hand_Of_Midas",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 1.999887
+          "duration": 1.999887,
+          "audioSha256": "50d8d1b4aafe4c4882e6a96a154f35f0a8de433fe2578c07b2f0ab51797e7434"
         }
       ],
       "audit": {
@@ -2075,7 +3026,8 @@
           "subject": "force_staff",
           "event": "DOTA_Item.ForceStaff.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 1.102494
+          "duration": 1.102494,
+          "audioSha256": "970de1b2c55aa6ac793dd151bd2381cbcdfee15e95a9dd6e67a1ac3c3eede5ea"
         }
       ],
       "audit": {
@@ -2127,7 +3079,8 @@
           "subject": "dagon",
           "event": "DOTA_Item.Dagon.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 1.344512
+          "duration": 1.344512,
+          "audioSha256": "7e14d9efcaf8ec1511c36984bc100fe3a3929a723d3ca24b88785298c242e72a"
         }
       ],
       "audit": {
@@ -2179,7 +3132,8 @@
           "subject": "shivas_guard",
           "event": "DOTA_Item.ShivasGuard.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 3.735918
+          "duration": 3.735918,
+          "audioSha256": "a9670b89cd879bf4409528ff35ad11a008d2dc386a933f9feb217b5d1bec10c9"
         }
       ],
       "audit": {
@@ -2231,7 +3185,8 @@
           "subject": "blade_mail",
           "event": "DOTA_Item.BladeMail.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 0.844898
+          "duration": 0.844898,
+          "audioSha256": "5b5149681e57e9dcc424c53d6d300324a752f38af35eb8bbcf35bfe66f4dada9"
         }
       ],
       "audit": {
@@ -2283,7 +3238,8 @@
           "subject": "satanic",
           "event": "DOTA_Item.Satanic.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 3.308005
+          "duration": 3.308005,
+          "audioSha256": "37c0f0fc3d9b39455c6a86032fa259770f387c63569df507ce844ac943ca0fe8"
         }
       ],
       "audit": {
@@ -2335,7 +3291,8 @@
           "subject": "lotus_orb",
           "event": "Item.LotusOrb.Target",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 3.286576
+          "duration": 3.286576,
+          "audioSha256": "84123cfc3f7e67076d4e18b176e5e0abbd16668d3fcb90d13ed143f30777b22d"
         }
       ],
       "audit": {
@@ -2387,7 +3344,8 @@
           "subject": "glimmer_cape",
           "event": "Item.GlimmerCape.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 3.802131
+          "duration": 3.802131,
+          "audioSha256": "dade1577b9d0a702eb1b1a24394ca54e26f1a3149b5c4486961f00f7b83ab80a"
         }
       ],
       "audit": {
@@ -2439,7 +3397,8 @@
           "subject": "mekansm",
           "event": "DOTA_Item.Mekansm.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 4.472381
+          "duration": 4.472381,
+          "audioSha256": "7618bfd9d00d1db8bcf9010a1b5128780d6aaef4faa41b052e8608c6b2c8c534"
         }
       ],
       "audit": {
@@ -2491,7 +3450,8 @@
           "subject": "pipe",
           "event": "DOTA_Item.Pipe.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 2.737143
+          "duration": 2.737143,
+          "audioSha256": "70df1cb2aa1b6d684c4945c9526bbdb41bd8b27f4a6e8d36a3ef7749fce5200d"
         }
       ],
       "audit": {
@@ -2543,7 +3503,8 @@
           "subject": "orchid",
           "event": "DOTA_Item.Orchid.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 1.996463
+          "duration": 1.996463,
+          "audioSha256": "75ad97baaa8ae345c7c82c244d5336d4558eb05aeaa1975d1e1c0af795cbebf1"
         }
       ],
       "audit": {
@@ -2595,7 +3556,8 @@
           "subject": "cyclone",
           "event": "DOTA_Item.Cyclone.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 3.328299
+          "duration": 3.328299,
+          "audioSha256": "bf53db30def256d0c723c9867564b550ff12db5573a2365d454249009bcd2d66"
         }
       ],
       "audit": {
@@ -2647,7 +3609,8 @@
           "subject": "bloodthorn",
           "event": "DOTA_Item.Bloodthorn.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 2.996463
+          "duration": 2.996463,
+          "audioSha256": "d1909b97cab3e31664ab727d52909578a0748200c1ae617f8e6ab7bb049a2441"
         }
       ],
       "audit": {
@@ -2699,7 +3662,8 @@
           "subject": "nullifier",
           "event": "DOTA_Item.Nullifier.Cast",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 1.602721
+          "duration": 1.602721,
+          "audioSha256": "b5032ff355bd3c3626633ae9ce57c15c2ff795d7137381153840ff436385ed3f"
         }
       ],
       "audit": {
@@ -2751,7 +3715,8 @@
           "subject": "diffusal_blade",
           "event": "DOTA_Item.DiffusalBlade.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 2.843515
+          "duration": 2.843515,
+          "audioSha256": "cc58211af42281214b597d12e929706910fb02f1ba5f0f75a0a5f62565dc6045"
         }
       ],
       "audit": {
@@ -2803,7 +3768,8 @@
           "subject": "soul_ring",
           "event": "DOTA_Item.SoulRing.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 3.582517
+          "duration": 3.582517,
+          "audioSha256": "667ded62a22774cf940a2a59507b95dd22c08bb879859094d5288f68b3df6919"
         }
       ],
       "audit": {
@@ -2855,7 +3821,8 @@
           "subject": "arcane_boots",
           "event": "DOTA_Item.ArcaneBoots.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 1.836508
+          "duration": 1.836508,
+          "audioSha256": "e4d37a558f351c79c50a5ecb3ba0d2ec3f1a06aa6673b8f7e0f396ab0cd3c4f8"
         }
       ],
       "audit": {
@@ -2907,7 +3874,8 @@
           "subject": "sphere",
           "event": "DOTA_Item.LinkensSphere.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 2.746939
+          "duration": 2.746939,
+          "audioSha256": "a10f8c031d724351dd78a2d4c5463203fc9a561e7c9c07067a7d2d0cf9da63f1"
         }
       ],
       "audit": {
@@ -2959,7 +3927,8 @@
           "subject": "veil_of_discord",
           "event": "DOTA_Item.VeilofDiscord.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 2.008163
+          "duration": 2.008163,
+          "audioSha256": "0da6555cfb2035386be15bd17ea490250063fac0cbd3bcfcdcdb8ed5895825d9"
         }
       ],
       "audit": {
@@ -3011,7 +3980,8 @@
           "subject": "abyssal_blade",
           "event": "DOTA_Item.AbyssalBlade.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 1.174059
+          "duration": 1.174059,
+          "audioSha256": "efee2abdb83a2a338d8345c24a351808619494dcc08e29db03a4ef766fd2184a"
         }
       ],
       "audit": {
@@ -3063,7 +4033,8 @@
           "subject": "heavens_halberd",
           "event": "DOTA_Item.HeavensHalberd.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 2.646394
+          "duration": 2.646394,
+          "audioSha256": "c618b83c95cf56cbe71e2b270420732585be16af8f101a780377fb6aec81c4a4"
         }
       ],
       "audit": {
@@ -3115,7 +4086,8 @@
           "subject": "rod_of_atos",
           "event": "DOTA_Item.RodOfAtos.Cast",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 2.973288
+          "duration": 2.973288,
+          "audioSha256": "a6342944c2aa3580f8a36f7b2c231073b20536e398feaa97ab650f5671118ecf"
         }
       ],
       "audit": {
@@ -3180,13 +4152,15 @@
           "subject": "bloodstone",
           "event": "DOTA_Item.Bloodstone.Cast",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 2.220113
+          "duration": 2.220113,
+          "audioSha256": "bccdc5ee27d2f3314599109091197b4eabb97a1ee74594578e1156c099150a23"
         },
         {
           "subject": "black_king_bar",
           "event": "DOTA_Item.BlackKingBar.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 3.884853
+          "duration": 3.884853,
+          "audioSha256": "bd67f60c7147b3fcb226f7ed850de6b6c0022b9432542293a4306c696dd29270"
         }
       ],
       "audit": {
@@ -3251,13 +4225,15 @@
           "subject": "gungir",
           "event": "Item.Gleipnir.Cast",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 2.502604
+          "duration": 2.502604,
+          "audioSha256": "9aa12166e12dce0f26c6cd2b79600991d285b69ba13db02ea58b4667d4d183f3"
         },
         {
           "subject": "orchid",
           "event": "DOTA_Item.Orchid.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 1.996463
+          "duration": 1.996463,
+          "audioSha256": "75ad97baaa8ae345c7c82c244d5336d4558eb05aeaa1975d1e1c0af795cbebf1"
         }
       ],
       "audit": {
@@ -3322,13 +4298,15 @@
           "subject": "mask_of_madness",
           "event": "DOTA_Item.MaskOfMadness.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 4.782381
+          "duration": 4.782381,
+          "audioSha256": "c97570e7ac86df270be5f748f854055d4476ae27c5f590df4ddb8740c9f7adb2"
         },
         {
           "subject": "armlet",
           "event": "DOTA_Item.Armlet.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 1.277959
+          "duration": 1.277959,
+          "audioSha256": "eb25f5c3af944d8f3341bdceb2c87d8d7ab5578ca0740895212bca58dfcfed80"
         }
       ],
       "audit": {
@@ -3393,13 +4371,15 @@
           "subject": "harpoon",
           "event": "Item.Harpoon.Cast",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 1.312
+          "duration": 1.312,
+          "audioSha256": "c9983da26e7a9de7e44829c5f703213ec1a7aac0291866ddce36bc396c50bc78"
         },
         {
           "subject": "force_staff",
           "event": "DOTA_Item.ForceStaff.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 1.102494
+          "duration": 1.102494,
+          "audioSha256": "970de1b2c55aa6ac793dd151bd2381cbcdfee15e95a9dd6e67a1ac3c3eede5ea"
         }
       ],
       "audit": {
@@ -3464,13 +4444,15 @@
           "subject": "ethereal_blade",
           "event": "DOTA_Item.EtherealBlade.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 2.635828
+          "duration": 2.635828,
+          "audioSha256": "5882ab786d5d4f25dd09b0e154cca96a74ca7e5373b15f186cc2765902210ce7"
         },
         {
           "subject": "nullifier",
           "event": "DOTA_Item.Nullifier.Cast",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 1.602721
+          "duration": 1.602721,
+          "audioSha256": "b5032ff355bd3c3626633ae9ce57c15c2ff795d7137381153840ff436385ed3f"
         }
       ],
       "audit": {
@@ -3535,13 +4517,923 @@
           "subject": "sheepstick",
           "event": "DOTA_Item.Sheepstick.Activate",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 1.333265
+          "duration": 1.333265,
+          "audioSha256": "003d3e539c5bc2c210e90daa04319b31831785dc30a1e720e62751474803d6e5"
         },
         {
           "subject": "rod_of_atos",
           "event": "DOTA_Item.RodOfAtos.Cast",
           "eventFile": "soundevents/game_sounds_items.vsndevts",
-          "duration": 2.973288
+          "duration": 2.973288,
+          "audioSha256": "a6342944c2aa3580f8a36f7b2c231073b20536e398feaa97ab650f5671118ecf"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:smoke_of_deceit",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:single",
+    "category": "Items",
+    "difficulty": 1,
+    "eyebrow": "Soundcheck · Item activation",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Smoke of Deceit",
+      "Dust of Appearance",
+      "Glimmer Cape",
+      "Shadow Blade"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/smoke_of_deceit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/dust.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/glimmer_cape.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/invis_sword.png"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 0,
+    "explanation": "That was the activation sound for Smoke of Deceit.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/smoke_of_deceit.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/smoke_of_deceit.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "single",
+      "choiceScope": "recognizable",
+      "clips": [
+        {
+          "subject": "smoke_of_deceit",
+          "event": "DOTA_Item.SmokeOfDeceit.Activate",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 2.933311,
+          "audioSha256": "3f3e8a3ca7593a4ffc37b1ddd328e3d3e3b47ac49ab5e8a28e7613ebd09691b0"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:dust",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:single",
+    "category": "Items",
+    "difficulty": 1,
+    "eyebrow": "Soundcheck · Item activation",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Smoke of Deceit",
+      "Dust of Appearance",
+      "Sentry Ward",
+      "Gem of True Sight"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/smoke_of_deceit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/dust.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ward_sentry.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gem.png"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 1,
+    "explanation": "That was the activation sound for Dust of Appearance.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/dust_of_appearance.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/dust_of_appearance.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "single",
+      "choiceScope": "recognizable",
+      "clips": [
+        {
+          "subject": "dust",
+          "event": "DOTA_Item.DustOfAppearance.Activate",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 5.489433,
+          "audioSha256": "8da59f3334b847be13af186d6c68af9dff79b25a58790e6b9ccec369b6821378"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:phase_boots",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:single",
+    "category": "Items",
+    "difficulty": 1,
+    "eyebrow": "Soundcheck · Item activation",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Arcane Boots",
+      "Tranquil Boots",
+      "Phase Boots",
+      "Power Treads"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/arcane_boots.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tranquil_boots.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/phase_boots.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/power_treads.png"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 2,
+    "explanation": "That was the activation sound for Phase Boots.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/phase_boots_activate.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/phase_boots_activate.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "single",
+      "choiceScope": "recognizable",
+      "clips": [
+        {
+          "subject": "phase_boots",
+          "event": "DOTA_Item.PhaseBoots.Activate",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 0.990522,
+          "audioSha256": "bb3ccbc1fb0411231b9490cb5409781798e29b22646b125af88c5c98e1cf2522"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:guardian_greaves",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:single",
+    "category": "Items",
+    "difficulty": 1,
+    "eyebrow": "Soundcheck · Item activation",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Mekansm",
+      "Arcane Boots",
+      "Crimson Guard",
+      "Guardian Greaves"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mekansm.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/arcane_boots.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/crimson_guard.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/guardian_greaves.png"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 3,
+    "explanation": "That was the activation sound for Guardian Greaves.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/guardian_greaves.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/guardian_greaves.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "single",
+      "choiceScope": "recognizable",
+      "clips": [
+        {
+          "subject": "guardian_greaves",
+          "event": "Item.GuardianGreaves.Activate",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 4.484603,
+          "audioSha256": "758f46bd979f7c5ce53d601ef8e4ddbbfe151a9fdc7b27ecc0520cabef4121ba"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:silver_edge",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:single",
+    "category": "Items",
+    "difficulty": 1,
+    "eyebrow": "Soundcheck · Item activation",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Silver Edge",
+      "Shadow Blade",
+      "Nullifier",
+      "Blade Mail"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/silver_edge.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/invis_sword.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blade_mail.png"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 0,
+    "explanation": "That was the activation sound for Silver Edge.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/silver_edge_target.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/silver_edge_target.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "single",
+      "choiceScope": "recognizable",
+      "clips": [
+        {
+          "subject": "silver_edge",
+          "event": "DOTA_Item.SilverEdge.Target",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 3.666939,
+          "audioSha256": "e4fae1cefe51dbd139d8b7b6ed90d36ba5367d6ac361764a6322fb7f4ca7e761"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:ghost",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:single",
+    "category": "Items",
+    "difficulty": 1,
+    "eyebrow": "Soundcheck · Item activation",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Ethereal Blade",
+      "Ghost Scepter",
+      "Glimmer Cape",
+      "Black King Bar"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ethereal_blade.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ghost.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/glimmer_cape.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 1,
+    "explanation": "That was the activation sound for Ghost Scepter.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/item_ghost_sceptre.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/item_ghost_sceptre.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "single",
+      "choiceScope": "recognizable",
+      "clips": [
+        {
+          "subject": "ghost",
+          "event": "DOTA_Item.GhostScepter.Activate",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 3.318685,
+          "audioSha256": "57bfdddbea6203b8ba68b7a78da12b2041351a19b87874f804d4ac4c20c79f2b"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:spirit_vessel",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:single",
+    "category": "Items",
+    "difficulty": 2,
+    "eyebrow": "Soundcheck · Item activation",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Urn of Shadows",
+      "Solar Crest",
+      "Spirit Vessel",
+      "Nullifier"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/urn_of_shadows.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/solar_crest.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/spirit_vessel.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 2,
+    "explanation": "That was the activation sound for Spirit Vessel.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/spirit_vessel_cast.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/spirit_vessel_cast.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "single",
+      "choiceScope": "active-items",
+      "clips": [
+        {
+          "subject": "spirit_vessel",
+          "event": "DOTA_Item.SpiritVessel.Cast",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 3.126531,
+          "audioSha256": "b07045a3bc4bbaef0d13d79121b1a870a0746bcda2d9e1626f54bdb0977b8ec0"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:urn_of_shadows",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:single",
+    "category": "Items",
+    "difficulty": 2,
+    "eyebrow": "Soundcheck · Item activation",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Spirit Vessel",
+      "Glimmer Cape",
+      "Eul's Scepter of Divinity",
+      "Urn of Shadows"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/spirit_vessel.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/glimmer_cape.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cyclone.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/urn_of_shadows.png"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 3,
+    "explanation": "That was the activation sound for Urn of Shadows.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/urn_of_shadows.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/urn_of_shadows.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "single",
+      "choiceScope": "active-items",
+      "clips": [
+        {
+          "subject": "urn_of_shadows",
+          "event": "DOTA_Item.UrnOfShadows.Activate",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 2.001429,
+          "audioSha256": "4235af43eef6c181a23582a26e5c0ed53756e50f834a1270bdfec3997cdc2141"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:mjollnir",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:single",
+    "category": "Items",
+    "difficulty": 2,
+    "eyebrow": "Soundcheck · Item activation",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Mjollnir",
+      "Solar Crest",
+      "Lotus Orb",
+      "Pavise"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mjollnir.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/solar_crest.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pavise.png"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 0,
+    "explanation": "That was the activation sound for Mjollnir.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/item_mjoll_on.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/item_mjoll_on.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "single",
+      "choiceScope": "active-items",
+      "clips": [
+        {
+          "subject": "mjollnir",
+          "event": "DOTA_Item.Mjollnir.Activate",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 4.443583,
+          "audioSha256": "11fc34bcbf9a38e8c062fc98c0b7336092b262db6092f5f329f1f13c92781b02"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:moon_shard",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:single",
+    "category": "Items",
+    "difficulty": 2,
+    "eyebrow": "Soundcheck · Item activation",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Cheese",
+      "Moon Shard",
+      "Hand of Midas",
+      "Refresher Orb"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cheese.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/moon_shard.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hand_of_midas.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/refresher.png"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 1,
+    "explanation": "That was the activation sound for Moon Shard.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/moon_shard.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/moon_shard.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "single",
+      "choiceScope": "active-items",
+      "clips": [
+        {
+          "subject": "moon_shard",
+          "event": "Item.MoonShard.Consume",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 2.546962,
+          "audioSha256": "aec951925c2011243aec57f7c22051885a1b05693ecde86e0e9e0d2a6a76e0be"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:meteor_hammer",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:single",
+    "category": "Items",
+    "difficulty": 2,
+    "eyebrow": "Soundcheck · Item activation",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Rod of Atos",
+      "Gleipnir",
+      "Meteor Hammer",
+      "Ethereal Blade"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/rod_of_atos.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gungir.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/meteor_hammer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ethereal_blade.png"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 2,
+    "explanation": "That was the activation sound for Meteor Hammer.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/meteor_fall.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/meteor_fall.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "single",
+      "choiceScope": "active-items",
+      "clips": [
+        {
+          "subject": "meteor_hammer",
+          "event": "DOTA_Item.MeteorHammer.Cast",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 2.005646,
+          "audioSha256": "0584f963ba8264f697b0ea9e39aaafa4d34c6c2a55ddfc806ccb53c4652ba31c"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:pavise",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:single",
+    "category": "Items",
+    "difficulty": 2,
+    "eyebrow": "Soundcheck · Item activation",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Solar Crest",
+      "Glimmer Cape",
+      "Lotus Orb",
+      "Pavise"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/solar_crest.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/glimmer_cape.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pavise.png"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 3,
+    "explanation": "That was the activation sound for Pavise.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/pavise_target.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/pavise_target.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "single",
+      "choiceScope": "active-items",
+      "clips": [
+        {
+          "subject": "pavise",
+          "event": "Item.Pavise.Target",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 6.01675,
+          "audioSha256": "fc88538e9b7819133f52e5dea8ffbcbfede44d7fb16b326a4ab1f6fe509c7d1c"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:solar_crest",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:single",
+    "category": "Items",
+    "difficulty": 2,
+    "eyebrow": "Soundcheck · Item activation",
+    "prompt": "Match the sound.",
+    "answers": [
+      "Solar Crest",
+      "Pavise",
+      "Spirit Vessel",
+      "Guardian Greaves"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/solar_crest.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pavise.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/spirit_vessel.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/guardian_greaves.png"
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 0,
+    "explanation": "That was the activation sound for Solar Crest.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/star_emblem_ally.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/star_emblem_ally.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "single",
+      "choiceScope": "active-items",
+      "clips": [
+        {
+          "subject": "solar_crest",
+          "event": "Item.StarEmblem.Friendly",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 3.126803,
+          "audioSha256": "9214b4b0bb97b387c2b8988af3725c5ec4d9fd50e7b0ff660b00e0408d1e9faf"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:tango",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:sequence",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Soundcheck · Ordered pair",
+    "prompt": "Match both sounds.",
+    "answers": [
+      "Tango → Clarity",
+      "Tango → Healing Salve",
+      "Smoke of Deceit → Healing Salve",
+      "Healing Salve → Tango"
+    ],
+    "answerImagePairs": [
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tango.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/clarity.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tango.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/flask.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/smoke_of_deceit.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/flask.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/flask.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tango.png"
+      ]
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 1,
+    "explanation": "The sequence was Tango, then Healing Salve.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/tango.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/tango.wav",
+        "https://dotabase.dillerm.io/vpk/sounds/items/healing_salve.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "sequence",
+      "choiceScope": "ordered-pair",
+      "clips": [
+        {
+          "subject": "tango",
+          "event": "DOTA_Item.Tango.Activate",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 2.707506,
+          "audioSha256": "e33296ac8dc4650239137fa71d0d4861ad002b7cc2ce0e585c5c28cebe7ed2ee"
+        },
+        {
+          "subject": "flask",
+          "event": "DOTA_Item.HealingSalve.Activate",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 2.762336,
+          "audioSha256": "bdee80301df634e008f168af925d4fc70ab50088d328bd5697b845790edba24c"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:hurricane_pike",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:sequence",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Soundcheck · Ordered pair",
+    "prompt": "Match both sounds.",
+    "answers": [
+      "Hurricane Pike → Pavise",
+      "Lotus Orb → Solar Crest",
+      "Hurricane Pike → Solar Crest",
+      "Solar Crest → Hurricane Pike"
+    ],
+    "answerImagePairs": [
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hurricane_pike.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pavise.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/solar_crest.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hurricane_pike.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/solar_crest.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/solar_crest.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hurricane_pike.png"
+      ]
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 2,
+    "explanation": "The sequence was Hurricane Pike, then Solar Crest.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/hurricane_pike.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/hurricane_pike.wav",
+        "https://dotabase.dillerm.io/vpk/sounds/items/star_emblem_ally.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "sequence",
+      "choiceScope": "ordered-pair",
+      "clips": [
+        {
+          "subject": "hurricane_pike",
+          "event": "DOTA_Item.HurricanePike.Activate",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 2.102494,
+          "audioSha256": "a3790f12f9a2c209f97ba9415ce08e61c69c34d8c653f7226405fe0b6c98a0a8"
+        },
+        {
+          "subject": "solar_crest",
+          "event": "Item.StarEmblem.Friendly",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 3.126803,
+          "audioSha256": "9214b4b0bb97b387c2b8988af3725c5ec4d9fd50e7b0ff660b00e0408d1e9faf"
+        }
+      ],
+      "audit": {
+        "reviewedAt": "2026-08-09",
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 client sound event · 7.41e build 6882",
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "soundcheck-item:disperser",
+    "kind": "soundcheck-item",
+    "varietyKey": "soundcheck-item:sequence",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Soundcheck · Ordered pair",
+    "prompt": "Match both sounds.",
+    "answers": [
+      "Disperser → Glimmer Cape",
+      "Spirit Vessel → Nullifier",
+      "Nullifier → Disperser",
+      "Disperser → Nullifier"
+    ],
+    "answerImagePairs": [
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/disperser.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/glimmer_cape.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/spirit_vessel.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/disperser.png"
+      ],
+      [
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/disperser.png",
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png"
+      ]
+    ],
+    "answerImageKind": "item",
+    "correctIndex": 3,
+    "explanation": "The sequence was Disperser, then Nullifier.",
+    "audio": {
+      "src": "https://dotabase.dillerm.io/vpk/sounds/items/disperser_target_ally.wav",
+      "clips": [
+        "https://dotabase.dillerm.io/vpk/sounds/items/disperser_target_ally.wav",
+        "https://dotabase.dillerm.io/vpk/sounds/items/nullifier_cast.wav"
+      ]
+    },
+    "soundcheck": {
+      "family": "item",
+      "format": "sequence",
+      "choiceScope": "ordered-pair",
+      "clips": [
+        {
+          "subject": "disperser",
+          "event": "Item.Disperser.Target.Ally",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 4.012653,
+          "audioSha256": "1651b820b966c3e6150d7906d3b309d383c1be064e755d9e1c1e10501fb76943"
+        },
+        {
+          "subject": "nullifier",
+          "event": "DOTA_Item.Nullifier.Cast",
+          "eventFile": "soundevents/game_sounds_items.vsndevts",
+          "duration": 1.602721,
+          "audioSha256": "b5032ff355bd3c3626633ae9ce57c15c2ff795d7137381153840ff436385ed3f"
         }
       ],
       "audit": {

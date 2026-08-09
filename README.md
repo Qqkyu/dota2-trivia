@@ -17,9 +17,9 @@ The playable MVP includes:
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - canonical `/` lobby and `/play` session URLs with direct loading plus browser Back and Forward support;
 - one shared public room of 15-second rounds, without mode, category, or player-facing difficulty queues;
-- 1,130 live prompts for Dota patch 7.41e, including all 127 enabled heroes in Fogged Vision, 102 Shopkeeper rounds, and 64 Soundcheck rounds;
+- 1,162 live prompts for Dota patch 7.41e, including all 127 enabled heroes in Fogged Vision, 102 Shopkeeper rounds, and 96 Soundcheck rounds;
 - item, hero, and ability artwork for visual answer rounds;
-- 123 remotely verified Echo Hunt clips, 64 Soundcheck rounds built from 76 audited clips, and 245 Quote Hunt lines sourced through Dotabase;
+- 123 remotely verified Echo Hunt clips, 96 Soundcheck rounds built from 114 audited clips, and 245 Quote Hunt lines sourced through Dotabase;
 - live-client answer audits plus balanced A–D placement for every generated question family;
 - progressive Spell Link clues at two-thirds and one-third time remaining;
 - a deterministic ten-format cadence that gives Classic three slots, Shopkeeper two, every distinctive sensory format one, and never repeats a family back-to-back;
