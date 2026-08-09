@@ -308,9 +308,13 @@ for (const [duration, expectedCuts] of expectedEchoCuts) {
 if (
   arcadeComponent.includes('data-testid="voice-line-play"') ||
   arcadeComponent.includes("playRoundAudio(true") ||
-  !arcadeComponent.includes('data-testid={isSoundcheckRound ? "soundcheck-autoplay" : "echo-autoplay"}')
+  !arcadeComponent.includes('data-testid={isSoundcheckRound ? "soundcheck-autoplay" : "echo-autoplay"}') ||
+  !arcadeComponent.includes('currentQuestion.prompt : "Whose voice is this?"') ||
+  arcadeComponent.includes("Whose voice crossed the river?")
 ) {
-  failures.push("Echo Hunt must autoplay exactly one cut per reveal stage without a replay control.");
+  failures.push(
+    "Echo Hunt must use direct copy and autoplay exactly one cut per reveal stage without a replay control.",
+  );
 }
 
 for (const redundantInstruction of [

@@ -19,11 +19,12 @@ import { varietyShuffle } from "../src/lib/variety.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const readQuestions = async (file) => JSON.parse(await readFile(join(root, "src", "data", file), "utf8"));
-const [generated, shopkeeper, soundcheck, component] = await Promise.all([
+const [generated, shopkeeper, soundcheck, component, componentStyles] = await Promise.all([
   readQuestions("questions.generated.json"),
   readQuestions("shopkeeper-questions.json"),
   readQuestions("soundcheck-questions.json"),
   readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8"),
+  readFile(join(root, "src", "components", "queue-arcade.module.css"), "utf8"),
 ]);
 
 const generatedLive = generated.filter(
@@ -70,6 +71,12 @@ for (const [mode, repeatedLabel] of [
 }
 if (!component.includes("<span>Ability identity</span>") || !component.includes("<span>Hero quote</span>")) {
   failures.push("Spell Link or Quote Hunt lost its non-repeating round subtype label.");
+}
+if (
+  !/\.cardTitle svg\s*{[^}]*width:\s*12px;[^}]*height:\s*12px;[^}]*display:\s*block;/s.test(componentStyles) ||
+  !/\.progressActions > button svg\s*{[^}]*width:\s*11px;[^}]*height:\s*11px;/s.test(componentStyles)
+) {
+  failures.push("The recent-round trophy no longer has a square, block-level alignment contract.");
 }
 
 const pools = new Map(

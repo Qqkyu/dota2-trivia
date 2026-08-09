@@ -17,9 +17,9 @@ The playable MVP includes:
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - canonical `/` lobby and `/play` session URLs with direct loading plus browser Back and Forward support;
 - one shared public room of 15-second rounds, without mode, category, or player-facing difficulty queues;
-- 716 live prompts for Dota patch 7.41d, including all 127 enabled heroes in Fogged Vision, 48 Shopkeeper rounds, and 48 Soundcheck rounds;
+- 1,130 live prompts for Dota patch 7.41e, including all 127 enabled heroes in Fogged Vision, 102 Shopkeeper rounds, and 64 Soundcheck rounds;
 - item, hero, and ability artwork for visual answer rounds;
-- 44 remotely verified Echo Hunt clips, 48 Soundcheck rounds built from 60 audited clips, and 43 Quote Hunt lines sourced through Dotabase;
+- 123 remotely verified Echo Hunt clips, 64 Soundcheck rounds built from 76 audited clips, and 245 Quote Hunt lines sourced through Dotabase;
 - live-client answer audits plus balanced A–D placement for every generated question family;
 - progressive Spell Link clues at two-thirds and one-third time remaining;
 - a deterministic ten-format cadence that gives Classic three slots, Shopkeeper two, every distinctive sensory format one, and never repeats a family back-to-back;
@@ -152,7 +152,7 @@ hashed visit summaries and cascading profile deletion.
 Names and artwork mappings are generated from OpenDota, while playable facts are checked against a current Dota client:
 
 ```bash
-DOTA_PATCH=7.41d DOTA_SNAPSHOT_DATE=2026-07-29 pnpm sync-data
+DOTA_PATCH=7.41e DOTA_SNAPSHOT_DATE=2026-08-09 pnpm sync-data
 pnpm sync-soundcheck
 pnpm sync-shopkeeper -- --items-cache=/path/to/opendota-items.json --client-root=/path/to/decompiled-client
 pnpm validate-data
@@ -168,9 +168,9 @@ The sync writes:
 
 The sync uses OpenDota for localized metadata and artwork, and Dotabase for hero-response metadata and playable audio
 paths. Because third-party constants can lag behind a patch, every generated ownership, mana, cooldown, damage, hero
-stat, item-price, and recipe answer was independently compared with the installed 7.41d client build 6872. The
+stat, item-price, and recipe answer was independently compared with the installed 7.41e client build 6882. The
 differences are explicit in `scripts/client-constant-audit.mjs`; generation refuses unaudited patch numbers instead of
-silently trusting stale values. `scripts/audit-live-client.mjs` reruns 775 marked-answer checks against decompiled client
+silently trusting stale values. `scripts/audit-live-client.mjs` reruns 1,038 marked-answer checks against decompiled client
 constants:
 
 ```bash
@@ -178,8 +178,8 @@ DOTA_CLIENT_AUDIT_ROOT=/path/to/decompiled-client pnpm audit:client
 ```
 
 Shopkeeper generation reads names and artwork from the matching OpenDota item snapshot, but derives every recipe from
-the audited client `items.txt`. Its 48-round deck is split evenly between Build Result, Real Recipe, Shared Part, and
-Upgrade Path. Real Recipe uses the full Dota shop as a three-slot, duplicate-safe recipe builder while keeping the marked
+the audited client `items.txt`. Its 102-round deck covers Build Result, Real Recipe, Shared Part, and Upgrade Path.
+Real Recipe uses the full Dota shop as a three-slot, duplicate-safe recipe builder while keeping the marked
 components server-side until reveal; Upgrade Path also uses the full shop and keeps its direct upgrade hidden until
 reveal; and Shared Part accepts exactly one direct intersection. The old single-component and random reverse-recipe
 templates remain excluded by the playable quality gates.

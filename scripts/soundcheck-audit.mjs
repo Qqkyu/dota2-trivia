@@ -1,13 +1,13 @@
 // Soundcheck is deliberately curated instead of guessing from filenames.
 // Every clip below was traced from a named sound event to its exact VSND file
-// in the installed Dota 2 7.41d client (build 6872, VersionDate Jul 28 2026).
+// in the installed Dota 2 7.41e client (build 6882, VersionDate Jul 31 2026).
 // Dotabase mirrors those Valve resources as browser-ready WAV files.
 
 export const SOUNDCHECK_AUDIT = Object.freeze({
-  patch: "7.41d",
-  reviewedAt: "2026-07-29",
-  clientBuild: "6872",
-  clientVersionDate: "2026-07-28",
+  patch: "7.41e",
+  reviewedAt: "2026-08-09",
+  clientBuild: "6882",
+  clientVersionDate: "2026-07-31",
 });
 
 export const SOUNDCHECK_ASSET_ROOT = "https://dotabase.dillerm.io/vpk";

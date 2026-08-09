@@ -1,6 +1,6 @@
 {
-  "patch": "7.41d",
-  "clientBuild": "6872",
+  "patch": "7.41e",
+  "clientBuild": "6882",
   "source": "Dota 2 client scripts/shops.txt",
   "groups": [
     {
@@ -369,7 +369,7 @@
           "key": "chasm_stone",
           "name": "Chasm Stone",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chasm_stone.png?t=1593393829403",
-          "cost": 800
+          "cost": 900
         },
         {
           "key": "blink",

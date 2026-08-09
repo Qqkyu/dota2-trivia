@@ -3773,7 +3773,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                           : "Ability sound"
                       : "Hero response"}
                   </span>
-                  <h2>{isSoundcheckRound ? currentQuestion.prompt : "Whose voice crossed the river?"}</h2>
+                  <h2>{isSoundcheckRound ? currentQuestion.prompt : "Whose voice is this?"}</h2>
                   {isProgressiveAudioRound && (
                     <div
                       className={styles.soundRevealMeter}

@@ -5034,6 +5034,8 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
 .cardTitle svg {
   width: 12px;
+  height: 12px;
+  display: block;
 }
 
 .cardTitle > strong {
@@ -5083,6 +5085,7 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
 .progressActions > button svg {
   width: 11px;
+  height: 11px;
 }
 
 .roundPips {

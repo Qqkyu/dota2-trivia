@@ -31,7 +31,7 @@ if (
   catalog.source !== "scripts/npc/npc_heroes.txt" ||
   catalog.columns !== 11
 ) {
-  failures.push("The hero picker is no longer stamped with the audited 7.41d client layout.");
+  failures.push(`The hero picker is no longer stamped with the audited ${CLIENT_CONSTANT_AUDIT.patch} client layout.`);
 }
 
 if (
