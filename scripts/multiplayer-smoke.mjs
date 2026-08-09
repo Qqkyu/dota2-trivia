@@ -8,6 +8,7 @@ import { PROGRESSIVE_ROUND_GAMES } from "../src/lib/player-profile.mjs";
 import { questionCalibrationRevision } from "../src/lib/question-revision.mjs";
 import { reviewerSteamIds } from "../src/lib/question-review.mjs";
 import { ACCOUNT_SESSION_COOKIE, sessionTokenHash } from "../src/lib/steam-auth.mjs";
+import { valueOrderAnswerKey, valueOrderCorrectAnswerKey } from "../src/lib/value-order.mjs";
 
 const appUrl = process.env.APP_URL ?? process.env.ARCADE_APP_URL ?? "http://localhost:3000";
 const appOrigin = new URL(appUrl).origin;
@@ -24,17 +25,29 @@ const settings = {
   mode: "mixed",
   filter: "Mixed",
 };
-const [generatedQuestions, shopkeeperQuestions, soundcheckQuestions, shopkeeperCatalog, heroPickerCatalog] =
-  await Promise.all(
-    [
-      "questions.generated.json",
-      "shopkeeper-questions.json",
-      "soundcheck-questions.json",
-      "shopkeeper-catalog.json",
-      "hero-picker.json",
-    ].map(async (file) => JSON.parse(await readFile(path.join(process.cwd(), "src", "data", file), "utf8"))),
-  );
-const privateQuestions = [...generatedQuestions, ...shopkeeperQuestions, ...soundcheckQuestions];
+const [
+  generatedQuestions,
+  shopkeeperQuestions,
+  soundcheckQuestions,
+  valueOrderQuestions,
+  shopkeeperCatalog,
+  heroPickerCatalog,
+] = await Promise.all(
+  [
+    "questions.generated.json",
+    "shopkeeper-questions.json",
+    "soundcheck-questions.json",
+    "value-order-questions.json",
+    "shopkeeper-catalog.json",
+    "hero-picker.json",
+  ].map(async (file) => JSON.parse(await readFile(path.join(process.cwd(), "src", "data", file), "utf8"))),
+);
+const privateQuestions = [
+  ...generatedQuestions,
+  ...shopkeeperQuestions,
+  ...soundcheckQuestions,
+  ...valueOrderQuestions,
+];
 const shopkeeperCatalogItems = shopkeeperCatalog.groups.flatMap((group) => group.items);
 const heroPickerHeroes = heroPickerCatalog.groups.flatMap((group) => group.heroes);
 const firstPlayer = `multiplayer-smoke-a-${randomUUID()}`;
@@ -210,7 +223,17 @@ async function vote(snapshot, playerId, answerIndex, roomSettings = settings, ex
           }
         : snapshot.question?.answerMode === "hero-grid"
           ? { answerIndex: 0, answerKey: heroPickerHeroes[answerIndex % heroPickerHeroes.length].key }
-          : { answerIndex };
+          : snapshot.question?.answerMode === "value-order"
+            ? {
+                answerIndex: 0,
+                answerKey: valueOrderAnswerKey(
+                  snapshot.question.valueOrder.cards
+                    .map((card) => card.key)
+                    .slice(answerIndex)
+                    .concat(snapshot.question.valueOrder.cards.map((card) => card.key).slice(0, answerIndex)),
+                ),
+              }
+            : { answerIndex };
   const response = await fetch(`${appUrl}/api/votes`, {
     method: "POST",
     headers: {
@@ -277,7 +300,10 @@ function privateQuestionFor(snapshot) {
               ? (question.answerImages?.[question.correctIndex] ?? question.image?.src)?.includes(
                   `/${revealedAnswerKey.replace("npc_dota_hero_", "")}.png`,
                 ) && question.explanation === publicQuestion.reveal.explanation
-              : question.shopkeeper?.targetItemKey === revealedAnswerKey
+              : publicQuestion.answerMode === "value-order" && revealedAnswerKey
+                ? valueOrderCorrectAnswerKey(question) === revealedAnswerKey &&
+                  question.explanation === publicQuestion.reveal.explanation
+                : question.shopkeeper?.targetItemKey === revealedAnswerKey
             : JSON.stringify(question.answers) === JSON.stringify(publicQuestion?.answers)),
   );
   if (candidates.length !== 1) {

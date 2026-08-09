@@ -3,9 +3,10 @@
 import generatedQuestions from "../src/data/questions.generated.json" with { type: "json" };
 import shopkeeperQuestions from "../src/data/shopkeeper-questions.json" with { type: "json" };
 import soundcheckQuestions from "../src/data/soundcheck-questions.json" with { type: "json" };
+import valueOrderQuestions from "../src/data/value-order-questions.json" with { type: "json" };
 import { questionCalibrationRevision } from "../src/lib/question-revision.mjs";
 
-const questions = [...generatedQuestions, ...shopkeeperQuestions, ...soundcheckQuestions];
+const questions = [...generatedQuestions, ...shopkeeperQuestions, ...soundcheckQuestions, ...valueOrderQuestions];
 const revisions = new Map();
 const failures = [];
 

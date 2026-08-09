@@ -24,6 +24,7 @@ const FORMAT_LABELS: Record<string, string> = {
   "echo-hunt": "Echo Hunt",
   soundcheck: "Soundcheck",
   "quote-hunt": "Quote Hunt",
+  "value-order": "Order Up",
 };
 
 const ROUND_LABELS: Record<string, string> = {
@@ -34,6 +35,7 @@ const ROUND_LABELS: Record<string, string> = {
   "echo-hunt": "Echo Hunt",
   soundcheck: "Soundcheck",
   "quote-hunt": "Quote Hunt",
+  "order-up": "Order Up",
 };
 
 interface ProfilePageProps {

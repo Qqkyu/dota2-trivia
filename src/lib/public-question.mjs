@@ -5,6 +5,7 @@ import {
   itemPickerCorrectAnswerKey,
   recipeBuilderCorrectAnswerKey,
 } from "./item-picker.mjs";
+import { isValueOrderQuestion, valueOrderCorrectAnswerKey } from "./value-order.mjs";
 
 function copyImage(image, alt) {
   if (!image) return undefined;
@@ -63,10 +64,12 @@ export function publicQuestionForRound(question, round, now) {
   const openShopAnswer = isItemPickerQuestion(question);
   const recipeBuilderAnswer = isRealRecipeBuilderQuestion(question);
   const heroPickerAnswer = isHeroPickerQuestion(question);
-  const keyedAnswer = openShopAnswer || recipeBuilderAnswer || heroPickerAnswer;
+  const valueOrderAnswer = isValueOrderQuestion(question);
+  const keyedAnswer = openShopAnswer || recipeBuilderAnswer || heroPickerAnswer || valueOrderAnswer;
   const heroAnswerKey = heroPickerAnswer ? heroCorrectAnswerKey(question) : null;
   const itemAnswerKey = openShopAnswer ? itemPickerCorrectAnswerKey(question) : null;
   const recipeAnswerKey = recipeBuilderAnswer ? recipeBuilderCorrectAnswerKey(question) : null;
+  const orderAnswerKey = valueOrderAnswer ? valueOrderCorrectAnswerKey(question) : null;
   if (openShopAnswer && !itemAnswerKey) {
     throw new Error(`Item picker question ${question.id} has no resolvable shop item.`);
   }
@@ -75,6 +78,9 @@ export function publicQuestionForRound(question, round, now) {
   }
   if (recipeBuilderAnswer && !recipeAnswerKey) {
     throw new Error(`Recipe builder question ${question.id} has no resolvable direct recipe.`);
+  }
+  if (valueOrderAnswer && !orderAnswerKey) {
+    throw new Error(`Ordering question ${question.id} has no resolvable order.`);
   }
   const hidePromptArtwork = round.game === "echo-hunt" || round.game === "soundcheck";
   const image =
@@ -116,6 +122,19 @@ export function publicQuestionForRound(question, round, now) {
       ? question.quoteHints.slice(0, Math.max(0, clueStage - 1))
       : undefined;
   const audio = publicRoundAudio(round, question.audio);
+  const valueOrder = valueOrderAnswer
+    ? {
+        family: question.valueOrder.family,
+        direction: question.valueOrder.direction,
+        cards: question.valueOrder.cards.map(({ key, name, context, image, kind }) => ({
+          key,
+          name,
+          ...(context ? { context } : {}),
+          image,
+          kind,
+        })),
+      }
+    : undefined;
 
   return {
     // A synchronized round is the public identity. Catalog IDs often contain
@@ -135,7 +154,9 @@ export function publicQuestionForRound(question, round, now) {
         ? { answerMode: "item-recipe" }
         : heroPickerAnswer
           ? { answerMode: "hero-grid" }
-          : {}),
+          : valueOrderAnswer
+            ? { answerMode: "value-order" }
+            : {}),
     ...(!keyedAnswer && question.answerImages ? { answerImages: [...question.answerImages] } : {}),
     ...(!keyedAnswer && question.answerImagePairs
       ? { answerImagePairs: question.answerImagePairs.map((pair) => [...pair]) }
@@ -148,6 +169,7 @@ export function publicQuestionForRound(question, round, now) {
     ...(soundcheck ? { soundcheck } : {}),
     ...(shopkeeper ? { shopkeeper } : {}),
     ...(counterplay ? { counterplay } : {}),
+    ...(valueOrder ? { valueOrder } : {}),
     patch: question.patch,
     clueStage,
     reveal:
@@ -161,7 +183,12 @@ export function publicQuestionForRound(question, round, now) {
                 ? { correctAnswerKey: recipeAnswerKey }
                 : heroAnswerKey
                   ? { correctAnswerKey: heroAnswerKey }
-                  : {}),
+                  : orderAnswerKey
+                    ? {
+                        correctAnswerKey: orderAnswerKey,
+                        orderValues: question.valueOrder.values.map(({ key, label }) => ({ key, label })),
+                      }
+                    : {}),
           }
         : null,
   };

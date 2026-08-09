@@ -10,6 +10,7 @@ export function questionImageUrls(question) {
     ...(question.shopkeeper?.promptItems?.map((item) => item.image) ?? []),
     ...(question.shopkeeper?.answerGroups?.flat().map((item) => item.image) ?? []),
     ...(question.counterplay?.toolImages?.map((image) => image.src) ?? []),
+    ...(question.valueOrder?.cards?.map((card) => card.image) ?? []),
   ].filter(Boolean);
 }
 

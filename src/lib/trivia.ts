@@ -2,6 +2,7 @@ import generatedQuestions from "@/data/questions.generated.json";
 import shopkeeperQuestions from "@/data/shopkeeper-questions.json";
 import generatedMeta from "@/data/trivia-meta.generated.json";
 import soundcheckQuestions from "@/data/soundcheck-questions.json";
+import valueOrderQuestions from "@/data/value-order-questions.json";
 import { PUBLIC_ROUND_FORMATS, roundFormatForQuestion } from "@/lib/arcade-games.mjs";
 import type { MapChallenge } from "@/lib/map-types";
 import { isPlayableShopkeeperQuestion } from "@/lib/shopkeeper-quality.mjs";
@@ -31,6 +32,7 @@ export type ArcadeMode =
   | "echo-hunt"
   | "soundcheck"
   | "quote-hunt"
+  | "order-up"
   | "map-sense"
   | "counterplay";
 export type RoundGame = Exclude<ArcadeMode, "mixed">;
@@ -57,6 +59,8 @@ export type QuestionKind =
   | "hero-quote"
   | "soundcheck-ability"
   | "soundcheck-item"
+  | "value-order-item"
+  | "value-order-cooldown"
   | "map-location"
   | "map-riddle"
   | "map-mirror"
@@ -89,6 +93,20 @@ export interface ShopkeeperItemReference {
   name: string;
   image: string;
   count: number;
+}
+
+export interface ValueOrderCard {
+  key: string;
+  name: string;
+  context?: string;
+  image: string;
+  kind: "item" | "ability";
+}
+
+export interface ValueOrderValue {
+  key: string;
+  value: number;
+  label: string;
 }
 
 export interface TriviaQuestion {
@@ -130,6 +148,17 @@ export interface TriviaQuestion {
     }>;
     audit: {
       reviewedAt: string;
+      clientBuild: string;
+    };
+  };
+  valueOrder?: {
+    family: "item-price" | "ability-cooldown";
+    direction: "ascending";
+    cards: [ValueOrderCard, ValueOrderCard, ValueOrderCard, ValueOrderCard];
+    values: [ValueOrderValue, ValueOrderValue, ValueOrderValue, ValueOrderValue];
+    correctOrder: [string, string, string, string];
+    audit: {
+      derivedFrom: [string, string, string, string];
       clientBuild: string;
     };
   };
@@ -198,7 +227,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-5-shopkeeper-6-public-arcade-3-soundcheck-10-spell-link-4-fogged-vision-3-global-score-1`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-5-shopkeeper-6-public-arcade-3-soundcheck-10-spell-link-4-fogged-vision-3-global-score-1-order-up-1`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
     isPlayableClassicTriviaQuestion(question) &&
@@ -210,6 +239,7 @@ export const triviaQuestions = [
   ...playableGeneratedQuestions,
   ...(shopkeeperQuestions as TriviaQuestion[]).filter(isPlayableShopkeeperQuestion),
   ...(soundcheckQuestions as unknown as TriviaQuestion[]),
+  ...(valueOrderQuestions as unknown as TriviaQuestion[]),
 ];
 
 export interface ArcadeRound extends TriviaQuestion {
@@ -234,6 +264,7 @@ export function gameForQuestion(question: TriviaQuestion): RoundGame {
   if (question.kind === "hero-voice") return "echo-hunt";
   if (question.kind.startsWith("soundcheck-")) return "soundcheck";
   if (question.kind === "hero-quote") return "quote-hunt";
+  if (question.kind.startsWith("value-order-")) return "order-up";
   if (question.kind.startsWith("map-")) return "map-sense";
   if (question.kind.startsWith("counterplay-")) return "counterplay";
   return "trivia";
@@ -273,6 +304,7 @@ export function createArcadeDeck(
     "echo-hunt": shuffledPool(seed, "echo-hunt", filter),
     soundcheck: shuffledPool(seed, "soundcheck", filter),
     "quote-hunt": shuffledPool(seed, "quote-hunt", filter),
+    "order-up": shuffledPool(seed, "order-up", filter),
     "map-sense": shuffledPool(seed, "map-sense", filter),
     counterplay: shuffledPool(seed, "counterplay", filter),
   };
@@ -285,6 +317,7 @@ export function createArcadeDeck(
     "echo-hunt": 0,
     soundcheck: 0,
     "quote-hunt": 0,
+    "order-up": 0,
     "map-sense": 0,
     counterplay: 0,
   };

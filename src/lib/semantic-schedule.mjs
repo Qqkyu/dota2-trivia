@@ -1,11 +1,11 @@
 import { seededShuffle, varietyShuffle } from "./variety.mjs";
 
 /**
- * A subject may return after eleven rounds, but never inside the previous ten.
- * Eleven is coprime with the ten-format public rotation, so every format gets
+ * A subject may return after twelve rounds, but never inside the previous eleven.
+ * Twelve is coprime with the eleven-format public rotation, so every format gets
  * an opportunity to use every subject slot.
  */
-export const SEMANTIC_REPEAT_GAP_ROUNDS = 10;
+export const SEMANTIC_REPEAT_GAP_ROUNDS = 11;
 export const SEMANTIC_SLOT_COUNT = SEMANTIC_REPEAT_GAP_ROUNDS + 1;
 
 const HERO_ANSWER_KINDS = new Set(["fogged-hero", "hero-quote", "hero-stat-duel", "hero-voice", "spell-owner"]);
@@ -137,6 +137,10 @@ export function semanticSubjectForQuestion(question, context) {
   if (question.kind === "shopkeeper-upgrade-path") {
     const item = question.shopkeeper?.sourceItemKey;
     return item ? `item:${item}` : null;
+  }
+
+  if (question.kind === "value-order-item" || question.kind === "value-order-cooldown") {
+    return `order:${question.id}`;
   }
 
   return null;

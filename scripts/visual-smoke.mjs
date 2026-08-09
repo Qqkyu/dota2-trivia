@@ -3,6 +3,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { MIN_INITIAL_ANSWER_TIME_MS } from "../src/lib/arcade-entry.mjs";
+import { valueOrderAnswerKey } from "../src/lib/value-order.mjs";
 
 const debuggingUrl = process.env.CHROME_DEBUG_URL ?? "http://127.0.0.1:9222";
 const appUrl = process.env.APP_URL ?? process.env.ARCADE_APP_URL ?? "http://localhost:3000";
@@ -17,6 +18,25 @@ const heroStressEntries = heroPickerCatalog.groups
   .map((hero) => ({ answerKey: hero.key, count: 1 }));
 const itemStressItems = shopkeeperCatalog.groups.flatMap((group) => group.items);
 const itemStressEntries = itemStressItems.map((item) => ({ answerKey: item.key, count: 1 }));
+const orderStressItems = itemStressItems.slice(0, 4);
+const orderStressCards = orderStressItems.map(({ key, name, image }) => ({ key, name, image, kind: "item" }));
+
+function permutations(values) {
+  if (values.length <= 1) return [values];
+  return values.flatMap((value, index) =>
+    permutations(values.filter((_, candidateIndex) => candidateIndex !== index)).map((rest) => [value, ...rest]),
+  );
+}
+
+const correctOrderStressKeys = [...orderStressItems]
+  .sort((left, right) => left.cost - right.cost)
+  .map((item) => item.key);
+const correctOrderStressAnswer = valueOrderAnswerKey(correctOrderStressKeys);
+const orderStressEntries = permutations(orderStressCards.map((card) => card.key))
+  .map((keys) => valueOrderAnswerKey(keys))
+  .filter((answerKey) => answerKey && answerKey !== correctOrderStressAnswer)
+  .concat(correctOrderStressAnswer)
+  .map((answerKey) => ({ answerKey, count: 1 }));
 const crowdStressFixtures = {
   heroes: {
     game: "quote-hunt",
@@ -49,6 +69,25 @@ const crowdStressFixtures = {
       },
     },
     entries: itemStressEntries,
+  },
+  orders: {
+    game: "order-up",
+    question: {
+      kind: "value-order-item",
+      category: "Items",
+      eyebrow: "Item prices",
+      prompt: "Cheapest → priciest",
+      answerMode: "value-order",
+      valueOrder: {
+        family: "item-price",
+        direction: "ascending",
+        cards: orderStressCards,
+      },
+    },
+    entries: orderStressEntries,
+    reveal: {
+      orderValues: orderStressItems.map(({ key, cost }) => ({ key, label: `${cost} gold` })),
+    },
   },
   classic: {
     game: "trivia",
@@ -172,7 +211,11 @@ async function runCrowdStress(kind, expectedTotal) {
   await waitFor(
     `(() => {
     const main = document.querySelector("main");
-    const expectedPicker = ${JSON.stringify(kind)} === "heroes" ? "hero-picker" : "shopkeeper-store";
+    const expectedPicker = ${JSON.stringify(kind)} === "heroes"
+      ? "hero-picker"
+      : ${JSON.stringify(kind)} === "orders"
+        ? "value-order-board"
+        : "shopkeeper-store";
     return main?.dataset.phase === "answering" &&
       main?.dataset.roundId === "visual-crowd-stress-${kind}" &&
       Boolean(document.querySelector('[data-testid="' + expectedPicker + '"]')) &&
@@ -232,12 +275,19 @@ async function runCrowdStress(kind, expectedTotal) {
       cardInsideViewport: Boolean(cardBounds && cardBounds.bottom <= window.innerHeight),
       clipped: Boolean(card && (card.scrollWidth > card.clientWidth || card.scrollHeight > card.clientHeight)),
       horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+      orderSequences: document.querySelectorAll('[data-testid="value-order-sequence"]').length,
+      orderValueLabels: document.querySelectorAll('[data-testid="value-order-sequence"] [data-card-kind] em').length,
+      explanationVisible: Boolean(document.querySelector('[data-testid="reveal-explanation"]')),
       catalogResults: ${JSON.stringify(kind)} === "heroes"
         ? [...document.querySelectorAll('[data-testid="hero-picker-hero"]')].filter((entry) => /%/.test(entry.innerText)).length
-        : [...document.querySelectorAll('[data-testid="shopkeeper-store-item"]')].filter((entry) => /%/.test(entry.innerText)).length,
+        : ${JSON.stringify(kind)} === "items"
+          ? [...document.querySelectorAll('[data-testid="shopkeeper-store-item"]')].filter((entry) => /%/.test(entry.innerText)).length
+          : null,
       catalogVisible: ${JSON.stringify(kind)} === "heroes"
         ? document.querySelectorAll('[data-testid="hero-picker-hero"]').length
-        : document.querySelectorAll('[data-testid="shopkeeper-store-item"]').length
+        : ${JSON.stringify(kind)} === "items"
+          ? document.querySelectorAll('[data-testid="shopkeeper-store-item"]').length
+          : null
     };
   })()`);
 }
@@ -380,7 +430,8 @@ await send("Page.addScriptToEvaluateOnNewDocument", {
           reveal: reveal ? {
             correctIndex: 0,
             correctAnswerKey: correctKey,
-            explanation: "Full-catalog crowd split visual fixture."
+            explanation: "Full-catalog crowd split visual fixture.",
+            ...(fixture.reveal ?? {})
           } : null
         };
         payload.presence = { activePlayers: total };
@@ -393,7 +444,7 @@ await send("Page.addScriptToEvaluateOnNewDocument", {
             correctCount: Math.ceil(total / 3),
             average: 164,
             best: 218,
-            playerPoints: 176
+            playerPoints: 0
           } : null
         };
         payload.playerVote = {
@@ -576,6 +627,8 @@ const answering = await evaluate(`({
   recipeSize: Number(document.querySelector('[data-testid="shopkeeper-recipe-builder"]')?.dataset.recipeSize ?? 0),
   shopItems: document.querySelectorAll('[data-testid="shopkeeper-store-item"]').length,
   heroPicker: Boolean(document.querySelector('[data-testid="hero-picker"]')),
+  valueOrder: Boolean(document.querySelector('[data-testid="value-order-board"]')),
+  valueOrderCards: document.querySelectorAll('[data-testid="value-order-card"]').length,
   heroSearch: Boolean(document.querySelector('[data-testid="hero-search"]')),
   heroItems: document.querySelectorAll('[data-testid="hero-picker-hero"]').length,
   heroGroups: [...document.querySelectorAll('[data-testid="hero-picker"] [data-attribute]')].map((group) => ({
@@ -702,14 +755,27 @@ if (answering.heroPicker) {
 }
 
 if (!answering.openShop) {
-  await evaluate(`(
-    document.querySelector('[data-testid="hero-picker-hero"]') ??
-    document.querySelector('[data-testid="arcade-answer"]')
-  )?.click()`);
+  if (answering.valueOrder) {
+    for (let cardIndex = 0; cardIndex < 4; cardIndex += 1) {
+      await evaluate(`document.querySelectorAll('[data-testid="value-order-card"]')[${cardIndex}]?.click()`);
+      await waitFor(
+        `document.querySelectorAll('[data-testid="value-order-card"][data-selected="true"]').length === ${cardIndex + 1}`,
+      );
+    }
+    await evaluate(`[
+      ...document.querySelectorAll("button")
+    ].find((button) => button.textContent.includes("Lock order"))?.click()`);
+  } else {
+    await evaluate(`(
+      document.querySelector('[data-testid="hero-picker-hero"]') ??
+      document.querySelector('[data-testid="arcade-answer"]')
+    )?.click()`);
+  }
 }
 await waitFor(`Boolean(
   document.querySelector('[data-testid="shopkeeper-store"][data-locked="true"]') ??
   document.querySelector('[data-testid="hero-picker-hero"][aria-pressed="true"]') ??
+  document.querySelector('[data-testid="value-order-board"][data-locked="true"]') ??
   document.querySelector('[data-testid="arcade-answer"][aria-pressed="true"]')
 )`);
 await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
@@ -736,6 +802,8 @@ const reveal = await evaluate(`(() => {
     heroPercentages: [...document.querySelectorAll('[data-testid="hero-picker-hero"]')]
       .filter((button) => /%/.test(button.innerText)).length,
     heroCorrect: document.querySelectorAll('[data-testid="hero-picker-hero"][data-state="correct"]').length,
+    orderSequences: document.querySelectorAll('[data-testid="value-order-sequence"]').length,
+    orderValueLabels: document.querySelectorAll('[data-testid="value-order-sequence"] em').length,
     crowdSplit: (() => {
       const split = document.querySelector('[data-testid="crowd-split"]');
       const rows = [...document.querySelectorAll('[data-testid="crowd-split-row"]')];
@@ -807,6 +875,7 @@ const directPlay = await evaluate(`({
 
 const heroCrowdStress = await runCrowdStress("heroes", heroStressEntries.length);
 const itemCrowdStress = await runCrowdStress("items", itemStressEntries.length);
+const orderCrowdStress = await runCrowdStress("orders", orderStressEntries.length);
 const spellLayoutStress = await runSpellLayoutStress();
 const classicChromeStress = await runClassicChromeStress();
 await evaluate(`window.__queueArcadeCrowdStress = null`);
@@ -860,9 +929,9 @@ if (
   lobby.canonical !== `${new URL(appUrl).origin}/` ||
   !lobby.openGraphImage?.includes("opengraph-image") ||
   lobby.modeCards !== 0 ||
-  lobby.roundFamilies !== 7 ||
+  lobby.roundFamilies !== 8 ||
   !lobby.roundMix?.includes("Classic Trivia") ||
-  !lobby.copy?.toLowerCase().includes("ten round formats") ||
+  !lobby.copy?.toLowerCase().includes("eleven round formats") ||
   lobby.copy?.toLowerCase().includes("choose your side quest") ||
   !lobby.muted ||
   lobby.volume !== "70"
@@ -927,9 +996,16 @@ if (
   answering.url !== "/play" ||
   answering.phase !== "answering" ||
   !answering.roomId?.endsWith(":public") ||
-  !["trivia", "shopkeeper", "spell-link", "fogged-vision", "echo-hunt", "soundcheck", "quote-hunt"].includes(
-    answering.game,
-  ) ||
+  ![
+    "trivia",
+    "shopkeeper",
+    "spell-link",
+    "fogged-vision",
+    "echo-hunt",
+    "soundcheck",
+    "quote-hunt",
+    "order-up",
+  ].includes(answering.game) ||
   (answering.openShop
     ? answering.answers !== 0 || answering.shopItems < 70 || answering.heroPicker
     : answering.heroPicker
@@ -943,7 +1019,9 @@ if (
             { attribute: "intelligence", count: 34 },
             { attribute: "universal", count: 22 },
           ])
-      : answering.answers !== 4) ||
+      : answering.valueOrder
+        ? answering.answers !== 0 || answering.valueOrderCards !== 4
+        : answering.answers !== 4) ||
   answering.difficultyControls !== 0 ||
   answering.tipCards !== 0 ||
   answering.crowdSplitVisible ||
@@ -983,7 +1061,9 @@ if (
       : !reveal.openShopReveal || reveal.shopPercentages < 1 || reveal.recipeReveal
     : answering.heroPicker
       ? reveal.heroPercentages < 1 || reveal.heroCorrect !== 1 || reveal.openShopReveal
-      : reveal.percentages !== 4 || reveal.openShopReveal) ||
+      : answering.valueOrder
+        ? reveal.orderSequences < 1 || reveal.orderValueLabels !== 4 || reveal.openShopReveal
+        : reveal.percentages !== 4 || reveal.openShopReveal) ||
   reveal.reportReasons !== 4 ||
   reveal.audioPrewarmRequests < 1 ||
   !sameBounds ||
@@ -1024,6 +1104,7 @@ if (directPlay.url !== "/play" || !directPlay.answering || !directPlay.roomId?.e
 for (const [label, result, expectedTotal] of [
   ["hero", heroCrowdStress, heroStressEntries.length],
   ["item", itemCrowdStress, itemStressEntries.length],
+  ["order", orderCrowdStress, orderStressEntries.length],
 ]) {
   if (
     result.kind !== "open-grid" ||
@@ -1045,7 +1126,8 @@ for (const [label, result, expectedTotal] of [
     !result.cardInsideViewport ||
     result.clipped ||
     result.horizontalOverflow ||
-    result.catalogResults !== result.catalogVisible
+    result.catalogResults !== result.catalogVisible ||
+    (label === "order" && (result.orderSequences !== 2 || result.orderValueLabels !== 4 || result.explanationVisible))
   ) {
     failures.push(`The all-${label} crowd result is unbounded, clipped, incomplete, or leaked before reveal.`);
   }
@@ -1069,7 +1151,7 @@ if (
 if (
   !mobile.headingVisible ||
   !mobile.startButton ||
-  mobile.roundFamilies !== 7 ||
+  mobile.roundFamilies !== 8 ||
   mobile.steamButtons !== 1 ||
   Math.abs((mobile.accountSlotWidth ?? 0) - (mobile.startButtonWidth ?? 0)) > 1 ||
   mobile.horizontalOverflow
@@ -1102,6 +1184,7 @@ if (failures.length) {
         directPlay,
         heroCrowdStress,
         itemCrowdStress,
+        orderCrowdStress,
         spellLayoutStress,
         classicChromeStress,
         mobile,
@@ -1129,6 +1212,7 @@ console.log(
       fullCatalogCrowdSplits: {
         heroes: `${heroCrowdStress.namedRows} named + Other (${heroCrowdStress.total} votes)`,
         items: `${itemCrowdStress.namedRows} named + Other (${itemCrowdStress.total} votes)`,
+        orders: `${orderCrowdStress.namedRows} named + Other (${orderCrowdStress.total} votes)`,
       },
       spellLinkHelperClearance: `${Math.round(spellLayoutStress.pickerGap)}px`,
       mediaPlaybackDisabled: true,
@@ -1151,6 +1235,7 @@ console.log(
         "/tmp/queue-arcade-summary.png",
         "/tmp/queue-arcade-crowd-heroes.png",
         "/tmp/queue-arcade-crowd-items.png",
+        "/tmp/queue-arcade-crowd-orders.png",
         "/tmp/queue-arcade-spell-layout.png",
         "/tmp/queue-arcade-mobile.png",
         "/tmp/queue-arcade-calibration-mobile.png",

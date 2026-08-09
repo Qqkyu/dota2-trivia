@@ -1,0 +1,2734 @@
+[
+  {
+    "id": "value-order:item-price:01",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:clarity,enchanted_mango,dust,tango",
+      "order-v1:enchanted_mango,clarity,dust,tango",
+      "order-v1:clarity,dust,enchanted_mango,tango",
+      "order-v1:tango,dust,enchanted_mango,clarity"
+    ],
+    "correctIndex": 0,
+    "explanation": "Cheapest to priciest: Clarity (60 gold) → Enchanted Mango (65 gold) → Dust of Appearance (80 gold) → Tango (90 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "clarity",
+          "name": "Clarity",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/clarity.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "tango",
+          "name": "Tango",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tango.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "enchanted_mango",
+          "name": "Enchanted Mango",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/enchanted_mango.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "dust",
+          "name": "Dust of Appearance",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/dust.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "clarity",
+          "value": 60,
+          "label": "60 gold"
+        },
+        {
+          "key": "tango",
+          "value": 90,
+          "label": "90 gold"
+        },
+        {
+          "key": "enchanted_mango",
+          "value": 65,
+          "label": "65 gold"
+        },
+        {
+          "key": "dust",
+          "value": 80,
+          "label": "80 gold"
+        }
+      ],
+      "correctOrder": ["clarity", "enchanted_mango", "dust", "tango"],
+      "audit": {
+        "derivedFrom": ["item-cost:clarity", "item-cost:enchanted_mango", "item-cost:dust", "item-cost:tango"],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:item-price:02",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:bracer,magic_wand,bottle,soul_ring",
+      "order-v1:magic_wand,bracer,bottle,soul_ring",
+      "order-v1:magic_wand,bottle,bracer,soul_ring",
+      "order-v1:soul_ring,bottle,bracer,magic_wand"
+    ],
+    "correctIndex": 1,
+    "explanation": "Cheapest to priciest: Magic Wand (460 gold) → Bracer (505 gold) → Bottle (675 gold) → Soul Ring (805 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "soul_ring",
+          "name": "Soul Ring",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/soul_ring.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "magic_wand",
+          "name": "Magic Wand",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/magic_wand.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "bottle",
+          "name": "Bottle",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bottle.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "bracer",
+          "name": "Bracer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bracer.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "soul_ring",
+          "value": 805,
+          "label": "805 gold"
+        },
+        {
+          "key": "magic_wand",
+          "value": 460,
+          "label": "460 gold"
+        },
+        {
+          "key": "bottle",
+          "value": 675,
+          "label": "675 gold"
+        },
+        {
+          "key": "bracer",
+          "value": 505,
+          "label": "505 gold"
+        }
+      ],
+      "correctOrder": ["magic_wand", "bracer", "bottle", "soul_ring"],
+      "audit": {
+        "derivedFrom": ["item-cost:magic_wand", "item-cost:bracer", "item-cost:bottle", "item-cost:soul_ring"],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:item-price:03",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:falcon_blade,gem,aghanims_shard,phase_boots",
+      "order-v1:gem,aghanims_shard,falcon_blade,phase_boots",
+      "order-v1:gem,falcon_blade,aghanims_shard,phase_boots",
+      "order-v1:phase_boots,aghanims_shard,falcon_blade,gem"
+    ],
+    "correctIndex": 2,
+    "explanation": "Cheapest to priciest: Gem of True Sight (900 gold) → Falcon Blade (1,125 gold) → Aghanim's Shard (1,400 gold) → Phase Boots (1,450 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "phase_boots",
+          "name": "Phase Boots",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/phase_boots.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "aghanims_shard",
+          "name": "Aghanim's Shard",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aghanims_shard.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "gem",
+          "name": "Gem of True Sight",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gem.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "falcon_blade",
+          "name": "Falcon Blade",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/falcon_blade.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "phase_boots",
+          "value": 1450,
+          "label": "1,450 gold"
+        },
+        {
+          "key": "aghanims_shard",
+          "value": 1400,
+          "label": "1,400 gold"
+        },
+        {
+          "key": "gem",
+          "value": 900,
+          "label": "900 gold"
+        },
+        {
+          "key": "falcon_blade",
+          "value": 1125,
+          "label": "1,125 gold"
+        }
+      ],
+      "correctOrder": ["gem", "falcon_blade", "aghanims_shard", "phase_boots"],
+      "audit": {
+        "derivedFrom": ["item-cost:gem", "item-cost:falcon_blade", "item-cost:aghanims_shard", "item-cost:phase_boots"],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:item-price:04",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:vanguard,ghost,mekansm,glimmer_cape",
+      "order-v1:ghost,mekansm,vanguard,glimmer_cape",
+      "order-v1:glimmer_cape,mekansm,vanguard,ghost",
+      "order-v1:ghost,vanguard,mekansm,glimmer_cape"
+    ],
+    "correctIndex": 3,
+    "explanation": "Cheapest to priciest: Ghost Scepter (1,500 gold) → Vanguard (1,700 gold) → Mekansm (1,775 gold) → Glimmer Cape (2,150 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "glimmer_cape",
+          "name": "Glimmer Cape",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/glimmer_cape.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "mekansm",
+          "name": "Mekansm",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mekansm.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "ghost",
+          "name": "Ghost Scepter",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ghost.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "vanguard",
+          "name": "Vanguard",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vanguard.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "glimmer_cape",
+          "value": 2150,
+          "label": "2,150 gold"
+        },
+        {
+          "key": "mekansm",
+          "value": 1775,
+          "label": "1,775 gold"
+        },
+        {
+          "key": "ghost",
+          "value": 1500,
+          "label": "1,500 gold"
+        },
+        {
+          "key": "vanguard",
+          "value": 1700,
+          "label": "1,700 gold"
+        }
+      ],
+      "correctOrder": ["ghost", "vanguard", "mekansm", "glimmer_cape"],
+      "audit": {
+        "derivedFrom": ["item-cost:ghost", "item-cost:vanguard", "item-cost:mekansm", "item-cost:glimmer_cape"],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:item-price:05",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:force_staff,blink,blade_mail,armlet",
+      "order-v1:blink,force_staff,blade_mail,armlet",
+      "order-v1:force_staff,blade_mail,blink,armlet",
+      "order-v1:armlet,blade_mail,blink,force_staff"
+    ],
+    "correctIndex": 0,
+    "explanation": "Cheapest to priciest: Force Staff (2,200 gold) → Blink Dagger (2,250 gold) → Blade Mail (2,400 gold) → Armlet of Mordiggian (2,500 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "armlet",
+          "name": "Armlet of Mordiggian",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/armlet.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "blade_mail",
+          "name": "Blade Mail",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blade_mail.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "force_staff",
+          "name": "Force Staff",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/force_staff.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "blink",
+          "name": "Blink Dagger",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "armlet",
+          "value": 2500,
+          "label": "2,500 gold"
+        },
+        {
+          "key": "blade_mail",
+          "value": 2400,
+          "label": "2,400 gold"
+        },
+        {
+          "key": "force_staff",
+          "value": 2200,
+          "label": "2,200 gold"
+        },
+        {
+          "key": "blink",
+          "value": 2250,
+          "label": "2,250 gold"
+        }
+      ],
+      "correctOrder": ["force_staff", "blink", "blade_mail", "armlet"],
+      "audit": {
+        "derivedFrom": ["item-cost:force_staff", "item-cost:blink", "item-cost:blade_mail", "item-cost:armlet"],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:item-price:06",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:cyclone,travel_boots,basher,maelstrom",
+      "order-v1:travel_boots,cyclone,basher,maelstrom",
+      "order-v1:travel_boots,basher,cyclone,maelstrom",
+      "order-v1:maelstrom,basher,cyclone,travel_boots"
+    ],
+    "correctIndex": 1,
+    "explanation": "Cheapest to priciest: Boots of Travel (2,500 gold) → Eul's Scepter of Divinity (2,600 gold) → Skull Basher (2,875 gold) → Maelstrom (2,950 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "basher",
+          "name": "Skull Basher",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/basher.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "cyclone",
+          "name": "Eul's Scepter of Divinity",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cyclone.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "travel_boots",
+          "name": "Boots of Travel",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/travel_boots.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "maelstrom",
+          "name": "Maelstrom",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/maelstrom.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "basher",
+          "value": 2875,
+          "label": "2,875 gold"
+        },
+        {
+          "key": "cyclone",
+          "value": 2600,
+          "label": "2,600 gold"
+        },
+        {
+          "key": "travel_boots",
+          "value": 2500,
+          "label": "2,500 gold"
+        },
+        {
+          "key": "maelstrom",
+          "value": 2950,
+          "label": "2,950 gold"
+        }
+      ],
+      "correctOrder": ["travel_boots", "cyclone", "basher", "maelstrom"],
+      "audit": {
+        "derivedFrom": ["item-cost:travel_boots", "item-cost:cyclone", "item-cost:basher", "item-cost:maelstrom"],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:item-price:07",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:invis_sword,aeon_disk,orchid,desolator",
+      "order-v1:aeon_disk,orchid,invis_sword,desolator",
+      "order-v1:aeon_disk,invis_sword,orchid,desolator",
+      "order-v1:desolator,orchid,invis_sword,aeon_disk"
+    ],
+    "correctIndex": 2,
+    "explanation": "Cheapest to priciest: Aeon Disk (3,000 gold) → Shadow Blade (3,250 gold) → Orchid Malevolence (3,275 gold) → Desolator (3,500 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "aeon_disk",
+          "name": "Aeon Disk",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aeon_disk.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "orchid",
+          "name": "Orchid Malevolence",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orchid.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "invis_sword",
+          "name": "Shadow Blade",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/invis_sword.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "desolator",
+          "name": "Desolator",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/desolator.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "aeon_disk",
+          "value": 3000,
+          "label": "3,000 gold"
+        },
+        {
+          "key": "orchid",
+          "value": 3275,
+          "label": "3,275 gold"
+        },
+        {
+          "key": "invis_sword",
+          "value": 3250,
+          "label": "3,250 gold"
+        },
+        {
+          "key": "desolator",
+          "value": 3500,
+          "label": "3,500 gold"
+        }
+      ],
+      "correctOrder": ["aeon_disk", "invis_sword", "orchid", "desolator"],
+      "audit": {
+        "derivedFrom": ["item-cost:aeon_disk", "item-cost:invis_sword", "item-cost:orchid", "item-cost:desolator"],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:item-price:08",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:lotus_orb,crimson_guard,moon_shard,black_king_bar",
+      "order-v1:crimson_guard,moon_shard,lotus_orb,black_king_bar",
+      "order-v1:black_king_bar,moon_shard,lotus_orb,crimson_guard",
+      "order-v1:crimson_guard,lotus_orb,moon_shard,black_king_bar"
+    ],
+    "correctIndex": 3,
+    "explanation": "Cheapest to priciest: Crimson Guard (3,725 gold) → Lotus Orb (3,850 gold) → Moon Shard (4,000 gold) → Black King Bar (4,050 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "moon_shard",
+          "name": "Moon Shard",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/moon_shard.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "black_king_bar",
+          "name": "Black King Bar",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "crimson_guard",
+          "name": "Crimson Guard",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/crimson_guard.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "lotus_orb",
+          "name": "Lotus Orb",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "moon_shard",
+          "value": 4000,
+          "label": "4,000 gold"
+        },
+        {
+          "key": "black_king_bar",
+          "value": 4050,
+          "label": "4,050 gold"
+        },
+        {
+          "key": "crimson_guard",
+          "value": 3725,
+          "label": "3,725 gold"
+        },
+        {
+          "key": "lotus_orb",
+          "value": 3850,
+          "label": "3,850 gold"
+        }
+      ],
+      "correctOrder": ["crimson_guard", "lotus_orb", "moon_shard", "black_king_bar"],
+      "audit": {
+        "derivedFrom": [
+          "item-cost:crimson_guard",
+          "item-cost:lotus_orb",
+          "item-cost:moon_shard",
+          "item-cost:black_king_bar"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:item-price:09",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:kaya_and_sange,guardian_greaves,shivas_guard,manta",
+      "order-v1:guardian_greaves,kaya_and_sange,shivas_guard,manta",
+      "order-v1:kaya_and_sange,shivas_guard,guardian_greaves,manta",
+      "order-v1:manta,shivas_guard,guardian_greaves,kaya_and_sange"
+    ],
+    "correctIndex": 0,
+    "explanation": "Cheapest to priciest: Kaya and Sange (4,200 gold) → Guardian Greaves (4,450 gold) → Shiva's Guard (4,500 gold) → Manta Style (4,650 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "shivas_guard",
+          "name": "Shiva's Guard",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shivas_guard.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "manta",
+          "name": "Manta Style",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "kaya_and_sange",
+          "name": "Kaya and Sange",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/kaya_and_sange.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "guardian_greaves",
+          "name": "Guardian Greaves",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/guardian_greaves.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "shivas_guard",
+          "value": 4500,
+          "label": "4,500 gold"
+        },
+        {
+          "key": "manta",
+          "value": 4650,
+          "label": "4,650 gold"
+        },
+        {
+          "key": "kaya_and_sange",
+          "value": 4200,
+          "label": "4,200 gold"
+        },
+        {
+          "key": "guardian_greaves",
+          "value": 4450,
+          "label": "4,450 gold"
+        }
+      ],
+      "correctOrder": ["kaya_and_sange", "guardian_greaves", "shivas_guard", "manta"],
+      "audit": {
+        "derivedFrom": [
+          "item-cost:kaya_and_sange",
+          "item-cost:guardian_greaves",
+          "item-cost:shivas_guard",
+          "item-cost:manta"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:item-price:10",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:sphere,bloodstone,octarine_core,monkey_king_bar",
+      "order-v1:bloodstone,sphere,octarine_core,monkey_king_bar",
+      "order-v1:bloodstone,octarine_core,sphere,monkey_king_bar",
+      "order-v1:monkey_king_bar,octarine_core,sphere,bloodstone"
+    ],
+    "correctIndex": 1,
+    "explanation": "Cheapest to priciest: Bloodstone (4,700 gold) → Linken's Sphere (4,800 gold) → Octarine Core (4,900 gold) → Monkey King Bar (5,000 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "sphere",
+          "name": "Linken's Sphere",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sphere.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "octarine_core",
+          "name": "Octarine Core",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/octarine_core.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "monkey_king_bar",
+          "name": "Monkey King Bar",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/monkey_king_bar.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "bloodstone",
+          "name": "Bloodstone",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bloodstone.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "sphere",
+          "value": 4800,
+          "label": "4,800 gold"
+        },
+        {
+          "key": "octarine_core",
+          "value": 4900,
+          "label": "4,900 gold"
+        },
+        {
+          "key": "monkey_king_bar",
+          "value": 5000,
+          "label": "5,000 gold"
+        },
+        {
+          "key": "bloodstone",
+          "value": 4700,
+          "label": "4,700 gold"
+        }
+      ],
+      "correctOrder": ["bloodstone", "sphere", "octarine_core", "monkey_king_bar"],
+      "audit": {
+        "derivedFrom": [
+          "item-cost:bloodstone",
+          "item-cost:sphere",
+          "item-cost:octarine_core",
+          "item-cost:monkey_king_bar"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:item-price:11",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:satanic,refresher,greater_crit,assault",
+      "order-v1:refresher,greater_crit,satanic,assault",
+      "order-v1:refresher,satanic,greater_crit,assault",
+      "order-v1:assault,greater_crit,satanic,refresher"
+    ],
+    "correctIndex": 2,
+    "explanation": "Cheapest to priciest: Refresher Orb (5,000 gold) → Satanic (5,050 gold) → Daedalus (5,100 gold) → Assault Cuirass (5,125 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "satanic",
+          "name": "Satanic",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/satanic.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "refresher",
+          "name": "Refresher Orb",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/refresher.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "greater_crit",
+          "name": "Daedalus",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/greater_crit.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "assault",
+          "name": "Assault Cuirass",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/assault.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "satanic",
+          "value": 5050,
+          "label": "5,050 gold"
+        },
+        {
+          "key": "refresher",
+          "value": 5000,
+          "label": "5,000 gold"
+        },
+        {
+          "key": "greater_crit",
+          "value": 5100,
+          "label": "5,100 gold"
+        },
+        {
+          "key": "assault",
+          "value": 5125,
+          "label": "5,125 gold"
+        }
+      ],
+      "correctOrder": ["refresher", "satanic", "greater_crit", "assault"],
+      "audit": {
+        "derivedFrom": ["item-cost:refresher", "item-cost:satanic", "item-cost:greater_crit", "item-cost:assault"],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:item-price:12",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:butterfly,ethereal_blade,mjollnir,rapier",
+      "order-v1:ethereal_blade,mjollnir,butterfly,rapier",
+      "order-v1:rapier,mjollnir,butterfly,ethereal_blade",
+      "order-v1:ethereal_blade,butterfly,mjollnir,rapier"
+    ],
+    "correctIndex": 3,
+    "explanation": "Cheapest to priciest: Ethereal Blade (5,200 gold) → Butterfly (5,450 gold) → Mjollnir (5,500 gold) → Divine Rapier (5,600 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "mjollnir",
+          "name": "Mjollnir",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mjollnir.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "rapier",
+          "name": "Divine Rapier",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/rapier.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "ethereal_blade",
+          "name": "Ethereal Blade",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ethereal_blade.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "butterfly",
+          "name": "Butterfly",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/butterfly.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "mjollnir",
+          "value": 5500,
+          "label": "5,500 gold"
+        },
+        {
+          "key": "rapier",
+          "value": 5600,
+          "label": "5,600 gold"
+        },
+        {
+          "key": "ethereal_blade",
+          "value": 5200,
+          "label": "5,200 gold"
+        },
+        {
+          "key": "butterfly",
+          "value": 5450,
+          "label": "5,450 gold"
+        }
+      ],
+      "correctOrder": ["ethereal_blade", "butterfly", "mjollnir", "rapier"],
+      "audit": {
+        "derivedFrom": ["item-cost:ethereal_blade", "item-cost:butterfly", "item-cost:mjollnir", "item-cost:rapier"],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:item-price:13",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:silver_edge,skadi,abyssal_blade,bloodthorn",
+      "order-v1:skadi,silver_edge,abyssal_blade,bloodthorn",
+      "order-v1:silver_edge,abyssal_blade,skadi,bloodthorn",
+      "order-v1:bloodthorn,abyssal_blade,skadi,silver_edge"
+    ],
+    "correctIndex": 0,
+    "explanation": "Cheapest to priciest: Silver Edge (5,700 gold) → Eye of Skadi (5,900 gold) → Abyssal Blade (6,250 gold) → Bloodthorn (6,400 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "silver_edge",
+          "name": "Silver Edge",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/silver_edge.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "bloodthorn",
+          "name": "Bloodthorn",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bloodthorn.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "skadi",
+          "name": "Eye of Skadi",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/skadi.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "abyssal_blade",
+          "name": "Abyssal Blade",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/abyssal_blade.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "silver_edge",
+          "value": 5700,
+          "label": "5,700 gold"
+        },
+        {
+          "key": "bloodthorn",
+          "value": 6400,
+          "label": "6,400 gold"
+        },
+        {
+          "key": "skadi",
+          "value": 5900,
+          "label": "5,900 gold"
+        },
+        {
+          "key": "abyssal_blade",
+          "value": 6250,
+          "label": "6,250 gold"
+        }
+      ],
+      "correctOrder": ["silver_edge", "skadi", "abyssal_blade", "bloodthorn"],
+      "audit": {
+        "derivedFrom": ["item-cost:silver_edge", "item-cost:skadi", "item-cost:abyssal_blade", "item-cost:bloodthorn"],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:item-price:14",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:blink,glimmer_cape,armlet,basher",
+      "order-v1:glimmer_cape,blink,armlet,basher",
+      "order-v1:glimmer_cape,armlet,blink,basher",
+      "order-v1:basher,armlet,blink,glimmer_cape"
+    ],
+    "correctIndex": 1,
+    "explanation": "Cheapest to priciest: Glimmer Cape (2,150 gold) → Blink Dagger (2,250 gold) → Armlet of Mordiggian (2,500 gold) → Skull Basher (2,875 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "glimmer_cape",
+          "name": "Glimmer Cape",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/glimmer_cape.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "basher",
+          "name": "Skull Basher",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/basher.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "blink",
+          "name": "Blink Dagger",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "armlet",
+          "name": "Armlet of Mordiggian",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/armlet.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "glimmer_cape",
+          "value": 2150,
+          "label": "2,150 gold"
+        },
+        {
+          "key": "basher",
+          "value": 2875,
+          "label": "2,875 gold"
+        },
+        {
+          "key": "blink",
+          "value": 2250,
+          "label": "2,250 gold"
+        },
+        {
+          "key": "armlet",
+          "value": 2500,
+          "label": "2,500 gold"
+        }
+      ],
+      "correctOrder": ["glimmer_cape", "blink", "armlet", "basher"],
+      "audit": {
+        "derivedFrom": ["item-cost:glimmer_cape", "item-cost:blink", "item-cost:armlet", "item-cost:basher"],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:item-price:15",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:pipe,orchid,hurricane_pike,shivas_guard",
+      "order-v1:orchid,hurricane_pike,pipe,shivas_guard",
+      "order-v1:orchid,pipe,hurricane_pike,shivas_guard",
+      "order-v1:shivas_guard,hurricane_pike,pipe,orchid"
+    ],
+    "correctIndex": 2,
+    "explanation": "Cheapest to priciest: Orchid Malevolence (3,275 gold) → Pipe of Insight (3,725 gold) → Hurricane Pike (4,450 gold) → Shiva's Guard (4,500 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "pipe",
+          "name": "Pipe of Insight",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pipe.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "hurricane_pike",
+          "name": "Hurricane Pike",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hurricane_pike.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "shivas_guard",
+          "name": "Shiva's Guard",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shivas_guard.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "orchid",
+          "name": "Orchid Malevolence",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orchid.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "pipe",
+          "value": 3725,
+          "label": "3,725 gold"
+        },
+        {
+          "key": "hurricane_pike",
+          "value": 4450,
+          "label": "4,450 gold"
+        },
+        {
+          "key": "shivas_guard",
+          "value": 4500,
+          "label": "4,500 gold"
+        },
+        {
+          "key": "orchid",
+          "value": 3275,
+          "label": "3,275 gold"
+        }
+      ],
+      "correctOrder": ["orchid", "pipe", "hurricane_pike", "shivas_guard"],
+      "audit": {
+        "derivedFrom": ["item-cost:orchid", "item-cost:pipe", "item-cost:hurricane_pike", "item-cost:shivas_guard"],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:item-price:16",
+    "kind": "value-order-item",
+    "varietyKey": "value-order:item-price",
+    "category": "Items",
+    "difficulty": 3,
+    "eyebrow": "Item prices",
+    "prompt": "Cheapest → priciest",
+    "answers": [
+      "order-v1:vanguard,aghanims_shard,force_staff,blade_mail",
+      "order-v1:aghanims_shard,force_staff,vanguard,blade_mail",
+      "order-v1:blade_mail,force_staff,vanguard,aghanims_shard",
+      "order-v1:aghanims_shard,vanguard,force_staff,blade_mail"
+    ],
+    "correctIndex": 3,
+    "explanation": "Cheapest to priciest: Aghanim's Shard (1,400 gold) → Vanguard (1,700 gold) → Force Staff (2,200 gold) → Blade Mail (2,400 gold).",
+    "valueOrder": {
+      "family": "item-price",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "vanguard",
+          "name": "Vanguard",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vanguard.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "force_staff",
+          "name": "Force Staff",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/force_staff.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "aghanims_shard",
+          "name": "Aghanim's Shard",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aghanims_shard.png?t=1593393829403",
+          "kind": "item"
+        },
+        {
+          "key": "blade_mail",
+          "name": "Blade Mail",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blade_mail.png?t=1593393829403",
+          "kind": "item"
+        }
+      ],
+      "values": [
+        {
+          "key": "vanguard",
+          "value": 1700,
+          "label": "1,700 gold"
+        },
+        {
+          "key": "force_staff",
+          "value": 2200,
+          "label": "2,200 gold"
+        },
+        {
+          "key": "aghanims_shard",
+          "value": 1400,
+          "label": "1,400 gold"
+        },
+        {
+          "key": "blade_mail",
+          "value": 2400,
+          "label": "2,400 gold"
+        }
+      ],
+      "correctOrder": ["aghanims_shard", "vanguard", "force_staff", "blade_mail"],
+      "audit": {
+        "derivedFrom": [
+          "item-cost:aghanims_shard",
+          "item-cost:vanguard",
+          "item-cost:force_staff",
+          "item-cost:blade_mail"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:01",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:spectre_reality,zuus_arc_lightning,bristleback_viscous_nasal_goo,weaver_geminate_attack",
+      "order-v1:zuus_arc_lightning,spectre_reality,bristleback_viscous_nasal_goo,weaver_geminate_attack",
+      "order-v1:spectre_reality,bristleback_viscous_nasal_goo,zuus_arc_lightning,weaver_geminate_attack",
+      "order-v1:weaver_geminate_attack,bristleback_viscous_nasal_goo,zuus_arc_lightning,spectre_reality"
+    ],
+    "correctIndex": 0,
+    "explanation": "Shortest to longest: Reality (1.5s) → Arc Lightning (1.6s) → Viscous Nasal Goo (1.75s) → Geminate Attack (3s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "spectre_reality",
+          "name": "Reality",
+          "context": "Spectre",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/spectre_reality.png",
+          "kind": "ability"
+        },
+        {
+          "key": "weaver_geminate_attack",
+          "name": "Geminate Attack",
+          "context": "Weaver",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/weaver_geminate_attack.png",
+          "kind": "ability"
+        },
+        {
+          "key": "zuus_arc_lightning",
+          "name": "Arc Lightning",
+          "context": "Zeus",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/zuus_arc_lightning.png",
+          "kind": "ability"
+        },
+        {
+          "key": "bristleback_viscous_nasal_goo",
+          "name": "Viscous Nasal Goo",
+          "context": "Bristleback",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bristleback_viscous_nasal_goo.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "spectre_reality",
+          "value": 1.5,
+          "label": "1.5s"
+        },
+        {
+          "key": "weaver_geminate_attack",
+          "value": 3,
+          "label": "3s"
+        },
+        {
+          "key": "zuus_arc_lightning",
+          "value": 1.6,
+          "label": "1.6s"
+        },
+        {
+          "key": "bristleback_viscous_nasal_goo",
+          "value": 1.75,
+          "label": "1.75s"
+        }
+      ],
+      "correctOrder": [
+        "spectre_reality",
+        "zuus_arc_lightning",
+        "bristleback_viscous_nasal_goo",
+        "weaver_geminate_attack"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:spectre_reality:1",
+          "cooldown:zuus_arc_lightning:1",
+          "cooldown:bristleback_viscous_nasal_goo:1",
+          "cooldown:weaver_geminate_attack:4"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:02",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:tinker_rearm,undying_decay,death_prophet_carrion_swarm,invoker_invoke",
+      "order-v1:undying_decay,tinker_rearm,death_prophet_carrion_swarm,invoker_invoke",
+      "order-v1:undying_decay,death_prophet_carrion_swarm,tinker_rearm,invoker_invoke",
+      "order-v1:invoker_invoke,death_prophet_carrion_swarm,tinker_rearm,undying_decay"
+    ],
+    "correctIndex": 1,
+    "explanation": "Shortest to longest: Decay (4s) → Rearm (4.5s) → Crypt Swarm (6s) → Invoke (7s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "invoker_invoke",
+          "name": "Invoke",
+          "context": "Invoker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/invoker_invoke.png",
+          "kind": "ability"
+        },
+        {
+          "key": "undying_decay",
+          "name": "Decay",
+          "context": "Undying",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/undying_decay.png",
+          "kind": "ability"
+        },
+        {
+          "key": "death_prophet_carrion_swarm",
+          "name": "Crypt Swarm",
+          "context": "Death Prophet",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/death_prophet_carrion_swarm.png",
+          "kind": "ability"
+        },
+        {
+          "key": "tinker_rearm",
+          "name": "Rearm",
+          "context": "Tinker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tinker_rearm.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "invoker_invoke",
+          "value": 7,
+          "label": "7s"
+        },
+        {
+          "key": "undying_decay",
+          "value": 4,
+          "label": "4s"
+        },
+        {
+          "key": "death_prophet_carrion_swarm",
+          "value": 6,
+          "label": "6s"
+        },
+        {
+          "key": "tinker_rearm",
+          "value": 4.5,
+          "label": "4.5s"
+        }
+      ],
+      "correctOrder": ["undying_decay", "tinker_rearm", "death_prophet_carrion_swarm", "invoker_invoke"],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:undying_decay:4",
+          "cooldown:tinker_rearm:3",
+          "cooldown:death_prophet_carrion_swarm:4",
+          "cooldown:invoker_invoke:1"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:03",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:lina_light_strike_array,faceless_void_time_walk,lina_dragon_slave,kunkka_torrent",
+      "order-v1:faceless_void_time_walk,lina_dragon_slave,lina_light_strike_array,kunkka_torrent",
+      "order-v1:faceless_void_time_walk,lina_light_strike_array,lina_dragon_slave,kunkka_torrent",
+      "order-v1:kunkka_torrent,lina_dragon_slave,lina_light_strike_array,faceless_void_time_walk"
+    ],
+    "correctIndex": 2,
+    "explanation": "Shortest to longest: Time Walk (6s) → Light Strike Array (7s) → Dragon Slave (8s) → Torrent (10s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "faceless_void_time_walk",
+          "name": "Time Walk",
+          "context": "Faceless Void",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/faceless_void_time_walk.png",
+          "kind": "ability"
+        },
+        {
+          "key": "kunkka_torrent",
+          "name": "Torrent",
+          "context": "Kunkka",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/kunkka_torrent.png",
+          "kind": "ability"
+        },
+        {
+          "key": "lina_dragon_slave",
+          "name": "Dragon Slave",
+          "context": "Lina",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lina_dragon_slave.png",
+          "kind": "ability"
+        },
+        {
+          "key": "lina_light_strike_array",
+          "name": "Light Strike Array",
+          "context": "Lina",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lina_light_strike_array.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "faceless_void_time_walk",
+          "value": 6,
+          "label": "6s"
+        },
+        {
+          "key": "kunkka_torrent",
+          "value": 10,
+          "label": "10s"
+        },
+        {
+          "key": "lina_dragon_slave",
+          "value": 8,
+          "label": "8s"
+        },
+        {
+          "key": "lina_light_strike_array",
+          "value": 7,
+          "label": "7s"
+        }
+      ],
+      "correctOrder": ["faceless_void_time_walk", "lina_light_strike_array", "lina_dragon_slave", "kunkka_torrent"],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:faceless_void_time_walk:4",
+          "cooldown:lina_light_strike_array:4",
+          "cooldown:lina_dragon_slave:4",
+          "cooldown:kunkka_torrent:4"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:04",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:oracle_fates_edict,pugna_life_drain,mars_gods_rebuke,bane_brain_sap",
+      "order-v1:pugna_life_drain,mars_gods_rebuke,oracle_fates_edict,bane_brain_sap",
+      "order-v1:bane_brain_sap,mars_gods_rebuke,oracle_fates_edict,pugna_life_drain",
+      "order-v1:pugna_life_drain,oracle_fates_edict,mars_gods_rebuke,bane_brain_sap"
+    ],
+    "correctIndex": 3,
+    "explanation": "Shortest to longest: Life Drain (7s) → Fate's Edict (8s) → God's Rebuke (10s) → Brain Sap (11s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "oracle_fates_edict",
+          "name": "Fate's Edict",
+          "context": "Oracle",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/oracle_fates_edict.png",
+          "kind": "ability"
+        },
+        {
+          "key": "bane_brain_sap",
+          "name": "Brain Sap",
+          "context": "Bane",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bane_brain_sap.png",
+          "kind": "ability"
+        },
+        {
+          "key": "mars_gods_rebuke",
+          "name": "God's Rebuke",
+          "context": "Mars",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mars_gods_rebuke.png",
+          "kind": "ability"
+        },
+        {
+          "key": "pugna_life_drain",
+          "name": "Life Drain",
+          "context": "Pugna",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pugna_life_drain.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "oracle_fates_edict",
+          "value": 8,
+          "label": "8s"
+        },
+        {
+          "key": "bane_brain_sap",
+          "value": 11,
+          "label": "11s"
+        },
+        {
+          "key": "mars_gods_rebuke",
+          "value": 10,
+          "label": "10s"
+        },
+        {
+          "key": "pugna_life_drain",
+          "value": 7,
+          "label": "7s"
+        }
+      ],
+      "correctOrder": ["pugna_life_drain", "oracle_fates_edict", "mars_gods_rebuke", "bane_brain_sap"],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:pugna_life_drain:1",
+          "cooldown:oracle_fates_edict:4",
+          "cooldown:mars_gods_rebuke:4",
+          "cooldown:bane_brain_sap:4"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:05",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:skeleton_king_hellfire_blast,marci_grapple,bloodseeker_blood_bath,batrider_flamebreak",
+      "order-v1:marci_grapple,skeleton_king_hellfire_blast,bloodseeker_blood_bath,batrider_flamebreak",
+      "order-v1:skeleton_king_hellfire_blast,bloodseeker_blood_bath,marci_grapple,batrider_flamebreak",
+      "order-v1:batrider_flamebreak,bloodseeker_blood_bath,marci_grapple,skeleton_king_hellfire_blast"
+    ],
+    "correctIndex": 0,
+    "explanation": "Shortest to longest: Wraithfire Blast (8s) → Dispose (10s) → Blood Rite (12s) → Flamebreak (13s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "marci_grapple",
+          "name": "Dispose",
+          "context": "Marci",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/marci_grapple.png",
+          "kind": "ability"
+        },
+        {
+          "key": "batrider_flamebreak",
+          "name": "Flamebreak",
+          "context": "Batrider",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/batrider_flamebreak.png",
+          "kind": "ability"
+        },
+        {
+          "key": "bloodseeker_blood_bath",
+          "name": "Blood Rite",
+          "context": "Bloodseeker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bloodseeker_blood_bath.png",
+          "kind": "ability"
+        },
+        {
+          "key": "skeleton_king_hellfire_blast",
+          "name": "Wraithfire Blast",
+          "context": "Wraith King",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/skeleton_king_hellfire_blast.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "marci_grapple",
+          "value": 10,
+          "label": "10s"
+        },
+        {
+          "key": "batrider_flamebreak",
+          "value": 13,
+          "label": "13s"
+        },
+        {
+          "key": "bloodseeker_blood_bath",
+          "value": 12,
+          "label": "12s"
+        },
+        {
+          "key": "skeleton_king_hellfire_blast",
+          "value": 8,
+          "label": "8s"
+        }
+      ],
+      "correctOrder": [
+        "skeleton_king_hellfire_blast",
+        "marci_grapple",
+        "bloodseeker_blood_bath",
+        "batrider_flamebreak"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:skeleton_king_hellfire_blast:4",
+          "cooldown:marci_grapple:4",
+          "cooldown:bloodseeker_blood_bath:4",
+          "cooldown:batrider_flamebreak:4"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:06",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:bane_brain_sap,meepo_earthbind,spirit_breaker_charge_of_darkness,phantom_assassin_fan_of_knives",
+      "order-v1:meepo_earthbind,bane_brain_sap,spirit_breaker_charge_of_darkness,phantom_assassin_fan_of_knives",
+      "order-v1:meepo_earthbind,spirit_breaker_charge_of_darkness,bane_brain_sap,phantom_assassin_fan_of_knives",
+      "order-v1:phantom_assassin_fan_of_knives,spirit_breaker_charge_of_darkness,bane_brain_sap,meepo_earthbind"
+    ],
+    "correctIndex": 1,
+    "explanation": "Shortest to longest: Earthbind (10s) → Brain Sap (11s) → Charge of Darkness (13s) → Fan of Knives (14s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "bane_brain_sap",
+          "name": "Brain Sap",
+          "context": "Bane",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bane_brain_sap.png",
+          "kind": "ability"
+        },
+        {
+          "key": "meepo_earthbind",
+          "name": "Earthbind",
+          "context": "Meepo",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/meepo_earthbind.png",
+          "kind": "ability"
+        },
+        {
+          "key": "phantom_assassin_fan_of_knives",
+          "name": "Fan of Knives",
+          "context": "Phantom Assassin",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/phantom_assassin_fan_of_knives.png",
+          "kind": "ability"
+        },
+        {
+          "key": "spirit_breaker_charge_of_darkness",
+          "name": "Charge of Darkness",
+          "context": "Spirit Breaker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/spirit_breaker_charge_of_darkness.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "bane_brain_sap",
+          "value": 11,
+          "label": "11s"
+        },
+        {
+          "key": "meepo_earthbind",
+          "value": 10,
+          "label": "10s"
+        },
+        {
+          "key": "phantom_assassin_fan_of_knives",
+          "value": 14,
+          "label": "14s"
+        },
+        {
+          "key": "spirit_breaker_charge_of_darkness",
+          "value": 13,
+          "label": "13s"
+        }
+      ],
+      "correctOrder": [
+        "meepo_earthbind",
+        "bane_brain_sap",
+        "spirit_breaker_charge_of_darkness",
+        "phantom_assassin_fan_of_knives"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:meepo_earthbind:4",
+          "cooldown:bane_brain_sap:4",
+          "cooldown:spirit_breaker_charge_of_darkness:4",
+          "cooldown:phantom_assassin_fan_of_knives:1"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:07",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:phantom_assassin_fan_of_knives,batrider_flamebreak,snapfire_firesnap_cookie,mirana_arrow",
+      "order-v1:batrider_flamebreak,snapfire_firesnap_cookie,phantom_assassin_fan_of_knives,mirana_arrow",
+      "order-v1:batrider_flamebreak,phantom_assassin_fan_of_knives,snapfire_firesnap_cookie,mirana_arrow",
+      "order-v1:mirana_arrow,snapfire_firesnap_cookie,phantom_assassin_fan_of_knives,batrider_flamebreak"
+    ],
+    "correctIndex": 2,
+    "explanation": "Shortest to longest: Flamebreak (13s) → Fan of Knives (14s) → Firesnap Cookie (15s) → Sacred Arrow (16s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "snapfire_firesnap_cookie",
+          "name": "Firesnap Cookie",
+          "context": "Snapfire",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/snapfire_firesnap_cookie.png",
+          "kind": "ability"
+        },
+        {
+          "key": "mirana_arrow",
+          "name": "Sacred Arrow",
+          "context": "Mirana",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mirana_arrow.png",
+          "kind": "ability"
+        },
+        {
+          "key": "batrider_flamebreak",
+          "name": "Flamebreak",
+          "context": "Batrider",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/batrider_flamebreak.png",
+          "kind": "ability"
+        },
+        {
+          "key": "phantom_assassin_fan_of_knives",
+          "name": "Fan of Knives",
+          "context": "Phantom Assassin",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/phantom_assassin_fan_of_knives.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "snapfire_firesnap_cookie",
+          "value": 15,
+          "label": "15s"
+        },
+        {
+          "key": "mirana_arrow",
+          "value": 16,
+          "label": "16s"
+        },
+        {
+          "key": "batrider_flamebreak",
+          "value": 13,
+          "label": "13s"
+        },
+        {
+          "key": "phantom_assassin_fan_of_knives",
+          "value": 14,
+          "label": "14s"
+        }
+      ],
+      "correctOrder": [
+        "batrider_flamebreak",
+        "phantom_assassin_fan_of_knives",
+        "snapfire_firesnap_cookie",
+        "mirana_arrow"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:batrider_flamebreak:4",
+          "cooldown:phantom_assassin_fan_of_knives:1",
+          "cooldown:snapfire_firesnap_cookie:4",
+          "cooldown:mirana_arrow:4"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:08",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:elder_titan_ancestral_spirit,mirana_arrow,warlock_fatal_bonds,pudge_dismember",
+      "order-v1:mirana_arrow,warlock_fatal_bonds,elder_titan_ancestral_spirit,pudge_dismember",
+      "order-v1:pudge_dismember,warlock_fatal_bonds,elder_titan_ancestral_spirit,mirana_arrow",
+      "order-v1:mirana_arrow,elder_titan_ancestral_spirit,warlock_fatal_bonds,pudge_dismember"
+    ],
+    "correctIndex": 3,
+    "explanation": "Shortest to longest: Sacred Arrow (16s) → Astral Spirit (17s) → Fatal Bonds (18s) → Dismember (20s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "warlock_fatal_bonds",
+          "name": "Fatal Bonds",
+          "context": "Warlock",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/warlock_fatal_bonds.png",
+          "kind": "ability"
+        },
+        {
+          "key": "pudge_dismember",
+          "name": "Dismember",
+          "context": "Pudge",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pudge_dismember.png",
+          "kind": "ability"
+        },
+        {
+          "key": "mirana_arrow",
+          "name": "Sacred Arrow",
+          "context": "Mirana",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mirana_arrow.png",
+          "kind": "ability"
+        },
+        {
+          "key": "elder_titan_ancestral_spirit",
+          "name": "Astral Spirit",
+          "context": "Elder Titan",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/elder_titan_ancestral_spirit.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "warlock_fatal_bonds",
+          "value": 18,
+          "label": "18s"
+        },
+        {
+          "key": "pudge_dismember",
+          "value": 20,
+          "label": "20s"
+        },
+        {
+          "key": "mirana_arrow",
+          "value": 16,
+          "label": "16s"
+        },
+        {
+          "key": "elder_titan_ancestral_spirit",
+          "value": 17,
+          "label": "17s"
+        }
+      ],
+      "correctOrder": ["mirana_arrow", "elder_titan_ancestral_spirit", "warlock_fatal_bonds", "pudge_dismember"],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:mirana_arrow:4",
+          "cooldown:elder_titan_ancestral_spirit:4",
+          "cooldown:warlock_fatal_bonds:4",
+          "cooldown:pudge_dismember:3"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:09",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:warlock_fatal_bonds,pudge_dismember,sandking_sand_storm,largo_croak_of_genius",
+      "order-v1:pudge_dismember,warlock_fatal_bonds,sandking_sand_storm,largo_croak_of_genius",
+      "order-v1:warlock_fatal_bonds,sandking_sand_storm,pudge_dismember,largo_croak_of_genius",
+      "order-v1:largo_croak_of_genius,sandking_sand_storm,pudge_dismember,warlock_fatal_bonds"
+    ],
+    "correctIndex": 0,
+    "explanation": "Shortest to longest: Fatal Bonds (18s) → Dismember (20s) → Sand Storm (22s) → Croak of Genius (25s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "warlock_fatal_bonds",
+          "name": "Fatal Bonds",
+          "context": "Warlock",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/warlock_fatal_bonds.png",
+          "kind": "ability"
+        },
+        {
+          "key": "pudge_dismember",
+          "name": "Dismember",
+          "context": "Pudge",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pudge_dismember.png",
+          "kind": "ability"
+        },
+        {
+          "key": "sandking_sand_storm",
+          "name": "Sand Storm",
+          "context": "Sand King",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sandking_sand_storm.png",
+          "kind": "ability"
+        },
+        {
+          "key": "largo_croak_of_genius",
+          "name": "Croak of Genius",
+          "context": "Largo",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/largo_croak_of_genius.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "warlock_fatal_bonds",
+          "value": 18,
+          "label": "18s"
+        },
+        {
+          "key": "pudge_dismember",
+          "value": 20,
+          "label": "20s"
+        },
+        {
+          "key": "sandking_sand_storm",
+          "value": 22,
+          "label": "22s"
+        },
+        {
+          "key": "largo_croak_of_genius",
+          "value": 25,
+          "label": "25s"
+        }
+      ],
+      "correctOrder": ["warlock_fatal_bonds", "pudge_dismember", "sandking_sand_storm", "largo_croak_of_genius"],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:warlock_fatal_bonds:4",
+          "cooldown:pudge_dismember:3",
+          "cooldown:sandking_sand_storm:4",
+          "cooldown:largo_croak_of_genius:1"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:10",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:invoker_tornado,largo_croak_of_genius,furion_force_of_nature,spirit_breaker_nether_strike",
+      "order-v1:largo_croak_of_genius,invoker_tornado,furion_force_of_nature,spirit_breaker_nether_strike",
+      "order-v1:largo_croak_of_genius,furion_force_of_nature,invoker_tornado,spirit_breaker_nether_strike",
+      "order-v1:spirit_breaker_nether_strike,furion_force_of_nature,invoker_tornado,largo_croak_of_genius"
+    ],
+    "correctIndex": 1,
+    "explanation": "Shortest to longest: Croak of Genius (25s) → Tornado (27s) → Nature's Call (30s) → Nether Strike (35s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "largo_croak_of_genius",
+          "name": "Croak of Genius",
+          "context": "Largo",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/largo_croak_of_genius.png",
+          "kind": "ability"
+        },
+        {
+          "key": "spirit_breaker_nether_strike",
+          "name": "Nether Strike",
+          "context": "Spirit Breaker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/spirit_breaker_nether_strike.png",
+          "kind": "ability"
+        },
+        {
+          "key": "furion_force_of_nature",
+          "name": "Nature's Call",
+          "context": "Nature's Prophet",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/furion_force_of_nature.png",
+          "kind": "ability"
+        },
+        {
+          "key": "invoker_tornado",
+          "name": "Tornado",
+          "context": "Invoker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/invoker_tornado.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "largo_croak_of_genius",
+          "value": 25,
+          "label": "25s"
+        },
+        {
+          "key": "spirit_breaker_nether_strike",
+          "value": 35,
+          "label": "35s"
+        },
+        {
+          "key": "furion_force_of_nature",
+          "value": 30,
+          "label": "30s"
+        },
+        {
+          "key": "invoker_tornado",
+          "value": 27,
+          "label": "27s"
+        }
+      ],
+      "correctOrder": [
+        "largo_croak_of_genius",
+        "invoker_tornado",
+        "furion_force_of_nature",
+        "spirit_breaker_nether_strike"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:largo_croak_of_genius:1",
+          "cooldown:invoker_tornado:1",
+          "cooldown:furion_force_of_nature:4",
+          "cooldown:spirit_breaker_nether_strike:3"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:11",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:hoodwink_decoy,obsidian_destroyer_objurgation,spirit_breaker_nether_strike,meepo_petrify",
+      "order-v1:obsidian_destroyer_objurgation,spirit_breaker_nether_strike,hoodwink_decoy,meepo_petrify",
+      "order-v1:obsidian_destroyer_objurgation,hoodwink_decoy,spirit_breaker_nether_strike,meepo_petrify",
+      "order-v1:meepo_petrify,spirit_breaker_nether_strike,hoodwink_decoy,obsidian_destroyer_objurgation"
+    ],
+    "correctIndex": 2,
+    "explanation": "Shortest to longest: Objurgation (27s) → Decoy (30s) → Nether Strike (35s) → Dig (40s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "obsidian_destroyer_objurgation",
+          "name": "Objurgation",
+          "context": "Outworld Devourer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/obsidian_destroyer_objurgation.png",
+          "kind": "ability"
+        },
+        {
+          "key": "spirit_breaker_nether_strike",
+          "name": "Nether Strike",
+          "context": "Spirit Breaker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/spirit_breaker_nether_strike.png",
+          "kind": "ability"
+        },
+        {
+          "key": "meepo_petrify",
+          "name": "Dig",
+          "context": "Meepo",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/meepo_petrify.png",
+          "kind": "ability"
+        },
+        {
+          "key": "hoodwink_decoy",
+          "name": "Decoy",
+          "context": "Hoodwink",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/hoodwink_decoy.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "obsidian_destroyer_objurgation",
+          "value": 27,
+          "label": "27s"
+        },
+        {
+          "key": "spirit_breaker_nether_strike",
+          "value": 35,
+          "label": "35s"
+        },
+        {
+          "key": "meepo_petrify",
+          "value": 40,
+          "label": "40s"
+        },
+        {
+          "key": "hoodwink_decoy",
+          "value": 30,
+          "label": "30s"
+        }
+      ],
+      "correctOrder": [
+        "obsidian_destroyer_objurgation",
+        "hoodwink_decoy",
+        "spirit_breaker_nether_strike",
+        "meepo_petrify"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:obsidian_destroyer_objurgation:4",
+          "cooldown:hoodwink_decoy:1",
+          "cooldown:spirit_breaker_nether_strike:3",
+          "cooldown:meepo_petrify:1"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:12",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:spirit_breaker_nether_strike,spirit_breaker_planar_pocket,oracle_rain_of_destiny,lina_laguna_blade",
+      "order-v1:spirit_breaker_planar_pocket,oracle_rain_of_destiny,spirit_breaker_nether_strike,lina_laguna_blade",
+      "order-v1:lina_laguna_blade,oracle_rain_of_destiny,spirit_breaker_nether_strike,spirit_breaker_planar_pocket",
+      "order-v1:spirit_breaker_planar_pocket,spirit_breaker_nether_strike,oracle_rain_of_destiny,lina_laguna_blade"
+    ],
+    "correctIndex": 3,
+    "explanation": "Shortest to longest: Planar Pocket (30s) → Nether Strike (35s) → Rain of Destiny (40s) → Laguna Blade (50s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "spirit_breaker_nether_strike",
+          "name": "Nether Strike",
+          "context": "Spirit Breaker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/spirit_breaker_nether_strike.png",
+          "kind": "ability"
+        },
+        {
+          "key": "oracle_rain_of_destiny",
+          "name": "Rain of Destiny",
+          "context": "Oracle",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/oracle_rain_of_destiny.png",
+          "kind": "ability"
+        },
+        {
+          "key": "lina_laguna_blade",
+          "name": "Laguna Blade",
+          "context": "Lina",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lina_laguna_blade.png",
+          "kind": "ability"
+        },
+        {
+          "key": "spirit_breaker_planar_pocket",
+          "name": "Planar Pocket",
+          "context": "Spirit Breaker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/spirit_breaker_planar_pocket.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "spirit_breaker_nether_strike",
+          "value": 35,
+          "label": "35s"
+        },
+        {
+          "key": "oracle_rain_of_destiny",
+          "value": 40,
+          "label": "40s"
+        },
+        {
+          "key": "lina_laguna_blade",
+          "value": 50,
+          "label": "50s"
+        },
+        {
+          "key": "spirit_breaker_planar_pocket",
+          "value": 30,
+          "label": "30s"
+        }
+      ],
+      "correctOrder": [
+        "spirit_breaker_planar_pocket",
+        "spirit_breaker_nether_strike",
+        "oracle_rain_of_destiny",
+        "lina_laguna_blade"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:spirit_breaker_planar_pocket:1",
+          "cooldown:spirit_breaker_nether_strike:3",
+          "cooldown:oracle_rain_of_destiny:1",
+          "cooldown:lina_laguna_blade:3"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:13",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:lina_laguna_blade,gyrocopter_call_down,alchemist_chemical_rage,axe_culling_blade",
+      "order-v1:gyrocopter_call_down,lina_laguna_blade,alchemist_chemical_rage,axe_culling_blade",
+      "order-v1:lina_laguna_blade,alchemist_chemical_rage,gyrocopter_call_down,axe_culling_blade",
+      "order-v1:axe_culling_blade,alchemist_chemical_rage,gyrocopter_call_down,lina_laguna_blade"
+    ],
+    "correctIndex": 0,
+    "explanation": "Shortest to longest: Laguna Blade (50s) → Call Down (55s) → Chemical Rage (60s) → Culling Blade (70s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "lina_laguna_blade",
+          "name": "Laguna Blade",
+          "context": "Lina",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lina_laguna_blade.png",
+          "kind": "ability"
+        },
+        {
+          "key": "axe_culling_blade",
+          "name": "Culling Blade",
+          "context": "Axe",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/axe_culling_blade.png",
+          "kind": "ability"
+        },
+        {
+          "key": "alchemist_chemical_rage",
+          "name": "Chemical Rage",
+          "context": "Alchemist",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/alchemist_chemical_rage.png",
+          "kind": "ability"
+        },
+        {
+          "key": "gyrocopter_call_down",
+          "name": "Call Down",
+          "context": "Gyrocopter",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/gyrocopter_call_down.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "lina_laguna_blade",
+          "value": 50,
+          "label": "50s"
+        },
+        {
+          "key": "axe_culling_blade",
+          "value": 70,
+          "label": "70s"
+        },
+        {
+          "key": "alchemist_chemical_rage",
+          "value": 60,
+          "label": "60s"
+        },
+        {
+          "key": "gyrocopter_call_down",
+          "value": 55,
+          "label": "55s"
+        }
+      ],
+      "correctOrder": ["lina_laguna_blade", "gyrocopter_call_down", "alchemist_chemical_rage", "axe_culling_blade"],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:lina_laguna_blade:3",
+          "cooldown:gyrocopter_call_down:3",
+          "cooldown:alchemist_chemical_rage:1",
+          "cooldown:axe_culling_blade:3"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:14",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:batrider_flaming_lasso,gyrocopter_call_down,disruptor_static_storm,witch_doctor_death_ward",
+      "order-v1:gyrocopter_call_down,batrider_flaming_lasso,disruptor_static_storm,witch_doctor_death_ward",
+      "order-v1:gyrocopter_call_down,disruptor_static_storm,batrider_flaming_lasso,witch_doctor_death_ward",
+      "order-v1:witch_doctor_death_ward,disruptor_static_storm,batrider_flaming_lasso,gyrocopter_call_down"
+    ],
+    "correctIndex": 1,
+    "explanation": "Shortest to longest: Call Down (55s) → Flaming Lasso (60s) → Static Storm (70s) → Death Ward (80s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "witch_doctor_death_ward",
+          "name": "Death Ward",
+          "context": "Witch Doctor",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/witch_doctor_death_ward.png",
+          "kind": "ability"
+        },
+        {
+          "key": "batrider_flaming_lasso",
+          "name": "Flaming Lasso",
+          "context": "Batrider",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/batrider_flaming_lasso.png",
+          "kind": "ability"
+        },
+        {
+          "key": "disruptor_static_storm",
+          "name": "Static Storm",
+          "context": "Disruptor",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_static_storm.png",
+          "kind": "ability"
+        },
+        {
+          "key": "gyrocopter_call_down",
+          "name": "Call Down",
+          "context": "Gyrocopter",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/gyrocopter_call_down.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "witch_doctor_death_ward",
+          "value": 80,
+          "label": "80s"
+        },
+        {
+          "key": "batrider_flaming_lasso",
+          "value": 60,
+          "label": "60s"
+        },
+        {
+          "key": "disruptor_static_storm",
+          "value": 70,
+          "label": "70s"
+        },
+        {
+          "key": "gyrocopter_call_down",
+          "value": 55,
+          "label": "55s"
+        }
+      ],
+      "correctOrder": [
+        "gyrocopter_call_down",
+        "batrider_flaming_lasso",
+        "disruptor_static_storm",
+        "witch_doctor_death_ward"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:gyrocopter_call_down:3",
+          "cooldown:batrider_flaming_lasso:3",
+          "cooldown:disruptor_static_storm:3",
+          "cooldown:witch_doctor_death_ward:3"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:15",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:ringmaster_wheel,beastmaster_primal_roar,witch_doctor_death_ward,chen_hand_of_god",
+      "order-v1:beastmaster_primal_roar,witch_doctor_death_ward,ringmaster_wheel,chen_hand_of_god",
+      "order-v1:beastmaster_primal_roar,ringmaster_wheel,witch_doctor_death_ward,chen_hand_of_god",
+      "order-v1:chen_hand_of_god,witch_doctor_death_ward,ringmaster_wheel,beastmaster_primal_roar"
+    ],
+    "correctIndex": 2,
+    "explanation": "Shortest to longest: Primal Roar (60s) → Wheel of Wonder (70s) → Death Ward (80s) → Hand of God (110s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "beastmaster_primal_roar",
+          "name": "Primal Roar",
+          "context": "Beastmaster",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/beastmaster_primal_roar.png",
+          "kind": "ability"
+        },
+        {
+          "key": "chen_hand_of_god",
+          "name": "Hand of God",
+          "context": "Chen",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/chen_hand_of_god.png",
+          "kind": "ability"
+        },
+        {
+          "key": "ringmaster_wheel",
+          "name": "Wheel of Wonder",
+          "context": "Ring Master",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/ringmaster_wheel.png",
+          "kind": "ability"
+        },
+        {
+          "key": "witch_doctor_death_ward",
+          "name": "Death Ward",
+          "context": "Witch Doctor",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/witch_doctor_death_ward.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "beastmaster_primal_roar",
+          "value": 60,
+          "label": "60s"
+        },
+        {
+          "key": "chen_hand_of_god",
+          "value": 110,
+          "label": "110s"
+        },
+        {
+          "key": "ringmaster_wheel",
+          "value": 70,
+          "label": "70s"
+        },
+        {
+          "key": "witch_doctor_death_ward",
+          "value": 80,
+          "label": "80s"
+        }
+      ],
+      "correctOrder": ["beastmaster_primal_roar", "ringmaster_wheel", "witch_doctor_death_ward", "chen_hand_of_god"],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:beastmaster_primal_roar:3",
+          "cooldown:ringmaster_wheel:3",
+          "cooldown:witch_doctor_death_ward:3",
+          "cooldown:chen_hand_of_god:3"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-cooldown:16",
+    "kind": "value-order-cooldown",
+    "varietyKey": "value-order:ability-cooldown",
+    "category": "Cooldowns",
+    "difficulty": 3,
+    "eyebrow": "Base cooldowns",
+    "prompt": "Shortest → longest",
+    "answers": [
+      "order-v1:witch_doctor_death_ward,axe_culling_blade,chen_hand_of_god,enigma_black_hole",
+      "order-v1:axe_culling_blade,chen_hand_of_god,witch_doctor_death_ward,enigma_black_hole",
+      "order-v1:enigma_black_hole,chen_hand_of_god,witch_doctor_death_ward,axe_culling_blade",
+      "order-v1:axe_culling_blade,witch_doctor_death_ward,chen_hand_of_god,enigma_black_hole"
+    ],
+    "correctIndex": 3,
+    "explanation": "Shortest to longest: Culling Blade (70s) → Death Ward (80s) → Hand of God (110s) → Black Hole (160s).",
+    "valueOrder": {
+      "family": "ability-cooldown",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "chen_hand_of_god",
+          "name": "Hand of God",
+          "context": "Chen",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/chen_hand_of_god.png",
+          "kind": "ability"
+        },
+        {
+          "key": "witch_doctor_death_ward",
+          "name": "Death Ward",
+          "context": "Witch Doctor",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/witch_doctor_death_ward.png",
+          "kind": "ability"
+        },
+        {
+          "key": "axe_culling_blade",
+          "name": "Culling Blade",
+          "context": "Axe",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/axe_culling_blade.png",
+          "kind": "ability"
+        },
+        {
+          "key": "enigma_black_hole",
+          "name": "Black Hole",
+          "context": "Enigma",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/enigma_black_hole.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "chen_hand_of_god",
+          "value": 110,
+          "label": "110s"
+        },
+        {
+          "key": "witch_doctor_death_ward",
+          "value": 80,
+          "label": "80s"
+        },
+        {
+          "key": "axe_culling_blade",
+          "value": 70,
+          "label": "70s"
+        },
+        {
+          "key": "enigma_black_hole",
+          "value": 160,
+          "label": "160s"
+        }
+      ],
+      "correctOrder": ["axe_culling_blade", "witch_doctor_death_ward", "chen_hand_of_god", "enigma_black_hole"],
+      "audit": {
+        "derivedFrom": [
+          "cooldown:axe_culling_blade:3",
+          "cooldown:witch_doctor_death_ward:3",
+          "cooldown:chen_hand_of_god:3",
+          "cooldown:enigma_black_hole:3"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  }
+]

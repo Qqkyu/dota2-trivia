@@ -5,13 +5,15 @@ import path from "node:path";
 import { heroCorrectAnswerKey, isHeroPickerQuestion } from "../src/lib/hero-picker.mjs";
 import { itemPickerCorrectAnswerKey, recipeBuilderCorrectAnswerKey } from "../src/lib/item-picker.mjs";
 import { publicQuestionForRound, publicQuestionRevision } from "../src/lib/public-question.mjs";
+import { valueOrderCorrectAnswerKey } from "../src/lib/value-order.mjs";
 
 const root = process.cwd();
 const readJson = async (file) => JSON.parse(await readFile(path.join(root, "src", "data", file), "utf8"));
-const [generated, shopkeeper, soundcheck] = await Promise.all([
+const [generated, shopkeeper, soundcheck, valueOrder] = await Promise.all([
   readJson("questions.generated.json"),
   readJson("shopkeeper-questions.json"),
   readJson("soundcheck-questions.json"),
+  readJson("value-order-questions.json"),
 ]);
 const failures = [];
 
@@ -65,6 +67,10 @@ const forbiddenAnsweringKeys = new Set([
   "eventFile",
   "outcomes",
   "targetedOptions",
+  "values",
+  "correctOrder",
+  "value",
+  "derivedFrom",
 ]);
 
 const representativeQuestions = [
@@ -87,6 +93,7 @@ const representativeQuestions = [
     "soundcheck",
   ],
   [soundcheck.find((question) => question.soundcheck?.format === "sequence"), "soundcheck"],
+  [valueOrder[0], "order-up"],
 ];
 
 for (const [question, game] of representativeQuestions) {
@@ -216,6 +223,28 @@ if (itemSequence) {
   record(
     answering.answerMode === undefined && answering.answerImagePairs?.length === 4,
     "Ordered item sounds should remain a four-pair ordering task.",
+  );
+}
+
+const orderQuestion = valueOrder[0];
+if (orderQuestion) {
+  const answeringRound = roundFor(orderQuestion, "order-up");
+  const answering = publicQuestionForRound(orderQuestion, answeringRound, answeringRound.now);
+  const revealRound = roundFor(orderQuestion, "order-up", "reveal", 16_000);
+  const reveal = publicQuestionForRound(orderQuestion, revealRound, revealRound.now);
+  const answeringJson = JSON.stringify(answering);
+  record(
+    answering.answerMode === "value-order" &&
+      answering.answers.every((answer) => answer === "") &&
+      answering.valueOrder?.cards.length === 4 &&
+      orderQuestion.valueOrder.values.every(({ label }) => !answeringJson.includes(JSON.stringify(label))) &&
+      !answeringJson.includes(valueOrderCorrectAnswerKey(orderQuestion)),
+    "Order Up exposed a value, correct order, or private fallback choice while answers were open.",
+  );
+  record(
+    reveal.reveal?.correctAnswerKey === valueOrderCorrectAnswerKey(orderQuestion) &&
+      reveal.reveal?.orderValues?.length === 4,
+    "Order Up did not reveal its canonical order and values after the deadline.",
   );
 }
 

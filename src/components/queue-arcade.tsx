@@ -16,6 +16,7 @@ import {
   Gauge,
   Gamepad2,
   Keyboard,
+  ListOrdered,
   MapPin,
   MessageSquareQuote,
   Radio,
@@ -81,6 +82,7 @@ import {
   isPublicKeyedAnswerQuestion,
   isPublicQuestionAnswerCorrect,
   isPublicRecipeBuilderQuestion,
+  isPublicValueOrderQuestion,
   publicCorrectIndex,
   type PublicArcadeQuestion,
 } from "@/lib/public-question";
@@ -92,6 +94,12 @@ import {
   soundcheckCutDuration,
   soundcheckRevealStage,
 } from "@/lib/soundcheck.mjs";
+import {
+  isValueOrderAnswerForQuestion,
+  isValueOrderAnswerKey,
+  valueOrderAnswerKey,
+  valueOrderKeysFromAnswerKey,
+} from "@/lib/value-order.mjs";
 import { createRoomSyncGate, roomDeadlineSyncDelay } from "@/lib/room-sync.mjs";
 import { SteamSignIn } from "./steam-sign-in";
 import styles from "./queue-arcade.module.css";
@@ -286,7 +294,7 @@ const MODE_INFO: Record<
     eyebrow: "One room · Endless",
     description: "Dota facts, recipes, spells, fog, voices, sounds, and quotes—one round at a time.",
     action: "Join public arcade",
-    rule: "Ten distinct round formats rotate without repeating the same family back-to-back.",
+    rule: "Distinct round formats rotate without repeating the same family back-to-back.",
   },
   trivia: {
     label: "Classic Trivia",
@@ -344,6 +352,14 @@ const MODE_INFO: Record<
     action: "Read between the lines",
     rule: "One proper hero line, four closely matched portraits, no laughs or throwaway noises.",
   },
+  "order-up": {
+    label: "Order Up",
+    shortLabel: "Order Up",
+    eyebrow: "Sort the facts",
+    description: "Put four audited items or abilities in the right order before the clock runs out.",
+    action: "Sort the cards",
+    rule: "Four cards, one direction, and no values until the reveal.",
+  },
   "map-sense": {
     label: "Map Sense",
     shortLabel: "Map Sense",
@@ -370,6 +386,7 @@ function ModeIcon({ mode }: { mode: ArcadeMode | RoundGame }) {
   if (mode === "echo-hunt") return <AudioLines />;
   if (mode === "soundcheck") return <AudioWaveform />;
   if (mode === "quote-hunt") return <MessageSquareQuote />;
+  if (mode === "order-up") return <ListOrdered />;
   if (mode === "map-sense") return <MapPin />;
   if (mode === "counterplay") return <ShieldCheck />;
   return <Brain />;
@@ -392,9 +409,11 @@ function normalizeCrowd(value: unknown): CrowdResult | null {
               entry &&
                 typeof entry === "object" &&
                 "answerKey" in entry &&
+                typeof entry.answerKey === "string" &&
                 (isShopkeeperCatalogKey(entry.answerKey) ||
                   isRecipeAnswerKey(entry.answerKey) ||
-                  isHeroCatalogKey(entry.answerKey)) &&
+                  isHeroCatalogKey(entry.answerKey) ||
+                  isValueOrderAnswerKey(entry.answerKey)) &&
                 "count" in entry &&
                 typeof entry.count === "number" &&
                 Number.isInteger(entry.count) &&
@@ -467,9 +486,11 @@ function normalizePlayerVote(value: unknown) {
     typeof submittedAt !== "number" ||
     !Number.isFinite(submittedAt) ||
     (answerKey !== undefined &&
-      !isShopkeeperCatalogKey(answerKey) &&
-      !isRecipeAnswerKey(answerKey) &&
-      !isHeroCatalogKey(answerKey)) ||
+      (typeof answerKey !== "string" ||
+        (!isShopkeeperCatalogKey(answerKey) &&
+          !isRecipeAnswerKey(answerKey) &&
+          !isHeroCatalogKey(answerKey) &&
+          !isValueOrderAnswerKey(answerKey)))) ||
     (mapPosition !== undefined && !isMapPosition(mapPosition))
   ) {
     return undefined;
@@ -764,12 +785,24 @@ function shopkeeperReferencesForKeys(itemKeys: string[]): ShopkeeperItemReferenc
   return references;
 }
 
-function keyedAnswerLabel(answerKey: string, fallback: string) {
+function valueOrderAnswerLabel(question: PublicArcadeQuestion, answerKey: string) {
+  const keys = valueOrderKeysFromAnswerKey(answerKey);
+  if (!keys || !question.valueOrder) return null;
+  const cardByKey = new Map(question.valueOrder.cards.map((card) => [card.key, card]));
+  const cards = keys.map((key) => cardByKey.get(key));
+  return cards.every(Boolean) ? cards.map((card) => card?.name).join(" → ") : null;
+}
+
+function keyedAnswerLabel(answerKey: string, fallback: string, question?: PublicArcadeQuestion) {
   const recipeItems = recipeItemsFromAnswerKey(answerKey);
   if (recipeItems) {
     return shopkeeperReferencesForKeys(recipeItems)
       .map((item) => `${item.name}${item.count > 1 ? ` ×${item.count}` : ""}`)
       .join(", ");
+  }
+  if (question) {
+    const orderLabel = valueOrderAnswerLabel(question, answerKey);
+    if (orderLabel) return orderLabel;
   }
   return SHOPKEEPER_CATALOG_BY_KEY.get(answerKey)?.name ?? HERO_PICKER_BY_KEY.get(answerKey)?.name ?? fallback;
 }
@@ -868,10 +901,20 @@ function KeyedCrowdSplit({
         const item = SHOPKEEPER_CATALOG_BY_KEY.get(answerKey);
         const recipeKeys = recipeItemsFromAnswerKey(answerKey);
         const recipeItems = recipeKeys ? shopkeeperReferencesForKeys(recipeKeys) : [];
-        const label = keyedAnswerLabel(answerKey, "Unknown pick");
+        const orderKeys = valueOrderKeysFromAnswerKey(answerKey);
+        const orderCards = orderKeys
+          ?.map((key) => question.valueOrder?.cards.find((card) => card.key === key))
+          .filter((card) => Boolean(card));
+        const label = keyedAnswerLabel(answerKey, "Unknown pick", question);
         const marker =
           hero || item ? (
             <Image src={(hero ?? item)?.image ?? ""} alt="" fill sizes="34px" unoptimized />
+          ) : orderCards?.length === 4 ? (
+            <span className={styles.crowdSplitOrder} aria-hidden="true">
+              {orderCards.map((card) => (
+                <Image key={card?.key} src={card?.image ?? ""} alt="" width={18} height={18} unoptimized />
+              ))}
+            </span>
           ) : recipeItems.length ? (
             <span className={styles.crowdSplitRecipe} aria-hidden="true">
               {recipeItems.slice(0, 3).map((recipeItem) => (
@@ -897,6 +940,186 @@ function KeyedCrowdSplit({
       {split.otherCount > 0 && (
         <CrowdSplitBar marker="…" label="Other picks" count={split.otherCount} total={crowd.total} />
       )}
+    </div>
+  );
+}
+
+type PublicValueOrderCard = NonNullable<PublicArcadeQuestion["valueOrder"]>["cards"][number];
+const EMPTY_VALUE_ORDER_CARDS: PublicValueOrderCard[] = [];
+
+function ValueOrderSequence({
+  question,
+  cardKeys,
+  label,
+  showValues = false,
+}: {
+  question: PublicArcadeQuestion;
+  cardKeys: string[];
+  label: string;
+  showValues?: boolean;
+}) {
+  const cardByKey = new Map(question.valueOrder?.cards.map((card) => [card.key, card]) ?? []);
+  const valueByKey = new Map(question.reveal?.orderValues?.map((entry) => [entry.key, entry.label]) ?? []);
+
+  return (
+    <div className={styles.valueOrderSequence} data-testid="value-order-sequence">
+      <small>{label}</small>
+      <div>
+        {cardKeys.map((key, index) => {
+          const card = cardByKey.get(key);
+          if (!card) return null;
+          return (
+            <span key={key} className={styles.valueOrderSequenceCard} data-card-kind={card.kind}>
+              <i>{index + 1}</i>
+              <Image src={card.image} alt="" width={46} height={46} unoptimized />
+              <strong>{card.name}</strong>
+              {showValues && <em>{valueByKey.get(key) ?? "—"}</em>}
+            </span>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function ValueOrderBoard({
+  question,
+  phase,
+  selectedKey,
+  onChoose,
+}: {
+  question: PublicArcadeQuestion;
+  phase: GamePhase;
+  selectedKey: string | null;
+  onChoose: (answerKey: string) => void;
+}) {
+  const submittedKeys = selectedKey ? valueOrderKeysFromAnswerKey(selectedKey) : null;
+  const [draftKeys, setDraftKeys] = useState<string[]>(() => submittedKeys ?? []);
+  const cards = question.valueOrder?.cards ?? EMPTY_VALUE_ORDER_CARDS;
+  const activeKeys = submittedKeys ?? draftKeys;
+  const locked = Boolean(selectedKey) || phase !== "answering";
+
+  const toggleCard = useCallback(
+    (card: PublicValueOrderCard) => {
+      if (locked) return;
+      setDraftKeys((current) =>
+        current.includes(card.key)
+          ? current.filter((key) => key !== card.key)
+          : current.length < 4
+            ? [...current, card.key]
+            : current,
+      );
+    },
+    [locked],
+  );
+
+  const lockOrder = useCallback(() => {
+    if (locked) return;
+    const answerKey = valueOrderAnswerKey(draftKeys);
+    if (answerKey && isValueOrderAnswerForQuestion(question, answerKey)) onChoose(answerKey);
+  }, [draftKeys, locked, onChoose, question]);
+
+  useEffect(() => {
+    if (phase !== "answering" || locked) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
+      const cardIndex = Number(event.key) - 1;
+      if (cardIndex >= 0 && cardIndex < cards.length) {
+        event.preventDefault();
+        toggleCard(cards[cardIndex]);
+      } else if (event.key === "Backspace") {
+        event.preventDefault();
+        setDraftKeys((current) => current.slice(0, -1));
+      } else if (event.key === "Enter" && draftKeys.length === 4) {
+        event.preventDefault();
+        lockOrder();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [cards, draftKeys.length, lockOrder, locked, phase, toggleCard]);
+
+  if (phase === "reveal") {
+    const correctKeys = valueOrderKeysFromAnswerKey(question.reveal?.correctAnswerKey) ?? [];
+    const selectedWasCorrect = Boolean(selectedKey && selectedKey === question.reveal?.correctAnswerKey);
+    return (
+      <div className={styles.valueOrderReveal} data-testid="value-order-board" data-phase="reveal">
+        <ValueOrderSequence question={question} cardKeys={correctKeys} label="Correct order" showValues />
+        {submittedKeys && !selectedWasCorrect && (
+          <ValueOrderSequence question={question} cardKeys={submittedKeys} label="Your order" />
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={styles.valueOrderBoard}
+      data-testid="value-order-board"
+      data-phase="answering"
+      data-locked={selectedKey ? "true" : "false"}
+    >
+      <div className={styles.valueOrderSlots} aria-label="Your order">
+        {Array.from({ length: 4 }, (_, index) => {
+          const key = activeKeys[index];
+          const card = cards.find((candidate) => candidate.key === key);
+          return (
+            <span key={index} data-filled={card ? "true" : "false"} data-card-kind={card?.kind}>
+              <i>{index + 1}</i>
+              {card ? (
+                <>
+                  <Image src={card.image} alt="" width={42} height={42} unoptimized />
+                  <strong>{card.name}</strong>
+                </>
+              ) : (
+                <em>—</em>
+              )}
+            </span>
+          );
+        })}
+      </div>
+
+      <div className={styles.valueOrderCards} role="group" aria-label="Cards to order">
+        {cards.map((card, cardIndex) => {
+          const position = activeKeys.indexOf(card.key);
+          return (
+            <button
+              key={card.key}
+              type="button"
+              data-testid="value-order-card"
+              data-card-kind={card.kind}
+              data-selected={position >= 0 ? "true" : "false"}
+              disabled={locked}
+              onClick={() => toggleCard(card)}
+              aria-label={`${cardIndex + 1}. ${card.context ? `${card.context}, ` : ""}${card.name}`}
+              aria-pressed={position >= 0}
+            >
+              {position >= 0 && <i>{position + 1}</i>}
+              <Image src={card.image} alt="" width={72} height={72} unoptimized />
+              <span>
+                {card.context && <small>{card.context}</small>}
+                <strong>{card.name}</strong>
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className={styles.valueOrderControls}>
+        <button
+          type="button"
+          onClick={() => setDraftKeys((current) => current.slice(0, -1))}
+          disabled={locked || draftKeys.length === 0}
+          aria-label="Undo last card"
+        >
+          <RotateCcw />
+          Undo
+        </button>
+        <button type="button" onClick={lockOrder} disabled={locked || draftKeys.length !== 4}>
+          <Check />
+          Lock order
+        </button>
+      </div>
     </div>
   );
 }
@@ -2708,7 +2931,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         question.map && !question.map.choice
           ? question.map.targetLabel
           : question.reveal?.correctAnswerKey
-            ? keyedAnswerLabel(question.reveal.correctAnswerKey, question.eyebrow)
+            ? keyedAnswerLabel(question.reveal.correctAnswerKey, question.eyebrow, question)
             : (question.answers[publicCorrectIndex(question)] ?? question.eyebrow),
       expiresAt: Math.max(Date.now() + 1_000, (revealDeadline ?? Date.now()) + QUESTION_REPORT_GRACE_MS),
     });
@@ -2829,6 +3052,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
           (!isRecipeAnswerKey(answerKey) ||
             recipeItemsFromAnswerKey(answerKey)?.length !== question.shopkeeper?.recipeSize)) ||
         (isPublicHeroPickerQuestion(question) && !isHeroCatalogKey(answerKey)) ||
+        (isPublicValueOrderQuestion(question) && !isValueOrderAnswerForQuestion(question, answerKey)) ||
         selectedIndexRef.current !== null ||
         !deadlineRef.current ||
         Date.now() >= deadlineRef.current
@@ -3198,6 +3422,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
     currentQuestion && (isPublicBuildResultQuestion(currentQuestion) || isPublicRecipeBuilderQuestion(currentQuestion)),
   );
   const isHeroPickerRound = Boolean(currentQuestion && isPublicHeroPickerQuestion(currentQuestion));
+  const isValueOrderRound = Boolean(currentQuestion && isPublicValueOrderQuestion(currentQuestion));
   const isSoundcheckRound = currentGame === "soundcheck";
   const isEchoHuntRound = currentGame === "echo-hunt";
   const isProgressiveAudioRound = isSoundcheckRound || isEchoHuntRound;
@@ -3345,8 +3570,8 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
             <div className={styles.liveLabel}>
               <span />
               {activePlayers > 0
-                ? `${activePlayers.toLocaleString("en-US")} playing now · Ten round formats`
-                : "One public room · Ten round formats"}
+                ? `${activePlayers.toLocaleString("en-US")} playing now · Eleven round formats`
+                : "One public room · Eleven round formats"}
             </div>
             <h1>
               Your queue has
@@ -3533,6 +3758,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               currentGame === "echo-hunt" && styles.echoStage,
               currentGame === "soundcheck" && styles.soundcheckStage,
               currentGame === "quote-hunt" && styles.quoteStage,
+              currentGame === "order-up" && styles.valueOrderStage,
               currentGame === "map-sense" && styles.mapSenseStage,
               currentGame === "counterplay" && styles.counterplayStage,
             )}
@@ -3569,7 +3795,18 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               </div>
             </div>
 
-            {currentGame === "map-sense" ? (
+            {currentGame === "order-up" ? (
+              <div className={clsx(styles.questionBlock, styles.valueOrderQuestion)} data-testid="round-prompt">
+                <div className={styles.valueOrderGlyph} aria-hidden="true">
+                  <ListOrdered />
+                </div>
+                <div className={styles.questionCopy}>
+                  <span>{currentQuestion.valueOrder?.family === "item-price" ? "Item prices" : "Base cooldowns"}</span>
+                  <h2>{currentQuestion.prompt}</h2>
+                  <small>Patch {currentQuestion.patch}</small>
+                </div>
+              </div>
+            ) : currentGame === "map-sense" ? (
               <MapSenseBoard
                 key={currentQuestion.id}
                 question={currentQuestion}
@@ -3965,7 +4202,17 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               />
             )}
 
-            {!isOpenShopRound && !isHeroPickerRound && currentGame !== "map-sense" && (
+            {isValueOrderRound && (
+              <ValueOrderBoard
+                key={`${activeRoundId}:${phase}`}
+                question={currentQuestion}
+                phase={phase}
+                selectedKey={selectedAnswerKey}
+                onChoose={chooseKeyedAnswer}
+              />
+            )}
+
+            {!isOpenShopRound && !isHeroPickerRound && !isValueOrderRound && currentGame !== "map-sense" && (
               <div
                 className={clsx(
                   styles.answers,
@@ -4080,7 +4327,15 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                 <div className={styles.answerHelper}>
                   {selectedIndex === null ? (
                     <>
-                      {isOpenShopRound ? <ShoppingBag /> : isHeroPickerRound ? <Users /> : <Keyboard />}
+                      {isOpenShopRound ? (
+                        <ShoppingBag />
+                      ) : isHeroPickerRound ? (
+                        <Users />
+                      ) : isValueOrderRound ? (
+                        <ListOrdered />
+                      ) : (
+                        <Keyboard />
+                      )}
                       {isOpenShopRound
                         ? isRecipeBuilderRound
                           ? "Build the direct recipe"
@@ -4089,23 +4344,25 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                             : "Choose an item from the shop"
                         : isHeroPickerRound
                           ? "Choose a hero"
-                          : currentGame === "shopkeeper"
-                            ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
-                            : currentGame === "spell-link"
-                              ? "Link the spell to a hero · A–D or 1–4"
-                              : currentGame === "fogged-vision"
-                                ? "Name the silhouette · A–D or 1–4"
-                                : currentGame === "echo-hunt"
-                                  ? "Match the voice · A–D or 1–4"
-                                  : currentGame === "soundcheck"
-                                    ? isSoundSequence
-                                      ? "Match the order · A–D or 1–4"
-                                      : "Match the sound · A–D or 1–4"
-                                    : currentGame === "quote-hunt"
-                                      ? "Match the line to its hero · A–D or 1–4"
-                                      : currentGame === "counterplay"
-                                        ? "Pick the interaction · A–D or 1–4"
-                                        : "Use A–D or 1–4 to answer"}
+                          : isValueOrderRound
+                            ? "Pick four, then lock"
+                            : currentGame === "shopkeeper"
+                              ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
+                              : currentGame === "spell-link"
+                                ? "Link the spell to a hero · A–D or 1–4"
+                                : currentGame === "fogged-vision"
+                                  ? "Name the silhouette · A–D or 1–4"
+                                  : currentGame === "echo-hunt"
+                                    ? "Match the voice · A–D or 1–4"
+                                    : currentGame === "soundcheck"
+                                      ? isSoundSequence
+                                        ? "Match the order · A–D or 1–4"
+                                        : "Match the sound · A–D or 1–4"
+                                      : currentGame === "quote-hunt"
+                                        ? "Match the line to its hero · A–D or 1–4"
+                                        : currentGame === "counterplay"
+                                          ? "Pick the interaction · A–D or 1–4"
+                                          : "Use A–D or 1–4 to answer"}
                       <span>Correct now: {liveAward?.rawPoints ?? 0} pts</span>
                     </>
                   ) : (
@@ -4125,7 +4382,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                 <div className={styles.revealIcon}>{selectedWasCorrect ? <Check /> : <X />}</div>
                 <div className={styles.revealCopy}>
                   <span>{selectedWasCorrect ? "Correct" : selectedIndex === null ? "Time expired" : "Not quite"}</span>
-                  <p>{currentQuestion.reveal?.explanation}</p>
+                  {!isValueOrderRound && <p data-testid="reveal-explanation">{currentQuestion.reveal?.explanation}</p>}
                   <div className={styles.reportControl}>
                     <button
                       type="button"

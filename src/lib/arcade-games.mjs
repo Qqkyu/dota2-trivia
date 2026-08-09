@@ -7,6 +7,7 @@ export const LIVE_ROUND_GAMES = Object.freeze([
   "echo-hunt",
   "soundcheck",
   "quote-hunt",
+  "order-up",
 ]);
 
 /** Queue Arcade has one shared public room. Round identities are not separate queues. */
@@ -14,7 +15,7 @@ export const PUBLIC_ARCADE_MODE = "mixed";
 export const LIVE_ARCADE_MODES = Object.freeze([PUBLIC_ARCADE_MODE]);
 
 /**
- * A ten-round cadence based on genuinely different question loops rather than
+ * An eleven-round cadence based on genuinely different question loops rather than
  * old lobby modes. Related Classic and Shopkeeper templates share a slot, so a
  * one-loop challenge can no longer receive the weight of an entire question
  * library. The order deliberately separates rounds from the same family.
@@ -26,6 +27,7 @@ export const PUBLIC_ROUND_FORMATS = Object.freeze([
   "quote-hunt",
   "classic-hero-stats",
   "soundcheck",
+  "value-order",
   "shopkeeper-paths",
   "spell-link",
   "classic-item-prices",
@@ -50,6 +52,8 @@ const ROUND_FORMAT_BY_KIND = Object.freeze({
   "soundcheck-ability": "soundcheck",
   "soundcheck-item": "soundcheck",
   "hero-quote": "quote-hunt",
+  "value-order-item": "value-order",
+  "value-order-cooldown": "value-order",
 });
 
 const ROUND_GAME_BY_FORMAT = Object.freeze({
@@ -63,6 +67,7 @@ const ROUND_GAME_BY_FORMAT = Object.freeze({
   "echo-hunt": "echo-hunt",
   soundcheck: "soundcheck",
   "quote-hunt": "quote-hunt",
+  "value-order": "order-up",
 });
 
 /** @param {{ kind?: string } | null | undefined} question */

@@ -17,6 +17,7 @@ const FORMAT_LABELS: Record<string, string> = {
   "echo-hunt": "Echo Hunt",
   soundcheck: "Soundcheck",
   "quote-hunt": "Quote Hunt",
+  "value-order": "Order Up",
 };
 
 export type AlphaFormatSignal = "collecting" | "healthy" | "too-easy" | "too-hard" | "reported";

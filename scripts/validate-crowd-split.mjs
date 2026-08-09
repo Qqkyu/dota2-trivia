@@ -3,6 +3,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { crowdPercentage, keyedCrowdSplitRows, prioritizedKeyCounts } from "../src/lib/crowd-split.mjs";
+import { valueOrderAnswerKey } from "../src/lib/value-order.mjs";
 
 const failures = [];
 const fixture = [
@@ -102,5 +103,42 @@ for (const { label, keyCounts } of fullCatalogFixtures) {
   }
 }
 
+const orderKeys = ["blink", "force_staff", "blade_mail", "armlet"];
+const orderPermutations = orderKeys.flatMap((first) =>
+  orderKeys
+    .filter((key) => key !== first)
+    .flatMap((second) =>
+      orderKeys
+        .filter((key) => key !== first && key !== second)
+        .flatMap((third) => {
+          const fourth = orderKeys.find((key) => ![first, second, third].includes(key));
+          return fourth ? [[first, second, third, fourth]] : [];
+        }),
+    ),
+);
+const orderCounts = orderPermutations.map((keys, index) => ({
+  answerKey: valueOrderAnswerKey(keys),
+  count: orderPermutations.length - index,
+}));
+const correctOrder = orderCounts.at(-1)?.answerKey;
+const playerOrder = orderCounts.at(-2)?.answerKey;
+const orderTotal = orderCounts.reduce((sum, entry) => sum + entry.count, 0);
+const orderPayload = prioritizedKeyCounts(orderCounts, [correctOrder, playerOrder], 12);
+const orderSplit = keyedCrowdSplitRows(orderPayload, orderTotal, {
+  correctKey: correctOrder,
+  selectedKey: playerOrder,
+  maxChoices: 4,
+});
+if (
+  orderPermutations.length !== 24 ||
+  orderPayload.length !== 12 ||
+  orderSplit.rows.length !== 4 ||
+  !orderSplit.rows.some((row) => row.answerKey === correctOrder) ||
+  !orderSplit.rows.some((row) => row.answerKey === playerOrder) ||
+  orderSplit.rows.reduce((sum, row) => sum + row.count, orderSplit.otherCount) !== orderTotal
+) {
+  failures.push("The 24 possible card orders did not collapse into four named crowd rows plus Other.");
+}
+
 if (failures.length) throw new Error(failures.join("\n"));
-console.log("Validated four-choice and full-catalog hero/item crowd split calculations.");
+console.log("Validated four-choice, full-catalog, and 24-permutation ordering crowd split calculations.");

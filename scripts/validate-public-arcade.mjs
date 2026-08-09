@@ -19,10 +19,11 @@ import { varietyShuffle } from "../src/lib/variety.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const readQuestions = async (file) => JSON.parse(await readFile(join(root, "src", "data", file), "utf8"));
-const [generated, shopkeeper, soundcheck, component, componentStyles] = await Promise.all([
+const [generated, shopkeeper, soundcheck, valueOrder, component, componentStyles] = await Promise.all([
   readQuestions("questions.generated.json"),
   readQuestions("shopkeeper-questions.json"),
   readQuestions("soundcheck-questions.json"),
+  readQuestions("value-order-questions.json"),
   readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8"),
   readFile(join(root, "src", "components", "queue-arcade.module.css"), "utf8"),
 ]);
@@ -34,7 +35,12 @@ const generatedLive = generated.filter(
       ((question.hint?.trim().length ?? 0) >= 18 && !question.hint?.startsWith("No additional mechanical clue"))) &&
     isPlayableShopkeeperQuestion(question),
 );
-const liveQuestions = [...generatedLive, ...shopkeeper.filter(isPlayableShopkeeperQuestion), ...soundcheck];
+const liveQuestions = [
+  ...generatedLive,
+  ...shopkeeper.filter(isPlayableShopkeeperQuestion),
+  ...soundcheck,
+  ...valueOrder,
+];
 const failures = [];
 
 const entryBoundary = 1_000_000;
@@ -54,8 +60,8 @@ if (
 if (LIVE_ARCADE_MODES.length !== 1 || LIVE_ARCADE_MODES[0] !== PUBLIC_ARCADE_MODE) {
   failures.push("More than one public mode is exposed.");
 }
-if (LIVE_ROUND_GAMES.length !== 7 || PUBLIC_ROUND_FORMATS.length !== 10) {
-  failures.push("The public arcade no longer has seven round identities and ten scheduling formats.");
+if (LIVE_ROUND_GAMES.length !== 8 || PUBLIC_ROUND_FORMATS.length !== 11) {
+  failures.push("The public arcade no longer has eight round identities and eleven scheduling formats.");
 }
 for (const [mode, repeatedLabel] of [
   ["Shopkeeper Rush", /<span>Shopkeeper Rush\b/],
@@ -131,7 +137,7 @@ if (
         PUBLIC_ROUND_FORMATS.length,
     )
 ) {
-  failures.push("A rolling ten-round window skipped or repeated a public format.");
+  failures.push("A rolling full-cadence window skipped or repeated a public format.");
 }
 for (let index = 0; index < scheduled.length; index += 1) {
   const recent = scheduled.slice(Math.max(0, index - 50), index);
@@ -147,5 +153,5 @@ if (failures.length) {
 
 const poolCounts = Object.fromEntries([...pools].map(([format, pool]) => [format, pool.length]));
 console.log(
-  `Validated one ${liveQuestions.length}-question public room across ten continuous formats: ${JSON.stringify(poolCounts)}.`,
+  `Validated one ${liveQuestions.length}-question public room across eleven continuous formats: ${JSON.stringify(poolCounts)}.`,
 );

@@ -1,6 +1,6 @@
 # Queue Arcade
 
-An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now rotates seven named round identities inside one endless public arcade:
+An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now rotates eight named round identities inside one endless public arcade:
 
 - **Classic Trivia** — mana, cooldowns, damage, stat comparisons, and item prices;
 - **Shopkeeper Rush** — build finished items, spot exact recipes, find shared parts, and trace upgrade paths;
@@ -9,6 +9,7 @@ An unofficial browser arcade made for the gap between **Find Match** and **Accep
 - **Echo Hunt** — identify a hero from two terse voice fragments before the complete response unlocks;
 - **Soundcheck** — identify verified effects through three growing audio cuts, including ordered two-sound sequences;
 - **Quote Hunt** — match a substantial written hero response to its speaker.
+- **Order Up** — arrange four audited item prices or ability cooldowns from low to high.
 
 These are round formats, not separate queues. Everyone shares the parts that made the original compelling: short timed rounds, a global answer reveal, speed and streak scoring, and double points when you are right while most of the crowd is wrong.
 
@@ -17,12 +18,12 @@ The playable MVP includes:
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - canonical `/` lobby and `/play` session URLs with direct loading plus browser Back and Forward support;
 - one shared public room of 15-second rounds, without mode, category, or player-facing difficulty queues;
-- 1,162 live prompts for Dota patch 7.41e, including all 127 enabled heroes in Fogged Vision, 102 Shopkeeper rounds, and 96 Soundcheck rounds;
+- 1,194 live prompts for Dota patch 7.41e, including all 127 enabled heroes in Fogged Vision, 102 Shopkeeper rounds, 96 Soundcheck rounds, and 32 tie-free Order Up rounds;
 - item, hero, and ability artwork for visual answer rounds;
 - 123 remotely verified Echo Hunt clips, 96 Soundcheck rounds built from 114 audited clips, and 245 Quote Hunt lines sourced through Dotabase;
 - live-client answer audits plus balanced A–D placement for every generated question family;
 - progressive Spell Link clues at two-thirds and one-third time remaining;
-- a deterministic ten-format cadence that gives Classic three slots, Shopkeeper two, every distinctive sensory format one, and never repeats a family back-to-back;
+- a deterministic eleven-format cadence that gives Classic three slots, Shopkeeper two, every distinctive interaction one, and never repeats a family back-to-back;
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
 - one server-owned public room: everyone receives the same round and deadlines;
 - server-delivered, phase-aware question payloads: the browser never imports the playable answer catalog;
@@ -229,8 +230,8 @@ player input.
 For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run
 `node scripts/visual-smoke.mjs`. The script disables media playback again inside the page before loading anything, then
 checks the one-room lobby, social metadata, fixed-size account entry, guest profile, privacy page and private ops gate, `/play` navigation, browser Back and
-Forward, legacy-mode redirect, seven compact round identities, synchronized answering/reveal/automatic-advance journey, reveal-only crowd splits,
-full-catalog 127-hero and 182-item result stress cases,
+Forward, legacy-mode redirect, eight compact round identities, synchronized answering/reveal/automatic-advance journey, reveal-only crowd splits,
+full-catalog 127-hero and 182-item result stress cases plus all 24 possible four-card orders,
 no-shift question-report popover, the optional session summary, the 10% fresh-install volume default, mobile lobby, mobile calibration layout, overflow, and saves screenshots
 under `/tmp`.
 
@@ -239,8 +240,8 @@ under `/tmp`.
 Each game catalog and content version owns exactly one public room. Room IDs are explicitly namespaced as `<game>:<content-version>:public`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/rounds` converts the private catalog entry into an explicit public payload. During answering it omits the internal
-question ID, marked answer, explanation, source/audit metadata, hidden Shopkeeper keys, and locked Spell Link clues. The
-reveal payload adds only the marked answer, explanation, and any open-shop answer key needed to render the result. A
+question ID, marked answer, explanation, source/audit metadata, hidden Shopkeeper keys, Order Up values, and locked Spell Link clues. The
+reveal payload adds only the marked answer, explanation, and any opaque answer key or values needed to render the result. A
 phase-aware revision lets the browser cache the current payload while its one-second room poll continues; most rounds are
 sent once for answering and once for reveal, while Spell Link receives a new payload when each server-timed clue unlocks.
 
@@ -264,9 +265,8 @@ review and quarantine writes.
 2. Run a concentrated public soft launch, then review `/ops` after the first real sessions.
 3. Collect public-alpha samples and watch structured error fingerprints by release in the deployment logs.
 4. Review ordered-pair accuracy, then expand Soundcheck with carefully audited channel and announcer families.
-5. Prototype one low-reading interaction such as ordering four audited Dota values.
-6. Replace descriptive hidden-identity asset paths with opaque delivery before considering competitive rankings.
-7. Implement a second game's content pack only after the Dota public loop proves sticky.
+5. Replace descriptive hidden-identity asset paths with opaque delivery before considering competitive rankings.
+6. Implement a second game's content pack only after the Dota public loop proves sticky.
 
 ## Attribution
 

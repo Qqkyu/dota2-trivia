@@ -12,6 +12,8 @@ const catalogFingerprints = [
   "Mist Coil belongs to Abaddon",
   "shopkeeper-build:bfury",
   "soundcheck-ability:pudge_meat_hook",
+  "value-order:item-price:01",
+  "Cheapest to priciest: Clarity (60 gold)",
 ];
 
 async function filesInside(directory) {

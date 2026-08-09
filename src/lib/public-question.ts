@@ -8,6 +8,7 @@ import type {
   TriviaArtworkKind,
   TriviaCategory,
   TriviaQuestion,
+  ValueOrderCard,
 } from "@/lib/trivia";
 import type { MapChallenge } from "@/lib/map-types";
 import {
@@ -19,6 +20,7 @@ export interface PublicQuestionReveal {
   correctIndex: number;
   explanation: string;
   correctAnswerKey?: string;
+  orderValues?: Array<{ key: string; label: string }>;
 }
 
 export interface PublicArcadeQuestion {
@@ -35,7 +37,7 @@ export interface PublicArcadeQuestion {
     kind: TriviaArtworkKind;
   };
   answers: [string, string, string, string];
-  answerMode?: "hero-grid" | "item-grid" | "item-recipe";
+  answerMode?: "hero-grid" | "item-grid" | "item-recipe" | "value-order";
   answerImages?: [string, string, string, string];
   answerImagePairs?: [[string, string], [string, string], [string, string], [string, string]];
   answerImageKind?: TriviaArtworkKind;
@@ -51,6 +53,11 @@ export interface PublicArcadeQuestion {
     format: "single" | "sequence";
     choiceScope: "recognizable" | "same-hero" | "active-items" | "ordered-pair";
     clips: Array<{ duration: number }>;
+  };
+  valueOrder?: {
+    family: "item-price" | "ability-cooldown";
+    direction: "ascending";
+    cards: ValueOrderCard[];
   };
   shopkeeper?: {
     format?: ShopkeeperFormat;
@@ -116,9 +123,16 @@ export function isPublicHeroPickerQuestion(question: PublicArcadeQuestion) {
   return question.answerMode === "hero-grid";
 }
 
+export function isPublicValueOrderQuestion(question: PublicArcadeQuestion) {
+  return question.answerMode === "value-order";
+}
+
 export function isPublicKeyedAnswerQuestion(question: PublicArcadeQuestion) {
   return (
-    question.answerMode === "item-grid" || question.answerMode === "item-recipe" || question.answerMode === "hero-grid"
+    question.answerMode === "item-grid" ||
+    question.answerMode === "item-recipe" ||
+    question.answerMode === "hero-grid" ||
+    question.answerMode === "value-order"
   );
 }
 
@@ -151,16 +165,36 @@ export function isPublicArcadeQuestion(value: unknown): value is PublicArcadeQue
       (candidate.answerMode === undefined ||
         candidate.answerMode === "hero-grid" ||
         candidate.answerMode === "item-grid" ||
-        candidate.answerMode === "item-recipe") &&
+        candidate.answerMode === "item-recipe" ||
+        candidate.answerMode === "value-order") &&
       (candidate.answerMode !== "item-recipe" || candidate.shopkeeper?.recipeSize !== undefined) &&
       (candidate.shopkeeper?.recipeSize === undefined ||
         (Number.isInteger(candidate.shopkeeper.recipeSize) &&
           candidate.shopkeeper.recipeSize >= 1 &&
           candidate.shopkeeper.recipeSize <= 8)) &&
+      (candidate.answerMode !== "value-order" ||
+        (Array.isArray(candidate.valueOrder?.cards) &&
+          candidate.valueOrder.cards.length === 4 &&
+          new Set(candidate.valueOrder.cards.map((card) => card.key)).size === 4 &&
+          candidate.valueOrder.cards.every(
+            (card) =>
+              typeof card.key === "string" &&
+              typeof card.name === "string" &&
+              typeof card.image === "string" &&
+              (card.kind === "item" || card.kind === "ability"),
+          ))) &&
       (candidate.quoteHints === undefined ||
         (Array.isArray(candidate.quoteHints) &&
           candidate.quoteHints.length <= 2 &&
           candidate.quoteHints.every((hint) => typeof hint === "string" && hint.length > 0))) &&
+      (candidate.answerMode !== "value-order" ||
+        reveal === null ||
+        (typeof reveal?.correctAnswerKey === "string" &&
+          Array.isArray(reveal.orderValues) &&
+          reveal.orderValues.length === 4 &&
+          reveal.orderValues.every(
+            (entry) => typeof entry.key === "string" && typeof entry.label === "string" && entry.label.length > 0,
+          ))) &&
       typeof candidate.patch === "string" &&
       (candidate.clueStage === 1 || candidate.clueStage === 2 || candidate.clueStage === 3) &&
       (reveal === null ||
