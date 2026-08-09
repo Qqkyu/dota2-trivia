@@ -222,6 +222,10 @@ the public room. Against Postgres, it additionally seeds a reviewer session, ver
 reviewed/quarantined persistence and automatic reopening, proves a forged browser player ID cannot double vote, checks
 the stored personal record and profile summary, tests protected alpha ops plus visit persistence, and verifies deletion cascades.
 
+With Chrome running on remote-debugging port `9222`, `pnpm check:resume` deliberately stalls a reveal-phase room request
+and freezes the page across another deadline. It verifies both recoveries advance without focus, mouse movement, or any
+player input.
+
 For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run
 `node scripts/visual-smoke.mjs`. The script disables media playback again inside the page before loading anything, then
 checks the one-room lobby, social metadata, fixed-size account entry, guest profile, privacy page and private ops gate, `/play` navigation, browser Back and

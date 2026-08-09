@@ -1,0 +1,72 @@
+export const ROOM_SYNC_REQUEST_TIMEOUT_MS = 5_000;
+export const ROOM_SYNC_DEADLINE_GRACE_MS = 75;
+
+export function roomSyncAttemptAction(pendingStartedAt, now, force = false, timeoutMs = ROOM_SYNC_REQUEST_TIMEOUT_MS) {
+  if (!Number.isFinite(pendingStartedAt)) return "start";
+
+  const elapsed = now - pendingStartedAt;
+  if (force || !Number.isFinite(now) || elapsed < 0 || elapsed >= timeoutMs) return "replace";
+  return "reuse";
+}
+
+export function roomDeadlineSyncDelay(deadline, now, graceMs = ROOM_SYNC_DEADLINE_GRACE_MS) {
+  if (!Number.isFinite(deadline) || !Number.isFinite(now)) return null;
+  return Math.max(0, deadline - now + graceMs);
+}
+
+export function createRoomSyncGate({ timeoutMs = ROOM_SYNC_REQUEST_TIMEOUT_MS } = {}) {
+  let generation = 0;
+  let pending = null;
+
+  return {
+    begin(now = Date.now(), force = false) {
+      const action = roomSyncAttemptAction(pending?.startedAt ?? null, now, force, timeoutMs);
+      if (action === "reuse") {
+        return {
+          action,
+          generation: pending.generation,
+          promise: pending.promise,
+          signal: pending.controller.signal,
+        };
+      }
+
+      const replaced = pending;
+      pending = null;
+      replaced?.controller.abort();
+
+      const controller = new AbortController();
+      pending = {
+        generation: ++generation,
+        startedAt: now,
+        controller,
+        promise: null,
+      };
+
+      return {
+        action,
+        generation: pending.generation,
+        promise: null,
+        signal: controller.signal,
+      };
+    },
+
+    attach(attemptGeneration, promise) {
+      if (pending?.generation === attemptGeneration) pending.promise = promise;
+      return promise;
+    },
+
+    isCurrent(attemptGeneration) {
+      return pending?.generation === attemptGeneration;
+    },
+
+    finish(attemptGeneration) {
+      if (pending?.generation === attemptGeneration) pending = null;
+    },
+
+    cancel() {
+      const cancelled = pending;
+      pending = null;
+      cancelled?.controller.abort();
+    },
+  };
+}

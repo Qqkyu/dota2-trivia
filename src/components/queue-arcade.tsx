@@ -92,6 +92,7 @@ import {
   soundcheckCutDuration,
   soundcheckRevealStage,
 } from "@/lib/soundcheck.mjs";
+import { createRoomSyncGate, roomDeadlineSyncDelay } from "@/lib/room-sync.mjs";
 import { SteamSignIn } from "./steam-sign-in";
 import styles from "./queue-arcade.module.css";
 
@@ -2053,7 +2054,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   const roundIdRef = useRef("");
   const questionRevisionRef = useRef("");
   const entryWaitRoundIdRef = useRef("");
-  const syncPromiseRef = useRef<Promise<void> | null>(null);
+  const roomSyncGateRef = useRef<ReturnType<typeof createRoomSyncGate> | null>(null);
   const feedbackAudioRef = useRef<{
     clips: Array<{ audio: HTMLAudioElement; gain: number; src: string }>;
     kind: "lock" | "correct" | "wrong" | "start";
@@ -2068,6 +2069,8 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   const alphaSessionIdRef = useRef("");
   const alphaSessionFinishedRef = useRef(false);
   const heroPreloadsRef = useRef<HTMLImageElement[]>([]);
+
+  if (roomSyncGateRef.current === null) roomSyncGateRef.current = createRoomSyncGate();
 
   useEffect(() => {
     const sources = [...Object.values(HERO_ATTRIBUTE_ICONS), ...HERO_PICKER_HEROES.map((hero) => hero.image)];
@@ -2258,24 +2261,28 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
     [gameVolume, stopRoundAudio],
   );
 
-  const requestRoomSnapshot = useCallback(async (settings: PublicRoomSettings, playerId: string) => {
-    const requestedAt = Date.now();
-    const response = await fetch(`/api/rounds?${publicRoomQuery(settings, playerId, questionRevisionRef.current)}`, {
-      cache: "no-store",
-    });
-    const payload: unknown = await response.json();
-    const receivedAt = Date.now();
+  const requestRoomSnapshot = useCallback(
+    async (settings: PublicRoomSettings, playerId: string, signal?: AbortSignal) => {
+      const requestedAt = Date.now();
+      const response = await fetch(`/api/rounds?${publicRoomQuery(settings, playerId, questionRevisionRef.current)}`, {
+        cache: "no-store",
+        signal,
+      });
+      const payload: unknown = await response.json();
+      const receivedAt = Date.now();
 
-    if (!response.ok) throw new Error("Public room unavailable.");
-    const snapshot = normalizeRoomSnapshot(payload);
-    if (!snapshot) throw new Error("Public room returned an invalid round.");
+      if (!response.ok) throw new Error("Public room unavailable.");
+      const snapshot = normalizeRoomSnapshot(payload);
+      if (!snapshot) throw new Error("Public room returned an invalid round.");
 
-    return {
-      snapshot,
-      receivedAt,
-      clockOffset: (requestedAt + receivedAt) / 2 - snapshot.serverNow,
-    };
-  }, []);
+      return {
+        snapshot,
+        receivedAt,
+        clockOffset: (requestedAt + receivedAt) / 2 - snapshot.serverNow,
+      };
+    },
+    [],
+  );
 
   const finalizeRound = useCallback(
     (snapshot: RoomSnapshot, localRevealDeadline: number) => {
@@ -2500,29 +2507,34 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
     [finalizeRound, setCrowd, setDeadline, setPhase, updateReportState, updateReportTarget],
   );
 
-  const syncRoom = useCallback(() => {
-    if (syncPromiseRef.current) return syncPromiseRef.current;
-    const settings = roomSettingsRef.current;
-    if (!settings) return Promise.resolve();
+  const syncRoom = useCallback(
+    (force = false) => {
+      const settings = roomSettingsRef.current;
+      if (!settings) return Promise.resolve();
+      const gate = roomSyncGateRef.current;
+      if (!gate) return Promise.resolve();
 
-    const task = (async () => {
-      try {
-        const result = await requestRoomSnapshot(settings, ensurePlayerId());
-        if (roomSettingsRef.current !== settings) return;
-        applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
-      } catch {
-        if (roomSettingsRef.current === settings) {
-          setRoomError("Connection interrupted · retrying automatically");
+      const attempt = gate.begin(Date.now(), force);
+      if (attempt.action === "reuse") return attempt.promise ?? Promise.resolve();
+
+      const task = (async () => {
+        try {
+          const result = await requestRoomSnapshot(settings, ensurePlayerId(), attempt.signal);
+          if (!gate.isCurrent(attempt.generation) || roomSettingsRef.current !== settings) return;
+          applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
+        } catch {
+          if (gate.isCurrent(attempt.generation) && roomSettingsRef.current === settings) {
+            setRoomError("Connection interrupted · retrying automatically");
+          }
+        } finally {
+          gate.finish(attempt.generation);
         }
-      }
-    })();
+      })();
 
-    syncPromiseRef.current = task;
-    void task.finally(() => {
-      if (syncPromiseRef.current === task) syncPromiseRef.current = null;
-    });
-    return task;
-  }, [applyRoomSnapshot, ensurePlayerId, requestRoomSnapshot]);
+      return gate.attach(attempt.generation, task);
+    },
+    [applyRoomSnapshot, ensurePlayerId, requestRoomSnapshot],
+  );
 
   const startRun = useCallback(
     async (updateHistory = true) => {
@@ -2535,6 +2547,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       };
       setJoiningRoom(true);
       setRoomError(null);
+      roomSyncGateRef.current?.cancel();
       roomSettingsRef.current = settings;
       questionRevisionRef.current = "";
       playSound("start");
@@ -2871,6 +2884,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
     const finishedAt = Date.now();
     const startedAt = queueStartedAtRef.current ?? finishedAt;
     finishAlphaSession();
+    roomSyncGateRef.current?.cancel();
     roomSettingsRef.current = null;
     roomSnapshotRef.current = null;
     updateReportTarget(null);
@@ -2885,6 +2899,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   const returnToLobby = useCallback(
     (historyAction: "push" | "replace" | "none" = "push") => {
       if (phaseRef.current !== "lobby" && phaseRef.current !== "summary") finishAlphaSession();
+      roomSyncGateRef.current?.cancel();
       roomSettingsRef.current = null;
       roomSnapshotRef.current = null;
       roundIdRef.current = "";
@@ -2960,16 +2975,26 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
     if (phase === "lobby" || phase === "summary") return;
 
     const interval = window.setInterval(() => void syncRoom(), 1_000);
+    const wakeRoom = () => {
+      setNow(Date.now());
+      void syncRoom(true);
+    };
     const handleVisibility = () => {
-      if (document.visibilityState === "visible") void syncRoom();
+      if (document.visibilityState === "visible") wakeRoom();
     };
 
-    window.addEventListener("focus", handleVisibility);
+    window.addEventListener("focus", wakeRoom);
+    window.addEventListener("pageshow", wakeRoom);
+    window.addEventListener("online", wakeRoom);
     document.addEventListener("visibilitychange", handleVisibility);
+    document.addEventListener("resume", wakeRoom);
     return () => {
       window.clearInterval(interval);
-      window.removeEventListener("focus", handleVisibility);
+      window.removeEventListener("focus", wakeRoom);
+      window.removeEventListener("pageshow", wakeRoom);
+      window.removeEventListener("online", wakeRoom);
       document.removeEventListener("visibilitychange", handleVisibility);
+      document.removeEventListener("resume", wakeRoom);
     };
   }, [phase, syncRoom]);
 
@@ -3011,12 +3036,25 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   }, [finishAlphaSession]);
 
   useEffect(() => {
-    if (phase === "answering" && deadline && now >= deadline) void syncRoom();
-  }, [deadline, now, phase, syncRoom]);
+    const activeDeadline =
+      phase === "answering"
+        ? deadline
+        : phase === "reveal"
+          ? revealDeadline
+          : phase === "waiting"
+            ? entryWaitDeadline
+            : null;
+    const delay = roomDeadlineSyncDelay(activeDeadline, Date.now());
+    if (delay === null) return;
 
-  useEffect(() => {
-    if (phase === "reveal" && revealDeadline && now >= revealDeadline) void syncRoom();
-  }, [now, phase, revealDeadline, syncRoom]);
+    const timeout = window.setTimeout(() => {
+      setNow(Date.now());
+      void syncRoom(true);
+    }, delay);
+    return () => window.clearTimeout(timeout);
+  }, [deadline, entryWaitDeadline, phase, revealDeadline, syncRoom]);
+
+  useEffect(() => () => roomSyncGateRef.current?.cancel(), []);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => void loadAccount(), 0);
