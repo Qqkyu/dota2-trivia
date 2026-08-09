@@ -73,6 +73,18 @@ const forbiddenAnsweringKeys = new Set([
   "derivedFrom",
 ]);
 
+const orderFamilies = [
+  "item-price",
+  "ability-cooldown",
+  "ability-mana",
+  "ability-damage",
+  "hero-move-speed",
+  "hero-attack-range",
+];
+const representativeOrderQuestions = orderFamilies.map((family) =>
+  valueOrder.find((question) => question.valueOrder?.family === family),
+);
+
 const representativeQuestions = [
   [generated.find((question) => question.kind === "cooldown"), "trivia"],
   [generated.find((question) => question.kind === "spell-owner"), "spell-link"],
@@ -93,7 +105,7 @@ const representativeQuestions = [
     "soundcheck",
   ],
   [soundcheck.find((question) => question.soundcheck?.format === "sequence"), "soundcheck"],
-  [valueOrder[0], "order-up"],
+  ...representativeOrderQuestions.map((question) => [question, "order-up"]),
 ];
 
 for (const [question, game] of representativeQuestions) {
@@ -226,8 +238,7 @@ if (itemSequence) {
   );
 }
 
-const orderQuestion = valueOrder[0];
-if (orderQuestion) {
+for (const orderQuestion of representativeOrderQuestions.filter(Boolean)) {
   const answeringRound = roundFor(orderQuestion, "order-up");
   const answering = publicQuestionForRound(orderQuestion, answeringRound, answeringRound.now);
   const revealRound = roundFor(orderQuestion, "order-up", "reveal", 16_000);
@@ -244,7 +255,7 @@ if (orderQuestion) {
   record(
     reveal.reveal?.correctAnswerKey === valueOrderCorrectAnswerKey(orderQuestion) &&
       reveal.reveal?.orderValues?.length === 4,
-    "Order Up did not reveal its canonical order and values after the deadline.",
+    `${orderQuestion.valueOrder.family} Order Up did not reveal its canonical order and values after the deadline.`,
   );
 }
 

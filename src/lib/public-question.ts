@@ -55,7 +55,13 @@ export interface PublicArcadeQuestion {
     clips: Array<{ duration: number }>;
   };
   valueOrder?: {
-    family: "item-price" | "ability-cooldown";
+    family:
+      | "item-price"
+      | "ability-cooldown"
+      | "ability-mana"
+      | "ability-damage"
+      | "hero-move-speed"
+      | "hero-attack-range";
     direction: "ascending";
     cards: ValueOrderCard[];
   };
@@ -181,7 +187,7 @@ export function isPublicArcadeQuestion(value: unknown): value is PublicArcadeQue
               typeof card.key === "string" &&
               typeof card.name === "string" &&
               typeof card.image === "string" &&
-              (card.kind === "item" || card.kind === "ability"),
+              (card.kind === "item" || card.kind === "ability" || card.kind === "hero"),
           ))) &&
       (candidate.quoteHints === undefined ||
         (Array.isArray(candidate.quoteHints) &&

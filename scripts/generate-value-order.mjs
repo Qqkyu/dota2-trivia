@@ -7,7 +7,54 @@ import { valueOrderAnswerKey } from "../src/lib/value-order.mjs";
 
 const ROOT = process.cwd();
 const QUESTIONS_PATH = join(ROOT, "src", "data", "questions.generated.json");
+const HERO_PICKER_PATH = join(ROOT, "src", "data", "hero-picker.json");
 const OUTPUT_PATH = join(ROOT, "src", "data", "value-order-questions.json");
+const GENERATED_FAMILY_COUNT = 12;
+
+const FAMILY_CONFIG = Object.freeze({
+  "item-price": {
+    kind: "value-order-item",
+    category: "Items",
+    eyebrow: "Item prices",
+    prompt: "How do these items rank from cheapest to most expensive?",
+    lead: "Cheapest to priciest",
+  },
+  "ability-cooldown": {
+    kind: "value-order-cooldown",
+    category: "Cooldowns",
+    eyebrow: "Base cooldowns",
+    prompt: "How do these abilities rank from shortest to longest cooldown?",
+    lead: "Shortest to longest",
+  },
+  "ability-mana": {
+    kind: "value-order-mana",
+    category: "Mana",
+    eyebrow: "Max-level mana costs",
+    prompt: "How do these abilities rank from lowest to highest max-level mana cost?",
+    lead: "Lowest to highest",
+  },
+  "ability-damage": {
+    kind: "value-order-damage",
+    category: "Damage",
+    eyebrow: "Max-level damage",
+    prompt: "How do these abilities rank from lowest to highest max-level damage?",
+    lead: "Lowest to highest",
+  },
+  "hero-move-speed": {
+    kind: "value-order-move-speed",
+    category: "Heroes",
+    eyebrow: "Base movement speed",
+    prompt: "How do these heroes rank from slowest to fastest?",
+    lead: "Slowest to fastest",
+  },
+  "hero-attack-range": {
+    kind: "value-order-attack-range",
+    category: "Heroes",
+    eyebrow: "Base attack range",
+    prompt: "How do these heroes rank from shortest to longest attack range?",
+    lead: "Shortest to longest",
+  },
+});
 
 const ITEM_SETS = [
   ["clarity", "enchanted_mango", "dust", "tango"],
@@ -54,6 +101,31 @@ function numericAnswer(question) {
   return parsed;
 }
 
+function formatNumber(value) {
+  return new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(value);
+}
+
+function splitAbilityEyebrow(question) {
+  const [hero, ability] = question.eyebrow.split(" · ");
+  if (!hero || !ability) throw new Error(`${question.id} has no hero and ability identity.`);
+  return { hero, ability };
+}
+
+function maxLevelMana(question) {
+  const match = question.explanation?.match(/mana cost is ([\d\s/.]+?)(?: across its levels|, before)/i);
+  const values = match?.[1]
+    .split("/")
+    .map((value) => Number(value.trim()))
+    .filter(Number.isFinite);
+  const value = values?.at(-1);
+  if (!Number.isFinite(value)) throw new Error(`${question.id} has no auditable max-level mana value.`);
+  return value;
+}
+
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function privateAnswerChoices(correctKeys, correctIndex) {
   const alternatives = [
     correctKeys,
@@ -83,7 +155,7 @@ function itemEntry(question) {
 }
 
 function cooldownEntry(question) {
-  const [hero, ability] = question.eyebrow.split(" · ");
+  const { hero, ability } = splitAbilityEyebrow(question);
   return {
     key: question.id.split(":")[1],
     name: ability,
@@ -98,7 +170,119 @@ function cooldownEntry(question) {
   };
 }
 
+function manaEntry(question) {
+  const { hero, ability } = splitAbilityEyebrow(question);
+  const value = maxLevelMana(question);
+  return {
+    key: question.id.split(":")[1],
+    name: ability,
+    context: hero,
+    image: question.image?.src,
+    kind: "ability",
+    value,
+    label: `${formatNumber(value)} mana`,
+    sourceId: question.id,
+    source: question.source,
+    patch: question.patch,
+  };
+}
+
+function damageEntry(question) {
+  const { hero, ability } = splitAbilityEyebrow(question);
+  const value = numericAnswer(question);
+  return {
+    key: question.id.split(":")[1],
+    name: ability,
+    context: hero,
+    image: question.image?.src,
+    kind: "ability",
+    value,
+    label: `${formatNumber(value)} damage`,
+    sourceId: question.id,
+    source: question.source,
+    patch: question.patch,
+  };
+}
+
+function movementEntry(question) {
+  const value = numericAnswer(question);
+  return {
+    key: question.id.replace(/^move-speed:/, ""),
+    name: question.eyebrow,
+    image: question.image?.src,
+    kind: "hero",
+    value,
+    label: `${formatNumber(value)} move speed`,
+    sourceId: question.id,
+    source: question.source,
+    patch: question.patch,
+  };
+}
+
+function attackRangeEntries(question, heroByName, heroByImage) {
+  return question.answers.map((name, index) => {
+    const hero = heroByName.get(name) ?? heroByImage.get(question.answerImages?.[index]);
+    const match = question.explanation?.match(new RegExp(`${escapeRegex(name)}\\s+([\\d.]+)`));
+    const value = Number(match?.[1]);
+    if (!hero || !Number.isFinite(value)) {
+      throw new Error(`${question.id} cannot audit ${name}'s attack range.`);
+    }
+    return {
+      key: hero.key,
+      name: hero.name,
+      image: hero.image,
+      kind: "hero",
+      value,
+      label: `${formatNumber(value)} range`,
+      sourceId: question.id,
+      source: question.source,
+      patch: question.patch,
+    };
+  });
+}
+
+function closeValueSets(entries, family, count) {
+  const entriesByValue = new Map();
+  for (const entry of entries) {
+    const group = entriesByValue.get(entry.value) ?? [];
+    group.push(entry);
+    entriesByValue.set(entry.value, group);
+  }
+  const groups = [...entriesByValue.entries()]
+    .sort(([left], [right]) => left - right)
+    .map(([value, candidates]) => ({
+      value,
+      candidates: [...candidates].sort((left, right) => left.key.localeCompare(right.key)),
+    }));
+  const windows = groups.slice(0, -3).map((_, index) => groups.slice(index, index + 4));
+  if (!windows.length) throw new Error(`${family} needs at least four distinct audited values.`);
+
+  const sets = [];
+  const signatures = new Set();
+  for (let attempt = 0; sets.length < count && attempt < count * 100; attempt += 1) {
+    const cycle = Math.floor(attempt / windows.length);
+    const window = seededShuffle(windows, `${family}:windows:${cycle}`)[attempt % windows.length];
+    const selected = window.map(
+      ({ value, candidates }) =>
+        seededShuffle(candidates, `${family}:set:${sets.length}:attempt:${attempt}:value:${value}`)[0],
+    );
+    const signature = selected
+      .map((entry) => entry.key)
+      .sort()
+      .join("|");
+    if (signatures.has(signature)) continue;
+    signatures.add(signature);
+    sets.push(selected);
+  }
+  if (sets.length !== count) {
+    throw new Error(`${family} produced only ${sets.length} unique close-value sets; ${count} required.`);
+  }
+  return sets;
+}
+
 function buildQuestion(entries, family, index) {
+  const config = FAMILY_CONFIG[family];
+  if (!config) throw new Error(`Unknown ordering family ${family}.`);
   if (entries.some((entry) => !entry?.key || !entry.name || !entry.image)) {
     throw new Error(`${family} set ${index + 1} contains an incomplete audited source question.`);
   }
@@ -114,22 +298,19 @@ function buildQuestion(entries, family, index) {
   const correct = [...entries].sort((left, right) => left.value - right.value || left.key.localeCompare(right.key));
   const correctKeys = correct.map((entry) => entry.key);
   const correctIndex = index % 4;
-  const isItem = family === "item-price";
   const readableOrder = correct.map((entry) => `${entry.name} (${entry.label})`).join(" → ");
 
   return {
     id,
-    kind: isItem ? "value-order-item" : "value-order-cooldown",
+    kind: config.kind,
     varietyKey: `value-order:${family}`,
-    category: isItem ? "Items" : "Cooldowns",
+    category: config.category,
     difficulty: 3,
-    eyebrow: isItem ? "Item prices" : "Base cooldowns",
-    prompt: isItem
-      ? "How do these items rank from cheapest to most expensive?"
-      : "How do these abilities rank from shortest to longest cooldown?",
+    eyebrow: config.eyebrow,
+    prompt: config.prompt,
     answers: privateAnswerChoices(correctKeys, correctIndex),
     correctIndex,
-    explanation: `${isItem ? "Cheapest to priciest" : "Shortest to longest"}: ${readableOrder}.`,
+    explanation: `${config.lead}: ${readableOrder}.`,
     valueOrder: {
       family,
       direction: "ascending",
@@ -152,7 +333,13 @@ function buildQuestion(entries, family, index) {
   };
 }
 
-const sourceQuestions = JSON.parse(await readFile(QUESTIONS_PATH, "utf8"));
+const [sourceQuestions, heroPicker] = await Promise.all([
+  readFile(QUESTIONS_PATH, "utf8").then(JSON.parse),
+  readFile(HERO_PICKER_PATH, "utf8").then(JSON.parse),
+]);
+const heroes = heroPicker.groups.flatMap((group) => group.heroes);
+const heroByName = new Map(heroes.map((hero) => [hero.name, hero]));
+const heroByImage = new Map(heroes.map((hero) => [hero.image, hero]));
 const itemByKey = new Map(
   sourceQuestions
     .filter((question) => question.kind === "item-cost")
@@ -162,6 +349,21 @@ const cooldownByKey = new Map(
   sourceQuestions
     .filter((question) => question.kind === "cooldown")
     .map((question) => [cooldownEntry(question).key, cooldownEntry(question)]),
+);
+const manaEntries = sourceQuestions.filter((question) => question.kind === "mana-cost").map(manaEntry);
+const damageEntries = sourceQuestions
+  .filter(
+    (question) =>
+      question.kind === "ability-damage" &&
+      /^How much (?:base )?damage does .+ deal(?: at max level)?\?$/.test(question.prompt),
+  )
+  .map(damageEntry);
+const movementEntries = sourceQuestions.filter((question) => question.kind === "hero-move-speed").map(movementEntry);
+const attackRangeByHero = new Map(
+  sourceQuestions
+    .filter((question) => question.kind === "hero-stat-duel" && question.eyebrow.endsWith("attack range"))
+    .flatMap((question) => attackRangeEntries(question, heroByName, heroByImage))
+    .map((entry) => [entry.key, entry]),
 );
 
 function entriesForSets(sets, lookup, family) {
@@ -181,9 +383,25 @@ const questions = [
   ...entriesForSets(COOLDOWN_SETS, cooldownByKey, "ability-cooldown").map((entries, index) =>
     buildQuestion(entries, "ability-cooldown", index),
   ),
+  ...closeValueSets(manaEntries, "ability-mana", GENERATED_FAMILY_COUNT).map((entries, index) =>
+    buildQuestion(entries, "ability-mana", index),
+  ),
+  ...closeValueSets(damageEntries, "ability-damage", GENERATED_FAMILY_COUNT).map((entries, index) =>
+    buildQuestion(entries, "ability-damage", index),
+  ),
+  ...closeValueSets(movementEntries, "hero-move-speed", GENERATED_FAMILY_COUNT).map((entries, index) =>
+    buildQuestion(entries, "hero-move-speed", index),
+  ),
+  ...closeValueSets([...attackRangeByHero.values()], "hero-attack-range", GENERATED_FAMILY_COUNT).map(
+    (entries, index) => buildQuestion(entries, "hero-attack-range", index),
+  ),
 ];
 
 await writeFile(OUTPUT_PATH, `${JSON.stringify(questions, null, 2)}\n`);
-console.log(
-  `Generated ${questions.length} audited ordering rounds (${ITEM_SETS.length} item, ${COOLDOWN_SETS.length} cooldown).`,
+const familyCounts = Object.fromEntries(
+  Object.keys(FAMILY_CONFIG).map((family) => [
+    family,
+    questions.filter((question) => question.valueOrder.family === family).length,
+  ]),
 );
+console.log(`Generated ${questions.length} audited ordering rounds: ${JSON.stringify(familyCounts)}.`);

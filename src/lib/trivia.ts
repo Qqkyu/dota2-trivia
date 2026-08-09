@@ -61,6 +61,10 @@ export type QuestionKind =
   | "soundcheck-item"
   | "value-order-item"
   | "value-order-cooldown"
+  | "value-order-mana"
+  | "value-order-damage"
+  | "value-order-move-speed"
+  | "value-order-attack-range"
   | "map-location"
   | "map-riddle"
   | "map-mirror"
@@ -100,7 +104,7 @@ export interface ValueOrderCard {
   name: string;
   context?: string;
   image: string;
-  kind: "item" | "ability";
+  kind: "item" | "ability" | "hero";
 }
 
 export interface ValueOrderValue {
@@ -152,7 +156,13 @@ export interface TriviaQuestion {
     };
   };
   valueOrder?: {
-    family: "item-price" | "ability-cooldown";
+    family:
+      | "item-price"
+      | "ability-cooldown"
+      | "ability-mana"
+      | "ability-damage"
+      | "hero-move-speed"
+      | "hero-attack-range";
     direction: "ascending";
     cards: [ValueOrderCard, ValueOrderCard, ValueOrderCard, ValueOrderCard];
     values: [ValueOrderValue, ValueOrderValue, ValueOrderValue, ValueOrderValue];
@@ -227,7 +237,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-5-shopkeeper-6-public-arcade-3-soundcheck-10-spell-link-4-fogged-vision-3-global-score-1-order-up-2`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-5-shopkeeper-6-public-arcade-3-soundcheck-10-spell-link-4-fogged-vision-3-global-score-1-order-up-3`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
     isPlayableClassicTriviaQuestion(question) &&

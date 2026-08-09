@@ -98,6 +98,10 @@ const expectedFormatsByKind = {
   "hero-quote": "quote-hunt",
   "value-order-item": "value-order",
   "value-order-cooldown": "value-order",
+  "value-order-mana": "value-order",
+  "value-order-damage": "value-order",
+  "value-order-move-speed": "value-order",
+  "value-order-attack-range": "value-order",
 };
 if (
   Object.entries(expectedFormatsByKind).some(

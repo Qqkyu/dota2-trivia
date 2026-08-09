@@ -8,8 +8,8 @@ import { valueOrderAnswerKey } from "../src/lib/value-order.mjs";
 const debuggingUrl = process.env.CHROME_DEBUG_URL ?? "http://127.0.0.1:9222";
 const appUrl = process.env.APP_URL ?? process.env.ARCADE_APP_URL ?? "http://localhost:3000";
 const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
-const [heroPickerCatalog, shopkeeperCatalog] = await Promise.all(
-  ["hero-picker.json", "shopkeeper-catalog.json"].map(async (file) =>
+const [heroPickerCatalog, shopkeeperCatalog, valueOrderCatalog] = await Promise.all(
+  ["hero-picker.json", "shopkeeper-catalog.json", "value-order-questions.json"].map(async (file) =>
     JSON.parse(await readFile(path.join(process.cwd(), "src", "data", file), "utf8")),
   ),
 );
@@ -18,8 +18,9 @@ const heroStressEntries = heroPickerCatalog.groups
   .map((hero) => ({ answerKey: hero.key, count: 1 }));
 const itemStressItems = shopkeeperCatalog.groups.flatMap((group) => group.items);
 const itemStressEntries = itemStressItems.map((item) => ({ answerKey: item.key, count: 1 }));
-const orderStressItems = itemStressItems.slice(0, 4);
-const orderStressCards = orderStressItems.map(({ key, name, image }) => ({ key, name, image, kind: "item" }));
+const orderStressQuestion = valueOrderCatalog.find((question) => question.valueOrder?.family === "hero-move-speed");
+if (!orderStressQuestion) throw new Error("Missing hero movement-speed Order Up fixture.");
+const orderStressCards = orderStressQuestion.valueOrder.cards;
 
 function permutations(values) {
   if (values.length <= 1) return [values];
@@ -28,9 +29,7 @@ function permutations(values) {
   );
 }
 
-const correctOrderStressKeys = [...orderStressItems]
-  .sort((left, right) => left.cost - right.cost)
-  .map((item) => item.key);
+const correctOrderStressKeys = orderStressQuestion.valueOrder.correctOrder;
 const correctOrderStressAnswer = valueOrderAnswerKey(correctOrderStressKeys);
 const orderStressEntries = permutations(orderStressCards.map((card) => card.key))
   .map((keys) => valueOrderAnswerKey(keys))
@@ -73,20 +72,20 @@ const crowdStressFixtures = {
   orders: {
     game: "order-up",
     question: {
-      kind: "value-order-item",
-      category: "Items",
-      eyebrow: "Item prices",
-      prompt: "How do these items rank from cheapest to most expensive?",
+      kind: orderStressQuestion.kind,
+      category: orderStressQuestion.category,
+      eyebrow: orderStressQuestion.eyebrow,
+      prompt: orderStressQuestion.prompt,
       answerMode: "value-order",
       valueOrder: {
-        family: "item-price",
+        family: orderStressQuestion.valueOrder.family,
         direction: "ascending",
         cards: orderStressCards,
       },
     },
     entries: orderStressEntries,
     reveal: {
-      orderValues: orderStressItems.map(({ key, cost }) => ({ key, label: `${cost} gold` })),
+      orderValues: orderStressQuestion.valueOrder.values.map(({ key, label }) => ({ key, label })),
     },
   },
   classic: {

@@ -139,7 +139,7 @@ export function semanticSubjectForQuestion(question, context) {
     return item ? `item:${item}` : null;
   }
 
-  if (question.kind === "value-order-item" || question.kind === "value-order-cooldown") {
+  if (question.valueOrder) {
     return `order:${question.id}`;
   }
 

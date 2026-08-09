@@ -3806,7 +3806,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                   <ListOrdered />
                 </div>
                 <div className={styles.questionCopy}>
-                  <span>{currentQuestion.valueOrder?.family === "item-price" ? "Item prices" : "Base cooldowns"}</span>
+                  <span>{currentQuestion.eyebrow}</span>
                   <h2>{currentQuestion.prompt}</h2>
                   <small>Patch {currentQuestion.patch}</small>
                 </div>

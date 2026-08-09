@@ -54,6 +54,10 @@ const ROUND_FORMAT_BY_KIND = Object.freeze({
   "hero-quote": "quote-hunt",
   "value-order-item": "value-order",
   "value-order-cooldown": "value-order",
+  "value-order-mana": "value-order",
+  "value-order-damage": "value-order",
+  "value-order-move-speed": "value-order",
+  "value-order-attack-range": "value-order",
 });
 
 const ROUND_GAME_BY_FORMAT = Object.freeze({

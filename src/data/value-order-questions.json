@@ -66,9 +66,19 @@
           "label": "80 gold"
         }
       ],
-      "correctOrder": ["clarity", "enchanted_mango", "dust", "tango"],
+      "correctOrder": [
+        "clarity",
+        "enchanted_mango",
+        "dust",
+        "tango"
+      ],
       "audit": {
-        "derivedFrom": ["item-cost:clarity", "item-cost:enchanted_mango", "item-cost:dust", "item-cost:tango"],
+        "derivedFrom": [
+          "item-cost:clarity",
+          "item-cost:enchanted_mango",
+          "item-cost:dust",
+          "item-cost:tango"
+        ],
         "clientBuild": "6882"
       }
     },
@@ -145,9 +155,19 @@
           "label": "505 gold"
         }
       ],
-      "correctOrder": ["magic_wand", "bracer", "bottle", "soul_ring"],
+      "correctOrder": [
+        "magic_wand",
+        "bracer",
+        "bottle",
+        "soul_ring"
+      ],
       "audit": {
-        "derivedFrom": ["item-cost:magic_wand", "item-cost:bracer", "item-cost:bottle", "item-cost:soul_ring"],
+        "derivedFrom": [
+          "item-cost:magic_wand",
+          "item-cost:bracer",
+          "item-cost:bottle",
+          "item-cost:soul_ring"
+        ],
         "clientBuild": "6882"
       }
     },
@@ -224,9 +244,19 @@
           "label": "1,125 gold"
         }
       ],
-      "correctOrder": ["gem", "falcon_blade", "aghanims_shard", "phase_boots"],
+      "correctOrder": [
+        "gem",
+        "falcon_blade",
+        "aghanims_shard",
+        "phase_boots"
+      ],
       "audit": {
-        "derivedFrom": ["item-cost:gem", "item-cost:falcon_blade", "item-cost:aghanims_shard", "item-cost:phase_boots"],
+        "derivedFrom": [
+          "item-cost:gem",
+          "item-cost:falcon_blade",
+          "item-cost:aghanims_shard",
+          "item-cost:phase_boots"
+        ],
         "clientBuild": "6882"
       }
     },
@@ -303,9 +333,19 @@
           "label": "1,700 gold"
         }
       ],
-      "correctOrder": ["ghost", "vanguard", "mekansm", "glimmer_cape"],
+      "correctOrder": [
+        "ghost",
+        "vanguard",
+        "mekansm",
+        "glimmer_cape"
+      ],
       "audit": {
-        "derivedFrom": ["item-cost:ghost", "item-cost:vanguard", "item-cost:mekansm", "item-cost:glimmer_cape"],
+        "derivedFrom": [
+          "item-cost:ghost",
+          "item-cost:vanguard",
+          "item-cost:mekansm",
+          "item-cost:glimmer_cape"
+        ],
         "clientBuild": "6882"
       }
     },
@@ -382,9 +422,19 @@
           "label": "2,250 gold"
         }
       ],
-      "correctOrder": ["force_staff", "blink", "blade_mail", "armlet"],
+      "correctOrder": [
+        "force_staff",
+        "blink",
+        "blade_mail",
+        "armlet"
+      ],
       "audit": {
-        "derivedFrom": ["item-cost:force_staff", "item-cost:blink", "item-cost:blade_mail", "item-cost:armlet"],
+        "derivedFrom": [
+          "item-cost:force_staff",
+          "item-cost:blink",
+          "item-cost:blade_mail",
+          "item-cost:armlet"
+        ],
         "clientBuild": "6882"
       }
     },
@@ -461,9 +511,19 @@
           "label": "2,950 gold"
         }
       ],
-      "correctOrder": ["travel_boots", "cyclone", "basher", "maelstrom"],
+      "correctOrder": [
+        "travel_boots",
+        "cyclone",
+        "basher",
+        "maelstrom"
+      ],
       "audit": {
-        "derivedFrom": ["item-cost:travel_boots", "item-cost:cyclone", "item-cost:basher", "item-cost:maelstrom"],
+        "derivedFrom": [
+          "item-cost:travel_boots",
+          "item-cost:cyclone",
+          "item-cost:basher",
+          "item-cost:maelstrom"
+        ],
         "clientBuild": "6882"
       }
     },
@@ -540,9 +600,19 @@
           "label": "3,500 gold"
         }
       ],
-      "correctOrder": ["aeon_disk", "invis_sword", "orchid", "desolator"],
+      "correctOrder": [
+        "aeon_disk",
+        "invis_sword",
+        "orchid",
+        "desolator"
+      ],
       "audit": {
-        "derivedFrom": ["item-cost:aeon_disk", "item-cost:invis_sword", "item-cost:orchid", "item-cost:desolator"],
+        "derivedFrom": [
+          "item-cost:aeon_disk",
+          "item-cost:invis_sword",
+          "item-cost:orchid",
+          "item-cost:desolator"
+        ],
         "clientBuild": "6882"
       }
     },
@@ -619,7 +689,12 @@
           "label": "3,850 gold"
         }
       ],
-      "correctOrder": ["crimson_guard", "lotus_orb", "moon_shard", "black_king_bar"],
+      "correctOrder": [
+        "crimson_guard",
+        "lotus_orb",
+        "moon_shard",
+        "black_king_bar"
+      ],
       "audit": {
         "derivedFrom": [
           "item-cost:crimson_guard",
@@ -703,7 +778,12 @@
           "label": "4,450 gold"
         }
       ],
-      "correctOrder": ["kaya_and_sange", "guardian_greaves", "shivas_guard", "manta"],
+      "correctOrder": [
+        "kaya_and_sange",
+        "guardian_greaves",
+        "shivas_guard",
+        "manta"
+      ],
       "audit": {
         "derivedFrom": [
           "item-cost:kaya_and_sange",
@@ -787,7 +867,12 @@
           "label": "4,700 gold"
         }
       ],
-      "correctOrder": ["bloodstone", "sphere", "octarine_core", "monkey_king_bar"],
+      "correctOrder": [
+        "bloodstone",
+        "sphere",
+        "octarine_core",
+        "monkey_king_bar"
+      ],
       "audit": {
         "derivedFrom": [
           "item-cost:bloodstone",
@@ -871,9 +956,19 @@
           "label": "5,125 gold"
         }
       ],
-      "correctOrder": ["refresher", "satanic", "greater_crit", "assault"],
+      "correctOrder": [
+        "refresher",
+        "satanic",
+        "greater_crit",
+        "assault"
+      ],
       "audit": {
-        "derivedFrom": ["item-cost:refresher", "item-cost:satanic", "item-cost:greater_crit", "item-cost:assault"],
+        "derivedFrom": [
+          "item-cost:refresher",
+          "item-cost:satanic",
+          "item-cost:greater_crit",
+          "item-cost:assault"
+        ],
         "clientBuild": "6882"
       }
     },
@@ -950,9 +1045,19 @@
           "label": "5,450 gold"
         }
       ],
-      "correctOrder": ["ethereal_blade", "butterfly", "mjollnir", "rapier"],
+      "correctOrder": [
+        "ethereal_blade",
+        "butterfly",
+        "mjollnir",
+        "rapier"
+      ],
       "audit": {
-        "derivedFrom": ["item-cost:ethereal_blade", "item-cost:butterfly", "item-cost:mjollnir", "item-cost:rapier"],
+        "derivedFrom": [
+          "item-cost:ethereal_blade",
+          "item-cost:butterfly",
+          "item-cost:mjollnir",
+          "item-cost:rapier"
+        ],
         "clientBuild": "6882"
       }
     },
@@ -1029,9 +1134,19 @@
           "label": "6,250 gold"
         }
       ],
-      "correctOrder": ["silver_edge", "skadi", "abyssal_blade", "bloodthorn"],
+      "correctOrder": [
+        "silver_edge",
+        "skadi",
+        "abyssal_blade",
+        "bloodthorn"
+      ],
       "audit": {
-        "derivedFrom": ["item-cost:silver_edge", "item-cost:skadi", "item-cost:abyssal_blade", "item-cost:bloodthorn"],
+        "derivedFrom": [
+          "item-cost:silver_edge",
+          "item-cost:skadi",
+          "item-cost:abyssal_blade",
+          "item-cost:bloodthorn"
+        ],
         "clientBuild": "6882"
       }
     },
@@ -1108,9 +1223,19 @@
           "label": "2,500 gold"
         }
       ],
-      "correctOrder": ["glimmer_cape", "blink", "armlet", "basher"],
+      "correctOrder": [
+        "glimmer_cape",
+        "blink",
+        "armlet",
+        "basher"
+      ],
       "audit": {
-        "derivedFrom": ["item-cost:glimmer_cape", "item-cost:blink", "item-cost:armlet", "item-cost:basher"],
+        "derivedFrom": [
+          "item-cost:glimmer_cape",
+          "item-cost:blink",
+          "item-cost:armlet",
+          "item-cost:basher"
+        ],
         "clientBuild": "6882"
       }
     },
@@ -1187,9 +1312,19 @@
           "label": "3,275 gold"
         }
       ],
-      "correctOrder": ["orchid", "pipe", "hurricane_pike", "shivas_guard"],
+      "correctOrder": [
+        "orchid",
+        "pipe",
+        "hurricane_pike",
+        "shivas_guard"
+      ],
       "audit": {
-        "derivedFrom": ["item-cost:orchid", "item-cost:pipe", "item-cost:hurricane_pike", "item-cost:shivas_guard"],
+        "derivedFrom": [
+          "item-cost:orchid",
+          "item-cost:pipe",
+          "item-cost:hurricane_pike",
+          "item-cost:shivas_guard"
+        ],
         "clientBuild": "6882"
       }
     },
@@ -1266,7 +1401,12 @@
           "label": "2,400 gold"
         }
       ],
-      "correctOrder": ["aghanims_shard", "vanguard", "force_staff", "blade_mail"],
+      "correctOrder": [
+        "aghanims_shard",
+        "vanguard",
+        "force_staff",
+        "blade_mail"
+      ],
       "audit": {
         "derivedFrom": [
           "item-cost:aghanims_shard",
@@ -1447,7 +1587,12 @@
           "label": "4.5s"
         }
       ],
-      "correctOrder": ["undying_decay", "tinker_rearm", "death_prophet_carrion_swarm", "invoker_invoke"],
+      "correctOrder": [
+        "undying_decay",
+        "tinker_rearm",
+        "death_prophet_carrion_swarm",
+        "invoker_invoke"
+      ],
       "audit": {
         "derivedFrom": [
           "cooldown:undying_decay:4",
@@ -1535,7 +1680,12 @@
           "label": "7s"
         }
       ],
-      "correctOrder": ["faceless_void_time_walk", "lina_light_strike_array", "lina_dragon_slave", "kunkka_torrent"],
+      "correctOrder": [
+        "faceless_void_time_walk",
+        "lina_light_strike_array",
+        "lina_dragon_slave",
+        "kunkka_torrent"
+      ],
       "audit": {
         "derivedFrom": [
           "cooldown:faceless_void_time_walk:4",
@@ -1623,7 +1773,12 @@
           "label": "7s"
         }
       ],
-      "correctOrder": ["pugna_life_drain", "oracle_fates_edict", "mars_gods_rebuke", "bane_brain_sap"],
+      "correctOrder": [
+        "pugna_life_drain",
+        "oracle_fates_edict",
+        "mars_gods_rebuke",
+        "bane_brain_sap"
+      ],
       "audit": {
         "derivedFrom": [
           "cooldown:pugna_life_drain:1",
@@ -1990,7 +2145,12 @@
           "label": "17s"
         }
       ],
-      "correctOrder": ["mirana_arrow", "elder_titan_ancestral_spirit", "warlock_fatal_bonds", "pudge_dismember"],
+      "correctOrder": [
+        "mirana_arrow",
+        "elder_titan_ancestral_spirit",
+        "warlock_fatal_bonds",
+        "pudge_dismember"
+      ],
       "audit": {
         "derivedFrom": [
           "cooldown:mirana_arrow:4",
@@ -2078,7 +2238,12 @@
           "label": "25s"
         }
       ],
-      "correctOrder": ["warlock_fatal_bonds", "pudge_dismember", "sandking_sand_storm", "largo_croak_of_genius"],
+      "correctOrder": [
+        "warlock_fatal_bonds",
+        "pudge_dismember",
+        "sandking_sand_storm",
+        "largo_croak_of_genius"
+      ],
       "audit": {
         "derivedFrom": [
           "cooldown:warlock_fatal_bonds:4",
@@ -2445,7 +2610,12 @@
           "label": "55s"
         }
       ],
-      "correctOrder": ["lina_laguna_blade", "gyrocopter_call_down", "alchemist_chemical_rage", "axe_culling_blade"],
+      "correctOrder": [
+        "lina_laguna_blade",
+        "gyrocopter_call_down",
+        "alchemist_chemical_rage",
+        "axe_culling_blade"
+      ],
       "audit": {
         "derivedFrom": [
           "cooldown:lina_laguna_blade:3",
@@ -2626,7 +2796,12 @@
           "label": "80s"
         }
       ],
-      "correctOrder": ["beastmaster_primal_roar", "ringmaster_wheel", "witch_doctor_death_ward", "chen_hand_of_god"],
+      "correctOrder": [
+        "beastmaster_primal_roar",
+        "ringmaster_wheel",
+        "witch_doctor_death_ward",
+        "chen_hand_of_god"
+      ],
       "audit": {
         "derivedFrom": [
           "cooldown:beastmaster_primal_roar:3",
@@ -2714,13 +2889,4386 @@
           "label": "160s"
         }
       ],
-      "correctOrder": ["axe_culling_blade", "witch_doctor_death_ward", "chen_hand_of_god", "enigma_black_hole"],
+      "correctOrder": [
+        "axe_culling_blade",
+        "witch_doctor_death_ward",
+        "chen_hand_of_god",
+        "enigma_black_hole"
+      ],
       "audit": {
         "derivedFrom": [
           "cooldown:axe_culling_blade:3",
           "cooldown:witch_doctor_death_ward:3",
           "cooldown:chen_hand_of_god:3",
           "cooldown:enigma_black_hole:3"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-mana:01",
+    "kind": "value-order-mana",
+    "varietyKey": "value-order:ability-mana",
+    "category": "Mana",
+    "difficulty": 3,
+    "eyebrow": "Max-level mana costs",
+    "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "answers": [
+      "order-v1:alchemist_acid_spray,enigma_malefice,dazzle_poison_touch,keeper_of_the_light_blinding_light",
+      "order-v1:enigma_malefice,alchemist_acid_spray,dazzle_poison_touch,keeper_of_the_light_blinding_light",
+      "order-v1:alchemist_acid_spray,dazzle_poison_touch,enigma_malefice,keeper_of_the_light_blinding_light",
+      "order-v1:keeper_of_the_light_blinding_light,dazzle_poison_touch,enigma_malefice,alchemist_acid_spray"
+    ],
+    "correctIndex": 0,
+    "explanation": "Lowest to highest: Acid Spray (120 mana) → Malefice (130 mana) → Poison Touch (140 mana) → Blinding Light (150 mana).",
+    "valueOrder": {
+      "family": "ability-mana",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "alchemist_acid_spray",
+          "name": "Acid Spray",
+          "context": "Alchemist",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/alchemist_acid_spray.png",
+          "kind": "ability"
+        },
+        {
+          "key": "enigma_malefice",
+          "name": "Malefice",
+          "context": "Enigma",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/enigma_malefice.png",
+          "kind": "ability"
+        },
+        {
+          "key": "keeper_of_the_light_blinding_light",
+          "name": "Blinding Light",
+          "context": "Keeper of the Light",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/keeper_of_the_light_blinding_light.png",
+          "kind": "ability"
+        },
+        {
+          "key": "dazzle_poison_touch",
+          "name": "Poison Touch",
+          "context": "Dazzle",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dazzle_poison_touch.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "alchemist_acid_spray",
+          "value": 120,
+          "label": "120 mana"
+        },
+        {
+          "key": "enigma_malefice",
+          "value": 130,
+          "label": "130 mana"
+        },
+        {
+          "key": "keeper_of_the_light_blinding_light",
+          "value": 150,
+          "label": "150 mana"
+        },
+        {
+          "key": "dazzle_poison_touch",
+          "value": 140,
+          "label": "140 mana"
+        }
+      ],
+      "correctOrder": [
+        "alchemist_acid_spray",
+        "enigma_malefice",
+        "dazzle_poison_touch",
+        "keeper_of_the_light_blinding_light"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "mana:alchemist_acid_spray:1",
+          "mana:enigma_malefice:2",
+          "mana:dazzle_poison_touch:3",
+          "mana:keeper_of_the_light_blinding_light:2"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-mana:02",
+    "kind": "value-order-mana",
+    "varietyKey": "value-order:ability-mana",
+    "category": "Mana",
+    "difficulty": 3,
+    "eyebrow": "Max-level mana costs",
+    "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "answers": [
+      "order-v1:shadow_demon_shadow_poison,tiny_tree_grab,largo_song_double_time,chen_zealot",
+      "order-v1:tiny_tree_grab,shadow_demon_shadow_poison,largo_song_double_time,chen_zealot",
+      "order-v1:tiny_tree_grab,largo_song_double_time,shadow_demon_shadow_poison,chen_zealot",
+      "order-v1:chen_zealot,largo_song_double_time,shadow_demon_shadow_poison,tiny_tree_grab"
+    ],
+    "correctIndex": 1,
+    "explanation": "Lowest to highest: Tree Grab (25 mana) → Shadow Poison (40 mana) → Hotfeet Hustle (45 mana) → Zealot (50 mana).",
+    "valueOrder": {
+      "family": "ability-mana",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "tiny_tree_grab",
+          "name": "Tree Grab",
+          "context": "Tiny",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tiny_tree_grab.png",
+          "kind": "ability"
+        },
+        {
+          "key": "largo_song_double_time",
+          "name": "Hotfeet Hustle",
+          "context": "Largo",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/largo_song_double_time.png",
+          "kind": "ability"
+        },
+        {
+          "key": "shadow_demon_shadow_poison",
+          "name": "Shadow Poison",
+          "context": "Shadow Demon",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shadow_demon_shadow_poison.png",
+          "kind": "ability"
+        },
+        {
+          "key": "chen_zealot",
+          "name": "Zealot",
+          "context": "Chen",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/chen_zealot.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "tiny_tree_grab",
+          "value": 25,
+          "label": "25 mana"
+        },
+        {
+          "key": "largo_song_double_time",
+          "value": 45,
+          "label": "45 mana"
+        },
+        {
+          "key": "shadow_demon_shadow_poison",
+          "value": 40,
+          "label": "40 mana"
+        },
+        {
+          "key": "chen_zealot",
+          "value": 50,
+          "label": "50 mana"
+        }
+      ],
+      "correctOrder": [
+        "tiny_tree_grab",
+        "shadow_demon_shadow_poison",
+        "largo_song_double_time",
+        "chen_zealot"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "mana:tiny_tree_grab:4",
+          "mana:shadow_demon_shadow_poison:1",
+          "mana:largo_song_double_time:1",
+          "mana:chen_zealot:1"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-mana:03",
+    "kind": "value-order-mana",
+    "varietyKey": "value-order:ability-mana",
+    "category": "Mana",
+    "difficulty": 3,
+    "eyebrow": "Max-level mana costs",
+    "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "answers": [
+      "order-v1:sandking_sand_storm,broodmother_insatiable_hunger,mirana_arrow,venomancer_snakebite",
+      "order-v1:broodmother_insatiable_hunger,mirana_arrow,sandking_sand_storm,venomancer_snakebite",
+      "order-v1:broodmother_insatiable_hunger,sandking_sand_storm,mirana_arrow,venomancer_snakebite",
+      "order-v1:venomancer_snakebite,mirana_arrow,sandking_sand_storm,broodmother_insatiable_hunger"
+    ],
+    "correctIndex": 2,
+    "explanation": "Lowest to highest: Insatiable Hunger (80 mana) → Sand Storm (85 mana) → Sacred Arrow (90 mana) → Snakebite (100 mana).",
+    "valueOrder": {
+      "family": "ability-mana",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "broodmother_insatiable_hunger",
+          "name": "Insatiable Hunger",
+          "context": "Broodmother",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/broodmother_insatiable_hunger.png",
+          "kind": "ability"
+        },
+        {
+          "key": "sandking_sand_storm",
+          "name": "Sand Storm",
+          "context": "Sand King",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sandking_sand_storm.png",
+          "kind": "ability"
+        },
+        {
+          "key": "venomancer_snakebite",
+          "name": "Snakebite",
+          "context": "Venomancer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/venomancer_snakebite.png",
+          "kind": "ability"
+        },
+        {
+          "key": "mirana_arrow",
+          "name": "Sacred Arrow",
+          "context": "Mirana",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mirana_arrow.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "broodmother_insatiable_hunger",
+          "value": 80,
+          "label": "80 mana"
+        },
+        {
+          "key": "sandking_sand_storm",
+          "value": 85,
+          "label": "85 mana"
+        },
+        {
+          "key": "venomancer_snakebite",
+          "value": 100,
+          "label": "100 mana"
+        },
+        {
+          "key": "mirana_arrow",
+          "value": 90,
+          "label": "90 mana"
+        }
+      ],
+      "correctOrder": [
+        "broodmother_insatiable_hunger",
+        "sandking_sand_storm",
+        "mirana_arrow",
+        "venomancer_snakebite"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "mana:broodmother_insatiable_hunger:1",
+          "mana:sandking_sand_storm:1",
+          "mana:mirana_arrow:1",
+          "mana:venomancer_snakebite:1"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-mana:04",
+    "kind": "value-order-mana",
+    "varietyKey": "value-order:ability-mana",
+    "category": "Mana",
+    "difficulty": 3,
+    "eyebrow": "Max-level mana costs",
+    "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "answers": [
+      "order-v1:clinkz_strafe,sandking_sand_storm,winter_wyvern_arctic_burn,death_prophet_carrion_swarm",
+      "order-v1:sandking_sand_storm,winter_wyvern_arctic_burn,clinkz_strafe,death_prophet_carrion_swarm",
+      "order-v1:death_prophet_carrion_swarm,winter_wyvern_arctic_burn,clinkz_strafe,sandking_sand_storm",
+      "order-v1:sandking_sand_storm,clinkz_strafe,winter_wyvern_arctic_burn,death_prophet_carrion_swarm"
+    ],
+    "correctIndex": 3,
+    "explanation": "Lowest to highest: Sand Storm (85 mana) → Strafe (90 mana) → Arctic Burn (100 mana) → Crypt Swarm (110 mana).",
+    "valueOrder": {
+      "family": "ability-mana",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "death_prophet_carrion_swarm",
+          "name": "Crypt Swarm",
+          "context": "Death Prophet",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/death_prophet_carrion_swarm.png",
+          "kind": "ability"
+        },
+        {
+          "key": "clinkz_strafe",
+          "name": "Strafe",
+          "context": "Clinkz",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/clinkz_strafe.png",
+          "kind": "ability"
+        },
+        {
+          "key": "winter_wyvern_arctic_burn",
+          "name": "Arctic Burn",
+          "context": "Winter Wyvern",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/winter_wyvern_arctic_burn.png",
+          "kind": "ability"
+        },
+        {
+          "key": "sandking_sand_storm",
+          "name": "Sand Storm",
+          "context": "Sand King",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sandking_sand_storm.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "death_prophet_carrion_swarm",
+          "value": 110,
+          "label": "110 mana"
+        },
+        {
+          "key": "clinkz_strafe",
+          "value": 90,
+          "label": "90 mana"
+        },
+        {
+          "key": "winter_wyvern_arctic_burn",
+          "value": 100,
+          "label": "100 mana"
+        },
+        {
+          "key": "sandking_sand_storm",
+          "value": 85,
+          "label": "85 mana"
+        }
+      ],
+      "correctOrder": [
+        "sandking_sand_storm",
+        "clinkz_strafe",
+        "winter_wyvern_arctic_burn",
+        "death_prophet_carrion_swarm"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "mana:sandking_sand_storm:1",
+          "mana:clinkz_strafe:3",
+          "mana:winter_wyvern_arctic_burn:1",
+          "mana:death_prophet_carrion_swarm:3"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-mana:05",
+    "kind": "value-order-mana",
+    "varietyKey": "value-order:ability-mana",
+    "category": "Mana",
+    "difficulty": 3,
+    "eyebrow": "Max-level mana costs",
+    "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "answers": [
+      "order-v1:ogre_magi_fireblast,void_spirit_dissimilate,enigma_malefice,shadow_shaman_urnaconda",
+      "order-v1:void_spirit_dissimilate,ogre_magi_fireblast,enigma_malefice,shadow_shaman_urnaconda",
+      "order-v1:ogre_magi_fireblast,enigma_malefice,void_spirit_dissimilate,shadow_shaman_urnaconda",
+      "order-v1:shadow_shaman_urnaconda,enigma_malefice,void_spirit_dissimilate,ogre_magi_fireblast"
+    ],
+    "correctIndex": 0,
+    "explanation": "Lowest to highest: Fireblast (115 mana) → Dissimilate (120 mana) → Malefice (130 mana) → Urnaconda (140 mana).",
+    "valueOrder": {
+      "family": "ability-mana",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "enigma_malefice",
+          "name": "Malefice",
+          "context": "Enigma",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/enigma_malefice.png",
+          "kind": "ability"
+        },
+        {
+          "key": "void_spirit_dissimilate",
+          "name": "Dissimilate",
+          "context": "Void Spirit",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/void_spirit_dissimilate.png",
+          "kind": "ability"
+        },
+        {
+          "key": "ogre_magi_fireblast",
+          "name": "Fireblast",
+          "context": "Ogre Magi",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/ogre_magi_fireblast.png",
+          "kind": "ability"
+        },
+        {
+          "key": "shadow_shaman_urnaconda",
+          "name": "Urnaconda",
+          "context": "Shadow Shaman",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shadow_shaman_urnaconda.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "enigma_malefice",
+          "value": 130,
+          "label": "130 mana"
+        },
+        {
+          "key": "void_spirit_dissimilate",
+          "value": 120,
+          "label": "120 mana"
+        },
+        {
+          "key": "ogre_magi_fireblast",
+          "value": 115,
+          "label": "115 mana"
+        },
+        {
+          "key": "shadow_shaman_urnaconda",
+          "value": 140,
+          "label": "140 mana"
+        }
+      ],
+      "correctOrder": [
+        "ogre_magi_fireblast",
+        "void_spirit_dissimilate",
+        "enigma_malefice",
+        "shadow_shaman_urnaconda"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "mana:ogre_magi_fireblast:1",
+          "mana:void_spirit_dissimilate:1",
+          "mana:enigma_malefice:2",
+          "mana:shadow_shaman_urnaconda:1"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-mana:06",
+    "kind": "value-order-mana",
+    "varietyKey": "value-order:ability-mana",
+    "category": "Mana",
+    "difficulty": 3,
+    "eyebrow": "Max-level mana costs",
+    "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "answers": [
+      "order-v1:batrider_sticky_napalm,silencer_glaives_of_wisdom,tiny_tree_grab,shadow_demon_shadow_poison",
+      "order-v1:silencer_glaives_of_wisdom,batrider_sticky_napalm,tiny_tree_grab,shadow_demon_shadow_poison",
+      "order-v1:silencer_glaives_of_wisdom,tiny_tree_grab,batrider_sticky_napalm,shadow_demon_shadow_poison",
+      "order-v1:shadow_demon_shadow_poison,tiny_tree_grab,batrider_sticky_napalm,silencer_glaives_of_wisdom"
+    ],
+    "correctIndex": 1,
+    "explanation": "Lowest to highest: Glaives of Wisdom (18 mana) → Sticky Napalm (22 mana) → Tree Grab (25 mana) → Shadow Poison (40 mana).",
+    "valueOrder": {
+      "family": "ability-mana",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "silencer_glaives_of_wisdom",
+          "name": "Glaives of Wisdom",
+          "context": "Silencer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/silencer_glaives_of_wisdom.png",
+          "kind": "ability"
+        },
+        {
+          "key": "tiny_tree_grab",
+          "name": "Tree Grab",
+          "context": "Tiny",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tiny_tree_grab.png",
+          "kind": "ability"
+        },
+        {
+          "key": "batrider_sticky_napalm",
+          "name": "Sticky Napalm",
+          "context": "Batrider",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/batrider_sticky_napalm.png",
+          "kind": "ability"
+        },
+        {
+          "key": "shadow_demon_shadow_poison",
+          "name": "Shadow Poison",
+          "context": "Shadow Demon",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shadow_demon_shadow_poison.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "silencer_glaives_of_wisdom",
+          "value": 18,
+          "label": "18 mana"
+        },
+        {
+          "key": "tiny_tree_grab",
+          "value": 25,
+          "label": "25 mana"
+        },
+        {
+          "key": "batrider_sticky_napalm",
+          "value": 22,
+          "label": "22 mana"
+        },
+        {
+          "key": "shadow_demon_shadow_poison",
+          "value": 40,
+          "label": "40 mana"
+        }
+      ],
+      "correctOrder": [
+        "silencer_glaives_of_wisdom",
+        "batrider_sticky_napalm",
+        "tiny_tree_grab",
+        "shadow_demon_shadow_poison"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "mana:silencer_glaives_of_wisdom:3",
+          "mana:batrider_sticky_napalm:1",
+          "mana:tiny_tree_grab:4",
+          "mana:shadow_demon_shadow_poison:1"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-mana:07",
+    "kind": "value-order-mana",
+    "varietyKey": "value-order:ability-mana",
+    "category": "Mana",
+    "difficulty": 3,
+    "eyebrow": "Max-level mana costs",
+    "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "answers": [
+      "order-v1:rattletrap_hookshot,enchantress_natures_attendants,tinker_march_of_the_machines,invoker_sun_strike",
+      "order-v1:enchantress_natures_attendants,tinker_march_of_the_machines,rattletrap_hookshot,invoker_sun_strike",
+      "order-v1:enchantress_natures_attendants,rattletrap_hookshot,tinker_march_of_the_machines,invoker_sun_strike",
+      "order-v1:invoker_sun_strike,tinker_march_of_the_machines,rattletrap_hookshot,enchantress_natures_attendants"
+    ],
+    "correctIndex": 2,
+    "explanation": "Lowest to highest: Nature's Attendants (140 mana) → Hookshot (150 mana) → March of the Machines (160 mana) → Sun Strike (175 mana).",
+    "valueOrder": {
+      "family": "ability-mana",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "tinker_march_of_the_machines",
+          "name": "March of the Machines",
+          "context": "Tinker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tinker_march_of_the_machines.png",
+          "kind": "ability"
+        },
+        {
+          "key": "invoker_sun_strike",
+          "name": "Sun Strike",
+          "context": "Invoker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/invoker_sun_strike.png",
+          "kind": "ability"
+        },
+        {
+          "key": "rattletrap_hookshot",
+          "name": "Hookshot",
+          "context": "Clockwerk",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/rattletrap_hookshot.png",
+          "kind": "ability"
+        },
+        {
+          "key": "enchantress_natures_attendants",
+          "name": "Nature's Attendants",
+          "context": "Enchantress",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/enchantress_natures_attendants.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "tinker_march_of_the_machines",
+          "value": 160,
+          "label": "160 mana"
+        },
+        {
+          "key": "invoker_sun_strike",
+          "value": 175,
+          "label": "175 mana"
+        },
+        {
+          "key": "rattletrap_hookshot",
+          "value": 150,
+          "label": "150 mana"
+        },
+        {
+          "key": "enchantress_natures_attendants",
+          "value": 140,
+          "label": "140 mana"
+        }
+      ],
+      "correctOrder": [
+        "enchantress_natures_attendants",
+        "rattletrap_hookshot",
+        "tinker_march_of_the_machines",
+        "invoker_sun_strike"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "mana:enchantress_natures_attendants:1",
+          "mana:rattletrap_hookshot:1",
+          "mana:tinker_march_of_the_machines:2",
+          "mana:invoker_sun_strike:1"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-mana:08",
+    "kind": "value-order-mana",
+    "varietyKey": "value-order:ability-mana",
+    "category": "Mana",
+    "difficulty": 3,
+    "eyebrow": "Max-level mana costs",
+    "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "answers": [
+      "order-v1:largo_song_double_time,clinkz_burning_barrage,chen_zealot,bristleback_hairball",
+      "order-v1:clinkz_burning_barrage,chen_zealot,largo_song_double_time,bristleback_hairball",
+      "order-v1:bristleback_hairball,chen_zealot,largo_song_double_time,clinkz_burning_barrage",
+      "order-v1:clinkz_burning_barrage,largo_song_double_time,chen_zealot,bristleback_hairball"
+    ],
+    "correctIndex": 3,
+    "explanation": "Lowest to highest: Burning Barrage (40 mana) → Hotfeet Hustle (45 mana) → Zealot (50 mana) → Hairball (60 mana).",
+    "valueOrder": {
+      "family": "ability-mana",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "clinkz_burning_barrage",
+          "name": "Burning Barrage",
+          "context": "Clinkz",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/clinkz_burning_barrage.png",
+          "kind": "ability"
+        },
+        {
+          "key": "bristleback_hairball",
+          "name": "Hairball",
+          "context": "Bristleback",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bristleback_hairball.png",
+          "kind": "ability"
+        },
+        {
+          "key": "largo_song_double_time",
+          "name": "Hotfeet Hustle",
+          "context": "Largo",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/largo_song_double_time.png",
+          "kind": "ability"
+        },
+        {
+          "key": "chen_zealot",
+          "name": "Zealot",
+          "context": "Chen",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/chen_zealot.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "clinkz_burning_barrage",
+          "value": 40,
+          "label": "40 mana"
+        },
+        {
+          "key": "bristleback_hairball",
+          "value": 60,
+          "label": "60 mana"
+        },
+        {
+          "key": "largo_song_double_time",
+          "value": 45,
+          "label": "45 mana"
+        },
+        {
+          "key": "chen_zealot",
+          "value": 50,
+          "label": "50 mana"
+        }
+      ],
+      "correctOrder": [
+        "clinkz_burning_barrage",
+        "largo_song_double_time",
+        "chen_zealot",
+        "bristleback_hairball"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "mana:clinkz_burning_barrage:1",
+          "mana:largo_song_double_time:1",
+          "mana:chen_zealot:1",
+          "mana:bristleback_hairball:1"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-mana:09",
+    "kind": "value-order-mana",
+    "varietyKey": "value-order:ability-mana",
+    "category": "Mana",
+    "difficulty": 3,
+    "eyebrow": "Max-level mana costs",
+    "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "answers": [
+      "order-v1:invoker_chaos_meteor,disruptor_static_storm,ringmaster_wheel,obsidian_destroyer_sanity_eclipse",
+      "order-v1:disruptor_static_storm,invoker_chaos_meteor,ringmaster_wheel,obsidian_destroyer_sanity_eclipse",
+      "order-v1:invoker_chaos_meteor,ringmaster_wheel,disruptor_static_storm,obsidian_destroyer_sanity_eclipse",
+      "order-v1:obsidian_destroyer_sanity_eclipse,ringmaster_wheel,disruptor_static_storm,invoker_chaos_meteor"
+    ],
+    "correctIndex": 0,
+    "explanation": "Lowest to highest: Chaos Meteor (200 mana) → Static Storm (225 mana) → Wheel of Wonder (300 mana) → Sanity's Eclipse (400 mana).",
+    "valueOrder": {
+      "family": "ability-mana",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "disruptor_static_storm",
+          "name": "Static Storm",
+          "context": "Disruptor",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_static_storm.png",
+          "kind": "ability"
+        },
+        {
+          "key": "invoker_chaos_meteor",
+          "name": "Chaos Meteor",
+          "context": "Invoker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/invoker_chaos_meteor.png",
+          "kind": "ability"
+        },
+        {
+          "key": "obsidian_destroyer_sanity_eclipse",
+          "name": "Sanity's Eclipse",
+          "context": "Outworld Devourer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/obsidian_destroyer_sanity_eclipse.png",
+          "kind": "ability"
+        },
+        {
+          "key": "ringmaster_wheel",
+          "name": "Wheel of Wonder",
+          "context": "Ring Master",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/ringmaster_wheel.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "disruptor_static_storm",
+          "value": 225,
+          "label": "225 mana"
+        },
+        {
+          "key": "invoker_chaos_meteor",
+          "value": 200,
+          "label": "200 mana"
+        },
+        {
+          "key": "obsidian_destroyer_sanity_eclipse",
+          "value": 400,
+          "label": "400 mana"
+        },
+        {
+          "key": "ringmaster_wheel",
+          "value": 300,
+          "label": "300 mana"
+        }
+      ],
+      "correctOrder": [
+        "invoker_chaos_meteor",
+        "disruptor_static_storm",
+        "ringmaster_wheel",
+        "obsidian_destroyer_sanity_eclipse"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "mana:invoker_chaos_meteor:1",
+          "mana:disruptor_static_storm:3",
+          "mana:ringmaster_wheel:3",
+          "mana:obsidian_destroyer_sanity_eclipse:1"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-mana:10",
+    "kind": "value-order-mana",
+    "varietyKey": "value-order:ability-mana",
+    "category": "Mana",
+    "difficulty": 3,
+    "eyebrow": "Max-level mana costs",
+    "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "answers": [
+      "order-v1:disruptor_kinetic_fence,bristleback_hairball,visage_grave_chill,broodmother_insatiable_hunger",
+      "order-v1:bristleback_hairball,disruptor_kinetic_fence,visage_grave_chill,broodmother_insatiable_hunger",
+      "order-v1:bristleback_hairball,visage_grave_chill,disruptor_kinetic_fence,broodmother_insatiable_hunger",
+      "order-v1:broodmother_insatiable_hunger,visage_grave_chill,disruptor_kinetic_fence,bristleback_hairball"
+    ],
+    "correctIndex": 1,
+    "explanation": "Lowest to highest: Hairball (60 mana) → Kinetic Fence (70 mana) → Grave Chill (75 mana) → Insatiable Hunger (80 mana).",
+    "valueOrder": {
+      "family": "ability-mana",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "disruptor_kinetic_fence",
+          "name": "Kinetic Fence",
+          "context": "Disruptor",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_kinetic_fence.png",
+          "kind": "ability"
+        },
+        {
+          "key": "bristleback_hairball",
+          "name": "Hairball",
+          "context": "Bristleback",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bristleback_hairball.png",
+          "kind": "ability"
+        },
+        {
+          "key": "visage_grave_chill",
+          "name": "Grave Chill",
+          "context": "Visage",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/visage_grave_chill.png",
+          "kind": "ability"
+        },
+        {
+          "key": "broodmother_insatiable_hunger",
+          "name": "Insatiable Hunger",
+          "context": "Broodmother",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/broodmother_insatiable_hunger.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "disruptor_kinetic_fence",
+          "value": 70,
+          "label": "70 mana"
+        },
+        {
+          "key": "bristleback_hairball",
+          "value": 60,
+          "label": "60 mana"
+        },
+        {
+          "key": "visage_grave_chill",
+          "value": 75,
+          "label": "75 mana"
+        },
+        {
+          "key": "broodmother_insatiable_hunger",
+          "value": 80,
+          "label": "80 mana"
+        }
+      ],
+      "correctOrder": [
+        "bristleback_hairball",
+        "disruptor_kinetic_fence",
+        "visage_grave_chill",
+        "broodmother_insatiable_hunger"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "mana:bristleback_hairball:1",
+          "mana:disruptor_kinetic_fence:1",
+          "mana:visage_grave_chill:1",
+          "mana:broodmother_insatiable_hunger:1"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-mana:11",
+    "kind": "value-order-mana",
+    "varietyKey": "value-order:ability-mana",
+    "category": "Mana",
+    "difficulty": 3,
+    "eyebrow": "Max-level mana costs",
+    "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "answers": [
+      "order-v1:tinker_march_of_the_machines,keeper_of_the_light_blinding_light,techies_suicide,invoker_chaos_meteor",
+      "order-v1:keeper_of_the_light_blinding_light,techies_suicide,tinker_march_of_the_machines,invoker_chaos_meteor",
+      "order-v1:keeper_of_the_light_blinding_light,tinker_march_of_the_machines,techies_suicide,invoker_chaos_meteor",
+      "order-v1:invoker_chaos_meteor,techies_suicide,tinker_march_of_the_machines,keeper_of_the_light_blinding_light"
+    ],
+    "correctIndex": 2,
+    "explanation": "Lowest to highest: Blinding Light (150 mana) → March of the Machines (160 mana) → Blast Off! (175 mana) → Chaos Meteor (200 mana).",
+    "valueOrder": {
+      "family": "ability-mana",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "keeper_of_the_light_blinding_light",
+          "name": "Blinding Light",
+          "context": "Keeper of the Light",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/keeper_of_the_light_blinding_light.png",
+          "kind": "ability"
+        },
+        {
+          "key": "techies_suicide",
+          "name": "Blast Off!",
+          "context": "Techies",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/techies_suicide.png",
+          "kind": "ability"
+        },
+        {
+          "key": "invoker_chaos_meteor",
+          "name": "Chaos Meteor",
+          "context": "Invoker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/invoker_chaos_meteor.png",
+          "kind": "ability"
+        },
+        {
+          "key": "tinker_march_of_the_machines",
+          "name": "March of the Machines",
+          "context": "Tinker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tinker_march_of_the_machines.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "keeper_of_the_light_blinding_light",
+          "value": 150,
+          "label": "150 mana"
+        },
+        {
+          "key": "techies_suicide",
+          "value": 175,
+          "label": "175 mana"
+        },
+        {
+          "key": "invoker_chaos_meteor",
+          "value": 200,
+          "label": "200 mana"
+        },
+        {
+          "key": "tinker_march_of_the_machines",
+          "value": 160,
+          "label": "160 mana"
+        }
+      ],
+      "correctOrder": [
+        "keeper_of_the_light_blinding_light",
+        "tinker_march_of_the_machines",
+        "techies_suicide",
+        "invoker_chaos_meteor"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "mana:keeper_of_the_light_blinding_light:2",
+          "mana:tinker_march_of_the_machines:2",
+          "mana:techies_suicide:4",
+          "mana:invoker_chaos_meteor:1"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-mana:12",
+    "kind": "value-order-mana",
+    "varietyKey": "value-order:ability-mana",
+    "category": "Mana",
+    "difficulty": 3,
+    "eyebrow": "Max-level mana costs",
+    "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "answers": [
+      "order-v1:bristleback_hairball,chen_zealot,disruptor_kinetic_fence,sniper_shrapnel",
+      "order-v1:chen_zealot,disruptor_kinetic_fence,bristleback_hairball,sniper_shrapnel",
+      "order-v1:sniper_shrapnel,disruptor_kinetic_fence,bristleback_hairball,chen_zealot",
+      "order-v1:chen_zealot,bristleback_hairball,disruptor_kinetic_fence,sniper_shrapnel"
+    ],
+    "correctIndex": 3,
+    "explanation": "Lowest to highest: Zealot (50 mana) → Hairball (60 mana) → Kinetic Fence (70 mana) → Shrapnel (75 mana).",
+    "valueOrder": {
+      "family": "ability-mana",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "bristleback_hairball",
+          "name": "Hairball",
+          "context": "Bristleback",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/bristleback_hairball.png",
+          "kind": "ability"
+        },
+        {
+          "key": "disruptor_kinetic_fence",
+          "name": "Kinetic Fence",
+          "context": "Disruptor",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_kinetic_fence.png",
+          "kind": "ability"
+        },
+        {
+          "key": "sniper_shrapnel",
+          "name": "Shrapnel",
+          "context": "Sniper",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/sniper_shrapnel.png",
+          "kind": "ability"
+        },
+        {
+          "key": "chen_zealot",
+          "name": "Zealot",
+          "context": "Chen",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/chen_zealot.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "bristleback_hairball",
+          "value": 60,
+          "label": "60 mana"
+        },
+        {
+          "key": "disruptor_kinetic_fence",
+          "value": 70,
+          "label": "70 mana"
+        },
+        {
+          "key": "sniper_shrapnel",
+          "value": 75,
+          "label": "75 mana"
+        },
+        {
+          "key": "chen_zealot",
+          "value": 50,
+          "label": "50 mana"
+        }
+      ],
+      "correctOrder": [
+        "chen_zealot",
+        "bristleback_hairball",
+        "disruptor_kinetic_fence",
+        "sniper_shrapnel"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "mana:chen_zealot:1",
+          "mana:bristleback_hairball:1",
+          "mana:disruptor_kinetic_fence:1",
+          "mana:sniper_shrapnel:1"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-damage:01",
+    "kind": "value-order-damage",
+    "varietyKey": "value-order:ability-damage",
+    "category": "Damage",
+    "difficulty": 3,
+    "eyebrow": "Max-level damage",
+    "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "answers": [
+      "order-v1:pudge_meat_hook,axe_culling_blade,zuus_thundergods_wrath,lina_laguna_blade",
+      "order-v1:axe_culling_blade,pudge_meat_hook,zuus_thundergods_wrath,lina_laguna_blade",
+      "order-v1:pudge_meat_hook,zuus_thundergods_wrath,axe_culling_blade,lina_laguna_blade",
+      "order-v1:lina_laguna_blade,zuus_thundergods_wrath,axe_culling_blade,pudge_meat_hook"
+    ],
+    "correctIndex": 0,
+    "explanation": "Lowest to highest: Meat Hook (360 damage) → Culling Blade (475 damage) → Thundergod's Wrath (575 damage) → Laguna Blade (760 damage).",
+    "valueOrder": {
+      "family": "ability-damage",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "axe_culling_blade",
+          "name": "Culling Blade",
+          "context": "Axe",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/axe_culling_blade.png",
+          "kind": "ability"
+        },
+        {
+          "key": "lina_laguna_blade",
+          "name": "Laguna Blade",
+          "context": "Lina",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lina_laguna_blade.png",
+          "kind": "ability"
+        },
+        {
+          "key": "zuus_thundergods_wrath",
+          "name": "Thundergod's Wrath",
+          "context": "Zeus",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/zuus_thundergods_wrath.png",
+          "kind": "ability"
+        },
+        {
+          "key": "pudge_meat_hook",
+          "name": "Meat Hook",
+          "context": "Pudge",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pudge_meat_hook.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "axe_culling_blade",
+          "value": 475,
+          "label": "475 damage"
+        },
+        {
+          "key": "lina_laguna_blade",
+          "value": 760,
+          "label": "760 damage"
+        },
+        {
+          "key": "zuus_thundergods_wrath",
+          "value": 575,
+          "label": "575 damage"
+        },
+        {
+          "key": "pudge_meat_hook",
+          "value": 360,
+          "label": "360 damage"
+        }
+      ],
+      "correctOrder": [
+        "pudge_meat_hook",
+        "axe_culling_blade",
+        "zuus_thundergods_wrath",
+        "lina_laguna_blade"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "damage:pudge_meat_hook:4",
+          "damage:axe_culling_blade:3",
+          "damage:zuus_thundergods_wrath:3",
+          "damage:lina_laguna_blade:3"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-damage:02",
+    "kind": "value-order-damage",
+    "varietyKey": "value-order:ability-damage",
+    "category": "Damage",
+    "difficulty": 3,
+    "eyebrow": "Max-level damage",
+    "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "answers": [
+      "order-v1:zuus_thundergods_wrath,axe_culling_blade,lina_laguna_blade,lion_finger_of_death",
+      "order-v1:axe_culling_blade,zuus_thundergods_wrath,lina_laguna_blade,lion_finger_of_death",
+      "order-v1:axe_culling_blade,lina_laguna_blade,zuus_thundergods_wrath,lion_finger_of_death",
+      "order-v1:lion_finger_of_death,lina_laguna_blade,zuus_thundergods_wrath,axe_culling_blade"
+    ],
+    "correctIndex": 1,
+    "explanation": "Lowest to highest: Culling Blade (475 damage) → Thundergod's Wrath (575 damage) → Laguna Blade (760 damage) → Finger of Death (850 damage).",
+    "valueOrder": {
+      "family": "ability-damage",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "axe_culling_blade",
+          "name": "Culling Blade",
+          "context": "Axe",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/axe_culling_blade.png",
+          "kind": "ability"
+        },
+        {
+          "key": "lion_finger_of_death",
+          "name": "Finger of Death",
+          "context": "Lion",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lion_finger_of_death.png",
+          "kind": "ability"
+        },
+        {
+          "key": "zuus_thundergods_wrath",
+          "name": "Thundergod's Wrath",
+          "context": "Zeus",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/zuus_thundergods_wrath.png",
+          "kind": "ability"
+        },
+        {
+          "key": "lina_laguna_blade",
+          "name": "Laguna Blade",
+          "context": "Lina",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lina_laguna_blade.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "axe_culling_blade",
+          "value": 475,
+          "label": "475 damage"
+        },
+        {
+          "key": "lion_finger_of_death",
+          "value": 850,
+          "label": "850 damage"
+        },
+        {
+          "key": "zuus_thundergods_wrath",
+          "value": 575,
+          "label": "575 damage"
+        },
+        {
+          "key": "lina_laguna_blade",
+          "value": 760,
+          "label": "760 damage"
+        }
+      ],
+      "correctOrder": [
+        "axe_culling_blade",
+        "zuus_thundergods_wrath",
+        "lina_laguna_blade",
+        "lion_finger_of_death"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "damage:axe_culling_blade:3",
+          "damage:zuus_thundergods_wrath:3",
+          "damage:lina_laguna_blade:3",
+          "damage:lion_finger_of_death:3"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-damage:03",
+    "kind": "value-order-damage",
+    "varietyKey": "value-order:ability-damage",
+    "category": "Damage",
+    "difficulty": 3,
+    "eyebrow": "Max-level damage",
+    "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "answers": [
+      "order-v1:obsidian_destroyer_astral_imprisonment,queenofpain_scream_of_pain,axe_culling_blade,zuus_thundergods_wrath",
+      "order-v1:queenofpain_scream_of_pain,axe_culling_blade,obsidian_destroyer_astral_imprisonment,zuus_thundergods_wrath",
+      "order-v1:queenofpain_scream_of_pain,obsidian_destroyer_astral_imprisonment,axe_culling_blade,zuus_thundergods_wrath",
+      "order-v1:zuus_thundergods_wrath,axe_culling_blade,obsidian_destroyer_astral_imprisonment,queenofpain_scream_of_pain"
+    ],
+    "correctIndex": 2,
+    "explanation": "Lowest to highest: Scream Of Pain (345 damage) → Astral Imprisonment (360 damage) → Culling Blade (475 damage) → Thundergod's Wrath (575 damage).",
+    "valueOrder": {
+      "family": "ability-damage",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "obsidian_destroyer_astral_imprisonment",
+          "name": "Astral Imprisonment",
+          "context": "Outworld Devourer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/obsidian_destroyer_astral_imprisonment.png",
+          "kind": "ability"
+        },
+        {
+          "key": "queenofpain_scream_of_pain",
+          "name": "Scream Of Pain",
+          "context": "Queen of Pain",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/queenofpain_scream_of_pain.png",
+          "kind": "ability"
+        },
+        {
+          "key": "axe_culling_blade",
+          "name": "Culling Blade",
+          "context": "Axe",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/axe_culling_blade.png",
+          "kind": "ability"
+        },
+        {
+          "key": "zuus_thundergods_wrath",
+          "name": "Thundergod's Wrath",
+          "context": "Zeus",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/zuus_thundergods_wrath.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "obsidian_destroyer_astral_imprisonment",
+          "value": 360,
+          "label": "360 damage"
+        },
+        {
+          "key": "queenofpain_scream_of_pain",
+          "value": 345,
+          "label": "345 damage"
+        },
+        {
+          "key": "axe_culling_blade",
+          "value": 475,
+          "label": "475 damage"
+        },
+        {
+          "key": "zuus_thundergods_wrath",
+          "value": 575,
+          "label": "575 damage"
+        }
+      ],
+      "correctOrder": [
+        "queenofpain_scream_of_pain",
+        "obsidian_destroyer_astral_imprisonment",
+        "axe_culling_blade",
+        "zuus_thundergods_wrath"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "damage:queenofpain_scream_of_pain:4",
+          "damage:obsidian_destroyer_astral_imprisonment:4",
+          "damage:axe_culling_blade:3",
+          "damage:zuus_thundergods_wrath:3"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-damage:04",
+    "kind": "value-order-damage",
+    "varietyKey": "value-order:ability-damage",
+    "category": "Damage",
+    "difficulty": 3,
+    "eyebrow": "Max-level damage",
+    "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "answers": [
+      "order-v1:shredder_timber_chain,terrorblade_terror_wave,kez_talon_toss,furion_sprout",
+      "order-v1:terrorblade_terror_wave,kez_talon_toss,shredder_timber_chain,furion_sprout",
+      "order-v1:furion_sprout,kez_talon_toss,shredder_timber_chain,terrorblade_terror_wave",
+      "order-v1:terrorblade_terror_wave,shredder_timber_chain,kez_talon_toss,furion_sprout"
+    ],
+    "correctIndex": 3,
+    "explanation": "Lowest to highest: Terror Wave (200 damage) → Timber Chain (225 damage) → Talon Toss (240 damage) → Sprout (250 damage).",
+    "valueOrder": {
+      "family": "ability-damage",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "furion_sprout",
+          "name": "Sprout",
+          "context": "Nature's Prophet",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/furion_sprout.png",
+          "kind": "ability"
+        },
+        {
+          "key": "shredder_timber_chain",
+          "name": "Timber Chain",
+          "context": "Timbersaw",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shredder_timber_chain.png",
+          "kind": "ability"
+        },
+        {
+          "key": "terrorblade_terror_wave",
+          "name": "Terror Wave",
+          "context": "Terrorblade",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/terrorblade_terror_wave.png",
+          "kind": "ability"
+        },
+        {
+          "key": "kez_talon_toss",
+          "name": "Talon Toss",
+          "context": "Kez",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/kez_talon_toss.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "furion_sprout",
+          "value": 250,
+          "label": "250 damage"
+        },
+        {
+          "key": "shredder_timber_chain",
+          "value": 225,
+          "label": "225 damage"
+        },
+        {
+          "key": "terrorblade_terror_wave",
+          "value": 200,
+          "label": "200 damage"
+        },
+        {
+          "key": "kez_talon_toss",
+          "value": 240,
+          "label": "240 damage"
+        }
+      ],
+      "correctOrder": [
+        "terrorblade_terror_wave",
+        "shredder_timber_chain",
+        "kez_talon_toss",
+        "furion_sprout"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "damage:terrorblade_terror_wave:1",
+          "damage:shredder_timber_chain:4",
+          "damage:kez_talon_toss:4",
+          "damage:furion_sprout:4"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-damage:05",
+    "kind": "value-order-damage",
+    "varietyKey": "value-order:ability-damage",
+    "category": "Damage",
+    "difficulty": 3,
+    "eyebrow": "Max-level damage",
+    "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "answers": [
+      "order-v1:shredder_timber_chain,kez_talon_toss,furion_sprout,tidehunter_gush",
+      "order-v1:kez_talon_toss,shredder_timber_chain,furion_sprout,tidehunter_gush",
+      "order-v1:shredder_timber_chain,furion_sprout,kez_talon_toss,tidehunter_gush",
+      "order-v1:tidehunter_gush,furion_sprout,kez_talon_toss,shredder_timber_chain"
+    ],
+    "correctIndex": 0,
+    "explanation": "Lowest to highest: Timber Chain (225 damage) → Talon Toss (240 damage) → Sprout (250 damage) → Gush (280 damage).",
+    "valueOrder": {
+      "family": "ability-damage",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "kez_talon_toss",
+          "name": "Talon Toss",
+          "context": "Kez",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/kez_talon_toss.png",
+          "kind": "ability"
+        },
+        {
+          "key": "shredder_timber_chain",
+          "name": "Timber Chain",
+          "context": "Timbersaw",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shredder_timber_chain.png",
+          "kind": "ability"
+        },
+        {
+          "key": "furion_sprout",
+          "name": "Sprout",
+          "context": "Nature's Prophet",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/furion_sprout.png",
+          "kind": "ability"
+        },
+        {
+          "key": "tidehunter_gush",
+          "name": "Gush",
+          "context": "Tidehunter",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tidehunter_gush.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "kez_talon_toss",
+          "value": 240,
+          "label": "240 damage"
+        },
+        {
+          "key": "shredder_timber_chain",
+          "value": 225,
+          "label": "225 damage"
+        },
+        {
+          "key": "furion_sprout",
+          "value": 250,
+          "label": "250 damage"
+        },
+        {
+          "key": "tidehunter_gush",
+          "value": 280,
+          "label": "280 damage"
+        }
+      ],
+      "correctOrder": [
+        "shredder_timber_chain",
+        "kez_talon_toss",
+        "furion_sprout",
+        "tidehunter_gush"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "damage:shredder_timber_chain:4",
+          "damage:kez_talon_toss:4",
+          "damage:furion_sprout:4",
+          "damage:tidehunter_gush:4"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-damage:06",
+    "kind": "value-order-damage",
+    "varietyKey": "value-order:ability-damage",
+    "category": "Damage",
+    "difficulty": 3,
+    "eyebrow": "Max-level damage",
+    "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "answers": [
+      "order-v1:dragon_knight_breathe_fire,mirana_starfall,muerta_dead_shot,vengefulspirit_magic_missile",
+      "order-v1:mirana_starfall,dragon_knight_breathe_fire,muerta_dead_shot,vengefulspirit_magic_missile",
+      "order-v1:mirana_starfall,muerta_dead_shot,dragon_knight_breathe_fire,vengefulspirit_magic_missile",
+      "order-v1:vengefulspirit_magic_missile,muerta_dead_shot,dragon_knight_breathe_fire,mirana_starfall"
+    ],
+    "correctIndex": 1,
+    "explanation": "Lowest to highest: Starstorm (300 damage) → Breathe Fire (320 damage) → Dead Shot (325 damage) → Magic Missile (340 damage).",
+    "valueOrder": {
+      "family": "ability-damage",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "dragon_knight_breathe_fire",
+          "name": "Breathe Fire",
+          "context": "Dragon Knight",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dragon_knight_breathe_fire.png",
+          "kind": "ability"
+        },
+        {
+          "key": "mirana_starfall",
+          "name": "Starstorm",
+          "context": "Mirana",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mirana_starfall.png",
+          "kind": "ability"
+        },
+        {
+          "key": "vengefulspirit_magic_missile",
+          "name": "Magic Missile",
+          "context": "Vengeful Spirit",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/vengefulspirit_magic_missile.png",
+          "kind": "ability"
+        },
+        {
+          "key": "muerta_dead_shot",
+          "name": "Dead Shot",
+          "context": "Muerta",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/muerta_dead_shot.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "dragon_knight_breathe_fire",
+          "value": 320,
+          "label": "320 damage"
+        },
+        {
+          "key": "mirana_starfall",
+          "value": 300,
+          "label": "300 damage"
+        },
+        {
+          "key": "vengefulspirit_magic_missile",
+          "value": 340,
+          "label": "340 damage"
+        },
+        {
+          "key": "muerta_dead_shot",
+          "value": 325,
+          "label": "325 damage"
+        }
+      ],
+      "correctOrder": [
+        "mirana_starfall",
+        "dragon_knight_breathe_fire",
+        "muerta_dead_shot",
+        "vengefulspirit_magic_missile"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "damage:mirana_starfall:4",
+          "damage:dragon_knight_breathe_fire:4",
+          "damage:muerta_dead_shot:4",
+          "damage:vengefulspirit_magic_missile:4"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-damage:07",
+    "kind": "value-order-damage",
+    "varietyKey": "value-order:ability-damage",
+    "category": "Damage",
+    "difficulty": 3,
+    "eyebrow": "Max-level damage",
+    "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "answers": [
+      "order-v1:dazzle_shadow_wave,earth_spirit_rolling_boulder,dragon_knight_dragon_tail,terrorblade_terror_wave",
+      "order-v1:earth_spirit_rolling_boulder,dragon_knight_dragon_tail,dazzle_shadow_wave,terrorblade_terror_wave",
+      "order-v1:earth_spirit_rolling_boulder,dazzle_shadow_wave,dragon_knight_dragon_tail,terrorblade_terror_wave",
+      "order-v1:terrorblade_terror_wave,dragon_knight_dragon_tail,dazzle_shadow_wave,earth_spirit_rolling_boulder"
+    ],
+    "correctIndex": 2,
+    "explanation": "Lowest to highest: Rolling Boulder (90 damage) → Shadow Wave (145 damage) → Dragon Tail (150 damage) → Terror Wave (200 damage).",
+    "valueOrder": {
+      "family": "ability-damage",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "terrorblade_terror_wave",
+          "name": "Terror Wave",
+          "context": "Terrorblade",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/terrorblade_terror_wave.png",
+          "kind": "ability"
+        },
+        {
+          "key": "dazzle_shadow_wave",
+          "name": "Shadow Wave",
+          "context": "Dazzle",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dazzle_shadow_wave.png",
+          "kind": "ability"
+        },
+        {
+          "key": "earth_spirit_rolling_boulder",
+          "name": "Rolling Boulder",
+          "context": "Earth Spirit",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/earth_spirit_rolling_boulder.png",
+          "kind": "ability"
+        },
+        {
+          "key": "dragon_knight_dragon_tail",
+          "name": "Dragon Tail",
+          "context": "Dragon Knight",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dragon_knight_dragon_tail.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "terrorblade_terror_wave",
+          "value": 200,
+          "label": "200 damage"
+        },
+        {
+          "key": "dazzle_shadow_wave",
+          "value": 145,
+          "label": "145 damage"
+        },
+        {
+          "key": "earth_spirit_rolling_boulder",
+          "value": 90,
+          "label": "90 damage"
+        },
+        {
+          "key": "dragon_knight_dragon_tail",
+          "value": 150,
+          "label": "150 damage"
+        }
+      ],
+      "correctOrder": [
+        "earth_spirit_rolling_boulder",
+        "dazzle_shadow_wave",
+        "dragon_knight_dragon_tail",
+        "terrorblade_terror_wave"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "damage:earth_spirit_rolling_boulder:4",
+          "damage:dazzle_shadow_wave:4",
+          "damage:dragon_knight_dragon_tail:4",
+          "damage:terrorblade_terror_wave:1"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-damage:08",
+    "kind": "value-order-damage",
+    "varietyKey": "value-order:ability-damage",
+    "category": "Damage",
+    "difficulty": 3,
+    "eyebrow": "Max-level damage",
+    "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "answers": [
+      "order-v1:queenofpain_scream_of_pain,vengefulspirit_magic_missile,obsidian_destroyer_astral_imprisonment,axe_culling_blade",
+      "order-v1:vengefulspirit_magic_missile,obsidian_destroyer_astral_imprisonment,queenofpain_scream_of_pain,axe_culling_blade",
+      "order-v1:axe_culling_blade,obsidian_destroyer_astral_imprisonment,queenofpain_scream_of_pain,vengefulspirit_magic_missile",
+      "order-v1:vengefulspirit_magic_missile,queenofpain_scream_of_pain,obsidian_destroyer_astral_imprisonment,axe_culling_blade"
+    ],
+    "correctIndex": 3,
+    "explanation": "Lowest to highest: Magic Missile (340 damage) → Scream Of Pain (345 damage) → Astral Imprisonment (360 damage) → Culling Blade (475 damage).",
+    "valueOrder": {
+      "family": "ability-damage",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "obsidian_destroyer_astral_imprisonment",
+          "name": "Astral Imprisonment",
+          "context": "Outworld Devourer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/obsidian_destroyer_astral_imprisonment.png",
+          "kind": "ability"
+        },
+        {
+          "key": "vengefulspirit_magic_missile",
+          "name": "Magic Missile",
+          "context": "Vengeful Spirit",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/vengefulspirit_magic_missile.png",
+          "kind": "ability"
+        },
+        {
+          "key": "axe_culling_blade",
+          "name": "Culling Blade",
+          "context": "Axe",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/axe_culling_blade.png",
+          "kind": "ability"
+        },
+        {
+          "key": "queenofpain_scream_of_pain",
+          "name": "Scream Of Pain",
+          "context": "Queen of Pain",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/queenofpain_scream_of_pain.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "obsidian_destroyer_astral_imprisonment",
+          "value": 360,
+          "label": "360 damage"
+        },
+        {
+          "key": "vengefulspirit_magic_missile",
+          "value": 340,
+          "label": "340 damage"
+        },
+        {
+          "key": "axe_culling_blade",
+          "value": 475,
+          "label": "475 damage"
+        },
+        {
+          "key": "queenofpain_scream_of_pain",
+          "value": 345,
+          "label": "345 damage"
+        }
+      ],
+      "correctOrder": [
+        "vengefulspirit_magic_missile",
+        "queenofpain_scream_of_pain",
+        "obsidian_destroyer_astral_imprisonment",
+        "axe_culling_blade"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "damage:vengefulspirit_magic_missile:4",
+          "damage:queenofpain_scream_of_pain:4",
+          "damage:obsidian_destroyer_astral_imprisonment:4",
+          "damage:axe_culling_blade:3"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-damage:09",
+    "kind": "value-order-damage",
+    "varietyKey": "value-order:ability-damage",
+    "category": "Damage",
+    "difficulty": 3,
+    "eyebrow": "Max-level damage",
+    "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "answers": [
+      "order-v1:dark_seer_vacuum,tidehunter_gush,magnataur_reverse_polarity,dragon_knight_breathe_fire",
+      "order-v1:tidehunter_gush,dark_seer_vacuum,magnataur_reverse_polarity,dragon_knight_breathe_fire",
+      "order-v1:dark_seer_vacuum,magnataur_reverse_polarity,tidehunter_gush,dragon_knight_breathe_fire",
+      "order-v1:dragon_knight_breathe_fire,magnataur_reverse_polarity,tidehunter_gush,dark_seer_vacuum"
+    ],
+    "correctIndex": 0,
+    "explanation": "Lowest to highest: Vacuum (250 damage) → Gush (280 damage) → Reverse Polarity (300 damage) → Breathe Fire (320 damage).",
+    "valueOrder": {
+      "family": "ability-damage",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "dark_seer_vacuum",
+          "name": "Vacuum",
+          "context": "Dark Seer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dark_seer_vacuum.png",
+          "kind": "ability"
+        },
+        {
+          "key": "tidehunter_gush",
+          "name": "Gush",
+          "context": "Tidehunter",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tidehunter_gush.png",
+          "kind": "ability"
+        },
+        {
+          "key": "dragon_knight_breathe_fire",
+          "name": "Breathe Fire",
+          "context": "Dragon Knight",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dragon_knight_breathe_fire.png",
+          "kind": "ability"
+        },
+        {
+          "key": "magnataur_reverse_polarity",
+          "name": "Reverse Polarity",
+          "context": "Magnus",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/magnataur_reverse_polarity.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "dark_seer_vacuum",
+          "value": 250,
+          "label": "250 damage"
+        },
+        {
+          "key": "tidehunter_gush",
+          "value": 280,
+          "label": "280 damage"
+        },
+        {
+          "key": "dragon_knight_breathe_fire",
+          "value": 320,
+          "label": "320 damage"
+        },
+        {
+          "key": "magnataur_reverse_polarity",
+          "value": 300,
+          "label": "300 damage"
+        }
+      ],
+      "correctOrder": [
+        "dark_seer_vacuum",
+        "tidehunter_gush",
+        "magnataur_reverse_polarity",
+        "dragon_knight_breathe_fire"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "damage:dark_seer_vacuum:4",
+          "damage:tidehunter_gush:4",
+          "damage:magnataur_reverse_polarity:3",
+          "damage:dragon_knight_breathe_fire:4"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-damage:10",
+    "kind": "value-order-damage",
+    "varietyKey": "value-order:ability-damage",
+    "category": "Damage",
+    "difficulty": 3,
+    "eyebrow": "Max-level damage",
+    "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "answers": [
+      "order-v1:vengefulspirit_magic_missile,death_prophet_carrion_swarm,queenofpain_scream_of_pain,pudge_meat_hook",
+      "order-v1:death_prophet_carrion_swarm,vengefulspirit_magic_missile,queenofpain_scream_of_pain,pudge_meat_hook",
+      "order-v1:death_prophet_carrion_swarm,queenofpain_scream_of_pain,vengefulspirit_magic_missile,pudge_meat_hook",
+      "order-v1:pudge_meat_hook,queenofpain_scream_of_pain,vengefulspirit_magic_missile,death_prophet_carrion_swarm"
+    ],
+    "correctIndex": 1,
+    "explanation": "Lowest to highest: Crypt Swarm (325 damage) → Magic Missile (340 damage) → Scream Of Pain (345 damage) → Meat Hook (360 damage).",
+    "valueOrder": {
+      "family": "ability-damage",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "vengefulspirit_magic_missile",
+          "name": "Magic Missile",
+          "context": "Vengeful Spirit",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/vengefulspirit_magic_missile.png",
+          "kind": "ability"
+        },
+        {
+          "key": "queenofpain_scream_of_pain",
+          "name": "Scream Of Pain",
+          "context": "Queen of Pain",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/queenofpain_scream_of_pain.png",
+          "kind": "ability"
+        },
+        {
+          "key": "pudge_meat_hook",
+          "name": "Meat Hook",
+          "context": "Pudge",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pudge_meat_hook.png",
+          "kind": "ability"
+        },
+        {
+          "key": "death_prophet_carrion_swarm",
+          "name": "Crypt Swarm",
+          "context": "Death Prophet",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/death_prophet_carrion_swarm.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "vengefulspirit_magic_missile",
+          "value": 340,
+          "label": "340 damage"
+        },
+        {
+          "key": "queenofpain_scream_of_pain",
+          "value": 345,
+          "label": "345 damage"
+        },
+        {
+          "key": "pudge_meat_hook",
+          "value": 360,
+          "label": "360 damage"
+        },
+        {
+          "key": "death_prophet_carrion_swarm",
+          "value": 325,
+          "label": "325 damage"
+        }
+      ],
+      "correctOrder": [
+        "death_prophet_carrion_swarm",
+        "vengefulspirit_magic_missile",
+        "queenofpain_scream_of_pain",
+        "pudge_meat_hook"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "damage:death_prophet_carrion_swarm:4",
+          "damage:vengefulspirit_magic_missile:4",
+          "damage:queenofpain_scream_of_pain:4",
+          "damage:pudge_meat_hook:4"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-damage:11",
+    "kind": "value-order-damage",
+    "varietyKey": "value-order:ability-damage",
+    "category": "Damage",
+    "difficulty": 3,
+    "eyebrow": "Max-level damage",
+    "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "answers": [
+      "order-v1:dragon_knight_dragon_tail,dazzle_shadow_wave,terrorblade_terror_wave,shredder_timber_chain",
+      "order-v1:dazzle_shadow_wave,terrorblade_terror_wave,dragon_knight_dragon_tail,shredder_timber_chain",
+      "order-v1:dazzle_shadow_wave,dragon_knight_dragon_tail,terrorblade_terror_wave,shredder_timber_chain",
+      "order-v1:shredder_timber_chain,terrorblade_terror_wave,dragon_knight_dragon_tail,dazzle_shadow_wave"
+    ],
+    "correctIndex": 2,
+    "explanation": "Lowest to highest: Shadow Wave (145 damage) → Dragon Tail (150 damage) → Terror Wave (200 damage) → Timber Chain (225 damage).",
+    "valueOrder": {
+      "family": "ability-damage",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "dazzle_shadow_wave",
+          "name": "Shadow Wave",
+          "context": "Dazzle",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dazzle_shadow_wave.png",
+          "kind": "ability"
+        },
+        {
+          "key": "terrorblade_terror_wave",
+          "name": "Terror Wave",
+          "context": "Terrorblade",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/terrorblade_terror_wave.png",
+          "kind": "ability"
+        },
+        {
+          "key": "shredder_timber_chain",
+          "name": "Timber Chain",
+          "context": "Timbersaw",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shredder_timber_chain.png",
+          "kind": "ability"
+        },
+        {
+          "key": "dragon_knight_dragon_tail",
+          "name": "Dragon Tail",
+          "context": "Dragon Knight",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dragon_knight_dragon_tail.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "dazzle_shadow_wave",
+          "value": 145,
+          "label": "145 damage"
+        },
+        {
+          "key": "terrorblade_terror_wave",
+          "value": 200,
+          "label": "200 damage"
+        },
+        {
+          "key": "shredder_timber_chain",
+          "value": 225,
+          "label": "225 damage"
+        },
+        {
+          "key": "dragon_knight_dragon_tail",
+          "value": 150,
+          "label": "150 damage"
+        }
+      ],
+      "correctOrder": [
+        "dazzle_shadow_wave",
+        "dragon_knight_dragon_tail",
+        "terrorblade_terror_wave",
+        "shredder_timber_chain"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "damage:dazzle_shadow_wave:4",
+          "damage:dragon_knight_dragon_tail:4",
+          "damage:terrorblade_terror_wave:1",
+          "damage:shredder_timber_chain:4"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:ability-damage:12",
+    "kind": "value-order-damage",
+    "varietyKey": "value-order:ability-damage",
+    "category": "Damage",
+    "difficulty": 3,
+    "eyebrow": "Max-level damage",
+    "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "answers": [
+      "order-v1:magnataur_reverse_polarity,snapfire_scatterblast,brewmaster_thunder_clap,muerta_dead_shot",
+      "order-v1:snapfire_scatterblast,brewmaster_thunder_clap,magnataur_reverse_polarity,muerta_dead_shot",
+      "order-v1:muerta_dead_shot,brewmaster_thunder_clap,magnataur_reverse_polarity,snapfire_scatterblast",
+      "order-v1:snapfire_scatterblast,magnataur_reverse_polarity,brewmaster_thunder_clap,muerta_dead_shot"
+    ],
+    "correctIndex": 3,
+    "explanation": "Lowest to highest: Scatterblast (280 damage) → Reverse Polarity (300 damage) → Thunder Clap (320 damage) → Dead Shot (325 damage).",
+    "valueOrder": {
+      "family": "ability-damage",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "magnataur_reverse_polarity",
+          "name": "Reverse Polarity",
+          "context": "Magnus",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/magnataur_reverse_polarity.png",
+          "kind": "ability"
+        },
+        {
+          "key": "snapfire_scatterblast",
+          "name": "Scatterblast",
+          "context": "Snapfire",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/snapfire_scatterblast.png",
+          "kind": "ability"
+        },
+        {
+          "key": "brewmaster_thunder_clap",
+          "name": "Thunder Clap",
+          "context": "Brewmaster",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/brewmaster_thunder_clap.png",
+          "kind": "ability"
+        },
+        {
+          "key": "muerta_dead_shot",
+          "name": "Dead Shot",
+          "context": "Muerta",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/muerta_dead_shot.png",
+          "kind": "ability"
+        }
+      ],
+      "values": [
+        {
+          "key": "magnataur_reverse_polarity",
+          "value": 300,
+          "label": "300 damage"
+        },
+        {
+          "key": "snapfire_scatterblast",
+          "value": 280,
+          "label": "280 damage"
+        },
+        {
+          "key": "brewmaster_thunder_clap",
+          "value": 320,
+          "label": "320 damage"
+        },
+        {
+          "key": "muerta_dead_shot",
+          "value": 325,
+          "label": "325 damage"
+        }
+      ],
+      "correctOrder": [
+        "snapfire_scatterblast",
+        "magnataur_reverse_polarity",
+        "brewmaster_thunder_clap",
+        "muerta_dead_shot"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "damage:snapfire_scatterblast:4",
+          "damage:magnataur_reverse_polarity:3",
+          "damage:brewmaster_thunder_clap:4",
+          "damage:muerta_dead_shot:4"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-move-speed:01",
+    "kind": "value-order-move-speed",
+    "varietyKey": "value-order:hero-move-speed",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base movement speed",
+    "prompt": "How do these heroes rank from slowest to fastest?",
+    "answers": [
+      "order-v1:npc_dota_hero_dark_seer,npc_dota_hero_silencer,npc_dota_hero_elder_titan,npc_dota_hero_phantom_assassin",
+      "order-v1:npc_dota_hero_silencer,npc_dota_hero_dark_seer,npc_dota_hero_elder_titan,npc_dota_hero_phantom_assassin",
+      "order-v1:npc_dota_hero_dark_seer,npc_dota_hero_elder_titan,npc_dota_hero_silencer,npc_dota_hero_phantom_assassin",
+      "order-v1:npc_dota_hero_phantom_assassin,npc_dota_hero_elder_titan,npc_dota_hero_silencer,npc_dota_hero_dark_seer"
+    ],
+    "correctIndex": 0,
+    "explanation": "Slowest to fastest: Dark Seer (295 move speed) → Silencer (300 move speed) → Elder Titan (305 move speed) → Phantom Assassin (310 move speed).",
+    "valueOrder": {
+      "family": "hero-move-speed",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_phantom_assassin",
+          "name": "Phantom Assassin",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_assassin.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_elder_titan",
+          "name": "Elder Titan",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_dark_seer",
+          "name": "Dark Seer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_silencer",
+          "name": "Silencer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_phantom_assassin",
+          "value": 310,
+          "label": "310 move speed"
+        },
+        {
+          "key": "npc_dota_hero_elder_titan",
+          "value": 305,
+          "label": "305 move speed"
+        },
+        {
+          "key": "npc_dota_hero_dark_seer",
+          "value": 295,
+          "label": "295 move speed"
+        },
+        {
+          "key": "npc_dota_hero_silencer",
+          "value": 300,
+          "label": "300 move speed"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_dark_seer",
+        "npc_dota_hero_silencer",
+        "npc_dota_hero_elder_titan",
+        "npc_dota_hero_phantom_assassin"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "move-speed:npc_dota_hero_dark_seer",
+          "move-speed:npc_dota_hero_silencer",
+          "move-speed:npc_dota_hero_elder_titan",
+          "move-speed:npc_dota_hero_phantom_assassin"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-move-speed:02",
+    "kind": "value-order-move-speed",
+    "varietyKey": "value-order:hero-move-speed",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base movement speed",
+    "prompt": "How do these heroes rank from slowest to fastest?",
+    "answers": [
+      "order-v1:npc_dota_hero_riki,npc_dota_hero_omniknight,npc_dota_hero_life_stealer,npc_dota_hero_luna",
+      "order-v1:npc_dota_hero_omniknight,npc_dota_hero_riki,npc_dota_hero_life_stealer,npc_dota_hero_luna",
+      "order-v1:npc_dota_hero_omniknight,npc_dota_hero_life_stealer,npc_dota_hero_riki,npc_dota_hero_luna",
+      "order-v1:npc_dota_hero_luna,npc_dota_hero_life_stealer,npc_dota_hero_riki,npc_dota_hero_omniknight"
+    ],
+    "correctIndex": 1,
+    "explanation": "Slowest to fastest: Omniknight (310 move speed) → Riki (315 move speed) → Lifestealer (320 move speed) → Luna (325 move speed).",
+    "valueOrder": {
+      "family": "hero-move-speed",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_luna",
+          "name": "Luna",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/luna.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_omniknight",
+          "name": "Omniknight",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/omniknight.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_life_stealer",
+          "name": "Lifestealer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/life_stealer.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_riki",
+          "name": "Riki",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_luna",
+          "value": 325,
+          "label": "325 move speed"
+        },
+        {
+          "key": "npc_dota_hero_omniknight",
+          "value": 310,
+          "label": "310 move speed"
+        },
+        {
+          "key": "npc_dota_hero_life_stealer",
+          "value": 320,
+          "label": "320 move speed"
+        },
+        {
+          "key": "npc_dota_hero_riki",
+          "value": 315,
+          "label": "315 move speed"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_omniknight",
+        "npc_dota_hero_riki",
+        "npc_dota_hero_life_stealer",
+        "npc_dota_hero_luna"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "move-speed:npc_dota_hero_omniknight",
+          "move-speed:npc_dota_hero_riki",
+          "move-speed:npc_dota_hero_life_stealer",
+          "move-speed:npc_dota_hero_luna"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-move-speed:03",
+    "kind": "value-order-move-speed",
+    "varietyKey": "value-order:hero-move-speed",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base movement speed",
+    "prompt": "How do these heroes rank from slowest to fastest?",
+    "answers": [
+      "order-v1:npc_dota_hero_spectre,npc_dota_hero_largo,npc_dota_hero_silencer,npc_dota_hero_chen",
+      "order-v1:npc_dota_hero_largo,npc_dota_hero_silencer,npc_dota_hero_spectre,npc_dota_hero_chen",
+      "order-v1:npc_dota_hero_largo,npc_dota_hero_spectre,npc_dota_hero_silencer,npc_dota_hero_chen",
+      "order-v1:npc_dota_hero_chen,npc_dota_hero_silencer,npc_dota_hero_spectre,npc_dota_hero_largo"
+    ],
+    "correctIndex": 2,
+    "explanation": "Slowest to fastest: Largo (290 move speed) → Spectre (295 move speed) → Silencer (300 move speed) → Chen (305 move speed).",
+    "valueOrder": {
+      "family": "hero-move-speed",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_silencer",
+          "name": "Silencer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_spectre",
+          "name": "Spectre",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spectre.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_largo",
+          "name": "Largo",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_chen",
+          "name": "Chen",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chen.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_silencer",
+          "value": 300,
+          "label": "300 move speed"
+        },
+        {
+          "key": "npc_dota_hero_spectre",
+          "value": 295,
+          "label": "295 move speed"
+        },
+        {
+          "key": "npc_dota_hero_largo",
+          "value": 290,
+          "label": "290 move speed"
+        },
+        {
+          "key": "npc_dota_hero_chen",
+          "value": 305,
+          "label": "305 move speed"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_largo",
+        "npc_dota_hero_spectre",
+        "npc_dota_hero_silencer",
+        "npc_dota_hero_chen"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "move-speed:npc_dota_hero_largo",
+          "move-speed:npc_dota_hero_spectre",
+          "move-speed:npc_dota_hero_silencer",
+          "move-speed:npc_dota_hero_chen"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-move-speed:04",
+    "kind": "value-order-move-speed",
+    "varietyKey": "value-order:hero-move-speed",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base movement speed",
+    "prompt": "How do these heroes rank from slowest to fastest?",
+    "answers": [
+      "order-v1:npc_dota_hero_phantom_assassin,npc_dota_hero_chen,npc_dota_hero_earthshaker,npc_dota_hero_enchantress",
+      "order-v1:npc_dota_hero_chen,npc_dota_hero_earthshaker,npc_dota_hero_phantom_assassin,npc_dota_hero_enchantress",
+      "order-v1:npc_dota_hero_enchantress,npc_dota_hero_earthshaker,npc_dota_hero_phantom_assassin,npc_dota_hero_chen",
+      "order-v1:npc_dota_hero_chen,npc_dota_hero_phantom_assassin,npc_dota_hero_earthshaker,npc_dota_hero_enchantress"
+    ],
+    "correctIndex": 3,
+    "explanation": "Slowest to fastest: Chen (305 move speed) → Phantom Assassin (310 move speed) → Earthshaker (315 move speed) → Enchantress (320 move speed).",
+    "valueOrder": {
+      "family": "hero-move-speed",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_chen",
+          "name": "Chen",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chen.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_phantom_assassin",
+          "name": "Phantom Assassin",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_assassin.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_enchantress",
+          "name": "Enchantress",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enchantress.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_earthshaker",
+          "name": "Earthshaker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earthshaker.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_chen",
+          "value": 305,
+          "label": "305 move speed"
+        },
+        {
+          "key": "npc_dota_hero_phantom_assassin",
+          "value": 310,
+          "label": "310 move speed"
+        },
+        {
+          "key": "npc_dota_hero_enchantress",
+          "value": 320,
+          "label": "320 move speed"
+        },
+        {
+          "key": "npc_dota_hero_earthshaker",
+          "value": 315,
+          "label": "315 move speed"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_chen",
+        "npc_dota_hero_phantom_assassin",
+        "npc_dota_hero_earthshaker",
+        "npc_dota_hero_enchantress"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "move-speed:npc_dota_hero_chen",
+          "move-speed:npc_dota_hero_phantom_assassin",
+          "move-speed:npc_dota_hero_earthshaker",
+          "move-speed:npc_dota_hero_enchantress"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-move-speed:05",
+    "kind": "value-order-move-speed",
+    "varietyKey": "value-order:hero-move-speed",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base movement speed",
+    "prompt": "How do these heroes rank from slowest to fastest?",
+    "answers": [
+      "order-v1:npc_dota_hero_pudge,npc_dota_hero_visage,npc_dota_hero_shadow_demon,npc_dota_hero_dark_seer",
+      "order-v1:npc_dota_hero_visage,npc_dota_hero_pudge,npc_dota_hero_shadow_demon,npc_dota_hero_dark_seer",
+      "order-v1:npc_dota_hero_pudge,npc_dota_hero_shadow_demon,npc_dota_hero_visage,npc_dota_hero_dark_seer",
+      "order-v1:npc_dota_hero_dark_seer,npc_dota_hero_shadow_demon,npc_dota_hero_visage,npc_dota_hero_pudge"
+    ],
+    "correctIndex": 0,
+    "explanation": "Slowest to fastest: Pudge (280 move speed) → Visage (285 move speed) → Shadow Demon (290 move speed) → Dark Seer (295 move speed).",
+    "valueOrder": {
+      "family": "hero-move-speed",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_pudge",
+          "name": "Pudge",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_visage",
+          "name": "Visage",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_shadow_demon",
+          "name": "Shadow Demon",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_demon.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_dark_seer",
+          "name": "Dark Seer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_pudge",
+          "value": 280,
+          "label": "280 move speed"
+        },
+        {
+          "key": "npc_dota_hero_visage",
+          "value": 285,
+          "label": "285 move speed"
+        },
+        {
+          "key": "npc_dota_hero_shadow_demon",
+          "value": 290,
+          "label": "290 move speed"
+        },
+        {
+          "key": "npc_dota_hero_dark_seer",
+          "value": 295,
+          "label": "295 move speed"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_pudge",
+        "npc_dota_hero_visage",
+        "npc_dota_hero_shadow_demon",
+        "npc_dota_hero_dark_seer"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "move-speed:npc_dota_hero_pudge",
+          "move-speed:npc_dota_hero_visage",
+          "move-speed:npc_dota_hero_shadow_demon",
+          "move-speed:npc_dota_hero_dark_seer"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-move-speed:06",
+    "kind": "value-order-move-speed",
+    "varietyKey": "value-order:hero-move-speed",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base movement speed",
+    "prompt": "How do these heroes rank from slowest to fastest?",
+    "answers": [
+      "order-v1:npc_dota_hero_elder_titan,npc_dota_hero_silencer,npc_dota_hero_ursa,npc_dota_hero_kunkka",
+      "order-v1:npc_dota_hero_silencer,npc_dota_hero_elder_titan,npc_dota_hero_ursa,npc_dota_hero_kunkka",
+      "order-v1:npc_dota_hero_silencer,npc_dota_hero_ursa,npc_dota_hero_elder_titan,npc_dota_hero_kunkka",
+      "order-v1:npc_dota_hero_kunkka,npc_dota_hero_ursa,npc_dota_hero_elder_titan,npc_dota_hero_silencer"
+    ],
+    "correctIndex": 1,
+    "explanation": "Slowest to fastest: Silencer (300 move speed) → Elder Titan (305 move speed) → Ursa (310 move speed) → Kunkka (315 move speed).",
+    "valueOrder": {
+      "family": "hero-move-speed",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_ursa",
+          "name": "Ursa",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ursa.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_kunkka",
+          "name": "Kunkka",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_elder_titan",
+          "name": "Elder Titan",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_silencer",
+          "name": "Silencer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_ursa",
+          "value": 310,
+          "label": "310 move speed"
+        },
+        {
+          "key": "npc_dota_hero_kunkka",
+          "value": 315,
+          "label": "315 move speed"
+        },
+        {
+          "key": "npc_dota_hero_elder_titan",
+          "value": 305,
+          "label": "305 move speed"
+        },
+        {
+          "key": "npc_dota_hero_silencer",
+          "value": 300,
+          "label": "300 move speed"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_silencer",
+        "npc_dota_hero_elder_titan",
+        "npc_dota_hero_ursa",
+        "npc_dota_hero_kunkka"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "move-speed:npc_dota_hero_silencer",
+          "move-speed:npc_dota_hero_elder_titan",
+          "move-speed:npc_dota_hero_ursa",
+          "move-speed:npc_dota_hero_kunkka"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-move-speed:07",
+    "kind": "value-order-move-speed",
+    "varietyKey": "value-order:hero-move-speed",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base movement speed",
+    "prompt": "How do these heroes rank from slowest to fastest?",
+    "answers": [
+      "order-v1:npc_dota_hero_dark_willow,npc_dota_hero_bloodseeker,npc_dota_hero_spectre,npc_dota_hero_silencer",
+      "order-v1:npc_dota_hero_bloodseeker,npc_dota_hero_spectre,npc_dota_hero_dark_willow,npc_dota_hero_silencer",
+      "order-v1:npc_dota_hero_bloodseeker,npc_dota_hero_dark_willow,npc_dota_hero_spectre,npc_dota_hero_silencer",
+      "order-v1:npc_dota_hero_silencer,npc_dota_hero_spectre,npc_dota_hero_dark_willow,npc_dota_hero_bloodseeker"
+    ],
+    "correctIndex": 2,
+    "explanation": "Slowest to fastest: Bloodseeker (285 move speed) → Dark Willow (290 move speed) → Spectre (295 move speed) → Silencer (300 move speed).",
+    "valueOrder": {
+      "family": "hero-move-speed",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_bloodseeker",
+          "name": "Bloodseeker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bloodseeker.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_silencer",
+          "name": "Silencer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_dark_willow",
+          "name": "Dark Willow",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_spectre",
+          "name": "Spectre",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spectre.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_bloodseeker",
+          "value": 285,
+          "label": "285 move speed"
+        },
+        {
+          "key": "npc_dota_hero_silencer",
+          "value": 300,
+          "label": "300 move speed"
+        },
+        {
+          "key": "npc_dota_hero_dark_willow",
+          "value": 290,
+          "label": "290 move speed"
+        },
+        {
+          "key": "npc_dota_hero_spectre",
+          "value": 295,
+          "label": "295 move speed"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_bloodseeker",
+        "npc_dota_hero_dark_willow",
+        "npc_dota_hero_spectre",
+        "npc_dota_hero_silencer"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "move-speed:npc_dota_hero_bloodseeker",
+          "move-speed:npc_dota_hero_dark_willow",
+          "move-speed:npc_dota_hero_spectre",
+          "move-speed:npc_dota_hero_silencer"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-move-speed:08",
+    "kind": "value-order-move-speed",
+    "varietyKey": "value-order:hero-move-speed",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base movement speed",
+    "prompt": "How do these heroes rank from slowest to fastest?",
+    "answers": [
+      "order-v1:npc_dota_hero_largo,npc_dota_hero_visage,npc_dota_hero_spectre,npc_dota_hero_silencer",
+      "order-v1:npc_dota_hero_visage,npc_dota_hero_spectre,npc_dota_hero_largo,npc_dota_hero_silencer",
+      "order-v1:npc_dota_hero_silencer,npc_dota_hero_spectre,npc_dota_hero_largo,npc_dota_hero_visage",
+      "order-v1:npc_dota_hero_visage,npc_dota_hero_largo,npc_dota_hero_spectre,npc_dota_hero_silencer"
+    ],
+    "correctIndex": 3,
+    "explanation": "Slowest to fastest: Visage (285 move speed) → Largo (290 move speed) → Spectre (295 move speed) → Silencer (300 move speed).",
+    "valueOrder": {
+      "family": "hero-move-speed",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_spectre",
+          "name": "Spectre",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spectre.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_visage",
+          "name": "Visage",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_silencer",
+          "name": "Silencer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_largo",
+          "name": "Largo",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_spectre",
+          "value": 295,
+          "label": "295 move speed"
+        },
+        {
+          "key": "npc_dota_hero_visage",
+          "value": 285,
+          "label": "285 move speed"
+        },
+        {
+          "key": "npc_dota_hero_silencer",
+          "value": 300,
+          "label": "300 move speed"
+        },
+        {
+          "key": "npc_dota_hero_largo",
+          "value": 290,
+          "label": "290 move speed"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_visage",
+        "npc_dota_hero_largo",
+        "npc_dota_hero_spectre",
+        "npc_dota_hero_silencer"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "move-speed:npc_dota_hero_visage",
+          "move-speed:npc_dota_hero_largo",
+          "move-speed:npc_dota_hero_spectre",
+          "move-speed:npc_dota_hero_silencer"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-move-speed:09",
+    "kind": "value-order-move-speed",
+    "varietyKey": "value-order:hero-move-speed",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base movement speed",
+    "prompt": "How do these heroes rank from slowest to fastest?",
+    "answers": [
+      "order-v1:npc_dota_hero_necrolyte,npc_dota_hero_bloodseeker,npc_dota_hero_queenofpain,npc_dota_hero_spectre",
+      "order-v1:npc_dota_hero_bloodseeker,npc_dota_hero_necrolyte,npc_dota_hero_queenofpain,npc_dota_hero_spectre",
+      "order-v1:npc_dota_hero_necrolyte,npc_dota_hero_queenofpain,npc_dota_hero_bloodseeker,npc_dota_hero_spectre",
+      "order-v1:npc_dota_hero_spectre,npc_dota_hero_queenofpain,npc_dota_hero_bloodseeker,npc_dota_hero_necrolyte"
+    ],
+    "correctIndex": 0,
+    "explanation": "Slowest to fastest: Necrophos (280 move speed) → Bloodseeker (285 move speed) → Queen of Pain (290 move speed) → Spectre (295 move speed).",
+    "valueOrder": {
+      "family": "hero-move-speed",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_necrolyte",
+          "name": "Necrophos",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_bloodseeker",
+          "name": "Bloodseeker",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bloodseeker.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_queenofpain",
+          "name": "Queen of Pain",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/queenofpain.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_spectre",
+          "name": "Spectre",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spectre.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_necrolyte",
+          "value": 280,
+          "label": "280 move speed"
+        },
+        {
+          "key": "npc_dota_hero_bloodseeker",
+          "value": 285,
+          "label": "285 move speed"
+        },
+        {
+          "key": "npc_dota_hero_queenofpain",
+          "value": 290,
+          "label": "290 move speed"
+        },
+        {
+          "key": "npc_dota_hero_spectre",
+          "value": 295,
+          "label": "295 move speed"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_necrolyte",
+        "npc_dota_hero_bloodseeker",
+        "npc_dota_hero_queenofpain",
+        "npc_dota_hero_spectre"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "move-speed:npc_dota_hero_necrolyte",
+          "move-speed:npc_dota_hero_bloodseeker",
+          "move-speed:npc_dota_hero_queenofpain",
+          "move-speed:npc_dota_hero_spectre"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-move-speed:10",
+    "kind": "value-order-move-speed",
+    "varietyKey": "value-order:hero-move-speed",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base movement speed",
+    "prompt": "How do these heroes rank from slowest to fastest?",
+    "answers": [
+      "order-v1:npc_dota_hero_antimage,npc_dota_hero_batrider,npc_dota_hero_enchantress,npc_dota_hero_sven",
+      "order-v1:npc_dota_hero_batrider,npc_dota_hero_antimage,npc_dota_hero_enchantress,npc_dota_hero_sven",
+      "order-v1:npc_dota_hero_batrider,npc_dota_hero_enchantress,npc_dota_hero_antimage,npc_dota_hero_sven",
+      "order-v1:npc_dota_hero_sven,npc_dota_hero_enchantress,npc_dota_hero_antimage,npc_dota_hero_batrider"
+    ],
+    "correctIndex": 1,
+    "explanation": "Slowest to fastest: Batrider (310 move speed) → Anti-Mage (315 move speed) → Enchantress (320 move speed) → Sven (325 move speed).",
+    "valueOrder": {
+      "family": "hero-move-speed",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_sven",
+          "name": "Sven",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sven.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_antimage",
+          "name": "Anti-Mage",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_batrider",
+          "name": "Batrider",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/batrider.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_enchantress",
+          "name": "Enchantress",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enchantress.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_sven",
+          "value": 325,
+          "label": "325 move speed"
+        },
+        {
+          "key": "npc_dota_hero_antimage",
+          "value": 315,
+          "label": "315 move speed"
+        },
+        {
+          "key": "npc_dota_hero_batrider",
+          "value": 310,
+          "label": "310 move speed"
+        },
+        {
+          "key": "npc_dota_hero_enchantress",
+          "value": 320,
+          "label": "320 move speed"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_batrider",
+        "npc_dota_hero_antimage",
+        "npc_dota_hero_enchantress",
+        "npc_dota_hero_sven"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "move-speed:npc_dota_hero_batrider",
+          "move-speed:npc_dota_hero_antimage",
+          "move-speed:npc_dota_hero_enchantress",
+          "move-speed:npc_dota_hero_sven"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-move-speed:11",
+    "kind": "value-order-move-speed",
+    "varietyKey": "value-order:hero-move-speed",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base movement speed",
+    "prompt": "How do these heroes rank from slowest to fastest?",
+    "answers": [
+      "order-v1:npc_dota_hero_silencer,npc_dota_hero_dark_seer,npc_dota_hero_beastmaster,npc_dota_hero_ursa",
+      "order-v1:npc_dota_hero_dark_seer,npc_dota_hero_beastmaster,npc_dota_hero_silencer,npc_dota_hero_ursa",
+      "order-v1:npc_dota_hero_dark_seer,npc_dota_hero_silencer,npc_dota_hero_beastmaster,npc_dota_hero_ursa",
+      "order-v1:npc_dota_hero_ursa,npc_dota_hero_beastmaster,npc_dota_hero_silencer,npc_dota_hero_dark_seer"
+    ],
+    "correctIndex": 2,
+    "explanation": "Slowest to fastest: Dark Seer (295 move speed) → Silencer (300 move speed) → Beastmaster (305 move speed) → Ursa (310 move speed).",
+    "valueOrder": {
+      "family": "hero-move-speed",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_ursa",
+          "name": "Ursa",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ursa.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_beastmaster",
+          "name": "Beastmaster",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/beastmaster.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_dark_seer",
+          "name": "Dark Seer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_silencer",
+          "name": "Silencer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_ursa",
+          "value": 310,
+          "label": "310 move speed"
+        },
+        {
+          "key": "npc_dota_hero_beastmaster",
+          "value": 305,
+          "label": "305 move speed"
+        },
+        {
+          "key": "npc_dota_hero_dark_seer",
+          "value": 295,
+          "label": "295 move speed"
+        },
+        {
+          "key": "npc_dota_hero_silencer",
+          "value": 300,
+          "label": "300 move speed"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_dark_seer",
+        "npc_dota_hero_silencer",
+        "npc_dota_hero_beastmaster",
+        "npc_dota_hero_ursa"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "move-speed:npc_dota_hero_dark_seer",
+          "move-speed:npc_dota_hero_silencer",
+          "move-speed:npc_dota_hero_beastmaster",
+          "move-speed:npc_dota_hero_ursa"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-move-speed:12",
+    "kind": "value-order-move-speed",
+    "varietyKey": "value-order:hero-move-speed",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base movement speed",
+    "prompt": "How do these heroes rank from slowest to fastest?",
+    "answers": [
+      "order-v1:npc_dota_hero_dark_seer,npc_dota_hero_earth_spirit,npc_dota_hero_silencer,npc_dota_hero_chen",
+      "order-v1:npc_dota_hero_earth_spirit,npc_dota_hero_silencer,npc_dota_hero_dark_seer,npc_dota_hero_chen",
+      "order-v1:npc_dota_hero_chen,npc_dota_hero_silencer,npc_dota_hero_dark_seer,npc_dota_hero_earth_spirit",
+      "order-v1:npc_dota_hero_earth_spirit,npc_dota_hero_dark_seer,npc_dota_hero_silencer,npc_dota_hero_chen"
+    ],
+    "correctIndex": 3,
+    "explanation": "Slowest to fastest: Earth Spirit (290 move speed) → Dark Seer (295 move speed) → Silencer (300 move speed) → Chen (305 move speed).",
+    "valueOrder": {
+      "family": "hero-move-speed",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_dark_seer",
+          "name": "Dark Seer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_chen",
+          "name": "Chen",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chen.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_earth_spirit",
+          "name": "Earth Spirit",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_silencer",
+          "name": "Silencer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_dark_seer",
+          "value": 295,
+          "label": "295 move speed"
+        },
+        {
+          "key": "npc_dota_hero_chen",
+          "value": 305,
+          "label": "305 move speed"
+        },
+        {
+          "key": "npc_dota_hero_earth_spirit",
+          "value": 290,
+          "label": "290 move speed"
+        },
+        {
+          "key": "npc_dota_hero_silencer",
+          "value": 300,
+          "label": "300 move speed"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_earth_spirit",
+        "npc_dota_hero_dark_seer",
+        "npc_dota_hero_silencer",
+        "npc_dota_hero_chen"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "move-speed:npc_dota_hero_earth_spirit",
+          "move-speed:npc_dota_hero_dark_seer",
+          "move-speed:npc_dota_hero_silencer",
+          "move-speed:npc_dota_hero_chen"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-attack-range:01",
+    "kind": "value-order-attack-range",
+    "varietyKey": "value-order:hero-attack-range",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base attack range",
+    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "answers": [
+      "order-v1:npc_dota_hero_silencer,npc_dota_hero_arc_warden,npc_dota_hero_mirana,npc_dota_hero_chen",
+      "order-v1:npc_dota_hero_arc_warden,npc_dota_hero_silencer,npc_dota_hero_mirana,npc_dota_hero_chen",
+      "order-v1:npc_dota_hero_silencer,npc_dota_hero_mirana,npc_dota_hero_arc_warden,npc_dota_hero_chen",
+      "order-v1:npc_dota_hero_chen,npc_dota_hero_mirana,npc_dota_hero_arc_warden,npc_dota_hero_silencer"
+    ],
+    "correctIndex": 0,
+    "explanation": "Shortest to longest: Silencer (600 range) → Arc Warden (625 range) → Mirana (630 range) → Chen (650 range).",
+    "valueOrder": {
+      "family": "hero-attack-range",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_mirana",
+          "name": "Mirana",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_arc_warden",
+          "name": "Arc Warden",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/arc_warden.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_chen",
+          "name": "Chen",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chen.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_silencer",
+          "name": "Silencer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_mirana",
+          "value": 630,
+          "label": "630 range"
+        },
+        {
+          "key": "npc_dota_hero_arc_warden",
+          "value": 625,
+          "label": "625 range"
+        },
+        {
+          "key": "npc_dota_hero_chen",
+          "value": 650,
+          "label": "650 range"
+        },
+        {
+          "key": "npc_dota_hero_silencer",
+          "value": 600,
+          "label": "600 range"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_silencer",
+        "npc_dota_hero_arc_warden",
+        "npc_dota_hero_mirana",
+        "npc_dota_hero_chen"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "hero-stat:attack-range:npc_dota_hero_drow_ranger",
+          "hero-stat:attack-range:npc_dota_hero_arc_warden",
+          "hero-stat:attack-range:npc_dota_hero_lina",
+          "hero-stat:attack-range:npc_dota_hero_lina"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-attack-range:02",
+    "kind": "value-order-attack-range",
+    "varietyKey": "value-order:hero-attack-range",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base attack range",
+    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "answers": [
+      "order-v1:npc_dota_hero_bane,npc_dota_hero_vengefulspirit,npc_dota_hero_venomancer,npc_dota_hero_dark_willow",
+      "order-v1:npc_dota_hero_vengefulspirit,npc_dota_hero_bane,npc_dota_hero_venomancer,npc_dota_hero_dark_willow",
+      "order-v1:npc_dota_hero_vengefulspirit,npc_dota_hero_venomancer,npc_dota_hero_bane,npc_dota_hero_dark_willow",
+      "order-v1:npc_dota_hero_dark_willow,npc_dota_hero_venomancer,npc_dota_hero_bane,npc_dota_hero_vengefulspirit"
+    ],
+    "correctIndex": 1,
+    "explanation": "Shortest to longest: Vengeful Spirit (400 range) → Bane (425 range) → Venomancer (450 range) → Dark Willow (475 range).",
+    "valueOrder": {
+      "family": "hero-attack-range",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_bane",
+          "name": "Bane",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_venomancer",
+          "name": "Venomancer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/venomancer.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_vengefulspirit",
+          "name": "Vengeful Spirit",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_dark_willow",
+          "name": "Dark Willow",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_bane",
+          "value": 425,
+          "label": "425 range"
+        },
+        {
+          "key": "npc_dota_hero_venomancer",
+          "value": 450,
+          "label": "450 range"
+        },
+        {
+          "key": "npc_dota_hero_vengefulspirit",
+          "value": 400,
+          "label": "400 range"
+        },
+        {
+          "key": "npc_dota_hero_dark_willow",
+          "value": 475,
+          "label": "475 range"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_vengefulspirit",
+        "npc_dota_hero_bane",
+        "npc_dota_hero_venomancer",
+        "npc_dota_hero_dark_willow"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "hero-stat:attack-range:npc_dota_hero_bane",
+          "hero-stat:attack-range:npc_dota_hero_venomancer",
+          "hero-stat:attack-range:npc_dota_hero_venomancer",
+          "hero-stat:attack-range:npc_dota_hero_tinker"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-attack-range:03",
+    "kind": "value-order-attack-range",
+    "varietyKey": "value-order:hero-attack-range",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base attack range",
+    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "answers": [
+      "order-v1:npc_dota_hero_windrunner,npc_dota_hero_muerta,npc_dota_hero_drow_ranger,npc_dota_hero_pugna",
+      "order-v1:npc_dota_hero_muerta,npc_dota_hero_drow_ranger,npc_dota_hero_windrunner,npc_dota_hero_pugna",
+      "order-v1:npc_dota_hero_muerta,npc_dota_hero_windrunner,npc_dota_hero_drow_ranger,npc_dota_hero_pugna",
+      "order-v1:npc_dota_hero_pugna,npc_dota_hero_drow_ranger,npc_dota_hero_windrunner,npc_dota_hero_muerta"
+    ],
+    "correctIndex": 2,
+    "explanation": "Shortest to longest: Muerta (575 range) → Windranger (600 range) → Drow Ranger (625 range) → Pugna (630 range).",
+    "valueOrder": {
+      "family": "hero-attack-range",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_muerta",
+          "name": "Muerta",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_windrunner",
+          "name": "Windranger",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/windrunner.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_drow_ranger",
+          "name": "Drow Ranger",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/drow_ranger.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_pugna",
+          "name": "Pugna",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pugna.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_muerta",
+          "value": 575,
+          "label": "575 range"
+        },
+        {
+          "key": "npc_dota_hero_windrunner",
+          "value": 600,
+          "label": "600 range"
+        },
+        {
+          "key": "npc_dota_hero_drow_ranger",
+          "value": 625,
+          "label": "625 range"
+        },
+        {
+          "key": "npc_dota_hero_pugna",
+          "value": 630,
+          "label": "630 range"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_muerta",
+        "npc_dota_hero_windrunner",
+        "npc_dota_hero_drow_ranger",
+        "npc_dota_hero_pugna"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "hero-stat:attack-range:npc_dota_hero_lion",
+          "hero-stat:attack-range:npc_dota_hero_arc_warden",
+          "hero-stat:attack-range:npc_dota_hero_drow_ranger",
+          "hero-stat:attack-range:npc_dota_hero_lina"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-attack-range:04",
+    "kind": "value-order-attack-range",
+    "varietyKey": "value-order:hero-attack-range",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base attack range",
+    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "answers": [
+      "order-v1:npc_dota_hero_venomancer,npc_dota_hero_weaver,npc_dota_hero_razor,npc_dota_hero_storm_spirit",
+      "order-v1:npc_dota_hero_weaver,npc_dota_hero_razor,npc_dota_hero_venomancer,npc_dota_hero_storm_spirit",
+      "order-v1:npc_dota_hero_storm_spirit,npc_dota_hero_razor,npc_dota_hero_venomancer,npc_dota_hero_weaver",
+      "order-v1:npc_dota_hero_weaver,npc_dota_hero_venomancer,npc_dota_hero_razor,npc_dota_hero_storm_spirit"
+    ],
+    "correctIndex": 3,
+    "explanation": "Shortest to longest: Weaver (425 range) → Venomancer (450 range) → Razor (475 range) → Storm Spirit (480 range).",
+    "valueOrder": {
+      "family": "hero-attack-range",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_razor",
+          "name": "Razor",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/razor.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_storm_spirit",
+          "name": "Storm Spirit",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_venomancer",
+          "name": "Venomancer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/venomancer.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_weaver",
+          "name": "Weaver",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/weaver.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_razor",
+          "value": 475,
+          "label": "475 range"
+        },
+        {
+          "key": "npc_dota_hero_storm_spirit",
+          "value": 480,
+          "label": "480 range"
+        },
+        {
+          "key": "npc_dota_hero_venomancer",
+          "value": 450,
+          "label": "450 range"
+        },
+        {
+          "key": "npc_dota_hero_weaver",
+          "value": 425,
+          "label": "425 range"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_weaver",
+        "npc_dota_hero_venomancer",
+        "npc_dota_hero_razor",
+        "npc_dota_hero_storm_spirit"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "hero-stat:attack-range:npc_dota_hero_weaver",
+          "hero-stat:attack-range:npc_dota_hero_venomancer",
+          "hero-stat:attack-range:npc_dota_hero_tinker",
+          "hero-stat:attack-range:npc_dota_hero_tinker"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-attack-range:05",
+    "kind": "value-order-attack-range",
+    "varietyKey": "value-order:hero-attack-range",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base attack range",
+    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "answers": [
+      "order-v1:npc_dota_hero_arc_warden,npc_dota_hero_pugna,npc_dota_hero_chen,npc_dota_hero_lina",
+      "order-v1:npc_dota_hero_pugna,npc_dota_hero_arc_warden,npc_dota_hero_chen,npc_dota_hero_lina",
+      "order-v1:npc_dota_hero_arc_warden,npc_dota_hero_chen,npc_dota_hero_pugna,npc_dota_hero_lina",
+      "order-v1:npc_dota_hero_lina,npc_dota_hero_chen,npc_dota_hero_pugna,npc_dota_hero_arc_warden"
+    ],
+    "correctIndex": 0,
+    "explanation": "Shortest to longest: Arc Warden (625 range) → Pugna (630 range) → Chen (650 range) → Lina (670 range).",
+    "valueOrder": {
+      "family": "hero-attack-range",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_chen",
+          "name": "Chen",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chen.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_arc_warden",
+          "name": "Arc Warden",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/arc_warden.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_pugna",
+          "name": "Pugna",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pugna.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_lina",
+          "name": "Lina",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_chen",
+          "value": 650,
+          "label": "650 range"
+        },
+        {
+          "key": "npc_dota_hero_arc_warden",
+          "value": 625,
+          "label": "625 range"
+        },
+        {
+          "key": "npc_dota_hero_pugna",
+          "value": 630,
+          "label": "630 range"
+        },
+        {
+          "key": "npc_dota_hero_lina",
+          "value": 670,
+          "label": "670 range"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_arc_warden",
+        "npc_dota_hero_pugna",
+        "npc_dota_hero_chen",
+        "npc_dota_hero_lina"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "hero-stat:attack-range:npc_dota_hero_arc_warden",
+          "hero-stat:attack-range:npc_dota_hero_lina",
+          "hero-stat:attack-range:npc_dota_hero_lina",
+          "hero-stat:attack-range:npc_dota_hero_lina"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-attack-range:06",
+    "kind": "value-order-attack-range",
+    "varietyKey": "value-order:hero-attack-range",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base attack range",
+    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "answers": [
+      "order-v1:npc_dota_hero_storm_spirit,npc_dota_hero_razor,npc_dota_hero_phoenix,npc_dota_hero_nevermore",
+      "order-v1:npc_dota_hero_razor,npc_dota_hero_storm_spirit,npc_dota_hero_phoenix,npc_dota_hero_nevermore",
+      "order-v1:npc_dota_hero_razor,npc_dota_hero_phoenix,npc_dota_hero_storm_spirit,npc_dota_hero_nevermore",
+      "order-v1:npc_dota_hero_nevermore,npc_dota_hero_phoenix,npc_dota_hero_storm_spirit,npc_dota_hero_razor"
+    ],
+    "correctIndex": 1,
+    "explanation": "Shortest to longest: Razor (475 range) → Storm Spirit (480 range) → Phoenix (500 range) → Shadow Fiend (525 range).",
+    "valueOrder": {
+      "family": "hero-attack-range",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_razor",
+          "name": "Razor",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/razor.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_storm_spirit",
+          "name": "Storm Spirit",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_nevermore",
+          "name": "Shadow Fiend",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_phoenix",
+          "name": "Phoenix",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phoenix.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_razor",
+          "value": 475,
+          "label": "475 range"
+        },
+        {
+          "key": "npc_dota_hero_storm_spirit",
+          "value": 480,
+          "label": "480 range"
+        },
+        {
+          "key": "npc_dota_hero_nevermore",
+          "value": 525,
+          "label": "525 range"
+        },
+        {
+          "key": "npc_dota_hero_phoenix",
+          "value": 500,
+          "label": "500 range"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_razor",
+        "npc_dota_hero_storm_spirit",
+        "npc_dota_hero_phoenix",
+        "npc_dota_hero_nevermore"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "hero-stat:attack-range:npc_dota_hero_tinker",
+          "hero-stat:attack-range:npc_dota_hero_tinker",
+          "hero-stat:attack-range:npc_dota_hero_witch_doctor",
+          "hero-stat:attack-range:npc_dota_hero_witch_doctor"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-attack-range:07",
+    "kind": "value-order-attack-range",
+    "varietyKey": "value-order:hero-attack-range",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base attack range",
+    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "answers": [
+      "order-v1:npc_dota_hero_necrolyte,npc_dota_hero_storm_spirit,npc_dota_hero_nevermore,npc_dota_hero_lich",
+      "order-v1:npc_dota_hero_storm_spirit,npc_dota_hero_nevermore,npc_dota_hero_necrolyte,npc_dota_hero_lich",
+      "order-v1:npc_dota_hero_storm_spirit,npc_dota_hero_necrolyte,npc_dota_hero_nevermore,npc_dota_hero_lich",
+      "order-v1:npc_dota_hero_lich,npc_dota_hero_nevermore,npc_dota_hero_necrolyte,npc_dota_hero_storm_spirit"
+    ],
+    "correctIndex": 2,
+    "explanation": "Shortest to longest: Storm Spirit (480 range) → Necrophos (500 range) → Shadow Fiend (525 range) → Lich (550 range).",
+    "valueOrder": {
+      "family": "hero-attack-range",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_necrolyte",
+          "name": "Necrophos",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_nevermore",
+          "name": "Shadow Fiend",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_storm_spirit",
+          "name": "Storm Spirit",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_lich",
+          "name": "Lich",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lich.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_necrolyte",
+          "value": 500,
+          "label": "500 range"
+        },
+        {
+          "key": "npc_dota_hero_nevermore",
+          "value": 525,
+          "label": "525 range"
+        },
+        {
+          "key": "npc_dota_hero_storm_spirit",
+          "value": 480,
+          "label": "480 range"
+        },
+        {
+          "key": "npc_dota_hero_lich",
+          "value": 550,
+          "label": "550 range"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_storm_spirit",
+        "npc_dota_hero_necrolyte",
+        "npc_dota_hero_nevermore",
+        "npc_dota_hero_lich"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "hero-stat:attack-range:npc_dota_hero_tinker",
+          "hero-stat:attack-range:npc_dota_hero_necrolyte",
+          "hero-stat:attack-range:npc_dota_hero_witch_doctor",
+          "hero-stat:attack-range:npc_dota_hero_lich"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-attack-range:08",
+    "kind": "value-order-attack-range",
+    "varietyKey": "value-order:hero-attack-range",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base attack range",
+    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "answers": [
+      "order-v1:npc_dota_hero_razor,npc_dota_hero_venomancer,npc_dota_hero_storm_spirit,npc_dota_hero_phoenix",
+      "order-v1:npc_dota_hero_venomancer,npc_dota_hero_storm_spirit,npc_dota_hero_razor,npc_dota_hero_phoenix",
+      "order-v1:npc_dota_hero_phoenix,npc_dota_hero_storm_spirit,npc_dota_hero_razor,npc_dota_hero_venomancer",
+      "order-v1:npc_dota_hero_venomancer,npc_dota_hero_razor,npc_dota_hero_storm_spirit,npc_dota_hero_phoenix"
+    ],
+    "correctIndex": 3,
+    "explanation": "Shortest to longest: Venomancer (450 range) → Razor (475 range) → Storm Spirit (480 range) → Phoenix (500 range).",
+    "valueOrder": {
+      "family": "hero-attack-range",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_razor",
+          "name": "Razor",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/razor.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_storm_spirit",
+          "name": "Storm Spirit",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_phoenix",
+          "name": "Phoenix",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phoenix.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_venomancer",
+          "name": "Venomancer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/venomancer.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_razor",
+          "value": 475,
+          "label": "475 range"
+        },
+        {
+          "key": "npc_dota_hero_storm_spirit",
+          "value": 480,
+          "label": "480 range"
+        },
+        {
+          "key": "npc_dota_hero_phoenix",
+          "value": 500,
+          "label": "500 range"
+        },
+        {
+          "key": "npc_dota_hero_venomancer",
+          "value": 450,
+          "label": "450 range"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_venomancer",
+        "npc_dota_hero_razor",
+        "npc_dota_hero_storm_spirit",
+        "npc_dota_hero_phoenix"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "hero-stat:attack-range:npc_dota_hero_venomancer",
+          "hero-stat:attack-range:npc_dota_hero_tinker",
+          "hero-stat:attack-range:npc_dota_hero_tinker",
+          "hero-stat:attack-range:npc_dota_hero_witch_doctor"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-attack-range:09",
+    "kind": "value-order-attack-range",
+    "varietyKey": "value-order:hero-attack-range",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base attack range",
+    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "answers": [
+      "order-v1:npc_dota_hero_necrolyte,npc_dota_hero_nevermore,npc_dota_hero_lich,npc_dota_hero_leshrac",
+      "order-v1:npc_dota_hero_nevermore,npc_dota_hero_necrolyte,npc_dota_hero_lich,npc_dota_hero_leshrac",
+      "order-v1:npc_dota_hero_necrolyte,npc_dota_hero_lich,npc_dota_hero_nevermore,npc_dota_hero_leshrac",
+      "order-v1:npc_dota_hero_leshrac,npc_dota_hero_lich,npc_dota_hero_nevermore,npc_dota_hero_necrolyte"
+    ],
+    "correctIndex": 0,
+    "explanation": "Shortest to longest: Necrophos (500 range) → Shadow Fiend (525 range) → Lich (550 range) → Leshrac (575 range).",
+    "valueOrder": {
+      "family": "hero-attack-range",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_necrolyte",
+          "name": "Necrophos",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_lich",
+          "name": "Lich",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lich.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_nevermore",
+          "name": "Shadow Fiend",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_leshrac",
+          "name": "Leshrac",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/leshrac.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_necrolyte",
+          "value": 500,
+          "label": "500 range"
+        },
+        {
+          "key": "npc_dota_hero_lich",
+          "value": 550,
+          "label": "550 range"
+        },
+        {
+          "key": "npc_dota_hero_nevermore",
+          "value": 525,
+          "label": "525 range"
+        },
+        {
+          "key": "npc_dota_hero_leshrac",
+          "value": 575,
+          "label": "575 range"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_necrolyte",
+        "npc_dota_hero_nevermore",
+        "npc_dota_hero_lich",
+        "npc_dota_hero_leshrac"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "hero-stat:attack-range:npc_dota_hero_necrolyte",
+          "hero-stat:attack-range:npc_dota_hero_witch_doctor",
+          "hero-stat:attack-range:npc_dota_hero_lich",
+          "hero-stat:attack-range:npc_dota_hero_death_prophet"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-attack-range:10",
+    "kind": "value-order-attack-range",
+    "varietyKey": "value-order:hero-attack-range",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base attack range",
+    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "answers": [
+      "order-v1:npc_dota_hero_puck,npc_dota_hero_nevermore,npc_dota_hero_muerta,npc_dota_hero_windrunner",
+      "order-v1:npc_dota_hero_nevermore,npc_dota_hero_puck,npc_dota_hero_muerta,npc_dota_hero_windrunner",
+      "order-v1:npc_dota_hero_nevermore,npc_dota_hero_muerta,npc_dota_hero_puck,npc_dota_hero_windrunner",
+      "order-v1:npc_dota_hero_windrunner,npc_dota_hero_muerta,npc_dota_hero_puck,npc_dota_hero_nevermore"
+    ],
+    "correctIndex": 1,
+    "explanation": "Shortest to longest: Shadow Fiend (525 range) → Puck (550 range) → Muerta (575 range) → Windranger (600 range).",
+    "valueOrder": {
+      "family": "hero-attack-range",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_windrunner",
+          "name": "Windranger",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/windrunner.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_puck",
+          "name": "Puck",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/puck.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_nevermore",
+          "name": "Shadow Fiend",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_muerta",
+          "name": "Muerta",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_windrunner",
+          "value": 600,
+          "label": "600 range"
+        },
+        {
+          "key": "npc_dota_hero_puck",
+          "value": 550,
+          "label": "550 range"
+        },
+        {
+          "key": "npc_dota_hero_nevermore",
+          "value": 525,
+          "label": "525 range"
+        },
+        {
+          "key": "npc_dota_hero_muerta",
+          "value": 575,
+          "label": "575 range"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_nevermore",
+        "npc_dota_hero_puck",
+        "npc_dota_hero_muerta",
+        "npc_dota_hero_windrunner"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "hero-stat:attack-range:npc_dota_hero_witch_doctor",
+          "hero-stat:attack-range:npc_dota_hero_hoodwink",
+          "hero-stat:attack-range:npc_dota_hero_lion",
+          "hero-stat:attack-range:npc_dota_hero_arc_warden"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-attack-range:11",
+    "kind": "value-order-attack-range",
+    "varietyKey": "value-order:hero-attack-range",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base attack range",
+    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "answers": [
+      "order-v1:npc_dota_hero_ringmaster,npc_dota_hero_witch_doctor,npc_dota_hero_clinkz,npc_dota_hero_drow_ranger",
+      "order-v1:npc_dota_hero_witch_doctor,npc_dota_hero_clinkz,npc_dota_hero_ringmaster,npc_dota_hero_drow_ranger",
+      "order-v1:npc_dota_hero_witch_doctor,npc_dota_hero_ringmaster,npc_dota_hero_clinkz,npc_dota_hero_drow_ranger",
+      "order-v1:npc_dota_hero_drow_ranger,npc_dota_hero_clinkz,npc_dota_hero_ringmaster,npc_dota_hero_witch_doctor"
+    ],
+    "correctIndex": 2,
+    "explanation": "Shortest to longest: Witch Doctor (550 range) → Ringmaster (575 range) → Clinkz (600 range) → Drow Ranger (625 range).",
+    "valueOrder": {
+      "family": "hero-attack-range",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_witch_doctor",
+          "name": "Witch Doctor",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/witch_doctor.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_clinkz",
+          "name": "Clinkz",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/clinkz.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_drow_ranger",
+          "name": "Drow Ranger",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/drow_ranger.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_ringmaster",
+          "name": "Ringmaster",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_witch_doctor",
+          "value": 550,
+          "label": "550 range"
+        },
+        {
+          "key": "npc_dota_hero_clinkz",
+          "value": 600,
+          "label": "600 range"
+        },
+        {
+          "key": "npc_dota_hero_drow_ranger",
+          "value": 625,
+          "label": "625 range"
+        },
+        {
+          "key": "npc_dota_hero_ringmaster",
+          "value": 575,
+          "label": "575 range"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_witch_doctor",
+        "npc_dota_hero_ringmaster",
+        "npc_dota_hero_clinkz",
+        "npc_dota_hero_drow_ranger"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "hero-stat:attack-range:npc_dota_hero_witch_doctor",
+          "hero-stat:attack-range:npc_dota_hero_lion",
+          "hero-stat:attack-range:npc_dota_hero_clinkz",
+          "hero-stat:attack-range:npc_dota_hero_drow_ranger"
+        ],
+        "clientBuild": "6882"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client audit · build 6882",
+      "url": "https://www.dota2.com/patches/7.41e"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "value-order:hero-attack-range:12",
+    "kind": "value-order-attack-range",
+    "varietyKey": "value-order:hero-attack-range",
+    "category": "Heroes",
+    "difficulty": 3,
+    "eyebrow": "Base attack range",
+    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "answers": [
+      "order-v1:npc_dota_hero_nevermore,npc_dota_hero_necrolyte,npc_dota_hero_witch_doctor,npc_dota_hero_leshrac",
+      "order-v1:npc_dota_hero_necrolyte,npc_dota_hero_witch_doctor,npc_dota_hero_nevermore,npc_dota_hero_leshrac",
+      "order-v1:npc_dota_hero_leshrac,npc_dota_hero_witch_doctor,npc_dota_hero_nevermore,npc_dota_hero_necrolyte",
+      "order-v1:npc_dota_hero_necrolyte,npc_dota_hero_nevermore,npc_dota_hero_witch_doctor,npc_dota_hero_leshrac"
+    ],
+    "correctIndex": 3,
+    "explanation": "Shortest to longest: Necrophos (500 range) → Shadow Fiend (525 range) → Witch Doctor (550 range) → Leshrac (575 range).",
+    "valueOrder": {
+      "family": "hero-attack-range",
+      "direction": "ascending",
+      "cards": [
+        {
+          "key": "npc_dota_hero_nevermore",
+          "name": "Shadow Fiend",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_witch_doctor",
+          "name": "Witch Doctor",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/witch_doctor.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_leshrac",
+          "name": "Leshrac",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/leshrac.png",
+          "kind": "hero"
+        },
+        {
+          "key": "npc_dota_hero_necrolyte",
+          "name": "Necrophos",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
+          "kind": "hero"
+        }
+      ],
+      "values": [
+        {
+          "key": "npc_dota_hero_nevermore",
+          "value": 525,
+          "label": "525 range"
+        },
+        {
+          "key": "npc_dota_hero_witch_doctor",
+          "value": 550,
+          "label": "550 range"
+        },
+        {
+          "key": "npc_dota_hero_leshrac",
+          "value": 575,
+          "label": "575 range"
+        },
+        {
+          "key": "npc_dota_hero_necrolyte",
+          "value": 500,
+          "label": "500 range"
+        }
+      ],
+      "correctOrder": [
+        "npc_dota_hero_necrolyte",
+        "npc_dota_hero_nevermore",
+        "npc_dota_hero_witch_doctor",
+        "npc_dota_hero_leshrac"
+      ],
+      "audit": {
+        "derivedFrom": [
+          "hero-stat:attack-range:npc_dota_hero_necrolyte",
+          "hero-stat:attack-range:npc_dota_hero_witch_doctor",
+          "hero-stat:attack-range:npc_dota_hero_witch_doctor",
+          "hero-stat:attack-range:npc_dota_hero_death_prophet"
         ],
         "clientBuild": "6882"
       }

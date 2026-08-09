@@ -14,6 +14,11 @@ const catalogFingerprints = [
   "soundcheck-ability:pudge_meat_hook",
   "value-order:item-price:01",
   "Cheapest to priciest: Clarity (60 gold)",
+  "value-order:ability-mana:01",
+  "value-order:ability-damage:01",
+  "value-order:hero-move-speed:01",
+  "value-order:hero-attack-range:01",
+  "Lowest to highest: Meat Hook (360 damage)",
 ];
 
 async function filesInside(directory) {
