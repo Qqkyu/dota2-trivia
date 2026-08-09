@@ -124,7 +124,9 @@ function buildQuestion(entries, family, index) {
     category: isItem ? "Items" : "Cooldowns",
     difficulty: 3,
     eyebrow: isItem ? "Item prices" : "Base cooldowns",
-    prompt: isItem ? "Cheapest → priciest" : "Shortest → longest",
+    prompt: isItem
+      ? "How do these items rank from cheapest to most expensive?"
+      : "How do these abilities rank from shortest to longest cooldown?",
     answers: privateAnswerChoices(correctKeys, correctIndex),
     correctIndex,
     explanation: `${isItem ? "Cheapest to priciest" : "Shortest to longest"}: ${readableOrder}.`,

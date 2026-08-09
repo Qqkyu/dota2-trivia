@@ -995,29 +995,41 @@ function ValueOrderBoard({
 }) {
   const submittedKeys = selectedKey ? valueOrderKeysFromAnswerKey(selectedKey) : null;
   const [draftKeys, setDraftKeys] = useState<string[]>(() => submittedKeys ?? []);
+  const draftKeysRef = useRef(submittedKeys ?? []);
   const cards = question.valueOrder?.cards ?? EMPTY_VALUE_ORDER_CARDS;
   const activeKeys = submittedKeys ?? draftKeys;
   const locked = Boolean(selectedKey) || phase !== "answering";
 
+  const submitOrder = useCallback(
+    (keys: string[]) => {
+      const answerKey = valueOrderAnswerKey(keys);
+      if (answerKey && isValueOrderAnswerForQuestion(question, answerKey)) onChoose(answerKey);
+    },
+    [onChoose, question],
+  );
+
   const toggleCard = useCallback(
     (card: PublicValueOrderCard) => {
       if (locked) return;
-      setDraftKeys((current) =>
-        current.includes(card.key)
-          ? current.filter((key) => key !== card.key)
-          : current.length < 4
-            ? [...current, card.key]
-            : current,
-      );
+      const current = draftKeysRef.current;
+      const next = current.includes(card.key)
+        ? current.filter((key) => key !== card.key)
+        : current.length < 4
+          ? [...current, card.key]
+          : current;
+      draftKeysRef.current = next;
+      setDraftKeys(next);
+      if (next.length === 4 && current.length === 3) submitOrder(next);
     },
-    [locked],
+    [locked, submitOrder],
   );
 
-  const lockOrder = useCallback(() => {
+  const undoLastCard = useCallback(() => {
     if (locked) return;
-    const answerKey = valueOrderAnswerKey(draftKeys);
-    if (answerKey && isValueOrderAnswerForQuestion(question, answerKey)) onChoose(answerKey);
-  }, [draftKeys, locked, onChoose, question]);
+    const next = draftKeysRef.current.slice(0, -1);
+    draftKeysRef.current = next;
+    setDraftKeys(next);
+  }, [locked]);
 
   useEffect(() => {
     if (phase !== "answering" || locked) return;
@@ -1029,15 +1041,12 @@ function ValueOrderBoard({
         toggleCard(cards[cardIndex]);
       } else if (event.key === "Backspace") {
         event.preventDefault();
-        setDraftKeys((current) => current.slice(0, -1));
-      } else if (event.key === "Enter" && draftKeys.length === 4) {
-        event.preventDefault();
-        lockOrder();
+        undoLastCard();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [cards, draftKeys.length, lockOrder, locked, phase, toggleCard]);
+  }, [cards, locked, phase, toggleCard, undoLastCard]);
 
   if (phase === "reveal") {
     const correctKeys = valueOrderKeysFromAnswerKey(question.reveal?.correctAnswerKey) ?? [];
@@ -1108,16 +1117,12 @@ function ValueOrderBoard({
       <div className={styles.valueOrderControls}>
         <button
           type="button"
-          onClick={() => setDraftKeys((current) => current.slice(0, -1))}
+          onClick={undoLastCard}
           disabled={locked || draftKeys.length === 0}
           aria-label="Undo last card"
         >
           <RotateCcw />
           Undo
-        </button>
-        <button type="button" onClick={lockOrder} disabled={locked || draftKeys.length !== 4}>
-          <Check />
-          Lock order
         </button>
       </div>
     </div>
@@ -4345,7 +4350,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                         : isHeroPickerRound
                           ? "Choose a hero"
                           : isValueOrderRound
-                            ? "Pick four, then lock"
+                            ? "Choose four in order"
                             : currentGame === "shopkeeper"
                               ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
                               : currentGame === "spell-link"

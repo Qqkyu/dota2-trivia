@@ -76,7 +76,7 @@ const crowdStressFixtures = {
       kind: "value-order-item",
       category: "Items",
       eyebrow: "Item prices",
-      prompt: "Cheapest → priciest",
+      prompt: "How do these items rank from cheapest to most expensive?",
       answerMode: "value-order",
       valueOrder: {
         family: "item-price",
@@ -207,7 +207,11 @@ async function waitFor(expression, timeout = 30_000) {
 }
 
 async function runCrowdStress(kind, expectedTotal) {
-  await evaluate(`window.__queueArcadeCrowdStress = { kind: ${JSON.stringify(kind)}, phase: "answering" }`);
+  await evaluate(`(() => {
+    window.__queueArcadeCrowdStress = { kind: ${JSON.stringify(kind)}, phase: "answering" };
+    window.__queueArcadeOrderSubmittedKey = null;
+    window.__queueArcadeOrderAutoSubmitRequests = 0;
+  })()`);
   await waitFor(
     `(() => {
     const main = document.querySelector("main");
@@ -230,6 +234,29 @@ async function runCrowdStress(kind, expectedTotal) {
   const promptContextHiddenBeforeReveal = await evaluate(
     `!document.querySelector('[data-testid="round-prompt"] [class*="questionCopy"] > span')`,
   );
+  let orderAutoSubmit = null;
+
+  if (kind === "orders") {
+    const lockButtonAbsent = await evaluate(
+      `![...document.querySelectorAll("button")].some((button) => button.textContent.includes("Lock order"))`,
+    );
+    for (let cardIndex = 0; cardIndex < 4; cardIndex += 1) {
+      await evaluate(`document.querySelectorAll('[data-testid="value-order-card"]')[${cardIndex}]?.click()`);
+      await waitFor(
+        `document.querySelectorAll('[data-testid="value-order-card"][data-selected="true"]').length === ${cardIndex + 1}`,
+      );
+    }
+    await waitFor(
+      `document.querySelector('[data-testid="value-order-board"]')?.dataset.locked === "true" &&
+        window.__queueArcadeOrderAutoSubmitRequests === 1`,
+    );
+    orderAutoSubmit = await evaluate(`({
+      locked: document.querySelector('[data-testid="value-order-board"]')?.dataset.locked === "true",
+      requests: window.__queueArcadeOrderAutoSubmitRequests,
+      hasSubmittedKey: typeof window.__queueArcadeOrderSubmittedKey === "string",
+      lockButtonAbsent: ${lockButtonAbsent}
+    })`);
+  }
 
   await evaluate(`window.__queueArcadeCrowdStress.phase = "reveal"`);
   await waitFor(
@@ -278,6 +305,7 @@ async function runCrowdStress(kind, expectedTotal) {
       orderSequences: document.querySelectorAll('[data-testid="value-order-sequence"]').length,
       orderValueLabels: document.querySelectorAll('[data-testid="value-order-sequence"] [data-card-kind] em').length,
       explanationVisible: Boolean(document.querySelector('[data-testid="reveal-explanation"]')),
+      orderAutoSubmit: ${JSON.stringify(orderAutoSubmit)},
       catalogResults: ${JSON.stringify(kind)} === "heroes"
         ? [...document.querySelectorAll('[data-testid="hero-picker-hero"]')].filter((entry) => /%/.test(entry.innerText)).length
         : ${JSON.stringify(kind)} === "items"
@@ -375,6 +403,8 @@ await send("Page.addScriptToEvaluateOnNewDocument", {
     const originalFetch = window.fetch.bind(window);
     window.__queueArcadeCrowdStress = null;
     window.__queueArcadeAudioPrewarmRequests = 0;
+    window.__queueArcadeOrderSubmittedKey = null;
+    window.__queueArcadeOrderAutoSubmitRequests = 0;
 
     Object.defineProperty(HTMLMediaElement.prototype, "play", {
       configurable: true,
@@ -391,8 +421,30 @@ await send("Page.addScriptToEvaluateOnNewDocument", {
         window.__queueArcadeAudioPrewarmRequests += 1;
       }
 
-      const response = await originalFetch(...args);
       const state = window.__queueArcadeCrowdStress;
+      if (state?.kind === "orders" && requestPath === "/api/votes" && requestMethod === "POST") {
+        const body = JSON.parse(String(init?.body ?? "{}"));
+        window.__queueArcadeOrderSubmittedKey = body.answerKey;
+        window.__queueArcadeOrderAutoSubmitRequests += 1;
+        return new Response(JSON.stringify({
+          accepted: true,
+          counts: [0, 0, 0, 0],
+          total: 1,
+          positions: [],
+          keyCounts: [],
+          scoreSummary: null,
+          playerVote: {
+            answerIndex: 0,
+            answerKey: body.answerKey,
+            submittedAt: Date.now()
+          }
+        }), {
+          status: 200,
+          headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+        });
+      }
+
+      const response = await originalFetch(...args);
       if (!state || requestPath !== "/api/rounds") return response;
 
       try {
@@ -405,7 +457,9 @@ await send("Page.addScriptToEvaluateOnNewDocument", {
         const reveal = state.phase === "reveal";
         const total = fixture.entries.length;
         const correctKey = fixture.entries.at(-1).answerKey;
-        const selectedKey = fixture.entries.at(-2).answerKey;
+        const selectedKey = state.kind === "orders" && window.__queueArcadeOrderSubmittedKey
+          ? window.__queueArcadeOrderSubmittedKey
+          : fixture.entries.at(-2).answerKey;
         const roundId = "visual-crowd-stress-" + state.kind;
         payload.serverNow = now;
         payload.round = {
@@ -447,11 +501,13 @@ await send("Page.addScriptToEvaluateOnNewDocument", {
             playerPoints: 0
           } : null
         };
-        payload.playerVote = {
-          answerIndex: 0,
-          ...(fixture.question.answerMode ? { answerKey: selectedKey } : {}),
-          submittedAt: now - 1_000
-        };
+        payload.playerVote = state.kind === "orders" && !reveal && !window.__queueArcadeOrderSubmittedKey
+          ? null
+          : {
+              answerIndex: 0,
+              ...(fixture.question.answerMode ? { answerKey: selectedKey } : {}),
+              submittedAt: now - 1_000
+            };
         payload.playerReport = null;
 
         return new Response(JSON.stringify(payload), {
@@ -762,9 +818,6 @@ if (!answering.openShop) {
         `document.querySelectorAll('[data-testid="value-order-card"][data-selected="true"]').length === ${cardIndex + 1}`,
       );
     }
-    await evaluate(`[
-      ...document.querySelectorAll("button")
-    ].find((button) => button.textContent.includes("Lock order"))?.click()`);
   } else {
     await evaluate(`(
       document.querySelector('[data-testid="hero-picker-hero"]') ??
@@ -1127,7 +1180,14 @@ for (const [label, result, expectedTotal] of [
     result.clipped ||
     result.horizontalOverflow ||
     result.catalogResults !== result.catalogVisible ||
-    (label === "order" && (result.orderSequences !== 2 || result.orderValueLabels !== 4 || result.explanationVisible))
+    (label === "order" &&
+      (result.orderSequences !== 2 ||
+        result.orderValueLabels !== 4 ||
+        result.explanationVisible ||
+        !result.orderAutoSubmit?.locked ||
+        result.orderAutoSubmit.requests !== 1 ||
+        !result.orderAutoSubmit.hasSubmittedKey ||
+        !result.orderAutoSubmit.lockButtonAbsent))
   ) {
     failures.push(`The all-${label} crowd result is unbounded, clipped, incomplete, or leaked before reveal.`);
   }

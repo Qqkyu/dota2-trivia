@@ -54,6 +54,13 @@ for (const question of orderQuestions) {
     failures.push(`${question.id} has malformed or ambiguous cards.`);
     continue;
   }
+  const expectedPrompt =
+    order.family === "item-price"
+      ? "How do these items rank from cheapest to most expensive?"
+      : "How do these abilities rank from shortest to longest cooldown?";
+  if (question.prompt !== expectedPrompt) {
+    failures.push(`${question.id} lost its clear ordering question.`);
+  }
 
   const valueByKey = new Map(order.values.map((entry) => [entry.key, entry]));
   const expectedOrder = [...order.cards]

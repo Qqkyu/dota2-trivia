@@ -5567,13 +5567,6 @@ button[data-state="wrong"] > .heroPickerVerdict {
   cursor: pointer;
 }
 
-.valueOrderControls button:last-child {
-  min-width: 132px;
-  border-color: rgba(155, 172, 229, 0.52);
-  background: rgba(104, 122, 181, 0.15);
-  color: #e1e6fa;
-}
-
 .valueOrderControls button:hover:not(:disabled),
 .valueOrderControls button:focus-visible {
   background: rgba(104, 122, 181, 0.24);
@@ -6922,10 +6915,6 @@ button[data-state="wrong"] > .heroPickerVerdict {
   .valueOrderCards,
   .valueOrderSequence > div {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .valueOrderControls button:last-child {
-    flex: 1;
   }
 
   .valueOrderSequenceCard {
