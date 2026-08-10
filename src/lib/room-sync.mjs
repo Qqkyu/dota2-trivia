@@ -1,5 +1,6 @@
 export const ROOM_SYNC_REQUEST_TIMEOUT_MS = 5_000;
 export const ROOM_SYNC_DEADLINE_GRACE_MS = 75;
+export const ROOM_SYNC_HEARTBEAT_MS = 5_000;
 
 export function roomSyncAttemptAction(pendingStartedAt, now, force = false, timeoutMs = ROOM_SYNC_REQUEST_TIMEOUT_MS) {
   if (!Number.isFinite(pendingStartedAt)) return "start";
@@ -12,6 +13,19 @@ export function roomSyncAttemptAction(pendingStartedAt, now, force = false, time
 export function roomDeadlineSyncDelay(deadline, now, graceMs = ROOM_SYNC_DEADLINE_GRACE_MS) {
   if (!Number.isFinite(deadline) || !Number.isFinite(now)) return null;
   return Math.max(0, deadline - now + graceMs);
+}
+
+export function roomProgressiveClueSyncDeadline(answerDeadline, answerDuration, clueStage) {
+  if (
+    !Number.isFinite(answerDeadline) ||
+    !Number.isFinite(answerDuration) ||
+    answerDuration <= 0 ||
+    (clueStage !== 1 && clueStage !== 2)
+  ) {
+    return null;
+  }
+
+  return answerDeadline - (answerDuration * (3 - clueStage)) / 3;
 }
 
 export function createRoomSyncGate({ timeoutMs = ROOM_SYNC_REQUEST_TIMEOUT_MS } = {}) {

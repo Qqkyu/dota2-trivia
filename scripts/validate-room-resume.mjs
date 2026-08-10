@@ -6,8 +6,10 @@ import { fileURLToPath } from "node:url";
 import {
   createRoomSyncGate,
   ROOM_SYNC_DEADLINE_GRACE_MS,
+  ROOM_SYNC_HEARTBEAT_MS,
   ROOM_SYNC_REQUEST_TIMEOUT_MS,
   roomDeadlineSyncDelay,
+  roomProgressiveClueSyncDeadline,
 } from "../src/lib/room-sync.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -69,12 +71,27 @@ if (
   failures.push("Absolute round deadlines no longer schedule immediate recovery after a delayed timer.");
 }
 
+if (
+  roomProgressiveClueSyncDeadline(25_000, 15_000, 1) !== 15_000 ||
+  roomProgressiveClueSyncDeadline(25_000, 15_000, 2) !== 20_000 ||
+  roomProgressiveClueSyncDeadline(25_000, 15_000, 3) !== null ||
+  roomProgressiveClueSyncDeadline(25_000, 0, 1) !== null
+) {
+  failures.push("Progressive server clues no longer schedule exact one-third round-boundary refreshes.");
+}
+
+if (ROOM_SYNC_HEARTBEAT_MS !== 5_000) {
+  failures.push("The low-frequency room recovery heartbeat drifted from its reviewed five-second cadence.");
+}
+
 for (const requiredIntegration of [
   "roomSyncGateRef",
   "gate.begin(Date.now(), force)",
   "requestRoomSnapshot(settings, ensurePlayerId(), attempt.signal)",
   "gate.isCurrent(attempt.generation)",
   "roomDeadlineSyncDelay(activeDeadline, Date.now())",
+  "roomProgressiveClueSyncDeadline(deadline, answerDuration, currentQuestion.clueStage)",
+  "window.setInterval(() => void syncRoom(), ROOM_SYNC_HEARTBEAT_MS)",
   "void syncRoom(true)",
   'window.addEventListener("focus", wakeRoom)',
   'window.addEventListener("pageshow", wakeRoom)',
@@ -97,5 +114,5 @@ if (failures.length) {
 }
 
 console.log(
-  `Validated ${ROOM_SYNC_REQUEST_TIMEOUT_MS}ms stale-request replacement, absolute-deadline recovery, and five browser wake paths.`,
+  `Validated ${ROOM_SYNC_REQUEST_TIMEOUT_MS}ms stale-request replacement, ${ROOM_SYNC_HEARTBEAT_MS}ms recovery heartbeats, exact phase/clue deadlines, and five browser wake paths.`,
 );

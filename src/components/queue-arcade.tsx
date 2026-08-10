@@ -107,7 +107,12 @@ import {
   valueOrderAnswerKey,
   valueOrderKeysFromAnswerKey,
 } from "@/lib/value-order.mjs";
-import { createRoomSyncGate, roomDeadlineSyncDelay } from "@/lib/room-sync.mjs";
+import {
+  createRoomSyncGate,
+  ROOM_SYNC_HEARTBEAT_MS,
+  roomDeadlineSyncDelay,
+  roomProgressiveClueSyncDeadline,
+} from "@/lib/room-sync.mjs";
 import { SteamSignIn } from "./steam-sign-in";
 import styles from "./queue-arcade.module.css";
 
@@ -3219,7 +3224,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   useEffect(() => {
     if (phase === "lobby" || phase === "summary") return;
 
-    const interval = window.setInterval(() => void syncRoom(), 1_000);
+    const interval = window.setInterval(() => void syncRoom(), ROOM_SYNC_HEARTBEAT_MS);
     const wakeRoom = () => {
       setNow(Date.now());
       void syncRoom(true);
@@ -3281,7 +3286,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   }, [finishAlphaSession]);
 
   useEffect(() => {
-    const activeDeadline =
+    const phaseDeadline =
       phase === "answering"
         ? deadline
         : phase === "reveal"
@@ -3289,6 +3294,18 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
           : phase === "waiting"
             ? entryWaitDeadline
             : null;
+    const progressiveClueDeadline =
+      phase === "answering" &&
+      currentQuestion &&
+      (currentQuestion.game === "spell-link" ||
+        currentQuestion.game === "quote-hunt" ||
+        currentQuestion.game === "aghanim-lab")
+        ? roomProgressiveClueSyncDeadline(deadline, answerDuration, currentQuestion.clueStage)
+        : null;
+    const activeDeadline =
+      phaseDeadline !== null && progressiveClueDeadline !== null
+        ? Math.min(phaseDeadline, progressiveClueDeadline)
+        : (progressiveClueDeadline ?? phaseDeadline);
     const delay = roomDeadlineSyncDelay(activeDeadline, Date.now());
     if (delay === null) return;
 
@@ -3297,7 +3314,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       void syncRoom(true);
     }, delay);
     return () => window.clearTimeout(timeout);
-  }, [deadline, entryWaitDeadline, phase, revealDeadline, syncRoom]);
+  }, [answerDuration, currentQuestion, deadline, entryWaitDeadline, phase, revealDeadline, syncRoom]);
 
   useEffect(() => () => roomSyncGateRef.current?.cancel(), []);
 
@@ -3645,7 +3662,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                 ) : account.authenticated ? (
                   <Link href="/profile" className={styles.profileAction} data-testid="profile-action">
                     {account.profile.user.avatarUrl ? (
-                      <Image src={account.profile.user.avatarUrl} alt="" width={34} height={34} />
+                      <Image src={account.profile.user.avatarUrl} alt="" width={34} height={34} unoptimized />
                     ) : (
                       <span>{playerInitials(account.profile.user.displayName)}</span>
                     )}
@@ -3945,7 +3962,13 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               >
                 <div className={styles.aghanimArtwork} data-testid="aghanim-artwork">
                   {aghanimItem ? (
-                    <Image src={aghanimItem.image} alt={aghanimUpgradeLabel ?? "Aghanim upgrade"} fill sizes="128px" />
+                    <Image
+                      src={aghanimItem.image}
+                      alt={aghanimUpgradeLabel ?? "Aghanim upgrade"}
+                      fill
+                      sizes="128px"
+                      unoptimized
+                    />
                   ) : (
                     <Gem aria-hidden="true" />
                   )}

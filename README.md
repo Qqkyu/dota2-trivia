@@ -250,15 +250,20 @@ Each game catalog and content version owns exactly one public room. Room IDs are
 `/api/rounds` converts the private catalog entry into an explicit public payload. During answering it omits the internal
 question ID, marked answer, explanation, source/audit metadata, hidden Shopkeeper keys, Order Up values, and locked progressive clues. The
 reveal payload adds only the marked answer, explanation, and any opaque answer key or values needed to render the result. A
-phase-aware revision lets the browser cache the current payload while its one-second room poll continues; most rounds are
-sent once for answering and once for reveal, while progressive rounds receive a new payload when each server-timed clue unlocks.
+phase-aware revision lets unchanged heartbeats omit the question payload; most rounds are sent once for answering and once
+for reveal, while progressive rounds receive a new payload when each server-timed clue unlocks.
 
 `/api/votes` only accepts a round ID before its server deadline and resolves the corresponding private question itself.
 Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room
 enters its reveal phase. `/api/reports` similarly resolves the reportable current or previous round instead of trusting a
 browser-supplied question ID. It opens with the reveal and keeps the just-finished question reportable for a 20-second
-rollover grace period. The browser corrects for server clock offset, polls once per second, resynchronizes on focus, and
-uses optional Pusher events to surface participation immediately.
+rollover grace period. The browser corrects for server clock offset and schedules exact phase and progressive-clue
+refreshes. A five-second recovery heartbeat plus focus, visibility, page-resume, and network wakeups repair missed timers;
+optional Pusher events surface participation immediately.
+
+Remote Steam artwork bypasses the application image proxy, the compact app icon replaces the former multi-size ICO, and
+stable local Dota feedback cues carry a 30-day browser cache policy. Answer-sensitive Echo Hunt and Soundcheck audio remains
+behind the current-round private proxy so its upstream filename cannot reveal an answer before the deadline.
 
 First-time room entry is gated separately from the shared clock. A player joins the active question when at least eight seconds remain; otherwise the client holds on a synchronized countdown and begins with the next full round. Existing players never pause or leave the global timeline.
 

@@ -91,7 +91,7 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
 
       <section className={styles.hero}>
         {user.avatarUrl ? (
-          <Image className={styles.avatar} src={user.avatarUrl} alt="" width={86} height={86} />
+          <Image className={styles.avatar} src={user.avatarUrl} alt="" width={86} height={86} unoptimized />
         ) : (
           <span className={styles.avatarFallback}>{playerInitials(user.displayName)}</span>
         )}
