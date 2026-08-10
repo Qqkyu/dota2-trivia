@@ -1,14 +1,21 @@
 import { seededShuffle, varietyShuffle } from "./variety.mjs";
 
 /**
- * A subject may return after twelve rounds, but never inside the previous eleven.
- * Twelve is coprime with the eleven-format public rotation, so every format gets
+ * A subject may return after thirteen rounds, but never inside the previous twelve.
+ * Thirteen is coprime with the twelve-format public rotation, so every format gets
  * an opportunity to use every subject slot.
  */
-export const SEMANTIC_REPEAT_GAP_ROUNDS = 11;
+export const SEMANTIC_REPEAT_GAP_ROUNDS = 12;
 export const SEMANTIC_SLOT_COUNT = SEMANTIC_REPEAT_GAP_ROUNDS + 1;
 
-const HERO_ANSWER_KINDS = new Set(["fogged-hero", "hero-quote", "hero-stat-duel", "hero-voice", "spell-owner"]);
+const HERO_ANSWER_KINDS = new Set([
+  "fogged-hero",
+  "hero-quote",
+  "hero-stat-duel",
+  "hero-voice",
+  "spell-owner",
+  "aghanim-upgrade",
+]);
 const ABILITY_VALUE_KINDS = new Set(["ability-damage", "cooldown", "mana-cost"]);
 const ABILITY_HERO_PREFIX_ALIASES = new Map([["sandking", "sand_king"]]);
 const preparedScheduleCache = new WeakMap();
@@ -157,7 +164,7 @@ function slotTargets(formatIndex, questionCount, formatCount, slotCount) {
 
 /**
  * Give every semantic subject one global slot. A hero assigned to slot 4 can
- * therefore only appear on rounds whose number is 4 modulo eleven, regardless
+ * therefore only appear on rounds whose number is 4 modulo thirteen, regardless
  * of which question family asks about that hero.
  */
 export function createSemanticSlotPlan(questions, formats, getFormat, seed, slotCount = SEMANTIC_SLOT_COUNT) {

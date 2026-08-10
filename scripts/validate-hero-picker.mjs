@@ -9,9 +9,10 @@ import { parseValveKeyValues } from "./valve-keyvalues.mjs";
 import { HERO_PICKER_QUESTION_KINDS, heroCorrectAnswerKey, isHeroPickerQuestion } from "../src/lib/hero-picker.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const [catalog, questions, component, styles, voteRoute, serializer] = await Promise.all([
+const [catalog, questions, aghanimQuestions, component, styles, voteRoute, serializer] = await Promise.all([
   readFile(join(root, "src", "data", "hero-picker.json"), "utf8").then(JSON.parse),
   readFile(join(root, "src", "data", "questions.generated.json"), "utf8").then(JSON.parse),
+  readFile(join(root, "src", "data", "aghanim-questions.json"), "utf8").then(JSON.parse),
   readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8"),
   readFile(join(root, "src", "components", "queue-arcade.module.css"), "utf8"),
   readFile(join(root, "src", "app", "api", "votes", "route.ts"), "utf8"),
@@ -66,7 +67,7 @@ for (const group of catalog.groups ?? []) {
   }
 }
 
-const identityQuestions = questions.filter(isHeroPickerQuestion);
+const identityQuestions = [...questions, ...aghanimQuestions].filter(isHeroPickerQuestion);
 for (const kind of HERO_PICKER_QUESTION_KINDS) {
   if (!identityQuestions.some((question) => question.kind === kind)) {
     failures.push(`${kind}: no identity round exercises the hero picker.`);

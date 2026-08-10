@@ -23,6 +23,13 @@ export interface PublicQuestionReveal {
   orderValues?: Array<{ key: string; label: string }>;
 }
 
+export interface PublicAghanimUpgrade {
+  effect: string;
+  upgradeType?: "scepter" | "shard";
+  upgradeMode?: "new" | "existing";
+  abilityName?: string;
+}
+
 export interface PublicArcadeQuestion {
   id: string;
   game: RoundGame;
@@ -65,6 +72,7 @@ export interface PublicArcadeQuestion {
     direction: "ascending";
     cards: ValueOrderCard[];
   };
+  aghanim?: PublicAghanimUpgrade;
   shopkeeper?: {
     format?: ShopkeeperFormat;
     promptItems?: ShopkeeperItemReference[];
@@ -193,6 +201,17 @@ export function isPublicArcadeQuestion(value: unknown): value is PublicArcadeQue
         (Array.isArray(candidate.quoteHints) &&
           candidate.quoteHints.length <= 2 &&
           candidate.quoteHints.every((hint) => typeof hint === "string" && hint.length > 0))) &&
+      (candidate.aghanim === undefined ||
+        (typeof candidate.aghanim.effect === "string" &&
+          candidate.aghanim.effect.length > 0 &&
+          (candidate.aghanim.upgradeType === undefined ||
+            candidate.aghanim.upgradeType === "scepter" ||
+            candidate.aghanim.upgradeType === "shard") &&
+          (candidate.aghanim.upgradeMode === undefined ||
+            candidate.aghanim.upgradeMode === "new" ||
+            candidate.aghanim.upgradeMode === "existing") &&
+          (candidate.aghanim.abilityName === undefined ||
+            (typeof candidate.aghanim.abilityName === "string" && candidate.aghanim.abilityName.length > 0)))) &&
       (candidate.answerMode !== "value-order" ||
         reveal === null ||
         (typeof reveal?.correctAnswerKey === "string" &&

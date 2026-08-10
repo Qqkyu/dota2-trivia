@@ -1,4 +1,5 @@
 import generatedQuestions from "@/data/questions.generated.json";
+import aghanimQuestions from "@/data/aghanim-questions.json";
 import shopkeeperQuestions from "@/data/shopkeeper-questions.json";
 import generatedMeta from "@/data/trivia-meta.generated.json";
 import soundcheckQuestions from "@/data/soundcheck-questions.json";
@@ -32,6 +33,7 @@ export type ArcadeMode =
   | "echo-hunt"
   | "soundcheck"
   | "quote-hunt"
+  | "aghanim-lab"
   | "order-up"
   | "map-sense"
   | "counterplay";
@@ -57,6 +59,7 @@ export type QuestionKind =
   | "fogged-hero"
   | "hero-voice"
   | "hero-quote"
+  | "aghanim-upgrade"
   | "soundcheck-ability"
   | "soundcheck-item"
   | "value-order-item"
@@ -111,6 +114,18 @@ export interface ValueOrderValue {
   key: string;
   value: number;
   label: string;
+}
+
+export interface AghanimUpgrade {
+  effect: string;
+  upgradeType: "scepter" | "shard";
+  upgradeMode: "new" | "existing";
+  abilityName: string;
+  audit: {
+    clientAbilityKey: string;
+    clientBuild: string;
+    reviewedAt: string;
+  };
 }
 
 export interface TriviaQuestion {
@@ -172,6 +187,7 @@ export interface TriviaQuestion {
       clientBuild: string;
     };
   };
+  aghanim?: AghanimUpgrade;
   shopkeeper?: {
     format?: ShopkeeperFormat;
     targetItemKey?: string;
@@ -237,7 +253,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-5-shopkeeper-6-public-arcade-3-soundcheck-10-spell-link-4-fogged-vision-3-global-score-1-order-up-3`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-5-shopkeeper-6-public-arcade-4-soundcheck-10-spell-link-4-fogged-vision-3-global-score-1-order-up-3-aghanim-lab-1`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
     isPlayableClassicTriviaQuestion(question) &&
@@ -250,6 +266,7 @@ export const triviaQuestions = [
   ...(shopkeeperQuestions as TriviaQuestion[]).filter(isPlayableShopkeeperQuestion),
   ...(soundcheckQuestions as unknown as TriviaQuestion[]),
   ...(valueOrderQuestions as unknown as TriviaQuestion[]),
+  ...(aghanimQuestions as unknown as TriviaQuestion[]),
 ];
 
 export interface ArcadeRound extends TriviaQuestion {
@@ -274,6 +291,7 @@ export function gameForQuestion(question: TriviaQuestion): RoundGame {
   if (question.kind === "hero-voice") return "echo-hunt";
   if (question.kind.startsWith("soundcheck-")) return "soundcheck";
   if (question.kind === "hero-quote") return "quote-hunt";
+  if (question.kind === "aghanim-upgrade") return "aghanim-lab";
   if (question.kind.startsWith("value-order-")) return "order-up";
   if (question.kind.startsWith("map-")) return "map-sense";
   if (question.kind.startsWith("counterplay-")) return "counterplay";
@@ -314,6 +332,7 @@ export function createArcadeDeck(
     "echo-hunt": shuffledPool(seed, "echo-hunt", filter),
     soundcheck: shuffledPool(seed, "soundcheck", filter),
     "quote-hunt": shuffledPool(seed, "quote-hunt", filter),
+    "aghanim-lab": shuffledPool(seed, "aghanim-lab", filter),
     "order-up": shuffledPool(seed, "order-up", filter),
     "map-sense": shuffledPool(seed, "map-sense", filter),
     counterplay: shuffledPool(seed, "counterplay", filter),
@@ -327,6 +346,7 @@ export function createArcadeDeck(
     "echo-hunt": 0,
     soundcheck: 0,
     "quote-hunt": 0,
+    "aghanim-lab": 0,
     "order-up": 0,
     "map-sense": 0,
     counterplay: 0,

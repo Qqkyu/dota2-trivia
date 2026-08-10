@@ -6,6 +6,7 @@ export const PROGRESSIVE_ROUND_GAMES = new Set([
   "echo-hunt",
   "soundcheck",
   "quote-hunt",
+  "aghanim-lab",
 ]);
 
 /**

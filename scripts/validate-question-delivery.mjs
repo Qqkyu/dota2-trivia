@@ -9,11 +9,12 @@ import { valueOrderCorrectAnswerKey } from "../src/lib/value-order.mjs";
 
 const root = process.cwd();
 const readJson = async (file) => JSON.parse(await readFile(path.join(root, "src", "data", file), "utf8"));
-const [generated, shopkeeper, soundcheck, valueOrder] = await Promise.all([
+const [generated, shopkeeper, soundcheck, valueOrder, aghanim] = await Promise.all([
   readJson("questions.generated.json"),
   readJson("shopkeeper-questions.json"),
   readJson("soundcheck-questions.json"),
   readJson("value-order-questions.json"),
+  readJson("aghanim-questions.json"),
 ]);
 const failures = [];
 
@@ -91,6 +92,7 @@ const representativeQuestions = [
   [generated.find((question) => question.kind === "fogged-hero"), "fogged-vision"],
   [generated.find((question) => question.kind === "hero-voice"), "echo-hunt"],
   [generated.find((question) => question.kind === "hero-quote"), "quote-hunt"],
+  [aghanim.find((question) => question.kind === "aghanim-upgrade"), "aghanim-lab"],
   [shopkeeper.find((question) => question.shopkeeper?.format === "build-result"), "shopkeeper"],
   [shopkeeper.find((question) => question.shopkeeper?.format === "real-recipe"), "shopkeeper"],
   [shopkeeper.find((question) => question.shopkeeper?.format === "upgrade-path"), "shopkeeper"],
@@ -300,6 +302,37 @@ if (quote) {
   record(
     new Set([1_000, 6_000, 11_000].map((now) => publicQuestionRevision(baseRound, now))).size === 3,
     "Quote Hunt cache revisions do not advance with server-authoritative clues.",
+  );
+}
+
+const aghanimUpgrade = aghanim.find((question) => question.kind === "aghanim-upgrade");
+if (aghanimUpgrade) {
+  const baseRound = roundFor(aghanimUpgrade, "aghanim-lab");
+  const first = publicQuestionForRound(aghanimUpgrade, baseRound, 1_000);
+  const second = publicQuestionForRound(aghanimUpgrade, baseRound, 6_000);
+  const third = publicQuestionForRound(aghanimUpgrade, baseRound, 11_000);
+  record(
+    first.clueStage === 1 &&
+      first.aghanim?.effect === aghanimUpgrade.aghanim.effect &&
+      first.aghanim?.upgradeType === undefined &&
+      first.aghanim?.upgradeMode === undefined &&
+      first.aghanim?.abilityName === undefined,
+    "Aghanim's Lab disclosed a later clue at stage one.",
+  );
+  record(
+    second.clueStage === 2 &&
+      second.aghanim?.upgradeType === aghanimUpgrade.aghanim.upgradeType &&
+      second.aghanim?.upgradeMode === aghanimUpgrade.aghanim.upgradeMode &&
+      second.aghanim?.abilityName === undefined,
+    "Aghanim's Lab stage two did not reveal only the upgrade details.",
+  );
+  record(
+    third.clueStage === 3 && third.aghanim?.abilityName === aghanimUpgrade.aghanim.abilityName,
+    "Aghanim's Lab stage three did not reveal the ability name.",
+  );
+  record(
+    new Set([1_000, 6_000, 11_000].map((now) => publicQuestionRevision(baseRound, now))).size === 3,
+    "Aghanim's Lab cache revisions do not advance with server-authoritative clues.",
   );
 }
 

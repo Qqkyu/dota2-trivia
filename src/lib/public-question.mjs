@@ -46,7 +46,9 @@ function timedClueStage(round, now) {
 
 export function publicQuestionRevision(round, now) {
   const state = round.phase === "reveal" ? "reveal" : "answering";
-  const clueState = ["spell-link", "quote-hunt"].includes(round.game) ? `:clue-${timedClueStage(round, now)}` : "";
+  const clueState = ["spell-link", "quote-hunt", "aghanim-lab"].includes(round.game)
+    ? `:clue-${timedClueStage(round, now)}`
+    : "";
   return `${round.id}:${state}${clueState}`;
 }
 
@@ -60,7 +62,7 @@ export function publicQuestionForRound(question, round, now) {
     throw new Error(`Map question ${question.id} needs a dedicated non-leaking public contract.`);
   }
 
-  const clueStage = ["spell-link", "quote-hunt"].includes(round.game) ? timedClueStage(round, now) : 1;
+  const clueStage = ["spell-link", "quote-hunt", "aghanim-lab"].includes(round.game) ? timedClueStage(round, now) : 1;
   const openShopAnswer = isItemPickerQuestion(question);
   const recipeBuilderAnswer = isRealRecipeBuilderQuestion(question);
   const heroPickerAnswer = isHeroPickerQuestion(question);
@@ -135,6 +137,18 @@ export function publicQuestionForRound(question, round, now) {
         })),
       }
     : undefined;
+  const aghanim = question.aghanim
+    ? {
+        effect: question.aghanim.effect,
+        ...(clueStage >= 2
+          ? {
+              upgradeType: question.aghanim.upgradeType,
+              upgradeMode: question.aghanim.upgradeMode,
+            }
+          : {}),
+        ...(clueStage >= 3 ? { abilityName: question.aghanim.abilityName } : {}),
+      }
+    : undefined;
 
   return {
     // A synchronized round is the public identity. Catalog IDs often contain
@@ -170,6 +184,7 @@ export function publicQuestionForRound(question, round, now) {
     ...(shopkeeper ? { shopkeeper } : {}),
     ...(counterplay ? { counterplay } : {}),
     ...(valueOrder ? { valueOrder } : {}),
+    ...(aghanim ? { aghanim } : {}),
     patch: question.patch,
     clueStage,
     reveal:

@@ -19,11 +19,12 @@ import { varietyShuffle } from "../src/lib/variety.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const readQuestions = async (file) => JSON.parse(await readFile(join(root, "src", "data", file), "utf8"));
-const [generated, shopkeeper, soundcheck, valueOrder, component, componentStyles] = await Promise.all([
+const [generated, shopkeeper, soundcheck, valueOrder, aghanim, component, componentStyles] = await Promise.all([
   readQuestions("questions.generated.json"),
   readQuestions("shopkeeper-questions.json"),
   readQuestions("soundcheck-questions.json"),
   readQuestions("value-order-questions.json"),
+  readQuestions("aghanim-questions.json"),
   readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8"),
   readFile(join(root, "src", "components", "queue-arcade.module.css"), "utf8"),
 ]);
@@ -40,6 +41,7 @@ const liveQuestions = [
   ...shopkeeper.filter(isPlayableShopkeeperQuestion),
   ...soundcheck,
   ...valueOrder,
+  ...aghanim,
 ];
 const failures = [];
 
@@ -60,8 +62,8 @@ if (
 if (LIVE_ARCADE_MODES.length !== 1 || LIVE_ARCADE_MODES[0] !== PUBLIC_ARCADE_MODE) {
   failures.push("More than one public mode is exposed.");
 }
-if (LIVE_ROUND_GAMES.length !== 8 || PUBLIC_ROUND_FORMATS.length !== 11) {
-  failures.push("The public arcade no longer has eight round identities and eleven scheduling formats.");
+if (LIVE_ROUND_GAMES.length !== 9 || PUBLIC_ROUND_FORMATS.length !== 12) {
+  failures.push("The public arcade no longer has nine round identities and twelve scheduling formats.");
 }
 for (const [mode, repeatedLabel] of [
   ["Shopkeeper Rush", /<span>Shopkeeper Rush\b/],
@@ -70,13 +72,18 @@ for (const [mode, repeatedLabel] of [
   ["Soundcheck", /["`]Soundcheck ·/],
   ["Echo Hunt", /["`]Echo Hunt ·/],
   ["Quote Hunt", /<span>Quote Hunt<\/span>/],
+  ["Aghanim's Lab", /<span>Aghanim's Lab<\/span>/],
 ]) {
   if (repeatedLabel.test(component)) {
     failures.push(`The in-round context repeats the top-bar ${mode} label.`);
   }
 }
-if (!component.includes("<span>Ability identity</span>") || !component.includes("<span>Hero quote</span>")) {
-  failures.push("Spell Link or Quote Hunt lost its non-repeating round subtype label.");
+if (
+  !component.includes("<span>Ability identity</span>") ||
+  !component.includes("<span>Hero quote</span>") ||
+  !component.includes("<span>Upgrade effect</span>")
+) {
+  failures.push("A progressive round lost its non-repeating subtype label.");
 }
 if (
   !/\.cardTitle svg\s*{[^}]*width:\s*12px;[^}]*height:\s*12px;[^}]*display:\s*block;/s.test(componentStyles) ||
@@ -153,5 +160,5 @@ if (failures.length) {
 
 const poolCounts = Object.fromEntries([...pools].map(([format, pool]) => [format, pool.length]));
 console.log(
-  `Validated one ${liveQuestions.length}-question public room across eleven continuous formats: ${JSON.stringify(poolCounts)}.`,
+  `Validated one ${liveQuestions.length}-question public room across twelve continuous formats: ${JSON.stringify(poolCounts)}.`,
 );

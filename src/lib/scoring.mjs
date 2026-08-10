@@ -1,6 +1,7 @@
 export const MAP_READ_GRACE_MS = 3_000;
 export const MAX_SPEED_BONUS = 100;
-export const SPELL_CLUE_PENALTY = 40;
+export const PROGRESSIVE_CLUE_PENALTY = 40;
+export const SPELL_CLUE_PENALTY = PROGRESSIVE_CLUE_PENALTY;
 
 /**
  * Keeps the full speed value during an optional reading window, then fades it
@@ -45,8 +46,9 @@ export function scoreBreakdown(question, timeRemaining, duration, selectedMapPos
   const speedRatio = speedScoreRatio(timeRemaining, duration, question.map ? MAP_READ_GRACE_MS : 0);
   const speedBonus = Math.round(speedRatio * MAX_SPEED_BONUS);
   const difficultyBonus = (question.difficulty - 1) * 25;
-  const cluePenalty =
-    question.game === "spell-link" ? (clueStageAt(timeRemaining, duration) - 1) * SPELL_CLUE_PENALTY : 0;
+  const cluePenalty = ["spell-link", "aghanim-lab"].includes(question.game)
+    ? (clueStageAt(timeRemaining, duration) - 1) * PROGRESSIVE_CLUE_PENALTY
+    : 0;
   const distance =
     question.map && selectedMapPosition
       ? Math.hypot(question.map.target.x - selectedMapPosition.x, question.map.target.y - selectedMapPosition.y)

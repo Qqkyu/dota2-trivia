@@ -1,4 +1,10 @@
-export const HERO_PICKER_QUESTION_KINDS = Object.freeze(["spell-owner", "fogged-hero", "hero-voice", "hero-quote"]);
+export const HERO_PICKER_QUESTION_KINDS = Object.freeze([
+  "spell-owner",
+  "fogged-hero",
+  "hero-voice",
+  "hero-quote",
+  "aghanim-upgrade",
+]);
 
 const HERO_PICKER_KIND_SET = new Set(HERO_PICKER_QUESTION_KINDS);
 

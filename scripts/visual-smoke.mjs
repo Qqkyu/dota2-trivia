@@ -111,6 +111,21 @@ const crowdStressFixtures = {
     },
     entries: heroStressEntries.slice(0, 4),
   },
+  aghanim: {
+    game: "aghanim-lab",
+    question: {
+      kind: "aghanim-upgrade",
+      category: "Abilities",
+      eyebrow: "Upgrade effect",
+      prompt: "Whose upgrade is this?",
+      answerMode: "hero-grid",
+      aghanim: {
+        effect:
+          "After using a mobility spell, the next attack burns extra maximum mana and temporarily prevents mana gain.",
+      },
+    },
+    entries: heroStressEntries.slice(0, 4),
+  },
 };
 const targets = await fetch(`${debuggingUrl}/json/list`).then((response) => response.json());
 const target = targets.find((entry) => entry.type === "page");
@@ -365,6 +380,41 @@ async function runSpellLayoutStress() {
       ),
       bottomInset: promptBounds && helperBounds ? promptBounds.bottom - helperBounds.bottom : -1,
       pickerGap: pickerBounds && helperBounds ? pickerBounds.top - helperBounds.bottom : -1,
+      horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+    };
+  })()`);
+}
+
+async function runAghanimLayoutStress() {
+  await evaluate(`window.__queueArcadeCrowdStress = { kind: "aghanim", phase: "answering" }`);
+  await evaluate(`window.dispatchEvent(new Event("focus")); true`);
+  await waitFor(
+    `document.querySelector("main")?.dataset.phase === "answering" &&
+      document.querySelector("main")?.dataset.roundId === "visual-crowd-stress-aghanim" &&
+      Boolean(document.querySelector('[data-testid="aghanim-clue-1"]'))`,
+    12_000,
+  );
+  await delay(300);
+  await screenshot("/tmp/queue-arcade-aghanim-layout.png");
+
+  return evaluate(`(() => {
+    const prompt = document.querySelector('[data-testid="round-prompt"]');
+    const picker = document.querySelector('[data-testid="hero-picker"]');
+    const artwork = document.querySelector('[data-testid="aghanim-artwork"]');
+    const promptBounds = prompt?.getBoundingClientRect();
+    const pickerBounds = picker?.getBoundingClientRect();
+    return {
+      clueCards: [1, 2, 3].filter((stage) =>
+        document.querySelector('[data-testid="aghanim-clue-' + stage + '"]')
+      ).length,
+      firstClueVisible: Boolean(document.querySelector('[data-testid="aghanim-clue-1"] strong')),
+      laterCluesLocked:
+        document.querySelector('[data-testid="aghanim-clue-2"] span')?.textContent === "Upgrade details" &&
+        document.querySelector('[data-testid="aghanim-clue-3"] span')?.textContent === "Ability name",
+      artworkVisible: Boolean(artwork?.getBoundingClientRect().width),
+      heroItems: document.querySelectorAll('[data-testid="hero-picker-hero"]').length,
+      pickerGap: pickerBounds && promptBounds ? pickerBounds.top - promptBounds.bottom : -1,
+      promptInsideViewport: Boolean(promptBounds && promptBounds.bottom <= window.innerHeight),
       horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
     };
   })()`);
@@ -929,6 +979,7 @@ const heroCrowdStress = await runCrowdStress("heroes", heroStressEntries.length)
 const itemCrowdStress = await runCrowdStress("items", itemStressEntries.length);
 const orderCrowdStress = await runCrowdStress("orders", orderStressEntries.length);
 const spellLayoutStress = await runSpellLayoutStress();
+const aghanimLayoutStress = await runAghanimLayoutStress();
 const classicChromeStress = await runClassicChromeStress();
 await evaluate(`window.__queueArcadeCrowdStress = null`);
 
@@ -981,9 +1032,9 @@ if (
   lobby.canonical !== `${new URL(appUrl).origin}/` ||
   !lobby.openGraphImage?.includes("opengraph-image") ||
   lobby.modeCards !== 0 ||
-  lobby.roundFamilies !== 8 ||
+  lobby.roundFamilies !== 9 ||
   !lobby.roundMix?.includes("Classic Trivia") ||
-  !lobby.copy?.toLowerCase().includes("eleven round formats") ||
+  !lobby.copy?.toLowerCase().includes("twelve round formats") ||
   lobby.copy?.toLowerCase().includes("choose your side quest") ||
   !lobby.muted ||
   lobby.volume !== "70"
@@ -1056,6 +1107,7 @@ if (
     "echo-hunt",
     "soundcheck",
     "quote-hunt",
+    "aghanim-lab",
     "order-up",
   ].includes(answering.game) ||
   (answering.openShop
@@ -1208,9 +1260,21 @@ if (
   failures.push("The Spell Link scoring note is clipped or crowded by the hero picker.");
 }
 if (
+  aghanimLayoutStress.clueCards !== 3 ||
+  !aghanimLayoutStress.firstClueVisible ||
+  !aghanimLayoutStress.laterCluesLocked ||
+  !aghanimLayoutStress.artworkVisible ||
+  aghanimLayoutStress.heroItems !== 127 ||
+  aghanimLayoutStress.pickerGap < 0 ||
+  !aghanimLayoutStress.promptInsideViewport ||
+  aghanimLayoutStress.horizontalOverflow
+) {
+  failures.push("Aghanim's Lab is missing a staged clue, hero, or stable desktop layout.");
+}
+if (
   !mobile.headingVisible ||
   !mobile.startButton ||
-  mobile.roundFamilies !== 8 ||
+  mobile.roundFamilies !== 9 ||
   mobile.steamButtons !== 1 ||
   Math.abs((mobile.accountSlotWidth ?? 0) - (mobile.startButtonWidth ?? 0)) > 1 ||
   mobile.horizontalOverflow
@@ -1245,6 +1309,7 @@ if (failures.length) {
         itemCrowdStress,
         orderCrowdStress,
         spellLayoutStress,
+        aghanimLayoutStress,
         classicChromeStress,
         mobile,
         calibration,
@@ -1274,6 +1339,7 @@ console.log(
         orders: `${orderCrowdStress.namedRows} named + Other (${orderCrowdStress.total} votes)`,
       },
       spellLinkHelperClearance: `${Math.round(spellLayoutStress.pickerGap)}px`,
+      aghanimLabLayout: "3 staged clues + 127-hero picker",
       mediaPlaybackDisabled: true,
       optionalSteamProfile: true,
       privacyControls: true,
@@ -1296,6 +1362,7 @@ console.log(
         "/tmp/queue-arcade-crowd-items.png",
         "/tmp/queue-arcade-crowd-orders.png",
         "/tmp/queue-arcade-spell-layout.png",
+        "/tmp/queue-arcade-aghanim-layout.png",
         "/tmp/queue-arcade-mobile.png",
         "/tmp/queue-arcade-calibration-mobile.png",
       ],

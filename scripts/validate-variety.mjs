@@ -70,10 +70,10 @@ const adjacentFamilyRepeat = arcadeFormats.some(
 );
 
 if (
-  arcadeGames.length !== 8 ||
+  arcadeGames.length !== 9 ||
   arcadeGames.includes("map-sense") ||
   arcadeGames.includes("counterplay") ||
-  arcadeFormats.length !== 11 ||
+  arcadeFormats.length !== 12 ||
   new Set(arcadeFormats).size !== arcadeFormats.length ||
   !mixedWindowsAreComplete ||
   adjacentFamilyRepeat ||
@@ -96,6 +96,7 @@ const expectedFormatsByKind = {
   "hero-voice": "echo-hunt",
   "soundcheck-item": "soundcheck",
   "hero-quote": "quote-hunt",
+  "aghanim-upgrade": "aghanim-upgrades",
   "value-order-item": "value-order",
   "value-order-cooldown": "value-order",
   "value-order-mana": "value-order",
@@ -168,5 +169,5 @@ if (
 }
 
 console.log(
-  `Validated deterministic templates, hidden difficulty cadence ${JSON.stringify(hiddenDifficultyCounts)}, eleven-format public arcade cadence ${JSON.stringify(gameCounts)}, and Soundcheck family rotation (${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}).`,
+  `Validated deterministic templates, hidden difficulty cadence ${JSON.stringify(hiddenDifficultyCounts)}, twelve-format public arcade cadence ${JSON.stringify(gameCounts)}, and Soundcheck family rotation (${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}).`,
 );

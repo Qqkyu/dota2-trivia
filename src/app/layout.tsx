@@ -22,10 +22,10 @@ export const metadata: Metadata = {
     template: "%s · Queue Arcade",
   },
   description:
-    "One synchronized Dota 2 queue-time arcade with rotating trivia, recipes, spells, fog, voices, sounds, quotes, and live public-room reveals.",
+    "One synchronized Dota 2 queue-time arcade with rotating trivia, recipes, spells, Aghanim upgrades, fog, voices, sounds, quotes, and live public-room reveals.",
   applicationName: "Queue Arcade",
   category: "game",
-  keywords: ["Dota 2", "minigames", "trivia", "quiz", "queue time", "abilities", "items", "heroes"],
+  keywords: ["Dota 2", "minigames", "trivia", "quiz", "queue time", "abilities", "Aghanim", "items", "heroes"],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",

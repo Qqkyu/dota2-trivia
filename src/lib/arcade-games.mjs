@@ -7,6 +7,7 @@ export const LIVE_ROUND_GAMES = Object.freeze([
   "echo-hunt",
   "soundcheck",
   "quote-hunt",
+  "aghanim-lab",
   "order-up",
 ]);
 
@@ -15,7 +16,7 @@ export const PUBLIC_ARCADE_MODE = "mixed";
 export const LIVE_ARCADE_MODES = Object.freeze([PUBLIC_ARCADE_MODE]);
 
 /**
- * An eleven-round cadence based on genuinely different question loops rather than
+ * A twelve-round cadence based on genuinely different question loops rather than
  * old lobby modes. Related Classic and Shopkeeper templates share a slot, so a
  * one-loop challenge can no longer receive the weight of an entire question
  * library. The order deliberately separates rounds from the same family.
@@ -25,6 +26,7 @@ export const PUBLIC_ROUND_FORMATS = Object.freeze([
   "fogged-vision",
   "shopkeeper-builds",
   "quote-hunt",
+  "aghanim-upgrades",
   "classic-hero-stats",
   "soundcheck",
   "value-order",
@@ -52,6 +54,7 @@ const ROUND_FORMAT_BY_KIND = Object.freeze({
   "soundcheck-ability": "soundcheck",
   "soundcheck-item": "soundcheck",
   "hero-quote": "quote-hunt",
+  "aghanim-upgrade": "aghanim-upgrades",
   "value-order-item": "value-order",
   "value-order-cooldown": "value-order",
   "value-order-mana": "value-order",
@@ -71,6 +74,7 @@ const ROUND_GAME_BY_FORMAT = Object.freeze({
   "echo-hunt": "echo-hunt",
   soundcheck: "soundcheck",
   "quote-hunt": "quote-hunt",
+  "aghanim-upgrades": "aghanim-lab",
   "value-order": "order-up",
 });
 

@@ -1,6 +1,6 @@
 # Queue Arcade
 
-An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now rotates eight named round identities inside one endless public arcade:
+An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now rotates nine named round identities inside one endless public arcade:
 
 - **Classic Trivia** — mana, cooldowns, damage, stat comparisons, and item prices;
 - **Shopkeeper Rush** — build finished items, spot exact recipes, find shared parts, and trace upgrade paths;
@@ -8,7 +8,8 @@ An unofficial browser arcade made for the gap between **Find Match** and **Accep
 - **Fogged Vision** — identify a hero while its portrait clears through three fixed-layout stages;
 - **Echo Hunt** — identify a hero from two terse voice fragments before the complete response unlocks;
 - **Soundcheck** — identify verified effects through three growing audio cuts, including ordered two-sound sequences;
-- **Quote Hunt** — match a substantial written hero response to its speaker.
+- **Quote Hunt** — match a substantial written hero response to its speaker;
+- **Aghanim's Lab** — identify a hero from an audited Scepter or Shard effect before later clues reveal the upgrade type and ability name;
 - **Order Up** — arrange audited item, ability, and hero values from low to high.
 
 These are round formats, not separate queues. Everyone shares the parts that made the original compelling: short timed rounds, a global answer reveal, speed and streak scoring, and double points when you are right while most of the crowd is wrong.
@@ -18,12 +19,12 @@ The playable MVP includes:
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - canonical `/` lobby and `/play` session URLs with direct loading plus browser Back and Forward support;
 - one shared public room of 15-second rounds, without mode, category, or player-facing difficulty queues;
-- 1,242 live prompts for Dota patch 7.41e, including all 127 enabled heroes in Fogged Vision, 102 Shopkeeper rounds, 96 Soundcheck rounds, and 80 tie-free Order Up rounds;
+- 1,326 live prompts for Dota patch 7.41e, including all 127 enabled heroes in Fogged Vision, 102 Shopkeeper rounds, 96 Soundcheck rounds, 84 Aghanim's Lab upgrades, and 80 tie-free Order Up rounds;
 - item, hero, and ability artwork for visual answer rounds;
 - 123 remotely verified Echo Hunt clips, 96 Soundcheck rounds built from 114 audited clips, and 245 Quote Hunt lines sourced through Dotabase;
 - live-client answer audits plus balanced A–D placement for every generated question family;
-- progressive Spell Link clues at two-thirds and one-third time remaining;
-- a deterministic eleven-format cadence that gives Classic three slots, Shopkeeper two, every distinctive interaction one, and never repeats a family back-to-back;
+- progressive Spell Link, Quote Hunt, and Aghanim's Lab clues delivered at server-owned stages;
+- a deterministic twelve-format cadence that gives Classic three slots, Shopkeeper two, every distinctive interaction one, and never repeats a family back-to-back;
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
 - one server-owned public room: everyone receives the same round and deadlines;
 - server-delivered, phase-aware question payloads: the browser never imports the playable answer catalog;
@@ -160,12 +161,14 @@ pnpm validate-data
 pnpm validate-assets
 ```
 
-The sync writes:
+The data generators write:
 
 - `src/data/questions.generated.json`
 - `src/data/trivia-meta.generated.json`
 - `src/data/soundcheck-questions.json`
 - `src/data/shopkeeper-questions.json`
+- `src/data/value-order-questions.json`
+- `src/data/aghanim-questions.json`
 
 The sync uses OpenDota for localized metadata and artwork, and Dotabase for hero-response metadata and playable audio
 paths. Because third-party constants can lag behind a patch, every generated ownership, mana, cooldown, damage, hero
@@ -184,6 +187,11 @@ Real Recipe uses the full Dota shop as a three-slot, duplicate-safe recipe build
 components server-side until reveal; Upgrade Path also uses the full shop and keeps its direct upgrade hidden until
 reveal; and Shared Part accepts exactly one direct intersection. The old single-component and random reverse-recipe
 templates remain excluded by the playable quality gates.
+
+Aghanim's Lab is generated from the compact, reviewed `src/data/aghanim-upgrades.json` catalog. Its 84 questions cover
+44 Scepter and 40 Shard upgrades across 84 unique heroes. Validation checks the matching 7.41e client upgrade flags,
+prevents the opening effect from naming its hero, item, or ability, and keeps every later clue and marked answer on the
+server until its reveal stage.
 
 The pipeline checks every referenced image and audio clip, rejects questions whose assets are unavailable, filters
 hero-name leaks and laugh-heavy/noise responses, blocks generated clues that leak their answer, caps timed prompts at
@@ -230,9 +238,9 @@ player input.
 For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run
 `node scripts/visual-smoke.mjs`. The script disables media playback again inside the page before loading anything, then
 checks the one-room lobby, social metadata, fixed-size account entry, guest profile, privacy page and private ops gate, `/play` navigation, browser Back and
-Forward, legacy-mode redirect, eight compact round identities, synchronized answering/reveal/automatic-advance journey, reveal-only crowd splits,
+Forward, legacy-mode redirect, nine compact round identities, synchronized answering/reveal/automatic-advance journey, reveal-only crowd splits,
 full-catalog 127-hero and 182-item result stress cases plus all 24 possible four-card orders,
-no-shift question-report popover, the optional session summary, the 10% fresh-install volume default, mobile lobby, mobile calibration layout, overflow, and saves screenshots
+the three-stage Aghanim's Lab hero-picker layout, no-shift question-report popover, the optional session summary, the 10% fresh-install volume default, mobile lobby, mobile calibration layout, overflow, and saves screenshots
 under `/tmp`.
 
 ## Crowd architecture
@@ -240,10 +248,10 @@ under `/tmp`.
 Each game catalog and content version owns exactly one public room. Room IDs are explicitly namespaced as `<game>:<content-version>:public`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
 
 `/api/rounds` converts the private catalog entry into an explicit public payload. During answering it omits the internal
-question ID, marked answer, explanation, source/audit metadata, hidden Shopkeeper keys, Order Up values, and locked Spell Link clues. The
+question ID, marked answer, explanation, source/audit metadata, hidden Shopkeeper keys, Order Up values, and locked progressive clues. The
 reveal payload adds only the marked answer, explanation, and any opaque answer key or values needed to render the result. A
 phase-aware revision lets the browser cache the current payload while its one-second room poll continues; most rounds are
-sent once for answering and once for reveal, while Spell Link receives a new payload when each server-timed clue unlocks.
+sent once for answering and once for reveal, while progressive rounds receive a new payload when each server-timed clue unlocks.
 
 `/api/votes` only accepts a round ID before its server deadline and resolves the corresponding private question itself.
 Votes are keyed by round ID, so a repeated question gets a fresh split, and answer counts remain hidden until the room

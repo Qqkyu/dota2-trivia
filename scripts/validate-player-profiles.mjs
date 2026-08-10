@@ -55,6 +55,9 @@ if (
   answerStageForRound("soundcheck", 7_001, 15_000) !== 2 ||
   answerStageForRound("soundcheck", 7_000, 15_000) !== 3 ||
   answerStageForRound("echo-hunt", 7_000, 15_000) !== 2 ||
+  answerStageForRound("aghanim-lab", 11_000, 15_000) !== 1 ||
+  answerStageForRound("aghanim-lab", 9_000, 15_000) !== 2 ||
+  answerStageForRound("aghanim-lab", 4_000, 15_000) !== 3 ||
   answerStageForRound("quote-hunt", 11_000, 15_000) !== 1 ||
   answerStageForRound("quote-hunt", 9_000, 15_000) !== 2 ||
   answerStageForRound("quote-hunt", 4_000, 15_000) !== 3

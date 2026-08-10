@@ -1,0 +1,3362 @@
+[
+  {
+    "id": "aghanim-upgrade:antimage:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Broodmother",
+      "Anti-Mage",
+      "Hoodwink",
+      "Monkey King"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/broodmother.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/hoodwink.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Anti-Mage's Aghanim's Scepter upgrades Blink. After using a mobility spell, the next attack within five seconds burns extra maximum mana and temporarily prevents mana gain.",
+    "aghanim": {
+      "effect": "After using a mobility spell, the next attack within five seconds burns extra maximum mana and temporarily prevents mana gain.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Blink",
+      "audit": {
+        "clientAbilityKey": "antimage_blink",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:axe:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Axe",
+      "Clockwerk",
+      "Elder Titan",
+      "Night Stalker"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/night_stalker.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Axe's Aghanim's Scepter upgrades Counter Helix. The passive counter loses its cooldown, advances on the caster's own attacks, and applies stacking outgoing attack-damage reduction.",
+    "aghanim": {
+      "effect": "The passive counter loses its cooldown, advances on the caster's own attacks, and applies stacking outgoing attack-damage reduction.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Counter Helix",
+      "audit": {
+        "clientAbilityKey": "axe_counter_helix",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:bane:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Death Prophet",
+      "Nyx Assassin",
+      "Windranger",
+      "Bane"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/death_prophet.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nyx_assassin.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/windrunner.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Bane's Aghanim's Scepter upgrades Fiend's Grip. Creates two fragile, uncontrollable illusions that channel the same disable. Their damage does not stack.",
+    "aghanim": {
+      "effect": "Creates two fragile, uncontrollable illusions that channel the same disable. Their damage does not stack.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Fiend's Grip",
+      "audit": {
+        "clientAbilityKey": "bane_fiends_grip",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:crystal_maiden:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Invoker",
+      "Lion",
+      "Crystal Maiden",
+      "Ringmaster"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lion.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crystal_maiden.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Crystal Maiden's Aghanim's Shard grants Crystal Clone. Slides in a direction, leaving a projectile-disjointing clone that shatters into an area disable when damaged or timed out.",
+    "aghanim": {
+      "effect": "Slides in a direction, leaving a projectile-disjointing clone that shatters into an area disable when damaged or timed out.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Crystal Clone",
+      "audit": {
+        "clientAbilityKey": "crystal_maiden_crystal_clone",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:drow_ranger:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Lone Druid",
+      "Drow Ranger",
+      "Morphling",
+      "Sniper"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lone_druid.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/drow_ranger.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Drow Ranger's Aghanim's Shard grants Glacier. Creates an icy hill that knocks enemies away and grants high-ground bonuses, flying vision, and extra ranged attack range.",
+    "aghanim": {
+      "effect": "Creates an icy hill that knocks enemies away and grants high-ground bonuses, flying vision, and extra ranged attack range.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Glacier",
+      "audit": {
+        "clientAbilityKey": "drow_ranger_glacier",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:earthshaker:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Earthshaker",
+      "Mars",
+      "Pudge",
+      "Tusk"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earthshaker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mars.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tusk.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Earthshaker's Aghanim's Shard upgrades Fissure. Casting another ability releases a shorter stun along an existing terrain barrier.",
+    "aghanim": {
+      "effect": "Casting another ability releases a shorter stun along an existing terrain barrier.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Fissure",
+      "audit": {
+        "clientAbilityKey": "earthshaker_fissure",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:mirana:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Slark",
+      "Ursa",
+      "Clinkz",
+      "Mirana"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slark.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ursa.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/clinkz.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Mirana's Aghanim's Scepter upgrades Sacred Arrow. The projectile calls down additional area damage along its flight path and a weaker second burst on impact.",
+    "aghanim": {
+      "effect": "The projectile calls down additional area damage along its flight path and a weaker second burst on impact.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Sacred Arrow",
+      "audit": {
+        "clientAbilityKey": "mirana_arrow",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:morphling:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Templar Assassin",
+      "Weaver",
+      "Morphling",
+      "Faceless Void"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/templar_assassin.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/weaver.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Morphling's Aghanim's Scepter upgrades Morph. Creates a strong illusion of a target hero that can cast basic abilities; recasting swaps the caster into its position.",
+    "aghanim": {
+      "effect": "Creates a strong illusion of a target hero that can cast basic abilities; recasting swaps the caster into its position.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Morph",
+      "audit": {
+        "clientAbilityKey": "morphling_replicate",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:nevermore:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Anti-Mage",
+      "Shadow Fiend",
+      "Ember Spirit",
+      "Medusa"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/medusa.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Shadow Fiend's Aghanim's Scepter upgrades Requiem of Souls. The expanding ultimate returns to its caster, healing for all damage dealt on the way back.",
+    "aghanim": {
+      "effect": "The expanding ultimate returns to its caster, healing for all damage dealt on the way back.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Requiem of Souls",
+      "audit": {
+        "clientAbilityKey": "nevermore_requiem",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:phantom_lancer:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Phantom Lancer",
+      "Viper",
+      "Clinkz",
+      "Lone Druid"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_lancer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/viper.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/clinkz.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lone_druid.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Phantom Lancer's Aghanim's Shard upgrades Juxtapose. Activating an illusion passive makes the caster invisible, grants movement speed, and leaves a duplicate image behind.",
+    "aghanim": {
+      "effect": "Activating an illusion passive makes the caster invisible, grants movement speed, and leaves a duplicate image behind.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Juxtapose",
+      "audit": {
+        "clientAbilityKey": "phantom_lancer_juxtapose",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:puck:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Witch Doctor",
+      "Dark Willow",
+      "Lich",
+      "Puck"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/witch_doctor.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lich.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/puck.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Puck's Aghanim's Scepter upgrades Dream Coil. All tethered enemies are attacked at 90% of the caster's attack rate, including while stunned after breaking the tether.",
+    "aghanim": {
+      "effect": "All tethered enemies are attacked at 90% of the caster's attack rate, including while stunned after breaking the tether.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Dream Coil",
+      "audit": {
+        "clientAbilityKey": "puck_dream_coil",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:pudge:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Bristleback",
+      "Dragon Knight",
+      "Pudge",
+      "Lifestealer"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bristleback.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/life_stealer.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Pudge's Aghanim's Shard upgrades Meat Hook. The hook deals bonus damage based on enemy pull distance, while hooking an ally halves its cooldown.",
+    "aghanim": {
+      "effect": "The hook deals bonus damage based on enemy pull distance, while hooking an ally halves its cooldown.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Meat Hook",
+      "audit": {
+        "clientAbilityKey": "pudge_meat_hook",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:razor:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Bounty Hunter",
+      "Razor",
+      "Gyrocopter",
+      "Mirana"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bounty_hunter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/razor.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/gyrocopter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Razor's Aghanim's Scepter upgrades Eye of the Storm. The storm strikes two targets at once and can damage towers, barracks, and the Ancient.",
+    "aghanim": {
+      "effect": "The storm strikes two targets at once and can damage towers, barracks, and the Ancient.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Eye of the Storm",
+      "audit": {
+        "clientAbilityKey": "razor_eye_of_the_storm",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:storm_spirit:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Storm Spirit",
+      "Keeper of the Light",
+      "Necrophos",
+      "Shadow Demon"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/keeper_of_the_light.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_demon.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Storm Spirit's Aghanim's Shard upgrades Overload. Activating the attack passive grants the caster and nearby allies three empowered attacks plus bonus attack speed.",
+    "aghanim": {
+      "effect": "Activating the attack passive grants the caster and nearby allies three empowered attacks plus bonus attack speed.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Overload",
+      "audit": {
+        "clientAbilityKey": "storm_spirit_overload",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:sven:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Dragon Knight",
+      "Largo",
+      "Phoenix",
+      "Sven"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phoenix.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sven.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Sven's Aghanim's Scepter upgrades Storm Hammer. The projectile gains cast range and a basic dispel; alt-cast adds damage and carries the caster alongside it.",
+    "aghanim": {
+      "effect": "The projectile gains cast range and a basic dispel; alt-cast adds damage and carries the caster alongside it.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Storm Hammer",
+      "audit": {
+        "clientAbilityKey": "sven_storm_bolt",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:tiny:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Huskar",
+      "Mars",
+      "Tiny",
+      "Spirit Breaker"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/huskar.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mars.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tiny.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spirit_breaker.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Tiny's Aghanim's Scepter grants Tree Volley. Channels to hurl nearby trees toward an area, applying the caster's attacks and tree-throw bonuses.",
+    "aghanim": {
+      "effect": "Channels to hurl nearby trees toward an area, applying the caster's attacks and tree-throw bonuses.",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Tree Volley",
+      "audit": {
+        "clientAbilityKey": "tiny_tree_channel",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:vengefulspirit:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Mirana",
+      "Vengeful Spirit",
+      "Razor",
+      "Troll Warlord"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/razor.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/troll_warlord.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Vengeful Spirit's Aghanim's Scepter upgrades Vengeance Aura. Death creates a full-damage spell-casting illusion; respawning while it survives moves the hero to the illusion.",
+    "aghanim": {
+      "effect": "Death creates a full-damage spell-casting illusion; respawning while it survives moves the hero to the illusion.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Vengeance Aura",
+      "audit": {
+        "clientAbilityKey": "vengefulspirit_command_aura",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:windrunner:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Windranger",
+      "Visage",
+      "Batrider",
+      "Marci"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/windrunner.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/batrider.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Windranger's Aghanim's Shard grants Gale Force. Creates a vector-targeted wind that pushes every enemy in its area toward the chosen direction.",
+    "aghanim": {
+      "effect": "Creates a vector-targeted wind that pushes every enemy in its area toward the chosen direction.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Gale Force",
+      "audit": {
+        "clientAbilityKey": "windrunner_gale_force",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:zuus:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Pugna",
+      "Silencer",
+      "Ancient Apparition",
+      "Zeus"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pugna.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ancient_apparition.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/zuus.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Zeus's Aghanim's Scepter grants Nimbus. Creates a global-range storm cloud that repeatedly casts a lightning spell on nearby enemies.",
+    "aghanim": {
+      "effect": "Creates a global-range storm cloud that repeatedly casts a lightning spell on nearby enemies.",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Nimbus",
+      "audit": {
+        "clientAbilityKey": "zuus_cloud",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:kunkka:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Wraith King",
+      "Clockwerk",
+      "Kunkka",
+      "Axe"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Kunkka's Aghanim's Scepter upgrades Ghostship. The ultimate summons two ships in sequence, each firing cannonball waves from both sides for partial damage.",
+    "aghanim": {
+      "effect": "The ultimate summons two ships in sequence, each firing cannonball waves from both sides for partial damage.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Ghostship",
+      "audit": {
+        "clientAbilityKey": "kunkka_ghostship",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:lina:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Crystal Maiden",
+      "Lina",
+      "Invoker",
+      "Necrophos"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crystal_maiden.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Lina's Aghanim's Scepter grants Flame Cloak. Grants unobstructed movement, spell amplification, magic resistance, and maximum stacks of an attack-speed passive.",
+    "aghanim": {
+      "effect": "Grants unobstructed movement, spell amplification, magic resistance, and maximum stacks of an attack-speed passive.",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Flame Cloak",
+      "audit": {
+        "clientAbilityKey": "lina_flame_cloak",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:lion:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Lion",
+      "Dark Willow",
+      "Keeper of the Light",
+      "Outworld Devourer"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lion.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/keeper_of_the_light.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Lion's Aghanim's Shard upgrades Mana Drain. The channel affects two additional enemies, gains break distance, and grants debuff immunity with magic resistance.",
+    "aghanim": {
+      "effect": "The channel affects two additional enemies, gains break distance, and grants debuff immunity with magic resistance.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Mana Drain",
+      "audit": {
+        "clientAbilityKey": "lion_mana_drain",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:shadow_shaman:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Necrophos",
+      "Ringmaster",
+      "Warlock",
+      "Shadow Shaman"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_shaman.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Shadow Shaman's Aghanim's Scepter upgrades Shackles. The channel can target allies and friendly wards; affected units repeatedly emit radial damage around themselves.",
+    "aghanim": {
+      "effect": "The channel can target allies and friendly wards; affected units repeatedly emit radial damage around themselves.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Shackles",
+      "audit": {
+        "clientAbilityKey": "shadow_shaman_shackles",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:tidehunter:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Mars",
+      "Pudge",
+      "Tidehunter",
+      "Tusk"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mars.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tidehunter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tusk.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Tidehunter's Aghanim's Shard grants Dead in the Water. Attaches a heavy anchor that leashes an enemy; four hero attacks destroy it.",
+    "aghanim": {
+      "effect": "Attaches a heavy anchor that leashes an enemy; four hero attacks destroy it.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Dead in the Water",
+      "audit": {
+        "clientAbilityKey": "tidehunter_dead_in_the_water",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:witch_doctor:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Shadow Shaman",
+      "Witch Doctor",
+      "Winter Wyvern",
+      "Disruptor"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_shaman.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/witch_doctor.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/winter_wyvern.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/disruptor.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Witch Doctor's Aghanim's Shard grants Voodoo Switcheroo. Temporarily transforms the caster into a hidden, slower-attacking version of their own summoned ward.",
+    "aghanim": {
+      "effect": "Temporarily transforms the caster into a hidden, slower-attacking version of their own summoned ward.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Voodoo Switcheroo",
+      "audit": {
+        "clientAbilityKey": "witch_doctor_voodoo_switcheroo",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:lich:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Lich",
+      "Enchantress",
+      "Pugna",
+      "Invoker"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lich.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enchantress.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pugna.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Lich's Aghanim's Scepter upgrades Sinister Gaze. The channel becomes area-targeted and allows its caster to use other abilities while channeling.",
+    "aghanim": {
+      "effect": "The channel becomes area-targeted and allows its caster to use other abilities while channeling.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Sinister Gaze",
+      "audit": {
+        "clientAbilityKey": "lich_sinister_gaze",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:riki:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Monkey King",
+      "Ursa",
+      "Naga Siren",
+      "Riki"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ursa.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Riki's Aghanim's Scepter upgrades Tricks of the Trade. The caster can hide inside an ally during the attack sequence, granting that ally movement speed and extending the effect.",
+    "aghanim": {
+      "effect": "The caster can hide inside an ally during the attack sequence, granting that ally movement speed and extending the effect.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Tricks of the Trade",
+      "audit": {
+        "clientAbilityKey": "riki_tricks_of_the_trade",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:enigma:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Snapfire",
+      "Abaddon",
+      "Enigma",
+      "Venomancer"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/snapfire.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/abaddon.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enigma.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/venomancer.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Enigma's Aghanim's Shard upgrades Malefice. Every stun pulse creates an uncontrollable summoned unit beside the target and lasts slightly longer.",
+    "aghanim": {
+      "effect": "Every stun pulse creates an uncontrollable summoned unit beside the target and lasts slightly longer.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Malefice",
+      "audit": {
+        "clientAbilityKey": "enigma_malefice",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:tinker:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Silencer",
+      "Tinker",
+      "Witch Doctor",
+      "Enchantress"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tinker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/witch_doctor.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enchantress.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Tinker's Aghanim's Shard grants Warp Flare. Teleports an enemy farther away, then roots them and temporarily reduces both attack and cast range.",
+    "aghanim": {
+      "effect": "Teleports an enemy farther away, then roots them and temporarily reduces both attack and cast range.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Warp Flare",
+      "audit": {
+        "clientAbilityKey": "tinker_warp_grenade",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:sniper:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Sniper",
+      "Riki",
+      "Terrorblade",
+      "Bounty Hunter"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/terrorblade.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bounty_hunter.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Sniper's Aghanim's Shard grants Concussive Grenade. Launches an area grenade that damages and disarms enemies while knocking both them and the caster backward.",
+    "aghanim": {
+      "effect": "Launches an area grenade that damages and disarms enemies while knocking both them and the caster backward.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Concussive Grenade",
+      "audit": {
+        "clientAbilityKey": "sniper_concussive_grenade",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:necrolyte:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Muerta",
+      "Queen of Pain",
+      "Tinker",
+      "Necrophos"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/queenofpain.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tinker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Necrophos's Aghanim's Shard grants Death Seeker. Transforms the caster into a traveling healing-and-damage pulse that spreads to nearby units after reaching its target.",
+    "aghanim": {
+      "effect": "Transforms the caster into a traveling healing-and-damage pulse that spreads to nearby units after reaching its target.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Death Seeker",
+      "audit": {
+        "clientAbilityKey": "necrolyte_death_seeker",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:beastmaster:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Snapfire",
+      "Abaddon",
+      "Beastmaster",
+      "Enigma"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/snapfire.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/abaddon.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/beastmaster.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enigma.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Beastmaster's Aghanim's Scepter grants Drums of Slom. Nearby controlled-unit attacks accelerate repeating drumbeats that damage enemies and heal the caster's army.",
+    "aghanim": {
+      "effect": "Nearby controlled-unit attacks accelerate repeating drumbeats that damage enemies and heal the caster's army.",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Drums of Slom",
+      "audit": {
+        "clientAbilityKey": "beastmaster_drums_of_slom",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:queenofpain:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Ringmaster",
+      "Queen of Pain",
+      "Storm Spirit",
+      "Crystal Maiden"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/queenofpain.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crystal_maiden.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Queen of Pain's Aghanim's Shard upgrades Blink. Blinking creates damaging, silencing bursts at both the departure and arrival points.",
+    "aghanim": {
+      "effect": "Blinking creates damaging, silencing bursts at both the departure and arrival points.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Blink",
+      "audit": {
+        "clientAbilityKey": "queenofpain_blink",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:venomancer:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Venomancer",
+      "Magnus",
+      "Snapfire",
+      "Bane"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/venomancer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/snapfire.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Venomancer's Aghanim's Scepter upgrades Noxious Plague. The infection lowers magic resistance, spreads with full impact damage from hero targets, and has a much shorter cooldown.",
+    "aghanim": {
+      "effect": "The infection lowers magic resistance, spreads with full impact damage from hero targets, and has a much shorter cooldown.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Noxious Plague",
+      "audit": {
+        "clientAbilityKey": "venomancer_noxious_plague",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:faceless_void:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Hoodwink",
+      "Meepo",
+      "Riki",
+      "Faceless Void"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/hoodwink.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Faceless Void's Aghanim's Scepter grants Reverse Time Walk. For 1.5 seconds after landing a mobility spell, recast it to return to the previous location without reverting health.",
+    "aghanim": {
+      "effect": "For 1.5 seconds after landing a mobility spell, recast it to return to the previous location without reverting health.",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Reverse Time Walk",
+      "audit": {
+        "clientAbilityKey": "faceless_void_time_walk_reverse",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:death_prophet:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Arc Warden",
+      "Sand King",
+      "Death Prophet",
+      "Batrider"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/arc_warden.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sand_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/death_prophet.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/batrider.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Death Prophet's Aghanim's Scepter upgrades Exorcism. Spells and attacks send an extra spirit through the target, dealing bonus damage before returning with healing.",
+    "aghanim": {
+      "effect": "Spells and attacks send an extra spirit through the target, dealing bonus damage before returning with healing.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Exorcism",
+      "audit": {
+        "clientAbilityKey": "death_prophet_exorcism",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:phantom_assassin:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Shadow Fiend",
+      "Phantom Assassin",
+      "Troll Warlord",
+      "Broodmother"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_assassin.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/troll_warlord.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/broodmother.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Phantom Assassin's Aghanim's Scepter grants Fan of Knives. Releases blades in every direction, damaging enemies by maximum health and applying Break.",
+    "aghanim": {
+      "effect": "Releases blades in every direction, damaging enemies by maximum health and applying Break.",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Fan of Knives",
+      "audit": {
+        "clientAbilityKey": "phantom_assassin_fan_of_knives",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:pugna:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Pugna",
+      "Silencer",
+      "Witch Doctor",
+      "Enchantress"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pugna.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/witch_doctor.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enchantress.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Pugna's Aghanim's Shard upgrades Life Drain. Channeling through the caster's ward refracts the effect to every enemy hero nearby at reduced strength.",
+    "aghanim": {
+      "effect": "Channeling through the caster's ward refracts the effect to every enemy hero nearby at reduced strength.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Life Drain",
+      "audit": {
+        "clientAbilityKey": "pugna_life_drain",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:viper:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Clinkz",
+      "Juggernaut",
+      "Morphling",
+      "Viper"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/clinkz.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/juggernaut.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/viper.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Viper's Aghanim's Scepter grants Nosedive. Slams into an area, creates a damaging zone, and applies a defensive poison passive to nearby enemies.",
+    "aghanim": {
+      "effect": "Slams into an area, creates a damaging zone, and applies a defensive poison passive to nearby enemies.",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Nosedive",
+      "audit": {
+        "clientAbilityKey": "viper_nose_dive",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:luna:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Phantom Assassin",
+      "Sniper",
+      "Luna",
+      "Weaver"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_assassin.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/luna.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/weaver.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Luna's Aghanim's Scepter upgrades Eclipse. The ultimate can follow an allied target or affect an area, while producing more beams without a per-unit limit.",
+    "aghanim": {
+      "effect": "The ultimate can follow an allied target or affect an area, while producing more beams without a per-unit limit.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Eclipse",
+      "audit": {
+        "clientAbilityKey": "luna_eclipse",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:dragon_knight:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Legion Commander",
+      "Dragon Knight",
+      "Omniknight",
+      "Timbersaw"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/legion_commander.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/omniknight.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shredder.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Dragon Knight's Aghanim's Shard grants Fireball. Ignites a ground area, dealing lingering damage over time; its cast range is shorter while the caster is melee.",
+    "aghanim": {
+      "effect": "Ignites a ground area, dealing lingering damage over time; its cast range is shorter while the caster is melee.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Fireball",
+      "audit": {
+        "clientAbilityKey": "dragon_knight_fireball",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:dazzle:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Dazzle",
+      "Nature's Prophet",
+      "Void Spirit",
+      "Enigma"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/furion.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enigma.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Dazzle's Aghanim's Scepter upgrades Shadow Wave. The bouncing heal can target enemies, damaging them, healing nearby allies, and triggering an attack against each enemy bounce.",
+    "aghanim": {
+      "effect": "The bouncing heal can target enemies, damaging them, healing nearby allies, and triggering an attack against each enemy bounce.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Shadow Wave",
+      "audit": {
+        "clientAbilityKey": "dazzle_shadow_wave",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:rattletrap:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Largo",
+      "Ogre Magi",
+      "Tidehunter",
+      "Clockwerk"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ogre_magi.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tidehunter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Clockwerk's Aghanim's Shard grants Jetpack. Grants flying movement, flying vision, and speed but prevents attacking and severely limits turning.",
+    "aghanim": {
+      "effect": "Grants flying movement, flying vision, and speed but prevents attacking and severely limits turning.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Jetpack",
+      "audit": {
+        "clientAbilityKey": "rattletrap_jetpack",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:leshrac:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Rubick",
+      "Tinker",
+      "Leshrac",
+      "Dark Seer"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tinker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/leshrac.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Leshrac's Aghanim's Scepter grants Nihilism. Turns the caster and nearby enemies ethereal, slowing enemies and amplifying their incoming magic damage without penalizing the caster.",
+    "aghanim": {
+      "effect": "Turns the caster and nearby enemies ethereal, slowing enemies and amplifying their incoming magic damage without penalizing the caster.",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Nihilism",
+      "audit": {
+        "clientAbilityKey": "leshrac_greater_lightning_storm",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:furion:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Sand King",
+      "Nature's Prophet",
+      "Windranger",
+      "Death Prophet"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sand_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/furion.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/windrunner.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/death_prophet.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Nature's Prophet's Aghanim's Shard grants Curse of the Oldgrowth. Curses all nearby enemy heroes, revealing them through fog and scaling damage and slow with surrounding trees.",
+    "aghanim": {
+      "effect": "Curses all nearby enemy heroes, revealing them through fog and scaling damage and slow with surrounding trees.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Curse of the Oldgrowth",
+      "audit": {
+        "clientAbilityKey": "furion_curse_of_the_forest",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:life_stealer:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Lifestealer",
+      "Tidehunter",
+      "Undying",
+      "Dawnbreaker"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/life_stealer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tidehunter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/undying.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Lifestealer's Aghanim's Scepter upgrades Infest. Can enter an enemy hero, attacking from inside while gaining increased regeneration.",
+    "aghanim": {
+      "effect": "Can enter an enemy hero, attacking from inside while gaining increased regeneration.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Infest",
+      "audit": {
+        "clientAbilityKey": "life_stealer_infest",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:dark_seer:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Outworld Devourer",
+      "Shadow Demon",
+      "Witch Doctor",
+      "Dark Seer"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_demon.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/witch_doctor.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Dark Seer's Aghanim's Shard upgrades Surge. Affected allies leave a seven-second damaging trail that slows enemies; alt-cast disables the trail.",
+    "aghanim": {
+      "effect": "Affected allies leave a seven-second damaging trail that slows enemies; alt-cast disables the trail.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Surge",
+      "audit": {
+        "clientAbilityKey": "dark_seer_surge",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:clinkz:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Naga Siren",
+      "Slark",
+      "Clinkz",
+      "Viper"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slark.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/clinkz.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/viper.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Clinkz's Aghanim's Shard grants Burning Barrage. Channels a volley of piercing arrows that apply attack modifiers and a percentage of the caster's attack damage.",
+    "aghanim": {
+      "effect": "Channels a volley of piercing arrows that apply attack modifiers and a percentage of the caster's attack damage.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Burning Barrage",
+      "audit": {
+        "clientAbilityKey": "clinkz_burning_barrage",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:omniknight:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Alchemist",
+      "Omniknight",
+      "Dawnbreaker",
+      "Largo"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/alchemist.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/omniknight.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Omniknight's Aghanim's Shard upgrades Purification. Repeats the targeted heal after three seconds at 65% effectiveness.",
+    "aghanim": {
+      "effect": "Repeats the targeted heal after three seconds at 65% effectiveness.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Purification",
+      "audit": {
+        "clientAbilityKey": "omniknight_purification",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:enchantress:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Enchantress",
+      "Shadow Demon",
+      "Warlock",
+      "Dark Willow"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/enchantress.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_demon.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Enchantress's Aghanim's Scepter grants Little Friends. Roots one enemy and compels every nearby creep—friendly, hostile, or neutral—to attack it with bonus speed.",
+    "aghanim": {
+      "effect": "Roots one enemy and compels every nearby creep—friendly, hostile, or neutral—to attack it with bonus speed.",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Little Friends",
+      "audit": {
+        "clientAbilityKey": "enchantress_little_friends",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:huskar:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Timbersaw",
+      "Wraith King",
+      "Doom",
+      "Huskar"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shredder.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/huskar.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Huskar's Aghanim's Shard upgrades Berserker's Blood. Pay health to apply a basic self-dispel, then heal for the health spent plus a bonus for every debuff removed.",
+    "aghanim": {
+      "effect": "Pay health to apply a basic self-dispel, then heal for the health spent plus a bonus for every debuff removed.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Berserker's Blood",
+      "audit": {
+        "clientAbilityKey": "huskar_berserkers_blood",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:night_stalker:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Axe",
+      "Doom",
+      "Night Stalker",
+      "Legion Commander"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/night_stalker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/legion_commander.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Night Stalker's Aghanim's Scepter upgrades Hunter in the Night. Killing an enemy hero refreshes every basic ability; the associated passive also grants more movement and attack speed.",
+    "aghanim": {
+      "effect": "Killing an enemy hero refreshes every basic ability; the associated passive also grants more movement and attack speed.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Hunter in the Night",
+      "audit": {
+        "clientAbilityKey": "night_stalker_hunter_in_the_night",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:broodmother:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Riki",
+      "Broodmother",
+      "Terrorblade",
+      "Bounty Hunter"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/broodmother.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/terrorblade.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bounty_hunter.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Broodmother's Aghanim's Scepter grants Spinner's Snare. Places invisible web-line traps connected to existing webs; crossing heroes are rooted, revealed, and damaged over time.",
+    "aghanim": {
+      "effect": "Places invisible web-line traps connected to existing webs; crossing heroes are rooted, revealed, and damaged over time.",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Spinner's Snare",
+      "audit": {
+        "clientAbilityKey": "broodmother_sticky_snare",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:bounty_hunter:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Bounty Hunter",
+      "Riki",
+      "Terrorblade",
+      "Slark"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bounty_hunter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/terrorblade.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slark.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Bounty Hunter's Aghanim's Shard grants Friendly Shadow. Applies the caster's invisibility buff and all its bonuses to an ally without breaking the caster's own invisibility.",
+    "aghanim": {
+      "effect": "Applies the caster's invisibility buff and all its bonuses to an ally without breaking the caster's own invisibility.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Friendly Shadow",
+      "audit": {
+        "clientAbilityKey": "bounty_hunter_wind_walk_ally",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:weaver:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Phantom Lancer",
+      "Spectre",
+      "Anti-Mage",
+      "Weaver"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_lancer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spectre.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/weaver.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Weaver's Aghanim's Shard upgrades Shukuchi. Enemies crossed during the movement spell are marked, then struck by a secondary attack when the caster exits.",
+    "aghanim": {
+      "effect": "Enemies crossed during the movement spell are marked, then struck by a secondary attack when the caster exits.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Shukuchi",
+      "audit": {
+        "clientAbilityKey": "weaver_shukuchi",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:jakiro:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Zeus",
+      "Disruptor",
+      "Jakiro",
+      "Lina"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/zuus.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/disruptor.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Jakiro's Aghanim's Scepter upgrades Macropyre. The ground fire lasts longer, deals pure damage, and gains ice walls that heavily slow enemies crossing its edges.",
+    "aghanim": {
+      "effect": "The ground fire lasts longer, deals pure damage, and gains ice walls that heavily slow enemies crossing its edges.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Macropyre",
+      "audit": {
+        "clientAbilityKey": "jakiro_macropyre",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:batrider:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Venomancer",
+      "Batrider",
+      "Bane",
+      "Magnus"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/venomancer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/batrider.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Batrider's Aghanim's Scepter upgrades Flaming Lasso. The tether grabs its target and that target's nearest allied hero, linking the second victim to the first.",
+    "aghanim": {
+      "effect": "The tether grabs its target and that target's nearest allied hero, linking the second victim to the first.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Flaming Lasso",
+      "audit": {
+        "clientAbilityKey": "batrider_flaming_lasso",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:chen:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Chen",
+      "Skywrath Mage",
+      "Zeus",
+      "Grimstroke"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chen.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skywrath_mage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/zuus.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/grimstroke.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Chen's Aghanim's Scepter upgrades Hand of God. The global heal becomes channeled; nearby allies gain debuff immunity, magic resistance, and stronger healing over time.",
+    "aghanim": {
+      "effect": "The global heal becomes channeled; nearby allies gain debuff immunity, magic resistance, and stronger healing over time.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Hand of God",
+      "audit": {
+        "clientAbilityKey": "chen_hand_of_god",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:doom_bringer:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Tusk",
+      "Bristleback",
+      "Earthshaker",
+      "Doom"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tusk.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bristleback.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/earthshaker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Doom's Aghanim's Scepter upgrades Doom. The ultimate applies Break and also affects enemies near its target; self-cast instead affects enemies around the caster.",
+    "aghanim": {
+      "effect": "The ultimate applies Break and also affects enemies near its target; self-cast instead affects enemies around the caster.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Doom",
+      "audit": {
+        "clientAbilityKey": "doom_bringer_doom",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:spirit_breaker:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Lifestealer",
+      "Phoenix",
+      "Spirit Breaker",
+      "Tiny"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/life_stealer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phoenix.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spirit_breaker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tiny.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Spirit Breaker's Aghanim's Shard grants Planar Pocket. Redirects enemy unit-targeted spells aimed near a chosen hero onto the caster while granting magic resistance.",
+    "aghanim": {
+      "effect": "Redirects enemy unit-targeted spells aimed near a chosen hero onto the caster while granting magic resistance.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Planar Pocket",
+      "audit": {
+        "clientAbilityKey": "spirit_breaker_planar_pocket",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:gyrocopter:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Bloodseeker",
+      "Gyrocopter",
+      "Faceless Void",
+      "Meepo"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bloodseeker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/gyrocopter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Gyrocopter's Aghanim's Shard upgrades Homing Missile. The tracking projectile continuously fires the caster's close-range barrage around itself after a short delay.",
+    "aghanim": {
+      "effect": "The tracking projectile continuously fires the caster's close-range barrage around itself after a short delay.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Homing Missile",
+      "audit": {
+        "clientAbilityKey": "gyrocopter_homing_missile",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:alchemist:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Alchemist",
+      "Tidehunter",
+      "Undying",
+      "Dawnbreaker"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/alchemist.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tidehunter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/undying.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Alchemist's Aghanim's Shard grants Berserk Potion. Throws a potion at an ally, applying a basic dispel plus attack speed, movement speed, and health regeneration.",
+    "aghanim": {
+      "effect": "Throws a potion at an ally, applying a basic dispel plus attack speed, movement speed, and health regeneration.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Berserk Potion",
+      "audit": {
+        "clientAbilityKey": "alchemist_berserk_potion",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:invoker:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Disruptor",
+      "Leshrac",
+      "Puck",
+      "Invoker"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/disruptor.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/leshrac.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/puck.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Invoker's Aghanim's Scepter upgrades Ice Wall. Turns a wall spell into a vector-targeted strip that roots enemies who remain inside long enough.",
+    "aghanim": {
+      "effect": "Turns a wall spell into a vector-targeted strip that roots enemies who remain inside long enough.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Ice Wall",
+      "audit": {
+        "clientAbilityKey": "invoker_ice_wall",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:obsidian_destroyer:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Necrophos",
+      "Ringmaster",
+      "Outworld Devourer",
+      "Warlock"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Outworld Devourer's Aghanim's Scepter upgrades Objurgation. Prevents lethal-threshold damage, strongly dispels the caster, and grants an undispellable mana-based barrier on a long internal cooldown.",
+    "aghanim": {
+      "effect": "Prevents lethal-threshold damage, strongly dispels the caster, and grants an undispellable mana-based barrier on a long internal cooldown.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Objurgation",
+      "audit": {
+        "clientAbilityKey": "obsidian_destroyer_objurgation",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:lycan:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Huskar",
+      "Lycan",
+      "Mars",
+      "Spirit Breaker"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/huskar.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lycan.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mars.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spirit_breaker.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Lycan's Aghanim's Scepter grants Wolf Bite. Bites an allied hero, granting transformation properties and shared lifesteal healing while the two remain near each other.",
+    "aghanim": {
+      "effect": "Bites an allied hero, granting transformation properties and shared lifesteal healing while the two remain near each other.",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Wolf Bite",
+      "audit": {
+        "clientAbilityKey": "lycan_wolf_bite",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:shadow_demon:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Shadow Demon",
+      "Warlock",
+      "Dark Willow",
+      "Silencer"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_demon.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Shadow Demon's Aghanim's Shard grants Demonic Cleanse. Continuously removes negative effects from an ally, then heals them when the duration ends.",
+    "aghanim": {
+      "effect": "Continuously removes negative effects from an ally, then heals them when the duration ends.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Demonic Cleanse",
+      "audit": {
+        "clientAbilityKey": "shadow_demon_demonic_cleanse",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:chaos_knight:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Axe",
+      "Doom",
+      "Legion Commander",
+      "Chaos Knight"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/legion_commander.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chaos_knight.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Chaos Knight's Aghanim's Scepter upgrades Phantasm. Creating an illusion has a chance to create another; activating the ultimate also creates global illusions of allied heroes.",
+    "aghanim": {
+      "effect": "Creating an illusion has a chance to create another; activating the ultimate also creates global illusions of allied heroes.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Phantasm",
+      "audit": {
+        "clientAbilityKey": "chaos_knight_phantasm",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:meepo:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Phantom Lancer",
+      "Terrorblade",
+      "Meepo",
+      "Monkey King"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_lancer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/terrorblade.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Meepo's Aghanim's Shard grants Dig. Burrows underground, becoming invulnerable and untargetable while restoring 25% maximum health over three seconds.",
+    "aghanim": {
+      "effect": "Burrows underground, becoming invulnerable and untargetable while restoring 25% maximum health over three seconds.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Dig",
+      "audit": {
+        "clientAbilityKey": "meepo_petrify",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:treant:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Tiny",
+      "Treant Protector",
+      "Alchemist",
+      "Dragon Knight"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tiny.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/treant.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/alchemist.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Treant Protector's Aghanim's Shard grants Eyes in the Forest. Enchants a tree with long-lasting, invisible, unobstructed vision until the tree or hidden eye is destroyed.",
+    "aghanim": {
+      "effect": "Enchants a tree with long-lasting, invisible, unobstructed vision until the tree or hidden eye is destroyed.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Eyes in the Forest",
+      "audit": {
+        "clientAbilityKey": "treant_eyes_in_the_forest",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:ogre_magi:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Ogre Magi",
+      "Spirit Breaker",
+      "Undying",
+      "Phoenix"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ogre_magi.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spirit_breaker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/undying.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phoenix.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Ogre Magi's Aghanim's Shard grants Fire Shield. Shields an ally from several hero attacks and launches a fireball back whenever damage is absorbed; towers are valid targets.",
+    "aghanim": {
+      "effect": "Shields an ally from several hero attacks and launches a fireball back whenever damage is absorbed; towers are valid targets.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Fire Shield",
+      "audit": {
+        "clientAbilityKey": "ogre_magi_smash",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:undying:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Wraith King",
+      "Clockwerk",
+      "Kunkka",
+      "Undying"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/undying.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Undying's Aghanim's Shard upgrades Tombstone. Allows an allied hero to hide inside the summoned structure, with restrictions and a stun if the structure is destroyed.",
+    "aghanim": {
+      "effect": "Allows an allied hero to hide inside the summoned structure, with restrictions and a stun if the structure is destroyed.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Tombstone",
+      "audit": {
+        "clientAbilityKey": "undying_tombstone",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:rubick:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Tinker",
+      "Chen",
+      "Rubick",
+      "Jakiro"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tinker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chen.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Rubick's Aghanim's Scepter upgrades Spell Steal. Can hold two stolen spells at once, extends cast range, and upgrades stolen spells to their enhanced versions.",
+    "aghanim": {
+      "effect": "Can hold two stolen spells at once, extends cast range, and upgrades stolen spells to their enhanced versions.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Spell Steal",
+      "audit": {
+        "clientAbilityKey": "rubick_spell_steal",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:disruptor:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Lich",
+      "Disruptor",
+      "Outworld Devourer",
+      "Silencer"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lich.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/disruptor.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Disruptor's Aghanim's Shard grants Kinetic Fence. Creates a kinetic wall after a short formation delay that enemies cannot cross.",
+    "aghanim": {
+      "effect": "Creates a kinetic wall after a short formation delay that enemies cannot cross.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Kinetic Fence",
+      "audit": {
+        "clientAbilityKey": "disruptor_kinetic_fence",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:nyx_assassin:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Nyx Assassin",
+      "Arc Warden",
+      "Death Prophet",
+      "Sand King"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nyx_assassin.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/arc_warden.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/death_prophet.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sand_king.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Nyx Assassin's Aghanim's Scepter grants Burrow. Burrows in place, becoming invisible and unable to attack while gaining damage reduction and empowering several other abilities.",
+    "aghanim": {
+      "effect": "Burrows in place, becoming invisible and unable to attack while gaining damage reduction and empowering several other abilities.",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Burrow",
+      "audit": {
+        "clientAbilityKey": "nyx_assassin_burrow",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:naga_siren:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Sniper",
+      "Vengeful Spirit",
+      "Drow Ranger",
+      "Naga Siren"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/drow_ranger.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Naga Siren's Aghanim's Scepter upgrades Ensnare. The projectile gains range and speed, pierces debuff immunity, and applies Break.",
+    "aghanim": {
+      "effect": "The projectile gains range and speed, pierces debuff immunity, and applies Break.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Ensnare",
+      "audit": {
+        "clientAbilityKey": "naga_siren_ensnare",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:keeper_of_the_light:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Pugna",
+      "Silencer",
+      "Keeper of the Light",
+      "Ancient Apparition"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pugna.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/keeper_of_the_light.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ancient_apparition.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Keeper of the Light's Aghanim's Scepter grants Will-O-Wisp. Summons a flickering light that alternates on and off, repeatedly drawing nearby enemies toward it.",
+    "aghanim": {
+      "effect": "Summons a flickering light that alternates on and off, repeatedly drawing nearby enemies toward it.",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Will-O-Wisp",
+      "audit": {
+        "clientAbilityKey": "keeper_of_the_light_will_o_wisp",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:wisp:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Abaddon",
+      "Io",
+      "Dazzle",
+      "Pangolier"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/abaddon.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/wisp.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Io's Aghanim's Scepter upgrades Spirits. Continuously spawns orbiting orbs that slow enemy heroes on collision and can be detonated manually.",
+    "aghanim": {
+      "effect": "Continuously spawns orbiting orbs that slow enemy heroes on collision and can be detonated manually.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Spirits",
+      "audit": {
+        "clientAbilityKey": "wisp_spirits",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:visage:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Visage",
+      "Marci",
+      "Techies",
+      "Batrider"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/techies.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/batrider.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Visage's Aghanim's Shard upgrades Gravekeeper's Cloak. Activating the defensive passive causes an invulnerable stone form that stuns nearby enemies and restores health.",
+    "aghanim": {
+      "effect": "Activating the defensive passive causes an invulnerable stone form that stuns nearby enemies and restores health.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Gravekeeper's Cloak",
+      "audit": {
+        "clientAbilityKey": "visage_gravekeepers_cloak",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:slark:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Bloodseeker",
+      "Faceless Void",
+      "Meepo",
+      "Slark"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bloodseeker.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slark.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Slark's Aghanim's Shard grants Depth Shroud. Creates a cloud that hides all allies inside and grants them the effects of the hero's defensive ultimate.",
+    "aghanim": {
+      "effect": "Creates a cloud that hides all allies inside and grants them the effects of the hero's defensive ultimate.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Depth Shroud",
+      "audit": {
+        "clientAbilityKey": "slark_depth_shroud",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:medusa:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Sniper",
+      "Vengeful Spirit",
+      "Medusa",
+      "Drow Ranger"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/medusa.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/drow_ranger.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Medusa's Aghanim's Shard grants Cold Blooded. When targeted by a spell, fires a single-target projectile back at the caster that briefly turns them to stone.",
+    "aghanim": {
+      "effect": "When targeted by a spell, fires a single-target projectile back at the caster that briefly turns them to stone.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Cold Blooded",
+      "audit": {
+        "clientAbilityKey": "medusa_cold_blooded",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:ringmaster:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:new",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Dark Seer",
+      "Ringmaster",
+      "Jakiro",
+      "Oracle"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/oracle.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 1,
+    "explanation": "Ringmaster's Aghanim's Shard grants Spotlight. Sweeping lights reveal invisible enemies, make attacks miss, and rapidly drain the maximum health of illusions caught in the beams.",
+    "aghanim": {
+      "effect": "Sweeping lights reveal invisible enemies, make attacks miss, and rapidly drain the maximum health of illusions caught in the beams.",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Spotlight",
+      "audit": {
+        "clientAbilityKey": "ringmaster_spotlight",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:muerta:scepter",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:scepter:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Muerta",
+      "Winter Wyvern",
+      "Dark Seer",
+      "Leshrac"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/winter_wyvern.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/leshrac.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 0,
+    "explanation": "Muerta's Aghanim's Scepter upgrades Dead Shot. After ricocheting, the projectile expands, pierces enemy heroes, and fears them while dealing increased damage.",
+    "aghanim": {
+      "effect": "After ricocheting, the projectile expands, pierces enemy heroes, and fears them while dealing increased damage.",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Dead Shot",
+      "audit": {
+        "clientAbilityKey": "muerta_dead_shot",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:kez:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Sniper",
+      "Vengeful Spirit",
+      "Drow Ranger",
+      "Kez"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/drow_ranger.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 3,
+    "explanation": "Kez's Aghanim's Shard upgrades Shodo Sai. A successful parry creates a stronger mark that adds stun duration and critical damage.",
+    "aghanim": {
+      "effect": "A successful parry creates a stronger mark that adds stun duration and critical damage.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Shodo Sai",
+      "audit": {
+        "clientAbilityKey": "kez_shodo_sai",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  },
+  {
+    "id": "aghanim-upgrade:largo:shard",
+    "kind": "aghanim-upgrade",
+    "varietyKey": "aghanim:shard:existing",
+    "category": "Abilities",
+    "difficulty": 2,
+    "eyebrow": "Upgrade effect",
+    "prompt": "Whose upgrade is this?",
+    "answers": [
+      "Tidehunter",
+      "Undying",
+      "Largo",
+      "Dawnbreaker"
+    ],
+    "answerImages": [
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tidehunter.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/undying.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
+      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png"
+    ],
+    "answerImageKind": "hero",
+    "correctIndex": 2,
+    "explanation": "Largo's Aghanim's Shard upgrades Encore. Giving a unit-targeted buff to an ally also buffs the caster; self-casts copy to the nearest allied hero.",
+    "aghanim": {
+      "effect": "Giving a unit-targeted buff to an ally also buffs the caster; self-casts copy to the nearest allied hero.",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Encore",
+      "audit": {
+        "clientAbilityKey": "largo_encore",
+        "clientBuild": "6882",
+        "reviewedAt": "2026-08-09"
+      }
+    },
+    "source": {
+      "label": "Dota 2 live-client and OpenDota localization audit",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+    },
+    "patch": "7.41e"
+  }
+]

@@ -15,6 +15,7 @@ import {
   Flame,
   Gauge,
   Gamepad2,
+  Gem,
   Keyboard,
   ListOrdered,
   MapPin,
@@ -64,7 +65,13 @@ import {
 } from "@/lib/hero-picker";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
 import type { MapBounds, MapChoiceChallenge, MapCrop, MapPosition, MapViewport } from "@/lib/map-types";
-import { SPELL_CLUE_PENALTY, clueStageAt, crowdScoreMultiplier, scoreBreakdown } from "@/lib/scoring.mjs";
+import {
+  PROGRESSIVE_CLUE_PENALTY,
+  SPELL_CLUE_PENALTY,
+  clueStageAt,
+  crowdScoreMultiplier,
+  scoreBreakdown,
+} from "@/lib/scoring.mjs";
 import {
   isRecipeAnswerKey,
   isShopkeeperCatalogKey,
@@ -292,7 +299,7 @@ const MODE_INFO: Record<
     label: "Queue Arcade",
     shortLabel: "Public Arcade",
     eyebrow: "One room · Endless",
-    description: "Dota facts, recipes, spells, fog, voices, sounds, and quotes—one round at a time.",
+    description: "Dota facts, recipes, spells, upgrades, fog, voices, sounds, and quotes—one round at a time.",
     action: "Join public arcade",
     rule: "Distinct round formats rotate without repeating the same family back-to-back.",
   },
@@ -352,6 +359,14 @@ const MODE_INFO: Record<
     action: "Read between the lines",
     rule: "One proper hero line, four closely matched portraits, no laughs or throwaway noises.",
   },
+  "aghanim-lab": {
+    label: "Aghanim's Lab",
+    shortLabel: "Aghanim's Lab",
+    eyebrow: "Upgrade knowledge",
+    description: "Match current Scepter and Shard effects to their heroes before the ability name appears.",
+    action: "Enter the lab",
+    rule: "The upgrade type and ability name arrive as later, lower-scoring clues.",
+  },
   "order-up": {
     label: "Order Up",
     shortLabel: "Order Up",
@@ -386,6 +401,7 @@ function ModeIcon({ mode }: { mode: ArcadeMode | RoundGame }) {
   if (mode === "echo-hunt") return <AudioLines />;
   if (mode === "soundcheck") return <AudioWaveform />;
   if (mode === "quote-hunt") return <MessageSquareQuote />;
+  if (mode === "aghanim-lab") return <Gem />;
   if (mode === "order-up") return <ListOrdered />;
   if (mode === "map-sense") return <MapPin />;
   if (mode === "counterplay") return <ShieldCheck />;
@@ -3436,7 +3452,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   const clueStage =
     phase === "reveal"
       ? 3
-      : currentGame === "spell-link" || currentGame === "quote-hunt"
+      : currentGame === "spell-link" || currentGame === "quote-hunt" || currentGame === "aghanim-lab"
         ? (currentQuestion?.clueStage ?? 1)
         : isSoundcheckRound
           ? soundcheckRevealStage(answerRemaining, answerDuration)
@@ -3455,6 +3471,17 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   const recentHistoryStart = history.length - recentHistory.length + 1;
   const spellHint = currentQuestion?.hint ?? "A mechanical clue will appear near the end of the round.";
   const activeModeInfo = MODE_INFO[PUBLIC_ARCADE_MODE];
+  const aghanimUpgradeLabel =
+    currentQuestion?.aghanim?.upgradeType === "scepter"
+      ? "Aghanim's Scepter"
+      : currentQuestion?.aghanim?.upgradeType === "shard"
+        ? "Aghanim's Shard"
+        : null;
+  const aghanimItem = aghanimUpgradeLabel
+    ? SHOPKEEPER_CATALOG_BY_KEY.get(
+        currentQuestion?.aghanim?.upgradeType === "scepter" ? "ultimate_scepter" : "aghanims_shard",
+      )
+    : null;
 
   useEffect(() => {
     const hasRoundAudio = isProgressiveAudioRound;
@@ -3575,8 +3602,8 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
             <div className={styles.liveLabel}>
               <span />
               {activePlayers > 0
-                ? `${activePlayers.toLocaleString("en-US")} playing now · Eleven round formats`
-                : "One public room · Eleven round formats"}
+                ? `${activePlayers.toLocaleString("en-US")} playing now · Twelve round formats`
+                : "One public room · Twelve round formats"}
             </div>
             <h1>
               Your queue has
@@ -3763,6 +3790,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               currentGame === "echo-hunt" && styles.echoStage,
               currentGame === "soundcheck" && styles.soundcheckStage,
               currentGame === "quote-hunt" && styles.quoteStage,
+              currentGame === "aghanim-lab" && styles.aghanimStage,
               currentGame === "order-up" && styles.valueOrderStage,
               currentGame === "map-sense" && styles.mapSenseStage,
               currentGame === "counterplay" && styles.counterplayStage,
@@ -3907,6 +3935,57 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                     </div>
                   </div>
                   <small data-testid="spell-clue-scoring">Later clues cost {SPELL_CLUE_PENALTY} points each.</small>
+                </div>
+              </div>
+            ) : currentGame === "aghanim-lab" ? (
+              <div
+                className={clsx(styles.questionBlock, styles.aghanimQuestion, styles.heroPickerQuestion)}
+                data-testid="round-prompt"
+                data-aghanim-stage={clueStage}
+              >
+                <div className={styles.aghanimArtwork} data-testid="aghanim-artwork">
+                  {aghanimItem ? (
+                    <Image src={aghanimItem.image} alt={aghanimUpgradeLabel ?? "Aghanim upgrade"} fill sizes="128px" />
+                  ) : (
+                    <Gem aria-hidden="true" />
+                  )}
+                  <span>
+                    Clue {clueStage}
+                    <small>/ 3</small>
+                  </span>
+                </div>
+                <div className={styles.questionCopy}>
+                  <span>Upgrade effect</span>
+                  <h2>{currentQuestion.prompt}</h2>
+                  <div className={clsx(styles.clueList, styles.aghanimClues)}>
+                    <div className={styles.clueUnlocked} data-testid="aghanim-clue-1">
+                      <strong>01</strong>
+                      <span>{currentQuestion.aghanim?.effect}</span>
+                    </div>
+                    <div
+                      className={clueStage >= 2 ? styles.clueUnlocked : styles.clueLocked}
+                      data-testid="aghanim-clue-2"
+                    >
+                      <strong>02</strong>
+                      <span>
+                        {clueStage >= 2 && aghanimUpgradeLabel
+                          ? `${aghanimUpgradeLabel} · ${
+                              currentQuestion.aghanim?.upgradeMode === "new" ? "New ability" : "Existing ability"
+                            }`
+                          : "Upgrade details"}
+                      </span>
+                    </div>
+                    <div
+                      className={clueStage >= 3 ? styles.clueUnlocked : styles.clueLocked}
+                      data-testid="aghanim-clue-3"
+                    >
+                      <strong>03</strong>
+                      <span>{clueStage >= 3 ? currentQuestion.aghanim?.abilityName : "Ability name"}</span>
+                    </div>
+                  </div>
+                  <small data-testid="aghanim-clue-scoring">
+                    Later clues cost {PROGRESSIVE_CLUE_PENALTY} points each.
+                  </small>
                 </div>
               </div>
             ) : currentGame === "fogged-vision" ? (

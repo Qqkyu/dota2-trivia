@@ -19,6 +19,9 @@ const catalogFingerprints = [
   "value-order:hero-move-speed:01",
   "value-order:hero-attack-range:01",
   "Lowest to highest: Meat Hook (360 damage)",
+  "aghanim-upgrade:antimage:scepter",
+  "antimage_blink",
+  "After using a mobility spell, the next attack within five seconds burns extra maximum mana",
 ];
 
 async function filesInside(directory) {

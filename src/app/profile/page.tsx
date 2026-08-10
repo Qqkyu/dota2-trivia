@@ -24,6 +24,7 @@ const FORMAT_LABELS: Record<string, string> = {
   "echo-hunt": "Echo Hunt",
   soundcheck: "Soundcheck",
   "quote-hunt": "Quote Hunt",
+  "aghanim-upgrades": "Aghanim's Lab",
   "value-order": "Order Up",
 };
 
@@ -35,6 +36,7 @@ const ROUND_LABELS: Record<string, string> = {
   "echo-hunt": "Echo Hunt",
   soundcheck: "Soundcheck",
   "quote-hunt": "Quote Hunt",
+  "aghanim-lab": "Aghanim's Lab",
   "order-up": "Order Up",
 };
 

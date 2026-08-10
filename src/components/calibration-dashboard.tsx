@@ -54,6 +54,7 @@ const GAME_LABELS = {
   "echo-hunt": "Echo Hunt",
   soundcheck: "Soundcheck",
   "quote-hunt": "Quote Hunt",
+  "aghanim-lab": "Aghanim's Lab",
   "order-up": "Order Up",
   "map-sense": "Map Sense",
   counterplay: "Counterplay",

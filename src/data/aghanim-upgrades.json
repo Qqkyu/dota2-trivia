@@ -1,0 +1,683 @@
+{
+  "patch": "7.41e",
+  "clientBuild": "6882",
+  "reviewedAt": "2026-08-09",
+  "source": {
+    "label": "Dota 2 live-client and OpenDota localization audit",
+    "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+  },
+  "upgrades": [
+    {
+      "heroKey": "npc_dota_hero_antimage",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Blink",
+      "clientAbilityKey": "antimage_blink",
+      "effect": "After using a mobility spell, the next attack within five seconds burns extra maximum mana and temporarily prevents mana gain."
+    },
+    {
+      "heroKey": "npc_dota_hero_axe",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Counter Helix",
+      "clientAbilityKey": "axe_counter_helix",
+      "effect": "The passive counter loses its cooldown, advances on the caster's own attacks, and applies stacking outgoing attack-damage reduction."
+    },
+    {
+      "heroKey": "npc_dota_hero_bane",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Fiend's Grip",
+      "clientAbilityKey": "bane_fiends_grip",
+      "effect": "Creates two fragile, uncontrollable illusions that channel the same disable. Their damage does not stack."
+    },
+    {
+      "heroKey": "npc_dota_hero_crystal_maiden",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Crystal Clone",
+      "clientAbilityKey": "crystal_maiden_crystal_clone",
+      "effect": "Slides in a direction, leaving a projectile-disjointing clone that shatters into an area disable when damaged or timed out."
+    },
+    {
+      "heroKey": "npc_dota_hero_drow_ranger",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Glacier",
+      "clientAbilityKey": "drow_ranger_glacier",
+      "effect": "Creates an icy hill that knocks enemies away and grants high-ground bonuses, flying vision, and extra ranged attack range."
+    },
+    {
+      "heroKey": "npc_dota_hero_earthshaker",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Fissure",
+      "clientAbilityKey": "earthshaker_fissure",
+      "effect": "Casting another ability releases a shorter stun along an existing terrain barrier."
+    },
+    {
+      "heroKey": "npc_dota_hero_mirana",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Sacred Arrow",
+      "clientAbilityKey": "mirana_arrow",
+      "effect": "The projectile calls down additional area damage along its flight path and a weaker second burst on impact."
+    },
+    {
+      "heroKey": "npc_dota_hero_morphling",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Morph",
+      "clientAbilityKey": "morphling_replicate",
+      "effect": "Creates a strong illusion of a target hero that can cast basic abilities; recasting swaps the caster into its position."
+    },
+    {
+      "heroKey": "npc_dota_hero_nevermore",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Requiem of Souls",
+      "clientAbilityKey": "nevermore_requiem",
+      "effect": "The expanding ultimate returns to its caster, healing for all damage dealt on the way back."
+    },
+    {
+      "heroKey": "npc_dota_hero_phantom_lancer",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Juxtapose",
+      "clientAbilityKey": "phantom_lancer_juxtapose",
+      "effect": "Activating an illusion passive makes the caster invisible, grants movement speed, and leaves a duplicate image behind."
+    },
+    {
+      "heroKey": "npc_dota_hero_puck",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Dream Coil",
+      "clientAbilityKey": "puck_dream_coil",
+      "effect": "All tethered enemies are attacked at 90% of the caster's attack rate, including while stunned after breaking the tether."
+    },
+    {
+      "heroKey": "npc_dota_hero_pudge",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Meat Hook",
+      "clientAbilityKey": "pudge_meat_hook",
+      "effect": "The hook deals bonus damage based on enemy pull distance, while hooking an ally halves its cooldown."
+    },
+    {
+      "heroKey": "npc_dota_hero_razor",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Eye of the Storm",
+      "clientAbilityKey": "razor_eye_of_the_storm",
+      "effect": "The storm strikes two targets at once and can damage towers, barracks, and the Ancient."
+    },
+    {
+      "heroKey": "npc_dota_hero_storm_spirit",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Overload",
+      "clientAbilityKey": "storm_spirit_overload",
+      "effect": "Activating the attack passive grants the caster and nearby allies three empowered attacks plus bonus attack speed."
+    },
+    {
+      "heroKey": "npc_dota_hero_sven",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Storm Hammer",
+      "clientAbilityKey": "sven_storm_bolt",
+      "effect": "The projectile gains cast range and a basic dispel; alt-cast adds damage and carries the caster alongside it."
+    },
+    {
+      "heroKey": "npc_dota_hero_tiny",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Tree Volley",
+      "clientAbilityKey": "tiny_tree_channel",
+      "effect": "Channels to hurl nearby trees toward an area, applying the caster's attacks and tree-throw bonuses."
+    },
+    {
+      "heroKey": "npc_dota_hero_vengefulspirit",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Vengeance Aura",
+      "clientAbilityKey": "vengefulspirit_command_aura",
+      "effect": "Death creates a full-damage spell-casting illusion; respawning while it survives moves the hero to the illusion."
+    },
+    {
+      "heroKey": "npc_dota_hero_windrunner",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Gale Force",
+      "clientAbilityKey": "windrunner_gale_force",
+      "effect": "Creates a vector-targeted wind that pushes every enemy in its area toward the chosen direction."
+    },
+    {
+      "heroKey": "npc_dota_hero_zuus",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Nimbus",
+      "clientAbilityKey": "zuus_cloud",
+      "effect": "Creates a global-range storm cloud that repeatedly casts a lightning spell on nearby enemies."
+    },
+    {
+      "heroKey": "npc_dota_hero_kunkka",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Ghostship",
+      "clientAbilityKey": "kunkka_ghostship",
+      "effect": "The ultimate summons two ships in sequence, each firing cannonball waves from both sides for partial damage."
+    },
+    {
+      "heroKey": "npc_dota_hero_lina",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Flame Cloak",
+      "clientAbilityKey": "lina_flame_cloak",
+      "effect": "Grants unobstructed movement, spell amplification, magic resistance, and maximum stacks of an attack-speed passive."
+    },
+    {
+      "heroKey": "npc_dota_hero_lion",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Mana Drain",
+      "clientAbilityKey": "lion_mana_drain",
+      "effect": "The channel affects two additional enemies, gains break distance, and grants debuff immunity with magic resistance."
+    },
+    {
+      "heroKey": "npc_dota_hero_shadow_shaman",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Shackles",
+      "clientAbilityKey": "shadow_shaman_shackles",
+      "effect": "The channel can target allies and friendly wards; affected units repeatedly emit radial damage around themselves."
+    },
+    {
+      "heroKey": "npc_dota_hero_tidehunter",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Dead in the Water",
+      "clientAbilityKey": "tidehunter_dead_in_the_water",
+      "effect": "Attaches a heavy anchor that leashes an enemy; four hero attacks destroy it."
+    },
+    {
+      "heroKey": "npc_dota_hero_witch_doctor",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Voodoo Switcheroo",
+      "clientAbilityKey": "witch_doctor_voodoo_switcheroo",
+      "effect": "Temporarily transforms the caster into a hidden, slower-attacking version of their own summoned ward."
+    },
+    {
+      "heroKey": "npc_dota_hero_lich",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Sinister Gaze",
+      "clientAbilityKey": "lich_sinister_gaze",
+      "effect": "The channel becomes area-targeted and allows its caster to use other abilities while channeling."
+    },
+    {
+      "heroKey": "npc_dota_hero_riki",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Tricks of the Trade",
+      "clientAbilityKey": "riki_tricks_of_the_trade",
+      "effect": "The caster can hide inside an ally during the attack sequence, granting that ally movement speed and extending the effect."
+    },
+    {
+      "heroKey": "npc_dota_hero_enigma",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Malefice",
+      "clientAbilityKey": "enigma_malefice",
+      "effect": "Every stun pulse creates an uncontrollable summoned unit beside the target and lasts slightly longer."
+    },
+    {
+      "heroKey": "npc_dota_hero_tinker",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Warp Flare",
+      "clientAbilityKey": "tinker_warp_grenade",
+      "effect": "Teleports an enemy farther away, then roots them and temporarily reduces both attack and cast range."
+    },
+    {
+      "heroKey": "npc_dota_hero_sniper",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Concussive Grenade",
+      "clientAbilityKey": "sniper_concussive_grenade",
+      "effect": "Launches an area grenade that damages and disarms enemies while knocking both them and the caster backward."
+    },
+    {
+      "heroKey": "npc_dota_hero_necrolyte",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Death Seeker",
+      "clientAbilityKey": "necrolyte_death_seeker",
+      "effect": "Transforms the caster into a traveling healing-and-damage pulse that spreads to nearby units after reaching its target."
+    },
+    {
+      "heroKey": "npc_dota_hero_beastmaster",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Drums of Slom",
+      "clientAbilityKey": "beastmaster_drums_of_slom",
+      "effect": "Nearby controlled-unit attacks accelerate repeating drumbeats that damage enemies and heal the caster's army."
+    },
+    {
+      "heroKey": "npc_dota_hero_queenofpain",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Blink",
+      "clientAbilityKey": "queenofpain_blink",
+      "effect": "Blinking creates damaging, silencing bursts at both the departure and arrival points."
+    },
+    {
+      "heroKey": "npc_dota_hero_venomancer",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Noxious Plague",
+      "clientAbilityKey": "venomancer_noxious_plague",
+      "effect": "The infection lowers magic resistance, spreads with full impact damage from hero targets, and has a much shorter cooldown."
+    },
+    {
+      "heroKey": "npc_dota_hero_faceless_void",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Reverse Time Walk",
+      "clientAbilityKey": "faceless_void_time_walk_reverse",
+      "effect": "For 1.5 seconds after landing a mobility spell, recast it to return to the previous location without reverting health."
+    },
+    {
+      "heroKey": "npc_dota_hero_death_prophet",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Exorcism",
+      "clientAbilityKey": "death_prophet_exorcism",
+      "effect": "Spells and attacks send an extra spirit through the target, dealing bonus damage before returning with healing."
+    },
+    {
+      "heroKey": "npc_dota_hero_phantom_assassin",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Fan of Knives",
+      "clientAbilityKey": "phantom_assassin_fan_of_knives",
+      "effect": "Releases blades in every direction, damaging enemies by maximum health and applying Break."
+    },
+    {
+      "heroKey": "npc_dota_hero_pugna",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Life Drain",
+      "clientAbilityKey": "pugna_life_drain",
+      "effect": "Channeling through the caster's ward refracts the effect to every enemy hero nearby at reduced strength."
+    },
+    {
+      "heroKey": "npc_dota_hero_viper",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Nosedive",
+      "clientAbilityKey": "viper_nose_dive",
+      "effect": "Slams into an area, creates a damaging zone, and applies a defensive poison passive to nearby enemies."
+    },
+    {
+      "heroKey": "npc_dota_hero_luna",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Eclipse",
+      "clientAbilityKey": "luna_eclipse",
+      "effect": "The ultimate can follow an allied target or affect an area, while producing more beams without a per-unit limit."
+    },
+    {
+      "heroKey": "npc_dota_hero_dragon_knight",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Fireball",
+      "clientAbilityKey": "dragon_knight_fireball",
+      "effect": "Ignites a ground area, dealing lingering damage over time; its cast range is shorter while the caster is melee."
+    },
+    {
+      "heroKey": "npc_dota_hero_dazzle",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Shadow Wave",
+      "clientAbilityKey": "dazzle_shadow_wave",
+      "effect": "The bouncing heal can target enemies, damaging them, healing nearby allies, and triggering an attack against each enemy bounce."
+    },
+    {
+      "heroKey": "npc_dota_hero_rattletrap",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Jetpack",
+      "clientAbilityKey": "rattletrap_jetpack",
+      "effect": "Grants flying movement, flying vision, and speed but prevents attacking and severely limits turning."
+    },
+    {
+      "heroKey": "npc_dota_hero_leshrac",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Nihilism",
+      "clientAbilityKey": "leshrac_greater_lightning_storm",
+      "effect": "Turns the caster and nearby enemies ethereal, slowing enemies and amplifying their incoming magic damage without penalizing the caster."
+    },
+    {
+      "heroKey": "npc_dota_hero_furion",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Curse of the Oldgrowth",
+      "clientAbilityKey": "furion_curse_of_the_forest",
+      "effect": "Curses all nearby enemy heroes, revealing them through fog and scaling damage and slow with surrounding trees."
+    },
+    {
+      "heroKey": "npc_dota_hero_life_stealer",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Infest",
+      "clientAbilityKey": "life_stealer_infest",
+      "effect": "Can enter an enemy hero, attacking from inside while gaining increased regeneration."
+    },
+    {
+      "heroKey": "npc_dota_hero_dark_seer",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Surge",
+      "clientAbilityKey": "dark_seer_surge",
+      "effect": "Affected allies leave a seven-second damaging trail that slows enemies; alt-cast disables the trail."
+    },
+    {
+      "heroKey": "npc_dota_hero_clinkz",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Burning Barrage",
+      "clientAbilityKey": "clinkz_burning_barrage",
+      "effect": "Channels a volley of piercing arrows that apply attack modifiers and a percentage of the caster's attack damage."
+    },
+    {
+      "heroKey": "npc_dota_hero_omniknight",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Purification",
+      "clientAbilityKey": "omniknight_purification",
+      "effect": "Repeats the targeted heal after three seconds at 65% effectiveness."
+    },
+    {
+      "heroKey": "npc_dota_hero_enchantress",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Little Friends",
+      "clientAbilityKey": "enchantress_little_friends",
+      "effect": "Roots one enemy and compels every nearby creep—friendly, hostile, or neutral—to attack it with bonus speed."
+    },
+    {
+      "heroKey": "npc_dota_hero_huskar",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Berserker's Blood",
+      "clientAbilityKey": "huskar_berserkers_blood",
+      "effect": "Pay health to apply a basic self-dispel, then heal for the health spent plus a bonus for every debuff removed."
+    },
+    {
+      "heroKey": "npc_dota_hero_night_stalker",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Hunter in the Night",
+      "clientAbilityKey": "night_stalker_hunter_in_the_night",
+      "effect": "Killing an enemy hero refreshes every basic ability; the associated passive also grants more movement and attack speed."
+    },
+    {
+      "heroKey": "npc_dota_hero_broodmother",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Spinner's Snare",
+      "clientAbilityKey": "broodmother_sticky_snare",
+      "effect": "Places invisible web-line traps connected to existing webs; crossing heroes are rooted, revealed, and damaged over time."
+    },
+    {
+      "heroKey": "npc_dota_hero_bounty_hunter",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Friendly Shadow",
+      "clientAbilityKey": "bounty_hunter_wind_walk_ally",
+      "effect": "Applies the caster's invisibility buff and all its bonuses to an ally without breaking the caster's own invisibility."
+    },
+    {
+      "heroKey": "npc_dota_hero_weaver",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Shukuchi",
+      "clientAbilityKey": "weaver_shukuchi",
+      "effect": "Enemies crossed during the movement spell are marked, then struck by a secondary attack when the caster exits."
+    },
+    {
+      "heroKey": "npc_dota_hero_jakiro",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Macropyre",
+      "clientAbilityKey": "jakiro_macropyre",
+      "effect": "The ground fire lasts longer, deals pure damage, and gains ice walls that heavily slow enemies crossing its edges."
+    },
+    {
+      "heroKey": "npc_dota_hero_batrider",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Flaming Lasso",
+      "clientAbilityKey": "batrider_flaming_lasso",
+      "effect": "The tether grabs its target and that target's nearest allied hero, linking the second victim to the first."
+    },
+    {
+      "heroKey": "npc_dota_hero_chen",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Hand of God",
+      "clientAbilityKey": "chen_hand_of_god",
+      "effect": "The global heal becomes channeled; nearby allies gain debuff immunity, magic resistance, and stronger healing over time."
+    },
+    {
+      "heroKey": "npc_dota_hero_doom_bringer",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Doom",
+      "clientAbilityKey": "doom_bringer_doom",
+      "effect": "The ultimate applies Break and also affects enemies near its target; self-cast instead affects enemies around the caster."
+    },
+    {
+      "heroKey": "npc_dota_hero_spirit_breaker",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Planar Pocket",
+      "clientAbilityKey": "spirit_breaker_planar_pocket",
+      "effect": "Redirects enemy unit-targeted spells aimed near a chosen hero onto the caster while granting magic resistance."
+    },
+    {
+      "heroKey": "npc_dota_hero_gyrocopter",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Homing Missile",
+      "clientAbilityKey": "gyrocopter_homing_missile",
+      "effect": "The tracking projectile continuously fires the caster's close-range barrage around itself after a short delay."
+    },
+    {
+      "heroKey": "npc_dota_hero_alchemist",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Berserk Potion",
+      "clientAbilityKey": "alchemist_berserk_potion",
+      "effect": "Throws a potion at an ally, applying a basic dispel plus attack speed, movement speed, and health regeneration."
+    },
+    {
+      "heroKey": "npc_dota_hero_invoker",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Ice Wall",
+      "clientAbilityKey": "invoker_ice_wall",
+      "effect": "Turns a wall spell into a vector-targeted strip that roots enemies who remain inside long enough."
+    },
+    {
+      "heroKey": "npc_dota_hero_obsidian_destroyer",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Objurgation",
+      "clientAbilityKey": "obsidian_destroyer_objurgation",
+      "effect": "Prevents lethal-threshold damage, strongly dispels the caster, and grants an undispellable mana-based barrier on a long internal cooldown."
+    },
+    {
+      "heroKey": "npc_dota_hero_lycan",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Wolf Bite",
+      "clientAbilityKey": "lycan_wolf_bite",
+      "effect": "Bites an allied hero, granting transformation properties and shared lifesteal healing while the two remain near each other."
+    },
+    {
+      "heroKey": "npc_dota_hero_shadow_demon",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Demonic Cleanse",
+      "clientAbilityKey": "shadow_demon_demonic_cleanse",
+      "effect": "Continuously removes negative effects from an ally, then heals them when the duration ends."
+    },
+    {
+      "heroKey": "npc_dota_hero_chaos_knight",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Phantasm",
+      "clientAbilityKey": "chaos_knight_phantasm",
+      "effect": "Creating an illusion has a chance to create another; activating the ultimate also creates global illusions of allied heroes."
+    },
+    {
+      "heroKey": "npc_dota_hero_meepo",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Dig",
+      "clientAbilityKey": "meepo_petrify",
+      "effect": "Burrows underground, becoming invulnerable and untargetable while restoring 25% maximum health over three seconds."
+    },
+    {
+      "heroKey": "npc_dota_hero_treant",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Eyes in the Forest",
+      "clientAbilityKey": "treant_eyes_in_the_forest",
+      "effect": "Enchants a tree with long-lasting, invisible, unobstructed vision until the tree or hidden eye is destroyed."
+    },
+    {
+      "heroKey": "npc_dota_hero_ogre_magi",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Fire Shield",
+      "clientAbilityKey": "ogre_magi_smash",
+      "effect": "Shields an ally from several hero attacks and launches a fireball back whenever damage is absorbed; towers are valid targets."
+    },
+    {
+      "heroKey": "npc_dota_hero_undying",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Tombstone",
+      "clientAbilityKey": "undying_tombstone",
+      "effect": "Allows an allied hero to hide inside the summoned structure, with restrictions and a stun if the structure is destroyed."
+    },
+    {
+      "heroKey": "npc_dota_hero_rubick",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Spell Steal",
+      "clientAbilityKey": "rubick_spell_steal",
+      "effect": "Can hold two stolen spells at once, extends cast range, and upgrades stolen spells to their enhanced versions."
+    },
+    {
+      "heroKey": "npc_dota_hero_disruptor",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Kinetic Fence",
+      "clientAbilityKey": "disruptor_kinetic_fence",
+      "effect": "Creates a kinetic wall after a short formation delay that enemies cannot cross."
+    },
+    {
+      "heroKey": "npc_dota_hero_nyx_assassin",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Burrow",
+      "clientAbilityKey": "nyx_assassin_burrow",
+      "effect": "Burrows in place, becoming invisible and unable to attack while gaining damage reduction and empowering several other abilities."
+    },
+    {
+      "heroKey": "npc_dota_hero_naga_siren",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Ensnare",
+      "clientAbilityKey": "naga_siren_ensnare",
+      "effect": "The projectile gains range and speed, pierces debuff immunity, and applies Break."
+    },
+    {
+      "heroKey": "npc_dota_hero_keeper_of_the_light",
+      "upgradeType": "scepter",
+      "upgradeMode": "new",
+      "abilityName": "Will-O-Wisp",
+      "clientAbilityKey": "keeper_of_the_light_will_o_wisp",
+      "effect": "Summons a flickering light that alternates on and off, repeatedly drawing nearby enemies toward it."
+    },
+    {
+      "heroKey": "npc_dota_hero_wisp",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Spirits",
+      "clientAbilityKey": "wisp_spirits",
+      "effect": "Continuously spawns orbiting orbs that slow enemy heroes on collision and can be detonated manually."
+    },
+    {
+      "heroKey": "npc_dota_hero_visage",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Gravekeeper's Cloak",
+      "clientAbilityKey": "visage_gravekeepers_cloak",
+      "effect": "Activating the defensive passive causes an invulnerable stone form that stuns nearby enemies and restores health."
+    },
+    {
+      "heroKey": "npc_dota_hero_slark",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Depth Shroud",
+      "clientAbilityKey": "slark_depth_shroud",
+      "effect": "Creates a cloud that hides all allies inside and grants them the effects of the hero's defensive ultimate."
+    },
+    {
+      "heroKey": "npc_dota_hero_medusa",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Cold Blooded",
+      "clientAbilityKey": "medusa_cold_blooded",
+      "effect": "When targeted by a spell, fires a single-target projectile back at the caster that briefly turns them to stone."
+    },
+    {
+      "heroKey": "npc_dota_hero_ringmaster",
+      "upgradeType": "shard",
+      "upgradeMode": "new",
+      "abilityName": "Spotlight",
+      "clientAbilityKey": "ringmaster_spotlight",
+      "effect": "Sweeping lights reveal invisible enemies, make attacks miss, and rapidly drain the maximum health of illusions caught in the beams."
+    },
+    {
+      "heroKey": "npc_dota_hero_muerta",
+      "upgradeType": "scepter",
+      "upgradeMode": "existing",
+      "abilityName": "Dead Shot",
+      "clientAbilityKey": "muerta_dead_shot",
+      "effect": "After ricocheting, the projectile expands, pierces enemy heroes, and fears them while dealing increased damage."
+    },
+    {
+      "heroKey": "npc_dota_hero_kez",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Shodo Sai",
+      "clientAbilityKey": "kez_shodo_sai",
+      "effect": "A successful parry creates a stronger mark that adds stun duration and critical damage."
+    },
+    {
+      "heroKey": "npc_dota_hero_largo",
+      "upgradeType": "shard",
+      "upgradeMode": "existing",
+      "abilityName": "Encore",
+      "clientAbilityKey": "largo_encore",
+      "effect": "Giving a unit-targeted buff to an ally also buffs the caster; self-casts copy to the nearest allied hero."
+    }
+  ]
+}

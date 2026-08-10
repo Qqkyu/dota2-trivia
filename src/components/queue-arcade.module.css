@@ -1423,6 +1423,17 @@
   box-shadow: 0 0 14px rgba(222, 164, 96, 0.4);
 }
 
+.aghanimStage {
+  background: radial-gradient(circle at 32% 22%, rgba(126, 111, 202, 0.14), transparent 31%),
+    radial-gradient(circle at 72% 54%, rgba(76, 145, 178, 0.06), transparent 28%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.025), transparent 28%), rgba(15, 18, 19, 0.88);
+}
+
+.aghanimStage .timerTrack > span {
+  background: linear-gradient(90deg, #5f569e, #a99be8);
+  box-shadow: 0 0 14px rgba(169, 155, 232, 0.44);
+}
+
 .valueOrderStage {
   background: radial-gradient(circle at 31% 22%, rgba(126, 146, 211, 0.13), transparent 31%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.025), transparent 28%), rgba(15, 18, 19, 0.88);
@@ -1564,6 +1575,10 @@
 
 .quoteStage .roundGameLabel svg {
   color: #dea460;
+}
+
+.aghanimStage .roundGameLabel svg {
+  color: #b3a7ef;
 }
 
 .valueOrderStage .roundGameLabel svg {
@@ -2824,14 +2839,16 @@
 .spellQuestion,
 .fogQuestion,
 .echoQuestion,
-.quoteQuestion {
+.quoteQuestion,
+.aghanimQuestion {
   min-height: 272px;
 }
 
 .spellQuestion,
 .fogQuestion,
 .echoQuestion,
-.quoteQuestion {
+.quoteQuestion,
+.aghanimQuestion {
   height: 272px;
   overflow: hidden;
 }
@@ -2839,7 +2856,8 @@
 .spellQuestion .questionCopy,
 .fogQuestion .questionCopy,
 .echoQuestion .questionCopy,
-.quoteQuestion .questionCopy {
+.quoteQuestion .questionCopy,
+.aghanimQuestion .questionCopy {
   width: min(670px, calc(100% - 180px));
   flex: 0 1 670px;
 }
@@ -3023,6 +3041,11 @@
 }
 
 .spellQuestion.heroPickerQuestion {
+  height: 234px;
+  min-height: 234px;
+}
+
+.aghanimQuestion.heroPickerQuestion {
   height: 234px;
   min-height: 234px;
 }
@@ -3867,6 +3890,82 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
 .spellQuestion .questionCopy > span {
   color: #79b7d3;
+}
+
+.aghanimArtwork {
+  position: relative;
+  display: grid;
+  width: 128px;
+  height: 128px;
+  flex: 0 0 auto;
+  overflow: visible;
+  place-items: center;
+  border: 1px solid rgba(169, 155, 232, 0.24);
+  background: linear-gradient(145deg, rgba(132, 116, 211, 0.11), transparent 62%), rgba(5, 8, 10, 0.62);
+  color: #a99be8;
+  box-shadow:
+    inset 0 0 34px rgba(126, 111, 202, 0.08),
+    0 18px 38px rgba(0, 0, 0, 0.24);
+}
+
+.aghanimArtwork > img {
+  padding: 16px 10px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.38));
+}
+
+.aghanimArtwork > svg {
+  width: 38px;
+  height: 38px;
+  opacity: 0.72;
+  stroke-width: 1.25;
+}
+
+.aghanimArtwork > span {
+  position: absolute;
+  z-index: 5;
+  right: -18px;
+  bottom: -13px;
+  display: inline-flex;
+  min-width: 72px;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+  padding: 6px 9px;
+  border: 1px solid rgba(169, 155, 232, 0.34);
+  background: #15131f;
+  color: #c7bcf4;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.aghanimArtwork > span small {
+  color: #6f668e;
+  font-size: 10px;
+}
+
+.aghanimQuestion .questionCopy > span {
+  color: #b3a7ef;
+}
+
+.aghanimQuestion .questionCopy > small {
+  display: block;
+  line-height: 1.35;
+}
+
+.aghanimClues {
+  margin: 12px 0 2px;
+}
+
+.aghanimClues strong {
+  color: #8176ba;
+}
+
+.aghanimClues .clueUnlocked {
+  border-color: rgba(169, 155, 232, 0.25);
+  background: rgba(118, 103, 188, 0.075);
 }
 
 .clueList {
@@ -6752,7 +6851,8 @@ button[data-state="wrong"] > .heroPickerVerdict {
     grid-row: auto;
   }
 
-  .spellQuestion.heroPickerQuestion {
+  .spellQuestion.heroPickerQuestion,
+  .aghanimQuestion.heroPickerQuestion {
     height: auto;
     min-height: 470px;
   }

@@ -24,6 +24,16 @@ if (
   failures.push("Spell Link hint stages no longer reduce the authoritative score in order.");
 }
 
+const aghanimSecondClue = scoreBreakdown({ difficulty: 2, game: "aghanim-lab" }, 8_000, duration);
+const aghanimFinalClue = scoreBreakdown({ difficulty: 2, game: "aghanim-lab" }, 4_000, duration);
+if (
+  aghanimSecondClue.cluePenalty !== 40 ||
+  aghanimFinalClue.cluePenalty !== 80 ||
+  aghanimFinalClue.rawPoints >= aghanimSecondClue.rawPoints
+) {
+  failures.push("Aghanim's Lab clue stages no longer reduce the authoritative score in order.");
+}
+
 const map = scoreBreakdown(
   {
     difficulty: 2,
