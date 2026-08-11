@@ -65,13 +65,7 @@ import {
 } from "@/lib/hero-picker";
 import { MAP_SENSE_BAND_LABELS, MAP_SENSE_IMAGE, mapAnswerIndex, mapDistance, isMapPosition } from "@/lib/map-sense";
 import type { MapBounds, MapChoiceChallenge, MapCrop, MapPosition, MapViewport } from "@/lib/map-types";
-import {
-  PROGRESSIVE_CLUE_PENALTY,
-  SPELL_CLUE_PENALTY,
-  clueStageAt,
-  crowdScoreMultiplier,
-  scoreBreakdown,
-} from "@/lib/scoring.mjs";
+import { clueStageAt, crowdScoreMultiplier, scoreBreakdown } from "@/lib/scoring.mjs";
 import {
   isRecipeAnswerKey,
   isShopkeeperCatalogKey,
@@ -150,7 +144,6 @@ const PREVIEW_QUESTION: PublicArcadeQuestion = {
     kind: "ability",
   },
   answers: ["Ability values", "Item recipes", "Hero voices", "Fogged portraits"],
-  patch: "live",
   clueStage: 1,
   reveal: null,
 };
@@ -297,7 +290,6 @@ const MODE_INFO: Record<
     eyebrow: string;
     description: string;
     action: string;
-    rule: string;
   }
 > = {
   mixed: {
@@ -306,7 +298,6 @@ const MODE_INFO: Record<
     eyebrow: "One room · Endless",
     description: "Dota facts, recipes, spells, upgrades, fog, voices, sounds, and quotes—one round at a time.",
     action: "Join public arcade",
-    rule: "Distinct round formats rotate without repeating the same family back-to-back.",
   },
   trivia: {
     label: "Classic Trivia",
@@ -314,7 +305,6 @@ const MODE_INFO: Record<
     eyebrow: "The original",
     description: "Mana, damage, cooldowns, heroes, and items—the classic global-results loop.",
     action: "Enter classic trivia",
-    rule: "One shared pool rotates abilities, items, stats, and comparisons.",
   },
   shopkeeper: {
     label: "Shopkeeper Rush",
@@ -322,7 +312,6 @@ const MODE_INFO: Record<
     eyebrow: "Recipe knowledge",
     description: "Build items, spot exact recipes, find shared parts, and trace direct upgrades.",
     action: "Open the secret shop",
-    rule: "Four recipe formats rotate evenly from the audited live-client shop.",
   },
   "spell-link": {
     label: "Spell Link",
@@ -330,7 +319,6 @@ const MODE_INFO: Record<
     eyebrow: "Icon recognition",
     description: "Match an ability to its hero from mechanics, name, and icon.",
     action: "Link some spells",
-    rule: "Each extra clue reduces the available score.",
   },
   "fogged-vision": {
     label: "Fogged Vision",
@@ -338,7 +326,6 @@ const MODE_INFO: Record<
     eyebrow: "Progressive reveal",
     description: "Recognize a hero through heavy fog before the portrait sharpens and the easy points disappear.",
     action: "Enter the fog",
-    rule: "The portrait clears in three stages. Lock in early while the image is still obscured.",
   },
   "echo-hunt": {
     label: "Echo Hunt",
@@ -346,7 +333,6 @@ const MODE_INFO: Record<
     eyebrow: "Hero voices",
     description: "Identify a hero response as its opening fragment grows into a longer line.",
     action: "Hunt some echoes",
-    rule: "Two short fragments unlock before the complete spoken line.",
   },
   soundcheck: {
     label: "Soundcheck",
@@ -354,7 +340,6 @@ const MODE_INFO: Record<
     eyebrow: "Audio recognition",
     description: "Identify real effects and item activations as short audio cuts grow longer.",
     action: "Enter soundcheck",
-    rule: "Two tiny cuts lead to the complete effect. Some rounds chain two sounds in order.",
   },
   "quote-hunt": {
     label: "Quote Hunt",
@@ -362,7 +347,6 @@ const MODE_INFO: Record<
     eyebrow: "Hero responses",
     description: "Read a real hero response and identify the speaker from their attitude, diction, and worldview.",
     action: "Read between the lines",
-    rule: "One proper hero line, four closely matched portraits, no laughs or throwaway noises.",
   },
   "aghanim-lab": {
     label: "Aghanim's Lab",
@@ -370,7 +354,6 @@ const MODE_INFO: Record<
     eyebrow: "Upgrade knowledge",
     description: "Match current Scepter and Shard effects to their heroes before the ability name appears.",
     action: "Enter the lab",
-    rule: "The upgrade type and ability name arrive as later, lower-scoring clues.",
   },
   "order-up": {
     label: "Order Up",
@@ -378,7 +361,6 @@ const MODE_INFO: Record<
     eyebrow: "Sort the facts",
     description: "Put four audited items or abilities in the right order before the clock runs out.",
     action: "Sort the cards",
-    rule: "Four cards, one direction, and no values until the reveal.",
   },
   "map-sense": {
     label: "Map Sense",
@@ -386,7 +368,6 @@ const MODE_INFO: Record<
     eyebrow: "Pinpoint the play",
     description: "Read map calls, block camps, stack neutrals, and solve compact battlefield decisions.",
     action: "Read the map",
-    rule: "Real terrain, current spawn boxes, and Valve's in-game stack guides.",
   },
   counterplay: {
     label: "Counterplay",
@@ -394,7 +375,6 @@ const MODE_INFO: Record<
     eyebrow: "Mechanics check",
     description: "Read BKB, dispels, Linken's, Lotus, and Nullifier interactions before the fight is decided.",
     action: "Test your mechanics",
-    rule: "One mechanic, four abilities, and one interaction that actually works.",
   },
 };
 
@@ -1650,13 +1630,6 @@ function HeroPicker({
       </div>
     </div>
   );
-}
-
-function shopkeeperRoundNote(question: PublicArcadeQuestion) {
-  if (question.shopkeeper?.format === "build-result") return "Every shown component is part of the direct recipe";
-  if (question.shopkeeper?.format === "real-recipe") return "Build the direct recipe from the shop";
-  if (question.shopkeeper?.format === "shared-part") return "Compare the two direct shop recipes";
-  return "Choose the item that directly upgrades from the shown part";
 }
 
 function classicQuestionContext(question: PublicArcadeQuestion) {
@@ -3853,7 +3826,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                 <div className={styles.questionCopy}>
                   <span>{currentQuestion.eyebrow}</span>
                   <h2>{currentQuestion.prompt}</h2>
-                  <small>Patch {currentQuestion.patch}</small>
                 </div>
               </div>
             ) : currentGame === "map-sense" ? (
@@ -3892,10 +3864,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                 )}
                 <div className={styles.questionCopy}>
                   <h2>{currentQuestion.prompt}</h2>
-                  <small>
-                    Patch {currentQuestion.patch}
-                    {!isOpenShopRound && ` · ${shopkeeperRoundNote(currentQuestion)}`}
-                  </small>
                 </div>
               </div>
             ) : currentGame === "spell-link" ? (
@@ -3925,7 +3893,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                 <div className={styles.questionCopy}>
                   <span>Ability identity</span>
                   <h2>Which hero owns this ability?</h2>
-                  <div className={styles.clueList}>
+                  <div className={styles.clueList} data-testid="spell-clue-list">
                     <div
                       className={styles.clueUnlocked}
                       data-testid="spell-clue-1"
@@ -3951,7 +3919,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                       <span>{clueStage >= 3 ? "Ability icon revealed" : `Icon unlocks at ${finalClueAt}s`}</span>
                     </div>
                   </div>
-                  <small data-testid="spell-clue-scoring">Later clues cost {SPELL_CLUE_PENALTY} points each.</small>
                 </div>
               </div>
             ) : currentGame === "aghanim-lab" ? (
@@ -4006,9 +3973,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                       <span>{clueStage >= 3 ? currentQuestion.aghanim?.abilityName : "Ability name"}</span>
                     </div>
                   </div>
-                  <small data-testid="aghanim-clue-scoring">
-                    Later clues cost {PROGRESSIVE_CLUE_PENALTY} points each.
-                  </small>
                 </div>
               </div>
             ) : currentGame === "fogged-vision" ? (
@@ -4034,7 +3998,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                       <span key={index} className={index < clueStage ? styles.fogMeterActive : undefined} />
                     ))}
                   </div>
-                  <small>Trust the silhouette, palette, and pose.</small>
                 </div>
               </div>
             ) : currentGame === "echo-hunt" || isSoundcheckRound ? (
@@ -4282,7 +4245,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                   {classicQuestionContext(currentQuestion) && <span>{classicQuestionContext(currentQuestion)}</span>}
                   <h2>{currentQuestion.prompt}</h2>
                   {currentQuestion.detail && <p className={styles.questionDetail}>{currentQuestion.detail}</p>}
-                  <small>Patch {currentQuestion.patch} · No talents or upgrades unless stated</small>
                 </div>
               </div>
             )}
@@ -4680,7 +4642,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               </span>
               Session ended
             </div>
-            <span className={styles.summaryPatch}>{gameInfo.contentLabel}</span>
           </div>
 
           <div className={styles.summaryHero}>

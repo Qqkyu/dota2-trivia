@@ -3950,11 +3950,6 @@ button[data-state="wrong"] > .heroPickerVerdict {
   color: #b3a7ef;
 }
 
-.aghanimQuestion .questionCopy > small {
-  display: block;
-  line-height: 1.35;
-}
-
 .aghanimClues {
   margin: 12px 0 2px;
 }
@@ -3978,11 +3973,6 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
 .spellQuestion .clueList {
   margin: 12px 0 2px;
-}
-
-.spellQuestion .questionCopy > small {
-  display: block;
-  line-height: 1.35;
 }
 
 .clueList > div {
@@ -5895,14 +5885,6 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
 .matchFound svg {
   width: 12px;
-}
-
-.summaryPatch {
-  color: var(--faint);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
 }
 
 .summaryHero {

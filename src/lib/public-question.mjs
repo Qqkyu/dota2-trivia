@@ -185,7 +185,6 @@ export function publicQuestionForRound(question, round, now) {
     ...(counterplay ? { counterplay } : {}),
     ...(valueOrder ? { valueOrder } : {}),
     ...(aghanim ? { aghanim } : {}),
-    patch: question.patch,
     clueStage,
     reveal:
       round.phase === "reveal"

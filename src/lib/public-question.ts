@@ -100,7 +100,6 @@ export interface PublicArcadeQuestion {
   // from becoming a separate migration, while the serializer refuses to send
   // map questions until they have a target-safe contract.
   map?: MapChallenge;
-  patch: string;
   clueStage: 1 | 2 | 3;
   reveal: PublicQuestionReveal | null;
 }
@@ -220,7 +219,6 @@ export function isPublicArcadeQuestion(value: unknown): value is PublicArcadeQue
           reveal.orderValues.every(
             (entry) => typeof entry.key === "string" && typeof entry.label === "string" && entry.label.length > 0,
           ))) &&
-      typeof candidate.patch === "string" &&
       (candidate.clueStage === 1 || candidate.clueStage === 2 || candidate.clueStage === 3) &&
       (reveal === null ||
         (Boolean(reveal) &&

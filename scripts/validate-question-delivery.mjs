@@ -119,6 +119,7 @@ for (const [question, game] of representativeQuestions) {
   const publicKeys = keysInside(payload);
   const leakedKeys = [...forbiddenAnsweringKeys].filter((key) => publicKeys.has(key));
   record(payload.id === answeringRound.id, `${question.id}: the internal catalog ID became the public identity.`);
+  record(!Object.hasOwn(payload, "patch"), `${question.id}: the global patch label was repeated in the round payload.`);
   record(payload.reveal === null, `${question.id}: answering payload included reveal data.`);
   record(leakedKeys.length === 0, `${question.id}: answering payload leaked ${leakedKeys.join(", ")}.`);
   if (isHeroPickerQuestion(question)) {
@@ -134,6 +135,10 @@ for (const [question, game] of representativeQuestions) {
   const revealRound = roundFor(question, game, "reveal", 16_000);
   const revealPayload = publicQuestionForRound(question, revealRound, revealRound.now);
   const reveal = revealPayload.reveal;
+  record(
+    !Object.hasOwn(revealPayload, "patch"),
+    `${question.id}: the global patch label was repeated in the reveal payload.`,
+  );
   record(
     reveal?.correctIndex === question.correctIndex && reveal?.explanation === question.explanation,
     `${question.id}: reveal payload did not restore the server answer and explanation.`,

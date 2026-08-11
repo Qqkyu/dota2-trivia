@@ -357,7 +357,7 @@ async function runSpellLayoutStress() {
   await waitFor(
     `document.querySelector("main")?.dataset.phase === "answering" &&
       document.querySelector("main")?.dataset.roundId === "visual-crowd-stress-spell" &&
-      Boolean(document.querySelector('[data-testid="spell-clue-scoring"]'))`,
+      Boolean(document.querySelector('[data-testid="spell-clue-list"]'))`,
     12_000,
   );
   await delay(300);
@@ -365,21 +365,21 @@ async function runSpellLayoutStress() {
 
   return evaluate(`(() => {
     const prompt = document.querySelector('[data-testid="round-prompt"]');
-    const helper = document.querySelector('[data-testid="spell-clue-scoring"]');
+    const clues = document.querySelector('[data-testid="spell-clue-list"]');
     const picker = document.querySelector('[data-testid="hero-picker"]');
     const promptBounds = prompt?.getBoundingClientRect();
-    const helperBounds = helper?.getBoundingClientRect();
+    const clueBounds = clues?.getBoundingClientRect();
     const pickerBounds = picker?.getBoundingClientRect();
     return {
-      visible: Boolean(helperBounds?.width && helperBounds?.height),
+      visible: Boolean(clueBounds?.width && clueBounds?.height),
       fullyVisible: Boolean(
         promptBounds &&
-          helperBounds &&
-          helperBounds.top >= promptBounds.top &&
-          helperBounds.bottom <= promptBounds.bottom
+          clueBounds &&
+          clueBounds.top >= promptBounds.top &&
+          clueBounds.bottom <= promptBounds.bottom
       ),
-      bottomInset: promptBounds && helperBounds ? promptBounds.bottom - helperBounds.bottom : -1,
-      pickerGap: pickerBounds && helperBounds ? pickerBounds.top - helperBounds.bottom : -1,
+      bottomInset: promptBounds && clueBounds ? promptBounds.bottom - clueBounds.bottom : -1,
+      pickerGap: pickerBounds && clueBounds ? pickerBounds.top - clueBounds.bottom : -1,
       horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
     };
   })()`);
@@ -1257,7 +1257,7 @@ if (
   spellLayoutStress.pickerGap < 6 ||
   spellLayoutStress.horizontalOverflow
 ) {
-  failures.push("The Spell Link scoring note is clipped or crowded by the hero picker.");
+  failures.push("The Spell Link clues are clipped or crowded by the hero picker.");
 }
 if (
   aghanimLayoutStress.clueCards !== 3 ||
@@ -1338,7 +1338,7 @@ console.log(
         items: `${itemCrowdStress.namedRows} named + Other (${itemCrowdStress.total} votes)`,
         orders: `${orderCrowdStress.namedRows} named + Other (${orderCrowdStress.total} votes)`,
       },
-      spellLinkHelperClearance: `${Math.round(spellLayoutStress.pickerGap)}px`,
+      spellLinkClueClearance: `${Math.round(spellLayoutStress.pickerGap)}px`,
       aghanimLabLayout: "3 staged clues + 127-hero picker",
       mediaPlaybackDisabled: true,
       optionalSteamProfile: true,
