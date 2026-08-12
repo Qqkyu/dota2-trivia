@@ -41,7 +41,7 @@ export default function PrivacyPage() {
         <p>We store only the data needed for your Queue Arcade profile:</p>
         <ul>
           <li>your verified SteamID;</li>
-          <li>your current public Steam name and avatar when profile enrichment is configured;</li>
+          <li>your current public Steam name and avatar, when Steam publishes them;</li>
           <li>your Queue Arcade answers, timestamps, streaks, and format statistics;</li>
           <li>a one-way hash of the session token placed in your browser.</li>
         </ul>

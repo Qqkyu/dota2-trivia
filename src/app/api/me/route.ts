@@ -4,6 +4,7 @@ import { clearAccountSessionCookie, isSameOriginMutation, sessionUserForRequest 
 import { deleteAccount, getAccountProfile } from "@/lib/account-store";
 import { DEFAULT_GAME_ID } from "@/lib/game-catalogs";
 import { logServerError } from "@/lib/server-diagnostics";
+import { refreshSteamIdentityIfNeeded } from "@/lib/steam-profile";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -14,7 +15,13 @@ export async function GET(request: NextRequest) {
     if (!user) {
       return NextResponse.json({ authenticated: false }, { headers: { "Cache-Control": "no-store" } });
     }
-    const profile = await getAccountProfile(user.id, DEFAULT_GAME_ID);
+    let resolved = user;
+    try {
+      resolved = await refreshSteamIdentityIfNeeded(user);
+    } catch (error) {
+      logServerError("profile.steam-refresh", error);
+    }
+    const profile = await getAccountProfile(resolved.id, DEFAULT_GAME_ID);
     return NextResponse.json(profile ? { authenticated: true, profile } : { authenticated: false }, {
       headers: { "Cache-Control": "no-store" },
     });

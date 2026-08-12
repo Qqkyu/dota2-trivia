@@ -42,6 +42,7 @@ const nextConfig = {
         "avatars.cloudflare.steamstatic.com",
         "avatars.fastly.steamstatic.com",
         "media.steampowered.com",
+        "steamcdn-a.akamaihd.net",
       ].map((hostname) => ({ protocol: "https", hostname, pathname: "/**" })),
     ],
   },

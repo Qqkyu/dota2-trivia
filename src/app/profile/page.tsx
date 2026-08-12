@@ -8,6 +8,7 @@ import { getAccountProfile, getUserBySession } from "@/lib/account-store";
 import { DEFAULT_GAME_ID } from "@/lib/game-catalogs";
 import { ACCOUNT_SESSION_COOKIE, sessionTokenHash } from "@/lib/steam-auth.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
+import { refreshSteamIdentityIfNeeded } from "@/lib/steam-profile";
 import styles from "./profile.module.css";
 
 export const metadata: Metadata = { title: "Profile" };
@@ -55,7 +56,8 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
   let profile = null;
   try {
     const user = token ? await getUserBySession(sessionTokenHash(token)) : null;
-    profile = user ? await getAccountProfile(user.id, DEFAULT_GAME_ID) : null;
+    const enriched = user ? await refreshSteamIdentityIfNeeded(user) : null;
+    profile = enriched ? await getAccountProfile(enriched.id, DEFAULT_GAME_ID) : null;
   } catch (error) {
     logServerError("profile.render", error);
   }

@@ -10,6 +10,12 @@ import {
   steamVerificationBody,
   verifySteamState,
 } from "../src/lib/steam-auth.mjs";
+import {
+  FALLBACK_STEAM_DISPLAY_NAME,
+  parseSteamCommunityProfile,
+  safeAvatarUrl,
+  steamIdentityNeedsEnrichment,
+} from "../src/lib/steam-profile.mjs";
 
 const failures = [];
 const rounds = [true, true, false, true, true, true, true, true, true, true, true].map((correct, index) => ({
@@ -91,6 +97,30 @@ if (
   !/^[A-Za-z0-9_-]{43}$/.test(sessionTokenHash("session-token"))
 ) {
   failures.push("Steam OpenID state, redirect, claimed-ID, or session hashing validation failed.");
+}
+
+const publicSteamId = "76561198000000000";
+const publicAvatar = "https://avatars.fastly.steamstatic.com/queuearcade_full.jpg";
+const communityProfile = parseSteamCommunityProfile(
+  `<?xml version="1.0" encoding="UTF-8"?><profile><steamID64>${publicSteamId}</steamID64><steamID><![CDATA[ Queue  Player ]]></steamID><avatarFull><![CDATA[${publicAvatar}]]></avatarFull></profile>`,
+  publicSteamId,
+);
+const mismatchedProfile = parseSteamCommunityProfile(
+  `<?xml version="1.0" encoding="UTF-8"?><profile><steamID64>76561198000000001</steamID64><steamID>Other</steamID><avatarFull>${publicAvatar}</avatarFull></profile>`,
+  publicSteamId,
+);
+
+if (
+  communityProfile?.displayName !== "Queue Player" ||
+  communityProfile.avatarUrl !== publicAvatar ||
+  mismatchedProfile ||
+  safeAvatarUrl("http://avatars.steamstatic.com/queuearcade_full.jpg") ||
+  safeAvatarUrl("https://evil.example/queuearcade_full.jpg") ||
+  safeAvatarUrl(publicAvatar) !== publicAvatar ||
+  !steamIdentityNeedsEnrichment({ displayName: FALLBACK_STEAM_DISPLAY_NAME, avatarUrl: null }) ||
+  steamIdentityNeedsEnrichment({ displayName: "Queue Player", avatarUrl: publicAvatar })
+) {
+  failures.push("Public Steam profile parsing or avatar host allowlisting failed.");
 }
 
 if (failures.length) throw new Error(failures.join("\n"));
