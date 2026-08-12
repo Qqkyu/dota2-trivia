@@ -4,12 +4,13 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 const root = process.cwd();
-const [arcadeSource, publicQuestionSource, publicQuestionType, steamAvatarSource] = await Promise.all(
+const [arcadeSource, publicQuestionSource, publicQuestionType, steamAvatarSource, profileSource] = await Promise.all(
   [
     "src/components/queue-arcade.tsx",
     "src/lib/public-question.mjs",
     "src/lib/public-question.ts",
     "src/components/steam-avatar.tsx",
+    "src/app/profile/page.tsx",
   ].map((file) => readFile(path.join(root, file), "utf8")),
 );
 
@@ -47,6 +48,12 @@ record(
 record(
   steamAvatarSource.includes("onError") && steamAvatarSource.includes("steam-avatar-fallback"),
   "A missing or failed Steam avatar no longer falls back to a local placeholder.",
+);
+record(
+  !profileSource.includes("Ability values") &&
+    !profileSource.includes("stage ${") &&
+    !profileSource.includes("round ${round.roundNumber"),
+  "The profile page returned to scheduler names or raw round numbers.",
 );
 
 if (failures.length) throw new Error(failures.join("\n"));

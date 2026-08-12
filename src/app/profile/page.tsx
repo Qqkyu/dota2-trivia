@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { ProfileActions } from "@/components/profile-actions";
+import { ProfileRecords } from "@/components/profile-records";
 import { SteamAvatar } from "@/components/steam-avatar";
 import { SteamSignIn } from "@/components/steam-sign-in";
 import { getAccountProfile, getUserBySession } from "@/lib/account-store";
 import { DEFAULT_GAME_ID } from "@/lib/game-catalogs";
+import { answerStageLabel, compactElapsedLabel, groupFormatMastery, liveRoundIdentity } from "@/lib/round-identity.mjs";
 import { ACCOUNT_SESSION_COOKIE, sessionTokenHash } from "@/lib/steam-auth.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 import { refreshSteamIdentityIfNeeded } from "@/lib/steam-profile";
@@ -13,33 +15,6 @@ import styles from "./profile.module.css";
 
 export const metadata: Metadata = { title: "Profile" };
 export const dynamic = "force-dynamic";
-
-const FORMAT_LABELS: Record<string, string> = {
-  "classic-ability-values": "Ability values",
-  "classic-hero-stats": "Hero stats",
-  "classic-item-prices": "Item prices",
-  "shopkeeper-builds": "Shopkeeper builds",
-  "shopkeeper-paths": "Shopkeeper paths",
-  "spell-link": "Spell Link",
-  "fogged-vision": "Fogged Vision",
-  "echo-hunt": "Echo Hunt",
-  soundcheck: "Soundcheck",
-  "quote-hunt": "Quote Hunt",
-  "aghanim-upgrades": "Aghanim's Lab",
-  "value-order": "Order Up",
-};
-
-const ROUND_LABELS: Record<string, string> = {
-  trivia: "Classic Trivia",
-  shopkeeper: "Shopkeeper",
-  "spell-link": "Spell Link",
-  "fogged-vision": "Fogged Vision",
-  "echo-hunt": "Echo Hunt",
-  soundcheck: "Soundcheck",
-  "quote-hunt": "Quote Hunt",
-  "aghanim-lab": "Aghanim's Lab",
-  "order-up": "Order Up",
-};
 
 interface ProfilePageProps {
   searchParams: Promise<{ authError?: string | string[] }>;
@@ -129,48 +104,21 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
         </div>
       </section>
 
-      <section className={styles.recordGrid}>
-        <article className={styles.panel}>
-          <header className={styles.formatHeader}>
-            <span>Format mastery</span>
-            <strong>{stats.firstStageCorrect} early solves</strong>
-          </header>
-          {stats.formats.length ? (
-            stats.formats.map((format) => (
-              <div className={styles.formatRow} key={format.format}>
-                <span>{FORMAT_LABELS[format.format] ?? format.format}</span>
-                <small>{format.answered} answers</small>
-                <strong>{format.accuracy}%</strong>
-              </div>
-            ))
-          ) : (
-            <p className={styles.emptyRows}>Your first synchronized answer will start this profile.</p>
-          )}
-        </article>
-
-        <article className={styles.panel}>
-          <header className={styles.recentHeader}>
-            <span>Recent answers</span>
-            <strong>
-              {stats.progressiveCorrect}/{stats.progressiveAnswered} staged
-            </strong>
-          </header>
-          {stats.recentRounds.length ? (
-            stats.recentRounds.map((round) => (
-              <div
-                className={`${styles.recentRow} ${round.correct ? styles.recentCorrect : styles.recentWrong}`}
-                key={round.roundId}
-              >
-                <span>{ROUND_LABELS[round.roundGame] ?? round.roundGame}</span>
-                <small>{round.answerStage ? `stage ${round.answerStage}` : `round ${round.roundNumber + 1}`}</small>
-                <strong>{round.correct ? "✓" : "×"}</strong>
-              </div>
-            ))
-          ) : (
-            <p className={styles.emptyRows}>No connected rounds yet.</p>
-          )}
-        </article>
-      </section>
+      <ProfileRecords
+        formats={groupFormatMastery(stats.formats)}
+        recent={stats.recentRounds.map((round) => {
+          const identity = liveRoundIdentity(round.roundGame);
+          const stage = answerStageLabel(round.answerStage);
+          const elapsed = compactElapsedLabel(round.submittedAt);
+          return {
+            roundId: round.roundId,
+            game: round.roundGame,
+            label: identity?.label ?? round.roundGame,
+            correct: round.correct,
+            detail: [stage, elapsed].filter(Boolean).join(" · ") || null,
+          };
+        })}
+      />
 
       <p className={styles.privacyNote}>
         Only Queue Arcade answers made while connected are recorded. <Link href="/privacy">What we store</Link>

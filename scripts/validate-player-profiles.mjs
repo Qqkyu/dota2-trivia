@@ -10,6 +10,13 @@ import {
   steamVerificationBody,
   verifySteamState,
 } from "../src/lib/steam-auth.mjs";
+import { LIVE_ROUND_GAMES, PUBLIC_ROUND_FORMATS } from "../src/lib/arcade-games.mjs";
+import {
+  answerStageLabel,
+  compactElapsedLabel,
+  groupFormatMastery,
+  publicFormatsHaveIdentities,
+} from "../src/lib/round-identity.mjs";
 import {
   FALLBACK_STEAM_DISPLAY_NAME,
   parseSteamCommunityProfile,
@@ -121,6 +128,33 @@ if (
   steamIdentityNeedsEnrichment({ displayName: "Queue Player", avatarUrl: publicAvatar })
 ) {
   failures.push("Public Steam profile parsing or avatar host allowlisting failed.");
+}
+
+const mastery = groupFormatMastery([
+  { format: "classic-ability-values", answered: 4, correct: 2, accuracy: 50 },
+  { format: "classic-item-prices", answered: 2, correct: 2, accuracy: 100 },
+  { format: "spell-link", answered: 3, correct: 3, accuracy: 100 },
+]);
+const classic = mastery.find((row) => row.game === "trivia");
+const fogged = mastery.find((row) => row.game === "fogged-vision");
+
+if (
+  !publicFormatsHaveIdentities() ||
+  mastery.length !== LIVE_ROUND_GAMES.length ||
+  PUBLIC_ROUND_FORMATS.length !== 12 ||
+  classic?.label !== "Classic Trivia" ||
+  classic.look !== "A–D values" ||
+  classic.answered !== 6 ||
+  classic.accuracy !== 67 ||
+  classic.slices.map((slice) => slice.label).join(",") !== "values,prices" ||
+  fogged?.accuracy !== null ||
+  answerStageLabel(1) !== "early" ||
+  answerStageLabel(2) !== "mid" ||
+  answerStageLabel(3) !== "late" ||
+  compactElapsedLabel(1_000, 1_000 + 45_000) !== "45s" ||
+  compactElapsedLabel(1_000, 1_000 + 3 * 60_000) !== "3m"
+) {
+  failures.push("Profile format identities no longer match the lobby round mix.");
 }
 
 if (failures.length) throw new Error(failures.join("\n"));

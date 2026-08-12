@@ -181,12 +181,31 @@
 .formatRow,
 .recentRow {
   display: grid;
-  min-height: 52px;
+  min-height: 58px;
   align-items: center;
-  gap: 12px;
-  padding: 8px 16px;
+  gap: 14px;
+  padding: 10px 16px;
   border-bottom: 1px solid #212625;
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+button.formatRow {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+button.formatRow:hover,
+.formatRowSelected {
+  background: rgba(112, 197, 136, 0.06);
+}
+
+button.formatRow:focus-visible {
+  outline: 1px solid rgba(112, 197, 136, 0.45);
+  outline-offset: -1px;
 }
 
 .formatRow:last-child,
@@ -194,30 +213,84 @@
   border-bottom: 0;
 }
 
-.formatRow span,
-.recentRow span {
-  overflow: hidden;
+.identity {
+  display: grid;
+  min-width: 0;
+  align-items: center;
+  gap: 10px;
+  grid-template-columns: 18px minmax(0, 1fr);
   color: #c6cbc8;
+}
+
+.identity svg {
+  width: 16px;
+  height: 16px;
+  color: #8d9b93;
+}
+
+.identityCopy {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.identityLabel {
+  overflow: hidden;
+  color: #d7dcd8;
   font-size: 13px;
+  font-weight: 560;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.formatRow small,
-.recentRow small {
+.identity small,
+.sliceLine {
+  overflow: hidden;
   color: #707875;
   font-family: var(--font-geist-mono), monospace;
   font-size: 10px;
+  letter-spacing: 0.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.formatRow strong,
-.recentRow strong {
-  min-width: 44px;
+.accuracyCell {
+  display: grid;
+  align-items: center;
+  gap: 8px;
+  grid-template-columns: 56px auto;
+}
+
+.accuracyTrack {
+  display: block;
+  width: 56px;
+  height: 4px;
+  overflow: hidden;
+  background: #1b211f;
+}
+
+.accuracyFill {
+  display: block;
+  height: 100%;
+  background: #5f8f6c;
+}
+
+.accuracyFill[data-empty="true"] {
+  background: #2a312e;
+}
+
+.accuracyCell strong,
+.recentRow > strong {
+  min-width: 36px;
   color: #e8e9e4;
   font-family: var(--font-geist-mono), monospace;
   font-size: 13px;
   font-weight: 520;
   text-align: right;
+}
+
+.rowDimmed {
+  opacity: 0.38;
 }
 
 .recentCorrect strong {
