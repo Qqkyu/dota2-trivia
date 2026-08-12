@@ -107,6 +107,7 @@ import {
   roomDeadlineSyncDelay,
   roomProgressiveClueSyncDeadline,
 } from "@/lib/room-sync.mjs";
+import { SteamAvatar } from "./steam-avatar";
 import { SteamSignIn } from "./steam-sign-in";
 import styles from "./queue-arcade.module.css";
 
@@ -614,10 +615,6 @@ function formatDuration(milliseconds: number) {
 function accuracy(correct: number, answered: number) {
   if (!answered) return 0;
   return Math.round((correct / answered) * 100);
-}
-
-function playerInitials(displayName: string) {
-  return Array.from(displayName).slice(0, 2).join("").toUpperCase();
 }
 
 function summaryTitle(correct: number, answered: number) {
@@ -3634,11 +3631,12 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                   <span className={styles.accountLoading} aria-hidden="true" />
                 ) : account.authenticated ? (
                   <Link href="/profile" className={styles.profileAction} data-testid="profile-action">
-                    {account.profile.user.avatarUrl ? (
-                      <Image src={account.profile.user.avatarUrl} alt="" width={34} height={34} unoptimized />
-                    ) : (
-                      <span>{playerInitials(account.profile.user.displayName)}</span>
-                    )}
+                    <SteamAvatar
+                      src={account.profile.user.avatarUrl}
+                      name={account.profile.user.displayName}
+                      width={34}
+                      height={34}
+                    />
                     <span>
                       <strong>{account.profile.user.displayName}</strong>
                       <small>{account.profile.stats.accuracy}% accuracy</small>

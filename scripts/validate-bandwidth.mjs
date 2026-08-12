@@ -10,9 +10,10 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const failures = [];
 const read = (path) => readFile(join(root, path), "utf8");
 
-const [component, profile, nextConfig, roundsRoute, roundAudioRoute, roundAudioCache] = await Promise.all([
+const [component, profile, steamAvatar, nextConfig, roundsRoute, roundAudioRoute, roundAudioCache] = await Promise.all([
   read("src/components/queue-arcade.tsx"),
   read("src/app/profile/page.tsx"),
+  read("src/components/steam-avatar.tsx"),
   read("next.config.mjs"),
   read("src/app/api/rounds/route.ts"),
   read("src/app/api/round-audio/route.ts"),
@@ -35,12 +36,9 @@ if (
 }
 
 for (const [label, source, pattern] of [
-  [
-    "header Steam avatar",
-    component,
-    /<Image src=\{account\.profile\.user\.avatarUrl\} alt="" width=\{34\} height=\{34\} unoptimized \/>/,
-  ],
-  ["profile Steam avatar", profile, /<Image className=\{styles\.avatar\} src=\{user\.avatarUrl\}[^>]+unoptimized \/>/],
+  ["header Steam avatar", component, /<SteamAvatar\s+src=\{account\.profile\.user\.avatarUrl\}/],
+  ["profile Steam avatar", profile, /<SteamAvatar[\s\S]*?src=\{user\.avatarUrl\}/],
+  ["Steam avatar stays unproxied", steamAvatar, /unoptimized/],
   [
     "Aghanim item art",
     component,

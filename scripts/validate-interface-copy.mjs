@@ -4,10 +4,13 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 const root = process.cwd();
-const [arcadeSource, publicQuestionSource, publicQuestionType] = await Promise.all(
-  ["src/components/queue-arcade.tsx", "src/lib/public-question.mjs", "src/lib/public-question.ts"].map((file) =>
-    readFile(path.join(root, file), "utf8"),
-  ),
+const [arcadeSource, publicQuestionSource, publicQuestionType, steamAvatarSource] = await Promise.all(
+  [
+    "src/components/queue-arcade.tsx",
+    "src/lib/public-question.mjs",
+    "src/lib/public-question.ts",
+    "src/components/steam-avatar.tsx",
+  ].map((file) => readFile(path.join(root, file), "utf8")),
 );
 
 const failures = [];
@@ -40,6 +43,10 @@ record(
 record(
   !publicQuestionSource.includes("patch: question.patch") && !publicQuestionType.includes("patch: string;"),
   "The server still sends a per-question patch field that the interface no longer uses.",
+);
+record(
+  steamAvatarSource.includes("onError") && steamAvatarSource.includes("steam-avatar-fallback"),
+  "A missing or failed Steam avatar no longer falls back to a local placeholder.",
 );
 
 if (failures.length) throw new Error(failures.join("\n"));

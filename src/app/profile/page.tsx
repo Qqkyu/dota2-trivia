@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { ProfileActions } from "@/components/profile-actions";
+import { SteamAvatar } from "@/components/steam-avatar";
 import { SteamSignIn } from "@/components/steam-sign-in";
 import { getAccountProfile, getUserBySession } from "@/lib/account-store";
 import { DEFAULT_GAME_ID } from "@/lib/game-catalogs";
@@ -43,10 +43,6 @@ const ROUND_LABELS: Record<string, string> = {
 
 interface ProfilePageProps {
   searchParams: Promise<{ authError?: string | string[] }>;
-}
-
-function playerInitials(displayName: string) {
-  return Array.from(displayName).slice(0, 2).join("").toUpperCase();
 }
 
 export default async function ProfilePage({ searchParams }: ProfilePageProps) {
@@ -92,11 +88,14 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
       </nav>
 
       <section className={styles.hero}>
-        {user.avatarUrl ? (
-          <Image className={styles.avatar} src={user.avatarUrl} alt="" width={86} height={86} unoptimized />
-        ) : (
-          <span className={styles.avatarFallback}>{playerInitials(user.displayName)}</span>
-        )}
+        <SteamAvatar
+          className={styles.avatar}
+          fallbackClassName={styles.avatarFallback}
+          src={user.avatarUrl}
+          name={user.displayName}
+          width={86}
+          height={86}
+        />
         <div className={styles.heroCopy}>
           <small>Steam-connected player</small>
           <h1>{user.displayName}</h1>
