@@ -1,0 +1,162 @@
+.look {
+  display: grid;
+  height: 76px;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(170, 56, 46, 0.16), transparent 46%),
+    linear-gradient(180deg, #141918, #101413);
+}
+
+.letters,
+.slots,
+.link,
+.wave,
+.cuts,
+.order {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6px;
+}
+
+.letters b {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid rgba(210, 214, 207, 0.16);
+  background: #1a201e;
+  color: #c8cfc9;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+}
+
+.slots i,
+.ability,
+.fog,
+.gem {
+  display: block;
+  border: 1px solid rgba(210, 214, 207, 0.14);
+  background: #1c2321;
+}
+
+.slots i {
+  width: 30px;
+  height: 30px;
+}
+
+.link {
+  align-items: center;
+  gap: 10px;
+}
+
+.ability {
+  width: 28px;
+  height: 28px;
+  background: #2a2420;
+}
+
+.link em {
+  width: 18px;
+  height: 1px;
+  background: rgba(210, 214, 207, 0.28);
+}
+
+.grid {
+  display: grid;
+  gap: 2px;
+  grid-template-columns: repeat(3, 7px);
+}
+
+.grid i {
+  width: 7px;
+  height: 7px;
+  background: rgba(210, 214, 207, 0.22);
+}
+
+.fog {
+  width: 54px;
+  height: 54px;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(180, 190, 186, 0.18), transparent 36%),
+    linear-gradient(180deg, #2a3230, #151a19);
+  filter: blur(1.2px);
+}
+
+.wave i {
+  width: 4px;
+  background: #7ea8b4;
+}
+
+.wave i:nth-child(1),
+.wave i:nth-child(7) {
+  height: 10px;
+}
+
+.wave i:nth-child(2),
+.wave i:nth-child(6) {
+  height: 18px;
+}
+
+.wave i:nth-child(3),
+.wave i:nth-child(5) {
+  height: 28px;
+}
+
+.wave i:nth-child(4) {
+  height: 36px;
+}
+
+.cuts i {
+  width: 16px;
+  background: #c4a15a;
+}
+
+.cuts i:nth-child(1) {
+  height: 10px;
+}
+
+.cuts i:nth-child(2) {
+  height: 20px;
+}
+
+.cuts i:nth-child(3) {
+  height: 32px;
+}
+
+.quote {
+  color: rgba(223, 214, 196, 0.55);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 34px;
+  line-height: 1;
+}
+
+.gem {
+  width: 22px;
+  height: 30px;
+  border-color: rgba(184, 146, 74, 0.45);
+  background: linear-gradient(180deg, #d2a34a, #6b4a18);
+  clip-path: polygon(50% 0, 100% 28%, 78% 100%, 22% 100%, 0 28%);
+}
+
+.order i {
+  width: 10px;
+  background: #76c68a;
+}
+
+.order i:nth-child(1) {
+  height: 10px;
+}
+
+.order i:nth-child(2) {
+  height: 16px;
+}
+
+.order i:nth-child(3) {
+  height: 24px;
+}
+
+.order i:nth-child(4) {
+  height: 32px;
+}

@@ -147,10 +147,10 @@ if (
   mastery.length !== LIVE_ROUND_GAMES.length ||
   PUBLIC_ROUND_FORMATS.length !== 12 ||
   classic?.label !== "Classic Trivia" ||
-  classic.look !== "A–D values" ||
+  classic.look !== "Four choices" ||
   classic.answered !== 6 ||
   classic.accuracy !== 67 ||
-  classic.slices.map((slice) => slice.label).join(",") !== "values,prices" ||
+  classic.slices.map((slice) => slice.label).join(",") !== "Mana, cooldown, damage,Item gold" ||
   fogged?.accuracy !== null ||
   answerStageLabel(1) !== "early" ||
   answerStageLabel(2) !== "mid" ||

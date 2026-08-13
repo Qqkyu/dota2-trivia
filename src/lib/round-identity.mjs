@@ -2,23 +2,23 @@ import { LIVE_ROUND_GAMES, PUBLIC_ROUND_FORMATS, roundGameForFormat } from "./ar
 import { PROGRESSIVE_ROUND_GAMES } from "./player-profile.mjs";
 
 export const LIVE_ROUND_IDENTITIES = Object.freeze({
-  trivia: { label: "Classic Trivia", look: "A–D values" },
-  shopkeeper: { label: "Shopkeeper", look: "item shop" },
-  "spell-link": { label: "Spell Link", look: "ability → hero" },
-  "fogged-vision": { label: "Fogged", look: "fogged portrait" },
-  "echo-hunt": { label: "Echo", look: "voice clip" },
-  soundcheck: { label: "Soundcheck", look: "effect sounds" },
-  "quote-hunt": { label: "Quotes", look: "written line" },
-  "aghanim-lab": { label: "Aghanim's Lab", look: "scepter / shard" },
-  "order-up": { label: "Order Up", look: "low to high" },
+  trivia: { label: "Classic Trivia", look: "Four choices" },
+  shopkeeper: { label: "Shopkeeper", look: "The shop" },
+  "spell-link": { label: "Spell Link", look: "Ability to hero" },
+  "fogged-vision": { label: "Fogged", look: "A portrait in fog" },
+  "echo-hunt": { label: "Echo", look: "A voice line" },
+  soundcheck: { label: "Soundcheck", look: "An activation sound" },
+  "quote-hunt": { label: "Quotes", look: "A written line" },
+  "aghanim-lab": { label: "Aghanim's Lab", look: "Scepter or Shard" },
+  "order-up": { label: "Order Up", look: "Low to high" },
 });
 
 const FORMAT_SLICE_LABELS = Object.freeze({
-  "classic-ability-values": "values",
-  "classic-hero-stats": "stats",
-  "classic-item-prices": "prices",
-  "shopkeeper-builds": "builds",
-  "shopkeeper-paths": "paths",
+  "classic-ability-values": "Mana, cooldown, damage",
+  "classic-hero-stats": "Hero stats",
+  "classic-item-prices": "Item gold",
+  "shopkeeper-builds": "Recipes",
+  "shopkeeper-paths": "Upgrade paths",
 });
 
 /** @param {string} game */
@@ -97,7 +97,7 @@ export function groupFormatMastery(formatStats) {
       accuracy: group.answered ? Math.round((group.correct / group.answered) * 100) : null,
       firstStageCorrect: group.firstStageCorrect,
       progressiveAnswered: group.progressiveAnswered,
-      slices: group.answered && group.slices.length > 1 ? group.slices : [],
+      slices: group.slices,
     };
   });
 }
