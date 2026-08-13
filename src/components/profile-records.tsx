@@ -41,9 +41,7 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
               aria-hidden="true"
               data-testid={`format-preview-stage-${format.game}`}
             >
-              <div className={styles.previewLens} data-testid={`format-preview-hit-${format.game}`}>
-                <FormatLook game={format.game} label={format.label} look={format.look} preview={format.preview} />
-              </div>
+              <FormatLook game={format.game} label={format.label} look={format.look} preview={format.preview} />
             </div>
             <div className={styles.cardBody}>
               <div className={styles.identity}>

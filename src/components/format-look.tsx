@@ -1,14 +1,9 @@
-"use client";
-
 import clsx from "clsx";
-import { useLayoutEffect, useRef, useState } from "react";
 import { Clock3, Gem, ListOrdered, MessageSquareQuote, ScanEye, Swords, Volume2, WandSparkles } from "lucide-react";
 import { RoundMark } from "@/components/round-mark";
 import { LIVE_QUESTION_COPY, LIVE_ROUND_HEADER_LABELS } from "@/lib/round-question-copy.mjs";
 import arcade from "./queue-arcade.module.css";
 import look from "./format-look.module.css";
-
-const ANSWER_KEYS = ["A", "B", "C", "D"] as const;
 
 const STAGE_CLASS: Record<string, string | undefined> = {
   shopkeeper: arcade.shopkeeperStage,
@@ -63,54 +58,25 @@ function Artwork({
   );
 }
 
-function OrderBoard({ cards }: { cards: Array<{ name: string; image: string }> }) {
-  return (
-    <div className={arcade.valueOrderBoard} data-testid="format-preview-order-board">
-      <div className={arcade.valueOrderSlots} aria-hidden="true">
-        {Array.from({ length: 4 }, (_, index) => (
-          <span key={index} data-filled="false">
-            <i>{index + 1}</i>
-            <em>—</em>
-          </span>
-        ))}
-      </div>
-      <div className={arcade.valueOrderCards}>
-        {cards.map((card, index) => (
-          <span className={look.orderCard} key={`${card.name}-${index}`} data-card-kind="item">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            {card.image ? <img src={card.image} alt="" /> : <i />}
-            <span>
-              <strong>{card.name}</strong>
-            </span>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind: string }) {
   if (kind === "order-up") {
     return (
-      <>
-        <div className={clsx(arcade.questionBlock, arcade.valueOrderQuestion, look.fit)}>
-          <div className={arcade.valueOrderGlyph} aria-hidden="true">
-            <ListOrdered />
-          </div>
-          <div className={arcade.questionCopy}>
-            {preview?.eyebrow ? <span>{preview.eyebrow}</span> : null}
-            <h2>{preview?.prompt}</h2>
-          </div>
+      <div className={clsx(arcade.questionBlock, arcade.valueOrderQuestion)}>
+        <div className={arcade.valueOrderGlyph} aria-hidden="true">
+          <ListOrdered />
         </div>
-        {preview?.orderCards?.length ? <OrderBoard cards={preview.orderCards} /> : null}
-      </>
+        <div className={arcade.questionCopy}>
+          {preview?.eyebrow ? <span>{preview.eyebrow}</span> : null}
+          <h2>{preview?.prompt}</h2>
+        </div>
+      </div>
     );
   }
 
   if (kind === "shopkeeper") {
     return (
       <div
-        className={clsx(arcade.questionBlock, arcade.shopkeeperQuestion, look.fit)}
+        className={clsx(arcade.questionBlock, arcade.shopkeeperQuestion)}
         data-shopkeeper-format={preview?.shopFormat ?? undefined}
       >
         {preview?.shopFormat === "real-recipe" ? (
@@ -146,7 +112,7 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
   if (kind === "spell-link") {
     const spell = LIVE_QUESTION_COPY["spell-link"];
     return (
-      <div className={clsx(arcade.questionBlock, arcade.spellQuestion, arcade.heroPickerQuestion, look.fit)}>
+      <div className={clsx(arcade.questionBlock, arcade.spellQuestion, arcade.heroPickerQuestion)}>
         <div className={arcade.spellArtwork}>
           <div className={clsx(arcade.artwork, arcade.spellLockedArtwork)}>
             <div className={arcade.artGlow} />
@@ -183,7 +149,7 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
     const lab = LIVE_QUESTION_COPY["aghanim-lab"];
     return (
       <div
-        className={clsx(arcade.questionBlock, arcade.aghanimQuestion, arcade.heroPickerQuestion, look.fit)}
+        className={clsx(arcade.questionBlock, arcade.aghanimQuestion, arcade.heroPickerQuestion)}
         data-aghanim-stage={1}
       >
         <div className={arcade.aghanimArtwork}>
@@ -222,10 +188,7 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
   if (kind === "fogged-vision") {
     const fog = LIVE_QUESTION_COPY["fogged-vision"];
     return (
-      <div
-        className={clsx(arcade.questionBlock, arcade.fogQuestion, arcade.heroPickerQuestion, look.fit)}
-        data-fog-stage={1}
-      >
+      <div className={clsx(arcade.questionBlock, arcade.fogQuestion, arcade.heroPickerQuestion)} data-fog-stage={1}>
         <div className={arcade.fogArtwork}>
           <Artwork src={preview?.image?.src} fogged />
           <span>
@@ -264,7 +227,6 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
           arcade.echoQuestion,
           arcade.heroPickerQuestion,
           isSoundcheck && arcade.soundcheckQuestion,
-          look.fit,
         )}
       >
         <div className={clsx(arcade.echoPlayer, isSoundcheck && arcade.soundcheckPlayer)}>
@@ -296,7 +258,7 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
   if (kind === "quote-hunt") {
     const quote = LIVE_QUESTION_COPY["quote-hunt"];
     return (
-      <div className={clsx(arcade.questionBlock, arcade.quoteQuestion, arcade.heroPickerQuestion, look.fit)}>
+      <div className={clsx(arcade.questionBlock, arcade.quoteQuestion, arcade.heroPickerQuestion)}>
         <div className={arcade.quoteCard}>
           <MessageSquareQuote />
           <blockquote>“{preview?.detail ?? preview?.prompt}”</blockquote>
@@ -322,7 +284,7 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
     preview?.kind === "ability-detective" ? preview.eyebrow?.split("·", 1)[0]?.trim() : null;
 
   return (
-    <div className={clsx(arcade.questionBlock, !preview?.image && arcade.textQuestion, look.fit)}>
+    <div className={clsx(arcade.questionBlock, !preview?.image && arcade.textQuestion)}>
       {preview?.image ? (
         <Artwork src={preview.image.src} />
       ) : (
@@ -349,39 +311,10 @@ export function FormatLook({
 }) {
   const kind = preview?.game ?? game;
   const header = LIVE_ROUND_HEADER_LABELS[kind as keyof typeof LIVE_ROUND_HEADER_LABELS] ?? kind;
-  const scaleRef = useRef<HTMLDivElement>(null);
-  const [visualHeight, setVisualHeight] = useState(148);
-
-  useLayoutEffect(() => {
-    const node = scaleRef.current;
-    if (!node) return;
-
-    const update = () => {
-      const next = Math.ceil(node.getBoundingClientRect().height);
-      if (next > 0) setVisualHeight(next + 8);
-    };
-
-    update();
-    const images = [...node.querySelectorAll("img")];
-    for (const image of images) {
-      if (!image.complete) image.addEventListener("load", update);
-    }
-    const observer = new ResizeObserver(update);
-    observer.observe(node);
-    return () => {
-      observer.disconnect();
-      for (const image of images) image.removeEventListener("load", update);
-    };
-  }, [kind, preview]);
 
   return (
-    <div
-      className={look.frame}
-      data-game={kind}
-      data-testid={`format-preview-${kind}`}
-      style={{ height: visualHeight }}
-    >
-      <div className={look.scale} ref={scaleRef}>
+    <div className={look.frame} data-game={kind} data-testid={`format-preview-${kind}`}>
+      <div className={look.scale}>
         <div className={clsx(arcade.gameStage, STAGE_CLASS[kind], look.stage)}>
           <div className={arcade.timerTrack} aria-hidden="true">
             <span />
@@ -407,16 +340,6 @@ export function FormatLook({
             </div>
           </div>
           <QuestionBody preview={preview} kind={kind} />
-          {kind === "trivia" && preview?.answers ? (
-            <div className={arcade.answers}>
-              {preview.answers.map((answer, index) => (
-                <span className={arcade.answer} key={`${index}-${answer}`}>
-                  <b className={arcade.answerKey}>{ANSWER_KEYS[index]}</b>
-                  <span className={arcade.answerText}>{answer}</span>
-                </span>
-              ))}
-            </div>
-          ) : null}
         </div>
       </div>
     </div>
