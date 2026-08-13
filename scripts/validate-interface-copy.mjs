@@ -51,9 +51,10 @@ record(
 );
 record(
   !profileSource.includes("Ability values") &&
+    !profileSource.includes("Recent answers") &&
     !profileSource.includes("stage ${") &&
     !profileSource.includes("round ${round.roundNumber"),
-  "The profile page returned to scheduler names or raw round numbers.",
+  "The profile page returned to scheduler names, a recent-answer log, or raw round numbers.",
 );
 
 if (failures.length) throw new Error(failures.join("\n"));

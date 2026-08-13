@@ -11,10 +11,11 @@ import {
   verifySteamState,
 } from "../src/lib/steam-auth.mjs";
 import { LIVE_ROUND_GAMES, PUBLIC_ROUND_FORMATS } from "../src/lib/arcade-games.mjs";
-import { presentProfileRecent, profileRecordsPreview } from "../src/lib/profile-records-state.mjs";
+import { profileRecordsPreview } from "../src/lib/profile-records-state.mjs";
 import {
   answerStageLabel,
   compactElapsedLabel,
+  compareFormatMastery,
   groupFormatMastery,
   publicFormatsHaveIdentities,
 } from "../src/lib/round-identity.mjs";
@@ -55,6 +56,8 @@ if (
   summary.firstStageCorrect !== 1 ||
   summary.progressiveAnswered !== 3 ||
   summary.formats.length !== 2 ||
+  summary.formats.find((format) => format.format === "spell-link")?.firstStageCorrect !== 1 ||
+  summary.formats.find((format) => format.format === "spell-link")?.progressiveAnswered !== 3 ||
   summary.recentRounds.length !== 10 ||
   serializedRecentRounds.includes("questionId") ||
   serializedRecentRounds.includes("questionRevision") ||
@@ -158,21 +161,60 @@ if (
   failures.push("Profile format identities no longer match the lobby round mix.");
 }
 
-for (const size of ["short", "long"]) {
-  const fixture = profileRecordsPreview(size);
-  const unmatched = presentProfileRecent(fixture.recent, "fogged-vision");
-  const matched = presentProfileRecent(fixture.recent, "trivia");
-  const unmatchedVisible = unmatched.filter((row) => !row.dimmed).length;
-  if (
-    fixture.recent.length !== (size === "short" ? 2 : 10) ||
-    unmatched.length !== fixture.recent.length ||
-    matched.length !== fixture.recent.length ||
-    unmatchedVisible !== 0 ||
-    matched.filter((row) => row.highlighted).length === 0 ||
-    fixture.recent.some((row) => row.game === "fogged-vision")
-  ) {
-    failures.push(`Selecting a format changes the ${size} recent-answer list instead of dimming it.`);
-  }
+const compared = compareFormatMastery(
+  [
+    {
+      format: "classic-ability-values",
+      answered: 4,
+      correct: 2,
+      accuracy: 50,
+      firstStageCorrect: 0,
+      progressiveAnswered: 0,
+    },
+    {
+      format: "classic-item-prices",
+      answered: 2,
+      correct: 2,
+      accuracy: 100,
+      firstStageCorrect: 0,
+      progressiveAnswered: 0,
+    },
+    {
+      format: "spell-link",
+      answered: 5,
+      correct: 4,
+      accuracy: 80,
+      firstStageCorrect: 2,
+      progressiveAnswered: 5,
+    },
+  ],
+  [
+    { game: "trivia", total: 20, correct: 8 },
+    { game: "spell-link", total: 10, correct: 9 },
+  ],
+);
+const comparedClassic = compared.find((row) => row.game === "trivia");
+const comparedSpell = compared.find((row) => row.game === "spell-link");
+const comparedFogged = compared.find((row) => row.game === "fogged-vision");
+const shortPreview = profileRecordsPreview("short");
+const longPreview = profileRecordsPreview("long");
+
+if (
+  compared.length !== LIVE_ROUND_GAMES.length ||
+  comparedClassic?.you !== 67 ||
+  comparedClassic.room !== 40 ||
+  comparedSpell?.you !== 80 ||
+  comparedSpell.room !== 90 ||
+  comparedSpell.early?.correct !== 2 ||
+  comparedSpell.early?.answered !== 5 ||
+  comparedFogged?.you !== null ||
+  comparedFogged?.room !== null ||
+  comparedFogged?.early !== null ||
+  shortPreview.formats.some((row) => row.room !== null) ||
+  longPreview.formats.find((row) => row.game === "trivia")?.room !== 45 ||
+  longPreview.formats.length !== 9
+) {
+  failures.push("Profile format compare no longer shows you versus the room.");
 }
 
 if (failures.length) throw new Error(failures.join("\n"));

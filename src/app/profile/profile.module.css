@@ -156,9 +156,8 @@
 
 .recordGrid {
   display: grid;
-  gap: 18px;
   margin-top: 18px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .panel {
@@ -178,38 +177,17 @@
   border-bottom: 1px solid #292e2d;
 }
 
-.formatRow,
-.recentRow {
+.formatRow {
   display: grid;
-  min-height: 58px;
+  min-height: 72px;
   align-items: center;
-  gap: 14px;
-  padding: 10px 16px;
+  gap: 18px;
+  padding: 12px 16px;
   border-bottom: 1px solid #212625;
   grid-template-columns: minmax(0, 1fr) auto;
 }
 
-button.formatRow {
-  width: 100%;
-  border: 0;
-  background: transparent;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
-button.formatRow:hover,
-.formatRowSelected {
-  background: rgba(112, 197, 136, 0.06);
-}
-
-button.formatRow:focus-visible {
-  outline: 1px solid rgba(112, 197, 136, 0.45);
-  outline-offset: -1px;
-}
-
-.formatRow:last-child,
-.recentRow:last-child {
+.formatRow:last-child {
   border-bottom: 0;
 }
 
@@ -262,20 +240,35 @@ button.formatRow:focus-visible {
   white-space: nowrap;
 }
 
-.recentRowSelected {
-  background: rgba(112, 197, 136, 0.06);
+.compare {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 88px 88px;
 }
 
-.accuracyCell {
+.compareCell {
   display: grid;
-  align-items: center;
-  gap: 8px;
-  grid-template-columns: 56px auto;
+  gap: 4px;
+}
+
+.compareCell span {
+  color: #8b948e;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.compareCell strong {
+  color: #e8e9e4;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 18px;
+  font-weight: 520;
 }
 
 .accuracyTrack {
   display: block;
-  width: 56px;
+  width: 100%;
   height: 4px;
   overflow: hidden;
   background: #1b211f;
@@ -287,30 +280,12 @@ button.formatRow:focus-visible {
   background: #5f8f6c;
 }
 
+.accuracyFill[data-tone="room"] {
+  background: #6d8b97;
+}
+
 .accuracyFill[data-empty="true"] {
   background: #2a312e;
-}
-
-.accuracyCell strong,
-.recentRow > strong {
-  min-width: 36px;
-  color: #e8e9e4;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 13px;
-  font-weight: 520;
-  text-align: right;
-}
-
-.rowDimmed {
-  opacity: 0.38;
-}
-
-.recentCorrect strong {
-  color: #7ed497;
-}
-
-.recentWrong strong {
-  color: #dc7467;
 }
 
 .emptyRows {
@@ -411,6 +386,11 @@ button.formatRow:focus-visible {
 
   .heroCopy h1 {
     font-size: 31px;
+  }
+
+  .formatRow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
   }
 
   .emptyCard {

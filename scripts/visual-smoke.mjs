@@ -666,36 +666,35 @@ const profile = await evaluate(`({
 })`);
 await screenshot("/tmp/queue-arcade-profile-guest.png");
 
-async function measureProfileRecordsShift(size) {
+async function measureProfileRecords(size) {
   await navigate(`${appUrl}/profile?recordsPreview=${size}`);
   await waitFor(
     `document.querySelector('[data-testid="profile-records-preview"]')?.dataset.size === ${JSON.stringify(size)}`,
   );
-  const readLayout = `(() => {
-    const panel = document.querySelector('[data-testid="recent-answers-panel"]');
+  const layout = await evaluate(`(() => {
     const records = document.querySelector('[data-testid="profile-records"]');
-    const rows = [...document.querySelectorAll('[data-testid="recent-answer"]')];
+    const rows = [...document.querySelectorAll('[data-testid^="format-mastery-"]')];
+    const classic = document.querySelector('[data-testid="format-mastery-trivia"]');
+    const spell = document.querySelector('[data-testid="format-mastery-spell-link"]');
+    const fogged = document.querySelector('[data-testid="format-mastery-fogged-vision"]');
     return {
       rows: rows.length,
-      dimmed: rows.filter((row) => row.dataset.dimmed === "true").length,
-      highlighted: rows.filter((row) => row.dataset.highlighted === "true").length,
-      panelHeight: panel?.getBoundingClientRect().height ?? 0,
+      recentLog: Boolean(document.body.innerText.toLowerCase().includes("recent answers")),
+      compareLabel: document.body.innerText.toLowerCase().includes("you vs the room"),
+      classicYou: classic?.dataset.you ?? "",
+      classicRoom: classic?.dataset.room ?? "",
+      spellEarly: spell?.dataset.early ?? "",
+      foggedYou: fogged?.dataset.you ?? "",
       recordsHeight: records?.getBoundingClientRect().height ?? 0,
+      horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
     };
-  })()`;
-  const before = await evaluate(readLayout);
-  await evaluate(`document.querySelector('[data-testid="format-mastery-fogged-vision"]')?.click()`);
-  await delay(80);
-  const afterZeroMatch = await evaluate(readLayout);
-  await evaluate(`document.querySelector('[data-testid="format-mastery-trivia"]')?.click()`);
-  await delay(80);
-  const afterMatch = await evaluate(readLayout);
+  })()`);
   await screenshot(`/tmp/queue-arcade-profile-records-${size}.png`);
-  return { size, before, afterZeroMatch, afterMatch };
+  return { size, ...layout };
 }
 
-const profileRecordsShort = await measureProfileRecordsShift("short");
-const profileRecordsLong = await measureProfileRecordsShift("long");
+const profileRecordsShort = await measureProfileRecords("short");
+const profileRecordsLong = await measureProfileRecords("long");
 
 await navigate(`${appUrl}/privacy`);
 const privacy = await evaluate(`({
@@ -1098,22 +1097,22 @@ if (
 ) {
   failures.push("The optional guest profile entry point is incomplete or overflows.");
 }
-for (const sample of [profileRecordsShort, profileRecordsLong]) {
-  const expectedRows = sample.size === "short" ? 2 : 10;
-  if (
-    sample.before.rows !== expectedRows ||
-    sample.afterZeroMatch.rows !== expectedRows ||
-    sample.afterMatch.rows !== expectedRows ||
-    sample.afterZeroMatch.dimmed !== expectedRows ||
-    sample.afterZeroMatch.highlighted !== 0 ||
-    sample.afterMatch.highlighted < 1 ||
-    Math.abs(sample.afterZeroMatch.panelHeight - sample.before.panelHeight) > 1 ||
-    Math.abs(sample.afterMatch.panelHeight - sample.before.panelHeight) > 1 ||
-    Math.abs(sample.afterZeroMatch.recordsHeight - sample.before.recordsHeight) > 1 ||
-    Math.abs(sample.afterMatch.recordsHeight - sample.before.recordsHeight) > 1
-  ) {
-    failures.push(`Selecting a format shifts the ${sample.size} profile records layout.`);
-  }
+if (
+  profileRecordsShort.rows !== 9 ||
+  profileRecordsShort.recentLog ||
+  !profileRecordsShort.compareLabel ||
+  profileRecordsShort.classicYou !== "63" ||
+  profileRecordsShort.classicRoom !== "" ||
+  profileRecordsShort.spellEarly !== "2/5" ||
+  profileRecordsShort.horizontalOverflow ||
+  profileRecordsLong.rows !== 9 ||
+  profileRecordsLong.recentLog ||
+  profileRecordsLong.classicYou !== "63" ||
+  profileRecordsLong.classicRoom !== "45" ||
+  profileRecordsLong.foggedYou !== "" ||
+  profileRecordsLong.horizontalOverflow
+) {
+  failures.push("Profile format mastery no longer compares you to the room without a recent-answer log.");
 }
 if (
   !privacy.title.includes("Privacy") ||

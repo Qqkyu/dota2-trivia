@@ -1,4 +1,5 @@
 import { LIVE_ROUND_GAMES, PUBLIC_ROUND_FORMATS, roundGameForFormat } from "./arcade-games.mjs";
+import { PROGRESSIVE_ROUND_GAMES } from "./player-profile.mjs";
 
 export const LIVE_ROUND_IDENTITIES = Object.freeze({
   trivia: { label: "Classic Trivia", look: "A–D values" },
@@ -44,7 +45,7 @@ export function compactElapsedLabel(submittedAt, now = Date.now()) {
 }
 
 /**
- * @param {Array<{ format: string, answered: number, correct?: number, accuracy: number }>} formatStats
+ * @param {Array<{ format: string, answered: number, correct?: number, accuracy: number, firstStageCorrect?: number, progressiveAnswered?: number }>} formatStats
  */
 export function groupFormatMastery(formatStats) {
   const grouped = new Map(
@@ -54,6 +55,8 @@ export function groupFormatMastery(formatStats) {
         game,
         answered: 0,
         correct: 0,
+        firstStageCorrect: 0,
+        progressiveAnswered: 0,
         slices: [],
       },
     ]),
@@ -70,6 +73,8 @@ export function groupFormatMastery(formatStats) {
         : Math.round((row.accuracy / 100) * answered);
     group.answered += answered;
     group.correct += correct;
+    group.firstStageCorrect += Math.max(0, Math.floor(row.firstStageCorrect ?? 0));
+    group.progressiveAnswered += Math.max(0, Math.floor(row.progressiveAnswered ?? 0));
     const sliceLabel = FORMAT_SLICE_LABELS[row.format];
     if (sliceLabel && answered > 0) {
       group.slices.push({
@@ -90,7 +95,44 @@ export function groupFormatMastery(formatStats) {
       look: identity.look,
       answered: group.answered,
       accuracy: group.answered ? Math.round((group.correct / group.answered) * 100) : null,
+      firstStageCorrect: group.firstStageCorrect,
+      progressiveAnswered: group.progressiveAnswered,
       slices: group.answered && group.slices.length > 1 ? group.slices : [],
+    };
+  });
+}
+
+/**
+ * @param {Array<{ game?: string, format?: string, total?: number, answered?: number, correct?: number }>} roomRecords
+ */
+export function roomAccuracyByGame(roomRecords) {
+  const grouped = new Map(LIVE_ROUND_GAMES.map((game) => [game, { answered: 0, correct: 0 }]));
+  for (const row of roomRecords ?? []) {
+    const game = row.game ?? roundGameForFormat(row.format);
+    const group = game ? grouped.get(game) : null;
+    if (!group) continue;
+    group.answered += Math.max(0, Math.floor(row.total ?? row.answered ?? 0));
+    group.correct += Math.max(0, Math.floor(row.correct ?? 0));
+  }
+  return grouped;
+}
+
+/**
+ * @param {Array<{ format: string, answered: number, correct?: number, accuracy: number, firstStageCorrect?: number, progressiveAnswered?: number }>} playerFormats
+ * @param {Array<{ game?: string, format?: string, total?: number, answered?: number, correct?: number }>} [roomRecords]
+ */
+export function compareFormatMastery(playerFormats, roomRecords = []) {
+  const room = roomAccuracyByGame(roomRecords);
+  return groupFormatMastery(playerFormats).map((row) => {
+    const roomRow = room.get(row.game);
+    return {
+      ...row,
+      you: row.accuracy,
+      room: roomRow?.answered ? Math.round((roomRow.correct / roomRow.answered) * 100) : null,
+      early:
+        PROGRESSIVE_ROUND_GAMES.has(row.game) && row.progressiveAnswered > 0
+          ? { correct: row.firstStageCorrect, answered: row.progressiveAnswered }
+          : null,
     };
   });
 }

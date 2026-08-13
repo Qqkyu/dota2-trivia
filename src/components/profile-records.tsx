@@ -1,9 +1,4 @@
-"use client";
-
-import { useState } from "react";
-import clsx from "clsx";
 import { RoundMark } from "@/components/round-mark";
-import { presentProfileRecent } from "@/lib/profile-records-state.mjs";
 import styles from "../app/profile/profile.module.css";
 
 export interface ProfileFormatRow {
@@ -11,104 +6,77 @@ export interface ProfileFormatRow {
   label: string;
   look: string;
   answered: number;
-  accuracy: number | null;
+  you: number | null;
+  room: number | null;
+  early: { correct: number; answered: number } | null;
   slices: Array<{ format: string; label: string; answered: number; accuracy: number }>;
 }
 
-export interface ProfileRecentRow {
-  roundId: string;
-  game: string;
-  label: string;
-  correct: boolean;
-  detail: string | null;
+function percentLabel(value: number | null) {
+  return value === null ? "—" : `${value}%`;
 }
 
-export function ProfileRecords({ formats, recent }: { formats: ProfileFormatRow[]; recent: ProfileRecentRow[] }) {
-  const [selectedGame, setSelectedGame] = useState<string | null>(null);
-
-  function toggleGame(game: string) {
-    setSelectedGame((current) => (current === game ? null : game));
-  }
-
-  const presentedRecent = presentProfileRecent(recent, selectedGame);
-
+export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
   return (
     <section className={styles.recordGrid} data-testid="profile-records">
       <article className={styles.panel}>
         <header className={styles.formatHeader}>
           <span>Format mastery</span>
+          <strong>You vs the room</strong>
         </header>
-        {formats.map((format) => {
-          const selected = selectedGame === format.game;
-          const dimmed = Boolean(selectedGame) && !selected;
-          return (
-            <button
-              key={format.game}
-              type="button"
-              className={clsx(styles.formatRow, selected && styles.formatRowSelected, dimmed && styles.rowDimmed)}
-              data-testid={`format-mastery-${format.game}`}
-              aria-pressed={selected}
-              onClick={() => toggleGame(format.game)}
-            >
-              <span className={styles.identity}>
-                <RoundMark game={format.game} />
-                <span className={styles.identityCopy}>
-                  <strong className={styles.identityLabel}>{format.label}</strong>
-                  <small>{format.look}</small>
-                  {format.slices.length > 1 ? (
-                    <small className={styles.sliceLine}>
-                      {format.slices.map((slice) => `${slice.label} ${slice.accuracy}%`).join(" · ")}
-                    </small>
-                  ) : null}
-                </span>
+        {formats.map((format) => (
+          <div
+            key={format.game}
+            className={styles.formatRow}
+            data-testid={`format-mastery-${format.game}`}
+            data-you={format.you === null ? "" : String(format.you)}
+            data-room={format.room === null ? "" : String(format.room)}
+            data-early={format.early ? `${format.early.correct}/${format.early.answered}` : ""}
+          >
+            <span className={styles.identity}>
+              <RoundMark game={format.game} />
+              <span className={styles.identityCopy}>
+                <strong className={styles.identityLabel}>{format.label}</strong>
+                <small>{format.look}</small>
+                {format.slices.length > 1 ? (
+                  <small className={styles.sliceLine}>
+                    {format.slices.map((slice) => `${slice.label} ${slice.accuracy}%`).join(" · ")}
+                  </small>
+                ) : null}
+                {format.early ? (
+                  <small className={styles.sliceLine}>
+                    {format.early.correct}/{format.early.answered} early
+                  </small>
+                ) : null}
               </span>
-              <span className={styles.accuracyCell}>
+            </span>
+            <span className={styles.compare}>
+              <span className={styles.compareCell}>
+                <span>You</span>
+                <strong>{percentLabel(format.you)}</strong>
                 <span className={styles.accuracyTrack} aria-hidden="true">
                   <span
                     className={styles.accuracyFill}
-                    style={{ width: `${format.accuracy ?? 0}%` }}
-                    data-empty={format.accuracy === null ? "true" : "false"}
+                    style={{ width: `${format.you ?? 0}%` }}
+                    data-empty={format.you === null ? "true" : "false"}
                   />
                 </span>
-                <strong>{format.accuracy === null ? "—" : `${format.accuracy}%`}</strong>
               </span>
-            </button>
-          );
-        })}
-      </article>
-
-      <article className={styles.panel} data-testid="recent-answers-panel">
-        <header className={styles.recentHeader}>
-          <span>Recent answers</span>
-        </header>
-        {presentedRecent.length ? (
-          presentedRecent.map((round) => (
-            <div
-              className={clsx(
-                styles.recentRow,
-                round.correct ? styles.recentCorrect : styles.recentWrong,
-                round.dimmed && styles.rowDimmed,
-                round.highlighted && styles.recentRowSelected,
-              )}
-              data-testid="recent-answer"
-              data-game={round.game}
-              data-dimmed={round.dimmed ? "true" : "false"}
-              data-highlighted={round.highlighted ? "true" : "false"}
-              key={round.roundId}
-            >
-              <span className={styles.identity}>
-                <RoundMark game={round.game} />
-                <span className={styles.identityCopy}>
-                  <strong className={styles.identityLabel}>{round.label}</strong>
-                  {round.detail ? <small>{round.detail}</small> : null}
+              <span className={styles.compareCell}>
+                <span>Room</span>
+                <strong>{percentLabel(format.room)}</strong>
+                <span className={styles.accuracyTrack} aria-hidden="true">
+                  <span
+                    className={styles.accuracyFill}
+                    data-tone="room"
+                    style={{ width: `${format.room ?? 0}%` }}
+                    data-empty={format.room === null ? "true" : "false"}
+                  />
                 </span>
               </span>
-              <strong>{round.correct ? "✓" : "×"}</strong>
-            </div>
-          ))
-        ) : (
-          <p className={styles.emptyRows}>No connected rounds yet.</p>
-        )}
+            </span>
+          </div>
+        ))}
       </article>
     </section>
   );

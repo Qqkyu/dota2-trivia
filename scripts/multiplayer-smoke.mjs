@@ -471,7 +471,7 @@ if (smokeAccount) {
     !profilePage.includes('data-authenticated="true"') ||
     !profilePage.includes("Smoke Tester") ||
     !profilePage.includes("Format mastery") ||
-    !profilePage.includes("Recent answers")
+    !profilePage.includes("You vs the room")
   ) {
     throw new Error("The authenticated profile page did not render the saved personal record.");
   }

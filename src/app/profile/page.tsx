@@ -7,8 +7,9 @@ import { SteamAvatar } from "@/components/steam-avatar";
 import { SteamSignIn } from "@/components/steam-sign-in";
 import { getAccountProfile, getUserBySession } from "@/lib/account-store";
 import { DEFAULT_GAME_ID } from "@/lib/game-catalogs";
+import { getCalibrationSnapshot } from "@/lib/calibration-data";
 import { profileRecordsPreview } from "@/lib/profile-records-state.mjs";
-import { answerStageLabel, compactElapsedLabel, groupFormatMastery, liveRoundIdentity } from "@/lib/round-identity.mjs";
+import { compareFormatMastery } from "@/lib/round-identity.mjs";
 import { ACCOUNT_SESSION_COOKIE, sessionTokenHash } from "@/lib/steam-auth.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 import { refreshSteamIdentityIfNeeded } from "@/lib/steam-profile";
@@ -28,7 +29,7 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
     const fixture = profileRecordsPreview(recordsPreview);
     return (
       <main className={styles.page} data-testid="profile-records-preview" data-size={recordsPreview}>
-        <ProfileRecords formats={fixture.formats} recent={fixture.recent} />
+        <ProfileRecords formats={fixture.formats} />
       </main>
     );
   }
@@ -36,12 +37,25 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
   const cookieStore = await cookies();
   const token = cookieStore.get(ACCOUNT_SESSION_COOKIE)?.value;
   let profile = null;
+  let roomRecords: Array<{ game: string; total: number; correct: number }> = [];
   try {
     const user = token ? await getUserBySession(sessionTokenHash(token)) : null;
     const enriched = user ? await refreshSteamIdentityIfNeeded(user) : null;
     profile = enriched ? await getAccountProfile(enriched.id, DEFAULT_GAME_ID) : null;
   } catch (error) {
     logServerError("profile.render", error);
+  }
+  if (profile) {
+    try {
+      const calibration = await getCalibrationSnapshot(DEFAULT_GAME_ID);
+      roomRecords = calibration.records.map((record) => ({
+        game: record.game,
+        total: record.total,
+        correct: record.correct,
+      }));
+    } catch (error) {
+      logServerError("profile.room-compare", error);
+    }
   }
 
   if (!profile) {
@@ -115,21 +129,7 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
         </div>
       </section>
 
-      <ProfileRecords
-        formats={groupFormatMastery(stats.formats)}
-        recent={stats.recentRounds.map((round) => {
-          const identity = liveRoundIdentity(round.roundGame);
-          const stage = answerStageLabel(round.answerStage);
-          const elapsed = compactElapsedLabel(round.submittedAt);
-          return {
-            roundId: round.roundId,
-            game: round.roundGame,
-            label: identity?.label ?? round.roundGame,
-            correct: round.correct,
-            detail: [stage, elapsed].filter(Boolean).join(" · ") || null,
-          };
-        })}
-      />
+      <ProfileRecords formats={compareFormatMastery(stats.formats, roomRecords)} />
 
       <p className={styles.privacyNote}>
         Only Queue Arcade answers made while connected are recorded. <Link href="/privacy">What we store</Link>

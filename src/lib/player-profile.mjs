@@ -55,7 +55,13 @@ export function summarizePlayerRounds(inputRounds) {
   const formats = new Map();
 
   for (const round of rounds) {
-    const format = formats.get(round.roundFormat) ?? { format: round.roundFormat, answered: 0, correct: 0 };
+    const format = formats.get(round.roundFormat) ?? {
+      format: round.roundFormat,
+      answered: 0,
+      correct: 0,
+      firstStageCorrect: 0,
+      progressiveAnswered: 0,
+    };
     format.answered += 1;
 
     if (round.correct) {
@@ -66,15 +72,19 @@ export function summarizePlayerRounds(inputRounds) {
     } else {
       currentStreak = 0;
     }
-    formats.set(round.roundFormat, format);
 
     if (round.answerStage !== null) {
+      format.progressiveAnswered += 1;
       progressiveAnswered += 1;
       if (round.correct) {
         progressiveCorrect += 1;
-        if (round.answerStage === 1) firstStageCorrect += 1;
+        if (round.answerStage === 1) {
+          format.firstStageCorrect += 1;
+          firstStageCorrect += 1;
+        }
       }
     }
+    formats.set(round.roundFormat, format);
 
     const result = round.correct ? 1 : 0;
     rollingWindow.push(result);
