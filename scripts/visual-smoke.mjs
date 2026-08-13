@@ -725,77 +725,92 @@ async function measureProfileRecords(size) {
       horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
     };
   })()`);
-  const rest = await evaluate(`(() => {
-    const neighbor = document.querySelector('[data-testid="format-mastery-shopkeeper"]');
-    const stage = document.querySelector('[data-testid="format-preview-stage-trivia"]');
-    const hit = document.querySelector('[data-testid="format-preview-hit-trivia"]');
-    const preview = document.querySelector('[data-testid="format-preview-trivia"]');
-    const hitBox = hit?.getBoundingClientRect();
+  async function inspectHover(game) {
+    const rest = await evaluate(`(() => {
+      const hit = document.querySelector(${JSON.stringify(`[data-testid="format-preview-hit-${game}"]`)});
+      const preview = document.querySelector(${JSON.stringify(`[data-testid="format-preview-${game}"]`)});
+      const stage = document.querySelector(${JSON.stringify(`[data-testid="format-preview-stage-${game}"]`)});
+      const neighbor = document.querySelector('[data-testid="format-mastery-shopkeeper"]');
+      hit?.scrollIntoView({ block: "center" });
+      const hitBox = hit?.getBoundingClientRect();
+      return {
+        text: preview?.textContent ?? "",
+        restHit: hitBox?.height ?? 0,
+        stageHeight: stage?.getBoundingClientRect().height ?? 0,
+        neighborTop: neighbor?.getBoundingClientRect().top ?? 0,
+        hoverPoint: hitBox ? { x: hitBox.left + 36, y: hitBox.top + 18 } : null,
+      };
+    })()`);
+    if (rest.hoverPoint) {
+      await send("Input.dispatchMouseEvent", { type: "mouseMoved", ...rest.hoverPoint });
+    }
+    await delay(200);
+    const open = await evaluate(`(() => {
+      const hit = document.querySelector(${JSON.stringify(`[data-testid="format-preview-hit-${game}"]`)});
+      const preview = document.querySelector(${JSON.stringify(`[data-testid="format-preview-${game}"]`)});
+      const scale = preview?.firstElementChild;
+      const stage = document.querySelector(${JSON.stringify(`[data-testid="format-preview-stage-${game}"]`)});
+      const neighbor = document.querySelector('[data-testid="format-mastery-shopkeeper"]');
+      const hitBox = hit?.getBoundingClientRect();
+      const visual = scale?.getBoundingClientRect();
+      return {
+        text: preview?.textContent ?? "",
+        openHit: hitBox?.height ?? 0,
+        visualHeight: visual?.height ?? 0,
+        contained: Boolean(hitBox && visual && hitBox.top <= visual.top + 1 && hitBox.bottom >= visual.bottom - 1),
+        stageHeight: stage?.getBoundingClientRect().height ?? 0,
+        neighborTop: neighbor?.getBoundingClientRect().top ?? 0,
+      };
+    })()`);
+    await send("Input.dispatchMouseEvent", { type: "mouseMoved", x: 2, y: 2 });
+    await delay(160);
+    const after = await evaluate(`(() => {
+      const hit = document.querySelector(${JSON.stringify(`[data-testid="format-preview-hit-${game}"]`)});
+      return { afterHit: hit?.getBoundingClientRect().height ?? 0 };
+    })()`);
     return {
-      prompt: preview?.textContent?.includes("Pipe of Insight") ?? false,
-      answers: preview?.textContent?.includes("3,725 gold") ?? false,
-      fogPrompt:
-        document.querySelector('[data-testid="format-preview-fogged-vision"]')?.textContent?.includes(
-          "Which hero is hiding in the fog?",
-        ) ?? false,
-      fogLookCue:
-        document.querySelector('[data-testid="format-preview-fogged-vision"]')?.textContent?.includes(
-          "A portrait in fog",
-        ) ?? false,
-      neighborTop: neighbor?.getBoundingClientRect().top ?? 0,
-      stageHeight: stage?.getBoundingClientRect().height ?? 0,
-      hitHeight: hitBox?.height ?? 0,
-      hoverPoint: hitBox ? { x: hitBox.left + hitBox.width / 2, y: hitBox.top + 20 } : null,
+      game,
+      text: `${rest.text}\n${open.text}`,
+      restHit: rest.restHit,
+      openHit: open.openHit,
+      afterHit: after.afterHit,
+      visualHeight: open.visualHeight,
+      contained: open.contained,
+      stageHeight: open.stageHeight,
+      neighborShift: Math.abs(open.neighborTop - rest.neighborTop),
+      stageShift: Math.abs(open.stageHeight - rest.stageHeight),
     };
-  })()`);
-  if (rest.hoverPoint) {
-    await send("Input.dispatchMouseEvent", { type: "mouseMoved", ...rest.hoverPoint });
   }
-  await delay(160);
-  const open = await evaluate(`(() => {
-    const neighbor = document.querySelector('[data-testid="format-mastery-shopkeeper"]');
-    const stage = document.querySelector('[data-testid="format-preview-stage-trivia"]');
-    const hit = document.querySelector('[data-testid="format-preview-hit-trivia"]');
-    return {
-      stageHeight: stage?.getBoundingClientRect().height ?? 0,
-      hitHeight: hit?.getBoundingClientRect().height ?? 0,
-      neighborTop: neighbor?.getBoundingClientRect().top ?? 0,
-    };
-  })()`);
+
+  const triviaHover = await inspectHover("trivia");
   await screenshot(`/tmp/queue-arcade-profile-records-${size}.png`);
-  await send("Input.dispatchMouseEvent", { type: "mouseMoved", x: 2, y: 2 });
-  await delay(160);
-  const after = await evaluate(`(() => {
-    const neighbor = document.querySelector('[data-testid="format-mastery-shopkeeper"]');
-    const stage = document.querySelector('[data-testid="format-preview-stage-trivia"]');
-    const hit = document.querySelector('[data-testid="format-preview-hit-trivia"]');
+  const fogCopy = await evaluate(`(() => {
+    const preview = document.querySelector('[data-testid="format-preview-fogged-vision"]');
+    const text = preview?.textContent ?? "";
     return {
-      stageHeight: stage?.getBoundingClientRect().height ?? 0,
-      hitHeight: hit?.getBoundingClientRect().height ?? 0,
-      neighborTop: neighbor?.getBoundingClientRect().top ?? 0,
+      fogPrompt: text.includes("Which hero is hiding in the fog?"),
+      fogLookCue: text.includes("A portrait in fog"),
     };
   })()`);
+  const aghanimHover = size === "long" ? await inspectHover("aghanim-lab") : null;
+  const orderHover = size === "long" ? await inspectHover("order-up") : null;
   return {
     size,
     ...layout,
     hover: {
-      prompt: rest.prompt,
-      answers: rest.answers,
-      fogPrompt: rest.fogPrompt,
-      fogLookCue: rest.fogLookCue,
-      restHeight: rest.hitHeight,
-      restStageHeight: rest.stageHeight,
-      openHeight: open.hitHeight,
-      openStageHeight: open.stageHeight,
-      afterHeight: after.hitHeight,
-      neighborShift: Math.max(
-        Math.abs(open.neighborTop - rest.neighborTop),
-        Math.abs(after.neighborTop - rest.neighborTop),
-      ),
-      stageShift: Math.max(
-        Math.abs(open.stageHeight - rest.stageHeight),
-        Math.abs(after.stageHeight - rest.stageHeight),
-      ),
+      prompt: triviaHover.text.includes("Pipe of Insight"),
+      answers: triviaHover.text.includes("3,725 gold") && triviaHover.text.includes("4,000 gold"),
+      ...fogCopy,
+      restHeight: triviaHover.restHit,
+      restStageHeight: triviaHover.stageHeight,
+      openHeight: triviaHover.openHit,
+      openStageHeight: triviaHover.stageHeight,
+      afterHeight: triviaHover.afterHit,
+      neighborShift: triviaHover.neighborShift,
+      stageShift: triviaHover.stageShift,
+      contained: triviaHover.contained,
+      aghanim: aghanimHover,
+      order: orderHover,
     },
   };
 }
@@ -1247,11 +1262,20 @@ if (
   !profileRecordsLong.hover?.answers ||
   !profileRecordsLong.hover?.fogPrompt ||
   profileRecordsLong.hover?.fogLookCue ||
+  !profileRecordsLong.hover?.contained ||
   (profileRecordsLong.hover?.restStageHeight ?? 0) < 140 ||
   (profileRecordsLong.hover?.openHeight ?? 0) <= (profileRecordsLong.hover?.restHeight ?? 0) ||
   (profileRecordsLong.hover?.stageShift ?? 9) > 1 ||
   Math.abs((profileRecordsLong.hover?.afterHeight ?? 0) - (profileRecordsLong.hover?.restHeight ?? 0)) > 1 ||
-  (profileRecordsLong.hover?.neighborShift ?? 9) > 1
+  (profileRecordsLong.hover?.neighborShift ?? 9) > 1 ||
+  !profileRecordsLong.hover?.aghanim?.contained ||
+  !profileRecordsLong.hover?.aghanim?.text.includes("Upgrade details") ||
+  !profileRecordsLong.hover?.aghanim?.text.includes("Ability name") ||
+  (profileRecordsLong.hover?.aghanim?.neighborShift ?? 9) > 1 ||
+  !profileRecordsLong.hover?.order?.contained ||
+  !profileRecordsLong.hover?.order?.text.includes("Ring of Health") ||
+  !profileRecordsLong.hover?.order?.text.includes("Pipe of Insight") ||
+  (profileRecordsLong.hover?.order?.neighborShift ?? 9) > 1
 ) {
   failures.push("Profile format mastery no longer compares you to the crowd without a recent-answer log.");
 }
