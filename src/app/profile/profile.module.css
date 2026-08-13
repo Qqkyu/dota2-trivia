@@ -243,15 +243,27 @@ button.formatRow:focus-visible {
   white-space: nowrap;
 }
 
-.identity small,
+.identity small {
+  overflow: hidden;
+  color: #a7afa9;
+  font-size: 12px;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .sliceLine {
   overflow: hidden;
-  color: #707875;
+  color: #8b948e;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.02em;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.recentRowSelected {
+  background: rgba(112, 197, 136, 0.06);
 }
 
 .accuracyCell {

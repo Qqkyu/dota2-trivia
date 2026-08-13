@@ -29,8 +29,6 @@ export function ProfileRecords({ formats, recent }: { formats: ProfileFormatRow[
     setSelectedGame((current) => (current === game ? null : game));
   }
 
-  const visibleRecent = selectedGame ? recent.filter((round) => round.game === selectedGame) : recent;
-
   return (
     <section className={styles.recordGrid}>
       <article className={styles.panel}>
@@ -80,10 +78,15 @@ export function ProfileRecords({ formats, recent }: { formats: ProfileFormatRow[
         <header className={styles.recentHeader}>
           <span>Recent answers</span>
         </header>
-        {visibleRecent.length ? (
-          visibleRecent.map((round) => (
+        {recent.length ? (
+          recent.map((round) => (
             <div
-              className={clsx(styles.recentRow, round.correct ? styles.recentCorrect : styles.recentWrong)}
+              className={clsx(
+                styles.recentRow,
+                round.correct ? styles.recentCorrect : styles.recentWrong,
+                selectedGame && round.game !== selectedGame && styles.rowDimmed,
+                selectedGame && round.game === selectedGame && styles.recentRowSelected,
+              )}
               data-testid="recent-answer"
               data-game={round.game}
               key={round.roundId}
@@ -99,9 +102,7 @@ export function ProfileRecords({ formats, recent }: { formats: ProfileFormatRow[
             </div>
           ))
         ) : (
-          <p className={styles.emptyRows}>
-            {selectedGame ? "No connected answers in this format yet." : "No connected rounds yet."}
-          </p>
+          <p className={styles.emptyRows}>No connected rounds yet.</p>
         )}
       </article>
     </section>
