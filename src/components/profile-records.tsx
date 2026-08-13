@@ -21,10 +21,6 @@ function percentLabel(value: number | null) {
 export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
   return (
     <section className={styles.recordGrid} data-testid="profile-records">
-      <header className={styles.formatHeader}>
-        <span>Format mastery</span>
-        <strong>You vs the crowd</strong>
-      </header>
       <div className={styles.cardGrid}>
         {formats.map((format) => (
           <article
@@ -71,7 +67,7 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
                   {format.room === null ? null : <i className={styles.crowdMark} style={{ left: `${format.room}%` }} />}
                 </span>
               </div>
-              {format.slices.length ? (
+              {format.slices.length || format.early ? (
                 <ul className={styles.kinds}>
                   {format.slices.map((slice) => (
                     <li key={slice.format}>
@@ -79,12 +75,15 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
                       <strong>{slice.accuracy}%</strong>
                     </li>
                   ))}
+                  {format.early ? (
+                    <li>
+                      <span>First clue</span>
+                      <strong>
+                        {format.early.correct}/{format.early.answered}
+                      </strong>
+                    </li>
+                  ) : null}
                 </ul>
-              ) : null}
-              {format.early ? (
-                <p className={styles.earlyLine}>
-                  {format.early.correct} of {format.early.answered} early
-                </p>
               ) : null}
             </div>
           </article>

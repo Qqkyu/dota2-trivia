@@ -716,7 +716,12 @@ async function measureProfileRecords(size) {
     return {
       rows: rows.length,
       recentLog: Boolean(document.body.innerText.toLowerCase().includes("recent answers")),
-      compareLabel: document.body.innerText.toLowerCase().includes("you vs the crowd"),
+      compareLabel: Boolean(
+        document.querySelector('[data-testid="profile-records"]') &&
+          /you/i.test(document.querySelector('[data-testid="format-mastery-trivia"]')?.innerText ?? "") &&
+          /crowd/i.test(document.querySelector('[data-testid="format-mastery-trivia"]')?.innerText ?? ""),
+      ),
+      firstClue: document.body.innerText.includes("First clue"),
       classicYou: classic?.dataset.you ?? "",
       classicRoom: classic?.dataset.room ?? "",
       spellEarly: spell?.dataset.early ?? "",
@@ -1214,6 +1219,7 @@ if (
   profileRecordsShort.rows !== 9 ||
   profileRecordsShort.recentLog ||
   !profileRecordsShort.compareLabel ||
+  !profileRecordsShort.firstClue ||
   profileRecordsShort.classicYou !== "63" ||
   profileRecordsShort.classicRoom !== "" ||
   profileRecordsShort.spellEarly !== "2/5" ||
