@@ -641,6 +641,8 @@ const lobby = await evaluate(`(() => {
     })(),
     markCenter: mark ? mark.top + mark.height / 2 : 0,
     copyCenter: copy ? copy.top + copy.height / 2 : 0,
+    brandLeft: document.querySelector('[data-testid="site-home"]')?.getBoundingClientRect().left ?? null,
+    headerLeft: document.querySelector("header")?.getBoundingClientRect().left ?? null,
     horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
   };
 })()`);
@@ -662,6 +664,8 @@ const profile = await evaluate(`({
     } : null;
   })(),
   anonymousPlay: document.body.innerText.includes("Anonymous play stays available"),
+  brandLeft: document.querySelector('[data-testid="site-home"]')?.getBoundingClientRect().left ?? null,
+  headerLeft: document.querySelector("header")?.getBoundingClientRect().left ?? null,
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 await screenshot("/tmp/queue-arcade-profile-guest.png");
@@ -1128,6 +1132,16 @@ if (
   profile.horizontalOverflow
 ) {
   failures.push("The optional guest profile entry point is incomplete or overflows.");
+}
+if (
+  typeof lobby.brandLeft !== "number" ||
+  typeof profile.brandLeft !== "number" ||
+  Math.abs(lobby.brandLeft - profile.brandLeft) > 1 ||
+  typeof lobby.headerLeft !== "number" ||
+  typeof profile.headerLeft !== "number" ||
+  Math.abs(lobby.headerLeft - profile.headerLeft) > 1
+) {
+  failures.push("The header shifts horizontally between the lobby and profile.");
 }
 if (
   profileChrome.homeTag !== "A" ||

@@ -55,9 +55,9 @@ if (
   failures.push("The lobby and live arcade no longer resolve to distinct canonical paths.");
 }
 
-const [chromeSource, profileSource, privacySource] = await Promise.all(
-  ["src/components/site-chrome.tsx", "src/app/profile/page.tsx", "src/app/privacy/page.tsx"].map((file) =>
-    readFile(path.join(process.cwd(), file), "utf8"),
+const [chromeSource, profileSource, privacySource, globalCss] = await Promise.all(
+  ["src/components/site-chrome.tsx", "src/app/profile/page.tsx", "src/app/privacy/page.tsx", "src/app/globals.css"].map(
+    (file) => readFile(path.join(process.cwd(), file), "utf8"),
   ),
 );
 if (
@@ -68,7 +68,8 @@ if (
   !chromeSource.includes('href: "/privacy"') ||
   !chromeSource.includes('href: "/calibration"') ||
   !profileSource.includes('<SiteChrome current="profile"') ||
-  !privacySource.includes('<SiteChrome current="privacy"')
+  !privacySource.includes('<SiteChrome current="privacy"') ||
+  !globalCss.includes("scrollbar-gutter: stable")
 ) {
   failures.push("Non-play pages no longer share a home brand and Profile / Privacy / Calibration footer.");
 }

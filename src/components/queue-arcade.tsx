@@ -3519,6 +3519,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
           href={ARCADE_LOBBY_PATH}
           className={styles.brand}
           aria-label="Queue Arcade home"
+          data-testid="site-home"
           onClick={(event) => {
             event.preventDefault();
             returnToLobby("push");
