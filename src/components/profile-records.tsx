@@ -1,5 +1,4 @@
 import { FormatLook, type FormatPreview } from "@/components/format-look";
-import lookStyles from "@/components/format-look.module.css";
 import { RoundMark } from "@/components/round-mark";
 import styles from "../app/profile/profile.module.css";
 
@@ -37,15 +36,14 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
             data-room={format.room === null ? "" : String(format.room)}
             data-early={format.early ? `${format.early.correct}/${format.early.answered}` : ""}
           >
-            <div className={styles.previewStage}>
-              <button
-                type="button"
-                className={lookStyles.previewHit}
-                data-testid={`format-preview-hit-${format.game}`}
-                aria-label={`${format.label} sample question`}
-              >
-                <FormatLook game={format.game} preview={format.preview} />
-              </button>
+            <div
+              className={styles.previewStage}
+              aria-hidden="true"
+              data-testid={`format-preview-stage-${format.game}`}
+            >
+              <div className={styles.previewLens} data-testid={`format-preview-hit-${format.game}`}>
+                <FormatLook game={format.game} label={format.label} look={format.look} preview={format.preview} />
+              </div>
             </div>
             <div className={styles.cardBody}>
               <div className={styles.identity}>

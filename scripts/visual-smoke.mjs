@@ -725,25 +725,69 @@ async function measureProfileRecords(size) {
       horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
     };
   })()`);
-  const hover = await evaluate(`(() => {
-    const classic = document.querySelector('[data-testid="format-mastery-trivia"]');
+  const rest = await evaluate(`(() => {
     const neighbor = document.querySelector('[data-testid="format-mastery-shopkeeper"]');
+    const stage = document.querySelector('[data-testid="format-preview-stage-trivia"]');
     const hit = document.querySelector('[data-testid="format-preview-hit-trivia"]');
     const preview = document.querySelector('[data-testid="format-preview-trivia"]');
-    const beforeTop = neighbor?.getBoundingClientRect().top ?? 0;
-    const restHeight = hit?.getBoundingClientRect().height ?? 0;
-    hit?.focus();
-    const afterTop = neighbor?.getBoundingClientRect().top ?? 0;
+    const hitBox = hit?.getBoundingClientRect();
     return {
       prompt: preview?.textContent?.includes("Pipe of Insight") ?? false,
-      restHeight,
-      openHeight: hit?.getBoundingClientRect().height ?? 0,
-      neighborShift: Math.abs(afterTop - beforeTop),
-      classicLeft: classic?.getBoundingClientRect().left ?? 0,
+      answers: preview?.textContent?.includes("3,725 gold") ?? false,
+      neighborTop: neighbor?.getBoundingClientRect().top ?? 0,
+      stageHeight: stage?.getBoundingClientRect().height ?? 0,
+      hitHeight: hitBox?.height ?? 0,
+      hoverPoint: hitBox ? { x: hitBox.left + hitBox.width / 2, y: hitBox.top + 20 } : null,
+    };
+  })()`);
+  if (rest.hoverPoint) {
+    await send("Input.dispatchMouseEvent", { type: "mouseMoved", ...rest.hoverPoint });
+  }
+  await delay(160);
+  const open = await evaluate(`(() => {
+    const neighbor = document.querySelector('[data-testid="format-mastery-shopkeeper"]');
+    const stage = document.querySelector('[data-testid="format-preview-stage-trivia"]');
+    const hit = document.querySelector('[data-testid="format-preview-hit-trivia"]');
+    return {
+      stageHeight: stage?.getBoundingClientRect().height ?? 0,
+      hitHeight: hit?.getBoundingClientRect().height ?? 0,
+      neighborTop: neighbor?.getBoundingClientRect().top ?? 0,
     };
   })()`);
   await screenshot(`/tmp/queue-arcade-profile-records-${size}.png`);
-  return { size, ...layout, hover };
+  await send("Input.dispatchMouseEvent", { type: "mouseMoved", x: 2, y: 2 });
+  await delay(160);
+  const after = await evaluate(`(() => {
+    const neighbor = document.querySelector('[data-testid="format-mastery-shopkeeper"]');
+    const stage = document.querySelector('[data-testid="format-preview-stage-trivia"]');
+    const hit = document.querySelector('[data-testid="format-preview-hit-trivia"]');
+    return {
+      stageHeight: stage?.getBoundingClientRect().height ?? 0,
+      hitHeight: hit?.getBoundingClientRect().height ?? 0,
+      neighborTop: neighbor?.getBoundingClientRect().top ?? 0,
+    };
+  })()`);
+  return {
+    size,
+    ...layout,
+    hover: {
+      prompt: rest.prompt,
+      answers: rest.answers,
+      restHeight: rest.hitHeight,
+      restStageHeight: rest.stageHeight,
+      openHeight: open.hitHeight,
+      openStageHeight: open.stageHeight,
+      afterHeight: after.hitHeight,
+      neighborShift: Math.max(
+        Math.abs(open.neighborTop - rest.neighborTop),
+        Math.abs(after.neighborTop - rest.neighborTop),
+      ),
+      stageShift: Math.max(
+        Math.abs(open.stageHeight - rest.stageHeight),
+        Math.abs(after.stageHeight - rest.stageHeight),
+      ),
+    },
+  };
 }
 
 const profileRecordsShort = await measureProfileRecords("short");
@@ -1190,7 +1234,11 @@ if (
   profileRecordsLong.foggedYou !== "" ||
   profileRecordsLong.horizontalOverflow ||
   !profileRecordsLong.hover?.prompt ||
+  !profileRecordsLong.hover?.answers ||
+  (profileRecordsLong.hover?.restStageHeight ?? 0) < 140 ||
   (profileRecordsLong.hover?.openHeight ?? 0) <= (profileRecordsLong.hover?.restHeight ?? 0) ||
+  (profileRecordsLong.hover?.stageShift ?? 9) > 1 ||
+  Math.abs((profileRecordsLong.hover?.afterHeight ?? 0) - (profileRecordsLong.hover?.restHeight ?? 0)) > 1 ||
   (profileRecordsLong.hover?.neighborShift ?? 9) > 1
 ) {
   failures.push("Profile format mastery no longer compares you to the crowd without a recent-answer log.");
