@@ -57,6 +57,7 @@ import { ARCADE_LOBBY_PATH, PUBLIC_ARCADE_PATH } from "@/lib/arcade-navigation.m
 import { crowdPercentage, keyedCrowdSplitRows } from "@/lib/crowd-split.mjs";
 import { DEFAULT_GAME_ID, GAME_IDS, type PublicGameInfo } from "@/lib/game-identity";
 import { answerFeedbackKind, dotaFeedbackSoundForKind } from "@/lib/feedback-sounds.mjs";
+import { acceptWindowMs, accuracyRate, revealCallout, sessionHonorific } from "@/lib/dota-flavor.mjs";
 import {
   HERO_PICKER_BY_KEY,
   HERO_PICKER_CATALOG,
@@ -614,16 +615,7 @@ function formatDuration(milliseconds: number) {
 }
 
 function accuracy(correct: number, answered: number) {
-  if (!answered) return 0;
-  return Math.round((correct / answered) * 100);
-}
-
-function summaryTitle(correct: number, answered: number) {
-  const rate = accuracy(correct, answered);
-  if (rate >= 90) return "Aghanim-tier recall";
-  if (rate >= 70) return "Ready for the horn";
-  if (rate >= 50) return "Knowledge is power";
-  return "One more queue";
+  return accuracyRate(correct, answered);
 }
 
 function QuestionArtwork({
@@ -3621,11 +3613,19 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                 type="button"
                 data-testid="start-arcade"
                 className={styles.primaryButton}
+                data-searching={joiningRoom ? "true" : "false"}
                 onClick={() => void startRun()}
                 disabled={joiningRoom}
               >
+                {joiningRoom ? (
+                  <span className={styles.searchRadar} aria-hidden="true">
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                ) : null}
                 <Play />
-                {joiningRoom ? "Joining public room…" : activeModeInfo.action}
+                {joiningRoom ? "Finding match…" : activeModeInfo.action}
               </button>
               <div className={styles.accountActionSlot} data-testid="account-action-slot">
                 {account === null ? (
@@ -3735,6 +3735,11 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
             </div>
             <div className={styles.entryWaitContent}>
               <span className={styles.entryWaitIcon} aria-hidden="true">
+                <span className={styles.searchRadar} data-tone="wait">
+                  <i />
+                  <i />
+                  <i />
+                </span>
                 <Radio />
               </span>
               <small>Public arcade · synchronized</small>
@@ -3803,7 +3808,9 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               <div
                 className={clsx(
                   styles.timer,
-                  answerRemaining <= answerDuration / 3 && phase === "answering" && styles.timerDanger,
+                  phase === "answering" &&
+                    answerRemaining <= acceptWindowMs(answerDuration) &&
+                    styles.timerAccept,
                 )}
                 aria-live="polite"
                 aria-label={`${Math.ceil(answerRemaining / 1000)} seconds remaining`}
@@ -4431,13 +4438,13 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                                         : currentGame === "counterplay"
                                           ? "Pick the interaction · A–D or 1–4"
                                           : "Use A–D or 1–4 to answer"}
-                      <span>Correct now: {liveAward?.rawPoints ?? 0} pts</span>
+                      <span>Correct now: {liveAward?.rawPoints ?? 0} gold</span>
                     </>
                   ) : (
                     <>
                       <Signal className={styles.signalIcon} />
                       Answer locked with {Math.ceil(answerTimeLeft / 1000)}s left
-                      <span>Worth {liveAward?.rawPoints ?? 0} pts if correct</span>
+                      <span>Worth {liveAward?.rawPoints ?? 0} gold if correct</span>
                     </>
                   )}
                 </div>
@@ -4449,7 +4456,14 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               >
                 <div className={styles.revealIcon}>{selectedWasCorrect ? <Check /> : <X />}</div>
                 <div className={styles.revealCopy}>
-                  <span>{selectedWasCorrect ? "Correct" : selectedIndex === null ? "Time expired" : "Not quite"}</span>
+                  <span data-testid="reveal-callout">
+                    {revealCallout({
+                      correct: selectedWasCorrect,
+                      timedOut: selectedIndex === null,
+                      firstBlood: selectedWasCorrect && correctCount === 1,
+                      streak,
+                    })}
+                  </span>
                   {!isValueOrderRound && <p data-testid="reveal-explanation">{currentQuestion.reveal?.explanation}</p>}
                   <div className={styles.reportControl}>
                     <button
@@ -4499,7 +4513,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                         : "No score"}
                   </small>
                   <strong>+{roundAward?.points ?? 0}</strong>
-                  <span>points</span>
+                  <span>gold</span>
                 </div>
               </div>
             )}
@@ -4508,7 +4522,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
           <aside className={styles.sideRail}>
             <div className={styles.scoreGrid}>
               <div>
-                <span>Score</span>
+                <span>Gold</span>
                 <strong>{score.toLocaleString("en-US")}</strong>
                 <Gauge />
               </div>
@@ -4650,7 +4664,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               <small>%</small>
             </div>
             <span>Session report</span>
-            <h1>{summaryTitle(correctCount, history.length)}</h1>
+            <h1>{sessionHonorific(correctCount, history.length)}</h1>
             <p>
               {correctCount} correct across {history.length} completed round{history.length === 1 ? "" : "s"} in{" "}
               {formatDuration(runDuration)}.
@@ -4660,7 +4674,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
           <div className={styles.summaryStats}>
             <div>
               <Gauge />
-              <span>Final score</span>
+              <span>Final gold</span>
               <strong>{score.toLocaleString("en-US")}</strong>
             </div>
             <div>
@@ -4690,7 +4704,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                 <span
                   key={`${record.id}:${index}`}
                   className={record.correct ? styles.summaryRoundCorrect : styles.summaryRoundWrong}
-                  title={`${gameLabel(record.game)} · ${record.category}: ${record.correct ? "Correct" : "Incorrect"} · ${record.points} points`}
+                  title={`${gameLabel(record.game)} · ${record.category}: ${record.correct ? "Correct" : "Incorrect"} · ${record.points} gold`}
                 >
                   <small>
                     <ModeIcon mode={record.game} />
@@ -4708,7 +4722,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
             <button type="button" className={styles.primaryButton} onClick={() => void startRun()}>
               <RotateCcw />
               Play again
-              <ChevronRight />
             </button>
             <button type="button" className={styles.secondaryButton} onClick={() => returnToLobby("replace")}>
               Back to arcade

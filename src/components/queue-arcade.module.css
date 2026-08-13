@@ -658,49 +658,54 @@
 .primaryButton {
   position: relative;
   display: inline-flex;
-  min-height: 54px;
-  min-width: 248px;
+  min-height: 56px;
+  min-width: 268px;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  overflow: hidden;
-  padding: 0 26px;
-  border: 2px solid #d7b14a;
+  gap: 11px;
+  overflow: visible;
+  padding: 0 28px;
+  border: 2px solid #d4b14a;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 38%),
-    linear-gradient(180deg, #b6de56 0%, #6eae2c 46%, #3f7216 100%);
+    linear-gradient(180deg, rgba(232, 196, 104, 0.08), transparent 42%),
+    linear-gradient(180deg, #2a2418 0%, #14110c 52%, #0c0a08 100%);
   box-shadow:
-    0 0 0 1px #2a1f08,
-    inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    inset 0 -3px 0 rgba(20, 36, 6, 0.35);
-  color: #f4f7e4;
+    0 0 0 1px #1a1408,
+    inset 0 0 0 1px rgba(212, 168, 64, 0.28),
+    inset 0 1px 0 rgba(240, 214, 140, 0.16),
+    inset 0 -10px 18px rgba(0, 0, 0, 0.35);
+  color: #e6c45c;
   font-size: 13px;
   font-weight: 720;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  text-shadow: 0 1px 0 rgba(30, 48, 8, 0.45);
+  text-shadow:
+    0 1px 0 #1a1408,
+    0 0 12px rgba(214, 168, 64, 0.28);
   cursor: pointer;
   clip-path: polygon(
-    11px 0,
-    calc(100% - 11px) 0,
-    100% 11px,
-    100% calc(100% - 11px),
-    calc(100% - 11px) 100%,
-    11px 100%,
-    0 calc(100% - 11px),
-    0 11px
+    8px 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    8px 100%,
+    0 calc(100% - 8px),
+    0 8px
   );
   transition:
+    color 140ms ease,
     filter 140ms ease,
     transform 140ms ease;
 }
 
 .primaryButton:hover {
-  filter: brightness(1.08) drop-shadow(0 0 16px rgba(148, 204, 62, 0.42));
+  color: #f3d67a;
+  filter: brightness(1.1) drop-shadow(0 0 14px rgba(212, 168, 64, 0.38));
 }
 
 .primaryButton:active {
-  filter: brightness(0.94);
+  filter: brightness(0.92);
   transform: translateY(1px);
 }
 
@@ -714,9 +719,44 @@
 }
 
 .primaryButton svg {
-  width: 15px;
-  height: 15px;
-  fill: currentcolor;
+  width: 14px;
+  height: 14px;
+}
+
+.primaryButton[data-searching="true"] {
+  overflow: visible;
+}
+
+.searchRadar {
+  position: absolute;
+  z-index: 0;
+  inset: -18px;
+  pointer-events: none;
+}
+
+.searchRadar i {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(214, 168, 64, 0.42);
+  border-radius: 50%;
+  opacity: 0;
+  animation: searchPing 1.6s ease-out infinite;
+}
+
+.searchRadar i:nth-child(2) {
+  animation-delay: 0.45s;
+}
+
+.searchRadar i:nth-child(3) {
+  animation-delay: 0.9s;
+}
+
+.searchRadar[data-tone="wait"] {
+  inset: -22px;
+}
+
+.searchRadar[data-tone="wait"] i {
+  border-color: rgba(114, 183, 213, 0.45);
 }
 
 .roomNotice {
@@ -1240,6 +1280,7 @@
 }
 
 .entryWaitIcon {
+  position: relative;
   display: inline-grid;
   width: 64px;
   height: 64px;
@@ -1608,13 +1649,18 @@
   text-align: right;
 }
 
-.timerDanger {
-  color: var(--red-bright);
-  animation: timerPulse 0.7s ease-in-out infinite alternate;
+.timerAccept {
+  color: #c6e86a;
+  animation: acceptPulse 0.65s ease-in-out infinite alternate;
 }
 
-.timerDanger svg {
-  color: var(--red-bright);
+.timerAccept svg {
+  color: #c6e86a;
+}
+
+.gameStage:has(.timerAccept) .timerTrack > span {
+  background: linear-gradient(90deg, #5a9a28, #c6e86a);
+  box-shadow: 0 0 16px rgba(148, 204, 62, 0.55);
 }
 
 .questionBlock {
@@ -5105,6 +5151,10 @@ button[data-state="wrong"] > .heroPickerVerdict {
   color: rgba(255, 255, 255, 0.035);
 }
 
+.scoreGrid > div:first-child strong {
+  color: #e2b558;
+}
+
 .scoreGrid > div:nth-child(2) strong {
   color: #e2b558;
 }
@@ -6187,10 +6237,22 @@ button[data-state="wrong"] > .heroPickerVerdict {
   }
 }
 
-@keyframes timerPulse {
+@keyframes acceptPulse {
   to {
-    filter: brightness(1.35);
-    transform: scale(1.03);
+    filter: brightness(1.28) drop-shadow(0 0 8px rgba(168, 214, 72, 0.55));
+    transform: scale(1.04);
+  }
+}
+
+@keyframes searchPing {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.42);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1);
   }
 }
 

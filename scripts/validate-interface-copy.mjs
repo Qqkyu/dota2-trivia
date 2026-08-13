@@ -2,6 +2,7 @@
 
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { revealCallout, sessionHonorific } from "../src/lib/dota-flavor.mjs";
 
 const root = process.cwd();
 const [arcadeSource, publicQuestionSource, publicQuestionType, steamAvatarSource, profileSource] = await Promise.all(
@@ -55,6 +56,18 @@ record(
     !profileSource.includes("stage ${") &&
     !profileSource.includes("round ${round.roundNumber"),
   "The profile page returned to scheduler names, a recent-answer log, or raw round numbers.",
+);
+
+record(
+  revealCallout({ correct: true, timedOut: false, firstBlood: true, streak: 1 }) === "First Blood" &&
+    revealCallout({ correct: true, timedOut: false, firstBlood: false, streak: 3 }) === "Killing Spree" &&
+    revealCallout({ correct: true, timedOut: false, firstBlood: false, streak: 5 }) === "Rampage" &&
+    revealCallout({ correct: true, timedOut: false, firstBlood: false, streak: 8 }) === "Godlike" &&
+    revealCallout({ correct: false, timedOut: false, firstBlood: false, streak: 0 }) === "Denied" &&
+    revealCallout({ correct: false, timedOut: true, firstBlood: false, streak: 0 }) === "Time expired" &&
+    sessionHonorific(8, 10) === "Well Played." &&
+    sessionHonorific(1, 10) === "One more queue",
+  "Dota fight callouts or session honorifics drifted.",
 );
 
 if (failures.length) throw new Error(failures.join("\n"));

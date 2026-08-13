@@ -1021,9 +1021,13 @@ const reveal = await evaluate(`(() => {
   const panel = document.querySelector('[data-testid="report-question"]')?.closest('[aria-live="polite"]');
   const bounds = panel?.getBoundingClientRect();
   return {
-    result: [...document.querySelectorAll("span")].find((entry) =>
-      ["Correct", "Not quite", "Time expired"].includes(entry.textContent.trim())
-    )?.textContent,
+    result:
+      document.querySelector('[data-testid="reveal-callout"]')?.textContent?.trim() ??
+      [...document.querySelectorAll("span")].find((entry) =>
+        ["Correct", "Denied", "Time expired", "First Blood", "Killing Spree", "Rampage", "Godlike"].includes(
+          entry.textContent.trim(),
+        ),
+      )?.textContent,
     percentages: [...document.querySelectorAll('[data-testid="arcade-answer"]')]
       .filter((button) => /%/.test(button.innerText)).length,
     shopPercentages: [...document.querySelectorAll('[data-testid="shopkeeper-store-item"]')]
@@ -1071,7 +1075,7 @@ await evaluate(`document.querySelector('[data-testid="view-summary"]')?.click()`
 await waitFor(`document.querySelector("main")?.dataset.phase === "summary"`);
 const summary = await evaluate(`({
   heading: document.querySelector("h1")?.innerText,
-  scoreVisible: document.body.textContent?.includes("Final score"),
+  scoreVisible: document.body.textContent?.includes("Final gold"),
   playAgain: [...document.querySelectorAll("button")].some((button) => button.textContent.includes("Play again")),
   backLabel: [...document.querySelectorAll("button")].some((button) => button.textContent.includes("Back to arcade")),
   feedbackOptions: document.querySelectorAll('[data-testid="session-feedback-option"]').length,
