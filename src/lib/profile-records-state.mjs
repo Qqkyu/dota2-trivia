@@ -79,6 +79,11 @@ const PREVIEWS = {
     category: "Abilities",
     prompt: "Whose upgrade is this?",
     effect: "After using a mobility spell, the next attack burns extra maximum mana.",
+    upgradeType: "scepter",
+    image: {
+      src: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_scepter.png?t=1593393829403",
+      alt: "",
+    },
   }),
   "order-up": samplePreview("order-up", {
     category: "Items",

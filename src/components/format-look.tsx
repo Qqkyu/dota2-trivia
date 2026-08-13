@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import type { CSSProperties } from "react";
 import { Clock3, Gem, ListOrdered, MessageSquareQuote, ScanEye, Swords, Volume2, WandSparkles } from "lucide-react";
 import { RoundMark } from "@/components/round-mark";
 import { LIVE_QUESTION_COPY, LIVE_ROUND_HEADER_LABELS } from "@/lib/round-question-copy.mjs";
@@ -31,6 +32,7 @@ export interface FormatPreview {
   shopFormat?: string | null;
   orderCards: Array<{ name: string; image: string }> | null;
   effect: string | null;
+  upgradeType?: string | null;
   soundcheckFamily?: string | null;
   soundcheckFormat?: string | null;
 }
@@ -86,7 +88,11 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
           </div>
         ) : (
           <div className={arcade.shopkeeperPromptTray}>
-            <span className={arcade.shopkeeperTray} data-item-count={preview?.shopItems?.length ?? 0}>
+            <span
+              className={arcade.shopkeeperTray}
+              data-item-count={preview?.shopItems?.length ?? 0}
+              style={{ "--shopkeeper-item-count": Math.max(1, preview?.shopItems?.length ?? 0) } as CSSProperties}
+            >
               {(preview?.shopItems ?? []).map((item) => (
                 <span className={arcade.shopkeeperItem} key={`${item.name}-${item.image}`}>
                   <span className={arcade.shopkeeperItemArt}>
@@ -155,7 +161,7 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
         <div className={arcade.aghanimArtwork}>
           {preview?.image?.src ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={preview.image.src} alt="" />
+            <img className={look.aghanimArt} src={preview.image.src} alt="" />
           ) : (
             <Gem aria-hidden="true" />
           )}

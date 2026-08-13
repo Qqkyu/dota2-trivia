@@ -1,8 +1,19 @@
 import { LIVE_ROUND_GAMES, roundFormatForQuestion, roundGameForFormat } from "./arcade-games.mjs";
+import shopkeeperCatalog from "../data/shopkeeper-catalog.json" with { type: "json" };
+
+const SHOP_ITEMS_BY_KEY = new Map(shopkeeperCatalog.groups.flatMap((group) => group.items).map((item) => [item.key, item]));
 
 function copyImage(image, alt) {
   if (!image?.src) return null;
   return { src: image.src, alt: alt ?? "" };
+}
+
+function aghanimArtwork(question) {
+  const upgradeType = question.aghanim?.upgradeType;
+  const catalogKey = upgradeType === "scepter" ? "ultimate_scepter" : upgradeType === "shard" ? "aghanims_shard" : null;
+  const item = catalogKey ? SHOP_ITEMS_BY_KEY.get(catalogKey) : null;
+  if (item?.image) return { src: item.image, alt: "" };
+  return copyImage(question.image, "");
 }
 
 function publicPreviewForQuestion(question, game) {
@@ -26,12 +37,18 @@ function publicPreviewForQuestion(question, game) {
     detail: game === "quote-hunt" ? (question.detail ?? null) : null,
     hint: game === "spell-link" ? (question.hint ?? null) : null,
     answers: game === "trivia" && Array.isArray(question.answers) ? [...question.answers] : null,
-    image: hideArtwork ? null : copyImage(question.image, game === "fogged-vision" ? "" : ""),
+    image:
+      game === "aghanim-lab"
+        ? aghanimArtwork(question)
+        : hideArtwork
+          ? null
+          : copyImage(question.image, game === "fogged-vision" ? "" : ""),
     fogged: game === "fogged-vision",
     shopItems: shopItems?.length ? shopItems : null,
     shopFormat: question.shopkeeper?.format ?? null,
     orderCards: orderCards?.length ? orderCards : null,
     effect: game === "aghanim-lab" ? (question.aghanim?.effect ?? null) : null,
+    upgradeType: game === "aghanim-lab" ? (question.aghanim?.upgradeType ?? null) : null,
     soundcheckFamily: question.soundcheck?.family ?? null,
     soundcheckFormat: question.soundcheck?.format ?? null,
   };

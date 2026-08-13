@@ -730,12 +730,17 @@ async function measureProfileRecords(size) {
     const stage = document.querySelector('[data-testid="format-preview-stage-trivia"]');
     const neighbor = document.querySelector('[data-testid="format-mastery-shopkeeper"]');
     const stageBox = stage?.getBoundingClientRect();
+    const shopTray = document.querySelector('[data-testid="format-preview-shopkeeper"] [data-item-count]');
+    const shopTops = [...(shopTray?.querySelectorAll("img") ?? [])].map((img) => img.getBoundingClientRect().top);
+    const aghanimImage = document.querySelector('[data-testid="format-preview-aghanim-lab"] img');
     return {
       trivia: read("trivia"),
       fog: read("fogged-vision"),
       order: read("order-up"),
       aghanim: read("aghanim-lab"),
       spell: read("spell-link"),
+      shopHorizontal: shopTops.length >= 2 && Math.max(...shopTops) - Math.min(...shopTops) < 8,
+      aghanimArt: aghanimImage?.getAttribute("src") ?? "",
       stageHeight: stageBox?.height ?? 0,
       neighborTop: neighbor?.getBoundingClientRect().top ?? 0,
       hoverPoint: stageBox ? { x: stageBox.left + 36, y: stageBox.top + 16 } : null,
@@ -767,6 +772,8 @@ async function measureProfileRecords(size) {
       orderPrompt: preview.order.includes("Order these items"),
       orderCards: preview.order.includes("Ring of Health"),
       aghanimPrompt: preview.aghanim.includes("Whose upgrade is this?"),
+      aghanimArt: /ultimate_scepter|aghanims_shard/.test(preview.aghanimArt),
+      shopHorizontal: preview.shopHorizontal,
       stageHeight: preview.stageHeight,
       hoverShift: Math.abs(afterHover.stageHeight - preview.stageHeight),
       neighborShift: Math.abs(afterHover.neighborTop - preview.neighborTop),
@@ -1225,6 +1232,8 @@ if (
   !profileRecordsLong.preview?.orderPrompt ||
   profileRecordsLong.preview?.orderCards ||
   !profileRecordsLong.preview?.aghanimPrompt ||
+  !profileRecordsLong.preview?.aghanimArt ||
+  !profileRecordsLong.preview?.shopHorizontal ||
   (profileRecordsLong.preview?.stageHeight ?? 0) < 120 ||
   (profileRecordsLong.preview?.stageHeight ?? 0) > 140 ||
   (profileRecordsLong.preview?.hoverShift ?? 9) > 1 ||

@@ -239,14 +239,26 @@ const previews = formatPreviewsFromQuestions([
       alt: "Pudge",
     },
   },
+  {
+    kind: "aghanim-upgrade",
+    prompt: "Whose upgrade is this?",
+    aghanim: {
+      effect: "After using a mobility spell, the next attack burns extra maximum mana.",
+      upgradeType: "scepter",
+      abilityName: "Blink",
+    },
+  },
 ]);
 if (
   !previews.trivia?.prompt ||
   !previews.trivia.answers?.includes("80") ||
   formatPreviewLeaksAnswer(previews.trivia) ||
   formatPreviewLeaksAnswer(previews["fogged-vision"]) ||
+  formatPreviewLeaksAnswer(previews["aghanim-lab"]) ||
   previews["fogged-vision"]?.image?.alt !== "" ||
   !previews["fogged-vision"]?.fogged ||
+  !previews["aghanim-lab"]?.image?.src.includes("ultimate_scepter") ||
+  JSON.stringify(previews["aghanim-lab"]).includes("Blink") ||
   longPreview.formats.find((row) => row.game === "trivia")?.preview?.prompt !== "How much does Pipe of Insight cost?" ||
   longPreview.formats.find((row) => row.game === "quote-hunt")?.preview?.detail !==
     "The only thing that could ever make me turn on my allies..."
