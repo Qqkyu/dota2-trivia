@@ -16,6 +16,7 @@ import {
   Gauge,
   Gamepad2,
   Gem,
+  Play,
   Keyboard,
   ListOrdered,
   MapPin,
@@ -3623,9 +3624,8 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                 onClick={() => void startRun()}
                 disabled={joiningRoom}
               >
-                <Gamepad2 />
+                <Play />
                 {joiningRoom ? "Joining public room…" : activeModeInfo.action}
-                <ChevronRight />
               </button>
               <div className={styles.accountActionSlot} data-testid="account-action-slot">
                 {account === null ? (
