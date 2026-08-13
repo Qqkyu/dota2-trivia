@@ -16,6 +16,7 @@ import {
   Users,
 } from "lucide-react";
 import { useMemo, useState } from "react";
+import { SiteFooter } from "@/components/site-chrome";
 import { REPORT_REASON_LABELS, type CalibrationStatus, type ReportReason } from "@/lib/calibration";
 import type { CalibrationRecord, CalibrationSnapshot } from "@/lib/calibration-data";
 import type { QuestionReviewState, QuestionReviewStatus } from "@/lib/question-review";
@@ -345,6 +346,7 @@ export function CalibrationDashboard({
       <footer className={styles.footer}>
         <span>Aggregates only · no raw player IDs · {reviewTotals.reviewed} reviewed</span>
       </footer>
+      <SiteFooter current="calibration" />
     </main>
   );
 }

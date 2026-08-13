@@ -15,7 +15,7 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
-import { BackToArcade } from "@/components/back-to-arcade";
+import { SiteChrome, SiteFooter } from "@/components/site-chrome";
 import { SteamSignIn } from "@/components/steam-sign-in";
 import { getAlphaOpsSnapshot, type AlphaFormatSignal } from "@/lib/alpha-ops";
 import { getUserBySession } from "@/lib/account-store";
@@ -42,29 +42,30 @@ const SIGNAL_LABELS: Record<AlphaFormatSignal, string> = {
 
 function OpsGate({ state }: { state: "signed-out" | "denied" | "unavailable" }) {
   return (
-    <main className={styles.gate} data-testid="ops-gate" data-access={state}>
-      <BackToArcade className={styles.gateBack} />
-      <section>
-        {state === "unavailable" ? <AlertTriangle /> : <ShieldCheck />}
-        <small>Private alpha operations</small>
-        <h1>
-          {state === "signed-out"
-            ? "Steam sign-in required."
-            : state === "denied"
-              ? "Reviewer access required."
-              : "Alpha data is temporarily unavailable."}
-        </h1>
-        <p>
-          {state === "signed-out"
-            ? "Use the Steam account allowlisted for question review."
-            : state === "denied"
-              ? "This page is limited to the Queue Arcade reviewer allowlist."
-              : "The arcade is still playable; refresh this page once storage recovers."}
-        </p>
-        {state === "signed-out" && <SteamSignIn returnTo="/ops" className={styles.signIn} />}
-        {state === "unavailable" && <Link href="/ops">Try again</Link>}
-      </section>
-    </main>
+    <SiteChrome current="ops">
+      <main className={styles.gate} data-testid="ops-gate" data-access={state}>
+        <section>
+          {state === "unavailable" ? <AlertTriangle /> : <ShieldCheck />}
+          <small>Private alpha operations</small>
+          <h1>
+            {state === "signed-out"
+              ? "Steam sign-in required."
+              : state === "denied"
+                ? "Reviewer access required."
+                : "Alpha data is temporarily unavailable."}
+          </h1>
+          <p>
+            {state === "signed-out"
+              ? "Use the Steam account allowlisted for question review."
+              : state === "denied"
+                ? "This page is limited to the Queue Arcade reviewer allowlist."
+                : "The arcade is still playable; refresh this page once storage recovers."}
+          </p>
+          {state === "signed-out" && <SteamSignIn returnTo="/ops" className={styles.signIn} />}
+          {state === "unavailable" && <Link href="/ops">Try again</Link>}
+        </section>
+      </main>
+    </SiteChrome>
   );
 }
 
@@ -204,6 +205,7 @@ export default async function OpsPage() {
         {snapshot.retentionDays}
         days. Individual answers are not shown here.
       </footer>
+      <SiteFooter current="ops" />
     </main>
   );
 }

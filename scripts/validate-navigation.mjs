@@ -55,19 +55,22 @@ if (
   failures.push("The lobby and live arcade no longer resolve to distinct canonical paths.");
 }
 
-const [backSource, profileSource] = await Promise.all(
-  ["src/components/back-to-arcade.tsx", "src/app/profile/page.tsx"].map((file) =>
+const [chromeSource, profileSource, privacySource] = await Promise.all(
+  ["src/components/site-chrome.tsx", "src/app/profile/page.tsx", "src/app/privacy/page.tsx"].map((file) =>
     readFile(path.join(process.cwd(), file), "utf8"),
   ),
 );
 if (
-  !backSource.includes('data-testid="back-to-arcade"') ||
-  !backSource.includes("ARCADE_LOBBY_PATH") ||
-  backSource.includes("<button") ||
-  !backSource.includes("<a href={ARCADE_LOBBY_PATH}") ||
-  !profileSource.includes("<BackToArcade")
+  !chromeSource.includes('data-testid="site-home"') ||
+  !chromeSource.includes('data-testid="site-footer"') ||
+  !chromeSource.includes("ARCADE_LOBBY_PATH") ||
+  !chromeSource.includes('href: "/profile"') ||
+  !chromeSource.includes('href: "/privacy"') ||
+  !chromeSource.includes('href: "/calibration"') ||
+  !profileSource.includes('<SiteChrome current="profile"') ||
+  !privacySource.includes('<SiteChrome current="privacy"')
 ) {
-  failures.push("The profile home control is no longer a real lobby link.");
+  failures.push("Non-play pages no longer share a home brand and Profile / Privacy / Calibration footer.");
 }
 
 if (failures.length) {

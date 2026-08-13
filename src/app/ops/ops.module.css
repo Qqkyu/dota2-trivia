@@ -343,6 +343,7 @@
 
 .gate {
   display: grid;
+  min-height: 50vh;
   align-content: center;
   padding: 40px max(24px, calc((100vw - 1040px) / 2));
 }

@@ -665,21 +665,35 @@ const profile = await evaluate(`({
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 await screenshot("/tmp/queue-arcade-profile-guest.png");
-const profileBack = await evaluate(`(() => {
-  const link = document.querySelector('[data-testid="back-to-arcade"]');
-  const bounds = link?.getBoundingClientRect();
+const profileChrome = await evaluate(`(() => {
+  const home = document.querySelector('[data-testid="site-home"]');
   return {
-    href: link?.getAttribute("href"),
-    tag: link?.tagName,
-    height: bounds?.height ?? 0,
-    width: bounds?.width ?? 0,
+    homeHref: home?.getAttribute("href") ?? "",
+    homeTag: home?.tagName ?? "",
+    privacyHref: document.querySelector('[data-testid="site-nav-privacy"]')?.getAttribute("href") ?? "",
+    calibrationHref: document.querySelector('[data-testid="site-nav-calibration"]')?.getAttribute("href") ?? "",
   };
 })()`);
-await evaluate(`document.querySelector('[data-testid="back-to-arcade"]')?.click()`);
+await evaluate(`document.querySelector('[data-testid="site-nav-privacy"]')?.click()`);
+await waitFor(`location.pathname === "/privacy"`);
+const privacyFromProfile = await evaluate(`({
+  url: location.pathname,
+  heading: document.querySelector("h1")?.innerText ?? "",
+  profileHref: document.querySelector('[data-testid="site-nav-profile"]')?.getAttribute("href") ?? "",
+})`);
+await evaluate(`document.querySelector('[data-testid="site-nav-profile"]')?.click()`);
+await waitFor(`location.pathname === "/profile" && Boolean(document.querySelector('[data-testid="profile-page"]'))`);
+const profileFromPrivacy = await evaluate(`({
+  url: location.pathname,
+  profile: Boolean(document.querySelector('[data-testid="profile-page"]')),
+})`);
+await evaluate(`document.querySelector('[data-testid="site-nav-privacy"]')?.click()`);
+await waitFor(`location.pathname === "/privacy"`);
+await evaluate(`document.querySelector('[data-testid="site-home"]')?.click()`);
 await waitFor(
   `location.pathname === "/" && document.querySelector('[data-testid="start-arcade"]') && document.querySelector("main")?.dataset.clientReady === "true"`,
 );
-const profileBackLanded = await evaluate(`({
+const privacyHomeLanded = await evaluate(`({
   url: location.pathname + location.search,
   lobby: Boolean(document.querySelector('[data-testid="start-arcade"]')),
 })`);
@@ -1116,13 +1130,19 @@ if (
   failures.push("The optional guest profile entry point is incomplete or overflows.");
 }
 if (
-  profileBack.tag !== "A" ||
-  profileBack.href !== "/" ||
-  profileBack.height < 36 ||
-  profileBackLanded.url !== "/" ||
-  !profileBackLanded.lobby
+  profileChrome.homeTag !== "A" ||
+  profileChrome.homeHref !== "/" ||
+  profileChrome.privacyHref !== "/privacy" ||
+  profileChrome.calibrationHref !== "/calibration" ||
+  privacyFromProfile.url !== "/privacy" ||
+  !privacyFromProfile.heading?.includes("without fog") ||
+  privacyFromProfile.profileHref !== "/profile" ||
+  profileFromPrivacy.url !== "/profile" ||
+  !profileFromPrivacy.profile ||
+  privacyHomeLanded.url !== "/" ||
+  !privacyHomeLanded.lobby
 ) {
-  failures.push("The profile home control does not look like a control or does not return to the lobby.");
+  failures.push("Profile and privacy no longer share home and footer navigation.");
 }
 if (
   profileRecordsShort.rows !== 9 ||
@@ -1366,8 +1386,10 @@ if (failures.length) {
       {
         lobby,
         profile,
-        profileBack,
-        profileBackLanded,
+        profileChrome,
+        privacyFromProfile,
+        profileFromPrivacy,
+        privacyHomeLanded,
         profileRecordsShort,
         profileRecordsLong,
         privacy,

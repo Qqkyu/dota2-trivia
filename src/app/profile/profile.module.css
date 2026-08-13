@@ -2,9 +2,8 @@
   position: relative;
   z-index: 1;
   width: min(100% - 48px, 1120px);
-  min-height: 100vh;
   margin: 0 auto;
-  padding: 38px 0 70px;
+  padding: 28px 0 48px;
 }
 
 .topbar {

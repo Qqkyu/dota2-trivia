@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { BackToArcade } from "@/components/back-to-arcade";
 import { ProfileActions } from "@/components/profile-actions";
 import { ProfileRecords } from "@/components/profile-records";
+import { SiteChrome } from "@/components/site-chrome";
 import { SteamAvatar } from "@/components/steam-avatar";
 import { SteamSignIn } from "@/components/steam-sign-in";
 import { getAccountProfile, getUserBySession } from "@/lib/account-store";
@@ -61,80 +61,75 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
 
   if (!profile) {
     return (
-      <main className={styles.page} data-testid="profile-page" data-authenticated="false">
-        <nav className={styles.topbar}>
-          <BackToArcade />
-          <Link href="/privacy">Privacy</Link>
-        </nav>
-        <section className={styles.emptyCard}>
-          <small>Personal records</small>
-          <h1>Keep your streak.</h1>
-          <p>
-            Connect Steam to carry accuracy, streaks, early solves, and format mastery between browsers. Anonymous play
-            stays available.
-          </p>
-          {params.authError && <p role="alert">Steam couldn’t verify that sign-in. Nothing was connected.</p>}
-          <SteamSignIn className={styles.steamSignIn} />
-        </section>
-      </main>
+      <SiteChrome current="profile">
+        <main className={styles.page} data-testid="profile-page" data-authenticated="false">
+          <section className={styles.emptyCard}>
+            <small>Personal records</small>
+            <h1>Keep your streak.</h1>
+            <p>
+              Connect Steam to carry accuracy, streaks, early solves, and format mastery between browsers. Anonymous
+              play stays available.
+            </p>
+            {params.authError && <p role="alert">Steam couldn’t verify that sign-in. Nothing was connected.</p>}
+            <SteamSignIn className={styles.steamSignIn} />
+          </section>
+        </main>
+      </SiteChrome>
     );
   }
 
   const { user, stats } = profile;
   return (
-    <main className={styles.page} data-testid="profile-page" data-authenticated="true">
-      <nav className={styles.topbar}>
-        <BackToArcade />
-        <Link href="/privacy">Privacy</Link>
-      </nav>
+    <SiteChrome current="profile">
+      <main className={styles.page} data-testid="profile-page" data-authenticated="true">
+        <section className={styles.hero}>
+          <SteamAvatar
+            className={styles.avatar}
+            fallbackClassName={styles.avatarFallback}
+            src={user.avatarUrl}
+            name={user.displayName}
+            width={86}
+            height={86}
+          />
+          <div className={styles.heroCopy}>
+            <small>Steam-connected player</small>
+            <h1>{user.displayName}</h1>
+            <a href={user.profileUrl} target="_blank" rel="noreferrer">
+              View Steam profile ↗
+            </a>
+          </div>
+          <ProfileActions />
+        </section>
 
-      <section className={styles.hero}>
-        <SteamAvatar
-          className={styles.avatar}
-          fallbackClassName={styles.avatarFallback}
-          src={user.avatarUrl}
-          name={user.displayName}
-          width={86}
-          height={86}
-        />
-        <div className={styles.heroCopy}>
-          <small>Steam-connected player</small>
-          <h1>{user.displayName}</h1>
-          <a href={user.profileUrl} target="_blank" rel="noreferrer">
-            View Steam profile ↗
-          </a>
-        </div>
-        <ProfileActions />
-      </section>
+        <section className={styles.stats} aria-label="Lifetime records">
+          <div className={styles.stat}>
+            <span>Answers</span>
+            <strong>{stats.answered.toLocaleString("en-US")}</strong>
+          </div>
+          <div className={styles.stat}>
+            <span>Accuracy</span>
+            <strong>{stats.accuracy}%</strong>
+          </div>
+          <div className={styles.stat}>
+            <span>Best streak</span>
+            <strong>{stats.bestStreak}</strong>
+          </div>
+          <div className={styles.stat}>
+            <span>Live streak</span>
+            <strong>{stats.currentStreak}</strong>
+          </div>
+          <div className={styles.stat}>
+            <span>Best ten</span>
+            <strong>{stats.bestTenCorrect === null ? "—" : `${stats.bestTenCorrect}/10`}</strong>
+          </div>
+        </section>
 
-      <section className={styles.stats} aria-label="Lifetime records">
-        <div className={styles.stat}>
-          <span>Answers</span>
-          <strong>{stats.answered.toLocaleString("en-US")}</strong>
-        </div>
-        <div className={styles.stat}>
-          <span>Accuracy</span>
-          <strong>{stats.accuracy}%</strong>
-        </div>
-        <div className={styles.stat}>
-          <span>Best streak</span>
-          <strong>{stats.bestStreak}</strong>
-        </div>
-        <div className={styles.stat}>
-          <span>Live streak</span>
-          <strong>{stats.currentStreak}</strong>
-        </div>
-        <div className={styles.stat}>
-          <span>Best ten</span>
-          <strong>{stats.bestTenCorrect === null ? "—" : `${stats.bestTenCorrect}/10`}</strong>
-        </div>
-      </section>
+        <ProfileRecords formats={compareFormatMastery(stats.formats, roomRecords)} />
 
-      <ProfileRecords formats={compareFormatMastery(stats.formats, roomRecords)} />
-
-      <p className={styles.privacyNote}>
-        Only Queue Arcade answers made while connected are recorded. <Link href="/privacy">What we store</Link>
-      </p>
-    </main>
+        <p className={styles.privacyNote}>
+          Only Queue Arcade answers made while connected are recorded. <Link href="/privacy">What we store</Link>
+        </p>
+      </main>
+    </SiteChrome>
   );
 }
