@@ -9,8 +9,10 @@ import { SteamSignIn } from "@/components/steam-sign-in";
 import { getAccountProfile, getUserBySession } from "@/lib/account-store";
 import { DEFAULT_GAME_ID } from "@/lib/game-catalogs";
 import { getCalibrationSnapshot } from "@/lib/calibration-data";
+import { formatPreviewsFromQuestions } from "@/lib/format-preview.mjs";
 import { profileRecordsPreview } from "@/lib/profile-records-state.mjs";
 import { compareFormatMastery } from "@/lib/round-identity.mjs";
+import { triviaQuestions } from "@/lib/trivia";
 import { ACCOUNT_SESSION_COOKIE, sessionTokenHash } from "@/lib/steam-auth.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 import { refreshSteamIdentityIfNeeded } from "@/lib/steam-profile";
@@ -18,6 +20,8 @@ import styles from "./profile.module.css";
 
 export const metadata: Metadata = { title: "Profile" };
 export const dynamic = "force-dynamic";
+
+const formatPreviews = formatPreviewsFromQuestions(triviaQuestions);
 
 interface ProfilePageProps {
   searchParams: Promise<{ authError?: string | string[]; recordsPreview?: string | string[] }>;
@@ -124,7 +128,12 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
           </div>
         </section>
 
-        <ProfileRecords formats={compareFormatMastery(stats.formats, roomRecords)} />
+        <ProfileRecords
+          formats={compareFormatMastery(stats.formats, roomRecords).map((row) => ({
+            ...row,
+            preview: formatPreviews[row.game],
+          }))}
+        />
 
         <p className={styles.privacyNote}>
           Only Queue Arcade answers made while connected are recorded. <Link href="/privacy">What we store</Link>

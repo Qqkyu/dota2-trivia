@@ -1,5 +1,19 @@
 import { compareFormatMastery } from "./round-identity.mjs";
 
+function samplePreview(game, prompt, extra = {}) {
+  return {
+    game,
+    prompt,
+    answers: null,
+    image: null,
+    fogged: false,
+    shopItems: null,
+    orderCards: null,
+    effect: null,
+    ...extra,
+  };
+}
+
 export const PROFILE_RECORDS_PREVIEW_SIZES = Object.freeze(["short", "long"]);
 
 /** @param {unknown} value */
@@ -64,6 +78,17 @@ export function profileRecordsPreview(size) {
             { game: "fogged-vision", total: 12, correct: 5 },
           ]
         : [],
-    ),
+    ).map((row) => ({
+      ...row,
+      preview: samplePreview(
+        row.game,
+        row.game === "trivia"
+          ? "How much does Pipe of Insight cost?"
+          : row.game === "quote-hunt"
+            ? "The only thing that could ever make me turn on my allies..."
+            : `Sample ${row.label} prompt`,
+        row.game === "trivia" ? { answers: ["3,250 gold", "3,275 gold", "3,725 gold", "4,000 gold"] } : {},
+      ),
+    })),
   };
 }

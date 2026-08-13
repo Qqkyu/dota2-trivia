@@ -1,29 +1,101 @@
-.look {
-  display: grid;
-  height: 76px;
-  place-items: center;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 20% 0%, rgba(170, 56, 46, 0.16), transparent 46%),
-    linear-gradient(180deg, #141918, #101413);
+.previewHit {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: inherit;
+  cursor: zoom-in;
 }
 
+.look {
+  display: grid;
+  gap: 8px;
+  align-content: center;
+  justify-items: center;
+  min-height: 92px;
+  padding: 10px 12px;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(170, 56, 46, 0.16), transparent 46%),
+    linear-gradient(180deg, #161b1a, #101413);
+}
+
+.prompt {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #d5d8d2;
+  font-size: 12px;
+  line-height: 1.35;
+  text-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.art {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  border: 1px solid rgba(210, 214, 207, 0.14);
+}
+
+.art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.art[data-fogged="true"] img {
+  filter: blur(7px) saturate(0.7) brightness(0.78);
+  transform: scale(1.18);
+}
+
+.art[data-fogged="true"]::after {
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 16, 15, 0.28);
+  content: "";
+}
+
+.shop,
+.orderCards,
 .letters,
-.slots,
-.link,
 .wave,
-.cuts,
-.order {
+.cuts {
   display: flex;
   align-items: flex-end;
   justify-content: center;
   gap: 6px;
 }
 
-.letters b {
+.shop span {
   display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+
+.shop img,
+.orderCards img {
   width: 28px;
   height: 28px;
+  object-fit: contain;
+}
+
+.shop small {
+  display: none;
+  max-width: 72px;
+  overflow: hidden;
+  color: #b7bfb9;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.letters b {
+  display: grid;
+  width: 26px;
+  min-height: 26px;
   place-items: center;
   border: 1px solid rgba(210, 214, 207, 0.16);
   background: #1a201e;
@@ -32,56 +104,20 @@
   font-size: 11px;
 }
 
-.slots i,
-.ability,
-.fog,
-.gem {
+.letters em {
+  display: none;
+  padding: 0 5px 5px;
+  color: #aeb6b0;
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.wave i,
+.cuts i {
   display: block;
-  border: 1px solid rgba(210, 214, 207, 0.14);
-  background: #1c2321;
-}
-
-.slots i {
-  width: 30px;
-  height: 30px;
-}
-
-.link {
-  align-items: center;
-  gap: 10px;
-}
-
-.ability {
-  width: 28px;
-  height: 28px;
-  background: #2a2420;
-}
-
-.link em {
-  width: 18px;
-  height: 1px;
-  background: rgba(210, 214, 207, 0.28);
-}
-
-.grid {
-  display: grid;
-  gap: 2px;
-  grid-template-columns: repeat(3, 7px);
-}
-
-.grid i {
-  width: 7px;
-  height: 7px;
-  background: rgba(210, 214, 207, 0.22);
-}
-
-.fog {
-  width: 54px;
-  height: 54px;
-  background:
-    radial-gradient(circle at 50% 40%, rgba(180, 190, 186, 0.18), transparent 36%),
-    linear-gradient(180deg, #2a3230, #151a19);
-  filter: blur(1.2px);
 }
 
 .wave i {
@@ -125,38 +161,27 @@
   height: 32px;
 }
 
-.quote {
-  color: rgba(223, 214, 196, 0.55);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 34px;
-  line-height: 1;
+.previewHit:hover .prompt,
+.previewHit:focus .prompt,
+.previewHit:focus-visible .prompt {
+  -webkit-line-clamp: 5;
 }
 
-.gem {
-  width: 22px;
-  height: 30px;
-  border-color: rgba(184, 146, 74, 0.45);
-  background: linear-gradient(180deg, #d2a34a, #6b4a18);
-  clip-path: polygon(50% 0, 100% 28%, 78% 100%, 22% 100%, 0 28%);
+.previewHit:hover .shop small,
+.previewHit:focus .shop small,
+.previewHit:focus-visible .shop small,
+.previewHit:hover .letters em,
+.previewHit:focus .letters em,
+.previewHit:focus-visible .letters em {
+  display: block;
 }
 
-.order i {
-  width: 10px;
-  background: #76c68a;
-}
-
-.order i:nth-child(1) {
-  height: 10px;
-}
-
-.order i:nth-child(2) {
-  height: 16px;
-}
-
-.order i:nth-child(3) {
-  height: 24px;
-}
-
-.order i:nth-child(4) {
-  height: 32px;
+.previewHit:hover .letters b,
+.previewHit:focus .letters b,
+.previewHit:focus-visible .letters b {
+  width: auto;
+  min-width: 42px;
+  min-height: 44px;
+  align-content: start;
+  padding-top: 6px;
 }

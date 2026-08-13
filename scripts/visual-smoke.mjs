@@ -725,8 +725,25 @@ async function measureProfileRecords(size) {
       horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
     };
   })()`);
+  const hover = await evaluate(`(() => {
+    const classic = document.querySelector('[data-testid="format-mastery-trivia"]');
+    const neighbor = document.querySelector('[data-testid="format-mastery-shopkeeper"]');
+    const hit = document.querySelector('[data-testid="format-preview-hit-trivia"]');
+    const preview = document.querySelector('[data-testid="format-preview-trivia"]');
+    const beforeTop = neighbor?.getBoundingClientRect().top ?? 0;
+    const restHeight = hit?.getBoundingClientRect().height ?? 0;
+    hit?.focus();
+    const afterTop = neighbor?.getBoundingClientRect().top ?? 0;
+    return {
+      prompt: preview?.textContent?.includes("Pipe of Insight") ?? false,
+      restHeight,
+      openHeight: hit?.getBoundingClientRect().height ?? 0,
+      neighborShift: Math.abs(afterTop - beforeTop),
+      classicLeft: classic?.getBoundingClientRect().left ?? 0,
+    };
+  })()`);
   await screenshot(`/tmp/queue-arcade-profile-records-${size}.png`);
-  return { size, ...layout };
+  return { size, ...layout, hover };
 }
 
 const profileRecordsShort = await measureProfileRecords("short");
@@ -1171,7 +1188,10 @@ if (
   profileRecordsLong.classicYou !== "63" ||
   profileRecordsLong.classicRoom !== "45" ||
   profileRecordsLong.foggedYou !== "" ||
-  profileRecordsLong.horizontalOverflow
+  profileRecordsLong.horizontalOverflow ||
+  !profileRecordsLong.hover?.prompt ||
+  (profileRecordsLong.hover?.openHeight ?? 0) <= (profileRecordsLong.hover?.restHeight ?? 0) ||
+  (profileRecordsLong.hover?.neighborShift ?? 9) > 1
 ) {
   failures.push("Profile format mastery no longer compares you to the crowd without a recent-answer log.");
 }

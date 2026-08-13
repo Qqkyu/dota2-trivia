@@ -1,4 +1,5 @@
-import { FormatLook } from "@/components/format-look";
+import { FormatLook, type FormatPreview } from "@/components/format-look";
+import lookStyles from "@/components/format-look.module.css";
 import { RoundMark } from "@/components/round-mark";
 import styles from "../app/profile/profile.module.css";
 
@@ -11,6 +12,7 @@ export interface ProfileFormatRow {
   room: number | null;
   early: { correct: number; answered: number } | null;
   slices: Array<{ format: string; label: string; answered: number; accuracy: number }>;
+  preview?: FormatPreview | null;
 }
 
 function percentLabel(value: number | null) {
@@ -35,7 +37,16 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
             data-room={format.room === null ? "" : String(format.room)}
             data-early={format.early ? `${format.early.correct}/${format.early.answered}` : ""}
           >
-            <FormatLook game={format.game} />
+            <div className={styles.previewStage}>
+              <button
+                type="button"
+                className={lookStyles.previewHit}
+                data-testid={`format-preview-hit-${format.game}`}
+                aria-label={`${format.label} sample question`}
+              >
+                <FormatLook game={format.game} preview={format.preview} />
+              </button>
+            </div>
             <div className={styles.cardBody}>
               <div className={styles.identity}>
                 <RoundMark game={format.game} />

@@ -11,6 +11,7 @@ import {
   verifySteamState,
 } from "../src/lib/steam-auth.mjs";
 import { LIVE_ROUND_GAMES, PUBLIC_ROUND_FORMATS } from "../src/lib/arcade-games.mjs";
+import { formatPreviewLeaksAnswer, formatPreviewsFromQuestions } from "../src/lib/format-preview.mjs";
 import { profileRecordsPreview } from "../src/lib/profile-records-state.mjs";
 import {
   answerStageLabel,
@@ -215,6 +216,37 @@ if (
   longPreview.formats.length !== 9
 ) {
   failures.push("Profile format compare no longer shows you versus the crowd.");
+}
+
+const previews = formatPreviewsFromQuestions([
+  {
+    id: "ability-owner:secret",
+    kind: "mana-cost",
+    prompt: "How much mana does Shadow Poison cost?",
+    answers: ["50", "70", "80", "100"],
+    correctIndex: 2,
+    explanation: "It costs 80.",
+    image: { src: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/poison.png", alt: "Shadow Poison" },
+  },
+  {
+    kind: "fogged-hero",
+    prompt: "Who is this hero?",
+    image: {
+      src: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png",
+      alt: "Pudge",
+    },
+  },
+]);
+if (
+  !previews.trivia?.prompt ||
+  !previews.trivia.answers?.includes("80") ||
+  formatPreviewLeaksAnswer(previews.trivia) ||
+  formatPreviewLeaksAnswer(previews["fogged-vision"]) ||
+  previews["fogged-vision"]?.image?.alt !== "" ||
+  !previews["fogged-vision"]?.fogged ||
+  longPreview.formats.find((row) => row.game === "trivia")?.preview?.prompt !== "How much does Pipe of Insight cost?"
+) {
+  failures.push("Format mastery previews leak answers or no longer show a real mini-question.");
 }
 
 if (failures.length) throw new Error(failures.join("\n"));
