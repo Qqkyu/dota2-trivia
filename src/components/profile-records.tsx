@@ -46,10 +46,7 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
                 <RoundMark game={format.game} />
                 <div className={styles.identityCopy}>
                   <strong className={styles.identityLabel}>{format.label}</strong>
-                  <small>
-                    {format.look}
-                    {format.answered ? ` · ${format.answered} played` : ""}
-                  </small>
+                  {format.answered ? <small>{format.answered} played</small> : null}
                 </div>
               </div>
               <div className={styles.duel}>
