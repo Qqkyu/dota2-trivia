@@ -22,7 +22,7 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
       <article className={styles.panel}>
         <header className={styles.formatHeader}>
           <span>Format mastery</span>
-          <strong>You vs the room</strong>
+          <strong>You vs the crowd</strong>
         </header>
         {formats.map((format) => (
           <div
@@ -63,7 +63,7 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
                 </span>
               </span>
               <span className={styles.compareCell}>
-                <span>Room</span>
+                <span>Crowd</span>
                 <strong>{percentLabel(format.room)}</strong>
                 <span className={styles.accuracyTrack} aria-hidden="true">
                   <span

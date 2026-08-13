@@ -214,7 +214,7 @@ if (
   longPreview.formats.find((row) => row.game === "trivia")?.room !== 45 ||
   longPreview.formats.length !== 9
 ) {
-  failures.push("Profile format compare no longer shows you versus the room.");
+  failures.push("Profile format compare no longer shows you versus the crowd.");
 }
 
 if (failures.length) throw new Error(failures.join("\n"));

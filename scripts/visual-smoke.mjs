@@ -680,7 +680,7 @@ async function measureProfileRecords(size) {
     return {
       rows: rows.length,
       recentLog: Boolean(document.body.innerText.toLowerCase().includes("recent answers")),
-      compareLabel: document.body.innerText.toLowerCase().includes("you vs the room"),
+      compareLabel: document.body.innerText.toLowerCase().includes("you vs the crowd"),
       classicYou: classic?.dataset.you ?? "",
       classicRoom: classic?.dataset.room ?? "",
       spellEarly: spell?.dataset.early ?? "",
@@ -1112,7 +1112,7 @@ if (
   profileRecordsLong.foggedYou !== "" ||
   profileRecordsLong.horizontalOverflow
 ) {
-  failures.push("Profile format mastery no longer compares you to the room without a recent-answer log.");
+  failures.push("Profile format mastery no longer compares you to the crowd without a recent-answer log.");
 }
 if (
   !privacy.title.includes("Privacy") ||
