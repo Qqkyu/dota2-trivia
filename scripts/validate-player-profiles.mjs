@@ -12,6 +12,9 @@ import {
 } from "../src/lib/steam-auth.mjs";
 import { LIVE_ROUND_GAMES, PUBLIC_ROUND_FORMATS } from "../src/lib/arcade-games.mjs";
 import { formatPreviewLeaksAnswer, formatPreviewsFromQuestions } from "../src/lib/format-preview.mjs";
+import { LIVE_QUESTION_COPY } from "../src/lib/round-question-copy.mjs";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import { profileRecordsPreview } from "../src/lib/profile-records-state.mjs";
 import {
   answerStageLabel,
@@ -244,9 +247,22 @@ if (
   formatPreviewLeaksAnswer(previews["fogged-vision"]) ||
   previews["fogged-vision"]?.image?.alt !== "" ||
   !previews["fogged-vision"]?.fogged ||
-  longPreview.formats.find((row) => row.game === "trivia")?.preview?.prompt !== "How much does Pipe of Insight cost?"
+  longPreview.formats.find((row) => row.game === "trivia")?.preview?.prompt !== "How much does Pipe of Insight cost?" ||
+  longPreview.formats.find((row) => row.game === "quote-hunt")?.preview?.detail !==
+    "The only thing that could ever make me turn on my allies..."
 ) {
   failures.push("Format mastery previews leak answers or no longer show a real mini-question.");
+}
+
+const arcadeSource = await readFile(path.join(process.cwd(), "src/components/queue-arcade.tsx"), "utf8");
+if (
+  !arcadeSource.includes(LIVE_QUESTION_COPY["fogged-vision"].prompt) ||
+  !arcadeSource.includes(LIVE_QUESTION_COPY["fogged-vision"].eyebrow) ||
+  !arcadeSource.includes(LIVE_QUESTION_COPY["spell-link"].prompt) ||
+  !arcadeSource.includes(LIVE_QUESTION_COPY["echo-hunt"].prompt) ||
+  !arcadeSource.includes(LIVE_QUESTION_COPY["quote-hunt"].prompt)
+) {
+  failures.push("Profile mini-questions drifted from the live in-round question chrome.");
 }
 
 if (failures.length) throw new Error(failures.join("\n"));

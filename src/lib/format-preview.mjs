@@ -9,6 +9,7 @@ function publicPreviewForQuestion(question, game) {
   const shopItems = question.shopkeeper?.promptItems?.slice(0, 3).map((item) => ({
     name: item.name,
     image: item.image,
+    count: item.count ?? 1,
   }));
   const orderCards = question.valueOrder?.cards?.map((card) => ({
     name: card.name,
@@ -18,13 +19,21 @@ function publicPreviewForQuestion(question, game) {
 
   return {
     game,
+    kind: question.kind ?? null,
+    category: question.category ?? null,
+    eyebrow: question.eyebrow ?? null,
     prompt: question.prompt,
+    detail: game === "quote-hunt" ? (question.detail ?? null) : null,
+    hint: game === "spell-link" ? (question.hint ?? null) : null,
     answers: game === "trivia" && Array.isArray(question.answers) ? [...question.answers] : null,
     image: hideArtwork ? null : copyImage(question.image, game === "fogged-vision" ? "" : ""),
     fogged: game === "fogged-vision",
     shopItems: shopItems?.length ? shopItems : null,
+    shopFormat: question.shopkeeper?.format ?? null,
     orderCards: orderCards?.length ? orderCards : null,
     effect: game === "aghanim-lab" ? (question.aghanim?.effect ?? null) : null,
+    soundcheckFamily: question.soundcheck?.family ?? null,
+    soundcheckFormat: question.soundcheck?.format ?? null,
   };
 }
 

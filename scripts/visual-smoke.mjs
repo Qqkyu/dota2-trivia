@@ -734,6 +734,14 @@ async function measureProfileRecords(size) {
     return {
       prompt: preview?.textContent?.includes("Pipe of Insight") ?? false,
       answers: preview?.textContent?.includes("3,725 gold") ?? false,
+      fogPrompt:
+        document.querySelector('[data-testid="format-preview-fogged-vision"]')?.textContent?.includes(
+          "Which hero is hiding in the fog?",
+        ) ?? false,
+      fogLookCue:
+        document.querySelector('[data-testid="format-preview-fogged-vision"]')?.textContent?.includes(
+          "A portrait in fog",
+        ) ?? false,
       neighborTop: neighbor?.getBoundingClientRect().top ?? 0,
       stageHeight: stage?.getBoundingClientRect().height ?? 0,
       hitHeight: hitBox?.height ?? 0,
@@ -773,6 +781,8 @@ async function measureProfileRecords(size) {
     hover: {
       prompt: rest.prompt,
       answers: rest.answers,
+      fogPrompt: rest.fogPrompt,
+      fogLookCue: rest.fogLookCue,
       restHeight: rest.hitHeight,
       restStageHeight: rest.stageHeight,
       openHeight: open.hitHeight,
@@ -1235,6 +1245,8 @@ if (
   profileRecordsLong.horizontalOverflow ||
   !profileRecordsLong.hover?.prompt ||
   !profileRecordsLong.hover?.answers ||
+  !profileRecordsLong.hover?.fogPrompt ||
+  profileRecordsLong.hover?.fogLookCue ||
   (profileRecordsLong.hover?.restStageHeight ?? 0) < 140 ||
   (profileRecordsLong.hover?.openHeight ?? 0) <= (profileRecordsLong.hover?.restHeight ?? 0) ||
   (profileRecordsLong.hover?.stageShift ?? 9) > 1 ||
