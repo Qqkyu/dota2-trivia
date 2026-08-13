@@ -5,7 +5,7 @@
   padding: 38px 0 80px;
 }
 
-.page > a {
+.page > a:not([data-testid="back-to-arcade"]) {
   color: #8d9692;
   font-family: var(--font-geist-mono), monospace;
   font-size: 11px;

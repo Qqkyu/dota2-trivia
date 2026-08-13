@@ -16,7 +16,7 @@
   border-bottom: 1px solid #252a29;
 }
 
-.topbar a {
+.topbar a:not([data-testid="back-to-arcade"]) {
   color: #9aa19e;
   font-family: var(--font-geist-mono), monospace;
   font-size: 11px;
@@ -25,7 +25,7 @@
   text-transform: uppercase;
 }
 
-.topbar a:hover {
+.topbar a:not([data-testid="back-to-arcade"]):hover {
   color: #f1f0ea;
 }
 

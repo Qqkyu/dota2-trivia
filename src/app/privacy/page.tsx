@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { BackToArcade } from "@/components/back-to-arcade";
 import { configuredDataCountries } from "@/lib/auth-session";
 import styles from "./privacy.module.css";
 
@@ -10,7 +10,7 @@ export default function PrivacyPage() {
   const dataCountries = configuredDataCountries();
   return (
     <main className={styles.page}>
-      <Link href="/">← Queue Arcade</Link>
+      <BackToArcade />
       <h1>Privacy, without fog.</h1>
       <p className={styles.intro}>
         Queue Arcade can be played anonymously. Connecting Steam is optional and exists only to preserve your personal

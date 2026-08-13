@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
+import { BackToArcade } from "@/components/back-to-arcade";
 import { SteamSignIn } from "@/components/steam-sign-in";
 import { getAlphaOpsSnapshot, type AlphaFormatSignal } from "@/lib/alpha-ops";
 import { getUserBySession } from "@/lib/account-store";
@@ -42,7 +43,7 @@ const SIGNAL_LABELS: Record<AlphaFormatSignal, string> = {
 function OpsGate({ state }: { state: "signed-out" | "denied" | "unavailable" }) {
   return (
     <main className={styles.gate} data-testid="ops-gate" data-access={state}>
-      <Link href="/">← Queue Arcade</Link>
+      <BackToArcade className={styles.gateBack} />
       <section>
         {state === "unavailable" ? <AlertTriangle /> : <ShieldCheck />}
         <small>Private alpha operations</small>

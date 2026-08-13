@@ -347,9 +347,12 @@
   padding: 40px max(24px, calc((100vw - 1040px) / 2));
 }
 
-.gate > a {
+.gateBack {
   position: absolute;
   top: 32px;
+}
+
+.gate > a:not([data-testid="back-to-arcade"]) {
   color: var(--muted);
   font-size: 12px;
   text-decoration: none;

@@ -1,0 +1,24 @@
+.back {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  padding: 0 13px;
+  border: 1px solid #303534;
+  background: #111514;
+  color: #d7dcd8;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.back:hover {
+  border-color: #525a57;
+  color: #f1f0ea;
+}
+
+.back:focus-visible {
+  outline: 2px solid #72a9c4;
+  outline-offset: 3px;
+}

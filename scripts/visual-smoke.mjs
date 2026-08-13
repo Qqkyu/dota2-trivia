@@ -665,6 +665,24 @@ const profile = await evaluate(`({
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 await screenshot("/tmp/queue-arcade-profile-guest.png");
+const profileBack = await evaluate(`(() => {
+  const link = document.querySelector('[data-testid="back-to-arcade"]');
+  const bounds = link?.getBoundingClientRect();
+  return {
+    href: link?.getAttribute("href"),
+    tag: link?.tagName,
+    height: bounds?.height ?? 0,
+    width: bounds?.width ?? 0,
+  };
+})()`);
+await evaluate(`document.querySelector('[data-testid="back-to-arcade"]')?.click()`);
+await waitFor(
+  `location.pathname === "/" && document.querySelector('[data-testid="start-arcade"]') && document.querySelector("main")?.dataset.clientReady === "true"`,
+);
+const profileBackLanded = await evaluate(`({
+  url: location.pathname + location.search,
+  lobby: Boolean(document.querySelector('[data-testid="start-arcade"]')),
+})`);
 
 async function measureProfileRecords(size) {
   await navigate(`${appUrl}/profile?recordsPreview=${size}`);
@@ -1098,6 +1116,15 @@ if (
   failures.push("The optional guest profile entry point is incomplete or overflows.");
 }
 if (
+  profileBack.tag !== "A" ||
+  profileBack.href !== "/" ||
+  profileBack.height < 36 ||
+  profileBackLanded.url !== "/" ||
+  !profileBackLanded.lobby
+) {
+  failures.push("The profile home control does not look like a control or does not return to the lobby.");
+}
+if (
   profileRecordsShort.rows !== 9 ||
   profileRecordsShort.recentLog ||
   !profileRecordsShort.compareLabel ||
@@ -1339,6 +1366,8 @@ if (failures.length) {
       {
         lobby,
         profile,
+        profileBack,
+        profileBackLanded,
         profileRecordsShort,
         profileRecordsLong,
         privacy,

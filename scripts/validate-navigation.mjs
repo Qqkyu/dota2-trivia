@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import {
   ARCADE_LOBBY_PATH,
   DEFAULT_ARCADE_MODE,
@@ -51,6 +53,21 @@ if (
   arcadeViewForPathname("/calibration") !== "lobby"
 ) {
   failures.push("The lobby and live arcade no longer resolve to distinct canonical paths.");
+}
+
+const [backSource, profileSource] = await Promise.all(
+  ["src/components/back-to-arcade.tsx", "src/app/profile/page.tsx"].map((file) =>
+    readFile(path.join(process.cwd(), file), "utf8"),
+  ),
+);
+if (
+  !backSource.includes('data-testid="back-to-arcade"') ||
+  !backSource.includes("ARCADE_LOBBY_PATH") ||
+  backSource.includes("<button") ||
+  !backSource.includes("<a href={ARCADE_LOBBY_PATH}") ||
+  !profileSource.includes("<BackToArcade")
+) {
+  failures.push("The profile home control is no longer a real lobby link.");
 }
 
 if (failures.length) {

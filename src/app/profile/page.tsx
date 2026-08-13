@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { cookies } from "next/headers";
+import { BackToArcade } from "@/components/back-to-arcade";
 import { ProfileActions } from "@/components/profile-actions";
 import { ProfileRecords } from "@/components/profile-records";
 import { SteamAvatar } from "@/components/steam-avatar";
@@ -62,7 +63,7 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
     return (
       <main className={styles.page} data-testid="profile-page" data-authenticated="false">
         <nav className={styles.topbar}>
-          <Link href="/">← Queue Arcade</Link>
+          <BackToArcade />
           <Link href="/privacy">Privacy</Link>
         </nav>
         <section className={styles.emptyCard}>
@@ -83,7 +84,7 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
   return (
     <main className={styles.page} data-testid="profile-page" data-authenticated="true">
       <nav className={styles.topbar}>
-        <Link href="/">← Queue Arcade</Link>
+        <BackToArcade />
         <Link href="/privacy">Privacy</Link>
       </nav>
 
