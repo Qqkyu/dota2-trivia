@@ -722,6 +722,10 @@ async function measureProfileRecords(size) {
           /crowd/i.test(document.querySelector('[data-testid="format-mastery-trivia"]')?.innerText ?? ""),
       ),
       firstClue: document.body.innerText.includes("First clue"),
+      laterClues:
+        document.body.innerText.includes("Second clue") && document.body.innerText.includes("Third clue"),
+      spellClues: document.querySelector('[data-testid="format-mastery-spell-link"]')?.dataset.clues ?? "",
+      played: document.body.innerText.includes("played"),
       classicYou: classic?.dataset.you ?? "",
       classicRoom: classic?.dataset.room ?? "",
       spellEarly: spell?.dataset.early ?? "",
@@ -1220,9 +1224,12 @@ if (
   profileRecordsShort.recentLog ||
   !profileRecordsShort.compareLabel ||
   !profileRecordsShort.firstClue ||
+  !profileRecordsShort.laterClues ||
+  !profileRecordsShort.played ||
   profileRecordsShort.classicYou !== "63" ||
   profileRecordsShort.classicRoom !== "" ||
-  profileRecordsShort.spellEarly !== "2/5" ||
+  profileRecordsShort.spellEarly !== "2/3" ||
+  profileRecordsShort.spellClues !== "2/3,1/1,1/1" ||
   profileRecordsShort.horizontalOverflow ||
   profileRecordsLong.rows !== 9 ||
   profileRecordsLong.recentLog ||

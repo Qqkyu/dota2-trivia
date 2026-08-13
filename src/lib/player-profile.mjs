@@ -60,6 +60,11 @@ export function summarizePlayerRounds(inputRounds) {
       answered: 0,
       correct: 0,
       firstStageCorrect: 0,
+      secondStageCorrect: 0,
+      thirdStageCorrect: 0,
+      firstStageAnswered: 0,
+      secondStageAnswered: 0,
+      thirdStageAnswered: 0,
       progressiveAnswered: 0,
     };
     format.answered += 1;
@@ -76,12 +81,17 @@ export function summarizePlayerRounds(inputRounds) {
     if (round.answerStage !== null) {
       format.progressiveAnswered += 1;
       progressiveAnswered += 1;
+      if (round.answerStage === 1) format.firstStageAnswered += 1;
+      if (round.answerStage === 2) format.secondStageAnswered += 1;
+      if (round.answerStage === 3) format.thirdStageAnswered += 1;
       if (round.correct) {
         progressiveCorrect += 1;
         if (round.answerStage === 1) {
           format.firstStageCorrect += 1;
           firstStageCorrect += 1;
         }
+        if (round.answerStage === 2) format.secondStageCorrect += 1;
+        if (round.answerStage === 3) format.thirdStageCorrect += 1;
       }
     }
     formats.set(round.roundFormat, format);

@@ -61,6 +61,11 @@ if (
   summary.progressiveAnswered !== 3 ||
   summary.formats.length !== 2 ||
   summary.formats.find((format) => format.format === "spell-link")?.firstStageCorrect !== 1 ||
+  summary.formats.find((format) => format.format === "spell-link")?.secondStageCorrect !== 1 ||
+  summary.formats.find((format) => format.format === "spell-link")?.thirdStageCorrect !== 0 ||
+  summary.formats.find((format) => format.format === "spell-link")?.firstStageAnswered !== 1 ||
+  summary.formats.find((format) => format.format === "spell-link")?.secondStageAnswered !== 1 ||
+  summary.formats.find((format) => format.format === "spell-link")?.thirdStageAnswered !== 1 ||
   summary.formats.find((format) => format.format === "spell-link")?.progressiveAnswered !== 3 ||
   summary.recentRounds.length !== 10 ||
   serializedRecentRounds.includes("questionId") ||
@@ -189,6 +194,11 @@ const compared = compareFormatMastery(
       correct: 4,
       accuracy: 80,
       firstStageCorrect: 2,
+      secondStageCorrect: 1,
+      thirdStageCorrect: 1,
+      firstStageAnswered: 3,
+      secondStageAnswered: 1,
+      thirdStageAnswered: 1,
       progressiveAnswered: 5,
     },
   ],
@@ -210,10 +220,13 @@ if (
   comparedSpell?.you !== 80 ||
   comparedSpell.room !== 90 ||
   comparedSpell.early?.correct !== 2 ||
-  comparedSpell.early?.answered !== 5 ||
+  comparedSpell.early?.answered !== 3 ||
+  comparedSpell.clues.map((clue) => `${clue.stage}:${clue.correct}/${clue.answered}`).join(",") !==
+    "1:2/3,2:1/1,3:1/1" ||
   comparedFogged?.you !== null ||
   comparedFogged?.room !== null ||
   comparedFogged?.early !== null ||
+  comparedFogged?.clues.length !== 0 ||
   shortPreview.formats.some((row) => row.room !== null) ||
   longPreview.formats.find((row) => row.game === "trivia")?.room !== 45 ||
   longPreview.formats.length !== 9

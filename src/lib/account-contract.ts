@@ -32,6 +32,11 @@ export interface PlayerFormatStats {
   correct: number;
   accuracy: number;
   firstStageCorrect: number;
+  secondStageCorrect: number;
+  thirdStageCorrect: number;
+  firstStageAnswered: number;
+  secondStageAnswered: number;
+  thirdStageAnswered: number;
   progressiveAnswered: number;
 }
 

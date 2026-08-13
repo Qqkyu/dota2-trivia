@@ -21,6 +21,15 @@ const FORMAT_SLICE_LABELS = Object.freeze({
   "shopkeeper-paths": "Upgrade paths",
 });
 
+const CLUE_LABELS = Object.freeze(["First clue", "Second clue", "Third clue"]);
+
+function stageCount(row, correctKey, answeredKey) {
+  return {
+    correct: Math.max(0, Math.floor(row[correctKey] ?? 0)),
+    answered: Math.max(0, Math.floor(row[answeredKey] ?? 0)),
+  };
+}
+
 /** @param {string} game */
 export function liveRoundIdentity(game) {
   return LIVE_ROUND_IDENTITIES[game] ?? null;
@@ -56,6 +65,11 @@ export function groupFormatMastery(formatStats) {
         answered: 0,
         correct: 0,
         firstStageCorrect: 0,
+        secondStageCorrect: 0,
+        thirdStageCorrect: 0,
+        firstStageAnswered: 0,
+        secondStageAnswered: 0,
+        thirdStageAnswered: 0,
         progressiveAnswered: 0,
         slices: [],
       },
@@ -73,7 +87,15 @@ export function groupFormatMastery(formatStats) {
         : Math.round((row.accuracy / 100) * answered);
     group.answered += answered;
     group.correct += correct;
-    group.firstStageCorrect += Math.max(0, Math.floor(row.firstStageCorrect ?? 0));
+    const first = stageCount(row, "firstStageCorrect", "firstStageAnswered");
+    const second = stageCount(row, "secondStageCorrect", "secondStageAnswered");
+    const third = stageCount(row, "thirdStageCorrect", "thirdStageAnswered");
+    group.firstStageCorrect += first.correct;
+    group.secondStageCorrect += second.correct;
+    group.thirdStageCorrect += third.correct;
+    group.firstStageAnswered += first.answered;
+    group.secondStageAnswered += second.answered;
+    group.thirdStageAnswered += third.answered;
     group.progressiveAnswered += Math.max(0, Math.floor(row.progressiveAnswered ?? 0));
     const sliceLabel = FORMAT_SLICE_LABELS[row.format];
     if (sliceLabel && answered > 0) {
@@ -96,6 +118,11 @@ export function groupFormatMastery(formatStats) {
       answered: group.answered,
       accuracy: group.answered ? Math.round((group.correct / group.answered) * 100) : null,
       firstStageCorrect: group.firstStageCorrect,
+      secondStageCorrect: group.secondStageCorrect,
+      thirdStageCorrect: group.thirdStageCorrect,
+      firstStageAnswered: group.firstStageAnswered,
+      secondStageAnswered: group.secondStageAnswered,
+      thirdStageAnswered: group.thirdStageAnswered,
       progressiveAnswered: group.progressiveAnswered,
       slices: group.slices,
     };
@@ -129,9 +156,24 @@ export function compareFormatMastery(playerFormats, roomRecords = []) {
       ...row,
       you: row.accuracy,
       room: roomRow?.answered ? Math.round((roomRow.correct / roomRow.answered) * 100) : null,
+      clues: PROGRESSIVE_ROUND_GAMES.has(row.game)
+        ? [
+            {
+              stage: 1,
+              label: CLUE_LABELS[0],
+              correct: row.firstStageCorrect,
+              answered: row.firstStageAnswered || (row.firstStageCorrect && !row.secondStageAnswered && !row.thirdStageAnswered ? row.progressiveAnswered : 0),
+            },
+            { stage: 2, label: CLUE_LABELS[1], correct: row.secondStageCorrect, answered: row.secondStageAnswered },
+            { stage: 3, label: CLUE_LABELS[2], correct: row.thirdStageCorrect, answered: row.thirdStageAnswered },
+          ].filter((clue) => clue.answered > 0)
+        : [],
       early:
         PROGRESSIVE_ROUND_GAMES.has(row.game) && row.progressiveAnswered > 0
-          ? { correct: row.firstStageCorrect, answered: row.progressiveAnswered }
+          ? {
+              correct: row.firstStageCorrect,
+              answered: row.firstStageAnswered || row.progressiveAnswered,
+            }
           : null,
     };
   });

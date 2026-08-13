@@ -10,6 +10,7 @@ export interface ProfileFormatRow {
   you: number | null;
   room: number | null;
   early: { correct: number; answered: number } | null;
+  clues: Array<{ stage: number; label: string; correct: number; answered: number }>;
   slices: Array<{ format: string; label: string; answered: number; accuracy: number }>;
   preview?: FormatPreview | null;
 }
@@ -31,6 +32,7 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
             data-you={format.you === null ? "" : String(format.you)}
             data-room={format.room === null ? "" : String(format.room)}
             data-early={format.early ? `${format.early.correct}/${format.early.answered}` : ""}
+            data-clues={format.clues.map((clue) => `${clue.correct}/${clue.answered}`).join(",") || ""}
           >
             <div
               className={styles.previewStage}
@@ -44,7 +46,10 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
                 <RoundMark game={format.game} />
                 <div className={styles.identityCopy}>
                   <strong className={styles.identityLabel}>{format.label}</strong>
-                  <small>{format.look}</small>
+                  <small>
+                    {format.look}
+                    {format.answered ? ` · ${format.answered} played` : ""}
+                  </small>
                 </div>
               </div>
               <div className={styles.duel}>
@@ -67,7 +72,7 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
                   {format.room === null ? null : <i className={styles.crowdMark} style={{ left: `${format.room}%` }} />}
                 </span>
               </div>
-              {format.slices.length || format.early ? (
+              {format.slices.length || format.clues.length ? (
                 <ul className={styles.kinds}>
                   {format.slices.map((slice) => (
                     <li key={slice.format}>
@@ -75,14 +80,14 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
                       <strong>{slice.accuracy}%</strong>
                     </li>
                   ))}
-                  {format.early ? (
-                    <li>
-                      <span>First clue</span>
+                  {format.clues.map((clue) => (
+                    <li key={clue.stage}>
+                      <span>{clue.label}</span>
                       <strong>
-                        {format.early.correct}/{format.early.answered}
+                        {clue.correct}/{clue.answered}
                       </strong>
                     </li>
-                  ) : null}
+                  ))}
                 </ul>
               ) : null}
             </div>
