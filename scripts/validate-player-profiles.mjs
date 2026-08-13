@@ -11,6 +11,7 @@ import {
   verifySteamState,
 } from "../src/lib/steam-auth.mjs";
 import { LIVE_ROUND_GAMES, PUBLIC_ROUND_FORMATS } from "../src/lib/arcade-games.mjs";
+import { presentProfileRecent, profileRecordsPreview } from "../src/lib/profile-records-state.mjs";
 import {
   answerStageLabel,
   compactElapsedLabel,
@@ -155,6 +156,23 @@ if (
   compactElapsedLabel(1_000, 1_000 + 3 * 60_000) !== "3m"
 ) {
   failures.push("Profile format identities no longer match the lobby round mix.");
+}
+
+for (const size of ["short", "long"]) {
+  const fixture = profileRecordsPreview(size);
+  const unmatched = presentProfileRecent(fixture.recent, "fogged-vision");
+  const matched = presentProfileRecent(fixture.recent, "trivia");
+  const unmatchedVisible = unmatched.filter((row) => !row.dimmed).length;
+  if (
+    fixture.recent.length !== (size === "short" ? 2 : 10) ||
+    unmatched.length !== fixture.recent.length ||
+    matched.length !== fixture.recent.length ||
+    unmatchedVisible !== 0 ||
+    matched.filter((row) => row.highlighted).length === 0 ||
+    fixture.recent.some((row) => row.game === "fogged-vision")
+  ) {
+    failures.push(`Selecting a format changes the ${size} recent-answer list instead of dimming it.`);
+  }
 }
 
 if (failures.length) throw new Error(failures.join("\n"));

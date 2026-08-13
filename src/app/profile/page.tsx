@@ -7,6 +7,7 @@ import { SteamAvatar } from "@/components/steam-avatar";
 import { SteamSignIn } from "@/components/steam-sign-in";
 import { getAccountProfile, getUserBySession } from "@/lib/account-store";
 import { DEFAULT_GAME_ID } from "@/lib/game-catalogs";
+import { profileRecordsPreview } from "@/lib/profile-records-state.mjs";
 import { answerStageLabel, compactElapsedLabel, groupFormatMastery, liveRoundIdentity } from "@/lib/round-identity.mjs";
 import { ACCOUNT_SESSION_COOKIE, sessionTokenHash } from "@/lib/steam-auth.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
@@ -17,11 +18,21 @@ export const metadata: Metadata = { title: "Profile" };
 export const dynamic = "force-dynamic";
 
 interface ProfilePageProps {
-  searchParams: Promise<{ authError?: string | string[] }>;
+  searchParams: Promise<{ authError?: string | string[]; recordsPreview?: string | string[] }>;
 }
 
 export default async function ProfilePage({ searchParams }: ProfilePageProps) {
   const params = await searchParams;
+  const recordsPreview = Array.isArray(params.recordsPreview) ? params.recordsPreview[0] : params.recordsPreview;
+  if (recordsPreview === "short" || recordsPreview === "long") {
+    const fixture = profileRecordsPreview(recordsPreview);
+    return (
+      <main className={styles.page} data-testid="profile-records-preview" data-size={recordsPreview}>
+        <ProfileRecords formats={fixture.formats} recent={fixture.recent} />
+      </main>
+    );
+  }
+
   const cookieStore = await cookies();
   const token = cookieStore.get(ACCOUNT_SESSION_COOKIE)?.value;
   let profile = null;

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import clsx from "clsx";
 import { RoundMark } from "@/components/round-mark";
+import { presentProfileRecent } from "@/lib/profile-records-state.mjs";
 import styles from "../app/profile/profile.module.css";
 
 export interface ProfileFormatRow {
@@ -29,8 +30,10 @@ export function ProfileRecords({ formats, recent }: { formats: ProfileFormatRow[
     setSelectedGame((current) => (current === game ? null : game));
   }
 
+  const presentedRecent = presentProfileRecent(recent, selectedGame);
+
   return (
-    <section className={styles.recordGrid}>
+    <section className={styles.recordGrid} data-testid="profile-records">
       <article className={styles.panel}>
         <header className={styles.formatHeader}>
           <span>Format mastery</span>
@@ -74,21 +77,23 @@ export function ProfileRecords({ formats, recent }: { formats: ProfileFormatRow[
         })}
       </article>
 
-      <article className={styles.panel}>
+      <article className={styles.panel} data-testid="recent-answers-panel">
         <header className={styles.recentHeader}>
           <span>Recent answers</span>
         </header>
-        {recent.length ? (
-          recent.map((round) => (
+        {presentedRecent.length ? (
+          presentedRecent.map((round) => (
             <div
               className={clsx(
                 styles.recentRow,
                 round.correct ? styles.recentCorrect : styles.recentWrong,
-                selectedGame && round.game !== selectedGame && styles.rowDimmed,
-                selectedGame && round.game === selectedGame && styles.recentRowSelected,
+                round.dimmed && styles.rowDimmed,
+                round.highlighted && styles.recentRowSelected,
               )}
               data-testid="recent-answer"
               data-game={round.game}
+              data-dimmed={round.dimmed ? "true" : "false"}
+              data-highlighted={round.highlighted ? "true" : "false"}
               key={round.roundId}
             >
               <span className={styles.identity}>
