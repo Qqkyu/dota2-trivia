@@ -24,6 +24,13 @@
   grid-template-columns: 40px auto;
 }
 
+.brand > span:last-child {
+  display: flex;
+  height: 40px;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .brand strong {
   font-size: 16px;
   letter-spacing: 0.12em;
