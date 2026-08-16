@@ -1791,5 +1791,1769 @@
       "alt": "Dota 2",
       "kind": "item"
     }
+  },
+  {
+    "id": "flashback:phoenix-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:phoenix",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "From the sun",
+    "prompt": "What year was Phoenix added to Dota 2?",
+    "answers": [
+      "2013",
+      "2014",
+      "2015",
+      "2016"
+    ],
+    "correctIndex": 1,
+    "explanation": "Phoenix shipped on 29 January 2014. Ability Draft was added in the same patch.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:phoenix",
+      "correctYear": 2014
+    },
+    "source": {
+      "label": "Heroes by release",
+      "url": "https://dota2.fandom.com/wiki/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phoenix.png",
+      "alt": "Phoenix",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:oracle-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:oracle",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "False Promise",
+    "prompt": "What year was Oracle added to Dota 2?",
+    "answers": [
+      "2013",
+      "2014",
+      "2015",
+      "2016"
+    ],
+    "correctIndex": 2,
+    "explanation": "Oracle shipped on 12 February 2015, the same day as Winter Wyvern.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:oracle",
+      "correctYear": 2015
+    },
+    "source": {
+      "label": "Heroes by release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/oracle.png",
+      "alt": "Oracle",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:arc-warden-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:arc-warden",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Tempest Double",
+    "prompt": "What year was Arc Warden added to Dota 2?",
+    "answers": [
+      "2013",
+      "2014",
+      "2015",
+      "2016"
+    ],
+    "correctIndex": 2,
+    "explanation": "Arc Warden shipped with patch 6.86 on 16 December 2015.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:arc-warden",
+      "correctYear": 2015
+    },
+    "source": {
+      "label": "Heroes by release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/arc_warden.png",
+      "alt": "Arc Warden",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:turbo-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:turbo",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Faster games",
+    "prompt": "What year did Dota 2 add Turbo mode?",
+    "answers": [
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
+    "correctIndex": 2,
+    "explanation": "Turbo shipped in patch 7.07, Dueling Fates, in 2017.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:turbo",
+      "correctYear": 2017
+    },
+    "source": {
+      "label": "Game modes",
+      "url": "https://dota2.fandom.com/wiki/Game_modes"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:plus-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:plus",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The monthly pass",
+    "prompt": "What year did Dota Plus launch?",
+    "answers": [
+      "2016",
+      "2017",
+      "2018",
+      "2019"
+    ],
+    "correctIndex": 2,
+    "explanation": "Valve launched Dota Plus on 13 March 2018 as a monthly subscription.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:plus",
+      "correctYear": 2018
+    },
+    "source": {
+      "label": "Introducing Dota Plus",
+      "url": "https://store.steampowered.com/news/38154/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:artifact-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:artifact",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Three boards",
+    "prompt": "What year did Valve release Artifact?",
+    "answers": [
+      "2016",
+      "2017",
+      "2018",
+      "2019"
+    ],
+    "correctIndex": 2,
+    "explanation": "Artifact, Valve's Dota card game, shipped on Steam on 28 November 2018.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:artifact",
+      "correctYear": 2018
+    },
+    "source": {
+      "label": "Artifact",
+      "url": "https://en.wikipedia.org/wiki/Artifact_(video_game)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:ability-draft-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ability-draft",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Build-a-hero",
+    "prompt": "What year was Ability Draft added?",
+    "answers": [
+      "2013",
+      "2014",
+      "2015",
+      "2016"
+    ],
+    "correctIndex": 1,
+    "explanation": "Ability Draft was added on 29 January 2014.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:ability-draft",
+      "correctYear": 2014
+    },
+    "source": {
+      "label": "Ability Draft changelogs",
+      "url": "https://liquipedia.net/dota2/Ability_Draft/Changelogs"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:siltbreaker-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:siltbreaker",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Four-player dungeon",
+    "prompt": "What year was the Siltbreaker campaign?",
+    "answers": [
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
+    "correctIndex": 2,
+    "explanation": "Siltbreaker ran from 8 June to 18 September 2017 as the TI7 Battle Pass co-op campaign.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:siltbreaker",
+      "correctYear": 2017
+    },
+    "source": {
+      "label": "Events",
+      "url": "https://dota2.fandom.com/wiki/Events"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:aghanim-lab-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:aghanim-lab",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The labyrinth",
+    "prompt": "What year did Aghanim's Labyrinth first run?",
+    "answers": [
+      "2018",
+      "2019",
+      "2020",
+      "2021"
+    ],
+    "correctIndex": 2,
+    "explanation": "Aghanim's Labyrinth was the summer 2020 co-op event. It launched in July 2020.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:aghanim-lab",
+      "correctYear": 2020
+    },
+    "source": {
+      "label": "Aghanim's Labyrinth",
+      "url": "https://dota2.fandom.com/wiki/Aghanim%27s_Labyrinth"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_scepter.png",
+      "alt": "Aghanim's Scepter",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:nemestice-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:nemestice",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Meteorites",
+    "prompt": "What year was the Nemestice event?",
+    "answers": [
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ],
+    "correctIndex": 2,
+    "explanation": "Nemestice ran from 24 June to 17 August 2021.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:nemestice",
+      "correctYear": 2021
+    },
+    "source": {
+      "label": "Nemestice",
+      "url": "https://www.dota2.com/nemestice"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:crownfall-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:crownfall",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Four acts",
+    "prompt": "What year did Crownfall begin?",
+    "answers": [
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "correctIndex": 2,
+    "explanation": "Crownfall started on 18 April 2024. It ran into February 2025.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:crownfall",
+      "correctYear": 2024
+    },
+    "source": {
+      "label": "Crownfall",
+      "url": "https://liquipedia.net/dota2/Crownfall"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png",
+      "alt": "Vengeful Spirit",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:dawnbreaker-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:dawnbreaker",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Starbreaker",
+    "prompt": "What year was Dawnbreaker added?",
+    "answers": [
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ],
+    "correctIndex": 2,
+    "explanation": "Dawnbreaker shipped on 9 April 2021 with patch 7.29.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:dawnbreaker",
+      "correctYear": 2021
+    },
+    "source": {
+      "label": "Heroes by release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png",
+      "alt": "Dawnbreaker",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:primal-beast-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:primal-beast",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Onslaught",
+    "prompt": "What year was Primal Beast added?",
+    "answers": [
+      "2020",
+      "2021",
+      "2022",
+      "2023"
+    ],
+    "correctIndex": 2,
+    "explanation": "Primal Beast shipped on 23 February 2022.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:primal-beast",
+      "correctYear": 2022
+    },
+    "source": {
+      "label": "Heroes by release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/primal_beast.png",
+      "alt": "Primal Beast",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:muerta-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:muerta",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Pierce the Veil",
+    "prompt": "What year was Muerta added?",
+    "answers": [
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "correctIndex": 2,
+    "explanation": "Muerta shipped on 6 March 2023.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:muerta",
+      "correctYear": 2023
+    },
+    "source": {
+      "label": "Heroes by release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png",
+      "alt": "Muerta",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ringmaster-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ringmaster",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The spotlight",
+    "prompt": "What year was Ringmaster added?",
+    "answers": [
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "correctIndex": 2,
+    "explanation": "Ringmaster shipped on 22 August 2024.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:ringmaster",
+      "correctYear": 2024
+    },
+    "source": {
+      "label": "Introducing The Ringmaster",
+      "url": "https://www.dota2.com/newsentry/6759426325006881791"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
+      "alt": "Ringmaster",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:kez-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:kez",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Katana and sai",
+    "prompt": "What year was Kez added?",
+    "answers": [
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "correctIndex": 2,
+    "explanation": "Kez shipped with Crownfall Act IV on 7 November 2024.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:kez",
+      "correctYear": 2024
+    },
+    "source": {
+      "label": "Introducing Kez",
+      "url": "https://www.dota2.com/newsentry/4446834797838336420"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
+      "alt": "Kez",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:icefrog-valve-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:icefrog-valve",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Bellevue",
+    "prompt": "What year did Valve hire IceFrog?",
+    "answers": [
+      "2007",
+      "2008",
+      "2009",
+      "2010"
+    ],
+    "correctIndex": 2,
+    "explanation": "IceFrog announced the Valve job in October 2009. That hire became Dota 2.",
+    "flashback": {
+      "family": "year",
+      "subject": "fact:icefrog-valve",
+      "correctYear": 2009
+    },
+    "source": {
+      "label": "Gamasutra",
+      "url": "https://www.gamedeveloper.com/game-platforms/-i-defense-of-the-ancients-i-lead-developer-joins-valve"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:first-compendium-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:first-compendium",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Prize-pool book",
+    "prompt": "What year was the first Interactive Compendium?",
+    "answers": [
+      "2012",
+      "2013",
+      "2014",
+      "2015"
+    ],
+    "correctIndex": 1,
+    "explanation": "The first Interactive Compendium was for The International 2013. 25% of sales went to the prize pool.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:first-compendium",
+      "correctYear": 2013
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://liquipedia.net/dota2/The_International"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:first-battlepass-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:first-battlepass",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The rename",
+    "prompt": "What year did Valve first sell a Battle Pass?",
+    "answers": [
+      "2014",
+      "2015",
+      "2016",
+      "2017"
+    ],
+    "correctIndex": 2,
+    "explanation": "The International 2016 Battle Pass was the first one sold under that name. Earlier years used Compendiums.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:first-battlepass",
+      "correctYear": 2016
+    },
+    "source": {
+      "label": "The International 2016 Battle Pass",
+      "url": "https://www.dota2.com/international2016/battlepass/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:first-persona-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:first-persona",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "A new face",
+    "prompt": "What year was the first Persona released?",
+    "answers": [
+      "2017",
+      "2018",
+      "2019",
+      "2020"
+    ],
+    "correctIndex": 2,
+    "explanation": "Invoker Kid, Acolyte of the Lost Arts, was the first Persona. It was a TI9 Battle Pass reward in 2019.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:first-persona",
+      "correctYear": 2019
+    },
+    "source": {
+      "label": "Persona",
+      "url": "https://dota2.fandom.com/wiki/Persona"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
+      "alt": "Invoker",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:hoodwink-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:hoodwink",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Acorn Shot",
+    "prompt": "What year was Hoodwink added?",
+    "answers": [
+      "2018",
+      "2019",
+      "2020",
+      "2021"
+    ],
+    "correctIndex": 2,
+    "explanation": "Hoodwink shipped on 17 December 2020, the same Mistwoods day as Aghanim's Shard.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:hoodwink",
+      "correctYear": 2020
+    },
+    "source": {
+      "label": "Heroes by release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/hoodwink.png",
+      "alt": "Hoodwink",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:dark-moon-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:dark-moon",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Selemene's temple",
+    "prompt": "What year was the Dark Moon event?",
+    "answers": [
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
+    "correctIndex": 2,
+    "explanation": "Dark Moon ran from 26 January to 6 February 2017. Players defended Selemene's temple from waves.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:dark-moon",
+      "correctYear": 2017
+    },
+    "source": {
+      "label": "Dark Moon",
+      "url": "https://dota2.fandom.com/wiki/Dark_Moon"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/luna.png",
+      "alt": "Luna",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:pit-lord",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:pit-lord",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The old name",
+    "prompt": "What was Underlord called in Warcraft III DotA?",
+    "answers": [
+      "Doom Lord",
+      "Pit Lord",
+      "Infernal",
+      "Fel Lord"
+    ],
+    "correctIndex": 1,
+    "explanation": "He was Pit Lord, Azgalor. Valve renamed him Underlord for Dota 2.",
+    "flashback": {
+      "family": "choice",
+      "subject": "hero:underlord"
+    },
+    "source": {
+      "label": "Underlord",
+      "url": "https://liquipedia.net/dota2/Underlord"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/abyssal_underlord.png",
+      "alt": "Underlord",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:io-wisp",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:io-wisp",
+    "category": "History",
+    "difficulty": 1,
+    "eyebrow": "Guardian",
+    "prompt": "What was Io called in original DotA?",
+    "answers": [
+      "Spark",
+      "Wisp",
+      "Spirit",
+      "Orb"
+    ],
+    "correctIndex": 1,
+    "explanation": "Io's DotA title was Guardian Wisp. Dota 2 first shortened it to Wisp, then to Io.",
+    "flashback": {
+      "family": "choice",
+      "subject": "hero:io"
+    },
+    "source": {
+      "label": "Io",
+      "url": "https://liquipedia.net/dota2/Io"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:outposts-replaced",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:outposts",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The old side shop tile",
+    "prompt": "What replaced the side shops in patch 7.23?",
+    "answers": [
+      "Shrines",
+      "Outposts",
+      "Lotus Pools",
+      "Twin Gates"
+    ],
+    "correctIndex": 1,
+    "explanation": "7.23 removed both side shops. Outposts sat on those tiles and could be captured.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:outposts"
+    },
+    "source": {
+      "label": "The Outlanders Update",
+      "url": "https://www.dota2.com/outlanders/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/map-overview.webp",
+      "alt": "The Dota 2 map",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:twin-gates",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:twin-gates",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Corner portals",
+    "prompt": "Patch 7.33 added which portals in the map corners?",
+    "answers": [
+      "Watchers",
+      "Twin Gates",
+      "Outposts",
+      "Side Shops"
+    ],
+    "correctIndex": 1,
+    "explanation": "New Frontiers added Twin Gates in opposite corners so teams could jump across the map.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:twin-gates"
+    },
+    "source": {
+      "label": "The New Frontiers Update",
+      "url": "https://www.dota2.com/newfrontiers"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/map-overview.webp",
+      "alt": "The Dota 2 map",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:tormentors",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:tormentors",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Minute 20",
+    "prompt": "Patch 7.33 added which 20-minute mini-boss behind each offlane?",
+    "answers": [
+      "Roshan",
+      "Tormentors",
+      "Ancients",
+      "Courier"
+    ],
+    "correctIndex": 1,
+    "explanation": "Tormentors spawn at 20:00 behind each offlane. The first team kill drops an Aghanim's Shard.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:tormentors"
+    },
+    "source": {
+      "label": "Version 7.33",
+      "url": "https://liquipedia.net/dota2/Version_7.33"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/map-overview.webp",
+      "alt": "The Dota 2 map",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:first-persona-hero",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:first-persona-hero",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Kid in the academy",
+    "prompt": "Which hero received the first Persona?",
+    "answers": [
+      "Anti-Mage",
+      "Invoker",
+      "Crystal Maiden",
+      "Phantom Assassin"
+    ],
+    "correctIndex": 1,
+    "explanation": "Acolyte of the Lost Arts, young Invoker, was the first Persona. It was a TI9 Battle Pass reward.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:first-persona"
+    },
+    "source": {
+      "label": "Persona",
+      "url": "https://dota2.fandom.com/wiki/Persona"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:guinsoo-lol",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:guinsoo-lol",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The other MOBA",
+    "prompt": "After leaving DotA, Guinsoo helped create which game?",
+    "answers": [
+      "Heroes of Newerth",
+      "League of Legends",
+      "Heroes of the Storm",
+      "Smite"
+    ],
+    "correctIndex": 1,
+    "explanation": "Steve Feak joined Riot and applied DotA lessons to League of Legends.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:guinsoo-lol"
+    },
+    "source": {
+      "label": "Defense of the Ancients",
+      "url": "https://en.wikipedia.org/wiki/Defense_of_the_Ancients"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sheepstick.png",
+      "alt": "Scythe of Vyse",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:roshan-cheese",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:roshan-cheese",
+    "category": "History",
+    "difficulty": 1,
+    "eyebrow": "The other drop",
+    "prompt": "Besides the Aegis, what extra consumable can Roshan drop?",
+    "answers": [
+      "Tango",
+      "Cheese",
+      "Faerie Fire",
+      "Salve"
+    ],
+    "correctIndex": 1,
+    "explanation": "Roshan can drop Cheese, a huge instant heal. Later kills can also drop Refresher Shard.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:roshan-cheese"
+    },
+    "source": {
+      "label": "Roshan",
+      "url": "https://liquipedia.net/dota2/Roshan"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png",
+      "alt": "Aegis of the Immortal",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:frankfurt-major-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:frankfurt-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "The first Major",
+    "prompt": "Who won the first Valve-sponsored Dota Major?",
+    "answers": [
+      "Team Secret",
+      "OG",
+      "Evil Geniuses",
+      "Team Liquid"
+    ],
+    "correctIndex": 1,
+    "explanation": "OG beat Team Secret at the Frankfurt Major in November 2015.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:frankfurt-major"
+    },
+    "source": {
+      "label": "Frankfurt Major",
+      "url": "https://www.sbnation.com/2015/11/21/9774996/og-frankfurt-major-dota-2-results"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "Dota 2",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:dueling-fates-turbo",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:707-turbo",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Dueling Fates",
+    "prompt": "Which game mode did patch 7.07 add?",
+    "answers": [
+      "Ability Draft",
+      "Turbo",
+      "Mutation",
+      "Single Draft"
+    ],
+    "correctIndex": 1,
+    "explanation": "7.07, Dueling Fates, added Turbo plus Dark Willow and Pangolier.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:turbo"
+    },
+    "source": {
+      "label": "Game modes",
+      "url": "https://dota2.fandom.com/wiki/Game_modes"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:shrines-700",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:shrines",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Jungle fountain",
+    "prompt": "Patch 7.00 added which jungle building that healed nearby heroes?",
+    "answers": [
+      "Outposts",
+      "Shrines",
+      "Lotus Pools",
+      "Watchers"
+    ],
+    "correctIndex": 1,
+    "explanation": "7.00 added Shrines with talents, the backpack, and Monkey King. 7.23 later removed them.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:700"
+    },
+    "source": {
+      "label": "Game Versions",
+      "url": "https://dota2.fandom.com/wiki/Game_Versions"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/map-overview.webp",
+      "alt": "The Dota 2 map",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:arcane-rune",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:arcane-rune",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Balance of Power",
+    "prompt": "Which rune did patch 6.86 add?",
+    "answers": [
+      "Bounty Rune",
+      "Arcane Rune",
+      "Water Rune",
+      "Wisdom Rune"
+    ],
+    "correctIndex": 1,
+    "explanation": "6.86 added the Arcane Rune on 16 December 2015. It cut cooldowns and mana cost.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:arcane-rune"
+    },
+    "source": {
+      "label": "Balance of Power",
+      "url": "https://www.dota2.com/balanceofpower"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/energy_booster.png",
+      "alt": "Energy Booster",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:oracle-wyvern-same-day",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:oracle-wyvern",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Double drop",
+    "prompt": "Which pair of heroes shipped on the same day?",
+    "answers": [
+      "Mars and Grimstroke",
+      "Oracle and Winter Wyvern",
+      "Snapfire and Hoodwink",
+      "Dawnbreaker and Marci"
+    ],
+    "correctIndex": 1,
+    "explanation": "Oracle and Winter Wyvern both shipped on 12 February 2015.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:oracle-wyvern"
+    },
+    "source": {
+      "label": "Heroes by release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:kez-crownfall",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:kez-event",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Act IV",
+    "prompt": "Which event shipped with Kez?",
+    "answers": [
+      "Nemestice",
+      "Crownfall",
+      "Diretide",
+      "Siltbreaker"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kez shipped with Crownfall Act IV on 7 November 2024.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:crownfall"
+    },
+    "source": {
+      "label": "Introducing Kez",
+      "url": "https://www.dota2.com/newsentry/4446834797838336420"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png",
+      "alt": "Vengeful Spirit",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:lotus-pools",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:lotus-pools",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "River fruit",
+    "prompt": "Patch 7.33 added which riverside building?",
+    "answers": [
+      "Side Shop",
+      "Lotus Pools",
+      "Shrine",
+      "Secret Shop"
+    ],
+    "correctIndex": 1,
+    "explanation": "New Frontiers put Lotus Pools on the river edges. They spawn Healing Lotuses.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:lotus-pools"
+    },
+    "source": {
+      "label": "The New Frontiers Update",
+      "url": "https://www.dota2.com/newfrontiers"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/map-overview.webp",
+      "alt": "The Dota 2 map",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:icefrog-hired-by",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:icefrog-hired",
+    "category": "History",
+    "difficulty": 1,
+    "eyebrow": "Great news for DotA fans",
+    "prompt": "Which company hired IceFrog in 2009?",
+    "answers": [
+      "Blizzard",
+      "Valve",
+      "Riot",
+      "Microsoft"
+    ],
+    "correctIndex": 1,
+    "explanation": "Valve hired IceFrog in October 2009 to lead a standalone DotA sequel.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:icefrog-valve"
+    },
+    "source": {
+      "label": "Gamasutra",
+      "url": "https://www.gamedeveloper.com/game-platforms/-i-defense-of-the-ancients-i-lead-developer-joins-valve"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:underlords-genre",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:underlords-genre",
+    "category": "History",
+    "difficulty": 1,
+    "eyebrow": "White Spire",
+    "prompt": "What kind of game is Dota Underlords?",
+    "answers": [
+      "Card game",
+      "Auto battler",
+      "MOBA",
+      "FPS"
+    ],
+    "correctIndex": 1,
+    "explanation": "Underlords is Valve's auto battler. Early access started in June 2019 after the Auto Chess arcade boom.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:underlords"
+    },
+    "source": {
+      "label": "Dota Underlords",
+      "url": "https://en.wikipedia.org/wiki/Dota_Underlords"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:personal-courier",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:personal-courier",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "No more shared bird",
+    "prompt": "Patch 7.23 gave every player what at the start of the match?",
+    "answers": [
+      "A free Bottle",
+      "A personal courier",
+      "A Neutral item",
+      "A free Observer Ward"
+    ],
+    "correctIndex": 1,
+    "explanation": "Outlanders gave each player their own courier. The shared team courier was gone.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:personal-courier"
+    },
+    "source": {
+      "label": "The Outlanders Update",
+      "url": "https://www.dota2.com/outlanders/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/courier.png",
+      "alt": "Courier",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:snapfire-patch",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:snapfire-patch",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Mortimer",
+    "prompt": "Which patch added Snapfire and Void Spirit?",
+    "answers": [
+      "7.07",
+      "7.23",
+      "7.28",
+      "7.33"
+    ],
+    "correctIndex": 1,
+    "explanation": "Both Outlanders heroes shipped with patch 7.23 on 26 November 2019.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:neutrals"
+    },
+    "source": {
+      "label": "The Outlanders Update",
+      "url": "https://www.dota2.com/outlanders/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/snapfire.png",
+      "alt": "Snapfire",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:siltbreaker-coop",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:siltbreaker-coop",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "We rook",
+    "prompt": "Which Battle Pass campaign was a four-player dungeon?",
+    "answers": [
+      "Dark Moon",
+      "Siltbreaker",
+      "Nemestice",
+      "Crownfall"
+    ],
+    "correctIndex": 1,
+    "explanation": "Siltbreaker was the 2017 four-player co-op dungeon on the TI7 Battle Pass.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:siltbreaker"
+    },
+    "source": {
+      "label": "Events",
+      "url": "https://dota2.fandom.com/wiki/Events"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:dark-moon-temple",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:dark-moon-temple",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Hold the temple",
+    "prompt": "Which event had players defend Selemene's temple from waves?",
+    "answers": [
+      "Frostivus",
+      "Dark Moon",
+      "Diretide",
+      "Nemestice"
+    ],
+    "correctIndex": 1,
+    "explanation": "Dark Moon in early 2017 was a wave-defense event at Selemene's temple.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:dark-moon"
+    },
+    "source": {
+      "label": "Dark Moon",
+      "url": "https://dota2.fandom.com/wiki/Dark_Moon"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/luna.png",
+      "alt": "Luna",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:dueling-fates-heroes",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:dueling-fates-heroes",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The pair",
+    "prompt": "Which two heroes shipped with Dueling Fates?",
+    "answers": [
+      "Snapfire and Void Spirit",
+      "Dark Willow and Pangolier",
+      "Mars and Grimstroke",
+      "Dawnbreaker and Marci"
+    ],
+    "correctIndex": 1,
+    "explanation": "Patch 7.07, Dueling Fates, added Dark Willow and Pangolier on 31 October 2017.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:707"
+    },
+    "source": {
+      "label": "Heroes by release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:coop-events-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:coop-events",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Summer campaigns",
+    "prompt": "Put these events in the order they first ran.",
+    "answers": [
+      "order-v1:darkmoon,siltbreaker,underhollow,aghlab",
+      "order-v1:siltbreaker,darkmoon,underhollow,aghlab",
+      "order-v1:darkmoon,underhollow,siltbreaker,aghlab",
+      "order-v1:darkmoon,siltbreaker,aghlab,underhollow"
+    ],
+    "correctIndex": 0,
+    "explanation": "Dark Moon in January 2017, Siltbreaker in June 2017, The Underhollow in 2018, Aghanim's Labyrinth in 2020.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:coop-events",
+      "cards": [
+        {
+          "key": "aghlab",
+          "name": "Aghanim's Labyrinth",
+          "context": "Summer gauntlet",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_scepter.png"
+        },
+        {
+          "key": "siltbreaker",
+          "name": "Siltbreaker",
+          "context": "Dungeon",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png"
+        },
+        {
+          "key": "underhollow",
+          "name": "The Underhollow",
+          "context": "Underlord's maze",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/abyssal_underlord.png"
+        },
+        {
+          "key": "darkmoon",
+          "name": "Dark Moon",
+          "context": "Temple defense",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/luna.png"
+        }
+      ],
+      "correctOrder": [
+        "darkmoon",
+        "siltbreaker",
+        "underhollow",
+        "aghlab"
+      ]
+    },
+    "source": {
+      "label": "Events",
+      "url": "https://dota2.fandom.com/wiki/Events"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:recent-heroes-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:recent-heroes",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "The last four",
+    "prompt": "Put these heroes in the order they were added.",
+    "answers": [
+      "order-v1:dawnbreaker,primal_beast,muerta,ringmaster",
+      "order-v1:dawnbreaker,muerta,primal_beast,ringmaster",
+      "order-v1:primal_beast,dawnbreaker,muerta,ringmaster",
+      "order-v1:dawnbreaker,primal_beast,ringmaster,muerta"
+    ],
+    "correctIndex": 0,
+    "explanation": "Dawnbreaker in 2021, Primal Beast in 2022, Muerta in 2023, Ringmaster in 2024.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:recent-heroes",
+      "cards": [
+        {
+          "key": "muerta",
+          "name": "Muerta",
+          "context": "The Veil",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png"
+        },
+        {
+          "key": "ringmaster",
+          "name": "Ringmaster",
+          "context": "Circus",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png"
+        },
+        {
+          "key": "dawnbreaker",
+          "name": "Dawnbreaker",
+          "context": "Hammer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png"
+        },
+        {
+          "key": "primal_beast",
+          "name": "Primal Beast",
+          "context": "Charge",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/primal_beast.png"
+        }
+      ],
+      "correctOrder": [
+        "dawnbreaker",
+        "primal_beast",
+        "muerta",
+        "ringmaster"
+      ]
+    },
+    "source": {
+      "label": "Heroes by release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:modes-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:modes-order",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Side queues",
+    "prompt": "Put these in the order they first launched.",
+    "answers": [
+      "order-v1:ability_draft,turbo,plus,artifact",
+      "order-v1:ability_draft,plus,turbo,artifact",
+      "order-v1:turbo,ability_draft,plus,artifact",
+      "order-v1:ability_draft,turbo,artifact,plus"
+    ],
+    "correctIndex": 0,
+    "explanation": "Ability Draft in 2014, Turbo in 2017, Dota Plus in March 2018, Artifact in November 2018.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:modes",
+      "cards": [
+        {
+          "key": "artifact",
+          "name": "Artifact",
+          "context": "Card game",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png"
+        },
+        {
+          "key": "turbo",
+          "name": "Turbo",
+          "context": "Fast All Pick",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/boots.png"
+        },
+        {
+          "key": "plus",
+          "name": "Dota Plus",
+          "context": "Subscription",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_horiz.png"
+        },
+        {
+          "key": "ability_draft",
+          "name": "Ability Draft",
+          "context": "Pick spells",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png"
+        }
+      ],
+      "correctOrder": [
+        "ability_draft",
+        "turbo",
+        "plus",
+        "artifact"
+      ]
+    },
+    "source": {
+      "label": "Dota 2",
+      "url": "https://www.dota2.com/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:map-features-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:map-features",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "The map grew",
+    "prompt": "Put these map systems in the order they were added.",
+    "answers": [
+      "order-v1:bounty,arcane,neutrals,twingates",
+      "order-v1:bounty,neutrals,arcane,twingates",
+      "order-v1:arcane,bounty,neutrals,twingates",
+      "order-v1:bounty,arcane,twingates,neutrals"
+    ],
+    "correctIndex": 0,
+    "explanation": "Bounty runes in 2014, Arcane Rune in 2015, neutral items in 2019, Twin Gates in 2023.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:map-features",
+      "cards": [
+        {
+          "key": "twingates",
+          "name": "Twin Gates",
+          "context": "Corner portals",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tpscroll.png"
+        },
+        {
+          "key": "arcane",
+          "name": "Arcane Rune",
+          "context": "Spell cost",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/energy_booster.png"
+        },
+        {
+          "key": "neutrals",
+          "name": "Neutral items",
+          "context": "Creep drops",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/quelling_blade.png"
+        },
+        {
+          "key": "bounty",
+          "name": "Bounty Runes",
+          "context": "River gold",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bottle.png"
+        }
+      ],
+      "correctOrder": [
+        "bounty",
+        "arcane",
+        "neutrals",
+        "twingates"
+      ]
+    },
+    "source": {
+      "label": "Dota 2",
+      "url": "https://www.dota2.com/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/map-overview.webp",
+      "alt": "The Dota 2 map",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:later-originals-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:later-originals",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "After the drought",
+    "prompt": "Put these heroes in the order they were added.",
+    "answers": [
+      "order-v1:hoodwink,dawnbreaker,marci,primal_beast",
+      "order-v1:hoodwink,marci,dawnbreaker,primal_beast",
+      "order-v1:dawnbreaker,hoodwink,marci,primal_beast",
+      "order-v1:hoodwink,dawnbreaker,primal_beast,marci"
+    ],
+    "correctIndex": 0,
+    "explanation": "Hoodwink in December 2020, Dawnbreaker in April 2021, Marci in October 2021, Primal Beast in February 2022.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:later-originals",
+      "cards": [
+        {
+          "key": "marci",
+          "name": "Marci",
+          "context": "Unleash",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png"
+        },
+        {
+          "key": "primal_beast",
+          "name": "Primal Beast",
+          "context": "Charge",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/primal_beast.png"
+        },
+        {
+          "key": "hoodwink",
+          "name": "Hoodwink",
+          "context": "Bushwhack",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/hoodwink.png"
+        },
+        {
+          "key": "dawnbreaker",
+          "name": "Dawnbreaker",
+          "context": "Hammer",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png"
+        }
+      ],
+      "correctOrder": [
+        "hoodwink",
+        "dawnbreaker",
+        "marci",
+        "primal_beast"
+      ]
+    },
+    "source": {
+      "label": "Heroes by release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:valve-path-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:valve-path",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "From hire to Plus",
+    "prompt": "Put these Valve Dota steps in the order they happened.",
+    "answers": [
+      "order-v1:hire,release,reborn,plus",
+      "order-v1:hire,reborn,release,plus",
+      "order-v1:release,hire,reborn,plus",
+      "order-v1:hire,release,plus,reborn"
+    ],
+    "correctIndex": 0,
+    "explanation": "Valve hired IceFrog in 2009, released Dota 2 in 2013, launched Reborn in 2015, then Dota Plus in 2018.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:valve-path",
+      "cards": [
+        {
+          "key": "plus",
+          "name": "Dota Plus",
+          "context": "2018",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_horiz.png"
+        },
+        {
+          "key": "release",
+          "name": "Dota 2 release",
+          "context": "2013",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png"
+        },
+        {
+          "key": "reborn",
+          "name": "Reborn",
+          "context": "2015",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_horiz.png"
+        },
+        {
+          "key": "hire",
+          "name": "IceFrog joins Valve",
+          "context": "2009",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cyclone.png"
+        }
+      ],
+      "correctOrder": [
+        "hire",
+        "release",
+        "reborn",
+        "plus"
+      ]
+    },
+    "source": {
+      "label": "Dota 2",
+      "url": "https://en.wikipedia.org/wiki/Dota_2"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
   }
 ]
