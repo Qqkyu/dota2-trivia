@@ -38,16 +38,16 @@ const FLASHBACK_ART = {
   "flashback:ti14-year": "2314350571781870059",
   "flashback:ti9-year": "team_logos/2586976",
   "flashback:ti13-year": "team_logos/2163",
-  "flashback:ti1-winner": "team_logos/36",
-  "flashback:ti3-winner": "team_logos/111474",
-  "flashback:ti5-winner": "team_logos/39",
-  "flashback:ti6-winner": "team_logos/1838315",
-  "flashback:ti8-winner": "team_logos/2586976",
-  "flashback:ti10-winner": "1839179120711951766",
-  "flashback:ti14-winner": "2314350571781870059",
+  "flashback:ti1-winner": "items/aegis",
+  "flashback:ti3-winner": "items/aegis",
+  "flashback:ti5-winner": "items/aegis",
+  "flashback:ti6-winner": "items/aegis",
+  "flashback:ti8-winner": "items/aegis",
+  "flashback:ti10-winner": "items/aegis",
+  "flashback:ti14-winner": "items/aegis",
   "flashback:ti1-city": "items/aegis",
-  "flashback:back-to-back": "team_logos/2586976",
-  "flashback:dota-creator": "items/cyclone",
+  "flashback:back-to-back": "items/aegis",
+  "flashback:dota-creator": "dota2_logo_symbol",
   "flashback:first-ti-winners-order": "items/aegis",
   "flashback:later-ti-winners-order": "items/aegis",
   "flashback:ti-cities-order": "items/aegis",
@@ -57,6 +57,17 @@ record(
   questions.every((question) => question.image?.src?.includes(FLASHBACK_ART[question.id] ?? "missing")) &&
     Object.keys(FLASHBACK_ART).length === questions.length,
   "A Flashback prompt still uses artwork that does not belong to the question.",
+);
+record(
+  questions
+    .filter((question) => question.kind === "flashback-choice" && /who |which team/i.test(question.prompt))
+    .every((question) => {
+      const answer = String(question.answers[question.correctIndex]).toLowerCase();
+      const alt = String(question.image?.alt ?? "").toLowerCase();
+      const src = String(question.image?.src ?? "").toLowerCase();
+      return !alt.includes(answer) && !src.includes(answer.replace(/[^a-z0-9]/g, ""));
+    }),
+  "A Flashback who-won prompt still prints the answer in the artwork.",
 );
 record(
   questions
