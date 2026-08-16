@@ -296,6 +296,32 @@
     }
   },
   {
+    "id": "flashback:ti2-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti2-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "First Seattle TI",
+    "prompt": "Who won The International 2012?",
+    "answers": ["Natus Vincere", "Invictus Gaming", "LGD Gaming", "Alliance"],
+    "correctIndex": 1,
+    "explanation": "iG beat Na'Vi 3–1. It was the first International in Seattle.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:ti2"
+    },
+    "source": {
+      "label": "The International 2012",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-seattle.jpg",
+      "alt": "The International in Seattle",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "flashback:ti3-winner",
     "kind": "flashback-choice",
     "varietyKey": "flashback:ti3-winner",
@@ -318,6 +344,32 @@
     "image": {
       "src": "/arcade/flashback/ti-seattle.jpg",
       "alt": "The International in Seattle",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ti4-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti4-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "The first $10M final",
+    "prompt": "Who won The International 2014?",
+    "answers": ["Vici Gaming", "Newbee", "Evil Geniuses", "Team DK"],
+    "correctIndex": 1,
+    "explanation": "Newbee beat Vici Gaming 3–1.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:ti4"
+    },
+    "source": {
+      "label": "The International 2014",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "The International",
       "kind": "hero"
     }
   },
@@ -374,6 +426,32 @@
     }
   },
   {
+    "id": "flashback:ti7-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti7-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "KeyArena 2017",
+    "prompt": "Who won The International 2017?",
+    "answers": ["Newbee", "Team Liquid", "LGD Gaming", "Virtus.pro"],
+    "correctIndex": 1,
+    "explanation": "Liquid swept Newbee 3–0.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:ti7"
+    },
+    "source": {
+      "label": "The International 2017",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti5-keyarena.jpg",
+      "alt": "The International at KeyArena",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "flashback:ti8-winner",
     "kind": "flashback-choice",
     "varietyKey": "flashback:ti8-winner",
@@ -400,6 +478,32 @@
     }
   },
   {
+    "id": "flashback:ti9-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti9-winner",
+    "category": "Esports",
+    "difficulty": 1,
+    "eyebrow": "Shanghai",
+    "prompt": "Who won The International 2019?",
+    "answers": ["Team Liquid", "OG", "Team Secret", "PSG.LGD"],
+    "correctIndex": 1,
+    "explanation": "OG beat Liquid 3–1 and became the first back-to-back TI winners.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:ti9"
+    },
+    "source": {
+      "label": "The International 2019",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "The International",
+      "kind": "hero"
+    }
+  },
+  {
     "id": "flashback:ti10-winner",
     "kind": "flashback-choice",
     "varietyKey": "flashback:ti10-winner",
@@ -422,6 +526,84 @@
     "image": {
       "src": "/arcade/flashback/ti10-mark.png",
       "alt": "The International 10",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ti11-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti11-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Singapore",
+    "prompt": "Who won The International 2022?",
+    "answers": ["Team Secret", "Tundra Esports", "Team Liquid", "OG"],
+    "correctIndex": 1,
+    "explanation": "Tundra swept Secret 3–0 in Singapore.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:ti11"
+    },
+    "source": {
+      "label": "The International 2022",
+      "url": "https://www.dota2.com/newsentry/3398555399437783294"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti11-mark.jpg",
+      "alt": "The International in Singapore",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ti12-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti12-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Climate Pledge",
+    "prompt": "Who won The International 2023?",
+    "answers": ["Gaimin Gladiators", "Team Spirit", "LGD Gaming", "Team Liquid"],
+    "correctIndex": 1,
+    "explanation": "Spirit swept Gaimin Gladiators 3–0 in Seattle.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:ti12"
+    },
+    "source": {
+      "label": "The International 2023",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti12-mark.png",
+      "alt": "The International",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ti13-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti13-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Copenhagen",
+    "prompt": "Who won The International 2024?",
+    "answers": ["Gaimin Gladiators", "Team Liquid", "Team Spirit", "Team Falcons"],
+    "correctIndex": 1,
+    "explanation": "Liquid swept Gaimin Gladiators 3–0 and took their second Aegis.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:ti13"
+    },
+    "source": {
+      "label": "The International 2024",
+      "url": "https://en.wikipedia.org/wiki/The_International_2024"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti13-mark.jpg",
+      "alt": "The International",
       "kind": "hero"
     }
   },

@@ -20,6 +20,12 @@ const record = (ok, message) => {
 };
 
 record(questions.length >= 20, `Flashback is too thin (${questions.length}).`);
+record(
+  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].every((ti) =>
+    questions.some((question) => question.id === `flashback:ti${ti}-winner`),
+  ),
+  "Flashback is missing a finished International winner.",
+);
 record(new Set(questions.map((question) => question.id)).size === questions.length, "Flashback IDs are not unique.");
 record(questions.every(isPlayableFlashbackQuestion), "A Flashback question failed the playable contract.");
 record(
@@ -41,11 +47,18 @@ const FLASHBACK_ART = {
   "flashback:ti9-year": "ti-wordmark.png",
   "flashback:ti13-year": "ti13-mark.jpg",
   "flashback:ti1-winner": "ti1-gamescom.jpg",
+  "flashback:ti2-winner": "ti-seattle.jpg",
   "flashback:ti3-winner": "ti-seattle.jpg",
+  "flashback:ti4-winner": "ti-wordmark.png",
   "flashback:ti5-winner": "ti5-keyarena.jpg",
   "flashback:ti6-winner": "ti-wordmark.png",
+  "flashback:ti7-winner": "ti5-keyarena.jpg",
   "flashback:ti8-winner": "ti8-vancouver.jpg",
+  "flashback:ti9-winner": "ti-wordmark.png",
   "flashback:ti10-winner": "ti10-mark.png",
+  "flashback:ti11-winner": "ti11-mark.jpg",
+  "flashback:ti12-winner": "ti12-mark.png",
+  "flashback:ti13-winner": "ti13-mark.jpg",
   "flashback:ti14-winner": "ti14-mark.png",
   "flashback:ti1-city": "ti1-gamescom.jpg",
   "flashback:back-to-back": "ti-wordmark.png",
