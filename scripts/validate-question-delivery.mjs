@@ -73,6 +73,7 @@ const forbiddenAnsweringKeys = new Set([
   "correctOrder",
   "value",
   "derivedFrom",
+  "revealMedia",
 ]);
 
 const orderFamilies = [
@@ -156,6 +157,25 @@ for (const [question, game] of representativeQuestions) {
   const revealQuestion = Object.fromEntries(Object.entries(revealPayload).filter(([key]) => key !== "reveal"));
   const leakedRevealKeys = [...forbiddenAnsweringKeys].filter((key) => keysInside(revealQuestion).has(key));
   record(leakedRevealKeys.length === 0, `${question.id}: reveal question leaked ${leakedRevealKeys.join(", ")}.`);
+}
+
+const flashbackWinner = flashback.find((question) => question.id === "flashback:ti1-winner");
+if (flashbackWinner) {
+  const answeringRound = roundFor(flashbackWinner, "flashback");
+  const answering = publicQuestionForRound(flashbackWinner, answeringRound, answeringRound.now);
+  const revealRound = roundFor(flashbackWinner, "flashback", "reveal", 16_000);
+  const reveal = publicQuestionForRound(flashbackWinner, revealRound, revealRound.now);
+  record(
+    answering.reveal === null &&
+      !JSON.stringify(answering).includes("revealMedia") &&
+      !JSON.stringify(answering).includes("team_logos/36") &&
+      !JSON.stringify(answering).includes("/arcade/flashback/winners/"),
+    "Flashback who-won still shows the winning-team picture while answers are open.",
+  );
+  record(
+    reveal.reveal?.media?.src && reveal.reveal.media.alt.includes("Natus Vincere"),
+    "Flashback who-won no longer shows the winning team after reveal.",
+  );
 }
 
 const buildResult = shopkeeper.find((question) => question.shopkeeper?.format === "build-result");

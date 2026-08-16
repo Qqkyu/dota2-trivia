@@ -1276,7 +1276,11 @@ function FlashbackOrderBoard({
           return (
             <span key={index} data-filled={card ? "true" : "false"}>
               <i>{index + 1}</i>
-              {card?.image ? <Image src={card.image} alt="" width={28} height={28} unoptimized /> : null}
+              {card?.image ? (
+                <Image src={card.image} alt="" width={28} height={28} unoptimized />
+              ) : (
+                <span className={styles.flashbackOrderSlotArt} aria-hidden="true" />
+              )}
               {card ? <strong>{card.name}</strong> : <em>—</em>}
             </span>
           );
@@ -1295,7 +1299,7 @@ function FlashbackOrderBoard({
               onClick={() => toggleCard(card.key)}
               aria-pressed={position >= 0}
             >
-              {position >= 0 && <i>{position + 1}</i>}
+              <i data-empty={position < 0 ? "true" : "false"}>{position >= 0 ? position + 1 : ""}</i>
               {card.image ? <Image src={card.image} alt="" width={48} height={48} unoptimized /> : null}
               <strong>{card.name}</strong>
               {card.context && <small>{card.context}</small>}
@@ -4963,9 +4967,24 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
             ) : (
               <div
                 className={clsx(styles.revealPanel, selectedWasCorrect ? styles.revealCorrect : styles.revealWrong)}
+                data-has-media={currentQuestion.reveal?.media ? "true" : "false"}
                 aria-live="polite"
               >
                 <div className={styles.revealIcon}>{selectedWasCorrect ? <Check /> : <X />}</div>
+                {currentQuestion.reveal?.media && (
+                  <figure className={styles.revealMedia} data-testid="flashback-reveal-media">
+                    <Image
+                      src={currentQuestion.reveal.media.src}
+                      alt={currentQuestion.reveal.media.alt}
+                      width={88}
+                      height={88}
+                      unoptimized
+                    />
+                    {currentQuestion.reveal.media.caption ? (
+                      <figcaption>{currentQuestion.reveal.media.caption}</figcaption>
+                    ) : null}
+                  </figure>
+                )}
                 <div className={styles.revealCopy}>
                   <span data-testid="reveal-callout" data-callout={resultCallout}>
                     {resultCallout}

@@ -236,6 +236,17 @@ export function publicQuestionForRound(question, round, now) {
                           })),
                         }
                       : {}),
+            ...(question.flashback?.revealMedia?.src
+              ? {
+                  media: {
+                    src: question.flashback.revealMedia.src,
+                    alt: question.flashback.revealMedia.alt,
+                    ...(question.flashback.revealMedia.caption
+                      ? { caption: question.flashback.revealMedia.caption }
+                      : {}),
+                  },
+                }
+              : {}),
           }
         : null,
   };

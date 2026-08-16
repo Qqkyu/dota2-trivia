@@ -15,6 +15,7 @@ const questions = JSON.parse(
   await readFile(path.join(process.cwd(), "src", "data", "flashback-questions.json"), "utf8"),
 );
 const arcadeSource = await readFile(path.join(process.cwd(), "src", "components", "queue-arcade.tsx"), "utf8");
+const arcadeCss = await readFile(path.join(process.cwd(), "src", "components", "queue-arcade.module.css"), "utf8");
 const failures = [];
 const record = (ok, message) => {
   if (!ok) failures.push(message);
@@ -281,6 +282,25 @@ record(
     .every((question) => existsSync(path.join(process.cwd(), "public", question.image.src))),
   "A Flashback local image is missing from disk.",
 );
+record(
+  questions
+    .filter((question) => question.flashback?.revealMedia)
+    .every((question) => {
+      const src = String(question.flashback.revealMedia.src ?? "");
+      return (
+        (src.startsWith("https://") || src.startsWith("/arcade/flashback/")) &&
+        question.flashback.revealMedia.alt &&
+        (!src.startsWith("/arcade/flashback/") || existsSync(path.join(process.cwd(), "public", src)))
+      );
+    }),
+  "A Flashback reveal picture is missing or not playable.",
+);
+record(
+  questions
+    .filter((question) => question.id.endsWith("-winner") || question.id === "flashback:back-to-back")
+    .every((question) => question.flashback?.revealMedia?.src),
+  "A Flashback who-won prompt has no reveal picture.",
+);
 
 const now = 1_000_000;
 record(
@@ -314,6 +334,15 @@ record(
     arcadeSource.includes("DOTA_SHOP_SEARCH_PLACEHOLDER") &&
     arcadeSource.includes('data-testid="shopkeeper-search-field"'),
   "The shop lost the Dota Search Items field.",
+);
+record(
+  arcadeSource.includes('data-empty={position < 0 ? "true" : "false"}') &&
+    arcadeSource.includes("flashback-reveal-media") &&
+    arcadeCss.includes(".flashbackOrderCards button {\n  position: relative;") &&
+    arcadeCss.includes("height: 132px;") &&
+    arcadeCss.includes(".flashbackOrderSlots > span {\n  display: grid;") &&
+    arcadeCss.includes("height: 64px;"),
+  "Flashback order cards can still change size when a card is picked.",
 );
 
 if (failures.length) throw new Error(failures.join("\n"));

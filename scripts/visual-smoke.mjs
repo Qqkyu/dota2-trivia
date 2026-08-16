@@ -1143,7 +1143,35 @@ if (!answering.openShop) {
       );
     }
   } else if (answering.flashbackOrder) {
-    for (let cardIndex = 0; cardIndex < 4; cardIndex += 1) {
+    const measureFlashbackOrder = `(() => {
+      const board = document.querySelector('[data-testid="flashback-order-board"]');
+      const boardBox = board?.getBoundingClientRect();
+      const cards = [...document.querySelectorAll('[data-testid="flashback-order-card"]')].map((card) => {
+        const box = card.getBoundingClientRect();
+        return { x: Math.round(box.x), y: Math.round(box.y), w: Math.round(box.width), h: Math.round(box.height) };
+      });
+      return { height: Math.round(boardBox?.height ?? 0), cards };
+    })()`;
+    const orderBeforePick = await evaluate(measureFlashbackOrder);
+    await evaluate(`document.querySelectorAll('[data-testid="flashback-order-card"]')[0]?.click()`);
+    await waitFor(
+      `document.querySelectorAll('[data-testid="flashback-order-card"][data-selected="true"]').length === 1`,
+    );
+    const orderAfterPick = await evaluate(measureFlashbackOrder);
+    answering.flashbackOrderStable = Boolean(
+      orderBeforePick &&
+        orderAfterPick &&
+        orderBeforePick.height === orderAfterPick.height &&
+        orderBeforePick.cards.length === 4 &&
+        orderAfterPick.cards.every(
+          (card, index) =>
+            card.x === orderBeforePick.cards[index].x &&
+            card.y === orderBeforePick.cards[index].y &&
+            card.w === orderBeforePick.cards[index].w &&
+            card.h === orderBeforePick.cards[index].h,
+        ),
+    );
+    for (let cardIndex = 1; cardIndex < 4; cardIndex += 1) {
       await evaluate(`document.querySelectorAll('[data-testid="flashback-order-card"]')[${cardIndex}]?.click()`);
       await waitFor(
         `document.querySelectorAll('[data-testid="flashback-order-card"][data-selected="true"]').length === ${cardIndex + 1}`,
@@ -1530,6 +1558,9 @@ if (
   questionCopyGuard.userSelect !== "none"
 ) {
   failures.push("The synchronized public round is incomplete or still exposes a player queue choice.");
+}
+if (answering.flashbackOrder && answering.flashbackOrderStable !== true) {
+  failures.push("Flashback order cards still jump when a card is picked.");
 }
 if (
   answering.heroPicker &&

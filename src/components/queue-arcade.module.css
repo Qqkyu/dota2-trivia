@@ -1604,6 +1604,7 @@
 .flashbackOrderBoard {
   display: grid;
   gap: 12px;
+  min-height: 256px;
   margin: 0 28px 16px;
 }
 
@@ -1615,19 +1616,43 @@
 
 .flashbackOrderSlots > span {
   display: grid;
-  min-height: 58px;
-  align-content: center;
-  justify-items: center;
-  gap: 4px;
+  min-width: 0;
+  height: 64px;
+  align-items: center;
+  grid-template-columns: 18px 28px minmax(0, 1fr);
+  gap: 6px;
+  padding: 0 8px;
+  overflow: hidden;
   border: 1px solid rgba(196, 164, 106, 0.28);
   background: rgba(8, 8, 8, 0.55);
   color: #d8c08a;
 }
 
+.flashbackOrderSlots > span[data-filled="true"] {
+  border-color: rgba(196, 164, 106, 0.55);
+}
+
 .flashbackOrderSlots img,
 .flashbackOrderCards img,
-.flashbackOrderList img {
+.flashbackOrderList img,
+.flashbackOrderSlots .flashbackOrderSlotArt {
+  width: 28px;
+  height: 28px;
   object-fit: contain;
+}
+
+.flashbackOrderSlots .flashbackOrderSlotArt {
+  display: block;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.flashbackOrderSlots strong {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .flashbackOrderSlots i,
@@ -1649,11 +1674,13 @@
 .flashbackOrderCards button {
   position: relative;
   display: grid;
-  min-height: 124px;
+  min-width: 0;
+  height: 132px;
   align-content: start;
   justify-items: start;
   gap: 6px;
   padding: 12px;
+  overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(10, 12, 12, 0.78);
   color: #e7ecec;
@@ -1666,9 +1693,35 @@
   height: 48px;
 }
 
+.flashbackOrderCards button > i {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 1px solid rgba(196, 164, 106, 0.45);
+  background: rgba(196, 164, 106, 0.16);
+  color: #f0d9a0;
+  visibility: hidden;
+}
+
+.flashbackOrderCards button[data-selected="true"] > i {
+  visibility: visible;
+}
+
 .flashbackOrderCards button[data-selected="true"] {
   border-color: rgba(196, 164, 106, 0.7);
   box-shadow: inset 0 0 0 1px rgba(196, 164, 106, 0.35);
+}
+
+.flashbackOrderCards strong,
+.flashbackOrderCards small {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .flashbackOrderCards small {
@@ -1691,6 +1744,11 @@
   padding: 10px 12px;
   border: 1px solid rgba(196, 164, 106, 0.22);
   background: rgba(8, 8, 8, 0.5);
+}
+
+.flashbackOrderList img {
+  width: 36px;
+  height: 36px;
 }
 
 .shopkeeperStage {
@@ -5102,6 +5160,33 @@ button[data-state="wrong"] > .heroPickerVerdict {
   padding: 14px 17px;
   border: 1px solid var(--line);
   background: rgba(0, 0, 0, 0.16);
+}
+
+.revealPanel[data-has-media="true"] {
+  min-height: 132px;
+  grid-template-columns: auto 96px minmax(0, 1fr) auto;
+}
+
+.revealMedia {
+  display: grid;
+  margin: 0;
+  justify-items: center;
+  gap: 4px;
+}
+
+.revealMedia img {
+  width: 88px;
+  height: 88px;
+  object-fit: contain;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.revealMedia figcaption {
+  max-width: 96px;
+  color: #c4a46a;
+  font-size: 10px;
+  line-height: 1.2;
+  text-align: center;
 }
 
 .revealCorrect {

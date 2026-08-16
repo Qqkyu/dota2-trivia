@@ -21,6 +21,11 @@ export interface PublicQuestionReveal {
   explanation: string;
   correctAnswerKey?: string;
   orderValues?: Array<{ key: string; label: string }>;
+  media?: {
+    src: string;
+    alt: string;
+    caption?: string;
+  };
 }
 
 export interface PublicAghanimUpgrade {

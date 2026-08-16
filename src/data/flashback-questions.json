@@ -238,7 +238,7 @@
       "2026"
     ],
     "correctIndex": 2,
-    "explanation": "TI14 was The International 2025. Falcons beat Xtreme Gaming 3\u20132 in Hamburg.",
+    "explanation": "TI14 was The International 2025. Falcons beat Xtreme Gaming 3–2 in Hamburg.",
     "flashback": {
       "family": "year",
       "subject": "event:ti14",
@@ -334,10 +334,15 @@
       "Alliance"
     ],
     "correctIndex": 1,
-    "explanation": "Na'Vi beat EHOME 3\u20131 at Gamescom in Cologne.",
+    "explanation": "Na'Vi beat EHOME 3–1 at Gamescom in Cologne.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:ti1"
+      "subject": "winner:ti1",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/36.png",
+        "alt": "Natus Vincere",
+        "caption": "Natus Vincere · TI1"
+      }
     },
     "source": {
       "label": "The International 2011",
@@ -365,10 +370,15 @@
       "Alliance"
     ],
     "correctIndex": 1,
-    "explanation": "iG beat Na'Vi 3\u20131. It was the first International in Seattle.",
+    "explanation": "iG beat Na'Vi 3–1. It was the first International in Seattle.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:ti2"
+      "subject": "winner:ti2",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/5.png",
+        "alt": "Invictus Gaming",
+        "caption": "Invictus Gaming · TI2"
+      }
     },
     "source": {
       "label": "The International 2012",
@@ -396,10 +406,15 @@
       "TongFu"
     ],
     "correctIndex": 1,
-    "explanation": "Alliance beat Na'Vi 3\u20132. Game 5 is still called The Play.",
+    "explanation": "Alliance beat Na'Vi 3–2. Game 5 is still called The Play.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:ti3"
+      "subject": "winner:ti3",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/111474.png",
+        "alt": "Alliance",
+        "caption": "Alliance · TI3"
+      }
     },
     "source": {
       "label": "The International 2013",
@@ -427,10 +442,15 @@
       "Team DK"
     ],
     "correctIndex": 1,
-    "explanation": "Newbee beat Vici Gaming 3\u20131.",
+    "explanation": "Newbee beat Vici Gaming 3–1.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:ti4"
+      "subject": "winner:ti4",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/1375614.png",
+        "alt": "Newbee",
+        "caption": "Newbee · TI4"
+      }
     },
     "source": {
       "label": "The International 2014",
@@ -458,10 +478,15 @@
       "Team Secret"
     ],
     "correctIndex": 1,
-    "explanation": "EG beat CDEC 3\u20131. SumaiL was 16.",
+    "explanation": "EG beat CDEC 3–1. SumaiL was 16.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:ti5"
+      "subject": "winner:ti5",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/39.png",
+        "alt": "Evil Geniuses",
+        "caption": "Evil Geniuses · TI5"
+      }
     },
     "source": {
       "label": "The International 2015",
@@ -489,10 +514,15 @@
       "Evil Geniuses"
     ],
     "correctIndex": 1,
-    "explanation": "Wings beat Digital Chaos 3\u20131, then the roster split apart.",
+    "explanation": "Wings beat Digital Chaos 3–1, then the roster split apart.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:ti6"
+      "subject": "winner:ti6",
+      "revealMedia": {
+        "src": "/arcade/flashback/winners/wings.png",
+        "alt": "Wings Gaming",
+        "caption": "Wings Gaming · TI6"
+      }
     },
     "source": {
       "label": "The International 2016",
@@ -520,10 +550,15 @@
       "Virtus.pro"
     ],
     "correctIndex": 1,
-    "explanation": "Liquid swept Newbee 3\u20130.",
+    "explanation": "Liquid swept Newbee 3–0.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:ti7"
+      "subject": "winner:ti7",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2163.png",
+        "alt": "Team Liquid",
+        "caption": "Team Liquid · TI7"
+      }
     },
     "source": {
       "label": "The International 2017",
@@ -551,10 +586,15 @@
       "Evil Geniuses"
     ],
     "correctIndex": 1,
-    "explanation": "OG beat PSG.LGD 3\u20132 after starting in the open qualifiers.",
+    "explanation": "OG beat PSG.LGD 3–2 after starting in the open qualifiers.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:ti8"
+      "subject": "winner:ti8",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
+        "alt": "OG",
+        "caption": "OG · TI8"
+      }
     },
     "source": {
       "label": "The International 2018",
@@ -582,10 +622,15 @@
       "PSG.LGD"
     ],
     "correctIndex": 1,
-    "explanation": "OG beat Liquid 3\u20131 and became the first back-to-back TI winners.",
+    "explanation": "OG beat Liquid 3–1 and became the first back-to-back TI winners.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:ti9"
+      "subject": "winner:ti9",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
+        "alt": "OG",
+        "caption": "OG · TI9"
+      }
     },
     "source": {
       "label": "The International 2019",
@@ -613,10 +658,15 @@
       "Tundra Esports"
     ],
     "correctIndex": 1,
-    "explanation": "Spirit beat PSG.LGD 3\u20132 in an empty Arena Na\u021bional\u0103.",
+    "explanation": "Spirit beat PSG.LGD 3–2 in an empty Arena Națională.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:ti10"
+      "subject": "winner:ti10",
+      "revealMedia": {
+        "src": "/arcade/flashback/winners/spirit.png",
+        "alt": "Team Spirit",
+        "caption": "Team Spirit · TI10"
+      }
     },
     "source": {
       "label": "The International 10",
@@ -644,10 +694,15 @@
       "OG"
     ],
     "correctIndex": 1,
-    "explanation": "Tundra swept Secret 3\u20130 in Singapore.",
+    "explanation": "Tundra swept Secret 3–0 in Singapore.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:ti11"
+      "subject": "winner:ti11",
+      "revealMedia": {
+        "src": "/arcade/flashback/winners/tundra.png",
+        "alt": "Tundra Esports",
+        "caption": "Tundra Esports · TI11"
+      }
     },
     "source": {
       "label": "The International 2022",
@@ -675,10 +730,15 @@
       "Team Liquid"
     ],
     "correctIndex": 1,
-    "explanation": "Spirit swept Gaimin Gladiators 3\u20130 in Seattle.",
+    "explanation": "Spirit swept Gaimin Gladiators 3–0 in Seattle.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:ti12"
+      "subject": "winner:ti12",
+      "revealMedia": {
+        "src": "/arcade/flashback/winners/spirit.png",
+        "alt": "Team Spirit",
+        "caption": "Team Spirit · TI12"
+      }
     },
     "source": {
       "label": "The International 2023",
@@ -706,10 +766,15 @@
       "Team Falcons"
     ],
     "correctIndex": 1,
-    "explanation": "Liquid swept Gaimin Gladiators 3\u20130 and took their second Aegis.",
+    "explanation": "Liquid swept Gaimin Gladiators 3–0 and took their second Aegis.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:ti13"
+      "subject": "winner:ti13",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2163.png",
+        "alt": "Team Liquid",
+        "caption": "Team Liquid · TI13"
+      }
     },
     "source": {
       "label": "The International 2024",
@@ -737,10 +802,15 @@
       "Team Liquid"
     ],
     "correctIndex": 1,
-    "explanation": "Falcons beat Xtreme Gaming 3\u20132. Official Dota 2 news called them Grand Champions.",
+    "explanation": "Falcons beat Xtreme Gaming 3–2. Official Dota 2 news called them Grand Champions.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:ti14"
+      "subject": "winner:ti14",
+      "revealMedia": {
+        "src": "/arcade/flashback/winners/falcons.png",
+        "alt": "Team Falcons",
+        "caption": "Team Falcons · TI14"
+      }
     },
     "source": {
       "label": "The International 2025",
@@ -802,7 +872,12 @@
     "explanation": "OG won TI8 and TI9. No other team has gone back-to-back.",
     "flashback": {
       "family": "choice",
-      "subject": "fact:back-to-back"
+      "subject": "fact:back-to-back",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
+        "alt": "OG",
+        "caption": "OG · TI8 and TI9"
+      }
     },
     "source": {
       "label": "The International",
@@ -833,7 +908,12 @@
     "explanation": "Eul made the first DotA map. Guinsoo and then IceFrog later took the design.",
     "flashback": {
       "family": "choice",
-      "subject": "fact:eul"
+      "subject": "fact:eul",
+      "revealMedia": {
+        "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cyclone.png",
+        "alt": "Eul's Scepter",
+        "caption": "Eul made the first map"
+      }
     },
     "source": {
       "label": "Defense of the Ancients",
@@ -861,7 +941,7 @@
       "order-v1:navi,ig,newbee,alliance"
     ],
     "correctIndex": 0,
-    "explanation": "Na'Vi 2011 \u2192 Invictus Gaming 2012 \u2192 Alliance 2013 \u2192 Newbee 2014.",
+    "explanation": "Na'Vi 2011 → Invictus Gaming 2012 → Alliance 2013 → Newbee 2014.",
     "flashback": {
       "family": "order",
       "subject": "order:early-ti-winners",
@@ -924,7 +1004,7 @@
       "order-v1:eg,wings,og,liquid"
     ],
     "correctIndex": 0,
-    "explanation": "EG 2015 \u2192 Wings 2016 \u2192 Liquid 2017 \u2192 OG 2018.",
+    "explanation": "EG 2015 → Wings 2016 → Liquid 2017 → OG 2018.",
     "flashback": {
       "family": "order",
       "subject": "order:mid-ti-winners",
@@ -987,7 +1067,7 @@
       "order-v1:cologne,seattle,shanghai,vancouver"
     ],
     "correctIndex": 0,
-    "explanation": "Cologne 2011 \u2192 Seattle 2012 \u2192 Vancouver 2018 \u2192 Shanghai 2019.",
+    "explanation": "Cologne 2011 → Seattle 2012 → Vancouver 2018 → Shanghai 2019.",
     "flashback": {
       "family": "order",
       "subject": "order:ti-cities",
@@ -1050,7 +1130,7 @@
       "order-v1:wc3,ti1,reborn,release"
     ],
     "correctIndex": 0,
-    "explanation": "Warcraft III DotA \u2192 TI1 in 2011 \u2192 Dota 2 release in 2013 \u2192 Reborn in 2015.",
+    "explanation": "Warcraft III DotA → TI1 in 2011 → Dota 2 release in 2013 → Reborn in 2015.",
     "flashback": {
       "family": "order",
       "subject": "order:engine-history",
@@ -1404,7 +1484,12 @@
     "explanation": "Underlord, once Pit Lord, shipped on 23 August 2016. Monkey King was the first original Dota 2 hero after that.",
     "flashback": {
       "family": "choice",
-      "subject": "hero:underlord"
+      "subject": "hero:underlord",
+      "revealMedia": {
+        "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/abyssal_underlord.png",
+        "alt": "Underlord",
+        "caption": "Underlord · last WC3 port"
+      }
     },
     "source": {
       "label": "Underlord",
@@ -1435,7 +1520,12 @@
     "explanation": "Monkey King shipped with patch 7.00 on 12 December 2016, after every Warcraft III DotA hero had been ported.",
     "flashback": {
       "family": "choice",
-      "subject": "fact:first-original-hero"
+      "subject": "fact:first-original-hero",
+      "revealMedia": {
+        "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png",
+        "alt": "Monkey King",
+        "caption": "Monkey King · first original"
+      }
     },
     "source": {
       "label": "Monkey King",
@@ -1486,7 +1576,7 @@
     "category": "History",
     "difficulty": 1,
     "eyebrow": "Volvo please",
-    "prompt": "Which event did players demand with \u0f3c \u3064 \u25d5_\u25d5 \u0f3d\u3064?",
+    "prompt": "Which event did players demand with ༼ つ ◕_◕ ༽つ?",
     "answers": [
       "Frostivus",
       "Diretide",
@@ -1494,7 +1584,7 @@
       "Nemestice"
     ],
     "correctIndex": 1,
-    "explanation": "Valve skipped Diretide in 2013. Players spammed \u0f3c \u3064 \u25d5_\u25d5 \u0f3d\u3064 GIVE DIRETIDE until Valve brought it back in November.",
+    "explanation": "Valve skipped Diretide in 2013. Players spammed ༼ つ ◕_◕ ༽つ GIVE DIRETIDE until Valve brought it back in November.",
     "flashback": {
       "family": "choice",
       "subject": "event:diretide"
@@ -2545,7 +2635,12 @@
     "explanation": "Io's DotA title was Guardian Wisp. Dota 2 first shortened it to Wisp, then to Io.",
     "flashback": {
       "family": "choice",
-      "subject": "hero:io"
+      "subject": "hero:io",
+      "revealMedia": {
+        "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/wisp.png",
+        "alt": "Io",
+        "caption": "Io was Wisp"
+      }
     },
     "source": {
       "label": "Io",
@@ -2669,7 +2764,12 @@
     "explanation": "Acolyte of the Lost Arts, young Invoker, was the first Persona. It was a TI9 Battle Pass reward.",
     "flashback": {
       "family": "choice",
-      "subject": "event:first-persona"
+      "subject": "event:first-persona",
+      "revealMedia": {
+        "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
+        "alt": "Invoker",
+        "caption": "Invoker · first Persona"
+      }
     },
     "source": {
       "label": "Persona",
@@ -2731,7 +2831,12 @@
     "explanation": "Roshan can drop Cheese, a huge instant heal. Later kills can also drop Refresher Shard.",
     "flashback": {
       "family": "choice",
-      "subject": "fact:roshan-cheese"
+      "subject": "fact:roshan-cheese",
+      "revealMedia": {
+        "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cheese.png",
+        "alt": "Cheese",
+        "caption": "Cheese · extra Roshan drop"
+      }
     },
     "source": {
       "label": "Roshan",
@@ -2762,7 +2867,12 @@
     "explanation": "OG beat Team Secret at the Frankfurt Major in November 2015.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:frankfurt-major"
+      "subject": "winner:frankfurt-major",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
+        "alt": "OG",
+        "caption": "OG · Frankfurt Major"
+      }
     },
     "source": {
       "label": "Frankfurt Major",
@@ -4532,7 +4642,12 @@
     "explanation": "Team Secret beat Team Liquid at the Shanghai Major in 2016.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:shanghai-major"
+      "subject": "winner:shanghai-major",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/1838315.png",
+        "alt": "Team Secret",
+        "caption": "Team Secret · Shanghai Major"
+      }
     },
     "source": {
       "label": "The Shanghai Major 2016",
@@ -4563,7 +4678,12 @@
     "explanation": "OG beat Team Liquid at the Manila Major in June 2016.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:manila-major"
+      "subject": "winner:manila-major",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
+        "alt": "OG",
+        "caption": "OG · Manila Major"
+      }
     },
     "source": {
       "label": "The Manila Major 2016",
@@ -4594,7 +4714,12 @@
     "explanation": "OG beat Ad Finem at the Boston Major in December 2016.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:boston-major"
+      "subject": "winner:boston-major",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
+        "alt": "OG",
+        "caption": "OG · Boston Major"
+      }
     },
     "source": {
       "label": "The Boston Major 2016",
@@ -4625,7 +4750,12 @@
     "explanation": "OG won the Kiev Major in April 2017, their fourth Valve Major.",
     "flashback": {
       "family": "choice",
-      "subject": "winner:kiev-major"
+      "subject": "winner:kiev-major",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
+        "alt": "OG",
+        "caption": "OG · Kiev Major"
+      }
     },
     "source": {
       "label": "The Kiev Major 2017",
@@ -4656,7 +4786,12 @@
     "explanation": "OG won Frankfurt, Manila, Boston, and Kiev. No other team had four Valve Majors then.",
     "flashback": {
       "family": "choice",
-      "subject": "fact:og-majors"
+      "subject": "fact:og-majors",
+      "revealMedia": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
+        "alt": "OG",
+        "caption": "OG · four Valve Majors"
+      }
     },
     "source": {
       "label": "IGN",
@@ -4904,7 +5039,12 @@
     "explanation": "Largo shipped with 7.40 on 15 December 2025.",
     "flashback": {
       "family": "choice",
-      "subject": "hero:largo"
+      "subject": "hero:largo",
+      "revealMedia": {
+        "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
+        "alt": "Largo",
+        "caption": "Largo · patch 7.40"
+      }
     },
     "source": {
       "label": "The Largo + 7.40 Update",
@@ -4935,7 +5075,12 @@
     "explanation": "Void Spirit shipped in 2019, years after Ember and Earth Spirit in 2013. Storm Spirit was in the game from the start.",
     "flashback": {
       "family": "choice",
-      "subject": "hero:void-spirit"
+      "subject": "hero:void-spirit",
+      "revealMedia": {
+        "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
+        "alt": "Void Spirit",
+        "caption": "Void Spirit · last spirit"
+      }
     },
     "source": {
       "label": "https://liquipedia.net/dota2/Heroes_by_release",
@@ -4966,7 +5111,12 @@
     "explanation": "On later deaths Roshan can drop a Refresher Shard that resets item and ability cooldowns.",
     "flashback": {
       "family": "choice",
-      "subject": "fact:refresher-shard"
+      "subject": "fact:refresher-shard",
+      "revealMedia": {
+        "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/refresher_shard.png",
+        "alt": "Refresher Shard",
+        "caption": "Refresher Shard · late Roshan"
+      }
     },
     "source": {
       "label": "Refresher Shard",
