@@ -23,34 +23,36 @@ record(questions.length >= 20, `Flashback is too thin (${questions.length}).`);
 record(new Set(questions.map((question) => question.id)).size === questions.length, "Flashback IDs are not unique.");
 record(questions.every(isPlayableFlashbackQuestion), "A Flashback question failed the playable contract.");
 record(
-  questions.every((question) => question.image?.src?.startsWith("https://")),
+  questions.every(
+    (question) => question.image?.src?.startsWith("https://") || question.image?.src?.startsWith("/arcade/flashback/"),
+  ),
   "A Flashback prompt has no artwork.",
 );
 
 const FLASHBACK_ART = {
   "flashback:dota2-release-year": "dota2_logo_symbol",
-  "flashback:ti1-year": "items/aegis",
+  "flashback:ti1-year": "ti1-gamescom.jpg",
   "flashback:reborn-year": "dota2_logo_horiz",
   "flashback:patch-700-year": "heroes/monkey_king",
-  "flashback:ti10-year": "items/aegis",
-  "flashback:og-first-ti-year": "team_logos/2586976",
+  "flashback:ti10-year": "ti10-mark.png",
+  "flashback:og-first-ti-year": "ti8-vancouver.jpg",
   "flashback:techies-year": "heroes/techies",
-  "flashback:ti14-year": "2314350571781870059",
-  "flashback:ti9-year": "team_logos/2586976",
-  "flashback:ti13-year": "team_logos/2163",
-  "flashback:ti1-winner": "items/aegis",
-  "flashback:ti3-winner": "items/aegis",
-  "flashback:ti5-winner": "items/aegis",
-  "flashback:ti6-winner": "items/aegis",
-  "flashback:ti8-winner": "items/aegis",
-  "flashback:ti10-winner": "items/aegis",
-  "flashback:ti14-winner": "items/aegis",
-  "flashback:ti1-city": "items/aegis",
-  "flashback:back-to-back": "items/aegis",
+  "flashback:ti14-year": "ti14-mark.png",
+  "flashback:ti9-year": "ti-wordmark.png",
+  "flashback:ti13-year": "ti13-mark.jpg",
+  "flashback:ti1-winner": "ti1-gamescom.jpg",
+  "flashback:ti3-winner": "ti-seattle.jpg",
+  "flashback:ti5-winner": "ti5-keyarena.jpg",
+  "flashback:ti6-winner": "ti-wordmark.png",
+  "flashback:ti8-winner": "ti8-vancouver.jpg",
+  "flashback:ti10-winner": "ti10-mark.png",
+  "flashback:ti14-winner": "ti14-mark.png",
+  "flashback:ti1-city": "ti1-gamescom.jpg",
+  "flashback:back-to-back": "ti-wordmark.png",
   "flashback:dota-creator": "dota2_logo_symbol",
-  "flashback:first-ti-winners-order": "items/aegis",
-  "flashback:later-ti-winners-order": "items/aegis",
-  "flashback:ti-cities-order": "items/aegis",
+  "flashback:first-ti-winners-order": "ti-wordmark.png",
+  "flashback:later-ti-winners-order": "ti-wordmark.png",
+  "flashback:ti-cities-order": "ti-wordmark.png",
   "flashback:engine-history-order": "dota2_logo_symbol",
 };
 record(
@@ -68,6 +70,12 @@ record(
       return !alt.includes(answer) && !src.includes(answer.replace(/[^a-z0-9]/g, ""));
     }),
   "A Flashback who-won prompt still prints the answer in the artwork.",
+);
+record(
+  questions
+    .filter((question) => question.kind === "flashback-year")
+    .every((question) => !String(question.image?.src ?? "").includes(String(question.flashback?.correctYear))),
+  "A Flashback year prompt still has the year in the image path.",
 );
 record(
   questions
