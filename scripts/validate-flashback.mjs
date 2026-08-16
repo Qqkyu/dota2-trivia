@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { flashbackOrderCorrectAnswerKey, isPlayableFlashbackQuestion } from "../src/lib/flashback.mjs";
@@ -67,6 +68,25 @@ const FLASHBACK_ART = {
   "flashback:later-ti-winners-order": "ti-wordmark.png",
   "flashback:ti-cities-order": "ti-wordmark.png",
   "flashback:engine-history-order": "dota2_logo_symbol",
+  "flashback:patch-733-year": "map-overview.webp",
+  "flashback:patch-736-year": "dota2_logo_symbol",
+  "flashback:neutrals-year": "outlanders-mark.png",
+  "flashback:shard-year": "aghanims_shard",
+  "flashback:bounty-runes-year": "items/bottle",
+  "flashback:underlord-year": "heroes/abyssal_underlord",
+  "flashback:first-arcana-year": "heroes/lina",
+  "flashback:diretide-year": "items/aegis",
+  "flashback:first-major-year": "dota2_logo_symbol",
+  "flashback:last-wc3-hero": "items/cyclone",
+  "flashback:first-original-hero": "dota2_logo_symbol",
+  "flashback:universal-attribute": "map-overview.webp",
+  "flashback:giff-diretide": "items/aegis",
+  "flashback:pendragon-allstars": "dota2_logo_symbol",
+  "flashback:scythe-old-name": "items/sheepstick",
+  "flashback:side-shop": "items/boots",
+  "flashback:patch-systems-order": "dota2_logo_symbol",
+  "flashback:heroes-added-order": "dota2_logo_symbol",
+  "flashback:valve-side-order": "dota2_logo_symbol",
 };
 record(
   questions.every((question) => question.image?.src?.includes(FLASHBACK_ART[question.id] ?? "missing")) &&
@@ -75,14 +95,14 @@ record(
 );
 record(
   questions
-    .filter((question) => question.kind === "flashback-choice" && /who |which team/i.test(question.prompt))
+    .filter((question) => question.kind === "flashback-choice")
     .every((question) => {
       const answer = String(question.answers[question.correctIndex]).toLowerCase();
       const alt = String(question.image?.alt ?? "").toLowerCase();
       const src = String(question.image?.src ?? "").toLowerCase();
       return !alt.includes(answer) && !src.includes(answer.replace(/[^a-z0-9]/g, ""));
     }),
-  "A Flashback who-won prompt still prints the answer in the artwork.",
+  "A Flashback choice prompt still prints the answer in the artwork.",
 );
 record(
   questions
@@ -94,15 +114,17 @@ record(
   questions
     .filter((question) => question.kind === "flashback-order")
     .every((question) =>
-      question.flashback.cards.every(
-        (card) =>
-          card.image.includes("team_logos/") ||
-          card.image.includes("items/aegis") ||
-          card.image.includes("items/cyclone") ||
-          card.image.includes("dota2_logo_"),
-      ),
+      question.flashback.cards.every((card) => {
+        const image = String(card.image);
+        return (
+          image.includes("team_logos/") ||
+          image.includes("/items/") ||
+          image.includes("/heroes/") ||
+          image.includes("dota2_logo_")
+        );
+      }),
     ),
-  "A Flashback order card still uses an unrelated hero portrait.",
+  "A Flashback order card still uses unrelated artwork.",
 );
 record(
   questions.some((question) => question.kind === "flashback-year") &&
@@ -123,6 +145,21 @@ record(
       question.kind === "flashback-year",
   ),
   "A Flashback prompt restates its exact answer.",
+);
+
+const isInternationalPrompt = (question) =>
+  /(?:^|:)ti\d|og-first-ti|back-to-back|ti-winners|ti-cities/i.test(question.id);
+const internationalCount = questions.filter(isInternationalPrompt).length;
+const otherCount = questions.length - internationalCount;
+record(
+  otherCount >= internationalCount,
+  `Flashback is still mostly International prompts (${internationalCount} TI / ${otherCount} other).`,
+);
+record(
+  questions
+    .filter((question) => String(question.image?.src ?? "").startsWith("/arcade/flashback/"))
+    .every((question) => existsSync(path.join(process.cwd(), "public", question.image.src))),
+  "A Flashback local image is missing from disk.",
 );
 
 const now = 1_000_000;

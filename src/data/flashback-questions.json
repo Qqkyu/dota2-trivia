@@ -7,7 +7,12 @@
     "difficulty": 2,
     "eyebrow": "The shop opened",
     "prompt": "What year did Dota 2 officially release?",
-    "answers": ["2011", "2012", "2013", "2014"],
+    "answers": [
+      "2011",
+      "2012",
+      "2013",
+      "2014"
+    ],
     "correctIndex": 2,
     "explanation": "Valve released Dota 2 on 9 July 2013 after a closed beta that began in 2011.",
     "flashback": {
@@ -34,7 +39,12 @@
     "difficulty": 1,
     "eyebrow": "The first Aegis",
     "prompt": "What year was the first The International?",
-    "answers": ["2010", "2011", "2012", "2013"],
+    "answers": [
+      "2010",
+      "2011",
+      "2012",
+      "2013"
+    ],
     "correctIndex": 1,
     "explanation": "TI1 ran at Gamescom in Cologne in August 2011, the public reveal of Dota 2.",
     "flashback": {
@@ -61,7 +71,12 @@
     "difficulty": 2,
     "eyebrow": "Engine swap",
     "prompt": "What year did Dota 2 Reborn move the game to Source 2?",
-    "answers": ["2014", "2015", "2016", "2017"],
+    "answers": [
+      "2014",
+      "2015",
+      "2016",
+      "2017"
+    ],
     "correctIndex": 1,
     "explanation": "Reborn launched in 2015 and rebuilt the client on Source 2.",
     "flashback": {
@@ -88,7 +103,12 @@
     "difficulty": 2,
     "eyebrow": "Talent trees",
     "prompt": "What year did patch 7.00 add talent trees?",
-    "answers": ["2015", "2016", "2017", "2018"],
+    "answers": [
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
     "correctIndex": 1,
     "explanation": "7.00 shipped on 12 December 2016 with talents, a new map, and Monkey King.",
     "flashback": {
@@ -115,7 +135,12 @@
     "difficulty": 2,
     "eyebrow": "The delayed tenth",
     "prompt": "What year was The International 10 finally played?",
-    "answers": ["2019", "2020", "2021", "2022"],
+    "answers": [
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ],
     "correctIndex": 2,
     "explanation": "COVID delayed TI10 from 2020. Team Spirit won it in Bucharest in 2021.",
     "flashback": {
@@ -142,7 +167,12 @@
     "difficulty": 2,
     "eyebrow": "Open-qualifier run",
     "prompt": "What year did OG win their first The International?",
-    "answers": ["2017", "2018", "2019", "2021"],
+    "answers": [
+      "2017",
+      "2018",
+      "2019",
+      "2021"
+    ],
     "correctIndex": 1,
     "explanation": "OG won TI8 in Vancouver in 2018 after coming through the open qualifiers.",
     "flashback": {
@@ -169,7 +199,12 @@
     "difficulty": 3,
     "eyebrow": "Mines in the fountain",
     "prompt": "What year was Techies added to Dota 2?",
-    "answers": ["2013", "2014", "2015", "2016"],
+    "answers": [
+      "2013",
+      "2014",
+      "2015",
+      "2016"
+    ],
     "correctIndex": 1,
     "explanation": "Techies arrived on 12 December 2014.",
     "flashback": {
@@ -196,7 +231,12 @@
     "difficulty": 2,
     "eyebrow": "Hamburg",
     "prompt": "What year did Team Falcons win The International in Hamburg?",
-    "answers": ["2023", "2024", "2025", "2026"],
+    "answers": [
+      "2023",
+      "2024",
+      "2025",
+      "2026"
+    ],
     "correctIndex": 2,
     "explanation": "TI14 was The International 2025. Falcons beat Xtreme Gaming 3–2 in Hamburg.",
     "flashback": {
@@ -223,7 +263,12 @@
     "difficulty": 2,
     "eyebrow": "Back-to-back",
     "prompt": "What year did OG become the first back-to-back TI winners?",
-    "answers": ["2017", "2018", "2019", "2021"],
+    "answers": [
+      "2017",
+      "2018",
+      "2019",
+      "2021"
+    ],
     "correctIndex": 2,
     "explanation": "OG defended the Aegis at TI9 in Shanghai in 2019.",
     "flashback": {
@@ -250,7 +295,12 @@
     "difficulty": 3,
     "eyebrow": "Copenhagen",
     "prompt": "What year did Team Liquid win The International in Copenhagen?",
-    "answers": ["2022", "2023", "2024", "2025"],
+    "answers": [
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
     "correctIndex": 2,
     "explanation": "TI13 was The International 2024 in Copenhagen. Liquid took their second Aegis.",
     "flashback": {
@@ -277,7 +327,12 @@
     "difficulty": 1,
     "eyebrow": "Cologne 2011",
     "prompt": "Who won The International 2011 in Cologne?",
-    "answers": ["EHOME", "Natus Vincere", "Invictus Gaming", "Alliance"],
+    "answers": [
+      "EHOME",
+      "Natus Vincere",
+      "Invictus Gaming",
+      "Alliance"
+    ],
     "correctIndex": 1,
     "explanation": "Na'Vi beat EHOME 3–1 at Gamescom in Cologne.",
     "flashback": {
@@ -303,7 +358,12 @@
     "difficulty": 2,
     "eyebrow": "First Seattle TI",
     "prompt": "Who won The International 2012 in Seattle?",
-    "answers": ["Natus Vincere", "Invictus Gaming", "LGD Gaming", "Alliance"],
+    "answers": [
+      "Natus Vincere",
+      "Invictus Gaming",
+      "LGD Gaming",
+      "Alliance"
+    ],
     "correctIndex": 1,
     "explanation": "iG beat Na'Vi 3–1. It was the first International in Seattle.",
     "flashback": {
@@ -329,7 +389,12 @@
     "difficulty": 2,
     "eyebrow": "The Play",
     "prompt": "Who won The International 2013 in Seattle?",
-    "answers": ["Natus Vincere", "Alliance", "Orange Esports", "TongFu"],
+    "answers": [
+      "Natus Vincere",
+      "Alliance",
+      "Orange Esports",
+      "TongFu"
+    ],
     "correctIndex": 1,
     "explanation": "Alliance beat Na'Vi 3–2. Game 5 is still called The Play.",
     "flashback": {
@@ -355,7 +420,12 @@
     "difficulty": 2,
     "eyebrow": "The first $10M final",
     "prompt": "Who won The International 2014 in Seattle?",
-    "answers": ["Vici Gaming", "Newbee", "Evil Geniuses", "Team DK"],
+    "answers": [
+      "Vici Gaming",
+      "Newbee",
+      "Evil Geniuses",
+      "Team DK"
+    ],
     "correctIndex": 1,
     "explanation": "Newbee beat Vici Gaming 3–1.",
     "flashback": {
@@ -381,7 +451,12 @@
     "difficulty": 2,
     "eyebrow": "KeyArena",
     "prompt": "Who won The International 2015 at KeyArena?",
-    "answers": ["CDEC Gaming", "Evil Geniuses", "LGD Gaming", "Team Secret"],
+    "answers": [
+      "CDEC Gaming",
+      "Evil Geniuses",
+      "LGD Gaming",
+      "Team Secret"
+    ],
     "correctIndex": 1,
     "explanation": "EG beat CDEC 3–1. SumaiL was 16.",
     "flashback": {
@@ -407,7 +482,12 @@
     "difficulty": 2,
     "eyebrow": "The last dance",
     "prompt": "Who won The International 2016 at KeyArena?",
-    "answers": ["Digital Chaos", "Wings Gaming", "OG", "Evil Geniuses"],
+    "answers": [
+      "Digital Chaos",
+      "Wings Gaming",
+      "OG",
+      "Evil Geniuses"
+    ],
     "correctIndex": 1,
     "explanation": "Wings beat Digital Chaos 3–1, then the roster split apart.",
     "flashback": {
@@ -433,7 +513,12 @@
     "difficulty": 2,
     "eyebrow": "KeyArena 2017",
     "prompt": "Who won The International 2017 at KeyArena?",
-    "answers": ["Newbee", "Team Liquid", "LGD Gaming", "Virtus.pro"],
+    "answers": [
+      "Newbee",
+      "Team Liquid",
+      "LGD Gaming",
+      "Virtus.pro"
+    ],
     "correctIndex": 1,
     "explanation": "Liquid swept Newbee 3–0.",
     "flashback": {
@@ -459,7 +544,12 @@
     "difficulty": 1,
     "eyebrow": "Vancouver",
     "prompt": "Who won The International 2018 in Vancouver?",
-    "answers": ["PSG.LGD", "OG", "Team Liquid", "Evil Geniuses"],
+    "answers": [
+      "PSG.LGD",
+      "OG",
+      "Team Liquid",
+      "Evil Geniuses"
+    ],
     "correctIndex": 1,
     "explanation": "OG beat PSG.LGD 3–2 after starting in the open qualifiers.",
     "flashback": {
@@ -485,7 +575,12 @@
     "difficulty": 1,
     "eyebrow": "Shanghai",
     "prompt": "Who won The International 2019 in Shanghai?",
-    "answers": ["Team Liquid", "OG", "Team Secret", "PSG.LGD"],
+    "answers": [
+      "Team Liquid",
+      "OG",
+      "Team Secret",
+      "PSG.LGD"
+    ],
     "correctIndex": 1,
     "explanation": "OG beat Liquid 3–1 and became the first back-to-back TI winners.",
     "flashback": {
@@ -511,7 +606,12 @@
     "difficulty": 2,
     "eyebrow": "Bucharest",
     "prompt": "Who won The International 10 in Bucharest?",
-    "answers": ["PSG.LGD", "Team Spirit", "OG", "Tundra Esports"],
+    "answers": [
+      "PSG.LGD",
+      "Team Spirit",
+      "OG",
+      "Tundra Esports"
+    ],
     "correctIndex": 1,
     "explanation": "Spirit beat PSG.LGD 3–2 in an empty Arena Națională.",
     "flashback": {
@@ -537,7 +637,12 @@
     "difficulty": 2,
     "eyebrow": "Singapore",
     "prompt": "Who won The International 2022 in Singapore?",
-    "answers": ["Team Secret", "Tundra Esports", "Team Liquid", "OG"],
+    "answers": [
+      "Team Secret",
+      "Tundra Esports",
+      "Team Liquid",
+      "OG"
+    ],
     "correctIndex": 1,
     "explanation": "Tundra swept Secret 3–0 in Singapore.",
     "flashback": {
@@ -563,7 +668,12 @@
     "difficulty": 2,
     "eyebrow": "Climate Pledge",
     "prompt": "Who won The International 2023 in Seattle?",
-    "answers": ["Gaimin Gladiators", "Team Spirit", "LGD Gaming", "Team Liquid"],
+    "answers": [
+      "Gaimin Gladiators",
+      "Team Spirit",
+      "LGD Gaming",
+      "Team Liquid"
+    ],
     "correctIndex": 1,
     "explanation": "Spirit swept Gaimin Gladiators 3–0 in Seattle.",
     "flashback": {
@@ -589,7 +699,12 @@
     "difficulty": 2,
     "eyebrow": "Copenhagen",
     "prompt": "Who won The International 2024 in Copenhagen?",
-    "answers": ["Gaimin Gladiators", "Team Liquid", "Team Spirit", "Team Falcons"],
+    "answers": [
+      "Gaimin Gladiators",
+      "Team Liquid",
+      "Team Spirit",
+      "Team Falcons"
+    ],
     "correctIndex": 1,
     "explanation": "Liquid swept Gaimin Gladiators 3–0 and took their second Aegis.",
     "flashback": {
@@ -615,7 +730,12 @@
     "difficulty": 2,
     "eyebrow": "Hamburg 2025",
     "prompt": "Who won The International 2025 in Hamburg?",
-    "answers": ["Xtreme Gaming", "Team Falcons", "PARIVISION", "Team Liquid"],
+    "answers": [
+      "Xtreme Gaming",
+      "Team Falcons",
+      "PARIVISION",
+      "Team Liquid"
+    ],
     "correctIndex": 1,
     "explanation": "Falcons beat Xtreme Gaming 3–2. Official Dota 2 news called them Grand Champions.",
     "flashback": {
@@ -641,7 +761,12 @@
     "difficulty": 2,
     "eyebrow": "Gamescom",
     "prompt": "Where was the first The International held?",
-    "answers": ["Seattle", "Cologne", "Shanghai", "Hamburg"],
+    "answers": [
+      "Seattle",
+      "Cologne",
+      "Shanghai",
+      "Hamburg"
+    ],
     "correctIndex": 1,
     "explanation": "TI1 was at Gamescom in Cologne, Germany.",
     "flashback": {
@@ -667,7 +792,12 @@
     "difficulty": 1,
     "eyebrow": "Two Aegises",
     "prompt": "Which team first won The International two years in a row?",
-    "answers": ["Team Liquid", "OG", "Team Spirit", "Natus Vincere"],
+    "answers": [
+      "Team Liquid",
+      "OG",
+      "Team Spirit",
+      "Natus Vincere"
+    ],
     "correctIndex": 1,
     "explanation": "OG won TI8 and TI9. No other team has gone back-to-back.",
     "flashback": {
@@ -693,7 +823,12 @@
     "difficulty": 2,
     "eyebrow": "The map before the game",
     "prompt": "Who created the original Defense of the Ancients Warcraft III map?",
-    "answers": ["IceFrog", "Eul", "Guinsoo", "Pendragon"],
+    "answers": [
+      "IceFrog",
+      "Eul",
+      "Guinsoo",
+      "Pendragon"
+    ],
     "correctIndex": 1,
     "explanation": "Eul made the first DotA map. Guinsoo and then IceFrog later took the design.",
     "flashback": {
@@ -756,7 +891,12 @@
           "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/5.png"
         }
       ],
-      "correctOrder": ["navi", "ig", "alliance", "newbee"]
+      "correctOrder": [
+        "navi",
+        "ig",
+        "alliance",
+        "newbee"
+      ]
     },
     "source": {
       "label": "The International",
@@ -814,7 +954,12 @@
           "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/1838315.png"
         }
       ],
-      "correctOrder": ["eg", "wings", "liquid", "og"]
+      "correctOrder": [
+        "eg",
+        "wings",
+        "liquid",
+        "og"
+      ]
     },
     "source": {
       "label": "The International",
@@ -872,7 +1017,12 @@
           "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/5.png"
         }
       ],
-      "correctOrder": ["cologne", "seattle", "vancouver", "shanghai"]
+      "correctOrder": [
+        "cologne",
+        "seattle",
+        "vancouver",
+        "shanghai"
+      ]
     },
     "source": {
       "label": "The International",
@@ -930,11 +1080,710 @@
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png"
         }
       ],
-      "correctOrder": ["wc3", "ti1", "release", "reborn"]
+      "correctOrder": [
+        "wc3",
+        "ti1",
+        "release",
+        "reborn"
+      ]
     },
     "source": {
       "label": "Dota 2",
       "url": "https://www.dota2.com/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:patch-733-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:733",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "New Frontiers",
+    "prompt": "What year did patch 7.33 New Frontiers rebuild the map?",
+    "answers": [
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "correctIndex": 2,
+    "explanation": "7.33 shipped on 20 April 2023. It expanded the map and added Twin Gates, Watchers, and Tormentors.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:733",
+      "correctYear": 2023
+    },
+    "source": {
+      "label": "The New Frontiers Update",
+      "url": "https://www.dota2.com/newfrontiers"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/map-overview.webp",
+      "alt": "The Dota 2 map",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:patch-736-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:736",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Facets",
+    "prompt": "What year did patch 7.36 add facets and innate abilities?",
+    "answers": [
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "correctIndex": 2,
+    "explanation": "7.36 shipped on 22 May 2024. Every hero got an innate and a choice of facets.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:736",
+      "correctYear": 2024
+    },
+    "source": {
+      "label": "Dota 2 patch 7.36",
+      "url": "https://www.dota2.com/patches/7.36"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:neutrals-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:neutrals",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Outlanders",
+    "prompt": "What year did neutral items first drop from jungle creeps?",
+    "answers": [
+      "2017",
+      "2018",
+      "2019",
+      "2020"
+    ],
+    "correctIndex": 2,
+    "explanation": "Neutral items arrived in the Outlanders update, patch 7.23, on 26 November 2019.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:neutrals",
+      "correctYear": 2019
+    },
+    "source": {
+      "label": "The Outlanders Update",
+      "url": "https://www.dota2.com/outlanders/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/outlanders-mark.png",
+      "alt": "The Outlanders update",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:shard-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:shard",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Mistwoods",
+    "prompt": "What year was Aghanim's Shard added?",
+    "answers": [
+      "2018",
+      "2019",
+      "2020",
+      "2021"
+    ],
+    "correctIndex": 2,
+    "explanation": "Aghanim's Shard arrived in the Mistwoods update, patch 7.28, on 17 December 2020.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:shard",
+      "correctYear": 2020
+    },
+    "source": {
+      "label": "The Mistwoods Update",
+      "url": "https://www.dota2.com/mistwoods"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aghanims_shard.png",
+      "alt": "Aghanim's Shard",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:bounty-runes-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:bounty-runes",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "River gold",
+    "prompt": "What year did bounty runes first spawn?",
+    "answers": [
+      "2012",
+      "2013",
+      "2014",
+      "2015"
+    ],
+    "correctIndex": 2,
+    "explanation": "Patch 6.82 added bounty runes on 25 September 2014. Two runes then spawned in the river every two minutes.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:bounty-runes",
+      "correctYear": 2014
+    },
+    "source": {
+      "label": "Dota 2 version 6.82",
+      "url": "https://dota2.fandom.com/wiki/Version_6.82"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bottle.png",
+      "alt": "Bottle",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:underlord-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:underlord",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Pit Lord",
+    "prompt": "What year was Underlord added to Dota 2?",
+    "answers": [
+      "2014",
+      "2015",
+      "2016",
+      "2017"
+    ],
+    "correctIndex": 2,
+    "explanation": "Underlord shipped on 23 August 2016. He was the last Warcraft III DotA hero ported to Dota 2.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:underlord",
+      "correctYear": 2016
+    },
+    "source": {
+      "label": "Underlord",
+      "url": "https://liquipedia.net/dota2/Underlord"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/abyssal_underlord.png",
+      "alt": "Underlord",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:first-arcana-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:first-arcana",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Fiery Soul",
+    "prompt": "What year was the first Arcana released?",
+    "answers": [
+      "2012",
+      "2013",
+      "2014",
+      "2015"
+    ],
+    "correctIndex": 1,
+    "explanation": "Lina's Fiery Soul of the Slayer, the first Arcana, went on sale on 7 March 2013.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:first-arcana",
+      "correctYear": 2013
+    },
+    "source": {
+      "label": "Arcana",
+      "url": "https://dota2.fandom.com/wiki/Arcana"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png",
+      "alt": "Lina",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:diretide-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:diretide",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Candy for Roshan",
+    "prompt": "What year was the first Diretide Halloween event?",
+    "answers": [
+      "2011",
+      "2012",
+      "2013",
+      "2014"
+    ],
+    "correctIndex": 1,
+    "explanation": "The first Diretide ran from 30 October 2012, during the Dota 2 beta.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:diretide",
+      "correctYear": 2012
+    },
+    "source": {
+      "label": "Diretide 2012",
+      "url": "https://dota2.fandom.com/wiki/Diretide_2012"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png",
+      "alt": "Aegis of the Immortal",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:first-major-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:first-major",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Not The International",
+    "prompt": "What year was the first Valve-sponsored Dota Major?",
+    "answers": [
+      "2014",
+      "2015",
+      "2016",
+      "2017"
+    ],
+    "correctIndex": 1,
+    "explanation": "The Frankfurt Major, the first Valve Major, ran in November 2015. OG beat Team Secret.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:first-major",
+      "correctYear": 2015
+    },
+    "source": {
+      "label": "Dota Major Championships",
+      "url": "https://liquipedia.net/dota2/Dota_Major_Championships"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:last-wc3-hero",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:last-wc3-hero",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The last port",
+    "prompt": "Which hero was the last Warcraft III DotA hero ported to Dota 2?",
+    "answers": [
+      "Arc Warden",
+      "Underlord",
+      "Terrorblade",
+      "Winter Wyvern"
+    ],
+    "correctIndex": 1,
+    "explanation": "Underlord, once Pit Lord, shipped on 23 August 2016. Monkey King was the first original Dota 2 hero after that.",
+    "flashback": {
+      "family": "choice",
+      "subject": "hero:underlord"
+    },
+    "source": {
+      "label": "Underlord",
+      "url": "https://liquipedia.net/dota2/Underlord"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cyclone.png",
+      "alt": "Eul's Scepter",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:first-original-hero",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:first-original-hero",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Not a port",
+    "prompt": "Who was the first original hero made for Dota 2?",
+    "answers": [
+      "Arc Warden",
+      "Monkey King",
+      "Phoenix",
+      "Underlord"
+    ],
+    "correctIndex": 1,
+    "explanation": "Monkey King shipped with patch 7.00 on 12 December 2016, after every Warcraft III DotA hero had been ported.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:first-original-hero"
+    },
+    "source": {
+      "label": "Monkey King",
+      "url": "https://liquipedia.net/dota2/Monkey_King"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:universal-attribute",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:universal",
+    "category": "History",
+    "difficulty": 1,
+    "eyebrow": "The fourth stat",
+    "prompt": "Patch 7.33 added which new hero attribute?",
+    "answers": [
+      "Strength",
+      "Universal",
+      "Agility",
+      "Intelligence"
+    ],
+    "correctIndex": 1,
+    "explanation": "7.33 added Universal heroes. They have no primary attribute and gain attack damage from all three stats.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:universal"
+    },
+    "source": {
+      "label": "Dota 2 patch 7.33",
+      "url": "https://www.dota2.com/patches/7.33"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/map-overview.webp",
+      "alt": "The Dota 2 map",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:giff-diretide",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:giff-diretide",
+    "category": "History",
+    "difficulty": 1,
+    "eyebrow": "Volvo please",
+    "prompt": "Which event did players demand with ༼ つ ◕_◕ ༽つ?",
+    "answers": [
+      "Frostivus",
+      "Diretide",
+      "Siltbreaker",
+      "Nemestice"
+    ],
+    "correctIndex": 1,
+    "explanation": "Valve skipped Diretide in 2013. Players spammed ༼ つ ◕_◕ ༽つ GIVE DIRETIDE until Valve brought it back in November.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:diretide"
+    },
+    "source": {
+      "label": "Diretide 2013",
+      "url": "https://liquipedia.net/dota2/Diretide_2013"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png",
+      "alt": "Aegis of the Immortal",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:pendragon-allstars",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:pendragon",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "The forum split",
+    "prompt": "Who sold the DotA-Allstars.com domain to Riot Games?",
+    "answers": [
+      "IceFrog",
+      "Pendragon",
+      "Guinsoo",
+      "Eul"
+    ],
+    "correctIndex": 1,
+    "explanation": "Steve Mescon, known as Pendragon, ran dota-allstars.com. Selling the domain to Riot split the old DotA community. IceFrog then pointed players at playdota.com.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:pendragon"
+    },
+    "source": {
+      "label": "Defense of the Ancients",
+      "url": "https://en.wikipedia.org/wiki/Defense_of_the_Ancients"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:scythe-old-name",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:scythe-old-name",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Sheepstick",
+    "prompt": "In original DotA, Scythe of Vyse carried whose name?",
+    "answers": [
+      "Eul",
+      "Guinsoo",
+      "IceFrog",
+      "Pendragon"
+    ],
+    "correctIndex": 1,
+    "explanation": "It was Guinsoo's Scythe of Vyse, a nod to Steve Feak. Dota 2 dropped the name after he left to help make League of Legends.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:guinsoo-scythe"
+    },
+    "source": {
+      "label": "Scythe of Vyse",
+      "url": "https://dota2.fandom.com/wiki/Scythe_of_Vyse"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sheepstick.png",
+      "alt": "Scythe of Vyse",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:side-shop",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:side-shop",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Lane shopping",
+    "prompt": "Which shop did patch 7.23 remove from the map?",
+    "answers": [
+      "Secret Shop",
+      "Side Shop",
+      "Home Shop",
+      "Neutral Shop"
+    ],
+    "correctIndex": 1,
+    "explanation": "7.23, the Outlanders update, removed both side shops. Outposts took those spots, and every player got their own courier.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:side-shop"
+    },
+    "source": {
+      "label": "The Outlanders Update",
+      "url": "https://www.dota2.com/outlanders/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/boots.png",
+      "alt": "Boots of Speed",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:patch-systems-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:patch-systems",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "The big systems",
+    "prompt": "Put these systems in the order they were added.",
+    "answers": [
+      "order-v1:talents,neutrals,shard,newmap",
+      "order-v1:talents,shard,neutrals,newmap",
+      "order-v1:neutrals,talents,shard,newmap",
+      "order-v1:talents,neutrals,newmap,shard"
+    ],
+    "correctIndex": 0,
+    "explanation": "Talent trees in 7.00 (2016), then neutral items in 7.23 (2019), then Aghanim's Shard in 7.28 (2020), then the New Frontiers map in 7.33 (2023).",
+    "flashback": {
+      "family": "order",
+      "subject": "order:patch-systems",
+      "cards": [
+        {
+          "key": "shard",
+          "name": "Aghanim's Shard",
+          "context": "Consumed upgrade",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aghanims_shard.png"
+        },
+        {
+          "key": "newmap",
+          "name": "New Frontiers",
+          "context": "Bigger map",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blood_grenade.png"
+        },
+        {
+          "key": "talents",
+          "name": "Talent trees",
+          "context": "Hero extras",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png"
+        },
+        {
+          "key": "neutrals",
+          "name": "Neutral items",
+          "context": "Creep drops",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/quelling_blade.png"
+        }
+      ],
+      "correctOrder": [
+        "talents",
+        "neutrals",
+        "shard",
+        "newmap"
+      ]
+    },
+    "source": {
+      "label": "Dota 2",
+      "url": "https://www.dota2.com/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:heroes-added-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:heroes-added",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "New faces",
+    "prompt": "Put these heroes in the order they were added to Dota 2.",
+    "answers": [
+      "order-v1:monkey_king,pangolier,grimstroke,mars",
+      "order-v1:monkey_king,grimstroke,pangolier,mars",
+      "order-v1:pangolier,monkey_king,grimstroke,mars",
+      "order-v1:monkey_king,pangolier,mars,grimstroke"
+    ],
+    "correctIndex": 0,
+    "explanation": "Monkey King in December 2016, Pangolier in October 2017, Grimstroke in August 2018, Mars in March 2019.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:heroes-added",
+      "cards": [
+        {
+          "key": "grimstroke",
+          "name": "Grimstroke",
+          "context": "Ink",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/grimstroke.png"
+        },
+        {
+          "key": "mars",
+          "name": "Mars",
+          "context": "Arena",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mars.png"
+        },
+        {
+          "key": "monkey_king",
+          "name": "Monkey King",
+          "context": "First original",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png"
+        },
+        {
+          "key": "pangolier",
+          "name": "Pangolier",
+          "context": "Roll",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png"
+        }
+      ],
+      "correctOrder": [
+        "monkey_king",
+        "pangolier",
+        "grimstroke",
+        "mars"
+      ]
+    },
+    "source": {
+      "label": "Heroes by release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:valve-side-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:valve-side",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Side quests",
+    "prompt": "Put these Valve Dota projects in the order they first launched.",
+    "answers": [
+      "order-v1:diretide,artifact,underlords,crownfall",
+      "order-v1:diretide,underlords,artifact,crownfall",
+      "order-v1:artifact,diretide,underlords,crownfall",
+      "order-v1:diretide,artifact,crownfall,underlords"
+    ],
+    "correctIndex": 0,
+    "explanation": "Diretide in 2012, Artifact in November 2018, Dota Underlords early access in June 2019, Crownfall in April 2024.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:valve-side",
+      "cards": [
+        {
+          "key": "crownfall",
+          "name": "Crownfall",
+          "context": "Story event",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png"
+        },
+        {
+          "key": "artifact",
+          "name": "Artifact",
+          "context": "Card game",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png"
+        },
+        {
+          "key": "underlords",
+          "name": "Dota Underlords",
+          "context": "Auto battler",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/abyssal_underlord.png"
+        },
+        {
+          "key": "diretide",
+          "name": "Diretide",
+          "context": "Halloween",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png"
+        }
+      ],
+      "correctOrder": [
+        "diretide",
+        "artifact",
+        "underlords",
+        "crownfall"
+      ]
+    },
+    "source": {
+      "label": "Dota",
+      "url": "https://en.wikipedia.org/wiki/Dota"
     },
     "patch": "7.41e",
     "image": {
