@@ -9,6 +9,7 @@ export const LIVE_ROUND_GAMES = Object.freeze([
   "quote-hunt",
   "aghanim-lab",
   "order-up",
+  "flashback",
 ]);
 
 /** Queue Arcade has one shared public room. Round identities are not separate queues. */
@@ -16,7 +17,7 @@ export const PUBLIC_ARCADE_MODE = "mixed";
 export const LIVE_ARCADE_MODES = Object.freeze([PUBLIC_ARCADE_MODE]);
 
 /**
- * A twelve-round cadence based on genuinely different question loops rather than
+ * A thirteen-round cadence based on genuinely different question loops rather than
  * old lobby modes. Related Classic and Shopkeeper templates share a slot, so a
  * one-loop challenge can no longer receive the weight of an entire question
  * library. The order deliberately separates rounds from the same family.
@@ -29,6 +30,7 @@ export const PUBLIC_ROUND_FORMATS = Object.freeze([
   "aghanim-upgrades",
   "classic-hero-stats",
   "soundcheck",
+  "flashback",
   "value-order",
   "shopkeeper-paths",
   "spell-link",
@@ -61,6 +63,9 @@ const ROUND_FORMAT_BY_KIND = Object.freeze({
   "value-order-damage": "value-order",
   "value-order-move-speed": "value-order",
   "value-order-attack-range": "value-order",
+  "flashback-year": "flashback",
+  "flashback-choice": "flashback",
+  "flashback-order": "flashback",
 });
 
 const ROUND_GAME_BY_FORMAT = Object.freeze({
@@ -76,7 +81,14 @@ const ROUND_GAME_BY_FORMAT = Object.freeze({
   "quote-hunt": "quote-hunt",
   "aghanim-upgrades": "aghanim-lab",
   "value-order": "order-up",
+  flashback: "flashback",
 });
+
+/**
+ * TEMP playtest. Live room uses only these formats.
+ * Set back to null after Flashback review to restore the 13-format mix.
+ */
+export const LIVE_PLAYTEST_FORMATS = Object.freeze(["flashback"]);
 
 /** @param {{ kind?: string } | null | undefined} question */
 export function roundFormatForQuestion(question) {
@@ -86,6 +98,10 @@ export function roundFormatForQuestion(question) {
 /** @param {string} format */
 export function roundGameForFormat(format) {
   return ROUND_GAME_BY_FORMAT[format] ?? null;
+}
+
+export function livePublicRoundFormats() {
+  return LIVE_PLAYTEST_FORMATS ?? PUBLIC_ROUND_FORMATS;
 }
 
 /** @param {number} length @param {number} [offset] */

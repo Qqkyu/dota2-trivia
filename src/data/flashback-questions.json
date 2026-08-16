@@ -1,0 +1,764 @@
+[
+  {
+    "id": "flashback:dota2-release-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:release",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The shop opened",
+    "prompt": "What year did Dota 2 officially release?",
+    "answers": ["2011", "2012", "2013", "2014"],
+    "correctIndex": 2,
+    "explanation": "Valve released Dota 2 on 9 July 2013 after a closed beta that began in 2011.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:dota2-release",
+      "correctYear": 2013
+    },
+    "source": {
+      "label": "Dota 2",
+      "url": "https://www.dota2.com/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:ti1-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ti1",
+    "category": "Esports",
+    "difficulty": 1,
+    "eyebrow": "The first Aegis",
+    "prompt": "What year was the first The International?",
+    "answers": ["2010", "2011", "2012", "2013"],
+    "correctIndex": 1,
+    "explanation": "TI1 ran at Gamescom in Cologne in August 2011, the public reveal of Dota 2.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:ti1",
+      "correctYear": 2011
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://liquipedia.net/dota2/The_International"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png",
+      "alt": "Aegis of Champions",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:reborn-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:reborn",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Engine swap",
+    "prompt": "What year did Dota 2 Reborn move the game to Source 2?",
+    "answers": ["2014", "2015", "2016", "2017"],
+    "correctIndex": 1,
+    "explanation": "Reborn launched in 2015 and rebuilt the client on Source 2.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:reborn",
+      "correctYear": 2015
+    },
+    "source": {
+      "label": "Dota 2 Reborn",
+      "url": "https://www.dota2.com/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_horiz.png",
+      "alt": "Dota 2 Reborn",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:patch-700-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:700",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Talent trees",
+    "prompt": "What year did patch 7.00 add talent trees?",
+    "answers": ["2015", "2016", "2017", "2018"],
+    "correctIndex": 1,
+    "explanation": "7.00 shipped on 12 December 2016 with talents, a new map, and Monkey King.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:700",
+      "correctYear": 2016
+    },
+    "source": {
+      "label": "Dota 2 patch 7.00",
+      "url": "https://www.dota2.com/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png",
+      "alt": "Monkey King",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ti10-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ti10",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "The delayed tenth",
+    "prompt": "What year was The International 10 finally played?",
+    "answers": ["2019", "2020", "2021", "2022"],
+    "correctIndex": 2,
+    "explanation": "COVID delayed TI10 from 2020. Team Spirit won it in Bucharest in 2021.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:ti10",
+      "correctYear": 2021
+    },
+    "source": {
+      "label": "The International 10",
+      "url": "https://www.dota2.com/newsentry/2968417243145568913"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png",
+      "alt": "Aegis of Champions",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:og-first-ti-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:og-ti8",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Open-qualifier run",
+    "prompt": "What year did OG win their first The International?",
+    "answers": ["2017", "2018", "2019", "2021"],
+    "correctIndex": 1,
+    "explanation": "OG won TI8 in Vancouver in 2018 after coming through the open qualifiers.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:ti8",
+      "correctYear": 2018
+    },
+    "source": {
+      "label": "The International 2018",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
+      "alt": "OG",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:techies-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:techies",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Mines in the fountain",
+    "prompt": "What year were Techies added to Dota 2?",
+    "answers": ["2013", "2014", "2015", "2016"],
+    "correctIndex": 1,
+    "explanation": "Techies arrived on 12 December 2014.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:techies",
+      "correctYear": 2014
+    },
+    "source": {
+      "label": "Dota 2",
+      "url": "https://www.dota2.com/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/techies.png",
+      "alt": "Techies",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ti14-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ti14",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Hamburg",
+    "prompt": "What year did Team Falcons win The International in Hamburg?",
+    "answers": ["2023", "2024", "2025", "2026"],
+    "correctIndex": 2,
+    "explanation": "TI14 was The International 2025. Falcons beat Xtreme Gaming 3–2 in Hamburg.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:ti14",
+      "correctYear": 2025
+    },
+    "source": {
+      "label": "The International 2025",
+      "url": "https://www.dota2.com/newsentry/509591543575741517"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamusercontent.com/ugc/2314350571781870059/2B5C9FE9BA0A2DC303A13261444532AA08352843/",
+      "alt": "Team Falcons",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:ti9-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ti9",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Back-to-back",
+    "prompt": "What year did OG become the first back-to-back TI winners?",
+    "answers": ["2017", "2018", "2019", "2021"],
+    "correctIndex": 2,
+    "explanation": "OG defended the Aegis at TI9 in Shanghai in 2019.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:ti9",
+      "correctYear": 2019
+    },
+    "source": {
+      "label": "The International 2019",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
+      "alt": "OG",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:ti13-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ti13",
+    "category": "Esports",
+    "difficulty": 3,
+    "eyebrow": "Copenhagen",
+    "prompt": "What year did Team Liquid win The International in Copenhagen?",
+    "answers": ["2022", "2023", "2024", "2025"],
+    "correctIndex": 2,
+    "explanation": "TI13 was The International 2024 in Copenhagen. Liquid took their second Aegis.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:ti13",
+      "correctYear": 2024
+    },
+    "source": {
+      "label": "The International 2024",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2163.png",
+      "alt": "Team Liquid",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:ti1-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti1-winner",
+    "category": "Esports",
+    "difficulty": 1,
+    "eyebrow": "Cologne 2011",
+    "prompt": "Who won the first The International?",
+    "answers": ["EHOME", "Natus Vincere", "Invictus Gaming", "Alliance"],
+    "correctIndex": 1,
+    "explanation": "Na'Vi beat EHOME 3–1 at Gamescom in Cologne.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:ti1"
+    },
+    "source": {
+      "label": "The International 2011",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/36.png",
+      "alt": "Natus Vincere",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:ti3-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti3-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "The Play",
+    "prompt": "Who won The International 2013?",
+    "answers": ["Natus Vincere", "Alliance", "Orange Esports", "TongFu"],
+    "correctIndex": 1,
+    "explanation": "Alliance beat Na'Vi 3–2. Game 5 is still called The Play.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:ti3"
+    },
+    "source": {
+      "label": "The International 2013",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/111474.png",
+      "alt": "Alliance",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:ti5-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti5-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "KeyArena",
+    "prompt": "Who won The International 2015?",
+    "answers": ["CDEC Gaming", "Evil Geniuses", "LGD Gaming", "Team Secret"],
+    "correctIndex": 1,
+    "explanation": "EG beat CDEC 3–1. SumaiL was 16.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:ti5"
+    },
+    "source": {
+      "label": "The International 2015",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/39.png",
+      "alt": "Evil Geniuses",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:ti6-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti6-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "The last dance",
+    "prompt": "Who won The International 2016?",
+    "answers": ["Digital Chaos", "Wings Gaming", "OG", "Evil Geniuses"],
+    "correctIndex": 1,
+    "explanation": "Wings beat Digital Chaos 3–1, then the roster split apart.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:ti6"
+    },
+    "source": {
+      "label": "The International 2016",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/1838315.png",
+      "alt": "Wings Gaming",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:ti8-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti8-winner",
+    "category": "Esports",
+    "difficulty": 1,
+    "eyebrow": "Vancouver",
+    "prompt": "Who won The International 2018?",
+    "answers": ["PSG.LGD", "OG", "Team Liquid", "Evil Geniuses"],
+    "correctIndex": 1,
+    "explanation": "OG beat PSG.LGD 3–2 after starting in the open qualifiers.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:ti8"
+    },
+    "source": {
+      "label": "The International 2018",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
+      "alt": "OG",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:ti10-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti10-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Bucharest",
+    "prompt": "Who won The International 10?",
+    "answers": ["PSG.LGD", "Team Spirit", "OG", "Tundra Esports"],
+    "correctIndex": 1,
+    "explanation": "Spirit beat PSG.LGD 3–2 in an empty Arena Națională.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:ti10"
+    },
+    "source": {
+      "label": "The International 10",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamusercontent.com/ugc/1839179120711951766/CD7E0885CB527334205CC7885E9C101B7BC17702/",
+      "alt": "Team Spirit",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:ti14-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti14-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Hamburg 2025",
+    "prompt": "Who won The International 2025?",
+    "answers": ["Xtreme Gaming", "Team Falcons", "PARIVISION", "Team Liquid"],
+    "correctIndex": 1,
+    "explanation": "Falcons beat Xtreme Gaming 3–2. Official Dota 2 news called them Grand Champions.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:ti14"
+    },
+    "source": {
+      "label": "The International 2025",
+      "url": "https://www.dota2.com/newsentry/509591543575741517"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamusercontent.com/ugc/2314350571781870059/2B5C9FE9BA0A2DC303A13261444532AA08352843/",
+      "alt": "Team Falcons",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:ti1-city",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti1-city",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Gamescom",
+    "prompt": "Where was the first The International held?",
+    "answers": ["Seattle", "Cologne", "Shanghai", "Hamburg"],
+    "correctIndex": 1,
+    "explanation": "TI1 was at Gamescom in Cologne, Germany.",
+    "flashback": {
+      "family": "choice",
+      "subject": "city:ti1"
+    },
+    "source": {
+      "label": "The International 2011",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png",
+      "alt": "Aegis of Champions",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:back-to-back",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:back-to-back",
+    "category": "Esports",
+    "difficulty": 1,
+    "eyebrow": "Two Aegises",
+    "prompt": "Which team first won The International two years in a row?",
+    "answers": ["Team Liquid", "OG", "Team Spirit", "Natus Vincere"],
+    "correctIndex": 1,
+    "explanation": "OG won TI8 and TI9. No other team has gone back-to-back.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:back-to-back"
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
+      "alt": "OG",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:dota-creator",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:eul",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The map before the game",
+    "prompt": "Who created the original Defense of the Ancients Warcraft III map?",
+    "answers": ["IceFrog", "Eul", "Guinsoo", "Pendragon"],
+    "correctIndex": 1,
+    "explanation": "Eul made the first DotA map. Guinsoo and then IceFrog later took the design.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:eul"
+    },
+    "source": {
+      "label": "Defense of the Ancients",
+      "url": "https://en.wikipedia.org/wiki/Defense_of_the_Ancients"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cyclone.png",
+      "alt": "Eul's Scepter",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:first-ti-winners-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:early-ti-winners",
+    "category": "Esports",
+    "difficulty": 3,
+    "eyebrow": "The first four Aegises",
+    "prompt": "Put these TI winners in the order they first lifted the Aegis.",
+    "answers": [
+      "order-v1:navi,ig,alliance,newbee",
+      "order-v1:ig,navi,alliance,newbee",
+      "order-v1:navi,alliance,ig,newbee",
+      "order-v1:navi,ig,newbee,alliance"
+    ],
+    "correctIndex": 0,
+    "explanation": "Na'Vi 2011 → Invictus Gaming 2012 → Alliance 2013 → Newbee 2014.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:early-ti-winners",
+      "cards": [
+        {
+          "key": "alliance",
+          "name": "Alliance",
+          "context": "The Play",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/111474.png"
+        },
+        {
+          "key": "newbee",
+          "name": "Newbee",
+          "context": "First $10M TI",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/1375614.png"
+        },
+        {
+          "key": "navi",
+          "name": "Natus Vincere",
+          "context": "TI1",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/36.png"
+        },
+        {
+          "key": "ig",
+          "name": "Invictus Gaming",
+          "context": "Seattle",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/5.png"
+        }
+      ],
+      "correctOrder": ["navi", "ig", "alliance", "newbee"]
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png",
+      "alt": "Aegis of Champions",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:later-ti-winners-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:mid-ti-winners",
+    "category": "Esports",
+    "difficulty": 3,
+    "eyebrow": "2015 to 2018",
+    "prompt": "Put these TI winners in the order they first lifted the Aegis.",
+    "answers": [
+      "order-v1:eg,wings,liquid,og",
+      "order-v1:eg,liquid,wings,og",
+      "order-v1:wings,eg,liquid,og",
+      "order-v1:eg,wings,og,liquid"
+    ],
+    "correctIndex": 0,
+    "explanation": "EG 2015 → Wings 2016 → Liquid 2017 → OG 2018.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:mid-ti-winners",
+      "cards": [
+        {
+          "key": "og",
+          "name": "OG",
+          "context": "Open quals",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png"
+        },
+        {
+          "key": "liquid",
+          "name": "Team Liquid",
+          "context": "Miracle-",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2163.png"
+        },
+        {
+          "key": "eg",
+          "name": "Evil Geniuses",
+          "context": "SumaiL",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/39.png"
+        },
+        {
+          "key": "wings",
+          "name": "Wings Gaming",
+          "context": "Then gone",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/1838315.png"
+        }
+      ],
+      "correctOrder": ["eg", "wings", "liquid", "og"]
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png",
+      "alt": "Aegis of Champions",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:ti-cities-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:ti-cities",
+    "category": "Esports",
+    "difficulty": 3,
+    "eyebrow": "The road show",
+    "prompt": "Put these TI host cities in the order they first hosted.",
+    "answers": [
+      "order-v1:cologne,seattle,vancouver,shanghai",
+      "order-v1:seattle,cologne,vancouver,shanghai",
+      "order-v1:cologne,vancouver,seattle,shanghai",
+      "order-v1:cologne,seattle,shanghai,vancouver"
+    ],
+    "correctIndex": 0,
+    "explanation": "Cologne 2011 → Seattle 2012 → Vancouver 2018 → Shanghai 2019.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:ti-cities",
+      "cards": [
+        {
+          "key": "shanghai",
+          "name": "Shanghai",
+          "context": "TI9",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png"
+        },
+        {
+          "key": "cologne",
+          "name": "Cologne",
+          "context": "Gamescom",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/36.png"
+        },
+        {
+          "key": "vancouver",
+          "name": "Vancouver",
+          "context": "TI8",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png"
+        },
+        {
+          "key": "seattle",
+          "name": "Seattle",
+          "context": "Home years",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/5.png"
+        }
+      ],
+      "correctOrder": ["cologne", "seattle", "vancouver", "shanghai"]
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png",
+      "alt": "Aegis of Champions",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:engine-history-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:engine-history",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "From custom map to Source 2",
+    "prompt": "Put these Dota milestones in the order they happened.",
+    "answers": [
+      "order-v1:wc3,ti1,release,reborn",
+      "order-v1:wc3,release,ti1,reborn",
+      "order-v1:ti1,wc3,release,reborn",
+      "order-v1:wc3,ti1,reborn,release"
+    ],
+    "correctIndex": 0,
+    "explanation": "Warcraft III DotA → TI1 in 2011 → Dota 2 release in 2013 → Reborn in 2015.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:engine-history",
+      "cards": [
+        {
+          "key": "reborn",
+          "name": "Source 2 Reborn",
+          "context": "2015",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_horiz.png"
+        },
+        {
+          "key": "release",
+          "name": "Dota 2 release",
+          "context": "2013",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png"
+        },
+        {
+          "key": "wc3",
+          "name": "Warcraft III DotA",
+          "context": "Custom map",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cyclone.png"
+        },
+        {
+          "key": "ti1",
+          "name": "The International 1",
+          "context": "2011",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png"
+        }
+      ],
+      "correctOrder": ["wc3", "ti1", "release", "reborn"]
+    },
+    "source": {
+      "label": "Dota 2",
+      "url": "https://www.dota2.com/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  }
+]

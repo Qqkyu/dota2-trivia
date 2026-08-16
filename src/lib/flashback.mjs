@@ -1,0 +1,66 @@
+import { valueOrderAnswerKey, valueOrderKeysFromAnswerKey } from "./value-order.mjs";
+
+export const FLASHBACK_FAMILIES = Object.freeze(["year", "choice", "order"]);
+export const FLASHBACK_CARD_COUNT = 4;
+
+export function isFlashbackQuestion(question) {
+  return typeof question?.kind === "string" && question.kind.startsWith("flashback-");
+}
+
+export function isFlashbackOrderQuestion(question) {
+  const cards = question?.flashback?.cards;
+  const order = question?.flashback?.correctOrder;
+  return (
+    question?.kind === "flashback-order" &&
+    question.flashback?.family === "order" &&
+    Array.isArray(cards) &&
+    cards.length === FLASHBACK_CARD_COUNT &&
+    Array.isArray(order) &&
+    order.length === FLASHBACK_CARD_COUNT
+  );
+}
+
+export function flashbackOrderCorrectAnswerKey(question) {
+  return isFlashbackOrderQuestion(question) ? valueOrderAnswerKey(question.flashback.correctOrder) : null;
+}
+
+export function isFlashbackOrderAnswerForQuestion(question, answerKey) {
+  const submittedKeys = valueOrderKeysFromAnswerKey(answerKey);
+  const cardKeys = question?.flashback?.cards?.map((card) => card.key);
+  if (!submittedKeys || !Array.isArray(cardKeys) || cardKeys.length !== FLASHBACK_CARD_COUNT) return false;
+  const expected = new Set(cardKeys);
+  return expected.size === FLASHBACK_CARD_COUNT && submittedKeys.every((key) => expected.has(key));
+}
+
+export function flashbackOrderAnswerIndex(question, answerKey) {
+  if (!isFlashbackOrderQuestion(question) || !isFlashbackOrderAnswerForQuestion(question, answerKey)) return null;
+  if (answerKey === flashbackOrderCorrectAnswerKey(question)) return question.correctIndex;
+  const wrongIndexes = [0, 1, 2, 3].filter((index) => index !== question.correctIndex);
+  let hash = 0;
+  for (const character of answerKey) hash = (hash * 31 + character.charCodeAt(0)) >>> 0;
+  return wrongIndexes[hash % wrongIndexes.length] ?? null;
+}
+
+export function isPlayableFlashbackQuestion(question) {
+  if (!isFlashbackQuestion(question)) return false;
+  if (!question.id || !question.prompt || !question.explanation || !question.source?.url) return false;
+  if (!question.image?.src || !question.image?.kind) return false;
+  if (!Array.isArray(question.answers) || question.answers.length !== 4) return false;
+  if (![0, 1, 2, 3].includes(question.correctIndex)) return false;
+  const family = question.flashback?.family;
+  if (!FLASHBACK_FAMILIES.includes(family)) return false;
+  if (family === "year") {
+    return (
+      question.kind === "flashback-year" &&
+      question.answers.every((answer) => /^\d{4}$/.test(answer)) &&
+      question.answers[question.correctIndex] === String(question.flashback.correctYear)
+    );
+  }
+  if (family === "choice") {
+    return question.kind === "flashback-choice" && question.answers.every((answer) => String(answer).trim().length > 0);
+  }
+  return (
+    Boolean(flashbackOrderCorrectAnswerKey(question)) &&
+    question.flashback.cards.every((card) => typeof card.image === "string" && card.image.startsWith("https://"))
+  );
+}

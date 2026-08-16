@@ -85,6 +85,10 @@ record(
   "The playable audio endpoint no longer requires the current round or consumes its warm cache.",
 );
 record(
+  routeSource.includes('rateLimitRequest(request, "round-audio", "proxy", 60)'),
+  "The audio proxy is no longer rate-limited.",
+);
+record(
   clientSource.includes('method: "HEAD"') && clientSource.includes("prewarmedAfterRoundIdRef"),
   "The client no longer requests one bodyless audio warmup per reveal.",
 );

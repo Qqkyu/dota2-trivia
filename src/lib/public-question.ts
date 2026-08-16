@@ -44,7 +44,7 @@ export interface PublicArcadeQuestion {
     kind: TriviaArtworkKind;
   };
   answers: [string, string, string, string];
-  answerMode?: "hero-grid" | "item-grid" | "item-recipe" | "value-order";
+  answerMode?: "hero-grid" | "item-grid" | "item-recipe" | "value-order" | "flashback-order";
   answerImages?: [string, string, string, string];
   answerImagePairs?: [[string, string], [string, string], [string, string], [string, string]];
   answerImageKind?: TriviaArtworkKind;
@@ -71,6 +71,10 @@ export interface PublicArcadeQuestion {
       | "hero-attack-range";
     direction: "ascending";
     cards: ValueOrderCard[];
+  };
+  flashback?: {
+    family: "year" | "choice" | "order";
+    cards?: Array<{ key: string; name: string; context?: string; image?: string }>;
   };
   aghanim?: PublicAghanimUpgrade;
   shopkeeper?: {
@@ -140,12 +144,17 @@ export function isPublicValueOrderQuestion(question: PublicArcadeQuestion) {
   return question.answerMode === "value-order";
 }
 
+export function isPublicFlashbackOrderQuestion(question: PublicArcadeQuestion) {
+  return question.answerMode === "flashback-order";
+}
+
 export function isPublicKeyedAnswerQuestion(question: PublicArcadeQuestion) {
   return (
     question.answerMode === "item-grid" ||
     question.answerMode === "item-recipe" ||
     question.answerMode === "hero-grid" ||
-    question.answerMode === "value-order"
+    question.answerMode === "value-order" ||
+    question.answerMode === "flashback-order"
   );
 }
 
@@ -179,7 +188,8 @@ export function isPublicArcadeQuestion(value: unknown): value is PublicArcadeQue
         candidate.answerMode === "hero-grid" ||
         candidate.answerMode === "item-grid" ||
         candidate.answerMode === "item-recipe" ||
-        candidate.answerMode === "value-order") &&
+        candidate.answerMode === "value-order" ||
+        candidate.answerMode === "flashback-order") &&
       (candidate.answerMode !== "item-recipe" || candidate.shopkeeper?.recipeSize !== undefined) &&
       (candidate.shopkeeper?.recipeSize === undefined ||
         (Number.isInteger(candidate.shopkeeper.recipeSize) &&
@@ -196,6 +206,11 @@ export function isPublicArcadeQuestion(value: unknown): value is PublicArcadeQue
               typeof card.image === "string" &&
               (card.kind === "item" || card.kind === "ability" || card.kind === "hero"),
           ))) &&
+      (candidate.answerMode !== "flashback-order" ||
+        (Array.isArray(candidate.flashback?.cards) &&
+          candidate.flashback.cards.length === 4 &&
+          new Set(candidate.flashback.cards.map((card) => card.key)).size === 4 &&
+          candidate.flashback.cards.every((card) => typeof card.key === "string" && typeof card.name === "string"))) &&
       (candidate.quoteHints === undefined ||
         (Array.isArray(candidate.quoteHints) &&
           candidate.quoteHints.length <= 2 &&
@@ -219,6 +234,11 @@ export function isPublicArcadeQuestion(value: unknown): value is PublicArcadeQue
           reveal.orderValues.every(
             (entry) => typeof entry.key === "string" && typeof entry.label === "string" && entry.label.length > 0,
           ))) &&
+      (candidate.answerMode !== "flashback-order" ||
+        reveal === null ||
+        (typeof reveal?.correctAnswerKey === "string" &&
+          Array.isArray(reveal.orderValues) &&
+          reveal.orderValues.length === 4)) &&
       (candidate.clueStage === 1 || candidate.clueStage === 2 || candidate.clueStage === 3) &&
       (reveal === null ||
         (Boolean(reveal) &&

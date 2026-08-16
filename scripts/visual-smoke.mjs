@@ -432,7 +432,7 @@ async function waitForRevealEntryWindow() {
   for (let attempt = 0; attempt < 4; attempt += 1) {
     const snapshot = await fetch(roomUrl, { cache: "no-store" }).then((response) => response.json());
     const revealRemaining = snapshot.round.revealDeadline - snapshot.serverNow;
-    if (snapshot.round.phase === "reveal" && revealRemaining >= 2_000) return;
+    if (snapshot.round.phase === "reveal" && revealRemaining >= 5_000) return;
 
     const wait =
       snapshot.round.phase === "answering"
@@ -830,15 +830,144 @@ await waitFor(
 );
 await waitForRevealEntryWindow();
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
-await waitFor(`document.querySelector("main")?.dataset.phase === "waiting"`);
+await waitFor(`Boolean(document.querySelector('[data-testid="round-entry-wait"][data-lessons="true"]')) ||
+  Boolean(document.querySelector('[data-testid="start-arcade"]')?.disabled) ||
+  document.querySelector("main")?.dataset.phase === "answering"`);
 const entryWait = await evaluate(`({
   phase: document.querySelector("main")?.dataset.phase,
   roomId: document.querySelector("main")?.dataset.roomId,
-  heading: document.querySelector('[data-testid="round-entry-wait"] h1')?.innerText,
+  waitRoot: Boolean(document.querySelector('[data-testid="round-entry-wait"]')),
+  silent: Boolean(
+    document.querySelector('[data-testid="start-arcade"]')?.disabled &&
+      !document.querySelector('[data-testid="round-entry-wait"]'),
+  ),
+  hint: document.querySelector('[data-testid="entry-wait-hint"]')?.innerText,
+  lessons: document.querySelector('[data-testid="round-entry-wait"]')?.dataset.lessons ?? "",
+  tips: [...document.querySelectorAll('[data-testid="entry-wait-tip"]')].map((card) => card.dataset.tip),
+  tipCount: Number(document.querySelector('[data-testid="entry-wait-tips"]')?.dataset.tipCount ?? 0),
+  nextTip: Boolean(document.querySelector('[data-testid="entry-wait-next-tip"]')),
+  prevTip: Boolean(document.querySelector('[data-testid="entry-wait-prev-tip"]')),
+  keyDemo: Boolean(document.querySelector('[data-testid="entry-wait-keys-demo"]')),
+  keyAnswers: document.querySelectorAll('[data-testid="entry-wait-keys-demo"] [data-testid="arcade-answer"]').length,
+  keyArtwork: Boolean(document.querySelector('[data-testid="entry-wait-keys-demo"] [data-testid="question-artwork"]')),
+  keyPrompt: document.querySelector('[data-testid="entry-wait-choice-prompt"] h2')?.textContent ?? "",
+  heroesDemo: Boolean(document.querySelector('[data-testid="entry-wait-heroes-demo"]')),
+  shopDemo: Boolean(document.querySelector('[data-testid="entry-wait-shop-demo"]')),
+  shopSearch: Boolean(document.querySelector('[data-testid="shopkeeper-search-field"]')),
   countdown: Number(document.querySelector('[data-testid="entry-wait-timer"]')?.textContent?.split(":").at(-1)),
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
 await screenshot("/tmp/queue-arcade-entry-wait.png");
+let waitLayout = {
+  tipHeightsStable: !entryWait.waitRoot,
+  shopBoardStable: !entryWait.waitRoot,
+  heroTypeStable: !entryWait.waitRoot,
+  frames: [],
+  shopBefore: null,
+  shopAfter: null,
+  heroTypeThrough: null,
+};
+if (entryWait.waitRoot) {
+  const measureTip = `(() => {
+    const bar = document.querySelector('[data-testid="entry-wait-tip-bar"]');
+    const stage = document.querySelector('[data-testid="entry-wait-stage"]');
+    const tip = document.querySelector('[data-testid="entry-wait-tip"]');
+    const barBox = bar?.getBoundingClientRect();
+    const stageBox = stage?.getBoundingClientRect();
+    return {
+      tip: tip?.dataset.tip ?? "",
+      barHeight: barBox ? Math.round(barBox.height) : 0,
+      barWidth: barBox ? Math.round(barBox.width) : 0,
+      stageHeight: stageBox ? Math.round(stageBox.height) : 0,
+      stageWidth: stageBox ? Math.round(stageBox.width) : 0,
+    };
+  })()`;
+  const frames = [];
+  for (let step = 0; step < 3; step += 1) {
+    frames.push(await evaluate(measureTip));
+    if (step < 2) {
+      const currentTip = frames[step]?.tip ?? "";
+      await evaluate(`document.querySelector('[data-testid="entry-wait-next-tip"]')?.click()`);
+      await waitFor(
+        `document.querySelector('[data-testid="entry-wait-tip"]')?.dataset.tip && document.querySelector('[data-testid="entry-wait-tip"]')?.dataset.tip !== ${JSON.stringify(currentTip)}`,
+      );
+    }
+  }
+  const barHeights = frames.map((frame) => frame.barHeight);
+  const barWidths = frames.map((frame) => frame.barWidth);
+  const stageHeights = frames.map((frame) => frame.stageHeight);
+  const stageWidths = frames.map((frame) => frame.stageWidth);
+  waitLayout.frames = frames;
+  waitLayout.tipHeightsStable = Boolean(
+    frames.length === 3 &&
+      new Set(frames.map((frame) => frame.tip)).size === 3 &&
+      barHeights.every((height) => Math.abs(height - barHeights[0]) <= 1) &&
+      barWidths.every((width) => Math.abs(width - barWidths[0]) <= 1) &&
+      stageHeights.every((height) => Math.abs(height - stageHeights[0]) <= 1) &&
+      stageWidths.every((width) => Math.abs(width - stageWidths[0]) <= 1) &&
+      barHeights[0] > 200 &&
+      stageWidths[0] > 800,
+  );
+
+  for (let step = 0; step < 3; step += 1) {
+    const tip = await evaluate(`document.querySelector('[data-testid="entry-wait-tip"]')?.dataset.tip ?? ""`);
+    if (tip === "heroes") break;
+    await evaluate(`document.querySelector('[data-testid="entry-wait-next-tip"]')?.click()`);
+    await waitFor(
+      `document.querySelector('[data-testid="entry-wait-tip"]')?.dataset.tip && document.querySelector('[data-testid="entry-wait-tip"]')?.dataset.tip !== ${JSON.stringify(tip)}`,
+    );
+  }
+  await evaluate(`(() => {
+    window.dispatchEvent(new KeyboardEvent("keydown", { key: "a", bubbles: true }));
+    window.dispatchEvent(new KeyboardEvent("keydown", { key: "x", bubbles: true }));
+  })()`);
+  await waitFor(`document.querySelector('[data-testid="hero-search"]')?.dataset.query === "ax"`);
+  waitLayout.heroTypeThrough = await evaluate(`({
+    hero: document.querySelector('[data-testid="hero-search"]')?.dataset.query ?? "",
+    shop: document.querySelector('[data-testid="shopkeeper-search"]')?.dataset.query ?? "",
+  })`);
+  waitLayout.heroTypeStable = waitLayout.heroTypeThrough?.hero === "ax" && waitLayout.heroTypeThrough?.shop === "";
+
+  for (let step = 0; step < 3; step += 1) {
+    const tip = await evaluate(`document.querySelector('[data-testid="entry-wait-tip"]')?.dataset.tip ?? ""`);
+    if (tip === "shop") break;
+    await evaluate(`document.querySelector('[data-testid="entry-wait-next-tip"]')?.click()`);
+    await waitFor(
+      `document.querySelector('[data-testid="entry-wait-tip"]')?.dataset.tip && document.querySelector('[data-testid="entry-wait-tip"]')?.dataset.tip !== ${JSON.stringify(tip)}`,
+    );
+  }
+
+  const measureShop = `(() => {
+    const groups = document.querySelector('[data-testid="shopkeeper-groups"]');
+    const box = groups?.getBoundingClientRect();
+    return groups && box
+      ? {
+          width: Math.round(box.width),
+          height: Math.round(box.height),
+          items: groups.querySelectorAll('[data-testid="shopkeeper-store-item"]').length,
+          searching: groups.dataset.searching ?? "",
+        }
+      : null;
+  })()`;
+  waitLayout.shopBefore = await evaluate(measureShop);
+  await evaluate(`(() => {
+    const input = document.querySelector('[data-testid="shopkeeper-search-field"]');
+    const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+    setter?.call(input, "blink");
+    input?.dispatchEvent(new Event("input", { bubbles: true }));
+  })()`);
+  await waitFor(`document.querySelector('[data-testid="shopkeeper-groups"]')?.dataset.searching === "true"`);
+  waitLayout.shopAfter = await evaluate(measureShop);
+  waitLayout.shopBoardStable = Boolean(
+    waitLayout.shopBefore &&
+      waitLayout.shopAfter &&
+      Math.abs(waitLayout.shopBefore.width - waitLayout.shopAfter.width) <= 1 &&
+      Math.abs(waitLayout.shopBefore.height - waitLayout.shopAfter.height) <= 1 &&
+      waitLayout.shopAfter.items > 0 &&
+      waitLayout.shopAfter.items < waitLayout.shopBefore.items &&
+      waitLayout.shopAfter.searching === "true",
+  );
+}
 await waitFor(`(() => {
   const main = document.querySelector("main");
   const timer = Number(document.querySelector('[data-testid="round-timer"]')?.textContent);
@@ -858,9 +987,12 @@ const answering = await evaluate(`({
   recipeBuilder: Boolean(document.querySelector('[data-testid="shopkeeper-recipe-builder"]')),
   recipeSize: Number(document.querySelector('[data-testid="shopkeeper-recipe-builder"]')?.dataset.recipeSize ?? 0),
   shopItems: document.querySelectorAll('[data-testid="shopkeeper-store-item"]').length,
+  shopSearchField: document.querySelector('[data-testid="shopkeeper-search-field"]')?.placeholder ?? "",
   heroPicker: Boolean(document.querySelector('[data-testid="hero-picker"]')),
   valueOrder: Boolean(document.querySelector('[data-testid="value-order-board"]')),
   valueOrderCards: document.querySelectorAll('[data-testid="value-order-card"]').length,
+  flashbackOrder: Boolean(document.querySelector('[data-testid="flashback-order-board"]')),
+  flashbackOrderCards: document.querySelectorAll('[data-testid="flashback-order-card"]').length,
   heroSearch: Boolean(document.querySelector('[data-testid="hero-search"]')),
   heroItems: document.querySelectorAll('[data-testid="hero-picker-hero"]').length,
   heroGroups: [...document.querySelectorAll('[data-testid="hero-picker"] [data-attribute]')].map((group) => ({
@@ -876,8 +1008,24 @@ const answering = await evaluate(`({
   roomElapsedVisible: Boolean(document.querySelector('[class*="queueStatus"] > strong')),
   promptContext: document.querySelector('[data-testid="round-prompt"] [class*="questionCopy"] > span')?.textContent,
   promptText: document.querySelector('[data-testid="round-prompt"] [class*="questionCopy"] > h2')?.textContent,
+  pickerFilterHint: document.querySelector('[data-testid="picker-filter-hint"]')?.textContent?.trim() ?? "",
+  copyGuard: document.querySelector('[data-testid="public-room"]')?.dataset.copyGuard ?? "",
   horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
 })`);
+
+const questionCopyGuard = await evaluate(`(() => {
+  const prompt = document.querySelector('[data-testid="round-prompt"]') ?? document.querySelector('[data-testid="public-room"]');
+  const copyEvent = new Event("copy", { bubbles: true, cancelable: true });
+  const cutEvent = new Event("cut", { bubbles: true, cancelable: true });
+  prompt?.dispatchEvent(copyEvent);
+  prompt?.dispatchEvent(cutEvent);
+  const style = prompt ? getComputedStyle(prompt) : null;
+  return {
+    phase: document.querySelector("main")?.dataset.phase,
+    blocked: copyEvent.defaultPrevented && cutEvent.defaultPrevented,
+    userSelect: style?.userSelect || style?.webkitUserSelect || "",
+  };
+})()`);
 
 let shopTooltip = null;
 let shopSearchCleared = null;
@@ -929,17 +1077,17 @@ if (answering.openShop) {
   await waitFor(`!document.querySelector('[data-testid="shopkeeper-item-tooltip"]')`);
 
   await evaluate(`(() => {
-    const input = document.querySelector('[data-testid="shopkeeper-search"]');
     const item = document.querySelector('[data-testid="shopkeeper-store-item"]');
-    const name = item?.getAttribute("aria-label")?.split(",")[0] ?? "";
-    const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
-    setter?.call(input, name);
-    input?.dispatchEvent(new Event("input", { bubbles: true }));
+    const name = item?.getAttribute("aria-label")?.split(",")[0] ?? "a";
+    const key = name[0] ?? "a";
+    window.dispatchEvent(new KeyboardEvent("keydown", { key, bubbles: true }));
   })()`);
-  await waitFor(`Boolean(document.querySelector('[data-testid="shopkeeper-search"]')?.value)`);
+  await waitFor(`Boolean(document.querySelector('[data-testid="shopkeeper-search"]')?.dataset.query)`);
   await evaluate(`document.querySelector('[data-testid="shopkeeper-store-item"]')?.click()`);
-  await waitFor(`document.querySelector('[data-testid="shopkeeper-search"]')?.value === ""`);
-  shopSearchCleared = await evaluate(`document.querySelector('[data-testid="shopkeeper-search"]')?.value === ""`);
+  await waitFor(`document.querySelector('[data-testid="shopkeeper-search"]')?.dataset.query === ""`);
+  shopSearchCleared = await evaluate(
+    `document.querySelector('[data-testid="shopkeeper-search"]')?.dataset.query === ""`,
+  );
 
   if (answering.recipeBuilder) {
     await waitFor(
@@ -965,7 +1113,7 @@ if (answering.heroPicker) {
       });
     window.dispatchEvent(new KeyboardEvent("keydown", { key: "z", bubbles: true }));
   })()`);
-  await waitFor(`document.querySelector('[data-testid="hero-search"]')?.value === "z"`);
+  await waitFor(`document.querySelector('[data-testid="hero-search"]')?.dataset.query === "z"`);
   await waitFor(`[
     ...document.querySelectorAll('[data-testid="hero-picker-hero"][data-search-match="false"]')
   ].some((hero) => Number(getComputedStyle(hero).opacity) < 0.2)`);
@@ -976,14 +1124,14 @@ if (answering.heroPicker) {
       return [hero.dataset.heroKey, bounds.x, bounds.y];
     });
     return {
-      value: document.querySelector('[data-testid="hero-search"]')?.value,
+      value: document.querySelector('[data-testid="hero-search"]')?.dataset.query,
       matches: heroes.filter((hero) => hero.dataset.searchMatch === "true").length,
       dimmed: heroes.filter((hero) => hero.dataset.searchMatch === "false" && Number(getComputedStyle(hero).opacity) < 0.2).length,
       fixed: JSON.stringify(window.__queueArcadeHeroPositions) === JSON.stringify(positions)
     };
   })()`);
-  await evaluate(`document.querySelector('[data-testid="hero-search-clear"]')?.click()`);
-  await waitFor(`document.querySelector('[data-testid="hero-search"]')?.value === ""`);
+  await evaluate(`window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }))`);
+  await waitFor(`document.querySelector('[data-testid="hero-search"]')?.dataset.query === ""`);
 }
 
 if (!answering.openShop) {
@@ -992,6 +1140,13 @@ if (!answering.openShop) {
       await evaluate(`document.querySelectorAll('[data-testid="value-order-card"]')[${cardIndex}]?.click()`);
       await waitFor(
         `document.querySelectorAll('[data-testid="value-order-card"][data-selected="true"]').length === ${cardIndex + 1}`,
+      );
+    }
+  } else if (answering.flashbackOrder) {
+    for (let cardIndex = 0; cardIndex < 4; cardIndex += 1) {
+      await evaluate(`document.querySelectorAll('[data-testid="flashback-order-card"]')[${cardIndex}]?.click()`);
+      await waitFor(
+        `document.querySelectorAll('[data-testid="flashback-order-card"][data-selected="true"]').length === ${cardIndex + 1}`,
       );
     }
   } else {
@@ -1005,10 +1160,21 @@ await waitFor(`Boolean(
   document.querySelector('[data-testid="shopkeeper-store"][data-locked="true"]') ??
   document.querySelector('[data-testid="hero-picker-hero"][aria-pressed="true"]') ??
   document.querySelector('[data-testid="value-order-board"][data-locked="true"]') ??
+  document.querySelector('[data-testid="flashback-order-board"][data-locked="true"]') ??
   document.querySelector('[data-testid="arcade-answer"][aria-pressed="true"]')
 )`);
 await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
 await screenshot("/tmp/queue-arcade-public-reveal.png");
+
+const revealCopyGuard = await evaluate(`(() => {
+  const prompt = document.querySelector('[data-testid="round-prompt"]') ?? document.querySelector('[data-testid="public-room"]');
+  const copyEvent = new Event("copy", { bubbles: true, cancelable: true });
+  prompt?.dispatchEvent(copyEvent);
+  return {
+    copyGuard: document.querySelector('[data-testid="public-room"]')?.dataset.copyGuard ?? "",
+    blocked: copyEvent.defaultPrevented,
+  };
+})()`);
 
 const revealBoundsBeforeReport = await evaluate(`(() => {
   const panel = document.querySelector('[data-testid="report-question"]')?.closest('[aria-live="polite"]');
@@ -1024,7 +1190,20 @@ const reveal = await evaluate(`(() => {
     result:
       document.querySelector('[data-testid="reveal-callout"]')?.textContent?.trim() ??
       [...document.querySelectorAll("span")].find((entry) =>
-        ["Correct", "Denied", "Time expired", "First Blood", "Killing Spree", "Rampage", "Godlike"].includes(
+        [
+          "Correct",
+          "Incorrect",
+          "Time expired",
+          "First Blood",
+          "Killing Spree",
+          "Dominating",
+          "Mega Kill",
+          "Unstoppable",
+          "Wicked Sick",
+          "Monster Kill",
+          "Godlike",
+          "Beyond Godlike",
+        ].includes(
           entry.textContent.trim(),
         ),
       )?.textContent,
@@ -1037,6 +1216,7 @@ const reveal = await evaluate(`(() => {
     heroCorrect: document.querySelectorAll('[data-testid="hero-picker-hero"][data-state="correct"]').length,
     orderSequences: document.querySelectorAll('[data-testid="value-order-sequence"]').length,
     orderValueLabels: document.querySelectorAll('[data-testid="value-order-sequence"] em').length,
+    flashbackOrderSequences: document.querySelectorAll('[data-testid="flashback-order-sequence"]').length,
     crowdSplit: (() => {
       const split = document.querySelector('[data-testid="crowd-split"]');
       const rows = [...document.querySelectorAll('[data-testid="crowd-split-row"]')];
@@ -1071,18 +1251,6 @@ const autoAdvanced = await evaluate(`({
   roundId: document.querySelector("main")?.dataset.roundId,
   roomId: document.querySelector("main")?.dataset.roomId
 })`);
-await evaluate(`document.querySelector('[data-testid="view-summary"]')?.click()`);
-await waitFor(`document.querySelector("main")?.dataset.phase === "summary"`);
-const summary = await evaluate(`({
-  heading: document.querySelector("h1")?.innerText,
-  scoreVisible: document.body.textContent?.includes("Final gold"),
-  playAgain: [...document.querySelectorAll("button")].some((button) => button.textContent.includes("Play again")),
-  backLabel: [...document.querySelectorAll("button")].some((button) => button.textContent.includes("Back to arcade")),
-  feedbackOptions: document.querySelectorAll('[data-testid="session-feedback-option"]').length,
-  shareActions: document.querySelectorAll('[data-testid="share-arcade"]').length
-})`);
-await screenshot("/tmp/queue-arcade-summary.png");
-
 await evaluate(`history.back(); true`);
 await waitFor(`location.pathname === "/" && document.querySelector("main")?.dataset.phase === "lobby"`);
 const historyBack = await evaluate(`({
@@ -1090,7 +1258,8 @@ const historyBack = await evaluate(`({
   lobby: document.querySelector("main")?.dataset.phase === "lobby"
 })`);
 await evaluate(`history.forward(); true`);
-await waitFor(`location.pathname === "/play" && document.querySelector("main")?.dataset.phase === "answering"`, 12_000);
+await waitFor(`location.pathname === "/play"`, 12_000);
+await waitFor(`location.pathname === "/play" && document.querySelector("main")?.dataset.phase === "answering"`, 30_000);
 const historyForward = await evaluate(`({
   url: location.pathname + location.search,
   answering: document.querySelector("main")?.dataset.phase === "answering",
@@ -1163,9 +1332,10 @@ if (
   lobby.canonical !== `${new URL(appUrl).origin}/` ||
   !lobby.openGraphImage?.includes("opengraph-image") ||
   lobby.modeCards !== 0 ||
-  lobby.roundFamilies !== 9 ||
+  lobby.roundFamilies !== 10 ||
   !lobby.roundMix?.includes("Classic Trivia") ||
-  !lobby.copy?.toLowerCase().includes("twelve round formats") ||
+  !lobby.roundMix?.includes("Flashback") ||
+  !lobby.copy?.toLowerCase().includes("ten games") ||
   lobby.copy?.toLowerCase().includes("choose your side quest") ||
   !lobby.muted ||
   lobby.volume !== "70"
@@ -1178,10 +1348,9 @@ if (
   lobby.steamButtons !== 1 ||
   !lobby.steamButton?.markPath?.startsWith("M11.979 0C5.678") ||
   lobby.steamButton?.label !== "Sign in with Steam" ||
-  (lobby.steamButton?.width ?? 999) > 160 ||
-  Math.abs((lobby.steamButton?.height ?? 0) - 38) > 0.5 ||
+  Math.abs((lobby.steamButton?.height ?? 0) - 58) > 0.5 ||
   Math.abs((lobby.accountSlot?.width ?? 0) - 180) > 0.5 ||
-  Math.abs((lobby.accountSlot?.height ?? 0) - 52) > 0.5
+  Math.abs((lobby.accountSlot?.height ?? 0) - 58) > 0.5
 ) {
   failures.push("The desktop lobby alignment or overflow regressed.");
 }
@@ -1224,7 +1393,7 @@ if (
   failures.push("Profile and privacy no longer share home and footer navigation.");
 }
 if (
-  profileRecordsShort.rows !== 9 ||
+  profileRecordsShort.rows !== 10 ||
   profileRecordsShort.recentLog ||
   !profileRecordsShort.compareLabel ||
   !profileRecordsShort.firstClue ||
@@ -1235,7 +1404,7 @@ if (
   profileRecordsShort.spellEarly !== "2/3" ||
   profileRecordsShort.spellClues !== "2/3,1/1,1/1" ||
   profileRecordsShort.horizontalOverflow ||
-  profileRecordsLong.rows !== 9 ||
+  profileRecordsLong.rows !== 10 ||
   profileRecordsLong.recentLog ||
   profileRecordsLong.classicYou !== "63" ||
   profileRecordsLong.classicRoom !== "45" ||
@@ -1277,11 +1446,25 @@ if (legacyLink.url !== "/" || legacyLink.modeCards !== 0 || legacyLink.startButt
   failures.push("A legacy mode deep link did not return to the canonical public arcade.");
 }
 if (
-  entryWait.phase !== "waiting" ||
   !entryWait.roomId?.endsWith(":public") ||
-  entryWait.heading !== "Next round" ||
-  !Number.isFinite(entryWait.countdown) ||
-  entryWait.countdown < 1 ||
+  (entryWait.waitRoot
+    ? entryWait.phase !== "waiting" ||
+      entryWait.lessons !== "true" ||
+      entryWait.hint !== "Waiting for the next full question." ||
+      entryWait.tips.length !== 1 ||
+      entryWait.tipCount !== 3 ||
+      !entryWait.nextTip ||
+      !entryWait.prevTip ||
+      !["keys", "heroes", "shop"].includes(entryWait.tips[0]) ||
+      entryWait.keyAnswers !== 4 ||
+      !entryWait.keyArtwork ||
+      !entryWait.keyPrompt ||
+      !Number.isFinite(entryWait.countdown) ||
+      entryWait.countdown < 1 ||
+      !waitLayout.tipHeightsStable ||
+      !waitLayout.shopBoardStable ||
+      !waitLayout.heroTypeStable
+    : !entryWait.silent || entryWait.phase !== "waiting") ||
   entryWait.horizontalOverflow
 ) {
   failures.push("A late first entry no longer waits cleanly for the next synchronized round.");
@@ -1300,6 +1483,7 @@ if (
     "quote-hunt",
     "aghanim-lab",
     "order-up",
+    "flashback",
   ].includes(answering.game) ||
   (answering.openShop
     ? answering.answers !== 0 || answering.shopItems < 70 || answering.heroPicker
@@ -1316,7 +1500,9 @@ if (
           ])
       : answering.valueOrder
         ? answering.answers !== 0 || answering.valueOrderCards !== 4
-        : answering.answers !== 4) ||
+        : answering.flashbackOrder
+          ? answering.answers !== 0 || answering.flashbackOrderCards !== 4
+          : answering.answers !== 4) ||
   answering.difficultyControls !== 0 ||
   answering.tipCards !== 0 ||
   answering.crowdSplitVisible ||
@@ -1333,7 +1519,15 @@ if (
   answering.timer < MIN_INITIAL_ANSWER_TIME_MS / 1_000 - 2 ||
   answering.horizontalOverflow ||
   (answering.openShop &&
-    (!shopTooltip?.visible || !shopTooltip.stable || !shopTooltip.insideViewport || !shopSearchCleared))
+    (answering.shopSearchField !== "Search Items" ||
+      !shopTooltip?.visible ||
+      !shopTooltip.stable ||
+      !shopTooltip.insideViewport ||
+      !shopSearchCleared)) ||
+  answering.copyGuard !== "blocked" ||
+  questionCopyGuard.phase !== "answering" ||
+  !questionCopyGuard.blocked ||
+  questionCopyGuard.userSelect !== "none"
 ) {
   failures.push("The synchronized public round is incomplete or still exposes a player queue choice.");
 }
@@ -1342,6 +1536,9 @@ if (
   (!heroSearch || heroSearch.value !== "z" || heroSearch.matches < 1 || heroSearch.dimmed < 1 || !heroSearch.fixed)
 ) {
   failures.push("Type-to-search no longer dims heroes in place without rearranging the Dota grid.");
+}
+if (revealCopyGuard.copyGuard !== "allowed" || revealCopyGuard.blocked) {
+  failures.push("Question copy stayed blocked after the answer clock stopped.");
 }
 if (
   !reveal.result ||
@@ -1358,7 +1555,9 @@ if (
       ? reveal.heroPercentages < 1 || reveal.heroCorrect !== 1 || reveal.openShopReveal
       : answering.valueOrder
         ? reveal.orderSequences < 1 || reveal.orderValueLabels !== 4 || reveal.openShopReveal
-        : reveal.percentages !== 4 || reveal.openShopReveal) ||
+        : answering.flashbackOrder
+          ? reveal.flashbackOrderSequences < 1 || reveal.openShopReveal
+          : reveal.percentages !== 4 || reveal.openShopReveal) ||
   reveal.reportReasons !== 4 ||
   reveal.audioPrewarmRequests < 1 ||
   !sameBounds ||
@@ -1373,16 +1572,6 @@ if (
   autoAdvanced.roomId !== answering.roomId
 ) {
   failures.push("The public room did not advance automatically in place.");
-}
-if (
-  !summary.heading ||
-  !summary.scoreVisible ||
-  !summary.playAgain ||
-  !summary.backLabel ||
-  summary.feedbackOptions !== 0 ||
-  summary.shareActions !== 0
-) {
-  failures.push("The session report no longer completes the one-room journey.");
 }
 if (
   historyBack.url !== "/" ||
@@ -1465,7 +1654,7 @@ if (
 if (
   !mobile.headingVisible ||
   !mobile.startButton ||
-  mobile.roundFamilies !== 9 ||
+  mobile.roundFamilies !== 10 ||
   mobile.steamButtons !== 1 ||
   Math.abs((mobile.accountSlotWidth ?? 0) - (mobile.startButtonWidth ?? 0)) > 1 ||
   mobile.horizontalOverflow
@@ -1493,12 +1682,14 @@ if (failures.length) {
         opsGuest,
         legacyLink,
         entryWait,
+        waitLayout,
         answering,
+        questionCopyGuard,
+        revealCopyGuard,
         shopTooltip,
         heroSearch,
         reveal,
         autoAdvanced,
-        summary,
         historyBack,
         historyForward,
         directPlay,
@@ -1543,7 +1734,7 @@ console.log(
       sharePreview: true,
       freshVolume: `${defaultVolume}%`,
       migratedOldDefault: `${migratedVolume}%`,
-      leanSessionSummary: true,
+      closeTabExit: true,
       privateOpsGate: true,
       mobileFits: true,
       screenshots: [
@@ -1556,7 +1747,6 @@ console.log(
         "/tmp/queue-arcade-entry-wait.png",
         "/tmp/queue-arcade-public-round.png",
         "/tmp/queue-arcade-public-reveal.png",
-        "/tmp/queue-arcade-summary.png",
         "/tmp/queue-arcade-crowd-heroes.png",
         "/tmp/queue-arcade-crowd-items.png",
         "/tmp/queue-arcade-crowd-orders.png",

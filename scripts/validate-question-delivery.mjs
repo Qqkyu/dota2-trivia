@@ -9,12 +9,13 @@ import { valueOrderCorrectAnswerKey } from "../src/lib/value-order.mjs";
 
 const root = process.cwd();
 const readJson = async (file) => JSON.parse(await readFile(path.join(root, "src", "data", file), "utf8"));
-const [generated, shopkeeper, soundcheck, valueOrder, aghanim] = await Promise.all([
+const [generated, shopkeeper, soundcheck, valueOrder, aghanim, flashback] = await Promise.all([
   readJson("questions.generated.json"),
   readJson("shopkeeper-questions.json"),
   readJson("soundcheck-questions.json"),
   readJson("value-order-questions.json"),
   readJson("aghanim-questions.json"),
+  readJson("flashback-questions.json"),
 ]);
 const failures = [];
 
@@ -108,6 +109,9 @@ const representativeQuestions = [
   ],
   [soundcheck.find((question) => question.soundcheck?.format === "sequence"), "soundcheck"],
   ...representativeOrderQuestions.map((question) => [question, "order-up"]),
+  [flashback.find((question) => question.kind === "flashback-year"), "flashback"],
+  [flashback.find((question) => question.kind === "flashback-choice"), "flashback"],
+  [flashback.find((question) => question.kind === "flashback-order"), "flashback"],
 ];
 
 for (const [question, game] of representativeQuestions) {
@@ -368,6 +372,7 @@ record(
     !roundAudioSource.includes('searchParams.get("source")'),
   "The audio proxy no longer limits media delivery to the server-owned current round.",
 );
+
 
 if (failures.length) throw new Error(failures.join("\n"));
 

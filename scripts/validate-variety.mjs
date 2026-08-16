@@ -70,10 +70,10 @@ const adjacentFamilyRepeat = arcadeFormats.some(
 );
 
 if (
-  arcadeGames.length !== 9 ||
+  arcadeGames.length !== 10 ||
   arcadeGames.includes("map-sense") ||
   arcadeGames.includes("counterplay") ||
-  arcadeFormats.length !== 12 ||
+  arcadeFormats.length !== 13 ||
   new Set(arcadeFormats).size !== arcadeFormats.length ||
   !mixedWindowsAreComplete ||
   adjacentFamilyRepeat ||
@@ -103,6 +103,9 @@ const expectedFormatsByKind = {
   "value-order-damage": "value-order",
   "value-order-move-speed": "value-order",
   "value-order-attack-range": "value-order",
+  "flashback-year": "flashback",
+  "flashback-choice": "flashback",
+  "flashback-order": "flashback",
 };
 if (
   Object.entries(expectedFormatsByKind).some(
@@ -169,5 +172,5 @@ if (
 }
 
 console.log(
-  `Validated deterministic templates, hidden difficulty cadence ${JSON.stringify(hiddenDifficultyCounts)}, twelve-format public arcade cadence ${JSON.stringify(gameCounts)}, and Soundcheck family rotation (${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}).`,
+  `Validated deterministic templates, hidden difficulty cadence ${JSON.stringify(hiddenDifficultyCounts)}, thirteen-format public arcade cadence ${JSON.stringify(gameCounts)}, and Soundcheck family rotation (${JSON.stringify(soundcheckCounts)} / ${JSON.stringify(soundcheckFormatCounts)}).`,
 );

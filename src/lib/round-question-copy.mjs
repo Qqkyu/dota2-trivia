@@ -9,6 +9,7 @@ export const LIVE_ROUND_HEADER_LABELS = Object.freeze({
   "quote-hunt": "Quote Hunt",
   "aghanim-lab": "Aghanim's Lab",
   "order-up": "Order Up",
+  flashback: "Flashback",
 });
 
 export const LIVE_QUESTION_COPY = Object.freeze({

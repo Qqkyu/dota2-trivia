@@ -141,7 +141,7 @@ pnpm install
 pnpm dev
 ```
 
-Open `http://localhost:3000`. The app works without Steam, Pusher, or Postgres. In that case it uses ignored files under `.data/`.
+Open `http://localhost:3000`. The app works without Steam or Postgres. In that case it uses ignored files under `.data/`.
 
 Important local-data rule: `.data/` and `.env.local` are private, ignored, and may contain real local history or secrets. Never print, commit, delete, or overwrite them unless explicitly asked. Existing local data files are currently present.
 

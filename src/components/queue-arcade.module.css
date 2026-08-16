@@ -73,6 +73,104 @@
   mix-blend-mode: soft-light;
 }
 
+.killStreakHud {
+  position: fixed;
+  z-index: 41;
+  top: 75px;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.killStreakHud > p {
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-radiance), sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  text-shadow: 0 0 2px #000;
+  transform-origin: center center;
+}
+
+.killStreakHud em {
+  font-style: normal;
+  font-weight: 700;
+}
+
+.killStreakHud > p[data-callout="Killing Spree"] em {
+  color: #00ff40;
+}
+
+.killStreakHud > p[data-callout="Dominating"] em {
+  color: #5e00bd;
+}
+
+.killStreakHud > p[data-callout="Mega Kill"] em {
+  color: #ff0080;
+}
+
+.killStreakHud > p[data-callout="Unstoppable"] em {
+  color: #ff8000;
+}
+
+.killStreakHud > p[data-callout="Wicked Sick"] em {
+  color: #808000;
+}
+
+.killStreakHud > p[data-callout="Monster Kill"] em {
+  color: #ff80ff;
+}
+
+.killStreakHud > p[data-callout="Godlike"] em {
+  color: #ff0000;
+}
+
+.killStreakHud > p[data-callout="Beyond Godlike"] em {
+  color: #ff8000;
+}
+
+.firstBloodBanner {
+  animation: firstBloodReveal 0.2s linear;
+}
+
+.killStreakBanner {
+  animation: killStreakReveal 0.2s linear;
+}
+
+.firstBloodSplash {
+  position: fixed;
+  z-index: 39;
+  inset: 0;
+  pointer-events: none;
+  background: url("/arcade/first-blood-splash.png") center / cover no-repeat;
+  animation: firstBloodSplash 1.65s ease-out forwards;
+}
+
+@keyframes firstBloodSplash {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  12% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  55% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
 .header {
   display: flex;
   width: min(100% - 48px, 1420px);
@@ -143,8 +241,7 @@
   gap: 10px;
 }
 
-.patchBadge,
-.fanBadge {
+.patchBadge {
   display: inline-flex;
   height: 32px;
   align-items: center;
@@ -560,12 +657,14 @@
 
 .lobbyActions {
   display: flex;
-  align-items: flex-start;
-  gap: 18px;
+  align-items: stretch;
+  gap: 14px;
   margin-top: 28px;
 }
 
 .lobbyActions > .primaryButton {
+  flex: 0 1 auto;
+  width: min(100%, 440px);
   margin-top: 0;
 }
 
@@ -573,13 +672,17 @@
   display: grid;
   width: 180px;
   min-width: 180px;
-  height: 52px;
-  place-items: center;
+  height: 58px;
+}
+
+.accountActionSlot > * {
+  width: 100%;
+  height: 100%;
 }
 
 .accountLoading {
   width: 180px;
-  height: 52px;
+  height: 58px;
   border: 1px solid rgba(255, 255, 255, 0.055);
   background: linear-gradient(
     100deg,
@@ -591,14 +694,16 @@
   animation: accountLoading 1.7s ease-in-out infinite;
 }
 
-.steamSignIn {
-  justify-self: start;
+.lobbyActions .steamSignIn {
+  width: 180px;
+  height: 58px;
+  min-height: 58px;
 }
 
 .profileAction {
   display: grid;
   width: 180px;
-  height: 52px;
+  height: 58px;
   align-items: center;
   gap: 10px;
   padding: 8px 10px;
@@ -658,54 +763,45 @@
 .primaryButton {
   position: relative;
   display: inline-flex;
-  min-height: 56px;
-  min-width: 268px;
+  height: 58px;
+  min-height: 58px;
+  min-width: 280px;
   align-items: center;
   justify-content: center;
-  gap: 11px;
-  overflow: visible;
+  overflow: hidden;
   padding: 0 28px;
-  border: 2px solid #d4b14a;
-  background:
-    linear-gradient(180deg, rgba(232, 196, 104, 0.08), transparent 42%),
-    linear-gradient(180deg, #2a2418 0%, #14110c 52%, #0c0a08 100%);
+  border: 2px solid #08111c;
+  background: repeating-linear-gradient(
+      126deg,
+      transparent 0 64px,
+      rgba(0, 0, 0, 0.16) 64px 65px,
+      rgba(214, 228, 214, 0.09) 65px 66px,
+      transparent 66px 67px
+    ),
+    linear-gradient(180deg, rgba(220, 232, 220, 0.07) 0%, transparent 38%, rgba(0, 0, 0, 0.18) 100%),
+    linear-gradient(180deg, #4a8654 0%, #3f744c 50%, #345e46 100%);
   box-shadow:
-    0 0 0 1px #1a1408,
-    inset 0 0 0 1px rgba(212, 168, 64, 0.28),
-    inset 0 1px 0 rgba(240, 214, 140, 0.16),
-    inset 0 -10px 18px rgba(0, 0, 0, 0.35);
-  color: #e6c45c;
-  font-size: 13px;
-  font-weight: 720;
-  letter-spacing: 0.16em;
+    0 0 0 1px #050b14,
+    inset 0 1px 0 rgba(210, 228, 210, 0.16),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.3);
+  color: #f4f6f4;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  text-shadow:
-    0 1px 0 #1a1408,
-    0 0 12px rgba(214, 168, 64, 0.28);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.42);
   cursor: pointer;
-  clip-path: polygon(
-    8px 0,
-    calc(100% - 8px) 0,
-    100% 8px,
-    100% calc(100% - 8px),
-    calc(100% - 8px) 100%,
-    8px 100%,
-    0 calc(100% - 8px),
-    0 8px
-  );
   transition:
-    color 140ms ease,
     filter 140ms ease,
     transform 140ms ease;
 }
 
 .primaryButton:hover {
-  color: #f3d67a;
-  filter: brightness(1.1) drop-shadow(0 0 14px rgba(212, 168, 64, 0.38));
+  filter: brightness(1.07);
 }
 
 .primaryButton:active {
-  filter: brightness(0.92);
+  filter: brightness(0.93);
   transform: translateY(1px);
 }
 
@@ -713,18 +809,13 @@
 .modeCard:disabled,
 .modeCard[aria-disabled="true"] {
   cursor: wait;
-  filter: saturate(0.55) brightness(0.86);
-  opacity: 0.78;
+  filter: saturate(0.72) brightness(0.88);
+  opacity: 0.86;
   transform: none;
 }
 
 .primaryButton svg {
-  width: 14px;
-  height: 14px;
-}
-
-.primaryButton[data-searching="true"] {
-  overflow: visible;
+  display: none;
 }
 
 .searchRadar {
@@ -1224,139 +1315,211 @@
 
 .entryWait {
   display: grid;
-  width: min(100% - 48px, 1120px);
+  width: min(100% - 48px, 1180px);
   min-height: calc(100vh - 154px);
   place-items: center;
   margin: 0 auto;
   padding: 40px 0 56px;
 }
 
-.entryWaitStage {
-  position: relative;
-  display: grid;
-  width: 100%;
-  min-height: 520px;
-  place-items: center;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  background: radial-gradient(circle at 50% 46%, rgba(91, 137, 160, 0.13), transparent 31%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.026), transparent 34%), rgba(15, 18, 19, 0.9);
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.26);
-}
-
-.entryWaitStage::before,
-.entryWaitStage::after {
-  position: absolute;
-  width: 310px;
-  height: 310px;
-  border: 1px solid rgba(114, 183, 213, 0.06);
-  content: "";
-  transform: rotate(45deg);
-  pointer-events: none;
-}
-
-.entryWaitStage::before {
-  top: -220px;
-  left: -100px;
-}
-
-.entryWaitStage::after {
-  right: -100px;
-  bottom: -220px;
-}
-
-.entryWaitStage .timerTrack > span {
-  background: linear-gradient(90deg, #3e6f87, #72b7d5);
-  box-shadow: 0 0 14px rgba(114, 183, 213, 0.42);
-}
-
 .entryWaitContent {
-  position: relative;
-  z-index: 1;
   display: flex;
+  width: 100%;
   align-items: center;
   flex-direction: column;
   text-align: center;
 }
 
-.entryWaitIcon {
-  position: relative;
-  display: inline-grid;
-  width: 64px;
-  height: 64px;
-  place-items: center;
-  margin-bottom: 24px;
-  border: 1px solid rgba(114, 183, 213, 0.34);
-  background: rgba(114, 183, 213, 0.07);
-  color: #78bedb;
-  box-shadow:
-    0 0 0 9px rgba(114, 183, 213, 0.025),
-    0 0 44px rgba(114, 183, 213, 0.13);
-  animation: entryWaitSignal 1.8s ease-in-out infinite;
-}
-
-.entryWaitIcon svg {
-  width: 25px;
-  height: 25px;
-}
-
-.entryWaitContent > small {
-  color: #78bedb;
+.entryWaitContent > strong {
+  color: #e7ecec;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 11px;
-  font-weight: 650;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.entryWaitContent h1 {
-  margin: 16px 0 4px;
-  font-size: clamp(45px, 6vw, 72px);
-  font-weight: 380;
-  letter-spacing: -0.06em;
+  font-size: clamp(42px, 6vw, 68px);
+  font-weight: 450;
+  letter-spacing: 0.08em;
   line-height: 1;
 }
 
-.entryWaitContent > strong {
-  color: #c6ced0;
+.entryWait[data-lessons="false"] .entryWaitContent > strong {
+  font-size: clamp(22px, 4vw, 32px);
+  letter-spacing: 0.06em;
+  opacity: 0.72;
+}
+
+.entryWaitHint {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.entryWaitCarousel {
+  display: grid;
+  width: 100%;
+  align-items: stretch;
+  gap: 10px;
+  grid-template-columns: 36px minmax(0, 1fr) 36px;
+  margin: 28px 0 0;
+}
+
+.entryWaitTipButton {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  align-self: center;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.entryWaitTipButton svg {
+  width: 28px;
+  height: 28px;
+}
+
+.entryWaitTipButton:hover {
+  color: #aaa;
+}
+
+.entryWaitTipButton:active {
+  color: #fff;
+  transform: scale(0.9);
+}
+
+.entryWaitTipBar {
+  display: grid;
+  min-width: 0;
+  gap: 10px;
+  padding: 10px 18px 16px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 34, 0.87) 15%, rgba(0, 0, 34, 0.87) 85%, transparent);
+}
+
+.entryWaitCardCopy > small {
+  color: #9aa3ad;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 24px;
-  font-weight: 450;
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
 }
 
-.entryWaitPulse {
-  display: flex;
-  height: 34px;
-  align-items: center;
-  gap: 5px;
-  margin: 27px 0 23px;
+.entryWaitCard {
+  display: grid;
+  min-width: 0;
+  gap: 16px;
+  grid-template-rows: auto minmax(0, 1fr);
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
-.entryWaitPulse i {
+.entryWaitCardCopy {
+  display: grid;
+  max-width: 720px;
+  min-height: 48px;
+  gap: 4px;
+  align-content: start;
+  margin: 0 auto;
+}
+
+/* One slot for every pause tip. Next/prev must not resize the page. */
+.entryWaitStage {
+  position: relative;
+  height: min(440px, 48vh);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.entryWaitPanel {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  display: none;
+}
+
+.entryWaitPanel[data-active="true"] {
   display: block;
-  width: 3px;
-  height: 10px;
-  background: #72b7d5;
-  opacity: 0.32;
-  animation: entryWaitBar 900ms ease-in-out infinite alternate;
 }
 
-.entryWaitPulse i:nth-child(2),
-.entryWaitPulse i:nth-child(6) {
-  height: 18px;
-  animation-delay: -180ms;
+.entryWaitPanel[data-panel="keys"][data-active="true"] {
+  display: flex;
+  overflow: hidden;
 }
 
-.entryWaitPulse i:nth-child(3),
-.entryWaitPulse i:nth-child(5) {
-  height: 27px;
-  animation-delay: -360ms;
+.entryWaitPanel[data-panel="shop"][data-active="true"] {
+  display: flex;
+  overflow: hidden;
 }
 
-.entryWaitPulse i:nth-child(4) {
-  height: 34px;
-  animation-delay: -540ms;
+.entryWaitPanel .heroPicker,
+.entryWaitPanel .shopkeeperStore {
+  margin: 0;
+}
+
+.entryWaitPanel .shopkeeperStore {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  flex-direction: column;
+  text-align: left;
+}
+
+.entryWaitPanel .shopkeeperGroups {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+}
+
+.entryWaitCardCopy p {
+  min-height: 1.35em;
+  margin: 0;
+  color: #b4b8b2;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.entryWaitCardCopy em {
+  display: inline;
+  color: #fff;
+  font-style: normal;
+  font-weight: 550;
+  padding: 1px 6px 2px;
+  border: 1px solid #3d464c;
+  border-radius: 3px;
+  background: #000;
+}
+
+.entryWaitChoiceBoard {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+  text-align: left;
+}
+
+.entryWaitChoiceBoard .roundHeader {
+  min-height: 52px;
+  padding-inline: 20px;
+}
+
+.entryWaitChoiceBoard .questionBlock {
+  min-height: 0;
+  flex: 0 0 auto;
+  gap: 20px;
+  padding: 16px 24px 10px;
+}
+
+.entryWaitChoiceBoard .answers {
+  flex: 1 1 auto;
+  align-content: start;
+  padding: 4px 20px 16px;
 }
 
 .entryWaitStatus {
@@ -1390,6 +1553,11 @@
   padding: 28px 0 48px;
 }
 
+.gameLayout[data-copy-guard="blocked"] {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 .gameStage {
   position: relative;
   min-height: 704px;
@@ -1397,6 +1565,132 @@
   border: 1px solid var(--line);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.025), transparent 28%), rgba(15, 18, 19, 0.88);
   box-shadow: 0 32px 80px rgba(0, 0, 0, 0.26);
+}
+
+.flashbackStage {
+  background: radial-gradient(circle at 28% 18%, rgba(196, 164, 106, 0.08), transparent 32%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.025), transparent 28%), rgba(15, 18, 19, 0.88);
+}
+
+.flashbackQuestion .questionCopy > span {
+  color: #c4a46a;
+}
+
+.flashbackQuestion .artGlow {
+  background: rgba(196, 164, 106, 0.22);
+}
+
+.flashbackQuestion .artImage {
+  object-fit: contain;
+}
+
+.flashbackYears {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.flashbackYears .answerKey {
+  display: none;
+}
+
+.flashbackYears .answer {
+  min-height: 76px;
+  justify-content: center;
+  color: #f0d9a0;
+  font-family: var(--font-radiance), sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.flashbackOrderBoard {
+  display: grid;
+  gap: 12px;
+  margin: 0 28px 16px;
+}
+
+.flashbackOrderSlots {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.flashbackOrderSlots > span {
+  display: grid;
+  min-height: 58px;
+  align-content: center;
+  justify-items: center;
+  gap: 4px;
+  border: 1px solid rgba(196, 164, 106, 0.28);
+  background: rgba(8, 8, 8, 0.55);
+  color: #d8c08a;
+}
+
+.flashbackOrderSlots img,
+.flashbackOrderCards img,
+.flashbackOrderList img {
+  object-fit: contain;
+}
+
+.flashbackOrderSlots i,
+.flashbackOrderList i,
+.flashbackOrderCards i,
+.flashbackOrderCards em {
+  color: #8a8d85;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  font-style: normal;
+}
+
+.flashbackOrderCards {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.flashbackOrderCards button {
+  position: relative;
+  display: grid;
+  min-height: 124px;
+  align-content: start;
+  justify-items: start;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 12, 12, 0.78);
+  color: #e7ecec;
+  text-align: left;
+  cursor: pointer;
+}
+
+.flashbackOrderCards button > img {
+  width: 48px;
+  height: 48px;
+}
+
+.flashbackOrderCards button[data-selected="true"] {
+  border-color: rgba(196, 164, 106, 0.7);
+  box-shadow: inset 0 0 0 1px rgba(196, 164, 106, 0.35);
+}
+
+.flashbackOrderCards small {
+  color: #8a8d85;
+}
+
+.flashbackOrderList {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.flashbackOrderList li {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 24px 36px minmax(0, 1fr);
+  gap: 6px 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(196, 164, 106, 0.22);
+  background: rgba(8, 8, 8, 0.5);
 }
 
 .shopkeeperStage {
@@ -1647,20 +1941,6 @@
   font-size: 19px;
   font-weight: 450;
   text-align: right;
-}
-
-.timerAccept {
-  color: #c6e86a;
-  animation: acceptPulse 0.65s ease-in-out infinite alternate;
-}
-
-.timerAccept svg {
-  color: #c6e86a;
-}
-
-.gameStage:has(.timerAccept) .timerTrack > span {
-  background: linear-gradient(90deg, #5a9a28, #c6e86a);
-  box-shadow: 0 0 16px rgba(148, 204, 62, 0.55);
 }
 
 .questionBlock {
@@ -3104,77 +3384,47 @@
   scrollbar-color: rgba(124, 166, 166, 0.35) rgba(0, 0, 0, 0.2);
 }
 
-.heroPickerSearch {
+.quickSearch {
   position: absolute;
-  z-index: 8;
-  top: 5px;
-  right: 10px;
+  z-index: 9;
+  inset: 0;
   display: grid;
-  width: 226px;
-  height: 27px;
   align-items: center;
-  grid-template-columns: 24px minmax(0, 1fr) auto auto;
-  border: 1px solid rgba(137, 172, 174, 0.22);
-  background: rgba(7, 11, 11, 0.94);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  justify-items: center;
+  overflow: hidden;
+  pointer-events: none;
+  color: #fff;
+  font-size: clamp(56px, 11vw, 100px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-align: center;
+  text-overflow: clip;
+  text-shadow:
+    2px 2px 10px #000,
+    0 0 10px #000;
+  text-transform: uppercase;
+  opacity: 0;
 }
 
-.heroPickerSearch > svg {
-  width: 12px;
-  height: 12px;
-  justify-self: center;
-  color: #7c9899;
+.quickSearch[data-active="true"] {
+  animation: quickSearchFade 1.5s linear forwards;
 }
 
-.heroPickerSearch input {
-  width: 100%;
-  min-width: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: #d8dfda;
-  font:
-    10px var(--font-geist-mono),
-    monospace;
-}
+@keyframes quickSearchFade {
+  0% {
+    opacity: 1;
+    filter: blur(0);
+  }
 
-.heroPickerSearch input::placeholder {
-  color: #657170;
-}
+  50% {
+    filter: blur(0);
+  }
 
-.heroPickerSearch input:disabled {
-  cursor: default;
-}
-
-.heroPickerSearch small {
-  color: #84c6cb;
-  font:
-    8px var(--font-geist-mono),
-    monospace;
-}
-
-.heroPickerSearch button {
-  display: grid;
-  width: 24px;
-  height: 25px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #7f8b89;
-  cursor: pointer;
-  place-items: center;
-}
-
-.heroPickerSearch button:hover,
-.heroPickerSearch button:focus-visible {
-  color: #d9e3de;
-  outline: 0;
-}
-
-.heroPickerSearch button svg {
-  width: 12px;
-  height: 12px;
+  100% {
+    opacity: 0;
+    filter: blur(4px);
+  }
 }
 
 .heroPickerBoard {
@@ -3366,6 +3616,7 @@ button[data-state="wrong"] > .heroPickerVerdict {
 }
 
 .shopkeeperStore {
+  position: relative;
   margin: 0 28px 12px;
   overflow: hidden;
   border: 1px solid rgba(210, 163, 74, 0.24);
@@ -3376,6 +3627,7 @@ button[data-state="wrong"] > .heroPickerVerdict {
 }
 
 .shopkeeperStoreToolbar {
+  position: relative;
   display: flex;
   min-height: 42px;
   align-items: center;
@@ -3384,6 +3636,62 @@ button[data-state="wrong"] > .heroPickerVerdict {
   padding: 6px 8px 6px 11px;
   border-bottom: 1px solid rgba(210, 163, 74, 0.16);
   background: rgba(0, 0, 0, 0.2);
+}
+
+.shopSearchBox {
+  display: flex;
+  min-width: 180px;
+  max-width: 350px;
+  height: 36px;
+  flex: 1 1 220px;
+  align-items: center;
+  gap: 4px;
+  padding: 0 7px 0 4px;
+  border: 1px solid #3d464c;
+  border-radius: 3px;
+  background: #000;
+}
+
+.shopSearchBox[data-focused="true"],
+.shopSearchBox:focus-within {
+  border-color: #63a4ff;
+  background: rgb(44, 51, 58);
+  box-shadow: 0 0 16px rgba(99, 164, 255, 0.28);
+}
+
+.shopSearchBox svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  color: #8da1b1;
+}
+
+.shopSearchBox input {
+  width: 100%;
+  min-width: 0;
+  padding: 5px 0 3px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.2;
+  outline: none;
+}
+
+.shopSearchBox input::placeholder {
+  color: #57646d;
+}
+
+.shopSearchBox[data-demo="true"] {
+  max-width: none;
+  pointer-events: none;
+}
+
+.shopSearchBox[data-demo="true"] span {
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
 }
 
 .shopkeeperRecipeBuilder {
@@ -3429,7 +3737,7 @@ button[data-state="wrong"] > .heroPickerVerdict {
 }
 
 .shopkeeperRecipeSlots > button,
-.shopkeeperRecipeSlots > span {
+.shopkeeperRecipeSlots > span:not(.shopkeeperRecipeIncluded) {
   position: relative;
   display: grid;
   width: 58px;
@@ -3443,7 +3751,7 @@ button[data-state="wrong"] > .heroPickerVerdict {
   place-items: center;
 }
 
-.shopkeeperRecipeSlots > span {
+.shopkeeperRecipeSlots > span:not(.shopkeeperRecipeIncluded) {
   border-style: dashed;
   color: #62563d;
   font:
@@ -3460,6 +3768,36 @@ button[data-state="wrong"] > .heroPickerVerdict {
   border-color: #dfb656;
   outline: 0;
   filter: brightness(1.08);
+}
+
+.shopkeeperRecipeIncluded {
+  display: grid;
+  width: 58px;
+  justify-items: center;
+  gap: 2px;
+  flex: 0 0 auto;
+  color: #8a8d85;
+}
+
+.shopkeeperRecipeIncluded img {
+  width: 36px;
+  height: 27px;
+  object-fit: contain;
+  opacity: 0.92;
+}
+
+.shopkeeperRecipeIncluded small {
+  font:
+    8px var(--font-geist-mono),
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.shopkeeperRecipeRevealRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .shopkeeperRecipeSlots > button:disabled {
@@ -3579,52 +3917,15 @@ button[data-state="wrong"] > .heroPickerVerdict {
   background: linear-gradient(180deg, transparent, rgba(210, 163, 74, 0.08));
 }
 
-.shopkeeperSearch {
-  display: flex;
-  width: min(230px, 36%);
-  min-height: 29px;
-  align-items: center;
-  gap: 7px;
-  padding: 0 9px;
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  background: rgba(0, 0, 0, 0.26);
-  color: #707873;
-}
-
-.shopkeeperSearch:focus-within {
-  border-color: rgba(210, 163, 74, 0.42);
-  color: #c7a45e;
-}
-
-.shopkeeperSearch svg {
-  width: 13px;
-  flex: 0 0 auto;
-}
-
-.shopkeeperSearch input {
-  width: 100%;
-  min-width: 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: #d1d2ca;
-  font:
-    11px var(--font-geist-sans),
-    sans-serif;
-}
-
-.shopkeeperSearch input::placeholder {
-  color: #626864;
-}
-
+/* Locked board: search packs matches but must not resize the shop. */
 .shopkeeperGroups {
   display: grid;
   min-width: 880px;
-  min-height: 190px;
+  height: 224px;
   gap: 7px;
   grid-template-columns: repeat(6, minmax(136px, 1fr));
   padding: 9px;
-  overflow-x: auto;
+  overflow: auto;
   scrollbar-color: rgba(210, 163, 74, 0.35) rgba(0, 0, 0, 0.2);
 }
 
@@ -3744,21 +4045,31 @@ button[data-state="wrong"] > .heroPickerVerdict {
 }
 
 .shopkeeperSearchResults {
-  min-width: 0;
   grid-template-columns: 1fr;
 }
 
+.shopkeeperSearchResults .shopkeeperGroup {
+  border-color: transparent;
+  background: transparent;
+}
+
+.shopkeeperSearchResults .shopkeeperGroup h3 {
+  text-align: left;
+}
+
 .shopkeeperSearchResults .shopkeeperGroup > div {
-  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  grid-template-columns: repeat(auto-fill, 48px);
+  justify-content: start;
 }
 
 .shopkeeperSearchResults .shopkeeperGroup button {
-  max-width: 66px;
+  width: 48px;
+  max-width: none;
 }
 
 .shopkeeperNoResults {
   display: grid;
-  min-height: 140px;
+  height: 100%;
   place-items: center;
   margin: 0;
   color: #777c78;
@@ -4835,6 +5146,38 @@ button[data-state="wrong"] > .heroPickerVerdict {
   text-transform: uppercase;
 }
 
+@keyframes firstBloodReveal {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(3);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes killStreakReveal {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.6);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .revealCopy p {
   display: -webkit-box;
   overflow: hidden;
@@ -5212,28 +5555,6 @@ button[data-state="wrong"] > .heroPickerVerdict {
   font-size: 9px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-}
-
-.progressActions > button {
-  display: grid;
-  width: 22px;
-  height: 22px;
-  place-items: center;
-  border: 1px solid var(--line);
-  background: transparent;
-  color: var(--faint);
-  cursor: pointer;
-  transition: 150ms ease;
-}
-
-.progressActions > button:hover {
-  border-color: rgba(118, 198, 138, 0.28);
-  color: var(--green);
-}
-
-.progressActions > button svg {
-  width: 11px;
-  height: 11px;
 }
 
 .roundPips {
@@ -5823,10 +6144,6 @@ button[data-state="wrong"] > .heroPickerVerdict {
     flex: 1;
   }
 
-  .shopkeeperSearch {
-    width: 100%;
-  }
-
   .shopkeeperRecipeBuilder {
     grid-template-columns: minmax(0, 1fr) auto;
   }
@@ -5856,6 +6173,7 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
   .shopkeeperGroups {
     min-width: 0;
+    height: 390px;
     max-height: 390px;
     grid-template-columns: repeat(2, minmax(138px, 1fr));
     overflow: auto;
@@ -6237,13 +6555,6 @@ button[data-state="wrong"] > .heroPickerVerdict {
   }
 }
 
-@keyframes acceptPulse {
-  to {
-    filter: brightness(1.28) drop-shadow(0 0 8px rgba(168, 214, 72, 0.55));
-    transform: scale(1.04);
-  }
-}
-
 @keyframes searchPing {
   0% {
     opacity: 0.55;
@@ -6520,8 +6831,7 @@ button[data-state="wrong"] > .heroPickerVerdict {
     min-height: 72px;
   }
 
-  .brand small,
-  .fanBadge {
+  .brand small {
     display: none;
   }
 
@@ -6593,11 +6903,16 @@ button[data-state="wrong"] > .heroPickerVerdict {
   }
 
   .lobbyActions > .primaryButton {
+    flex: none;
+    width: 100%;
+    min-width: 0;
+    height: 58px;
     margin-top: 0;
   }
 
   .primaryButton {
     width: 100%;
+    min-width: 0;
   }
 
   .featureStrip {
@@ -6630,8 +6945,8 @@ button[data-state="wrong"] > .heroPickerVerdict {
     padding: 20px 0 36px;
   }
 
-  .entryWaitStage {
-    min-height: 430px;
+  .entryWaitCarousel {
+    grid-template-columns: 28px minmax(0, 1fr) 28px;
   }
 
   .gameStage {

@@ -36,7 +36,11 @@ function publicPreviewForQuestion(question, game) {
     prompt: question.prompt,
     detail: game === "quote-hunt" ? (question.detail ?? null) : null,
     hint: game === "spell-link" ? (question.hint ?? null) : null,
-    answers: game === "trivia" && Array.isArray(question.answers) ? [...question.answers] : null,
+    answers:
+      (game === "trivia" || (game === "flashback" && question.kind !== "flashback-order")) &&
+      Array.isArray(question.answers)
+        ? [...question.answers]
+        : null,
     image:
       game === "aghanim-lab"
         ? aghanimArtwork(question)

@@ -1,11 +1,11 @@
 import { seededShuffle, varietyShuffle } from "./variety.mjs";
 
 /**
- * A subject may return after thirteen rounds, but never inside the previous twelve.
- * Thirteen is coprime with the twelve-format public rotation, so every format gets
+ * A subject may return after twelve rounds, but never inside the previous eleven.
+ * Twelve is coprime with the thirteen-format public rotation, so every format gets
  * an opportunity to use every subject slot.
  */
-export const SEMANTIC_REPEAT_GAP_ROUNDS = 12;
+export const SEMANTIC_REPEAT_GAP_ROUNDS = 11;
 export const SEMANTIC_SLOT_COUNT = SEMANTIC_REPEAT_GAP_ROUNDS + 1;
 
 const HERO_ANSWER_KINDS = new Set([
@@ -148,6 +148,10 @@ export function semanticSubjectForQuestion(question, context) {
 
   if (question.valueOrder) {
     return `order:${question.id}`;
+  }
+
+  if (typeof question.kind === "string" && question.kind.startsWith("flashback-")) {
+    return question.flashback?.subject ?? `flashback:${question.id}`;
   }
 
   return null;

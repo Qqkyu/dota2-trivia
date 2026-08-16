@@ -4,7 +4,9 @@ import shopkeeperQuestions from "@/data/shopkeeper-questions.json";
 import generatedMeta from "@/data/trivia-meta.generated.json";
 import soundcheckQuestions from "@/data/soundcheck-questions.json";
 import valueOrderQuestions from "@/data/value-order-questions.json";
-import { PUBLIC_ROUND_FORMATS, roundFormatForQuestion } from "@/lib/arcade-games.mjs";
+import flashbackQuestions from "@/data/flashback-questions.json";
+import { livePublicRoundFormats, roundFormatForQuestion } from "@/lib/arcade-games.mjs";
+import { isPlayableFlashbackQuestion } from "@/lib/flashback.mjs";
 import type { MapChallenge } from "@/lib/map-types";
 import { isPlayableShopkeeperQuestion } from "@/lib/shopkeeper-quality.mjs";
 import { isPlayableClassicTriviaQuestion } from "@/lib/classic-trivia-quality.mjs";
@@ -23,7 +25,9 @@ export type TriviaCategory =
   | "Mana"
   | "Heroes"
   | "Map"
-  | "Mechanics";
+  | "Mechanics"
+  | "History"
+  | "Esports";
 export type ArcadeMode =
   | "mixed"
   | "trivia"
@@ -35,6 +39,7 @@ export type ArcadeMode =
   | "quote-hunt"
   | "aghanim-lab"
   | "order-up"
+  | "flashback"
   | "map-sense"
   | "counterplay";
 export type RoundGame = Exclude<ArcadeMode, "mixed">;
@@ -68,6 +73,9 @@ export type QuestionKind =
   | "value-order-damage"
   | "value-order-move-speed"
   | "value-order-attack-range"
+  | "flashback-year"
+  | "flashback-choice"
+  | "flashback-order"
   | "map-location"
   | "map-riddle"
   | "map-mirror"
@@ -187,6 +195,13 @@ export interface TriviaQuestion {
       clientBuild: string;
     };
   };
+  flashback?: {
+    family: "year" | "choice" | "order";
+    subject?: string;
+    correctYear?: number;
+    cards?: Array<{ key: string; name: string; context?: string; image?: string }>;
+    correctOrder?: [string, string, string, string];
+  };
   aghanim?: AghanimUpgrade;
   shopkeeper?: {
     format?: ShopkeeperFormat;
@@ -253,7 +268,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-5-shopkeeper-6-public-arcade-4-soundcheck-10-spell-link-4-fogged-vision-3-global-score-1-order-up-3-aghanim-lab-1`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-5-shopkeeper-6-public-arcade-4-soundcheck-10-spell-link-4-fogged-vision-3-global-score-1-order-up-3-aghanim-lab-1-flashback-1-playtest-1`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
     isPlayableClassicTriviaQuestion(question) &&
@@ -267,6 +282,7 @@ export const triviaQuestions = [
   ...(soundcheckQuestions as unknown as TriviaQuestion[]),
   ...(valueOrderQuestions as unknown as TriviaQuestion[]),
   ...(aghanimQuestions as unknown as TriviaQuestion[]),
+  ...(flashbackQuestions as unknown as TriviaQuestion[]).filter(isPlayableFlashbackQuestion),
 ];
 
 export interface ArcadeRound extends TriviaQuestion {
@@ -293,6 +309,7 @@ export function gameForQuestion(question: TriviaQuestion): RoundGame {
   if (question.kind === "hero-quote") return "quote-hunt";
   if (question.kind === "aghanim-upgrade") return "aghanim-lab";
   if (question.kind.startsWith("value-order-")) return "order-up";
+  if (question.kind.startsWith("flashback-")) return "flashback";
   if (question.kind.startsWith("map-")) return "map-sense";
   if (question.kind.startsWith("counterplay-")) return "counterplay";
   return "trivia";
@@ -315,7 +332,7 @@ export function createArcadeDeck(
   if (mode === "mixed") {
     const roomFilter = sharedKnowledgeFilter(filter);
     return createSemanticPublicDeck(triviaQuestions, {
-      formats: PUBLIC_ROUND_FORMATS,
+      formats: livePublicRoundFormats(),
       getFormat: roundFormatForQuestion,
       seed: `${seed}:semantic-subjects:${roomFilter}:${ARCADE_CONTENT_VERSION}`,
       poolSeedForFormat: (format: string) => `${seed}:format:${format}:${roomFilter}:${ARCADE_CONTENT_VERSION}`,
@@ -334,6 +351,7 @@ export function createArcadeDeck(
     "quote-hunt": shuffledPool(seed, "quote-hunt", filter),
     "aghanim-lab": shuffledPool(seed, "aghanim-lab", filter),
     "order-up": shuffledPool(seed, "order-up", filter),
+    flashback: shuffledPool(seed, "flashback", filter),
     "map-sense": shuffledPool(seed, "map-sense", filter),
     counterplay: shuffledPool(seed, "counterplay", filter),
   };
@@ -348,6 +366,7 @@ export function createArcadeDeck(
     "quote-hunt": 0,
     "aghanim-lab": 0,
     "order-up": 0,
+    flashback: 0,
     "map-sense": 0,
     counterplay: 0,
   };

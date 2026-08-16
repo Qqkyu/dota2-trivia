@@ -94,6 +94,12 @@ const PREVIEWS = {
       image: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pipe.png",
     }),
   }),
+  flashback: samplePreview("flashback", {
+    category: "Esports",
+    eyebrow: "The first Aegis",
+    prompt: "Who won the first The International?",
+    answers: ["EHOME", "Natus Vincere", "Invictus Gaming", "Alliance"],
+  }),
 };
 
 export const PROFILE_RECORDS_PREVIEW_SIZES = Object.freeze(["short", "long"]);

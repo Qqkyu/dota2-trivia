@@ -154,7 +154,7 @@ const fogged = mastery.find((row) => row.game === "fogged-vision");
 if (
   !publicFormatsHaveIdentities() ||
   mastery.length !== LIVE_ROUND_GAMES.length ||
-  PUBLIC_ROUND_FORMATS.length !== 12 ||
+  PUBLIC_ROUND_FORMATS.length !== 13 ||
   classic?.label !== "Classic Trivia" ||
   classic.look !== "Four choices" ||
   classic.answered !== 6 ||
@@ -229,7 +229,7 @@ if (
   comparedFogged?.clues.length !== 0 ||
   shortPreview.formats.some((row) => row.room !== null) ||
   longPreview.formats.find((row) => row.game === "trivia")?.room !== 45 ||
-  longPreview.formats.length !== 9
+  longPreview.formats.length !== 10
 ) {
   failures.push("Profile format compare no longer shows you versus the crowd.");
 }

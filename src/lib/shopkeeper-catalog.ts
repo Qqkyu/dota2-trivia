@@ -34,6 +34,9 @@ export interface ShopkeeperCatalog {
   groups: ShopkeeperCatalogGroup[];
 }
 
+export const SHOPKEEPER_RECIPE_IMAGE =
+  "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/recipe.png";
+
 export const SHOPKEEPER_CATALOG = catalogData as ShopkeeperCatalog;
 export const SHOPKEEPER_CATALOG_ITEMS = SHOPKEEPER_CATALOG.groups.flatMap((group) => group.items);
 export const SHOPKEEPER_CATALOG_BY_KEY = new Map(SHOPKEEPER_CATALOG_ITEMS.map((item) => [item.key, item]));

@@ -36,7 +36,7 @@ The playable MVP includes:
 - a responsive calibration lab at `/calibration`, with Steam-protected reviewed/quarantined states and automatic reopening when new reports arrive;
 - ephemeral live-room presence plus a Steam-protected `/ops` dashboard for visits, return rate, rounds per visit, and format health;
 - proper social preview metadata for links pasted outside the app;
-- optional Pusher broadcasts between connected browsers, with automatic polling as the zero-config fallback;
+- a five-second room poll plus deadline wakeups so every browser stays on the same round;
 - keyboard controls, responsive layouts, persistent mute and master volume, sound cues, and local lifetime stats;
 - optional Steam OpenID profiles with cross-browser accuracy, streaks, best-ten records, early solves, and per-format mastery;
 - server-recorded connected results, 30-day hashed sessions, a plain-language privacy page, and self-service profile deletion;
@@ -88,8 +88,6 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
-
-Pusher is optional. Copy `.env.example` to `.env.local` and add a Pusher Channels app if you want participation totals broadcast immediately to every connected browser. Without it, clients poll the server and the synchronized game still works.
 
 Votes and question reports default to `.data/queue-arcade-votes.json`, which is intentionally ignored by Git. Set `DATABASE_URL` to use the production Postgres store; the application creates its Queue Arcade tables on the first readiness check. Anonymous player IDs are salted and hashed before persistence, and production requires a private `ARCADE_VOTER_SALT`.
 
@@ -258,8 +256,7 @@ Votes are keyed by round ID, so a repeated question gets a fresh split, and answ
 enters its reveal phase. `/api/reports` similarly resolves the reportable current or previous round instead of trusting a
 browser-supplied question ID. It opens with the reveal and keeps the just-finished question reportable for a 20-second
 rollover grace period. The browser corrects for server clock offset and schedules exact phase and progressive-clue
-refreshes. A five-second recovery heartbeat plus focus, visibility, page-resume, and network wakeups repair missed timers;
-optional Pusher events surface participation immediately.
+refreshes. A five-second recovery heartbeat plus focus, visibility, page-resume, and network wakeups repair missed timers.
 
 Remote Steam artwork bypasses the application image proxy, the compact app icon replaces the former multi-size ICO, and
 stable local Dota feedback cues carry a 30-day browser cache policy. Answer-sensitive Echo Hunt and Soundcheck audio remains
@@ -267,7 +264,7 @@ behind the current-round private proxy so its upstream filename cannot reveal an
 
 First-time room entry is gated separately from the shared clock. A player joins the active question when at least eight seconds remain; otherwise the client holds on a synchronized countdown and begins with the next full round. Existing players never pause or leave the global timeline.
 
-The local persistent store is an atomic JSON file suited to development and a single long-running Node instance with a persistent disk. Public deployments switch automatically to transactional Postgres when `DATABASE_URL` is configured. Raw per-round votes expire independently from durable question aggregates. Calibration keys include a stable fingerprint of the playable prompt, choices, marked answer, clues, and assets, so an unchanged question keeps its history across room releases while an edited question starts cleanly. `/calibration` never exposes voter hashes. It waits for 20 answers before suggesting that a question looks too easy or too hard. Reports and sampled difficulty outliers open the review queue; allowlisted Steam reviewers can mark a signal reviewed or quarantined, and a reviewed signal reopens when new evidence arrives. None of those states silently changes the live deck. Pusher distributes updates but is never the source of truth.
+The local persistent store is an atomic JSON file suited to development and a single long-running Node instance with a persistent disk. Public deployments switch automatically to transactional Postgres when `DATABASE_URL` is configured. Raw per-round votes expire independently from durable question aggregates. Calibration keys include a stable fingerprint of the playable prompt, choices, marked answer, clues, and assets, so an unchanged question keeps its history across room releases while an edited question starts cleanly. `/calibration` never exposes voter hashes. It waits for 20 answers before suggesting that a question looks too easy or too hard. Reports and sampled difficulty outliers open the review queue; allowlisted Steam reviewers can mark a signal reviewed or quarantined, and a reviewed signal reopens when new evidence arrives. None of those states silently changes the live deck.
 Public calibration responses also replace answer-bearing catalog IDs with their opaque revision fingerprints. Allowlisted
 reviewers receive the internal IDs only after their Steam session is verified, because those IDs are needed for explicit
 review and quarantine writes.

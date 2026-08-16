@@ -63,9 +63,6 @@ export function publicCalibrationSnapshot(snapshot: CalibrationSnapshot): Calibr
     ...snapshot,
     records: snapshot.records.map((record) => ({
       ...record,
-      // Calibration revisions are opaque and stable. Public players can still
-      // inspect aggregate quality signals without receiving catalog IDs that
-      // encode a hero, ability, or item answer.
       questionId: record.questionRevision,
     })),
   };

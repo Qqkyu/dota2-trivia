@@ -61,6 +61,18 @@ function Artwork({
 }
 
 function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind: string }) {
+  if (kind === "flashback") {
+    return (
+      <div className={clsx(arcade.questionBlock, arcade.flashbackQuestion)}>
+        {preview?.image?.src ? <Artwork src={preview.image.src} /> : null}
+        <div className={arcade.questionCopy}>
+          {preview?.eyebrow ? <span>{preview.eyebrow}</span> : null}
+          <h2>{preview?.prompt}</h2>
+        </div>
+      </div>
+    );
+  }
+
   if (kind === "order-up") {
     return (
       <div className={clsx(arcade.questionBlock, arcade.valueOrderQuestion)}>

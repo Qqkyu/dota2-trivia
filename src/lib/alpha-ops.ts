@@ -19,6 +19,7 @@ const FORMAT_LABELS: Record<string, string> = {
   "quote-hunt": "Quote Hunt",
   "aghanim-upgrades": "Aghanim's Lab",
   "value-order": "Order Up",
+  flashback: "Flashback",
 };
 
 export type AlphaFormatSignal = "collecting" | "healthy" | "too-easy" | "too-hard" | "reported";

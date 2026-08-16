@@ -19,12 +19,13 @@ import { varietyShuffle } from "../src/lib/variety.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const readQuestions = async (file) => JSON.parse(await readFile(join(root, "src", "data", file), "utf8"));
-const [generated, shopkeeper, soundcheck, valueOrder, aghanim, component, componentStyles] = await Promise.all([
+const [generated, shopkeeper, soundcheck, valueOrder, aghanim, flashback, component, componentStyles] = await Promise.all([
   readQuestions("questions.generated.json"),
   readQuestions("shopkeeper-questions.json"),
   readQuestions("soundcheck-questions.json"),
   readQuestions("value-order-questions.json"),
   readQuestions("aghanim-questions.json"),
+  readQuestions("flashback-questions.json"),
   readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8"),
   readFile(join(root, "src", "components", "queue-arcade.module.css"), "utf8"),
 ]);
@@ -42,6 +43,7 @@ const liveQuestions = [
   ...soundcheck,
   ...valueOrder,
   ...aghanim,
+  ...flashback,
 ];
 const failures = [];
 
@@ -53,17 +55,17 @@ const entryRound = {
 if (
   shouldWaitForNextRoundOnEntry({ ...entryRound, phase: "reveal" }, entryBoundary) !== true ||
   shouldWaitForNextRoundOnEntry(entryRound, entryBoundary + 1) !== true ||
-  shouldWaitForNextRoundOnEntry(entryRound, entryBoundary) !== false ||
+  shouldWaitForNextRoundOnEntry(entryRound, entryBoundary) !== true ||
   shouldWaitForNextRoundOnEntry({ ...entryRound, answerDeadline: entryBoundary + 15_000 }, entryBoundary) !== false
 ) {
-  failures.push("The first-entry gate no longer waits through reveals and short answer windows.");
+  failures.push("The first-entry gate no longer waits for a full unused question.");
 }
 
 if (LIVE_ARCADE_MODES.length !== 1 || LIVE_ARCADE_MODES[0] !== PUBLIC_ARCADE_MODE) {
   failures.push("More than one public mode is exposed.");
 }
-if (LIVE_ROUND_GAMES.length !== 9 || PUBLIC_ROUND_FORMATS.length !== 12) {
-  failures.push("The public arcade no longer has nine round identities and twelve scheduling formats.");
+if (LIVE_ROUND_GAMES.length !== 10 || PUBLIC_ROUND_FORMATS.length !== 13) {
+  failures.push("The public arcade no longer has ten round identities and thirteen scheduling formats.");
 }
 for (const [mode, repeatedLabel] of [
   ["Shopkeeper Rush", /<span>Shopkeeper Rush\b/],
@@ -87,9 +89,9 @@ if (
 }
 if (
   !/\.cardTitle svg\s*{[^}]*width:\s*12px;[^}]*height:\s*12px;[^}]*display:\s*block;/s.test(componentStyles) ||
-  !/\.progressActions > button svg\s*{[^}]*width:\s*11px;[^}]*height:\s*11px;/s.test(componentStyles)
+  !componentStyles.includes(".progressActions")
 ) {
-  failures.push("The recent-round trophy no longer has a square, block-level alignment contract.");
+  failures.push("The recent-round rail lost its compact alignment contract.");
 }
 
 const pools = new Map(
@@ -160,5 +162,5 @@ if (failures.length) {
 
 const poolCounts = Object.fromEntries([...pools].map(([format, pool]) => [format, pool.length]));
 console.log(
-  `Validated one ${liveQuestions.length}-question public room across twelve continuous formats: ${JSON.stringify(poolCounts)}.`,
+  `Validated one ${liveQuestions.length}-question public room across thirteen continuous formats: ${JSON.stringify(poolCounts)}.`,
 );

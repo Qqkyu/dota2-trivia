@@ -6,6 +6,8 @@ import { PUBLIC_ARCADE_MODE, roundFormatForQuestion } from "@/lib/arcade-games.m
 export const PUBLIC_ROUND_REVEAL_MS = 7_000;
 export const PUBLIC_ROOM_BATCH_LENGTH = 24;
 export const PUBLIC_ROUND_ANSWER_MS = 15_000;
+/** Covers lock-click → POST latency so a lock sound still counts. */
+export const PUBLIC_VOTE_ACCEPT_GRACE_MS = 800;
 
 const DEFAULT_ROUND_EPOCH_MS = Date.UTC(2026, 0, 1);
 

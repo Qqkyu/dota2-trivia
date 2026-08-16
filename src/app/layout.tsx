@@ -12,6 +12,11 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+const radianceBold = localFont({
+  src: "./fonts/radiance-bold.otf",
+  variable: "--font-radiance",
+  weight: "700",
+});
 
 const metadataBase = new URL(process.env.ARCADE_APP_URL?.trim() || "http://localhost:3000");
 
@@ -53,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>{children}</body>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${radianceBold.variable}`}>{children}</body>
     </html>
   );
 }

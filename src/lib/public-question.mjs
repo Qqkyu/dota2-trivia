@@ -6,6 +6,7 @@ import {
   recipeBuilderCorrectAnswerKey,
 } from "./item-picker.mjs";
 import { isValueOrderQuestion, valueOrderCorrectAnswerKey } from "./value-order.mjs";
+import { flashbackOrderCorrectAnswerKey, isFlashbackOrderQuestion } from "./flashback.mjs";
 
 function copyImage(image, alt) {
   if (!image) return undefined;
@@ -67,11 +68,14 @@ export function publicQuestionForRound(question, round, now) {
   const recipeBuilderAnswer = isRealRecipeBuilderQuestion(question);
   const heroPickerAnswer = isHeroPickerQuestion(question);
   const valueOrderAnswer = isValueOrderQuestion(question);
-  const keyedAnswer = openShopAnswer || recipeBuilderAnswer || heroPickerAnswer || valueOrderAnswer;
+  const flashbackOrderAnswer = isFlashbackOrderQuestion(question);
+  const keyedAnswer =
+    openShopAnswer || recipeBuilderAnswer || heroPickerAnswer || valueOrderAnswer || flashbackOrderAnswer;
   const heroAnswerKey = heroPickerAnswer ? heroCorrectAnswerKey(question) : null;
   const itemAnswerKey = openShopAnswer ? itemPickerCorrectAnswerKey(question) : null;
   const recipeAnswerKey = recipeBuilderAnswer ? recipeBuilderCorrectAnswerKey(question) : null;
   const orderAnswerKey = valueOrderAnswer ? valueOrderCorrectAnswerKey(question) : null;
+  const flashbackOrderKey = flashbackOrderAnswer ? flashbackOrderCorrectAnswerKey(question) : null;
   if (openShopAnswer && !itemAnswerKey) {
     throw new Error(`Item picker question ${question.id} has no resolvable shop item.`);
   }
@@ -83,6 +87,9 @@ export function publicQuestionForRound(question, round, now) {
   }
   if (valueOrderAnswer && !orderAnswerKey) {
     throw new Error(`Ordering question ${question.id} has no resolvable order.`);
+  }
+  if (flashbackOrderAnswer && !flashbackOrderKey) {
+    throw new Error(`Flashback order question ${question.id} has no resolvable order.`);
   }
   const hidePromptArtwork = round.game === "echo-hunt" || round.game === "soundcheck";
   const image =
@@ -137,6 +144,21 @@ export function publicQuestionForRound(question, round, now) {
         })),
       }
     : undefined;
+  const flashback = question.flashback
+    ? {
+        family: question.flashback.family,
+        ...(flashbackOrderAnswer
+          ? {
+              cards: question.flashback.cards.map(({ key, name, context, image }) => ({
+                key,
+                name,
+                ...(context ? { context } : {}),
+                ...(image ? { image } : {}),
+              })),
+            }
+          : {}),
+      }
+    : undefined;
   const aghanim = question.aghanim
     ? {
         effect: question.aghanim.effect,
@@ -170,7 +192,9 @@ export function publicQuestionForRound(question, round, now) {
           ? { answerMode: "hero-grid" }
           : valueOrderAnswer
             ? { answerMode: "value-order" }
-            : {}),
+            : flashbackOrderAnswer
+              ? { answerMode: "flashback-order" }
+              : {}),
     ...(!keyedAnswer && question.answerImages ? { answerImages: [...question.answerImages] } : {}),
     ...(!keyedAnswer && question.answerImagePairs
       ? { answerImagePairs: question.answerImagePairs.map((pair) => [...pair]) }
@@ -185,6 +209,7 @@ export function publicQuestionForRound(question, round, now) {
     ...(counterplay ? { counterplay } : {}),
     ...(valueOrder ? { valueOrder } : {}),
     ...(aghanim ? { aghanim } : {}),
+    ...(flashback ? { flashback } : {}),
     clueStage,
     reveal:
       round.phase === "reveal"
@@ -202,7 +227,15 @@ export function publicQuestionForRound(question, round, now) {
                         correctAnswerKey: orderAnswerKey,
                         orderValues: question.valueOrder.values.map(({ key, label }) => ({ key, label })),
                       }
-                    : {}),
+                    : flashbackOrderKey
+                      ? {
+                          correctAnswerKey: flashbackOrderKey,
+                          orderValues: question.flashback.cards.map((card) => ({
+                            key: card.key,
+                            label: card.context ?? card.name,
+                          })),
+                        }
+                      : {}),
           }
         : null,
   };

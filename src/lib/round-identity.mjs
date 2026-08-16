@@ -11,6 +11,7 @@ export const LIVE_ROUND_IDENTITIES = Object.freeze({
   "quote-hunt": { label: "Quotes", look: "A written line" },
   "aghanim-lab": { label: "Aghanim's Lab", look: "Scepter or Shard" },
   "order-up": { label: "Order Up", look: "Low to high" },
+  flashback: { label: "Flashback", look: "History and TI" },
 });
 
 const FORMAT_SLICE_LABELS = Object.freeze({

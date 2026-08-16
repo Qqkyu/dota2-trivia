@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { rateLimitRequest } from "@/lib/api-protection";
 import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
 import { cachedAudioResponse, cachedRoundAudio, warmRoundAudio } from "@/lib/round-audio-cache.mjs";
 import { currentPublicRound, parsePublicRoomSettings, publicRoundAt } from "@/lib/public-rooms";
@@ -25,6 +26,9 @@ function audioSources(question: TriviaQuestion | undefined) {
 }
 
 export async function HEAD(request: NextRequest) {
+  const limited = rateLimitRequest(request, "round-audio", "proxy", 60);
+  if (limited) return limited;
+
   const searchParams = new URL(request.url).searchParams;
   const roundId = searchParams.get("roundId");
   const gameId = roundId?.split(":", 1)[0];
@@ -61,6 +65,9 @@ export async function HEAD(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
+  const limited = rateLimitRequest(request, "round-audio", "proxy", 60);
+  if (limited) return limited;
+
   const searchParams = new URL(request.url).searchParams;
   const roundId = searchParams.get("roundId");
   const clip = Number(searchParams.get("clip") ?? "0");

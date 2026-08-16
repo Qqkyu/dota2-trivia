@@ -3,6 +3,7 @@ import {
   AudioWaveform,
   Brain,
   Gem,
+  History,
   ListOrdered,
   MessageSquareQuote,
   ScanEye,
@@ -20,6 +21,7 @@ const ICONS = {
   "quote-hunt": MessageSquareQuote,
   "aghanim-lab": Gem,
   "order-up": ListOrdered,
+  flashback: History,
 } as const;
 
 export function RoundMark({ game }: { game: string }) {

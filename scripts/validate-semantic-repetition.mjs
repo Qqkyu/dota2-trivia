@@ -16,12 +16,13 @@ import { isPlayableShopkeeperQuestion } from "../src/lib/shopkeeper-quality.mjs"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const readQuestions = async (file) => JSON.parse(await readFile(join(root, "src", "data", file), "utf8"));
-const [generated, shopkeeper, soundcheck, valueOrder, aghanim] = await Promise.all([
+const [generated, shopkeeper, soundcheck, valueOrder, aghanim, flashback] = await Promise.all([
   readQuestions("questions.generated.json"),
   readQuestions("shopkeeper-questions.json"),
   readQuestions("soundcheck-questions.json"),
   readQuestions("value-order-questions.json"),
   readQuestions("aghanim-questions.json"),
+  readQuestions("flashback-questions.json"),
 ]);
 const generatedLive = generated.filter(
   (question) =>
@@ -36,6 +37,7 @@ const questions = [
   ...soundcheck,
   ...valueOrder,
   ...aghanim,
+  ...flashback,
 ];
 const seed = "semantic-repetition-regression";
 const plan = createSemanticSlotPlan(questions, PUBLIC_ROUND_FORMATS, roundFormatForQuestion, seed);

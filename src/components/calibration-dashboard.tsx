@@ -57,6 +57,7 @@ const GAME_LABELS = {
   "quote-hunt": "Quote Hunt",
   "aghanim-lab": "Aghanim's Lab",
   "order-up": "Order Up",
+  flashback: "Flashback",
   "map-sense": "Map Sense",
   counterplay: "Counterplay",
 };

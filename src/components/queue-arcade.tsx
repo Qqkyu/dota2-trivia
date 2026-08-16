@@ -8,6 +8,7 @@ import {
   AudioWaveform,
   Brain,
   Check,
+  ChevronLeft,
   ChevronRight,
   Clock3,
   Crosshair,
@@ -16,7 +17,7 @@ import {
   Gauge,
   Gamepad2,
   Gem,
-  Play,
+  History,
   Keyboard,
   ListOrdered,
   MapPin,
@@ -30,7 +31,6 @@ import {
   Signal,
   ScanEye,
   Swords,
-  Trophy,
   Users,
   Volume2,
   VolumeX,
@@ -47,17 +47,28 @@ import {
   REPORT_REASONS,
   type ReportReason,
 } from "@/lib/calibration";
-import { getPusherClient } from "@/lib/pusher";
 import type { AccountSnapshot } from "@/lib/account-contract";
 import { type ArcadeMode, type RoundGame, type ShopkeeperItemReference, type TriviaArtworkKind } from "@/lib/trivia";
 import type { CrowdResult, PublicRoomSettings, ReportResult, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
-import { LIVE_ROUND_GAMES, PUBLIC_ARCADE_MODE, PUBLIC_ROUND_FORMATS } from "@/lib/arcade-games.mjs";
-import { shouldWaitForNextRoundOnEntry } from "@/lib/arcade-entry.mjs";
+import { LIVE_ROUND_GAMES, PUBLIC_ARCADE_MODE } from "@/lib/arcade-games.mjs";
+import { LIVE_ROUND_HEADER_LABELS } from "@/lib/round-question-copy.mjs";
+import { RoundMark } from "@/components/round-mark";
+import { shouldShowEntryWaitLessons, shouldWaitForNextRoundOnEntry } from "@/lib/arcade-entry.mjs";
+import {
+  DOTA_SHOP_SEARCH_PLACEHOLDER,
+  ENTRY_WAIT_HINT,
+  ENTRY_WAIT_TIP_LABEL,
+  ENTRY_WAIT_TIPS,
+  shuffleEntryWaitTips,
+} from "@/lib/entry-wait-tips.mjs";
+import { isFlashbackOrderAnswerForQuestion } from "@/lib/flashback.mjs";
 import { ARCADE_LOBBY_PATH, PUBLIC_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
 import { crowdPercentage, keyedCrowdSplitRows } from "@/lib/crowd-split.mjs";
 import { DEFAULT_GAME_ID, GAME_IDS, type PublicGameInfo } from "@/lib/game-identity";
 import { answerFeedbackKind, dotaFeedbackSoundForKind } from "@/lib/feedback-sounds.mjs";
-import { acceptWindowMs, accuracyRate, revealCallout, sessionHonorific } from "@/lib/dota-flavor.mjs";
+import { accuracyRate, revealCallout, streakBannerParts } from "@/lib/dota-flavor.mjs";
+import { preventQuestionClipboard, shouldBlockQuestionClipboard } from "@/lib/question-guard.mjs";
+import { FALLBACK_STEAM_DISPLAY_NAME } from "@/lib/steam-profile.mjs";
 import {
   HERO_PICKER_BY_KEY,
   HERO_PICKER_CATALOG,
@@ -71,6 +82,7 @@ import { clueStageAt, crowdScoreMultiplier, scoreBreakdown } from "@/lib/scoring
 import {
   isRecipeAnswerKey,
   isShopkeeperCatalogKey,
+  SHOPKEEPER_RECIPE_IMAGE,
   recipeAnswerKeyForItems,
   recipeItemsFromAnswerKey,
   SHOPKEEPER_CATALOG,
@@ -85,6 +97,7 @@ import {
   isPublicKeyedAnswerQuestion,
   isPublicQuestionAnswerCorrect,
   isPublicRecipeBuilderQuestion,
+  isPublicFlashbackOrderQuestion,
   isPublicValueOrderQuestion,
   publicCorrectIndex,
   type PublicArcadeQuestion,
@@ -133,6 +146,49 @@ const LEGACY_STORAGE_KEY = "queue-trivia:stats:v1";
 const LEGACY_PLAYER_KEY = "queue-trivia:player:v1";
 const LEGACY_SETTINGS_KEY = "queue-trivia:settings:v1";
 const ROUND_GAMES: RoundGame[] = [...LIVE_ROUND_GAMES] as RoundGame[];
+const WAIT_CHOICE_QUESTION: PublicArcadeQuestion = {
+  id: "wait-tip-keys",
+  game: "trivia",
+  kind: "item-cost",
+  category: "Items",
+  difficulty: 1,
+  eyebrow: "Blink Dagger",
+  prompt: "How much does Blink Dagger cost?",
+  image: {
+    src: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403",
+    alt: "Blink Dagger item icon",
+    kind: "item",
+  },
+  answers: ["2,250 gold", "1,775 gold", "2,600 gold", "2,875 gold"],
+  clueStage: 1,
+  reveal: null,
+};
+const WAIT_HERO_QUESTION: PublicArcadeQuestion = {
+  id: "wait-tip-heroes",
+  game: "quote-hunt",
+  kind: "hero-quote",
+  category: "Heroes",
+  difficulty: 1,
+  eyebrow: "Hero grid",
+  prompt: "Type a hero name.",
+  answers: ["", "", "", ""],
+  answerMode: "hero-grid",
+  clueStage: 1,
+  reveal: null,
+};
+const WAIT_SHOP_QUESTION: PublicArcadeQuestion = {
+  id: "wait-tip-shop",
+  game: "shopkeeper",
+  kind: "shopkeeper-build-result",
+  category: "Recipes",
+  difficulty: 1,
+  eyebrow: "Shop",
+  prompt: "Search items.",
+  answers: ["", "", "", ""],
+  answerMode: "item-grid",
+  clueStage: 1,
+  reveal: null,
+};
 const PREVIEW_QUESTION: PublicArcadeQuestion = {
   id: "preview",
   game: "trivia",
@@ -146,7 +202,7 @@ const PREVIEW_QUESTION: PublicArcadeQuestion = {
     alt: "Dota ability artwork",
     kind: "ability",
   },
-  answers: ["Ability values", "Item recipes", "Hero voices", "Fogged portraits"],
+  answers: ["", "", "", ""],
   clueStage: 1,
   reveal: null,
 };
@@ -239,7 +295,7 @@ function waitForAudioCut(
     onProgress();
   });
 }
-type GamePhase = "lobby" | "waiting" | "answering" | "reveal" | "summary";
+type GamePhase = "lobby" | "waiting" | "answering" | "reveal";
 
 interface RoundAward {
   points: number;
@@ -299,8 +355,8 @@ const MODE_INFO: Record<
     label: "Queue Arcade",
     shortLabel: "Public Arcade",
     eyebrow: "One room · Endless",
-    description: "Dota facts, recipes, spells, upgrades, fog, voices, sounds, and quotes—one round at a time.",
-    action: "Join public arcade",
+    description: "Dota facts, recipes, spells, history, TI, fog, voices, sounds, and quotes—one round at a time.",
+    action: "Play Dota",
   },
   trivia: {
     label: "Classic Trivia",
@@ -365,6 +421,13 @@ const MODE_INFO: Record<
     description: "Put four audited items or abilities in the right order before the clock runs out.",
     action: "Sort the cards",
   },
+  flashback: {
+    label: "Flashback",
+    shortLabel: "Flashback",
+    eyebrow: "History and TI",
+    description: "Years, champions, cities, and the old map—nostalgia in 15 seconds.",
+    action: "Open the archives",
+  },
   "map-sense": {
     label: "Map Sense",
     shortLabel: "Map Sense",
@@ -391,6 +454,7 @@ function ModeIcon({ mode }: { mode: ArcadeMode | RoundGame }) {
   if (mode === "quote-hunt") return <MessageSquareQuote />;
   if (mode === "aghanim-lab") return <Gem />;
   if (mode === "order-up") return <ListOrdered />;
+  if (mode === "flashback") return <History />;
   if (mode === "map-sense") return <MapPin />;
   if (mode === "counterplay") return <ShieldCheck />;
   return <Brain />;
@@ -606,12 +670,6 @@ function publicRoomQuery(settings: PublicRoomSettings, playerId: string, questio
     playerId,
     ...(questionRevision ? { questionRevision } : {}),
   });
-}
-
-function formatDuration(milliseconds: number) {
-  const seconds = Math.max(0, Math.floor(milliseconds / 1000));
-  const minutes = Math.floor(seconds / 60);
-  return `${String(minutes).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
 }
 
 function accuracy(correct: number, answered: number) {
@@ -1120,13 +1178,170 @@ function ValueOrderBoard({
   );
 }
 
-function ShopkeeperRecipePick({ itemKeys, label }: { itemKeys: string[]; label: string }) {
+function FlashbackOrderBoard({
+  question,
+  phase,
+  selectedKey,
+  onChoose,
+}: {
+  question: PublicArcadeQuestion;
+  phase: GamePhase;
+  selectedKey: string | null;
+  onChoose: (answerKey: string) => void;
+}) {
+  const submittedKeys = selectedKey ? valueOrderKeysFromAnswerKey(selectedKey) : null;
+  const [draftKeys, setDraftKeys] = useState<string[]>(() => submittedKeys ?? []);
+  const draftKeysRef = useRef(submittedKeys ?? []);
+  const cards = question.flashback?.cards ?? [];
+  const activeKeys = submittedKeys ?? draftKeys;
+  const locked = Boolean(selectedKey) || phase !== "answering";
+
+  const submitOrder = useCallback(
+    (keys: string[]) => {
+      const answerKey = valueOrderAnswerKey(keys);
+      if (answerKey && isFlashbackOrderAnswerForQuestion(question, answerKey)) onChoose(answerKey);
+    },
+    [onChoose, question],
+  );
+
+  const toggleCard = useCallback(
+    (cardKey: string) => {
+      if (locked) return;
+      const current = draftKeysRef.current;
+      const next = current.includes(cardKey)
+        ? current.filter((key) => key !== cardKey)
+        : current.length < 4
+          ? [...current, cardKey]
+          : current;
+      draftKeysRef.current = next;
+      setDraftKeys(next);
+      if (next.length === 4 && current.length === 3) submitOrder(next);
+    },
+    [locked, submitOrder],
+  );
+
+  const undoLastCard = useCallback(() => {
+    if (locked) return;
+    const next = draftKeysRef.current.slice(0, -1);
+    draftKeysRef.current = next;
+    setDraftKeys(next);
+  }, [locked]);
+
+  if (phase === "reveal") {
+    const correctKeys = valueOrderKeysFromAnswerKey(question.reveal?.correctAnswerKey) ?? [];
+    const selectedWasCorrect = Boolean(selectedKey && selectedKey === question.reveal?.correctAnswerKey);
+    return (
+      <div className={styles.flashbackOrderBoard} data-testid="flashback-order-board" data-phase="reveal">
+        <ol className={styles.flashbackOrderList} data-testid="flashback-order-sequence">
+          {correctKeys.map((key, index) => {
+            const card = cards.find((candidate) => candidate.key === key);
+            return (
+              <li key={key} data-correct="true">
+                <i>{index + 1}</i>
+                {card?.image ? <Image src={card.image} alt="" width={36} height={36} unoptimized /> : null}
+                <strong>{card?.name ?? key}</strong>
+                {card?.context && <small>{card.context}</small>}
+              </li>
+            );
+          })}
+        </ol>
+        {submittedKeys && !selectedWasCorrect && (
+          <ol className={styles.flashbackOrderList} data-yours="true">
+            {submittedKeys.map((key, index) => {
+              const card = cards.find((candidate) => candidate.key === key);
+              return (
+                <li key={key}>
+                  <i>{index + 1}</i>
+                  <strong>{card?.name ?? key}</strong>
+                </li>
+              );
+            })}
+          </ol>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={styles.flashbackOrderBoard}
+      data-testid="flashback-order-board"
+      data-phase="answering"
+      data-locked={selectedKey ? "true" : "false"}
+    >
+      <div className={styles.flashbackOrderSlots} aria-label="Your order">
+        {Array.from({ length: 4 }, (_, index) => {
+          const key = activeKeys[index];
+          const card = cards.find((candidate) => candidate.key === key);
+          return (
+            <span key={index} data-filled={card ? "true" : "false"}>
+              <i>{index + 1}</i>
+              {card?.image ? <Image src={card.image} alt="" width={28} height={28} unoptimized /> : null}
+              {card ? <strong>{card.name}</strong> : <em>—</em>}
+            </span>
+          );
+        })}
+      </div>
+      <div className={styles.flashbackOrderCards} role="group" aria-label="Events to order">
+        {cards.map((card, cardIndex) => {
+          const position = activeKeys.indexOf(card.key);
+          return (
+            <button
+              key={card.key}
+              type="button"
+              data-testid="flashback-order-card"
+              data-selected={position >= 0 ? "true" : "false"}
+              disabled={locked}
+              onClick={() => toggleCard(card.key)}
+              aria-pressed={position >= 0}
+            >
+              {position >= 0 && <i>{position + 1}</i>}
+              {card.image ? <Image src={card.image} alt="" width={48} height={48} unoptimized /> : null}
+              <strong>{card.name}</strong>
+              {card.context && <small>{card.context}</small>}
+              <em>{cardIndex + 1}</em>
+            </button>
+          );
+        })}
+      </div>
+      <div className={styles.valueOrderControls}>
+        <button
+          type="button"
+          onClick={undoLastCard}
+          disabled={locked || draftKeys.length === 0}
+          aria-label="Undo last card"
+        >
+          <RotateCcw />
+          Undo
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function ShopkeeperRecipePick({
+  itemKeys,
+  label,
+  recipeIncluded = false,
+}: {
+  itemKeys: string[];
+  label: string;
+  recipeIncluded?: boolean;
+}) {
   const items = shopkeeperReferencesForKeys(itemKeys);
   return (
     <span className={styles.shopkeeperRecipePick}>
       <small>{label}</small>
       {items.length ? (
-        <ShopkeeperTray items={items} compact testId="shopkeeper-recipe-reveal-tray" />
+        <span className={styles.shopkeeperRecipeRevealRow}>
+          <ShopkeeperTray items={items} compact testId="shopkeeper-recipe-reveal-tray" />
+          {recipeIncluded ? (
+            <span className={styles.shopkeeperRecipeIncluded} data-testid="shopkeeper-recipe-included">
+              <Image src={SHOPKEEPER_RECIPE_IMAGE} alt="" width={36} height={27} unoptimized />
+              <small>Included</small>
+            </span>
+          ) : null}
+        </span>
       ) : (
         <strong>No build</strong>
       )}
@@ -1165,6 +1380,9 @@ function ShopkeeperStore({
   const correctRecipeKeys = recipeItemsFromAnswerKey(targetKey) ?? [];
   const targetItem = !recipeBuilder && targetKey ? SHOPKEEPER_CATALOG_BY_KEY.get(targetKey) : undefined;
   const selectedItem = selectedKey ? SHOPKEEPER_CATALOG_BY_KEY.get(selectedKey) : undefined;
+  const queryRef = useRef(query);
+  queryRef.current = query;
+  const storeRef = useRef<HTMLDivElement | null>(null);
   const normalizedQuery = query.trim().toLocaleLowerCase("en-US");
   const countByItem = new Map(crowd.keyCounts.map((entry) => [entry.answerKey, entry.count]));
   const searchItems = normalizedQuery
@@ -1221,6 +1439,44 @@ function ShopkeeperStore({
   };
 
   useEffect(() => {
+    if (phase !== "answering" || selectedKey !== null) return;
+
+    const startSearching = (event: KeyboardEvent) => {
+      if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return;
+      if (storeRef.current?.closest("[inert]")) return;
+      const target = event.target;
+      if (
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        target instanceof HTMLSelectElement ||
+        (target instanceof HTMLElement && target.isContentEditable)
+      ) {
+        return;
+      }
+
+      if (event.key === "Escape") {
+        setQuery("");
+        setTooltip(null);
+        return;
+      }
+      if (event.key === "Backspace" && queryRef.current) {
+        event.preventDefault();
+        setTooltip(null);
+        setQuery((value) => value.slice(0, -1));
+        return;
+      }
+      if (event.key.length !== 1 || (!queryRef.current && event.key.trim() === "")) return;
+
+      event.preventDefault();
+      setTooltip(null);
+      setQuery((value) => `${value}${event.key}`);
+    };
+
+    window.addEventListener("keydown", startSearching);
+    return () => window.removeEventListener("keydown", startSearching);
+  }, [phase, selectedKey]);
+
+  useEffect(() => {
     if (!tooltip) return;
     const hideTooltip = () => setTooltip(null);
     window.addEventListener("resize", hideTooltip);
@@ -1234,6 +1490,7 @@ function ShopkeeperStore({
   return (
     <>
       <div
+        ref={storeRef}
         className={styles.shopkeeperStore}
         data-testid="shopkeeper-store"
         data-phase={phase}
@@ -1258,20 +1515,38 @@ function ShopkeeperStore({
               </button>
             ))}
           </div>
-          <label className={styles.shopkeeperSearch}>
+          <label className={styles.shopSearchBox} data-focused={normalizedQuery ? "true" : "false"}>
             <Search aria-hidden="true" />
             <input
-              type="search"
+              data-testid="shopkeeper-search-field"
+              type="text"
               value={query}
-              data-testid="shopkeeper-search"
-              placeholder="Search items"
+              placeholder={DOTA_SHOP_SEARCH_PLACEHOLDER}
+              autoComplete="off"
+              spellCheck={false}
+              disabled={phase !== "answering" || selectedKey !== null}
               onChange={(event) => {
                 setTooltip(null);
-                setQuery(event.currentTarget.value);
+                setQuery(event.target.value);
               }}
-              disabled={phase !== "answering" || selectedKey !== null}
+              onKeyDown={(event) => {
+                if (event.key === "Escape") {
+                  event.preventDefault();
+                  setQuery("");
+                  setTooltip(null);
+                }
+              }}
             />
           </label>
+        </div>
+        <div
+          className={styles.quickSearch}
+          data-testid="shopkeeper-search"
+          data-query={query}
+          data-active="false"
+          aria-live="polite"
+        >
+          {query}
         </div>
 
         {recipeBuilder && phase === "answering" && (
@@ -1282,7 +1557,7 @@ function ShopkeeperStore({
             data-selection-count={activeRecipeKeys.length}
           >
             <span className={styles.shopkeeperRecipeBuilderLabel}>
-              <small>Direct recipe</small>
+              <small>Shop items</small>
               <strong>
                 {activeRecipeKeys.length}/{recipeSize}
               </strong>
@@ -1310,6 +1585,10 @@ function ShopkeeperStore({
                   </span>
                 );
               })}
+              <span className={styles.shopkeeperRecipeIncluded} data-testid="shopkeeper-recipe-included">
+                <Image src={SHOPKEEPER_RECIPE_IMAGE} alt="" width={36} height={27} unoptimized />
+                <small>Included</small>
+              </span>
             </div>
             <button
               type="button"
@@ -1326,9 +1605,9 @@ function ShopkeeperStore({
 
         {phase === "reveal" && recipeBuilder ? (
           <div className={styles.shopkeeperRecipeReveal} data-testid="shopkeeper-open-reveal">
-            <ShopkeeperRecipePick itemKeys={submittedRecipeKeys} label="Your recipe" />
+            <ShopkeeperRecipePick itemKeys={submittedRecipeKeys} label="Your items" />
             <ArrowRight aria-hidden="true" />
-            <ShopkeeperRecipePick itemKeys={correctRecipeKeys} label="Correct recipe" />
+            <ShopkeeperRecipePick itemKeys={correctRecipeKeys} label="Correct items" recipeIncluded />
           </div>
         ) : phase === "reveal" ? (
           <div className={styles.shopkeeperRevealPicks} data-testid="shopkeeper-open-reveal">
@@ -1349,72 +1628,78 @@ function ShopkeeperStore({
 
         <div
           className={clsx(styles.shopkeeperGroups, normalizedQuery && styles.shopkeeperSearchResults)}
+          data-testid="shopkeeper-groups"
           data-shop-section={section}
+          data-searching={normalizedQuery ? "true" : "false"}
+          data-item-count={
+            normalizedQuery ? searchItems.length : groups.reduce((count, group) => count + group.items.length, 0)
+          }
           onScroll={() => setTooltip(null)}
         >
-          {groups.map((group) => (
-            <section key={group.key} className={styles.shopkeeperGroup} aria-label={group.label}>
-              <h3>{group.label}</h3>
-              <div>
-                {group.items.map((item) => {
-                  const selectedCount = recipeBuilder
-                    ? activeRecipeKeys.filter((itemKey) => itemKey === item.key).length
-                    : selectedKey === item.key
-                      ? 1
-                      : 0;
-                  const correctCount = recipeBuilder
-                    ? correctRecipeKeys.filter((itemKey) => itemKey === item.key).length
-                    : targetKey === item.key
-                      ? 1
-                      : 0;
-                  const isSelected = selectedCount > 0;
-                  const isCorrect = phase === "reveal" && correctCount > 0;
-                  const count = countByItem.get(item.key) ?? 0;
-                  const percentage = crowd.total ? Math.round((count / crowd.total) * 100) : 0;
-                  const state = isCorrect
-                    ? "correct"
-                    : phase === "reveal" && isSelected
-                      ? "wrong"
-                      : isSelected
-                        ? "selected"
-                        : "idle";
-
-                  return (
-                    <button
-                      key={item.key}
-                      type="button"
-                      data-testid="shopkeeper-store-item"
-                      data-item-key={item.key}
-                      data-state={state}
-                      data-pick-count={selectedCount}
-                      onClick={() => (recipeBuilder ? addRecipeItem(item.key) : chooseItem(item.key))}
-                      onPointerEnter={(event) => showItemTooltip(item, event.currentTarget)}
-                      onPointerLeave={() => setTooltip(null)}
-                      onFocus={(event) => showItemTooltip(item, event.currentTarget)}
-                      onBlur={() => setTooltip(null)}
-                      disabled={
-                        phase !== "answering" ||
-                        selectedKey !== null ||
-                        (recipeBuilder && activeRecipeKeys.length >= recipeSize)
-                      }
-                      aria-label={`${item.name}, ${item.cost.toLocaleString("en-US")} gold`}
-                      aria-describedby={tooltip?.item.key === item.key ? "shopkeeper-item-tooltip" : undefined}
-                      aria-pressed={isSelected}
-                    >
-                      <Image src={item.image} alt="" fill sizes="48px" loading="eager" unoptimized />
-                      {recipeBuilder && selectedCount > 0 ? (
-                        <i>×{selectedCount}</i>
-                      ) : phase === "reveal" && count > 0 ? (
-                        <i>{percentage}%</i>
-                      ) : null}
-                    </button>
-                  );
-                })}
-              </div>
-            </section>
-          ))}
-          {normalizedQuery && searchItems.length === 0 && (
+          {normalizedQuery && searchItems.length === 0 ? (
             <p className={styles.shopkeeperNoResults}>No shop item matches “{query.trim()}”.</p>
+          ) : (
+            groups.map((group) => (
+              <section key={group.key} className={styles.shopkeeperGroup} aria-label={group.label}>
+                <h3>{group.label}</h3>
+                <div>
+                  {group.items.map((item) => {
+                    const selectedCount = recipeBuilder
+                      ? activeRecipeKeys.filter((itemKey) => itemKey === item.key).length
+                      : selectedKey === item.key
+                        ? 1
+                        : 0;
+                    const correctCount = recipeBuilder
+                      ? correctRecipeKeys.filter((itemKey) => itemKey === item.key).length
+                      : targetKey === item.key
+                        ? 1
+                        : 0;
+                    const isSelected = selectedCount > 0;
+                    const isCorrect = phase === "reveal" && correctCount > 0;
+                    const count = countByItem.get(item.key) ?? 0;
+                    const percentage = crowd.total ? Math.round((count / crowd.total) * 100) : 0;
+                    const state = isCorrect
+                      ? "correct"
+                      : phase === "reveal" && isSelected
+                        ? "wrong"
+                        : isSelected
+                          ? "selected"
+                          : "idle";
+
+                    return (
+                      <button
+                        key={item.key}
+                        type="button"
+                        data-testid="shopkeeper-store-item"
+                        data-item-key={item.key}
+                        data-state={state}
+                        data-pick-count={selectedCount}
+                        onClick={() => (recipeBuilder ? addRecipeItem(item.key) : chooseItem(item.key))}
+                        onPointerEnter={(event) => showItemTooltip(item, event.currentTarget)}
+                        onPointerLeave={() => setTooltip(null)}
+                        onFocus={(event) => showItemTooltip(item, event.currentTarget)}
+                        onBlur={() => setTooltip(null)}
+                        disabled={
+                          phase !== "answering" ||
+                          selectedKey !== null ||
+                          (recipeBuilder && activeRecipeKeys.length >= recipeSize)
+                        }
+                        aria-label={`${item.name}, ${item.cost.toLocaleString("en-US")} gold`}
+                        aria-describedby={tooltip?.item.key === item.key ? "shopkeeper-item-tooltip" : undefined}
+                        aria-pressed={isSelected}
+                      >
+                        <Image src={item.image} alt="" fill sizes="48px" loading="eager" unoptimized />
+                        {recipeBuilder && selectedCount > 0 ? (
+                          <i>×{selectedCount}</i>
+                        ) : phase === "reveal" && count > 0 ? (
+                          <i>{percentage}%</i>
+                        ) : null}
+                      </button>
+                    );
+                  })}
+                </div>
+              </section>
+            ))
           )}
         </div>
       </div>
@@ -1463,7 +1748,10 @@ function HeroPicker({
   onChoose: (heroKey: string) => void;
 }) {
   const [query, setQuery] = useState("");
-  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [searchFlash, setSearchFlash] = useState(false);
+  const queryRef = useRef(query);
+  queryRef.current = query;
+  const pickerRef = useRef<HTMLDivElement | null>(null);
   const targetKey = question.reveal?.correctAnswerKey;
   const countByHero = new Map(crowd.keyCounts.map((entry) => [entry.answerKey, entry.count]));
   const normalizedQuery = query.trim().toLocaleLowerCase("en-US");
@@ -1477,8 +1765,6 @@ function HeroPicker({
       .join("");
     return name.includes(normalizedQuery) || slug.includes(normalizedQuery) || initials.startsWith(normalizedQuery);
   };
-  const matchCount = normalizedQuery ? HERO_PICKER_HEROES.filter(heroMatches).length : HERO_PICKER_HEROES.length;
-
   const chooseHero = (heroKey: string) => {
     setQuery("");
     onChoose(heroKey);
@@ -1489,6 +1775,7 @@ function HeroPicker({
 
     const startSearching = (event: KeyboardEvent) => {
       if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return;
+      if (pickerRef.current?.closest("[inert]")) return;
       const target = event.target;
       if (
         target instanceof HTMLInputElement ||
@@ -1503,25 +1790,34 @@ function HeroPicker({
         setQuery("");
         return;
       }
-      if (event.key === "Backspace" && query) {
+      if (event.key === "Backspace" && queryRef.current) {
         event.preventDefault();
         setQuery((value) => value.slice(0, -1));
-        searchInputRef.current?.focus({ preventScroll: true });
         return;
       }
-      if (event.key.length !== 1 || (!query && event.key.trim() === "")) return;
+      if (event.key.length !== 1 || (!queryRef.current && event.key.trim() === "")) return;
 
       event.preventDefault();
       setQuery((value) => `${value}${event.key}`);
-      searchInputRef.current?.focus({ preventScroll: true });
     };
 
     window.addEventListener("keydown", startSearching);
     return () => window.removeEventListener("keydown", startSearching);
-  }, [phase, query, selectedKey]);
+  }, [phase, selectedKey]);
+
+  useEffect(() => {
+    if (!normalizedQuery) {
+      setSearchFlash(false);
+      return;
+    }
+    setSearchFlash(true);
+    const timeout = window.setTimeout(() => setSearchFlash(false), 1_500);
+    return () => window.clearTimeout(timeout);
+  }, [normalizedQuery, query]);
 
   return (
     <div
+      ref={pickerRef}
       className={styles.heroPicker}
       data-testid="hero-picker"
       data-phase={phase}
@@ -1529,39 +1825,15 @@ function HeroPicker({
       data-searching={normalizedQuery ? "true" : "false"}
       style={{ "--hero-grid-columns": HERO_PICKER_CATALOG.columns } as CSSProperties}
     >
-      <label className={styles.heroPickerSearch}>
-        <Search aria-hidden="true" />
-        <input
-          ref={searchInputRef}
-          type="search"
-          value={query}
-          data-testid="hero-search"
-          placeholder="Type to search heroes"
-          aria-label="Search heroes"
-          onChange={(event) => setQuery(event.currentTarget.value)}
-          onKeyDown={(event) => {
-            if (event.key !== "Escape") return;
-            event.preventDefault();
-            setQuery("");
-            event.currentTarget.blur();
-          }}
-          disabled={phase !== "answering" || selectedKey !== null}
-        />
-        {normalizedQuery && <small>{matchCount}</small>}
-        {normalizedQuery && (
-          <button
-            type="button"
-            data-testid="hero-search-clear"
-            aria-label="Clear hero search"
-            onClick={() => {
-              setQuery("");
-              searchInputRef.current?.focus({ preventScroll: true });
-            }}
-          >
-            <X aria-hidden="true" />
-          </button>
-        )}
-      </label>
+      <div
+        className={styles.quickSearch}
+        data-testid="hero-search"
+        data-query={query}
+        data-active={searchFlash ? "true" : "false"}
+        aria-live="polite"
+      >
+        {query}
+      </div>
       <div className={styles.heroPickerBoard}>
         {HERO_PICKER_CATALOG.groups.map((group) => (
           <section
@@ -1629,7 +1901,7 @@ function classicQuestionContext(question: PublicArcadeQuestion) {
 
 function shopkeeperAnswerAction(question: PublicArcadeQuestion) {
   if (question.shopkeeper?.format === "build-result") return "Choose the finished item";
-  if (question.shopkeeper?.format === "real-recipe") return "Build the direct recipe";
+  if (question.shopkeeper?.format === "real-recipe") return "Pick the shop items. Recipe is included.";
   if (question.shopkeeper?.format === "shared-part") return "Choose the shared component";
   return "Choose the direct upgrade";
 }
@@ -2199,6 +2471,204 @@ function MapSenseBoard({
   );
 }
 
+function ClassicChoiceBoard({ question, active }: { question: PublicArcadeQuestion; active: boolean }) {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!active || selectedIndex !== null) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return;
+      const letterIndex = (LETTERS as readonly string[]).indexOf(event.key.toUpperCase());
+      const numIndex = ["1", "2", "3", "4"].indexOf(event.key);
+      const index = letterIndex >= 0 ? letterIndex : numIndex;
+      if (index < 0) return;
+      event.preventDefault();
+      setSelectedIndex(index);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [active, selectedIndex]);
+
+  return (
+    <div className={styles.entryWaitChoiceBoard} data-testid="entry-wait-keys-demo">
+      <div className={styles.roundHeader}>
+        <div>
+          <span>Round 001</span>
+          <i />
+          <span className={styles.roundGameLabel}>
+            <RoundMark game="trivia" />
+            {LIVE_ROUND_HEADER_LABELS.trivia}
+          </span>
+          <i />
+          <span>{question.category}</span>
+        </div>
+        <div className={styles.timer}>
+          <Clock3 />
+          <strong>15</strong>
+        </div>
+      </div>
+      <div className={styles.questionBlock} data-testid="entry-wait-choice-prompt">
+        <QuestionArtwork question={question} />
+        <div className={styles.questionCopy}>
+          <span>{question.eyebrow}</span>
+          <h2>{question.prompt}</h2>
+        </div>
+      </div>
+      <div className={styles.answers} role="group" aria-label="Answer choices">
+        {question.answers.map((answer, index) => {
+          const isSelected = selectedIndex === index;
+          return (
+            <button
+              key={answer}
+              type="button"
+              data-testid="arcade-answer"
+              className={clsx(
+                styles.answer,
+                isSelected && styles.answerLocked,
+                selectedIndex !== null && !isSelected && styles.answerMuted,
+              )}
+              onClick={() => {
+                if (selectedIndex === null) setSelectedIndex(index);
+              }}
+              disabled={selectedIndex !== null}
+              aria-pressed={isSelected}
+            >
+              <span className={styles.answerKey}>{LETTERS[index]}</span>
+              <span className={styles.answerText}>
+                {answer}
+                {isSelected ? <small>Your answer · locked</small> : null}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function EntryWaitLessons() {
+  const [tips] = useState(() => shuffleEntryWaitTips());
+  const [tipIndex, setTipIndex] = useState(0);
+  const tipCount = tips.length;
+  const tip = tips[tipIndex];
+
+  const stepTip = useCallback(
+    (delta: number) => {
+      setTipIndex((index) => (index + delta + tipCount) % tipCount);
+    },
+    [tipCount],
+  );
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      const target = event.target;
+      if (
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        (target instanceof HTMLElement && target.isContentEditable)
+      ) {
+        return;
+      }
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        stepTip(-1);
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        stepTip(1);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [stepTip]);
+
+  if (!tip) return null;
+
+  return (
+    <div className={styles.entryWaitCarousel} data-testid="entry-wait-tips" data-tip-count={tipCount}>
+      <button
+        type="button"
+        className={styles.entryWaitTipButton}
+        data-testid="entry-wait-prev-tip"
+        aria-label="Previous tip"
+        onClick={() => stepTip(-1)}
+      >
+        <ChevronLeft />
+      </button>
+      <div className={styles.entryWaitTipBar} data-testid="entry-wait-tip-bar">
+        <article className={styles.entryWaitCard} data-testid="entry-wait-tip" data-tip={tip.id}>
+          <div className={styles.entryWaitCardCopy}>
+            <small>{ENTRY_WAIT_TIP_LABEL}</small>
+            <p>
+              {tip.mark && tip.body.includes(tip.mark) ? (
+                <>
+                  {tip.body.slice(0, tip.body.indexOf(tip.mark))}
+                  <em>{tip.mark}</em>
+                  {tip.body.slice(tip.body.indexOf(tip.mark) + tip.mark.length)}
+                </>
+              ) : (
+                tip.body
+              )}
+            </p>
+          </div>
+          <div className={styles.entryWaitStage} data-testid="entry-wait-stage">
+            <div
+              className={styles.entryWaitPanel}
+              data-panel="keys"
+              data-active={tip.id === "keys" ? "true" : "false"}
+              aria-hidden={tip.id !== "keys"}
+              inert={tip.id !== "keys"}
+            >
+              <ClassicChoiceBoard question={WAIT_CHOICE_QUESTION} active={tip.id === "keys"} />
+            </div>
+            <div
+              className={styles.entryWaitPanel}
+              data-panel="heroes"
+              data-testid="entry-wait-heroes-demo"
+              data-active={tip.id === "heroes" ? "true" : "false"}
+              aria-hidden={tip.id !== "heroes"}
+              inert={tip.id !== "heroes"}
+            >
+              <HeroPicker
+                question={WAIT_HERO_QUESTION}
+                phase="answering"
+                selectedKey={null}
+                crowd={EMPTY_CROWD}
+                onChoose={() => undefined}
+              />
+            </div>
+            <div
+              className={styles.entryWaitPanel}
+              data-panel="shop"
+              data-testid="entry-wait-shop-demo"
+              data-active={tip.id === "shop" ? "true" : "false"}
+              aria-hidden={tip.id !== "shop"}
+              inert={tip.id !== "shop"}
+            >
+              <ShopkeeperStore
+                question={WAIT_SHOP_QUESTION}
+                phase="answering"
+                selectedKey={null}
+                crowd={EMPTY_CROWD}
+                onChoose={() => undefined}
+              />
+            </div>
+          </div>
+        </article>
+      </div>
+      <button
+        type="button"
+        className={styles.entryWaitTipButton}
+        data-testid="entry-wait-next-tip"
+        aria-label="Next tip"
+        onClick={() => stepTip(1)}
+      >
+        <ChevronRight />
+      </button>
+    </div>
+  );
+}
+
 function BrandMark({ logoUrl }: { logoUrl: string }) {
   return (
     <span className={styles.brandMark} aria-hidden="true">
@@ -2225,20 +2695,22 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   const [deadline, setDeadlineState] = useState<number | null>(null);
   const [revealDeadline, setRevealDeadlineState] = useState<number | null>(null);
   const [entryWaitDeadline, setEntryWaitDeadline] = useState<number | null>(null);
-  const [entryWaitDuration, setEntryWaitDuration] = useState(0);
-  const [runDuration, setRunDuration] = useState(0);
   const [now, setNow] = useState(0);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [gameVolume, setGameVolume] = useState(DEFAULT_GAME_VOLUME);
   const [lifetimeStats, setLifetimeStats] = useState<LifetimeStats>(EMPTY_STATS);
   const [statsLoaded, setStatsLoaded] = useState(false);
   const [account, setAccount] = useState<AccountSnapshot | null>(null);
-  const [joiningRoom, setJoiningRoom] = useState(false);
+  const accountRef = useRef<AccountSnapshot | null>(null);
+  accountRef.current = account;
+  const joiningRoomRef = useRef(false);
   const [roomError, setRoomError] = useState<string | null>(null);
   const [activeRoomId, setActiveRoomId] = useState("");
   const [activeRoundId, setActiveRoundId] = useState("");
   const [activePlayers, setActivePlayers] = useState(0);
-  const [roundAudioState, setRoundAudioState] = useState<"loading" | "ready" | "playing" | "error">("loading");
+  const [roundAudioState, setRoundAudioState] = useState<"loading" | "ready" | "playing" | "error" | "blocked">(
+    "loading",
+  );
   const [roundAudioPlayCount, setRoundAudioPlayCount] = useState(0);
   const [roundAudioClipIndex, setRoundAudioClipIndex] = useState(0);
   const [roundAudioDurations, setRoundAudioDurations] = useState<Record<string, number>>({});
@@ -2256,8 +2728,8 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   const answerTimeLeftRef = useRef(0);
   const crowdRef = useRef<CrowdResult>(EMPTY_CROWD);
   const deadlineRef = useRef<number | null>(null);
-  const queueStartedAtRef = useRef<number | null>(null);
   const finalizedRef = useRef(false);
+  const voteRequestSettledRef = useRef(false);
   const participatedRef = useRef(false);
   const runSavedRef = useRef(false);
   const playerIdRef = useRef("");
@@ -2266,6 +2738,8 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   const roundIdRef = useRef("");
   const questionRevisionRef = useRef("");
   const entryWaitRoundIdRef = useRef("");
+  const entryWaitModeRef = useRef<"lessons" | "silent" | null>(null);
+  const [entryWaitMode, setEntryWaitMode] = useState<"lessons" | "silent" | null>(null);
   const roomSyncGateRef = useRef<ReturnType<typeof createRoomSyncGate> | null>(null);
   const feedbackAudioRef = useRef<{
     clips: Array<{ audio: HTMLAudioElement; gain: number; src: string }>;
@@ -2439,8 +2913,12 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
           setRoundAudioState("playing");
           try {
             await audio.play();
-          } catch {
-            if (!controller.signal.aborted) setRoundAudioState("error");
+          } catch (error) {
+            if (!controller.signal.aborted) {
+              setRoundAudioState(
+                error instanceof DOMException && error.name === "NotAllowedError" ? "blocked" : "error",
+              );
+            }
             return;
           }
           if (clipIndex === 0) setRoundAudioPlayCount((count) => count + 1);
@@ -2503,22 +2981,30 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         return;
       }
 
-      finalizedRef.current = true;
       setDeadline(null);
-      setRevealDeadlineState(localRevealDeadline);
+      if (localRevealDeadline > 0) setRevealDeadlineState(localRevealDeadline);
       setPhase("reveal");
       setCrowd(snapshot.crowd);
 
-      const isCorrect = isPublicQuestionAnswerCorrect(
-        question,
-        selectedIndexRef.current ?? -1,
-        selectedAnswerKeyRef.current ?? undefined,
-      );
+      const voted = Boolean(snapshot.playerVote);
+      const locked = selectedIndexRef.current !== null || Boolean(selectedAnswerKeyRef.current);
+      const pendingVote = locked && !voted && !voteRequestSettledRef.current;
+      if (pendingVote || finalizedRef.current) return;
+
+      finalizedRef.current = true;
+      const pickedCorrect = locked
+        ? isPublicQuestionAnswerCorrect(
+            question,
+            selectedIndexRef.current ?? -1,
+            selectedAnswerKeyRef.current ?? undefined,
+          )
+        : false;
+      const isCorrect = voted && pickedCorrect;
       const correctIndex = publicCorrectIndex(question);
       if (correctIndex < 0) throw new Error("The reveal did not include a correct answer.");
       const correctVotes = snapshot.crowd.counts[correctIndex];
-      const correctCount = snapshot.crowd.scoreSummary?.correctCount ?? correctVotes;
-      const majorityBonus = isCorrect && crowdScoreMultiplier(correctCount, snapshot.crowd.total) === 2;
+      const crowdCorrectCount = snapshot.crowd.scoreSummary?.correctCount ?? correctVotes;
+      const majorityBonus = isCorrect && crowdScoreMultiplier(crowdCorrectCount, snapshot.crowd.total) === 2;
       const {
         speedBonus,
         cluePenalty,
@@ -2533,7 +3019,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       );
       const rawPoints = isCorrect ? correctPoints : 0;
       const localPoints = majorityBonus ? rawPoints * 2 : rawPoints;
-      const points = snapshot.crowd.scoreSummary?.playerPoints ?? localPoints;
+      const points = voted ? (snapshot.crowd.scoreSummary?.playerPoints ?? localPoints) : 0;
 
       setRoundAward({
         points,
@@ -2544,7 +3030,24 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         precisionBonus,
         mapDistance: distance,
       });
-      setScore((currentScore) => currentScore + points);
+      setScore((currentScore) => {
+        const nextScore = currentScore + points;
+        if (voted && !accountRef.current?.authenticated) {
+          setLifetimeStats((currentStats) => {
+            const startedRun = !runSavedRef.current;
+            if (startedRun) runSavedRef.current = true;
+            const nextStats = {
+              runs: currentStats.runs + (startedRun ? 1 : 0),
+              answered: currentStats.answered + 1,
+              correct: currentStats.correct + (isCorrect ? 1 : 0),
+              bestScore: Math.max(currentStats.bestScore, nextScore),
+            };
+            window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextStats));
+            return nextStats;
+          });
+        }
+        return nextScore;
+      });
       setHistory((records) => [
         ...records,
         {
@@ -2566,7 +3069,8 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       } else {
         setStreak(0);
       }
-      playSound(answerFeedbackKind(isCorrect));
+      if (voted) playSound(answerFeedbackKind(isCorrect));
+      else if (!pickedCorrect) playSound(answerFeedbackKind(false));
     },
     [playSound, setCrowd, setDeadline, setPhase],
   );
@@ -2600,25 +3104,26 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         const keepWaiting = snapshot.round.id === waitingForRoundId || nextRoundIsStillTooLate;
 
         if (keepWaiting) {
-          const skippedAnotherRound = snapshot.round.id !== waitingForRoundId;
           entryWaitRoundIdRef.current = snapshot.round.id;
+          if (entryWaitModeRef.current === null) {
+            const remaining = localRevealDeadline - receivedAt;
+            const mode = shouldShowEntryWaitLessons(remaining) ? "lessons" : "silent";
+            entryWaitModeRef.current = mode;
+            setEntryWaitMode(mode);
+          }
           currentQuestionRef.current = null;
           setCurrentQuestion(null);
           setDeadline(null);
           setRevealDeadlineState(null);
           setEntryWaitDeadline(localRevealDeadline);
-          setEntryWaitDuration((currentDuration) =>
-            currentDuration <= 0 || skippedAnotherRound
-              ? Math.max(1_000, localRevealDeadline - receivedAt)
-              : currentDuration,
-          );
           setPhase("waiting");
           return;
         }
 
         entryWaitRoundIdRef.current = "";
+        entryWaitModeRef.current = null;
+        setEntryWaitMode(null);
         setEntryWaitDeadline(null);
-        setEntryWaitDuration(0);
       }
 
       const question = snapshot.question ?? currentQuestionRef.current;
@@ -2665,6 +3170,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
 
         participatedRef.current = snapshot.round.phase === "answering";
         finalizedRef.current = snapshot.round.phase === "reveal";
+        voteRequestSettledRef.current = Boolean(playerVote);
 
         if (snapshot.round.phase === "answering") {
           setDeadline(localAnswerDeadline);
@@ -2709,12 +3215,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       }
 
       setRevealDeadlineState(localRevealDeadline);
-      if (phaseRef.current === "answering") {
-        finalizeRound(snapshot, localRevealDeadline);
-      } else {
-        setDeadline(null);
-        setPhase("reveal");
-      }
+      finalizeRound(snapshot, localRevealDeadline);
     },
     [finalizeRound, setCrowd, setDeadline, setPhase, updateReportState, updateReportTarget],
   );
@@ -2750,14 +3251,14 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
 
   const startRun = useCallback(
     async (updateHistory = true) => {
-      if (joiningRoom) return;
+      if (joiningRoomRef.current) return;
 
       const settings: PublicRoomSettings = {
         gameId: DEFAULT_GAME_ID,
         mode: PUBLIC_ARCADE_MODE,
         filter: "Mixed",
       };
-      setJoiningRoom(true);
+      joiningRoomRef.current = true;
       setRoomError(null);
       roomSyncGateRef.current?.cancel();
       roomSettingsRef.current = settings;
@@ -2768,13 +3269,13 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         const result = await requestRoomSnapshot(settings, ensurePlayerId());
         if (roomSettingsRef.current !== settings) return;
 
-        const startedAt = Date.now();
         roundIdRef.current = "";
         entryWaitRoundIdRef.current = "";
+        entryWaitModeRef.current = null;
+        setEntryWaitMode(null);
         prewarmedAfterRoundIdRef.current = "";
         currentQuestionRef.current = null;
         roundIndexRef.current = 0;
-        queueStartedAtRef.current = startedAt;
         runSavedRef.current = false;
         finalizedRef.current = false;
         participatedRef.current = false;
@@ -2791,9 +3292,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         setBestStreak(0);
         setCorrectCount(0);
         setHistory([]);
-        setRunDuration(0);
         setEntryWaitDeadline(null);
-        setEntryWaitDuration(0);
         const alphaSessionId = window.crypto.randomUUID();
         alphaSessionIdRef.current = alphaSessionId;
         alphaSessionFinishedRef.current = false;
@@ -2801,9 +3300,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         setReportNotice(null);
         setReportedReason(null);
         updateReportState("idle");
-        if (shouldWaitForNextRoundOnEntry(result.snapshot.round, result.snapshot.serverNow)) {
-          entryWaitRoundIdRef.current = result.snapshot.round.id;
-        }
+        entryWaitRoundIdRef.current = result.snapshot.round.id;
         applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
         void sendAlphaSessionEvent("start", alphaSessionId).catch(() => undefined);
         if (updateHistory && window.location.pathname !== PUBLIC_ARCADE_PATH) {
@@ -2812,16 +3309,15 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       } catch {
         if (roomSettingsRef.current === settings) {
           roomSettingsRef.current = null;
-          setRoomError("Could not join the public room. The arcade will keep your settings.");
+          setRoomError("Could not join the public room · retrying.");
         }
       } finally {
-        setJoiningRoom(false);
+        joiningRoomRef.current = false;
       }
     },
     [
       applyRoomSnapshot,
       ensurePlayerId,
-      joiningRoom,
       playSound,
       requestRoomSnapshot,
       sendAlphaSessionEvent,
@@ -2965,6 +3461,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         if (!result) throw new Error("VOTE_FAILED");
 
         if (roundIdRef.current === snapshot.round.id) {
+          voteRequestSettledRef.current = true;
           setCrowd({
             counts: result.counts,
             total: result.total,
@@ -2982,25 +3479,27 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
             setSelectedAnswerKey(result.playerVote.answerKey ?? null);
             setSelectedMapPosition(result.playerVote.mapPosition ?? null);
             setAnswerTimeLeft(serverTimeLeft);
+            if (roomSnapshotRef.current?.round.id === snapshot.round.id) {
+              roomSnapshotRef.current = { ...roomSnapshotRef.current, playerVote: result.playerVote };
+            }
           }
           setRoomError(null);
+          if (phaseRef.current === "reveal" && roomSnapshotRef.current) {
+            finalizeRound(roomSnapshotRef.current, 0);
+          }
         }
       } catch {
         if (roundIdRef.current === snapshot.round.id) {
-          selectedIndexRef.current = null;
-          selectedAnswerKeyRef.current = null;
-          selectedMapPositionRef.current = null;
-          answerTimeLeftRef.current = 0;
-          setSelectedIndex(null);
-          setSelectedAnswerKey(null);
-          setSelectedMapPosition(null);
-          setAnswerTimeLeft(0);
+          voteRequestSettledRef.current = true;
           setRoomError("Vote confirmation delayed · checking the room");
+          if (phaseRef.current === "reveal" && roomSnapshotRef.current) {
+            finalizeRound(roomSnapshotRef.current, 0);
+          }
         }
         void syncRoom();
       }
     },
-    [ensurePlayerId, setCrowd, syncRoom],
+    [ensurePlayerId, finalizeRound, setCrowd, syncRoom],
   );
 
   const chooseAnswer = useCallback(
@@ -3021,6 +3520,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       const timeLeft = Math.max(0, deadlineRef.current - Date.now());
       selectedIndexRef.current = answerIndex;
       answerTimeLeftRef.current = timeLeft;
+      voteRequestSettledRef.current = false;
       setSelectedIndex(answerIndex);
       setAnswerTimeLeft(timeLeft);
       playSound("lock");
@@ -3042,6 +3542,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
             recipeItemsFromAnswerKey(answerKey)?.length !== question.shopkeeper?.recipeSize)) ||
         (isPublicHeroPickerQuestion(question) && !isHeroCatalogKey(answerKey)) ||
         (isPublicValueOrderQuestion(question) && !isValueOrderAnswerForQuestion(question, answerKey)) ||
+        (isPublicFlashbackOrderQuestion(question) && !isFlashbackOrderAnswerForQuestion(question, answerKey)) ||
         selectedIndexRef.current !== null ||
         !deadlineRef.current ||
         Date.now() >= deadlineRef.current
@@ -3056,6 +3557,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       selectedIndexRef.current = answerIndex;
       selectedAnswerKeyRef.current = answerKey;
       answerTimeLeftRef.current = timeLeft;
+      voteRequestSettledRef.current = false;
       setSelectedIndex(answerIndex);
       setSelectedAnswerKey(answerKey);
       setAnswerTimeLeft(timeLeft);
@@ -3083,6 +3585,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       selectedIndexRef.current = answerIndex;
       selectedMapPositionRef.current = position;
       answerTimeLeftRef.current = timeLeft;
+      voteRequestSettledRef.current = false;
       setSelectedIndex(answerIndex);
       setSelectedMapPosition(position);
       setAnswerTimeLeft(timeLeft);
@@ -3092,32 +3595,17 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
     [playSound, submitVote],
   );
 
-  const finishSession = useCallback(() => {
-    if (phaseRef.current === "lobby" || phaseRef.current === "summary") return;
-    const finishedAt = Date.now();
-    const startedAt = queueStartedAtRef.current ?? finishedAt;
-    finishAlphaSession();
-    roomSyncGateRef.current?.cancel();
-    roomSettingsRef.current = null;
-    roomSnapshotRef.current = null;
-    updateReportTarget(null);
-    setReportNotice(null);
-    updateReportState("idle");
-    setRunDuration(finishedAt - startedAt);
-    setDeadline(null);
-    setRevealDeadlineState(null);
-    setPhase("summary");
-  }, [finishAlphaSession, setDeadline, setPhase, updateReportState, updateReportTarget]);
-
   const returnToLobby = useCallback(
     (historyAction: "push" | "replace" | "none" = "push") => {
-      if (phaseRef.current !== "lobby" && phaseRef.current !== "summary") finishAlphaSession();
+      if (phaseRef.current !== "lobby") finishAlphaSession();
       roomSyncGateRef.current?.cancel();
       roomSettingsRef.current = null;
       roomSnapshotRef.current = null;
       roundIdRef.current = "";
       questionRevisionRef.current = "";
       entryWaitRoundIdRef.current = "";
+      entryWaitModeRef.current = null;
+      setEntryWaitMode(null);
       prewarmedAfterRoundIdRef.current = "";
       autoStartAttemptedRef.current = false;
       feedbackAudioRef.current?.clips.forEach(({ audio }) => audio.pause());
@@ -3128,23 +3616,23 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       setDeadline(null);
       setRevealDeadlineState(null);
       setEntryWaitDeadline(null);
-      setEntryWaitDuration(0);
       setActiveRoomId("");
       setActiveRoundId("");
       setPhase("lobby");
+      void loadAccount();
 
       if (historyAction !== "none" && window.location.pathname !== ARCADE_LOBBY_PATH) {
         const method = historyAction === "replace" ? "replaceState" : "pushState";
         window.history[method]({ queueArcadeView: "lobby" }, "", ARCADE_LOBBY_PATH);
       }
     },
-    [finishAlphaSession, setDeadline, setPhase, stopRoundAudio, updateReportState, updateReportTarget],
+    [finishAlphaSession, loadAccount, setDeadline, setPhase, stopRoundAudio, updateReportState, updateReportTarget],
   );
 
   useEffect(() => {
     const handlePopState = () => {
       if (window.location.pathname === PUBLIC_ARCADE_PATH) {
-        if (phaseRef.current === "lobby" || phaseRef.current === "summary") void startRun(false);
+        if (phaseRef.current === "lobby") void startRun(false);
         return;
       }
       returnToLobby("none");
@@ -3179,13 +3667,13 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   }, [reportNotice]);
 
   useEffect(() => {
-    if (phase === "lobby" || phase === "summary") return;
+    if (phase === "lobby") return;
     const interval = window.setInterval(() => setNow(Date.now()), 100);
     return () => window.clearInterval(interval);
   }, [phase]);
 
   useEffect(() => {
-    if (phase === "lobby" || phase === "summary") return;
+    if (phase === "lobby") return;
 
     const interval = window.setInterval(() => void syncRoom(), ROOM_SYNC_HEARTBEAT_MS);
     const wakeRoom = () => {
@@ -3287,12 +3775,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   }, [loadAccount]);
 
   useEffect(() => {
-    if (phase !== "summary") return;
-    const timeout = window.setTimeout(() => void loadAccount(), 0);
-    return () => window.clearTimeout(timeout);
-  }, [loadAccount, phase]);
-
-  useEffect(() => {
     const hydration = window.setTimeout(() => {
       try {
         const storedStats = window.localStorage.getItem(STORAGE_KEY) ?? window.localStorage.getItem(LEGACY_STORAGE_KEY);
@@ -3332,43 +3814,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   }, [gameVolume, soundEnabled, statsLoaded]);
 
   useEffect(() => {
-    if (phase !== "summary" || runSavedRef.current) return;
-    runSavedRef.current = true;
-
-    setLifetimeStats((currentStats) => {
-      const nextStats = {
-        runs: currentStats.runs + 1,
-        answered: currentStats.answered + history.length,
-        correct: currentStats.correct + correctCount,
-        bestScore: Math.max(currentStats.bestScore, score),
-      };
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextStats));
-      return nextStats;
-    });
-  }, [correctCount, history.length, phase, score]);
-
-  useEffect(() => {
-    const pusher = getPusherClient();
-    if (!pusher) return;
-
-    const channel = pusher.subscribe("queue-arcade");
-    const onVoteUpdate = (event: unknown) => {
-      if (!event || typeof event !== "object" || !("roundId" in event)) return;
-      const roundId = event.roundId;
-      const result = normalizeCrowd(event);
-      if (typeof roundId === "string" && result && roundIdRef.current === roundId) {
-        setCrowd(result);
-      }
-    };
-
-    channel.bind("vote-update", onVoteUpdate);
-    return () => {
-      channel.unbind("vote-update", onVoteUpdate);
-      pusher.unsubscribe("queue-arcade");
-    };
-  }, [setCrowd]);
-
-  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
 
@@ -3400,6 +3845,17 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
     if (phase !== "answering") stopRoundAudio(false);
   }, [phase, stopRoundAudio]);
 
+  useEffect(() => {
+    if (!shouldBlockQuestionClipboard(phase)) return;
+    const block = (event: ClipboardEvent) => preventQuestionClipboard(event);
+    document.addEventListener("copy", block);
+    document.addEventListener("cut", block);
+    return () => {
+      document.removeEventListener("copy", block);
+      document.removeEventListener("cut", block);
+    };
+  }, [phase]);
+
   useEffect(
     () => () => {
       feedbackAudioRef.current?.clips.forEach(({ audio }) => audio.pause());
@@ -3411,12 +3867,30 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   const answerRemaining = deadline ? Math.max(0, deadline - now) : 0;
   const revealRemaining = revealDeadline ? Math.max(0, revealDeadline - now) : 0;
   const entryWaitRemaining = entryWaitDeadline ? Math.max(0, entryWaitDeadline - now) : 0;
-  const entryWaitRatio = entryWaitDuration > 0 ? entryWaitRemaining / entryWaitDuration : 0;
   const timerRatio = phase === "answering" ? answerRemaining / answerDuration : revealRemaining / REVEAL_DURATION_MS;
   const selectedWasCorrect =
     selectedIndex !== null && currentQuestion
       ? isPublicQuestionAnswerCorrect(currentQuestion, selectedIndex, selectedAnswerKey ?? undefined)
       : false;
+  const resultCallout = revealCallout({
+    correct: selectedWasCorrect,
+    timedOut: selectedIndex === null,
+    firstBlood: false,
+    streak: 0,
+  });
+  const streakCallout = revealCallout({
+    correct: selectedWasCorrect,
+    timedOut: selectedIndex === null,
+    firstBlood: selectedWasCorrect && correctCount === 1,
+    streak,
+  });
+  const isKillStreakCallout =
+    streakCallout !== "Correct" && streakCallout !== "Incorrect" && streakCallout !== "Time expired";
+  const streakPlayerName =
+    account?.authenticated && account.profile.user.displayName !== FALLBACK_STEAM_DISPLAY_NAME
+      ? account.profile.user.displayName
+      : "";
+  const streakBanner = isKillStreakCallout ? streakBannerParts(streakCallout, streakPlayerName) : null;
   const currentGame = currentQuestion?.game ?? "trivia";
   const isRecipeBuilderRound = Boolean(currentQuestion && isPublicRecipeBuilderQuestion(currentQuestion));
   const isOpenShopRound = Boolean(
@@ -3424,6 +3898,8 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   );
   const isHeroPickerRound = Boolean(currentQuestion && isPublicHeroPickerQuestion(currentQuestion));
   const isValueOrderRound = Boolean(currentQuestion && isPublicValueOrderQuestion(currentQuestion));
+  const isFlashbackOrderRound = Boolean(currentQuestion && isPublicFlashbackOrderQuestion(currentQuestion));
+  const isFlashbackYearRound = Boolean(currentQuestion && currentQuestion.flashback?.family === "year");
   const isSoundcheckRound = currentGame === "soundcheck";
   const isEchoHuntRound = currentGame === "echo-hunt";
   const isProgressiveAudioRound = isSoundcheckRound || isEchoHuntRound;
@@ -3491,6 +3967,17 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
     soundEnabled,
   ]);
 
+  useEffect(() => {
+    if (phase !== "answering" || roundAudioState !== "blocked") return;
+    const retry = () => playRoundAudio(false, isProgressiveAudioRound ? clueStage : 1);
+    window.addEventListener("pointerdown", retry, { once: true });
+    window.addEventListener("keydown", retry, { once: true });
+    return () => {
+      window.removeEventListener("pointerdown", retry);
+      window.removeEventListener("keydown", retry);
+    };
+  }, [clueStage, isProgressiveAudioRound, phase, playRoundAudio, roundAudioState]);
+
   return (
     <main
       className={styles.shell}
@@ -3529,7 +4016,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
           <span className={styles.patchBadge}>
             {gameInfo.label} · {gameInfo.contentLabel}
           </span>
-          <span className={styles.fanBadge}>Unofficial fan project</span>
           <div className={styles.volumeControl} data-muted={!soundEnabled}>
             <button
               type="button"
@@ -3577,14 +4063,14 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         </div>
       </header>
 
-      {phase === "lobby" && (
+      {(phase === "lobby" || (phase === "waiting" && entryWaitMode === "silent")) && (
         <section className={styles.lobby} id="arcade">
           <div className={styles.lobbyCopy}>
             <div className={styles.liveLabel}>
               <span />
               {activePlayers > 0
-                ? `${activePlayers.toLocaleString("en-US")} playing now · Twelve round formats`
-                : "One public room · Twelve round formats"}
+                ? `${activePlayers.toLocaleString("en-US")} playing now · Ten games`
+                : "One public room · Ten games"}
             </div>
             <h1>
               Your queue has
@@ -3592,8 +4078,8 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               <em>side quests.</em>
             </h1>
             <p className={styles.lead}>
-              A tiny Dota arcade built for the gap between Find Match and Accept. Everyone plays the same endless
-              rotation; the challenge changes every round.
+              A Dota arcade built for the gap between Find Match and Accept. Everyone plays the same endless rotation;
+              the challenge changes every round.
             </p>
 
             <div className={styles.roundMix} data-testid="round-mix">
@@ -3613,19 +4099,10 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                 type="button"
                 data-testid="start-arcade"
                 className={styles.primaryButton}
-                data-searching={joiningRoom ? "true" : "false"}
                 onClick={() => void startRun()}
-                disabled={joiningRoom}
+                disabled={phase === "waiting"}
               >
-                {joiningRoom ? (
-                  <span className={styles.searchRadar} aria-hidden="true">
-                    <i />
-                    <i />
-                    <i />
-                  </span>
-                ) : null}
-                <Play />
-                {joiningRoom ? "Finding match…" : activeModeInfo.action}
+                {phase === "waiting" ? "Joining…" : activeModeInfo.action}
               </button>
               <div className={styles.accountActionSlot} data-testid="account-action-slot">
                 {account === null ? (
@@ -3649,18 +4126,17 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               </div>
             </div>
 
-            <div className={clsx(styles.roomNotice, roomError && styles.roomNoticeError)} aria-live="polite">
-              <Signal />
-              {roomError ??
-                (activePlayers > 0
-                  ? `${activePlayers.toLocaleString("en-US")} playing now · one shared round`
-                  : "Live room · one shared round and reveal")}
-            </div>
+            {roomError ? (
+              <div className={clsx(styles.roomNotice, styles.roomNoticeError)} role="status">
+                <Signal />
+                {roomError}
+              </div>
+            ) : null}
 
             <div className={styles.featureStrip}>
               <div>
-                <strong>{PUBLIC_ROUND_FORMATS.length}</strong>
-                <span>round formats</span>
+                <strong>{ROUND_GAMES.length}</strong>
+                <span>games in the mix</span>
               </div>
               <div>
                 <strong>{gameInfo.questionCount}</strong>
@@ -3699,14 +4175,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                 <h2>The next round could be anything.</h2>
                 <p>{activeModeInfo.description}</p>
               </div>
-              <div className={styles.previewAnswers}>
-                {PREVIEW_QUESTION.answers.map((answer, index) => (
-                  <div key={answer}>
-                    <span>{LETTERS[index]}</span>
-                    {answer}
-                  </div>
-                ))}
-              </div>
               <div className={styles.previewFooter}>
                 <Users />
                 One synchronized round, deadline, and answer split for everyone
@@ -3727,45 +4195,48 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         </section>
       )}
 
-      {phase === "waiting" && (
-        <section className={styles.entryWait} data-testid="round-entry-wait" aria-label="Waiting for the next round">
-          <div className={styles.entryWaitStage}>
-            <div className={styles.timerTrack} aria-hidden="true">
-              <span style={{ transform: `scaleX(${Math.max(0, Math.min(1, entryWaitRatio))})` }} />
-            </div>
-            <div className={styles.entryWaitContent}>
-              <span className={styles.entryWaitIcon} aria-hidden="true">
-                <span className={styles.searchRadar} data-tone="wait">
-                  <i />
-                  <i />
-                  <i />
-                </span>
-                <Radio />
+      {phase === "waiting" && entryWaitMode === "lessons" && (
+        <section
+          className={styles.entryWait}
+          data-testid="round-entry-wait"
+          data-lessons="true"
+          aria-label="Waiting for the next round"
+        >
+          <div className={styles.entryWaitContent}>
+            <strong data-testid="entry-wait-timer">
+              00:{String(Math.ceil(entryWaitRemaining / 1_000)).padStart(2, "0")}
+            </strong>
+            <p className={styles.entryWaitHint} data-testid="entry-wait-hint">
+              {ENTRY_WAIT_HINT}
+            </p>
+            <EntryWaitLessons />
+            {roomError && (
+              <span className={clsx(styles.entryWaitStatus, styles.entryWaitStatusError)} aria-live="polite">
+                <Signal />
+                {roomError}
               </span>
-              <small>Public arcade · synchronized</small>
-              <h1>Next round</h1>
-              <strong data-testid="entry-wait-timer">
-                00:{String(Math.ceil(entryWaitRemaining / 1_000)).padStart(2, "0")}
-              </strong>
-              <div className={styles.entryWaitPulse} aria-hidden="true">
-                {Array.from({ length: 7 }, (_, index) => (
-                  <i key={index} />
-                ))}
-              </div>
-              <span
-                className={clsx(styles.entryWaitStatus, roomError && styles.entryWaitStatusError)}
-                aria-live="polite"
-              >
-                {roomError && (
-                  <>
-                    <Signal />
-                    {roomError}
-                  </>
-                )}
-              </span>
-            </div>
+            )}
           </div>
         </section>
+      )}
+
+      {phase === "reveal" && isKillStreakCallout && (
+        <>
+          {streakCallout === "First Blood" && <div className={styles.firstBloodSplash} aria-hidden="true" />}
+          {streakBanner && (
+            <div className={styles.killStreakHud} aria-hidden="true">
+              <p
+                className={streakCallout === "First Blood" ? styles.firstBloodBanner : styles.killStreakBanner}
+                data-testid="kill-streak-banner"
+                data-callout={streakCallout}
+              >
+                {streakBanner.before}
+                <em>{streakBanner.accent}</em>
+                {streakBanner.after}
+              </p>
+            </div>
+          )}
+        </>
       )}
 
       {(phase === "answering" || phase === "reveal") && currentQuestion && (
@@ -3774,6 +4245,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
           data-testid="public-room"
           data-round-game={currentGame}
           data-content-difficulty={currentQuestion.difficulty}
+          data-copy-guard={shouldBlockQuestionClipboard(phase) ? "blocked" : "allowed"}
         >
           <div
             className={clsx(
@@ -3786,6 +4258,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               currentGame === "quote-hunt" && styles.quoteStage,
               currentGame === "aghanim-lab" && styles.aghanimStage,
               currentGame === "order-up" && styles.valueOrderStage,
+              currentGame === "flashback" && styles.flashbackStage,
               currentGame === "map-sense" && styles.mapSenseStage,
               currentGame === "counterplay" && styles.counterplayStage,
             )}
@@ -3806,12 +4279,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                 <span>{currentQuestion.category}</span>
               </div>
               <div
-                className={clsx(
-                  styles.timer,
-                  phase === "answering" &&
-                    answerRemaining <= acceptWindowMs(answerDuration) &&
-                    styles.timerAccept,
-                )}
+                className={styles.timer}
                 aria-live="polite"
                 aria-label={`${Math.ceil(answerRemaining / 1000)} seconds remaining`}
               >
@@ -3824,7 +4292,19 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               </div>
             </div>
 
-            {currentGame === "order-up" ? (
+            {currentGame === "flashback" ? (
+              <div
+                className={clsx(styles.questionBlock, styles.flashbackQuestion)}
+                data-testid="round-prompt"
+                data-flashback-family={currentQuestion.flashback?.family}
+              >
+                <QuestionArtwork question={currentQuestion} />
+                <div className={styles.questionCopy}>
+                  <span>{currentQuestion.eyebrow}</span>
+                  <h2>{currentQuestion.prompt}</h2>
+                </div>
+              </div>
+            ) : currentGame === "order-up" ? (
               <div className={clsx(styles.questionBlock, styles.valueOrderQuestion)} data-testid="round-prompt">
                 <div className={styles.valueOrderGlyph} aria-hidden="true">
                   <ListOrdered />
@@ -4070,6 +4550,19 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                   data-testid={isSoundcheckRound ? "soundcheck-player" : "echo-player"}
                   data-voice-state={roundAudioState}
                   data-audio-state={roundAudioState}
+                  role={roundAudioState === "blocked" ? "button" : undefined}
+                  tabIndex={roundAudioState === "blocked" ? 0 : undefined}
+                  onClick={() => {
+                    if (phase === "answering" && roundAudioState === "blocked") {
+                      playRoundAudio(false, isProgressiveAudioRound ? clueStage : 1);
+                    }
+                  }}
+                  onKeyDown={(event) => {
+                    if (roundAudioState !== "blocked") return;
+                    if (event.key !== "Enter" && event.key !== " ") return;
+                    event.preventDefault();
+                    playRoundAudio(false, isProgressiveAudioRound ? clueStage : 1);
+                  }}
                   data-play-count={roundAudioPlayCount}
                   data-clip-count={currentQuestion.audio?.clips?.length ?? 1}
                   data-active-clip={roundAudioClipIndex + 1}
@@ -4097,21 +4590,23 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                     )}
                   </div>
                   <span>
-                    {roundAudioState === "error"
-                      ? "Audio unavailable"
-                      : roundAudioState === "loading"
-                        ? isSoundcheckRound
-                          ? "Loading cut"
-                          : "Loading voice cut"
-                        : roundAudioState === "playing"
-                          ? isSoundSequence
-                            ? `Sound ${roundAudioClipIndex + 1} of 2`
+                    {roundAudioState === "blocked"
+                      ? "Click to hear this cut"
+                      : roundAudioState === "error"
+                        ? "Audio unavailable"
+                        : roundAudioState === "loading"
+                          ? isSoundcheckRound
+                            ? "Loading cut"
+                            : "Loading voice cut"
+                          : roundAudioState === "playing"
+                            ? isSoundSequence
+                              ? `Sound ${roundAudioClipIndex + 1} of 2`
+                              : `Cut ${clueStage} of ${
+                                  isSoundcheckRound ? SOUNDCHECK_REVEAL_STAGES : ECHO_HUNT_REVEAL_STAGES
+                                }`
                             : `Cut ${clueStage} of ${
                                 isSoundcheckRound ? SOUNDCHECK_REVEAL_STAGES : ECHO_HUNT_REVEAL_STAGES
-                              }`
-                          : `Cut ${clueStage} of ${
-                              isSoundcheckRound ? SOUNDCHECK_REVEAL_STAGES : ECHO_HUNT_REVEAL_STAGES
-                            }`}
+                              }`}
                   </span>
                 </div>
                 <div className={styles.questionCopy}>
@@ -4287,115 +4782,132 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               />
             )}
 
-            {!isOpenShopRound && !isHeroPickerRound && !isValueOrderRound && currentGame !== "map-sense" && (
-              <div
-                className={clsx(
-                  styles.answers,
-                  currentGame === "shopkeeper" && styles.itemAnswers,
-                  (currentQuestion.answerImageKind === "hero" || currentGame === "spell-link") && styles.heroAnswers,
-                  currentGame === "fogged-vision" && styles.fogAnswers,
-                  currentGame === "echo-hunt" && styles.echoAnswers,
-                  currentGame === "soundcheck" && styles.soundcheckAnswers,
-                  currentGame === "quote-hunt" && styles.quoteAnswers,
-                  currentGame === "counterplay" && styles.counterplayAnswers,
-                )}
-                role="group"
-                aria-label="Answer choices"
-                data-testid="answer-grid"
-              >
-                {currentQuestion.answers.map((answer, index) => {
-                  const isSelected = selectedIndex === index;
-                  const isCorrect = publicCorrectIndex(currentQuestion) === index;
-                  const percentage = crowd.total ? Math.round((crowd.counts[index] / crowd.total) * 100) : 0;
-                  const answerImagePair = currentQuestion.answerImagePairs?.[index];
-                  const shopkeeperAnswerGroup = currentQuestion.shopkeeper?.answerGroups?.[index];
-                  const answerPairNames = answerImagePair ? answer.split(" → ") : [];
-                  const resultStyle = {
-                    "--result-width": `${percentage}%`,
-                  } as CSSProperties;
-
-                  return (
-                    <button
-                      key={`${currentQuestion.id}:${answer}`}
-                      type="button"
-                      data-testid="arcade-answer"
-                      className={clsx(
-                        styles.answer,
-                        (currentQuestion.answerImages || answerImagePair || shopkeeperAnswerGroup) &&
-                          styles.visualAnswer,
-                        answerImagePair && styles.sequenceAnswer,
-                        shopkeeperAnswerGroup && styles.shopkeeperRecipeAnswer,
-                        phase === "answering" && isSelected && styles.answerLocked,
-                        phase === "answering" && selectedIndex !== null && !isSelected && styles.answerMuted,
-                        phase === "reveal" && isCorrect && styles.answerCorrect,
-                        phase === "reveal" && isSelected && !isCorrect && styles.answerWrong,
-                      )}
-                      onClick={() => chooseAnswer(index)}
-                      disabled={phase !== "answering" || selectedIndex !== null}
-                      aria-pressed={isSelected}
-                      aria-label={
-                        answerImagePair
-                          ? `${LETTERS[index]}. ${answer}`
-                          : shopkeeperAnswerGroup
-                            ? `${LETTERS[index]}. ${shopkeeperAnswerGroup
-                                .map((item) => `${item.name}${item.count > 1 ? ` times ${item.count}` : ""}`)
-                                .join(", ")}`
-                            : undefined
-                      }
-                      style={resultStyle}
-                    >
-                      {phase === "reveal" && <span className={styles.resultFill} />}
-                      <span className={styles.answerKey}>{LETTERS[index]}</span>
-                      {shopkeeperAnswerGroup ? (
-                        <ShopkeeperTray items={shopkeeperAnswerGroup} compact testId="shopkeeper-recipe-choice" />
-                      ) : answerImagePair ? (
-                        <span className={styles.sequenceAnswerChoice} data-testid="sound-sequence-choice">
-                          <AnswerArtwork
-                            src={answerImagePair[0]}
-                            alt={answerPairNames[0] ?? "First sound"}
-                            kind={currentQuestion.answerImageKind ?? "ability"}
-                          />
-                          <ArrowRight className={styles.sequenceAnswerArrow} aria-hidden="true" />
-                          <AnswerArtwork
-                            src={answerImagePair[1]}
-                            alt={answerPairNames[1] ?? "Second sound"}
-                            kind={currentQuestion.answerImageKind ?? "ability"}
-                          />
-                        </span>
-                      ) : currentQuestion.answerImages?.[index] ? (
-                        <AnswerArtwork
-                          src={currentQuestion.answerImages[index]}
-                          alt={answer}
-                          kind={
-                            currentQuestion.answerImageKind ??
-                            (currentGame === "spell-link" || currentGame === "echo-hunt" || currentGame === "quote-hunt"
-                              ? "hero"
-                              : "item")
-                          }
-                        />
-                      ) : null}
-                      {!answerImagePair && !shopkeeperAnswerGroup && (
-                        <span className={styles.answerText}>
-                          {answer}
-                          {isSelected && phase === "answering" && <small>Your answer · locked</small>}
-                          {isSelected && phase === "reveal" && <small>Your answer</small>}
-                        </span>
-                      )}
-                      {phase === "reveal" ? (
-                        <span className={styles.answerResult}>
-                          <strong>{percentage}%</strong>
-                          {isCorrect ? <Check /> : isSelected ? <X /> : null}
-                        </span>
-                      ) : (
-                        <span className={styles.answerChevron}>
-                          <ChevronRight />
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
+            {isFlashbackOrderRound && (
+              <FlashbackOrderBoard
+                key={`${activeRoundId}:${phase}`}
+                question={currentQuestion}
+                phase={phase}
+                selectedKey={selectedAnswerKey}
+                onChoose={chooseKeyedAnswer}
+              />
             )}
+
+            {!isOpenShopRound &&
+              !isHeroPickerRound &&
+              !isValueOrderRound &&
+              !isFlashbackOrderRound &&
+              currentGame !== "map-sense" && (
+                <div
+                  className={clsx(
+                    styles.answers,
+                    isFlashbackYearRound && styles.flashbackYears,
+                    currentGame === "shopkeeper" && styles.itemAnswers,
+                    (currentQuestion.answerImageKind === "hero" || currentGame === "spell-link") && styles.heroAnswers,
+                    currentGame === "fogged-vision" && styles.fogAnswers,
+                    currentGame === "echo-hunt" && styles.echoAnswers,
+                    currentGame === "soundcheck" && styles.soundcheckAnswers,
+                    currentGame === "quote-hunt" && styles.quoteAnswers,
+                    currentGame === "counterplay" && styles.counterplayAnswers,
+                  )}
+                  role="group"
+                  aria-label="Answer choices"
+                  data-testid="answer-grid"
+                >
+                  {currentQuestion.answers.map((answer, index) => {
+                    const isSelected = selectedIndex === index;
+                    const isCorrect = publicCorrectIndex(currentQuestion) === index;
+                    const percentage = crowd.total ? Math.round((crowd.counts[index] / crowd.total) * 100) : 0;
+                    const answerImagePair = currentQuestion.answerImagePairs?.[index];
+                    const shopkeeperAnswerGroup = currentQuestion.shopkeeper?.answerGroups?.[index];
+                    const answerPairNames = answerImagePair ? answer.split(" → ") : [];
+                    const resultStyle = {
+                      "--result-width": `${percentage}%`,
+                    } as CSSProperties;
+
+                    return (
+                      <button
+                        key={`${currentQuestion.id}:${answer}`}
+                        type="button"
+                        data-testid="arcade-answer"
+                        className={clsx(
+                          styles.answer,
+                          (currentQuestion.answerImages || answerImagePair || shopkeeperAnswerGroup) &&
+                            styles.visualAnswer,
+                          answerImagePair && styles.sequenceAnswer,
+                          shopkeeperAnswerGroup && styles.shopkeeperRecipeAnswer,
+                          phase === "answering" && isSelected && styles.answerLocked,
+                          phase === "answering" && selectedIndex !== null && !isSelected && styles.answerMuted,
+                          phase === "reveal" && isCorrect && styles.answerCorrect,
+                          phase === "reveal" && isSelected && !isCorrect && styles.answerWrong,
+                        )}
+                        onClick={() => chooseAnswer(index)}
+                        disabled={phase !== "answering" || selectedIndex !== null}
+                        aria-pressed={isSelected}
+                        aria-label={
+                          answerImagePair
+                            ? `${LETTERS[index]}. ${answer}`
+                            : shopkeeperAnswerGroup
+                              ? `${LETTERS[index]}. ${shopkeeperAnswerGroup
+                                  .map((item) => `${item.name}${item.count > 1 ? ` times ${item.count}` : ""}`)
+                                  .join(", ")}`
+                              : undefined
+                        }
+                        style={resultStyle}
+                      >
+                        {phase === "reveal" && <span className={styles.resultFill} />}
+                        <span className={styles.answerKey}>{LETTERS[index]}</span>
+                        {shopkeeperAnswerGroup ? (
+                          <ShopkeeperTray items={shopkeeperAnswerGroup} compact testId="shopkeeper-recipe-choice" />
+                        ) : answerImagePair ? (
+                          <span className={styles.sequenceAnswerChoice} data-testid="sound-sequence-choice">
+                            <AnswerArtwork
+                              src={answerImagePair[0]}
+                              alt={answerPairNames[0] ?? "First sound"}
+                              kind={currentQuestion.answerImageKind ?? "ability"}
+                            />
+                            <ArrowRight className={styles.sequenceAnswerArrow} aria-hidden="true" />
+                            <AnswerArtwork
+                              src={answerImagePair[1]}
+                              alt={answerPairNames[1] ?? "Second sound"}
+                              kind={currentQuestion.answerImageKind ?? "ability"}
+                            />
+                          </span>
+                        ) : currentQuestion.answerImages?.[index] ? (
+                          <AnswerArtwork
+                            src={currentQuestion.answerImages[index]}
+                            alt={answer}
+                            kind={
+                              currentQuestion.answerImageKind ??
+                              (currentGame === "spell-link" ||
+                              currentGame === "echo-hunt" ||
+                              currentGame === "quote-hunt"
+                                ? "hero"
+                                : "item")
+                            }
+                          />
+                        ) : null}
+                        {!answerImagePair && !shopkeeperAnswerGroup && (
+                          <span className={styles.answerText}>
+                            {answer}
+                            {isSelected && phase === "answering" && <small>Your answer · locked</small>}
+                            {isSelected && phase === "reveal" && <small>Your answer</small>}
+                          </span>
+                        )}
+                        {phase === "reveal" ? (
+                          <span className={styles.answerResult}>
+                            <strong>{percentage}%</strong>
+                            {isCorrect ? <Check /> : isSelected ? <X /> : null}
+                          </span>
+                        ) : (
+                          <span className={styles.answerChevron}>
+                            <ChevronRight />
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
 
             {phase === "answering" ? (
               currentGame !== "map-sense" && (
@@ -4413,7 +4925,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                       )}
                       {isOpenShopRound
                         ? isRecipeBuilderRound
-                          ? "Build the direct recipe"
+                          ? "Pick the shop items. Recipe is included."
                           : isSoundcheckRound
                             ? "Choose the item that made the sound"
                             : "Choose an item from the shop"
@@ -4456,13 +4968,8 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               >
                 <div className={styles.revealIcon}>{selectedWasCorrect ? <Check /> : <X />}</div>
                 <div className={styles.revealCopy}>
-                  <span data-testid="reveal-callout">
-                    {revealCallout({
-                      correct: selectedWasCorrect,
-                      timedOut: selectedIndex === null,
-                      firstBlood: selectedWasCorrect && correctCount === 1,
-                      streak,
-                    })}
+                  <span data-testid="reveal-callout" data-callout={resultCallout}>
+                    {resultCallout}
                   </span>
                   {!isValueOrderRound && <p data-testid="reveal-explanation">{currentQuestion.reveal?.explanation}</p>}
                   <div className={styles.reportControl}>
@@ -4543,15 +5050,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                     </span>
                   )}
                   <strong>Round {roundIndex + 1}</strong>
-                  <button
-                    type="button"
-                    data-testid="view-summary"
-                    onClick={finishSession}
-                    title="View summary"
-                    aria-label="View summary"
-                  >
-                    <Trophy />
-                  </button>
                 </div>
               </div>
               <div className={styles.roundPips}>
@@ -4642,91 +5140,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               </div>
             )}
           </aside>
-        </section>
-      )}
-
-      {phase === "summary" && (
-        <section className={styles.summary}>
-          <div className={styles.summaryGlow} />
-          <div className={styles.summaryTop}>
-            <div className={styles.matchFound}>
-              <span>
-                <Check />
-              </span>
-              Session ended
-            </div>
-          </div>
-
-          <div className={styles.summaryHero}>
-            <div className={styles.rankMedallion}>
-              <BrandMark logoUrl={gameInfo.logoUrl} />
-              <span>{accuracy(correctCount, history.length)}</span>
-              <small>%</small>
-            </div>
-            <span>Session report</span>
-            <h1>{sessionHonorific(correctCount, history.length)}</h1>
-            <p>
-              {correctCount} correct across {history.length} completed round{history.length === 1 ? "" : "s"} in{" "}
-              {formatDuration(runDuration)}.
-            </p>
-          </div>
-
-          <div className={styles.summaryStats}>
-            <div>
-              <Gauge />
-              <span>Final gold</span>
-              <strong>{score.toLocaleString("en-US")}</strong>
-            </div>
-            <div>
-              <Check />
-              <span>Accuracy</span>
-              <strong>{accuracy(correctCount, history.length)}%</strong>
-            </div>
-            <div>
-              <Flame />
-              <span>Best streak</span>
-              <strong>{bestStreak}</strong>
-            </div>
-            <div>
-              <Trophy />
-              <span>Rounds played</span>
-              <strong>{history.length}</strong>
-            </div>
-          </div>
-
-          <div className={styles.summaryRounds}>
-            <div className={styles.cardTitle}>
-              <span>{history.length > 20 ? "Last 20 rounds" : "Round breakdown"}</span>
-              <strong>{MODE_INFO[PUBLIC_ARCADE_MODE].label}</strong>
-            </div>
-            <div>
-              {history.slice(-20).map((record, index) => (
-                <span
-                  key={`${record.id}:${index}`}
-                  className={record.correct ? styles.summaryRoundCorrect : styles.summaryRoundWrong}
-                  title={`${gameLabel(record.game)} · ${record.category}: ${record.correct ? "Correct" : "Incorrect"} · ${record.points} gold`}
-                >
-                  <small>
-                    <ModeIcon mode={record.game} />
-                    {Math.max(0, history.length - 20) + index + 1}
-                  </small>
-                  {record.correct ? <Check /> : <X />}
-                  <strong>+{record.points}</strong>
-                </span>
-              ))}
-              {history.length === 0 && <p>No completed rounds—your match popped instantly.</p>}
-            </div>
-          </div>
-
-          <div className={styles.summaryActions}>
-            <button type="button" className={styles.primaryButton} onClick={() => void startRun()}>
-              <RotateCcw />
-              Play again
-            </button>
-            <button type="button" className={styles.secondaryButton} onClick={() => returnToLobby("replace")}>
-              Back to arcade
-            </button>
-          </div>
         </section>
       )}
 

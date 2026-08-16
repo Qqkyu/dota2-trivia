@@ -1,5 +1,4 @@
 import { NextResponse, type NextRequest } from "next/server";
-import Pusher from "pusher";
 import { isAlphaSessionId } from "@/lib/alpha-analytics.mjs";
 import { recordAlphaSessionRound } from "@/lib/alpha-store";
 import { sessionUserForRequest } from "@/lib/auth-session";
@@ -15,7 +14,7 @@ import {
 } from "@/lib/keyed-answer";
 import { isMapPosition, mapAnswerIndex } from "@/lib/map-sense";
 import { answerStageForRound } from "@/lib/player-profile.mjs";
-import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
+import { currentPublicRound, parsePublicRoomSettings, PUBLIC_VOTE_ACCEPT_GRACE_MS } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { scoreBreakdown } from "@/lib/scoring.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
@@ -23,23 +22,6 @@ import { recordRoundVote } from "@/lib/vote-store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-function getPusherServer() {
-  const appId = process.env.PUSHER_APP_ID;
-  const key = process.env.NEXT_PUBLIC_PUSHER_APP_KEY;
-  const secret = process.env.PUSHER_APP_SECRET;
-  const cluster = process.env.NEXT_PUBLIC_PUSHER_CLUSTER;
-
-  if (!appId || !key || !secret || !cluster) return null;
-
-  return new Pusher({
-    appId,
-    key,
-    secret,
-    cluster,
-    useTLS: true,
-  });
-}
 
 export async function POST(request: NextRequest) {
   let body: unknown;
@@ -116,7 +98,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Map Sense requires a valid map position." }, { status: 400 });
   }
 
-  if (round.phase !== "answering" || submittedAt >= round.answerDeadline) {
+  if (submittedAt >= round.answerDeadline + PUBLIC_VOTE_ACCEPT_GRACE_MS) {
     return NextResponse.json({ error: "Answers are closed for this round." }, { status: 409 });
   }
 
@@ -183,25 +165,6 @@ export async function POST(request: NextRequest) {
         );
       } catch (error) {
         logServerError("alpha-session.round", error, { roundId: roundId.slice(0, 160) });
-      }
-    }
-
-    if (result.accepted) {
-      const pusher = getPusherServer();
-      if (pusher) {
-        try {
-          await pusher.trigger("queue-arcade", "vote-update", {
-            roomId: room.id,
-            roundId,
-            counts: [0, 0, 0, 0],
-            total: result.total,
-            positions: [],
-            keyCounts: [],
-            scoreSummary: null,
-          });
-        } catch (error) {
-          logServerError("votes.broadcast", error, { roundId: roundId.slice(0, 160) });
-        }
       }
     }
 
