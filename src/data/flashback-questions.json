@@ -238,7 +238,7 @@
       "2026"
     ],
     "correctIndex": 2,
-    "explanation": "TI14 was The International 2025. Falcons beat Xtreme Gaming 3–2 in Hamburg.",
+    "explanation": "TI14 was The International 2025. Falcons beat Xtreme Gaming 3\u20132 in Hamburg.",
     "flashback": {
       "family": "year",
       "subject": "event:ti14",
@@ -334,7 +334,7 @@
       "Alliance"
     ],
     "correctIndex": 1,
-    "explanation": "Na'Vi beat EHOME 3–1 at Gamescom in Cologne.",
+    "explanation": "Na'Vi beat EHOME 3\u20131 at Gamescom in Cologne.",
     "flashback": {
       "family": "choice",
       "subject": "winner:ti1"
@@ -365,7 +365,7 @@
       "Alliance"
     ],
     "correctIndex": 1,
-    "explanation": "iG beat Na'Vi 3–1. It was the first International in Seattle.",
+    "explanation": "iG beat Na'Vi 3\u20131. It was the first International in Seattle.",
     "flashback": {
       "family": "choice",
       "subject": "winner:ti2"
@@ -396,7 +396,7 @@
       "TongFu"
     ],
     "correctIndex": 1,
-    "explanation": "Alliance beat Na'Vi 3–2. Game 5 is still called The Play.",
+    "explanation": "Alliance beat Na'Vi 3\u20132. Game 5 is still called The Play.",
     "flashback": {
       "family": "choice",
       "subject": "winner:ti3"
@@ -427,7 +427,7 @@
       "Team DK"
     ],
     "correctIndex": 1,
-    "explanation": "Newbee beat Vici Gaming 3–1.",
+    "explanation": "Newbee beat Vici Gaming 3\u20131.",
     "flashback": {
       "family": "choice",
       "subject": "winner:ti4"
@@ -458,7 +458,7 @@
       "Team Secret"
     ],
     "correctIndex": 1,
-    "explanation": "EG beat CDEC 3–1. SumaiL was 16.",
+    "explanation": "EG beat CDEC 3\u20131. SumaiL was 16.",
     "flashback": {
       "family": "choice",
       "subject": "winner:ti5"
@@ -489,7 +489,7 @@
       "Evil Geniuses"
     ],
     "correctIndex": 1,
-    "explanation": "Wings beat Digital Chaos 3–1, then the roster split apart.",
+    "explanation": "Wings beat Digital Chaos 3\u20131, then the roster split apart.",
     "flashback": {
       "family": "choice",
       "subject": "winner:ti6"
@@ -520,7 +520,7 @@
       "Virtus.pro"
     ],
     "correctIndex": 1,
-    "explanation": "Liquid swept Newbee 3–0.",
+    "explanation": "Liquid swept Newbee 3\u20130.",
     "flashback": {
       "family": "choice",
       "subject": "winner:ti7"
@@ -551,7 +551,7 @@
       "Evil Geniuses"
     ],
     "correctIndex": 1,
-    "explanation": "OG beat PSG.LGD 3–2 after starting in the open qualifiers.",
+    "explanation": "OG beat PSG.LGD 3\u20132 after starting in the open qualifiers.",
     "flashback": {
       "family": "choice",
       "subject": "winner:ti8"
@@ -582,7 +582,7 @@
       "PSG.LGD"
     ],
     "correctIndex": 1,
-    "explanation": "OG beat Liquid 3–1 and became the first back-to-back TI winners.",
+    "explanation": "OG beat Liquid 3\u20131 and became the first back-to-back TI winners.",
     "flashback": {
       "family": "choice",
       "subject": "winner:ti9"
@@ -613,7 +613,7 @@
       "Tundra Esports"
     ],
     "correctIndex": 1,
-    "explanation": "Spirit beat PSG.LGD 3–2 in an empty Arena Națională.",
+    "explanation": "Spirit beat PSG.LGD 3\u20132 in an empty Arena Na\u021bional\u0103.",
     "flashback": {
       "family": "choice",
       "subject": "winner:ti10"
@@ -644,7 +644,7 @@
       "OG"
     ],
     "correctIndex": 1,
-    "explanation": "Tundra swept Secret 3–0 in Singapore.",
+    "explanation": "Tundra swept Secret 3\u20130 in Singapore.",
     "flashback": {
       "family": "choice",
       "subject": "winner:ti11"
@@ -675,7 +675,7 @@
       "Team Liquid"
     ],
     "correctIndex": 1,
-    "explanation": "Spirit swept Gaimin Gladiators 3–0 in Seattle.",
+    "explanation": "Spirit swept Gaimin Gladiators 3\u20130 in Seattle.",
     "flashback": {
       "family": "choice",
       "subject": "winner:ti12"
@@ -706,7 +706,7 @@
       "Team Falcons"
     ],
     "correctIndex": 1,
-    "explanation": "Liquid swept Gaimin Gladiators 3–0 and took their second Aegis.",
+    "explanation": "Liquid swept Gaimin Gladiators 3\u20130 and took their second Aegis.",
     "flashback": {
       "family": "choice",
       "subject": "winner:ti13"
@@ -737,7 +737,7 @@
       "Team Liquid"
     ],
     "correctIndex": 1,
-    "explanation": "Falcons beat Xtreme Gaming 3–2. Official Dota 2 news called them Grand Champions.",
+    "explanation": "Falcons beat Xtreme Gaming 3\u20132. Official Dota 2 news called them Grand Champions.",
     "flashback": {
       "family": "choice",
       "subject": "winner:ti14"
@@ -861,7 +861,7 @@
       "order-v1:navi,ig,newbee,alliance"
     ],
     "correctIndex": 0,
-    "explanation": "Na'Vi 2011 → Invictus Gaming 2012 → Alliance 2013 → Newbee 2014.",
+    "explanation": "Na'Vi 2011 \u2192 Invictus Gaming 2012 \u2192 Alliance 2013 \u2192 Newbee 2014.",
     "flashback": {
       "family": "order",
       "subject": "order:early-ti-winners",
@@ -924,7 +924,7 @@
       "order-v1:eg,wings,og,liquid"
     ],
     "correctIndex": 0,
-    "explanation": "EG 2015 → Wings 2016 → Liquid 2017 → OG 2018.",
+    "explanation": "EG 2015 \u2192 Wings 2016 \u2192 Liquid 2017 \u2192 OG 2018.",
     "flashback": {
       "family": "order",
       "subject": "order:mid-ti-winners",
@@ -987,7 +987,7 @@
       "order-v1:cologne,seattle,shanghai,vancouver"
     ],
     "correctIndex": 0,
-    "explanation": "Cologne 2011 → Seattle 2012 → Vancouver 2018 → Shanghai 2019.",
+    "explanation": "Cologne 2011 \u2192 Seattle 2012 \u2192 Vancouver 2018 \u2192 Shanghai 2019.",
     "flashback": {
       "family": "order",
       "subject": "order:ti-cities",
@@ -1050,7 +1050,7 @@
       "order-v1:wc3,ti1,reborn,release"
     ],
     "correctIndex": 0,
-    "explanation": "Warcraft III DotA → TI1 in 2011 → Dota 2 release in 2013 → Reborn in 2015.",
+    "explanation": "Warcraft III DotA \u2192 TI1 in 2011 \u2192 Dota 2 release in 2013 \u2192 Reborn in 2015.",
     "flashback": {
       "family": "order",
       "subject": "order:engine-history",
@@ -1486,7 +1486,7 @@
     "category": "History",
     "difficulty": 1,
     "eyebrow": "Volvo please",
-    "prompt": "Which event did players demand with ༼ つ ◕_◕ ༽つ?",
+    "prompt": "Which event did players demand with \u0f3c \u3064 \u25d5_\u25d5 \u0f3d\u3064?",
     "answers": [
       "Frostivus",
       "Diretide",
@@ -1494,7 +1494,7 @@
       "Nemestice"
     ],
     "correctIndex": 1,
-    "explanation": "Valve skipped Diretide in 2013. Players spammed ༼ つ ◕_◕ ༽つ GIVE DIRETIDE until Valve brought it back in November.",
+    "explanation": "Valve skipped Diretide in 2013. Players spammed \u0f3c \u3064 \u25d5_\u25d5 \u0f3d\u3064 GIVE DIRETIDE until Valve brought it back in November.",
     "flashback": {
       "family": "choice",
       "subject": "event:diretide"
@@ -3552,6 +3552,2460 @@
     "patch": "7.41e",
     "image": {
       "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:io-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:io",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "The wisp",
+    "prompt": "What year was Io added to Dota 2?",
+    "answers": [
+      "2011",
+      "2012",
+      "2013",
+      "2014"
+    ],
+    "correctIndex": 1,
+    "explanation": "Io shipped on 28 June 2012, during the Dota 2 beta.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:io",
+      "correctYear": 2012
+    },
+    "source": {
+      "label": "Io",
+      "url": "https://liquipedia.net/dota2/Io"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/wisp.png",
+      "alt": "Io",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ember-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ember",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Sleight of Fist",
+    "prompt": "What year was Ember Spirit added?",
+    "answers": [
+      "2012",
+      "2013",
+      "2014",
+      "2015"
+    ],
+    "correctIndex": 1,
+    "explanation": "Ember Spirit shipped on 14 November 2013, the same day as Earth Spirit.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:ember-spirit",
+      "correctYear": 2013
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Heroes_by_release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png",
+      "alt": "Ember Spirit",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:legion-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:legion",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Duel",
+    "prompt": "What year was Legion Commander added?",
+    "answers": [
+      "2012",
+      "2013",
+      "2014",
+      "2015"
+    ],
+    "correctIndex": 1,
+    "explanation": "Legion Commander shipped on 12 December 2013.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:legion-commander",
+      "correctYear": 2013
+    },
+    "source": {
+      "label": "https://dota2.fandom.com/wiki/Heroes_by_release",
+      "url": "https://dota2.fandom.com/wiki/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/legion_commander.png",
+      "alt": "Legion Commander",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:terrorblade-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:terrorblade",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Sunder",
+    "prompt": "What year was Terrorblade added?",
+    "answers": [
+      "2013",
+      "2014",
+      "2015",
+      "2016"
+    ],
+    "correctIndex": 1,
+    "explanation": "Terrorblade shipped on 29 January 2014, the same day as Phoenix.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:terrorblade",
+      "correctYear": 2014
+    },
+    "source": {
+      "label": "https://dota2.fandom.com/wiki/Heroes_by_release",
+      "url": "https://dota2.fandom.com/wiki/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/terrorblade.png",
+      "alt": "Terrorblade",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:winter-wyvern-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:winter-wyvern",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Winter's Curse",
+    "prompt": "What year was Winter Wyvern added?",
+    "answers": [
+      "2013",
+      "2014",
+      "2015",
+      "2016"
+    ],
+    "correctIndex": 2,
+    "explanation": "Winter Wyvern shipped on 12 February 2015, the same day as Oracle.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:winter-wyvern",
+      "correctYear": 2015
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Heroes_by_release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/winter_wyvern.png",
+      "alt": "Winter Wyvern",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:pangolier-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:pangolier",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Swashbuckle",
+    "prompt": "What year was Pangolier added?",
+    "answers": [
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
+    "correctIndex": 2,
+    "explanation": "Pangolier shipped with Dueling Fates on 31 October 2017.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:pangolier",
+      "correctYear": 2017
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Heroes_by_release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png",
+      "alt": "Pangolier",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:grimstroke-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:grimstroke",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Soulbind",
+    "prompt": "What year was Grimstroke added?",
+    "answers": [
+      "2016",
+      "2017",
+      "2018",
+      "2019"
+    ],
+    "correctIndex": 2,
+    "explanation": "Grimstroke shipped on 24 August 2018.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:grimstroke",
+      "correctYear": 2018
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Heroes_by_release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/grimstroke.png",
+      "alt": "Grimstroke",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:mars-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:mars",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Arena of Blood",
+    "prompt": "What year was Mars added?",
+    "answers": [
+      "2017",
+      "2018",
+      "2019",
+      "2020"
+    ],
+    "correctIndex": 2,
+    "explanation": "Mars shipped on 5 March 2019.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:mars",
+      "correctYear": 2019
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Heroes_by_release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mars.png",
+      "alt": "Mars",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:void-spirit-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:void-spirit",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Astral Step",
+    "prompt": "What year was Void Spirit added?",
+    "answers": [
+      "2017",
+      "2018",
+      "2019",
+      "2020"
+    ],
+    "correctIndex": 2,
+    "explanation": "Void Spirit shipped with the Outlanders update on 26 November 2019.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:void-spirit",
+      "correctYear": 2019
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Heroes_by_release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
+      "alt": "Void Spirit",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:snapfire-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:snapfire",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Mortimer Kisses",
+    "prompt": "What year was Snapfire added?",
+    "answers": [
+      "2017",
+      "2018",
+      "2019",
+      "2020"
+    ],
+    "correctIndex": 2,
+    "explanation": "Snapfire shipped with the Outlanders update on 26 November 2019.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:snapfire",
+      "correctYear": 2019
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Heroes_by_release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/snapfire.png",
+      "alt": "Snapfire",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:marci-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:marci",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Unleash",
+    "prompt": "What year was Marci added?",
+    "answers": [
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ],
+    "correctIndex": 2,
+    "explanation": "Marci shipped on 28 October 2021.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:marci",
+      "correctYear": 2021
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Heroes_by_release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
+      "alt": "Marci",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:largo-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:largo",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The bard",
+    "prompt": "What year was Largo added?",
+    "answers": [
+      "2023",
+      "2024",
+      "2025",
+      "2026"
+    ],
+    "correctIndex": 2,
+    "explanation": "Largo, the bard, shipped with patch 7.40 on 15 December 2025.",
+    "flashback": {
+      "family": "year",
+      "subject": "hero:largo",
+      "correctYear": 2025
+    },
+    "source": {
+      "label": "Largo",
+      "url": "https://liquipedia.net/dota2/Largo"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
+      "alt": "Largo",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:frostivus-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:frostivus",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "12 days of stuff",
+    "prompt": "What year was the first Frostivus?",
+    "answers": [
+      "2011",
+      "2012",
+      "2013",
+      "2014"
+    ],
+    "correctIndex": 1,
+    "explanation": "The first Frostivus ran in December 2012, the same winter as the first Diretide.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:frostivus",
+      "correctYear": 2012
+    },
+    "source": {
+      "label": "Frostivus",
+      "url": "https://dota2.fandom.com/wiki/Events"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:underhollow-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:underhollow",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Underlord's maze",
+    "prompt": "What year was The Underhollow?",
+    "answers": [
+      "2016",
+      "2017",
+      "2018",
+      "2019"
+    ],
+    "correctIndex": 2,
+    "explanation": "The Underhollow ran from 13 June to 10 September 2018.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:underhollow",
+      "correctYear": 2018
+    },
+    "source": {
+      "label": "https://dota2.fandom.com/wiki/Events",
+      "url": "https://dota2.fandom.com/wiki/Events"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/abyssal_underlord.png",
+      "alt": "Underlord",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:morokai-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:morokai",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Monkey King event",
+    "prompt": "What year was Wrath of the Mo'rokai?",
+    "answers": [
+      "2017",
+      "2018",
+      "2019",
+      "2020"
+    ],
+    "correctIndex": 2,
+    "explanation": "Wrath of the Mo'rokai ran from 7 July to 9 September 2019.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:morokai",
+      "correctYear": 2019
+    },
+    "source": {
+      "label": "https://dota2.fandom.com/wiki/Events",
+      "url": "https://dota2.fandom.com/wiki/Events"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png",
+      "alt": "Monkey King",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:diretide-return-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:diretide-return",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Candy again",
+    "prompt": "What year did Diretide return after the long gap?",
+    "answers": [
+      "2018",
+      "2019",
+      "2020",
+      "2021"
+    ],
+    "correctIndex": 2,
+    "explanation": "Diretide came back on 29 October 2020, the first Halloween event since 2013.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:diretide",
+      "correctYear": 2020
+    },
+    "source": {
+      "label": "Diretide 2020",
+      "url": "https://liquipedia.net/dota2/Diretide_2020"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png",
+      "alt": "Aegis of the Immortal",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:water-runes-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:water-runes",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Early bottle",
+    "prompt": "What year did water runes first spawn?",
+    "answers": [
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ],
+    "correctIndex": 2,
+    "explanation": "Water runes were added in patch 7.29 on 9 April 2021. They spawn early in the river.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:water-runes",
+      "correctYear": 2021
+    },
+    "source": {
+      "label": "Runes changelogs",
+      "url": "https://liquipedia.net/dota2/Runes/Changelogs"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/energy_booster.png",
+      "alt": "Energy Booster",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:patch-738-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:738",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The river grew",
+    "prompt": "What year did patch 7.38 Wandering Waters ship?",
+    "answers": [
+      "2023",
+      "2024",
+      "2025",
+      "2026"
+    ],
+    "correctIndex": 2,
+    "explanation": "7.38 shipped on 19 February 2025. It flooded the map edges and replaced Wisdom Runes with Shrines of Wisdom.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:738",
+      "correctYear": 2025
+    },
+    "source": {
+      "label": "Wandering Waters",
+      "url": "https://www.dota2.com/wanderingwaters"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/map-overview.webp",
+      "alt": "The Dota 2 map",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ti2-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ti2",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "First Seattle TI",
+    "prompt": "What year was The International 2012 in Seattle?",
+    "answers": [
+      "2011",
+      "2012",
+      "2013",
+      "2014"
+    ],
+    "correctIndex": 1,
+    "explanation": "TI2 was 2012 in Seattle. Invictus Gaming beat Natus Vincere.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:ti2",
+      "correctYear": 2012
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-seattle.jpg",
+      "alt": "The International in Seattle",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ti3-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ti3",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "The Play",
+    "prompt": "What year was The International 2013 in Seattle?",
+    "answers": [
+      "2012",
+      "2013",
+      "2014",
+      "2015"
+    ],
+    "correctIndex": 1,
+    "explanation": "TI3 was 2013. Alliance beat Na'Vi in Game 5, still called The Play.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:ti3",
+      "correctYear": 2013
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-seattle.jpg",
+      "alt": "The International in Seattle",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ti4-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ti4",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "First $10M",
+    "prompt": "What year was The International 2014 in Seattle?",
+    "answers": [
+      "2013",
+      "2014",
+      "2015",
+      "2016"
+    ],
+    "correctIndex": 1,
+    "explanation": "TI4 was 2014. It was the first TI prize pool to pass $10 million. Newbee won.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:ti4",
+      "correctYear": 2014
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://liquipedia.net/dota2/The_International"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "The International",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ti5-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ti5",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "KeyArena",
+    "prompt": "What year was The International 2015 at KeyArena?",
+    "answers": [
+      "2014",
+      "2015",
+      "2016",
+      "2017"
+    ],
+    "correctIndex": 1,
+    "explanation": "TI5 was 2015. Evil Geniuses won. SumaiL was 16.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:ti5",
+      "correctYear": 2015
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti5-keyarena.jpg",
+      "alt": "The International at KeyArena",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ti6-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ti6",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Wings",
+    "prompt": "What year was The International 2016 at KeyArena?",
+    "answers": [
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
+    "correctIndex": 1,
+    "explanation": "TI6 was 2016. Wings Gaming won, then the roster split.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:ti6",
+      "correctYear": 2016
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "The International",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ti7-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ti7",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Miracle-",
+    "prompt": "What year was The International 2017 at KeyArena?",
+    "answers": [
+      "2016",
+      "2017",
+      "2018",
+      "2019"
+    ],
+    "correctIndex": 1,
+    "explanation": "TI7 was 2017. Team Liquid swept Newbee 3-0.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:ti7",
+      "correctYear": 2017
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti5-keyarena.jpg",
+      "alt": "The International at KeyArena",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ti11-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ti11",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Singapore",
+    "prompt": "What year was The International in Singapore?",
+    "answers": [
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "correctIndex": 1,
+    "explanation": "TI11 was The International 2022 in Singapore. Tundra swept Secret 3-0.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:ti11",
+      "correctYear": 2022
+    },
+    "source": {
+      "label": "The International 2022",
+      "url": "https://www.dota2.com/newsentry/3398555399437783294"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti11-mark.jpg",
+      "alt": "The International in Singapore",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ti12-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:ti12",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Climate Pledge",
+    "prompt": "What year was The International 2023 in Seattle?",
+    "answers": [
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "correctIndex": 1,
+    "explanation": "TI12 was 2023 at Climate Pledge Arena. Team Spirit swept Gaimin Gladiators.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:ti12",
+      "correctYear": 2023
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti12-mark.png",
+      "alt": "The International",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:shanghai-major-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:shanghai-major",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Winter Major",
+    "prompt": "What year was The Shanghai Major?",
+    "answers": [
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
+    "correctIndex": 1,
+    "explanation": "The Shanghai Major ran from 25 February to 6 March 2016. Team Secret won.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:shanghai-major",
+      "correctYear": 2016
+    },
+    "source": {
+      "label": "Dota Major Championships",
+      "url": "https://liquipedia.net/dota2/Dota_Major_Championships"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "Dota 2",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:kiev-major-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:kiev-major",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Fourth for OG",
+    "prompt": "What year was The Kiev Major?",
+    "answers": [
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
+    "correctIndex": 2,
+    "explanation": "The Kiev Major ran in April 2017. OG won their fourth Valve Major.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:kiev-major",
+      "correctYear": 2017
+    },
+    "source": {
+      "label": "Dota Major Championships",
+      "url": "https://liquipedia.net/dota2/Dota_Major_Championships"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "Dota 2",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ember-earth-same-day",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ember-earth",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Two spirits",
+    "prompt": "Which pair of heroes shipped on 14 November 2013?",
+    "answers": [
+      "Storm Spirit and Ember Spirit",
+      "Ember Spirit and Earth Spirit",
+      "Earth Spirit and Void Spirit",
+      "Ember Spirit and Void Spirit"
+    ],
+    "correctIndex": 1,
+    "explanation": "Ember Spirit and Earth Spirit both shipped on 14 November 2013.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:ember-earth"
+    },
+    "source": {
+      "label": "https://dota2.fandom.com/wiki/Heroes_by_release",
+      "url": "https://dota2.fandom.com/wiki/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:phoenix-terrorblade-same-day",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:phoenix-tb",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Same January day",
+    "prompt": "Which pair of heroes shipped on 29 January 2014?",
+    "answers": [
+      "Phoenix and Oracle",
+      "Phoenix and Terrorblade",
+      "Phoenix and Legion Commander",
+      "Terrorblade and Ember Spirit"
+    ],
+    "correctIndex": 1,
+    "explanation": "Phoenix and Terrorblade both shipped on 29 January 2014, the same patch as Ability Draft.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:phoenix-terrorblade"
+    },
+    "source": {
+      "label": "https://dota2.fandom.com/wiki/Heroes_by_release",
+      "url": "https://dota2.fandom.com/wiki/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:shanghai-major-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:shanghai-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "China Major",
+    "prompt": "Who won The Shanghai Major?",
+    "answers": [
+      "Team Liquid",
+      "Team Secret",
+      "OG",
+      "Evil Geniuses"
+    ],
+    "correctIndex": 1,
+    "explanation": "Team Secret beat Team Liquid at the Shanghai Major in 2016.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:shanghai-major"
+    },
+    "source": {
+      "label": "The Shanghai Major 2016",
+      "url": "https://liquipedia.net/dota2/Shanghai_Major/2016"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "Dota 2",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:manila-major-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:manila-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Philippines",
+    "prompt": "Who won The Manila Major?",
+    "answers": [
+      "Team Liquid",
+      "OG",
+      "Team Secret",
+      "Wings Gaming"
+    ],
+    "correctIndex": 1,
+    "explanation": "OG beat Team Liquid at the Manila Major in June 2016.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:manila-major"
+    },
+    "source": {
+      "label": "The Manila Major 2016",
+      "url": "https://liquipedia.net/dota2/Manila_Major/2016"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "Dota 2",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:boston-major-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:boston-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Winter in Boston",
+    "prompt": "Who won The Boston Major?",
+    "answers": [
+      "Ad Finem",
+      "OG",
+      "Team Liquid",
+      "Evil Geniuses"
+    ],
+    "correctIndex": 1,
+    "explanation": "OG beat Ad Finem at the Boston Major in December 2016.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:boston-major"
+    },
+    "source": {
+      "label": "The Boston Major 2016",
+      "url": "https://liquipedia.net/dota2/Boston_Major/2016"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "Dota 2",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:kiev-major-winner",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:kiev-winner",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Fourth trophy",
+    "prompt": "Who won The Kiev Major?",
+    "answers": [
+      "Virtus.pro",
+      "OG",
+      "Team Liquid",
+      "Newbee"
+    ],
+    "correctIndex": 1,
+    "explanation": "OG won the Kiev Major in April 2017, their fourth Valve Major.",
+    "flashback": {
+      "family": "choice",
+      "subject": "winner:kiev-major"
+    },
+    "source": {
+      "label": "The Kiev Major 2017",
+      "url": "https://liquipedia.net/dota2/Kiev_Major/2017"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "Dota 2",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:four-majors",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:four-majors",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "The Major kings",
+    "prompt": "Which team first won four Valve Majors?",
+    "answers": [
+      "Team Liquid",
+      "OG",
+      "Team Secret",
+      "Natus Vincere"
+    ],
+    "correctIndex": 1,
+    "explanation": "OG won Frankfurt, Manila, Boston, and Kiev. No other team had four Valve Majors then.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:og-majors"
+    },
+    "source": {
+      "label": "IGN",
+      "url": "https://sea.ign.com/dota-2/115037/dota-2-news-og-become-four-time-major-champions"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "Dota 2",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:wisdom-runes",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:wisdom-runes",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Free tome",
+    "prompt": "Patch 7.33 added which experience rune?",
+    "answers": [
+      "Bounty Runes",
+      "Wisdom Runes",
+      "Water Runes",
+      "Arcane Runes"
+    ],
+    "correctIndex": 1,
+    "explanation": "7.33 added Wisdom Runes and removed Tome of Knowledge from the shop.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:wisdom-runes"
+    },
+    "source": {
+      "label": "Wisdom Runes",
+      "url": "https://www.gosugamers.net/dota2/news/67118-wisdom-runes-replace-tome-of-knowledge-where-are-they-and-why-they-are-important"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/map-overview.webp",
+      "alt": "The Dota 2 map",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:water-runes-729",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:water-runes-patch",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Early sustain",
+    "prompt": "Which rune did patch 7.29 add for the first river spawns?",
+    "answers": [
+      "Bounty Rune",
+      "Water Rune",
+      "Wisdom Rune",
+      "Shield Rune"
+    ],
+    "correctIndex": 1,
+    "explanation": "7.29 added Water Runes. They spawn at 2:00 and 4:00 and restore health and mana.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:water-runes"
+    },
+    "source": {
+      "label": "Runes changelogs",
+      "url": "https://liquipedia.net/dota2/Runes/Changelogs"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/energy_booster.png",
+      "alt": "Energy Booster",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:watchers",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:watchers",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Click for vision",
+    "prompt": "Patch 7.33 added which clickable vision ward on the map?",
+    "answers": [
+      "Shrines",
+      "Watchers",
+      "Outposts",
+      "Twin Gates"
+    ],
+    "correctIndex": 1,
+    "explanation": "New Frontiers added Watchers. A team can activate one for local vision.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:watchers"
+    },
+    "source": {
+      "label": "The New Frontiers Update",
+      "url": "https://www.dota2.com/newfrontiers"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/map-overview.webp",
+      "alt": "The Dota 2 map",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:wisdom-shrines-738",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:wisdom-shrines",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Stand for XP",
+    "prompt": "Patch 7.38 replaced Wisdom Runes with what?",
+    "answers": [
+      "Lotus Pools",
+      "Shrines of Wisdom",
+      "Outposts",
+      "Side Shops"
+    ],
+    "correctIndex": 1,
+    "explanation": "Wandering Waters turned Wisdom Runes into Shrines of Wisdom. You stand in them for the XP.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:738"
+    },
+    "source": {
+      "label": "Wandering Waters",
+      "url": "https://www.dota2.com/wanderingwaters"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/map-overview.webp",
+      "alt": "The Dota 2 map",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:tome-replaced",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:tome-replaced",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "No more 150 gold tome",
+    "prompt": "What replaced Tome of Knowledge in patch 7.33?",
+    "answers": [
+      "Bounty Runes",
+      "Wisdom Runes",
+      "Neutral items",
+      "Talents"
+    ],
+    "correctIndex": 1,
+    "explanation": "Wisdom Runes replaced the shop Tome of Knowledge in New Frontiers.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:wisdom-runes"
+    },
+    "source": {
+      "label": "Wisdom Runes",
+      "url": "https://www.gosugamers.net/dota2/news/67118-wisdom-runes-replace-tome-of-knowledge-where-are-they-and-why-they-are-important"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:skip-ti-2020",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:skip-2020",
+    "category": "Esports",
+    "difficulty": 1,
+    "eyebrow": "The skipped year",
+    "prompt": "Which calendar year had no The International?",
+    "answers": [
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ],
+    "correctIndex": 1,
+    "explanation": "Valve postponed the 2020 International because of COVID-19. TI10 was played in 2021 in Bucharest.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:ti10"
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti10-mark.png",
+      "alt": "The International 10",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:first-10m",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:first-10m",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Crowdfunded record",
+    "prompt": "Which International first passed a $10 million prize pool?",
+    "answers": [
+      "The International 2013",
+      "The International 2014",
+      "The International 2015",
+      "The International 2016"
+    ],
+    "correctIndex": 1,
+    "explanation": "TI4 in 2014 reached $10,923,977. It was the first esports event over $10 million.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:ti4"
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://liquipedia.net/dota2/The_International"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "The International",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:largo-740",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:largo-patch",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "New bard",
+    "prompt": "Which hero shipped with patch 7.40?",
+    "answers": [
+      "Muerta",
+      "Largo",
+      "Kez",
+      "Ringmaster"
+    ],
+    "correctIndex": 1,
+    "explanation": "Largo shipped with 7.40 on 15 December 2025.",
+    "flashback": {
+      "family": "choice",
+      "subject": "hero:largo"
+    },
+    "source": {
+      "label": "The Largo + 7.40 Update",
+      "url": "https://www.dota2.com/largo"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:fourth-spirit",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:fourth-spirit",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The eldest",
+    "prompt": "Which spirit hero was added last?",
+    "answers": [
+      "Storm Spirit",
+      "Void Spirit",
+      "Ember Spirit",
+      "Earth Spirit"
+    ],
+    "correctIndex": 1,
+    "explanation": "Void Spirit shipped in 2019, years after Ember and Earth Spirit in 2013. Storm Spirit was in the game from the start.",
+    "flashback": {
+      "family": "choice",
+      "subject": "hero:void-spirit"
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Heroes_by_release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:refresher-shard",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:refresher-shard",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Third death",
+    "prompt": "Besides Cheese and the Aegis, what extra refresh item can late Roshan drop?",
+    "answers": [
+      "Cheese",
+      "Refresher Shard",
+      "Tango",
+      "Smoke"
+    ],
+    "correctIndex": 1,
+    "explanation": "On later deaths Roshan can drop a Refresher Shard that resets item and ability cooldowns.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:refresher-shard"
+    },
+    "source": {
+      "label": "Refresher Shard",
+      "url": "https://dota2.fandom.com/wiki/Refresher_Shard"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png",
+      "alt": "Aegis of the Immortal",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:level-30",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:level-30",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The last five levels",
+    "prompt": "Patch 7.23 raised the max hero level to what?",
+    "answers": [
+      "25",
+      "30",
+      "35",
+      "40"
+    ],
+    "correctIndex": 1,
+    "explanation": "Outlanders let heroes level to 30. Level 30 unlocks the whole talent tree.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:neutrals"
+    },
+    "source": {
+      "label": "The Outlanders Update",
+      "url": "https://www.dota2.com/outlanders/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:free-observers",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:free-observers",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Free vision",
+    "prompt": "Which ward became free in patch 7.23?",
+    "answers": [
+      "Sentry Ward",
+      "Observer Ward",
+      "Smoke of Deceit",
+      "Town Portal Scroll"
+    ],
+    "correctIndex": 1,
+    "explanation": "7.23 made Observer Wards cost no gold.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:free-observers"
+    },
+    "source": {
+      "label": "The Outlanders Update",
+      "url": "https://www.dota2.com/outlanders/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:flying-courier-gone",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:flying-courier",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "No more 220 gold bird",
+    "prompt": "Which shop item did patch 7.23 remove because every player got a courier?",
+    "answers": [
+      "Animal Courier",
+      "Flying Courier",
+      "Boots of Travel",
+      "Town Portal Scroll"
+    ],
+    "correctIndex": 1,
+    "explanation": "The bought Flying Courier was removed. Each player now starts with a courier that later learns to fly.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:flying-courier"
+    },
+    "source": {
+      "label": "The Outlanders Update",
+      "url": "https://www.dota2.com/outlanders/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/courier.png",
+      "alt": "Courier",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:new-bloom",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:new-bloom",
+    "category": "History",
+    "difficulty": 1,
+    "eyebrow": "Red envelopes",
+    "prompt": "New Bloom is Dota's event for which holiday?",
+    "answers": [
+      "Halloween",
+      "Lunar New Year",
+      "Christmas",
+      "Summer solstice"
+    ],
+    "correctIndex": 1,
+    "explanation": "New Bloom is the annual Lunar New Year event.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:new-bloom"
+    },
+    "source": {
+      "label": "New Bloom",
+      "url": "https://liquipedia.net/dota2/New_Bloom"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:auto-chess",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:auto-chess",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The arcade hit",
+    "prompt": "Which Dota arcade custom game led Valve to make Underlords?",
+    "answers": [
+      "Artifact",
+      "Auto Chess",
+      "Underlords",
+      "Battlegrounds"
+    ],
+    "correctIndex": 1,
+    "explanation": "Drodo Studio's Dota Auto Chess exploded in 2019. Valve then shipped Dota Underlords.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:underlords"
+    },
+    "source": {
+      "label": "Dota Underlords",
+      "url": "https://en.wikipedia.org/wiki/Dota_Underlords"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:shield-rune",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:shield-rune",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "The other new rune",
+    "prompt": "Which extra power rune did patch 7.33 add besides Wisdom?",
+    "answers": [
+      "Arcane Rune",
+      "Shield Rune",
+      "Haste Rune",
+      "Illusion Rune"
+    ],
+    "correctIndex": 1,
+    "explanation": "7.33 added the Shield Rune along with Wisdom Runes.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:shield-rune"
+    },
+    "source": {
+      "label": "Wisdom Rune and Shield Rune",
+      "url": "https://esports.gg/news/dota-2/wisdom-rune-shield-rune-dota-7-33/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:shanghai-city",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:shanghai-city",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Winter 2016",
+    "prompt": "Where was Valve's 2016 winter Major?",
+    "answers": [
+      "Manila",
+      "Shanghai",
+      "Beijing",
+      "Chongqing"
+    ],
+    "correctIndex": 1,
+    "explanation": "The Shanghai Major was in Shanghai in early 2016.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:shanghai-major"
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Dota_Major_Championships",
+      "url": "https://liquipedia.net/dota2/Dota_Major_Championships"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "Dota 2",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:manila-city",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:manila-city",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Spring 2016",
+    "prompt": "Where was Valve's 2016 spring Major?",
+    "answers": [
+      "Singapore",
+      "Manila",
+      "Jakarta",
+      "Bangkok"
+    ],
+    "correctIndex": 1,
+    "explanation": "The Manila Major was in Manila in June 2016.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:manila-major"
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Dota_Major_Championships",
+      "url": "https://liquipedia.net/dota2/Dota_Major_Championships"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "Dota 2",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:kiev-city",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:kiev-city",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Spring 2017",
+    "prompt": "Where was Valve's 2017 spring Major?",
+    "answers": [
+      "Moscow",
+      "Kiev",
+      "Minsk",
+      "Warsaw"
+    ],
+    "correctIndex": 1,
+    "explanation": "The Kiev Major was in Kiev in April 2017.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:kiev-major"
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Dota_Major_Championships",
+      "url": "https://liquipedia.net/dota2/Dota_Major_Championships"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "Dota 2",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:boston-city",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:boston-city",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "December 2016",
+    "prompt": "Where was Valve's late-2016 Major?",
+    "answers": [
+      "New York",
+      "Boston",
+      "Seattle",
+      "Los Angeles"
+    ],
+    "correctIndex": 1,
+    "explanation": "The Boston Major was in Boston in December 2016.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:boston-major"
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Dota_Major_Championships",
+      "url": "https://liquipedia.net/dota2/Dota_Major_Championships"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "Dota 2",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:stockholm-planned",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:stockholm",
+    "category": "Esports",
+    "difficulty": 3,
+    "eyebrow": "The unused venue",
+    "prompt": "Which city was first planned to host The International 10?",
+    "answers": [
+      "Bucharest",
+      "Stockholm",
+      "Singapore",
+      "Hamburg"
+    ],
+    "correctIndex": 1,
+    "explanation": "TI10 was planned for Stockholm in 2020. COVID moved it to Bucharest in 2021.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:ti10"
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti10-mark.png",
+      "alt": "The International 10",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:underhollow-who",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:underhollow-who",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Whose basement",
+    "prompt": "The Underhollow was a maze under which hero?",
+    "answers": [
+      "Roshan",
+      "Underlord",
+      "Doom",
+      "Shadow Fiend"
+    ],
+    "correctIndex": 1,
+    "explanation": "The Underhollow was Underlord's maze, the 2018 Battle Pass co-op event.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:underhollow"
+    },
+    "source": {
+      "label": "https://dota2.fandom.com/wiki/Events",
+      "url": "https://dota2.fandom.com/wiki/Events"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:frostivus-what",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:frostivus-what",
+    "category": "History",
+    "difficulty": 1,
+    "eyebrow": "Hats in the snow",
+    "prompt": "Frostivus is Dota's event for which season?",
+    "answers": [
+      "Halloween",
+      "Winter holiday",
+      "Lunar New Year",
+      "Summer"
+    ],
+    "correctIndex": 1,
+    "explanation": "Frostivus is the winter holiday event. The first one ran in 2012.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:frostivus"
+    },
+    "source": {
+      "label": "https://dota2.fandom.com/wiki/Events",
+      "url": "https://dota2.fandom.com/wiki/Events"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:madstone",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:madstone",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Craft the jungle",
+    "prompt": "Patch 7.38 reworked jungle drops around which resource?",
+    "answers": [
+      "Neutral tokens",
+      "Madstone",
+      "Lotus",
+      "Shard"
+    ],
+    "correctIndex": 1,
+    "explanation": "Wandering Waters added Madstone. You spend it to craft neutral artifacts and enchantments.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:738"
+    },
+    "source": {
+      "label": "Wandering Waters",
+      "url": "https://blast.tv/dota/news/dota2-patch-738-gameplay-update"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:first-seattle-ti",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:first-seattle-ti",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Home town",
+    "prompt": "What year did The International first come to Seattle?",
+    "answers": [
+      "2011",
+      "2012",
+      "2013",
+      "2014"
+    ],
+    "correctIndex": 1,
+    "explanation": "TI2 in 2012 was the first Seattle International. TI1 was at Gamescom in Cologne.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:ti2"
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-seattle.jpg",
+      "alt": "The International in Seattle",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:ti20m",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:ti20m",
+    "category": "Esports",
+    "difficulty": 3,
+    "eyebrow": "Twenty million",
+    "prompt": "What year did a TI prize pool first pass $20 million?",
+    "answers": [
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
+    "correctIndex": 1,
+    "explanation": "TI6 in 2016 was the first to pass $20 million.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:ti6"
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://liquipedia.net/dota2/The_International"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "The International",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:void-outlanders",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:void-outlanders",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Inai",
+    "prompt": "Which patch added Void Spirit?",
+    "answers": [
+      "7.07",
+      "7.23",
+      "7.28",
+      "7.33"
+    ],
+    "correctIndex": 1,
+    "explanation": "Void Spirit shipped with Outlanders, patch 7.23, on 26 November 2019.",
+    "flashback": {
+      "family": "choice",
+      "subject": "hero:void-spirit"
+    },
+    "source": {
+      "label": "The Outlanders Update",
+      "url": "https://www.dota2.com/outlanders/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
+      "alt": "Void Spirit",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:major-cities-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:major-cities",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "The Major road",
+    "prompt": "Put these Major host cities in the order they first hosted.",
+    "answers": [
+      "order-v1:frankfurt,shanghai,manila,boston",
+      "order-v1:shanghai,frankfurt,manila,boston",
+      "order-v1:frankfurt,manila,shanghai,boston",
+      "order-v1:frankfurt,shanghai,boston,manila"
+    ],
+    "correctIndex": 0,
+    "explanation": "Frankfurt 2015, then Shanghai, Manila, and Boston in 2016.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:major-cities",
+      "cards": [
+        {
+          "key": "boston",
+          "name": "Boston",
+          "context": "December",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png"
+        },
+        {
+          "key": "shanghai",
+          "name": "Shanghai",
+          "context": "Winter",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png"
+        },
+        {
+          "key": "manila",
+          "name": "Manila",
+          "context": "June",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_horiz.png"
+        },
+        {
+          "key": "frankfurt",
+          "name": "Frankfurt",
+          "context": "First Major",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cyclone.png"
+        }
+      ],
+      "correctOrder": [
+        "frankfurt",
+        "shanghai",
+        "manila",
+        "boston"
+      ]
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Dota_Major_Championships",
+      "url": "https://liquipedia.net/dota2/Dota_Major_Championships"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:og-majors-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:og-majors-order",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "OG's four",
+    "prompt": "Put OG's four Valve Majors in the order they won them.",
+    "answers": [
+      "order-v1:frankfurt,manila,boston,kiev",
+      "order-v1:frankfurt,boston,manila,kiev",
+      "order-v1:manila,frankfurt,boston,kiev",
+      "order-v1:frankfurt,manila,kiev,boston"
+    ],
+    "correctIndex": 0,
+    "explanation": "OG's four Valve Majors: Frankfurt 2015, Manila 2016, Boston 2016, Kiev 2017.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:og-majors",
+      "cards": [
+        {
+          "key": "kiev",
+          "name": "Kiev Major",
+          "context": "Fourth",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png"
+        },
+        {
+          "key": "manila",
+          "name": "Manila Major",
+          "context": "June",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_horiz.png"
+        },
+        {
+          "key": "boston",
+          "name": "Boston Major",
+          "context": "December",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png"
+        },
+        {
+          "key": "frankfurt",
+          "name": "Frankfurt Major",
+          "context": "First",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cyclone.png"
+        }
+      ],
+      "correctOrder": [
+        "frankfurt",
+        "manila",
+        "boston",
+        "kiev"
+      ]
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Dota_Major_Championships",
+      "url": "https://liquipedia.net/dota2/Dota_Major_Championships"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:2013-heroes-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:2013-heroes",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Late ports",
+    "prompt": "Put these heroes in the order they were added.",
+    "answers": [
+      "order-v1:legion,phoenix,oracle,arc_warden",
+      "order-v1:phoenix,legion,oracle,arc_warden",
+      "order-v1:legion,oracle,phoenix,arc_warden",
+      "order-v1:legion,phoenix,arc_warden,oracle"
+    ],
+    "correctIndex": 0,
+    "explanation": "Legion Commander in December 2013, Phoenix in January 2014, Oracle in February 2015, Arc Warden in December 2015.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:2013-heroes",
+      "cards": [
+        {
+          "key": "oracle",
+          "name": "Oracle",
+          "context": "False Promise",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/oracle.png"
+        },
+        {
+          "key": "arc_warden",
+          "name": "Arc Warden",
+          "context": "Tempest",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/arc_warden.png"
+        },
+        {
+          "key": "legion",
+          "name": "Legion Commander",
+          "context": "Duel",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/legion_commander.png"
+        },
+        {
+          "key": "phoenix",
+          "name": "Phoenix",
+          "context": "Supernova",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phoenix.png"
+        }
+      ],
+      "correctOrder": [
+        "legion",
+        "phoenix",
+        "oracle",
+        "arc_warden"
+      ]
+    },
+    "source": {
+      "label": "https://dota2.fandom.com/wiki/Heroes_by_release",
+      "url": "https://dota2.fandom.com/wiki/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:recent-patches-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:recent-patches",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "The last four big patches",
+    "prompt": "Put these patches in the order they shipped.",
+    "answers": [
+      "order-v1:frontiers,facets,waters,largo",
+      "order-v1:frontiers,waters,facets,largo",
+      "order-v1:facets,frontiers,waters,largo",
+      "order-v1:frontiers,facets,largo,waters"
+    ],
+    "correctIndex": 0,
+    "explanation": "New Frontiers 7.33 in 2023, facets in 7.36 in 2024, Wandering Waters 7.38 in February 2025, Largo 7.40 in December 2025.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:recent-patches",
+      "cards": [
+        {
+          "key": "largo",
+          "name": "7.40 Largo",
+          "context": "The bard",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png"
+        },
+        {
+          "key": "waters",
+          "name": "Wandering Waters",
+          "context": "7.38",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bottle.png"
+        },
+        {
+          "key": "facets",
+          "name": "Facets and innates",
+          "context": "7.36",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png"
+        },
+        {
+          "key": "frontiers",
+          "name": "New Frontiers",
+          "context": "7.33",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blood_grenade.png"
+        }
+      ],
+      "correctOrder": [
+        "frontiers",
+        "facets",
+        "waters",
+        "largo"
+      ]
+    },
+    "source": {
+      "label": "Dota 2",
+      "url": "https://www.dota2.com/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/map-overview.webp",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:newest-heroes-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:newest-heroes",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "The newest four",
+    "prompt": "Put these heroes in the order they were added.",
+    "answers": [
+      "order-v1:muerta,ringmaster,kez,largo",
+      "order-v1:muerta,kez,ringmaster,largo",
+      "order-v1:ringmaster,muerta,kez,largo",
+      "order-v1:muerta,ringmaster,largo,kez"
+    ],
+    "correctIndex": 0,
+    "explanation": "Muerta in 2023, Ringmaster in August 2024, Kez in November 2024, Largo in December 2025.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:newest-heroes",
+      "cards": [
+        {
+          "key": "kez",
+          "name": "Kez",
+          "context": "Katana",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png"
+        },
+        {
+          "key": "largo",
+          "name": "Largo",
+          "context": "Bard",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png"
+        },
+        {
+          "key": "muerta",
+          "name": "Muerta",
+          "context": "The Veil",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png"
+        },
+        {
+          "key": "ringmaster",
+          "name": "Ringmaster",
+          "context": "Circus",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png"
+        }
+      ],
+      "correctOrder": [
+        "muerta",
+        "ringmaster",
+        "kez",
+        "largo"
+      ]
+    },
+    "source": {
+      "label": "https://liquipedia.net/dota2/Heroes_by_release",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:season-events-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:season-events",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Seasonal calendar",
+    "prompt": "Put these events in the order they first ran.",
+    "answers": [
+      "order-v1:frostivus,underhollow,morokai,diretide_return",
+      "order-v1:frostivus,morokai,underhollow,diretide_return",
+      "order-v1:underhollow,frostivus,morokai,diretide_return",
+      "order-v1:frostivus,underhollow,diretide_return,morokai"
+    ],
+    "correctIndex": 0,
+    "explanation": "First Frostivus in 2012, The Underhollow in 2018, Wrath of the Mo'rokai in 2019, Diretide's return in 2020.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:season-events",
+      "cards": [
+        {
+          "key": "morokai",
+          "name": "Wrath of the Mo'rokai",
+          "context": "2019",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png"
+        },
+        {
+          "key": "diretide_return",
+          "name": "Diretide returns",
+          "context": "2020",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png"
+        },
+        {
+          "key": "frostivus",
+          "name": "First Frostivus",
+          "context": "2012",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png"
+        },
+        {
+          "key": "underhollow",
+          "name": "The Underhollow",
+          "context": "2018",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/abyssal_underlord.png"
+        }
+      ],
+      "correctOrder": [
+        "frostivus",
+        "underhollow",
+        "morokai",
+        "diretide_return"
+      ]
+    },
+    "source": {
+      "label": "https://dota2.fandom.com/wiki/Events",
+      "url": "https://dota2.fandom.com/wiki/Events"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:rune-history-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:rune-history",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Rune history",
+    "prompt": "Put these runes in the order they were added.",
+    "answers": [
+      "order-v1:bounty,arcane,water,wisdom",
+      "order-v1:bounty,water,arcane,wisdom",
+      "order-v1:arcane,bounty,water,wisdom",
+      "order-v1:bounty,arcane,wisdom,water"
+    ],
+    "correctIndex": 0,
+    "explanation": "Bounty runes in 2014, Arcane Rune in 2015, Water Runes in 2021, Wisdom Runes in 2023.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:rune-history",
+      "cards": [
+        {
+          "key": "wisdom",
+          "name": "Wisdom Rune",
+          "context": "XP",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_scepter.png"
+        },
+        {
+          "key": "water",
+          "name": "Water Rune",
+          "context": "Early heal",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/energy_booster.png"
+        },
+        {
+          "key": "bounty",
+          "name": "Bounty Rune",
+          "context": "Gold",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bottle.png"
+        },
+        {
+          "key": "arcane",
+          "name": "Arcane Rune",
+          "context": "Spell cost",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blood_grenade.png"
+        }
+      ],
+      "correctOrder": [
+        "bounty",
+        "arcane",
+        "water",
+        "wisdom"
+      ]
+    },
+    "source": {
+      "label": "Runes changelogs",
+      "url": "https://liquipedia.net/dota2/Runes/Changelogs"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:ti-year-gaps-order",
+    "kind": "flashback-order",
+    "varietyKey": "flashback:ti-year-gaps",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Even years",
+    "prompt": "Put these Internationals in the order they were played.",
+    "answers": [
+      "order-v1:ti2,ti4,ti6,ti11",
+      "order-v1:ti2,ti6,ti4,ti11",
+      "order-v1:ti4,ti2,ti6,ti11",
+      "order-v1:ti2,ti4,ti11,ti6"
+    ],
+    "correctIndex": 0,
+    "explanation": "TI2 in 2012, TI4 in 2014, TI6 in 2016, TI11 in 2022.",
+    "flashback": {
+      "family": "order",
+      "subject": "order:ti-years",
+      "cards": [
+        {
+          "key": "ti11",
+          "name": "TI in Singapore",
+          "context": "Tundra",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png"
+        },
+        {
+          "key": "ti4",
+          "name": "First $10M TI",
+          "context": "Newbee",
+          "image": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png"
+        },
+        {
+          "key": "ti6",
+          "name": "Wings TI",
+          "context": "KeyArena",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_horiz.png"
+        },
+        {
+          "key": "ti2",
+          "name": "First Seattle TI",
+          "context": "iG",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cyclone.png"
+        }
+      ],
+      "correctOrder": [
+        "ti2",
+        "ti4",
+        "ti6",
+        "ti11"
+      ]
+    },
+    "source": {
+      "label": "The International",
+      "url": "https://en.wikipedia.org/wiki/The_International_(esports)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
       "alt": "Dota 2",
       "kind": "item"
     }
