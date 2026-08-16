@@ -178,6 +178,24 @@ if (flashbackWinner) {
   );
 }
 
+const flashbackWinnerPhoto = flashback.find((question) => question.id === "flashback:ti7-winner");
+if (flashbackWinnerPhoto) {
+  const answeringRound = roundFor(flashbackWinnerPhoto, "flashback");
+  const answering = publicQuestionForRound(flashbackWinnerPhoto, answeringRound, answeringRound.now);
+  const revealRound = roundFor(flashbackWinnerPhoto, "flashback", "reveal", 16_000);
+  const reveal = publicQuestionForRound(flashbackWinnerPhoto, revealRound, revealRound.now);
+  record(
+    answering.reveal === null && !JSON.stringify(answering).includes("ti7-liquid"),
+    "Flashback still shows the TI7 hoist photo while answers are open.",
+  );
+  record(
+    reveal.reveal?.media?.src === "/arcade/flashback/winners/ti7-liquid.jpg" &&
+      reveal.reveal.media.kind === "photo" &&
+      reveal.reveal.media.alt.includes("Team Liquid"),
+    "Flashback TI7 reveal no longer uses the official hoist photo.",
+  );
+}
+
 const buildResult = shopkeeper.find((question) => question.shopkeeper?.format === "build-result");
 if (buildResult) {
   const answeringRound = roundFor(buildResult, "shopkeeper");

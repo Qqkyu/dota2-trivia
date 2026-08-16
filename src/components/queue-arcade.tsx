@@ -4968,16 +4968,27 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               <div
                 className={clsx(styles.revealPanel, selectedWasCorrect ? styles.revealCorrect : styles.revealWrong)}
                 data-has-media={currentQuestion.reveal?.media ? "true" : "false"}
+                data-media-kind={
+                  currentQuestion.reveal?.media?.kind === "photo"
+                    ? "photo"
+                    : currentQuestion.reveal?.media
+                      ? "mark"
+                      : undefined
+                }
                 aria-live="polite"
               >
                 <div className={styles.revealIcon}>{selectedWasCorrect ? <Check /> : <X />}</div>
                 {currentQuestion.reveal?.media && (
-                  <figure className={styles.revealMedia} data-testid="flashback-reveal-media">
+                  <figure
+                    className={styles.revealMedia}
+                    data-kind={currentQuestion.reveal.media.kind === "photo" ? "photo" : "mark"}
+                    data-testid="flashback-reveal-media"
+                  >
                     <Image
                       src={currentQuestion.reveal.media.src}
                       alt={currentQuestion.reveal.media.alt}
-                      width={88}
-                      height={88}
+                      width={currentQuestion.reveal.media.kind === "photo" ? 200 : 88}
+                      height={currentQuestion.reveal.media.kind === "photo" ? 112 : 88}
                       unoptimized
                     />
                     {currentQuestion.reveal.media.caption ? (

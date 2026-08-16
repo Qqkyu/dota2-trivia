@@ -205,6 +205,7 @@ export interface TriviaQuestion {
       src: string;
       alt: string;
       caption?: string;
+      kind?: "photo" | "mark";
     };
   };
   aghanim?: AghanimUpgrade;
@@ -273,7 +274,7 @@ export interface TriviaMeta {
 }
 
 export const triviaMeta = generatedMeta as unknown as TriviaMeta;
-export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-5-shopkeeper-6-public-arcade-4-soundcheck-10-spell-link-4-fogged-vision-3-global-score-1-order-up-3-aghanim-lab-1-flashback-7-playtest-1`;
+export const ARCADE_CONTENT_VERSION = `${triviaMeta.contentVersion}-classic-trivia-5-shopkeeper-6-public-arcade-4-soundcheck-10-spell-link-4-fogged-vision-3-global-score-1-order-up-3-aghanim-lab-1-flashback-8-playtest-1`;
 const playableGeneratedQuestions = (generatedQuestions as TriviaQuestion[]).filter(
   (question) =>
     isPlayableClassicTriviaQuestion(question) &&

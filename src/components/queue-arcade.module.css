@@ -5167,6 +5167,11 @@ button[data-state="wrong"] > .heroPickerVerdict {
   grid-template-columns: auto 96px minmax(0, 1fr) auto;
 }
 
+.revealPanel[data-media-kind="photo"] {
+  min-height: 148px;
+  grid-template-columns: auto 208px minmax(0, 1fr) auto;
+}
+
 .revealMedia {
   display: grid;
   margin: 0;
@@ -5181,12 +5186,22 @@ button[data-state="wrong"] > .heroPickerVerdict {
   background: rgba(0, 0, 0, 0.28);
 }
 
+.revealMedia[data-kind="photo"] img {
+  width: 200px;
+  height: 112px;
+  object-fit: cover;
+}
+
 .revealMedia figcaption {
   max-width: 96px;
   color: #c4a46a;
   font-size: 10px;
   line-height: 1.2;
   text-align: center;
+}
+
+.revealMedia[data-kind="photo"] figcaption {
+  max-width: 200px;
 }
 
 .revealCorrect {
@@ -7337,6 +7352,25 @@ button[data-state="wrong"] > .heroPickerVerdict {
   .revealPanel {
     align-items: start;
     grid-template-columns: auto 1fr;
+  }
+
+  .revealPanel[data-media-kind="photo"] {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .revealMedia[data-kind="photo"] {
+    grid-column: 1 / -1;
+    justify-items: start;
+  }
+
+  .revealMedia[data-kind="photo"] img {
+    width: min(100%, 280px);
+    height: 148px;
+  }
+
+  .revealMedia[data-kind="photo"] figcaption {
+    max-width: none;
+    text-align: left;
   }
 
   .reportMenu {

@@ -301,6 +301,32 @@ record(
     .every((question) => question.flashback?.revealMedia?.src),
   "A Flashback who-won prompt has no reveal picture.",
 );
+const winnerPhotoIds = new Set([
+  "flashback:ti7-winner",
+  "flashback:ti8-winner",
+  "flashback:ti11-winner",
+  "flashback:ti12-winner",
+  "flashback:ti13-winner",
+  "flashback:ti14-winner",
+  "flashback:frankfurt-major-winner",
+  "flashback:shanghai-major-winner",
+  "flashback:manila-major-winner",
+  "flashback:boston-major-winner",
+  "flashback:kiev-major-winner",
+  "flashback:back-to-back",
+  "flashback:four-majors",
+]);
+record(
+  questions
+    .filter((question) => winnerPhotoIds.has(question.id))
+    .every(
+      (question) =>
+        question.flashback?.revealMedia?.kind === "photo" &&
+        String(question.flashback.revealMedia.src).startsWith("/arcade/flashback/winners/") &&
+        existsSync(path.join(process.cwd(), "public", question.flashback.revealMedia.src)),
+    ) && winnerPhotoIds.size === 13,
+  "A Flashback winner photo is still a team mark.",
+);
 
 const now = 1_000_000;
 record(
@@ -338,10 +364,14 @@ record(
 record(
   arcadeSource.includes('data-empty={position < 0 ? "true" : "false"}') &&
     arcadeSource.includes("flashback-reveal-media") &&
+    arcadeSource.includes("data-media-kind") &&
     arcadeCss.includes(".flashbackOrderCards button {\n  position: relative;") &&
     arcadeCss.includes("height: 132px;") &&
     arcadeCss.includes(".flashbackOrderSlots > span {\n  display: grid;") &&
-    arcadeCss.includes("height: 64px;"),
+    arcadeCss.includes("height: 64px;") &&
+    arcadeCss.includes('.revealMedia[data-kind="photo"] img') &&
+    arcadeCss.includes("width: 200px;") &&
+    arcadeCss.includes("height: 112px;"),
   "Flashback order cards can still change size when a card is picked.",
 );
 

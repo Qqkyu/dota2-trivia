@@ -25,6 +25,7 @@ export interface PublicQuestionReveal {
     src: string;
     alt: string;
     caption?: string;
+    kind?: "photo" | "mark";
   };
 }
 

@@ -244,6 +244,9 @@ export function publicQuestionForRound(question, round, now) {
                     ...(question.flashback.revealMedia.caption
                       ? { caption: question.flashback.revealMedia.caption }
                       : {}),
+                    ...(question.flashback.revealMedia.kind
+                      ? { kind: question.flashback.revealMedia.kind }
+                      : {}),
                   },
                 }
               : {}),
