@@ -37,15 +37,7 @@ export interface FormatPreview {
   soundcheckFormat?: string | null;
 }
 
-function Artwork({
-  src,
-  fogged = false,
-  className,
-}: {
-  src?: string | null;
-  fogged?: boolean;
-  className?: string;
-}) {
+function Artwork({ src, fogged = false, className }: { src?: string | null; fogged?: boolean; className?: string }) {
   return (
     <div className={clsx(arcade.artwork, fogged && arcade.heroArtwork, className)}>
       <div className={arcade.artGlow} />
@@ -66,7 +58,6 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
       <div className={clsx(arcade.questionBlock, arcade.flashbackQuestion)}>
         {preview?.image?.src ? <Artwork src={preview.image.src} /> : null}
         <div className={arcade.questionCopy}>
-          {preview?.eyebrow ? <span>{preview.eyebrow}</span> : null}
           <h2>{preview?.prompt}</h2>
         </div>
       </div>
@@ -298,8 +289,7 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
     );
   }
 
-  const classicEyebrow =
-    preview?.kind === "ability-detective" ? preview.eyebrow?.split("·", 1)[0]?.trim() : null;
+  const classicEyebrow = preview?.kind === "ability-detective" ? preview.eyebrow?.split("·", 1)[0]?.trim() : null;
 
   return (
     <div className={clsx(arcade.questionBlock, !preview?.image && arcade.textQuestion)}>

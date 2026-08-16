@@ -4300,7 +4300,6 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               >
                 <QuestionArtwork question={currentQuestion} />
                 <div className={styles.questionCopy}>
-                  <span>{currentQuestion.eyebrow}</span>
                   <h2>{currentQuestion.prompt}</h2>
                 </div>
               </div>
