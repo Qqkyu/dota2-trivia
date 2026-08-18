@@ -1,178 +1,524 @@
 #!/usr/bin/env node
 
 /**
- * Live check: lock and wrong cues must actually play at an audible volume.
- * Recreated 2026-08-18: DEFAULT_GAME_VOLUME 0.1 made lock play at 0.08
- * (inaudible click) and wrong play at 0.10 (hollow / "cave" magic_immune).
+ * Live sound loop. Owns a muted Chrome so speakers stay quiet.
+ * Recreated 2026-08-18: earlier checks used a leftover unmuted tab,
+ * JS .click() (not a user gesture), and one happy-path round. That
+ * could not catch a missed lock, a rejected play(), or a hidden tab.
+ *
+ * One command: pnpm check:sounds
+ * Fail if lock or result play() is missing, rejects, or does not advance.
  */
 
-const debuggingUrl = process.env.CHROME_DEBUG_URL ?? "http://127.0.0.1:9223";
+import { spawn } from "node:child_process";
+import { mkdtemp, rm } from "node:fs/promises";
+import { createServer } from "node:net";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+
 const appUrl = process.env.APP_URL ?? "http://localhost:3000";
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const targets = await fetch(`${debuggingUrl}/json/list`).then((response) => response.json());
-const target = targets.find((entry) => entry.type === "page");
-if (!target?.webSocketDebuggerUrl) {
-  throw new Error("No debuggable Chrome page. Start Chrome with --remote-debugging-port=9223.");
-}
-
-const socket = new WebSocket(target.webSocketDebuggerUrl);
-const pending = new Map();
-const eventWaiters = new Map();
-let requestId = 0;
-
-socket.addEventListener("message", (message) => {
-  const payload = JSON.parse(message.data);
-  if (payload.id) {
-    const request = pending.get(payload.id);
-    if (!request) return;
-    pending.delete(payload.id);
-    if (payload.error) request.reject(new Error(payload.error.message));
-    else request.resolve(payload.result);
-    return;
-  }
-  const waiters = eventWaiters.get(payload.method);
-  if (waiters?.length) {
-    eventWaiters.delete(payload.method);
-    for (const resolve of waiters) resolve(payload.params);
-  }
-});
-
-await new Promise((resolve, reject) => {
-  socket.addEventListener("open", resolve, { once: true });
-  socket.addEventListener("error", reject, { once: true });
-});
-
-function send(method, params = {}) {
-  const id = ++requestId;
-  socket.send(JSON.stringify({ id, method, params }));
-  return new Promise((resolve, reject) => pending.set(id, { resolve, reject }));
-}
-
-function once(method) {
-  return new Promise((resolve) => {
-    const waiters = eventWaiters.get(method) ?? [];
-    waiters.push(resolve);
-    eventWaiters.set(method, waiters);
+function freePort() {
+  return new Promise((resolve, reject) => {
+    const server = createServer();
+    server.listen(0, "127.0.0.1", () => {
+      const address = server.address();
+      const port = typeof address === "object" && address ? address.port : 0;
+      server.close((error) => (error ? reject(error) : resolve(port)));
+    });
+    server.on("error", reject);
   });
 }
 
-async function evaluate(expression) {
-  const result = await send("Runtime.evaluate", { expression, awaitPromise: true, returnByValue: true });
-  if (result.exceptionDetails) {
-    throw new Error(result.exceptionDetails.exception?.description ?? result.exceptionDetails.text);
-  }
-  return result.result.value;
-}
-
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-async function waitFor(expression, timeout = 30_000) {
+async function waitJson(url, timeout = 15_000) {
   const startedAt = Date.now();
   while (Date.now() - startedAt < timeout) {
-    if (await evaluate(expression)) return;
-    await delay(200);
+    try {
+      const response = await fetch(url);
+      if (response.ok) return await response.json();
+    } catch {
+      // Chrome is still binding the port.
+    }
+    await delay(100);
   }
-  throw new Error(`Timed out waiting for: ${expression}`);
+  throw new Error(`Chrome debug HTTP did not open at ${url}`);
 }
 
-await send("Page.enable");
-await send("Runtime.enable");
-await send("Page.addScriptToEvaluateOnNewDocument", {
-  source: `(() => {
-    window.__soundLog = [];
-    const NativeAudio = window.Audio;
-    const nativePlay = HTMLMediaElement.prototype.play;
-    window.Audio = function(...args) {
-      const audio = new NativeAudio(...args);
-      window.__soundLog.push({ type: "construct", src: String(args[0] ?? "") });
-      return audio;
-    };
-    window.Audio.prototype = NativeAudio.prototype;
-    HTMLMediaElement.prototype.play = function() {
-      const src = this.currentSrc || this.src;
-      const volume = this.volume;
-      window.__soundLog.push({ type: "play", src, volume, readyState: this.readyState });
-      return nativePlay.apply(this, arguments).then(() => {
-        window.__soundLog.push({ type: "play-ok", src, volume });
-      }).catch((error) => {
-        window.__soundLog.push({ type: "play-fail", src, volume, error: String(error) });
-        throw error;
-      });
-    };
-  })()`,
-});
+function attachCdp(webSocketDebuggerUrl) {
+  const socket = new WebSocket(webSocketDebuggerUrl);
+  const pending = new Map();
+  const eventWaiters = new Map();
+  let requestId = 0;
 
-const loaded = once("Page.loadEventFired");
-await send("Page.navigate", { url: `${appUrl}/play` });
-await loaded;
-await waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`, 20_000);
-if (await evaluate(`Boolean(document.querySelector('[data-testid="start-arcade"]'))`)) {
-  await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+  socket.addEventListener("message", (message) => {
+    const payload = JSON.parse(message.data);
+    if (payload.id) {
+      const request = pending.get(payload.id);
+      if (!request) return;
+      pending.delete(payload.id);
+      if (payload.error) request.reject(new Error(payload.error.message));
+      else request.resolve(payload.result);
+      return;
+    }
+    const waiters = eventWaiters.get(payload.method);
+    if (waiters?.length) {
+      eventWaiters.delete(payload.method);
+      for (const resolve of waiters) resolve(payload.params);
+    }
+  });
+
+  function send(method, params = {}) {
+    const id = ++requestId;
+    socket.send(JSON.stringify({ id, method, params }));
+    return new Promise((resolve, reject) => pending.set(id, { resolve, reject }));
+  }
+
+  function once(method) {
+    return new Promise((resolve) => {
+      const waiters = eventWaiters.get(method) ?? [];
+      waiters.push(resolve);
+      eventWaiters.set(method, waiters);
+    });
+  }
+
+  async function evaluate(expression) {
+    const result = await send("Runtime.evaluate", {
+      expression,
+      awaitPromise: true,
+      returnByValue: true,
+    });
+    if (result.exceptionDetails) {
+      throw new Error(result.exceptionDetails.exception?.description ?? result.exceptionDetails.text);
+    }
+    return result.result.value;
+  }
+
+  async function waitFor(expression, timeout = 30_000) {
+    const startedAt = Date.now();
+    while (Date.now() - startedAt < timeout) {
+      if (await evaluate(expression)) return;
+      await delay(150);
+    }
+    throw new Error(`Timed out waiting for: ${expression}`);
+  }
+
+  return {
+    socket,
+    send,
+    once,
+    evaluate,
+    waitFor,
+    ready: new Promise((resolve, reject) => {
+      socket.addEventListener("open", resolve, { once: true });
+      socket.addEventListener("error", reject, { once: true });
+    }),
+  };
 }
-await waitFor(
-  `location.pathname === "/play" && (document.querySelector("main")?.dataset.phase === "answering" || document.querySelector("main")?.dataset.phase === "reveal")`,
-  40_000,
+
+const HOOK = `(() => {
+  window.__soundLog = [];
+  window.__audios = [];
+  const NativeAudio = window.Audio;
+  const nativePlay = HTMLMediaElement.prototype.play;
+  const nativePause = HTMLMediaElement.prototype.pause;
+  const stamp = (extra) => ({
+    at: Date.now(),
+    hidden: Boolean(document.hidden),
+    visibility: document.visibilityState,
+    ...extra,
+  });
+  window.Audio = function (...args) {
+    const audio = new NativeAudio(...args);
+    window.__audios.push(audio);
+    window.__soundLog.push(stamp({ type: "construct", src: String(args[0] ?? "") }));
+    return audio;
+  };
+  window.Audio.prototype = NativeAudio.prototype;
+  HTMLMediaElement.prototype.play = function () {
+    const src = this.currentSrc || this.src;
+    window.__soundLog.push(
+      stamp({ type: "play", src, volume: this.volume, readyState: this.readyState, paused: this.paused }),
+    );
+    return nativePlay.apply(this, arguments).then(() => {
+      window.__soundLog.push(stamp({ type: "play-ok", src, volume: this.volume, currentTime: this.currentTime }));
+    }).catch((error) => {
+      window.__soundLog.push(stamp({ type: "play-fail", src, volume: this.volume, error: String(error), name: error?.name }));
+      throw error;
+    });
+  };
+  HTMLMediaElement.prototype.pause = function () {
+    const src = this.currentSrc || this.src;
+    if (src) {
+      window.__soundLog.push(stamp({ type: "pause", src, currentTime: this.currentTime }));
+    }
+    return nativePause.apply(this, arguments);
+  };
+  window.__clipState = (needle) => {
+    const audio = window.__audios.find((entry) => String(entry.currentSrc || entry.src).includes(needle));
+    if (!audio) return null;
+    return {
+      src: audio.currentSrc || audio.src,
+      paused: audio.paused,
+      currentTime: audio.currentTime,
+      volume: audio.volume,
+      readyState: audio.readyState,
+      ended: audio.ended,
+      hidden: Boolean(document.hidden),
+      visibility: document.visibilityState,
+    };
+  };
+})()`;
+
+const port = await freePort();
+const userDataDir = await mkdtemp(join(tmpdir(), "queue-arcade-sounds-"));
+const chrome = spawn(
+  "google-chrome",
+  [
+    "--headless=new",
+    "--mute-audio",
+    `--remote-debugging-port=${port}`,
+    "--remote-allow-origins=*",
+    `--user-data-dir=${userDataDir}`,
+    "--no-first-run",
+    "--disable-gpu",
+    "--window-size=1280,900",
+    "about:blank",
+  ],
+  { stdio: "ignore" },
 );
-if (await evaluate(`document.querySelector("main")?.dataset.phase === "reveal"`)) {
-  await waitFor(`document.querySelector("main")?.dataset.phase === "answering"`, 20_000);
-}
 
-const volume = await evaluate(`Number(document.querySelector('[data-testid="game-volume"]')?.value)`);
-await evaluate(`(
-  document.querySelector('[data-testid="arcade-answer"]') ||
-  document.querySelector('[data-testid="flashback-year-lock"]') ||
-  document.querySelector('[data-testid="flashback-order-card"]')
-)?.click()`);
-if (await evaluate(`Boolean(document.querySelector('[data-testid="flashback-year-lock"]'))`)) {
-  await evaluate(`document.querySelector('[data-testid="flashback-year-lock"]')?.click()`);
-}
-await delay(400);
-const afterLock = await evaluate(`window.__soundLog`);
-await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
-await delay(400);
-const afterReveal = await evaluate(`window.__soundLog`);
-
-const lockPlays = afterLock.filter((entry) => entry.type === "play-ok" && String(entry.src).includes("button_click"));
-const wrongPlays = afterReveal.filter((entry) => entry.type === "play-ok" && String(entry.src).includes("magic_immune"));
-const coinPlays = afterReveal.filter((entry) => entry.type === "play-ok" && String(entry.src).includes("coins"));
-const failures = afterReveal.filter((entry) => entry.type === "play-fail");
 const errors = [];
+let page = null;
+let browser = null;
 
-if (!(volume >= 60)) {
-  errors.push(`Game volume is ${volume}%. Recreated inaudible lock/wrong at 10% default.`);
+async function cleanup() {
+  try {
+    await page?.send("Page.navigate", { url: "about:blank" });
+  } catch {
+    // already gone
+  }
+  try {
+    page?.socket.close();
+  } catch {
+    // already gone
+  }
+  try {
+    browser?.socket.close();
+  } catch {
+    // already gone
+  }
+  chrome.kill("SIGKILL");
+  await rm(userDataDir, { recursive: true, force: true }).catch(() => undefined);
 }
-if (lockPlays.length < 1 || lockPlays.some((entry) => entry.volume < 0.4)) {
-  errors.push(`Lock click was missing or too quiet: ${JSON.stringify(lockPlays)}`);
+
+function classify(src) {
+  const value = String(src);
+  if (value.includes("button_click")) return "lock";
+  if (value.includes("magic_immune")) return "wrong";
+  if (value.includes("coins")) return "correct";
+  if (value.includes("find_match") || value.includes("select_md")) return "start";
+  return "other";
 }
-if (wrongPlays.length + coinPlays.length < 1) {
-  errors.push("Reveal played neither wrong nor correct feedback.");
+
+function ofKind(log, type, kind) {
+  return log.filter((entry) => entry.type === type && classify(entry.src) === kind);
 }
-if (wrongPlays.length > 1 || coinPlays.length > 1) {
-  errors.push(
-    `Result cue played more than once: wrong=${wrongPlays.length} correct=${coinPlays.length}`,
+
+async function clickSelector(selector, index = 0) {
+  const box = await page.evaluate(`(() => {
+    const node = document.querySelectorAll(${JSON.stringify(selector)})[${index}];
+    if (!node) return null;
+    const rect = node.getBoundingClientRect();
+    if (rect.width < 2 || rect.height < 2) return null;
+    return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+  })()`);
+  if (!box) throw new Error(`No clickable node for ${selector}[${index}]`);
+  await page.send("Input.dispatchMouseEvent", {
+    type: "mousePressed",
+    x: box.x,
+    y: box.y,
+    button: "left",
+    clickCount: 1,
+  });
+  await page.send("Input.dispatchMouseEvent", {
+    type: "mouseReleased",
+    x: box.x,
+    y: box.y,
+    button: "left",
+    clickCount: 1,
+  });
+  return box;
+}
+
+async function snapshotBoard() {
+  return page.evaluate(`({
+    phase: document.querySelector("main")?.dataset.phase ?? "",
+    choice: document.querySelectorAll('[data-testid="arcade-answer"]').length,
+    yearLock: Boolean(document.querySelector('[data-testid="flashback-year-lock"]')),
+    yearSlider: Boolean(document.querySelector('[data-testid="flashback-year-slider"]')),
+    order: document.querySelectorAll('[data-testid="flashback-order-card"]').length,
+    hidden: Boolean(document.hidden),
+    visibility: document.visibilityState,
+  })`);
+}
+
+async function releaseYearSlider() {
+  const box = await page.evaluate(`(() => {
+    const slider = document.querySelector('[data-testid="flashback-year-slider"]');
+    if (!slider) return null;
+    const rect = slider.getBoundingClientRect();
+    return {
+      x: rect.x + rect.width * 0.2,
+      y: rect.y + rect.height / 2,
+      disabled: slider.disabled,
+    };
+  })()`);
+  if (!box || box.disabled) return null;
+  await page.send("Input.dispatchMouseEvent", {
+    type: "mousePressed",
+    x: box.x,
+    y: box.y,
+    button: "left",
+    clickCount: 1,
+  });
+  await page.send("Input.dispatchMouseEvent", {
+    type: "mouseReleased",
+    x: box.x,
+    y: box.y,
+    button: "left",
+    clickCount: 1,
+  });
+  return box;
+}
+
+async function lockCurrentAnswer() {
+  const board = await snapshotBoard();
+  if (board.choice) {
+    await clickSelector('[data-testid="arcade-answer"]', Math.max(0, board.choice - 1));
+    return { ...board, action: "choice" };
+  }
+  if (board.yearSlider) {
+    const released = await releaseYearSlider();
+    return { ...board, action: "year-slider", released: Boolean(released) };
+  }
+  if (board.yearLock) {
+    await clickSelector('[data-testid="flashback-year-lock"]');
+    return { ...board, action: "year-lock" };
+  }
+  if (board.order) {
+    for (let index = 0; index < board.order; index += 1) {
+      await clickSelector('[data-testid="flashback-order-card"]', index);
+      await delay(80);
+    }
+    return { ...board, action: "order" };
+  }
+  throw new Error(`No answer control in phase ${board.phase}`);
+}
+
+async function waitAnswering() {
+  await page.waitFor(
+    `location.pathname === "/play" && ["answering","reveal","waiting"].includes(document.querySelector("main")?.dataset.phase)`,
+    40_000,
   );
-}
-if (wrongPlays.some((entry) => entry.volume < 0.4)) {
-  errors.push(`Wrong cue played at cave volume: ${JSON.stringify(wrongPlays)}`);
-}
-if (failures.length) {
-  errors.push(`play() rejected: ${JSON.stringify(failures)}`);
+  if (await page.evaluate(`document.querySelector("main")?.dataset.phase === "reveal"`)) {
+    await page.waitFor(`document.querySelector("main")?.dataset.phase === "answering"`, 25_000);
+  }
+  if (await page.evaluate(`document.querySelector("main")?.dataset.phase === "waiting"`)) {
+    await page.waitFor(`document.querySelector("main")?.dataset.phase === "answering"`, 25_000);
+  }
+  await page.waitFor(`document.querySelector("main")?.dataset.phase === "answering"`, 25_000);
 }
 
 try {
+  const health = await fetch(`${appUrl}/play`);
+  if (!health.ok) throw new Error(`App is not serving /play (${health.status}). Start pnpm dev.`);
+
+  await waitJson(`http://127.0.0.1:${port}/json/version`);
+  const version = await waitJson(`http://127.0.0.1:${port}/json/version`);
+  browser = attachCdp(version.webSocketDebuggerUrl);
+  await browser.ready;
+
+  const created = await browser.send("Target.createTarget", { url: "about:blank" });
+  const targets = await waitJson(`http://127.0.0.1:${port}/json/list`);
+  const target =
+    targets.find((entry) => entry.id === created.targetId) ??
+    targets.find((entry) => entry.type === "page" && entry.webSocketDebuggerUrl);
+  if (!target?.webSocketDebuggerUrl) throw new Error("Chrome opened without a debuggable page.");
+
+  page = attachCdp(target.webSocketDebuggerUrl);
+  await page.ready;
+  await page.send("Page.enable");
+  await page.send("Runtime.enable");
+  await page.send("Page.addScriptToEvaluateOnNewDocument", { source: HOOK });
+
+  const loaded = page.once("Page.loadEventFired");
+  await page.send("Page.navigate", { url: `${appUrl}/play` });
+  await loaded;
+  await page.waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`, 20_000);
+
+  if (await page.evaluate(`Boolean(document.querySelector('[data-testid="start-arcade"]'))`)) {
+    await clickSelector('[data-testid="start-arcade"]');
+  }
+  await waitAnswering();
+
+  const volume = await page.evaluate(`Number(document.querySelector('[data-testid="game-volume"]')?.value)`);
+  if (!(volume >= 60)) {
+    errors.push(`Game volume is ${volume}%. Recreated inaudible lock/wrong at 10% default.`);
+  }
+
+  await page.evaluate(`window.__soundLog = []`);
+  const focusedBoard = await lockCurrentAnswer();
+  await delay(350);
+  const afterFocusedLock = await page.evaluate(`({
+    log: window.__soundLog,
+    lock: window.__clipState("button_click"),
+  })`);
+  const focusedLockPlays = ofKind(afterFocusedLock.log, "play-ok", "lock");
+  const focusedLockFails = ofKind(afterFocusedLock.log, "play-fail", "lock");
+  const focusedLockCalls = ofKind(afterFocusedLock.log, "play", "lock");
+
+  if (focusedLockFails.length) {
+    errors.push(`Focused lock play() rejected: ${JSON.stringify(focusedLockFails)}`);
+  }
+  if (focusedLockPlays.length < 1) {
+    errors.push(
+      `Focused lock cue did not play. action=${focusedBoard.action} calls=${focusedLockCalls.length} state=${JSON.stringify(afterFocusedLock.lock)}`,
+    );
+  } else if (focusedLockPlays.some((entry) => entry.volume < 0.4)) {
+    errors.push(`Focused lock cue was too quiet: ${JSON.stringify(focusedLockPlays)}`);
+  } else if (afterFocusedLock.lock && afterFocusedLock.lock.paused && afterFocusedLock.lock.currentTime < 0.02) {
+    errors.push(`Focused lock play() resolved but the clip was paused at 0: ${JSON.stringify(afterFocusedLock.lock)}`);
+  }
+
+  await page.waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
+  await delay(400);
+  const afterFocusedReveal = await page.evaluate(`({
+    log: window.__soundLog,
+    wrong: window.__clipState("magic_immune"),
+    correct: window.__clipState("coins"),
+    hidden: Boolean(document.hidden),
+  })`);
+  const focusedWrongOk = ofKind(afterFocusedReveal.log, "play-ok", "wrong");
+  const focusedCorrectOk = ofKind(afterFocusedReveal.log, "play-ok", "correct");
+  const focusedResultFails = [
+    ...ofKind(afterFocusedReveal.log, "play-fail", "wrong"),
+    ...ofKind(afterFocusedReveal.log, "play-fail", "correct"),
+  ];
+  if (focusedResultFails.length) {
+    errors.push(`Focused result play() rejected: ${JSON.stringify(focusedResultFails)}`);
+  }
+  if (focusedWrongOk.length + focusedCorrectOk.length < 1) {
+    errors.push(`Focused reveal played neither wrong nor correct. log=${JSON.stringify(afterFocusedReveal.log)}`);
+  }
+  if (focusedWrongOk.length > 1 || focusedCorrectOk.length > 1) {
+    errors.push(`Focused result cue played more than once: wrong=${focusedWrongOk.length} correct=${focusedCorrectOk.length}`);
+  }
+
+  await page.waitFor(`document.querySelector("main")?.dataset.phase === "answering"`, 25_000);
+  await page.evaluate(`window.__soundLog = []`);
+  const hiddenBoard = await lockCurrentAnswer();
+  await delay(250);
+
+  const background = await browser.send("Target.createTarget", { url: "about:blank" });
+  await browser.send("Target.activateTarget", { targetId: background.targetId });
+  await delay(200);
+  const hiddenAfterSwitch = await page.evaluate(`({ hidden: Boolean(document.hidden), visibility: document.visibilityState })`);
+
+  await page.waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
+  await delay(1800);
+  const afterHiddenReveal = await page.evaluate(`({
+    log: window.__soundLog,
+    wrong: window.__clipState("magic_immune"),
+    correct: window.__clipState("coins"),
+    lock: window.__clipState("button_click"),
+    hidden: Boolean(document.hidden),
+    visibility: document.visibilityState,
+  })`);
+  const hiddenLockOk = ofKind(afterHiddenReveal.log, "play-ok", "lock");
+  const hiddenLockFail = ofKind(afterHiddenReveal.log, "play-fail", "lock");
+  const hiddenWrongOk = ofKind(afterHiddenReveal.log, "play-ok", "wrong");
+  const hiddenCorrectOk = ofKind(afterHiddenReveal.log, "play-ok", "correct");
+  const hiddenResultFails = [
+    ...ofKind(afterHiddenReveal.log, "play-fail", "wrong"),
+    ...ofKind(afterHiddenReveal.log, "play-fail", "correct"),
+  ];
+  const hiddenResultCalls = [
+    ...ofKind(afterHiddenReveal.log, "play", "wrong"),
+    ...ofKind(afterHiddenReveal.log, "play", "correct"),
+  ];
+
+  if (hiddenLockFail.length) {
+    errors.push(`Hidden-round lock play() rejected: ${JSON.stringify(hiddenLockFail)}`);
+  }
+  if (hiddenLockOk.length < 1) {
+    errors.push(`Hidden-round lock cue did not play. action=${hiddenBoard.action}`);
+  }
+  if (!hiddenAfterSwitch.hidden && hiddenAfterSwitch.visibility !== "hidden") {
+    errors.push(`Could not background the play tab: ${JSON.stringify(hiddenAfterSwitch)}`);
+  }
+  if (hiddenResultFails.length) {
+    errors.push(`Hidden-tab result play() rejected: ${JSON.stringify(hiddenResultFails)}`);
+  }
+  if (hiddenWrongOk.length + hiddenCorrectOk.length < 1) {
+    errors.push(
+      `Hidden-tab reveal played neither wrong nor correct. calls=${hiddenResultCalls.length} wrong=${JSON.stringify(afterHiddenReveal.wrong)} correct=${JSON.stringify(afterHiddenReveal.correct)} log=${JSON.stringify(afterHiddenReveal.log)}`,
+    );
+  }
+  const hiddenResult = afterHiddenReveal.wrong ?? afterHiddenReveal.correct;
+  if (hiddenResult && hiddenResult.paused && hiddenResult.currentTime < 0.02) {
+    errors.push(`Hidden-tab result play() did not keep the clip running: ${JSON.stringify(hiddenResult)}`);
+  }
+
+  await browser.send("Target.activateTarget", { targetId: created.targetId });
+  await delay(500);
+  const afterReturn = await page.evaluate(`({
+    log: window.__soundLog,
+    hidden: Boolean(document.hidden),
+    visibility: document.visibilityState,
+    wrong: window.__clipState("magic_immune"),
+    correct: window.__clipState("coins"),
+  })`);
+  const visibleResultOk = afterReturn.log.filter(
+    (entry) =>
+      entry.type === "play-ok" &&
+      (classify(entry.src) === "wrong" || classify(entry.src) === "correct") &&
+      entry.hidden === false,
+  );
+  if (afterReturn.hidden) {
+    errors.push(`Play tab stayed hidden after focus return: ${JSON.stringify(afterReturn)}`);
+  } else if (visibleResultOk.length < 1) {
+    errors.push(
+      `Result cue never played while the tab was visible. Hidden play is silent when Chrome is in the background.`,
+    );
+  }
+
+  const report = {
+    volume,
+    focusedBoard,
+    hiddenBoard,
+    hiddenAfterSwitch,
+    focusedLock: afterFocusedLock.lock,
+    focusedWrong: afterFocusedReveal.wrong,
+    focusedCorrect: afterFocusedReveal.correct,
+    hiddenLock: afterHiddenReveal.lock,
+    hiddenWrong: afterHiddenReveal.wrong,
+    hiddenCorrect: afterHiddenReveal.correct,
+    focusedLockOk: focusedLockPlays.length,
+    focusedResultOk: focusedWrongOk.length + focusedCorrectOk.length,
+    hiddenLockOk: hiddenLockOk.length,
+    hiddenResultOk: hiddenWrongOk.length + hiddenCorrectOk.length,
+    errors,
+  };
+
   if (errors.length) {
-    console.error(JSON.stringify({ volume, afterReveal, errors }, null, 2));
+    console.error(JSON.stringify(report, null, 2));
     throw new Error(errors.join("\n"));
   }
 
   console.log(
-    `Feedback sounds audible: volume ${volume}%, lock ${lockPlays[0].volume}, result ${
-      (wrongPlays[0] ?? coinPlays[0]).volume
-    }.`,
+    `Feedback sounds hold: volume ${volume}%, focused ${focusedBoard.action} lock+result, hidden ${hiddenBoard.action} lock+result.`,
   );
 } finally {
-  // Never leave this tab in the public room. An idle /play tab still
-  // participates and will play the wrong cue on every later reveal.
-  await send("Page.navigate", { url: "about:blank" }).catch(() => undefined);
-  socket.close();
+  await cleanup();
 }

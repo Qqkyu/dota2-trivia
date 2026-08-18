@@ -245,10 +245,12 @@ record(
     arcadeSource.includes("flashbackYearMax") === false &&
     arcadeSource.includes("flashback-year-board") &&
     arcadeSource.includes("flashback-year-slider") &&
-    arcadeSource.includes("flashback-year-lock") &&
+    !arcadeSource.includes("flashback-year-lock") &&
     !arcadeSource.includes("flashback-year-tick") &&
-    !arcadeSource.includes("onPointerUp") &&
-    arcadeSource.includes("Set the year, then Lock") &&
+    arcadeSource.includes("onPointerUp") &&
+    arcadeSource.includes("Release the slider to lock the year") &&
+    !arcadeSource.includes("Set the year, then Lock") &&
+    !arcadeSource.includes("Lock year") &&
     arcadeCss.includes(".flashbackYearBoard {") &&
     arcadeCss.includes(".flashbackYearSlider {") &&
     arcadeCss.includes("min-height: 186px;") &&

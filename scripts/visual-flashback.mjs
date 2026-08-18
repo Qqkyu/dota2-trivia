@@ -383,7 +383,7 @@ const yearBefore = await evaluate(`(() => {
     height: Math.round(box?.height ?? 0),
     answers: document.querySelectorAll('[data-testid="arcade-answer"]').length,
     ticks: document.querySelectorAll('[data-testid="flashback-year-tick"]').length,
-    helper: document.body.innerText.includes("Set the year, then Lock"),
+    helper: document.body.innerText.includes("Release the slider to lock the year"),
     lock: Boolean(document.querySelector('[data-testid="flashback-year-lock"]')),
   };
 })()`);
@@ -399,7 +399,8 @@ const yearAfterSlide = await evaluate(`({
   readout: document.querySelector('[data-testid="flashback-year-readout"]')?.textContent,
 })`);
 await evaluate(`(() => {
-  document.querySelector('[data-testid="flashback-year-lock"]')?.click();
+  const slider = document.querySelector('[data-testid="flashback-year-slider"]');
+  slider?.dispatchEvent(new PointerEvent("pointerup", { bubbles: true }));
   if (window.__flashbackVisual) window.__flashbackVisual.locked = true;
   window.dispatchEvent(new Event("focus"));
   return true;
@@ -524,8 +525,8 @@ if (orderReveal.panelVisible === false) failures.push("order reveal result bar i
 if (yearBefore.min !== "2009" || yearBefore.max !== yearBefore.currentYear || yearBefore.ticks !== 0) {
   failures.push(`year slider ${yearBefore.min}-${yearBefore.max} ticks ${yearBefore.ticks}`);
 }
-if (yearBefore.answers !== 0 || !yearBefore.helper || !yearBefore.lock) {
-  failures.push("year slider still uses A-D answers");
+if (yearBefore.answers !== 0 || !yearBefore.helper || yearBefore.lock) {
+  failures.push("year slider still uses A-D answers or a Lock year button");
 }
 if (yearBefore.height < 186) failures.push(`year board short ${yearBefore.height}`);
 if (yearAfterSlide.locked === "true") failures.push("year slider locked as soon as the thumb moved");

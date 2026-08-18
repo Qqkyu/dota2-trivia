@@ -1259,22 +1259,12 @@ function FlashbackYearBoard({
             aria-label="Year"
             data-testid="flashback-year-slider"
             onInput={(event) => setCursorYear(Number(event.currentTarget.value))}
+            onPointerUp={(event) => commitYear(Number(event.currentTarget.value))}
           />
           <div className={styles.flashbackYearEnds}>
             <span>{yearMin}</span>
             <span>{yearMax}</span>
           </div>
-          <button
-            type="button"
-            className={styles.flashbackYearLock}
-            data-testid="flashback-year-lock"
-            disabled={locked || shownYear == null}
-            onClick={() => {
-              if (shownYear != null) commitYear(shownYear);
-            }}
-          >
-            Lock year
-          </button>
         </>
       ) : null}
     </div>
@@ -3258,6 +3248,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         participatedRef.current = snapshot.round.phase === "answering";
         finalizedRef.current = snapshot.round.phase === "reveal";
         voteRequestSettledRef.current = Boolean(playerVote);
+        if (snapshot.round.phase === "answering") feedbackPlayerRef.current?.clearPending();
 
         if (snapshot.round.phase === "answering") {
           setDeadline(localAnswerDeadline);
@@ -3295,6 +3286,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       }
 
       if (snapshot.round.phase === "answering") {
+        feedbackPlayerRef.current?.clearPending();
         setDeadline(localAnswerDeadline);
         setRevealDeadlineState(null);
         setPhase("answering");
@@ -3367,6 +3359,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         runSavedRef.current = false;
         finalizedRef.current = false;
         participatedRef.current = false;
+        feedbackPlayerRef.current?.clearPending();
         setCurrentQuestion(null);
         selectedIndexRef.current = null;
         selectedAnswerKeyRef.current = null;
@@ -3761,6 +3754,18 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
     const interval = window.setInterval(() => setNow(Date.now()), 100);
     return () => window.clearInterval(interval);
   }, [phase]);
+
+  useEffect(() => {
+    const replayHiddenResult = () => {
+      if (document.visibilityState === "visible") feedbackPlayerRef.current?.resumeIfNeeded();
+    };
+    document.addEventListener("visibilitychange", replayHiddenResult);
+    window.addEventListener("focus", replayHiddenResult);
+    return () => {
+      document.removeEventListener("visibilitychange", replayHiddenResult);
+      window.removeEventListener("focus", replayHiddenResult);
+    };
+  }, []);
 
   useEffect(() => {
     if (phase === "lobby") return;
@@ -5047,7 +5052,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                           : isValueOrderRound
                             ? "Choose four in order"
                             : isFlashbackYearRound
-                              ? "Set the year, then Lock"
+                              ? "Release the slider to lock the year"
                               : currentGame === "shopkeeper"
                               ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
                               : currentGame === "spell-link"

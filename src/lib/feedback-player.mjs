@@ -1,10 +1,16 @@
 import { DOTA_FEEDBACK_SOUNDS, dotaFeedbackSoundForKind } from "./feedback-sounds.mjs";
 
 export const FEEDBACK_SOUND_KINDS = Object.freeze(["lock", "correct", "wrong", "start"]);
+const RESULT_KINDS = new Set(["correct", "wrong"]);
 
-export function createFeedbackPlayer({ AudioCtor } = {}) {
+export function createFeedbackPlayer({
+  AudioCtor,
+  isHidden = () => typeof document !== "undefined" && Boolean(document.hidden),
+} = {}) {
   const boards = new Map();
   let created = 0;
+  let lastOptions = { enabled: true, volume: 1 };
+  let pendingResult = null;
 
   function resolveAudio() {
     if (AudioCtor) return AudioCtor;
@@ -61,21 +67,50 @@ export function createFeedbackPlayer({ AudioCtor } = {}) {
     }
   }
 
+  function isAudible(kind) {
+    return Boolean(boards.get(kind)?.some(({ audio }) => audio.paused === false));
+  }
+
+  function startClip(audio) {
+    if (typeof audio.play !== "function") return Promise.resolve();
+    const first = audio.play();
+    if (!first || typeof first.catch !== "function") return Promise.resolve();
+    return first.catch(() => {
+      const retry = audio.play();
+      if (retry && typeof retry.catch === "function") return retry.catch(() => undefined);
+      return undefined;
+    });
+  }
+
   function play(kind, { enabled = true, volume = 1 } = {}) {
+    lastOptions = { enabled, volume };
     if (!enabled || volume <= 0) return { played: false, reason: "muted", created };
     if (!DOTA_FEEDBACK_SOUNDS[kind]) return { played: false, reason: "unknown", created };
     preload();
     const clips = boards.get(kind);
     if (!clips?.length) return { played: false, reason: "missing", created };
     pauseAll();
+    pendingResult = RESULT_KINDS.has(kind) ? kind : null;
+    const starts = [];
     for (const { audio, gain } of clips) {
       audio.volume = Math.min(1, volume * gain);
-      if (typeof audio.play === "function") {
-        const result = audio.play();
-        if (result && typeof result.catch === "function") result.catch(() => undefined);
-      }
+      starts.push(startClip(audio));
     }
+    const hidden = Boolean(isHidden());
+    void Promise.allSettled(starts).then(() => {
+      if (RESULT_KINDS.has(kind) && !hidden && isAudible(kind)) pendingResult = null;
+    });
     return { played: true, kind, clipCount: clips.length, created };
+  }
+
+  function resumeIfNeeded() {
+    if (!pendingResult || isHidden()) return { played: false, reason: "idle", created };
+    if (isAudible(pendingResult)) return { played: false, reason: "already-playing", created };
+    return play(pendingResult, lastOptions);
+  }
+
+  function clearPending() {
+    pendingResult = null;
   }
 
   return {
@@ -83,6 +118,9 @@ export function createFeedbackPlayer({ AudioCtor } = {}) {
     play,
     pauseAll,
     setVolume,
+    resumeIfNeeded,
+    clearPending,
+    pendingResult: () => pendingResult,
     created: () => created,
     has(kind) {
       return boards.has(kind);

@@ -1633,23 +1633,6 @@
   font-size: 11px;
 }
 
-.flashbackYearLock {
-  justify-self: center;
-  min-width: 120px;
-  height: 34px;
-  padding: 0 16px;
-  border: 1px solid rgba(196, 164, 106, 0.45);
-  background: rgba(196, 164, 106, 0.14);
-  color: #f0d9a0;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-.flashbackYearLock:disabled {
-  cursor: default;
-  opacity: 0.45;
-}
-
 .flashbackYears {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }

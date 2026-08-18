@@ -88,6 +88,8 @@ if (
   !component.includes("feedbackPlayerRef.current?.preload") ||
   !component.includes("feedbackPlayerRef.current?.play") ||
   !component.includes("feedbackPlayerRef.current?.pauseAll") ||
+  !component.includes("feedbackPlayerRef.current?.resumeIfNeeded") ||
+  !component.includes("feedbackPlayerRef.current?.clearPending") ||
   !component.includes("const DEFAULT_GAME_VOLUME = 0.7") ||
   component.includes("const DEFAULT_GAME_VOLUME = 0.1")
 ) {
@@ -176,6 +178,35 @@ const hardyPlay = hardy.play("wrong", { enabled: true, volume: 1 });
 const hardyWrong = throwing.find((audio) => String(audio.src).includes("magic_immune"));
 if (!hardyPlay.played || hardyWrong?.plays !== 1) {
   failures.push("A not-ready clip still blocks the next feedback sound.");
+}
+
+const hiddenClips = [];
+let tabHidden = true;
+const hiddenPlayer = createFeedbackPlayer({
+  AudioCtor: class extends FakeAudio {
+    constructor(src) {
+      super(src);
+      hiddenClips.push(this);
+    }
+  },
+  isHidden: () => tabHidden,
+});
+hiddenPlayer.play("wrong", { enabled: true, volume: 1 });
+const hiddenWrong = hiddenClips.find((audio) => String(audio.src).includes("magic_immune"));
+if (hiddenPlayer.pendingResult() !== "wrong") {
+  failures.push("A result that plays while the tab is hidden is no longer kept for replay.");
+}
+const stillPlaying = hiddenPlayer.resumeIfNeeded();
+if (stillPlaying.played || hiddenWrong?.plays !== 1) {
+  failures.push("A result that is still playing was restarted when the tab returned.");
+}
+hiddenWrong.paused = true;
+hiddenWrong.currentTime = 0;
+tabHidden = false;
+const resumed = hiddenPlayer.resumeIfNeeded();
+await Promise.resolve();
+if (!resumed.played || hiddenWrong.plays !== 2) {
+  failures.push("A finished hidden result did not replay once when the tab became visible.");
 }
 
 if (failures.length) {
