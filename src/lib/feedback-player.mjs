@@ -32,11 +32,31 @@ export function createFeedbackPlayer({ AudioCtor } = {}) {
     return created;
   }
 
+  function resetClip(audio) {
+    try {
+      audio.pause();
+    } catch {
+      // ignore
+    }
+    try {
+      if (typeof audio.readyState !== "number" || audio.readyState >= 1) {
+        audio.currentTime = 0;
+      }
+    } catch {
+      // Unloaded clips throw if we seek. Never block the next cue.
+    }
+  }
+
   function pauseAll() {
     for (const clips of boards.values()) {
-      for (const { audio } of clips) {
-        audio.pause();
-        if (typeof audio.currentTime === "number") audio.currentTime = 0;
+      for (const { audio } of clips) resetClip(audio);
+    }
+  }
+
+  function setVolume(volume) {
+    for (const clips of boards.values()) {
+      for (const { audio, gain } of clips) {
+        audio.volume = Math.min(1, Math.max(0, volume) * gain);
       }
     }
   }
@@ -62,6 +82,7 @@ export function createFeedbackPlayer({ AudioCtor } = {}) {
     preload,
     play,
     pauseAll,
+    setVolume,
     created: () => created,
     has(kind) {
       return boards.has(kind);

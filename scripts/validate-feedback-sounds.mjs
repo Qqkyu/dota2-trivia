@@ -83,11 +83,13 @@ if (/AudioContext|createOscillator|createGain/.test(component)) {
 }
 
 if (
+  component.includes("feedbackAudioRef") ||
   !component.includes("createFeedbackPlayer") ||
   !component.includes("feedbackPlayerRef.current?.preload") ||
-  !component.includes("feedbackPlayerRef.current?.play")
+  !component.includes("feedbackPlayerRef.current?.play") ||
+  !component.includes("feedbackPlayerRef.current?.pauseAll")
 ) {
-  failures.push("Arcade feedback no longer uses the preloaded exclusive sound board.");
+  failures.push("Arcade feedback still points at a removed audio ref or skips the preloaded board.");
 }
 
 class FakeAudio {
@@ -142,6 +144,36 @@ if (!(lockClips[0]?.paused === false && wrongClips.every((audio) => audio.paused
 }
 if (player.play("lock", { enabled: true, volume: 0 }).played !== false) {
   failures.push("Muted volume still starts a cue.");
+}
+
+const throwing = [];
+const hardy = createFeedbackPlayer({
+  AudioCtor: class {
+    constructor(src) {
+      this.src = src;
+      this.preload = "auto";
+      this.volume = 1;
+      this.readyState = 0;
+      this.plays = 0;
+      throwing.push(this);
+    }
+    play() {
+      this.plays += 1;
+      return Promise.resolve();
+    }
+    pause() {}
+    set currentTime(_value) {
+      throw new Error("The HTMLMediaElement has not loaded.");
+    }
+    get currentTime() {
+      return 0;
+    }
+  },
+});
+const hardyPlay = hardy.play("wrong", { enabled: true, volume: 1 });
+const hardyWrong = throwing.find((audio) => String(audio.src).includes("magic_immune"));
+if (!hardyPlay.played || hardyWrong?.plays !== 1) {
+  failures.push("A not-ready clip still blocks the next feedback sound.");
 }
 
 if (failures.length) {

@@ -1394,7 +1394,7 @@
   gap: 10px;
   padding: 10px 18px 16px;
   border-radius: 5px;
-  background: linear-gradient(90deg, transparent, rgba(0, 0, 34, 0.87) 15%, rgba(0, 0, 34, 0.87) 85%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(12, 14, 15, 0.94) 15%, rgba(12, 14, 15, 0.94) 85%, transparent);
 }
 
 .entryWaitCardCopy > small {
@@ -1597,7 +1597,7 @@
 
 .flashbackYearBoard {
   display: grid;
-  min-height: 148px;
+  min-height: 186px;
   align-content: center;
   gap: 12px;
   margin: 0 28px 16px;
@@ -1631,6 +1631,23 @@
   justify-content: space-between;
   color: #8a8d85;
   font-size: 11px;
+}
+
+.flashbackYearLock {
+  justify-self: center;
+  min-width: 120px;
+  height: 34px;
+  padding: 0 16px;
+  border: 1px solid rgba(196, 164, 106, 0.45);
+  background: rgba(196, 164, 106, 0.14);
+  color: #f0d9a0;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.flashbackYearLock:disabled {
+  cursor: default;
+  opacity: 0.45;
 }
 
 .flashbackYears {

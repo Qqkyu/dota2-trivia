@@ -383,7 +383,8 @@ const yearBefore = await evaluate(`(() => {
     height: Math.round(box?.height ?? 0),
     answers: document.querySelectorAll('[data-testid="arcade-answer"]').length,
     ticks: document.querySelectorAll('[data-testid="flashback-year-tick"]').length,
-    helper: document.body.innerText.includes("Pick a year"),
+    helper: document.body.innerText.includes("Set the year, then Lock"),
+    lock: Boolean(document.querySelector('[data-testid="flashback-year-lock"]')),
   };
 })()`);
 await evaluate(`(() => {
@@ -391,7 +392,14 @@ await evaluate(`(() => {
   if (!slider) return false;
   slider.value = "2011";
   slider.dispatchEvent(new Event("input", { bubbles: true }));
-  slider.dispatchEvent(new Event("pointerup", { bubbles: true }));
+  return true;
+})()`);
+const yearAfterSlide = await evaluate(`({
+  locked: document.querySelector('[data-testid="flashback-year-board"]')?.dataset.locked,
+  readout: document.querySelector('[data-testid="flashback-year-readout"]')?.textContent,
+})`);
+await evaluate(`(() => {
+  document.querySelector('[data-testid="flashback-year-lock"]')?.click();
   if (window.__flashbackVisual) window.__flashbackVisual.locked = true;
   window.dispatchEvent(new Event("focus"));
   return true;
@@ -516,8 +524,11 @@ if (orderReveal.panelVisible === false) failures.push("order reveal result bar i
 if (yearBefore.min !== "2009" || yearBefore.max !== yearBefore.currentYear || yearBefore.ticks !== 0) {
   failures.push(`year slider ${yearBefore.min}-${yearBefore.max} ticks ${yearBefore.ticks}`);
 }
-if (yearBefore.answers !== 0 || !yearBefore.helper) failures.push("year slider still uses A-D answers");
-if (yearBefore.height < 148) failures.push(`year board short ${yearBefore.height}`);
+if (yearBefore.answers !== 0 || !yearBefore.helper || !yearBefore.lock) {
+  failures.push("year slider still uses A-D answers");
+}
+if (yearBefore.height < 186) failures.push(`year board short ${yearBefore.height}`);
+if (yearAfterSlide.locked === "true") failures.push("year slider locked as soon as the thumb moved");
 if (yearAfterPick.locked !== "true" || yearAfterPick.readout !== "2011" || yearAfterPick.value !== "2011") {
   failures.push(`year pick ${yearAfterPick.readout} locked ${yearAfterPick.locked}`);
 }
@@ -543,7 +554,7 @@ if (photoMobile.overflow) failures.push("mobile photo overflow");
 
 console.log(
   JSON.stringify(
-    { orderBefore, orderAfterPick, orderReveal, yearBefore, yearAfterPick, yearReveal, photoAnswering, artBefore, photoReveal, photoMobile, failures },
+    { orderBefore, orderAfterPick, orderReveal, yearBefore, yearAfterSlide, yearAfterPick, yearReveal, photoAnswering, artBefore, photoReveal, photoMobile, failures },
     null,
     2,
   ),

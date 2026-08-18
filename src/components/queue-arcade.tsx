@@ -1259,12 +1259,22 @@ function FlashbackYearBoard({
             aria-label="Year"
             data-testid="flashback-year-slider"
             onInput={(event) => setCursorYear(Number(event.currentTarget.value))}
-            onPointerUp={(event) => commitYear(Number(event.currentTarget.value))}
           />
           <div className={styles.flashbackYearEnds}>
             <span>{yearMin}</span>
             <span>{yearMax}</span>
           </div>
+          <button
+            type="button"
+            className={styles.flashbackYearLock}
+            data-testid="flashback-year-lock"
+            disabled={locked || shownYear == null}
+            onClick={() => {
+              if (shownYear != null) commitYear(shownYear);
+            }}
+          >
+            Lock year
+          </button>
         </>
       ) : null}
     </div>
@@ -3688,7 +3698,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       setEntryWaitMode(null);
       prewarmedAfterRoundIdRef.current = "";
       autoStartAttemptedRef.current = false;
-      feedbackAudioRef.current?.clips.forEach(({ audio }) => audio.pause());
+      feedbackPlayerRef.current?.pauseAll();
       stopRoundAudio(false);
       updateReportTarget(null);
       setReportNotice(null);
@@ -3938,7 +3948,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
 
   useEffect(
     () => () => {
-      feedbackAudioRef.current?.clips.forEach(({ audio }) => audio.pause());
+      feedbackPlayerRef.current?.pauseAll();
       stopRoundAudio(false);
     },
     [stopRoundAudio],
@@ -4106,7 +4116,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               onClick={() => {
                 if (soundEnabled) {
                   stopRoundAudio();
-                  feedbackAudioRef.current?.clips.forEach(({ audio }) => audio.pause());
+                  feedbackPlayerRef.current?.pauseAll();
                 }
                 setSoundEnabled(!soundEnabled);
               }}
@@ -4130,11 +4140,8 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                   .forEach((audio) => {
                     audio.volume = nextVolume;
                   });
-                if (feedbackAudioRef.current) {
-                  feedbackAudioRef.current.clips.forEach(({ audio, gain }) => {
-                    audio.volume = Math.min(1, nextVolume * gain);
-                  });
-                }
+                feedbackPlayerRef.current?.preload();
+                feedbackPlayerRef.current?.setVolume(nextVolume);
                 setGameVolume(nextVolume);
                 setSoundEnabled(true);
               }}
@@ -5041,7 +5048,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                           : isValueOrderRound
                             ? "Choose four in order"
                             : isFlashbackYearRound
-                              ? "Pick a year"
+                              ? "Set the year, then Lock"
                               : currentGame === "shopkeeper"
                               ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
                               : currentGame === "spell-link"

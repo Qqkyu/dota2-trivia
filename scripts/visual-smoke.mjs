@@ -1145,12 +1145,7 @@ if (!answering.openShop) {
       );
     }
   } else if (answering.flashbackYear) {
-    await evaluate(`(() => {
-      const slider = document.querySelector('[data-testid="flashback-year-slider"]');
-      if (!slider) return false;
-      slider.dispatchEvent(new Event("pointerup", { bubbles: true }));
-      return true;
-    })()`);
+    await evaluate(`document.querySelector('[data-testid="flashback-year-lock"]')?.click()`);
   } else if (answering.flashbackOrder) {
     const measureFlashbackOrder = `(() => {
       const board = document.querySelector('[data-testid="flashback-order-board"]');
