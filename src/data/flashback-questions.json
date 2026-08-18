@@ -5578,7 +5578,7 @@
   },
   {
     "id": "flashback:first-seattle-ti",
-    "kind": "flashback-choice",
+    "kind": "flashback-year",
     "varietyKey": "flashback:first-seattle-ti",
     "category": "Esports",
     "difficulty": 2,
@@ -5593,8 +5593,9 @@
     "correctIndex": 1,
     "explanation": "TI2 in 2012 was the first Seattle International. TI1 was at Gamescom in Cologne.",
     "flashback": {
-      "family": "choice",
-      "subject": "event:ti2"
+      "family": "year",
+      "subject": "event:ti2",
+      "correctYear": 2012
     },
     "source": {
       "label": "The International",
@@ -5609,7 +5610,7 @@
   },
   {
     "id": "flashback:ti20m",
-    "kind": "flashback-choice",
+    "kind": "flashback-year",
     "varietyKey": "flashback:ti20m",
     "category": "Esports",
     "difficulty": 3,
@@ -5624,8 +5625,9 @@
     "correctIndex": 1,
     "explanation": "TI6 in 2016 was the first to pass $20 million.",
     "flashback": {
-      "family": "choice",
-      "subject": "event:ti6"
+      "family": "year",
+      "subject": "event:ti6",
+      "correctYear": 2016
     },
     "source": {
       "label": "The International",

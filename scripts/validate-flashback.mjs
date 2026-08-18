@@ -244,11 +244,24 @@ record(
   !arcadeSource.includes("yearMax: 2026") &&
     arcadeSource.includes("flashbackYearMax") === false &&
     arcadeSource.includes("flashback-year-board") &&
-    arcadeSource.includes("flashback-year-tick") &&
+    arcadeSource.includes("flashback-year-slider") &&
+    !arcadeSource.includes("flashback-year-tick") &&
     arcadeSource.includes("Pick a year") &&
     arcadeCss.includes(".flashbackYearBoard {") &&
-    arcadeCss.includes("min-height: 148px;"),
-  "Flashback year ticks still use a hardcoded last year or can jump.",
+    arcadeCss.includes(".flashbackYearSlider {") &&
+    arcadeCss.includes("min-height: 148px;") &&
+    arcadeCss.includes("accent-color: #c4a46a;"),
+  "Flashback year answers still use a row of year boxes or a hardcoded last year.",
+);
+record(
+  questions
+    .filter((question) => /^what year/i.test(question.prompt))
+    .every((question) => question.kind === "flashback-year" && question.flashback?.family === "year"),
+  "A What year prompt still uses four nearby years.",
+);
+record(
+  !arcadeCss.includes("#68c6d9") && !arcadeCss.includes("104, 198, 217"),
+  "The play chrome still uses the out-of-place cyan accent.",
 );
 record(
   flashbackYearMax(Date.UTC(2027, 5, 1)) === 2027 && flashbackYearMax(Date.UTC(2031, 0, 1)) === 2031,

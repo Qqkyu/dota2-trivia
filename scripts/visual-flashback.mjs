@@ -370,24 +370,28 @@ await screenshot("/tmp/flashback-order-reveal.png");
 
 await apply("year", "answering");
 await waitFor(
-  `document.querySelector("main")?.dataset.roundId === "visual-flashback-year" && document.querySelectorAll('[data-testid="flashback-year-tick"]').length > 10`,
+  `document.querySelector("main")?.dataset.roundId === "visual-flashback-year" && Boolean(document.querySelector('[data-testid="flashback-year-slider"]'))`,
 );
 const yearBefore = await evaluate(`(() => {
-  const ticks = [...document.querySelectorAll('[data-testid="flashback-year-tick"]')];
+  const slider = document.querySelector('[data-testid="flashback-year-slider"]');
   const board = document.querySelector('[data-testid="flashback-year-board"]');
   const box = board?.getBoundingClientRect();
   return {
-    count: ticks.length,
-    first: ticks[0]?.dataset.year,
-    last: ticks.at(-1)?.dataset.year,
+    min: slider?.min,
+    max: slider?.max,
     currentYear: String(new Date().getFullYear()),
     height: Math.round(box?.height ?? 0),
     answers: document.querySelectorAll('[data-testid="arcade-answer"]').length,
+    ticks: document.querySelectorAll('[data-testid="flashback-year-tick"]').length,
     helper: document.body.innerText.includes("Pick a year"),
   };
 })()`);
 await evaluate(`(() => {
-  document.querySelector('[data-testid="flashback-year-tick"][data-year="2011"]')?.click();
+  const slider = document.querySelector('[data-testid="flashback-year-slider"]');
+  if (!slider) return false;
+  slider.value = "2011";
+  slider.dispatchEvent(new Event("input", { bubbles: true }));
+  slider.dispatchEvent(new Event("pointerup", { bubbles: true }));
   if (window.__flashbackVisual) window.__flashbackVisual.locked = true;
   window.dispatchEvent(new Event("focus"));
   return true;
@@ -395,28 +399,25 @@ await evaluate(`(() => {
 await waitFor(`document.querySelector('[data-testid="flashback-year-board"]')?.dataset.locked === "true"`);
 const yearAfterPick = await evaluate(`(() => {
   const board = document.querySelector('[data-testid="flashback-year-board"]');
-  const ticks = [...document.querySelectorAll('[data-testid="flashback-year-tick"]')].map((tick) => {
-    const box = tick.getBoundingClientRect();
-    return { year: tick.dataset.year, x: Math.round(box.x), y: Math.round(box.y), w: Math.round(box.width), h: Math.round(box.height) };
-  });
+  const slider = document.querySelector('[data-testid="flashback-year-slider"]');
   return {
     locked: board?.dataset.locked,
     readout: document.querySelector('[data-testid="flashback-year-readout"]')?.textContent,
+    value: slider?.value,
     height: Math.round(board?.getBoundingClientRect().height ?? 0),
-    ticks,
   };
 })()`);
 await screenshot("/tmp/flashback-year-answering.png");
 
 await apply("year", "reveal");
 await waitFor(
-  `document.querySelector("main")?.dataset.phase === "reveal" && document.querySelector('[data-testid="flashback-year-tick"][data-year="2011"]')?.dataset.correct === "true"`,
+  `document.querySelector("main")?.dataset.phase === "reveal" && document.querySelector('[data-testid="flashback-year-board"]')?.dataset.correctYear === "2011"`,
 );
 const yearReveal = await evaluate(`(() => {
   const board = document.querySelector('[data-testid="flashback-year-board"]');
   return {
     readout: document.querySelector('[data-testid="flashback-year-readout"]')?.textContent,
-    correct: document.querySelector('[data-testid="flashback-year-tick"][data-year="2011"]')?.dataset.correct,
+    correctYear: board?.dataset.correctYear,
     height: Math.round(board?.getBoundingClientRect().height ?? 0),
     panelVisible: Boolean(document.querySelector('[data-testid="reveal-panel"]')),
   };
@@ -512,17 +513,17 @@ if (orderReveal.yours.some((name) => name.includes("…") || name.endsWith("..."
   failures.push(`order yours names clipped ${orderReveal.yours.join(",")}`);
 }
 if (orderReveal.panelVisible === false) failures.push("order reveal result bar is clipped");
-if (yearBefore.count < 12 || yearBefore.last !== yearBefore.currentYear || yearBefore.first !== "2009") {
-  failures.push(`year ticks ${yearBefore.first}-${yearBefore.last} count ${yearBefore.count}`);
+if (yearBefore.min !== "2009" || yearBefore.max !== yearBefore.currentYear || yearBefore.ticks !== 0) {
+  failures.push(`year slider ${yearBefore.min}-${yearBefore.max} ticks ${yearBefore.ticks}`);
 }
-if (yearBefore.answers !== 0 || !yearBefore.helper) failures.push("year ticks still use A-D answers");
+if (yearBefore.answers !== 0 || !yearBefore.helper) failures.push("year slider still uses A-D answers");
 if (yearBefore.height < 148) failures.push(`year board short ${yearBefore.height}`);
-if (yearAfterPick.locked !== "true" || yearAfterPick.readout !== "2011") {
+if (yearAfterPick.locked !== "true" || yearAfterPick.readout !== "2011" || yearAfterPick.value !== "2011") {
   failures.push(`year pick ${yearAfterPick.readout} locked ${yearAfterPick.locked}`);
 }
 if (yearAfterPick.height !== yearBefore.height) failures.push("year board jumped after pick");
-if (yearReveal.correct !== "true" || yearReveal.readout !== "2011" || !yearReveal.panelVisible) {
-  failures.push("year reveal did not mark 2011");
+if (yearReveal.correctYear !== "2011" || yearReveal.readout !== "2011" || !yearReveal.panelVisible) {
+  failures.push("year reveal did not keep 2011");
 }
 if (photoAnswering.strip || photoAnswering.leak) failures.push("winner photo leaked while answering");
 if (photoReveal.strip) failures.push("winner photo still uses the small strip");

@@ -71,7 +71,8 @@ import {
 import { ARCADE_LOBBY_PATH, PUBLIC_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
 import { crowdPercentage, keyedCrowdSplitRows } from "@/lib/crowd-split.mjs";
 import { DEFAULT_GAME_ID, GAME_IDS, type PublicGameInfo } from "@/lib/game-identity";
-import { answerFeedbackKind, dotaFeedbackSoundForKind } from "@/lib/feedback-sounds.mjs";
+import { answerFeedbackKind } from "@/lib/feedback-sounds.mjs";
+import { createFeedbackPlayer } from "@/lib/feedback-player.mjs";
 import { accuracyRate, revealCallout, streakBannerParts } from "@/lib/dota-flavor.mjs";
 import { preventQuestionClipboard, shouldBlockQuestionClipboard } from "@/lib/question-guard.mjs";
 import { FALLBACK_STEAM_DISPLAY_NAME } from "@/lib/steam-profile.mjs";
@@ -1200,45 +1201,41 @@ function FlashbackYearBoard({
   selectedKey: string | null;
   onChoose: (answerKey: string) => void;
 }) {
-  const yearMin = question.flashback?.yearMin;
-  const yearMax = question.flashback?.yearMax;
-  const years =
-    Number.isInteger(yearMin) && Number.isInteger(yearMax) && Number(yearMax) >= Number(yearMin)
-      ? Array.from({ length: Number(yearMax) - Number(yearMin) + 1 }, (_, index) => Number(yearMin) + index)
-      : [];
+  const yearMin = Number(question.flashback?.yearMin);
+  const yearMax = Number(question.flashback?.yearMax);
+  const hasRange = Number.isInteger(yearMin) && Number.isInteger(yearMax) && yearMax >= yearMin;
   const lockedYear = selectedKey ? flashbackYearFromAnswerKey(selectedKey) : null;
   const correctYear = phase === "reveal" ? flashbackYearFromAnswerKey(question.reveal?.correctAnswerKey) : null;
   const locked = Boolean(selectedKey) || phase !== "answering";
-  const [cursorYear, setCursorYear] = useState<number | null>(lockedYear);
+  const midpoint = hasRange ? yearMin + Math.floor((yearMax - yearMin) / 2) : null;
+  const [cursorYear, setCursorYear] = useState<number | null>(lockedYear ?? midpoint);
+
+  const commitYear = useCallback(
+    (year: number) => {
+      if (locked || !Number.isInteger(year)) return;
+      const answerKey = flashbackYearAnswerKey(year);
+      if (!answerKey) return;
+      setCursorYear(year);
+      onChoose(answerKey);
+    },
+    [locked, onChoose],
+  );
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (locked || years.length === 0) return;
-      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
-      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-        event.preventDefault();
-        setCursorYear((current) => {
-          const start = current ?? years[Math.floor(years.length / 2)] ?? years[0];
-          const index = years.indexOf(start);
-          const nextIndex =
-            event.key === "ArrowLeft" ? Math.max(0, index - 1) : Math.min(years.length - 1, index + 1);
-          return years[nextIndex] ?? start;
-        });
-        return;
-      }
+      if (locked || !hasRange) return;
       if (event.key === "Enter" || event.key === " ") {
-        const year = cursorYear ?? years[Math.floor(years.length / 2)];
-        const answerKey = year === undefined ? null : flashbackYearAnswerKey(year);
-        if (!answerKey) return;
+        const year = cursorYear ?? midpoint;
+        if (year === null) return;
         event.preventDefault();
-        onChoose(answerKey);
+        commitYear(year);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [cursorYear, locked, onChoose, years]);
+  }, [commitYear, cursorYear, hasRange, locked, midpoint]);
 
-  const shownYear = lockedYear ?? cursorYear;
+  const shownYear = lockedYear ?? cursorYear ?? midpoint;
 
   return (
     <div
@@ -1246,33 +1243,30 @@ function FlashbackYearBoard({
       data-testid="flashback-year-board"
       data-phase={phase}
       data-locked={locked ? "true" : "false"}
+      data-correct-year={correctYear ?? ""}
     >
       <strong data-testid="flashback-year-readout">{shownYear ?? "Year"}</strong>
-      <div className={styles.flashbackYearTicks} role="group" aria-label="Choose a year">
-        {years.map((year) => {
-          const selected = lockedYear === year || (!lockedYear && cursorYear === year);
-          const correct = correctYear === year;
-          return (
-            <button
-              key={year}
-              type="button"
-              data-testid="flashback-year-tick"
-              data-year={year}
-              data-selected={selected ? "true" : "false"}
-              data-correct={correct ? "true" : "false"}
-              disabled={locked}
-              onClick={() => {
-                const answerKey = flashbackYearAnswerKey(year);
-                if (!answerKey) return;
-                setCursorYear(year);
-                onChoose(answerKey);
-              }}
-            >
-              {year}
-            </button>
-          );
-        })}
-      </div>
+      {hasRange ? (
+        <>
+          <input
+            className={styles.flashbackYearSlider}
+            type="range"
+            min={yearMin}
+            max={yearMax}
+            step={1}
+            value={shownYear ?? midpoint ?? yearMin}
+            disabled={locked}
+            aria-label="Year"
+            data-testid="flashback-year-slider"
+            onInput={(event) => setCursorYear(Number(event.currentTarget.value))}
+            onPointerUp={(event) => commitYear(Number(event.currentTarget.value))}
+          />
+          <div className={styles.flashbackYearEnds}>
+            <span>{yearMin}</span>
+            <span>{yearMax}</span>
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }
@@ -2852,10 +2846,8 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   const entryWaitModeRef = useRef<"lessons" | "silent" | null>(null);
   const [entryWaitMode, setEntryWaitMode] = useState<"lessons" | "silent" | null>(null);
   const roomSyncGateRef = useRef<ReturnType<typeof createRoomSyncGate> | null>(null);
-  const feedbackAudioRef = useRef<{
-    clips: Array<{ audio: HTMLAudioElement; gain: number; src: string }>;
-    kind: "lock" | "correct" | "wrong" | "start";
-  } | null>(null);
+  const feedbackPlayerRef = useRef<ReturnType<typeof createFeedbackPlayer> | null>(null);
+  if (feedbackPlayerRef.current === null) feedbackPlayerRef.current = createFeedbackPlayer();
   const roundAudioRefs = useRef<Array<HTMLAudioElement | null>>([]);
   const roundAudioAbortRef = useRef<AbortController | null>(null);
   const autoPlayedAudioKeyRef = useRef("");
@@ -2952,33 +2944,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
 
   const playSound = useCallback(
     (kind: "lock" | "correct" | "wrong" | "start") => {
-      if (!soundEnabled || gameVolume <= 0 || typeof window === "undefined") return;
-
-      const dotaSound = dotaFeedbackSoundForKind(kind);
-      if (!dotaSound) return;
-
-      let feedbackAudio = feedbackAudioRef.current;
-      if (!feedbackAudio || feedbackAudio.kind !== kind) {
-        feedbackAudio?.clips.forEach(({ audio }) => audio.pause());
-        feedbackAudio = {
-          clips: dotaSound.clips.map((clip: { gain: number; src: string }) => {
-            const audio = new Audio(clip.src);
-            audio.preload = "auto";
-            return { audio, gain: clip.gain, src: clip.src };
-          }),
-          kind,
-        };
-        feedbackAudioRef.current = feedbackAudio;
-      }
-
-      for (const { audio, gain } of feedbackAudio.clips) {
-        audio.pause();
-        audio.currentTime = 0;
-        audio.volume = Math.min(1, gameVolume * gain);
-        void audio.play().catch(() => {
-          // A browser may reject playback before the first user gesture.
-        });
-      }
+      feedbackPlayerRef.current?.play(kind, { enabled: soundEnabled, volume: gameVolume });
     },
     [gameVolume, soundEnabled],
   );
@@ -3374,6 +3340,7 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
       roomSyncGateRef.current?.cancel();
       roomSettingsRef.current = settings;
       questionRevisionRef.current = "";
+      feedbackPlayerRef.current?.preload();
       playSound("start");
 
       try {

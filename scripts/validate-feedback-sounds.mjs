@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { answerFeedbackKind, DOTA_FEEDBACK_SOUNDS, dotaFeedbackSoundForKind } from "../src/lib/feedback-sounds.mjs";
+import { createFeedbackPlayer, FEEDBACK_SOUND_KINDS } from "../src/lib/feedback-player.mjs";
 
 const failures = [];
 const componentPath = fileURLToPath(new URL("../src/components/queue-arcade.tsx", import.meta.url));
@@ -81,9 +82,73 @@ if (/AudioContext|createOscillator|createGain/.test(component)) {
   failures.push("A synthesized Web Audio cue remains in the arcade runtime.");
 }
 
+if (
+  !component.includes("createFeedbackPlayer") ||
+  !component.includes("feedbackPlayerRef.current?.preload") ||
+  !component.includes("feedbackPlayerRef.current?.play")
+) {
+  failures.push("Arcade feedback no longer uses the preloaded exclusive sound board.");
+}
+
+class FakeAudio {
+  constructor(src) {
+    this.src = src;
+    this.preload = "";
+    this.volume = 1;
+    this.currentTime = 0;
+    this.paused = true;
+    this.plays = 0;
+    this.pauses = 0;
+  }
+  play() {
+    this.paused = false;
+    this.plays += 1;
+    return Promise.resolve();
+  }
+  pause() {
+    this.paused = true;
+    this.pauses += 1;
+  }
+}
+
+const constructed = [];
+const player = createFeedbackPlayer({
+  AudioCtor: class extends FakeAudio {
+    constructor(src) {
+      super(src);
+      constructed.push(this);
+    }
+  },
+});
+
+player.preload();
+if (!FEEDBACK_SOUND_KINDS.every((kind) => player.has(kind)) || constructed.length !== 5) {
+  failures.push("Feedback sounds are not all preloaded before the first pick.");
+}
+
+const firstLock = player.play("lock", { enabled: true, volume: 1 });
+const afterWrong = player.play("wrong", { enabled: true, volume: 1 });
+const secondLock = player.play("lock", { enabled: true, volume: 1 });
+const lockClips = constructed.filter((audio) => audio.src.includes("button_click"));
+const wrongClips = constructed.filter((audio) => audio.src.includes("magic_immune"));
+if (!firstLock.played || !afterWrong.played || !secondLock.played) {
+  failures.push("A feedback kind failed to play.");
+}
+if (constructed.length !== 5 || lockClips[0]?.plays !== 2 || wrongClips[0]?.plays !== 1) {
+  failures.push("Pick sound still rebuilds audio after a result and can miss the next lock.");
+}
+if (!(lockClips[0]?.paused === false && wrongClips.every((audio) => audio.paused && audio.currentTime === 0))) {
+  failures.push("Wrong and lock cues can still overlap and sound hollow.");
+}
+if (player.play("lock", { enabled: true, volume: 0 }).played !== false) {
+  failures.push("Muted volume still starts a cue.");
+}
+
 if (failures.length) {
   console.error(failures.map((failure) => `- ${failure}`).join("\n"));
   process.exit(1);
 }
 
-console.log("Validated four Dota UI events, five original WAVs, exact event gains, and zero synthesized runtime cues.");
+console.log(
+  "Validated four Dota UI events, five original WAVs, exclusive preloaded playback, and zero synthesized runtime cues.",
+);

@@ -994,7 +994,7 @@ const answering = await evaluate(`({
   flashbackOrder: Boolean(document.querySelector('[data-testid="flashback-order-board"]')),
   flashbackOrderCards: document.querySelectorAll('[data-testid="flashback-order-card"]').length,
   flashbackYear: Boolean(document.querySelector('[data-testid="flashback-year-board"]')),
-  flashbackYearTicks: document.querySelectorAll('[data-testid="flashback-year-tick"]').length,
+  flashbackYearSlider: Boolean(document.querySelector('[data-testid="flashback-year-slider"]')),
   heroSearch: Boolean(document.querySelector('[data-testid="hero-search"]')),
   heroItems: document.querySelectorAll('[data-testid="hero-picker-hero"]').length,
   heroGroups: [...document.querySelectorAll('[data-testid="hero-picker"] [data-attribute]')].map((group) => ({
@@ -1145,7 +1145,12 @@ if (!answering.openShop) {
       );
     }
   } else if (answering.flashbackYear) {
-    await evaluate(`document.querySelector('[data-testid="flashback-year-tick"]')?.click()`);
+    await evaluate(`(() => {
+      const slider = document.querySelector('[data-testid="flashback-year-slider"]');
+      if (!slider) return false;
+      slider.dispatchEvent(new Event("pointerup", { bubbles: true }));
+      return true;
+    })()`);
   } else if (answering.flashbackOrder) {
     const measureFlashbackOrder = `(() => {
       const board = document.querySelector('[data-testid="flashback-order-board"]');
@@ -1250,7 +1255,7 @@ const reveal = await evaluate(`(() => {
     orderSequences: document.querySelectorAll('[data-testid="value-order-sequence"]').length,
     orderValueLabels: document.querySelectorAll('[data-testid="value-order-sequence"] em').length,
     flashbackOrderSequences: document.querySelectorAll('[data-testid="flashback-order-sequence"]').length,
-    flashbackYearTicks: document.querySelectorAll('[data-testid="flashback-year-tick"]').length,
+    flashbackYearSlider: Boolean(document.querySelector('[data-testid="flashback-year-slider"]')),
     crowdSplit: (() => {
       const split = document.querySelector('[data-testid="crowd-split"]');
       const rows = [...document.querySelectorAll('[data-testid="crowd-split-row"]')];
@@ -1537,7 +1542,7 @@ if (
         : answering.flashbackOrder
           ? answering.answers !== 0 || answering.flashbackOrderCards !== 4
           : answering.flashbackYear
-            ? answering.answers !== 0 || answering.flashbackYearTicks < 12
+            ? answering.answers !== 0 || !answering.flashbackYearSlider
             : answering.answers !== 4) ||
   answering.difficultyControls !== 0 ||
   answering.tipCards !== 0 ||
@@ -1597,7 +1602,7 @@ if (
         : answering.flashbackOrder
           ? reveal.flashbackOrderSequences < 1 || reveal.openShopReveal
           : answering.flashbackYear
-            ? reveal.flashbackYearTicks < 12 || reveal.openShopReveal
+            ? !reveal.flashbackYearSlider || reveal.openShopReveal
             : reveal.percentages !== 4 || reveal.openShopReveal) ||
   reveal.reportReasons !== 4 ||
   reveal.audioPrewarmRequests < 1 ||
