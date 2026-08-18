@@ -364,14 +364,23 @@ record(
 record(
   arcadeSource.includes('data-empty={position < 0 ? "true" : "false"}') &&
     arcadeSource.includes("flashback-reveal-media") &&
-    arcadeSource.includes("data-media-kind") &&
+    arcadeSource.includes('data-testid="reveal-panel"') &&
+    arcadeSource.includes("data-reveal-photo") &&
+    arcadeSource.includes("flashbackOrderCardArt") &&
+    arcadeSource.includes("<span>\n                  <strong>{card?.name ?? key}</strong>") &&
+    !arcadeSource.includes("<em>{cardIndex") &&
     arcadeCss.includes(".flashbackOrderCards button {\n  position: relative;") &&
     arcadeCss.includes("height: 132px;") &&
     arcadeCss.includes(".flashbackOrderSlots > span {\n  display: grid;") &&
     arcadeCss.includes("height: 64px;") &&
-    arcadeCss.includes('.revealMedia[data-kind="photo"] img') &&
-    arcadeCss.includes("width: 200px;") &&
-    arcadeCss.includes("height: 112px;"),
+    arcadeCss.includes(".flashbackOrderCardArt {\n  display: block;") &&
+    arcadeCss.includes("width: 72px;") &&
+    arcadeCss.includes(".flashbackOrderCards strong {\n  color: #ecece8;") &&
+    arcadeCss.includes("font-size: 14px;") &&
+    arcadeCss.includes(".flashbackQuestion .artwork,") &&
+    arcadeCss.includes("width: 248px;") &&
+    arcadeCss.includes("height: 148px;") &&
+    arcadeCss.includes("transform: scale(1.16);"),
   "Flashback order cards can still change size when a card is picked.",
 );
 

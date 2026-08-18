@@ -1239,8 +1239,10 @@ function FlashbackOrderBoard({
               <li key={key} data-correct="true">
                 <i>{index + 1}</i>
                 {card?.image ? <Image src={card.image} alt="" width={36} height={36} unoptimized /> : null}
-                <strong>{card?.name ?? key}</strong>
-                {card?.context && <small>{card.context}</small>}
+                <span>
+                  <strong>{card?.name ?? key}</strong>
+                  {card?.context ? <small>{card.context}</small> : null}
+                </span>
               </li>
             );
           })}
@@ -1252,7 +1254,10 @@ function FlashbackOrderBoard({
               return (
                 <li key={key}>
                   <i>{index + 1}</i>
-                  <strong>{card?.name ?? key}</strong>
+                  {card?.image ? <Image src={card.image} alt="" width={36} height={36} unoptimized /> : null}
+                  <span>
+                    <strong>{card?.name ?? key}</strong>
+                  </span>
                 </li>
               );
             })}
@@ -1287,7 +1292,7 @@ function FlashbackOrderBoard({
         })}
       </div>
       <div className={styles.flashbackOrderCards} role="group" aria-label="Events to order">
-        {cards.map((card, cardIndex) => {
+        {cards.map((card) => {
           const position = activeKeys.indexOf(card.key);
           return (
             <button
@@ -1300,10 +1305,13 @@ function FlashbackOrderBoard({
               aria-pressed={position >= 0}
             >
               <i data-empty={position < 0 ? "true" : "false"}>{position >= 0 ? position + 1 : ""}</i>
-              {card.image ? <Image src={card.image} alt="" width={48} height={48} unoptimized /> : null}
+              {card.image ? (
+                <span className={styles.flashbackOrderCardArt}>
+                  <Image src={card.image} alt="" width={72} height={72} unoptimized />
+                </span>
+              ) : null}
               <strong>{card.name}</strong>
-              {card.context && <small>{card.context}</small>}
-              <em>{cardIndex + 1}</em>
+              {card.context ? <small>{card.context}</small> : null}
             </button>
           );
         })}
@@ -4301,8 +4309,22 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                 className={clsx(styles.questionBlock, styles.flashbackQuestion)}
                 data-testid="round-prompt"
                 data-flashback-family={currentQuestion.flashback?.family}
+                data-reveal-photo={
+                  phase === "reveal" && currentQuestion.reveal?.media?.kind === "photo" ? "true" : "false"
+                }
               >
-                <QuestionArtwork question={currentQuestion} />
+                <QuestionArtwork
+                  question={currentQuestion}
+                  imageOverride={
+                    phase === "reveal" && currentQuestion.reveal?.media?.kind === "photo"
+                      ? {
+                          src: currentQuestion.reveal.media.src,
+                          alt: currentQuestion.reveal.media.alt,
+                          kind: "hero",
+                        }
+                      : undefined
+                  }
+                />
                 <div className={styles.questionCopy}>
                   <h2>{currentQuestion.prompt}</h2>
                 </div>
@@ -4967,28 +4989,27 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
             ) : (
               <div
                 className={clsx(styles.revealPanel, selectedWasCorrect ? styles.revealCorrect : styles.revealWrong)}
-                data-has-media={currentQuestion.reveal?.media ? "true" : "false"}
+                data-testid="reveal-panel"
+                data-has-media={
+                  currentQuestion.reveal?.media && currentQuestion.reveal.media.kind !== "photo" ? "true" : "false"
+                }
                 data-media-kind={
-                  currentQuestion.reveal?.media?.kind === "photo"
-                    ? "photo"
-                    : currentQuestion.reveal?.media
-                      ? "mark"
-                      : undefined
+                  currentQuestion.reveal?.media && currentQuestion.reveal.media.kind !== "photo" ? "mark" : undefined
                 }
                 aria-live="polite"
               >
                 <div className={styles.revealIcon}>{selectedWasCorrect ? <Check /> : <X />}</div>
-                {currentQuestion.reveal?.media && (
+                {currentQuestion.reveal?.media && currentQuestion.reveal.media.kind !== "photo" && (
                   <figure
                     className={styles.revealMedia}
-                    data-kind={currentQuestion.reveal.media.kind === "photo" ? "photo" : "mark"}
+                    data-kind="mark"
                     data-testid="flashback-reveal-media"
                   >
                     <Image
                       src={currentQuestion.reveal.media.src}
                       alt={currentQuestion.reveal.media.alt}
-                      width={currentQuestion.reveal.media.kind === "photo" ? 200 : 88}
-                      height={currentQuestion.reveal.media.kind === "photo" ? 112 : 88}
+                      width={88}
+                      height={88}
                       unoptimized
                     />
                     {currentQuestion.reveal.media.caption ? (

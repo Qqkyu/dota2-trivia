@@ -1576,12 +1576,23 @@
   color: #c4a46a;
 }
 
+.flashbackQuestion .artwork,
+.flashbackQuestion .heroArtwork,
+.flashbackQuestion .itemArtwork {
+  width: 248px;
+  height: 148px;
+}
+
 .flashbackQuestion .artGlow {
   background: rgba(196, 164, 106, 0.22);
 }
 
 .flashbackQuestion .artImage {
   object-fit: contain;
+}
+
+.flashbackQuestion[data-reveal-photo="true"] .artImage {
+  object-fit: cover;
 }
 
 .flashbackYears {
@@ -1633,12 +1644,11 @@
 }
 
 .flashbackOrderSlots img,
-.flashbackOrderCards img,
 .flashbackOrderList img,
 .flashbackOrderSlots .flashbackOrderSlotArt {
   width: 28px;
   height: 28px;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .flashbackOrderSlots .flashbackOrderSlotArt {
@@ -1657,8 +1667,7 @@
 
 .flashbackOrderSlots i,
 .flashbackOrderList i,
-.flashbackOrderCards i,
-.flashbackOrderCards em {
+.flashbackOrderCards i {
   color: #8a8d85;
   font-family: var(--font-geist-mono), monospace;
   font-size: 10px;
@@ -1684,13 +1693,25 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(10, 12, 12, 0.78);
   color: #e7ecec;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-synthesis: none;
   text-align: left;
   cursor: pointer;
 }
 
-.flashbackOrderCards button > img {
-  width: 48px;
-  height: 48px;
+.flashbackOrderCardArt {
+  display: block;
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.flashbackOrderCardArt img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
 }
 
 .flashbackOrderCards button > i {
@@ -1724,8 +1745,27 @@
   white-space: nowrap;
 }
 
+.flashbackOrderCards strong {
+  color: #ecece8;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
 .flashbackOrderCards small {
   color: #8a8d85;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.flashbackOrderList strong {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .flashbackOrderList {
@@ -1733,17 +1773,35 @@
   gap: 8px;
   margin: 0;
   padding: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   list-style: none;
 }
 
 .flashbackOrderList li {
   display: grid;
+  min-width: 0;
+  height: 64px;
   align-items: center;
-  grid-template-columns: 24px 36px minmax(0, 1fr);
-  gap: 6px 10px;
-  padding: 10px 12px;
+  grid-template-columns: 18px 28px minmax(0, 1fr);
+  gap: 6px;
+  padding: 0 8px;
+  overflow: hidden;
   border: 1px solid rgba(196, 164, 106, 0.22);
   background: rgba(8, 8, 8, 0.5);
+}
+
+.flashbackOrderList li > span {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.flashbackOrderList small {
+  overflow: hidden;
+  color: #8a8d85;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .flashbackOrderList img {
@@ -3337,6 +3395,7 @@
 
 .shopkeeperItemArt img {
   object-fit: cover;
+  transform: scale(1.16);
 }
 
 .shopkeeperItemArt b {
@@ -4025,6 +4084,7 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
 .shopkeeperGroup button > img {
   object-fit: cover;
+  transform: scale(1.16);
 }
 
 .shopkeeperGroup button:hover,
