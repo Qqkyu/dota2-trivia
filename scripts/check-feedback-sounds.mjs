@@ -147,6 +147,11 @@ if (lockPlays.length < 1 || lockPlays.some((entry) => entry.volume < 0.4)) {
 if (wrongPlays.length + coinPlays.length < 1) {
   errors.push("Reveal played neither wrong nor correct feedback.");
 }
+if (wrongPlays.length > 1 || coinPlays.length > 1) {
+  errors.push(
+    `Result cue played more than once: wrong=${wrongPlays.length} correct=${coinPlays.length}`,
+  );
+}
 if (wrongPlays.some((entry) => entry.volume < 0.4)) {
   errors.push(`Wrong cue played at cave volume: ${JSON.stringify(wrongPlays)}`);
 }
@@ -154,14 +159,20 @@ if (failures.length) {
   errors.push(`play() rejected: ${JSON.stringify(failures)}`);
 }
 
-if (errors.length) {
-  console.error(JSON.stringify({ volume, afterReveal, errors }, null, 2));
-  throw new Error(errors.join("\n"));
-}
+try {
+  if (errors.length) {
+    console.error(JSON.stringify({ volume, afterReveal, errors }, null, 2));
+    throw new Error(errors.join("\n"));
+  }
 
-console.log(
-  `Feedback sounds audible: volume ${volume}%, lock ${lockPlays[0].volume}, result ${
-    (wrongPlays[0] ?? coinPlays[0]).volume
-  }.`,
-);
-socket.close();
+  console.log(
+    `Feedback sounds audible: volume ${volume}%, lock ${lockPlays[0].volume}, result ${
+      (wrongPlays[0] ?? coinPlays[0]).volume
+    }.`,
+  );
+} finally {
+  // Never leave this tab in the public room. An idle /play tab still
+  // participates and will play the wrong cue on every later reveal.
+  await send("Page.navigate", { url: "about:blank" }).catch(() => undefined);
+  socket.close();
+}
