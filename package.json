@@ -29,6 +29,7 @@
     "check:multiplayer": "node scripts/multiplayer-smoke.mjs",
     "check:resume": "node scripts/room-resume-smoke.mjs",
     "check:flashback-ui": "node scripts/visual-flashback.mjs",
+    "check:sounds": "node scripts/check-feedback-sounds.mjs",
     "check": "pnpm validate-data && pnpm lint && pnpm typecheck && pnpm build && pnpm validate-client-bundle"
   },
   "engines": {

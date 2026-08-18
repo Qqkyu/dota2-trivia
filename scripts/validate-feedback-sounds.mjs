@@ -87,9 +87,11 @@ if (
   !component.includes("createFeedbackPlayer") ||
   !component.includes("feedbackPlayerRef.current?.preload") ||
   !component.includes("feedbackPlayerRef.current?.play") ||
-  !component.includes("feedbackPlayerRef.current?.pauseAll")
+  !component.includes("feedbackPlayerRef.current?.pauseAll") ||
+  !component.includes("const DEFAULT_GAME_VOLUME = 0.7") ||
+  component.includes("const DEFAULT_GAME_VOLUME = 0.1")
 ) {
-  failures.push("Arcade feedback still points at a removed audio ref or skips the preloaded board.");
+  failures.push("Arcade feedback still points at a removed audio ref, skips the preloaded board, or defaults to an inaudible volume.");
 }
 
 class FakeAudio {

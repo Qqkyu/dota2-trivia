@@ -136,7 +136,7 @@ import styles from "./queue-arcade.module.css";
 
 const REVEAL_DURATION_MS = 7_000;
 const ANSWER_DURATION_MS = 15_000;
-const DEFAULT_GAME_VOLUME = 0.1;
+const DEFAULT_GAME_VOLUME = 0.7;
 const MIN_GAME_VOLUME = 0.1;
 const LETTERS = ["A", "B", "C", "D"] as const;
 const EMPTY_CROWD: CrowdResult = {
@@ -148,8 +148,8 @@ const EMPTY_CROWD: CrowdResult = {
 };
 const STORAGE_KEY = "queue-arcade:stats:v2";
 const PLAYER_KEY = "queue-arcade:player:v2";
-const SETTINGS_KEY = "queue-arcade:settings:v3";
-const PREVIOUS_SETTINGS_KEY = "queue-arcade:settings:v2";
+const SETTINGS_KEY = "queue-arcade:settings:v4";
+const PREVIOUS_SETTINGS_KEY = "queue-arcade:settings:v3";
 const LEGACY_STORAGE_KEY = "queue-trivia:stats:v1";
 const LEGACY_PLAYER_KEY = "queue-trivia:player:v1";
 const LEGACY_SETTINGS_KEY = "queue-trivia:settings:v1";
@@ -3881,10 +3881,9 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
           };
           if (typeof settings.soundEnabled === "boolean") setSoundEnabled(settings.soundEnabled);
           if (typeof settings.gameVolume === "number" && Number.isFinite(settings.gameVolume)) {
-            const wasOldDefault = !currentSettings && settings.gameVolume === 0.7;
-            setGameVolume(
-              wasOldDefault ? DEFAULT_GAME_VOLUME : Math.min(1, Math.max(MIN_GAME_VOLUME, settings.gameVolume)),
-            );
+            const stored = Math.min(1, Math.max(MIN_GAME_VOLUME, settings.gameVolume));
+            const fromInaudibleDefault = !currentSettings && stored <= 0.1;
+            setGameVolume(fromInaudibleDefault ? DEFAULT_GAME_VOLUME : stored);
           }
         }
         ensurePlayerId();
