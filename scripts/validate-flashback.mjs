@@ -3,7 +3,13 @@
 import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { flashbackOrderCorrectAnswerKey, isPlayableFlashbackQuestion } from "../src/lib/flashback.mjs";
+import {
+  FLASHBACK_YEAR_EPOCH,
+  flashbackOrderCorrectAnswerKey,
+  flashbackYearMax,
+  isPlayableFlashbackQuestion,
+} from "../src/lib/flashback.mjs";
+import { publicQuestionForRound } from "../src/lib/public-question.mjs";
 import {
   FRESH_ROUND_MIN_REMAINING_MS,
   shouldShowEntryWaitLessons,
@@ -231,6 +237,50 @@ record(
     .every((question) => !String(question.image?.src ?? "").includes(String(question.flashback?.correctYear))),
   "A Flashback year prompt still has the year in the image path.",
 );
+const yearQuestions = questions.filter((question) => question.kind === "flashback-year");
+const poolYearMin = Math.min(...yearQuestions.map((question) => question.flashback.correctYear));
+record(poolYearMin === FLASHBACK_YEAR_EPOCH, `Flashback year ticks start at ${FLASHBACK_YEAR_EPOCH}, not ${poolYearMin}.`);
+record(
+  !arcadeSource.includes("yearMax: 2026") &&
+    arcadeSource.includes("flashbackYearMax") === false &&
+    arcadeSource.includes("flashback-year-board") &&
+    arcadeSource.includes("flashback-year-tick") &&
+    arcadeSource.includes("Pick a year") &&
+    arcadeCss.includes(".flashbackYearBoard {") &&
+    arcadeCss.includes("min-height: 148px;"),
+  "Flashback year ticks still use a hardcoded last year or can jump.",
+);
+record(
+  flashbackYearMax(Date.UTC(2027, 5, 1)) === 2027 && flashbackYearMax(Date.UTC(2031, 0, 1)) === 2031,
+  "Flashback year ticks do not follow the current calendar year.",
+);
+const sampleYear = yearQuestions[0];
+if (sampleYear) {
+  const frozenNow = Date.UTC(2027, 5, 1);
+  const answering = publicQuestionForRound(
+    sampleYear,
+    { id: "year-check", phase: "answering", game: "flashback", answerDeadline: frozenNow + 15_000, answerDuration: 15_000 },
+    frozenNow,
+  );
+  const reveal = publicQuestionForRound(
+    sampleYear,
+    { id: "year-check", phase: "reveal", game: "flashback", answerDeadline: frozenNow - 1_000, answerDuration: 15_000 },
+    frozenNow,
+  );
+  record(
+    answering.answerMode === "flashback-year" &&
+      answering.answers.every((answer) => answer === "") &&
+      answering.flashback?.yearMin === FLASHBACK_YEAR_EPOCH &&
+      answering.flashback?.yearMax === 2027 &&
+      !JSON.stringify(answering).includes("correctYear"),
+    "Flashback year ticks still leak the answer while answers are open.",
+  );
+  record(
+    reveal.reveal?.correctAnswerKey === `year-v1:${sampleYear.flashback.correctYear}` &&
+      reveal.flashback?.yearMax === 2027,
+    "Flashback year reveal no longer names the correct year.",
+  );
+}
 record(
   questions
     .filter((question) => question.kind === "flashback-order")

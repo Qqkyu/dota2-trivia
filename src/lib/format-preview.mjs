@@ -37,7 +37,8 @@ function publicPreviewForQuestion(question, game) {
     detail: game === "quote-hunt" ? (question.detail ?? null) : null,
     hint: game === "spell-link" ? (question.hint ?? null) : null,
     answers:
-      (game === "trivia" || (game === "flashback" && question.kind !== "flashback-order")) &&
+      (game === "trivia" ||
+        (game === "flashback" && question.kind !== "flashback-order" && question.kind !== "flashback-year")) &&
       Array.isArray(question.answers)
         ? [...question.answers]
         : null,

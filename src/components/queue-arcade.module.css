@@ -1595,6 +1595,55 @@
   object-fit: cover;
 }
 
+.flashbackYearBoard {
+  display: grid;
+  min-height: 148px;
+  align-content: center;
+  gap: 12px;
+  margin: 0 28px 16px;
+}
+
+.flashbackYearBoard > strong {
+  color: #f0d9a0;
+  font-family: var(--font-radiance), sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+.flashbackYearTicks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+
+.flashbackYearTicks button {
+  min-width: 44px;
+  height: 32px;
+  padding: 0 6px;
+  border: 1px solid rgba(196, 164, 106, 0.28);
+  background: rgba(8, 8, 8, 0.55);
+  color: #d8c08a;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.flashbackYearTicks button[data-selected="true"] {
+  border-color: rgba(196, 164, 106, 0.8);
+  background: rgba(196, 164, 106, 0.18);
+  color: #f0d9a0;
+}
+
+.flashbackYearTicks button[data-correct="true"] {
+  border-color: rgba(118, 198, 138, 0.7);
+}
+
+.flashbackYearTicks button:disabled {
+  cursor: default;
+}
+
 .flashbackYears {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }

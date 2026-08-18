@@ -6,7 +6,14 @@ import {
   recipeBuilderCorrectAnswerKey,
 } from "./item-picker.mjs";
 import { isValueOrderQuestion, valueOrderCorrectAnswerKey } from "./value-order.mjs";
-import { flashbackOrderCorrectAnswerKey, isFlashbackOrderQuestion } from "./flashback.mjs";
+import {
+  FLASHBACK_YEAR_EPOCH,
+  flashbackOrderCorrectAnswerKey,
+  flashbackYearCorrectAnswerKey,
+  flashbackYearMax,
+  isFlashbackOrderQuestion,
+  isFlashbackYearQuestion,
+} from "./flashback.mjs";
 
 function copyImage(image, alt) {
   if (!image) return undefined;
@@ -69,13 +76,20 @@ export function publicQuestionForRound(question, round, now) {
   const heroPickerAnswer = isHeroPickerQuestion(question);
   const valueOrderAnswer = isValueOrderQuestion(question);
   const flashbackOrderAnswer = isFlashbackOrderQuestion(question);
+  const flashbackYearAnswer = isFlashbackYearQuestion(question);
   const keyedAnswer =
-    openShopAnswer || recipeBuilderAnswer || heroPickerAnswer || valueOrderAnswer || flashbackOrderAnswer;
+    openShopAnswer ||
+    recipeBuilderAnswer ||
+    heroPickerAnswer ||
+    valueOrderAnswer ||
+    flashbackOrderAnswer ||
+    flashbackYearAnswer;
   const heroAnswerKey = heroPickerAnswer ? heroCorrectAnswerKey(question) : null;
   const itemAnswerKey = openShopAnswer ? itemPickerCorrectAnswerKey(question) : null;
   const recipeAnswerKey = recipeBuilderAnswer ? recipeBuilderCorrectAnswerKey(question) : null;
   const orderAnswerKey = valueOrderAnswer ? valueOrderCorrectAnswerKey(question) : null;
   const flashbackOrderKey = flashbackOrderAnswer ? flashbackOrderCorrectAnswerKey(question) : null;
+  const flashbackYearKey = flashbackYearAnswer ? flashbackYearCorrectAnswerKey(question) : null;
   if (openShopAnswer && !itemAnswerKey) {
     throw new Error(`Item picker question ${question.id} has no resolvable shop item.`);
   }
@@ -90,6 +104,9 @@ export function publicQuestionForRound(question, round, now) {
   }
   if (flashbackOrderAnswer && !flashbackOrderKey) {
     throw new Error(`Flashback order question ${question.id} has no resolvable order.`);
+  }
+  if (flashbackYearAnswer && !flashbackYearKey) {
+    throw new Error(`Flashback year question ${question.id} has no resolvable year.`);
   }
   const hidePromptArtwork = round.game === "echo-hunt" || round.game === "soundcheck";
   const image =
@@ -147,6 +164,12 @@ export function publicQuestionForRound(question, round, now) {
   const flashback = question.flashback
     ? {
         family: question.flashback.family,
+        ...(flashbackYearAnswer
+          ? {
+              yearMin: FLASHBACK_YEAR_EPOCH,
+              yearMax: flashbackYearMax(now),
+            }
+          : {}),
         ...(flashbackOrderAnswer
           ? {
               cards: question.flashback.cards.map(({ key, name, context, image }) => ({
@@ -194,7 +217,9 @@ export function publicQuestionForRound(question, round, now) {
             ? { answerMode: "value-order" }
             : flashbackOrderAnswer
               ? { answerMode: "flashback-order" }
-              : {}),
+              : flashbackYearAnswer
+                ? { answerMode: "flashback-year" }
+                : {}),
     ...(!keyedAnswer && question.answerImages ? { answerImages: [...question.answerImages] } : {}),
     ...(!keyedAnswer && question.answerImagePairs
       ? { answerImagePairs: question.answerImagePairs.map((pair) => [...pair]) }
@@ -235,7 +260,9 @@ export function publicQuestionForRound(question, round, now) {
                             label: card.context ?? card.name,
                           })),
                         }
-                      : {}),
+                      : flashbackYearKey
+                        ? { correctAnswerKey: flashbackYearKey }
+                        : {}),
             ...(question.flashback?.revealMedia?.src
               ? {
                   media: {

@@ -71,6 +71,7 @@ const forbiddenAnsweringKeys = new Set([
   "targetedOptions",
   "values",
   "correctOrder",
+  "correctYear",
   "value",
   "derivedFrom",
   "revealMedia",
@@ -157,6 +158,25 @@ for (const [question, game] of representativeQuestions) {
   const revealQuestion = Object.fromEntries(Object.entries(revealPayload).filter(([key]) => key !== "reveal"));
   const leakedRevealKeys = [...forbiddenAnsweringKeys].filter((key) => keysInside(revealQuestion).has(key));
   record(leakedRevealKeys.length === 0, `${question.id}: reveal question leaked ${leakedRevealKeys.join(", ")}.`);
+}
+
+const flashbackYear = flashback.find((question) => question.kind === "flashback-year");
+if (flashbackYear) {
+  const answeringRound = roundFor(flashbackYear, "flashback");
+  const answering = publicQuestionForRound(flashbackYear, answeringRound, answeringRound.now);
+  const revealRound = roundFor(flashbackYear, "flashback", "reveal", 16_000);
+  const reveal = publicQuestionForRound(flashbackYear, revealRound, revealRound.now);
+  record(
+    answering.answerMode === "flashback-year" &&
+      answering.answers.every((answer) => answer === "") &&
+      answering.flashback?.yearMax === new Date(answeringRound.now).getFullYear() &&
+      !JSON.stringify(answering).includes("correctYear"),
+    "Flashback year ticks still send the four nearby years while answers are open.",
+  );
+  record(
+    reveal.reveal?.correctAnswerKey === `year-v1:${flashbackYear.flashback.correctYear}`,
+    "Flashback year reveal no longer carries the keyed year.",
+  );
 }
 
 const flashbackWinner = flashback.find((question) => question.id === "flashback:ti1-winner");

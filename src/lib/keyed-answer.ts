@@ -21,8 +21,12 @@ import {
 import {
   flashbackOrderAnswerIndex,
   flashbackOrderCorrectAnswerKey,
+  flashbackYearAnswerIndex,
+  flashbackYearCorrectAnswerKey,
   isFlashbackOrderAnswerForQuestion,
   isFlashbackOrderQuestion,
+  isFlashbackYearAnswerForQuestion,
+  isFlashbackYearQuestion,
 } from "@/lib/flashback.mjs";
 
 export function isKeyedAnswerQuestion(question: TriviaQuestion) {
@@ -31,7 +35,8 @@ export function isKeyedAnswerQuestion(question: TriviaQuestion) {
     isRealRecipeBuilderQuestion(question) ||
     isHeroPickerQuestion(question) ||
     isValueOrderQuestion(question) ||
-    isFlashbackOrderQuestion(question)
+    isFlashbackOrderQuestion(question) ||
+    isFlashbackYearQuestion(question)
   );
 }
 
@@ -55,7 +60,9 @@ export function isValidAnswerKeyForQuestion(question: TriviaQuestion, answerKey:
           ? isValueOrderAnswerForQuestion(question, answerKey)
           : isFlashbackOrderQuestion(question)
             ? isFlashbackOrderAnswerForQuestion(question, answerKey)
-            : false;
+            : isFlashbackYearQuestion(question)
+              ? isFlashbackYearAnswerForQuestion(question, answerKey)
+              : false;
 }
 
 export function keyedAnswerIndex(question: TriviaQuestion, answerKey: string) {
@@ -64,6 +71,7 @@ export function keyedAnswerIndex(question: TriviaQuestion, answerKey: string) {
   if (isHeroPickerQuestion(question)) return heroAnswerIndex(question, answerKey);
   if (isValueOrderQuestion(question)) return valueOrderAnswerIndex(question, answerKey);
   if (isFlashbackOrderQuestion(question)) return flashbackOrderAnswerIndex(question, answerKey);
+  if (isFlashbackYearQuestion(question)) return flashbackYearAnswerIndex(question, answerKey);
   return null;
 }
 
@@ -73,6 +81,7 @@ export function correctAnswerKey(question: TriviaQuestion) {
   if (isHeroPickerQuestion(question)) return heroCorrectAnswerKey(question);
   if (isValueOrderQuestion(question)) return valueOrderCorrectAnswerKey(question);
   if (isFlashbackOrderQuestion(question)) return flashbackOrderCorrectAnswerKey(question);
+  if (isFlashbackYearQuestion(question)) return flashbackYearCorrectAnswerKey(question);
   return null;
 }
 

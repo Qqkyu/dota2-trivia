@@ -50,7 +50,7 @@ export interface PublicArcadeQuestion {
     kind: TriviaArtworkKind;
   };
   answers: [string, string, string, string];
-  answerMode?: "hero-grid" | "item-grid" | "item-recipe" | "value-order" | "flashback-order";
+  answerMode?: "hero-grid" | "item-grid" | "item-recipe" | "value-order" | "flashback-order" | "flashback-year";
   answerImages?: [string, string, string, string];
   answerImagePairs?: [[string, string], [string, string], [string, string], [string, string]];
   answerImageKind?: TriviaArtworkKind;
@@ -80,6 +80,8 @@ export interface PublicArcadeQuestion {
   };
   flashback?: {
     family: "year" | "choice" | "order";
+    yearMin?: number;
+    yearMax?: number;
     cards?: Array<{ key: string; name: string; context?: string; image?: string }>;
   };
   aghanim?: PublicAghanimUpgrade;
@@ -154,13 +156,18 @@ export function isPublicFlashbackOrderQuestion(question: PublicArcadeQuestion) {
   return question.answerMode === "flashback-order";
 }
 
+export function isPublicFlashbackYearQuestion(question: PublicArcadeQuestion) {
+  return question.answerMode === "flashback-year";
+}
+
 export function isPublicKeyedAnswerQuestion(question: PublicArcadeQuestion) {
   return (
     question.answerMode === "item-grid" ||
     question.answerMode === "item-recipe" ||
     question.answerMode === "hero-grid" ||
     question.answerMode === "value-order" ||
-    question.answerMode === "flashback-order"
+    question.answerMode === "flashback-order" ||
+    question.answerMode === "flashback-year"
   );
 }
 
@@ -195,7 +202,8 @@ export function isPublicArcadeQuestion(value: unknown): value is PublicArcadeQue
         candidate.answerMode === "item-grid" ||
         candidate.answerMode === "item-recipe" ||
         candidate.answerMode === "value-order" ||
-        candidate.answerMode === "flashback-order") &&
+        candidate.answerMode === "flashback-order" ||
+        candidate.answerMode === "flashback-year") &&
       (candidate.answerMode !== "item-recipe" || candidate.shopkeeper?.recipeSize !== undefined) &&
       (candidate.shopkeeper?.recipeSize === undefined ||
         (Number.isInteger(candidate.shopkeeper.recipeSize) &&
@@ -212,6 +220,10 @@ export function isPublicArcadeQuestion(value: unknown): value is PublicArcadeQue
               typeof card.image === "string" &&
               (card.kind === "item" || card.kind === "ability" || card.kind === "hero"),
           ))) &&
+      (candidate.answerMode !== "flashback-year" ||
+        (Number.isInteger(candidate.flashback?.yearMin) &&
+          Number.isInteger(candidate.flashback?.yearMax) &&
+          Number(candidate.flashback?.yearMax) >= Number(candidate.flashback?.yearMin))) &&
       (candidate.answerMode !== "flashback-order" ||
         (Array.isArray(candidate.flashback?.cards) &&
           candidate.flashback.cards.length === 4 &&
@@ -245,6 +257,9 @@ export function isPublicArcadeQuestion(value: unknown): value is PublicArcadeQue
         (typeof reveal?.correctAnswerKey === "string" &&
           Array.isArray(reveal.orderValues) &&
           reveal.orderValues.length === 4)) &&
+      (candidate.answerMode !== "flashback-year" ||
+        reveal === null ||
+        typeof reveal?.correctAnswerKey === "string") &&
       (candidate.clueStage === 1 || candidate.clueStage === 2 || candidate.clueStage === 3) &&
       (reveal === null ||
         (Boolean(reveal) &&

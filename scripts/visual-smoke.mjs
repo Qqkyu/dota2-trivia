@@ -993,6 +993,8 @@ const answering = await evaluate(`({
   valueOrderCards: document.querySelectorAll('[data-testid="value-order-card"]').length,
   flashbackOrder: Boolean(document.querySelector('[data-testid="flashback-order-board"]')),
   flashbackOrderCards: document.querySelectorAll('[data-testid="flashback-order-card"]').length,
+  flashbackYear: Boolean(document.querySelector('[data-testid="flashback-year-board"]')),
+  flashbackYearTicks: document.querySelectorAll('[data-testid="flashback-year-tick"]').length,
   heroSearch: Boolean(document.querySelector('[data-testid="hero-search"]')),
   heroItems: document.querySelectorAll('[data-testid="hero-picker-hero"]').length,
   heroGroups: [...document.querySelectorAll('[data-testid="hero-picker"] [data-attribute]')].map((group) => ({
@@ -1142,6 +1144,8 @@ if (!answering.openShop) {
         `document.querySelectorAll('[data-testid="value-order-card"][data-selected="true"]').length === ${cardIndex + 1}`,
       );
     }
+  } else if (answering.flashbackYear) {
+    await evaluate(`document.querySelector('[data-testid="flashback-year-tick"]')?.click()`);
   } else if (answering.flashbackOrder) {
     const measureFlashbackOrder = `(() => {
       const board = document.querySelector('[data-testid="flashback-order-board"]');
@@ -1189,6 +1193,7 @@ await waitFor(`Boolean(
   document.querySelector('[data-testid="hero-picker-hero"][aria-pressed="true"]') ??
   document.querySelector('[data-testid="value-order-board"][data-locked="true"]') ??
   document.querySelector('[data-testid="flashback-order-board"][data-locked="true"]') ??
+  document.querySelector('[data-testid="flashback-year-board"][data-locked="true"]') ??
   document.querySelector('[data-testid="arcade-answer"][aria-pressed="true"]')
 )`);
 await waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
@@ -1245,6 +1250,7 @@ const reveal = await evaluate(`(() => {
     orderSequences: document.querySelectorAll('[data-testid="value-order-sequence"]').length,
     orderValueLabels: document.querySelectorAll('[data-testid="value-order-sequence"] em').length,
     flashbackOrderSequences: document.querySelectorAll('[data-testid="flashback-order-sequence"]').length,
+    flashbackYearTicks: document.querySelectorAll('[data-testid="flashback-year-tick"]').length,
     crowdSplit: (() => {
       const split = document.querySelector('[data-testid="crowd-split"]');
       const rows = [...document.querySelectorAll('[data-testid="crowd-split-row"]')];
@@ -1530,7 +1536,9 @@ if (
         ? answering.answers !== 0 || answering.valueOrderCards !== 4
         : answering.flashbackOrder
           ? answering.answers !== 0 || answering.flashbackOrderCards !== 4
-          : answering.answers !== 4) ||
+          : answering.flashbackYear
+            ? answering.answers !== 0 || answering.flashbackYearTicks < 12
+            : answering.answers !== 4) ||
   answering.difficultyControls !== 0 ||
   answering.tipCards !== 0 ||
   answering.crowdSplitVisible ||
@@ -1588,7 +1596,9 @@ if (
         ? reveal.orderSequences < 1 || reveal.orderValueLabels !== 4 || reveal.openShopReveal
         : answering.flashbackOrder
           ? reveal.flashbackOrderSequences < 1 || reveal.openShopReveal
-          : reveal.percentages !== 4 || reveal.openShopReveal) ||
+          : answering.flashbackYear
+            ? reveal.flashbackYearTicks < 12 || reveal.openShopReveal
+            : reveal.percentages !== 4 || reveal.openShopReveal) ||
   reveal.reportReasons !== 4 ||
   reveal.audioPrewarmRequests < 1 ||
   !sameBounds ||

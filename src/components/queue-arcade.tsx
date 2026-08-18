@@ -61,7 +61,13 @@ import {
   ENTRY_WAIT_TIPS,
   shuffleEntryWaitTips,
 } from "@/lib/entry-wait-tips.mjs";
-import { isFlashbackOrderAnswerForQuestion } from "@/lib/flashback.mjs";
+import {
+  flashbackYearAnswerKey,
+  flashbackYearFromAnswerKey,
+  isFlashbackOrderAnswerForQuestion,
+  isFlashbackYearAnswerInRange,
+  isFlashbackYearAnswerKey,
+} from "@/lib/flashback.mjs";
 import { ARCADE_LOBBY_PATH, PUBLIC_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
 import { crowdPercentage, keyedCrowdSplitRows } from "@/lib/crowd-split.mjs";
 import { DEFAULT_GAME_ID, GAME_IDS, type PublicGameInfo } from "@/lib/game-identity";
@@ -98,6 +104,7 @@ import {
   isPublicQuestionAnswerCorrect,
   isPublicRecipeBuilderQuestion,
   isPublicFlashbackOrderQuestion,
+  isPublicFlashbackYearQuestion,
   isPublicValueOrderQuestion,
   publicCorrectIndex,
   type PublicArcadeQuestion,
@@ -481,7 +488,8 @@ function normalizeCrowd(value: unknown): CrowdResult | null {
                 (isShopkeeperCatalogKey(entry.answerKey) ||
                   isRecipeAnswerKey(entry.answerKey) ||
                   isHeroCatalogKey(entry.answerKey) ||
-                  isValueOrderAnswerKey(entry.answerKey)) &&
+                  isValueOrderAnswerKey(entry.answerKey) ||
+                  isFlashbackYearAnswerKey(entry.answerKey)) &&
                 "count" in entry &&
                 typeof entry.count === "number" &&
                 Number.isInteger(entry.count) &&
@@ -558,7 +566,8 @@ function normalizePlayerVote(value: unknown) {
         (!isShopkeeperCatalogKey(answerKey) &&
           !isRecipeAnswerKey(answerKey) &&
           !isHeroCatalogKey(answerKey) &&
-          !isValueOrderAnswerKey(answerKey)))) ||
+          !isValueOrderAnswerKey(answerKey) &&
+          !isFlashbackYearAnswerKey(answerKey)))) ||
     (mapPosition !== undefined && !isMapPosition(mapPosition))
   ) {
     return undefined;
@@ -843,6 +852,8 @@ function valueOrderAnswerLabel(question: PublicArcadeQuestion, answerKey: string
 }
 
 function keyedAnswerLabel(answerKey: string, fallback: string, question?: PublicArcadeQuestion) {
+  const year = flashbackYearFromAnswerKey(answerKey);
+  if (year !== null) return String(year);
   const recipeItems = recipeItemsFromAnswerKey(answerKey);
   if (recipeItems) {
     return shopkeeperReferencesForKeys(recipeItems)
@@ -1173,6 +1184,94 @@ function ValueOrderBoard({
           <RotateCcw />
           Undo
         </button>
+      </div>
+    </div>
+  );
+}
+
+function FlashbackYearBoard({
+  question,
+  phase,
+  selectedKey,
+  onChoose,
+}: {
+  question: PublicArcadeQuestion;
+  phase: GamePhase;
+  selectedKey: string | null;
+  onChoose: (answerKey: string) => void;
+}) {
+  const yearMin = question.flashback?.yearMin;
+  const yearMax = question.flashback?.yearMax;
+  const years =
+    Number.isInteger(yearMin) && Number.isInteger(yearMax) && Number(yearMax) >= Number(yearMin)
+      ? Array.from({ length: Number(yearMax) - Number(yearMin) + 1 }, (_, index) => Number(yearMin) + index)
+      : [];
+  const lockedYear = selectedKey ? flashbackYearFromAnswerKey(selectedKey) : null;
+  const correctYear = phase === "reveal" ? flashbackYearFromAnswerKey(question.reveal?.correctAnswerKey) : null;
+  const locked = Boolean(selectedKey) || phase !== "answering";
+  const [cursorYear, setCursorYear] = useState<number | null>(lockedYear);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (locked || years.length === 0) return;
+      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        setCursorYear((current) => {
+          const start = current ?? years[Math.floor(years.length / 2)] ?? years[0];
+          const index = years.indexOf(start);
+          const nextIndex =
+            event.key === "ArrowLeft" ? Math.max(0, index - 1) : Math.min(years.length - 1, index + 1);
+          return years[nextIndex] ?? start;
+        });
+        return;
+      }
+      if (event.key === "Enter" || event.key === " ") {
+        const year = cursorYear ?? years[Math.floor(years.length / 2)];
+        const answerKey = year === undefined ? null : flashbackYearAnswerKey(year);
+        if (!answerKey) return;
+        event.preventDefault();
+        onChoose(answerKey);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [cursorYear, locked, onChoose, years]);
+
+  const shownYear = lockedYear ?? cursorYear;
+
+  return (
+    <div
+      className={styles.flashbackYearBoard}
+      data-testid="flashback-year-board"
+      data-phase={phase}
+      data-locked={locked ? "true" : "false"}
+    >
+      <strong data-testid="flashback-year-readout">{shownYear ?? "Year"}</strong>
+      <div className={styles.flashbackYearTicks} role="group" aria-label="Choose a year">
+        {years.map((year) => {
+          const selected = lockedYear === year || (!lockedYear && cursorYear === year);
+          const correct = correctYear === year;
+          return (
+            <button
+              key={year}
+              type="button"
+              data-testid="flashback-year-tick"
+              data-year={year}
+              data-selected={selected ? "true" : "false"}
+              data-correct={correct ? "true" : "false"}
+              disabled={locked}
+              onClick={() => {
+                const answerKey = flashbackYearAnswerKey(year);
+                if (!answerKey) return;
+                setCursorYear(year);
+                onChoose(answerKey);
+              }}
+            >
+              {year}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
@@ -3555,6 +3654,8 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         (isPublicHeroPickerQuestion(question) && !isHeroCatalogKey(answerKey)) ||
         (isPublicValueOrderQuestion(question) && !isValueOrderAnswerForQuestion(question, answerKey)) ||
         (isPublicFlashbackOrderQuestion(question) && !isFlashbackOrderAnswerForQuestion(question, answerKey)) ||
+        (isPublicFlashbackYearQuestion(question) &&
+          !isFlashbackYearAnswerInRange(answerKey, question.flashback?.yearMin, question.flashback?.yearMax)) ||
         selectedIndexRef.current !== null ||
         !deadlineRef.current ||
         Date.now() >= deadlineRef.current
@@ -3911,7 +4012,10 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   const isHeroPickerRound = Boolean(currentQuestion && isPublicHeroPickerQuestion(currentQuestion));
   const isValueOrderRound = Boolean(currentQuestion && isPublicValueOrderQuestion(currentQuestion));
   const isFlashbackOrderRound = Boolean(currentQuestion && isPublicFlashbackOrderQuestion(currentQuestion));
-  const isFlashbackYearRound = Boolean(currentQuestion && currentQuestion.flashback?.family === "year");
+  const isFlashbackYearRound = Boolean(
+    currentQuestion &&
+      (isPublicFlashbackYearQuestion(currentQuestion) || currentQuestion.flashback?.family === "year"),
+  );
   const isSoundcheckRound = currentGame === "soundcheck";
   const isEchoHuntRound = currentGame === "echo-hunt";
   const isProgressiveAudioRound = isSoundcheckRound || isEchoHuntRound;
@@ -4817,10 +4921,21 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
               />
             )}
 
+            {isFlashbackYearRound && (
+              <FlashbackYearBoard
+                key={`${activeRoundId}:${phase}`}
+                question={currentQuestion}
+                phase={phase}
+                selectedKey={selectedAnswerKey}
+                onChoose={chooseKeyedAnswer}
+              />
+            )}
+
             {!isOpenShopRound &&
               !isHeroPickerRound &&
               !isValueOrderRound &&
               !isFlashbackOrderRound &&
+              !isFlashbackYearRound &&
               currentGame !== "map-sense" && (
                 <div
                   className={clsx(
@@ -4958,7 +5073,9 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                           ? "Choose a hero"
                           : isValueOrderRound
                             ? "Choose four in order"
-                            : currentGame === "shopkeeper"
+                            : isFlashbackYearRound
+                              ? "Pick a year"
+                              : currentGame === "shopkeeper"
                               ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
                               : currentGame === "spell-link"
                                 ? "Link the spell to a hero · A–D or 1–4"
