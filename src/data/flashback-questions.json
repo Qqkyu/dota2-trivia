@@ -6550,5 +6550,67 @@
       "alt": "Gem",
       "kind": "item"
     }
+  },
+  {
+    "id": "flashback:first-arcana-hero",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:first-arcana-hero",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Fiery Soul",
+    "prompt": "Which hero received the first Arcana?",
+    "answers": [
+      "Phantom Assassin",
+      "Lina",
+      "Crystal Maiden",
+      "Legion Commander"
+    ],
+    "correctIndex": 1,
+    "explanation": "Fiery Soul of the Slayer went on sale on 7 March 2013. It was the first Arcana, and the first item that changed particle effects.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:first-arcana-hero"
+    },
+    "source": {
+      "label": "Fiery Soul of the Slayer",
+      "url": "https://liquipedia.net/dota2/Fiery_Soul_of_the_Slayer"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:scan-added",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:scan-added",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The radar",
+    "prompt": "Which patch added Scan?",
+    "answers": [
+      "6.86",
+      "6.87",
+      "7.00",
+      "7.07"
+    ],
+    "correctIndex": 1,
+    "explanation": "Scan shipped in 6.87 on 25 April 2016, months before 7.00. It started on cooldown and had a 4.5 minute team cooldown.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:scan-added"
+    },
+    "source": {
+      "label": "Version 6.87",
+      "url": "https://liquipedia.net/dota2/Version_6.87"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/map-overview.webp",
+      "alt": "The Dota map",
+      "kind": "item"
+    }
   }
 ]

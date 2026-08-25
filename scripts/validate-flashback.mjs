@@ -226,6 +226,8 @@ const FLASHBACK_ART = {
   "flashback:odpixel-od": "dota2_logo_symbol",
   "flashback:free-to-play": "dota2_logo_symbol",
   "flashback:true-sight": "items/gem",
+  "flashback:first-arcana-hero": "dota2_logo_symbol",
+  "flashback:scan-added": "map-overview.webp",
 };
 record(
   questions.every((question) => question.image?.src?.includes(FLASHBACK_ART[question.id] ?? "missing")) &&
