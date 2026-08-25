@@ -193,20 +193,38 @@ const hiddenPlayer = createFeedbackPlayer({
 });
 hiddenPlayer.play("wrong", { enabled: true, volume: 1 });
 const hiddenWrong = hiddenClips.find((audio) => String(audio.src).includes("magic_immune"));
-if (hiddenPlayer.pendingResult() !== "wrong") {
-  failures.push("A result that plays while the tab is hidden is no longer kept for replay.");
-}
-const stillPlaying = hiddenPlayer.resumeIfNeeded();
-if (stillPlaying.played || hiddenWrong?.plays !== 1) {
-  failures.push("A result that is still playing was restarted when the tab returned.");
-}
+await new Promise((resolve) => setTimeout(resolve, 0));
 hiddenWrong.paused = true;
 hiddenWrong.currentTime = 0;
 tabHidden = false;
-const resumed = hiddenPlayer.resumeIfNeeded();
-await Promise.resolve();
-if (!resumed.played || hiddenWrong.plays !== 2) {
-  failures.push("A finished hidden result did not replay once when the tab became visible.");
+const heardReplay = hiddenPlayer.resumeIfNeeded();
+if (heardReplay.played || hiddenWrong.plays !== 1) {
+  failures.push("A result that already played in the background played again when the tab came back.");
+}
+
+const blockedClips = [];
+let blockedHidden = true;
+const blockedPlayer = createFeedbackPlayer({
+  AudioCtor: class extends FakeAudio {
+    constructor(src) {
+      super(src);
+      blockedClips.push(this);
+    }
+    play() {
+      this.plays += 1;
+      return Promise.reject(Object.assign(new Error("blocked"), { name: "NotAllowedError" }));
+    }
+  },
+  isHidden: () => blockedHidden,
+});
+blockedPlayer.play("wrong", { enabled: true, volume: 1 });
+const blockedWrong = blockedClips.find((audio) => String(audio.src).includes("magic_immune"));
+await new Promise((resolve) => setTimeout(resolve, 0));
+blockedHidden = false;
+blockedWrong.play = FakeAudio.prototype.play;
+const recovered = blockedPlayer.resumeIfNeeded();
+if (!recovered.played || blockedWrong.plays < 2) {
+  failures.push("A result that failed while hidden did not play when the tab became visible.");
 }
 
 if (failures.length) {

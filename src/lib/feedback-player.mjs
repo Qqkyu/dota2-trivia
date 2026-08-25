@@ -76,9 +76,8 @@ export function createFeedbackPlayer({
     const first = audio.play();
     if (!first || typeof first.catch !== "function") return Promise.resolve();
     return first.catch(() => {
-      const retry = audio.play();
-      if (retry && typeof retry.catch === "function") return retry.catch(() => undefined);
-      return undefined;
+      if (typeof audio.play !== "function") return Promise.reject(new Error("play-failed"));
+      return audio.play();
     });
   }
 
@@ -96,9 +95,10 @@ export function createFeedbackPlayer({
       audio.volume = Math.min(1, volume * gain);
       starts.push(startClip(audio));
     }
-    const hidden = Boolean(isHidden());
-    void Promise.allSettled(starts).then(() => {
-      if (RESULT_KINDS.has(kind) && !hidden && isAudible(kind)) pendingResult = null;
+    void Promise.allSettled(starts).then((results) => {
+      if (RESULT_KINDS.has(kind) && results.some((result) => result.status === "fulfilled")) {
+        pendingResult = null;
+      }
     });
     return { played: true, kind, clipCount: clips.length, created };
   }

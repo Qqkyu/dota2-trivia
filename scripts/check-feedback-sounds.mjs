@@ -471,6 +471,8 @@ try {
   }
 
   await browser.send("Target.activateTarget", { targetId: created.targetId });
+  await delay(100);
+  await page.evaluate(`window.dispatchEvent(new Event("focus"));`);
   await delay(500);
   const afterReturn = await page.evaluate(`({
     log: window.__soundLog,
@@ -485,11 +487,16 @@ try {
       (classify(entry.src) === "wrong" || classify(entry.src) === "correct") &&
       entry.hidden === false,
   );
+  const hiddenResultOkCount = hiddenWrongOk.length + hiddenCorrectOk.length;
   if (afterReturn.hidden) {
     errors.push(`Play tab stayed hidden after focus return: ${JSON.stringify(afterReturn)}`);
-  } else if (visibleResultOk.length < 1) {
+  } else if (hiddenResultOkCount >= 1 && visibleResultOk.length >= 1) {
     errors.push(
-      `Result cue never played while the tab was visible. Hidden play is silent when Chrome is in the background.`,
+      "Result cue played again after the tab came back, even though it already played in the background.",
+    );
+  } else if (hiddenResultOkCount < 1 && visibleResultOk.length < 1) {
+    errors.push(
+      `Result cue never played in the background or after return. log=${JSON.stringify(afterReturn.log)}`,
     );
   }
 
