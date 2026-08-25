@@ -6178,5 +6178,377 @@
       "alt": "Dota 2",
       "kind": "item"
     }
+  },
+  {
+    "id": "flashback:invoker-carl",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:invoker-carl",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "A name of power",
+    "prompt": "Invoker sometimes says his true name of power is what?",
+    "answers": [
+      "Kael",
+      "Carl",
+      "Garral",
+      "Kal-El"
+    ],
+    "correctIndex": 1,
+    "explanation": "A fake Chinese patch called him 卡尔. Google Translate spat out Carl. Valve kept the joke in his voicelines.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:invoker-carl"
+    },
+    "source": {
+      "label": "Invoker",
+      "url": "https://liquipedia.net/dota2/Invoker"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
+      "alt": "Invoker",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:longest-pro-game",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:longest-pro-game",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Three hours",
+    "prompt": "Which teams played the longest professional Dota 2 game, about 200 minutes?",
+    "answers": [
+      "OG and Team Liquid",
+      "Cloud9 and ScaryFaceZ",
+      "Natus Vincere and EHOME",
+      "Evil Geniuses and CDEC"
+    ],
+    "correctIndex": 1,
+    "explanation": "StarLadder StarSeries Season 12 Europe/CIS qualifier, 20 March 2015. Game two lasted 3 hours 20 minutes 34 seconds. ODPixel, Purge, and Sheever sat the whole thing.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:longest-pro-game"
+    },
+    "source": {
+      "label": "StarLadder StarSeries Season 12",
+      "url": "https://liquipedia.net/dota2/StarSeries/Season_12"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:fountain-hook",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:fountain-hook",
+    "category": "History",
+    "difficulty": 3,
+    "eyebrow": "Old cheese",
+    "prompt": "What did players call dragging an enemy into base with an old Meat Hook plus a teleport?",
+    "answers": [
+      "Ramp hook",
+      "Fountain hook",
+      "Blink cancel",
+      "Power snatch"
+    ],
+    "correctIndex": 1,
+    "explanation": "Meat Hook used to pull the target to Pudge. Teleport Pudge to fountain first, land the hook, and the victim slammed into your base. Valve later made the hook pull along its line.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:fountain-hook"
+    },
+    "source": {
+      "label": "Meat Hook",
+      "url": "https://liquipedia.net/dota2/Meat_Hook"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png",
+      "alt": "Pudge",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:odpixel-fogged",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:odpixel-fogged",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "The big desk",
+    "prompt": "Which pair has cast the most The International grand finals in English?",
+    "answers": [
+      "TobiWan and Luminous",
+      "ODPixel and Fogged",
+      "TobiWan and syndereN",
+      "Cap and SVG"
+    ],
+    "correctIndex": 1,
+    "explanation": "They took the English grand final at TI8, TI9, and TI11, and they had the desk again for the TI 2026 grand final in Shanghai.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:odpixel-fogged"
+    },
+    "source": {
+      "label": "The International 2026",
+      "url": "https://liquipedia.net/dota2/The_International/2026"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "The International",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:sheever-name",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:sheever-name",
+    "category": "Esports",
+    "difficulty": 3,
+    "eyebrow": "The host",
+    "prompt": "Sheever took her nickname from a sea serpent in whose books?",
+    "answers": [
+      "George R. R. Martin",
+      "Robin Hobb",
+      "J. R. R. Tolkien",
+      "Terry Pratchett"
+    ],
+    "correctIndex": 1,
+    "explanation": "It started as her World of Warcraft name. Liquipedia notes it comes from Robin Hobb. The serpent in the Liveship Traders books is Shreever.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:sheever-name"
+    },
+    "source": {
+      "label": "Sheever",
+      "url": "https://liquipedia.net/dota2/Sheever"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:purge-you-suck",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:purge-you-suck",
+    "category": "Esports",
+    "difficulty": 1,
+    "eyebrow": "The teacher",
+    "prompt": "Which caster made the guide series Welcome to Dota, You Suck?",
+    "answers": [
+      "TobiWan",
+      "Purge",
+      "SIRACTIONSLACKS",
+      "ODPixel"
+    ],
+    "correctIndex": 1,
+    "explanation": "Kevin Godec. Years of YouTube lessons, then those endless patch-note videos.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:purge-you-suck"
+    },
+    "source": {
+      "label": "Purge",
+      "url": "https://liquipedia.net/dota2/Purge"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:2gd-shanghai",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:2gd-shanghai",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "FIRED",
+    "prompt": "Which host did Gabe Newell fire mid-event at the Shanghai Major?",
+    "answers": [
+      "TobiWan",
+      "2GD",
+      "ReDeYe",
+      "Sheever"
+    ],
+    "correctIndex": 1,
+    "explanation": "James Harding, day two of the 2016 Shanghai Major. Gabe wrote on Reddit that James is an ass and Valve would not work with him again. Twitch chat still yells FIRED.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:2gd-shanghai"
+    },
+    "source": {
+      "label": "Shanghai Major",
+      "url": "https://www.pcgamesn.com/dota-2/dota-2-shanghai-major-suffers-serious-production-issues-host-james-2gd-harding-fired-on-day-two"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "The International",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:fly-founded-og",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:fly-founded-og",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Monkey Business",
+    "prompt": "Who founded OG with n0tail?",
+    "answers": [
+      "s4",
+      "Fly",
+      "JerAx",
+      "Ceb"
+    ],
+    "correctIndex": 1,
+    "explanation": "Tal Aizik. They built (monkey) Business after TI5, then renamed it OG on 31 October 2015. Fly left before the TI8 run.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:fly-founded-og"
+    },
+    "source": {
+      "label": "Fly",
+      "url": "https://en.wikipedia.org/wiki/Fly_(gamer)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "The International",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:outworld-devourer",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:outworld-devourer",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The rename",
+    "prompt": "Valve renamed Outworld Destroyer to what, then changed it back?",
+    "answers": [
+      "Obsidian Destroyer",
+      "Outworld Devourer",
+      "Ancient Apparition",
+      "Arc Warden"
+    ],
+    "correctIndex": 1,
+    "explanation": "The hero sat as Outworld Devourer for a stretch, then Valve restored Destroyer. Players still argue about it.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:outworld-devourer"
+    },
+    "source": {
+      "label": "Outworld Destroyer",
+      "url": "https://liquipedia.net/dota2/Outworld_Destroyer"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png",
+      "alt": "Outworld Destroyer",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:odpixel-od",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:odpixel-od",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Rap god",
+    "prompt": "In ODPixel, OD stands for what?",
+    "answers": [
+      "Outworld Destroyer",
+      "Owen Davies",
+      "On Demand",
+      "Own Desk"
+    ],
+    "correctIndex": 1,
+    "explanation": "Owen Davies. Pixel comes from PixelPipeline, the early studio he formed with his friend WakeyPixel.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:odpixel-od"
+    },
+    "source": {
+      "label": "ODPixel",
+      "url": "https://liquipedia.net/dota2/ODPixel"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:free-to-play",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:free-to-play",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The first film",
+    "prompt": "Valve's first Dota 2 documentary, about Dendi, Fear, and hyhy at TI1, was called what?",
+    "answers": [
+      "True Sight",
+      "Free to Play",
+      "We Are All Dota",
+      "The International"
+    ],
+    "correctIndex": 1,
+    "explanation": "Premiered at TI3, public release in March 2014. True Sight is the later series.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:free-to-play"
+    },
+    "source": {
+      "label": "Free to Play",
+      "url": "https://en.wikipedia.org/wiki/Free_to_Play_(film)"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:true-sight",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:true-sight",
+    "category": "History",
+    "difficulty": 1,
+    "eyebrow": "Behind the booth",
+    "prompt": "Valve's later behind-the-scenes Dota series, including TI grand finals, was called what?",
+    "answers": [
+      "Free to Play",
+      "True Sight",
+      "Secret Shop",
+      "The Play"
+    ],
+    "correctIndex": 1,
+    "explanation": "Started in 2016. Best known for the TI7, TI8, and TI9 grand-final films.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:true-sight"
+    },
+    "source": {
+      "label": "True Sight",
+      "url": "https://store.steampowered.com/app/539730"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gem.png",
+      "alt": "Gem",
+      "kind": "item"
+    }
   }
 ]

@@ -214,6 +214,18 @@ const FLASHBACK_ART = {
   "flashback:season-events-order": "dota2_logo_symbol",
   "flashback:rune-history-order": "dota2_logo_symbol",
   "flashback:ti-year-gaps-order": "ti-wordmark.png",
+  "flashback:invoker-carl": "heroes/invoker",
+  "flashback:longest-pro-game": "dota2_logo_symbol",
+  "flashback:fountain-hook": "heroes/pudge",
+  "flashback:odpixel-fogged": "ti-wordmark.png",
+  "flashback:sheever-name": "dota2_logo_symbol",
+  "flashback:purge-you-suck": "dota2_logo_symbol",
+  "flashback:2gd-shanghai": "ti-wordmark.png",
+  "flashback:fly-founded-og": "ti-wordmark.png",
+  "flashback:outworld-devourer": "heroes/obsidian_destroyer",
+  "flashback:odpixel-od": "dota2_logo_symbol",
+  "flashback:free-to-play": "dota2_logo_symbol",
+  "flashback:true-sight": "items/gem",
 };
 record(
   questions.every((question) => question.image?.src?.includes(FLASHBACK_ART[question.id] ?? "missing")) &&
