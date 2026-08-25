@@ -6612,5 +6612,238 @@
       "alt": "The Dota map",
       "kind": "item"
     }
+  },
+  {
+    "id": "flashback:wraith-night",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:wraith-night",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The longest night",
+    "prompt": "The 2013 Frostivus event was called what?",
+    "answers": [
+      "Diretide",
+      "Wraith-Night",
+      "The Greeviling",
+      "Dark Moon"
+    ],
+    "correctIndex": 1,
+    "explanation": "Frostivus 2013 was Wraith-Night. Five heroes defended the altar until Skeleton King returned as Wraith King.",
+    "flashback": {
+      "family": "choice",
+      "subject": "event:wraith-night"
+    },
+    "source": {
+      "label": "Wraith-Night",
+      "url": "https://www.dota2.com/wraithnight/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "alt": "Dota 2",
+      "kind": "item"
+    }
+  },
+  {
+    "id": "flashback:wraith-king-year",
+    "kind": "flashback-year",
+    "varietyKey": "flashback:wraith-king-year",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Second coronation",
+    "prompt": "What year did Skeleton King become Wraith King?",
+    "answers": [
+      "2012",
+      "2013",
+      "2014",
+      "2015"
+    ],
+    "correctIndex": 1,
+    "explanation": "Valve pulled Skeleton King on 10 December 2013 for pressing ceremonial reasons. He returned as Wraith King on 13 December, after Wraith-Night.",
+    "flashback": {
+      "family": "year",
+      "subject": "event:wraith-king-rename",
+      "correctYear": 2013
+    },
+    "source": {
+      "label": "December 10, 2013 patch",
+      "url": "https://www.gamespot.com/articles/dota-2-10th-december-patch-content-analysis/1100-6436574/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/wraith_king.png",
+      "alt": "Wraith King",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:700-title",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:700-title",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The next chapter",
+    "prompt": "Patch 7.00's official title was what?",
+    "answers": [
+      "Dueling Fates",
+      "The New Journey",
+      "The Outlanders",
+      "New Frontiers"
+    ],
+    "correctIndex": 1,
+    "explanation": "Valve branded 7.00 as The New Journey on 12 December 2016. It added Monkey King, talent trees, a new HUD, and map changes.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:700-title"
+    },
+    "source": {
+      "label": "7.00 - The New Journey",
+      "url": "https://www.dota2.com/700"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png",
+      "alt": "Monkey King",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:first-collectors-cache",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:first-collectors-cache",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "Community sets",
+    "prompt": "The first Collector's Cache was for which International?",
+    "answers": [
+      "TI4",
+      "TI5",
+      "TI6",
+      "TI7"
+    ],
+    "correctIndex": 1,
+    "explanation": "The first Collector's Cache went on sale on 4 June 2015 for TI5 Compendium owners. 25% went to the prize pool. Faceless Rex was the 1 in 250 courier.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:collectors-cache"
+    },
+    "source": {
+      "label": "The Collector's Cache",
+      "url": "https://store.steampowered.com/news/app/570/view/2882822214139033354"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/ti-wordmark.png",
+      "alt": "The International",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:old-name-necrophos",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:old-name-necrophos",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The rename",
+    "prompt": "What was Necrophos named before?",
+    "answers": [
+      "Necromancer",
+      "Necrolyte",
+      "Dirge",
+      "Plague Priest"
+    ],
+    "correctIndex": 1,
+    "explanation": "Valve renamed Necrolyte to Necrophos on 21 November 2013, in the same patch as Windrunner and Lycanthrope.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:2013-hero-rename",
+      "revealMedia": {
+        "src": "/arcade/flashback/necrophos.png",
+        "alt": "Necrophos",
+        "caption": "Necrolyte became Necrophos"
+      }
+    },
+    "source": {
+      "label": "November 21, 2013 patch",
+      "url": "https://www.gamespot.com/articles/dota-2-21st-to-26th-november-patch-content-analysi/1100-6436473/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/necrophos.png",
+      "alt": "Necrophos",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:old-name-windranger",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:old-name-windranger",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The rename",
+    "prompt": "What was Windranger named before?",
+    "answers": [
+      "Windweaver",
+      "Windrunner",
+      "Alleria",
+      "Wind Spirit"
+    ],
+    "correctIndex": 1,
+    "explanation": "Valve renamed Windrunner to Windranger on 21 November 2013, in the same patch as Necrolyte and Lycanthrope.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:2013-hero-rename",
+      "revealMedia": {
+        "src": "/arcade/flashback/windranger.png",
+        "alt": "Windranger",
+        "caption": "Windrunner became Windranger"
+      }
+    },
+    "source": {
+      "label": "November 21, 2013 patch",
+      "url": "https://www.gamespot.com/articles/dota-2-21st-to-26th-november-patch-content-analysi/1100-6436473/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "/arcade/flashback/windranger.png",
+      "alt": "Windranger",
+      "kind": "hero"
+    }
+  },
+  {
+    "id": "flashback:old-name-lycan",
+    "kind": "flashback-choice",
+    "varietyKey": "flashback:old-name-lycan",
+    "category": "History",
+    "difficulty": 2,
+    "eyebrow": "The rename",
+    "prompt": "What was Lycan named before?",
+    "answers": [
+      "Werewolf",
+      "Lycanthrope",
+      "Wolf Lord",
+      "Shapeshifter"
+    ],
+    "correctIndex": 1,
+    "explanation": "Valve renamed Lycanthrope to Lycan on 21 November 2013, in the same patch as Necrolyte and Windrunner.",
+    "flashback": {
+      "family": "choice",
+      "subject": "fact:2013-hero-rename",
+      "revealMedia": {
+        "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lycan.png",
+        "alt": "Lycan",
+        "caption": "Lycanthrope became Lycan"
+      }
+    },
+    "source": {
+      "label": "November 21, 2013 patch",
+      "url": "https://www.gamespot.com/articles/dota-2-21st-to-26th-november-patch-content-analysi/1100-6436473/"
+    },
+    "patch": "7.41e",
+    "image": {
+      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lycan.png",
+      "alt": "Lycan",
+      "kind": "hero"
+    }
   }
 ]

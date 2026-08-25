@@ -228,6 +228,13 @@ const FLASHBACK_ART = {
   "flashback:true-sight": "items/gem",
   "flashback:first-arcana-hero": "dota2_logo_symbol",
   "flashback:scan-added": "map-overview.webp",
+  "flashback:wraith-night": "dota2_logo_symbol",
+  "flashback:wraith-king-year": "heroes/wraith_king",
+  "flashback:700-title": "heroes/monkey_king",
+  "flashback:first-collectors-cache": "ti-wordmark.png",
+  "flashback:old-name-necrophos": "necrophos.png",
+  "flashback:old-name-windranger": "windranger.png",
+  "flashback:old-name-lycan": "heroes/lycan",
 };
 record(
   questions.every((question) => question.image?.src?.includes(FLASHBACK_ART[question.id] ?? "missing")) &&
