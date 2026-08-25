@@ -6245,10 +6245,10 @@
     "id": "flashback:fountain-hook",
     "kind": "flashback-choice",
     "varietyKey": "flashback:fountain-hook",
-    "category": "History",
-    "difficulty": 3,
-    "eyebrow": "Old cheese",
-    "prompt": "What did players call dragging an enemy into base with an old Meat Hook plus a teleport?",
+    "category": "Esports",
+    "difficulty": 2,
+    "eyebrow": "Is that balanced?",
+    "prompt": "At TI3, Na'Vi dragged TongFu into the fountain. Loda yelled \"Is that balanced?\" What was that play called?",
     "answers": [
       "Ramp hook",
       "Fountain hook",
@@ -6256,14 +6256,14 @@
       "Power snatch"
     ],
     "correctIndex": 1,
-    "explanation": "Meat Hook used to pull the target to Pudge. Teleport Pudge to fountain first, land the hook, and the victim slammed into your base. Valve later made the hook pull along its line.",
+    "explanation": "Dendi on Pudge, Puppey on Chen. Meat Hook used to pull the target to Pudge, so a fountain teleport yanked heroes into base, Aegis and all. Loda lost it in the player lounge. Valve later made the hook pull along its line.",
     "flashback": {
       "family": "choice",
       "subject": "fact:fountain-hook"
     },
     "source": {
-      "label": "Meat Hook",
-      "url": "https://liquipedia.net/dota2/Meat_Hook"
+      "label": "The International Archives: Fountain Hook",
+      "url": "https://www.youtube.com/watch?v=d6H-HEpnlk8"
     },
     "patch": "7.41e",
     "image": {
