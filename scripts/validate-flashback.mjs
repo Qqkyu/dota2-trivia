@@ -372,8 +372,12 @@ record(
   "A Flashback who-won prompt has no reveal picture.",
 );
 const winnerPhotoIds = new Set([
+  "flashback:ti3-winner",
+  "flashback:ti5-winner",
   "flashback:ti7-winner",
   "flashback:ti8-winner",
+  "flashback:ti9-winner",
+  "flashback:ti10-winner",
   "flashback:ti11-winner",
   "flashback:ti12-winner",
   "flashback:ti13-winner",
@@ -394,7 +398,7 @@ record(
         question.flashback?.revealMedia?.kind === "photo" &&
         String(question.flashback.revealMedia.src).startsWith("/arcade/flashback/winners/") &&
         existsSync(path.join(process.cwd(), "public", question.flashback.revealMedia.src)),
-    ) && winnerPhotoIds.size === 13,
+    ) && winnerPhotoIds.size === 17,
   "A Flashback winner photo is still a team mark.",
 );
 

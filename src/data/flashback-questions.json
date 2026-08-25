@@ -411,9 +411,10 @@
       "family": "choice",
       "subject": "winner:ti3",
       "revealMedia": {
-        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/111474.png",
-        "alt": "Alliance",
-        "caption": "Alliance · TI3"
+        "src": "/arcade/flashback/winners/ti3-alliance.jpg",
+        "alt": "Alliance lift the Aegis",
+        "caption": "Alliance · TI3",
+        "kind": "photo"
       }
     },
     "source": {
@@ -483,9 +484,10 @@
       "family": "choice",
       "subject": "winner:ti5",
       "revealMedia": {
-        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/39.png",
-        "alt": "Evil Geniuses",
-        "caption": "Evil Geniuses · TI5"
+        "src": "/arcade/flashback/winners/ti5-eg.jpg",
+        "alt": "Evil Geniuses lift the Aegis",
+        "caption": "Evil Geniuses · TI5",
+        "kind": "photo"
       }
     },
     "source": {
@@ -629,9 +631,10 @@
       "family": "choice",
       "subject": "winner:ti9",
       "revealMedia": {
-        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
-        "alt": "OG",
-        "caption": "OG · TI9"
+        "src": "/arcade/flashback/winners/ti9-og.jpg",
+        "alt": "OG lift the Aegis",
+        "caption": "OG · TI9",
+        "kind": "photo"
       }
     },
     "source": {
@@ -665,9 +668,10 @@
       "family": "choice",
       "subject": "winner:ti10",
       "revealMedia": {
-        "src": "/arcade/flashback/winners/spirit.png",
-        "alt": "Team Spirit",
-        "caption": "Team Spirit · TI10"
+        "src": "/arcade/flashback/winners/ti10-spirit.jpg",
+        "alt": "Team Spirit lift the Aegis",
+        "caption": "Team Spirit · TI10",
+        "kind": "photo"
       }
     },
     "source": {
