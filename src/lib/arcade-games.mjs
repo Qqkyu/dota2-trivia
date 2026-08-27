@@ -86,9 +86,9 @@ const ROUND_GAME_BY_FORMAT = Object.freeze({
 
 /**
  * TEMP playtest. Live room uses only these formats.
- * Set back to null after Flashback review to restore the 13-format mix.
+ * Null keeps the 13-format public mix.
  */
-export const LIVE_PLAYTEST_FORMATS = Object.freeze(["flashback"]);
+export const LIVE_PLAYTEST_FORMATS = null;
 
 /** @param {{ kind?: string } | null | undefined} question */
 export function roundFormatForQuestion(question) {
