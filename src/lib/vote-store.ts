@@ -62,6 +62,7 @@ export interface RoundVoteInput {
   basePoints: number;
   voterId: string;
   submittedAt: number;
+  countTowardCalibration?: boolean;
 }
 
 export interface QuestionReportInput {
@@ -448,12 +449,14 @@ async function fileRecordRoundVote(input: RoundVoteInput): Promise<VoteResult> {
     round.updatedAt = input.submittedAt;
     state.rounds[input.roundId] = round;
 
-    const { key, question } = questionForMutation(state, input);
-    question.correctIndex = input.correctIndex;
-    question.counts[input.answerIndex] += 1;
-    question.total += 1;
-    question.updatedAt = input.submittedAt;
-    state.questions[key] = question;
+    if (input.countTowardCalibration !== false) {
+      const { key, question } = questionForMutation(state, input);
+      question.correctIndex = input.correctIndex;
+      question.counts[input.answerIndex] += 1;
+      question.total += 1;
+      question.updatedAt = input.submittedAt;
+      state.questions[key] = question;
+    }
 
     return {
       accepted: true,

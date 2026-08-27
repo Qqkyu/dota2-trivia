@@ -14,7 +14,8 @@ import {
 } from "@/lib/keyed-answer";
 import { isMapPosition, mapAnswerIndex } from "@/lib/map-sense";
 import { answerStageForRound } from "@/lib/player-profile.mjs";
-import { currentPublicRound, parsePublicRoomSettings, PUBLIC_VOTE_ACCEPT_GRACE_MS } from "@/lib/public-rooms";
+import { liveRoundForSettings } from "@/lib/private-room-rounds";
+import { parsePublicRoomSettings, PUBLIC_VOTE_ACCEPT_GRACE_MS } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { scoreBreakdown } from "@/lib/scoring.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
@@ -41,6 +42,7 @@ export async function POST(request: NextRequest) {
     gameId: candidate.gameId,
     mode: candidate.mode,
     filter: candidate.filter,
+    privateCode: candidate.privateCode ?? candidate.room,
   });
   const { roundId, voterId, sessionId } = candidate;
   const answerIndex =
@@ -75,7 +77,11 @@ export async function POST(request: NextRequest) {
   if (rateLimited) return rateLimited;
 
   const submittedAt = Date.now();
-  const { room, round } = currentPublicRound(settings, submittedAt);
+  const live = liveRoundForSettings(settings, submittedAt);
+  if ("error" in live) {
+    return NextResponse.json({ error: "That public round has already moved on." }, { status: 409 });
+  }
+  const { room, round } = live;
   const question = GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === round.questionId);
 
   if (!question || round.id !== roundId) {
@@ -132,9 +138,10 @@ export async function POST(request: NextRequest) {
       basePoints,
       voterId: effectiveVoterId,
       submittedAt,
+      countTowardCalibration: !live.isolated,
     });
 
-    if (accountUser && result.playerVote) {
+    if (accountUser && result.playerVote && !live.isolated) {
       const roundFormat = roundFormatForQuestion(question);
       if (!roundFormat) throw new Error(`Question ${question.id} has no public round format.`);
       const storedVote = result.playerVote;

@@ -1,0 +1,76 @@
+#!/usr/bin/env node
+
+import {
+  formatsForRoundGames,
+  PUBLIC_ROUND_FORMATS,
+} from "../src/lib/arcade-games.mjs";
+import {
+  addPrivateRoomMessage,
+  createPrivateRoom,
+  getPrivateRoom,
+  guestDisplayName,
+  isPrivateRoomId,
+  normalizePrivateRoomCode,
+  PRIVATE_ROOM_MESSAGE_MAX,
+  privateRoundTiming,
+  resetPrivateRoomsForTests,
+  startPrivateRoom,
+} from "../src/lib/private-rooms.mjs";
+
+const failures = [];
+const record = (ok, message) => {
+  if (!ok) failures.push(message);
+};
+
+resetPrivateRoomsForTests();
+
+record(normalizePrivateRoomCode("k7q2") === "K7Q2", "Private room codes should normalize to four safe characters.");
+record(normalizePrivateRoomCode("NO") === null, "Short codes must be rejected.");
+record(guestDisplayName("player-abcd") === "Guest-ABCD", "Guests need a short display name.");
+record(formatsForRoundGames(["flashback"]).join(",") === "flashback", "A Flashback-only room should schedule only Flashback.");
+record(formatsForRoundGames([]).length === PUBLIC_ROUND_FORMATS.length, "No ticked games should keep the full mix.");
+
+const now = Date.now();
+const created = createPrivateRoom({
+  hostId: "host-player-1",
+  gameId: "dota2",
+  contentVersion: "test-version",
+  games: ["flashback"],
+  now,
+});
+record(created.code.length === 4, "Create should return a four-character code.");
+record(created.startedAt === null, "A new private room must wait for the host.");
+record(created.formats.join(",") === "flashback", "Create should store the selected formats.");
+record(isPrivateRoomId(created.roomId), "Private room IDs must not collide with the public room.");
+record(getPrivateRoom(created.code)?.code === created.code, "Created rooms must be readable by code.");
+
+const stranger = startPrivateRoom(created.code, "other-player-1", now + 1_000);
+record(stranger.ok === false && stranger.reason === "forbidden", "Only the host can start the room.");
+
+const started = startPrivateRoom(created.code, "host-player-1", now + 2_000);
+record(started.ok === true && started.room.startedAt === now + 2_000, "The host should start the private clock.");
+
+const timing = privateRoundTiming(now + 2_000, now + 2_000 + 16_000);
+record(timing.roundNumber === 0 && timing.phase === "reveal", "Private rounds should use the 15s / 7s clock from Start.");
+const nextRound = privateRoundTiming(now + 2_000, now + 2_000 + 22_000);
+record(nextRound.roundNumber === 1 && nextRound.phase === "answering", "The next private round should begin after reveal.");
+
+const chat = addPrivateRoomMessage(created.code, { name: "Loda", text: "  is that balanced?  ", now: now + 3_000 });
+record(chat.ok === true && chat.message.text === "is that balanced?", "Chat should trim and keep a short line.");
+const empty = addPrivateRoomMessage(created.code, { name: "Loda", text: "   ", now: now + 3_100 });
+record(empty.ok === false, "Empty chat must not land.");
+const long = addPrivateRoomMessage(created.code, { name: "Loda", text: "x".repeat(PRIVATE_ROOM_MESSAGE_MAX + 8), now: now + 3_200 });
+record(long.ok === true && long.message.text.length === PRIVATE_ROOM_MESSAGE_MAX, "Chat should cap at 80 characters.");
+
+const publicId = "dota2:content:public";
+record(!isPrivateRoomId(publicId), "The public room ID must stay public.");
+
+resetPrivateRoomsForTests();
+record(getPrivateRoom(created.code) === null, "Tests must be able to clear private rooms.");
+
+if (failures.length) {
+  console.error(failures.join("\n"));
+  process.exit(1);
+}
+
+console.log("Validated private rooms, host start, isolated clock, and chat.");

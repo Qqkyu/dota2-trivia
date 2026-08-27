@@ -33,6 +33,7 @@ export interface PublicRoomSettings {
   gameId: GameId;
   mode: ArcadeMode;
   filter: KnowledgeFilter;
+  privateCode?: string;
 }
 
 export interface PublicRoom {

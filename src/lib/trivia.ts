@@ -334,11 +334,13 @@ export function createArcadeDeck(
   length = 10,
   rotationSeed = seed,
   roundOffset = 0,
+  formats?: readonly string[],
 ) {
   if (mode === "mixed") {
     const roomFilter = sharedKnowledgeFilter(filter);
+    const roundFormats = Array.isArray(formats) && formats.length > 0 ? formats : livePublicRoundFormats();
     return createSemanticPublicDeck(triviaQuestions, {
-      formats: livePublicRoundFormats(),
+      formats: roundFormats,
       getFormat: roundFormatForQuestion,
       seed: `${seed}:semantic-subjects:${roomFilter}:${ARCADE_CONTENT_VERSION}`,
       poolSeedForFormat: (format: string) => `${seed}:format:${format}:${roomFilter}:${ARCADE_CONTENT_VERSION}`,

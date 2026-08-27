@@ -9,12 +9,15 @@ export const metadata: Metadata = {
 };
 
 interface PlayProps {
-  searchParams: Promise<{ mode?: string | string[] }>;
+  searchParams: Promise<{ mode?: string | string[]; room?: string | string[] }>;
 }
 
 export default async function Play({ searchParams }: PlayProps) {
   const params = await searchParams;
-  if (params.mode !== undefined) redirect(PUBLIC_ARCADE_PATH);
+  const roomCode = typeof params.room === "string" ? params.room : undefined;
+  if (params.mode !== undefined) {
+    redirect(roomCode ? `${PUBLIC_ARCADE_PATH}?room=${encodeURIComponent(roomCode)}` : PUBLIC_ARCADE_PATH);
+  }
 
-  return <QueueArcade autoStart gameInfo={publicGameInfo()} />;
+  return <QueueArcade autoStart={!roomCode} roomCode={roomCode} gameInfo={publicGameInfo()} />;
 }

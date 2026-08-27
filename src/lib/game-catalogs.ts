@@ -28,6 +28,7 @@ export interface GameCatalog {
     length: number,
     rotationSeed?: string,
     roundOffset?: number,
+    formats?: readonly string[],
   ) => ArcadeRound[];
 }
 

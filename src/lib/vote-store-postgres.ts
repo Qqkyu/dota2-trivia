@@ -513,26 +513,28 @@ export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult
       WHERE round_id = ${input.roundId}
       RETURNING count_0, count_1, count_2, count_3
     `;
-    await transaction`
-      INSERT INTO queue_arcade_question_stats (
-        game_id, question_id, question_revision, count_0, count_1, count_2, count_3,
-        total, correct_index, updated_at
-      )
-      VALUES (
-        ${input.gameId}, ${input.questionId}, ${input.questionRevision},
-        ${input.answerIndex === 0 ? 1 : 0}, ${input.answerIndex === 1 ? 1 : 0},
-        ${input.answerIndex === 2 ? 1 : 0}, ${input.answerIndex === 3 ? 1 : 0},
-        1, ${input.correctIndex}, ${input.submittedAt}
-      )
-      ON CONFLICT (game_id, question_id, question_revision) DO UPDATE SET
-        count_0 = queue_arcade_question_stats.count_0 + EXCLUDED.count_0,
-        count_1 = queue_arcade_question_stats.count_1 + EXCLUDED.count_1,
-        count_2 = queue_arcade_question_stats.count_2 + EXCLUDED.count_2,
-        count_3 = queue_arcade_question_stats.count_3 + EXCLUDED.count_3,
-        total = queue_arcade_question_stats.total + 1,
-        correct_index = EXCLUDED.correct_index,
-        updated_at = EXCLUDED.updated_at
-    `;
+    if (input.countTowardCalibration !== false) {
+      await transaction`
+        INSERT INTO queue_arcade_question_stats (
+          game_id, question_id, question_revision, count_0, count_1, count_2, count_3,
+          total, correct_index, updated_at
+        )
+        VALUES (
+          ${input.gameId}, ${input.questionId}, ${input.questionRevision},
+          ${input.answerIndex === 0 ? 1 : 0}, ${input.answerIndex === 1 ? 1 : 0},
+          ${input.answerIndex === 2 ? 1 : 0}, ${input.answerIndex === 3 ? 1 : 0},
+          1, ${input.correctIndex}, ${input.submittedAt}
+        )
+        ON CONFLICT (game_id, question_id, question_revision) DO UPDATE SET
+          count_0 = queue_arcade_question_stats.count_0 + EXCLUDED.count_0,
+          count_1 = queue_arcade_question_stats.count_1 + EXCLUDED.count_1,
+          count_2 = queue_arcade_question_stats.count_2 + EXCLUDED.count_2,
+          count_3 = queue_arcade_question_stats.count_3 + EXCLUDED.count_3,
+          total = queue_arcade_question_stats.total + 1,
+          correct_index = EXCLUDED.correct_index,
+          updated_at = EXCLUDED.updated_at
+      `;
+    }
     const positionRows = await transaction<PositionRow[]>`
       SELECT map_x, map_y
       FROM queue_arcade_round_votes

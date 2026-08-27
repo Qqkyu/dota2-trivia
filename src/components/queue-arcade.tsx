@@ -51,6 +51,7 @@ import type { AccountSnapshot } from "@/lib/account-contract";
 import { type ArcadeMode, type RoundGame, type ShopkeeperItemReference, type TriviaArtworkKind } from "@/lib/trivia";
 import type { CrowdResult, PublicRoomSettings, ReportResult, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
 import { LIVE_ROUND_GAMES, PUBLIC_ARCADE_MODE } from "@/lib/arcade-games.mjs";
+import { PrivateRoomPanel } from "@/components/private-room-panel";
 import { LIVE_ROUND_HEADER_LABELS } from "@/lib/round-question-copy.mjs";
 import { RoundMark } from "@/components/round-mark";
 import { shouldShowEntryWaitLessons, shouldWaitForNextRoundOnEntry } from "@/lib/arcade-entry.mjs";
@@ -678,6 +679,7 @@ function publicRoomQuery(settings: PublicRoomSettings, playerId: string, questio
     mode: settings.mode,
     filter: settings.filter,
     playerId,
+    ...(settings.privateCode ? { privateCode: settings.privateCode } : {}),
     ...(questionRevision ? { questionRevision } : {}),
   });
 }
@@ -2782,7 +2784,15 @@ function BrandMark({ logoUrl }: { logoUrl: string }) {
   );
 }
 
-export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boolean; gameInfo: PublicGameInfo }) {
+export function QueueArcade({
+  autoStart = false,
+  roomCode,
+  gameInfo,
+}: {
+  autoStart?: boolean;
+  roomCode?: string;
+  gameInfo: PublicGameInfo;
+}) {
   const [phase, setPhaseState] = useState<GamePhase>("lobby");
   const [currentQuestion, setCurrentQuestion] = useState<PublicArcadeQuestion | null>(null);
   const [roundIndex, setRoundIndex] = useState(0);
@@ -2823,6 +2833,9 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   const [reportedReason, setReportedReason] = useState<ReportReason | null>(null);
   const [reportTarget, setReportTarget] = useState<QuestionReportTarget | null>(null);
   const [reportNotice, setReportNotice] = useState<QuestionReportNotice | null>(null);
+  const [privateWaiting, setPrivateWaiting] = useState(Boolean(roomCode));
+  const [activePrivateCode, setActivePrivateCode] = useState(roomCode ?? "");
+  const privateCodeRef = useRef(roomCode ?? "");
 
   const phaseRef = useRef<GamePhase>("lobby");
   const currentQuestionRef = useRef<PublicArcadeQuestion | null>(null);
@@ -3329,13 +3342,14 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   );
 
   const startRun = useCallback(
-    async (updateHistory = true) => {
+    async (updateHistory = true, privateCode = privateCodeRef.current) => {
       if (joiningRoomRef.current) return;
 
       const settings: PublicRoomSettings = {
         gameId: DEFAULT_GAME_ID,
         mode: PUBLIC_ARCADE_MODE,
         filter: "Mixed",
+        ...(privateCode ? { privateCode } : {}),
       };
       joiningRoomRef.current = true;
       setRoomError(null);
@@ -3384,13 +3398,16 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
         entryWaitRoundIdRef.current = result.snapshot.round.id;
         applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
         void sendAlphaSessionEvent("start", alphaSessionId).catch(() => undefined);
-        if (updateHistory && window.location.pathname !== PUBLIC_ARCADE_PATH) {
-          window.history.pushState({ queueArcadeView: "play" }, "", PUBLIC_ARCADE_PATH);
+        const playHref = privateCode ? `${PUBLIC_ARCADE_PATH}?room=${privateCode}` : PUBLIC_ARCADE_PATH;
+        if (updateHistory && `${window.location.pathname}${window.location.search}` !== playHref) {
+          window.history.pushState({ queueArcadeView: "play" }, "", playHref);
         }
       } catch {
         if (roomSettingsRef.current === settings) {
           roomSettingsRef.current = null;
-          setRoomError("Could not join the public room · retrying.");
+          setRoomError(
+            privateCode ? "Could not join that private room · retrying." : "Could not join the public room · retrying.",
+          );
         }
       } finally {
         joiningRoomRef.current = false;
@@ -3408,12 +3425,12 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
   );
 
   useEffect(() => {
-    if (!autoStart || window.location.pathname !== PUBLIC_ARCADE_PATH || autoStartAttemptedRef.current) {
+    if (roomCode || !autoStart || window.location.pathname !== PUBLIC_ARCADE_PATH || autoStartAttemptedRef.current) {
       return;
     }
     autoStartAttemptedRef.current = true;
     void startRun(false);
-  }, [autoStart, startRun]);
+  }, [autoStart, roomCode, startRun]);
 
   const submitQuestionReport = useCallback(
     async (reason: ReportReason) => {
@@ -4189,15 +4206,20 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
             </div>
 
             <div className={styles.lobbyActions}>
-              <button
-                type="button"
-                data-testid="start-arcade"
-                className={styles.primaryButton}
-                onClick={() => void startRun()}
-                disabled={phase === "waiting"}
-              >
-                {phase === "waiting" ? "Joining…" : activeModeInfo.action}
-              </button>
+              {privateWaiting ? null : (
+                <button
+                  type="button"
+                  data-testid="start-arcade"
+                  className={styles.primaryButton}
+                  onClick={() => {
+                    privateCodeRef.current = "";
+                    void startRun(true, "");
+                  }}
+                  disabled={phase === "waiting"}
+                >
+                  {phase === "waiting" ? "Joining…" : activeModeInfo.action}
+                </button>
+              )}
               <div className={styles.accountActionSlot} data-testid="account-action-slot">
                 {account === null ? (
                   <span className={styles.accountLoading} aria-hidden="true" />
@@ -4219,6 +4241,21 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
                 )}
               </div>
             </div>
+
+            <PrivateRoomPanel
+              gameOptions={ROUND_GAMES.map((game) => ({ id: game, label: MODE_INFO[game].shortLabel }))}
+              playerId={ensurePlayerId}
+              displayName={account?.authenticated ? account.profile.user.displayName : "Guest"}
+              initialCode={roomCode}
+              playActive={false}
+              onWaitingChange={setPrivateWaiting}
+              onStarted={(code) => {
+                privateCodeRef.current = code;
+                setActivePrivateCode(code);
+                setPrivateWaiting(false);
+                void startRun(true, code);
+              }}
+            />
 
             {roomError ? (
               <div className={clsx(styles.roomNotice, styles.roomNoticeError)} role="status">
@@ -5318,6 +5355,17 @@ export function QueueArcade({ autoStart = false, gameInfo }: { autoStart?: boole
           {reportState === "error" && <small className={styles.reportCarryoverError}>Couldn’t send · try again</small>}
         </aside>
       )}
+
+      {activePrivateCode && phase !== "lobby" ? (
+        <PrivateRoomPanel
+          gameOptions={ROUND_GAMES.map((game) => ({ id: game, label: MODE_INFO[game].shortLabel }))}
+          playerId={ensurePlayerId}
+          displayName={account?.authenticated ? account.profile.user.displayName : "Guest"}
+          initialCode={activePrivateCode}
+          playActive
+          onStarted={() => undefined}
+        />
+      ) : null}
 
       {reportNotice && (
         <div className={styles.reportNotice} data-testid="report-confirmation" aria-live="polite">

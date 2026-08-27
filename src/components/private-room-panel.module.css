@@ -1,0 +1,173 @@
+.entry {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.ghostButton {
+  height: 42px;
+  padding: 0 16px;
+  border: 1px solid rgba(210, 214, 207, 0.18);
+  background: rgba(12, 14, 15, 0.72);
+  color: #d7dcd8;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.ghostButton:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.panel {
+  display: grid;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid rgba(210, 214, 207, 0.12);
+  background: rgba(12, 14, 15, 0.82);
+}
+
+.label {
+  color: #969d9c;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.games {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.games label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #e7eae6;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.startButton {
+  height: 42px;
+  padding: 0 18px;
+  border: 2px solid #08111c;
+  background: linear-gradient(180deg, #4a8654 0%, #345e46 100%);
+  color: #f4f6f4;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.codeInput {
+  width: 92px;
+  height: 42px;
+  padding: 0 10px;
+  border: 1px solid rgba(210, 214, 207, 0.2);
+  background: #0d1011;
+  color: #f1f0ea;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 16px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.codeLine {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 15px;
+}
+
+.codeLine strong {
+  font-family: var(--font-geist-mono), monospace;
+  letter-spacing: 0.18em;
+}
+
+.hint,
+.error,
+.chatEmpty {
+  margin: 0;
+  color: #969d9c;
+  font-size: 13px;
+}
+
+.error {
+  color: #f06a58;
+}
+
+.chat,
+.chatDock {
+  display: grid;
+  gap: 8px;
+}
+
+.chatDock {
+  position: fixed;
+  z-index: 30;
+  right: 18px;
+  bottom: 18px;
+  width: min(280px, calc(100vw - 36px));
+  padding: 10px;
+  border: 1px solid rgba(210, 214, 207, 0.12);
+  background: rgba(12, 14, 15, 0.92);
+}
+
+.chatLog {
+  display: grid;
+  gap: 4px;
+  max-height: 160px;
+  overflow: auto;
+}
+
+.chatLog p {
+  margin: 0;
+  color: #d7dcd8;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.chatLog strong {
+  margin-right: 6px;
+  color: #c4a46a;
+}
+
+.chatForm {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px;
+}
+
+.chatForm input {
+  height: 34px;
+  padding: 0 8px;
+  border: 1px solid rgba(210, 214, 207, 0.16);
+  background: #0d1011;
+  color: #f1f0ea;
+}
+
+.chatForm button {
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid rgba(196, 164, 106, 0.35);
+  background: transparent;
+  color: #c4a46a;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}

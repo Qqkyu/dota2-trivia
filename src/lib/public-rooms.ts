@@ -2,6 +2,7 @@ import { type ArcadeRound, type KnowledgeFilter } from "@/lib/trivia";
 import type { PublicRoom, PublicRoomSettings, PublicRound } from "@/lib/arcade-contract";
 import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
 import { PUBLIC_ARCADE_MODE, roundFormatForQuestion } from "@/lib/arcade-games.mjs";
+import { normalizePrivateRoomCode } from "@/lib/private-rooms.mjs";
 
 export const PUBLIC_ROUND_REVEAL_MS = 7_000;
 export const PUBLIC_ROOM_BATCH_LENGTH = 24;
@@ -27,15 +28,19 @@ export function parsePublicRoomSettings(values: {
   gameId?: unknown;
   mode?: unknown;
   filter?: unknown;
+  privateCode?: unknown;
+  room?: unknown;
 }): PublicRoomSettings | null {
   const { gameId } = values;
 
   if (!isGameId(gameId)) return null;
+  const privateCode = normalizePrivateRoomCode(values.privateCode ?? values.room);
 
   return {
     gameId,
     mode: PUBLIC_ARCADE_MODE,
     filter: normalizedFilter(),
+    ...(privateCode ? { privateCode } : {}),
   };
 }
 

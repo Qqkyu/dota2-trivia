@@ -4,7 +4,8 @@ import { sessionUserForRequest } from "@/lib/auth-session";
 import { rateLimitRequest } from "@/lib/api-protection";
 import { prioritizedKeyCounts } from "@/lib/crowd-split.mjs";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
-import { currentPublicRound, parsePublicRoomSettings } from "@/lib/public-rooms";
+import { liveRoundForSettings } from "@/lib/private-room-rounds";
+import { parsePublicRoomSettings } from "@/lib/public-rooms";
 import { publicQuestionForRound, publicQuestionRevision } from "@/lib/public-question";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { correctAnswerKey, isKeyedAnswerQuestion } from "@/lib/keyed-answer";
@@ -24,6 +25,7 @@ export async function GET(request: NextRequest) {
     gameId: searchParams.get("gameId"),
     mode: searchParams.get("mode"),
     filter: searchParams.get("filter"),
+    privateCode: searchParams.get("privateCode") ?? searchParams.get("room"),
   });
   const playerId = searchParams.get("playerId") ?? undefined;
   const knownQuestionRevision = searchParams.get("questionRevision") ?? undefined;
@@ -45,7 +47,13 @@ export async function GET(request: NextRequest) {
     const rateLimited = rateLimitRequest(request, "rounds", effectivePlayerId ?? "anonymous", 180);
     if (rateLimited) return rateLimited;
     const serverNow = Date.now();
-    const { room, round } = currentPublicRound(settings, serverNow);
+    const live = liveRoundForSettings(settings, serverNow);
+    if ("error" in live) {
+      const status = live.error === "waiting" ? 409 : 404;
+      const error = live.error === "waiting" ? "Private room has not started." : "Unknown private room.";
+      return NextResponse.json({ error }, { status, headers: { "Cache-Control": "no-store" } });
+    }
+    const { room, round } = live;
     const activePlayers = effectivePlayerId ? touchRoomPresence(room.id, effectivePlayerId, serverNow) : 0;
     const question = GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === round.questionId);
     if (!question) throw new Error(`Public question ${round.questionId} is missing from the active catalog.`);

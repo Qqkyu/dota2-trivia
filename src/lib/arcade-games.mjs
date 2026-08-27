@@ -104,6 +104,21 @@ export function livePublicRoundFormats() {
   return LIVE_PLAYTEST_FORMATS ?? PUBLIC_ROUND_FORMATS;
 }
 
+export function isPublicRoundFormat(value) {
+  return PUBLIC_ROUND_FORMATS.includes(value);
+}
+
+export function isLiveRoundGame(value) {
+  return LIVE_ROUND_GAMES.includes(value);
+}
+
+/** Map ticked round identities onto the 13-format cadence. Empty means the full mix. */
+export function formatsForRoundGames(games) {
+  const wanted = new Set(Array.isArray(games) ? games : []);
+  const formats = PUBLIC_ROUND_FORMATS.filter((format) => wanted.has(ROUND_GAME_BY_FORMAT[format]));
+  return formats.length > 0 ? formats : [...PUBLIC_ROUND_FORMATS];
+}
+
 /** @param {number} length @param {number} [offset] */
 export function publicRoundFormatRotation(length, offset = 0) {
   if (length <= 0) return [];

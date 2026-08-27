@@ -1,0 +1,71 @@
+import { NextResponse, type NextRequest } from "next/server";
+import { rateLimitRequest } from "@/lib/api-protection";
+import { DEFAULT_GAME_ID } from "@/lib/game-identity";
+import { GAME_CATALOGS } from "@/lib/game-catalogs";
+import { privateRoomClientPayload, privateRoomIdentity } from "@/lib/private-room-rounds";
+import { createPrivateRoom, normalizePrivateRoomCode, touchPrivateRoom } from "@/lib/private-rooms.mjs";
+import { logServerError } from "@/lib/server-diagnostics";
+import { touchRoomPresence } from "@/lib/room-presence.mjs";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+export async function GET(request: NextRequest) {
+  const code = normalizePrivateRoomCode(new URL(request.url).searchParams.get("code"));
+  const queryPlayerId = new URL(request.url).searchParams.get("playerId");
+  if (!code) return NextResponse.json({ error: "Unknown private room." }, { status: 404 });
+
+  try {
+    const identity = await privateRoomIdentity(request, queryPlayerId);
+    if (!identity) return NextResponse.json({ error: "Invalid player ID." }, { status: 400 });
+    const rateLimited = rateLimitRequest(request, "private-rooms-read", identity.playerId, 120);
+    if (rateLimited) return rateLimited;
+    const now = Date.now();
+    const record = touchPrivateRoom(code, now);
+    if (!record) return NextResponse.json({ error: "Unknown private room." }, { status: 404 });
+    touchRoomPresence(record.roomId, identity.playerId, now);
+    return NextResponse.json(privateRoomClientPayload(record, identity.playerId, now), {
+      headers: { "Cache-Control": "no-store" },
+    });
+  } catch (error) {
+    logServerError("private-rooms.read", error);
+    return NextResponse.json({ error: "Private room storage unavailable." }, { status: 503 });
+  }
+}
+
+export async function POST(request: NextRequest) {
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON." }, { status: 400 });
+  }
+  if (!body || typeof body !== "object") {
+    return NextResponse.json({ error: "Missing private-room fields." }, { status: 400 });
+  }
+
+  const candidate = body as Record<string, unknown>;
+  try {
+    const identity = await privateRoomIdentity(request, candidate.playerId);
+    if (!identity) return NextResponse.json({ error: "Invalid player ID." }, { status: 400 });
+    const rateLimited = rateLimitRequest(request, "private-rooms-create", identity.playerId, 8);
+    if (rateLimited) return rateLimited;
+    const catalog = GAME_CATALOGS[DEFAULT_GAME_ID];
+    const now = Date.now();
+    const record = createPrivateRoom({
+      hostId: identity.playerId,
+      gameId: catalog.id,
+      contentVersion: catalog.contentVersion,
+      games: candidate.games,
+      formats: candidate.formats,
+      now,
+    });
+    touchRoomPresence(record.roomId, identity.playerId, now);
+    return NextResponse.json(privateRoomClientPayload(record, identity.playerId, now), {
+      headers: { "Cache-Control": "no-store" },
+    });
+  } catch (error) {
+    logServerError("private-rooms.create", error);
+    return NextResponse.json({ error: "Could not create a private room." }, { status: 400 });
+  }
+}

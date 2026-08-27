@@ -3,7 +3,8 @@ import { sessionUserForRequest } from "@/lib/auth-session";
 import { rateLimitRequest } from "@/lib/api-protection";
 import { isReportReason, QUESTION_REPORT_GRACE_MS } from "@/lib/calibration";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
-import { currentPublicRound, parsePublicRoomSettings, publicRoundAt } from "@/lib/public-rooms";
+import { liveRoundAt, liveRoundForSettings } from "@/lib/private-room-rounds";
+import { parsePublicRoomSettings } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 import { recordQuestionReport } from "@/lib/vote-store";
@@ -29,6 +30,7 @@ export async function POST(request: NextRequest) {
     gameId: candidate.gameId,
     mode: candidate.mode,
     filter: candidate.filter,
+    privateCode: candidate.privateCode ?? candidate.room,
   });
   const { roundId, reason, voterId } = candidate;
 
@@ -55,10 +57,14 @@ export async function POST(request: NextRequest) {
   if (rateLimited) return rateLimited;
 
   const submittedAt = Date.now();
-  const { room, round: currentRound } = currentPublicRound(settings, submittedAt);
+  const live = liveRoundForSettings(settings, submittedAt);
+  if ("error" in live) {
+    return NextResponse.json({ error: "That question is no longer reportable." }, { status: 409 });
+  }
+  const { room, round: currentRound } = live;
   const currentRevealMatches =
     currentRound.id === roundId && currentRound.phase === "reveal" && submittedAt < currentRound.revealDeadline;
-  const previousRound = currentRound.number > 0 ? publicRoundAt(room, currentRound.number - 1, submittedAt) : null;
+  const previousRound = currentRound.number > 0 ? liveRoundAt(settings, currentRound.number - 1, submittedAt) : null;
   const previousGraceMatches =
     previousRound?.id === roundId && submittedAt < previousRound.revealDeadline + QUESTION_REPORT_GRACE_MS;
   const reportableRound = currentRevealMatches ? currentRound : previousGraceMatches ? previousRound : null;
