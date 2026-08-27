@@ -662,25 +662,9 @@
   margin-top: 28px;
 }
 
-.friendsLink {
-  display: inline-flex;
-  margin-top: 14px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: #c4a46a;
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-}
-
-.friendsLink:hover {
-  color: #e8d5a3;
-}
-
-.friendsLink:focus-visible {
-  outline: 2px solid #c4a46a;
-  outline-offset: 3px;
+.lobbyFriends {
+  width: min(100%, 440px);
+  margin-top: 12px;
 }
 
 .lobbyActions > .primaryButton {

@@ -1,37 +1,11 @@
 .view {
   display: grid;
-  width: min(100% - 48px, 1080px);
+  width: min(100% - 48px, 1180px);
   min-height: calc(100vh - 156px);
-  align-content: center;
+  align-content: start;
   gap: 18px;
   margin: 0 auto;
-  padding: 48px 0 72px;
-}
-
-.view h1 {
-  margin: 0;
-  font-size: clamp(42px, 5vw, 72px);
-  font-weight: 380;
-  letter-spacing: -0.06em;
-  line-height: 0.92;
-}
-
-.kicker {
-  margin: 0;
-  color: #c4a46a;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 11px;
-  font-weight: 650;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.lead {
-  max-width: 540px;
-  margin: 0;
-  color: #aeb3b1;
-  font-size: 16px;
-  line-height: 1.55;
+  padding: 28px 0 56px;
 }
 
 .back {
@@ -39,12 +13,12 @@
   width: fit-content;
   align-items: center;
   gap: 8px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: #969d9c;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid rgba(210, 214, 207, 0.16);
+  background: rgba(12, 14, 15, 0.72);
+  color: #d7dcd8;
   font-size: 13px;
-  letter-spacing: 0.04em;
   cursor: pointer;
 }
 
@@ -53,76 +27,57 @@
   height: 16px;
 }
 
-.back:hover {
-  color: #f1f0ea;
+.games {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
-.gate {
+.gameCard {
   display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: 12px;
-}
-
-.gateCard {
-  display: grid;
-  gap: 10px;
-  min-height: 168px;
-  padding: 28px 26px;
-  border: 1px solid rgba(210, 214, 207, 0.14);
-  background:
-    linear-gradient(180deg, rgba(196, 164, 106, 0.05), transparent 42%),
-    rgba(12, 14, 15, 0.72);
-  color: #f1f0ea;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid #292e2d;
+  background: rgba(15, 19, 18, 0.76);
+  color: #c6cbc8;
   text-align: left;
   cursor: pointer;
 }
 
-.gateCard strong {
-  font-size: 22px;
-  font-weight: 620;
-  letter-spacing: -0.03em;
-}
-
-.gateCard span {
-  color: #969d9c;
-  font-size: 14px;
-  line-height: 1.45;
-}
-
-.gateCard:hover {
-  border-color: rgba(196, 164, 106, 0.45);
-}
-
-.games {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.gameTile {
-  min-height: 42px;
-  padding: 0 14px;
-  border: 1px solid rgba(210, 214, 207, 0.16);
-  background: rgba(12, 14, 15, 0.7);
-  color: #c5cbc7;
+.gameCard strong {
+  display: block;
+  padding: 10px 12px 12px;
   font-size: 13px;
-  cursor: pointer;
+  font-weight: 620;
 }
 
-.gameTile[data-on="true"] {
-  border-color: rgba(196, 164, 106, 0.55);
-  background: rgba(196, 164, 106, 0.12);
+.gameCard[data-on="true"] {
+  border-color: rgba(196, 164, 106, 0.62);
+  box-shadow: inset 0 0 0 1px rgba(196, 164, 106, 0.28);
   color: #f1f0ea;
 }
 
-.primary {
+.preview {
+  display: block;
+  height: 132px;
+  overflow: hidden;
+  background: #101413;
+  pointer-events: none;
+}
+
+.primary,
+.ghost {
   display: inline-flex;
   width: fit-content;
   min-height: 52px;
   align-items: center;
   justify-content: center;
-  padding: 0 22px;
+  gap: 8px;
+  padding: 0 18px;
+  cursor: pointer;
+}
+
+.primary {
   border: 2px solid #08111c;
   background: linear-gradient(180deg, #4a8654 0%, #345e46 100%);
   color: #f4f6f4;
@@ -130,25 +85,27 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  cursor: pointer;
 }
 
 .ghost {
-  display: inline-flex;
-  min-height: 52px;
-  align-items: center;
-  gap: 8px;
-  padding: 0 16px;
-  border: 1px solid rgba(210, 214, 207, 0.18);
+  border: 1px solid rgba(210, 214, 207, 0.2);
   background: rgba(12, 14, 15, 0.72);
   color: #d7dcd8;
   font-size: 13px;
-  cursor: pointer;
 }
 
 .ghost svg {
   width: 14px;
   height: 14px;
+}
+
+.joinRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  padding-top: 8px;
+  border-top: 1px solid rgba(210, 214, 207, 0.1);
 }
 
 .codeEntry {
@@ -160,21 +117,20 @@
 
 .boxes {
   display: grid;
-  grid-template-columns: repeat(4, 72px);
-  gap: 10px;
+  grid-template-columns: repeat(4, 56px);
+  gap: 8px;
 }
 
 .boxes i {
   display: grid;
-  height: 88px;
+  height: 56px;
   place-items: center;
   border: 1px solid rgba(196, 164, 106, 0.28);
   background: rgba(12, 14, 15, 0.82);
   color: #f1f0ea;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 40px;
+  font-size: 26px;
   font-style: normal;
-  letter-spacing: 0;
 }
 
 .boxes i[data-filled="false"] {
@@ -188,14 +144,12 @@
   cursor: text;
 }
 
-.help,
 .muted,
 .error {
   margin: 0;
   font-size: 14px;
 }
 
-.help,
 .muted {
   color: #969d9c;
 }
@@ -209,7 +163,6 @@
   width: fit-content;
   grid-template-columns: repeat(4, 78px);
   gap: 8px;
-  margin: 8px 0 4px;
 }
 
 .ticket span {
@@ -223,7 +176,6 @@
   color: #e8d5a3;
   font-family: var(--font-geist-mono), monospace;
   font-size: 44px;
-  letter-spacing: 0.04em;
 }
 
 .waitGrid {
@@ -235,8 +187,8 @@
 
 .waitMeta {
   display: flex;
-  flex-wrap: wrap;
   gap: 16px;
+  margin-top: 14px;
   color: #c5cbc7;
   font-size: 14px;
 }
@@ -258,7 +210,7 @@
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 .chat,
@@ -330,8 +282,7 @@
   cursor: pointer;
 }
 
-.gateCard:focus-visible,
-.gameTile:focus-visible,
+.gameCard:focus-visible,
 .primary:focus-visible,
 .ghost:focus-visible,
 .back:focus-visible {
@@ -339,17 +290,19 @@
   outline-offset: 3px;
 }
 
+@media (max-width: 1100px) {
+  .games {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 820px) {
-  .gate,
+  .games,
+  .waitGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .waitGrid {
     grid-template-columns: 1fr;
-  }
-
-  .boxes {
-    grid-template-columns: repeat(4, minmax(0, 64px));
-  }
-
-  .ticket {
-    grid-template-columns: repeat(4, minmax(0, 64px));
   }
 }

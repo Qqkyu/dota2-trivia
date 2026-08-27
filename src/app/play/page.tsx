@@ -3,6 +3,10 @@ import { redirect } from "next/navigation";
 import { QueueArcade } from "@/components/queue-arcade";
 import { PUBLIC_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
 import { publicGameInfo } from "@/lib/game-catalogs";
+import { formatPreviewsFromQuestions } from "@/lib/format-preview.mjs";
+import { triviaQuestions } from "@/lib/trivia";
+
+const formatPreviews = formatPreviewsFromQuestions(triviaQuestions);
 
 export const metadata: Metadata = {
   title: "Play",
@@ -19,5 +23,12 @@ export default async function Play({ searchParams }: PlayProps) {
     redirect(roomCode ? `${PUBLIC_ARCADE_PATH}?room=${encodeURIComponent(roomCode)}` : PUBLIC_ARCADE_PATH);
   }
 
-  return <QueueArcade autoStart={!roomCode} roomCode={roomCode} gameInfo={publicGameInfo()} />;
+  return (
+    <QueueArcade
+      autoStart={!roomCode}
+      roomCode={roomCode}
+      gameInfo={publicGameInfo()}
+      formatPreviews={formatPreviews}
+    />
+  );
 }

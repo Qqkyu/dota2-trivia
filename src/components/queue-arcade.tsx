@@ -53,6 +53,7 @@ import type { CrowdResult, PublicRoomSettings, ReportResult, RoomSnapshot, VoteR
 import { LIVE_ROUND_GAMES, PUBLIC_ARCADE_MODE } from "@/lib/arcade-games.mjs";
 import { PrivateRoomPanel } from "@/components/private-room-panel";
 import { LIVE_ROUND_HEADER_LABELS } from "@/lib/round-question-copy.mjs";
+import type { FormatPreview } from "@/components/format-look";
 import { RoundMark } from "@/components/round-mark";
 import { shouldShowEntryWaitLessons, shouldWaitForNextRoundOnEntry } from "@/lib/arcade-entry.mjs";
 import {
@@ -2788,10 +2789,12 @@ export function QueueArcade({
   autoStart = false,
   roomCode,
   gameInfo,
+  formatPreviews = {},
 }: {
   autoStart?: boolean;
   roomCode?: string;
   gameInfo: PublicGameInfo;
+  formatPreviews?: Record<string, FormatPreview | null | undefined>;
 }) {
   const [phase, setPhaseState] = useState<GamePhase>("lobby");
   const [currentQuestion, setCurrentQuestion] = useState<PublicArcadeQuestion | null>(null);
@@ -4245,7 +4248,7 @@ export function QueueArcade({
             </div>
             <button
               type="button"
-              className={styles.friendsLink}
+              className={clsx(styles.secondaryButton, styles.lobbyFriends)}
               data-testid="private-room-open"
               onClick={() => setPartyOpen(true)}
             >
@@ -4323,7 +4326,11 @@ export function QueueArcade({
 
       {(phase === "lobby" || (phase === "waiting" && entryWaitMode === "silent")) && partyMode ? (
         <PrivateRoomPanel
-          gameOptions={ROUND_GAMES.map((game) => ({ id: game, label: MODE_INFO[game].shortLabel }))}
+          gameOptions={LIVE_ROUND_GAMES.map((game) => ({
+            id: game,
+            label: LIVE_ROUND_HEADER_LABELS[game as keyof typeof LIVE_ROUND_HEADER_LABELS] ?? game,
+            preview: formatPreviews[game] ?? null,
+          }))}
           playerId={ensurePlayerId}
           displayName={account?.authenticated ? account.profile.user.displayName : "Guest"}
           initialCode={roomCode || activePrivateCode || undefined}
@@ -5382,7 +5389,11 @@ export function QueueArcade({
 
       {activePrivateCode && phase !== "lobby" ? (
         <PrivateRoomPanel
-          gameOptions={ROUND_GAMES.map((game) => ({ id: game, label: MODE_INFO[game].shortLabel }))}
+          gameOptions={LIVE_ROUND_GAMES.map((game) => ({
+            id: game,
+            label: LIVE_ROUND_HEADER_LABELS[game as keyof typeof LIVE_ROUND_HEADER_LABELS] ?? game,
+            preview: formatPreviews[game] ?? null,
+          }))}
           playerId={ensurePlayerId}
           displayName={account?.authenticated ? account.profile.user.displayName : "Guest"}
           initialCode={activePrivateCode}

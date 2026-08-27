@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, Copy, Users } from "lucide-react";
 import clsx from "clsx";
+import { FormatLook, type FormatPreview } from "@/components/format-look";
 import { PRIVATE_ROOM_CODE_ALPHABET, PRIVATE_ROOM_CODE_LENGTH } from "@/lib/private-rooms.mjs";
 import styles from "./private-room-panel.module.css";
 
@@ -24,7 +25,13 @@ export interface PrivateRoomView {
   activePlayers: number;
 }
 
-type PartyScreen = "gate" | "create" | "join" | "wait";
+export interface PartyGameOption {
+  id: string;
+  label: string;
+  preview?: FormatPreview | null;
+}
+
+type PartyScreen = "setup" | "wait";
 
 interface PrivateRoomPayload {
   waiting?: boolean;
@@ -104,7 +111,7 @@ function ChatBox({
         <input
           value={draft}
           maxLength={80}
-          placeholder="Message the party"
+          placeholder="Message"
           aria-label="Party chat"
           onChange={(event) => onDraft(event.currentTarget.value)}
         />
@@ -124,7 +131,7 @@ export function PrivateRoomPanel({
   onWaitingChange,
   onClose,
 }: {
-  gameOptions: Array<{ id: string; label: string }>;
+  gameOptions: PartyGameOption[];
   playerId: () => string;
   displayName: string;
   initialCode?: string;
@@ -133,7 +140,7 @@ export function PrivateRoomPanel({
   onWaitingChange?: (waiting: boolean) => void;
   onClose?: () => void;
 }) {
-  const [screen, setScreen] = useState<PartyScreen>(initialCode ? "wait" : "gate");
+  const [screen, setScreen] = useState<PartyScreen>(initialCode ? "wait" : "setup");
   const [selected, setSelected] = useState<string[]>(() => gameOptions.map((game) => game.id));
   const [joinCode, setJoinCode] = useState(() => filterCode(initialCode ?? ""));
   const [room, setRoom] = useState<PrivateRoomView | null>(null);
@@ -143,6 +150,7 @@ export function PrivateRoomPanel({
   const [copied, setCopied] = useState(false);
   const startedRef = useRef(false);
   const joinInputRef = useRef<HTMLInputElement | null>(null);
+  const trackedCode = room?.code;
 
   const applyPayload = useCallback(
     (payload: PrivateRoomPayload) => {
@@ -174,7 +182,6 @@ export function PrivateRoomPanel({
     [applyPayload],
   );
 
-  const trackedCode = room?.code;
   useEffect(() => {
     const code = trackedCode ?? initialCode;
     if (!code) return undefined;
@@ -183,10 +190,7 @@ export function PrivateRoomPanel({
         `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(playerId())}`,
       ).catch((cause: Error) => {
         setError(cause.message);
-        if (!trackedCode) {
-          setScreen("join");
-          setJoinCode(filterCode(code));
-        }
+        if (!trackedCode) setScreen("setup");
       });
     const start = window.setTimeout(() => void load(), 0);
     const timer = window.setInterval(() => void load(), 4000);
@@ -195,10 +199,6 @@ export function PrivateRoomPanel({
       window.clearInterval(timer);
     };
   }, [initialCode, playerId, requestRoom, trackedCode]);
-
-  useEffect(() => {
-    if (screen === "join") joinInputRef.current?.focus();
-  }, [screen]);
 
   const toggleGame = (id: string) => {
     setSelected((current) => (current.includes(id) ? current.filter((game) => game !== id) : [...current, id]));
@@ -229,7 +229,7 @@ export function PrivateRoomPanel({
   const joinRoom = async () => {
     const code = filterCode(joinCode);
     if (code.length !== PRIVATE_ROOM_CODE_LENGTH) {
-      setError("The code is 4 letters. Ask the host.");
+      setError("Need 4 letters.");
       joinInputRef.current?.focus();
       return;
     }
@@ -299,19 +299,9 @@ export function PrivateRoomPanel({
   }
 
   const back = (
-    <button
-      type="button"
-      className={styles.back}
-      onClick={() => {
-        if (screen === "gate" || screen === "wait") onClose?.();
-        else {
-          setError(null);
-          setScreen("gate");
-        }
-      }}
-    >
+    <button type="button" className={styles.back} onClick={() => onClose?.()}>
       <ArrowLeft />
-      {screen === "wait" ? "Leave party" : "Back"}
+      Leave
     </button>
   );
 
@@ -320,22 +310,15 @@ export function PrivateRoomPanel({
       return (
         <section className={styles.view} data-testid="private-room-wait">
           {back}
-          <p className={styles.kicker}>Party lobby</p>
-          <h1>Opening party…</h1>
           {error ? <p className={styles.error}>{error}</p> : null}
         </section>
       );
     }
-    const gameLabels = room.games.length
-      ? room.games.map((id) => gameOptions.find((game) => game.id === id)?.label ?? id).join(" · ")
-      : "Full mix";
     return (
       <section className={styles.view} data-testid="private-room-wait">
         {back}
         <div className={styles.waitGrid}>
           <div>
-            <p className={styles.kicker}>Party lobby</p>
-            <h1>Share this code</h1>
             <div className={styles.ticket} data-testid="private-room-code">
               {[...room.code].map((letter, index) => (
                 <span key={`${letter}-${index}`}>{letter}</span>
@@ -344,9 +327,8 @@ export function PrivateRoomPanel({
             <div className={styles.waitMeta}>
               <span>
                 <Users />
-                {room.activePlayers > 0 ? `${room.activePlayers} here` : "Waiting for friends"}
+                {room.activePlayers || 1}
               </span>
-              <span>{gameLabels}</span>
             </div>
             <div className={styles.waitActions}>
               <button type="button" className={styles.ghost} onClick={() => void copyLink()}>
@@ -360,10 +342,10 @@ export function PrivateRoomPanel({
                   data-testid="private-room-start"
                   onClick={() => void startRoom()}
                 >
-                  {busy === "start" ? "Starting…" : "Start match"}
+                  {busy === "start" ? "Starting…" : "Start"}
                 </button>
               ) : (
-                <p className={styles.muted}>Wait for the host to start.</p>
+                <p className={styles.muted}>Waiting for host</p>
               )}
             </div>
             {error ? <p className={styles.error}>{error}</p> : null}
@@ -374,51 +356,39 @@ export function PrivateRoomPanel({
     );
   }
 
-  if (screen === "create") {
-    return (
-      <section className={styles.view} data-testid="private-room-create-view">
-        {back}
-        <p className={styles.kicker}>Play with friends</p>
-        <h1>Create a party</h1>
-        <p className={styles.lead}>Pick the games for this party. Friends only see this mix.</p>
-        <div className={styles.games} role="group" aria-label="Games in this party">
-          {gameOptions.map((game) => {
-            const on = selected.includes(game.id);
-            return (
-              <button
-                key={game.id}
-                type="button"
-                className={styles.gameTile}
-                aria-pressed={on}
-                data-on={on ? "true" : "false"}
-                onClick={() => toggleGame(game.id)}
-              >
-                {game.label}
-              </button>
-            );
-          })}
-        </div>
-        {error ? <p className={styles.error}>{error}</p> : null}
-        <button
-          type="button"
-          className={styles.primary}
-          data-testid="private-room-create"
-          onClick={() => void createRoom()}
-        >
-          {busy === "create" ? "Creating…" : "Create party"}
-        </button>
-      </section>
-    );
-  }
-
-  if (screen === "join") {
-    const remaining = PRIVATE_ROOM_CODE_LENGTH - joinCode.length;
-    return (
-      <section className={styles.view} data-testid="private-room-join-view">
-        {back}
-        <p className={styles.kicker}>Play with friends</p>
-        <h1>Join a party</h1>
-        <p className={styles.lead}>Type the 4-letter code from the host.</p>
+  return (
+    <section className={styles.view} data-testid="private-room-setup">
+      {back}
+      <div className={styles.games} role="group" aria-label="Games">
+        {gameOptions.map((game) => {
+          const on = selected.includes(game.id);
+          return (
+            <button
+              key={game.id}
+              type="button"
+              className={styles.gameCard}
+              aria-pressed={on}
+              data-on={on ? "true" : "false"}
+              onClick={() => toggleGame(game.id)}
+            >
+              <span className={styles.preview}>
+                <FormatLook game={game.id} label={game.label} preview={game.preview} />
+              </span>
+              <strong>{game.label}</strong>
+            </button>
+          );
+        })}
+      </div>
+      {error ? <p className={styles.error}>{error}</p> : null}
+      <button
+        type="button"
+        className={styles.primary}
+        data-testid="private-room-create"
+        onClick={() => void createRoom()}
+      >
+        {busy === "create" ? "Creating…" : "Create party"}
+      </button>
+      <div className={styles.joinRow}>
         <label className={styles.codeEntry}>
           <span className={styles.boxes} aria-hidden="true">
             {Array.from({ length: PRIVATE_ROOM_CODE_LENGTH }, (_, index) => (
@@ -446,46 +416,8 @@ export function PrivateRoomPanel({
             }}
           />
         </label>
-        <p className={styles.help}>
-          {remaining > 0 ? `${remaining} more character${remaining === 1 ? "" : "s"}.` : "Code looks complete."}
-        </p>
-        {error ? <p className={styles.error}>{error}</p> : null}
-        <button
-          type="button"
-          className={styles.primary}
-          data-testid="private-room-join"
-          onClick={() => void joinRoom()}
-        >
-          {busy === "join" ? "Joining…" : "Join party"}
-        </button>
-      </section>
-    );
-  }
-
-  return (
-    <section className={styles.view} data-testid="private-room-gate">
-      {back}
-      <p className={styles.kicker}>Play with friends</p>
-      <h1>A party of your own</h1>
-      <p className={styles.lead}>Same 15-second rounds. Separate from the public room.</p>
-      <div className={styles.gate}>
-        <button
-          type="button"
-          className={styles.gateCard}
-          data-testid="private-room-go-create"
-          onClick={() => setScreen("create")}
-        >
-          <strong>Create a party</strong>
-          <span>You host. You pick the games. Friends join with a code.</span>
-        </button>
-        <button
-          type="button"
-          className={styles.gateCard}
-          data-testid="private-room-go-join"
-          onClick={() => setScreen("join")}
-        >
-          <strong>I have a code</strong>
-          <span>Enter the 4-letter code and sit in the lobby until the host starts.</span>
+        <button type="button" className={styles.ghost} data-testid="private-room-join" onClick={() => void joinRoom()}>
+          {busy === "join" ? "Joining…" : "Join"}
         </button>
       </div>
     </section>
