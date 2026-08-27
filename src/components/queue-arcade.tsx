@@ -2834,8 +2834,10 @@ export function QueueArcade({
   const [reportTarget, setReportTarget] = useState<QuestionReportTarget | null>(null);
   const [reportNotice, setReportNotice] = useState<QuestionReportNotice | null>(null);
   const [privateWaiting, setPrivateWaiting] = useState(Boolean(roomCode));
+  const [partyOpen, setPartyOpen] = useState(Boolean(roomCode));
   const [activePrivateCode, setActivePrivateCode] = useState(roomCode ?? "");
   const privateCodeRef = useRef(roomCode ?? "");
+  const partyMode = partyOpen || privateWaiting;
 
   const phaseRef = useRef<GamePhase>("lobby");
   const currentQuestionRef = useRef<PublicArcadeQuestion | null>(null);
@@ -4174,7 +4176,7 @@ export function QueueArcade({
         </div>
       </header>
 
-      {(phase === "lobby" || (phase === "waiting" && entryWaitMode === "silent")) && (
+      {(phase === "lobby" || (phase === "waiting" && entryWaitMode === "silent")) && !partyMode && (
         <section className={styles.lobby} id="arcade">
           <div className={styles.lobbyCopy}>
             <div className={styles.liveLabel}>
@@ -4206,20 +4208,20 @@ export function QueueArcade({
             </div>
 
             <div className={styles.lobbyActions}>
-              {privateWaiting ? null : (
-                <button
-                  type="button"
-                  data-testid="start-arcade"
-                  className={styles.primaryButton}
-                  onClick={() => {
-                    privateCodeRef.current = "";
-                    void startRun(true, "");
-                  }}
-                  disabled={phase === "waiting"}
-                >
-                  {phase === "waiting" ? "Joining…" : activeModeInfo.action}
-                </button>
-              )}
+              <button
+                type="button"
+                data-testid="start-arcade"
+                className={styles.primaryButton}
+                onClick={() => {
+                  privateCodeRef.current = "";
+                  setPartyOpen(false);
+                  setPrivateWaiting(false);
+                  void startRun(true, "");
+                }}
+                disabled={phase === "waiting"}
+              >
+                {phase === "waiting" ? "Joining…" : activeModeInfo.action}
+              </button>
               <div className={styles.accountActionSlot} data-testid="account-action-slot">
                 {account === null ? (
                   <span className={styles.accountLoading} aria-hidden="true" />
@@ -4241,21 +4243,14 @@ export function QueueArcade({
                 )}
               </div>
             </div>
-
-            <PrivateRoomPanel
-              gameOptions={ROUND_GAMES.map((game) => ({ id: game, label: MODE_INFO[game].shortLabel }))}
-              playerId={ensurePlayerId}
-              displayName={account?.authenticated ? account.profile.user.displayName : "Guest"}
-              initialCode={roomCode}
-              playActive={false}
-              onWaitingChange={setPrivateWaiting}
-              onStarted={(code) => {
-                privateCodeRef.current = code;
-                setActivePrivateCode(code);
-                setPrivateWaiting(false);
-                void startRun(true, code);
-              }}
-            />
+            <button
+              type="button"
+              className={styles.friendsLink}
+              data-testid="private-room-open"
+              onClick={() => setPartyOpen(true)}
+            >
+              Play with friends
+            </button>
 
             {roomError ? (
               <div className={clsx(styles.roomNotice, styles.roomNoticeError)} role="status">
@@ -4325,6 +4320,35 @@ export function QueueArcade({
           </div>
         </section>
       )}
+
+      {(phase === "lobby" || (phase === "waiting" && entryWaitMode === "silent")) && partyMode ? (
+        <PrivateRoomPanel
+          gameOptions={ROUND_GAMES.map((game) => ({ id: game, label: MODE_INFO[game].shortLabel }))}
+          playerId={ensurePlayerId}
+          displayName={account?.authenticated ? account.profile.user.displayName : "Guest"}
+          initialCode={roomCode || activePrivateCode || undefined}
+          playActive={false}
+          onWaitingChange={(waiting) => {
+            setPrivateWaiting(waiting);
+            if (waiting) setPartyOpen(true);
+          }}
+          onStarted={(code) => {
+            privateCodeRef.current = code;
+            setActivePrivateCode(code);
+            setPrivateWaiting(false);
+            void startRun(true, code);
+          }}
+          onClose={() => {
+            setPartyOpen(false);
+            setPrivateWaiting(false);
+            privateCodeRef.current = "";
+            setActivePrivateCode("");
+            if (window.location.search.includes("room=")) {
+              window.history.pushState({ queueArcadeView: "lobby" }, "", ARCADE_LOBBY_PATH);
+            }
+          }}
+        />
+      ) : null}
 
       {phase === "waiting" && entryWaitMode === "lessons" && (
         <section
