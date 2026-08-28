@@ -31,11 +31,15 @@
 .fit {
   container-type: inline-size;
   height: auto;
-  aspect-ratio: 920 / 340;
+  aspect-ratio: 920 / 704;
 }
 
 .fit .scale {
   transform: scale(calc(100cqi / 920));
+}
+
+.fit .stage {
+  min-height: 704px;
 }
 
 .stage {

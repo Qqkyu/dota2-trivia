@@ -24,21 +24,38 @@ const record = (ok, message) => {
 
 resetPrivateRoomsForTests();
 
-record(normalizePrivateRoomCode("k7q2") === "K7Q2", "Private room codes should normalize to four safe characters.");
-record(normalizePrivateRoomCode("NO") === null, "Short codes must be rejected.");
+record(normalizePrivateRoomCode("k7q2") === "K7Q2", "Private room codes should keep a short code.");
+record(normalizePrivateRoomCode("loda") === "LODA", "Party codes must allow letters like LODA.");
+record(normalizePrivateRoomCode("gigachad") === "GIGACHAD", "Party codes must allow a longer fun name.");
+record(normalizePrivateRoomCode("NO") === null, "Codes shorter than 4 characters must be rejected.");
+record(normalizePrivateRoomCode("a".repeat(17)) === null, "Codes longer than 16 characters must be rejected.");
 record(guestDisplayName("player-abcd") === "Guest-ABCD", "Guests need a short display name.");
 record(formatsForRoundGames(["flashback"]).join(",") === "flashback", "A Flashback-only room should schedule only Flashback.");
 record(formatsForRoundGames([]).length === PUBLIC_ROUND_FORMATS.length, "No ticked games should keep the full mix.");
 
 const now = Date.now();
+try {
+  createPrivateRoom({
+    hostId: "host-player-1",
+    gameId: "dota2",
+    contentVersion: "test-version",
+    games: ["flashback"],
+    now,
+  });
+  record(false, "Create without a code must fail.");
+} catch (error) {
+  record(/code/i.test(String(error.message)), "Create without a code must ask for a party code.");
+}
+
 const created = createPrivateRoom({
   hostId: "host-player-1",
   gameId: "dota2",
   contentVersion: "test-version",
   games: ["flashback"],
+  code: "loda",
   now,
 });
-record(created.code.length === 4, "Create should return a four-character code.");
+record(created.code === "LODA", "Create should keep the host's party code.");
 record(created.startedAt === null, "A new private room must wait for the host.");
 record(created.formats.join(",") === "flashback", "Create should store the selected formats.");
 record(isPrivateRoomId(created.roomId), "Private room IDs must not collide with the public room.");

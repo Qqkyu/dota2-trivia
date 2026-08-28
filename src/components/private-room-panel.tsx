@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, Copy, Users } from "lucide-react";
 import clsx from "clsx";
 import { FormatLook, type FormatPreview } from "@/components/format-look";
-import { PRIVATE_ROOM_CODE_ALPHABET, PRIVATE_ROOM_CODE_LENGTH } from "@/lib/private-rooms.mjs";
+import { PRIVATE_ROOM_CODE_ALPHABET, PRIVATE_ROOM_CODE_MAX, PRIVATE_ROOM_CODE_MIN } from "@/lib/private-rooms.mjs";
 import styles from "./private-room-panel.module.css";
 
 export interface PrivateChatMessage {
@@ -69,7 +69,7 @@ function filterCode(value: string) {
     .split("")
     .filter((character) => PRIVATE_ROOM_CODE_ALPHABET.includes(character))
     .join("")
-    .slice(0, PRIVATE_ROOM_CODE_LENGTH);
+    .slice(0, PRIVATE_ROOM_CODE_MAX);
 }
 
 function ChatBox({
@@ -209,12 +209,18 @@ export function PrivateRoomPanel({
       setError("Pick at least one game.");
       return;
     }
+    const code = filterCode(joinCode);
+    if (code.length < PRIVATE_ROOM_CODE_MIN) {
+      setError("Type a party code first.");
+      joinInputRef.current?.focus();
+      return;
+    }
     setBusy("create");
     setError(null);
     try {
       const next = await requestRoom("/api/private-rooms", {
         method: "POST",
-        body: JSON.stringify({ playerId: playerId(), games: selected }),
+        body: JSON.stringify({ playerId: playerId(), games: selected, code }),
       });
       if (next) {
         window.history.pushState({ queueArcadeView: "play", privateRoom: next.code }, "", `/play?room=${next.code}`);
@@ -228,8 +234,8 @@ export function PrivateRoomPanel({
 
   const joinRoom = async () => {
     const code = filterCode(joinCode);
-    if (code.length !== PRIVATE_ROOM_CODE_LENGTH) {
-      setError("Need 4 letters.");
+    if (code.length < PRIVATE_ROOM_CODE_MIN) {
+      setError("Type a party code.");
       joinInputRef.current?.focus();
       return;
     }
@@ -320,9 +326,7 @@ export function PrivateRoomPanel({
         <div className={styles.waitGrid}>
           <div>
             <div className={styles.ticket} data-testid="private-room-code">
-              {[...room.code].map((letter, index) => (
-                <span key={`${letter}-${index}`}>{letter}</span>
-              ))}
+              {room.code}
             </div>
             <div className={styles.waitMeta}>
               <span>
@@ -393,8 +397,8 @@ export function PrivateRoomPanel({
           ref={joinInputRef}
           className={styles.codeInput}
           value={joinCode}
-          maxLength={PRIVATE_ROOM_CODE_LENGTH}
-          placeholder="CODE"
+          maxLength={PRIVATE_ROOM_CODE_MAX}
+          placeholder="YOUR CODE"
           autoCapitalize="characters"
           autoCorrect="off"
           spellCheck={false}

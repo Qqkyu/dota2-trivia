@@ -1,8 +1,9 @@
-import { randomInt } from "node:crypto";
 import { formatsForRoundGames, isLiveRoundGame, isPublicRoundFormat, PUBLIC_ROUND_FORMATS } from "./arcade-games.mjs";
 
-export const PRIVATE_ROOM_CODE_LENGTH = 4;
-export const PRIVATE_ROOM_CODE_ALPHABET = "23456789ABCDEFGHJKMNPQRSTVWXYZ";
+export const PRIVATE_ROOM_CODE_MIN = 4;
+export const PRIVATE_ROOM_CODE_MAX = 16;
+export const PRIVATE_ROOM_CODE_LENGTH = PRIVATE_ROOM_CODE_MAX;
+export const PRIVATE_ROOM_CODE_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 export const PRIVATE_ROOM_IDLE_MS = 30 * 60 * 1000;
 export const PRIVATE_ROOM_MAX_MESSAGES = 40;
 export const PRIVATE_ROOM_MESSAGE_MAX = 80;
@@ -12,21 +13,13 @@ const globalStore = globalThis;
 const rooms = globalStore.__queueArcadePrivateRooms ?? new Map();
 globalStore.__queueArcadePrivateRooms = rooms;
 
-function randomCode() {
-  let code = "";
-  for (let index = 0; index < PRIVATE_ROOM_CODE_LENGTH; index += 1) {
-    code += PRIVATE_ROOM_CODE_ALPHABET[randomInt(PRIVATE_ROOM_CODE_ALPHABET.length)];
-  }
-  return code;
-}
-
 export function normalizePrivateRoomCode(value) {
   if (typeof value !== "string") return null;
   const code = value
     .trim()
     .toUpperCase()
     .replace(/[^0-9A-Z]/g, "");
-  if (code.length !== PRIVATE_ROOM_CODE_LENGTH) return null;
+  if (code.length < PRIVATE_ROOM_CODE_MIN || code.length > PRIVATE_ROOM_CODE_MAX) return null;
   if ([...code].some((character) => !PRIVATE_ROOM_CODE_ALPHABET.includes(character))) return null;
   return code;
 }
@@ -116,7 +109,15 @@ export function touchPrivateRoom(code, now = Date.now()) {
   return publicView(record);
 }
 
-export function createPrivateRoom({ hostId, gameId, contentVersion, games, formats, now = Date.now() }) {
+export function createPrivateRoom({
+  hostId,
+  gameId,
+  contentVersion,
+  games,
+  formats,
+  code: requestedCode,
+  now = Date.now(),
+}) {
   if (typeof hostId !== "string" || hostId.length < 8 || hostId.length > 80) {
     throw new Error("Invalid private-room host.");
   }
@@ -128,9 +129,9 @@ export function createPrivateRoom({ hostId, gameId, contentVersion, games, forma
   const selectedGames = normalizePrivateGames(games);
   const selectedFormats =
     selectedGames.length > 0 ? formatsForRoundGames(selectedGames) : normalizePrivateFormats(formats);
-
-  let code = randomCode();
-  while (rooms.has(code)) code = randomCode();
+  const code = normalizePrivateRoomCode(requestedCode);
+  if (!code) throw new Error("Pick a party code.");
+  if (rooms.has(code)) throw new Error("That code is taken.");
 
   const record = {
     code,

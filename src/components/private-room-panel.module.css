@@ -52,8 +52,8 @@
 }
 
 .gameCard[data-on="true"] {
-  border-color: rgba(196, 164, 106, 0.62);
-  box-shadow: inset 0 0 0 1px rgba(196, 164, 106, 0.28);
+  border: 2px solid #c4a46a;
+  box-shadow: inset 0 0 0 1px rgba(196, 164, 106, 0.35);
   color: #f1f0ea;
 }
 
@@ -108,7 +108,7 @@
 }
 
 .codeInput {
-  width: 12.5rem;
+  width: min(22rem, 100%);
   height: 52px;
   padding: 0 14px;
   border: 1px solid rgba(196, 164, 106, 0.38);
@@ -117,14 +117,14 @@
   color: #e8d5a3;
   caret-color: #e8d5a3;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 22px;
-  letter-spacing: 0.42em;
+  font-size: 20px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .codeInput::placeholder {
   color: #5a564c;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.1em;
 }
 
 .codeInput:focus {
@@ -150,23 +150,19 @@
 }
 
 .ticket {
-  display: grid;
+  display: inline-flex;
   width: fit-content;
-  grid-template-columns: repeat(4, 78px);
-  gap: 8px;
-}
-
-.ticket span {
-  display: grid;
-  height: 96px;
-  place-items: center;
+  min-height: 72px;
+  align-items: center;
+  padding: 0 22px;
   border: 1px solid rgba(196, 164, 106, 0.4);
   background:
     linear-gradient(180deg, rgba(196, 164, 106, 0.16), rgba(12, 14, 15, 0.2)),
     #14110c;
   color: #e8d5a3;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 44px;
+  font-size: 36px;
+  letter-spacing: 0.12em;
 }
 
 .waitGrid {

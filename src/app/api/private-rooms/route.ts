@@ -58,6 +58,7 @@ export async function POST(request: NextRequest) {
       contentVersion: catalog.contentVersion,
       games: candidate.games,
       formats: candidate.formats,
+      code: candidate.code,
       now,
     });
     touchRoomPresence(record.roomId, identity.playerId, now);
