@@ -311,17 +311,19 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
 export function FormatLook({
   preview,
   game,
+  fit = false,
 }: {
   preview?: FormatPreview | null;
   game: string;
   label?: string;
   look?: string;
+  fit?: boolean;
 }) {
   const kind = preview?.game ?? game;
   const header = LIVE_ROUND_HEADER_LABELS[kind as keyof typeof LIVE_ROUND_HEADER_LABELS] ?? kind;
 
   return (
-    <div className={look.frame} data-game={kind} data-testid={`format-preview-${kind}`}>
+    <div className={clsx(look.frame, fit && look.fit)} data-game={kind} data-testid={`format-preview-${kind}`}>
       <div className={look.scale}>
         <div className={clsx(arcade.gameStage, STAGE_CLASS[kind], look.stage)}>
           <div className={arcade.timerTrack} aria-hidden="true">

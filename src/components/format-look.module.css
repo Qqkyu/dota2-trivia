@@ -28,6 +28,16 @@
   transform-origin: top left;
 }
 
+.fit {
+  container-type: inline-size;
+  height: auto;
+  aspect-ratio: 920 / 340;
+}
+
+.fit .scale {
+  transform: scale(calc(100cqi / 920));
+}
+
 .stage {
   min-height: 0;
   overflow: hidden;

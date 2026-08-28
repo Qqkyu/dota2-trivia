@@ -59,7 +59,6 @@
 
 .preview {
   display: block;
-  height: 132px;
   overflow: hidden;
   background: #101413;
   pointer-events: none;
@@ -108,40 +107,32 @@
   border-top: 1px solid rgba(210, 214, 207, 0.1);
 }
 
-.codeEntry {
-  position: relative;
-  display: grid;
-  width: fit-content;
-  cursor: text;
-}
-
-.boxes {
-  display: grid;
-  grid-template-columns: repeat(4, 56px);
-  gap: 8px;
-}
-
-.boxes i {
-  display: grid;
-  height: 56px;
-  place-items: center;
-  border: 1px solid rgba(196, 164, 106, 0.28);
-  background: rgba(12, 14, 15, 0.82);
-  color: #f1f0ea;
+.codeInput {
+  width: 12.5rem;
+  height: 52px;
+  padding: 0 14px;
+  border: 1px solid rgba(196, 164, 106, 0.38);
+  background: #0c0e0d;
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.45);
+  color: #e8d5a3;
+  caret-color: #e8d5a3;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 26px;
-  font-style: normal;
+  font-size: 22px;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
 }
 
-.boxes i[data-filled="false"] {
-  color: transparent;
+.codeInput::placeholder {
+  color: #5a564c;
+  letter-spacing: 0.32em;
 }
 
-.hiddenCode {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  cursor: text;
+.codeInput:focus {
+  border-color: #c4a46a;
+  outline: none;
+  box-shadow:
+    inset 0 0 0 1px rgba(196, 164, 106, 0.28),
+    inset 0 1px 0 rgba(0, 0, 0, 0.45);
 }
 
 .muted,

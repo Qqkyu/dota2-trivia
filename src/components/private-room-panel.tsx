@@ -372,7 +372,7 @@ export function PrivateRoomPanel({
               onClick={() => toggleGame(game.id)}
             >
               <span className={styles.preview}>
-                <FormatLook game={game.id} label={game.label} preview={game.preview} />
+                <FormatLook fit game={game.id} label={game.label} preview={game.preview} />
               </span>
               <strong>{game.label}</strong>
             </button>
@@ -389,33 +389,25 @@ export function PrivateRoomPanel({
         {busy === "create" ? "Creating…" : "Create party"}
       </button>
       <div className={styles.joinRow}>
-        <label className={styles.codeEntry}>
-          <span className={styles.boxes} aria-hidden="true">
-            {Array.from({ length: PRIVATE_ROOM_CODE_LENGTH }, (_, index) => (
-              <i key={index} data-filled={joinCode[index] ? "true" : "false"}>
-                {joinCode[index] ?? ""}
-              </i>
-            ))}
-          </span>
-          <input
-            ref={joinInputRef}
-            className={styles.hiddenCode}
-            value={joinCode}
-            maxLength={PRIVATE_ROOM_CODE_LENGTH}
-            autoCapitalize="characters"
-            autoCorrect="off"
-            spellCheck={false}
-            aria-label="Party code"
-            data-testid="private-room-join-code"
-            onChange={(event) => {
-              setJoinCode(filterCode(event.currentTarget.value));
-              setError(null);
-            }}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") void joinRoom();
-            }}
-          />
-        </label>
+        <input
+          ref={joinInputRef}
+          className={styles.codeInput}
+          value={joinCode}
+          maxLength={PRIVATE_ROOM_CODE_LENGTH}
+          placeholder="CODE"
+          autoCapitalize="characters"
+          autoCorrect="off"
+          spellCheck={false}
+          aria-label="Party code"
+          data-testid="private-room-join-code"
+          onChange={(event) => {
+            setJoinCode(filterCode(event.currentTarget.value));
+            setError(null);
+          }}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") void joinRoom();
+          }}
+        />
         <button type="button" className={styles.ghost} data-testid="private-room-join" onClick={() => void joinRoom()}>
           {busy === "join" ? "Joining…" : "Join"}
         </button>

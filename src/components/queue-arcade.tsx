@@ -4225,6 +4225,14 @@ export function QueueArcade({
               >
                 {phase === "waiting" ? "Joining…" : activeModeInfo.action}
               </button>
+              <button
+                type="button"
+                className={styles.lobbyFriends}
+                data-testid="private-room-open"
+                onClick={() => setPartyOpen(true)}
+              >
+                Play with friends
+              </button>
               <div className={styles.accountActionSlot} data-testid="account-action-slot">
                 {account === null ? (
                   <span className={styles.accountLoading} aria-hidden="true" />
@@ -4246,14 +4254,6 @@ export function QueueArcade({
                 )}
               </div>
             </div>
-            <button
-              type="button"
-              className={clsx(styles.secondaryButton, styles.lobbyFriends)}
-              data-testid="private-room-open"
-              onClick={() => setPartyOpen(true)}
-            >
-              Play with friends
-            </button>
 
             {roomError ? (
               <div className={clsx(styles.roomNotice, styles.roomNoticeError)} role="status">
