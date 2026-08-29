@@ -30,6 +30,9 @@ export async function POST(request: NextRequest) {
     if (!result.ok && result.reason === "missing") {
       return NextResponse.json({ error: "Unknown private room." }, { status: 404 });
     }
+    if (!result.ok && result.reason === "names") {
+      return NextResponse.json({ error: "Party names must be unique." }, { status: 409 });
+    }
     if (!result.ok || !result.room) {
       return NextResponse.json({ error: "Only the host can start this room." }, { status: 403 });
     }

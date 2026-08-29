@@ -143,6 +143,39 @@ try {
       input.dispatchEvent(new Event("input", { bubbles: true }));
     })()`);
   };
+  const focusName = async () => {
+    await clickTestId("private-room-name");
+    await delay(80);
+  };
+  const commitName = async (value) => {
+    await focusName();
+    await fill("private-room-name", value);
+    await blurName();
+  };
+  const blurName = async () => {
+    const away = await page.evaluate(`(() => {
+      const node = document.querySelector('[data-testid="private-room-code"]');
+      if (!node) return null;
+      const rect = node.getBoundingClientRect();
+      return { x: rect.x + Math.min(12, rect.width / 2), y: rect.y + rect.height / 2 };
+    })()`);
+    if (!away) throw new Error("Party code is missing.");
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mousePressed",
+      x: away.x,
+      y: away.y,
+      button: "left",
+      clickCount: 1,
+    });
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseReleased",
+      x: away.x,
+      y: away.y,
+      button: "left",
+      clickCount: 1,
+    });
+    await delay(600);
+  };
   const clickTestId = async (testid) => {
     const box = await page.evaluate(`(() => {
       const node = document.querySelector('[data-testid="${testid}"]');
@@ -196,13 +229,7 @@ try {
   if (prefix !== "A") {
     throw new Error(`Typing A was eaten by the uniqueness check (${JSON.stringify(prefix)}).`);
   }
-  await fill("private-room-name", "Alex");
-  await page.evaluate(`(() => {
-    const input = document.querySelector('[data-testid="private-room-name"]');
-    input?.focus();
-    input?.blur();
-  })()`);
-  await delay(400);
+  await commitName("Alex");
 
   const scoreOnWait = await page.evaluate(
     `[...document.querySelectorAll('[data-testid="private-room-players"] em')].map((node) => node.textContent)`,
@@ -331,17 +358,35 @@ try {
 
   const guestNick = afterSteal.find((name) => name && name.toLowerCase() !== "alex");
   if (!guestNick) throw new Error("Need a guest nick to test taken names.");
-  await fill("private-room-name", guestNick);
-  await page.evaluate(`document.querySelector('[data-testid="private-room-name"]')?.blur()`);
-  await delay(600);
+  const layoutBefore = await page.evaluate(`(() => {
+    const input = document.querySelector('[data-testid="private-room-name"]');
+    const pen = document.querySelector('[data-testid="private-room-name-pen"]');
+    const row = input?.closest("li");
+    if (!input || !pen || !row) return null;
+    return {
+      value: input.value,
+      nameY: Math.round(input.getBoundingClientRect().y),
+      penY: Math.round(pen.getBoundingClientRect().y),
+      rowH: Math.round(row.getBoundingClientRect().height),
+    };
+  })()`);
+  if (!layoutBefore) throw new Error("Could not measure the name row.");
+  await commitName(guestNick);
   const taken = await page.evaluate(`(() => {
+    const input = document.querySelector('[data-testid="private-room-name"]');
+    const pen = document.querySelector('[data-testid="private-room-name-pen"]');
+    const row = input?.closest("li");
     const nameError = document.querySelector('[data-testid="private-room-name-error"]');
     const startError = document.querySelector('[data-testid="private-room-error"]');
-    const nameBox = document.querySelector('[data-testid="private-room-name"]')?.getBoundingClientRect();
+    const nameBox = input?.getBoundingClientRect();
     const errBox = nameError?.getBoundingClientRect();
     return {
+      value: input?.value ?? "",
       text: nameError?.textContent?.trim() ?? "",
       underStart: startError?.textContent?.trim() ?? "",
+      nameY: input ? Math.round(input.getBoundingClientRect().y) : null,
+      penY: pen ? Math.round(pen.getBoundingClientRect().y) : null,
+      rowH: row ? Math.round(row.getBoundingClientRect().height) : null,
       gap: nameBox && errBox ? errBox.top - nameBox.bottom : null,
     };
   })()`);
@@ -351,13 +396,14 @@ try {
   if (taken.underStart === "That name is taken.") {
     throw new Error("Name-taken error is under Start.");
   }
-  if (taken.gap == null || taken.gap > 24) {
-    throw new Error(`Name-taken error is too far from the name field (${JSON.stringify(taken)}).`);
+  if (taken.value !== layoutBefore.value) {
+    throw new Error(`Taken nick stayed in the field (${taken.value}), so other screens would disagree.`);
+  }
+  if (taken.nameY !== layoutBefore.nameY || taken.penY !== layoutBefore.penY || taken.rowH !== layoutBefore.rowH) {
+    throw new Error(`Name row moved when the error appeared (${JSON.stringify({ layoutBefore, taken })}).`);
   }
 
-  await fill("private-room-name", "Alex");
-  await page.evaluate(`document.querySelector('[data-testid="private-room-name"]')?.blur()`);
-  await delay(500);
+  await commitName("Alex");
 
   await clickTestId("private-room-leave");
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-open"]'))`);

@@ -41,9 +41,15 @@ export function partyNameError(value) {
 export function visiblePartyName({ partyName, displayName, selfName }) {
   const typed = typeof partyName === "string" ? partyName.trim() : "";
   if (typed) return typed;
-  const account = typeof displayName === "string" ? displayName.trim() : "";
-  if (account) return account;
-  return typeof selfName === "string" ? selfName.trim() : "";
+  const server = typeof selfName === "string" ? selfName.trim() : "";
+  if (server) return server;
+  return typeof displayName === "string" ? displayName.trim() : "";
+}
+
+export function partyNameSeed({ serverName, displayName }) {
+  const server = typeof serverName === "string" ? serverName.trim() : "";
+  if (server) return server;
+  return typeof displayName === "string" ? displayName : "";
 }
 
 export function partyNameInputValue({ draft, seed }) {
@@ -265,6 +271,8 @@ export function startPrivateRoom(code, playerId, now = Date.now()) {
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
   if (!record) return { ok: false, reason: "missing" };
   if (record.hostId !== playerId) return { ok: false, reason: "forbidden" };
+  const names = (record.members ?? []).map((member) => member.name.toLowerCase());
+  if (new Set(names).size !== names.length) return { ok: false, reason: "names" };
   if (record.startedAt != null) return { ok: true, alreadyStarted: true, room: publicView(record) };
   record.startedAt = now;
   record.lastSeenAt = now;

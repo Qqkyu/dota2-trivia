@@ -136,13 +136,18 @@ record(
   partySource.includes("syncName") &&
     partySource.includes("onBlur") &&
     partySource.includes("committedNameRef") &&
-    !partySource.includes("setNameDraft(selfName)") &&
+    partySource.includes("nameEditingRef") &&
+    partySource.includes("partyNameSeed") &&
+    partySource.includes("adoptServerName") &&
     !partySource.includes("&name=${encodeURIComponent(committedNameRef"),
-  "Name sync must not run on every letter, presence polls must not send the old nick, and the field must not eat input.",
+  "The room owns the nick. A taken name must revert. Presence polls must not send the old nick while typing.",
 );
+const nameErrorCss = partyCss.match(/\.nameError \{([\s\S]*?)\}/)?.[1] ?? "";
 record(
-  partySource.includes("private-room-name-error") && partySource.includes("nameError"),
-  "That name is taken must sit on the name row, not under Start.",
+  partySource.includes("private-room-name-error") &&
+    /position:\s*absolute/.test(nameErrorCss) &&
+    !/position:\s*relative/.test(nameErrorCss),
+  "That name is taken must overlay the name row so the nick and pencil do not move.",
 );
 record(
   !arcadeSource.includes("initialCode={roomCode || activePrivateCode") &&

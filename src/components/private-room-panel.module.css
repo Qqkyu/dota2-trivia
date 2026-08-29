@@ -183,6 +183,7 @@
   display: grid;
   gap: 22px;
   width: min(100%, 520px);
+  overflow: visible;
 }
 
 .lobbyHead {
@@ -233,17 +234,20 @@
   gap: 2px;
   margin: 0;
   padding: 0;
+  overflow: visible;
   border: 1px solid #292e2d;
   list-style: none;
   background: rgba(15, 19, 18, 0.76);
 }
 
 .players li {
+  position: relative;
   display: grid;
   align-items: center;
   gap: 12px;
   min-height: 48px;
   padding: 0 14px;
+  overflow: visible;
   border-top: 1px solid #292e2d;
   grid-template-columns: minmax(0, 1fr) auto auto;
 }
@@ -264,9 +268,8 @@
 }
 
 .selfStack {
-  display: grid;
+  position: relative;
   min-width: 0;
-  gap: 2px;
 }
 
 .selfName {
@@ -308,10 +311,19 @@
 }
 
 .nameError {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 4px);
+  z-index: 5;
   margin: 0;
+  padding: 4px 8px;
+  border: 1px solid rgba(240, 106, 88, 0.4);
+  background: #101413;
   color: #f06a58;
   font-size: 12px;
   line-height: 1.3;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 .players li[data-self="true"] {

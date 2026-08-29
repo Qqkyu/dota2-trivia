@@ -21,6 +21,7 @@ import {
   leavePrivateRoom,
   visiblePartyName,
   partyNameInputValue,
+  partyNameSeed,
   storedPartyNameDraft,
   addPrivateRoomScore,
 } from "../src/lib/private-rooms.mjs";
@@ -108,6 +109,14 @@ record(
 record(
   visiblePartyName({ partyName: "Loda", displayName: "", selfName: "Guest-ABCD" }) === "Loda",
   "A typed name must win over the auto guest name.",
+);
+record(
+  visiblePartyName({ partyName: "", displayName: "baobab", selfName: "baoba" }) === "baoba",
+  "The room name must win over the Steam name so every screen shows the same nick.",
+);
+record(
+  partyNameSeed({ serverName: "baoba", displayName: "baobab" }) === "baoba",
+  "An idle name field must show the room nick, not the Steam nick.",
 );
 record(partyNameInputValue({ draft: null, seed: "baobab" }) === "baobab", "An untouched field can show the Steam name.");
 record(partyNameInputValue({ draft: "", seed: "baobab" }) === "", "Clearing the name must not snap back to Steam.");
