@@ -321,41 +321,28 @@
 }
 
 .copyLink {
-  display: inline-grid;
-  justify-items: center;
-  grid-auto-flow: column;
+  display: inline-flex;
+  align-items: center;
   gap: 8px;
 }
 
-.copyFace {
-  grid-area: 1 / 2;
-}
-
-.copyFace[data-show="false"] {
-  visibility: hidden;
-}
-
 .chatToggle {
-  display: inline-grid;
-  justify-items: center;
+  display: inline-flex;
   width: fit-content;
+  min-width: 8.5rem;
   min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
   padding: 0 12px;
   border: 1px solid rgba(210, 214, 207, 0.2);
   background: rgba(12, 14, 15, 0.72);
   color: #d7dcd8;
-  cursor: pointer;
-}
-
-.chatToggleFace {
-  grid-area: 1 / 1;
   font-size: 12px;
   letter-spacing: 0.06em;
+  text-align: center;
   text-transform: uppercase;
-}
-
-.chatToggleFace[data-show="false"] {
-  visibility: hidden;
+  cursor: pointer;
 }
 
 .playDock {

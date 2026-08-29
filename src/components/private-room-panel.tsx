@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowLeft, Copy, Pencil, Users } from "lucide-react";
+import { ArrowLeft, Check, Copy, Pencil, Users } from "lucide-react";
 import clsx from "clsx";
 import type { FormatPreview } from "@/components/format-look";
 import { FormatPreviewCard, formatPreviewCardStyles } from "@/components/format-preview-card";
@@ -11,7 +11,7 @@ import {
   PRIVATE_ROOM_NAME_MAX,
   PRIVATE_ROOM_POLL_MS,
   partyCodeError,
-  visiblePartyName,
+  partyNameInputValue,
 } from "@/lib/private-rooms.mjs";
 import styles from "./private-room-panel.module.css";
 
@@ -174,9 +174,10 @@ export function PrivateRoomPanel({
   const [screen, setScreen] = useState<PartyScreen>(initialCode ? "wait" : "setup");
   const [selected, setSelected] = useState<string[]>(() => gameOptions.map((game) => game.id));
   const [joinCode, setJoinCode] = useState(() => filterCode(initialCode ?? ""));
-  const [partyName, setPartyName] = useState(() => {
-    if (typeof window === "undefined") return "";
-    return window.localStorage.getItem(PARTY_NAME_KEY)?.slice(0, PRIVATE_ROOM_NAME_MAX) ?? "";
+  const [nameDraft, setNameDraft] = useState<string | null>(() => {
+    if (typeof window === "undefined") return null;
+    const stored = window.localStorage.getItem(PARTY_NAME_KEY);
+    return stored == null ? null : stored.slice(0, PRIVATE_ROOM_NAME_MAX);
   });
   const [room, setRoom] = useState<PrivateRoomView | null>(null);
   const [draft, setDraft] = useState("");
@@ -190,10 +191,9 @@ export function PrivateRoomPanel({
   const nameInputRef = useRef<HTMLInputElement | null>(null);
   const nameRef = useRef("");
   const trackedCode = room?.code;
-  const shownName = visiblePartyName({
-    partyName,
-    displayName,
-    selfName: room?.players.find((player) => player.self)?.name ?? "",
+  const shownName = partyNameInputValue({
+    draft: nameDraft,
+    seed: displayName || room?.players.find((player) => player.self)?.name || "",
   });
 
   useEffect(() => {
@@ -202,7 +202,7 @@ export function PrivateRoomPanel({
 
   const saveName = (value: string) => {
     const next = value.slice(0, PRIVATE_ROOM_NAME_MAX);
-    setPartyName(next);
+    setNameDraft(next);
     window.localStorage.setItem(PARTY_NAME_KEY, next);
     setError(null);
     setErrorField(null);
@@ -401,12 +401,7 @@ export function PrivateRoomPanel({
       aria-pressed={chatOpen}
       onClick={() => setChatOpen((open) => !open)}
     >
-      <span className={styles.chatToggleFace} data-show={chatOpen ? "true" : "false"}>
-        Hide chat
-      </span>
-      <span className={styles.chatToggleFace} data-show={chatOpen ? "false" : "true"}>
-        Chat
-      </span>
+      {chatOpen ? "Hide chat" : "Chat"}
     </button>
   );
 
@@ -466,13 +461,8 @@ export function PrivateRoomPanel({
               <strong data-testid="private-room-code">{room.code}</strong>
             </div>
             <button type="button" className={clsx(styles.ghost, styles.copyLink)} onClick={() => void copyLink()}>
-              <Copy />
-              <span className={styles.copyFace} data-show={copied ? "false" : "true"}>
-                Copy link
-              </span>
-              <span className={styles.copyFace} data-show={copied ? "true" : "false"}>
-                Copied
-              </span>
+              {copied ? <Check data-testid="private-room-copied" /> : <Copy />}
+              Copy link
             </button>
           </header>
           <div>
@@ -509,7 +499,7 @@ export function PrivateRoomPanel({
                     <strong>{player.name}</strong>
                   )}
                   <span>{player.host ? "Host" : player.self ? "You" : ""}</span>
-                  <em>{player.score}</em>
+                  {room.startedAt != null ? <em>{player.score}</em> : null}
                 </li>
               ))}
             </ul>

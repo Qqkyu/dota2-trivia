@@ -20,8 +20,8 @@ import {
   touchPrivateRoom,
   leavePrivateRoom,
   visiblePartyName,
+  partyNameInputValue,
   addPrivateRoomScore,
-  PRIVATE_ROOM_MEMBER_TTL_MS,
 } from "../src/lib/private-rooms.mjs";
 
 const failures = [];
@@ -108,36 +108,27 @@ record(
   visiblePartyName({ partyName: "Loda", displayName: "", selfName: "Guest-ABCD" }) === "Loda",
   "A typed name must win over the auto guest name.",
 );
+record(partyNameInputValue({ draft: null, seed: "baobab" }) === "baobab", "An untouched field can show the Steam name.");
+record(partyNameInputValue({ draft: "", seed: "baobab" }) === "", "Clearing the name must not snap back to Steam.");
+record(partyNameInputValue({ draft: "Alex", seed: "baobab" }) === "Alex", "A new name must not be forced to start like Steam.");
+record(partyNameInputValue({ draft: "b", seed: "baobab" }) === "b", "Deleting down to one letter must keep that letter.");
 
-record(
-  PRIVATE_ROOM_MEMBER_TTL_MS <= 3_000,
-  "A closed tab must drop off the wait list in at most 3 seconds, not the public 45s presence window.",
-);
-const afterGuestGone = touchPrivateRoom(created.code, now + 10 + PRIVATE_ROOM_MEMBER_TTL_MS + 1, {
+const idleHostAt = now + 60_000;
+const idleRoom = touchPrivateRoom(created.code, idleHostAt, {
   playerId: "host-player-1",
   name: "Loda",
 });
 record(
-  afterGuestGone?.players?.every((player) => player.name !== "Puppey") &&
-    afterGuestGone?.players?.some((player) => player.name === "Loda"),
-  "A player who closed the tab must drop off the wait list.",
+  idleRoom?.players?.some((player) => player.name === "Puppey") &&
+    idleRoom?.players?.some((player) => player.host && player.name === "Loda"),
+  "A minimized or background tab must not drop a player, and must never kick the host.",
 );
-
-const guestReturnAt = now + 10 + PRIVATE_ROOM_MEMBER_TTL_MS + 2;
-const stillHere = touchPrivateRoom(created.code, guestReturnAt, {
-  playerId: "guest-player-99",
-  name: "Puppey",
-});
-record(
-  stillHere?.players?.some((player) => player.name === "Puppey"),
-  "A player who is still present must stay on the wait list.",
-);
-const afterLeave = leavePrivateRoom(created.code, "guest-player-99", guestReturnAt + 1);
+const afterLeave = leavePrivateRoom(created.code, "guest-player-99", idleHostAt + 1);
 record(
   afterLeave?.players?.every((player) => player.name !== "Puppey"),
   "Leave must remove the player at once, not after a timeout.",
 );
-const ranked = addPrivateRoomScore(created.code, "host-player-1", 80, guestReturnAt + 2);
+const ranked = addPrivateRoomScore(created.code, "host-player-1", 80, idleHostAt + 2);
 record(
   ranked?.players?.some((player) => player.host && player.score === 80),
   "Private rooms must keep a running score per player.",

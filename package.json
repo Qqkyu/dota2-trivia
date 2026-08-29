@@ -31,6 +31,7 @@
     "check:flashback-ui": "node scripts/visual-flashback.mjs",
     "check:sounds": "node scripts/check-feedback-sounds.mjs",
     "check:party-previews": "node scripts/check-party-previews.mjs",
+    "check:party-lobby": "node scripts/check-party-lobby.mjs",
     "check": "pnpm validate-data && pnpm lint && pnpm typecheck && pnpm build && pnpm validate-client-bundle"
   },
   "engines": {

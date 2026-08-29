@@ -18,11 +18,12 @@ const record = (ok, message) => {
 
 const stageHeight = Number(arcadeCss.match(/\.gameStage \{[\s\S]*?min-height:\s*(\d+)px/)?.[1]);
 const stageWidth = Number(lookCss.match(/\.scale \{[\s\S]*?width:\s*(\d+)px/)?.[1]);
-const [partySource, cardSource, profileRecordsSource, profileCss] = await Promise.all([
+const [partySource, cardSource, profileRecordsSource, profileCss, roomsSource] = await Promise.all([
   readFile(path.join(root, "src/components/private-room-panel.tsx"), "utf8"),
   readFile(path.join(root, "src/components/format-preview-card.tsx"), "utf8"),
   readFile(path.join(root, "src/components/profile-records.tsx"), "utf8"),
   readFile(path.join(root, "src/app/profile/profile.module.css"), "utf8"),
+  readFile(path.join(root, "src/lib/private-rooms.mjs"), "utf8"),
 ]);
 
 record(stageHeight === 704, `Round stage height is ${stageHeight}, expected 704.`);
@@ -81,7 +82,7 @@ record(
     partySource.includes("data-self") &&
     partySource.includes('data-testid="private-room-players"') &&
     partySource.includes("Pencil") &&
-    partySource.includes("visiblePartyName") &&
+    partySource.includes("partyNameInputValue") &&
     !partySource.includes("styles.topbar") &&
     !partySource.includes("styles.nameField") &&
     !partySource.includes("styles.ticket"),
@@ -103,12 +104,23 @@ record(
   "The name pen must use a pointer cursor.",
 );
 record(
-  partySource.includes("copyFace") && partyCss.includes(".copyFace"),
-  "Copy link must keep its width when it says Copied.",
+  partySource.includes("copied ?") &&
+    partySource.includes("<Check") &&
+    partySource.includes("private-room-copied") &&
+    !partySource.includes("Copied</"),
+  "Copy link must swap to a checkmark, not a Copied label.",
 );
 record(
-  partySource.includes("private-room-chat-toggle") && partySource.includes("private-room-ranking"),
-  "Private play must have a hideable chat and a named ranking.",
+  partySource.includes("private-room-chat-toggle") &&
+    partySource.includes("private-room-ranking") &&
+    !partySource.includes("chatToggleFace") &&
+    partyCss.includes(".chatToggle") &&
+    /startedAt != null \?/.test(partySource),
+  "Chat toggle must stay aligned, wait lobby must not show a 0 score, and play must keep a ranking.",
+);
+record(
+  !roomsSource.includes("function pruneMembers") && !roomsSource.includes("PRIVATE_ROOM_MEMBER_TTL_MS"),
+  "Idle or background tabs must not prune party members. Only Leave removes them.",
 );
 record(
   arcadeSource.includes("if (!privateCode)") && arcadeSource.includes("entryWaitRoundIdRef.current = result.snapshot.round.id"),

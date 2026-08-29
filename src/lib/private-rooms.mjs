@@ -6,7 +6,6 @@ export const PRIVATE_ROOM_CODE_LENGTH = PRIVATE_ROOM_CODE_MAX;
 export const PRIVATE_ROOM_CODE_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 export const PRIVATE_ROOM_IDLE_MS = 30 * 60 * 1000;
 export const PRIVATE_ROOM_POLL_MS = 1_000;
-export const PRIVATE_ROOM_MEMBER_TTL_MS = 3_000;
 export const PRIVATE_ROOM_MAX_MESSAGES = 40;
 export const PRIVATE_ROOM_MESSAGE_MAX = 80;
 export const PRIVATE_ROOM_NAME_MAX = 24;
@@ -45,6 +44,11 @@ export function visiblePartyName({ partyName, displayName, selfName }) {
   const account = typeof displayName === "string" ? displayName.trim() : "";
   if (account) return account;
   return typeof selfName === "string" ? selfName.trim() : "";
+}
+
+export function partyNameInputValue({ draft, seed }) {
+  if (draft !== null && draft !== undefined) return String(draft);
+  return typeof seed === "string" ? seed : "";
 }
 
 export function privateRoomId(gameId, contentVersion, code) {
@@ -134,11 +138,6 @@ function upsertMember(record, playerId, name, now) {
   });
 }
 
-function pruneMembers(record, now) {
-  if (!record.members) return;
-  record.members = record.members.filter((member) => now - member.lastSeenAt < PRIVATE_ROOM_MEMBER_TTL_MS);
-}
-
 export function expireIdlePrivateRooms(now = Date.now()) {
   for (const [code, record] of rooms) {
     if (now >= record.lastSeenAt && now - record.lastSeenAt >= PRIVATE_ROOM_IDLE_MS) rooms.delete(code);
@@ -151,7 +150,6 @@ export function getPrivateRoom(code, now = Date.now(), viewerId) {
   if (!normalized) return null;
   const record = rooms.get(normalized);
   if (!record) return null;
-  pruneMembers(record, now);
   return publicView(record, viewerId);
 }
 
@@ -160,7 +158,6 @@ export function touchPrivateRoom(code, now = Date.now(), identity) {
   if (!record) return null;
   record.lastSeenAt = now;
   if (identity?.playerId) upsertMember(record, identity.playerId, identity.name, now);
-  pruneMembers(record, now);
   return publicView(record, identity?.playerId);
 }
 
@@ -181,7 +178,6 @@ export function leavePrivateRoom(code, playerId, now = Date.now()) {
   if (!record) return null;
   record.members = (record.members ?? []).filter((member) => member.playerId !== playerId);
   record.lastSeenAt = now;
-  pruneMembers(record, now);
   return publicView(record);
 }
 
