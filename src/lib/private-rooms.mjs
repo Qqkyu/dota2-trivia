@@ -9,6 +9,7 @@ export const PRIVATE_ROOM_POLL_MS = 1_000;
 export const PRIVATE_ROOM_MAX_MESSAGES = 40;
 export const PRIVATE_ROOM_MESSAGE_MAX = 80;
 export const PRIVATE_ROOM_NAME_MAX = 24;
+export const PRIVATE_ROOM_NAME_NOTICE_MS = 2_500;
 
 const globalStore = globalThis;
 const rooms = globalStore.__queueArcadePrivateRooms ?? new Map();

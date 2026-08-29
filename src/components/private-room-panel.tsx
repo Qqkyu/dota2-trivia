@@ -9,6 +9,7 @@ import {
   PRIVATE_ROOM_CODE_ALPHABET,
   PRIVATE_ROOM_CODE_MAX,
   PRIVATE_ROOM_NAME_MAX,
+  PRIVATE_ROOM_NAME_NOTICE_MS,
   PRIVATE_ROOM_POLL_MS,
   partyCodeError,
   partyNameInputValue,
@@ -192,6 +193,8 @@ export function PrivateRoomPanel({
   const [draft, setDraft] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [errorField, setErrorField] = useState<"code" | "name" | "games" | null>(null);
+  const [nameNotice, setNameNotice] = useState<string | null>(null);
+  const nameNoticeTimerRef = useRef<number | null>(null);
   const [busy, setBusy] = useState<"enter" | "start" | null>(null);
   const [copied, setCopied] = useState(false);
   const [chatOpen, setChatOpen] = useState(true);
@@ -212,12 +215,37 @@ export function PrivateRoomPanel({
     nameRef.current = shownName;
   }, [shownName]);
 
+  const clearNameNotice = useCallback(() => {
+    if (nameNoticeTimerRef.current != null) {
+      window.clearTimeout(nameNoticeTimerRef.current);
+      nameNoticeTimerRef.current = null;
+    }
+    setNameNotice(null);
+  }, []);
+
+  const flashNameNotice = useCallback((message: string) => {
+    setNameNotice(message);
+    if (nameNoticeTimerRef.current != null) window.clearTimeout(nameNoticeTimerRef.current);
+    nameNoticeTimerRef.current = window.setTimeout(() => {
+      setNameNotice(null);
+      nameNoticeTimerRef.current = null;
+    }, PRIVATE_ROOM_NAME_NOTICE_MS);
+  }, []);
+
+  useEffect(
+    () => () => {
+      if (nameNoticeTimerRef.current != null) window.clearTimeout(nameNoticeTimerRef.current);
+    },
+    [],
+  );
+
   const saveName = (value: string) => {
     const next = value.slice(0, PRIVATE_ROOM_NAME_MAX);
     nameEditingRef.current = true;
     setNameDraft(next);
     setError(null);
     setErrorField(null);
+    clearNameNotice();
   };
 
   const adoptServerName = useCallback((selfName: string) => {
@@ -280,8 +308,7 @@ export function PrivateRoomPanel({
       }
       if (room?.players.some((player) => !player.self && player.name.toLowerCase() === next.toLowerCase())) {
         adoptServerName(current);
-        setError("That name is taken.");
-        setErrorField("name");
+        flashNameNotice("That name is taken.");
         return false;
       }
       try {
@@ -292,22 +319,19 @@ export function PrivateRoomPanel({
         const selfName = payload.players.find((player) => player.self)?.name ?? "";
         if (payload.nameTaken || (selfName && selfName.toLowerCase() !== next.toLowerCase())) {
           adoptServerName(selfName || current);
-          setError("That name is taken.");
-          setErrorField("name");
+          flashNameNotice("That name is taken.");
           return false;
         }
         adoptServerName(selfName || next);
-        setError((currentError) => (currentError === "That name is taken." ? null : currentError));
-        setErrorField((field) => (field === "name" ? null : field));
+        clearNameNotice();
         return true;
       } catch (cause) {
         adoptServerName(current);
-        setError(cause instanceof Error ? cause.message : "Could not save that name.");
-        setErrorField("name");
+        flashNameNotice(cause instanceof Error ? cause.message : "Could not save that name.");
         return false;
       }
     },
-    [adoptServerName, playerId, requestRoom, room?.players, trackedCode],
+    [adoptServerName, clearNameNotice, flashNameNotice, playerId, requestRoom, room?.players, trackedCode],
   );
 
   useEffect(() => {
@@ -569,9 +593,7 @@ export function PrivateRoomPanel({
                           placeholder="Your name"
                           autoComplete="nickname"
                           spellCheck={false}
-                          aria-invalid={errorField === "name"}
-                          aria-describedby={errorField === "name" ? "private-room-name-error" : undefined}
-                          data-invalid={errorField === "name" ? "true" : undefined}
+                          aria-describedby={nameNotice ? "private-room-name-error" : undefined}
                           aria-label="Your name"
                           data-testid="private-room-name"
                           onChange={(event) => saveName(event.currentTarget.value)}
@@ -589,14 +611,15 @@ export function PrivateRoomPanel({
                         />
                         <Pencil aria-hidden="true" data-testid="private-room-name-pen" />
                       </label>
-                      {errorField === "name" && error ? (
+                      {nameNotice ? (
                         <p
                           id="private-room-name-error"
                           className={styles.nameError}
-                          role="alert"
+                          role="status"
+                          aria-live="polite"
                           data-testid="private-room-name-error"
                         >
-                          {error}
+                          {nameNotice}
                         </p>
                       ) : null}
                     </div>

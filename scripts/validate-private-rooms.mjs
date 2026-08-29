@@ -24,6 +24,7 @@ import {
   partyNameSeed,
   storedPartyNameDraft,
   addPrivateRoomScore,
+  PRIVATE_ROOM_NAME_NOTICE_MS,
 } from "../src/lib/private-rooms.mjs";
 
 const failures = [];
@@ -117,6 +118,10 @@ record(
 record(
   partyNameSeed({ serverName: "baoba", displayName: "baobab" }) === "baoba",
   "An idle name field must show the room nick, not the Steam nick.",
+);
+record(
+  PRIVATE_ROOM_NAME_NOTICE_MS >= 1500 && PRIVATE_ROOM_NAME_NOTICE_MS <= 4000,
+  "A taken-name notice must hide after a short wait.",
 );
 record(partyNameInputValue({ draft: null, seed: "baobab" }) === "baobab", "An untouched field can show the Steam name.");
 record(partyNameInputValue({ draft: "", seed: "baobab" }) === "", "Clearing the name must not snap back to Steam.");

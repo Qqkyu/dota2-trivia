@@ -9,6 +9,7 @@ import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { PRIVATE_ROOM_NAME_NOTICE_MS } from "../src/lib/private-rooms.mjs";
 
 const appUrl = process.env.APP_URL ?? "http://localhost:3000";
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -384,6 +385,7 @@ try {
       value: input?.value ?? "",
       text: nameError?.textContent?.trim() ?? "",
       underStart: startError?.textContent?.trim() ?? "",
+      invalid: input?.getAttribute("data-invalid") === "true" || input?.getAttribute("aria-invalid") === "true",
       nameY: input ? Math.round(input.getBoundingClientRect().y) : null,
       penY: pen ? Math.round(pen.getBoundingClientRect().y) : null,
       rowH: row ? Math.round(row.getBoundingClientRect().height) : null,
@@ -396,12 +398,18 @@ try {
   if (taken.underStart === "That name is taken.") {
     throw new Error("Name-taken error is under Start.");
   }
+  if (taken.invalid) {
+    throw new Error("Reverted nick still has a red error line.");
+  }
   if (taken.value !== layoutBefore.value) {
     throw new Error(`Taken nick stayed in the field (${taken.value}), so other screens would disagree.`);
   }
   if (taken.nameY !== layoutBefore.nameY || taken.penY !== layoutBefore.penY || taken.rowH !== layoutBefore.rowH) {
     throw new Error(`Name row moved when the error appeared (${JSON.stringify({ layoutBefore, taken })}).`);
   }
+  await delay(PRIVATE_ROOM_NAME_NOTICE_MS + 200);
+  const noticeGone = await page.evaluate(`!document.querySelector('[data-testid="private-room-name-error"]')`);
+  if (!noticeGone) throw new Error("Name-taken error stayed on screen.");
 
   await commitName("Alex");
 

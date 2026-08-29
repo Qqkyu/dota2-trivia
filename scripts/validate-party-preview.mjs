@@ -145,9 +145,12 @@ record(
 const nameErrorCss = partyCss.match(/\.nameError \{([\s\S]*?)\}/)?.[1] ?? "";
 record(
   partySource.includes("private-room-name-error") &&
+    partySource.includes("PRIVATE_ROOM_NAME_NOTICE_MS") &&
+    partySource.includes("flashNameNotice") &&
     /position:\s*absolute/.test(nameErrorCss) &&
-    !/position:\s*relative/.test(nameErrorCss),
-  "That name is taken must overlay the name row so the nick and pencil do not move.",
+    !/position:\s*relative/.test(nameErrorCss) &&
+    !partySource.includes("data-invalid={errorField === \"name\""),
+  "That name is taken must overlay the name row, fade out, and not mark the reverted nick as wrong.",
 );
 record(
   !arcadeSource.includes("initialCode={roomCode || activePrivateCode") &&
