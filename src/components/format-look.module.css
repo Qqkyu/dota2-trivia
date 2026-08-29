@@ -28,27 +28,6 @@
   transform-origin: top left;
 }
 
-.fit {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-
-.fit .scale {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 920px;
-  height: 704px;
-  transform-origin: top left;
-}
-
-.fit .stage {
-  width: 920px;
-  min-height: 704px;
-  height: 704px;
-}
-
 .stage {
   min-height: 0;
   overflow: hidden;

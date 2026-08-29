@@ -1,5 +1,5 @@
-import { FormatLook, type FormatPreview } from "@/components/format-look";
-import { RoundMark } from "@/components/round-mark";
+import type { FormatPreview } from "@/components/format-look";
+import { FormatPreviewCard } from "@/components/format-preview-card";
 import styles from "../app/profile/profile.module.css";
 
 export interface ProfileFormatRow {
@@ -24,71 +24,59 @@ export function ProfileRecords({ formats }: { formats: ProfileFormatRow[] }) {
     <section className={styles.recordGrid} data-testid="profile-records">
       <div className={styles.cardGrid}>
         {formats.map((format) => (
-          <article
+          <FormatPreviewCard
             key={format.game}
-            className={styles.formatCard}
+            game={format.game}
+            label={format.label}
+            look={format.look}
+            preview={format.preview}
             data-empty={format.you === null ? "true" : "false"}
             data-testid={`format-mastery-${format.game}`}
             data-you={format.you === null ? "" : String(format.you)}
             data-room={format.room === null ? "" : String(format.room)}
             data-early={format.early ? `${format.early.correct}/${format.early.answered}` : ""}
             data-clues={format.clues.map((clue) => `${clue.correct}/${clue.answered}`).join(",") || ""}
+            subtitle={format.answered ? <small>{format.answered} played</small> : null}
           >
-            <div
-              className={styles.previewStage}
-              aria-hidden="true"
-              data-testid={`format-preview-stage-${format.game}`}
-            >
-              <FormatLook game={format.game} label={format.label} look={format.look} preview={format.preview} />
-            </div>
-            <div className={styles.cardBody}>
-              <div className={styles.identity}>
-                <RoundMark game={format.game} />
-                <div className={styles.identityCopy}>
-                  <strong className={styles.identityLabel}>{format.label}</strong>
-                  {format.answered ? <small>{format.answered} played</small> : null}
-                </div>
-              </div>
-              <div className={styles.duel}>
-                <div className={styles.duelScores}>
-                  <span>
-                    <small>You</small>
-                    <strong>{percentLabel(format.you)}</strong>
-                  </span>
-                  <span>
-                    <small>Crowd</small>
-                    <strong>{percentLabel(format.room)}</strong>
-                  </span>
-                </div>
-                <span className={styles.duelTrack} aria-hidden="true">
-                  <span
-                    className={styles.accuracyFill}
-                    style={{ width: `${format.you ?? 0}%` }}
-                    data-empty={format.you === null ? "true" : "false"}
-                  />
-                  {format.room === null ? null : <i className={styles.crowdMark} style={{ left: `${format.room}%` }} />}
+            <div className={styles.duel}>
+              <div className={styles.duelScores}>
+                <span>
+                  <small>You</small>
+                  <strong>{percentLabel(format.you)}</strong>
+                </span>
+                <span>
+                  <small>Crowd</small>
+                  <strong>{percentLabel(format.room)}</strong>
                 </span>
               </div>
-              {format.slices.length || format.clues.length ? (
-                <ul className={styles.kinds}>
-                  {format.slices.map((slice) => (
-                    <li key={slice.format}>
-                      <span>{slice.label}</span>
-                      <strong>{slice.accuracy}%</strong>
-                    </li>
-                  ))}
-                  {format.clues.map((clue) => (
-                    <li key={clue.stage}>
-                      <span>{clue.label}</span>
-                      <strong>
-                        {clue.correct}/{clue.answered}
-                      </strong>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
+              <span className={styles.duelTrack} aria-hidden="true">
+                <span
+                  className={styles.accuracyFill}
+                  style={{ width: `${format.you ?? 0}%` }}
+                  data-empty={format.you === null ? "true" : "false"}
+                />
+                {format.room === null ? null : <i className={styles.crowdMark} style={{ left: `${format.room}%` }} />}
+              </span>
             </div>
-          </article>
+            {format.slices.length || format.clues.length ? (
+              <ul className={styles.kinds}>
+                {format.slices.map((slice) => (
+                  <li key={slice.format}>
+                    <span>{slice.label}</span>
+                    <strong>{slice.accuracy}%</strong>
+                  </li>
+                ))}
+                {format.clues.map((clue) => (
+                  <li key={clue.stage}>
+                    <span>{clue.label}</span>
+                    <strong>
+                      {clue.correct}/{clue.answered}
+                    </strong>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </FormatPreviewCard>
         ))}
       </div>
     </section>

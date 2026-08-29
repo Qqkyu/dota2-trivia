@@ -1,7 +1,5 @@
-"use client";
-
 import clsx from "clsx";
-import { useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import type { CSSProperties } from "react";
 import { Clock3, Gem, ListOrdered, MessageSquareQuote, ScanEye, Swords, Volume2, WandSparkles } from "lucide-react";
 import { RoundMark } from "@/components/round-mark";
 import { LIVE_QUESTION_COPY, LIVE_ROUND_HEADER_LABELS } from "@/lib/round-question-copy.mjs";
@@ -310,87 +308,48 @@ function QuestionBody({ preview, kind }: { preview?: FormatPreview | null; kind:
   );
 }
 
-const PREVIEW_STAGE_WIDTH = 920;
-const PREVIEW_STAGE_HEIGHT = 704;
-
-function FitFrame({ children, game }: { children: ReactNode; game: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(0);
-  useLayoutEffect(() => {
-    const node = ref.current;
-    if (!node) return undefined;
-    const sync = () => {
-      const width = node.getBoundingClientRect().width;
-      setScale(width > 0 ? width / PREVIEW_STAGE_WIDTH : 0);
-    };
-    sync();
-    const observer = new ResizeObserver(sync);
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className={look.fit}
-      data-game={game}
-      data-testid={`format-preview-${game}`}
-      style={{ height: scale ? PREVIEW_STAGE_HEIGHT * scale : undefined }}
-    >
-      <div className={look.scale} style={{ transform: `scale(${scale || 0.001})` }}>
-        {children}
-      </div>
-    </div>
-  );
-}
-
 export function FormatLook({
   preview,
   game,
-  fit = false,
 }: {
   preview?: FormatPreview | null;
   game: string;
   label?: string;
   look?: string;
-  fit?: boolean;
 }) {
   const kind = preview?.game ?? game;
   const header = LIVE_ROUND_HEADER_LABELS[kind as keyof typeof LIVE_ROUND_HEADER_LABELS] ?? kind;
-  const stage = (
-    <div className={clsx(arcade.gameStage, STAGE_CLASS[kind], look.stage)}>
-      <div className={arcade.timerTrack} aria-hidden="true">
-        <span />
-      </div>
-      <div className={arcade.roundHeader}>
-        <div>
-          <span>Round 001</span>
-          <i />
-          <span className={arcade.roundGameLabel}>
-            <RoundMark game={kind} />
-            {header}
-          </span>
-          {preview?.category ? (
-            <>
-              <i />
-              <span>{preview.category}</span>
-            </>
-          ) : null}
-        </div>
-        <div className={arcade.timer}>
-          <Clock3 />
-          <strong>15</strong>
-        </div>
-      </div>
-      <QuestionBody preview={preview} kind={kind} />
-    </div>
-  );
-
-  if (fit) return <FitFrame game={kind}>{stage}</FitFrame>;
 
   return (
     <div className={look.frame} data-game={kind} data-testid={`format-preview-${kind}`}>
-      <div className={look.scale}>{stage}</div>
+      <div className={look.scale}>
+        <div className={clsx(arcade.gameStage, STAGE_CLASS[kind], look.stage)}>
+          <div className={arcade.timerTrack} aria-hidden="true">
+            <span />
+          </div>
+          <div className={arcade.roundHeader}>
+            <div>
+              <span>Round 001</span>
+              <i />
+              <span className={arcade.roundGameLabel}>
+                <RoundMark game={kind} />
+                {header}
+              </span>
+              {preview?.category ? (
+                <>
+                  <i />
+                  <span>{preview.category}</span>
+                </>
+              ) : null}
+            </div>
+            <div className={arcade.timer}>
+              <Clock3 />
+              <strong>15</strong>
+            </div>
+          </div>
+          <QuestionBody preview={preview} kind={kind} />
+        </div>
+      </div>
     </div>
   );
 }

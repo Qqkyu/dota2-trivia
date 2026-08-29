@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, Copy, Users } from "lucide-react";
 import clsx from "clsx";
-import { FormatLook, type FormatPreview } from "@/components/format-look";
+import type { FormatPreview } from "@/components/format-look";
+import { FormatPreviewCard, formatPreviewCardStyles } from "@/components/format-preview-card";
 import { PRIVATE_ROOM_CODE_ALPHABET, PRIVATE_ROOM_CODE_MAX, PRIVATE_ROOM_CODE_MIN } from "@/lib/private-rooms.mjs";
 import styles from "./private-room-panel.module.css";
 
@@ -363,23 +364,22 @@ export function PrivateRoomPanel({
   return (
     <section className={styles.view} data-testid="private-room-setup">
       {back}
-      <div className={styles.games} role="group" aria-label="Games">
+      <div className={clsx(formatPreviewCardStyles.cardGrid, styles.games)} role="group" aria-label="Games">
         {gameOptions.map((game) => {
           const on = selected.includes(game.id);
           return (
-            <button
+            <FormatPreviewCard
               key={game.id}
+              as="button"
               type="button"
+              game={game.id}
+              label={game.label}
+              preview={game.preview}
               className={styles.gameCard}
               aria-pressed={on}
               data-on={on ? "true" : "false"}
               onClick={() => toggleGame(game.id)}
-            >
-              <span className={styles.preview}>
-                <FormatLook fit game={game.id} label={game.label} preview={game.preview} />
-              </span>
-              <strong>{game.label}</strong>
-            </button>
+            />
           );
         })}
       </div>

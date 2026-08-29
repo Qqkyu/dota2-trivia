@@ -17,18 +17,34 @@ const record = (ok, message) => {
 
 const stageHeight = Number(arcadeCss.match(/\.gameStage \{[\s\S]*?min-height:\s*(\d+)px/)?.[1]);
 const stageWidth = Number(lookCss.match(/\.scale \{[\s\S]*?width:\s*(\d+)px/)?.[1]);
-const lookSource = await readFile(path.join(root, "src/components/format-look.tsx"), "utf8");
+const [partySource, cardSource, profileRecordsSource, profileCss] = await Promise.all([
+  readFile(path.join(root, "src/components/private-room-panel.tsx"), "utf8"),
+  readFile(path.join(root, "src/components/format-preview-card.tsx"), "utf8"),
+  readFile(path.join(root, "src/components/profile-records.tsx"), "utf8"),
+  readFile(path.join(root, "src/app/profile/profile.module.css"), "utf8"),
+]);
 
 record(stageHeight === 704, `Round stage height is ${stageHeight}, expected 704.`);
 record(stageWidth === 920, `Preview stage width is ${stageWidth}, expected 920.`);
 record(
-  lookSource.includes("ResizeObserver") && lookSource.includes("PREVIEW_STAGE_HEIGHT * scale"),
-  "Party previews still use a fixed CSS scale, so the question is clipped.",
+  cardSource.includes('from "../app/profile/profile.module.css"') &&
+    cardSource.includes("styles.previewStage") &&
+    cardSource.includes("<FormatLook"),
+  "Format preview cards must keep the profile crop.",
 );
 record(
-  /\.fit \.stage \{[\s\S]*?min-height:\s*704px/.test(lookCss),
-  "Fit previews still collapse the round stage, so the question is clipped.",
+  partySource.includes("FormatPreviewCard") &&
+    partySource.includes("@/components/format-preview-card") &&
+    !partySource.includes("fit") &&
+    !partySource.includes("FormatLook"),
+  "Party game cards must use FormatPreviewCard, not a custom scaler.",
 );
+record(
+  profileRecordsSource.includes("FormatPreviewCard") &&
+    profileRecordsSource.includes("@/components/format-preview-card"),
+  "Profile records must use the same FormatPreviewCard as party setup.",
+);
+record(/\.previewStage \{[\s\S]*?height:\s*132px/.test(profileCss), "Profile preview crop is no longer 132px.");
 
 const selected = partyCss.match(/\.gameCard\[data-on="true"\] \{([\s\S]*?)\}/)?.[1] ?? "";
 record(

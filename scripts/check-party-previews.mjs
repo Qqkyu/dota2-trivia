@@ -84,23 +84,16 @@ function attachCdp(webSocketDebuggerUrl) {
   };
 }
 
-const MEASURE = `(() => {
-  const frames = [...document.querySelectorAll('[data-testid^="format-preview-"]')];
-  return frames.map((frame) => {
-    const inner = frame.querySelector("[class*='scale']") ?? frame.firstElementChild;
-    const frameBox = frame.getBoundingClientRect();
-    const innerBox = inner.getBoundingClientRect();
+const MEASURE_STAGES = `(() =>
+  [...document.querySelectorAll('[data-testid^="format-preview-stage-"]')].map((stage) => {
+    const box = stage.getBoundingClientRect();
     return {
-      id: frame.getAttribute("data-testid"),
-      frameW: Math.round(frameBox.width),
-      frameH: Math.round(frameBox.height),
-      innerW: Math.round(innerBox.width),
-      innerH: Math.round(innerBox.height),
-      overflowX: Math.round(innerBox.width - frameBox.width),
-      overflowY: Math.round(innerBox.height - frameBox.height),
+      id: stage.getAttribute("data-testid"),
+      w: Math.round(box.width),
+      h: Math.round(box.height),
     };
-  });
-})()`;
+  })
+)()`;
 
 const port = await freePort();
 const userDataDir = await mkdtemp(join(tmpdir(), "queue-arcade-party-"));
@@ -114,7 +107,7 @@ const chrome = spawn(
     `--user-data-dir=${userDataDir}`,
     "--no-first-run",
     "--disable-gpu",
-    "--window-size=1400,1100",
+    "--window-size=1400,1800",
     "about:blank",
   ],
   { stdio: "ignore" },
@@ -149,6 +142,14 @@ try {
   await page.ready;
   await page.send("Page.enable");
   await page.send("Runtime.enable");
+  await page.send("Page.navigate", { url: `${appUrl}/profile?recordsPreview=short` });
+  await page.waitFor(`Boolean(document.querySelector('[data-testid^="format-preview-stage-"]'))`);
+  const profileShots = await page.send("Page.captureScreenshot", { format: "png" });
+  await writeFile("/tmp/profile-previews.png", Buffer.from(profileShots.data, "base64"));
+  const profileStages = await page.evaluate(MEASURE_STAGES);
+  const profileHeight = profileStages[0]?.h;
+  if (!profileHeight) throw new Error("Profile has no format preview stages.");
+
   await page.send("Page.navigate", { url: appUrl });
   await page.waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-open"]'))`);
@@ -177,21 +178,67 @@ try {
   await delay(400);
   const shots = await page.send("Page.captureScreenshot", { format: "png" });
   await writeFile("/tmp/party-previews.png", Buffer.from(shots.data, "base64"));
-  const rows = await page.evaluate(MEASURE);
-  if (!rows.length) throw new Error("Party setup rendered no format previews.");
-  const clipped = rows.filter((row) => row.overflowX > 2 || row.overflowY > 2);
-  if (clipped.length) {
+  const partyStages = await page.evaluate(MEASURE_STAGES);
+  if (!partyStages.length) throw new Error("Party setup rendered no format preview stages.");
+  const profileWidth = profileStages[0]?.w;
+  const mismatched = partyStages.filter(
+    (stage) => Math.abs(stage.h - profileHeight) > 2 || Math.abs(stage.w - profileWidth) > 8,
+  );
+  if (mismatched.length) {
     console.error(
-      clipped
+      mismatched
         .map(
-          (row) =>
-            `${row.id} clips by ${row.overflowX}×${row.overflowY}px (frame ${row.frameW}×${row.frameH}, inner ${row.innerW}×${row.innerH})`,
+          (stage) =>
+            `${stage.id} is ${stage.w}x${stage.h}; profile previews are ${profileWidth}x${profileHeight}.`,
         )
         .join("\n"),
     );
     process.exitCode = 1;
   } else {
-    console.log(`Validated ${rows.length} party format previews fit their cards.`);
+    const controls = await page.evaluate(`(() => ({
+      create: Boolean(document.querySelector('[data-testid="private-room-create"]')),
+      join: Boolean(document.querySelector('[data-testid="private-room-join"]')),
+      code: Boolean(document.querySelector('[data-testid="private-room-join-code"]')),
+      selected: document.querySelectorAll('[data-on="true"]').length,
+    }))()`);
+    if (!controls.create || !controls.join || !controls.code) {
+      console.error("Party setup is missing create, join, or the code field.");
+      process.exitCode = 1;
+    } else {
+      const firstCard = await page.evaluate(`(() => {
+        const node = document.querySelector('[data-testid="format-preview-stage-trivia"]')?.closest("button");
+        if (!node) return null;
+        const rect = node.getBoundingClientRect();
+        return { x: rect.x + rect.width / 2, y: rect.y + 24 };
+      })()`);
+      if (!firstCard) throw new Error("Classic Trivia party card is missing.");
+      await page.send("Input.dispatchMouseEvent", {
+        type: "mousePressed",
+        x: firstCard.x,
+        y: firstCard.y,
+        button: "left",
+        clickCount: 1,
+      });
+      await page.send("Input.dispatchMouseEvent", {
+        type: "mouseReleased",
+        x: firstCard.x,
+        y: firstCard.y,
+        button: "left",
+        clickCount: 1,
+      });
+      await delay(200);
+      const afterToggle = await page.evaluate(
+        `document.querySelector('[data-testid="format-preview-stage-trivia"]')?.closest("button")?.getAttribute("data-on")`,
+      );
+      if (afterToggle !== "false") {
+        console.error(`Classic Trivia stayed selected after click (data-on=${afterToggle}).`);
+        process.exitCode = 1;
+      } else {
+        console.log(
+          `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
+        );
+      }
+    }
   }
 } finally {
   await cleanup();
