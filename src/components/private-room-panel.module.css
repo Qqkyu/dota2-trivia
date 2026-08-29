@@ -316,8 +316,21 @@
   font-style: normal;
 }
 
-.lobby .primary {
+.lobby .primary,
+.startWait {
   width: 100%;
+}
+
+.startWait {
+  display: grid;
+  min-height: 52px;
+  place-items: center;
+  margin: 0;
+  border: 1px solid rgba(196, 164, 106, 0.28);
+  background: rgba(196, 164, 106, 0.08);
+  color: #e8d5a3;
+  font-size: 14px;
+  text-align: center;
 }
 
 .copyLink {
@@ -326,23 +339,34 @@
   gap: 8px;
 }
 
+.chatShell {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid rgba(210, 214, 207, 0.16);
+  background: rgba(12, 14, 15, 0.88);
+}
+
 .chatToggle {
-  display: inline-flex;
-  width: fit-content;
-  min-width: 8.5rem;
+  display: flex;
+  width: 100%;
   min-height: 36px;
   align-items: center;
   justify-content: center;
-  justify-self: start;
   padding: 0 12px;
-  border: 1px solid rgba(210, 214, 207, 0.2);
-  background: rgba(12, 14, 15, 0.72);
+  border: 0;
+  background: rgba(18, 22, 21, 0.95);
   color: #d7dcd8;
   font-size: 12px;
   letter-spacing: 0.06em;
   text-align: center;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+.chatShell .chat {
+  border: 0;
+  background: transparent;
+  min-height: 180px;
 }
 
 .playDock {

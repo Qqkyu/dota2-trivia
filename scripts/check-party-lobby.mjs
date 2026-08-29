@@ -190,6 +190,20 @@ try {
     throw new Error(`Typed Alex, got ${JSON.stringify(renamed)} after the poll.`);
   }
 
+  await fill("private-room-name", "A");
+  await delay(1200);
+  const prefix = await page.evaluate(`document.querySelector('[data-testid="private-room-name"]')?.value ?? ""`);
+  if (prefix !== "A") {
+    throw new Error(`Typing A was eaten by the uniqueness check (${JSON.stringify(prefix)}).`);
+  }
+  await fill("private-room-name", "Alex");
+  await page.evaluate(`(() => {
+    const input = document.querySelector('[data-testid="private-room-name"]');
+    input?.focus();
+    input?.blur();
+  })()`);
+  await delay(400);
+
   const scoreOnWait = await page.evaluate(
     `[...document.querySelectorAll('[data-testid="private-room-players"] em')].map((node) => node.textContent)`,
   );
@@ -262,7 +276,8 @@ try {
     return payload.privateRoom?.players ?? [];
   };
 
-  await joinApiGuest(crypto.randomUUID());
+  const guestA = crypto.randomUUID();
+  await joinApiGuest(guestA);
   await joinApiGuest(crypto.randomUUID());
   await delay(1500);
   const roster = await page.evaluate(`(() => {
@@ -279,7 +294,7 @@ try {
     throw new Error(`A player has a blank nickname (${roster.join(", ")}).`);
   }
 
-  await joinApiGuest(crypto.randomUUID().slice(0, 8) + "steal01", "Alex");
+  await joinApiGuest(guestA, "Alex");
   await delay(1500);
   const afterSteal = await page.evaluate(`(() => {
     const rows = [...document.querySelectorAll('[data-testid="private-room-players"] li')];

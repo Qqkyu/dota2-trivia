@@ -130,6 +130,17 @@ record(
   arcadeSource.includes("sessionStorage") && partySource.includes("storedPartyNameDraft"),
   "Each tab must be its own guest, and an empty saved nick must not hide the host seed name.",
 );
+record(
+  partySource.includes("commitName") &&
+    partySource.includes("onBlur") &&
+    partySource.includes("committedNameRef") &&
+    !partySource.includes("setNameDraft(selfName)"),
+  "Name uniqueness must run on blur, not while typing, and must not eat the newest letter.",
+);
+record(
+  partySource.includes("chatShell") && partySource.includes("private-room-host-wait"),
+  "Chat toggle must sit on the chat box, and guest wait must use the Start slot.",
+);
 
 if (failures.length) {
   console.error(failures.join("\n"));

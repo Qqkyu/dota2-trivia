@@ -190,6 +190,8 @@ export function PrivateRoomPanel({
   const joinInputRef = useRef<HTMLInputElement | null>(null);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
   const nameRef = useRef("");
+  const committedNameRef = useRef("");
+  const nameFocusedRef = useRef(false);
   const trackedCode = room?.code;
   const shownName = partyNameInputValue({
     draft: nameDraft,
@@ -200,11 +202,15 @@ export function PrivateRoomPanel({
     nameRef.current = shownName;
   }, [shownName]);
 
+  const persistName = (value: string) => {
+    if (value.trim()) window.localStorage.setItem(PARTY_NAME_KEY, value);
+    else window.localStorage.removeItem(PARTY_NAME_KEY);
+  };
+
   const saveName = (value: string) => {
     const next = value.slice(0, PRIVATE_ROOM_NAME_MAX);
     setNameDraft(next);
-    if (next.trim()) window.localStorage.setItem(PARTY_NAME_KEY, next);
-    else window.localStorage.removeItem(PARTY_NAME_KEY);
+    persistName(next);
     setError(null);
     setErrorField(null);
   };
@@ -214,14 +220,7 @@ export function PrivateRoomPanel({
       const next = asRoomView(payload);
       if (!next) return null;
       const selfName = next.players.find((player) => player.self)?.name ?? "";
-      const typed = nameRef.current;
-      if (typed && typed.trim() && selfName && typed.trim().toLowerCase() !== selfName.toLowerCase()) {
-        setNameDraft(selfName);
-        setError("That name is taken.");
-        setErrorField("name");
-      } else {
-        setError(null);
-      }
+      if (selfName && !committedNameRef.current) committedNameRef.current = selfName;
       setRoom(next);
       onWaitingChange?.(next.waiting);
       if (next.waiting) setScreen("wait");
@@ -252,7 +251,7 @@ export function PrivateRoomPanel({
     if (!code) return undefined;
     const load = () =>
       requestRoom(
-        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(playerId())}&name=${encodeURIComponent(nameRef.current.trim())}`,
+        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(playerId())}&name=${encodeURIComponent(committedNameRef.current.trim())}`,
       ).catch((cause: Error) => {
         setError(cause.message);
         if (!trackedCode) setScreen("setup");
@@ -264,6 +263,29 @@ export function PrivateRoomPanel({
       window.clearInterval(timer);
     };
   }, [initialCode, playerId, requestRoom, trackedCode]);
+
+  const commitName = async () => {
+    nameFocusedRef.current = false;
+    const next = shownName.trim();
+    const current = committedNameRef.current.trim();
+    if (!trackedCode || !next || next.toLowerCase() === current.toLowerCase()) return;
+    try {
+      const payload = await requestRoom(
+        `/api/private-rooms?code=${encodeURIComponent(trackedCode)}&playerId=${encodeURIComponent(playerId())}&name=${encodeURIComponent(next)}`,
+      );
+      const selfName = payload?.players.find((player) => player.self)?.name ?? "";
+      if (selfName && selfName.toLowerCase() !== next.toLowerCase()) {
+        setError("That name is taken.");
+        setErrorField("name");
+        return;
+      }
+      committedNameRef.current = selfName || next;
+      persistName(committedNameRef.current);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Could not save that name.");
+      setErrorField("name");
+    }
+  };
 
   const toggleGame = (id: string) => {
     setSelected((current) => (current.includes(id) ? current.filter((game) => game !== id) : [...current, id]));
@@ -402,17 +424,20 @@ export function PrivateRoomPanel({
     };
   }, [leaveParty, playActive, screen, trackedCode]);
 
-  const chatToggle = (
-    <button
-      type="button"
-      className={styles.chatToggle}
-      data-testid="private-room-chat-toggle"
-      aria-pressed={chatOpen}
-      onClick={() => setChatOpen((open) => !open)}
-    >
-      {chatOpen ? "Hide chat" : "Chat"}
-    </button>
-  );
+  const chatPanel = room ? (
+    <div className={styles.chatShell} data-open={chatOpen ? "true" : "false"}>
+      <button
+        type="button"
+        className={styles.chatToggle}
+        data-testid="private-room-chat-toggle"
+        aria-pressed={chatOpen}
+        onClick={() => setChatOpen((open) => !open)}
+      >
+        {chatOpen ? "Hide chat" : "Chat"}
+      </button>
+      {chatOpen ? <ChatBox room={room} draft={draft} onDraft={setDraft} onSend={() => void sendMessage()} /> : null}
+    </div>
+  ) : null;
 
   if (playActive) {
     return room ? (
@@ -426,8 +451,7 @@ export function PrivateRoomPanel({
             </li>
           ))}
         </ol>
-        {chatToggle}
-        {chatOpen ? <ChatBox room={room} draft={draft} onDraft={setDraft} onSend={() => void sendMessage()} /> : null}
+        {chatPanel}
       </div>
     ) : null;
   }
@@ -501,6 +525,17 @@ export function PrivateRoomPanel({
                         aria-label="Your name"
                         data-testid="private-room-name"
                         onChange={(event) => saveName(event.currentTarget.value)}
+                        onFocus={() => {
+                          nameFocusedRef.current = true;
+                        }}
+                        onBlur={() => {
+                          void commitName();
+                        }}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter") {
+                            event.currentTarget.blur();
+                          }
+                        }}
                       />
                       <Pencil aria-hidden="true" data-testid="private-room-name-pen" />
                     </label>
@@ -523,15 +558,16 @@ export function PrivateRoomPanel({
               {busy === "start" ? "Starting…" : "Start"}
             </button>
           ) : (
-            <p className={styles.muted}>Waiting for host</p>
+            <p className={styles.startWait} data-testid="private-room-host-wait">
+              Waiting for {room.players.find((player) => player.host)?.name || "the host"} to start
+            </p>
           )}
           {error ? (
             <p className={styles.error} role="alert" data-testid="private-room-error">
               {error}
             </p>
           ) : null}
-          {chatToggle}
-          {chatOpen ? <ChatBox room={room} draft={draft} onDraft={setDraft} onSend={() => void sendMessage()} /> : null}
+          {chatPanel}
         </div>
       </section>
     );

@@ -143,6 +143,23 @@ record(
   steal?.players?.filter((player) => player.name.toLowerCase() === "loda").length === 1,
   "A player must not take a nickname that is already in the party.",
 );
+const copycat = touchPrivateRoom(created.code, idleHostAt + 2.2, {
+  playerId: "guest-player-77",
+  name: "Loda",
+});
+record(
+  copycat?.players?.filter((player) => player.name.toLowerCase() === "loda").length === 1 &&
+    copycat?.players?.some((player) => /^loda\d+$/i.test(player.name)),
+  "A new joiner cannot take the host nickname.",
+);
+const prefixOk = touchPrivateRoom(created.code, idleHostAt + 2.5, {
+  playerId: "guest-player-00",
+  name: "Lodas",
+});
+record(
+  prefixOk?.players?.some((player) => player.name === "Lodas"),
+  "A longer nickname that only starts like a taken name must still be allowed.",
+);
 const afterLeave = leavePrivateRoom(created.code, "guest-player-99", idleHostAt + 3);
 record(
   afterLeave?.players?.every((player) => player.name !== "Puppey"),
