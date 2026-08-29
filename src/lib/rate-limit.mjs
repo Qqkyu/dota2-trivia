@@ -12,6 +12,11 @@ function cleanupExpired(now) {
   }
 }
 
+/** Local Next and tests should not trip the production request cap. */
+export function rateLimitDisabled(env = process.env.NODE_ENV) {
+  return env !== "production";
+}
+
 /**
  * Small in-process guardrail for accidental loops and basic abuse. Production
  * deployments should additionally enforce an IP-level limit at their edge.

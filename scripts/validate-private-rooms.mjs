@@ -12,10 +12,12 @@ import {
   isPrivateRoomId,
   normalizePrivateRoomCode,
   partyCodeError,
+  partyNameError,
   PRIVATE_ROOM_MESSAGE_MAX,
   privateRoundTiming,
   resetPrivateRoomsForTests,
   startPrivateRoom,
+  touchPrivateRoom,
 } from "../src/lib/private-rooms.mjs";
 
 const failures = [];
@@ -37,6 +39,8 @@ record(
   "A short code should say the real length rule, not pretend the field is empty.",
 );
 record(partyCodeError("DAS") === null, "DAS is a valid party code.");
+record(partyNameError("") === "Type a name.", "Guests must type a name.");
+record(partyNameError("Loda") === null, "A short handle is a valid party name.");
 record(guestDisplayName("player-abcd") === "Guest-ABCD", "Guests need a short display name.");
 record(formatsForRoundGames(["flashback"]).join(",") === "flashback", "A Flashback-only room should schedule only Flashback.");
 record(formatsForRoundGames([]).length === PUBLIC_ROUND_FORMATS.length, "No ticked games should keep the full mix.");
@@ -55,19 +59,43 @@ try {
   record(/code/i.test(String(error.message)), "Create without a code must ask for a party code.");
 }
 
+try {
+  createPrivateRoom({
+    hostId: "host-player-1",
+    gameId: "dota2",
+    contentVersion: "test-version",
+    games: [],
+    code: "empty",
+    now,
+  });
+  record(false, "Create with no games must fail.");
+} catch (error) {
+  record(/game/i.test(String(error.message)), "Create with no games must ask for a game.");
+}
+
 const created = createPrivateRoom({
   hostId: "host-player-1",
   gameId: "dota2",
   contentVersion: "test-version",
   games: ["flashback"],
   code: "loda",
+  name: "Loda",
   now,
 });
 record(created.code === "LODA", "Create should keep the host's party code.");
+record(
+  created.players?.some((player) => player.name === "Loda" && player.host),
+  "The wait list must show the host by name.",
+);
 record(created.startedAt === null, "A new private room must wait for the host.");
 record(created.formats.join(",") === "flashback", "Create should store the selected formats.");
 record(isPrivateRoomId(created.roomId), "Private room IDs must not collide with the public room.");
 record(getPrivateRoom(created.code)?.code === created.code, "Created rooms must be readable by code.");
+const joined = touchPrivateRoom(created.code, now + 10, { playerId: "guest-player-99", name: "Puppey" });
+record(
+  joined?.players?.some((player) => player.name === "Puppey" && !player.host),
+  "Joiners must appear on the wait list by name.",
+);
 
 const stranger = startPrivateRoom(created.code, "other-player-1", now + 1_000);
 record(stranger.ok === false && stranger.reason === "forbidden", "Only the host can start the room.");

@@ -304,39 +304,66 @@ try {
           );
           process.exitCode = 1;
         } else {
+          const fill = async (testid, value) => {
+            await page.evaluate(`(() => {
+              const input = document.querySelector('[data-testid="${testid}"]');
+              const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+              setter.call(input, ${JSON.stringify(value)});
+              input.dispatchEvent(new Event("input", { bubbles: true }));
+            })()`);
+          };
+          const clickEnter = async () => {
+            await page.send("Input.dispatchMouseEvent", {
+              type: "mousePressed",
+              x: enterBox.x,
+              y: enterBox.y,
+              button: "left",
+              clickCount: 1,
+            });
+            await page.send("Input.dispatchMouseEvent", {
+              type: "mouseReleased",
+              x: enterBox.x,
+              y: enterBox.y,
+              button: "left",
+              clickCount: 1,
+            });
+          };
           await page.evaluate(`(() => {
-            const input = document.querySelector('[data-testid="private-room-join-code"]');
-            const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
-            setter.call(input, "DAS");
-            input.dispatchEvent(new Event("input", { bubbles: true }));
+            for (const card of document.querySelectorAll('[data-on="true"]')) card.click();
           })()`);
+          await fill("private-room-name", "Loda");
+          await fill("private-room-join-code", "NOCAT");
           await delay(100);
-          await page.send("Input.dispatchMouseEvent", {
-            type: "mousePressed",
-            x: enterBox.x,
-            y: enterBox.y,
-            button: "left",
-            clickCount: 1,
-          });
-          await page.send("Input.dispatchMouseEvent", {
-            type: "mouseReleased",
-            x: enterBox.x,
-            y: enterBox.y,
-            button: "left",
-            clickCount: 1,
-          });
+          await clickEnter();
+          await delay(250);
+          const noGames = await page.evaluate(`document.querySelector('[data-testid="private-room-error"]')?.textContent`);
+          if (!/pick at least one game/i.test(noGames ?? "")) {
+            console.error(`Zero games still entered a party (${noGames}).`);
+            process.exitCode = 1;
+          } else {
+          await page.evaluate(`document.querySelector('[data-testid="format-preview-stage-trivia"]')?.closest("button")?.click()`);
+          await fill("private-room-join-code", "DAS");
+          await delay(100);
+          await clickEnter();
           await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
+          const waitShots = await page.send("Page.captureScreenshot", { format: "png" });
+          await writeFile("/tmp/party-wait.png", Buffer.from(waitShots.data, "base64"));
           const entered = await page.evaluate(`({
             ticket: document.querySelector('[data-testid="private-room-code"]')?.textContent?.trim(),
             path: location.pathname + location.search,
+            players: [...document.querySelectorAll('[data-testid="private-room-players"] li')].map((row) => row.textContent),
           })`);
           if (entered.ticket !== "DAS" || entered.path !== "/play?room=DAS") {
             console.error(`Entering DAS opened ${entered.ticket ?? "no"} party at ${entered.path}.`);
+            process.exitCode = 1;
+          } else if (!entered.players.some((row) => /loda/i.test(row))) {
+            console.error(`Wait lobby has no names (${entered.players.join(" | ")}).`);
             process.exitCode = 1;
           } else {
             console.log(
               `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
             );
+          }
           }
         }
       }

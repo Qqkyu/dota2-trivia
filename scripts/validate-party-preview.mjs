@@ -59,11 +59,12 @@ record(
     !/data-testid="private-room-join"(?!-code)/.test(partySource),
   "Party setup must use one Enter action, not Create party plus Join.",
 );
+const setupSource = partySource.slice(partySource.indexOf("private-room-setup"));
 record(
   partySource.includes('data-testid="private-room-error"') &&
     partySource.includes("data-invalid") &&
-    partySource.indexOf("private-room-join-code") < partySource.indexOf("private-room-enter") &&
-    partySource.indexOf("private-room-enter") < partySource.indexOf("private-room-error"),
+    setupSource.indexOf("private-room-join-code") < setupSource.indexOf("private-room-enter") &&
+    setupSource.indexOf("private-room-enter") < setupSource.indexOf("private-room-error"),
   "Code errors must sit on the code field under the games, not above a Create party button.",
 );
 record(
@@ -73,6 +74,12 @@ record(
     /\bEnter\b/.test(partySource) &&
     partySource.includes("Entering"),
   "Enter must keep both idle and busy labels stacked so the button width does not jump.",
+);
+record(
+  partySource.includes('data-testid="private-room-name"') &&
+    partySource.includes('data-testid="private-room-players"') &&
+    !partySource.includes("styles.ticket"),
+  "Party wait must list player names instead of a giant code plaque.",
 );
 
 if (failures.length) {

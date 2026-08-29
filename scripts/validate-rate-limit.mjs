@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { consumeRateLimit } from "../src/lib/rate-limit.mjs";
+import { consumeRateLimit, rateLimitDisabled } from "../src/lib/rate-limit.mjs";
 
 const scope = `validation-${Date.now()}`;
 const first = consumeRateLimit({ scope, key: "player-a", limit: 2, windowMs: 1_000, now: 10_000 });
@@ -19,6 +19,10 @@ if (
   reset.remaining !== 1
 ) {
   throw new Error("The API rate-limit guardrail no longer isolates, blocks, or resets buckets correctly.");
+}
+
+if (rateLimitDisabled("production") || !rateLimitDisabled("development") || !rateLimitDisabled("test")) {
+  throw new Error("Local and test servers must not trip the production request cap.");
 }
 
 console.log("Validated fixed-window API rate-limit guardrails.");

@@ -5,7 +5,13 @@ import { ArrowLeft, Copy, Users } from "lucide-react";
 import clsx from "clsx";
 import type { FormatPreview } from "@/components/format-look";
 import { FormatPreviewCard, formatPreviewCardStyles } from "@/components/format-preview-card";
-import { PRIVATE_ROOM_CODE_ALPHABET, PRIVATE_ROOM_CODE_MAX, partyCodeError } from "@/lib/private-rooms.mjs";
+import {
+  PRIVATE_ROOM_CODE_ALPHABET,
+  PRIVATE_ROOM_CODE_MAX,
+  PRIVATE_ROOM_NAME_MAX,
+  partyCodeError,
+  partyNameError,
+} from "@/lib/private-rooms.mjs";
 import styles from "./private-room-panel.module.css";
 
 export interface PrivateChatMessage {
@@ -15,12 +21,19 @@ export interface PrivateChatMessage {
   at: number;
 }
 
+export interface PrivateRoomPlayer {
+  name: string;
+  host: boolean;
+  self: boolean;
+}
+
 export interface PrivateRoomView {
   code: string;
   games: string[];
   formats: string[];
   startedAt: number | null;
   isHost: boolean;
+  players: PrivateRoomPlayer[];
   messages: PrivateChatMessage[];
   waiting: boolean;
   activePlayers: number;
@@ -42,6 +55,7 @@ interface PrivateRoomPayload {
     formats: string[];
     startedAt: number | null;
     isHost: boolean;
+    players?: PrivateRoomPlayer[];
     messages: PrivateChatMessage[];
   };
   presence?: { activePlayers?: number };
@@ -57,6 +71,13 @@ function asRoomView(payload: PrivateRoomPayload | null): PrivateRoomView | null 
     formats: Array.isArray(room.formats) ? room.formats : [],
     startedAt: typeof room.startedAt === "number" ? room.startedAt : null,
     isHost: Boolean(room.isHost),
+    players: Array.isArray(room.players)
+      ? room.players.map((player) => ({
+          name: player.name,
+          host: Boolean(player.host),
+          self: Boolean(player.self),
+        }))
+      : [],
     messages: Array.isArray(room.messages) ? room.messages : [],
     waiting: payload?.waiting !== false && room.startedAt == null,
     activePlayers: Number(payload?.presence?.activePlayers) || 0,
@@ -122,10 +143,13 @@ function ChatBox({
   );
 }
 
+const PARTY_NAME_KEY = "queue-arcade:party-name";
+
 export function PrivateRoomPanel({
   gameOptions,
   playerId,
   displayName,
+  requireName = false,
   initialCode,
   playActive,
   onStarted,
@@ -135,6 +159,7 @@ export function PrivateRoomPanel({
   gameOptions: PartyGameOption[];
   playerId: () => string;
   displayName: string;
+  requireName?: boolean;
   initialCode?: string;
   playActive: boolean;
   onStarted: (code: string) => void;
@@ -144,15 +169,29 @@ export function PrivateRoomPanel({
   const [screen, setScreen] = useState<PartyScreen>(initialCode ? "wait" : "setup");
   const [selected, setSelected] = useState<string[]>(() => gameOptions.map((game) => game.id));
   const [joinCode, setJoinCode] = useState(() => filterCode(initialCode ?? ""));
+  const [partyName, setPartyName] = useState(() => {
+    if (typeof window === "undefined") return "";
+    return window.localStorage.getItem(PARTY_NAME_KEY)?.slice(0, PRIVATE_ROOM_NAME_MAX) ?? "";
+  });
   const [room, setRoom] = useState<PrivateRoomView | null>(null);
   const [draft, setDraft] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [errorField, setErrorField] = useState<"code" | "games" | null>(null);
+  const [errorField, setErrorField] = useState<"code" | "name" | "games" | null>(null);
   const [busy, setBusy] = useState<"enter" | "start" | null>(null);
   const [copied, setCopied] = useState(false);
   const startedRef = useRef(false);
   const joinInputRef = useRef<HTMLInputElement | null>(null);
+  const nameInputRef = useRef<HTMLInputElement | null>(null);
   const trackedCode = room?.code;
+  const shownName = partyName || displayName;
+
+  const saveName = (value: string) => {
+    const next = value.slice(0, PRIVATE_ROOM_NAME_MAX);
+    setPartyName(next);
+    window.localStorage.setItem(PARTY_NAME_KEY, next);
+    setError(null);
+    setErrorField(null);
+  };
 
   const applyPayload = useCallback(
     (payload: PrivateRoomPayload) => {
@@ -189,7 +228,7 @@ export function PrivateRoomPanel({
     if (!code) return undefined;
     const load = () =>
       requestRoom(
-        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(playerId())}`,
+        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(playerId())}&name=${encodeURIComponent(shownName.trim())}`,
       ).catch((cause: Error) => {
         setError(cause.message);
         if (!trackedCode) setScreen("setup");
@@ -200,7 +239,7 @@ export function PrivateRoomPanel({
       window.clearTimeout(start);
       window.clearInterval(timer);
     };
-  }, [initialCode, playerId, requestRoom, trackedCode]);
+  }, [initialCode, playerId, requestRoom, shownName, trackedCode]);
 
   const toggleGame = (id: string) => {
     setSelected((current) => (current.includes(id) ? current.filter((game) => game !== id) : [...current, id]));
@@ -214,6 +253,14 @@ export function PrivateRoomPanel({
       joinInputRef.current?.focus();
       return;
     }
+    const name = (requireName ? partyName : shownName).trim();
+    const nameHint = partyNameError(name);
+    if (nameHint) {
+      setError(nameHint);
+      setErrorField("name");
+      nameInputRef.current?.focus();
+      return;
+    }
     const code = filterCode(joinCode);
     setBusy("enter");
     setError(null);
@@ -221,7 +268,7 @@ export function PrivateRoomPanel({
     try {
       const player = playerId();
       const existing = await fetch(
-        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(player)}`,
+        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(player)}&name=${encodeURIComponent(name)}`,
       );
       const existingPayload = (await existing.json()) as PrivateRoomPayload;
       if (existing.ok) {
@@ -238,7 +285,7 @@ export function PrivateRoomPanel({
       const created = await fetch("/api/private-rooms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ playerId: player, games: selected, code }),
+        body: JSON.stringify({ playerId: player, games: selected, code, name }),
       });
       const createdPayload = (await created.json()) as PrivateRoomPayload;
       if (created.ok) {
@@ -247,7 +294,7 @@ export function PrivateRoomPanel({
         return;
       }
       const retry = await fetch(
-        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(player)}`,
+        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(player)}&name=${encodeURIComponent(name)}`,
       );
       const retryPayload = (await retry.json()) as PrivateRoomPayload;
       if (retry.ok) {
@@ -286,7 +333,12 @@ export function PrivateRoomPanel({
     try {
       await requestRoom("/api/private-rooms/messages", {
         method: "POST",
-        body: JSON.stringify({ code: room.code, playerId: playerId(), name: displayName, text }),
+        body: JSON.stringify({
+          code: room.code,
+          playerId: playerId(),
+          name: shownName.trim(),
+          text,
+        }),
       });
     } catch (cause) {
       setDraft(text);
@@ -328,40 +380,67 @@ export function PrivateRoomPanel({
         </section>
       );
     }
+    const roster = room.players.length
+      ? room.players
+      : [{ name: shownName.trim() || "You", host: room.isHost, self: true }];
     return (
       <section className={styles.view} data-testid="private-room-wait">
         {back}
-        <div className={styles.waitGrid}>
+        <div className={styles.lobby}>
+          <header className={styles.lobbyHead}>
+            <div>
+              <small>Party code</small>
+              <strong data-testid="private-room-code">{room.code}</strong>
+            </div>
+            <button type="button" className={styles.ghost} onClick={() => void copyLink()}>
+              <Copy />
+              {copied ? "Copied" : "Copy link"}
+            </button>
+          </header>
           <div>
-            <div className={styles.ticket} data-testid="private-room-code">
-              {room.code}
-            </div>
-            <div className={styles.waitMeta}>
-              <span>
-                <Users />
-                {room.activePlayers || 1}
-              </span>
-            </div>
-            <div className={styles.waitActions}>
-              <button type="button" className={styles.ghost} onClick={() => void copyLink()}>
-                <Copy />
-                {copied ? "Copied" : "Copy link"}
-              </button>
-              {room.isHost ? (
-                <button
-                  type="button"
-                  className={styles.primary}
-                  data-testid="private-room-start"
-                  onClick={() => void startRoom()}
-                >
-                  {busy === "start" ? "Starting…" : "Start"}
-                </button>
-              ) : (
-                <p className={styles.muted}>Waiting for host</p>
-              )}
-            </div>
-            {error ? <p className={styles.error}>{error}</p> : null}
+            <p className={styles.sectionLabel}>
+              <Users />
+              Players
+            </p>
+            <ul className={styles.players} data-testid="private-room-players">
+              {roster.map((player, index) => (
+                <li key={`${player.name}-${index}`} data-host={player.host} data-self={player.self}>
+                  <strong>{player.name}</strong>
+                  <span>{player.host ? "Host" : player.self ? "You" : ""}</span>
+                </li>
+              ))}
+            </ul>
           </div>
+          <label className={styles.nameField}>
+            <span>Your name</span>
+            <input
+              ref={nameInputRef}
+              className={styles.nameInput}
+              value={shownName}
+              maxLength={PRIVATE_ROOM_NAME_MAX}
+              placeholder="YOUR NAME"
+              aria-label="Your name"
+              data-testid="private-room-name"
+              onChange={(event) => saveName(event.currentTarget.value)}
+            />
+          </label>
+          {room.isHost ? (
+            <button
+              type="button"
+              className={styles.primary}
+              data-testid="private-room-start"
+              onClick={() => void startRoom()}
+            >
+              {busy === "start" ? "Starting…" : "Start"}
+            </button>
+          ) : (
+            <p className={styles.muted}>Waiting for host</p>
+          )}
+          {error ? (
+            <p className={styles.error} role="alert" data-testid="private-room-error">
+              {error}
+            </p>
+          ) : null}
           <ChatBox room={room} draft={draft} onDraft={setDraft} onSend={() => void sendMessage()} />
         </div>
       </section>
@@ -371,7 +450,12 @@ export function PrivateRoomPanel({
   return (
     <section className={styles.view} data-testid="private-room-setup">
       {back}
-      <div className={clsx(formatPreviewCardStyles.cardGrid, styles.games)} role="group" aria-label="Games">
+      <div
+        className={clsx(formatPreviewCardStyles.cardGrid, styles.games)}
+        role="group"
+        aria-label="Games"
+        data-invalid={errorField === "games" ? "true" : undefined}
+      >
         {gameOptions.map((game) => {
           const on = selected.includes(game.id);
           return (
@@ -391,6 +475,25 @@ export function PrivateRoomPanel({
         })}
       </div>
       <div className={styles.enter}>
+        <div className={styles.joinRow}>
+          <input
+            ref={nameInputRef}
+            className={styles.nameInput}
+            value={shownName}
+            maxLength={PRIVATE_ROOM_NAME_MAX}
+            placeholder="YOUR NAME"
+            autoComplete="nickname"
+            spellCheck={false}
+            aria-invalid={errorField === "name"}
+            data-invalid={errorField === "name" ? "true" : undefined}
+            aria-label="Your name"
+            data-testid="private-room-name"
+            onChange={(event) => saveName(event.currentTarget.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") joinInputRef.current?.focus();
+            }}
+          />
+        </div>
         <div className={styles.joinRow}>
           <input
             ref={joinInputRef}

@@ -4371,7 +4371,8 @@ export function QueueArcade({
             preview: formatPreviews[game] ?? null,
           }))}
           playerId={ensurePlayerId}
-          displayName={account?.authenticated ? account.profile.user.displayName : "Guest"}
+          displayName={account?.authenticated ? account.profile.user.displayName : ""}
+          requireName={!account?.authenticated}
           initialCode={roomCode || activePrivateCode || undefined}
           playActive={false}
           onWaitingChange={(waiting) => {
@@ -5430,7 +5431,8 @@ export function QueueArcade({
             preview: formatPreviews[game] ?? null,
           }))}
           playerId={ensurePlayerId}
-          displayName={account?.authenticated ? account.profile.user.displayName : "Guest"}
+          displayName={account?.authenticated ? account.profile.user.displayName : ""}
+          requireName={!account?.authenticated}
           initialCode={activePrivateCode}
           playActive
           onStarted={() => undefined}

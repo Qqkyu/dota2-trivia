@@ -21,7 +21,8 @@ export async function GET(request: NextRequest) {
     const rateLimited = rateLimitRequest(request, "private-rooms-read", identity.playerId, 120);
     if (rateLimited) return rateLimited;
     const now = Date.now();
-    const record = touchPrivateRoom(code, now);
+    const name = new URL(request.url).searchParams.get("name");
+    const record = touchPrivateRoom(code, now, { playerId: identity.playerId, name: name || identity.name });
     if (!record) return NextResponse.json({ error: "Unknown private room." }, { status: 404 });
     touchRoomPresence(record.roomId, identity.playerId, now);
     return NextResponse.json(privateRoomClientPayload(record, identity.playerId, now), {
@@ -57,8 +58,8 @@ export async function POST(request: NextRequest) {
       gameId: catalog.id,
       contentVersion: catalog.contentVersion,
       games: candidate.games,
-      formats: candidate.formats,
       code: candidate.code,
+      name: typeof candidate.name === "string" ? candidate.name : identity.name,
       now,
     });
     touchRoomPresence(record.roomId, identity.playerId, now);
@@ -66,6 +67,14 @@ export async function POST(request: NextRequest) {
       headers: { "Cache-Control": "no-store" },
     });
   } catch (error) {
+    const message = error instanceof Error ? error.message : "Could not create a private room.";
+    if (
+      message === "Pick at least one game." ||
+      message === "Pick a party code." ||
+      message === "That code is taken."
+    ) {
+      return NextResponse.json({ error: message }, { status: 400 });
+    }
     logServerError("private-rooms.create", error);
     return NextResponse.json({ error: "Could not create a private room." }, { status: 400 });
   }

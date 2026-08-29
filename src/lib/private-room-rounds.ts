@@ -87,6 +87,13 @@ export function privateRoomClientPayload(
       formats: record.formats,
       startedAt: record.startedAt,
       isHost: record.hostId === playerId,
+      players: Array.isArray(record.players)
+        ? record.players.map((player) => ({
+            name: player.name,
+            host: Boolean(player.host),
+            self: Boolean(player.self) || (player.host && record.hostId === playerId),
+          }))
+        : [],
       messages: record.messages,
     },
     room: {

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { consumeRateLimit } from "@/lib/rate-limit.mjs";
+import { consumeRateLimit, rateLimitDisabled } from "@/lib/rate-limit.mjs";
 import { anonymousVoterHash } from "@/lib/voter-hash";
 
 function clientAddress(request: Request) {
@@ -10,6 +10,7 @@ function clientAddress(request: Request) {
 }
 
 export function rateLimitRequest(request: Request, scope: string, identity: string, limit: number) {
+  if (rateLimitDisabled()) return null;
   const key = anonymousVoterHash(`rate-limit:${scope}`, `${clientAddress(request)}:${identity}`);
   const result = consumeRateLimit({ scope, key, limit });
   if (result.allowed) return null;

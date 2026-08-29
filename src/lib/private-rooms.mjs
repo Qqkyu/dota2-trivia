@@ -32,6 +32,11 @@ export function partyCodeError(value) {
   return null;
 }
 
+export function partyNameError(value) {
+  if (typeof value !== "string" || !sanitizeLine(value, PRIVATE_ROOM_NAME_MAX)) return "Type a name.";
+  return null;
+}
+
 export function privateRoomId(gameId, contentVersion, code) {
   return `${gameId}:${contentVersion}:private:${code}`;
 }
@@ -75,7 +80,7 @@ export function privateRoundTiming(startedAt, now, answerMs = 15_000, revealMs =
   };
 }
 
-function publicView(record) {
+function publicView(record, viewerId) {
   return {
     code: record.code,
     roomId: record.roomId,
@@ -87,6 +92,11 @@ function publicView(record) {
     createdAt: record.createdAt,
     startedAt: record.startedAt,
     lastSeenAt: record.lastSeenAt,
+    players: (record.members ?? []).map((member) => ({
+      name: member.name,
+      host: member.playerId === record.hostId,
+      self: Boolean(viewerId) && member.playerId === viewerId,
+    })),
     messages: record.messages.map((message) => ({
       id: message.id,
       name: message.name,
@@ -96,25 +106,38 @@ function publicView(record) {
   };
 }
 
+function upsertMember(record, playerId, name, now) {
+  if (!record.members) record.members = [];
+  const cleaned = sanitizeLine(name, PRIVATE_ROOM_NAME_MAX) || guestDisplayName(playerId);
+  const existing = record.members.find((member) => member.playerId === playerId);
+  if (existing) {
+    existing.name = cleaned;
+    existing.lastSeenAt = now;
+    return;
+  }
+  record.members.push({ playerId, name: cleaned, lastSeenAt: now });
+}
+
 export function expireIdlePrivateRooms(now = Date.now()) {
   for (const [code, record] of rooms) {
     if (now >= record.lastSeenAt && now - record.lastSeenAt >= PRIVATE_ROOM_IDLE_MS) rooms.delete(code);
   }
 }
 
-export function getPrivateRoom(code, now = Date.now()) {
+export function getPrivateRoom(code, now = Date.now(), viewerId) {
   expireIdlePrivateRooms(now);
   const normalized = normalizePrivateRoomCode(code);
   if (!normalized) return null;
   const record = rooms.get(normalized);
-  return record ? publicView(record) : null;
+  return record ? publicView(record, viewerId) : null;
 }
 
-export function touchPrivateRoom(code, now = Date.now()) {
+export function touchPrivateRoom(code, now = Date.now(), identity) {
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
   if (!record) return null;
   record.lastSeenAt = now;
-  return publicView(record);
+  if (identity?.playerId) upsertMember(record, identity.playerId, identity.name, now);
+  return publicView(record, identity?.playerId);
 }
 
 export function createPrivateRoom({
@@ -122,8 +145,8 @@ export function createPrivateRoom({
   gameId,
   contentVersion,
   games,
-  formats,
   code: requestedCode,
+  name,
   now = Date.now(),
 }) {
   if (typeof hostId !== "string" || hostId.length < 8 || hostId.length > 80) {
@@ -135,8 +158,8 @@ export function createPrivateRoom({
 
   expireIdlePrivateRooms(now);
   const selectedGames = normalizePrivateGames(games);
-  const selectedFormats =
-    selectedGames.length > 0 ? formatsForRoundGames(selectedGames) : normalizePrivateFormats(formats);
+  if (selectedGames.length === 0) throw new Error("Pick at least one game.");
+  const selectedFormats = formatsForRoundGames(selectedGames);
   const code = normalizePrivateRoomCode(requestedCode);
   if (!code) throw new Error("Pick a party code.");
   if (rooms.has(code)) throw new Error("That code is taken.");
@@ -152,11 +175,13 @@ export function createPrivateRoom({
     createdAt: now,
     startedAt: null,
     lastSeenAt: now,
+    members: [],
     messages: [],
     nextMessageId: 1,
   };
+  upsertMember(record, hostId, name, now);
   rooms.set(code, record);
-  return publicView(record);
+  return publicView(record, hostId);
 }
 
 export function startPrivateRoom(code, playerId, now = Date.now()) {
