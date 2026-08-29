@@ -46,10 +46,25 @@ record(
 );
 record(/\.previewStage \{[\s\S]*?height:\s*132px/.test(profileCss), "Profile preview crop is no longer 132px.");
 
+const idleCard = partyCss.match(/\.gameCard \{([\s\S]*?)\}/)?.[1] ?? "";
 const selected = partyCss.match(/\.gameCard\[data-on="true"\] \{([\s\S]*?)\}/)?.[1] ?? "";
 record(
-  /border:\s*2px solid\s*#c4a46a/.test(selected),
-  "Selected game cards still use a faint border. Use a solid 2px gold edge.",
+  /border:\s*2px solid/.test(idleCard) && /border:\s*2px solid\s*#c4a46a/.test(selected),
+  "Idle and selected game cards must both use a 2px border so the card does not shift.",
+);
+record(
+  partySource.includes('data-testid="private-room-enter"') &&
+    !partySource.includes("Create party") &&
+    !/data-testid="private-room-create"/.test(partySource) &&
+    !/data-testid="private-room-join"(?!-code)/.test(partySource),
+  "Party setup must use one Enter action, not Create party plus Join.",
+);
+record(
+  partySource.includes('data-testid="private-room-error"') &&
+    partySource.includes("data-invalid") &&
+    partySource.indexOf("private-room-join-code") < partySource.indexOf("private-room-enter") &&
+    partySource.indexOf("private-room-enter") < partySource.indexOf("private-room-error"),
+  "Code errors must sit on the code field under the games, not above a Create party button.",
 );
 
 if (failures.length) {

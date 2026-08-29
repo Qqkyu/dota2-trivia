@@ -11,6 +11,7 @@ import {
   guestDisplayName,
   isPrivateRoomId,
   normalizePrivateRoomCode,
+  partyCodeError,
   PRIVATE_ROOM_MESSAGE_MAX,
   privateRoundTiming,
   resetPrivateRoomsForTests,
@@ -26,9 +27,16 @@ resetPrivateRoomsForTests();
 
 record(normalizePrivateRoomCode("k7q2") === "K7Q2", "Private room codes should keep a short code.");
 record(normalizePrivateRoomCode("loda") === "LODA", "Party codes must allow letters like LODA.");
+record(normalizePrivateRoomCode("das") === "DAS", "Party codes must allow a 3-letter name like DAS.");
 record(normalizePrivateRoomCode("gigachad") === "GIGACHAD", "Party codes must allow a longer fun name.");
-record(normalizePrivateRoomCode("NO") === null, "Codes shorter than 4 characters must be rejected.");
+record(normalizePrivateRoomCode("NO") === null, "Codes shorter than 3 characters must be rejected.");
 record(normalizePrivateRoomCode("a".repeat(17)) === null, "Codes longer than 16 characters must be rejected.");
+record(partyCodeError("") === "Type a party code.", "An empty field should ask for a code.");
+record(
+  partyCodeError("DA") === "Use 3-16 letters or numbers.",
+  "A short code should say the real length rule, not pretend the field is empty.",
+);
+record(partyCodeError("DAS") === null, "DAS is a valid party code.");
 record(guestDisplayName("player-abcd") === "Guest-ABCD", "Guests need a short display name.");
 record(formatsForRoundGames(["flashback"]).join(",") === "flashback", "A Flashback-only room should schedule only Flashback.");
 record(formatsForRoundGames([]).length === PUBLIC_ROUND_FORMATS.length, "No ticked games should keep the full mix.");

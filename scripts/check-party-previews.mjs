@@ -196,20 +196,21 @@ try {
     process.exitCode = 1;
   } else {
     const controls = await page.evaluate(`(() => ({
-      create: Boolean(document.querySelector('[data-testid="private-room-create"]')),
+      enter: Boolean(document.querySelector('[data-testid="private-room-enter"]')),
       join: Boolean(document.querySelector('[data-testid="private-room-join"]')),
+      create: Boolean(document.querySelector('[data-testid="private-room-create"]')),
       code: Boolean(document.querySelector('[data-testid="private-room-join-code"]')),
       selected: document.querySelectorAll('[data-on="true"]').length,
     }))()`);
-    if (!controls.create || !controls.join || !controls.code) {
-      console.error("Party setup is missing create, join, or the code field.");
+    if (!controls.enter || !controls.code || controls.join || controls.create) {
+      console.error("Party setup must keep one Enter action next to the code field.");
       process.exitCode = 1;
     } else {
       const firstCard = await page.evaluate(`(() => {
         const node = document.querySelector('[data-testid="format-preview-stage-trivia"]')?.closest("button");
         if (!node) return null;
         const rect = node.getBoundingClientRect();
-        return { x: rect.x + rect.width / 2, y: rect.y + 24 };
+        return { x: rect.x + rect.width / 2, y: rect.y + 24, h: Math.round(rect.height) };
       })()`);
       if (!firstCard) throw new Error("Classic Trivia party card is missing.");
       await page.send("Input.dispatchMouseEvent", {
@@ -227,16 +228,100 @@ try {
         clickCount: 1,
       });
       await delay(200);
-      const afterToggle = await page.evaluate(
-        `document.querySelector('[data-testid="format-preview-stage-trivia"]')?.closest("button")?.getAttribute("data-on")`,
-      );
-      if (afterToggle !== "false") {
-        console.error(`Classic Trivia stayed selected after click (data-on=${afterToggle}).`);
+      const afterToggle = await page.evaluate(`(() => {
+        const node = document.querySelector('[data-testid="format-preview-stage-trivia"]')?.closest("button");
+        const rect = node?.getBoundingClientRect();
+        return {
+          on: node?.getAttribute("data-on"),
+          h: rect ? Math.round(rect.height) : 0,
+        };
+      })()`);
+      if (afterToggle.on !== "false") {
+        console.error(`Classic Trivia stayed selected after click (data-on=${afterToggle.on}).`);
+        process.exitCode = 1;
+      } else if (afterToggle.h !== firstCard.h) {
+        console.error(`Selecting a game shifted the card from ${firstCard.h}px to ${afterToggle.h}px.`);
         process.exitCode = 1;
       } else {
-        console.log(
-          `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
-        );
+        const enterBox = await page.evaluate(`(() => {
+          const node = document.querySelector('[data-testid="private-room-enter"]');
+          if (!node) return null;
+          const rect = node.getBoundingClientRect();
+          return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+        })()`);
+        await page.send("Input.dispatchMouseEvent", {
+          type: "mousePressed",
+          x: enterBox.x,
+          y: enterBox.y,
+          button: "left",
+          clickCount: 1,
+        });
+        await page.send("Input.dispatchMouseEvent", {
+          type: "mouseReleased",
+          x: enterBox.x,
+          y: enterBox.y,
+          button: "left",
+          clickCount: 1,
+        });
+        await delay(200);
+        const emptyEnter = await page.evaluate(`(() => {
+          const input = document.querySelector('[data-testid="private-room-join-code"]');
+          const error = document.querySelector('[data-testid="private-room-error"]');
+          if (!input || !error) return { ok: false, reason: "missing" };
+          const inputBox = input.getBoundingClientRect();
+          const errorBox = error.getBoundingClientRect();
+          return {
+            ok:
+              document.activeElement === input &&
+              input.getAttribute("data-invalid") === "true" &&
+              errorBox.top + 1 >= inputBox.bottom &&
+              /type a party code/i.test(error.textContent ?? ""),
+            focused: document.activeElement === input,
+            invalid: input.getAttribute("data-invalid"),
+            error: error.textContent,
+            gap: Math.round(errorBox.top - inputBox.bottom),
+          };
+        })()`);
+        if (!emptyEnter.ok) {
+          console.error(
+            `Empty Enter did not highlight the code field (${JSON.stringify(emptyEnter)}).`,
+          );
+          process.exitCode = 1;
+        } else {
+          await page.evaluate(`(() => {
+            const input = document.querySelector('[data-testid="private-room-join-code"]');
+            const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+            setter.call(input, "DAS");
+            input.dispatchEvent(new Event("input", { bubbles: true }));
+          })()`);
+          await delay(100);
+          await page.send("Input.dispatchMouseEvent", {
+            type: "mousePressed",
+            x: enterBox.x,
+            y: enterBox.y,
+            button: "left",
+            clickCount: 1,
+          });
+          await page.send("Input.dispatchMouseEvent", {
+            type: "mouseReleased",
+            x: enterBox.x,
+            y: enterBox.y,
+            button: "left",
+            clickCount: 1,
+          });
+          await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
+          const ticket = await page.evaluate(
+            `document.querySelector('[data-testid="private-room-code"]')?.textContent?.trim()`,
+          );
+          if (ticket !== "DAS") {
+            console.error(`Entering DAS opened ${ticket ?? "no"} party.`);
+            process.exitCode = 1;
+          } else {
+            console.log(
+              `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
+            );
+          }
+        }
       }
     }
   }

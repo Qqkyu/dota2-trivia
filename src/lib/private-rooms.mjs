@@ -1,6 +1,6 @@
 import { formatsForRoundGames, isLiveRoundGame, isPublicRoundFormat, PUBLIC_ROUND_FORMATS } from "./arcade-games.mjs";
 
-export const PRIVATE_ROOM_CODE_MIN = 4;
+export const PRIVATE_ROOM_CODE_MIN = 3;
 export const PRIVATE_ROOM_CODE_MAX = 16;
 export const PRIVATE_ROOM_CODE_LENGTH = PRIVATE_ROOM_CODE_MAX;
 export const PRIVATE_ROOM_CODE_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -22,6 +22,14 @@ export function normalizePrivateRoomCode(value) {
   if (code.length < PRIVATE_ROOM_CODE_MIN || code.length > PRIVATE_ROOM_CODE_MAX) return null;
   if ([...code].some((character) => !PRIVATE_ROOM_CODE_ALPHABET.includes(character))) return null;
   return code;
+}
+
+export function partyCodeError(value) {
+  if (typeof value !== "string" || !value.trim()) return "Type a party code.";
+  if (!normalizePrivateRoomCode(value)) {
+    return `Use ${PRIVATE_ROOM_CODE_MIN}-${PRIVATE_ROOM_CODE_MAX} letters or numbers.`;
+  }
+  return null;
 }
 
 export function privateRoomId(gameId, contentVersion, code) {

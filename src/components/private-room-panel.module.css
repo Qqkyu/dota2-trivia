@@ -35,6 +35,7 @@
   display: block;
   width: 100%;
   padding: 0;
+  border: 2px solid #292e2d;
   color: inherit;
   text-align: left;
   cursor: pointer;
@@ -79,13 +80,18 @@
   height: 14px;
 }
 
+.enter {
+  display: grid;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(210, 214, 207, 0.1);
+}
+
 .joinRow {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
-  padding-top: 8px;
-  border-top: 1px solid rgba(210, 214, 207, 0.1);
 }
 
 .codeInput {
@@ -113,6 +119,17 @@
   outline: none;
   box-shadow:
     inset 0 0 0 1px rgba(196, 164, 106, 0.28),
+    inset 0 1px 0 rgba(0, 0, 0, 0.45);
+}
+
+.codeInput[data-invalid="true"] {
+  border-color: #f06a58;
+}
+
+.codeInput[data-invalid="true"]:focus {
+  border-color: #f06a58;
+  box-shadow:
+    inset 0 0 0 1px rgba(240, 106, 88, 0.28),
     inset 0 1px 0 rgba(0, 0, 0, 0.45);
 }
 

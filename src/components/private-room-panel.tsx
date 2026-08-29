@@ -5,7 +5,7 @@ import { ArrowLeft, Copy, Users } from "lucide-react";
 import clsx from "clsx";
 import type { FormatPreview } from "@/components/format-look";
 import { FormatPreviewCard, formatPreviewCardStyles } from "@/components/format-preview-card";
-import { PRIVATE_ROOM_CODE_ALPHABET, PRIVATE_ROOM_CODE_MAX, PRIVATE_ROOM_CODE_MIN } from "@/lib/private-rooms.mjs";
+import { PRIVATE_ROOM_CODE_ALPHABET, PRIVATE_ROOM_CODE_MAX, partyCodeError } from "@/lib/private-rooms.mjs";
 import styles from "./private-room-panel.module.css";
 
 export interface PrivateChatMessage {
@@ -147,7 +147,8 @@ export function PrivateRoomPanel({
   const [room, setRoom] = useState<PrivateRoomView | null>(null);
   const [draft, setDraft] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [busy, setBusy] = useState<"create" | "join" | "start" | null>(null);
+  const [errorField, setErrorField] = useState<"code" | "games" | null>(null);
+  const [busy, setBusy] = useState<"enter" | "start" | null>(null);
   const [copied, setCopied] = useState(false);
   const startedRef = useRef(false);
   const joinInputRef = useRef<HTMLInputElement | null>(null);
@@ -205,52 +206,58 @@ export function PrivateRoomPanel({
     setSelected((current) => (current.includes(id) ? current.filter((game) => game !== id) : [...current, id]));
   };
 
-  const createRoom = async () => {
-    if (!selected.length) {
-      setError("Pick at least one game.");
-      return;
-    }
-    const code = filterCode(joinCode);
-    if (code.length < PRIVATE_ROOM_CODE_MIN) {
-      setError("Type a party code first.");
+  const enterRoom = async () => {
+    const hint = partyCodeError(joinCode);
+    if (hint) {
+      setError(hint);
+      setErrorField("code");
       joinInputRef.current?.focus();
       return;
     }
-    setBusy("create");
-    setError(null);
-    try {
-      const next = await requestRoom("/api/private-rooms", {
-        method: "POST",
-        body: JSON.stringify({ playerId: playerId(), games: selected, code }),
-      });
-      if (next) {
-        window.history.pushState({ queueArcadeView: "play", privateRoom: next.code }, "", `/play?room=${next.code}`);
-      }
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Could not create a party.");
-    } finally {
-      setBusy(null);
-    }
-  };
-
-  const joinRoom = async () => {
     const code = filterCode(joinCode);
-    if (code.length < PRIVATE_ROOM_CODE_MIN) {
-      setError("Type a party code.");
-      joinInputRef.current?.focus();
-      return;
-    }
-    setBusy("join");
+    setBusy("enter");
     setError(null);
+    setErrorField(null);
     try {
-      const next = await requestRoom(
-        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(playerId())}`,
+      const player = playerId();
+      const existing = await fetch(
+        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(player)}`,
       );
-      if (next) {
-        window.history.pushState({ queueArcadeView: "play", privateRoom: next.code }, "", `/play?room=${next.code}`);
+      const existingPayload = (await existing.json()) as PrivateRoomPayload;
+      if (existing.ok) {
+        applyPayload(existingPayload);
+        window.history.pushState({ queueArcadeView: "play", privateRoom: code }, "", `/play?room=${code}`);
+        return;
       }
+      if (existing.status !== 404) throw new Error(existingPayload.error ?? "Could not enter that party.");
+      if (!selected.length) {
+        setError("Pick at least one game.");
+        setErrorField("games");
+        return;
+      }
+      const created = await fetch("/api/private-rooms", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ playerId: player, games: selected, code }),
+      });
+      const createdPayload = (await created.json()) as PrivateRoomPayload;
+      if (created.ok) {
+        applyPayload(createdPayload);
+        window.history.pushState({ queueArcadeView: "play", privateRoom: code }, "", `/play?room=${code}`);
+        return;
+      }
+      const retry = await fetch(
+        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(player)}`,
+      );
+      const retryPayload = (await retry.json()) as PrivateRoomPayload;
+      if (retry.ok) {
+        applyPayload(retryPayload);
+        window.history.pushState({ queueArcadeView: "play", privateRoom: code }, "", `/play?room=${code}`);
+        return;
+      }
+      throw new Error(createdPayload.error ?? "Could not enter that party.");
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "No party uses that code.");
+      setError(cause instanceof Error ? cause.message : "Could not enter that party.");
     } finally {
       setBusy(null);
     }
@@ -383,38 +390,45 @@ export function PrivateRoomPanel({
           );
         })}
       </div>
-      {error ? <p className={styles.error}>{error}</p> : null}
-      <button
-        type="button"
-        className={styles.primary}
-        data-testid="private-room-create"
-        onClick={() => void createRoom()}
-      >
-        {busy === "create" ? "Creating…" : "Create party"}
-      </button>
-      <div className={styles.joinRow}>
-        <input
-          ref={joinInputRef}
-          className={styles.codeInput}
-          value={joinCode}
-          maxLength={PRIVATE_ROOM_CODE_MAX}
-          placeholder="YOUR CODE"
-          autoCapitalize="characters"
-          autoCorrect="off"
-          spellCheck={false}
-          aria-label="Party code"
-          data-testid="private-room-join-code"
-          onChange={(event) => {
-            setJoinCode(filterCode(event.currentTarget.value));
-            setError(null);
-          }}
-          onKeyDown={(event) => {
-            if (event.key === "Enter") void joinRoom();
-          }}
-        />
-        <button type="button" className={styles.ghost} data-testid="private-room-join" onClick={() => void joinRoom()}>
-          {busy === "join" ? "Joining…" : "Join"}
-        </button>
+      <div className={styles.enter}>
+        <div className={styles.joinRow}>
+          <input
+            ref={joinInputRef}
+            className={styles.codeInput}
+            value={joinCode}
+            maxLength={PRIVATE_ROOM_CODE_MAX}
+            placeholder="YOUR CODE"
+            autoCapitalize="characters"
+            autoCorrect="off"
+            spellCheck={false}
+            aria-invalid={errorField === "code"}
+            aria-describedby={error ? "party-code-error" : undefined}
+            data-invalid={errorField === "code" ? "true" : undefined}
+            aria-label="Party code"
+            data-testid="private-room-join-code"
+            onChange={(event) => {
+              setJoinCode(filterCode(event.currentTarget.value));
+              setError(null);
+              setErrorField(null);
+            }}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") void enterRoom();
+            }}
+          />
+          <button
+            type="button"
+            className={styles.primary}
+            data-testid="private-room-enter"
+            onClick={() => void enterRoom()}
+          >
+            {busy === "enter" ? "Entering…" : "Enter"}
+          </button>
+        </div>
+        {error ? (
+          <p id="party-code-error" className={styles.error} role="alert" data-testid="private-room-error">
+            {error}
+          </p>
+        ) : null}
       </div>
     </section>
   );
