@@ -77,10 +77,13 @@ record(
 );
 record(
   partySource.includes('data-testid="private-room-name"') &&
+    partySource.includes("styles.topbar") &&
     partySource.includes('data-testid="private-room-players"') &&
+    !partySource.includes("styles.nameField") &&
     !partySource.includes("styles.ticket"),
-  "Party wait must list player names instead of a giant code plaque.",
+  "Party name must sit in the top bar, not a second field under the wait list.",
 );
+record(/justify-items:\s*center/.test(partyCss) && /\.lobby \{/.test(partyCss), "The wait lobby must be centered.");
 
 if (failures.length) {
   console.error(failures.join("\n"));

@@ -371,11 +371,34 @@ export function PrivateRoomPanel({
     </button>
   );
 
+  const nameBar = (
+    <div className={styles.topbar}>
+      {back}
+      <input
+        ref={nameInputRef}
+        className={styles.topName}
+        value={shownName}
+        maxLength={PRIVATE_ROOM_NAME_MAX}
+        placeholder="Your name"
+        autoComplete="nickname"
+        spellCheck={false}
+        aria-invalid={errorField === "name"}
+        data-invalid={errorField === "name" ? "true" : undefined}
+        aria-label="Your name"
+        data-testid="private-room-name"
+        onChange={(event) => saveName(event.currentTarget.value)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" && screen === "setup") joinInputRef.current?.focus();
+        }}
+      />
+    </div>
+  );
+
   if (screen === "wait") {
     if (!room) {
       return (
-        <section className={styles.view} data-testid="private-room-wait">
-          {back}
+        <section className={clsx(styles.view, styles.waitView)} data-testid="private-room-wait">
+          {nameBar}
           {error ? <p className={styles.error}>{error}</p> : null}
         </section>
       );
@@ -384,8 +407,8 @@ export function PrivateRoomPanel({
       ? room.players
       : [{ name: shownName.trim() || "You", host: room.isHost, self: true }];
     return (
-      <section className={styles.view} data-testid="private-room-wait">
-        {back}
+      <section className={clsx(styles.view, styles.waitView)} data-testid="private-room-wait">
+        {nameBar}
         <div className={styles.lobby}>
           <header className={styles.lobbyHead}>
             <div>
@@ -405,25 +428,12 @@ export function PrivateRoomPanel({
             <ul className={styles.players} data-testid="private-room-players">
               {roster.map((player, index) => (
                 <li key={`${player.name}-${index}`} data-host={player.host} data-self={player.self}>
-                  <strong>{player.name}</strong>
+                  <strong>{player.self ? shownName.trim() || player.name : player.name}</strong>
                   <span>{player.host ? "Host" : player.self ? "You" : ""}</span>
                 </li>
               ))}
             </ul>
           </div>
-          <label className={styles.nameField}>
-            <span>Your name</span>
-            <input
-              ref={nameInputRef}
-              className={styles.nameInput}
-              value={shownName}
-              maxLength={PRIVATE_ROOM_NAME_MAX}
-              placeholder="YOUR NAME"
-              aria-label="Your name"
-              data-testid="private-room-name"
-              onChange={(event) => saveName(event.currentTarget.value)}
-            />
-          </label>
           {room.isHost ? (
             <button
               type="button"
@@ -449,7 +459,7 @@ export function PrivateRoomPanel({
 
   return (
     <section className={styles.view} data-testid="private-room-setup">
-      {back}
+      {nameBar}
       <div
         className={clsx(formatPreviewCardStyles.cardGrid, styles.games)}
         role="group"
@@ -475,25 +485,6 @@ export function PrivateRoomPanel({
         })}
       </div>
       <div className={styles.enter}>
-        <div className={styles.joinRow}>
-          <input
-            ref={nameInputRef}
-            className={styles.nameInput}
-            value={shownName}
-            maxLength={PRIVATE_ROOM_NAME_MAX}
-            placeholder="YOUR NAME"
-            autoComplete="nickname"
-            spellCheck={false}
-            aria-invalid={errorField === "name"}
-            data-invalid={errorField === "name" ? "true" : undefined}
-            aria-label="Your name"
-            data-testid="private-room-name"
-            onChange={(event) => saveName(event.currentTarget.value)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") joinInputRef.current?.focus();
-            }}
-          />
-        </div>
         <div className={styles.joinRow}>
           <input
             ref={joinInputRef}
