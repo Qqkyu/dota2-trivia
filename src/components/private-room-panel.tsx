@@ -26,6 +26,7 @@ export interface PrivateRoomPlayer {
   name: string;
   host: boolean;
   self: boolean;
+  score: number;
 }
 
 export interface PrivateRoomView {
@@ -77,12 +78,17 @@ function asRoomView(payload: PrivateRoomPayload | null): PrivateRoomView | null 
           name: player.name,
           host: Boolean(player.host),
           self: Boolean(player.self),
+          score: Number(player.score) || 0,
         }))
       : [],
     messages: Array.isArray(room.messages) ? room.messages : [],
     waiting: payload?.waiting !== false && room.startedAt == null,
     activePlayers: Number(payload?.presence?.activePlayers) || 0,
   };
+}
+
+function rankedPlayers(players: PrivateRoomPlayer[]) {
+  return [...players].sort((left, right) => right.score - left.score || left.name.localeCompare(right.name));
 }
 
 function filterCode(value: string) {
@@ -178,15 +184,21 @@ export function PrivateRoomPanel({
   const [errorField, setErrorField] = useState<"code" | "name" | "games" | null>(null);
   const [busy, setBusy] = useState<"enter" | "start" | null>(null);
   const [copied, setCopied] = useState(false);
+  const [chatOpen, setChatOpen] = useState(true);
   const startedRef = useRef(false);
   const joinInputRef = useRef<HTMLInputElement | null>(null);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
+  const nameRef = useRef("");
   const trackedCode = room?.code;
   const shownName = visiblePartyName({
     partyName,
     displayName,
     selfName: room?.players.find((player) => player.self)?.name ?? "",
   });
+
+  useEffect(() => {
+    nameRef.current = shownName;
+  }, [shownName]);
 
   const saveName = (value: string) => {
     const next = value.slice(0, PRIVATE_ROOM_NAME_MAX);
@@ -231,7 +243,7 @@ export function PrivateRoomPanel({
     if (!code) return undefined;
     const load = () =>
       requestRoom(
-        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(playerId())}&name=${encodeURIComponent(shownName.trim())}`,
+        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(playerId())}&name=${encodeURIComponent(nameRef.current.trim())}`,
       ).catch((cause: Error) => {
         setError(cause.message);
         if (!trackedCode) setScreen("setup");
@@ -242,7 +254,7 @@ export function PrivateRoomPanel({
       window.clearTimeout(start);
       window.clearInterval(timer);
     };
-  }, [initialCode, playerId, requestRoom, shownName, trackedCode]);
+  }, [initialCode, playerId, requestRoom, trackedCode]);
 
   const toggleGame = (id: string) => {
     setSelected((current) => (current.includes(id) ? current.filter((game) => game !== id) : [...current, id]));
@@ -381,9 +393,38 @@ export function PrivateRoomPanel({
     };
   }, [leaveParty, playActive, screen, trackedCode]);
 
+  const chatToggle = (
+    <button
+      type="button"
+      className={styles.chatToggle}
+      data-testid="private-room-chat-toggle"
+      aria-pressed={chatOpen}
+      onClick={() => setChatOpen((open) => !open)}
+    >
+      <span className={styles.chatToggleFace} data-show={chatOpen ? "true" : "false"}>
+        Hide chat
+      </span>
+      <span className={styles.chatToggleFace} data-show={chatOpen ? "false" : "true"}>
+        Chat
+      </span>
+    </button>
+  );
+
   if (playActive) {
     return room ? (
-      <ChatBox room={room} draft={draft} dock onDraft={setDraft} onSend={() => void sendMessage()} />
+      <div className={styles.playDock} data-testid="private-room-play-dock">
+        <ol className={styles.ranking} data-testid="private-room-ranking">
+          {rankedPlayers(room.players).map((player, index) => (
+            <li key={player.self ? "self" : `${player.name}-${index}`} data-self={player.self}>
+              <span>{index + 1}</span>
+              <strong>{player.self ? shownName || player.name : player.name}</strong>
+              <em>{player.score}</em>
+            </li>
+          ))}
+        </ol>
+        {chatToggle}
+        {chatOpen ? <ChatBox room={room} draft={draft} onDraft={setDraft} onSend={() => void sendMessage()} /> : null}
+      </div>
     ) : null;
   }
 
@@ -411,7 +452,9 @@ export function PrivateRoomPanel({
       );
     }
     const roster = [
-      ...(room.players.length ? room.players : [{ name: shownName.trim() || "You", host: room.isHost, self: true }]),
+      ...(room.players.length
+        ? room.players
+        : [{ name: shownName.trim() || "You", host: room.isHost, self: true, score: 0 }]),
     ].sort((left, right) => Number(right.self) - Number(left.self));
     return (
       <section className={clsx(styles.view, styles.waitView)} data-testid="private-room-wait">
@@ -422,9 +465,14 @@ export function PrivateRoomPanel({
               <small>Party code</small>
               <strong data-testid="private-room-code">{room.code}</strong>
             </div>
-            <button type="button" className={styles.ghost} onClick={() => void copyLink()}>
+            <button type="button" className={clsx(styles.ghost, styles.copyLink)} onClick={() => void copyLink()}>
               <Copy />
-              {copied ? "Copied" : "Copy link"}
+              <span className={styles.copyFace} data-show={copied ? "false" : "true"}>
+                Copy link
+              </span>
+              <span className={styles.copyFace} data-show={copied ? "true" : "false"}>
+                Copied
+              </span>
             </button>
           </header>
           <div>
@@ -434,7 +482,11 @@ export function PrivateRoomPanel({
             </p>
             <ul className={styles.players} data-testid="private-room-players">
               {roster.map((player, index) => (
-                <li key={`${player.name}-${index}`} data-host={player.host} data-self={player.self}>
+                <li
+                  key={player.self ? "self" : `${player.name}-${index}`}
+                  data-host={player.host}
+                  data-self={player.self}
+                >
                   {player.self ? (
                     <label className={styles.selfName}>
                       <input
@@ -457,6 +509,7 @@ export function PrivateRoomPanel({
                     <strong>{player.name}</strong>
                   )}
                   <span>{player.host ? "Host" : player.self ? "You" : ""}</span>
+                  <em>{player.score}</em>
                 </li>
               ))}
             </ul>
@@ -478,7 +531,8 @@ export function PrivateRoomPanel({
               {error}
             </p>
           ) : null}
-          <ChatBox room={room} draft={draft} onDraft={setDraft} onSend={() => void sendMessage()} />
+          {chatToggle}
+          {chatOpen ? <ChatBox room={room} draft={draft} onDraft={setDraft} onSend={() => void sendMessage()} /> : null}
         </div>
       </section>
     );

@@ -92,6 +92,7 @@ export function privateRoomClientPayload(
             name: player.name,
             host: Boolean(player.host),
             self: Boolean(player.self) || (player.host && record.hostId === playerId),
+            score: Number(player.score) || 0,
           }))
         : [],
       messages: record.messages,

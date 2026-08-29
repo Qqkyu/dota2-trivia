@@ -3200,7 +3200,7 @@ export function QueueArcade({
         }).catch(() => undefined);
       }
 
-      if (entryWaitRoundIdRef.current) {
+      if (entryWaitRoundIdRef.current && !privateCodeRef.current) {
         const waitingForRoundId = entryWaitRoundIdRef.current;
         const nextRoundIsStillTooLate = shouldWaitForNextRoundOnEntry(snapshot.round, snapshot.serverNow);
         const keepWaiting = snapshot.round.id === waitingForRoundId || nextRoundIsStillTooLate;
@@ -3407,7 +3407,9 @@ export function QueueArcade({
         setReportNotice(null);
         setReportedReason(null);
         updateReportState("idle");
-        entryWaitRoundIdRef.current = result.snapshot.round.id;
+        if (!privateCode) {
+          entryWaitRoundIdRef.current = result.snapshot.round.id;
+        }
         applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
         void sendAlphaSessionEvent("start", alphaSessionId).catch(() => undefined);
         const playHref = privateCode ? `${PUBLIC_ARCADE_PATH}?room=${privateCode}` : PUBLIC_ARCADE_PATH;

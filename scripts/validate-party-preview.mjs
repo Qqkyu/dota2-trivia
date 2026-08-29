@@ -4,10 +4,11 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 const root = process.cwd();
-const [lookCss, arcadeCss, partyCss] = await Promise.all([
+const [lookCss, arcadeCss, partyCss, arcadeSource] = await Promise.all([
   readFile(path.join(root, "src/components/format-look.module.css"), "utf8"),
   readFile(path.join(root, "src/components/queue-arcade.module.css"), "utf8"),
   readFile(path.join(root, "src/components/private-room-panel.module.css"), "utf8"),
+  readFile(path.join(root, "src/components/queue-arcade.tsx"), "utf8"),
 ]);
 
 const failures = [];
@@ -90,6 +91,28 @@ record(/justify-items:\s*center/.test(partyCss) && /\.lobby \{/.test(partyCss), 
 record(
   partySource.includes("beforeunload") && partySource.includes("sendBeacon") && partySource.includes("PRIVATE_ROOM_POLL_MS"),
   "Closing a tab must send leave at once, and the wait list must poll faster than 4s.",
+);
+record(
+  partySource.includes('? "self"') &&
+    partySource.includes("nameRef") &&
+    !partySource.includes("requestRoom, shownName, trackedCode"),
+  "Typing a name must not remount the input or restart the room poll.",
+);
+record(
+  /cursor:\s*pointer/.test(partyCss) && partySource.includes("private-room-name-pen"),
+  "The name pen must use a pointer cursor.",
+);
+record(
+  partySource.includes("copyFace") && partyCss.includes(".copyFace"),
+  "Copy link must keep its width when it says Copied.",
+);
+record(
+  partySource.includes("private-room-chat-toggle") && partySource.includes("private-room-ranking"),
+  "Private play must have a hideable chat and a named ranking.",
+);
+record(
+  arcadeSource.includes("if (!privateCode)") && arcadeSource.includes("entryWaitRoundIdRef.current = result.snapshot.round.id"),
+  "Private Start must skip the public wait-for-next-question screen.",
 );
 
 if (failures.length) {

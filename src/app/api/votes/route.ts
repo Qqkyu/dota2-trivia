@@ -15,6 +15,7 @@ import {
 import { isMapPosition, mapAnswerIndex } from "@/lib/map-sense";
 import { answerStageForRound } from "@/lib/player-profile.mjs";
 import { liveRoundForSettings } from "@/lib/private-room-rounds";
+import { addPrivateRoomScore } from "@/lib/private-rooms.mjs";
 import { parsePublicRoomSettings, PUBLIC_VOTE_ACCEPT_GRACE_MS } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { scoreBreakdown } from "@/lib/scoring.mjs";
@@ -140,6 +141,10 @@ export async function POST(request: NextRequest) {
       submittedAt,
       countTowardCalibration: !live.isolated,
     });
+
+    if (live.isolated && settings.privateCode && result.accepted) {
+      addPrivateRoomScore(settings.privateCode, effectiveVoterId, basePoints, submittedAt);
+    }
 
     if (accountUser && result.playerVote && !live.isolated) {
       const roundFormat = roundFormatForQuestion(question);

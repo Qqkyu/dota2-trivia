@@ -341,7 +341,8 @@ try {
             process.exitCode = 1;
           } else {
           await page.evaluate(`document.querySelector('[data-testid="format-preview-stage-trivia"]')?.closest("button")?.click()`);
-          await fill("private-room-join-code", "DAS");
+          const partyCode = `H${Date.now().toString(36).slice(-5).toUpperCase()}`;
+          await fill("private-room-join-code", partyCode);
           await delay(100);
           await clickEnter();
           await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
@@ -349,32 +350,89 @@ try {
           const autoName = await page.evaluate(`(() => ({
             name: document.querySelector('[data-testid="private-room-name"]')?.value ?? "",
             pen: Boolean(document.querySelector('[data-testid="private-room-name-pen"]')),
+            penCursor: document.querySelector('[data-testid="private-room-name-pen"]')
+              ? getComputedStyle(document.querySelector('[data-testid="private-room-name-pen"]')).cursor
+              : "",
           }))()`);
-          if (!autoName.name.trim() || !autoName.pen) {
+          if (!autoName.name.trim() || !autoName.pen || autoName.penCursor !== "pointer") {
             console.error(`Wait name is blank or missing a pen cue (${JSON.stringify(autoName)}).`);
             process.exitCode = 1;
           } else {
           await fill("private-room-name", "Loda");
-          await delay(100);
+          const keptFocus = await page.evaluate(`(() => {
+            const input = document.querySelector('[data-testid="private-room-name"]');
+            input.focus();
+            const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+            setter.call(input, "LodaX");
+            input.dispatchEvent(new Event("input", { bubbles: true }));
+            return document.activeElement === input && input.value === "LodaX";
+          })()`);
+          await delay(80);
+          const stillFocused = await page.evaluate(
+            `document.activeElement === document.querySelector('[data-testid="private-room-name"]')`,
+          );
+          const copyBox = await page.evaluate(`(() => {
+            const button = [...document.querySelectorAll("button")].find((node) => /copy link|copied/i.test(node.textContent ?? ""));
+            if (!button) return null;
+            const width = Math.round(button.getBoundingClientRect().width);
+            button.click();
+            return { width, after: Math.round(button.getBoundingClientRect().width) };
+          })()`);
+          await delay(80);
+          await page.evaluate(`document.querySelector('[data-testid="private-room-chat-toggle"]')?.click()`);
+          await delay(80);
+          const chatHidden = await page.evaluate(
+            `!document.querySelector('[data-testid="private-room-chat"]')`,
+          );
           const waitShots = await page.send("Page.captureScreenshot", { format: "png" });
           await writeFile("/tmp/party-wait.png", Buffer.from(waitShots.data, "base64"));
           const entered = await page.evaluate(`(() => {
             const rows = [...document.querySelectorAll('[data-testid="private-room-players"] li')];
             const first = rows[0];
+            const start = document.querySelector('[data-testid="private-room-start"]');
             return {
               ticket: document.querySelector('[data-testid="private-room-code"]')?.textContent?.trim(),
               path: location.pathname + location.search,
               firstSelf: first?.getAttribute("data-self") === "true",
               firstEditable: Boolean(first?.querySelector('[data-testid="private-room-name"]')),
               name: first?.querySelector('[data-testid="private-room-name"]')?.value ?? "",
+              canStart: Boolean(start),
             };
           })()`);
-          if (entered.ticket !== "DAS" || entered.path !== "/play?room=DAS") {
-            console.error(`Entering DAS opened ${entered.ticket ?? "no"} party at ${entered.path}.`);
+          if (entered.path !== `/play?room=${partyCode}`) {
+            console.error(`Entering opened ${entered.path}, expected /play?room=${partyCode}.`);
             process.exitCode = 1;
-          } else if (!entered.firstSelf || !entered.firstEditable || entered.name !== "Loda") {
+          } else if (!keptFocus || !stillFocused) {
+            console.error("Typing a party name lost input focus.");
+            process.exitCode = 1;
+          } else if (!copyBox || copyBox.width !== copyBox.after) {
+            console.error(`Copy link changed width (${JSON.stringify(copyBox)}).`);
+            process.exitCode = 1;
+          } else if (!chatHidden) {
+            console.error("Chat did not hide.");
+            process.exitCode = 1;
+          } else if (!entered.firstSelf || !entered.firstEditable) {
             console.error(`Your name is not the first editable player row (${JSON.stringify(entered)}).`);
             process.exitCode = 1;
+          } else if (entered.canStart) {
+            await page.evaluate(`document.querySelector('[data-testid="private-room-start"]')?.click()`);
+            await delay(800);
+            const afterStart = await page.evaluate(`({
+              entryWait: Boolean(document.querySelector('[data-testid="round-entry-wait"]')),
+              ranking: Boolean(document.querySelector('[data-testid="private-room-ranking"]')),
+              phase: document.querySelector("main")?.dataset.phase ?? "",
+            })`);
+            if (afterStart.entryWait) {
+              console.error("Private Start opened the public wait-for-next-question screen.");
+              process.exitCode = 1;
+            } else if (!afterStart.ranking) {
+              console.error("Private play has no named ranking.");
+              process.exitCode = 1;
+            } else {
+              console.log(
+                `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
+              );
+            }
           } else {
             console.log(
               `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,

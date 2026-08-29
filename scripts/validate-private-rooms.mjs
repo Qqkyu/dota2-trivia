@@ -20,6 +20,7 @@ import {
   touchPrivateRoom,
   leavePrivateRoom,
   visiblePartyName,
+  addPrivateRoomScore,
   PRIVATE_ROOM_MEMBER_TTL_MS,
 } from "../src/lib/private-rooms.mjs";
 
@@ -135,6 +136,11 @@ const afterLeave = leavePrivateRoom(created.code, "guest-player-99", guestReturn
 record(
   afterLeave?.players?.every((player) => player.name !== "Puppey"),
   "Leave must remove the player at once, not after a timeout.",
+);
+const ranked = addPrivateRoomScore(created.code, "host-player-1", 80, guestReturnAt + 2);
+record(
+  ranked?.players?.some((player) => player.host && player.score === 80),
+  "Private rooms must keep a running score per player.",
 );
 
 const stranger = startPrivateRoom(created.code, "other-player-1", now + 1_000);

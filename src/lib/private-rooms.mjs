@@ -106,6 +106,7 @@ function publicView(record, viewerId) {
       name: member.name,
       host: member.playerId === record.hostId,
       self: Boolean(viewerId) && member.playerId === viewerId,
+      score: Number(member.score) || 0,
     })),
     messages: record.messages.map((message) => ({
       id: message.id,
@@ -118,14 +119,19 @@ function publicView(record, viewerId) {
 
 function upsertMember(record, playerId, name, now) {
   if (!record.members) record.members = [];
-  const cleaned = sanitizeLine(name, PRIVATE_ROOM_NAME_MAX) || guestDisplayName(playerId);
+  const cleaned = sanitizeLine(name, PRIVATE_ROOM_NAME_MAX);
   const existing = record.members.find((member) => member.playerId === playerId);
   if (existing) {
-    existing.name = cleaned;
+    if (cleaned) existing.name = cleaned;
     existing.lastSeenAt = now;
     return;
   }
-  record.members.push({ playerId, name: cleaned, lastSeenAt: now });
+  record.members.push({
+    playerId,
+    name: cleaned || guestDisplayName(playerId),
+    lastSeenAt: now,
+    score: 0,
+  });
 }
 
 function pruneMembers(record, now) {
@@ -156,6 +162,18 @@ export function touchPrivateRoom(code, now = Date.now(), identity) {
   if (identity?.playerId) upsertMember(record, identity.playerId, identity.name, now);
   pruneMembers(record, now);
   return publicView(record, identity?.playerId);
+}
+
+export function addPrivateRoomScore(code, playerId, points, now = Date.now()) {
+  const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
+  if (!record || typeof playerId !== "string" || !playerId) return null;
+  upsertMember(record, playerId, "", now);
+  const member = record.members.find((entry) => entry.playerId === playerId);
+  if (!member) return publicView(record, playerId);
+  member.score = (Number(member.score) || 0) + Math.max(0, Number(points) || 0);
+  member.lastSeenAt = now;
+  record.lastSeenAt = now;
+  return publicView(record, playerId);
 }
 
 export function leavePrivateRoom(code, playerId, now = Date.now()) {
