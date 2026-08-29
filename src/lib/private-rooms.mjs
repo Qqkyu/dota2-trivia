@@ -1,11 +1,12 @@
 import { formatsForRoundGames, isLiveRoundGame, isPublicRoundFormat, PUBLIC_ROUND_FORMATS } from "./arcade-games.mjs";
-import { ROOM_PRESENCE_TTL_MS } from "./room-presence.mjs";
 
 export const PRIVATE_ROOM_CODE_MIN = 3;
 export const PRIVATE_ROOM_CODE_MAX = 16;
 export const PRIVATE_ROOM_CODE_LENGTH = PRIVATE_ROOM_CODE_MAX;
 export const PRIVATE_ROOM_CODE_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 export const PRIVATE_ROOM_IDLE_MS = 30 * 60 * 1000;
+export const PRIVATE_ROOM_POLL_MS = 1_000;
+export const PRIVATE_ROOM_MEMBER_TTL_MS = 3_000;
 export const PRIVATE_ROOM_MAX_MESSAGES = 40;
 export const PRIVATE_ROOM_MESSAGE_MAX = 80;
 export const PRIVATE_ROOM_NAME_MAX = 24;
@@ -129,7 +130,7 @@ function upsertMember(record, playerId, name, now) {
 
 function pruneMembers(record, now) {
   if (!record.members) return;
-  record.members = record.members.filter((member) => now - member.lastSeenAt < ROOM_PRESENCE_TTL_MS);
+  record.members = record.members.filter((member) => now - member.lastSeenAt < PRIVATE_ROOM_MEMBER_TTL_MS);
 }
 
 export function expireIdlePrivateRooms(now = Date.now()) {

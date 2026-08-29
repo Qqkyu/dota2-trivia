@@ -9,6 +9,7 @@ import {
   PRIVATE_ROOM_CODE_ALPHABET,
   PRIVATE_ROOM_CODE_MAX,
   PRIVATE_ROOM_NAME_MAX,
+  PRIVATE_ROOM_POLL_MS,
   partyCodeError,
   visiblePartyName,
 } from "@/lib/private-rooms.mjs";
@@ -236,7 +237,7 @@ export function PrivateRoomPanel({
         if (!trackedCode) setScreen("setup");
       });
     const start = window.setTimeout(() => void load(), 0);
-    const timer = window.setInterval(() => void load(), 4000);
+    const timer = window.setInterval(() => void load(), PRIVATE_ROOM_POLL_MS);
     return () => {
       window.clearTimeout(start);
       window.clearInterval(timer);
@@ -357,6 +358,10 @@ export function PrivateRoomPanel({
     const code = trackedCode ?? (screen === "wait" ? joinCode : "");
     if (!code) return;
     const body = JSON.stringify({ code, playerId: playerId() });
+    const blob = new Blob([body], { type: "application/json" });
+    if (typeof navigator.sendBeacon === "function" && navigator.sendBeacon("/api/private-rooms/leave", blob)) {
+      return;
+    }
     void fetch("/api/private-rooms/leave", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -367,9 +372,13 @@ export function PrivateRoomPanel({
 
   useEffect(() => {
     if (playActive || screen !== "wait" || !trackedCode) return undefined;
-    const onPageHide = () => leaveParty();
-    window.addEventListener("pagehide", onPageHide);
-    return () => window.removeEventListener("pagehide", onPageHide);
+    const onLeave = () => leaveParty();
+    window.addEventListener("pagehide", onLeave);
+    window.addEventListener("beforeunload", onLeave);
+    return () => {
+      window.removeEventListener("pagehide", onLeave);
+      window.removeEventListener("beforeunload", onLeave);
+    };
   }, [leaveParty, playActive, screen, trackedCode]);
 
   if (playActive) {

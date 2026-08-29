@@ -87,6 +87,10 @@ record(
   "Your name must be the first editable row, show the auto name, and carry a pen cue.",
 );
 record(/justify-items:\s*center/.test(partyCss) && /\.lobby \{/.test(partyCss), "The wait lobby must be centered.");
+record(
+  partySource.includes("beforeunload") && partySource.includes("sendBeacon") && partySource.includes("PRIVATE_ROOM_POLL_MS"),
+  "Closing a tab must send leave at once, and the wait list must poll faster than 4s.",
+);
 
 if (failures.length) {
   console.error(failures.join("\n"));

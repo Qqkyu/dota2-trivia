@@ -20,8 +20,8 @@ import {
   touchPrivateRoom,
   leavePrivateRoom,
   visiblePartyName,
+  PRIVATE_ROOM_MEMBER_TTL_MS,
 } from "../src/lib/private-rooms.mjs";
-import { ROOM_PRESENCE_TTL_MS } from "../src/lib/room-presence.mjs";
 
 const failures = [];
 const record = (ok, message) => {
@@ -108,7 +108,11 @@ record(
   "A typed name must win over the auto guest name.",
 );
 
-const afterGuestGone = touchPrivateRoom(created.code, now + 10 + ROOM_PRESENCE_TTL_MS + 1, {
+record(
+  PRIVATE_ROOM_MEMBER_TTL_MS <= 3_000,
+  "A closed tab must drop off the wait list in at most 3 seconds, not the public 45s presence window.",
+);
+const afterGuestGone = touchPrivateRoom(created.code, now + 10 + PRIVATE_ROOM_MEMBER_TTL_MS + 1, {
   playerId: "host-player-1",
   name: "Loda",
 });
@@ -118,7 +122,7 @@ record(
   "A player who closed the tab must drop off the wait list.",
 );
 
-const guestReturnAt = now + 10 + ROOM_PRESENCE_TTL_MS + 2;
+const guestReturnAt = now + 10 + PRIVATE_ROOM_MEMBER_TTL_MS + 2;
 const stillHere = touchPrivateRoom(created.code, guestReturnAt, {
   playerId: "guest-player-99",
   name: "Puppey",
