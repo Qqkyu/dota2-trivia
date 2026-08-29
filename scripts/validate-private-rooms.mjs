@@ -21,6 +21,7 @@ import {
   leavePrivateRoom,
   visiblePartyName,
   partyNameInputValue,
+  storedPartyNameDraft,
   addPrivateRoomScore,
 } from "../src/lib/private-rooms.mjs";
 
@@ -45,7 +46,7 @@ record(
 record(partyCodeError("DAS") === null, "DAS is a valid party code.");
 record(partyNameError("") === "Type a name.", "Guests must type a name.");
 record(partyNameError("Loda") === null, "A short handle is a valid party name.");
-record(guestDisplayName("player-abcd") === "Guest-ABCD", "Guests need a short display name.");
+record(guestDisplayName("player-abcd") === "Guest-AYERABCD", "Guests need a unique short display name.");
 record(formatsForRoundGames(["flashback"]).join(",") === "flashback", "A Flashback-only room should schedule only Flashback.");
 record(formatsForRoundGames([]).length === PUBLIC_ROUND_FORMATS.length, "No ticked games should keep the full mix.");
 
@@ -112,6 +113,8 @@ record(partyNameInputValue({ draft: null, seed: "baobab" }) === "baobab", "An un
 record(partyNameInputValue({ draft: "", seed: "baobab" }) === "", "Clearing the name must not snap back to Steam.");
 record(partyNameInputValue({ draft: "Alex", seed: "baobab" }) === "Alex", "A new name must not be forced to start like Steam.");
 record(partyNameInputValue({ draft: "b", seed: "baobab" }) === "b", "Deleting down to one letter must keep that letter.");
+record(storedPartyNameDraft("") === null, "An empty saved nickname must not block the Steam or guest seed.");
+record(storedPartyNameDraft("baobab") === "baobab", "A saved nickname must load.");
 
 const idleHostAt = now + 60_000;
 const idleRoom = touchPrivateRoom(created.code, idleHostAt, {
@@ -123,12 +126,29 @@ record(
     idleRoom?.players?.some((player) => player.host && player.name === "Loda"),
   "A minimized or background tab must not drop a player, and must never kick the host.",
 );
-const afterLeave = leavePrivateRoom(created.code, "guest-player-99", idleHostAt + 1);
+const secondGuest = touchPrivateRoom(created.code, idleHostAt + 1, {
+  playerId: "guest-player-00",
+  name: "",
+});
+record(
+  new Set(secondGuest?.players?.map((player) => player.name.toLowerCase()) ?? []).size === secondGuest?.players?.length,
+  "Two guests must not share one auto nickname.",
+);
+record(secondGuest?.players?.length === 3, "Host plus two guests must show three players.");
+const steal = touchPrivateRoom(created.code, idleHostAt + 2, {
+  playerId: "guest-player-00",
+  name: "Loda",
+});
+record(
+  steal?.players?.filter((player) => player.name.toLowerCase() === "loda").length === 1,
+  "A player must not take a nickname that is already in the party.",
+);
+const afterLeave = leavePrivateRoom(created.code, "guest-player-99", idleHostAt + 3);
 record(
   afterLeave?.players?.every((player) => player.name !== "Puppey"),
   "Leave must remove the player at once, not after a timeout.",
 );
-const ranked = addPrivateRoomScore(created.code, "host-player-1", 80, idleHostAt + 2);
+const ranked = addPrivateRoomScore(created.code, "host-player-1", 80, idleHostAt + 4);
 record(
   ranked?.players?.some((player) => player.host && player.score === 80),
   "Private rooms must keep a running score per player.",

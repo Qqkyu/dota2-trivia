@@ -12,6 +12,7 @@ import {
   PRIVATE_ROOM_POLL_MS,
   partyCodeError,
   partyNameInputValue,
+  storedPartyNameDraft,
 } from "@/lib/private-rooms.mjs";
 import styles from "./private-room-panel.module.css";
 
@@ -176,8 +177,7 @@ export function PrivateRoomPanel({
   const [joinCode, setJoinCode] = useState(() => filterCode(initialCode ?? ""));
   const [nameDraft, setNameDraft] = useState<string | null>(() => {
     if (typeof window === "undefined") return null;
-    const stored = window.localStorage.getItem(PARTY_NAME_KEY);
-    return stored == null ? null : stored.slice(0, PRIVATE_ROOM_NAME_MAX);
+    return storedPartyNameDraft(window.localStorage.getItem(PARTY_NAME_KEY));
   });
   const [room, setRoom] = useState<PrivateRoomView | null>(null);
   const [draft, setDraft] = useState("");
@@ -203,7 +203,8 @@ export function PrivateRoomPanel({
   const saveName = (value: string) => {
     const next = value.slice(0, PRIVATE_ROOM_NAME_MAX);
     setNameDraft(next);
-    window.localStorage.setItem(PARTY_NAME_KEY, next);
+    if (next.trim()) window.localStorage.setItem(PARTY_NAME_KEY, next);
+    else window.localStorage.removeItem(PARTY_NAME_KEY);
     setError(null);
     setErrorField(null);
   };
@@ -212,8 +213,16 @@ export function PrivateRoomPanel({
     (payload: PrivateRoomPayload) => {
       const next = asRoomView(payload);
       if (!next) return null;
+      const selfName = next.players.find((player) => player.self)?.name ?? "";
+      const typed = nameRef.current;
+      if (typed && typed.trim() && selfName && typed.trim().toLowerCase() !== selfName.toLowerCase()) {
+        setNameDraft(selfName);
+        setError("That name is taken.");
+        setErrorField("name");
+      } else {
+        setError(null);
+      }
       setRoom(next);
-      setError(null);
       onWaitingChange?.(next.waiting);
       if (next.waiting) setScreen("wait");
       if (next.startedAt && !startedRef.current) {

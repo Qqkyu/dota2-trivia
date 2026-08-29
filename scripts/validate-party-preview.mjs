@@ -126,6 +126,10 @@ record(
   arcadeSource.includes("if (!privateCode)") && arcadeSource.includes("entryWaitRoundIdRef.current = result.snapshot.round.id"),
   "Private Start must skip the public wait-for-next-question screen.",
 );
+record(
+  arcadeSource.includes("sessionStorage") && partySource.includes("storedPartyNameDraft"),
+  "Each tab must be its own guest, and an empty saved nick must not hide the host seed name.",
+);
 
 if (failures.length) {
   console.error(failures.join("\n"));

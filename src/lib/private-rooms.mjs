@@ -51,6 +51,13 @@ export function partyNameInputValue({ draft, seed }) {
   return typeof seed === "string" ? seed : "";
 }
 
+export function storedPartyNameDraft(stored) {
+  if (typeof stored !== "string") return null;
+  const trimmed = stored.trim();
+  if (!trimmed) return null;
+  return stored.slice(0, PRIVATE_ROOM_NAME_MAX);
+}
+
 export function privateRoomId(gameId, contentVersion, code) {
   return `${gameId}:${contentVersion}:private:${code}`;
 }
@@ -121,18 +128,34 @@ function publicView(record, viewerId) {
   };
 }
 
+function nameTaken(record, playerId, name) {
+  const needle = name.toLowerCase();
+  return (record.members ?? []).some((member) => member.playerId !== playerId && member.name.toLowerCase() === needle);
+}
+
+function uniqueAutoName(record, playerId, base) {
+  if (!nameTaken(record, playerId, base)) return base;
+  let suffix = 2;
+  let next = `${base}${suffix}`;
+  while (nameTaken(record, playerId, next)) {
+    suffix += 1;
+    next = `${base}${suffix}`;
+  }
+  return next;
+}
+
 function upsertMember(record, playerId, name, now) {
   if (!record.members) record.members = [];
   const cleaned = sanitizeLine(name, PRIVATE_ROOM_NAME_MAX);
   const existing = record.members.find((member) => member.playerId === playerId);
   if (existing) {
-    if (cleaned) existing.name = cleaned;
+    if (cleaned && !nameTaken(record, playerId, cleaned)) existing.name = cleaned;
     existing.lastSeenAt = now;
     return;
   }
   record.members.push({
     playerId,
-    name: cleaned || guestDisplayName(playerId),
+    name: uniqueAutoName(record, playerId, cleaned || guestDisplayName(playerId)),
     lastSeenAt: now,
     score: 0,
   });
@@ -259,7 +282,7 @@ export function addPrivateRoomMessage(code, { name, text, now = Date.now() }) {
 export function guestDisplayName(playerId) {
   const tail = String(playerId ?? "")
     .replace(/[^a-zA-Z0-9]/g, "")
-    .slice(-4)
+    .slice(-8)
     .toUpperCase();
   return tail ? `Guest-${tail}` : "Guest";
 }

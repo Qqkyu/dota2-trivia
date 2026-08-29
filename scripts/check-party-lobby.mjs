@@ -251,9 +251,49 @@ try {
   const hidden = await page.evaluate(`!document.querySelector('[data-testid="private-room-chat"]')`);
   if (!hidden) throw new Error("Chat did not hide.");
 
+  const joinApiGuest = async (playerId, name = "") => {
+    const query = new URL(`${appUrl}/api/private-rooms`);
+    query.searchParams.set("code", partyCode);
+    query.searchParams.set("playerId", playerId);
+    if (name) query.searchParams.set("name", name);
+    const response = await fetch(query);
+    const payload = await response.json();
+    if (!response.ok) throw new Error(payload.error ?? "Guest join failed.");
+    return payload.privateRoom?.players ?? [];
+  };
+
+  await joinApiGuest(crypto.randomUUID());
+  await joinApiGuest(crypto.randomUUID());
+  await delay(1500);
+  const roster = await page.evaluate(`(() => {
+    const rows = [...document.querySelectorAll('[data-testid="private-room-players"] li')];
+    return rows.map((row) => row.querySelector("input")?.value || row.querySelector("strong")?.textContent || "");
+  })()`);
+  if (roster.length !== 3) {
+    throw new Error(`Host plus two guests should be 3 players, got ${roster.length} (${roster.join(", ")}).`);
+  }
+  if (new Set(roster.map((name) => name.toLowerCase())).size !== 3) {
+    throw new Error(`Guests shared a nickname (${roster.join(", ")}).`);
+  }
+  if (roster.some((name) => !name.trim())) {
+    throw new Error(`A player has a blank nickname (${roster.join(", ")}).`);
+  }
+
+  await joinApiGuest(crypto.randomUUID().slice(0, 8) + "steal01", "Alex");
+  await delay(1500);
+  const afterSteal = await page.evaluate(`(() => {
+    const rows = [...document.querySelectorAll('[data-testid="private-room-players"] li')];
+    return rows.map((row) => row.querySelector("input")?.value || row.querySelector("strong")?.textContent || "");
+  })()`);
+  if (afterSteal.filter((name) => name.toLowerCase() === "alex").length !== 1) {
+    throw new Error(`A guest stole the host nickname (${afterSteal.join(", ")}).`);
+  }
+
   const shots = await page.send("Page.captureScreenshot", { format: "png" });
   await writeFile("/tmp/party-lobby.png", Buffer.from(shots.data, "base64"));
-  console.log(`Validated party lobby name edit, copy check, hidden score, and chat align for ${partyCode}.`);
+  console.log(
+    `Validated party lobby names, uniqueness, and 3 tabs for ${partyCode} (${roster.join(", ")}).`,
+  );
 } finally {
   await cleanup();
 }

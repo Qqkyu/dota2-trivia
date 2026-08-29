@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
       contentVersion: catalog.contentVersion,
       games: candidate.games,
       code: candidate.code,
-      name: typeof candidate.name === "string" ? candidate.name : identity.name,
+      name: typeof candidate.name === "string" && candidate.name.trim() ? candidate.name.trim() : identity.name,
       now,
     });
     touchRoomPresence(record.roomId, identity.playerId, now);

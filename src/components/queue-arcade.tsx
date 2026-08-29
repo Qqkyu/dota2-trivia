@@ -2940,9 +2940,10 @@ export function QueueArcade({
   const ensurePlayerId = useCallback(() => {
     if (playerIdRef.current) return playerIdRef.current;
 
-    const stored = window.localStorage.getItem(PLAYER_KEY) ?? window.localStorage.getItem(LEGACY_PLAYER_KEY);
+    const tabKey = `${PLAYER_KEY}:tab`;
+    const stored = window.sessionStorage.getItem(tabKey);
     const id = stored ?? window.crypto.randomUUID();
-    window.localStorage.setItem(PLAYER_KEY, id);
+    window.sessionStorage.setItem(tabKey, id);
     playerIdRef.current = id;
     return id;
   }, []);
