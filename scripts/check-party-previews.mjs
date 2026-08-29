@@ -331,7 +331,6 @@ try {
           await page.evaluate(`(() => {
             for (const card of document.querySelectorAll('[data-on="true"]')) card.click();
           })()`);
-          await fill("private-room-name", "Loda");
           await fill("private-room-join-code", "NOCAT");
           await delay(100);
           await clickEnter();
@@ -346,18 +345,26 @@ try {
           await delay(100);
           await clickEnter();
           await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
+          await fill("private-room-name", "Loda");
+          await delay(100);
           const waitShots = await page.send("Page.captureScreenshot", { format: "png" });
           await writeFile("/tmp/party-wait.png", Buffer.from(waitShots.data, "base64"));
-          const entered = await page.evaluate(`({
-            ticket: document.querySelector('[data-testid="private-room-code"]')?.textContent?.trim(),
-            path: location.pathname + location.search,
-            players: [...document.querySelectorAll('[data-testid="private-room-players"] li')].map((row) => row.textContent),
-          })`);
+          const entered = await page.evaluate(`(() => {
+            const rows = [...document.querySelectorAll('[data-testid="private-room-players"] li')];
+            const first = rows[0];
+            return {
+              ticket: document.querySelector('[data-testid="private-room-code"]')?.textContent?.trim(),
+              path: location.pathname + location.search,
+              firstSelf: first?.getAttribute("data-self") === "true",
+              firstEditable: Boolean(first?.querySelector('[data-testid="private-room-name"]')),
+              name: first?.querySelector('[data-testid="private-room-name"]')?.value ?? "",
+            };
+          })()`);
           if (entered.ticket !== "DAS" || entered.path !== "/play?room=DAS") {
             console.error(`Entering DAS opened ${entered.ticket ?? "no"} party at ${entered.path}.`);
             process.exitCode = 1;
-          } else if (!entered.players.some((row) => /loda/i.test(row))) {
-            console.error(`Wait lobby has no names (${entered.players.join(" | ")}).`);
+          } else if (!entered.firstSelf || !entered.firstEditable || entered.name !== "Loda") {
+            console.error(`Your name is not the first editable player row (${JSON.stringify(entered)}).`);
             process.exitCode = 1;
           } else {
             console.log(

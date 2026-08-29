@@ -10,7 +10,6 @@ import {
   PRIVATE_ROOM_CODE_MAX,
   PRIVATE_ROOM_NAME_MAX,
   partyCodeError,
-  partyNameError,
 } from "@/lib/private-rooms.mjs";
 import styles from "./private-room-panel.module.css";
 
@@ -149,7 +148,6 @@ export function PrivateRoomPanel({
   gameOptions,
   playerId,
   displayName,
-  requireName = false,
   initialCode,
   playActive,
   onStarted,
@@ -159,7 +157,6 @@ export function PrivateRoomPanel({
   gameOptions: PartyGameOption[];
   playerId: () => string;
   displayName: string;
-  requireName?: boolean;
   initialCode?: string;
   playActive: boolean;
   onStarted: (code: string) => void;
@@ -253,14 +250,7 @@ export function PrivateRoomPanel({
       joinInputRef.current?.focus();
       return;
     }
-    const name = (requireName ? partyName : shownName).trim();
-    const nameHint = partyNameError(name);
-    if (nameHint) {
-      setError(nameHint);
-      setErrorField("name");
-      nameInputRef.current?.focus();
-      return;
-    }
+    const name = shownName.trim();
     const code = filterCode(joinCode);
     setBusy("enter");
     setError(null);
@@ -371,45 +361,22 @@ export function PrivateRoomPanel({
     </button>
   );
 
-  const nameBar = (
-    <div className={styles.topbar}>
-      {back}
-      <input
-        ref={nameInputRef}
-        className={styles.topName}
-        value={shownName}
-        maxLength={PRIVATE_ROOM_NAME_MAX}
-        placeholder="Your name"
-        autoComplete="nickname"
-        spellCheck={false}
-        aria-invalid={errorField === "name"}
-        data-invalid={errorField === "name" ? "true" : undefined}
-        aria-label="Your name"
-        data-testid="private-room-name"
-        onChange={(event) => saveName(event.currentTarget.value)}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" && screen === "setup") joinInputRef.current?.focus();
-        }}
-      />
-    </div>
-  );
-
   if (screen === "wait") {
     if (!room) {
       return (
         <section className={clsx(styles.view, styles.waitView)} data-testid="private-room-wait">
-          {nameBar}
+          {back}
           {error ? <p className={styles.error}>{error}</p> : null}
         </section>
       );
     }
-    const roster = room.players.length
-      ? room.players
-      : [{ name: shownName.trim() || "You", host: room.isHost, self: true }];
+    const roster = [
+      ...(room.players.length ? room.players : [{ name: shownName.trim() || "You", host: room.isHost, self: true }]),
+    ].sort((left, right) => Number(right.self) - Number(left.self));
     return (
       <section className={clsx(styles.view, styles.waitView)} data-testid="private-room-wait">
-        {nameBar}
         <div className={styles.lobby}>
+          {back}
           <header className={styles.lobbyHead}>
             <div>
               <small>Party code</small>
@@ -428,7 +395,24 @@ export function PrivateRoomPanel({
             <ul className={styles.players} data-testid="private-room-players">
               {roster.map((player, index) => (
                 <li key={`${player.name}-${index}`} data-host={player.host} data-self={player.self}>
-                  <strong>{player.self ? shownName.trim() || player.name : player.name}</strong>
+                  {player.self ? (
+                    <input
+                      ref={nameInputRef}
+                      className={styles.playerName}
+                      value={shownName}
+                      maxLength={PRIVATE_ROOM_NAME_MAX}
+                      placeholder="Your name"
+                      autoComplete="nickname"
+                      spellCheck={false}
+                      aria-invalid={errorField === "name"}
+                      data-invalid={errorField === "name" ? "true" : undefined}
+                      aria-label="Your name"
+                      data-testid="private-room-name"
+                      onChange={(event) => saveName(event.currentTarget.value)}
+                    />
+                  ) : (
+                    <strong>{player.name}</strong>
+                  )}
                   <span>{player.host ? "Host" : player.self ? "You" : ""}</span>
                 </li>
               ))}
@@ -459,7 +443,7 @@ export function PrivateRoomPanel({
 
   return (
     <section className={styles.view} data-testid="private-room-setup">
-      {nameBar}
+      {back}
       <div
         className={clsx(formatPreviewCardStyles.cardGrid, styles.games)}
         role="group"

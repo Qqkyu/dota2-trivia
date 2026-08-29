@@ -4372,7 +4372,6 @@ export function QueueArcade({
           }))}
           playerId={ensurePlayerId}
           displayName={account?.authenticated ? account.profile.user.displayName : ""}
-          requireName={!account?.authenticated}
           initialCode={roomCode || activePrivateCode || undefined}
           playActive={false}
           onWaitingChange={(waiting) => {
@@ -5432,7 +5431,6 @@ export function QueueArcade({
           }))}
           playerId={ensurePlayerId}
           displayName={account?.authenticated ? account.profile.user.displayName : ""}
-          requireName={!account?.authenticated}
           initialCode={activePrivateCode}
           playActive
           onStarted={() => undefined}
