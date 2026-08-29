@@ -175,6 +175,22 @@ try {
     clickCount: 1,
   });
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-setup"]'))`);
+  const partyPath = await page.evaluate(`location.pathname + location.search`);
+  if (partyPath !== "/party") {
+    throw new Error(`Party setup is on ${partyPath}, expected /party.`);
+  }
+  const enterWidth = await page.evaluate(`(() => {
+    const button = document.querySelector('[data-testid="private-room-enter"]');
+    const faces = [...(button?.querySelectorAll("span") ?? [])];
+    return {
+      faces: faces.length,
+      button: button ? Math.round(button.getBoundingClientRect().width) : 0,
+      maxFace: faces.reduce((width, face) => Math.max(width, face.getBoundingClientRect().width), 0),
+    };
+  })()`);
+  if (enterWidth.faces < 2 || enterWidth.button + 1 < Math.round(enterWidth.maxFace)) {
+    throw new Error(`Enter button width jumps (${JSON.stringify(enterWidth)}).`);
+  }
   await delay(400);
   const shots = await page.send("Page.captureScreenshot", { format: "png" });
   await writeFile("/tmp/party-previews.png", Buffer.from(shots.data, "base64"));
@@ -310,11 +326,12 @@ try {
             clickCount: 1,
           });
           await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
-          const ticket = await page.evaluate(
-            `document.querySelector('[data-testid="private-room-code"]')?.textContent?.trim()`,
-          );
-          if (ticket !== "DAS") {
-            console.error(`Entering DAS opened ${ticket ?? "no"} party.`);
+          const entered = await page.evaluate(`({
+            ticket: document.querySelector('[data-testid="private-room-code"]')?.textContent?.trim(),
+            path: location.pathname + location.search,
+          })`);
+          if (entered.ticket !== "DAS" || entered.path !== "/play?room=DAS") {
+            console.error(`Entering DAS opened ${entered.ticket ?? "no"} party at ${entered.path}.`);
             process.exitCode = 1;
           } else {
             console.log(

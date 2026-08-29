@@ -68,6 +68,23 @@
   text-transform: uppercase;
 }
 
+.enter .primary {
+  display: inline-grid;
+  justify-items: center;
+}
+
+.enterFace {
+  grid-area: 1 / 1;
+}
+
+.enterFace[data-show="false"] {
+  visibility: hidden;
+}
+
+.enter .primary:disabled {
+  opacity: 0.78;
+}
+
 .ghost {
   border: 1px solid rgba(210, 214, 207, 0.2);
   background: rgba(12, 14, 15, 0.72);

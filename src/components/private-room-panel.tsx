@@ -419,9 +419,16 @@ export function PrivateRoomPanel({
             type="button"
             className={styles.primary}
             data-testid="private-room-enter"
+            aria-busy={busy === "enter"}
+            disabled={busy === "enter"}
             onClick={() => void enterRoom()}
           >
-            {busy === "enter" ? "Entering…" : "Enter"}
+            <span className={styles.enterFace} data-show={busy === "enter" ? "false" : "true"}>
+              Enter
+            </span>
+            <span className={styles.enterFace} data-show={busy === "enter" ? "true" : "false"}>
+              Entering…
+            </span>
           </button>
         </div>
         {error ? (

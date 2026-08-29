@@ -70,7 +70,12 @@ import {
   isFlashbackYearAnswerInRange,
   isFlashbackYearAnswerKey,
 } from "@/lib/flashback.mjs";
-import { ARCADE_LOBBY_PATH, PUBLIC_ARCADE_PATH } from "@/lib/arcade-navigation.mjs";
+import {
+  ARCADE_LOBBY_PATH,
+  PARTY_ARCADE_PATH,
+  PUBLIC_ARCADE_PATH,
+  arcadeViewForPathname,
+} from "@/lib/arcade-navigation.mjs";
 import { crowdPercentage, keyedCrowdSplitRows } from "@/lib/crowd-split.mjs";
 import { DEFAULT_GAME_ID, GAME_IDS, type PublicGameInfo } from "@/lib/game-identity";
 import { answerFeedbackKind } from "@/lib/feedback-sounds.mjs";
@@ -2787,11 +2792,13 @@ function BrandMark({ logoUrl }: { logoUrl: string }) {
 
 export function QueueArcade({
   autoStart = false,
+  partyStart = false,
   roomCode,
   gameInfo,
   formatPreviews = {},
 }: {
   autoStart?: boolean;
+  partyStart?: boolean;
   roomCode?: string;
   gameInfo: PublicGameInfo;
   formatPreviews?: Record<string, FormatPreview | null | undefined>;
@@ -2837,7 +2844,7 @@ export function QueueArcade({
   const [reportTarget, setReportTarget] = useState<QuestionReportTarget | null>(null);
   const [reportNotice, setReportNotice] = useState<QuestionReportNotice | null>(null);
   const [privateWaiting, setPrivateWaiting] = useState(Boolean(roomCode));
-  const [partyOpen, setPartyOpen] = useState(Boolean(roomCode));
+  const [partyOpen, setPartyOpen] = useState(Boolean(roomCode) || partyStart);
   const [activePrivateCode, setActivePrivateCode] = useState(roomCode ?? "");
   const privateCodeRef = useRef(roomCode ?? "");
   const partyMode = partyOpen || privateWaiting;
@@ -3725,8 +3732,12 @@ export function QueueArcade({
       setActiveRoundId("");
       setPhase("lobby");
       void loadAccount();
+      setPartyOpen(false);
+      setPrivateWaiting(false);
+      privateCodeRef.current = "";
+      setActivePrivateCode("");
 
-      if (historyAction !== "none" && window.location.pathname !== ARCADE_LOBBY_PATH) {
+      if (historyAction !== "none" && (window.location.pathname !== ARCADE_LOBBY_PATH || window.location.search)) {
         const method = historyAction === "replace" ? "replaceState" : "pushState";
         window.history[method]({ queueArcadeView: "lobby" }, "", ARCADE_LOBBY_PATH);
       }
@@ -3736,8 +3747,29 @@ export function QueueArcade({
 
   useEffect(() => {
     const handlePopState = () => {
-      if (window.location.pathname === PUBLIC_ARCADE_PATH) {
+      const view = arcadeViewForPathname(window.location.pathname);
+      const room = new URLSearchParams(window.location.search).get("room");
+      if (view === "play") {
+        if (room) {
+          privateCodeRef.current = room;
+          setActivePrivateCode(room);
+          setPartyOpen(true);
+          if (phaseRef.current === "lobby") setPrivateWaiting(true);
+          return;
+        }
+        setPartyOpen(false);
+        setPrivateWaiting(false);
+        privateCodeRef.current = "";
+        setActivePrivateCode("");
         if (phaseRef.current === "lobby") void startRun(false);
+        return;
+      }
+      if (view === "party") {
+        if (phaseRef.current !== "lobby") returnToLobby("none");
+        setPartyOpen(true);
+        setPrivateWaiting(false);
+        privateCodeRef.current = "";
+        setActivePrivateCode("");
         return;
       }
       returnToLobby("none");
@@ -4016,8 +4048,7 @@ export function QueueArcade({
   const isValueOrderRound = Boolean(currentQuestion && isPublicValueOrderQuestion(currentQuestion));
   const isFlashbackOrderRound = Boolean(currentQuestion && isPublicFlashbackOrderQuestion(currentQuestion));
   const isFlashbackYearRound = Boolean(
-    currentQuestion &&
-      (isPublicFlashbackYearQuestion(currentQuestion) || currentQuestion.flashback?.family === "year"),
+    currentQuestion && (isPublicFlashbackYearQuestion(currentQuestion) || currentQuestion.flashback?.family === "year"),
   );
   const isSoundcheckRound = currentGame === "soundcheck";
   const isEchoHuntRound = currentGame === "echo-hunt";
@@ -4225,14 +4256,21 @@ export function QueueArcade({
               >
                 {phase === "waiting" ? "Joining…" : activeModeInfo.action}
               </button>
-              <button
-                type="button"
+              <a
+                href={PARTY_ARCADE_PATH}
                 className={styles.lobbyFriends}
                 data-testid="private-room-open"
-                onClick={() => setPartyOpen(true)}
+                onClick={(event) => {
+                  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                  event.preventDefault();
+                  setPartyOpen(true);
+                  if (window.location.pathname !== PARTY_ARCADE_PATH) {
+                    window.history.pushState({ queueArcadeView: "party" }, "", PARTY_ARCADE_PATH);
+                  }
+                }}
               >
                 Play with friends
-              </button>
+              </a>
               <div className={styles.accountActionSlot} data-testid="account-action-slot">
                 {account === null ? (
                   <span className={styles.accountLoading} aria-hidden="true" />
@@ -4326,6 +4364,7 @@ export function QueueArcade({
 
       {(phase === "lobby" || (phase === "waiting" && entryWaitMode === "silent")) && partyMode ? (
         <PrivateRoomPanel
+          key={activePrivateCode || "setup"}
           gameOptions={LIVE_ROUND_GAMES.map((game) => ({
             id: game,
             label: LIVE_ROUND_HEADER_LABELS[game as keyof typeof LIVE_ROUND_HEADER_LABELS] ?? game,
@@ -4350,7 +4389,7 @@ export function QueueArcade({
             setPrivateWaiting(false);
             privateCodeRef.current = "";
             setActivePrivateCode("");
-            if (window.location.search.includes("room=")) {
+            if (window.location.pathname !== ARCADE_LOBBY_PATH || window.location.search) {
               window.history.pushState({ queueArcadeView: "lobby" }, "", ARCADE_LOBBY_PATH);
             }
           }}
@@ -5122,22 +5161,22 @@ export function QueueArcade({
                             : isFlashbackYearRound
                               ? "Release the slider to lock the year"
                               : currentGame === "shopkeeper"
-                              ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
-                              : currentGame === "spell-link"
-                                ? "Link the spell to a hero · A–D or 1–4"
-                                : currentGame === "fogged-vision"
-                                  ? "Name the silhouette · A–D or 1–4"
-                                  : currentGame === "echo-hunt"
-                                    ? "Match the voice · A–D or 1–4"
-                                    : currentGame === "soundcheck"
-                                      ? isSoundSequence
-                                        ? "Match the order · A–D or 1–4"
-                                        : "Match the sound · A–D or 1–4"
-                                      : currentGame === "quote-hunt"
-                                        ? "Match the line to its hero · A–D or 1–4"
-                                        : currentGame === "counterplay"
-                                          ? "Pick the interaction · A–D or 1–4"
-                                          : "Use A–D or 1–4 to answer"}
+                                ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
+                                : currentGame === "spell-link"
+                                  ? "Link the spell to a hero · A–D or 1–4"
+                                  : currentGame === "fogged-vision"
+                                    ? "Name the silhouette · A–D or 1–4"
+                                    : currentGame === "echo-hunt"
+                                      ? "Match the voice · A–D or 1–4"
+                                      : currentGame === "soundcheck"
+                                        ? isSoundSequence
+                                          ? "Match the order · A–D or 1–4"
+                                          : "Match the sound · A–D or 1–4"
+                                        : currentGame === "quote-hunt"
+                                          ? "Match the line to its hero · A–D or 1–4"
+                                          : currentGame === "counterplay"
+                                            ? "Pick the interaction · A–D or 1–4"
+                                            : "Use A–D or 1–4 to answer"}
                       <span>Correct now: {liveAward?.rawPoints ?? 0} gold</span>
                     </>
                   ) : (
@@ -5163,11 +5202,7 @@ export function QueueArcade({
               >
                 <div className={styles.revealIcon}>{selectedWasCorrect ? <Check /> : <X />}</div>
                 {currentQuestion.reveal?.media && currentQuestion.reveal.media.kind !== "photo" && (
-                  <figure
-                    className={styles.revealMedia}
-                    data-kind="mark"
-                    data-testid="flashback-reveal-media"
-                  >
+                  <figure className={styles.revealMedia} data-kind="mark" data-testid="flashback-reveal-media">
                     <Image
                       src={currentQuestion.reveal.media.src}
                       alt={currentQuestion.reveal.media.alt}

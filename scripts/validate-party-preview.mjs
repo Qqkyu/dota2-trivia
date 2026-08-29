@@ -66,6 +66,14 @@ record(
     partySource.indexOf("private-room-enter") < partySource.indexOf("private-room-error"),
   "Code errors must sit on the code field under the games, not above a Create party button.",
 );
+record(
+  partySource.includes("enterFace") &&
+    partyCss.includes(".enterFace") &&
+    /visibility:\s*hidden/.test(partyCss) &&
+    /\bEnter\b/.test(partySource) &&
+    partySource.includes("Entering"),
+  "Enter must keep both idle and busy labels stacked so the button width does not jump.",
+);
 
 if (failures.length) {
   console.error(failures.join("\n"));
