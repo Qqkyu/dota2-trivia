@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowLeft, Check, Copy, Pencil, Users } from "lucide-react";
+import { ArrowLeft, Check, Copy, MessageSquare, Pencil, Users } from "lucide-react";
 import clsx from "clsx";
 import type { FormatPreview } from "@/components/format-look";
 import { FormatPreviewCard, formatPreviewCardStyles } from "@/components/format-preview-card";
@@ -495,6 +495,10 @@ export function PrivateRoomPanel({
     };
   }, [leaveParty, playActive, screen, trackedCode]);
 
+  const chatBox = room ? (
+    <ChatBox room={room} draft={draft} onDraft={setDraft} onSend={() => void sendMessage()} />
+  ) : null;
+
   const chatPanel = room ? (
     <div className={styles.chatShell} data-open={chatOpen ? "true" : "false"}>
       <button
@@ -504,14 +508,23 @@ export function PrivateRoomPanel({
         aria-pressed={chatOpen}
         onClick={() => setChatOpen((open) => !open)}
       >
-        <span className={styles.chatToggleFace} data-show={chatOpen ? "false" : "true"}>
-          Show chat
-        </span>
-        <span className={styles.chatToggleFace} data-show={chatOpen ? "true" : "false"}>
-          Hide chat
+        <MessageSquare aria-hidden="true" data-testid="private-room-chat-icon" />
+        <span className={styles.chatToggleFaces}>
+          <span className={styles.chatToggleFace} data-show={chatOpen ? "false" : "true"}>
+            Show chat
+          </span>
+          <span className={styles.chatToggleFace} data-show={chatOpen ? "true" : "false"}>
+            Hide chat
+          </span>
         </span>
       </button>
-      {chatOpen ? <ChatBox room={room} draft={draft} onDraft={setDraft} onSend={() => void sendMessage()} /> : null}
+      {playActive ? (
+        <div className={styles.chatSlot} aria-hidden={!chatOpen} inert={chatOpen ? undefined : true}>
+          {chatBox}
+        </div>
+      ) : chatOpen ? (
+        chatBox
+      ) : null}
     </div>
   ) : null;
 

@@ -111,18 +111,19 @@ record(
   "Copy link must swap to a checkmark, not a Copied label.",
 );
 const chatToggleCss = partyCss.match(/\.chatToggle \{([\s\S]*?)\}/)?.[1] ?? "";
-const playChatCss = partyCss.match(/\.playDock \.chatShell \{([\s\S]*?)\}/)?.[1] ?? "";
 record(
   partySource.includes("private-room-chat-toggle") &&
     partySource.includes("private-room-ranking") &&
     partySource.includes("chatToggleFace") &&
+    partySource.includes("MessageSquare") &&
+    partySource.includes("chatSlot") &&
     partyCss.includes(".chatToggleFace") &&
+    partyCss.includes(".chatSlot") &&
     /visibility:\s*hidden/.test(partyCss) &&
     /border:\s*1px solid/.test(chatToggleCss) &&
     !/border:\s*0/.test(chatToggleCss) &&
-    /gap:\s*0/.test(playChatCss) &&
     /startedAt != null \?/.test(partySource),
-  "Hide chat must keep one width, stay a button in the wait lobby, and sit on the chat box in play.",
+  "Hide chat must keep one width, keep an icon, and not move ranking or the button in play.",
 );
 record(
   !roomsSource.includes("function pruneMembers") && !roomsSource.includes("PRIVATE_ROOM_MEMBER_TTL_MS"),

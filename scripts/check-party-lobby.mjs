@@ -275,19 +275,18 @@ try {
   const chatAlign = await page.evaluate(`(() => {
     const button = document.querySelector('[data-testid="private-room-chat-toggle"]');
     if (!button) return null;
-    const face = button.querySelector('[data-show="true"]') ?? button;
-    const range = document.createRange();
-    range.selectNodeContents(face);
-    const text = range.getBoundingClientRect();
-    const box = button.getBoundingClientRect();
+    const face = button.querySelector('[data-show="true"]');
+    const icon = button.querySelector('[data-testid="private-room-chat-icon"], svg');
     return {
-      label: face.textContent?.trim() ?? "",
-      dx: Math.abs((text.left + text.right) / 2 - (box.left + box.right) / 2),
-      dy: Math.abs((text.top + text.bottom) / 2 - (box.top + box.bottom) / 2),
+      label: face?.textContent?.trim() ?? "",
+      icon: Boolean(icon),
     };
   })()`);
-  if (!chatAlign || chatAlign.dx > 3 || chatAlign.dy > 3) {
-    throw new Error(`Chat toggle text is misaligned (${JSON.stringify(chatAlign)}).`);
+  if (!chatAlign?.icon) {
+    throw new Error(`Chat toggle has no icon (${JSON.stringify(chatAlign)}).`);
+  }
+  if (!chatAlign.label) {
+    throw new Error("Chat toggle has no label.");
   }
   const chatLook = await page.evaluate(`(() => {
     const button = document.querySelector('[data-testid="private-room-chat-toggle"]');
