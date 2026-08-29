@@ -504,7 +504,12 @@ export function PrivateRoomPanel({
         aria-pressed={chatOpen}
         onClick={() => setChatOpen((open) => !open)}
       >
-        {chatOpen ? "Hide chat" : "Show chat"}
+        <span className={styles.chatToggleFace} data-show={chatOpen ? "false" : "true"}>
+          Show chat
+        </span>
+        <span className={styles.chatToggleFace} data-show={chatOpen ? "true" : "false"}>
+          Hide chat
+        </span>
       </button>
       {chatOpen ? <ChatBox room={room} draft={draft} onDraft={setDraft} onSend={() => void sendMessage()} /> : null}
     </div>

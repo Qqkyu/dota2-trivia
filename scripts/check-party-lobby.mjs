@@ -275,12 +275,13 @@ try {
   const chatAlign = await page.evaluate(`(() => {
     const button = document.querySelector('[data-testid="private-room-chat-toggle"]');
     if (!button) return null;
+    const face = button.querySelector('[data-show="true"]') ?? button;
     const range = document.createRange();
-    range.selectNodeContents(button);
+    range.selectNodeContents(face);
     const text = range.getBoundingClientRect();
     const box = button.getBoundingClientRect();
     return {
-      label: button.textContent?.trim() ?? "",
+      label: face.textContent?.trim() ?? "",
       dx: Math.abs((text.left + text.right) / 2 - (box.left + box.right) / 2),
       dy: Math.abs((text.top + text.bottom) / 2 - (box.top + box.bottom) / 2),
     };
@@ -308,8 +309,17 @@ try {
   }
   await clickTestId("private-room-chat-toggle");
   await delay(80);
-  const hidden = await page.evaluate(`!document.querySelector('[data-testid="private-room-chat"]')`);
-  if (!hidden) throw new Error("Chat did not hide.");
+  const afterHide = await page.evaluate(`(() => {
+    const button = document.querySelector('[data-testid="private-room-chat-toggle"]');
+    return {
+      hidden: !document.querySelector('[data-testid="private-room-chat"]'),
+      width: button ? Math.round(button.getBoundingClientRect().width) : 0,
+    };
+  })()`);
+  if (!afterHide.hidden) throw new Error("Chat did not hide.");
+  if (afterHide.width !== chatLook.width) {
+    throw new Error(`Hide chat changed width from ${chatLook.width} to ${afterHide.width}.`);
+  }
 
   const joinApiGuest = async (playerId, name = "") => {
     const query = new URL(`${appUrl}/api/private-rooms`);
