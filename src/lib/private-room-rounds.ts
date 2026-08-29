@@ -103,6 +103,7 @@ export function privateRoomClientPayload(
       contentVersion: record.contentVersion,
     },
     presence: { activePlayers: getRoomPresence(record.roomId, now) },
+    nameTaken: Boolean(record.nameTaken),
   };
 }
 

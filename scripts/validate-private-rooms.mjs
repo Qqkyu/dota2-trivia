@@ -140,7 +140,7 @@ const steal = touchPrivateRoom(created.code, idleHostAt + 2, {
   name: "Loda",
 });
 record(
-  steal?.players?.filter((player) => player.name.toLowerCase() === "loda").length === 1,
+  steal?.players?.filter((player) => player.name.toLowerCase() === "loda").length === 1 && steal?.nameTaken === true,
   "A player must not take a nickname that is already in the party.",
 );
 const copycat = touchPrivateRoom(created.code, idleHostAt + 2.2, {
@@ -159,6 +159,28 @@ const prefixOk = touchPrivateRoom(created.code, idleHostAt + 2.5, {
 record(
   prefixOk?.players?.some((player) => player.name === "Lodas"),
   "A longer nickname that only starts like a taken name must still be allowed.",
+);
+const hostRename = touchPrivateRoom(created.code, idleHostAt + 2.6, {
+  playerId: "host-player-1",
+  name: "x",
+});
+record(
+  hostRename?.players?.some((player) => player.host && player.name === "x") && hostRename?.nameTaken !== true,
+  "A host nick change must save on the room.",
+);
+const heartbeat = touchPrivateRoom(created.code, idleHostAt + 2.7, {
+  playerId: "host-player-1",
+  name: "Loda",
+  applyName: false,
+});
+record(
+  heartbeat?.players?.some((player) => player.host && player.name === "x"),
+  "A presence poll must not restore the old nick.",
+);
+const otherView = getPrivateRoom(created.code, idleHostAt + 2.8, "guest-player-00");
+record(
+  otherView?.players?.some((player) => player.host && player.name === "x"),
+  "Other players must see the new nick.",
 );
 const afterLeave = leavePrivateRoom(created.code, "guest-player-99", idleHostAt + 3);
 record(

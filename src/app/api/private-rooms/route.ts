@@ -21,8 +21,13 @@ export async function GET(request: NextRequest) {
     const rateLimited = rateLimitRequest(request, "private-rooms-read", identity.playerId, 120);
     if (rateLimited) return rateLimited;
     const now = Date.now();
-    const name = new URL(request.url).searchParams.get("name");
-    const record = touchPrivateRoom(code, now, { playerId: identity.playerId, name: name || identity.name });
+    const rawName = new URL(request.url).searchParams.get("name");
+    const applyName = typeof rawName === "string" && rawName.trim() !== "";
+    const record = touchPrivateRoom(code, now, {
+      playerId: identity.playerId,
+      name: applyName ? rawName.trim() : identity.name,
+      applyName,
+    });
     if (!record) return NextResponse.json({ error: "Unknown private room." }, { status: 404 });
     touchRoomPresence(record.roomId, identity.playerId, now);
     return NextResponse.json(privateRoomClientPayload(record, identity.playerId, now), {

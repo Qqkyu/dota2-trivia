@@ -260,6 +260,24 @@ try {
   if (!chatAlign || chatAlign.dx > 3 || chatAlign.dy > 3) {
     throw new Error(`Chat toggle text is misaligned (${JSON.stringify(chatAlign)}).`);
   }
+  const chatLook = await page.evaluate(`(() => {
+    const button = document.querySelector('[data-testid="private-room-chat-toggle"]');
+    if (!button) return null;
+    const style = getComputedStyle(button);
+    const box = button.getBoundingClientRect();
+    const parent = button.parentElement?.getBoundingClientRect();
+    return {
+      border: Number.parseFloat(style.borderTopWidth),
+      width: Math.round(box.width),
+      parent: parent ? Math.round(parent.width) : 0,
+    };
+  })()`);
+  if (!chatLook || chatLook.border < 1) {
+    throw new Error(`Hide chat does not look like a button (${JSON.stringify(chatLook)}).`);
+  }
+  if (chatLook.parent > 0 && chatLook.width >= chatLook.parent - 4) {
+    throw new Error("Hide chat is a full-width bar, not a button.");
+  }
   await clickTestId("private-room-chat-toggle");
   await delay(80);
   const hidden = await page.evaluate(`!document.querySelector('[data-testid="private-room-chat"]')`);
@@ -303,6 +321,50 @@ try {
   if (afterSteal.filter((name) => name.toLowerCase() === "alex").length !== 1) {
     throw new Error(`A guest stole the host nickname (${afterSteal.join(", ")}).`);
   }
+
+  const otherSession = await joinApiGuest(crypto.randomUUID());
+  if (!otherSession.some((player) => player.name === "Alex")) {
+    throw new Error(
+      `Other session still has the old nick (${otherSession.map((player) => player.name).join(", ")}).`,
+    );
+  }
+
+  const guestNick = afterSteal.find((name) => name && name.toLowerCase() !== "alex");
+  if (!guestNick) throw new Error("Need a guest nick to test taken names.");
+  await fill("private-room-name", guestNick);
+  await page.evaluate(`document.querySelector('[data-testid="private-room-name"]')?.blur()`);
+  await delay(600);
+  const taken = await page.evaluate(`(() => {
+    const nameError = document.querySelector('[data-testid="private-room-name-error"]');
+    const startError = document.querySelector('[data-testid="private-room-error"]');
+    const nameBox = document.querySelector('[data-testid="private-room-name"]')?.getBoundingClientRect();
+    const errBox = nameError?.getBoundingClientRect();
+    return {
+      text: nameError?.textContent?.trim() ?? "",
+      underStart: startError?.textContent?.trim() ?? "",
+      gap: nameBox && errBox ? errBox.top - nameBox.bottom : null,
+    };
+  })()`);
+  if (taken.text !== "That name is taken.") {
+    throw new Error(`Missing name-taken error (${JSON.stringify(taken)}).`);
+  }
+  if (taken.underStart === "That name is taken.") {
+    throw new Error("Name-taken error is under Start.");
+  }
+  if (taken.gap == null || taken.gap > 24) {
+    throw new Error(`Name-taken error is too far from the name field (${JSON.stringify(taken)}).`);
+  }
+
+  await fill("private-room-name", "Alex");
+  await page.evaluate(`document.querySelector('[data-testid="private-room-name"]')?.blur()`);
+  await delay(500);
+
+  await clickTestId("private-room-leave");
+  await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-open"]'))`);
+  await clickTestId("private-room-open");
+  await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-setup"]'))`);
+  const reopenedWait = await page.evaluate(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
+  if (reopenedWait) throw new Error("Leave then Play with friends reopened the old party.");
 
   const shots = await page.send("Page.captureScreenshot", { format: "png" });
   await writeFile("/tmp/party-lobby.png", Buffer.from(shots.data, "base64"));

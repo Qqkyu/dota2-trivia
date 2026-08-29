@@ -40,6 +40,7 @@ export interface PrivateRoomView {
   messages: PrivateChatMessage[];
   waiting: boolean;
   activePlayers: number;
+  nameTaken: boolean;
 }
 
 export interface PartyGameOption {
@@ -52,6 +53,7 @@ type PartyScreen = "setup" | "wait";
 
 interface PrivateRoomPayload {
   waiting?: boolean;
+  nameTaken?: boolean;
   privateRoom?: {
     code: string;
     games: string[];
@@ -85,6 +87,7 @@ function asRoomView(payload: PrivateRoomPayload | null): PrivateRoomView | null 
     messages: Array.isArray(room.messages) ? room.messages : [],
     waiting: payload?.waiting !== false && room.startedAt == null,
     activePlayers: Number(payload?.presence?.activePlayers) || 0,
+    nameTaken: Boolean(payload?.nameTaken),
   };
 }
 
@@ -153,6 +156,11 @@ function ChatBox({
 
 const PARTY_NAME_KEY = "queue-arcade:party-name";
 
+function persistPartyName(value: string) {
+  if (value.trim()) window.localStorage.setItem(PARTY_NAME_KEY, value);
+  else window.localStorage.removeItem(PARTY_NAME_KEY);
+}
+
 export function PrivateRoomPanel({
   gameOptions,
   playerId,
@@ -191,7 +199,6 @@ export function PrivateRoomPanel({
   const nameInputRef = useRef<HTMLInputElement | null>(null);
   const nameRef = useRef("");
   const committedNameRef = useRef("");
-  const nameFocusedRef = useRef(false);
   const trackedCode = room?.code;
   const shownName = partyNameInputValue({
     draft: nameDraft,
@@ -202,15 +209,10 @@ export function PrivateRoomPanel({
     nameRef.current = shownName;
   }, [shownName]);
 
-  const persistName = (value: string) => {
-    if (value.trim()) window.localStorage.setItem(PARTY_NAME_KEY, value);
-    else window.localStorage.removeItem(PARTY_NAME_KEY);
-  };
-
   const saveName = (value: string) => {
     const next = value.slice(0, PRIVATE_ROOM_NAME_MAX);
     setNameDraft(next);
-    persistName(next);
+    persistPartyName(next);
     setError(null);
     setErrorField(null);
   };
@@ -240,52 +242,75 @@ export function PrivateRoomPanel({
         headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },
       });
       const payload = (await response.json()) as PrivateRoomPayload;
+      if (init?.signal?.aborted) return null;
       if (!response.ok) throw new Error(payload.error ?? "Request failed.");
       return applyPayload(payload);
     },
     [applyPayload],
   );
 
+  const syncName = useCallback(
+    async (value: string) => {
+      const next = value.trim();
+      const current = committedNameRef.current.trim();
+      if (!trackedCode || !next || next.toLowerCase() === current.toLowerCase()) return;
+      try {
+        const payload = await requestRoom(
+          `/api/private-rooms?code=${encodeURIComponent(trackedCode)}&playerId=${encodeURIComponent(playerId())}&name=${encodeURIComponent(next)}`,
+        );
+        if (!payload) return;
+        if (payload.nameTaken) {
+          setError("That name is taken.");
+          setErrorField("name");
+          return;
+        }
+        const selfName = payload.players.find((player) => player.self)?.name ?? "";
+        if (selfName && selfName.toLowerCase() !== next.toLowerCase()) {
+          setError("That name is taken.");
+          setErrorField("name");
+          return;
+        }
+        committedNameRef.current = selfName || next;
+        persistPartyName(committedNameRef.current);
+        setError((currentError) => (currentError === "That name is taken." ? null : currentError));
+        setErrorField((field) => (field === "name" ? null : field));
+      } catch (cause) {
+        setError(cause instanceof Error ? cause.message : "Could not save that name.");
+        setErrorField("name");
+      }
+    },
+    [playerId, requestRoom, trackedCode],
+  );
+
   useEffect(() => {
     const code = trackedCode ?? initialCode;
     if (!code) return undefined;
+    const abort = new AbortController();
     const load = () =>
-      requestRoom(
-        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(playerId())}&name=${encodeURIComponent(committedNameRef.current.trim())}`,
-      ).catch((cause: Error) => {
-        setError(cause.message);
+      requestRoom(`/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(playerId())}`, {
+        signal: abort.signal,
+      }).catch((cause: unknown) => {
+        if (abort.signal.aborted) return;
+        if (cause instanceof Error && cause.name === "AbortError") return;
+        setError(cause instanceof Error ? cause.message : "Request failed.");
         if (!trackedCode) setScreen("setup");
       });
     const start = window.setTimeout(() => void load(), 0);
     const timer = window.setInterval(() => void load(), PRIVATE_ROOM_POLL_MS);
     return () => {
+      abort.abort();
       window.clearTimeout(start);
       window.clearInterval(timer);
     };
   }, [initialCode, playerId, requestRoom, trackedCode]);
 
-  const commitName = async () => {
-    nameFocusedRef.current = false;
+  useEffect(() => {
+    if (!trackedCode) return undefined;
     const next = shownName.trim();
-    const current = committedNameRef.current.trim();
-    if (!trackedCode || !next || next.toLowerCase() === current.toLowerCase()) return;
-    try {
-      const payload = await requestRoom(
-        `/api/private-rooms?code=${encodeURIComponent(trackedCode)}&playerId=${encodeURIComponent(playerId())}&name=${encodeURIComponent(next)}`,
-      );
-      const selfName = payload?.players.find((player) => player.self)?.name ?? "";
-      if (selfName && selfName.toLowerCase() !== next.toLowerCase()) {
-        setError("That name is taken.");
-        setErrorField("name");
-        return;
-      }
-      committedNameRef.current = selfName || next;
-      persistName(committedNameRef.current);
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Could not save that name.");
-      setErrorField("name");
-    }
-  };
+    if (!next || next.toLowerCase() === committedNameRef.current.trim().toLowerCase()) return undefined;
+    const timer = window.setTimeout(() => void syncName(next), 400);
+    return () => window.clearTimeout(timer);
+  }, [shownName, syncName, trackedCode]);
 
   const toggleGame = (id: string) => {
     setSelected((current) => (current.includes(id) ? current.filter((game) => game !== id) : [...current, id]));
@@ -433,7 +458,7 @@ export function PrivateRoomPanel({
         aria-pressed={chatOpen}
         onClick={() => setChatOpen((open) => !open)}
       >
-        {chatOpen ? "Hide chat" : "Chat"}
+        {chatOpen ? "Hide chat" : "Show chat"}
       </button>
       {chatOpen ? <ChatBox room={room} draft={draft} onDraft={setDraft} onSend={() => void sendMessage()} /> : null}
     </div>
@@ -460,6 +485,7 @@ export function PrivateRoomPanel({
     <button
       type="button"
       className={styles.back}
+      data-testid="private-room-leave"
       onClick={() => {
         if (screen === "wait") leaveParty();
         onClose?.();
@@ -511,34 +537,38 @@ export function PrivateRoomPanel({
                   data-self={player.self}
                 >
                   {player.self ? (
-                    <label className={styles.selfName}>
-                      <input
-                        ref={nameInputRef}
-                        className={styles.playerName}
-                        value={shownName}
-                        maxLength={PRIVATE_ROOM_NAME_MAX}
-                        placeholder="Your name"
-                        autoComplete="nickname"
-                        spellCheck={false}
-                        aria-invalid={errorField === "name"}
-                        data-invalid={errorField === "name" ? "true" : undefined}
-                        aria-label="Your name"
-                        data-testid="private-room-name"
-                        onChange={(event) => saveName(event.currentTarget.value)}
-                        onFocus={() => {
-                          nameFocusedRef.current = true;
-                        }}
-                        onBlur={() => {
-                          void commitName();
-                        }}
-                        onKeyDown={(event) => {
-                          if (event.key === "Enter") {
-                            event.currentTarget.blur();
-                          }
-                        }}
-                      />
-                      <Pencil aria-hidden="true" data-testid="private-room-name-pen" />
-                    </label>
+                    <div className={styles.selfStack}>
+                      <label className={styles.selfName}>
+                        <input
+                          ref={nameInputRef}
+                          className={styles.playerName}
+                          value={shownName}
+                          maxLength={PRIVATE_ROOM_NAME_MAX}
+                          placeholder="Your name"
+                          autoComplete="nickname"
+                          spellCheck={false}
+                          aria-invalid={errorField === "name"}
+                          data-invalid={errorField === "name" ? "true" : undefined}
+                          aria-label="Your name"
+                          data-testid="private-room-name"
+                          onChange={(event) => saveName(event.currentTarget.value)}
+                          onBlur={() => {
+                            void syncName(shownName);
+                          }}
+                          onKeyDown={(event) => {
+                            if (event.key === "Enter") {
+                              event.currentTarget.blur();
+                            }
+                          }}
+                        />
+                        <Pencil aria-hidden="true" data-testid="private-room-name-pen" />
+                      </label>
+                      {errorField === "name" && error ? (
+                        <p className={styles.nameError} role="alert" data-testid="private-room-name-error">
+                          {error}
+                        </p>
+                      ) : null}
+                    </div>
                   ) : (
                     <strong>{player.name}</strong>
                   )}
@@ -562,7 +592,7 @@ export function PrivateRoomPanel({
               Waiting for {room.players.find((player) => player.host)?.name || "the host"} to start
             </p>
           )}
-          {error ? (
+          {error && errorField !== "name" ? (
             <p className={styles.error} role="alert" data-testid="private-room-error">
               {error}
             </p>

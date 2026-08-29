@@ -110,13 +110,15 @@ record(
     !partySource.includes("Copied</"),
   "Copy link must swap to a checkmark, not a Copied label.",
 );
+const chatToggleCss = partyCss.match(/\.chatToggle \{([\s\S]*?)\}/)?.[1] ?? "";
 record(
   partySource.includes("private-room-chat-toggle") &&
     partySource.includes("private-room-ranking") &&
     !partySource.includes("chatToggleFace") &&
-    partyCss.includes(".chatToggle") &&
+    /border:\s*1px solid/.test(chatToggleCss) &&
+    !/border:\s*0/.test(chatToggleCss) &&
     /startedAt != null \?/.test(partySource),
-  "Chat toggle must stay aligned, wait lobby must not show a 0 score, and play must keep a ranking.",
+  "Hide chat must look like a button, wait lobby must not show a 0 score, and play must keep a ranking.",
 );
 record(
   !roomsSource.includes("function pruneMembers") && !roomsSource.includes("PRIVATE_ROOM_MEMBER_TTL_MS"),
@@ -131,11 +133,22 @@ record(
   "Each tab must be its own guest, and an empty saved nick must not hide the host seed name.",
 );
 record(
-  partySource.includes("commitName") &&
+  partySource.includes("syncName") &&
     partySource.includes("onBlur") &&
     partySource.includes("committedNameRef") &&
-    !partySource.includes("setNameDraft(selfName)"),
-  "Name uniqueness must run on blur, not while typing, and must not eat the newest letter.",
+    !partySource.includes("setNameDraft(selfName)") &&
+    !partySource.includes("&name=${encodeURIComponent(committedNameRef"),
+  "Name sync must not run on every letter, presence polls must not send the old nick, and the field must not eat input.",
+);
+record(
+  partySource.includes("private-room-name-error") && partySource.includes("nameError"),
+  "That name is taken must sit on the name row, not under Start.",
+);
+record(
+  !arcadeSource.includes("initialCode={roomCode || activePrivateCode") &&
+    arcadeSource.includes("partyInviteCode") &&
+    arcadeSource.includes("setPartyInviteCode"),
+  "Leave and Play with friends must open a fresh party setup, not the last room code from the page props.",
 );
 record(
   partySource.includes("chatShell") && partySource.includes("private-room-host-wait"),

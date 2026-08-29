@@ -2846,6 +2846,7 @@ export function QueueArcade({
   const [privateWaiting, setPrivateWaiting] = useState(Boolean(roomCode));
   const [partyOpen, setPartyOpen] = useState(Boolean(roomCode) || partyStart);
   const [activePrivateCode, setActivePrivateCode] = useState(roomCode ?? "");
+  const [partyInviteCode, setPartyInviteCode] = useState(roomCode ?? "");
   const privateCodeRef = useRef(roomCode ?? "");
   const partyMode = partyOpen || privateWaiting;
 
@@ -3737,15 +3738,38 @@ export function QueueArcade({
       void loadAccount();
       setPartyOpen(false);
       setPrivateWaiting(false);
+      const leavingCode = privateCodeRef.current || new URLSearchParams(window.location.search).get("room") || "";
       privateCodeRef.current = "";
       setActivePrivateCode("");
+      setPartyInviteCode("");
+      if (leavingCode) {
+        const body = JSON.stringify({ code: leavingCode, playerId: ensurePlayerId() });
+        const blob = new Blob([body], { type: "application/json" });
+        if (!(typeof navigator.sendBeacon === "function" && navigator.sendBeacon("/api/private-rooms/leave", blob))) {
+          void fetch("/api/private-rooms/leave", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body,
+            keepalive: true,
+          }).catch(() => undefined);
+        }
+      }
 
       if (historyAction !== "none" && (window.location.pathname !== ARCADE_LOBBY_PATH || window.location.search)) {
         const method = historyAction === "replace" ? "replaceState" : "pushState";
         window.history[method]({ queueArcadeView: "lobby" }, "", ARCADE_LOBBY_PATH);
       }
     },
-    [finishAlphaSession, loadAccount, setDeadline, setPhase, stopRoundAudio, updateReportState, updateReportTarget],
+    [
+      ensurePlayerId,
+      finishAlphaSession,
+      loadAccount,
+      setDeadline,
+      setPhase,
+      stopRoundAudio,
+      updateReportState,
+      updateReportTarget,
+    ],
   );
 
   useEffect(() => {
@@ -3756,6 +3780,7 @@ export function QueueArcade({
         if (room) {
           privateCodeRef.current = room;
           setActivePrivateCode(room);
+          setPartyInviteCode(room);
           setPartyOpen(true);
           if (phaseRef.current === "lobby") setPrivateWaiting(true);
           return;
@@ -3764,6 +3789,7 @@ export function QueueArcade({
         setPrivateWaiting(false);
         privateCodeRef.current = "";
         setActivePrivateCode("");
+        setPartyInviteCode("");
         if (phaseRef.current === "lobby") void startRun(false);
         return;
       }
@@ -3773,6 +3799,7 @@ export function QueueArcade({
         setPrivateWaiting(false);
         privateCodeRef.current = "";
         setActivePrivateCode("");
+        setPartyInviteCode("");
         return;
       }
       returnToLobby("none");
@@ -4266,6 +4293,10 @@ export function QueueArcade({
                 onClick={(event) => {
                   if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
                   event.preventDefault();
+                  privateCodeRef.current = "";
+                  setActivePrivateCode("");
+                  setPartyInviteCode("");
+                  setPrivateWaiting(false);
                   setPartyOpen(true);
                   if (window.location.pathname !== PARTY_ARCADE_PATH) {
                     window.history.pushState({ queueArcadeView: "party" }, "", PARTY_ARCADE_PATH);
@@ -4375,7 +4406,7 @@ export function QueueArcade({
           }))}
           playerId={ensurePlayerId}
           displayName={account?.authenticated ? account.profile.user.displayName : ""}
-          initialCode={roomCode || activePrivateCode || undefined}
+          initialCode={activePrivateCode || partyInviteCode || undefined}
           playActive={false}
           onWaitingChange={(waiting) => {
             setPrivateWaiting(waiting);
@@ -4384,6 +4415,7 @@ export function QueueArcade({
           onStarted={(code) => {
             privateCodeRef.current = code;
             setActivePrivateCode(code);
+            setPartyInviteCode(code);
             setPrivateWaiting(false);
             void startRun(true, code);
           }}
@@ -4392,6 +4424,7 @@ export function QueueArcade({
             setPrivateWaiting(false);
             privateCodeRef.current = "";
             setActivePrivateCode("");
+            setPartyInviteCode("");
             if (window.location.pathname !== ARCADE_LOBBY_PATH || window.location.search) {
               window.history.pushState({ queueArcadeView: "lobby" }, "", ARCADE_LOBBY_PATH);
             }
