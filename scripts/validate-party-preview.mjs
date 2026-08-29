@@ -79,10 +79,12 @@ record(
   partySource.includes('data-testid="private-room-name"') &&
     partySource.includes("data-self") &&
     partySource.includes('data-testid="private-room-players"') &&
+    partySource.includes("Pencil") &&
+    partySource.includes("visiblePartyName") &&
     !partySource.includes("styles.topbar") &&
     !partySource.includes("styles.nameField") &&
     !partySource.includes("styles.ticket"),
-  "Your name must be the first editable row in the players table.",
+  "Your name must be the first editable row, show the auto name, and carry a pen cue.",
 );
 record(/justify-items:\s*center/.test(partyCss) && /\.lobby \{/.test(partyCss), "The wait lobby must be centered.");
 

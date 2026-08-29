@@ -345,6 +345,15 @@ try {
           await delay(100);
           await clickEnter();
           await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
+          await delay(200);
+          const autoName = await page.evaluate(`(() => ({
+            name: document.querySelector('[data-testid="private-room-name"]')?.value ?? "",
+            pen: Boolean(document.querySelector('[data-testid="private-room-name-pen"]')),
+          }))()`);
+          if (!autoName.name.trim() || !autoName.pen) {
+            console.error(`Wait name is blank or missing a pen cue (${JSON.stringify(autoName)}).`);
+            process.exitCode = 1;
+          } else {
           await fill("private-room-name", "Loda");
           await delay(100);
           const waitShots = await page.send("Page.captureScreenshot", { format: "png" });
@@ -370,6 +379,7 @@ try {
             console.log(
               `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
             );
+          }
           }
           }
         }

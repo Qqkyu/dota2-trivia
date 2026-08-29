@@ -1,4 +1,5 @@
 import { formatsForRoundGames, isLiveRoundGame, isPublicRoundFormat, PUBLIC_ROUND_FORMATS } from "./arcade-games.mjs";
+import { ROOM_PRESENCE_TTL_MS } from "./room-presence.mjs";
 
 export const PRIVATE_ROOM_CODE_MIN = 3;
 export const PRIVATE_ROOM_CODE_MAX = 16;
@@ -35,6 +36,14 @@ export function partyCodeError(value) {
 export function partyNameError(value) {
   if (typeof value !== "string" || !sanitizeLine(value, PRIVATE_ROOM_NAME_MAX)) return "Type a name.";
   return null;
+}
+
+export function visiblePartyName({ partyName, displayName, selfName }) {
+  const typed = typeof partyName === "string" ? partyName.trim() : "";
+  if (typed) return typed;
+  const account = typeof displayName === "string" ? displayName.trim() : "";
+  if (account) return account;
+  return typeof selfName === "string" ? selfName.trim() : "";
 }
 
 export function privateRoomId(gameId, contentVersion, code) {
@@ -118,6 +127,11 @@ function upsertMember(record, playerId, name, now) {
   record.members.push({ playerId, name: cleaned, lastSeenAt: now });
 }
 
+function pruneMembers(record, now) {
+  if (!record.members) return;
+  record.members = record.members.filter((member) => now - member.lastSeenAt < ROOM_PRESENCE_TTL_MS);
+}
+
 export function expireIdlePrivateRooms(now = Date.now()) {
   for (const [code, record] of rooms) {
     if (now >= record.lastSeenAt && now - record.lastSeenAt >= PRIVATE_ROOM_IDLE_MS) rooms.delete(code);
@@ -129,7 +143,9 @@ export function getPrivateRoom(code, now = Date.now(), viewerId) {
   const normalized = normalizePrivateRoomCode(code);
   if (!normalized) return null;
   const record = rooms.get(normalized);
-  return record ? publicView(record, viewerId) : null;
+  if (!record) return null;
+  pruneMembers(record, now);
+  return publicView(record, viewerId);
 }
 
 export function touchPrivateRoom(code, now = Date.now(), identity) {
@@ -137,7 +153,17 @@ export function touchPrivateRoom(code, now = Date.now(), identity) {
   if (!record) return null;
   record.lastSeenAt = now;
   if (identity?.playerId) upsertMember(record, identity.playerId, identity.name, now);
+  pruneMembers(record, now);
   return publicView(record, identity?.playerId);
+}
+
+export function leavePrivateRoom(code, playerId, now = Date.now()) {
+  const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
+  if (!record) return null;
+  record.members = (record.members ?? []).filter((member) => member.playerId !== playerId);
+  record.lastSeenAt = now;
+  pruneMembers(record, now);
+  return publicView(record);
 }
 
 export function createPrivateRoom({

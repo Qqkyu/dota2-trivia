@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowLeft, Copy, Users } from "lucide-react";
+import { ArrowLeft, Copy, Pencil, Users } from "lucide-react";
 import clsx from "clsx";
 import type { FormatPreview } from "@/components/format-look";
 import { FormatPreviewCard, formatPreviewCardStyles } from "@/components/format-preview-card";
@@ -10,6 +10,7 @@ import {
   PRIVATE_ROOM_CODE_MAX,
   PRIVATE_ROOM_NAME_MAX,
   partyCodeError,
+  visiblePartyName,
 } from "@/lib/private-rooms.mjs";
 import styles from "./private-room-panel.module.css";
 
@@ -180,7 +181,11 @@ export function PrivateRoomPanel({
   const joinInputRef = useRef<HTMLInputElement | null>(null);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
   const trackedCode = room?.code;
-  const shownName = partyName || displayName;
+  const shownName = visiblePartyName({
+    partyName,
+    displayName,
+    selfName: room?.players.find((player) => player.self)?.name ?? "",
+  });
 
   const saveName = (value: string) => {
     const next = value.slice(0, PRIVATE_ROOM_NAME_MAX);
@@ -348,6 +353,25 @@ export function PrivateRoomPanel({
     }
   };
 
+  const leaveParty = useCallback(() => {
+    const code = trackedCode ?? (screen === "wait" ? joinCode : "");
+    if (!code) return;
+    const body = JSON.stringify({ code, playerId: playerId() });
+    void fetch("/api/private-rooms/leave", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+      keepalive: true,
+    }).catch(() => undefined);
+  }, [joinCode, playerId, screen, trackedCode]);
+
+  useEffect(() => {
+    if (playActive || screen !== "wait" || !trackedCode) return undefined;
+    const onPageHide = () => leaveParty();
+    window.addEventListener("pagehide", onPageHide);
+    return () => window.removeEventListener("pagehide", onPageHide);
+  }, [leaveParty, playActive, screen, trackedCode]);
+
   if (playActive) {
     return room ? (
       <ChatBox room={room} draft={draft} dock onDraft={setDraft} onSend={() => void sendMessage()} />
@@ -355,7 +379,14 @@ export function PrivateRoomPanel({
   }
 
   const back = (
-    <button type="button" className={styles.back} onClick={() => onClose?.()}>
+    <button
+      type="button"
+      className={styles.back}
+      onClick={() => {
+        if (screen === "wait") leaveParty();
+        onClose?.();
+      }}
+    >
       <ArrowLeft />
       Leave
     </button>
@@ -396,20 +427,23 @@ export function PrivateRoomPanel({
               {roster.map((player, index) => (
                 <li key={`${player.name}-${index}`} data-host={player.host} data-self={player.self}>
                   {player.self ? (
-                    <input
-                      ref={nameInputRef}
-                      className={styles.playerName}
-                      value={shownName}
-                      maxLength={PRIVATE_ROOM_NAME_MAX}
-                      placeholder="Your name"
-                      autoComplete="nickname"
-                      spellCheck={false}
-                      aria-invalid={errorField === "name"}
-                      data-invalid={errorField === "name" ? "true" : undefined}
-                      aria-label="Your name"
-                      data-testid="private-room-name"
-                      onChange={(event) => saveName(event.currentTarget.value)}
-                    />
+                    <label className={styles.selfName}>
+                      <input
+                        ref={nameInputRef}
+                        className={styles.playerName}
+                        value={shownName}
+                        maxLength={PRIVATE_ROOM_NAME_MAX}
+                        placeholder="Your name"
+                        autoComplete="nickname"
+                        spellCheck={false}
+                        aria-invalid={errorField === "name"}
+                        data-invalid={errorField === "name" ? "true" : undefined}
+                        aria-label="Your name"
+                        data-testid="private-room-name"
+                        onChange={(event) => saveName(event.currentTarget.value)}
+                      />
+                      <Pencil aria-hidden="true" data-testid="private-room-name-pen" />
+                    </label>
                   ) : (
                     <strong>{player.name}</strong>
                   )}

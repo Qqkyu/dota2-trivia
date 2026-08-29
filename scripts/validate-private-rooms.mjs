@@ -18,7 +18,10 @@ import {
   resetPrivateRoomsForTests,
   startPrivateRoom,
   touchPrivateRoom,
+  leavePrivateRoom,
+  visiblePartyName,
 } from "../src/lib/private-rooms.mjs";
+import { ROOM_PRESENCE_TTL_MS } from "../src/lib/room-presence.mjs";
 
 const failures = [];
 const record = (ok, message) => {
@@ -95,6 +98,39 @@ const joined = touchPrivateRoom(created.code, now + 10, { playerId: "guest-playe
 record(
   joined?.players?.some((player) => player.name === "Puppey" && !player.host),
   "Joiners must appear on the wait list by name.",
+);
+record(
+  visiblePartyName({ partyName: "", displayName: "", selfName: "Guest-ABCD" }) === "Guest-ABCD",
+  "A guest must see the auto name the server gave them.",
+);
+record(
+  visiblePartyName({ partyName: "Loda", displayName: "", selfName: "Guest-ABCD" }) === "Loda",
+  "A typed name must win over the auto guest name.",
+);
+
+const afterGuestGone = touchPrivateRoom(created.code, now + 10 + ROOM_PRESENCE_TTL_MS + 1, {
+  playerId: "host-player-1",
+  name: "Loda",
+});
+record(
+  afterGuestGone?.players?.every((player) => player.name !== "Puppey") &&
+    afterGuestGone?.players?.some((player) => player.name === "Loda"),
+  "A player who closed the tab must drop off the wait list.",
+);
+
+const guestReturnAt = now + 10 + ROOM_PRESENCE_TTL_MS + 2;
+const stillHere = touchPrivateRoom(created.code, guestReturnAt, {
+  playerId: "guest-player-99",
+  name: "Puppey",
+});
+record(
+  stillHere?.players?.some((player) => player.name === "Puppey"),
+  "A player who is still present must stay on the wait list.",
+);
+const afterLeave = leavePrivateRoom(created.code, "guest-player-99", guestReturnAt + 1);
+record(
+  afterLeave?.players?.every((player) => player.name !== "Puppey"),
+  "Leave must remove the player at once, not after a timeout.",
 );
 
 const stranger = startPrivateRoom(created.code, "other-player-1", now + 1_000);
