@@ -29,17 +29,24 @@
 }
 
 .fit {
-  container-type: inline-size;
-  height: auto;
-  aspect-ratio: 920 / 704;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
 .fit .scale {
-  transform: scale(calc(100cqi / 920));
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 920px;
+  height: 704px;
+  transform-origin: top left;
 }
 
 .fit .stage {
+  width: 920px;
   min-height: 704px;
+  height: 704px;
 }
 
 .stage {

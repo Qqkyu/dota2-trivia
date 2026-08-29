@@ -17,15 +17,13 @@ const record = (ok, message) => {
 
 const stageHeight = Number(arcadeCss.match(/\.gameStage \{[\s\S]*?min-height:\s*(\d+)px/)?.[1]);
 const stageWidth = Number(lookCss.match(/\.scale \{[\s\S]*?width:\s*(\d+)px/)?.[1]);
-const fitRatio = lookCss.match(/\.fit \{[\s\S]*?aspect-ratio:\s*(\d+)\s*\/\s*(\d+)/);
-const fitWidth = Number(fitRatio?.[1]);
-const fitHeight = Number(fitRatio?.[2]);
+const lookSource = await readFile(path.join(root, "src/components/format-look.tsx"), "utf8");
 
 record(stageHeight === 704, `Round stage height is ${stageHeight}, expected 704.`);
 record(stageWidth === 920, `Preview stage width is ${stageWidth}, expected 920.`);
 record(
-  fitWidth === stageWidth && fitHeight === stageHeight,
-  `Party previews crop the round. Fit box is ${fitWidth}/${fitHeight}; the stage is ${stageWidth}/${stageHeight}.`,
+  lookSource.includes("ResizeObserver") && lookSource.includes("PREVIEW_STAGE_HEIGHT * scale"),
+  "Party previews still use a fixed CSS scale, so the question is clipped.",
 );
 record(
   /\.fit \.stage \{[\s\S]*?min-height:\s*704px/.test(lookCss),
