@@ -217,10 +217,18 @@ export function addPrivateRoomScore(code, playerId, points, now = Date.now()) {
 }
 
 export function leavePrivateRoom(code, playerId, now = Date.now()) {
-  const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
+  const key = normalizePrivateRoomCode(code) ?? "";
+  const record = rooms.get(key);
   if (!record) return null;
   record.members = (record.members ?? []).filter((member) => member.playerId !== playerId);
   record.lastSeenAt = now;
+  if (record.members.length === 0) {
+    rooms.delete(key);
+    return null;
+  }
+  if (!record.members.some((member) => member.playerId === record.hostId)) {
+    record.hostId = record.members[0].playerId;
+  }
   return publicView(record);
 }
 

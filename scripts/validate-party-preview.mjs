@@ -125,6 +125,11 @@ record(
     /startedAt != null \?/.test(partySource),
   "Hide chat must keep one width, keep an icon, and not move ranking or the button in play.",
 );
+const chatPanelSource = partySource.slice(partySource.indexOf("const chatPanel"));
+record(
+  chatPanelSource.indexOf("chatSlot") < chatPanelSource.indexOf("private-room-chat-toggle"),
+  "Hide chat must sit under the chat box, not above ranking.",
+);
 record(
   !roomsSource.includes("function pruneMembers") && !roomsSource.includes("PRIVATE_ROOM_MEMBER_TTL_MS"),
   "Idle or background tabs must not prune party members. Only Leave removes them.",

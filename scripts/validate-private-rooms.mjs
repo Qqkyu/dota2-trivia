@@ -225,6 +225,27 @@ record(empty.ok === false, "Empty chat must not land.");
 const long = addPrivateRoomMessage(created.code, { name: "Loda", text: "x".repeat(PRIVATE_ROOM_MESSAGE_MAX + 8), now: now + 3_200 });
 record(long.ok === true && long.message.text.length === PRIVATE_ROOM_MESSAGE_MAX, "Chat should cap at 80 characters.");
 
+const hostGone = leavePrivateRoom(created.code, "host-player-1", now + 4_000);
+record(
+  hostGone?.players?.some((player) => player.host && player.name === "Lodas") &&
+    hostGone.players.filter((player) => player.host).length === 1 &&
+    hostGone.players.every((player) => player.name !== "x"),
+  "When the host leaves, the next player becomes host.",
+);
+leavePrivateRoom(created.code, "guest-player-00", now + 4_100);
+const lastGone = leavePrivateRoom(created.code, "guest-player-77", now + 4_200);
+record(lastGone === null && getPrivateRoom(created.code) === null, "An empty party must die at once.");
+const reused = createPrivateRoom({
+  hostId: "host-player-2",
+  gameId: "dota2",
+  contentVersion: "test-version",
+  games: ["flashback"],
+  code: "loda",
+  name: "NewHost",
+  now: now + 4_300,
+});
+record(reused.code === "LODA" && reused.players?.some((player) => player.host && player.name === "NewHost"), "The party code must be free after the last player leaves.");
+
 const publicId = "dota2:content:public";
 record(!isPrivateRoomId(publicId), "The public room ID must stay public.");
 

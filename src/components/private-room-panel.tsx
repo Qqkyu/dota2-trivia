@@ -501,6 +501,13 @@ export function PrivateRoomPanel({
 
   const chatPanel = room ? (
     <div className={styles.chatShell} data-open={chatOpen ? "true" : "false"}>
+      {playActive ? (
+        <div className={styles.chatSlot} aria-hidden={!chatOpen} inert={chatOpen ? undefined : true}>
+          {chatBox}
+        </div>
+      ) : chatOpen ? (
+        chatBox
+      ) : null}
       <button
         type="button"
         className={styles.chatToggle}
@@ -518,13 +525,6 @@ export function PrivateRoomPanel({
           </span>
         </span>
       </button>
-      {playActive ? (
-        <div className={styles.chatSlot} aria-hidden={!chatOpen} inert={chatOpen ? undefined : true}>
-          {chatBox}
-        </div>
-      ) : chatOpen ? (
-        chatBox
-      ) : null}
     </div>
   ) : null;
 
