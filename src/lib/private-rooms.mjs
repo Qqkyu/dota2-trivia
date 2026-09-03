@@ -10,6 +10,7 @@ export const PRIVATE_ROOM_MAX_MESSAGES = 40;
 export const PRIVATE_ROOM_MESSAGE_MAX = 80;
 export const PRIVATE_ROOM_NAME_MAX = 24;
 export const PRIVATE_ROOM_NAME_NOTICE_MS = 2_500;
+export const PRIVATE_ROOM_COUNTDOWN_MS = 3_000;
 
 const globalStore = globalThis;
 const rooms = globalStore.__queueArcadePrivateRooms ?? new Map();
@@ -90,6 +91,15 @@ function sanitizeLine(value, max) {
     .replace(/\s+/g, " ")
     .trim()
     .slice(0, max);
+}
+
+export function privateRoomWaiting(record, now = Date.now()) {
+  return record.startedAt == null || now < record.startedAt;
+}
+
+export function privateRoomCountdownMs(record, now = Date.now()) {
+  if (record.startedAt == null || now >= record.startedAt) return 0;
+  return record.startedAt - now;
 }
 
 export function privateRoundTiming(startedAt, now, answerMs = 15_000, revealMs = 7_000) {
@@ -283,7 +293,7 @@ export function startPrivateRoom(code, playerId, now = Date.now()) {
   const names = (record.members ?? []).map((member) => member.name.toLowerCase());
   if (new Set(names).size !== names.length) return { ok: false, reason: "names" };
   if (record.startedAt != null) return { ok: true, alreadyStarted: true, room: publicView(record) };
-  record.startedAt = now;
+  record.startedAt = now + PRIVATE_ROOM_COUNTDOWN_MS;
   record.lastSeenAt = now;
   return { ok: true, alreadyStarted: false, room: publicView(record) };
 }

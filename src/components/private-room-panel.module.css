@@ -342,11 +342,13 @@
 }
 
 .lobby .primary,
-.startWait {
+.startWait,
+.countdown {
   width: 100%;
 }
 
-.startWait {
+.startWait,
+.countdown {
   display: grid;
   min-height: 52px;
   place-items: center;
@@ -356,6 +358,12 @@
   color: #e8d5a3;
   font-size: 14px;
   text-align: center;
+}
+
+.countdown {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 28px;
+  letter-spacing: 0.08em;
 }
 
 .copyLink {

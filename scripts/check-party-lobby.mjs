@@ -422,6 +422,19 @@ try {
 
   await commitName("Alex");
 
+  await clickTestId("private-room-start");
+  await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-countdown"]'))`);
+  const count = await page.evaluate(
+    `document.querySelector('[data-testid="private-room-countdown"]')?.textContent?.trim() ?? ""`,
+  );
+  if (!["3", "2", "1"].includes(count)) {
+    throw new Error(`Start countdown was ${JSON.stringify(count)}, expected 3, 2, or 1.`);
+  }
+  const startingLabel = await page.evaluate(
+    `[...document.querySelectorAll("button")].some((node) => /starting/i.test(node.textContent ?? ""))`,
+  );
+  if (startingLabel) throw new Error("Start still shows a Starting label.");
+
   await clickTestId("private-room-leave");
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-open"]'))`);
   await clickTestId("private-room-open");

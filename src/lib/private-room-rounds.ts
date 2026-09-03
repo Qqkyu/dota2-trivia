@@ -2,7 +2,14 @@ import type { PublicRoom, PublicRoomSettings, PublicRound } from "@/lib/arcade-c
 import { sessionUserForRequest } from "@/lib/auth-session";
 import { PUBLIC_ARCADE_MODE } from "@/lib/arcade-games.mjs";
 import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
-import { getPrivateRoom, guestDisplayName, privateRoundTiming, touchPrivateRoom } from "@/lib/private-rooms.mjs";
+import {
+  getPrivateRoom,
+  guestDisplayName,
+  privateRoomCountdownMs,
+  privateRoomWaiting,
+  privateRoundTiming,
+  touchPrivateRoom,
+} from "@/lib/private-rooms.mjs";
 import { getRoomPresence } from "@/lib/room-presence.mjs";
 import {
   currentPublicRound,
@@ -80,7 +87,8 @@ export function privateRoomClientPayload(
 ) {
   return {
     serverNow: now,
-    waiting: record.startedAt == null,
+    waiting: privateRoomWaiting(record, now),
+    countdownMs: privateRoomCountdownMs(record, now),
     privateRoom: {
       code: record.code,
       games: record.games,
@@ -111,7 +119,7 @@ export function currentPrivateRound(code: string, now = Date.now()) {
   const record = touchPrivateRoom(code, now) ?? getPrivateRoom(code, now);
   if (!record) return null;
   const room = roomFromRecord(record);
-  if (record.startedAt == null) {
+  if (privateRoomWaiting(record, now)) {
     return { room, round: null as PublicRound | null, waiting: true as const, record };
   }
   const timing = privateRoundTiming(record.startedAt, now, PUBLIC_ROUND_ANSWER_MS, PUBLIC_ROUND_REVEAL_MS);
@@ -140,6 +148,6 @@ export function liveRoundAt(settings: PublicRoomSettings, roundNumber: number, n
     return publicRoundAt(room, roundNumber, now);
   }
   const current = currentPrivateRound(settings.privateCode, now);
-  if (!current?.record || current.record.startedAt == null) return null;
+  if (!current?.record || current.waiting) return null;
   return privateRoundAt(current.record, roundNumber, now);
 }

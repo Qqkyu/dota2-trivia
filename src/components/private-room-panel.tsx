@@ -41,6 +41,7 @@ export interface PrivateRoomView {
   players: PrivateRoomPlayer[];
   messages: PrivateChatMessage[];
   waiting: boolean;
+  countdownMs: number;
   activePlayers: number;
   nameTaken: boolean;
 }
@@ -55,6 +56,7 @@ type PartyScreen = "setup" | "wait";
 
 interface PrivateRoomPayload {
   waiting?: boolean;
+  countdownMs?: number;
   nameTaken?: boolean;
   privateRoom?: {
     code: string;
@@ -87,7 +89,8 @@ function asRoomView(payload: PrivateRoomPayload | null): PrivateRoomView | null 
         }))
       : [],
     messages: Array.isArray(room.messages) ? room.messages : [],
-    waiting: payload?.waiting !== false && room.startedAt == null,
+    waiting: payload?.waiting !== false,
+    countdownMs: Math.max(0, Number(payload?.countdownMs) || 0),
     activePlayers: Number(payload?.presence?.activePlayers) || 0,
     nameTaken: Boolean(payload?.nameTaken),
   };
@@ -204,6 +207,8 @@ export function PrivateRoomPanel({
   const nameRef = useRef("");
   const committedNameRef = useRef("");
   const nameEditingRef = useRef(false);
+  const countdownEndRef = useRef<number | null>(null);
+  const [countdownRemainingMs, setCountdownRemainingMs] = useState<number | null>(null);
   const trackedCode = room?.code;
   const selfServerName = room?.players.find((player) => player.self)?.name ?? "";
   const shownName = partyNameInputValue({
@@ -214,6 +219,25 @@ export function PrivateRoomPanel({
   useEffect(() => {
     nameRef.current = shownName;
   }, [shownName]);
+
+  useEffect(() => {
+    if (!room?.waiting || !room.countdownMs) {
+      countdownEndRef.current = null;
+      return undefined;
+    }
+    if (countdownEndRef.current == null) countdownEndRef.current = Date.now() + room.countdownMs;
+    const timer = window.setInterval(() => {
+      const end = countdownEndRef.current;
+      if (end == null) return;
+      setCountdownRemainingMs(Math.max(0, end - Date.now()));
+    }, 200);
+    return () => window.clearInterval(timer);
+  }, [room?.countdownMs, room?.startedAt, room?.waiting]);
+
+  const countdownSeconds =
+    room?.waiting && room.countdownMs > 0
+      ? Math.max(1, Math.ceil((countdownRemainingMs ?? room.countdownMs) / 1000))
+      : 0;
 
   const clearNameNotice = useCallback(() => {
     if (nameNoticeTimerRef.current != null) {
@@ -270,7 +294,7 @@ export function PrivateRoomPanel({
       setRoom(next);
       onWaitingChange?.(next.waiting);
       if (next.waiting) setScreen("wait");
-      if (next.startedAt && !startedRef.current) {
+      if (!next.waiting && next.startedAt && !startedRef.current) {
         startedRef.current = true;
         if (!playActive) onStarted(next.code);
       }
@@ -645,19 +669,24 @@ export function PrivateRoomPanel({
                     <strong>{player.name}</strong>
                   )}
                   <span>{player.host ? "Host" : player.self ? "You" : ""}</span>
-                  {room.startedAt != null ? <em>{player.score}</em> : null}
+                  {!room.waiting ? <em>{player.score}</em> : null}
                 </li>
               ))}
             </ul>
           </div>
-          {room.isHost ? (
+          {countdownSeconds > 0 ? (
+            <p className={styles.countdown} data-testid="private-room-countdown">
+              {countdownSeconds}
+            </p>
+          ) : room.isHost ? (
             <button
               type="button"
               className={styles.primary}
               data-testid="private-room-start"
+              disabled={busy === "start"}
               onClick={() => void startRoom()}
             >
-              {busy === "start" ? "Starting…" : "Start"}
+              Start
             </button>
           ) : (
             <p className={styles.startWait} data-testid="private-room-host-wait">

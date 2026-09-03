@@ -122,8 +122,14 @@ record(
     /visibility:\s*hidden/.test(partyCss) &&
     /border:\s*1px solid/.test(chatToggleCss) &&
     !/border:\s*0/.test(chatToggleCss) &&
-    /startedAt != null \?/.test(partySource),
+    /!room.waiting/.test(partySource),
   "Hide chat must keep one width, keep an icon, and not move ranking or the button in play.",
+);
+record(
+  partySource.includes("private-room-countdown") &&
+    !partySource.includes("Starting…") &&
+    partyCss.includes(".countdown"),
+  "Start must show a 3s countdown, not a fake Starting label.",
 );
 const chatPanelSource = partySource.slice(partySource.indexOf("const chatPanel"));
 record(

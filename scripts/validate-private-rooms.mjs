@@ -25,6 +25,9 @@ import {
   storedPartyNameDraft,
   addPrivateRoomScore,
   PRIVATE_ROOM_NAME_NOTICE_MS,
+  PRIVATE_ROOM_COUNTDOWN_MS,
+  privateRoomWaiting,
+  privateRoomCountdownMs,
 } from "../src/lib/private-rooms.mjs";
 
 const failures = [];
@@ -211,7 +214,19 @@ const stranger = startPrivateRoom(created.code, "other-player-1", now + 1_000);
 record(stranger.ok === false && stranger.reason === "forbidden", "Only the host can start the room.");
 
 const started = startPrivateRoom(created.code, "host-player-1", now + 2_000);
-record(started.ok === true && started.room.startedAt === now + 2_000, "The host should start the private clock.");
+record(
+  started.ok === true && started.room.startedAt === now + 2_000 + PRIVATE_ROOM_COUNTDOWN_MS,
+  "Start must wait 3s before the first round.",
+);
+record(
+  privateRoomWaiting(started.room, now + 2_000 + 1_000) === true &&
+    privateRoomCountdownMs(started.room, now + 2_000 + 1_000) === 2_000,
+  "Players must still wait during the start countdown.",
+);
+record(
+  privateRoomWaiting(started.room, now + 2_000 + PRIVATE_ROOM_COUNTDOWN_MS) === false,
+  "The first round must begin when the countdown hits 0.",
+);
 
 const timing = privateRoundTiming(now + 2_000, now + 2_000 + 16_000);
 record(timing.roundNumber === 0 && timing.phase === "reveal", "Private rounds should use the 15s / 7s clock from Start.");
