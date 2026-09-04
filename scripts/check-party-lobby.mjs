@@ -203,7 +203,7 @@ try {
 
   const partyCode = `L${Date.now().toString(36).slice(-5).toUpperCase()}`;
   await fill("private-room-join-code", partyCode);
-  await clickTestId("private-room-enter");
+  await clickTestId("private-room-create");
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
   await delay(300);
 
@@ -443,21 +443,20 @@ try {
   if (reopenedWait) throw new Error("Leave then Play with friends reopened the old party.");
 
   await fill("private-room-join-code", partyCode);
-  await clickTestId("private-room-enter");
+  await clickTestId("private-room-create");
   await delay(400);
   const takenCode = await page.evaluate(`(() => ({
     setup: Boolean(document.querySelector('[data-testid="private-room-setup"]')),
     wait: Boolean(document.querySelector('[data-testid="private-room-wait"]')),
     error: document.querySelector('[data-testid="private-room-error"]')?.textContent?.trim() ?? "",
-    mode: document.querySelector('[data-testid="private-room-enter"]')?.getAttribute("data-mode") ?? "",
   }))()`);
   if (!takenCode.setup || takenCode.wait) {
-    throw new Error(`A taken code auto-joined (${JSON.stringify(takenCode)}).`);
+    throw new Error(`Create joined an existing party (${JSON.stringify(takenCode)}).`);
   }
-  if (takenCode.error !== "That code is taken." || takenCode.mode !== "join") {
-    throw new Error(`Taken code did not offer Join (${JSON.stringify(takenCode)}).`);
+  if (takenCode.error !== "That code is taken.") {
+    throw new Error(`Create did not say the code is taken (${JSON.stringify(takenCode)}).`);
   }
-  await clickTestId("private-room-enter");
+  await clickTestId("private-room-join");
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
 
   const shots = await page.send("Page.captureScreenshot", { format: "png" });

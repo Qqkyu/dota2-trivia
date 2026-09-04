@@ -55,31 +55,32 @@ record(
   "Idle and selected game cards must both use a 2px border so the card does not shift.",
 );
 record(
-  partySource.includes('data-testid="private-room-enter"') &&
+  partySource.includes('data-testid="private-room-create"') &&
+    /data-testid="private-room-join"(?!-code)/.test(partySource) &&
     !partySource.includes("Create party") &&
-    !/data-testid="private-room-create"/.test(partySource) &&
-    !/data-testid="private-room-join"(?!-code)/.test(partySource) &&
+    !partySource.includes('data-testid="private-room-enter"') &&
+    !partySource.includes("canJoin") &&
     partySource.includes("That code is taken.") &&
-    partySource.includes("peek=1") &&
-    partySource.includes("canJoin") &&
-    /\bJoin\b/.test(partySource),
-  "A taken code must stay on setup. Join is a choice, not an auto enter.",
+    partySource.includes("No party with that code.") &&
+    partySource.includes("peek=1"),
+  "Create and Join are two doors. Create cannot join. Join cannot create.",
 );
 const setupSource = partySource.slice(partySource.indexOf("private-room-setup"));
 record(
   partySource.includes('data-testid="private-room-error"') &&
     partySource.includes("data-invalid") &&
-    setupSource.indexOf("private-room-join-code") < setupSource.indexOf("private-room-enter") &&
-    setupSource.indexOf("private-room-enter") < setupSource.indexOf("private-room-error"),
-  "Code errors must sit on the code field under the games, not above a Create party button.",
+    setupSource.indexOf("private-room-join-code") < setupSource.indexOf("private-room-create") &&
+    setupSource.indexOf("private-room-create") < setupSource.indexOf('data-testid="private-room-join"') &&
+    setupSource.indexOf('data-testid="private-room-join"') < setupSource.indexOf("private-room-error"),
+  "Code errors must sit on the code field under Create and Join.",
 );
 record(
   partySource.includes("enterFace") &&
     partyCss.includes(".enterFace") &&
     /visibility:\s*hidden/.test(partyCss) &&
-    /\bEnter\b/.test(partySource) &&
-    partySource.includes("Entering"),
-  "Enter must keep both idle and busy labels stacked so the button width does not jump.",
+    partySource.includes("Creating") &&
+    partySource.includes("Joining"),
+  "Create and Join must keep idle and busy labels stacked so the button width does not jump.",
 );
 record(
   partySource.includes('data-testid="private-room-name"') &&

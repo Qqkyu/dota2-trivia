@@ -179,8 +179,8 @@ try {
   if (partyPath !== "/party") {
     throw new Error(`Party setup is on ${partyPath}, expected /party.`);
   }
-  const enterWidth = await page.evaluate(`(() => {
-    const button = document.querySelector('[data-testid="private-room-enter"]');
+  const createWidth = await page.evaluate(`(() => {
+    const button = document.querySelector('[data-testid="private-room-create"]');
     const faces = [...(button?.querySelectorAll("span") ?? [])];
     return {
       faces: faces.length,
@@ -188,8 +188,8 @@ try {
       maxFace: faces.reduce((width, face) => Math.max(width, face.getBoundingClientRect().width), 0),
     };
   })()`);
-  if (enterWidth.faces < 2 || enterWidth.button + 1 < Math.round(enterWidth.maxFace)) {
-    throw new Error(`Enter button width jumps (${JSON.stringify(enterWidth)}).`);
+  if (createWidth.faces < 2 || createWidth.button + 1 < Math.round(createWidth.maxFace)) {
+    throw new Error(`Create button width jumps (${JSON.stringify(createWidth)}).`);
   }
   await delay(400);
   const shots = await page.send("Page.captureScreenshot", { format: "png" });
@@ -212,14 +212,13 @@ try {
     process.exitCode = 1;
   } else {
     const controls = await page.evaluate(`(() => ({
-      enter: Boolean(document.querySelector('[data-testid="private-room-enter"]')),
       join: Boolean(document.querySelector('[data-testid="private-room-join"]')),
       create: Boolean(document.querySelector('[data-testid="private-room-create"]')),
       code: Boolean(document.querySelector('[data-testid="private-room-join-code"]')),
       selected: document.querySelectorAll('[data-on="true"]').length,
     }))()`);
-    if (!controls.enter || !controls.code || controls.join || controls.create) {
-      console.error("Party setup must keep one Enter action next to the code field.");
+    if (!controls.create || !controls.join || !controls.code) {
+      console.error("Party setup must keep Create and Join next to the code field.");
       process.exitCode = 1;
     } else {
       const firstCard = await page.evaluate(`(() => {
@@ -260,7 +259,7 @@ try {
         process.exitCode = 1;
       } else {
         const enterBox = await page.evaluate(`(() => {
-          const node = document.querySelector('[data-testid="private-room-enter"]');
+          const node = document.querySelector('[data-testid="private-room-create"]');
           if (!node) return null;
           const rect = node.getBoundingClientRect();
           return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };

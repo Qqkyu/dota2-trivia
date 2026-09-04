@@ -73,7 +73,8 @@
   text-transform: uppercase;
 }
 
-.enter .primary {
+.enter .primary,
+.enter .ghost {
   display: inline-grid;
   justify-items: center;
 }
@@ -86,7 +87,8 @@
   visibility: hidden;
 }
 
-.enter .primary:disabled {
+.enter .primary:disabled,
+.enter .ghost:disabled {
   opacity: 0.78;
 }
 

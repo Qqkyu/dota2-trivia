@@ -198,9 +198,8 @@ export function PrivateRoomPanel({
   const [errorField, setErrorField] = useState<"code" | "name" | "games" | null>(null);
   const [nameNotice, setNameNotice] = useState<string | null>(null);
   const nameNoticeTimerRef = useRef<number | null>(null);
-  const [busy, setBusy] = useState<"enter" | "start" | null>(null);
+  const [busy, setBusy] = useState<"create" | "join" | "start" | null>(null);
   const [copied, setCopied] = useState(false);
-  const [canJoin, setCanJoin] = useState(false);
   const [chatOpen, setChatOpen] = useState(true);
   const startedRef = useRef(false);
   const joinInputRef = useRef<HTMLInputElement | null>(null);
@@ -400,13 +399,16 @@ export function PrivateRoomPanel({
     }
     const name = shownName.trim();
     const code = filterCode(joinCode);
-    setBusy("enter");
+    setBusy("join");
+    setError(null);
+    setErrorField(null);
     try {
       const player = playerId();
       const joined = await fetch(
         `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(player)}&name=${encodeURIComponent(name)}`,
       );
       const payload = (await joined.json()) as PrivateRoomPayload;
+      if (joined.status === 404) throw new Error("No party with that code.");
       if (!joined.ok) throw new Error(payload.error ?? "Could not join that party.");
       goToRoom(payload, code);
     } catch (cause) {
@@ -417,11 +419,7 @@ export function PrivateRoomPanel({
     }
   };
 
-  const enterRoom = async () => {
-    if (canJoin) {
-      await joinRoom();
-      return;
-    }
+  const createRoom = async () => {
     const hint = partyCodeError(joinCode);
     if (hint) {
       setError(hint);
@@ -431,10 +429,9 @@ export function PrivateRoomPanel({
     }
     const name = shownName.trim();
     const code = filterCode(joinCode);
-    setBusy("enter");
+    setBusy("create");
     setError(null);
     setErrorField(null);
-    setCanJoin(false);
     try {
       const player = playerId();
       const existing = await fetch(`/api/private-rooms?code=${encodeURIComponent(code)}&peek=1`);
@@ -442,10 +439,9 @@ export function PrivateRoomPanel({
       if (existing.ok) {
         setError("That code is taken.");
         setErrorField("code");
-        setCanJoin(true);
         return;
       }
-      if (existing.status !== 404) throw new Error(existingPayload.error ?? "Could not enter that party.");
+      if (existing.status !== 404) throw new Error(existingPayload.error ?? "Could not create that party.");
       if (!selected.length) {
         setError("Pick at least one game.");
         setErrorField("games");
@@ -464,12 +460,11 @@ export function PrivateRoomPanel({
       if (createdPayload.error === "That code is taken.") {
         setError("That code is taken.");
         setErrorField("code");
-        setCanJoin(true);
         return;
       }
-      throw new Error(createdPayload.error ?? "Could not enter that party.");
+      throw new Error(createdPayload.error ?? "Could not create that party.");
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Could not enter that party.");
+      setError(cause instanceof Error ? cause.message : "Could not create that party.");
       setErrorField("code");
     } finally {
       setBusy(null);
@@ -785,31 +780,35 @@ export function PrivateRoomPanel({
               setJoinCode(filterCode(event.currentTarget.value));
               setError(null);
               setErrorField(null);
-              setCanJoin(false);
-            }}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") void enterRoom();
             }}
           />
           <button
             type="button"
             className={styles.primary}
-            data-testid="private-room-enter"
-            data-mode={canJoin ? "join" : "enter"}
-            aria-busy={busy === "enter"}
-            disabled={busy === "enter"}
-            onClick={() => void enterRoom()}
+            data-testid="private-room-create"
+            aria-busy={busy === "create"}
+            disabled={busy !== null}
+            onClick={() => void createRoom()}
           >
-            <span className={styles.enterFace} data-show={!canJoin && busy !== "enter" ? "true" : "false"}>
-              Enter
+            <span className={styles.enterFace} data-show={busy === "create" ? "false" : "true"}>
+              Create
             </span>
-            <span className={styles.enterFace} data-show={!canJoin && busy === "enter" ? "true" : "false"}>
-              Entering…
+            <span className={styles.enterFace} data-show={busy === "create" ? "true" : "false"}>
+              Creating…
             </span>
-            <span className={styles.enterFace} data-show={canJoin && busy !== "enter" ? "true" : "false"}>
+          </button>
+          <button
+            type="button"
+            className={styles.ghost}
+            data-testid="private-room-join"
+            aria-busy={busy === "join"}
+            disabled={busy !== null}
+            onClick={() => void joinRoom()}
+          >
+            <span className={styles.enterFace} data-show={busy === "join" ? "false" : "true"}>
               Join
             </span>
-            <span className={styles.enterFace} data-show={canJoin && busy === "enter" ? "true" : "false"}>
+            <span className={styles.enterFace} data-show={busy === "join" ? "true" : "false"}>
               Joining…
             </span>
           </button>
