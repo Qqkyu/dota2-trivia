@@ -202,6 +202,21 @@ try {
   };
 
   const partyCode = `L${Date.now().toString(36).slice(-5).toUpperCase()}`;
+  await fill("private-room-join-code", "NOPE99");
+  await clickTestId("private-room-join");
+  await delay(400);
+  const missingJoin = await page.evaluate(`(() => ({
+    setup: Boolean(document.querySelector('[data-testid="private-room-setup"]')),
+    wait: Boolean(document.querySelector('[data-testid="private-room-wait"]')),
+    error: document.querySelector('[data-testid="private-room-error"]')?.textContent?.trim() ?? "",
+  }))()`);
+  if (!missingJoin.setup || missingJoin.wait) {
+    throw new Error(`Join created a party (${JSON.stringify(missingJoin)}).`);
+  }
+  if (missingJoin.error !== "No party with that code.") {
+    throw new Error(`Join of a missing code did not fail (${JSON.stringify(missingJoin)}).`);
+  }
+
   await fill("private-room-join-code", partyCode);
   await clickTestId("private-room-create");
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
@@ -455,6 +470,13 @@ try {
   }
   if (takenCode.error !== "That code is taken.") {
     throw new Error(`Create did not say the code is taken (${JSON.stringify(takenCode)}).`);
+  }
+  const peekOnce = await fetch(`${appUrl}/api/private-rooms?code=${encodeURIComponent(partyCode)}&peek=1`);
+  const peekAgain = await fetch(`${appUrl}/api/private-rooms?code=${encodeURIComponent(partyCode)}&peek=1`);
+  const peekPlayers = (await peekOnce.json()).privateRoom?.players ?? [];
+  const peekPlayersAgain = (await peekAgain.json()).privateRoom?.players ?? [];
+  if (!peekOnce.ok || peekPlayers.length !== peekPlayersAgain.length) {
+    throw new Error("Peeking at a party added a player.");
   }
   await clickTestId("private-room-join");
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);

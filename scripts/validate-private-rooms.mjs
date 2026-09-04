@@ -101,6 +101,31 @@ record(created.startedAt === null, "A new private room must wait for the host.")
 record(created.formats.join(",") === "flashback", "Create should store the selected formats.");
 record(isPrivateRoomId(created.roomId), "Private room IDs must not collide with the public room.");
 record(getPrivateRoom(created.code)?.code === created.code, "Created rooms must be readable by code.");
+record(getPrivateRoom("zzzz") === null, "Join of a missing code must not invent a room.");
+const peekCount = getPrivateRoom(created.code)?.players?.length;
+record(
+  peekCount === 1 && getPrivateRoom(created.code)?.players?.length === peekCount,
+  "Reading a room must not add a player.",
+);
+try {
+  createPrivateRoom({
+    hostId: "other-host-99",
+    gameId: "dota2",
+    contentVersion: "test-version",
+    games: ["flashback"],
+    code: "loda",
+    name: "Intruder",
+    now: now + 1,
+  });
+  record(false, "Create with a taken code must fail.");
+} catch (error) {
+  record(String(error.message) === "That code is taken.", "Create with a taken code must say the code is taken.");
+}
+record(
+  getPrivateRoom(created.code)?.players?.length === 1 &&
+    getPrivateRoom(created.code)?.players?.every((player) => player.name !== "Intruder"),
+  "A failed create must not join the taken room.",
+);
 const joined = touchPrivateRoom(created.code, now + 10, { playerId: "guest-player-99", name: "Puppey" });
 record(
   joined?.players?.some((player) => player.name === "Puppey" && !player.host),
