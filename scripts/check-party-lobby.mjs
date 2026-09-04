@@ -442,6 +442,24 @@ try {
   const reopenedWait = await page.evaluate(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
   if (reopenedWait) throw new Error("Leave then Play with friends reopened the old party.");
 
+  await fill("private-room-join-code", partyCode);
+  await clickTestId("private-room-enter");
+  await delay(400);
+  const takenCode = await page.evaluate(`(() => ({
+    setup: Boolean(document.querySelector('[data-testid="private-room-setup"]')),
+    wait: Boolean(document.querySelector('[data-testid="private-room-wait"]')),
+    error: document.querySelector('[data-testid="private-room-error"]')?.textContent?.trim() ?? "",
+    mode: document.querySelector('[data-testid="private-room-enter"]')?.getAttribute("data-mode") ?? "",
+  }))()`);
+  if (!takenCode.setup || takenCode.wait) {
+    throw new Error(`A taken code auto-joined (${JSON.stringify(takenCode)}).`);
+  }
+  if (takenCode.error !== "That code is taken." || takenCode.mode !== "join") {
+    throw new Error(`Taken code did not offer Join (${JSON.stringify(takenCode)}).`);
+  }
+  await clickTestId("private-room-enter");
+  await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
+
   const shots = await page.send("Page.captureScreenshot", { format: "png" });
   await writeFile("/tmp/party-lobby.png", Buffer.from(shots.data, "base64"));
   console.log(

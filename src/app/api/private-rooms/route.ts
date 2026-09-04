@@ -3,7 +3,7 @@ import { rateLimitRequest } from "@/lib/api-protection";
 import { DEFAULT_GAME_ID } from "@/lib/game-identity";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
 import { privateRoomClientPayload, privateRoomIdentity } from "@/lib/private-room-rounds";
-import { createPrivateRoom, normalizePrivateRoomCode, touchPrivateRoom } from "@/lib/private-rooms.mjs";
+import { createPrivateRoom, getPrivateRoom, normalizePrivateRoomCode, touchPrivateRoom } from "@/lib/private-rooms.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 import { touchRoomPresence } from "@/lib/room-presence.mjs";
 
@@ -11,11 +11,23 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-  const code = normalizePrivateRoomCode(new URL(request.url).searchParams.get("code"));
-  const queryPlayerId = new URL(request.url).searchParams.get("playerId");
+  const url = new URL(request.url);
+  const code = normalizePrivateRoomCode(url.searchParams.get("code"));
+  const queryPlayerId = url.searchParams.get("playerId");
+  const peek = url.searchParams.get("peek") === "1";
   if (!code) return NextResponse.json({ error: "Unknown private room." }, { status: 404 });
 
   try {
+    if (peek) {
+      const rateLimited = rateLimitRequest(request, "private-rooms-peek", code, 60);
+      if (rateLimited) return rateLimited;
+      const now = Date.now();
+      const record = getPrivateRoom(code, now);
+      if (!record) return NextResponse.json({ error: "Unknown private room." }, { status: 404 });
+      return NextResponse.json(privateRoomClientPayload(record, "", now), {
+        headers: { "Cache-Control": "no-store" },
+      });
+    }
     const identity = await privateRoomIdentity(request, queryPlayerId);
     if (!identity) return NextResponse.json({ error: "Invalid player ID." }, { status: 400 });
     const rateLimited = rateLimitRequest(request, "private-rooms-read", identity.playerId, 120);

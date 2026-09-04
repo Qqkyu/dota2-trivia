@@ -58,8 +58,12 @@ record(
   partySource.includes('data-testid="private-room-enter"') &&
     !partySource.includes("Create party") &&
     !/data-testid="private-room-create"/.test(partySource) &&
-    !/data-testid="private-room-join"(?!-code)/.test(partySource),
-  "Party setup must use one Enter action, not Create party plus Join.",
+    !/data-testid="private-room-join"(?!-code)/.test(partySource) &&
+    partySource.includes("That code is taken.") &&
+    partySource.includes("peek=1") &&
+    partySource.includes("canJoin") &&
+    /\bJoin\b/.test(partySource),
+  "A taken code must stay on setup. Join is a choice, not an auto enter.",
 );
 const setupSource = partySource.slice(partySource.indexOf("private-room-setup"));
 record(

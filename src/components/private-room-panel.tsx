@@ -200,6 +200,7 @@ export function PrivateRoomPanel({
   const nameNoticeTimerRef = useRef<number | null>(null);
   const [busy, setBusy] = useState<"enter" | "start" | null>(null);
   const [copied, setCopied] = useState(false);
+  const [canJoin, setCanJoin] = useState(false);
   const [chatOpen, setChatOpen] = useState(true);
   const startedRef = useRef(false);
   const joinInputRef = useRef<HTMLInputElement | null>(null);
@@ -384,7 +385,43 @@ export function PrivateRoomPanel({
     setSelected((current) => (current.includes(id) ? current.filter((game) => game !== id) : [...current, id]));
   };
 
+  const goToRoom = (payload: PrivateRoomPayload, code: string) => {
+    applyPayload(payload);
+    window.history.pushState({ queueArcadeView: "play", privateRoom: code }, "", `/play?room=${code}`);
+  };
+
+  const joinRoom = async () => {
+    const hint = partyCodeError(joinCode);
+    if (hint) {
+      setError(hint);
+      setErrorField("code");
+      joinInputRef.current?.focus();
+      return;
+    }
+    const name = shownName.trim();
+    const code = filterCode(joinCode);
+    setBusy("enter");
+    try {
+      const player = playerId();
+      const joined = await fetch(
+        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(player)}&name=${encodeURIComponent(name)}`,
+      );
+      const payload = (await joined.json()) as PrivateRoomPayload;
+      if (!joined.ok) throw new Error(payload.error ?? "Could not join that party.");
+      goToRoom(payload, code);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Could not join that party.");
+      setErrorField("code");
+    } finally {
+      setBusy(null);
+    }
+  };
+
   const enterRoom = async () => {
+    if (canJoin) {
+      await joinRoom();
+      return;
+    }
     const hint = partyCodeError(joinCode);
     if (hint) {
       setError(hint);
@@ -397,15 +434,15 @@ export function PrivateRoomPanel({
     setBusy("enter");
     setError(null);
     setErrorField(null);
+    setCanJoin(false);
     try {
       const player = playerId();
-      const existing = await fetch(
-        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(player)}&name=${encodeURIComponent(name)}`,
-      );
+      const existing = await fetch(`/api/private-rooms?code=${encodeURIComponent(code)}&peek=1`);
       const existingPayload = (await existing.json()) as PrivateRoomPayload;
       if (existing.ok) {
-        applyPayload(existingPayload);
-        window.history.pushState({ queueArcadeView: "play", privateRoom: code }, "", `/play?room=${code}`);
+        setError("That code is taken.");
+        setErrorField("code");
+        setCanJoin(true);
         return;
       }
       if (existing.status !== 404) throw new Error(existingPayload.error ?? "Could not enter that party.");
@@ -421,22 +458,19 @@ export function PrivateRoomPanel({
       });
       const createdPayload = (await created.json()) as PrivateRoomPayload;
       if (created.ok) {
-        applyPayload(createdPayload);
-        window.history.pushState({ queueArcadeView: "play", privateRoom: code }, "", `/play?room=${code}`);
+        goToRoom(createdPayload, code);
         return;
       }
-      const retry = await fetch(
-        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(player)}&name=${encodeURIComponent(name)}`,
-      );
-      const retryPayload = (await retry.json()) as PrivateRoomPayload;
-      if (retry.ok) {
-        applyPayload(retryPayload);
-        window.history.pushState({ queueArcadeView: "play", privateRoom: code }, "", `/play?room=${code}`);
+      if (createdPayload.error === "That code is taken.") {
+        setError("That code is taken.");
+        setErrorField("code");
+        setCanJoin(true);
         return;
       }
       throw new Error(createdPayload.error ?? "Could not enter that party.");
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Could not enter that party.");
+      setErrorField("code");
     } finally {
       setBusy(null);
     }
@@ -751,6 +785,7 @@ export function PrivateRoomPanel({
               setJoinCode(filterCode(event.currentTarget.value));
               setError(null);
               setErrorField(null);
+              setCanJoin(false);
             }}
             onKeyDown={(event) => {
               if (event.key === "Enter") void enterRoom();
@@ -760,15 +795,22 @@ export function PrivateRoomPanel({
             type="button"
             className={styles.primary}
             data-testid="private-room-enter"
+            data-mode={canJoin ? "join" : "enter"}
             aria-busy={busy === "enter"}
             disabled={busy === "enter"}
             onClick={() => void enterRoom()}
           >
-            <span className={styles.enterFace} data-show={busy === "enter" ? "false" : "true"}>
+            <span className={styles.enterFace} data-show={!canJoin && busy !== "enter" ? "true" : "false"}>
               Enter
             </span>
-            <span className={styles.enterFace} data-show={busy === "enter" ? "true" : "false"}>
+            <span className={styles.enterFace} data-show={!canJoin && busy === "enter" ? "true" : "false"}>
               Entering…
+            </span>
+            <span className={styles.enterFace} data-show={canJoin && busy !== "enter" ? "true" : "false"}>
+              Join
+            </span>
+            <span className={styles.enterFace} data-show={canJoin && busy === "enter" ? "true" : "false"}>
+              Joining…
             </span>
           </button>
         </div>
