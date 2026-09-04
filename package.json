@@ -32,7 +32,9 @@
     "check:sounds": "node scripts/check-feedback-sounds.mjs",
     "check:party-previews": "node scripts/check-party-previews.mjs",
     "check:party-lobby": "node scripts/check-party-lobby.mjs",
-    "check": "pnpm validate-data && pnpm lint && pnpm typecheck && pnpm build && pnpm validate-client-bundle"
+    "check:public-play": "node scripts/check-public-play.mjs",
+    "check:ui": "node scripts/check-ui.mjs",
+    "check": "pnpm validate-data && pnpm lint && pnpm typecheck && pnpm build && pnpm validate-client-bundle && pnpm check:ui"
   },
   "engines": {
     "node": ">=20.9.0"
