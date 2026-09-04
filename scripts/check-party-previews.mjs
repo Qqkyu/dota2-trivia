@@ -415,22 +415,31 @@ try {
             process.exitCode = 1;
           } else if (entered.canStart) {
             await page.evaluate(`document.querySelector('[data-testid="private-room-start"]')?.click()`);
-            await delay(800);
-            const afterStart = await page.evaluate(`({
-              entryWait: Boolean(document.querySelector('[data-testid="round-entry-wait"]')),
-              ranking: Boolean(document.querySelector('[data-testid="private-room-ranking"]')),
-              phase: document.querySelector("main")?.dataset.phase ?? "",
-            })`);
-            if (afterStart.entryWait) {
+            await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-countdown"]'))`, 4_000);
+            const counting = await page.evaluate(
+              `Boolean(document.querySelector('[data-testid="round-entry-wait"]'))`,
+            );
+            if (counting) {
               console.error("Private Start opened the public wait-for-next-question screen.");
               process.exitCode = 1;
-            } else if (!afterStart.ranking) {
-              console.error("Private play has no named ranking.");
-              process.exitCode = 1;
             } else {
-              console.log(
-                `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
-              );
+              await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-ranking"]'))`, 8_000);
+              const afterStart = await page.evaluate(`({
+                entryWait: Boolean(document.querySelector('[data-testid="round-entry-wait"]')),
+                ranking: Boolean(document.querySelector('[data-testid="private-room-ranking"]')),
+                names: [...document.querySelectorAll('[data-testid="private-room-ranking"] strong')].map((node) => node.textContent?.trim() ?? ""),
+              })`);
+              if (afterStart.entryWait) {
+                console.error("Private Start opened the public wait-for-next-question screen.");
+                process.exitCode = 1;
+              } else if (!afterStart.ranking || afterStart.names.some((name) => !name)) {
+                console.error("Private play has no named ranking.");
+                process.exitCode = 1;
+              } else {
+                console.log(
+                  `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
+                );
+              }
             }
           } else {
             console.log(
