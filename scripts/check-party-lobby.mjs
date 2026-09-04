@@ -334,6 +334,8 @@ try {
   if (afterHide.width !== chatLook.width) {
     throw new Error(`Hide chat changed width from ${chatLook.width} to ${afterHide.width}.`);
   }
+  await clickTestId("private-room-chat-toggle");
+  await delay(80);
 
   const joinApiGuest = async (playerId, name = "") => {
     const query = new URL(`${appUrl}/api/private-rooms`);
@@ -380,6 +382,24 @@ try {
       `Other session still has the old nick (${otherSession.map((player) => player.name).join(", ")}).`,
     );
   }
+
+  await fill("private-room-chat-input", "glhf");
+  await clickTestId("private-room-chat-send");
+  await delay(400);
+  const sentChat = await page.evaluate(`document.querySelector('[data-testid="private-room-chat"]')?.textContent ?? ""`);
+  if (!sentChat.includes("glhf")) {
+    throw new Error(`Chat did not show the sent line (${JSON.stringify(sentChat)}).`);
+  }
+  const chatPost = await fetch(`${appUrl}/api/private-rooms/messages`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ code: partyCode, playerId: guestA, name: "Puppey", text: "from-api" }),
+  });
+  if (!chatPost.ok) throw new Error("Guest chat POST failed.");
+  await page.waitFor(
+    `(document.querySelector('[data-testid="private-room-chat"]')?.textContent ?? "").includes("from-api")`,
+    5_000,
+  );
 
   const guestNick = afterSteal.find((name) => name && name.toLowerCase() !== "alex");
   if (!guestNick) throw new Error("Need a guest nick to test taken names.");
@@ -480,6 +500,17 @@ try {
   }
   await clickTestId("private-room-join");
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
+  const hostPass = await page.evaluate(`(() => {
+    const host = document.querySelector('[data-testid="private-room-players"] li[data-host="true"]');
+    return {
+      host: Boolean(host),
+      self: host?.getAttribute("data-self") === "true",
+      label: host?.querySelector("span")?.textContent?.trim() ?? "",
+    };
+  })()`);
+  if (!hostPass.host || hostPass.self || hostPass.label !== "Host") {
+    throw new Error(`Host did not pass to the next player (${JSON.stringify(hostPass)}).`);
+  }
 
   const shots = await page.send("Page.captureScreenshot", { format: "png" });
   await writeFile("/tmp/party-lobby.png", Buffer.from(shots.data, "base64"));

@@ -33,6 +33,8 @@
     "check:party-previews": "node scripts/check-party-previews.mjs",
     "check:party-lobby": "node scripts/check-party-lobby.mjs",
     "check:public-play": "node scripts/check-public-play.mjs",
+    "check:pages": "node scripts/check-pages.mjs",
+    "check:party-nicks": "node scripts/check-party-nicks.mjs",
     "check:ui": "node scripts/check-ui.mjs",
     "check": "pnpm validate-data && pnpm lint && pnpm typecheck && pnpm build && pnpm validate-client-bundle && pnpm check:ui"
   },

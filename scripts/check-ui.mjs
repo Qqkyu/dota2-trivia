@@ -66,7 +66,13 @@ if (!(await healthy(appUrl))) {
 }
 
 try {
-  for (const script of ["check-party-lobby.mjs", "check-party-previews.mjs", "check-public-play.mjs"]) {
+  for (const script of [
+    "check-pages.mjs",
+    "check-party-lobby.mjs",
+    "check-party-previews.mjs",
+    "check-party-nicks.mjs",
+    "check-public-play.mjs",
+  ]) {
     await run(script, appUrl);
   }
 } finally {

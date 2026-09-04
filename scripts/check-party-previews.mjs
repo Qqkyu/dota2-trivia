@@ -436,9 +436,55 @@ try {
                 console.error("Private play has no named ranking.");
                 process.exitCode = 1;
               } else {
-                console.log(
-                  `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
-                );
+                const dock = await page.evaluate(`(() => {
+                  const chat = document.querySelector('[data-testid="private-room-chat"]');
+                  const toggle = document.querySelector('[data-testid="private-room-chat-toggle"]');
+                  if (!chat || !toggle) return { ok: false };
+                  const chatBox = chat.getBoundingClientRect();
+                  const toggleBox = toggle.getBoundingClientRect();
+                  return { ok: toggleBox.top + 1 >= chatBox.bottom, chatTop: chatBox.top, toggleTop: toggleBox.top };
+                })()`);
+                if (!dock.ok) {
+                  console.error(`Play chat toggle is not under the chat box (${JSON.stringify(dock)}).`);
+                  process.exitCode = 1;
+                } else {
+                  const answer = await page.evaluate(`(() => {
+                    const node = document.querySelector('[data-testid="arcade-answer"]:not([disabled]), [data-testid="hero-picker-hero"], [data-testid="shopkeeper-store-item"], [data-testid="value-order-card"]');
+                    if (!node) return null;
+                    const rect = node.getBoundingClientRect();
+                    return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+                  })()`);
+                  if (answer) {
+                    await page.send("Input.dispatchMouseEvent", {
+                      type: "mousePressed",
+                      x: answer.x,
+                      y: answer.y,
+                      button: "left",
+                      clickCount: 1,
+                    });
+                    await page.send("Input.dispatchMouseEvent", {
+                      type: "mouseReleased",
+                      x: answer.x,
+                      y: answer.y,
+                      button: "left",
+                      clickCount: 1,
+                    });
+                  }
+                  await page.waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
+                  const scored = await page.evaluate(`(() => {
+                    const names = document.querySelectorAll('[data-testid="private-room-ranking"] strong');
+                    const scores = document.querySelectorAll('[data-testid="private-room-ranking"] em');
+                    return names.length > 0 && names.length === scores.length;
+                  })()`);
+                  if (!scored) {
+                    console.error("Private ranking has no scores after a round.");
+                    process.exitCode = 1;
+                  } else {
+                    console.log(
+                      `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
+                    );
+                  }
+                }
               }
             }
           } else {

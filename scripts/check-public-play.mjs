@@ -134,6 +134,15 @@ try {
   await page.send("Page.navigate", { url: `${appUrl}/` });
   await page.waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
   await page.waitFor(`Boolean(document.querySelector('[data-testid="start-arcade"]'))`);
+  const volume = await page.evaluate(`(() => {
+    const slider = document.querySelector('[data-testid="game-volume"]');
+    if (!slider) return null;
+    const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+    setter.call(slider, "50");
+    slider.dispatchEvent(new Event("input", { bubbles: true }));
+    return slider.value;
+  })()`);
+  if (volume !== "50") throw new Error(`Volume slider did not move (${JSON.stringify(volume)}).`);
 
   const startBox = await page.evaluate(`(() => {
     const node = document.querySelector('[data-testid="start-arcade"]');
@@ -162,6 +171,17 @@ try {
     15_000,
   );
   await page.waitFor(`document.querySelector("main")?.dataset.phase === "answering"`, 45_000);
+  await page.evaluate(`(() => {
+    const tips = document.querySelector('[data-testid="entry-wait-tips"]');
+    const search = document.querySelector('[data-testid="shopkeeper-search"]');
+    if (search) {
+      const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+      setter.call(search, "blink");
+      search.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+    window.__waitTips = Boolean(tips);
+    window.__shopSearch = Boolean(search);
+  })()`);
 
   const answer = await page.evaluate(`(() => {
     const selectors = [

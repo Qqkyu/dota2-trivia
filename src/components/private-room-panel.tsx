@@ -151,9 +151,12 @@ function ChatBox({
           maxLength={80}
           placeholder="Message"
           aria-label="Party chat"
+          data-testid="private-room-chat-input"
           onChange={(event) => onDraft(event.currentTarget.value)}
         />
-        <button type="submit">Send</button>
+        <button type="submit" data-testid="private-room-chat-send">
+          Send
+        </button>
       </form>
     </div>
   );
