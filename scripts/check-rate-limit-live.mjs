@@ -33,10 +33,11 @@ async function healthy(url) {
   }
 }
 
+const distDir = process.env.QUEUE_ARCADE_DIST_DIR || ".next";
 try {
-  await access(path.join(process.cwd(), ".next"));
+  await access(path.join(process.cwd(), distDir, "BUILD_ID"));
 } catch {
-  throw new Error("Need a production build for the rate-limit check. Run pnpm build.");
+  throw new Error(`Need a production build in ${distDir} for the rate-limit check. Run pnpm build.`);
 }
 
 const port = await freePort();
