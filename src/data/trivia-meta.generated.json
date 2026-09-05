@@ -2,9 +2,9 @@
   "patch": "7.41e",
   "contentVersion": "7.41e-variety-7",
   "snapshotDate": "2026-09-05",
-  "questionCount": 1036,
+  "questionCount": 1037,
   "categoryCounts": {
-    "Abilities": 126,
+    "Abilities": 127,
     "Cooldowns": 52,
     "Damage": 48,
     "Heroes": 577,
@@ -13,7 +13,7 @@
     "Mana": 60
   },
   "kindCounts": {
-    "spell-owner": 126,
+    "spell-owner": 127,
     "cooldown": 52,
     "ability-damage": 48,
     "fogged-hero": 127,
@@ -43,7 +43,7 @@
   },
   "assetValidation": {
     "checkedAt": "2026-09-05",
-    "verifiedAssetCount": 504,
+    "verifiedAssetCount": 505,
     "verifiedAudioCount": 123,
     "rejectedQuestionIds": []
   }

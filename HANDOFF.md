@@ -29,7 +29,7 @@ Queue Arcade is an unofficial desktop-first browser arcade for the time between 
 
 ## What currently works
 
-The live Dota catalog contains 1,517 playable prompts for patch 7.41e in thirteen scheduled formats:
+The live Dota catalog contains 1,518 playable prompts for patch 7.41e in thirteen scheduled formats:
 
 | Scheduled format       | Count | UI identity     |
 | ---------------------- | ----: | --------------- |
@@ -42,7 +42,7 @@ The live Dota catalog contains 1,517 playable prompts for patch 7.41e in thirtee
 | Soundcheck             |    96 | Soundcheck      |
 | Value ordering         |    80 | Order Up        |
 | Shopkeeper paths       |    50 | Shopkeeper Rush |
-| Spell Link             |   126 | Spell Link      |
+| Spell Link             |   127 | Spell Link      |
 | Classic item prices    |   101 | Classic Trivia  |
 | Echo Hunt              |   123 | Echo Hunt       |
 | Flashback              |   191 | Flashback       |

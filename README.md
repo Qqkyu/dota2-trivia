@@ -20,7 +20,7 @@ The playable MVP includes:
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - canonical `/` lobby and `/play` session URLs with direct loading plus browser Back and Forward support;
 - one shared public room of 15-second rounds, without mode, category, or player-facing difficulty queues;
-- 1,517 live prompts for Dota patch 7.41e, including all 127 enabled heroes in Fogged Vision, 102 Shopkeeper rounds, 96 Soundcheck rounds, 84 Aghanim's Lab upgrades, 80 tie-free Order Up rounds, and 191 sourced Flashback prompts;
+- 1,518 live prompts for Dota patch 7.41e, including all 127 enabled heroes in Fogged Vision, 102 Shopkeeper rounds, 96 Soundcheck rounds, 84 Aghanim's Lab upgrades, 80 tie-free Order Up rounds, and 191 sourced Flashback prompts;
 - item, hero, and ability artwork for visual answer rounds;
 - 123 remotely verified Echo Hunt clips, 96 Soundcheck rounds built from 114 audited clips, and 245 Quote Hunt lines sourced through Dotabase;
 - live-client answer audits plus balanced A–D placement for every generated question family;

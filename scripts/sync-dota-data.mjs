@@ -3,6 +3,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { format } from "prettier";
 import {
   applyAbilityConstantAudit,
   applyHeroConstantAudit,
@@ -12,6 +13,7 @@ import {
 import { DAMAGE_QUESTION_FACTS, damageQuestionExplanation, damageQuestionPrompt } from "./damage-question-facts.mjs";
 import { auditAudioAssets, auditImageAssets, questionAudioUrls, questionImageUrls } from "./image-assets.mjs";
 import { NON_TRIVIA_COOLDOWN_KEYS, NON_TRIVIA_SPELL_OWNER_KEYS } from "./question-quality-audit.mjs";
+import { applyAbilityTextOverrides, loadAbilityTextOverrides } from "./ability-text-overrides.mjs";
 import { selectSpellOwnerCandidates, spellDifficulty, spellDistractors } from "./spell-difficulty.mjs";
 import { buildSpellHint } from "./spell-hints.mjs";
 import {
@@ -412,6 +414,20 @@ async function loadHeroResponses(responseNames) {
 const [heroesById, itemsByKey, abilitiesByKey, heroAbilitiesByKey, dotabaseHeroes] = await Promise.all(
   Object.entries(endpoints).map(([name, url]) => loadDataset(name, url)),
 );
+
+// OpenDota ships blank descriptions for some abilities (all of Muerta's in
+// 2026). Hand-written text fills those gaps so the hero still reaches
+// Spell Link; real upstream text always wins.
+const abilityText = applyAbilityTextOverrides(abilitiesByKey, await loadAbilityTextOverrides());
+if (abilityText.filled.length) {
+  console.log(`Filled blank ability descriptions from ability-text-overrides.json: ${abilityText.filled.join(", ")}`);
+}
+if (abilityText.stale.length) {
+  console.warn(`Upstream text is back; drop these from ability-text-overrides.json: ${abilityText.stale.join(", ")}`);
+}
+if (abilityText.unknown.length) {
+  console.warn(`ability-text-overrides.json names unknown abilities: ${abilityText.unknown.join(", ")}`);
+}
 
 const dotabaseHeroById = new Map(dotabaseHeroes.map((hero) => [hero.id, hero]));
 const heroes = Object.values(heroesById)
@@ -1096,10 +1112,17 @@ const rejectedQuestions = questions.filter(
 const sortedQuestions = balanceCorrectAnswerSlots(
   questions.filter((question) => !rejectedQuestions.includes(question)),
 ).sort((left, right) => left.id.localeCompare(right.id));
+const readJsonIfPresent = (path) =>
+  readFile(path, "utf8")
+    .then(JSON.parse)
+    .catch((error) => {
+      if (error?.code === "ENOENT") return null;
+      throw error;
+    });
 const [existingQuestions, existingMetadata] =
   responsesOnly || preserveResponses
     ? await Promise.all([readFile(OUTPUT, "utf8").then(JSON.parse), readFile(META_OUTPUT, "utf8").then(JSON.parse)])
-    : [[], null];
+    : [(await readJsonIfPresent(OUTPUT)) ?? [], null];
 const responseKinds = new Set(["hero-voice", "hero-quote"]);
 const outputQuestions = responsesOnly
   ? [
@@ -1130,6 +1153,17 @@ const rejectedQuestionIds = [
     ...scopedRejectedQuestions.map((question) => question.id),
   ]),
 ].sort();
+// backfill-quote-hints.mjs adds the two live-client identity clues after this
+// script runs. A lone run of this script must not strip them, so carry the
+// existing clues over by id. validate-hero-picker fails when any are missing.
+const existingQuoteHints = new Map(
+  existingQuestions.filter((question) => question.quoteHints).map((question) => [question.id, question.quoteHints]),
+);
+for (const question of outputQuestions) {
+  if (question.kind === "hero-quote" && !question.quoteHints && existingQuoteHints.has(question.id)) {
+    question.quoteHints = existingQuoteHints.get(question.id);
+  }
+}
 const verifiedAssetCount = new Set(outputQuestions.flatMap(questionImageUrls)).size;
 const verifiedAudioCount = new Set(outputQuestions.flatMap(questionAudioUrls)).size;
 const categoryCounts = Object.fromEntries(
@@ -1146,7 +1180,7 @@ const kindCounts = Object.fromEntries(
 );
 
 await mkdir(dirname(OUTPUT), { recursive: true });
-await writeFile(OUTPUT, `${JSON.stringify(outputQuestions, null, 2)}\n`);
+await writeFile(OUTPUT, await format(`${JSON.stringify(outputQuestions, null, 2)}\n`, { parser: "json" }));
 await writeFile(
   META_OUTPUT,
   `${JSON.stringify(

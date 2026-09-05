@@ -79,6 +79,16 @@ for (const question of identityQuestions) {
     failures.push(`${question.id}: correct hero does not resolve into the audited picker.`);
   }
 }
+// The two identity clues come from backfill-quote-hints.mjs. Check them even
+// without the live client files, so a lone sync run cannot ship without them.
+for (const question of questions.filter((candidate) => candidate.kind === "hero-quote")) {
+  const hints = question.quoteHints;
+  if (!Array.isArray(hints) || hints.length !== 2 || hints.some((hint) => typeof hint !== "string" || !hint.trim())) {
+    failures.push(
+      `${question.id}: Quote Hunt identity clues are missing. Run pnpm sync-data, not the sync script alone.`,
+    );
+  }
+}
 
 const clientRootArgument = process.argv.find((argument) => argument.startsWith("--client-root="));
 const clientRoot = resolve(
