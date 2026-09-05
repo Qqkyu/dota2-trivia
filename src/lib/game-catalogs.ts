@@ -26,7 +26,6 @@ export interface GameCatalog {
     mode: ArcadeMode,
     filter: KnowledgeFilter,
     length: number,
-    rotationSeed?: string,
     roundOffset?: number,
     formats?: readonly string[],
   ) => ArcadeRound[];

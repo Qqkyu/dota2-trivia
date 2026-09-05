@@ -49,7 +49,6 @@ function questionForPrivateRound(record: NonNullable<ReturnType<typeof getPrivat
     PUBLIC_ARCADE_MODE,
     "Mixed",
     PUBLIC_ROOM_BATCH_LENGTH,
-    `private-room:${record.roomId}:format-rotation`,
     batchNumber * PUBLIC_ROOM_BATCH_LENGTH,
     record.formats,
   );

@@ -1,6 +1,4 @@
 import type {
-  CounterplayFamily,
-  CounterplayFormat,
   QuestionKind,
   RoundGame,
   ShopkeeperFormat,
@@ -10,7 +8,6 @@ import type {
   TriviaQuestion,
   ValueOrderCard,
 } from "@/lib/trivia";
-import type { MapChallenge } from "@/lib/map-types";
 import {
   publicQuestionForRound as buildPublicQuestion,
   publicQuestionRevision as buildPublicQuestionRevision,
@@ -96,22 +93,6 @@ export interface PublicArcadeQuestion {
       ShopkeeperItemReference[],
     ];
   };
-  counterplay?: {
-    family: CounterplayFamily;
-    tool: string;
-    format: CounterplayFormat;
-    note?: string;
-    toolImages?: Array<{
-      src: string;
-      alt: string;
-      label: string;
-      kind: "item";
-    }>;
-  };
-  // Map Sense is archived. Keeping the optional render type prevents its UI
-  // from becoming a separate migration, while the serializer refuses to send
-  // map questions until they have a target-safe contract.
-  map?: MapChallenge;
   clueStage: 1 | 2 | 3;
   reveal: PublicQuestionReveal | null;
 }

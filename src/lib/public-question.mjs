@@ -66,10 +66,6 @@ export function publicQuestionRevision(round, now) {
  * until they are intentionally added here.
  */
 export function publicQuestionForRound(question, round, now) {
-  if (question.map) {
-    throw new Error(`Map question ${question.id} needs a dedicated non-leaking public contract.`);
-  }
-
   const clueStage = ["spell-link", "quote-hunt", "aghanim-lab"].includes(round.game) ? timedClueStage(round, now) : 1;
   const openShopAnswer = isItemPickerQuestion(question);
   const recipeBuilderAnswer = isRealRecipeBuilderQuestion(question);
@@ -132,15 +128,6 @@ export function publicQuestionForRound(question, round, now) {
         format: question.soundcheck.format,
         choiceScope: question.soundcheck.choiceScope,
         clips: question.soundcheck.clips.map((clip) => ({ duration: clip.duration })),
-      }
-    : undefined;
-  const counterplay = question.counterplay
-    ? {
-        family: question.counterplay.family,
-        tool: question.counterplay.tool,
-        format: question.counterplay.format,
-        note: question.counterplay.note,
-        toolImages: question.counterplay.toolImages?.map((toolImage) => ({ ...toolImage })),
       }
     : undefined;
   const quoteHints =
@@ -231,7 +218,6 @@ export function publicQuestionForRound(question, round, now) {
     ...(audio ? { audio } : {}),
     ...(soundcheck ? { soundcheck } : {}),
     ...(shopkeeper ? { shopkeeper } : {}),
-    ...(counterplay ? { counterplay } : {}),
     ...(valueOrder ? { valueOrder } : {}),
     ...(aghanim ? { aghanim } : {}),
     ...(flashback ? { flashback } : {}),

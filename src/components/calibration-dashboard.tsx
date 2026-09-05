@@ -58,8 +58,6 @@ const GAME_LABELS = {
   "aghanim-lab": "Aghanim's Lab",
   "order-up": "Order Up",
   flashback: "Flashback",
-  "map-sense": "Map Sense",
-  counterplay: "Counterplay",
 };
 
 function percentage(value: number | null) {

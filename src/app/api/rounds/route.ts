@@ -95,7 +95,6 @@ export async function GET(request: NextRequest) {
         crowd: {
           counts: round.phase === "reveal" ? result.counts : HIDDEN_COUNTS,
           total: result.total,
-          positions: round.phase === "reveal" ? result.positions : [],
           keyCounts:
             round.phase === "reveal"
               ? prioritizedKeyCounts(

@@ -7,15 +7,11 @@ import valueOrderQuestions from "@/data/value-order-questions.json";
 import flashbackQuestions from "@/data/flashback-questions.json";
 import { livePublicRoundFormats, roundFormatForQuestion } from "@/lib/arcade-games.mjs";
 import { isPlayableFlashbackQuestion } from "@/lib/flashback.mjs";
-import type { MapChallenge } from "@/lib/map-types";
 import { isPlayableShopkeeperQuestion } from "@/lib/shopkeeper-quality.mjs";
 import { isPlayableClassicTriviaQuestion } from "@/lib/classic-trivia-quality.mjs";
 import { createSemanticPublicDeck } from "@/lib/semantic-schedule.mjs";
-import { varietyShuffle } from "@/lib/variety.mjs";
 
-export const KNOWLEDGE_FILTERS = ["Mixed", "Abilities", "Items", "Heroes"] as const;
-
-export type KnowledgeFilter = (typeof KNOWLEDGE_FILTERS)[number];
+export type KnowledgeFilter = "Mixed";
 export type TriviaCategory =
   | "Abilities"
   | "Cooldowns"
@@ -39,9 +35,7 @@ export type ArcadeMode =
   | "quote-hunt"
   | "aghanim-lab"
   | "order-up"
-  | "flashback"
-  | "map-sense"
-  | "counterplay";
+  | "flashback";
 export type RoundGame = Exclude<ArcadeMode, "mixed">;
 export type QuestionKind =
   | "spell-owner"
@@ -75,32 +69,8 @@ export type QuestionKind =
   | "value-order-attack-range"
   | "flashback-year"
   | "flashback-choice"
-  | "flashback-order"
-  | "map-location"
-  | "map-riddle"
-  | "map-mirror"
-  | "map-relative"
-  | "map-scenario"
-  | "map-crop"
-  | "map-camp-block"
-  | "map-stack-route"
-  | "map-tp-in"
-  | "counterplay-immunity"
-  | "counterplay-basic-dispel"
-  | "counterplay-strong-dispel"
-  | "counterplay-nullifier"
-  | "counterplay-spell-block"
-  | "counterplay-spell-reflect";
+  | "flashback-order";
 export type TriviaArtworkKind = "ability" | "hero" | "item";
-export type CounterplayFamily =
-  | "debuff-immunity"
-  | "basic-dispel"
-  | "strong-dispel"
-  | "offensive-dispel"
-  | "spell-block"
-  | "spell-reflect";
-
-export type CounterplayFormat = "constant-matchup" | "curated-exception" | "interaction-scenario";
 export type ShopkeeperFormat = "build-result" | "real-recipe" | "shared-part" | "upgrade-path";
 
 export interface ShopkeeperItemReference {
@@ -231,26 +201,6 @@ export interface TriviaQuestion {
     answerCosts?: [number, number, number, number];
     clientBuild: string;
   };
-  counterplay?: {
-    family: CounterplayFamily;
-    tool: string;
-    outcomes: [boolean, boolean, boolean, boolean];
-    format: CounterplayFormat;
-    note?: string;
-    toolImages?: Array<{
-      src: string;
-      alt: string;
-      label: string;
-      kind: "item";
-    }>;
-    targetedOptions?: [boolean, boolean, boolean, boolean];
-    audit: {
-      reviewedAt: string;
-      clientBuild: string;
-      rule: string;
-    };
-  };
-  map?: MapChallenge;
   source: {
     label: string;
     url: string;
@@ -300,12 +250,6 @@ function sharedKnowledgeFilter(filter: KnowledgeFilter): KnowledgeFilter {
   return "Mixed";
 }
 
-export function createQuestionDeck(seed: string, filter: KnowledgeFilter) {
-  const roomFilter = sharedKnowledgeFilter(filter);
-  const pool = triviaQuestions.filter((question) => gameForQuestion(question) === "trivia");
-  return varietyShuffle(pool, `${seed}:${roomFilter}:${ARCADE_CONTENT_VERSION}`);
-}
-
 export function gameForQuestion(question: TriviaQuestion): RoundGame {
   if (question.kind.startsWith("shopkeeper-")) return "shopkeeper";
   if (question.kind === "spell-owner") return "spell-link";
@@ -316,15 +260,7 @@ export function gameForQuestion(question: TriviaQuestion): RoundGame {
   if (question.kind === "aghanim-upgrade") return "aghanim-lab";
   if (question.kind.startsWith("value-order-")) return "order-up";
   if (question.kind.startsWith("flashback-")) return "flashback";
-  if (question.kind.startsWith("map-")) return "map-sense";
-  if (question.kind.startsWith("counterplay-")) return "counterplay";
   return "trivia";
-}
-
-function shuffledPool(seed: string, game: RoundGame, filter: KnowledgeFilter) {
-  const roomFilter = sharedKnowledgeFilter(filter);
-  const pool = triviaQuestions.filter((question) => gameForQuestion(question) === game);
-  return varietyShuffle(pool, `${seed}:${game}:${roomFilter}:${ARCADE_CONTENT_VERSION}`);
 }
 
 export function createArcadeDeck(
@@ -332,7 +268,6 @@ export function createArcadeDeck(
   mode: ArcadeMode,
   filter: KnowledgeFilter,
   length = 10,
-  rotationSeed = seed,
   roundOffset = 0,
   formats?: readonly string[],
 ) {
@@ -349,42 +284,5 @@ export function createArcadeDeck(
     }).map((question: TriviaQuestion) => ({ ...question, game: gameForQuestion(question) }));
   }
 
-  const gamePools = {
-    trivia: shuffledPool(seed, "trivia", filter),
-    shopkeeper: shuffledPool(seed, "shopkeeper", filter),
-    "spell-link": shuffledPool(seed, "spell-link", filter),
-    "fogged-vision": shuffledPool(seed, "fogged-vision", filter),
-    "echo-hunt": shuffledPool(seed, "echo-hunt", filter),
-    soundcheck: shuffledPool(seed, "soundcheck", filter),
-    "quote-hunt": shuffledPool(seed, "quote-hunt", filter),
-    "aghanim-lab": shuffledPool(seed, "aghanim-lab", filter),
-    "order-up": shuffledPool(seed, "order-up", filter),
-    flashback: shuffledPool(seed, "flashback", filter),
-    "map-sense": shuffledPool(seed, "map-sense", filter),
-    counterplay: shuffledPool(seed, "counterplay", filter),
-  };
-  const games = Array.from({ length }, () => mode);
-  const cursors: Record<RoundGame, number> = {
-    trivia: 0,
-    shopkeeper: 0,
-    "spell-link": 0,
-    "fogged-vision": 0,
-    "echo-hunt": 0,
-    soundcheck: 0,
-    "quote-hunt": 0,
-    "aghanim-lab": 0,
-    "order-up": 0,
-    flashback: 0,
-    "map-sense": 0,
-    counterplay: 0,
-  };
-  void rotationSeed;
-  cursors[mode] = Math.max(0, roundOffset);
-
-  return games.flatMap((game) => {
-    const pool = gamePools[game];
-    const question = pool.length ? pool[cursors[game] % pool.length] : undefined;
-    cursors[game] += 1;
-    return question ? [{ ...question, game }] : [];
-  });
+  throw new Error(`Unsupported arcade mode ${mode}; Queue Arcade has one mixed public room.`);
 }

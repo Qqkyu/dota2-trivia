@@ -2,8 +2,6 @@ import postgres, { type Sql } from "postgres";
 import type { CrowdResult, PlayerVote, ReportResult, VoteResult } from "@/lib/arcade-contract";
 import { isReportReason } from "@/lib/calibration";
 import type { GameId } from "@/lib/game-catalogs";
-import { MAP_SENSE_MAX_CROWD_PINS } from "@/lib/map-sense";
-import type { MapPosition } from "@/lib/map-types";
 import type { StoredQuestionReview } from "@/lib/question-review";
 import { roundScoreSummary } from "@/lib/scoring.mjs";
 import type {
@@ -37,8 +35,6 @@ interface VoteRow {
   answer_index: Numeric;
   answer_key: string | null;
   submitted_at: Numeric;
-  map_x: number | null;
-  map_y: number | null;
   base_points: Numeric;
 }
 
@@ -46,11 +42,6 @@ interface ScoreAggregateRow {
   correct_count: Numeric;
   base_points_total: Numeric;
   base_points_best: Numeric;
-}
-
-interface PositionRow {
-  map_x: number;
-  map_y: number;
 }
 
 interface KeyCountRow {
@@ -212,18 +203,11 @@ function totalFor(counts: CrowdResult["counts"]) {
 
 function playerVoteFrom(row: VoteRow | undefined): PlayerVote | null {
   if (!row) return null;
-  const mapPosition =
-    typeof row.map_x === "number" && typeof row.map_y === "number" ? { x: row.map_x, y: row.map_y } : undefined;
   return {
     answerIndex: Number(row.answer_index),
     submittedAt: Number(row.submitted_at),
     ...(row.answer_key ? { answerKey: row.answer_key } : {}),
-    ...(mapPosition ? { mapPosition } : {}),
   };
-}
-
-function positionsFrom(rows: PositionRow[]): MapPosition[] {
-  return rows.map((row) => ({ x: row.map_x, y: row.map_y })).reverse();
 }
 
 function keyCountsFrom(rows: KeyCountRow[]): CrowdResult["keyCounts"] {
@@ -258,7 +242,7 @@ export async function getPostgresVoteStoreHealth(): Promise<VoteStoreHealth> {
 export async function getRoundCrowd(roundId: string, roomId: string, voterId?: string, includeScores = false) {
   await ensureSchema();
   const sql = configuredPostgres();
-  const [roundRows, voteRows, positionRows, itemCountRows, scoreRows] = await Promise.all([
+  const [roundRows, voteRows, itemCountRows, scoreRows] = await Promise.all([
     sql<RoundRow[]>`
       SELECT round_id, room_id, game_id, content_version, question_id, count_0, count_1, count_2, count_3
       FROM queue_arcade_rounds
@@ -267,19 +251,12 @@ export async function getRoundCrowd(roundId: string, roomId: string, voterId?: s
     `,
     voterId
       ? sql<VoteRow[]>`
-          SELECT answer_index, answer_key, submitted_at, map_x, map_y, base_points
+          SELECT answer_index, answer_key, submitted_at, base_points
           FROM queue_arcade_round_votes
           WHERE round_id = ${roundId} AND voter_hash = ${anonymousVoterHash(roomId, voterId)}
           LIMIT 1
         `
       : Promise.resolve([] as VoteRow[]),
-    sql<PositionRow[]>`
-      SELECT map_x, map_y
-      FROM queue_arcade_round_votes
-      WHERE round_id = ${roundId} AND map_x IS NOT NULL AND map_y IS NOT NULL
-      ORDER BY submitted_at DESC
-      LIMIT ${MAP_SENSE_MAX_CROWD_PINS}
-    `,
     sql<KeyCountRow[]>`
       SELECT answer_key, COUNT(*) AS count
       FROM queue_arcade_round_votes
@@ -303,7 +280,6 @@ export async function getRoundCrowd(roundId: string, roomId: string, voterId?: s
   return {
     counts,
     total: totalFor(counts),
-    positions: positionsFrom(positionRows),
     keyCounts: keyCountsFrom(itemCountRows),
     scoreSummary:
       includeScores && scoreRow
@@ -459,29 +435,22 @@ export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult
     const voterHash = anonymousVoterHash(input.roomId, input.voterId);
     const insertedVotes = await transaction<VoteRow[]>`
       INSERT INTO queue_arcade_round_votes (
-        round_id, voter_hash, answer_index, answer_key, submitted_at, map_x, map_y, base_points
+        round_id, voter_hash, answer_index, answer_key, submitted_at, base_points
       )
       VALUES (
         ${input.roundId}, ${voterHash}, ${input.answerIndex}, ${input.answerKey ?? null}, ${input.submittedAt},
-        ${input.mapPosition?.x ?? null}, ${input.mapPosition?.y ?? null}, ${input.basePoints}
+        ${input.basePoints}
       )
       ON CONFLICT (round_id, voter_hash) DO NOTHING
-      RETURNING answer_index, answer_key, submitted_at, map_x, map_y, base_points
+      RETURNING answer_index, answer_key, submitted_at, base_points
     `;
 
     if (!insertedVotes.length) {
       const existingVotes = await transaction<VoteRow[]>`
-        SELECT answer_index, answer_key, submitted_at, map_x, map_y, base_points
+        SELECT answer_index, answer_key, submitted_at, base_points
         FROM queue_arcade_round_votes
         WHERE round_id = ${input.roundId} AND voter_hash = ${voterHash}
         LIMIT 1
-      `;
-      const positionRows = await transaction<PositionRow[]>`
-        SELECT map_x, map_y
-        FROM queue_arcade_round_votes
-        WHERE round_id = ${input.roundId} AND map_x IS NOT NULL AND map_y IS NOT NULL
-        ORDER BY submitted_at DESC
-        LIMIT ${MAP_SENSE_MAX_CROWD_PINS}
       `;
       const itemCountRows = await transaction<KeyCountRow[]>`
         SELECT answer_key, COUNT(*) AS count
@@ -495,7 +464,6 @@ export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult
         accepted: false,
         counts,
         total: totalFor(counts),
-        positions: positionsFrom(positionRows),
         keyCounts: keyCountsFrom(itemCountRows),
         scoreSummary: null,
         playerVote: playerVoteFrom(existingVotes[0]),
@@ -535,13 +503,6 @@ export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult
           updated_at = EXCLUDED.updated_at
       `;
     }
-    const positionRows = await transaction<PositionRow[]>`
-      SELECT map_x, map_y
-      FROM queue_arcade_round_votes
-      WHERE round_id = ${input.roundId} AND map_x IS NOT NULL AND map_y IS NOT NULL
-      ORDER BY submitted_at DESC
-      LIMIT ${MAP_SENSE_MAX_CROWD_PINS}
-    `;
     const itemCountRows = await transaction<KeyCountRow[]>`
       SELECT answer_key, COUNT(*) AS count
       FROM queue_arcade_round_votes
@@ -554,7 +515,6 @@ export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult
       accepted: true,
       counts,
       total: totalFor(counts),
-      positions: positionsFrom(positionRows),
       keyCounts: keyCountsFrom(itemCountRows),
       scoreSummary: null,
       playerVote: playerVoteFrom(insertedVotes[0]),

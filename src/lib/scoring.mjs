@@ -1,4 +1,3 @@
-export const MAP_READ_GRACE_MS = 3_000;
 export const MAX_SPEED_BONUS = 100;
 export const PROGRESSIVE_CLUE_PENALTY = 40;
 export const SPELL_CLUE_PENALTY = PROGRESSIVE_CLUE_PENALTY;
@@ -33,38 +32,23 @@ export function clueStageAt(timeRemaining, duration) {
  * vote endpoint. Keep this free of browser and database concerns so both sides
  * cannot silently drift apart.
  *
- * @param {{
- *   difficulty: 1 | 2 | 3,
- *   game?: string,
- *   map?: { target: { x: number, y: number }, tolerance: number, choice?: unknown }
- * }} question
+ * @param {{ difficulty: 1 | 2 | 3, game?: string }} question
  * @param {number} timeRemaining
  * @param {number} duration
- * @param {{ x: number, y: number } | null | undefined} [selectedMapPosition]
  */
-export function scoreBreakdown(question, timeRemaining, duration, selectedMapPosition) {
-  const speedRatio = speedScoreRatio(timeRemaining, duration, question.map ? MAP_READ_GRACE_MS : 0);
+export function scoreBreakdown(question, timeRemaining, duration) {
+  const speedRatio = speedScoreRatio(timeRemaining, duration);
   const speedBonus = Math.round(speedRatio * MAX_SPEED_BONUS);
   const difficultyBonus = (question.difficulty - 1) * 25;
   const cluePenalty = ["spell-link", "aghanim-lab"].includes(question.game)
     ? (clueStageAt(timeRemaining, duration) - 1) * PROGRESSIVE_CLUE_PENALTY
     : 0;
-  const distance =
-    question.map && selectedMapPosition
-      ? Math.hypot(question.map.target.x - selectedMapPosition.x, question.map.target.y - selectedMapPosition.y)
-      : null;
-  const precisionBonus =
-    question.map && !question.map.choice && distance !== null
-      ? Math.round(Math.max(0, 1 - distance / question.map.tolerance) * 100)
-      : 0;
 
   return {
     speedBonus,
     difficultyBonus,
     cluePenalty,
-    precisionBonus,
-    mapDistance: distance,
-    rawPoints: Math.max(25, 100 + speedBonus + difficultyBonus + precisionBonus - cluePenalty),
+    rawPoints: Math.max(25, 100 + speedBonus + difficultyBonus - cluePenalty),
   };
 }
 

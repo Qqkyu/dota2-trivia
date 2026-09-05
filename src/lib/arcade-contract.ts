@@ -1,13 +1,11 @@
 import type { ArcadeMode, KnowledgeFilter, RoundGame } from "@/lib/trivia";
 import type { ReportReason } from "@/lib/calibration";
 import type { GameId } from "@/lib/game-identity";
-import type { MapPosition } from "@/lib/map-types";
 import type { PublicArcadeQuestion } from "@/lib/public-question";
 
 export interface CrowdResult {
   counts: [number, number, number, number];
   total: number;
-  positions: MapPosition[];
   keyCounts: Array<{
     answerKey: string;
     count: number;
@@ -26,7 +24,6 @@ export interface PlayerVote {
   answerIndex: number;
   submittedAt: number;
   answerKey?: string;
-  mapPosition?: MapPosition;
 }
 
 export interface PublicRoomSettings {

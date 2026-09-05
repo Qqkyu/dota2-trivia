@@ -3,8 +3,6 @@ import path from "node:path";
 import type { CrowdResult, PlayerVote, ReportResult, VoteResult } from "@/lib/arcade-contract";
 import { emptyReportCounts, isReportReason, type ReportCounts, type ReportReason } from "@/lib/calibration";
 import type { GameId } from "@/lib/game-catalogs";
-import { MAP_SENSE_MAX_CROWD_PINS } from "@/lib/map-sense";
-import type { MapPosition } from "@/lib/map-types";
 import type { QuestionReviewState, StoredQuestionReview } from "@/lib/question-review";
 import { roundScoreSummary } from "@/lib/scoring.mjs";
 import { anonymousVoterHash } from "@/lib/voter-hash";
@@ -58,7 +56,6 @@ export interface RoundVoteInput {
   correctIndex: number;
   answerIndex: number;
   answerKey?: string;
-  mapPosition?: MapPosition;
   basePoints: number;
   voterId: string;
   submittedAt: number;
@@ -177,17 +174,11 @@ function publicPlayerVote(vote: StoredPlayerVote | undefined): PlayerVote | null
     answerIndex: vote.answerIndex,
     submittedAt: vote.submittedAt,
     ...(vote.answerKey ? { answerKey: vote.answerKey } : {}),
-    ...(vote.mapPosition ? { mapPosition: { ...vote.mapPosition } } : {}),
   };
 }
 
 function crowdFor(round: StoredRound | undefined, includeScores = false, playerHash?: string | null): CrowdResult {
   const counts: CrowdResult["counts"] = round && validCounts(round.counts) ? [...round.counts] : [0, 0, 0, 0];
-  const positions = round
-    ? Object.values(round.voters)
-        .flatMap((vote) => (vote.mapPosition ? [{ ...vote.mapPosition }] : []))
-        .slice(-MAP_SENSE_MAX_CROWD_PINS)
-    : [];
   const keyCountMap = new Map<string, number>();
   for (const vote of Object.values(round?.voters ?? {})) {
     if (vote.answerKey) keyCountMap.set(vote.answerKey, (keyCountMap.get(vote.answerKey) ?? 0) + 1);
@@ -203,7 +194,6 @@ function crowdFor(round: StoredRound | undefined, includeScores = false, playerH
   return {
     counts,
     total: counts.reduce((sum, count) => sum + count, 0),
-    positions,
     keyCounts,
     scoreSummary: includeScores
       ? roundScoreSummary({
@@ -441,7 +431,6 @@ async function fileRecordRoundVote(input: RoundVoteInput): Promise<VoteResult> {
       answerIndex: input.answerIndex,
       submittedAt: input.submittedAt,
       ...(input.answerKey ? { answerKey: input.answerKey } : {}),
-      ...(input.mapPosition ? { mapPosition: { ...input.mapPosition } } : {}),
       basePoints: input.basePoints,
     };
     round.voters[hash] = playerVote;

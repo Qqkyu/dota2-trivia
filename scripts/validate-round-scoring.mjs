@@ -34,20 +34,6 @@ if (
   failures.push("Aghanim's Lab clue stages no longer reduce the authoritative score in order.");
 }
 
-const map = scoreBreakdown(
-  {
-    difficulty: 2,
-    game: "map-sense",
-    map: { target: { x: 0.4, y: 0.6 }, tolerance: 0.1 },
-  },
-  12_000,
-  duration,
-  { x: 0.4, y: 0.6 },
-);
-if (map.speedBonus !== 100 || map.precisionBonus !== 100 || map.rawPoints !== 325) {
-  failures.push(`Map reading grace or precision scoring drifted: ${JSON.stringify(map)}.`);
-}
-
 const solo = roundScoreSummary({
   correctCount: 1,
   total: 1,
@@ -109,4 +95,4 @@ if (largeRoom.average !== 400 || largeRoom.best !== 500 || largeRoom.playerPoint
 }
 
 if (failures.length) throw new Error(failures.join("\n"));
-console.log("Validated authoritative timing, hint, precision, solo, minority, and large-room score aggregates.");
+console.log("Validated authoritative timing, hint, solo, minority, and large-room score aggregates.");

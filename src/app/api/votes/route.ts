@@ -12,7 +12,6 @@ import {
   isValidAnswerKeyForQuestion,
   keyedAnswerIndex,
 } from "@/lib/keyed-answer";
-import { isMapPosition, mapAnswerIndex } from "@/lib/map-sense";
 import { answerStageForRound } from "@/lib/player-profile.mjs";
 import { liveRoundForSettings } from "@/lib/private-room-rounds";
 import { addPrivateRoomScore, privateRoomMember } from "@/lib/private-rooms.mjs";
@@ -102,30 +101,19 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid answer for this round." }, { status: 400 });
   }
 
-  const mapPosition = isMapPosition(candidate.mapPosition) ? candidate.mapPosition : undefined;
-  const requiresMapPosition = Boolean(question.map && !question.map.choice);
-  if (requiresMapPosition && !mapPosition) {
-    return NextResponse.json({ error: "Map Sense requires a valid map position." }, { status: 400 });
-  }
-
   if (submittedAt >= round.answerDeadline + PUBLIC_VOTE_ACCEPT_GRACE_MS) {
     return NextResponse.json({ error: "Answers are closed for this round." }, { status: 409 });
   }
 
   try {
-    const resolvedAnswerIndex = isKeyedAnswer
-      ? (resolvedKeyedAnswerIndex as number)
-      : requiresMapPosition && question.map && mapPosition
-        ? mapAnswerIndex(question.map, mapPosition)
-        : (answerIndex as number);
+    const resolvedAnswerIndex = isKeyedAnswer ? (resolvedKeyedAnswerIndex as number) : (answerIndex as number);
     const resolvedAnswerKey = isKeyedAnswer ? (answerKey as string) : undefined;
     const isCorrect = isQuestionAnswerCorrect(question, resolvedAnswerIndex, resolvedAnswerKey);
     const basePoints = isCorrect
       ? scoreBreakdown(
-          { difficulty: question.difficulty, game: round.game, map: question.map },
+          { difficulty: question.difficulty, game: round.game },
           Math.max(0, round.answerDeadline - submittedAt),
           round.answerDuration,
-          requiresMapPosition ? mapPosition : undefined,
         ).rawPoints
       : 0;
     const result = await recordRoundVote({
@@ -138,7 +126,6 @@ export async function POST(request: NextRequest) {
       correctIndex: question.correctIndex,
       answerIndex: resolvedAnswerIndex,
       answerKey: resolvedAnswerKey,
-      mapPosition: requiresMapPosition ? mapPosition : undefined,
       basePoints,
       voterId: effectiveVoterId,
       submittedAt,
@@ -191,7 +178,6 @@ export async function POST(request: NextRequest) {
         accepted: result.accepted,
         counts: [0, 0, 0, 0],
         total: result.total,
-        positions: [],
         keyCounts: [],
         scoreSummary: null,
         playerVote,

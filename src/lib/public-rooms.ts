@@ -63,7 +63,6 @@ function rawRoomBatch(room: PublicRoom, batchNumber: number) {
     room.mode,
     room.filter,
     PUBLIC_ROOM_BATCH_LENGTH,
-    `public-room:${room.id}:format-rotation`,
     batchNumber * PUBLIC_ROOM_BATCH_LENGTH,
   );
 
