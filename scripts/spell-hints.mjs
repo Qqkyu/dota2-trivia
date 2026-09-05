@@ -17,6 +17,36 @@ function termPattern(term, allowPlural = false) {
   return new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(term)}${simplePlural}(?:['’]s?)?(?![\\p{L}\\p{N}])`, "giu");
 }
 
+/**
+ * An ability name also leaks through its inflections: "Nightmared targets",
+ * "the distance glimpsed", "once burrowed", "two doppelgangers". Match the
+ * bare name plus a short verb/plural suffix so all of them get redacted.
+ */
+function abilityPattern(abilityName) {
+  return new RegExp(
+    `(?<![\\p{L}\\p{N}])(${escapeRegExp(abilityName)})(s|ed|d|ing)?(?:['’]s?)?(?![\\p{L}\\p{N}])`,
+    "giu",
+  );
+}
+
+export function containsAbilityLeak(text, abilityName) {
+  return abilityPattern(abilityName).test(text);
+}
+
+/** Keep whole sentences while the clue stays readable on a 15-second clock. */
+export function trimToSentenceBudget(text, maxWords) {
+  const sentences = text.split(/(?<=[.!?])\s+/);
+  const kept = [];
+  let used = 0;
+  for (const sentence of sentences) {
+    const count = sentence.split(/\s+/).filter(Boolean).length;
+    if (kept.length && used + count > maxWords) break;
+    kept.push(sentence);
+    used += count;
+  }
+  return kept.join(" ");
+}
+
 export function containsAnswerLeak(text, answer) {
   return answerLeakTerms(answer).some((term) => termPattern(term, term === answer).test(text));
 }
@@ -31,7 +61,7 @@ export function buildSpellHint(
   description,
   ownerName,
   abilityName,
-  { redactAbility = true, fullDescription = false, maxWords = 22, maxCharacters = 145 } = {},
+  { redactAbility = true, fullDescription = false, maxWords = 22, maxCharacters = 145, fullMaxWords = 60 } = {},
 ) {
   let hint = String(description ?? "")
     .replace(/\s+/g, " ")
@@ -40,7 +70,15 @@ export function buildSpellHint(
 
   if (!hint) return GENERIC_HINT;
 
-  if (redactAbility) hint = hint.replace(termPattern(abilityName), "this ability");
+  if (redactAbility) {
+    hint = hint.replace(abilityPattern(abilityName), (match, name, suffix = "") => {
+      const lower = String(suffix).toLowerCase();
+      if (lower === "s") return "copies";
+      if (lower === "ed" || lower === "d") return "affected";
+      if (lower === "ing") return "using this ability";
+      return "this ability";
+    });
+  }
 
   for (const term of answerLeakTerms(ownerName)) {
     hint = hint.replace(termPattern(term, term === ownerName), (match) => {
@@ -53,9 +91,9 @@ export function buildSpellHint(
   }
 
   if (!fullDescription) hint = hint.split(/(?<=[.!?])\s+/)[0]?.trim() ?? "";
+  else hint = trimToSentenceBudget(hint, fullMaxWords);
   hint = hint
     .replace(/\b(?:a|an|the) this ability\b/gi, "this ability")
-    .replace(/\b(?:a|an|the)(?:\s+[\p{L}-]+){1,2}\s+this ability\b/giu, "this ability")
     .replace(/\b(?:a|an|the) the caster\b/gi, "the caster")
     .replace(/\banother the caster\b/gi, "another copy")
     .replace(/\bcreates this ability over\b/gi, "creates an effect over")

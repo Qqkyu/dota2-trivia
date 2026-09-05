@@ -17,7 +17,7 @@ import {
   NON_TRIVIA_DETECTIVE_KEYS,
   NON_TRIVIA_SPELL_OWNER_KEYS,
 } from "./question-quality-audit.mjs";
-import { buildSpellHint, containsAnswerLeak, containsFullNameLeak } from "./spell-hints.mjs";
+import { buildSpellHint, containsAbilityLeak, containsAnswerLeak, containsFullNameLeak } from "./spell-hints.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questions = JSON.parse(await readFile(join(root, "src", "data", "questions.generated.json"), "utf8"));
@@ -161,6 +161,12 @@ for (const [index, question] of questions.entries()) {
     }
     if (question.hint && containsFullNameLeak(question.hint, question.eyebrow)) {
       failures.push(`${label}: the opening Spell Link description leaks ${question.eyebrow}.`);
+    }
+    if (question.hint && containsAbilityLeak(question.hint, question.eyebrow)) {
+      failures.push(`${label}: the opening Spell Link description conjugates ${question.eyebrow}.`);
+    }
+    if ((question.hint?.trim().split(/\s+/).filter(Boolean).length ?? 0) > 60) {
+      failures.push(`${label}: the opening Spell Link description is over 60 words; it cannot be read in 15 seconds.`);
     }
   }
   if (

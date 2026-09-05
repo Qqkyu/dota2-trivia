@@ -77,7 +77,7 @@
       "alt": "Unstable Concoction ability icon",
       "kind": "ability"
     },
-    "hint": "The caster brews up this ability that he can throw at an enemy hero, to stun and deal damage in an area around the explosion. The longer the concoction brews, the more damage it deals and the longer the stun. The caster is faster while charging the concoction. After 5 seconds, the brew reaches its maximum damage and stun time. However, after 5.5 seconds, the concoction will explode on the caster himself if not thrown.",
+    "hint": "The caster brews up this ability that he can throw at an enemy hero, to stun and deal damage in an area around the explosion. The longer the concoction brews, the more damage it deals and the longer the stun. The caster is faster while charging the concoction.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sven.png",
@@ -222,7 +222,7 @@
       "alt": "Nightmare ability icon",
       "kind": "ability"
     },
-    "hint": "Puts the target enemy or friendly Hero to sleep. Sleeping units walk in the caster's chosen direction and are awakened when damaged. If the target was directly attacked, this ability passes to the attacking unit. The caster can attack and damage Nightmared targets freely. Can be put on alt-cast to have the target stand still.",
+    "hint": "Puts the target enemy or friendly Hero to sleep. Sleeping units walk in the caster's chosen direction and are awakened when damaged. If the target was directly attacked, this ability passes to the attacking unit. The caster can attack and damage affected targets freely. Can be put on alt-cast to have the target stand still.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/techies.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png",
@@ -251,7 +251,7 @@
       "alt": "Firefly ability icon",
       "kind": "ability"
     },
-    "hint": "The caster takes to the skies, moving increasingly fast and laying down a trail of flames from the air. The fire damages any enemies it touches and destroys trees below the caster. Maximum movement speed bonus is reached at this ability duration.",
+    "hint": "The caster takes to the skies, moving increasingly fast and laying down a trail of flames from the air. The fire damages any enemies it touches and destroys trees below the caster. Maximum movement speed bonus is reached at the end of this ability duration.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/batrider.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_shaman.png",
@@ -309,7 +309,7 @@
       "alt": "Thirst ability icon",
       "kind": "ability"
     },
-    "hint": "The caster is invigorated by the wounds of his enemies, gaining bonus movement speed when an enemy hero's health falls below 100%, with the bonuses increasing as their health falls further. If an enemy hero's health falls below 25%, he will also gain vision and True Sight of that hero. Bonuses stack per hero. Unlocks max movement speed for the caster.",
+    "hint": "The caster is invigorated by the wounds of his enemies, gaining bonus movement speed when an enemy hero's health falls below 100%, with the bonuses increasing as their health falls further. If an enemy hero's health falls below 25%, he will also gain vision and True Sight of that hero. Bonuses stack per hero.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png",
@@ -367,7 +367,7 @@
       "alt": "Cinder Brew ability icon",
       "kind": "ability"
     },
-    "hint": "Rolls a barrel of ale at enemies that damages enemies along its path and spills out at the target location. Any enemy in the path or the spill area is drenched in this ability, becoming slowed. If the enemy receives Magic or Pure damage, they will be ignited, extending the duration by 3s and causing them to take damage over time.",
+    "hint": "Rolls a barrel of ale at enemies that damages enemies along its path and spills out at the target location. Any enemy in the path or the spill area is drenched in this ability, becoming slowed.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tiny.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster.png",
@@ -425,7 +425,7 @@
       "alt": "Spin Web ability icon",
       "kind": "ability"
     },
-    "hint": "Spins a large web that grants the caster a passive movement speed increase and increases her Turn Rate, while in its vicinity, as well as giving free movement. This ability can be cast from anywhere as long as the new web touches an existing web. Webs never expire, and can be manually destroyed. When the maximum limit of webs is exceeded, the oldest web disappears.",
+    "hint": "Spins a large web that grants the caster a passive movement speed increase and increases her Turn Rate, while in its vicinity, as well as giving free movement. This ability can be cast from anywhere as long as the new web touches an existing web. Webs never expire, and can be manually destroyed.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/weaver.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png",
@@ -628,7 +628,7 @@
       "alt": "Shadow Realm ability icon",
       "kind": "ability"
     },
-    "hint": "The caster recedes into the shadows, becoming untargetable. Her next attack has 600 bonus attack range and deals bonus magic damage, and will end this ability. Damage scales based on how long she remains under this ability, the maximum being reached after 3 seconds.",
+    "hint": "The caster recedes into the shadows, becoming untargetable. Her next attack has 600 bonus attack range and deals bonus magic damage, and will end this ability. Damage scales based on how long she remains under the effects of this ability, the maximum being reached after 3 seconds.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png",
@@ -744,7 +744,7 @@
       "alt": "Glimpse ability icon",
       "kind": "ability"
     },
-    "hint": "Teleports the target hero back to where it was 4 seconds ago. Instantly kills illusions. Deals damage equal to a percentage of the distance glimpsed, that cannot go over a damage maximum.",
+    "hint": "Teleports the target hero back to where it was 4 seconds ago. Instantly kills illusions. Deals damage equal to a percentage of the distance affected, that cannot go over a damage maximum.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lion.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png",
@@ -831,7 +831,7 @@
       "alt": "Glacier ability icon",
       "kind": "ability"
     },
-    "hint": "The caster creates a hill of ice beneath her, knocking away nearby enemies. Units on the hill gain flying vision and the caster and her ranged allies gain bonus attack range. The caster gains additional damage while on this ability and attacking targets below her. The front of the hill obscures vision and cannot be moved through except by the caster. Does not interrupt Multishot when cast.",
+    "hint": "The caster creates a hill of ice beneath her, knocking away nearby enemies. Units on the hill gain flying vision and the caster and her ranged allies gain bonus attack range. The caster gains additional damage while on this ability and attacking targets below her.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/death_prophet.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/gyrocopter.png",
@@ -947,7 +947,7 @@
       "alt": "Flame Guard ability icon",
       "kind": "ability"
     },
-    "hint": "The caster surrounds himself with a ring of fire that consumes incoming magic damage, absorbing a percentage of the damage taken. This ability deals damage per second around the caster while active. If the shield is broken, the damage is also lost.",
+    "hint": "The caster surrounds himself with a ring of fire that consumes incoming magic damage, absorbing a percentage of the damage taken. This ability deals damage per second in an area around the caster while this ability is active. If the shield is broken, the damage is also lost.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/alchemist.png",
@@ -1344,7 +1344,7 @@
       "alt": "Switch Discipline ability icon",
       "kind": "ability"
     },
-    "hint": "The caster switches between his Kazurai Katana and Shodo Sai. He gains different attack capabilities and abilities based on the weapon equipped. The abilities level up together, and when an ability is used, the associated alternate weapon ability also goes on cooldown. The caster deals extra damage on the first Katana hit or ability after switching to Katana, and gains bonus speed after switching to Sai.",
+    "hint": "The caster switches between his Kazurai Katana and Shodo Sai. He gains different attack capabilities and abilities based on the weapon equipped. The abilities level up together, and when an ability is used, the associated alternate weapon ability also goes on cooldown.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
@@ -1494,7 +1494,7 @@
       "alt": "Ice Spire ability icon",
       "kind": "ability"
     },
-    "hint": "Creates this ability at the target spot, slowing enemies around it. Can take 4 hero hits or 8 creep hits and when destroyed it will create a Frost Blast around it. Chain Frost can be cast on the Spire and can bounce to the Spire and damage the spire by 1 hero attack if there are no other enemies in range. The caster can cast Frost Shield on the Spire. Each Frost Shield tick will heal the spire by 1 hero attack.",
+    "hint": "Creates this ability at the target spot, slowing enemies around it. Can take 4 hero hits or 8 creep hits and when destroyed it will create a Frost Blast around it.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
@@ -1726,7 +1726,7 @@
       "alt": "Rebound ability icon",
       "kind": "ability"
     },
-    "hint": "The caster bounds to the targeted allied unit, choosing a direction and distance she will spring away from it. Upon reaching the unit, the caster lunges to her final destination, damaging and stunning enemies where she lands. When this ability is set to alt-cast, the caster brings the target ally with her to her final destination. The ally receives 15% bonus movement speed for 4s.",
+    "hint": "The caster bounds to the targeted allied unit, choosing a direction and distance she will spring away from it. Upon reaching the unit, the caster lunges to her final destination, damaging and stunning enemies where she lands. When this ability is set to alt-cast, the caster brings the target ally with her to her final destination.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
@@ -1813,7 +1813,7 @@
       "alt": "Poof ability icon",
       "kind": "ability"
     },
-    "hint": "Drawing mystical energies from the earth, the caster can teleport to another copy or itself after channeling for 1.5 seconds, damaging the enemy in both the departure and arrival locations. If the ability is in alt-cast state, all copies of the caster will also cast this ability to the target. When cast on the ground, all copies of the caster except the selected one will teleport to the closest location.",
+    "hint": "Drawing mystical energies from the earth, the caster can teleport to another copy or itself after channeling for 1.5 seconds, damaging the enemy in both the departure and arrival locations. If the ability is in alt-cast state, all copies of the caster will also cast this ability to the target.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
@@ -1871,7 +1871,7 @@
       "alt": "Tree Dance ability icon",
       "kind": "ability"
     },
-    "hint": "The caster jumps to a tree and perches atop it. While perched, he gains the Primal Spring ability-a channeled leap attack. If the caster's tree is destroyed, he falls and is stunned for 3s. Taking damage while on this ability on cooldown.",
+    "hint": "The caster jumps to a tree and perches atop it. While perched, he gains the Primal Spring ability-a channeled leap attack. If the caster's tree is destroyed, he falls and is stunned for 3s. Taking damage while on the ground puts this ability on cooldown.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png",
@@ -1900,7 +1900,7 @@
       "alt": "Adaptive Strike ability icon",
       "kind": "ability"
     },
-    "hint": "Launches a surge of water toward an enemy unit, stunning them, knocking them back, and dealing base damage plus additional damage based on the caster's agility times a multiplier. If the caster's agility is 50% higher than strength, the maximum agility multiplier is used. Knockback distance and stun duration are based on the caster's strength. If his strength is 50% higher than his agility, the maximum knockback distance and stun duration is used.",
+    "hint": "Launches a surge of water toward an enemy unit, stunning them, knocking them back, and dealing base damage plus additional damage based on the caster's agility times a multiplier. If the caster's agility is 50% higher than strength, the maximum agility multiplier is used. Knockback distance and stun duration are based on the caster's strength.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png",
@@ -1987,7 +1987,7 @@
       "alt": "Feast of Souls ability icon",
       "kind": "ability"
     },
-    "hint": "The caster gains Bonus Movement and Attack Speed for 8 seconds. For the duration of the effect, every 0.5s he collects souls from 2 enemies in a 600 radius. After the effect is over, he loses the souls whose owners are still alive, retaining the rest for 8s, after which souls that are over the Necromastery max stack count are also lost. Can only collect souls once from each individual enemy.",
+    "hint": "The caster gains Bonus Movement and Attack Speed for 8 seconds. For the duration of the effect, every 0.5s he collects souls from 2 enemies in a 600 radius.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/hoodwink.png",
@@ -2045,7 +2045,7 @@
       "alt": "Burrow ability icon",
       "kind": "ability"
     },
-    "hint": "The caster buries himself beneath the battlefield over a short duration. Once burrowed, Spiked Carapace instantly stuns nearby enemies when cast, the range of Mind Flare and Impale is increased, and Impale's cooldown is decreased. While burrowed, the caster is stationary, unable to attack, and invisible. The caster gains damage reduction from all damage sources.",
+    "hint": "The caster buries himself beneath the battlefield over a short duration. Once affected, Spiked Carapace instantly stuns nearby enemies when cast, the range of Mind Flare and Impale is increased, and Impale's cooldown is decreased. While affected, the caster is stationary, unable to attack, and invisible. The caster gains damage reduction from all damage sources.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tidehunter.png",
@@ -2190,7 +2190,7 @@
       "alt": "Shield Crash ability icon",
       "kind": "ability"
     },
-    "hint": "The caster jumps in the air and slams back to the ground in front of his current position damaging all enemies in a radius. The caster gains an all damage barrier for a short time if this ability hits an enemy hero. Forward movement is maintained if this ability is used while Rolling Thunder is active, and allows Rolling Thunder to clear walls or cliffs.",
+    "hint": "The caster jumps in the air and slams back to the ground in front of his current position damaging all enemies in a radius. The caster gains an all damage barrier for a short time if this ability hits an enemy hero.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/beastmaster.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
@@ -2248,7 +2248,7 @@
       "alt": "Doppelganger ability icon",
       "kind": "ability"
     },
-    "hint": "The caster briefly vanishes from the battlefield. After 1 second, the caster and any of his nearby illusions reappear at a random position within the targeted location, along with two additional doppelgangers. Extends duration of all illusions. The two added doppelgangers have different properties: one takes normal damage and deals none, while the other takes 500% bonus damage and deals -80% less damage.",
+    "hint": "The caster briefly vanishes from the battlefield. After 1 second, the caster and any of his nearby illusions reappear at a random position within the targeted location, along with two additional copies. Extends duration of all illusions.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_lancer.png",
@@ -2393,7 +2393,7 @@
       "alt": "Nether Ward ability icon",
       "kind": "ability"
     },
-    "hint": "This ability at the target location. The ward will fire at any enemy hero who casts a spell dealing base damage plus the damage multiplier of the mana spent by the enemy hero.",
+    "hint": "The caster places this ability at the target location. The ward will fire at any enemy hero who casts a spell dealing base damage plus the damage multiplier of the mana spent by the enemy hero.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pugna.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skywrath_mage.png",
@@ -2451,7 +2451,7 @@
       "alt": "Overclocking ability icon",
       "kind": "ability"
     },
-    "hint": "Supercharges copies of the caster abilities: Battery Assault: Increased radius and affects all enemies in its range. Power Cogs: Radius increased, and the caster's armor while near Power Cogs is increased. Rocket Flares: Increased damage, vision and slow duration, and fire additional rockets to either side of the target. Hookshot: Stun radius and duration increased. Jetpack Moves faster. The caster's movement and attack speed becomes slowed to a crawl after the duration runs out.",
+    "hint": "Supercharges copies of the caster abilities: Battery Assault: Increased radius and affects all enemies in its range. Power Cogs: Radius increased, and the caster's armor while near Power Cogs is increased. Rocket Flares: Increased damage, vision and slow duration, and fire additional rockets to either side of the target. Hookshot: Stun radius and duration increased. Jetpack Moves faster.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sand_king.png",
@@ -3031,7 +3031,7 @@
       "alt": "Reactive Tazer ability icon",
       "kind": "ability"
     },
-    "hint": "The caster triggers an electric charge on the target ally, giving them bonus movement speed for a short period of time. Enemies attacking the target take damage and are temporarily disarmed and get a Basic Dispel. At the end of the effect or if detonated early with the sub-ability, the charge explodes, disarming all enemies within the radius and dealing damage.",
+    "hint": "The caster triggers an electric charge on the target ally, giving them bonus movement speed for a short period of time. Enemies attacking the target take damage and are temporarily disarmed and get a Basic Dispel.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_demon.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
@@ -3263,7 +3263,7 @@
       "alt": "Snowball ability icon",
       "kind": "ability"
     },
-    "hint": "The caster begins rolling into this ability. Allies within a 325 radius can also be added to this ability by right-clicking on them, even while this ability is moving. Once launched, any enemies caught in this ability path will be stunned and take damage. Each allied Hero in this ability will add to its damage and stun duration.",
+    "hint": "The caster begins rolling into this ability. Allies within a 325 radius can also be added to this ability by right-clicking on them, even while this ability is moving. Once launched, any enemies caught in this ability path will be stunned and take damage.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tusk.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/undying.png",
@@ -3292,7 +3292,7 @@
       "alt": "Tombstone ability icon",
       "kind": "ability"
     },
-    "hint": "Summons this ability at the target point. Zombies will frequently spawn next to every enemy unit in this ability, and attack them. Zombies have the Deathlust ability, which causes their attacks to slow the target, and if the target reaches below a certain amount of health, increases the attack and movement speed of the zombie.",
+    "hint": "Summons this ability at the target point. Zombies will frequently spawn next to every enemy unit in the area around this ability, and attack them. Zombies have the Deathlust ability, which causes their attacks to slow the target, and if the target reaches below a certain amount of health, increases the attack and movement speed of the zombie.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/beastmaster.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tusk.png",
@@ -3413,7 +3413,7 @@
       "alt": "Nethertoxin ability icon",
       "kind": "ability"
     },
-    "hint": "This ability at the targeted area. Units in that area take an increasing damage over time based on how long they remain in it. Units in it have their attack speed slowed.",
+    "hint": "The caster releases this ability at the targeted area. Units in that area take an increasing damage over time based on how long they remain in it. Units in it have their attack speed slowed.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lone_druid.png",
@@ -3442,7 +3442,7 @@
       "alt": "Stone Form ability icon",
       "kind": "ability"
     },
-    "hint": "Orders the Familiar closest to the caster to cast this ability in its current location, turning into stone and smashing into the ground, stunning and damaging all targets in the area. The Familiar becomes invulnerable, and will regain its health very rapidly. After 6 seconds, the Familiar will automatically leave this ability. Can be alt-cast to order the closest Familiar to the target location to move there and cast this ability.",
+    "hint": "Orders the Familiar closest to the caster to cast this ability in its current location, turning into stone and smashing into the ground, stunning and damaging all targets in the area. The Familiar becomes invulnerable, and will regain its health very rapidly. After 6 seconds, the Familiar will automatically leave this ability.",
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/leshrac.png",
