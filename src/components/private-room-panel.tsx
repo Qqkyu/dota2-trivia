@@ -499,12 +499,7 @@ export function PrivateRoomPanel({
     try {
       await requestRoom("/api/private-rooms/messages", {
         method: "POST",
-        body: JSON.stringify({
-          code: room.code,
-          playerId: playerId(),
-          name: committedNameRef.current.trim() || shownName.trim(),
-          text,
-        }),
+        body: JSON.stringify({ code: room.code, playerId: playerId(), text }),
       });
     } catch (cause) {
       setDraft(text);

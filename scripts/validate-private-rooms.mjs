@@ -22,6 +22,7 @@ import {
   partyNameSeed,
   storedPartyNameDraft,
   addPrivateRoomScore,
+  privateRoomMember,
   PRIVATE_ROOM_NAME_NOTICE_MS,
   PRIVATE_ROOM_COUNTDOWN_MS,
   privateRoomWaiting,
@@ -274,16 +275,37 @@ record(
   "The next private round should begin after reveal.",
 );
 
-const chat = addPrivateRoomMessage(created.code, { name: "Loda", text: "  is that balanced?  ", now: now + 3_000 });
+const chat = addPrivateRoomMessage(created.code, {
+  playerId: "host-player-1",
+  text: "  is that balanced?  ",
+  now: now + 3_000,
+});
 record(chat.ok === true && chat.message.text === "is that balanced?", "Chat should trim and keep a short line.");
-const empty = addPrivateRoomMessage(created.code, { name: "Loda", text: "   ", now: now + 3_100 });
+record(
+  chat.ok === true && chat.message.name === "x",
+  "Chat must use the sender's roster name, never a client-supplied one.",
+);
+const empty = addPrivateRoomMessage(created.code, { playerId: "host-player-1", text: "   ", now: now + 3_100 });
 record(empty.ok === false, "Empty chat must not land.");
 const long = addPrivateRoomMessage(created.code, {
-  name: "Loda",
+  playerId: "host-player-1",
   text: "x".repeat(PRIVATE_ROOM_MESSAGE_MAX + 8),
   now: now + 3_200,
 });
 record(long.ok === true && long.message.text.length === PRIVATE_ROOM_MESSAGE_MAX, "Chat should cap at 80 characters.");
+const intruderChat = addPrivateRoomMessage(created.code, { playerId: "nobody-0000001", text: "gg", now: now + 3_300 });
+record(intruderChat.ok === false && intruderChat.reason === "forbidden", "A stranger with the code must not chat.");
+record(
+  privateRoomMember(created.code, "host-player-1")?.name === "x" &&
+    privateRoomMember(created.code, "nobody-0000001") === null,
+  "Membership lookup must know the host and reject strangers.",
+);
+const rosterBefore = getPrivateRoom(created.code)?.players?.length;
+record(
+  addPrivateRoomScore(created.code, "nobody-0000001", 50, now + 3_400) === null &&
+    getPrivateRoom(created.code)?.players?.length === rosterBefore,
+  "A vote from a stranger must not score or join the roster.",
+);
 
 const hostGone = leavePrivateRoom(created.code, "host-player-1", now + 4_000);
 record(

@@ -15,7 +15,7 @@ import {
 import { isMapPosition, mapAnswerIndex } from "@/lib/map-sense";
 import { answerStageForRound } from "@/lib/player-profile.mjs";
 import { liveRoundForSettings } from "@/lib/private-room-rounds";
-import { addPrivateRoomScore } from "@/lib/private-rooms.mjs";
+import { addPrivateRoomScore, privateRoomMember } from "@/lib/private-rooms.mjs";
 import { parsePublicRoomSettings, PUBLIC_VOTE_ACCEPT_GRACE_MS } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { scoreBreakdown } from "@/lib/scoring.mjs";
@@ -83,6 +83,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "That public round has already moved on." }, { status: 409 });
   }
   const { room, round } = live;
+  if (live.isolated && settings.privateCode && !privateRoomMember(settings.privateCode, effectiveVoterId)) {
+    return NextResponse.json({ error: "Join the party before answering." }, { status: 403 });
+  }
   const question = GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === round.questionId);
 
   if (!question || round.id !== roundId) {

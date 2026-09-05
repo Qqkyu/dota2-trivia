@@ -27,12 +27,15 @@ export async function POST(request: NextRequest) {
     if (rateLimited) return rateLimited;
     const now = Date.now();
     const result = addPrivateRoomMessage(candidate.code, {
-      name: typeof candidate.name === "string" && candidate.name.trim() ? candidate.name : identity.name,
+      playerId: identity.playerId,
       text: candidate.text,
       now,
     });
     if (!result.ok && result.reason === "missing") {
       return NextResponse.json({ error: "Unknown private room." }, { status: 404 });
+    }
+    if (!result.ok && result.reason === "forbidden") {
+      return NextResponse.json({ error: "Join the party before chatting." }, { status: 403 });
     }
     if (!result.ok || !result.room) {
       return NextResponse.json({ error: "Message was empty." }, { status: 400 });

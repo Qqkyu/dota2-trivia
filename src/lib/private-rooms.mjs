@@ -221,12 +221,20 @@ export function touchPrivateRoom(code, now = Date.now(), identity) {
   return { ...publicView(record, identity?.playerId), nameTaken: nameTakenFlag };
 }
 
+/** The member record for a player in a party, or null for strangers. */
+export function privateRoomMember(code, playerId) {
+  const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
+  if (!record || typeof playerId !== "string" || !playerId) return null;
+  const member = (record.members ?? []).find((entry) => entry.playerId === playerId);
+  return member ? { playerId: member.playerId, name: member.name } : null;
+}
+
+/** Only players already on the roster can score; a vote never joins a party. */
 export function addPrivateRoomScore(code, playerId, points, now = Date.now()) {
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
   if (!record || typeof playerId !== "string" || !playerId) return null;
-  upsertMember(record, playerId, "", now);
-  const member = record.members.find((entry) => entry.playerId === playerId);
-  if (!member) return publicView(record, playerId);
+  const member = (record.members ?? []).find((entry) => entry.playerId === playerId);
+  if (!member) return null;
   member.score = (Number(member.score) || 0) + Math.max(0, Number(points) || 0);
   member.lastSeenAt = now;
   record.lastSeenAt = now;
@@ -305,15 +313,17 @@ export function startPrivateRoom(code, playerId, now = Date.now()) {
   return { ok: true, alreadyStarted: false, room: publicView(record) };
 }
 
-export function addPrivateRoomMessage(code, { name, text, now = Date.now() }) {
+/** Chat lines carry the sender's roster name; the client never names itself. */
+export function addPrivateRoomMessage(code, { playerId, text, now = Date.now() }) {
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
   if (!record) return { ok: false, reason: "missing" };
+  const member = (record.members ?? []).find((entry) => entry.playerId === playerId);
+  if (!member) return { ok: false, reason: "forbidden" };
   const cleanedText = sanitizeLine(text, PRIVATE_ROOM_MESSAGE_MAX);
   if (!cleanedText) return { ok: false, reason: "empty" };
-  const cleanedName = sanitizeLine(name, PRIVATE_ROOM_NAME_MAX) || "Guest";
   const message = {
     id: `m${record.nextMessageId}`,
-    name: cleanedName,
+    name: member.name,
     text: cleanedText,
     at: now,
   };
@@ -322,8 +332,9 @@ export function addPrivateRoomMessage(code, { name, text, now = Date.now() }) {
   if (record.messages.length > PRIVATE_ROOM_MAX_MESSAGES) {
     record.messages.splice(0, record.messages.length - PRIVATE_ROOM_MAX_MESSAGES);
   }
+  member.lastSeenAt = now;
   record.lastSeenAt = now;
-  return { ok: true, message, room: publicView(record) };
+  return { ok: true, message, room: publicView(record, playerId) };
 }
 
 export function guestDisplayName(playerId) {

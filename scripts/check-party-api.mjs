@@ -12,6 +12,7 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const json = { "Content-Type": "application/json" };
 
 const hostId = `party-host-${randomUUID()}`;
+const strangerId = `party-stranger-${randomUUID()}`;
 const code = `A${Date.now().toString(36).slice(-5).toUpperCase()}`;
 const settings = { gameId: "dota2", mode: "mixed", filter: "Mixed", privateCode: code };
 
@@ -56,6 +57,40 @@ if (audio.status !== 200 && audio.status !== 206) {
 }
 await audio.arrayBuffer();
 
+const strangerVote = await post("/api/votes", {
+  ...settings,
+  roundId: answering.round.id,
+  answerIndex: 0,
+  answerKey: "npc_dota_hero_axe",
+  voterId: strangerId,
+});
+if (strangerVote.status !== 403) {
+  throw new Error(`A stranger could vote in the party (${strangerVote.status} ${JSON.stringify(strangerVote.body)}).`);
+}
+const hostVote = await post("/api/votes", {
+  ...settings,
+  roundId: answering.round.id,
+  answerIndex: 0,
+  answerKey: "npc_dota_hero_axe",
+  voterId: hostId,
+});
+if (hostVote.status !== 200 || !hostVote.body?.accepted) {
+  throw new Error(`The host could not vote in the party (${hostVote.status} ${JSON.stringify(hostVote.body)}).`);
+}
+const strangerChat = await post("/api/private-rooms/messages", { code, playerId: strangerId, text: "hi" });
+if (strangerChat.status !== 403) {
+  throw new Error(`A stranger could chat in the party (${strangerChat.status}).`);
+}
+const spoofedChat = await post("/api/private-rooms/messages", { code, playerId: hostId, name: "Not Host", text: "gg" });
+const lastMessage = spoofedChat.body?.privateRoom?.messages?.at(-1);
+if (spoofedChat.status !== 200 || lastMessage?.name !== "Host" || lastMessage?.text !== "gg") {
+  throw new Error(`Chat did not use the roster name (${spoofedChat.status} ${JSON.stringify(lastMessage)}).`);
+}
+const peek = await fetch(`${appUrl}/api/private-rooms?code=${code}&peek=1`).then((response) => response.json());
+if (peek.privateRoom?.players?.some((player) => player.name !== "Host")) {
+  throw new Error(`A stranger's vote joined the roster (${JSON.stringify(peek.privateRoom?.players)}).`);
+}
+
 const reveal = await waitPhase(hostId, "reveal", 20_000);
 const prewarm = await fetch(`${appUrl}/api/round-audio?roundId=${encodeURIComponent(reveal.round.id)}`, {
   method: "HEAD",
@@ -63,4 +98,4 @@ const prewarm = await fetch(`${appUrl}/api/round-audio?roundId=${encodeURICompon
 });
 if (prewarm.status !== 204) throw new Error(`Party next-round audio prewarm returned ${prewarm.status}.`);
 
-console.log("Validated party Echo Hunt audio playback and next-round prewarm inside a private room.");
+console.log("Validated party audio, member-only votes and chat, and roster-name chat inside a private room.");
