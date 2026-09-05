@@ -181,7 +181,7 @@ Do not place secrets, personal Steam IDs, or full environment values in this doc
 
 ## Patch/content maintenance
 
-The current source snapshot is Dota **7.41e**, snapshot date **2026-08-09**, client build **6882**, Steam build ID **24503204**. Key audit metadata is in `src/data/trivia-meta.generated.json` and `scripts/client-constant-audit.mjs`.
+The current source snapshot is Dota **7.41e**, snapshot date **2026-09-05**, client build **6882**, Steam build ID **24503204**. Key audit metadata is in `src/data/trivia-meta.generated.json` and `scripts/client-constant-audit.mjs`.
 
 Never “update the patch” by changing only the header string. Numeric values, recipes, hero stats, ownership, Aghanim effects, sounds, and generated comparisons must be re-audited together. The normal pipeline is documented in README under “Refresh the Dota data.” In particular:
 

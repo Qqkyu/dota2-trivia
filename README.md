@@ -155,7 +155,7 @@ hashed visit summaries and cascading profile deletion.
 Names and artwork mappings are generated from OpenDota, while playable facts are checked against a current Dota client:
 
 ```bash
-DOTA_PATCH=7.41e DOTA_SNAPSHOT_DATE=2026-08-09 pnpm sync-data
+DOTA_PATCH=7.41e DOTA_SNAPSHOT_DATE=2026-09-05 pnpm sync-data
 pnpm sync-soundcheck
 pnpm sync-shopkeeper -- --items-cache=/path/to/opendota-items.json --client-root=/path/to/decompiled-client
 pnpm validate-data
