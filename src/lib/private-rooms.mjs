@@ -6,9 +6,11 @@ export const PRIVATE_ROOM_CODE_LENGTH = PRIVATE_ROOM_CODE_MAX;
 export const PRIVATE_ROOM_CODE_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 export const PRIVATE_ROOM_IDLE_MS = 30 * 60 * 1000;
 /**
- * A player who stops polling (closed tab, lost network) leaves the roster
- * after this long. Background tabs throttle timers to about once a minute,
- * so this must stay well above 60s or minimised players get kicked.
+ * A player who stops polling (closed tab, lost network, suspended phone) is
+ * marked away after this long. Away players keep their seat and score, so a
+ * returning tab never loses anything; they only leave the ranking view and
+ * hand off host duty. Background tabs throttle timers to about once a
+ * minute, so this must stay well above 60s or minimised players look away.
  */
 export const PRIVATE_ROOM_MEMBER_TIMEOUT_MS = 90_000;
 export const PRIVATE_ROOM_POLL_MS = 1_000;
@@ -148,6 +150,7 @@ function publicView(record, viewerId) {
       host: member.playerId === record.hostId,
       self: Boolean(viewerId) && member.playerId === viewerId,
       score: Number(member.score) || 0,
+      away: Boolean(member.away),
     })),
     messages: record.messages.map((message) => ({
       id: message.id,
@@ -206,21 +209,14 @@ export function expireIdlePrivateRooms(now = Date.now()) {
   }
 }
 
-/** Drop members nobody has heard from; pass host to the next player; kill empty rooms. */
-function pruneStaleMembers(record, now) {
-  const before = record.members?.length ?? 0;
-  record.members = (record.members ?? []).filter(
-    (member) => !(now >= member.lastSeenAt && now - member.lastSeenAt >= PRIVATE_ROOM_MEMBER_TIMEOUT_MS),
-  );
-  if (record.members.length === before) return false;
-  if (record.members.length === 0) {
-    rooms.delete(record.code);
-    return true;
+/** Flag members nobody has heard from; pass host to an active player. Nobody is removed. */
+function markAwayMembers(record, now) {
+  for (const member of record.members ?? []) {
+    member.away = now >= member.lastSeenAt && now - member.lastSeenAt >= PRIVATE_ROOM_MEMBER_TIMEOUT_MS;
   }
-  if (!record.members.some((member) => member.playerId === record.hostId)) {
-    record.hostId = record.members[0].playerId;
-  }
-  return true;
+  const host = (record.members ?? []).find((member) => member.playerId === record.hostId);
+  const active = (record.members ?? []).find((member) => !member.away);
+  if ((!host || host.away) && active) record.hostId = active.playerId;
 }
 
 export function getPrivateRoom(code, now = Date.now(), viewerId) {
@@ -229,8 +225,7 @@ export function getPrivateRoom(code, now = Date.now(), viewerId) {
   if (!normalized) return null;
   const record = rooms.get(normalized);
   if (!record) return null;
-  pruneStaleMembers(record, now);
-  if (!rooms.has(normalized)) return null;
+  markAwayMembers(record, now);
   return publicView(record, viewerId);
 }
 
@@ -238,17 +233,12 @@ export function touchPrivateRoom(code, now = Date.now(), identity) {
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
   if (!record) return null;
   record.lastSeenAt = now;
-  pruneStaleMembers(record, now);
-  if (!rooms.has(record.code) && !identity?.playerId) return null;
-  if (!rooms.has(record.code)) rooms.set(record.code, record);
   let nameTakenFlag = false;
   if (identity?.playerId) {
     const result = upsertMember(record, identity.playerId, identity.name, now, identity.applyName);
     nameTakenFlag = Boolean(result.nameTaken);
-    if (!record.members.some((member) => member.playerId === record.hostId)) {
-      record.hostId = record.members[0].playerId;
-    }
   }
+  markAwayMembers(record, now);
   return { ...publicView(record, identity?.playerId), nameTaken: nameTakenFlag };
 }
 

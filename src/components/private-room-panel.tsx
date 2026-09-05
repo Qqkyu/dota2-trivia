@@ -30,6 +30,8 @@ export interface PrivateRoomPlayer {
   host: boolean;
   self: boolean;
   score: number;
+  /** Nobody has heard from this tab for a while; seat and score are kept. */
+  away: boolean;
 }
 
 export interface PrivateRoomView {
@@ -86,6 +88,7 @@ function asRoomView(payload: PrivateRoomPayload | null): PrivateRoomView | null 
           host: Boolean(player.host),
           self: Boolean(player.self),
           score: Number(player.score) || 0,
+          away: Boolean(player.away),
         }))
       : [],
     messages: Array.isArray(room.messages) ? room.messages : [],
@@ -97,7 +100,9 @@ function asRoomView(payload: PrivateRoomPayload | null): PrivateRoomView | null 
 }
 
 function rankedPlayers(players: PrivateRoomPlayer[]) {
-  return [...players].sort((left, right) => right.score - left.score || left.name.localeCompare(right.name));
+  return players
+    .filter((player) => !player.away || player.self)
+    .sort((left, right) => right.score - left.score || left.name.localeCompare(right.name));
 }
 
 function filterCode(value: string) {
@@ -622,8 +627,8 @@ export function PrivateRoomPanel({
     }
     const roster = [
       ...(room.players.length
-        ? room.players
-        : [{ name: shownName.trim() || "You", host: room.isHost, self: true, score: 0 }]),
+        ? room.players.filter((player) => !player.away || player.self)
+        : [{ name: shownName.trim() || "You", host: room.isHost, self: true, score: 0, away: false }]),
     ].sort((left, right) => Number(right.self) - Number(left.self));
     return (
       <section className={clsx(styles.view, styles.waitView)} data-testid="private-room-wait">

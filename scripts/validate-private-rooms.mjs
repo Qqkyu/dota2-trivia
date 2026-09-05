@@ -343,50 +343,40 @@ const ghostRoom = createPrivateRoom({
   now: ghostAt,
 });
 touchPrivateRoom(ghostRoom.code, ghostAt + 10, { playerId: "ghost-guest-1", name: "Guest" });
-record(
-  PRIVATE_ROOM_MEMBER_TIMEOUT_MS >= 75_000,
-  "Member timeout must outlast a throttled background tab (60s timers).",
-);
+addPrivateRoomScore(ghostRoom.code, "ghost-guest-1", 120, ghostAt + 11);
+record(PRIVATE_ROOM_MEMBER_TIMEOUT_MS >= 75_000, "Away timeout must outlast a throttled background tab (60s timers).");
 const stillHere = touchPrivateRoom(ghostRoom.code, ghostAt + 70_000, { playerId: "ghost-host-1", name: "Host" });
-record(stillHere?.players?.length === 2, "A player idle for 70s must still be on the roster.");
-const guestGone = touchPrivateRoom(ghostRoom.code, ghostAt + 10 + PRIVATE_ROOM_MEMBER_TIMEOUT_MS, {
+record(
+  stillHere?.players?.length === 2 && stillHere.players.every((player) => !player.away),
+  "A player idle for 70s must still count as present.",
+);
+const guestAway = touchPrivateRoom(ghostRoom.code, ghostAt + 11 + PRIVATE_ROOM_MEMBER_TIMEOUT_MS, {
   playerId: "ghost-host-1",
   name: "Host",
 });
+const awayGuest = guestAway?.players?.find((player) => player.name === "Guest");
 record(
-  guestGone?.players?.length === 1 && guestGone.players[0].host,
-  "A player who closed the tab must leave the roster after the member timeout.",
+  guestAway?.players?.length === 2 && awayGuest?.away === true && awayGuest.score === 120,
+  "A player who closed the tab is marked away but keeps their seat and score.",
 );
-const hostGhosted = getPrivateRoom(ghostRoom.code, ghostAt + 10 + PRIVATE_ROOM_MEMBER_TIMEOUT_MS * 3);
-record(hostGhosted === null, "A room whose every player vanished must be deleted.");
-const passRoom = createPrivateRoom({
-  hostId: "pass-host-1",
-  gameId: "dota2",
-  contentVersion: "test-version",
-  games: ["trivia"],
-  code: "passhost",
-  name: "Host",
-  now: ghostAt,
+const guestBack = touchPrivateRoom(ghostRoom.code, ghostAt + 12 + PRIVATE_ROOM_MEMBER_TIMEOUT_MS, {
+  playerId: "ghost-guest-1",
+  name: "Guest",
 });
-touchPrivateRoom(passRoom.code, ghostAt + 50_000, { playerId: "pass-guest-1", name: "Guest" });
-const passed = touchPrivateRoom(passRoom.code, ghostAt + PRIVATE_ROOM_MEMBER_TIMEOUT_MS + 1, {
-  playerId: "pass-guest-1",
+const returned = guestBack?.players?.find((player) => player.name === "Guest");
+record(returned?.away === false && returned.score === 120, "A returning tab is present again with its score intact.");
+const hostAway = touchPrivateRoom(ghostRoom.code, ghostAt + 12 + PRIVATE_ROOM_MEMBER_TIMEOUT_MS * 2, {
+  playerId: "ghost-guest-1",
   name: "Guest",
 });
 record(
-  passed?.players?.length === 1 &&
-    passed.players[0].name === "Guest" &&
-    passed.players[0].host &&
-    passed.isHost !== false,
-  "When a ghost host times out, the remaining player becomes host.",
+  hostAway?.players?.find((player) => player.name === "Guest")?.host === true &&
+    hostAway.players.find((player) => player.name === "Host")?.away === true,
+  "When the host goes silent, an active player becomes host.",
 );
-const rejoin = touchPrivateRoom(passRoom.code, ghostAt + PRIVATE_ROOM_MEMBER_TIMEOUT_MS * 4, {
-  playerId: "pass-late-1",
-  name: "Late",
-});
 record(
-  rejoin?.players?.length === 1 && rejoin.players[0].host && rejoin.players[0].name === "Late",
-  "A player who returns to a room everyone else left becomes its host.",
+  getPrivateRoom(ghostRoom.code, ghostAt + PRIVATE_ROOM_MEMBER_TIMEOUT_MS * 5)?.players?.length === 2,
+  "Silence never deletes a party or a seat.",
 );
 
 const publicId = "dota2:content:public";

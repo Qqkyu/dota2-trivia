@@ -144,8 +144,10 @@ record(
   "Hide chat must sit under the chat box, not above ranking.",
 );
 record(
-  !roomsSource.includes("function pruneMembers") && !roomsSource.includes("PRIVATE_ROOM_MEMBER_TTL_MS"),
-  "Idle or background tabs must not prune party members. Only Leave removes them.",
+  !roomsSource.includes("function pruneMembers") &&
+    !roomsSource.includes("function pruneStaleMembers") &&
+    roomsSource.includes("function markAwayMembers"),
+  "Idle or background tabs must not prune party members. Only Leave removes them; silence marks a player away.",
 );
 record(
   arcadeSource.includes("if (!privateCode)") &&
