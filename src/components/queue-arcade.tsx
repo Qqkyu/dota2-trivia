@@ -772,6 +772,7 @@ function ShopkeeperTray({
   return (
     <span
       className={clsx(styles.shopkeeperTray, compact && styles.shopkeeperTrayCompact)}
+      role="group"
       data-testid={testId}
       data-item-count={items.length}
       style={{ "--shopkeeper-item-count": Math.max(1, items.length) } as CSSProperties}
@@ -790,7 +791,7 @@ function ShopkeeperPick({ item, label }: { item: ShopkeeperCatalogItem | undefin
       <small>{label}</small>
       {item ? (
         <span>
-          <Image src={item.image} alt="" width={54} height={40} unoptimized />
+          <Image src={item.image} alt="" width={42} height={31} unoptimized />
           <strong>{item.name}</strong>
         </span>
       ) : (
@@ -865,6 +866,7 @@ function CrowdSplitBar({
   return (
     <div
       className={styles.crowdSplitRow}
+      role="group"
       data-testid="crowd-split-row"
       data-count={count}
       data-percentage={percentage}
@@ -877,7 +879,7 @@ function CrowdSplitBar({
         <i className={styles.crowdSplitMarker}>{marker}</i>
         <strong title={label}>{label}</strong>
         {selected && <em>You</em>}
-        {correct && <Check aria-label="Correct answer" />}
+        {correct && <Check role="img" aria-label="Correct answer" />}
         <small>{percentage}%</small>
       </span>
       <span className={styles.crowdSplitTrack} aria-hidden="true">
@@ -1105,7 +1107,7 @@ function ValueOrderBoard({
       data-phase="answering"
       data-locked={selectedKey ? "true" : "false"}
     >
-      <div className={styles.valueOrderSlots} aria-label="Your order">
+      <div className={styles.valueOrderSlots} role="group" aria-label="Your order">
         {Array.from({ length: 4 }, (_, index) => {
           const key = activeKeys[index];
           const card = cards.find((candidate) => candidate.key === key);
@@ -1343,7 +1345,7 @@ function FlashbackOrderBoard({
       data-phase="answering"
       data-locked={selectedKey ? "true" : "false"}
     >
-      <div className={styles.flashbackOrderSlots} aria-label="Your order">
+      <div className={styles.flashbackOrderSlots} role="group" aria-label="Your order">
         {Array.from({ length: 4 }, (_, index) => {
           const key = activeKeys[index];
           const card = cards.find((candidate) => candidate.key === key);
@@ -3613,7 +3615,7 @@ export function QueueArcade({
 
             <div className={styles.roundMix} data-testid="round-mix">
               <span className={styles.fieldLabel}>Round mix</span>
-              <div className={styles.roundMixRail} aria-label="Round identities">
+              <div className={styles.roundMixRail} role="group" aria-label="Round identities">
                 {ROUND_GAMES.map((game) => (
                   <span key={game} data-round-family={game}>
                     <ModeIcon mode={game} />
@@ -3791,6 +3793,7 @@ export function QueueArcade({
           data-lessons="true"
           aria-label="Waiting for the next round"
         >
+          <h1 className="sr-only">Waiting for the next round</h1>
           <div className={styles.entryWaitContent}>
             <strong data-testid="entry-wait-timer">
               00:{String(Math.ceil(entryWaitRemaining / 1_000)).padStart(2, "0")}
@@ -3836,6 +3839,7 @@ export function QueueArcade({
           data-content-difficulty={currentQuestion.difficulty}
           data-copy-guard={shouldBlockQuestionClipboard(phase) ? "blocked" : "allowed"}
         >
+          <h1 className="sr-only">Round {roundIndex + 1}</h1>
           <div
             className={clsx(
               styles.gameStage,
@@ -3867,6 +3871,7 @@ export function QueueArcade({
               </div>
               <div
                 className={styles.timer}
+                role="timer"
                 aria-live="polite"
                 aria-label={`${Math.ceil(answerRemaining / 1000)} seconds remaining`}
               >
@@ -3952,6 +3957,7 @@ export function QueueArcade({
                   ) : (
                     <div
                       className={clsx(styles.artwork, styles.spellLockedArtwork)}
+                      role="img"
                       data-testid="spell-artwork-locked"
                       aria-label={`Ability icon unlocks at ${finalClueAt} seconds`}
                     >
@@ -4068,7 +4074,7 @@ export function QueueArcade({
                 <div className={styles.questionCopy}>
                   <span>Progressive reveal</span>
                   <h2>Which hero is hiding in the fog?</h2>
-                  <div className={styles.fogMeter} aria-label={`Portrait clarity stage ${clueStage} of 3`}>
+                  <div className={styles.fogMeter} role="img" aria-label={`Portrait clarity stage ${clueStage} of 3`}>
                     {Array.from({ length: 3 }, (_, index) => (
                       <span key={index} className={index < clueStage ? styles.fogMeterActive : undefined} />
                     ))}
@@ -4212,6 +4218,7 @@ export function QueueArcade({
                   {isProgressiveAudioRound && (
                     <div
                       className={styles.soundRevealMeter}
+                      role="img"
                       aria-label={`${isSoundcheckRound ? "Sound" : "Voice"} cut ${clueStage} of ${
                         isSoundcheckRound ? SOUNDCHECK_REVEAL_STAGES : ECHO_HUNT_REVEAL_STAGES
                       }`}
@@ -4241,7 +4248,7 @@ export function QueueArcade({
                 <div className={styles.questionCopy}>
                   <span>Hero quote</span>
                   <h2>Who said it?</h2>
-                  <div className={styles.quoteHints} aria-label={`Identity clue stage ${clueStage} of 3`}>
+                  <div className={styles.quoteHints} role="group" aria-label={`Identity clue stage ${clueStage} of 3`}>
                     {[0, 1].map((index) => {
                       const hint = currentQuestion.quoteHints?.[index];
                       return (
@@ -4584,7 +4591,7 @@ export function QueueArcade({
             )}
           </div>
 
-          <aside className={styles.sideRail}>
+          <div className={styles.sideRail} role="region" aria-label="Your session">
             <div className={styles.scoreGrid}>
               <div>
                 <span>Gold</span>
@@ -4684,7 +4691,7 @@ export function QueueArcade({
                 )}
               </div>
             )}
-          </aside>
+          </div>
         </section>
       )}
 

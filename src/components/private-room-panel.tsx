@@ -627,6 +627,7 @@ export function PrivateRoomPanel({
     ].sort((left, right) => Number(right.self) - Number(left.self));
     return (
       <section className={clsx(styles.view, styles.waitView)} data-testid="private-room-wait">
+        <h1 className="sr-only">Party lobby</h1>
         <div className={styles.lobby}>
           {back}
           <header className={styles.lobbyHead}>
@@ -733,6 +734,7 @@ export function PrivateRoomPanel({
 
   return (
     <section className={styles.view} data-testid="private-room-setup">
+      <h1 className="sr-only">Play with friends</h1>
       {back}
       <div
         className={clsx(formatPreviewCardStyles.cardGrid, styles.games)}

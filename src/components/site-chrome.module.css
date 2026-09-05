@@ -74,8 +74,8 @@
   gap: 24px;
   margin: 0 auto;
   border-top: 1px solid rgba(210, 214, 207, 0.11);
-  color: #555b59;
-  font-size: 10px;
+  color: #969d9c;
+  font-size: 12px;
   line-height: 1.5;
 }
 
@@ -89,12 +89,14 @@
 
 .footerMeta a,
 .footerMeta [aria-current="page"] {
-  color: #747c79;
+  padding: 6px 0;
+  color: #a3aaa7;
   text-decoration: none;
 }
 
-.footerMeta a:hover {
-  color: #aeb5b2;
+.footerMeta a:hover,
+.footerMeta a:focus-visible {
+  color: #e2e6e3;
 }
 
 .footerMeta [aria-current="page"] {

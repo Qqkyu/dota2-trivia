@@ -255,18 +255,18 @@ export function CalibrationDashboard({
 
         <div className={styles.table} role="table" aria-label="Question calibration">
           <div className={styles.tableHeader} role="row">
-            <span>Question</span>
-            <span>Mode</span>
-            <span>Tier</span>
-            <span>Answers</span>
-            <span>Accuracy</span>
-            <span>Signal</span>
+            <span role="columnheader">Question</span>
+            <span role="columnheader">Mode</span>
+            <span role="columnheader">Tier</span>
+            <span role="columnheader">Answers</span>
+            <span role="columnheader">Accuracy</span>
+            <span role="columnheader">Signal</span>
           </div>
           {visible.map((record) => {
             const report = leadingReport(record);
             const saving = savingQuestion === record.questionId;
             return (
-              <article
+              <div
                 key={record.questionId}
                 className={styles.row}
                 data-testid="calibration-row"
@@ -329,7 +329,7 @@ export function CalibrationDashboard({
                     {reviewError === record.questionId && <small role="alert">Couldn’t save · retry</small>}
                   </div>
                 </div>
-              </article>
+              </div>
             );
           })}
           {!visible.length && (

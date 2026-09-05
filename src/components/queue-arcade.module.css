@@ -3265,7 +3265,7 @@ button[data-state="wrong"] > .heroPickerVerdict {
 }
 
 .spellArtwork > span:last-child small {
-  color: #577280;
+  color: #8ea4b0;
   font-size: 10px;
 }
 
@@ -3342,7 +3342,7 @@ button[data-state="wrong"] > .heroPickerVerdict {
 }
 
 .aghanimArtwork > span small {
-  color: #6f668e;
+  color: #a39bc4;
   font-size: 10px;
 }
 
@@ -5569,8 +5569,8 @@ button[data-state="wrong"] > .heroPickerVerdict {
   gap: 24px;
   margin: auto auto 0;
   border-top: 1px solid var(--line);
-  color: #555b59;
-  font-size: 10px;
+  color: var(--muted);
+  font-size: 12px;
   line-height: 1.5;
 }
 
@@ -5578,8 +5578,8 @@ button[data-state="wrong"] > .heroPickerVerdict {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  color: #676e6b;
-  font-size: 11px;
+  color: var(--muted);
+  font-size: 12px;
 }
 
 .footer .brandMark {
@@ -5602,12 +5602,14 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
 .footerMeta > a {
   flex: 0 0 auto;
-  color: #747c79;
+  padding: 6px 0;
+  color: #a3aaa7;
   text-decoration: none;
 }
 
-.footerMeta > a:hover {
-  color: #aeb5b2;
+.footerMeta > a:hover,
+.footerMeta > a:focus-visible {
+  color: #e2e6e3;
 }
 
 .footerMeta > span {
