@@ -269,7 +269,7 @@
       "upgradeMode": "existing",
       "abilityName": "Blink",
       "clientAbilityKey": "queenofpain_blink",
-      "effect": "Blinking creates damaging, silencing bursts at both the departure and arrival points."
+      "effect": "A short-range teleport creates damaging, silencing bursts at both the departure and arrival points."
     },
     {
       "heroKey": "npc_dota_hero_venomancer",
@@ -597,7 +597,7 @@
       "upgradeMode": "new",
       "abilityName": "Burrow",
       "clientAbilityKey": "nyx_assassin_burrow",
-      "effect": "Burrows in place, becoming invisible and unable to attack while gaining damage reduction and empowering several other abilities."
+      "effect": "Digs underground in place, becoming invisible and unable to attack while gaining damage reduction and empowering several other abilities."
     },
     {
       "heroKey": "npc_dota_hero_naga_siren",
@@ -613,7 +613,7 @@
       "upgradeMode": "new",
       "abilityName": "Will-O-Wisp",
       "clientAbilityKey": "keeper_of_the_light_will_o_wisp",
-      "effect": "Summons a flickering light that alternates on and off, repeatedly drawing nearby enemies toward it."
+      "effect": "Summons a flickering orb that alternates on and off, repeatedly drawing nearby enemies toward it."
     },
     {
       "heroKey": "npc_dota_hero_wisp",

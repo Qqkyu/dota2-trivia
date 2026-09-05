@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { readFile } from "node:fs/promises";
+import { containsAbilityLeak, containsAnswerLeak } from "./spell-hints.mjs";
 import { join, resolve } from "node:path";
 import { CLIENT_CONSTANT_AUDIT } from "./client-constant-audit.mjs";
 import { parseValveKeyValues } from "./valve-keyvalues.mjs";
@@ -80,7 +81,15 @@ for (const [index, upgrade] of source.upgrades.entries()) {
     `${label}: opening clue contains raw localization markup.`,
   );
   record(hero ? !exactPhrase(upgrade.effect, hero.name) : true, `${label}: opening clue reveals the hero name.`);
+  record(
+    hero ? !containsAnswerLeak(upgrade.effect, hero.name) : true,
+    `${label}: opening clue contains a word from the hero name (${hero?.name}).`,
+  );
   record(!exactPhrase(upgrade.effect, upgrade.abilityName), `${label}: opening clue reveals ${upgrade.abilityName}.`);
+  record(
+    !containsAbilityLeak(upgrade.effect, upgrade.abilityName),
+    `${label}: opening clue conjugates the ability name ${upgrade.abilityName}.`,
+  );
   record(
     typeof upgrade.clientAbilityKey === "string" && upgrade.clientAbilityKey.length > 3,
     `${label}: missing client ability key.`,
