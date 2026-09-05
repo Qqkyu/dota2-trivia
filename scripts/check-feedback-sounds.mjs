@@ -281,7 +281,6 @@ async function snapshotBoard() {
     hero: document.querySelectorAll('[data-testid="hero-picker-hero"]').length,
     shop: document.querySelectorAll('[data-testid="shopkeeper-store-item"]').length,
     value: document.querySelectorAll('[data-testid="value-order-card"]').length,
-    map: Boolean(document.querySelector('[data-testid="map-choice-option"], [data-testid="map-sense-board"]')),
     hidden: Boolean(document.hidden),
     visibility: document.visibilityState,
   })`);
@@ -344,15 +343,12 @@ async function lockCurrentAnswer() {
     return { ...board, action: "shop" };
   }
   if (board.value) {
-    await clickSelector('[data-testid="value-order-card"]');
+    // An Order Up answer locks on the fourth card, not the first.
+    for (let index = 0; index < Math.min(4, board.value); index += 1) {
+      await clickSelector('[data-testid="value-order-card"]', index);
+      await delay(80);
+    }
     return { ...board, action: "value" };
-  }
-  if (board.map) {
-    const selector = (await page.evaluate(`Boolean(document.querySelector('[data-testid="map-choice-option"]'))`))
-      ? '[data-testid="map-choice-option"]'
-      : '[data-testid="map-sense-board"]';
-    await clickSelector(selector);
-    return { ...board, action: "map" };
   }
   throw new Error(`No answer control in phase ${board.phase}`);
 }
