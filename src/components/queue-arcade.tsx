@@ -1920,6 +1920,9 @@ function HeroPicker({
   const countByHero = new Map(crowd.keyCounts.map((entry) => [entry.answerKey, entry.count]));
   const normalizedQuery = query.trim().toLocaleLowerCase("en-US");
   const heroMatches = (hero: HeroPickerHero) => heroMatchesQuery(hero, normalizedQuery);
+  const correctHero = phase === "reveal" && targetKey ? HERO_PICKER_BY_KEY.get(targetKey) : undefined;
+  const selectedHero = selectedKey ? HERO_PICKER_BY_KEY.get(selectedKey) : undefined;
+  const matchCount = normalizedQuery ? HERO_PICKER_HEROES.filter(heroMatches).length : HERO_PICKER_HEROES.length;
   const chooseHero = useCallback(
     (heroKey: string) => {
       setQuery("");
@@ -1994,6 +1997,32 @@ function HeroPicker({
       >
         {query}
       </div>
+      {/* Fixed-height status line: the filter count while answering, the lock,
+          then the correct hero's name on reveal. Nothing below it moves. */}
+      <p
+        className={styles.heroPickerStatus}
+        data-testid="hero-picker-status"
+        data-state={correctHero ? "reveal" : selectedHero ? "locked" : "search"}
+        aria-live={correctHero ? "polite" : "off"}
+      >
+        {correctHero ? (
+          <>
+            Answer: <strong>{correctHero.name}</strong>
+            {selectedHero && selectedHero.key !== correctHero.key ? (
+              <span>· You picked {selectedHero.name}</span>
+            ) : null}
+            {!selectedHero ? <span>· No pick</span> : null}
+          </>
+        ) : selectedHero ? (
+          <>
+            Locked: <strong>{selectedHero.name}</strong>
+          </>
+        ) : normalizedQuery ? (
+          `${matchCount} ${matchCount === 1 ? "hero matches" : "heroes match"} “${query.trim()}”`
+        ) : (
+          `${HERO_PICKER_HEROES.length} heroes · type to filter`
+        )}
+      </p>
       <div className={styles.heroPickerBoard}>
         {HERO_PICKER_CATALOG.groups.map((group) => (
           <section

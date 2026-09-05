@@ -7,7 +7,7 @@
 
 import { spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -152,8 +152,19 @@ const pickerState = `(() => {
     query: document.querySelector('[data-testid="hero-search"]')?.dataset.query ?? "",
     matches: heroes.filter((hero) => hero.dataset.searchMatch === "true").length,
     selected: heroes.find((hero) => hero.dataset.state === "selected")?.dataset.heroKey ?? null,
+    correctName: heroes.find((hero) => hero.dataset.state === "correct")?.getAttribute("aria-label") ?? null,
+    status: document.querySelector('[data-testid="hero-picker-status"]')?.textContent?.replace(/\\s+/g, " ").trim() ?? "",
+    height: Math.round(picker?.getBoundingClientRect().height ?? 0),
+    top: Math.round(picker?.getBoundingClientRect().top ?? 0),
+    phase: document.querySelector("main")?.dataset.phase,
   };
 })()`;
+
+async function shot(name) {
+  if (!process.env.SHOT_DIR) return;
+  const { data } = await page.send("Page.captureScreenshot", { format: "png" });
+  await writeFile(join(process.env.SHOT_DIR, name), Buffer.from(data, "base64"));
+}
 
 const hostId = `hero-search-host-${randomUUID()}`;
 try {
@@ -185,6 +196,10 @@ try {
     40_000,
   );
   await delay(300);
+  const idle = await page.evaluate(pickerState);
+  if (!/^\d+ heroes · type to filter$/i.test(idle.status)) {
+    throw new Error(`Hero status line did not show the hero count: ${JSON.stringify(idle)}`);
+  }
 
   // Many matches: Enter must not pick.
   await typeText("s");
@@ -213,7 +228,26 @@ try {
   if (picked.selected !== "npc_dota_hero_antimage" || picked.query !== "") {
     throw new Error(`Enter did not pick Anti-Mage: ${JSON.stringify(picked)}`);
   }
-  console.log("Validated hero grid search: Enter ignores many matches and picks the only match.");
+  if (picked.status !== "Locked: Anti-Mage") throw new Error(`Lock status is wrong: ${JSON.stringify(picked)}`);
+  await shot("hero-locked.png");
+
+  // Reveal names the correct hero beside the grid without moving the grid.
+  await page.waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 25_000);
+  await delay(400);
+  const reveal = await page.evaluate(pickerState);
+  await shot("hero-reveal.png");
+  if (!reveal.correctName || !reveal.status.startsWith(`Answer: ${reveal.correctName}`)) {
+    throw new Error(`Reveal did not name the correct hero: ${JSON.stringify(reveal)}`);
+  }
+  if (reveal.correctName !== "Anti-Mage" && !reveal.status.endsWith("You picked Anti-Mage")) {
+    throw new Error(`Reveal did not name the wrong pick: ${JSON.stringify(reveal)}`);
+  }
+  if (reveal.height !== picked.height || reveal.top !== picked.top) {
+    throw new Error(`Hero grid moved on reveal: ${JSON.stringify({ picked, reveal })}`);
+  }
+  console.log(
+    `Validated hero grid search and reveal: Enter picks the only match, reveal names ${reveal.correctName} in place.`,
+  );
 } finally {
   await cleanup();
 }
