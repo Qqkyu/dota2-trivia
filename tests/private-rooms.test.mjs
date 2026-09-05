@@ -10,6 +10,9 @@ import {
   leavePrivateRoom,
   normalizePrivateRoomCode,
   partyCodeError,
+  partyLobbyRoster,
+  partyPlayerTag,
+  rankPartyPlayers,
   partyNameError,
   partyNameInputValue,
   partyNameSeed,
@@ -300,5 +303,31 @@ describe("silent players", () => {
     expect(getPrivateRoom(room.code, at + PRIVATE_ROOM_MEMBER_TIMEOUT_MS * 5)?.players).toHaveLength(2);
     resetPrivateRoomsForTests();
     expect(getPrivateRoom(room.code)).toBeNull();
+  });
+});
+
+describe("party roster", () => {
+  const players = [
+    { name: "Zed", host: false, self: false, score: 40, away: true },
+    { name: "Amy", host: true, self: false, score: 40, away: false },
+    { name: "Me", host: false, self: true, score: 10, away: false },
+    { name: "Bo", host: false, self: false, score: 90, away: true },
+  ];
+
+  it("keeps away players in the ranking and tags them", () => {
+    const ranked = rankPartyPlayers(players);
+    expect(ranked.map((player) => player.name)).toEqual(["Bo", "Amy", "Zed", "Me"]);
+    expect(ranked.map(partyPlayerTag)).toEqual(["Away", "Host", "Away", "You"]);
+  });
+
+  it("never tags the viewer as away and prefers Away over Host", () => {
+    expect(partyPlayerTag({ name: "Me", host: true, self: true, score: 0, away: true })).toBe("Host");
+    expect(partyPlayerTag({ name: "Me", host: false, self: true, score: 0, away: true })).toBe("You");
+    expect(partyPlayerTag({ name: "Host", host: true, self: false, score: 0, away: true })).toBe("Away");
+    expect(partyPlayerTag({ name: "Guest", host: false, self: false, score: 0, away: false })).toBe("");
+  });
+
+  it("puts the viewer first in the lobby and keeps away players", () => {
+    expect(partyLobbyRoster(players).map((player) => player.name)).toEqual(["Me", "Zed", "Amy", "Bo"]);
   });
 });

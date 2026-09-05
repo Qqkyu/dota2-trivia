@@ -369,3 +369,22 @@ export function guestDisplayName(playerId) {
 export function resetPrivateRoomsForTests() {
   rooms.clear();
 }
+
+/**
+ * Roster helpers for the party panel. Away players keep their seat and
+ * score and stay listed with a tag; only Leave removes anyone.
+ */
+export function partyPlayerTag(player) {
+  if (player.away && !player.self) return "Away";
+  if (player.host) return "Host";
+  if (player.self) return "You";
+  return "";
+}
+
+export function rankPartyPlayers(players) {
+  return [...players].sort((left, right) => right.score - left.score || left.name.localeCompare(right.name));
+}
+
+export function partyLobbyRoster(players) {
+  return [...players].sort((left, right) => Number(right.self) - Number(left.self));
+}

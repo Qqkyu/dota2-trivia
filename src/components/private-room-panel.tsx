@@ -12,8 +12,11 @@ import {
   PRIVATE_ROOM_NAME_NOTICE_MS,
   PRIVATE_ROOM_POLL_MS,
   partyCodeError,
+  partyLobbyRoster,
   partyNameInputValue,
   partyNameSeed,
+  partyPlayerTag,
+  rankPartyPlayers,
   storedPartyNameDraft,
 } from "@/lib/private-rooms.mjs";
 import styles from "./private-room-panel.module.css";
@@ -97,12 +100,6 @@ function asRoomView(payload: PrivateRoomPayload | null): PrivateRoomView | null 
     activePlayers: Number(payload?.presence?.activePlayers) || 0,
     nameTaken: Boolean(payload?.nameTaken),
   };
-}
-
-function rankedPlayers(players: PrivateRoomPlayer[]) {
-  return players
-    .filter((player) => !player.away || player.self)
-    .sort((left, right) => right.score - left.score || left.name.localeCompare(right.name));
 }
 
 function filterCode(value: string) {
@@ -588,10 +585,17 @@ export function PrivateRoomPanel({
     return room ? (
       <div className={styles.playDock} data-testid="private-room-play-dock">
         <ol className={styles.ranking} data-testid="private-room-ranking">
-          {rankedPlayers(room.players).map((player, index) => (
-            <li key={player.self ? "self" : `${player.name}-${index}`} data-self={player.self}>
+          {rankPartyPlayers(room.players).map((player, index) => (
+            <li
+              key={player.self ? "self" : `${player.name}-${index}`}
+              data-self={player.self}
+              data-away={player.away && !player.self}
+            >
               <span>{index + 1}</span>
-              <strong>{player.name}</strong>
+              <strong>
+                {player.name}
+                {partyPlayerTag(player) === "Away" ? <small>Away</small> : null}
+              </strong>
               <em>{player.score}</em>
             </li>
           ))}
@@ -625,11 +629,11 @@ export function PrivateRoomPanel({
         </section>
       );
     }
-    const roster = [
-      ...(room.players.length
-        ? room.players.filter((player) => !player.away || player.self)
-        : [{ name: shownName.trim() || "You", host: room.isHost, self: true, score: 0, away: false }]),
-    ].sort((left, right) => Number(right.self) - Number(left.self));
+    const roster = partyLobbyRoster(
+      room.players.length
+        ? room.players
+        : [{ name: shownName.trim() || "You", host: room.isHost, self: true, score: 0, away: false }],
+    );
     return (
       <section className={clsx(styles.view, styles.waitView)} data-testid="private-room-wait">
         <h1 className="sr-only">Party lobby</h1>
@@ -656,6 +660,7 @@ export function PrivateRoomPanel({
                   key={player.self ? "self" : `${player.name}-${index}`}
                   data-host={player.host}
                   data-self={player.self}
+                  data-away={player.away && !player.self}
                 >
                   {player.self ? (
                     <div className={styles.selfStack}>
@@ -701,7 +706,7 @@ export function PrivateRoomPanel({
                   ) : (
                     <strong>{player.name}</strong>
                   )}
-                  <span>{player.host ? "Host" : player.self ? "You" : ""}</span>
+                  <span>{partyPlayerTag(player)}</span>
                   {!room.waiting ? <em>{player.score}</em> : null}
                 </li>
               ))}
