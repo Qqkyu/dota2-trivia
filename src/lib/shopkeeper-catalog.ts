@@ -4,7 +4,6 @@ import {
   isBuildResultItemPickerQuestion,
   isItemPickerQuestion as hasItemPickerAnswer,
   isRealRecipeBuilderQuestion as hasRealRecipeBuilderAnswer,
-  isSingleItemSoundPickerQuestion as hasSingleItemSoundPickerAnswer,
   isUpgradePathItemPickerQuestion,
   itemPickerCorrectAnswerKey as findItemPickerCorrectAnswerKey,
   recipeAnswerKeyForItems as buildRecipeAnswerKey,
@@ -49,10 +48,6 @@ export function isUpgradePathQuestion(question: TriviaQuestion) {
   return isUpgradePathItemPickerQuestion(question);
 }
 
-export function isSingleItemSoundPickerQuestion(question: TriviaQuestion) {
-  return hasSingleItemSoundPickerAnswer(question);
-}
-
 export function isRealRecipeBuilderQuestion(question: TriviaQuestion) {
   return hasRealRecipeBuilderAnswer(question);
 }
@@ -78,14 +73,6 @@ export function recipeItemsFromAnswerKey(answerKey: unknown): string[] | null {
 
 export function isRecipeAnswerKey(value: unknown): value is string {
   return recipeItemsFromAnswerKey(value) !== null;
-}
-
-export function shopkeeperAnswerIndex(question: TriviaQuestion, answerKey: string) {
-  if (!(isBuildResultQuestion(question) || isUpgradePathQuestion(question)) || !isShopkeeperCatalogKey(answerKey)) {
-    return null;
-  }
-  if (answerKey === question.shopkeeper?.targetItemKey) return question.correctIndex;
-  return [0, 1, 2, 3].find((index) => index !== question.correctIndex) ?? null;
 }
 
 export function itemPickerCorrectAnswerKey(question: TriviaQuestion) {

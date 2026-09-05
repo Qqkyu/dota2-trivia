@@ -5,7 +5,7 @@ import generatedMeta from "@/data/trivia-meta.generated.json";
 import soundcheckQuestions from "@/data/soundcheck-questions.json";
 import valueOrderQuestions from "@/data/value-order-questions.json";
 import flashbackQuestions from "@/data/flashback-questions.json";
-import { livePublicRoundFormats, roundFormatForQuestion } from "@/lib/arcade-games.mjs";
+import { PUBLIC_ROUND_FORMATS, roundFormatForQuestion } from "@/lib/arcade-games.mjs";
 import { isPlayableFlashbackQuestion } from "@/lib/flashback.mjs";
 import { isPlayableShopkeeperQuestion } from "@/lib/shopkeeper-quality.mjs";
 import { isPlayableClassicTriviaQuestion } from "@/lib/classic-trivia-quality.mjs";
@@ -273,7 +273,7 @@ export function createArcadeDeck(
 ) {
   if (mode === "mixed") {
     const roomFilter = sharedKnowledgeFilter(filter);
-    const roundFormats = Array.isArray(formats) && formats.length > 0 ? formats : livePublicRoundFormats();
+    const roundFormats = Array.isArray(formats) && formats.length > 0 ? formats : PUBLIC_ROUND_FORMATS;
     return createSemanticPublicDeck(triviaQuestions, {
       formats: roundFormats,
       getFormat: roundFormatForQuestion,

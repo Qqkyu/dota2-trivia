@@ -84,12 +84,6 @@ const ROUND_GAME_BY_FORMAT = Object.freeze({
   flashback: "flashback",
 });
 
-/**
- * TEMP playtest. Live room uses only these formats.
- * Null keeps the 13-format public mix.
- */
-export const LIVE_PLAYTEST_FORMATS = null;
-
 /** @param {{ kind?: string } | null | undefined} question */
 export function roundFormatForQuestion(question) {
   return ROUND_FORMAT_BY_KIND[question?.kind] ?? null;
@@ -98,10 +92,6 @@ export function roundFormatForQuestion(question) {
 /** @param {string} format */
 export function roundGameForFormat(format) {
   return ROUND_GAME_BY_FORMAT[format] ?? null;
-}
-
-export function livePublicRoundFormats() {
-  return LIVE_PLAYTEST_FORMATS ?? PUBLIC_ROUND_FORMATS;
 }
 
 export function isPublicRoundFormat(value) {
