@@ -60,7 +60,6 @@ import {
   DOTA_SHOP_SEARCH_PLACEHOLDER,
   ENTRY_WAIT_HINT,
   ENTRY_WAIT_TIP_LABEL,
-  ENTRY_WAIT_TIPS,
   shuffleEntryWaitTips,
 } from "@/lib/entry-wait-tips.mjs";
 import {
@@ -158,7 +157,6 @@ const PLAYER_KEY = "queue-arcade:player:v2";
 const SETTINGS_KEY = "queue-arcade:settings:v4";
 const PREVIOUS_SETTINGS_KEY = "queue-arcade:settings:v3";
 const LEGACY_STORAGE_KEY = "queue-trivia:stats:v1";
-const LEGACY_PLAYER_KEY = "queue-trivia:player:v1";
 const LEGACY_SETTINGS_KEY = "queue-trivia:settings:v1";
 const ROUND_GAMES: RoundGame[] = [...LIVE_ROUND_GAMES] as RoundGame[];
 const WAIT_CHOICE_QUESTION: PublicArcadeQuestion = {
@@ -1494,8 +1492,10 @@ function ShopkeeperStore({
   const targetItem = !recipeBuilder && targetKey ? SHOPKEEPER_CATALOG_BY_KEY.get(targetKey) : undefined;
   const selectedItem = selectedKey ? SHOPKEEPER_CATALOG_BY_KEY.get(selectedKey) : undefined;
   const queryRef = useRef(query);
-  queryRef.current = query;
   const storeRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    queryRef.current = query;
+  }, [query]);
   const normalizedQuery = query.trim().toLocaleLowerCase("en-US");
   const countByItem = new Map(crowd.keyCounts.map((entry) => [entry.answerKey, entry.count]));
   const searchItems = normalizedQuery
@@ -1863,8 +1863,25 @@ function HeroPicker({
   const [query, setQuery] = useState("");
   const [searchFlash, setSearchFlash] = useState(false);
   const queryRef = useRef(query);
-  queryRef.current = query;
+  const flashTimeoutRef = useRef<number | null>(null);
   const pickerRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    queryRef.current = query;
+  }, [query]);
+  // Briefly highlight the typed filter. Driven from the key handler so no
+  // effect has to call setState on every keystroke.
+  const flashSearch = useCallback((active: boolean) => {
+    if (flashTimeoutRef.current !== null) window.clearTimeout(flashTimeoutRef.current);
+    flashTimeoutRef.current = null;
+    setSearchFlash(active);
+    if (active) flashTimeoutRef.current = window.setTimeout(() => setSearchFlash(false), 1_500);
+  }, []);
+  useEffect(
+    () => () => {
+      if (flashTimeoutRef.current !== null) window.clearTimeout(flashTimeoutRef.current);
+    },
+    [],
+  );
   const targetKey = question.reveal?.correctAnswerKey;
   const countByHero = new Map(crowd.keyCounts.map((entry) => [entry.answerKey, entry.count]));
   const normalizedQuery = query.trim().toLocaleLowerCase("en-US");
@@ -1881,6 +1898,7 @@ function HeroPicker({
   const chooseHero = (heroKey: string) => {
     setQuery("");
     onChoose(heroKey);
+    flashSearch(false);
   };
 
   useEffect(() => {
@@ -1901,32 +1919,25 @@ function HeroPicker({
 
       if (event.key === "Escape") {
         setQuery("");
+        flashSearch(false);
         return;
       }
       if (event.key === "Backspace" && queryRef.current) {
         event.preventDefault();
         setQuery((value) => value.slice(0, -1));
+        flashSearch(queryRef.current.trim().length > 1);
         return;
       }
       if (event.key.length !== 1 || (!queryRef.current && event.key.trim() === "")) return;
 
       event.preventDefault();
       setQuery((value) => `${value}${event.key}`);
+      flashSearch(true);
     };
 
     window.addEventListener("keydown", startSearching);
     return () => window.removeEventListener("keydown", startSearching);
-  }, [phase, selectedKey]);
-
-  useEffect(() => {
-    if (!normalizedQuery) {
-      setSearchFlash(false);
-      return;
-    }
-    setSearchFlash(true);
-    const timeout = window.setTimeout(() => setSearchFlash(false), 1_500);
-    return () => window.clearTimeout(timeout);
-  }, [normalizedQuery, query]);
+  }, [flashSearch, phase, selectedKey]);
 
   return (
     <div
@@ -2814,7 +2825,6 @@ export function QueueArcade({
   const [roundAward, setRoundAward] = useState<RoundAward | null>(null);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
-  const [bestStreak, setBestStreak] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [history, setHistory] = useState<RoundRecord[]>([]);
   const [deadline, setDeadlineState] = useState<number | null>(null);
@@ -2827,7 +2837,9 @@ export function QueueArcade({
   const [statsLoaded, setStatsLoaded] = useState(false);
   const [account, setAccount] = useState<AccountSnapshot | null>(null);
   const accountRef = useRef<AccountSnapshot | null>(null);
-  accountRef.current = account;
+  useEffect(() => {
+    accountRef.current = account;
+  }, [account]);
   const joiningRoomRef = useRef(false);
   const [roomError, setRoomError] = useState<string | null>(null);
   const [activeRoomId, setActiveRoomId] = useState("");
@@ -3165,11 +3177,7 @@ export function QueueArcade({
 
       if (isCorrect) {
         setCorrectCount((count) => count + 1);
-        setStreak((currentStreak) => {
-          const nextStreak = currentStreak + 1;
-          setBestStreak((currentBest) => Math.max(currentBest, nextStreak));
-          return nextStreak;
-        });
+        setStreak((currentStreak) => currentStreak + 1);
       } else {
         setStreak(0);
       }
@@ -3398,7 +3406,6 @@ export function QueueArcade({
         setRoundIndex(0);
         setScore(0);
         setStreak(0);
-        setBestStreak(0);
         setCorrectCount(0);
         setHistory([]);
         setEntryWaitDeadline(null);
