@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-import { readFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { heroCorrectAnswerKey, isHeroPickerQuestion } from "../src/lib/hero-picker.mjs";
 import { itemPickerCorrectAnswerKey, recipeBuilderCorrectAnswerKey } from "../src/lib/item-picker.mjs";
@@ -414,6 +415,111 @@ const [clientSource, clientStyles, roundsSource, votesSource, reportsSource, rou
   ].map((file) => readFile(path.join(root, file), "utf8")),
 );
 record(!clientSource.includes("@/lib/game-catalogs"), "The gameplay client imports the private game catalog.");
+
+// Every "use client" module and everything it imports (transitively, value
+// imports only) ships to the browser. None of that graph may reach the
+// private catalog. This caught /calibration shipping all 1,589 answers via
+// site-chrome.tsx -> game-catalogs -> trivia.ts.
+const PRIVATE_MODULES = [
+  "src/lib/trivia.ts",
+  "src/lib/game-catalogs.ts",
+  "src/lib/public-rooms.ts",
+  "src/lib/private-room-rounds.ts",
+  "src/lib/keyed-answer.ts",
+  "src/lib/calibration-data.ts",
+  "src/lib/vote-store.ts",
+  "src/lib/account-store.ts",
+  "src/lib/alpha-store.ts",
+  "src/data/questions.generated.json",
+  "src/data/shopkeeper-questions.json",
+  "src/data/soundcheck-questions.json",
+  "src/data/value-order-questions.json",
+  "src/data/aghanim-questions.json",
+  "src/data/flashback-questions.json",
+  "src/data/counterplay-questions.json",
+];
+
+async function listSourceFiles(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const nested = await Promise.all(
+    entries.map((entry) => {
+      const target = path.join(directory, entry.name);
+      if (entry.isDirectory()) return listSourceFiles(target);
+      return /\.(?:ts|tsx|mjs)$/.test(entry.name) ? [target] : [];
+    }),
+  );
+  return nested.flat();
+}
+
+function resolveImport(fromFile, specifier) {
+  const base = specifier.startsWith("@/")
+    ? path.join(root, "src", specifier.slice(2))
+    : specifier.startsWith(".")
+      ? path.resolve(path.dirname(fromFile), specifier)
+      : null;
+  if (!base) return null;
+  const candidates = [base, `${base}.ts`, `${base}.tsx`, `${base}.mjs`, path.join(base, "index.ts")];
+  return candidates.find((candidate) => existsSync(candidate)) ?? null;
+}
+
+function isTypeOnlyClause(clause) {
+  const named = clause.match(/^\s*\{([^}]*)\}\s*$/);
+  if (!named) return false;
+  const specifiers = named[1]
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+  return specifiers.length > 0 && specifiers.every((entry) => /^type\s/.test(entry));
+}
+
+function valueImports(source) {
+  const specifiers = [];
+  const pattern = /^\s*(?:import|export)\s+(?!type\s)([^;]*?)\sfrom\s+["']([^"']+)["']/gm;
+  for (const match of source.matchAll(pattern)) {
+    if (isTypeOnlyClause(match[1])) continue;
+    specifiers.push(match[2]);
+  }
+  for (const match of source.matchAll(/^\s*import\s+["']([^"']+)["']/gm)) specifiers.push(match[1]);
+  return specifiers;
+}
+
+async function clientImportGraph(entry) {
+  const seen = new Map();
+  const queue = [[entry, [entry]]];
+  while (queue.length) {
+    const [file, trail] = queue.shift();
+    if (seen.has(file)) continue;
+    seen.set(file, trail);
+    if (!/\.(?:ts|tsx|mjs)$/.test(file)) continue;
+    const source = await readFile(file, "utf8");
+    for (const specifier of valueImports(source)) {
+      const resolved = resolveImport(file, specifier);
+      if (resolved && !seen.has(resolved)) queue.push([resolved, [...trail, resolved]]);
+    }
+  }
+  return seen;
+}
+
+const sourceFiles = await listSourceFiles(path.join(root, "src"));
+const clientEntries = [];
+for (const file of sourceFiles) {
+  const head = (await readFile(file, "utf8")).slice(0, 200);
+  if (/^\s*["']use client["']/.test(head)) clientEntries.push(file);
+}
+record(clientEntries.length >= 5, 'Expected several "use client" components to audit.');
+for (const entry of clientEntries) {
+  const graph = await clientImportGraph(entry);
+  for (const privateModule of PRIVATE_MODULES) {
+    const absolute = path.join(root, privateModule);
+    const trail = graph.get(absolute);
+    record(
+      !trail,
+      `${path.relative(root, entry)} ships ${privateModule} to the browser via ${trail
+        ?.map((step) => path.relative(root, step))
+        .join(" -> ")}.`,
+    );
+  }
+}
 record(!clientSource.includes("QUESTIONS_BY_ID"), "The gameplay client still builds a local answer catalog.");
 record(
   clientSource.includes('data-testid="spell-clue-description"') &&
@@ -430,7 +536,6 @@ record(
     !roundAudioSource.includes('searchParams.get("source")'),
   "The audio proxy no longer limits media delivery to the server-owned current round.",
 );
-
 
 if (failures.length) throw new Error(failures.join("\n"));
 

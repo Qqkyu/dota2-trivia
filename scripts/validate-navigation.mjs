@@ -58,23 +58,25 @@ if (
   failures.push("The lobby, party, and live arcade no longer resolve to distinct canonical paths.");
 }
 
-const [chromeSource, profileSource, privacySource, globalCss, arcadeSource, partyPage] = await Promise.all(
-  [
-    "src/components/site-chrome.tsx",
-    "src/app/profile/page.tsx",
-    "src/app/privacy/page.tsx",
-    "src/app/globals.css",
-    "src/components/queue-arcade.tsx",
-    "src/app/party/page.tsx",
-  ].map((file) => readFile(path.join(process.cwd(), file), "utf8")),
-);
+const [chromeSource, footerSource, profileSource, privacySource, globalCss, arcadeSource, partyPage] =
+  await Promise.all(
+    [
+      "src/components/site-chrome.tsx",
+      "src/components/site-footer.tsx",
+      "src/app/profile/page.tsx",
+      "src/app/privacy/page.tsx",
+      "src/app/globals.css",
+      "src/components/queue-arcade.tsx",
+      "src/app/party/page.tsx",
+    ].map((file) => readFile(path.join(process.cwd(), file), "utf8")),
+  );
 if (
   !chromeSource.includes('data-testid="site-home"') ||
-  !chromeSource.includes('data-testid="site-footer"') ||
   !chromeSource.includes("ARCADE_LOBBY_PATH") ||
-  !chromeSource.includes('href: "/profile"') ||
-  !chromeSource.includes('href: "/privacy"') ||
-  !chromeSource.includes('href: "/calibration"') ||
+  !footerSource.includes('data-testid="site-footer"') ||
+  !footerSource.includes('href: "/profile"') ||
+  !footerSource.includes('href: "/privacy"') ||
+  !footerSource.includes('href: "/calibration"') ||
   !profileSource.includes('<SiteChrome current="profile"') ||
   !privacySource.includes('<SiteChrome current="privacy"') ||
   !globalCss.includes("scrollbar-gutter: stable")

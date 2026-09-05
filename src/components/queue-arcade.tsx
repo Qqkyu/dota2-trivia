@@ -48,7 +48,7 @@ import {
   type ReportReason,
 } from "@/lib/calibration";
 import type { AccountSnapshot } from "@/lib/account-contract";
-import { type ArcadeMode, type RoundGame, type ShopkeeperItemReference, type TriviaArtworkKind } from "@/lib/trivia";
+import type { ArcadeMode, RoundGame, ShopkeeperItemReference, TriviaArtworkKind } from "@/lib/trivia";
 import type { CrowdResult, PublicRoomSettings, ReportResult, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
 import { LIVE_ROUND_GAMES, PUBLIC_ARCADE_MODE } from "@/lib/arcade-games.mjs";
 import { PrivateRoomPanel } from "@/components/private-room-panel";

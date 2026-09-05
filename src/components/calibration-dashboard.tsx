@@ -16,7 +16,7 @@ import {
   Users,
 } from "lucide-react";
 import { useMemo, useState } from "react";
-import { SiteFooter } from "@/components/site-chrome";
+import { SiteFooter } from "@/components/site-footer";
 import { REPORT_REASON_LABELS, type CalibrationStatus, type ReportReason } from "@/lib/calibration";
 import type { CalibrationRecord, CalibrationSnapshot } from "@/lib/calibration-data";
 import type { QuestionReviewState, QuestionReviewStatus } from "@/lib/question-review";

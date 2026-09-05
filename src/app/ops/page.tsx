@@ -15,7 +15,8 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
-import { SiteChrome, SiteFooter } from "@/components/site-chrome";
+import { SiteChrome } from "@/components/site-chrome";
+import { SiteFooter } from "@/components/site-footer";
 import { SteamSignIn } from "@/components/steam-sign-in";
 import { getAlphaOpsSnapshot, type AlphaFormatSignal } from "@/lib/alpha-ops";
 import { getUserBySession } from "@/lib/account-store";
