@@ -206,7 +206,7 @@
       "2016"
     ],
     "correctIndex": 1,
-    "explanation": "Techies arrived on 12 December 2014.",
+    "explanation": "Techies arrived on 21 August 2014, a month after being shown at The International 2014.",
     "flashback": {
       "family": "year",
       "subject": "event:techies",
@@ -1484,7 +1484,7 @@
     "category": "History",
     "difficulty": 2,
     "eyebrow": "The last port",
-    "prompt": "Which hero was the last Warcraft III DotA hero ported to Dota 2?",
+    "prompt": "Which hero was the last DotA hero ported to Dota 2?",
     "answers": [
       "Arc Warden",
       "Underlord",
@@ -5117,7 +5117,7 @@
     "category": "History",
     "difficulty": 2,
     "eyebrow": "Third death",
-    "prompt": "Besides Cheese and the Aegis, what extra refresh item can late Roshan drop?",
+    "prompt": "Besides Cheese and Aegis, what refresh item can late Roshan drop?",
     "answers": [
       "Smoke",
       "Cheese",
@@ -5215,7 +5215,7 @@
     "category": "History",
     "difficulty": 2,
     "eyebrow": "No more 220 gold bird",
-    "prompt": "Which shop item did patch 7.23 remove because every player got a courier?",
+    "prompt": "Which shop item did 7.23 remove once everyone got a courier?",
     "answers": [
       "Animal Courier",
       "Flying Courier",
@@ -6248,7 +6248,7 @@
     "category": "Esports",
     "difficulty": 2,
     "eyebrow": "Is that balanced?",
-    "prompt": "At TI3, Na'Vi dragged TongFu into the fountain. Loda yelled \"Is that balanced?\" What was that play called?",
+    "prompt": "TI3: Na'Vi hooked TongFu into the fountain. What was that play called?",
     "answers": [
       "Fountain hook",
       "Blink cancel",
@@ -6256,7 +6256,7 @@
       "Ramp hook"
     ],
     "correctIndex": 0,
-    "explanation": "Dendi on Pudge, Puppey on Chen. Meat Hook used to pull the target to Pudge, so a fountain teleport yanked heroes into base, Aegis and all. Loda lost it in the player lounge. Valve later made the hook pull along its line.",
+    "explanation": "Dendi on Pudge, Puppey on Chen. Meat Hook used to pull the target to Pudge, so a fountain teleport yanked heroes into base, Aegis and all. Loda, watching from the player lounge, yelled “Is that balanced?” Valve later made the hook pull along its line.",
     "flashback": {
       "family": "choice",
       "subject": "fact:fountain-hook"
@@ -6287,7 +6287,7 @@
       "Cap and SVG"
     ],
     "correctIndex": 1,
-    "explanation": "They took the English grand final at TI8, TI9, and TI11, and they had the desk again for the TI 2026 grand final in Shanghai.",
+    "explanation": "ODPixel and Fogged have called more English TI grand finals than any other duo, including TI8 and TI9.",
     "flashback": {
       "family": "choice",
       "subject": "fact:odpixel-fogged"
@@ -6496,7 +6496,7 @@
     "category": "History",
     "difficulty": 2,
     "eyebrow": "The first film",
-    "prompt": "Valve's first Dota 2 documentary, about Dendi, Fear, and hyhy at TI1, was called what?",
+    "prompt": "Valve's first Dota documentary about Dendi, Fear, and hyhy was called what?",
     "answers": [
       "Free to Play",
       "We Are All Dota",

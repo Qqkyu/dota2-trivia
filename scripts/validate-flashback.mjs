@@ -35,6 +35,11 @@ record(
   "Flashback is missing a finished International winner.",
 );
 record(new Set(questions.map((question) => question.id)).size === questions.length, "Flashback IDs are not unique.");
+const slowPrompts = questions.filter((question) => question.prompt.trim().split(/\s+/).length > 12);
+record(
+  slowPrompts.length === 0,
+  `Flashback prompts over the 12-word scan cap: ${slowPrompts.map((question) => question.id).join(", ")}.`,
+);
 const choiceSlots = [0, 1, 2, 3].map(
   (slot) =>
     questions.filter((question) => question.kind === "flashback-choice" && question.correctIndex === slot).length,
