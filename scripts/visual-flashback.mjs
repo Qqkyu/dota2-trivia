@@ -383,8 +383,9 @@ const yearBefore = await evaluate(`(() => {
     height: Math.round(box?.height ?? 0),
     answers: document.querySelectorAll('[data-testid="arcade-answer"]').length,
     ticks: document.querySelectorAll('[data-testid="flashback-year-tick"]').length,
-    helper: document.body.innerText.includes("Release the slider to lock the year"),
+    helper: document.body.innerText.includes("Slide to the year, then press Lock"),
     lock: Boolean(document.querySelector('[data-testid="flashback-year-lock"]')),
+    lockDisabled: document.querySelector('[data-testid="flashback-year-lock"]')?.disabled,
   };
 })()`);
 await evaluate(`(() => {
@@ -394,13 +395,19 @@ await evaluate(`(() => {
   slider.dispatchEvent(new Event("input", { bubbles: true }));
   return true;
 })()`);
-const yearAfterSlide = await evaluate(`({
-  locked: document.querySelector('[data-testid="flashback-year-board"]')?.dataset.locked,
-  readout: document.querySelector('[data-testid="flashback-year-readout"]')?.textContent,
-})`);
+// Releasing the thumb must not lock the year any more; only Lock (or Enter) does.
 await evaluate(`(() => {
   const slider = document.querySelector('[data-testid="flashback-year-slider"]');
   slider?.dispatchEvent(new PointerEvent("pointerup", { bubbles: true }));
+  return true;
+})()`);
+const yearAfterSlide = await evaluate(`({
+  locked: document.querySelector('[data-testid="flashback-year-board"]')?.dataset.locked,
+  readout: document.querySelector('[data-testid="flashback-year-readout"]')?.textContent,
+  lockLabel: document.querySelector('[data-testid="flashback-year-lock"]')?.textContent?.trim(),
+})`);
+await evaluate(`(() => {
+  document.querySelector('[data-testid="flashback-year-lock"]')?.click();
   if (window.__flashbackVisual) window.__flashbackVisual.locked = true;
   window.dispatchEvent(new Event("focus"));
   return true;
@@ -414,6 +421,8 @@ const yearAfterPick = await evaluate(`(() => {
     readout: document.querySelector('[data-testid="flashback-year-readout"]')?.textContent,
     value: slider?.value,
     height: Math.round(board?.getBoundingClientRect().height ?? 0),
+    lockLabel: document.querySelector('[data-testid="flashback-year-lock"]')?.textContent?.trim(),
+    lockDisabled: document.querySelector('[data-testid="flashback-year-lock"]')?.disabled,
   };
 })()`);
 await screenshot("/tmp/flashback-year-answering.png");
@@ -527,13 +536,21 @@ if (orderReveal.panelVisible === false) failures.push("order reveal result bar i
 if (yearBefore.min !== "2009" || yearBefore.max !== yearBefore.currentYear || yearBefore.ticks !== 0) {
   failures.push(`year slider ${yearBefore.min}-${yearBefore.max} ticks ${yearBefore.ticks}`);
 }
-if (yearBefore.answers !== 0 || !yearBefore.helper || yearBefore.lock) {
+if (yearBefore.answers !== 0 || !yearBefore.helper || !yearBefore.lock || yearBefore.lockDisabled) {
   failures.push("year slider still uses A-D answers or a Lock year button");
 }
 if (yearBefore.height < 186) failures.push(`year board short ${yearBefore.height}`);
-if (yearAfterSlide.locked === "true") failures.push("year slider locked as soon as the thumb moved");
-if (yearAfterPick.locked !== "true" || yearAfterPick.readout !== "2011" || yearAfterPick.value !== "2011") {
-  failures.push(`year pick ${yearAfterPick.readout} locked ${yearAfterPick.locked}`);
+if (yearAfterSlide.locked === "true" || yearAfterSlide.lockLabel !== "Lock") {
+  failures.push(`year slider locked on release (${yearAfterSlide.locked}, ${yearAfterSlide.lockLabel})`);
+}
+if (
+  yearAfterPick.locked !== "true" ||
+  yearAfterPick.readout !== "2011" ||
+  yearAfterPick.value !== "2011" ||
+  yearAfterPick.lockLabel !== "Locked" ||
+  !yearAfterPick.lockDisabled
+) {
+  failures.push(`year pick ${yearAfterPick.readout} locked ${yearAfterPick.locked} button ${yearAfterPick.lockLabel}`);
 }
 if (yearAfterPick.height !== yearBefore.height) failures.push("year board jumped after pick");
 if (yearReveal.correctYear !== "2011" || yearReveal.readout !== "2011" || !yearReveal.panelVisible) {

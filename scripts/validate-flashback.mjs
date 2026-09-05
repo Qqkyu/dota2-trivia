@@ -282,17 +282,16 @@ record(
     arcadeSource.includes("flashbackYearMax") === false &&
     arcadeSource.includes("flashback-year-board") &&
     arcadeSource.includes("flashback-year-slider") &&
-    !arcadeSource.includes("flashback-year-lock") &&
+    arcadeSource.includes('data-testid="flashback-year-lock"') &&
     !arcadeSource.includes("flashback-year-tick") &&
-    arcadeSource.includes("onPointerUp") &&
-    arcadeSource.includes("Release the slider to lock the year") &&
-    !arcadeSource.includes("Set the year, then Lock") &&
-    !arcadeSource.includes("Lock year") &&
+    !arcadeSource.includes("onPointerUp") &&
+    arcadeSource.includes("Slide to the year, then press Lock") &&
     arcadeCss.includes(".flashbackYearBoard {") &&
     arcadeCss.includes(".flashbackYearSlider {") &&
+    arcadeCss.includes(".flashbackYearLock {") &&
     arcadeCss.includes("min-height: 186px;") &&
     arcadeCss.includes("accent-color: #c4a46a;"),
-  "Flashback year answers still use a row of year boxes or a hardcoded last year.",
+  "Flashback year answers still use a row of year boxes, a hardcoded last year, or lock on slider release.",
 );
 record(
   questions

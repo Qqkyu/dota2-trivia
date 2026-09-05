@@ -1237,12 +1237,23 @@ function FlashbackYearBoard({
             aria-label="Year"
             data-testid="flashback-year-slider"
             onInput={(event) => setCursorYear(Number(event.currentTarget.value))}
-            onPointerUp={(event) => commitYear(Number(event.currentTarget.value))}
           />
           <div className={styles.flashbackYearEnds}>
             <span>{yearMin}</span>
             <span>{yearMax}</span>
           </div>
+          <button
+            type="button"
+            className={styles.flashbackYearLock}
+            data-testid="flashback-year-lock"
+            disabled={locked || shownYear === null}
+            onClick={() => {
+              if (shownYear !== null) commitYear(shownYear);
+            }}
+          >
+            <Check aria-hidden="true" />
+            {lockedYear !== null ? "Locked" : "Lock"}
+          </button>
         </>
       ) : null}
     </div>
@@ -4536,7 +4547,7 @@ export function QueueArcade({
                         : isValueOrderRound
                           ? "Choose four in order"
                           : isFlashbackYearRound
-                            ? "Release the slider to lock the year"
+                            ? "Slide to the year, then press Lock · Enter also locks"
                             : currentGame === "shopkeeper"
                               ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
                               : currentGame === "spell-link"

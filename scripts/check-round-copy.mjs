@@ -252,7 +252,7 @@ try {
         const card = document.querySelectorAll('[data-testid="value-order-card"], [data-testid="flashback-order-card"]')[index];
         if (card) card.click();
       }
-      document.querySelector('[data-testid="flashback-year-slider"]')?.dispatchEvent(new PointerEvent("pointerup", { bubbles: true }));
+      document.querySelector('[data-testid="flashback-year-lock"]')?.click();
     })()`);
 
     await page.waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 25_000);

@@ -322,13 +322,11 @@ async function lockCurrentAnswer() {
     await clickSelector('[data-testid="arcade-answer"]', Math.max(0, board.choice - 1));
     return { ...board, action: "choice" };
   }
-  if (board.yearSlider) {
+  if (board.yearSlider && board.yearLock) {
+    // Moving the thumb only sets the year. The Lock button commits it.
     const released = await releaseYearSlider();
-    return { ...board, action: "year-slider", released: Boolean(released) };
-  }
-  if (board.yearLock) {
     await clickSelector('[data-testid="flashback-year-lock"]');
-    return { ...board, action: "year-lock" };
+    return { ...board, action: "year-lock", released: Boolean(released) };
   }
   if (board.order) {
     for (let index = 0; index < board.order; index += 1) {

@@ -682,8 +682,7 @@
   justify-content: center;
   padding: 0 22px;
   border: 2px solid #08111c;
-  background:
-    repeating-linear-gradient(
+  background: repeating-linear-gradient(
       126deg,
       transparent 0 64px,
       rgba(0, 0, 0, 0.16) 64px 65px,
@@ -1624,6 +1623,10 @@
   justify-content: space-between;
   color: #8a8d85;
   font-size: 11px;
+}
+
+.flashbackYearLock {
+  justify-self: center;
 }
 
 .flashbackYears {
@@ -2868,7 +2871,8 @@ button[data-state="wrong"] > .heroPickerVerdict {
   color: #ef7969;
 }
 
-.shopkeeperBuildButton {
+.shopkeeperBuildButton,
+.flashbackYearLock {
   display: inline-flex;
   min-width: 92px;
   height: 38px;
@@ -2887,19 +2891,23 @@ button[data-state="wrong"] > .heroPickerVerdict {
   cursor: pointer;
 }
 
-.shopkeeperBuildButton svg {
+.shopkeeperBuildButton svg,
+.flashbackYearLock svg {
   width: 14px;
   height: 14px;
 }
 
 .shopkeeperBuildButton:hover:not(:disabled),
-.shopkeeperBuildButton:focus-visible:not(:disabled) {
+.shopkeeperBuildButton:focus-visible:not(:disabled),
+.flashbackYearLock:hover:not(:disabled),
+.flashbackYearLock:focus-visible:not(:disabled) {
   border-color: #efc86d;
   outline: 0;
   background: rgba(210, 163, 74, 0.2);
 }
 
-.shopkeeperBuildButton:disabled {
+.shopkeeperBuildButton:disabled,
+.flashbackYearLock:disabled {
   border-color: rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.025);
   color: #555b56;
@@ -5730,14 +5738,6 @@ button[data-state="wrong"] > .heroPickerVerdict {
     padding-inline: 30px;
   }
 
-  
-
-  
-
-  
-
-  
-
   .heroArtwork {
     width: 150px;
   }
@@ -5759,8 +5759,6 @@ button[data-state="wrong"] > .heroPickerVerdict {
     width: 34px;
     height: 34px;
   }
-
-  
 }
 
 @media (max-width: 920px) {
@@ -5990,10 +5988,10 @@ button[data-state="wrong"] > .heroPickerVerdict {
   }
 
   .shopkeeperQuestion,
-.spellQuestion,
-.fogQuestion,
-.echoQuestion,
-.quoteQuestion {
+  .spellQuestion,
+  .fogQuestion,
+  .echoQuestion,
+  .quoteQuestion {
     min-height: 270px;
   }
 
@@ -6030,22 +6028,6 @@ button[data-state="wrong"] > .heroPickerVerdict {
     height: 340px;
     min-height: 340px;
   }
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   .shopkeeperQuestion .questionCopy,
   .spellQuestion .questionCopy,
@@ -6121,16 +6103,6 @@ button[data-state="wrong"] > .heroPickerVerdict {
   .textQuestion {
     min-height: 250px;
   }
-
-  
-
-  
-
-  
-
-  
-
-  
 
   .recipeEquation {
     justify-content: center;
