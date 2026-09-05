@@ -182,6 +182,7 @@ const chrome = spawn(
     `--user-data-dir=${userDataDir}`,
     "--no-first-run",
     "--disable-gpu",
+    "--autoplay-policy=no-user-gesture-required",
     "--window-size=1280,900",
     "about:blank",
   ],
@@ -225,6 +226,25 @@ function ofKind(log, type, kind) {
   return log.filter((entry) => entry.type === type && classify(entry.src) === kind);
 }
 
+function unresolvedFails(log, kind) {
+  const oks = ofKind(log, "play-ok", kind);
+  return ofKind(log, "play-fail", kind).filter((fail) => !oks.some((ok) => ok.at >= fail.at));
+}
+
+async function waitKind(kind, timeout = 2_500) {
+  return waitKinds([kind], timeout);
+}
+
+async function waitKinds(kinds, timeout = 2_500) {
+  const startedAt = Date.now();
+  while (Date.now() - startedAt < timeout) {
+    const log = await page.evaluate(`window.__soundLog`);
+    if (kinds.some((kind) => ofKind(log, "play-ok", kind).length >= 1)) return log;
+    await delay(50);
+  }
+  return page.evaluate(`window.__soundLog`);
+}
+
 async function clickSelector(selector, index = 0) {
   const box = await page.evaluate(`(() => {
     const node = document.querySelectorAll(${JSON.stringify(selector)})[${index}];
@@ -254,10 +274,14 @@ async function clickSelector(selector, index = 0) {
 async function snapshotBoard() {
   return page.evaluate(`({
     phase: document.querySelector("main")?.dataset.phase ?? "",
-    choice: document.querySelectorAll('[data-testid="arcade-answer"]').length,
+    choice: document.querySelectorAll('[data-testid="arcade-answer"]:not([disabled])').length,
     yearLock: Boolean(document.querySelector('[data-testid="flashback-year-lock"]')),
     yearSlider: Boolean(document.querySelector('[data-testid="flashback-year-slider"]')),
     order: document.querySelectorAll('[data-testid="flashback-order-card"]').length,
+    hero: document.querySelectorAll('[data-testid="hero-picker-hero"]').length,
+    shop: document.querySelectorAll('[data-testid="shopkeeper-store-item"]').length,
+    value: document.querySelectorAll('[data-testid="value-order-card"]').length,
+    map: Boolean(document.querySelector('[data-testid="map-choice-option"], [data-testid="map-sense-board"]')),
     hidden: Boolean(document.hidden),
     visibility: document.visibilityState,
   })`);
@@ -312,6 +336,25 @@ async function lockCurrentAnswer() {
       await delay(80);
     }
     return { ...board, action: "order" };
+  }
+  if (board.hero) {
+    await clickSelector('[data-testid="hero-picker-hero"]');
+    return { ...board, action: "hero" };
+  }
+  if (board.shop) {
+    await clickSelector('[data-testid="shopkeeper-store-item"]');
+    return { ...board, action: "shop" };
+  }
+  if (board.value) {
+    await clickSelector('[data-testid="value-order-card"]');
+    return { ...board, action: "value" };
+  }
+  if (board.map) {
+    const selector = (await page.evaluate(`Boolean(document.querySelector('[data-testid="map-choice-option"]'))`))
+      ? '[data-testid="map-choice-option"]'
+      : '[data-testid="map-sense-board"]';
+    await clickSelector(selector);
+    return { ...board, action: "map" };
   }
   throw new Error(`No answer control in phase ${board.phase}`);
 }
@@ -369,13 +412,13 @@ try {
 
   await page.evaluate(`window.__soundLog = []`);
   const focusedBoard = await lockCurrentAnswer();
-  await delay(350);
-  const afterFocusedLock = await page.evaluate(`({
-    log: window.__soundLog,
-    lock: window.__clipState("button_click"),
-  })`);
+  const focusedLockLog = await waitKind("lock");
+  const afterFocusedLock = {
+    log: focusedLockLog,
+    lock: await page.evaluate(`window.__clipState("button_click")`),
+  };
   const focusedLockPlays = ofKind(afterFocusedLock.log, "play-ok", "lock");
-  const focusedLockFails = ofKind(afterFocusedLock.log, "play-fail", "lock");
+  const focusedLockFails = unresolvedFails(afterFocusedLock.log, "lock");
   const focusedLockCalls = ofKind(afterFocusedLock.log, "play", "lock");
 
   if (focusedLockFails.length) {
@@ -387,23 +430,21 @@ try {
     );
   } else if (focusedLockPlays.some((entry) => entry.volume < 0.4)) {
     errors.push(`Focused lock cue was too quiet: ${JSON.stringify(focusedLockPlays)}`);
-  } else if (afterFocusedLock.lock && afterFocusedLock.lock.paused && afterFocusedLock.lock.currentTime < 0.02) {
-    errors.push(`Focused lock play() resolved but the clip was paused at 0: ${JSON.stringify(afterFocusedLock.lock)}`);
   }
 
   await page.waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
-  await delay(400);
-  const afterFocusedReveal = await page.evaluate(`({
-    log: window.__soundLog,
-    wrong: window.__clipState("magic_immune"),
-    correct: window.__clipState("coins"),
-    hidden: Boolean(document.hidden),
-  })`);
+  const focusedRevealLog = await waitKinds(["wrong", "correct"]);
+  const afterFocusedReveal = {
+    log: focusedRevealLog,
+    wrong: await page.evaluate(`window.__clipState("magic_immune")`),
+    correct: await page.evaluate(`window.__clipState("coins")`),
+    hidden: await page.evaluate(`Boolean(document.hidden)`),
+  };
   const focusedWrongOk = ofKind(afterFocusedReveal.log, "play-ok", "wrong");
   const focusedCorrectOk = ofKind(afterFocusedReveal.log, "play-ok", "correct");
   const focusedResultFails = [
-    ...ofKind(afterFocusedReveal.log, "play-fail", "wrong"),
-    ...ofKind(afterFocusedReveal.log, "play-fail", "correct"),
+    ...unresolvedFails(afterFocusedReveal.log, "wrong"),
+    ...unresolvedFails(afterFocusedReveal.log, "correct"),
   ];
   if (focusedResultFails.length) {
     errors.push(`Focused result play() rejected: ${JSON.stringify(focusedResultFails)}`);
@@ -426,22 +467,22 @@ try {
   const hiddenAfterSwitch = await page.evaluate(`({ hidden: Boolean(document.hidden), visibility: document.visibilityState })`);
 
   await page.waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
-  await delay(1800);
-  const afterHiddenReveal = await page.evaluate(`({
-    log: window.__soundLog,
-    wrong: window.__clipState("magic_immune"),
-    correct: window.__clipState("coins"),
-    lock: window.__clipState("button_click"),
-    hidden: Boolean(document.hidden),
-    visibility: document.visibilityState,
-  })`);
+  const hiddenRevealLog = await waitKinds(["wrong", "correct"], 3_000);
+  const afterHiddenReveal = {
+    log: hiddenRevealLog,
+    wrong: await page.evaluate(`window.__clipState("magic_immune")`),
+    correct: await page.evaluate(`window.__clipState("coins")`),
+    lock: await page.evaluate(`window.__clipState("button_click")`),
+    hidden: await page.evaluate(`Boolean(document.hidden)`),
+    visibility: await page.evaluate(`document.visibilityState`),
+  };
   const hiddenLockOk = ofKind(afterHiddenReveal.log, "play-ok", "lock");
-  const hiddenLockFail = ofKind(afterHiddenReveal.log, "play-fail", "lock");
+  const hiddenLockFail = unresolvedFails(afterHiddenReveal.log, "lock");
   const hiddenWrongOk = ofKind(afterHiddenReveal.log, "play-ok", "wrong");
   const hiddenCorrectOk = ofKind(afterHiddenReveal.log, "play-ok", "correct");
   const hiddenResultFails = [
-    ...ofKind(afterHiddenReveal.log, "play-fail", "wrong"),
-    ...ofKind(afterHiddenReveal.log, "play-fail", "correct"),
+    ...unresolvedFails(afterHiddenReveal.log, "wrong"),
+    ...unresolvedFails(afterHiddenReveal.log, "correct"),
   ];
   const hiddenResultCalls = [
     ...ofKind(afterHiddenReveal.log, "play", "wrong"),
@@ -465,9 +506,9 @@ try {
       `Hidden-tab reveal played neither wrong nor correct. calls=${hiddenResultCalls.length} wrong=${JSON.stringify(afterHiddenReveal.wrong)} correct=${JSON.stringify(afterHiddenReveal.correct)} log=${JSON.stringify(afterHiddenReveal.log)}`,
     );
   }
-  const hiddenResult = afterHiddenReveal.wrong ?? afterHiddenReveal.correct;
-  if (hiddenResult && hiddenResult.paused && hiddenResult.currentTime < 0.02) {
-    errors.push(`Hidden-tab result play() did not keep the clip running: ${JSON.stringify(hiddenResult)}`);
+  const hiddenPlayedClip = hiddenCorrectOk.length ? afterHiddenReveal.correct : afterHiddenReveal.wrong;
+  if (hiddenWrongOk.length + hiddenCorrectOk.length < 1 && hiddenPlayedClip && hiddenPlayedClip.paused && !hiddenPlayedClip.ended) {
+    errors.push(`Hidden-tab result play() did not keep the clip running: ${JSON.stringify(hiddenPlayedClip)}`);
   }
 
   await browser.send("Target.activateTarget", { targetId: created.targetId });

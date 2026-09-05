@@ -170,11 +170,24 @@ try {
     `["answering","waiting","reveal"].includes(document.querySelector("main")?.dataset.phase ?? "") || Boolean(document.querySelector('[data-testid="round-entry-wait"]'))`,
     15_000,
   );
+  const waitState = await page.evaluate(`(() => {
+    const wait = document.querySelector('[data-testid="round-entry-wait"]');
+    if (!wait) return { kind: "none" };
+    const text = wait.textContent ?? "";
+    return {
+      kind: "wait",
+      tips: Boolean(document.querySelector('[data-testid="entry-wait-tips"]')),
+      joining: /joining/i.test(text),
+    };
+  })()`);
+  if (waitState.kind === "wait" && !waitState.tips && !waitState.joining) {
+    throw new Error("Entry wait has neither tips nor Joining.");
+  }
   await page.waitFor(`document.querySelector("main")?.dataset.phase === "answering"`, 45_000);
   await page.evaluate(`(() => {
     const tips = document.querySelector('[data-testid="entry-wait-tips"]');
-    const search = document.querySelector('[data-testid="shopkeeper-search"]');
-    if (search) {
+    const search = document.querySelector('[data-testid="shopkeeper-search-field"], [data-testid="shopkeeper-search"] input');
+    if (search instanceof HTMLInputElement) {
       const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
       setter.call(search, "blink");
       search.dispatchEvent(new Event("input", { bubbles: true }));
@@ -236,6 +249,53 @@ try {
   if (!reveal.prompt) {
     throw new Error("Reveal has no round prompt.");
   }
+
+  await page.waitFor(`Boolean(document.querySelector('[data-testid="report-question"]'))`, 8_000);
+  const reportBtn = await page.evaluate(`(() => {
+    const node = document.querySelector('[data-testid="report-question"]');
+    if (!node) return null;
+    const rect = node.getBoundingClientRect();
+    return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+  })()`);
+  if (!reportBtn) throw new Error("Reveal has no report control.");
+  await page.send("Input.dispatchMouseEvent", {
+    type: "mousePressed",
+    x: reportBtn.x,
+    y: reportBtn.y,
+    button: "left",
+    clickCount: 1,
+  });
+  await page.send("Input.dispatchMouseEvent", {
+    type: "mouseReleased",
+    x: reportBtn.x,
+    y: reportBtn.y,
+    button: "left",
+    clickCount: 1,
+  });
+  await page.waitFor(`Boolean(document.querySelector('[data-testid="report-reason"]'))`, 5_000);
+  const reason = await page.evaluate(`(() => {
+    const node = document.querySelector('[data-testid="report-reason"]');
+    if (!node) return null;
+    const rect = node.getBoundingClientRect();
+    return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+  })()`);
+  if (!reason) throw new Error("Report reasons did not open.");
+  await page.send("Input.dispatchMouseEvent", {
+    type: "mousePressed",
+    x: reason.x,
+    y: reason.y,
+    button: "left",
+    clickCount: 1,
+  });
+  await page.send("Input.dispatchMouseEvent", {
+    type: "mouseReleased",
+    x: reason.x,
+    y: reason.y,
+    button: "left",
+    clickCount: 1,
+  });
+  await page.waitFor(`Boolean(document.querySelector('[data-testid="report-confirmation"]'))`, 8_000);
+
   console.log(`Validated public play lobby → answer → reveal (${answer.kind}).`);
 } finally {
   await cleanup();

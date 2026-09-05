@@ -135,6 +135,7 @@ try {
   await page.send("Page.navigate", { url: `${appUrl}/party` });
   await page.waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-setup"]'))`);
+  await delay(400);
 
   const fill = async (testid, value) => {
     await page.evaluate(`(() => {

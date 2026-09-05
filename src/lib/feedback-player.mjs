@@ -53,8 +53,9 @@ export function createFeedbackPlayer({
     }
   }
 
-  function pauseAll() {
-    for (const clips of boards.values()) {
+  function pauseAll(exceptKind = null) {
+    for (const [kind, clips] of boards.entries()) {
+      if (kind === exceptKind) continue;
       for (const { audio } of clips) resetClip(audio);
     }
   }
@@ -71,13 +72,25 @@ export function createFeedbackPlayer({
     return Boolean(boards.get(kind)?.some(({ audio }) => audio.paused === false));
   }
 
+  function isAbortError(error) {
+    return Boolean(error && (error.name === "AbortError" || /interrupted by a call to pause/i.test(String(error))));
+  }
+
   function startClip(audio) {
     if (typeof audio.play !== "function") return Promise.resolve();
-    const first = audio.play();
-    if (!first || typeof first.catch !== "function") return Promise.resolve();
-    return first.catch(() => {
+    const attempt = () => {
+      const result = audio.play();
+      if (!result || typeof result.catch !== "function") return Promise.resolve();
+      return result;
+    };
+    return attempt().catch((error) => {
       if (typeof audio.play !== "function") return Promise.reject(new Error("play-failed"));
-      return audio.play();
+      if (!isAbortError(error)) return attempt();
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          attempt().then(resolve, reject);
+        }, 20);
+      });
     });
   }
 
@@ -88,10 +101,11 @@ export function createFeedbackPlayer({
     preload();
     const clips = boards.get(kind);
     if (!clips?.length) return { played: false, reason: "missing", created };
-    pauseAll();
+    pauseAll(kind);
     pendingResult = RESULT_KINDS.has(kind) ? kind : null;
     const starts = [];
     for (const { audio, gain } of clips) {
+      resetClip(audio);
       audio.volume = Math.min(1, volume * gain);
       starts.push(startClip(audio));
     }

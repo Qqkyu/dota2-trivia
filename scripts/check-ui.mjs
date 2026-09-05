@@ -50,9 +50,9 @@ let server = null;
 if (!(await healthy(appUrl))) {
   const port = await freePort();
   appUrl = `http://127.0.0.1:${port}`;
-  server = spawn("pnpm", ["start", "--", "-p", String(port)], {
+  server = spawn("pnpm", ["start", "-H", "127.0.0.1", "-p", String(port)], {
     stdio: "ignore",
-    env: { ...process.env, PORT: String(port) },
+    env: { ...process.env, PORT: String(port), HOSTNAME: "127.0.0.1" },
   });
   const startedAt = Date.now();
   while (Date.now() - startedAt < 60_000) {
@@ -72,6 +72,11 @@ try {
     "check-party-previews.mjs",
     "check-party-nicks.mjs",
     "check-public-play.mjs",
+    "check-reports-api.mjs",
+    "check-shop-search.mjs",
+    "check-flashback-ui.mjs",
+    "check-feedback-sounds.mjs",
+    "check-rate-limit-live.mjs",
   ]) {
     await run(script, appUrl);
   }
