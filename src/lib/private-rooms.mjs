@@ -5,6 +5,12 @@ export const PRIVATE_ROOM_CODE_MAX = 16;
 export const PRIVATE_ROOM_CODE_LENGTH = PRIVATE_ROOM_CODE_MAX;
 export const PRIVATE_ROOM_CODE_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 export const PRIVATE_ROOM_IDLE_MS = 30 * 60 * 1000;
+/**
+ * A player who stops polling (closed tab, lost network) leaves the roster
+ * after this long. Background tabs throttle timers to about once a minute,
+ * so this must stay well above 60s or minimised players get kicked.
+ */
+export const PRIVATE_ROOM_MEMBER_TIMEOUT_MS = 90_000;
 export const PRIVATE_ROOM_POLL_MS = 1_000;
 export const PRIVATE_ROOM_MAX_MESSAGES = 40;
 export const PRIVATE_ROOM_MESSAGE_MAX = 80;
@@ -200,12 +206,31 @@ export function expireIdlePrivateRooms(now = Date.now()) {
   }
 }
 
+/** Drop members nobody has heard from; pass host to the next player; kill empty rooms. */
+function pruneStaleMembers(record, now) {
+  const before = record.members?.length ?? 0;
+  record.members = (record.members ?? []).filter(
+    (member) => !(now >= member.lastSeenAt && now - member.lastSeenAt >= PRIVATE_ROOM_MEMBER_TIMEOUT_MS),
+  );
+  if (record.members.length === before) return false;
+  if (record.members.length === 0) {
+    rooms.delete(record.code);
+    return true;
+  }
+  if (!record.members.some((member) => member.playerId === record.hostId)) {
+    record.hostId = record.members[0].playerId;
+  }
+  return true;
+}
+
 export function getPrivateRoom(code, now = Date.now(), viewerId) {
   expireIdlePrivateRooms(now);
   const normalized = normalizePrivateRoomCode(code);
   if (!normalized) return null;
   const record = rooms.get(normalized);
   if (!record) return null;
+  pruneStaleMembers(record, now);
+  if (!rooms.has(normalized)) return null;
   return publicView(record, viewerId);
 }
 
@@ -213,10 +238,16 @@ export function touchPrivateRoom(code, now = Date.now(), identity) {
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
   if (!record) return null;
   record.lastSeenAt = now;
+  pruneStaleMembers(record, now);
+  if (!rooms.has(record.code) && !identity?.playerId) return null;
+  if (!rooms.has(record.code)) rooms.set(record.code, record);
   let nameTakenFlag = false;
   if (identity?.playerId) {
     const result = upsertMember(record, identity.playerId, identity.name, now, identity.applyName);
     nameTakenFlag = Boolean(result.nameTaken);
+    if (!record.members.some((member) => member.playerId === record.hostId)) {
+      record.hostId = record.members[0].playerId;
+    }
   }
   return { ...publicView(record, identity?.playerId), nameTaken: nameTakenFlag };
 }
