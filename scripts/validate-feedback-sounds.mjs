@@ -93,7 +93,9 @@ if (
   !component.includes("const DEFAULT_GAME_VOLUME = 0.7") ||
   component.includes("const DEFAULT_GAME_VOLUME = 0.1")
 ) {
-  failures.push("Arcade feedback still points at a removed audio ref, skips the preloaded board, or defaults to an inaudible volume.");
+  failures.push(
+    "Arcade feedback still points at a removed audio ref, skips the preloaded board, or defaults to an inaudible volume.",
+  );
 }
 
 class FakeAudio {

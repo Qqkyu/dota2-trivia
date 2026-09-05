@@ -1145,7 +1145,9 @@ if (!answering.openShop) {
       );
     }
   } else if (answering.flashbackYear) {
-    await evaluate(`document.querySelector('[data-testid="flashback-year-slider"]')?.dispatchEvent(new PointerEvent("pointerup", { bubbles: true }))`);
+    await evaluate(
+      `document.querySelector('[data-testid="flashback-year-slider"]')?.dispatchEvent(new PointerEvent("pointerup", { bubbles: true }))`,
+    );
   } else if (answering.flashbackOrder) {
     const measureFlashbackOrder = `(() => {
       const board = document.querySelector('[data-testid="flashback-order-board"]');

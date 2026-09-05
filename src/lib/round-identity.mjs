@@ -163,7 +163,11 @@ export function compareFormatMastery(playerFormats, roomRecords = []) {
               stage: 1,
               label: CLUE_LABELS[0],
               correct: row.firstStageCorrect,
-              answered: row.firstStageAnswered || (row.firstStageCorrect && !row.secondStageAnswered && !row.thirdStageAnswered ? row.progressiveAnswered : 0),
+              answered:
+                row.firstStageAnswered ||
+                (row.firstStageCorrect && !row.secondStageAnswered && !row.thirdStageAnswered
+                  ? row.progressiveAnswered
+                  : 0),
             },
             { stage: 2, label: CLUE_LABELS[1], correct: row.secondStageCorrect, answered: row.secondStageAnswered },
             { stage: 3, label: CLUE_LABELS[2], correct: row.thirdStageCorrect, answered: row.thirdStageAnswered },

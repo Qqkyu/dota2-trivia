@@ -257,9 +257,7 @@ export function isPublicArcadeQuestion(value: unknown): value is PublicArcadeQue
         (typeof reveal?.correctAnswerKey === "string" &&
           Array.isArray(reveal.orderValues) &&
           reveal.orderValues.length === 4)) &&
-      (candidate.answerMode !== "flashback-year" ||
-        reveal === null ||
-        typeof reveal?.correctAnswerKey === "string") &&
+      (candidate.answerMode !== "flashback-year" || reveal === null || typeof reveal?.correctAnswerKey === "string") &&
       (candidate.clueStage === 1 || candidate.clueStage === 2 || candidate.clueStage === 3) &&
       (reveal === null ||
         (Boolean(reveal) &&

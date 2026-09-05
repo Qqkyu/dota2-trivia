@@ -19,16 +19,17 @@ import { varietyShuffle } from "../src/lib/variety.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const readQuestions = async (file) => JSON.parse(await readFile(join(root, "src", "data", file), "utf8"));
-const [generated, shopkeeper, soundcheck, valueOrder, aghanim, flashback, component, componentStyles] = await Promise.all([
-  readQuestions("questions.generated.json"),
-  readQuestions("shopkeeper-questions.json"),
-  readQuestions("soundcheck-questions.json"),
-  readQuestions("value-order-questions.json"),
-  readQuestions("aghanim-questions.json"),
-  readQuestions("flashback-questions.json"),
-  readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8"),
-  readFile(join(root, "src", "components", "queue-arcade.module.css"), "utf8"),
-]);
+const [generated, shopkeeper, soundcheck, valueOrder, aghanim, flashback, component, componentStyles] =
+  await Promise.all([
+    readQuestions("questions.generated.json"),
+    readQuestions("shopkeeper-questions.json"),
+    readQuestions("soundcheck-questions.json"),
+    readQuestions("value-order-questions.json"),
+    readQuestions("aghanim-questions.json"),
+    readQuestions("flashback-questions.json"),
+    readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8"),
+    readFile(join(root, "src", "components", "queue-arcade.module.css"), "utf8"),
+  ]);
 
 const generatedLive = generated.filter(
   (question) =>

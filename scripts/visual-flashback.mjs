@@ -512,7 +512,9 @@ if (
 ) {
   failures.push("order cards jumped after pick");
 }
-if (JSON.stringify(orderReveal.rows.map((row) => row.name)) !== JSON.stringify(["Muerta", "Ringmaster", "Kez", "Largo"])) {
+if (
+  JSON.stringify(orderReveal.rows.map((row) => row.name)) !== JSON.stringify(["Muerta", "Ringmaster", "Kez", "Largo"])
+) {
   failures.push(`order reveal names ${orderReveal.rows.map((row) => row.name).join(",")}`);
 }
 if (orderReveal.rows.some((row) => row.clipped || row.contextUnderIndex || row.fontSize < 13)) {
@@ -555,7 +557,20 @@ if (photoMobile.overflow) failures.push("mobile photo overflow");
 
 console.log(
   JSON.stringify(
-    { orderBefore, orderAfterPick, orderReveal, yearBefore, yearAfterSlide, yearAfterPick, yearReveal, photoAnswering, artBefore, photoReveal, photoMobile, failures },
+    {
+      orderBefore,
+      orderAfterPick,
+      orderReveal,
+      yearBefore,
+      yearAfterSlide,
+      yearAfterPick,
+      yearReveal,
+      photoAnswering,
+      artBefore,
+      photoReveal,
+      photoMobile,
+      failures,
+    },
     null,
     2,
   ),

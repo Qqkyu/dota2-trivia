@@ -1,7 +1,9 @@
 import { LIVE_ROUND_GAMES, roundFormatForQuestion, roundGameForFormat } from "./arcade-games.mjs";
 import shopkeeperCatalog from "../data/shopkeeper-catalog.json" with { type: "json" };
 
-const SHOP_ITEMS_BY_KEY = new Map(shopkeeperCatalog.groups.flatMap((group) => group.items).map((item) => [item.key, item]));
+const SHOP_ITEMS_BY_KEY = new Map(
+  shopkeeperCatalog.groups.flatMap((group) => group.items).map((item) => [item.key, item]),
+);
 
 function copyImage(image, alt) {
   if (!image?.src) return null;

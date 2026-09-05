@@ -228,7 +228,9 @@ try {
 
   await fill("private-room-name", "");
   await delay(1200);
-  const cleared = await page.evaluate(`document.querySelector('[data-testid="private-room-name"]')?.value ?? "missing"`);
+  const cleared = await page.evaluate(
+    `document.querySelector('[data-testid="private-room-name"]')?.value ?? "missing"`,
+  );
   if (cleared !== "") {
     throw new Error(`Clearing the name snapped back to ${JSON.stringify(cleared)}.`);
   }
@@ -379,15 +381,15 @@ try {
 
   const otherSession = await joinApiGuest(crypto.randomUUID());
   if (!otherSession.some((player) => player.name === "Alex")) {
-    throw new Error(
-      `Other session still has the old nick (${otherSession.map((player) => player.name).join(", ")}).`,
-    );
+    throw new Error(`Other session still has the old nick (${otherSession.map((player) => player.name).join(", ")}).`);
   }
 
   await fill("private-room-chat-input", "glhf");
   await clickTestId("private-room-chat-send");
   await delay(400);
-  const sentChat = await page.evaluate(`document.querySelector('[data-testid="private-room-chat"]')?.textContent ?? ""`);
+  const sentChat = await page.evaluate(
+    `document.querySelector('[data-testid="private-room-chat"]')?.textContent ?? ""`,
+  );
   if (!sentChat.includes("glhf")) {
     throw new Error(`Chat did not show the sent line (${JSON.stringify(sentChat)}).`);
   }
@@ -515,9 +517,7 @@ try {
 
   const shots = await page.send("Page.captureScreenshot", { format: "png" });
   await writeFile("/tmp/party-lobby.png", Buffer.from(shots.data, "base64"));
-  console.log(
-    `Validated party lobby names, uniqueness, and 3 tabs for ${partyCode} (${roster.join(", ")}).`,
-  );
+  console.log(`Validated party lobby names, uniqueness, and 3 tabs for ${partyCode} (${roster.join(", ")}).`);
 } finally {
   await cleanup();
 }

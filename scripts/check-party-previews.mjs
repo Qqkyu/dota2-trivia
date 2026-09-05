@@ -203,10 +203,7 @@ try {
   if (mismatched.length) {
     console.error(
       mismatched
-        .map(
-          (stage) =>
-            `${stage.id} is ${stage.w}x${stage.h}; profile previews are ${profileWidth}x${profileHeight}.`,
-        )
+        .map((stage) => `${stage.id} is ${stage.w}x${stage.h}; profile previews are ${profileWidth}x${profileHeight}.`)
         .join("\n"),
     );
     process.exitCode = 1;
@@ -298,9 +295,7 @@ try {
           };
         })()`);
         if (!emptyEnter.ok) {
-          console.error(
-            `Empty Enter did not highlight the code field (${JSON.stringify(emptyEnter)}).`,
-          );
+          console.error(`Empty Enter did not highlight the code field (${JSON.stringify(emptyEnter)}).`);
           process.exitCode = 1;
         } else {
           const fill = async (testid, value) => {
@@ -334,31 +329,35 @@ try {
           await delay(100);
           await clickEnter();
           await delay(250);
-          const noGames = await page.evaluate(`document.querySelector('[data-testid="private-room-error"]')?.textContent`);
+          const noGames = await page.evaluate(
+            `document.querySelector('[data-testid="private-room-error"]')?.textContent`,
+          );
           if (!/pick at least one game/i.test(noGames ?? "")) {
             console.error(`Zero games still entered a party (${noGames}).`);
             process.exitCode = 1;
           } else {
-          await page.evaluate(`document.querySelector('[data-testid="format-preview-stage-trivia"]')?.closest("button")?.click()`);
-          const partyCode = `H${Date.now().toString(36).slice(-5).toUpperCase()}`;
-          await fill("private-room-join-code", partyCode);
-          await delay(100);
-          await clickEnter();
-          await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
-          await delay(200);
-          const autoName = await page.evaluate(`(() => ({
+            await page.evaluate(
+              `document.querySelector('[data-testid="format-preview-stage-trivia"]')?.closest("button")?.click()`,
+            );
+            const partyCode = `H${Date.now().toString(36).slice(-5).toUpperCase()}`;
+            await fill("private-room-join-code", partyCode);
+            await delay(100);
+            await clickEnter();
+            await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
+            await delay(200);
+            const autoName = await page.evaluate(`(() => ({
             name: document.querySelector('[data-testid="private-room-name"]')?.value ?? "",
             pen: Boolean(document.querySelector('[data-testid="private-room-name-pen"]')),
             penCursor: document.querySelector('[data-testid="private-room-name-pen"]')
               ? getComputedStyle(document.querySelector('[data-testid="private-room-name-pen"]')).cursor
               : "",
           }))()`);
-          if (!autoName.name.trim() || !autoName.pen || autoName.penCursor !== "pointer") {
-            console.error(`Wait name is blank or missing a pen cue (${JSON.stringify(autoName)}).`);
-            process.exitCode = 1;
-          } else {
-          await fill("private-room-name", "Loda");
-          const keptFocus = await page.evaluate(`(() => {
+            if (!autoName.name.trim() || !autoName.pen || autoName.penCursor !== "pointer") {
+              console.error(`Wait name is blank or missing a pen cue (${JSON.stringify(autoName)}).`);
+              process.exitCode = 1;
+            } else {
+              await fill("private-room-name", "Loda");
+              const keptFocus = await page.evaluate(`(() => {
             const input = document.querySelector('[data-testid="private-room-name"]');
             input.focus();
             const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
@@ -366,26 +365,24 @@ try {
             input.dispatchEvent(new Event("input", { bubbles: true }));
             return document.activeElement === input && input.value === "LodaX";
           })()`);
-          await delay(80);
-          const stillFocused = await page.evaluate(
-            `document.activeElement === document.querySelector('[data-testid="private-room-name"]')`,
-          );
-          const copyBox = await page.evaluate(`(() => {
+              await delay(80);
+              const stillFocused = await page.evaluate(
+                `document.activeElement === document.querySelector('[data-testid="private-room-name"]')`,
+              );
+              const copyBox = await page.evaluate(`(() => {
             const button = [...document.querySelectorAll("button")].find((node) => /copy link|copied/i.test(node.textContent ?? ""));
             if (!button) return null;
             const width = Math.round(button.getBoundingClientRect().width);
             button.click();
             return { width, after: Math.round(button.getBoundingClientRect().width) };
           })()`);
-          await delay(80);
-          await page.evaluate(`document.querySelector('[data-testid="private-room-chat-toggle"]')?.click()`);
-          await delay(80);
-          const chatHidden = await page.evaluate(
-            `!document.querySelector('[data-testid="private-room-chat"]')`,
-          );
-          const waitShots = await page.send("Page.captureScreenshot", { format: "png" });
-          await writeFile("/tmp/party-wait.png", Buffer.from(waitShots.data, "base64"));
-          const entered = await page.evaluate(`(() => {
+              await delay(80);
+              await page.evaluate(`document.querySelector('[data-testid="private-room-chat-toggle"]')?.click()`);
+              await delay(80);
+              const chatHidden = await page.evaluate(`!document.querySelector('[data-testid="private-room-chat"]')`);
+              const waitShots = await page.send("Page.captureScreenshot", { format: "png" });
+              await writeFile("/tmp/party-wait.png", Buffer.from(waitShots.data, "base64"));
+              const entered = await page.evaluate(`(() => {
             const rows = [...document.querySelectorAll('[data-testid="private-room-players"] li')];
             const first = rows[0];
             const start = document.querySelector('[data-testid="private-room-start"]');
@@ -398,45 +395,45 @@ try {
               canStart: Boolean(start),
             };
           })()`);
-          if (entered.path !== `/play?room=${partyCode}`) {
-            console.error(`Entering opened ${entered.path}, expected /play?room=${partyCode}.`);
-            process.exitCode = 1;
-          } else if (!keptFocus || !stillFocused) {
-            console.error("Typing a party name lost input focus.");
-            process.exitCode = 1;
-          } else if (!copyBox || copyBox.width !== copyBox.after) {
-            console.error(`Copy link changed width (${JSON.stringify(copyBox)}).`);
-            process.exitCode = 1;
-          } else if (!chatHidden) {
-            console.error("Chat did not hide.");
-            process.exitCode = 1;
-          } else if (!entered.firstSelf || !entered.firstEditable) {
-            console.error(`Your name is not the first editable player row (${JSON.stringify(entered)}).`);
-            process.exitCode = 1;
-          } else if (entered.canStart) {
-            await page.evaluate(`document.querySelector('[data-testid="private-room-start"]')?.click()`);
-            await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-countdown"]'))`, 4_000);
-            const counting = await page.evaluate(
-              `Boolean(document.querySelector('[data-testid="round-entry-wait"]'))`,
-            );
-            if (counting) {
-              console.error("Private Start opened the public wait-for-next-question screen.");
-              process.exitCode = 1;
-            } else {
-              await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-ranking"]'))`, 8_000);
-              const afterStart = await page.evaluate(`({
+              if (entered.path !== `/play?room=${partyCode}`) {
+                console.error(`Entering opened ${entered.path}, expected /play?room=${partyCode}.`);
+                process.exitCode = 1;
+              } else if (!keptFocus || !stillFocused) {
+                console.error("Typing a party name lost input focus.");
+                process.exitCode = 1;
+              } else if (!copyBox || copyBox.width !== copyBox.after) {
+                console.error(`Copy link changed width (${JSON.stringify(copyBox)}).`);
+                process.exitCode = 1;
+              } else if (!chatHidden) {
+                console.error("Chat did not hide.");
+                process.exitCode = 1;
+              } else if (!entered.firstSelf || !entered.firstEditable) {
+                console.error(`Your name is not the first editable player row (${JSON.stringify(entered)}).`);
+                process.exitCode = 1;
+              } else if (entered.canStart) {
+                await page.evaluate(`document.querySelector('[data-testid="private-room-start"]')?.click()`);
+                await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-countdown"]'))`, 4_000);
+                const counting = await page.evaluate(
+                  `Boolean(document.querySelector('[data-testid="round-entry-wait"]'))`,
+                );
+                if (counting) {
+                  console.error("Private Start opened the public wait-for-next-question screen.");
+                  process.exitCode = 1;
+                } else {
+                  await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-ranking"]'))`, 8_000);
+                  const afterStart = await page.evaluate(`({
                 entryWait: Boolean(document.querySelector('[data-testid="round-entry-wait"]')),
                 ranking: Boolean(document.querySelector('[data-testid="private-room-ranking"]')),
                 names: [...document.querySelectorAll('[data-testid="private-room-ranking"] strong')].map((node) => node.textContent?.trim() ?? ""),
               })`);
-              if (afterStart.entryWait) {
-                console.error("Private Start opened the public wait-for-next-question screen.");
-                process.exitCode = 1;
-              } else if (!afterStart.ranking || afterStart.names.some((name) => !name)) {
-                console.error("Private play has no named ranking.");
-                process.exitCode = 1;
-              } else {
-                const dock = await page.evaluate(`(() => {
+                  if (afterStart.entryWait) {
+                    console.error("Private Start opened the public wait-for-next-question screen.");
+                    process.exitCode = 1;
+                  } else if (!afterStart.ranking || afterStart.names.some((name) => !name)) {
+                    console.error("Private play has no named ranking.");
+                    process.exitCode = 1;
+                  } else {
+                    const dock = await page.evaluate(`(() => {
                   const chat = document.querySelector('[data-testid="private-room-chat"]');
                   const toggle = document.querySelector('[data-testid="private-room-chat-toggle"]');
                   if (!chat || !toggle) return { ok: false };
@@ -444,55 +441,55 @@ try {
                   const toggleBox = toggle.getBoundingClientRect();
                   return { ok: toggleBox.top + 1 >= chatBox.bottom, chatTop: chatBox.top, toggleTop: toggleBox.top };
                 })()`);
-                if (!dock.ok) {
-                  console.error(`Play chat toggle is not under the chat box (${JSON.stringify(dock)}).`);
-                  process.exitCode = 1;
-                } else {
-                  const answer = await page.evaluate(`(() => {
+                    if (!dock.ok) {
+                      console.error(`Play chat toggle is not under the chat box (${JSON.stringify(dock)}).`);
+                      process.exitCode = 1;
+                    } else {
+                      const answer = await page.evaluate(`(() => {
                     const node = document.querySelector('[data-testid="arcade-answer"]:not([disabled]), [data-testid="hero-picker-hero"], [data-testid="shopkeeper-store-item"], [data-testid="value-order-card"]');
                     if (!node) return null;
                     const rect = node.getBoundingClientRect();
                     return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
                   })()`);
-                  if (answer) {
-                    await page.send("Input.dispatchMouseEvent", {
-                      type: "mousePressed",
-                      x: answer.x,
-                      y: answer.y,
-                      button: "left",
-                      clickCount: 1,
-                    });
-                    await page.send("Input.dispatchMouseEvent", {
-                      type: "mouseReleased",
-                      x: answer.x,
-                      y: answer.y,
-                      button: "left",
-                      clickCount: 1,
-                    });
-                  }
-                  await page.waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
-                  const scored = await page.evaluate(`(() => {
+                      if (answer) {
+                        await page.send("Input.dispatchMouseEvent", {
+                          type: "mousePressed",
+                          x: answer.x,
+                          y: answer.y,
+                          button: "left",
+                          clickCount: 1,
+                        });
+                        await page.send("Input.dispatchMouseEvent", {
+                          type: "mouseReleased",
+                          x: answer.x,
+                          y: answer.y,
+                          button: "left",
+                          clickCount: 1,
+                        });
+                      }
+                      await page.waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
+                      const scored = await page.evaluate(`(() => {
                     const names = document.querySelectorAll('[data-testid="private-room-ranking"] strong');
                     const scores = document.querySelectorAll('[data-testid="private-room-ranking"] em');
                     return names.length > 0 && names.length === scores.length;
                   })()`);
-                  if (!scored) {
-                    console.error("Private ranking has no scores after a round.");
-                    process.exitCode = 1;
-                  } else {
-                    console.log(
-                      `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
-                    );
+                      if (!scored) {
+                        console.error("Private ranking has no scores after a round.");
+                        process.exitCode = 1;
+                      } else {
+                        console.log(
+                          `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
+                        );
+                      }
+                    }
                   }
                 }
+              } else {
+                console.log(
+                  `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
+                );
               }
             }
-          } else {
-            console.log(
-              `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
-            );
-          }
-          }
           }
         }
       }

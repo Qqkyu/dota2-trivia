@@ -95,7 +95,9 @@ record(
 );
 record(/justify-items:\s*center/.test(partyCss) && /\.lobby \{/.test(partyCss), "The wait lobby must be centered.");
 record(
-  partySource.includes("beforeunload") && partySource.includes("sendBeacon") && partySource.includes("PRIVATE_ROOM_POLL_MS"),
+  partySource.includes("beforeunload") &&
+    partySource.includes("sendBeacon") &&
+    partySource.includes("PRIVATE_ROOM_POLL_MS"),
   "Closing a tab must send leave at once, and the wait list must poll faster than 4s.",
 );
 record(
@@ -146,7 +148,8 @@ record(
   "Idle or background tabs must not prune party members. Only Leave removes them.",
 );
 record(
-  arcadeSource.includes("if (!privateCode)") && arcadeSource.includes("entryWaitRoundIdRef.current = result.snapshot.round.id"),
+  arcadeSource.includes("if (!privateCode)") &&
+    arcadeSource.includes("entryWaitRoundIdRef.current = result.snapshot.round.id"),
   "Private Start must skip the public wait-for-next-question screen.",
 );
 record(
@@ -170,7 +173,7 @@ record(
     partySource.includes("flashNameNotice") &&
     /position:\s*absolute/.test(nameErrorCss) &&
     !/position:\s*relative/.test(nameErrorCss) &&
-    !partySource.includes("data-invalid={errorField === \"name\""),
+    !partySource.includes('data-invalid={errorField === "name"'),
   "That name is taken must overlay the name row, fade out, and not mark the reverted nick as wrong.",
 );
 record(

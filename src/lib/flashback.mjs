@@ -67,13 +67,7 @@ export function flashbackYearCorrectAnswerKey(question) {
 
 export function isFlashbackYearAnswerInRange(answerKey, yearMin, yearMax) {
   const year = flashbackYearFromAnswerKey(answerKey);
-  return (
-    year !== null &&
-    Number.isInteger(yearMin) &&
-    Number.isInteger(yearMax) &&
-    year >= yearMin &&
-    year <= yearMax
-  );
+  return year !== null && Number.isInteger(yearMin) && Number.isInteger(yearMax) && year >= yearMin && year <= yearMax;
 }
 
 export function isFlashbackYearAnswerForQuestion(question, answerKey, now = Date.now()) {

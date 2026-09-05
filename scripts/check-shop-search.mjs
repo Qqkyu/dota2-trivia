@@ -168,7 +168,10 @@ try {
   });
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
   await page.evaluate(`document.querySelector('[data-testid="private-room-start"]')?.click()`);
-  await page.waitFor(`Boolean(document.querySelector('[data-testid="shopkeeper-search"], [data-testid="shopkeeper-search-field"]'))`, 12_000);
+  await page.waitFor(
+    `Boolean(document.querySelector('[data-testid="shopkeeper-search"], [data-testid="shopkeeper-search-field"]'))`,
+    12_000,
+  );
 
   const before = await page.evaluate(`document.querySelectorAll('[data-testid="shopkeeper-store-item"]').length`);
   await page.evaluate(`(() => {

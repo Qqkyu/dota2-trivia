@@ -453,7 +453,9 @@ try {
     errors.push(`Focused reveal played neither wrong nor correct. log=${JSON.stringify(afterFocusedReveal.log)}`);
   }
   if (focusedWrongOk.length > 1 || focusedCorrectOk.length > 1) {
-    errors.push(`Focused result cue played more than once: wrong=${focusedWrongOk.length} correct=${focusedCorrectOk.length}`);
+    errors.push(
+      `Focused result cue played more than once: wrong=${focusedWrongOk.length} correct=${focusedCorrectOk.length}`,
+    );
   }
 
   await page.waitFor(`document.querySelector("main")?.dataset.phase === "answering"`, 25_000);
@@ -464,7 +466,9 @@ try {
   const background = await browser.send("Target.createTarget", { url: "about:blank" });
   await browser.send("Target.activateTarget", { targetId: background.targetId });
   await delay(200);
-  const hiddenAfterSwitch = await page.evaluate(`({ hidden: Boolean(document.hidden), visibility: document.visibilityState })`);
+  const hiddenAfterSwitch = await page.evaluate(
+    `({ hidden: Boolean(document.hidden), visibility: document.visibilityState })`,
+  );
 
   await page.waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
   const hiddenRevealLog = await waitKinds(["wrong", "correct"], 3_000);
@@ -507,7 +511,12 @@ try {
     );
   }
   const hiddenPlayedClip = hiddenCorrectOk.length ? afterHiddenReveal.correct : afterHiddenReveal.wrong;
-  if (hiddenWrongOk.length + hiddenCorrectOk.length < 1 && hiddenPlayedClip && hiddenPlayedClip.paused && !hiddenPlayedClip.ended) {
+  if (
+    hiddenWrongOk.length + hiddenCorrectOk.length < 1 &&
+    hiddenPlayedClip &&
+    hiddenPlayedClip.paused &&
+    !hiddenPlayedClip.ended
+  ) {
     errors.push(`Hidden-tab result play() did not keep the clip running: ${JSON.stringify(hiddenPlayedClip)}`);
   }
 
@@ -532,13 +541,9 @@ try {
   if (afterReturn.hidden) {
     errors.push(`Play tab stayed hidden after focus return: ${JSON.stringify(afterReturn)}`);
   } else if (hiddenResultOkCount >= 1 && visibleResultOk.length >= 1) {
-    errors.push(
-      "Result cue played again after the tab came back, even though it already played in the background.",
-    );
+    errors.push("Result cue played again after the tab came back, even though it already played in the background.");
   } else if (hiddenResultOkCount < 1 && visibleResultOk.length < 1) {
-    errors.push(
-      `Result cue never played in the background or after return. log=${JSON.stringify(afterReturn.log)}`,
-    );
+    errors.push(`Result cue never played in the background or after return. log=${JSON.stringify(afterReturn.log)}`);
   }
 
   const report = {
