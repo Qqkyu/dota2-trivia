@@ -127,15 +127,17 @@ The maintainer is a long-time Dota player. Design for an experienced player, not
 
 ### Verification
 
-- `pnpm validate-data`: all catalog, scheduling, scoring, privacy, payload, and product-contract checks.
+- `pnpm validate-data`: catalog, scheduling, privacy, payload, and product-contract checks.
+- `pnpm test`: the vitest unit suite under `tests/` (scoring, crowd splits, rate limits, calibration, reviews, revisions, diagnostics, party rooms, room sync, Spell Link redaction, interface copy). Runs in under a second.
 - `pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm validate-client-bundle`.
+- `pnpm check:ui`: headless-Chrome and API click-throughs against a live app, including `check-round-copy.mjs`, which plays one party round per format and checks copy, controls, and reveals in the DOM.
 - `pnpm check`: all of the above in order.
 - `node scripts/visual-smoke.mjs`: full desktop/mobile browser journey when Chrome exposes a remote-debugging port.
 - `pnpm check:multiplayer`: API/storage smoke, best with Postgres.
 - `pnpm check:resume`: freezes/stalls the browser across deadlines to prevent the former AFK stall regression.
 - `pnpm audit:client`: rechecks marked answers against a supplied decompiled Dota client.
 
-Tests are frequently source-contract validators rather than a conventional unit-test framework. When fixing a reported regression, add or extend the closest `scripts/validate-*.mjs` check and update `visual-smoke.mjs` if layout or browser state is involved.
+Pure logic is unit-tested in `tests/*.test.mjs` (vitest). Data and boundary rules live in `scripts/validate-*.mjs`; some of those still grep source files for architectural guards (client import boundary, cache headers, proxy usage). Player-visible behaviour belongs in the `scripts/check-*.mjs` browser click-throughs, not in source-string checks. When fixing a regression: add a unit test for logic, a `check-*.mjs` assertion for what the player sees, and update `visual-smoke.mjs` if layout or browser state is involved.
 
 ## Local development
 

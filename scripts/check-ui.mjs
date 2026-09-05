@@ -74,6 +74,7 @@ try {
     "check-public-play.mjs",
     "check-reports-api.mjs",
     "check-party-api.mjs",
+    "check-round-copy.mjs",
     "check-shop-search.mjs",
     "check-flashback-ui.mjs",
     "check-feedback-sounds.mjs",

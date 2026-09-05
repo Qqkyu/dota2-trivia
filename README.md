@@ -222,7 +222,7 @@ elimination, non-active item sets, unaudited sequence clips, and ordered pairs t
 pnpm check
 ```
 
-That validates the question deck, template rotation, answer balance, scan length, and visual/audio metadata, runs ESLint, runs strict TypeScript checking, creates an optimized production build, proves no private catalog data reached a browser bundle, and then runs the headless-Chrome and API click-throughs in `pnpm check:ui` (public play, party lobby, party audio and membership, reports, shop search, Flashback, feedback sounds, and production rate limits).
+That validates the question deck, template rotation, answer balance, scan length, and visual/audio metadata, runs the vitest unit suite (`pnpm test`: scoring, crowd splits, rate limits, calibration, reviews, revisions, diagnostics, party rooms, room sync, Spell Link redaction, and interface copy), runs ESLint, runs strict TypeScript checking, creates an optimized production build, proves no private catalog data reached a browser bundle, and then runs the headless-Chrome and API click-throughs in `pnpm check:ui` (public play, party lobby, party audio and membership, one party round per format checking copy, controls, and reveals, reports, shop search, Flashback, feedback sounds, and production rate limits).
 
 With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared
 round IDs and deadlines, sanitized answering payloads, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk
