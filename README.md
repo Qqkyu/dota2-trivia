@@ -26,7 +26,7 @@ The playable MVP includes:
 - live-client answer audits plus balanced A–D placement for every generated question family;
 - progressive Spell Link, Quote Hunt, and Aghanim's Lab clues delivered at server-owned stages;
 - a deterministic thirteen-format cadence that gives Classic three slots, Shopkeeper two, every distinctive interaction one, and never repeats a family back-to-back;
-- private party rooms at `/party`: the host picks formats and a code, friends join by link, a three-second countdown starts the party's own round clock, with an in-game ranking and a small chat; parties live in server memory and end on restart;
+- private party rooms at `/party`: the host picks formats and a code, friends join by link, a three-second countdown starts the party's own round clock, with an in-game ranking and a small chat; players whose tab goes silent for 90 seconds are tagged Away but keep their seat and score, and only Leave removes anyone; parties live in server memory and end on restart;
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
 - one server-owned public room: everyone receives the same round and deadlines;
 - server-delivered, phase-aware question payloads: the browser never imports the playable answer catalog;
@@ -222,7 +222,7 @@ elimination, non-active item sets, unaudited sequence clips, and ordered pairs t
 pnpm check
 ```
 
-That validates the question deck, template rotation, answer balance, scan length, and visual/audio metadata, runs the vitest unit suite (`pnpm test`: scoring, crowd splits, rate limits, calibration, reviews, revisions, diagnostics, party rooms, room sync, Spell Link redaction, and interface copy), runs ESLint, runs strict TypeScript checking, creates an optimized production build, proves no private catalog data reached a browser bundle, and then runs the headless-Chrome and API click-throughs in `pnpm check:ui` (public play, party lobby, party audio and membership, one party round per format checking copy, controls, and reveals, reports, shop search, Flashback, feedback sounds, and production rate limits).
+That validates the question deck, template rotation, answer balance, scan length, and visual/audio metadata, runs the vitest unit suite (`pnpm test`: scoring, crowd splits, rate limits, calibration, reviews, revisions, diagnostics, party rooms, room sync, Spell Link redaction, and interface copy), runs ESLint, runs strict TypeScript checking, creates an optimized production build, proves no private catalog data reached a browser bundle, and then runs the headless-Chrome and API click-throughs in `pnpm check:ui` (public play, party lobby, party audio and membership, one party round per format checking copy, controls, and reveals, reports, shop and hero-grid search with Enter picking the only match, Flashback, feedback sounds, and production rate limits).
 
 With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared
 round IDs and deadlines, sanitized answering payloads, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk

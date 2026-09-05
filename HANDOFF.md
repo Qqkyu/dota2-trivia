@@ -24,7 +24,7 @@ Queue Arcade is an unofficial desktop-first browser arcade for the time between 
 - Dota accuracy matters more than content volume. A plausible but unverified interaction is not acceptable.
 - Map Sense and Counterplay are retired. Their source/data is preserved only as an archive (their live UI, vote plumbing, and CSS were removed on 2026-09-05); do not put either back into the public cadence without a new design and full re-audit.
 - Mobile browser gameplay, public leaderboards, and competitive rankings are deliberately out of current scope.
-- Party rooms exist at `/party` (added late August 2026): the host picks formats and a code, friends join by link, and the party runs on its own round clock with a ranking and chat. Parties live in server memory only; a deploy ends them. The public crowd remains the main product.
+- Party rooms exist at `/party` (added late August 2026): the host picks formats and a code, friends join by link, and the party runs on its own round clock with a ranking and chat. A tab that stops polling for 90 seconds is tagged Away in both lists but keeps its seat and score; only Leave removes a player. Parties live in server memory only; a deploy ends them. The public crowd remains the main product.
 - The architecture should permit more games later (League of Legends was discussed), but do not build a second pack before Dota retention proves the loop is sticky.
 
 ## What currently works
@@ -58,7 +58,7 @@ The ten visible round identities are:
 - Quote Hunt: 245 proper written hero lines with two timed identity hints and the full hero grid.
 - Aghanim's Lab: current Scepter/Shard effect, then upgrade details, then ability name; full hero grid.
 - Order Up: drag/select four audited item, ability, or hero values from lowest to highest. The fourth pick submits automatically.
-- Flashback: 191 sourced history prompts (year slider, four choices, or ordering) about releases, patches, The International, and community moments, with official winner photos on reveal.
+- Flashback: 191 sourced history prompts (year slider with a Lock button, four choices, or ordering) about releases, patches, The International, and community moments, with official winner photos on reveal.
 
 Other completed foundations:
 
@@ -130,7 +130,7 @@ The maintainer is a long-time Dota player. Design for an experienced player, not
 - `pnpm validate-data`: catalog, scheduling, privacy, payload, and product-contract checks.
 - `pnpm test`: the vitest unit suite under `tests/` (scoring, crowd splits, rate limits, calibration, reviews, revisions, diagnostics, party rooms, room sync, Spell Link redaction, interface copy). Runs in under a second.
 - `pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm validate-client-bundle`.
-- `pnpm check:ui`: headless-Chrome and API click-throughs against a live app, including `check-round-copy.mjs`, which plays one party round per format and checks copy, controls, and reveals in the DOM.
+- `pnpm check:ui`: headless-Chrome and API click-throughs against a live app, including `check-round-copy.mjs`, which plays one party round per format and checks copy, controls, and reveals in the DOM, and `check-hero-search.mjs`, which types into the hero grid, presses Enter, and checks the reveal names the hero without moving the grid.
 - `pnpm check`: all of the above in order.
 - `node scripts/visual-smoke.mjs`: full desktop/mobile browser journey when Chrome exposes a remote-debugging port.
 - `pnpm check:multiplayer`: API/storage smoke, best with Postgres.
@@ -173,7 +173,7 @@ State verified on 2026-08-12:
 - The Render web service itself is on the free plan. The maintainer intentionally wants to postpone paid hosting until launch readiness.
 - Render is the maintainer's preferred host because their other apps already live there. Supabase was discussed for Postgres but not chosen; default to paid Render Postgres at launch unless that decision is explicitly reopened.
 - The most recent full verification (commit `33c466f`) passed the 1,326-question data suite, lint, strict TypeScript, production build, private-client-bundle audit, and visual desktop/mobile smoke.
-- A full audit on 2026-09-05 found and fixed, in one commit each: the calibration page shipping every question with its answer to the browser (via `site-chrome.tsx` importing the catalog), all Flashback four-choice answers sitting on B, party Echo Hunt/Soundcheck audio returning 409, party chat trusting a client-supplied name and votes from non-members, a red `pnpm lint`/`pnpm audit`, seven Aghanim/Spell Link clues that named their answer, and ghost party members. `pnpm check` (including `check:ui`) is green after those commits.
+- A full audit on 2026-09-05 found and fixed, in one commit each: the calibration page shipping every question with its answer to the browser (via `site-chrome.tsx` importing the catalog), all Flashback four-choice answers sitting on B, party Echo Hunt/Soundcheck audio returning 409, party chat trusting a client-supplied name and votes from non-members, a red `pnpm lint`/`pnpm audit`, seven Aghanim/Spell Link clues that named their answer, and ghost party members. `pnpm check` (including `check:ui`) is green after those commits. Four small features followed the same day, one commit each: Enter picks the only hero or item a search leaves, the Flashback year slider locks with a button instead of on release, the hero grid names the correct hero on reveal in a fixed-height line, and silent party players get an Away tag instead of vanishing.
 - `validate-question-delivery` now walks every "use client" import graph; nothing under `src/components` may reach `trivia.ts`, `game-catalogs`, the stores, or the question JSON.
 - The development server may or may not survive a terminal/PC restart. Start it with `pnpm dev` if unavailable.
 
