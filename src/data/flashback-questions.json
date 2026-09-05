@@ -328,12 +328,12 @@
     "eyebrow": "Cologne 2011",
     "prompt": "Who won The International 2011 in Cologne?",
     "answers": [
-      "EHOME",
       "Natus Vincere",
       "Invictus Gaming",
-      "Alliance"
+      "Alliance",
+      "EHOME"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Na'Vi beat EHOME 3–1 at Gamescom in Cologne.",
     "flashback": {
       "family": "choice",
@@ -400,12 +400,12 @@
     "eyebrow": "The Play",
     "prompt": "Who won The International 2013 in Seattle?",
     "answers": [
+      "TongFu",
       "Natus Vincere",
       "Alliance",
-      "Orange Esports",
-      "TongFu"
+      "Orange Esports"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "Alliance beat Na'Vi 3–2. Game 5 is still called The Play.",
     "flashback": {
       "family": "choice",
@@ -437,12 +437,12 @@
     "eyebrow": "The first $10M final",
     "prompt": "Who won The International 2014 in Seattle?",
     "answers": [
-      "Vici Gaming",
-      "Newbee",
       "Evil Geniuses",
-      "Team DK"
+      "Team DK",
+      "Vici Gaming",
+      "Newbee"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Newbee beat Vici Gaming 3–1.",
     "flashback": {
       "family": "choice",
@@ -473,12 +473,12 @@
     "eyebrow": "KeyArena",
     "prompt": "Who won The International 2015 at KeyArena?",
     "answers": [
-      "CDEC Gaming",
       "Evil Geniuses",
       "LGD Gaming",
-      "Team Secret"
+      "Team Secret",
+      "CDEC Gaming"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "EG beat CDEC 3–1. SumaiL was 16.",
     "flashback": {
       "family": "choice",
@@ -546,12 +546,12 @@
     "eyebrow": "KeyArena 2017",
     "prompt": "Who won The International 2017 at KeyArena?",
     "answers": [
+      "Virtus.pro",
       "Newbee",
       "Team Liquid",
-      "LGD Gaming",
-      "Virtus.pro"
+      "LGD Gaming"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "Liquid swept Newbee 3–0.",
     "flashback": {
       "family": "choice",
@@ -583,12 +583,12 @@
     "eyebrow": "Vancouver",
     "prompt": "Who won The International 2018 in Vancouver?",
     "answers": [
-      "PSG.LGD",
-      "OG",
       "Team Liquid",
-      "Evil Geniuses"
+      "Evil Geniuses",
+      "PSG.LGD",
+      "OG"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "OG beat PSG.LGD 3–2 after starting in the open qualifiers.",
     "flashback": {
       "family": "choice",
@@ -620,12 +620,12 @@
     "eyebrow": "Shanghai",
     "prompt": "Who won The International 2019 in Shanghai?",
     "answers": [
-      "Team Liquid",
       "OG",
       "Team Secret",
-      "PSG.LGD"
+      "PSG.LGD",
+      "Team Liquid"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "OG beat Liquid 3–1 and became the first back-to-back TI winners.",
     "flashback": {
       "family": "choice",
@@ -694,12 +694,12 @@
     "eyebrow": "Singapore",
     "prompt": "Who won The International 2022 in Singapore?",
     "answers": [
+      "OG",
       "Team Secret",
       "Tundra Esports",
-      "Team Liquid",
-      "OG"
+      "Team Liquid"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "Tundra swept Secret 3–0 in Singapore.",
     "flashback": {
       "family": "choice",
@@ -731,12 +731,12 @@
     "eyebrow": "Climate Pledge",
     "prompt": "Who won The International 2023 in Seattle?",
     "answers": [
-      "Gaimin Gladiators",
-      "Team Spirit",
       "LGD Gaming",
-      "Team Liquid"
+      "Team Liquid",
+      "Gaimin Gladiators",
+      "Team Spirit"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Spirit swept Gaimin Gladiators 3–0 in Seattle.",
     "flashback": {
       "family": "choice",
@@ -768,12 +768,12 @@
     "eyebrow": "Copenhagen",
     "prompt": "Who won The International 2024 in Copenhagen?",
     "answers": [
-      "Gaimin Gladiators",
       "Team Liquid",
       "Team Spirit",
-      "Team Falcons"
+      "Team Falcons",
+      "Gaimin Gladiators"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Liquid swept Gaimin Gladiators 3–0 and took their second Aegis.",
     "flashback": {
       "family": "choice",
@@ -842,12 +842,12 @@
     "eyebrow": "Gamescom",
     "prompt": "Where was the first The International held?",
     "answers": [
+      "Hamburg",
       "Seattle",
       "Cologne",
-      "Shanghai",
-      "Hamburg"
+      "Shanghai"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "TI1 was at Gamescom in Cologne, Germany.",
     "flashback": {
       "family": "choice",
@@ -873,12 +873,12 @@
     "eyebrow": "Two Aegises",
     "prompt": "Which team first won The International two years in a row?",
     "answers": [
-      "Team Liquid",
-      "OG",
       "Team Spirit",
-      "Natus Vincere"
+      "Natus Vincere",
+      "Team Liquid",
+      "OG"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "OG won TI8 and TI9. No other team has gone back-to-back.",
     "flashback": {
       "family": "choice",
@@ -910,12 +910,12 @@
     "eyebrow": "The map before the game",
     "prompt": "Who created the original Defense of the Ancients Warcraft III map?",
     "answers": [
-      "IceFrog",
       "Eul",
       "Guinsoo",
-      "Pendragon"
+      "Pendragon",
+      "IceFrog"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Eul made the first DotA map. Guinsoo and then IceFrog later took the design.",
     "flashback": {
       "family": "choice",
@@ -1522,12 +1522,12 @@
     "eyebrow": "Not a port",
     "prompt": "Who was the first original hero made for Dota 2?",
     "answers": [
+      "Underlord",
       "Arc Warden",
       "Monkey King",
-      "Phoenix",
-      "Underlord"
+      "Phoenix"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "Monkey King shipped with patch 7.00 on 12 December 2016, after every Warcraft III DotA hero had been ported.",
     "flashback": {
       "family": "choice",
@@ -1558,12 +1558,12 @@
     "eyebrow": "The fourth stat",
     "prompt": "Patch 7.33 added which new hero attribute?",
     "answers": [
-      "Strength",
-      "Universal",
       "Agility",
-      "Intelligence"
+      "Intelligence",
+      "Strength",
+      "Universal"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "7.33 added Universal heroes. They have no primary attribute and gain attack damage from all three stats.",
     "flashback": {
       "family": "choice",
@@ -1589,12 +1589,12 @@
     "eyebrow": "Volvo please",
     "prompt": "Which event did players demand with ༼ つ ◕_◕ ༽つ?",
     "answers": [
-      "Frostivus",
       "Diretide",
       "Siltbreaker",
-      "Nemestice"
+      "Nemestice",
+      "Frostivus"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Valve skipped Diretide in 2013. Players spammed ༼ つ ◕_◕ ༽つ GIVE DIRETIDE until Valve brought it back in November.",
     "flashback": {
       "family": "choice",
@@ -1651,12 +1651,12 @@
     "eyebrow": "Sheepstick",
     "prompt": "In original DotA, Scythe of Vyse carried whose name?",
     "answers": [
+      "Pendragon",
       "Eul",
       "Guinsoo",
-      "IceFrog",
-      "Pendragon"
+      "IceFrog"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "It was Guinsoo's Scythe of Vyse, a nod to Steve Feak. Dota 2 dropped the name after he left to help make League of Legends.",
     "flashback": {
       "family": "choice",
@@ -1682,12 +1682,12 @@
     "eyebrow": "Lane shopping",
     "prompt": "Which shop did patch 7.23 remove from the map?",
     "answers": [
-      "Secret Shop",
-      "Side Shop",
       "Home Shop",
-      "Neutral Shop"
+      "Neutral Shop",
+      "Secret Shop",
+      "Side Shop"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "7.23, the Outlanders update, removed both side shops. Outposts took those spots, and every player got their own courier.",
     "flashback": {
       "family": "choice",
@@ -2606,12 +2606,12 @@
     "eyebrow": "The old name",
     "prompt": "What was Underlord called in Warcraft III DotA?",
     "answers": [
-      "Doom Lord",
       "Pit Lord",
       "Infernal",
-      "Fel Lord"
+      "Fel Lord",
+      "Doom Lord"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "He was Pit Lord, Azgalor. Valve renamed him Underlord for Dota 2.",
     "flashback": {
       "family": "choice",
@@ -2673,12 +2673,12 @@
     "eyebrow": "The old side shop tile",
     "prompt": "What replaced the side shops in patch 7.23?",
     "answers": [
+      "Twin Gates",
       "Shrines",
       "Outposts",
-      "Lotus Pools",
-      "Twin Gates"
+      "Lotus Pools"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "7.23 removed both side shops. Outposts sat on those tiles and could be captured.",
     "flashback": {
       "family": "choice",
@@ -2704,12 +2704,12 @@
     "eyebrow": "Corner portals",
     "prompt": "Patch 7.33 added which portals in the map corners?",
     "answers": [
-      "Watchers",
-      "Twin Gates",
       "Outposts",
-      "Side Shops"
+      "Side Shops",
+      "Watchers",
+      "Twin Gates"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "New Frontiers added Twin Gates in opposite corners so teams could jump across the map.",
     "flashback": {
       "family": "choice",
@@ -2735,12 +2735,12 @@
     "eyebrow": "Minute 20",
     "prompt": "Patch 7.33 added which 20-minute mini-boss behind each offlane?",
     "answers": [
-      "Roshan",
       "Tormentors",
       "Ancients",
-      "Courier"
+      "Courier",
+      "Roshan"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Tormentors spawn at 20:00 behind each offlane. The first team kill drops an Aghanim's Shard.",
     "flashback": {
       "family": "choice",
@@ -2802,12 +2802,12 @@
     "eyebrow": "The other MOBA",
     "prompt": "After leaving DotA, Guinsoo helped create which game?",
     "answers": [
+      "Smite",
       "Heroes of Newerth",
       "League of Legends",
-      "Heroes of the Storm",
-      "Smite"
+      "Heroes of the Storm"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "Steve Feak joined Riot and applied DotA lessons to League of Legends.",
     "flashback": {
       "family": "choice",
@@ -2833,12 +2833,12 @@
     "eyebrow": "The other drop",
     "prompt": "Besides the Aegis, what extra consumable can Roshan drop?",
     "answers": [
-      "Tango",
-      "Cheese",
       "Faerie Fire",
-      "Salve"
+      "Salve",
+      "Tango",
+      "Cheese"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Roshan can drop Cheese, a huge instant heal. Later kills can also drop Refresher Shard.",
     "flashback": {
       "family": "choice",
@@ -2869,12 +2869,12 @@
     "eyebrow": "The first Major",
     "prompt": "Who won the first Valve-sponsored Dota Major?",
     "answers": [
-      "Team Secret",
       "OG",
       "Evil Geniuses",
-      "Team Liquid"
+      "Team Liquid",
+      "Team Secret"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "OG beat Team Secret at the Frankfurt Major in November 2015.",
     "flashback": {
       "family": "choice",
@@ -2937,12 +2937,12 @@
     "eyebrow": "Jungle fountain",
     "prompt": "Patch 7.00 added which jungle building that healed nearby heroes?",
     "answers": [
+      "Watchers",
       "Outposts",
       "Shrines",
-      "Lotus Pools",
-      "Watchers"
+      "Lotus Pools"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "7.00 added Shrines with talents, the backpack, and Monkey King. 7.23 later removed them.",
     "flashback": {
       "family": "choice",
@@ -2968,12 +2968,12 @@
     "eyebrow": "Balance of Power",
     "prompt": "Which rune did patch 6.86 add?",
     "answers": [
-      "Bounty Rune",
-      "Arcane Rune",
       "Water Rune",
-      "Wisdom Rune"
+      "Wisdom Rune",
+      "Bounty Rune",
+      "Arcane Rune"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "6.86 added the Arcane Rune on 16 December 2015. It cut cooldowns and mana cost.",
     "flashback": {
       "family": "choice",
@@ -2999,12 +2999,12 @@
     "eyebrow": "Double drop",
     "prompt": "Which pair of heroes shipped on the same day?",
     "answers": [
-      "Mars and Grimstroke",
       "Oracle and Winter Wyvern",
       "Snapfire and Hoodwink",
-      "Dawnbreaker and Marci"
+      "Dawnbreaker and Marci",
+      "Mars and Grimstroke"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Oracle and Winter Wyvern both shipped on 12 February 2015.",
     "flashback": {
       "family": "choice",
@@ -3061,12 +3061,12 @@
     "eyebrow": "River fruit",
     "prompt": "Patch 7.33 added which riverside building?",
     "answers": [
+      "Secret Shop",
       "Side Shop",
       "Lotus Pools",
-      "Shrine",
-      "Secret Shop"
+      "Shrine"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "New Frontiers put Lotus Pools on the river edges. They spawn Healing Lotuses.",
     "flashback": {
       "family": "choice",
@@ -3092,12 +3092,12 @@
     "eyebrow": "Great news for DotA fans",
     "prompt": "Which company hired IceFrog in 2009?",
     "answers": [
-      "Blizzard",
-      "Valve",
       "Riot",
-      "Microsoft"
+      "Microsoft",
+      "Blizzard",
+      "Valve"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Valve hired IceFrog in October 2009 to lead a standalone DotA sequel.",
     "flashback": {
       "family": "choice",
@@ -3123,12 +3123,12 @@
     "eyebrow": "White Spire",
     "prompt": "What kind of game is Dota Underlords?",
     "answers": [
-      "Card game",
       "Auto battler",
       "MOBA",
-      "FPS"
+      "FPS",
+      "Card game"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Underlords is Valve's auto battler. Early access started in June 2019 after the Auto Chess arcade boom.",
     "flashback": {
       "family": "choice",
@@ -3185,12 +3185,12 @@
     "eyebrow": "Mortimer",
     "prompt": "Which patch added Snapfire and Void Spirit?",
     "answers": [
+      "7.33",
       "7.07",
       "7.23",
-      "7.28",
-      "7.33"
+      "7.28"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "Both Outlanders heroes shipped with patch 7.23 on 26 November 2019.",
     "flashback": {
       "family": "choice",
@@ -3216,12 +3216,12 @@
     "eyebrow": "We rook",
     "prompt": "Which Battle Pass campaign was a four-player dungeon?",
     "answers": [
-      "Dark Moon",
-      "Siltbreaker",
       "Nemestice",
-      "Crownfall"
+      "Crownfall",
+      "Dark Moon",
+      "Siltbreaker"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Siltbreaker was the 2017 four-player co-op dungeon on the TI7 Battle Pass.",
     "flashback": {
       "family": "choice",
@@ -3247,12 +3247,12 @@
     "eyebrow": "Hold the temple",
     "prompt": "Which event had players defend Selemene's temple from waves?",
     "answers": [
-      "Frostivus",
       "Dark Moon",
       "Diretide",
-      "Nemestice"
+      "Nemestice",
+      "Frostivus"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Dark Moon in early 2017 was a wave-defense event at Selemene's temple.",
     "flashback": {
       "family": "choice",
@@ -4583,12 +4583,12 @@
     "eyebrow": "Two spirits",
     "prompt": "Which pair of heroes shipped on 14 November 2013?",
     "answers": [
+      "Ember Spirit and Void Spirit",
       "Storm Spirit and Ember Spirit",
       "Ember Spirit and Earth Spirit",
-      "Earth Spirit and Void Spirit",
-      "Ember Spirit and Void Spirit"
+      "Earth Spirit and Void Spirit"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "Ember Spirit and Earth Spirit both shipped on 14 November 2013.",
     "flashback": {
       "family": "choice",
@@ -4614,12 +4614,12 @@
     "eyebrow": "Same January day",
     "prompt": "Which pair of heroes shipped on 29 January 2014?",
     "answers": [
-      "Phoenix and Oracle",
-      "Phoenix and Terrorblade",
       "Phoenix and Legion Commander",
-      "Terrorblade and Ember Spirit"
+      "Terrorblade and Ember Spirit",
+      "Phoenix and Oracle",
+      "Phoenix and Terrorblade"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Phoenix and Terrorblade both shipped on 29 January 2014, the same patch as Ability Draft.",
     "flashback": {
       "family": "choice",
@@ -4645,12 +4645,12 @@
     "eyebrow": "China Major",
     "prompt": "Who won The Shanghai Major?",
     "answers": [
-      "Team Liquid",
       "Team Secret",
       "OG",
-      "Evil Geniuses"
+      "Evil Geniuses",
+      "Team Liquid"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Team Secret beat Team Liquid at the Shanghai Major in 2016.",
     "flashback": {
       "family": "choice",
@@ -4719,12 +4719,12 @@
     "eyebrow": "Winter in Boston",
     "prompt": "Who won The Boston Major?",
     "answers": [
+      "Evil Geniuses",
       "Ad Finem",
       "OG",
-      "Team Liquid",
-      "Evil Geniuses"
+      "Team Liquid"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "OG beat Ad Finem at the Boston Major in December 2016.",
     "flashback": {
       "family": "choice",
@@ -4756,12 +4756,12 @@
     "eyebrow": "Fourth trophy",
     "prompt": "Who won The Kiev Major?",
     "answers": [
-      "Virtus.pro",
-      "OG",
       "Team Liquid",
-      "Newbee"
+      "Newbee",
+      "Virtus.pro",
+      "OG"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "OG won the Kiev Major in April 2017, their fourth Valve Major.",
     "flashback": {
       "family": "choice",
@@ -4793,12 +4793,12 @@
     "eyebrow": "The Major kings",
     "prompt": "Which team first won four Valve Majors?",
     "answers": [
-      "Team Liquid",
       "OG",
       "Team Secret",
-      "Natus Vincere"
+      "Natus Vincere",
+      "Team Liquid"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "OG won Frankfurt, Manila, Boston, and Kiev. No other team had four Valve Majors then.",
     "flashback": {
       "family": "choice",
@@ -4861,12 +4861,12 @@
     "eyebrow": "Early sustain",
     "prompt": "Which rune did patch 7.29 add for the first river spawns?",
     "answers": [
+      "Shield Rune",
       "Bounty Rune",
       "Water Rune",
-      "Wisdom Rune",
-      "Shield Rune"
+      "Wisdom Rune"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "7.29 added Water Runes. They spawn at 2:00 and 4:00 and restore health and mana.",
     "flashback": {
       "family": "choice",
@@ -4892,12 +4892,12 @@
     "eyebrow": "Click for vision",
     "prompt": "Patch 7.33 added which clickable vision ward on the map?",
     "answers": [
-      "Shrines",
-      "Watchers",
       "Outposts",
-      "Twin Gates"
+      "Twin Gates",
+      "Shrines",
+      "Watchers"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "New Frontiers added Watchers. A team can activate one for local vision.",
     "flashback": {
       "family": "choice",
@@ -4923,12 +4923,12 @@
     "eyebrow": "Stand for XP",
     "prompt": "Patch 7.38 replaced Wisdom Runes with what?",
     "answers": [
-      "Lotus Pools",
       "Shrines of Wisdom",
       "Outposts",
-      "Side Shops"
+      "Side Shops",
+      "Lotus Pools"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Wandering Waters turned Wisdom Runes into Shrines of Wisdom. You stand in them for the XP.",
     "flashback": {
       "family": "choice",
@@ -4985,12 +4985,12 @@
     "eyebrow": "The skipped year",
     "prompt": "Which calendar year had no The International?",
     "answers": [
+      "2022",
       "2019",
       "2020",
-      "2021",
-      "2022"
+      "2021"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "Valve postponed the 2020 International because of COVID-19. TI10 was played in 2021 in Bucharest.",
     "flashback": {
       "family": "choice",
@@ -5016,12 +5016,12 @@
     "eyebrow": "Crowdfunded record",
     "prompt": "Which International first passed a $10 million prize pool?",
     "answers": [
-      "The International 2013",
-      "The International 2014",
       "The International 2015",
-      "The International 2016"
+      "The International 2016",
+      "The International 2013",
+      "The International 2014"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "TI4 in 2014 reached $10,923,977. It was the first esports event over $10 million.",
     "flashback": {
       "family": "choice",
@@ -5047,12 +5047,12 @@
     "eyebrow": "New bard",
     "prompt": "Which hero shipped with patch 7.40?",
     "answers": [
-      "Muerta",
       "Largo",
       "Kez",
-      "Ringmaster"
+      "Ringmaster",
+      "Muerta"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Largo shipped with 7.40 on 15 December 2025.",
     "flashback": {
       "family": "choice",
@@ -5119,12 +5119,12 @@
     "eyebrow": "Third death",
     "prompt": "Besides Cheese and the Aegis, what extra refresh item can late Roshan drop?",
     "answers": [
+      "Smoke",
       "Cheese",
       "Refresher Shard",
-      "Tango",
-      "Smoke"
+      "Tango"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "On later deaths Roshan can drop a Refresher Shard that resets item and ability cooldowns.",
     "flashback": {
       "family": "choice",
@@ -5155,12 +5155,12 @@
     "eyebrow": "The last five levels",
     "prompt": "Patch 7.23 raised the max hero level to what?",
     "answers": [
-      "25",
-      "30",
       "35",
-      "40"
+      "40",
+      "25",
+      "30"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Outlanders let heroes level to 30. Level 30 unlocks the whole talent tree.",
     "flashback": {
       "family": "choice",
@@ -5186,12 +5186,12 @@
     "eyebrow": "Free vision",
     "prompt": "Which ward became free in patch 7.23?",
     "answers": [
-      "Sentry Ward",
       "Observer Ward",
       "Smoke of Deceit",
-      "Town Portal Scroll"
+      "Town Portal Scroll",
+      "Sentry Ward"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "7.23 made Observer Wards cost no gold.",
     "flashback": {
       "family": "choice",
@@ -5248,12 +5248,12 @@
     "eyebrow": "Red envelopes",
     "prompt": "New Bloom is Dota's event for which holiday?",
     "answers": [
+      "Summer solstice",
       "Halloween",
       "Lunar New Year",
-      "Christmas",
-      "Summer solstice"
+      "Christmas"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "New Bloom is the annual Lunar New Year event.",
     "flashback": {
       "family": "choice",
@@ -5279,12 +5279,12 @@
     "eyebrow": "The arcade hit",
     "prompt": "Which Dota arcade custom game led Valve to make Underlords?",
     "answers": [
-      "Artifact",
-      "Auto Chess",
       "Underlords",
-      "Battlegrounds"
+      "Battlegrounds",
+      "Artifact",
+      "Auto Chess"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Drodo Studio's Dota Auto Chess exploded in 2019. Valve then shipped Dota Underlords.",
     "flashback": {
       "family": "choice",
@@ -5310,12 +5310,12 @@
     "eyebrow": "The other new rune",
     "prompt": "Which extra power rune did patch 7.33 add besides Wisdom?",
     "answers": [
-      "Arcane Rune",
       "Shield Rune",
       "Haste Rune",
-      "Illusion Rune"
+      "Illusion Rune",
+      "Arcane Rune"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "7.33 added the Shield Rune along with Wisdom Runes.",
     "flashback": {
       "family": "choice",
@@ -5372,12 +5372,12 @@
     "eyebrow": "Spring 2016",
     "prompt": "Where was Valve's 2016 spring Major?",
     "answers": [
+      "Bangkok",
       "Singapore",
       "Manila",
-      "Jakarta",
-      "Bangkok"
+      "Jakarta"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "The Manila Major was in Manila in June 2016.",
     "flashback": {
       "family": "choice",
@@ -5403,12 +5403,12 @@
     "eyebrow": "Spring 2017",
     "prompt": "Where was Valve's 2017 spring Major?",
     "answers": [
-      "Moscow",
-      "Kiev",
       "Minsk",
-      "Warsaw"
+      "Warsaw",
+      "Moscow",
+      "Kiev"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "The Kiev Major was in Kiev in April 2017.",
     "flashback": {
       "family": "choice",
@@ -5434,12 +5434,12 @@
     "eyebrow": "December 2016",
     "prompt": "Where was Valve's late-2016 Major?",
     "answers": [
-      "New York",
       "Boston",
       "Seattle",
-      "Los Angeles"
+      "Los Angeles",
+      "New York"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "The Boston Major was in Boston in December 2016.",
     "flashback": {
       "family": "choice",
@@ -5496,12 +5496,12 @@
     "eyebrow": "Whose basement",
     "prompt": "The Underhollow was a maze under which hero?",
     "answers": [
+      "Shadow Fiend",
       "Roshan",
       "Underlord",
-      "Doom",
-      "Shadow Fiend"
+      "Doom"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "The Underhollow was Underlord's maze, the 2018 Battle Pass co-op event.",
     "flashback": {
       "family": "choice",
@@ -5527,12 +5527,12 @@
     "eyebrow": "Hats in the snow",
     "prompt": "Frostivus is Dota's event for which season?",
     "answers": [
-      "Halloween",
-      "Winter holiday",
       "Lunar New Year",
-      "Summer"
+      "Summer",
+      "Halloween",
+      "Winter holiday"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Frostivus is the winter holiday event. The first one ran in 2012.",
     "flashback": {
       "family": "choice",
@@ -5558,12 +5558,12 @@
     "eyebrow": "Craft the jungle",
     "prompt": "Patch 7.38 reworked jungle drops around which resource?",
     "answers": [
-      "Neutral tokens",
       "Madstone",
       "Lotus",
-      "Shard"
+      "Shard",
+      "Neutral tokens"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Wandering Waters added Madstone. You spend it to craft neutral artifacts and enchantments.",
     "flashback": {
       "family": "choice",
@@ -6188,12 +6188,12 @@
     "eyebrow": "A name of power",
     "prompt": "Invoker sometimes says his true name of power is what?",
     "answers": [
+      "Kal-El",
       "Kael",
       "Carl",
-      "Garral",
-      "Kal-El"
+      "Garral"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "A fake Chinese patch called him 卡尔. Google Translate spat out Carl. Valve kept the joke in his voicelines.",
     "flashback": {
       "family": "choice",
@@ -6219,12 +6219,12 @@
     "eyebrow": "Three hours",
     "prompt": "Which teams played the longest professional Dota 2 game, about 200 minutes?",
     "answers": [
-      "OG and Team Liquid",
-      "Cloud9 and ScaryFaceZ",
       "Natus Vincere and EHOME",
-      "Evil Geniuses and CDEC"
+      "Evil Geniuses and CDEC",
+      "OG and Team Liquid",
+      "Cloud9 and ScaryFaceZ"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "StarLadder StarSeries Season 12 Europe/CIS qualifier, 20 March 2015. Game two lasted 3 hours 20 minutes 34 seconds. ODPixel, Purge, and Sheever sat the whole thing.",
     "flashback": {
       "family": "choice",
@@ -6250,12 +6250,12 @@
     "eyebrow": "Is that balanced?",
     "prompt": "At TI3, Na'Vi dragged TongFu into the fountain. Loda yelled \"Is that balanced?\" What was that play called?",
     "answers": [
-      "Ramp hook",
       "Fountain hook",
       "Blink cancel",
-      "Power snatch"
+      "Power snatch",
+      "Ramp hook"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Dendi on Pudge, Puppey on Chen. Meat Hook used to pull the target to Pudge, so a fountain teleport yanked heroes into base, Aegis and all. Loda lost it in the player lounge. Valve later made the hook pull along its line.",
     "flashback": {
       "family": "choice",
@@ -6312,12 +6312,12 @@
     "eyebrow": "The host",
     "prompt": "Sheever took her nickname from a sea serpent in whose books?",
     "answers": [
+      "Terry Pratchett",
       "George R. R. Martin",
       "Robin Hobb",
-      "J. R. R. Tolkien",
-      "Terry Pratchett"
+      "J. R. R. Tolkien"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "It started as her World of Warcraft name. Liquipedia notes it comes from Robin Hobb. The serpent in the Liveship Traders books is Shreever.",
     "flashback": {
       "family": "choice",
@@ -6343,12 +6343,12 @@
     "eyebrow": "The teacher",
     "prompt": "Which caster made the guide series Welcome to Dota, You Suck?",
     "answers": [
-      "TobiWan",
-      "Purge",
       "SIRACTIONSLACKS",
-      "ODPixel"
+      "ODPixel",
+      "TobiWan",
+      "Purge"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Kevin Godec. Years of YouTube lessons, then those endless patch-note videos.",
     "flashback": {
       "family": "choice",
@@ -6374,12 +6374,12 @@
     "eyebrow": "FIRED",
     "prompt": "Which host did Gabe Newell fire mid-event at the Shanghai Major?",
     "answers": [
-      "TobiWan",
       "2GD",
       "ReDeYe",
-      "Sheever"
+      "Sheever",
+      "TobiWan"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "James Harding, day two of the 2016 Shanghai Major. Gabe wrote on Reddit that James is an ass and Valve would not work with him again. Twitch chat still yells FIRED.",
     "flashback": {
       "family": "choice",
@@ -6436,12 +6436,12 @@
     "eyebrow": "The rename",
     "prompt": "Valve renamed Outworld Destroyer to what, then changed it back?",
     "answers": [
+      "Arc Warden",
       "Obsidian Destroyer",
       "Outworld Devourer",
-      "Ancient Apparition",
-      "Arc Warden"
+      "Ancient Apparition"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "The hero sat as Outworld Devourer for a stretch, then Valve restored Destroyer. Players still argue about it.",
     "flashback": {
       "family": "choice",
@@ -6467,12 +6467,12 @@
     "eyebrow": "Rap god",
     "prompt": "In ODPixel, OD stands for what?",
     "answers": [
-      "Outworld Destroyer",
-      "Owen Davies",
       "On Demand",
-      "Own Desk"
+      "Own Desk",
+      "Outworld Destroyer",
+      "Owen Davies"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Owen Davies. Pixel comes from PixelPipeline, the early studio he formed with his friend WakeyPixel.",
     "flashback": {
       "family": "choice",
@@ -6498,12 +6498,12 @@
     "eyebrow": "The first film",
     "prompt": "Valve's first Dota 2 documentary, about Dendi, Fear, and hyhy at TI1, was called what?",
     "answers": [
-      "True Sight",
       "Free to Play",
       "We Are All Dota",
-      "The International"
+      "The International",
+      "True Sight"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Premiered at TI3, public release in March 2014. True Sight is the later series.",
     "flashback": {
       "family": "choice",
@@ -6560,12 +6560,12 @@
     "eyebrow": "Fiery Soul",
     "prompt": "Which hero received the first Arcana?",
     "answers": [
+      "Legion Commander",
       "Phantom Assassin",
       "Lina",
-      "Crystal Maiden",
-      "Legion Commander"
+      "Crystal Maiden"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "Fiery Soul of the Slayer went on sale on 7 March 2013. It was the first Arcana, and the first item that changed particle effects.",
     "flashback": {
       "family": "choice",
@@ -6591,12 +6591,12 @@
     "eyebrow": "The radar",
     "prompt": "Which patch added Scan?",
     "answers": [
-      "6.86",
-      "6.87",
       "7.00",
-      "7.07"
+      "7.07",
+      "6.86",
+      "6.87"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Scan shipped in 6.87 on 25 April 2016, months before 7.00. It started on cooldown and had a 4.5 minute team cooldown.",
     "flashback": {
       "family": "choice",
@@ -6622,12 +6622,12 @@
     "eyebrow": "The longest night",
     "prompt": "The 2013 Frostivus event was called what?",
     "answers": [
-      "Diretide",
       "Wraith-Night",
       "The Greeviling",
-      "Dark Moon"
+      "Dark Moon",
+      "Diretide"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Frostivus 2013 was Wraith-Night. Five heroes defended the altar until Skeleton King returned as Wraith King.",
     "flashback": {
       "family": "choice",
@@ -6716,12 +6716,12 @@
     "eyebrow": "Community sets",
     "prompt": "The first Collector's Cache was for which International?",
     "answers": [
+      "TI7",
       "TI4",
       "TI5",
-      "TI6",
-      "TI7"
+      "TI6"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "explanation": "The first Collector's Cache went on sale on 4 June 2015 for TI5 Compendium owners. 25% went to the prize pool. Faceless Rex was the 1 in 250 courier.",
     "flashback": {
       "family": "choice",
@@ -6747,12 +6747,12 @@
     "eyebrow": "The rename",
     "prompt": "What was Necrophos named before?",
     "answers": [
-      "Necromancer",
-      "Necrolyte",
       "Dirge",
-      "Plague Priest"
+      "Plague Priest",
+      "Necromancer",
+      "Necrolyte"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "explanation": "Valve renamed Necrolyte to Necrophos on 21 November 2013, in the same patch as Windrunner and Lycanthrope.",
     "flashback": {
       "family": "choice",
@@ -6783,12 +6783,12 @@
     "eyebrow": "The rename",
     "prompt": "What was Windranger named before?",
     "answers": [
-      "Windweaver",
       "Windrunner",
       "Alleria",
-      "Wind Spirit"
+      "Wind Spirit",
+      "Windweaver"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "explanation": "Valve renamed Windrunner to Windranger on 21 November 2013, in the same patch as Necrolyte and Lycanthrope.",
     "flashback": {
       "family": "choice",

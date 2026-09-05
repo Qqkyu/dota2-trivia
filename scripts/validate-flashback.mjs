@@ -35,6 +35,14 @@ record(
   "Flashback is missing a finished International winner.",
 );
 record(new Set(questions.map((question) => question.id)).size === questions.length, "Flashback IDs are not unique.");
+const choiceSlots = [0, 1, 2, 3].map(
+  (slot) =>
+    questions.filter((question) => question.kind === "flashback-choice" && question.correctIndex === slot).length,
+);
+record(
+  Math.max(...choiceSlots) - Math.min(...choiceSlots) <= 1,
+  `Flashback four-choice answers are biased across A–D (${choiceSlots.join(" / ")}); every slot must be within one.`,
+);
 record(questions.every(isPlayableFlashbackQuestion), "A Flashback question failed the playable contract.");
 record(
   questions.every(
@@ -260,7 +268,10 @@ record(
 );
 const yearQuestions = questions.filter((question) => question.kind === "flashback-year");
 const poolYearMin = Math.min(...yearQuestions.map((question) => question.flashback.correctYear));
-record(poolYearMin === FLASHBACK_YEAR_EPOCH, `Flashback year ticks start at ${FLASHBACK_YEAR_EPOCH}, not ${poolYearMin}.`);
+record(
+  poolYearMin === FLASHBACK_YEAR_EPOCH,
+  `Flashback year ticks start at ${FLASHBACK_YEAR_EPOCH}, not ${poolYearMin}.`,
+);
 record(
   !arcadeSource.includes("yearMax: 2026") &&
     arcadeSource.includes("flashbackYearMax") === false &&
@@ -300,7 +311,13 @@ if (sampleYear) {
   const frozenNow = Date.UTC(2027, 5, 1);
   const answering = publicQuestionForRound(
     sampleYear,
-    { id: "year-check", phase: "answering", game: "flashback", answerDeadline: frozenNow + 15_000, answerDuration: 15_000 },
+    {
+      id: "year-check",
+      phase: "answering",
+      game: "flashback",
+      answerDeadline: frozenNow + 15_000,
+      answerDuration: 15_000,
+    },
     frozenNow,
   );
   const reveal = publicQuestionForRound(
