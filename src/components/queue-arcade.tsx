@@ -1432,6 +1432,14 @@ function ShopkeeperRecipePick({
   );
 }
 
+function searchShopItems(query: string) {
+  const normalized = query.trim().toLocaleLowerCase("en-US");
+  if (!normalized) return [];
+  return SHOPKEEPER_CATALOG_ITEMS.filter(
+    (item) => item.name.toLocaleLowerCase("en-US").includes(normalized) || item.key.includes(normalized),
+  );
+}
+
 function ShopkeeperStore({
   question,
   phase,
@@ -1470,11 +1478,7 @@ function ShopkeeperStore({
   }, [query]);
   const normalizedQuery = query.trim().toLocaleLowerCase("en-US");
   const countByItem = new Map(crowd.keyCounts.map((entry) => [entry.answerKey, entry.count]));
-  const searchItems = normalizedQuery
-    ? SHOPKEEPER_CATALOG_ITEMS.filter(
-        (item) => item.name.toLocaleLowerCase("en-US").includes(normalizedQuery) || item.key.includes(normalizedQuery),
-      )
-    : [];
+  const searchItems = searchShopItems(query);
   const groups = normalizedQuery
     ? [{ key: "search", label: `${searchItems.length} found`, section, items: searchItems }]
     : SHOPKEEPER_CATALOG.groups.filter((group) => group.section === section);
@@ -1504,6 +1508,29 @@ function ShopkeeperStore({
     setTooltip(null);
     onChoose(answerKey);
   };
+
+  // Enter picks the only item the search still shows. With no search and a
+  // full recipe draft, Enter builds it.
+  const pickSingleMatch = useCallback(() => {
+    const matches = searchShopItems(queryRef.current);
+    if (matches.length === 1) {
+      const itemKey = matches[0].key;
+      setQuery("");
+      setTooltip(null);
+      if (recipeBuilder) {
+        setDraftRecipeKeys((itemKeys) => (itemKeys.length < recipeSize ? [...itemKeys, itemKey] : itemKeys));
+      } else {
+        onChoose(itemKey);
+      }
+      return true;
+    }
+    if (queryRef.current.trim() || !recipeBuilder || draftRecipeKeys.length !== recipeSize) return false;
+    const answerKey = recipeAnswerKeyForItems(draftRecipeKeys);
+    if (!answerKey) return false;
+    setTooltip(null);
+    onChoose(answerKey);
+    return true;
+  }, [draftRecipeKeys, onChoose, recipeBuilder, recipeSize]);
 
   const showItemTooltip = (item: ShopkeeperCatalogItem, button: HTMLButtonElement) => {
     const bounds = button.getBoundingClientRect();
@@ -1539,6 +1566,10 @@ function ShopkeeperStore({
         return;
       }
 
+      if (event.key === "Enter") {
+        if (pickSingleMatch()) event.preventDefault();
+        return;
+      }
       if (event.key === "Escape") {
         setQuery("");
         setTooltip(null);
@@ -1559,7 +1590,7 @@ function ShopkeeperStore({
 
     window.addEventListener("keydown", startSearching);
     return () => window.removeEventListener("keydown", startSearching);
-  }, [phase, selectedKey]);
+  }, [phase, pickSingleMatch, selectedKey]);
 
   useEffect(() => {
     if (!tooltip) return;
@@ -1615,6 +1646,10 @@ function ShopkeeperStore({
                 setQuery(event.target.value);
               }}
               onKeyDown={(event) => {
+                if (event.key === "Enter" && pickSingleMatch()) {
+                  event.preventDefault();
+                  return;
+                }
                 if (event.key === "Escape") {
                   event.preventDefault();
                   setQuery("");
@@ -1819,6 +1854,22 @@ function HeroPickerPortrait({ hero }: { hero: HeroPickerHero }) {
   return <Image src={hero.image} alt="" fill sizes="44px" loading="eager" unoptimized />;
 }
 
+function heroMatchesQuery(hero: HeroPickerHero, normalizedQuery: string) {
+  if (!normalizedQuery) return true;
+  const name = hero.name.toLocaleLowerCase("en-US");
+  const slug = hero.key.replace(/^npc_dota_hero_/, "").replaceAll("_", " ");
+  const initials = name
+    .split(/\s+/)
+    .map((part) => part[0])
+    .join("");
+  return name.includes(normalizedQuery) || slug.includes(normalizedQuery) || initials.startsWith(normalizedQuery);
+}
+
+function searchHeroes(query: string) {
+  const normalized = query.trim().toLocaleLowerCase("en-US");
+  return normalized ? HERO_PICKER_HEROES.filter((hero) => heroMatchesQuery(hero, normalized)) : [];
+}
+
 function HeroPicker({
   question,
   phase,
@@ -1857,21 +1908,15 @@ function HeroPicker({
   const targetKey = question.reveal?.correctAnswerKey;
   const countByHero = new Map(crowd.keyCounts.map((entry) => [entry.answerKey, entry.count]));
   const normalizedQuery = query.trim().toLocaleLowerCase("en-US");
-  const heroMatches = (hero: HeroPickerHero) => {
-    if (!normalizedQuery) return true;
-    const name = hero.name.toLocaleLowerCase("en-US");
-    const slug = hero.key.replace(/^npc_dota_hero_/, "").replaceAll("_", " ");
-    const initials = name
-      .split(/\s+/)
-      .map((part) => part[0])
-      .join("");
-    return name.includes(normalizedQuery) || slug.includes(normalizedQuery) || initials.startsWith(normalizedQuery);
-  };
-  const chooseHero = (heroKey: string) => {
-    setQuery("");
-    onChoose(heroKey);
-    flashSearch(false);
-  };
+  const heroMatches = (hero: HeroPickerHero) => heroMatchesQuery(hero, normalizedQuery);
+  const chooseHero = useCallback(
+    (heroKey: string) => {
+      setQuery("");
+      onChoose(heroKey);
+      flashSearch(false);
+    },
+    [flashSearch, onChoose],
+  );
 
   useEffect(() => {
     if (phase !== "answering" || selectedKey !== null) return;
@@ -1889,6 +1934,14 @@ function HeroPicker({
         return;
       }
 
+      if (event.key === "Enter") {
+        // Enter picks the only hero the typed filter still shows.
+        const matches = searchHeroes(queryRef.current);
+        if (matches.length !== 1) return;
+        event.preventDefault();
+        chooseHero(matches[0].key);
+        return;
+      }
       if (event.key === "Escape") {
         setQuery("");
         flashSearch(false);
@@ -1909,7 +1962,7 @@ function HeroPicker({
 
     window.addEventListener("keydown", startSearching);
     return () => window.removeEventListener("keydown", startSearching);
-  }, [flashSearch, phase, selectedKey]);
+  }, [chooseHero, flashSearch, phase, selectedKey]);
 
   return (
     <div
@@ -4477,9 +4530,9 @@ export function QueueArcade({
                         ? "Pick the shop items. Recipe is included."
                         : isSoundcheckRound
                           ? "Choose the item that made the sound"
-                          : "Choose an item from the shop"
+                          : "Choose an item from the shop · Enter picks the only match"
                       : isHeroPickerRound
-                        ? "Choose a hero"
+                        ? "Choose a hero · type to search · Enter picks the only match"
                         : isValueOrderRound
                           ? "Choose four in order"
                           : isFlashbackYearRound

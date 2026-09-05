@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Shopkeeper-only party: Search Items must filter the store.
+ * Shopkeeper-only party: Search Items must filter the store, and Enter picks
+ * the item only when exactly one is left.
  */
 
 import { spawn } from "node:child_process";
@@ -185,7 +186,51 @@ try {
   if (!(before > after) || after < 1) {
     throw new Error(`Shop search did not filter items (${before} → ${after}).`);
   }
-  console.log(`Validated Shopkeeper search (${before} → ${after} items).`);
+
+  const setSearch = async (value) => {
+    await page.evaluate(`(() => {
+      const search = document.querySelector('[data-testid="shopkeeper-search-field"]');
+      const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+      setter.call(search, ${JSON.stringify(value)});
+      search.dispatchEvent(new Event("input", { bubbles: true }));
+      search.focus();
+    })()`);
+    await delay(150);
+  };
+  const pressEnter = async () => {
+    const key = { key: "Enter", code: "Enter", windowsVirtualKeyCode: 13 };
+    await page.send("Input.dispatchKeyEvent", { type: "keyDown", ...key });
+    await page.send("Input.dispatchKeyEvent", { type: "keyUp", ...key });
+    await delay(200);
+  };
+  const storeState = `(() => {
+    const store = document.querySelector('[data-testid="shopkeeper-store"]');
+    const slots = [...document.querySelectorAll('[data-testid="shopkeeper-recipe-slot"]:not([data-empty="true"])')];
+    return {
+      locked: store?.dataset.locked,
+      query: document.querySelector('[data-testid="shopkeeper-search-field"]')?.value ?? "",
+      items: document.querySelectorAll('[data-testid="shopkeeper-store-item"]').length,
+      filledSlots: slots.length,
+      recipe: Boolean(document.querySelector('[data-testid="shopkeeper-recipe-builder"]')),
+    };
+  })()`;
+
+  // Several matches: Enter must not pick anything.
+  await pressEnter();
+  const many = await page.evaluate(storeState);
+  if (many.locked !== "false" || many.filledSlots !== 0 || many.query !== "blink") {
+    throw new Error(`Enter picked an item with ${many.items} matches: ${JSON.stringify(many)}`);
+  }
+
+  // One match: Enter picks it (locks the store, or fills a recipe slot).
+  await setSearch("blink dagger");
+  const single = await page.evaluate(storeState);
+  if (single.items !== 1) throw new Error(`"blink dagger" did not leave one item: ${JSON.stringify(single)}`);
+  await pressEnter();
+  const picked = await page.evaluate(storeState);
+  const pickedOk = picked.query === "" && (picked.recipe ? picked.filledSlots === 1 : picked.locked === "true");
+  if (!pickedOk) throw new Error(`Enter did not pick the only item: ${JSON.stringify(picked)}`);
+  console.log(`Validated Shopkeeper search (${before} → ${after} items) and Enter picks the only match.`);
 } finally {
   await cleanup();
 }
