@@ -74,6 +74,13 @@ export function isPrivateRoomId(roomId) {
   return typeof roomId === "string" && roomId.includes(":private:");
 }
 
+/** Round IDs look like `<game>:<version>:private:<CODE>:round:<n>`; public rounds have no code. */
+export function privateRoomCodeFromRoundId(roundId) {
+  if (typeof roundId !== "string") return null;
+  const match = /:private:([0-9A-Za-z]{3,16}):round:\d+$/.exec(roundId);
+  return match ? normalizePrivateRoomCode(match[1]) : null;
+}
+
 export function normalizePrivateFormats(formats) {
   const unique = [...new Set(Array.isArray(formats) ? formats : [])].filter(isPublicRoundFormat);
   return unique.length > 0 ? unique : [...PUBLIC_ROUND_FORMATS];

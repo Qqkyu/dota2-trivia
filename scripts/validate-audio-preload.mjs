@@ -76,7 +76,7 @@ const [routeSource, clientSource] = await Promise.all(
 );
 record(
   routeSource.includes('round.id !== roundId || round.phase !== "reveal"') &&
-    routeSource.includes("publicRoundAt(room, round.number + 1, round.revealDeadline)") &&
+    routeSource.includes("liveRoundAt(settings, round.number + 1, round.revealDeadline)") &&
     routeSource.includes("warmRoundAudio(nextRound.id"),
   "The preload endpoint no longer limits warming to the immediate next round during reveal.",
 );

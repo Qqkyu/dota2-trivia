@@ -1,15 +1,13 @@
 #!/usr/bin/env node
 
-import {
-  formatsForRoundGames,
-  PUBLIC_ROUND_FORMATS,
-} from "../src/lib/arcade-games.mjs";
+import { formatsForRoundGames, PUBLIC_ROUND_FORMATS } from "../src/lib/arcade-games.mjs";
 import {
   addPrivateRoomMessage,
   createPrivateRoom,
   getPrivateRoom,
   guestDisplayName,
   isPrivateRoomId,
+  privateRoomCodeFromRoundId,
   normalizePrivateRoomCode,
   partyCodeError,
   partyNameError,
@@ -52,7 +50,10 @@ record(partyCodeError("DAS") === null, "DAS is a valid party code.");
 record(partyNameError("") === "Type a name.", "Guests must type a name.");
 record(partyNameError("Loda") === null, "A short handle is a valid party name.");
 record(guestDisplayName("player-abcd") === "Guest-AYERABCD", "Guests need a unique short display name.");
-record(formatsForRoundGames(["flashback"]).join(",") === "flashback", "A Flashback-only room should schedule only Flashback.");
+record(
+  formatsForRoundGames(["flashback"]).join(",") === "flashback",
+  "A Flashback-only room should schedule only Flashback.",
+);
 record(formatsForRoundGames([]).length === PUBLIC_ROUND_FORMATS.length, "No ticked games should keep the full mix.");
 
 const now = Date.now();
@@ -151,10 +152,19 @@ record(
   PRIVATE_ROOM_NAME_NOTICE_MS >= 1500 && PRIVATE_ROOM_NAME_NOTICE_MS <= 4000,
   "A taken-name notice must hide after a short wait.",
 );
-record(partyNameInputValue({ draft: null, seed: "baobab" }) === "baobab", "An untouched field can show the Steam name.");
+record(
+  partyNameInputValue({ draft: null, seed: "baobab" }) === "baobab",
+  "An untouched field can show the Steam name.",
+);
 record(partyNameInputValue({ draft: "", seed: "baobab" }) === "", "Clearing the name must not snap back to Steam.");
-record(partyNameInputValue({ draft: "Alex", seed: "baobab" }) === "Alex", "A new name must not be forced to start like Steam.");
-record(partyNameInputValue({ draft: "b", seed: "baobab" }) === "b", "Deleting down to one letter must keep that letter.");
+record(
+  partyNameInputValue({ draft: "Alex", seed: "baobab" }) === "Alex",
+  "A new name must not be forced to start like Steam.",
+);
+record(
+  partyNameInputValue({ draft: "b", seed: "baobab" }) === "b",
+  "Deleting down to one letter must keep that letter.",
+);
 record(storedPartyNameDraft("") === null, "An empty saved nickname must not block the Steam or guest seed.");
 record(storedPartyNameDraft("baobab") === "baobab", "A saved nickname must load.");
 
@@ -254,15 +264,25 @@ record(
 );
 
 const timing = privateRoundTiming(now + 2_000, now + 2_000 + 16_000);
-record(timing.roundNumber === 0 && timing.phase === "reveal", "Private rounds should use the 15s / 7s clock from Start.");
+record(
+  timing.roundNumber === 0 && timing.phase === "reveal",
+  "Private rounds should use the 15s / 7s clock from Start.",
+);
 const nextRound = privateRoundTiming(now + 2_000, now + 2_000 + 22_000);
-record(nextRound.roundNumber === 1 && nextRound.phase === "answering", "The next private round should begin after reveal.");
+record(
+  nextRound.roundNumber === 1 && nextRound.phase === "answering",
+  "The next private round should begin after reveal.",
+);
 
 const chat = addPrivateRoomMessage(created.code, { name: "Loda", text: "  is that balanced?  ", now: now + 3_000 });
 record(chat.ok === true && chat.message.text === "is that balanced?", "Chat should trim and keep a short line.");
 const empty = addPrivateRoomMessage(created.code, { name: "Loda", text: "   ", now: now + 3_100 });
 record(empty.ok === false, "Empty chat must not land.");
-const long = addPrivateRoomMessage(created.code, { name: "Loda", text: "x".repeat(PRIVATE_ROOM_MESSAGE_MAX + 8), now: now + 3_200 });
+const long = addPrivateRoomMessage(created.code, {
+  name: "Loda",
+  text: "x".repeat(PRIVATE_ROOM_MESSAGE_MAX + 8),
+  now: now + 3_200,
+});
 record(long.ok === true && long.message.text.length === PRIVATE_ROOM_MESSAGE_MAX, "Chat should cap at 80 characters.");
 
 const hostGone = leavePrivateRoom(created.code, "host-player-1", now + 4_000);
@@ -284,10 +304,20 @@ const reused = createPrivateRoom({
   name: "NewHost",
   now: now + 4_300,
 });
-record(reused.code === "LODA" && reused.players?.some((player) => player.host && player.name === "NewHost"), "The party code must be free after the last player leaves.");
+record(
+  reused.code === "LODA" && reused.players?.some((player) => player.host && player.name === "NewHost"),
+  "The party code must be free after the last player leaves.",
+);
 
 const publicId = "dota2:content:public";
 record(!isPrivateRoomId(publicId), "The public room ID must stay public.");
+record(
+  privateRoomCodeFromRoundId("dota2:7.41e-variety-7-flashback-13:private:LODA:round:12") === "LODA" &&
+    privateRoomCodeFromRoundId("dota2:7.41e-variety-7-flashback-13:public:round:970927") === null &&
+    privateRoomCodeFromRoundId("dota2:x:private:no code:round:1") === null &&
+    privateRoomCodeFromRoundId(null) === null,
+  "Round audio must find the party code inside a private round ID and ignore public rounds.",
+);
 
 resetPrivateRoomsForTests();
 record(getPrivateRoom(created.code) === null, "Tests must be able to clear private rooms.");

@@ -37,6 +37,7 @@
     "check:shop-search": "node scripts/check-shop-search.mjs",
     "check:flashback-ui": "node scripts/check-flashback-ui.mjs",
     "check:reports": "node scripts/check-reports-api.mjs",
+    "check:party-api": "node scripts/check-party-api.mjs",
     "check:rate-limit": "node scripts/check-rate-limit-live.mjs",
     "check:ui": "node scripts/check-ui.mjs",
     "check": "pnpm validate-data && pnpm lint && pnpm typecheck && pnpm build && pnpm validate-client-bundle && pnpm check:ui"

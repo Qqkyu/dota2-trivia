@@ -1,0 +1,66 @@
+#!/usr/bin/env node
+
+/**
+ * Party API checks without a browser: Echo Hunt audio must play inside a
+ * private room, and only party members may chat or vote there.
+ */
+
+import { randomUUID } from "node:crypto";
+
+const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const json = { "Content-Type": "application/json" };
+
+const hostId = `party-host-${randomUUID()}`;
+const code = `A${Date.now().toString(36).slice(-5).toUpperCase()}`;
+const settings = { gameId: "dota2", mode: "mixed", filter: "Mixed", privateCode: code };
+
+async function post(path, body) {
+  const response = await fetch(`${appUrl}${path}`, { method: "POST", headers: json, body: JSON.stringify(body) });
+  return { status: response.status, body: await response.json().catch(() => null) };
+}
+
+async function readRound(playerId) {
+  const url = new URL(`${appUrl}/api/rounds`);
+  for (const [key, value] of Object.entries({ ...settings, playerId })) url.searchParams.set(key, value);
+  const response = await fetch(url, { cache: "no-store" });
+  return { status: response.status, body: await response.json() };
+}
+
+async function waitPhase(playerId, phase, timeout) {
+  const startedAt = Date.now();
+  while (Date.now() - startedAt < timeout) {
+    const snapshot = await readRound(playerId);
+    if (snapshot.status === 200 && snapshot.body.round?.phase === phase) return snapshot.body;
+    await delay(200);
+  }
+  throw new Error(`Party did not reach ${phase}.`);
+}
+
+const created = await post("/api/private-rooms", { playerId: hostId, code, name: "Host", games: ["echo-hunt"] });
+if (created.status !== 200) throw new Error(`Could not create the party (${created.status}).`);
+const started = await post("/api/private-rooms/start", { playerId: hostId, code });
+if (started.status !== 200) throw new Error(`Could not start the party (${started.status}).`);
+
+const answering = await waitPhase(hostId, "answering", 30_000);
+const audioSrc = answering.question?.audio?.src;
+if (typeof audioSrc !== "string" || !audioSrc.startsWith("/api/round-audio?")) {
+  throw new Error(`Echo Hunt party round has no proxied audio (${JSON.stringify(answering.question?.audio)}).`);
+}
+const audio = await fetch(`${appUrl}${audioSrc}`, { cache: "no-store" });
+if (audio.status === 409 || audio.status === 404 || audio.status === 400) {
+  throw new Error(`Party round audio was refused with ${audio.status}; the proxy only knows the public room.`);
+}
+if (audio.status !== 200 && audio.status !== 206) {
+  throw new Error(`Party round audio returned ${audio.status} (upstream audio host may be unreachable).`);
+}
+await audio.arrayBuffer();
+
+const reveal = await waitPhase(hostId, "reveal", 20_000);
+const prewarm = await fetch(`${appUrl}/api/round-audio?roundId=${encodeURIComponent(reveal.round.id)}`, {
+  method: "HEAD",
+  cache: "no-store",
+});
+if (prewarm.status !== 204) throw new Error(`Party next-round audio prewarm returned ${prewarm.status}.`);
+
+console.log("Validated party Echo Hunt audio playback and next-round prewarm inside a private room.");

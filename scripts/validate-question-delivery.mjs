@@ -531,7 +531,7 @@ record(roundsSource.includes("publicQuestionForRound"), "The round API bypasses 
 record(!votesSource.includes("candidate.questionId"), "The vote API still trusts a client question ID.");
 record(!reportsSource.includes("candidate.questionId"), "The report API still trusts a client question ID.");
 record(
-  roundAudioSource.includes("currentPublicRound(settings)") &&
+  roundAudioSource.includes("liveRoundForSettings(settings") &&
     roundAudioSource.includes("round.id !== roundId") &&
     !roundAudioSource.includes('searchParams.get("source")'),
   "The audio proxy no longer limits media delivery to the server-owned current round.",
