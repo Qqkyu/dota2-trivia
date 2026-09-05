@@ -1,6 +1,6 @@
 # Queue Arcade
 
-An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now rotates nine named round identities inside one endless public arcade:
+An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now rotates ten named round identities inside one endless public arcade:
 
 - **Classic Trivia** — mana, cooldowns, damage, stat comparisons, and item prices;
 - **Shopkeeper Rush** — build finished items, spot exact recipes, find shared parts, and trace upgrade paths;
@@ -10,7 +10,8 @@ An unofficial browser arcade made for the gap between **Find Match** and **Accep
 - **Soundcheck** — identify verified effects through three growing audio cuts, including ordered two-sound sequences;
 - **Quote Hunt** — match a substantial written hero response to its speaker;
 - **Aghanim's Lab** — identify a hero from an audited Scepter or Shard effect before later clues reveal the upgrade type and ability name;
-- **Order Up** — arrange audited item, ability, and hero values from low to high.
+- **Order Up** — arrange audited item, ability, and hero values from low to high;
+- **Flashback** — Dota and The International history: release years, champions, patches, and community moments.
 
 These are round formats, not separate queues. Everyone shares the parts that made the original compelling: short timed rounds, a global answer reveal, speed and streak scoring, and double points when you are right while most of the crowd is wrong.
 
@@ -19,12 +20,13 @@ The playable MVP includes:
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - canonical `/` lobby and `/play` session URLs with direct loading plus browser Back and Forward support;
 - one shared public room of 15-second rounds, without mode, category, or player-facing difficulty queues;
-- 1,326 live prompts for Dota patch 7.41e, including all 127 enabled heroes in Fogged Vision, 102 Shopkeeper rounds, 96 Soundcheck rounds, 84 Aghanim's Lab upgrades, and 80 tie-free Order Up rounds;
+- 1,517 live prompts for Dota patch 7.41e, including all 127 enabled heroes in Fogged Vision, 102 Shopkeeper rounds, 96 Soundcheck rounds, 84 Aghanim's Lab upgrades, 80 tie-free Order Up rounds, and 191 sourced Flashback prompts;
 - item, hero, and ability artwork for visual answer rounds;
 - 123 remotely verified Echo Hunt clips, 96 Soundcheck rounds built from 114 audited clips, and 245 Quote Hunt lines sourced through Dotabase;
 - live-client answer audits plus balanced A–D placement for every generated question family;
 - progressive Spell Link, Quote Hunt, and Aghanim's Lab clues delivered at server-owned stages;
-- a deterministic twelve-format cadence that gives Classic three slots, Shopkeeper two, every distinctive interaction one, and never repeats a family back-to-back;
+- a deterministic thirteen-format cadence that gives Classic three slots, Shopkeeper two, every distinctive interaction one, and never repeats a family back-to-back;
+- private party rooms at `/party`: the host picks formats and a code, friends join by link, a three-second countdown starts the party's own round clock, with an in-game ranking and a small chat; parties live in server memory and end on restart;
 - visible speed scoring, explicit hint penalties, difficulty bonuses, streaks, and majority-wrong scoring;
 - one server-owned public room: everyone receives the same round and deadlines;
 - server-delivered, phase-aware question payloads: the browser never imports the playable answer catalog;
@@ -57,8 +59,8 @@ Soundcheck alternates between ability sounds and item activations, mixing iconic
 two-sound rounds. Each third of the clock unlocks and replays a longer cut: two tiny prefixes, then the complete effect.
 Sequence answers are compact icon pairs:
 recognizing only one clip still leaves two plausible choices. Each cut plays once automatically, while persistent
-mute and volume controls apply to clips and interface cues alike. Fresh profiles start at 10% volume; the retired 70%
-default migrates once, while other explicitly chosen levels remain unchanged.
+mute and volume controls apply to clips and interface cues alike. Fresh profiles start at 70% volume; a level still at
+the retired 10% default is raised to 70% once, while other explicitly chosen levels remain unchanged.
 
 Spell Link's hidden seed tier is reproducible: core/iconic abilities are approachable, unusual sub-abilities, innates,
 upgrades, and helper abilities are demanding, and the remaining edge cases sit between them. The second clue reveals an
@@ -118,7 +120,8 @@ the canonical HTTPS origin used in Steam's return URL. `ARCADE_DATA_COUNTRIES` i
 when Steam-linked data is stored. The authentication secret must be at least 32 characters and distinct from the voter
 salt. A standard [Steam Web API key](https://steamcommunity.com/dev/apikey) is optional and stays server-side; when it is
 absent, authenticated profiles use a generic Steam-player label. The vote, report, room, and Steam authentication APIs
-also apply per-player or per-IP in-process guardrails; a public host should add IP-level throttling at its edge.
+also apply per-player or per-IP in-process guardrails. Guest limits key on the browser-chosen player ID, so they stop
+accidental loops rather than a deliberate abuser; a public host should add IP-level throttling at its edge.
 
 `ARCADE_REVIEWER_STEAM_IDS` accepts comma- or space-separated 17-digit SteamID64 values. Signed-in reviewers can mark
 an open calibration signal as reviewed or quarantined. A reviewed question automatically returns to the queue when it
@@ -219,7 +222,7 @@ elimination, non-active item sets, unaudited sequence clips, and ordered pairs t
 pnpm check
 ```
 
-That validates the question deck, template rotation, answer balance, scan length, and visual/audio metadata, runs ESLint, runs strict TypeScript checking, and creates an optimized production build.
+That validates the question deck, template rotation, answer balance, scan length, and visual/audio metadata, runs ESLint, runs strict TypeScript checking, creates an optimized production build, proves no private catalog data reached a browser bundle, and then runs the headless-Chrome and API click-throughs in `pnpm check:ui` (public play, party lobby, party audio and membership, reports, shop search, Flashback, feedback sounds, and production rate limits).
 
 With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared
 round IDs and deadlines, sanitized answering payloads, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk
@@ -236,9 +239,9 @@ player input.
 For visual smoke testing, start Chrome with `--mute-audio` and a debugging port, then run
 `node scripts/visual-smoke.mjs`. The script disables media playback again inside the page before loading anything, then
 checks the one-room lobby, social metadata, fixed-size account entry, guest profile, privacy page and private ops gate, `/play` navigation, browser Back and
-Forward, legacy-mode redirect, nine compact round identities, synchronized answering/reveal/automatic-advance journey, reveal-only crowd splits,
+Forward, legacy-mode redirect, ten compact round identities, synchronized answering/reveal/automatic-advance journey, reveal-only crowd splits,
 full-catalog 127-hero and 182-item result stress cases plus all 24 possible four-card orders,
-the three-stage Aghanim's Lab hero-picker layout, no-shift question-report popover, the optional session summary, the 10% fresh-install volume default, mobile lobby, mobile calibration layout, overflow, and saves screenshots
+the three-stage Aghanim's Lab hero-picker layout, no-shift question-report popover, the optional session summary, the 70% fresh-install volume default, mobile lobby, mobile calibration layout, overflow, and saves screenshots
 under `/tmp`.
 
 ## Crowd architecture

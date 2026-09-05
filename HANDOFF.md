@@ -1,6 +1,6 @@
 # Queue Arcade handoff
 
-Last updated: 2026-08-12  
+Last updated: 2026-09-05  
 Repository: `git@github.com:Qqkyu/dota2-trivia.git`  
 Branch: `main`  
 Known-good commit when this document was written: `33c466f` (`Trim redundant round copy`)
@@ -22,13 +22,14 @@ Queue Arcade is an unofficial desktop-first browser arcade for the time between 
 - Full hero/item answer grids intentionally mirror Dota's familiar layout. Players should use Dota muscle memory, not learn a custom arrangement.
 - The crowd reveal after every round is core to the product, including the answer split and “You / Correct avg / Best” points comparison.
 - Dota accuracy matters more than content volume. A plausible but unverified interaction is not acceptable.
-- Map Sense and Counterplay are retired. Their source/data is preserved only as an archive; do not put either back into the public cadence without a new design and full re-audit.
-- Mobile browser gameplay, party/private rooms, public leaderboards, and competitive rankings are deliberately out of current scope.
+- Map Sense and Counterplay are retired. Their source/data is preserved only as an archive (their live UI, vote plumbing, and CSS were removed on 2026-09-05); do not put either back into the public cadence without a new design and full re-audit.
+- Mobile browser gameplay, public leaderboards, and competitive rankings are deliberately out of current scope.
+- Party rooms exist at `/party` (added late August 2026): the host picks formats and a code, friends join by link, and the party runs on its own round clock with a ranking and chat. Parties live in server memory only; a deploy ends them. The public crowd remains the main product.
 - The architecture should permit more games later (League of Legends was discussed), but do not build a second pack before Dota retention proves the loop is sticky.
 
 ## What currently works
 
-The live Dota catalog contains 1,326 playable prompts for patch 7.41e in twelve scheduled formats:
+The live Dota catalog contains 1,517 playable prompts for patch 7.41e in thirteen scheduled formats:
 
 | Scheduled format       | Count | UI identity     |
 | ---------------------- | ----: | --------------- |
@@ -44,8 +45,9 @@ The live Dota catalog contains 1,326 playable prompts for patch 7.41e in twelve 
 | Spell Link             |   126 | Spell Link      |
 | Classic item prices    |   101 | Classic Trivia  |
 | Echo Hunt              |   123 | Echo Hunt       |
+| Flashback              |   191 | Flashback       |
 
-The nine visible round identities are:
+The ten visible round identities are:
 
 - Classic Trivia: audited mana, cooldown, damage, hero-stat, and item-price questions.
 - Shopkeeper Rush: Build Result, Real Recipe, Shared Part, and Upgrade Path. Full-shop pickers are used where four options would trivialize the answer.
@@ -56,6 +58,7 @@ The nine visible round identities are:
 - Quote Hunt: 245 proper written hero lines with two timed identity hints and the full hero grid.
 - Aghanim's Lab: current Scepter/Shard effect, then upgrade details, then ability name; full hero grid.
 - Order Up: drag/select four audited item, ability, or hero values from lowest to highest. The fourth pick submits automatically.
+- Flashback: 191 sourced history prompts (year slider, four choices, or ordering) about releases, patches, The International, and community moments, with official winner photos on reveal.
 
 Other completed foundations:
 
@@ -67,7 +70,7 @@ Other completed foundations:
 - Vote deadlines, duplicate protection, hidden pre-reveal splits, keyed answers, and global result summaries.
 - Semantic scheduling: the same main hero/item subject stays at least 13 rounds apart; exact prompts stay much farther apart in the deterministic audit.
 - Upcoming-round audio warming so progressive audio can begin promptly.
-- Persistent master sound/mute with a 10% default and Dota-native lock/correct/wrong/start sounds.
+- Persistent master sound/mute with a 70% default and Dota-native lock/correct/wrong/start sounds.
 - Optional Steam OpenID sign-in and Postgres-backed personal accuracy, streak, records, early solves, and format mastery.
 - Per-question reporting, calibration/review UI, reviewer allowlist, privacy page, profile deletion, structured diagnostics, and `/ops` alpha metrics.
 - JSON local stores for development and transactional Postgres stores for production.
@@ -98,7 +101,7 @@ The maintainer is a long-time Dota player. Design for an experienced player, not
 ### Catalog and scheduling
 
 - `src/lib/trivia.ts`: private question type, catalog assembly, format-to-game mapping, and `ARCADE_CONTENT_VERSION`.
-- `src/lib/arcade-games.mjs`: nine live identities and the twelve-slot public format cadence.
+- `src/lib/arcade-games.mjs`: ten live identities and the thirteen-slot public format cadence.
 - `src/lib/semantic-schedule.mjs`: deterministic global scheduling and cross-format subject spacing.
 - `src/lib/game-catalogs.ts` / `src/lib/game-identity.ts`: current Dota pack registry and the intended seam for future game packs.
 - `src/data/*.json`: generated and curated catalogs. Prefer editing their generators/audits rather than hand-editing generated output.
@@ -168,6 +171,8 @@ State verified on 2026-08-12:
 - The Render web service itself is on the free plan. The maintainer intentionally wants to postpone paid hosting until launch readiness.
 - Render is the maintainer's preferred host because their other apps already live there. Supabase was discussed for Postgres but not chosen; default to paid Render Postgres at launch unless that decision is explicitly reopened.
 - The most recent full verification (commit `33c466f`) passed the 1,326-question data suite, lint, strict TypeScript, production build, private-client-bundle audit, and visual desktop/mobile smoke.
+- A full audit on 2026-09-05 found and fixed, in one commit each: the calibration page shipping every question with its answer to the browser (via `site-chrome.tsx` importing the catalog), all Flashback four-choice answers sitting on B, party Echo Hunt/Soundcheck audio returning 409, party chat trusting a client-supplied name and votes from non-members, a red `pnpm lint`/`pnpm audit`, seven Aghanim/Spell Link clues that named their answer, and ghost party members. `pnpm check` (including `check:ui`) is green after those commits.
+- `validate-question-delivery` now walks every "use client" import graph; nothing under `src/components` may reach `trivia.ts`, `game-catalogs`, the stores, or the question JSON.
 - The development server may or may not survive a terminal/PC restart. Start it with `pnpm dev` if unavailable.
 
 Do not place secrets, personal Steam IDs, or full environment values in this document. `.env.example` lists the supported variables. Production requires at least `DATABASE_URL`, a private `ARCADE_VOTER_SALT`, canonical `ARCADE_APP_URL`, a distinct 32+ character `ARCADE_AUTH_SECRET`, `ARCADE_DATA_COUNTRIES`, and the reviewer's SteamID allowlist. The maintainer's reviewer ID is already configured externally; ask for it if a fresh environment needs it.
@@ -246,7 +251,7 @@ There is no known reproducible critical gameplay bug at this handoff. The follow
 - Primary-attribute and ability-description-to-one-of-four-same-hero questions: too trivial and retired by quality gates.
 - Map Sense: fun prototype but mostly visual guessing, high maintenance, and hard to make genuine Dota knowledge.
 - Counterplay: too many basic/obvious interactions and high correctness-maintenance risk.
-- Party/private rooms: not currently wanted; the shared crowd is the product.
+- Party/private rooms: rejected at first, then built in August 2026 as `/party` once the public loop was stable; the shared public crowd is still the main product.
 - Session share/rating buttons: removed as low-value chrome.
 - Generic side-rail “tips”: removed as noise.
 
