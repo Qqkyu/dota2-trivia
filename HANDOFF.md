@@ -7,6 +7,70 @@ Known-good commit when this document was written: `33c466f` (`Trim redundant rou
 
 This document is the working handoff for another coding agent. Read this and `README.md` before changing the project. The README is the detailed technical reference; this file records product decisions, current operational state, and the next sensible work.
 
+## Start here: session handoff 2026-09-06
+
+Written by Claude (Fable 5.1) after a two-day audit-and-fix session. Read this before the rest of the file; older sections still describe the product correctly, and the two lines about the database below override theirs.
+
+### State of `main`
+
+- `main` is `9934ee8`, pushed. 26 commits since `8639219`, one commit per change, each with its own regression check: `git log --oneline 8639219..9934ee8`.
+- Full verification passed on `9934ee8`: `pnpm validate-data` (1,518 prompts), `pnpm test` (92 vitest tests), `pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm validate-client-bundle`, and all 13 scripts behind `pnpm check:ui`. The browser scripts were run one at a time because the maintainer's machine ran low on memory when they ran as one batch; the results are the same.
+- Render is still suspended and CI is still disabled. Nothing was deployed. The free Render Postgres had an expiry date of 2026-08-31, which has passed; nobody has checked its status yet.
+
+### What the audit found and fixed (commits `9c661da`..`160ee72`)
+
+- **Private catalog leak.** The client `calibration-dashboard.tsx` imported `SiteFooter` from `site-chrome.tsx`, which pulled `game-catalogs` -> `trivia.ts` -> every question JSON (1.8 MB with answers) into a browser chunk. `SiteFooter` now lives in `site-footer.tsx`, and `validate-question-delivery` walks every "use client" import graph.
+- **Flashback always-B.** All 98 four-choice Flashback answers sat on B. Rotated to 25/25/24/24; `validate-flashback` gates the balance and a 12-word prompt cap.
+- **Party audio 409.** `/api/round-audio` only resolved the public room. It now resolves party rounds via `privateRoomCodeFromRoundId`.
+- **Party trust.** Chat trusted a client-supplied name and votes from non-members auto-joined the roster. Both now require membership (403 otherwise); chat lines use the roster name.
+- **Lint and audit red.** 152 prettier errors, 4 react-hooks errors, nanoid pinned to a vulnerable release. All green now.
+- **Data.** Three Aghanim effects and four Spell Link hints named their answer; 16 hints exceeded 60 words; the Techies release date was wrong. Fixed, with `containsAbilityLeak` (conjugated names) and a 60-word cap in `validate-questions`.
+- **Retired modes.** Map Sense and Counterplay UI, types, CSS (about 1,300 lines) and dead exports removed.
+- **Accessibility.** axe-core reports zero violations on every page and round format: timer/meter/group roles, sr-only `<h1>`s, footer and clue-label contrast.
+- **Ghost party members.** First pruned after 90 s, then reverted to the maintainer's rule: nobody is ever removed except by Leave. Silent tabs are marked `away` instead.
+
+### Features shipped (commits `d82eda3`..`2e4c065`), all approved by the maintainer
+
+1. **Enter picks the only match.** Hero grid and shop search: Enter picks the single remaining hero/item, adds it to a recipe draft, or builds a full draft. Many matches: Enter does nothing. `HeroPicker`/`ShopkeeperStore` in `queue-arcade.tsx`; checks `check-hero-search.mjs`, `check-shop-search.mjs`.
+2. **Flashback year Lock button.** The slider only sets the year; the Lock button (or Enter/Space) commits. Release no longer submits. `FlashbackYearBoard`; pinned by `validate-flashback` and `visual-flashback.mjs`.
+3. **Correct hero named on reveal.** A fixed-height status line above the hero grid shows the filter count, then "Locked: X", then "Answer: X · You picked Y". `check-hero-search` asserts the grid box does not move.
+4. **Away tag.** Silent party players stay in the lobby and ranking, dimmed, tagged Away. Pure helpers `partyPlayerTag`, `rankPartyPlayers`, `partyLobbyRoster` in `private-rooms.mjs` with unit tests.
+
+### Tests and checks that changed
+
+- `tests/*.test.mjs` (vitest, `pnpm test`) replaced eleven source-string validators. Unit coverage: scoring, crowd split, rate limit, calibration, reviews, revisions, diagnostics, analytics, party rooms, room sync, spell hints, interface copy, ability text overrides.
+- New browser/API checks in `check:ui`: `check-round-copy.mjs` (one party round per format: copy, controls, reveal), `check-party-api.mjs` (party audio, membership, chat), `check-hero-search.mjs`.
+- `check-feedback-sounds.mjs` clicked one Order Up card; an Order Up answer locks on the fourth. That was the "flaky" failure. Fixed.
+- `check-rate-limit-live.mjs` honors `QUEUE_ARCADE_DIST_DIR`.
+
+### Data (commits `e2c7cef`, `9934ee8`)
+
+- `pnpm sync-data` was run against live OpenDota/Dotabase on 2026-09-05. Four Spell Link abilities rotated, answer orders moved, counts per kind unchanged.
+- **Muerta** had no Spell Link questions because OpenDota serves empty `desc` for her abilities. `src/data/ability-text-overrides.json` holds hand-written tooltip text used only while upstream text is blank; the sync warns when an entry goes stale. The maintainer has not yet proofread those four texts. Spell Link is now 127 (one per hero); the deck-wide answer-slot balancer moved the correct slot in 107 Spell Link questions as a consequence.
+- **Regression that was pushed and then fixed:** running `node scripts/sync-dota-data.mjs` alone after the chain stripped `quoteHints` from all 245 Quote Hunt questions (commit `e2c7cef`). `9934ee8` restores them. The lone script now carries hints over and formats with prettier, so its output matches the chain byte for byte, and `validate-hero-picker` fails hard when any Quote Hunt question lacks its two clues. Rule: regenerate with `pnpm sync-data`, then run `pnpm validate-data` immediately before committing generated JSON.
+
+### Rules the maintainer stated this session
+
+- **No UI shifts.** New UI must reserve its space in every phase (render it disabled or empty rather than conditionally). Add a before/after bounding-box assertion to the browser check that covers it.
+- Party members are never pruned for silence. Only Leave removes a player.
+- Small commits, one per change, each with a regression check, so review and revert stay easy.
+- Run `pnpm` commands, data syncs, and `git push` yourself once the work is verified. Ask only before unsuspending/deploying Render or re-enabling GitHub CI.
+- Short replies, plain words.
+
+### Open items, in order
+
+1. **Rematch** (parked, needs a go): one host button that restarts the same party with the same formats and players, scores reset. Not started.
+2. **Proofread** the four Muerta texts in `src/data/ability-text-overrides.json`.
+3. **Render Postgres** status: expiry date 2026-08-31 has passed. Check before any launch step.
+4. Difficulty tiers are seeded, not calibrated (post-launch). Phoenix, Primal Beast, Io, and Marci have no spoken lines by design. OpenDota blank descriptions are covered by the overrides file.
+
+### Local gotchas
+
+- A `pnpm dev` server usually runs on port 3000. Never `pnpm build` into `.next` while it runs; use `QUEUE_ARCADE_DIST_DIR=.next-check pnpm build` and the same env for `validate-client-bundle` and `check:rate-limit`.
+- If `pnpm check:ui` dies mid-run without a test error, the machine ran out of memory. Run the scripts one at a time with `APP_URL=http://localhost:3000 node scripts/check-<name>.mjs`.
+- `SHOT_DIR=<dir> node scripts/check-hero-search.mjs` saves lock/reveal screenshots.
+- Check scripts embed page JavaScript in template literals: write regex escapes as `\\s`, or `\s` silently becomes `s`.
+
 ## Product in one paragraph
 
 Queue Arcade is an unofficial desktop-first browser arcade for the time between pressing Find Match and accepting a PC game. Dota 2 is the first content pack, inspired by Valve's retired Queue Trivia: everyone joins one endless synchronized public room, gets the same 15-second question, then sees the correct answer and the global answer/score split during a 7-second reveal. It should feel like testing real Dota knowledge—not reading-speed trivia, visual busywork, or an explanation-heavy tutorial. A match can pop at any moment, so there are no required ten-round runs and no meaningful penalty for leaving.
@@ -172,7 +236,7 @@ State verified on 2026-08-12:
 - Render Postgres `queue-arcade-db` (`dpg-d9mqc4taeets73aiclsg-a`, Frankfurt) is on the free plan and reports an expiry date of **2026-08-31**. Upgrade/replace it before launch and verify backups/migration rather than letting it expire.
 - The Render web service itself is on the free plan. The maintainer intentionally wants to postpone paid hosting until launch readiness.
 - Render is the maintainer's preferred host because their other apps already live there. Supabase was discussed for Postgres but not chosen; default to paid Render Postgres at launch unless that decision is explicitly reopened.
-- The most recent full verification (commit `33c466f`) passed the 1,326-question data suite, lint, strict TypeScript, production build, private-client-bundle audit, and visual desktop/mobile smoke.
+- The most recent full verification (commit `9934ee8`, 2026-09-06) passed everything behind `pnpm check`; see "Start here" above. An older note: the verification at commit `33c466f` passed the 1,326-question data suite, lint, strict TypeScript, production build, private-client-bundle audit, and visual desktop/mobile smoke.
 - A full audit on 2026-09-05 found and fixed, in one commit each: the calibration page shipping every question with its answer to the browser (via `site-chrome.tsx` importing the catalog), all Flashback four-choice answers sitting on B, party Echo Hunt/Soundcheck audio returning 409, party chat trusting a client-supplied name and votes from non-members, a red `pnpm lint`/`pnpm audit`, seven Aghanim/Spell Link clues that named their answer, and ghost party members. `pnpm check` (including `check:ui`) is green after those commits. Four small features followed the same day, one commit each: Enter picks the only hero or item a search leaves, the Flashback year slider locks with a button instead of on release, the hero grid names the correct hero on reveal in a fixed-height line, and silent party players get an Away tag instead of vanishing.
 - `validate-question-delivery` now walks every "use client" import graph; nothing under `src/components` may reach `trivia.ts`, `game-catalogs`, the stores, or the question JSON.
 - The development server may or may not survive a terminal/PC restart. Start it with `pnpm dev` if unavailable.
@@ -210,7 +274,7 @@ There is no known reproducible critical gameplay bug at this handoff. The follow
 4. **Public rankings are intentionally absent.** Steam profiles store personal stats. Add leaderboards only after server-owned opaque asset delivery and abuse/threat modeling.
 5. **Current Dota assets are third-party/Valve fan-project usage.** Keep the unofficial disclaimer and attribution. There is no formal license grant in this repository.
 6. **The main component is large.** `queue-arcade.tsx` carries many round variants. Avoid speculative rewrites during launch polish; split it only with strong browser regression coverage.
-7. **Production database lifecycle.** The free Render database expires 2026-08-31, and the app service is suspended. This must be resolved before a public launch.
+7. **Production database lifecycle.** The free Render database had an expiry date of 2026-08-31, which has passed without anyone checking its status, and the app service is suspended. This must be resolved before a public launch.
 8. **CI is off.** Local validation is the only guard until GitHub Actions is deliberately re-enabled.
 9. **Remote asset availability and bandwidth.** Audio is proxied to hide identities and was the primary bandwidth concern. Monitor actual bandwidth after reactivation; do not casually proxy ordinary Steam artwork.
 
@@ -219,7 +283,7 @@ There is no known reproducible critical gameplay bug at this handoff. The follow
 ### P0 — Launch readiness
 
 1. **Finish the maintainer's manual polish pass.** Play long local sessions and report exact question/round examples. Fix only observed confusing copy, layout shifts, wrong data, duplicate content, or poor difficulty. Add a regression test for each reproducible bug.
-2. **Upgrade the production database before 2026-08-31.** The current default decision is paid Render Postgres. Verify and back up the existing schema/data, upgrade or deliberately migrate it, update `DATABASE_URL` if needed, run `/api/health`, then test Steam/profile/votes/reports.
+2. **Check, then upgrade the production database.** The 2026-08-31 free-plan expiry has passed; find out whether the data survived first. The current default decision is paid Render Postgres. Verify and back up the existing schema/data, upgrade or deliberately migrate it, update `DATABASE_URL` if needed, run `/api/health`, then test Steam/profile/votes/reports.
 3. **Restore verification intentionally.** Re-enable GitHub Actions only after allowance resets or billing is approved. Run the full Postgres CI journey once before launch.
 4. **Resume Render only for a controlled soft launch.** Because auto-deploy is enabled, first ensure `main` is known-good, production env vars still exist, the database is durable, and `/api/health` is green. Watch logs, bandwidth, and `/ops` immediately.
 5. **Do an actual public soft launch rather than waiting for a private group.** The maintainer does not have 5–15 Dota testers. Ship to a small public audience, then use `/ops`, calibration, and reports to learn.
