@@ -2847,6 +2847,25 @@ export function QueueArcade({
     [applyRoomSnapshot, ensurePlayerId, requestRoomSnapshot],
   );
 
+  const handlePartyWaiting = useCallback(
+    (waiting: boolean) => {
+      setPrivateWaiting(waiting);
+      if (!waiting) return;
+      setPartyOpen(true);
+      if (phaseRef.current === "lobby") return;
+      roomSyncGateRef.current?.cancel();
+      roomSettingsRef.current = null;
+      joiningRoomRef.current = false;
+      roundIdRef.current = "";
+      currentQuestionRef.current = null;
+      setCurrentQuestion(null);
+      setDeadline(null);
+      setRevealDeadlineState(null);
+      setPhase("lobby");
+    },
+    [setDeadline, setPhase],
+  );
+
   const startRun = useCallback(
     async (updateHistory = true, privateCode = privateCodeRef.current) => {
       if (joiningRoomRef.current) return;
@@ -3855,10 +3874,7 @@ export function QueueArcade({
           displayName={account?.authenticated ? account.profile.user.displayName : ""}
           initialCode={activePrivateCode || partyInviteCode || undefined}
           playActive={false}
-          onWaitingChange={(waiting) => {
-            setPrivateWaiting(waiting);
-            if (waiting) setPartyOpen(true);
-          }}
+          onWaitingChange={handlePartyWaiting}
           onStarted={(code) => {
             privateCodeRef.current = code;
             setActivePrivateCode(code);
@@ -4831,6 +4847,7 @@ export function QueueArcade({
           initialCode={activePrivateCode}
           playActive
           onStarted={() => undefined}
+          onWaitingChange={handlePartyWaiting}
         />
       ) : null}
 

@@ -82,10 +82,10 @@ export function isPrivateRoomId(roomId) {
   return typeof roomId === "string" && roomId.includes(":private:");
 }
 
-/** Round IDs look like `<game>:<version>:private:<CODE>:round:<n>`; public rounds have no code. */
+/** Round IDs look like `<game>:<version>:private:<CODE>:round:<n>` or `…:round:<n>:<startedAt>`. */
 export function privateRoomCodeFromRoundId(roundId) {
   if (typeof roundId !== "string") return null;
-  const match = /:private:([0-9A-Za-z]{3,16}):round:\d+$/.exec(roundId);
+  const match = /:private:([0-9A-Za-z]{3,16}):round:\d+(?::\d+)?$/.exec(roundId);
   return match ? normalizePrivateRoomCode(match[1]) : null;
 }
 
@@ -332,6 +332,20 @@ export function startPrivateRoom(code, playerId, now = Date.now()) {
   record.startedAt = now + PRIVATE_ROOM_COUNTDOWN_MS;
   record.lastSeenAt = now;
   return { ok: true, alreadyStarted: false, room: publicView(record) };
+}
+
+/** Same party, same people, new clock. Scores go to 0. Chat stays. */
+export function rematchPrivateRoom(code, playerId, now = Date.now()) {
+  const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
+  if (!record) return { ok: false, reason: "missing" };
+  if (record.hostId !== playerId) return { ok: false, reason: "forbidden" };
+  const names = (record.members ?? []).map((member) => member.name.toLowerCase());
+  if (new Set(names).size !== names.length) return { ok: false, reason: "names" };
+  if (record.startedAt == null) return { ok: false, reason: "not-started" };
+  for (const member of record.members ?? []) member.score = 0;
+  record.startedAt = now + PRIVATE_ROOM_COUNTDOWN_MS;
+  record.lastSeenAt = now;
+  return { ok: true, room: publicView(record) };
 }
 
 /** Chat lines carry the sender's roster name; the client never names itself. */

@@ -26,6 +26,7 @@ import {
   privateRoomWaiting,
   privateRoundTiming,
   resetPrivateRoomsForTests,
+  rematchPrivateRoom,
   startPrivateRoom,
   storedPartyNameDraft,
   touchPrivateRoom,
@@ -76,6 +77,9 @@ describe("party codes and names", () => {
 
   it("finds the party code inside a private round ID only", () => {
     expect(privateRoomCodeFromRoundId("dota2:7.41e-variety-7-flashback-13:private:LODA:round:12")).toBe("LODA");
+    expect(privateRoomCodeFromRoundId("dota2:7.41e-variety-7-flashback-13:private:LODA:round:12:1710000000")).toBe(
+      "LODA",
+    );
     expect(privateRoomCodeFromRoundId("dota2:7.41e-variety-7-flashback-13:public:round:970927")).toBeNull();
     expect(privateRoomCodeFromRoundId("dota2:x:private:no code:round:1")).toBeNull();
     expect(privateRoomCodeFromRoundId(null)).toBeNull();
@@ -303,6 +307,59 @@ describe("silent players", () => {
     expect(getPrivateRoom(room.code, at + PRIVATE_ROOM_MEMBER_TIMEOUT_MS * 5)?.players).toHaveLength(2);
     resetPrivateRoomsForTests();
     expect(getPrivateRoom(room.code)).toBeNull();
+  });
+});
+
+describe("rematch", () => {
+  const at = Date.now() + 200_000;
+  let room;
+
+  beforeAll(() => {
+    resetPrivateRoomsForTests();
+    room = createPrivateRoom({
+      ...catalog,
+      hostId: "rematch-host-1",
+      games: ["trivia"],
+      code: "again",
+      name: "Host",
+      now: at,
+    });
+    touchPrivateRoom(room.code, at + 10, { playerId: "rematch-guest-1", name: "Guest" });
+    startPrivateRoom(room.code, "rematch-host-1", at + 20);
+    addPrivateRoomScore(room.code, "rematch-host-1", 80, at + 30);
+    addPrivateRoomScore(room.code, "rematch-guest-1", 40, at + 31);
+    addPrivateRoomMessage(room.code, { playerId: "rematch-host-1", text: "gg", now: at + 32 });
+  });
+
+  it("lets only the host reset scores and start a new countdown", () => {
+    expect(rematchPrivateRoom(room.code, "rematch-guest-1", at + 40)).toMatchObject({
+      ok: false,
+      reason: "forbidden",
+    });
+    expect(rematchPrivateRoom("nope", "rematch-host-1", at + 41)).toMatchObject({ ok: false, reason: "missing" });
+    const again = rematchPrivateRoom(room.code, "rematch-host-1", at + 50);
+    expect(again.ok).toBe(true);
+    expect(again.room.startedAt).toBe(at + 50 + PRIVATE_ROOM_COUNTDOWN_MS);
+    expect(again.room.players.every((player) => player.score === 0)).toBe(true);
+    expect(again.room.players.map((player) => player.name).sort()).toEqual(["Guest", "Host"]);
+    expect(again.room.messages.at(-1)).toMatchObject({ text: "gg", name: "Host" });
+    expect(privateRoomWaiting(again.room, at + 51)).toBe(true);
+    expect(privateRoomWaiting(again.room, at + 50 + PRIVATE_ROOM_COUNTDOWN_MS)).toBe(false);
+  });
+
+  it("does not rematch a party that never started", () => {
+    const waiting = createPrivateRoom({
+      ...catalog,
+      hostId: "rematch-host-2",
+      games: ["trivia"],
+      code: "later",
+      name: "Host",
+      now: at + 60,
+    });
+    expect(rematchPrivateRoom(waiting.code, "rematch-host-2", at + 61)).toMatchObject({
+      ok: false,
+      reason: "not-started",
+    });
   });
 });
 

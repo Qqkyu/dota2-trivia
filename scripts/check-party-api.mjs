@@ -91,6 +91,29 @@ if (peek.privateRoom?.players?.some((player) => player.name !== "Host")) {
   throw new Error(`A stranger's vote joined the roster (${JSON.stringify(peek.privateRoom?.players)}).`);
 }
 
+const guestRematch = await post("/api/private-rooms/start", { playerId: strangerId, code, rematch: true });
+if (guestRematch.status !== 403) {
+  throw new Error(`A stranger could rematch (${guestRematch.status}).`);
+}
+const rematch = await post("/api/private-rooms/start", { playerId: hostId, code, rematch: true });
+if (rematch.status !== 200 || rematch.body?.waiting !== true) {
+  throw new Error(`Host rematch did not start a countdown (${rematch.status} ${JSON.stringify(rematch.body)}).`);
+}
+if (rematch.body.privateRoom?.players?.some((player) => Number(player.score) !== 0)) {
+  throw new Error(`Rematch did not zero scores (${JSON.stringify(rematch.body.privateRoom?.players)}).`);
+}
+if (rematch.body.privateRoom?.messages?.at(-1)?.text !== "gg") {
+  throw new Error("Rematch cleared chat.");
+}
+
+const rematchRound = await waitPhase(hostId, "answering", 30_000);
+if (rematchRound.round.id === answering.round.id) {
+  throw new Error("Rematch reused the old round id.");
+}
+if (rematchRound.round.number !== 0) {
+  throw new Error(`Rematch did not start at round 1 (${rematchRound.round.number}).`);
+}
+
 const reveal = await waitPhase(hostId, "reveal", 20_000);
 const prewarm = await fetch(`${appUrl}/api/round-audio?roundId=${encodeURIComponent(reveal.round.id)}`, {
   method: "HEAD",
@@ -98,4 +121,6 @@ const prewarm = await fetch(`${appUrl}/api/round-audio?roundId=${encodeURICompon
 });
 if (prewarm.status !== 204) throw new Error(`Party next-round audio prewarm returned ${prewarm.status}.`);
 
-console.log("Validated party audio, member-only votes and chat, and roster-name chat inside a private room.");
+console.log(
+  "Validated party audio, member-only votes and chat, roster-name chat, and host rematch inside a private room.",
+);

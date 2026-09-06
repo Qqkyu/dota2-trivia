@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { rateLimitRequest } from "@/lib/api-protection";
 import { privateRoomClientPayload, privateRoomIdentity } from "@/lib/private-room-rounds";
-import { startPrivateRoom } from "@/lib/private-rooms.mjs";
+import { rematchPrivateRoom, startPrivateRoom } from "@/lib/private-rooms.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 import { touchRoomPresence } from "@/lib/room-presence.mjs";
 
@@ -26,15 +26,24 @@ export async function POST(request: NextRequest) {
     const rateLimited = rateLimitRequest(request, "private-rooms-start", identity.playerId, 20);
     if (rateLimited) return rateLimited;
     const now = Date.now();
-    const result = startPrivateRoom(candidate.code, identity.playerId, now);
+    const rematch = candidate.rematch === true;
+    const result = rematch
+      ? rematchPrivateRoom(candidate.code, identity.playerId, now)
+      : startPrivateRoom(candidate.code, identity.playerId, now);
     if (!result.ok && result.reason === "missing") {
       return NextResponse.json({ error: "Unknown private room." }, { status: 404 });
+    }
+    if (!result.ok && result.reason === "not-started") {
+      return NextResponse.json({ error: "The party has not started." }, { status: 409 });
     }
     if (!result.ok && result.reason === "names") {
       return NextResponse.json({ error: "Party names must be unique." }, { status: 409 });
     }
     if (!result.ok || !result.room) {
-      return NextResponse.json({ error: "Only the host can start this room." }, { status: 403 });
+      return NextResponse.json(
+        { error: rematch ? "Only the host can rematch." : "Only the host can start this room." },
+        { status: 403 },
+      );
     }
     touchRoomPresence(result.room.roomId, identity.playerId, now);
     return NextResponse.json(privateRoomClientPayload(result.room, identity.playerId, now), {

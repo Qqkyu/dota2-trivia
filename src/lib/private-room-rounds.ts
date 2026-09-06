@@ -45,7 +45,7 @@ function questionForPrivateRound(record: NonNullable<ReturnType<typeof getPrivat
   const batchNumber = Math.floor(roundNumber / PUBLIC_ROOM_BATCH_LENGTH);
   const index = roundNumber % PUBLIC_ROOM_BATCH_LENGTH;
   const deck = catalog.createDeck(
-    `private-room:${record.roomId}:questions`,
+    `private-room:${record.roomId}:${record.startedAt}:questions`,
     PUBLIC_ARCADE_MODE,
     "Mixed",
     PUBLIC_ROOM_BATCH_LENGTH,
@@ -67,7 +67,7 @@ export function privateRoundAt(
   const answerDeadline = roundStartedAt + PUBLIC_ROUND_ANSWER_MS;
   const revealDeadline = answerDeadline + PUBLIC_ROUND_REVEAL_MS;
   return {
-    id: `${record.roomId}:round:${roundNumber}`,
+    id: `${record.roomId}:round:${roundNumber}:${record.startedAt}`,
     number: roundNumber,
     phase: now < answerDeadline ? "answering" : "reveal",
     game: question.game,

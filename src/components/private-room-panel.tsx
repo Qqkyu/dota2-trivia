@@ -203,7 +203,7 @@ export function PrivateRoomPanel({
   const [errorField, setErrorField] = useState<"code" | "name" | "games" | null>(null);
   const [nameNotice, setNameNotice] = useState<string | null>(null);
   const nameNoticeTimerRef = useRef<number | null>(null);
-  const [busy, setBusy] = useState<"create" | "join" | "start" | null>(null);
+  const [busy, setBusy] = useState<"create" | "join" | "start" | "rematch" | null>(null);
   const [copied, setCopied] = useState(false);
   const [chatOpen, setChatOpen] = useState(true);
   const startedRef = useRef(false);
@@ -230,7 +230,7 @@ export function PrivateRoomPanel({
       countdownEndRef.current = null;
       return undefined;
     }
-    if (countdownEndRef.current == null) countdownEndRef.current = Date.now() + room.countdownMs;
+    countdownEndRef.current = Date.now() + room.countdownMs;
     const timer = window.setInterval(() => {
       const end = countdownEndRef.current;
       if (end == null) return;
@@ -494,6 +494,23 @@ export function PrivateRoomPanel({
     }
   };
 
+  const rematchRoom = async () => {
+    if (!room) return;
+    setBusy("rematch");
+    setError(null);
+    setErrorField(null);
+    try {
+      await requestRoom("/api/private-rooms/start", {
+        method: "POST",
+        body: JSON.stringify({ code: room.code, playerId: playerId(), rematch: true }),
+      });
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Could not rematch.");
+    } finally {
+      setBusy(null);
+    }
+  };
+
   const sendMessage = async () => {
     if (!room || !draft.trim()) return;
     const text = draft;
@@ -600,6 +617,19 @@ export function PrivateRoomPanel({
             </li>
           ))}
         </ol>
+        <div className={styles.rematchSlot} data-testid="private-room-rematch-slot">
+          {room.isHost ? (
+            <button
+              type="button"
+              className={styles.primary}
+              data-testid="private-room-rematch"
+              disabled={busy === "rematch" || room.waiting}
+              onClick={() => void rematchRoom()}
+            >
+              Rematch
+            </button>
+          ) : null}
+        </div>
         {chatPanel}
       </div>
     ) : null;

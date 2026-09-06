@@ -437,6 +437,16 @@
   width: min(300px, calc(100vw - 36px));
 }
 
+.rematchSlot {
+  display: grid;
+  min-height: 52px;
+  width: 100%;
+}
+
+.playDock .rematchSlot .primary {
+  width: 100%;
+}
+
 .playDock .chatShell {
   justify-items: stretch;
   gap: 8px;
