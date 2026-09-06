@@ -12,6 +12,7 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const json = { "Content-Type": "application/json" };
 
 const hostId = `party-host-${randomUUID()}`;
+const guestId = `party-guest-${randomUUID()}`;
 const strangerId = `party-stranger-${randomUUID()}`;
 const code = `A${Date.now().toString(36).slice(-5).toUpperCase()}`;
 const settings = { gameId: "dota2", mode: "mixed", filter: "Mixed", privateCode: code };
@@ -40,6 +41,10 @@ async function waitPhase(playerId, phase, timeout) {
 
 const created = await post("/api/private-rooms", { playerId: hostId, code, name: "Host", games: ["echo-hunt"] });
 if (created.status !== 200) throw new Error(`Could not create the party (${created.status}).`);
+const joined = await fetch(
+  `${appUrl}/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(guestId)}&name=${encodeURIComponent("Guest")}`,
+);
+if (!joined.ok) throw new Error(`Guest could not join (${joined.status}).`);
 const started = await post("/api/private-rooms/start", { playerId: hostId, code });
 if (started.status !== 200) throw new Error(`Could not start the party (${started.status}).`);
 
@@ -77,6 +82,16 @@ const hostVote = await post("/api/votes", {
 if (hostVote.status !== 200 || !hostVote.body?.accepted) {
   throw new Error(`The host could not vote in the party (${hostVote.status} ${JSON.stringify(hostVote.body)}).`);
 }
+const guestVote = await post("/api/votes", {
+  ...settings,
+  roundId: answering.round.id,
+  answerIndex: 0,
+  answerKey: "npc_dota_hero_axe",
+  voterId: guestId,
+});
+if (guestVote.status !== 200 || !guestVote.body?.accepted) {
+  throw new Error(`The guest could not vote in the party (${guestVote.status} ${JSON.stringify(guestVote.body)}).`);
+}
 const strangerChat = await post("/api/private-rooms/messages", { code, playerId: strangerId, text: "hi" });
 if (strangerChat.status !== 403) {
   throw new Error(`A stranger could chat in the party (${strangerChat.status}).`);
@@ -87,13 +102,18 @@ if (spoofedChat.status !== 200 || lastMessage?.name !== "Host" || lastMessage?.t
   throw new Error(`Chat did not use the roster name (${spoofedChat.status} ${JSON.stringify(lastMessage)}).`);
 }
 const peek = await fetch(`${appUrl}/api/private-rooms?code=${code}&peek=1`).then((response) => response.json());
-if (peek.privateRoom?.players?.some((player) => player.name !== "Host")) {
+const peekNames = new Set(peek.privateRoom?.players?.map((player) => player.name) ?? []);
+if (!peekNames.has("Host") || !peekNames.has("Guest") || peekNames.size !== 2) {
   throw new Error(`A stranger's vote joined the roster (${JSON.stringify(peek.privateRoom?.players)}).`);
 }
 
-const guestRematch = await post("/api/private-rooms/start", { playerId: strangerId, code, rematch: true });
+const guestRematch = await post("/api/private-rooms/start", { playerId: guestId, code, rematch: true });
 if (guestRematch.status !== 403) {
-  throw new Error(`A stranger could rematch (${guestRematch.status}).`);
+  throw new Error(`A guest could rematch (${guestRematch.status}).`);
+}
+const strangerRematch = await post("/api/private-rooms/start", { playerId: strangerId, code, rematch: true });
+if (strangerRematch.status !== 403) {
+  throw new Error(`A stranger could rematch (${strangerRematch.status}).`);
 }
 const rematch = await post("/api/private-rooms/start", { playerId: hostId, code, rematch: true });
 if (rematch.status !== 200 || rematch.body?.waiting !== true) {
@@ -106,6 +126,17 @@ if (rematch.body.privateRoom?.messages?.at(-1)?.text !== "gg") {
   throw new Error("Rematch cleared chat.");
 }
 
+const staleDuringCountdown = await post("/api/votes", {
+  ...settings,
+  roundId: answering.round.id,
+  answerIndex: 0,
+  answerKey: "npc_dota_hero_axe",
+  voterId: hostId,
+});
+if (staleDuringCountdown.status !== 409) {
+  throw new Error(`Old-round vote during rematch countdown was ${staleDuringCountdown.status}.`);
+}
+
 const rematchRound = await waitPhase(hostId, "answering", 30_000);
 if (rematchRound.round.id === answering.round.id) {
   throw new Error("Rematch reused the old round id.");
@@ -113,14 +144,33 @@ if (rematchRound.round.id === answering.round.id) {
 if (rematchRound.round.number !== 0) {
   throw new Error(`Rematch did not start at round 1 (${rematchRound.round.number}).`);
 }
+const staleAfterStart = await post("/api/votes", {
+  ...settings,
+  roundId: answering.round.id,
+  answerIndex: 0,
+  answerKey: "npc_dota_hero_axe",
+  voterId: guestId,
+});
+if (staleAfterStart.status !== 409) {
+  throw new Error(`Old-round vote after rematch start was ${staleAfterStart.status}.`);
+}
 
-const reveal = await waitPhase(hostId, "reveal", 20_000);
+const hostLeft = await post("/api/private-rooms/leave", { playerId: hostId, code });
+if (hostLeft.status !== 200) throw new Error(`Host could not leave (${hostLeft.status}).`);
+const newHostRematch = await post("/api/private-rooms/start", { playerId: guestId, code, rematch: true });
+if (newHostRematch.status !== 200 || newHostRematch.body?.waiting !== true) {
+  throw new Error(`New host could not rematch (${newHostRematch.status} ${JSON.stringify(newHostRematch.body)}).`);
+}
+const oldHostRematch = await post("/api/private-rooms/start", { playerId: hostId, code, rematch: true });
+if (oldHostRematch.status !== 403) {
+  throw new Error(`The old host could rematch after leaving (${oldHostRematch.status}).`);
+}
+
+const reveal = await waitPhase(guestId, "reveal", 30_000);
 const prewarm = await fetch(`${appUrl}/api/round-audio?roundId=${encodeURIComponent(reveal.round.id)}`, {
   method: "HEAD",
   cache: "no-store",
 });
 if (prewarm.status !== 204) throw new Error(`Party next-round audio prewarm returned ${prewarm.status}.`);
 
-console.log(
-  "Validated party audio, member-only votes and chat, roster-name chat, and host rematch inside a private room.",
-);
+console.log("Validated party audio, member-only votes and chat, rematch zeros, stale votes, and host pass.");
