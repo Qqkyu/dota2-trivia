@@ -154,12 +154,27 @@ try {
   await page.waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-open"]'))`);
   const box = await page.evaluate(`(() => {
-    const node = document.querySelector('[data-testid="private-room-open"]');
-    if (!node) return null;
-    const rect = node.getBoundingClientRect();
-    return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2, w: rect.width, h: rect.height };
+    const play = document.querySelector('[data-testid="start-arcade"]');
+    const party = document.querySelector('[data-testid="private-room-open"]');
+    if (!play || !party) return null;
+    const playBox = play.getBoundingClientRect();
+    const partyBox = party.getBoundingClientRect();
+    return {
+      x: partyBox.x + partyBox.width / 2,
+      y: partyBox.y + partyBox.height / 2,
+      w: partyBox.width,
+      h: Math.round(partyBox.height),
+      playH: Math.round(playBox.height),
+      playSize: getComputedStyle(play).fontSize,
+      partySize: getComputedStyle(party).fontSize,
+      playTransform: getComputedStyle(play).textTransform,
+      partyTransform: getComputedStyle(party).textTransform,
+    };
   })()`);
-  if (!box || box.w < 2) throw new Error("Play with friends is not clickable.");
+  if (!box || box.w < 2) throw new Error("Party is not clickable.");
+  if (box.h !== box.playH || box.playTransform !== "uppercase" || box.partyTransform !== "uppercase") {
+    throw new Error(`Play and Party plaques do not match (${JSON.stringify(box)}).`);
+  }
   await page.send("Input.dispatchMouseEvent", {
     type: "mousePressed",
     x: box.x,

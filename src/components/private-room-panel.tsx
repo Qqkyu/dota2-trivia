@@ -774,7 +774,7 @@ export function PrivateRoomPanel({
 
   return (
     <section className={styles.view} data-testid="private-room-setup">
-      <h1 className="sr-only">Play with friends</h1>
+      <h1 className="sr-only">Party</h1>
       {back}
       <div
         className={clsx(formatPreviewCardStyles.cardGrid, styles.games)}
@@ -824,7 +824,7 @@ export function PrivateRoomPanel({
           />
           <button
             type="button"
-            className={styles.primary}
+            className={styles.dashButton}
             data-testid="private-room-create"
             aria-busy={busy === "create"}
             disabled={busy !== null}
@@ -839,7 +839,7 @@ export function PrivateRoomPanel({
           </button>
           <button
             type="button"
-            className={styles.ghost}
+            className={styles.dashButton}
             data-testid="private-room-join"
             aria-busy={busy === "join"}
             disabled={busy !== null}

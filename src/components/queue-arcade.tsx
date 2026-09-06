@@ -3769,7 +3769,7 @@ export function QueueArcade({
                   }
                 }}
               >
-                Play with friends
+                Party
               </a>
               <div className={styles.accountActionSlot} data-testid="account-action-slot">
                 {account === null ? (

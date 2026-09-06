@@ -137,6 +137,42 @@ try {
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-setup"]'))`);
   await delay(400);
 
+  const doors = await page.evaluate(`(() => {
+    const create = document.querySelector('[data-testid="private-room-create"]');
+    const join = document.querySelector('[data-testid="private-room-join"]');
+    if (!create || !join) return null;
+    const createStyle = getComputedStyle(create);
+    const joinStyle = getComputedStyle(join);
+    return {
+      create: {
+        transform: createStyle.textTransform,
+        size: createStyle.fontSize,
+        family: createStyle.fontFamily,
+        weight: createStyle.fontWeight,
+        height: Math.round(create.getBoundingClientRect().height),
+      },
+      join: {
+        transform: joinStyle.textTransform,
+        size: joinStyle.fontSize,
+        family: joinStyle.fontFamily,
+        weight: joinStyle.fontWeight,
+        height: Math.round(join.getBoundingClientRect().height),
+      },
+    };
+  })()`);
+  if (!doors) throw new Error("Create or Join is missing.");
+  if (doors.create.transform !== "uppercase" || doors.join.transform !== "uppercase") {
+    throw new Error(`Create/Join are not both uppercase (${JSON.stringify(doors)}).`);
+  }
+  if (
+    doors.create.size !== doors.join.size ||
+    doors.create.family !== doors.join.family ||
+    doors.create.weight !== doors.join.weight ||
+    doors.create.height !== doors.join.height
+  ) {
+    throw new Error(`Create and Join do not match (${JSON.stringify(doors)}).`);
+  }
+
   const fill = async (testid, value) => {
     await page.evaluate(`(() => {
       const input = document.querySelector('[data-testid="${testid}"]');
