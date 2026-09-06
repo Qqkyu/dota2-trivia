@@ -172,8 +172,11 @@ try {
     };
   })()`);
   if (!box || box.w < 2) throw new Error("Party is not clickable.");
-  if (box.h !== box.playH || box.playTransform !== "uppercase" || box.partyTransform !== "uppercase") {
-    throw new Error(`Play and Party plaques do not match (${JSON.stringify(box)}).`);
+  if (box.playTransform !== "uppercase" || box.partyTransform !== "uppercase") {
+    throw new Error(`Play or Party is not uppercase (${JSON.stringify(box)}).`);
+  }
+  if (box.h >= box.playH) {
+    throw new Error(`Party should be a small Valve button, not a Play plaque (${JSON.stringify(box)}).`);
   }
   await page.send("Input.dispatchMouseEvent", {
     type: "mousePressed",

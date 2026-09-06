@@ -662,7 +662,7 @@
   gap: 10px 14px;
   margin-top: 28px;
   grid-template-columns: minmax(0, 440px) 180px;
-  grid-template-rows: 58px 58px;
+  grid-template-rows: 58px 40px;
 }
 
 .lobbyActions > .primaryButton {
@@ -675,53 +675,43 @@
 
 .lobbyFriends {
   display: inline-flex;
-  width: 100%;
-  height: 58px;
-  min-height: 58px;
+  width: auto;
+  min-width: 132px;
+  height: 40px;
+  min-height: 40px;
   align-items: center;
   justify-content: center;
-  padding: 0 28px;
-  border: 2px solid #08111c;
-  background: repeating-linear-gradient(
-      126deg,
-      transparent 0 64px,
-      rgba(0, 0, 0, 0.16) 64px 65px,
-      rgba(214, 214, 200, 0.07) 65px 66px,
-      transparent 66px 67px
-    ),
-    linear-gradient(180deg, rgba(232, 213, 163, 0.08) 0%, transparent 38%, rgba(0, 0, 0, 0.22) 100%),
-    linear-gradient(180deg, #3d4543 0%, #2c3331 50%, #222827 100%);
+  padding: 0 18px;
+  border: 1px solid #000;
+  background: linear-gradient(180deg, #3a4149 0%, #1c2128 100%);
   box-shadow:
-    0 0 0 1px #050b14,
-    inset 0 1px 0 rgba(232, 213, 163, 0.12),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.3);
-  color: #e8d5a3;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 2px 6px rgba(0, 0, 0, 0.45);
+  color: #dcdcdc;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.42);
+  text-shadow: 0 1px 2px #000;
   cursor: pointer;
+  justify-self: start;
   grid-column: 1;
   grid-row: 2;
-  transition:
-    filter 140ms ease,
-    transform 140ms ease;
 }
 
 .lobbyFriends:hover {
-  filter: brightness(1.08);
+  background: linear-gradient(180deg, #4a5560 0%, #2a3038 100%);
+  color: #fff;
 }
 
 .lobbyFriends:active {
-  filter: brightness(0.93);
-  transform: translateY(1px);
+  background: linear-gradient(180deg, #2a3038 0%, #15191e 100%);
 }
 
 .lobbyFriends:focus-visible {
-  outline: 2px solid #c4a46a;
-  outline-offset: 3px;
+  outline: 1px solid #c4a46a;
+  outline-offset: 2px;
 }
 
 .accountActionSlot {
@@ -5907,11 +5897,19 @@ button[data-state="wrong"] > .heroPickerVerdict {
   }
 
   .lobbyActions > .primaryButton,
-  .lobbyFriends,
   .accountActionSlot {
     grid-column: auto;
     grid-row: auto;
     width: 100%;
+  }
+
+  .lobbyFriends {
+    grid-column: auto;
+    grid-row: auto;
+    width: auto;
+    min-width: 132px;
+    height: 40px;
+    justify-self: start;
   }
 
   .accountActionSlot,
