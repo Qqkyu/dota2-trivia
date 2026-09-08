@@ -137,13 +137,17 @@ try {
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-setup"]'))`);
   await delay(400);
 
-  const doors = await page.evaluate(`(() => {
-    const create = document.querySelector('[data-testid="private-room-create"]');
-    const join = document.querySelector('[data-testid="private-room-join"]');
-    if (!create || !join) return null;
+  const choose = await page.evaluate(`(() => {
+    const create = document.querySelector('[data-testid="private-room-choose-create"]');
+    const join = document.querySelector('[data-testid="private-room-choose-join"]');
+    const setup = document.querySelector('[data-testid="private-room-setup"]');
+    if (!create || !join || !setup) return null;
     const createStyle = getComputedStyle(create);
     const joinStyle = getComputedStyle(join);
     return {
+      path: setup.getAttribute("data-path"),
+      games: document.querySelectorAll('[data-testid^="format-preview-stage-"]').length,
+      code: Boolean(document.querySelector('[data-testid="private-room-join-code"]')),
       create: {
         transform: createStyle.textTransform,
         size: createStyle.fontSize,
@@ -160,27 +164,20 @@ try {
       },
     };
   })()`);
-  if (!doors) throw new Error("Create or Join is missing.");
-  if (doors.create.transform !== "uppercase" || doors.join.transform !== "uppercase") {
-    throw new Error(`Create/Join are not both uppercase (${JSON.stringify(doors)}).`);
+  if (!choose) throw new Error("Create party or Join party is missing.");
+  if (choose.path !== "choose" || choose.games || choose.code) {
+    throw new Error(`Party opened on a form, not two doors (${JSON.stringify(choose)}).`);
+  }
+  if (choose.create.transform !== "uppercase" || choose.join.transform !== "uppercase") {
+    throw new Error(`Create/Join doors are not both uppercase (${JSON.stringify(choose)}).`);
   }
   if (
-    doors.create.size !== doors.join.size ||
-    doors.create.family !== doors.join.family ||
-    doors.create.weight !== doors.join.weight ||
-    doors.create.height !== doors.join.height
+    choose.create.size !== choose.join.size ||
+    choose.create.family !== choose.join.family ||
+    choose.create.weight !== choose.join.weight ||
+    choose.create.height !== choose.join.height
   ) {
-    throw new Error(`Create and Join do not match (${JSON.stringify(doors)}).`);
-  }
-  const codeLabel = await page.evaluate(
-    `document.querySelector('[data-testid="private-room-code-label"]')?.textContent?.trim() ?? ""`,
-  );
-  if (codeLabel !== "Party code") throw new Error(`Party code has no label (${JSON.stringify(codeLabel)}).`);
-  const doorHint = await page.evaluate(
-    `document.querySelector('[data-testid="private-room-doors-hint"]')?.textContent?.trim() ?? ""`,
-  );
-  if (!/create/i.test(doorHint) || !/join/i.test(doorHint)) {
-    throw new Error(`Create/Join have no hint (${JSON.stringify(doorHint)}).`);
+    throw new Error(`Create and Join doors do not match (${JSON.stringify(choose)}).`);
   }
 
   const fill = async (testid, value) => {
@@ -249,6 +246,16 @@ try {
   };
 
   const partyCode = `L${Date.now().toString(36).slice(-5).toUpperCase()}`;
+  await clickTestId("private-room-choose-join");
+  await page.waitFor(`document.querySelector('[data-testid="private-room-setup"]')?.dataset.path === "join"`);
+  const joinHasGames = await page.evaluate(
+    `document.querySelectorAll('[data-testid^="format-preview-stage-"]').length`,
+  );
+  if (joinHasGames) throw new Error("Join party showed game modes.");
+  const codeLabel = await page.evaluate(
+    `document.querySelector('[data-testid="private-room-code-label"]')?.textContent?.trim() ?? ""`,
+  );
+  if (codeLabel !== "Party code") throw new Error(`Party code has no label (${JSON.stringify(codeLabel)}).`);
   await fill("private-room-join-code", "NOPE99");
   await clickTestId("private-room-join");
   await delay(400);
@@ -264,6 +271,10 @@ try {
     throw new Error(`Join of a missing code did not fail (${JSON.stringify(missingJoin)}).`);
   }
 
+  await clickTestId("private-room-leave");
+  await page.waitFor(`document.querySelector('[data-testid="private-room-setup"]')?.dataset.path === "choose"`);
+  await clickTestId("private-room-choose-create");
+  await page.waitFor(`document.querySelector('[data-testid="private-room-setup"]')?.dataset.path === "create"`);
   await fill("private-room-join-code", partyCode);
   const labelWhileTyped = await page.evaluate(
     `document.querySelector('[data-testid="private-room-code-label"]')?.textContent?.trim() ?? ""`,
@@ -556,6 +567,8 @@ try {
   const reopenedWait = await page.evaluate(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
   if (reopenedWait) throw new Error("Leave then Play with friends reopened the old party.");
 
+  await clickTestId("private-room-choose-create");
+  await page.waitFor(`document.querySelector('[data-testid="private-room-setup"]')?.dataset.path === "create"`);
   await fill("private-room-join-code", partyCode);
   await clickTestId("private-room-create");
   await delay(400);
@@ -577,6 +590,11 @@ try {
   if (!peekOnce.ok || peekPlayers.length !== peekPlayersAgain.length) {
     throw new Error("Peeking at a party added a player.");
   }
+  await clickTestId("private-room-leave");
+  await page.waitFor(`document.querySelector('[data-testid="private-room-setup"]')?.dataset.path === "choose"`);
+  await clickTestId("private-room-choose-join");
+  await page.waitFor(`document.querySelector('[data-testid="private-room-setup"]')?.dataset.path === "join"`);
+  await fill("private-room-join-code", partyCode);
   await clickTestId("private-room-join");
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
   const hostPass = await page.evaluate(`(() => {

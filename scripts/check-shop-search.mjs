@@ -135,6 +135,8 @@ try {
   await page.send("Page.navigate", { url: `${appUrl}/party` });
   await page.waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-setup"]'))`);
+  await page.evaluate(`document.querySelector('[data-testid="private-room-choose-create"]')?.click()`);
+  await page.waitFor(`document.querySelector('[data-testid="private-room-setup"]')?.dataset.path === "create"`);
 
   await page.evaluate(`(() => {
     for (const card of document.querySelectorAll('[data-on="true"]')) card.click();

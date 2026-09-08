@@ -193,6 +193,11 @@ try {
     clickCount: 1,
   });
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-setup"]'))`);
+  await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-choose-create"]'))`);
+  const chooseGames = await page.evaluate(`document.querySelectorAll('[data-testid^="format-preview-stage-"]').length`);
+  if (chooseGames) throw new Error("Party doors showed game modes.");
+  await page.evaluate(`document.querySelector('[data-testid="private-room-choose-create"]')?.click()`);
+  await page.waitFor(`document.querySelector('[data-testid="private-room-setup"]')?.dataset.path === "create"`);
   const partyPath = await page.evaluate(`location.pathname + location.search`);
   if (partyPath !== "/party") {
     throw new Error(`Party setup is on ${partyPath}, expected /party.`);
@@ -232,8 +237,8 @@ try {
       code: Boolean(document.querySelector('[data-testid="private-room-join-code"]')),
       selected: document.querySelectorAll('[data-on="true"]').length,
     }))()`);
-    if (!controls.create || !controls.join || !controls.code) {
-      console.error("Party setup must keep Create and Join next to the code field.");
+    if (!controls.create || !controls.code || controls.join) {
+      console.error("Create party must show games and Create, not Join.");
       process.exitCode = 1;
     } else {
       const firstCard = await page.evaluate(`(() => {

@@ -201,6 +201,8 @@ try {
   await host.page.send("Page.navigate", { url: `${appUrl}/party` });
   await host.page.waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
   await host.page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-setup"]'))`);
+  await clickTestId(host, "private-room-choose-create");
+  await host.page.waitFor(`document.querySelector('[data-testid="private-room-setup"]')?.dataset.path === "create"`);
   await fill(host, "private-room-join-code", partyCode);
   await clickTestId(host, "private-room-create");
   await host.page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
@@ -210,6 +212,8 @@ try {
   await guest.page.send("Page.navigate", { url: `${appUrl}/party` });
   await guest.page.waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`);
   await guest.page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-setup"]'))`);
+  await clickTestId(guest, "private-room-choose-join");
+  await guest.page.waitFor(`document.querySelector('[data-testid="private-room-setup"]')?.dataset.path === "join"`);
   await fill(guest, "private-room-join-code", partyCode);
   await clickTestId(guest, "private-room-join");
   await guest.page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);

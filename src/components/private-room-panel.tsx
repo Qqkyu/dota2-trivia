@@ -57,7 +57,7 @@ export interface PartyGameOption {
   preview?: FormatPreview | null;
 }
 
-type PartyScreen = "setup" | "wait";
+type PartyScreen = "choose" | "create" | "join" | "wait";
 
 interface PrivateRoomPayload {
   waiting?: boolean;
@@ -190,7 +190,7 @@ export function PrivateRoomPanel({
   onWaitingChange?: (waiting: boolean) => void;
   onClose?: () => void;
 }) {
-  const [screen, setScreen] = useState<PartyScreen>(initialCode ? "wait" : "setup");
+  const [screen, setScreen] = useState<PartyScreen>(initialCode ? "wait" : "choose");
   const [selected, setSelected] = useState<string[]>(() => gameOptions.map((game) => game.id));
   const [joinCode, setJoinCode] = useState(() => filterCode(initialCode ?? ""));
   const [nameDraft, setNameDraft] = useState<string | null>(() => {
@@ -374,7 +374,7 @@ export function PrivateRoomPanel({
         if (abort.signal.aborted) return;
         if (cause instanceof Error && cause.name === "AbortError") return;
         setError(cause instanceof Error ? cause.message : "Request failed.");
-        if (!trackedCode) setScreen("setup");
+        if (!trackedCode) setScreen("choose");
       });
     const start = window.setTimeout(() => void load(), 0);
     const timer = window.setInterval(() => void load(), PRIVATE_ROOM_POLL_MS);
@@ -645,12 +645,22 @@ export function PrivateRoomPanel({
       className={styles.back}
       data-testid="private-room-leave"
       onClick={() => {
-        if (screen === "wait") leaveParty();
+        if (screen === "wait") {
+          leaveParty();
+          onClose?.();
+          return;
+        }
+        if (screen === "create" || screen === "join") {
+          setError(null);
+          setErrorField(null);
+          setScreen("choose");
+          return;
+        }
         onClose?.();
       }}
     >
       <ArrowLeft />
-      Leave
+      {screen === "create" || screen === "join" ? "Back" : "Leave"}
     </button>
   );
 
@@ -776,9 +786,106 @@ export function PrivateRoomPanel({
     );
   }
 
+  const codeField = (
+    <div className={styles.codeField}>
+      <label htmlFor="party-code-input" data-testid="private-room-code-label">
+        Party code
+      </label>
+      <input
+        ref={joinInputRef}
+        id="party-code-input"
+        className={styles.codeInput}
+        value={joinCode}
+        maxLength={PRIVATE_ROOM_CODE_MAX}
+        placeholder="ABC12"
+        autoCapitalize="characters"
+        autoCorrect="off"
+        spellCheck={false}
+        aria-invalid={errorField === "code"}
+        aria-describedby={error ? "party-code-error" : undefined}
+        data-invalid={errorField === "code" ? "true" : undefined}
+        data-testid="private-room-join-code"
+        onChange={(event) => {
+          setJoinCode(filterCode(event.currentTarget.value));
+          setError(null);
+          setErrorField(null);
+        }}
+      />
+    </div>
+  );
+
+  const setupError = error ? (
+    <p id="party-code-error" className={styles.error} role="alert" data-testid="private-room-error">
+      {error}
+    </p>
+  ) : null;
+
+  if (screen === "choose") {
+    return (
+      <section className={styles.view} data-testid="private-room-setup" data-path="choose">
+        <h1 className="sr-only">Party</h1>
+        {back}
+        <div className={styles.chooseDoors}>
+          <button
+            type="button"
+            className={styles.dashButton}
+            data-testid="private-room-choose-create"
+            onClick={() => {
+              setError(null);
+              setErrorField(null);
+              setScreen("create");
+            }}
+          >
+            Create party
+          </button>
+          <button
+            type="button"
+            className={styles.dashButton}
+            data-testid="private-room-choose-join"
+            onClick={() => {
+              setError(null);
+              setErrorField(null);
+              setScreen("join");
+            }}
+          >
+            Join party
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  if (screen === "join") {
+    return (
+      <section className={clsx(styles.view, styles.joinView)} data-testid="private-room-setup" data-path="join">
+        <h1 className="sr-only">Join party</h1>
+        {back}
+        <div className={styles.enter}>
+          {codeField}
+          <button
+            type="button"
+            className={styles.dashButton}
+            data-testid="private-room-join"
+            aria-busy={busy === "join"}
+            disabled={busy !== null}
+            onClick={() => void joinRoom()}
+          >
+            <span className={styles.enterFace} data-show={busy === "join" ? "false" : "true"}>
+              Join
+            </span>
+            <span className={styles.enterFace} data-show={busy === "join" ? "true" : "false"}>
+              Joining…
+            </span>
+          </button>
+          {setupError}
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className={styles.view} data-testid="private-room-setup">
-      <h1 className="sr-only">Party</h1>
+    <section className={styles.view} data-testid="private-room-setup" data-path="create">
+      <h1 className="sr-only">Create party</h1>
       {back}
       <div
         className={clsx(formatPreviewCardStyles.cardGrid, styles.games)}
@@ -805,71 +912,23 @@ export function PrivateRoomPanel({
         })}
       </div>
       <div className={styles.enter}>
-        <div className={styles.codeField}>
-          <label htmlFor="party-code-input" data-testid="private-room-code-label">
-            Party code
-          </label>
-          <input
-            ref={joinInputRef}
-            id="party-code-input"
-            className={styles.codeInput}
-            value={joinCode}
-            maxLength={PRIVATE_ROOM_CODE_MAX}
-            placeholder="ABC12"
-            autoCapitalize="characters"
-            autoCorrect="off"
-            spellCheck={false}
-            aria-invalid={errorField === "code"}
-            aria-describedby={error ? "party-code-error" : "party-doors-hint"}
-            data-invalid={errorField === "code" ? "true" : undefined}
-            data-testid="private-room-join-code"
-            onChange={(event) => {
-              setJoinCode(filterCode(event.currentTarget.value));
-              setError(null);
-              setErrorField(null);
-            }}
-          />
-        </div>
-        <div className={styles.joinRow}>
-          <button
-            type="button"
-            className={styles.dashButton}
-            data-testid="private-room-create"
-            aria-busy={busy === "create"}
-            disabled={busy !== null}
-            onClick={() => void createRoom()}
-          >
-            <span className={styles.enterFace} data-show={busy === "create" ? "false" : "true"}>
-              Create
-            </span>
-            <span className={styles.enterFace} data-show={busy === "create" ? "true" : "false"}>
-              Creating…
-            </span>
-          </button>
-          <button
-            type="button"
-            className={styles.dashButton}
-            data-testid="private-room-join"
-            aria-busy={busy === "join"}
-            disabled={busy !== null}
-            onClick={() => void joinRoom()}
-          >
-            <span className={styles.enterFace} data-show={busy === "join" ? "false" : "true"}>
-              Join
-            </span>
-            <span className={styles.enterFace} data-show={busy === "join" ? "true" : "false"}>
-              Joining…
-            </span>
-          </button>
-        </div>
-        <p id="party-doors-hint" className={styles.doorHint} data-testid="private-room-doors-hint">
-          Create starts a new party. Join enters one that exists.
-        </p>
-        {error ? (
-          <p id="party-code-error" className={styles.error} role="alert" data-testid="private-room-error">
-            {error}
-          </p>
-        ) : null}
+        {codeField}
+        <button
+          type="button"
+          className={styles.dashButton}
+          data-testid="private-room-create"
+          aria-busy={busy === "create"}
+          disabled={busy !== null}
+          onClick={() => void createRoom()}
+        >
+          <span className={styles.enterFace} data-show={busy === "create" ? "false" : "true"}>
+            Create
+          </span>
+          <span className={styles.enterFace} data-show={busy === "create" ? "true" : "false"}>
+            Creating…
+          </span>
+        </button>
+        {setupError}
       </div>
     </section>
   );
