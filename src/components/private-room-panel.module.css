@@ -149,11 +149,32 @@
   border-top: 1px solid rgba(210, 214, 207, 0.1);
 }
 
+.codeField {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.codeField label {
+  color: #777f7c;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
 .joinRow {
   display: grid;
-  grid-template-columns: minmax(8rem, 1.4fr) minmax(6.5rem, 1fr) minmax(6.5rem, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
   align-items: stretch;
+}
+
+.doorHint {
+  margin: 0;
+  color: #777f7c;
+  font-size: 13px;
+  line-height: 1.35;
 }
 
 .codeInput {
@@ -649,9 +670,5 @@
 
   .joinRow {
     grid-template-columns: 1fr 1fr;
-  }
-
-  .codeInput {
-    grid-column: 1 / -1;
   }
 }

@@ -325,17 +325,24 @@ try {
             })()`);
           };
           const clickEnter = async () => {
+            const box = await page.evaluate(`(() => {
+              const node = document.querySelector('[data-testid="private-room-create"]');
+              if (!node) return null;
+              const rect = node.getBoundingClientRect();
+              return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+            })()`);
+            if (!box) throw new Error("Create is missing.");
             await page.send("Input.dispatchMouseEvent", {
               type: "mousePressed",
-              x: enterBox.x,
-              y: enterBox.y,
+              x: box.x,
+              y: box.y,
               button: "left",
               clickCount: 1,
             });
             await page.send("Input.dispatchMouseEvent", {
               type: "mouseReleased",
-              x: enterBox.x,
-              y: enterBox.y,
+              x: box.x,
+              y: box.y,
               button: "left",
               clickCount: 1,
             });
@@ -343,7 +350,7 @@ try {
           await page.evaluate(`(() => {
             for (const card of document.querySelectorAll('[data-on="true"]')) card.click();
           })()`);
-          await fill("private-room-join-code", "NOCAT");
+          await fill("private-room-join-code", `Z${Date.now().toString(36).slice(-5).toUpperCase()}`);
           await delay(100);
           await clickEnter();
           await delay(250);

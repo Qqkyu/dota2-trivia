@@ -387,6 +387,10 @@ export function PrivateRoomPanel({
 
   const toggleGame = (id: string) => {
     setSelected((current) => (current.includes(id) ? current.filter((game) => game !== id) : [...current, id]));
+    if (errorField === "games") {
+      setError(null);
+      setErrorField(null);
+    }
   };
 
   const goToRoom = (payload: PrivateRoomPayload, code: string) => {
@@ -801,20 +805,23 @@ export function PrivateRoomPanel({
         })}
       </div>
       <div className={styles.enter}>
-        <div className={styles.joinRow}>
+        <div className={styles.codeField}>
+          <label htmlFor="party-code-input" data-testid="private-room-code-label">
+            Party code
+          </label>
           <input
             ref={joinInputRef}
+            id="party-code-input"
             className={styles.codeInput}
             value={joinCode}
             maxLength={PRIVATE_ROOM_CODE_MAX}
-            placeholder="YOUR CODE"
+            placeholder="ABC12"
             autoCapitalize="characters"
             autoCorrect="off"
             spellCheck={false}
             aria-invalid={errorField === "code"}
-            aria-describedby={error ? "party-code-error" : undefined}
+            aria-describedby={error ? "party-code-error" : "party-doors-hint"}
             data-invalid={errorField === "code" ? "true" : undefined}
-            aria-label="Party code"
             data-testid="private-room-join-code"
             onChange={(event) => {
               setJoinCode(filterCode(event.currentTarget.value));
@@ -822,6 +829,8 @@ export function PrivateRoomPanel({
               setErrorField(null);
             }}
           />
+        </div>
+        <div className={styles.joinRow}>
           <button
             type="button"
             className={styles.dashButton}
@@ -853,6 +862,9 @@ export function PrivateRoomPanel({
             </span>
           </button>
         </div>
+        <p id="party-doors-hint" className={styles.doorHint} data-testid="private-room-doors-hint">
+          Create starts a new party. Join enters one that exists.
+        </p>
         {error ? (
           <p id="party-code-error" className={styles.error} role="alert" data-testid="private-room-error">
             {error}

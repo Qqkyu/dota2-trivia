@@ -172,6 +172,16 @@ try {
   ) {
     throw new Error(`Create and Join do not match (${JSON.stringify(doors)}).`);
   }
+  const codeLabel = await page.evaluate(
+    `document.querySelector('[data-testid="private-room-code-label"]')?.textContent?.trim() ?? ""`,
+  );
+  if (codeLabel !== "Party code") throw new Error(`Party code has no label (${JSON.stringify(codeLabel)}).`);
+  const doorHint = await page.evaluate(
+    `document.querySelector('[data-testid="private-room-doors-hint"]')?.textContent?.trim() ?? ""`,
+  );
+  if (!/create/i.test(doorHint) || !/join/i.test(doorHint)) {
+    throw new Error(`Create/Join have no hint (${JSON.stringify(doorHint)}).`);
+  }
 
   const fill = async (testid, value) => {
     await page.evaluate(`(() => {
@@ -255,6 +265,36 @@ try {
   }
 
   await fill("private-room-join-code", partyCode);
+  const labelWhileTyped = await page.evaluate(
+    `document.querySelector('[data-testid="private-room-code-label"]')?.textContent?.trim() ?? ""`,
+  );
+  if (labelWhileTyped !== "Party code") {
+    throw new Error("Party code label vanished after typing.");
+  }
+  for (let n = 0; n < 12; n += 1) {
+    const left = await page.evaluate(
+      `document.querySelectorAll('[data-testid="private-room-setup"] [data-on="true"]').length`,
+    );
+    if (left === 0) break;
+    await page.evaluate(`document.querySelector('[data-testid="private-room-setup"] [data-on="true"]')?.click()`);
+    await delay(40);
+  }
+  await clickTestId("private-room-create");
+  await delay(250);
+  const gamesError = await page.evaluate(
+    `document.querySelector('[data-testid="private-room-error"]')?.textContent?.trim() ?? ""`,
+  );
+  if (gamesError !== "Pick at least one game.") {
+    throw new Error(`Empty game pick did not warn (${JSON.stringify(gamesError)}).`);
+  }
+  await page.evaluate(`document.querySelector('[data-testid="private-room-setup"] [data-on="false"]')?.click()`);
+  await delay(80);
+  const gamesErrorGone = await page.evaluate(
+    `document.querySelector('[data-testid="private-room-error"]')?.textContent?.trim() ?? ""`,
+  );
+  if (gamesErrorGone) {
+    throw new Error(`Games error stayed after picking a mode (${JSON.stringify(gamesErrorGone)}).`);
+  }
   await clickTestId("private-room-create");
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
   await delay(300);
