@@ -71,7 +71,6 @@ try {
     "check-party-lobby.mjs",
     "check-party-previews.mjs",
     "check-party-nicks.mjs",
-    "check-party-rematch.mjs",
     "check-public-play.mjs",
     "check-reports-api.mjs",
     "check-party-api.mjs",

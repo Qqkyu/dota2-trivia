@@ -26,7 +26,6 @@ import {
   privateRoomWaiting,
   privateRoundTiming,
   resetPrivateRoomsForTests,
-  rematchPrivateRoom,
   startPrivateRoom,
   storedPartyNameDraft,
   touchPrivateRoom,
@@ -307,128 +306,6 @@ describe("silent players", () => {
     expect(getPrivateRoom(room.code, at + PRIVATE_ROOM_MEMBER_TIMEOUT_MS * 5)?.players).toHaveLength(2);
     resetPrivateRoomsForTests();
     expect(getPrivateRoom(room.code)).toBeNull();
-  });
-});
-
-describe("rematch", () => {
-  const at = Date.now() + 200_000;
-  let room;
-
-  beforeAll(() => {
-    resetPrivateRoomsForTests();
-    room = createPrivateRoom({
-      ...catalog,
-      hostId: "rematch-host-1",
-      games: ["trivia"],
-      code: "again",
-      name: "Host",
-      now: at,
-    });
-    touchPrivateRoom(room.code, at + 10, { playerId: "rematch-guest-1", name: "Guest" });
-    startPrivateRoom(room.code, "rematch-host-1", at + 20);
-    addPrivateRoomScore(room.code, "rematch-host-1", 80, at + 30);
-    addPrivateRoomScore(room.code, "rematch-guest-1", 40, at + 31);
-    addPrivateRoomMessage(room.code, { playerId: "rematch-host-1", text: "gg", now: at + 32 });
-  });
-
-  it("lets only the host reset scores and start a new countdown", () => {
-    expect(rematchPrivateRoom(room.code, "rematch-guest-1", at + 40)).toMatchObject({
-      ok: false,
-      reason: "forbidden",
-    });
-    expect(rematchPrivateRoom("nope", "rematch-host-1", at + 41)).toMatchObject({ ok: false, reason: "missing" });
-    const again = rematchPrivateRoom(room.code, "rematch-host-1", at + 50);
-    expect(again.ok).toBe(true);
-    expect(again.room.startedAt).toBe(at + 50 + PRIVATE_ROOM_COUNTDOWN_MS);
-    expect(again.room.players.every((player) => player.score === 0)).toBe(true);
-    expect(again.room.players.map((player) => player.name).sort()).toEqual(["Guest", "Host"]);
-    expect(again.room.messages.at(-1)).toMatchObject({ text: "gg", name: "Host" });
-    expect(privateRoomWaiting(again.room, at + 51)).toBe(true);
-    expect(privateRoomWaiting(again.room, at + 50 + PRIVATE_ROOM_COUNTDOWN_MS)).toBe(false);
-  });
-
-  it("does not rematch a party that never started", () => {
-    const waiting = createPrivateRoom({
-      ...catalog,
-      hostId: "rematch-host-2",
-      games: ["trivia"],
-      code: "later",
-      name: "Host",
-      now: at + 60,
-    });
-    expect(rematchPrivateRoom(waiting.code, "rematch-host-2", at + 61)).toMatchObject({
-      ok: false,
-      reason: "not-started",
-    });
-  });
-
-  it("keeps an away player in the roster at zero", () => {
-    const silent = createPrivateRoom({
-      ...catalog,
-      hostId: "rematch-host-3",
-      games: ["trivia"],
-      code: "quiet",
-      name: "Host",
-      now: at + 70,
-    });
-    touchPrivateRoom(silent.code, at + 71, { playerId: "rematch-away-1", name: "Sleepy" });
-    startPrivateRoom(silent.code, "rematch-host-3", at + 72);
-    addPrivateRoomScore(silent.code, "rematch-away-1", 90, at + 73);
-    const marked = touchPrivateRoom(silent.code, at + 73 + PRIVATE_ROOM_MEMBER_TIMEOUT_MS, {
-      playerId: "rematch-host-3",
-      name: "Host",
-    });
-    expect(marked.players.find((player) => player.name === "Sleepy")).toMatchObject({ away: true, score: 90 });
-    const again = rematchPrivateRoom(silent.code, "rematch-host-3", at + 74 + PRIVATE_ROOM_MEMBER_TIMEOUT_MS);
-    expect(again.ok).toBe(true);
-    expect(again.room.players).toHaveLength(2);
-    expect(again.room.players.find((player) => player.name === "Sleepy")).toMatchObject({ score: 0 });
-    const after = getPrivateRoom(silent.code, at + 74 + PRIVATE_ROOM_MEMBER_TIMEOUT_MS, "rematch-host-3");
-    expect(after.players.find((player) => player.name === "Sleepy")).toMatchObject({ away: true, score: 0 });
-  });
-
-  it("lets the new host rematch after the old host leaves", () => {
-    const passed = createPrivateRoom({
-      ...catalog,
-      hostId: "rematch-host-4",
-      games: ["trivia"],
-      code: "pass",
-      name: "OldHost",
-      now: at + 80,
-    });
-    touchPrivateRoom(passed.code, at + 81, { playerId: "rematch-guest-4", name: "NewHost" });
-    startPrivateRoom(passed.code, "rematch-host-4", at + 82);
-    addPrivateRoomScore(passed.code, "rematch-host-4", 50, at + 83);
-    leavePrivateRoom(passed.code, "rematch-host-4", at + 84);
-    expect(getPrivateRoom(passed.code, at + 85).players.find((player) => player.host)?.name).toBe("NewHost");
-    expect(rematchPrivateRoom(passed.code, "rematch-host-4", at + 86)).toMatchObject({
-      ok: false,
-      reason: "forbidden",
-    });
-    const again = rematchPrivateRoom(passed.code, "rematch-guest-4", at + 87);
-    expect(again.ok).toBe(true);
-    expect(again.room.players.every((player) => player.score === 0)).toBe(true);
-    expect(again.room.players.find((player) => player.host)?.name).toBe("NewHost");
-  });
-
-  it("refuses rematch when two names match", () => {
-    const twins = createPrivateRoom({
-      ...catalog,
-      hostId: "rematch-host-5",
-      games: ["trivia"],
-      code: "twins",
-      name: "Sam",
-      now: at + 90,
-    });
-    touchPrivateRoom(twins.code, at + 91, { playerId: "rematch-guest-5", name: "Alex" });
-    startPrivateRoom(twins.code, "rematch-host-5", at + 92);
-    const record = globalThis.__queueArcadePrivateRooms.get(twins.code);
-    record.members[0].name = "Sam";
-    record.members[1].name = "Sam";
-    expect(rematchPrivateRoom(twins.code, "rematch-host-5", at + 93)).toMatchObject({
-      ok: false,
-      reason: "names",
-    });
   });
 });
 

@@ -334,20 +334,6 @@ export function startPrivateRoom(code, playerId, now = Date.now()) {
   return { ok: true, alreadyStarted: false, room: publicView(record) };
 }
 
-/** Same party, same people, new clock. Scores go to 0. Chat stays. */
-export function rematchPrivateRoom(code, playerId, now = Date.now()) {
-  const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
-  if (!record) return { ok: false, reason: "missing" };
-  if (record.hostId !== playerId) return { ok: false, reason: "forbidden" };
-  const names = (record.members ?? []).map((member) => member.name.toLowerCase());
-  if (new Set(names).size !== names.length) return { ok: false, reason: "names" };
-  if (record.startedAt == null) return { ok: false, reason: "not-started" };
-  for (const member of record.members ?? []) member.score = 0;
-  record.startedAt = now + PRIVATE_ROOM_COUNTDOWN_MS;
-  record.lastSeenAt = now;
-  return { ok: true, room: publicView(record) };
-}
-
 /** Chat lines carry the sender's roster name; the client never names itself. */
 export function addPrivateRoomMessage(code, { playerId, text, now = Date.now() }) {
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");

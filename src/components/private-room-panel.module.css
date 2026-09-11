@@ -261,6 +261,7 @@
 }
 
 .lobby {
+  position: relative;
   display: grid;
   gap: 22px;
   width: min(100%, 520px);
@@ -423,13 +424,16 @@
 }
 
 .lobby .primary,
-.startWait,
-.countdown {
+.startWait {
   width: 100%;
 }
 
-.startWait,
-.countdown {
+.lobby .primary:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.startWait {
   display: grid;
   min-height: 52px;
   place-items: center;
@@ -442,9 +446,21 @@
 }
 
 .countdown {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: grid;
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  place-items: center;
+  margin: 0;
+  pointer-events: none;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 28px;
-  letter-spacing: 0.08em;
+  font-size: clamp(80px, 14vw, 128px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #e8d5a3;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.8);
 }
 
 .copyLink {
@@ -514,16 +530,6 @@
   display: grid;
   gap: 8px;
   width: min(300px, calc(100vw - 36px));
-}
-
-.rematchSlot {
-  display: grid;
-  min-height: 52px;
-  width: 100%;
-}
-
-.playDock .rematchSlot .primary {
-  width: 100%;
 }
 
 .playDock .chatShell {

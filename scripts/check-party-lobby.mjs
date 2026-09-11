@@ -555,6 +555,24 @@ try {
   if (!["3", "2", "1"].includes(count)) {
     throw new Error(`Start countdown was ${JSON.stringify(count)}, expected 3, 2, or 1.`);
   }
+  const startDuringCount = await page.evaluate(`(() => {
+    const start = document.querySelector('[data-testid="private-room-start"]');
+    const countNode = document.querySelector('[data-testid="private-room-countdown"]');
+    return {
+      startLabel: start?.textContent?.trim() ?? "",
+      startDisabled: start?.disabled === true,
+      countInsideStart: Boolean(start?.querySelector('[data-testid="private-room-countdown"]')),
+      countBox: countNode ? getComputedStyle(countNode).borderWidth : "",
+    };
+  })()`);
+  if (startDuringCount.startLabel !== "Start") {
+    throw new Error(`Start label changed during countdown (${JSON.stringify(startDuringCount.startLabel)}).`);
+  }
+  if (!startDuringCount.startDisabled) throw new Error("Start stayed clickable during countdown.");
+  if (startDuringCount.countInsideStart) throw new Error("Countdown is inside the Start button.");
+  if (startDuringCount.countBox && startDuringCount.countBox !== "0px") {
+    throw new Error(`Countdown still has a button border (${startDuringCount.countBox}).`);
+  }
   const startingLabel = await page.evaluate(
     `[...document.querySelectorAll("button")].some((node) => /starting/i.test(node.textContent ?? ""))`,
   );

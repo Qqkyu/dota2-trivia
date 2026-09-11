@@ -462,6 +462,13 @@ try {
                   } else if (!afterStart.ranking || afterStart.names.some((name) => !name)) {
                     console.error("Private play has no named ranking.");
                     process.exitCode = 1;
+                  } else if (
+                    await page.evaluate(
+                      `Boolean(document.querySelector('[data-testid="private-room-rematch"], [data-testid="private-room-rematch-slot"]'))`,
+                    )
+                  ) {
+                    console.error("Rematch is still on the play dock.");
+                    process.exitCode = 1;
                   } else {
                     const dock = await page.evaluate(`(() => {
                   const chat = document.querySelector('[data-testid="private-room-chat"]');
@@ -507,85 +514,9 @@ try {
                         console.error("Private ranking has no scores after a round.");
                         process.exitCode = 1;
                       } else {
-                        const rematchBefore = await page.evaluate(`(() => {
-                    const slot = document.querySelector('[data-testid="private-room-rematch-slot"]');
-                    const button = document.querySelector('[data-testid="private-room-rematch"]');
-                    const ranking = document.querySelector('[data-testid="private-room-ranking"]');
-                    if (!slot || !button || !ranking) return null;
-                    const slotBox = slot.getBoundingClientRect();
-                    const buttonBox = button.getBoundingClientRect();
-                    const rankBox = ranking.getBoundingClientRect();
-                    return {
-                      slotH: Math.round(slotBox.height),
-                      w: Math.round(buttonBox.width),
-                      h: Math.round(buttonBox.height),
-                      x: buttonBox.x + buttonBox.width / 2,
-                      y: buttonBox.y + buttonBox.height / 2,
-                      underRank: slotBox.top + 1 >= rankBox.bottom,
-                    };
-                  })()`);
-                        if (!rematchBefore?.underRank || rematchBefore.slotH < 52) {
-                          console.error(
-                            `Rematch slot is missing or jumps the ranking (${JSON.stringify(rematchBefore)}).`,
-                          );
-                          process.exitCode = 1;
-                        } else {
-                          await page.send("Input.dispatchMouseEvent", {
-                            type: "mousePressed",
-                            x: rematchBefore.x,
-                            y: rematchBefore.y,
-                            button: "left",
-                            clickCount: 1,
-                          });
-                          await page.send("Input.dispatchMouseEvent", {
-                            type: "mouseReleased",
-                            x: rematchBefore.x,
-                            y: rematchBefore.y,
-                            button: "left",
-                            clickCount: 1,
-                          });
-                          await page.waitFor(
-                            `Boolean(document.querySelector('[data-testid="private-room-countdown"]'))`,
-                            4_000,
-                          );
-                          await page.waitFor(
-                            `Boolean(document.querySelector('[data-testid="private-room-ranking"]'))`,
-                            8_000,
-                          );
-                          const rematchAfter = await page.evaluate(`(() => {
-                    const scores = [...document.querySelectorAll('[data-testid="private-room-ranking"] em')].map((node) => node.textContent?.trim() ?? "");
-                    const slot = document.querySelector('[data-testid="private-room-rematch-slot"]');
-                    const button = document.querySelector('[data-testid="private-room-rematch"]');
-                    const ranking = document.querySelector('[data-testid="private-room-ranking"]');
-                    if (!slot || !button || !ranking) return { scores };
-                    const slotBox = slot.getBoundingClientRect();
-                    const buttonBox = button.getBoundingClientRect();
-                    const rankBox = ranking.getBoundingClientRect();
-                    return {
-                      scores,
-                      slotH: Math.round(slotBox.height),
-                      w: Math.round(buttonBox.width),
-                      h: Math.round(buttonBox.height),
-                      underRank: slotBox.top + 1 >= rankBox.bottom,
-                    };
-                  })()`);
-                          if (rematchAfter.scores.some((score) => score !== "0")) {
-                            console.error(`Rematch did not zero the ranking (${JSON.stringify(rematchAfter.scores)}).`);
-                            process.exitCode = 1;
-                          } else if (
-                            rematchAfter.w !== rematchBefore.w ||
-                            rematchAfter.h !== rematchBefore.h ||
-                            rematchAfter.slotH !== rematchBefore.slotH ||
-                            !rematchAfter.underRank
-                          ) {
-                            console.error(`Rematch button moved (${JSON.stringify({ rematchBefore, rematchAfter })}).`);
-                            process.exitCode = 1;
-                          } else {
-                            console.log(
-                              `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
-                            );
-                          }
-                        }
+                        console.log(
+                          `Validated ${partyStages.length} party previews match the ${profileWidth}x${profileHeight} profile crop. ${controls.selected} games selected.`,
+                        );
                       }
                     }
                   }
