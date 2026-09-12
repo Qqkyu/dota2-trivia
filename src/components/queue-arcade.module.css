@@ -4136,7 +4136,7 @@ button[data-state="wrong"] > .heroPickerVerdict {
   align-items: center;
   gap: 9px;
   margin: 0 28px 25px;
-  padding: 0 13px;
+  padding: 8px 13px;
   border: 1px solid rgba(255, 255, 255, 0.055);
   background: rgba(0, 0, 0, 0.13);
   color: #8d9391;
@@ -4145,10 +4145,19 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
 .answerHelper > svg {
   width: 14px;
+  flex: 0 0 auto;
 }
 
-.answerHelper > span {
+.answerHelperCopy {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow-wrap: anywhere;
+  line-height: 1.35;
+}
+
+.answerHelperGold {
   margin-left: auto;
+  flex: 0 0 auto;
   color: var(--faint);
 }
 
@@ -6279,7 +6288,7 @@ button[data-state="wrong"] > .heroPickerVerdict {
     margin-left: 12px;
   }
 
-  .answerHelper > span {
+  .answerHelperGold {
     display: none;
   }
 
@@ -6404,8 +6413,8 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
   .shopkeeperGroups {
     min-width: 0;
-    height: min(52vh, 360px);
-    max-height: min(52vh, 360px);
+    height: min(34vh, 220px);
+    max-height: min(34vh, 220px);
     grid-template-columns: 1fr;
   }
 
@@ -6555,7 +6564,7 @@ button[data-state="wrong"] > .heroPickerVerdict {
   }
 
   .heroPickerGroup > div {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--hero-grid-columns), minmax(0, 1fr));
   }
 
   .shopkeeperOpenQuestion .shopkeeperPromptTray,

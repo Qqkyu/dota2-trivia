@@ -152,6 +152,67 @@ if (player.play("lock", { enabled: true, volume: 0 }).played !== false) {
   failures.push("Muted volume still starts a cue.");
 }
 
+class AbortOnPauseAudio {
+  constructor(src) {
+    this.src = src;
+    this.preload = "auto";
+    this.volume = 1;
+    this.currentTime = 0;
+    this.paused = true;
+    this.plays = 0;
+    this.pending = [];
+  }
+  play() {
+    this.plays += 1;
+    this.paused = false;
+    return new Promise((resolve, reject) => {
+      this.pending.push({ resolve, reject });
+    });
+  }
+  pause() {
+    this.paused = true;
+    const waiters = this.pending.splice(0);
+    for (const waiter of waiters) {
+      waiter.reject(
+        Object.assign(new Error("The play() request was interrupted by a call to pause()."), { name: "AbortError" }),
+      );
+    }
+  }
+}
+
+const lateCues = [];
+const latePlayer = createFeedbackPlayer({
+  AudioCtor: class extends AbortOnPauseAudio {
+    constructor(src) {
+      super(src);
+      lateCues.push(this);
+    }
+  },
+});
+latePlayer.preload();
+latePlayer.play("start", { enabled: true, volume: 1 });
+const startCues = lateCues.filter(
+  (audio) => String(audio.src).includes("find_match") || String(audio.src).includes("select_md"),
+);
+const startPlaysAtLock = startCues.reduce((sum, audio) => sum + audio.plays, 0);
+latePlayer.play("lock", { enabled: true, volume: 1 });
+await new Promise((resolve) => setTimeout(resolve, 60));
+const startPlaysAfterLock = startCues.reduce((sum, audio) => sum + audio.plays, 0);
+if (startPlaysAfterLock > startPlaysAtLock) {
+  failures.push("A paused start cue retried after the lock click and sounded late or hollow.");
+}
+const lockAfterStart = lateCues.find((audio) => String(audio.src).includes("button_click"));
+if (!lockAfterStart || lockAfterStart.plays < 1 || lockAfterStart.paused !== false) {
+  failures.push("Lock did not play after start was still running.");
+}
+
+latePlayer.play("wrong", { enabled: true, volume: 1 });
+const lockPlaysAtWrong = lockAfterStart.plays;
+await new Promise((resolve) => setTimeout(resolve, 60));
+if (lockAfterStart.plays > lockPlaysAtWrong) {
+  failures.push("A paused lock cue retried during the result and sounded like a cave.");
+}
+
 const throwing = [];
 const hardy = createFeedbackPlayer({
   AudioCtor: class {

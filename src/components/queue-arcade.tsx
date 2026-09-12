@@ -4575,7 +4575,7 @@ export function QueueArcade({
               )}
 
             {phase === "answering" ? (
-              <div className={styles.answerHelper}>
+              <div className={styles.answerHelper} data-testid="answer-helper">
                 {selectedIndex === null ? (
                   <>
                     {isOpenShopRound ? (
@@ -4587,40 +4587,44 @@ export function QueueArcade({
                     ) : (
                       <Keyboard />
                     )}
-                    {isOpenShopRound
-                      ? isRecipeBuilderRound
-                        ? "Pick the shop items. Recipe is included."
-                        : isSoundcheckRound
-                          ? "Choose the item that made the sound"
-                          : "Choose an item from the shop · Enter picks the only match"
-                      : isHeroPickerRound
-                        ? "Choose a hero · type to search · Enter picks the only match"
-                        : isValueOrderRound
-                          ? "Choose four in order"
-                          : isFlashbackYearRound
-                            ? "Slide to the year, then press Lock · Enter also locks"
-                            : currentGame === "shopkeeper"
-                              ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
-                              : currentGame === "spell-link"
-                                ? "Link the spell to a hero · A–D or 1–4"
-                                : currentGame === "fogged-vision"
-                                  ? "Name the silhouette · A–D or 1–4"
-                                  : currentGame === "echo-hunt"
-                                    ? "Match the voice · A–D or 1–4"
-                                    : currentGame === "soundcheck"
-                                      ? isSoundSequence
-                                        ? "Match the order · A–D or 1–4"
-                                        : "Match the sound · A–D or 1–4"
-                                      : currentGame === "quote-hunt"
-                                        ? "Match the line to its hero · A–D or 1–4"
-                                        : "Use A–D or 1–4 to answer"}
-                    <span>Correct now: {liveAward?.rawPoints ?? 0} gold</span>
+                    <span className={styles.answerHelperCopy}>
+                      {isOpenShopRound
+                        ? isRecipeBuilderRound
+                          ? "Pick the shop items. Recipe is included."
+                          : isSoundcheckRound
+                            ? "Choose the item that made the sound"
+                            : "Choose an item from the shop · Enter picks the only match"
+                        : isHeroPickerRound
+                          ? "Choose a hero · type to search · Enter picks the only match"
+                          : isValueOrderRound
+                            ? "Choose four in order"
+                            : isFlashbackYearRound
+                              ? "Slide to the year, then press Lock · Enter also locks"
+                              : currentGame === "shopkeeper"
+                                ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
+                                : currentGame === "spell-link"
+                                  ? "Link the spell to a hero · A–D or 1–4"
+                                  : currentGame === "fogged-vision"
+                                    ? "Name the silhouette · A–D or 1–4"
+                                    : currentGame === "echo-hunt"
+                                      ? "Match the voice · A–D or 1–4"
+                                      : currentGame === "soundcheck"
+                                        ? isSoundSequence
+                                          ? "Match the order · A–D or 1–4"
+                                          : "Match the sound · A–D or 1–4"
+                                        : currentGame === "quote-hunt"
+                                          ? "Match the line to its hero · A–D or 1–4"
+                                          : "Use A–D or 1–4 to answer"}
+                    </span>
+                    <span className={styles.answerHelperGold}>Correct now: {liveAward?.rawPoints ?? 0} gold</span>
                   </>
                 ) : (
                   <>
                     <Signal className={styles.signalIcon} />
-                    Answer locked with {Math.ceil(answerTimeLeft / 1000)}s left
-                    <span>Worth {liveAward?.rawPoints ?? 0} gold if correct</span>
+                    <span className={styles.answerHelperCopy}>
+                      Answer locked with {Math.ceil(answerTimeLeft / 1000)}s left
+                    </span>
+                    <span className={styles.answerHelperGold}>Worth {liveAward?.rawPoints ?? 0} gold if correct</span>
                   </>
                 )}
               </div>
@@ -4707,7 +4711,7 @@ export function QueueArcade({
           </div>
 
           <div className={styles.sideRail} role="region" aria-label="Your session">
-            <div className={styles.scoreGrid}>
+            <div className={styles.scoreGrid} data-testid="score-grid">
               <div>
                 <span>Gold</span>
                 <strong>{score.toLocaleString("en-US")}</strong>

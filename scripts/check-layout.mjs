@@ -398,7 +398,28 @@ const INSPECT_SOURCE = `(() => {
       if (!pickerBox || pickerBox.h < 48) issues.push("hero picker height " + Math.round(pickerBox?.h ?? 0));
       const clip = clippedByHidden(picker);
       if (clip) issues.push(clip);
-      if (!document.querySelector('[data-testid="hero-picker-hero"]')) issues.push("hero picker has no heroes");
+      const hero = document.querySelector('[data-testid="hero-picker-hero"]');
+      if (!hero) issues.push("hero picker has no heroes");
+      if (phone && hero) {
+        const portrait = hero.getBoundingClientRect().width;
+        if (portrait > 52) issues.push("hero portrait too wide on phone " + Math.round(portrait));
+      }
+    }
+    const helper = document.querySelector('[data-testid="answer-helper"]');
+    if (!helper) issues.push("answer helper missing");
+    else {
+      const helperText = (helper.textContent ?? "").replace(/\s+/g, " ").trim();
+      if (textCut(helper)) issues.push("answer helper text cut: " + JSON.stringify(helperText.slice(0, 90)));
+      const helperClip = clippedByHidden(helper);
+      if (helperClip) issues.push(helperClip);
+      if (phone) {
+        const helperBox = box(helper);
+        if (helperBox && helperBox.t < vh && helperBox.b > vh + 2) {
+          issues.push("answer helper is cut by the screen edge");
+        }
+        const scoreBox = box(document.querySelector('[data-testid="score-grid"]'));
+        if (helperBox && scoreBox && overlap(helperBox, scoreBox)) issues.push("answer helper overlaps GOLD");
+      }
     }
     if (answers) {
       const buttons = [...answers.querySelectorAll('[data-testid="arcade-answer"]')];
