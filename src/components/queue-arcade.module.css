@@ -4563,8 +4563,16 @@ button[data-state="wrong"] > .heroPickerVerdict {
 }
 
 .shell[data-party="true"] {
+  min-height: 100vh;
+  height: auto;
+  max-height: none;
+  overflow: auto;
+}
+
+.shell[data-party="true"]:has([data-testid="private-room-wait"]) {
   height: 100vh;
   max-height: 100vh;
+  overflow: hidden;
 }
 
 .shell[data-party="true"] .footer {
@@ -4574,6 +4582,19 @@ button[data-state="wrong"] > .heroPickerVerdict {
 @media (max-width: 960px) {
   .shell[data-party-play="true"] {
     overflow: auto;
+  }
+}
+
+@media (max-width: 680px) {
+  .shell:not([data-party="true"]),
+  .shell[data-party-play="true"] {
+    overflow: auto;
+    height: auto;
+    max-height: none;
+  }
+
+  .gameStage {
+    overflow: visible;
   }
 }
 
@@ -6329,6 +6350,28 @@ button[data-state="wrong"] > .heroPickerVerdict {
 @media (max-width: 480px) {
   .headerMeta .patchBadge {
     display: none;
+  }
+
+  .shopkeeperOpenQuestion,
+  .shopkeeperQuestion {
+    height: auto;
+    min-height: 0;
+  }
+
+  .shopkeeperStore {
+    margin-inline: 8px;
+    overflow: visible;
+  }
+
+  .shopkeeperGroups {
+    min-width: 0;
+    height: min(52vh, 360px);
+    max-height: min(52vh, 360px);
+    grid-template-columns: 1fr;
+  }
+
+  .shopkeeperGroup > div {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 

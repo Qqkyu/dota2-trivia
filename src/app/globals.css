@@ -14,7 +14,6 @@ html {
   min-width: 320px;
   background: #090b0c;
   line-height: 1.5;
-  scrollbar-gutter: stable;
   -webkit-text-size-adjust: 100%;
 }
 

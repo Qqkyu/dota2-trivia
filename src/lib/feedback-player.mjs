@@ -105,9 +105,18 @@ export function createFeedbackPlayer({
     pendingResult = RESULT_KINDS.has(kind) ? kind : null;
     const starts = [];
     for (const { audio, gain } of clips) {
-      resetClip(audio);
       audio.volume = Math.min(1, volume * gain);
-      starts.push(startClip(audio));
+      if (audio.paused === false) {
+        try {
+          if (typeof audio.readyState !== "number" || audio.readyState >= 1) audio.currentTime = 0;
+        } catch {
+          // Unloaded clips throw if we seek.
+        }
+      } else {
+        resetClip(audio);
+        audio.volume = Math.min(1, volume * gain);
+        starts.push(startClip(audio));
+      }
     }
     void Promise.allSettled(starts).then((results) => {
       if (RESULT_KINDS.has(kind) && results.some((result) => result.status === "fulfilled")) {

@@ -83,6 +83,7 @@ import {
   HERO_PICKER_BY_KEY,
   HERO_PICKER_CATALOG,
   HERO_PICKER_HEROES,
+  heroPickerPortraitSrc,
   isHeroCatalogKey,
   type HeroPickerHero,
 } from "@/lib/hero-picker";
@@ -1862,7 +1863,7 @@ const HERO_ATTRIBUTE_ICONS = {
 } satisfies Record<(typeof HERO_PICKER_CATALOG.groups)[number]["key"], string>;
 
 function HeroPickerPortrait({ hero }: { hero: HeroPickerHero }) {
-  return <Image src={hero.image} alt="" fill sizes="44px" loading="eager" unoptimized />;
+  return <Image src={heroPickerPortraitSrc(hero.image)} alt="" fill sizes="44px" loading="eager" unoptimized />;
 }
 
 function heroMatchesQuery(hero: HeroPickerHero, normalizedQuery: string) {
@@ -2398,7 +2399,10 @@ export function QueueArcade({
   if (roomSyncGateRef.current === null) roomSyncGateRef.current = createRoomSyncGate();
 
   useEffect(() => {
-    const sources = [...Object.values(HERO_ATTRIBUTE_ICONS), ...HERO_PICKER_HEROES.map((hero) => hero.image)];
+    const sources = [
+      ...Object.values(HERO_ATTRIBUTE_ICONS),
+      ...HERO_PICKER_HEROES.map((hero) => heroPickerPortraitSrc(hero.image)),
+    ];
     heroPreloadsRef.current = sources.map((src) => {
       const image = new window.Image();
       image.decoding = "async";

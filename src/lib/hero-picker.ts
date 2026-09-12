@@ -30,6 +30,22 @@ export const HERO_PICKER_CATALOG = catalogData as HeroPickerCatalog;
 export const HERO_PICKER_HEROES = HERO_PICKER_CATALOG.groups.flatMap((group) => group.heroes);
 export const HERO_PICKER_BY_KEY = new Map(HERO_PICKER_HEROES.map((hero) => [hero.key, hero]));
 
+export function heroPickerPortraitSrc(image: string) {
+  return image.replace("/dota_react/heroes/", "/dota_react/heroes/icons/");
+}
+
+export function preloadHeroPickerPortraits() {
+  if (typeof window === "undefined") return;
+  const marker = window as Window & { __queueArcadeHeroPreload?: boolean };
+  if (marker.__queueArcadeHeroPreload) return;
+  marker.__queueArcadeHeroPreload = true;
+  for (const hero of HERO_PICKER_HEROES) {
+    const img = new Image();
+    img.decoding = "async";
+    img.src = heroPickerPortraitSrc(hero.image);
+  }
+}
+
 export function isHeroCatalogKey(value: unknown): value is string {
   return typeof value === "string" && HERO_PICKER_BY_KEY.has(value);
 }

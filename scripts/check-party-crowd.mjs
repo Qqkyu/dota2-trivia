@@ -218,8 +218,16 @@ try {
       if (!setup || !create || !games || !main) return { missing: true };
       const createBox = create.getBoundingClientRect();
       const belowFold = createBox.bottom > window.innerHeight + 4;
-      const scrollRoot = setup.scrollHeight > setup.clientHeight + 8 ? setup : main.scrollHeight > main.clientHeight + 8 ? main : document.scrollingElement;
-      const canScroll = Boolean(scrollRoot && scrollRoot.scrollHeight > scrollRoot.clientHeight + 8);
+      const scrollRoot =
+        setup.scrollHeight > setup.clientHeight + 8
+          ? setup
+          : main.scrollHeight > main.clientHeight + 8
+            ? main
+            : document.scrollingElement;
+      const canScroll = Boolean(
+        (scrollRoot && scrollRoot.scrollHeight > scrollRoot.clientHeight + 8) ||
+          document.documentElement.scrollHeight > window.innerHeight + 8,
+      );
       if (belowFold && canScroll) {
         create.scrollIntoView({ block: "end" });
       }
@@ -251,7 +259,9 @@ try {
   await setViewport(VIEWPORTS[1]);
   await fill("private-room-join-code", partyCode);
   await delay(80);
-  await page.evaluate(`document.querySelector('[data-testid="private-room-create"]')?.scrollIntoView({ block: "center" })`);
+  await page.evaluate(
+    `document.querySelector('[data-testid="private-room-create"]')?.scrollIntoView({ block: "center" })`,
+  );
   await clickTestId("private-room-create");
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-start"]'))`);

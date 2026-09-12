@@ -176,6 +176,40 @@ try {
     12_000,
   );
 
+  await page.send("Emulation.setDeviceMetricsOverride", {
+    width: 420,
+    height: 800,
+    deviceScaleFactor: 1,
+    mobile: false,
+  });
+  await delay(250);
+  const phoneShop = await page.evaluate(`(() => {
+    const store = document.querySelector('[data-testid="shopkeeper-store"]');
+    const item = document.querySelector('[data-testid="shopkeeper-store-item"]');
+    const prompt = document.querySelector('[data-testid="round-prompt"]');
+    if (!store || !item) return { ok: false };
+    const storeBox = store.getBoundingClientRect();
+    const itemBox = item.getBoundingClientRect();
+    const promptBox = prompt?.getBoundingClientRect();
+    return {
+      ok: true,
+      storeH: Math.round(storeBox.height),
+      itemInView: itemBox.bottom > 0 && itemBox.top < window.innerHeight,
+      overlapPrompt: Boolean(
+        promptBox &&
+          storeBox.left < promptBox.right &&
+          storeBox.right > promptBox.left &&
+          storeBox.top < promptBox.bottom &&
+          storeBox.bottom > promptBox.top,
+      ),
+    };
+  })()`);
+  if (!phoneShop.ok || phoneShop.storeH < 80 || !phoneShop.itemInView || phoneShop.overlapPrompt) {
+    throw new Error(`Shopkeeper is unusable at 420px (${JSON.stringify(phoneShop)}).`);
+  }
+  await page.send("Emulation.clearDeviceMetricsOverride");
+  await delay(150);
+
   const before = await page.evaluate(`document.querySelectorAll('[data-testid="shopkeeper-store-item"]').length`);
   await page.evaluate(`(() => {
     const search = document.querySelector('[data-testid="shopkeeper-search"], [data-testid="shopkeeper-search-field"]');
