@@ -457,6 +457,53 @@ const INSPECT_SOURCE = `(() => {
       h2: h2?.textContent ?? "",
     };
   };
+  window.__queueArcadeInspectWait = function inspectWait() {
+    const issues = [];
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const tip = document.querySelector('[data-testid="entry-wait-tip"]');
+    const copy = tip?.querySelector("p");
+    const stage = document.querySelector('[data-testid="entry-wait-stage"]');
+    if (!tip || !copy) issues.push("wait tip missing");
+    else {
+      const text = (copy.textContent ?? "").replace(/\s+/g, " ").trim();
+      if (textCut(copy)) issues.push("wait tip text cut: " + JSON.stringify(text));
+      const clip = clippedByHidden(copy);
+      if (clip) issues.push(clip);
+      const cb = copy.getBoundingClientRect();
+      if (cb.right > vw + 2 || cb.bottom > vh + 2) issues.push("wait tip paints off screen");
+    }
+    if (tip?.dataset.tip === "keys") {
+      const prompt = document.querySelector('[data-testid="entry-wait-choice-prompt"] h2');
+      if (prompt && textCut(prompt)) {
+        issues.push("wait prompt cut: " + JSON.stringify(prompt.textContent));
+      }
+      const stageBox = box(stage);
+      const answers = [...document.querySelectorAll('[data-testid="entry-wait-keys-demo"] [data-testid="arcade-answer"]')];
+      if (answers.length !== 4) issues.push("wait A-D demo has " + answers.length + " answers");
+      for (const answer of answers) {
+        const key = answer.querySelector("span");
+        const ab = answer.getBoundingClientRect();
+        if (ab.height < 8 || ab.width < 8) issues.push("wait A-D answer collapsed");
+        if (stageBox && (ab.bottom > stageBox.b + 2 || ab.top < stageBox.t - 2)) {
+          issues.push("wait A-D answer clipped: " + JSON.stringify((answer.textContent ?? "").trim().slice(0, 24)));
+        }
+        if (key && textCut(key)) issues.push("wait A-D key cut: " + JSON.stringify(key.textContent));
+      }
+    }
+    if (tip?.dataset.tip === "shop") {
+      const search = document.querySelector('[data-testid="entry-wait-shop-demo"] [data-testid="shopkeeper-search-field"]');
+      if (!search) issues.push("wait shop search missing");
+      else {
+        const sb = search.getBoundingClientRect();
+        const stageBox = box(stage);
+        if (stageBox && (sb.bottom > stageBox.b + 2 || sb.top < stageBox.t - 2 || sb.height < 8)) {
+          issues.push("wait shop search clipped");
+        }
+      }
+    }
+    return { issues, tip: tip?.dataset.tip ?? "", copy: (copy?.textContent ?? "").trim() };
+  };
   window.__queueArcadeInspectPage = function inspectPage() {
     const issues = [];
     const vw = window.innerWidth;
@@ -533,7 +580,7 @@ try {
     source: `(() => {
       const fixtures = ${JSON.stringify(fixtures)};
       const originalFetch = window.fetch.bind(window);
-      window.__queueArcadeLayout = { kind: null, served: 0 };
+      window.__queueArcadeLayout = { kind: null, served: 0, wait: false };
       Object.defineProperty(HTMLMediaElement.prototype, "play", {
         configurable: true,
         value() { return Promise.resolve(); }
@@ -549,11 +596,32 @@ try {
         }
         const response = await originalFetch(...args);
         const state = window.__queueArcadeLayout;
-        if (!state?.kind || requestPath !== "/api/rounds") return response;
+        if ((!state?.kind && !state?.wait) || requestPath !== "/api/rounds") return response;
         try {
           const payload = await response.clone().json();
           if (!payload?.round || !payload?.room) return response;
           const now = Date.now();
+          if (state.wait) {
+            payload.serverNow = now;
+            payload.round = {
+              ...payload.round,
+              id: "layout-wait",
+              phase: "reveal",
+              game: "trivia",
+              startedAt: now - 20_000,
+              answerDeadline: now - 5_000,
+              revealDeadline: now + 60_000,
+              answerDuration: 15_000
+            };
+            payload.question = null;
+            payload.questionRevision = "layout-wait";
+            payload.playerVote = null;
+            payload.playerReport = null;
+            return new Response(JSON.stringify(payload), {
+              status: 200,
+              headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+            });
+          }
           if (state.served === 0) {
             state.served = 1;
             payload.serverNow = now;
@@ -709,6 +777,37 @@ try {
     }
     await inspectPage(`${viewport.name}/party`);
     await screenshot(`${viewport.name}-party`);
+
+    if (viewport.name === "phone") {
+      await go(appUrl);
+      await page.evaluate(`(() => {
+        window.__queueArcadeLayout.kind = null;
+        window.__queueArcadeLayout.wait = true;
+        window.__queueArcadeLayout.served = 0;
+        return true;
+      })()`);
+      await page.evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+      await page.waitFor(`Boolean(document.querySelector('[data-testid="entry-wait-tip"]'))`, 16_000);
+      await delay(280);
+      const seenTips = new Set();
+      for (let step = 0; step < 3; step += 1) {
+        const waitResult = await page.evaluate(`window.__queueArcadeInspectWait()`);
+        await screenshot(`${viewport.name}-wait-${waitResult.tip || step}`);
+        if (waitResult.issues.length) {
+          failures.push(`${viewport.name}/wait/${waitResult.tip}: ${waitResult.issues.join("; ")}`);
+        }
+        seenTips.add(waitResult.tip);
+        if (step < 2) {
+          await page.evaluate(`document.querySelector('[data-testid="entry-wait-next-tip"]')?.click()`);
+          await page.waitFor(
+            `document.querySelector('[data-testid="entry-wait-tip"]')?.dataset.tip && document.querySelector('[data-testid="entry-wait-tip"]')?.dataset.tip !== ${JSON.stringify(waitResult.tip)}`,
+          );
+          await delay(200);
+        }
+      }
+      if (!seenTips.has("keys")) failures.push(`${viewport.name}/wait: A-D keys tip never shown`);
+      await page.evaluate(`window.__queueArcadeLayout.wait = false`);
+    }
 
     await go(appUrl);
     await page.evaluate(`(() => {

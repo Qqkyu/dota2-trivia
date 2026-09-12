@@ -88,16 +88,8 @@ export function createFeedbackPlayer({
     return attempt().catch((error) => {
       if (cue !== cueGeneration) return;
       if (typeof audio.play !== "function") return Promise.reject(new Error("play-failed"));
-      if (!isAbortError(error)) return attempt();
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (cue !== cueGeneration) {
-            resolve();
-            return;
-          }
-          attempt().then(resolve, reject);
-        }, 20);
-      });
+      if (isAbortError(error)) return;
+      return attempt();
     });
   }
 
@@ -109,13 +101,20 @@ export function createFeedbackPlayer({
     const clips = boards.get(kind);
     if (!clips?.length) return { played: false, reason: "missing", created };
     const cue = ++cueGeneration;
-    pauseAll();
+    pauseAll(kind);
     pendingResult = RESULT_KINDS.has(kind) ? kind : null;
     const starts = [];
     for (const { audio, gain } of clips) {
-      resetClip(audio);
       audio.volume = Math.min(1, volume * gain);
-      starts.push(startClip(audio, cue));
+      if (audio.paused === false) {
+        try {
+          if (typeof audio.readyState !== "number" || audio.readyState >= 1) audio.currentTime = 0;
+        } catch {
+          // Unloaded clips throw if we seek.
+        }
+      } else {
+        starts.push(startClip(audio, cue));
+      }
     }
     void Promise.allSettled(starts).then((results) => {
       if (cue !== cueGeneration) return;

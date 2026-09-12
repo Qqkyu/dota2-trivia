@@ -6035,6 +6035,49 @@ button[data-state="wrong"] > .heroPickerVerdict {
     grid-template-columns: 28px minmax(0, 1fr) 28px;
   }
 
+  .entryWaitChoiceBoard .roundHeader {
+    min-height: 40px;
+    padding-inline: 12px;
+  }
+
+  .entryWaitChoiceBoard .questionBlock {
+    min-height: 0;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 12px 6px;
+  }
+
+  .entryWaitChoiceBoard .artwork {
+    width: 52px;
+    height: 52px;
+  }
+
+  .entryWaitChoiceBoard .questionCopy {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .entryWaitChoiceBoard .questionCopy h2 {
+    margin: 4px 0 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    font-size: 18px;
+  }
+
+  .entryWaitChoiceBoard .answers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 4px 10px 10px;
+  }
+
+  .entryWaitChoiceBoard .answer {
+    min-height: 48px;
+  }
+
+  .entryWaitChoiceBoard .answerText {
+    overflow-wrap: normal;
+  }
+
   .gameStage {
     min-height: auto;
   }
@@ -6592,7 +6635,7 @@ button[data-state="wrong"] > .heroPickerVerdict {
   }
 
   .answerText {
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
   }
 
   .flashbackOrderCards,

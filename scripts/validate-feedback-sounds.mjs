@@ -213,6 +213,54 @@ if (lockAfterStart.plays > lockPlaysAtWrong) {
   failures.push("A paused lock cue retried during the result and sounded like a cave.");
 }
 
+class ChromePauseThenPlayAudio {
+  constructor(src) {
+    this.src = src;
+    this.preload = "auto";
+    this.volume = 1;
+    this.currentTime = 0;
+    this.paused = true;
+    this.plays = 0;
+    this.started = 0;
+    this.pausedRecently = false;
+  }
+  play() {
+    this.plays += 1;
+    if (this.pausedRecently) {
+      this.pausedRecently = false;
+      this.paused = true;
+      return Promise.reject(
+        Object.assign(new Error("The play() request was interrupted by a call to pause()."), { name: "AbortError" }),
+      );
+    }
+    this.paused = false;
+    this.started += 1;
+    return Promise.resolve();
+  }
+  pause() {
+    this.paused = true;
+    this.pausedRecently = true;
+  }
+}
+
+const caveClips = [];
+const cavePlayer = createFeedbackPlayer({
+  AudioCtor: class extends ChromePauseThenPlayAudio {
+    constructor(src) {
+      super(src);
+      caveClips.push(this);
+    }
+  },
+});
+cavePlayer.play("wrong", { enabled: true, volume: 1 });
+await new Promise((resolve) => setTimeout(resolve, 60));
+const caveWrong = caveClips.find((audio) => String(audio.src).includes("magic_immune"));
+if (!caveWrong || caveWrong.plays !== 1 || caveWrong.started !== 1 || caveWrong.paused !== false) {
+  failures.push(
+    `Wrong cue stacked on itself (${caveWrong?.plays ?? 0} play calls, ${caveWrong?.started ?? 0} started) and sounded like a cave.`,
+  );
+}
+
 const throwing = [];
 const hardy = createFeedbackPlayer({
   AudioCtor: class {
