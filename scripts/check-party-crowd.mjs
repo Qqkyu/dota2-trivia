@@ -235,34 +235,47 @@ try {
       const start = document.querySelector('[data-testid="private-room-start"]');
       const chat = document.querySelector('[data-testid="private-room-chat"]');
       const toggle = document.querySelector('[data-testid="private-room-chat-toggle"]');
+      const input = document.querySelector('[data-testid="private-room-chat-input"]');
       const header = document.querySelector("header");
       const footer = document.querySelector("footer");
       const rows = [...(list?.querySelectorAll("li") ?? [])];
       const listBox = boxOf(scroll);
       const startBox = boxOf(start);
-      const chatBox = boxOf(chat) ?? boxOf(toggle);
+      const chatBox = boxOf(chat);
+      const toggleBox = boxOf(toggle);
+      const inputBox = boxOf(input);
       const hits = [];
       if (overlap(listBox, startBox)) hits.push("list/start");
       if (overlap(listBox, chatBox)) hits.push("list/chat");
       if (overlap(startBox, chatBox)) hits.push("start/chat");
+      if (overlap(startBox, toggleBox)) hits.push("start/toggle");
+      if (overlap(inputBox, toggleBox)) hits.push("input/toggle");
       if (overlap(startBox, boxOf(header))) hits.push("start/header");
       if (footer && getComputedStyle(footer).display !== "none") {
         if (overlap(startBox, boxOf(footer))) hits.push("start/footer");
         if (overlap(chatBox, boxOf(footer))) hits.push("chat/footer");
-        if (overlap(boxOf(toggle), boxOf(footer))) hits.push("toggle/footer");
+        if (overlap(toggleBox, boxOf(footer))) hits.push("toggle/footer");
       }
+      const visibleRows = rows.filter((row) => {
+        const box = row.getBoundingClientRect();
+        return listBox && box.bottom > listBox.top + 2 && box.top < listBox.bottom - 2 && box.height > 8;
+      }).length;
       return {
         count: document.querySelector('[data-testid="private-room-player-count"]')?.textContent?.trim() ?? "",
         rows: rows.length,
+        visibleRows,
+        listH: listBox ? Math.round(listBox.height) : 0,
         pageOverflowX: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
         startInView: inView(startBox),
-        chatInView: inView(boxOf(toggle)),
-        listInView: inView(listBox),
+        chatInView: inView(toggleBox),
+        inputInView: inView(inputBox),
+        listInView: inView(listBox) && (listBox?.height ?? 0) >= 48,
         stacked:
-          Boolean(listBox && startBox && chatBox) &&
+          Boolean(listBox && startBox && chatBox && toggleBox && inputBox) &&
           startBox.top + 1 >= listBox.bottom &&
-          (chatBox.top + 1 >= startBox.bottom || (toggle && toggle.getBoundingClientRect().top + 1 >= startBox.bottom)),
-        listScrolls: Boolean(scroll) && scroll.scrollHeight > scroll.clientHeight + 1,
+          chatBox.top + 1 >= startBox.bottom &&
+          toggleBox.top + 1 >= inputBox.bottom,
+        listScrolls: Boolean(scroll) && listBox && listBox.height >= 48 && scroll.scrollHeight > listBox.height + 1,
         rowOverflow: rows.some((row) => row.scrollWidth > (scroll?.clientWidth ?? 0) + 2),
         hits,
       };
@@ -277,8 +290,10 @@ try {
     if (layout.pageOverflowX) throw new Error(`${label}: page overflows sideways.`);
     if (!layout.startInView) throw new Error(`${label}: Start is off screen.`);
     if (!layout.chatInView) throw new Error(`${label}: Chat is off screen.`);
-    if (!layout.listInView) throw new Error(`${label}: Player list is off screen.`);
-    if (!layout.stacked) throw new Error(`${label}: Start/chat are not under the player list.`);
+    if (!layout.inputInView) throw new Error(`${label}: Chat input is off screen.`);
+    if (!layout.listInView) throw new Error(`${label}: Player list is missing or too short (${layout.listH}px).`);
+    if (layout.visibleRows < 1) throw new Error(`${label}: no player row is visible.`);
+    if (!layout.stacked) throw new Error(`${label}: list, Start, chat, and Hide chat are not stacked.`);
     if (layout.hits.length) throw new Error(`${label}: overlap ${layout.hits.join(", ")}.`);
     if (expected >= 20 && !layout.listScrolls) throw new Error(`${label}: player list does not scroll.`);
     if (layout.rowOverflow) throw new Error(`${label}: a player row is cut off.`);

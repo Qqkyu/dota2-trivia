@@ -271,15 +271,8 @@
 
 .lobby {
   position: relative;
-  display: grid;
-  grid-template-areas:
-    "nav"
-    "head"
-    "players"
-    "start"
-    "error"
-    "chat";
-  grid-template-rows: auto auto minmax(0, 1fr) auto auto auto;
+  display: flex;
+  flex-direction: column;
   gap: 14px;
   width: min(100%, 520px);
   height: 100%;
@@ -287,29 +280,35 @@
   overflow: hidden;
 }
 
-.lobby > .back {
-  grid-area: nav;
-}
-
-.lobby .lobbyHead {
-  grid-area: head;
+.lobby > .back,
+.lobby .lobbyHead,
+.lobby .startSlot,
+.lobby > .error {
+  flex: 0 0 auto;
 }
 
 .lobby .playersBlock {
-  grid-area: players;
-}
-
-.lobby .startSlot {
-  grid-area: start;
-}
-
-.lobby > .error {
-  grid-area: error;
+  flex: 1 1 0%;
+  min-height: 144px;
 }
 
 .lobby > .chatShell {
-  grid-area: chat;
+  display: flex;
+  flex: 0 1 auto;
   min-height: 0;
+  flex-direction: column;
+  align-items: start;
+  gap: 8px;
+}
+
+.lobby > .chatShell .chat {
+  align-self: stretch;
+  width: 100%;
+  min-height: 0;
+}
+
+.lobby > .chatShell .chatToggle {
+  flex: 0 0 auto;
 }
 
 .lobbyHead {
@@ -361,14 +360,16 @@
 }
 
 .playersBlock {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  min-height: 0;
+  display: flex;
+  min-height: 144px;
+  flex: 1 1 0%;
+  flex-direction: column;
   overflow: hidden;
 }
 
 .playersScroll {
-  min-height: 0;
+  flex: 1 1 0%;
+  min-height: 96px;
   overflow: auto;
   overscroll-behavior: contain;
   border: 1px solid #292e2d;
@@ -591,10 +592,12 @@
 .waitView .chatShell .chat,
 .waitView .chat {
   min-height: 0;
+  max-height: 168px;
 }
 
 .waitView .chatLog {
-  height: min(112px, 18vh);
+  height: 72px;
+  max-height: 72px;
 }
 
 .playDock {
