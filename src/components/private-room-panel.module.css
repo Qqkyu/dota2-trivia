@@ -251,13 +251,16 @@
 }
 
 .waitView {
-  height: calc(100vh - 156px);
-  min-height: calc(100vh - 156px);
-  max-height: calc(100vh - 156px);
+  display: grid;
+  flex: 1 1 0%;
+  min-height: 0;
+  height: auto;
+  max-height: none;
+  grid-template-rows: auto minmax(0, 1fr);
   align-content: stretch;
   justify-items: center;
   overflow: hidden;
-  padding: 16px 0;
+  padding: 12px 0 16px;
 }
 
 .waitView .lobby,
@@ -269,13 +272,44 @@
 .lobby {
   position: relative;
   display: grid;
+  grid-template-areas:
+    "nav"
+    "head"
+    "players"
+    "start"
+    "error"
+    "chat";
   grid-template-rows: auto auto minmax(0, 1fr) auto auto auto;
-  gap: 22px;
+  gap: 14px;
   width: min(100%, 520px);
   height: 100%;
-  max-height: 100%;
   min-height: 0;
   overflow: hidden;
+}
+
+.lobby > .back {
+  grid-area: nav;
+}
+
+.lobby .lobbyHead {
+  grid-area: head;
+}
+
+.lobby .playersBlock {
+  grid-area: players;
+}
+
+.lobby .startSlot {
+  grid-area: start;
+}
+
+.lobby > .error {
+  grid-area: error;
+}
+
+.lobby > .chatShell {
+  grid-area: chat;
+  min-height: 0;
 }
 
 .lobbyHead {
@@ -330,10 +364,11 @@
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   min-height: 0;
+  overflow: hidden;
 }
 
 .playersScroll {
-  min-height: 96px;
+  min-height: 0;
   overflow: auto;
   overscroll-behavior: contain;
   border: 1px solid #292e2d;
@@ -344,7 +379,7 @@
   gap: 2px;
   margin: 0;
   padding: 0;
-  overflow: visible;
+  overflow: hidden;
   list-style: none;
   background: rgba(15, 19, 18, 0.76);
 }
@@ -450,6 +485,10 @@
   font-style: normal;
 }
 
+.startSlot {
+  min-height: 52px;
+}
+
 .lobby .primary,
 .startWait {
   width: 100%;
@@ -549,12 +588,13 @@
   min-height: 180px;
 }
 
-.waitView .chatShell .chat {
+.waitView .chatShell .chat,
+.waitView .chat {
   min-height: 0;
 }
 
 .waitView .chatLog {
-  height: 140px;
+  height: min(112px, 18vh);
 }
 
 .playDock {
@@ -569,6 +609,19 @@
   width: min(300px, 22vw);
   max-height: calc(100vh - 140px);
   overflow: hidden;
+}
+
+@media (max-width: 960px) {
+  .playDock {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    z-index: 1;
+    width: min(100% - 24px, 520px);
+    max-height: min(48vh, 380px);
+    margin: 0 auto 20px;
+  }
 }
 
 .playDock .chatShell {

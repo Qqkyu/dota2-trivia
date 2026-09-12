@@ -4558,6 +4558,25 @@ button[data-state="wrong"] > .heroPickerVerdict {
   pointer-events: none;
 }
 
+.shell[data-party-play="true"] .gameStage {
+  min-height: 0;
+}
+
+.shell[data-party="true"] {
+  height: 100vh;
+  max-height: 100vh;
+}
+
+.shell[data-party="true"] .footer {
+  display: none;
+}
+
+@media (max-width: 960px) {
+  .shell[data-party-play="true"] {
+    overflow: auto;
+  }
+}
+
 .progressCard,
 .crowdCard {
   border: 1px solid var(--line);

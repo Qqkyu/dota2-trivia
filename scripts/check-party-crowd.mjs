@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Fill a party to 20, 50, and 100 seats. Start and chat must stay on screen.
- * The 101st join must fail.
+ * Party layout on big and small screens. 1 / 20 / 50 / 100 seats must not
+ * overlap. The 101st join must fail.
  */
 
 import { randomUUID } from "node:crypto";
@@ -87,6 +87,14 @@ function attachCdp(webSocketDebuggerUrl) {
   };
 }
 
+const VIEWPORTS = [
+  { name: "1080p", width: 1920, height: 1080 },
+  { name: "desktop", width: 1400, height: 900 },
+  { name: "laptop", width: 1280, height: 720 },
+  { name: "small", width: 1024, height: 700 },
+  { name: "narrow", width: 900, height: 720 },
+];
+
 const port = await freePort();
 const userDataDir = await mkdtemp(join(tmpdir(), "queue-arcade-crowd-"));
 const chrome = spawn(
@@ -99,7 +107,7 @@ const chrome = spawn(
     `--user-data-dir=${userDataDir}`,
     "--no-first-run",
     "--disable-gpu",
-    "--window-size=1400,900",
+    "--window-size=1920,1080",
     "about:blank",
   ],
   { stdio: "ignore" },
@@ -181,6 +189,16 @@ try {
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-start"]'))`);
 
+  async function setViewport(viewport) {
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: viewport.width,
+      height: viewport.height,
+      deviceScaleFactor: 1,
+      mobile: false,
+    });
+    await delay(200);
+  }
+
   async function joinGuests(from, to) {
     for (let index = from; index < to; index += 1) {
       const query = new URL(`${appUrl}/api/private-rooms`);
@@ -194,60 +212,89 @@ try {
     }
   }
 
-  async function measureLobby(expected) {
+  async function measureLobby(expected, viewport) {
+    await setViewport(viewport);
     await page.waitFor(
       `document.querySelectorAll('[data-testid="private-room-players"] li').length === ${expected}`,
       8_000,
     );
     const layout = await page.evaluate(`(() => {
-      const inView = (node) => {
-        if (!node) return false;
-        const box = node.getBoundingClientRect();
-        return (
-          box.top >= -1 &&
-          box.bottom <= window.innerHeight + 1 &&
-          box.left >= -1 &&
-          box.right <= window.innerWidth + 1
+      const overlap = (a, b) =>
+        Boolean(a && b && a.left < b.right - 1 && a.right > b.left + 1 && a.top < b.bottom - 1 && a.bottom > b.top + 1);
+      const boxOf = (node) => (node ? node.getBoundingClientRect() : null);
+      const inView = (box) =>
+        Boolean(
+          box &&
+            box.top >= -1 &&
+            box.bottom <= window.innerHeight + 1 &&
+            box.left >= -1 &&
+            box.right <= window.innerWidth + 1,
         );
-      };
       const scroll = document.querySelector('[data-testid="private-room-players-scroll"]');
       const list = document.querySelector('[data-testid="private-room-players"]');
       const start = document.querySelector('[data-testid="private-room-start"]');
-      const chat = document.querySelector('[data-testid="private-room-chat-toggle"]');
+      const chat = document.querySelector('[data-testid="private-room-chat"]');
+      const toggle = document.querySelector('[data-testid="private-room-chat-toggle"]');
+      const header = document.querySelector("header");
+      const footer = document.querySelector("footer");
       const rows = [...(list?.querySelectorAll("li") ?? [])];
+      const listBox = boxOf(scroll);
+      const startBox = boxOf(start);
+      const chatBox = boxOf(chat) ?? boxOf(toggle);
+      const hits = [];
+      if (overlap(listBox, startBox)) hits.push("list/start");
+      if (overlap(listBox, chatBox)) hits.push("list/chat");
+      if (overlap(startBox, chatBox)) hits.push("start/chat");
+      if (overlap(startBox, boxOf(header))) hits.push("start/header");
+      if (footer && getComputedStyle(footer).display !== "none") {
+        if (overlap(startBox, boxOf(footer))) hits.push("start/footer");
+        if (overlap(chatBox, boxOf(footer))) hits.push("chat/footer");
+        if (overlap(boxOf(toggle), boxOf(footer))) hits.push("toggle/footer");
+      }
       return {
         count: document.querySelector('[data-testid="private-room-player-count"]')?.textContent?.trim() ?? "",
         rows: rows.length,
         pageOverflowX: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
-        startInView: inView(start),
-        chatInView: inView(chat),
-        listInView: inView(scroll),
+        startInView: inView(startBox),
+        chatInView: inView(boxOf(toggle)),
+        listInView: inView(listBox),
+        stacked:
+          Boolean(listBox && startBox && chatBox) &&
+          startBox.top + 1 >= listBox.bottom &&
+          (chatBox.top + 1 >= startBox.bottom || (toggle && toggle.getBoundingClientRect().top + 1 >= startBox.bottom)),
         listScrolls: Boolean(scroll) && scroll.scrollHeight > scroll.clientHeight + 1,
         rowOverflow: rows.some((row) => row.scrollWidth > (scroll?.clientWidth ?? 0) + 2),
+        hits,
       };
     })()`);
+    const label = `${expected} players @ ${viewport.name}`;
     if (layout.rows !== expected) {
-      throw new Error(`Lobby has ${layout.rows} rows, expected ${expected}.`);
+      throw new Error(`${label}: lobby has ${layout.rows} rows.`);
     }
     if (layout.count !== `${expected}/${PRIVATE_ROOM_PLAYER_MAX}`) {
-      throw new Error(
-        `Player count was ${JSON.stringify(layout.count)}, expected ${expected}/${PRIVATE_ROOM_PLAYER_MAX}.`,
-      );
+      throw new Error(`${label}: count was ${JSON.stringify(layout.count)}.`);
     }
-    if (layout.pageOverflowX) throw new Error(`Page overflows sideways at ${expected} players.`);
-    if (!layout.startInView) throw new Error(`Start is off screen at ${expected} players.`);
-    if (!layout.chatInView) throw new Error(`Chat is off screen at ${expected} players.`);
-    if (!layout.listInView) throw new Error(`Player list is off screen at ${expected} players.`);
-    if (!layout.listScrolls) throw new Error(`Player list does not scroll at ${expected} players.`);
-    if (layout.rowOverflow) throw new Error(`A player row is cut off at ${expected} players.`);
+    if (layout.pageOverflowX) throw new Error(`${label}: page overflows sideways.`);
+    if (!layout.startInView) throw new Error(`${label}: Start is off screen.`);
+    if (!layout.chatInView) throw new Error(`${label}: Chat is off screen.`);
+    if (!layout.listInView) throw new Error(`${label}: Player list is off screen.`);
+    if (!layout.stacked) throw new Error(`${label}: Start/chat are not under the player list.`);
+    if (layout.hits.length) throw new Error(`${label}: overlap ${layout.hits.join(", ")}.`);
+    if (expected >= 20 && !layout.listScrolls) throw new Error(`${label}: player list does not scroll.`);
+    if (layout.rowOverflow) throw new Error(`${label}: a player row is cut off.`);
   }
 
+  async function measureAllLobbies(expected) {
+    for (const viewport of VIEWPORTS) await measureLobby(expected, viewport);
+  }
+
+  await measureAllLobbies(1);
   await joinGuests(1, 20);
-  await measureLobby(20);
+  await measureAllLobbies(20);
   await joinGuests(20, 50);
-  await measureLobby(50);
+  await measureAllLobbies(50);
   await joinGuests(50, PRIVATE_ROOM_PLAYER_MAX);
-  await measureLobby(PRIVATE_ROOM_PLAYER_MAX);
+  await measureAllLobbies(PRIVATE_ROOM_PLAYER_MAX);
 
   const extra = await fetch(
     `${appUrl}/api/private-rooms?code=${encodeURIComponent(partyCode)}&playerId=${encodeURIComponent(`crowd-late-${randomUUID()}`)}&name=Nope`,
@@ -262,13 +309,24 @@ try {
     throw new Error(`Full party grew to ${stillFull} after a blocked join.`);
   }
 
+  await setViewport(VIEWPORTS[1]);
   await clickTestId("private-room-start");
   await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-ranking"]'))`, 12_000);
   await page.waitFor(
     `document.querySelectorAll('[data-testid="private-room-ranking"] li').length === ${PRIVATE_ROOM_PLAYER_MAX}`,
     8_000,
   );
-  const play = await page.evaluate(`(() => {
+
+  async function measurePlay(viewport) {
+    await setViewport(viewport);
+    await page.waitFor(
+      `document.querySelectorAll('[data-testid="private-room-ranking"] li').length === ${PRIVATE_ROOM_PLAYER_MAX}`,
+      8_000,
+    );
+    await page.evaluate(
+      `document.querySelector('[data-testid="private-room-play-dock"]')?.scrollIntoView({ block: "nearest" })`,
+    );
+    const play = await page.evaluate(`(() => {
     const overlap = (a, b) =>
       Boolean(a && b && a.left < b.right - 1 && a.right > b.left + 1 && a.top < b.bottom - 1 && a.bottom > b.top + 1);
     const boxOf = (node) => (node ? node.getBoundingClientRect() : null);
@@ -307,19 +365,24 @@ try {
       hits,
     };
   })()`);
-  if (!play) throw new Error("Play dock is missing after Start.");
-  if (play.rows !== PRIVATE_ROOM_PLAYER_MAX) {
-    throw new Error(`Ranking has ${play.rows} rows, expected ${PRIVATE_ROOM_PLAYER_MAX}.`);
+    if (!play) throw new Error(`Play dock is missing after Start @ ${viewport.name}.`);
+    if (play.rows !== PRIVATE_ROOM_PLAYER_MAX) {
+      throw new Error(`Ranking has ${play.rows} rows @ ${viewport.name}.`);
+    }
+    if (!play.inView) throw new Error(`Play dock is cut off @ ${viewport.name}.`);
+    if (!play.belowHeader) throw new Error(`Play dock covers the header @ ${viewport.name}.`);
+    if (play.hits.length) throw new Error(`Play dock overlaps ${play.hits.join(", ")} @ ${viewport.name}.`);
+    if (!play.rankScrolls) throw new Error(`Ranking does not scroll @ ${viewport.name}.`);
+    if (!play.chatUnder) throw new Error(`Chat is not under the ranking @ ${viewport.name}.`);
+    if (play.rowOverflow) throw new Error(`A ranking row is cut off @ ${viewport.name}.`);
+    if (play.pageOverflowX) throw new Error(`Play overflows sideways @ ${viewport.name}.`);
   }
-  if (!play.inView) throw new Error("Play dock is cut off at 100 players.");
-  if (!play.belowHeader) throw new Error("Play dock covers the header.");
-  if (play.hits.length) throw new Error(`Play dock overlaps ${play.hits.join(", ")}.`);
-  if (!play.rankScrolls) throw new Error("Ranking does not scroll at 100 players.");
-  if (!play.chatUnder) throw new Error("Chat is not under the ranking at 100 players.");
-  if (play.rowOverflow) throw new Error("A ranking row is cut off at 100 players.");
-  if (play.pageOverflowX) throw new Error("Play overflows sideways at 100 players.");
 
-  console.log(`Validated party UI at 20, 50, and ${PRIVATE_ROOM_PLAYER_MAX} players. The 101st join is blocked.`);
+  for (const viewport of VIEWPORTS) await measurePlay(viewport);
+
+  console.log(
+    `Validated party UI at 1, 20, 50, and ${PRIVATE_ROOM_PLAYER_MAX} players on ${VIEWPORTS.map((item) => item.name).join(", ")}. The 101st join is blocked.`,
+  );
 } finally {
   await cleanup();
 }

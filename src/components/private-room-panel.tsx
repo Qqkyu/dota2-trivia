@@ -744,21 +744,23 @@ export function PrivateRoomPanel({
               </ul>
             </div>
           </div>
-          {room.isHost ? (
-            <button
-              type="button"
-              className={styles.primary}
-              data-testid="private-room-start"
-              disabled={busy === "start" || countdownSeconds > 0}
-              onClick={() => void startRoom()}
-            >
-              Start
-            </button>
-          ) : (
-            <p className={styles.startWait} data-testid="private-room-host-wait">
-              Waiting for {room.players.find((player) => player.host)?.name || "the host"} to start
-            </p>
-          )}
+          <div className={styles.startSlot}>
+            {room.isHost ? (
+              <button
+                type="button"
+                className={styles.primary}
+                data-testid="private-room-start"
+                disabled={busy === "start" || countdownSeconds > 0}
+                onClick={() => void startRoom()}
+              >
+                Start
+              </button>
+            ) : (
+              <p className={styles.startWait} data-testid="private-room-host-wait">
+                Waiting for {room.players.find((player) => player.host)?.name || "the host"} to start
+              </p>
+            )}
+          </div>
           {error && errorField !== "name" ? (
             <p className={styles.error} role="alert" data-testid="private-room-error">
               {error}
