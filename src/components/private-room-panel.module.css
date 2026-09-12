@@ -788,6 +788,13 @@
   outline-offset: 3px;
 }
 
+@media (max-width: 480px) {
+  .view {
+    width: min(100% - 16px, 100%);
+    padding: 16px 0 32px;
+  }
+}
+
 @media (max-width: 820px) {
   .lobby,
   .waitView .lobby,

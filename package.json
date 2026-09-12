@@ -37,6 +37,7 @@
     "check:party-nicks": "node scripts/check-party-nicks.mjs",
     "check:party-crowd": "node scripts/check-party-crowd.mjs",
     "check:shop-search": "node scripts/check-shop-search.mjs",
+    "check:layout": "node scripts/check-layout.mjs",
     "check:hero-search": "node scripts/check-hero-search.mjs",
     "check:flashback-ui": "node scripts/check-flashback-ui.mjs",
     "check:reports": "node scripts/check-reports-api.mjs",

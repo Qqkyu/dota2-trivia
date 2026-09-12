@@ -77,6 +77,7 @@ try {
     "check-party-api.mjs",
     "check-round-copy.mjs",
     "check-shop-search.mjs",
+    "check-layout.mjs",
     "check-hero-search.mjs",
     "check-flashback-ui.mjs",
     "check-feedback-sounds.mjs",

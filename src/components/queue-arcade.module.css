@@ -5263,16 +5263,21 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
 @media (max-width: 680px) {
   .heroPickerQuestion {
-    min-height: 170px;
+    height: auto;
+    min-height: 0;
   }
 
   .heroPicker {
     margin-inline: 14px;
   }
 
+  .heroPickerBoard {
+    min-width: 0;
+  }
+
   .shopkeeperOpenQuestion {
     height: auto;
-    min-height: 286px;
+    min-height: 0;
   }
 
   .shopkeeperOpenQuestion .shopkeeperPromptTray {
@@ -5286,6 +5291,14 @@ button[data-state="wrong"] > .heroPickerVerdict {
   .shopkeeperStoreToolbar {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .shopSearchBox {
+    flex: none;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    height: 36px;
   }
 
   .shopkeeperStoreTabs {
@@ -6000,6 +6013,7 @@ button[data-state="wrong"] > .heroPickerVerdict {
   }
 
   .gameLayout {
+    min-height: 0;
     padding-top: 12px;
   }
 
@@ -6035,8 +6049,10 @@ button[data-state="wrong"] > .heroPickerVerdict {
   }
 
   .questionBlock {
-    min-height: 230px;
-    align-items: center;
+    height: auto;
+    min-height: 0;
+    align-items: stretch;
+    justify-content: flex-start;
     flex-direction: column;
     gap: 20px;
     padding: 28px 18px 21px;
@@ -6054,6 +6070,8 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
   .questionCopy h2 {
     margin-top: 7px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
     font-size: 25px;
   }
 
@@ -6061,13 +6079,12 @@ button[data-state="wrong"] > .heroPickerVerdict {
   .spellQuestion,
   .fogQuestion,
   .echoQuestion,
-  .quoteQuestion {
-    min-height: 270px;
-  }
-
-  .shopkeeperQuestion {
+  .quoteQuestion,
+  .aghanimQuestion,
+  .flashbackQuestion {
     height: auto;
-    min-height: 340px;
+    min-height: 0;
+    overflow: visible;
   }
 
   .shopkeeperPromptTray {
@@ -6095,16 +6112,21 @@ button[data-state="wrong"] > .heroPickerVerdict {
   .fogQuestion,
   .echoQuestion,
   .quoteQuestion {
-    height: 340px;
-    min-height: 340px;
+    height: auto;
+    min-height: 0;
   }
 
   .shopkeeperQuestion .questionCopy,
   .spellQuestion .questionCopy,
   .fogQuestion .questionCopy,
   .echoQuestion .questionCopy,
-  .quoteQuestion .questionCopy {
+  .quoteQuestion .questionCopy,
+  .aghanimQuestion .questionCopy,
+  .flashbackQuestion .questionCopy {
     width: 100%;
+    max-width: 100%;
+    flex: 0 1 auto;
+    flex-basis: auto;
   }
 
   .fogArtwork {
@@ -6142,7 +6164,8 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
   .quoteCard {
     width: min(100%, 330px);
-    height: 154px;
+    height: auto;
+    min-height: 120px;
     flex: 0 0 auto;
     padding: 29px 26px 23px;
     text-align: left;
@@ -6153,8 +6176,8 @@ button[data-state="wrong"] > .heroPickerVerdict {
   }
 
   .quoteQuestion {
-    height: 370px;
-    min-height: 370px;
+    height: auto;
+    min-height: 0;
   }
 
   .quoteQuestion .questionCopy {
@@ -6171,7 +6194,16 @@ button[data-state="wrong"] > .heroPickerVerdict {
   }
 
   .textQuestion {
-    min-height: 250px;
+    min-height: 0;
+  }
+
+  .flashbackQuestion .artwork,
+  .flashbackQuestion .heroArtwork,
+  .flashbackQuestion .itemArtwork {
+    width: min(100%, 248px);
+    height: auto;
+    max-width: 100%;
+    aspect-ratio: 248 / 148;
   }
 
   .recipeEquation {
@@ -6187,8 +6219,9 @@ button[data-state="wrong"] > .heroPickerVerdict {
   }
 
   .clueList > div {
-    height: 44px;
+    height: auto;
     min-height: 44px;
+    overflow: visible;
     gap: 8px;
     grid-template-columns: auto 1fr;
     padding: 6px 8px;
@@ -6196,14 +6229,20 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
   .clueList > div:first-child {
     height: auto;
-    min-height: 108px;
+    min-height: 0;
     grid-row: auto;
+  }
+
+  .clueList span {
+    height: auto;
+    overflow: visible;
+    -webkit-line-clamp: unset;
   }
 
   .spellQuestion.heroPickerQuestion,
   .aghanimQuestion.heroPickerQuestion {
     height: auto;
-    min-height: 470px;
+    min-height: 0;
   }
 
   .answers {
@@ -6377,9 +6416,9 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
 @media (max-width: 680px) {
   .valueOrderQuestion {
-    min-height: 170px;
-    align-items: center;
-    flex-direction: row;
+    min-height: 0;
+    align-items: stretch;
+    flex-direction: column;
     gap: 16px;
     padding: 24px 18px 16px;
     text-align: left;
@@ -6409,6 +6448,159 @@ button[data-state="wrong"] > .heroPickerVerdict {
 
   .valueOrderSequenceCard {
     min-height: 68px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header,
+  .lobby,
+  .entryWait,
+  .gameLayout,
+  .summary,
+  .footer {
+    width: min(100% - 16px, 100%);
+  }
+
+  .lobby h1 {
+    font-size: clamp(36px, 11vw, 52px);
+  }
+
+  .gameLayout {
+    min-height: 0;
+    padding: 8px 0 16px;
+  }
+
+  .gameStage {
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .questionBlock,
+  .shopkeeperQuestion,
+  .shopkeeperOpenQuestion,
+  .spellQuestion,
+  .fogQuestion,
+  .echoQuestion,
+  .quoteQuestion,
+  .aghanimQuestion,
+  .heroPickerQuestion,
+  .spellQuestion.heroPickerQuestion,
+  .aghanimQuestion.heroPickerQuestion,
+  .valueOrderQuestion,
+  .flashbackQuestion {
+    display: flex;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 14px 12px 12px;
+    text-align: left;
+  }
+
+  .questionCopy,
+  .shopkeeperQuestion .questionCopy,
+  .spellQuestion .questionCopy,
+  .fogQuestion .questionCopy,
+  .echoQuestion .questionCopy,
+  .quoteQuestion .questionCopy,
+  .aghanimQuestion .questionCopy,
+  .flashbackQuestion .questionCopy {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+  }
+
+  .questionCopy h2 {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .clueList {
+    width: 100%;
+    margin-top: 8px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+  }
+
+  .clueList > div,
+  .clueList > div:first-child {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    grid-row: auto;
+  }
+
+  .spellArtwork > span:last-child,
+  .aghanimArtwork > span,
+  .recipeTarget > span:last-child {
+    right: 0;
+    bottom: -10px;
+  }
+
+  .heroPicker {
+    margin-inline: 8px;
+  }
+
+  .heroPickerBoard {
+    min-width: 0;
+    grid-template-areas:
+      "strength"
+      "agility"
+      "intelligence"
+      "universal";
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .heroPickerGroup > div {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .shopkeeperOpenQuestion .shopkeeperPromptTray,
+  .shopkeeperPromptTray {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .shopSearchBox {
+    min-width: 0;
+    max-width: none;
+  }
+
+  .fogArtwork,
+  .echoPlayer,
+  .quoteCard,
+  .quoteHints {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .flashbackYearBoard,
+  .flashbackOrderBoard {
+    margin-inline: 8px;
+  }
+
+  .answerText {
+    overflow-wrap: anywhere;
+  }
+
+  .flashbackOrderCards,
+  .flashbackOrderSlots {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .flashbackOrderCards button {
+    height: auto;
+    min-height: 100px;
+  }
+
+  .flashbackOrderCards strong,
+  .flashbackOrderCards small {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
   }
 }
 

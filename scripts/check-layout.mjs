@@ -1,0 +1,717 @@
+#!/usr/bin/env node
+
+/**
+ * Play layouts at 420px and 1400px. Fails when prompt text is cut, boards
+ * overlap, the page overflows sideways, or a phone prompt is mostly empty.
+ */
+
+import { spawn } from "node:child_process";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { createServer } from "node:net";
+import { tmpdir } from "node:os";
+import path from "node:path";
+import { publicQuestionForRound } from "../src/lib/public-question.mjs";
+
+const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const dataFile = (name) => path.join(process.cwd(), "src", "data", name);
+
+const VIEWPORTS = [
+  { name: "phone", width: 420, height: 800 },
+  { name: "desktop", width: 1400, height: 900 },
+];
+
+function pick(list, predicate, label) {
+  const found = Array.isArray(list) ? list.find(predicate) : null;
+  if (!found) throw new Error(`Missing layout fixture: ${label}`);
+  return found;
+}
+
+function publicize(raw, game, extras = {}) {
+  const now = Date.now();
+  const question = publicQuestionForRound(
+    raw,
+    {
+      id: "layout-placeholder",
+      phase: "answering",
+      game,
+      answerDeadline: now + 9_000,
+      answerDuration: 15_000,
+    },
+    now,
+  );
+  return { ...question, reveal: null, ...extras };
+}
+
+const [generated, shopkeeper, aghanim, soundcheck, valueOrder, flashback] = await Promise.all(
+  [
+    "questions.generated.json",
+    "shopkeeper-questions.json",
+    "aghanim-questions.json",
+    "soundcheck-questions.json",
+    "value-order-questions.json",
+    "flashback-questions.json",
+  ].map(async (file) => JSON.parse(await readFile(dataFile(file), "utf8"))),
+);
+
+const fixtures = {
+  "classic-ability": {
+    game: "trivia",
+    waitFor: '[data-testid="answer-grid"]',
+    question: publicize(
+      pick(generated, (q) => q.kind === "mana-cost", "mana-cost"),
+      "trivia",
+    ),
+  },
+  "classic-hero": {
+    game: "trivia",
+    waitFor: '[data-testid="answer-grid"]',
+    question: publicize(
+      pick(generated, (q) => q.kind === "hero-move-speed", "hero-move-speed"),
+      "trivia",
+    ),
+  },
+  "classic-item": {
+    game: "trivia",
+    waitFor: '[data-testid="answer-grid"]',
+    question: publicize(
+      pick(generated, (q) => q.kind === "item-cost", "item-cost"),
+      "trivia",
+    ),
+  },
+  "shop-recipe": {
+    game: "shopkeeper",
+    waitFor: '[data-testid="shopkeeper-store"]',
+    question: publicize(
+      pick(shopkeeper, (q) => q.id === "shopkeeper-recipe:bloodstone", "bloodstone"),
+      "shopkeeper",
+    ),
+  },
+  "shop-build": {
+    game: "shopkeeper",
+    waitFor: '[data-testid="shopkeeper-store"]',
+    question: publicize(
+      pick(shopkeeper, (q) => q.kind === "shopkeeper-build-result", "shopkeeper-build-result"),
+      "shopkeeper",
+    ),
+  },
+  "shop-path": {
+    game: "shopkeeper",
+    waitFor: '[data-testid="shopkeeper-store"]',
+    question: publicize(
+      pick(shopkeeper, (q) => q.kind === "shopkeeper-upgrade-path", "shopkeeper-upgrade-path"),
+      "shopkeeper",
+    ),
+  },
+  "spell-link": {
+    game: "spell-link",
+    waitFor: '[data-testid="spell-clue-list"]',
+    question: publicize(
+      pick(generated, (q) => q.id === "ability-owner:mirana_arrow", "Sacred Arrow"),
+      "spell-link",
+      { clueStage: 2, eyebrow: "Sacred Arrow" },
+    ),
+  },
+  "fogged-vision": {
+    game: "fogged-vision",
+    waitFor: '[data-testid="hero-picker"]',
+    question: publicize(
+      pick(generated, (q) => q.kind === "fogged-hero", "fogged-hero"),
+      "fogged-vision",
+    ),
+  },
+  "echo-hunt": {
+    game: "echo-hunt",
+    waitFor: '[data-testid="hero-picker"]',
+    question: publicize(
+      pick(generated, (q) => q.kind === "hero-voice", "hero-voice"),
+      "echo-hunt",
+    ),
+  },
+  "quote-hunt": {
+    game: "quote-hunt",
+    waitFor: '[data-testid="hero-quote"]',
+    question: publicize(
+      pick(generated, (q) => q.kind === "hero-quote", "hero-quote"),
+      "quote-hunt",
+    ),
+  },
+  aghanim: {
+    game: "aghanim-lab",
+    waitFor: '[data-testid="aghanim-clue-1"]',
+    question: publicize(
+      pick(aghanim, (q) => q.kind === "aghanim-upgrade", "aghanim-upgrade"),
+      "aghanim-lab",
+    ),
+  },
+  soundcheck: {
+    game: "soundcheck",
+    waitFor: '[data-testid="soundcheck-player"]',
+    question: publicize(
+      pick(soundcheck, (q) => q.kind === "soundcheck-ability", "soundcheck-ability"),
+      "soundcheck",
+    ),
+  },
+  "value-order": {
+    game: "order-up",
+    waitFor: '[data-testid="value-order-board"]',
+    question: publicize(
+      pick(valueOrder, (q) => q.kind === "value-order-item", "value-order-item"),
+      "order-up",
+    ),
+  },
+  "flashback-year": {
+    game: "flashback",
+    waitFor: '[data-testid="flashback-year-board"]',
+    question: publicize(
+      pick(flashback, (q) => q.kind === "flashback-year", "flashback-year"),
+      "flashback",
+    ),
+  },
+  "flashback-choice": {
+    game: "flashback",
+    waitFor: '[data-testid="answer-grid"]',
+    question: publicize(
+      pick(flashback, (q) => q.kind === "flashback-choice", "flashback-choice"),
+      "flashback",
+    ),
+  },
+  "flashback-order": {
+    game: "flashback",
+    waitFor: '[data-testid="flashback-order-board"]',
+    question: publicize(
+      pick(flashback, (q) => q.kind === "flashback-order", "flashback-order"),
+      "flashback",
+    ),
+  },
+};
+
+function freePort() {
+  return new Promise((resolve, reject) => {
+    const server = createServer();
+    server.listen(0, "127.0.0.1", () => {
+      const address = server.address();
+      const port = typeof address === "object" && address ? address.port : 0;
+      server.close((error) => (error ? reject(error) : resolve(port)));
+    });
+    server.on("error", reject);
+  });
+}
+
+async function waitJson(url, timeout = 15_000) {
+  const startedAt = Date.now();
+  while (Date.now() - startedAt < timeout) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) return await response.json();
+    } catch {
+      // Chrome is still binding.
+    }
+    await delay(100);
+  }
+  throw new Error(`Chrome debug HTTP did not open at ${url}`);
+}
+
+function attachCdp(webSocketDebuggerUrl) {
+  const socket = new WebSocket(webSocketDebuggerUrl);
+  const pending = new Map();
+  let requestId = 0;
+  socket.addEventListener("message", (message) => {
+    const payload = JSON.parse(message.data);
+    if (!payload.id) return;
+    const request = pending.get(payload.id);
+    if (!request) return;
+    pending.delete(payload.id);
+    if (payload.error) request.reject(new Error(payload.error.message));
+    else request.resolve(payload.result);
+  });
+  function send(method, params = {}) {
+    const id = ++requestId;
+    socket.send(JSON.stringify({ id, method, params }));
+    return new Promise((resolve, reject) => pending.set(id, { resolve, reject }));
+  }
+  async function evaluate(expression) {
+    const result = await send("Runtime.evaluate", { expression, awaitPromise: true, returnByValue: true });
+    if (result.exceptionDetails) {
+      throw new Error(result.exceptionDetails.exception?.description ?? result.exceptionDetails.text);
+    }
+    return result.result.value;
+  }
+  async function waitFor(expression, timeout = 20_000) {
+    const startedAt = Date.now();
+    while (Date.now() - startedAt < timeout) {
+      if (await evaluate(expression)) return;
+      await delay(150);
+    }
+    throw new Error(`Timed out waiting for: ${expression}`);
+  }
+  return {
+    socket,
+    send,
+    evaluate,
+    waitFor,
+    ready: new Promise((resolve, reject) => {
+      socket.addEventListener("open", resolve, { once: true });
+      socket.addEventListener("error", reject, { once: true });
+    }),
+  };
+}
+
+const INSPECT_SOURCE = `(() => {
+  function box(el) {
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    return { t: r.top, l: r.left, b: r.bottom, r: r.right, w: r.width, h: r.height };
+  }
+  function overlap(a, b) {
+    return a.l < b.r - 2 && a.r > b.l + 2 && a.t < b.b - 2 && a.b > b.t + 2;
+  }
+  function clippedByHidden(el) {
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    if (r.width < 1 || r.height < 1) return "zero-size";
+    let p = el.parentElement;
+    while (p && p !== document.documentElement) {
+      const cs = getComputedStyle(p);
+      if (/(hidden|clip)/.test(cs.overflowX) || /(hidden|clip)/.test(cs.overflowY)) {
+        const pr = p.getBoundingClientRect();
+        const xCut = /(hidden|clip)/.test(cs.overflowX) && (r.left < pr.left - 2 || r.right > pr.right + 2);
+        const yCut = /(hidden|clip)/.test(cs.overflowY) && (r.top < pr.top - 2 || r.bottom > pr.bottom + 2);
+        if (xCut || yCut) {
+          const name = el.dataset?.testid || el.tagName;
+          const parent = p.dataset?.testid || p.className?.toString?.().slice(0, 48) || p.tagName;
+          return name + " clipped by " + parent;
+        }
+      }
+      p = p.parentElement;
+    }
+    return null;
+  }
+  function textCut(el) {
+    if (!el) return false;
+    if (el.scrollWidth > el.clientWidth + 3) return true;
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const rects = [...range.getClientRects()].filter((r) => r.width > 1 && r.height > 1);
+    const own = el.getBoundingClientRect();
+    return rects.some((r) => r.right > own.right + 3 || r.left < own.left - 3 || r.right > window.innerWidth + 3);
+  }
+  window.__queueArcadeInspectLayout = function inspectLayout(phone) {
+    const issues = [];
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    if (document.documentElement.scrollWidth > vw + 2) {
+      issues.push("page overflow-x " + document.documentElement.scrollWidth + " > " + vw);
+    }
+    const prompt = document.querySelector('[data-testid="round-prompt"]');
+    const h2 = prompt?.querySelector("h2");
+    if (h2) {
+      if (textCut(h2)) issues.push("h2 text cut: " + JSON.stringify(h2.textContent));
+      const clip = clippedByHidden(h2);
+      if (clip) issues.push(clip);
+      const hb = h2.getBoundingClientRect();
+      if (hb.right > vw + 2) issues.push("h2 paints past viewport");
+    }
+    function emptySpace(el, slack) {
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      const kids = [...el.children];
+      if (!kids.length) return r.height > slack ? r.height : null;
+      const content = kids.reduce((sum, child) => sum + child.getBoundingClientRect().height, 0);
+      const cs = getComputedStyle(el);
+      const pad = (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.paddingBottom) || 0);
+      const gap = parseFloat(cs.rowGap || cs.gap) || 0;
+      const expected = content + pad + gap * Math.max(0, kids.length - 1);
+      return r.height > expected + slack && r.height > 180 ? Math.round(r.height) + "/" + Math.round(expected) : null;
+    }
+    if (phone && prompt) {
+      const wasted = emptySpace(prompt, 72);
+      if (wasted) issues.push("prompt empty space " + wasted);
+      const copy = h2?.parentElement;
+      if (copy && copy !== prompt) {
+        const copyWaste = emptySpace(copy, 64);
+        if (copyWaste) issues.push("question copy empty space " + copyWaste);
+        const basis = getComputedStyle(copy).flexBasis;
+        if (basis.endsWith("px") && parseFloat(basis) > 280) {
+          issues.push("question copy flex-basis " + basis + " on a phone");
+        }
+      }
+    }
+    const clueBoxes = [
+      ...document.querySelectorAll('[data-testid="spell-clue-list"] > div'),
+      document.querySelector('[data-testid="aghanim-clue-1"]'),
+      document.querySelector('[data-testid="aghanim-clue-2"]'),
+      document.querySelector('[data-testid="aghanim-clue-3"]'),
+    ].filter(Boolean);
+    const promptBox = box(prompt);
+    for (const clue of clueBoxes) {
+      const clip = clippedByHidden(clue);
+      if (clip) issues.push(clip);
+      const cb = box(clue);
+      if (promptBox && cb && (cb.r > promptBox.r + 3 || cb.l < promptBox.l - 3)) {
+        issues.push((clue.dataset.testid || "clue") + " hangs out of the prompt");
+      }
+      if (phone && textCut(clue.querySelector("span"))) {
+        issues.push((clue.dataset.testid || "clue") + " text cut");
+      }
+    }
+    const store = document.querySelector('[data-testid="shopkeeper-store"]');
+    const picker = document.querySelector('[data-testid="hero-picker"]');
+    const answers = document.querySelector('[data-testid="answer-grid"]');
+    const yearBoard = document.querySelector('[data-testid="flashback-year-board"]');
+    const orderBoard = document.querySelector('[data-testid="value-order-board"], [data-testid="flashback-order-board"]');
+    const header = document.querySelector("header");
+    const regions = [
+      ["prompt", prompt],
+      ["store", store],
+      ["picker", picker],
+      ["answers", answers],
+      ["year", yearBoard],
+      ["order", orderBoard],
+    ].filter((entry) => entry[1]);
+    for (let i = 0; i < regions.length; i += 1) {
+      for (let j = i + 1; j < regions.length; j += 1) {
+        const a = box(regions[i][1]);
+        const b = box(regions[j][1]);
+        if (a && b && overlap(a, b)) issues.push(regions[i][0] + " overlaps " + regions[j][0]);
+      }
+    }
+    const headerBox = box(header);
+    const promptOnly = box(prompt);
+    if (headerBox && promptOnly && overlap(headerBox, promptOnly)) issues.push("header overlaps prompt");
+    if (store) {
+      const storeBox = box(store);
+      if (!storeBox || storeBox.h < 80) issues.push("shop store height " + Math.round(storeBox?.h ?? 0));
+      const clip = clippedByHidden(store);
+      if (clip) issues.push(clip);
+      const item = document.querySelector('[data-testid="shopkeeper-store-item"]');
+      if (!item) issues.push("shop has no items");
+      const search = document.querySelector('[data-testid="shopkeeper-search-field"]');
+      if (!search) issues.push("shop search missing");
+      const searchShell = search?.closest("label");
+      if (phone && searchShell && searchShell.getBoundingClientRect().height > 48) {
+        issues.push("shop search box height " + Math.round(searchShell.getBoundingClientRect().height));
+      }
+    }
+    if (picker) {
+      const pickerBox = box(picker);
+      if (!pickerBox || pickerBox.h < 48) issues.push("hero picker height " + Math.round(pickerBox?.h ?? 0));
+      const clip = clippedByHidden(picker);
+      if (clip) issues.push(clip);
+      if (!document.querySelector('[data-testid="hero-picker-hero"]')) issues.push("hero picker has no heroes");
+    }
+    if (answers) {
+      const buttons = [...answers.querySelectorAll('[data-testid="arcade-answer"]')];
+      if (buttons.length !== 4) issues.push("answer count " + buttons.length);
+      for (const button of buttons) {
+        const clip = clippedByHidden(button);
+        if (clip) issues.push(clip);
+        const label = [...button.querySelectorAll("span")].find((span) => {
+          const text = span.textContent?.trim() ?? "";
+          return text && !/^[A-D]$/.test(text);
+        });
+        if (label && textCut(label)) issues.push("answer text cut: " + JSON.stringify(label.textContent));
+      }
+    }
+    if (yearBoard) {
+      const clip = clippedByHidden(yearBoard);
+      if (clip) issues.push(clip);
+      if (!document.querySelector('[data-testid="flashback-year-slider"]')) issues.push("year slider missing");
+    }
+    if (orderBoard) {
+      const clip = clippedByHidden(orderBoard);
+      if (clip) issues.push(clip);
+      if (phone) {
+        for (const label of orderBoard.querySelectorAll("strong, small, em")) {
+          if (label.textContent?.trim() && textCut(label)) {
+            issues.push("order label cut: " + JSON.stringify(label.textContent));
+          }
+        }
+      }
+    }
+    return {
+      issues,
+      inner: vw + "x" + vh,
+      promptH: prompt ? Math.round(prompt.getBoundingClientRect().height) : 0,
+      h2: h2?.textContent ?? "",
+    };
+  };
+  window.__queueArcadeInspectPage = function inspectPage() {
+    const issues = [];
+    const vw = window.innerWidth;
+    if (document.documentElement.scrollWidth > vw + 2) {
+      issues.push("page overflow-x " + document.documentElement.scrollWidth + " > " + vw);
+    }
+    const heading = document.querySelector("h1");
+    const headingBox = heading?.getBoundingClientRect();
+    const hiddenHeading =
+      !heading ||
+      !headingBox ||
+      headingBox.height < 8 ||
+      headingBox.width < 8 ||
+      /sr-only/.test(heading.className);
+    if (!hiddenHeading) {
+      if (heading.scrollWidth > heading.clientWidth + 3) issues.push("h1 text cut");
+      const clip = clippedByHidden(heading);
+      if (clip) issues.push(clip);
+    }
+    return { issues, inner: vw + "x" + window.innerHeight };
+  };
+})();`;
+
+const port = await freePort();
+const userDataDir = await mkdtemp(path.join(tmpdir(), "queue-arcade-layout-"));
+const chrome = spawn(
+  "google-chrome",
+  [
+    "--headless=new",
+    "--mute-audio",
+    `--remote-debugging-port=${port}`,
+    "--remote-allow-origins=*",
+    `--user-data-dir=${userDataDir}`,
+    "--no-first-run",
+    "--disable-gpu",
+    "--force-device-scale-factor=1",
+    "--window-size=1400,900",
+    "about:blank",
+  ],
+  { stdio: "ignore" },
+);
+
+let page = null;
+let browser = null;
+let created = null;
+
+async function cleanup() {
+  try {
+    page?.socket.close();
+  } catch {
+    // gone
+  }
+  try {
+    browser?.socket.close();
+  } catch {
+    // gone
+  }
+  chrome.kill("SIGKILL");
+  await rm(userDataDir, { recursive: true, force: true }).catch(() => undefined);
+}
+
+try {
+  const version = await waitJson(`http://127.0.0.1:${port}/json/version`);
+  browser = attachCdp(version.webSocketDebuggerUrl);
+  await browser.ready;
+  created = await browser.send("Target.createTarget", { url: "about:blank" });
+  const listed = await fetch(`http://127.0.0.1:${port}/json/list`).then((response) => response.json());
+  const target = listed.find((entry) => entry.id === created.targetId);
+  page = attachCdp(target.webSocketDebuggerUrl);
+  await page.ready;
+  await page.send("Page.enable");
+  await page.send("Runtime.enable");
+  await page.send("Page.addScriptToEvaluateOnNewDocument", {
+    source: `(() => {
+      const fixtures = ${JSON.stringify(fixtures)};
+      const originalFetch = window.fetch.bind(window);
+      window.__queueArcadeLayout = { kind: null, served: 0 };
+      Object.defineProperty(HTMLMediaElement.prototype, "play", {
+        configurable: true,
+        value() { return Promise.resolve(); }
+      });
+      window.fetch = async (...args) => {
+        const input = args[0];
+        const init = args[1];
+        const requestUrl = typeof input === "string" || input instanceof URL ? String(input) : input.url;
+        const requestMethod = String(init?.method ?? input?.method ?? "GET").toUpperCase();
+        const requestPath = requestUrl ? new URL(requestUrl, location.href).pathname : "";
+        if (requestPath === "/api/round-audio") {
+          return new Response("", { status: 200, headers: { "Cache-Control": "no-store" } });
+        }
+        const response = await originalFetch(...args);
+        const state = window.__queueArcadeLayout;
+        if (!state?.kind || requestPath !== "/api/rounds") return response;
+        try {
+          const payload = await response.clone().json();
+          if (!payload?.round || !payload?.room) return response;
+          const now = Date.now();
+          if (state.served === 0) {
+            state.served = 1;
+            payload.serverNow = now;
+            payload.round = {
+              ...payload.round,
+              id: "layout-gate",
+              phase: "reveal",
+              game: "trivia",
+              startedAt: now - 20_000,
+              answerDeadline: now - 5_000,
+              revealDeadline: now + 180,
+              answerDuration: 15_000
+            };
+            payload.question = null;
+            payload.questionRevision = "layout-gate";
+            payload.playerVote = null;
+            payload.playerReport = null;
+            return new Response(JSON.stringify(payload), {
+              status: 200,
+              headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+            });
+          }
+          const fixture = fixtures[state.kind];
+          if (!fixture) return response;
+          const roundId = "layout-" + state.kind;
+          payload.serverNow = now;
+          payload.round = {
+            ...payload.round,
+            id: roundId,
+            phase: "answering",
+            game: fixture.game,
+            startedAt: now - 1_000,
+            answerDeadline: now + 25_000,
+            revealDeadline: now + 32_000,
+            answerDuration: 15_000
+          };
+          payload.questionRevision = roundId + ":answering";
+          payload.question = { ...fixture.question, id: roundId, game: fixture.game, reveal: null };
+          payload.playerVote = null;
+          payload.playerReport = null;
+          payload.crowd = payload.crowd ?? { counts: [0, 0, 0, 0], total: 0, positions: [], keyCounts: [], scoreSummary: null };
+          return new Response(JSON.stringify(payload), {
+            status: 200,
+            headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+          });
+        } catch {
+          return response;
+        }
+      };
+    })();
+    ${INSPECT_SOURCE}`,
+  });
+
+  async function setViewport(viewport) {
+    const { windowId } = await browser.send("Browser.getWindowForTarget", { targetId: created.targetId });
+    await browser.send("Browser.setWindowBounds", {
+      windowId,
+      bounds: {
+        left: 0,
+        top: 0,
+        width: viewport.width,
+        height: viewport.height,
+        windowState: "normal",
+      },
+    });
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: viewport.width,
+      height: viewport.height,
+      deviceScaleFactor: 1,
+      mobile: false,
+    });
+    await delay(250);
+    const size = await page.evaluate(`({ w: window.innerWidth, h: window.innerHeight })`);
+    if (Math.abs(size.w - viewport.width) > 48 || Math.abs(size.h - viewport.height) > 96) {
+      throw new Error(`Viewport ${viewport.name} is ${size.w}x${size.h}, wanted ${viewport.width}x${viewport.height}.`);
+    }
+  }
+
+  async function screenshot(name) {
+    const result = await page.send("Page.captureScreenshot", {
+      format: "png",
+      fromSurface: true,
+      captureBeyondViewport: false,
+    });
+    await writeFile(`/tmp/queue-arcade-layout-${name}.png`, Buffer.from(result.data, "base64"));
+  }
+
+  async function ready() {
+    await page.waitFor(
+      `document.querySelector("main")?.dataset.clientReady === "true" && document.querySelector("main")?.dataset.accountReady === "true"`,
+    );
+  }
+
+  async function go(url) {
+    await page.send("Page.navigate", { url });
+    await page.waitFor(`document.readyState === "complete"`);
+    await ready();
+  }
+
+  const failures = [];
+
+  async function inspectPage(label) {
+    const result = await page.evaluate(`window.__queueArcadeInspectPage()`);
+    if (result.issues.length) {
+      failures.push(`${label}: ${result.issues.join("; ")}`);
+    }
+  }
+
+  async function inspectPlay(kind, viewportName) {
+    const result = await page.evaluate(
+      `window.__queueArcadeInspectLayout(${viewportName === "phone" ? "true" : "false"})`,
+    );
+    await screenshot(`${viewportName}-${kind}`);
+    if (result.issues.length) {
+      failures.push(`${viewportName}/${kind}: ${result.issues.join("; ")}`);
+    }
+  }
+
+  async function showFixture(kind) {
+    const waitFor = fixtures[kind].waitFor;
+    await page.evaluate(`(() => {
+      window.__queueArcadeLayout.kind = ${JSON.stringify(kind)};
+      window.dispatchEvent(new Event("focus"));
+      return true;
+    })()`);
+    await page.waitFor(
+      `document.querySelector("main")?.dataset.phase === "answering" &&
+        document.querySelector("main")?.dataset.roundId === ${JSON.stringify("layout-" + kind)} &&
+        Boolean(document.querySelector(${JSON.stringify(waitFor)}))`,
+      16_000,
+    );
+    await delay(280);
+  }
+
+  for (const viewport of VIEWPORTS) {
+    await setViewport(viewport);
+    await go(appUrl);
+    await page.evaluate(`(() => {
+      localStorage.setItem("queue-arcade:settings:v3", JSON.stringify({ soundEnabled: false, gameVolume: 0.7 }));
+      return true;
+    })()`);
+    await inspectPage(`${viewport.name}/lobby`);
+    await screenshot(`${viewport.name}-lobby`);
+
+    await go(`${appUrl}/party`);
+    await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-setup"]'))`);
+    const partyButtons = await page.evaluate(`({
+      create: Boolean(document.querySelector('[data-testid="private-room-choose-create"]')),
+      join: Boolean(document.querySelector('[data-testid="private-room-choose-join"]'))
+    })`);
+    if (!partyButtons.create || !partyButtons.join) {
+      failures.push(`${viewport.name}/party: missing Create/Join`);
+    }
+    await inspectPage(`${viewport.name}/party`);
+    await screenshot(`${viewport.name}-party`);
+
+    await go(appUrl);
+    await page.evaluate(`(() => {
+      window.__queueArcadeLayout.kind = "spell-link";
+      window.__queueArcadeLayout.served = 0;
+      return true;
+    })()`);
+    await page.evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
+    await showFixture("spell-link");
+    await inspectPlay("spell-link", viewport.name);
+
+    for (const kind of Object.keys(fixtures)) {
+      if (kind === "spell-link") continue;
+      await showFixture(kind);
+      await inspectPlay(kind, viewport.name);
+    }
+  }
+
+  if (failures.length) {
+    throw new Error(`Layout failed:\\n- ${failures.join("\\n- ")}`);
+  }
+  console.log(
+    `Layout ok: ${Object.keys(fixtures).length} play formats at ${VIEWPORTS.map((view) => view.width).join(" and ")}px.`,
+  );
+} finally {
+  await cleanup();
+}
