@@ -41,6 +41,9 @@ export async function GET(request: NextRequest) {
       applyName,
     });
     if (!record) return NextResponse.json({ error: "Unknown private room." }, { status: 404 });
+    if (record.full) {
+      return NextResponse.json({ error: "This party is full." }, { status: 409 });
+    }
     touchRoomPresence(record.roomId, identity.playerId, now);
     return NextResponse.json(privateRoomClientPayload(record, identity.playerId, now), {
       headers: { "Cache-Control": "no-store" },

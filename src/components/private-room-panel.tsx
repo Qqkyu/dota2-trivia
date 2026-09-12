@@ -10,6 +10,7 @@ import {
   PRIVATE_ROOM_CODE_MAX,
   PRIVATE_ROOM_NAME_MAX,
   PRIVATE_ROOM_NAME_NOTICE_MS,
+  PRIVATE_ROOM_PLAYER_MAX,
   PRIVATE_ROOM_POLL_MS,
   partyCodeError,
   partyLobbyRoster,
@@ -268,6 +269,13 @@ export function PrivateRoomPanel({
     [],
   );
 
+  useEffect(() => {
+    if (!playActive) return;
+    document
+      .querySelector('[data-testid="private-room-ranking"] li[data-self="true"]')
+      ?.scrollIntoView({ block: "nearest" });
+  }, [playActive, room?.players.length]);
+
   const saveName = (value: string) => {
     const next = value.slice(0, PRIVATE_ROOM_NAME_MAX);
     nameEditingRef.current = true;
@@ -418,6 +426,11 @@ export function PrivateRoomPanel({
       );
       const payload = (await joined.json()) as PrivateRoomPayload;
       if (joined.status === 404) throw new Error("No party with that code.");
+      if (joined.status === 409) {
+        setError(payload.error ?? "This party is full.");
+        setErrorField(null);
+        return;
+      }
       if (!joined.ok) throw new Error(payload.error ?? "Could not join that party.");
       goToRoom(payload, code);
     } catch (cause) {
@@ -663,68 +676,73 @@ export function PrivateRoomPanel({
               Copy link
             </button>
           </header>
-          <div>
+          <div className={styles.playersBlock}>
             <p className={styles.sectionLabel}>
               <Users />
               Players
+              <span data-testid="private-room-player-count">
+                {roster.length}/{PRIVATE_ROOM_PLAYER_MAX}
+              </span>
             </p>
-            <ul className={styles.players} data-testid="private-room-players">
-              {roster.map((player, index) => (
-                <li
-                  key={player.self ? "self" : `${player.name}-${index}`}
-                  data-host={player.host}
-                  data-self={player.self}
-                  data-away={player.away && !player.self}
-                >
-                  {player.self ? (
-                    <div className={styles.selfStack}>
-                      <label className={styles.selfName}>
-                        <input
-                          ref={nameInputRef}
-                          className={styles.playerName}
-                          value={shownName}
-                          maxLength={PRIVATE_ROOM_NAME_MAX}
-                          placeholder="Your name"
-                          autoComplete="nickname"
-                          spellCheck={false}
-                          aria-describedby={nameNotice ? "private-room-name-error" : undefined}
-                          aria-label="Your name"
-                          data-testid="private-room-name"
-                          onChange={(event) => saveName(event.currentTarget.value)}
-                          onFocus={() => {
-                            nameEditingRef.current = true;
-                          }}
-                          onBlur={(event) => {
-                            void syncName(event.currentTarget.value);
-                          }}
-                          onKeyDown={(event) => {
-                            if (event.key === "Enter") {
-                              event.currentTarget.blur();
-                            }
-                          }}
-                        />
-                        <Pencil aria-hidden="true" data-testid="private-room-name-pen" />
-                      </label>
-                      {nameNotice ? (
-                        <p
-                          id="private-room-name-error"
-                          className={styles.nameError}
-                          role="status"
-                          aria-live="polite"
-                          data-testid="private-room-name-error"
-                        >
-                          {nameNotice}
-                        </p>
-                      ) : null}
-                    </div>
-                  ) : (
-                    <strong>{player.name}</strong>
-                  )}
-                  <span>{partyPlayerTag(player)}</span>
-                  {!room.waiting ? <em>{player.score}</em> : null}
-                </li>
-              ))}
-            </ul>
+            <div className={styles.playersScroll} data-testid="private-room-players-scroll">
+              <ul className={styles.players} data-testid="private-room-players">
+                {roster.map((player, index) => (
+                  <li
+                    key={player.self ? "self" : `${player.name}-${index}`}
+                    data-host={player.host}
+                    data-self={player.self}
+                    data-away={player.away && !player.self}
+                  >
+                    {player.self ? (
+                      <div className={styles.selfStack}>
+                        <label className={styles.selfName}>
+                          <input
+                            ref={nameInputRef}
+                            className={styles.playerName}
+                            value={shownName}
+                            maxLength={PRIVATE_ROOM_NAME_MAX}
+                            placeholder="Your name"
+                            autoComplete="nickname"
+                            spellCheck={false}
+                            aria-describedby={nameNotice ? "private-room-name-error" : undefined}
+                            aria-label="Your name"
+                            data-testid="private-room-name"
+                            onChange={(event) => saveName(event.currentTarget.value)}
+                            onFocus={() => {
+                              nameEditingRef.current = true;
+                            }}
+                            onBlur={(event) => {
+                              void syncName(event.currentTarget.value);
+                            }}
+                            onKeyDown={(event) => {
+                              if (event.key === "Enter") {
+                                event.currentTarget.blur();
+                              }
+                            }}
+                          />
+                          <Pencil aria-hidden="true" data-testid="private-room-name-pen" />
+                        </label>
+                        {nameNotice ? (
+                          <p
+                            id="private-room-name-error"
+                            className={styles.nameError}
+                            role="status"
+                            aria-live="polite"
+                            data-testid="private-room-name-error"
+                          >
+                            {nameNotice}
+                          </p>
+                        ) : null}
+                      </div>
+                    ) : (
+                      <strong>{player.name}</strong>
+                    )}
+                    <span>{partyPlayerTag(player)}</span>
+                    {!room.waiting ? <em>{player.score}</em> : null}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
           {room.isHost ? (
             <button
@@ -796,6 +814,7 @@ export function PrivateRoomPanel({
       <section className={styles.view} data-testid="private-room-setup" data-path="choose">
         <h1 className="sr-only">Party</h1>
         {back}
+        {setupError}
         <div className={styles.chooseDoors}>
           <button
             type="button"

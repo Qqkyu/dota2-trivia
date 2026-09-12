@@ -35,6 +35,7 @@
     "check:public-play": "node scripts/check-public-play.mjs",
     "check:pages": "node scripts/check-pages.mjs",
     "check:party-nicks": "node scripts/check-party-nicks.mjs",
+    "check:party-crowd": "node scripts/check-party-crowd.mjs",
     "check:shop-search": "node scripts/check-shop-search.mjs",
     "check:hero-search": "node scripts/check-hero-search.mjs",
     "check:flashback-ui": "node scripts/check-flashback-ui.mjs",

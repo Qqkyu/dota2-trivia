@@ -19,6 +19,7 @@ import {
   PRIVATE_ROOM_COUNTDOWN_MS,
   PRIVATE_ROOM_MEMBER_TIMEOUT_MS,
   PRIVATE_ROOM_MESSAGE_MAX,
+  PRIVATE_ROOM_PLAYER_MAX,
   PRIVATE_ROOM_NAME_NOTICE_MS,
   privateRoomCodeFromRoundId,
   privateRoomCountdownMs,
@@ -332,5 +333,54 @@ describe("party roster", () => {
 
   it("puts the viewer first in the lobby and keeps away players", () => {
     expect(partyLobbyRoster(players).map((player) => player.name)).toEqual(["Me", "Zed", "Amy", "Bo"]);
+  });
+});
+
+describe("party size cap", () => {
+  const at = Date.now() + 400_000;
+
+  beforeAll(() => {
+    resetPrivateRoomsForTests();
+  });
+
+  it(`lets ${PRIVATE_ROOM_PLAYER_MAX} people in and blocks the next`, () => {
+    const room = createPrivateRoom({
+      ...catalog,
+      hostId: "cap-host",
+      games: ["trivia"],
+      code: "crowd",
+      name: "Host",
+      now: at,
+    });
+    for (let index = 1; index < PRIVATE_ROOM_PLAYER_MAX; index += 1) {
+      const joined = touchPrivateRoom(room.code, at + index, {
+        playerId: `cap-guest-${index}`,
+        name: `P${index}`,
+      });
+      expect(joined.full).toBeFalsy();
+    }
+    expect(getPrivateRoom(room.code, at + PRIVATE_ROOM_PLAYER_MAX).players).toHaveLength(PRIVATE_ROOM_PLAYER_MAX);
+    const blocked = touchPrivateRoom(room.code, at + PRIVATE_ROOM_PLAYER_MAX + 1, {
+      playerId: "cap-guest-late",
+      name: "Nope",
+    });
+    expect(blocked.full).toBe(true);
+    expect(blocked.players).toHaveLength(PRIVATE_ROOM_PLAYER_MAX);
+    expect(names(blocked)).not.toContain("Nope");
+    const heartbeat = touchPrivateRoom(room.code, at + PRIVATE_ROOM_PLAYER_MAX + 2, {
+      playerId: "cap-host",
+      name: "Host",
+    });
+    expect(heartbeat.full).toBeFalsy();
+    expect(heartbeat.players).toHaveLength(PRIVATE_ROOM_PLAYER_MAX);
+    leavePrivateRoom(room.code, "cap-guest-1", at + PRIVATE_ROOM_PLAYER_MAX + 3);
+    const late = touchPrivateRoom(room.code, at + PRIVATE_ROOM_PLAYER_MAX + 4, {
+      playerId: "cap-guest-late",
+      name: "Nope",
+    });
+    expect(late.full).toBeFalsy();
+    expect(late.players).toHaveLength(PRIVATE_ROOM_PLAYER_MAX);
+    expect(names(late)).toContain("Nope");
+    expect(names(late)).not.toContain("P1");
   });
 });

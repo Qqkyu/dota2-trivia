@@ -251,7 +251,13 @@
 }
 
 .waitView {
+  height: calc(100vh - 156px);
+  min-height: calc(100vh - 156px);
+  max-height: calc(100vh - 156px);
+  align-content: stretch;
   justify-items: center;
+  overflow: hidden;
+  padding: 16px 0;
 }
 
 .waitView .lobby,
@@ -263,9 +269,13 @@
 .lobby {
   position: relative;
   display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto auto;
   gap: 22px;
   width: min(100%, 520px);
-  overflow: visible;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .lobbyHead {
@@ -294,7 +304,7 @@
 }
 
 .sectionLabel {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 8px;
   margin: 0 0 10px;
@@ -305,10 +315,28 @@
   text-transform: uppercase;
 }
 
+.sectionLabel span {
+  margin-left: auto;
+  color: #c4a46a;
+}
+
 .sectionLabel svg {
   width: 14px;
   height: 14px;
   color: #c4a46a;
+}
+
+.playersBlock {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+}
+
+.playersScroll {
+  min-height: 96px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid #292e2d;
 }
 
 .players {
@@ -317,7 +345,6 @@
   margin: 0;
   padding: 0;
   overflow: visible;
-  border: 1px solid #292e2d;
   list-style: none;
   background: rgba(15, 19, 18, 0.76);
 }
@@ -522,14 +549,24 @@
   min-height: 180px;
 }
 
+.waitView .chatShell .chat {
+  min-height: 0;
+}
+
+.waitView .chatLog {
+  height: 140px;
+}
+
 .playDock {
   position: fixed;
   z-index: 30;
   right: 18px;
   bottom: 18px;
   display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
   gap: 8px;
   width: min(300px, calc(100vw - 36px));
+  max-height: calc(100vh - 36px);
 }
 
 .playDock .chatShell {
@@ -558,9 +595,13 @@
 
 .ranking {
   display: grid;
+  align-content: start;
   gap: 2px;
+  min-height: 0;
   margin: 0;
   padding: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
   border: 1px solid #292e2d;
   list-style: none;
   background: rgba(12, 14, 15, 0.92);

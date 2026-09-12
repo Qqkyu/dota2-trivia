@@ -17,6 +17,8 @@ export const PRIVATE_ROOM_POLL_MS = 1_000;
 export const PRIVATE_ROOM_MAX_MESSAGES = 40;
 export const PRIVATE_ROOM_MESSAGE_MAX = 80;
 export const PRIVATE_ROOM_NAME_MAX = 24;
+/** One private room keeps at most this many seats. Leave frees a seat. */
+export const PRIVATE_ROOM_PLAYER_MAX = 100;
 export const PRIVATE_ROOM_NAME_NOTICE_MS = 2_500;
 export const PRIVATE_ROOM_COUNTDOWN_MS = 3_000;
 
@@ -194,6 +196,9 @@ function upsertMember(record, playerId, name, now, applyName) {
     existing.lastSeenAt = now;
     return { nameTaken: false };
   }
+  if ((record.members ?? []).length >= PRIVATE_ROOM_PLAYER_MAX) {
+    return { full: true };
+  }
   record.members.push({
     playerId,
     name: uniqueAutoName(record, playerId, cleaned || guestDisplayName(playerId)),
@@ -236,6 +241,10 @@ export function touchPrivateRoom(code, now = Date.now(), identity) {
   let nameTakenFlag = false;
   if (identity?.playerId) {
     const result = upsertMember(record, identity.playerId, identity.name, now, identity.applyName);
+    if (result.full) {
+      markAwayMembers(record, now);
+      return { ...publicView(record, identity.playerId), nameTaken: false, full: true };
+    }
     nameTakenFlag = Boolean(result.nameTaken);
   }
   markAwayMembers(record, now);
