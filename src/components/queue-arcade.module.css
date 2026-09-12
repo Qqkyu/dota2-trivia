@@ -4553,6 +4553,11 @@ button[data-state="wrong"] > .heroPickerVerdict {
   gap: 12px;
 }
 
+.shell[data-party-play="true"] .sideRail {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .progressCard,
 .crowdCard {
   border: 1px solid var(--line);

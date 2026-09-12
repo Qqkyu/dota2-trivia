@@ -269,13 +269,29 @@ try {
     8_000,
   );
   const play = await page.evaluate(`(() => {
+    const overlap = (a, b) =>
+      Boolean(a && b && a.left < b.right - 1 && a.right > b.left + 1 && a.top < b.bottom - 1 && a.bottom > b.top + 1);
+    const boxOf = (node) => (node ? node.getBoundingClientRect() : null);
     const dock = document.querySelector('[data-testid="private-room-play-dock"]');
     const ranking = document.querySelector('[data-testid="private-room-ranking"]');
     const chat = document.querySelector('[data-testid="private-room-chat-toggle"]');
+    const header = document.querySelector("header");
+    const volume = document.querySelector('[data-testid="game-volume"]');
+    const timer = document.querySelector('[data-testid="round-timer"]');
+    const answers = [...document.querySelectorAll('[data-testid="arcade-answer"]')];
+    const sideRail = document.querySelector('[aria-label="Your session"]');
     if (!dock || !ranking || !chat) return null;
     const box = dock.getBoundingClientRect();
     const rankBox = ranking.getBoundingClientRect();
     const rows = [...ranking.querySelectorAll("li")];
+    const hits = [];
+    if (overlap(box, boxOf(header))) hits.push("header");
+    if (overlap(box, boxOf(volume))) hits.push("volume");
+    if (overlap(box, boxOf(timer))) hits.push("timer");
+    if (answers.some((node) => overlap(box, node.getBoundingClientRect()))) hits.push("answers");
+    if (sideRail && getComputedStyle(sideRail).visibility !== "hidden" && overlap(box, boxOf(sideRail))) {
+      hits.push("streak-rail");
+    }
     return {
       rows: rows.length,
       inView:
@@ -283,10 +299,12 @@ try {
         box.bottom <= window.innerHeight + 1 &&
         box.left >= -1 &&
         box.right <= window.innerWidth + 1,
+      belowHeader: header ? box.top + 1 >= header.getBoundingClientRect().bottom : false,
       rankScrolls: ranking.scrollHeight > ranking.clientHeight + 1,
       chatUnder: chat.getBoundingClientRect().top + 1 >= rankBox.bottom,
       rowOverflow: rows.some((row) => row.scrollWidth > ranking.clientWidth + 2),
       pageOverflowX: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+      hits,
     };
   })()`);
   if (!play) throw new Error("Play dock is missing after Start.");
@@ -294,6 +312,8 @@ try {
     throw new Error(`Ranking has ${play.rows} rows, expected ${PRIVATE_ROOM_PLAYER_MAX}.`);
   }
   if (!play.inView) throw new Error("Play dock is cut off at 100 players.");
+  if (!play.belowHeader) throw new Error("Play dock covers the header.");
+  if (play.hits.length) throw new Error(`Play dock overlaps ${play.hits.join(", ")}.`);
   if (!play.rankScrolls) throw new Error("Ranking does not scroll at 100 players.");
   if (!play.chatUnder) throw new Error("Chat is not under the ranking at 100 players.");
   if (play.rowOverflow) throw new Error("A ranking row is cut off at 100 players.");

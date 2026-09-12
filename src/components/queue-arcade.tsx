@@ -3628,6 +3628,7 @@ export function QueueArcade({
     <main
       className={styles.shell}
       data-phase={phase}
+      data-party-play={activePrivateCode && phase !== "lobby" ? "true" : undefined}
       data-client-ready={statsLoaded}
       data-account-ready={account !== null}
       data-room-id={activeRoomId || undefined}
