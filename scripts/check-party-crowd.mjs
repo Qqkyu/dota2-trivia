@@ -93,6 +93,7 @@ const VIEWPORTS = [
   { name: "laptop", width: 1280, height: 720 },
   { name: "small", width: 1024, height: 700 },
   { name: "narrow", width: 900, height: 720 },
+  { name: "short", width: 1280, height: 640 },
 ];
 
 const port = await freePort();
@@ -180,24 +181,80 @@ try {
     })()`);
   };
 
-  const partyCode = `C${Date.now().toString(36).slice(-5).toUpperCase()}`;
-  await clickTestId("private-room-choose-create");
-  await page.waitFor(`document.querySelector('[data-testid="private-room-setup"]')?.dataset.path === "create"`);
-  await fill("private-room-join-code", partyCode);
-  await delay(80);
-  await clickTestId("private-room-create");
-  await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
-  await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-start"]'))`);
-
   async function setViewport(viewport) {
+    const { windowId } = await browser.send("Browser.getWindowForTarget", { targetId: created.targetId });
+    await browser.send("Browser.setWindowBounds", {
+      windowId,
+      bounds: {
+        left: 0,
+        top: 0,
+        width: viewport.width,
+        height: viewport.height,
+        windowState: "normal",
+      },
+    });
     await page.send("Emulation.setDeviceMetricsOverride", {
       width: viewport.width,
       height: viewport.height,
       deviceScaleFactor: 1,
       mobile: false,
     });
-    await delay(200);
+    await delay(250);
+    const size = await page.evaluate(`({ w: window.innerWidth, h: window.innerHeight })`);
+    if (Math.abs(size.w - viewport.width) > 48 || Math.abs(size.h - viewport.height) > 96) {
+      throw new Error(
+        `Viewport ${viewport.name} is ${size.w}x${size.h}, wanted ${viewport.width}x${viewport.height}. The test was not using the real window size.`,
+      );
+    }
   }
+
+  async function measureCreate(viewport) {
+    await setViewport(viewport);
+    const layout = await page.evaluate(`(() => {
+      const setup = document.querySelector('[data-testid="private-room-setup"]');
+      const create = document.querySelector('[data-testid="private-room-create"]');
+      const games = document.querySelector('[aria-label="Games"]');
+      const main = document.querySelector("main");
+      if (!setup || !create || !games || !main) return { missing: true };
+      const createBox = create.getBoundingClientRect();
+      const belowFold = createBox.bottom > window.innerHeight + 4;
+      const scrollRoot = setup.scrollHeight > setup.clientHeight + 8 ? setup : main.scrollHeight > main.clientHeight + 8 ? main : document.scrollingElement;
+      const canScroll = Boolean(scrollRoot && scrollRoot.scrollHeight > scrollRoot.clientHeight + 8);
+      if (belowFold && canScroll) {
+        create.scrollIntoView({ block: "end" });
+      }
+      const after = create.getBoundingClientRect();
+      return {
+        missing: false,
+        innerH: window.innerHeight,
+        belowFold,
+        canScroll,
+        createInView: after.top >= 0 && after.bottom <= window.innerHeight + 4,
+        setupOverflow: setup.scrollHeight - setup.clientHeight,
+        mainOverflow: main.scrollHeight - main.clientHeight,
+      };
+    })()`);
+    const label = `create @ ${viewport.name}`;
+    if (layout.missing) throw new Error(`${label}: Create party screen is missing.`);
+    if (layout.belowFold && !layout.canScroll) {
+      throw new Error(`${label}: Create is below the fold and the page cannot scroll.`);
+    }
+    if (!layout.createInView) {
+      throw new Error(`${label}: Create button is still off screen after scroll.`);
+    }
+  }
+
+  const partyCode = `C${Date.now().toString(36).slice(-5).toUpperCase()}`;
+  await clickTestId("private-room-choose-create");
+  await page.waitFor(`document.querySelector('[data-testid="private-room-setup"]')?.dataset.path === "create"`);
+  for (const viewport of VIEWPORTS) await measureCreate(viewport);
+  await setViewport(VIEWPORTS[1]);
+  await fill("private-room-join-code", partyCode);
+  await delay(80);
+  await page.evaluate(`document.querySelector('[data-testid="private-room-create"]')?.scrollIntoView({ block: "center" })`);
+  await clickTestId("private-room-create");
+  await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
+  await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-start"]'))`);
 
   async function joinGuests(from, to) {
     for (let index = from; index < to; index += 1) {
@@ -274,6 +331,7 @@ try {
           Boolean(listBox && startBox && chatBox && toggleBox && inputBox) &&
           startBox.top + 1 >= listBox.bottom &&
           chatBox.top + 1 >= startBox.bottom &&
+          toggleBox.top + 1 >= chatBox.bottom &&
           toggleBox.top + 1 >= inputBox.bottom,
         listScrolls: Boolean(scroll) && listBox && listBox.height >= 48 && scroll.scrollHeight > listBox.height + 1,
         rowOverflow: rows.some((row) => row.scrollWidth > (scroll?.clientWidth ?? 0) + 2),
