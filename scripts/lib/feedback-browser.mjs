@@ -102,14 +102,14 @@ function attachCdp(webSocketDebuggerUrl) {
   };
 }
 
-export async function soundBrowser() {
+export async function soundBrowser({ muteAudio = true, env = process.env } = {}) {
   const port = await freePort();
   const userDataDir = await mkdtemp(join(tmpdir(), "queue-arcade-sounds-"));
   const chrome = spawn(
     process.env.CHROME_BIN ?? "google-chrome",
     [
       "--headless=new",
-      "--mute-audio",
+      ...(muteAudio ? ["--mute-audio"] : []),
       `--remote-debugging-port=${port}`,
       "--remote-allow-origins=*",
       `--user-data-dir=${userDataDir}`,
@@ -118,15 +118,16 @@ export async function soundBrowser() {
       "--window-size=1400,1000",
       "about:blank",
     ],
-    { stdio: "ignore" },
+    { stdio: "ignore", env },
   );
   let launchError;
   chrome.on("error", (error) => {
     launchError = error;
   });
   let browser, page;
+  const pages = [];
   async function close() {
-    page?.socket.close();
+    for (const tab of pages) tab.socket.close();
     browser?.socket.close();
     const exited = new Promise((resolve) => chrome.once("exit", resolve));
     if (chrome.exitCode === null && !launchError) {
@@ -139,17 +140,22 @@ export async function soundBrowser() {
     const version = await waitJson(`http://127.0.0.1:${port}/json/version`);
     browser = attachCdp(version.webSocketDebuggerUrl);
     await browser.ready;
-    const { targetId } = await browser.send("Target.createTarget", { url: "about:blank" });
-    const targets = await waitJson(`http://127.0.0.1:${port}/json/list`);
-    page = attachCdp(targets.find((target) => target.id === targetId).webSocketDebuggerUrl);
-    await page.ready;
-    await page.send("Page.enable");
-    await page.send("Runtime.enable");
-    await page.send("Network.enable");
-    // The fixture hook serves every API request. Block any request that escapes
-    // it, including beacons, so this check cannot write local or remote app data.
-    await page.send("Network.setBlockedURLs", { urls: ["*/api/*"] });
-    return { browser, page, targetId, close };
+    async function newPage() {
+      const { targetId } = await browser.send("Target.createTarget", { url: "about:blank" });
+      const targets = await waitJson(`http://127.0.0.1:${port}/json/list`);
+      const tab = attachCdp(targets.find((target) => target.id === targetId).webSocketDebuggerUrl);
+      pages.push(tab);
+      await tab.ready;
+      await tab.send("Page.enable");
+      await tab.send("Runtime.enable");
+      await tab.send("Network.enable");
+      // Block all real API traffic, including writes and beacons.
+      await tab.send("Network.setBlockedURLs", { urls: ["*/api/*"] });
+      return { page: tab, targetId };
+    }
+    const first = await newPage();
+    page = first.page;
+    return { browser, page, targetId: first.targetId, newPage, close };
   } catch (error) {
     await close();
     throw launchError ?? error;

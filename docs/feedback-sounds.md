@@ -1,83 +1,94 @@
-# Feedback sound failures
+# Feedback sound verification
 
-## Cause and evidence
+## Live-client findings after 70eabcf
 
-Two faults were reproduced through the real `/play` client with native Chrome audio:
+The local `/play` client was driven with trusted Chrome input. A separate
+PulseAudio monitor recorded the browser's native stereo output. No person
+listened to judge these results.
 
-- A Shopkeeper recipe component pick only changed the draft. It never called the feedback player.
-  A real mouse click filled one recipe slot, with zero `play()` calls and zero audio samples.
-  The search/Enter path had the same omission. Partial Order Up and Flashback order picks also omitted the cue.
-- `createFeedbackPlayer.play()` paused every previous voice. When a reveal followed a late pick,
-  the result could cancel the pick before Chrome's media thread started it. The native promise rejected
-  with `AbortError`, at `currentTime === 0`. Shopkeeper Build Result, Fogged Vision, Spell Link, and
-  four-choice trivia all reproduced zero pick samples. The same policy could cut off a delayed result
-  when the next pick arrived.
+- The first Shopkeeper recipe pick, first Shopkeeper item answer, and first
+  Aghanim's Lab answer each kept only **41.9% of the expected sample energy**.
+  Each native `play()` promise resolved and each file finished. The loss was in
+  the first 10 ms, where the click has 94% of its energy. This was attenuation,
+  not an all-zero recording. Rebuilding the WAV header alone did not fix it.
+- Two open game tabs each played the wrong-result sound. In one recording, the
+  full copies were **116 ms apart**. Subtracting one reference waveform left a
+  second full copy. Muting the older tab removed it; a single tab's wrong sound
+  matched the source WAV. Background tabs also sound results for missed rounds.
+- All 28 previous PCM cases passed on that same client. Their
+  `createMediaElementSource()` tap routed playback through Web Audio and bypassed
+  the native output behavior that weakened the click. They inspected individual
+  voices in one game tab, so they could not detect the combined output of two
+  game tabs. Aghanim's Lab was absent.
 
-The old player discarded its preload elements and created a new, unready media element on each cue.
-It reported `played: true` before playback started and swallowed rejection. This made the cancellation
-window harder to see.
+The new check was run before the fixes:
 
-The fix gives each accepted pick/result its own voice until `ended` or `error`. The entry cue can still
-be stopped by a pick. Mute and exit stop all voices and clear blocked results. Unused preload elements
-are retained and consumed once. The return value now separates `requested` from the asynchronous
-`started` result. A blocked result can retry on focus or a user gesture, without repeating a heard result.
-Draft picks have an explicit `onPick` callback; completing an answer still calls `onChoose` once.
+```bash
+node scripts/check-native-feedback-sounds.mjs --skip-controls
+```
 
-## Why the previous checks missed it
+It failed for all three first picks and the two-tab wrong result. The pick had
+41.9% energy and 24.9% waveform error. The two-tab result left 100% extra sound
+energy after subtracting the expected single copy.
 
-- The asset validator checked WAV hashes and source-code strings. Its fake media tests required the
-  faulty behavior: each new cue had to pause the previous cue.
-- The browser check chose two random rounds. It did not require Shopkeeper recipe coverage or test
-  two cues arriving close together.
-- It used `--autoplay-policy=no-user-gesture-required`, accepted a resolved `play()` promise as sound,
-  and did not measure audio output. Its clip-state lookup found the first preload element rather than
-  the voice associated with the current action.
-- Layout checks explicitly replaced media playback with a resolved promise.
+## Changes
 
-The asset validator now states its limited scope. Playback behavior belongs to the browser check and
-the feedback-player regression tests, rather than source-order expressions or always-successful media stubs.
+The runtime pick WAV has 20 ms of silence before the original samples. This
+protects its short attack from the native output's initial fade. The original
+WAV remains in the repo. The asset validator requires the runtime file to retain
+every original stereo sample, with only the silent lead-in added. Gain is unchanged.
 
-Running the broader checks also exposed existing failures. The shop/hero validators still required an
-old statement order. They now check the callback connection; the browser check verifies its sound.
-The navigation validator still required the global scrollbar rule deliberately removed in `c73cb30`;
-that obsolete requirement was removed. The party route now checks that the optional `full` property
-exists before reading it, which fixes its TypeScript error.
+The last game tab used owns audio. Focus or trusted input transfers ownership;
+the old tab stops its sounds and drops pending results. Returning to an old tab
+does not replay its old result. One game tab can still play a result while hidden
+by a different application. If local storage is unavailable, playback is limited
+to the focused, visible page. This applies to feedback and round audio.
 
-## Run the checks
+## Run
 
-With the app running on `http://localhost:3000`:
+With the app already running at `http://localhost:3000`:
 
 ```bash
 pnpm check:sounds
-pnpm test -- tests/feedback-player.test.mjs
+```
+
+`APP_URL` and `CHROME_BIN` can select another app URL or Chrome binary. The native
+check requires Linux, PulseAudio (`pulseaudio` and `parec`), and Chrome. It starts
+its own temporary audio server and records a null sink; it does not use speakers
+or change the user's audio server. An unpacked PulseAudio package tree can be
+supplied with `SOUND_PULSE_ROOT`. On this workspace it is already installed at
+`~/.cache/queue-arcade/sound-tools`, which the check finds by default. Missing
+recorder tools fail the check instead of skipping native verification.
+
+The native check covers cold first picks in separate browser profiles, individual
+wrong results, two game tabs with staggered results, and return to the old tab.
+It compares both recorded channels with the expected full waveforms at the UI
+volume. Missing samples, reduced gain, or another delayed copy fail the check.
+Two negative controls must fail: the original unpadded click, and a second native
+wrong-sound playback delayed by 75 ms. The latter bypasses the per-tab call log,
+so only the actual mixed recording can expose it.
+
+The second check retains the per-voice tap for broad UI coverage: 30 PCM cases,
+including Aghanim mouse and keyboard picks, recipe edits, ordering picks,
+correct/wrong results, reveal races, next-round picks, hidden-tab return, and
+mute. Its silent and cut-short controls must also fail.
+
+Supporting checks:
+
+```bash
+pnpm exec vitest run tests/feedback-player.test.mjs
 node scripts/validate-feedback-sounds.mjs
 ```
 
-`pnpm check:sounds` owns a temporary Chrome profile and uses normal autoplay rules. It feeds fixed room
-snapshots through the existing client fetch boundary and drives the real controls with trusted browser
-input. API traffic is also blocked at the browser network layer, so test votes, sessions, and beacons
-cannot reach the server's stores. No test-only route or playable fixture is added to the application.
-
-For each voice, an AudioWorklet reads PCM (decoded sound samples) from the native media element, before
-the browser's speaker mute. The check requires one start, an `ended` event, first sound within 350 ms,
-and 90–110% of the original WAV's expected sample energy at the selected volume. It associates voices
-with individual actions, so a previous cue cannot hide a later miss.
-
-The check first runs two negative controls: a muted media element and an element paused immediately
-after `play()` resolves. Both must fail the PCM assertion. Run just those controls with:
-
-```bash
-node scripts/check-feedback-sounds.mjs --self-test
-```
-
-The browser cases cover each recipe step, removal, Enter, final Build, all reported formats, correct
-and wrong results, partial ordering picks, a reveal immediately after a vote, a delayed result followed
-by the next pick, a hidden tab and focus return, and mute. The unit tests control the media-start delay
-to make the cancellation race deterministic, and cover voice cleanup and blocked-result recovery.
+All browser API responses are fixtures and all real API requests are blocked,
+including writes and beacons. Only round data is replaced in the native check;
+application handlers, audio files, decoding, autoplay policy, and final output
+remain real. The tests cannot write to `.data` or use server API stores.
 
 ## Limits
 
-The check measures browser audio, not the operating system's volume, speakers, or headphones. It runs
-in Chrome; other browsers are not covered. The room/vote responses are controlled fixtures, so this
-check does not test the real server's scheduling, vote storage, or outages. It recreates the reported
-failure patterns; no trace of the maintainer's exact past browser session was available.
+This verifies the current local client in Chrome on Linux. It does not establish
+what happened in the maintainer's exact past session. No all-zero first-pick
+recording was reproduced; the measured fault was loss of the click's attack.
+Physical devices, operating-system effects outside the test sink, other browsers,
+and the real server's round/vote timing are not covered. Production was not tested.

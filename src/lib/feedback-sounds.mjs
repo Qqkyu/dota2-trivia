@@ -3,10 +3,12 @@ export const DOTA_FEEDBACK_SOUNDS = Object.freeze({
     event: "ui_generic_button_click",
     clips: Object.freeze([
       Object.freeze({
-        src: "/assets/dota2/sounds/panorama_generic_button_click_01.wav",
+        // Native media output fades its first few milliseconds. Keep the click's
+        // attack intact by placing 20 ms of silence before the original samples.
+        src: "/assets/dota2/sounds/panorama_generic_button_click_01_padded.wav",
         source: "sounds/ui/panorama/panorama_generic_button_click_01.wav",
-        durationSeconds: 0.519615,
-        sha256: "10abf2f53e7b3f9af78b843cac79eaef053c463663a5f099dcd5c538b2d62fe0",
+        durationSeconds: 0.539615,
+        sha256: "4b0c2a51cf3fc4206855813a1c8253dfaf1e894d638b9da223a7f6884e756eea",
         gain: 0.8,
       }),
     ]),

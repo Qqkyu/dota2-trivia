@@ -1,6 +1,5 @@
-// Runs before the real /play client. Only room data is replaced. Audio uses the
-// browser's native decoder, autoplay policy and audio thread, through a PCM tap.
-export function installSoundProbe(fixtures, fault) {
+// Fixed server responses, shared by the tapped and native-output browser checks.
+export function installSoundFixtures(fixtures) {
   const nativeFetch = window.fetch.bind(window);
   const crowd = { counts: [0, 0, 0, 0], total: 0, keyCounts: [], scoreSummary: null };
   const json = (value) => new Response(JSON.stringify(value), { headers: { "Content-Type": "application/json" } });
@@ -76,7 +75,12 @@ export function installSoundProbe(fixtures, fault) {
       playerReport: null,
     });
   };
+}
 
+// This tap changes the media output path. It checks event coverage, but cannot
+// prove native output is intact. check-native-feedback-sounds.mjs does that.
+export function installSoundProbe(fault) {
+  const nativeFetch = window.fetch.bind(window);
   const NativeAudio = window.Audio;
   const nativePlay = HTMLMediaElement.prototype.play;
   const context = new AudioContext({ sampleRate: 44_100 });

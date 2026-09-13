@@ -3,7 +3,7 @@ import { createFeedbackPlayer } from "../src/lib/feedback-player.mjs";
 
 // Media playback starts asynchronously, even when the WAV is in the HTTP cache.
 // A pause before `start()` rejects play and produces no samples.
-function mediaHarness() {
+function mediaHarness(options = {}) {
   const nodes = [];
   class Audio extends EventTarget {
     constructor(src) {
@@ -41,12 +41,36 @@ function mediaHarness() {
       this.reject(new DOMException("User gesture required", "NotAllowedError"));
     }
   }
-  const player = createFeedbackPlayer({ AudioCtor: Audio, isHidden: () => false });
+  const player = createFeedbackPlayer({ AudioCtor: Audio, isHidden: () => false, ...options });
   const cue = (needle) => nodes.findLast((node) => node.plays && node.src.includes(needle));
   return { player, nodes, cue };
 }
 
 describe("feedback playback across real round transitions", () => {
+  it("discards another tab's result instead of replaying it when ownership returns", () => {
+    let owner = false;
+    const { player, nodes } = mediaHarness({ isOwner: () => owner });
+    expect(player.play("wrong").requested).toBe(false);
+    owner = true;
+    expect(player.resumeIfNeeded().requested).toBe(false);
+    expect(nodes).toHaveLength(0);
+    expect(player.play("lock").requested).toBe(true);
+  });
+
+  it("cancels an unresolved result when another game tab takes audio", async () => {
+    let owner = true;
+    const { player, cue } = mediaHarness({ isOwner: () => owner });
+    const result = player.play("wrong");
+    const wrong = cue("magic_immune");
+    owner = false;
+    expect(player.resumeIfNeeded().requested).toBe(false);
+    expect(wrong.paused).toBe(true);
+    expect(await result.started).toBe(false);
+    owner = true;
+    expect(player.resumeIfNeeded().requested).toBe(false);
+    expect(wrong.plays).toBe(1);
+  });
+
   it("keeps a late pick alive when its result arrives before audio starts", () => {
     const { player, cue } = mediaHarness();
     player.play("lock");

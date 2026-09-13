@@ -9,10 +9,12 @@ const RESULT_KINDS = new Set(["correct", "wrong"]);
  * Only the decorative entry cue is superseded by another cue. Mute/exit stop all.
  * Retain unused preload nodes and consume each once; warming just the HTTP cache
  * does not make a newly constructed media element ready to play.
+ * @param {{ AudioCtor?: typeof Audio, isHidden?: () => boolean, isOwner?: () => boolean }} [options]
  */
 export function createFeedbackPlayer({
   AudioCtor,
   isHidden = () => typeof document !== "undefined" && Boolean(document.hidden),
+  isOwner = () => true,
 } = {}) {
   const cache = new Map();
   const live = new Set();
@@ -73,6 +75,10 @@ export function createFeedbackPlayer({
 
   function play(kind, { enabled = true, volume = 1 } = {}) {
     lastOptions = { enabled, volume };
+    if (!isOwner()) {
+      pauseAll();
+      return skipped("other-tab");
+    }
     if (!enabled || volume <= 0) return skipped("muted");
     if (!DOTA_FEEDBACK_SOUNDS[kind]) return skipped("unknown");
     if (!resolveAudio()) return skipped("missing");
@@ -126,6 +132,10 @@ export function createFeedbackPlayer({
   }
 
   function resumeIfNeeded() {
+    if (!isOwner()) {
+      pauseAll();
+      return skipped("other-tab");
+    }
     if (!pendingResult || isHidden()) return skipped("idle");
     if ([...live].some((entry) => entry.request === pendingResult && !entry.audio.paused)) {
       return skipped("already-playing");

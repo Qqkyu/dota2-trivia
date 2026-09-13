@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { answerFeedbackKind, DOTA_FEEDBACK_SOUNDS, dotaFeedbackSoundForKind } from "../src/lib/feedback-sounds.mjs";
+import { wavChannels } from "./lib/native-audio-output.mjs";
 
 const failures = [];
 const expectedKinds = ["lock", "correct", "wrong", "start"];
@@ -62,11 +63,36 @@ if (answerFeedbackKind(true) !== "correct" || answerFeedbackKind(false) !== "wro
   failures.push("Answer results no longer map to the expected feedback kinds.");
 }
 
+const originalClick = await readFile(
+  new URL("../public/assets/dota2/sounds/panorama_generic_button_click_01.wav", import.meta.url),
+);
+if (
+  createHash("sha256").update(originalClick).digest("hex") !==
+  "10abf2f53e7b3f9af78b843cac79eaef053c463663a5f099dcd5c538b2d62fe0"
+) {
+  failures.push("The original pick sound used as the native-output reference changed.");
+}
+const originalChannels = wavChannels(originalClick);
+const paddedChannels = wavChannels(
+  await readFile(new URL(`../public${DOTA_FEEDBACK_SOUNDS.lock.clips[0].src}`, import.meta.url)),
+);
+for (const [channel, original] of originalChannels.entries()) {
+  const padded = paddedChannels[channel];
+  if (
+    !padded ||
+    padded.length !== original.length + 882 ||
+    padded.slice(0, 882).some((value) => value !== 0) ||
+    original.some((value, index) => value !== padded[index + 882])
+  ) {
+    failures.push("The runtime pick must preserve every original sample after exactly 20 ms of silence.");
+  }
+}
+
 if (failures.length) {
   console.error(failures.map((failure) => `- ${failure}`).join("\n"));
   process.exit(1);
 }
 
 console.log(
-  "Validated four Dota UI events and five original WAVs. Playback is checked by pnpm check:sounds; lifecycle by pnpm test.",
+  "Validated four Dota UI events, five runtime WAVs, and the lossless pick lead-in. Native output is checked by pnpm check:sounds.",
 );

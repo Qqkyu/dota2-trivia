@@ -29,7 +29,7 @@
     "validate-assets": "node scripts/validate-image-assets.mjs",
     "check:multiplayer": "node scripts/multiplayer-smoke.mjs",
     "check:resume": "node scripts/room-resume-smoke.mjs",
-    "check:sounds": "node scripts/check-feedback-sounds.mjs",
+    "check:sounds": "node scripts/check-native-feedback-sounds.mjs && node scripts/check-feedback-sounds.mjs",
     "check:party-previews": "node scripts/check-party-previews.mjs",
     "check:party-lobby": "node scripts/check-party-lobby.mjs",
     "check:public-play": "node scripts/check-public-play.mjs",

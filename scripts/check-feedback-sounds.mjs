@@ -12,7 +12,7 @@ import { publicQuestionForRound } from "../src/lib/public-question.mjs";
 import { DOTA_FEEDBACK_SOUNDS } from "../src/lib/feedback-sounds.mjs";
 import { valueOrderAnswerKey } from "../src/lib/value-order.mjs";
 import { click, delay, press, soundBrowser } from "./lib/feedback-browser.mjs";
-import { installSoundProbe } from "./lib/feedback-sound-probe.mjs";
+import { installSoundFixtures, installSoundProbe } from "./lib/feedback-sound-probe.mjs";
 
 if (!process.argv.includes("--probe")) {
   for (const fault of ["silent-lock", "cut-lock"]) {
@@ -41,13 +41,14 @@ if (!process.argv.includes("--probe")) {
 }
 
 const data = async (name) => JSON.parse(await readFile(new URL(`../src/data/${name}.json`, import.meta.url)));
-const [generated, shop, valueOrder, flashback, catalog] = await Promise.all(
+const [generated, shop, valueOrder, flashback, catalog, aghanim] = await Promise.all(
   [
     "questions.generated",
     "shopkeeper-questions",
     "value-order-questions",
     "flashback-questions",
     "shopkeeper-catalog",
+    "aghanim-questions",
   ].map(data),
 );
 const cases = [
@@ -56,6 +57,7 @@ const cases = [
   ["shop-path", "shopkeeper", shop.find((q) => q.kind === "shopkeeper-upgrade-path")],
   ["shop-shared", "shopkeeper", shop.find((q) => q.kind === "shopkeeper-shared-part")],
   ["fogged-vision", "fogged-vision", generated.find((q) => q.kind === "fogged-hero")],
+  ["aghanim-lab", "aghanim-lab", aghanim[0]],
   ["spell-link", "spell-link", generated.find((q) => q.id === "ability-owner:mirana_arrow")],
   ["trivia", "trivia", generated.find((q) => q.kind === "mana-cost")],
   ["value-order", "order-up", valueOrder.find((q) => q.kind === "value-order-item")],
@@ -179,7 +181,7 @@ async function pick(name, correct = false, keyboard = false) {
 
 try {
   await page.send("Page.addScriptToEvaluateOnNewDocument", {
-    source: `(${installSoundProbe.toString()})(${JSON.stringify(fixtures)}, ${JSON.stringify(process.env.SOUND_FAULT ?? "")})`,
+    source: `(${installSoundFixtures.toString()})(${JSON.stringify(fixtures)}); (${installSoundProbe.toString()})(${JSON.stringify(process.env.SOUND_FAULT ?? "")})`,
   });
   await page.send("Page.navigate", { url: `${appUrl}/play` });
   await page.waitFor(`document.querySelector("main")?.dataset.phase === "answering"`);
@@ -219,13 +221,21 @@ try {
     await click(page, selector("shopkeeper-recipe-build"));
     await measure("Shopkeeper build at reveal", ["lock", "wrong"]);
 
-    for (const name of ["shop-build", "shop-path", "shop-shared", "fogged-vision", "spell-link", "trivia"]) {
+    for (const name of [
+      "shop-build",
+      "shop-path",
+      "shop-shared",
+      "fogged-vision",
+      "aghanim-lab",
+      "spell-link",
+      "trivia",
+    ]) {
       await round(name, { revealOnVote: true });
       await mark(`${name} pick at reveal`);
       await pick(name);
       await measure(`${name} pick at reveal`, ["lock", "wrong"]);
     }
-    for (const name of ["shop-build", "fogged-vision", "spell-link", "trivia"]) {
+    for (const name of ["shop-build", "fogged-vision", "aghanim-lab", "spell-link", "trivia"]) {
       await round(name, { revealOnVote: true });
       await mark(`${name} correct Enter pick`);
       await pick(name, true, true);
@@ -297,7 +307,7 @@ try {
     );
     await click(page, '[aria-label="Enable game sounds"]');
     console.log(
-      `Feedback playback holds: ${checks} PCM checks, nine fixed formats, mouse/keyboard, deadline races, hidden tab, and mute.`,
+      `Feedback playback holds: ${checks} tapped PCM checks, ten fixed formats, mouse/keyboard, deadline races, hidden tab, and mute.`,
     );
   }
 } finally {

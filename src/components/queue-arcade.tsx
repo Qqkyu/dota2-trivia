@@ -76,6 +76,7 @@ import { crowdPercentage, keyedCrowdSplitRows } from "@/lib/crowd-split.mjs";
 import { DEFAULT_GAME_ID, GAME_IDS, type PublicGameInfo } from "@/lib/game-identity";
 import { answerFeedbackKind } from "@/lib/feedback-sounds.mjs";
 import { createFeedbackPlayer } from "@/lib/feedback-player.mjs";
+import { claimAudioTab } from "@/lib/audio-tab.mjs";
 import { accuracyRate, revealCallout, streakBannerParts } from "@/lib/dota-flavor.mjs";
 import { preventQuestionClipboard, shouldBlockQuestionClipboard } from "@/lib/question-guard.mjs";
 import { FALLBACK_STEAM_DISPLAY_NAME } from "@/lib/steam-profile.mjs";
@@ -2401,7 +2402,7 @@ export function QueueArcade({
   const [entryWaitMode, setEntryWaitMode] = useState<"lessons" | "silent" | null>(null);
   const roomSyncGateRef = useRef<ReturnType<typeof createRoomSyncGate> | null>(null);
   const feedbackPlayerRef = useRef<ReturnType<typeof createFeedbackPlayer> | null>(null);
-  if (feedbackPlayerRef.current === null) feedbackPlayerRef.current = createFeedbackPlayer();
+  const audioTabRef = useRef<ReturnType<typeof claimAudioTab> | null>(null);
   const roundAudioRefs = useRef<Array<HTMLAudioElement | null>>([]);
   const roundAudioAbortRef = useRef<AbortController | null>(null);
   const autoPlayedAudioKeyRef = useRef("");
@@ -2516,8 +2517,25 @@ export function QueueArcade({
     if (showReadyState && phaseRef.current === "answering") setRoundAudioState("ready");
   }, []);
 
+  useEffect(() => {
+    const tab = claimAudioTab(() => {
+      feedbackPlayerRef.current?.pauseAll();
+      stopRoundAudio();
+    });
+    audioTabRef.current = tab;
+    const player = createFeedbackPlayer({ isOwner: tab.isOwner });
+    feedbackPlayerRef.current = player;
+    return () => {
+      player.pauseAll();
+      tab.dispose();
+      feedbackPlayerRef.current = null;
+      audioTabRef.current = null;
+    };
+  }, [stopRoundAudio]);
+
   const playRoundAudio = useCallback(
     (enableSound = true, revealStage = 1) => {
+      if (!audioTabRef.current?.isOwner()) return;
       stopRoundAudio(false);
       const audios = roundAudioRefs.current.filter((audio): audio is HTMLAudioElement => Boolean(audio));
       if (!audios.length) return;
