@@ -136,6 +136,10 @@ class FakeAudio {
   }
 }
 
+function played(nodes, needle) {
+  return nodes.filter((audio) => String(audio.src).includes(needle) && audio.plays > 0);
+}
+
 const constructed = [];
 const player = createFeedbackPlayer({
   AudioCtor: class extends FakeAudio {
@@ -147,23 +151,30 @@ const player = createFeedbackPlayer({
 });
 
 player.preload();
-if (!FEEDBACK_SOUND_KINDS.every((kind) => player.has(kind)) || constructed.length !== 5) {
+if (!FEEDBACK_SOUND_KINDS.every((kind) => player.has(kind))) {
   failures.push("Feedback sounds are not all preloaded before the first pick.");
+}
+const warmers = constructed.length;
+if (warmers !== 5) {
+  failures.push(`Preload must warm five unused clips, got ${warmers}.`);
 }
 
 const firstLock = player.play("lock", { enabled: true, volume: 1 });
 const afterWrong = player.play("wrong", { enabled: true, volume: 1 });
 const secondLock = player.play("lock", { enabled: true, volume: 1 });
-const lockClips = constructed.filter((audio) => audio.src.includes("button_click"));
-const wrongClips = constructed.filter((audio) => audio.src.includes("magic_immune"));
+const lockLive = played(constructed, "button_click");
+const wrongLive = played(constructed, "magic_immune");
 if (!firstLock.played || !afterWrong.played || !secondLock.played) {
   failures.push("A feedback kind failed to play.");
 }
-if (constructed.length !== 5 || lockClips[0]?.plays !== 2 || wrongClips[0]?.plays !== 1) {
-  failures.push("Pick sound still rebuilds audio after a result and can miss the next lock.");
+if (lockLive.length !== 2 || wrongLive.length !== 1) {
+  failures.push(`Cues must use a new Audio node each time (lock ${lockLive.length}, wrong ${wrongLive.length}).`);
 }
-if (!(lockClips[0]?.paused === false && wrongClips.every((audio) => audio.paused && audio.currentTime === 0))) {
-  failures.push("Wrong and lock cues can still overlap and sound hollow.");
+if (lockLive[0].paused !== true || lockLive[1].paused !== false || wrongLive[0].paused !== true) {
+  failures.push("A previous cue was still playing under the next cue.");
+}
+if (lockLive.some((audio) => audio.plays !== 1) || wrongLive.some((audio) => audio.plays !== 1)) {
+  failures.push("A live node was play()ed more than once.");
 }
 if (player.play("lock", { enabled: true, volume: 0 }).played !== false) {
   failures.push("Muted volume still starts a cue.");
@@ -208,26 +219,30 @@ const latePlayer = createFeedbackPlayer({
 });
 latePlayer.preload();
 latePlayer.play("start", { enabled: true, volume: 1 });
-const startCues = lateCues.filter(
-  (audio) => String(audio.src).includes("find_match") || String(audio.src).includes("select_md"),
-);
-const startPlaysAtLock = startCues.reduce((sum, audio) => sum + audio.plays, 0);
+const startLive = played(lateCues, "find_match").concat(played(lateCues, "select_md"));
+const startPlaysAtLock = startLive.reduce((sum, audio) => sum + audio.plays, 0);
 latePlayer.play("lock", { enabled: true, volume: 1 });
-await new Promise((resolve) => setTimeout(resolve, 60));
-const startPlaysAfterLock = startCues.reduce((sum, audio) => sum + audio.plays, 0);
+await new Promise((resolve) => setTimeout(resolve, 40));
+const startPlaysAfterLock = startLive.reduce((sum, audio) => sum + audio.plays, 0);
 if (startPlaysAfterLock > startPlaysAtLock) {
   failures.push("A paused start cue retried after the lock click and sounded late or hollow.");
 }
-const lockAfterStart = lateCues.find((audio) => String(audio.src).includes("button_click"));
-if (!lockAfterStart || lockAfterStart.plays < 1 || lockAfterStart.paused !== false) {
+const lockAfterStart = played(lateCues, "button_click").at(-1);
+if (!lockAfterStart || lockAfterStart.plays !== 1 || lockAfterStart.paused !== false) {
   failures.push("Lock did not play after start was still running.");
+}
+if (startLive.some((audio) => audio.paused === false)) {
+  failures.push("Start was still playing under the lock click.");
 }
 
 latePlayer.play("wrong", { enabled: true, volume: 1 });
-const lockPlaysAtWrong = lockAfterStart.plays;
-await new Promise((resolve) => setTimeout(resolve, 60));
-if (lockAfterStart.plays > lockPlaysAtWrong) {
+await new Promise((resolve) => setTimeout(resolve, 40));
+if (lockAfterStart.plays !== 1 || lockAfterStart.paused !== true) {
   failures.push("A paused lock cue retried during the result and sounded like a cave.");
+}
+const wrongLiveLate = played(lateCues, "magic_immune").at(-1);
+if (!wrongLiveLate || wrongLiveLate.plays !== 1 || wrongLiveLate.paused !== false) {
+  failures.push("Wrong did not play on a fresh node.");
 }
 
 class ChromePauseThenPlayAudio {
@@ -235,7 +250,6 @@ class ChromePauseThenPlayAudio {
     this.src = src;
     this.preload = "auto";
     this.volume = 1;
-    this.currentTime = 0;
     this.paused = true;
     this.plays = 0;
     this.started = 0;
@@ -270,101 +284,11 @@ const cavePlayer = createFeedbackPlayer({
   },
 });
 cavePlayer.play("wrong", { enabled: true, volume: 1 });
-await new Promise((resolve) => setTimeout(resolve, 60));
-const caveWrong = caveClips.find((audio) => String(audio.src).includes("magic_immune"));
+const caveWrong = played(caveClips, "magic_immune").at(-1);
 if (!caveWrong || caveWrong.plays !== 1 || caveWrong.started !== 1 || caveWrong.paused !== false) {
   failures.push(
     `Wrong cue stacked on itself (${caveWrong?.plays ?? 0} play calls, ${caveWrong?.started ?? 0} started) and sounded like a cave.`,
   );
-}
-
-class FirstPlayAbortsAudio {
-  constructor(src) {
-    this.src = src;
-    this.preload = "auto";
-    this.volume = 1;
-    this.currentTime = 0;
-    this.paused = true;
-    this.plays = 0;
-    this.started = 0;
-  }
-  play() {
-    this.plays += 1;
-    if (this.plays === 1) {
-      this.paused = true;
-      return Promise.reject(
-        Object.assign(new Error("The play() request was interrupted by a call to pause()."), { name: "AbortError" }),
-      );
-    }
-    this.paused = false;
-    this.started += 1;
-    return Promise.resolve();
-  }
-  pause() {
-    this.paused = true;
-  }
-}
-
-const abortThenPlay = [];
-const abortThenPlayPlayer = createFeedbackPlayer({
-  AudioCtor: class extends FirstPlayAbortsAudio {
-    constructor(src) {
-      super(src);
-      abortThenPlay.push(this);
-    }
-  },
-});
-abortThenPlayPlayer.play("lock", { enabled: true, volume: 1 });
-await new Promise((resolve) => setTimeout(resolve, 40));
-const recoveredLock = abortThenPlay.find((audio) => String(audio.src).includes("button_click"));
-if (!recoveredLock || recoveredLock.started !== 1 || recoveredLock.paused !== false) {
-  failures.push(
-    `Lock stayed silent after Chrome aborted the first play() (${recoveredLock?.plays ?? 0} calls, ${recoveredLock?.started ?? 0} started).`,
-  );
-}
-
-class PlayingSkipAudio {
-  constructor(src) {
-    this.src = src;
-    this.preload = "auto";
-    this.volume = 1;
-    this._time = 4;
-    this.paused = false;
-    this.readyState = 0;
-    this.plays = 0;
-  }
-  play() {
-    this.plays += 1;
-    this.paused = false;
-    this._time = 0;
-    return Promise.resolve();
-  }
-  pause() {
-    this.paused = true;
-  }
-  set currentTime(_value) {
-    throw new Error("The HTMLMediaElement has not loaded.");
-  }
-  get currentTime() {
-    return this._time;
-  }
-}
-
-const stuck = [];
-const stuckPlayer = createFeedbackPlayer({
-  AudioCtor: class extends PlayingSkipAudio {
-    constructor(src) {
-      super(src);
-      stuck.push(this);
-    }
-  },
-});
-stuckPlayer.preload();
-const stuckLock = stuck.find((audio) => String(audio.src).includes("button_click"));
-if (stuckLock) stuckLock.paused = false;
-stuckPlayer.play("lock", { enabled: true, volume: 1 });
-if (!stuckLock || stuckLock.plays < 1) {
-  failures.push("A lock clip that looked like it was still playing never got play() and stayed silent.");
 }
 
 const throwing = [];
@@ -376,13 +300,17 @@ const hardy = createFeedbackPlayer({
       this.volume = 1;
       this.readyState = 0;
       this.plays = 0;
+      this.paused = true;
       throwing.push(this);
     }
     play() {
       this.plays += 1;
+      this.paused = false;
       return Promise.resolve();
     }
-    pause() {}
+    pause() {
+      this.paused = true;
+    }
     set currentTime(_value) {
       throw new Error("The HTMLMediaElement has not loaded.");
     }
@@ -392,7 +320,7 @@ const hardy = createFeedbackPlayer({
   },
 });
 const hardyPlay = hardy.play("wrong", { enabled: true, volume: 1 });
-const hardyWrong = throwing.find((audio) => String(audio.src).includes("magic_immune"));
+const hardyWrong = played(throwing, "magic_immune").at(-1);
 if (!hardyPlay.played || hardyWrong?.plays !== 1) {
   failures.push("A not-ready clip still blocks the next feedback sound.");
 }
@@ -409,16 +337,16 @@ const hiddenPlayer = createFeedbackPlayer({
   isHidden: () => tabHidden,
 });
 hiddenPlayer.play("wrong", { enabled: true, volume: 1 });
-const hiddenWrong = hiddenClips.find((audio) => String(audio.src).includes("magic_immune"));
+const hiddenWrong = played(hiddenClips, "magic_immune").at(-1);
 await new Promise((resolve) => setTimeout(resolve, 0));
 hiddenWrong.paused = true;
-hiddenWrong.currentTime = 0;
 tabHidden = false;
 const heardReplay = hiddenPlayer.resumeIfNeeded();
-if (heardReplay.played || hiddenWrong.plays !== 1) {
+if (heardReplay.played) {
   failures.push("A result that already played in the background played again when the tab came back.");
 }
 
+let allowPlay = false;
 const blockedClips = [];
 let blockedHidden = true;
 const blockedPlayer = createFeedbackPlayer({
@@ -429,18 +357,22 @@ const blockedPlayer = createFeedbackPlayer({
     }
     play() {
       this.plays += 1;
-      return Promise.reject(Object.assign(new Error("blocked"), { name: "NotAllowedError" }));
+      if (!allowPlay) {
+        return Promise.reject(Object.assign(new Error("blocked"), { name: "NotAllowedError" }));
+      }
+      this.paused = false;
+      return Promise.resolve();
     }
   },
   isHidden: () => blockedHidden,
 });
 blockedPlayer.play("wrong", { enabled: true, volume: 1 });
-const blockedWrong = blockedClips.find((audio) => String(audio.src).includes("magic_immune"));
 await new Promise((resolve) => setTimeout(resolve, 0));
 blockedHidden = false;
-blockedWrong.play = FakeAudio.prototype.play;
+allowPlay = true;
 const recovered = blockedPlayer.resumeIfNeeded();
-if (!recovered.played || blockedWrong.plays < 2) {
+const recoveredWrong = played(blockedClips, "magic_immune").at(-1);
+if (!recovered.played || recoveredWrong?.paused !== false) {
   failures.push("A result that failed while hidden did not play when the tab became visible.");
 }
 
@@ -450,5 +382,5 @@ if (failures.length) {
 }
 
 console.log(
-  "Validated four Dota UI events, five original WAVs, exclusive preloaded playback, and zero synthesized runtime cues.",
+  "Validated four Dota UI events, five original WAVs, one-shot HTMLAudio cues, and zero synthesized runtime cues.",
 );

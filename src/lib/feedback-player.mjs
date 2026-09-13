@@ -3,13 +3,21 @@ import { DOTA_FEEDBACK_SOUNDS, dotaFeedbackSoundForKind } from "./feedback-sound
 export const FEEDBACK_SOUND_KINDS = Object.freeze(["lock", "correct", "wrong", "start"]);
 const RESULT_KINDS = new Set(["correct", "wrong"]);
 
+/**
+ * UI cues use a new HTMLAudioElement every time.
+ *
+ * Chrome cannot pause() then play() the same node reliably. That path is the
+ * cave (two plays 20ms apart) and the silence (the second play is aborted).
+ * Preload still warms the HTTP cache with unused nodes. Live nodes are never
+ * reused. Start the new cue first, then pause whatever was already playing.
+ */
 export function createFeedbackPlayer({
   AudioCtor,
   isHidden = () => typeof document !== "undefined" && Boolean(document.hidden),
 } = {}) {
-  const boards = new Map();
+  const cache = new Map();
+  const live = [];
   let created = 0;
-  let cueGeneration = 0;
   let lastOptions = { enabled: true, volume: 1 };
   let pendingResult = null;
 
@@ -23,107 +31,97 @@ export function createFeedbackPlayer({
     const Ctor = resolveAudio();
     if (!Ctor) return 0;
     for (const kind of FEEDBACK_SOUND_KINDS) {
-      if (boards.has(kind)) continue;
+      if (cache.has(kind)) continue;
       const definition = dotaFeedbackSoundForKind(kind);
       if (!definition) continue;
-      boards.set(
+      cache.set(
         kind,
         definition.clips.map((clip) => {
-          const audio = new Ctor(clip.src);
+          const warmer = new Ctor(clip.src);
           created += 1;
-          audio.preload = "auto";
-          return { audio, gain: clip.gain, src: clip.src };
+          warmer.preload = "auto";
+          return { src: clip.src, gain: clip.gain };
         }),
       );
     }
     return created;
   }
 
-  function resetClip(audio) {
-    try {
-      audio.pause();
-    } catch {
-      // ignore
-    }
-    try {
-      if (typeof audio.readyState !== "number" || audio.readyState >= 1) {
-        audio.currentTime = 0;
+  function stopLive() {
+    const previous = live.splice(0);
+    for (const { audio } of previous) {
+      try {
+        audio.pause();
+      } catch {
+        // ignore
       }
-    } catch {
-      // Unloaded clips throw if we seek. Never block the next cue.
     }
   }
 
-  function pauseAll(exceptKind = null) {
-    for (const [kind, clips] of boards.entries()) {
-      if (exceptKind && kind === exceptKind) continue;
-      for (const { audio } of clips) resetClip(audio);
-    }
+  function pauseAll() {
+    stopLive();
   }
 
   function setVolume(volume) {
-    for (const clips of boards.values()) {
-      for (const { audio, gain } of clips) {
-        audio.volume = Math.min(1, Math.max(0, volume) * gain);
-      }
+    lastOptions = { ...lastOptions, volume };
+    for (const { audio, gain } of live) {
+      audio.volume = Math.min(1, Math.max(0, volume) * gain);
     }
   }
 
-  function isAudible(kind) {
-    return Boolean(boards.get(kind)?.some(({ audio }) => audio.paused === false));
-  }
-
-  function isAbortError(error) {
-    return Boolean(error && (error.name === "AbortError" || /interrupted by a call to pause/i.test(String(error))));
-  }
-
-  function startClip(audio, cue) {
-    if (typeof audio.play !== "function") return Promise.resolve();
-    const attempt = (retriesLeft) => {
-      if (cue !== cueGeneration) return Promise.resolve();
-      const result = audio.play();
-      if (!result || typeof result.catch !== "function") return Promise.resolve();
-      return result.catch((error) => {
-        if (cue !== cueGeneration) return;
-        if (typeof audio.play !== "function") return Promise.reject(new Error("play-failed"));
-        if (isAbortError(error) && audio.paused === false) return;
-        if (retriesLeft <= 0) return;
-        return attempt(retriesLeft - 1);
-      });
-    };
-    return attempt(1);
+  function isAudible() {
+    return live.some(({ audio }) => audio.paused === false);
   }
 
   function play(kind, { enabled = true, volume = 1 } = {}) {
     lastOptions = { enabled, volume };
     if (!enabled || volume <= 0) return { played: false, reason: "muted", created };
     if (!DOTA_FEEDBACK_SOUNDS[kind]) return { played: false, reason: "unknown", created };
+    const Ctor = resolveAudio();
+    if (!Ctor) return { played: false, reason: "missing", created };
     preload();
-    const clips = boards.get(kind);
+    const clips = cache.get(kind);
     if (!clips?.length) return { played: false, reason: "missing", created };
-    const cue = ++cueGeneration;
-    pauseAll(kind);
+
+    const previous = live.splice(0);
     pendingResult = RESULT_KINDS.has(kind) ? kind : null;
-    const starts = [];
-    for (const { audio, gain } of clips) {
-      audio.volume = Math.min(1, volume * gain);
-      try {
-        if (typeof audio.readyState !== "number" || audio.readyState >= 1) audio.currentTime = 0;
-      } catch {
-        // Unloaded clips throw if we seek.
+
+    for (const clip of clips) {
+      const audio = new Ctor(clip.src);
+      created += 1;
+      audio.volume = Math.min(1, volume * clip.gain);
+      live.push({ audio, gain: clip.gain, kind });
+      const result = typeof audio.play === "function" ? audio.play() : null;
+      if (result && typeof result.then === "function") {
+        void result.then(
+          () => {
+            if (RESULT_KINDS.has(kind) && live.some((entry) => entry.audio === audio && audio.paused === false)) {
+              pendingResult = null;
+            }
+          },
+          () => {
+            // Fresh node. Do not pause-and-replay it. resumeIfNeeded can mint another.
+          },
+        );
+      } else if (RESULT_KINDS.has(kind) && audio.paused === false) {
+        pendingResult = null;
       }
-      starts.push(startClip(audio, cue));
     }
-    void Promise.allSettled(starts).then(() => {
-      if (cue !== cueGeneration) return;
-      if (RESULT_KINDS.has(kind) && isAudible(kind)) pendingResult = null;
-    });
+
+    for (const { audio } of previous) {
+      try {
+        audio.pause();
+      } catch {
+        // ignore
+      }
+    }
+
     return { played: true, kind, clipCount: clips.length, created };
   }
 
   function resumeIfNeeded() {
     if (!pendingResult || isHidden()) return { played: false, reason: "idle", created };
-    if (isAudible(pendingResult)) return { played: false, reason: "already-playing", created };
+    if (isAudible()) return { played: false, reason: "already-playing", created };
     return play(pendingResult, lastOptions);
   }
 
@@ -141,7 +139,7 @@ export function createFeedbackPlayer({
     pendingResult: () => pendingResult,
     created: () => created,
     has(kind) {
-      return boards.has(kind);
+      return cache.has(kind);
     },
   };
 }
