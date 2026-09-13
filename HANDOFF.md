@@ -57,12 +57,17 @@ Written by Claude (Fable 5.1) after a two-day audit-and-fix session. Read this b
 - Run `pnpm` commands, data syncs, and `git push` yourself once the work is verified. Ask only before unsuspending/deploying Render or re-enabling GitHub CI.
 - Short replies, plain words.
 
-### Open items, in order
+### Open items
 
-1. **Rematch** (parked, needs a go): one host button that restarts the same party with the same formats and players, scores reset. Not started.
-2. **Proofread** the four Muerta texts in `src/data/ability-text-overrides.json`.
-3. **Render Postgres** status: expiry date 2026-08-31 has passed. Check before any launch step.
-4. Difficulty tiers are seeded, not calibrated (post-launch). Phoenix, Primal Beast, Io, and Marci have no spoken lines by design. OpenDota blank descriptions are covered by the overrides file.
+Tracked on GitHub: https://github.com/Qqkyu/dota2-trivia/issues
+
+- #1 Proofread Muerta Spell Link tooltips (`ready-for-human`)
+- #2 Check Render Postgres after free-plan expiry (`ready-for-human`)
+- #3 Launch holds: Render, CI, and env (`ready-for-human`)
+- #4 Calibrate question difficulty from real rounds (`needs-triage`)
+- #5 Hide answer-sensitive asset URLs before public rankings (`needs-triage`)
+
+Party rematch was built and then removed; do not bring it back. Phoenix, Primal Beast, Io, and Marci have no spoken lines by design.
 
 ### Local gotchas
 
@@ -280,13 +285,14 @@ There is no known reproducible critical gameplay bug at this handoff. The follow
 
 ## Prioritized next work
 
+Open work lives in GitHub Issues. Do not add new launch tasks only in this file.
+
 ### P0 — Launch readiness
 
 1. **Finish the maintainer's manual polish pass.** Play long local sessions and report exact question/round examples. Fix only observed confusing copy, layout shifts, wrong data, duplicate content, or poor difficulty. Add a regression test for each reproducible bug.
-2. **Check, then upgrade the production database.** The 2026-08-31 free-plan expiry has passed; find out whether the data survived first. The current default decision is paid Render Postgres. Verify and back up the existing schema/data, upgrade or deliberately migrate it, update `DATABASE_URL` if needed, run `/api/health`, then test Steam/profile/votes/reports.
-3. **Restore verification intentionally.** Re-enable GitHub Actions only after allowance resets or billing is approved. Run the full Postgres CI journey once before launch.
-4. **Resume Render only for a controlled soft launch.** Because auto-deploy is enabled, first ensure `main` is known-good, production env vars still exist, the database is durable, and `/api/health` is green. Watch logs, bandwidth, and `/ops` immediately.
-5. **Do an actual public soft launch rather than waiting for a private group.** The maintainer does not have 5–15 Dota testers. Ship to a small public audience, then use `/ops`, calibration, and reports to learn.
+2. **#2 Check, then upgrade the production database.**
+3. **#3 Restore verification and resume Render only when the maintainer says go.**
+4. **#3 Soft launch** to a small public audience, then use `/ops`, calibration, and reports.
 
 ### P1 — Learn from real usage
 
