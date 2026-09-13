@@ -4,19 +4,18 @@ export const FEEDBACK_SOUND_KINDS = Object.freeze(["lock", "correct", "wrong", "
 const RESULT_KINDS = new Set(["correct", "wrong"]);
 
 /**
- * UI cues use a new HTMLAudioElement every time.
- *
- * Chrome cannot pause() then play() the same node reliably. That path is the
- * cave (two plays 20ms apart) and the silence (the second play is aborted).
- * Preload still warms the HTTP cache with unused nodes. Live nodes are never
- * reused. Start the new cue first, then pause whatever was already playing.
+ * Each accepted pick/result owns a one-shot voice until it ends. In particular,
+ * a reveal must not pause a lock whose asynchronous play() has not started yet.
+ * Only the decorative entry cue is superseded by another cue. Mute/exit stop all.
+ * Retain unused preload nodes and consume each once; warming just the HTTP cache
+ * does not make a newly constructed media element ready to play.
  */
 export function createFeedbackPlayer({
   AudioCtor,
   isHidden = () => typeof document !== "undefined" && Boolean(document.hidden),
 } = {}) {
   const cache = new Map();
-  const live = [];
+  const live = new Set();
   let created = 0;
   let lastOptions = { enabled: true, volume: 1 };
   let pendingResult = null;
@@ -31,34 +30,33 @@ export function createFeedbackPlayer({
     const Ctor = resolveAudio();
     if (!Ctor) return 0;
     for (const kind of FEEDBACK_SOUND_KINDS) {
-      if (cache.has(kind)) continue;
       const definition = dotaFeedbackSoundForKind(kind);
-      if (!definition) continue;
-      cache.set(
-        kind,
-        definition.clips.map((clip) => {
-          const warmer = new Ctor(clip.src);
+      if (!cache.has(kind))
+        cache.set(
+          kind,
+          definition.clips.map((clip) => ({ ...clip, audio: null })),
+        );
+      for (const clip of cache.get(kind)) {
+        if (!clip.audio) {
+          clip.audio = new Ctor(clip.src);
           created += 1;
-          warmer.preload = "auto";
-          return { src: clip.src, gain: clip.gain };
-        }),
-      );
+          clip.audio.preload = "auto";
+        }
+      }
     }
     return created;
   }
 
-  function stopLive() {
-    const previous = live.splice(0);
-    for (const { audio } of previous) {
-      try {
-        audio.pause();
-      } catch {
-        // ignore
-      }
+  function stopLive(predicate = () => true) {
+    for (const entry of live) {
+      if (!predicate(entry)) continue;
+      entry.release();
+      entry.audio.pause();
     }
   }
 
   function pauseAll() {
+    pendingResult = null;
     stopLive();
   }
 
@@ -69,60 +67,70 @@ export function createFeedbackPlayer({
     }
   }
 
-  function isAudible() {
-    return live.some(({ audio }) => audio.paused === false);
+  function skipped(reason) {
+    return { requested: false, started: Promise.resolve(false), reason, created };
   }
 
   function play(kind, { enabled = true, volume = 1 } = {}) {
     lastOptions = { enabled, volume };
-    if (!enabled || volume <= 0) return { played: false, reason: "muted", created };
-    if (!DOTA_FEEDBACK_SOUNDS[kind]) return { played: false, reason: "unknown", created };
-    const Ctor = resolveAudio();
-    if (!Ctor) return { played: false, reason: "missing", created };
+    if (!enabled || volume <= 0) return skipped("muted");
+    if (!DOTA_FEEDBACK_SOUNDS[kind]) return skipped("unknown");
+    if (!resolveAudio()) return skipped("missing");
     preload();
     const clips = cache.get(kind);
-    if (!clips?.length) return { played: false, reason: "missing", created };
+    if (!clips?.length) return skipped("missing");
 
-    const previous = live.splice(0);
-    pendingResult = RESULT_KINDS.has(kind) ? kind : null;
+    stopLive((entry) => entry.kind === "start");
+    const request = { kind };
+    if (RESULT_KINDS.has(kind)) pendingResult = request;
+    const starts = [];
 
     for (const clip of clips) {
-      const audio = new Ctor(clip.src);
-      created += 1;
+      const audio = clip.audio;
+      clip.audio = null;
       audio.volume = Math.min(1, volume * clip.gain);
-      live.push({ audio, gain: clip.gain, kind });
-      const result = typeof audio.play === "function" ? audio.play() : null;
-      if (result && typeof result.then === "function") {
-        void result.then(
-          () => {
-            if (RESULT_KINDS.has(kind) && live.some((entry) => entry.audio === audio && audio.paused === false)) {
-              pendingResult = null;
-            }
-          },
-          () => {
-            // Fresh node. Do not pause-and-replay it. resumeIfNeeded can mint another.
-          },
-        );
-      } else if (RESULT_KINDS.has(kind) && audio.paused === false) {
-        pendingResult = null;
+      const entry = { audio, gain: clip.gain, kind, request, release };
+      function release() {
+        live.delete(entry);
+        audio.removeEventListener("ended", release);
+        audio.removeEventListener("error", release);
       }
-    }
-
-    for (const { audio } of previous) {
+      live.add(entry);
+      audio.addEventListener("ended", release);
+      audio.addEventListener("error", release);
+      let result;
       try {
-        audio.pause();
-      } catch {
-        // ignore
+        result = audio.play();
+      } catch (error) {
+        result = Promise.reject(error);
       }
+      starts.push(
+        Promise.resolve(result).then(
+          () => {
+            const started = audio.ended || (live.has(entry) && !audio.paused);
+            if (started && pendingResult === request) pendingResult = null;
+            return started;
+          },
+          () => {
+            // A blocked result may be retried on focus/gesture. A later request
+            // or mute invalidates it, so an old rejection cannot revive a cue.
+            release();
+            return false;
+          },
+        ),
+      );
     }
 
-    return { played: true, kind, clipCount: clips.length, created };
+    const started = Promise.all(starts).then((results) => results.every(Boolean));
+    return { requested: true, started, kind, clipCount: clips.length, created };
   }
 
   function resumeIfNeeded() {
-    if (!pendingResult || isHidden()) return { played: false, reason: "idle", created };
-    if (isAudible()) return { played: false, reason: "already-playing", created };
-    return play(pendingResult, lastOptions);
+    if (!pendingResult || isHidden()) return skipped("idle");
+    if ([...live].some((entry) => entry.request === pendingResult && !entry.audio.paused)) {
+      return skipped("already-playing");
+    }
+    return play(pendingResult.kind, lastOptions);
   }
 
   function clearPending() {
@@ -136,7 +144,7 @@ export function createFeedbackPlayer({
     setVolume,
     resumeIfNeeded,
     clearPending,
-    pendingResult: () => pendingResult,
+    pendingResult: () => pendingResult?.kind ?? null,
     created: () => created,
     has(kind) {
       return cache.has(kind);

@@ -132,9 +132,7 @@ if (
   !component.includes('data-testid="hero-search"') ||
   !component.includes('data-search-match={isSearchMatch ? "true" : "false"}') ||
   !component.includes("onClick={() => chooseHero(hero.key)}") ||
-  !component.match(
-    /const chooseHero = useCallback\(\s*\(heroKey: string\) => \{\s*setQuery\(""\);\s*onChoose\(heroKey\);/s,
-  ) ||
+  !component.match(/const chooseHero = useCallback\(\s*\(heroKey: string\) => \{[^}]*onChoose\(heroKey\);/s) ||
   !component.includes("HERO_PICKER_CATALOG.groups.map") ||
   !component.includes("heroPreloadsRef.current = sources.map") ||
   !component.includes('image.fetchPriority = "low"') ||

@@ -1027,11 +1027,13 @@ function ValueOrderBoard({
   phase,
   selectedKey,
   onChoose,
+  onPick,
 }: {
   question: PublicArcadeQuestion;
   phase: GamePhase;
   selectedKey: string | null;
   onChoose: (answerKey: string) => void;
+  onPick?: () => void;
 }) {
   const submittedKeys = selectedKey ? valueOrderKeysFromAnswerKey(selectedKey) : null;
   const [draftKeys, setDraftKeys] = useState<string[]>(() => submittedKeys ?? []);
@@ -1060,16 +1062,18 @@ function ValueOrderBoard({
       draftKeysRef.current = next;
       setDraftKeys(next);
       if (next.length === 4 && current.length === 3) submitOrder(next);
+      else if (next !== current) onPick?.();
     },
-    [locked, submitOrder],
+    [locked, onPick, submitOrder],
   );
 
   const undoLastCard = useCallback(() => {
-    if (locked) return;
+    if (locked || draftKeysRef.current.length === 0) return;
+    onPick?.();
     const next = draftKeysRef.current.slice(0, -1);
     draftKeysRef.current = next;
     setDraftKeys(next);
-  }, [locked]);
+  }, [locked, onPick]);
 
   useEffect(() => {
     if (phase !== "answering" || locked) return;
@@ -1266,11 +1270,13 @@ function FlashbackOrderBoard({
   phase,
   selectedKey,
   onChoose,
+  onPick,
 }: {
   question: PublicArcadeQuestion;
   phase: GamePhase;
   selectedKey: string | null;
   onChoose: (answerKey: string) => void;
+  onPick?: () => void;
 }) {
   const submittedKeys = selectedKey ? valueOrderKeysFromAnswerKey(selectedKey) : null;
   const [draftKeys, setDraftKeys] = useState<string[]>(() => submittedKeys ?? []);
@@ -1299,16 +1305,18 @@ function FlashbackOrderBoard({
       draftKeysRef.current = next;
       setDraftKeys(next);
       if (next.length === 4 && current.length === 3) submitOrder(next);
+      else if (next !== current) onPick?.();
     },
-    [locked, submitOrder],
+    [locked, onPick, submitOrder],
   );
 
   const undoLastCard = useCallback(() => {
-    if (locked) return;
+    if (locked || draftKeysRef.current.length === 0) return;
+    onPick?.();
     const next = draftKeysRef.current.slice(0, -1);
     draftKeysRef.current = next;
     setDraftKeys(next);
-  }, [locked]);
+  }, [locked, onPick]);
 
   if (phase === "reveal") {
     const correctKeys = valueOrderKeysFromAnswerKey(question.reveal?.correctAnswerKey) ?? [];
@@ -1458,12 +1466,14 @@ function ShopkeeperStore({
   selectedKey,
   crowd,
   onChoose,
+  onPick,
 }: {
   question: PublicArcadeQuestion;
   phase: GamePhase;
   selectedKey: string | null;
   crowd: CrowdResult;
   onChoose: (itemKey: string) => void;
+  onPick?: () => void;
 }) {
   const [section, setSection] = useState<"basics" | "upgrades">("upgrades");
   const [query, setQuery] = useState("");
@@ -1501,13 +1511,20 @@ function ShopkeeperStore({
     setTooltip(null);
   };
 
-  const addRecipeItem = (itemKey: string) => {
-    setQuery("");
-    setTooltip(null);
-    setDraftRecipeKeys((itemKeys) => (itemKeys.length < recipeSize ? [...itemKeys, itemKey] : itemKeys));
-  };
+  const addRecipeItem = useCallback(
+    (itemKey: string) => {
+      if (phase !== "answering" || selectedKey !== null || draftRecipeKeys.length >= recipeSize) return;
+      onPick?.();
+      setQuery("");
+      setTooltip(null);
+      setDraftRecipeKeys((itemKeys) => [...itemKeys, itemKey]);
+    },
+    [draftRecipeKeys.length, onPick, phase, recipeSize, selectedKey],
+  );
 
   const removeRecipeItem = (slot: number) => {
+    if (phase !== "answering" || selectedKey !== null || !draftRecipeKeys[slot]) return;
+    onPick?.();
     setTooltip(null);
     setDraftRecipeKeys((itemKeys) => itemKeys.filter((_, index) => index !== slot));
   };
@@ -1528,9 +1545,7 @@ function ShopkeeperStore({
     if (matches.length === 1) {
       const itemKey = matches[0].key;
       if (recipeBuilder) {
-        setQuery("");
-        setTooltip(null);
-        setDraftRecipeKeys((itemKeys) => (itemKeys.length < recipeSize ? [...itemKeys, itemKey] : itemKeys));
+        addRecipeItem(itemKey);
       } else {
         onChoose(itemKey);
         setQuery("");
@@ -1544,7 +1559,7 @@ function ShopkeeperStore({
     onChoose(answerKey);
     setTooltip(null);
     return true;
-  }, [draftRecipeKeys, onChoose, recipeBuilder, recipeSize]);
+  }, [addRecipeItem, draftRecipeKeys, onChoose, recipeBuilder, recipeSize]);
 
   const showItemTooltip = (item: ShopkeeperCatalogItem, button: HTMLButtonElement) => {
     const bounds = button.getBoundingClientRect();
@@ -2492,6 +2507,8 @@ export function QueueArcade({
     [gameVolume, soundEnabled],
   );
 
+  const playPickSound = useCallback(() => playSound("lock"), [playSound]);
+
   const stopRoundAudio = useCallback((showReadyState = true) => {
     roundAudioAbortRef.current?.abort();
     roundAudioAbortRef.current = null;
@@ -3323,9 +3340,13 @@ export function QueueArcade({
     };
     document.addEventListener("visibilitychange", replayHiddenResult);
     window.addEventListener("focus", replayHiddenResult);
+    window.addEventListener("pointerdown", replayHiddenResult);
+    window.addEventListener("keydown", replayHiddenResult);
     return () => {
       document.removeEventListener("visibilitychange", replayHiddenResult);
       window.removeEventListener("focus", replayHiddenResult);
+      window.removeEventListener("pointerdown", replayHiddenResult);
+      window.removeEventListener("keydown", replayHiddenResult);
     };
   }, []);
 
@@ -4416,6 +4437,7 @@ export function QueueArcade({
                 selectedKey={selectedAnswerKey}
                 crowd={crowd}
                 onChoose={chooseKeyedAnswer}
+                onPick={playPickSound}
               />
             )}
 
@@ -4437,6 +4459,7 @@ export function QueueArcade({
                 phase={phase}
                 selectedKey={selectedAnswerKey}
                 onChoose={chooseKeyedAnswer}
+                onPick={playPickSound}
               />
             )}
 
@@ -4447,6 +4470,7 @@ export function QueueArcade({
                 phase={phase}
                 selectedKey={selectedAnswerKey}
                 onChoose={chooseKeyedAnswer}
+                onPick={playPickSound}
               />
             )}
 

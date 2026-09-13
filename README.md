@@ -218,6 +218,15 @@ elimination, non-active item sets, unaudited sequence clips, and ordered pairs t
 
 ## Verify it
 
+With `pnpm dev` running, use `pnpm check:sounds` for feedback sound changes. It opens its own muted Chrome,
+uses real mouse and keyboard input, and measures decoded audio samples for each pick and result. It covers
+Shopkeeper recipe steps, all four Shopkeeper question types, Fogged Vision, Spell Link, four-choice trivia,
+Order Up, and Flashback ordering. It also tests closely timed picks/results, hidden tabs, and mute.
+Before the real checks, it proves that forced silence and cut-off clips fail even when `play()` succeeds.
+All API calls are served inside the test browser; it does not write votes or sessions to the app.
+Set `APP_URL` or `CHROME_BIN` to use another local server or Chrome binary.
+See [the sound diagnosis and test limits](docs/feedback-sounds.md).
+
 ```bash
 pnpm check
 ```

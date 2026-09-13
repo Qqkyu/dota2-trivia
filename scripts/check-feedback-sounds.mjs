@@ -1,571 +1,305 @@
 #!/usr/bin/env node
 
 /**
- * Live sound loop. Owns a muted Chrome so speakers stay quiet.
- * Recreated 2026-08-18: earlier checks used a leftover unmuted tab,
- * JS .click() (not a user gesture), and one happy-path round. That
- * could not catch a missed lock, a rejected play(), or a hidden tab.
- *
- * One command: pnpm check:sounds
- * Fail if lock or result play() is missing, rejects, or does not advance.
+ * Deterministic UI -> native media -> PCM check. No speakers, API writes,
+ * autoplay exemptions, fake successful play(), or random format coverage.
  */
-
+import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
-import { mkdtemp, rm } from "node:fs/promises";
-import { createServer } from "node:net";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
+import { publicQuestionForRound } from "../src/lib/public-question.mjs";
+import { DOTA_FEEDBACK_SOUNDS } from "../src/lib/feedback-sounds.mjs";
+import { valueOrderAnswerKey } from "../src/lib/value-order.mjs";
+import { click, delay, press, soundBrowser } from "./lib/feedback-browser.mjs";
+import { installSoundProbe } from "./lib/feedback-sound-probe.mjs";
 
-const appUrl = process.env.APP_URL ?? "http://localhost:3000";
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-function freePort() {
-  return new Promise((resolve, reject) => {
-    const server = createServer();
-    server.listen(0, "127.0.0.1", () => {
-      const address = server.address();
-      const port = typeof address === "object" && address ? address.port : 0;
-      server.close((error) => (error ? reject(error) : resolve(port)));
+if (!process.argv.includes("--probe")) {
+  for (const fault of ["silent-lock", "cut-lock"]) {
+    const result = await new Promise((resolve, reject) => {
+      const child = spawn(process.execPath, [fileURLToPath(import.meta.url), "--probe"], {
+        env: { ...process.env, SOUND_FAULT: fault },
+        stdio: ["ignore", "pipe", "pipe"],
+      });
+      let output = "";
+      child.stdout.on("data", (data) => {
+        output += data;
+      });
+      child.stderr.on("data", (data) => {
+        output += data;
+      });
+      child.on("error", reject);
+      child.on("exit", (code) => resolve({ code, output }));
     });
-    server.on("error", reject);
-  });
-}
-
-async function waitJson(url, timeout = 15_000) {
-  const startedAt = Date.now();
-  while (Date.now() - startedAt < timeout) {
-    try {
-      const response = await fetch(url);
-      if (response.ok) return await response.json();
-    } catch {
-      // Chrome is still binding the port.
-    }
-    await delay(100);
-  }
-  throw new Error(`Chrome debug HTTP did not open at ${url}`);
-}
-
-function attachCdp(webSocketDebuggerUrl) {
-  const socket = new WebSocket(webSocketDebuggerUrl);
-  const pending = new Map();
-  const eventWaiters = new Map();
-  let requestId = 0;
-
-  socket.addEventListener("message", (message) => {
-    const payload = JSON.parse(message.data);
-    if (payload.id) {
-      const request = pending.get(payload.id);
-      if (!request) return;
-      pending.delete(payload.id);
-      if (payload.error) request.reject(new Error(payload.error.message));
-      else request.resolve(payload.result);
-      return;
-    }
-    const waiters = eventWaiters.get(payload.method);
-    if (waiters?.length) {
-      eventWaiters.delete(payload.method);
-      for (const resolve of waiters) resolve(payload.params);
-    }
-  });
-
-  function send(method, params = {}) {
-    const id = ++requestId;
-    socket.send(JSON.stringify({ id, method, params }));
-    return new Promise((resolve, reject) => pending.set(id, { resolve, reject }));
-  }
-
-  function once(method) {
-    return new Promise((resolve) => {
-      const waiters = eventWaiters.get(method) ?? [];
-      waiters.push(resolve);
-      eventWaiters.set(method, waiters);
-    });
-  }
-
-  async function evaluate(expression) {
-    const result = await send("Runtime.evaluate", {
-      expression,
-      awaitPromise: true,
-      returnByValue: true,
-    });
-    if (result.exceptionDetails) {
-      throw new Error(result.exceptionDetails.exception?.description ?? result.exceptionDetails.text);
-    }
-    return result.result.value;
-  }
-
-  async function waitFor(expression, timeout = 30_000) {
-    const startedAt = Date.now();
-    while (Date.now() - startedAt < timeout) {
-      if (await evaluate(expression)) return;
-      await delay(150);
-    }
-    throw new Error(`Timed out waiting for: ${expression}`);
-  }
-
-  return {
-    socket,
-    send,
-    once,
-    evaluate,
-    waitFor,
-    ready: new Promise((resolve, reject) => {
-      socket.addEventListener("open", resolve, { once: true });
-      socket.addEventListener("error", reject, { once: true });
-    }),
-  };
-}
-
-const HOOK = `(() => {
-  window.__soundLog = [];
-  window.__audios = [];
-  const NativeAudio = window.Audio;
-  const nativePlay = HTMLMediaElement.prototype.play;
-  const nativePause = HTMLMediaElement.prototype.pause;
-  const stamp = (extra) => ({
-    at: Date.now(),
-    hidden: Boolean(document.hidden),
-    visibility: document.visibilityState,
-    ...extra,
-  });
-  window.Audio = function (...args) {
-    const audio = new NativeAudio(...args);
-    window.__audios.push(audio);
-    window.__soundLog.push(stamp({ type: "construct", src: String(args[0] ?? "") }));
-    return audio;
-  };
-  window.Audio.prototype = NativeAudio.prototype;
-  HTMLMediaElement.prototype.play = function () {
-    const src = this.currentSrc || this.src;
-    window.__soundLog.push(
-      stamp({ type: "play", src, volume: this.volume, readyState: this.readyState, paused: this.paused }),
+    assert(
+      result.code === 1 && result.output.includes("PCM FAIL"),
+      `Negative control ${fault} did not fail for missing audio: ${result.output}`,
     );
-    return nativePlay.apply(this, arguments).then(() => {
-      window.__soundLog.push(stamp({ type: "play-ok", src, volume: this.volume, currentTime: this.currentTime }));
-    }).catch((error) => {
-      window.__soundLog.push(stamp({ type: "play-fail", src, volume: this.volume, error: String(error), name: error?.name }));
-      throw error;
-    });
-  };
-  HTMLMediaElement.prototype.pause = function () {
-    const src = this.currentSrc || this.src;
-    if (src) {
-      window.__soundLog.push(stamp({ type: "pause", src, currentTime: this.currentTime }));
-    }
-    return nativePause.apply(this, arguments);
-  };
-  window.__clipState = (needle) => {
-    const audio = window.__audios.find((entry) => String(entry.currentSrc || entry.src).includes(needle));
-    if (!audio) return null;
-    return {
-      src: audio.currentSrc || audio.src,
-      paused: audio.paused,
-      currentTime: audio.currentTime,
-      volume: audio.volume,
-      readyState: audio.readyState,
-      ended: audio.ended,
-      hidden: Boolean(document.hidden),
-      visibility: document.visibilityState,
-    };
-  };
-})()`;
+    console.log(`PCM check rejects ${fault}, even though native play() resolves.`);
+  }
+  if (process.argv.includes("--self-test")) process.exit(0);
+}
 
-const port = await freePort();
-const userDataDir = await mkdtemp(join(tmpdir(), "queue-arcade-sounds-"));
-const chrome = spawn(
-  "google-chrome",
+const data = async (name) => JSON.parse(await readFile(new URL(`../src/data/${name}.json`, import.meta.url)));
+const [generated, shop, valueOrder, flashback, catalog] = await Promise.all(
   [
-    "--headless=new",
-    "--mute-audio",
-    `--remote-debugging-port=${port}`,
-    "--remote-allow-origins=*",
-    `--user-data-dir=${userDataDir}`,
-    "--no-first-run",
-    "--disable-gpu",
-    "--autoplay-policy=no-user-gesture-required",
-    "--window-size=1280,900",
-    "about:blank",
-  ],
-  { stdio: "ignore" },
+    "questions.generated",
+    "shopkeeper-questions",
+    "value-order-questions",
+    "flashback-questions",
+    "shopkeeper-catalog",
+  ].map(data),
 );
+const cases = [
+  ["shop-recipe", "shopkeeper", shop.find((q) => q.id === "shopkeeper-recipe:bloodstone")],
+  ["shop-build", "shopkeeper", shop.find((q) => q.kind === "shopkeeper-build-result")],
+  ["shop-path", "shopkeeper", shop.find((q) => q.kind === "shopkeeper-upgrade-path")],
+  ["shop-shared", "shopkeeper", shop.find((q) => q.kind === "shopkeeper-shared-part")],
+  ["fogged-vision", "fogged-vision", generated.find((q) => q.kind === "fogged-hero")],
+  ["spell-link", "spell-link", generated.find((q) => q.id === "ability-owner:mirana_arrow")],
+  ["trivia", "trivia", generated.find((q) => q.kind === "mana-cost")],
+  ["value-order", "order-up", valueOrder.find((q) => q.kind === "value-order-item")],
+  ["flashback-order", "flashback", flashback.find((q) => q.kind === "flashback-order")],
+];
+const fixtures = Object.fromEntries(
+  cases.map(([name, game, raw]) => {
+    assert(raw, `Missing sound fixture: ${name}`);
+    return [
+      name,
+      Object.fromEntries(
+        ["answering", "reveal"].map((phase) => [
+          phase,
+          publicQuestionForRound(
+            raw,
+            { id: name, game, phase, answerDeadline: Date.now() + 15_000, answerDuration: 15_000 },
+            Date.now(),
+          ),
+        ]),
+      ),
+    ];
+  }),
+);
+const itemNames = new Map(catalog.groups.flatMap((group) => group.items.map((item) => [item.key, item.name])));
+const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
+const { browser, page, targetId, close } = await soundBrowser();
+const selector = (testId) => `[data-testid="${testId}"]`;
+let checks = 0;
 
-const errors = [];
-let page = null;
-let browser = null;
-
-async function cleanup() {
-  try {
-    await page?.send("Page.navigate", { url: "about:blank" });
-  } catch {
-    // already gone
-  }
-  try {
-    page?.socket.close();
-  } catch {
-    // already gone
-  }
-  try {
-    browser?.socket.close();
-  } catch {
-    // already gone
-  }
-  chrome.kill("SIGKILL");
-  await rm(userDataDir, { recursive: true, force: true }).catch(() => undefined);
-}
-
-function classify(src) {
-  const value = String(src);
-  if (value.includes("button_click")) return "lock";
-  if (value.includes("magic_immune")) return "wrong";
-  if (value.includes("coins")) return "correct";
-  if (value.includes("find_match") || value.includes("select_md")) return "start";
-  return "other";
-}
-
-function ofKind(log, type, kind) {
-  return log.filter((entry) => entry.type === type && classify(entry.src) === kind);
-}
-
-function unresolvedFails(log, kind) {
-  const oks = ofKind(log, "play-ok", kind);
-  return ofKind(log, "play-fail", kind).filter((fail) => !oks.some((ok) => ok.at >= fail.at));
-}
-
-async function waitKind(kind, timeout = 2_500) {
-  return waitKinds([kind], timeout);
-}
-
-async function waitKinds(kinds, timeout = 2_500) {
-  const startedAt = Date.now();
-  while (Date.now() - startedAt < timeout) {
-    const log = await page.evaluate(`window.__soundLog`);
-    if (kinds.some((kind) => ofKind(log, "play-ok", kind).length >= 1)) return log;
-    await delay(50);
-  }
-  return page.evaluate(`window.__soundLog`);
-}
-
-async function clickSelector(selector, index = 0) {
-  const box = await page.evaluate(`(() => {
-    const node = document.querySelectorAll(${JSON.stringify(selector)})[${index}];
-    if (!node) return null;
-    const rect = node.getBoundingClientRect();
-    if (rect.width < 2 || rect.height < 2) return null;
-    return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
-  })()`);
-  if (!box) throw new Error(`No clickable node for ${selector}[${index}]`);
-  await page.send("Input.dispatchMouseEvent", {
-    type: "mousePressed",
-    x: box.x,
-    y: box.y,
-    button: "left",
-    clickCount: 1,
-  });
-  await page.send("Input.dispatchMouseEvent", {
-    type: "mouseReleased",
-    x: box.x,
-    y: box.y,
-    button: "left",
-    clickCount: 1,
-  });
-  return box;
-}
-
-async function snapshotBoard() {
-  return page.evaluate(`({
-    phase: document.querySelector("main")?.dataset.phase ?? "",
-    choice: document.querySelectorAll('[data-testid="arcade-answer"]:not([disabled])').length,
-    yearLock: Boolean(document.querySelector('[data-testid="flashback-year-lock"]')),
-    yearSlider: Boolean(document.querySelector('[data-testid="flashback-year-slider"]')),
-    order: document.querySelectorAll('[data-testid="flashback-order-card"]').length,
-    hero: document.querySelectorAll('[data-testid="hero-picker-hero"]').length,
-    shop: document.querySelectorAll('[data-testid="shopkeeper-store-item"]').length,
-    value: document.querySelectorAll('[data-testid="value-order-card"]').length,
-    hidden: Boolean(document.hidden),
-    visibility: document.visibilityState,
-  })`);
-}
-
-async function releaseYearSlider() {
-  const box = await page.evaluate(`(() => {
-    const slider = document.querySelector('[data-testid="flashback-year-slider"]');
-    if (!slider) return null;
-    const rect = slider.getBoundingClientRect();
-    return {
-      x: rect.x + rect.width * 0.2,
-      y: rect.y + rect.height / 2,
-      disabled: slider.disabled,
-    };
-  })()`);
-  if (!box || box.disabled) return null;
-  await page.send("Input.dispatchMouseEvent", {
-    type: "mousePressed",
-    x: box.x,
-    y: box.y,
-    button: "left",
-    clickCount: 1,
-  });
-  await page.send("Input.dispatchMouseEvent", {
-    type: "mouseReleased",
-    x: box.x,
-    y: box.y,
-    button: "left",
-    clickCount: 1,
-  });
-  return box;
-}
-
-async function lockCurrentAnswer() {
-  const board = await snapshotBoard();
-  if (board.choice) {
-    await clickSelector('[data-testid="arcade-answer"]', Math.max(0, board.choice - 1));
-    return { ...board, action: "choice" };
-  }
-  if (board.yearSlider && board.yearLock) {
-    // Moving the thumb only sets the year. The Lock button commits it.
-    const released = await releaseYearSlider();
-    await clickSelector('[data-testid="flashback-year-lock"]');
-    return { ...board, action: "year-lock", released: Boolean(released) };
-  }
-  if (board.order) {
-    for (let index = 0; index < board.order; index += 1) {
-      await clickSelector('[data-testid="flashback-order-card"]', index);
-      await delay(80);
-    }
-    return { ...board, action: "order" };
-  }
-  if (board.hero) {
-    await clickSelector('[data-testid="hero-picker-hero"]');
-    return { ...board, action: "hero" };
-  }
-  if (board.shop) {
-    await clickSelector('[data-testid="shopkeeper-store-item"]');
-    return { ...board, action: "shop" };
-  }
-  if (board.value) {
-    // An Order Up answer locks on the fourth card, not the first.
-    for (let index = 0; index < Math.min(4, board.value); index += 1) {
-      await clickSelector('[data-testid="value-order-card"]', index);
-      await delay(80);
-    }
-    return { ...board, action: "value" };
-  }
-  throw new Error(`No answer control in phase ${board.phase}`);
-}
-
-async function waitAnswering() {
+async function round(name, options = {}) {
+  const id = await page.evaluate(`window.__soundFixture.set(${JSON.stringify(name)}, ${JSON.stringify(options)})`);
   await page.waitFor(
-    `location.pathname === "/play" && ["answering","reveal","waiting"].includes(document.querySelector("main")?.dataset.phase)`,
-    40_000,
+    `document.querySelector("main")?.dataset.roundId === ${JSON.stringify(id)} && document.querySelector("main")?.dataset.phase === "answering"`,
   );
-  if (await page.evaluate(`document.querySelector("main")?.dataset.phase === "reveal"`)) {
-    await page.waitFor(`document.querySelector("main")?.dataset.phase === "answering"`, 25_000);
+}
+async function mark(label) {
+  return page.evaluate(`window.__soundProbe.mark(${JSON.stringify(label)})`);
+}
+async function search(testId, text) {
+  await click(page, selector(testId));
+  await page.send("Input.dispatchKeyEvent", {
+    type: "keyDown",
+    key: "a",
+    code: "KeyA",
+    windowsVirtualKeyCode: 65,
+    modifiers: 2,
+  });
+  await page.send("Input.dispatchKeyEvent", {
+    type: "keyUp",
+    key: "a",
+    code: "KeyA",
+    windowsVirtualKeyCode: 65,
+    modifiers: 2,
+  });
+  await page.send("Input.insertText", { text });
+  await page.waitFor(`document.querySelector(${JSON.stringify(selector(testId))})?.value === ${JSON.stringify(text)}`);
+}
+async function measure(label, kinds) {
+  const wanted = kinds.flatMap((kind) => DOTA_FEEDBACK_SOUNDS[kind].clips);
+  const deadline = Date.now() + 3_000;
+  let snapshot;
+  let voices;
+  do {
+    snapshot = await page.evaluate("window.__soundProbe.snapshot()");
+    voices = snapshot.voices.filter((voice) => voice.intent === label && voice.plays);
+    if (voices.length >= wanted.length && voices.every((voice) => voice.ended || voice.error)) break;
+    await delay(25);
+  } while (Date.now() < deadline);
+  // Flush the final audio-thread messages after ended.
+  await delay(100);
+  snapshot = await page.evaluate("window.__soundProbe.snapshot()");
+  voices = snapshot.voices.filter((voice) => voice.intent === label && voice.plays);
+  const fail = (why) => {
+    throw new Error(`PCM FAIL ${label}: ${why} ${JSON.stringify({ context: snapshot.context, voices })}`);
+  };
+  if (voices.length !== wanted.length) fail(`expected ${wanted.length} cues, got ${voices.length}`);
+  for (const clip of wanted) {
+    const voice = voices.find((entry) => entry.src === clip.src);
+    if (!voice) fail(`missing ${clip.src}`);
+    const reference = await page.evaluate(`window.__soundProbe.reference(${JSON.stringify(clip.src)})`);
+    const gameVolume = await page.evaluate(`Number(document.querySelector('[data-testid="game-volume"]').value) / 100`);
+    const expectedEnergy = reference * (gameVolume * clip.gain) ** 2;
+    const fraction = voice.energy / expectedEnergy;
+    if (voice.plays !== 1 || !voice.started || !voice.ended || voice.error || !(fraction >= 0.9 && fraction <= 1.1)) {
+      fail(`incomplete/quiet cue: ${Math.round(fraction * 100)}% of expected sample energy`);
+    }
+    if (!(voice.firstSampleAt - voice.calledAt < 350)) fail("first audio sample arrived more than 350 ms after play");
   }
-  if (await page.evaluate(`document.querySelector("main")?.dataset.phase === "waiting"`)) {
-    await page.waitFor(`document.querySelector("main")?.dataset.phase === "answering"`, 25_000);
+  checks++;
+  console.log(`PCM ok: ${label} (${kinds.join(" + ")})`);
+}
+
+async function pick(name, correct = false, keyboard = false) {
+  const question = fixtures[name].reveal;
+  const key = question.reveal.correctAnswerKey;
+  if (question.answerMode === "hero-grid") {
+    const hero = `${selector("hero-picker-hero")}${correct ? `[data-hero-key="${key}"]` : `:not([data-hero-key="${key}"])`}`;
+    if (keyboard) {
+      const name = await page.evaluate(`document.querySelector(${JSON.stringify(hero)}).title`);
+      for (const key of name) {
+        await page.send("Input.dispatchKeyEvent", { type: "keyDown", key });
+        await page.send("Input.dispatchKeyEvent", { type: "keyUp", key });
+      }
+      await page.waitFor(
+        `document.querySelector('[data-testid="hero-search"]')?.dataset.query === ${JSON.stringify(name)}`,
+      );
+      await press(page, "Enter");
+    } else await click(page, hero);
+  } else if (question.answerMode === "item-grid") {
+    if (correct || keyboard) {
+      await search("shopkeeper-search-field", correct ? itemNames.get(key) : "Blink Dagger");
+      if (keyboard) await press(page, "Enter");
+      else await click(page, `${selector("shopkeeper-store-item")}[data-item-key="${key}"]`);
+    } else await click(page, `${selector("shopkeeper-store-item")}:not([data-item-key="${key}"])`);
+  } else {
+    const index = correct ? question.reveal.correctIndex : (question.reveal.correctIndex + 1) % 4;
+    if (keyboard) await press(page, String(index + 1), `Digit${index + 1}`, 49 + index);
+    else await click(page, selector("arcade-answer"), index);
   }
-  await page.waitFor(`document.querySelector("main")?.dataset.phase === "answering"`, 25_000);
 }
 
 try {
-  const health = await fetch(`${appUrl}/play`);
-  if (!health.ok) throw new Error(`App is not serving /play (${health.status}). Start pnpm dev.`);
-
-  await waitJson(`http://127.0.0.1:${port}/json/version`);
-  const version = await waitJson(`http://127.0.0.1:${port}/json/version`);
-  browser = attachCdp(version.webSocketDebuggerUrl);
-  await browser.ready;
-
-  const created = await browser.send("Target.createTarget", { url: "about:blank" });
-  const targets = await waitJson(`http://127.0.0.1:${port}/json/list`);
-  const target =
-    targets.find((entry) => entry.id === created.targetId) ??
-    targets.find((entry) => entry.type === "page" && entry.webSocketDebuggerUrl);
-  if (!target?.webSocketDebuggerUrl) throw new Error("Chrome opened without a debuggable page.");
-
-  page = attachCdp(target.webSocketDebuggerUrl);
-  await page.ready;
-  await page.send("Page.enable");
-  await page.send("Runtime.enable");
-  await page.send("Page.addScriptToEvaluateOnNewDocument", { source: HOOK });
-
-  const loaded = page.once("Page.loadEventFired");
+  await page.send("Page.addScriptToEvaluateOnNewDocument", {
+    source: `(${installSoundProbe.toString()})(${JSON.stringify(fixtures)}, ${JSON.stringify(process.env.SOUND_FAULT ?? "")})`,
+  });
   await page.send("Page.navigate", { url: `${appUrl}/play` });
-  await loaded;
-  await page.waitFor(`document.querySelector("main")?.dataset.clientReady === "true"`, 20_000);
+  await page.waitFor(`document.querySelector("main")?.dataset.phase === "answering"`);
+  await page.evaluate("window.__soundProbe.ready");
 
-  if (await page.evaluate(`Boolean(document.querySelector('[data-testid="start-arcade"]'))`)) {
-    await clickSelector('[data-testid="start-arcade"]');
-  }
-  await waitAnswering();
-
-  const volume = await page.evaluate(`Number(document.querySelector('[data-testid="game-volume"]')?.value)`);
-  if (!(volume >= 60)) {
-    errors.push(`Game volume is ${volume}%. Recreated inaudible lock/wrong at 10% default.`);
-  }
-
-  await page.evaluate(`window.__soundLog = []`);
-  const focusedBoard = await lockCurrentAnswer();
-  const focusedLockLog = await waitKind("lock");
-  const afterFocusedLock = {
-    log: focusedLockLog,
-    lock: await page.evaluate(`window.__clipState("button_click")`),
-  };
-  const focusedLockPlays = ofKind(afterFocusedLock.log, "play-ok", "lock");
-  const focusedLockFails = unresolvedFails(afterFocusedLock.log, "lock");
-  const focusedLockCalls = ofKind(afterFocusedLock.log, "play", "lock");
-
-  if (focusedLockFails.length) {
-    errors.push(`Focused lock play() rejected: ${JSON.stringify(focusedLockFails)}`);
-  }
-  if (focusedLockPlays.length < 1) {
-    errors.push(
-      `Focused lock cue did not play. action=${focusedBoard.action} calls=${focusedLockCalls.length} state=${JSON.stringify(afterFocusedLock.lock)}`,
+  if (process.argv.includes("--probe")) {
+    await round("shop-build");
+    await mark("probe pick");
+    await pick("shop-build");
+    await measure("probe pick", ["lock"]);
+  } else {
+    // The maintainer's Shopkeeper silent pick: adding a component is a pick,
+    // even though it does not submit the complete recipe to /api/votes yet.
+    await round("shop-recipe", { revealOnVote: true });
+    await mark("Shopkeeper recipe mouse pick");
+    await click(page, selector("shopkeeper-store-item"));
+    assert.equal(
+      await page.evaluate(
+        `document.querySelectorAll('[data-testid="shopkeeper-recipe-slot"]:not([data-empty="true"])').length`,
+      ),
+      1,
     );
-  } else if (focusedLockPlays.some((entry) => entry.volume < 0.4)) {
-    errors.push(`Focused lock cue was too quiet: ${JSON.stringify(focusedLockPlays)}`);
-  }
+    assert.equal(await page.evaluate("window.__soundFixture.vote()"), null);
+    await measure("Shopkeeper recipe mouse pick", ["lock"]);
 
-  await page.waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
-  const focusedRevealLog = await waitKinds(["wrong", "correct"]);
-  const afterFocusedReveal = {
-    log: focusedRevealLog,
-    wrong: await page.evaluate(`window.__clipState("magic_immune")`),
-    correct: await page.evaluate(`window.__clipState("coins")`),
-    hidden: await page.evaluate(`Boolean(document.hidden)`),
-  };
-  const focusedWrongOk = ofKind(afterFocusedReveal.log, "play-ok", "wrong");
-  const focusedCorrectOk = ofKind(afterFocusedReveal.log, "play-ok", "correct");
-  const focusedResultFails = [
-    ...unresolvedFails(afterFocusedReveal.log, "wrong"),
-    ...unresolvedFails(afterFocusedReveal.log, "correct"),
-  ];
-  if (focusedResultFails.length) {
-    errors.push(`Focused result play() rejected: ${JSON.stringify(focusedResultFails)}`);
-  }
-  if (focusedWrongOk.length + focusedCorrectOk.length < 1) {
-    errors.push(`Focused reveal played neither wrong nor correct. log=${JSON.stringify(afterFocusedReveal.log)}`);
-  }
-  if (focusedWrongOk.length > 1 || focusedCorrectOk.length > 1) {
-    errors.push(
-      `Focused result cue played more than once: wrong=${focusedWrongOk.length} correct=${focusedCorrectOk.length}`,
+    await mark("Shopkeeper recipe remove");
+    await click(page, `${selector("shopkeeper-recipe-slot")}:not([data-empty="true"])`);
+    await measure("Shopkeeper recipe remove", ["lock"]);
+    const size = fixtures["shop-recipe"].answering.shopkeeper.recipeSize;
+    for (let index = 0; index < size; index++) {
+      await search("shopkeeper-search-field", "Blink Dagger");
+      await mark(`Shopkeeper recipe Enter pick ${index + 1}`);
+      await press(page, "Enter");
+      await measure(`Shopkeeper recipe Enter pick ${index + 1}`, ["lock"]);
+    }
+    await mark("Shopkeeper build at reveal");
+    await click(page, selector("shopkeeper-recipe-build"));
+    await measure("Shopkeeper build at reveal", ["lock", "wrong"]);
+
+    for (const name of ["shop-build", "shop-path", "shop-shared", "fogged-vision", "spell-link", "trivia"]) {
+      await round(name, { revealOnVote: true });
+      await mark(`${name} pick at reveal`);
+      await pick(name);
+      await measure(`${name} pick at reveal`, ["lock", "wrong"]);
+    }
+    for (const name of ["shop-build", "fogged-vision", "spell-link", "trivia"]) {
+      await round(name, { revealOnVote: true });
+      await mark(`${name} correct Enter pick`);
+      await pick(name, true, true);
+      await measure(`${name} correct Enter pick`, ["lock", "correct"]);
+    }
+
+    // Each partial ordering pick needs its own cue; the last pick locks once.
+    for (const [name, testId] of [
+      ["value-order", "value-order-card"],
+      ["flashback-order", "flashback-order-card"],
+    ]) {
+      await round(name, { revealOnVote: true });
+      for (let index = 0; index < 4; index++) {
+        const label = `${name} card ${index + 1}`;
+        await mark(label);
+        await click(page, selector(testId), index);
+        const question = fixtures[name].reveal;
+        const cards = question.valueOrder?.cards ?? question.flashback.cards;
+        const correct = question.reveal.correctAnswerKey === valueOrderAnswerKey(cards.map((card) => card.key));
+        await measure(label, index === 3 ? ["lock", correct ? "correct" : "wrong"] : ["lock"]);
+      }
+    }
+
+    // A delayed reveal and the next pick must not cancel the wrong-answer cue.
+    await round("trivia");
+    await mark("before delayed result");
+    await pick("trivia");
+    await measure("before delayed result", ["lock"]);
+    await mark("delayed wrong result");
+    await page.evaluate("window.__soundFixture.reveal()");
+    await page.waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`);
+    await round("fogged-vision");
+    await mark("next round pick");
+    await pick("fogged-vision");
+    await measure("delayed wrong result", ["wrong"]);
+    await measure("next round pick", ["lock"]);
+
+    // Exercise a genuinely hidden tab under Chrome's normal autoplay rules.
+    await round("trivia");
+    await mark("before hidden result");
+    await pick("trivia");
+    await measure("before hidden result", ["lock"]);
+    const background = await browser.send("Target.createTarget", { url: "about:blank" });
+    await browser.send("Target.activateTarget", { targetId: background.targetId });
+    await page.waitFor("document.hidden === true");
+    await mark("hidden wrong result");
+    await page.evaluate("window.__soundFixture.reveal()");
+    await measure("hidden wrong result", ["wrong"]);
+    await browser.send("Target.activateTarget", { targetId });
+    await page.waitFor("document.hidden === false");
+    await delay(250);
+    const count = await page.evaluate(
+      `window.__soundProbe.snapshot().voices.filter(v => v.intent === "hidden wrong result" && v.plays).length`,
+    );
+    assert.equal(count, 1, "A heard result replayed after returning to the tab");
+    await browser.send("Target.closeTarget", { targetId: background.targetId });
+
+    await click(page, '[aria-label="Mute game sounds"]');
+    await round("shop-build", { revealOnVote: true });
+    await mark("muted pick and result");
+    await pick("shop-build");
+    await page.waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`);
+    await delay(200);
+    assert.equal(
+      await page.evaluate(
+        `window.__soundProbe.snapshot().voices.filter(v => v.intent === "muted pick and result" && v.plays).length`,
+      ),
+      0,
+    );
+    await click(page, '[aria-label="Enable game sounds"]');
+    console.log(
+      `Feedback playback holds: ${checks} PCM checks, nine fixed formats, mouse/keyboard, deadline races, hidden tab, and mute.`,
     );
   }
-
-  await page.waitFor(`document.querySelector("main")?.dataset.phase === "answering"`, 25_000);
-  await page.evaluate(`window.__soundLog = []`);
-  const hiddenBoard = await lockCurrentAnswer();
-  await delay(250);
-
-  const background = await browser.send("Target.createTarget", { url: "about:blank" });
-  await browser.send("Target.activateTarget", { targetId: background.targetId });
-  await delay(200);
-  const hiddenAfterSwitch = await page.evaluate(
-    `({ hidden: Boolean(document.hidden), visibility: document.visibilityState })`,
-  );
-
-  await page.waitFor(`document.querySelector("main")?.dataset.phase === "reveal"`, 20_000);
-  const hiddenRevealLog = await waitKinds(["wrong", "correct"], 3_000);
-  const afterHiddenReveal = {
-    log: hiddenRevealLog,
-    wrong: await page.evaluate(`window.__clipState("magic_immune")`),
-    correct: await page.evaluate(`window.__clipState("coins")`),
-    lock: await page.evaluate(`window.__clipState("button_click")`),
-    hidden: await page.evaluate(`Boolean(document.hidden)`),
-    visibility: await page.evaluate(`document.visibilityState`),
-  };
-  const hiddenLockOk = ofKind(afterHiddenReveal.log, "play-ok", "lock");
-  const hiddenLockFail = unresolvedFails(afterHiddenReveal.log, "lock");
-  const hiddenWrongOk = ofKind(afterHiddenReveal.log, "play-ok", "wrong");
-  const hiddenCorrectOk = ofKind(afterHiddenReveal.log, "play-ok", "correct");
-  const hiddenResultFails = [
-    ...unresolvedFails(afterHiddenReveal.log, "wrong"),
-    ...unresolvedFails(afterHiddenReveal.log, "correct"),
-  ];
-  const hiddenResultCalls = [
-    ...ofKind(afterHiddenReveal.log, "play", "wrong"),
-    ...ofKind(afterHiddenReveal.log, "play", "correct"),
-  ];
-
-  if (hiddenLockFail.length) {
-    errors.push(`Hidden-round lock play() rejected: ${JSON.stringify(hiddenLockFail)}`);
-  }
-  if (hiddenLockOk.length < 1) {
-    errors.push(`Hidden-round lock cue did not play. action=${hiddenBoard.action}`);
-  }
-  if (!hiddenAfterSwitch.hidden && hiddenAfterSwitch.visibility !== "hidden") {
-    errors.push(`Could not background the play tab: ${JSON.stringify(hiddenAfterSwitch)}`);
-  }
-  if (hiddenResultFails.length) {
-    errors.push(`Hidden-tab result play() rejected: ${JSON.stringify(hiddenResultFails)}`);
-  }
-  if (hiddenWrongOk.length + hiddenCorrectOk.length < 1) {
-    errors.push(
-      `Hidden-tab reveal played neither wrong nor correct. calls=${hiddenResultCalls.length} wrong=${JSON.stringify(afterHiddenReveal.wrong)} correct=${JSON.stringify(afterHiddenReveal.correct)} log=${JSON.stringify(afterHiddenReveal.log)}`,
-    );
-  }
-  const hiddenPlayedClip = hiddenCorrectOk.length ? afterHiddenReveal.correct : afterHiddenReveal.wrong;
-  if (
-    hiddenWrongOk.length + hiddenCorrectOk.length < 1 &&
-    hiddenPlayedClip &&
-    hiddenPlayedClip.paused &&
-    !hiddenPlayedClip.ended
-  ) {
-    errors.push(`Hidden-tab result play() did not keep the clip running: ${JSON.stringify(hiddenPlayedClip)}`);
-  }
-
-  await browser.send("Target.activateTarget", { targetId: created.targetId });
-  await delay(100);
-  await page.evaluate(`window.dispatchEvent(new Event("focus"));`);
-  await delay(500);
-  const afterReturn = await page.evaluate(`({
-    log: window.__soundLog,
-    hidden: Boolean(document.hidden),
-    visibility: document.visibilityState,
-    wrong: window.__clipState("magic_immune"),
-    correct: window.__clipState("coins"),
-  })`);
-  const visibleResultOk = afterReturn.log.filter(
-    (entry) =>
-      entry.type === "play-ok" &&
-      (classify(entry.src) === "wrong" || classify(entry.src) === "correct") &&
-      entry.hidden === false,
-  );
-  const hiddenResultOkCount = hiddenWrongOk.length + hiddenCorrectOk.length;
-  if (afterReturn.hidden) {
-    errors.push(`Play tab stayed hidden after focus return: ${JSON.stringify(afterReturn)}`);
-  } else if (hiddenResultOkCount >= 1 && visibleResultOk.length >= 1) {
-    errors.push("Result cue played again after the tab came back, even though it already played in the background.");
-  } else if (hiddenResultOkCount < 1 && visibleResultOk.length < 1) {
-    errors.push(`Result cue never played in the background or after return. log=${JSON.stringify(afterReturn.log)}`);
-  }
-
-  const report = {
-    volume,
-    focusedBoard,
-    hiddenBoard,
-    hiddenAfterSwitch,
-    focusedLock: afterFocusedLock.lock,
-    focusedWrong: afterFocusedReveal.wrong,
-    focusedCorrect: afterFocusedReveal.correct,
-    hiddenLock: afterHiddenReveal.lock,
-    hiddenWrong: afterHiddenReveal.wrong,
-    hiddenCorrect: afterHiddenReveal.correct,
-    focusedLockOk: focusedLockPlays.length,
-    focusedResultOk: focusedWrongOk.length + focusedCorrectOk.length,
-    hiddenLockOk: hiddenLockOk.length,
-    hiddenResultOk: hiddenWrongOk.length + hiddenCorrectOk.length,
-    errors,
-  };
-
-  if (errors.length) {
-    console.error(JSON.stringify(report, null, 2));
-    throw new Error(errors.join("\n"));
-  }
-
-  console.log(
-    `Feedback sounds hold: volume ${volume}%, focused ${focusedBoard.action} lock+result, hidden ${hiddenBoard.action} lock+result.`,
-  );
 } finally {
-  await cleanup();
+  await close();
 }

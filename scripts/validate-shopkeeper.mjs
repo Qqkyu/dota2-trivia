@@ -130,9 +130,7 @@ if (
   !arcadeSource.includes("setDraftRecipeKeys((itemKeys) => itemKeys.filter") ||
   !arcadeSource.includes("createPortal(") ||
   !arcadeSource.includes("recipeBuilder ? addRecipeItem(item.key) : chooseItem(item.key)") ||
-  !arcadeSource.match(
-    /const chooseItem = \(itemKey: string\) => \{\s*setQuery\(""\);\s*setTooltip\(null\);\s*onChoose\(itemKey\);/s,
-  ) ||
+  !arcadeSource.match(/const chooseItem = \(itemKey: string\) => \{[^}]*onChoose\(itemKey\);/s) ||
   !itemButtonRule.includes("overflow: hidden;") ||
   !tooltipRule.includes("position: fixed;") ||
   arcadeStyles.includes(".shopkeeperGroup button > span")
