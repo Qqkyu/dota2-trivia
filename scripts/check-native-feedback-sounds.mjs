@@ -99,7 +99,7 @@ function observeNativeAudio(fault) {
   window.__nativeAudioCalls = calls;
 }
 
-async function open(page, testCase) {
+async function open(page, testCase, { unfocused = false } = {}) {
   const [, game, raw] = testCase;
   assert(raw, `Missing native sound fixture: ${testCase[0]}`);
   const fixtures = {
@@ -115,7 +115,7 @@ async function open(page, testCase) {
     ),
   };
   await page.send("Page.addScriptToEvaluateOnNewDocument", {
-    source: `(${installSoundFixtures.toString()})(${JSON.stringify(fixtures)}); (${observeNativeAudio.toString()})(${JSON.stringify(fault)});`,
+    source: `${unfocused ? "Document.prototype.hasFocus = () => false;" : ""}(${installSoundFixtures.toString()})(${JSON.stringify(fixtures)}); (${observeNativeAudio.toString()})(${JSON.stringify(fault)});`,
   });
   await page.send("Page.navigate", { url: `${appUrl}/play` });
   await page.waitFor('document.querySelector("main")?.dataset.phase === "answering"');
@@ -177,6 +177,17 @@ async function measure(label, page, kinds, act, duration = 2_100) {
 }
 
 try {
+  if (!fault) {
+    for (const testCase of cases.slice(0, 2)) {
+      const client = await soundBrowser({ muteAudio: false, env: output.env });
+      try {
+        const pick = await open(client.page, testCase, { unfocused: true });
+        await measure(`${testCase[0]} before window focus`, client.page, ["lock"], pick, 1_000);
+      } finally {
+        await client.close();
+      }
+    }
+  }
   for (const testCase of fault ? (fault === "raw-lock" ? [cases[1]] : []) : cases) {
     const client = await soundBrowser({ muteAudio: false, env: output.env });
     try {
@@ -235,5 +246,5 @@ try {
 }
 assert.equal(failures.length, 0, `NATIVE PCM FAIL: ${failures.join(", ")}`);
 console.log(
-  `Native feedback output holds: ${checks} checks. Cold first picks and the combined output of two live tabs.`,
+  `Native feedback output holds: ${checks} checks. Cold first picks, unfocused first Shopkeeper picks, and the combined output of two live tabs.`,
 );

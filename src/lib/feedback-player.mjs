@@ -75,7 +75,9 @@ export function createFeedbackPlayer({
 
   function play(kind, { enabled = true, volume = 1 } = {}) {
     lastOptions = { enabled, volume };
-    if (!isOwner()) {
+    // A pick click is local to this tab. Play it even when hasFocus() has not
+    // caught up yet. Result cues stay owner-only so a hidden tab cannot echo.
+    if (!isOwner() && kind !== "lock") {
       pauseAll();
       return skipped("other-tab");
     }

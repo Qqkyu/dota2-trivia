@@ -2503,6 +2503,7 @@ export function QueueArcade({
 
   const playSound = useCallback(
     (kind: "lock" | "correct" | "wrong" | "start") => {
+      if (kind === "lock") audioTabRef.current?.claimFromInput();
       feedbackPlayerRef.current?.play(kind, { enabled: soundEnabled, volume: gameVolume });
     },
     [gameVolume, soundEnabled],

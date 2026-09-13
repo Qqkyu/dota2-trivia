@@ -47,6 +47,13 @@ function mediaHarness(options = {}) {
 }
 
 describe("feedback playback across real round transitions", () => {
+  it("plays the pick click even before tab ownership catches up", () => {
+    const { player, cue } = mediaHarness({ isOwner: () => false });
+    expect(player.play("lock").requested).toBe(true);
+    expect(cue("button_click")).toBeTruthy();
+    expect(player.play("wrong").requested).toBe(false);
+  });
+
   it("discards another tab's result instead of replaying it when ownership returns", () => {
     let owner = false;
     const { player, nodes } = mediaHarness({ isOwner: () => owner });

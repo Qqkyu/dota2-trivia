@@ -5,18 +5,21 @@ const AUDIO_TAB_KEY = "queue-arcade:audio-tab:v1";
 export function claimAudioTab(onLost, host = window) {
   const token = host.crypto.randomUUID();
   const document = host.document;
+  let usedInput = false;
 
   function isOwner() {
     try {
       return host.localStorage.getItem(AUDIO_TAB_KEY) === token;
     } catch {
-      // Storage can be disabled. Only the focused, visible page may play then.
-      return !document.hidden && document.hasFocus();
+      // Storage can be disabled. A trusted click still owns this page even if
+      // hasFocus() has not flipped yet. Otherwise only the focused page plays.
+      return !document.hidden && (usedInput || document.hasFocus());
     }
   }
 
-  function claim() {
-    if (document.hidden || !document.hasFocus()) return;
+  function claim({ fromInput = false } = {}) {
+    if (document.hidden) return;
+    if (!fromInput && !document.hasFocus()) return;
     try {
       if (!isOwner()) host.localStorage.setItem(AUDIO_TAB_KEY, token);
     } catch {
@@ -24,11 +27,17 @@ export function claimAudioTab(onLost, host = window) {
     }
   }
 
+  function claimFromInput() {
+    usedInput = true;
+    claim({ fromInput: true });
+  }
+
   function interact(event) {
-    if (event.isTrusted) claim();
+    if (event.isTrusted) claimFromInput();
   }
 
   function focusChanged() {
+    if (document.hidden || !document.hasFocus()) usedInput = false;
     claim();
     if (!isOwner()) onLost();
   }
@@ -56,6 +65,7 @@ export function claimAudioTab(onLost, host = window) {
 
   return {
     isOwner,
+    claimFromInput,
     dispose() {
       host.removeEventListener("focus", focusChanged);
       host.removeEventListener("blur", focusChanged);

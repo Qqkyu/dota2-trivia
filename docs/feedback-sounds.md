@@ -44,6 +44,10 @@ does not replay its old result. One game tab can still play a result while hidde
 by a different application. If local storage is unavailable, playback is limited
 to the focused, visible page. This applies to feedback and round audio.
 
+A pick click still plays when `document.hasFocus()` is still false. That happens
+on the first click that brings the game window forward. Ownership also transfers
+on that click. Result cues stay owner-only so a background tab cannot echo.
+
 ## Run
 
 With the app already running at `http://localhost:3000`:
@@ -60,8 +64,9 @@ supplied with `SOUND_PULSE_ROOT`. On this workspace it is already installed at
 `~/.cache/queue-arcade/sound-tools`, which the check finds by default. Missing
 recorder tools fail the check instead of skipping native verification.
 
-The native check covers cold first picks in separate browser profiles, individual
-wrong results, two game tabs with staggered results, and return to the old tab.
+The native check covers cold first picks in separate browser profiles, first
+Shopkeeper picks while `hasFocus()` is still false, individual wrong results, two
+game tabs with staggered results, and return to the old tab.
 It compares both recorded channels with the expected full waveforms at the UI
 volume. Missing samples, reduced gain, or another delayed copy fail the check.
 Two negative controls must fail: the original unpadded click, and a second native
