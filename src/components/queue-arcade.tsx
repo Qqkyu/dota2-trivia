@@ -1194,8 +1194,8 @@ function FlashbackYearBoard({
       if (locked || !Number.isInteger(year)) return;
       const answerKey = flashbackYearAnswerKey(year);
       if (!answerKey) return;
-      setCursorYear(year);
       onChoose(answerKey);
+      setCursorYear(year);
     },
     [locked, onChoose],
   );
@@ -1496,9 +1496,9 @@ function ShopkeeperStore({
     : SHOPKEEPER_CATALOG.groups.filter((group) => group.section === section);
 
   const chooseItem = (itemKey: string) => {
+    onChoose(itemKey);
     setQuery("");
     setTooltip(null);
-    onChoose(itemKey);
   };
 
   const addRecipeItem = (itemKey: string) => {
@@ -1516,9 +1516,9 @@ function ShopkeeperStore({
     if (draftRecipeKeys.length !== recipeSize) return;
     const answerKey = recipeAnswerKeyForItems(draftRecipeKeys);
     if (!answerKey) return;
+    onChoose(answerKey);
     setQuery("");
     setTooltip(null);
-    onChoose(answerKey);
   };
 
   // Enter picks the only item the search still shows. With no search and a
@@ -1527,20 +1527,22 @@ function ShopkeeperStore({
     const matches = searchShopItems(queryRef.current);
     if (matches.length === 1) {
       const itemKey = matches[0].key;
-      setQuery("");
-      setTooltip(null);
       if (recipeBuilder) {
+        setQuery("");
+        setTooltip(null);
         setDraftRecipeKeys((itemKeys) => (itemKeys.length < recipeSize ? [...itemKeys, itemKey] : itemKeys));
       } else {
         onChoose(itemKey);
+        setQuery("");
+        setTooltip(null);
       }
       return true;
     }
     if (queryRef.current.trim() || !recipeBuilder || draftRecipeKeys.length !== recipeSize) return false;
     const answerKey = recipeAnswerKeyForItems(draftRecipeKeys);
     if (!answerKey) return false;
-    setTooltip(null);
     onChoose(answerKey);
+    setTooltip(null);
     return true;
   }, [draftRecipeKeys, onChoose, recipeBuilder, recipeSize]);
 
@@ -1926,8 +1928,8 @@ function HeroPicker({
   const matchCount = normalizedQuery ? HERO_PICKER_HEROES.filter(heroMatches).length : HERO_PICKER_HEROES.length;
   const chooseHero = useCallback(
     (heroKey: string) => {
-      setQuery("");
       onChoose(heroKey);
+      setQuery("");
       flashSearch(false);
     },
     [flashSearch, onChoose],
@@ -3136,12 +3138,12 @@ export function QueueArcade({
       }
 
       const timeLeft = Math.max(0, deadlineRef.current - Date.now());
+      playSound("lock");
       selectedIndexRef.current = answerIndex;
       answerTimeLeftRef.current = timeLeft;
       voteRequestSettledRef.current = false;
       setSelectedIndex(answerIndex);
       setAnswerTimeLeft(timeLeft);
-      playSound("lock");
       void submitVote(answerIndex);
     },
     [playSound, submitVote],
@@ -3174,6 +3176,7 @@ export function QueueArcade({
       // The vote service resolves this opaque key against the private question.
       const answerIndex = 0;
       const timeLeft = Math.max(0, deadlineRef.current - Date.now());
+      playSound("lock");
       selectedIndexRef.current = answerIndex;
       selectedAnswerKeyRef.current = answerKey;
       answerTimeLeftRef.current = timeLeft;
@@ -3181,7 +3184,6 @@ export function QueueArcade({
       setSelectedIndex(answerIndex);
       setSelectedAnswerKey(answerKey);
       setAnswerTimeLeft(timeLeft);
-      playSound("lock");
       void submitVote(answerIndex, { answerKey });
     },
     [playSound, submitVote],

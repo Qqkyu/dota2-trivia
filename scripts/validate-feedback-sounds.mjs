@@ -78,6 +78,23 @@ if (
   failures.push("UI cues are no longer confined to their reviewed start, lock, and finalized-result triggers.");
 }
 
+function lockBeforeState(fnName) {
+  const match = component.match(new RegExp(`const ${fnName} = useCallback\\(([\\s\\S]*?)\\n  \\}, \\[`));
+  if (!match) return false;
+  const playAt = match[1].indexOf('playSound("lock")');
+  const setAt = match[1].indexOf("setSelectedIndex");
+  return playAt >= 0 && setAt >= 0 && playAt < setAt;
+}
+
+if (!lockBeforeState("chooseAnswer") || !lockBeforeState("chooseKeyedAnswer")) {
+  failures.push("Lock sound runs after React state, so Spell Link and shop picks can stay silent.");
+}
+
+const chooseHero = component.match(/const chooseHero = useCallback\(([\s\S]*?)\[flashSearch, onChoose\]/);
+if (!chooseHero || chooseHero[1].indexOf("onChoose(") > chooseHero[1].indexOf("setQuery(")) {
+  failures.push("Hero picks set search state before onChoose, so Spell Link lock sound can miss the click gesture.");
+}
+
 if (/AudioContext|createOscillator|createGain/.test(component)) {
   failures.push("A synthesized Web Audio cue remains in the arcade runtime.");
 }
