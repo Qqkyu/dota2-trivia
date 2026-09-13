@@ -261,6 +261,95 @@ if (!caveWrong || caveWrong.plays !== 1 || caveWrong.started !== 1 || caveWrong.
   );
 }
 
+class FirstPlayAbortsAudio {
+  constructor(src) {
+    this.src = src;
+    this.preload = "auto";
+    this.volume = 1;
+    this.currentTime = 0;
+    this.paused = true;
+    this.plays = 0;
+    this.started = 0;
+  }
+  play() {
+    this.plays += 1;
+    if (this.plays === 1) {
+      this.paused = true;
+      return Promise.reject(
+        Object.assign(new Error("The play() request was interrupted by a call to pause()."), { name: "AbortError" }),
+      );
+    }
+    this.paused = false;
+    this.started += 1;
+    return Promise.resolve();
+  }
+  pause() {
+    this.paused = true;
+  }
+}
+
+const abortThenPlay = [];
+const abortThenPlayPlayer = createFeedbackPlayer({
+  AudioCtor: class extends FirstPlayAbortsAudio {
+    constructor(src) {
+      super(src);
+      abortThenPlay.push(this);
+    }
+  },
+});
+abortThenPlayPlayer.play("lock", { enabled: true, volume: 1 });
+await new Promise((resolve) => setTimeout(resolve, 40));
+const recoveredLock = abortThenPlay.find((audio) => String(audio.src).includes("button_click"));
+if (!recoveredLock || recoveredLock.started !== 1 || recoveredLock.paused !== false) {
+  failures.push(
+    `Lock stayed silent after Chrome aborted the first play() (${recoveredLock?.plays ?? 0} calls, ${recoveredLock?.started ?? 0} started).`,
+  );
+}
+
+class PlayingSkipAudio {
+  constructor(src) {
+    this.src = src;
+    this.preload = "auto";
+    this.volume = 1;
+    this._time = 4;
+    this.paused = false;
+    this.readyState = 0;
+    this.plays = 0;
+  }
+  play() {
+    this.plays += 1;
+    this.paused = false;
+    this._time = 0;
+    return Promise.resolve();
+  }
+  pause() {
+    this.paused = true;
+  }
+  set currentTime(_value) {
+    throw new Error("The HTMLMediaElement has not loaded.");
+  }
+  get currentTime() {
+    return this._time;
+  }
+}
+
+const stuck = [];
+const stuckPlayer = createFeedbackPlayer({
+  AudioCtor: class extends PlayingSkipAudio {
+    constructor(src) {
+      super(src);
+      stuck.push(this);
+    }
+  },
+});
+stuckPlayer.preload();
+const stuckLock = stuck.find((audio) => String(audio.src).includes("button_click"));
+if (stuckLock) stuckLock.paused = false;
+stuckPlayer.play("lock", { enabled: true, volume: 1 });
+if (!stuckLock || stuckLock.plays < 1) {
+  failures.push("A lock clip that looked like it was still playing never got play() and stayed silent.");
+}
+
 const throwing = [];
 const hardy = createFeedbackPlayer({
   AudioCtor: class {

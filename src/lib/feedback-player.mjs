@@ -79,18 +79,19 @@ export function createFeedbackPlayer({
 
   function startClip(audio, cue) {
     if (typeof audio.play !== "function") return Promise.resolve();
-    const attempt = () => {
+    const attempt = (retriesLeft) => {
       if (cue !== cueGeneration) return Promise.resolve();
       const result = audio.play();
       if (!result || typeof result.catch !== "function") return Promise.resolve();
-      return result;
+      return result.catch((error) => {
+        if (cue !== cueGeneration) return;
+        if (typeof audio.play !== "function") return Promise.reject(new Error("play-failed"));
+        if (isAbortError(error) && audio.paused === false) return;
+        if (retriesLeft <= 0) return;
+        return attempt(retriesLeft - 1);
+      });
     };
-    return attempt().catch((error) => {
-      if (cue !== cueGeneration) return;
-      if (typeof audio.play !== "function") return Promise.reject(new Error("play-failed"));
-      if (isAbortError(error)) return;
-      return attempt();
-    });
+    return attempt(1);
   }
 
   function play(kind, { enabled = true, volume = 1 } = {}) {
@@ -106,21 +107,16 @@ export function createFeedbackPlayer({
     const starts = [];
     for (const { audio, gain } of clips) {
       audio.volume = Math.min(1, volume * gain);
-      if (audio.paused === false) {
-        try {
-          if (typeof audio.readyState !== "number" || audio.readyState >= 1) audio.currentTime = 0;
-        } catch {
-          // Unloaded clips throw if we seek.
-        }
-      } else {
-        starts.push(startClip(audio, cue));
+      try {
+        if (typeof audio.readyState !== "number" || audio.readyState >= 1) audio.currentTime = 0;
+      } catch {
+        // Unloaded clips throw if we seek.
       }
+      starts.push(startClip(audio, cue));
     }
-    void Promise.allSettled(starts).then((results) => {
+    void Promise.allSettled(starts).then(() => {
       if (cue !== cueGeneration) return;
-      if (RESULT_KINDS.has(kind) && results.some((result) => result.status === "fulfilled")) {
-        pendingResult = null;
-      }
+      if (RESULT_KINDS.has(kind) && isAudible(kind)) pendingResult = null;
     });
     return { played: true, kind, clipCount: clips.length, created };
   }
