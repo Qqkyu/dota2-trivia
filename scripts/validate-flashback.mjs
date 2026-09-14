@@ -241,8 +241,8 @@ const FLASHBACK_ART = {
   "flashback:true-sight": "ti-wordmark.png",
   "flashback:first-arcana-hero": "dota2_logo_symbol",
   "flashback:scan-added": "map-overview.webp",
-  "flashback:wraith-night": "heroes/wraith_king",
-  "flashback:wraith-king-year": "heroes/wraith_king",
+  "flashback:wraith-night": "heroes/skeleton_king",
+  "flashback:wraith-king-year": "heroes/skeleton_king",
   "flashback:700-title": "heroes/monkey_king",
   "flashback:first-collectors-cache": "ti-wordmark.png",
   "flashback:old-name-necrophos": "necrophos.png",
@@ -253,6 +253,24 @@ record(
   questions.every((question) => question.image?.src?.includes(FLASHBACK_ART[question.id] ?? "missing")) &&
     Object.keys(FLASHBACK_ART).length === questions.length,
   "A Flashback prompt still uses artwork that does not belong to the question.",
+);
+const FLASHBACK_ITEM_ART = new Set([
+  "flashback:dota-creator",
+  "flashback:shard-year",
+  "flashback:scythe-old-name",
+  "flashback:patch-systems-order",
+  "flashback:aghanim-lab-year",
+  "flashback:personal-courier",
+  "flashback:tome-replaced",
+  "flashback:free-observers",
+  "flashback:flying-courier-gone",
+]);
+record(
+  questions
+    .filter((question) => String(question.image?.src ?? "").includes("/items/"))
+    .every((question) => FLASHBACK_ITEM_ART.has(question.id)) &&
+    [...FLASHBACK_ITEM_ART].every((id) => questions.some((question) => question.id === id)),
+  "A Flashback prompt still uses a shop item that is not the subject.",
 );
 record(
   questions
