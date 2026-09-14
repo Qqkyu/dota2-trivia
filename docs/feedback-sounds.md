@@ -1,5 +1,9 @@
 # Feedback sound verification
 
+Known-good checkpoint: git tag `checkpoint-sounds-ok`.
+Contract: `docs/adr/0001-feedback-sounds.md`.
+Gate: `pnpm check:sounds` with the app at `http://localhost:3000`.
+
 ## Live-client findings after 70eabcf
 
 The local `/play` client was driven with trusted Chrome input. A separate
