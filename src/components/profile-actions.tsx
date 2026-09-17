@@ -1,8 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export function ProfileActions() {
+  const router = useRouter();
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState(false);
 
@@ -13,7 +15,8 @@ export function ProfileActions() {
     try {
       const response = await fetch("/api/me", { method: "DELETE" });
       if (!response.ok) throw new Error("Profile deletion failed.");
-      window.location.assign("/");
+      router.replace("/");
+      router.refresh();
     } catch {
       setError(true);
       setDeleting(false);
