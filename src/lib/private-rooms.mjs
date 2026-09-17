@@ -309,7 +309,12 @@ export function createPrivateRoom({
   const selectedFormats = formatsForRoundGames(selectedGames);
   const code = normalizePrivateRoomCode(requestedCode);
   if (!code) throw new Error("Pick a party code.");
-  if (rooms.has(code)) throw new Error("That code is taken.");
+  const existing = rooms.get(code);
+  if (existing) {
+    markAwayMembers(existing, now);
+    if ((existing.members ?? []).some((member) => !member.away)) throw new Error("That code is taken.");
+    rooms.delete(code);
+  }
 
   const record = {
     code,

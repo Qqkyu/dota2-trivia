@@ -310,6 +310,75 @@ describe("silent players", () => {
   });
 });
 
+describe("abandoned party codes", () => {
+  const at = Date.now() + 400_000;
+
+  beforeAll(() => {
+    resetPrivateRoomsForTests();
+  });
+
+  it("stay taken while someone in the party is still active", () => {
+    createPrivateRoom({
+      ...catalog,
+      hostId: "old-host-aaaa",
+      games: ["flashback"],
+      code: "asd",
+      name: "OldHost",
+      now: at,
+    });
+    expect(() =>
+      createPrivateRoom({
+        ...catalog,
+        hostId: "new-host-bbbb",
+        games: ["flashback"],
+        code: "asd",
+        name: "NewHost",
+        now: at + 1,
+      }),
+    ).toThrow("That code is taken.");
+    expect(names(getPrivateRoom("asd", at + 1))).toEqual(["OldHost"]);
+  });
+
+  it("can be created again after every tab went away", () => {
+    const reused = createPrivateRoom({
+      ...catalog,
+      hostId: "new-host-bbbb",
+      games: ["flashback"],
+      code: "asd",
+      name: "NewHost",
+      now: at + PRIVATE_ROOM_MEMBER_TIMEOUT_MS,
+    });
+    expect(reused.players).toEqual([expect.objectContaining({ name: "NewHost", host: true, away: false })]);
+    expect(names(getPrivateRoom("asd", at + PRIVATE_ROOM_MEMBER_TIMEOUT_MS))).toEqual(["NewHost"]);
+  });
+
+  it("stay taken when a guest is still in the party", () => {
+    const liveAt = at + PRIVATE_ROOM_MEMBER_TIMEOUT_MS * 2;
+    const stealAt = liveAt + 10 + PRIVATE_ROOM_MEMBER_TIMEOUT_MS;
+    createPrivateRoom({
+      ...catalog,
+      hostId: "live-host-cccc",
+      games: ["flashback"],
+      code: "live",
+      name: "LiveHost",
+      now: liveAt,
+    });
+    touchPrivateRoom("live", liveAt + 10, { playerId: "live-guest-dddd", name: "LiveGuest" });
+    touchPrivateRoom("live", stealAt, { playerId: "live-guest-dddd", name: "LiveGuest" });
+    expect(() =>
+      createPrivateRoom({
+        ...catalog,
+        hostId: "thief-eeee",
+        games: ["flashback"],
+        code: "live",
+        name: "Thief",
+        now: stealAt,
+      }),
+    ).toThrow("That code is taken.");
+    expect(names(getPrivateRoom("live", stealAt))).toEqual(expect.arrayContaining(["LiveGuest"]));
+  });
+});
+
 describe("party roster", () => {
   const players = [
     { name: "Zed", host: false, self: false, score: 40, away: true },
