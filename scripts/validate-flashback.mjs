@@ -181,7 +181,7 @@ const FLASHBACK_ART = {
   "flashback:ti5-year": "ti5-keyarena.jpg",
   "flashback:ti6-year": "ti-wordmark.png",
   "flashback:ti7-year": "ti5-keyarena.jpg",
-  "flashback:ti11-year": "ti11-mark.jpg",
+  "flashback:ti11-year": "ti-wordmark.png",
   "flashback:ti12-year": "ti12-mark.png",
   "flashback:shanghai-major-year": "ti-wordmark.png",
   "flashback:kiev-major-year": "ti-wordmark.png",
@@ -253,6 +253,10 @@ record(
   questions.every((question) => question.image?.src?.includes(FLASHBACK_ART[question.id] ?? "missing")) &&
     Object.keys(FLASHBACK_ART).length === questions.length,
   "A Flashback prompt still uses artwork that does not belong to the question.",
+);
+record(
+  !String(questions.find((question) => question.id === "flashback:ti11-year")?.image?.src ?? "").includes("ti11-mark"),
+  "The Singapore TI year prompt still shows the 2022 event mark.",
 );
 const FLASHBACK_ITEM_ART = new Set([
   "flashback:dota-creator",

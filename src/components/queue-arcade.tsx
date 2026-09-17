@@ -987,6 +987,7 @@ function KeyedCrowdSplit({
 
 type PublicValueOrderCard = NonNullable<PublicArcadeQuestion["valueOrder"]>["cards"][number];
 const EMPTY_VALUE_ORDER_CARDS: PublicValueOrderCard[] = [];
+const EMPTY_FLASHBACK_ORDER_CARDS: NonNullable<NonNullable<PublicArcadeQuestion["flashback"]>["cards"]> = [];
 
 function ValueOrderSequence({
   question,
@@ -1208,6 +1209,15 @@ function FlashbackYearBoard({
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (locked || !hasRange) return;
+      const target = event.target;
+      if (
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        target instanceof HTMLSelectElement ||
+        (target instanceof HTMLElement && target.isContentEditable)
+      ) {
+        return;
+      }
       if (event.key === "Enter" || event.key === " ") {
         const year = cursorYear ?? midpoint;
         if (year === null) return;
@@ -1282,7 +1292,7 @@ function FlashbackOrderBoard({
   const submittedKeys = selectedKey ? valueOrderKeysFromAnswerKey(selectedKey) : null;
   const [draftKeys, setDraftKeys] = useState<string[]>(() => submittedKeys ?? []);
   const draftKeysRef = useRef(submittedKeys ?? []);
-  const cards = question.flashback?.cards ?? [];
+  const cards = question.flashback?.cards ?? EMPTY_FLASHBACK_ORDER_CARDS;
   const activeKeys = submittedKeys ?? draftKeys;
   const locked = Boolean(selectedKey) || phase !== "answering";
 
@@ -1318,6 +1328,32 @@ function FlashbackOrderBoard({
     draftKeysRef.current = next;
     setDraftKeys(next);
   }, [locked, onPick]);
+
+  useEffect(() => {
+    if (phase !== "answering" || locked) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const target = event.target;
+      if (
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        target instanceof HTMLSelectElement ||
+        (target instanceof HTMLElement && target.isContentEditable)
+      ) {
+        return;
+      }
+      const letterIndex = { a: 0, b: 1, c: 2, d: 3 }[event.key.toLowerCase()];
+      const cardIndex = event.key >= "1" && event.key <= "4" ? Number(event.key) - 1 : letterIndex;
+      if (cardIndex !== undefined && cardIndex >= 0 && cardIndex < cards.length) {
+        event.preventDefault();
+        toggleCard(cards[cardIndex].key);
+      } else if (event.key === "Backspace") {
+        event.preventDefault();
+        undoLastCard();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [cards, locked, phase, toggleCard, undoLastCard]);
 
   if (phase === "reveal") {
     const correctKeys = valueOrderKeysFromAnswerKey(question.reveal?.correctAnswerKey) ?? [];
@@ -4643,23 +4679,25 @@ export function QueueArcade({
                           ? "Choose a hero · type to search · Enter picks the only match"
                           : isValueOrderRound
                             ? "Choose four in order"
-                            : isFlashbackYearRound
-                              ? "Slide to the year, then press Lock · Enter also locks"
-                              : currentGame === "shopkeeper"
-                                ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
-                                : currentGame === "spell-link"
-                                  ? "Link the spell to a hero · A–D or 1–4"
-                                  : currentGame === "fogged-vision"
-                                    ? "Name the silhouette · A–D or 1–4"
-                                    : currentGame === "echo-hunt"
-                                      ? "Match the voice · A–D or 1–4"
-                                      : currentGame === "soundcheck"
-                                        ? isSoundSequence
-                                          ? "Match the order · A–D or 1–4"
-                                          : "Match the sound · A–D or 1–4"
-                                        : currentGame === "quote-hunt"
-                                          ? "Match the line to its hero · A–D or 1–4"
-                                          : "Use A–D or 1–4 to answer"}
+                            : isFlashbackOrderRound
+                              ? "Choose four in order · A–D or 1–4"
+                              : isFlashbackYearRound
+                                ? "Slide to the year, then press Lock · Enter also locks"
+                                : currentGame === "shopkeeper"
+                                  ? `${shopkeeperAnswerAction(currentQuestion)} · A–D or 1–4`
+                                  : currentGame === "spell-link"
+                                    ? "Link the spell to a hero · A–D or 1–4"
+                                    : currentGame === "fogged-vision"
+                                      ? "Name the silhouette · A–D or 1–4"
+                                      : currentGame === "echo-hunt"
+                                        ? "Match the voice · A–D or 1–4"
+                                        : currentGame === "soundcheck"
+                                          ? isSoundSequence
+                                            ? "Match the order · A–D or 1–4"
+                                            : "Match the sound · A–D or 1–4"
+                                          : currentGame === "quote-hunt"
+                                            ? "Match the line to its hero · A–D or 1–4"
+                                            : "Use A–D or 1–4 to answer"}
                     </span>
                     <span className={styles.answerHelperGold}>Correct now: {liveAward?.rawPoints ?? 0} gold</span>
                   </>
