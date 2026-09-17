@@ -26,7 +26,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const OUTPUT = join(ROOT, "src", "data", "questions.generated.json");
 const META_OUTPUT = join(ROOT, "src", "data", "trivia-meta.generated.json");
 
-const PATCH = process.env.DOTA_PATCH ?? "7.41e";
+const PATCH = process.env.DOTA_PATCH ?? "7.41f";
 const SNAPSHOT_DATE = process.env.DOTA_SNAPSHOT_DATE ?? new Date().toISOString().slice(0, 10);
 const CONTENT_VERSION = `${PATCH}-variety-7`;
 const CDN = "https://cdn.cloudflare.steamstatic.com";

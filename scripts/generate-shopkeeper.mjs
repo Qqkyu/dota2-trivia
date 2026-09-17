@@ -4,7 +4,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { format } from "prettier";
-import { CLIENT_CONSTANT_AUDIT } from "./client-constant-audit.mjs";
+import { CLIENT_CONSTANT_AUDIT, ITEM_CONSTANT_OVERRIDES } from "./client-constant-audit.mjs";
 import { parseValveKeyValues } from "./valve-keyvalues.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -440,7 +440,11 @@ const source = {
   url: `https://www.dota2.com/patches/${PATCH}`,
 };
 
-const liveCost = (key) => Number(scalar(itemDefinitions[`item_${key}`]?.ItemCost) ?? itemsByKey[key]?.cost);
+const liveCost = (key) => {
+  const audited = ITEM_CONSTANT_OVERRIDES[key]?.cost;
+  if (Number.isFinite(audited)) return audited;
+  return Number(scalar(itemDefinitions[`item_${key}`]?.ItemCost) ?? itemsByKey[key]?.cost);
+};
 const canDisplay = (key) => Boolean(itemsByKey[key]?.dname && itemsByKey[key]?.img);
 const isPurchasable = (key) => {
   const definition = itemDefinitions[`item_${key}`];

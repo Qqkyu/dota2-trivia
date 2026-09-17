@@ -1,13 +1,16 @@
 // OpenDota is useful for localized names and CDN artwork, but its constants can
 // lag behind the shipped game client. These are the differences found while
-// comparing every generated numeric/recipe question with a clean Dota 2 7.41e
-// client. Keep the overrides explicit and fail closed in the generator.
+// comparing generated numeric/recipe questions with Valve's 7.41f patch feed
+// and the prior 7.41e live-client audit. Keep the overrides explicit and fail
+// closed in the generator.
 export const CLIENT_CONSTANT_AUDIT = Object.freeze({
-  patch: "7.41e",
+  patch: "7.41f",
   clientBuild: "6882",
   steamBuildId: "24503204",
   clientVersionDate: "2026-07-31",
-  reviewedAt: "2026-08-09",
+  reviewedAt: "2026-09-17",
+  patchFeed: "7.41f",
+  patchTimestamp: 1_789_455_600,
 });
 
 export const ABILITY_CONSTANT_OVERRIDES = Object.freeze({
@@ -33,6 +36,24 @@ export const ABILITY_CONSTANT_OVERRIDES = Object.freeze({
   },
   gyrocopter_rocket_barrage: {
     mana: [75],
+  },
+  broodmother_insatiable_hunger: {
+    mana: [70],
+  },
+  rattletrap_power_cogs: {
+    mana: [60, 65, 70, 90],
+  },
+  undying_decay: {
+    mana: [110],
+  },
+  life_stealer_rage: {
+    cooldown: [21, 20, 19, 18],
+  },
+  invoker_cold_snap: {
+    cooldown: [19],
+  },
+  winter_wyvern_arctic_burn: {
+    cooldown: [29, 26, 23, 20],
   },
   hoodwink_hunters_boomerang: {
     cooldown: [20],
@@ -132,7 +153,12 @@ export const HERO_CONSTANT_OVERRIDES = Object.freeze({
 export const ITEM_CONSTANT_OVERRIDES = Object.freeze({
   chasm_stone: { cost: 900 },
   dagon: { cost: 3000 },
-  heart: { cost: 5200 },
+  greater_crit: { cost: 5200 },
+  dragon_lance: { cost: 2000 },
+  heart: { cost: 5300 },
+  heavens_halberd: { cost: 3300 },
+  hurricane_pike: { cost: 4550 },
+  octarine_core: { cost: 5100 },
 });
 
 export function applyAbilityConstantAudit(ability) {

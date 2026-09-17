@@ -1,5 +1,5 @@
 {
-  "patch": "7.41e",
+  "patch": "7.41f",
   "clientBuild": "6882",
   "source": "Dota 2 client scripts/shops.txt",
   "groups": [
@@ -781,7 +781,7 @@
           "key": "octarine_core",
           "name": "Octarine Core",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/octarine_core.png?t=1593393829403",
-          "cost": 4900
+          "cost": 5100
         },
         {
           "key": "orchid",
@@ -914,7 +914,7 @@
           "key": "heart",
           "name": "Heart of Tarrasque",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/heart.png?t=1593393829403",
-          "cost": 5200
+          "cost": 5300
         }
       ]
     },
@@ -939,7 +939,7 @@
           "key": "heavens_halberd",
           "name": "Heaven's Halberd",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/heavens_halberd.png?t=1593393829403",
-          "cost": 3400
+          "cost": 3300
         },
         {
           "key": "desolator",
@@ -975,7 +975,7 @@
           "key": "greater_crit",
           "name": "Daedalus",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/greater_crit.png?t=1593393829403",
-          "cost": 5100
+          "cost": 5200
         },
         {
           "key": "abyssal_blade",
@@ -1072,7 +1072,7 @@
           "key": "dragon_lance",
           "name": "Dragon Lance",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/dragon_lance.png?t=1593393829403",
-          "cost": 1900
+          "cost": 2000
         },
         {
           "key": "kaya_and_sange",
@@ -1096,7 +1096,7 @@
           "key": "hurricane_pike",
           "name": "Hurricane Pike",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/hurricane_pike.png?t=1593393829403",
-          "cost": 4450
+          "cost": 4550
         },
         {
           "key": "echo_sabre",

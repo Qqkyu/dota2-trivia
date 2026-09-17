@@ -84,9 +84,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:item-price:02",
@@ -173,9 +173,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:item-price:03",
@@ -262,9 +262,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:item-price:04",
@@ -351,9 +351,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:item-price:05",
@@ -440,9 +440,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:item-price:06",
@@ -529,9 +529,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:item-price:07",
@@ -618,9 +618,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:item-price:08",
@@ -707,9 +707,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:item-price:09",
@@ -796,9 +796,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:item-price:10",
@@ -809,13 +809,13 @@
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
     "answers": [
-      "order-v1:sphere,bloodstone,octarine_core,monkey_king_bar",
-      "order-v1:bloodstone,sphere,octarine_core,monkey_king_bar",
-      "order-v1:bloodstone,octarine_core,sphere,monkey_king_bar",
-      "order-v1:monkey_king_bar,octarine_core,sphere,bloodstone"
+      "order-v1:sphere,bloodstone,monkey_king_bar,octarine_core",
+      "order-v1:bloodstone,sphere,monkey_king_bar,octarine_core",
+      "order-v1:bloodstone,monkey_king_bar,sphere,octarine_core",
+      "order-v1:octarine_core,monkey_king_bar,sphere,bloodstone"
     ],
     "correctIndex": 1,
-    "explanation": "Cheapest to priciest: Bloodstone (4,700 gold) → Linken's Sphere (4,800 gold) → Octarine Core (4,900 gold) → Monkey King Bar (5,000 gold).",
+    "explanation": "Cheapest to priciest: Bloodstone (4,700 gold) → Linken's Sphere (4,800 gold) → Monkey King Bar (5,000 gold) → Octarine Core (5,100 gold).",
     "valueOrder": {
       "family": "item-price",
       "direction": "ascending",
@@ -853,8 +853,8 @@
         },
         {
           "key": "octarine_core",
-          "value": 4900,
-          "label": "4,900 gold"
+          "value": 5100,
+          "label": "5,100 gold"
         },
         {
           "key": "monkey_king_bar",
@@ -870,8 +870,8 @@
       "correctOrder": [
         "bloodstone",
         "sphere",
-        "octarine_core",
-        "monkey_king_bar"
+        "monkey_king_bar",
+        "octarine_core"
       ],
       "audit": {
         "derivedFrom": [
@@ -885,9 +885,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:item-price:11",
@@ -898,13 +898,13 @@
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
     "answers": [
-      "order-v1:satanic,refresher,greater_crit,assault",
-      "order-v1:refresher,greater_crit,satanic,assault",
-      "order-v1:refresher,satanic,greater_crit,assault",
-      "order-v1:assault,greater_crit,satanic,refresher"
+      "order-v1:satanic,refresher,assault,greater_crit",
+      "order-v1:refresher,assault,satanic,greater_crit",
+      "order-v1:refresher,satanic,assault,greater_crit",
+      "order-v1:greater_crit,assault,satanic,refresher"
     ],
     "correctIndex": 2,
-    "explanation": "Cheapest to priciest: Refresher Orb (5,000 gold) → Satanic (5,050 gold) → Daedalus (5,100 gold) → Assault Cuirass (5,125 gold).",
+    "explanation": "Cheapest to priciest: Refresher Orb (5,000 gold) → Satanic (5,050 gold) → Assault Cuirass (5,125 gold) → Daedalus (5,200 gold).",
     "valueOrder": {
       "family": "item-price",
       "direction": "ascending",
@@ -947,8 +947,8 @@
         },
         {
           "key": "greater_crit",
-          "value": 5100,
-          "label": "5,100 gold"
+          "value": 5200,
+          "label": "5,200 gold"
         },
         {
           "key": "assault",
@@ -959,8 +959,8 @@
       "correctOrder": [
         "refresher",
         "satanic",
-        "greater_crit",
-        "assault"
+        "assault",
+        "greater_crit"
       ],
       "audit": {
         "derivedFrom": [
@@ -974,9 +974,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:item-price:12",
@@ -1063,9 +1063,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:item-price:13",
@@ -1152,9 +1152,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:item-price:14",
@@ -1241,9 +1241,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:item-price:15",
@@ -1254,13 +1254,13 @@
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
     "answers": [
-      "order-v1:pipe,orchid,hurricane_pike,shivas_guard",
-      "order-v1:orchid,hurricane_pike,pipe,shivas_guard",
-      "order-v1:orchid,pipe,hurricane_pike,shivas_guard",
-      "order-v1:shivas_guard,hurricane_pike,pipe,orchid"
+      "order-v1:pipe,orchid,shivas_guard,hurricane_pike",
+      "order-v1:orchid,shivas_guard,pipe,hurricane_pike",
+      "order-v1:orchid,pipe,shivas_guard,hurricane_pike",
+      "order-v1:hurricane_pike,shivas_guard,pipe,orchid"
     ],
     "correctIndex": 2,
-    "explanation": "Cheapest to priciest: Orchid Malevolence (3,275 gold) → Pipe of Insight (3,725 gold) → Hurricane Pike (4,450 gold) → Shiva's Guard (4,500 gold).",
+    "explanation": "Cheapest to priciest: Orchid Malevolence (3,275 gold) → Pipe of Insight (3,725 gold) → Shiva's Guard (4,500 gold) → Hurricane Pike (4,550 gold).",
     "valueOrder": {
       "family": "item-price",
       "direction": "ascending",
@@ -1298,8 +1298,8 @@
         },
         {
           "key": "hurricane_pike",
-          "value": 4450,
-          "label": "4,450 gold"
+          "value": 4550,
+          "label": "4,550 gold"
         },
         {
           "key": "shivas_guard",
@@ -1315,8 +1315,8 @@
       "correctOrder": [
         "orchid",
         "pipe",
-        "hurricane_pike",
-        "shivas_guard"
+        "shivas_guard",
+        "hurricane_pike"
       ],
       "audit": {
         "derivedFrom": [
@@ -1330,9 +1330,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:item-price:16",
@@ -1419,9 +1419,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:01",
@@ -1512,9 +1512,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:02",
@@ -1605,9 +1605,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:03",
@@ -1698,9 +1698,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:04",
@@ -1791,9 +1791,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:05",
@@ -1884,9 +1884,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:06",
@@ -1977,9 +1977,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:07",
@@ -2070,9 +2070,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:08",
@@ -2163,9 +2163,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:09",
@@ -2256,9 +2256,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:10",
@@ -2349,9 +2349,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:11",
@@ -2442,9 +2442,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:12",
@@ -2535,9 +2535,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:13",
@@ -2628,9 +2628,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:14",
@@ -2721,9 +2721,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:15",
@@ -2814,9 +2814,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-cooldown:16",
@@ -2907,9 +2907,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-mana:01",
@@ -3000,9 +3000,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-mana:02",
@@ -3093,9 +3093,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-mana:03",
@@ -3106,22 +3106,22 @@
     "eyebrow": "Max-level mana costs",
     "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
     "answers": [
-      "order-v1:sandking_sand_storm,broodmother_insatiable_hunger,mirana_arrow,venomancer_snakebite",
-      "order-v1:broodmother_insatiable_hunger,mirana_arrow,sandking_sand_storm,venomancer_snakebite",
-      "order-v1:broodmother_insatiable_hunger,sandking_sand_storm,mirana_arrow,venomancer_snakebite",
-      "order-v1:venomancer_snakebite,mirana_arrow,sandking_sand_storm,broodmother_insatiable_hunger"
+      "order-v1:sandking_sand_storm,furion_curse_of_the_forest,mirana_arrow,venomancer_snakebite",
+      "order-v1:furion_curse_of_the_forest,mirana_arrow,sandking_sand_storm,venomancer_snakebite",
+      "order-v1:furion_curse_of_the_forest,sandking_sand_storm,mirana_arrow,venomancer_snakebite",
+      "order-v1:venomancer_snakebite,mirana_arrow,sandking_sand_storm,furion_curse_of_the_forest"
     ],
     "correctIndex": 2,
-    "explanation": "Lowest to highest: Insatiable Hunger (80 mana) → Sand Storm (85 mana) → Sacred Arrow (90 mana) → Snakebite (100 mana).",
+    "explanation": "Lowest to highest: Curse of the Oldgrowth (80 mana) → Sand Storm (85 mana) → Sacred Arrow (90 mana) → Snakebite (100 mana).",
     "valueOrder": {
       "family": "ability-mana",
       "direction": "ascending",
       "cards": [
         {
-          "key": "broodmother_insatiable_hunger",
-          "name": "Insatiable Hunger",
-          "context": "Broodmother",
-          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/broodmother_insatiable_hunger.png",
+          "key": "furion_curse_of_the_forest",
+          "name": "Curse of the Oldgrowth",
+          "context": "Nature's Prophet",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/furion_curse_of_the_forest.png",
           "kind": "ability"
         },
         {
@@ -3148,7 +3148,7 @@
       ],
       "values": [
         {
-          "key": "broodmother_insatiable_hunger",
+          "key": "furion_curse_of_the_forest",
           "value": 80,
           "label": "80 mana"
         },
@@ -3169,14 +3169,14 @@
         }
       ],
       "correctOrder": [
-        "broodmother_insatiable_hunger",
+        "furion_curse_of_the_forest",
         "sandking_sand_storm",
         "mirana_arrow",
         "venomancer_snakebite"
       ],
       "audit": {
         "derivedFrom": [
-          "mana:broodmother_insatiable_hunger:1",
+          "mana:furion_curse_of_the_forest:1",
           "mana:sandking_sand_storm:1",
           "mana:mirana_arrow:1",
           "mana:venomancer_snakebite:1"
@@ -3186,9 +3186,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-mana:04",
@@ -3279,9 +3279,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-mana:05",
@@ -3372,9 +3372,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-mana:06",
@@ -3465,9 +3465,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-mana:07",
@@ -3558,9 +3558,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-mana:08",
@@ -3651,9 +3651,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-mana:09",
@@ -3744,9 +3744,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-mana:10",
@@ -3757,13 +3757,13 @@
     "eyebrow": "Max-level mana costs",
     "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
     "answers": [
-      "order-v1:disruptor_kinetic_fence,bristleback_hairball,visage_grave_chill,broodmother_insatiable_hunger",
-      "order-v1:bristleback_hairball,disruptor_kinetic_fence,visage_grave_chill,broodmother_insatiable_hunger",
-      "order-v1:bristleback_hairball,visage_grave_chill,disruptor_kinetic_fence,broodmother_insatiable_hunger",
-      "order-v1:broodmother_insatiable_hunger,visage_grave_chill,disruptor_kinetic_fence,bristleback_hairball"
+      "order-v1:disruptor_kinetic_fence,bristleback_hairball,visage_grave_chill,furion_curse_of_the_forest",
+      "order-v1:bristleback_hairball,disruptor_kinetic_fence,visage_grave_chill,furion_curse_of_the_forest",
+      "order-v1:bristleback_hairball,visage_grave_chill,disruptor_kinetic_fence,furion_curse_of_the_forest",
+      "order-v1:furion_curse_of_the_forest,visage_grave_chill,disruptor_kinetic_fence,bristleback_hairball"
     ],
     "correctIndex": 1,
-    "explanation": "Lowest to highest: Hairball (60 mana) → Kinetic Fence (70 mana) → Grave Chill (75 mana) → Insatiable Hunger (80 mana).",
+    "explanation": "Lowest to highest: Hairball (60 mana) → Kinetic Fence (70 mana) → Grave Chill (75 mana) → Curse of the Oldgrowth (80 mana).",
     "valueOrder": {
       "family": "ability-mana",
       "direction": "ascending",
@@ -3790,10 +3790,10 @@
           "kind": "ability"
         },
         {
-          "key": "broodmother_insatiable_hunger",
-          "name": "Insatiable Hunger",
-          "context": "Broodmother",
-          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/broodmother_insatiable_hunger.png",
+          "key": "furion_curse_of_the_forest",
+          "name": "Curse of the Oldgrowth",
+          "context": "Nature's Prophet",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/furion_curse_of_the_forest.png",
           "kind": "ability"
         }
       ],
@@ -3814,7 +3814,7 @@
           "label": "75 mana"
         },
         {
-          "key": "broodmother_insatiable_hunger",
+          "key": "furion_curse_of_the_forest",
           "value": 80,
           "label": "80 mana"
         }
@@ -3823,23 +3823,23 @@
         "bristleback_hairball",
         "disruptor_kinetic_fence",
         "visage_grave_chill",
-        "broodmother_insatiable_hunger"
+        "furion_curse_of_the_forest"
       ],
       "audit": {
         "derivedFrom": [
           "mana:bristleback_hairball:1",
           "mana:disruptor_kinetic_fence:1",
           "mana:visage_grave_chill:1",
-          "mana:broodmother_insatiable_hunger:1"
+          "mana:furion_curse_of_the_forest:1"
         ],
         "clientBuild": "6882"
       }
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-mana:11",
@@ -3930,9 +3930,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-mana:12",
@@ -3943,13 +3943,13 @@
     "eyebrow": "Max-level mana costs",
     "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
     "answers": [
-      "order-v1:bristleback_hairball,chen_zealot,disruptor_kinetic_fence,sniper_shrapnel",
-      "order-v1:chen_zealot,disruptor_kinetic_fence,bristleback_hairball,sniper_shrapnel",
-      "order-v1:sniper_shrapnel,disruptor_kinetic_fence,bristleback_hairball,chen_zealot",
-      "order-v1:chen_zealot,bristleback_hairball,disruptor_kinetic_fence,sniper_shrapnel"
+      "order-v1:bristleback_hairball,chen_zealot,broodmother_insatiable_hunger,sniper_shrapnel",
+      "order-v1:chen_zealot,broodmother_insatiable_hunger,bristleback_hairball,sniper_shrapnel",
+      "order-v1:sniper_shrapnel,broodmother_insatiable_hunger,bristleback_hairball,chen_zealot",
+      "order-v1:chen_zealot,bristleback_hairball,broodmother_insatiable_hunger,sniper_shrapnel"
     ],
     "correctIndex": 3,
-    "explanation": "Lowest to highest: Zealot (50 mana) → Hairball (60 mana) → Kinetic Fence (70 mana) → Shrapnel (75 mana).",
+    "explanation": "Lowest to highest: Zealot (50 mana) → Hairball (60 mana) → Insatiable Hunger (70 mana) → Shrapnel (75 mana).",
     "valueOrder": {
       "family": "ability-mana",
       "direction": "ascending",
@@ -3962,10 +3962,10 @@
           "kind": "ability"
         },
         {
-          "key": "disruptor_kinetic_fence",
-          "name": "Kinetic Fence",
-          "context": "Disruptor",
-          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/disruptor_kinetic_fence.png",
+          "key": "broodmother_insatiable_hunger",
+          "name": "Insatiable Hunger",
+          "context": "Broodmother",
+          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/broodmother_insatiable_hunger.png",
           "kind": "ability"
         },
         {
@@ -3990,7 +3990,7 @@
           "label": "60 mana"
         },
         {
-          "key": "disruptor_kinetic_fence",
+          "key": "broodmother_insatiable_hunger",
           "value": 70,
           "label": "70 mana"
         },
@@ -4008,14 +4008,14 @@
       "correctOrder": [
         "chen_zealot",
         "bristleback_hairball",
-        "disruptor_kinetic_fence",
+        "broodmother_insatiable_hunger",
         "sniper_shrapnel"
       ],
       "audit": {
         "derivedFrom": [
           "mana:chen_zealot:1",
           "mana:bristleback_hairball:1",
-          "mana:disruptor_kinetic_fence:1",
+          "mana:broodmother_insatiable_hunger:1",
           "mana:sniper_shrapnel:1"
         ],
         "clientBuild": "6882"
@@ -4023,9 +4023,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-damage:01",
@@ -4116,9 +4116,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-damage:02",
@@ -4209,9 +4209,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-damage:03",
@@ -4302,9 +4302,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-damage:04",
@@ -4395,9 +4395,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-damage:05",
@@ -4488,9 +4488,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-damage:06",
@@ -4581,9 +4581,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-damage:07",
@@ -4674,9 +4674,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-damage:08",
@@ -4767,9 +4767,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-damage:09",
@@ -4860,9 +4860,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-damage:10",
@@ -4953,9 +4953,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-damage:11",
@@ -5046,9 +5046,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:ability-damage:12",
@@ -5139,9 +5139,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-move-speed:01",
@@ -5228,9 +5228,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-move-speed:02",
@@ -5317,9 +5317,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-move-speed:03",
@@ -5406,9 +5406,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-move-speed:04",
@@ -5495,9 +5495,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-move-speed:05",
@@ -5584,9 +5584,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-move-speed:06",
@@ -5673,9 +5673,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-move-speed:07",
@@ -5762,9 +5762,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-move-speed:08",
@@ -5851,9 +5851,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-move-speed:09",
@@ -5940,9 +5940,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-move-speed:10",
@@ -6029,9 +6029,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-move-speed:11",
@@ -6118,9 +6118,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-move-speed:12",
@@ -6207,9 +6207,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-attack-range:01",
@@ -6296,9 +6296,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-attack-range:02",
@@ -6385,9 +6385,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-attack-range:03",
@@ -6474,9 +6474,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-attack-range:04",
@@ -6563,9 +6563,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-attack-range:05",
@@ -6652,9 +6652,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-attack-range:06",
@@ -6741,9 +6741,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-attack-range:07",
@@ -6830,9 +6830,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-attack-range:08",
@@ -6919,9 +6919,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-attack-range:09",
@@ -7008,9 +7008,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-attack-range:10",
@@ -7097,9 +7097,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-attack-range:11",
@@ -7186,9 +7186,9 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   },
   {
     "id": "value-order:hero-attack-range:12",
@@ -7275,8 +7275,8 @@
     },
     "source": {
       "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41e"
+      "url": "https://www.dota2.com/patches/7.41f"
     },
-    "patch": "7.41e"
+    "patch": "7.41f"
   }
 ]
