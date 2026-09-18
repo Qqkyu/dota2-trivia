@@ -1,6 +1,9 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { type NextRequest, NextResponse } from "next/server";
+// Sharp is installed with Next.js. The package has no app-level type entry.
+// @ts-expect-error -- sharp has no app-level types
+import sharp from "sharp";
 import { rateLimitRequest, requestPlayerIdentity } from "@/lib/api-protection";
 import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
 import { liveRoundForSettings } from "@/lib/private-room-rounds";
@@ -37,6 +40,26 @@ function liveRoundForRoundId(roundId: string) {
   const live = liveRoundForSettings(settings, Date.now());
   if ("error" in live) return null;
   return { room: live.room, round: live.round };
+}
+
+function fogStage(round: { answerDeadline: number; answerDuration: number }, now: number) {
+  const remaining = Math.max(0, round.answerDeadline - now);
+  if (remaining <= round.answerDuration / 3) return 3;
+  if (remaining <= (round.answerDuration * 2) / 3) return 2;
+  return 1;
+}
+
+async function obscurePortrait(bytes: Buffer, stage: number) {
+  const blur = stage <= 1 ? 21 : stage === 2 ? 14 : 8;
+  const brightness = stage <= 1 ? 0.5 : stage === 2 ? 0.56 : 0.65;
+  const saturation = stage <= 1 ? 0.44 : 0.6;
+  return sharp(bytes)
+    .resize(512, 288, { fit: "cover" })
+    .blur(blur)
+    .modulate({ brightness, saturation })
+    .greyscale()
+    .png()
+    .toBuffer();
 }
 
 function pruneImageCache(now: number) {
@@ -112,17 +135,21 @@ export async function GET(request: NextRequest) {
 
   try {
     const now = Date.now();
+    const stage = fogStage(round, now);
+    const cacheKey = `${roundId}:${stage}`;
     pruneImageCache(now);
-    let cached = roundImageCache.get(roundId);
+    let cached = roundImageCache.get(cacheKey);
     if (!cached || now - cached.createdAt >= IMAGE_CACHE_TTL_MS) {
-      cached = await loadRoundImage(source);
-      roundImageCache.set(roundId, cached);
+      const original = await loadRoundImage(source);
+      const obscured = await obscurePortrait(original.bytes, stage);
+      cached = { bytes: obscured, contentType: "image/png", createdAt: now };
+      roundImageCache.set(cacheKey, cached);
     }
     return new NextResponse(new Uint8Array(cached.bytes), {
       status: 200,
       headers: {
         "Content-Type": cached.contentType,
-        "Cache-Control": "private, max-age=20",
+        "Cache-Control": "private, max-age=8",
         "X-Content-Type-Options": "nosniff",
         "Content-Disposition": 'inline; filename="portrait"',
       },

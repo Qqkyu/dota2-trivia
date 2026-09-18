@@ -267,8 +267,8 @@ export function addPrivateRoomScore(code, playerId, points, now = Date.now(), ro
   if (!member) return null;
   const awarded = Math.max(0, Number(points) || 0);
   if (roundId) {
-    member.pendingRoundId = roundId;
-    member.pendingPoints = awarded;
+    const pending = Array.isArray(member.pendingAwards) ? member.pendingAwards : [];
+    member.pendingAwards = [...pending.filter((entry) => entry.roundId !== roundId), { roundId, points: awarded }];
   } else {
     member.score = (Number(member.score) || 0) + awarded;
   }
@@ -282,14 +282,38 @@ export function applyPrivateRoomCrowdBonus(code, roundId, multiplier, now = Date
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
   if (!record || typeof roundId !== "string" || !roundId) return null;
   const factor = Math.max(1, Math.floor(Number(multiplier) || 1));
-  if (record.crowdBonusRoundId === roundId) return publicView(record);
+  record.settledRoundIds ??= {};
+  if (record.settledRoundIds[roundId]) return publicView(record);
   for (const member of record.members ?? []) {
-    if (member.pendingRoundId !== roundId) continue;
-    member.score = (Number(member.score) || 0) + (Number(member.pendingPoints) || 0) * factor;
-    member.pendingRoundId = "";
-    member.pendingPoints = 0;
+    const pending = Array.isArray(member.pendingAwards) ? member.pendingAwards : [];
+    const award = pending.find((entry) => entry.roundId === roundId);
+    if (!award) continue;
+    member.score = (Number(member.score) || 0) + (Number(award.points) || 0) * factor;
+    member.pendingAwards = pending.filter((entry) => entry.roundId !== roundId);
   }
-  record.crowdBonusRoundId = roundId;
+  record.settledRoundIds[roundId] = true;
+  record.lastSeenAt = now;
+  return publicView(record);
+}
+
+/** Keep base points when a later round starts before this round was settled. */
+export function flushStalePrivateRoomScores(code, currentRoundId, now = Date.now()) {
+  const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
+  if (!record || typeof currentRoundId !== "string" || !currentRoundId) return null;
+  record.settledRoundIds ??= {};
+  for (const member of record.members ?? []) {
+    const pending = Array.isArray(member.pendingAwards) ? member.pendingAwards : [];
+    const keep = [];
+    for (const award of pending) {
+      if (award.roundId === currentRoundId || record.settledRoundIds[award.roundId]) {
+        keep.push(award);
+        continue;
+      }
+      member.score = (Number(member.score) || 0) + (Number(award.points) || 0);
+      record.settledRoundIds[award.roundId] = true;
+    }
+    member.pendingAwards = keep;
+  }
   record.lastSeenAt = now;
   return publicView(record);
 }

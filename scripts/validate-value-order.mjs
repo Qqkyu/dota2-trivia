@@ -32,7 +32,7 @@ const FAMILY_RULES = Object.freeze({
     kind: "value-order-cooldown",
     count: 16,
     cardKind: "ability",
-    prompt: "How do these abilities rank from shortest to longest cooldown?",
+    prompt: "How do these abilities rank from shortest to longest max-level cooldown?",
   },
   "ability-mana": {
     kind: "value-order-mana",

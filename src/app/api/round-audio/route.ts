@@ -4,6 +4,8 @@ import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
 import { liveRoundAt, liveRoundForSettings } from "@/lib/private-room-rounds";
 import { privateRoomCodeFromRoundId } from "@/lib/private-rooms.mjs";
 import { cachedAudioResponse, cachedRoundAudio, warmRoundAudio } from "@/lib/round-audio-cache.mjs";
+import { echoHuntCutDuration, soundcheckCutDuration, soundcheckRevealStage } from "@/lib/soundcheck.mjs";
+import { clueStageAt } from "@/lib/scoring.mjs";
 import { parsePublicRoomSettings } from "@/lib/public-rooms";
 import { logServerError } from "@/lib/server-diagnostics";
 import type { TriviaQuestion } from "@/lib/trivia";
@@ -11,16 +13,21 @@ import type { TriviaQuestion } from "@/lib/trivia";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-function copiedAudioHeaders(upstream: Response) {
-  const headers = new Headers({
-    "Cache-Control": "private, max-age=60",
-    "X-Content-Type-Options": "nosniff",
-  });
-  for (const name of ["accept-ranges", "content-length", "content-range", "content-type"]) {
-    const value = upstream.headers.get(name);
-    if (value) headers.set(name, value);
+function trimPcmWav(bytes: ArrayBuffer, seconds: number) {
+  const buf = Buffer.from(bytes);
+  if (buf.length < 44 || buf.toString("ascii", 0, 4) !== "RIFF" || buf.toString("ascii", 8, 12) !== "WAVE") {
+    return bytes;
   }
-  return headers;
+  if (buf.readUInt16LE(20) !== 1) return bytes;
+  const sampleRate = buf.readUInt32LE(24);
+  const blockAlign = buf.readUInt16LE(32) || 1;
+  const keep = Math.min(buf.length - 44, Math.max(blockAlign, Math.ceil(seconds * sampleRate) * blockAlign));
+  const out = Buffer.alloc(44 + keep);
+  buf.copy(out, 0, 0, 44);
+  buf.copy(out, 44, 44, 44 + keep);
+  out.writeUInt32LE(36 + keep, 4);
+  out.writeUInt32LE(keep, 40);
+  return out.buffer.slice(out.byteOffset, out.byteOffset + out.byteLength);
 }
 
 function audioSources(question: TriviaQuestion | undefined) {
@@ -117,20 +124,27 @@ export async function GET(request: NextRequest) {
 
   try {
     const range = request.headers.get("range");
-    const cached = await cachedRoundAudio(round.id, clip);
-    if (cached) return cachedAudioResponse(cached, range);
-
-    const upstream = await fetch(source, {
-      headers: range ? { Range: range } : undefined,
-      cache: range ? "no-store" : "force-cache",
-    });
-    if (!upstream.ok || !upstream.body) {
-      throw new Error(`Upstream audio returned ${upstream.status}.`);
+    let cached = await cachedRoundAudio(round.id, clip);
+    if (!cached) {
+      cached = await warmRoundAudio(round.id, clip, source);
     }
-    return new Response(upstream.body, {
-      status: upstream.status,
-      headers: copiedAudioHeaders(upstream),
-    });
+    if (round.phase === "answering") {
+      const remaining = Math.max(0, round.answerDeadline - Date.now());
+      const stage =
+        round.game === "soundcheck"
+          ? soundcheckRevealStage(remaining, round.answerDuration)
+          : clueStageAt(remaining, round.answerDuration);
+      const sourceDuration =
+        question?.soundcheck?.clips?.[clip]?.duration ??
+        (cached.bytes.byteLength > 44 ? (cached.bytes.byteLength - 44) / 88_200 : 5);
+      const cutSeconds =
+        round.game === "soundcheck"
+          ? soundcheckCutDuration(sourceDuration, stage)
+          : echoHuntCutDuration(sourceDuration, stage);
+      const trimmed = trimPcmWav(cached.bytes, cutSeconds);
+      return cachedAudioResponse({ bytes: trimmed, contentType: cached.contentType }, null);
+    }
+    return cachedAudioResponse(cached, range);
   } catch (error) {
     logServerError("round-audio.proxy", error, { roundId: roundId.slice(0, 160), clip });
     return NextResponse.json({ error: "Round audio unavailable." }, { status: 502 });

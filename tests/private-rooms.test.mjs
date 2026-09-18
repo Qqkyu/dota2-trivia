@@ -5,6 +5,7 @@ import {
   addPrivateRoomMessage,
   addPrivateRoomScore,
   applyPrivateRoomCrowdBonus,
+  flushStalePrivateRoomScores,
   createPrivateRoom,
   getPrivateRoom,
   guestDisplayName,
@@ -199,6 +200,19 @@ describe("a party from create to empty", () => {
     expect(getPrivateRoom(room.code, now + 5_150).players[0].score).toBe(0);
     expect(applyPrivateRoomCrowdBonus(room.code, "round-bonus-1", 2, now + 5_200).players[0].score).toBe(388);
     expect(applyPrivateRoomCrowdBonus(room.code, "round-bonus-1", 2, now + 5_300).players[0].score).toBe(388);
+  });
+
+  it("keeps base points when a later round starts before reveal settlement", () => {
+    const room = createPrivateRoom({
+      hostId: "stale-host-1",
+      ...catalog,
+      games: ["trivia"],
+      code: "STALE1",
+      name: "Host",
+      now: now + 6_000,
+    });
+    addPrivateRoomScore(room.code, "stale-host-1", 194, now + 6_100, "round-stale-1");
+    expect(flushStalePrivateRoomScores(room.code, "round-stale-2", now + 6_200).players[0].score).toBe(194);
   });
 
   it("lets only the host start, with a 3-second countdown", () => {

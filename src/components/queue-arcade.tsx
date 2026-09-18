@@ -127,6 +127,7 @@ import {
   valueOrderAnswerKey,
   valueOrderKeysFromAnswerKey,
 } from "@/lib/value-order.mjs";
+import { PUBLIC_VOTE_ACCEPT_GRACE_MS } from "@/lib/public-rooms";
 import {
   createRoomSyncGate,
   ROOM_SYNC_HEARTBEAT_MS,
@@ -3498,7 +3499,9 @@ export function QueueArcade({
   useEffect(() => {
     const phaseDeadline =
       phase === "answering"
-        ? deadline
+        ? deadline == null
+          ? null
+          : deadline + PUBLIC_VOTE_ACCEPT_GRACE_MS
         : phase === "reveal"
           ? revealDeadline
           : phase === "waiting"

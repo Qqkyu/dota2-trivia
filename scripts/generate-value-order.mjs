@@ -22,8 +22,8 @@ const FAMILY_CONFIG = Object.freeze({
   "ability-cooldown": {
     kind: "value-order-cooldown",
     category: "Cooldowns",
-    eyebrow: "Base cooldowns",
-    prompt: "How do these abilities rank from shortest to longest cooldown?",
+    eyebrow: "Max-level cooldowns",
+    prompt: "How do these abilities rank from shortest to longest max-level cooldown?",
     lead: "Shortest to longest",
   },
   "ability-mana": {
