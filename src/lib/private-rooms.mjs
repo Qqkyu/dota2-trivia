@@ -1,4 +1,5 @@
 import { formatsForRoundGames, isLiveRoundGame, isPublicRoundFormat, PUBLIC_ROUND_FORMATS } from "./arcade-games.mjs";
+import { roundPhaseAt } from "./round-timing.mjs";
 
 export const PRIVATE_ROOM_CODE_MIN = 3;
 export const PRIVATE_ROOM_CODE_MAX = 16;
@@ -131,7 +132,7 @@ export function privateRoundTiming(startedAt, now, answerMs = 15_000, revealMs =
     answerDeadline,
     revealDeadline,
     answerDuration: answerMs,
-    phase: now < answerDeadline + 800 ? "answering" : "reveal",
+    phase: roundPhaseAt(now, answerDeadline),
   };
 }
 
@@ -301,6 +302,7 @@ export function flushStalePrivateRoomScores(code, currentRoundId, now = Date.now
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
   if (!record || typeof currentRoundId !== "string" || !currentRoundId) return null;
   record.settledRoundIds ??= {};
+  const settled = new Set();
   for (const member of record.members ?? []) {
     const pending = Array.isArray(member.pendingAwards) ? member.pendingAwards : [];
     const keep = [];
@@ -310,10 +312,11 @@ export function flushStalePrivateRoomScores(code, currentRoundId, now = Date.now
         continue;
       }
       member.score = (Number(member.score) || 0) + (Number(award.points) || 0);
-      record.settledRoundIds[award.roundId] = true;
+      settled.add(award.roundId);
     }
     member.pendingAwards = keep;
   }
+  for (const roundId of settled) record.settledRoundIds[roundId] = true;
   record.lastSeenAt = now;
   return publicView(record);
 }

@@ -1,8 +1,6 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { type NextRequest, NextResponse } from "next/server";
-// Sharp is installed with Next.js. The package has no app-level type entry.
-// @ts-expect-error -- sharp has no app-level types
 import sharp from "sharp";
 import { rateLimitRequest, requestPlayerIdentity } from "@/lib/api-protection";
 import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";

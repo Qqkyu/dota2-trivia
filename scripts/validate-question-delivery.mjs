@@ -158,7 +158,7 @@ for (const [question, game] of representativeQuestions) {
   }
   if (game === "fogged-vision") {
     record(
-      payload.image?.src === `/api/round-image?roundId=${encodeURIComponent(answeringRound.id)}` &&
+      payload.image?.src === `/api/round-image?roundId=${encodeURIComponent(answeringRound.id)}&stage=1` &&
         payload.image?.alt === "Hidden hero" &&
         !payload.image.src.includes("/heroes/") &&
         revealPayload.image?.src === question.image.src,

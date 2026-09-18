@@ -127,7 +127,7 @@ import {
   valueOrderAnswerKey,
   valueOrderKeysFromAnswerKey,
 } from "@/lib/value-order.mjs";
-import { PUBLIC_VOTE_ACCEPT_GRACE_MS } from "@/lib/public-rooms";
+import { PUBLIC_VOTE_ACCEPT_GRACE_MS } from "@/lib/round-timing.mjs";
 import {
   createRoomSyncGate,
   ROOM_SYNC_HEARTBEAT_MS,

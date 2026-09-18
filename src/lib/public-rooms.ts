@@ -3,12 +3,13 @@ import type { PublicRoom, PublicRoomSettings, PublicRound } from "@/lib/arcade-c
 import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
 import { PUBLIC_ARCADE_MODE, roundFormatForQuestion } from "@/lib/arcade-games.mjs";
 import { normalizePrivateRoomCode } from "@/lib/private-rooms.mjs";
+import { PUBLIC_VOTE_ACCEPT_GRACE_MS as voteAcceptGrace, roundPhaseAt } from "@/lib/round-timing.mjs";
 
 export const PUBLIC_ROUND_REVEAL_MS = 7_000;
 export const PUBLIC_ROOM_BATCH_LENGTH = 24;
 export const PUBLIC_ROUND_ANSWER_MS = 15_000;
 /** Covers lock-click → POST latency so a lock sound still counts. */
-export const PUBLIC_VOTE_ACCEPT_GRACE_MS = 800;
+export const PUBLIC_VOTE_ACCEPT_GRACE_MS = voteAcceptGrace;
 
 const DEFAULT_ROUND_EPOCH_MS = Date.UTC(2026, 0, 1);
 
@@ -117,7 +118,7 @@ export function publicRoundAt(room: PublicRoom, roundNumber: number, now: number
   return {
     id: `${room.id}:round:${roundNumber}`,
     number: roundNumber,
-    phase: now < answerDeadline + PUBLIC_VOTE_ACCEPT_GRACE_MS ? "answering" : "reveal",
+    phase: roundPhaseAt(now, answerDeadline),
     game: question.game,
     questionId: question.id,
     startedAt,

@@ -24,11 +24,12 @@ function copyImage(image, alt) {
   };
 }
 
-function publicRoundImage(round, image, alt) {
+function publicRoundImage(round, image, alt, now) {
   if (!image) return undefined;
   if (round.game === "fogged-vision" && round.phase === "answering") {
+    const stage = timedClueStage(round, now);
     return {
-      src: `/api/round-image?roundId=${encodeURIComponent(round.id)}`,
+      src: `/api/round-image?roundId=${encodeURIComponent(round.id)}&stage=${stage}`,
       alt: alt ?? "Hidden hero",
       kind: image.kind,
     };
@@ -45,11 +46,14 @@ function copyShopkeeperItems(items) {
   }));
 }
 
-function publicRoundAudio(round, audio) {
+function publicRoundAudio(round, audio, now) {
   if (!audio) return undefined;
   const sources = audio.clips ?? (audio.src ? [audio.src] : []);
   if (!sources.length) return undefined;
-  const clips = sources.map((_, index) => `/api/round-audio?roundId=${encodeURIComponent(round.id)}&clip=${index}`);
+  const stage = round.phase === "answering" ? `&stage=${timedClueStage(round, now)}` : "";
+  const clips = sources.map(
+    (_, index) => `/api/round-audio?roundId=${encodeURIComponent(round.id)}&clip=${index}${stage}`,
+  );
   return {
     src: clips[0],
     ...(audio.clips ? { clips } : {}),
@@ -66,9 +70,8 @@ function timedClueStage(round, now) {
 
 export function publicQuestionRevision(round, now) {
   const state = round.phase === "reveal" ? "reveal" : "answering";
-  const clueState = ["spell-link", "quote-hunt", "aghanim-lab"].includes(round.game)
-    ? `:clue-${timedClueStage(round, now)}`
-    : "";
+  const stagedGames = ["spell-link", "quote-hunt", "aghanim-lab", "fogged-vision", "echo-hunt", "soundcheck"];
+  const clueState = stagedGames.includes(round.game) ? `:clue-${timedClueStage(round, now)}` : "";
   return `${round.id}:${state}${clueState}`;
 }
 
@@ -124,6 +127,7 @@ export function publicQuestionForRound(question, round, now) {
           round,
           question.image,
           round.game === "fogged-vision" && round.phase === "answering" ? "Hidden hero" : undefined,
+          now,
         );
   const shopkeeper = question.shopkeeper
     ? {
@@ -147,7 +151,7 @@ export function publicQuestionForRound(question, round, now) {
     round.game === "quote-hunt" && Array.isArray(question.quoteHints)
       ? question.quoteHints.slice(0, Math.max(0, clueStage - 1))
       : undefined;
-  const audio = publicRoundAudio(round, question.audio);
+  const audio = publicRoundAudio(round, question.audio, now);
   const valueOrder = valueOrderAnswer
     ? {
         family: question.valueOrder.family,

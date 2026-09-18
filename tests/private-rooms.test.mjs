@@ -215,6 +215,24 @@ describe("a party from create to empty", () => {
     expect(flushStalePrivateRoomScores(room.code, "round-stale-2", now + 6_200).players[0].score).toBe(194);
   });
 
+  it("credits every member when a missed reveal is flushed", () => {
+    const room = createPrivateRoom({
+      hostId: "flush-host-1",
+      ...catalog,
+      games: ["trivia"],
+      code: "FLUSH1",
+      name: "Host",
+      now: now + 7_000,
+    });
+    touchPrivateRoom(room.code, now + 7_050, { playerId: "flush-guest-1", name: "Guest" });
+    addPrivateRoomScore(room.code, "flush-host-1", 100, now + 7_100, "round-flush-1");
+    addPrivateRoomScore(room.code, "flush-guest-1", 150, now + 7_110, "round-flush-1");
+    const flushed = flushStalePrivateRoomScores(room.code, "round-flush-2", now + 7_200);
+    const byName = Object.fromEntries(flushed.players.map((player) => [player.name, player.score]));
+    expect(byName.Host).toBe(100);
+    expect(byName.Guest).toBe(150);
+  });
+
   it("lets only the host start, with a 3-second countdown", () => {
     expect(startPrivateRoom(created.code, "other-player-1", now + 1_000)).toMatchObject({
       ok: false,

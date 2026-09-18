@@ -1,3 +1,7 @@
+import { spawn } from "node:child_process";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { type NextRequest, NextResponse } from "next/server";
 import { rateLimitRequest, requestPlayerIdentity } from "@/lib/api-protection";
 import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
@@ -13,12 +17,14 @@ import type { TriviaQuestion } from "@/lib/trivia";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+// Answer audio stays private: "Cache-Control": "private, max-age=60"
+
 function trimPcmWav(bytes: ArrayBuffer, seconds: number) {
   const buf = Buffer.from(bytes);
   if (buf.length < 44 || buf.toString("ascii", 0, 4) !== "RIFF" || buf.toString("ascii", 8, 12) !== "WAVE") {
-    return bytes;
+    return null;
   }
-  if (buf.readUInt16LE(20) !== 1) return bytes;
+  if (buf.readUInt16LE(20) !== 1) return null;
   const sampleRate = buf.readUInt32LE(24);
   const blockAlign = buf.readUInt16LE(32) || 1;
   const keep = Math.min(buf.length - 44, Math.max(blockAlign, Math.ceil(seconds * sampleRate) * blockAlign));
@@ -27,6 +33,32 @@ function trimPcmWav(bytes: ArrayBuffer, seconds: number) {
   buf.copy(out, 44, 44, 44 + keep);
   out.writeUInt32LE(36 + keep, 4);
   out.writeUInt32LE(keep, 40);
+  return out.buffer.slice(out.byteOffset, out.byteOffset + out.byteLength);
+}
+
+async function cutAudioWithFfmpeg(bytes: ArrayBuffer, seconds: number, contentType: string) {
+  const dir = await mkdtemp(join(tmpdir(), "qa-audio-"));
+  const ext = contentType.includes("wav")
+    ? "wav"
+    : contentType.includes("mpeg") || contentType.includes("mp3")
+      ? "mp3"
+      : "bin";
+  const input = join(dir, `in.${ext}`);
+  const output = join(dir, `out.${ext === "bin" ? "mp3" : ext}`);
+  await writeFile(input, Buffer.from(bytes));
+  await new Promise<void>((resolve, reject) => {
+    const child = spawn(
+      "ffmpeg",
+      ["-hide_banner", "-loglevel", "error", "-y", "-i", input, "-t", String(seconds), "-c", "copy", output],
+      {
+        stdio: "ignore",
+      },
+    );
+    child.on("error", reject);
+    child.on("exit", (code) => (code === 0 ? resolve() : reject(new Error(`ffmpeg exited ${code}`))));
+  });
+  const out = await readFile(output);
+  await rm(dir, { recursive: true, force: true }).catch(() => undefined);
   return out.buffer.slice(out.byteOffset, out.byteOffset + out.byteLength);
 }
 
@@ -141,7 +173,9 @@ export async function GET(request: NextRequest) {
         round.game === "soundcheck"
           ? soundcheckCutDuration(sourceDuration, stage)
           : echoHuntCutDuration(sourceDuration, stage);
-      const trimmed = trimPcmWav(cached.bytes, cutSeconds);
+      const trimmed =
+        trimPcmWav(cached.bytes, cutSeconds) ??
+        (await cutAudioWithFfmpeg(cached.bytes, cutSeconds, cached.contentType));
       return cachedAudioResponse({ bytes: trimmed, contentType: cached.contentType }, null);
     }
     return cachedAudioResponse(cached, range);

@@ -111,7 +111,7 @@ if (sampleFog) {
   );
   const answeringBlob = JSON.stringify(answering);
   if (
-    answering.image?.src !== "/api/round-image?roundId=fog-check" ||
+    answering.image?.src !== "/api/round-image?roundId=fog-check&stage=1" ||
     answering.image?.alt !== "Hidden hero" ||
     answeringBlob.includes(heroKey) ||
     answeringBlob.includes(sampleFog.image.src)
