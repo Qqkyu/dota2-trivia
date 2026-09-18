@@ -131,7 +131,7 @@ export function privateRoundTiming(startedAt, now, answerMs = 15_000, revealMs =
     answerDeadline,
     revealDeadline,
     answerDuration: answerMs,
-    phase: now < answerDeadline ? "answering" : "reveal",
+    phase: now < answerDeadline + 800 ? "answering" : "reveal",
   };
 }
 
@@ -266,10 +266,11 @@ export function addPrivateRoomScore(code, playerId, points, now = Date.now(), ro
   const member = (record.members ?? []).find((entry) => entry.playerId === playerId);
   if (!member) return null;
   const awarded = Math.max(0, Number(points) || 0);
-  member.score = (Number(member.score) || 0) + awarded;
   if (roundId) {
     member.pendingRoundId = roundId;
     member.pendingPoints = awarded;
+  } else {
+    member.score = (Number(member.score) || 0) + awarded;
   }
   member.lastSeenAt = now;
   record.lastSeenAt = now;
@@ -280,11 +281,11 @@ export function addPrivateRoomScore(code, playerId, points, now = Date.now(), ro
 export function applyPrivateRoomCrowdBonus(code, roundId, multiplier, now = Date.now()) {
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
   if (!record || typeof roundId !== "string" || !roundId) return null;
-  const extra = Math.max(1, Math.floor(Number(multiplier) || 1)) - 1;
+  const factor = Math.max(1, Math.floor(Number(multiplier) || 1));
   if (record.crowdBonusRoundId === roundId) return publicView(record);
   for (const member of record.members ?? []) {
     if (member.pendingRoundId !== roundId) continue;
-    if (extra > 0) member.score = (Number(member.score) || 0) + (Number(member.pendingPoints) || 0) * extra;
+    member.score = (Number(member.score) || 0) + (Number(member.pendingPoints) || 0) * factor;
     member.pendingRoundId = "";
     member.pendingPoints = 0;
   }

@@ -397,7 +397,7 @@
     "varietyKey": "flashback:ti3-winner",
     "category": "Esports",
     "difficulty": 2,
-    "eyebrow": "The Play",
+    "eyebrow": "Dream Coil",
     "prompt": "Who won The International 2013 in Seattle?",
     "answers": [
       "TongFu",
@@ -406,7 +406,7 @@
       "Orange Esports"
     ],
     "correctIndex": 2,
-    "explanation": "Alliance beat Na'Vi 3–2. Game 5 is still called The Play.",
+    "explanation": "Alliance beat Na'Vi 3–2. Game 5 is remembered for s4's Million Dollar Dream Coil.",
     "flashback": {
       "family": "choice",
       "subject": "winner:ti3",
@@ -960,7 +960,7 @@
         {
           "key": "alliance",
           "name": "Alliance",
-          "context": "The Play",
+          "context": "Dream Coil",
           "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/111474.png"
         },
         {
@@ -978,7 +978,7 @@
         {
           "key": "ig",
           "name": "Invictus Gaming",
-          "context": "Seattle",
+          "context": "The Play",
           "image": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/5.png"
         }
       ],
@@ -4269,7 +4269,7 @@
       "2014"
     ],
     "correctIndex": 1,
-    "explanation": "TI2 was 2012 in Seattle. Invictus Gaming beat Natus Vincere.",
+    "explanation": "TI2 was 2012 in Seattle. Invictus Gaming beat Natus Vincere. Game 2 of that final is called The Play.",
     "flashback": {
       "family": "year",
       "subject": "event:ti2",
@@ -4292,7 +4292,7 @@
     "varietyKey": "flashback:ti3",
     "category": "Esports",
     "difficulty": 2,
-    "eyebrow": "The Play",
+    "eyebrow": "Dream Coil",
     "prompt": "What year was The International 3 in Seattle?",
     "answers": [
       "2012",
@@ -4301,7 +4301,7 @@
       "2015"
     ],
     "correctIndex": 1,
-    "explanation": "TI3 was 2013. Alliance beat Na'Vi in Game 5, still called The Play.",
+    "explanation": "TI3 was 2013. Alliance beat Na'Vi in Game 5.",
     "flashback": {
       "family": "year",
       "subject": "event:ti3",

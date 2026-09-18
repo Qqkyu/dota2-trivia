@@ -16,6 +16,7 @@ import {
   PUBLIC_ROUND_ANSWER_MS,
   PUBLIC_ROUND_REVEAL_MS,
   PUBLIC_ROOM_BATCH_LENGTH,
+  PUBLIC_VOTE_ACCEPT_GRACE_MS,
   publicRoundAt,
 } from "@/lib/public-rooms";
 
@@ -69,7 +70,7 @@ export function privateRoundAt(
   return {
     id: `${record.roomId}:round:${roundNumber}:${record.startedAt}`,
     number: roundNumber,
-    phase: now < answerDeadline ? "answering" : "reveal",
+    phase: now < answerDeadline + PUBLIC_VOTE_ACCEPT_GRACE_MS ? "answering" : "reveal",
     game: question.game,
     questionId: question.id,
     startedAt: roundStartedAt,

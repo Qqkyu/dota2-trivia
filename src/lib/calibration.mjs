@@ -16,17 +16,27 @@ export function reportTotal(reports) {
   return REPORT_REASONS.reduce((total, reason) => total + Math.max(0, reports?.[reason] ?? 0), 0);
 }
 
-/** Anonymous calibration may show totals, not whether an answer was correct. */
+/** Anonymous calibration may show totals and reports, not whether answers were right. */
 export function hideCalibrationAnswerCounts(record) {
+  const reports = Math.max(0, Number(record.reportTotal) || 0);
   return {
     ...record,
     questionId: record.questionRevision,
     counts: [0, 0, 0, 0],
     correct: 0,
     signal: {
-      ...record.signal,
+      status: reports > 0 ? "reported" : "collecting",
+      label: reports > 0 ? (record.signal?.label ?? "Watch reports") : "Collecting",
+      recommendation:
+        reports > 0
+          ? (record.signal?.recommendation ?? "Inspect reports.")
+          : "Collect more answers before calibration.",
       accuracy: null,
       sampleReady: false,
+      expectedMinimum: record.signal?.expectedMinimum ?? 0,
+      expectedMaximum: record.signal?.expectedMaximum ?? 1,
+      reportTotal: reports,
+      priority: reports > 0 ? Math.max(0, Number(record.signal?.priority) || 0) : 0,
     },
   };
 }

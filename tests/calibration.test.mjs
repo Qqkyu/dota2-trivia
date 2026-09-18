@@ -58,5 +58,7 @@ describe("hideCalibrationAnswerCounts", () => {
     expect(publicRecord.total).toBe(1);
     expect(publicRecord.correct).toBe(0);
     expect(publicRecord.signal.accuracy).toBeNull();
+    expect(publicRecord.signal.status).toBe("collecting");
+    expect(publicRecord.signal.priority).toBe(0);
   });
 });

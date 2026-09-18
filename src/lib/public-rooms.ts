@@ -117,7 +117,7 @@ export function publicRoundAt(room: PublicRoom, roundNumber: number, now: number
   return {
     id: `${room.id}:round:${roundNumber}`,
     number: roundNumber,
-    phase: now < answerDeadline ? "answering" : "reveal",
+    phase: now < answerDeadline + PUBLIC_VOTE_ACCEPT_GRACE_MS ? "answering" : "reveal",
     game: question.game,
     questionId: question.id,
     startedAt,

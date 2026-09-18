@@ -196,6 +196,7 @@ describe("a party from create to empty", () => {
       now: now + 5_000,
     });
     addPrivateRoomScore(room.code, "bonus-host-1", 194, now + 5_100, "round-bonus-1");
+    expect(getPrivateRoom(room.code, now + 5_150).players[0].score).toBe(0);
     expect(applyPrivateRoomCrowdBonus(room.code, "round-bonus-1", 2, now + 5_200).players[0].score).toBe(388);
     expect(applyPrivateRoomCrowdBonus(room.code, "round-bonus-1", 2, now + 5_300).players[0].score).toBe(388);
   });
@@ -214,6 +215,7 @@ describe("a party from create to empty", () => {
   });
 
   it("runs rounds on the 15s / 7s clock from start", () => {
+    expect(privateRoundTiming(now + 2_000, now + 2_000 + 15_400)).toMatchObject({ roundNumber: 0, phase: "answering" });
     expect(privateRoundTiming(now + 2_000, now + 2_000 + 16_000)).toMatchObject({ roundNumber: 0, phase: "reveal" });
     expect(privateRoundTiming(now + 2_000, now + 2_000 + 22_000)).toMatchObject({ roundNumber: 1, phase: "answering" });
   });
