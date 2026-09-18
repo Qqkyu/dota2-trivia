@@ -5,6 +5,7 @@ import {
   type CalibrationSignal,
   type ReportCounts,
 } from "@/lib/calibration";
+import { hideCalibrationAnswerCounts } from "@/lib/calibration.mjs";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, type GameId } from "@/lib/game-catalogs";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import {
@@ -61,10 +62,7 @@ export interface CalibrationSnapshot {
 export function publicCalibrationSnapshot(snapshot: CalibrationSnapshot): CalibrationSnapshot {
   return {
     ...snapshot,
-    records: snapshot.records.map((record) => ({
-      ...record,
-      questionId: record.questionRevision,
-    })),
+    records: snapshot.records.map((record) => hideCalibrationAnswerCounts(record) as CalibrationRecord),
   };
 }
 

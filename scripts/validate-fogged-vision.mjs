@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { heroCorrectAnswerKey } from "../src/lib/hero-picker.mjs";
+import { publicQuestionForRound } from "../src/lib/public-question.mjs";
 import { questionPresentationRevision } from "../src/lib/question-revision.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -80,6 +81,45 @@ for (const question of fogQuestions) {
     question.explanation !== `${hero.name} was hiding behind the fog.`
   ) {
     failures.push(`${question.id}: Fogged Vision hero naming drifted from the audited picker.`);
+  }
+}
+
+const sampleFog = fogQuestions[0];
+if (sampleFog) {
+  const heroKey = heroCorrectAnswerKey(sampleFog);
+  const answering = publicQuestionForRound(
+    sampleFog,
+    {
+      id: "fog-check",
+      phase: "answering",
+      game: "fogged-vision",
+      answerDeadline: 16_000,
+      answerDuration: 15_000,
+    },
+    1_000,
+  );
+  const reveal = publicQuestionForRound(
+    sampleFog,
+    {
+      id: "fog-check",
+      phase: "reveal",
+      game: "fogged-vision",
+      answerDeadline: 1,
+      answerDuration: 15_000,
+    },
+    16_000,
+  );
+  const answeringBlob = JSON.stringify(answering);
+  if (
+    answering.image?.src !== "/api/round-image?roundId=fog-check" ||
+    answering.image?.alt !== "Hidden hero" ||
+    answeringBlob.includes(heroKey) ||
+    answeringBlob.includes(sampleFog.image.src)
+  ) {
+    failures.push("Fogged Vision answering still names the hidden hero in the public image.");
+  }
+  if (reveal.image?.src !== sampleFog.image.src) {
+    failures.push("Fogged Vision reveal no longer restores the hero portrait.");
   }
 }
 

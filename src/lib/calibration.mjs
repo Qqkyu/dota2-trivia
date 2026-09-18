@@ -16,6 +16,15 @@ export function reportTotal(reports) {
   return REPORT_REASONS.reduce((total, reason) => total + Math.max(0, reports?.[reason] ?? 0), 0);
 }
 
+/** Anonymous calibration may show totals, not which option was correct. */
+export function hideCalibrationAnswerCounts(record) {
+  return {
+    ...record,
+    questionId: record.questionRevision,
+    counts: [0, 0, 0, 0],
+  };
+}
+
 /**
  * Produces a recommendation only after the sample threshold is met. Reports
  * always remain a manual-review signal and never mutate a live difficulty.

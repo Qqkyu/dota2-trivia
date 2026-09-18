@@ -156,6 +156,15 @@ for (const [question, game] of representativeQuestions) {
       `${question.id}: hero-grid reveal did not restore its correct hero key.`,
     );
   }
+  if (game === "fogged-vision") {
+    record(
+      payload.image?.src === `/api/round-image?roundId=${encodeURIComponent(answeringRound.id)}` &&
+        payload.image?.alt === "Hidden hero" &&
+        !payload.image.src.includes("/heroes/") &&
+        revealPayload.image?.src === question.image.src,
+      `${question.id}: Fogged Vision answering image still names the hidden hero.`,
+    );
+  }
   const revealQuestion = Object.fromEntries(Object.entries(revealPayload).filter(([key]) => key !== "reveal"));
   const leakedRevealKeys = [...forbiddenAnsweringKeys].filter((key) => keysInside(revealQuestion).has(key));
   record(leakedRevealKeys.length === 0, `${question.id}: reveal question leaked ${leakedRevealKeys.join(", ")}.`);

@@ -5,6 +5,7 @@ import {
   QUESTION_REPORT_GRACE_MS,
   REPORT_REASONS,
   calibrationSignal,
+  hideCalibrationAnswerCounts,
   reportTotal,
 } from "../src/lib/calibration.mjs";
 
@@ -38,5 +39,22 @@ describe("calibrationSignal", () => {
     expect(watched).toMatchObject({ status: "reported", label: "Watch reports" });
     expect(reviewed).toMatchObject({ status: "reported", label: "Review reports", reportTotal: 3 });
     expect(reportTotal({ ...noReports, unclear: 3 })).toBe(3);
+  });
+});
+
+describe("hideCalibrationAnswerCounts", () => {
+  it("keeps totals but hides per-option counts", () => {
+    const publicRecord = hideCalibrationAnswerCounts({
+      questionId: "damage:axe_culling_blade:1",
+      questionRevision: "rev-1",
+      prompt: "What is Culling Blade's damage?",
+      counts: [0, 0, 1, 0],
+      total: 1,
+      correct: 1,
+    });
+    expect(publicRecord.questionId).toBe("rev-1");
+    expect(publicRecord.counts).toEqual([0, 0, 0, 0]);
+    expect(publicRecord.total).toBe(1);
+    expect(publicRecord.correct).toBe(1);
   });
 });

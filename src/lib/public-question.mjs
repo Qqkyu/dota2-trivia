@@ -24,6 +24,18 @@ function copyImage(image, alt) {
   };
 }
 
+function publicRoundImage(round, image, alt) {
+  if (!image) return undefined;
+  if (round.game === "fogged-vision" && round.phase === "answering") {
+    return {
+      src: `/api/round-image?roundId=${encodeURIComponent(round.id)}`,
+      alt: alt ?? "Hidden hero",
+      kind: image.kind,
+    };
+  }
+  return copyImage(image, alt);
+}
+
 function copyShopkeeperItems(items) {
   return items?.map((item) => ({
     key: item.key,
@@ -108,7 +120,8 @@ export function publicQuestionForRound(question, round, now) {
   const image =
     hidePromptArtwork || (round.game === "spell-link" && clueStage < 3)
       ? undefined
-      : copyImage(
+      : publicRoundImage(
+          round,
           question.image,
           round.game === "fogged-vision" && round.phase === "answering" ? "Hidden hero" : undefined,
         );
