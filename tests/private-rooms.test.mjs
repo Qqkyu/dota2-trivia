@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { beforeAll, describe, expect, it } from "vitest";
 import { formatsForRoundGames, PUBLIC_ROUND_FORMATS } from "../src/lib/arcade-games.mjs";
 import {
@@ -451,5 +452,15 @@ describe("party size cap", () => {
     expect(late.players).toHaveLength(PRIVATE_ROOM_PLAYER_MAX);
     expect(names(late)).toContain("Nope");
     expect(names(late)).not.toContain("P1");
+  });
+});
+
+describe("party lobby polling", () => {
+  it("does not restart the room poll when parent callbacks change", () => {
+    const source = readFileSync(new URL("../src/components/private-room-panel.tsx", import.meta.url), "utf8");
+    expect(source).toContain("onStartedRef");
+    expect(source).toContain("onWaitingChangeRef");
+    expect(source).not.toMatch(/\[onStarted, onWaitingChange, playActive\]/);
+    expect(source).toContain("[initialCode, requestRoom, trackedCode]");
   });
 });

@@ -150,6 +150,17 @@ const EMPTY_CROWD: CrowdResult = {
 };
 const STORAGE_KEY = "queue-arcade:stats:v2";
 const PLAYER_KEY = "queue-arcade:player:v2";
+
+function storedPlayerId() {
+  if (typeof window === "undefined") return "";
+  return window.sessionStorage.getItem(`${PLAYER_KEY}:tab`) ?? "";
+}
+
+function withPlayerId(url: string, playerId = storedPlayerId()) {
+  if (!url.startsWith("/api/") || !playerId || url.includes("playerId=")) return url;
+  return `${url}${url.includes("?") ? "&" : "?"}playerId=${encodeURIComponent(playerId)}`;
+}
+
 const SETTINGS_KEY = "queue-arcade:settings:v4";
 const PREVIOUS_SETTINGS_KEY = "queue-arcade:settings:v3";
 const LEGACY_STORAGE_KEY = "queue-trivia:stats:v1";
@@ -706,7 +717,7 @@ function QuestionArtwork({
         </span>
       ) : (
         <Image
-          src={image.src}
+          src={withPlayerId(image.src)}
           alt={concealIdentity ? "" : image.alt}
           fill
           sizes="(max-width: 700px) 112px, 150px"
@@ -2771,7 +2782,7 @@ export function QueueArcade({
 
       if (snapshot.round.phase === "reveal" && prewarmedAfterRoundIdRef.current !== snapshot.round.id) {
         prewarmedAfterRoundIdRef.current = snapshot.round.id;
-        void fetch(`/api/round-audio?roundId=${encodeURIComponent(snapshot.round.id)}`, {
+        void fetch(withPlayerId(`/api/round-audio?roundId=${encodeURIComponent(snapshot.round.id)}`), {
           method: "HEAD",
           cache: "no-store",
         }).catch(() => undefined);
@@ -2943,6 +2954,8 @@ export function QueueArcade({
     },
     [setDeadline, setPhase],
   );
+
+  const ignorePartyStart = useCallback(() => undefined, []);
 
   const startRun = useCallback(
     async (updateHistory = true, privateCode = privateCodeRef.current) => {
@@ -3181,12 +3194,22 @@ export function QueueArcade({
             finalizeRound(roomSnapshotRef.current, 0);
           }
         }
-      } catch {
+      } catch (cause) {
         if (roundIdRef.current === snapshot.round.id) {
-          voteRequestSettledRef.current = true;
-          setRoomError("Vote confirmation delayed · checking the room");
-          if (phaseRef.current === "reveal" && roomSnapshotRef.current) {
-            finalizeRound(roomSnapshotRef.current, 0);
+          const roundClosed = cause instanceof Error && cause.message === "ROUND_CLOSED";
+          if (!roundClosed && phaseRef.current === "answering") {
+            voteRequestSettledRef.current = false;
+            selectedIndexRef.current = null;
+            selectedAnswerKeyRef.current = null;
+            setSelectedIndex(null);
+            setSelectedAnswerKey(null);
+            setRoomError("Vote failed · try again");
+          } else {
+            voteRequestSettledRef.current = true;
+            setRoomError("Vote confirmation delayed · checking the room");
+            if (phaseRef.current === "reveal" && roomSnapshotRef.current) {
+              finalizeRound(roomSnapshotRef.current, 0);
+            }
           }
         }
         void syncRoom();
@@ -4308,7 +4331,7 @@ export function QueueArcade({
                             ? echoHuntCutDuration(roundAudioDurations[audioSource] ?? 0, clueStage)
                             : undefined
                       }
-                      src={audioSource}
+                      src={withPlayerId(audioSource)}
                       preload="auto"
                       aria-hidden="true"
                       onLoadStart={() => setRoundAudioState("loading")}
@@ -4939,7 +4962,7 @@ export function QueueArcade({
           displayName={account?.authenticated ? account.profile.user.displayName : ""}
           initialCode={activePrivateCode}
           playActive
-          onStarted={() => undefined}
+          onStarted={ignorePartyStart}
           onWaitingChange={handlePartyWaiting}
         />
       ) : null}

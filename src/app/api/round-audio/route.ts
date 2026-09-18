@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { rateLimitRequest } from "@/lib/api-protection";
+import { rateLimitRequest, requestPlayerIdentity } from "@/lib/api-protection";
 import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
 import { liveRoundAt, liveRoundForSettings } from "@/lib/private-room-rounds";
 import { privateRoomCodeFromRoundId } from "@/lib/private-rooms.mjs";
@@ -44,10 +44,9 @@ function liveRoundForRoundId(roundId: string) {
 }
 
 export async function HEAD(request: NextRequest) {
-  const limited = rateLimitRequest(request, "round-audio", "proxy", 60);
-  if (limited) return limited;
-
   const searchParams = new URL(request.url).searchParams;
+  const limited = rateLimitRequest(request, "round-audio", requestPlayerIdentity(request, searchParams), 60);
+  if (limited) return limited;
   const roundId = searchParams.get("roundId");
 
   if (!roundId || roundId.length > 240 || !isGameId(roundId.split(":", 1)[0])) {
@@ -87,10 +86,9 @@ export async function HEAD(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  const limited = rateLimitRequest(request, "round-audio", "proxy", 60);
-  if (limited) return limited;
-
   const searchParams = new URL(request.url).searchParams;
+  const limited = rateLimitRequest(request, "round-audio", requestPlayerIdentity(request, searchParams), 60);
+  if (limited) return limited;
   const roundId = searchParams.get("roundId");
   const clip = Number(searchParams.get("clip") ?? "0");
 

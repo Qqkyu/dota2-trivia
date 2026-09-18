@@ -9,6 +9,13 @@ function clientAddress(request: Request) {
   return (forwarded || "unknown").slice(0, 128);
 }
 
+const PLAYER_ID_PATTERN = /^[A-Za-z0-9._:-]{8,80}$/;
+
+export function requestPlayerIdentity(request: Request, searchParams?: URLSearchParams) {
+  const raw = (searchParams?.get("playerId") ?? new URL(request.url).searchParams.get("playerId") ?? "").trim();
+  return PLAYER_ID_PATTERN.test(raw) ? raw : "anonymous";
+}
+
 export function rateLimitRequest(request: Request, scope: string, identity: string, limit: number) {
   if (rateLimitDisabled()) return null;
   const key = anonymousVoterHash(`rate-limit:${scope}`, `${clientAddress(request)}:${identity}`);

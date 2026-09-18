@@ -208,6 +208,9 @@ export function PrivateRoomPanel({
   const [copied, setCopied] = useState(false);
   const [chatOpen, setChatOpen] = useState(true);
   const startedRef = useRef(false);
+  const onStartedRef = useRef(onStarted);
+  const onWaitingChangeRef = useRef(onWaitingChange);
+  const playerIdRef = useRef(playerId);
   const joinInputRef = useRef<HTMLInputElement | null>(null);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
   const nameRef = useRef("");
@@ -225,6 +228,12 @@ export function PrivateRoomPanel({
   useEffect(() => {
     nameRef.current = shownName;
   }, [shownName]);
+
+  useEffect(() => {
+    onStartedRef.current = onStarted;
+    onWaitingChangeRef.current = onWaitingChange;
+    playerIdRef.current = playerId;
+  }, [onStarted, onWaitingChange, playerId]);
 
   useEffect(() => {
     if (!room?.waiting || !room.countdownMs) {
@@ -305,15 +314,15 @@ export function PrivateRoomPanel({
         committedNameRef.current = selfName;
       }
       setRoom(next);
-      onWaitingChange?.(next.waiting);
+      onWaitingChangeRef.current?.(next.waiting);
       if (next.waiting) setScreen("wait");
       if (!next.waiting && next.startedAt && !startedRef.current) {
         startedRef.current = true;
-        if (!playActive) onStarted(next.code);
+        if (!playActive) onStartedRef.current(next.code);
       }
       return next;
     },
-    [onStarted, onWaitingChange, playActive],
+    [playActive],
   );
 
   const requestRoom = useCallback(
@@ -350,7 +359,7 @@ export function PrivateRoomPanel({
       }
       try {
         const payload = await requestRoom(
-          `/api/private-rooms?code=${encodeURIComponent(trackedCode)}&playerId=${encodeURIComponent(playerId())}&name=${encodeURIComponent(next)}`,
+          `/api/private-rooms?code=${encodeURIComponent(trackedCode)}&playerId=${encodeURIComponent(playerIdRef.current())}&name=${encodeURIComponent(next)}`,
         );
         if (!payload) return false;
         const selfName = payload.players.find((player) => player.self)?.name ?? "";
@@ -368,7 +377,7 @@ export function PrivateRoomPanel({
         return false;
       }
     },
-    [adoptServerName, clearNameNotice, flashNameNotice, playerId, requestRoom, room?.players, trackedCode],
+    [adoptServerName, clearNameNotice, flashNameNotice, requestRoom, room?.players, trackedCode],
   );
 
   useEffect(() => {
@@ -376,9 +385,12 @@ export function PrivateRoomPanel({
     if (!code) return undefined;
     const abort = new AbortController();
     const load = () =>
-      requestRoom(`/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(playerId())}`, {
-        signal: abort.signal,
-      }).catch((cause: unknown) => {
+      requestRoom(
+        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(playerIdRef.current())}`,
+        {
+          signal: abort.signal,
+        },
+      ).catch((cause: unknown) => {
         if (abort.signal.aborted) return;
         if (cause instanceof Error && cause.name === "AbortError") return;
         setError(cause instanceof Error ? cause.message : "Request failed.");
@@ -391,7 +403,7 @@ export function PrivateRoomPanel({
       window.clearTimeout(start);
       window.clearInterval(timer);
     };
-  }, [initialCode, playerId, requestRoom, trackedCode]);
+  }, [initialCode, requestRoom, trackedCode]);
 
   const toggleGame = (id: string) => {
     setSelected((current) => (current.includes(id) ? current.filter((game) => game !== id) : [...current, id]));
