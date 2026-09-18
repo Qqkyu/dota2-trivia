@@ -49,7 +49,7 @@ async function cutAudioWithFfmpeg(bytes: ArrayBuffer, seconds: number, contentTy
   await new Promise<void>((resolve, reject) => {
     const child = spawn(
       "ffmpeg",
-      ["-hide_banner", "-loglevel", "error", "-y", "-i", input, "-t", String(seconds), "-c", "copy", output],
+      ["-hide_banner", "-loglevel", "error", "-y", "-i", input, "-t", String(seconds), output],
       {
         stdio: "ignore",
       },
@@ -166,9 +166,10 @@ export async function GET(request: NextRequest) {
         round.game === "soundcheck"
           ? soundcheckRevealStage(remaining, round.answerDuration)
           : clueStageAt(remaining, round.answerDuration);
+      const cachedBytes = Buffer.from(cached.bytes);
+      const isWav = cachedBytes.length > 44 && cachedBytes.toString("ascii", 0, 4) === "RIFF";
       const sourceDuration =
-        question?.soundcheck?.clips?.[clip]?.duration ??
-        (cached.bytes.byteLength > 44 ? (cached.bytes.byteLength - 44) / 88_200 : 5);
+        question?.soundcheck?.clips?.[clip]?.duration ?? (isWav ? (cachedBytes.length - 44) / 88_200 : 4);
       const cutSeconds =
         round.game === "soundcheck"
           ? soundcheckCutDuration(sourceDuration, stage)
