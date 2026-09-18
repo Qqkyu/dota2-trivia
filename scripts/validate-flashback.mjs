@@ -141,7 +141,7 @@ const FLASHBACK_ART = {
   "flashback:dueling-fates-turbo": "dueling-fates-mark.png",
   "flashback:shrines-700": "map-overview.webp",
   "flashback:arcane-rune": "map-overview.webp",
-  "flashback:oracle-wyvern-same-day": "new-heroes-mark.png",
+  "flashback:oracle-wyvern-same-day": "outlanders-mark.png",
   "flashback:kez-crownfall": "heroes/vengefulspirit",
   "flashback:lotus-pools": "map-overview.webp",
   "flashback:icefrog-hired-by": "icefrog-mark.png",
@@ -299,6 +299,12 @@ record(
     .filter((question) => question.kind === "flashback-year")
     .every((question) => !String(question.image?.src ?? "").includes(String(question.flashback?.correctYear))),
   "A Flashback year prompt still has the year in the image path.",
+);
+record(
+  questions
+    .filter((question) => question.kind === "flashback-year")
+    .every((question) => !question.prompt.includes(String(question.flashback.correctYear))),
+  "A Flashback year prompt still prints the year it asks for.",
 );
 const yearQuestions = questions.filter((question) => question.kind === "flashback-year");
 const poolYearMin = Math.min(...yearQuestions.map((question) => question.flashback.correctYear));

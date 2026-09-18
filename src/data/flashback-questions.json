@@ -1939,16 +1939,16 @@
       "2015",
       "2016"
     ],
-    "correctIndex": 2,
-    "explanation": "Oracle shipped on 12 February 2015, the same day as Winter Wyvern.",
+    "correctIndex": 1,
+    "explanation": "Oracle shipped in Valve's Foreseer's Contract update in 2014. Winter Wyvern came later.",
     "flashback": {
       "family": "year",
       "subject": "hero:oracle",
-      "correctYear": 2015
+      "correctYear": 2014
     },
     "source": {
-      "label": "Heroes by release",
-      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+      "label": "Foreseer's Contract",
+      "url": "https://www.dota2.com/oracle/day2?l=english"
     },
     "patch": "7.41e",
     "image": {
@@ -2999,25 +2999,25 @@
     "eyebrow": "Double drop",
     "prompt": "Which pair of heroes shipped on the same day?",
     "answers": [
+      "Snapfire and Void Spirit",
       "Oracle and Winter Wyvern",
-      "Snapfire and Hoodwink",
       "Dawnbreaker and Marci",
       "Mars and Grimstroke"
     ],
     "correctIndex": 0,
-    "explanation": "Oracle and Winter Wyvern both shipped on 12 February 2015.",
+    "explanation": "Snapfire and Void Spirit both shipped in The Outlanders update on 26 November 2019. Oracle and Winter Wyvern shipped in different years.",
     "flashback": {
       "family": "choice",
       "subject": "fact:oracle-wyvern"
     },
     "source": {
-      "label": "Heroes by release",
-      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+      "label": "The Outlanders",
+      "url": "https://www.dota2.com/outlanders/"
     },
     "patch": "7.41e",
     "image": {
-      "src": "/arcade/flashback/new-heroes-mark.png",
-      "alt": "New heroes",
+      "src": "/arcade/flashback/outlanders-mark.png",
+      "alt": "The Outlanders",
       "kind": "hero"
     }
   },
@@ -4261,7 +4261,7 @@
     "category": "Esports",
     "difficulty": 2,
     "eyebrow": "First Seattle TI",
-    "prompt": "What year was The International 2012 in Seattle?",
+    "prompt": "What year was The International 2 in Seattle?",
     "answers": [
       "2011",
       "2012",
@@ -4293,7 +4293,7 @@
     "category": "Esports",
     "difficulty": 2,
     "eyebrow": "The Play",
-    "prompt": "What year was The International 2013 in Seattle?",
+    "prompt": "What year was The International 3 in Seattle?",
     "answers": [
       "2012",
       "2013",
@@ -4325,7 +4325,7 @@
     "category": "Esports",
     "difficulty": 2,
     "eyebrow": "First $10M",
-    "prompt": "What year was The International 2014 in Seattle?",
+    "prompt": "What year was The International 4 in Seattle?",
     "answers": [
       "2013",
       "2014",
@@ -4357,7 +4357,7 @@
     "category": "Esports",
     "difficulty": 2,
     "eyebrow": "KeyArena",
-    "prompt": "What year was The International 2015 at KeyArena?",
+    "prompt": "What year was The International 5 at KeyArena?",
     "answers": [
       "2014",
       "2015",
@@ -4389,7 +4389,7 @@
     "category": "Esports",
     "difficulty": 2,
     "eyebrow": "Wings",
-    "prompt": "What year was The International 2016 at KeyArena?",
+    "prompt": "What year was The International 6 at KeyArena?",
     "answers": [
       "2015",
       "2016",
@@ -4421,7 +4421,7 @@
     "category": "Esports",
     "difficulty": 2,
     "eyebrow": "Miracle-",
-    "prompt": "What year was The International 2017 at KeyArena?",
+    "prompt": "What year was The International 7 at KeyArena?",
     "answers": [
       "2016",
       "2017",
@@ -4485,7 +4485,7 @@
     "category": "Esports",
     "difficulty": 2,
     "eyebrow": "Climate Pledge",
-    "prompt": "What year was The International 2023 in Seattle?",
+    "prompt": "What year was The International 12 at Climate Pledge Arena?",
     "answers": [
       "2022",
       "2023",
@@ -5494,22 +5494,22 @@
     "category": "History",
     "difficulty": 2,
     "eyebrow": "Whose basement",
-    "prompt": "The Underhollow was a maze under which hero?",
+    "prompt": "The Underhollow was a maze under which of these?",
     "answers": [
       "Shadow Fiend",
-      "Roshan",
       "Underlord",
+      "Roshan",
       "Doom"
     ],
     "correctIndex": 2,
-    "explanation": "The Underhollow was Underlord's maze, the 2018 Battle Pass co-op event.",
+    "explanation": "The 2018 Battle Pass put the Underhollow maze beneath Roshan's lair. Three-player teams fought other teams there.",
     "flashback": {
       "family": "choice",
       "subject": "event:underhollow"
     },
     "source": {
-      "label": "https://dota2.fandom.com/wiki/Events",
-      "url": "https://dota2.fandom.com/wiki/Events"
+      "label": "The International 2018 Battle Pass",
+      "url": "https://www.dota2.com/international2018/battlepass/?l=english"
     },
     "patch": "7.41e",
     "image": {

@@ -5561,27 +5561,6 @@
     }
   },
   {
-    "id": "damage:spectre_desolate:1",
-    "kind": "ability-damage",
-    "category": "Damage",
-    "difficulty": 3,
-    "eyebrow": "Spectre · Desolate",
-    "prompt": "What is Desolate's bonus attack damage?",
-    "answers": ["43", "20", "23", "63"],
-    "correctIndex": 2,
-    "explanation": "Desolate — bonus damage per attack: 23, before talents and upgrades. This pure damage is added when no enemy ally is within 350 range.",
-    "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
-    },
-    "patch": "7.41f",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/spectre_desolate.png",
-      "alt": "Desolate ability icon",
-      "kind": "ability"
-    }
-  },
-  {
     "id": "damage:storm_spirit_overload:4",
     "kind": "ability-damage",
     "category": "Damage",

@@ -165,11 +165,6 @@ export const DAMAGE_QUESTION_FACTS = Object.freeze({
     measure: "damage per second",
     note: "Shrapnel applies this amount each second in its area.",
   },
-  spectre_desolate: {
-    attributeKey: "bonus_damage",
-    measure: "bonus damage per attack",
-    note: "This pure damage is added when no enemy ally is within 350 range.",
-  },
   storm_spirit_overload: {
     attributeKey: "overload_damage",
     measure: "burst damage",

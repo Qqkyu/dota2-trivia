@@ -2,11 +2,11 @@
   "patch": "7.41f",
   "contentVersion": "7.41f-variety-7",
   "snapshotDate": "2026-09-15",
-  "questionCount": 1037,
+  "questionCount": 1036,
   "categoryCounts": {
     "Abilities": 127,
     "Cooldowns": 52,
-    "Damage": 48,
+    "Damage": 47,
     "Heroes": 577,
     "Recipes": 36,
     "Items": 137,
@@ -15,7 +15,7 @@
   "kindCounts": {
     "spell-owner": 127,
     "cooldown": 52,
-    "ability-damage": 48,
+    "ability-damage": 47,
     "fogged-hero": 127,
     "hero-quote": 245,
     "hero-stat-duel": 42,
@@ -45,7 +45,7 @@
   },
   "assetValidation": {
     "checkedAt": "2026-09-15",
-    "verifiedAssetCount": 505,
+    "verifiedAssetCount": 504,
     "verifiedAudioCount": 123,
     "rejectedQuestionIds": []
   }
