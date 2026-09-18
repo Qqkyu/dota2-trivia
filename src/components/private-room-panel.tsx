@@ -470,12 +470,9 @@ export function PrivateRoomPanel({
       const player = playerId();
       const existing = await fetch(`/api/private-rooms?code=${encodeURIComponent(code)}&peek=1`);
       const existingPayload = (await existing.json()) as PrivateRoomPayload;
-      if (existing.ok) {
-        setError("That code is taken.");
-        setErrorField("code");
-        return;
+      if (!existing.ok && existing.status !== 404) {
+        throw new Error(existingPayload.error ?? "Could not create that party.");
       }
-      if (existing.status !== 404) throw new Error(existingPayload.error ?? "Could not create that party.");
       if (!selected.length) {
         setError("Pick at least one game.");
         setErrorField("games");

@@ -133,7 +133,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (live.isolated && settings.privateCode && result.accepted) {
-      addPrivateRoomScore(settings.privateCode, effectiveVoterId, basePoints, submittedAt);
+      addPrivateRoomScore(settings.privateCode, effectiveVoterId, basePoints, submittedAt, roundId);
     }
 
     if (accountUser && result.playerVote && !live.isolated) {

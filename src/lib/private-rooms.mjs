@@ -260,15 +260,37 @@ export function privateRoomMember(code, playerId) {
 }
 
 /** Only players already on the roster can score; a vote never joins a party. */
-export function addPrivateRoomScore(code, playerId, points, now = Date.now()) {
+export function addPrivateRoomScore(code, playerId, points, now = Date.now(), roundId = "") {
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
   if (!record || typeof playerId !== "string" || !playerId) return null;
   const member = (record.members ?? []).find((entry) => entry.playerId === playerId);
   if (!member) return null;
-  member.score = (Number(member.score) || 0) + Math.max(0, Number(points) || 0);
+  const awarded = Math.max(0, Number(points) || 0);
+  member.score = (Number(member.score) || 0) + awarded;
+  if (roundId) {
+    member.pendingRoundId = roundId;
+    member.pendingPoints = awarded;
+  }
   member.lastSeenAt = now;
   record.lastSeenAt = now;
   return publicView(record, playerId);
+}
+
+/** Apply the reveal crowd-breaker once per round. Vote-time scores are the base. */
+export function applyPrivateRoomCrowdBonus(code, roundId, multiplier, now = Date.now()) {
+  const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
+  if (!record || typeof roundId !== "string" || !roundId) return null;
+  const extra = Math.max(1, Math.floor(Number(multiplier) || 1)) - 1;
+  if (record.crowdBonusRoundId === roundId) return publicView(record);
+  for (const member of record.members ?? []) {
+    if (member.pendingRoundId !== roundId) continue;
+    if (extra > 0) member.score = (Number(member.score) || 0) + (Number(member.pendingPoints) || 0) * extra;
+    member.pendingRoundId = "";
+    member.pendingPoints = 0;
+  }
+  record.crowdBonusRoundId = roundId;
+  record.lastSeenAt = now;
+  return publicView(record);
 }
 
 export function leavePrivateRoom(code, playerId, now = Date.now()) {

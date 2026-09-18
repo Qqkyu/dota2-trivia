@@ -51,10 +51,12 @@ describe("hideCalibrationAnswerCounts", () => {
       counts: [0, 0, 1, 0],
       total: 1,
       correct: 1,
+      signal: { status: "collecting", accuracy: 1, sampleReady: false },
     });
     expect(publicRecord.questionId).toBe("rev-1");
     expect(publicRecord.counts).toEqual([0, 0, 0, 0]);
     expect(publicRecord.total).toBe(1);
-    expect(publicRecord.correct).toBe(1);
+    expect(publicRecord.correct).toBe(0);
+    expect(publicRecord.signal.accuracy).toBeNull();
   });
 });

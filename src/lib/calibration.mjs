@@ -16,12 +16,18 @@ export function reportTotal(reports) {
   return REPORT_REASONS.reduce((total, reason) => total + Math.max(0, reports?.[reason] ?? 0), 0);
 }
 
-/** Anonymous calibration may show totals, not which option was correct. */
+/** Anonymous calibration may show totals, not whether an answer was correct. */
 export function hideCalibrationAnswerCounts(record) {
   return {
     ...record,
     questionId: record.questionRevision,
     counts: [0, 0, 0, 0],
+    correct: 0,
+    signal: {
+      ...record.signal,
+      accuracy: null,
+      sampleReady: false,
+    },
   };
 }
 

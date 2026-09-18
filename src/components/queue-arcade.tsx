@@ -2407,6 +2407,7 @@ export function QueueArcade({
   }, [account]);
   const joiningRoomRef = useRef(false);
   const [roomError, setRoomError] = useState<string | null>(null);
+  const [voteError, setVoteError] = useState<string | null>(null);
   const [activeRoomId, setActiveRoomId] = useState("");
   const [activeRoundId, setActiveRoundId] = useState("");
   const [activePlayers, setActivePlayers] = useState(0);
@@ -2854,6 +2855,7 @@ export function QueueArcade({
         setSelectedIndex(nextSelectedIndex);
         setSelectedAnswerKey(nextSelectedAnswerKey);
         setAnswerTimeLeft(nextAnswerTimeLeft);
+        setVoteError(null);
 
         participatedRef.current = snapshot.round.phase === "answering";
         finalizedRef.current = snapshot.round.phase === "reveal";
@@ -3190,6 +3192,7 @@ export function QueueArcade({
             }
           }
           setRoomError(null);
+          setVoteError(null);
           if (phaseRef.current === "reveal" && roomSnapshotRef.current) {
             finalizeRound(roomSnapshotRef.current, 0);
           }
@@ -3203,7 +3206,7 @@ export function QueueArcade({
             selectedAnswerKeyRef.current = null;
             setSelectedIndex(null);
             setSelectedAnswerKey(null);
-            setRoomError("Vote failed · try again");
+            setVoteError("Vote failed · try again");
           } else {
             voteRequestSettledRef.current = true;
             setRoomError("Vote confirmation delayed · checking the room");
@@ -4073,6 +4076,12 @@ export function QueueArcade({
             <div className={styles.timerTrack} aria-hidden="true">
               <span style={{ transform: `scaleX(${Math.max(0, Math.min(1, timerRatio))})` }} />
             </div>
+
+            {voteError ? (
+              <p className={styles.voteRetry} data-testid="vote-retry" role="status">
+                {voteError}
+              </p>
+            ) : null}
 
             <div className={styles.roundHeader}>
               <div>

@@ -4,6 +4,7 @@ import { formatsForRoundGames, PUBLIC_ROUND_FORMATS } from "../src/lib/arcade-ga
 import {
   addPrivateRoomMessage,
   addPrivateRoomScore,
+  applyPrivateRoomCrowdBonus,
   createPrivateRoom,
   getPrivateRoom,
   guestDisplayName,
@@ -183,6 +184,20 @@ describe("a party from create to empty", () => {
     expect(names(leavePrivateRoom(created.code, "guest-player-99", idleHostAt + 3))).not.toContain("Puppey");
     const ranked = addPrivateRoomScore(created.code, "host-player-1", 80, idleHostAt + 4);
     expect(ranked.players.find((player) => player.host)?.score).toBe(80);
+  });
+
+  it("adds the crowd-breaker bonus once at reveal", () => {
+    const room = createPrivateRoom({
+      hostId: "bonus-host-1",
+      ...catalog,
+      games: ["trivia"],
+      code: "BONUS1",
+      name: "Host",
+      now: now + 5_000,
+    });
+    addPrivateRoomScore(room.code, "bonus-host-1", 194, now + 5_100, "round-bonus-1");
+    expect(applyPrivateRoomCrowdBonus(room.code, "round-bonus-1", 2, now + 5_200).players[0].score).toBe(388);
+    expect(applyPrivateRoomCrowdBonus(room.code, "round-bonus-1", 2, now + 5_300).players[0].score).toBe(388);
   });
 
   it("lets only the host start, with a 3-second countdown", () => {

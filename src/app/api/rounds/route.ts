@@ -5,7 +5,9 @@ import { rateLimitRequest } from "@/lib/api-protection";
 import { prioritizedKeyCounts } from "@/lib/crowd-split.mjs";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
 import { liveRoundForSettings } from "@/lib/private-room-rounds";
+import { applyPrivateRoomCrowdBonus } from "@/lib/private-rooms.mjs";
 import { parsePublicRoomSettings } from "@/lib/public-rooms";
+import { crowdScoreMultiplier } from "@/lib/scoring.mjs";
 import { publicQuestionForRound, publicQuestionRevision } from "@/lib/public-question";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { correctAnswerKey, isKeyedAnswerQuestion } from "@/lib/keyed-answer";
@@ -82,6 +84,15 @@ export async function GET(request: NextRequest) {
       result.playerVote && isKeyedAnswerQuestion(question)
         ? { ...result.playerVote, answerIndex: 0 }
         : result.playerVote;
+
+    if (live.isolated && settings.privateCode && round.phase === "reveal") {
+      applyPrivateRoomCrowdBonus(
+        settings.privateCode,
+        round.id,
+        crowdScoreMultiplier(result.scoreSummary?.correctCount ?? 0, result.total),
+        serverNow,
+      );
+    }
 
     return NextResponse.json(
       {
