@@ -2,6 +2,7 @@ export const SOUNDCHECK_REVEAL_STAGES = 3;
 export const ECHO_HUNT_REVEAL_STAGES = 3;
 export const SOUNDCHECK_SEQUENCE_GAP_SECONDS = 0.12;
 export const SOUNDCHECK_FINAL_REVEAL_SECONDS = 7;
+export const ECHO_HUNT_FINAL_REVEAL_SECONDS = 7;
 
 const SOUNDCHECK_CUT_PROFILES = [
   { ratio: 0.05, minimum: 0.055, minimumCeilingRatio: 0.1, maximum: 0.12 },
@@ -36,10 +37,19 @@ export function soundcheckCutDuration(duration, stage) {
  * The complete final pass needs a little more than one third of a 15-second
  * round so even the longest reviewed two-sound sequence can finish.
  */
-export function soundcheckRevealStage(timeRemainingMs, roundDurationMs) {
-  if (timeRemainingMs <= SOUNDCHECK_FINAL_REVEAL_SECONDS * 1_000) return 3;
+function timedAudioRevealStage(timeRemainingMs, roundDurationMs, finalSeconds) {
+  if (timeRemainingMs <= finalSeconds * 1_000) return 3;
   if (timeRemainingMs <= (roundDurationMs * 2) / 3) return 2;
   return 1;
+}
+
+export function soundcheckRevealStage(timeRemainingMs, roundDurationMs) {
+  return timedAudioRevealStage(timeRemainingMs, roundDurationMs, SOUNDCHECK_FINAL_REVEAL_SECONDS);
+}
+
+/** The complete Echo line needs the same seven-second window as Soundcheck. */
+export function echoHuntRevealStage(timeRemainingMs, roundDurationMs) {
+  return timedAudioRevealStage(timeRemainingMs, roundDurationMs, ECHO_HUNT_FINAL_REVEAL_SECONDS);
 }
 
 /**

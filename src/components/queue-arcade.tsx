@@ -118,6 +118,7 @@ import {
   SOUNDCHECK_REVEAL_STAGES,
   SOUNDCHECK_SEQUENCE_GAP_SECONDS,
   echoHuntCutDuration,
+  echoHuntRevealStage,
   soundcheckCutDuration,
   soundcheckRevealStage,
 } from "@/lib/soundcheck.mjs";
@@ -3696,7 +3697,9 @@ export function QueueArcade({
         ? (currentQuestion?.clueStage ?? 1)
         : isSoundcheckRound
           ? soundcheckRevealStage(answerRemaining, answerDuration)
-          : clueStageAt(answerRemaining, answerDuration);
+          : isEchoHuntRound
+            ? echoHuntRevealStage(answerRemaining, answerDuration)
+            : clueStageAt(answerRemaining, answerDuration);
   const firstClueAt = Math.round((answerDuration * 2) / 3_000);
   const finalClueAt = Math.round(answerDuration / 3_000);
   const liveAward = currentQuestion

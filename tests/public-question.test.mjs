@@ -15,10 +15,51 @@ describe("soundcheck public stage clock", () => {
     expect(publicQuestionRevision(soundcheckRound, 8_000)).toBe("sound-round-1:answering:clue-3");
   });
 
-  it("keeps echo hunt on equal thirds", () => {
+  it("puts the full Echo Hunt cut on the source URL with seven seconds left", () => {
     const echoRound = { ...soundcheckRound, id: "echo-round-1", game: "echo-hunt" };
-    expect(publicQuestionRevision(echoRound, 9_999)).toBe("echo-round-1:answering:clue-2");
-    expect(publicQuestionRevision(echoRound, 10_000)).toBe("echo-round-1:answering:clue-3");
+    expect(publicQuestionRevision(echoRound, 7_999)).toBe("echo-round-1:answering:clue-2");
+    expect(publicQuestionRevision(echoRound, 8_000)).toBe("echo-round-1:answering:clue-3");
+  });
+});
+
+describe("flashback order cards", () => {
+  const question = {
+    id: "flashback:season-events-order",
+    kind: "flashback-order",
+    category: "History",
+    difficulty: 3,
+    eyebrow: "Seasonal calendar",
+    prompt: "Put these events in the order they first ran.",
+    answers: ["a", "b", "c", "d"],
+    correctIndex: 0,
+    explanation: "First Frostivus in 2012.",
+    flashback: {
+      family: "order",
+      correctOrder: ["frostivus", "underhollow", "morokai", "diretide_return"],
+      cards: [
+        { key: "morokai", name: "Wrath of the Mo'rokai", context: "2019", image: "/m.png" },
+        { key: "diretide_return", name: "Diretide returns", context: "2020", image: "/d.png" },
+        { key: "frostivus", name: "First Frostivus", context: "2012", image: "/f.png" },
+        { key: "underhollow", name: "The Underhollow", context: "2018", image: "/u.png" },
+      ],
+    },
+  };
+
+  it("hides years while answers are open and restores them on reveal", () => {
+    const answeringRound = {
+      id: "flash-order-1",
+      phase: "answering",
+      game: "flashback",
+      answerDeadline: 15_000,
+      answerDuration: 15_000,
+    };
+    const answering = publicQuestionForRound(question, answeringRound, 1_000);
+    expect(answering.flashback.cards.map((card) => card.context)).toEqual([undefined, undefined, undefined, undefined]);
+    expect(JSON.stringify(answering)).not.toMatch(/2012|2018|2019|2020/);
+
+    const revealRound = { ...answeringRound, phase: "reveal" };
+    const reveal = publicQuestionForRound(question, revealRound, 16_000);
+    expect(reveal.flashback.cards.map((card) => card.context)).toEqual(["2019", "2020", "2012", "2018"]);
   });
 });
 

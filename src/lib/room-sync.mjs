@@ -1,4 +1,4 @@
-import { SOUNDCHECK_FINAL_REVEAL_SECONDS } from "./soundcheck.mjs";
+import { ECHO_HUNT_FINAL_REVEAL_SECONDS, SOUNDCHECK_FINAL_REVEAL_SECONDS } from "./soundcheck.mjs";
 
 export const ROOM_SYNC_REQUEST_TIMEOUT_MS = 5_000;
 export const ROOM_SYNC_DEADLINE_GRACE_MS = 75;
@@ -29,6 +29,9 @@ export function roomProgressiveClueSyncDeadline(answerDeadline, answerDuration, 
 
   if (roundGame === "soundcheck" && clueStage === 2) {
     return answerDeadline - SOUNDCHECK_FINAL_REVEAL_SECONDS * 1_000;
+  }
+  if (roundGame === "echo-hunt" && clueStage === 2) {
+    return answerDeadline - ECHO_HUNT_FINAL_REVEAL_SECONDS * 1_000;
   }
 
   return answerDeadline - (answerDuration * (3 - clueStage)) / 3;

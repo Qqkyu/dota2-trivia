@@ -62,6 +62,10 @@ describe("deadline scheduling", () => {
     expect(roomProgressiveClueSyncDeadline(25_000, 15_000, 2, "soundcheck")).toBe(18_000);
   });
 
+  it("wakes Echo Hunt at seven seconds left for the full line", () => {
+    expect(roomProgressiveClueSyncDeadline(25_000, 15_000, 2, "echo-hunt")).toBe(18_000);
+  });
+
   it("keeps the reviewed five-second heartbeat", () => {
     expect(ROOM_SYNC_HEARTBEAT_MS).toBe(5_000);
   });

@@ -17,6 +17,7 @@ import {
   SOUNDCHECK_REVEAL_STAGES,
   SOUNDCHECK_SEQUENCE_GAP_SECONDS,
   echoHuntCutDuration,
+  echoHuntRevealStage,
   soundcheckCutDuration,
   soundcheckRevealStage,
 } from "../src/lib/soundcheck.mjs";
@@ -310,6 +311,14 @@ if (
   soundcheckRevealStage(7_000, 15_000) !== 3
 ) {
   failures.push("Soundcheck reveal timing no longer reserves seven seconds for the complete final pass.");
+}
+
+if (
+  echoHuntRevealStage(10_001, 15_000) !== 1 ||
+  echoHuntRevealStage(7_001, 15_000) !== 2 ||
+  echoHuntRevealStage(7_000, 15_000) !== 3
+) {
+  failures.push("Echo Hunt reveal timing no longer reserves seven seconds for the complete line.");
 }
 
 for (const [duration, expectedCuts] of expectedEchoCuts) {

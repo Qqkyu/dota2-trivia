@@ -5,7 +5,12 @@ import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
 import { liveRoundAt, liveRoundForSettings } from "@/lib/private-room-rounds";
 import { privateRoomCodeFromRoundId } from "@/lib/private-rooms.mjs";
 import { cachedAudioResponse, cachedRoundAudio, warmRoundAudio } from "@/lib/round-audio-cache.mjs";
-import { echoHuntCutDuration, soundcheckCutDuration, soundcheckRevealStage } from "@/lib/soundcheck.mjs";
+import {
+  echoHuntCutDuration,
+  echoHuntRevealStage,
+  soundcheckCutDuration,
+  soundcheckRevealStage,
+} from "@/lib/soundcheck.mjs";
 import { clueStageAt } from "@/lib/scoring.mjs";
 import { parsePublicRoomSettings } from "@/lib/public-rooms";
 import { logServerError } from "@/lib/server-diagnostics";
@@ -136,7 +141,12 @@ export async function GET(request: NextRequest) {
       const stage =
         round.game === "soundcheck"
           ? soundcheckRevealStage(remaining, round.answerDuration)
-          : clueStageAt(remaining, round.answerDuration);
+          : round.game === "echo-hunt"
+            ? echoHuntRevealStage(remaining, round.answerDuration)
+            : clueStageAt(remaining, round.answerDuration);
+      if (stage >= 3) {
+        return cachedAudioResponse(cached, null);
+      }
       const cachedBytes = Buffer.from(cached.bytes);
       const isWav = cachedBytes.length > 44 && cachedBytes.toString("ascii", 0, 4) === "RIFF";
       const sourceDuration =

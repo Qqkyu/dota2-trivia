@@ -14,7 +14,7 @@ import {
   recipeBuilderCorrectAnswerKey,
 } from "./item-picker.mjs";
 import { clueStageAt } from "./scoring.mjs";
-import { soundcheckRevealStage } from "./soundcheck.mjs";
+import { echoHuntRevealStage, soundcheckRevealStage } from "./soundcheck.mjs";
 import { isValueOrderQuestion, valueOrderCorrectAnswerKey } from "./value-order.mjs";
 
 function copyImage(image, alt) {
@@ -68,6 +68,7 @@ function timedClueStage(round, now) {
   if (round.phase === "reveal") return 3;
   const remaining = Math.max(0, round.answerDeadline - now);
   if (round.game === "soundcheck") return soundcheckRevealStage(remaining, round.answerDuration);
+  if (round.game === "echo-hunt") return echoHuntRevealStage(remaining, round.answerDuration);
   return clueStageAt(remaining, round.answerDuration);
 }
 
@@ -181,7 +182,7 @@ export function publicQuestionForRound(question, round, now) {
               cards: question.flashback.cards.map(({ key, name, context, image }) => ({
                 key,
                 name,
-                ...(context ? { context } : {}),
+                ...(round.phase === "reveal" && context ? { context } : {}),
                 ...(image ? { image } : {}),
               })),
             }

@@ -1,4 +1,4 @@
-import { soundcheckRevealStage } from "./soundcheck.mjs";
+import { echoHuntRevealStage, soundcheckRevealStage } from "./soundcheck.mjs";
 
 export const PROGRESSIVE_ROUND_GAMES = new Set([
   "spell-link",
@@ -20,6 +20,7 @@ export function answerStageForRound(roundGame, timeRemaining, duration) {
   const safeDuration = Math.max(1, duration);
   const safeRemaining = Math.max(0, Math.min(safeDuration, timeRemaining));
   if (roundGame === "soundcheck") return soundcheckRevealStage(safeRemaining, safeDuration);
+  if (roundGame === "echo-hunt") return echoHuntRevealStage(safeRemaining, safeDuration);
   if (safeRemaining <= safeDuration / 3) return 3;
   if (safeRemaining <= (safeDuration * 2) / 3) return 2;
   return 1;

@@ -101,6 +101,10 @@ record(
   "The audio route no longer cuts answering MP3s through the shared encoder helper.",
 );
 record(
+  routeSource.includes("if (stage >= 3)") && routeSource.includes("echoHuntRevealStage("),
+  "Echo Hunt final cuts are still trimmed to a four-second fallback.",
+);
+record(
   cutterSource.includes("finally") &&
     cutterSource.includes("await rm(dir, { recursive: true, force: true })") &&
     cutterSource.includes("spawn(") &&
