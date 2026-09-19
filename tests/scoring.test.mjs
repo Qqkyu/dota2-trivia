@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { clueStageAt, crowdScoreMultiplier, roundScoreSummary, scoreBreakdown } from "../src/lib/scoring.mjs";
+import {
+  clueStageAt,
+  crowdScoreMultiplier,
+  missedRoundResult,
+  roundScoreSummary,
+  scoreBreakdown,
+} from "../src/lib/scoring.mjs";
 
 const duration = 15_000;
 const standard = { difficulty: 2, game: "trivia" };
@@ -90,5 +96,29 @@ describe("roundScoreSummary", () => {
         playerBasePoints: null,
       }),
     ).toEqual({ correctCount: 1_000, average: 400, best: 500, playerPoints: null });
+  });
+});
+
+describe("missedRoundResult", () => {
+  it("recovers an accepted correct vote after a missed reveal", () => {
+    expect(
+      missedRoundResult("round-1", {
+        playerVote: { answerIndex: 0, submittedAt: 1 },
+        scoreSummary: { playerPoints: 246 },
+      }),
+    ).toEqual({ roundId: "round-1", correct: true, points: 246 });
+  });
+
+  it("counts an accepted wrong vote without inventing points", () => {
+    expect(
+      missedRoundResult("round-1", {
+        playerVote: { answerIndex: 2, submittedAt: 1 },
+        scoreSummary: { playerPoints: 0 },
+      }),
+    ).toEqual({ roundId: "round-1", correct: false, points: 0 });
+  });
+
+  it("ignores a round the player never answered", () => {
+    expect(missedRoundResult("round-1", { playerVote: null, scoreSummary: { playerPoints: 200 } })).toBeNull();
   });
 });

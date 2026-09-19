@@ -63,6 +63,28 @@ describe("flashback order cards", () => {
   });
 });
 
+describe("flashback order keys", () => {
+  it("does not encode TI edition numbers in the answering keys", async () => {
+    const { readFile } = await import("node:fs/promises");
+    const questions = JSON.parse(
+      await readFile(new URL("../src/data/flashback-questions.json", import.meta.url), "utf8"),
+    );
+    const question = questions.find((entry) => entry.id === "flashback:ti-year-gaps-order");
+    const round = {
+      id: "flash-ti-order-1",
+      phase: "answering",
+      game: "flashback",
+      answerDeadline: 15_000,
+      answerDuration: 15_000,
+    };
+    const answering = publicQuestionForRound(question, round, 1_000);
+    const keys = answering.flashback.cards.map((card) => card.key);
+    expect(keys.join(",")).not.toMatch(/ti\d/i);
+    const byNumber = [...keys].sort();
+    expect(byNumber.join(",")).not.toBe(question.flashback.correctOrder.join(","));
+  });
+});
+
 describe("spell-link public clues", () => {
   it("keeps the ability name out of the answering eyebrow", () => {
     const question = {

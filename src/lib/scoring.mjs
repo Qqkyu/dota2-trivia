@@ -57,6 +57,13 @@ export function crowdScoreMultiplier(correctCount, total) {
   return correctCount > 0 && total > 0 && correctCount / total < 0.5 ? 2 : 1;
 }
 
+/** Recover one accepted vote after its reveal was never read. */
+export function missedRoundResult(roundId, crowd) {
+  if (typeof roundId !== "string" || !roundId || !crowd?.playerVote) return null;
+  const points = Math.max(0, Math.round(Number(crowd.scoreSummary?.playerPoints) || 0));
+  return { roundId, correct: points > 0, points };
+}
+
 /**
  * Turns private base-score aggregates into the only score information that is
  * safe to reveal publicly. Incorrect answers never enter the average.

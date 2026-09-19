@@ -4,10 +4,10 @@ import { sessionUserForRequest } from "@/lib/auth-session";
 import { rateLimitRequest } from "@/lib/api-protection";
 import { prioritizedKeyCounts } from "@/lib/crowd-split.mjs";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
-import { liveRoundForSettings } from "@/lib/private-room-rounds";
+import { liveRoundAt, liveRoundForSettings } from "@/lib/private-room-rounds";
 import { applyPrivateRoomCrowdBonus, pendingPrivateRoomRoundIds } from "@/lib/private-rooms.mjs";
 import { parsePublicRoomSettings } from "@/lib/public-rooms";
-import { crowdScoreMultiplier } from "@/lib/scoring.mjs";
+import { crowdScoreMultiplier, missedRoundResult } from "@/lib/scoring.mjs";
 import { publicQuestionForRound, publicQuestionRevision } from "@/lib/public-question";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { correctAnswerKey, isKeyedAnswerQuestion } from "@/lib/keyed-answer";
@@ -70,7 +70,8 @@ export async function GET(request: NextRequest) {
       revealDeadline: round.revealDeadline,
       answerDuration: round.answerDuration,
     };
-    const [result, playerReport] = await Promise.all([
+    const previousRound = round.number > 0 ? liveRoundAt(settings, round.number - 1, serverNow) : null;
+    const [result, playerReport, previousCrowd] = await Promise.all([
       getRoundCrowd(round.id, room.id, effectivePlayerId, round.phase === "reveal"),
       getPlayerQuestionReport(
         room.gameId,
@@ -79,6 +80,9 @@ export async function GET(request: NextRequest) {
         questionCalibrationRevision(question),
         effectivePlayerId,
       ),
+      previousRound && effectivePlayerId
+        ? getRoundCrowd(previousRound.id, room.id, effectivePlayerId, true)
+        : Promise.resolve(null),
     ]);
     const playerVote =
       result.playerVote && isKeyedAnswerQuestion(question)
@@ -142,6 +146,7 @@ export async function GET(request: NextRequest) {
         },
         playerVote,
         playerReport,
+        previousResult: previousRound ? missedRoundResult(previousRound.id, previousCrowd) : null,
       },
       {
         headers: {

@@ -6125,10 +6125,10 @@
     "eyebrow": "Even years",
     "prompt": "Put these Internationals in the order they were played.",
     "answers": [
-      "order-v1:ti2,ti4,ti6,ti11",
-      "order-v1:ti2,ti6,ti4,ti11",
-      "order-v1:ti4,ti2,ti6,ti11",
-      "order-v1:ti2,ti4,ti11,ti6"
+      "order-v1:first_seattle,first_ten_million,wings,singapore",
+      "order-v1:first_seattle,wings,first_ten_million,singapore",
+      "order-v1:first_ten_million,first_seattle,wings,singapore",
+      "order-v1:first_seattle,first_ten_million,singapore,wings"
     ],
     "correctIndex": 0,
     "explanation": "TI2 in 2012, TI4 in 2014, TI6 in 2016, TI11 in 2022.",
@@ -6137,35 +6137,35 @@
       "subject": "order:ti-years",
       "cards": [
         {
-          "key": "ti11",
+          "key": "singapore",
           "name": "TI in Singapore",
           "context": "Tundra",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png"
         },
         {
-          "key": "ti4",
+          "key": "first_ten_million",
           "name": "First $10M TI",
           "context": "Newbee",
           "image": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png"
         },
         {
-          "key": "ti6",
+          "key": "wings",
           "name": "Wings TI",
           "context": "KeyArena",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_horiz.png"
         },
         {
-          "key": "ti2",
+          "key": "first_seattle",
           "name": "First Seattle TI",
           "context": "iG",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cyclone.png"
         }
       ],
       "correctOrder": [
-        "ti2",
-        "ti4",
-        "ti6",
-        "ti11"
+        "first_seattle",
+        "first_ten_million",
+        "wings",
+        "singapore"
       ]
     },
     "source": {

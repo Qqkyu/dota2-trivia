@@ -7,6 +7,7 @@ import { ROOM_SYNC_HEARTBEAT_MS, ROOM_SYNC_REQUEST_TIMEOUT_MS } from "../src/lib
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const component = await readFile(join(root, "src", "components", "queue-arcade.tsx"), "utf8");
+const partyPanel = await readFile(join(root, "src", "components", "private-room-panel.tsx"), "utf8");
 const failures = [];
 for (const requiredIntegration of [
   "roomSyncGateRef",
@@ -30,6 +31,13 @@ for (const requiredIntegration of [
 
 if (component.includes("syncPromiseRef")) {
   failures.push("The unbounded single-promise room lock returned.");
+}
+
+if (partyPanel.includes('window.addEventListener("pagehide", onLeave)')) {
+  failures.push("Waiting parties still leave on refresh.");
+}
+if (!partyPanel.includes('data-testid="private-room-leave"') || !partyPanel.includes("leaveParty()")) {
+  failures.push("Explicit Leave no longer removes a party member.");
 }
 
 if (failures.length) {

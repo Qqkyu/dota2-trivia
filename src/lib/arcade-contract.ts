@@ -26,6 +26,12 @@ export interface PlayerVote {
   answerKey?: string;
 }
 
+export interface MissedRoundResult {
+  roundId: string;
+  correct: boolean;
+  points: number;
+}
+
 export interface PublicRoomSettings {
   gameId: GameId;
   mode: ArcadeMode;
@@ -71,6 +77,7 @@ export interface RoomSnapshot {
   crowd: CrowdResult;
   playerVote: PlayerVote | null;
   playerReport: ReportReason | null;
+  previousResult: MissedRoundResult | null;
 }
 
 export interface VoteResult extends CrowdResult {

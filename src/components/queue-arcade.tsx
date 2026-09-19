@@ -583,6 +583,17 @@ function normalizePlayerVote(value: unknown) {
   };
 }
 
+function normalizePreviousResult(value: unknown) {
+  if (value == null) return null;
+  if (!value || typeof value !== "object") return undefined;
+  const candidate = value as { roundId?: unknown; correct?: unknown; points?: unknown };
+  if (typeof candidate.roundId !== "string" || !candidate.roundId || typeof candidate.correct !== "boolean") {
+    return undefined;
+  }
+  const points = Math.max(0, Math.round(Number(candidate.points) || 0));
+  return { roundId: candidate.roundId, correct: candidate.correct, points };
+}
+
 function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
   if (
     !value ||
@@ -657,6 +668,7 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     crowd,
     playerVote,
     playerReport,
+    previousResult: normalizePreviousResult(candidate.previousResult) ?? null,
   };
 }
 
@@ -2850,6 +2862,55 @@ export function QueueArcade({
       if (snapshot.question) questionRevisionRef.current = snapshot.questionRevision;
 
       if (isNewRound) {
+        const missed = snapshot.previousResult;
+        const previousQuestion = currentQuestionRef.current;
+        if (
+          hadRound &&
+          !finalizedRef.current &&
+          participatedRef.current &&
+          voteRequestSettledRef.current &&
+          missed &&
+          missed.roundId === roundIdRef.current &&
+          previousQuestion
+        ) {
+          const isCorrect = missed.correct;
+          const points = missed.points;
+          setScore((currentScore) => {
+            const nextScore = currentScore + points;
+            if (!accountRef.current?.authenticated) {
+              setLifetimeStats((currentStats) => {
+                const startedRun = !runSavedRef.current;
+                if (startedRun) runSavedRef.current = true;
+                const nextStats = {
+                  runs: currentStats.runs + (startedRun ? 1 : 0),
+                  answered: currentStats.answered + 1,
+                  correct: currentStats.correct + (isCorrect ? 1 : 0),
+                  bestScore: Math.max(currentStats.bestScore, nextScore),
+                };
+                window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextStats));
+                return nextStats;
+              });
+            }
+            return nextScore;
+          });
+          setHistory((records) => [
+            ...records,
+            {
+              id: missed.roundId,
+              category: previousQuestion.category,
+              game: previousQuestion.game,
+              correct: isCorrect,
+              points,
+            },
+          ]);
+          if (isCorrect) {
+            setCorrectCount((count) => count + 1);
+            setStreak((currentStreak) => currentStreak + 1);
+          } else {
+            setStreak(0);
+          }
+        }
+
         roundIdRef.current = snapshot.round.id;
         currentQuestionRef.current = question;
         setCurrentQuestion(question);

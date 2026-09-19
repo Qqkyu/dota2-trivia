@@ -407,6 +407,21 @@ record(
   "Flashback order questions no longer produce a keyed answer.",
 );
 record(
+  questions
+    .filter((question) => question.kind === "flashback-order")
+    .every((question) => {
+      const keys = question.flashback.cards.map((card) => String(card.key));
+      if (keys.some((key) => !/\d/.test(key))) return true;
+      const byNumber = [...keys].sort((left, right) => {
+        const leftNumber = Number(String(left).match(/\d+/g)?.join("") ?? "0");
+        const rightNumber = Number(String(right).match(/\d+/g)?.join("") ?? "0");
+        return leftNumber - rightNumber;
+      });
+      return JSON.stringify(byNumber) !== JSON.stringify(question.flashback.correctOrder);
+    }),
+  "A Flashback order question still encodes the correct order in its public card keys.",
+);
+record(
   questions.every(
     (question) =>
       !question.prompt.toLowerCase().includes(String(question.answers[question.correctIndex]).toLowerCase()) ||

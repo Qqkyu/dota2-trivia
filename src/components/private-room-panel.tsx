@@ -563,17 +563,6 @@ export function PrivateRoomPanel({
     }).catch(() => undefined);
   }, [joinCode, playerId, screen, trackedCode]);
 
-  useEffect(() => {
-    if (playActive || screen !== "wait" || !trackedCode) return undefined;
-    const onLeave = () => leaveParty();
-    window.addEventListener("pagehide", onLeave);
-    window.addEventListener("beforeunload", onLeave);
-    return () => {
-      window.removeEventListener("pagehide", onLeave);
-      window.removeEventListener("beforeunload", onLeave);
-    };
-  }, [leaveParty, playActive, screen, trackedCode]);
-
   const chatBox = room ? (
     <ChatBox room={room} draft={draft} onDraft={setDraft} onSend={() => void sendMessage()} />
   ) : null;
