@@ -1,9 +1,6 @@
-import { spawn } from "node:child_process";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
 import { type NextRequest, NextResponse } from "next/server";
 import { rateLimitRequest, requestPlayerIdentity } from "@/lib/api-protection";
+import { cutAudioWithFfmpeg } from "@/lib/cut-round-audio.mjs";
 import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
 import { liveRoundAt, liveRoundForSettings } from "@/lib/private-room-rounds";
 import { privateRoomCodeFromRoundId } from "@/lib/private-rooms.mjs";
@@ -33,32 +30,6 @@ function trimPcmWav(bytes: ArrayBuffer, seconds: number) {
   buf.copy(out, 44, 44, 44 + keep);
   out.writeUInt32LE(36 + keep, 4);
   out.writeUInt32LE(keep, 40);
-  return out.buffer.slice(out.byteOffset, out.byteOffset + out.byteLength);
-}
-
-async function cutAudioWithFfmpeg(bytes: ArrayBuffer, seconds: number, contentType: string) {
-  const dir = await mkdtemp(join(tmpdir(), "qa-audio-"));
-  const ext = contentType.includes("wav")
-    ? "wav"
-    : contentType.includes("mpeg") || contentType.includes("mp3")
-      ? "mp3"
-      : "bin";
-  const input = join(dir, `in.${ext}`);
-  const output = join(dir, `out.${ext === "bin" ? "mp3" : ext}`);
-  await writeFile(input, Buffer.from(bytes));
-  await new Promise<void>((resolve, reject) => {
-    const child = spawn(
-      "ffmpeg",
-      ["-hide_banner", "-loglevel", "error", "-y", "-i", input, "-t", String(seconds), output],
-      {
-        stdio: "ignore",
-      },
-    );
-    child.on("error", reject);
-    child.on("exit", (code) => (code === 0 ? resolve() : reject(new Error(`ffmpeg exited ${code}`))));
-  });
-  const out = await readFile(output);
-  await rm(dir, { recursive: true, force: true }).catch(() => undefined);
   return out.buffer.slice(out.byteOffset, out.byteOffset + out.byteLength);
 }
 

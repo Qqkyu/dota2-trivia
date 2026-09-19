@@ -69,10 +69,13 @@ try {
   globalThis.fetch = originalFetch;
 }
 
-const [routeSource, clientSource] = await Promise.all(
-  ["src/app/api/round-audio/route.ts", "src/components/queue-arcade.tsx"].map((file) =>
-    readFile(path.join(process.cwd(), file), "utf8"),
-  ),
+const [routeSource, clientSource, cutterSource, dockerfile] = await Promise.all(
+  [
+    "src/app/api/round-audio/route.ts",
+    "src/components/queue-arcade.tsx",
+    "src/lib/cut-round-audio.mjs",
+    "Dockerfile",
+  ].map((file) => readFile(path.join(process.cwd(), file), "utf8")),
 );
 record(
   routeSource.includes('round.id !== roundId || round.phase !== "reveal"') &&
@@ -92,6 +95,21 @@ record(
 record(
   clientSource.includes('method: "HEAD"') && clientSource.includes("prewarmedAfterRoundIdRef"),
   "The client no longer requests one bodyless audio warmup per reveal.",
+);
+record(
+  routeSource.includes('from "@/lib/cut-round-audio.mjs"') && routeSource.includes("cutAudioWithFfmpeg("),
+  "The audio route no longer cuts answering MP3s through the shared encoder helper.",
+);
+record(
+  cutterSource.includes("finally") &&
+    cutterSource.includes("await rm(dir, { recursive: true, force: true })") &&
+    cutterSource.includes("spawn(") &&
+    cutterSource.includes('"ffmpeg"'),
+  "Failed audio cuts no longer remove their temporary work directory.",
+);
+record(
+  dockerfile.includes("apk add --no-cache ffmpeg") && dockerfile.includes("FROM node:22-alpine AS runner"),
+  "The production image no longer installs ffmpeg for Echo Hunt cuts.",
 );
 
 if (failures.length) throw new Error(failures.join("\n"));
