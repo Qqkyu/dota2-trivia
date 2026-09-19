@@ -14,7 +14,7 @@ for (const requiredIntegration of [
   "requestRoomSnapshot(settings, ensurePlayerId(), attempt.signal)",
   "gate.isCurrent(attempt.generation)",
   "roomDeadlineSyncDelay(activeDeadline, Date.now())",
-  "roomProgressiveClueSyncDeadline(deadline, answerDuration, currentQuestion.clueStage)",
+  "roomProgressiveClueSyncDeadline(deadline, answerDuration, currentQuestion.clueStage, currentQuestion.game)",
   "window.setInterval(() => void syncRoom(), ROOM_SYNC_HEARTBEAT_MS)",
   "void syncRoom(true)",
   'window.addEventListener("focus", wakeRoom)',

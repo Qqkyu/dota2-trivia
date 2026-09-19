@@ -1,3 +1,5 @@
+import { SOUNDCHECK_FINAL_REVEAL_SECONDS } from "./soundcheck.mjs";
+
 export const ROOM_SYNC_REQUEST_TIMEOUT_MS = 5_000;
 export const ROOM_SYNC_DEADLINE_GRACE_MS = 75;
 export const ROOM_SYNC_HEARTBEAT_MS = 5_000;
@@ -15,7 +17,7 @@ export function roomDeadlineSyncDelay(deadline, now, graceMs = ROOM_SYNC_DEADLIN
   return Math.max(0, deadline - now + graceMs);
 }
 
-export function roomProgressiveClueSyncDeadline(answerDeadline, answerDuration, clueStage) {
+export function roomProgressiveClueSyncDeadline(answerDeadline, answerDuration, clueStage, roundGame) {
   if (
     !Number.isFinite(answerDeadline) ||
     !Number.isFinite(answerDuration) ||
@@ -23,6 +25,10 @@ export function roomProgressiveClueSyncDeadline(answerDeadline, answerDuration, 
     (clueStage !== 1 && clueStage !== 2)
   ) {
     return null;
+  }
+
+  if (roundGame === "soundcheck" && clueStage === 2) {
+    return answerDeadline - SOUNDCHECK_FINAL_REVEAL_SECONDS * 1_000;
   }
 
   return answerDeadline - (answerDuration * (3 - clueStage)) / 3;

@@ -297,6 +297,21 @@ export function applyPrivateRoomCrowdBonus(code, roundId, multiplier, now = Date
   return publicView(record);
 }
 
+/** Unsettled awards from earlier rounds, excluding the round that is still open. */
+export function pendingPrivateRoomRoundIds(code, currentRoundId) {
+  const record = rooms.get(normalizePrivateRoomCode(code) ?? "");
+  if (!record) return [];
+  const settled = record.settledRoundIds ?? {};
+  const ids = new Set();
+  for (const member of record.members ?? []) {
+    for (const award of member.pendingAwards ?? []) {
+      if (!award?.roundId || award.roundId === currentRoundId || settled[award.roundId]) continue;
+      ids.add(award.roundId);
+    }
+  }
+  return [...ids];
+}
+
 /** Keep base points when a later round starts before this round was settled. */
 export function flushStalePrivateRoomScores(code, currentRoundId, now = Date.now()) {
   const record = rooms.get(normalizePrivateRoomCode(code) ?? "");

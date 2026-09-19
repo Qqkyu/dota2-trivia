@@ -6,6 +6,7 @@ import {
   addPrivateRoomScore,
   applyPrivateRoomCrowdBonus,
   flushStalePrivateRoomScores,
+  pendingPrivateRoomRoundIds,
   createPrivateRoom,
   getPrivateRoom,
   guestDisplayName,
@@ -200,6 +201,21 @@ describe("a party from create to empty", () => {
     expect(getPrivateRoom(room.code, now + 5_150).players[0].score).toBe(0);
     expect(applyPrivateRoomCrowdBonus(room.code, "round-bonus-1", 2, now + 5_200).players[0].score).toBe(388);
     expect(applyPrivateRoomCrowdBonus(room.code, "round-bonus-1", 2, now + 5_300).players[0].score).toBe(388);
+  });
+
+  it("keeps unfinished awards so a later poll can apply the crowd bonus", () => {
+    const room = createPrivateRoom({
+      hostId: "pending-host-1",
+      ...catalog,
+      games: ["trivia"],
+      code: "PEND1",
+      name: "Host",
+      now: now + 5_500,
+    });
+    addPrivateRoomScore(room.code, "pending-host-1", 246, now + 5_600, "round-pending-1");
+    expect(pendingPrivateRoomRoundIds(room.code, "round-pending-2")).toEqual(["round-pending-1"]);
+    expect(applyPrivateRoomCrowdBonus(room.code, "round-pending-1", 2, now + 5_700).players[0].score).toBe(492);
+    expect(pendingPrivateRoomRoundIds(room.code, "round-pending-2")).toEqual([]);
   });
 
   it("keeps base points when a later round starts before reveal settlement", () => {

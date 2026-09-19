@@ -5,7 +5,7 @@ import { rateLimitRequest } from "@/lib/api-protection";
 import { prioritizedKeyCounts } from "@/lib/crowd-split.mjs";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
 import { liveRoundForSettings } from "@/lib/private-room-rounds";
-import { applyPrivateRoomCrowdBonus, flushStalePrivateRoomScores } from "@/lib/private-rooms.mjs";
+import { applyPrivateRoomCrowdBonus, pendingPrivateRoomRoundIds } from "@/lib/private-rooms.mjs";
 import { parsePublicRoomSettings } from "@/lib/public-rooms";
 import { crowdScoreMultiplier } from "@/lib/scoring.mjs";
 import { publicQuestionForRound, publicQuestionRevision } from "@/lib/public-question";
@@ -93,8 +93,28 @@ export async function GET(request: NextRequest) {
           crowdScoreMultiplier(result.scoreSummary?.correctCount ?? 0, result.total),
           serverNow,
         );
-      } else {
-        flushStalePrivateRoomScores(settings.privateCode, round.id, serverNow);
+      }
+      const pendingIds = pendingPrivateRoomRoundIds(settings.privateCode, round.id);
+      if (pendingIds.length) {
+        const crowds = await Promise.all(
+          pendingIds.map(async (pendingRoundId) => {
+            try {
+              return await getRoundCrowd(pendingRoundId, room.id, undefined, true);
+            } catch {
+              return null;
+            }
+          }),
+        );
+        pendingIds.forEach((pendingRoundId, index) => {
+          const crowd = crowds[index];
+          if (!crowd) return;
+          applyPrivateRoomCrowdBonus(
+            settings.privateCode,
+            pendingRoundId,
+            crowdScoreMultiplier(crowd.scoreSummary?.correctCount ?? 0, crowd.total),
+            serverNow,
+          );
+        });
       }
     }
 

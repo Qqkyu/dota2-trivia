@@ -1,11 +1,3 @@
-import { heroCorrectAnswerKey, isHeroPickerQuestion } from "./hero-picker.mjs";
-import {
-  isItemPickerQuestion,
-  isRealRecipeBuilderQuestion,
-  itemPickerCorrectAnswerKey,
-  recipeBuilderCorrectAnswerKey,
-} from "./item-picker.mjs";
-import { isValueOrderQuestion, valueOrderCorrectAnswerKey } from "./value-order.mjs";
 import {
   FLASHBACK_YEAR_EPOCH,
   flashbackOrderCorrectAnswerKey,
@@ -14,6 +6,16 @@ import {
   isFlashbackOrderQuestion,
   isFlashbackYearQuestion,
 } from "./flashback.mjs";
+import { heroCorrectAnswerKey, isHeroPickerQuestion } from "./hero-picker.mjs";
+import {
+  isItemPickerQuestion,
+  isRealRecipeBuilderQuestion,
+  itemPickerCorrectAnswerKey,
+  recipeBuilderCorrectAnswerKey,
+} from "./item-picker.mjs";
+import { clueStageAt } from "./scoring.mjs";
+import { soundcheckRevealStage } from "./soundcheck.mjs";
+import { isValueOrderQuestion, valueOrderCorrectAnswerKey } from "./value-order.mjs";
 
 function copyImage(image, alt) {
   if (!image) return undefined;
@@ -60,18 +62,18 @@ function publicRoundAudio(round, audio, now) {
   };
 }
 
+const STAGED_CLUE_GAMES = ["spell-link", "quote-hunt", "aghanim-lab", "fogged-vision", "echo-hunt", "soundcheck"];
+
 function timedClueStage(round, now) {
   if (round.phase === "reveal") return 3;
   const remaining = Math.max(0, round.answerDeadline - now);
-  if (remaining <= round.answerDuration / 3) return 3;
-  if (remaining <= (round.answerDuration * 2) / 3) return 2;
-  return 1;
+  if (round.game === "soundcheck") return soundcheckRevealStage(remaining, round.answerDuration);
+  return clueStageAt(remaining, round.answerDuration);
 }
 
 export function publicQuestionRevision(round, now) {
   const state = round.phase === "reveal" ? "reveal" : "answering";
-  const stagedGames = ["spell-link", "quote-hunt", "aghanim-lab", "fogged-vision", "echo-hunt", "soundcheck"];
-  const clueState = stagedGames.includes(round.game) ? `:clue-${timedClueStage(round, now)}` : "";
+  const clueState = STAGED_CLUE_GAMES.includes(round.game) ? `:clue-${timedClueStage(round, now)}` : "";
   return `${round.id}:${state}${clueState}`;
 }
 
@@ -81,7 +83,7 @@ export function publicQuestionRevision(round, now) {
  * until they are intentionally added here.
  */
 export function publicQuestionForRound(question, round, now) {
-  const clueStage = ["spell-link", "quote-hunt", "aghanim-lab"].includes(round.game) ? timedClueStage(round, now) : 1;
+  const clueStage = STAGED_CLUE_GAMES.includes(round.game) ? timedClueStage(round, now) : 1;
   const openShopAnswer = isItemPickerQuestion(question);
   const recipeBuilderAnswer = isRealRecipeBuilderQuestion(question);
   const heroPickerAnswer = isHeroPickerQuestion(question);

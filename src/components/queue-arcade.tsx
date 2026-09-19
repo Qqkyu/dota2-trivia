@@ -316,6 +316,17 @@ function waitForAudioCut(
     onProgress();
   });
 }
+
+function roundAudioSourceKey(question: PublicArcadeQuestion | null | undefined) {
+  const sources = question?.audio?.clips ?? (question?.audio?.src ? [question.audio.src] : []);
+  return sources.join("|");
+}
+
+function audioUrlStage(src: string | undefined) {
+  const match = src?.match(/[?&]stage=(\d+)/);
+  return match ? Number(match[1]) : null;
+}
+
 type GamePhase = "lobby" | "waiting" | "answering" | "reveal";
 
 interface RoundAward {
@@ -2595,7 +2606,10 @@ export function QueueArcade({
       const isEchoHunt = question?.game === "echo-hunt";
       const isProgressiveAudio = isSoundcheck || isEchoHunt;
       if (enableSound) setSoundEnabled(true);
-      autoPlayedAudioKeyRef.current = isProgressiveAudio ? `${roundIdRef.current}:${revealStage}` : roundIdRef.current;
+      const sourceKey = roundAudioSourceKey(question);
+      autoPlayedAudioKeyRef.current = isProgressiveAudio
+        ? `${roundIdRef.current}:${revealStage}:${sourceKey}`
+        : roundIdRef.current;
       const controller = new AbortController();
       roundAudioAbortRef.current = controller;
       setRoundAudioClipIndex(0);
@@ -2628,14 +2642,19 @@ export function QueueArcade({
           }
           if (clipIndex === 0) setRoundAudioPlayCount((count) => count + 1);
 
+          const sourceAlreadyCut = sourceKey.includes("stage=");
           const sourceDuration = isSoundcheck
             ? question?.soundcheck?.clips[clipIndex]?.duration
             : Number.isFinite(audio.duration)
               ? audio.duration
               : 5;
-          const clipDuration = isSoundcheck
-            ? soundcheckCutDuration(sourceDuration ?? 0, revealStage)
-            : echoHuntCutDuration(sourceDuration ?? 0, revealStage);
+          const clipDuration = sourceAlreadyCut
+            ? 0
+            : isSoundcheck
+              ? soundcheckCutDuration(sourceDuration ?? 0, revealStage)
+              : isEchoHunt
+                ? echoHuntCutDuration(sourceDuration ?? 0, revealStage)
+                : 0;
           const endedResult =
             isProgressiveAudio && clipDuration
               ? await waitForAudioCut(audio, clipDuration * 1_000, controller.signal)
@@ -3512,8 +3531,11 @@ export function QueueArcade({
       currentQuestion &&
       (currentQuestion.game === "spell-link" ||
         currentQuestion.game === "quote-hunt" ||
-        currentQuestion.game === "aghanim-lab")
-        ? roomProgressiveClueSyncDeadline(deadline, answerDuration, currentQuestion.clueStage)
+        currentQuestion.game === "aghanim-lab" ||
+        currentQuestion.game === "soundcheck" ||
+        currentQuestion.game === "echo-hunt" ||
+        currentQuestion.game === "fogged-vision")
+        ? roomProgressiveClueSyncDeadline(deadline, answerDuration, currentQuestion.clueStage, currentQuestion.game)
         : null;
     const activeDeadline =
       phaseDeadline !== null && progressiveClueDeadline !== null
@@ -3698,13 +3720,16 @@ export function QueueArcade({
 
   useEffect(() => {
     const hasRoundAudio = isProgressiveAudioRound;
-    const autoplayKey = isProgressiveAudioRound ? `${activeRoundId}:${clueStage}` : activeRoundId;
+    const sourceKey = roundAudioSourceKey(currentQuestion);
+    const autoplayKey = isProgressiveAudioRound ? `${activeRoundId}:${clueStage}:${sourceKey}` : activeRoundId;
+    const srcStage = audioUrlStage(currentQuestion?.audio?.src ?? currentQuestion?.audio?.clips?.[0]);
     if (
       phase !== "answering" ||
       !hasRoundAudio ||
       !currentQuestion?.audio ||
       !soundEnabled ||
       !roundAudioRefs.current.some(Boolean) ||
+      (srcStage !== null && srcStage !== clueStage) ||
       autoPlayedAudioKeyRef.current === autoplayKey
     ) {
       return;
@@ -3714,6 +3739,7 @@ export function QueueArcade({
   }, [
     activeRoundId,
     clueStage,
+    currentQuestion,
     currentQuestion?.audio,
     currentQuestion?.game,
     currentQuestion?.id,
@@ -4289,15 +4315,18 @@ export function QueueArcade({
                 key={`${activeRoundId}:fog`}
                 className={clsx(styles.questionBlock, styles.fogQuestion, styles.heroPickerQuestion)}
                 data-testid="round-prompt"
-                data-fog-stage={clueStage}
+                data-fog-stage={phase === "reveal" ? "reveal" : clueStage}
+                data-fog-source={phase === "answering" ? "server" : undefined}
               >
                 <div className={styles.fogArtwork}>
                   <QuestionArtwork question={currentQuestion} concealIdentity />
-                  <span>
-                    <ScanEye />
-                    Fog {String(clueStage).padStart(2, "0")}
-                    <small>/ 03</small>
-                  </span>
+                  {phase === "reveal" ? null : (
+                    <span>
+                      <ScanEye />
+                      Fog {String(clueStage).padStart(2, "0")}
+                      <small>/ 03</small>
+                    </span>
+                  )}
                 </div>
                 <div className={styles.questionCopy}>
                   <span>Progressive reveal</span>
@@ -4340,7 +4369,7 @@ export function QueueArcade({
                               clueStage,
                             )
                           : isEchoHuntRound
-                            ? echoHuntCutDuration(roundAudioDurations[audioSource] ?? 0, clueStage)
+                            ? (roundAudioDurations[audioSource] ?? undefined)
                             : undefined
                       }
                       src={withPlayerId(audioSource)}

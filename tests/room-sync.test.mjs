@@ -57,6 +57,11 @@ describe("deadline scheduling", () => {
     expect(roomProgressiveClueSyncDeadline(25_000, 0, 1)).toBeNull();
   });
 
+  it("wakes Soundcheck at seven seconds left for the full cut", () => {
+    expect(roomProgressiveClueSyncDeadline(25_000, 15_000, 1, "soundcheck")).toBe(15_000);
+    expect(roomProgressiveClueSyncDeadline(25_000, 15_000, 2, "soundcheck")).toBe(18_000);
+  });
+
   it("keeps the reviewed five-second heartbeat", () => {
     expect(ROOM_SYNC_HEARTBEAT_MS).toBe(5_000);
   });

@@ -17,13 +17,17 @@ export function reportTotal(reports) {
 }
 
 /** Anonymous calibration may show totals and reports, not whether answers were right. */
-export function hideCalibrationAnswerCounts(record) {
+export function hideCalibrationAnswerCounts(record, liveQuestionId) {
   const reports = Math.max(0, Number(record.reportTotal) || 0);
+  const lockedSpellLink = record.game === "spell-link" || record.kind === "spell-owner";
+  const hideLiveCounts = Boolean(liveQuestionId && record.questionId === liveQuestionId);
   return {
     ...record,
     questionId: record.questionRevision,
+    ...(lockedSpellLink ? { eyebrow: "Spell Link" } : {}),
     counts: [0, 0, 0, 0],
     correct: 0,
+    ...(hideLiveCounts ? { total: 0, updatedAt: 0 } : {}),
     signal: {
       status: reports > 0 ? "reported" : "collecting",
       label: reports > 0 ? (record.signal?.label ?? "Watch reports") : "Collecting",

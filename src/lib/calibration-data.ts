@@ -1,3 +1,4 @@
+import { PUBLIC_ARCADE_MODE } from "@/lib/arcade-games.mjs";
 import {
   calibrationSignal,
   emptyReportCounts,
@@ -7,6 +8,7 @@ import {
 } from "@/lib/calibration";
 import { hideCalibrationAnswerCounts } from "@/lib/calibration.mjs";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, type GameId } from "@/lib/game-catalogs";
+import { currentPublicRound } from "@/lib/public-rooms";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import {
   effectiveQuestionReviewStatus,
@@ -59,10 +61,20 @@ export interface CalibrationSnapshot {
   records: CalibrationRecord[];
 }
 
-export function publicCalibrationSnapshot(snapshot: CalibrationSnapshot): CalibrationSnapshot {
+function livePublicAnsweringQuestionId(now = Date.now()) {
+  const { round } = currentPublicRound({ gameId: DEFAULT_GAME_ID, mode: PUBLIC_ARCADE_MODE, filter: "Mixed" }, now);
+  return round.phase === "answering" ? round.questionId : null;
+}
+
+export function publicCalibrationSnapshot(
+  snapshot: CalibrationSnapshot,
+  liveAnsweringQuestionId: string | null = livePublicAnsweringQuestionId(),
+): CalibrationSnapshot {
   return {
     ...snapshot,
-    records: snapshot.records.map((record) => hideCalibrationAnswerCounts(record) as CalibrationRecord),
+    records: snapshot.records.map(
+      (record) => hideCalibrationAnswerCounts(record, liveAnsweringQuestionId) as CalibrationRecord,
+    ),
   };
 }
 

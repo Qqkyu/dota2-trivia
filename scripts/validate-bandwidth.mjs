@@ -29,7 +29,9 @@ if (
 }
 
 if (
-  !component.includes("roomProgressiveClueSyncDeadline(deadline, answerDuration, currentQuestion.clueStage)") ||
+  !component.includes(
+    "roomProgressiveClueSyncDeadline(deadline, answerDuration, currentQuestion.clueStage, currentQuestion.game)",
+  ) ||
   !component.includes("Math.min(phaseDeadline, progressiveClueDeadline)")
 ) {
   failures.push("Reduced polling is no longer paired with exact progressive-clue and phase wakeups.");

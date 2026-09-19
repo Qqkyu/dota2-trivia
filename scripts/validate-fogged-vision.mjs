@@ -46,7 +46,8 @@ if (styles.includes('.fogQuestion[data-skill-level="')) {
   failures.push("Retired difficulty overrides returned to Fogged Vision.");
 }
 if (
-  !component.includes("data-fog-stage={clueStage}") ||
+  !component.includes('data-fog-stage={phase === "reveal" ? "reveal" : clueStage}') ||
+  !component.includes('data-fog-source={phase === "answering" ? "server" : undefined}') ||
   !component.includes("key={`${activeRoundId}:fog`}") ||
   !component.includes('currentGame === "fogged-vision"')
 ) {

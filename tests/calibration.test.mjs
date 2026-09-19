@@ -61,4 +61,42 @@ describe("hideCalibrationAnswerCounts", () => {
     expect(publicRecord.signal.status).toBe("collecting");
     expect(publicRecord.signal.priority).toBe(0);
   });
+
+  it("hides Spell Link ability names while public calibration is open", () => {
+    const publicRecord = hideCalibrationAnswerCounts({
+      questionId: "ability-owner:huskar_burning_spear",
+      questionRevision: "rev-spear",
+      game: "spell-link",
+      kind: "spell-owner",
+      eyebrow: "Burning Spear",
+      prompt: "Which hero owns this ability?",
+      counts: [0, 0, 1, 0],
+      total: 1,
+      correct: 1,
+      reportTotal: 0,
+      signal: { status: "collecting", accuracy: 1, sampleReady: false, label: "Collecting" },
+    });
+    expect(publicRecord.eyebrow).toBe("Spell Link");
+    expect(publicRecord.questionId).toBe("rev-spear");
+  });
+
+  it("hides live totals for the open public question", () => {
+    const publicRecord = hideCalibrationAnswerCounts(
+      {
+        questionId: "ability-owner:huskar_burning_spear",
+        questionRevision: "rev-spear",
+        game: "spell-link",
+        kind: "spell-owner",
+        eyebrow: "Burning Spear",
+        total: 1,
+        updatedAt: 99,
+        reportTotal: 0,
+        signal: { status: "collecting", accuracy: 1, sampleReady: false },
+      },
+      "ability-owner:huskar_burning_spear",
+    );
+    expect(publicRecord.total).toBe(0);
+    expect(publicRecord.updatedAt).toBe(0);
+    expect(publicRecord.eyebrow).toBe("Spell Link");
+  });
 });

@@ -158,7 +158,8 @@ record(
   "Aghanim's Lab lost its fixed progressive layout.",
 );
 record(
-  serializer.includes('["spell-link", "quote-hunt", "aghanim-lab"]') &&
+  serializer.includes("aghanim-lab") &&
+    serializer.includes("STAGED_CLUE_GAMES") &&
     serializer.includes("clueStage >= 2") &&
     serializer.includes("clueStage >= 3"),
   "Aghanim's Lab clues are no longer staged by the server.",

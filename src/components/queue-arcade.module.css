@@ -3527,8 +3527,6 @@ button[data-state="wrong"] > .heroPickerVerdict {
 }
 
 .fogArtwork .artImage {
-  filter: blur(var(--fog-start-blur)) grayscale(var(--fog-start-grayscale)) brightness(var(--fog-start-brightness))
-    saturate(var(--fog-start-saturation)) contrast(var(--fog-start-contrast));
   transform: scale(var(--fog-start-scale));
   transition:
     filter 700ms ease,
@@ -3540,15 +3538,31 @@ button[data-state="wrong"] > .heroPickerVerdict {
 }
 
 .fogQuestion[data-fog-stage="2"] .artImage {
-  filter: blur(var(--fog-middle-blur)) grayscale(var(--fog-middle-grayscale)) brightness(var(--fog-middle-brightness))
-    saturate(var(--fog-middle-saturation)) contrast(var(--fog-middle-contrast));
   transform: scale(var(--fog-middle-scale));
 }
 
 .fogQuestion[data-fog-stage="3"] .artImage {
+  transform: scale(var(--fog-final-scale));
+}
+
+.fogQuestion:not([data-fog-source="server"]):not([data-fog-stage="reveal"]) .artImage {
+  filter: blur(var(--fog-start-blur)) grayscale(var(--fog-start-grayscale)) brightness(var(--fog-start-brightness))
+    saturate(var(--fog-start-saturation)) contrast(var(--fog-start-contrast));
+}
+
+.fogQuestion[data-fog-stage="2"]:not([data-fog-source="server"]) .artImage {
+  filter: blur(var(--fog-middle-blur)) grayscale(var(--fog-middle-grayscale)) brightness(var(--fog-middle-brightness))
+    saturate(var(--fog-middle-saturation)) contrast(var(--fog-middle-contrast));
+}
+
+.fogQuestion[data-fog-stage="3"]:not([data-fog-source="server"]) .artImage {
   filter: blur(var(--fog-final-blur)) grayscale(var(--fog-final-grayscale)) brightness(var(--fog-final-brightness))
     saturate(var(--fog-final-saturation)) contrast(var(--fog-final-contrast));
-  transform: scale(var(--fog-final-scale));
+}
+
+.fogQuestion[data-fog-stage="reveal"] .artImage {
+  filter: none;
+  transform: none;
 }
 
 .fogArtwork > span:last-child {
