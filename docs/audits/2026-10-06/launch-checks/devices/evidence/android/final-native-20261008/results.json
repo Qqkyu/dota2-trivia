@@ -25,9 +25,10 @@
       "status": "pass",
       "evidence": [
         "actions.jsonl",
-        "boot-tail.txt"
+        "boot-tail.txt",
+        "emulator.log"
       ],
-      "detail": "Android reached boot_completed=1 within the six-minute limit. Window-service inventory recorded Android11, Firefox157.0.1 and the native Latin keyboard."
+      "detail": "The emulator log reports boot completion in 160,614 ms, within the six-minute limit. The inventory recorded Android 11, Firefox 157.0.1 and the native Latin keyboard."
     },
     {
       "name": "Native Party navigation",
@@ -108,7 +109,9 @@
     "runtimeExitCode": 138,
     "noAppSourceChanges": true,
     "noHostHypervisorChanges": true,
-    "noPaidServices": true
+    "noPaidServices": true,
+    "adbServerStopped": true,
+    "connectedDevicesBeforeAdbStop": 0
   },
   "notTested": [
     "Physical touch hardware",

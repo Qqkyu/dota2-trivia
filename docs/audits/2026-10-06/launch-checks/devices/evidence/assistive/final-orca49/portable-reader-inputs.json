@@ -1,0 +1,36 @@
+{
+  "entries": [
+    {
+      "source": "/home/kulmisiu/.cache/ms-playwright/chromium-1243/chrome-linux64",
+      "destination": "opt/chrome153"
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/playwright@1.61.1/node_modules/playwright",
+      "destination": "workspace/node_modules/playwright"
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/playwright-core@1.61.1/node_modules/playwright-core",
+      "destination": "workspace/node_modules/playwright-core"
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/scripts/lib",
+      "destination": "workspace/scripts/lib"
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/src/lib",
+      "destination": "workspace/src/lib"
+    },
+    {
+      "source": "/home/kulmisiu/dev/dota2-trivia/src/data",
+      "destination": "workspace/src/data"
+    }
+  ],
+  "archiveBytes": 432230400,
+  "archiveSHA256": "858181499a7553d7386932f190ab559382b3a573d421cd8c8f68ac87174acc71",
+  "excluded": "No repository root, environment files, personal profiles, or credentials are copied.",
+  "image": "queue-arcade-assistive:orca49",
+  "imageId": "sha256:567f0e0417943577762b69a58a5a2a576b299d5011d1cf68b3f5d55899706163",
+  "transfer": "Windows docker.exe create and tar streamed through docker cp. No bind mounts or host settings changed.",
+  "appReachability": "Read-only GET /api/health from a disposable alpine:3.22 container succeeded through host.docker.internal:3334.",
+  "buildManifestSHA256": "9476e0afd3f9da68a64e6ec58631191fd3eaca62c9f5a377e7517fe9a89e59ea"
+}

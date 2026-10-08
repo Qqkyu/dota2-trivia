@@ -83,7 +83,7 @@
     "browser": "Firefox 157.0.1 official Mozilla Android x86_64 APK",
     "apkInstall": "Success",
     "geckodriver": "0.37.1",
-    "appJourney": "Partial native verification on October8. Navigation, keyboard input, retained code and server-confirmed Join passed. Waiting-room UI and settled landscape layout were not verified.",
+    "appJourney": "Partial native verification on October 8. Navigation, keyboard input, retained code and server-confirmed Join passed. Waiting-room UI and settled landscape layout were not verified.",
     "finalAppOrigin": "http://127.0.0.1:3334",
     "finalAppBuild": "fQ95T7-zzQo1Bnsef8oBI",
     "finalEvidence": "evidence/android/final-native-20261008/results.json"

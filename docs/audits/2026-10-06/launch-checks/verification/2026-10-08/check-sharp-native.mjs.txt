@@ -1,0 +1,48 @@
+// Run from the repository root with Node 22:
+// node --input-type=module < this-file
+import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { readdir, readFile } from "node:fs/promises";
+import path from "node:path";
+import sharp from "sharp";
+import { cachedRoundImage } from "./src/lib/round-image-cache.mjs";
+
+const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
+const files = await readdir("public", { recursive: true, withFileTypes: true });
+const images = files.filter((entry) => entry.isFile() && /\.(png|jpe?g|webp|svg)$/i.test(entry.name))
+  .map((entry) => path.join(entry.parentPath, entry.name)).sort();
+assert.equal(sharp.versions.sharp, "0.35.5");
+assert.equal(sharp.versions.rsvg, "2.63.2");
+assert.equal(sharp.versions.vips, "8.18.7");
+const assets = [];
+for (const file of images) {
+  const input = await readFile(file);
+  const before = await sharp(input).metadata();
+  const output = await sharp(input).png().toBuffer();
+  const after = await sharp(output).metadata();
+  assert.equal(after.format, "png", file);
+  assert.equal(after.width, before.width, file);
+  assert.equal(after.height, before.height, file);
+  assets.push({ path: file, inputSha256: hash(input), format: before.format,
+    width: after.width, height: after.height, outputBytes: output.length, outputSha256: hash(output) });
+}
+assert.equal(assets.filter((asset) => asset.path.includes("/flashback/originals/")).length, 13);
+const portrait = "/arcade/flashback/windranger.png";
+const stages = [];
+for (const stage of [1, 2, 3]) {
+  const result = await cachedRoundImage(portrait, stage);
+  const metadata = await sharp(result.bytes).metadata();
+  assert.equal(result.contentType, "image/png");
+  assert.equal(metadata.format, "png");
+  assert.equal(metadata.width, 512);
+  assert.equal(metadata.height, 288);
+  assert(result.bytes.length <= 1_500_000);
+  stages.push({ stage, source: portrait, bytes: result.bytes.length, sha256: hash(result.bytes),
+    width: metadata.width, height: metadata.height });
+}
+assert.equal(new Set(stages.map((stage) => stage.sha256)).size, 3);
+console.log(JSON.stringify({ checkedAt: new Date().toISOString(), status: "passed",
+  node: process.version, sharp: sharp.versions.sharp, librsvg: sharp.versions.rsvg, libvips: sharp.versions.vips,
+  localImagesDecoded: assets.length, originalSvgsDecoded: 13, portraitStagesPassed: stages.length,
+  scope: "Actual native decoding of local app assets and the production portrait-transform function. No hosted image route or physical device is implied.",
+  assets, stages }, null, 2));

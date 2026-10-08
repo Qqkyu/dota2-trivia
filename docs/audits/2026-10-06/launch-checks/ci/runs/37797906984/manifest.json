@@ -1,0 +1,40 @@
+{
+  "run": 37797906984,
+  "files": [
+    {
+      "file": "workflow-result.json",
+      "bytes": 11672,
+      "sha256": "72a53f4827c76ed2237619697abb568b9dc420db8390c77fa4d6a8478c545494"
+    },
+    {
+      "file": "workflow.log",
+      "bytes": 88627,
+      "sha256": "7c9a4a220f679e1ddec312775da100868498136f1bee6439f3489ff9ca59c2e5"
+    },
+    {
+      "file": "workflow-log-scan.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "file": "runtime-metadata.json",
+      "bytes": 290,
+      "sha256": "19e4951718286016124ef39554bad3fc9834a1e5d9cecf440a56a64baaa8fa55"
+    },
+    {
+      "file": "token-lifecycle.json",
+      "bytes": 57,
+      "sha256": "53e6e17bfda5b6b7c11dc5ee9e722689cc90076a15d75af047248a8e1816f8de"
+    },
+    {
+      "file": "cleanup-result.json",
+      "bytes": 97,
+      "sha256": "bc8bba38001cb360991b05311744edd65109f560e7b01f470b2662329be311ab"
+    },
+    {
+      "file": "runners-after-cleanup.json",
+      "bytes": 40,
+      "sha256": "0a37990c04105f6d4c2c21388345c6326e3d61bcd8733ff58d79c28bc80f52a3"
+    }
+  ]
+}

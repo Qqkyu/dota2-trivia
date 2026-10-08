@@ -1,0 +1,318 @@
+import ast
+import contextlib
+import datetime
+from email.message import Message
+import hashlib
+import importlib.util
+import io
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+import tempfile
+import unittest
+from unittest.mock import patch
+import urllib.error
+import urllib.response
+
+BASE = Path('/tmp/queue-arcade-launch-checks')
+SHA = 'a' * 40
+OLD = 'b' * 40
+RUN = 12345
+SECRET = 'isolated-fixture-secret-must-never-appear-in-evidence'
+with patch.dict(os.environ, {'RENDER_API_KEY': SECRET}):
+    spec = importlib.util.spec_from_file_location('deploy_helper', BASE / 'deploy-render-candidate.py')
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+
+def service():
+    return {'id': module.SID, 'name': 'queue-arcade', 'repo': 'https://github.com/Qqkyu/dota2-trivia',
+            'ownerId': 'tea-cspsf9i3esus738f3t4g', 'autoDeployTrigger': 'off',
+            'branch': module.BRANCH, 'suspended': 'suspended', 'suspenders': ['user'],
+            'serviceDetails': {'plan': 'free', 'buildPlan': 'starter', 'region': 'frankfurt',
+                               'numInstances': 1, 'healthCheckPath': '/api/health'}}
+
+
+def conflict(message, code=409):
+    data = json.dumps({'message': message, 'ignoredPrivateField': SECRET}).encode()
+    return urllib.error.HTTPError('https://api.render.com/isolated-fixture', code, SECRET, None, io.BytesIO(data))
+
+
+class DeployTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(prefix='deploy-helper-offline-', dir='/tmp')
+        self.addCleanup(self.temp.cleanup)
+        self.directory = Path(self.temp.name)
+        self.output = io.StringIO()
+        self.calls = []
+        self.patches = [patch.object(module, 'EVIDENCE', self.directory),
+                        patch.object(module, 'OUT', self.directory),
+                        patch.object(module, 'checked_candidate', return_value=(SHA, RUN)),
+                        patch.object(module, 'checked_service', side_effect=lambda: service()),
+                        patch.object(module.time, 'sleep'),
+                        contextlib.redirect_stdout(self.output)]
+        for p in self.patches:
+            p.__enter__()
+            self.addCleanup(p.__exit__, None, None, None)
+
+    def run_phase(self, phase, api):
+        def tracked(*args, **kwargs):
+            self.calls.append((args, kwargs))
+            return api(*args, **kwargs)
+        with patch.object(module, 'api', side_effect=tracked), patch.object(sys, 'argv', ['helper', phase]):
+            module.main()
+
+    def evidence(self, name):
+        return json.loads((self.directory / name).read_text())
+
+    def prior(self, **overrides):
+        value = {'serviceId': module.SID, 'commit': SHA, 'ciRunId': RUN, 'httpStatus': 409,
+                 'serviceStillPaused': True, 'suspensionConflictConfirmed': True,
+                 'checkedAt': module.utc_now().isoformat()}
+        value.update(overrides)
+        (self.directory / 'paused-deploy-attempt.json').write_text(json.dumps(value))
+
+    def row(self, commit=SHA, status='build_in_progress', new=True):
+        return {'id': 'dep-new' if new else 'dep-old', 'commit': {'id': commit}, 'status': status,
+                'createdAt': (module.utc_now() - datetime.timedelta(seconds=0 if new else 3600)).isoformat()}
+
+    def test_prepare_is_only_candidate_branch_change(self):
+        self.run_phase('--prepare', lambda *args, **kwargs: None)
+        self.assertEqual(self.calls, [((), {'method': 'PATCH', 'body': {'branch': module.BRANCH, 'autoDeployTrigger': 'off'}})])
+        self.assertTrue(self.evidence('candidate-configuration.json')['serviceStillPaused'])
+
+    def test_prepare_refuses_active_service(self):
+        value = service(); value['suspended'] = 'not_suspended'
+        with patch.object(module, 'checked_service', return_value=value):
+            with self.assertRaises(AssertionError): self.run_phase('--prepare', lambda *a, **k: None)
+        self.assertEqual(self.calls, [])
+
+    def test_exact_sha_deploy_success(self):
+        self.run_phase('--deploy', lambda *a, **k: (201, self.row()))
+        args, kwargs = self.calls[0]
+        self.assertEqual(args, ('/deploys', 'POST', {'commitId': SHA, 'clearCache': 'do_not_clear'}))
+        self.assertTrue(kwargs['with_status'])
+        result = self.evidence('candidate-deploy.json')
+        self.assertTrue(result['commitVerified'])
+        self.assertFalse(result['externalHealthChecksAllowed'])
+
+    def test_queued_empty_response_is_recorded(self):
+        self.run_phase('--deploy', lambda *a, **k: (202, None))
+        result = self.evidence('candidate-deploy.json')
+        self.assertTrue(result['queued'])
+        self.assertIsNone(result['deployId'])
+        self.assertTrue(result['pollRequired'])
+        self.assertFalse(result['commitVerified'])
+
+    def test_suspension_409_records_only_classification(self):
+        def api(*a, **k): raise conflict('Cannot deploy a suspended service. ' + SECRET)
+        self.run_phase('--deploy', api)
+        result = self.evidence('paused-deploy-attempt.json')
+        self.assertTrue(result['suspensionConflictConfirmed'])
+        self.assertNotIn(SECRET, self.output.getvalue() + json.dumps(result))
+        self.assertEqual(len(self.calls), 1)
+
+    def test_unrelated_409_cannot_authorize_resume(self):
+        def api(*a, **k): raise conflict('Another deployment is in progress. ' + SECRET)
+        with self.assertRaises(AssertionError): self.run_phase('--deploy', api)
+        self.assertFalse(self.evidence('paused-deploy-attempt.json')['suspensionConflictConfirmed'])
+        self.calls.clear()
+        with self.assertRaises(AssertionError): self.run_phase('--resume', lambda *a, **k: None)
+        self.assertEqual(self.calls, [])
+        self.assertNotIn(SECRET, self.output.getvalue())
+
+    def test_non_409_error_does_not_write_resume_authorization(self):
+        def api(*a, **k): raise conflict('Private details ' + SECRET, 403)
+        with self.assertRaises(urllib.error.HTTPError): self.run_phase('--deploy', api)
+        self.assertFalse((self.directory / 'paused-deploy-attempt.json').exists())
+        self.assertNotIn(SECRET, self.output.getvalue())
+
+    def test_resume_requires_fresh_matching_evidence(self):
+        variants = [{'serviceId': 'srv-other'}, {'commit': OLD}, {'ciRunId': RUN + 1},
+                    {'suspensionConflictConfirmed': False}, {'serviceStillPaused': False},
+                    {'checkedAt': (module.utc_now() - datetime.timedelta(minutes=16)).isoformat()}]
+        for changes in variants:
+            with self.subTest(changes=changes):
+                self.prior(**changes)
+                with self.assertRaises(AssertionError): self.run_phase('--resume', lambda *a, **k: None)
+                self.assertEqual(self.calls, [])
+
+    def test_resume_immediately_observes_candidate(self):
+        self.prior(); count = 0
+        def api(suffix='', method='GET', body=None, **kwargs):
+            nonlocal count
+            if suffix.startswith('/deploys?'):
+                count += 1
+                return [{'deploy': self.row(OLD, new=False)}] if count == 1 else [{'deploy': self.row()}]
+            self.assertEqual((suffix, method), ('/resume', 'POST'))
+            return None
+        self.run_phase('--resume', api)
+        result = self.evidence('candidate-resume.json')
+        self.assertEqual(result['verification'], 'candidate_build_observed')
+        self.assertTrue(result['resumeAcknowledged'])
+        self.assertFalse(result['externalHealthChecksAllowed'])
+        self.assertEqual(count, 2)
+
+    def test_resume_without_new_deploy_requires_poll(self):
+        self.prior()
+        def api(suffix='', method='GET', body=None, **kwargs):
+            return [{'deploy': self.row(OLD, new=False)}] if suffix.startswith('/deploys?') else None
+        self.run_phase('--resume', api)
+        result = self.evidence('candidate-resume.json')
+        self.assertEqual(result['verification'], 'no_new_deploy_yet')
+        self.assertTrue(result['pollRequired'])
+        self.assertFalse(result['externalHealthChecksAllowed'])
+        self.assertEqual(len(self.calls), 6)
+
+    def test_resume_wrong_sha_suspends_before_cancelling(self):
+        self.prior(); count = 0
+        def api(suffix='', method='GET', body=None, **kwargs):
+            nonlocal count
+            if suffix.startswith('/deploys?'):
+                count += 1
+                return [{'deploy': self.row(OLD, new=False)}] if count == 1 else [{'deploy': self.row(OLD)}]
+            return service() if suffix == '' else None
+        with self.assertRaises(RuntimeError): self.run_phase('--resume', api)
+        mutations = [(a[0], a[1]) for a, k in self.calls if len(a) >= 2 and a[1] == 'POST']
+        self.assertEqual(mutations, [('/resume', 'POST'), ('/suspend', 'POST'), ('/deploys/dep-new/cancel', 'POST')])
+        result = self.evidence('candidate-deploy-halted.json')
+        self.assertTrue(result['serviceSuspended'])
+        self.assertFalse(result['externalHealthChecksAllowed'])
+
+    def test_poll_only_allows_live_exact_candidate(self):
+        for live_sha, expected in [(SHA, True), (OLD, False)]:
+            value = service(); value['suspended'] = 'not_suspended'
+            with patch.object(module, 'checked_service', return_value=value):
+                self.run_phase('--poll', lambda *a, **k: [{'deploy': self.row(live_sha, status='live')}])
+            self.assertEqual(self.evidence('candidate-deploy-status.json')['externalHealthChecksAllowed'], expected)
+
+    def test_pending_commit_is_not_treated_as_wrong_commit(self):
+        self.prior(); count = 0
+        def api(suffix='', method='GET', body=None, **kwargs):
+            nonlocal count
+            if suffix.startswith('/deploys?'):
+                count += 1
+                return [] if count == 1 else [{'deploy': {**self.row(), 'commit': None}}]
+            return None
+        self.run_phase('--resume', api)
+        self.assertEqual(self.evidence('candidate-resume.json')['verification'], 'commit_not_reported_yet')
+        self.assertFalse(any(a and a[0] == '/suspend' for a, k in self.calls))
+
+
+class StandaloneChecks(unittest.TestCase):
+    def test_suspension_parser_is_bounded_and_specific(self):
+        for text, expected in [('Service is suspended', True), ('Service is currently suspended', True),
+                               ('Cannot deploy a suspended service', True), ('Service is not suspended', False),
+                               ('Workspace is suspended', False), ('No error', False)]:
+            self.assertEqual(module.suspension_conflict(conflict(text)), expected)
+        huge = conflict('Service is suspended' + 'a' * 20_000)
+        self.assertFalse(module.suspension_conflict(huge))
+        broken = urllib.error.HTTPError('https://example.invalid', 409, 'fixture', None, io.BytesIO(b'not json'))
+        self.assertFalse(module.suspension_conflict(broken))
+
+    def test_exact_commit_ci_gate(self):
+        with tempfile.TemporaryDirectory(prefix='ci-gate-offline-', dir='/tmp') as directory:
+            p = Path(directory)
+            (p / 'candidate-commit.json').write_text(json.dumps({'branch': module.BRANCH, 'originalIndexUnchanged': True, 'commit': SHA}))
+            run = {'id': RUN, 'head_sha': SHA, 'path': '.github/workflows/ci.yml', 'status': 'completed', 'conclusion': 'success'}
+            with patch.object(module, 'OUT', p), patch.object(module.subprocess, 'check_output', side_effect=[json.dumps({'object': {'sha': SHA}}), json.dumps({'workflow_runs': [run]})]):
+                self.assertEqual(module.checked_candidate(), (SHA, RUN))
+            for changed in [{'head_sha': OLD}, {'status': 'in_progress'}, {'conclusion': 'failure'}, {'path': 'other.yml'}]:
+                with patch.object(module, 'OUT', p), patch.object(module.subprocess, 'check_output', side_effect=[json.dumps({'object': {'sha': SHA}}), json.dumps({'workflow_runs': [{**run, **changed}]})]):
+                    with self.assertRaises(AssertionError): module.checked_candidate()
+            with patch.object(module, 'OUT', p), patch.object(module.subprocess, 'check_output', return_value=json.dumps({'object': {'sha': OLD}})):
+                with self.assertRaises(AssertionError): module.checked_candidate()
+
+    def test_api_bound_and_empty_202(self):
+        class Response:
+            status = 202
+            def __enter__(self): return self
+            def __exit__(self, *args): pass
+            def read(self, size): return b''
+        with patch.object(module.opener, 'open', return_value=Response()):
+            self.assertEqual(module.api('/deploys', 'POST', {'commitId': SHA}, with_status=True), (202, None))
+
+
+    def test_redirects_cannot_forward_authorization(self):
+        for code in [301, 302, 303, 307, 308]:
+            for method in ['GET', 'POST']:
+                with self.subTest(code=code, method=method):
+                    requests = []
+                    class FakeHTTPS(module.urllib.request.HTTPSHandler):
+                        def https_open(self, request):
+                            requests.append(request)
+                            response_headers = Message()
+                            response_headers['Location'] = 'https://redirect.invalid/credential-sink'
+                            response = urllib.response.addinfourl(io.BytesIO(b''), response_headers, request.full_url, code)
+                            response.msg = 'Isolated redirect fixture'
+                            return response
+                    fake_opener = module.urllib.request.build_opener(module.NoRedirect(), FakeHTTPS())
+                    with patch.object(module, 'opener', fake_opener):
+                        with self.assertRaises(urllib.error.HTTPError) as raised:
+                            module.api('/deploys', method, {'commitId': SHA} if method == 'POST' else None)
+                    self.assertEqual(raised.exception.code, code)
+                    self.assertEqual(len(requests), 1)
+                    self.assertEqual(requests[0].full_url, module.BASE + '/deploys')
+                    self.assertEqual(requests[0].get_header('Authorization'), 'Bearer ' + SECRET)
+                    self.assertNotIn(SECRET, str(raised.exception))
+
+
+class CandidateChecks(unittest.TestCase):
+    def run_candidate(self, paths, head=None):
+        source = ast.parse((BASE / 'create-candidate.py').read_text())
+        with tempfile.TemporaryDirectory(prefix='candidate-index-offline-', dir='/tmp') as directory:
+            root = Path(directory) / 'repo'; root.mkdir(); (root / '.git').mkdir()
+            out = Path(directory) / 'out'; out.mkdir()
+            (root / '.git/index').write_bytes(b'original-user-index')
+            for node in source.body:
+                if isinstance(node, ast.Assign) and any(isinstance(x, ast.Name) and x.id in ['ROOT', 'OUT'] for x in node.targets):
+                    variable = node.targets[0].id
+                    node.value = ast.Call(func=ast.Name(id='Path', ctx=ast.Load()), args=[ast.Constant(str(root if variable == 'ROOT' else out))], keywords=[])
+            ast.fix_missing_locations(source)
+            calls = []
+            def output(args, **kwargs):
+                command = args[1:]; calls.append((command, kwargs))
+                if command == ['rev-parse', 'HEAD']: return (head or '7528a842754642d249640531df3f6fc91bf032b9') + '\n'
+                if command == ['ls-files', '-z']: return ('\0'.join(paths) + '\0').encode()
+                if command == ['write-tree']: return 'c' * 40 + '\n'
+                if command[0] == 'commit-tree': return SHA + '\n'
+                return ''
+            with patch.object(subprocess, 'check_output', side_effect=output), patch.object(subprocess, 'run', side_effect=lambda args, **kwargs: subprocess.CompletedProcess(args, 1 if args[1] == 'rev-parse' else 0, '', '')), contextlib.redirect_stdout(io.StringIO()):
+                namespace = {'__name__': '__main__'}
+                error = None
+                try: exec(compile(source, 'candidate-helper-offline', 'exec'), namespace)
+                except Exception as e: error = e
+            self.assertEqual((root / '.git/index').read_bytes(), b'original-user-index')
+            self.assertFalse(list(out.glob('candidate-index-*')))
+            result = json.loads((out / 'candidate-commit.json').read_text()) if (out / 'candidate-commit.json').exists() else None
+            return calls, error, result
+
+    def test_candidate_uses_temp_index_and_compare_and_swap_ref(self):
+        calls, error, result = self.run_candidate(['src/app/page.tsx', '.env.example'])
+        self.assertIsNone(error)
+        self.assertTrue(result['originalIndexUnchanged'])
+        add = next((kw for args, kw in calls if args[0] == 'add'))
+        self.assertIn('candidate-index-', add['env']['GIT_INDEX_FILE'])
+        update = next((args for args, kw in calls if args[0] == 'update-ref'))
+        self.assertEqual(update[-1], '0' * 40)
+        self.assertFalse(any(args[0] in ['checkout', 'switch', 'reset', 'commit', 'push'] for args, kw in calls))
+
+    def test_candidate_excludes_private_and_generated_paths(self):
+        for path in ['.env.local', '.local-assets/source.jpg', '.data/accounts.json', '.next/server.js', 'node_modules/private.js']:
+            with self.subTest(path=path):
+                calls, error, result = self.run_candidate([path])
+                self.assertIsInstance(error, AssertionError)
+                self.assertIsNone(result)
+                self.assertFalse(any(args[0] == 'update-ref' for args, kw in calls))
+
+    def test_candidate_refuses_changed_working_head(self):
+        calls, error, result = self.run_candidate(['src/app/page.tsx'], head=OLD)
+        self.assertIsInstance(error, AssertionError)
+        self.assertEqual(len(calls), 1)
+        self.assertIsNone(result)
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)

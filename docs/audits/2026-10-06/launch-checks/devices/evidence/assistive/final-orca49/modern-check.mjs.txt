@@ -1,0 +1,50 @@
+import {createHash} from 'node:crypto';
+import {chromium} from '/workspace/node_modules/playwright/index.mjs';
+import {journeyFixtures} from '/workspace/scripts/lib/journey-browser.mjs';
+import {execFileSync} from 'node:child_process';
+import {writeFile,mkdir} from 'node:fs/promises';
+const base='/evidence';
+const result={url:process.env.ASSISTIVE_APP_URL||'http://host.docker.internal:3333',startedAt:new Date().toISOString(),events:[],errors:[],consoleErrors:[]};
+const browser=await chromium.launch({headless:false,executablePath:process.env.ASSISTIVE_BROWSER||'/opt/chrome153/chrome',args:[`--unsafely-treat-insecure-origin-as-secure=${result.url}`,'--no-sandbox','--force-renderer-accessibility','--disable-dev-shm-usage','--disable-gpu']});
+result.browser=browser.version();result.buildId=process.env.ASSISTIVE_BUILD_ID;result.runtimeRoleMutation=false;
+const context=await browser.newContext({viewport:{width:1280,height:800}});
+const manifestResponse=await context.request.get(result.url+'/_next/static/'+result.buildId+'/_buildManifest.js');if(!manifestResponse.ok())throw new Error('Final build manifest is unavailable');result.servedBuildManifestSHA256=createHash('sha256').update(await manifestResponse.body()).digest('hex');if(result.servedBuildManifestSHA256!=='9476e0afd3f9da68a64e6ec58631191fd3eaca62c9f5a377e7517fe9a89e59ea')throw new Error('Served build manifest does not match candidate5');
+const page=await context.newPage();
+await mkdir(base+'/session/screenshots',{recursive:true});
+page.on('pageerror',error=>result.errors.push(String(error)));page.on('console',message=>{if(message.type()==='error')result.consoleErrors.push(message.text())});
+await page.addInitScript(()=>localStorage.setItem('queue-arcade:settings:v3',JSON.stringify({soundEnabled:false,gameVolume:0.7})));
+let state=null;
+await page.route('**/api/me',route=>route.fulfill({json:{authenticated:false,steamAvailable:false}}));
+for(const resource of ['sessions','diagnostics','reports'])await page.route('**/api/'+resource,route=>route.fulfill({json:{accepted:true}}));
+await page.route('**/api/rounds?*',async route=>{
+ if(!state)return route.continue();
+ const now=Date.now(),gate=state.gate,id=gate?'at-gate':`at-${state.kind}-${state.number}`;
+ const round={id,number:state.number,game:gate?'trivia':journeyFixtures[state.kind].answering.game,phase:gate?'reveal':state.phase,startedAt:now-1000,answerDeadline:gate||state.phase==='reveal'?now-1000:now+60000,revealDeadline:gate?now+100:now+67000,answerDuration:60000};
+ const question=gate?null:{...journeyFixtures[state.kind][state.phase],id};
+ if(question?.image?.src?.startsWith('/api/round-image')) question.image.src='/missing-assistive-fixture-image.png';
+ await route.fulfill({json:{serverNow:now,room:{id:'assistive-room',gameId:'dota2',contentVersion:'assistive',mode:'mixed',filter:'Mixed'},round,questionRevision:id+':'+round.phase,question,presence:{activePlayers:1},crowd:{counts:[0,0,0,0],total:state.vote?1:0,keyCounts:[],scoreSummary:null},playerVote:state.vote,playerReport:null,previousResults:[]}});
+});
+await page.route('**/api/votes',async route=>{
+ const vote=route.request().postDataJSON();state.votes.push(vote);state.vote={answerIndex:vote.answerIndex,answerKey:vote.answerKey,submittedAt:Date.now()};
+ await route.fulfill({json:{accepted:true,counts:[0,0,0,0],total:1,keyCounts:[],scoreSummary:null,playerVote:state.vote}});
+});
+const sleep=ms=>page.waitForTimeout(ms);
+const xd=(...args)=>execFileSync('xdotool',args,{encoding:'utf8'});
+async function key(combo){xd('key','--clearmodifiers',combo);await sleep(400);}
+async function log(label,extra={}){
+ const event={label,at:Date.now(),...extra,state:await page.evaluate(()=>({path:location.pathname,phase:document.querySelector('main')?.dataset.phase,round:document.querySelector('main')?.dataset.roundId,focus:{tag:document.activeElement?.tagName,id:document.activeElement?.id,testid:document.activeElement?.dataset.testid,name:document.activeElement?.getAttribute('aria-label')||document.activeElement?.textContent?.trim().slice(0,180)},query:document.querySelector('[data-testid=shopkeeper-search-field]')?.value,prompt:document.querySelector('[data-testid="round-prompt"]')?.textContent,helper:document.querySelector('[data-testid="answer-helper"]')?.textContent,reveal:document.querySelector('[data-testid="reveal-panel"]')?.textContent,live:[...document.querySelectorAll('[aria-live], [role="alert"], [role="status"]')].map(x=>({role:x.getAttribute('role'),live:x.getAttribute('aria-live'),text:x.textContent?.trim().slice(0,350)}))}))};
+ result.events.push(event);await writeFile(base+'/session/app-results.json',JSON.stringify(result,null,2));console.log(label,JSON.stringify(event.state.focus));return event;
+}
+async function navigate(path){await page.bringToFront();const windows=xd('search','--onlyvisible','--class','google-chrome|chromium|chrome').trim().split('\n');xd('windowactivate','--sync',windows.at(-1));await key('ctrl+l');xd('type','--clearmodifiers','--delay','40',result.url+path);await key('Return');await page.waitForURL(result.url+path);await page.waitForLoadState('domcontentloaded');await sleep(1000);}
+async function tabTo(selector,max=40){for(let i=0;i<max;i++){if(await page.evaluate(s=>document.activeElement?.matches(s),selector))return i;await key('Tab');await log('tab', {target:selector});}throw new Error('Could not Tab to '+selector);}
+async function fixture(kind){state={kind,gate:true,phase:'answering',number:1,vote:null,votes:[]};await navigate('/play');await page.waitForSelector('main[data-phase="waiting"][data-round-id="at-gate"]');await log(kind+' entry gate');await key('Control_L');await log(kind+' initial page reading stopped');state.gate=false;await page.evaluate(()=>window.dispatchEvent(new Event('focus')));await page.waitForSelector(`main[data-phase="answering"][data-round-id="at-${kind}-1"]`);await sleep(2000);await log(kind+' round start');await writeFile(base+`/session/${kind}-aria.txt`,await page.locator('body').ariaSnapshot());}
+async function reveal(kind){state.phase='reveal';await log(kind+' before reveal');await page.evaluate(()=>window.dispatchEvent(new Event('focus')));await page.waitForSelector('main[data-phase="reveal"]');await sleep(2300);await log(kind+' after reveal',{votes:state.votes});await page.screenshot({path:base+`/session/screenshots/${kind}-reveal.png`});}
+try{
+ if(process.env.ASSISTIVE_FLOW!=='recipe'){await fixture('classic');await tabTo('[data-testid="arcade-answer"]');await log('classic answer focused');await key('Return');await log('classic answer locked');await reveal('classic');if(process.env.ASSISTIVE_CONTROL==='external'){await tabTo('[data-testid=game-volume]');await log('external focus before transition');}state.number=2;state.kind='year';state.phase='answering';state.vote=null;await log('classic before next round');await page.evaluate(()=>window.dispatchEvent(new Event('focus')));await page.waitForSelector('main[data-phase="answering"][data-round-id="at-year-2"]');await sleep(6000);await log('classic next round');
+ await key('Tab');await log('next round first Tab');}
+ if(process.env.ASSISTIVE_FLOW!=='round'){await fixture('recipe');await tabTo('[data-testid="shopkeeper-search-field"]');xd('type','--clearmodifiers','--delay','80','gloves');await sleep(1000);await log('shop search');await tabTo('[data-testid="shopkeeper-store-item"]:not(:disabled)');await key('Return');await sleep(5500);await log('shop component selected');
+ xd('type','--clearmodifiers','--delay','80','gloves');await sleep(600);await log('shop second search',{query:await page.getByTestId('shopkeeper-search-field').inputValue()});await tabTo('[data-testid="shopkeeper-store-item"]:not(:disabled)');await key('Return');await sleep(5500);await log('shop ready to build');await key('Return');await log('shop recipe submitted',{votes:state.votes});}
+ if(process.env.ASSISTIVE_FLOW!=='round')result.checks={secondSearch:result.events.find(e=>e.label==='shop second search')?.state.query==='gloves',searchFocusRecovery:result.events.find(e=>e.label==='shop component selected')?.state.focus.testid==='shopkeeper-search-field',buildFocus:result.events.find(e=>e.label==='shop ready to build')?.state.focus.testid==='shopkeeper-recipe-build',oneRecipeVote:state.votes.length===1&&state.votes[0].answerKey==='recipe-v1:gloves+gloves'};result.control=process.env.ASSISTIVE_CONTROL||'recovered-answer';result.liveRole=await page.getByTestId('round-announcement').getAttribute('role');result.completed=true;
+}catch(error){result.errors.push(error.stack);console.error(error.stack);await log('error state');await writeFile(base+'/session/error-aria.txt',await page.locator('body').ariaSnapshot());}
+await writeFile(base+'/session/app-results.json',JSON.stringify(result,null,2));
+await sleep(700);await browser.close();

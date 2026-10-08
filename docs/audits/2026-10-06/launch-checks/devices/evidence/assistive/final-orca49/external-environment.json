@@ -1,0 +1,22 @@
+{
+  "orca": "49.8",
+  "orcaPrefix": "/opt/orca49",
+  "python": "3.12.3",
+  "osRelease": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n",
+  "browser": "Google Chrome for Testing 153.0.8010.12",
+  "packages": {
+    "libatspi2.0-0t64": "2.52.0-1build1",
+    "libatk-bridge2.0-0t64": "2.52.0-1build1",
+    "python3-gi": "3.48.2-1",
+    "python3-dasbus": "1.7-2",
+    "speech-dispatcher": "0.12.0~rc2-2build3",
+    "espeak-ng": "1.51+dfsg-12build1",
+    "openbox": "3.6.1-12build5",
+    "xvfb": "2:21.1.12-1ubuntu1.8"
+  },
+  "display": ":96",
+  "resolution": "1280x900x24",
+  "appUrl": "http://host.docker.internal:3334",
+  "buildId": "fQ95T7-zzQo1Bnsef8oBI",
+  "sourceArchiveSHA256": "e2dc1552c8167aebc959d2983631f5580f7c00f07e839b3927e054add3a294ae"
+}

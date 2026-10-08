@@ -1,0 +1,23 @@
+[
+  {
+    "check": "sharp-lint",
+    "startedAt": "2026-10-08T15:12:40.934618+00:00",
+    "endedAt": "2026-10-08T15:12:53.648619+00:00",
+    "exit": 0,
+    "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "check": "sharp-types",
+    "startedAt": "2026-10-08T15:12:53.648833+00:00",
+    "endedAt": "2026-10-08T15:12:58.832374+00:00",
+    "exit": 0,
+    "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "check": "sharp-content-release",
+    "startedAt": "2026-10-08T15:12:58.832554+00:00",
+    "endedAt": "2026-10-08T15:12:58.886138+00:00",
+    "exit": 0,
+    "logSha256": "ed0837653095904fc4fd07ca8ef2a633a5218a2c1f24e39bffad16ce773c9872"
+  }
+]

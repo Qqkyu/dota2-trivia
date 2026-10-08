@@ -1,0 +1,8 @@
+{
+  "firstRecoveredRun": "Passed all checks.",
+  "firstExternalSetup": "Stopped before the app driver started. The reused container retained audio services and startup did not finish. No app test result is assigned.",
+  "correction": "Restart only the disposable container and reset its task-owned runtime directory before each session.",
+  "finalExternalRun": "Passed all checks after clean service startup.",
+  "finalRecipeRun": "Passed all checks after clean service startup.",
+  "containerRemoved": true
+}

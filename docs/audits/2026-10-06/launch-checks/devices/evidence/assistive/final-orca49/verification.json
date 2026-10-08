@@ -1,0 +1,241 @@
+{
+  "buildId": "fQ95T7-zzQo1Bnsef8oBI",
+  "appUrl": "http://127.0.0.1:3334",
+  "checks": {
+    "recovered": {
+      "promptExactlyOnce": true,
+      "expectedFocus": true,
+      "nativeTabToYear": true
+    },
+    "external": {
+      "promptExactlyOnce": true,
+      "expectedFocus": true,
+      "nativeTabToYear": true
+    },
+    "recipe": {
+      "secondSearch": true,
+      "searchFocusRecovery": true,
+      "buildFocus": true,
+      "oneRecipeVote": true,
+      "firstSelectionSpoken": true,
+      "secondSelectionSpoken": true
+    }
+  },
+  "physicalAudio": false,
+  "runtimeRoleMutation": false,
+  "continuousSessionClaim": false,
+  "runs": {
+    "recovered": {
+      "browser": "153.0.8010.12",
+      "startedAt": "2026-10-08T14:56:35.916Z",
+      "speechDuringCheck": [
+        {
+          "atMs": 1791471406358.0361,
+          "text": "leaving panel."
+        },
+        {
+          "atMs": 1791471406358.847,
+          "text": "Round 2 heading 1 clickable."
+        },
+        {
+          "atMs": 1791471406488.569,
+          "text": " Round 2. What year did Dota 2 officially release?"
+        },
+        {
+          "atMs": 1791471412289.685,
+          "text": "tab"
+        },
+        {
+          "atMs": 1791471412341.4841,
+          "text": "Year horizontal slider 2017 11864 percent."
+        },
+        {
+          "atMs": 1791471412344.696,
+          "text": "Focus mode"
+        }
+      ],
+      "audio": {
+        "sampleRate": 22050,
+        "channels": 1,
+        "sampleWidthBytes": 2,
+        "samples": 146422,
+        "nonzeroSamples": 121570,
+        "peakAbsoluteSample": 32768,
+        "durationSeconds": 6.640453514739229,
+        "sourceStartSeconds": 15.937874755859376,
+        "sourceEndSeconds": 24.396874755859375,
+        "note": "Unaltered PCM excerpt from stock Speech Dispatcher through PulseAudio. No physical speaker or human listening check."
+      },
+      "rawTranscriptSHA256": "d26448bc8d17e3d73e7de8345ee897bc2f32bbab08bbde78fbc389cad5a74fcb",
+      "rawOrcaLogSHA256": "4a90dbc952f0a3b7f480e71cbb280452dad9c6bd78344727d78950ac02c6be76",
+      "rawAudioSHA256": "0e7d9ef3c7280ef8e191ca8a5e5db6cc3c60b8b2342cb1e56f03498710c515e8"
+    },
+    "external": {
+      "browser": "153.0.8010.12",
+      "startedAt": "2026-10-08T14:59:02.744Z",
+      "speechDuringCheck": [
+        {
+          "atMs": 1791471557909.352,
+          "text": " Round 2. What year did Dota 2 officially release?"
+        },
+        {
+          "atMs": 1791471563676.249,
+          "text": "tab"
+        },
+        {
+          "atMs": 1791471563732.136,
+          "text": "Year horizontal slider 2017 11864 percent."
+        }
+      ],
+      "audio": {
+        "sampleRate": 22050,
+        "channels": 1,
+        "sampleWidthBytes": 2,
+        "samples": 138626,
+        "nonzeroSamples": 107904,
+        "peakAbsoluteSample": 32768,
+        "durationSeconds": 6.286893424036281,
+        "sourceStartSeconds": 20.28204931640625,
+        "sourceEndSeconds": 28.74604931640625,
+        "note": "Unaltered PCM excerpt from stock Speech Dispatcher through PulseAudio. No physical speaker or human listening check."
+      },
+      "rawTranscriptSHA256": "ab301ce0ff2c303bd0416232e4e8c5c9b30772a07b5c987bdef6f851c4d12e76",
+      "rawOrcaLogSHA256": "01561fe4f0e606b946c2e48de4425c31c518a62130e2ad3ffd44df1f225c93eb",
+      "rawAudioSHA256": "d6e6544ed455954b16daffd1b0986c253bfc97e5623694222c22b936b2e2bfa1"
+    },
+    "recipe": {
+      "browser": "153.0.8010.12",
+      "startedAt": "2026-10-08T14:59:46.307Z",
+      "speechDuringCheck": [
+        {
+          "atMs": 1791471595826.363,
+          "text": "tab"
+        },
+        {
+          "atMs": 1791471595924.757,
+          "text": "1 found landmark"
+        },
+        {
+          "atMs": 1791471595926.316,
+          "text": "Gloves of Haste, 450 gold toggle button not pressed."
+        },
+        {
+          "atMs": 1791471595940.844,
+          "text": "Browse mode"
+        },
+        {
+          "atMs": 1791471596252.186,
+          "text": "return"
+        },
+        {
+          "atMs": 1791471596373.21,
+          "text": "Search shop items entry Search Items."
+        },
+        {
+          "atMs": 1791471596379.707,
+          "text": "Focus mode"
+        },
+        {
+          "atMs": 1791471596510.7478,
+          "text": " Added Gloves of Haste. 1 of 2 components selected."
+        },
+        {
+          "atMs": 1791471602180.6382,
+          "text": "g"
+        },
+        {
+          "atMs": 1791471602235.18,
+          "text": "l"
+        },
+        {
+          "atMs": 1791471602264.3982,
+          "text": "o"
+        },
+        {
+          "atMs": 1791471602300.715,
+          "text": "v"
+        },
+        {
+          "atMs": 1791471602323.251,
+          "text": " GLO"
+        },
+        {
+          "atMs": 1791471602348.632,
+          "text": "e"
+        },
+        {
+          "atMs": 1791471602380.867,
+          "text": "s"
+        },
+        {
+          "atMs": 1791471602426.586,
+          "text": " GLOVES"
+        },
+        {
+          "atMs": 1791471603039.5679,
+          "text": "tab"
+        },
+        {
+          "atMs": 1791471603136.211,
+          "text": "Remove Gloves of Haste push button."
+        },
+        {
+          "atMs": 1791471603152.585,
+          "text": "Browse mode"
+        },
+        {
+          "atMs": 1791471603459.524,
+          "text": "tab"
+        },
+        {
+          "atMs": 1791471603548.6692,
+          "text": "1 found landmark"
+        },
+        {
+          "atMs": 1791471603550.0842,
+          "text": "Gloves of Haste, 450 gold toggle button pressed."
+        },
+        {
+          "atMs": 1791471603881.96,
+          "text": "return"
+        },
+        {
+          "atMs": 1791471603990.639,
+          "text": "BUILD push button."
+        },
+        {
+          "atMs": 1791471604123.5981,
+          "text": " Added Gloves of Haste. 2 of 2 components selected."
+        },
+        {
+          "atMs": 1791471609803.0068,
+          "text": "return"
+        },
+        {
+          "atMs": 1791471609854.918,
+          "text": "LOCKED grayed."
+        }
+      ],
+      "audio": {
+        "sampleRate": 22050,
+        "channels": 1,
+        "sampleWidthBytes": 2,
+        "samples": 313823,
+        "nonzeroSamples": 214306,
+        "peakAbsoluteSample": 32768,
+        "durationSeconds": 14.23233560090703,
+        "sourceStartSeconds": 14.94888671875,
+        "sourceEndSeconds": 31.34888671875,
+        "note": "Unaltered PCM excerpt from stock Speech Dispatcher through PulseAudio. No physical speaker or human listening check."
+      },
+      "rawTranscriptSHA256": "0214b7da3ce45762aa350a3005effbea44694e1a00e54236414d62ec78a5cd32",
+      "rawOrcaLogSHA256": "742299466292d1238e88e67421a646ad902fbe575d8840e302ac6cbb8500a995",
+      "rawAudioSHA256": "4499128d96c2dc65d40f78ae9496bf3bd6e2bc977e52a19089cb2a5d8e4525f9"
+    }
+  },
+  "allTargetedChecksPassed": true,
+  "sourceSHA256": {
+    "src/components/queue-arcade.tsx": "b5ca0cb670a2fa52e86316a9b12fc6ab1e19908a547585d73d2a8c00aaa710ad",
+    "scripts/check-orca-round.mjs": "5417665688d4b2ddb300924f87b2da5b34986edcf2fc888ef9288811f759fe3a"
+  }
+}

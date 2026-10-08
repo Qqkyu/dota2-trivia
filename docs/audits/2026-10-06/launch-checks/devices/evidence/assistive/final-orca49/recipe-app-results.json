@@ -1,0 +1,646 @@
+{
+  "url": "http://host.docker.internal:3334",
+  "startedAt": "2026-10-08T14:59:46.307Z",
+  "events": [
+    {
+      "label": "recipe entry gate",
+      "at": 1791471589853,
+      "state": {
+        "path": "/play",
+        "phase": "waiting",
+        "round": "at-gate",
+        "focus": {
+          "tag": "A",
+          "id": "",
+          "testid": "site-home",
+          "name": "Queue Arcade home"
+        },
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "label": "recipe initial page reading stopped",
+      "at": 1791471590280,
+      "state": {
+        "path": "/play",
+        "phase": "waiting",
+        "round": "at-gate",
+        "focus": {
+          "tag": "A",
+          "id": "",
+          "testid": "site-home",
+          "name": "Queue Arcade home"
+        },
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "label": "recipe round start",
+      "at": 1791471592421,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-recipe-1",
+        "focus": {
+          "tag": "A",
+          "id": "",
+          "testid": "site-home",
+          "name": "Queue Arcade home"
+        },
+        "query": "",
+        "prompt": "Target itemBuild Abyssal Blade.",
+        "helper": "Pick the shop items. Recipe is included.Correct now: 250 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. Build Abyssal Blade."
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "58"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": ""
+          },
+          {
+            "role": "status",
+            "live": "polite",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471592862,
+      "target": "[data-testid=\"shopkeeper-search-field\"]",
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-recipe-1",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "",
+          "name": "Enable game sounds"
+        },
+        "query": "",
+        "prompt": "Target itemBuild Abyssal Blade.",
+        "helper": "Pick the shop items. Recipe is included.Correct now: 250 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. Build Abyssal Blade."
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "58"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": ""
+          },
+          {
+            "role": "status",
+            "live": "polite",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471593286,
+      "target": "[data-testid=\"shopkeeper-search-field\"]",
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-recipe-1",
+        "focus": {
+          "tag": "INPUT",
+          "id": "",
+          "testid": "game-volume",
+          "name": "Game volume"
+        },
+        "query": "",
+        "prompt": "Target itemBuild Abyssal Blade.",
+        "helper": "Pick the shop items. Recipe is included.Correct now: 250 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. Build Abyssal Blade."
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "58"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": ""
+          },
+          {
+            "role": "status",
+            "live": "polite",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471593709,
+      "target": "[data-testid=\"shopkeeper-search-field\"]",
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-recipe-1",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "",
+          "testid": "shopkeeper-tab-basics",
+          "name": "basics"
+        },
+        "query": "",
+        "prompt": "Target itemBuild Abyssal Blade.",
+        "helper": "Pick the shop items. Recipe is included.Correct now: 250 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. Build Abyssal Blade."
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "57"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": ""
+          },
+          {
+            "role": "status",
+            "live": "polite",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471594132,
+      "target": "[data-testid=\"shopkeeper-search-field\"]",
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-recipe-1",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "",
+          "testid": "shopkeeper-tab-upgrades",
+          "name": "upgrades"
+        },
+        "query": "",
+        "prompt": "Target itemBuild Abyssal Blade.",
+        "helper": "Pick the shop items. Recipe is included.Correct now: 250 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. Build Abyssal Blade."
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "57"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": ""
+          },
+          {
+            "role": "status",
+            "live": "polite",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471594559,
+      "target": "[data-testid=\"shopkeeper-search-field\"]",
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-recipe-1",
+        "focus": {
+          "tag": "INPUT",
+          "id": "",
+          "testid": "shopkeeper-search-field",
+          "name": "Search shop items"
+        },
+        "query": "",
+        "prompt": "Target itemBuild Abyssal Blade.",
+        "helper": "Pick the shop items. Recipe is included.Correct now: 250 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. Build Abyssal Blade."
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "56"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": ""
+          },
+          {
+            "role": "status",
+            "live": "polite",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "label": "shop search",
+      "at": 1791471595814,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-recipe-1",
+        "focus": {
+          "tag": "INPUT",
+          "id": "",
+          "testid": "shopkeeper-search-field",
+          "name": "Search shop items"
+        },
+        "query": "gloves",
+        "prompt": "Target itemBuild Abyssal Blade.",
+        "helper": "Pick the shop items. Recipe is included.Correct now: 250 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. Build Abyssal Blade."
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "60"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "gloves"
+          },
+          {
+            "role": "status",
+            "live": "polite",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471596237,
+      "target": "[data-testid=\"shopkeeper-store-item\"]:not(:disabled)",
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-recipe-1",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "",
+          "testid": "shopkeeper-store-item",
+          "name": "Gloves of Haste, 450 gold"
+        },
+        "query": "gloves",
+        "prompt": "Target itemBuild Abyssal Blade.",
+        "helper": "Pick the shop items. Recipe is included.Correct now: 250 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. Build Abyssal Blade."
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "60"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "gloves"
+          },
+          {
+            "role": "status",
+            "live": "polite",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "label": "shop component selected",
+      "at": 1791471602163,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-recipe-1",
+        "focus": {
+          "tag": "INPUT",
+          "id": "",
+          "testid": "shopkeeper-search-field",
+          "name": "Search shop items"
+        },
+        "query": "",
+        "prompt": "Target itemBuild Abyssal Blade.",
+        "helper": "Pick the shop items. Recipe is included.Correct now: 250 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. Build Abyssal Blade."
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "59"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": ""
+          },
+          {
+            "role": "status",
+            "live": "polite",
+            "text": "Added Gloves of Haste. 1 of 2 components selected."
+          }
+        ]
+      }
+    },
+    {
+      "label": "shop second search",
+      "at": 1791471603021,
+      "query": "gloves",
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-recipe-1",
+        "focus": {
+          "tag": "INPUT",
+          "id": "",
+          "testid": "shopkeeper-search-field",
+          "name": "Search shop items"
+        },
+        "query": "gloves",
+        "prompt": "Target itemBuild Abyssal Blade.",
+        "helper": "Pick the shop items. Recipe is included.Correct now: 250 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. Build Abyssal Blade."
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "58"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "gloves"
+          },
+          {
+            "role": "status",
+            "live": "polite",
+            "text": "Added Gloves of Haste. 1 of 2 components selected."
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471603446,
+      "target": "[data-testid=\"shopkeeper-store-item\"]:not(:disabled)",
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-recipe-1",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "",
+          "testid": "shopkeeper-recipe-slot",
+          "name": "Remove Gloves of Haste"
+        },
+        "query": "gloves",
+        "prompt": "Target itemBuild Abyssal Blade.",
+        "helper": "Pick the shop items. Recipe is included.Correct now: 250 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. Build Abyssal Blade."
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "57"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "gloves"
+          },
+          {
+            "role": "status",
+            "live": "polite",
+            "text": "Added Gloves of Haste. 1 of 2 components selected."
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471603869,
+      "target": "[data-testid=\"shopkeeper-store-item\"]:not(:disabled)",
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-recipe-1",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "",
+          "testid": "shopkeeper-store-item",
+          "name": "Gloves of Haste, 450 gold"
+        },
+        "query": "gloves",
+        "prompt": "Target itemBuild Abyssal Blade.",
+        "helper": "Pick the shop items. Recipe is included.Correct now: 250 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. Build Abyssal Blade."
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "57"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "gloves"
+          },
+          {
+            "role": "status",
+            "live": "polite",
+            "text": "Added Gloves of Haste. 1 of 2 components selected."
+          }
+        ]
+      }
+    },
+    {
+      "label": "shop ready to build",
+      "at": 1791471609792,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-recipe-1",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "",
+          "testid": "shopkeeper-recipe-build",
+          "name": "Build"
+        },
+        "query": "",
+        "prompt": "Target itemBuild Abyssal Blade.",
+        "helper": "Pick the shop items. Recipe is included.Correct now: 250 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. Build Abyssal Blade."
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "56"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": ""
+          },
+          {
+            "role": "status",
+            "live": "polite",
+            "text": "Added Gloves of Haste. 2 of 2 components selected."
+          }
+        ]
+      }
+    },
+    {
+      "label": "shop recipe submitted",
+      "at": 1791471610214,
+      "votes": [
+        {
+          "gameId": "dota2",
+          "mode": "mixed",
+          "filter": "Mixed",
+          "roundId": "at-recipe-1",
+          "answerIndex": 0,
+          "answerKey": "recipe-v1:gloves+gloves",
+          "voterId": "ebe05451-7dae-419f-87ca-ee71bbaa09a6",
+          "sessionId": "cee3e8cc-21d2-4420-8f85-07f049be76c5"
+        }
+      ],
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-recipe-1",
+        "focus": {
+          "tag": "BODY",
+          "id": "",
+          "name": "Round 1. Build Abyssal Blade.Queue ArcadeSide quests, between matchesDota 2 · Patch 7.41f70%Round 1Round 001Shopkeeper RushRecipes56Target itemBuild Abyssal Blade.basicsupgradesAdd"
+        },
+        "query": "",
+        "prompt": "Target itemBuild Abyssal Blade.",
+        "helper": "Answer locked with 56s leftWorth 250 gold if correct",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. Build Abyssal Blade."
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "56"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": ""
+          },
+          {
+            "role": "status",
+            "live": "polite",
+            "text": "Added Gloves of Haste. 2 of 2 components selected."
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+  ],
+  "browser": "153.0.8010.12",
+  "buildId": "fQ95T7-zzQo1Bnsef8oBI",
+  "runtimeRoleMutation": false,
+  "servedBuildManifestSHA256": "9476e0afd3f9da68a64e6ec58631191fd3eaca62c9f5a377e7517fe9a89e59ea",
+  "checks": {
+    "secondSearch": true,
+    "searchFocusRecovery": true,
+    "buildFocus": true,
+    "oneRecipeVote": true
+  },
+  "control": "recovered-answer",
+  "liveRole": null,
+  "completed": true
+}

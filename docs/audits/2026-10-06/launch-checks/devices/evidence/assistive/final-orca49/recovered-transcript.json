@@ -1,0 +1,683 @@
+{
+  "url": "http://host.docker.internal:3334",
+  "startedAt": "2026-10-08T14:56:35.916Z",
+  "events": [
+    {
+      "label": "classic entry gate",
+      "at": 1791471399633,
+      "state": {
+        "path": "/play",
+        "phase": "waiting",
+        "round": "at-gate",
+        "focus": {
+          "tag": "A",
+          "id": "",
+          "testid": "site-home",
+          "name": "Queue Arcade home"
+        },
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic initial page reading stopped",
+      "at": 1791471400061,
+      "state": {
+        "path": "/play",
+        "phase": "waiting",
+        "round": "at-gate",
+        "focus": {
+          "tag": "A",
+          "id": "",
+          "testid": "site-home",
+          "name": "Queue Arcade home"
+        },
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic round start",
+      "at": 1791471402111,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "A",
+          "id": "",
+          "testid": "site-home",
+          "name": "Queue Arcade home"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "helper": "Use A\u2013D or 1\u20134 to answerCorrect now: 225 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "58"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471402541,
+      "target": "[data-testid=\"arcade-answer\"]",
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "",
+          "name": "Enable game sounds"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "helper": "Use A\u2013D or 1\u20134 to answerCorrect now: 225 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "58"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471402961,
+      "target": "[data-testid=\"arcade-answer\"]",
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "INPUT",
+          "id": "",
+          "testid": "game-volume",
+          "name": "Game volume"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "helper": "Use A\u2013D or 1\u20134 to answerCorrect now: 225 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "58"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471403381,
+      "target": "[data-testid=\"arcade-answer\"]",
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "",
+          "testid": "arcade-answer",
+          "name": "A160"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "helper": "Use A\u2013D or 1\u20134 to answerCorrect now: 225 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "57"
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic answer focused",
+      "at": 1791471403385,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "",
+          "testid": "arcade-answer",
+          "name": "A160"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "helper": "Use A\u2013D or 1\u20134 to answerCorrect now: 225 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "57"
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic answer locked",
+      "at": 1791471403808,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BODY",
+          "id": "",
+          "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Classic TriviaMana57How much mana does Acid Spray cost?Us"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "helper": "Answer locked with 57s leftWorth 225 gold if correct",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "57"
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic before reveal",
+      "at": 1791471403810,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BODY",
+          "id": "",
+          "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Classic TriviaMana57How much mana does Acid Spray cost?Us"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "helper": "Answer locked with 57s leftWorth 225 gold if correct",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "57"
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic after reveal",
+      "at": 1791471406144,
+      "votes": [
+        {
+          "gameId": "dota2",
+          "mode": "mixed",
+          "filter": "Mixed",
+          "roundId": "at-classic-1",
+          "answerIndex": 0,
+          "voterId": "cd046a81-a920-4dfc-91f8-eca5583850a9",
+          "sessionId": "34061f38-02fe-44c7-8fde-f345db77f9e3"
+        }
+      ],
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BODY",
+          "id": "",
+          "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Classic TriviaMana65How much mana does Acid Spray cost?Us"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "65"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic before next round",
+      "at": 1791471406240,
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BODY",
+          "id": "",
+          "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Classic TriviaMana65How much mana does Acid Spray cost?Us"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "65"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic next round",
+      "at": 1791471412278,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-year-2",
+        "focus": {
+          "tag": "H1",
+          "id": "",
+          "testid": "round-heading",
+          "name": "Round 2"
+        },
+        "prompt": "What year did Dota 2 officially release?",
+        "helper": "Slide to the year, then press Lock \u00b7 Enter also locksCorrect now: 225 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 2. What year did Dota 2 officially release?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "60"
+          }
+        ]
+      }
+    },
+    {
+      "label": "next round first Tab",
+      "at": 1791471412699,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-year-2",
+        "focus": {
+          "tag": "INPUT",
+          "id": "",
+          "testid": "flashback-year-slider",
+          "name": "Year"
+        },
+        "prompt": "What year did Dota 2 officially release?",
+        "helper": "Slide to the year, then press Lock \u00b7 Enter also locksCorrect now: 225 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 2. What year did Dota 2 officially release?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "59"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+  ],
+  "browser": "153.0.8010.12",
+  "buildId": "fQ95T7-zzQo1Bnsef8oBI",
+  "runtimeRoleMutation": false,
+  "servedBuildManifestSHA256": "9476e0afd3f9da68a64e6ec58631191fd3eaca62c9f5a377e7517fe9a89e59ea",
+  "control": "recovered-answer",
+  "liveRole": null,
+  "completed": true,
+  "speechRequests": [
+    {
+      "atMs": 1791471391945.062,
+      "text": "Screen reader on."
+    },
+    {
+      "atMs": 1791471397010.693,
+      "text": "about:blank - Google Chrome for Testing"
+    },
+    {
+      "atMs": 1791471397034.8252,
+      "text": "left control"
+    },
+    {
+      "atMs": 1791471397135.3271,
+      "text": "Address and search bar autocomplete about:blank selected."
+    },
+    {
+      "atMs": 1791471397434.315,
+      "text": "h"
+    },
+    {
+      "atMs": 1791471397449.71,
+      "text": "t"
+    },
+    {
+      "atMs": 1791471397460.271,
+      "text": "Text unselected."
+    },
+    {
+      "atMs": 1791471397470.6572,
+      "text": "t"
+    },
+    {
+      "atMs": 1791471397489.7202,
+      "text": "p"
+    },
+    {
+      "atMs": 1791471397511.662,
+      "text": "left shift"
+    },
+    {
+      "atMs": 1791471397516.0579,
+      "text": ":"
+    },
+    {
+      "atMs": 1791471397531.2058,
+      "text": "/"
+    },
+    {
+      "atMs": 1791471397552.5051,
+      "text": "/"
+    },
+    {
+      "atMs": 1791471397572.529,
+      "text": "h"
+    },
+    {
+      "atMs": 1791471397595.57,
+      "text": "o"
+    },
+    {
+      "atMs": 1791471397618.957,
+      "text": "s"
+    },
+    {
+      "atMs": 1791471397634.845,
+      "text": "t"
+    },
+    {
+      "atMs": 1791471397655.154,
+      "text": "."
+    },
+    {
+      "atMs": 1791471397677.9958,
+      "text": "d"
+    },
+    {
+      "atMs": 1791471397696.095,
+      "text": "o"
+    },
+    {
+      "atMs": 1791471397716.6582,
+      "text": "c"
+    },
+    {
+      "atMs": 1791471397737.541,
+      "text": "k"
+    },
+    {
+      "atMs": 1791471397760.4329,
+      "text": "e"
+    },
+    {
+      "atMs": 1791471397779.3,
+      "text": "r"
+    },
+    {
+      "atMs": 1791471397799.4512,
+      "text": "."
+    },
+    {
+      "atMs": 1791471397819.758,
+      "text": "i"
+    },
+    {
+      "atMs": 1791471397840.397,
+      "text": "n"
+    },
+    {
+      "atMs": 1791471397863.123,
+      "text": "t"
+    },
+    {
+      "atMs": 1791471397882.853,
+      "text": "e"
+    },
+    {
+      "atMs": 1791471397904.073,
+      "text": "r"
+    },
+    {
+      "atMs": 1791471397923.712,
+      "text": "n"
+    },
+    {
+      "atMs": 1791471397945.205,
+      "text": "a"
+    },
+    {
+      "atMs": 1791471397965.168,
+      "text": "l"
+    },
+    {
+      "atMs": 1791471397987.103,
+      "text": "left shift"
+    },
+    {
+      "atMs": 1791471397995.507,
+      "text": ":"
+    },
+    {
+      "atMs": 1791471398009.311,
+      "text": "3"
+    },
+    {
+      "atMs": 1791471398028.456,
+      "text": "3"
+    },
+    {
+      "atMs": 1791471398048.6208,
+      "text": "3"
+    },
+    {
+      "atMs": 1791471398068.017,
+      "text": "4"
+    },
+    {
+      "atMs": 1791471398088.676,
+      "text": "/"
+    },
+    {
+      "atMs": 1791471398110.5498,
+      "text": "p"
+    },
+    {
+      "atMs": 1791471398130.1301,
+      "text": "l"
+    },
+    {
+      "atMs": 1791471398150.5288,
+      "text": "a"
+    },
+    {
+      "atMs": 1791471398171.2761,
+      "text": "y"
+    },
+    {
+      "atMs": 1791471398202.062,
+      "text": "return"
+    },
+    {
+      "atMs": 1791471398224.94,
+      "text": "host.docker.internal:3334/play"
+    },
+    {
+      "atMs": 1791471398707.849,
+      "text": "Finished loading Play \u00b7 Queue Arcade."
+    },
+    {
+      "atMs": 1791471398714.203,
+      "text": "Page has 1 landmark, 2 headings, 5 unvisited links."
+    },
+    {
+      "atMs": 1791471399652.004,
+      "text": "left control"
+    },
+    {
+      "atMs": 1791471400349.852,
+      "text": " Round 1. How much mana does Acid Spray cost?"
+    },
+    {
+      "atMs": 1791471402131.9858,
+      "text": "tab"
+    },
+    {
+      "atMs": 1791471402170.049,
+      "text": "Enable game sounds toggle button not pressed."
+    },
+    {
+      "atMs": 1791471402551.7969,
+      "text": "tab"
+    },
+    {
+      "atMs": 1791471402593.6028,
+      "text": "Game volume horizontal slider 70 percent 77 percent."
+    },
+    {
+      "atMs": 1791471402596.249,
+      "text": "Focus mode"
+    },
+    {
+      "atMs": 1791471402971.7021,
+      "text": "tab"
+    },
+    {
+      "atMs": 1791471403025.775,
+      "text": "Answer choices panel"
+    },
+    {
+      "atMs": 1791471403026.459,
+      "text": "A 160 toggle button not pressed."
+    },
+    {
+      "atMs": 1791471403032.9648,
+      "text": "Browse mode"
+    },
+    {
+      "atMs": 1791471403396.874,
+      "text": "return"
+    },
+    {
+      "atMs": 1791471403443.017,
+      "text": "pressed"
+    },
+    {
+      "atMs": 1791471403464.0688,
+      "text": "A 160 Your answer \u00b7 locked pressed grayed."
+    },
+    {
+      "atMs": 1791471403880.106,
+      "text": "A 160 Your answer 0% pressed grayed."
+    },
+    {
+      "atMs": 1791471406358.0361,
+      "text": "leaving panel."
+    },
+    {
+      "atMs": 1791471406358.847,
+      "text": "Round 2 heading 1 clickable."
+    },
+    {
+      "atMs": 1791471406488.569,
+      "text": " Round 2. What year did Dota 2 officially release?"
+    },
+    {
+      "atMs": 1791471412289.685,
+      "text": "tab"
+    },
+    {
+      "atMs": 1791471412341.4841,
+      "text": "Year horizontal slider 2017 11864 percent."
+    },
+    {
+      "atMs": 1791471412344.696,
+      "text": "Focus mode"
+    }
+  ],
+  "checks": {
+    "promptExactlyOnce": true,
+    "expectedFocus": true,
+    "nativeTabToYear": true
+  }
+}

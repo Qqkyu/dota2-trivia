@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-10-08T15:12:49.780147+00:00",
+  "before": {
+    "sharp": "0.35.4",
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 1,
+      "critical": 0
+    },
+    "advisories": [
+      {
+        "module_name": "sharp",
+        "title": "sharp : Vulnerability in librsvg dependency CVE-2026-96889",
+        "severity": "high",
+        "vulnerable_versions": "<0.35.5",
+        "patched_versions": ">=0.35.5",
+        "url": "https://github.com/advisories/GHSA-wq5f-xc86-pv6w",
+        "created": "2026-10-06T13:43:57.000Z",
+        "updated": "2026-10-06T13:43:58.000Z",
+        "findings": [
+          {
+            "version": "0.35.4",
+            "paths": [
+              ". > next@16.3.8 > sharp@0.35.4",
+              ". > sharp@0.35.4"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "after": {
+    "sharp": "0.35.5",
+    "librsvg": "2.63.2",
+    "libvips": "8.18.7",
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    }
+  },
+  "inputs": {
+    "package.json": "8108be09b1eec963462db48cfcc510c98ba9f19c47ffb76b1038bed017819203",
+    "pnpm-lock.yaml": "e6eb745ddcc1653b58fdf927fb0cff64a57ced64e4b5775ef9c04e3020621295"
+  },
+  "changedScope": "Only the direct Sharp pin, its override, and Sharp native package graph changed."
+}

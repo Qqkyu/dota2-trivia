@@ -1,7 +1,7 @@
 {
   "appJourneyPasses": 0,
   "appJourneyFailures": 0,
-  "notRunReason": "A complete native Android gameplay journey was not verified. The October8 Android11 run passed native Party navigation, keyboard input and server-confirmed Join. Its waiting-room UI and settled landscape layout remained unverified at the fixed deadline.",
+  "notRunReason": "A complete native Android gameplay journey was not verified. The October 8 Android 11 run passed native Party navigation, keyboard input and server-confirmed Join. Its waiting-room UI and settled landscape layout remained unverified at the fixed deadline.",
   "hostKvmAvailable": false,
   "windowsHypervisorPlatformInstallState": 2,
   "attempts": [
@@ -37,18 +37,18 @@
       "observed": "Emulator reported GPU incompatibility and exited139 before ADB connected. The attempted ro.hw_timeout_multiplier property was rejected because only qemu.* properties are supported."
     },
     {
-      "name": "Android11 AOSP fallback",
+      "name": "Android 11 AOSP fallback",
       "emulator": "37.2.12",
       "cpuAcceleration": false,
       "virtualCpus": 1,
       "requestedRamMiB": 1536,
       "graphics": "swiftshader; Vulkan disabled",
-      "observed": "Android reached boot_completed=1. Official Firefox157.0.1 installed successfully. Geckodriver first failed before browser launch while setting ownership on shared storage. The next attempt will use its documented internal storage mode.",
+      "observed": "Android reached boot_completed=1. Official Firefox 157.0.1 installed successfully. Geckodriver first failed before browser launch while setting ownership on shared storage. The next attempt will use its documented internal storage mode.",
       "appPageLoaded": false,
-      "laterObserved": "On October6, internal-storage WebDriver startup also failed, but native ADB launch loaded the Party page after adb reverse was restored. That screenshot did not establish a completed journey."
+      "laterObserved": "On October 6, internal-storage WebDriver startup also failed, but native ADB launch loaded the Party page after adb reverse was restored. That screenshot did not establish a completed journey."
     },
     {
-      "name": "Android11 bounded final native attempt",
+      "name": "Android 11 bounded final native attempt",
       "date": "2026-10-08",
       "appOrigin": "http://127.0.0.1:3334",
       "appBuild": "fQ95T7-zzQo1Bnsef8oBI",

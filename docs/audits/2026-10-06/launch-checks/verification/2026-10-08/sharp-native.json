@@ -1,0 +1,508 @@
+{
+  "checkedAt": "2026-10-08T15:13:45.386Z",
+  "status": "passed",
+  "node": "v22.23.3",
+  "sharp": "0.35.5",
+  "librsvg": "2.63.2",
+  "libvips": "8.18.7",
+  "localImagesDecoded": 52,
+  "originalSvgsDecoded": 13,
+  "portraitStagesPassed": 3,
+  "scope": "Actual native decoding of local app assets and the production portrait-transform function. No hosted image route or physical device is implied.",
+  "assets": [
+    {
+      "path": "public/arcade/first-blood-splash.png",
+      "inputSha256": "a5cefd58257c1e7e1dc34560b94bfd7617a978df20b4f31a48d0b00798558cc0",
+      "format": "png",
+      "width": 1280,
+      "height": 720,
+      "outputBytes": 385396,
+      "outputSha256": "ed5e07b9a6b93047ff2b5b7e26b93fd4d5f17c82cac3321e875b3739ecf3bc75"
+    },
+    {
+      "path": "public/arcade/flashback/ability-draft-mark.png",
+      "inputSha256": "c1fc21c889232a1036f9fb0262505f570cb01155093290f97d49d3a40f025264",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 6919,
+      "outputSha256": "79eea55b5114a871141696fff7e03ae97bec79b2db399efe2f2d24ce97d59c1d"
+    },
+    {
+      "path": "public/arcade/flashback/allstars-mark.png",
+      "inputSha256": "9ccf8664340c607be19b530e82bc26a3ac4f2795bc543ecf00815a5552491d2e",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 7138,
+      "outputSha256": "e4a3c5a58c4007c2ca4fa9f935965f1d8f0274f1a0ed0bd4ab5f419950860e2f"
+    },
+    {
+      "path": "public/arcade/flashback/arcana-mark.png",
+      "inputSha256": "cc2d0a74ecc433075421f764f99189d22f528f59c1185ef171309b4fc4e33c8b",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 6194,
+      "outputSha256": "338e8fde24f4794865f5bfd3e32269627deea5bf582b12d4e256128851f9a2a1"
+    },
+    {
+      "path": "public/arcade/flashback/artifact-mark.png",
+      "inputSha256": "3265d09c2ded0da111b03fb12128ca8cc2a815b58f2b40666de16f472b5cdf05",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 6161,
+      "outputSha256": "1be6e239f93fc7eb7847742347b2e8861997bf2463cfb9ad644874696b4ac79d"
+    },
+    {
+      "path": "public/arcade/flashback/dueling-fates-mark.png",
+      "inputSha256": "4ecf5988e6941ee42a47ace3760b33b4ab6a2dd8f9cbbf1f4ccc430c002e6448",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 7758,
+      "outputSha256": "7a847c4735193ff6c6390975380ae7a2b8feac5c03e8cecbaa7c176bc58cd241"
+    },
+    {
+      "path": "public/arcade/flashback/facets-mark.png",
+      "inputSha256": "84e390752eb972073583b283044cc8a24debce7fad9e7a0b7bdbec886ca4f9ad",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 7743,
+      "outputSha256": "8312fa3c601898375860d79778819b4f5302013736652fe1f0d22f6fdb66143b"
+    },
+    {
+      "path": "public/arcade/flashback/guinsoo-mark.png",
+      "inputSha256": "7ac28847b5477d8f917f18f4164258a1d4090ab9a6a52388e6d0341407711c5a",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 9077,
+      "outputSha256": "b0b900256be07e5729578effdd0d137657243e4a0f8344d833a7d909d331cd90"
+    },
+    {
+      "path": "public/arcade/flashback/heroes-mark.png",
+      "inputSha256": "9e3b23234f6955bbe612e46a1e6cf15133e7c02dd4e5446d777a63413b84e388",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 6266,
+      "outputSha256": "91887ca8560c5784ba3ceb242264ee160d8c497ef59b243c1e7472d33bb1e033"
+    },
+    {
+      "path": "public/arcade/flashback/history-mark.png",
+      "inputSha256": "6033dd93602b06ecb43a7a2956f7c8c5c4cbe9b253a4f70c810505f9e4e4bb8f",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 6857,
+      "outputSha256": "5504771b375489b2c19a201f13820948db9ae4c95bf9b0e3b461f7c8174ddc07"
+    },
+    {
+      "path": "public/arcade/flashback/icefrog-mark.png",
+      "inputSha256": "8dfabe6a086eba80dfaaa1baa278d17eae1dbab4b7ccf6bf6b4162635503e194",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 7008,
+      "outputSha256": "20cf8eabc63d83eef185f9f90be35c658a39f78b60f27aa4a1bc53e8395c94a8"
+    },
+    {
+      "path": "public/arcade/flashback/io.png",
+      "inputSha256": "2b7a2edc56d448ce03a90d340febe227a6d1371ea00b3536996344d0f844d23c",
+      "format": "png",
+      "width": 256,
+      "height": 144,
+      "outputBytes": 87472,
+      "outputSha256": "58325bfea0186f07675b8e5de0fa209331dda578a66fd043d4755f0bdb8399d0"
+    },
+    {
+      "path": "public/arcade/flashback/map-overview.webp",
+      "inputSha256": "01028b24e7bebb740f3ce1506b769893205566ff17bddca2d86c32abfeda233f",
+      "format": "webp",
+      "width": 512,
+      "height": 512,
+      "outputBytes": 546728,
+      "outputSha256": "1f52dcc79d354260fc86d0131b12ae1d10c935b63225a86f724628747cd42610"
+    },
+    {
+      "path": "public/arcade/flashback/max-level-mark.png",
+      "inputSha256": "3461603d78c2bd94d9996d4641264d347c17b8ba6a9595c5f37167c8febf4de5",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 8236,
+      "outputSha256": "be127d1d4b04d3736c8a60aa7a26ab3775d4d96f9da35c632b00fdb25add7a39"
+    },
+    {
+      "path": "public/arcade/flashback/modes-mark.png",
+      "inputSha256": "e83a1840f764a71e3e4377f006f814c3c90238b9feafc63ecf10b54847c296e8",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 6916,
+      "outputSha256": "ea2131c371150d6184c04d5e4547efcd0950f799defcb45dddbf805117765670"
+    },
+    {
+      "path": "public/arcade/flashback/necrophos.png",
+      "inputSha256": "11852e2d8a155bd728beb3e4675be3e9ff5594cd536b92106eab5247791538be",
+      "format": "png",
+      "width": 256,
+      "height": 144,
+      "outputBytes": 101270,
+      "outputSha256": "ed4b1166dfb48b15070e0730bb20238f0b5a6876437d0ce4cc840cde5e2fe0e6"
+    },
+    {
+      "path": "public/arcade/flashback/new-heroes-mark.png",
+      "inputSha256": "65bb5b34732e545b395e7d8b0c177f1879aa7c8021f15155a6e3ab33e862d7e6",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 7981,
+      "outputSha256": "e847518d3bf1b86871fc92b83d63fa0caf1ec779b41f97c6ca1f6a69b86c47a0"
+    },
+    {
+      "path": "public/arcade/flashback/odpixel-mark.png",
+      "inputSha256": "67defff04b3617bff4d7d06a99a0a5a29fc9301db19dd53fb6afb36ba91540a0",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 6739,
+      "outputSha256": "9abcb9c738382c37b2fe2fc32d42aa788216af1811e6f114dd545982a2ca7a83"
+    },
+    {
+      "path": "public/arcade/flashback/original-mark.png",
+      "inputSha256": "322fb43ff3f09ebf7bd63e3f3aa99dfb9f951ad11a5c8a89c3ab1953ebae7ff2",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 8475,
+      "outputSha256": "da909b74850bca01d064d8f6b2ba1cba08b3e6aa802af4c20a503a6c25962194"
+    },
+    {
+      "path": "public/arcade/flashback/originals/international.svg",
+      "inputSha256": "ee9c75d5fbe966a939d7edd3db2614b52b84aa82912b8e7c63b104ef25c9117c",
+      "format": "svg",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 12211,
+      "outputSha256": "7e7c64e62d15c6dda20cb45a33c4c9aeacee1502170724454cb03de156bb069b"
+    },
+    {
+      "path": "public/arcade/flashback/originals/winner-alliance.svg",
+      "inputSha256": "14e7a8236a9af725e876312bb950a4c2528573c034d79df6b19d4eda0e51c3c3",
+      "format": "svg",
+      "width": 240,
+      "height": 240,
+      "outputBytes": 8519,
+      "outputSha256": "9c389a8e52c0421777130fc408d9f93557ef81f5c50dbcb225537c6765ee0a9d"
+    },
+    {
+      "path": "public/arcade/flashback/originals/winner-evil-geniuses.svg",
+      "inputSha256": "74deace1500bfc8bf797e6f3310bbe30cf5d1906e007ab21c55cb2b10e5e17ca",
+      "format": "svg",
+      "width": 240,
+      "height": 240,
+      "outputBytes": 9291,
+      "outputSha256": "0d3e5b592e791aff19964ca921c27ab886290b1fb763ca0da18637fb736ddf5d"
+    },
+    {
+      "path": "public/arcade/flashback/originals/winner-invictus-gaming.svg",
+      "inputSha256": "dd80403e8806ae873ec075300a545b8ee8c130099bc5b608c73757a31d2f5592",
+      "format": "svg",
+      "width": 240,
+      "height": 240,
+      "outputBytes": 9451,
+      "outputSha256": "d1a519e641dcfc3a7723981c18dd21b4dcc425a1bcba49005daeb0c2239453b6"
+    },
+    {
+      "path": "public/arcade/flashback/originals/winner-natus-vincere.svg",
+      "inputSha256": "3a8a02776bb316868a8a23fef90891ca27f8c92eb75091813bad0912683db174",
+      "format": "svg",
+      "width": 240,
+      "height": 240,
+      "outputBytes": 9722,
+      "outputSha256": "0c6ef1ee993e6fd3c8f1ca0692dc9d7921e5c1a36cf8fef670310419f205fe7c"
+    },
+    {
+      "path": "public/arcade/flashback/originals/winner-newbee.svg",
+      "inputSha256": "45e96f42a52f67dac1fb010a8255fa4dc951fc858b7a022a602858a9a90ea858",
+      "format": "svg",
+      "width": 240,
+      "height": 240,
+      "outputBytes": 8125,
+      "outputSha256": "e13d60de118440998e461ba8578de13911a8562faf81e01af404ba60cada2e76"
+    },
+    {
+      "path": "public/arcade/flashback/originals/winner-og.svg",
+      "inputSha256": "ca25ce289ad6c90efeaff14479271ff18e3562b6d02eb1728a38fe0e107a129b",
+      "format": "svg",
+      "width": 240,
+      "height": 240,
+      "outputBytes": 9056,
+      "outputSha256": "5385d457836dfa4437e56ccc0337cf6d5f22e30040bf45aec822f9b385e29485"
+    },
+    {
+      "path": "public/arcade/flashback/originals/winner-team-falcons.svg",
+      "inputSha256": "15e4f0f95e8212f738c50e473e183209dc127c7b7832d33238e6ed25e7ee43f0",
+      "format": "svg",
+      "width": 240,
+      "height": 240,
+      "outputBytes": 8461,
+      "outputSha256": "3b7128920472dc1ff1bfd0c81e7407ce3fcb7192b6968440448c63b34134cf3e"
+    },
+    {
+      "path": "public/arcade/flashback/originals/winner-team-liquid.svg",
+      "inputSha256": "c8b7d31de2ea899deb91fd2e3dd890ef70d0bb4f671e5fe3452725d5715c02d9",
+      "format": "svg",
+      "width": 240,
+      "height": 240,
+      "outputBytes": 7966,
+      "outputSha256": "2f4463d7ab052abcdd72f00f6959090708ed186ad63c0f08ee5a575505eb0f03"
+    },
+    {
+      "path": "public/arcade/flashback/originals/winner-team-secret.svg",
+      "inputSha256": "e0400ed80cd3b2af956da49d944fc6178e7a17b0316ea01145c1b7539b9f322b",
+      "format": "svg",
+      "width": 240,
+      "height": 240,
+      "outputBytes": 9196,
+      "outputSha256": "4ddc9eae61c92d2e7a3ab8b351e33c64f589cac0dc423580ceb1b74e8f691522"
+    },
+    {
+      "path": "public/arcade/flashback/originals/winner-team-spirit.svg",
+      "inputSha256": "89672491ea264b9e38c376cb48dc9056cfdf0238684f94cb2e769b1e80923ed7",
+      "format": "svg",
+      "width": 240,
+      "height": 240,
+      "outputBytes": 8975,
+      "outputSha256": "74629b94ab835fb8ee84a78aeccdbc7a891b6294972dd3ef57c83e62f5bd8557"
+    },
+    {
+      "path": "public/arcade/flashback/originals/winner-tundra-esports.svg",
+      "inputSha256": "6dcc21595c3ca297118a49c1d2af84e037e40aadf73e47f077e9d6dd5ef52e07",
+      "format": "svg",
+      "width": 240,
+      "height": 240,
+      "outputBytes": 8857,
+      "outputSha256": "b8624c03d6c63b9f0cb96ba94db3196d782265b914c231486a33336759dbac24"
+    },
+    {
+      "path": "public/arcade/flashback/originals/winner-wings-gaming.svg",
+      "inputSha256": "e5de807ecac3acf9cc2d09a8b2ab23e3761b3802a54ade4b34caef41c9cf924e",
+      "format": "svg",
+      "width": 240,
+      "height": 240,
+      "outputBytes": 10786,
+      "outputSha256": "e34106ffa25d436d56d1f8d9b3e412b2089a2247d87c18c8d67a676ab41fde8f"
+    },
+    {
+      "path": "public/arcade/flashback/outlanders-mark.png",
+      "inputSha256": "69f2ca4138ba67e10533ed49fb3eee57b697530338ae80ce2904dd268cecbef9",
+      "format": "png",
+      "width": 3036,
+      "height": 867,
+      "outputBytes": 964470,
+      "outputSha256": "f74a8d1b7dc032af037868afa86d987f3924d65c8ed04b19590a6deefdf1a4b5"
+    },
+    {
+      "path": "public/arcade/flashback/patch-740-mark.png",
+      "inputSha256": "2c5af23839728d496c22d4cd6b6f7e503b22517c88437658d45157e18ab22eea",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 4786,
+      "outputSha256": "8378d49f5a0c7c73b4bf28b788f0604b4657fc9f1b53b60368d3f3c5f7727f1b"
+    },
+    {
+      "path": "public/arcade/flashback/persona-mark.png",
+      "inputSha256": "0cf97889d55e74776ccedb47c7c19486dd181e59a06f22ef9aa415e3e3d82540",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 9017,
+      "outputSha256": "6ea2c63e2c66bc2a90557cdf73efc08007e53e941e1f38385a07c055756a2272"
+    },
+    {
+      "path": "public/arcade/flashback/plus-mark.png",
+      "inputSha256": "619eb7c301826476e31fdbb64adaf234af344b35d44b780906081c3970aabf6a",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 7655,
+      "outputSha256": "77de59f7b64f5389d064d26a11fba49fd7ee9c0b4d8d69707e0eafa83eeba5be"
+    },
+    {
+      "path": "public/arcade/flashback/ti-wordmark.png",
+      "inputSha256": "b9384821f2960a3efae6e174fed9f660dfb22391cf0745577950984e07cc4ed1",
+      "format": "png",
+      "width": 375,
+      "height": 172,
+      "outputBytes": 36317,
+      "outputSha256": "f707d081b6f54a7272eb4ec73d753c677e24fbb3a0da86d80e3dbaebb3116cc5"
+    },
+    {
+      "path": "public/arcade/flashback/ti10-mark.png",
+      "inputSha256": "f1e8499778fa0564165451bc678c4c7854f413cdf012f6f7104270ae115ddf52",
+      "format": "png",
+      "width": 810,
+      "height": 550,
+      "outputBytes": 626210,
+      "outputSha256": "e6da2c32bee77b4bf0cdda7dd2a2f89038d8423852c0e2af8f816597cc6ec827"
+    },
+    {
+      "path": "public/arcade/flashback/ti11-mark.jpg",
+      "inputSha256": "aa89e942455214d741301cb9421f179e14822c02470dc986ced9278cb4eae1ae",
+      "format": "jpeg",
+      "width": 800,
+      "height": 450,
+      "outputBytes": 552450,
+      "outputSha256": "1091cca2de0c28c327296d632c515b45a8cc37e3990f13ac2b459a75ae954658"
+    },
+    {
+      "path": "public/arcade/flashback/ti12-mark.png",
+      "inputSha256": "b99bd049d180aecf8fce3e6437f75552227be66d1bbf0591f78449d11f7dfcb9",
+      "format": "png",
+      "width": 800,
+      "height": 450,
+      "outputBytes": 520296,
+      "outputSha256": "3a002b94c9170ad24843424952da9b2c9bc682d2b659a75b1b841063af9ae1d7"
+    },
+    {
+      "path": "public/arcade/flashback/ti13-mark.jpg",
+      "inputSha256": "5fca701d27e06cbd56e4db750f6a9c4a11d9ffb0ff613b149b617f149fd28a65",
+      "format": "jpeg",
+      "width": 800,
+      "height": 450,
+      "outputBytes": 316113,
+      "outputSha256": "3adaeb014ee1f22319f80dd2f8bf092be778eb86cf95ca378b7b70a2ea69a745"
+    },
+    {
+      "path": "public/arcade/flashback/ti14-mark.png",
+      "inputSha256": "29695c4df6c9332afd1def1925b92cf2b376f5d703e7bbb96e7e50277829e8e8",
+      "format": "png",
+      "width": 800,
+      "height": 450,
+      "outputBytes": 818123,
+      "outputSha256": "8b05e39f5c5ebe9094dfb5ddf40b03bc45be519b27dc0287966792b48786bee8"
+    },
+    {
+      "path": "public/arcade/flashback/turbo-mark.png",
+      "inputSha256": "bc8f8428da3e1c7236660d3b563417cb8563cdd0ec5175808ed950232504382e",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 6251,
+      "outputSha256": "e5a656947708919a9dbac2eb65c5674e7f29280e62a31f8542fb277a3de7ae78"
+    },
+    {
+      "path": "public/arcade/flashback/valve-mark.png",
+      "inputSha256": "cd10e692b2fe915031866f464b535e2fde865bcff71709b9cb7e2d815ef13c06",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 5231,
+      "outputSha256": "a97a0e9a092c26d5404e85620fba7ca1bde14fda226cb746b46cb810841a8d2a"
+    },
+    {
+      "path": "public/arcade/flashback/warcraft3-mark.png",
+      "inputSha256": "f4ab22dd4c2f6f1d464bc939681fa3c51ad0cfcd84e4e33ad654aa183c233649",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 7751,
+      "outputSha256": "bd3c1c1711fb0fa2ec9a518de51ad6f3c2c88315483a332a91e3efb738883b2c"
+    },
+    {
+      "path": "public/arcade/flashback/windranger.png",
+      "inputSha256": "930289266abff95335896a3cd9fb61242e039068182b8e16848e9850b7911fa6",
+      "format": "png",
+      "width": 256,
+      "height": 144,
+      "outputBytes": 106788,
+      "outputSha256": "b249c9603cc196d10a6b9a13b174fe1fe0bc994824a7dc19d0e42e8b33e27e3a"
+    },
+    {
+      "path": "public/arcade/flashback/you-suck-mark.png",
+      "inputSha256": "ee213038ae0d774165b5b18257ff8e6a12cefd2cb0b967f2c54f618187fb26e0",
+      "format": "png",
+      "width": 496,
+      "height": 296,
+      "outputBytes": 9289,
+      "outputSha256": "c6061408473a081a1d5665f756b231abcb935fe20e9bd2b5d825250ebd4b70fa"
+    },
+    {
+      "path": "public/arcade/items/angels_demise.png",
+      "inputSha256": "f3db8f35f675371fa236db558bea8b0977abf3473e3d8c5761989f0353f39d82",
+      "format": "png",
+      "width": 88,
+      "height": 64,
+      "outputBytes": 7388,
+      "outputSha256": "4b113d4f39dceca45055e68fcd9eadaa03434ae7df72db4cfa5ff774cb1bdc9e"
+    },
+    {
+      "path": "public/arcade/items/disperser.png",
+      "inputSha256": "b2d354f5e6922317b9d40690de3394d53d88eaed44a9cb2f30173143161b4d27",
+      "format": "png",
+      "width": 88,
+      "height": 63,
+      "outputBytes": 9336,
+      "outputSha256": "1a1f72ff3758c70e01e409ea632d6d91bf17443a13760f3f9d856b195b66e4bf"
+    },
+    {
+      "path": "public/arcade/items/phylactery.png",
+      "inputSha256": "02579a58536d38630eaf859f3cad0ca20e5aef2a315cee046a5860e10d572195",
+      "format": "png",
+      "width": 86,
+      "height": 62,
+      "outputBytes": 7891,
+      "outputSha256": "793f25ae529c73dbe417dea53cd77c13f54f48a71c95dd5b66432e9eca0c9ef3"
+    },
+    {
+      "path": "public/assets/dota2/map/overview-7.41d.webp",
+      "inputSha256": "01028b24e7bebb740f3ce1506b769893205566ff17bddca2d86c32abfeda233f",
+      "format": "webp",
+      "width": 512,
+      "height": 512,
+      "outputBytes": 546728,
+      "outputSha256": "1f52dcc79d354260fc86d0131b12ae1d10c935b63225a86f724628747cd42610"
+    },
+    {
+      "path": "public/assets/steam-sign-in.png",
+      "inputSha256": "bbd5d8ac0c737fccca946009a5eb7cb33605fca2bb5c259807a117f9f2cb193f",
+      "format": "png",
+      "width": 180,
+      "height": 35,
+      "outputBytes": 5855,
+      "outputSha256": "aae6a9f3dccdab56fe88dabc163332e5e19461d6a18c7c4bfe4666661c3e4e7e"
+    }
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "source": "/arcade/flashback/windranger.png",
+      "bytes": 25973,
+      "sha256": "73f45b37088d651ca77b0fea484d8cee16e73ac55ce6b5eb5e1ae59877934ed9",
+      "width": 512,
+      "height": 288
+    },
+    {
+      "stage": 2,
+      "source": "/arcade/flashback/windranger.png",
+      "bytes": 34771,
+      "sha256": "99495c83a233c693dc5d59ccf242f8ba84dbea8fd7b1608e62245b916332f777",
+      "width": 512,
+      "height": 288
+    },
+    {
+      "stage": 3,
+      "source": "/arcade/flashback/windranger.png",
+      "bytes": 51686,
+      "sha256": "f8b4b296ee245b26340a092343edbad6f6695d13726b3fa0122005031dbf4fc6",
+      "width": 512,
+      "height": 288
+    }
+  ]
+}

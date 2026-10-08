@@ -1,0 +1,44 @@
+#!/bin/bash
+set -eu
+cd /evidence
+export XDG_CONFIG_HOME=/evidence/session/config
+export XDG_DATA_HOME=/evidence/session/data
+export XDG_CACHE_HOME=/evidence/session/cache
+export XDG_RUNTIME_DIR=/tmp/assistive-runtime
+export GSETTINGS_BACKEND=memory
+export NO_AT_BRIDGE=0
+export DISPLAY=:96
+export SPEECHD_ADDRESS=unix_socket:/tmp/assistive-runtime/speechd.sock
+mkdir -p "$XDG_RUNTIME_DIR" session/data session/cache session/log session/speech session/screenshots
+chmod 700 "$XDG_RUNTIME_DIR"
+Xvfb :96 -screen 0 1280x900x24 -nolisten tcp -ac > session/xvfb.log 2>&1 &
+ASSISTIVE_X_PID=$!
+sleep 1
+openbox > session/openbox.log 2>&1 &
+ASSISTIVE_WM_PID=$!
+cleanup() {
+  kill ${ASSISTIVE_ORCA_PID:-} ${ASSISTIVE_SPEECH_PID:-} 2>/dev/null || true
+  kill -INT ${ASSISTIVE_RECORD_PID:-} 2>/dev/null || true
+  wait ${ASSISTIVE_RECORD_PID:-} 2>/dev/null || true
+  kill "$ASSISTIVE_X_PID" "$ASSISTIVE_WM_PID" 2>/dev/null || true
+  chmod -R a+rX /evidence/session
+}
+trap cleanup EXIT
+pulseaudio --daemonize=yes --exit-idle-time=-1 --log-target=file:/evidence/session/pulseaudio.log
+export PULSE_SERVER=unix:/tmp/assistive-runtime/pulse/native
+pactl load-module module-null-sink sink_name=assistive rate=22050
+pactl set-default-sink assistive
+pactl info > session/pulse-info.txt
+python3 -c "import time,pathlib; pathlib.Path('/evidence/session/recording-start-ms.txt').write_text(str(time.time_ns()/1e6))"
+ffmpeg -hide_banner -loglevel warning -y -f pulse -i assistive.monitor -ac 1 -ar 22050 /evidence/session/speech.wav > session/recording.log 2>&1 &
+ASSISTIVE_RECORD_PID=$!
+sleep 1
+speech-dispatcher -s -C /evidence/session/config/speech-dispatcher -S /tmp/assistive-runtime/speechd.sock -P /tmp/assistive-runtime/speechd.pid -t 0 > session/speech-dispatcher.log 2>&1 &
+ASSISTIVE_SPEECH_PID=$!
+sleep 1
+orca -u /evidence/session/data/orca49 --disable=braille --debug --debug-file=/evidence/session/orca-debug.log > session/orca-console.log 2>&1 &
+ASSISTIVE_ORCA_PID=$!
+sleep 3
+python3 -c "import speechd,time; s=speechd.SSIPClient('assistive-smoke'); print(s.list_output_modules()); s.speak('Speech Dispatcher capture works.'); time.sleep(1); s.close()"
+python3 /evidence/record-environment.py
+node /evidence/modern-check.mjs

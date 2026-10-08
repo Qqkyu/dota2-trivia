@@ -1,0 +1,46 @@
+{
+  "checkedAt": "2026-10-08T15:09:40.869821+00:00",
+  "exitCode": 0,
+  "testCount": 20,
+  "offlineOnly": true,
+  "remoteMutations": 0,
+  "reviewedCandidate": "ca7c89b3dcff21b3e8e5c4064f0638fea2407623",
+  "files": {
+    "deploy-render-candidate.py.txt": {
+      "sha256": "b0412f544f4097ede355e2cd471ca51088de9437b3d6f830b00105227325137a",
+      "bytes": 12333
+    },
+    "create-candidate.py.txt": {
+      "sha256": "00a119a4cb09f763d3c8b338b153937c38d1683fbd8b54cc02c1aab10fedf01a",
+      "bytes": 2685
+    },
+    "test-deploy-helpers.py.txt": {
+      "sha256": "ea264fc88c153d1f5721b92c16df1291dc51864b0d9e9ff89c1967018d29b5ce",
+      "bytes": 17962
+    },
+    "deployment-helper-tests.log": {
+      "sha256": "b8ec2a5d57f3d702961c91d6eacef6b7041d318162665d358351a7248a4505a6",
+      "bytes": 1601
+    }
+  },
+  "coverage": [
+    "Exact remote candidate SHA and completed successful CI run required",
+    "Temporary Git index and compare-and-swap candidate reference preserve the user index",
+    "Private and generated file paths rejected",
+    "Paused branch preparation refuses an active service",
+    "Deploy request specifies the checked SHA",
+    "Only explicit service-suspension HTTP 409 authorizes resume",
+    "Queued HTTP 202 with no body is recorded without assuming a live deployment",
+    "Resume evidence must match the service, commit and CI run and be at most 15 minutes old",
+    "Resume immediately inspects new deployments and leaves health checks gated until polling",
+    "A fresh wrong-SHA deployment causes suspension before build cancellation",
+    "Only one live exact-SHA deployment allows external health checks",
+    "Provider error bodies stay bounded and never enter records or console output",
+    "HTTP 301, 302, 303, 307 and 308 responses are rejected for GET and POST before a second request can forward Authorization"
+  ],
+  "limits": [
+    "Mocks verify helper logic, not Render execution behavior.",
+    "The resume endpoint has no documented guarantee against briefly serving an older image before observation.",
+    "Polling must follow resume or queued deployment before external health checks."
+  ]
+}

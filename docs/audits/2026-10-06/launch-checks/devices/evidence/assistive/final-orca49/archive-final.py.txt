@@ -1,0 +1,68 @@
+from pathlib import Path
+import ast, array, datetime, gzip, hashlib, json, re, shutil, wave
+base=Path('/tmp/queue-arcade-launch-checks/assistive-modern')
+out=Path('/home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/devices/evidence/assistive/final-orca49')
+out.mkdir(parents=True,exist_ok=True)
+summary={'buildId':'fQ95T7-zzQo1Bnsef8oBI','appUrl':'http://127.0.0.1:3334','checks':{},'physicalAudio':False,'runtimeRoleMutation':False,'continuousSessionClaim':False,'runs':{}}
+for name in ['recovered','external','recipe']:
+    b=base/('final3334-'+name)/'session'
+    r=json.loads((b/'app-results.json').read_text())
+    assert r.get('completed') is True and not r['errors'], (name,r.get('errors'))
+    assert r['buildId']==summary['buildId'] and r['runtimeRoleMutation'] is False
+    assert r['liveRole'] is None, (name,'Final app still exposes an explicit role')
+    speech=[]
+    for line in (b/'orca-debug.log').read_text().splitlines():
+        match=re.match(r'(\d\d:\d\d:\d\d\.\d+) - SPEECH OUTPUT: (.*?) (\{.*)$',line)
+        if not match: continue
+        try: text=ast.literal_eval(match[2])
+        except (SyntaxError,ValueError): continue
+        at=datetime.datetime.fromisoformat(r['startedAt'][:10]+'T'+match[1]+'+00:00').timestamp()*1000
+        speech.append({'atMs':at,'text':text})
+    events={e['label']:e for e in r['events']}
+    if name=='recipe':
+        first=events['shop search']['at']; last=events['shop recipe submitted']['at']
+        checks=dict(r['checks'])
+        checks['firstSelectionSpoken']=any('Added Gloves of Haste. 1 of 2 components selected.' in u['text'] for u in speech)
+        checks['secondSelectionSpoken']=any('Added Gloves of Haste. 2 of 2 components selected.' in u['text'] for u in speech)
+    else:
+        first=events['classic before next round']['at']; last=events['next round first Tab']['at']
+        spoken=[u['text'] for u in speech if first<=u['atMs']<=events['classic next round']['at']]
+        checks={'promptExactlyOnce':sum(events['classic next round']['state']['prompt'] in u for u in spoken)==1,'expectedFocus':events['classic next round']['state']['focus']['testid']==('game-volume' if name=='external' else 'round-heading'),'nativeTabToYear':events['next round first Tab']['state']['focus']['testid']=='flashback-year-slider'}
+    assert all(checks.values()), (name,checks)
+    summary['checks'][name]=checks
+    selected=[u for u in speech if first<=u['atMs']<=last]
+    transcript={**r,'speechRequests':speech,'checks':checks}
+    (out/(name+'-transcript.json')).write_text(json.dumps(transcript,indent=2)+'\n')
+    relevant=[line for line in (b/'orca-debug.log').read_text().splitlines() if any(term in line for term in ['Orca version','SPEECH OUTPUT:','What year did Dota 2 officially release?','Not ignoring object:text-changed:insert due to source being live region','Ignoring object:text-changed:insert due to multiple instances'])]
+    (out/(name+'-orca-excerpt.txt')).write_text('\n'.join(relevant)+'\n')
+    origin=float((b/'recording-start-ms.txt').read_text())
+    audio_start=max(0,(first-origin)/1000-1); audio_end=(last-origin)/1000+1
+    with wave.open(str(b/'speech.wav'),'rb') as source:
+        params=source.getparams(); rate=source.getframerate()
+        source.setpos(min(int(audio_start*rate),source.getnframes()))
+        frames=source.readframes(int((audio_end-audio_start)*rate))
+    with wave.open(str(out/(name+'-audio.wav')),'wb') as target:
+        target.setparams(params);target.writeframes(frames)
+    samples=array.array('h',frames)
+    measure={'sampleRate':rate,'channels':params.nchannels,'sampleWidthBytes':params.sampwidth,'samples':len(samples),'nonzeroSamples':sum(s!=0 for s in samples),'peakAbsoluteSample':max(map(abs,samples)),'durationSeconds':len(samples)/rate,'sourceStartSeconds':audio_start,'sourceEndSeconds':audio_end,'note':'Unaltered PCM excerpt from stock Speech Dispatcher through PulseAudio. No physical speaker or human listening check.'}
+    assert measure['nonzeroSamples']>0
+    summary['runs'][name]={'browser':r['browser'],'startedAt':r['startedAt'],'speechDuringCheck':selected,'audio':measure,'rawTranscriptSHA256':hashlib.sha256((b/'app-results.json').read_bytes()).hexdigest(),'rawOrcaLogSHA256':hashlib.sha256((b/'orca-debug.log').read_bytes()).hexdigest(),'rawAudioSHA256':hashlib.sha256((b/'speech.wav').read_bytes()).hexdigest()}
+    shutil.copyfile(b/'environment.json',out/(name+'-environment.json'))
+    shutil.copyfile(b/'app-results.json',out/(name+'-app-results.json'))
+    (out/(name+'-orca-debug.log.gz')).write_bytes(gzip.compress((b/'orca-debug.log').read_bytes(),mtime=0))
+summary['allTargetedChecksPassed']=all(all(checks.values()) for checks in summary['checks'].values())
+summary['sourceSHA256']={p:hashlib.sha256(Path('/home/kulmisiu/dev/dota2-trivia',p).read_bytes()).hexdigest() for p in ['src/components/queue-arcade.tsx','scripts/check-orca-round.mjs']}
+for filename in ['modern-check.mjs','modern-session.sh','record-environment.py']:
+    shutil.copyfile(base/'final3334-recovered'/filename,out/(filename+'.txt'))
+shutil.copyfile(base/'run-portable-reader.py',out/'run-portable-reader.py.txt')
+shutil.copyfile(base/'prepare-portable-reader.py',out/'prepare-portable-reader.py.txt')
+shutil.copyfile(base/'portable-reader-inputs.json',out/'portable-reader-inputs.json')
+shutil.copyfile(base/'round-checker-controls-20261008.json',out/'round-checker-controls.json')
+shutil.copyfile(base/'final3334-recovered/session/config/speech-dispatcher/speechd.conf',out/'speechd.conf.txt')
+shutil.copyfile(base/'archive-final.py',out/'archive-final.py.txt')
+(out/'verification.json').write_text(json.dumps(summary,indent=2)+'\n')
+shutil.copyfile(base/'run-final3334-external.log.stale-service-attempt',out/'stale-service-attempt.log')
+(out/'setup-attempts.json').write_text(json.dumps({'firstRecoveredRun':'Passed all checks.','firstExternalSetup':'Stopped before the app driver started. The reused container retained audio services and startup did not finish. No app test result is assigned.','correction':'Restart only the disposable container and reset its task-owned runtime directory before each session.','finalExternalRun':'Passed all checks after clean service startup.','finalRecipeRun':'Passed all checks after clean service startup.','containerRemoved':True},indent=2)+'\n')
+manifest={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(out.iterdir()) if p.is_file() and p.name!='sha256.json'}
+(out/'sha256.json').write_text(json.dumps(manifest,indent=2)+'\n')
+print(json.dumps({'allTargetedChecksPassed':summary['allTargetedChecksPassed'],'checks':summary['checks'],'evidenceFiles':len(manifest)},indent=2))

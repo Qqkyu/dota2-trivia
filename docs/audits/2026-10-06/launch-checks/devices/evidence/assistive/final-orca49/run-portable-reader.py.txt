@@ -1,0 +1,35 @@
+from pathlib import Path
+import io, os, subprocess, sys, tarfile
+base=Path('/tmp/queue-arcade-launch-checks/assistive-modern')
+docker='/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe'
+container='queue-arcade-final-orca-20261008'
+def run(*args,**options):
+    return subprocess.run([docker,*args],check=True,**options)
+mode=sys.argv[1]
+if mode=='prepare':
+    run('create','--name',container,'--label','queue-arcade.audit=final-devices','--cpus=2','--memory=2g','--shm-size=512m','--env','ASSISTIVE_APP_URL=http://host.docker.internal:3334','--env','ASSISTIVE_BUILD_ID=fQ95T7-zzQo1Bnsef8oBI','queue-arcade-assistive:orca49','-c','sleep infinity')
+    with (base/'portable-reader.tar').open('rb') as bundle:
+        run('cp','-',container+':/',stdin=bundle)
+    run('start',container)
+elif mode in ['recovered','external','recipe']:
+    directory=base/('final3334-'+mode)
+    run('restart','--timeout','1',container)
+    run('exec',container,'bash','-c','rm -rf /evidence /tmp/assistive-runtime /tmp/.X96-lock /tmp/.X11-unix/X96 && mkdir -p /evidence /tmp/assistive-runtime && chmod 700 /tmp/assistive-runtime')
+    with tarfile.open(base/'portable-session.tar','w') as bundle:
+        bundle.add(directory,arcname='evidence')
+    with (base/'portable-session.tar').open('rb') as bundle:
+        run('cp','-',container+':/',stdin=bundle)
+    with (base/('run-final3334-'+mode+'.log')).open('wb') as log:
+        process=subprocess.run([docker,'exec','--env','XDG_RUNTIME_DIR=/tmp/assistive-runtime','--env','ASSISTIVE_FLOW='+('recipe' if mode=='recipe' else 'round'),'--env','ASSISTIVE_CONTROL='+('external' if mode=='external' else 'recovered-answer'),container,'dbus-run-session','--','bash','/evidence/modern-session.sh'],stdout=log,stderr=subprocess.STDOUT)
+    with (base/('final3334-'+mode+'-session.tar')).open('wb') as bundle:
+        run('cp',container+':/evidence/session','-',stdout=bundle)
+    with tarfile.open(base/('final3334-'+mode+'-session.tar')) as bundle:
+        for member in bundle.getmembers():
+            target=(directory/member.name).resolve()
+            if not target.is_relative_to(directory.resolve()): raise RuntimeError('Unsafe evidence archive path')
+        bundle.extractall(directory,filter='data')
+    print((base/('run-final3334-'+mode+'.log')).read_text())
+    sys.exit(process.returncode)
+elif mode=='cleanup':
+    run('rm','-f',container)
+else: raise SystemExit('Expected prepare, recovered, external, recipe, or cleanup')

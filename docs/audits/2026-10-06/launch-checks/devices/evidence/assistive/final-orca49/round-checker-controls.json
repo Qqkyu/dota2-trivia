@@ -1,0 +1,20 @@
+[
+  {
+    "case": "final3333-combined",
+    "exitCode": 1,
+    "expectedSuccess": false,
+    "matched": true
+  },
+  {
+    "case": "control-recovered-generic",
+    "exitCode": 0,
+    "expectedSuccess": true,
+    "matched": true
+  },
+  {
+    "case": "control-external-generic-initial",
+    "exitCode": 0,
+    "expectedSuccess": true,
+    "matched": true
+  }
+]

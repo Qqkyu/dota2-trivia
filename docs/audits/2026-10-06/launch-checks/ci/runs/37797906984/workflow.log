@@ -1,0 +1,661 @@
+verify	Set up job	﻿2026-10-08T15:05:55.6036232Z Current runner version: '2.337.0'
+verify	Set up job	2026-10-08T15:05:55.6041603Z Runner name: 'queue-arcade-ci-20261008T150101Z'
+verify	Set up job	2026-10-08T15:05:55.6042186Z Runner group name: 'Default'
+verify	Set up job	2026-10-08T15:05:55.6042789Z Machine name: '20410ce9cab6'
+verify	Set up job	2026-10-08T15:05:55.6044616Z ##[group]GITHUB_TOKEN Permissions
+verify	Set up job	2026-10-08T15:05:55.6046751Z Contents: read
+verify	Set up job	2026-10-08T15:05:55.6047133Z Metadata: read
+verify	Set up job	2026-10-08T15:05:55.6047494Z ##[endgroup]
+verify	Set up job	2026-10-08T15:05:55.6049392Z Secret source: Actions
+verify	Set up job	2026-10-08T15:05:55.6050054Z Cache mode: write
+verify	Set up job	2026-10-08T15:05:55.6050486Z Prepare workflow directory
+verify	Set up job	2026-10-08T15:05:55.6358590Z Prepare all required actions
+verify	Set up job	2026-10-08T15:05:55.6390638Z Getting action download info
+verify	Set up job	2026-10-08T15:05:56.2383955Z Download action repository 'actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+verify	Set up job	2026-10-08T15:05:56.8342219Z Download action repository 'pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86' (SHA:0977fd99725f1db4007ccb2928dbb4e90d06cc86)
+verify	Set up job	2026-10-08T15:05:57.3645037Z Download action repository 'actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38' (SHA:249970729cb0ef3589644e2896645e5dc5ba9c38)
+verify	Set up job	2026-10-08T15:05:58.0591666Z Download action repository 'aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1' (SHA:57a97c7e7821a5776cebc9bb87c984fa69cba8f1)
+verify	Set up job	2026-10-08T15:05:58.5853980Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+verify	Set up job	2026-10-08T15:05:59.3958233Z Getting action download info
+verify	Set up job	2026-10-08T15:05:59.6011795Z Download action repository 'aquasecurity/setup-trivy@e6c2c5e321ed9123bda567646e2f96565e34abe1' (SHA:e6c2c5e321ed9123bda567646e2f96565e34abe1)
+verify	Set up job	2026-10-08T15:05:59.9454852Z Download action repository 'actions/cache@0400d5f644dc74513175e3cd8d07132dd4860809' (SHA:0400d5f644dc74513175e3cd8d07132dd4860809)
+verify	Set up job	2026-10-08T15:06:00.6627268Z Getting action download info
+verify	Set up job	2026-10-08T15:06:00.8616071Z Download action repository 'actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8' (SHA:08c6903cd8c0fde910a37f88322edcfb5dd907a8)
+verify	Set up job	2026-10-08T15:06:01.4181659Z Complete job name: verify
+verify	Initialize containers	﻿2026-10-08T15:06:01.4465265Z ##[group]Checking docker version
+verify	Initialize containers	2026-10-08T15:06:01.4476592Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+verify	Initialize containers	2026-10-08T15:06:01.4645739Z '1.52'
+verify	Initialize containers	2026-10-08T15:06:01.4650974Z Docker daemon API version: '1.52'
+verify	Initialize containers	2026-10-08T15:06:01.4651458Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+verify	Initialize containers	2026-10-08T15:06:01.4807517Z '1.52'
+verify	Initialize containers	2026-10-08T15:06:01.4809702Z Docker client API version: '1.52'
+verify	Initialize containers	2026-10-08T15:06:01.4814373Z ##[endgroup]
+verify	Initialize containers	2026-10-08T15:06:01.4815692Z ##[group]Clean up resources from previous jobs
+verify	Initialize containers	2026-10-08T15:06:01.4818772Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=a1958d"
+verify	Initialize containers	2026-10-08T15:06:01.4937988Z ##[command]/usr/bin/docker network prune --force --filter "label=a1958d"
+verify	Initialize containers	2026-10-08T15:06:01.5054772Z ##[endgroup]
+verify	Initialize containers	2026-10-08T15:06:01.5055025Z ##[group]Create local container network
+verify	Initialize containers	2026-10-08T15:06:01.5061396Z ##[command]/usr/bin/docker network create --label a1958d github_network_3df808bcc0dd40bd81bc24e5023216c1
+verify	Initialize containers	2026-10-08T15:06:01.5393920Z 406b71658e6d0813fd391933c12b727d21479047bb604e77eac341b819ad5cf2
+verify	Initialize containers	2026-10-08T15:06:01.5401296Z ##[endgroup]
+verify	Initialize containers	2026-10-08T15:06:01.5417819Z ##[group]Starting postgres service container
+verify	Initialize containers	2026-10-08T15:06:01.5430607Z ##[command]/usr/bin/docker pull postgres:17-alpine
+verify	Initialize containers	2026-10-08T15:06:02.9023978Z 17-alpine: Pulling from library/postgres
+verify	Initialize containers	2026-10-08T15:06:03.3508949Z a8a481ae6efc: Pulling fs layer
+verify	Initialize containers	2026-10-08T15:06:03.3510538Z e2de96513ba9: Pulling fs layer
+verify	Initialize containers	2026-10-08T15:06:03.3513678Z eb805f20f060: Pulling fs layer
+verify	Initialize containers	2026-10-08T15:06:03.3515151Z 4ece9a32c307: Pulling fs layer
+verify	Initialize containers	2026-10-08T15:06:03.3515440Z 7ccdb0dcae74: Pulling fs layer
+verify	Initialize containers	2026-10-08T15:06:03.3516030Z 3333950675b2: Pulling fs layer
+verify	Initialize containers	2026-10-08T15:06:03.3516524Z f3b07e8a357c: Pulling fs layer
+verify	Initialize containers	2026-10-08T15:06:03.3516683Z 43f9814c9a3b: Pulling fs layer
+verify	Initialize containers	2026-10-08T15:06:03.3516991Z b0a0d9d2abf2: Pulling fs layer
+verify	Initialize containers	2026-10-08T15:06:03.3517693Z 93a3470d5852: Pulling fs layer
+verify	Initialize containers	2026-10-08T15:06:03.5605591Z a8a481ae6efc: Download complete
+verify	Initialize containers	2026-10-08T15:06:03.6598936Z 3333950675b2: Download complete
+verify	Initialize containers	2026-10-08T15:06:03.7601377Z eb805f20f060: Download complete
+verify	Initialize containers	2026-10-08T15:06:03.8593491Z 4ece9a32c307: Download complete
+verify	Initialize containers	2026-10-08T15:06:03.8596663Z 7ccdb0dcae74: Download complete
+verify	Initialize containers	2026-10-08T15:06:03.9601483Z b0a0d9d2abf2: Download complete
+verify	Initialize containers	2026-10-08T15:06:03.9602417Z 93a3470d5852: Download complete
+verify	Initialize containers	2026-10-08T15:06:03.9602610Z e2de96513ba9: Download complete
+verify	Initialize containers	2026-10-08T15:06:04.0591811Z 43f9814c9a3b: Download complete
+verify	Initialize containers	2026-10-08T15:06:04.0605908Z 4ece9a32c307: Pull complete
+verify	Initialize containers	2026-10-08T15:06:04.0622156Z e2de96513ba9: Pull complete
+verify	Initialize containers	2026-10-08T15:06:04.1593824Z 656469e78267: Download complete
+verify	Initialize containers	2026-10-08T15:06:04.1605644Z 3333950675b2: Pull complete
+verify	Initialize containers	2026-10-08T15:06:04.1627317Z 43f9814c9a3b: Pull complete
+verify	Initialize containers	2026-10-08T15:06:04.4599322Z fa8e66b88311: Download complete
+verify	Initialize containers	2026-10-08T15:06:07.1593483Z f3b07e8a357c: Download complete
+verify	Initialize containers	2026-10-08T15:06:08.7591976Z eb805f20f060: Pull complete
+verify	Initialize containers	2026-10-08T15:06:08.7594593Z 7ccdb0dcae74: Pull complete
+verify	Initialize containers	2026-10-08T15:06:08.7601540Z 93a3470d5852: Pull complete
+verify	Initialize containers	2026-10-08T15:06:08.7603498Z f3b07e8a357c: Pull complete
+verify	Initialize containers	2026-10-08T15:06:08.8003848Z a8a481ae6efc: Pull complete
+verify	Initialize containers	2026-10-08T15:06:08.8007342Z b0a0d9d2abf2: Pull complete
+verify	Initialize containers	2026-10-08T15:06:08.8007815Z Digest: sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24
+verify	Initialize containers	2026-10-08T15:06:08.8008418Z Status: Downloaded newer image for postgres:17-alpine
+verify	Initialize containers	2026-10-08T15:06:08.8025070Z docker.io/library/postgres:17-alpine
+verify	Initialize containers	2026-10-08T15:06:08.8076350Z ##[command]/usr/bin/docker create --name dd1890a016284b1bb4aded9aa9811226_postgres17alpine_e17bed --label a1958d --network github_network_3df808bcc0dd40bd81bc24e5023216c1 --network-alias postgres -p 5432:5432 --health-cmd "pg_isready -U queue_arcade -d queue_arcade" --health-interval 5s --health-timeout 5s --health-retries 10 -e "POSTGRES_DB=queue_arcade" -e "POSTGRES_USER=queue_arcade" -e "POSTGRES_PASSWORD=queue_arcade_ci" -e GITHUB_ACTIONS=true -e CI=true postgres:17-alpine
+verify	Initialize containers	2026-10-08T15:06:08.8756432Z 5ae403ec9ba0061b37616150dc9b0aeeb2b8f4b007854f3ed2e6d317058a70c6
+verify	Initialize containers	2026-10-08T15:06:08.8786639Z ##[command]/usr/bin/docker start 5ae403ec9ba0061b37616150dc9b0aeeb2b8f4b007854f3ed2e6d317058a70c6
+verify	Initialize containers	2026-10-08T15:06:09.0261684Z 5ae403ec9ba0061b37616150dc9b0aeeb2b8f4b007854f3ed2e6d317058a70c6
+verify	Initialize containers	2026-10-08T15:06:09.0286128Z ##[command]/usr/bin/docker ps --all --filter id=5ae403ec9ba0061b37616150dc9b0aeeb2b8f4b007854f3ed2e6d317058a70c6 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+verify	Initialize containers	2026-10-08T15:06:09.0513176Z 5ae403ec9ba0061b37616150dc9b0aeeb2b8f4b007854f3ed2e6d317058a70c6 Up Less than a second (health: starting)
+verify	Initialize containers	2026-10-08T15:06:09.0528250Z ##[command]/usr/bin/docker port 5ae403ec9ba0061b37616150dc9b0aeeb2b8f4b007854f3ed2e6d317058a70c6
+verify	Initialize containers	2026-10-08T15:06:09.0639536Z 5432/tcp -> 0.0.0.0:5432
+verify	Initialize containers	2026-10-08T15:06:09.0639956Z 5432/tcp -> [::]:5432
+verify	Initialize containers	2026-10-08T15:06:09.0670039Z ##[endgroup]
+verify	Initialize containers	2026-10-08T15:06:09.0676582Z ##[group]Waiting for all services to be ready
+verify	Initialize containers	2026-10-08T15:06:09.0687350Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 5ae403ec9ba0061b37616150dc9b0aeeb2b8f4b007854f3ed2e6d317058a70c6
+verify	Initialize containers	2026-10-08T15:06:09.0815340Z starting
+verify	Initialize containers	2026-10-08T15:06:09.0832943Z postgres service is starting, waiting 2 seconds before checking again.
+verify	Initialize containers	2026-10-08T15:06:11.0809874Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 5ae403ec9ba0061b37616150dc9b0aeeb2b8f4b007854f3ed2e6d317058a70c6
+verify	Initialize containers	2026-10-08T15:06:11.0947056Z starting
+verify	Initialize containers	2026-10-08T15:06:11.0955514Z postgres service is starting, waiting 4 seconds before checking again.
+verify	Initialize containers	2026-10-08T15:06:15.2369063Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 5ae403ec9ba0061b37616150dc9b0aeeb2b8f4b007854f3ed2e6d317058a70c6
+verify	Initialize containers	2026-10-08T15:06:15.2496772Z healthy
+verify	Initialize containers	2026-10-08T15:06:15.2511353Z postgres service is healthy.
+verify	Initialize containers	2026-10-08T15:06:15.2512228Z ##[endgroup]
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	﻿2026-10-08T15:06:15.2745960Z ##[group]Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2746353Z with:
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2746506Z   repository: Qqkyu/dota2-trivia
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2747981Z   token: ***
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2748400Z   ssh-strict: true
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2748573Z   ssh-user: git
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2748854Z   persist-credentials: true
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2749057Z   clean: true
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2749221Z   sparse-checkout-cone-mode: true
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2749408Z   fetch-depth: 1
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2749568Z   fetch-tags: false
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2749722Z   show-progress: true
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2749873Z   lfs: false
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2750014Z   submodules: false
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2750159Z   set-safe-directory: true
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2750308Z   allow-unsafe-pr-checkout: false
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2750596Z env:
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2751195Z   DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2751532Z   TEST_DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2751897Z   LAUNCH_DATABASE_TEST_URL: ***127.0.0.1:5432/queue_arcade
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2752099Z   PG_BIN_DIR: /usr/lib/postgresql/17/bin
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2752276Z   DATABASE_POOL_SIZE: 2
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2752417Z   ARCADE_AUTO_MIGRATE: false
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2752624Z   ARCADE_VOTER_SALT: queue-arcade-ci-voter-salt-at-least-32-characters
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2752917Z   ARCADE_AUTH_SECRET: queue-arcade-ci-auth-only-at-least-32-characters
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2753150Z   ARCADE_APP_URL: http://127.0.0.1:3000
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2753319Z   APP_URL: http://127.0.0.1:3000
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2753513Z   ARCADE_DATA_COUNTRIES: United States (ephemeral CI database)
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2753733Z   ARCADE_REVIEWER_STEAM_IDS: 76561198000000000
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2753918Z   ARCADE_SMOKE_REVIEWER_STEAM_ID: 76561198000000000
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2754323Z   ARCADE_ALLOW_FILE_STORE: false
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2754562Z   ARCADE_TRUST_PROXY: none
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2754721Z   NEXT_TELEMETRY_DISABLED: 1
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.2754869Z ##[endgroup]
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4548822Z Syncing repository: Qqkyu/dota2-trivia
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4549821Z ##[group]Getting Git version info
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4550054Z Working directory is '/opt/runner/_work/dota2-trivia/dota2-trivia'
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4550407Z [command]/usr/bin/git version
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4550563Z git version 2.43.0
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4561790Z ##[endgroup]
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4580941Z Temporarily overriding HOME='/opt/runner/_work/_temp/fd9806cc-fb68-4851-b2a7-7f5af48dddda' before making global git config changes
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4581489Z Adding repository directory to the temporary git global config as a safe directory
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4584341Z [command]/usr/bin/git config --global --add safe.directory /opt/runner/_work/dota2-trivia/dota2-trivia
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4617951Z Deleting the contents of '/opt/runner/_work/dota2-trivia/dota2-trivia'
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4622685Z ##[group]Determining repository object format
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4624374Z ##[endgroup]
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4624682Z ##[group]Initializing the repository
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4651438Z [command]/usr/bin/git init /opt/runner/_work/dota2-trivia/dota2-trivia
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4699269Z hint: Using 'master' as the name for the initial branch. This default branch name
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4699670Z hint: is subject to change. To configure the initial branch name to use in all
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4699966Z hint: of your new repositories, which will suppress this warning, call:
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4700177Z hint: 
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4700380Z hint: 	git config --global init.defaultBranch <name>
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4700561Z hint: 
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4700736Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4701012Z hint: 'development'. The just-created branch can be renamed via this command:
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4701238Z hint: 
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4701600Z hint: 	git branch -m <name>
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4704943Z Initialized empty Git repository in /opt/runner/_work/dota2-trivia/dota2-trivia/.git/
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4713583Z [command]/usr/bin/git remote add origin https://github.com/Qqkyu/dota2-trivia
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4740063Z ##[endgroup]
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4740345Z ##[group]Disabling automatic garbage collection
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4743077Z [command]/usr/bin/git config --local gc.auto 0
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4777416Z ##[endgroup]
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4777920Z ##[group]Setting up auth
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4778309Z Removing SSH command configuration
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4782238Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.4810876Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.5101813Z Removing HTTP extra header
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.5106075Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.5134921Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.5418309Z Removing includeIf entries pointing to credentials config files
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.5421861Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.5449870Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.5619525Z [command]/usr/bin/git config --file /opt/runner/_work/_temp/git-credentials-d6ee7194-54bf-41f7-ae9c-33d253b09dfa.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.5656970Z [command]/usr/bin/git config --local includeIf.gitdir:/opt/runner/_work/dota2-trivia/dota2-trivia/.git.path /opt/runner/_work/_temp/git-credentials-d6ee7194-54bf-41f7-ae9c-33d253b09dfa.config
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.5680301Z [command]/usr/bin/git config --local includeIf.gitdir:/opt/runner/_work/dota2-trivia/dota2-trivia/.git/worktrees/*.path /opt/runner/_work/_temp/git-credentials-d6ee7194-54bf-41f7-ae9c-33d253b09dfa.config
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.5708139Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-d6ee7194-54bf-41f7-ae9c-33d253b09dfa.config
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.5736904Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-d6ee7194-54bf-41f7-ae9c-33d253b09dfa.config
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.5762144Z ##[endgroup]
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.5762478Z ##[group]Fetching the repository
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:15.5767597Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ca7c89b3dcff21b3e8e5c4064f0638fea2407623:refs/remotes/origin/codex/launch-checks-20261006
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:18.9825876Z From https://github.com/Qqkyu/dota2-trivia
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:18.9826605Z  * [new ref]         ca7c89b3dcff21b3e8e5c4064f0638fea2407623 -> origin/codex/launch-checks-20261006
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:18.9842291Z [command]/usr/bin/git branch --list --remote origin/codex/launch-checks-20261006
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:18.9857897Z   origin/codex/launch-checks-20261006
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:18.9863229Z [command]/usr/bin/git rev-parse refs/remotes/origin/codex/launch-checks-20261006
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:18.9881542Z ca7c89b3dcff21b3e8e5c4064f0638fea2407623
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:18.9882686Z ##[endgroup]
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:18.9882924Z ##[group]Determining the checkout info
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:18.9885197Z ##[endgroup]
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:18.9888347Z [command]/usr/bin/git sparse-checkout disable
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:18.9916300Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:18.9934879Z ##[group]Checking out the ref
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:18.9937707Z [command]/usr/bin/git checkout --progress --force -B codex/launch-checks-20261006 refs/remotes/origin/codex/launch-checks-20261006
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:19.2686126Z Switched to a new branch 'codex/launch-checks-20261006'
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:19.2686771Z branch 'codex/launch-checks-20261006' set up to track 'origin/codex/launch-checks-20261006'.
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:19.2714701Z ##[endgroup]
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:19.2743938Z [command]/usr/bin/git log -1 --format=%H
+verify	Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:06:19.2765361Z ca7c89b3dcff21b3e8e5c4064f0638fea2407623
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	﻿2026-10-08T15:06:19.2899712Z ##[group]Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2900207Z with:
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2900373Z   version: 9.12.1
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2900527Z   dest: ~/setup-pnpm
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2900660Z   run_install: null
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2900791Z   cache: false
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2900927Z   cache_dependency_path: pnpm-lock.yaml
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2901111Z   package_json_file: package.json
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2901265Z   standalone: false
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2901525Z env:
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2901923Z   DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2902217Z   TEST_DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2902521Z   LAUNCH_DATABASE_TEST_URL: ***127.0.0.1:5432/queue_arcade
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2902737Z   PG_BIN_DIR: /usr/lib/postgresql/17/bin
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2903847Z   DATABASE_POOL_SIZE: 2
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2904053Z   ARCADE_AUTO_MIGRATE: false
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2904274Z   ARCADE_VOTER_SALT: queue-arcade-ci-voter-salt-at-least-32-characters
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2905150Z   ARCADE_AUTH_SECRET: queue-arcade-ci-auth-only-at-least-32-characters
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2905530Z   ARCADE_APP_URL: http://127.0.0.1:3000
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2905755Z   APP_URL: http://127.0.0.1:3000
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2905951Z   ARCADE_DATA_COUNTRIES: United States (ephemeral CI database)
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2906173Z   ARCADE_REVIEWER_STEAM_IDS: 76561198000000000
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2906369Z   ARCADE_SMOKE_REVIEWER_STEAM_ID: 76561198000000000
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2906573Z   ARCADE_ALLOW_FILE_STORE: false
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2906728Z   ARCADE_TRUST_PROXY: none
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2906876Z   NEXT_TELEMETRY_DISABLED: 1
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.2907042Z ##[endgroup]
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:19.3938583Z ##[group]Running self-installer...
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:21.0357927Z 
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:21.0358329Z added 1 package, and audited 2 packages in 2s
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:21.0358517Z 
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:21.0358588Z 1 package is looking for funding
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:21.0358761Z   run `npm fund` for details
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:21.0361945Z 
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:21.0362087Z found 0 vulnerabilities
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:21.4636010Z Checking for updates...
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:22.1735390Z Switching pnpm from v11.19.0 to v9.12.1...
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:22.9617232Z .../v11/38e-1a11c0d1883-3edf2a132b947a54 | Progress: resolved 1, reused 0, downloaded 0, added 0
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:22.9628482Z .../v11/38e-1a11c0d1883-3edf2a132b947a54 |   +1 +
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:23.4205891Z .../v11/38e-1a11c0d1883-3edf2a132b947a54 | Progress: resolved 1, reused 0, downloaded 1, added 1, done
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:23.7387372Z [WARN] Detected a pnpm v10 installation layout at PNPM_HOME. The pnpm shims at PNPM_HOME have been refreshed so the new version is active, but pnpm v11 expects bins in PNPM_HOME/bin. Run "pnpm setup" to migrate your PATH to the v11 layout.
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:23.7412301Z Successfully updated pnpm to v9.12.1
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:23.7713414Z ##[endgroup]
+verify	Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:06:23.7713822Z Installation Completed!
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	﻿2026-10-08T15:06:23.7824695Z ##[group]Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7824947Z with:
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7825073Z   node-version: 22
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7825214Z   package-manager-cache: false
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7825368Z   check-latest: false
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7826703Z   token: ***
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7826826Z env:
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7827064Z   DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7827338Z   TEST_DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7827759Z   LAUNCH_DATABASE_TEST_URL: ***127.0.0.1:5432/queue_arcade
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7827963Z   PG_BIN_DIR: /usr/lib/postgresql/17/bin
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7828128Z   DATABASE_POOL_SIZE: 2
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7828272Z   ARCADE_AUTO_MIGRATE: false
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7828477Z   ARCADE_VOTER_SALT: queue-arcade-ci-voter-salt-at-least-32-characters
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7828758Z   ARCADE_AUTH_SECRET: queue-arcade-ci-auth-only-at-least-32-characters
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7828991Z   ARCADE_APP_URL: http://127.0.0.1:3000
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7829194Z   APP_URL: http://127.0.0.1:3000
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7829597Z   ARCADE_DATA_COUNTRIES: United States (ephemeral CI database)
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7829861Z   ARCADE_REVIEWER_STEAM_IDS: 76561198000000000
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7830049Z   ARCADE_SMOKE_REVIEWER_STEAM_ID: 76561198000000000
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7830231Z   ARCADE_ALLOW_FILE_STORE: false
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7830381Z   ARCADE_TRUST_PROXY: none
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7830536Z   NEXT_TELEMETRY_DISABLED: 1
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7830852Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.7831053Z ##[endgroup]
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:23.8755675Z Attempting to download 22...
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:24.9760149Z Acquiring 22.23.3 - x64 from https://github.com/actions/node-versions/releases/download/22.23.3-35947643734/node-22.23.3-linux-x64.tar.gz
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:37.9211520Z Extracting ...
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:37.9315680Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /opt/runner/_work/_temp/614bde63-cb51-4fa0-b6ca-6709bc5947a3 -f /opt/runner/_work/_temp/db4308f1-1a85-4b87-a7f3-29aa50be53dc
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:38.9043597Z Adding to the cache ...
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:40.6758754Z ##[group]Environment details
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:40.7514048Z node: v22.23.3
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:40.7514285Z npm: 10.9.9
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:40.7514405Z yarn: 
+verify	Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38	2026-10-08T15:06:40.7514758Z ##[endgroup]
+verify	Install native media test tools	﻿2026-10-08T15:06:40.7678991Z ##[group]Run sudo apt-get update
+verify	Install native media test tools	2026-10-08T15:06:40.7679274Z ^[[36;1msudo apt-get update^[[0m
+verify	Install native media test tools	2026-10-08T15:06:40.7679571Z ^[[36;1msudo apt-get install --yes --no-install-recommends ffmpeg pulseaudio pulseaudio-utils^[[0m
+verify	Install native media test tools	2026-10-08T15:06:40.7688557Z shell: /usr/bin/bash -e {0}
+verify	Install native media test tools	2026-10-08T15:06:40.7688751Z env:
+verify	Install native media test tools	2026-10-08T15:06:40.7689085Z   DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Install native media test tools	2026-10-08T15:06:40.7689368Z   TEST_DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Install native media test tools	2026-10-08T15:06:40.7689669Z   LAUNCH_DATABASE_TEST_URL: ***127.0.0.1:5432/queue_arcade
+verify	Install native media test tools	2026-10-08T15:06:40.7689865Z   PG_BIN_DIR: /usr/lib/postgresql/17/bin
+verify	Install native media test tools	2026-10-08T15:06:40.7690041Z   DATABASE_POOL_SIZE: 2
+verify	Install native media test tools	2026-10-08T15:06:40.7690183Z   ARCADE_AUTO_MIGRATE: false
+verify	Install native media test tools	2026-10-08T15:06:40.7690397Z   ARCADE_VOTER_SALT: queue-arcade-ci-voter-salt-at-least-32-characters
+verify	Install native media test tools	2026-10-08T15:06:40.7690687Z   ARCADE_AUTH_SECRET: queue-arcade-ci-auth-only-at-least-32-characters
+verify	Install native media test tools	2026-10-08T15:06:40.7690926Z   ARCADE_APP_URL: http://127.0.0.1:3000
+verify	Install native media test tools	2026-10-08T15:06:40.7691177Z   APP_URL: http://127.0.0.1:3000
+verify	Install native media test tools	2026-10-08T15:06:40.7691379Z   ARCADE_DATA_COUNTRIES: United States (ephemeral CI database)
+verify	Install native media test tools	2026-10-08T15:06:40.7691596Z   ARCADE_REVIEWER_STEAM_IDS: 76561198000000000
+verify	Install native media test tools	2026-10-08T15:06:40.7691789Z   ARCADE_SMOKE_REVIEWER_STEAM_ID: 76561198000000000
+verify	Install native media test tools	2026-10-08T15:06:40.7691971Z   ARCADE_ALLOW_FILE_STORE: false
+verify	Install native media test tools	2026-10-08T15:06:40.7692121Z   ARCADE_TRUST_PROXY: none
+verify	Install native media test tools	2026-10-08T15:06:40.7692272Z   NEXT_TELEMETRY_DISABLED: 1
+verify	Install native media test tools	2026-10-08T15:06:40.7692448Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+verify	Install native media test tools	2026-10-08T15:06:40.7692634Z ##[endgroup]
+verify	Install native media test tools	2026-10-08T15:06:41.0434932Z Get:1 https://dl.google.com/linux/chrome-stable/deb stable InRelease [2548 B]
+verify	Install native media test tools	2026-10-08T15:06:41.0488390Z Get:2 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+verify	Install native media test tools	2026-10-08T15:06:41.0650182Z Get:3 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+verify	Install native media test tools	2026-10-08T15:06:41.1301116Z Get:4 https://dl.google.com/linux/chrome-stable/deb stable/main amd64 Packages [1407 B]
+verify	Install native media test tools	2026-10-08T15:06:41.2837204Z Get:5 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+verify	Install native media test tools	2026-10-08T15:06:41.2971505Z Get:6 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1362 kB]
+verify	Install native media test tools	2026-10-08T15:06:41.3382448Z Get:7 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+verify	Install native media test tools	2026-10-08T15:06:41.3941581Z Get:8 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+verify	Install native media test tools	2026-10-08T15:06:41.4631132Z Get:9 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+verify	Install native media test tools	2026-10-08T15:06:41.5206007Z Get:10 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+verify	Install native media test tools	2026-10-08T15:06:41.5821353Z Get:11 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1998 kB]
+verify	Install native media test tools	2026-10-08T15:06:41.6385337Z Get:12 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+verify	Install native media test tools	2026-10-08T15:06:41.6886777Z Get:13 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [50.0 kB]
+verify	Install native media test tools	2026-10-08T15:06:41.6906017Z Get:14 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1545 kB]
+verify	Install native media test tools	2026-10-08T15:06:42.3056188Z Get:15 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1702 kB]
+verify	Install native media test tools	2026-10-08T15:06:42.3500700Z Get:16 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [67.4 kB]
+verify	Install native media test tools	2026-10-08T15:06:42.3513115Z Get:17 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2177 kB]
+verify	Install native media test tools	2026-10-08T15:06:42.4086962Z Get:18 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2166 kB]
+verify	Install native media test tools	2026-10-08T15:06:42.4667485Z Get:19 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [36.0 kB]
+verify	Install native media test tools	2026-10-08T15:06:42.4668375Z Get:20 http://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Packages [671 B]
+verify	Install native media test tools	2026-10-08T15:06:42.4674681Z Get:21 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.0 kB]
+verify	Install native media test tools	2026-10-08T15:06:42.9003508Z Fetched 33.4 MB in 2s (16.1 MB/s)
+verify	Install native media test tools	2026-10-08T15:06:43.6085384Z Reading package lists...
+verify	Install native media test tools	2026-10-08T15:06:44.2709658Z Reading package lists...
+verify	Install native media test tools	2026-10-08T15:06:44.4780025Z Building dependency tree...
+verify	Install native media test tools	2026-10-08T15:06:44.4785804Z Reading state information...
+verify	Install native media test tools	2026-10-08T15:06:44.6816844Z ffmpeg is already the newest version (7:6.1.1-3ubuntu5).
+verify	Install native media test tools	2026-10-08T15:06:44.6817224Z pulseaudio is already the newest version (1:16.1+dfsg1-2ubuntu10.1).
+verify	Install native media test tools	2026-10-08T15:06:44.6817564Z pulseaudio-utils is already the newest version (1:16.1+dfsg1-2ubuntu10.1).
+verify	Install native media test tools	2026-10-08T15:06:44.6817877Z 0 upgraded, 0 newly installed, 0 to remove and 9 not upgraded.
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	﻿2026-10-08T15:06:44.6852287Z ##[group]Run sudo install -d /usr/share/postgresql-common/pgdg
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6852677Z ^[[36;1msudo install -d /usr/share/postgresql-common/pgdg^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6852930Z ^[[36;1msudo curl --fail --silent --show-error --location --retry 3 \^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6853221Z ^[[36;1m  https://www.postgresql.org/media/keys/ACCC4CF8.asc \^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6853512Z ^[[36;1m  --output /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6853746Z ^[[36;1m. /etc/os-release^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6853906Z ^[[36;1mprintf '%s\n' \^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6854052Z ^[[36;1m  'Types: deb' \^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6854233Z ^[[36;1m  'URIs: https://apt.postgresql.org/pub/repos/apt' \^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6854449Z ^[[36;1m  "Suites: ${VERSION_CODENAME}-pgdg" \^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6854660Z ^[[36;1m  "Architectures: $(dpkg --print-architecture)" \^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6854852Z ^[[36;1m  'Components: main' \^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6855081Z ^[[36;1m  'Signed-By: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc' \^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6855440Z ^[[36;1m  | sudo tee /etc/apt/sources.list.d/pgdg.sources > /dev/null^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6855677Z ^[[36;1msudo apt-get update^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6855901Z ^[[36;1msudo apt-get install --yes --no-install-recommends postgresql-client-17^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6856201Z ^[[36;1m"$PG_BIN_DIR/pg_dump" --version | grep -E '^pg_dump \(PostgreSQL\) 17\.'^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6856508Z ^[[36;1m"$PG_BIN_DIR/pg_restore" --version | grep -E '^pg_restore \(PostgreSQL\) 17\.'^[[0m
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6862958Z shell: /usr/bin/bash -e {0}
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6863145Z env:
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6863452Z   DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6863751Z   TEST_DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6864033Z   LAUNCH_DATABASE_TEST_URL: ***127.0.0.1:5432/queue_arcade
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6864234Z   PG_BIN_DIR: /usr/lib/postgresql/17/bin
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6864409Z   DATABASE_POOL_SIZE: 2
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6864559Z   ARCADE_AUTO_MIGRATE: false
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6864777Z   ARCADE_VOTER_SALT: queue-arcade-ci-voter-salt-at-least-32-characters
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6865062Z   ARCADE_AUTH_SECRET: queue-arcade-ci-auth-only-at-least-32-characters
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6865401Z   ARCADE_APP_URL: http://127.0.0.1:3000
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6865618Z   APP_URL: http://127.0.0.1:3000
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6865817Z   ARCADE_DATA_COUNTRIES: United States (ephemeral CI database)
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6866030Z   ARCADE_REVIEWER_STEAM_IDS: 76561198000000000
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6866232Z   ARCADE_SMOKE_REVIEWER_STEAM_ID: 76561198000000000
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6866657Z   ARCADE_ALLOW_FILE_STORE: false
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6866818Z   ARCADE_TRUST_PROXY: none
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6867062Z   NEXT_TELEMETRY_DISABLED: 1
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6867284Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:44.6867470Z ##[endgroup]
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:46.8332370Z Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:46.8475522Z Hit:2 http://security.ubuntu.com/ubuntu noble-security InRelease
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:46.8740385Z Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:46.9172848Z Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:46.9173792Z Hit:5 https://dl.google.com/linux/chrome-stable/deb stable InRelease
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:46.9931695Z Get:6 https://apt.postgresql.org/pub/repos/apt noble-pgdg InRelease [189 kB]
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:47.1481568Z Get:7 https://apt.postgresql.org/pub/repos/apt noble-pgdg/main amd64 Packages [1193 kB]
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:47.2894015Z Fetched 1382 kB in 1s (2492 kB/s)
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:47.9476194Z Reading package lists...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:48.6397427Z Reading package lists...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:48.8450486Z Building dependency tree...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:48.8451315Z Reading state information...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:49.0217678Z The following additional packages will be installed:
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:49.0221695Z   libpq5 libreadline8t64 postgresql-client-common readline-common
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:49.0229752Z Suggested packages:
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:49.0230039Z   libpq-oauth postgresql-17 postgresql-doc-17 readline-doc
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:49.0519922Z The following NEW packages will be installed:
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:49.0525276Z   libpq5 libreadline8t64 postgresql-client-17 postgresql-client-common
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:49.0525948Z   readline-common
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:49.1716294Z 0 upgraded, 5 newly installed, 0 to remove and 9 not upgraded.
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:49.1716664Z Need to get 2575 kB of archives.
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:49.1716951Z After this operation, 12.0 MB of additional disk space will be used.
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:49.1717345Z Get:1 http://archive.ubuntu.com/ubuntu noble/main amd64 readline-common all 8.2-4build1 [56.5 kB]
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:49.2090594Z Get:2 https://apt.postgresql.org/pub/repos/apt noble-pgdg/main amd64 libpq5 amd64 18.6-1.pgdg24.04+2 [264 kB]
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:49.5106274Z Get:3 http://archive.ubuntu.com/ubuntu noble/main amd64 libreadline8t64 amd64 8.2-4build1 [153 kB]
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:49.5107443Z Get:4 https://apt.postgresql.org/pub/repos/apt noble-pgdg/main amd64 postgresql-client-common all 293.pgdg24.04+1 [48.5 kB]
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:49.5144075Z Get:5 https://apt.postgresql.org/pub/repos/apt noble-pgdg/main amd64 postgresql-client-17 amd64 17.11-1.pgdg24.04+2 [2053 kB]
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.2972196Z debconf: delaying package configuration, since apt-utils is not installed
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3258412Z Fetched 2575 kB in 1s (4341 kB/s)
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3467589Z Selecting previously unselected package readline-common.
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3525485Z (Reading database ... 
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3525889Z (Reading database ... 5%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3526178Z (Reading database ... 10%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3526462Z (Reading database ... 15%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3526849Z (Reading database ... 20%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3527144Z (Reading database ... 25%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3527409Z (Reading database ... 30%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3527670Z (Reading database ... 35%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3527977Z (Reading database ... 40%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3528238Z (Reading database ... 45%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3528499Z (Reading database ... 50%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3563382Z (Reading database ... 55%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3610279Z (Reading database ... 60%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3675781Z (Reading database ... 65%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3787067Z (Reading database ... 70%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3835222Z (Reading database ... 75%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3883017Z (Reading database ... 80%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3933380Z (Reading database ... 85%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.3977840Z (Reading database ... 90%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.4034188Z (Reading database ... 95%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.4034459Z (Reading database ... 100%
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.4034716Z (Reading database ... 27343 files and directories currently installed.)
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.4040303Z Preparing to unpack .../readline-common_8.2-4build1_all.deb ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.4066852Z Unpacking readline-common (8.2-4build1) ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.4558391Z Selecting previously unselected package libreadline8t64:amd64.
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.4576076Z Preparing to unpack .../libreadline8t64_8.2-4build1_amd64.deb ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.4658981Z Adding 'diversion of /lib/x86_64-linux-gnu/libhistory.so.8 to /lib/x86_64-linux-gnu/libhistory.so.8.usr-is-merged by libreadline8t64'
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.4734008Z Adding 'diversion of /lib/x86_64-linux-gnu/libhistory.so.8.2 to /lib/x86_64-linux-gnu/libhistory.so.8.2.usr-is-merged by libreadline8t64'
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.4804346Z Adding 'diversion of /lib/x86_64-linux-gnu/libreadline.so.8 to /lib/x86_64-linux-gnu/libreadline.so.8.usr-is-merged by libreadline8t64'
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.4852480Z Adding 'diversion of /lib/x86_64-linux-gnu/libreadline.so.8.2 to /lib/x86_64-linux-gnu/libreadline.so.8.2.usr-is-merged by libreadline8t64'
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.4875047Z Unpacking libreadline8t64:amd64 (8.2-4build1) ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.5325930Z Selecting previously unselected package libpq5:amd64.
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.5342986Z Preparing to unpack .../libpq5_18.6-1.pgdg24.04+2_amd64.deb ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.5365595Z Unpacking libpq5:amd64 (18.6-1.pgdg24.04+2) ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.5741268Z Selecting previously unselected package postgresql-client-common.
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.5755147Z Preparing to unpack .../postgresql-client-common_293.pgdg24.04+1_all.deb ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.6258650Z Unpacking postgresql-client-common (293.pgdg24.04+1) ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.6496707Z Selecting previously unselected package postgresql-client-17.
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.6515322Z Preparing to unpack .../postgresql-client-17_17.11-1.pgdg24.04+2_amd64.deb ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.6541409Z Unpacking postgresql-client-17 (17.11-1.pgdg24.04+2) ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.8039629Z Setting up postgresql-client-common (293.pgdg24.04+1) ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.8382937Z Setting up libpq5:amd64 (18.6-1.pgdg24.04+2) ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.8438021Z Setting up readline-common (8.2-4build1) ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.8533603Z Setting up libreadline8t64:amd64 (8.2-4build1) ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:50.8596919Z Setting up postgresql-client-17 (17.11-1.pgdg24.04+2) ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:51.1366943Z update-alternatives: using /usr/share/postgresql/17/man/man1/psql.1.gz to provide /usr/share/man/man1/psql.1.gz (psql.1.gz) in auto mode
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:51.1561928Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:51.2155309Z pg_dump (PostgreSQL) 17.11 (Ubuntu 17.11-1.pgdg24.04+2)
+verify	Install PostgreSQL 17 backup tools from the signed PGDG repository	2026-10-08T15:06:51.2182145Z pg_restore (PostgreSQL) 17.11 (Ubuntu 17.11-1.pgdg24.04+2)
+verify	Run pnpm install --frozen-lockfile	﻿2026-10-08T15:06:51.2206714Z ##[group]Run pnpm install --frozen-lockfile
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2207217Z ^[[36;1mpnpm install --frozen-lockfile^[[0m
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2214260Z shell: /usr/bin/bash -e {0}
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2214455Z env:
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2214777Z   DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2215082Z   TEST_DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2215379Z   LAUNCH_DATABASE_TEST_URL: ***127.0.0.1:5432/queue_arcade
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2215586Z   PG_BIN_DIR: /usr/lib/postgresql/17/bin
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2215758Z   DATABASE_POOL_SIZE: 2
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2215908Z   ARCADE_AUTO_MIGRATE: false
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2216137Z   ARCADE_VOTER_SALT: queue-arcade-ci-voter-salt-at-least-32-characters
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2216432Z   ARCADE_AUTH_SECRET: queue-arcade-ci-auth-only-at-least-32-characters
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2216670Z   ARCADE_APP_URL: http://127.0.0.1:3000
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2216839Z   APP_URL: http://127.0.0.1:3000
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2217044Z   ARCADE_DATA_COUNTRIES: United States (ephemeral CI database)
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2217311Z   ARCADE_REVIEWER_STEAM_IDS: 76561198000000000
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2217506Z   ARCADE_SMOKE_REVIEWER_STEAM_ID: 76561198000000000
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2217693Z   ARCADE_ALLOW_FILE_STORE: false
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2217852Z   ARCADE_TRUST_PROXY: none
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2218002Z   NEXT_TELEMETRY_DISABLED: 1
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2218176Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.2218367Z ##[endgroup]
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.5246748Z Lockfile is up to date, resolution step is skipped
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.5452583Z Progress: resolved 1, reused 0, downloaded 0, added 0
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.5701529Z Packages: +368
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:51.5702280Z ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:52.5453977Z Progress: resolved 368, reused 0, downloaded 27, added 26
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:53.5458786Z Progress: resolved 368, reused 0, downloaded 84, added 84
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:54.5479350Z Progress: resolved 368, reused 0, downloaded 155, added 155
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:55.5486065Z Progress: resolved 368, reused 0, downloaded 161, added 160
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:56.5483109Z Progress: resolved 368, reused 0, downloaded 172, added 161
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:57.5481800Z Progress: resolved 368, reused 0, downloaded 243, added 241
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:58.5482748Z Progress: resolved 368, reused 0, downloaded 343, added 343
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:06:59.5486136Z Progress: resolved 368, reused 0, downloaded 363, added 363
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:00.5482652Z Progress: resolved 368, reused 0, downloaded 366, added 366
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.1865779Z Progress: resolved 368, reused 0, downloaded 368, added 368, done
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.4534718Z .../node_modules/unrs-resolver postinstall$ node postinstall.js
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.4975159Z .../node_modules/unrs-resolver postinstall: Done
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7041590Z 
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7042113Z dependencies:
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7042337Z + clsx 2.1.1
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7042482Z + lucide-react 1.26.0
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7042669Z + next 16.3.8
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7042794Z + postgres 3.4.9
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7042917Z + react 19.2.8
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7043054Z + react-dom 19.2.8
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7043183Z + sharp 0.35.4
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7043250Z 
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7043310Z devDependencies:
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7043448Z + @types/node 22.20.5
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7043586Z + @types/react 19.2.17
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7043730Z + @types/react-dom 19.2.3
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7043885Z + axe-core 4.14.0
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7044011Z + eslint 9.39.5
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7044151Z + eslint-config-next 16.3.8
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7044326Z + eslint-config-prettier 9.1.0
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7044503Z + eslint-plugin-prettier 5.2.1
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7044656Z + playwright 1.61.1
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7044781Z + prettier 3.3.3
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7044924Z + typescript 5.6.3
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7045049Z + vitest 5.0.0
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7045117Z 
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7166545Z Done in 10.4s
+verify	Run pnpm install --frozen-lockfile	2026-10-08T15:07:01.7654189Z ##[error]The operation was canceled.
+verify	Collect container log	﻿2026-10-08T15:07:01.7771533Z ##[group]Run docker logs queue-arcade-ci > /tmp/queue-arcade-ci.log 2>&1 || true
+verify	Collect container log	2026-10-08T15:07:01.7771930Z ^[[36;1mdocker logs queue-arcade-ci > /tmp/queue-arcade-ci.log 2>&1 || true^[[0m
+verify	Collect container log	2026-10-08T15:07:01.7779150Z shell: /usr/bin/bash -e {0}
+verify	Collect container log	2026-10-08T15:07:01.7779338Z env:
+verify	Collect container log	2026-10-08T15:07:01.7779661Z   DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Collect container log	2026-10-08T15:07:01.7779935Z   TEST_DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Collect container log	2026-10-08T15:07:01.7780226Z   LAUNCH_DATABASE_TEST_URL: ***127.0.0.1:5432/queue_arcade
+verify	Collect container log	2026-10-08T15:07:01.7780423Z   PG_BIN_DIR: /usr/lib/postgresql/17/bin
+verify	Collect container log	2026-10-08T15:07:01.7780591Z   DATABASE_POOL_SIZE: 2
+verify	Collect container log	2026-10-08T15:07:01.7780737Z   ARCADE_AUTO_MIGRATE: false
+verify	Collect container log	2026-10-08T15:07:01.7780947Z   ARCADE_VOTER_SALT: queue-arcade-ci-voter-salt-at-least-32-characters
+verify	Collect container log	2026-10-08T15:07:01.7781232Z   ARCADE_AUTH_SECRET: queue-arcade-ci-auth-only-at-least-32-characters
+verify	Collect container log	2026-10-08T15:07:01.7781479Z   ARCADE_APP_URL: http://127.0.0.1:3000
+verify	Collect container log	2026-10-08T15:07:01.7781673Z   APP_URL: http://127.0.0.1:3000
+verify	Collect container log	2026-10-08T15:07:01.7781921Z   ARCADE_DATA_COUNTRIES: United States (ephemeral CI database)
+verify	Collect container log	2026-10-08T15:07:01.7782136Z   ARCADE_REVIEWER_STEAM_IDS: 76561198000000000
+verify	Collect container log	2026-10-08T15:07:01.7782324Z   ARCADE_SMOKE_REVIEWER_STEAM_ID: 76561198000000000
+verify	Collect container log	2026-10-08T15:07:01.7782504Z   ARCADE_ALLOW_FILE_STORE: false
+verify	Collect container log	2026-10-08T15:07:01.7782658Z   ARCADE_TRUST_PROXY: none
+verify	Collect container log	2026-10-08T15:07:01.7782805Z   NEXT_TELEMETRY_DISABLED: 1
+verify	Collect container log	2026-10-08T15:07:01.7782979Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+verify	Collect container log	2026-10-08T15:07:01.7783168Z ##[endgroup]
+verify	Stop test processes	﻿2026-10-08T15:07:01.8072215Z ##[group]Run if test -f /tmp/queue-arcade-chrome.pid; then
+verify	Stop test processes	2026-10-08T15:07:01.8073339Z ^[[36;1mif test -f /tmp/queue-arcade-chrome.pid; then^[[0m
+verify	Stop test processes	2026-10-08T15:07:01.8073584Z ^[[36;1m  kill "$(cat /tmp/queue-arcade-chrome.pid)" || true^[[0m
+verify	Stop test processes	2026-10-08T15:07:01.8073799Z ^[[36;1mfi^[[0m
+verify	Stop test processes	2026-10-08T15:07:01.8074047Z ^[[36;1mdocker rm --force queue-arcade-ci || true^[[0m
+verify	Stop test processes	2026-10-08T15:07:01.8081146Z shell: /usr/bin/bash -e {0}
+verify	Stop test processes	2026-10-08T15:07:01.8081354Z env:
+verify	Stop test processes	2026-10-08T15:07:01.8081661Z   DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Stop test processes	2026-10-08T15:07:01.8081939Z   TEST_DATABASE_URL: ***127.0.0.1:5432/queue_arcade
+verify	Stop test processes	2026-10-08T15:07:01.8082238Z   LAUNCH_DATABASE_TEST_URL: ***127.0.0.1:5432/queue_arcade
+verify	Stop test processes	2026-10-08T15:07:01.8083456Z   PG_BIN_DIR: /usr/lib/postgresql/17/bin
+verify	Stop test processes	2026-10-08T15:07:01.8083654Z   DATABASE_POOL_SIZE: 2
+verify	Stop test processes	2026-10-08T15:07:01.8083802Z   ARCADE_AUTO_MIGRATE: false
+verify	Stop test processes	2026-10-08T15:07:01.8084020Z   ARCADE_VOTER_SALT: queue-arcade-ci-voter-salt-at-least-32-characters
+verify	Stop test processes	2026-10-08T15:07:01.8084302Z   ARCADE_AUTH_SECRET: queue-arcade-ci-auth-only-at-least-32-characters
+verify	Stop test processes	2026-10-08T15:07:01.8084726Z   ARCADE_APP_URL: http://127.0.0.1:3000
+verify	Stop test processes	2026-10-08T15:07:01.8084907Z   APP_URL: http://127.0.0.1:3000
+verify	Stop test processes	2026-10-08T15:07:01.8085103Z   ARCADE_DATA_COUNTRIES: United States (ephemeral CI database)
+verify	Stop test processes	2026-10-08T15:07:01.8085358Z   ARCADE_REVIEWER_STEAM_IDS: 76561198000000000
+verify	Stop test processes	2026-10-08T15:07:01.8085547Z   ARCADE_SMOKE_REVIEWER_STEAM_ID: 76561198000000000
+verify	Stop test processes	2026-10-08T15:07:01.8085727Z   ARCADE_ALLOW_FILE_STORE: false
+verify	Stop test processes	2026-10-08T15:07:01.8085885Z   ARCADE_TRUST_PROXY: none
+verify	Stop test processes	2026-10-08T15:07:01.8086027Z   NEXT_TELEMETRY_DISABLED: 1
+verify	Stop test processes	2026-10-08T15:07:01.8086200Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+verify	Stop test processes	2026-10-08T15:07:01.8086382Z ##[endgroup]
+verify	Stop test processes	2026-10-08T15:07:01.8237009Z Error response from daemon: No such container: queue-arcade-ci
+verify	Post Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	﻿2026-10-08T15:07:01.8293222Z Post job cleanup.
+verify	Post Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86	2026-10-08T15:07:01.9498806Z Pruning is unnecessary.
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	﻿2026-10-08T15:07:01.9617217Z Post job cleanup.
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0277963Z [command]/usr/bin/git version
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0306584Z git version 2.43.0
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0343273Z Temporarily overriding HOME='/opt/runner/_work/_temp/dc464da3-0858-4513-8f4c-2b82c8a200c0' before making global git config changes
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0343829Z Adding repository directory to the temporary git global config as a safe directory
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0350533Z [command]/usr/bin/git config --global --add safe.directory /opt/runner/_work/dota2-trivia/dota2-trivia
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0378005Z Removing SSH command configuration
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0382795Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0407839Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0629904Z Removing HTTP extra header
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0635278Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0666232Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0858107Z Removing includeIf entries pointing to credentials config files
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0863985Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0881669Z includeif.gitdir:/opt/runner/_work/dota2-trivia/dota2-trivia/.git.path
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0882111Z includeif.gitdir:/opt/runner/_work/dota2-trivia/dota2-trivia/.git/worktrees/*.path
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0882407Z includeif.gitdir:/github/workspace/.git.path
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0882650Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0888384Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/opt/runner/_work/dota2-trivia/dota2-trivia/.git.path
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0909546Z /opt/runner/_work/_temp/git-credentials-d6ee7194-54bf-41f7-ae9c-33d253b09dfa.config
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0917395Z [command]/usr/bin/git config --local --unset includeif.gitdir:/opt/runner/_work/dota2-trivia/dota2-trivia/.git.path /opt/runner/_work/_temp/git-credentials-d6ee7194-54bf-41f7-ae9c-33d253b09dfa.config
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0948918Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/opt/runner/_work/dota2-trivia/dota2-trivia/.git/worktrees/*.path
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0973206Z /opt/runner/_work/_temp/git-credentials-d6ee7194-54bf-41f7-ae9c-33d253b09dfa.config
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.0979216Z [command]/usr/bin/git config --local --unset includeif.gitdir:/opt/runner/_work/dota2-trivia/dota2-trivia/.git/worktrees/*.path /opt/runner/_work/_temp/git-credentials-d6ee7194-54bf-41f7-ae9c-33d253b09dfa.config
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.1017295Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.1036822Z /github/runner_temp/git-credentials-d6ee7194-54bf-41f7-ae9c-33d253b09dfa.config
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.1041327Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-d6ee7194-54bf-41f7-ae9c-33d253b09dfa.config
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.1070103Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.1088934Z /github/runner_temp/git-credentials-d6ee7194-54bf-41f7-ae9c-33d253b09dfa.config
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.1097870Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-d6ee7194-54bf-41f7-ae9c-33d253b09dfa.config
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.1126329Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+verify	Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803	2026-10-08T15:07:02.1305325Z Removing credentials config '/opt/runner/_work/_temp/git-credentials-d6ee7194-54bf-41f7-ae9c-33d253b09dfa.config'
+verify	Stop containers	﻿2026-10-08T15:07:02.1409236Z Print service container logs: dd1890a016284b1bb4aded9aa9811226_postgres17alpine_e17bed
+verify	Stop containers	2026-10-08T15:07:02.1412174Z ##[command]/usr/bin/docker logs --details 5ae403ec9ba0061b37616150dc9b0aeeb2b8f4b007854f3ed2e6d317058a70c6
+verify	Stop containers	2026-10-08T15:07:02.1638491Z  sh: locale: not found
+verify	Stop containers	2026-10-08T15:07:02.1639053Z  The files belonging to this database system will be owned by user "postgres".
+verify	Stop containers	2026-10-08T15:07:02.1639621Z  2026-10-08 15:06:09.285 UTC [36] WARNING:  no usable system locales were found
+verify	Stop containers	2026-10-08T15:07:02.1640506Z  initdb: warning: enabling "trust" authentication for local connections
+verify	Stop containers	2026-10-08T15:07:02.1641145Z  initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+verify	Stop containers	2026-10-08T15:07:02.1641803Z  2026-10-08 15:06:10.060 UTC [1] LOG:  starting PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+verify	Stop containers	2026-10-08T15:07:02.1642336Z  2026-10-08 15:06:10.060 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+verify	Stop containers	2026-10-08T15:07:02.1643112Z  2026-10-08 15:06:10.060 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+verify	Stop containers	2026-10-08T15:07:02.1643736Z  2026-10-08 15:06:10.062 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+verify	Stop containers	2026-10-08T15:07:02.1644099Z  2026-10-08 15:06:10.066 UTC [58] LOG:  database system was shut down at 2026-10-08 15:06:10 UTC
+verify	Stop containers	2026-10-08T15:07:02.1644423Z  2026-10-08 15:06:10.070 UTC [1] LOG:  database system is ready to accept connections
+verify	Stop containers	2026-10-08T15:07:02.1644676Z  This user must also own the server process.
+verify	Stop containers	2026-10-08T15:07:02.1644844Z  
+verify	Stop containers	2026-10-08T15:07:02.1645016Z  The database cluster will be initialized with locale "en_US.utf8".
+verify	Stop containers	2026-10-08T15:07:02.1645273Z  The default database encoding has accordingly been set to "UTF8".
+verify	Stop containers	2026-10-08T15:07:02.1645522Z  The default text search configuration will be set to "english".
+verify	Stop containers	2026-10-08T15:07:02.1645714Z  
+verify	Stop containers	2026-10-08T15:07:02.1645840Z  Data page checksums are disabled.
+verify	Stop containers	2026-10-08T15:07:02.1645992Z  
+verify	Stop containers	2026-10-08T15:07:02.1646174Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
+verify	Stop containers	2026-10-08T15:07:02.1646403Z  creating subdirectories ... ok
+verify	Stop containers	2026-10-08T15:07:02.1646594Z  selecting dynamic shared memory implementation ... posix
+verify	Stop containers	2026-10-08T15:07:02.1646802Z  selecting default "max_connections" ... 100
+verify	Stop containers	2026-10-08T15:07:02.1646990Z  selecting default "shared_buffers" ... 128MB
+verify	Stop containers	2026-10-08T15:07:02.1647184Z  selecting default time zone ... UTC
+verify	Stop containers	2026-10-08T15:07:02.1647352Z  creating configuration files ... ok
+verify	Stop containers	2026-10-08T15:07:02.1647514Z  running bootstrap script ... ok
+verify	Stop containers	2026-10-08T15:07:02.1647688Z  performing post-bootstrap initialization ... ok
+verify	Stop containers	2026-10-08T15:07:02.1647867Z  syncing data to disk ... ok
+verify	Stop containers	2026-10-08T15:07:02.1648009Z  
+verify	Stop containers	2026-10-08T15:07:02.1648124Z  
+verify	Stop containers	2026-10-08T15:07:02.1648264Z  Success. You can now start the database server using:
+verify	Stop containers	2026-10-08T15:07:02.1648437Z  
+verify	Stop containers	2026-10-08T15:07:02.1648587Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
+verify	Stop containers	2026-10-08T15:07:02.1648761Z  
+verify	Stop containers	2026-10-08T15:07:02.1649096Z  waiting for server to start....2026-10-08 15:06:09.811 UTC [42] LOG:  starting PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+verify	Stop containers	2026-10-08T15:07:02.1649593Z  2026-10-08 15:06:09.812 UTC [42] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+verify	Stop containers	2026-10-08T15:07:02.1649972Z  2026-10-08 15:06:09.816 UTC [45] LOG:  database system was shut down at 2026-10-08 15:06:09 UTC
+verify	Stop containers	2026-10-08T15:07:02.1650320Z  2026-10-08 15:06:09.819 UTC [42] LOG:  database system is ready to accept connections
+verify	Stop containers	2026-10-08T15:07:02.1650575Z   done
+verify	Stop containers	2026-10-08T15:07:02.1650715Z  server started
+verify	Stop containers	2026-10-08T15:07:02.1650854Z  CREATE DATABASE
+verify	Stop containers	2026-10-08T15:07:02.1650986Z  
+verify	Stop containers	2026-10-08T15:07:02.1651093Z  
+verify	Stop containers	2026-10-08T15:07:02.1651289Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+verify	Stop containers	2026-10-08T15:07:02.1651532Z  
+verify	Stop containers	2026-10-08T15:07:02.1651748Z  waiting for server to shut down....2026-10-08 15:06:09.945 UTC [42] LOG:  received fast shutdown request
+verify	Stop containers	2026-10-08T15:07:02.1652443Z  2026-10-08 15:06:09.947 UTC [42] LOG:  aborting any active transactions
+verify	Stop containers	2026-10-08T15:07:02.1652798Z  2026-10-08 15:06:09.949 UTC [42] LOG:  background worker "logical replication launcher" (PID 48) exited with exit code 1
+verify	Stop containers	2026-10-08T15:07:02.1653102Z  2026-10-08 15:06:09.949 UTC [43] LOG:  shutting down
+verify	Stop containers	2026-10-08T15:07:02.1653336Z  2026-10-08 15:06:09.950 UTC [43] LOG:  checkpoint starting: shutdown immediate
+verify	Stop containers	2026-10-08T15:07:02.1654042Z  2026-10-08 15:06:10.019 UTC [43] LOG:  checkpoint complete: wrote 926 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.010 s, sync=0.057 s, total=0.071 s; sync files=301, longest=0.010 s, average=0.001 s; distance=4266 kB, estimate=4266 kB; lsn=0/191E820, redo lsn=0/191E820
+verify	Stop containers	2026-10-08T15:07:02.1654663Z  2026-10-08 15:06:10.024 UTC [42] LOG:  database system is shut down
+verify	Stop containers	2026-10-08T15:07:02.1654869Z   done
+verify	Stop containers	2026-10-08T15:07:02.1654995Z  server stopped
+verify	Stop containers	2026-10-08T15:07:02.1655120Z  
+verify	Stop containers	2026-10-08T15:07:02.1655275Z  PostgreSQL init process complete; ready for start up.
+verify	Stop containers	2026-10-08T15:07:02.1655455Z  
+verify	Stop containers	2026-10-08T15:07:02.1660817Z Stop and remove container: dd1890a016284b1bb4aded9aa9811226_postgres17alpine_e17bed
+verify	Stop containers	2026-10-08T15:07:02.1664364Z ##[command]/usr/bin/docker rm --force 5ae403ec9ba0061b37616150dc9b0aeeb2b8f4b007854f3ed2e6d317058a70c6
+verify	Stop containers	2026-10-08T15:07:04.3639671Z 5ae403ec9ba0061b37616150dc9b0aeeb2b8f4b007854f3ed2e6d317058a70c6
+verify	Stop containers	2026-10-08T15:07:04.3668540Z Remove container network: github_network_3df808bcc0dd40bd81bc24e5023216c1
+verify	Stop containers	2026-10-08T15:07:04.3671222Z ##[command]/usr/bin/docker network rm github_network_3df808bcc0dd40bd81bc24e5023216c1
+verify	Stop containers	2026-10-08T15:07:04.6075722Z github_network_3df808bcc0dd40bd81bc24e5023216c1
+verify	Complete job	﻿2026-10-08T15:07:04.6129745Z Cleaning up orphan processes

@@ -1,0 +1,11 @@
+from pathlib import Path
+import json,tarfile,hashlib
+repo=Path('/home/kulmisiu/dev/dota2-trivia')
+base=Path('/tmp/queue-arcade-launch-checks/assistive-modern')
+entries=[(Path('/home/kulmisiu/.cache/ms-playwright/chromium-1243/chrome-linux64'),'opt/chrome153'),((repo/'node_modules/playwright').resolve(),'workspace/node_modules/playwright'),((repo/'node_modules/playwright/../playwright-core').resolve(),'workspace/node_modules/playwright-core'),(repo/'scripts/lib','workspace/scripts/lib'),(repo/'src/lib','workspace/src/lib'),(repo/'src/data','workspace/src/data')]
+archive=base/'portable-reader.tar'
+with tarfile.open(archive,'w',dereference=True) as bundle:
+    for source,destination in entries: bundle.add(source,arcname=destination)
+record={'entries':[{'source':str(source),'destination':destination} for source,destination in entries],'archiveBytes':archive.stat().st_size,'archiveSHA256':hashlib.sha256(archive.read_bytes()).hexdigest(),'excluded':'No repository root, environment files, personal profiles, or credentials are copied.'}
+(base/'portable-reader-inputs.json').write_text(json.dumps(record,indent=2)+'\n')
+print(json.dumps({'archiveBytes':record['archiveBytes'],'archiveSHA256':record['archiveSHA256']},indent=2))

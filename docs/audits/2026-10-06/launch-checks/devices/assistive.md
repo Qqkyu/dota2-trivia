@@ -1,10 +1,12 @@
 # Linux assistive technology checks
 
-Date: 2026-10-06.
+Dates: 2026-10-06 and 2026-10-08.
 
 The tests ran Orca, AT-SPI, Speech Dispatcher, and eSpeak NG against the app in a visible Chrome window. The first tests captured generated speech from a custom output module. A later isolated Ubuntu 24.04 container used Orca 49.8 and the stock eSpeak NG module, with real PulseAudio output recorded to WAV. These are screen-reader runs, not only accessibility-tree scans.
 
-The baseline exposed two defects. A new round had no spoken prompt and left focus on the page body after an answer control disappeared. A searched Shopkeeper component also removed focus without announcing the selection. The fixes add stable live status regions and guarded keyboard focus recovery. Both regression checks pass on production build `YC6nz9frAbvjRFKHq5lSy` at `http://127.0.0.1:3331`. Orca 42 completes the recipe speech flow in Chrome 121 and 149. Chrome 153 with Orca 42 passes the round announcement and zoom checks, but retains the recipe text-entry issue below. On final build `NsjBPH5Ygi5SqnYfuwSHz`, Orca 49.8 passes the recipe in a fresh session. It drops the round prompt in the stock-speech run. The modern-reader results below are partial.
+The final source passes the three targeted Orca 49.8 and Chrome 153 checks on build `fQ95T7-zzQo1Bnsef8oBI`. The reader spoke the next prompt once with both recovered and retained focus. The recipe flow spoke both component counts and submitted one vote. See [final source verification](#final-source-verification). These separate cases do not establish full continuous screen-reader support.
+
+The baseline exposed two defects. A new round had no spoken prompt and left focus on the page body after an answer control disappeared. A searched Shopkeeper component also removed focus without announcing the selection. The fixes add stable live status regions and guarded keyboard focus recovery. Both regression checks pass on production build `YC6nz9frAbvjRFKHq5lSy` at `http://127.0.0.1:3331`. Orca 42 completes the recipe speech flow in Chrome 121 and 149. Chrome 153 with Orca 42 passes the round announcement and zoom checks, but retains the recipe text-entry issue below. On the earlier build `NsjBPH5Ygi5SqnYfuwSHz`, Orca 49.8 passed the recipe in a fresh session but dropped the round prompt in the stock-speech run. The historical results and cause are retained below. Removing the redundant status role corrected that prompt failure in the final source.
 
 ## Expected result and method
 
@@ -100,9 +102,29 @@ The retained-focus control also lost the prompt while Game volume stayed focused
 
 Removing only the redundant role before initial accessibility-tree creation exposed a `SECTION`. With `aria-live=polite` and `aria-atomic=true` unchanged, Orca spoke the full prompt exactly once. The control passed with focus on Game volume and with focus recovered to the round heading. See the [control summary](evidence/assistive/modern-orca49/controls-summary.json), [unchanged control](evidence/assistive/modern-orca49/control-external-status.json), [generic live-region control](evidence/assistive/modern-orca49/control-external-generic-initial.json), and [recovered-focus control](evidence/assistive/modern-orca49/control-recovered-generic.json). Removing the role after first exposure did not change the cached AT-SPI role, so that late-change attempt does not support the result.
 
-The source fix removes that one redundant role. It adds no delay and preserves the existing focus guards. `scripts/check-orca-round.mjs` fails against the recorded original stock-module run and passes both successful controls. It checks the actual Orca speech log, expected focus, and native Tab to Year. Verification of the source change awaits the next production rebuild. The current evidence does not establish full Orca 49.8 support for a continuous game session.
+The source fix removes that one redundant role. It adds no delay and preserves the existing focus guards. `scripts/check-orca-round.mjs` fails against the recorded original stock-module run and passes both successful controls. It checks the actual Orca speech log, expected focus, and native Tab to Year. The final source verification below confirms the change in a production rebuild. The evidence does not establish full Orca 49.8 support for a continuous game session.
 
 The [Dockerfile](evidence/assistive/modern-orca49/Dockerfile.txt), [session script](evidence/assistive/modern-orca49/modern-session.sh.txt), [driver](evidence/assistive/modern-orca49/modern-check.mjs.txt), and [speech configuration](evidence/assistive/modern-orca49/speechd.conf.txt) retain the setup. Full logs and continuous audio remain under `/tmp/queue-arcade-launch-checks/assistive-modern`.
+
+## Final source verification
+
+On 2026-10-08, three native reader sessions checked production build `fQ95T7-zzQo1Bnsef8oBI` at port 3334. Each driver fetched the build manifest and matched its SHA-256 against the built file before the user flow. The driver did not alter the live-region role at runtime. The app source retained `aria-live=polite` and `aria-atomic=true`, with no explicit `role=status`.
+
+| Case | Result |
+| --- | --- |
+| An answer control disappears before the next round | Passed. Orca spoke the new prompt exactly once. Focus moved to the Round 2 heading. Native Tab reached Year. |
+| Game volume is focused when the next round begins | Passed. Orca spoke the same prompt exactly once. Focus stayed on Game volume. Native Tab reached Year. |
+| Search and build a recipe | Passed. Native typing entered both searches. Orca spoke the first and second component counts. Focus returned to Search after the first pick and moved to Build after the second. Enter submitted exactly one `recipe-v1:gloves+gloves` vote. |
+
+The [verification record](evidence/assistive/final-orca49/verification.json) contains all assertions, source hashes, speech requests, and audio measurements. The [recovered-focus transcript](evidence/assistive/final-orca49/recovered-transcript.json), [retained-focus transcript](evidence/assistive/final-orca49/external-transcript.json), and [recipe transcript](evidence/assistive/final-orca49/recipe-transcript.json) retain native input and DOM observations. The stock Speech Dispatcher output was recorded through PulseAudio. The [recovered-focus audio](evidence/assistive/final-orca49/recovered-audio.wav), [retained-focus audio](evidence/assistive/final-orca49/external-audio.wav), and [recipe audio](evidence/assistive/final-orca49/recipe-audio.wav) contain nonzero PCM. No physical speaker or human listening check is claimed.
+
+The existing Ubuntu 24.04 reader image supplied Orca 49.8 and AT-SPI 2.52.0. The exact Chrome 153.0.8010.12 files and fixture dependencies were copied into a disposable container. Docker's WSL integration socket was unavailable after the session restart, so the test used the installed Windows Docker CLI and tar streams. The [input record](evidence/assistive/final-orca49/portable-reader-inputs.json) gives the image digest, archive hash, and narrow copy paths. No repository environment file, personal browser profile, host mount, or Docker setting was used or changed.
+
+The first retained-focus setup stalled on stale audio services before the app driver started. That attempt has no app result. The [setup record](evidence/assistive/final-orca49/setup-attempts.json) and [log](evidence/assistive/final-orca49/stale-service-attempt.log) retain it. Resetting the disposable container between sessions gave clean reader and browser processes. Both remaining cases then passed. The container was removed after the checks.
+
+The reader checker still rejects the original failed speech recording and accepts both diagnostic controls. See [checker controls](evidence/assistive/final-orca49/round-checker-controls.json). The [file manifest](evidence/assistive/final-orca49/sha256.json) binds the final evidence. Compressed full Orca logs and raw app results are retained beside the transcripts, so these assertions can be checked without the temporary runtime.
+
+These were separate targeted sessions. The earlier two-page SayAll problem was not retested as a continuous final-source session. This pass does not establish every format's screen-reader support or support in another operating system or reader.
 
 ## Real browser zoom
 

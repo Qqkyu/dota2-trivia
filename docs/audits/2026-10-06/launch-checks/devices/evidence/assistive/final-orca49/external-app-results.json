@@ -1,0 +1,812 @@
+{
+  "url": "http://host.docker.internal:3334",
+  "startedAt": "2026-10-08T14:59:02.744Z",
+  "events": [
+    {
+      "label": "classic entry gate",
+      "at": 1791471546305,
+      "state": {
+        "path": "/play",
+        "phase": "waiting",
+        "round": "at-gate",
+        "focus": {
+          "tag": "A",
+          "id": "",
+          "testid": "site-home",
+          "name": "Queue Arcade home"
+        },
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic initial page reading stopped",
+      "at": 1791471546733,
+      "state": {
+        "path": "/play",
+        "phase": "waiting",
+        "round": "at-gate",
+        "focus": {
+          "tag": "A",
+          "id": "",
+          "testid": "site-home",
+          "name": "Queue Arcade home"
+        },
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic round start",
+      "at": 1791471548769,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "A",
+          "id": "",
+          "testid": "site-home",
+          "name": "Queue Arcade home"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "helper": "Use A–D or 1–4 to answerCorrect now: 225 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "58"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471549199,
+      "target": "[data-testid=\"arcade-answer\"]",
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "",
+          "name": "Enable game sounds"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "helper": "Use A–D or 1–4 to answerCorrect now: 225 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "58"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471549617,
+      "target": "[data-testid=\"arcade-answer\"]",
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "INPUT",
+          "id": "",
+          "testid": "game-volume",
+          "name": "Game volume"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "helper": "Use A–D or 1–4 to answerCorrect now: 225 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "58"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471550040,
+      "target": "[data-testid=\"arcade-answer\"]",
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "",
+          "testid": "arcade-answer",
+          "name": "A160"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "helper": "Use A–D or 1–4 to answerCorrect now: 225 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "57"
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic answer focused",
+      "at": 1791471550044,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "",
+          "testid": "arcade-answer",
+          "name": "A160"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "helper": "Use A–D or 1–4 to answerCorrect now: 225 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "57"
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic answer locked",
+      "at": 1791471550463,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BODY",
+          "id": "",
+          "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 · Patch 7.41f70%Round 1Round 001Classic TriviaMana57How much mana does Acid Spray cost?Us"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "helper": "Answer locked with 57s leftWorth 225 gold if correct",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "57"
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic before reveal",
+      "at": 1791471550466,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BODY",
+          "id": "",
+          "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 · Patch 7.41f70%Round 1Round 001Classic TriviaMana57How much mana does Acid Spray cost?Us"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "helper": "Answer locked with 57s leftWorth 225 gold if correct",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "57"
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic after reveal",
+      "at": 1791471552803,
+      "votes": [
+        {
+          "gameId": "dota2",
+          "mode": "mixed",
+          "filter": "Mixed",
+          "roundId": "at-classic-1",
+          "answerIndex": 0,
+          "voterId": "861cc221-7175-449b-8241-8ce09f0b9748",
+          "sessionId": "db8d5b31-02b6-4a84-877c-876235a71350"
+        }
+      ],
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BODY",
+          "id": "",
+          "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 · Patch 7.41f70%Round 1Round 001Classic TriviaMana65How much mana does Acid Spray cost?Us"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "65"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471553369,
+      "target": "[data-testid=game-volume]",
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "",
+          "testid": "report-question",
+          "name": "Report question"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "65"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471553793,
+      "target": "[data-testid=game-volume]",
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "A",
+          "id": "",
+          "name": "Profile"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "64"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471554218,
+      "target": "[data-testid=game-volume]",
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "A",
+          "id": "",
+          "name": "Privacy"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "64"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471554641,
+      "target": "[data-testid=game-volume]",
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "A",
+          "id": "",
+          "name": "Calibration lab"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "63"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471555067,
+      "target": "[data-testid=game-volume]",
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BODY",
+          "id": "",
+          "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 · Patch 7.41f70%Round 1Round 001Classic TriviaMana63How much mana does Acid Spray cost?Us"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "63"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471555491,
+      "target": "[data-testid=game-volume]",
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BODY",
+          "id": "",
+          "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 · Patch 7.41f70%Round 1Round 001Classic TriviaMana62How much mana does Acid Spray cost?Us"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "62"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471555914,
+      "target": "[data-testid=game-volume]",
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BODY",
+          "id": "",
+          "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 · Patch 7.41f70%Round 1Round 001Classic TriviaMana67How much mana does Acid Spray cost?Us"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "67"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471556337,
+      "target": "[data-testid=game-volume]",
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BODY",
+          "id": "",
+          "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 · Patch 7.41f70%Round 1Round 001Classic TriviaMana67How much mana does Acid Spray cost?Us"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "67"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471556760,
+      "target": "[data-testid=game-volume]",
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "A",
+          "id": "",
+          "testid": "site-home",
+          "name": "Queue Arcade home"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "67"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471557183,
+      "target": "[data-testid=game-volume]",
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "",
+          "name": "Enable game sounds"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "67"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "tab",
+      "at": 1791471557605,
+      "target": "[data-testid=game-volume]",
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "INPUT",
+          "id": "",
+          "testid": "game-volume",
+          "name": "Game volume"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "66"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "external focus before transition",
+      "at": 1791471557609,
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "INPUT",
+          "id": "",
+          "testid": "game-volume",
+          "name": "Game volume"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "66"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic before next round",
+      "at": 1791471557622,
+      "state": {
+        "path": "/play",
+        "phase": "reveal",
+        "round": "at-classic-1",
+        "focus": {
+          "tag": "INPUT",
+          "id": "",
+          "testid": "game-volume",
+          "name": "Game volume"
+        },
+        "prompt": "How much mana does Acid Spray cost?Use the listed mana cost, before talents, facets, upgrades, or other modifiers.",
+        "reveal": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 1. How much mana does Acid Spray cost?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "66"
+          },
+          {
+            "role": null,
+            "live": "polite",
+            "text": "IncorrectAcid Spray's mana cost is 120, before modifiers.Report questionNo score+0gold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "classic next round",
+      "at": 1791471563665,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-year-2",
+        "focus": {
+          "tag": "INPUT",
+          "id": "",
+          "testid": "game-volume",
+          "name": "Game volume"
+        },
+        "prompt": "What year did Dota 2 officially release?",
+        "helper": "Slide to the year, then press Lock · Enter also locksCorrect now: 225 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 2. What year did Dota 2 officially release?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "60"
+          }
+        ]
+      }
+    },
+    {
+      "label": "next round first Tab",
+      "at": 1791471564086,
+      "state": {
+        "path": "/play",
+        "phase": "answering",
+        "round": "at-year-2",
+        "focus": {
+          "tag": "INPUT",
+          "id": "",
+          "testid": "flashback-year-slider",
+          "name": "Year"
+        },
+        "prompt": "What year did Dota 2 officially release?",
+        "helper": "Slide to the year, then press Lock · Enter also locksCorrect now: 225 gold",
+        "live": [
+          {
+            "role": null,
+            "live": "polite",
+            "text": "Round 2. What year did Dota 2 officially release?"
+          },
+          {
+            "role": "timer",
+            "live": "off",
+            "text": "59"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+  ],
+  "browser": "153.0.8010.12",
+  "buildId": "fQ95T7-zzQo1Bnsef8oBI",
+  "runtimeRoleMutation": false,
+  "servedBuildManifestSHA256": "9476e0afd3f9da68a64e6ec58631191fd3eaca62c9f5a377e7517fe9a89e59ea",
+  "control": "external",
+  "liveRole": null,
+  "completed": true
+}

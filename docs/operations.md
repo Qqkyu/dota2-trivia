@@ -100,7 +100,10 @@ The committed content review is a release gate, not an automatic approval. Follo
 [content sources and review](content-sources.md) after a data or supporting script change.
 Do not run `--record-review` automatically in CI.
 
-As of 2026-10-06, both production and full JavaScript dependency audits have no advisories.
+As of 2026-10-08, both production and full JavaScript dependency audits have no advisories.
+Sharp is pinned to 0.35.5 after the fresh audit found a newly indexed advisory in its
+bundled SVG library. The [security update record](audits/2026-10-06/launch-checks/security/sharp-update-20261008.md)
+preserves the finding, patched native versions and verification results.
 The Next ESLint plugin's directory matcher uses a scoped `tinyglobby@0.2.17` override
 to remove the unpatched `braces` dependency. The pinned patch in `patches/` disables
 automatic directory expansion to preserve the previous matcher behavior. Keep that patch
