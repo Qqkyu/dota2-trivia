@@ -190,9 +190,11 @@ The data generators write:
 
 The sync uses OpenDota for localized metadata and artwork, and Dotabase for hero-response metadata and playable audio
 paths. The October review checked all 1,517 live questions against current Valve data, dated primary historical
-sources, pinned response metadata and measured audio samples. Its [per-question index](docs/audits/2026-10-06/deep-review/question-review-index.json)
-records the evidence and limits. All 219 audio questions still need a human listening pass. The 72 retired recipe rows
-remain outside the live catalog and were not fact-checked in this pass.
+sources, pinned response metadata and measured audio samples. Its [current per-question index](docs/audits/2026-10-06/launch-checks/question-review-index.json)
+records the evidence and limits. The completed [audio review](docs/audits/2026-10-06/launch-checks/content-review.md)
+covers all 219 questions using source metadata, exact gameplay cuts, speech recognition for voices, and native
+browser output for effects. These checks do not establish subjective difficulty or physical-speaker quality.
+The 72 retired recipe rows remain outside the live catalog and were not fact-checked in this pass.
 
 The existing build 6882 extract and reviewed patch deltas provide a separate numeric check. Its original installation
 provenance is unproven, so it is not a fresh installed-client certificate. `scripts/client-constant-audit.mjs` records

@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-10-08",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "70d29bf0ad3aa4d8ed24241789a45e303dd9ae5ce1453279b500f667e11a3233",
+      "bytes": 2418
+    },
+    {
+      "path": "local-input-check.json",
+      "sha256": "833e45a273c19864d255cb60a2f1f20995b2b8a611e42ff751ec5cbeb82a8015",
+      "bytes": 476
+    },
+    {
+      "path": "offline-tests.json",
+      "sha256": "afe05221804bbd6913ac2976b956ae9ca83a182325a3c54a89b1098b22f611a4",
+      "bytes": 1256
+    },
+    {
+      "path": "offline-tests.log",
+      "sha256": "34cc03a77ec72d97a2aa5d20dbb5cdd04e99d7c6be859f768df8e3f8d4f63526",
+      "bytes": 2296
+    },
+    {
+      "path": "offline-tests.py.txt",
+      "sha256": "118c685a6b582f943eb505be83e8901b3f25b47b53e8b97119dcad7fc9e9805d",
+      "bytes": 19526
+    },
+    {
+      "path": "operator-source.py.txt",
+      "sha256": "e73148881241fd2ad02380bf6b14438d7ddbd9f1b2fe887fd11753c56123ef49",
+      "bytes": 10144
+    }
+  ]
+}

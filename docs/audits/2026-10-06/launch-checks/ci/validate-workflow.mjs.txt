@@ -17,7 +17,7 @@ const environment=workflow.jobs.verify.env;
 assert.equal(environment.LAUNCH_DATABASE_TEST_URL,environment.TEST_DATABASE_URL);
 assert.equal(new URL(environment.LAUNCH_DATABASE_TEST_URL).hostname,'127.0.0.1');
 assert.equal(environment.PG_BIN_DIR,'/usr/lib/postgresql/17/bin');
-assert(workflow.jobs.verify.steps.some(s=>s.run==='pnpm test --maxWorkers=2'));
+assert(workflow.jobs.verify.steps.some(s=>s.run==='pnpm exec vitest run --maxWorkers=2'));
 const clientInstall=workflow.jobs.verify.steps.find(s=>s.name==='Install PostgreSQL 17 backup tools from the signed PGDG repository');
 assert(clientInstall.run.includes('Signed-By: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc'));
 assert(clientInstall.run.includes('postgresql-client-17'));

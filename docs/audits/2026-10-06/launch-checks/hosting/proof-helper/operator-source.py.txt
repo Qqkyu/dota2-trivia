@@ -1,0 +1,188 @@
+import datetime
+import hashlib
+import ipaddress
+import json
+import os
+from pathlib import Path
+import re
+import selectors
+import subprocess
+import sys
+import time
+import urllib.error
+import urllib.request
+
+ROOT = Path('/home/kulmisiu/dev/dota2-trivia')
+OUT = ROOT / 'docs/audits/2026-10-06/launch-checks/hosting'
+CANDIDATE = Path('/tmp/queue-arcade-launch-checks/candidate-commit.json')
+SID = 'srv-d9mqd1942hec73e9nlt0'
+BRANCH = 'codex/launch-checks-20261006'
+ORIGIN = 'https://queue-arcade.onrender.com'
+NODE = '/tmp/queue-arcade-launch-checks/tools/node22/bin/node'
+LOCAL_INPUTS = ('scripts/check-ingress-proof.mjs', 'src/lib/ingress-probe.mjs')
+CHECK_NAMES = ('baseline', 'cloudflare-header', 'real-ip-header', 'forwarded-chain', 'combined-headers')
+BASE_ENV = {'PATH': '/usr/bin:/bin'}
+
+
+def require(condition, message='Hosted ingress proof precondition failed.'):
+    if not condition:
+        raise RuntimeError(message)
+
+
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, request, response, code, message, headers, new_url):
+        raise urllib.error.HTTPError(request.full_url, code, 'API redirects are disabled.', headers, None)
+
+
+def api(path):
+    request = urllib.request.Request(
+        'https://api.render.com/v1/services/' + SID + path,
+        headers={'Authorization': 'Bearer ' + os.environ['RENDER_API_KEY']},
+    )
+    # The bearer token must never reach a redirect target.
+    opener = urllib.request.build_opener(NoRedirect())
+    with opener.open(request, timeout=20) as response:
+        raw = response.read(2_000_001)
+        require(len(raw) <= 2_000_000, 'Provider response exceeds the bound.')
+        return json.loads(raw)
+
+
+def run_bounded(argv, *, env, timeout, limit):
+    """Capture a child's output in memory, with one time and size bound for both streams."""
+    process = subprocess.Popen(argv, cwd=ROOT, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    streams = {'stdout': bytearray(), 'stderr': bytearray()}
+    deadline = time.monotonic() + timeout
+    total = 0
+    try:
+        with selectors.DefaultSelector() as selector:
+            for name, pipe in [('stdout', process.stdout), ('stderr', process.stderr)]:
+                os.set_blocking(pipe.fileno(), False)
+                selector.register(pipe, selectors.EVENT_READ, name)
+            while selector.get_map():
+                remaining = deadline - time.monotonic()
+                require(remaining > 0, 'Operator command exceeded its deadline.')
+                for key, _ in selector.select(remaining):
+                    chunk = os.read(key.fileobj.fileno(), min(8192, limit - total + 1))
+                    if not chunk:
+                        selector.unregister(key.fileobj)
+                        continue
+                    total += len(chunk)
+                    require(total <= limit, 'Operator command output exceeds the bound.')
+                    streams[key.data].extend(chunk)
+        remaining = deadline - time.monotonic()
+        require(remaining > 0, 'Operator command exceeded its deadline.')
+        code = process.wait(timeout=remaining)
+        return subprocess.CompletedProcess(argv, code, bytes(streams['stdout']), bytes(streams['stderr']))
+    finally:
+        if process.poll() is None:
+            process.kill()
+        process.wait()
+        process.stdout.close()
+        process.stderr.close()
+
+
+def checked_local_inputs(commit):
+    require(re.fullmatch(r'[0-9a-f]{40}', commit) is not None, 'Candidate commit is invalid.')
+    manifest = []
+    git_env = {**BASE_ENV, 'GIT_CONFIG_NOSYSTEM': '1', 'GIT_CONFIG_GLOBAL': os.devnull,
+               'GIT_OPTIONAL_LOCKS': '0', 'GIT_TERMINAL_PROMPT': '0'}
+    for name in LOCAL_INPUTS:
+        path = ROOT / name
+        require(path.is_file() and not path.is_symlink(), 'Local verification input is not a regular file.')
+        with path.open('rb') as source:
+            local = source.read(65_537)
+        require(len(local) <= 65_536, 'Local verification input exceeds the bound.')
+        saved = run_bounded(['git', 'cat-file', 'blob', commit + ':' + name],
+                            env=git_env, timeout=10, limit=65_536)
+        require(saved.returncode == 0 and not saved.stderr and saved.stdout == local,
+                'Local verification input does not match the candidate commit.')
+        manifest.append({'path': name, 'sha256': hashlib.sha256(local).hexdigest()})
+    return manifest
+
+
+def ipv4(url):
+    process = run_bounded(['curl', '--disable', '--ipv4', '--proto', '=https', '--fail', '--silent',
+                           '--show-error', '--max-time', '10', url], env=BASE_ENV, timeout=12, limit=8192)
+    require(process.returncode == 0 and not process.stderr, 'Independent IPv4 lookup failed.')
+    raw = process.stdout.decode()
+    value = next((line[3:] for line in raw.splitlines() if line.startswith('ip=')), raw.strip())
+    parsed = ipaddress.ip_address(value)
+    require(parsed.version == 4 and parsed.is_global, 'Independent IPv4 lookup was invalid.')
+    return str(parsed)
+
+
+def checked_state(candidate):
+    service = api('')
+    require(service['id'] == SID and service['suspended'] == 'not_suspended')
+    require(service['serviceDetails']['plan'] == 'free')
+    require(service['autoDeployTrigger'] == 'off' and service['branch'] == candidate['branch'])
+    deployments = api('/deploys?limit=5')
+    live = [entry['deploy'] for entry in deployments if entry['deploy']['status'] == 'live']
+    require(len(live) == 1 and live[0]['commit']['id'] == candidate['commit'])
+    require(isinstance(live[0]['id'], str) and re.fullmatch(r'dep-[a-z0-9]{1,80}', live[0]['id']) is not None)
+    terminal = {'live', 'deactivated', 'canceled', 'build_failed', 'update_failed', 'pre_deploy_failed'}
+    require(all(entry['deploy']['status'] in terminal for entry in deployments),
+            'A deployment is still in progress.')
+    values = api('/env-vars?limit=100')
+    require(len(values) < 100, 'Environment response may be paginated.')
+    env = {row['envVar']['key']: row['envVar']['value'] for row in values}
+    require(env['ARCADE_APP_URL'] == ORIGIN and env['ARCADE_TRUST_PROXY'] == 'none')
+    require(isinstance(env['ARCADE_AUTH_SECRET'], str) and len(env['ARCADE_AUTH_SECRET'].strip()) >= 32)
+    require(isinstance(env['DATABASE_URL'], str) and bool(env['DATABASE_URL']))
+    return ({'serviceId': SID, 'deployId': live[0]['id'], 'commit': candidate['commit'],
+             'branch': service['branch'], 'plan': service['serviceDetails']['plan'],
+             'suspended': service['suspended'], 'autoDeployTrigger': service['autoDeployTrigger'],
+             'trustProxy': env['ARCADE_TRUST_PROXY'], 'origin': env['ARCADE_APP_URL']}, env)
+
+
+def main():
+    require(len(sys.argv) == 1)
+    status = json.loads((OUT / 'candidate-deploy-status.json').read_text())
+    require(status['externalHealthChecksAllowed'] is True and status['serviceId'] == SID)
+    require(type(status['ciRunId']) is int and status['ciRunId'] > 0)
+    candidate = json.loads(CANDIDATE.read_text())
+    require(status['commit'] == candidate['commit'] and candidate['branch'] == BRANCH)
+    manifest = checked_local_inputs(candidate['commit'])
+    state, env = checked_state(candidate)
+    address = ipv4('https://api.ipify.org')
+    require(address == ipv4('https://www.cloudflare.com/cdn-cgi/trace'), 'Independent IPv4 sources disagree.')
+    process = run_bounded([NODE, 'scripts/check-ingress-proof.mjs', ORIGIN],
+                          env={**BASE_ENV, 'ARCADE_AUTH_SECRET': env['ARCADE_AUTH_SECRET'],
+                               'INGRESS_EXPECTED_IPV4': address}, timeout=60, limit=32_768)
+    require(process.returncode == 0 and not process.stderr, 'Hosted ingress proof did not pass.')
+    for private in [address, env['ARCADE_AUTH_SECRET'], env['DATABASE_URL']]:
+        require(private.encode() not in process.stdout, 'Proof output contained a private value.')
+    result = json.loads(process.stdout)
+    require(set(result) == {'checkedAt', 'origin', 'ok', 'policyDuringCheck', 'checks', 'changedConfiguration'})
+    require(result['ok'] is True and result['changedConfiguration'] is False)
+    require(result['origin'] == ORIGIN and result['policyDuringCheck'] == 'none')
+    require(len(result['checks']) == len(CHECK_NAMES))
+    for name, row in zip(CHECK_NAMES, result['checks']):
+        require(set(row) == {'name', 'receivedVerifiedEgress', 'suppliedHeaderDidNotControlResult'})
+        require(row['name'] == name and row['receivedVerifiedEgress'] is True
+                and row['suppliedHeaderDidNotControlResult'] is True)
+    checked_at = datetime.datetime.fromisoformat(result['checkedAt'].replace('Z', '+00:00'))
+    require(checked_at.tzinfo is not None)
+    after_state, after_env = checked_state(candidate)
+    require(after_state == state and after_env == env, 'Deployment or configuration changed during proof.')
+    require(checked_local_inputs(candidate['commit']) == manifest, 'Local verification inputs changed during proof.')
+    # Reconstruct the evidence from reviewed fields. Never forward arbitrary child output.
+    output = {'checkedAt': checked_at.isoformat(), 'origin': ORIGIN, 'ok': True,
+              'policyDuringCheck': 'none',
+              'checks': [{'name': name, 'receivedVerifiedEgress': True,
+                          'suppliedHeaderDidNotControlResult': True} for name in CHECK_NAMES],
+              'changedConfiguration': False, 'commit': candidate['commit'], 'deployId': state['deployId'],
+              'ciRunId': status['ciRunId'], 'independentIpv4SourcesAgreed': True,
+              'operatorSecretLogged': False, 'rawAddressesLogged': False,
+              'deploymentAndConfigurationStable': True, 'localInputs': manifest}
+    (OUT / 'hosted-ingress-proof.json').write_text(json.dumps(output, indent=2) + '\n')
+    print(json.dumps(output))
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception as error:
+        print(json.dumps({'ok': False, 'checkedAt': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                          'errorType': type(error).__name__}))
+        sys.exit(1)

@@ -1,10 +1,10 @@
-(node:3) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+(node:4) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
 --import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("/tmp/queue-arcade-launch-ci/validator/json-loader.mjs", pathToFileURL("./"));'
 (Use `node --trace-warnings ...` to show where the warning was created)
 {
   "parser": "@actions/workflow-parser 0.3.61",
   "schemaErrors": [],
-  "workflowSha256": "c7eda5798dfe27975e5cad6fa1f2dcfbab17b303cb98fdbf7d79486be0f873b1",
+  "workflowSha256": "46aed739effe73323a7b6c4281abd2660b7b19e292a7e09f5b5b159eb5bf8359",
   "databaseChecks": {
     "launchSuiteEnabled": true,
     "launchDatabaseIsLoopback": true,

@@ -51,3 +51,9 @@ The Windows Docker CLI can use the existing engine. A disposable capped containe
 The helper assigns a unique ownership label to its container, volume, and GitHub registration. Cleanup checks those labels, refuses a running container, and can resume after a partial failure. A failure to save diagnostics or remove a GitHub registration does not prevent independent local cleanup. It checks all GitHub runner pages and verifies resource removal before it allows another start. Each attempt has a separate local evidence directory.
 
 A separate reviewer tested ten cases with mocked subprocesses. These cover start-time limits and credential handling, normal cleanup, missing resources, rejected diagnostic copies, GitHub errors, volume removal and retry, ownership mismatch, and a running container. All passed. The [result](lifecycle-review/result.json) binds the reviewed scripts by SHA-256. The [mock tests](lifecycle-review/review_lifecycle.py.txt) did not register a runner or run Docker. The helper's read-only Docker lookups and paginated GitHub listing also passed against the existing services. A full workflow result is still pending.
+
+## First workflow results
+
+The original push event arrived after a manual dispatch and cancelled that dispatch under the workflow's concurrency rule. [Run 37797906984](runs/37797906984/README.md) records that incomplete attempt. A fresh dependency audit then found a newly published Sharp advisory. The next candidate includes Sharp 0.35.5.
+
+The replacement push run reached the test step and exposed a pnpm 9.12.1 argument error. The corrected step is `pnpm exec vitest run --maxWorkers=2`. In the same installed runner environment, that command passed all 1,284 tests, then lint and typecheck passed without a generated `next-env.d.ts`. [Run 37799841251](runs/37799841251/README.md) records the failure and local recheck. Both disposable runners and their volumes were removed. The full corrected workflow remains pending.

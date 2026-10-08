@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-10-08T15:20:21.646943+00:00",
+  "commit": "c9546063069b76fe2776c588d21d993d98be8aca",
+  "localInputsMatchCandidate": true,
+  "inputs": [
+    {
+      "path": "scripts/check-ingress-proof.mjs",
+      "sha256": "49e49deeffdcaca8448fad91420d9fcb60d1307afd6b0ae54cc45cfa4d892948"
+    },
+    {
+      "path": "src/lib/ingress-probe.mjs",
+      "sha256": "28de5683e29747720987e6026acdb7d2b640093f09835291aa5a093473e0f1ba"
+    }
+  ],
+  "hostedRequests": false
+}

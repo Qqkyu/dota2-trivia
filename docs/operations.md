@@ -181,7 +181,7 @@ pnpm db:cleanup
 In the built container use `node scripts/cleanup-db.mjs` (add `--dry-run` to inspect counts).
 Do not claim that a sleeping free service enforces retention on time without an independent
 job. For a running app, alert when `/api/health` reports a `maintenance.lastSucceededAt`
-older than two hours, or it remains null after startup. For an independent scheduler,
+older than three minutes, or it remains null after startup. For an independent scheduler,
 alert on its last successful exit time. Keep scheduler logs limited to counts, timestamps,
 and exit status.
 

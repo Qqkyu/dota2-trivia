@@ -1,0 +1,32 @@
+{
+  "checkedAt": "2026-10-08T15:18:17.602347+00:00",
+  "ok": true,
+  "testsRun": 20,
+  "subtestsRun": 49,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "scope": "Offline operator wrapper tests with synthetic fixtures and disposable local child processes",
+  "networkCallsForbidden": true,
+  "productionEnvironmentUsed": false,
+  "hostedRequests": false,
+  "appSourceEdited": false,
+  "sourceSha256": {
+    "/tmp/queue-arcade-launch-checks/prove-render-ingress.py": "e73148881241fd2ad02380bf6b14438d7ddbd9f1b2fe887fd11753c56123ef49",
+    "/tmp/queue-arcade-launch-checks/test-prove-render-ingress.py": "118c685a6b582f943eb505be83e8901b3f25b47b53e8b97119dcad7fc9e9805d"
+  },
+  "coverage": [
+    "side-effect-free import with empty environment",
+    "redirect denial",
+    "provider response size limit",
+    "live commit and deploy identifier validation",
+    "pre/post service and private configuration equality",
+    "pre/post exact local commit input equality",
+    "local symlink and size rejection",
+    "child stdout, stderr and combined output limits",
+    "absolute child deadline under trickling output",
+    "minimal child environment",
+    "private value rejection and generic error output",
+    "reviewed evidence field reconstruction"
+  ]
+}

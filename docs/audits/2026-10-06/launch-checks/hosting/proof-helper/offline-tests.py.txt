@@ -1,0 +1,342 @@
+"""Offline checks for the hosted ingress operator wrapper. All data is synthetic."""
+
+import contextlib
+import copy
+import hashlib
+import importlib.util
+import io
+import json
+import os
+from pathlib import Path
+import runpy
+import subprocess
+import sys
+import tempfile
+import time
+import unittest
+import urllib.error
+import urllib.request
+from unittest import mock
+
+
+WRAPPER = Path('/tmp/queue-arcade-launch-checks/prove-render-ingress.py')
+AUTH_SECRET = 'synthetic-operator-secret-with-more-than-32-characters'
+API_KEY = 'synthetic-render-key-for-offline-tests'
+DATABASE_URL = 'postgres://synthetic:synthetic-password@localhost/synthetic_test'
+ADDRESS = '8.8.8.8'
+
+
+class IngressWrapperTests(unittest.TestCase):
+    def setUp(self):
+        self.stack = contextlib.ExitStack()
+        self.addCleanup(self.stack.close)
+        self.stack.enter_context(mock.patch.dict(os.environ, {}, clear=True))
+        self.stack.enter_context(mock.patch('urllib.request.urlopen', side_effect=AssertionError('Network is forbidden')))
+        self.stack.enter_context(mock.patch.object(urllib.request.OpenerDirector, 'open', side_effect=AssertionError('Network is forbidden')))
+        spec = importlib.util.spec_from_file_location('offline_ingress_wrapper', WRAPPER)
+        self.module = importlib.util.module_from_spec(spec)
+        with contextlib.redirect_stdout(io.StringIO()) as captured:
+            spec.loader.exec_module(self.module)
+        self.assertEqual(captured.getvalue(), '', 'Import must have no output or operational side effects')
+        os.environ['RENDER_API_KEY'] = API_KEY
+        self.directory = Path(self.stack.enter_context(tempfile.TemporaryDirectory(prefix='queue-ingress-wrapper-tests-')))
+        self.root = self.directory / 'checkout'
+        self.out = self.directory / 'evidence'
+        self.root.mkdir()
+        self.out.mkdir()
+        self.candidate_path = self.directory / 'candidate.json'
+        self.output_path = self.out / 'hosted-ingress-proof.json'
+        self.stack.enter_context(mock.patch.multiple(self.module, ROOT=self.root, OUT=self.out,
+            CANDIDATE=self.candidate_path, SID='srv-synthetic-ingress', BRANCH='codex/synthetic-candidate',
+            ORIGIN='https://arcade.example', NODE=sys.executable))
+        self.stack.enter_context(mock.patch.object(sys, 'argv', [str(WRAPPER)]))
+        self.candidate = {'commit': 'a' * 40, 'branch': self.module.BRANCH}
+        self.status = {'commit': self.candidate['commit'], 'serviceId': self.module.SID,
+            'ciRunId': 31415, 'externalHealthChecksAllowed': True}
+        self.candidate_path.write_text(json.dumps(self.candidate))
+        (self.out / 'candidate-deploy-status.json').write_text(json.dumps(self.status))
+        self.private_env = {'ARCADE_APP_URL': self.module.ORIGIN, 'ARCADE_TRUST_PROXY': 'none',
+            'ARCADE_AUTH_SECRET': AUTH_SECRET, 'DATABASE_URL': DATABASE_URL}
+        self.state = {'serviceId': self.module.SID, 'deployId': 'dep-syntheticcurrent',
+            'commit': self.candidate['commit'], 'branch': self.candidate['branch'], 'plan': 'free',
+            'suspended': 'not_suspended', 'autoDeployTrigger': 'off', 'trustProxy': 'none',
+            'origin': self.module.ORIGIN}
+        self.local_bytes = {}
+        self.manifest = []
+        for name in self.module.LOCAL_INPUTS:
+            path = self.root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            value = ('// Synthetic fixture for ' + name + '\n').encode()
+            path.write_bytes(value)
+            self.local_bytes[name] = value
+            self.manifest.append({'path': name, 'sha256': hashlib.sha256(value).hexdigest()})
+        self.result = {'checkedAt': '2026-10-08T12:00:00Z', 'origin': self.module.ORIGIN,
+            'ok': True, 'policyDuringCheck': 'none', 'changedConfiguration': False,
+            'checks': [{'name': name, 'receivedVerifiedEgress': True, 'suppliedHeaderDidNotControlResult': True}
+                       for name in self.module.CHECK_NAMES]}
+
+    def assert_no_private(self, value):
+        for private in [AUTH_SECRET, API_KEY, DATABASE_URL, ADDRESS]:
+            self.assertTrue(private not in value, 'A synthetic private marker escaped into output')
+
+    def attempt_main(self, *, states=None, manifests=None, result=None, process=None, addresses=None):
+        self.output_path.unlink(missing_ok=True)
+        if states is None:
+            states = [(copy.deepcopy(self.state), copy.deepcopy(self.private_env)) for _ in range(2)]
+        if manifests is None:
+            manifests = [copy.deepcopy(self.manifest) for _ in range(2)]
+        if process is None:
+            payload = self.result if result is None else result
+            process = subprocess.CompletedProcess(['synthetic-cli'], 0, json.dumps(payload).encode(), b'')
+        stdout, stderr = io.StringIO(), io.StringIO()
+        error = None
+        with mock.patch.object(self.module, 'checked_state', side_effect=states), \
+             mock.patch.object(self.module, 'checked_local_inputs', side_effect=manifests), \
+             mock.patch.object(self.module, 'ipv4', side_effect=addresses or [ADDRESS, ADDRESS]), \
+             mock.patch.object(self.module, 'run_bounded', return_value=process) as run, \
+             contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
+            try:
+                self.module.main()
+            except Exception as caught:
+                error = caught
+        self.assert_no_private(stdout.getvalue() + stderr.getvalue())
+        return error, stdout.getvalue(), stderr.getvalue(), run
+
+    def assert_main_rejected(self, **kwargs):
+        error, stdout, stderr, run = self.attempt_main(**kwargs)
+        self.assertIsInstance(error, RuntimeError)
+        self.assertEqual(stdout, '')
+        self.assertEqual(stderr, '')
+        self.assertFalse(self.output_path.exists(), 'A failed check must not archive proof')
+        return run
+
+    def api_fixtures(self):
+        return {
+            '': {'id': self.module.SID, 'suspended': 'not_suspended', 'serviceDetails': {'plan': 'free'},
+                 'autoDeployTrigger': 'off', 'branch': self.candidate['branch']},
+            '/deploys?limit=5': [{'deploy': {'id': self.state['deployId'], 'status': 'live',
+                                          'commit': {'id': self.candidate['commit']}}}],
+            '/env-vars?limit=100': [{'envVar': {'key': key, 'value': value}}
+                                  for key, value in self.private_env.items()],
+        }
+
+    def test_success_archives_only_reviewed_fields_and_restricts_child_environment(self):
+        error, stdout, stderr, run = self.attempt_main()
+        self.assertIsNone(error)
+        self.assertEqual(stderr, '')
+        archived_text = self.output_path.read_text()
+        self.assert_no_private(archived_text)
+        output = json.loads(stdout)
+        self.assertEqual(json.loads(archived_text), output)
+        self.assertEqual(output['deployId'], self.state['deployId'])
+        self.assertEqual(output['localInputs'], self.manifest)
+        self.assertTrue(output['deploymentAndConfigurationStable'])
+        passed_env = run.call_args.kwargs['env']
+        self.assertEqual(set(passed_env), {'PATH', 'ARCADE_AUTH_SECRET', 'INGRESS_EXPECTED_IPV4'})
+        self.assertTrue(passed_env['ARCADE_AUTH_SECRET'] == AUTH_SECRET)
+        self.assertEqual(run.call_args.kwargs['limit'], 32768)
+        self.assertEqual(run.call_args.kwargs['timeout'], 60)
+
+    def test_changed_deployment_and_service_snapshot_is_rejected(self):
+        changes = {'deployId': 'dep-synthetic-replacement', 'commit': 'b' * 40,
+            'branch': 'codex/different', 'plan': 'starter', 'suspended': 'suspended',
+            'autoDeployTrigger': 'commit', 'trustProxy': 'cf-connecting-ip',
+            'origin': 'https://changed.example', 'serviceId': 'srv-other'}
+        for key, value in changes.items():
+            with self.subTest(field=key):
+                after = {**self.state, key: value}
+                self.assert_main_rejected(states=[(self.state, self.private_env), (after, self.private_env)])
+
+    def test_changed_private_configuration_is_rejected(self):
+        for key in ['ARCADE_AUTH_SECRET', 'DATABASE_URL', 'ARCADE_TRUST_PROXY']:
+            with self.subTest(field=key):
+                after = {**self.private_env, key: 'synthetic-changed-value'}
+                self.assert_main_rejected(states=[(self.state, self.private_env), (self.state, after)])
+
+    def test_changed_local_inputs_after_proof_are_rejected(self):
+        after = copy.deepcopy(self.manifest)
+        after[0]['sha256'] = 'f' * 64
+        self.assert_main_rejected(manifests=[self.manifest, after])
+
+    def test_failed_release_prerequisites_do_not_start_child(self):
+        for change in [{'externalHealthChecksAllowed': False}, {'serviceId': 'srv-other'},
+                       {'ciRunId': 0}, {'ciRunId': True}, {'commit': 'b' * 40}]:
+            with self.subTest(fields=list(change)):
+                (self.out / 'candidate-deploy-status.json').write_text(json.dumps({**self.status, **change}))
+                self.assert_main_rejected().assert_not_called()
+
+    def test_independent_address_disagreement_does_not_start_child(self):
+        self.assert_main_rejected(addresses=[ADDRESS, '8.8.4.4']).assert_not_called()
+
+    def test_child_private_values_and_stderr_are_never_printed_or_archived(self):
+        for value in [AUTH_SECRET, DATABASE_URL, ADDRESS]:
+            with self.subTest(kind='stdout'):
+                payload = {**self.result, 'unexpected': value}
+                self.assert_main_rejected(result=payload)
+            with self.subTest(kind='stderr'):
+                process = subprocess.CompletedProcess(['synthetic-cli'], 0, json.dumps(self.result).encode(), value.encode())
+                self.assert_main_rejected(process=process)
+
+    def test_child_failure_and_unreviewed_output_are_rejected(self):
+        self.assert_main_rejected(process=subprocess.CompletedProcess(['synthetic-cli'], 1, b'', b''))
+        for payload in [{**self.result, 'unexpected': 'synthetic'}, {**self.result, 'ok': 1},
+                        {**self.result, 'changedConfiguration': True}, {**self.result, 'policyDuringCheck': 'cf-connecting-ip'},
+                        {**self.result, 'origin': 'https://changed.example'}]:
+            with self.subTest(kind='invalid-payload'):
+                self.assert_main_rejected(result=payload)
+        payload = copy.deepcopy(self.result)
+        payload['checks'][0]['receivedVerifiedEgress'] = False
+        self.assert_main_rejected(result=payload)
+        payload = copy.deepcopy(self.result)
+        payload['checks'][0]['name'] = 'unreviewed-check'
+        self.assert_main_rejected(result=payload)
+
+    def test_checked_state_accepts_only_expected_stable_configuration(self):
+        fixtures = self.api_fixtures()
+        with mock.patch.object(self.module, 'api', side_effect=lambda path: copy.deepcopy(fixtures[path])):
+            state, private = self.module.checked_state(self.candidate)
+        self.assertEqual(state, self.state)
+        self.assertTrue(private == self.private_env)
+        self.assert_no_private(json.dumps(state))
+
+    def test_checked_state_rejects_changed_service_fields(self):
+        for key, value in [('id', 'srv-other'), ('suspended', 'suspended'),
+                           ('autoDeployTrigger', 'commit'), ('branch', 'codex/other')]:
+            with self.subTest(field=key):
+                fixtures = self.api_fixtures()
+                fixtures[''][key] = value
+                with mock.patch.object(self.module, 'api', side_effect=lambda path: fixtures[path]):
+                    with self.assertRaises(RuntimeError):
+                        self.module.checked_state(self.candidate)
+        fixtures = self.api_fixtures()
+        fixtures['']['serviceDetails']['plan'] = 'starter'
+        with mock.patch.object(self.module, 'api', side_effect=lambda path: fixtures[path]):
+            with self.assertRaises(RuntimeError):
+                self.module.checked_state(self.candidate)
+
+    def test_checked_state_rejects_wrong_commit_multiple_live_and_active_deploys(self):
+        for kind in ['wrong-commit', 'multiple-live', 'active-deploy', 'no-live', 'invalid-deploy-id']:
+            with self.subTest(kind=kind):
+                fixtures = self.api_fixtures()
+                deploys = fixtures['/deploys?limit=5']
+                if kind == 'wrong-commit':
+                    deploys[0]['deploy']['commit']['id'] = 'b' * 40
+                elif kind == 'multiple-live':
+                    deploys.append(copy.deepcopy(deploys[0]))
+                elif kind == 'active-deploy':
+                    deploys.append({'deploy': {'id': 'dep-in-progress', 'status': 'build_in_progress'}})
+                elif kind == 'no-live':
+                    deploys[0]['deploy']['status'] = 'deactivated'
+                else:
+                    deploys[0]['deploy']['id'] = 'not-a-reviewed-deploy-id'
+                with mock.patch.object(self.module, 'api', side_effect=lambda path: fixtures[path]):
+                    with self.assertRaises(RuntimeError):
+                        self.module.checked_state(self.candidate)
+
+    def test_checked_state_rejects_changed_trust_origin_and_invalid_secrets(self):
+        for key, value in [('ARCADE_TRUST_PROXY', 'cf-connecting-ip'),
+                           ('ARCADE_APP_URL', 'https://changed.example'),
+                           ('ARCADE_AUTH_SECRET', 'short'), ('DATABASE_URL', '')]:
+            with self.subTest(field=key):
+                fixtures = self.api_fixtures()
+                for row in fixtures['/env-vars?limit=100']:
+                    if row['envVar']['key'] == key:
+                        row['envVar']['value'] = value
+                with mock.patch.object(self.module, 'api', side_effect=lambda path: fixtures[path]):
+                    with self.assertRaises(RuntimeError):
+                        self.module.checked_state(self.candidate)
+
+    def test_api_denies_every_redirect_without_a_second_request(self):
+        for code in [301, 302, 303, 307, 308]:
+            with self.subTest(status=code):
+                observed = []
+                def build(handler):
+                    self.assertIsInstance(handler, self.module.NoRedirect)
+                    opener = mock.Mock()
+                    def open_request(request, timeout):
+                        observed.append(request.full_url)
+                        self.assertTrue(request.get_header('Authorization') == 'Bearer ' + API_KEY)
+                        return handler.redirect_request(request, None, code, 'Redirect', {}, 'https://redirect.example/')
+                    opener.open.side_effect = open_request
+                    return opener
+                with mock.patch.object(urllib.request, 'build_opener', side_effect=build):
+                    with self.assertRaises(urllib.error.HTTPError):
+                        self.module.api('')
+                self.assertEqual(len(observed), 1)
+                self.assertTrue(observed[0].startswith('https://api.render.com/'))
+
+    def test_api_response_has_a_size_bound(self):
+        response = io.BytesIO(b'x' * 2000001)
+        opener = mock.Mock()
+        opener.open.return_value = response
+        with mock.patch.object(urllib.request, 'build_opener', return_value=opener):
+            with self.assertRaises(RuntimeError):
+                self.module.api('')
+
+    def test_local_inputs_match_exact_commit_bytes_under_a_minimal_environment(self):
+        def git(argv, **kwargs):
+            self.assertEqual(argv[:3], ['git', 'cat-file', 'blob'])
+            self.assertTrue(argv[3].startswith(self.candidate['commit'] + ':'))
+            self.assertNotIn('RENDER_API_KEY', kwargs['env'])
+            self.assertEqual(kwargs['env']['GIT_CONFIG_GLOBAL'], os.devnull)
+            return subprocess.CompletedProcess(argv, 0, self.local_bytes[argv[3].split(':', 1)[1]], b'')
+        with mock.patch.object(self.module, 'run_bounded', side_effect=git):
+            self.assertEqual(self.module.checked_local_inputs(self.candidate['commit']), self.manifest)
+
+    def test_local_input_mismatch_symlink_oversize_and_bad_commit_are_rejected(self):
+        with mock.patch.object(self.module, 'run_bounded', return_value=subprocess.CompletedProcess([], 0, b'changed', b'')):
+            with self.assertRaises(RuntimeError):
+                self.module.checked_local_inputs(self.candidate['commit'])
+        path = self.root / self.module.LOCAL_INPUTS[0]
+        other = self.directory / 'synthetic-link-target'
+        other.write_bytes(self.local_bytes[self.module.LOCAL_INPUTS[0]])
+        path.unlink()
+        path.symlink_to(other)
+        with mock.patch.object(self.module, 'run_bounded') as run:
+            with self.assertRaises(RuntimeError):
+                self.module.checked_local_inputs(self.candidate['commit'])
+            run.assert_not_called()
+        path.unlink()
+        path.write_bytes(b'x' * 65537)
+        with mock.patch.object(self.module, 'run_bounded') as run:
+            with self.assertRaises(RuntimeError):
+                self.module.checked_local_inputs(self.candidate['commit'])
+            with self.assertRaises(RuntimeError):
+                self.module.checked_local_inputs('not-a-commit')
+            run.assert_not_called()
+
+    def test_run_bounded_returns_bytes_and_exit_status(self):
+        result = self.module.run_bounded([sys.executable, '-c',
+            'import os; os.write(1, b"out"); os.write(2, b"err"); raise SystemExit(7)'],
+            env={'PATH': '/usr/bin:/bin'}, timeout=2, limit=64)
+        self.assertEqual((result.returncode, result.stdout, result.stderr), (7, b'out', b'err'))
+
+    def test_run_bounded_caps_stdout_stderr_and_combined_output(self):
+        for code in ['import os; os.write(1, b"x" * 65)', 'import os; os.write(2, b"x" * 65)',
+                     'import os; os.write(1, b"x" * 32); os.write(2, b"x" * 33)']:
+            with self.subTest(kind='bounded-output'):
+                with self.assertRaisesRegex(RuntimeError, 'output exceeds the bound'):
+                    self.module.run_bounded([sys.executable, '-c', code], env={'PATH': '/usr/bin:/bin'}, timeout=2, limit=64)
+
+    def test_run_bounded_has_an_absolute_deadline_despite_trickling_output(self):
+        started = time.monotonic()
+        code = 'import os, time\nwhile True:\n os.write(1, b".")\n time.sleep(0.02)'
+        with self.assertRaisesRegex(RuntimeError, 'exceeded its deadline'):
+            self.module.run_bounded([sys.executable, '-c', code], env={'PATH': '/usr/bin:/bin'}, timeout=0.25, limit=8192)
+        self.assertLess(time.monotonic() - started, 2)
+
+    def test_main_guard_does_not_print_private_exception_messages(self):
+        stdout, stderr = io.StringIO(), io.StringIO()
+        marker = '|'.join([AUTH_SECRET, API_KEY, DATABASE_URL, ADDRESS])
+        with mock.patch.object(Path, 'read_text', side_effect=RuntimeError(marker)), \
+             contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
+            with self.assertRaises(SystemExit) as stopped:
+                runpy.run_path(str(WRAPPER), run_name='__main__')
+        self.assertEqual(stopped.exception.code, 1)
+        self.assertEqual(stderr.getvalue(), '')
+        self.assert_no_private(stdout.getvalue())
+        self.assertEqual(json.loads(stdout.getvalue())['errorType'], 'RuntimeError')
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)

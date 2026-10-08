@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+mkdir -p /runner-evidence/argument-recheck
+chown runner:runner /runner-evidence/argument-recheck
+dockerd --host=unix:///var/run/docker.sock --data-root=/var/lib/docker > /runner-evidence/argument-recheck/docker.log 2>&1 &
+daemon_pid=$!
+finish() {
+  docker rm --force queue-arcade-argument-recheck-pg > /dev/null 2>&1 || true
+  kill "$daemon_pid" 2>/dev/null || true
+  wait "$daemon_pid" 2>/dev/null || true
+}
+trap finish EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+for attempt in {1..60}; do
+  if docker info > /dev/null 2>&1; then break; fi
+  if ! kill -0 "$daemon_pid" 2>/dev/null; then exit 1; fi
+  sleep 1
+done
+docker info > /dev/null
+docker run --detach --name queue-arcade-argument-recheck-pg --publish 127.0.0.1:5432:5432 \
+  --env POSTGRES_DB=queue_arcade --env POSTGRES_USER=queue_arcade \
+  --env POSTGRES_PASSWORD=queue_arcade_ci postgres:17-alpine > /runner-evidence/argument-recheck/database-container-id.txt
+for attempt in {1..60}; do
+  if docker exec queue-arcade-argument-recheck-pg pg_isready --host 127.0.0.1 --username queue_arcade --dbname queue_arcade > /dev/null; then break; fi
+  sleep 1
+done
+export DATABASE_URL=postgres://queue_arcade:queue_arcade_ci@127.0.0.1:5432/queue_arcade
+export TEST_DATABASE_URL=postgres://queue_arcade:queue_arcade_ci@127.0.0.1:5432/queue_arcade
+export LAUNCH_DATABASE_TEST_URL=postgres://queue_arcade:queue_arcade_ci@127.0.0.1:5432/queue_arcade
+export PG_BIN_DIR=/usr/lib/postgresql/17/bin
+export DATABASE_POOL_SIZE=2
+export ARCADE_AUTO_MIGRATE=false
+export ARCADE_VOTER_SALT=queue-arcade-ci-voter-salt-at-least-32-characters
+export ARCADE_AUTH_SECRET=queue-arcade-ci-auth-only-at-least-32-characters
+export ARCADE_APP_URL=http://127.0.0.1:3000
+export APP_URL=http://127.0.0.1:3000
+export ARCADE_DATA_COUNTRIES='United States (ephemeral CI database)'
+export ARCADE_REVIEWER_STEAM_IDS=76561198000000000
+export ARCADE_SMOKE_REVIEWER_STEAM_ID=76561198000000000
+export ARCADE_ALLOW_FILE_STORE=false
+export ARCADE_TRUST_PROXY=none
+export NEXT_TELEMETRY_DISABLED=1
+export PATH=/home/runner/setup-pnpm/node_modules/.bin:/opt/hostedtoolcache/node/22.23.3/x64/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+cd /opt/runner/_work/dota2-trivia/dota2-trivia
+runuser -u runner -- node --version
+runuser -u runner -- pnpm --version
+result=0
+if runuser -u runner -- pnpm exec vitest run --maxWorkers=2 2>&1 | tee /runner-evidence/argument-recheck/test.log; then
+  printf '%s\n' 'test_exit=0'
+else
+  result=1
+  printf '%s\n' 'test_exit=1'
+fi
+if runuser -u runner -- pnpm lint 2>&1 | tee /runner-evidence/argument-recheck/lint.log; then
+  printf '%s\n' 'lint_exit=0'
+else
+  result=1
+  printf '%s\n' 'lint_exit=1'
+fi
+if test -e next-env.d.ts; then printf '%s\n' 'next_env_present=true'; else printf '%s\n' 'next_env_present=false'; fi
+if runuser -u runner -- pnpm typecheck 2>&1 | tee /runner-evidence/argument-recheck/typecheck.log; then
+  printf '%s\n' 'typecheck_exit=0'
+else
+  result=1
+  printf '%s\n' 'typecheck_exit=1'
+fi
+exit "$result"

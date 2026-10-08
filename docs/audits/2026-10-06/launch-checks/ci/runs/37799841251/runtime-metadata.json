@@ -1,0 +1,14 @@
+{
+  "name": "queue-arcade-ci-20261008T152122Z",
+  "state": "running",
+  "cpuLimit": 2.0,
+  "memoryBytes": 5368709120,
+  "privileged": true,
+  "mounts": [
+    {
+      "type": "volume",
+      "destination": "/var/lib/docker",
+      "name": "queue-arcade-ci-20261008T152122Z-data"
+    }
+  ]
+}

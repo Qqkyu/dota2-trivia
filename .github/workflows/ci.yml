@@ -94,7 +94,7 @@ jobs:
       - run: pnpm check:config
       - run: pnpm check:content-release
       - run: pnpm validate-data
-      - run: pnpm test --maxWorkers=2
+      - run: pnpm exec vitest run --maxWorkers=2
       - run: pnpm lint
       - run: pnpm typecheck
       # The rate-limit regression starts a second isolated server from this build.

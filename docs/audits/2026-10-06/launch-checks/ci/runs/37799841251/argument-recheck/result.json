@@ -1,0 +1,14 @@
+{
+  "baseCommit": "c9546063069b76fe2776c588d21d993d98be8aca",
+  "scope": "Local follow-up in the same stopped and unregistered CI runner container, not a new GitHub run",
+  "pnpm": "9.12.1",
+  "command": "pnpm exec vitest run --maxWorkers=2",
+  "testFilesPassed": 64,
+  "testsPassed": 1284,
+  "durationSeconds": 32.04,
+  "testsExit": 0,
+  "lintExit": 0,
+  "typecheckExit": 0,
+  "nextEnvFilePresentBeforeTypecheck": false,
+  "freshSyntheticPostgres": true
+}

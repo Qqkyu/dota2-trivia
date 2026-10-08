@@ -1,0 +1,20 @@
+{
+  "commit": "c9546063069b76fe2776c588d21d993d98be8aca",
+  "fileCount": 1491,
+  "totalBytes": 127898739,
+  "forbiddenLocalFiles": [],
+  "oversizedFiles": [],
+  "gitleaksExitCode": 1,
+  "findingCount": 66,
+  "classifications": {
+    "Candidate SHA-256 digest; review manifest field": 58,
+    "Prior-reviewed anonymous publisher page field; verify archive hash unchanged": 6,
+    "Prior-reviewed public image filename; verify archive hash unchanged": 1,
+    "Explicit synthetic ingress test secret": 1
+  },
+  "knownSecretScan": {
+    "knownSecretValueCount": 6,
+    "matchedFiles": [],
+    "passed": true
+  }
+}

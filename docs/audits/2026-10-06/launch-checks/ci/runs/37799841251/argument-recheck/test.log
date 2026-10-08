@@ -1,0 +1,122 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90m/opt/runner/_work/dota2-trivia/dota2-trivia[39m
+
+ [32m✓[39m tests/identity-facts.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m tests/private-rooms.test.mjs [2m([22m[2m39 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+ [32m✓[39m tests/aghanim-facts.test.mjs [2m([22m[2m4 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m tests/database-schema.test.mjs [2m([22m[2m11 tests[22m[2m)[22m[33m 2217[2mms[22m[39m
+   [32m✓[39m PostgreSQL schema and cleanup [2m(10)[22m
+     [33m[2m✓[22m[39m serializes fresh migrations from independent Node processes[33m 983[2mms[22m[39m
+     [33m[2m✓[22m[39m runs the deploy and cleanup commands against the configured schema[33m 309[2mms[22m[39m
+ [32m✓[39m tests/security-auth.test.mjs [2m([22m[2m56 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+ [32m✓[39m tests/security-protection.test.mjs [2m([22m[2m42 tests[22m[2m)[22m[33m 886[2mms[22m[39m
+   [32m✓[39m rate-limit storage capacity [2m(3)[22m
+     [33m[2m✓[22m[39m bounds one address's rotating IDs across scopes without blocking another address[33m 603[2mms[22m[39m
+ [32m✓[39m tests/database-launch-migrations.test.mjs [2m([22m[2m10 tests[22m[2m)[22m[33m 4362[2mms[22m[39m
+   [32m✓[39m launch database migration and runtime privileges [2m(10)[22m
+     [33m[2m✓[22m[39m serializes eight real migration CLI processes under a separate owner role[33m 601[2mms[22m[39m
+     [33m[2m✓[22m[39m runs migration, grant and cleanup commands at the explicit destination despite hostile PG settings[33m 317[2mms[22m[39m
+     [33m[2m✓[22m[39m uses real account, vote and analytics stores with CRUD while denying all schema changes[33m 685[2mms[22m[39m
+     [33m[2m✓[22m[39m fails production readiness closed for missing migrations without DDL[33m 596[2mms[22m[39m
+     [33m[2m✓[22m[39m rolls back all migration DDL and ledger changes after SIGKILL[33m 364[2mms[22m[39m
+     [33m[2m✓[22m[39m rolls back all migration DDL and ledger changes after backend-termination[33m 306[2mms[22m[39m
+ [32m✓[39m tests/round-routes.test.mjs [2m([22m[2m4 tests[22m[2m)[22m[32m 282[2mms[22m[39m
+ [32m✓[39m tests/security-party-api.test.mjs [2m([22m[2m14 tests[22m[2m)[22m[32m 218[2mms[22m[39m
+ [32m✓[39m tests/database-backup.test.mjs [2m([22m[2m13 tests[22m[2m)[22m[33m 3227[2mms[22m[39m
+   [32m✓[39m PostgreSQL snapshot backup and isolated restore [2m(4)[22m
+     [33m[2m✓[22m[39m restores every table from the same snapshot while real account votes continue[33m 1535[2mms[22m[39m
+     [33m[2m✓[22m[39m refuses corrupted archives, original sources and nonempty targets before restore[33m 442[2mms[22m[39m
+     [33m[2m✓[22m[39m rolls the whole restore back when data loading fails after schema creation[33m 576[2mms[22m[39m
+     [33m[2m✓[22m[39m leaves the target empty when the restore connection is terminated during COPY[33m 669[2mms[22m[39m
+[90mstderr[2m | tests/store-integrity.test.mjs[2m > [22m[2mfile store integrity[2m > [22m[2mrecovers committed outcomes after a restart without counting analytics twice
+[22m[39m[queue-arcade:error] {"at":"2026-10-08T15:29:41.339Z","event":"votes.outbox-pending","fingerprint":"1a64cfde","errorName":"Error","frame":"at open (node:internal/fs/promises:639:25)","release":"local"}
+
+[90mstderr[2m | tests/store-integrity.test.mjs[2m > [22m[2mfile store integrity[2m > [22m[2mdoes not count an analytics event twice when the outbox acknowledgement fails
+[22m[39m[queue-arcade:error] {"at":"2026-10-08T15:29:41.561Z","event":"votes.outbox-pending","fingerprint":"12d93835","errorName":"Error","frame":"at files.writeJsonAtomically (/opt/runner/_work/dota2-trivia/dota2-trivia/tests/store-integrity.test.mjs:151:15)","release":"local"}
+
+ [32m✓[39m tests/store-integrity.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[33m 1370[2mms[22m[39m
+   [32m✓[39m file store integrity [2m(7)[22m
+     [33m[2m✓[22m[39m keeps cached votes and accounts unchanged when the file write fails[33m 322[2mms[22m[39m
+ [32m✓[39m tests/numeric-content.test.mjs [2m([22m[2m425 tests[22m[2m)[22m[32m 143[2mms[22m[39m
+ [32m✓[39m tests/soundcheck-facts.test.mjs [2m([22m[2m16 tests[22m[2m)[22m[32m 44[2mms[22m[39m
+ [32m✓[39m tests/player-identity-routes.test.mjs [2m([22m[2m12 tests[22m[2m)[22m[32m 79[2mms[22m[39m
+ [32m✓[39m tests/postgres-store.test.mjs [2m([22m[2m6 tests[22m[2m)[22m[33m 3787[2mms[22m[39m
+   [32m✓[39m PostgreSQL store transactions [2m(6)[22m
+     [33m[2m✓[22m[39m rolls back the vote, profile, and calibration if analytics persistence fails[33m 583[2mms[22m[39m
+     [33m[2m✓[22m[39m returns one crowd snapshot during concurrent commits[33m 754[2mms[22m[39m
+     [33m[2m✓[22m[39m includes more than 50,000 sessions and matches the reference summary[33m 1263[2mms[22m[39m
+     [33m[2m✓[22m[39m removes owned analytics and rejects enrichment and writes after deletion[33m 447[2mms[22m[39m
+     [33m[2m✓[22m[39m finishes account deletion while a Steam login updates the same identity[33m 365[2mms[22m[39m
+     [33m[2m✓[22m[39m consumes a nonce once across concurrent database transactions[33m 374[2mms[22m[39m
+ [32m✓[39m tests/shopkeeper-facts.test.mjs [2m([22m[2m285 tests[22m[2m)[22m[32m 63[2mms[22m[39m
+ [32m✓[39m tests/feedback-player.test.mjs [2m([22m[2m13 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m tests/round-audio-offset.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 225[2mms[22m[39m
+ [32m✓[39m tests/cut-round-audio.test.mjs [2m([22m[2m8 tests[22m[2m)[22m[33m 753[2mms[22m[39m
+   [32m✓[39m cutAudioWithFfmpeg [2m(8)[22m
+     [33m[2m✓[22m[39m cuts past a silent prefix while leaving the default prefix unchanged[33m 477[2mms[22m[39m
+ [32m✓[39m tests/ingress-probe.test.mjs [2m([22m[2m20 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+ [32m✓[39m tests/media-fetch.test.mjs [2m([22m[2m16 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+ [32m✓[39m tests/proxy-ingress.test.mjs [2m([22m[2m2 tests[22m[2m)[22m[33m 10334[2mms[22m[39m
+   [32m✓[39m TLS ingress with an overwritten client address [2m(2)[22m
+     [33m[2m✓[22m[39m stops the operator CLI at its absolute deadline while the TLS server keeps sending data[33m 10035[2mms[22m[39m
+ [32m✓[39m tests/crowd-split.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m tests/public-question.test.mjs [2m([22m[2m5 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m tests/media-work.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m tests/postgres-driver-recovery.test.mjs [2m([22m[2m28 tests[22m[2m)[22m[33m 12623[2mms[22m[39m
+   [32m✓[39m Postgres driver interruption recovery [2m(28)[22m
+     [33m[2m✓[22m[39m settles esm startup repeated interruption and accepts later queries[33m 1228[2mms[22m[39m
+     [33m[2m✓[22m[39m settles esm startup clean-close interruption and accepts later queries[33m 1261[2mms[22m[39m
+     [33m[2m✓[22m[39m settles esm startup mixed-window interruption and accepts later queries[33m 1583[2mms[22m[39m
+     [33m[2m✓[22m[39m settles cjs startup repeated interruption and accepts later queries[33m 1254[2mms[22m[39m
+     [33m[2m✓[22m[39m settles cjs startup clean-close interruption and accepts later queries[33m 1269[2mms[22m[39m
+     [33m[2m✓[22m[39m settles cjs startup mixed-window interruption and accepts later queries[33m 1576[2mms[22m[39m
+ [32m✓[39m tests/production-config.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m tests/scoring.test.mjs [2m([22m[2m14 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/hero-response-quality.test.mjs [2m([22m[2m6 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m tests/flashback-asset-rights.test.mjs [2m([22m[2m10 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m tests/interface-copy.test.mjs [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/calibration.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/eslint-glob-compatibility.test.mjs [2m([22m[2m10 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+ [32m✓[39m tests/spell-link-overrides.test.mjs [2m([22m[2m4 tests[22m[2m)[22m[32m 76[2mms[22m[39m
+ [32m✓[39m tests/question-revision-content.test.mjs [2m([22m[2m4 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m tests/answer-shortcuts.test.mjs [2m([22m[2m28 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/content-release.test.mjs [2m([22m[2m6 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+ [32m✓[39m tests/room-sync.test.mjs [2m([22m[2m6 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/database-cli-connection.test.mjs [2m([22m[2m14 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m tests/content-answers.test.mjs [2m([22m[2m4 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m tests/spell-hints.test.mjs [2m([22m[2m6 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m tests/alpha-analytics.test.mjs [2m([22m[2m4 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/private-media-access.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m tests/question-revision.test.mjs [2m([22m[2m4 tests[22m[2m)[22m[32m 63[2mms[22m[39m
+ [32m✓[39m tests/audio-tab.test.mjs [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/guest-recovery.test.mjs [2m([22m[2m4 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/ability-text-overrides.test.mjs [2m([22m[2m2 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m tests/question-review.test.mjs [2m([22m[2m9 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/guest-lifetime-storage.test.mjs [2m([22m[2m2 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m tests/health-protection.test.mjs [2m([22m[2m1 test[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m tests/round-image-cache.test.mjs [2m([22m[2m3 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+ [32m✓[39m tests/request-retry.test.mjs [2m([22m[2m4 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m tests/diagnostics.test.mjs [2m([22m[2m8 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/session-results.test.mjs [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/browser-storage.test.mjs [2m([22m[2m4 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m tests/public-recipe-metadata.test.mjs [2m([22m[2m7 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/round-recovery.test.mjs [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/rate-limit.test.mjs [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m tests/player-identity.test.mjs [2m([22m[2m9 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/guest-accuracy.test.mjs [2m([22m[2m2 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/content-assets.test.mjs [2m([22m[2m2 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m tests/client-patch-deltas.test.mjs [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m tests/hero-display-names.test.mjs [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m tests/semantic-schedule.test.mjs [2m([22m[2m2 tests[22m[2m)[22m[33m 9279[2mms[22m[39m
+   [32m✓[39m private schedules [2m(2)[22m
+     [33m[2m✓[22m[39m reaches every eligible question without short repeats in all 1,023 game selections[33m 7833[2mms[22m[39m
+     [33m[2m✓[22m[39m keeps the public slot count and bounds cached party schedules[33m 1445[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m64 passed[39m[22m[90m (64)[39m
+[2m      Tests [22m [1m[32m1284 passed[39m[22m[90m (1284)[39m
+[2m   Start at [22m 15:29:32
+[2m   Duration [22m 32.04s[2m (tests 90%, import 7%, transform 3%)[22m
+
+[2m    Isolate [22m [33m64 workers spawned[39m[2m · ~74ms startup each (spawn + environment, per file)[22m
+[2m            [22m [2mat least ~2.31s faster with [22m[33misolate: false[39m[2m — reuses workers across files instead of one per file[22m
+
