@@ -1,0 +1,9 @@
+file:///home/kulmisiu/dev/dota2-trivia/scripts/multiplayer-smoke.mjs:476
+    throw new Error("The authenticated profile page did not render the saved personal record.");
+          ^
+
+Error: The authenticated profile page did not render the saved personal record.
+    at file:///home/kulmisiu/dev/dota2-trivia/scripts/multiplayer-smoke.mjs:476:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+Node.js v24.15.0

@@ -1,0 +1,8 @@
+{
+  "notRetainedAsSourceResponses": {
+    "https://navi.gg/en/publications/d2-the-international-navi-history": {
+      "error": "HTTP Error 403: Forbidden"
+    }
+  },
+  "note": "The NAVI article was read through the web tool. Its separate raw HTTP fetch failed; the failed response is not counted as a source snapshot. All exact URLs and checked claims remain in the ledger."
+}

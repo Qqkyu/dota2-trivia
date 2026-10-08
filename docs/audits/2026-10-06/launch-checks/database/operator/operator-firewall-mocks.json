@@ -1,0 +1,48 @@
+{
+  "scope": "Offline Python control-flow mocks only; no network or database calls",
+  "ok": true,
+  "cases": [
+    {
+      "case": "success",
+      "passed": true,
+      "workerExecutions": 1,
+      "firewallPatchAttempts": 2
+    },
+    {
+      "case": "worker-failure",
+      "passed": true,
+      "workerExecutions": 1,
+      "firewallPatchAttempts": 2
+    },
+    {
+      "case": "wrong-plan",
+      "passed": true,
+      "workerExecutions": 0,
+      "firewallPatchAttempts": 0
+    },
+    {
+      "case": "open-firewall",
+      "passed": true,
+      "workerExecutions": 0,
+      "firewallPatchAttempts": 0
+    },
+    {
+      "case": "opening-timeout",
+      "passed": true,
+      "workerExecutions": 0,
+      "firewallPatchAttempts": 2
+    },
+    {
+      "case": "restore-retry",
+      "passed": true,
+      "workerExecutions": 1,
+      "firewallPatchAttempts": 3
+    },
+    {
+      "case": "restore-failure",
+      "passed": true,
+      "workerExecutions": 1,
+      "firewallPatchAttempts": 6
+    }
+  ]
+}

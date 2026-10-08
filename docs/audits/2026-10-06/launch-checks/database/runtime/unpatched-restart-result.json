@@ -1,0 +1,63 @@
+{
+  "ok": true,
+  "serverVersion": "14.19 (Ubuntu 14.19-0ubuntu0.22.04.1)",
+  "steps": [
+    {
+      "command": [
+        "pg_ctl",
+        "-m",
+        "smart",
+        "stop"
+      ],
+      "code": 0,
+      "stdout": "waiting for server to shut down..... done\nserver stopped\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "pg_ctl",
+        "-l",
+        "/tmp/queue-arcade-launch-checks/pg-runtime/postgres.log",
+        "start"
+      ],
+      "code": 0,
+      "stdout": "waiting for server to start.... done\nserver started\n",
+      "stderr": ""
+    },
+    {
+      "inflightPausedAt": "analytics insert trigger",
+      "uncommittedRoundVisibleToOtherConnection": false
+    },
+    {
+      "command": [
+        "pg_ctl",
+        "-m",
+        "immediate",
+        "stop"
+      ],
+      "code": 0,
+      "stdout": "waiting for server to shut down.... done\nserver stopped\n",
+      "stderr": ""
+    },
+    {
+      "workerExitCode": 1,
+      "workerStdout": "{\"acknowledged\":false,\"errorCode\":\"CONNECTION_CLOSED\",\"schema\":\"runtime_03400b4494a946eaac99476e2cc418af\"}\nLeaving pools open for one second to isolate the driver failure from pool.end().\n",
+      "workerStderr": "file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:255\n    const x = socket.write(chunk, fn)\n                     ^\n\nTypeError: Cannot read properties of null (reading 'write')\n    at Immediate.nextWrite (file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:255:22)\n    at process.processImmediate (node:internal/timers:504:21)\n\nNode.js v24.15.0\n"
+    },
+    {
+      "command": [
+        "pg_ctl",
+        "-l",
+        "/tmp/queue-arcade-launch-checks/pg-runtime/postgres.log",
+        "start"
+      ],
+      "code": 0,
+      "stdout": "waiting for server to start...... done\nserver started\n",
+      "stderr": ""
+    }
+  ],
+  "gracefulSnapshotMatches": true,
+  "crashSnapshotMatches": true,
+  "inflightPartialWritesVisible": false,
+  "workerExitCode": 1
+}

@@ -1,0 +1,113 @@
+{
+  "scope": "Live read-only role, schema and row-count checks. No user rows read or changed.",
+  "databaseId": "dpg-d9mqc4taeets73aiclsg-a",
+  "originalExternalAllowlist": [],
+  "planBefore": "0.1c-256mb",
+  "probe": {
+    "ok": true,
+    "runtime": {
+      "server_version": "17.11 (Debian 17.11-1.pgdg12+2)",
+      "read_only": "on",
+      "server_ssl": "on",
+      "database_bytes": "8287923"
+    },
+    "role": {
+      "rolsuper": false,
+      "rolcreaterole": true,
+      "rolcreatedb": true,
+      "rolreplication": false,
+      "rolbypassrls": false
+    },
+    "permissions": [
+      {
+        "tablename": "queue_arcade_alpha_sessions",
+        "current_role_owns_table": true
+      },
+      {
+        "tablename": "queue_arcade_player_rounds",
+        "current_role_owns_table": true
+      },
+      {
+        "tablename": "queue_arcade_question_reporters",
+        "current_role_owns_table": true
+      },
+      {
+        "tablename": "queue_arcade_question_reviews",
+        "current_role_owns_table": true
+      },
+      {
+        "tablename": "queue_arcade_question_stats",
+        "current_role_owns_table": true
+      },
+      {
+        "tablename": "queue_arcade_round_votes",
+        "current_role_owns_table": true
+      },
+      {
+        "tablename": "queue_arcade_rounds",
+        "current_role_owns_table": true
+      },
+      {
+        "tablename": "queue_arcade_user_identities",
+        "current_role_owns_table": true
+      },
+      {
+        "tablename": "queue_arcade_user_sessions",
+        "current_role_owns_table": true
+      },
+      {
+        "tablename": "queue_arcade_users",
+        "current_role_owns_table": true
+      }
+    ],
+    "counts": [
+      {
+        "table": "queue_arcade_alpha_sessions",
+        "rows": 7
+      },
+      {
+        "table": "queue_arcade_player_rounds",
+        "rows": 20
+      },
+      {
+        "table": "queue_arcade_question_reporters",
+        "rows": 1
+      },
+      {
+        "table": "queue_arcade_question_reviews",
+        "rows": 1
+      },
+      {
+        "table": "queue_arcade_question_stats",
+        "rows": 19
+      },
+      {
+        "table": "queue_arcade_round_votes",
+        "rows": 3
+      },
+      {
+        "table": "queue_arcade_rounds",
+        "rows": 3
+      },
+      {
+        "table": "queue_arcade_user_identities",
+        "rows": 1
+      },
+      {
+        "table": "queue_arcade_user_sessions",
+        "rows": 2
+      },
+      {
+        "table": "queue_arcade_users",
+        "rows": 1
+      }
+    ],
+    "tls": {
+      "ssl": true,
+      "tls_version": "TLSv1.3"
+    }
+  },
+  "externalAllowlistRestored": true,
+  "planUnchanged": true,
+  "elapsedSeconds": 3.82
+}

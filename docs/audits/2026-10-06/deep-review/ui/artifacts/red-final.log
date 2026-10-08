@@ -1,0 +1,663 @@
+FAIL 320x568-home fits width: 320px document at 320px
+FAIL 320x568 Play is visible without scrolling: Play ends at 725.03125px, below the 568px viewport
+FAIL 320x568-party-create fits width: 320px document at 320px
+FAIL 320x568-profile fits width: 320px document at 320px
+FAIL 320x568-privacy fits width: 320px document at 320px
+FAIL 320x568-calibration fits width: 320px document at 320px
+FAIL 320x568-ops fits width: 320px document at 320px
+FAIL 320x568-party-play100 fits width: 320px document at 320px
+FAIL 320x568-mana-cost-answering fits width: 320px document at 320px
+FAIL 320x568-mana-cost-reveal fits width: 320px document at 320px
+FAIL 320x568-shopkeeper-build-result-answering fits width: 320px document at 320px
+FAIL 320x568-shopkeeper-build-result-answering answer targets: Targets smaller than 44px: [{"name":"basics","x":29,"y":353.359375,"width":132.5,"height":32,"right":161.5,"bottom":385.359375},{"name":"upgrades","x":161.5,"y":353.359375,"width":132.5,"height":32,"right":294,"bottom":385.359375},{"name":"Magic Wand, 460 gold","x":34,"y":474.359375,"width":45,"height":34.078125,"right":79,"bottom":508.4375}]
++ actual - expected
+
++ [
++   {
++     bottom: 385.359375,
++     height: 32,
++     name: 'basics',
++     right: 161.5,
++     width: 132.5,
++     x: 29,
++     y: 353.359375
++   },
++   {
++     bottom: 385.359375,
++     height: 32,
++     name: 'upgrades',
++     right: 294,
++     width: 132.5,
++     x: 161.5,
++     y: 353.359375
++   },
++   {
++     bottom: 508.4375,
++     height: 34.078125,
++     name: 'Magic Wand, 460 gold',
++     right: 79,
++     width: 45,
++     x: 34,
++     y: 474.359375
++   }
++ ]
+- []
+
+FAIL 320x568-shopkeeper-build-result-reveal fits width: 320px document at 320px
+FAIL 320x568-shopkeeper-build-result-reveal answer targets: Targets smaller than 44px: [{"name":"basics","x":29,"y":353.359375,"width":132.5,"height":32,"right":161.5,"bottom":385.359375},{"name":"upgrades","x":161.5,"y":353.359375,"width":132.5,"height":32,"right":294,"bottom":385.359375}]
++ actual - expected
+
++ [
++   {
++     bottom: 385.359375,
++     height: 32,
++     name: 'basics',
++     right: 161.5,
++     width: 132.5,
++     x: 29,
++     y: 353.359375
++   },
++   {
++     bottom: 385.359375,
++     height: 32,
++     name: 'upgrades',
++     right: 294,
++     width: 132.5,
++     x: 161.5,
++     y: 353.359375
++   }
++ ]
+- []
+
+FAIL 320x568-shopkeeper-real-recipe-answering fits width: 320px document at 320px
+FAIL 320x568-shopkeeper-real-recipe-answering answer targets: Targets smaller than 44px: [{"name":"basics","x":29,"y":330.25,"width":132.5,"height":32,"right":161.5,"bottom":362.25},{"name":"upgrades","x":161.5,"y":330.25,"width":132.5,"height":32,"right":294,"bottom":362.25},{"name":"Magic Wand, 460 gold","x":34,"y":517.25,"width":45,"height":34.078125,"right":79,"bottom":551.328125}]
++ actual - expected
+
++ [
++   {
++     bottom: 362.25,
++     height: 32,
++     name: 'basics',
++     right: 161.5,
++     width: 132.5,
++     x: 29,
++     y: 330.25
++   },
++   {
++     bottom: 362.25,
++     height: 32,
++     name: 'upgrades',
++     right: 294,
++     width: 132.5,
++     x: 161.5,
++     y: 330.25
++   },
++   {
++     bottom: 551.328125,
++     height: 34.078125,
++     name: 'Magic Wand, 460 gold',
++     right: 79,
++     width: 45,
++     x: 34,
++     y: 517.25
++   }
++ ]
+- []
+
+FAIL 320x568-shopkeeper-real-recipe-reveal fits width: 320px document at 320px
+FAIL 320x568-shopkeeper-real-recipe-reveal answer targets: Targets smaller than 44px: [{"name":"basics","x":29,"y":330.25,"width":132.5,"height":32,"right":161.5,"bottom":362.25},{"name":"upgrades","x":161.5,"y":330.25,"width":132.5,"height":32,"right":294,"bottom":362.25}]
++ actual - expected
+
++ [
++   {
++     bottom: 362.25,
++     height: 32,
++     name: 'basics',
++     right: 161.5,
++     width: 132.5,
++     x: 29,
++     y: 330.25
++   },
++   {
++     bottom: 362.25,
++     height: 32,
++     name: 'upgrades',
++     right: 294,
++     width: 132.5,
++     x: 161.5,
++     y: 330.25
++   }
++ ]
+- []
+
+FAIL 320x568-spell-owner-answering fits width: 320px document at 320px
+FAIL 320x568-spell-owner-answering answer targets: Targets smaller than 44px: [{"name":"Alchemist","x":28,"y":633.6875,"width":21.265625,"height":20.25,"right":49.265625,"bottom":653.9375},{"name":"Axe","x":52.265625,"y":633.6875,"width":21.265625,"height":20.25,"right":73.53125,"bottom":653.9375},{"name":"Bristleback","x":76.53125,"y":633.6875,"width":21.28125,"height":20.265625,"right":97.8125,"bottom":653.953125}]
++ actual - expected
+
++ [
++   {
++     bottom: 653.9375,
++     height: 20.25,
++     name: 'Alchemist',
++     right: 49.265625,
++     width: 21.265625,
++     x: 28,
++     y: 633.6875
++   },
++   {
++     bottom: 653.9375,
++     height: 20.25,
++     name: 'Axe',
++     right: 73.53125,
++     width: 21.265625,
++     x: 52.265625,
++     y: 633.6875
++   },
++   {
++     bottom: 653.953125,
++     height: 20.265625,
++     name: 'Bristleback',
++     right: 97.8125,
++     width: 21.28125,
++     x: 76.53125,
++     y: 633.6875
++   }
++ ]
+- []
+
+FAIL 320x568-spell-owner-reveal fits width: 320px document at 320px
+FAIL 320x568-fogged-hero-answering fits width: 320px document at 320px
+FAIL 320x568-fogged-hero-answering answer targets: Targets smaller than 44px: [{"name":"Alchemist","x":28,"y":484.5,"width":21.265625,"height":20.25,"right":49.265625,"bottom":504.75},{"name":"Axe","x":52.265625,"y":484.5,"width":21.265625,"height":20.25,"right":73.53125,"bottom":504.75},{"name":"Bristleback","x":76.53125,"y":484.5,"width":21.28125,"height":20.265625,"right":97.8125,"bottom":504.765625}]
++ actual - expected
+
++ [
++   {
++     bottom: 504.75,
++     height: 20.25,
++     name: 'Alchemist',
++     right: 49.265625,
++     width: 21.265625,
++     x: 28,
++     y: 484.5
++   },
++   {
++     bottom: 504.75,
++     height: 20.25,
++     name: 'Axe',
++     right: 73.53125,
++     width: 21.265625,
++     x: 52.265625,
++     y: 484.5
++   },
++   {
++     bottom: 504.765625,
++     height: 20.265625,
++     name: 'Bristleback',
++     right: 97.8125,
++     width: 21.28125,
++     x: 76.53125,
++     y: 484.5
++   }
++ ]
+- []
+
+FAIL 320x568-fogged-hero-reveal fits width: 320px document at 320px
+FAIL 320x568-hero-voice-answering fits width: 320px document at 320px
+FAIL 320x568-hero-voice-answering answer targets: Targets smaller than 44px: [{"name":"Alchemist","x":28,"y":440.25,"width":21.265625,"height":20.25,"right":49.265625,"bottom":460.5},{"name":"Axe","x":52.265625,"y":440.25,"width":21.265625,"height":20.25,"right":73.53125,"bottom":460.5},{"name":"Bristleback","x":76.53125,"y":440.25,"width":21.28125,"height":20.265625,"right":97.8125,"bottom":460.515625}]
++ actual - expected
+
++ [
++   {
++     bottom: 460.5,
++     height: 20.25,
++     name: 'Alchemist',
++     right: 49.265625,
++     width: 21.265625,
++     x: 28,
++     y: 440.25
++   },
++   {
++     bottom: 460.5,
++     height: 20.25,
++     name: 'Axe',
++     right: 73.53125,
++     width: 21.265625,
++     x: 52.265625,
++     y: 440.25
++   },
++   {
++     bottom: 460.515625,
++     height: 20.265625,
++     name: 'Bristleback',
++     right: 97.8125,
++     width: 21.28125,
++     x: 76.53125,
++     y: 440.25
++   }
++ ]
+- []
+
+FAIL 320x568-hero-voice-reveal fits width: 320px document at 320px
+FAIL 320x568-hero-quote-answering fits width: 320px document at 320px
+FAIL 320x568-hero-quote-answering answer targets: Targets smaller than 44px: [{"name":"Alchemist","x":28,"y":463.25,"width":21.265625,"height":20.25,"right":49.265625,"bottom":483.5},{"name":"Axe","x":52.265625,"y":463.25,"width":21.265625,"height":20.25,"right":73.53125,"bottom":483.5},{"name":"Bristleback","x":76.53125,"y":463.25,"width":21.28125,"height":20.265625,"right":97.8125,"bottom":483.515625}]
++ actual - expected
+
++ [
++   {
++     bottom: 483.5,
++     height: 20.25,
++     name: 'Alchemist',
++     right: 49.265625,
++     width: 21.265625,
++     x: 28,
++     y: 463.25
++   },
++   {
++     bottom: 483.5,
++     height: 20.25,
++     name: 'Axe',
++     right: 73.53125,
++     width: 21.265625,
++     x: 52.265625,
++     y: 463.25
++   },
++   {
++     bottom: 483.515625,
++     height: 20.265625,
++     name: 'Bristleback',
++     right: 97.8125,
++     width: 21.28125,
++     x: 76.53125,
++     y: 463.25
++   }
++ ]
+- []
+
+FAIL 320x568-hero-quote-reveal fits width: 320px document at 320px
+FAIL 320x568-aghanim-upgrade-answering fits width: 320px document at 320px
+FAIL 320x568-aghanim-upgrade-answering answer targets: Targets smaller than 44px: [{"name":"Alchemist","x":28,"y":577.6875,"width":21.265625,"height":20.25,"right":49.265625,"bottom":597.9375},{"name":"Axe","x":52.265625,"y":577.6875,"width":21.265625,"height":20.25,"right":73.53125,"bottom":597.9375},{"name":"Bristleback","x":76.53125,"y":577.6875,"width":21.28125,"height":20.265625,"right":97.8125,"bottom":597.953125}]
++ actual - expected
+
++ [
++   {
++     bottom: 597.9375,
++     height: 20.25,
++     name: 'Alchemist',
++     right: 49.265625,
++     width: 21.265625,
++     x: 28,
++     y: 577.6875
++   },
++   {
++     bottom: 597.9375,
++     height: 20.25,
++     name: 'Axe',
++     right: 73.53125,
++     width: 21.265625,
++     x: 52.265625,
++     y: 577.6875
++   },
++   {
++     bottom: 597.953125,
++     height: 20.265625,
++     name: 'Bristleback',
++     right: 97.8125,
++     width: 21.28125,
++     x: 76.53125,
++     y: 577.6875
++   }
++ ]
+- []
+
+FAIL 320x568-aghanim-upgrade-reveal fits width: 320px document at 320px
+FAIL 320x568-soundcheck-ability-answering fits width: 320px document at 320px
+FAIL 320x568-soundcheck-ability-reveal fits width: 320px document at 320px
+FAIL 320x568-value-order-item-answering fits width: 320px document at 320px
+FAIL 320x568-value-order-item-reveal fits width: 320px document at 320px
+FAIL 320x568-flashback-year-answering fits width: 320px document at 320px
+FAIL 320x568-flashback-year-reveal fits width: 320px document at 320px
+FAIL 320x568-flashback-choice-answering fits width: 320px document at 320px
+FAIL 320x568-flashback-choice-reveal fits width: 320px document at 320px
+FAIL 320x568-flashback-order-answering fits width: 320px document at 320px
+FAIL 320x568-flashback-order-reveal fits width: 320px document at 320px
+Checked 320x568
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: 43 responsive failures:
+320x568-home fits width: 320px document at 320px
+320x568 Play is visible without scrolling: Play ends at 725.03125px, below the 568px viewport
+320x568-party-create fits width: 320px document at 320px
+320x568-profile fits width: 320px document at 320px
+320x568-privacy fits width: 320px document at 320px
+320x568-calibration fits width: 320px document at 320px
+320x568-ops fits width: 320px document at 320px
+320x568-party-play100 fits width: 320px document at 320px
+320x568-mana-cost-answering fits width: 320px document at 320px
+320x568-mana-cost-reveal fits width: 320px document at 320px
+320x568-shopkeeper-build-result-answering fits width: 320px document at 320px
+320x568-shopkeeper-build-result-answering answer targets: Targets smaller than 44px: [{"name":"basics","x":29,"y":353.359375,"width":132.5,"height":32,"right":161.5,"bottom":385.359375},{"name":"upgrades","x":161.5,"y":353.359375,"width":132.5,"height":32,"right":294,"bottom":385.359375},{"name":"Magic Wand, 460 gold","x":34,"y":474.359375,"width":45,"height":34.078125,"right":79,"bottom":508.4375}]
++ actual - expected
+
++ [
++   {
++     bottom: 385.359375,
++     height: 32,
++     name: 'basics',
++     right: 161.5,
++     width: 132.5,
++     x: 29,
++     y: 353.359375
++   },
++   {
++     bottom: 385.359375,
++     height: 32,
++     name: 'upgrades',
++     right: 294,
++     width: 132.5,
++     x: 161.5,
++     y: 353.359375
++   },
++   {
++     bottom: 508.4375,
++     height: 34.078125,
++     name: 'Magic Wand, 460 gold',
++     right: 79,
++     width: 45,
++     x: 34,
++     y: 474.359375
++   }
++ ]
+- []
+
+320x568-shopkeeper-build-result-reveal fits width: 320px document at 320px
+320x568-shopkeeper-build-result-reveal answer targets: Targets smaller than 44px: [{"name":"basics","x":29,"y":353.359375,"width":132.5,"height":32,"right":161.5,"bottom":385.359375},{"name":"upgrades","x":161.5,"y":353.359375,"width":132.5,"height":32,"right":294,"bottom":385.359375}]
++ actual - expected
+
++ [
++   {
++     bottom: 385.359375,
++     height: 32,
++     name: 'basics',
++     right: 161.5,
++     width: 132.5,
++     x: 29,
++     y: 353.359375
++   },
++   {
++     bottom: 385.359375,
++     height: 32,
++     name: 'upgrades',
++     right: 294,
++     width: 132.5,
++     x: 161.5,
++     y: 353.359375
++   }
++ ]
+- []
+
+320x568-shopkeeper-real-recipe-answering fits width: 320px document at 320px
+320x568-shopkeeper-real-recipe-answering answer targets: Targets smaller than 44px: [{"name":"basics","x":29,"y":330.25,"width":132.5,"height":32,"right":161.5,"bottom":362.25},{"name":"upgrades","x":161.5,"y":330.25,"width":132.5,"height":32,"right":294,"bottom":362.25},{"name":"Magic Wand, 460 gold","x":34,"y":517.25,"width":45,"height":34.078125,"right":79,"bottom":551.328125}]
++ actual - expected
+
++ [
++   {
++     bottom: 362.25,
++     height: 32,
++     name: 'basics',
++     right: 161.5,
++     width: 132.5,
++     x: 29,
++     y: 330.25
++   },
++   {
++     bottom: 362.25,
++     height: 32,
++     name: 'upgrades',
++     right: 294,
++     width: 132.5,
++     x: 161.5,
++     y: 330.25
++   },
++   {
++     bottom: 551.328125,
++     height: 34.078125,
++     name: 'Magic Wand, 460 gold',
++     right: 79,
++     width: 45,
++     x: 34,
++     y: 517.25
++   }
++ ]
+- []
+
+320x568-shopkeeper-real-recipe-reveal fits width: 320px document at 320px
+320x568-shopkeeper-real-recipe-reveal answer targets: Targets smaller than 44px: [{"name":"basics","x":29,"y":330.25,"width":132.5,"height":32,"right":161.5,"bottom":362.25},{"name":"upgrades","x":161.5,"y":330.25,"width":132.5,"height":32,"right":294,"bottom":362.25}]
++ actual - expected
+
++ [
++   {
++     bottom: 362.25,
++     height: 32,
++     name: 'basics',
++     right: 161.5,
++     width: 132.5,
++     x: 29,
++     y: 330.25
++   },
++   {
++     bottom: 362.25,
++     height: 32,
++     name: 'upgrades',
++     right: 294,
++     width: 132.5,
++     x: 161.5,
++     y: 330.25
++   }
++ ]
+- []
+
+320x568-spell-owner-answering fits width: 320px document at 320px
+320x568-spell-owner-answering answer targets: Targets smaller than 44px: [{"name":"Alchemist","x":28,"y":633.6875,"width":21.265625,"height":20.25,"right":49.265625,"bottom":653.9375},{"name":"Axe","x":52.265625,"y":633.6875,"width":21.265625,"height":20.25,"right":73.53125,"bottom":653.9375},{"name":"Bristleback","x":76.53125,"y":633.6875,"width":21.28125,"height":20.265625,"right":97.8125,"bottom":653.953125}]
++ actual - expected
+
++ [
++   {
++     bottom: 653.9375,
++     height: 20.25,
++     name: 'Alchemist',
++     right: 49.265625,
++     width: 21.265625,
++     x: 28,
++     y: 633.6875
++   },
++   {
++     bottom: 653.9375,
++     height: 20.25,
++     name: 'Axe',
++     right: 73.53125,
++     width: 21.265625,
++     x: 52.265625,
++     y: 633.6875
++   },
++   {
++     bottom: 653.953125,
++     height: 20.265625,
++     name: 'Bristleback',
++     right: 97.8125,
++     width: 21.28125,
++     x: 76.53125,
++     y: 633.6875
++   }
++ ]
+- []
+
+320x568-spell-owner-reveal fits width: 320px document at 320px
+320x568-fogged-hero-answering fits width: 320px document at 320px
+320x568-fogged-hero-answering answer targets: Targets smaller than 44px: [{"name":"Alchemist","x":28,"y":484.5,"width":21.265625,"height":20.25,"right":49.265625,"bottom":504.75},{"name":"Axe","x":52.265625,"y":484.5,"width":21.265625,"height":20.25,"right":73.53125,"bottom":504.75},{"name":"Bristleback","x":76.53125,"y":484.5,"width":21.28125,"height":20.265625,"right":97.8125,"bottom":504.765625}]
++ actual - expected
+
++ [
++   {
++     bottom: 504.75,
++     height: 20.25,
++     name: 'Alchemist',
++     right: 49.265625,
++     width: 21.265625,
++     x: 28,
++     y: 484.5
++   },
++   {
++     bottom: 504.75,
++     height: 20.25,
++     name: 'Axe',
++     right: 73.53125,
++     width: 21.265625,
++     x: 52.265625,
++     y: 484.5
++   },
++   {
++     bottom: 504.765625,
++     height: 20.265625,
++     name: 'Bristleback',
++     right: 97.8125,
++     width: 21.28125,
++     x: 76.53125,
++     y: 484.5
++   }
++ ]
+- []
+
+320x568-fogged-hero-reveal fits width: 320px document at 320px
+320x568-hero-voice-answering fits width: 320px document at 320px
+320x568-hero-voice-answering answer targets: Targets smaller than 44px: [{"name":"Alchemist","x":28,"y":440.25,"width":21.265625,"height":20.25,"right":49.265625,"bottom":460.5},{"name":"Axe","x":52.265625,"y":440.25,"width":21.265625,"height":20.25,"right":73.53125,"bottom":460.5},{"name":"Bristleback","x":76.53125,"y":440.25,"width":21.28125,"height":20.265625,"right":97.8125,"bottom":460.515625}]
++ actual - expected
+
++ [
++   {
++     bottom: 460.5,
++     height: 20.25,
++     name: 'Alchemist',
++     right: 49.265625,
++     width: 21.265625,
++     x: 28,
++     y: 440.25
++   },
++   {
++     bottom: 460.5,
++     height: 20.25,
++     name: 'Axe',
++     right: 73.53125,
++     width: 21.265625,
++     x: 52.265625,
++     y: 440.25
++   },
++   {
++     bottom: 460.515625,
++     height: 20.265625,
++     name: 'Bristleback',
++     right: 97.8125,
++     width: 21.28125,
++     x: 76.53125,
++     y: 440.25
++   }
++ ]
+- []
+
+320x568-hero-voice-reveal fits width: 320px document at 320px
+320x568-hero-quote-answering fits width: 320px document at 320px
+320x568-hero-quote-answering answer targets: Targets smaller than 44px: [{"name":"Alchemist","x":28,"y":463.25,"width":21.265625,"height":20.25,"right":49.265625,"bottom":483.5},{"name":"Axe","x":52.265625,"y":463.25,"width":21.265625,"height":20.25,"right":73.53125,"bottom":483.5},{"name":"Bristleback","x":76.53125,"y":463.25,"width":21.28125,"height":20.265625,"right":97.8125,"bottom":483.515625}]
++ actual - expected
+
++ [
++   {
++     bottom: 483.5,
++     height: 20.25,
++     name: 'Alchemist',
++     right: 49.265625,
++     width: 21.265625,
++     x: 28,
++     y: 463.25
++   },
++   {
++     bottom: 483.5,
++     height: 20.25,
++     name: 'Axe',
++     right: 73.53125,
++     width: 21.265625,
++     x: 52.265625,
++     y: 463.25
++   },
++   {
++     bottom: 483.515625,
++     height: 20.265625,
++     name: 'Bristleback',
++     right: 97.8125,
++     width: 21.28125,
++     x: 76.53125,
++     y: 463.25
++   }
++ ]
+- []
+
+320x568-hero-quote-reveal fits width: 320px document at 320px
+320x568-aghanim-upgrade-answering fits width: 320px document at 320px
+320x568-aghanim-upgrade-answering answer targets: Targets smaller than 44px: [{"name":"Alchemist","x":28,"y":577.6875,"width":21.265625,"height":20.25,"right":49.265625,"bottom":597.9375},{"name":"Axe","x":52.265625,"y":577.6875,"width":21.265625,"height":20.25,"right":73.53125,"bottom":597.9375},{"name":"Bristleback","x":76.53125,"y":577.6875,"width":21.28125,"height":20.265625,"right":97.8125,"bottom":597.953125}]
++ actual - expected
+
++ [
++   {
++     bottom: 597.9375,
++     height: 20.25,
++     name: 'Alchemist',
++     right: 49.265625,
++     width: 21.265625,
++     x: 28,
++     y: 577.6875
++   },
++   {
++     bottom: 597.9375,
++     height: 20.25,
++     name: 'Axe',
++     right: 73.53125,
++     width: 21.265625,
++     x: 52.265625,
++     y: 577.6875
++   },
++   {
++     bottom: 597.953125,
++     height: 20.265625,
++     name: 'Bristleback',
++     right: 97.8125,
++     width: 21.28125,
++     x: 76.53125,
++     y: 577.6875
++   }
++ ]
+- []
+
+320x568-aghanim-upgrade-reveal fits width: 320px document at 320px
+320x568-soundcheck-ability-answering fits width: 320px document at 320px
+320x568-soundcheck-ability-reveal fits width: 320px document at 320px
+320x568-value-order-item-answering fits width: 320px document at 320px
+320x568-value-order-item-reveal fits width: 320px document at 320px
+320x568-flashback-year-answering fits width: 320px document at 320px
+320x568-flashback-year-reveal fits width: 320px document at 320px
+320x568-flashback-choice-answering fits width: 320px document at 320px
+320x568-flashback-choice-reveal fits width: 320px document at 320px
+320x568-flashback-order-answering fits width: 320px document at 320px
+320x568-flashback-order-reveal fits width: 320px document at 320px
+
+43 !== 0
+
+    at file:///home/kulmisiu/dev/dota2-trivia/scripts/check-responsive-ui.mjs:159:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 43,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

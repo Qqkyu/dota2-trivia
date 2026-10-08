@@ -1,0 +1,61 @@
+{
+  "phase": "answering",
+  "remainingAnswerMs": 14000,
+  "voteStatus": 200,
+  "voteResponse": {
+    "accepted": true,
+    "counts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "total": 1,
+    "keyCounts": [],
+    "scoreSummary": null,
+    "playerVote": {
+      "answerIndex": 0,
+      "submittedAt": 1791263307000,
+      "answerKey": "npc_dota_hero_winter_wyvern"
+    }
+  },
+  "profileStatus": 200,
+  "profileStats": {
+    "answered": 1,
+    "correct": 1,
+    "accuracy": 100,
+    "currentStreak": 1,
+    "bestStreak": 1,
+    "bestTenCorrect": null,
+    "firstStageCorrect": 1,
+    "progressiveCorrect": 1,
+    "progressiveAnswered": 1,
+    "formats": [
+      {
+        "format": "echo-hunt",
+        "answered": 1,
+        "correct": 1,
+        "firstStageCorrect": 1,
+        "secondStageCorrect": 0,
+        "thirdStageCorrect": 0,
+        "firstStageAnswered": 1,
+        "secondStageAnswered": 0,
+        "thirdStageAnswered": 0,
+        "progressiveAnswered": 1,
+        "accuracy": 100
+      }
+    ],
+    "recentRounds": [
+      {
+        "roundId": "dota2:7.41f-variety-7-classic-trivia-6-shopkeeper-7-public-arcade-4-soundcheck-11-spell-link-4-fogged-vision-5-global-score-1-order-up-4-aghanim-lab-1-flashback-18:public:round:1092623",
+        "roundNumber": 1092623,
+        "gameId": "dota2",
+        "roundGame": "echo-hunt",
+        "roundFormat": "echo-hunt",
+        "correct": true,
+        "answerStage": 1,
+        "submittedAt": 1791263307000
+      }
+    ]
+  }
+}

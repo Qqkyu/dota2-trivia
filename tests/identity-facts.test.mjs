@@ -1,0 +1,363 @@
+import { readFileSync } from "node:fs";
+import { describe, expect, it } from "vitest";
+
+const questions = JSON.parse(readFileSync(new URL("../src/data/questions.generated.json", import.meta.url), "utf8"));
+
+// Independent facts checked against Valve hero data and the pinned Dotabase game extract on 2026-10-06.
+// Hidden controls are included under their native hero, not the unit that performs their effect.
+const expectedAbilities = {
+  abaddon_aphotic_shield: ["npc_dota_hero_abaddon", "Abaddon", "Aphotic Shield"],
+  abyssal_underlord_pit_of_malice: ["npc_dota_hero_abyssal_underlord", "Underlord", "Pit of Malice"],
+  alchemist_unstable_concoction: ["npc_dota_hero_alchemist", "Alchemist", "Unstable Concoction"],
+  ancient_apparition_bone_chill: ["npc_dota_hero_ancient_apparition", "Ancient Apparition", "Bone Chill"],
+  antimage_counterspell: ["npc_dota_hero_antimage", "Anti-Mage", "Counterspell"],
+  arc_warden_magnetic_field: ["npc_dota_hero_arc_warden", "Arc Warden", "Magnetic Field"],
+  axe_battle_hunger: ["npc_dota_hero_axe", "Axe", "Battle Hunger"],
+  bane_nightmare: ["npc_dota_hero_bane", "Bane", "Nightmare"],
+  batrider_firefly: ["npc_dota_hero_batrider", "Batrider", "Firefly"],
+  beastmaster_summon_raptor: ["npc_dota_hero_beastmaster", "Beastmaster", "Summon Raptors"],
+  bloodseeker_thirst: ["npc_dota_hero_bloodseeker", "Bloodseeker", "Thirst"],
+  bounty_hunter_wind_walk: ["npc_dota_hero_bounty_hunter", "Bounty Hunter", "Shadow Walk"],
+  brewmaster_drunken_brawler: ["npc_dota_hero_brewmaster", "Brewmaster", "Drunken Brawler"],
+  bristleback_quill_spray: ["npc_dota_hero_bristleback", "Bristleback", "Quill Spray"],
+  broodmother_spin_web: ["npc_dota_hero_broodmother", "Broodmother", "Spin Web"],
+  centaur_mount: ["npc_dota_hero_centaur", "Centaur Warrunner", "Hitch A Ride"],
+  chaos_knight_reality_rift: ["npc_dota_hero_chaos_knight", "Chaos Knight", "Reality Rift"],
+  chen_holy_persuasion: ["npc_dota_hero_chen", "Chen", "Holy Persuasion"],
+  clinkz_burning_barrage: ["npc_dota_hero_clinkz", "Clinkz", "Burning Barrage"],
+  crystal_maiden_crystal_clone: ["npc_dota_hero_crystal_maiden", "Crystal Maiden", "Crystal Clone"],
+  dark_seer_normal_punch: ["npc_dota_hero_dark_seer", "Dark Seer", "Normal Punch"],
+  dark_willow_shadow_realm: ["npc_dota_hero_dark_willow", "Dark Willow", "Shadow Realm"],
+  dawnbreaker_celestial_hammer: ["npc_dota_hero_dawnbreaker", "Dawnbreaker", "Celestial Hammer"],
+  dazzle_shallow_grave: ["npc_dota_hero_dazzle", "Dazzle", "Shallow Grave"],
+  death_prophet_spirit_siphon: ["npc_dota_hero_death_prophet", "Death Prophet", "Spirit Siphon"],
+  disruptor_glimpse: ["npc_dota_hero_disruptor", "Disruptor", "Glimpse"],
+  doom_bringer_infernal_blade: ["npc_dota_hero_doom_bringer", "Doom", "Infernal Blade"],
+  dragon_knight_wyrms_wrath: ["npc_dota_hero_dragon_knight", "Dragon Knight", "Wyrm's Wrath"],
+  drow_ranger_glacier: ["npc_dota_hero_drow_ranger", "Drow Ranger", "Glacier"],
+  earth_spirit_rolling_boulder: ["npc_dota_hero_earth_spirit", "Earth Spirit", "Rolling Boulder"],
+  earthshaker_enchant_totem: ["npc_dota_hero_earthshaker", "Earthshaker", "Enchant Totem"],
+  elder_titan_ancestral_spirit: ["npc_dota_hero_elder_titan", "Elder Titan", "Astral Spirit"],
+  ember_spirit_flame_guard: ["npc_dota_hero_ember_spirit", "Ember Spirit", "Flame Guard"],
+  enchantress_bunny_hop: ["npc_dota_hero_enchantress", "Enchantress", "Sproink"],
+  enigma_demonic_conversion: ["npc_dota_hero_enigma", "Enigma", "Demonic Summoning"],
+  faceless_void_time_dilation: ["npc_dota_hero_faceless_void", "Faceless Void", "Time Dilation"],
+  furion_curse_of_the_forest: ["npc_dota_hero_furion", "Nature's Prophet", "Curse of the Oldgrowth"],
+  grimstroke_ink_creature: ["npc_dota_hero_grimstroke", "Grimstroke", "Phantom's Embrace"],
+  gyrocopter_flak_cannon: ["npc_dota_hero_gyrocopter", "Gyrocopter", "Flak Cannon"],
+  hoodwink_decoy: ["npc_dota_hero_hoodwink", "Hoodwink", "Decoy"],
+  huskar_burning_spear: ["npc_dota_hero_huskar", "Huskar", "Burning Spear"],
+  invoker_wex: ["npc_dota_hero_invoker", "Invoker", "Wex"],
+  jakiro_liquid_ice: ["npc_dota_hero_jakiro", "Jakiro", "Liquid Frost"],
+  juggernaut_healing_ward: ["npc_dota_hero_juggernaut", "Juggernaut", "Healing Ward"],
+  keeper_of_the_light_blinding_light: ["npc_dota_hero_keeper_of_the_light", "Keeper of the Light", "Blinding Light"],
+  kez_switch_weapons: ["npc_dota_hero_kez", "Kez", "Switch Discipline"],
+  kunkka_x_marks_the_spot: ["npc_dota_hero_kunkka", "Kunkka", "X Marks the Spot"],
+  largo_croak_of_genius: ["npc_dota_hero_largo", "Largo", "Croak of Genius"],
+  legion_commander_outfight_them: ["npc_dota_hero_legion_commander", "Legion Commander", "Outfight Them!"],
+  leshrac_diabolic_edict: ["npc_dota_hero_leshrac", "Leshrac", "Diabolic Edict"],
+  lich_frost_shield: ["npc_dota_hero_lich", "Lich", "Frost Shield"],
+  life_stealer_open_wounds: ["npc_dota_hero_life_stealer", "Lifestealer", "Open Wounds"],
+  lina_flame_cloak: ["npc_dota_hero_lina", "Lina", "Flame Cloak"],
+  lion_mana_drain: ["npc_dota_hero_lion", "Lion", "Mana Drain"],
+  lone_druid_spirit_bear: ["npc_dota_hero_lone_druid", "Lone Druid", "Summon Spirit Bear"],
+  luna_lunar_blessing: ["npc_dota_hero_luna", "Luna", "Lunar Blessing"],
+  lycan_wolf_bite: ["npc_dota_hero_lycan", "Lycan", "Wolf Bite"],
+  magnataur_horn_toss: ["npc_dota_hero_magnataur", "Magnus", "Horn Toss"],
+  marci_companion_run: ["npc_dota_hero_marci", "Marci", "Rebound"],
+  mars_bulwark: ["npc_dota_hero_mars", "Mars", "Bulwark"],
+  medusa_gorgon_grasp: ["npc_dota_hero_medusa", "Medusa", "Gorgon's Grasp"],
+  meepo_poof: ["npc_dota_hero_meepo", "Meepo", "Poof"],
+  mirana_arrow: ["npc_dota_hero_mirana", "Mirana", "Sacred Arrow"],
+  monkey_king_tree_dance: ["npc_dota_hero_monkey_king", "Monkey King", "Tree Dance"],
+  morphling_adaptive_strike_agi: ["npc_dota_hero_morphling", "Morphling", "Adaptive Strike"],
+  muerta_the_calling: ["npc_dota_hero_muerta", "Muerta", "The Calling"],
+  naga_siren_reel_in: ["npc_dota_hero_naga_siren", "Naga Siren", "Reel In"],
+  necrolyte_ghost_shroud: ["npc_dota_hero_necrolyte", "Necrophos", "Ghost Shroud"],
+  nevermore_shadowraze3: ["npc_dota_hero_nevermore", "Shadow Fiend", "Shadowraze"],
+  night_stalker_crippling_fear: ["npc_dota_hero_night_stalker", "Night Stalker", "Crippling Fear"],
+  nyx_assassin_burrow: ["npc_dota_hero_nyx_assassin", "Nyx Assassin", "Burrow"],
+  obsidian_destroyer_astral_imprisonment: [
+    "npc_dota_hero_obsidian_destroyer",
+    "Outworld Destroyer",
+    "Astral Imprisonment",
+  ],
+  ogre_magi_unrefined_fireblast: ["npc_dota_hero_ogre_magi", "Ogre Magi", "Unrefined Fireblast"],
+  omniknight_hammer_of_purity: ["npc_dota_hero_omniknight", "Omniknight", "Hammer of Purity"],
+  oracle_purifying_flames: ["npc_dota_hero_oracle", "Oracle", "Purifying Flames"],
+  pangolier_shield_crash: ["npc_dota_hero_pangolier", "Pangolier", "Shield Crash"],
+  phantom_assassin_fan_of_knives: ["npc_dota_hero_phantom_assassin", "Phantom Assassin", "Fan of Knives"],
+  phantom_lancer_doppelwalk: ["npc_dota_hero_phantom_lancer", "Phantom Lancer", "Doppelganger"],
+  phoenix_sun_ray: ["npc_dota_hero_phoenix", "Phoenix", "Sun Ray"],
+  primal_beast_rock_throw: ["npc_dota_hero_primal_beast", "Primal Beast", "Rock Throw"],
+  puck_waning_rift: ["npc_dota_hero_puck", "Puck", "Waning Rift"],
+  pudge_flesh_heap: ["npc_dota_hero_pudge", "Pudge", "Meat Shield"],
+  pugna_nether_ward: ["npc_dota_hero_pugna", "Pugna", "Nether Ward"],
+  queenofpain_scream_of_pain: ["npc_dota_hero_queenofpain", "Queen of Pain", "Scream Of Pain"],
+  rattletrap_overclocking: ["npc_dota_hero_rattletrap", "Clockwerk", "Overclocking"],
+  razor_static_link: ["npc_dota_hero_razor", "Razor", "Static Link"],
+  riki_tricks_of_the_trade: ["npc_dota_hero_riki", "Riki", "Tricks of the Trade"],
+  ringmaster_impalement: ["npc_dota_hero_ringmaster", "Ringmaster", "Impalement Arts"],
+  rubick_fade_bolt: ["npc_dota_hero_rubick", "Rubick", "Fade Bolt"],
+  sandking_scorpion_strike: ["npc_dota_hero_sand_king", "Sand King", "Stinger"],
+  shadow_demon_shadow_poison: ["npc_dota_hero_shadow_demon", "Shadow Demon", "Shadow Poison"],
+  shadow_shaman_fowl_play: ["npc_dota_hero_shadow_shaman", "Shadow Shaman", "Fowl Play"],
+  shredder_timber_chain: ["npc_dota_hero_shredder", "Timbersaw", "Timber Chain"],
+  silencer_last_word: ["npc_dota_hero_silencer", "Silencer", "Last Word"],
+  skeleton_king_bone_guard: ["npc_dota_hero_skeleton_king", "Wraith King", "Bone Guard"],
+  skywrath_mage_concussive_shot: ["npc_dota_hero_skywrath_mage", "Skywrath Mage", "Concussive Shot"],
+  slardar_slithereen_crush: ["npc_dota_hero_slardar", "Slardar", "Slithereen Crush"],
+  slark_pounce: ["npc_dota_hero_slark", "Slark", "Pounce"],
+  snapfire_spit_creep: ["npc_dota_hero_snapfire", "Snapfire", "Spit Out"],
+  sniper_take_aim: ["npc_dota_hero_sniper", "Sniper", "Take Aim"],
+  spectre_shadow_step: ["npc_dota_hero_spectre", "Spectre", "Shadow Step"],
+  spirit_breaker_planar_pocket: ["npc_dota_hero_spirit_breaker", "Spirit Breaker", "Planar Pocket"],
+  storm_spirit_overload: ["npc_dota_hero_storm_spirit", "Storm Spirit", "Overload"],
+  sven_warcry: ["npc_dota_hero_sven", "Sven", "Warcry"],
+  techies_suicide: ["npc_dota_hero_techies", "Techies", "Blast Off!"],
+  templar_assassin_meld: ["npc_dota_hero_templar_assassin", "Templar Assassin", "Meld"],
+  terrorblade_demon_zeal: ["npc_dota_hero_terrorblade", "Terrorblade", "Demon Zeal"],
+  tidehunter_dead_in_the_water: ["npc_dota_hero_tidehunter", "Tidehunter", "Dead in the Water"],
+  tinker_warp_grenade: ["npc_dota_hero_tinker", "Tinker", "Warp Flare"],
+  tiny_tree_grab: ["npc_dota_hero_tiny", "Tiny", "Tree Grab"],
+  treant_leech_seed: ["npc_dota_hero_treant", "Treant Protector", "Leech Seed"],
+  troll_warlord_berserkers_rage: ["npc_dota_hero_troll_warlord", "Troll Warlord", "Berserker's Rage"],
+  tusk_snowball: ["npc_dota_hero_tusk", "Tusk", "Snowball"],
+  undying_tombstone: ["npc_dota_hero_undying", "Undying", "Tombstone"],
+  ursa_fury_swipes: ["npc_dota_hero_ursa", "Ursa", "Fury Swipes"],
+  vengefulspirit_wave_of_terror: ["npc_dota_hero_vengefulspirit", "Vengeful Spirit", "Wave of Terror"],
+  venomancer_snakebite: ["npc_dota_hero_venomancer", "Venomancer", "Snakebite"],
+  viper_nethertoxin: ["npc_dota_hero_viper", "Viper", "Nethertoxin"],
+  visage_stone_form_self_cast: ["npc_dota_hero_visage", "Visage", "Stone Form"],
+  void_spirit_resonant_pulse: ["npc_dota_hero_void_spirit", "Void Spirit", "Resonant Pulse"],
+  warlock_shadow_word: ["npc_dota_hero_warlock", "Warlock", "Shadow Word"],
+  weaver_shukuchi: ["npc_dota_hero_weaver", "Weaver", "Shukuchi"],
+  windrunner_powershot: ["npc_dota_hero_windrunner", "Windranger", "Powershot"],
+  winter_wyvern_splinter_blast: ["npc_dota_hero_winter_wyvern", "Winter Wyvern", "Splinter Blast"],
+  wisp_spirits: ["npc_dota_hero_wisp", "Io", "Spirits"],
+  witch_doctor_maledict: ["npc_dota_hero_witch_doctor", "Witch Doctor", "Maledict"],
+  zuus_lightning_bolt: ["npc_dota_hero_zuus", "Zeus", "Lightning Bolt"],
+};
+
+const expectedHeroes = {
+  npc_dota_hero_abaddon: "Abaddon",
+  npc_dota_hero_abyssal_underlord: "Underlord",
+  npc_dota_hero_alchemist: "Alchemist",
+  npc_dota_hero_ancient_apparition: "Ancient Apparition",
+  npc_dota_hero_antimage: "Anti-Mage",
+  npc_dota_hero_arc_warden: "Arc Warden",
+  npc_dota_hero_axe: "Axe",
+  npc_dota_hero_bane: "Bane",
+  npc_dota_hero_batrider: "Batrider",
+  npc_dota_hero_beastmaster: "Beastmaster",
+  npc_dota_hero_bloodseeker: "Bloodseeker",
+  npc_dota_hero_bounty_hunter: "Bounty Hunter",
+  npc_dota_hero_brewmaster: "Brewmaster",
+  npc_dota_hero_bristleback: "Bristleback",
+  npc_dota_hero_broodmother: "Broodmother",
+  npc_dota_hero_centaur: "Centaur Warrunner",
+  npc_dota_hero_chaos_knight: "Chaos Knight",
+  npc_dota_hero_chen: "Chen",
+  npc_dota_hero_clinkz: "Clinkz",
+  npc_dota_hero_crystal_maiden: "Crystal Maiden",
+  npc_dota_hero_dark_seer: "Dark Seer",
+  npc_dota_hero_dark_willow: "Dark Willow",
+  npc_dota_hero_dawnbreaker: "Dawnbreaker",
+  npc_dota_hero_dazzle: "Dazzle",
+  npc_dota_hero_death_prophet: "Death Prophet",
+  npc_dota_hero_disruptor: "Disruptor",
+  npc_dota_hero_doom_bringer: "Doom",
+  npc_dota_hero_dragon_knight: "Dragon Knight",
+  npc_dota_hero_drow_ranger: "Drow Ranger",
+  npc_dota_hero_earth_spirit: "Earth Spirit",
+  npc_dota_hero_earthshaker: "Earthshaker",
+  npc_dota_hero_elder_titan: "Elder Titan",
+  npc_dota_hero_ember_spirit: "Ember Spirit",
+  npc_dota_hero_enchantress: "Enchantress",
+  npc_dota_hero_enigma: "Enigma",
+  npc_dota_hero_faceless_void: "Faceless Void",
+  npc_dota_hero_furion: "Nature's Prophet",
+  npc_dota_hero_grimstroke: "Grimstroke",
+  npc_dota_hero_gyrocopter: "Gyrocopter",
+  npc_dota_hero_hoodwink: "Hoodwink",
+  npc_dota_hero_huskar: "Huskar",
+  npc_dota_hero_invoker: "Invoker",
+  npc_dota_hero_jakiro: "Jakiro",
+  npc_dota_hero_juggernaut: "Juggernaut",
+  npc_dota_hero_keeper_of_the_light: "Keeper of the Light",
+  npc_dota_hero_kez: "Kez",
+  npc_dota_hero_kunkka: "Kunkka",
+  npc_dota_hero_largo: "Largo",
+  npc_dota_hero_legion_commander: "Legion Commander",
+  npc_dota_hero_leshrac: "Leshrac",
+  npc_dota_hero_lich: "Lich",
+  npc_dota_hero_life_stealer: "Lifestealer",
+  npc_dota_hero_lina: "Lina",
+  npc_dota_hero_lion: "Lion",
+  npc_dota_hero_lone_druid: "Lone Druid",
+  npc_dota_hero_luna: "Luna",
+  npc_dota_hero_lycan: "Lycan",
+  npc_dota_hero_magnataur: "Magnus",
+  npc_dota_hero_marci: "Marci",
+  npc_dota_hero_mars: "Mars",
+  npc_dota_hero_medusa: "Medusa",
+  npc_dota_hero_meepo: "Meepo",
+  npc_dota_hero_mirana: "Mirana",
+  npc_dota_hero_monkey_king: "Monkey King",
+  npc_dota_hero_morphling: "Morphling",
+  npc_dota_hero_muerta: "Muerta",
+  npc_dota_hero_naga_siren: "Naga Siren",
+  npc_dota_hero_necrolyte: "Necrophos",
+  npc_dota_hero_nevermore: "Shadow Fiend",
+  npc_dota_hero_night_stalker: "Night Stalker",
+  npc_dota_hero_nyx_assassin: "Nyx Assassin",
+  npc_dota_hero_obsidian_destroyer: "Outworld Destroyer",
+  npc_dota_hero_ogre_magi: "Ogre Magi",
+  npc_dota_hero_omniknight: "Omniknight",
+  npc_dota_hero_oracle: "Oracle",
+  npc_dota_hero_pangolier: "Pangolier",
+  npc_dota_hero_phantom_assassin: "Phantom Assassin",
+  npc_dota_hero_phantom_lancer: "Phantom Lancer",
+  npc_dota_hero_phoenix: "Phoenix",
+  npc_dota_hero_primal_beast: "Primal Beast",
+  npc_dota_hero_puck: "Puck",
+  npc_dota_hero_pudge: "Pudge",
+  npc_dota_hero_pugna: "Pugna",
+  npc_dota_hero_queenofpain: "Queen of Pain",
+  npc_dota_hero_rattletrap: "Clockwerk",
+  npc_dota_hero_razor: "Razor",
+  npc_dota_hero_riki: "Riki",
+  npc_dota_hero_ringmaster: "Ringmaster",
+  npc_dota_hero_rubick: "Rubick",
+  npc_dota_hero_sand_king: "Sand King",
+  npc_dota_hero_shadow_demon: "Shadow Demon",
+  npc_dota_hero_shadow_shaman: "Shadow Shaman",
+  npc_dota_hero_shredder: "Timbersaw",
+  npc_dota_hero_silencer: "Silencer",
+  npc_dota_hero_skeleton_king: "Wraith King",
+  npc_dota_hero_skywrath_mage: "Skywrath Mage",
+  npc_dota_hero_slardar: "Slardar",
+  npc_dota_hero_slark: "Slark",
+  npc_dota_hero_snapfire: "Snapfire",
+  npc_dota_hero_sniper: "Sniper",
+  npc_dota_hero_spectre: "Spectre",
+  npc_dota_hero_spirit_breaker: "Spirit Breaker",
+  npc_dota_hero_storm_spirit: "Storm Spirit",
+  npc_dota_hero_sven: "Sven",
+  npc_dota_hero_techies: "Techies",
+  npc_dota_hero_templar_assassin: "Templar Assassin",
+  npc_dota_hero_terrorblade: "Terrorblade",
+  npc_dota_hero_tidehunter: "Tidehunter",
+  npc_dota_hero_tinker: "Tinker",
+  npc_dota_hero_tiny: "Tiny",
+  npc_dota_hero_treant: "Treant Protector",
+  npc_dota_hero_troll_warlord: "Troll Warlord",
+  npc_dota_hero_tusk: "Tusk",
+  npc_dota_hero_undying: "Undying",
+  npc_dota_hero_ursa: "Ursa",
+  npc_dota_hero_vengefulspirit: "Vengeful Spirit",
+  npc_dota_hero_venomancer: "Venomancer",
+  npc_dota_hero_viper: "Viper",
+  npc_dota_hero_visage: "Visage",
+  npc_dota_hero_void_spirit: "Void Spirit",
+  npc_dota_hero_warlock: "Warlock",
+  npc_dota_hero_weaver: "Weaver",
+  npc_dota_hero_windrunner: "Windranger",
+  npc_dota_hero_winter_wyvern: "Winter Wyvern",
+  npc_dota_hero_wisp: "Io",
+  npc_dota_hero_witch_doctor: "Witch Doctor",
+  npc_dota_hero_zuus: "Zeus",
+};
+
+function spell(key) {
+  const question = questions.find((entry) => entry.id === `ability-owner:${key}`);
+  expect(question, `Missing Spell Link record ${key}`).toBeDefined();
+  return question;
+}
+
+describe("audited hero and ability identities", () => {
+  it("keeps every Spell Link answer tied to its native hero and official artwork", () => {
+    const spells = questions.filter((question) => question.kind === "spell-owner");
+    expect(spells).toHaveLength(127);
+    expect(new Set(spells.map((question) => question.answers[question.correctIndex])).size).toBe(127);
+    for (const question of spells) {
+      const key = question.id.replace("ability-owner:", "");
+      const fact = expectedAbilities[key];
+      expect(fact, question.id).toBeDefined();
+      const [heroKey, heroName, abilityName] = fact;
+      expect(question.answers[question.correctIndex], question.id).toBe(heroName);
+      expect(question.eyebrow, question.id).toBe(abilityName);
+      expect(question.image.src, question.id).toBe(
+        `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${key}.png`,
+      );
+      expect(question.answerImages[question.correctIndex], question.id).toBe(
+        `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${heroKey.replace("npc_dota_hero_", "")}.png`,
+      );
+    }
+  });
+
+  it("keeps all Fogged Vision portraits, answers, and reveal names consistent", () => {
+    const fogged = questions.filter((question) => question.kind === "fogged-hero");
+    expect(fogged.map((question) => question.id.replace("fogged-hero:", "")).sort()).toEqual(
+      Object.keys(expectedHeroes).sort(),
+    );
+    for (const question of fogged) {
+      const heroKey = question.id.replace("fogged-hero:", "");
+      const name = expectedHeroes[heroKey];
+      expect(question.answers[question.correctIndex], question.id).toBe(name);
+      expect(question.explanation, question.id).toBe(`${name} was hiding behind the fog.`);
+      expect(question.image.alt, question.id).toBe(`${name} hero portrait`);
+      expect(question.image.src, question.id).toBe(
+        `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${heroKey.replace("npc_dota_hero_", "")}.png`,
+      );
+    }
+  });
+
+  it("uses current localized names for every identity answer and distractor", () => {
+    const names = new Set(Object.values(expectedHeroes));
+    for (const question of questions.filter((entry) => ["spell-owner", "fogged-hero"].includes(entry.kind))) {
+      expect(new Set(question.answers).size, question.id).toBe(4);
+      for (const answer of question.answers) expect(names.has(answer), `${question.id}: ${answer}`).toBe(true);
+    }
+  });
+
+  it("describes The Calling's area slow and revenant silence", () => {
+    const question = spell("muerta_the_calling");
+    expect(question.hint).toMatch(/area.*movement speed/i);
+    expect(question.hint).toMatch(/revenant.*silenc/i);
+    expect(question.explanation).not.toMatch(/attack.*slow|attack speed/i);
+  });
+
+  it("uses current mechanics instead of stale passive armor and numeric facts", () => {
+    expect(spell("legion_commander_outfight_them").explanation).not.toMatch(/passively grants.*armor/i);
+    expect(spell("legion_commander_outfight_them").hint).toMatch(/casts an ability/);
+    expect(spell("shadow_demon_shadow_poison").explanation).toMatch(/60 base damage/);
+    expect(spell("marci_companion_run").explanation).toMatch(/25% bonus movement speed/);
+    expect(spell("phoenix_sun_ray").hint).toMatch(/maximum health/);
+    expect(spell("phantom_lancer_doppelwalk").explanation).not.toMatch(/-80% less damage/);
+  });
+
+  it("does not present a level-one number as an ability-wide constant", () => {
+    for (const key of [
+      "earth_spirit_rolling_boulder",
+      "juggernaut_healing_ward",
+      "mirana_arrow",
+      "sniper_take_aim",
+      "ursa_fury_swipes",
+      "winter_wyvern_splinter_blast",
+    ]) {
+      expect(spell(key).hint, key).toMatch(/level/i);
+    }
+    expect(spell("mirana_arrow").explanation).not.toMatch(/2\.6 seconds/);
+    expect(spell("winter_wyvern_splinter_blast").explanation).not.toMatch(/28%/);
+  });
+
+  it("keeps meaningful descriptions without hero-alias leaks or broken redaction", () => {
+    for (const question of questions.filter((entry) => entry.kind === "spell-owner")) {
+      expect(question.hint, question.id).not.toMatch(
+        /\bBarathrum\b|\bLanaya\b|caster-magic|his this ability|one this ability|a magical this ability|copies of the caster abilities|particle this ability|longer at the caster/,
+      );
+    }
+    expect(spell("night_stalker_crippling_fear").hint).toMatch(/longer during nighttime/);
+  });
+});

@@ -1,87 +1,44 @@
-const AUDIO_CACHE_TTL_MS = 60_000;
-const MAX_AUDIO_CACHE_ENTRIES = 8;
+import { AUDIO_HOSTS, AUDIO_TYPES, fetchMedia } from "./media-fetch.mjs";
+import { createMediaCache, createMediaQueue } from "./media-work.mjs";
+
 const MAX_AUDIO_BYTES = 4 * 1024 * 1024;
 
 /**
  * @typedef {{ bytes: ArrayBuffer, contentType: string }} CachedRoundAudio
- * @typedef {{ createdAt: number, promise: Promise<CachedRoundAudio> }} AudioCacheEntry
  */
 
-/** @type {Map<string, AudioCacheEntry>} */
-const roundAudioCache = globalThis.__queueArcadeRoundAudioCache ?? new Map();
-globalThis.__queueArcadeRoundAudioCache = roundAudioCache;
+const audioLoads = createMediaQueue(4, 8);
+const roundAudioCache = createMediaCache({ maxEntries: 24, maxBytes: 24 * 1024 * 1024, maxPending: 12, ttlMs: 60_000 });
+const cutAudioCache = createMediaCache({ maxEntries: 48, maxBytes: 24 * 1024 * 1024, maxPending: 10, ttlMs: 60_000 });
 
 /** @param {string} roundId @param {number} clip */
 function cacheKey(roundId, clip) {
   return `${roundId}:${clip}`;
 }
 
-/** @param {number} now */
-function pruneAudioCache(now) {
-  for (const [key, entry] of roundAudioCache) {
-    if (now - entry.createdAt >= AUDIO_CACHE_TTL_MS) roundAudioCache.delete(key);
-  }
-
-  while (roundAudioCache.size >= MAX_AUDIO_CACHE_ENTRIES) {
-    const oldestKey = roundAudioCache.keys().next().value;
-    if (typeof oldestKey !== "string") break;
-    roundAudioCache.delete(oldestKey);
-  }
-}
-
 /** @param {string} source @returns {Promise<CachedRoundAudio>} */
 async function loadRoundAudio(source) {
-  const upstream = await fetch(source, { cache: "force-cache" });
-  if (!upstream.ok) throw new Error(`Upstream audio returned ${upstream.status}.`);
-
-  const advertisedLength = Number(upstream.headers.get("content-length"));
-  if (Number.isFinite(advertisedLength) && advertisedLength > MAX_AUDIO_BYTES) {
-    throw new Error("Round audio exceeds the preload limit.");
-  }
-
-  const bytes = await upstream.arrayBuffer();
-  if (bytes.byteLength > MAX_AUDIO_BYTES) throw new Error("Round audio exceeds the preload limit.");
-
-  return {
-    bytes,
-    contentType: upstream.headers.get("content-type") ?? "application/octet-stream",
-  };
+  return audioLoads(() => fetchMedia(source, { hosts: AUDIO_HOSTS, types: AUDIO_TYPES, maxBytes: MAX_AUDIO_BYTES }));
 }
 
 /** @param {string} roundId @param {number} clip @param {string} source */
 export function warmRoundAudio(roundId, clip, source) {
   const key = cacheKey(roundId, clip);
-  const now = Date.now();
-  pruneAudioCache(now);
-  const existing = roundAudioCache.get(key);
-  if (existing) return existing.promise;
+  return roundAudioCache.load(key, () => loadRoundAudio(source));
+}
 
-  /** @type {AudioCacheEntry} */
-  let entry;
-  const promise = loadRoundAudio(source).catch((error) => {
-    if (roundAudioCache.get(key) === entry) roundAudioCache.delete(key);
-    throw error;
-  });
-  entry = { createdAt: now, promise };
-  roundAudioCache.set(key, entry);
-  return promise;
+/** Cache each finite clue cut, including work that has not finished yet. */
+export function cachedAudioCut(source, seconds, contentType, cut, startSeconds = 0) {
+  return cutAudioCache.load(JSON.stringify([source, seconds, contentType, startSeconds]), async () => ({
+    bytes: await cut(),
+    contentType,
+  }));
 }
 
 /** @param {string} roundId @param {number} clip */
 export async function cachedRoundAudio(roundId, clip) {
   const key = cacheKey(roundId, clip);
-  const entry = roundAudioCache.get(key);
-  if (!entry) return null;
-  if (Date.now() - entry.createdAt >= AUDIO_CACHE_TTL_MS) {
-    roundAudioCache.delete(key);
-    return null;
-  }
-
-  try {
-    return await entry.promise;
-  } catch {
-    return null;
-  }
+  return roundAudioCache.get(key);
 }
 
 /** @param {string | null} range @param {number} totalBytes */

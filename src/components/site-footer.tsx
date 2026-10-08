@@ -28,7 +28,8 @@ export function SiteFooter({ current }: { current?: SiteChromePage }) {
           ),
         )}
         <span>
-          Dota 2 and its assets are trademarks of Valve Corporation. This project is not affiliated with Valve.
+          Dota 2 is a trademark of Valve Corporation. Game assets belong to their respective rights holders. This
+          project is not affiliated with Valve.
         </span>
       </span>
     </footer>

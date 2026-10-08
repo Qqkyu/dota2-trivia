@@ -1,0 +1,45 @@
+{
+  "scope": "Application process only; excludes PostgreSQL, test client, and other processes.",
+  "method": "One-second process.memoryUsage/process.cpuUsage samples, monitorEventLoopDelay at 20 ms resolution, and delta performance.eventLoopUtilization; include samples whose timestamp is within each run.",
+  "runs": [
+    {
+      "name": "capacity-full",
+      "startedAt": 1791274782927,
+      "endedAt": 1791275004544,
+      "samples": 222,
+      "firstRssMiB": 149.33984375,
+      "lastRssMiB": 396.0859375,
+      "maxRssMiB": 396.0859375,
+      "maxHeapUsedMiB": 173.84136962890625,
+      "maxEventLoopDelayMs": 264.503295,
+      "maxEventLoopUtilization": 0.9852346310430065,
+      "cpuSeconds": 52.391167
+    },
+    {
+      "name": "capacity-ui-cadence",
+      "startedAt": 1791275318152,
+      "endedAt": 1791275536561,
+      "samples": 218,
+      "firstRssMiB": 401.90234375,
+      "lastRssMiB": 599.0703125,
+      "maxRssMiB": 599.0703125,
+      "maxHeapUsedMiB": 349.08142852783203,
+      "maxEventLoopDelayMs": 247.857151,
+      "maxEventLoopUtilization": 0.8981681945711077,
+      "cpuSeconds": 97.799826
+    },
+    {
+      "name": "capacity-final",
+      "startedAt": 1791275616411,
+      "endedAt": 1791275840951,
+      "samples": 224,
+      "firstRssMiB": 598.72265625,
+      "lastRssMiB": 610.5625,
+      "maxRssMiB": 611.21875,
+      "maxHeapUsedMiB": 343.17559814453125,
+      "maxEventLoopDelayMs": 159.776767,
+      "maxEventLoopUtilization": 0.8708527160854684,
+      "cpuSeconds": 91.877087
+    }
+  ]
+}

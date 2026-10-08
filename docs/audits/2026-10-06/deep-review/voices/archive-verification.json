@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-10-06T08:45:35.637844+00:00",
+  "sourceRestore": {
+    "inputs": 227,
+    "verifiedExistingHashes": 227,
+    "networkDownloadsDuringArchiveCheck": 0
+  },
+  "sourceReplay": {
+    "sourceResponseRecords": 91246,
+    "applicationRecords": 368,
+    "problems": 0
+  },
+  "audioReplay": {
+    "finalEchoClips": 123,
+    "changedHashes": 0,
+    "firstOrSecondPrefixBelowMinus60DbRms": 0,
+    "listened": false
+  },
+  "frozenCatalog": {
+    "recordHashesMatched": 368
+  },
+  "tamperCheck": {
+    "changedSource": "abaddon.json",
+    "rejected": true,
+    "message": "Source hash differs from the audit"
+  },
+  "archiveContents": {
+    "fullCorpusIncluded": false,
+    "audioFilesIncluded": false
+  }
+}

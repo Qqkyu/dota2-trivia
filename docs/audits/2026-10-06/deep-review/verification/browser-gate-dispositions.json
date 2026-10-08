@@ -1,0 +1,158 @@
+[
+  {
+    "script": "check-pages.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 315,
+    "initialLog": "verification/final-check-pages.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW"
+  },
+  {
+    "script": "check-party-lobby.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 17443,
+    "initialLog": "verification/final-check-party-lobby.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW"
+  },
+  {
+    "script": "check-party-previews.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 23449,
+    "initialLog": "verification/final-check-party-previews.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW"
+  },
+  {
+    "script": "check-party-nicks.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 3958,
+    "initialLog": "verification/final-check-party-nicks.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW"
+  },
+  {
+    "script": "check-party-crowd.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 16886,
+    "initialLog": "verification/final-check-party-crowd.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW"
+  },
+  {
+    "script": "check-public-play.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 18132,
+    "initialLog": "verification/final-check-public-play.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW"
+  },
+  {
+    "script": "check-reports-api.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 25182,
+    "initialLog": "verification/final-check-reports-api.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW"
+  },
+  {
+    "script": "check-party-api.mjs",
+    "exitCode": 1,
+    "signal": null,
+    "durationMs": 105,
+    "initialLog": "verification/final-check-party-api.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW",
+    "followup": {
+      "exitCode": 0,
+      "log": "verification/isolated-check-party-api.mjs.log",
+      "explanation": "Passed on a separate local process with rate limits enabled after the parallel browser matrix exceeded the shared source-IP rate-limit budget."
+    }
+  },
+  {
+    "script": "check-round-copy.mjs",
+    "exitCode": 1,
+    "signal": null,
+    "durationMs": 215,
+    "initialLog": "verification/final-check-round-copy.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW",
+    "followup": {
+      "exitCode": 0,
+      "log": "verification/isolated-check-round-copy.mjs.log",
+      "explanation": "Passed on a separate local process with rate limits enabled after the parallel browser matrix exceeded the shared source-IP rate-limit budget."
+    }
+  },
+  {
+    "script": "check-shop-search.mjs",
+    "exitCode": 1,
+    "signal": null,
+    "durationMs": 21194,
+    "initialLog": "verification/final-check-shop-search.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW",
+    "followup": {
+      "exitCode": 0,
+      "log": "verification/isolated-check-shop-search.mjs.log",
+      "explanation": "Passed on a separate local process with rate limits enabled after the parallel browser matrix exceeded the shared source-IP rate-limit budget."
+    }
+  },
+  {
+    "script": "check-layout.mjs",
+    "exitCode": 1,
+    "signal": null,
+    "durationMs": 22738,
+    "initialLog": "verification/final-check-layout.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW",
+    "followup": {
+      "exitCode": 0,
+      "evidence": "ui/README.md",
+      "explanation": "The legacy test now verifies scrolling, hit testing, timer visibility and prompt recovery instead of requiring every phone helper to fit before scrolling. The final UI run passed 16 formats at both widths."
+    }
+  },
+  {
+    "script": "check-hero-search.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 19643,
+    "initialLog": "verification/final-check-hero-search.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW"
+  },
+  {
+    "script": "check-flashback-ui.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 8991,
+    "initialLog": "verification/final-check-flashback-ui.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW"
+  },
+  {
+    "script": "check-ui-recovery.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 6642,
+    "initialLog": "verification/final-check-ui-recovery.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW"
+  },
+  {
+    "script": "check-native-feedback-sounds.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 39868,
+    "initialLog": "verification/final-check-native-feedback-sounds.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW"
+  },
+  {
+    "script": "check-feedback-sounds.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 45136,
+    "initialLog": "verification/final-check-feedback-sounds.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW"
+  },
+  {
+    "script": "check-rate-limit-live.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 1919,
+    "initialLog": "verification/final-check-rate-limit-live.mjs.log",
+    "initialBuild": "a9jO2vwwKVTSsroYDHJJW"
+  }
+]

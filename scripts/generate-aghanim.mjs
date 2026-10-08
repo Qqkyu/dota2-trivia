@@ -39,6 +39,9 @@ function answerChoices(record, recordIndex) {
 }
 
 const questions = source.upgrades.map((record, index) => {
+  if (!record.source?.url || !record.sourceSha256 || !record.sourceRetrievedAt) {
+    throw new Error(`${record.heroKey} is missing its reviewed Valve source.`);
+  }
   const hero = heroesByKey.get(record.heroKey);
   const { ordered, correctIndex } = answerChoices(record, index);
   const upgradeLabel = record.upgradeType === "scepter" ? "Aghanim's Scepter" : "Aghanim's Shard";
@@ -68,7 +71,7 @@ const questions = source.upgrades.map((record, index) => {
         reviewedAt: source.reviewedAt,
       },
     },
-    source: source.source,
+    source: record.source,
     patch: source.patch,
   };
 });

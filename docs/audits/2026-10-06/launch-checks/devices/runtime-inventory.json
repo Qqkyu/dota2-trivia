@@ -1,0 +1,100 @@
+{
+  "sdk": "/home/kulmisiu/android-sdk",
+  "temporarySdk": "/tmp/queue-arcade-launch-checks/android-sdk",
+  "hostKvmAvailable": false,
+  "hostCpuAdvertisesVirtualization": true,
+  "plan": "Use isolated Android Virtual Devices, native Android input, and browser assertions. Software CPU emulation is required because this WSL host has no /dev/kvm.",
+  "personalProfilesModified": false,
+  "emulatorVersion": "37.2.12.0 build16428233",
+  "androidVersion": "16",
+  "apiLevel": 36,
+  "systemImageRevision": 7,
+  "browserVersion": "Chrome133.0.6943.137",
+  "talkBackVersion": "16.0.0.738667889",
+  "keyboardVersion": "Gboard15.1.08.726012951-preload-x86_64",
+  "screenPixels": {
+    "width": 720,
+    "height": 1280,
+    "densityDpi": 320
+  },
+  "firstBoot": "System watchdog restarted the UI process while software emulation and other audit jobs shared host memory. The device reached boot_completed=1, and Chrome and Gboard registered. Root requested a pause before retry under lower load. No app journey is claimed yet.",
+  "watchdogSetting": {
+    "name": "system_server_watchdog_timeout_ms",
+    "value": 600000,
+    "scope": "Disposable Android Virtual Device only"
+  },
+  "windowsHypervisorPresent": true,
+  "windowsHypervisorPlatformInstallState": 2,
+  "nvdaStandardInstallFound": false,
+  "recordedAt": "2026-10-06T12:49:48.848036+00:00",
+  "sources": [
+    {
+      "url": "https://developer.android.com/studio/run/emulator-commandline",
+      "use": "Official emulator launch flags; software CPU mode is unsupported and slow."
+    },
+    {
+      "url": "https://developer.android.com/studio/run/emulator-acceleration",
+      "use": "Linux acceleration needs KVM; Windows supports WHPX."
+    },
+    {
+      "url": "https://developer.chrome.com/docs/devtools/remote-debugging",
+      "use": "Forward the Android Chrome DevTools socket for page assertions."
+    },
+    {
+      "url": "https://github.com/appium/appium-uiautomator2-driver",
+      "use": "Appium UiAutomator2 supports native Android and mobile web on an emulator or device."
+    },
+    {
+      "url": "https://developer.android.com/guide/topics/ui/accessibility/testing",
+      "use": "Test actual TalkBack navigation and spoken messages. Its developer settings expose speech output."
+    },
+    {
+      "url": "https://product-details.mozilla.org/1.0/mobile_versions.json",
+      "use": "Current Firefox for Android release version."
+    },
+    {
+      "url": "https://archive.mozilla.org/pub/fenix/releases/157.0.1/android/fenix-157.0.1-android-x86_64/fenix-157.0.1.multi.android-x86_64.apk",
+      "use": "Official installed Firefox Android package."
+    },
+    {
+      "url": "https://firefox-source-docs.mozilla.org/testing/geckodriver/Flags.html",
+      "use": "Android profile storage and localhost driver options."
+    },
+    {
+      "url": "https://developer.android.com/tools/adb",
+      "use": "Select the task-owned emulator, inject native input, and reverse the local app port."
+    }
+  ],
+  "appium": {
+    "availableBeforeAudit": false,
+    "decision": "Native ADB input and Firefox WebDriver assertions are sufficient for these journeys if Android starts reliably. Appium does not provide an Android runtime or remove the need for hardware acceleration."
+  },
+  "physicalDeviceTests": false,
+  "priorDeepReviewArchiveModified": false,
+  "updatedAt": "2026-10-08T14:58:00.831671+00:00",
+  "androidFallback": {
+    "androidVersion": "11",
+    "apiLevel": 30,
+    "systemImage": "default;x86_64",
+    "systemImageRevision": 11,
+    "requestedRamMiB": 1536,
+    "virtualCpus": 1,
+    "graphics": "swiftshader, Vulkan disabled",
+    "browser": "Firefox 157.0.1 official Mozilla Android x86_64 APK",
+    "apkInstall": "Success",
+    "geckodriver": "0.37.1",
+    "appJourney": "Partial native verification on October8. Navigation, keyboard input, retained code and server-confirmed Join passed. Waiting-room UI and settled landscape layout were not verified.",
+    "finalAppOrigin": "http://127.0.0.1:3334",
+    "finalAppBuild": "fQ95T7-zzQo1Bnsef8oBI",
+    "finalEvidence": "evidence/android/final-native-20261008/results.json"
+  },
+  "adbIsolation": {
+    "serverPort": 5037,
+    "deviceSerial": "emulator-5582",
+    "priorServerAtPort": false,
+    "keys": "Task-owned temporary Android home",
+    "personalDeviceCommands": false,
+    "canonicalAppOrigin": "http://127.0.0.1:3334",
+    "transport": "adb reverse tcp:3334 tcp:3334"
+  }
+}

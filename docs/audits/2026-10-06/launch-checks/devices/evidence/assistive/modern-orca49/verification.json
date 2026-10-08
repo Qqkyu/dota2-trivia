@@ -1,0 +1,19 @@
+{
+  "buildId": "NsjBPH5Ygi5SqnYfuwSHz",
+  "checks": {
+    "roundPromptOnce": false,
+    "roundHeadingFocus": true,
+    "nativeTabToYear": true,
+    "secondSearch": true,
+    "searchFocusRecovery": true,
+    "buildFocus": true,
+    "oneRecipeVote": true,
+    "firstSelectionSpoken": true,
+    "secondSelectionSpoken": true,
+    "automaticFocusModeAfterFirstPick": true
+  },
+  "allTargetedChecksPassed": false,
+  "continuousNavigation": "PARTIAL: combined run remained in SayAll after second page load and failed recipe text entry before selection.",
+  "noAppTimingChanges": true,
+  "noManualBrowseFocusToggle": true
+}

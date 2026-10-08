@@ -1,0 +1,172 @@
+{
+  "appUrl": "http://127.0.0.1:3319",
+  "engine": "firefox",
+  "version": "151.0",
+  "buildId": "sC6gD0NWB3unDRTq6LaOu",
+  "completed": true,
+  "cases": [
+    {
+      "label": "320x568-aghanim-upgrade",
+      "questionId": "aghanim-upgrade:shadow_shaman:scepter",
+      "text": "Shadow Shaman's Aghanim's Scepter upgrades Shackles. The channel can target allies or summoned serpent wards, making affected units repeatedly emit radial damage without disabling allied targets.",
+      "clientHeight": 151,
+      "scrollHeight": 151,
+      "lineCount": 8,
+      "clamp": "none",
+      "overflow": "visible",
+      "edges": [
+        {
+          "edge": "first",
+          "top": 63.866668701171875,
+          "bottom": 78.86666870117188,
+          "reachable": true
+        },
+        {
+          "edge": "last",
+          "top": 63.81666564941406,
+          "bottom": 78.81666564941406,
+          "reachable": true
+        }
+      ],
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-final-reveal-320x568-aghanim-upgrade.png",
+      "errors": [],
+      "failures": []
+    },
+    {
+      "label": "320x568-mana-cost",
+      "questionId": "mana:tinker_march_of_the_machines:2",
+      "text": "March of the Machines' mana cost is 100 / 120 / 140 / 160 across its levels, before modifiers.",
+      "clientHeight": 75,
+      "scrollHeight": 75,
+      "lineCount": 4,
+      "clamp": "none",
+      "overflow": "visible",
+      "edges": [
+        {
+          "edge": "first",
+          "top": 63.66667175292969,
+          "bottom": 78.66667175292969,
+          "reachable": true
+        },
+        {
+          "edge": "last",
+          "top": 64.21665954589844,
+          "bottom": 79.21665954589844,
+          "reachable": true
+        }
+      ],
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-final-reveal-320x568-mana-cost.png",
+      "errors": [],
+      "failures": []
+    },
+    {
+      "label": "320x568-flashback-choice",
+      "questionId": "flashback:stockholm-planned",
+      "text": "TI10 was planned for Stockholm in 2020. COVID delayed it to 2021. Valve then moved it to Bucharest after Sweden's visa and event-classification problems.",
+      "clientHeight": 113,
+      "scrollHeight": 113,
+      "lineCount": 6,
+      "clamp": "none",
+      "overflow": "visible",
+      "edges": [
+        {
+          "edge": "first",
+          "top": 63.66667175292969,
+          "bottom": 78.66667175292969,
+          "reachable": true
+        },
+        {
+          "edge": "last",
+          "top": 63.91667175292969,
+          "bottom": 78.91667175292969,
+          "reachable": true
+        }
+      ],
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-final-reveal-320x568-flashback-choice.png",
+      "errors": [],
+      "failures": []
+    },
+    {
+      "label": "960x540-aghanim-upgrade",
+      "questionId": "aghanim-upgrade:shadow_shaman:scepter",
+      "text": "Shadow Shaman's Aghanim's Scepter upgrades Shackles. The channel can target allies or summoned serpent wards, making affected units repeatedly emit radial damage without disabling allied targets.",
+      "clientHeight": 75,
+      "scrollHeight": 75,
+      "lineCount": 4,
+      "clamp": "none",
+      "overflow": "visible",
+      "edges": [
+        {
+          "edge": "first",
+          "top": 270.91668701171875,
+          "bottom": 285.91668701171875,
+          "reachable": true
+        },
+        {
+          "edge": "last",
+          "top": 327.4666748046875,
+          "bottom": 342.4666748046875,
+          "reachable": true
+        }
+      ],
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-final-reveal-960x540-aghanim-upgrade.png",
+      "errors": [],
+      "failures": []
+    },
+    {
+      "label": "960x540-mana-cost",
+      "questionId": "mana:tinker_march_of_the_machines:2",
+      "text": "March of the Machines' mana cost is 100 / 120 / 140 / 160 across its levels, before modifiers.",
+      "clientHeight": 38,
+      "scrollHeight": 38,
+      "lineCount": 2,
+      "clamp": "none",
+      "overflow": "visible",
+      "edges": [
+        {
+          "edge": "first",
+          "top": 230.9166717529297,
+          "bottom": 245.9166717529297,
+          "reachable": true
+        },
+        {
+          "edge": "last",
+          "top": 249.76666259765625,
+          "bottom": 264.76666259765625,
+          "reachable": true
+        }
+      ],
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-final-reveal-960x540-mana-cost.png",
+      "errors": [],
+      "failures": []
+    },
+    {
+      "label": "960x540-flashback-choice",
+      "questionId": "flashback:stockholm-planned",
+      "text": "TI10 was planned for Stockholm in 2020. COVID delayed it to 2021. Valve then moved it to Bucharest after Sweden's visa and event-classification problems.",
+      "clientHeight": 57,
+      "scrollHeight": 57,
+      "lineCount": 3,
+      "clamp": "none",
+      "overflow": "visible",
+      "edges": [
+        {
+          "edge": "first",
+          "top": 230.9166717529297,
+          "bottom": 245.9166717529297,
+          "reachable": true
+        },
+        {
+          "edge": "last",
+          "top": 268.6166687011719,
+          "bottom": 283.6166687011719,
+          "reachable": true
+        }
+      ],
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-final-reveal-960x540-flashback-choice.png",
+      "errors": [],
+      "failures": []
+    }
+  ],
+  "failures": []
+}

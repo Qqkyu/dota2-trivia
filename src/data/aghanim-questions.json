@@ -30,12 +30,12 @@
       "audit": {
         "clientAbilityKey": "antimage_blink",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Anti-Mage",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=1"
     },
     "patch": "7.41f"
   },
@@ -61,21 +61,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 0,
-    "explanation": "Axe's Aghanim's Scepter upgrades Counter Helix. The passive counter loses its cooldown, advances on the caster's own attacks, and applies stacking outgoing attack-damage reduction.",
+    "explanation": "Axe's Aghanim's Scepter upgrades Counter Helix. The passive counter loses its cooldown, advances on the caster's attacks, and reduces affected enemies' attack damage against the caster.",
     "aghanim": {
-      "effect": "The passive counter loses its cooldown, advances on the caster's own attacks, and applies stacking outgoing attack-damage reduction.",
+      "effect": "The passive counter loses its cooldown, advances on the caster's attacks, and reduces affected enemies' attack damage against the caster.",
       "upgradeType": "scepter",
       "upgradeMode": "existing",
       "abilityName": "Counter Helix",
       "audit": {
         "clientAbilityKey": "axe_counter_helix",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Axe",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2"
     },
     "patch": "7.41f"
   },
@@ -110,12 +110,12 @@
       "audit": {
         "clientAbilityKey": "bane_fiends_grip",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Bane",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3"
     },
     "patch": "7.41f"
   },
@@ -141,21 +141,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 2,
-    "explanation": "Crystal Maiden's Aghanim's Shard grants Crystal Clone. Slides in a direction, leaving a projectile-disjointing clone that shatters into an area disable when damaged or timed out.",
+    "explanation": "Crystal Maiden's Aghanim's Shard grants Crystal Clone. Slides away, disjointing incoming projectiles and leaving a clone that shatters into an area disable when damaged or expired.",
     "aghanim": {
-      "effect": "Slides in a direction, leaving a projectile-disjointing clone that shatters into an area disable when damaged or timed out.",
+      "effect": "Slides away, disjointing incoming projectiles and leaving a clone that shatters into an area disable when damaged or expired.",
       "upgradeType": "shard",
       "upgradeMode": "new",
       "abilityName": "Crystal Clone",
       "audit": {
         "clientAbilityKey": "crystal_maiden_crystal_clone",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Crystal Maiden",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5"
     },
     "patch": "7.41f"
   },
@@ -181,21 +181,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 1,
-    "explanation": "Drow Ranger's Aghanim's Shard grants Glacier. Creates an icy hill that knocks enemies away and grants high-ground bonuses, flying vision, and extra ranged attack range.",
+    "explanation": "Drow Ranger's Aghanim's Shard grants Glacier. Creates an icy hill that knocks enemies away, grants flying vision, and increases the attack range of ranged allies.",
     "aghanim": {
-      "effect": "Creates an icy hill that knocks enemies away and grants high-ground bonuses, flying vision, and extra ranged attack range.",
+      "effect": "Creates an icy hill that knocks enemies away, grants flying vision, and increases the attack range of ranged allies.",
       "upgradeType": "shard",
       "upgradeMode": "new",
       "abilityName": "Glacier",
       "audit": {
         "clientAbilityKey": "drow_ranger_glacier",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Drow Ranger",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=6"
     },
     "patch": "7.41f"
   },
@@ -230,12 +230,12 @@
       "audit": {
         "clientAbilityKey": "earthshaker_fissure",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Earthshaker",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=7"
     },
     "patch": "7.41f"
   },
@@ -270,12 +270,12 @@
       "audit": {
         "clientAbilityKey": "mirana_arrow",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Mirana",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9"
     },
     "patch": "7.41f"
   },
@@ -301,21 +301,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 2,
-    "explanation": "Morphling's Aghanim's Scepter upgrades Morph. Creates a strong illusion of a target hero that can cast basic abilities; recasting swaps the caster into its position.",
+    "explanation": "Morphling's Aghanim's Scepter upgrades Morph. Alt-cast creates a strong illusion of a target hero that can cast basic abilities; toggling again replaces it with the caster.",
     "aghanim": {
-      "effect": "Creates a strong illusion of a target hero that can cast basic abilities; recasting swaps the caster into its position.",
+      "effect": "Alt-cast creates a strong illusion of a target hero that can cast basic abilities; toggling again replaces it with the caster.",
       "upgradeType": "scepter",
       "upgradeMode": "existing",
       "abilityName": "Morph",
       "audit": {
         "clientAbilityKey": "morphling_replicate",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Morphling",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=10"
     },
     "patch": "7.41f"
   },
@@ -350,12 +350,12 @@
       "audit": {
         "clientAbilityKey": "nevermore_requiem",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Shadow Fiend",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11"
     },
     "patch": "7.41f"
   },
@@ -390,12 +390,12 @@
       "audit": {
         "clientAbilityKey": "phantom_lancer_juxtapose",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Phantom Lancer",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=12"
     },
     "patch": "7.41f"
   },
@@ -430,12 +430,12 @@
       "audit": {
         "clientAbilityKey": "puck_dream_coil",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Puck",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=13"
     },
     "patch": "7.41f"
   },
@@ -470,12 +470,12 @@
       "audit": {
         "clientAbilityKey": "pudge_meat_hook",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Pudge",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14"
     },
     "patch": "7.41f"
   },
@@ -510,12 +510,12 @@
       "audit": {
         "clientAbilityKey": "razor_eye_of_the_storm",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Razor",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15"
     },
     "patch": "7.41f"
   },
@@ -550,12 +550,12 @@
       "audit": {
         "clientAbilityKey": "storm_spirit_overload",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Storm Spirit",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17"
     },
     "patch": "7.41f"
   },
@@ -590,12 +590,12 @@
       "audit": {
         "clientAbilityKey": "sven_storm_bolt",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Sven",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=18"
     },
     "patch": "7.41f"
   },
@@ -630,12 +630,12 @@
       "audit": {
         "clientAbilityKey": "tiny_tree_channel",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Tiny",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19"
     },
     "patch": "7.41f"
   },
@@ -670,12 +670,12 @@
       "audit": {
         "clientAbilityKey": "vengefulspirit_command_aura",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Vengeful Spirit",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20"
     },
     "patch": "7.41f"
   },
@@ -710,12 +710,12 @@
       "audit": {
         "clientAbilityKey": "windrunner_gale_force",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Windranger",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21"
     },
     "patch": "7.41f"
   },
@@ -750,12 +750,12 @@
       "audit": {
         "clientAbilityKey": "zuus_cloud",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Zeus",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22"
     },
     "patch": "7.41f"
   },
@@ -790,12 +790,12 @@
       "audit": {
         "clientAbilityKey": "kunkka_ghostship",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Kunkka",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=23"
     },
     "patch": "7.41f"
   },
@@ -830,12 +830,12 @@
       "audit": {
         "clientAbilityKey": "lina_flame_cloak",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Lina",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25"
     },
     "patch": "7.41f"
   },
@@ -851,7 +851,7 @@
       "Lion",
       "Dark Willow",
       "Keeper of the Light",
-      "Outworld Devourer"
+      "Outworld Destroyer"
     ],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lion.png",
@@ -870,12 +870,12 @@
       "audit": {
         "clientAbilityKey": "lion_mana_drain",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Lion",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26"
     },
     "patch": "7.41f"
   },
@@ -901,21 +901,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 3,
-    "explanation": "Shadow Shaman's Aghanim's Scepter upgrades Shackles. The channel can target allies and friendly wards; affected units repeatedly emit radial damage around themselves.",
+    "explanation": "Shadow Shaman's Aghanim's Scepter upgrades Shackles. The channel can target allies or summoned serpent wards, making affected units repeatedly emit radial damage without disabling allied targets.",
     "aghanim": {
-      "effect": "The channel can target allies and friendly wards; affected units repeatedly emit radial damage around themselves.",
+      "effect": "The channel can target allies or summoned serpent wards, making affected units repeatedly emit radial damage without disabling allied targets.",
       "upgradeType": "scepter",
       "upgradeMode": "existing",
       "abilityName": "Shackles",
       "audit": {
         "clientAbilityKey": "shadow_shaman_shackles",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Shadow Shaman",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=27"
     },
     "patch": "7.41f"
   },
@@ -941,21 +941,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 2,
-    "explanation": "Tidehunter's Aghanim's Shard grants Dead in the Water. Attaches a heavy anchor that leashes an enemy; four hero attacks destroy it.",
+    "explanation": "Tidehunter's Aghanim's Shard grants Dead in the Water. Attaches a heavy anchor that leashes an enemy hero; four hero attacks destroy it.",
     "aghanim": {
-      "effect": "Attaches a heavy anchor that leashes an enemy; four hero attacks destroy it.",
+      "effect": "Attaches a heavy anchor that leashes an enemy hero; four hero attacks destroy it.",
       "upgradeType": "shard",
       "upgradeMode": "new",
       "abilityName": "Dead in the Water",
       "audit": {
         "clientAbilityKey": "tidehunter_dead_in_the_water",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Tidehunter",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=29"
     },
     "patch": "7.41f"
   },
@@ -990,12 +990,12 @@
       "audit": {
         "clientAbilityKey": "witch_doctor_voodoo_switcheroo",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Witch Doctor",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30"
     },
     "patch": "7.41f"
   },
@@ -1030,12 +1030,12 @@
       "audit": {
         "clientAbilityKey": "lich_sinister_gaze",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Lich",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=31"
     },
     "patch": "7.41f"
   },
@@ -1070,12 +1070,12 @@
       "audit": {
         "clientAbilityKey": "riki_tricks_of_the_trade",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Riki",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=32"
     },
     "patch": "7.41f"
   },
@@ -1101,21 +1101,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 2,
-    "explanation": "Enigma's Aghanim's Shard upgrades Malefice. Every stun pulse creates an uncontrollable summoned unit beside the target and lasts slightly longer.",
+    "explanation": "Enigma's Aghanim's Shard upgrades Malefice. Each stun pulse lasts longer and creates a summoned unit beside the target; these units cannot multiply.",
     "aghanim": {
-      "effect": "Every stun pulse creates an uncontrollable summoned unit beside the target and lasts slightly longer.",
+      "effect": "Each stun pulse lasts longer and creates a summoned unit beside the target; these units cannot multiply.",
       "upgradeType": "shard",
       "upgradeMode": "existing",
       "abilityName": "Malefice",
       "audit": {
         "clientAbilityKey": "enigma_malefice",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Enigma",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=33"
     },
     "patch": "7.41f"
   },
@@ -1150,12 +1150,12 @@
       "audit": {
         "clientAbilityKey": "tinker_warp_grenade",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Tinker",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34"
     },
     "patch": "7.41f"
   },
@@ -1190,12 +1190,12 @@
       "audit": {
         "clientAbilityKey": "sniper_concussive_grenade",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Sniper",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=35"
     },
     "patch": "7.41f"
   },
@@ -1230,12 +1230,12 @@
       "audit": {
         "clientAbilityKey": "necrolyte_death_seeker",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Necrophos",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=36"
     },
     "patch": "7.41f"
   },
@@ -1270,12 +1270,12 @@
       "audit": {
         "clientAbilityKey": "beastmaster_drums_of_slom",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Beastmaster",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=38"
     },
     "patch": "7.41f"
   },
@@ -1310,12 +1310,12 @@
       "audit": {
         "clientAbilityKey": "queenofpain_blink",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Queen of Pain",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39"
     },
     "patch": "7.41f"
   },
@@ -1350,12 +1350,12 @@
       "audit": {
         "clientAbilityKey": "venomancer_noxious_plague",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Venomancer",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40"
     },
     "patch": "7.41f"
   },
@@ -1381,21 +1381,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 3,
-    "explanation": "Faceless Void's Aghanim's Scepter grants Reverse Time Walk. For 1.5 seconds after landing a mobility spell, recast it to return to the previous location without reverting health.",
+    "explanation": "Faceless Void's Aghanim's Scepter grants Reverse Time Walk. For 1.5 seconds after a mobility spell, a second ability returns the caster to the previous location without changing health.",
     "aghanim": {
-      "effect": "For 1.5 seconds after landing a mobility spell, recast it to return to the previous location without reverting health.",
+      "effect": "For 1.5 seconds after a mobility spell, a second ability returns the caster to the previous location without changing health.",
       "upgradeType": "scepter",
       "upgradeMode": "new",
       "abilityName": "Reverse Time Walk",
       "audit": {
         "clientAbilityKey": "faceless_void_time_walk_reverse",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Faceless Void",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=41"
     },
     "patch": "7.41f"
   },
@@ -1430,12 +1430,12 @@
       "audit": {
         "clientAbilityKey": "death_prophet_exorcism",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Death Prophet",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43"
     },
     "patch": "7.41f"
   },
@@ -1470,12 +1470,12 @@
       "audit": {
         "clientAbilityKey": "phantom_assassin_fan_of_knives",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Phantom Assassin",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=44"
     },
     "patch": "7.41f"
   },
@@ -1510,12 +1510,12 @@
       "audit": {
         "clientAbilityKey": "pugna_life_drain",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Pugna",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45"
     },
     "patch": "7.41f"
   },
@@ -1550,12 +1550,12 @@
       "audit": {
         "clientAbilityKey": "viper_nose_dive",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Viper",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=47"
     },
     "patch": "7.41f"
   },
@@ -1590,12 +1590,12 @@
       "audit": {
         "clientAbilityKey": "luna_eclipse",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Luna",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=48"
     },
     "patch": "7.41f"
   },
@@ -1630,12 +1630,12 @@
       "audit": {
         "clientAbilityKey": "dragon_knight_fireball",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Dragon Knight",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49"
     },
     "patch": "7.41f"
   },
@@ -1661,21 +1661,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 0,
-    "explanation": "Dazzle's Aghanim's Scepter upgrades Shadow Wave. The bouncing heal can target enemies, damaging them, healing nearby allies, and triggering an attack against each enemy bounce.",
+    "explanation": "Dazzle's Aghanim's Scepter upgrades Shadow Wave. The bouncing heal can target enemies, damaging them, healing nearby allies, and making the caster attack each enemy hit.",
     "aghanim": {
-      "effect": "The bouncing heal can target enemies, damaging them, healing nearby allies, and triggering an attack against each enemy bounce.",
+      "effect": "The bouncing heal can target enemies, damaging them, healing nearby allies, and making the caster attack each enemy hit.",
       "upgradeType": "scepter",
       "upgradeMode": "existing",
       "abilityName": "Shadow Wave",
       "audit": {
         "clientAbilityKey": "dazzle_shadow_wave",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Dazzle",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50"
     },
     "patch": "7.41f"
   },
@@ -1710,12 +1710,12 @@
       "audit": {
         "clientAbilityKey": "rattletrap_jetpack",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Clockwerk",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=51"
     },
     "patch": "7.41f"
   },
@@ -1741,21 +1741,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 2,
-    "explanation": "Leshrac's Aghanim's Scepter grants Nihilism. Turns the caster and nearby enemies ethereal, slowing enemies and amplifying their incoming magic damage without penalizing the caster.",
+    "explanation": "Leshrac's Aghanim's Scepter grants Nihilism. Turns the caster and nearby enemies ethereal; enemies move slower and take more magic damage, while the caster moves faster.",
     "aghanim": {
-      "effect": "Turns the caster and nearby enemies ethereal, slowing enemies and amplifying their incoming magic damage without penalizing the caster.",
+      "effect": "Turns the caster and nearby enemies ethereal; enemies move slower and take more magic damage, while the caster moves faster.",
       "upgradeType": "scepter",
       "upgradeMode": "new",
       "abilityName": "Nihilism",
       "audit": {
         "clientAbilityKey": "leshrac_greater_lightning_storm",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Leshrac",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=52"
     },
     "patch": "7.41f"
   },
@@ -1790,12 +1790,12 @@
       "audit": {
         "clientAbilityKey": "furion_curse_of_the_forest",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Nature's Prophet",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53"
     },
     "patch": "7.41f"
   },
@@ -1830,12 +1830,12 @@
       "audit": {
         "clientAbilityKey": "life_stealer_infest",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Lifestealer",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=54"
     },
     "patch": "7.41f"
   },
@@ -1848,7 +1848,7 @@
     "eyebrow": "Upgrade effect",
     "prompt": "Whose upgrade is this?",
     "answers": [
-      "Outworld Devourer",
+      "Outworld Destroyer",
       "Shadow Demon",
       "Witch Doctor",
       "Dark Seer"
@@ -1870,12 +1870,12 @@
       "audit": {
         "clientAbilityKey": "dark_seer_surge",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Dark Seer",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55"
     },
     "patch": "7.41f"
   },
@@ -1910,12 +1910,12 @@
       "audit": {
         "clientAbilityKey": "clinkz_burning_barrage",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Clinkz",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56"
     },
     "patch": "7.41f"
   },
@@ -1950,12 +1950,12 @@
       "audit": {
         "clientAbilityKey": "omniknight_purification",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Omniknight",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=57"
     },
     "patch": "7.41f"
   },
@@ -1981,21 +1981,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 0,
-    "explanation": "Enchantress's Aghanim's Scepter grants Little Friends. Roots one enemy and compels every nearby creep—friendly, hostile, or neutral—to attack it with bonus speed.",
+    "explanation": "Enchantress's Aghanim's Scepter grants Little Friends. Roots one enemy and makes nearby friendly, hostile, and neutral creeps attack it with bonus movement and attack speed.",
     "aghanim": {
-      "effect": "Roots one enemy and compels every nearby creep—friendly, hostile, or neutral—to attack it with bonus speed.",
+      "effect": "Roots one enemy and makes nearby friendly, hostile, and neutral creeps attack it with bonus movement and attack speed.",
       "upgradeType": "scepter",
       "upgradeMode": "new",
       "abilityName": "Little Friends",
       "audit": {
         "clientAbilityKey": "enchantress_little_friends",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Enchantress",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58"
     },
     "patch": "7.41f"
   },
@@ -2021,21 +2021,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 3,
-    "explanation": "Huskar's Aghanim's Shard upgrades Berserker's Blood. Pay health to apply a basic self-dispel, then heal for the health spent plus a bonus for every debuff removed.",
+    "explanation": "Huskar's Aghanim's Shard upgrades Berserker's Blood. Spends health for a basic self-dispel, then heals that amount after a delay, plus extra healing per debuff removed.",
     "aghanim": {
-      "effect": "Pay health to apply a basic self-dispel, then heal for the health spent plus a bonus for every debuff removed.",
+      "effect": "Spends health for a basic self-dispel, then heals that amount after a delay, plus extra healing per debuff removed.",
       "upgradeType": "shard",
       "upgradeMode": "existing",
       "abilityName": "Berserker's Blood",
       "audit": {
         "clientAbilityKey": "huskar_berserkers_blood",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Huskar",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=59"
     },
     "patch": "7.41f"
   },
@@ -2070,12 +2070,12 @@
       "audit": {
         "clientAbilityKey": "night_stalker_hunter_in_the_night",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Night Stalker",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=60"
     },
     "patch": "7.41f"
   },
@@ -2110,12 +2110,12 @@
       "audit": {
         "clientAbilityKey": "broodmother_sticky_snare",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Broodmother",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=61"
     },
     "patch": "7.41f"
   },
@@ -2150,12 +2150,12 @@
       "audit": {
         "clientAbilityKey": "bounty_hunter_wind_walk_ally",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Bounty Hunter",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=62"
     },
     "patch": "7.41f"
   },
@@ -2181,21 +2181,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 3,
-    "explanation": "Weaver's Aghanim's Shard upgrades Shukuchi. Enemies crossed during the movement spell are marked, then struck by a secondary attack when the caster exits.",
+    "explanation": "Weaver's Aghanim's Shard upgrades Shukuchi. Marks enemies damaged by the movement spell, then strikes marked targets within 1200 range with a secondary attack after exiting.",
     "aghanim": {
-      "effect": "Enemies crossed during the movement spell are marked, then struck by a secondary attack when the caster exits.",
+      "effect": "Marks enemies damaged by the movement spell, then strikes marked targets within 1200 range with a secondary attack after exiting.",
       "upgradeType": "shard",
       "upgradeMode": "existing",
       "abilityName": "Shukuchi",
       "audit": {
         "clientAbilityKey": "weaver_shukuchi",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Weaver",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=63"
     },
     "patch": "7.41f"
   },
@@ -2230,12 +2230,12 @@
       "audit": {
         "clientAbilityKey": "jakiro_macropyre",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Jakiro",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=64"
     },
     "patch": "7.41f"
   },
@@ -2261,21 +2261,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 1,
-    "explanation": "Batrider's Aghanim's Scepter upgrades Flaming Lasso. The tether grabs its target and that target's nearest allied hero, linking the second victim to the first.",
+    "explanation": "Batrider's Aghanim's Scepter upgrades Flaming Lasso. The tether also grabs the target's nearest allied hero within 650 range, linking the second victim to the first.",
     "aghanim": {
-      "effect": "The tether grabs its target and that target's nearest allied hero, linking the second victim to the first.",
+      "effect": "The tether also grabs the target's nearest allied hero within 650 range, linking the second victim to the first.",
       "upgradeType": "scepter",
       "upgradeMode": "existing",
       "abilityName": "Flaming Lasso",
       "audit": {
         "clientAbilityKey": "batrider_flaming_lasso",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Batrider",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65"
     },
     "patch": "7.41f"
   },
@@ -2310,12 +2310,12 @@
       "audit": {
         "clientAbilityKey": "chen_hand_of_god",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Chen",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66"
     },
     "patch": "7.41f"
   },
@@ -2350,12 +2350,12 @@
       "audit": {
         "clientAbilityKey": "doom_bringer_doom",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Doom",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=69"
     },
     "patch": "7.41f"
   },
@@ -2381,21 +2381,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 2,
-    "explanation": "Spirit Breaker's Aghanim's Shard grants Planar Pocket. Redirects enemy unit-targeted spells aimed near a chosen hero onto the caster while granting magic resistance.",
+    "explanation": "Spirit Breaker's Aghanim's Shard grants Planar Pocket. Redirects enemy heroes' unit-targeted spells from a chosen hero to the caster, who gains magic resistance.",
     "aghanim": {
-      "effect": "Redirects enemy unit-targeted spells aimed near a chosen hero onto the caster while granting magic resistance.",
+      "effect": "Redirects enemy heroes' unit-targeted spells from a chosen hero to the caster, who gains magic resistance.",
       "upgradeType": "shard",
       "upgradeMode": "new",
       "abilityName": "Planar Pocket",
       "audit": {
         "clientAbilityKey": "spirit_breaker_planar_pocket",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Spirit Breaker",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71"
     },
     "patch": "7.41f"
   },
@@ -2430,12 +2430,12 @@
       "audit": {
         "clientAbilityKey": "gyrocopter_homing_missile",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Gyrocopter",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=72"
     },
     "patch": "7.41f"
   },
@@ -2470,12 +2470,12 @@
       "audit": {
         "clientAbilityKey": "alchemist_berserk_potion",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Alchemist",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=73"
     },
     "patch": "7.41f"
   },
@@ -2510,12 +2510,12 @@
       "audit": {
         "clientAbilityKey": "invoker_ice_wall",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Invoker",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74"
     },
     "patch": "7.41f"
   },
@@ -2530,7 +2530,7 @@
     "answers": [
       "Necrophos",
       "Ringmaster",
-      "Outworld Devourer",
+      "Outworld Destroyer",
       "Warlock"
     ],
     "answerImages": [
@@ -2541,21 +2541,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 2,
-    "explanation": "Outworld Devourer's Aghanim's Scepter upgrades Objurgation. Prevents lethal-threshold damage, strongly dispels the caster, and grants an undispellable mana-based barrier on a long internal cooldown.",
+    "explanation": "Outworld Destroyer's Aghanim's Scepter upgrades Objurgation. Prevents damage that would drop health below 20%, then applies a strong dispel and an undispellable mana-based barrier.",
     "aghanim": {
-      "effect": "Prevents lethal-threshold damage, strongly dispels the caster, and grants an undispellable mana-based barrier on a long internal cooldown.",
+      "effect": "Prevents damage that would drop health below 20%, then applies a strong dispel and an undispellable mana-based barrier.",
       "upgradeType": "scepter",
       "upgradeMode": "existing",
       "abilityName": "Objurgation",
       "audit": {
         "clientAbilityKey": "obsidian_destroyer_objurgation",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Outworld Destroyer",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76"
     },
     "patch": "7.41f"
   },
@@ -2590,12 +2590,12 @@
       "audit": {
         "clientAbilityKey": "lycan_wolf_bite",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Lycan",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=77"
     },
     "patch": "7.41f"
   },
@@ -2630,12 +2630,12 @@
       "audit": {
         "clientAbilityKey": "shadow_demon_demonic_cleanse",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Shadow Demon",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79"
     },
     "patch": "7.41f"
   },
@@ -2661,21 +2661,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 3,
-    "explanation": "Chaos Knight's Aghanim's Scepter upgrades Phantasm. Creating an illusion has a chance to create another; activating the ultimate also creates global illusions of allied heroes.",
+    "explanation": "Chaos Knight's Aghanim's Scepter upgrades Phantasm. Creating a copy of the caster can produce another; activating the ultimate also creates illusions of allied heroes globally.",
     "aghanim": {
-      "effect": "Creating an illusion has a chance to create another; activating the ultimate also creates global illusions of allied heroes.",
+      "effect": "Creating a copy of the caster can produce another; activating the ultimate also creates illusions of allied heroes globally.",
       "upgradeType": "scepter",
       "upgradeMode": "existing",
       "abilityName": "Phantasm",
       "audit": {
         "clientAbilityKey": "chaos_knight_phantasm",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Chaos Knight",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=81"
     },
     "patch": "7.41f"
   },
@@ -2710,12 +2710,12 @@
       "audit": {
         "clientAbilityKey": "meepo_petrify",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Meepo",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=82"
     },
     "patch": "7.41f"
   },
@@ -2741,21 +2741,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 1,
-    "explanation": "Treant Protector's Aghanim's Shard grants Eyes in the Forest. Enchants a tree with long-lasting, invisible, unobstructed vision until the tree or hidden eye is destroyed.",
+    "explanation": "Treant Protector's Aghanim's Shard grants Eyes In The Forest. Enchants a tree with an invisible eye, granting unobstructed vision for six minutes unless the eye or tree is destroyed.",
     "aghanim": {
-      "effect": "Enchants a tree with long-lasting, invisible, unobstructed vision until the tree or hidden eye is destroyed.",
+      "effect": "Enchants a tree with an invisible eye, granting unobstructed vision for six minutes unless the eye or tree is destroyed.",
       "upgradeType": "shard",
       "upgradeMode": "new",
-      "abilityName": "Eyes in the Forest",
+      "abilityName": "Eyes In The Forest",
       "audit": {
         "clientAbilityKey": "treant_eyes_in_the_forest",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Treant Protector",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=83"
     },
     "patch": "7.41f"
   },
@@ -2790,12 +2790,12 @@
       "audit": {
         "clientAbilityKey": "ogre_magi_smash",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Ogre Magi",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=84"
     },
     "patch": "7.41f"
   },
@@ -2830,12 +2830,12 @@
       "audit": {
         "clientAbilityKey": "undying_tombstone",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Undying",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=85"
     },
     "patch": "7.41f"
   },
@@ -2870,12 +2870,12 @@
       "audit": {
         "clientAbilityKey": "rubick_spell_steal",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Rubick",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=86"
     },
     "patch": "7.41f"
   },
@@ -2890,7 +2890,7 @@
     "answers": [
       "Lich",
       "Disruptor",
-      "Outworld Devourer",
+      "Outworld Destroyer",
       "Silencer"
     ],
     "answerImages": [
@@ -2910,12 +2910,12 @@
       "audit": {
         "clientAbilityKey": "disruptor_kinetic_fence",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Disruptor",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87"
     },
     "patch": "7.41f"
   },
@@ -2950,12 +2950,12 @@
       "audit": {
         "clientAbilityKey": "nyx_assassin_burrow",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Nyx Assassin",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=88"
     },
     "patch": "7.41f"
   },
@@ -2990,12 +2990,12 @@
       "audit": {
         "clientAbilityKey": "naga_siren_ensnare",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Naga Siren",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=89"
     },
     "patch": "7.41f"
   },
@@ -3030,12 +3030,12 @@
       "audit": {
         "clientAbilityKey": "keeper_of_the_light_will_o_wisp",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Keeper of the Light",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=90"
     },
     "patch": "7.41f"
   },
@@ -3070,12 +3070,12 @@
       "audit": {
         "clientAbilityKey": "wisp_spirits",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Io",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=91"
     },
     "patch": "7.41f"
   },
@@ -3110,12 +3110,12 @@
       "audit": {
         "clientAbilityKey": "visage_gravekeepers_cloak",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Visage",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=92"
     },
     "patch": "7.41f"
   },
@@ -3150,12 +3150,12 @@
       "audit": {
         "clientAbilityKey": "slark_depth_shroud",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Slark",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=93"
     },
     "patch": "7.41f"
   },
@@ -3181,21 +3181,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 2,
-    "explanation": "Medusa's Aghanim's Shard grants Cold Blooded. When targeted by a spell, fires a single-target projectile back at the caster that briefly turns them to stone.",
+    "explanation": "Medusa's Aghanim's Shard grants Cold Blooded. When targeted by an enemy spell, fires a single-target projectile at that caster, briefly turning them to stone.",
     "aghanim": {
-      "effect": "When targeted by a spell, fires a single-target projectile back at the caster that briefly turns them to stone.",
+      "effect": "When targeted by an enemy spell, fires a single-target projectile at that caster, briefly turning them to stone.",
       "upgradeType": "shard",
       "upgradeMode": "new",
       "abilityName": "Cold Blooded",
       "audit": {
         "clientAbilityKey": "medusa_cold_blooded",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Medusa",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=94"
     },
     "patch": "7.41f"
   },
@@ -3221,21 +3221,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 1,
-    "explanation": "Ringmaster's Aghanim's Shard grants Spotlight. Sweeping lights reveal invisible enemies, make attacks miss, and rapidly drain the maximum health of illusions caught in the beams.",
+    "explanation": "Ringmaster's Aghanim's Shard grants Spotlight. Sweeping lights reveal invisible enemies, cause attacks to miss, and damage illusions each second based on their maximum health.",
     "aghanim": {
-      "effect": "Sweeping lights reveal invisible enemies, make attacks miss, and rapidly drain the maximum health of illusions caught in the beams.",
+      "effect": "Sweeping lights reveal invisible enemies, cause attacks to miss, and damage illusions each second based on their maximum health.",
       "upgradeType": "shard",
       "upgradeMode": "new",
       "abilityName": "Spotlight",
       "audit": {
         "clientAbilityKey": "ringmaster_spotlight",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Ringmaster",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131"
     },
     "patch": "7.41f"
   },
@@ -3270,12 +3270,12 @@
       "audit": {
         "clientAbilityKey": "muerta_dead_shot",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Muerta",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138"
     },
     "patch": "7.41f"
   },
@@ -3310,12 +3310,12 @@
       "audit": {
         "clientAbilityKey": "kez_shodo_sai",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Kez",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145"
     },
     "patch": "7.41f"
   },
@@ -3341,21 +3341,21 @@
     ],
     "answerImageKind": "hero",
     "correctIndex": 2,
-    "explanation": "Largo's Aghanim's Shard upgrades Encore. Giving a unit-targeted buff to an ally also buffs the caster; self-casts copy to the nearest allied hero.",
+    "explanation": "Largo's Aghanim's Shard upgrades Encore. Unit-targeted buffs on allied heroes also affect the caster; self-casts copy to the nearest allied hero within cast range.",
     "aghanim": {
-      "effect": "Giving a unit-targeted buff to an ally also buffs the caster; self-casts copy to the nearest allied hero.",
+      "effect": "Unit-targeted buffs on allied heroes also affect the caster; self-casts copy to the nearest allied hero within cast range.",
       "upgradeType": "shard",
       "upgradeMode": "existing",
       "abilityName": "Encore",
       "audit": {
         "clientAbilityKey": "largo_encore",
         "clientBuild": "6882",
-        "reviewedAt": "2026-08-09"
+        "reviewedAt": "2026-10-06"
       }
     },
     "source": {
-      "label": "Dota 2 live-client and OpenDota localization audit",
-      "url": "https://github.com/odota/dotaconstants/blob/master/build/aghs_desc.json"
+      "label": "Valve hero data: Largo",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155"
     },
     "patch": "7.41f"
   }

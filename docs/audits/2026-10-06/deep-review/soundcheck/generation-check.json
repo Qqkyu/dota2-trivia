@@ -1,0 +1,32 @@
+{
+  "reviewedAt": "2026-10-06",
+  "questionCount": 96,
+  "result": "All generated content agreed with the deck after normalizing equivalent icon filenames. Existing local icon overrides were preserved.",
+  "differences": "soundcheck-generation-diff.json",
+  "generatedOutput": "soundcheck-regenerated.json",
+  "helper": "check-soundcheck-generation.mjs.txt",
+  "sourceConstants": [
+    {
+      "url": "https://api.opendota.com/api/constants/abilities",
+      "sha256": "eb8c18f93fb8e7ff10f1994d687c923d44ea7332c0b0e1ec60c7ba8469f42d09",
+      "bytes": 1340095,
+      "archived": false
+    },
+    {
+      "url": "https://api.opendota.com/api/constants/hero_abilities",
+      "sha256": "eb4a107fb6f4974d3424a35f756f080a207ddc59a25abd56a03aeb5c24ad0fec",
+      "bytes": 169512,
+      "archived": false
+    },
+    {
+      "url": "https://api.opendota.com/api/constants/items",
+      "sha256": "d814ba42282c9423780a780fd45b4bda0a732e0e5266700231febc4ac7f670d9",
+      "bytes": 344486,
+      "archived": false
+    }
+  ],
+  "notes": [
+    "The helper redirected generator output to a temporary file; it did not replace the app data.",
+    "Archived helpers retain the original audit-machine cache paths. They are records of the checks, not standalone scripts."
+  ]
+}

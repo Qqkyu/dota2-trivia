@@ -49,6 +49,41 @@ record(
   `Flashback four-choice answers are biased across A–D (${choiceSlots.join(" / ")}); every slot must be within one.`,
 );
 record(questions.every(isPlayableFlashbackQuestion), "A Flashback question failed the playable contract.");
+const multiEventSourceIds = [
+  "flashback:engine-history-order",
+  "flashback:patch-systems-order",
+  "flashback:modes-order",
+  "flashback:map-features-order",
+  "flashback:recent-patches-order",
+];
+for (const id of multiEventSourceIds) {
+  const question = questions.find((candidate) => candidate.id === id);
+  const cards = question?.flashback?.cards ?? [];
+  const references = question?.source?.references ?? [];
+  const isDirectPrimarySource = (reference) => {
+    try {
+      const url = new URL(reference.url);
+      return (
+        typeof reference.label === "string" &&
+        reference.label.trim().length > 0 &&
+        url.protocol === "https:" &&
+        ["www.dota2.com", "store.steampowered.com", "classic.battle.net"].includes(url.hostname) &&
+        url.pathname !== "/" &&
+        cards.some((card) => card.key === reference.eventKey)
+      );
+    } catch {
+      return false;
+    }
+  };
+  record(
+    cards.length === 4 &&
+      Array.isArray(references) &&
+      references.every(isDirectPrimarySource) &&
+      cards.every((card) => references.some((reference) => reference.eventKey === card.key)) &&
+      references.some((reference) => reference.url === question.source.url),
+    `${id} needs a direct primary source for every event card.`,
+  );
+}
 record(
   questions.every(
     (question) => question.image?.src?.startsWith("https://") || question.image?.src?.startsWith("/arcade/flashback/"),
@@ -58,30 +93,30 @@ record(
 
 const FLASHBACK_ART = {
   "flashback:dota2-release-year": "dota2_logo_symbol",
-  "flashback:ti1-year": "ti1-gamescom.jpg",
+  "flashback:ti1-year": "originals/international.svg",
   "flashback:reborn-year": "dota2_logo_horiz",
   "flashback:patch-700-year": "heroes/monkey_king",
   "flashback:ti10-year": "ti10-mark.png",
-  "flashback:og-first-ti-year": "ti8-vancouver.jpg",
+  "flashback:og-first-ti-year": "originals/international.svg",
   "flashback:techies-year": "heroes/techies",
   "flashback:ti14-year": "ti14-mark.png",
   "flashback:ti9-year": "ti-wordmark.png",
   "flashback:ti13-year": "ti13-mark.jpg",
-  "flashback:ti1-winner": "ti1-gamescom.jpg",
-  "flashback:ti2-winner": "ti-seattle.jpg",
-  "flashback:ti3-winner": "ti-seattle.jpg",
+  "flashback:ti1-winner": "originals/international.svg",
+  "flashback:ti2-winner": "originals/international.svg",
+  "flashback:ti3-winner": "originals/international.svg",
   "flashback:ti4-winner": "ti-wordmark.png",
-  "flashback:ti5-winner": "ti5-keyarena.jpg",
+  "flashback:ti5-winner": "originals/international.svg",
   "flashback:ti6-winner": "ti-wordmark.png",
-  "flashback:ti7-winner": "ti5-keyarena.jpg",
-  "flashback:ti8-winner": "ti8-vancouver.jpg",
+  "flashback:ti7-winner": "originals/international.svg",
+  "flashback:ti8-winner": "originals/international.svg",
   "flashback:ti9-winner": "ti-wordmark.png",
   "flashback:ti10-winner": "ti10-mark.png",
   "flashback:ti11-winner": "ti11-mark.jpg",
   "flashback:ti12-winner": "ti12-mark.png",
   "flashback:ti13-winner": "ti13-mark.jpg",
   "flashback:ti14-winner": "ti14-mark.png",
-  "flashback:ti1-city": "ti1-gamescom.jpg",
+  "flashback:ti1-city": "originals/international.svg",
   "flashback:back-to-back": "ti-wordmark.png",
   "flashback:dota-creator": "items/cyclone",
   "flashback:first-ti-winners-order": "ti-wordmark.png",
@@ -170,17 +205,17 @@ const FLASHBACK_ART = {
   "flashback:marci-year": "heroes/marci",
   "flashback:largo-year": "heroes/largo",
   "flashback:frostivus-year": "heroes/crystal_maiden",
-  "flashback:underhollow-year": "heroes/abyssal_underlord",
-  "flashback:morokai-year": "heroes/monkey_king",
+  "flashback:underhollow-year": "abilities/roshan_halloween_angry",
+  "flashback:morokai-year": "map-overview.webp",
   "flashback:diretide-return-year": "abilities/roshan_halloween_angry",
   "flashback:water-runes-year": "map-overview.webp",
   "flashback:patch-738-year": "map-overview.webp",
-  "flashback:ti2-year": "ti-seattle.jpg",
-  "flashback:ti3-year": "ti-seattle.jpg",
+  "flashback:ti2-year": "originals/international.svg",
+  "flashback:ti3-year": "originals/international.svg",
   "flashback:ti4-year": "ti-wordmark.png",
-  "flashback:ti5-year": "ti5-keyarena.jpg",
+  "flashback:ti5-year": "originals/international.svg",
   "flashback:ti6-year": "ti-wordmark.png",
-  "flashback:ti7-year": "ti5-keyarena.jpg",
+  "flashback:ti7-year": "originals/international.svg",
   "flashback:ti11-year": "ti-wordmark.png",
   "flashback:ti12-year": "ti12-mark.png",
   "flashback:shanghai-major-year": "ti-wordmark.png",
@@ -203,7 +238,7 @@ const FLASHBACK_ART = {
   "flashback:fourth-spirit": "heroes/storm_spirit",
   "flashback:refresher-shard": "abilities/roshan_spell_block",
   "flashback:level-30": "max-level-mark.png",
-  "flashback:free-observers": "items/ward_sentry",
+  "flashback:free-observers": "map-overview.webp",
   "flashback:flying-courier-gone": "items/courier",
   "flashback:new-bloom": "heroes/brewmaster",
   "flashback:auto-chess": "heroes/abyssal_underlord",
@@ -216,7 +251,7 @@ const FLASHBACK_ART = {
   "flashback:underhollow-who": "map-overview.webp",
   "flashback:frostivus-what": "heroes/crystal_maiden",
   "flashback:madstone": "map-overview.webp",
-  "flashback:first-seattle-ti": "ti-seattle.jpg",
+  "flashback:first-seattle-ti": "originals/international.svg",
   "flashback:ti20m": "ti-wordmark.png",
   "flashback:void-outlanders": "heroes/void_spirit",
   "flashback:major-cities-order": "ti-wordmark.png",
@@ -266,7 +301,6 @@ const FLASHBACK_ITEM_ART = new Set([
   "flashback:aghanim-lab-year",
   "flashback:personal-courier",
   "flashback:tome-replaced",
-  "flashback:free-observers",
   "flashback:flying-courier-gone",
 ]);
 record(
@@ -385,9 +419,10 @@ record(
       question.flashback.cards.every((card) => {
         const image = String(card.image);
         return (
-          image.includes("team_logos/") ||
+          /^\/arcade\/flashback\/originals\/[a-z-]+\.svg$/.test(image) ||
           image.includes("/items/") ||
           image.includes("/heroes/") ||
+          image.includes("/abilities/") ||
           image.includes("dota2_logo_")
         );
       }),
@@ -463,35 +498,19 @@ record(
     .every((question) => question.flashback?.revealMedia?.src),
   "A Flashback who-won prompt has no reveal picture.",
 );
-const winnerPhotoIds = new Set([
-  "flashback:ti3-winner",
-  "flashback:ti5-winner",
-  "flashback:ti7-winner",
-  "flashback:ti8-winner",
-  "flashback:ti9-winner",
-  "flashback:ti10-winner",
-  "flashback:ti11-winner",
-  "flashback:ti12-winner",
-  "flashback:ti13-winner",
-  "flashback:ti14-winner",
-  "flashback:frankfurt-major-winner",
-  "flashback:shanghai-major-winner",
-  "flashback:manila-major-winner",
-  "flashback:boston-major-winner",
-  "flashback:kiev-major-winner",
-  "flashback:back-to-back",
-  "flashback:four-majors",
-]);
+const winnerCardQuestions = questions.filter(
+  (question) =>
+    question.id.endsWith("-winner") || ["flashback:back-to-back", "flashback:four-majors"].includes(question.id),
+);
 record(
-  questions
-    .filter((question) => winnerPhotoIds.has(question.id))
-    .every(
+  winnerCardQuestions.length === 21 &&
+    winnerCardQuestions.every(
       (question) =>
-        question.flashback?.revealMedia?.kind === "photo" &&
-        String(question.flashback.revealMedia.src).startsWith("/arcade/flashback/winners/") &&
+        question.flashback?.revealMedia?.kind === "mark" &&
+        /^\/arcade\/flashback\/originals\/winner-[a-z-]+\.svg$/.test(question.flashback.revealMedia.src) &&
         existsSync(path.join(process.cwd(), "public", question.flashback.revealMedia.src)),
-    ) && winnerPhotoIds.size === 17,
-  "A Flashback winner photo is still a team mark.",
+    ),
+  "A Flashback winner reveal needs a local original winner card.",
 );
 
 const now = 1_000_000;

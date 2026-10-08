@@ -1,0 +1,19 @@
+import postgres from 'postgres';
+process.env.DATABASE_URL = 'isolated-local-audit';
+process.env.ARCADE_VOTER_SALT = 'audit-fixture-only';
+const sql = postgres({ host: '/tmp/queue-arcade-pg-audit.3f4hCl', port: 55793, database: 'postgres', username: 'kulmisiu', max: 1, prepare: false, onnotice: () => {}, connection: {search_path: process.env.AUDIT_SCHEMA || 'public'} });
+globalThis.__queueArcadePostgres = sql;
+const mode = process.argv[2];
+const startsAt = Number(process.argv[3]);
+const vote = await import('./lib/vote-store-postgres.js');
+const account = await import('./lib/account-store-postgres.js');
+const alpha = await import('./lib/alpha-store-postgres.js');
+await sql`SELECT 1`;
+if (startsAt) await new Promise(resolve => setTimeout(resolve, Math.max(0, startsAt-Date.now())));
+try {
+ const health = mode === 'account' ? account.getPostgresAccountStoreHealth : mode === 'alpha' ? alpha.getPostgresAlphaStoreHealth : vote.getPostgresVoteStoreHealth;
+ await health();
+ console.log(JSON.stringify({mode, ok:true}));
+} catch(e) {
+ console.log(JSON.stringify({mode, ok:false, code:e.code, message:e.message}));
+} finally { await sql.end(); }

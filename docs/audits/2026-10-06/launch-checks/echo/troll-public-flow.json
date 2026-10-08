@@ -1,0 +1,28 @@
+{
+  "questionId": "hero-voice:npc_dota_hero_troll_warlord:troll_respawn_10",
+  "records": [
+    {
+      "phase": "answering",
+      "elapsedMs": 1000,
+      "protectedAudio": true,
+      "answerRevealHidden": true
+    },
+    {
+      "phase": "answering",
+      "elapsedMs": 6000,
+      "protectedAudio": true,
+      "answerRevealHidden": true
+    },
+    {
+      "phase": "answering",
+      "elapsedMs": 9000,
+      "protectedAudio": true,
+      "answerRevealHidden": true
+    },
+    {
+      "phase": "reveal",
+      "correctAnswer": "Troll Warlord",
+      "verifiedExplanation": true
+    }
+  ]
+}

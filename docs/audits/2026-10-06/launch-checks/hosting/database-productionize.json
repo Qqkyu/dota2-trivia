@@ -1,0 +1,332 @@
+{
+  "databaseId": "dpg-d9mqc4taeets73aiclsg-a",
+  "serviceId": "srv-d9mqd1942hec73e9nlt0",
+  "ok": true,
+  "scope": "Additive migrations and restricted runtime role only; service remains paused.",
+  "serviceBefore": {
+    "id": "srv-d9mqd1942hec73e9nlt0",
+    "paused": true,
+    "plan": "free"
+  },
+  "planBefore": "0.1c-256mb",
+  "database": {
+    "databaseId": "dpg-d9mqc4taeets73aiclsg-a",
+    "localTest": false,
+    "startedAt": "2026-10-06T13:29:36.920Z",
+    "transactionCommitted": true,
+    "ok": true,
+    "tls": {
+      "ssl": true,
+      "version": "TLSv1.3"
+    },
+    "originalTables": [
+      {
+        "name": "queue_arcade_alpha_sessions",
+        "rows": 7,
+        "sha256": "2d0aec1450a353b1e29b1f3e7780bb2fac81ecd9cd085ad09b95ed1bb498ac5a"
+      },
+      {
+        "name": "queue_arcade_player_rounds",
+        "rows": 20,
+        "sha256": "2a1e43e3a253c2f2a206808172fd5446df9242066ec29ab3cb045ce44dfd3155"
+      },
+      {
+        "name": "queue_arcade_question_reporters",
+        "rows": 1,
+        "sha256": "a123fc8635da5d16f8cd77dbf209a823676d9495ce38f756e3625c26369bff36"
+      },
+      {
+        "name": "queue_arcade_question_reviews",
+        "rows": 1,
+        "sha256": "ee06a004f2f38c2bdd1081c5c7cfd223fbdc80b11bf38ea0b84c5b45a306a422"
+      },
+      {
+        "name": "queue_arcade_question_stats",
+        "rows": 19,
+        "sha256": "646b7e3fc8be9c237c17dfe2db5c281ac7fcf13923b8a57168f24a02ad5e1739"
+      },
+      {
+        "name": "queue_arcade_round_votes",
+        "rows": 3,
+        "sha256": "3cbcf2c798429c6cb91d86302319d727a269eb038ef961c952b703aa3b2a649d"
+      },
+      {
+        "name": "queue_arcade_rounds",
+        "rows": 3,
+        "sha256": "d6972054035204803db1d0127ab60164133aebff3f7a7a7b90842ba170a050f6"
+      },
+      {
+        "name": "queue_arcade_user_identities",
+        "rows": 1,
+        "sha256": "63875477d3ec1cc5e3867d933a717a3433994e6098ded627209160325c0b6bad"
+      },
+      {
+        "name": "queue_arcade_user_sessions",
+        "rows": 2,
+        "sha256": "45da99e66ec0bb0d5cfdf93d4bf5b1d3a1e44375dc3255ec2c6ea37318bedc89"
+      },
+      {
+        "name": "queue_arcade_users",
+        "rows": 1,
+        "sha256": "78eb69ab3aeb5942d26d1c85e483991725f0bd2ef39edc2eefdb5c2c81e85a68"
+      }
+    ],
+    "appliedMigrations": [
+      1,
+      2
+    ],
+    "allOriginalHashesPreserved": true,
+    "grants": {
+      "role": "queue_arcade_runtime_20261006",
+      "schema": "public",
+      "tables": 13,
+      "ledger": "SELECT",
+      "applicationTables": "SELECT, INSERT, UPDATE, DELETE"
+    },
+    "rights": {
+      "flags": {
+        "rolsuper": false,
+        "rolcreatedb": false,
+        "rolcreaterole": false,
+        "rolinherit": false,
+        "rolreplication": false,
+        "rolbypassrls": false,
+        "rolcanlogin": true,
+        "rolconnlimit": 20
+      },
+      "databaseRights": {
+        "schema_create": false,
+        "database_create": false,
+        "temporary": false,
+        "role_membership": false
+      },
+      "tables": [
+        {
+          "name": "queue_arcade_alpha_round_events",
+          "can_select": true,
+          "can_insert": true,
+          "can_update": true,
+          "can_delete": true,
+          "can_truncate": false,
+          "can_reference": false,
+          "can_trigger": false,
+          "owns": false
+        },
+        {
+          "name": "queue_arcade_alpha_sessions",
+          "can_select": true,
+          "can_insert": true,
+          "can_update": true,
+          "can_delete": true,
+          "can_truncate": false,
+          "can_reference": false,
+          "can_trigger": false,
+          "owns": false
+        },
+        {
+          "name": "queue_arcade_player_rounds",
+          "can_select": true,
+          "can_insert": true,
+          "can_update": true,
+          "can_delete": true,
+          "can_truncate": false,
+          "can_reference": false,
+          "can_trigger": false,
+          "owns": false
+        },
+        {
+          "name": "queue_arcade_question_reporters",
+          "can_select": true,
+          "can_insert": true,
+          "can_update": true,
+          "can_delete": true,
+          "can_truncate": false,
+          "can_reference": false,
+          "can_trigger": false,
+          "owns": false
+        },
+        {
+          "name": "queue_arcade_question_reviews",
+          "can_select": true,
+          "can_insert": true,
+          "can_update": true,
+          "can_delete": true,
+          "can_truncate": false,
+          "can_reference": false,
+          "can_trigger": false,
+          "owns": false
+        },
+        {
+          "name": "queue_arcade_question_stats",
+          "can_select": true,
+          "can_insert": true,
+          "can_update": true,
+          "can_delete": true,
+          "can_truncate": false,
+          "can_reference": false,
+          "can_trigger": false,
+          "owns": false
+        },
+        {
+          "name": "queue_arcade_round_votes",
+          "can_select": true,
+          "can_insert": true,
+          "can_update": true,
+          "can_delete": true,
+          "can_truncate": false,
+          "can_reference": false,
+          "can_trigger": false,
+          "owns": false
+        },
+        {
+          "name": "queue_arcade_rounds",
+          "can_select": true,
+          "can_insert": true,
+          "can_update": true,
+          "can_delete": true,
+          "can_truncate": false,
+          "can_reference": false,
+          "can_trigger": false,
+          "owns": false
+        },
+        {
+          "name": "queue_arcade_schema_migrations",
+          "can_select": true,
+          "can_insert": false,
+          "can_update": false,
+          "can_delete": false,
+          "can_truncate": false,
+          "can_reference": false,
+          "can_trigger": false,
+          "owns": false
+        },
+        {
+          "name": "queue_arcade_steam_nonces",
+          "can_select": true,
+          "can_insert": true,
+          "can_update": true,
+          "can_delete": true,
+          "can_truncate": false,
+          "can_reference": false,
+          "can_trigger": false,
+          "owns": false
+        },
+        {
+          "name": "queue_arcade_user_identities",
+          "can_select": true,
+          "can_insert": true,
+          "can_update": true,
+          "can_delete": true,
+          "can_truncate": false,
+          "can_reference": false,
+          "can_trigger": false,
+          "owns": false
+        },
+        {
+          "name": "queue_arcade_user_sessions",
+          "can_select": true,
+          "can_insert": true,
+          "can_update": true,
+          "can_delete": true,
+          "can_truncate": false,
+          "can_reference": false,
+          "can_trigger": false,
+          "owns": false
+        },
+        {
+          "name": "queue_arcade_users",
+          "can_select": true,
+          "can_insert": true,
+          "can_update": true,
+          "can_delete": true,
+          "can_truncate": false,
+          "can_reference": false,
+          "can_trigger": false,
+          "owns": false
+        }
+      ],
+      "dangerousColumns": 0
+    },
+    "finalTables": [
+      {
+        "name": "queue_arcade_alpha_round_events",
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "queue_arcade_alpha_sessions",
+        "rows": 7,
+        "sha256": "79f16966253e72463a8c1260d9095880116e52025c1a6163b5d4107565dddfe1"
+      },
+      {
+        "name": "queue_arcade_player_rounds",
+        "rows": 20,
+        "sha256": "48ac0483f68bc9dc000e9e38776467e45dc3df00d057dd75fc0c902b8d47a954"
+      },
+      {
+        "name": "queue_arcade_question_reporters",
+        "rows": 1,
+        "sha256": "a123fc8635da5d16f8cd77dbf209a823676d9495ce38f756e3625c26369bff36"
+      },
+      {
+        "name": "queue_arcade_question_reviews",
+        "rows": 1,
+        "sha256": "ee06a004f2f38c2bdd1081c5c7cfd223fbdc80b11bf38ea0b84c5b45a306a422"
+      },
+      {
+        "name": "queue_arcade_question_stats",
+        "rows": 19,
+        "sha256": "646b7e3fc8be9c237c17dfe2db5c281ac7fcf13923b8a57168f24a02ad5e1739"
+      },
+      {
+        "name": "queue_arcade_round_votes",
+        "rows": 3,
+        "sha256": "3cbcf2c798429c6cb91d86302319d727a269eb038ef961c952b703aa3b2a649d"
+      },
+      {
+        "name": "queue_arcade_rounds",
+        "rows": 3,
+        "sha256": "d6972054035204803db1d0127ab60164133aebff3f7a7a7b90842ba170a050f6"
+      },
+      {
+        "name": "queue_arcade_schema_migrations",
+        "rows": 2,
+        "sha256": "1ecbede02edeb7ac7239922b5d9b5ff74fff787a721f1561717b4d60bb37ded1"
+      },
+      {
+        "name": "queue_arcade_steam_nonces",
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "queue_arcade_user_identities",
+        "rows": 1,
+        "sha256": "63875477d3ec1cc5e3867d933a717a3433994e6098ded627209160325c0b6bad"
+      },
+      {
+        "name": "queue_arcade_user_sessions",
+        "rows": 2,
+        "sha256": "45da99e66ec0bb0d5cfdf93d4bf5b1d3a1e44375dc3255ec2c6ea37318bedc89"
+      },
+      {
+        "name": "queue_arcade_users",
+        "rows": 1,
+        "sha256": "78eb69ab3aeb5942d26d1c85e483991725f0bd2ef39edc2eefdb5c2c81e85a68"
+      }
+    ],
+    "runtimeAuthenticated": true,
+    "runtimeReadinessPassed": true,
+    "runtimeCheckReadOnly": true,
+    "completedAt": "2026-10-06T13:29:53.276Z"
+  },
+  "workerExitCode": 0,
+  "workerStderrEmpty": true,
+  "serviceAfter": {
+    "id": "srv-d9mqd1942hec73e9nlt0",
+    "paused": true,
+    "plan": "free"
+  },
+  "externalAllowlistRestored": true,
+  "planUnchanged": true,
+  "elapsedSeconds": 23.88
+}

@@ -1,0 +1,239 @@
+
+> queue-arcade@0.2.0 check:ui /home/kulmisiu/dev/dota2-trivia
+> node scripts/check-ui.mjs
+
+Validated profile, calibration, privacy, and Steam OpenID start/reject.
+Validated party lobby names, uniqueness, and 3 tabs for L7RZZC (Alex, Guest-E2388175, Guest-CB43C675).
+Validated 10 party previews match the 362x132 profile crop. 10 games selected.
+Validated nick sync across two Chrome profiles for N7STD6.
+Validated party UI at 1, 20, 50, and 100 players on 1080p, desktop, laptop, small, narrow, short. The 101st join is blocked.
+Validated public play lobby → answer → reveal ([data-testid="hero-picker-hero"]).
+Validated question reports: accept, dedupe, and next-round carryover.
+Validated party audio, member-only votes and chat, and host pass.
+Validated round copy, controls, and reveals for 10 formats: trivia, shopkeeper, spell-link, fogged-vision, echo-hunt, soundcheck, quote-hunt, aghanim-lab, order-up, flashback.
+Validated Shopkeeper search (108 → 4 items) and Enter picks the only match.
+Layout ok: 16 play formats at 420 and 1400px.
+Validated hero grid search and reveal: Enter picks the only match, reveal names Monkey King in place.
+{
+  "orderBefore": {
+    "cards": [
+      {
+        "text": "Kez",
+        "context": "Katana",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 53,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      },
+      {
+        "text": "Largo",
+        "context": "Bard",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 307,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      },
+      {
+        "text": "Muerta",
+        "context": "The Veil",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 560,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      },
+      {
+        "text": "Ringmaster",
+        "context": "Circus",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 814,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      }
+    ],
+    "extraMarks": 0,
+    "overflow": false
+  },
+  "orderAfterPick": [
+    {
+      "x": 53,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    },
+    {
+      "x": 307,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    },
+    {
+      "x": 560,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    },
+    {
+      "x": 814,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    }
+  ],
+  "orderReveal": {
+    "rows": [
+      {
+        "name": "Muerta",
+        "context": "The Veil",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      },
+      {
+        "name": "Ringmaster",
+        "context": "Circus",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      },
+      {
+        "name": "Kez",
+        "context": "Katana",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      },
+      {
+        "name": "Largo",
+        "context": "Bard",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      }
+    ],
+    "yours": [
+      "Kez",
+      "Largo",
+      "Muerta",
+      "Ringmaster"
+    ],
+    "panelVisible": true
+  },
+  "yearBefore": {
+    "min": "2009",
+    "max": "2026",
+    "currentYear": "2026",
+    "height": 186,
+    "answers": 0,
+    "ticks": 0,
+    "helper": true,
+    "lock": true,
+    "lockDisabled": false
+  },
+  "yearAfterSlide": {
+    "locked": "false",
+    "readout": "2011",
+    "lockLabel": "Lock"
+  },
+  "yearAfterPick": {
+    "locked": "true",
+    "readout": "2011",
+    "value": "2011",
+    "height": 186,
+    "lockLabel": "Locked",
+    "lockDisabled": true
+  },
+  "yearReveal": {
+    "readout": "2011",
+    "correctYear": "2011",
+    "height": 186,
+    "panelVisible": true
+  },
+  "photoAnswering": {
+    "strip": false,
+    "leak": false,
+    "art": "http://127.0.0.1:3210/arcade/flashback/ti5-keyarena.jpg"
+  },
+  "artBefore": {
+    "w": 248,
+    "h": 148,
+    "x": 80,
+    "y": 217
+  },
+  "photoReveal": {
+    "strip": false,
+    "src": "http://127.0.0.1:3210/arcade/flashback/winners/ti7-liquid.jpg",
+    "alt": "Team Liquid lift the Aegis",
+    "w": 248,
+    "h": 148,
+    "x": 80,
+    "y": 217
+  },
+  "photoMobile": {
+    "w": 248,
+    "h": 148,
+    "overflow": false
+  },
+  "failures": []
+}
+PCM check rejects silent-lock, even though native play() resolves.
+PCM check rejects cut-lock, even though native play() resolves.
+PCM ok: Shopkeeper recipe mouse pick (lock)
+PCM ok: Shopkeeper recipe remove (lock)
+PCM ok: Shopkeeper recipe Enter pick 1 (lock)
+PCM ok: Shopkeeper recipe Enter pick 2 (lock)
+PCM ok: Shopkeeper build at reveal (lock + wrong)
+PCM ok: shop-build pick at reveal (lock + wrong)
+PCM ok: shop-path pick at reveal (lock + wrong)
+PCM ok: shop-shared pick at reveal (lock + wrong)
+PCM ok: fogged-vision pick at reveal (lock + wrong)
+PCM ok: aghanim-lab pick at reveal (lock + wrong)
+PCM ok: spell-link pick at reveal (lock + wrong)
+PCM ok: trivia pick at reveal (lock + wrong)
+PCM ok: shop-build correct Enter pick (lock + correct)
+PCM ok: fogged-vision correct Enter pick (lock + correct)
+PCM ok: aghanim-lab correct Enter pick (lock + correct)
+PCM ok: spell-link correct Enter pick (lock + correct)
+PCM ok: trivia correct Enter pick (lock + correct)
+PCM ok: value-order card 1 (lock)
+PCM ok: value-order card 2 (lock)
+PCM ok: value-order card 3 (lock)
+PCM ok: value-order card 4 (lock + wrong)
+PCM ok: flashback-order card 1 (lock)
+PCM ok: flashback-order card 2 (lock)
+PCM ok: flashback-order card 3 (lock)
+PCM ok: flashback-order card 4 (lock + wrong)
+PCM ok: before delayed result (lock)
+PCM ok: delayed wrong result (wrong)
+PCM ok: next round pick (lock)
+PCM ok: before hidden result (lock)
+PCM ok: hidden wrong result (wrong)
+Feedback playback holds: 30 tapped PCM checks, ten fixed formats, mouse/keyboard, deadline races, hidden tab, and mute.
+Validated production vote rate limit (12 then 429).

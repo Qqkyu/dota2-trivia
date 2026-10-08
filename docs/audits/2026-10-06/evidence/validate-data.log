@@ -1,0 +1,8 @@
+
+> queue-arcade@0.2.0 validate-data /home/kulmisiu/dev/dota2-trivia
+> node scripts/validate-questions.mjs && node scripts/validate-shopkeeper.mjs && node scripts/validate-hero-picker.mjs && node scripts/validate-aghanim.mjs && node scripts/validate-fogged-vision.mjs && node scripts/validate-soundcheck.mjs && node scripts/validate-value-order.mjs && node scripts/validate-flashback.mjs && node scripts/validate-audio-preload.mjs && node scripts/validate-hero-responses.mjs && node scripts/validate-feedback-sounds.mjs && node scripts/validate-variety.mjs && node scripts/validate-semantic-repetition.mjs && node scripts/validate-public-arcade.mjs && node scripts/validate-room-resume.mjs && node scripts/validate-bandwidth.mjs && node scripts/validate-question-delivery.mjs && node scripts/validate-navigation.mjs && node scripts/validate-player-profiles.mjs
+
+Validated 1036 source questions (964 live; 36 low-signal templates retired; 36 excluded by other quality gates) across 7 categories for patch 7.41f.
+shopkeeper-recipe:disperser: invalid prompt item tray.
+shopkeeper-upgrade:phylactery:angels_demise: invalid prompt item tray.
+ ELIFECYCLE  Command failed with exit code 1.

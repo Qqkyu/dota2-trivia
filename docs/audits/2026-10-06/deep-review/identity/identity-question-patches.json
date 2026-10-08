@@ -1,0 +1,4236 @@
+{
+  "ability-owner:abaddon_aphotic_shield": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=102"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=102",
+        "fields": "result.data.heroes[0].abilities[name=abaddon_aphotic_shield]"
+      }
+    ]
+  },
+  "ability-owner:abyssal_underlord_pit_of_malice": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=108"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=108",
+        "fields": "result.data.heroes[0].abilities[name=abyssal_underlord_pit_of_malice]"
+      }
+    ]
+  },
+  "ability-owner:alchemist_unstable_concoction": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=73"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=73",
+        "fields": "result.data.heroes[0].abilities[name=alchemist_unstable_concoction]"
+      }
+    ]
+  },
+  "ability-owner:ancient_apparition_bone_chill": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=68"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=68",
+        "fields": "result.data.heroes[0].abilities[name=ancient_apparition_bone_chill]"
+      }
+    ]
+  },
+  "ability-owner:antimage_counterspell": {
+    "changes": {
+      "explanation": "Counterspell belongs to Anti-Mage. Passively grants magic resistance. When activated, creates a shell around the caster that blocks and reflects targeted spells.",
+      "hint": "Passively grants magic resistance. When activated, creates a shell around the caster that blocks and reflects targeted spells.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=1"
+      }
+    },
+    "reasons": [
+      "broken-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=1",
+        "fields": "result.data.heroes[0].abilities[name=antimage_counterspell]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=antimage_counterspell; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:arc_warden_magnetic_field": {
+    "changes": {
+      "answers": ["Techies", "Arc Warden", "Dazzle", "Ringmaster"],
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=113"
+      }
+    },
+    "reasons": [
+      "Use the current localized hero names in all answer choices.",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=113",
+        "fields": "result.data.heroes[0].abilities[name=arc_warden_magnetic_field]"
+      }
+    ]
+  },
+  "ability-owner:axe_battle_hunger": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2",
+        "fields": "result.data.heroes[0].abilities[name=axe_battle_hunger]"
+      }
+    ]
+  },
+  "ability-owner:bane_nightmare": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3",
+        "fields": "result.data.heroes[0].abilities[name=bane_nightmare]"
+      }
+    ]
+  },
+  "ability-owner:batrider_firefly": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65",
+        "fields": "result.data.heroes[0].abilities[name=batrider_firefly]"
+      }
+    ]
+  },
+  "ability-owner:beastmaster_summon_raptor": {
+    "changes": {
+      "explanation": "Summon Raptors belongs to Beastmaster. Summons two hawks that circle the caster and dive at enemies, dealing damage and rooting them. The hawks attack faster as their attack speed increases and prioritize heroes.",
+      "hint": "Summons two hawks that circle the caster and dive at enemies, dealing damage and rooting them. The hawks attack faster as their attack speed increases and prioritize heroes.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=38"
+      }
+    },
+    "reasons": [
+      "grammar",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=38",
+        "fields": "result.data.heroes[0].abilities[name=beastmaster_summon_raptor]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=beastmaster_summon_raptor; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:bloodseeker_thirst": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=4"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=4",
+        "fields": "result.data.heroes[0].abilities[name=bloodseeker_thirst]"
+      }
+    ]
+  },
+  "ability-owner:bounty_hunter_wind_walk": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=62"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=62",
+        "fields": "result.data.heroes[0].abilities[name=bounty_hunter_wind_walk]"
+      }
+    ]
+  },
+  "ability-owner:brewmaster_drunken_brawler": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=78"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=78",
+        "fields": "result.data.heroes[0].abilities[name=brewmaster_drunken_brawler]"
+      }
+    ]
+  },
+  "ability-owner:bristleback_quill_spray": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=99"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=99",
+        "fields": "result.data.heroes[0].abilities[name=bristleback_quill_spray]"
+      }
+    ]
+  },
+  "ability-owner:broodmother_spin_web": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=61"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=61",
+        "fields": "result.data.heroes[0].abilities[name=broodmother_spin_web]"
+      }
+    ]
+  },
+  "ability-owner:centaur_mount": {
+    "changes": {
+      "source": {
+        "label": "Valve ability data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/abilitydata?language=english&ability_id=980"
+      }
+    },
+    "reasons": [
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page.",
+      "Follow-up review verified the hidden control through its direct Valve ability API record."
+    ],
+    "evidence": [
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=centaur_mount, hero_id=96"
+      },
+      {
+        "url": "https://www.dota2.com/datafeed/abilitydata?language=english&ability_id=980",
+        "fields": "result.data.abilities[0]; source SHA-256 e9713216135760c97dccb1dcf04eab77840629c94f612fa3800ab0ac50e3b04e"
+      }
+    ]
+  },
+  "ability-owner:chaos_knight_reality_rift": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=81"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=81",
+        "fields": "result.data.heroes[0].abilities[name=chaos_knight_reality_rift]"
+      }
+    ]
+  },
+  "ability-owner:chen_holy_persuasion": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66",
+        "fields": "result.data.heroes[0].abilities[name=chen_holy_persuasion]"
+      }
+    ]
+  },
+  "ability-owner:clinkz_burning_barrage": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56",
+        "fields": "result.data.heroes[0].abilities[name=clinkz_burning_barrage]"
+      }
+    ]
+  },
+  "ability-owner:crystal_maiden_crystal_clone": {
+    "changes": {
+      "explanation": "Crystal Clone belongs to Crystal Maiden. The caster slides in a chosen direction, leaves a frozen copy behind, and dodges incoming projectiles. When the copy takes enough damage or expires, it shatters and applies Frostbite to nearby enemies. The caster can also destroy the copy with her own spells.",
+      "hint": "The caster slides in a chosen direction, leaves a frozen copy behind, and dodges incoming projectiles. When the copy takes enough damage or expires, it shatters and applies Frostbite to nearby enemies. The caster can also destroy the copy with her own spells.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5"
+      }
+    },
+    "reasons": [
+      "broken-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5",
+        "fields": "result.data.heroes[0].abilities[name=crystal_maiden_crystal_clone]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=crystal_maiden_crystal_clone; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:dark_seer_normal_punch": {
+    "changes": {
+      "answers": ["Dark Seer", "Silencer", "Ringmaster", "Sand King"],
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55"
+      }
+    },
+    "reasons": [
+      "Use the current localized hero names in all answer choices.",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55",
+        "fields": "result.data.heroes[0].abilities[name=dark_seer_normal_punch]"
+      }
+    ]
+  },
+  "ability-owner:dark_willow_shadow_realm": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119",
+        "fields": "result.data.heroes[0].abilities[name=dark_willow_shadow_realm]"
+      }
+    ]
+  },
+  "ability-owner:dawnbreaker_celestial_hammer": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=135"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=135",
+        "fields": "result.data.heroes[0].abilities[name=dawnbreaker_celestial_hammer]"
+      }
+    ]
+  },
+  "ability-owner:dazzle_shallow_grave": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50",
+        "fields": "result.data.heroes[0].abilities[name=dazzle_shallow_grave]"
+      }
+    ]
+  },
+  "ability-owner:death_prophet_spirit_siphon": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43",
+        "fields": "result.data.heroes[0].abilities[name=death_prophet_spirit_siphon]"
+      }
+    ]
+  },
+  "ability-owner:disruptor_glimpse": {
+    "changes": {
+      "explanation": "Glimpse belongs to Disruptor. Returns a target hero to the position they occupied four seconds earlier. Instantly kills illusions. The teleport deals damage based on the distance moved, up to a maximum.",
+      "hint": "Returns a target hero to the position they occupied four seconds earlier. Instantly kills illusions. The teleport deals damage based on the distance moved, up to a maximum.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87"
+      }
+    },
+    "reasons": [
+      "broken-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87",
+        "fields": "result.data.heroes[0].abilities[name=disruptor_glimpse]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=disruptor_glimpse; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:doom_bringer_infernal_blade": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=69"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=69",
+        "fields": "result.data.heroes[0].abilities[name=doom_bringer_infernal_blade]"
+      }
+    ]
+  },
+  "ability-owner:dragon_knight_wyrms_wrath": {
+    "changes": {
+      "explanation": "Wyrm's Wrath belongs to Dragon Knight. Passively increases the area of effect of the caster's abilities and items. The caster's attacks also deal additional magic damage to enemy units.",
+      "hint": "Passively increases the area of effect of the caster's abilities and items. The caster's attacks also deal additional magic damage to enemy units.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49"
+      }
+    },
+    "reasons": [
+      "clarity",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49",
+        "fields": "result.data.heroes[0].abilities[name=dragon_knight_wyrms_wrath]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=dragon_knight_wyrms_wrath; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:drow_ranger_glacier": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=6"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=6",
+        "fields": "result.data.heroes[0].abilities[name=drow_ranger_glacier]"
+      }
+    ]
+  },
+  "ability-owner:earth_spirit_rolling_boulder": {
+    "changes": {
+      "explanation": "Rolling Boulder belongs to Earth Spirit. The caster becomes a boulder and rolls toward a target location after a short delay, damaging and stunning enemies. Damage scales with strength and ability level. A collision with an enemy hero or a stun stops the roll. Rolling over a Stone Remnant increases travel distance, speed, and stun duration.",
+      "hint": "The caster becomes a boulder and rolls toward a target location after a short delay, damaging and stunning enemies. Damage scales with strength and ability level. A collision with an enemy hero or a stun stops the roll. Rolling over a Stone Remnant increases travel distance, speed, and stun duration.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=107"
+      }
+    },
+    "reasons": [
+      "level-dependent-number",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=107",
+        "fields": "result.data.heroes[0].abilities[name=earth_spirit_rolling_boulder]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=earth_spirit_rolling_boulder; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:earthshaker_enchant_totem": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=7"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=7",
+        "fields": "result.data.heroes[0].abilities[name=earthshaker_enchant_totem]"
+      }
+    ]
+  },
+  "ability-owner:elder_titan_ancestral_spirit": {
+    "changes": {
+      "explanation": "Astral Spirit belongs to Elder Titan. Sends out a spirit that damages units it passes through. When it returns, the caster gains damage and movement speed based on the units it touched. The spirit can use Echo Stomp, Return Spirit, and Natural Order.",
+      "hint": "Sends out a spirit that damages units it passes through. When it returns, the caster gains damage and movement speed based on the units it touched. The spirit can use Echo Stomp, Return Spirit, and Natural Order.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=103"
+      }
+    },
+    "reasons": [
+      "broken-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=103",
+        "fields": "result.data.heroes[0].abilities[name=elder_titan_ancestral_spirit]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=elder_titan_ancestral_spirit; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:ember_spirit_flame_guard": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=106"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=106",
+        "fields": "result.data.heroes[0].abilities[name=ember_spirit_flame_guard]"
+      }
+    ]
+  },
+  "ability-owner:enchantress_bunny_hop": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58",
+        "fields": "result.data.heroes[0].abilities[name=enchantress_bunny_hop]"
+      }
+    ]
+  },
+  "ability-owner:enigma_demonic_conversion": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=33"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=33",
+        "fields": "result.data.heroes[0].abilities[name=enigma_demonic_conversion]"
+      }
+    ]
+  },
+  "ability-owner:faceless_void_time_dilation": {
+    "changes": {
+      "explanation": "Time Dilation belongs to Faceless Void. Slows the cooldown recovery of nearby enemies. Each target receives one stack plus another for each ability already on cooldown. Each stack deals damage over time and reduces movement and attack speed. The effect's duration pauses while the target is inside Chronosphere.",
+      "hint": "Slows the cooldown recovery of nearby enemies. Each target receives one stack plus another for each ability already on cooldown. Each stack deals damage over time and reduces movement and attack speed. The effect's duration pauses while the target is inside Chronosphere.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=41"
+      }
+    },
+    "reasons": [
+      "broken-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=41",
+        "fields": "result.data.heroes[0].abilities[name=faceless_void_time_dilation]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=faceless_void_time_dilation; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:furion_curse_of_the_forest": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53",
+        "fields": "result.data.heroes[0].abilities[name=furion_curse_of_the_forest]"
+      }
+    ]
+  },
+  "ability-owner:grimstroke_ink_creature": {
+    "changes": {
+      "explanation": "Phantom's Embrace belongs to Grimstroke. Sends a phantom toward an enemy. It attaches to the target, dealing damage and silencing them. If it survives until the attachment ends, it deals a larger burst of damage and refreshes the ability's cooldown. Each hero attack against the phantom counts as three hits.",
+      "hint": "Sends a phantom toward an enemy. It attaches to the target, dealing damage and silencing them. If it survives until the attachment ends, it deals a larger burst of damage and refreshes the ability's cooldown. Each hero attack against the phantom counts as three hits.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=121"
+      }
+    },
+    "reasons": [
+      "broken-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=121",
+        "fields": "result.data.heroes[0].abilities[name=grimstroke_ink_creature]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=grimstroke_ink_creature; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:gyrocopter_flak_cannon": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=72"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=72",
+        "fields": "result.data.heroes[0].abilities[name=gyrocopter_flak_cannon]"
+      }
+    ]
+  },
+  "ability-owner:hoodwink_decoy": {
+    "changes": {
+      "explanation": "Decoy belongs to Hoodwink. The caster becomes invisible, moves faster, and creates an illusion. The illusion aims a weaker Sharpshooter at the nearest enemy hero. An attack or targeted ability destroys it and triggers a weaker Bushwhack toward the attacker.",
+      "hint": "The caster becomes invisible, moves faster, and creates an illusion. The illusion aims a weaker Sharpshooter at the nearest enemy hero. An attack or targeted ability destroys it and triggers a weaker Bushwhack toward the attacker.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=123"
+      }
+    },
+    "reasons": [
+      "broken-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=123",
+        "fields": "result.data.heroes[0].abilities[name=hoodwink_decoy]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=hoodwink_decoy; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:huskar_burning_spear": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=59"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=59",
+        "fields": "result.data.heroes[0].abilities[name=huskar_burning_spear]"
+      }
+    ]
+  },
+  "ability-owner:invoker_wex": {
+    "changes": {
+      "answers": ["Rubick", "Ringmaster", "Invoker", "Enchantress"],
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74"
+      }
+    },
+    "reasons": [
+      "Use the current localized hero names in all answer choices.",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74",
+        "fields": "result.data.heroes[0].abilities[name=invoker_wex]"
+      }
+    ]
+  },
+  "ability-owner:jakiro_liquid_ice": {
+    "changes": {
+      "explanation": "Liquid Frost belongs to Jakiro. Adds ice to an attack, slowing the target's movement and increasing the damage it takes from the caster's attacks and abilities. Does not affect buildings. Shares a cooldown with Liquid Fire.",
+      "hint": "Adds ice to an attack, slowing the target's movement and increasing the damage it takes from the caster's attacks and abilities. Does not affect buildings. Shares a cooldown with Liquid Fire.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=64"
+      }
+    },
+    "reasons": [
+      "grammar",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=64",
+        "fields": "result.data.heroes[0].abilities[name=jakiro_liquid_ice]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=jakiro_liquid_ice; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:juggernaut_healing_ward": {
+    "changes": {
+      "explanation": "Healing Ward belongs to Juggernaut. Summons a movable ward that heals nearby allies for a percentage of their maximum health. The ward moves at 325 movement speed. Its duration increases with ability level.",
+      "hint": "Summons a movable ward that heals nearby allies for a percentage of their maximum health. The ward moves at 325 movement speed. Its duration increases with ability level.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=8"
+      }
+    },
+    "reasons": [
+      "level-dependent-number",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=8",
+        "fields": "result.data.heroes[0].abilities[name=juggernaut_healing_ward]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=juggernaut_healing_ward; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:keeper_of_the_light_blinding_light": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=90"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=90",
+        "fields": "result.data.heroes[0].abilities[name=keeper_of_the_light_blinding_light]"
+      }
+    ]
+  },
+  "ability-owner:kez_switch_weapons": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145",
+        "fields": "result.data.heroes[0].abilities[name=kez_switch_weapons]"
+      }
+    ]
+  },
+  "ability-owner:kunkka_x_marks_the_spot": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=23"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=23",
+        "fields": "result.data.heroes[0].abilities[name=kunkka_x_marks_the_spot]"
+      }
+    ]
+  },
+  "ability-owner:largo_croak_of_genius": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155",
+        "fields": "result.data.heroes[0].abilities[name=largo_croak_of_genius]"
+      }
+    ]
+  },
+  "ability-owner:legion_commander_outfight_them": {
+    "changes": {
+      "explanation": "Outfight Them! belongs to Legion Commander. When the caster or an allied hero within 1200 range casts an ability, that hero gains armor for six seconds. Allies receive half the armor bonus. Each stack has its own duration.",
+      "hint": "When the caster or an allied hero within 1200 range casts an ability, that hero gains armor for six seconds. Allies receive half the armor bonus. Each stack has its own duration.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=104"
+      }
+    },
+    "reasons": [
+      "obsolete-mechanic",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=104",
+        "fields": "result.data.heroes[0].abilities[name=legion_commander_outfight_them]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=legion_commander_outfight_them; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:leshrac_diabolic_edict": {
+    "changes": {
+      "answers": ["Leshrac", "Lina", "Outworld Destroyer", "Silencer"],
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=52"
+      }
+    },
+    "reasons": [
+      "Use the current localized hero names in all answer choices.",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=52",
+        "fields": "result.data.heroes[0].abilities[name=leshrac_diabolic_edict]"
+      }
+    ]
+  },
+  "ability-owner:lich_frost_shield": {
+    "changes": {
+      "explanation": "Frost Shield belongs to Lich. Places a shield around a target that reduces damage from attacks. While active, it releases a pulse of ice magic each second that damages and slows nearby enemies.",
+      "hint": "Places a shield around a target that reduces damage from attacks. While active, it releases a pulse of ice magic each second that damages and slows nearby enemies.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=31"
+      }
+    },
+    "reasons": [
+      "broken-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=31",
+        "fields": "result.data.heroes[0].abilities[name=lich_frost_shield]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=lich_frost_shield; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:life_stealer_open_wounds": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=54"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=54",
+        "fields": "result.data.heroes[0].abilities[name=life_stealer_open_wounds]"
+      }
+    ]
+  },
+  "ability-owner:lina_flame_cloak": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25",
+        "fields": "result.data.heroes[0].abilities[name=lina_flame_cloak]"
+      }
+    ]
+  },
+  "ability-owner:lion_mana_drain": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26",
+        "fields": "result.data.heroes[0].abilities[name=lion_mana_drain]"
+      }
+    ]
+  },
+  "ability-owner:lone_druid_spirit_bear": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=80"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=80",
+        "fields": "result.data.heroes[0].abilities[name=lone_druid_spirit_bear]"
+      }
+    ]
+  },
+  "ability-owner:luna_lunar_blessing": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=48"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=48",
+        "fields": "result.data.heroes[0].abilities[name=luna_lunar_blessing]"
+      }
+    ]
+  },
+  "ability-owner:lycan_wolf_bite": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=77"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=77",
+        "fields": "result.data.heroes[0].abilities[name=lycan_wolf_bite]"
+      }
+    ]
+  },
+  "ability-owner:magnataur_horn_toss": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=97"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=97",
+        "fields": "result.data.heroes[0].abilities[name=magnataur_horn_toss]"
+      }
+    ]
+  },
+  "ability-owner:marci_companion_run": {
+    "changes": {
+      "explanation": "Rebound belongs to Marci. Marci bounds to the targeted allied unit, choosing a direction and distance she will spring away from it. Upon reaching the unit, Marci lunges to her final destination, damaging and stunning enemies where she lands.\n\nWhen Rebound is set to alt-cast, Marci brings the target ally with her to her final destination.\n\n The ally receives 25% bonus movement speed for 4s.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=136"
+      }
+    },
+    "reasons": [
+      "Current Valve data gives the ally 25% bonus movement speed, not 15%.",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=136",
+        "fields": "result.data.heroes[0].abilities[name=marci_companion_run]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=marci_companion_run; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:mars_bulwark": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=129"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=129",
+        "fields": "result.data.heroes[0].abilities[name=mars_bulwark]"
+      }
+    ]
+  },
+  "ability-owner:medusa_gorgon_grasp": {
+    "changes": {
+      "answers": ["Medusa", "Spectre", "Death Prophet", "Outworld Destroyer"],
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=94"
+      }
+    },
+    "reasons": [
+      "Use the current localized hero names in all answer choices.",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=94",
+        "fields": "result.data.heroes[0].abilities[name=medusa_gorgon_grasp]"
+      }
+    ]
+  },
+  "ability-owner:meepo_poof": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=82"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=82",
+        "fields": "result.data.heroes[0].abilities[name=meepo_poof]"
+      }
+    ]
+  },
+  "ability-owner:mirana_arrow": {
+    "changes": {
+      "explanation": "Sacred Arrow belongs to Mirana. Fires an arrow that damages and stuns the first enemy it hits. Longer travel increases its damage and stun duration. The maximum stun duration depends on ability level. Instantly kills the first non-ancient creep it hits.",
+      "hint": "Fires an arrow that damages and stuns the first enemy it hits. Longer travel increases its damage and stun duration. The maximum stun duration depends on ability level. Instantly kills the first non-ancient creep it hits.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9"
+      }
+    },
+    "reasons": [
+      "stale-number-and-level-scope",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9",
+        "fields": "result.data.heroes[0].abilities[name=mirana_arrow]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=mirana_arrow; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:monkey_king_tree_dance": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=114"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=114",
+        "fields": "result.data.heroes[0].abilities[name=monkey_king_tree_dance]"
+      }
+    ]
+  },
+  "ability-owner:morphling_adaptive_strike_agi": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=10"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=10",
+        "fields": "result.data.heroes[0].abilities[name=morphling_adaptive_strike_agi]"
+      }
+    ]
+  },
+  "ability-owner:muerta_the_calling": {
+    "changes": {
+      "explanation": "The Calling belongs to Muerta. Summons four revenants that circle a target area. Enemies inside the area have reduced movement speed. Each revenant damages and silences enemies it passes through.",
+      "hint": "Summons four revenants that circle a target area. Enemies inside the area have reduced movement speed. Each revenant damages and silences enemies it passes through.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138"
+      }
+    },
+    "reasons": [
+      "incorrect-mechanics",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138",
+        "fields": "result.data.heroes[0].abilities[name=muerta_the_calling]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=muerta_the_calling; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:naga_siren_reel_in": {
+    "changes": {
+      "source": {
+        "label": "Valve ability data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/abilitydata?language=english&ability_id=1008"
+      }
+    },
+    "reasons": [
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page.",
+      "Follow-up review verified the hidden control through its direct Valve ability API record."
+    ],
+    "evidence": [
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=naga_siren_reel_in, hero_id=89"
+      },
+      {
+        "url": "https://www.dota2.com/datafeed/abilitydata?language=english&ability_id=1008",
+        "fields": "result.data.abilities[0]; source SHA-256 0bda21d9fd694b686c90326d424ff23c19bd78174b49686724a92db2b4594ee9"
+      }
+    ]
+  },
+  "ability-owner:necrolyte_ghost_shroud": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=36"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=36",
+        "fields": "result.data.heroes[0].abilities[name=necrolyte_ghost_shroud]"
+      }
+    ]
+  },
+  "ability-owner:nevermore_shadowraze3": {
+    "changes": {
+      "source": {
+        "label": "Valve ability data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/abilitydata?language=english&ability_id=5061"
+      }
+    },
+    "reasons": [
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page.",
+      "Follow-up review verified the hidden control through its direct Valve ability API record."
+    ],
+    "evidence": [
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=nevermore_shadowraze3, hero_id=11"
+      },
+      {
+        "url": "https://www.dota2.com/datafeed/abilitydata?language=english&ability_id=5061",
+        "fields": "result.data.abilities[0]; source SHA-256 464de244de3d374735d9f7ce2156e4d58312cc7e6f876b382ddec115af2f01de"
+      }
+    ]
+  },
+  "ability-owner:night_stalker_crippling_fear": {
+    "changes": {
+      "explanation": "Crippling Fear belongs to Night Stalker. Creates an aura that silences nearby enemies and deals damage over time. The effect lasts longer during nighttime.",
+      "hint": "Creates an aura that silences nearby enemies and deals damage over time. The effect lasts longer during nighttime.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=60"
+      }
+    },
+    "reasons": [
+      "meaning-destroyed-by-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=60",
+        "fields": "result.data.heroes[0].abilities[name=night_stalker_crippling_fear]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=night_stalker_crippling_fear; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:nyx_assassin_burrow": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=88"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=88",
+        "fields": "result.data.heroes[0].abilities[name=nyx_assassin_burrow]"
+      }
+    ]
+  },
+  "ability-owner:obsidian_destroyer_astral_imprisonment": {
+    "changes": {
+      "answers": ["Muerta", "Keeper of the Light", "Sniper", "Outworld Destroyer"],
+      "explanation": "Astral Imprisonment belongs to Outworld Destroyer. Steals a percentage of the target's max mana and places them into an astral prison. The hidden unit is invulnerable and disabled. When the astral prison implodes, it deals damage to the target.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76"
+      }
+    },
+    "reasons": [
+      "Use the current localized hero names in all answer choices.",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76",
+        "fields": "result.data.heroes[0].abilities[name=obsidian_destroyer_astral_imprisonment]"
+      }
+    ]
+  },
+  "ability-owner:ogre_magi_unrefined_fireblast": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=84"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=84",
+        "fields": "result.data.heroes[0].abilities[name=ogre_magi_unrefined_fireblast]"
+      }
+    ]
+  },
+  "ability-owner:omniknight_hammer_of_purity": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=57"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=57",
+        "fields": "result.data.heroes[0].abilities[name=omniknight_hammer_of_purity]"
+      }
+    ]
+  },
+  "ability-owner:oracle_purifying_flames": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=111"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=111",
+        "fields": "result.data.heroes[0].abilities[name=oracle_purifying_flames]"
+      }
+    ]
+  },
+  "ability-owner:pangolier_shield_crash": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=120"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=120",
+        "fields": "result.data.heroes[0].abilities[name=pangolier_shield_crash]"
+      }
+    ]
+  },
+  "ability-owner:phantom_assassin_fan_of_knives": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=44"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=44",
+        "fields": "result.data.heroes[0].abilities[name=phantom_assassin_fan_of_knives]"
+      }
+    ]
+  },
+  "ability-owner:phantom_lancer_doppelwalk": {
+    "changes": {
+      "explanation": "Doppelganger belongs to Phantom Lancer. The caster briefly vanishes. After one second, the caster and nearby illusions appear within the target area with two new copies. Existing illusions last longer. One new copy takes normal damage but deals none. The other deals reduced damage and takes extra damage. Applies a basic dispel.",
+      "hint": "The caster briefly vanishes. After one second, the caster and nearby illusions appear within the target area with two new copies. Existing illusions last longer. One new copy takes normal damage but deals none. The other deals reduced damage and takes extra damage. Applies a basic dispel.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=12"
+      }
+    },
+    "reasons": [
+      "double-negative-damage",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=12",
+        "fields": "result.data.heroes[0].abilities[name=phantom_lancer_doppelwalk]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=phantom_lancer_doppelwalk; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:phoenix_sun_ray": {
+    "changes": {
+      "explanation": "Sun Ray belongs to Phoenix. The caster spends its own health to emit a beam. It damages enemies and heals allies for a base amount plus a percentage of their maximum health. The percentage increases while the beam continues to fire.",
+      "hint": "The caster spends its own health to emit a beam. It damages enemies and heals allies for a base amount plus a percentage of their maximum health. The percentage increases while the beam continues to fire.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=110"
+      }
+    },
+    "reasons": [
+      "health-basis-precision",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=110",
+        "fields": "result.data.heroes[0].abilities[name=phoenix_sun_ray]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=phoenix_sun_ray; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:primal_beast_rock_throw": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=137"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=137",
+        "fields": "result.data.heroes[0].abilities[name=primal_beast_rock_throw]"
+      }
+    ]
+  },
+  "ability-owner:puck_waning_rift": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=13"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=13",
+        "fields": "result.data.heroes[0].abilities[name=puck_waning_rift]"
+      }
+    ]
+  },
+  "ability-owner:pudge_flesh_heap": {
+    "changes": {
+      "explanation": "Meat Shield belongs to Pudge. The caster covers himself in a layer of flesh that blocks a fixed amount from each instance of incoming damage, regardless of damage type.",
+      "hint": "The caster covers himself in a layer of flesh that blocks a fixed amount from each instance of incoming damage, regardless of damage type.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14"
+      }
+    },
+    "reasons": [
+      "damage-block-precision",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14",
+        "fields": "result.data.heroes[0].abilities[name=pudge_flesh_heap]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=pudge_flesh_heap; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:pugna_nether_ward": {
+    "changes": {
+      "explanation": "Nether Ward belongs to Pugna. Places a ward at the target location. When a nearby enemy hero casts a spell, the ward deals base damage plus additional damage based on the mana spent.",
+      "hint": "Places a ward at the target location. When a nearby enemy hero casts a spell, the ward deals base damage plus additional damage based on the mana spent.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45"
+      }
+    },
+    "reasons": [
+      "broken-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45",
+        "fields": "result.data.heroes[0].abilities[name=pugna_nether_ward]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=pugna_nether_ward; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:queenofpain_scream_of_pain": {
+    "changes": {
+      "answers": ["Outworld Destroyer", "Shadow Fiend", "Queen of Pain", "Tinker"],
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39"
+      }
+    },
+    "reasons": [
+      "Use the current localized hero names in all answer choices.",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39",
+        "fields": "result.data.heroes[0].abilities[name=queenofpain_scream_of_pain]"
+      }
+    ]
+  },
+  "ability-owner:rattletrap_overclocking": {
+    "changes": {
+      "explanation": "Overclocking belongs to Clockwerk. Temporarily strengthens the caster's other abilities. Battery Assault hits more enemies, Power Cogs grows and grants more armor, and Rocket Flare launches extra rockets with improved effects. Hookshot gains a larger stun area and longer stun, while Jetpack moves faster. When the buff ends, the caster's movement and attack speed fall sharply.",
+      "hint": "Temporarily strengthens the caster's other abilities. Battery Assault hits more enemies, Power Cogs grows and grants more armor, and Rocket Flare launches extra rockets with improved effects. Hookshot gains a larger stun area and longer stun, while Jetpack moves faster. When the buff ends, the caster's movement and attack speed fall sharply.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=51"
+      }
+    },
+    "reasons": [
+      "broken-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=51",
+        "fields": "result.data.heroes[0].abilities[name=rattletrap_overclocking]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=rattletrap_overclocking; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:razor_static_link": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15",
+        "fields": "result.data.heroes[0].abilities[name=razor_static_link]"
+      }
+    ]
+  },
+  "ability-owner:riki_tricks_of_the_trade": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=32"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=32",
+        "fields": "result.data.heroes[0].abilities[name=riki_tricks_of_the_trade]"
+      }
+    ]
+  },
+  "ability-owner:ringmaster_impalement": {
+    "changes": {
+      "answers": ["Muerta", "Queen of Pain", "Ringmaster", "Oracle"],
+      "explanation": "Impalement Arts belongs to Ringmaster. Ringmaster throws one of his daggers to a precise point of his choosing. If he strikes an enemy, the dagger deals impact damage, briefly slows the unit hit, and causes them to bleed. The bleeding deals a percentage of the victim's maximum health in damage every second to heroes and flat damage per second to creeps.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131"
+      }
+    },
+    "reasons": [
+      "Use the current localized hero names in all answer choices.",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131",
+        "fields": "result.data.heroes[0].abilities[name=ringmaster_impalement]"
+      }
+    ]
+  },
+  "ability-owner:rubick_fade_bolt": {
+    "changes": {
+      "answers": ["Ringmaster", "Rubick", "Necrophos", "Dazzle"],
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=86"
+      }
+    },
+    "reasons": [
+      "Use the current localized hero names in all answer choices.",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=86",
+        "fields": "result.data.heroes[0].abilities[name=rubick_fade_bolt]"
+      }
+    ]
+  },
+  "ability-owner:sandking_scorpion_strike": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=16"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=16",
+        "fields": "result.data.heroes[0].abilities[name=sandking_scorpion_strike]"
+      }
+    ]
+  },
+  "ability-owner:shadow_demon_shadow_poison": {
+    "changes": {
+      "explanation": "Shadow Poison belongs to Shadow Demon. Sends poison in a line, damaging enemies and adding stacks. For the first five stacks, delayed damage scales by 1/2/4/8/16. Each further stack adds 60 base damage. The delayed damage triggers when the effect expires or the release sub-ability is used.",
+      "hint": "Sends poison in a line, damaging enemies and adding stacks. For the first five stacks, delayed damage scales by 1/2/4/8/16. Each further stack adds 60 base damage. The delayed damage triggers when the effect expires or the release sub-ability is used.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79"
+      }
+    },
+    "reasons": [
+      "stale-number",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79",
+        "fields": "result.data.heroes[0].abilities[name=shadow_demon_shadow_poison]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=shadow_demon_shadow_poison; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:shadow_shaman_fowl_play": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=27"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=27",
+        "fields": "result.data.heroes[0].abilities[name=shadow_shaman_fowl_play]"
+      }
+    ]
+  },
+  "ability-owner:shredder_timber_chain": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=98"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=98",
+        "fields": "result.data.heroes[0].abilities[name=shredder_timber_chain]"
+      }
+    ]
+  },
+  "ability-owner:silencer_last_word": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75",
+        "fields": "result.data.heroes[0].abilities[name=silencer_last_word]"
+      }
+    ]
+  },
+  "ability-owner:skeleton_king_bone_guard": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=42"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=42",
+        "fields": "result.data.heroes[0].abilities[name=skeleton_king_bone_guard]"
+      }
+    ]
+  },
+  "ability-owner:skywrath_mage_concussive_shot": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=101"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=101",
+        "fields": "result.data.heroes[0].abilities[name=skywrath_mage_concussive_shot]"
+      }
+    ]
+  },
+  "ability-owner:slardar_slithereen_crush": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=28"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=28",
+        "fields": "result.data.heroes[0].abilities[name=slardar_slithereen_crush]"
+      }
+    ]
+  },
+  "ability-owner:slark_pounce": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=93"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=93",
+        "fields": "result.data.heroes[0].abilities[name=slark_pounce]"
+      }
+    ]
+  },
+  "ability-owner:snapfire_spit_creep": {
+    "changes": {
+      "explanation": "Spit Out belongs to Snapfire. Mortimer launches the unit held in his mouth, dealing impact damage and stunning enemies over a large area. The impact leaves a pool of fire that slows enemies and deals damage over time based on the level of Mortimer Kisses. This ability has no minimum launch range.",
+      "hint": "Mortimer launches the unit held in his mouth, dealing impact damage and stunning enemies over a large area. The impact leaves a pool of fire that slows enemies and deals damage over time based on the level of Mortimer Kisses. This ability has no minimum launch range.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128"
+      }
+    },
+    "reasons": [
+      "grammar",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128",
+        "fields": "result.data.heroes[0].abilities[name=snapfire_spit_creep]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=snapfire_spit_creep; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:sniper_take_aim": {
+    "changes": {
+      "explanation": "Take Aim belongs to Sniper. Passively increases attack range, with a larger bonus at higher ability levels. Activating the ability increases vision, Headshot chance, and attack range, but slows the caster and restricts vision to a forward cone.",
+      "hint": "Passively increases attack range, with a larger bonus at higher ability levels. Activating the ability increases vision, Headshot chance, and attack range, but slows the caster and restricts vision to a forward cone.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=35"
+      }
+    },
+    "reasons": [
+      "level-dependent-number",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=35",
+        "fields": "result.data.heroes[0].abilities[name=sniper_take_aim]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=sniper_take_aim; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:spectre_shadow_step": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=67"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=67",
+        "fields": "result.data.heroes[0].abilities[name=spectre_shadow_step]"
+      }
+    ]
+  },
+  "ability-owner:spirit_breaker_planar_pocket": {
+    "changes": {
+      "explanation": "Planar Pocket belongs to Spirit Breaker. The caster gains magic resistance and distorts the space around a selected hero, redirecting enemy unit-targeted spells toward himself. The target can be an allied or enemy hero. Only spells cast by enemies of the caster are redirected.",
+      "hint": "The caster gains magic resistance and distorts the space around a selected hero, redirecting enemy unit-targeted spells toward himself. The target can be an allied or enemy hero. Only spells cast by enemies of the caster are redirected.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71"
+      }
+    },
+    "reasons": [
+      "hero-alias-leak",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71",
+        "fields": "result.data.heroes[0].abilities[name=spirit_breaker_planar_pocket]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=spirit_breaker_planar_pocket; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:storm_spirit_overload": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17",
+        "fields": "result.data.heroes[0].abilities[name=storm_spirit_overload]"
+      }
+    ]
+  },
+  "ability-owner:sven_warcry": {
+    "changes": {
+      "explanation": "Warcry belongs to Sven. The caster rallies nearby allied heroes, increasing their armor and movement speed for eight seconds.",
+      "hint": "The caster rallies nearby allied heroes, increasing their armor and movement speed for eight seconds.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=18"
+      }
+    },
+    "reasons": [
+      "broken-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=18",
+        "fields": "result.data.heroes[0].abilities[name=sven_warcry]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=sven_warcry; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:techies_suicide": {
+    "changes": {
+      "answers": ["Winter Wyvern", "Skywrath Mage", "Ringmaster", "Techies"],
+      "explanation": "Blast Off! belongs to Techies. The caster leaps into the enemy, detonating explosives on landing that damage and stun enemies in an area. The landing also deals non-lethal damage to the caster based on a percentage of current health.",
+      "hint": "The caster leaps into the enemy, detonating explosives on landing that damage and stun enemies in an area. The landing also deals non-lethal damage to the caster based on a percentage of current health.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=105"
+      }
+    },
+    "reasons": [
+      "Use the current localized hero names in all answer choices.",
+      "grammar",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=105",
+        "fields": "result.data.heroes[0].abilities[name=techies_suicide]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=techies_suicide; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:templar_assassin_meld": {
+    "changes": {
+      "explanation": "Meld belongs to Templar Assassin. The caster becomes invisible while standing still. Breaking the invisibility with an attack deals bonus damage and reduces the target's armor. Psi Blades carries the bonus damage and debuffs to enemies behind the target.",
+      "hint": "The caster becomes invisible while standing still. Breaking the invisibility with an attack deals bonus damage and reduces the target's armor. Psi Blades carries the bonus damage and debuffs to enemies behind the target.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=46"
+      }
+    },
+    "reasons": [
+      "hero-alias-leak",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=46",
+        "fields": "result.data.heroes[0].abilities[name=templar_assassin_meld]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=templar_assassin_meld; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:terrorblade_demon_zeal": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=109"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=109",
+        "fields": "result.data.heroes[0].abilities[name=terrorblade_demon_zeal]"
+      }
+    ]
+  },
+  "ability-owner:tidehunter_dead_in_the_water": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=29"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=29",
+        "fields": "result.data.heroes[0].abilities[name=tidehunter_dead_in_the_water]"
+      }
+    ]
+  },
+  "ability-owner:tinker_warp_grenade": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34",
+        "fields": "result.data.heroes[0].abilities[name=tinker_warp_grenade]"
+      }
+    ]
+  },
+  "ability-owner:tiny_tree_grab": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19",
+        "fields": "result.data.heroes[0].abilities[name=tiny_tree_grab]"
+      }
+    ]
+  },
+  "ability-owner:treant_leech_seed": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=83"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=83",
+        "fields": "result.data.heroes[0].abilities[name=treant_leech_seed]"
+      }
+    ]
+  },
+  "ability-owner:troll_warlord_berserkers_rage": {
+    "changes": {
+      "explanation": "Berserker's Rage belongs to Troll Warlord. Switches between melee and ranged combat. In melee form, the caster gains movement speed and attacks can root enemies. In ranged form, attacks can maim enemies, adding damage and reducing their movement and attack speed.",
+      "hint": "Switches between melee and ranged combat. In melee form, the caster gains movement speed and attacks can root enemies. In ranged form, attacks can maim enemies, adding damage and reducing their movement and attack speed.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=95"
+      }
+    },
+    "reasons": [
+      "grammar",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=95",
+        "fields": "result.data.heroes[0].abilities[name=troll_warlord_berserkers_rage]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=troll_warlord_berserkers_rage; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:tusk_snowball": {
+    "changes": {
+      "explanation": "Snowball belongs to Tusk. The caster forms a rolling ball of snow and can pull nearby allies inside by selecting them. Once launched, it damages and stuns enemies in its path. Each allied hero inside increases its damage and stun duration.",
+      "hint": "The caster forms a rolling ball of snow and can pull nearby allies inside by selecting them. Once launched, it damages and stuns enemies in its path. Each allied hero inside increases its damage and stun duration.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=100"
+      }
+    },
+    "reasons": [
+      "broken-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=100",
+        "fields": "result.data.heroes[0].abilities[name=tusk_snowball]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=tusk_snowball; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:undying_tombstone": {
+    "changes": {
+      "explanation": "Tombstone belongs to Undying. Summons a structure that repeatedly spawns zombies beside nearby enemies. Zombie attacks slow their targets. Against enemies below a health threshold, the zombies gain movement and attack speed.",
+      "hint": "Summons a structure that repeatedly spawns zombies beside nearby enemies. Zombie attacks slow their targets. Against enemies below a health threshold, the zombies gain movement and attack speed.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=85"
+      }
+    },
+    "reasons": [
+      "broken-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=85",
+        "fields": "result.data.heroes[0].abilities[name=undying_tombstone]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=undying_tombstone; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:ursa_fury_swipes": {
+    "changes": {
+      "explanation": "Fury Swipes belongs to Ursa. Repeated attacks against the same enemy deal increasing bonus damage. If the caster stops attacking that target for long enough, the bonus expires. Higher ability levels keep the effect active for longer.",
+      "hint": "Repeated attacks against the same enemy deal increasing bonus damage. If the caster stops attacking that target for long enough, the bonus expires. Higher ability levels keep the effect active for longer.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=70"
+      }
+    },
+    "reasons": [
+      "level-dependent-number",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=70",
+        "fields": "result.data.heroes[0].abilities[name=ursa_fury_swipes]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=ursa_fury_swipes; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:vengefulspirit_wave_of_terror": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20",
+        "fields": "result.data.heroes[0].abilities[name=vengefulspirit_wave_of_terror]"
+      }
+    ]
+  },
+  "ability-owner:venomancer_snakebite": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40",
+        "fields": "result.data.heroes[0].abilities[name=venomancer_snakebite]"
+      }
+    ]
+  },
+  "ability-owner:viper_nethertoxin": {
+    "changes": {
+      "explanation": "Nethertoxin belongs to Viper. Creates a toxic area that damages enemies and reduces their attack speed. Its damage increases the longer a unit stays inside.",
+      "hint": "Creates a toxic area that damages enemies and reduces their attack speed. Its damage increases the longer a unit stays inside.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=47"
+      }
+    },
+    "reasons": [
+      "broken-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=47",
+        "fields": "result.data.heroes[0].abilities[name=viper_nethertoxin]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=viper_nethertoxin; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:visage_stone_form_self_cast": {
+    "changes": {
+      "source": {
+        "label": "Valve ability data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/abilitydata?language=english&ability_id=7116"
+      }
+    },
+    "reasons": [
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page.",
+      "Follow-up review verified the hidden control through its direct Valve ability API record."
+    ],
+    "evidence": [
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=visage_stone_form_self_cast, hero_id=92"
+      },
+      {
+        "url": "https://www.dota2.com/datafeed/abilitydata?language=english&ability_id=7116",
+        "fields": "result.data.abilities[0]; source SHA-256 78d58ff2a1540e58192cc1ad4bf46ac9ebc2ec93a64624c3da86602cc275a6cd"
+      }
+    ]
+  },
+  "ability-owner:void_spirit_resonant_pulse": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=126"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=126",
+        "fields": "result.data.heroes[0].abilities[name=void_spirit_resonant_pulse]"
+      }
+    ]
+  },
+  "ability-owner:warlock_shadow_word": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=37"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=37",
+        "fields": "result.data.heroes[0].abilities[name=warlock_shadow_word]"
+      }
+    ]
+  },
+  "ability-owner:weaver_shukuchi": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=63"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=63",
+        "fields": "result.data.heroes[0].abilities[name=weaver_shukuchi]"
+      }
+    ]
+  },
+  "ability-owner:windrunner_powershot": {
+    "changes": {
+      "answers": ["Ringmaster", "Void Spirit", "Windranger", "Muerta"],
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21"
+      }
+    },
+    "reasons": [
+      "Use the current localized hero names in all answer choices.",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21",
+        "fields": "result.data.heroes[0].abilities[name=windrunner_powershot]"
+      }
+    ]
+  },
+  "ability-owner:winter_wyvern_splinter_blast": {
+    "changes": {
+      "explanation": "Splinter Blast belongs to Winter Wyvern. Fires a ball of ice at a target. It splits on impact, leaving that target unaffected and damaging nearby enemies with splinters. The splinters slow movement, with a stronger slow at higher ability levels.",
+      "hint": "Fires a ball of ice at a target. It splits on impact, leaving that target unaffected and damaging nearby enemies with splinters. The splinters slow movement, with a stronger slow at higher ability levels.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=112"
+      }
+    },
+    "reasons": [
+      "stale-number-and-level-scope",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=112",
+        "fields": "result.data.heroes[0].abilities[name=winter_wyvern_splinter_blast]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=winter_wyvern_splinter_blast; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:wisp_spirits": {
+    "changes": {
+      "answers": ["Invoker", "Queen of Pain", "Ringmaster", "Io"],
+      "explanation": "Spirits belongs to Io. Summons five particles that orbit the caster. A particle that touches an enemy hero explodes and damages nearby enemies. Creeps take minor contact damage but do not trigger explosions. Any particles left when the duration ends also explode.",
+      "hint": "Summons five particles that orbit the caster. A particle that touches an enemy hero explodes and damages nearby enemies. Creeps take minor contact damage but do not trigger explosions. Any particles left when the duration ends also explode.",
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=91"
+      }
+    },
+    "reasons": [
+      "Use the current localized hero names in all answer choices.",
+      "broken-redaction",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=91",
+        "fields": "result.data.heroes[0].abilities[name=wisp_spirits]"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/abilities.json",
+        "fields": "name=wisp_spirits; description; json_data.AbilityValues"
+      }
+    ]
+  },
+  "ability-owner:witch_doctor_maledict": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30",
+        "fields": "result.data.heroes[0].abilities[name=witch_doctor_maledict]"
+      }
+    ]
+  },
+  "ability-owner:zuus_lightning_bolt": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22",
+        "fields": "result.data.heroes[0].abilities[name=zuus_lightning_bolt]"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_abaddon": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=102"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=102",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_abaddon"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_abyssal_underlord": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=108"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=108",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_abyssal_underlord"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_alchemist": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=73"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=73",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_alchemist"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_ancient_apparition": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=68"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=68",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_ancient_apparition"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_antimage": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=1"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=1",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_antimage"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_arc_warden": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=113"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=113",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_arc_warden"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_axe": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_axe"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_bane": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_bane"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_batrider": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_batrider"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_beastmaster": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=38"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=38",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_beastmaster"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_bloodseeker": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=4"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=4",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_bloodseeker"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_bounty_hunter": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=62"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=62",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_bounty_hunter"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_brewmaster": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=78"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=78",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_brewmaster"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_bristleback": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=99"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=99",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_bristleback"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_broodmother": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=61"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=61",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_broodmother"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_centaur": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=96"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=96",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_centaur"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_chaos_knight": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=81"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=81",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_chaos_knight"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_chen": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_chen"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_clinkz": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_clinkz"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_crystal_maiden": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_crystal_maiden"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_dark_seer": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_dark_seer"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_dark_willow": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_dark_willow"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_dawnbreaker": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=135"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=135",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_dawnbreaker"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_dazzle": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_dazzle"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_death_prophet": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_death_prophet"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_disruptor": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_disruptor"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_doom_bringer": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=69"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=69",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_doom_bringer"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_dragon_knight": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_dragon_knight"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_drow_ranger": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=6"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=6",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_drow_ranger"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_earth_spirit": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=107"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=107",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_earth_spirit"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_earthshaker": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=7"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=7",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_earthshaker"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_elder_titan": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=103"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=103",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_elder_titan"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_ember_spirit": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=106"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=106",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_ember_spirit"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_enchantress": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_enchantress"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_enigma": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=33"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=33",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_enigma"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_faceless_void": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=41"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=41",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_faceless_void"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_furion": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_furion"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_grimstroke": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=121"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=121",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_grimstroke"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_gyrocopter": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=72"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=72",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_gyrocopter"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_hoodwink": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=123"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=123",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_hoodwink"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_huskar": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=59"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=59",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_huskar"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_invoker": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_invoker"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_jakiro": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=64"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=64",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_jakiro"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_juggernaut": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=8"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=8",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_juggernaut"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_keeper_of_the_light": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=90"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=90",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_keeper_of_the_light"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_kez": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_kez"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_kunkka": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=23"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=23",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_kunkka"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_largo": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_largo"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_legion_commander": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=104"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=104",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_legion_commander"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_leshrac": {
+    "changes": {
+      "answers": ["Winter Wyvern", "Outworld Destroyer", "Leshrac", "Rubick"],
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=52"
+      }
+    },
+    "reasons": [
+      "Use the current localized hero names in all answer choices.",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=52",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_leshrac"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_lich": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=31"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=31",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_lich"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_life_stealer": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=54"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=54",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_life_stealer"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_lina": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_lina"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_lion": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_lion"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_lone_druid": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=80"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=80",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_lone_druid"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_luna": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=48"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=48",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_luna"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_lycan": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=77"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=77",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_lycan"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_magnataur": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=97"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=97",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_magnataur"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_marci": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=136"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=136",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_marci"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_mars": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=129"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=129",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_mars"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_medusa": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=94"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=94",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_medusa"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_meepo": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=82"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=82",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_meepo"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_mirana": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_mirana"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_monkey_king": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=114"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=114",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_monkey_king"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_morphling": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=10"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=10",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_morphling"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_muerta": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_muerta"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_naga_siren": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=89"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=89",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_naga_siren"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_necrolyte": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=36"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=36",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_necrolyte"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_nevermore": {
+    "changes": {
+      "answers": ["Phantom Assassin", "Outworld Destroyer", "Shadow Fiend", "Medusa"],
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11"
+      }
+    },
+    "reasons": [
+      "Use the current localized hero names in all answer choices.",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_nevermore"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_night_stalker": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=60"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=60",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_night_stalker"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_nyx_assassin": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=88"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=88",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_nyx_assassin"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_obsidian_destroyer": {
+    "changes": {
+      "answers": ["Enchantress", "Skywrath Mage", "Outworld Destroyer", "Lich"],
+      "explanation": "Outworld Destroyer was hiding behind the fog.",
+      "image": {
+        "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png",
+        "alt": "Outworld Destroyer hero portrait",
+        "kind": "hero"
+      },
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76"
+      }
+    },
+    "reasons": [
+      "Use the current localized hero names in all answer choices.",
+      "Link directly to the hero or ability source instead of a generic documentation page or patch page."
+    ],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_obsidian_destroyer"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_ogre_magi": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=84"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=84",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_ogre_magi"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_omniknight": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=57"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=57",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_omniknight"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_oracle": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=111"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=111",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_oracle"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_pangolier": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=120"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=120",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_pangolier"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_phantom_assassin": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=44"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=44",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_phantom_assassin"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_phantom_lancer": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=12"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=12",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_phantom_lancer"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_phoenix": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=110"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=110",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_phoenix"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_primal_beast": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=137"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=137",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_primal_beast"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_puck": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=13"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=13",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_puck"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_pudge": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_pudge"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_pugna": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_pugna"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_queenofpain": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_queenofpain"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_rattletrap": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=51"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=51",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_rattletrap"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_razor": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_razor"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_riki": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=32"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=32",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_riki"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_ringmaster": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_ringmaster"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_rubick": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=86"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=86",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_rubick"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_sand_king": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=16"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=16",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_sand_king"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_shadow_demon": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_shadow_demon"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_shadow_shaman": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=27"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=27",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_shadow_shaman"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_shredder": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=98"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=98",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_shredder"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_silencer": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_silencer"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_skeleton_king": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=42"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=42",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_skeleton_king"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_skywrath_mage": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=101"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=101",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_skywrath_mage"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_slardar": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=28"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=28",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_slardar"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_slark": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=93"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=93",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_slark"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_snapfire": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_snapfire"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_sniper": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=35"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=35",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_sniper"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_spectre": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=67"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=67",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_spectre"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_spirit_breaker": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_spirit_breaker"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_storm_spirit": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_storm_spirit"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_sven": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=18"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=18",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_sven"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_techies": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=105"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=105",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_techies"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_templar_assassin": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=46"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=46",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_templar_assassin"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_terrorblade": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=109"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=109",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_terrorblade"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_tidehunter": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=29"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=29",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_tidehunter"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_tinker": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_tinker"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_tiny": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_tiny"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_treant": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=83"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=83",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_treant"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_troll_warlord": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=95"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=95",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_troll_warlord"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_tusk": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=100"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=100",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_tusk"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_undying": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=85"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=85",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_undying"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_ursa": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=70"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=70",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_ursa"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_vengefulspirit": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_vengefulspirit"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_venomancer": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_venomancer"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_viper": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=47"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=47",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_viper"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_visage": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=92"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=92",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_visage"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_void_spirit": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=126"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=126",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_void_spirit"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_warlock": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=37"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=37",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_warlock"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_weaver": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=63"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=63",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_weaver"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_windrunner": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_windrunner"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_winter_wyvern": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=112"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=112",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_winter_wyvern"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_wisp": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=91"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=91",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_wisp"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_witch_doctor": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_witch_doctor"
+      }
+    ]
+  },
+  "fogged-hero:npc_dota_hero_zuus": {
+    "changes": {
+      "source": {
+        "label": "Valve hero data · reviewed 2026-10-06",
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22"
+      }
+    },
+    "reasons": ["Link directly to the hero or ability source instead of a generic documentation page or patch page."],
+    "evidence": [
+      {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22",
+        "fields": "result.data.heroes[0].name=npc_dota_hero_zuus"
+      }
+    ]
+  }
+}

@@ -1,0 +1,3066 @@
+{
+  "summary": {
+    "finalQuestionsChecked": 123,
+    "responseFilesVerified": 226,
+    "sourceResponseRecords": 91246,
+    "questionsWithCrossHeroText": 1,
+    "sourceProblems": []
+  },
+  "records": [
+    {
+      "id": "hero-voice:npc_dota_hero_abaddon:abad_kill_03",
+      "hero": "Abaddon",
+      "response": {
+        "name": "abad_kill_03",
+        "fullname": "abaddon_abad_kill_03",
+        "mp3": "/sounds/vo/abaddon/abad_kill_03.mp3",
+        "hero_id": 102,
+        "voice_id": 102,
+        "text": "Your fate was foreshadowed in the mist.",
+        "text_simple": " your fate was foreshadowed in the mist ",
+        "criteria": "Kill Isabaddon",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "c26a2d2f8cd524f305d3a126c0cd62d9411e9b0379a36cd85e37d924d4027b1d",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_abyssal_underlord:abys_firstblood_01",
+      "hero": "Underlord",
+      "response": {
+        "name": "abys_firstblood_01",
+        "fullname": "abyssal_underlord_abys_firstblood_01",
+        "mp3": "/sounds/vo/abyssal_underlord/abys_firstblood_01.mp3",
+        "hero_id": 108,
+        "voice_id": 108,
+        "text": "First blood spills. I demand more!",
+        "text_simple": " first blood spills i demand more ",
+        "criteria": "Kill Isabyssal_underlord IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "5ec0ff8b40ae62404168aa3130c8e0eda18f2211b5b9b906eabb159ef4e2a3ef",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_alchemist:alch_ability_concoc_15",
+      "hero": "Alchemist",
+      "response": {
+        "name": "alch_ability_concoc_15",
+        "fullname": "alchemist_alch_ability_concoc_15",
+        "mp3": "/sounds/vo/alchemist/alch_ability_concoc_15.mp3",
+        "hero_id": 73,
+        "voice_id": 73,
+        "text": "Mixed that up special for you!",
+        "text_simple": " mixed that up special for you ",
+        "criteria": "Kill Isalchemist IsAbilityConcoction Chance_50%",
+        "pretty_criteria": "Killing a hero with Unstable Concoction (50% chance)"
+      },
+      "transcriptSourceSha256": "452a99bfcdd94f38702e26eb258d7b982c93ab49fd054ae179a84ddd6f173732",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_ancient_apparition:appa_blink_02",
+      "hero": "Ancient Apparition",
+      "response": {
+        "name": "appa_blink_02",
+        "fullname": "ancient_apparition_appa_blink_02",
+        "mp3": "/sounds/vo/ancient_apparition/appa_blink_02.mp3",
+        "hero_id": 68,
+        "voice_id": 68,
+        "text": "Sharp as winter's teeth.",
+        "text_simple": " sharp as winters teeth ",
+        "criteria": "Purchase Isancient_apparition IsBlinkDagger",
+        "pretty_criteria": "Buying Blink Dagger"
+      },
+      "transcriptSourceSha256": "debe0d8664bdd2cebaf1904402e749e785b2d6421e1685ce812e312635ba0beb",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_antimage:anti_respawn_06",
+      "hero": "Anti-Mage",
+      "response": {
+        "name": "anti_respawn_06",
+        "fullname": "antimage_anti_respawn_06",
+        "mp3": "/sounds/vo/antimage/anti_respawn_06.mp3",
+        "hero_id": 1,
+        "voice_id": 1,
+        "text": "The stout heart knows no fear!",
+        "text_simple": " the stout heart knows no fear ",
+        "criteria": "Respawn Isantimage IsNotWei",
+        "pretty_criteria": "Respawning"
+      },
+      "transcriptSourceSha256": "85ddd6ee19f9cc2b00afd99752a09dfefb5e0c78a414089a6c39e2976c8adf79",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_arc_warden:arcwar_kill_07",
+      "hero": "Arc Warden",
+      "response": {
+        "name": "arcwar_kill_07",
+        "fullname": "arc_warden_arcwar_kill_07",
+        "mp3": "/sounds/vo/arc_warden/arcwar_kill_07.mp3",
+        "hero_id": 113,
+        "voice_id": 113,
+        "text": "No one to blame but yourself.",
+        "text_simple": " no one to blame but yourself ",
+        "criteria": "Kill Isarc_warden",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "3490cc28278e6603fd0d2aa350c30d289c78e1134dee7119e8bd5766627be003",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_axe:axe_deny_15",
+      "hero": "Axe",
+      "response": {
+        "name": "axe_deny_15",
+        "fullname": "axe_axe_deny_15",
+        "mp3": "/sounds/vo/axe/axe_deny_15.mp3",
+        "hero_id": 2,
+        "voice_id": 2,
+        "text": "You get nothing. Good day, sir!",
+        "text_simple": " you get nothing good day sir ",
+        "criteria": "Kill Isaxe IsCullingKill Chance_30%",
+        "pretty_criteria": "Killing a hero with Culling Blade (30% chance)"
+      },
+      "transcriptSourceSha256": "3cbbffddeedad97995d43258afb8923c5b4bdd58addc2e6128030be72ca09ce3",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_bane:bane_kill_06",
+      "hero": "Bane",
+      "response": {
+        "name": "bane_kill_06",
+        "fullname": "bane_bane_kill_06",
+        "mp3": "/sounds/vo/bane/bane_kill_06.mp3",
+        "hero_id": 3,
+        "voice_id": 3,
+        "text": "I'll see you in your death-dream.",
+        "text_simple": " ill see you in your deathdream ",
+        "criteria": "Kill Isbane",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "6c3bb8a706968c83b3032b74f1dd8e4039c18a1ec243b350c2b54d83dc70846d",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_batrider:bat_kill_06",
+      "hero": "Batrider",
+      "response": {
+        "name": "bat_kill_06",
+        "fullname": "batrider_bat_kill_06",
+        "mp3": "/sounds/vo/batrider/bat_kill_06.mp3",
+        "hero_id": 65,
+        "voice_id": 65,
+        "text": "A message from on high: You're dead!",
+        "text_simple": " a message from on high youre dead ",
+        "criteria": "Kill Isbatrider|HeroChatWheel GrandmasterTier",
+        "pretty_criteria": "Killing a hero|A grandmaster hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "84349409d278f71c30937759ed139514901b8ea05df3fa01a77e438d9af9d53d",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_beastmaster:beas_win_02",
+      "hero": "Beastmaster",
+      "response": {
+        "name": "beas_win_02",
+        "fullname": "beastmaster_beas_win_02",
+        "mp3": "/sounds/vo/beastmaster/beas_win_02.mp3",
+        "hero_id": 38,
+        "voice_id": 38,
+        "text": "The dogs of war feast tonight!",
+        "text_simple": " the dogs of war feast tonight ",
+        "criteria": "Custom Isbeastmaster IsBeastmasterLoadoutSpawn|Victory Isbeastmaster",
+        "pretty_criteria": "Spawning in the loadout|Winning a game"
+      },
+      "transcriptSourceSha256": "aa4307b14593337ca76809683c92434c2794683c41f9ae8ee5614c4eb99b2a9c",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_bloodseeker:blod_kill_05",
+      "hero": "Bloodseeker",
+      "response": {
+        "name": "blod_kill_05",
+        "fullname": "bloodseeker_blod_kill_05",
+        "mp3": "/sounds/vo/bloodseeker/blod_kill_05.mp3",
+        "hero_id": 4,
+        "voice_id": 4,
+        "text": "The Flayed Ones drink your blood.",
+        "text_simple": " the flayed ones drink your blood ",
+        "criteria": "Kill Isbloodseeker",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "321476a4fc06b63a89f409f9a788a669aeb28379c80193f246add35d9c07cf6a",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_bounty_hunter:bount_ability_track_04",
+      "hero": "Bounty Hunter",
+      "response": {
+        "name": "bount_ability_track_04",
+        "fullname": "bounty_hunter_bount_ability_track_04",
+        "mp3": "/sounds/vo/bounty_hunter/bount_ability_track_04.mp3",
+        "hero_id": 62,
+        "voice_id": 62,
+        "text": "Where do you think you're going?",
+        "text_simple": " where do you think youre going ",
+        "criteria": "Kill Isbounty_hunter",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "0dd53f528ba2fedcc86d0772fa1c59c58acc595cf1ce59ebae49aa7b3ae2d156",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": [
+        {
+          "file": "claszian_apostasy_head.json",
+          "name": "fv_arc_ability_timewalk_01",
+          "heroId": 41,
+          "voiceId": 18033
+        },
+        {
+          "file": "claszian_apostasy_head.json",
+          "name": "fv_arc_cast_04",
+          "heroId": 41,
+          "voiceId": 18033
+        },
+        {
+          "file": "clockwerk.json",
+          "name": "ratt_ability_cogs_04",
+          "heroId": 51,
+          "voiceId": 51
+        },
+        {
+          "file": "earth_spirit.json",
+          "name": "earthspi_magnetize_04",
+          "heroId": 107,
+          "voiceId": 107
+        },
+        {
+          "file": "faceless_void.json",
+          "name": "face_cast_04",
+          "heroId": 41,
+          "voiceId": 41
+        },
+        {
+          "file": "faceless_void.json",
+          "name": "face_ability_timewalk_01",
+          "heroId": 41,
+          "voiceId": 41
+        },
+        {
+          "file": "great_sages_reckoning.json",
+          "name": "monkey_crown_ability3_01",
+          "heroId": 114,
+          "voiceId": 9050
+        },
+        {
+          "file": "hoodwink.json",
+          "name": "hoodwink_intro_15",
+          "heroId": 123,
+          "voiceId": 123
+        },
+        {
+          "file": "magnus.json",
+          "name": "magn_polarity_02",
+          "heroId": 97,
+          "voiceId": 97
+        },
+        {
+          "file": "mars.json",
+          "name": "mars_ally_103",
+          "heroId": 129,
+          "voiceId": 129
+        },
+        {
+          "file": "meepo.json",
+          "name": "meepo_attack_02",
+          "heroId": 82,
+          "voiceId": 82
+        },
+        {
+          "file": "monkey_king.json",
+          "name": "monkey_ability3_01",
+          "heroId": 114,
+          "voiceId": 114
+        },
+        {
+          "file": "muerta.json",
+          "name": "eth_muerta_flintlocks_kill_16",
+          "heroId": 138,
+          "voiceId": 138
+        },
+        {
+          "file": "muerta.json",
+          "name": "muerta_flintlocks_kill_16",
+          "heroId": 138,
+          "voiceId": 138
+        },
+        {
+          "file": "sand_king.json",
+          "name": "skg_ability_epicenter_01",
+          "heroId": 16,
+          "voiceId": 16
+        },
+        {
+          "file": "vengeful_spirit.json",
+          "name": "venge_crown_wheel_all_07",
+          "heroId": 20,
+          "voiceId": 20
+        },
+        {
+          "file": "vengeful_spirit.json",
+          "name": "venge_crown_wheel_all_81_07",
+          "heroId": 20,
+          "voiceId": 20
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_brewmaster:brew_firstblood_03",
+      "hero": "Brewmaster",
+      "response": {
+        "name": "brew_firstblood_03",
+        "fullname": "brewmaster_brew_firstblood_03",
+        "mp3": "/sounds/vo/brewmaster/brew_firstblood_03.mp3",
+        "hero_id": 78,
+        "voice_id": 78,
+        "text": "First blood! I'll drink to that.",
+        "text_simple": " first blood ill drink to that ",
+        "criteria": "Kill Isbrewmaster IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "55ace68201654d1a311ef107cc6bf0a8959b19a94ca3b48bab536c2195435074",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_bristleback:bristle_kill_06",
+      "hero": "Bristleback",
+      "response": {
+        "name": "bristle_kill_06",
+        "fullname": "bristleback_bristle_kill_06",
+        "mp3": "/sounds/vo/bristleback/bristle_kill_06.mp3",
+        "hero_id": 99,
+        "voice_id": 99,
+        "text": "Yeah, that chinned ya, didn't it?",
+        "text_simple": " yeah that chinned ya didnt it ",
+        "criteria": "Kill Isbristleback",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "c4b38491dc828d2c682f278ee77e190b290a6d844092cab7ebeb3f80702e6479",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_broodmother:broo_firstblood_02",
+      "hero": "Broodmother",
+      "response": {
+        "name": "broo_firstblood_02",
+        "fullname": "broodmother_broo_firstblood_02",
+        "mp3": "/sounds/vo/broodmother/broo_firstblood_02.mp3",
+        "hero_id": 61,
+        "voice_id": 61,
+        "text": "First blood goes to mother!",
+        "text_simple": " first blood goes to mother ",
+        "criteria": "Kill Isbroodmother IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "f2f25c5c9a5dc23e0ca1b5ac91c454cfccebb991a95d75a0917c96636de26766",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_centaur:cent_firstblood_01",
+      "hero": "Centaur Warrunner",
+      "response": {
+        "name": "cent_firstblood_01",
+        "fullname": "centaur_cent_firstblood_01",
+        "mp3": "/sounds/vo/centaur/cent_firstblood_01.mp3",
+        "hero_id": 96,
+        "voice_id": 96,
+        "text": "My hooves run red with first blood.",
+        "text_simple": " my hooves run red with first blood ",
+        "criteria": "Kill Iscentaur IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "4e408d5e64bc8b405f0ec52447291376b25acc9e1196edc0f4a8475f6917b67f",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_chaos_knight:chaknight_kill_01",
+      "hero": "Chaos Knight",
+      "response": {
+        "name": "chaknight_kill_01",
+        "fullname": "chaos_knight_chaknight_kill_01",
+        "mp3": "/sounds/vo/chaos_knight/chaknight_kill_01.mp3",
+        "hero_id": 81,
+        "voice_id": 81,
+        "text": "I'll trample your bones to dust.",
+        "text_simple": " ill trample your bones to dust ",
+        "criteria": "Kill Ischaos_knight",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "9004a8d9571f190d0866ba580ff52c26873a90028ab55a031a6608493dd043cc",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_chen:chen_ability_penit_01",
+      "hero": "Chen",
+      "response": {
+        "name": "chen_ability_penit_01",
+        "fullname": "chen_chen_ability_penit_01",
+        "mp3": "/sounds/vo/chen/chen_ability_penit_01.mp3",
+        "hero_id": 66,
+        "voice_id": 66,
+        "text": "Only the penitent can be forgiven.",
+        "text_simple": " only the penitent can be forgiven ",
+        "criteria": "Kill Ischen",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "1b91534afdebdc7668fb8fbf4aecee77a4d39ac9733f0899f583a312997794fd",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_clinkz:clinkz_kill_03",
+      "hero": "Clinkz",
+      "response": {
+        "name": "clinkz_kill_03",
+        "fullname": "clinkz_clinkz_kill_03",
+        "mp3": "/sounds/vo/clinkz/clinkz_kill_03.mp3",
+        "hero_id": 56,
+        "voice_id": 56,
+        "text": "I give the gift of death.",
+        "text_simple": " i give the gift of death ",
+        "criteria": "Kill Isclinkz",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "216c55a11c57827d9d9bc0b008a17cbf9ac61323de8776c4b46bd66026d84419",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_crystal_maiden:cm_firstblood_01",
+      "hero": "Crystal Maiden",
+      "response": {
+        "name": "cm_firstblood_01",
+        "fullname": "crystalmaiden_cm_firstblood_01",
+        "mp3": "/sounds/vo/crystalmaiden/cm_firstblood_01.mp3",
+        "hero_id": 5,
+        "voice_id": 5,
+        "text": "First Blood, and it's already icing over!",
+        "text_simple": " first blood and its already icing over ",
+        "criteria": "Kill Iscrystalmaiden IsNotWolf IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "ac5cb9ee1c39d44cc8a68b62df758e69fc40d490d61db06a4a0da4b55c0676b5",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_dark_seer:dkseer_kill_09",
+      "hero": "Dark Seer",
+      "response": {
+        "name": "dkseer_kill_09",
+        "fullname": "dark_seer_dkseer_kill_09",
+        "mp3": "/sounds/vo/dark_seer/dkseer_kill_09.mp3",
+        "hero_id": 55,
+        "voice_id": 55,
+        "text": "The rules of battle dictate your demise.",
+        "text_simple": " the rules of battle dictate your demise ",
+        "criteria": "Kill Isdark_seer",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "ae87081a8f94f32d1ff3c87a6c2bde79a4ff8c725189a93888ecc920d52f72a7",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_dark_willow:sylph_kill_10",
+      "hero": "Dark Willow",
+      "response": {
+        "name": "sylph_kill_10",
+        "fullname": "dark_willow_sylph_kill_10",
+        "mp3": "/sounds/vo/dark_willow/sylph_kill_10.mp3",
+        "hero_id": 119,
+        "voice_id": 119,
+        "text": "What, you thought you would win?",
+        "text_simple": " what you thought you would win ",
+        "criteria": "Kill Isdark_willow",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "3fae578dedd83bf996bb9725e03de76bb91cfaf0e1ee7733373bd20132b145df",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_dawnbreaker:valora_firstblood_04",
+      "hero": "Dawnbreaker",
+      "response": {
+        "name": "valora_firstblood_04",
+        "fullname": "dawnbreaker_valora_firstblood_04",
+        "mp3": "/sounds/vo/dawnbreaker/valora_firstblood_04.mp3",
+        "hero_id": 135,
+        "voice_id": 135,
+        "text": "First blood! They all break so easily.",
+        "text_simple": " first blood they all break so easily ",
+        "criteria": "Kill Isdawnbreaker IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "b51bebf3bd29a3c2e85cbfffae2a202944cda2d2b98ff5a69c760bcdb06ad1ff",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_dazzle:dazz_win_03",
+      "hero": "Dazzle",
+      "response": {
+        "name": "dazz_win_03",
+        "fullname": "dazzle_dazz_win_03",
+        "mp3": "/sounds/vo/dazzle/dazz_win_03.mp3",
+        "hero_id": 50,
+        "voice_id": 50,
+        "text": "My shadow shall darken all creation.",
+        "text_simple": " my shadow shall darken all creation ",
+        "criteria": "Custom Isdazzle IsDazzleLoadoutSpawn|Victory Isdazzle",
+        "pretty_criteria": "Spawning in the loadout|Winning a game"
+      },
+      "transcriptSourceSha256": "0ac6aa1d0ae173d9afe47d763c2b256c68407d63d75b84e15621d0d46fea6963",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_death_prophet:dpro_respawn_14",
+      "hero": "Death Prophet",
+      "response": {
+        "name": "dpro_respawn_14",
+        "fullname": "death_prophet_dpro_respawn_14",
+        "mp3": "/sounds/vo/death_prophet/dpro_respawn_14.mp3",
+        "hero_id": 43,
+        "voice_id": 43,
+        "text": "You brought me back again? Again?!",
+        "text_simple": " you brought me back again again ",
+        "criteria": "Respawn Isdeath_prophet",
+        "pretty_criteria": "Respawning"
+      },
+      "transcriptSourceSha256": "5b7103065a9eda2526041f9abc044c335901677a05fe7b17c9494733c42c388c",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_disruptor:dis_spawn_04",
+      "hero": "Disruptor",
+      "response": {
+        "name": "dis_spawn_04",
+        "fullname": "disruptor_dis_spawn_04",
+        "mp3": "/sounds/vo/disruptor/dis_spawn_04.mp3",
+        "hero_id": 87,
+        "voice_id": 87,
+        "text": "War is an equation, death the solution.",
+        "text_simple": " war is an equation death the solution ",
+        "criteria": "Spawn Isdisruptor|Custom Isdisruptor IsDisruptorLoadoutSpawn",
+        "pretty_criteria": "Spawning|Spawning in the loadout"
+      },
+      "transcriptSourceSha256": "d314f972a1a7dbb1b749f5e00396e4e3c818395852463496cf83eba9a95cc30f",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_doom_bringer:doom_kill_01",
+      "hero": "Doom",
+      "response": {
+        "name": "doom_kill_01",
+        "fullname": "doom_bringer_doom_kill_01",
+        "mp3": "/sounds/vo/doom_bringer/doom_kill_01.mp3",
+        "hero_id": 69,
+        "voice_id": 69,
+        "text": "See you in the seven hells.",
+        "text_simple": " see you in the seven hells ",
+        "criteria": "Custom Isdoom_bringer IsDoomLoadoutSpawn|Kill Isdoom_bringer",
+        "pretty_criteria": "Spawning in the loadout|Killing a hero"
+      },
+      "transcriptSourceSha256": "802b03282341a4af009e352fbaee9d9dce1fd63d2055922269a85882f98fd427",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_dragon_knight:drag_kill_11",
+      "hero": "Dragon Knight",
+      "response": {
+        "name": "drag_kill_11",
+        "fullname": "dragon_knight_drag_kill_11",
+        "mp3": "/sounds/vo/dragon_knight/drag_kill_11.mp3",
+        "hero_id": 49,
+        "voice_id": 49,
+        "text": "You fought and died with honor.",
+        "text_simple": " you fought and died with honor ",
+        "criteria": "Kill Isdragon_knight IsNotPersona|HeroChatWheel SilverTier",
+        "pretty_criteria": "Killing a hero|A silver hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "73d783ef71906be839057106c32290db8205d5dd413551b8e605d0b5d6e1cb7a",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_drow_ranger:drow_firstblood_01",
+      "hero": "Drow Ranger",
+      "response": {
+        "name": "drow_firstblood_01",
+        "fullname": "drowranger_drow_firstblood_01",
+        "mp3": "/sounds/vo/drowranger/drow_firstblood_01.mp3",
+        "hero_id": 6,
+        "voice_id": 6,
+        "text": "First blood, and a point well taken.",
+        "text_simple": " first blood and a point well taken ",
+        "criteria": "Kill Isdrowranger IsNotMad IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "bcbfc745b395f9d4727ea87f58a6bd073b6807eed1a2943e3fb1a7ec74d8e9be",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_earth_spirit:earthspi_respawn_06",
+      "hero": "Earth Spirit",
+      "response": {
+        "name": "earthspi_respawn_06",
+        "fullname": "earth_spirit_earthspi_respawn_06",
+        "mp3": "/sounds/vo/earth_spirit/earthspi_respawn_06.mp3",
+        "hero_id": 107,
+        "voice_id": 107,
+        "text": "From death's soil, new life sprouts.",
+        "text_simple": " from deaths soil new life sprouts ",
+        "criteria": "Respawn Isearth_spirit",
+        "pretty_criteria": "Respawning"
+      },
+      "transcriptSourceSha256": "2c191e70267c460a708f0f44c160d054f4ae10cb05c522c6e85026f3d400ebc5",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_earthshaker:erth_kill_11",
+      "hero": "Earthshaker",
+      "response": {
+        "name": "erth_kill_11",
+        "fullname": "earthshaker_erth_kill_11",
+        "mp3": "/sounds/vo/earthshaker/erth_kill_11.mp3",
+        "hero_id": 7,
+        "voice_id": 7,
+        "text": "Don't take that magnitude with me.",
+        "text_simple": " dont take that magnitude with me ",
+        "criteria": "Kill Isearthshaker|HeroChatWheel GrandmasterTier",
+        "pretty_criteria": "Killing a hero|A grandmaster hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "4ff86ec2d8ceec53bb21caa6952376159f18a339c1f8b940905bebac2bb1416f",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_elder_titan:elder_kill_13",
+      "hero": "Elder Titan",
+      "response": {
+        "name": "elder_kill_13",
+        "fullname": "elder_titan_elder_kill_13",
+        "mp3": "/sounds/vo/elder_titan/elder_kill_13.mp3",
+        "hero_id": 103,
+        "voice_id": 103,
+        "text": "Against me, all warfare is asymmetric.",
+        "text_simple": " against me all warfare is asymmetric ",
+        "criteria": "Kill Iselder_titan",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "c93dbf9ad5901a2e696759c35fce8ed8aa87f6b014e6335454a022dbc4c4039a",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_ember_spirit:embr_firstblood_02",
+      "hero": "Ember Spirit",
+      "response": {
+        "name": "embr_firstblood_02",
+        "fullname": "ember_spirit_embr_firstblood_02",
+        "mp3": "/sounds/vo/ember_spirit/embr_firstblood_02.mp3",
+        "hero_id": 106,
+        "voice_id": 106,
+        "text": "First blood! In flames!",
+        "text_simple": " first blood in flames ",
+        "criteria": "Kill Isember_spirit IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "6182d8373b023ef46e8c67558ef3068af812f4bde6cf404d1e2ee86f599608e8",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_enchantress:ench_spawn_05",
+      "hero": "Enchantress",
+      "response": {
+        "name": "ench_spawn_05",
+        "fullname": "enchantress_ench_spawn_05",
+        "mp3": "/sounds/vo/enchantress/ench_spawn_05.mp3",
+        "hero_id": 58,
+        "voice_id": 58,
+        "text": "What an enchanting day for battle!",
+        "text_simple": " what an enchanting day for battle ",
+        "criteria": "Spawn Isenchantress|Custom Isenchantress IsEnchantressLoadoutSpawn",
+        "pretty_criteria": "Spawning|Spawning in the loadout"
+      },
+      "transcriptSourceSha256": "2f992e422f2f8885e0113370d7d05aff1d7da9733a7b79ae5485a7ba60344b15",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_enigma:enig_spawn_08",
+      "hero": "Enigma",
+      "response": {
+        "name": "enig_spawn_08",
+        "fullname": "enigma_enig_spawn_08",
+        "mp3": "/sounds/vo/enigma/enig_spawn_08.mp3",
+        "hero_id": 33,
+        "voice_id": 33,
+        "text": "From void and shadow, I assemble.",
+        "text_simple": " from void and shadow i assemble ",
+        "criteria": "Spawn Isenigma|Custom Isenigma IsEnigmaLoadoutSpawn",
+        "pretty_criteria": "Spawning|Spawning in the loadout"
+      },
+      "transcriptSourceSha256": "9bdb986cfc4cc970cfbb489945f67a1015642947318096aecee21962b60347d8",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_faceless_void:face_respawn_08",
+      "hero": "Faceless Void",
+      "response": {
+        "name": "face_respawn_08",
+        "fullname": "faceless_void_face_respawn_08",
+        "mp3": "/sounds/vo/faceless_void/face_respawn_08.mp3",
+        "hero_id": 41,
+        "voice_id": 41,
+        "text": "I returned to fulfill my destiny!",
+        "text_simple": " i returned to fulfill my destiny ",
+        "criteria": "Respawn Isfaceless_void IsNotClasz",
+        "pretty_criteria": "Respawning"
+      },
+      "transcriptSourceSha256": "38f62fd83b9979b26adf8ea25444a2988b7621bf3263e401edab192cef858336",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_furion:furi_kill_03",
+      "hero": "Nature's Prophet",
+      "response": {
+        "name": "furi_kill_03",
+        "fullname": "furion_furi_kill_03",
+        "mp3": "/sounds/vo/furion/furi_kill_03.mp3",
+        "hero_id": 53,
+        "voice_id": 53,
+        "text": "I'll tear you limb from limb.",
+        "text_simple": " ill tear you limb from limb ",
+        "criteria": "Kill Isfurion|HeroChatWheel GoldTier",
+        "pretty_criteria": "Killing a hero|A gold hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "454e35ca2cc55c2ebff75356c2cf82394ce1d112cc1b5e98623e6497a9a424e8",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_grimstroke:grimstroke_firstblood_04",
+      "hero": "Grimstroke",
+      "response": {
+        "name": "grimstroke_firstblood_04",
+        "fullname": "grimstroke_grimstroke_firstblood_04",
+        "mp3": "/sounds/vo/grimstroke/grimstroke_firstblood_04.mp3",
+        "hero_id": 121,
+        "voice_id": 121,
+        "text": "First blood! I create nothing from something!",
+        "text_simple": " first blood i create nothing from something ",
+        "criteria": "Kill Isgrimstroke IsFirstBlood Chance_25%",
+        "pretty_criteria": "Killing a hero (First Blood) (25% chance)"
+      },
+      "transcriptSourceSha256": "1e312297656cf22dce4af871eed625bd61bb43dbb498c26786f5c9a6fc2ea878",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_gyrocopter:gyro_call_down_11",
+      "hero": "Gyrocopter",
+      "response": {
+        "name": "gyro_call_down_11",
+        "fullname": "gyrocopter_gyro_call_down_11",
+        "mp3": "/sounds/vo/gyrocopter/gyro_call_down_11.mp3",
+        "hero_id": 72,
+        "voice_id": 72,
+        "text": "What happened? Your legs not working?",
+        "text_simple": " what happened your legs not working ",
+        "criteria": "Kill Isgyrocopter IsGyroCallDown Chance_50%",
+        "pretty_criteria": "Killing a hero with Call Down (50% chance)"
+      },
+      "transcriptSourceSha256": "cca581ba5e20e2ed740eede974aa9857a32024cb59667bffe63e7f71641f2200",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_hoodwink:hoodwink_firstblood_05",
+      "hero": "Hoodwink",
+      "response": {
+        "name": "hoodwink_firstblood_05",
+        "fullname": "hoodwink_hoodwink_firstblood_05",
+        "mp3": "/sounds/vo/hoodwink/hoodwink_firstblood_05.mp3",
+        "hero_id": 123,
+        "voice_id": 123,
+        "text": "First blood! And it's still pulsing.",
+        "text_simple": " first blood and its still pulsing ",
+        "criteria": "Kill Ishoodwink IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "3f529c9871ca043b0bc17af1830d21acbcc0029a0b374661a6ef452296d92434",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_huskar:husk_respawn_01",
+      "hero": "Huskar",
+      "response": {
+        "name": "husk_respawn_01",
+        "fullname": "huskar_husk_respawn_01",
+        "mp3": "/sounds/vo/huskar/husk_respawn_01.mp3",
+        "hero_id": 59,
+        "voice_id": 59,
+        "text": "I will learn from that death.",
+        "text_simple": " i will learn from that death ",
+        "criteria": "Respawn Ishuskar",
+        "pretty_criteria": "Respawning"
+      },
+      "transcriptSourceSha256": "efa4498862fc0da5f4e0e4da3c492c622e5150db80d19fb717ace9471ed1a57d",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_invoker:kidvo_la_first_02",
+      "hero": "Invoker",
+      "response": {
+        "name": "kidvo_la_first_02",
+        "fullname": "invoker_kidvo_la_first_02",
+        "mp3": "/sounds/vo/invoker/kidvo_la_first_02.mp3",
+        "hero_id": 74,
+        "voice_id": 74,
+        "text": "First blood was never yours to take.",
+        "text_simple": " first blood was never yours to take ",
+        "criteria": "Kill Isinvoker IsKidvoker IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "4bd09ee31a233f366c5bf849ca616cf682bab26d2e0fc90f7d12457230ffa9d5",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_jakiro:jak_kill_11",
+      "hero": "Jakiro",
+      "response": {
+        "name": "jak_kill_11",
+        "fullname": "jakiro_jak_kill_11",
+        "mp3": "/sounds/vo/jakiro/jak_kill_11.mp3",
+        "hero_id": 64,
+        "voice_id": 64,
+        "text": "We burned your candle at both ends.",
+        "text_simple": " we burned your candle at both ends ",
+        "criteria": "Kill Isjakiro",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "010b4dc56201aa3cca8f075a1821936fbe8f8a5e0be414e75913d6d9c9f37667",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_juggernaut:jug_respawn_06",
+      "hero": "Juggernaut",
+      "response": {
+        "name": "jug_respawn_06",
+        "fullname": "juggernaut_jug_respawn_06",
+        "mp3": "/sounds/vo/juggernaut/jug_respawn_06.mp3",
+        "hero_id": 8,
+        "voice_id": 8,
+        "text": "One battle is hardly the war.",
+        "text_simple": " one battle is hardly the war ",
+        "criteria": "Respawn Isjuggernaut",
+        "pretty_criteria": "Respawning"
+      },
+      "transcriptSourceSha256": "66564c6dfe0cb90c4de3ba5a0a9e4892e25d8ec671789e553a6779f5259ce1d6",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_keeper_of_the_light:keep_firstblood_01",
+      "hero": "Keeper of the Light",
+      "response": {
+        "name": "keep_firstblood_01",
+        "fullname": "keeper_of_the_light_keep_firstblood_01",
+        "mp3": "/sounds/vo/keeper_of_the_light/keep_firstblood_01.mp3",
+        "hero_id": 90,
+        "voice_id": 90,
+        "text": "First blood! My quest begins auspiciously!",
+        "text_simple": " first blood my quest begins auspiciously ",
+        "criteria": "Kill Iskeeper_of_the_light IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "fe662f5166986dbc2fdc0176b1c5d3a79c18942ce46a156e7ede4b0f13d63dad",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_kez:kez_attack_10",
+      "hero": "Kez",
+      "response": {
+        "name": "kez_attack_10",
+        "fullname": "kez_kez_attack_10",
+        "mp3": "/sounds/vo/kez/kez_attack_10.mp3",
+        "hero_id": 145,
+        "voice_id": 145,
+        "text": "Death from ground level!",
+        "text_simple": " death from ground level ",
+        "criteria": "HeroChatWheel GoldTier",
+        "pretty_criteria": "A gold hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "ba480f0121bf45e453bd015b5749c7f97151ef900238b9c266e0da9260ff7d80",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_kunkka:kunk_firstblood_01",
+      "hero": "Kunkka",
+      "response": {
+        "name": "kunk_firstblood_01",
+        "fullname": "kunkka_kunk_firstblood_01",
+        "mp3": "/sounds/vo/kunkka/kunk_firstblood_01.mp3",
+        "hero_id": 23,
+        "voice_id": 23,
+        "text": "First blood, and here come the sharks.",
+        "text_simple": " first blood and here come the sharks ",
+        "criteria": "Kill Iskunkka IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "e43486f9d1e57ce6d87ba207ff54fb45aa21a84fce7911e194996d0d1ce382ba",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_largo:largo_rival_239",
+      "hero": "Largo",
+      "response": {
+        "name": "largo_rival_239",
+        "fullname": "largo_largo_rival_239",
+        "mp3": "/sounds/vo/largo/largo_rival_239.mp3",
+        "hero_id": 155,
+        "voice_id": 155,
+        "text": "Sick lyrics, bro. You're a real weirdo.",
+        "text_simple": " sick lyrics bro youre a real weirdo ",
+        "criteria": "HeroChatWheel GoldTier",
+        "pretty_criteria": "A gold hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "581cf45b3e5834e64fb3923e37dcfec8e5cdb35972e4b04541454d149376f99c",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_legion_commander:legcom_firstblood_01",
+      "hero": "Legion Commander",
+      "response": {
+        "name": "legcom_firstblood_01",
+        "fullname": "legion_commander_legcom_firstblood_01",
+        "mp3": "/sounds/vo/legion_commander/legcom_firstblood_01.mp3",
+        "hero_id": 104,
+        "voice_id": 104,
+        "text": "First blood stains the banners!",
+        "text_simple": " first blood stains the banners ",
+        "criteria": "Kill Islegion_commander IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "57a058899c111194324eff7046eaa4bc7844a6d5392eef59ab3541d936e80868",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_leshrac:lesh_kill_10",
+      "hero": "Leshrac",
+      "response": {
+        "name": "lesh_kill_10",
+        "fullname": "leshrac_lesh_kill_10",
+        "mp3": "/sounds/vo/leshrac/lesh_kill_10.mp3",
+        "hero_id": 52,
+        "voice_id": 52,
+        "text": "Your desolation and the world's are one.",
+        "text_simple": " your desolation and the worlds are one ",
+        "criteria": "Kill Isleshrac",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "31d4d2d25f668215b1a168cb69ddcdedc893ab023a20972b311b4f9b53aed8d6",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_lich:lich_respawn_08",
+      "hero": "Lich",
+      "response": {
+        "name": "lich_respawn_08",
+        "fullname": "lich_lich_respawn_08",
+        "mp3": "/sounds/vo/lich/lich_respawn_08.mp3",
+        "hero_id": 31,
+        "voice_id": 31,
+        "text": "From cold death, I rise again.",
+        "text_simple": " from cold death i rise again ",
+        "criteria": "Custom Islich IsLichLoadoutSpawn|Respawn Islich",
+        "pretty_criteria": "Spawning in the loadout|Respawning"
+      },
+      "transcriptSourceSha256": "f07d1755e65285a9f3908c18144d389692ea7694c1ef081febed490c16c0b098",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_life_stealer:lifest_respawn_02",
+      "hero": "Lifestealer",
+      "response": {
+        "name": "lifest_respawn_02",
+        "fullname": "life_stealer_lifest_respawn_02",
+        "mp3": "/sounds/vo/life_stealer/lifest_respawn_02.mp3",
+        "hero_id": 54,
+        "voice_id": 54,
+        "text": "Unleashed once more upon the world.",
+        "text_simple": " unleashed once more upon the world ",
+        "criteria": "Respawn Islife_stealer",
+        "pretty_criteria": "Respawning"
+      },
+      "transcriptSourceSha256": "723bbf8e525f76287ba5c95f123d22aef3938d0dc6773b932c17d06dcafe969f",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_lina:lina_firstblood_01",
+      "hero": "Lina",
+      "response": {
+        "name": "lina_firstblood_01",
+        "fullname": "lina_lina_firstblood_01",
+        "mp3": "/sounds/vo/lina/lina_firstblood_01.mp3",
+        "hero_id": 25,
+        "voice_id": 25,
+        "text": "First Blood! This one's gonna be a scorcher!",
+        "text_simple": " first blood this ones gonna be a scorcher ",
+        "criteria": "Kill Islina IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "c0eb55bb90005eb388230539dd73a7197b97179efa754655bbdc1b2209d8dac5",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_lion:lion_kill_04",
+      "hero": "Lion",
+      "response": {
+        "name": "lion_kill_04",
+        "fullname": "lion_lion_kill_04",
+        "mp3": "/sounds/vo/lion/lion_kill_04.mp3",
+        "hero_id": 26,
+        "voice_id": 26,
+        "text": "I've got the magic touch.",
+        "text_simple": " ive got the magic touch ",
+        "criteria": "Kill Islion|HeroChatWheel PlatinumTier",
+        "pretty_criteria": "Killing a hero|A platinum hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "bc960a253cec515ebe799e69d836ceb5b01c27d7087729cad7a6eb3b63cc73f0",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_lone_druid:lone_druid_level_09",
+      "hero": "Lone Druid",
+      "response": {
+        "name": "lone_druid_level_09",
+        "fullname": "lone_druid_lone_druid_level_09",
+        "mp3": "/sounds/vo/lone_druid/lone_druid_level_09.mp3",
+        "hero_id": 80,
+        "voice_id": 80,
+        "text": "Is more of my power needed?",
+        "text_simple": " is more of my power needed ",
+        "criteria": "LevelUp Islone_druid",
+        "pretty_criteria": "Leveling up"
+      },
+      "transcriptSourceSha256": "8016fe879e306bebd994a7c444354d2857b9ff0e4dcf757bd890997dda52e522",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_luna:luna_kill_06",
+      "hero": "Luna",
+      "response": {
+        "name": "luna_kill_06",
+        "fullname": "luna_luna_kill_06",
+        "mp3": "/sounds/vo/luna/luna_kill_06.mp3",
+        "hero_id": 48,
+        "voice_id": 48,
+        "text": "Lost in the woods, are you?",
+        "text_simple": " lost in the woods are you ",
+        "criteria": "Kill Isluna|HeroChatWheel SilverTier",
+        "pretty_criteria": "Killing a hero|A silver hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "41008b738e34d3220b2f67d8ae0d67b5ffe42fc3c171abb852842f3191aaf7ad",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_lycan:lycan_kill_11",
+      "hero": "Lycan",
+      "response": {
+        "name": "lycan_kill_11",
+        "fullname": "lycan_lycan_kill_11",
+        "mp3": "/sounds/vo/lycan/lycan_kill_11.mp3",
+        "hero_id": 77,
+        "voice_id": 77,
+        "text": "My claws bathe in your blood.",
+        "text_simple": " my claws bathe in your blood ",
+        "criteria": "Kill Islycan",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "062b57990093d71d0f73353b0d862e48805c9548531a305f52b6d28b82aded36",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_magnataur:magn_levelup_09",
+      "hero": "Magnus",
+      "response": {
+        "name": "magn_levelup_09",
+        "fullname": "magnataur_magn_levelup_09",
+        "mp3": "/sounds/vo/magnataur/magn_levelup_09.mp3",
+        "hero_id": 97,
+        "voice_id": 97,
+        "text": "The power warms me from within.",
+        "text_simple": " the power warms me from within ",
+        "criteria": "LevelUp Ismagnataur",
+        "pretty_criteria": "Leveling up"
+      },
+      "transcriptSourceSha256": "dee4fb597c7cd52202292dd939054eb8824d7a9914ddaec963dd424477161193",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_mars:mars_kill_05",
+      "hero": "Mars",
+      "response": {
+        "name": "mars_kill_05",
+        "fullname": "mars_mars_kill_05",
+        "mp3": "/sounds/vo/mars/mars_kill_05.mp3",
+        "hero_id": 129,
+        "voice_id": 129,
+        "text": "It's an honorable death, by my hand!",
+        "text_simple": " its an honorable death by my hand ",
+        "criteria": "Kill Ismars",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "3a62ff603036fa065edc293eb4017480d752f16d73d626f5e351ec94e27a7e25",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_medusa:medus_firstblood_01",
+      "hero": "Medusa",
+      "response": {
+        "name": "medus_firstblood_01",
+        "fullname": "medusa_medus_firstblood_01",
+        "mp3": "/sounds/vo/medusa/medus_firstblood_01.mp3",
+        "hero_id": 94,
+        "voice_id": 94,
+        "text": "First blood, and it came so easily.",
+        "text_simple": " first blood and it came so easily ",
+        "criteria": "Kill Ismedusa IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "5125f6fb44a67b7cb4254ab9495fbb1c425ca7d9d38351bce83f6a8495476bf0",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_meepo:meepo_kill_06",
+      "hero": "Meepo",
+      "response": {
+        "name": "meepo_kill_06",
+        "fullname": "meepo_meepo_kill_06",
+        "mp3": "/sounds/vo/meepo/meepo_kill_06.mp3",
+        "hero_id": 82,
+        "voice_id": 82,
+        "text": "Should do it again some time!",
+        "text_simple": " should do it again some time ",
+        "criteria": "Kill Ismeepo",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "08a2420b6b5daefabd92e1c0add27d85307ed1bec80c45b8e6418673a05f1344",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_mirana:mir_firstblood_01",
+      "hero": "Mirana",
+      "response": {
+        "name": "mir_firstblood_01",
+        "fullname": "mirana_mir_firstblood_01",
+        "mp3": "/sounds/vo/mirana/mir_firstblood_01.mp3",
+        "hero_id": 9,
+        "voice_id": 9,
+        "text": "First blood! It was ours all along.",
+        "text_simple": " first blood it was ours all along ",
+        "criteria": "Kill Ismirana IsNotNFX IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "6d9fdd7d414509fe2556eeab707c5381036e1338c07a7102ffa740f29e8ad0b8",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_monkey_king:monkey_firstblood_03",
+      "hero": "Monkey King",
+      "response": {
+        "name": "monkey_firstblood_03",
+        "fullname": "monkey_king_monkey_firstblood_03",
+        "mp3": "/sounds/vo/monkey_king/monkey_firstblood_03.mp3",
+        "hero_id": 114,
+        "voice_id": 114,
+        "text": "First Blood! Ha! I'm just getting started.",
+        "text_simple": " first blood ha im just getting started ",
+        "criteria": "Kill Ismonkey_king IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "5579f3fa5f948331668acad4805d443b62d0165059258fbdf19ec9a4edea18b7",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_morphling:mrph_kill_09",
+      "hero": "Morphling",
+      "response": {
+        "name": "mrph_kill_09",
+        "fullname": "morphling_mrph_kill_09",
+        "mp3": "/sounds/vo/morphling/mrph_kill_09.mp3",
+        "hero_id": 10,
+        "voice_id": 10,
+        "text": "Didn't you see me waving?",
+        "text_simple": " didnt you see me waving ",
+        "criteria": "Kill Ismorphling|HeroChatWheel PlatinumTier",
+        "pretty_criteria": "Killing a hero|A platinum hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "119a64a7b0c562feedaea5cbbffc3ac9ea3d49ca43bb7fc4e82b42f0e56a7338",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_muerta:muerta_pierce_the_veil_01",
+      "hero": "Muerta",
+      "response": {
+        "name": "muerta_pierce_the_veil_01",
+        "fullname": "muerta_muerta_pierce_the_veil_01",
+        "mp3": "/sounds/vo/muerta/muerta_pierce_the_veil_01.mp3",
+        "hero_id": 138,
+        "voice_id": 138,
+        "text": "Death doesn't rule this place, I do.",
+        "text_simple": " death doesnt rule this place i do ",
+        "criteria": "HeroChatWheel GoldTier",
+        "pretty_criteria": "A gold hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "d7679b5c5873282244ba4bd23149e925c6143f5e8386fe5cb29faf278d6320b3",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_naga_siren:naga_kill_04",
+      "hero": "Naga Siren",
+      "response": {
+        "name": "naga_kill_04",
+        "fullname": "naga_siren_naga_kill_04",
+        "mp3": "/sounds/vo/naga_siren/naga_kill_04.mp3",
+        "hero_id": 89,
+        "voice_id": 89,
+        "text": "No school like the old school.",
+        "text_simple": " no school like the old school ",
+        "criteria": "Kill Isnaga_siren",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "5ea30cdc2af759e2458b7dad3113f37d8aee8c12b9de5ca4e82f1a64aaed06ff",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_necrolyte:necr_kill_03",
+      "hero": "Necrophos",
+      "response": {
+        "name": "necr_kill_03",
+        "fullname": "necrolyte_necr_kill_03",
+        "mp3": "/sounds/vo/necrolyte/necr_kill_03.mp3",
+        "hero_id": 36,
+        "voice_id": 36,
+        "text": "The stench of death is upon you.",
+        "text_simple": " the stench of death is upon you ",
+        "criteria": "Kill Isnecrolyte|HeroChatWheel SilverTier",
+        "pretty_criteria": "Killing a hero|A silver hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "63e3659389eff9f0882a5f4e28541f4dc0facecc8bc1bc25875bee551907852b",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_nevermore:nev_kill_11",
+      "hero": "Shadow Fiend",
+      "response": {
+        "name": "nev_kill_11",
+        "fullname": "nevermore_nev_kill_11",
+        "mp3": "/sounds/vo/nevermore/nev_kill_11.mp3",
+        "hero_id": 11,
+        "voice_id": 11,
+        "text": "A beautiful soul for my collection.",
+        "text_simple": " a beautiful soul for my collection ",
+        "criteria": "Kill Isnevermore|HeroChatWheel SilverTier",
+        "pretty_criteria": "Killing a hero|A silver hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "faedb9634fe00d073723a662aa1013f0ea303774d8c4878cd7b6a4c3da1eac9c",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_night_stalker:nstalk_kill_10",
+      "hero": "Night Stalker",
+      "response": {
+        "name": "nstalk_kill_10",
+        "fullname": "night_stalker_nstalk_kill_10",
+        "mp3": "/sounds/vo/night_stalker/nstalk_kill_10.mp3",
+        "hero_id": 60,
+        "voice_id": 60,
+        "text": "You expected daylight to protect you?",
+        "text_simple": " you expected daylight to protect you ",
+        "criteria": "Kill Isnight_stalker",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "8c7a4bdfaefdbf380e0e8c3a0495c074d6c2c1440135099d8a0643b6ed29a6ca",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_nyx_assassin:nyx_kill_09",
+      "hero": "Nyx Assassin",
+      "response": {
+        "name": "nyx_kill_09",
+        "fullname": "nyx_assassin_nyx_kill_09",
+        "mp3": "/sounds/vo/nyx_assassin/nyx_kill_09.mp3",
+        "hero_id": 88,
+        "voice_id": 88,
+        "text": "I hear your thoughts no more.",
+        "text_simple": " i hear your thoughts no more ",
+        "criteria": "Kill Isnyx_assassin",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "7854777d51b1c4ce03e9157a05b17bc16416c80e3b34466b3b038d05d7bb3007",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_obsidian_destroyer:odest_kill_06",
+      "hero": "Outworld Destroyer",
+      "response": {
+        "name": "odest_kill_06",
+        "fullname": "outworld_destroyer_odest_kill_06",
+        "mp3": "/sounds/vo/outworld_destroyer/odest_kill_06.mp3",
+        "hero_id": 76,
+        "voice_id": 76,
+        "text": "A mind prepared, a death foretold.",
+        "text_simple": " a mind prepared a death foretold ",
+        "criteria": "Kill Isoutworld_destroyer",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "c31b2cb07bef406958457cf52ba1750bb620a0835a04ee635a54b5335e9b3251",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_ogre_magi:ogmag_firstblood_01",
+      "hero": "Ogre Magi",
+      "response": {
+        "name": "ogmag_firstblood_01",
+        "fullname": "ogre_magi_ogmag_firstblood_01",
+        "mp3": "/sounds/vo/ogre_magi/ogmag_firstblood_01.mp3",
+        "hero_id": 84,
+        "voice_id": 84,
+        "text": "First Blood! You got some on you.",
+        "text_simple": " first blood you got some on you ",
+        "criteria": "Kill Isogre_magi IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "753beb8e6e2e5161929e831c1d1038b5a26d05440a167db18389160412b50c09",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_omniknight:omni_firstblood_01",
+      "hero": "Omniknight",
+      "response": {
+        "name": "omni_firstblood_01",
+        "fullname": "omniknight_omni_firstblood_01",
+        "mp3": "/sounds/vo/omniknight/omni_firstblood_01.mp3",
+        "hero_id": 57,
+        "voice_id": 57,
+        "text": "First blood! An offering to the Omniscience.",
+        "text_simple": " first blood an offering to the omniscience ",
+        "criteria": "Kill Isomniknight IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "6d2a2bed61cebb13ba6b46981274bbd352c4db0dd5249b052d8255040f9d536e",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_oracle:orac_kill_13",
+      "hero": "Oracle",
+      "response": {
+        "name": "orac_kill_13",
+        "fullname": "oracle_orac_kill_13",
+        "mp3": "/sounds/vo/oracle/orac_kill_13.mp3",
+        "hero_id": 111,
+        "voice_id": 111,
+        "text": "Consequences will never be the same.",
+        "text_simple": " consequences will never be the same ",
+        "criteria": "Kill Isoracle Chance_2%",
+        "pretty_criteria": "Killing a hero (2% chance)"
+      },
+      "transcriptSourceSha256": "0970c905b4f77835ef081281aaf06a70a77ea81fe887c88c7ece2b56c163548f",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_pangolier:pangolin_firstblood_04",
+      "hero": "Pangolier",
+      "response": {
+        "name": "pangolin_firstblood_04",
+        "fullname": "pangolin_pangolin_firstblood_04",
+        "mp3": "/sounds/vo/pangolin/pangolin_firstblood_04.mp3",
+        "hero_id": 120,
+        "voice_id": 120,
+        "text": "First blood! It's as expected. Yes?",
+        "text_simple": " first blood its as expected yes ",
+        "criteria": "Kill Ispangolin IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "a4752b7f687b7bcb76a7cbdc5440b704bb758c8223a630b50ced48c983d4943d",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_phantom_assassin:phass_kill_10",
+      "hero": "Phantom Assassin",
+      "response": {
+        "name": "phass_kill_10",
+        "fullname": "phantom_assassin_phass_kill_10",
+        "mp3": "/sounds/vo/phantom_assassin/phass_kill_10.mp3",
+        "hero_id": 44,
+        "voice_id": 44,
+        "text": "Death at my hands is an honor.",
+        "text_simple": " death at my hands is an honor ",
+        "criteria": "Custom Isphantom_assassin IsPhantomAssassinLoadoutSpawn|Kill Isphantom_assassin IsNotAsanPA|HeroChatWheel SilverTier",
+        "pretty_criteria": "Spawning in the loadout|Killing a hero|A silver hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "a78577f7d2989cda5e73a68008cf366be5b0be66f7c3580ad2d9ac67ce521b10",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_phantom_lancer:plance_firstblood_01",
+      "hero": "Phantom Lancer",
+      "response": {
+        "name": "plance_firstblood_01",
+        "fullname": "phantom_lancer_plance_firstblood_01",
+        "mp3": "/sounds/vo/phantom_lancer/plance_firstblood_01.mp3",
+        "hero_id": 12,
+        "voice_id": 12,
+        "text": "First blood! Let our great combat begin!",
+        "text_simple": " first blood let our great combat begin ",
+        "criteria": "Kill Isphantom_lancer IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "8855214a243dd7c769aed081985cc223d4fe1eba5835bc647c2a98fddde737d2",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_puck:puck_firstblood_02",
+      "hero": "Puck",
+      "response": {
+        "name": "puck_firstblood_02",
+        "fullname": "puck_puck_firstblood_02",
+        "mp3": "/sounds/vo/puck/puck_firstblood_02.mp3",
+        "hero_id": 13,
+        "voice_id": 13,
+        "text": "First Blood! It shall be duly noted.",
+        "text_simple": " first blood it shall be duly noted ",
+        "criteria": "Kill Ispuck IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "51e94aee1e36b8da6189dbbeba2f7d810001d7be7907ce09fdd371acdaf1d846",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_pudge:pud_level_09",
+      "hero": "Pudge",
+      "response": {
+        "name": "pud_level_09",
+        "fullname": "pudge_pud_level_09",
+        "mp3": "/sounds/vo/pudge/pud_level_09.mp3",
+        "hero_id": 14,
+        "voice_id": 14,
+        "text": "Time for a choppin block party!",
+        "text_simple": " time for a choppin block party ",
+        "criteria": "LevelUp Ispudge",
+        "pretty_criteria": "Leveling up"
+      },
+      "transcriptSourceSha256": "d350eec8060fa303df32dccc59b64383ef1cb7e1430fa28ba551fadc519dd046",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_pugna:pugna_kill_07",
+      "hero": "Pugna",
+      "response": {
+        "name": "pugna_kill_07",
+        "fullname": "pugna_pugna_kill_07",
+        "mp3": "/sounds/vo/pugna/pugna_kill_07.mp3",
+        "hero_id": 45,
+        "voice_id": 45,
+        "text": "You were oblivious, now you're mine.",
+        "text_simple": " you were oblivious now youre mine ",
+        "criteria": "Kill Ispugna",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "e1b7d8ab22b184ed2e77be8ca4dfb4e7a7c2ca5b5e1470e2fca1245dcdce8da8",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_queenofpain:pain_ability_screamofpain_03",
+      "hero": "Queen of Pain",
+      "response": {
+        "name": "pain_ability_screamofpain_03",
+        "fullname": "queenofpain_pain_ability_screamofpain_03",
+        "mp3": "/sounds/vo/queenofpain/pain_ability_screamofpain_03.mp3",
+        "hero_id": 39,
+        "voice_id": 39,
+        "text": "Death comes in at the ears.",
+        "text_simple": " death comes in at the ears ",
+        "criteria": "Kill Isqueenofpain IsScreamofPain Chance_15%",
+        "pretty_criteria": "Killing a hero with Scream Of Pain (15% chance)"
+      },
+      "transcriptSourceSha256": "d53506bb28162f2dbcf12a63da38bebb7f2e3d9b2d0e7ff7692747b0a6f6f52a",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_rattletrap:ratt_kill_09",
+      "hero": "Clockwerk",
+      "response": {
+        "name": "ratt_kill_09",
+        "fullname": "rattletrap_ratt_kill_09",
+        "mp3": "/sounds/vo/rattletrap/ratt_kill_09.mp3",
+        "hero_id": 51,
+        "voice_id": 51,
+        "text": "I'll polish my armor in your blood.",
+        "text_simple": " ill polish my armor in your blood ",
+        "criteria": "Kill Israttletrap",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "0095a4f9edeb00029909bbe7bf334ffde91f9009a775f0853bc0260802099898",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_razor:raz_firstblood_01",
+      "hero": "Razor",
+      "response": {
+        "name": "raz_firstblood_01",
+        "fullname": "razor_raz_firstblood_01",
+        "mp3": "/sounds/vo/razor/raz_firstblood_01.mp3",
+        "hero_id": 15,
+        "voice_id": 15,
+        "text": "First Blood, and the atmosphere's electric!",
+        "text_simple": " first blood and the atmospheres electric ",
+        "criteria": "Kill Israzor IsNotVSA IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "64c1c0033e117b09bbd1e4add5721e63f0cff8d8d2a448d9c8073d6388fa0caa",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_riki:riki_kill_12",
+      "hero": "Riki",
+      "response": {
+        "name": "riki_kill_12",
+        "fullname": "riki_riki_kill_12",
+        "mp3": "/sounds/vo/riki/riki_kill_12.mp3",
+        "hero_id": 32,
+        "voice_id": 32,
+        "text": "I'd've done that one for free.",
+        "text_simple": " idve done that one for free ",
+        "criteria": "Kill Isriki",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "00d228625c1c2099cebbb76a9dd4ddf51c444c214c7b4b4a2441a1f4c4943cf7",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_ringmaster:ringmaster_win_04",
+      "hero": "Ringmaster",
+      "response": {
+        "name": "ringmaster_win_04",
+        "fullname": "ringmaster_ringmaster_win_04",
+        "mp3": "/sounds/vo/ringmaster/ringmaster_win_04.mp3",
+        "hero_id": 131,
+        "voice_id": 131,
+        "text": "Well done, everyone. I've got some notes.",
+        "text_simple": " well done everyone ive got some notes ",
+        "criteria": "HeroChatWheel SilverTier",
+        "pretty_criteria": "A silver hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "9e78a48cdb8ab4d2fcb2f825b720eb034d31a1b911a5ca8497a0173c700349c0",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_rubick:rubick_move_21",
+      "hero": "Rubick",
+      "response": {
+        "name": "rubick_move_21",
+        "fullname": "rubick_rubick_move_21",
+        "mp3": "/sounds/vo/rubick/rubick_move_21.mp3",
+        "hero_id": 86,
+        "voice_id": 86,
+        "text": "No sorcery lies beyond my grasp.",
+        "text_simple": " no sorcery lies beyond my grasp ",
+        "criteria": "Custom Isrubick IsRubickLoadoutSpawn|Custom Isrubick IsRubickSpecialSpawn|Kill Isrubick",
+        "pretty_criteria": "Spawning in the loadout|Killing a hero"
+      },
+      "transcriptSourceSha256": "1861fc096d8ec88a2a29a2caab18d034fb897e5790b2b6cb717825f90da30066",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_sand_king:skg_kill_09",
+      "hero": "Sand King",
+      "response": {
+        "name": "skg_kill_09",
+        "fullname": "sandking_skg_kill_09",
+        "mp3": "/sounds/vo/sandking/skg_kill_09.mp3",
+        "hero_id": 16,
+        "voice_id": 16,
+        "text": "You were expecting...Sandy Claws?",
+        "text_simple": " you were expecting sandy claws ",
+        "criteria": "Kill Issandking|HeroChatWheel PlatinumTier",
+        "pretty_criteria": "Killing a hero|A platinum hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "f265210833ec381985ffc27d0d0303437554ed1161586e1e71f5a5f3a68453a5",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_shadow_demon:shadow_demon_kill_01",
+      "hero": "Shadow Demon",
+      "response": {
+        "name": "shadow_demon_kill_01",
+        "fullname": "shadow_demon_shadow_demon_kill_01",
+        "mp3": "/sounds/vo/shadow_demon/shadow_demon_kill_01.mp3",
+        "hero_id": 79,
+        "voice_id": 79,
+        "text": "Your soul will make a fine minion!",
+        "text_simple": " your soul will make a fine minion ",
+        "criteria": "Kill Isshadow_demon",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "8c1e6566454553c877de6077f6d0d533354d2fd23fba0226906307090459a89e",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_shadow_shaman:shad_respawn_07",
+      "hero": "Shadow Shaman",
+      "response": {
+        "name": "shad_respawn_07",
+        "fullname": "shadowshaman_shad_respawn_07",
+        "mp3": "/sounds/vo/shadowshaman/shad_respawn_07.mp3",
+        "hero_id": 27,
+        "voice_id": 27,
+        "text": "In death, I learn life's mysteries!",
+        "text_simple": " in death i learn lifes mysteries ",
+        "criteria": "Respawn Isshadowshaman",
+        "pretty_criteria": "Respawning"
+      },
+      "transcriptSourceSha256": "635ea566b5c009d9cb56fab70b8402142cb1a71e4593351376cfcf6459bd06dd",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_shredder:timb_respawn_02",
+      "hero": "Timbersaw",
+      "response": {
+        "name": "timb_respawn_02",
+        "fullname": "shredder_timb_respawn_02",
+        "mp3": "/sounds/vo/shredder/timb_respawn_02.mp3",
+        "hero_id": 98,
+        "voice_id": 98,
+        "text": "Trees? Why did it have to be trees?",
+        "text_simple": " trees why did it have to be trees ",
+        "criteria": "Respawn Isshredder",
+        "pretty_criteria": "Respawning"
+      },
+      "transcriptSourceSha256": "c327771f7a20ecde39d8e61280561a2ce56e19a0a7f82e6c3224ea01ef1089a6",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_silencer:silen_ability_intsteal_01",
+      "hero": "Silencer",
+      "response": {
+        "name": "silen_ability_intsteal_01",
+        "fullname": "silencer_silen_ability_intsteal_01",
+        "mp3": "/sounds/vo/silencer/silen_ability_intsteal_01.mp3",
+        "hero_id": 75,
+        "voice_id": 75,
+        "text": "Once a warrior, now a fool.",
+        "text_simple": " once a warrior now a fool ",
+        "criteria": "Kill Issilencer IsSilencerGlaives Chance_10%",
+        "pretty_criteria": "Killing a hero with Glaives of Wisdom (10% chance)"
+      },
+      "transcriptSourceSha256": "44b436eba3737b129d8904c0eb055c28a5c1078e785155334ecc0ce06da06b3c",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_skeleton_king:wraith_firstblood_01",
+      "hero": "Wraith King",
+      "response": {
+        "name": "wraith_firstblood_01",
+        "fullname": "skeleton_king_wraith_firstblood_01",
+        "mp3": "/sounds/vo/skeleton_king/wraith_firstblood_01.mp3",
+        "hero_id": 42,
+        "voice_id": 42,
+        "text": "First Blood! I've still got it!",
+        "text_simple": " first blood ive still got it ",
+        "criteria": "Kill Isskeleton_king IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "c8df0d180accfc0d3f9d55fd930d8c103ab6168ba7be89d4f5348e7b66889899",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_skywrath_mage:drag_kill_01",
+      "hero": "Skywrath Mage",
+      "response": {
+        "name": "drag_kill_01",
+        "fullname": "skywrath_mage_drag_kill_01",
+        "mp3": "/sounds/vo/skywrath_mage/drag_kill_01.mp3",
+        "hero_id": 101,
+        "voice_id": 101,
+        "text": "Skree'auk's talons pierce your soul.",
+        "text_simple": " skreeauks talons pierce your soul ",
+        "criteria": "Kill Isskywrath_mage",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "155c061c11db60974fd74e0de70d0652d5716ae5b3e0cbd18301f4a7abcb9b21",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_slardar:slar_kill_02",
+      "hero": "Slardar",
+      "response": {
+        "name": "slar_kill_02",
+        "fullname": "slardar_slar_kill_02",
+        "mp3": "/sounds/vo/slardar/slar_kill_02.mp3",
+        "hero_id": 28,
+        "voice_id": 28,
+        "text": "Now you dwell in the deep!",
+        "text_simple": " now you dwell in the deep ",
+        "criteria": "Kill Isslardar",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "da4bc4365ab4bef9781073844573468cd714ac9d21e3da624a241c2f3bce2045",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_slark:slark_kill_03",
+      "hero": "Slark",
+      "response": {
+        "name": "slark_kill_03",
+        "fullname": "slark_slark_kill_03",
+        "mp3": "/sounds/vo/slark/slark_kill_03.mp3",
+        "hero_id": 93,
+        "voice_id": 93,
+        "text": "You wanted out of here, didn't you?",
+        "text_simple": " you wanted out of here didnt you ",
+        "criteria": "Kill Isslark",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "bd5a31140741587b5a53540a6fd9422afdecab0ba53f97599328ffab05d5329a",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_snapfire:snapfire_firstblood_03",
+      "hero": "Snapfire",
+      "response": {
+        "name": "snapfire_firstblood_03",
+        "fullname": "snapfire_snapfire_firstblood_03",
+        "mp3": "/sounds/vo/snapfire/snapfire_firstblood_03.mp3",
+        "hero_id": 128,
+        "voice_id": 128,
+        "text": "First blood! Say hello to my boomstick!",
+        "text_simple": " first blood say hello to my boomstick ",
+        "criteria": "Kill Issnapfire IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "624faac3dfdb8437d244b418fe98110cc1074a219836ed6b83aa95595aeacd19",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_sniper:snip_kill_08",
+      "hero": "Sniper",
+      "response": {
+        "name": "snip_kill_08",
+        "fullname": "sniper_snip_kill_08",
+        "mp3": "/sounds/vo/sniper/snip_kill_08.mp3",
+        "hero_id": 35,
+        "voice_id": 35,
+        "text": "Now that's what I call stoppin' power.",
+        "text_simple": " now thats what i call stoppin power ",
+        "criteria": "Kill Issniper IsAssassinateKill Chance_50%",
+        "pretty_criteria": "Killing a hero with Assassinate (50% chance)"
+      },
+      "transcriptSourceSha256": "90da364bc0a63ad5b3485d4a076a09e6b7ddb4cd03b4d7b79f9fde23e7bac751",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_spectre:spec_spawn_02",
+      "hero": "Spectre",
+      "response": {
+        "name": "spec_spawn_02",
+        "fullname": "spectre_spec_spawn_02",
+        "mp3": "/sounds/vo/spectre/spec_spawn_02.mp3",
+        "hero_id": 67,
+        "voice_id": 67,
+        "text": "From another dimension, a world beyond.",
+        "text_simple": " from another dimension a world beyond ",
+        "criteria": "Spawn Isspectre IsNotArcana IsNotCompendium|Custom Isspectre IsSpectreLoadoutSpawn",
+        "pretty_criteria": "Spawning|Spawning in the loadout"
+      },
+      "transcriptSourceSha256": "97be89dfe0a673f30cd954b5a1dbc5d36f7c051426c90296552e9fd742780cfb",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_spirit_breaker:spir_ability_charge_07",
+      "hero": "Spirit Breaker",
+      "response": {
+        "name": "spir_ability_charge_07",
+        "fullname": "spirit_breaker_spir_ability_charge_07",
+        "mp3": "/sounds/vo/spirit_breaker/spir_ability_charge_07.mp3",
+        "hero_id": 71,
+        "voice_id": 71,
+        "text": "Didn't see me coming, did you?",
+        "text_simple": " didnt see me coming did you ",
+        "criteria": "Custom Isspirit_breaker IsSpiritBreakerLoadoutSpawn|Kill Isspirit_breaker",
+        "pretty_criteria": "Spawning in the loadout|Killing a hero"
+      },
+      "transcriptSourceSha256": "91afd458b9e3156126e01b895d9a9416e3bfdfc678d8b1565ffb30734c8f2abb",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_storm_spirit:stormspirit_levelup_06",
+      "hero": "Storm Spirit",
+      "response": {
+        "name": "stormspirit_levelup_06",
+        "fullname": "stormspirit_stormspirit_levelup_06",
+        "mp3": "/sounds/vo/stormspirit/stormspirit_levelup_06.mp3",
+        "hero_id": 17,
+        "voice_id": 17,
+        "text": "Let's have the spotlight. Over here!",
+        "text_simple": " lets have the spotlight over here ",
+        "criteria": "LevelUp Isstormspirit",
+        "pretty_criteria": "Leveling up"
+      },
+      "transcriptSourceSha256": "d8fcb997a12be1370d8ffa3ba2fa0f736dba0a13c22081bf22789c2ee00f0eb2",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_sven:sven_kill_01",
+      "hero": "Sven",
+      "response": {
+        "name": "sven_kill_01",
+        "fullname": "sven_sven_kill_01",
+        "mp3": "/sounds/vo/sven/sven_kill_01.mp3",
+        "hero_id": 18,
+        "voice_id": 18,
+        "text": "You should not have crossed me.",
+        "text_simple": " you should not have crossed me ",
+        "criteria": "Kill Issven",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "2b4f2219458a7e48427b882613746090089cda737b2681e73dd54821cb1d8829",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_techies:tech_firstblood_02",
+      "hero": "Techies",
+      "response": {
+        "name": "tech_firstblood_02",
+        "fullname": "techies_tech_firstblood_02",
+        "mp3": "/sounds/vo/techies/tech_firstblood_02.mp3",
+        "hero_id": 105,
+        "voice_id": 105,
+        "text": "First blood! Start with a bang!",
+        "text_simple": " first blood start with a bang ",
+        "criteria": "Kill Istechies IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "6188c847ec096405f5e6103a5dc3b06febee3518b3baca14c01b4698950b437d",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_templar_assassin:temp_kill_04",
+      "hero": "Templar Assassin",
+      "response": {
+        "name": "temp_kill_04",
+        "fullname": "templar_assassin_temp_kill_04",
+        "mp3": "/sounds/vo/templar_assassin/temp_kill_04.mp3",
+        "hero_id": 46,
+        "voice_id": 46,
+        "text": "You never could keep a secret.",
+        "text_simple": " you never could keep a secret ",
+        "criteria": "Kill Istemplar_assassin",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "c7afea0525ced579d60a8f2f6f142537df424f6653b448bbdcb7205b3d03bb49",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_terrorblade:terr_kill_09",
+      "hero": "Terrorblade",
+      "response": {
+        "name": "terr_kill_09",
+        "fullname": "terrorblade_terr_kill_09",
+        "mp3": "/sounds/vo/terrorblade/terr_kill_09.mp3",
+        "hero_id": 109,
+        "voice_id": 109,
+        "text": "Let's bare your soul, shall we?",
+        "text_simple": " lets bare your soul shall we ",
+        "criteria": "Kill Isterrorblade",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "960e4912714e62f06096a1d2591fa418fbd8e9e691361fde43e79f5b0a3c0908",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_tidehunter:tide_firstblood_01",
+      "hero": "Tidehunter",
+      "response": {
+        "name": "tide_firstblood_01",
+        "fullname": "tidehunter_tide_firstblood_01",
+        "mp3": "/sounds/vo/tidehunter/tide_firstblood_01.mp3",
+        "hero_id": 29,
+        "voice_id": 29,
+        "text": "Blood in the water, time to feed!",
+        "text_simple": " blood in the water time to feed ",
+        "criteria": "Kill Istidehunter IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "8798d4bc4a941e6717f1eff8ac4caa8126dc60751e1fb1530ed67c46e919cd2b",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_tinker:tink_ability_marchofthemachines_02",
+      "hero": "Tinker",
+      "response": {
+        "name": "tink_ability_marchofthemachines_02",
+        "fullname": "tinker_tink_ability_marchofthemachines_02",
+        "mp3": "/sounds/vo/tinker/tink_ability_marchofthemachines_02.mp3",
+        "hero_id": 34,
+        "voice_id": 34,
+        "text": "And they said I was crazy!",
+        "text_simple": " and they said i was crazy ",
+        "criteria": "Kill Istinker",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "c22efae32fd57ec52bef64a5e8975f079d74a0b10327e779dc76b7b08e160338",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_tiny:tiny_firstblood_02",
+      "hero": "Tiny",
+      "response": {
+        "name": "tiny_firstblood_02",
+        "fullname": "tiny_tiny_firstblood_02",
+        "mp3": "/sounds/vo/tiny/tiny_firstblood_02.mp3",
+        "hero_id": 19,
+        "voice_id": 19,
+        "text": "First Blood! Better yours than mine.",
+        "text_simple": " first blood better yours than mine ",
+        "criteria": "Kill Istiny IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "8e9eabbd07dacd5166098b1b9c06e4f2ec21553fb7bf2242276e6dc2ae8b8cc9",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_treant:treant_respawn_15",
+      "hero": "Treant Protector",
+      "response": {
+        "name": "treant_respawn_15",
+        "fullname": "treant_treant_respawn_15",
+        "mp3": "/sounds/vo/treant/treant_respawn_15.mp3",
+        "hero_id": 83,
+        "voice_id": 83,
+        "text": "A battle! Has that always been there?",
+        "text_simple": " a battle has that always been there ",
+        "criteria": "Respawn Istreant",
+        "pretty_criteria": "Respawning"
+      },
+      "transcriptSourceSha256": "635d3a2505f758a0f847252f863122f44b7506557ff9beab903c02783ab67f0c",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_troll_warlord:troll_respawn_10",
+      "hero": "Troll Warlord",
+      "response": {
+        "name": "troll_respawn_10",
+        "fullname": "troll_warlord_troll_respawn_10",
+        "mp3": "/sounds/vo/troll_warlord/troll_respawn_10.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "Being dead only makes me angrier.",
+        "text_simple": " being dead only makes me angrier ",
+        "criteria": "Respawn Istroll_warlord",
+        "pretty_criteria": "Respawning"
+      },
+      "transcriptSourceSha256": "bb3d54c79009e8b9d7d228a275485d263243d9f41c3f1b38aeec4c2edd847c28",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_tusk:tusk_kill_05",
+      "hero": "Tusk",
+      "response": {
+        "name": "tusk_kill_05",
+        "fullname": "tusk_tusk_kill_05",
+        "mp3": "/sounds/vo/tusk/tusk_kill_05.mp3",
+        "hero_id": 100,
+        "voice_id": 100,
+        "text": "You were out of your weightclass!",
+        "text_simple": " you were out of your weightclass ",
+        "criteria": "Kill Istusk",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "4da9202bba2c0b08d1e8f07f130015c39a9a66d0a704fded59b8f7c7dd862dc3",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_undying:undying_firstblood_01",
+      "hero": "Undying",
+      "response": {
+        "name": "undying_firstblood_01",
+        "fullname": "undying_undying_firstblood_01",
+        "mp3": "/sounds/vo/undying/undying_firstblood_01.mp3",
+        "hero_id": 85,
+        "voice_id": 85,
+        "text": "First blood! They sing the song of death!!",
+        "text_simple": " first blood they sing the song of death ",
+        "criteria": "Kill Isundying IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "d550d6c0ba3b4986d025ed21a9d0603fead503dd6328a31589f44c5758ca1a15",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_ursa:ursa_kill_03",
+      "hero": "Ursa",
+      "response": {
+        "name": "ursa_kill_03",
+        "fullname": "ursa_ursa_kill_03",
+        "mp3": "/sounds/vo/ursa/ursa_kill_03.mp3",
+        "hero_id": 70,
+        "voice_id": 70,
+        "text": "You and yours will not prevail.",
+        "text_simple": " you and yours will not prevail ",
+        "criteria": "Kill Isursa",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "664ba4dc638757d3a3eb0b5b20f6f90b23845150adfff540d4a3440bb51e9740",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_vengefulspirit:vng_levelup_02",
+      "hero": "Vengeful Spirit",
+      "response": {
+        "name": "vng_levelup_02",
+        "fullname": "vengefulspirit_vng_levelup_02",
+        "mp3": "/sounds/vo/vengefulspirit/vng_levelup_02.mp3",
+        "hero_id": 20,
+        "voice_id": 20,
+        "text": "Power like a promise of revenge!",
+        "text_simple": " power like a promise of revenge ",
+        "criteria": "Custom Isvengefulspirit IsVengefulSpiritLoadoutSpawn|LevelUp Isvengefulspirit",
+        "pretty_criteria": "Spawning in the loadout|Leveling up"
+      },
+      "transcriptSourceSha256": "07a89d33fc3bedb55b094224f82f6174da0a0a0885241fa09771886c9aafb6bb",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_venomancer:venm_firstblood_03",
+      "hero": "Venomancer",
+      "response": {
+        "name": "venm_firstblood_03",
+        "fullname": "venomancer_venm_firstblood_03",
+        "mp3": "/sounds/vo/venomancer/venm_firstblood_03.mp3",
+        "hero_id": 40,
+        "voice_id": 40,
+        "text": "First Blood is the sweetest.",
+        "text_simple": " first blood is the sweetest ",
+        "criteria": "Kill Isvenomancer IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "a1d53e7f675f16ea103bf63bef72ff06378ccadc852176432b5ae2e9ac9c6a2c",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_viper:vipe_firstblood_02",
+      "hero": "Viper",
+      "response": {
+        "name": "vipe_firstblood_02",
+        "fullname": "viper_vipe_firstblood_02",
+        "mp3": "/sounds/vo/viper/vipe_firstblood_02.mp3",
+        "hero_id": 47,
+        "voice_id": 47,
+        "text": "First blood, with a poison twist.",
+        "text_simple": " first blood with a poison twist ",
+        "criteria": "Kill Isviper IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "transcriptSourceSha256": "0858419de22134cd9c81af031d4f8e108e16baaabf81a7acba51f4a9e01c6f50",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_visage:visa_rare_02",
+      "hero": "Visage",
+      "response": {
+        "name": "visa_rare_02",
+        "fullname": "visage_visa_rare_02",
+        "mp3": "/sounds/vo/visage/visa_rare_02.mp3",
+        "hero_id": 92,
+        "voice_id": 92,
+        "text": "To oppose me is to deny death.",
+        "text_simple": " to oppose me is to deny death ",
+        "criteria": "Kill Isvisage",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "b123a97c3a302f143dd5f861fca345cfb927770be49e3705102f3c61eb6a808f",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_void_spirit:voidspir_kill_08",
+      "hero": "Void Spirit",
+      "response": {
+        "name": "voidspir_kill_08",
+        "fullname": "void_spirit_voidspir_kill_08",
+        "mp3": "/sounds/vo/void_spirit/voidspir_kill_08.mp3",
+        "hero_id": 126,
+        "voice_id": 126,
+        "text": "Rest well. Your death has consequence.",
+        "text_simple": " rest well your death has consequence ",
+        "criteria": "Kill Isvoid_spirit",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "485158fec7c83cc7e30594ca0d1f8c23ed56c9516b9858d8062af34744f47245",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_warlock:warl_respawn_01",
+      "hero": "Warlock",
+      "response": {
+        "name": "warl_respawn_01",
+        "fullname": "warlock_warl_respawn_01",
+        "mp3": "/sounds/vo/warlock/warl_respawn_01.mp3",
+        "hero_id": 37,
+        "voice_id": 37,
+        "text": "Death has no command over me.",
+        "text_simple": " death has no command over me ",
+        "criteria": "Respawn Iswarlock",
+        "pretty_criteria": "Respawning"
+      },
+      "transcriptSourceSha256": "b6b50bec07073ef69cb0e19483efebbb1c0b3ee6cca33091ea1c458a6da2c45c",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_weaver:weav_kill_06",
+      "hero": "Weaver",
+      "response": {
+        "name": "weav_kill_06",
+        "fullname": "weaver_weav_kill_06",
+        "mp3": "/sounds/vo/weaver/weav_kill_06.mp3",
+        "hero_id": 63,
+        "voice_id": 63,
+        "text": "Shuttle and loom, I weave your doom.",
+        "text_simple": " shuttle and loom i weave your doom ",
+        "criteria": "Kill Isweaver|HeroChatWheel GrandmasterTier",
+        "pretty_criteria": "Killing a hero|A grandmaster hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "c43f0379cec7884e69dbd3d9d07a3b6c237a595ea93afcda819fca34c6b958b8",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_windrunner:wind_kill_05",
+      "hero": "Windranger",
+      "response": {
+        "name": "wind_kill_05",
+        "fullname": "windrunner_wind_kill_05",
+        "mp3": "/sounds/vo/windrunner/wind_kill_05.mp3",
+        "hero_id": 21,
+        "voice_id": 21,
+        "text": "Could I have killed you any deader?",
+        "text_simple": " could i have killed you any deader ",
+        "criteria": "Kill Iswindrunner",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "6fb7825cdfca9d477e212ffbd5a3d3105f12fa1759449bb2e5916adf207f6f25",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_winter_wyvern:winwyv_cast_01",
+      "hero": "Winter Wyvern",
+      "response": {
+        "name": "winwyv_cast_01",
+        "fullname": "winter_wyvern_winwyv_cast_01",
+        "mp3": "/sounds/vo/winter_wyvern/winwyv_cast_01.mp3",
+        "hero_id": 112,
+        "voice_id": 112,
+        "text": "You have tangled with an Eldwurm!",
+        "text_simple": " you have tangled with an eldwurm ",
+        "criteria": "Kill Iswinter_wyvern",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "2231ef593607f101c5223d2e352aae2f7fd6157c17d0b4a4adde9a41af2c6cd6",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_witch_doctor:wdoc_kill_07",
+      "hero": "Witch Doctor",
+      "response": {
+        "name": "wdoc_kill_07",
+        "fullname": "witchdoctor_wdoc_kill_07",
+        "mp3": "/sounds/vo/witchdoctor/wdoc_kill_07.mp3",
+        "hero_id": 30,
+        "voice_id": 30,
+        "text": "I'm known for my graveside manner.",
+        "text_simple": " im known for my graveside manner ",
+        "criteria": "Kill Iswitchdoctor",
+        "pretty_criteria": "Killing a hero"
+      },
+      "transcriptSourceSha256": "465506fba240ba5ffdca3a8a93c0d4e791b283e66a192fd0642afdb36ab226d7",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_zuus:zuus_respawn_06",
+      "hero": "Zeus",
+      "response": {
+        "name": "zuus_respawn_06",
+        "fullname": "zuus_zuus_respawn_06",
+        "mp3": "/sounds/vo/zuus/zuus_respawn_06.mp3",
+        "hero_id": 22,
+        "voice_id": 22,
+        "text": "God's gift to the world: Me.",
+        "text_simple": " gods gift to the world me ",
+        "criteria": "Respawn Iszuus|HeroChatWheel GrandmasterTier",
+        "pretty_criteria": "Respawning|A grandmaster hero chat wheel was used"
+      },
+      "transcriptSourceSha256": "4448cabd8215464718d68d0a346921f2b382d2bc40c63250f67c4141034151c4",
+      "checksPassed": [
+        "exactTranscript",
+        "heroId",
+        "voiceId",
+        "audioPath",
+        "sourceFileHash"
+      ],
+      "otherHeroFullTextMatches": []
+    }
+  ]
+}

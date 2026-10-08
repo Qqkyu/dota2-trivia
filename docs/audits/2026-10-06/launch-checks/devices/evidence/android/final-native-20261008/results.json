@@ -1,0 +1,130 @@
+{
+  "recordedAt": "2026-10-08T14:58:00.831671+00:00",
+  "appOrigin": "http://127.0.0.1:3334",
+  "appBuild": "fQ95T7-zzQo1Bnsef8oBI",
+  "environment": {
+    "emulator": "37.2.12",
+    "android": "11",
+    "apiLevel": 30,
+    "browser": "Firefox 157.0.1",
+    "keyboard": "com.android.inputmethod.latin/.LatinIME",
+    "screenPixels": [
+      720,
+      1280
+    ],
+    "densityDpi": 320,
+    "cpuAcceleration": false,
+    "graphics": "SwiftShader; Vulkan disabled",
+    "physicalDevice": false
+  },
+  "outcome": "Partial native-browser verification. The native Join reached the server, but the waiting-room UI and settled landscape layout were not verified before the fixed deadline.",
+  "method": "Native ADB touch and key events. Screenshots were inspected. Independent assertions checked the synthetic local room response. Firefox web content was absent from the UiAutomator tree, so no web DOM assertion is claimed.",
+  "checks": [
+    {
+      "name": "Android boot",
+      "status": "pass",
+      "evidence": [
+        "actions.jsonl",
+        "boot-tail.txt"
+      ],
+      "detail": "Android reached boot_completed=1 within the six-minute limit. Window-service inventory recorded Android11, Firefox157.0.1 and the native Latin keyboard."
+    },
+    {
+      "name": "Native Party navigation",
+      "status": "pass",
+      "evidence": [
+        "party-ready.png",
+        "join-form.png",
+        "actions.jsonl"
+      ],
+      "detail": "The final candidate rendered Play with friends. An ADB tap opened its Join form."
+    },
+    {
+      "name": "Empty code validation message",
+      "status": "not_verified",
+      "evidence": [
+        "empty-code-validation.png"
+      ],
+      "detail": "Submitting an empty code focused the input and opened the real Android keyboard. The error message was below the keyboard and was not inspected before typing cleared it."
+    },
+    {
+      "name": "Native keyboard input",
+      "status": "pass",
+      "evidence": [
+        "typed-code-keyboard.png",
+        "actions.jsonl"
+      ],
+      "detail": "Native key events entered android11q8. The focused field visibly contained ANDROID11Q8 with the Android keyboard open."
+    },
+    {
+      "name": "Code retained through rotation and Home/resume",
+      "status": "pass",
+      "evidence": [
+        "landscape-code.png",
+        "landscape-resumed.png",
+        "actions.jsonl"
+      ],
+      "detail": "The same code remained visible after native orientation changes and after Android Home then the existing Firefox activity resumed."
+    },
+    {
+      "name": "Server accepted native Join",
+      "status": "pass",
+      "evidence": [
+        "server-create.json",
+        "server-check.json",
+        "joined-room.png",
+        "actions.jsonl"
+      ],
+      "detail": "The host-only room had one participant before native Join. After the Android tap, its response had the synthetic host and one active guest. The browser URL had changed to /play, although its screenshot still showed Joining."
+    },
+    {
+      "name": "Waiting-room UI completed",
+      "status": "not_verified",
+      "evidence": [
+        "joined-room.png"
+      ],
+      "detail": "The captured frame still showed Joining. No complete waiting-room or gameplay claim is made."
+    },
+    {
+      "name": "Settled landscape layout",
+      "status": "unresolved",
+      "evidence": [
+        "landscape-code.png",
+        "landscape-resumed.png",
+        "actions.jsonl"
+      ],
+      "detail": "Rotation captures showed cropped or stale-size content. The evidence does not separate an app defect from software-emulator rendering delay. The last capture was interrupted at the fixed deadline before it produced a file."
+    }
+  ],
+  "runtimeProblems": [
+    "One System UI not-responding dialog during Firefox startup. A native Wait tap cleared it.",
+    "Native commands and rendering were slow. No emulator restart was used.",
+    "The emulator was stopped at the fixed 14:56 UTC deadline. The pending final screenshot returned error: closed."
+  ],
+  "cleanup": {
+    "emulatorStopCommand": "adb -P 5037 -s emulator-5582 emu kill",
+    "stopAcknowledged": true,
+    "emulatorProcessExited": true,
+    "runtimeExitCode": 138,
+    "noAppSourceChanges": true,
+    "noHostHypervisorChanges": true,
+    "noPaidServices": true
+  },
+  "notTested": [
+    "Physical touch hardware",
+    "Android16 app flow",
+    "iOS and Safari on a real Apple runtime",
+    "Native full gameplay or a vote",
+    "Android speaker output",
+    "TalkBack",
+    "Mobile network throttling"
+  ],
+  "serverAssertion": {
+    "httpStatus": 200,
+    "roomCodeMatched": true,
+    "totalPlayers": 2,
+    "syntheticHostPresent": true,
+    "activeAndroidGuestPresent": true,
+    "waiting": true
+  }
+}

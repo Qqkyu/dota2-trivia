@@ -1,0 +1,12 @@
+
+ RUN  v5.0.0 /home/kulmisiu/dev/dota2-trivia
+
+
+ Test Files  64 passed (64)
+      Tests  1280 passed (1280)
+   Start at  16:44:41
+   Duration  26.77s (tests 87%, import 7%, transform 6%)
+
+    Isolate  64 workers spawned · ~62ms startup each (spawn + environment, per file)
+             at least ~1.91s faster with isolate: false — reuses workers across files instead of one per file
+

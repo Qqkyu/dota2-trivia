@@ -1,0 +1,24 @@
+FAIL party response body timeout leaves Join usable: Timed out waiting for: !document.querySelector('[data-testid="private-room-join"]').disabled
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: [
+  {
+    "name": "party response body timeout leaves Join usable",
+    "error": "Timed out waiting for: !document.querySelector('[data-testid=\"private-room-join\"]').disabled"
+  }
+]
+
+1 !== 0
+
+    at file:///home/kulmisiu/dev/dota2-trivia/scripts/check-user-journeys.mjs:265:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

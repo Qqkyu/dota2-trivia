@@ -428,11 +428,11 @@ try {
   await delay(80);
 
   const joinApiGuest = async (playerId, name = "") => {
-    const query = new URL(`${appUrl}/api/private-rooms`);
-    query.searchParams.set("code", partyCode);
-    query.searchParams.set("playerId", playerId);
-    if (name) query.searchParams.set("name", name);
-    const response = await fetch(query);
+    const response = await fetch(`${appUrl}/api/private-rooms`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Origin: new URL(appUrl).origin },
+      body: JSON.stringify({ action: "join", code: partyCode, playerId, ...(name ? { name } : {}) }),
+    });
     const payload = await response.json();
     if (!response.ok) throw new Error(payload.error ?? "Guest join failed.");
     return payload.privateRoom?.players ?? [];
@@ -482,7 +482,7 @@ try {
   }
   const chatPost = await fetch(`${appUrl}/api/private-rooms/messages`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", Origin: new URL(appUrl).origin },
     body: JSON.stringify({ code: partyCode, playerId: guestA, name: "Puppey", text: "from-api" }),
   });
   if (!chatPost.ok) throw new Error("Guest chat POST failed.");

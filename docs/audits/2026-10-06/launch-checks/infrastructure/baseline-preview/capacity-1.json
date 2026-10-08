@@ -1,0 +1,499 @@
+{
+  "ok": true,
+  "runId": "73ca8ad4",
+  "sourceSubnet": 100,
+  "appUrl": "http://127.0.0.1:3323",
+  "full": false,
+  "busyChat": false,
+  "requestedRounds": 2,
+  "membershipPollMs": 1000,
+  "roundPollMs": 5000,
+  "startedAt": 1791292982765,
+  "endedAt": 1791293035219,
+  "peakOutstandingHttp": 40,
+  "maximumOutstandingHttp": 256,
+  "scenarios": [
+    {
+      "name": "small-nat",
+      "size": 20,
+      "mode": "nat",
+      "groupNumber": 1,
+      "public": false,
+      "media": false,
+      "games": [
+        "trivia"
+      ],
+      "code": "CAP73CA8AD41",
+      "statuses": {
+        "200": 1068,
+        "204": 39,
+        "409": 2
+      },
+      "rounds": [
+        {
+          "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:0:1791292986418",
+          "game": "trivia",
+          "accepted": 20,
+          "correct": 5,
+          "totalPoints": 2130,
+          "skippedRevealPlayer": 19
+        },
+        {
+          "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+          "game": "trivia",
+          "accepted": 20,
+          "correct": 5,
+          "totalPoints": 2146,
+          "skippedRevealPlayer": -1
+        }
+      ],
+      "errors": [],
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessageCount": 2,
+      "joined": 20,
+      "rejected101": false,
+      "membershipRequests": 739,
+      "membershipSkipped": 4,
+      "chatTexts": [
+        "Round 1 from Player 1",
+        "Round 2 from Player 2"
+      ],
+      "players": [
+        {
+          "name": "Player 1",
+          "score": 0,
+          "correct": 0,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 2",
+          "score": 424,
+          "correct": 1,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 3",
+          "score": 432,
+          "correct": 1,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 432,
+            "correct": true
+          }
+        },
+        {
+          "name": "Player 4",
+          "score": 0,
+          "correct": 0,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 5",
+          "score": 0,
+          "correct": 0,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 6",
+          "score": 426,
+          "correct": 1,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 7",
+          "score": 428,
+          "correct": 1,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 428,
+            "correct": true
+          }
+        },
+        {
+          "name": "Player 8",
+          "score": 0,
+          "correct": 0,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 9",
+          "score": 0,
+          "correct": 0,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 10",
+          "score": 428,
+          "correct": 1,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 11",
+          "score": 428,
+          "correct": 1,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 428,
+            "correct": true
+          }
+        },
+        {
+          "name": "Player 12",
+          "score": 0,
+          "correct": 0,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 13",
+          "score": 0,
+          "correct": 0,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 14",
+          "score": 428,
+          "correct": 1,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 15",
+          "score": 430,
+          "correct": 1,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 430,
+            "correct": true
+          }
+        },
+        {
+          "name": "Player 16",
+          "score": 0,
+          "correct": 0,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 17",
+          "score": 0,
+          "correct": 0,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 18",
+          "score": 424,
+          "correct": 1,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 0,
+            "correct": false
+          }
+        },
+        {
+          "name": "Player 19",
+          "score": 428,
+          "correct": 1,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 428,
+            "correct": true
+          }
+        },
+        {
+          "name": "Player 20",
+          "score": 0,
+          "correct": 0,
+          "recovered": 1,
+          "last": {
+            "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:CAP73CA8AD41:round:1:1791292986418",
+            "points": 0,
+            "correct": false
+          }
+        }
+      ],
+      "requests": {
+        "POST /api/private-rooms": {
+          "latencyMs": {
+            "count": 763,
+            "p50": 198.04,
+            "p95": 600.86,
+            "p99": 898.98,
+            "max": 1497.27
+          },
+          "clientQueueMs": {
+            "count": 763,
+            "p50": 0.57,
+            "p95": 1.39,
+            "p99": 3.54,
+            "max": 5.08
+          },
+          "bytes": 1664928
+        },
+        "POST /api/private-rooms/start": {
+          "latencyMs": {
+            "count": 1,
+            "p50": 96.91,
+            "p95": 96.91,
+            "p99": 96.91,
+            "max": 96.91
+          },
+          "clientQueueMs": {
+            "count": 1,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "max": 0
+          },
+          "bytes": 2098
+        },
+        "POST /api/sessions": {
+          "latencyMs": {
+            "count": 40,
+            "p50": 299.59,
+            "p95": 497.84,
+            "p99": 498.57,
+            "max": 498.57
+          },
+          "clientQueueMs": {
+            "count": 40,
+            "p50": 0.43,
+            "p95": 1.39,
+            "p99": 1.55,
+            "max": 1.55
+          },
+          "bytes": 680
+        },
+        "GET /api/rounds": {
+          "latencyMs": {
+            "count": 200,
+            "p50": 604.47,
+            "p95": 1205.27,
+            "p99": 1302.79,
+            "max": 1304.99
+          },
+          "clientQueueMs": {
+            "count": 200,
+            "p50": 0.67,
+            "p95": 1.4,
+            "p99": 1.71,
+            "max": 1.88
+          },
+          "bytes": 445073
+        },
+        "POST /api/votes": {
+          "latencyMs": {
+            "count": 44,
+            "p50": 1909.97,
+            "p95": 3603.24,
+            "p99": 3611.93,
+            "max": 3611.93
+          },
+          "clientQueueMs": {
+            "count": 44,
+            "p50": 0.51,
+            "p95": 1.37,
+            "p99": 1.45,
+            "max": 1.45
+          },
+          "bytes": 8664
+        },
+        "POST /api/private-rooms/messages": {
+          "latencyMs": {
+            "count": 2,
+            "p50": 2.43,
+            "p95": 4.93,
+            "p99": 4.93,
+            "max": 4.93
+          },
+          "clientQueueMs": {
+            "count": 2,
+            "p50": 0.01,
+            "p95": 0.01,
+            "p99": 0.01,
+            "max": 0.01
+          },
+          "bytes": 4441
+        },
+        "HEAD /api/round-audio": {
+          "latencyMs": {
+            "count": 39,
+            "p50": 297.45,
+            "p95": 400.65,
+            "p99": 401.98,
+            "max": 401.98
+          },
+          "clientQueueMs": {
+            "count": 39,
+            "p50": 0.85,
+            "p95": 1.28,
+            "p99": 1.3,
+            "max": 1.3
+          },
+          "bytes": 0
+        },
+        "POST /api/private-rooms/leave": {
+          "latencyMs": {
+            "count": 20,
+            "p50": 296.18,
+            "p95": 497.48,
+            "p99": 499.5,
+            "max": 499.5
+          },
+          "clientQueueMs": {
+            "count": 20,
+            "p50": 0.37,
+            "p95": 0.52,
+            "p99": 0.53,
+            "max": 0.53
+          },
+          "bytes": 29852
+        }
+      }
+    },
+    {
+      "name": "expected-throttles",
+      "size": 1,
+      "mode": "nat",
+      "groupNumber": 240,
+      "public": true,
+      "media": false,
+      "games": [
+        "trivia"
+      ],
+      "code": "CAP73CA8AD4240",
+      "statuses": {
+        "200": 150,
+        "409": 12,
+        "429": 9
+      },
+      "rounds": [],
+      "errors": [],
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessageCount": 0,
+      "joined": 0,
+      "rejected101": false,
+      "burst": {
+        "expiredVotesBeforeThrottle": 12,
+        "rejectedVoteBurst": 8,
+        "admittedIdentities": 150,
+        "rejectedIdentity": 151
+      },
+      "players": [
+        {
+          "name": "Player 1",
+          "score": 0,
+          "correct": 0,
+          "recovered": 0,
+          "last": null
+        }
+      ],
+      "requests": {
+        "POST /api/votes": {
+          "latencyMs": {
+            "count": 20,
+            "p50": 2.07,
+            "p95": 95.38,
+            "p99": 793.99,
+            "max": 793.99
+          },
+          "clientQueueMs": {
+            "count": 20,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "max": 0
+          },
+          "bytes": 1028
+        },
+        "GET /api/rounds": {
+          "latencyMs": {
+            "count": 151,
+            "p50": 3.99,
+            "p95": 100.61,
+            "p99": 296.05,
+            "max": 299.63
+          },
+          "clientQueueMs": {
+            "count": 151,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "max": 0
+          },
+          "bytes": 341104
+        }
+      }
+    }
+  ]
+}

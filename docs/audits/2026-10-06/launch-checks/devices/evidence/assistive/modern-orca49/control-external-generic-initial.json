@@ -1,0 +1,36 @@
+{
+  "buildId": "NsjBPH5Ygi5SqnYfuwSHz",
+  "browser": "153.0.8010.12",
+  "reader": "49.8",
+  "roleAtEnd": null,
+  "runtimeRoleRemoval": true,
+  "completed": true,
+  "errors": [],
+  "startMs": 1791294461310,
+  "endMs": 1791294467348,
+  "beforeFocus": {
+    "tag": "INPUT",
+    "id": "",
+    "testid": "game-volume",
+    "name": "Game volume"
+  },
+  "afterFocus": {
+    "tag": "INPUT",
+    "id": "",
+    "testid": "game-volume",
+    "name": "Game volume"
+  },
+  "nextTab": {
+    "tag": "INPUT",
+    "id": "",
+    "testid": "flashback-year-slider",
+    "name": "Year"
+  },
+  "speechRequests": [
+    {
+      "atMs": 1791294461596.53,
+      "text": " Round 2. What year did Dota 2 officially release?"
+    }
+  ],
+  "promptCount": 1
+}

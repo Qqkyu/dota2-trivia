@@ -1,0 +1,616 @@
+{
+  "url": "http://host.docker.internal:3333",
+  "buildId": "NsjBPH5Ygi5SqnYfuwSHz",
+  "browser": "153.0.8010.12",
+  "reader": "Orca 49.8",
+  "speechOutput": "stock Speech Dispatcher espeak-ng module to recorded PulseAudio null sink",
+  "initialReading": "Native Control at each entry gate; no Browse/Focus toggle after component selection.",
+  "completed": true,
+  "checks": {
+    "secondSearch": false,
+    "searchFocusRecovery": false,
+    "buildFocus": true,
+    "oneRecipeVote": false
+  },
+  "errors": [],
+  "events": [
+    {
+      "label": "classic entry gate",
+      "startMs": 1791293297462,
+      "endMs": 1791293297462,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%1 playing now \u00b7 Ten gamesYour queue hasside quests.A Dota arcade built for the gap between Find Match and Accept. Eve"
+      },
+      "query": null,
+      "speechRequests": []
+    },
+    {
+      "label": "classic initial page reading stopped",
+      "startMs": 1791293297462,
+      "endMs": 1791293297892,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%1 playing now \u00b7 Ten gamesYour queue hasside quests.A Dota arcade built for the gap between Find Match and Accept. Eve"
+      },
+      "query": null,
+      "speechRequests": [
+        {
+          "atMs": 1791293297482.9458,
+          "text": "left control"
+        }
+      ]
+    },
+    {
+      "label": "classic round start",
+      "startMs": 1791293297892,
+      "endMs": 1791293299940,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Classic TriviaMana58How much mana does Acid Spray cost?Us"
+      },
+      "query": null,
+      "speechRequests": [
+        {
+          "atMs": 1791293298181.635,
+          "text": " Round 1. How much mana does Acid Spray cost?"
+        }
+      ]
+    },
+    {
+      "label": "classic answer focused",
+      "startMs": 1791293302776,
+      "endMs": 1791293303605,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "testid": "arcade-answer",
+        "name": "A160"
+      },
+      "query": null,
+      "speechRequests": []
+    },
+    {
+      "label": "classic answer locked",
+      "startMs": 1791293303605,
+      "endMs": 1791293304209,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Classic TriviaMana59How much mana does Acid Spray cost?Us"
+      },
+      "query": null,
+      "speechRequests": [
+        {
+          "atMs": 1791293303801.408,
+          "text": "return"
+        },
+        {
+          "atMs": 1791293304077.467,
+          "text": "pressed"
+        },
+        {
+          "atMs": 1791293304123.646,
+          "text": "A 160 Your answer \u00b7 locked pressed grayed."
+        }
+      ]
+    },
+    {
+      "label": "classic before reveal",
+      "startMs": 1791293304209,
+      "endMs": 1791293304213,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Classic TriviaMana59How much mana does Acid Spray cost?Us"
+      },
+      "query": null,
+      "speechRequests": []
+    },
+    {
+      "label": "classic after reveal",
+      "startMs": 1791293304213,
+      "endMs": 1791293306558,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Classic TriviaMana65How much mana does Acid Spray cost?Us"
+      },
+      "query": null,
+      "speechRequests": [
+        {
+          "atMs": 1791293304351.639,
+          "text": "A 160 Your answer 0% pressed grayed."
+        }
+      ],
+      "voteAnswerKeys": [
+        null
+      ]
+    },
+    {
+      "label": "classic before next round",
+      "startMs": 1791293306558,
+      "endMs": 1791293306654,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Classic TriviaMana65How much mana does Acid Spray cost?Us"
+      },
+      "query": null,
+      "speechRequests": []
+    },
+    {
+      "label": "classic next round",
+      "startMs": 1791293306654,
+      "endMs": 1791293312691,
+      "focus": {
+        "tag": "H1",
+        "id": "",
+        "testid": "round-heading",
+        "name": "Round 2"
+      },
+      "query": null,
+      "speechRequests": [
+        {
+          "atMs": 1791293306768.196,
+          "text": "leaving panel."
+        },
+        {
+          "atMs": 1791293306769.027,
+          "text": "Round 2 heading 1 clickable."
+        }
+      ]
+    },
+    {
+      "label": "next round first Tab",
+      "startMs": 1791293312691,
+      "endMs": 1791293313133,
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "testid": "flashback-year-slider",
+        "name": "Year"
+      },
+      "query": null,
+      "speechRequests": [
+        {
+          "atMs": 1791293312723.195,
+          "text": "tab"
+        },
+        {
+          "atMs": 1791293312773.282,
+          "text": "Year horizontal slider 2017 11864 percent."
+        },
+        {
+          "atMs": 1791293312778.2249,
+          "text": "Focus mode"
+        }
+      ]
+    },
+    {
+      "label": "recipe entry gate",
+      "startMs": 1791293313133,
+      "endMs": 1791293319522,
+      "focus": {
+        "tag": "A",
+        "id": "",
+        "testid": "site-home",
+        "name": "Queue Arcade home"
+      },
+      "query": null,
+      "speechRequests": [
+        {
+          "atMs": 1791293313190.9028,
+          "text": "left control"
+        },
+        {
+          "atMs": 1791293313246.969,
+          "text": "Address and search bar autocomplete host.docker.internal:3333/play selected."
+        },
+        {
+          "atMs": 1791293313629.083,
+          "text": "h"
+        },
+        {
+          "atMs": 1791293313638.222,
+          "text": "Text unselected."
+        },
+        {
+          "atMs": 1791293313644.441,
+          "text": "t"
+        },
+        {
+          "atMs": 1791293313664.291,
+          "text": "t"
+        },
+        {
+          "atMs": 1791293313684.539,
+          "text": "p"
+        },
+        {
+          "atMs": 1791293313705.917,
+          "text": "left shift"
+        },
+        {
+          "atMs": 1791293313709.955,
+          "text": ":"
+        },
+        {
+          "atMs": 1791293313725.737,
+          "text": "/"
+        },
+        {
+          "atMs": 1791293313746.257,
+          "text": "/"
+        },
+        {
+          "atMs": 1791293313767.349,
+          "text": "h"
+        },
+        {
+          "atMs": 1791293313794.221,
+          "text": "o"
+        },
+        {
+          "atMs": 1791293313808.661,
+          "text": "s"
+        },
+        {
+          "atMs": 1791293313827.747,
+          "text": "t"
+        },
+        {
+          "atMs": 1791293313848.577,
+          "text": "."
+        },
+        {
+          "atMs": 1791293313870.383,
+          "text": "d"
+        },
+        {
+          "atMs": 1791293313890.107,
+          "text": "o"
+        },
+        {
+          "atMs": 1791293313910.08,
+          "text": "c"
+        },
+        {
+          "atMs": 1791293313930.701,
+          "text": "k"
+        },
+        {
+          "atMs": 1791293313950.927,
+          "text": "e"
+        },
+        {
+          "atMs": 1791293313974.039,
+          "text": "r"
+        },
+        {
+          "atMs": 1791293313992.4321,
+          "text": "."
+        },
+        {
+          "atMs": 1791293314014.2642,
+          "text": "i"
+        },
+        {
+          "atMs": 1791293314033.438,
+          "text": "n"
+        },
+        {
+          "atMs": 1791293314056.202,
+          "text": "t"
+        },
+        {
+          "atMs": 1791293314074.677,
+          "text": "e"
+        },
+        {
+          "atMs": 1791293314096.435,
+          "text": "r"
+        },
+        {
+          "atMs": 1791293314116.3162,
+          "text": "n"
+        },
+        {
+          "atMs": 1791293314137.624,
+          "text": "a"
+        },
+        {
+          "atMs": 1791293314158.8572,
+          "text": "l"
+        },
+        {
+          "atMs": 1791293314180.583,
+          "text": "left shift"
+        },
+        {
+          "atMs": 1791293314186.528,
+          "text": ":"
+        },
+        {
+          "atMs": 1791293314201.729,
+          "text": "3"
+        },
+        {
+          "atMs": 1791293314221.114,
+          "text": "3"
+        },
+        {
+          "atMs": 1791293314241.003,
+          "text": "3"
+        },
+        {
+          "atMs": 1791293314262.444,
+          "text": "3"
+        },
+        {
+          "atMs": 1791293314282.441,
+          "text": "/"
+        },
+        {
+          "atMs": 1791293314303.8052,
+          "text": "p"
+        },
+        {
+          "atMs": 1791293314323.763,
+          "text": "l"
+        },
+        {
+          "atMs": 1791293314344.742,
+          "text": "a"
+        },
+        {
+          "atMs": 1791293314365.289,
+          "text": "y"
+        },
+        {
+          "atMs": 1791293314393.2031,
+          "text": "return"
+        },
+        {
+          "atMs": 1791293314620.003,
+          "text": "Finished loading Play \u00b7 Queue Arcade."
+        },
+        {
+          "atMs": 1791293314626.938,
+          "text": "Page has 1 landmark, 2 headings, 6 unvisited links."
+        }
+      ]
+    },
+    {
+      "label": "recipe initial page reading stopped",
+      "startMs": 1791293319522,
+      "endMs": 1791293320104,
+      "focus": {
+        "tag": "A",
+        "id": "",
+        "testid": "site-home",
+        "name": "Queue Arcade home"
+      },
+      "query": null,
+      "speechRequests": [
+        {
+          "atMs": 1791293319698.8262,
+          "text": "left control"
+        }
+      ]
+    },
+    {
+      "label": "recipe round start",
+      "startMs": 1791293320104,
+      "endMs": 1791293322170,
+      "focus": {
+        "tag": "A",
+        "id": "",
+        "testid": "site-home",
+        "name": "Queue Arcade home"
+      },
+      "query": "",
+      "speechRequests": [
+        {
+          "atMs": 1791293320435.3572,
+          "text": " Round 1. Build Abyssal Blade."
+        }
+      ]
+    },
+    {
+      "label": "shop search",
+      "startMs": 1791293324289,
+      "endMs": 1791293325541,
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "testid": "shopkeeper-search-field",
+        "name": "Search shop items"
+      },
+      "query": "",
+      "speechRequests": [
+        {
+          "atMs": 1791293324300.189,
+          "text": "g"
+        },
+        {
+          "atMs": 1791293324395.617,
+          "text": "Abyssal Blade item icon image"
+        },
+        {
+          "atMs": 1791293324400.427,
+          "text": "l"
+        },
+        {
+          "atMs": 1791293324404.577,
+          "text": "o"
+        },
+        {
+          "atMs": 1791293324410.7139,
+          "text": "No more lists."
+        },
+        {
+          "atMs": 1791293324521.014,
+          "text": "Build Abyssal Blade. heading 2"
+        },
+        {
+          "atMs": 1791293324527.184,
+          "text": "v"
+        },
+        {
+          "atMs": 1791293324534.383,
+          "text": "e"
+        },
+        {
+          "atMs": 1791293324539.2,
+          "text": "s"
+        },
+        {
+          "atMs": 1791293324544.618,
+          "text": "No more visited links."
+        },
+        {
+          "atMs": 1791293324614.957,
+          "text": "Search shop items entry Search Items."
+        },
+        {
+          "atMs": 1791293324621.1108,
+          "text": "No more separators."
+        }
+      ]
+    },
+    {
+      "label": "shop component selected",
+      "startMs": 1791293325963,
+      "endMs": 1791293331885,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "testid": "shopkeeper-store-item",
+        "name": "Magic Wand, 460 gold"
+      },
+      "query": "",
+      "speechRequests": [
+        {
+          "atMs": 1791293325973.304,
+          "text": "return"
+        },
+        {
+          "atMs": 1791293326096.019,
+          "text": " Added Magic Wand. 1 of 2 components selected."
+        }
+      ]
+    },
+    {
+      "label": "shop second search",
+      "startMs": 1791293331885,
+      "endMs": 1791293332742,
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "testid": "shopkeeper-search-field",
+        "name": "Search shop items"
+      },
+      "query": "",
+      "speechRequests": [
+        {
+          "atMs": 1791293331895.488,
+          "text": "g"
+        },
+        {
+          "atMs": 1791293331905.536,
+          "text": "Wrapping to top."
+        },
+        {
+          "atMs": 1791293331969.743,
+          "text": "Abyssal Blade item icon image"
+        },
+        {
+          "atMs": 1791293331974.647,
+          "text": "l"
+        },
+        {
+          "atMs": 1791293331983.0881,
+          "text": "o"
+        },
+        {
+          "atMs": 1791293331992.79,
+          "text": "No more lists."
+        },
+        {
+          "atMs": 1791293332197.123,
+          "text": "Build Abyssal Blade. heading 2"
+        },
+        {
+          "atMs": 1791293332201.221,
+          "text": "v"
+        },
+        {
+          "atMs": 1791293332205.142,
+          "text": "e"
+        },
+        {
+          "atMs": 1791293332209.921,
+          "text": "s"
+        },
+        {
+          "atMs": 1791293332214.9292,
+          "text": "No more visited links."
+        },
+        {
+          "atMs": 1791293332281.229,
+          "text": "Search shop items entry Search Items."
+        },
+        {
+          "atMs": 1791293332286.237,
+          "text": "No more separators."
+        }
+      ]
+    },
+    {
+      "label": "shop ready to build",
+      "startMs": 1791293333580,
+      "endMs": 1791293339505,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "testid": "shopkeeper-recipe-build",
+        "name": "Build"
+      },
+      "query": "",
+      "speechRequests": [
+        {
+          "atMs": 1791293333598.689,
+          "text": "return"
+        },
+        {
+          "atMs": 1791293333779.48,
+          "text": " Added Magic Wand. 2 of 2 components selected."
+        }
+      ]
+    },
+    {
+      "label": "shop recipe submitted",
+      "startMs": 1791293339505,
+      "endMs": 1791293339925,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. Build Abyssal Blade.Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Shopkeeper RushRecipes56Target itemBuild Abyssal Blade.basicsupgradesAdd"
+      },
+      "query": "",
+      "speechRequests": [
+        {
+          "atMs": 1791293339514.7742,
+          "text": "return"
+        }
+      ],
+      "voteAnswerKeys": [
+        "recipe-v1:magic_wand+magic_wand"
+      ]
+    }
+  ]
+}

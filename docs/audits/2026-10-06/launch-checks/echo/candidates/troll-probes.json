@@ -1,0 +1,426 @@
+{
+  "sourceUrl": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/troll_warlord.json",
+  "sourceSha256": "bb3d54c79009e8b9d7d228a275485d263243d9f41c3f1b38aeec4c2edd847c28",
+  "records": [
+    {
+      "source": {
+        "name": "troll_firstblood_02",
+        "fullname": "troll_warlord_troll_firstblood_02",
+        "mp3": "/sounds/vo/troll_warlord/troll_firstblood_02.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "On to my next victim.",
+        "text_simple": " on to my next victim ",
+        "criteria": "Kill Istroll_warlord IsFirstBlood",
+        "pretty_criteria": "Killing a hero (First Blood)"
+      },
+      "url": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_firstblood_02.mp3",
+      "audioSha256": "2d75daf47d41d9011a5c6fb9ae940a5e5136a7975e72195cb0c125a0932e016c",
+      "audioBytes": 18518,
+      "loudness": {
+        "input_i": "-19.36",
+        "input_tp": "-2.55",
+        "input_lra": "0.00",
+        "input_thresh": "-29.58",
+        "output_i": "-22.77",
+        "output_tp": "-6.20",
+        "output_lra": "0.00",
+        "output_thresh": "-33.21",
+        "normalization_type": "linear",
+        "target_offset": "-0.23"
+      }
+    },
+    {
+      "source": {
+        "name": "troll_kill_01",
+        "fullname": "troll_warlord_troll_kill_01",
+        "mp3": "/sounds/vo/troll_warlord/troll_kill_01.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "Death is my way of life.",
+        "text_simple": " death is my way of life ",
+        "criteria": "Kill Istroll_warlord",
+        "pretty_criteria": "Killing a hero"
+      },
+      "url": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_kill_01.mp3",
+      "audioSha256": "94a81b1e1e6794a004a651ae962489c38756a02c3a648c9f6f8ecef1b0978ce7",
+      "audioBytes": 20190,
+      "loudness": {
+        "input_i": "-26.10",
+        "input_tp": "-2.20",
+        "input_lra": "0.00",
+        "input_thresh": "-36.10",
+        "output_i": "-60.90",
+        "output_tp": "-37.02",
+        "output_lra": "0.00",
+        "output_thresh": "-70.90",
+        "normalization_type": "linear",
+        "target_offset": "37.90"
+      }
+    },
+    {
+      "source": {
+        "name": "troll_kill_02",
+        "fullname": "troll_warlord_troll_kill_02",
+        "mp3": "/sounds/vo/troll_warlord/troll_kill_02.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "Killing you was the least I could do.",
+        "text_simple": " killing you was the least i could do ",
+        "criteria": "Kill Istroll_warlord",
+        "pretty_criteria": "Killing a hero"
+      },
+      "url": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_kill_02.mp3",
+      "audioSha256": "5a3c48bff9925d43e3e06818d855e3b57036f37e3a2d8e21a08432c45905f5c0",
+      "audioBytes": 26041,
+      "loudness": {
+        "input_i": "-19.40",
+        "input_tp": "-1.97",
+        "input_lra": "1.30",
+        "input_thresh": "-30.20",
+        "output_i": "-22.44",
+        "output_tp": "-5.44",
+        "output_lra": "0.00",
+        "output_thresh": "-33.24",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.56"
+      }
+    },
+    {
+      "source": {
+        "name": "troll_kill_03",
+        "fullname": "troll_warlord_troll_kill_03",
+        "mp3": "/sounds/vo/troll_warlord/troll_kill_03.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "Come back and die again.",
+        "text_simple": " come back and die again ",
+        "criteria": "Kill Istroll_warlord|HeroChatWheel SilverTier",
+        "pretty_criteria": "Killing a hero|A silver hero chat wheel was used"
+      },
+      "url": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_kill_03.mp3",
+      "audioSha256": "95f65849562ebc3a1169be6b2d50de1b75794b02e7ac032cbf2f9b31e6f3bd79",
+      "audioBytes": 23115,
+      "loudness": {
+        "input_i": "-19.26",
+        "input_tp": "-1.29",
+        "input_lra": "0.00",
+        "input_thresh": "-29.43",
+        "output_i": "-23.00",
+        "output_tp": "-5.02",
+        "output_lra": "0.00",
+        "output_thresh": "-33.17",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      }
+    },
+    {
+      "source": {
+        "name": "troll_kill_04",
+        "fullname": "troll_warlord_troll_kill_04",
+        "mp3": "/sounds/vo/troll_warlord/troll_kill_04.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "I'll be here when you get back.",
+        "text_simple": " ill be here when you get back ",
+        "criteria": "Kill Istroll_warlord",
+        "pretty_criteria": "Killing a hero"
+      },
+      "url": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_kill_04.mp3",
+      "audioSha256": "30a561df19d26a909f3b18dcfa340f9ea4e0ea9826e8492bd1e144e98a7771bf",
+      "audioBytes": 24787,
+      "loudness": {
+        "input_i": "-25.79",
+        "input_tp": "-5.48",
+        "input_lra": "0.80",
+        "input_thresh": "-35.79",
+        "output_i": "-23.20",
+        "output_tp": "-3.17",
+        "output_lra": "0.00",
+        "output_thresh": "-33.20",
+        "normalization_type": "dynamic",
+        "target_offset": "0.20"
+      }
+    },
+    {
+      "source": {
+        "name": "troll_kill_05",
+        "fullname": "troll_warlord_troll_kill_05",
+        "mp3": "/sounds/vo/troll_warlord/troll_kill_05.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "Death brings an end to pain, unfortunately.",
+        "text_simple": " death brings an end to pain unfortunately ",
+        "criteria": "Kill Istroll_warlord",
+        "pretty_criteria": "Killing a hero"
+      },
+      "url": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_kill_05.mp3",
+      "audioSha256": "6ef9f28d26419dd8f0bbd6d1147f063df7216dcc50a89723f92e6eac2240b018",
+      "audioBytes": 42759,
+      "loudness": {
+        "input_i": "-21.53",
+        "input_tp": "-1.23",
+        "input_lra": "6.00",
+        "input_thresh": "-32.47",
+        "output_i": "-24.24",
+        "output_tp": "-4.93",
+        "output_lra": "5.70",
+        "output_thresh": "-35.18",
+        "normalization_type": "dynamic",
+        "target_offset": "1.24"
+      }
+    },
+    {
+      "source": {
+        "name": "troll_kill_06",
+        "fullname": "troll_warlord_troll_kill_06",
+        "mp3": "/sounds/vo/troll_warlord/troll_kill_06.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "You were a casualty of war.",
+        "text_simple": " you were a casualty of war ",
+        "criteria": "Kill Istroll_warlord",
+        "pretty_criteria": "Killing a hero"
+      },
+      "url": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_kill_06.mp3",
+      "audioSha256": "c1025e2ad6651018bf9a248cf54bb14513e98d517d19a7c4a546cf85fb4885b0",
+      "audioBytes": 24369,
+      "loudness": {
+        "input_i": "-29.96",
+        "input_tp": "-10.70",
+        "input_lra": "0.90",
+        "input_thresh": "-39.96",
+        "output_i": "-22.84",
+        "output_tp": "-3.59",
+        "output_lra": "0.00",
+        "output_thresh": "-32.84",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.16"
+      }
+    },
+    {
+      "source": {
+        "name": "troll_kill_07",
+        "fullname": "troll_warlord_troll_kill_07",
+        "mp3": "/sounds/vo/troll_warlord/troll_kill_07.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "What's war-torn can't be mended.",
+        "text_simple": " whats wartorn cant be mended ",
+        "criteria": "Kill Istroll_warlord",
+        "pretty_criteria": "Killing a hero"
+      },
+      "url": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_kill_07.mp3",
+      "audioSha256": "116a28f020c3afee84eeb2da15886be3abd4a13036c88310216feedce959e9f3",
+      "audioBytes": 27086,
+      "loudness": {
+        "input_i": "-20.62",
+        "input_tp": "-1.27",
+        "input_lra": "0.90",
+        "input_thresh": "-31.59",
+        "output_i": "-22.32",
+        "output_tp": "-3.18",
+        "output_lra": "0.00",
+        "output_thresh": "-33.27",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.68"
+      }
+    },
+    {
+      "source": {
+        "name": "troll_kill_08",
+        "fullname": "troll_warlord_troll_kill_08",
+        "mp3": "/sounds/vo/troll_warlord/troll_kill_08.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "Pay attention when I kill you.",
+        "text_simple": " pay attention when i kill you ",
+        "criteria": "Kill Istroll_warlord",
+        "pretty_criteria": "Killing a hero"
+      },
+      "url": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_kill_08.mp3",
+      "audioSha256": "43e87296fd887fade2c78503983918a7af5ecbc48a037731918203637fbedc1d",
+      "audioBytes": 18518,
+      "loudness": {
+        "input_i": "-19.54",
+        "input_tp": "-1.68",
+        "input_lra": "0.00",
+        "input_thresh": "-29.54",
+        "output_i": "-23.02",
+        "output_tp": "-5.14",
+        "output_lra": "0.00",
+        "output_thresh": "-33.02",
+        "normalization_type": "linear",
+        "target_offset": "0.02"
+      }
+    },
+    {
+      "source": {
+        "name": "troll_kill_09",
+        "fullname": "troll_warlord_troll_kill_09",
+        "mp3": "/sounds/vo/troll_warlord/troll_kill_09.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "Why do I enjoy this so much.",
+        "text_simple": " why do i enjoy this so much ",
+        "criteria": "Kill Istroll_warlord",
+        "pretty_criteria": "Killing a hero"
+      },
+      "url": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_kill_09.mp3",
+      "audioSha256": "fb85358bfb3f8e33c30baba21b326eab26c6b75e796db0e53b77c89d33326547",
+      "audioBytes": 24578,
+      "loudness": {
+        "input_i": "-19.20",
+        "input_tp": "-1.40",
+        "input_lra": "0.10",
+        "input_thresh": "-29.34",
+        "output_i": "-22.76",
+        "output_tp": "-4.98",
+        "output_lra": "0.00",
+        "output_thresh": "-32.91",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.24"
+      }
+    },
+    {
+      "source": {
+        "name": "troll_kill_10",
+        "fullname": "troll_warlord_troll_kill_10",
+        "mp3": "/sounds/vo/troll_warlord/troll_kill_10.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "I'll pry your eyes from your skull.",
+        "text_simple": " ill pry your eyes from your skull ",
+        "criteria": "Kill Istroll_warlord",
+        "pretty_criteria": "Killing a hero"
+      },
+      "url": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_kill_10.mp3",
+      "audioSha256": "c9cb86d81916ffdf14c52e5e9327dab50f20ca079c7567aacac6fbb9943d5436",
+      "audioBytes": 28758,
+      "loudness": {
+        "input_i": "-19.04",
+        "input_tp": "-1.88",
+        "input_lra": "0.50",
+        "input_thresh": "-29.11",
+        "output_i": "-23.03",
+        "output_tp": "-5.78",
+        "output_lra": "0.00",
+        "output_thresh": "-33.03",
+        "normalization_type": "dynamic",
+        "target_offset": "0.03"
+      }
+    },
+    {
+      "source": {
+        "name": "troll_respawn_01",
+        "fullname": "troll_warlord_troll_respawn_01",
+        "mp3": "/sounds/vo/troll_warlord/troll_respawn_01.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "No more playing nice, just in case you thought I was.",
+        "text_simple": " no more playing nice just in case you thought i was ",
+        "criteria": "Respawn Istroll_warlord",
+        "pretty_criteria": "Respawning"
+      },
+      "url": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_respawn_01.mp3",
+      "audioSha256": "49f950e880cf6d46a6080ba884cbbee17210f492d2d438b11e02fba33b941295",
+      "audioBytes": 33355,
+      "loudness": {
+        "input_i": "-23.66",
+        "input_tp": "-2.36",
+        "input_lra": "1.10",
+        "input_thresh": "-33.79",
+        "output_i": "-22.96",
+        "output_tp": "-2.00",
+        "output_lra": "1.00",
+        "output_thresh": "-33.08",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.04"
+      }
+    },
+    {
+      "source": {
+        "name": "troll_respawn_02",
+        "fullname": "troll_warlord_troll_respawn_02",
+        "mp3": "/sounds/vo/troll_warlord/troll_respawn_02.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "I knew I'd be back.",
+        "text_simple": " i knew id be back ",
+        "criteria": "Respawn Istroll_warlord",
+        "pretty_criteria": "Respawning"
+      },
+      "url": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_respawn_02.mp3",
+      "audioSha256": "8202e56f9e530612ba95cd3a966be25d50d5696648366b9cc2ea7361140c359d",
+      "audioBytes": 13711,
+      "loudness": {
+        "input_i": "-15.84",
+        "input_tp": "-1.30",
+        "input_lra": "0.00",
+        "input_thresh": "-27.80",
+        "output_i": "-23.01",
+        "output_tp": "-8.46",
+        "output_lra": "0.00",
+        "output_thresh": "-34.97",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      }
+    },
+    {
+      "source": {
+        "name": "troll_respawn_07",
+        "fullname": "troll_warlord_troll_respawn_07",
+        "mp3": "/sounds/vo/troll_warlord/troll_respawn_07.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "This war will end when everybody's dead.",
+        "text_simple": " this war will end when everybodys dead ",
+        "criteria": "Respawn Istroll_warlord",
+        "pretty_criteria": "Respawning"
+      },
+      "url": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_respawn_07.mp3",
+      "audioSha256": "d1f25ef74dcfcd31d8ba1b874c6a06a357b4662f498ff6f2f0f43ba35c06df2b",
+      "audioBytes": 31056,
+      "loudness": {
+        "input_i": "-20.15",
+        "input_tp": "-1.18",
+        "input_lra": "0.30",
+        "input_thresh": "-30.41",
+        "output_i": "-23.11",
+        "output_tp": "-3.75",
+        "output_lra": "0.00",
+        "output_thresh": "-33.23",
+        "normalization_type": "dynamic",
+        "target_offset": "0.11"
+      }
+    },
+    {
+      "source": {
+        "name": "troll_respawn_10",
+        "fullname": "troll_warlord_troll_respawn_10",
+        "mp3": "/sounds/vo/troll_warlord/troll_respawn_10.mp3",
+        "hero_id": 95,
+        "voice_id": 95,
+        "text": "Being dead only makes me angrier.",
+        "text_simple": " being dead only makes me angrier ",
+        "criteria": "Respawn Istroll_warlord",
+        "pretty_criteria": "Respawning"
+      },
+      "url": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_respawn_10.mp3",
+      "audioSha256": "c7f469c9be5cd351736f0a0e386cd22c5b804ceb0ef850c932df8377a7ee69cd",
+      "audioBytes": 31474,
+      "loudness": {
+        "input_i": "-17.77",
+        "input_tp": "-1.39",
+        "input_lra": "0.30",
+        "input_thresh": "-27.77",
+        "output_i": "-23.02",
+        "output_tp": "-6.62",
+        "output_lra": "0.00",
+        "output_thresh": "-33.02",
+        "normalization_type": "dynamic",
+        "target_offset": "0.02"
+      }
+    }
+  ]
+}

@@ -1,0 +1,2728 @@
+{
+  "build": "NsjBPH5Ygi5SqnYfuwSHz",
+  "scope": "Offline comparison of every original image named by each public question against recorded DOM image URLs and load status, for all 256 browser states.",
+  "statesChecked": 256,
+  "failures": 0,
+  "results": [
+    {
+      "id": "flashback:ti1-year",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-year",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:og-first-ti-year",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:og-first-ti-year",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-alliance.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-alliance.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti4-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti4-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-evil-geniuses.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-evil-geniuses.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti6-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti6-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti9-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti9-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti10-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti10-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti11-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti11-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-tundra-esports.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-tundra-esports.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti12-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti12-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti13-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti13-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti14-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti14-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-falcons.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-falcons.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-city",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-city",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:back-to-back",
+      "width": 320,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:back-to-back",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ]
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:frankfurt-major-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:frankfurt-major-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-year",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-year",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-year",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-year",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-year",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-year",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-year",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-year",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:shanghai-major-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:shanghai-major-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-secret.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-secret.svg"
+      ]
+    },
+    {
+      "id": "flashback:manila-major-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:manila-major-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:boston-major-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:boston-major-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:kiev-major-winner",
+      "width": 320,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:kiev-major-winner",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:four-majors",
+      "width": 320,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:four-majors",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-seattle-ti",
+      "width": 320,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-seattle-ti",
+      "width": 320,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-year",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-year",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:og-first-ti-year",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:og-first-ti-year",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-alliance.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-alliance.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti4-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti4-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-evil-geniuses.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-evil-geniuses.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti6-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti6-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti9-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti9-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti10-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti10-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti11-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti11-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-tundra-esports.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-tundra-esports.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti12-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti12-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti13-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti13-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti14-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti14-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-falcons.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-falcons.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-city",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-city",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:back-to-back",
+      "width": 390,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:back-to-back",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ]
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:frankfurt-major-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:frankfurt-major-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-year",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-year",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-year",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-year",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-year",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-year",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-year",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-year",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:shanghai-major-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:shanghai-major-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-secret.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-secret.svg"
+      ]
+    },
+    {
+      "id": "flashback:manila-major-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:manila-major-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:boston-major-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:boston-major-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:kiev-major-winner",
+      "width": 390,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:kiev-major-winner",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:four-majors",
+      "width": 390,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:four-majors",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-seattle-ti",
+      "width": 390,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-seattle-ti",
+      "width": 390,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-year",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-year",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:og-first-ti-year",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:og-first-ti-year",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-alliance.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-alliance.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti4-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti4-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-evil-geniuses.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-evil-geniuses.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti6-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti6-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti9-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti9-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti10-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti10-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti11-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti11-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-tundra-esports.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-tundra-esports.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti12-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti12-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti13-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti13-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti14-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti14-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-falcons.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-falcons.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-city",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-city",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:back-to-back",
+      "width": 568,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:back-to-back",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ]
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:frankfurt-major-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:frankfurt-major-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-year",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-year",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-year",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-year",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-year",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-year",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-year",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-year",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:shanghai-major-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:shanghai-major-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-secret.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-secret.svg"
+      ]
+    },
+    {
+      "id": "flashback:manila-major-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:manila-major-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:boston-major-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:boston-major-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:kiev-major-winner",
+      "width": 568,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:kiev-major-winner",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:four-majors",
+      "width": 568,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:four-majors",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-seattle-ti",
+      "width": 568,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-seattle-ti",
+      "width": 568,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-year",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-year",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:og-first-ti-year",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:og-first-ti-year",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-alliance.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-alliance.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti4-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti4-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-evil-geniuses.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-evil-geniuses.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti6-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti6-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg",
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti9-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti9-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti10-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti10-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti11-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti11-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-tundra-esports.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-tundra-esports.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti12-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti12-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-spirit.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti13-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti13-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-liquid.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti14-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:ti14-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-falcons.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-falcons.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-city",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti1-city",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:back-to-back",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:back-to-back",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-alliance.svg",
+        "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "/arcade/flashback/originals/winner-newbee.svg"
+      ]
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "/arcade/flashback/originals/winner-og.svg",
+        "/arcade/flashback/originals/winner-team-liquid.svg",
+        "/arcade/flashback/originals/winner-wings-gaming.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:frankfurt-major-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:frankfurt-major-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-year",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti2-year",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-year",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti3-year",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-year",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti5-year",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-year",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:ti7-year",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:shanghai-major-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:shanghai-major-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-team-secret.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-team-secret.svg"
+      ]
+    },
+    {
+      "id": "flashback:manila-major-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:manila-major-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:boston-major-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:boston-major-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:kiev-major-winner",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:kiev-major-winner",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:four-majors",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "flashback:four-majors",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/winner-og.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-seattle-ti",
+      "width": 1440,
+      "phase": "answering",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    },
+    {
+      "id": "flashback:first-seattle-ti",
+      "width": 1440,
+      "phase": "reveal",
+      "expected": [
+        "/arcade/flashback/originals/international.svg"
+      ],
+      "actual": [
+        "/arcade/flashback/originals/international.svg"
+      ]
+    }
+  ]
+}

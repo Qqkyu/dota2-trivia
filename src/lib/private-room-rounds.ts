@@ -2,13 +2,13 @@ import type { PublicRoom, PublicRoomSettings, PublicRound } from "@/lib/arcade-c
 import { sessionUserForRequest } from "@/lib/auth-session";
 import { PUBLIC_ARCADE_MODE } from "@/lib/arcade-games.mjs";
 import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
+import { validatedGuestIdentity } from "@/lib/guest-identity.mjs";
 import {
   getPrivateRoom,
   guestDisplayName,
   privateRoomCountdownMs,
   privateRoomWaiting,
   privateRoundTiming,
-  touchPrivateRoom,
 } from "@/lib/private-rooms.mjs";
 import { getRoomPresence } from "@/lib/room-presence.mjs";
 import {
@@ -23,8 +23,9 @@ import { roundPhaseAt } from "@/lib/round-timing.mjs";
 export async function privateRoomIdentity(request: Request, bodyPlayerId?: unknown) {
   const accountUser = await sessionUserForRequest(request);
   if (accountUser) return { playerId: `account:${accountUser.id}`, name: accountUser.displayName };
-  if (typeof bodyPlayerId === "string" && bodyPlayerId.length >= 8 && bodyPlayerId.length <= 80) {
-    return { playerId: bodyPlayerId, name: guestDisplayName(bodyPlayerId) };
+  const guestId = validatedGuestIdentity(bodyPlayerId);
+  if (guestId) {
+    return { playerId: guestId, name: guestDisplayName(guestId) };
   }
   return null;
 }
@@ -117,7 +118,7 @@ export function privateRoomClientPayload(
 }
 
 export function currentPrivateRound(code: string, now = Date.now()) {
-  const record = touchPrivateRoom(code, now) ?? getPrivateRoom(code, now);
+  const record = getPrivateRoom(code, now);
   if (!record) return null;
   const room = roomFromRecord(record);
   if (privateRoomWaiting(record, now)) {

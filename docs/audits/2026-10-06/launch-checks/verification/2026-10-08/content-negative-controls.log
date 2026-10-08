@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-06",
+  "status": "passed",
+  "helper": {
+    "path": "docs/audits/2026-10-06/launch-checks/build-content-review-index.mjs.txt",
+    "sha256": "7f4073de256c3ae6ba659e4da9c83a4ea9ae74af5701760938d8876d0a0720c5"
+  },
+  "isolatedBaselinePassed": true,
+  "negativeCasesPassed": 5,
+  "cases": [
+    {
+      "name": "changed marked answer",
+      "status": "rejected-as-expected",
+      "exitCode": 1,
+      "expectedError": "Marked answer changed"
+    },
+    {
+      "name": "unexpected prompt change",
+      "status": "rejected-as-expected",
+      "exitCode": 1,
+      "expectedError": "Unreviewed question change"
+    },
+    {
+      "name": "missing historical ledger",
+      "status": "rejected-as-expected",
+      "exitCode": 1,
+      "expectedError": "ENOENT"
+    },
+    {
+      "name": "changed replacement artwork",
+      "status": "rejected-as-expected",
+      "exitCode": 1,
+      "expectedError": "Changed artwork"
+    },
+    {
+      "name": "changed saved index",
+      "status": "rejected-as-expected",
+      "exitCode": 1,
+      "expectedError": "Recorded evidence differs"
+    }
+  ],
+  "restoredFixturePassed": true,
+  "applicationFilesModified": false,
+  "historicalArchiveModified": false
+}

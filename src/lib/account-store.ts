@@ -1,9 +1,11 @@
 import { randomBytes } from "node:crypto";
-import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
+import { checkFileStoreWritable, CommittedFileWriteError, writeJsonAtomically } from "@/lib/atomic-json-file";
 import path from "node:path";
 import type { AccountProfile, AccountUser, StoredPlayerRoundRecord } from "@/lib/account-contract";
 import type { GameId } from "@/lib/game-identity";
 import { summarizePlayerRounds } from "@/lib/player-profile.mjs";
+import { withAccountDataLock } from "@/lib/account-data-lock";
 
 export interface SteamIdentityInput {
   steamId: string;
@@ -41,6 +43,7 @@ interface AccountState {
   identities: Record<string, string>;
   sessions: Record<string, StoredSession>;
   rounds: Record<string, StoredPlayerRoundRecord & { userId: string }>;
+  consumedNonces?: Record<string, number>;
 }
 
 interface RuntimeAccountStore {
@@ -104,24 +107,30 @@ function stateForRuntime() {
 }
 
 async function persist(state: AccountState) {
-  const directory = path.dirname(runtime.filePath);
-  const temporaryPath = `${runtime.filePath}.${process.pid}.tmp`;
-  await mkdir(directory, { recursive: true });
-  await writeFile(temporaryPath, `${JSON.stringify(state)}\n`, { encoding: "utf8", mode: 0o600 });
-  await rename(temporaryPath, runtime.filePath);
+  await writeJsonAtomically(runtime.filePath, state);
 }
 
 async function mutate<T>(operation: (state: AccountState) => T) {
   const task = runtime.writeQueue
     .catch(() => undefined)
     .then(async () => {
-      const state = await stateForRuntime();
+      const state = structuredClone(await stateForRuntime());
       const result = operation(state);
       const now = Date.now();
       for (const [tokenHash, session] of Object.entries(state.sessions)) {
         if (session.expiresAt <= now) delete state.sessions[tokenHash];
       }
-      await persist(state);
+      for (const [hash, expiresAt] of Object.entries(state.consumedNonces ?? {})) {
+        if (expiresAt <= now) delete state.consumedNonces?.[hash];
+      }
+      try {
+        await persist(state);
+      } catch (error) {
+        // A completed rename is already visible to readers and must also be visible in memory.
+        if (error instanceof CommittedFileWriteError) runtime.statePromise = Promise.resolve(state);
+        throw error;
+      }
+      runtime.statePromise = Promise.resolve(state);
       return result;
     });
   runtime.writeQueue = task.then(
@@ -220,12 +229,14 @@ async function fileRecordPlayerRound(userId: string, round: StoredPlayerRoundRec
   });
 }
 
-async function fileGetAccountProfile(userId: string, gameId: GameId): Promise<AccountProfile | null> {
+async function fileGetAccountProfile(userId: string, gameId: GameId, now: number): Promise<AccountProfile | null> {
   await runtime.writeQueue;
   const state = await stateForRuntime();
   const user = state.users[userId];
   if (!user) return null;
-  const rounds = Object.values(state.rounds).filter((round) => round.userId === userId && round.gameId === gameId);
+  const rounds = Object.values(state.rounds).filter(
+    (round) => round.userId === userId && round.gameId === gameId && (round.revealAt ?? 0) <= now,
+  );
   return {
     user: publicUser(user),
     stats: summarizePlayerRounds(rounds) as AccountProfile["stats"],
@@ -248,6 +259,7 @@ export async function getAccountStoreHealth(): Promise<AccountStoreHealth> {
   if (usesPostgres()) return (await postgresStore()).getPostgresAccountStoreHealth();
   await runtime.writeQueue;
   await stateForRuntime();
+  await checkFileStoreWritable(runtime.filePath);
   return { backend: "file", ok: true };
 }
 
@@ -272,8 +284,73 @@ export async function deleteAccountSession(tokenHash: string) {
 }
 
 export async function deleteAccount(userId: string) {
-  if (usesPostgres()) return (await postgresStore()).deleteAccount(userId);
-  return fileDeleteAccount(userId);
+  return deleteAccountData(userId);
+}
+
+export async function accountExists(userId: string) {
+  if (usesPostgres()) return (await postgresStore()).accountExists(userId);
+  await runtime.writeQueue;
+  return Boolean((await stateForRuntime()).users[userId]);
+}
+
+export async function withExistingAccount<T>(userId: string, operation: () => Promise<T>): Promise<T> {
+  if (usesPostgres()) return (await postgresStore()).withExistingAccount(userId, operation);
+  return withAccountDataLock(userId, async () => {
+    if (!(await accountExists(userId))) throw new Error("Queue Arcade account no longer exists.");
+    return operation();
+  });
+}
+
+export async function deleteAccountData(userId: string) {
+  const { deleteAlphaVisitor } = await import("@/lib/alpha-store");
+  if (usesPostgres()) {
+    const { databaseTransaction } = await import("@/lib/database-client");
+    return databaseTransaction(async () => {
+      const store = await postgresStore();
+      if (!(await store.accountExists(userId))) return;
+      return store.withExistingAccount(userId, async () => {
+        await deleteAlphaVisitor(`account:${userId}`);
+        await store.deleteAccount(userId);
+      });
+    });
+  }
+  return withAccountDataLock(userId, async () => {
+    const { deleteAccountPendingOutcomes } = await import("@/lib/vote-store");
+    await deleteAccountPendingOutcomes(userId);
+    await deleteAlphaVisitor(`account:${userId}`);
+    await fileDeleteAccount(userId);
+  });
+}
+
+export async function updateSteamUser(userId: string, input: SteamIdentityInput): Promise<AccountUser | null> {
+  if (usesPostgres()) return (await postgresStore()).updateSteamUser(userId, input);
+  return withAccountDataLock(userId, () =>
+    mutate((state) => {
+      const user = state.users[userId];
+      if (!user || user.steamId !== input.steamId) return null;
+      user.displayName = input.displayName;
+      user.avatarUrl = input.avatarUrl;
+      user.profileUrl = input.profileUrl;
+      user.updatedAt = input.authenticatedAt;
+      return publicUser(user);
+    }),
+  );
+}
+
+export async function cleanupAccountStore() {
+  if (usesPostgres()) return;
+  await mutate(() => undefined);
+}
+
+export async function consumeSteamLoginNonce(nonceHash: string, expiresAt: number): Promise<boolean> {
+  if (!Number.isFinite(expiresAt) || expiresAt <= Date.now()) return false;
+  if (usesPostgres()) return (await postgresStore()).consumeSteamLoginNonce(nonceHash, expiresAt);
+  return mutate((state) => {
+    state.consumedNonces ??= {};
+    if ((state.consumedNonces[nonceHash] ?? 0) > Date.now()) return false;
+    state.consumedNonces[nonceHash] = expiresAt;
+    return true;
+  });
 }
 
 export async function recordPlayerRound(userId: string, round: StoredPlayerRoundRecord) {
@@ -281,7 +358,7 @@ export async function recordPlayerRound(userId: string, round: StoredPlayerRound
   return fileRecordPlayerRound(userId, round);
 }
 
-export async function getAccountProfile(userId: string, gameId: GameId) {
-  if (usesPostgres()) return (await postgresStore()).getAccountProfile(userId, gameId);
-  return fileGetAccountProfile(userId, gameId);
+export async function getAccountProfile(userId: string, gameId: GameId, now = Date.now()) {
+  if (usesPostgres()) return (await postgresStore()).getAccountProfile(userId, gameId, now);
+  return fileGetAccountProfile(userId, gameId, now);
 }

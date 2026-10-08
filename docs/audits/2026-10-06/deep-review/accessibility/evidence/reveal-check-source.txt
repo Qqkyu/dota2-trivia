@@ -1,0 +1,75 @@
+import assert from 'node:assert/strict';
+import { readFile, mkdir, writeFile } from 'node:fs/promises';
+import { chromium, firefox, webkit } from '/home/kulmisiu/dev/dota2-trivia/node_modules/playwright/index.mjs';
+import { publicQuestionForRound } from '/home/kulmisiu/dev/dota2-trivia/src/lib/public-question.mjs';
+const appUrl=process.env.APP_URL;
+const engine=process.env.BROWSER_ENGINE??'chromium';
+const runName=process.env.REVEAL_RUN_NAME??engine;
+const directory='/tmp/queue-arcade-deep-review/accessibility';
+await mkdir(directory,{recursive:true});
+const data=async file=>JSON.parse(await readFile(`/home/kulmisiu/dev/dota2-trivia/src/data/${file}.json`));
+const datasets=await Promise.all([data('aghanim-questions'),data('questions.generated'),data('flashback-questions')]);
+const cases=[
+ {game:'aghanim-lab',raw:datasets[0].find(q=>q.id==='aghanim-upgrade:shadow_shaman:scepter')},
+ {game:'trivia',raw:datasets[1].find(q=>q.id==='mana:tinker_march_of_the_machines:2')},
+ {game:'flashback',raw:datasets[2].filter(q=>q.kind==='flashback-choice').sort((a,b)=>b.explanation.length-a.explanation.length)[0]},
+];
+assert.ok(cases.every(x=>x.raw));
+const browser=await ({chromium,firefox,webkit}[engine]).launch({executablePath:process.env.BROWSER_EXECUTABLE,headless:true,args:engine==='chromium'?['--no-sandbox']:[]});
+const report={appUrl,engine,version:browser.version(),buildId:process.env.A11Y_BUILD_ID,completed:false,cases:[],failures:[]};
+const save=()=>writeFile(`${directory}/${runName}.json`,JSON.stringify(report,null,2));
+try {
+ for(const [width,height] of [[320,568],[960,540]]) for(const fixture of cases){
+  const context=await browser.newContext({viewport:{width,height},hasTouch:width===320,...(width===320&&engine!=='firefox'?{isMobile:true}:{})});
+  context.setDefaultTimeout(45000);
+  await context.addCookies([{name:'queue_arcade_session',value:process.env.A11Y_REVIEWER_COOKIE,url:appUrl}]);
+  const identity=await context.request.get(`${appUrl}/api/me`);
+  assert.equal((await identity.json()).authenticated,true,'The fixture must be signed in');
+  const page=await context.newPage();
+  const errors=[];page.on('pageerror',error=>errors.push(String(error)));
+  for(const path of ['sessions','reports','diagnostics','votes'])await page.route(`**/api/${path}`,route=>route.fulfill({json:{accepted:true}}));
+  const state={served:0,phase:'answering'};
+  await page.route('**/api/rounds?*',route=>{
+   const now=Date.now(),gate=state.served++===0;
+   const round={id:gate?'reveal-check-gate':`reveal-check-${fixture.raw.id}`,number:1,game:fixture.game,phase:gate?'reveal':state.phase,startedAt:now-1000,answerDeadline:gate||state.phase==='reveal'?now-100:now+60000,revealDeadline:gate?now+100:now+65000,answerDuration:15000};
+   const question=gate?null:{...publicQuestionForRound(fixture.raw,round,now),id:round.id,game:fixture.game};
+   return route.fulfill({json:{serverNow:now,room:{id:'reveal-check',gameId:'dota2',contentVersion:'reveal-check',mode:'mixed',filter:'Mixed'},round,questionRevision:`${round.id}:${round.phase}`,question,presence:{activePlayers:1},crowd:{counts:[0,0,0,0],total:0,keyCounts:[],scoreSummary:null},playerVote:null,playerReport:null,previousResults:[]}});
+  });
+  await page.goto(`${appUrl}/play`,{waitUntil:'domcontentloaded'});
+  await page.waitForSelector('main[data-phase="answering"]');
+  state.phase='reveal';
+  await page.evaluate(()=>window.dispatchEvent(new Event('focus')));
+  const explanation=page.getByTestId('reveal-explanation');await explanation.waitFor();
+  const geometry=await explanation.evaluate(async p=>{
+   const range=document.createRange();range.selectNodeContents(p);
+   const lines=()=>[...range.getClientRects()].filter(r=>r.width>0&&r.height>0);
+   const geometry={text:p.textContent,clientHeight:p.clientHeight,scrollHeight:p.scrollHeight,lineCount:lines().length,clamp:getComputedStyle(p).webkitLineClamp,overflow:getComputedStyle(p).overflowY,edges:[]};
+   const initial={left:scrollX,top:scrollY};
+   const header=document.querySelector('[data-testid="round-timer"]')?.closest('[class*="roundHeader"]');
+   const offset=header&&getComputedStyle(header).position==='sticky'?header.getBoundingClientRect().height+8:8;
+   for(const edge of ['first','last']){
+    let rects=lines(),r=edge==='first'?rects[0]:rects.at(-1);
+    if(!r){geometry.edges.push({edge,reachable:false});continue;}
+    window.scrollTo({top:scrollY+r.top-offset,behavior:'instant'});
+    await new Promise(resolve=>requestAnimationFrame(resolve));
+    rects=lines();r=edge==='first'?rects[0]:rects.at(-1);
+    geometry.edges.push({edge,top:r.top,bottom:r.bottom,reachable:r.top>=0&&r.bottom<=innerHeight+1&&p.contains(document.elementFromPoint(r.left+r.width/2,r.top+r.height/2))});
+   }
+   window.scrollTo({...initial,behavior:'instant'});return geometry;
+  });
+  const label=`${width}x${height}-${fixture.raw.kind}`;
+  const screenshot=`${directory}/${runName}-${label}.png`;
+  await page.screenshot({path:screenshot,fullPage:true,scale:'css'});
+  const failure=[];
+  if(geometry.text!==fixture.raw.explanation)failure.push('Explanation text changed');
+  if(geometry.scrollHeight>geometry.clientHeight+2)failure.push('Explanation is clipped');
+  if(geometry.edges.some(e=>!e.reachable))failure.push('An explanation edge cannot be reached');
+  if(errors.length)failure.push('Browser error');
+  report.cases.push({label,questionId:fixture.raw.id,...geometry,screenshot,errors,failures:failure});
+  report.failures.push(...failure.map(x=>`${label}: ${x}`));
+  await context.close();await save();
+ }
+ report.completed=true;
+} finally {await save();await browser.close();}
+console.log(JSON.stringify({engine,version:report.version,cases:report.cases.length,failures:report.failures,output:`${directory}/${runName}.json`}));
+if(report.failures.length)process.exitCode=1;

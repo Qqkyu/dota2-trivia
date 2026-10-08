@@ -1,0 +1,44 @@
+{
+  "profiles": [
+    "launch-cpu-15-2.cpuprofile",
+    "launch-cpu-15-3.cpuprofile",
+    "launch-cpu-15-4.cpuprofile",
+    "launch-cpu-15-5.cpuprofile",
+    "launch-cpu-15-6.cpuprofile",
+    "launch-cpu-15-7.cpuprofile",
+    "launch-cpu-15-8.cpuprofile"
+  ],
+  "samples": 167135,
+  "groups": [
+    {
+      "name": "nodeRuntime",
+      "samples": 41315,
+      "percent": 24.72
+    },
+    {
+      "name": "idle",
+      "samples": 40946,
+      "percent": 24.5
+    },
+    {
+      "name": "frameworkAndDependencies",
+      "samples": 26554,
+      "percent": 15.89
+    },
+    {
+      "name": "nativeOrUnattributed",
+      "samples": 25440,
+      "percent": 15.22
+    },
+    {
+      "name": "applicationBundles",
+      "samples": 21818,
+      "percent": 13.05
+    },
+    {
+      "name": "garbageCollection",
+      "samples": 11062,
+      "percent": 6.62
+    }
+  ]
+}

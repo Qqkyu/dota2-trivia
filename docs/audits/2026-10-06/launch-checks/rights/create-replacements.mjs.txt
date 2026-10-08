@@ -1,0 +1,61 @@
+// Review helper. Copy to a .mjs file and run from the repository root.
+import { readFile, writeFile, mkdir, rename } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import path from 'node:path';
+
+const evidenceRoot = 'docs/audits/2026-10-06/launch-checks/rights';
+const questionsPath = 'src/data/flashback-questions.json';
+// This review helper replays its archived input. It is not a general sync command.
+const questions = JSON.parse(await readFile(`${evidenceRoot}/flashback-before-rights.json`, 'utf8'));
+const quarantine = JSON.parse(await readFile(`${evidenceRoot}/quarantine-manifest.json`, 'utf8'));
+const outputRoot = 'public/arcade/flashback/originals';
+await mkdir(outputRoot, { recursive: true });
+const escapeXml = (text) => text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
+const written = new Map();
+const changes = [];
+async function writeArt(filename, svg, description) {
+  if (written.has(filename)) return;
+  await writeFile(`${outputRoot}/${filename}`, svg);
+  written.set(filename, { publicPath: `${outputRoot}/${filename}`, publicUrl: `/arcade/flashback/originals/${filename}`, sha256: createHash('sha256').update(svg).digest('hex'), description, creator: 'Queue Arcade project, original SVG geometry and plain text created for this review', externalAssets: [] });
+}
+const frame = '<rect width="496" height="296" rx="20" fill="#101619"/><rect x="12" y="12" width="472" height="272" rx="13" fill="none" stroke="#bb9b5a" stroke-width="2"/>';
+const trophy = '<g fill="none" stroke="#ddbf7e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M215 49h66v25c0 26-15 43-33 43s-33-17-33-43V49Z"/><path d="M215 57h-22v14c0 22 14 31 31 31m57-45h22v14c0 22-14 31-31 31m-24 15v27m-24 0h48"/></g>';
+await writeArt('international.svg', `<svg xmlns="http://www.w3.org/2000/svg" width="496" height="296" viewBox="0 0 496 296" role="img" aria-labelledby="title"><title id="title">The International tournament card</title>${frame}${trophy}<text x="248" y="193" fill="#f2e7cc" font-family="Georgia,serif" font-size="29" text-anchor="middle" letter-spacing="1">THE INTERNATIONAL</text><text x="248" y="231" fill="#ad9d7b" font-family="Arial,sans-serif" font-size="15" text-anchor="middle" letter-spacing="4">DOTA HISTORY</text></svg>\n`, 'Generic trophy drawn from basic geometric paths. No photograph, team logo, event date, location, or Valve emblem.');
+const venues = new Set(['ti-seattle.jpg','ti1-gamescom.jpg','ti5-keyarena.jpg','ti8-vancouver.jpg'].map(name=>`/arcade/flashback/${name}`));
+for (const question of questions) {
+  if (venues.has(question.image?.src)) {
+    const before = structuredClone(question.image);
+    question.image = { src: '/arcade/flashback/originals/international.svg', alt: 'The International tournament card', kind: 'item' };
+    changes.push({ id: question.id, field: 'image', before, after: structuredClone(question.image) });
+  }
+  if (question.id.endsWith('-winner') || ['flashback:back-to-back','flashback:four-majors'].includes(question.id)) {
+    const before = structuredClone(question.flashback.revealMedia);
+    const team = before.caption.split(' · ')[0];
+    const slug = team.toLowerCase().replaceAll(/[^a-z]+/g,'-').replaceAll(/^-|-$/g,'');
+    const initials = team === 'OG' ? 'OG' : team.split(' ').map(word=>word[0]).join('').slice(0,3);
+    const filename = `winner-${slug}.svg`;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-labelledby="title"><title id="title">${escapeXml(team)} winner card</title><rect width="240" height="240" rx="22" fill="#101619"/><rect x="9" y="9" width="222" height="222" rx="16" fill="none" stroke="#bb9b5a" stroke-width="2"/><path d="M56 168 35 191 36 48m148 120 21 23-1-143" fill="none" stroke="#665b42" stroke-width="3"/><text x="120" y="111" fill="#f2e7cc" font-family="Georgia,serif" font-size="58" text-anchor="middle">${escapeXml(initials)}</text><text x="120" y="151" fill="#ddbf7e" font-family="Arial,sans-serif" font-size="${team.length>14?15:18}" text-anchor="middle">${escapeXml(team.toUpperCase())}</text><text x="120" y="187" fill="#ad9d7b" font-family="Arial,sans-serif" font-size="13" text-anchor="middle" letter-spacing="4">WINNER</text></svg>\n`;
+    await writeArt(filename, svg, `Plain-text ${team} winner card with an original border. No team logo or photograph.`);
+    question.flashback.revealMedia = { src: `/arcade/flashback/originals/${filename}`, alt: `${team} winner card`, caption: before.caption, kind: 'mark' };
+    changes.push({ id: question.id, field: 'flashback.revealMedia', before, after: structuredClone(question.flashback.revealMedia) });
+  }
+}
+for (const question of questions) {
+  for (const [index, card] of (question.flashback?.cards ?? []).entries()) {
+    if (card.image?.includes('/team_logos/') || question.id === 'flashback:ti-cities-order') {
+      const before = card.image;
+      const slug = question.id.includes('ti-winners-order') ? 'winner-' + card.name.toLowerCase().replaceAll(' ', '-') : 'international';
+      card.image = `/arcade/flashback/originals/${slug}.svg`;
+      changes.push({id:question.id,field:`flashback.cards[${index}].image`,before,after:card.image});
+    }
+  }
+}
+await writeFile(questionsPath, JSON.stringify(questions, null, 2)+'\n');
+for (const asset of quarantine.assets) {
+  const original = await readFile(asset.oldPublicPath).catch(() => readFile(asset.preservedLocalPath));
+  if(createHash('sha256').update(original).digest('hex')!==asset.sha256)throw new Error(`Asset changed: ${asset.oldPublicPath}`);
+  await mkdir(path.dirname(asset.preservedLocalPath), {recursive:true});
+  await rename(asset.oldPublicPath, asset.preservedLocalPath).catch((error) => { if (error.code !== 'ENOENT') throw error; });
+}
+await writeFile(`${evidenceRoot}/replacements.json`, JSON.stringify({reviewedAt:'2026-10-06', changedQuestions: new Set(changes.map(x=>x.id)).size, fields: changes.length, assets:[...written.values()], changes},null,2)+'\n');
+console.log(JSON.stringify({changedQuestions:new Set(changes.map(x=>x.id)).size,changedFields:changes.length,newAssets:written.size,preservedAssets:quarantine.assets.length}));

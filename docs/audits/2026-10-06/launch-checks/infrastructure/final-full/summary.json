@@ -1,0 +1,110 @@
+{
+  "ok": false,
+  "image": "queue-arcade-launch:final",
+  "imageId": "sha256:691894e712d4c9c24abbe9d4be7776f03f996c6835d82453d96ddd02c43eed40",
+  "runtime": {
+    "node": "v22.23.3",
+    "uid": 1001,
+    "buildId": "17maTjvFAVt1T9gU35HQ-",
+    "cpu": "100000 100000",
+    "memory": "1073741824",
+    "swap": "0"
+  },
+  "limits": {
+    "cpus": 1,
+    "memoryMiB": 1024,
+    "swapMiB": 0,
+    "databaseCpus": 1,
+    "databaseMemoryMiB": 512
+  },
+  "elapsedSeconds": 275.53,
+  "database": {
+    "sessions": 466,
+    "finished": 466,
+    "rounds": 4660,
+    "correct": 1135,
+    "events": 4660
+  },
+  "latency": {
+    "targetMs": 1000,
+    "roundP95Max": 2212.14,
+    "voteP95Max": 2508.92,
+    "met": false
+  },
+  "shutdown": {
+    "milliseconds": 437,
+    "status": 0,
+    "state": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-10-06T13:38:41.751078583Z",
+      "FinishedAt": "2026-10-06T13:43:12.038686013Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-06T13:40:49.264803003Z",
+            "End": "2026-10-06T13:40:49.351399801Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:41:19.351441964Z",
+            "End": "2026-10-06T13:41:19.403447879Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:41:49.402608133Z",
+            "End": "2026-10-06T13:41:51.091788771Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:42:21.091372417Z",
+            "End": "2026-10-06T13:42:22.177286089Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:42:52.176864866Z",
+            "End": "2026-10-06T13:42:53.518475259Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  "runs": [
+    {
+      "file": "capacity-1.json",
+      "ok": true,
+      "seconds": 224.22,
+      "players": 466,
+      "votes": 4660,
+      "requests": 130486,
+      "statuses": {
+        "200": 125733,
+        "204": 4610,
+        "409": 134,
+        "429": 9
+      },
+      "responseBytes": 829794440,
+      "mediaRequests": 90,
+      "peakOutstandingHttp": 256,
+      "roundP95MaxMs": 2212.14,
+      "voteP95MaxMs": 2508.92,
+      "clientQueueP95MaxMs": 1070.95,
+      "clientQueueMaxMs": 1194.63
+    }
+  ]
+}

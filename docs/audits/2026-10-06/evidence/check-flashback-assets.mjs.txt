@@ -1,0 +1,6 @@
+import fs from 'node:fs';
+const qs=JSON.parse(fs.readFileSync('/home/kulmisiu/dev/dota2-trivia/src/data/flashback-questions.json'));
+const all=q=>[q.image?.src,...q.answerImages??[],...(q.flashback?.cards??[]).map(c=>c.image),q.flashback?.revealMedia?.src].filter(u=>u?.startsWith('http'));
+const urls=[...new Set(qs.flatMap(all))];let cursor=0;const result=[];
+async function worker(){while(cursor<urls.length){const url=urls[cursor++];const started=Date.now();try {const response=await fetch(url,{method:'HEAD',signal:AbortSignal.timeout(12000)});result.push({url,status:response.status,type:response.headers.get('content-type'),durationMs:Date.now()-started,ids:qs.filter(q=>all(q).includes(url)).map(q=>q.id)});}catch(error){result.push({url,error:String(error),durationMs:Date.now()-started})}}}
+await Promise.all(Array.from({length:4},worker));fs.writeFileSync('/tmp/queue-arcade-audit-20261006/flashback-asset-heads.json',JSON.stringify(result,null,2));console.log(JSON.stringify({total:urls.length,ok:result.filter(r=>r.status>=200&&r.status<300).length,failed:result.filter(r=>!r.status||r.status<200||r.status>=300)},null,2));

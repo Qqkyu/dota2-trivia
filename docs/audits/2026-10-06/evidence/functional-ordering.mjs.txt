@@ -1,0 +1,112 @@
+import { spawn } from "node:child_process";
+import { mkdtemp, rm, readFile, writeFile } from "node:fs/promises";
+import { createServer } from "node:net";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function freePort() {
+  return new Promise((resolve, reject) => {
+    const server = createServer();
+    server.listen(0, "127.0.0.1", () => {
+      const address = server.address();
+      const port = typeof address === "object" && address ? address.port : 0;
+      server.close((error) => (error ? reject(error) : resolve(port)));
+    });
+    server.on("error", reject);
+  });
+}
+
+async function waitJson(url, timeout = 15_000) {
+  const startedAt = Date.now();
+  while (Date.now() - startedAt < timeout) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) return await response.json();
+    } catch {
+      // Chrome is still binding.
+    }
+    await delay(100);
+  }
+  throw new Error(`Chrome debug HTTP did not open at ${url}`);
+}
+
+function attachCdp(webSocketDebuggerUrl) {
+  const socket = new WebSocket(webSocketDebuggerUrl);
+  const pending = new Map();
+  let requestId = 0;
+  socket.addEventListener("message", (message) => {
+    const payload = JSON.parse(message.data);
+    if (!payload.id) return;
+    const request = pending.get(payload.id);
+    if (!request) return;
+    pending.delete(payload.id);
+    if (payload.error) request.reject(new Error(payload.error.message));
+    else request.resolve(payload.result);
+  });
+  function send(method, params = {}) {
+    const id = ++requestId;
+    socket.send(JSON.stringify({ id, method, params }));
+    return new Promise((resolve, reject) => pending.set(id, { resolve, reject }));
+  }
+  async function evaluate(expression) {
+    const result = await send("Runtime.evaluate", { expression, awaitPromise: true, returnByValue: true });
+    if (result.exceptionDetails) {
+      throw new Error(result.exceptionDetails.exception?.description ?? result.exceptionDetails.text);
+    }
+    return result.result.value;
+  }
+  async function waitFor(expression, timeout = 20_000) {
+    const startedAt = Date.now();
+    while (Date.now() - startedAt < timeout) {
+      if (await evaluate(expression)) return;
+      await delay(150);
+    }
+    throw new Error(`Timed out waiting for: ${expression}`);
+  }
+  return {
+    socket,
+    send,
+    evaluate,
+    waitFor,
+    ready: new Promise((resolve, reject) => {
+      socket.addEventListener("open", resolve, { once: true });
+      socket.addEventListener("error", reject, { once: true });
+    }),
+  };
+}
+
+
+const appUrl='http://127.0.0.1:3210';
+const port=await freePort();
+const userDataDir=await mkdtemp(join(tmpdir(),'queue-arcade-functional-'));
+const chrome=spawn('google-chrome',['--headless=new','--mute-audio',`--remote-debugging-port=${port}`,'--remote-allow-origins=*',`--user-data-dir=${userDataDir}`,'--no-first-run','--disable-gpu','--window-size=1400,1000','about:blank'],{stdio:'ignore'});
+let browser; const pages=[];
+async function newPage(inject='') {
+ const created=await browser.send('Target.createTarget',{url:'about:blank'});
+ const list=await fetch(`http://127.0.0.1:${port}/json/list`).then(r=>r.json());
+ const page=attachCdp(list.find(p=>p.id===created.targetId).webSocketDebuggerUrl);
+ pages.push(page);await page.ready;await page.send('Page.enable');await page.send('Runtime.enable');
+ if(inject)await page.send('Page.addScriptToEvaluateOnNewDocument',{source:inject});
+ return page;
+}
+
+try {
+ const version=await waitJson(`http://127.0.0.1:${port}/json/version`);browser=attachCdp(version.webSocketDebuggerUrl);await browser.ready;
+ const page=await newPage(`const originalFetch=window.fetch;window.__privateGets=0;window.__holds={};window.fetch=async function(url,init){const response=await originalFetch.call(this,url,init);const u=String(url);let kind=null;if(u.startsWith('/api/private-rooms?')&&++window.__privateGets===3)kind='poll';if(u==='/api/private-rooms/messages')kind='chat';if(kind&&response.ok){window.__holds[kind]={signal:init?.signal};return await new Promise(resolve=>window.__holds[kind].release=()=>resolve(response));}return response;};`);
+ await page.send('Page.navigate',{url:appUrl+'/'});await page.waitFor(`document.querySelector('main')?.dataset.clientReady==='true'`);
+ const id=await page.evaluate(`sessionStorage.getItem('queue-arcade:player:v2:tab')`);const code='FO'+Date.now().toString(36).toUpperCase();
+ const post=async(path,body)=>{const r=await fetch(appUrl+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const p=await r.json();if(!r.ok)throw new Error(JSON.stringify(p));return p;};
+ await post('/api/private-rooms',{playerId:id,name:'Functional order',code,games:['spell-link']});
+ await page.send('Page.navigate',{url:appUrl+'/play?room='+code});await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-start"]'))`);
+ await page.waitFor(`Boolean(window.__holds.poll)`,8000);
+ await page.evaluate(`(()=>{const e=document.querySelector('[data-testid="private-room-chat-input"]');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(e,'Audit delayed response');e.dispatchEvent(new Event('input',{bubbles:true}));})()`);await delay(50);await page.evaluate(`document.querySelector('[data-testid="private-room-chat-send"]').click()`);await page.waitFor(`Boolean(window.__holds.chat)`);
+ await post('/api/private-rooms/start',{playerId:id,code});await page.waitFor(`document.querySelector('main')?.dataset.phase==='answering'`,12000);
+ await page.evaluate(`window.__holds.poll.release()`);await delay(200);
+ console.log('OLD_WAITING_POLL',JSON.stringify(await page.evaluate(`({phase:document.querySelector('main')?.dataset.phase,signalAborted:window.__holds.poll.signal.aborted})`)));
+ const room=await fetch(appUrl+'/api/rounds?'+new URLSearchParams({gameId:'dota2',privateCode:code,playerId:id})).then(r=>r.json());const qs=JSON.parse(await readFile('/home/kulmisiu/dev/dota2-trivia/src/data/questions.generated.json','utf8'));const q=qs.find(q=>q.kind==='spell-owner'&&q.hint===room.question.hint);const key='npc_dota_hero_'+q.answerImages[q.correctIndex].match(/heroes\/([^/?]+)\.png/)[1];
+ await page.evaluate(`document.querySelector('[data-hero-key="${key}"]').click()`);await page.waitFor(`document.querySelector('main')?.dataset.phase==='reveal'`,22000);
+ console.log('BEFORE_OLD_CHAT',JSON.stringify(await page.evaluate(`({phase:document.querySelector('main')?.dataset.phase,score:document.querySelector('[data-testid="score-grid"]')?.textContent})`)));
+ await page.evaluate(`(()=>{window.__phaseChanges=[];new MutationObserver(()=>window.__phaseChanges.push(document.querySelector('main')?.dataset.phase)).observe(document.querySelector('main'),{attributes:true,attributeFilter:['data-phase']});window.__holds.chat.release();})()`);await delay(1200);
+ console.log('AFTER_OLD_CHAT',JSON.stringify(await page.evaluate(`({phase:document.querySelector('main')?.dataset.phase,score:document.querySelector('[data-testid="score-grid"]')?.textContent,phaseChanges:window.__phaseChanges})`)));
+}finally {for(const p of pages)p.socket.close();browser?.socket.close();chrome.kill('SIGKILL');await rm(userDataDir,{recursive:true,force:true}).catch(()=>{});}

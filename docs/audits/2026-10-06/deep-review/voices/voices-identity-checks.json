@@ -1,0 +1,3893 @@
+{
+  "source": "/tmp/queue-arcade-live6882/core/scripts/npc/npc_heroes.txt",
+  "sourceSha256": "7d89d1a71895ca8fc4459d95690189edcb2f70a53ad21a9a9a64f9105e0bdc78",
+  "checks": [
+    {
+      "id": "hero-quote:npc_dota_hero_abaddon:abad_firstblood_01",
+      "heroKey": "npc_dota_hero_abaddon",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Support",
+        "Carry",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 5,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_abaddon:abad_kill_01",
+      "heroKey": "npc_dota_hero_abaddon",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Support",
+        "Carry",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 5,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_abyssal_underlord:abys_respawn_02",
+      "heroKey": "npc_dota_hero_abyssal_underlord",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler",
+        "Durable",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_abyssal_underlord:abys_win_06",
+      "heroKey": "npc_dota_hero_abyssal_underlord",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler",
+        "Durable",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_alchemist:alch_firstblood_01",
+      "heroKey": "npc_dota_hero_alchemist",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Carry",
+        "Support",
+        "Durable",
+        "Disabler",
+        "Initiator",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_alchemist:alch_kill_16",
+      "heroKey": "npc_dota_hero_alchemist",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Carry",
+        "Support",
+        "Durable",
+        "Disabler",
+        "Initiator",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_ancient_apparition:appa_respawn_01",
+      "heroKey": "npc_dota_hero_ancient_apparition",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_ancient_apparition:appa_respawn_07",
+      "heroKey": "npc_dota_hero_ancient_apparition",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_antimage:anti_respawn_07",
+      "heroKey": "npc_dota_hero_antimage",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_antimage:anti_respawn_09",
+      "heroKey": "npc_dota_hero_antimage",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_arc_warden:arcwar_firstblood_02",
+      "heroKey": "npc_dota_hero_arc_warden",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 6,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_arc_warden:arcwar_kill_08",
+      "heroKey": "npc_dota_hero_arc_warden",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 6,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_axe:axe_rival_03",
+      "heroKey": "npc_dota_hero_axe",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Initiator",
+        "Durable",
+        "Disabler",
+        "Carry"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_axe:axe_rival_07",
+      "heroKey": "npc_dota_hero_axe",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Initiator",
+        "Durable",
+        "Disabler",
+        "Carry"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_bane:bane_item_03",
+      "heroKey": "npc_dota_hero_bane",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Nuker",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_bane:bane_rival_12",
+      "heroKey": "npc_dota_hero_bane",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Nuker",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_batrider:bat_kill_02",
+      "heroKey": "npc_dota_hero_batrider",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_batrider:bat_respawn_13",
+      "heroKey": "npc_dota_hero_batrider",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_beastmaster:beas_bottle_04",
+      "heroKey": "npc_dota_hero_beastmaster",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_beastmaster:beas_respawn_09",
+      "heroKey": "npc_dota_hero_beastmaster",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_bloodseeker:blod_first_01",
+      "heroKey": "npc_dota_hero_bloodseeker",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Disabler",
+        "Nuker",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_bloodseeker:blod_respawn_07",
+      "heroKey": "npc_dota_hero_bloodseeker",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Disabler",
+        "Nuker",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_bounty_hunter:bount_kill_17",
+      "heroKey": "npc_dota_hero_bounty_hunter",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Escape",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_bounty_hunter:bount_respawn_05",
+      "heroKey": "npc_dota_hero_bounty_hunter",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Escape",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_brewmaster:brew_firstblood_01",
+      "heroKey": "npc_dota_hero_brewmaster",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Initiator",
+        "Durable",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_brewmaster:brew_kill_10",
+      "heroKey": "npc_dota_hero_brewmaster",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Initiator",
+        "Durable",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_bristleback:bristle_firstblood_01",
+      "heroKey": "npc_dota_hero_bristleback",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Initiator",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_bristleback:bristle_firstblood_02",
+      "heroKey": "npc_dota_hero_bristleback",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Initiator",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_broodmother:broo_kill_14",
+      "heroKey": "npc_dota_hero_broodmother",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Escape",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_broodmother:broo_respawn_08",
+      "heroKey": "npc_dota_hero_broodmother",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Escape",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_centaur:cent_kill_05",
+      "heroKey": "npc_dota_hero_centaur",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Durable",
+        "Initiator",
+        "Disabler",
+        "Nuker",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_centaur:cent_respawn_04",
+      "heroKey": "npc_dota_hero_centaur",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Durable",
+        "Initiator",
+        "Disabler",
+        "Nuker",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_chaos_knight:chaknight_kill_07",
+      "heroKey": "npc_dota_hero_chaos_knight",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Pusher",
+      "roles": [
+        "Carry",
+        "Disabler",
+        "Durable",
+        "Pusher",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 4,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_chaos_knight:chaknight_respawn_10",
+      "heroKey": "npc_dota_hero_chaos_knight",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Pusher",
+      "roles": [
+        "Carry",
+        "Disabler",
+        "Durable",
+        "Pusher",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 4,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_chen:chen_kill_12",
+      "heroKey": "npc_dota_hero_chen",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Support",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_chen:chen_rival_07",
+      "heroKey": "npc_dota_hero_chen",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Support",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_clinkz:clinkz_kill_01",
+      "heroKey": "npc_dota_hero_clinkz",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_clinkz:clinkz_respawn_06",
+      "heroKey": "npc_dota_hero_clinkz",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_crystal_maiden:cm_battlebegins_01",
+      "heroKey": "npc_dota_hero_crystal_maiden",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_crystal_maiden:cm_wolf_intro_02",
+      "heroKey": "npc_dota_hero_crystal_maiden",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_dark_seer:dkseer_kill_01",
+      "heroKey": "npc_dota_hero_dark_seer",
+      "attribute": "Intelligence",
+      "attackType": "Melee",
+      "role": "Initiator",
+      "roles": [
+        "Initiator",
+        "Escape",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 1,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_dark_seer:dkseer_kill_06",
+      "heroKey": "npc_dota_hero_dark_seer",
+      "attribute": "Intelligence",
+      "attackType": "Melee",
+      "role": "Initiator",
+      "roles": [
+        "Initiator",
+        "Escape",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 1,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_dark_willow:sylph_kill_01",
+      "heroKey": "npc_dota_hero_dark_willow",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_dark_willow:sylph_kill_08",
+      "heroKey": "npc_dota_hero_dark_willow",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_dawnbreaker:valora_firstblood_05",
+      "heroKey": "npc_dota_hero_dawnbreaker",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_dawnbreaker:valora_kill_15",
+      "heroKey": "npc_dota_hero_dawnbreaker",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_dazzle:dazz_kill_04",
+      "heroKey": "npc_dota_hero_dazzle",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_dazzle:dazz_spawn_05",
+      "heroKey": "npc_dota_hero_dazzle",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_death_prophet:dpro_first_01",
+      "heroKey": "npc_dota_hero_death_prophet",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_death_prophet:dpro_kill_08",
+      "heroKey": "npc_dota_hero_death_prophet",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_disruptor:dis_first_01",
+      "heroKey": "npc_dota_hero_disruptor",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Initiator",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Nuker",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_disruptor:dis_kill_05",
+      "heroKey": "npc_dota_hero_disruptor",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Initiator",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Nuker",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_doom_bringer:doom_kill_05",
+      "heroKey": "npc_dota_hero_doom_bringer",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Disabler",
+        "Initiator",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_doom_bringer:doom_move_11",
+      "heroKey": "npc_dota_hero_doom_bringer",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Disabler",
+        "Initiator",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_dragon_knight:drag_kill_05",
+      "heroKey": "npc_dota_hero_dragon_knight",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Pusher",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Durable",
+        "Disabler",
+        "Initiator",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 4,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_dragon_knight:drag_kill_12",
+      "heroKey": "npc_dota_hero_dragon_knight",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Pusher",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Durable",
+        "Disabler",
+        "Initiator",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 4,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_drow_ranger:drow_ally_05",
+      "heroKey": "npc_dota_hero_drow_ranger",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Disabler",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_drow_ranger:drow_kill_09",
+      "heroKey": "npc_dota_hero_drow_ranger",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Disabler",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_earth_spirit:earthspi_firstblood_02",
+      "heroKey": "npc_dota_hero_earth_spirit",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Nuker",
+        "Escape",
+        "Disabler",
+        "Initiator",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_earth_spirit:earthspi_items_06",
+      "heroKey": "npc_dota_hero_earth_spirit",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Nuker",
+        "Escape",
+        "Disabler",
+        "Initiator",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_earthshaker:erth_firstblood_01",
+      "heroKey": "npc_dota_hero_earthshaker",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Initiator",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_earthshaker:erth_rival_05",
+      "heroKey": "npc_dota_hero_earthshaker",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Initiator",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_elder_titan:elder_firstblood_01",
+      "heroKey": "npc_dota_hero_elder_titan",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Nuker",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 22,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_elder_titan:elder_kill_01",
+      "heroKey": "npc_dota_hero_elder_titan",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Nuker",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 22,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_ember_spirit:embr_ally_17",
+      "heroKey": "npc_dota_hero_ember_spirit",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Nuker",
+        "Disabler",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_ember_spirit:embr_rival_29",
+      "heroKey": "npc_dota_hero_ember_spirit",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Nuker",
+        "Disabler",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_enchantress:ench_respawn_08",
+      "heroKey": "npc_dota_hero_enchantress",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Support",
+        "Pusher",
+        "Durable",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_enchantress:ench_respawn_10",
+      "heroKey": "npc_dota_hero_enchantress",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Support",
+        "Pusher",
+        "Durable",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_enigma:enig_ability_black_01",
+      "heroKey": "npc_dota_hero_enigma",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Disabler",
+        "Initiator",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_enigma:enig_firstblood_01",
+      "heroKey": "npc_dota_hero_enigma",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Disabler",
+        "Initiator",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_faceless_void:face_kill_07",
+      "heroKey": "npc_dota_hero_faceless_void",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Initiator",
+        "Disabler",
+        "Escape",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_faceless_void:face_kill_12",
+      "heroKey": "npc_dota_hero_faceless_void",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Initiator",
+        "Disabler",
+        "Escape",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_furion:furi_kill_11",
+      "heroKey": "npc_dota_hero_furion",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Escape",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 6,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_furion:furi_respawn_07",
+      "heroKey": "npc_dota_hero_furion",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Escape",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 6,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_grimstroke:grimstroke_firstblood_03",
+      "heroKey": "npc_dota_hero_grimstroke",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_grimstroke:grimstroke_kill_08",
+      "heroKey": "npc_dota_hero_grimstroke",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_gyrocopter:gyro_kill_16",
+      "heroKey": "npc_dota_hero_gyrocopter",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_gyrocopter:gyro_respawn_10",
+      "heroKey": "npc_dota_hero_gyrocopter",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_hoodwink:hoodwink_firstblood_04",
+      "heroKey": "npc_dota_hero_hoodwink",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Escape",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_hoodwink:hoodwink_intro_14_02",
+      "heroKey": "npc_dota_hero_hoodwink",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Escape",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_huskar:husk_firstblood_01",
+      "heroKey": "npc_dota_hero_huskar",
+      "attribute": "Strength",
+      "attackType": "Ranged",
+      "role": "Initiator",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 2,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_huskar:husk_rare_01",
+      "heroKey": "npc_dota_hero_huskar",
+      "attribute": "Strength",
+      "attackType": "Ranged",
+      "role": "Initiator",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 2,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_invoker:invo_first_01",
+      "heroKey": "npc_dota_hero_invoker",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Disabler",
+        "Escape",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_invoker:kidvo_la_first_03",
+      "heroKey": "npc_dota_hero_invoker",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Disabler",
+        "Escape",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_jakiro:jak_firstblood_01",
+      "heroKey": "npc_dota_hero_jakiro",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Pusher",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_jakiro:jak_rival_09",
+      "heroKey": "npc_dota_hero_jakiro",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Pusher",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_juggernaut:jug_kill_03",
+      "heroKey": "npc_dota_hero_juggernaut",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Pusher",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 6,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_juggernaut:jug_kill_09",
+      "heroKey": "npc_dota_hero_juggernaut",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Pusher",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 6,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_keeper_of_the_light:keep_firstblood_02",
+      "heroKey": "npc_dota_hero_keeper_of_the_light",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_keeper_of_the_light:keep_kill_08",
+      "heroKey": "npc_dota_hero_keeper_of_the_light",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_kez:kez_wheel_thanks_02",
+      "heroKey": "npc_dota_hero_kez",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_kunkka:kunk_respawn_07",
+      "heroKey": "npc_dota_hero_kunkka",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Carry",
+        "Support",
+        "Disabler",
+        "Initiator",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_kunkka:kunk_rival_21",
+      "heroKey": "npc_dota_hero_kunkka",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Carry",
+        "Support",
+        "Disabler",
+        "Initiator",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_largo:largo_jam_bad_27",
+      "heroKey": "npc_dota_hero_largo",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Durable",
+        "Disabler",
+        "Support"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_largo:largo_rival_223",
+      "heroKey": "npc_dota_hero_largo",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Durable",
+        "Disabler",
+        "Support"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_legion_commander:legcom_respawn_02",
+      "heroKey": "npc_dota_hero_legion_commander",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Disabler",
+        "Initiator",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_legion_commander:legcom_respawn_14",
+      "heroKey": "npc_dota_hero_legion_commander",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Disabler",
+        "Initiator",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_leshrac:lesh_kill_11",
+      "heroKey": "npc_dota_hero_leshrac",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Carry",
+        "Support",
+        "Nuker",
+        "Pusher",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_leshrac:lesh_respawn_07",
+      "heroKey": "npc_dota_hero_leshrac",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Carry",
+        "Support",
+        "Nuker",
+        "Pusher",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_lich:lich_kill_05",
+      "heroKey": "npc_dota_hero_lich",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_lich:lich_kill_06",
+      "heroKey": "npc_dota_hero_lich",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_life_stealer:lifest_first_01",
+      "heroKey": "npc_dota_hero_life_stealer",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Escape",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_life_stealer:lifest_kill_16",
+      "heroKey": "npc_dota_hero_life_stealer",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Escape",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_lina:lina_ally_03",
+      "heroKey": "npc_dota_hero_lina",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Carry",
+      "roles": [
+        "Support",
+        "Carry",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 11,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_lina:lina_respawn_11",
+      "heroKey": "npc_dota_hero_lina",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Carry",
+      "roles": [
+        "Support",
+        "Carry",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 11,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_lion:lion_kill_08",
+      "heroKey": "npc_dota_hero_lion",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Initiator",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Nuker",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_lion:lion_kill_09",
+      "heroKey": "npc_dota_hero_lion",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Initiator",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Nuker",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_lone_druid:lone_druid_respawn_06",
+      "heroKey": "npc_dota_hero_lone_druid",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 6,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_lone_druid:lone_druid_rival_09",
+      "heroKey": "npc_dota_hero_lone_druid",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 6,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_luna:luna_firstblood_01",
+      "heroKey": "npc_dota_hero_luna",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_luna:luna_kill_10",
+      "heroKey": "npc_dota_hero_luna",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_lycan:lycan_firstblood_02",
+      "heroKey": "npc_dota_hero_lycan",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Durable",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_lycan:lycan_kill_09",
+      "heroKey": "npc_dota_hero_lycan",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Durable",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_magnataur:magn_firstblood_01",
+      "heroKey": "npc_dota_hero_magnataur",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Nuker",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_magnataur:magn_kill_12",
+      "heroKey": "npc_dota_hero_magnataur",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Nuker",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_mars:mars_kill_06",
+      "heroKey": "npc_dota_hero_mars",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Initiator",
+        "Disabler",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_mars:mars_kill_07",
+      "heroKey": "npc_dota_hero_mars",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Initiator",
+        "Disabler",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_medusa:medus_firstblood_02",
+      "heroKey": "npc_dota_hero_medusa",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Disabler",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_medusa:medus_kill_13",
+      "heroKey": "npc_dota_hero_medusa",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Disabler",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_meepo:meepo_kill_19",
+      "heroKey": "npc_dota_hero_meepo",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Nuker",
+        "Disabler",
+        "Initiator",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_meepo:meepo_respawn_08",
+      "heroKey": "npc_dota_hero_meepo",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Nuker",
+        "Disabler",
+        "Initiator",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_mirana:mir_kill_03",
+      "heroKey": "npc_dota_hero_mirana",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Support",
+        "Escape",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_mirana:mir_rare_06",
+      "heroKey": "npc_dota_hero_mirana",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Support",
+        "Escape",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_monkey_king:mk_hero_intro_04",
+      "heroKey": "npc_dota_hero_monkey_king",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Disabler",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_monkey_king:monkey_ally_154",
+      "heroKey": "npc_dota_hero_monkey_king",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Disabler",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_morphling:mrph_rare_01",
+      "heroKey": "npc_dota_hero_morphling",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Durable",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_morphling:mrph_rival_02",
+      "heroKey": "npc_dota_hero_morphling",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Durable",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_muerta:muerta_deny_05",
+      "heroKey": "npc_dota_hero_muerta",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 11,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_muerta:muerta_win_08",
+      "heroKey": "npc_dota_hero_muerta",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 11,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_naga_siren:naga_firstblood_01",
+      "heroKey": "npc_dota_hero_naga_siren",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Support",
+        "Pusher",
+        "Disabler",
+        "Initiator",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_naga_siren:naga_rival_07",
+      "heroKey": "npc_dota_hero_naga_siren",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Support",
+        "Pusher",
+        "Disabler",
+        "Initiator",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_necrolyte:necr_kill_02",
+      "heroKey": "npc_dota_hero_necrolyte",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Durable",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 11,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_necrolyte:necr_rare_05",
+      "heroKey": "npc_dota_hero_necrolyte",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Durable",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 11,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_nevermore:nev_firstblood_03",
+      "heroKey": "npc_dota_hero_nevermore",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_nevermore:nev_kill_01",
+      "heroKey": "npc_dota_hero_nevermore",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_night_stalker:nstalk_kill_05",
+      "heroKey": "npc_dota_hero_night_stalker",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Initiator",
+        "Durable",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_night_stalker:nstalk_kill_06",
+      "heroKey": "npc_dota_hero_night_stalker",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Initiator",
+        "Durable",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_nyx_assassin:nyx_ally_01",
+      "heroKey": "npc_dota_hero_nyx_assassin",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Disabler",
+        "Nuker",
+        "Initiator",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_nyx_assassin:nyx_move_07",
+      "heroKey": "npc_dota_hero_nyx_assassin",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Disabler",
+        "Nuker",
+        "Initiator",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_obsidian_destroyer:odest_immort_02",
+      "heroKey": "npc_dota_hero_obsidian_destroyer",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 11,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_obsidian_destroyer:odest_kill_08",
+      "heroKey": "npc_dota_hero_obsidian_destroyer",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 11,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_ogre_magi:ogmag_firstblood_02",
+      "heroKey": "npc_dota_hero_ogre_magi",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler",
+        "Durable",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_ogre_magi:ogmag_kill_13",
+      "heroKey": "npc_dota_hero_ogre_magi",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler",
+        "Durable",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_omniknight:omni_kill_04",
+      "heroKey": "npc_dota_hero_omniknight",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_omniknight:omni_kill_11",
+      "heroKey": "npc_dota_hero_omniknight",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_oracle:orac_firstblood_01",
+      "heroKey": "npc_dota_hero_oracle",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_oracle:orac_kill_22",
+      "heroKey": "npc_dota_hero_oracle",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_pangolier:pangolin_firstblood_05",
+      "heroKey": "npc_dota_hero_pangolier",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Disabler",
+        "Durable",
+        "Escape",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_pangolier:pangolin_kill_09",
+      "heroKey": "npc_dota_hero_pangolier",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Disabler",
+        "Durable",
+        "Escape",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_phantom_assassin:phass_kill_07",
+      "heroKey": "npc_dota_hero_phantom_assassin",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 15,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_phantom_assassin:phass_kill_09",
+      "heroKey": "npc_dota_hero_phantom_assassin",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 15,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_phantom_lancer:plance_kill_09",
+      "heroKey": "npc_dota_hero_phantom_lancer",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Pusher",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_phantom_lancer:plance_rival_05",
+      "heroKey": "npc_dota_hero_phantom_lancer",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Pusher",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_puck:puck_kill_09",
+      "heroKey": "npc_dota_hero_puck",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Initiator",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Escape",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_puck:puck_spawn_08",
+      "heroKey": "npc_dota_hero_puck",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Initiator",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Escape",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_pudge:pud_firstblood_01",
+      "heroKey": "npc_dota_hero_pudge",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Disabler",
+        "Initiator",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 22,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_pudge:pud_kill_07",
+      "heroKey": "npc_dota_hero_pudge",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Disabler",
+        "Initiator",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 22,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_pugna:pugna_respawn_01",
+      "heroKey": "npc_dota_hero_pugna",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Nuker",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_pugna:pugna_spawn_05",
+      "heroKey": "npc_dota_hero_pugna",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Nuker",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_queenofpain:pain_rival_07",
+      "heroKey": "npc_dota_hero_queenofpain",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_queenofpain:pain_rival_14",
+      "heroKey": "npc_dota_hero_queenofpain",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_rattletrap:ratt_kill_10",
+      "heroKey": "npc_dota_hero_rattletrap",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 22,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_rattletrap:ratt_win_06",
+      "heroKey": "npc_dota_hero_rattletrap",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 22,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_razor:raz_kill_01",
+      "heroKey": "npc_dota_hero_razor",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Nuker",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_razor:raz_kill_06",
+      "heroKey": "npc_dota_hero_razor",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Nuker",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_riki:riki_ability_invis_03",
+      "heroKey": "npc_dota_hero_riki",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_riki:riki_kill_06",
+      "heroKey": "npc_dota_hero_riki",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_ringmaster:ringmaster_deny_04",
+      "heroKey": "npc_dota_hero_ringmaster",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Escape",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_ringmaster:ringmaster_spawn_10",
+      "heroKey": "npc_dota_hero_ringmaster",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Escape",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_rubick:rubick_firstblood_01",
+      "heroKey": "npc_dota_hero_rubick",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_rubick:rubick_kill_17",
+      "heroKey": "npc_dota_hero_rubick",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_sand_king:sand_rival_08",
+      "heroKey": "npc_dota_hero_sand_king",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Support",
+        "Nuker",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_sand_king:skg_respawn_08",
+      "heroKey": "npc_dota_hero_sand_king",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Support",
+        "Nuker",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_shadow_demon:shadow_demon_first_02",
+      "heroKey": "npc_dota_hero_shadow_demon",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Initiator",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Initiator",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_shadow_demon:shadow_demon_kill_08",
+      "heroKey": "npc_dota_hero_shadow_demon",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Initiator",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Initiator",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_shadow_shaman:shad_kill_03",
+      "heroKey": "npc_dota_hero_shadow_shaman",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Support",
+        "Pusher",
+        "Disabler",
+        "Nuker",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_shadow_shaman:shad_kill_06",
+      "heroKey": "npc_dota_hero_shadow_shaman",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Support",
+        "Pusher",
+        "Disabler",
+        "Nuker",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_shredder:timb_kill_12",
+      "heroKey": "npc_dota_hero_shredder",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Nuker",
+        "Durable",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_shredder:timb_kill_13",
+      "heroKey": "npc_dota_hero_shredder",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Nuker",
+        "Durable",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_silencer:silen_inthebag_01",
+      "heroKey": "npc_dota_hero_silencer",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Initiator",
+      "roles": [
+        "Carry",
+        "Support",
+        "Disabler",
+        "Initiator",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_silencer:silen_kill_06",
+      "heroKey": "npc_dota_hero_silencer",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Initiator",
+      "roles": [
+        "Carry",
+        "Support",
+        "Disabler",
+        "Initiator",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_skeleton_king:skel_arc_swipe_03",
+      "heroKey": "npc_dota_hero_skeleton_king",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Carry",
+        "Support",
+        "Durable",
+        "Disabler",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_skeleton_king:wraith_kill_10",
+      "heroKey": "npc_dota_hero_skeleton_king",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Carry",
+        "Support",
+        "Durable",
+        "Disabler",
+        "Initiator"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_skywrath_mage:drag_kill_08",
+      "heroKey": "npc_dota_hero_skywrath_mage",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_skywrath_mage:drag_respawn_05",
+      "heroKey": "npc_dota_hero_skywrath_mage",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_slardar:slar_longdistance_02",
+      "heroKey": "npc_dota_hero_slardar",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Initiator",
+        "Disabler",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_slardar:slar_respawn_02",
+      "heroKey": "npc_dota_hero_slardar",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Initiator",
+        "Disabler",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_slark:slark_firstblood_01",
+      "heroKey": "npc_dota_hero_slark",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_slark:slark_kill_05",
+      "heroKey": "npc_dota_hero_slark",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_snapfire:snapfire_firstblood_05",
+      "heroKey": "npc_dota_hero_snapfire",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_snapfire:snapfire_kill_24",
+      "heroKey": "npc_dota_hero_snapfire",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_sniper:snip_kill_12",
+      "heroKey": "npc_dota_hero_sniper",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_sniper:snip_kill_14",
+      "heroKey": "npc_dota_hero_sniper",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_spectre:spec_kill_04",
+      "heroKey": "npc_dota_hero_spectre",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 15,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_spectre:spec_respawn_03",
+      "heroKey": "npc_dota_hero_spectre",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 15,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_spirit_breaker:spir_kill_09",
+      "heroKey": "npc_dota_hero_spirit_breaker",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Initiator",
+        "Disabler",
+        "Durable",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_spirit_breaker:spir_respawn_02",
+      "heroKey": "npc_dota_hero_spirit_breaker",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Initiator",
+        "Disabler",
+        "Durable",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_storm_spirit:ss_respawn_05",
+      "heroKey": "npc_dota_hero_storm_spirit",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Nuker",
+        "Initiator",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_storm_spirit:stormspirit_firstblood_01",
+      "heroKey": "npc_dota_hero_storm_spirit",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Nuker",
+        "Initiator",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_sven:sven_rare_01",
+      "heroKey": "npc_dota_hero_sven",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Disabler",
+        "Initiator",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_sven:sven_rare_02",
+      "heroKey": "npc_dota_hero_sven",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Carry",
+        "Disabler",
+        "Initiator",
+        "Durable",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_techies:tech_firstblood_01",
+      "heroKey": "npc_dota_hero_techies",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_techies:tech_firstblood_03",
+      "heroKey": "npc_dota_hero_techies",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_templar_assassin:temp_kill_02",
+      "heroKey": "npc_dota_hero_templar_assassin",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_templar_assassin:temp_kill_09",
+      "heroKey": "npc_dota_hero_templar_assassin",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_terrorblade:terr_kill_06",
+      "heroKey": "npc_dota_hero_terrorblade",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_terrorblade:terr_respawn_03",
+      "heroKey": "npc_dota_hero_terrorblade",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_tidehunter:tide_kill_01",
+      "heroKey": "npc_dota_hero_tidehunter",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Initiator",
+        "Durable",
+        "Disabler",
+        "Nuker",
+        "Carry"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_tidehunter:tide_rival_19",
+      "heroKey": "npc_dota_hero_tidehunter",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Carry",
+      "roles": [
+        "Initiator",
+        "Durable",
+        "Disabler",
+        "Nuker",
+        "Carry"
+      ],
+      "finalClueCandidateCount": 19,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_tinker:tink_ability_laser_01",
+      "heroKey": "npc_dota_hero_tinker",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_tinker:tink_kill_13",
+      "heroKey": "npc_dota_hero_tinker",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Pusher",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_tiny:tiny_kill_05",
+      "heroKey": "npc_dota_hero_tiny",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Pusher",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Pusher",
+        "Initiator",
+        "Durable",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 4,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_tiny:tiny_spawn_07",
+      "heroKey": "npc_dota_hero_tiny",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Pusher",
+      "roles": [
+        "Carry",
+        "Nuker",
+        "Pusher",
+        "Initiator",
+        "Durable",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 4,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_treant:treant_firstblood_01",
+      "heroKey": "npc_dota_hero_treant",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Support",
+        "Initiator",
+        "Durable",
+        "Disabler",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_treant:treant_levelup_13",
+      "heroKey": "npc_dota_hero_treant",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Escape",
+      "roles": [
+        "Support",
+        "Initiator",
+        "Durable",
+        "Disabler",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_troll_warlord:troll_kill_05",
+      "heroKey": "npc_dota_hero_troll_warlord",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Disabler",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_troll_warlord:troll_levelup_01",
+      "heroKey": "npc_dota_hero_troll_warlord",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Pusher",
+        "Disabler",
+        "Durable"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_tusk:tusk_firstblood_03",
+      "heroKey": "npc_dota_hero_tusk",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 22,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_tusk:tusk_kill_18",
+      "heroKey": "npc_dota_hero_tusk",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Nuker",
+      "roles": [
+        "Initiator",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 22,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_undying:undying_inthebag_01",
+      "heroKey": "npc_dota_hero_undying",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Durable",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_undying:undying_rare_03",
+      "heroKey": "npc_dota_hero_undying",
+      "attribute": "Strength",
+      "attackType": "Melee",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Durable",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_ursa:ursa_kill_10",
+      "heroKey": "npc_dota_hero_ursa",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_ursa:ursa_kill_11",
+      "heroKey": "npc_dota_hero_ursa",
+      "attribute": "Agility",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 10,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_vengefulspirit:vng_kill_12",
+      "heroKey": "npc_dota_hero_vengefulspirit",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Support",
+        "Initiator",
+        "Disabler",
+        "Nuker",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_vengefulspirit:vng_respawn_05",
+      "heroKey": "npc_dota_hero_vengefulspirit",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Support",
+        "Initiator",
+        "Disabler",
+        "Nuker",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_venomancer:venm_kill_02",
+      "heroKey": "npc_dota_hero_venomancer",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Initiator",
+        "Pusher",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_venomancer:venm_rival_02",
+      "heroKey": "npc_dota_hero_venomancer",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Initiator",
+        "Pusher",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_viper:vipe_kill_08",
+      "heroKey": "npc_dota_hero_viper",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Initiator",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_viper:vipe_killspecial_batrider_01",
+      "heroKey": "npc_dota_hero_viper",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Durable",
+        "Initiator",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 9,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_visage:visa_respawn_02",
+      "heroKey": "npc_dota_hero_visage",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Durable",
+        "Disabler",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_visage:visa_rival_25",
+      "heroKey": "npc_dota_hero_visage",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Durable",
+        "Disabler",
+        "Pusher"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_void_spirit:voidspir_kill_06",
+      "heroKey": "npc_dota_hero_void_spirit",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_void_spirit:voidspir_kill_13",
+      "heroKey": "npc_dota_hero_void_spirit",
+      "attribute": "Universal",
+      "attackType": "Melee",
+      "role": "Disabler",
+      "roles": [
+        "Carry",
+        "Escape",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_warlock:warl_inthebag_01",
+      "heroKey": "npc_dota_hero_warlock",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Initiator",
+      "roles": [
+        "Support",
+        "Initiator",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_warlock:warl_kill_09",
+      "heroKey": "npc_dota_hero_warlock",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Initiator",
+      "roles": [
+        "Support",
+        "Initiator",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 8,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_weaver:weav_kill_09",
+      "heroKey": "npc_dota_hero_weaver",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_weaver:weav_spawn_03",
+      "heroKey": "npc_dota_hero_weaver",
+      "attribute": "Agility",
+      "attackType": "Ranged",
+      "role": "Escape",
+      "roles": [
+        "Carry",
+        "Escape"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_windrunner:wind_kill_06",
+      "heroKey": "npc_dota_hero_windrunner",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Carry",
+        "Support",
+        "Disabler",
+        "Escape",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_windrunner:wind_killspecial_01",
+      "heroKey": "npc_dota_hero_windrunner",
+      "attribute": "Universal",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Carry",
+        "Support",
+        "Disabler",
+        "Escape",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 7,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_winter_wyvern:winwyv_levelup_01",
+      "heroKey": "npc_dota_hero_winter_wyvern",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_winter_wyvern:winwyv_levelup_02",
+      "heroKey": "npc_dota_hero_winter_wyvern",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Disabler",
+        "Nuker"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_witch_doctor:wdoc_kill_06",
+      "heroKey": "npc_dota_hero_witch_doctor",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_witch_doctor:wdoc_respawn_02",
+      "heroKey": "npc_dota_hero_witch_doctor",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Support",
+      "roles": [
+        "Support",
+        "Nuker",
+        "Disabler"
+      ],
+      "finalClueCandidateCount": 23,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_zuus:zuus_kill_06",
+      "heroKey": "npc_dota_hero_zuus",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Carry",
+      "roles": [
+        "Nuker",
+        "Carry"
+      ],
+      "finalClueCandidateCount": 11,
+      "hintTimingVerified": true,
+      "errors": []
+    },
+    {
+      "id": "hero-quote:npc_dota_hero_zuus:zuus_kill_11",
+      "heroKey": "npc_dota_hero_zuus",
+      "attribute": "Intelligence",
+      "attackType": "Ranged",
+      "role": "Carry",
+      "roles": [
+        "Nuker",
+        "Carry"
+      ],
+      "finalClueCandidateCount": 11,
+      "hintTimingVerified": true,
+      "errors": []
+    }
+  ]
+}

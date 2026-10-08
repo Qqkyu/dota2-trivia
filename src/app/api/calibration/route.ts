@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { isSameOriginMutation, sessionUserForRequest } from "@/lib/auth-session";
-import { rateLimitRequest } from "@/lib/api-protection";
+import { sessionUserForRequest } from "@/lib/auth-session";
+import { preflightRateLimit, rateLimitRequest, readJsonBody, requestOriginAllowed } from "@/lib/api-protection";
 import { getCalibrationSnapshot, publicCalibrationSnapshot } from "@/lib/calibration-data";
 import { DEFAULT_GAME_ID, GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
@@ -12,6 +12,8 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
+  const limited = preflightRateLimit(request, "calibration-read", 30);
+  if (limited) return limited;
   const candidate = new URL(request.url).searchParams.get("gameId") ?? DEFAULT_GAME_ID;
   if (!isGameId(candidate)) {
     return NextResponse.json({ error: "Unknown game catalog." }, { status: 400 });
@@ -34,10 +36,12 @@ export async function GET(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
-  if (!isSameOriginMutation(request)) {
+  if (!requestOriginAllowed(request)) {
     return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
   }
 
+  const limited = preflightRateLimit(request, "calibration-review", 100);
+  if (limited) return limited;
   let user: Awaited<ReturnType<typeof sessionUserForRequest>>;
   try {
     user = await sessionUserForRequest(request);
@@ -51,12 +55,9 @@ export async function PATCH(request: NextRequest) {
   const rateLimited = rateLimitRequest(request, "calibration-review", user.id, 40);
   if (rateLimited) return rateLimited;
 
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "Invalid review payload." }, { status: 400 });
-  }
+  const parsed = await readJsonBody(request);
+  if ("response" in parsed) return parsed.response;
+  const { body } = parsed;
   if (!body || typeof body !== "object") {
     return NextResponse.json({ error: "Invalid review payload." }, { status: 400 });
   }

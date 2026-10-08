@@ -1,0 +1,18 @@
+PASS entry and storage {"failFirst":true}
+PASS entry and storage {"hangFirst":true}
+PASS entry and storage {"blockStorage":true}
+PASS entry and storage {"blockStorageGetter":true}
+PASS 100 concurrent rounds preserve all 200 guest lifetime results
+PASS stale local mirror cannot replace the authoritative guest record
+PASS both guest tabs receive one score and one streak increment
+PASS missed reveal recovers once for guest session
+PASS missed reveal recovers once for connected session
+PASS vote committed after round transition recovers in the same current round
+PASS changed crowd award corrects score without counting the answer again
+PASS accepted account answer replaces a conflicting local choice before POST returns
+PASS leaving pending public entry cancels its result
+PASS transient profile failure preserves the known account
+PASS denied IndexedDB keeps play usable and does not overwrite shared lifetime data
+PASS browser commands do not submit classic answers
+PASS focused mute keeps native keyboard behavior in year
+PASS focused mute keeps native keyboard behavior in hero

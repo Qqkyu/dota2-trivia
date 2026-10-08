@@ -1,0 +1,23 @@
+import datetime,hashlib,json,os,pathlib,shutil,subprocess
+root=pathlib.Path('/home/kulmisiu/dev/dota2-trivia'); out=pathlib.Path('/tmp/queue-arcade-launch-ci/secret-scan'); snapshot=out/'snapshot'
+if snapshot.exists():
+ shutil.rmtree(snapshot)
+snapshot.mkdir()
+raw=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],cwd=root)
+(out/'intended-files.nul').write_bytes(raw)
+rows=[]; skipped=[]
+for name in sorted(set(os.fsdecode(x) for x in raw.split(b'\0') if x)):
+ rel=pathlib.PurePosixPath(name); src=root/name
+ if rel.is_absolute() or '..' in rel.parts:raise RuntimeError('Unsafe repository path')
+ if any(part in {'.env.local','.local-assets','tmp','node_modules','.git'} or part.startswith('.next') for part in rel.parts):
+  skipped.append({'file':name,'reason':'Explicit local/build/metadata exclusion'});continue
+ if src.is_symlink():
+  skipped.append({'file':name,'reason':'Symlink excluded without following target'});continue
+ if not src.is_file():
+  skipped.append({'file':name,'reason':'Deleted or absent file'});continue
+ content=src.read_bytes(); target=snapshot/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(content)
+ rows.append({'file':name,'bytes':len(content),'sha256':hashlib.sha256(content).hexdigest()})
+report={'createdAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scope':'Current working-tree content from git ls-files --cached --others --exclude-standard; no Git history or ignored local files','fileCount':len(rows),'totalBytes':sum(x['bytes'] for x in rows),'limitBytes':100*1024*1024,'oversizedFiles':[x for x in rows if x['bytes']>100*1024*1024],'largestFiles':sorted(rows,key=lambda x:x['bytes'],reverse=True)[:20],'skipped':skipped,'files':rows}
+(out/'inventory.json').write_text(json.dumps(report,indent=2)+'\n')
+assert len([p for p in snapshot.rglob('*') if p.is_file()]) == len(rows)
+print(json.dumps({k:v for k,v in report.items() if k not in ['files','largestFiles']},indent=2))

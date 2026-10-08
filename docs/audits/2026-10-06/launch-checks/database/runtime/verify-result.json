@@ -1,0 +1,55 @@
+{
+  "phase": "verify",
+  "verifiedAt": "2026-10-06T12:51:55.844Z",
+  "schema": "runtime_03400b4494a946eaac99476e2cc418af",
+  "server": {
+    "database": "qa_launch_runtime",
+    "data_directory": "/tmp/queue-arcade-launch-checks/pg-runtime/data",
+    "version": "14.19 (Ubuntu 14.19-0ubuntu0.22.04.1)",
+    "fsync": "on",
+    "synchronous_commit": "on",
+    "full_page_writes": "on"
+  },
+  "snapshot": {
+    "queue_arcade_rounds": {
+      "rows": 25,
+      "sha256": "a9d85270f29cd46c7b55795e12126ae5b9d2a859ee41646f9b3321917eacac02"
+    },
+    "queue_arcade_round_votes": {
+      "rows": 648,
+      "sha256": "749a9de864b3ebf679d1b84e593d3ce851d555eb9ab0270cd5938c086b584f46"
+    },
+    "queue_arcade_question_stats": {
+      "rows": 25,
+      "sha256": "805976f6d49b226bb12b532b160802b00038e7a47d0d97991815a41098babea4"
+    },
+    "queue_arcade_users": {
+      "rows": 25,
+      "sha256": "a87a532630af76c0957cd52d64ef8d7c08d8616280f04360f0b02a2136311b37"
+    },
+    "queue_arcade_user_identities": {
+      "rows": 25,
+      "sha256": "a71caef1b51aadc6b6814e1dc268c6cf4b01919ebf997c089d998b311512a333"
+    },
+    "queue_arcade_user_sessions": {
+      "rows": 1,
+      "sha256": "cc00a23420fa7423ad1d1255c50872cbfc04c38d3ad2c9f40a0023c86aa06893"
+    },
+    "queue_arcade_player_rounds": {
+      "rows": 577,
+      "sha256": "27696562bbb75979d7af5d6bcdfbe0e1d48e1e25492e0cf4f6581aaa263d5d81"
+    },
+    "queue_arcade_alpha_sessions": {
+      "rows": 26,
+      "sha256": "05dc8d559c7981f8f5594e98f2ba397edec781caf10ab8b00ff23f44fb2b2647"
+    },
+    "queue_arcade_alpha_round_events": {
+      "rows": 576,
+      "sha256": "0eab68d5dd4c2f86f4ab459e3095bdb43d6a38e0baf8133638377b7f3fa13af4"
+    },
+    "queue_arcade_steam_nonces": {
+      "rows": 1,
+      "sha256": "99536f3d8d15abaab905016902547f86916fb62fa3f6d489d5dc8307da4dcc67"
+    }
+  }
+}

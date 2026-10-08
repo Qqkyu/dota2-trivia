@@ -1,0 +1,253 @@
+{
+  "observedAt": "2026-10-06",
+  "latestPatch": {
+    "url": "https://www.dota2.com/datafeed/patchnoteslist?language=english",
+    "sha256": "9ec57bde0c37aee9b782bd7190cc0c18b68310d90b6cba0b9f9dd3b196bd29ea",
+    "latestPublished": {
+      "patch_number": "7.41f",
+      "patch_name": "7.41f",
+      "patch_timestamp": 1789455600
+    }
+  },
+  "abilityFacts": {
+    "mirana_starfall": {
+      "id": 5051,
+      "name": "Starstorm",
+      "heroKey": "npc_dota_hero_mirana",
+      "cooldowns": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "manaCosts": [
+        80,
+        90,
+        100,
+        110
+      ],
+      "damageField": "damage",
+      "damage": [
+        75,
+        150,
+        225,
+        300
+      ],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9",
+        "sha256": "b555bb7ec8e6157f4dbaf591bd92424f0ae77911301b167324d4f63a683c2480",
+        "retrievedAt": "2026-10-06"
+      },
+      "additionalValues": {
+        "secondary_starfall_damage_percent": [
+          80,
+          80,
+          80,
+          80
+        ]
+      }
+    },
+    "snapfire_scatterblast": {
+      "id": 6480,
+      "name": "Scatterblast",
+      "heroKey": "npc_dota_hero_snapfire",
+      "cooldowns": [
+        17,
+        14,
+        11,
+        8
+      ],
+      "manaCosts": [
+        85,
+        90,
+        95,
+        100
+      ],
+      "damageField": "damage",
+      "damage": [
+        100,
+        160,
+        220,
+        280
+      ],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128",
+        "sha256": "40106d0fd7db1a3221d5044e4191ba9402cfc54a33f9bfba67e859798ea35c2a",
+        "retrievedAt": "2026-10-06"
+      },
+      "additionalValues": {
+        "point_blank_dmg_bonus_pct": [
+          25
+        ]
+      }
+    },
+    "rubick_fade_bolt": {
+      "id": 5450,
+      "name": "Fade Bolt",
+      "heroKey": "npc_dota_hero_rubick",
+      "cooldowns": [
+        16,
+        14,
+        12,
+        10
+      ],
+      "manaCosts": [
+        110,
+        125,
+        140,
+        155
+      ],
+      "damageField": "damage",
+      "damage": [
+        85,
+        165,
+        245,
+        325
+      ],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=86",
+        "sha256": "f48ede505239c531253fd18a47e23ea4673354b2068fb329004e588ebe2f587c",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "vengefulspirit_magic_missile": {
+      "id": 5122,
+      "name": "Magic Missile",
+      "heroKey": "npc_dota_hero_vengefulspirit",
+      "cooldowns": [
+        14,
+        13,
+        12,
+        11
+      ],
+      "manaCosts": [
+        90,
+        95,
+        100,
+        105
+      ],
+      "damageField": "magic_missile_damage",
+      "damage": [
+        100,
+        180,
+        260,
+        340
+      ],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20",
+        "sha256": "0e7870e8c64c9e078cefe521c9d96553130496abc7e9c0f92d954c409f6016c5",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "axe_culling_blade": {
+      "id": 5010,
+      "name": "Culling Blade",
+      "heroKey": "npc_dota_hero_axe",
+      "cooldowns": [
+        80,
+        75,
+        70
+      ],
+      "manaCosts": [
+        100,
+        125,
+        150
+      ],
+      "damageField": "damage",
+      "damage": [
+        275,
+        375,
+        475
+      ],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2",
+        "sha256": "47f5fa1582c0ca8249449c9bc36cecee039dc6cc16fdc096d23fef64328134bb",
+        "retrievedAt": "2026-10-06"
+      }
+    },
+    "invoker_invoke": {
+      "id": 5375,
+      "name": "Invoke",
+      "heroKey": "npc_dota_hero_invoker",
+      "cooldowns": [
+        7
+      ],
+      "manaCosts": [
+        0
+      ],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74",
+        "sha256": "16bed6792a0c75a2c4ab2248d2c0ac5ea72a5195856e8ed6a2e5a85c2f27177b",
+        "retrievedAt": "2026-10-06"
+      },
+      "additionalValues": {
+        "cooldown_reduction_per_orb": [
+          0.3
+        ]
+      }
+    },
+    "bane_fiends_grip": {
+      "id": 5013,
+      "name": "Fiend's Grip",
+      "heroKey": "npc_dota_hero_bane",
+      "cooldowns": [
+        120,
+        110,
+        100
+      ],
+      "manaCosts": [
+        200,
+        300,
+        400
+      ],
+      "damageField": "fiend_grip_damage",
+      "damage": [
+        70,
+        110,
+        150
+      ],
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3",
+        "sha256": "424f22f65a9b6954cbcb70975b35c2f6a302c8afac34a4b790b3f2d3bd3872c6",
+        "retrievedAt": "2026-10-06"
+      },
+      "additionalValues": {
+        "fiend_grip_tick_interval": [
+          0.5
+        ]
+      }
+    }
+  },
+  "patchEvidence": [
+    {
+      "version": "7.41d",
+      "url": "https://www.dota2.com/datafeed/patchnotes?version=7.41d&language=english",
+      "sha256": "dd4f52ff2f171e3cefc82222e8d4d58f001dfb06f966d6368d653fecb16fd23c"
+    },
+    {
+      "version": "7.41e",
+      "url": "https://www.dota2.com/datafeed/patchnotes?version=7.41e&language=english",
+      "sha256": "7e9af03eaba53c9897e80842d3319ab67c326e7834e5b927cbb249136d060750"
+    },
+    {
+      "version": "7.33",
+      "url": "https://www.dota2.com/datafeed/patchnotes?version=7.33&language=english",
+      "sha256": "b65cb135d43236e8816546e661a58aaf30de3ec7f737a201905590e041f17d04"
+    },
+    {
+      "version": "7.36",
+      "url": "https://www.dota2.com/datafeed/patchnotes?version=7.36&language=english",
+      "sha256": "553f3b825b4989aa25263a91796822ec849715eb8792eaeb13f2e662c3780845"
+    },
+    {
+      "version": "7.31",
+      "url": "https://www.dota2.com/datafeed/patchnotes?version=7.31&language=english",
+      "sha256": "9a5a76422eba02b2e45bf80c81450e9c7155d1a028cc59a8cfecf9cd10fdf28a"
+    }
+  ],
+  "limits": [
+    "Valve public profiles do not expose a patch or build identifier. These payloads were observed while 7.41f was the latest published patch.",
+    "The pre-existing build6882 client extract has no independently verified acquisition history. Its hashes prove repeatable comparisons only.",
+    "No live Dota2 gameplay simulation was run. This review used public Valve data, patch notes, and the existing local client extract as a secondary comparison."
+  ]
+}

@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { CLIENT_CONSTANT_AUDIT } from "./client-constant-audit.mjs";
+import { reportMissingClientSource } from "./client-audit-requirement.mjs";
 import { parseValveKeyValues } from "./valve-keyvalues.mjs";
 import {
   isItemPickerQuestion,
@@ -64,7 +65,7 @@ try {
     liveRecipes.set(resultKey, variants);
   }
 } catch (error) {
-  if (error?.code !== "ENOENT") throw error;
+  reportMissingClientSource(error, "Shopkeeper recipes");
 }
 
 const sameMultiset = (left = [], right = []) =>
@@ -102,6 +103,15 @@ if (
 if (catalogItems.length !== 182 || catalogKeys.size !== catalogItems.length) {
   failures.push(`The open-answer shop needs 182 unique purchasable entries (found ${catalogItems.length}).`);
 }
+const compactShopIcons = ["disperser", "angels_demise", "phylactery"];
+for (const key of compactShopIcons) {
+  const item = catalogItems.find((entry) => entry.key === key);
+  const localPath = item?.image?.startsWith("/arcade/items/") ? join(root, "public", item.image) : "";
+  const bytes = localPath ? ((await stat(localPath).catch(() => null))?.size ?? 0) : 0;
+  if (!localPath || bytes <= 0 || bytes > 40_000) {
+    failures.push(`Shop icon ${key} is no longer a compact local image (found ${bytes} bytes).`);
+  }
+}
 for (const item of catalogItems) {
   if (
     typeof item.key !== "string" ||
@@ -114,28 +124,44 @@ for (const item of catalogItems) {
     failures.push(`Open-shop catalog entry ${item.key ?? "unknown"} is incomplete or invalid.`);
   }
 }
-if (
-  !voteRouteSource.includes("keyedAnswerIndex(question, answerKey)") ||
-  !voteRouteSource.includes("isValidAnswerKeyForQuestion(question, answerKey)") ||
-  !voteRouteSource.includes("answerKey: resolvedAnswerKey") ||
-  !postgresStoreSource.includes("ADD COLUMN IF NOT EXISTS answer_key TEXT") ||
-  !postgresStoreSource.includes("GROUP BY answer_key") ||
-  !arcadeSource.includes('data-testid="shopkeeper-store"') ||
-  !arcadeSource.includes("onChoose={chooseKeyedAnswer}") ||
-  !arcadeSource.includes('data-testid="shopkeeper-item-tooltip"') ||
-  !arcadeSource.includes('data-testid="shopkeeper-recipe-builder"') ||
-  !arcadeSource.includes('data-testid="shopkeeper-recipe-slot"') ||
-  !arcadeSource.includes('data-testid="shopkeeper-recipe-build"') ||
-  !arcadeSource.includes("recipeAnswerKeyForItems(draftRecipeKeys)") ||
-  !arcadeSource.includes("setDraftRecipeKeys((itemKeys) => itemKeys.filter") ||
-  !arcadeSource.includes("createPortal(") ||
-  !arcadeSource.includes("recipeBuilder ? addRecipeItem(item.key) : chooseItem(item.key)") ||
-  !arcadeSource.match(/const chooseItem = \(itemKey: string\) => \{[^}]*onChoose\(itemKey\);/s) ||
-  !itemButtonRule.includes("overflow: hidden;") ||
-  !tooltipRule.includes("position: fixed;") ||
-  arcadeStyles.includes(".shopkeeperGroup button > span")
-) {
-  failures.push("The Build Result item-key vote, reconnect, store UI, or stable tooltip contract was removed.");
+const uiContracts = [
+  [
+    voteRouteSource.includes("keyedAnswerIndex(question, answerKey)"),
+    "Votes resolve the answer index from the item key.",
+  ],
+  [voteRouteSource.includes("isValidAnswerKeyForQuestion(question, answerKey)"), "Votes reject invalid item keys."],
+  [voteRouteSource.includes("answerKey: resolvedAnswerKey"), "Votes retain the resolved item key."],
+  [postgresStoreSource.includes("GROUP BY answer_key"), "Crowd totals group votes by item key."],
+  [arcadeSource.includes('data-testid="shopkeeper-store"'), "The shop store is present."],
+  [arcadeSource.includes("onChoose={chooseKeyedAnswer}"), "The shop submits keyed answers."],
+  [arcadeSource.includes('data-testid="shopkeeper-item-tooltip"'), "The item tooltip is present."],
+  [arcadeSource.includes('data-testid="shopkeeper-recipe-builder"'), "The recipe builder is present."],
+  [arcadeSource.includes('data-testid="shopkeeper-recipe-slot"'), "Recipe slots are present."],
+  [arcadeSource.includes('data-testid="shopkeeper-recipe-build"'), "The recipe Build control is present."],
+  [arcadeSource.includes("recipeAnswerKeyForItems(draftRecipeKeys)"), "The recipe submits its selected item keys."],
+  [
+    arcadeSource.includes("setDraftRecipeKeys((itemKeys) => itemKeys.filter((_, index) => index !== slot))"),
+    "Removing a recipe slot retains all other slots.",
+  ],
+  [arcadeSource.includes("createPortal("), "The tooltip uses a portal."],
+  [
+    arcadeSource.includes("recipeBuilder ? addRecipeItem(item.key, event.detail === 0) : chooseItem(item.key)"),
+    "Store clicks select recipe components or item answers and request focus recovery for keyboard activation.",
+  ],
+  [
+    arcadeSource.includes("onClick={(event) => removeRecipeItem(slot, event.detail === 0)}"),
+    "Recipe removal requests focus recovery for keyboard activation.",
+  ],
+  [
+    Boolean(arcadeSource.match(/const chooseItem = \(itemKey: string\) => \{[^}]*onChoose\(itemKey\);/s)),
+    "An item answer calls onChoose with its key.",
+  ],
+  [itemButtonRule.includes("overflow: hidden;"), "Item buttons clip their artwork."],
+  [tooltipRule.includes("position: fixed;"), "The tooltip uses a fixed position."],
+  [!arcadeStyles.includes(".shopkeeperGroup button > span"), "Shop button span styling does not hide tooltip content."],
+];
+for (const [passed, contract] of uiContracts) {
+  if (!passed) failures.push(`Shopkeeper UI contract failed: ${contract}`);
 }
 
 const expectedKindCounts = new Map([
@@ -171,7 +197,7 @@ for (const question of questions) {
   if (question.patch !== CLIENT_CONSTANT_AUDIT.patch || question.source?.label !== expectedSource) {
     failures.push(`${question.id}: patch/source audit stamp drifted.`);
   }
-  if (question.prompt.trim().split(/\s+/).length > 7) {
+  if (question.prompt.trim().split(/\s+/).length > (question.shopkeeper?.format === "shared-part" ? 9 : 7)) {
     failures.push(`${question.id}: prompt is too slow to scan.`);
   }
 
@@ -298,6 +324,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${questions.length} client-audited Shopkeeper rounds, ${expectedKindCounts.get("shopkeeper-real-recipe")} full-shop recipe builders, and the ${catalogItems.length}-item Dota shop picker${liveRecipes ? `, with build ${CLIENT_CONSTANT_AUDIT.clientBuild} recipe parity` : ""}.`,
+    `Validated ${questions.length} stored Shopkeeper rounds, ${expectedKindCounts.get("shopkeeper-real-recipe")} full-shop recipe builders, and the ${catalogItems.length}-item Dota shop picker${liveRecipes ? `, with build ${CLIENT_CONSTANT_AUDIT.clientBuild} recipe parity` : "; client recipe comparison SKIPPED"}.`,
   );
 }

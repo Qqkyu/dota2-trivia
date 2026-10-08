@@ -94,6 +94,7 @@ export function CalibrationDashboard({
 }) {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<CalibrationFilter>("all");
+  const [page, setPage] = useState(0);
   const [records, setRecords] = useState(snapshot.records);
   const [savingQuestion, setSavingQuestion] = useState<string | null>(null);
   const [reviewError, setReviewError] = useState<string | null>(null);
@@ -110,7 +111,11 @@ export function CalibrationDashboard({
       ),
     [filter, normalizedQuery, records],
   );
-  const visible = filtered.slice(0, 80);
+  const pageSize = 80;
+  const pageCount = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const currentPage = Math.min(page, pageCount - 1);
+  const pageStart = currentPage * pageSize;
+  const visible = filtered.slice(pageStart, pageStart + pageSize);
   const reviewTotals = useMemo(
     () => ({
       open: records.filter((record) => record.review.status === "open").length,
@@ -227,7 +232,10 @@ export function CalibrationDashboard({
             <input
               type="search"
               value={query}
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={(event) => {
+                setQuery(event.target.value);
+                setPage(0);
+              }}
               placeholder="Search prompt, kind, or question ID"
               aria-label="Search calibration questions"
             />
@@ -238,7 +246,10 @@ export function CalibrationDashboard({
                 key={option.id}
                 type="button"
                 aria-pressed={filter === option.id}
-                onClick={() => setFilter(option.id)}
+                onClick={() => {
+                  setFilter(option.id);
+                  setPage(0);
+                }}
               >
                 {option.label}
               </button>
@@ -247,11 +258,33 @@ export function CalibrationDashboard({
         </div>
 
         <div className={styles.resultMeta}>
-          <span>
-            Showing {visible.length} of {filtered.length}
+          <span aria-live="polite">
+            Showing {filtered.length ? pageStart + 1 : 0}-{pageStart + visible.length} of {filtered.length}
           </span>
           <small>{snapshot.totals.questions} current-version questions</small>
         </div>
+
+        <nav className={styles.pagination} aria-label="Calibration pages above results">
+          <button
+            type="button"
+            data-testid="calibration-top-previous-page"
+            disabled={currentPage === 0}
+            onClick={() => setPage(currentPage - 1)}
+          >
+            Previous
+          </button>
+          <span>
+            Page {currentPage + 1} of {pageCount}
+          </span>
+          <button
+            type="button"
+            data-testid="calibration-top-next-page"
+            disabled={currentPage >= pageCount - 1}
+            onClick={() => setPage(currentPage + 1)}
+          >
+            Next
+          </button>
+        </nav>
 
         <div className={styles.table} role="table" aria-label="Question calibration">
           <div className={styles.tableHeader} role="row">
@@ -340,6 +373,27 @@ export function CalibrationDashboard({
             </div>
           )}
         </div>
+        <nav className={styles.pagination} aria-label="Calibration pages">
+          <button
+            type="button"
+            data-testid="calibration-previous-page"
+            disabled={currentPage === 0}
+            onClick={() => setPage(currentPage - 1)}
+          >
+            Previous
+          </button>
+          <span>
+            Page {currentPage + 1} of {pageCount}
+          </span>
+          <button
+            type="button"
+            data-testid="calibration-next-page"
+            disabled={currentPage >= pageCount - 1}
+            onClick={() => setPage(currentPage + 1)}
+          >
+            Next
+          </button>
+        </nav>
       </section>
 
       <footer className={styles.footer}>

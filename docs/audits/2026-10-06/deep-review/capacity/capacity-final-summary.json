@@ -1,0 +1,638 @@
+{
+  "ok": true,
+  "runId": "105ffe80",
+  "startedAt": 1791275616411,
+  "endedAt": 1791275840951,
+  "seconds": 224.54,
+  "players": 466,
+  "requests": 129932,
+  "requestsPerSecond": 578.6585908969449,
+  "bytes": 829027208,
+  "acceptedVotes": 4660,
+  "correct": 1126,
+  "statuses": {
+    "200": 125179,
+    "204": 4610,
+    "409": 134,
+    "429": 9
+  },
+  "peakOutstandingHttp": 256,
+  "metricSamples": 224,
+  "firstRssMiB": 598.72265625,
+  "lastRssMiB": 610.5625,
+  "maxRssMiB": 611.21875,
+  "maxHeapUsedMiB": 343.17559814453125,
+  "maxEventLoopDelayMs": 159.776767,
+  "maxEventLoopUtilization": 0.8708527160854684,
+  "cpuSeconds": 91.877087,
+  "scenarios": [
+    {
+      "name": "1-seat-nat",
+      "rounds": 10,
+      "acceptedVotes": 10,
+      "correct": 2,
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessages": 10,
+      "membershipRequests": 213,
+      "membershipSkipped": 0,
+      "roundRead": {
+        "count": 70,
+        "p50": 3.34,
+        "p95": 7.42,
+        "p99": 23.29,
+        "max": 23.29
+      },
+      "membership": {
+        "count": 234,
+        "p50": 2.19,
+        "p95": 6.08,
+        "p99": 31.3,
+        "max": 42.83
+      },
+      "vote": {
+        "count": 30,
+        "p50": 2.82,
+        "p95": 5.54,
+        "p99": 9.59,
+        "max": 9.59
+      },
+      "preload": {
+        "count": 10,
+        "p50": 1.02,
+        "p95": 1.43,
+        "p99": 1.43,
+        "max": 1.43
+      },
+      "sessions": {
+        "count": 2,
+        "p50": 4.9,
+        "p95": 17.87,
+        "p99": 17.87,
+        "max": 17.87
+      },
+      "clientQueueMaxMs": 223.19,
+      "rejected101": false
+    },
+    {
+      "name": "1-seat-distributed",
+      "rounds": 10,
+      "acceptedVotes": 10,
+      "correct": 2,
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessages": 10,
+      "membershipRequests": 213,
+      "membershipSkipped": 0,
+      "roundRead": {
+        "count": 70,
+        "p50": 3.07,
+        "p95": 7.62,
+        "p99": 23.86,
+        "max": 23.86
+      },
+      "membership": {
+        "count": 234,
+        "p50": 1.9,
+        "p95": 5.83,
+        "p99": 15.72,
+        "max": 21.47
+      },
+      "vote": {
+        "count": 30,
+        "p50": 2.81,
+        "p95": 4.66,
+        "p99": 11.13,
+        "max": 11.13
+      },
+      "preload": {
+        "count": 10,
+        "p50": 0.91,
+        "p95": 1.08,
+        "p99": 1.08,
+        "max": 1.08
+      },
+      "sessions": {
+        "count": 2,
+        "p50": 1.78,
+        "p95": 5.22,
+        "p99": 5.22,
+        "max": 5.22
+      },
+      "clientQueueMaxMs": 223.78,
+      "rejected101": false
+    },
+    {
+      "name": "20-seat-nat",
+      "rounds": 10,
+      "acceptedVotes": 200,
+      "correct": 50,
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessages": 20,
+      "membershipRequests": 4160,
+      "membershipSkipped": 0,
+      "roundRead": {
+        "count": 1000,
+        "p50": 63.52,
+        "p95": 122.58,
+        "p99": 160.2,
+        "max": 168.11
+      },
+      "membership": {
+        "count": 4200,
+        "p50": 6.95,
+        "p95": 19.92,
+        "p99": 42.22,
+        "max": 152.85
+      },
+      "vote": {
+        "count": 220,
+        "p50": 191.36,
+        "p95": 328.81,
+        "p99": 384.79,
+        "max": 406.74
+      },
+      "preload": {
+        "count": 195,
+        "p50": 5.93,
+        "p95": 12.57,
+        "p99": 15.21,
+        "max": 15.79
+      },
+      "sessions": {
+        "count": 40,
+        "p50": 17.11,
+        "p95": 48.74,
+        "p99": 51.81,
+        "max": 51.81
+      },
+      "clientQueueMaxMs": 478.77,
+      "rejected101": false
+    },
+    {
+      "name": "20-seat-distributed",
+      "rounds": 10,
+      "acceptedVotes": 200,
+      "correct": 50,
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessages": 20,
+      "membershipRequests": 4160,
+      "membershipSkipped": 0,
+      "roundRead": {
+        "count": 1000,
+        "p50": 90.44,
+        "p95": 201.31,
+        "p99": 240.01,
+        "max": 247.82
+      },
+      "membership": {
+        "count": 4200,
+        "p50": 20.01,
+        "p95": 37.96,
+        "p99": 129.53,
+        "max": 160.18
+      },
+      "vote": {
+        "count": 220,
+        "p50": 267.81,
+        "p95": 347.88,
+        "p99": 384.85,
+        "max": 639.84
+      },
+      "preload": {
+        "count": 195,
+        "p50": 9.71,
+        "p95": 31.69,
+        "p99": 43.34,
+        "max": 45.91
+      },
+      "sessions": {
+        "count": 40,
+        "p50": 14.52,
+        "p95": 132.96,
+        "p99": 136.61,
+        "max": 136.61
+      },
+      "clientQueueMaxMs": 384.95,
+      "rejected101": false
+    },
+    {
+      "name": "50-seat-nat",
+      "rounds": 10,
+      "acceptedVotes": 500,
+      "correct": 126,
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessages": 40,
+      "membershipRequests": 10550,
+      "membershipSkipped": 0,
+      "roundRead": {
+        "count": 2500,
+        "p50": 88.13,
+        "p95": 167.8,
+        "p99": 182.63,
+        "max": 202.96
+      },
+      "membership": {
+        "count": 10620,
+        "p50": 13.63,
+        "p95": 33.19,
+        "p99": 113.73,
+        "max": 188.26
+      },
+      "vote": {
+        "count": 520,
+        "p50": 268.41,
+        "p95": 365.77,
+        "p99": 390.89,
+        "max": 631.53
+      },
+      "preload": {
+        "count": 495,
+        "p50": 13.3,
+        "p95": 31.08,
+        "p99": 85.65,
+        "max": 88.62
+      },
+      "sessions": {
+        "count": 100,
+        "p50": 31.22,
+        "p95": 114.62,
+        "p99": 118.37,
+        "max": 119.47
+      },
+      "clientQueueMaxMs": 442.67,
+      "rejected101": false
+    },
+    {
+      "name": "50-seat-distributed",
+      "rounds": 10,
+      "acceptedVotes": 500,
+      "correct": 123,
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessages": 40,
+      "membershipRequests": 10549,
+      "membershipSkipped": 0,
+      "roundRead": {
+        "count": 2500,
+        "p50": 192.99,
+        "p95": 241.18,
+        "p99": 297.21,
+        "max": 318.07
+      },
+      "membership": {
+        "count": 10619,
+        "p50": 14.61,
+        "p95": 27.48,
+        "p99": 33.33,
+        "max": 164.33
+      },
+      "vote": {
+        "count": 520,
+        "p50": 367.46,
+        "p95": 511.32,
+        "p99": 556.74,
+        "max": 625.78
+      },
+      "preload": {
+        "count": 495,
+        "p50": 24.13,
+        "p95": 42.29,
+        "p99": 47.58,
+        "max": 49.43
+      },
+      "sessions": {
+        "count": 100,
+        "p50": 38.86,
+        "p95": 279.7,
+        "p99": 293.11,
+        "max": 293.19
+      },
+      "clientQueueMaxMs": 417.51,
+      "rejected101": false
+    },
+    {
+      "name": "100-seat-nat",
+      "rounds": 10,
+      "acceptedVotes": 1000,
+      "correct": 250,
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessages": 40,
+      "membershipRequests": 21301,
+      "membershipSkipped": 0,
+      "roundRead": {
+        "count": 5000,
+        "p50": 294.14,
+        "p95": 564.92,
+        "p99": 666.38,
+        "max": 747.15
+      },
+      "membership": {
+        "count": 21422,
+        "p50": 68.52,
+        "p95": 96.52,
+        "p99": 115.2,
+        "max": 299.16
+      },
+      "vote": {
+        "count": 1020,
+        "p50": 608.11,
+        "p95": 729.59,
+        "p99": 771.48,
+        "max": 884
+      },
+      "preload": {
+        "count": 995,
+        "p50": 24.03,
+        "p95": 64.89,
+        "p99": 77.31,
+        "max": 81.15
+      },
+      "sessions": {
+        "count": 200,
+        "p50": 58.53,
+        "p95": 169.46,
+        "p99": 174.18,
+        "max": 304.03
+      },
+      "clientQueueMaxMs": 499.14,
+      "rejected101": true
+    },
+    {
+      "name": "100-seat-distributed",
+      "rounds": 10,
+      "acceptedVotes": 1000,
+      "correct": 250,
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessages": 40,
+      "membershipRequests": 21201,
+      "membershipSkipped": 0,
+      "roundRead": {
+        "count": 5000,
+        "p50": 302.7,
+        "p95": 555.2,
+        "p99": 592.13,
+        "max": 609.45
+      },
+      "membership": {
+        "count": 21322,
+        "p50": 27.56,
+        "p95": 53.1,
+        "p99": 104.22,
+        "max": 284.35
+      },
+      "vote": {
+        "count": 1020,
+        "p50": 612.17,
+        "p95": 688.8,
+        "p99": 706.18,
+        "max": 715.64
+      },
+      "preload": {
+        "count": 995,
+        "p50": 23.82,
+        "p95": 65.99,
+        "p99": 91.03,
+        "max": 120.68
+      },
+      "sessions": {
+        "count": 200,
+        "p50": 62.88,
+        "p95": 359.72,
+        "p99": 373.34,
+        "max": 383.44
+      },
+      "clientQueueMaxMs": 556.44,
+      "rejected101": true
+    },
+    {
+      "name": "mixed-party-a",
+      "rounds": 10,
+      "acceptedVotes": 500,
+      "correct": 124,
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessages": 40,
+      "membershipRequests": 10600,
+      "membershipSkipped": 0,
+      "roundRead": {
+        "count": 2500,
+        "p50": 189.66,
+        "p95": 570.71,
+        "p99": 620.38,
+        "max": 639.44
+      },
+      "membership": {
+        "count": 10670,
+        "p50": 36.3,
+        "p95": 65.32,
+        "p99": 76.53,
+        "max": 134.01
+      },
+      "vote": {
+        "count": 520,
+        "p50": 316.91,
+        "p95": 660.64,
+        "p99": 678.57,
+        "max": 808
+      },
+      "preload": {
+        "count": 495,
+        "p50": 11.98,
+        "p95": 25.99,
+        "p99": 65.74,
+        "max": 94.73
+      },
+      "sessions": {
+        "count": 100,
+        "p50": 56.53,
+        "p95": 134.25,
+        "p99": 217.67,
+        "max": 218.9
+      },
+      "clientQueueMaxMs": 461.99,
+      "rejected101": false
+    },
+    {
+      "name": "mixed-party-b",
+      "rounds": 10,
+      "acceptedVotes": 500,
+      "correct": 127,
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessages": 40,
+      "membershipRequests": 10551,
+      "membershipSkipped": 0,
+      "roundRead": {
+        "count": 2500,
+        "p50": 259.08,
+        "p95": 646.53,
+        "p99": 733.3,
+        "max": 756.76
+      },
+      "membership": {
+        "count": 10621,
+        "p50": 21.64,
+        "p95": 52.57,
+        "p99": 71.2,
+        "max": 132.19
+      },
+      "vote": {
+        "count": 520,
+        "p50": 444.7,
+        "p95": 622.96,
+        "p99": 631.19,
+        "max": 646.13
+      },
+      "preload": {
+        "count": 495,
+        "p50": 11.05,
+        "p95": 24.09,
+        "p99": 26.95,
+        "max": 30.07
+      },
+      "sessions": {
+        "count": 100,
+        "p50": 37.86,
+        "p95": 251.38,
+        "p99": 256.8,
+        "max": 257.2
+      },
+      "clientQueueMaxMs": 446.54,
+      "rejected101": false
+    },
+    {
+      "name": "mixed-public",
+      "rounds": 10,
+      "acceptedVotes": 200,
+      "correct": 20,
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessages": 0,
+      "membershipSkipped": 0,
+      "roundRead": {
+        "count": 1001,
+        "p50": 22.62,
+        "p95": 370.35,
+        "p99": 400,
+        "max": 419.97
+      },
+      "vote": {
+        "count": 220,
+        "p50": 28.36,
+        "p95": 117.66,
+        "p99": 190.45,
+        "max": 196.08
+      },
+      "preload": {
+        "count": 195,
+        "p50": 4.24,
+        "p95": 1370.05,
+        "p99": 1378.34,
+        "max": 1378.53
+      },
+      "sessions": {
+        "count": 40,
+        "p50": 12.96,
+        "p95": 139.34,
+        "p99": 139.89,
+        "max": 139.89
+      },
+      "clientQueueMaxMs": 381.14,
+      "rejected101": false
+    },
+    {
+      "name": "small-media",
+      "rounds": 10,
+      "acceptedVotes": 40,
+      "correct": 2,
+      "mediaRequests": 132,
+      "mediaBytes": 18934500,
+      "maxMessages": 10,
+      "membershipRequests": 753,
+      "membershipSkipped": 0,
+      "roundRead": {
+        "count": 200,
+        "p50": 261.07,
+        "p95": 569.36,
+        "p99": 600.92,
+        "max": 602.92
+      },
+      "membership": {
+        "count": 777,
+        "p50": 19.47,
+        "p95": 43.89,
+        "p99": 65.57,
+        "max": 132.95
+      },
+      "vote": {
+        "count": 60,
+        "p50": 397.73,
+        "p95": 628.1,
+        "p99": 655.92,
+        "max": 655.92
+      },
+      "preload": {
+        "count": 35,
+        "p50": 2.97,
+        "p95": 2530.32,
+        "p99": 2530.82,
+        "max": 2530.82
+      },
+      "sessions": {
+        "count": 8,
+        "p50": 4.43,
+        "p95": 269.48,
+        "p99": 269.48,
+        "max": 269.48
+      },
+      "image": {
+        "count": 60,
+        "p50": 19.88,
+        "p95": 158.54,
+        "p99": 163,
+        "max": 163
+      },
+      "audio": {
+        "count": 72,
+        "p50": 2.25,
+        "p95": 6.49,
+        "p99": 12.56,
+        "max": 12.56
+      },
+      "clientQueueMaxMs": 541.06,
+      "rejected101": false
+    },
+    {
+      "name": "expected-throttles",
+      "rounds": 0,
+      "acceptedVotes": 0,
+      "correct": 0,
+      "mediaRequests": 0,
+      "mediaBytes": 0,
+      "maxMessages": 0,
+      "membershipSkipped": 0,
+      "roundRead": {
+        "count": 151,
+        "p50": 1.65,
+        "p95": 2.32,
+        "p99": 6.33,
+        "max": 6.76
+      },
+      "vote": {
+        "count": 20,
+        "p50": 0.65,
+        "p95": 1.13,
+        "p99": 1.2,
+        "max": 1.2
+      },
+      "clientQueueMaxMs": 0,
+      "rejected101": false
+    }
+  ]
+}

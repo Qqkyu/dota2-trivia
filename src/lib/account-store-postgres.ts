@@ -3,7 +3,8 @@ import type { AccountProfile, AccountUser, StoredPlayerRoundRecord } from "@/lib
 import type { AccountSessionInput, AccountStoreHealth, SteamIdentityInput } from "@/lib/account-store";
 import type { GameId } from "@/lib/game-identity";
 import { summarizePlayerRounds } from "@/lib/player-profile.mjs";
-import { configuredPostgres } from "@/lib/vote-store-postgres";
+import { configuredPostgres, databasePool, databaseTransaction } from "@/lib/database-client";
+import { ensureDatabaseSchema } from "@/lib/database-schema.mjs";
 
 interface UserRow {
   id: string;
@@ -25,76 +26,11 @@ interface PlayerRoundRow {
   correct: boolean;
   answer_stage: 1 | 2 | 3 | null;
   submitted_at: number | string;
+  reveal_at: number | string;
 }
 
-const globalAccountPostgres = globalThis as typeof globalThis & {
-  __queueArcadeAccountSchema?: Promise<void>;
-};
-
-async function ensureAccountSchema() {
-  if (globalAccountPostgres.__queueArcadeAccountSchema) return globalAccountPostgres.__queueArcadeAccountSchema;
-  const schemaPromise = (async () => {
-    const sql = configuredPostgres();
-    await sql.begin(async (transaction) => {
-      await transaction`
-        CREATE TABLE IF NOT EXISTS queue_arcade_users (
-          id TEXT PRIMARY KEY,
-          created_at BIGINT NOT NULL,
-          updated_at BIGINT NOT NULL
-        )
-      `;
-      await transaction`
-        CREATE TABLE IF NOT EXISTS queue_arcade_user_identities (
-          provider TEXT NOT NULL,
-          provider_user_id TEXT NOT NULL,
-          user_id TEXT NOT NULL REFERENCES queue_arcade_users(id) ON DELETE CASCADE,
-          display_name TEXT NOT NULL,
-          avatar_url TEXT,
-          profile_url TEXT NOT NULL,
-          updated_at BIGINT NOT NULL,
-          PRIMARY KEY (provider, provider_user_id),
-          UNIQUE (user_id, provider)
-        )
-      `;
-      await transaction`
-        CREATE TABLE IF NOT EXISTS queue_arcade_user_sessions (
-          token_hash TEXT PRIMARY KEY,
-          user_id TEXT NOT NULL REFERENCES queue_arcade_users(id) ON DELETE CASCADE,
-          created_at BIGINT NOT NULL,
-          expires_at BIGINT NOT NULL
-        )
-      `;
-      await transaction`
-        CREATE INDEX IF NOT EXISTS queue_arcade_user_sessions_expires_at_idx
-        ON queue_arcade_user_sessions(expires_at)
-      `;
-      await transaction`
-        CREATE TABLE IF NOT EXISTS queue_arcade_player_rounds (
-          user_id TEXT NOT NULL REFERENCES queue_arcade_users(id) ON DELETE CASCADE,
-          game_id TEXT NOT NULL,
-          round_id TEXT NOT NULL,
-          round_number BIGINT NOT NULL,
-          question_id TEXT NOT NULL,
-          question_revision TEXT NOT NULL,
-          round_game TEXT NOT NULL,
-          round_format TEXT NOT NULL,
-          correct BOOLEAN NOT NULL,
-          answer_stage SMALLINT CHECK (answer_stage BETWEEN 1 AND 3),
-          submitted_at BIGINT NOT NULL,
-          PRIMARY KEY (user_id, round_id)
-        )
-      `;
-      await transaction`
-        CREATE INDEX IF NOT EXISTS queue_arcade_player_rounds_profile_idx
-        ON queue_arcade_player_rounds(user_id, game_id, round_number)
-      `;
-    });
-  })();
-  globalAccountPostgres.__queueArcadeAccountSchema = schemaPromise.catch((error) => {
-    globalAccountPostgres.__queueArcadeAccountSchema = undefined;
-    throw error;
-  });
-  return globalAccountPostgres.__queueArcadeAccountSchema;
+function ensureAccountSchema() {
+  return ensureDatabaseSchema(databasePool());
 }
 
 function accountUserFrom(row: UserRow): AccountUser {
@@ -120,6 +56,7 @@ function playerRoundFrom(row: PlayerRoundRow): StoredPlayerRoundRecord {
     correct: row.correct,
     answerStage: row.answer_stage,
     submittedAt: Number(row.submitted_at),
+    revealAt: Number(row.reveal_at),
   };
 }
 
@@ -131,16 +68,20 @@ export async function getPostgresAccountStoreHealth(): Promise<AccountStoreHealt
 
 export async function upsertSteamUser(input: SteamIdentityInput) {
   await ensureAccountSchema();
-  const sql = configuredPostgres();
-  return sql.begin(async (transaction) => {
+  return databaseTransaction(async (transaction) => {
     await transaction`SELECT pg_advisory_xact_lock(hashtext(${`steam:${input.steamId}`}))`;
-    const existing = await transaction<Array<{ user_id: string }>>`
+    const identities = await transaction<Array<{ user_id: string }>>`
       SELECT user_id
       FROM queue_arcade_user_identities
       WHERE provider = 'steam' AND provider_user_id = ${input.steamId}
-      FOR UPDATE
     `;
-    const userId = existing[0]?.user_id ?? `usr_${randomUUID().replaceAll("-", "")}`;
+    // Deletion locks the user before cascading to the identity. Use the same order here.
+    const existing = identities[0]
+      ? await transaction<Array<{ id: string }>>`
+          SELECT id FROM queue_arcade_users WHERE id = ${identities[0].user_id} FOR UPDATE
+        `
+      : [];
+    const userId = existing[0]?.id ?? `usr_${randomUUID().replaceAll("-", "")}`;
     if (!existing.length) {
       await transaction`
         INSERT INTO queue_arcade_users (id, created_at, updated_at)
@@ -211,9 +152,50 @@ export async function deleteAccountSession(tokenHash: string) {
   await configuredPostgres()`DELETE FROM queue_arcade_user_sessions WHERE token_hash = ${tokenHash}`;
 }
 
+export async function consumeSteamLoginNonce(nonceHash: string, expiresAt: number): Promise<boolean> {
+  return databaseTransaction(async (sql) => {
+    await sql`DELETE FROM queue_arcade_steam_nonces WHERE expires_at <= ${Date.now()}`;
+    const rows = await sql`
+      INSERT INTO queue_arcade_steam_nonces (nonce_hash, expires_at)
+      VALUES (${nonceHash}, ${expiresAt})
+      ON CONFLICT DO NOTHING RETURNING nonce_hash
+    `;
+    return rows.length === 1;
+  });
+}
+
 export async function deleteAccount(userId: string) {
   await ensureAccountSchema();
   await configuredPostgres()`DELETE FROM queue_arcade_users WHERE id = ${userId}`;
+}
+
+export async function accountExists(userId: string) {
+  await ensureAccountSchema();
+  const rows = await configuredPostgres()`SELECT id FROM queue_arcade_users WHERE id = ${userId}`;
+  return rows.length > 0;
+}
+
+export async function withExistingAccount<T>(userId: string, operation: () => Promise<T>): Promise<T> {
+  return databaseTransaction(async (sql) => {
+    const rows = await sql`SELECT id FROM queue_arcade_users WHERE id = ${userId} FOR UPDATE`;
+    if (!rows.length) throw new Error("Queue Arcade account no longer exists.");
+    return operation();
+  });
+}
+
+export async function updateSteamUser(userId: string, input: SteamIdentityInput): Promise<AccountUser | null> {
+  await ensureAccountSchema();
+  const rows = await configuredPostgres()<UserRow[]>`
+    UPDATE queue_arcade_user_identities AS identity
+    SET display_name = ${input.displayName}, avatar_url = ${input.avatarUrl},
+      profile_url = ${input.profileUrl}, updated_at = ${input.authenticatedAt}
+    FROM queue_arcade_users AS users
+    WHERE identity.user_id = users.id AND users.id = ${userId}
+      AND identity.provider = 'steam' AND identity.provider_user_id = ${input.steamId}
+    RETURNING users.id, identity.provider_user_id AS steam_id, identity.display_name,
+      identity.avatar_url, identity.profile_url, users.created_at
+  `;
+  return rows[0] ? accountUserFrom(rows[0]) : null;
 }
 
 export async function recordPlayerRound(userId: string, round: StoredPlayerRoundRecord) {
@@ -221,18 +203,22 @@ export async function recordPlayerRound(userId: string, round: StoredPlayerRound
   await configuredPostgres()`
     INSERT INTO queue_arcade_player_rounds (
       user_id, game_id, round_id, round_number, question_id, question_revision,
-      round_game, round_format, correct, answer_stage, submitted_at
+      round_game, round_format, correct, answer_stage, submitted_at, reveal_at
     )
     VALUES (
       ${userId}, ${round.gameId}, ${round.roundId}, ${round.roundNumber}, ${round.questionId},
       ${round.questionRevision}, ${round.roundGame}, ${round.roundFormat}, ${round.correct},
-      ${round.answerStage}, ${round.submittedAt}
+      ${round.answerStage}, ${round.submittedAt}, ${round.revealAt ?? 0}
     )
     ON CONFLICT (user_id, round_id) DO NOTHING
   `;
 }
 
-export async function getAccountProfile(userId: string, gameId: GameId): Promise<AccountProfile | null> {
+export async function getAccountProfile(
+  userId: string,
+  gameId: GameId,
+  now = Date.now(),
+): Promise<AccountProfile | null> {
   await ensureAccountSchema();
   const sql = configuredPostgres();
   const [users, rows] = await Promise.all([
@@ -246,9 +232,9 @@ export async function getAccountProfile(userId: string, gameId: GameId): Promise
     `,
     sql<PlayerRoundRow[]>`
       SELECT round_id, round_number, game_id, question_id, question_revision, round_game,
-        round_format, correct, answer_stage, submitted_at
+        round_format, correct, answer_stage, submitted_at, reveal_at
       FROM queue_arcade_player_rounds
-      WHERE user_id = ${userId} AND game_id = ${gameId}
+      WHERE user_id = ${userId} AND game_id = ${gameId} AND reveal_at <= ${now}
       ORDER BY round_number ASC, submitted_at ASC
     `,
   ]);

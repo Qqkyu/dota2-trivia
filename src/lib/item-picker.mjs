@@ -1,3 +1,5 @@
+import { soundcheckNeedsReviewedChoices } from "./soundcheck-choices.mjs";
+
 const RECIPE_ANSWER_PREFIX = "recipe-v1:";
 const MAX_RECIPE_COMPONENTS = 8;
 
@@ -41,7 +43,8 @@ export function isSingleItemSoundPickerQuestion(question) {
     question?.soundcheck?.family === "item" &&
     question.soundcheck.format === "single" &&
     question.soundcheck.clips?.length === 1 &&
-    typeof question.soundcheck.clips[0]?.subject === "string"
+    typeof question.soundcheck.clips[0]?.subject === "string" &&
+    !soundcheckNeedsReviewedChoices(question.soundcheck.clips[0].subject)
   );
 }
 

@@ -1,0 +1,160 @@
+{
+  "algorithm": "sha256",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 9845,
+      "sha256": "edd7ddbabc94053e95e0c33b39126ca8e4d92a8768af224322aaebbb6b4e68bc"
+    },
+    {
+      "path": "artifacts/clue-follow-up-build.json",
+      "bytes": 264,
+      "sha256": "6625877bd658ba340e3491bbaf6232f70069787920ef8899371cff7566a1f13f"
+    },
+    {
+      "path": "artifacts/clue-follow-up-results.json",
+      "bytes": 963683,
+      "sha256": "d1af0fa6c5850fe47c6c34ef2e31870617fcf928eb279a2a0c053eb9b6decc5d"
+    },
+    {
+      "path": "artifacts/crowd.log",
+      "bytes": 125,
+      "sha256": "d42073756fa8ce6107599a394fb86db6b85092797da7eb4c70764e4edc761a6c"
+    },
+    {
+      "path": "artifacts/explanation-follow-up-build.json",
+      "bytes": 515,
+      "sha256": "ad91efa549213b8d0457e7e6f541054088829e089903c75f9b71da91535e035c"
+    },
+    {
+      "path": "artifacts/explanation-follow-up-results.json",
+      "bytes": 1201113,
+      "sha256": "037fd5f9dbfd41981f51eb5774949f6a2ad3b9a5e5c130b7b160c6fa05417587"
+    },
+    {
+      "path": "artifacts/explanation-red.log",
+      "bytes": 2271,
+      "sha256": "b9debe588a31a47cffd561a4ce5e96e0182b2336213675188fd1b4a6ce79cdf6"
+    },
+    {
+      "path": "artifacts/final-clues.log",
+      "bytes": 247,
+      "sha256": "571178919f892c7f8cae9cb8214101e1e3869fc273c76fb9f1fbce483373a382"
+    },
+    {
+      "path": "artifacts/final-explanations.log",
+      "bytes": 116,
+      "sha256": "2bef1849bb66bc699c8c13d3c73224ba7b1d57e03f4df9a26163f8b0c82dfa74"
+    },
+    {
+      "path": "artifacts/final-layout.log",
+      "bytes": 46,
+      "sha256": "3b746b39106cf915d3df9a446be6cb284b54f2189768358c178f956fe23339e2"
+    },
+    {
+      "path": "artifacts/final-supporting.log",
+      "bytes": 194,
+      "sha256": "bf931f4cd75960f7d061ff6737878a06aaa9a27423db618ba8ac4766146a619e"
+    },
+    {
+      "path": "artifacts/final-supporting.mjs.txt",
+      "bytes": 4456,
+      "sha256": "cefb85593d15b9f603963cfef6a9897a3b6e531d2abf24ee99bc88b215209bbe"
+    },
+    {
+      "path": "artifacts/final.log",
+      "bytes": 2608,
+      "sha256": "85da56d35095432831386675a3cdeca1a9a92dc317ec64a8db051f3fdbddd6f2"
+    },
+    {
+      "path": "artifacts/full-matrix-build.json",
+      "bytes": 454,
+      "sha256": "5ab05a26591bd51f53d76b8e517f833ff58ac457425d0965ea3d0adaa7368829"
+    },
+    {
+      "path": "artifacts/full-matrix-results.json",
+      "bytes": 2874916,
+      "sha256": "b8167477f8967135c0e5ef788f6a841ba0b6e054a1e1ce182f8e2f1892f3433c"
+    },
+    {
+      "path": "artifacts/order-fixed.log",
+      "bytes": 132,
+      "sha256": "cd637f68dd3a5231793c1ef61f3ad79f29479c1d176ad9ec33057b4f55833ace"
+    },
+    {
+      "path": "artifacts/red-final.log",
+      "bytes": 20409,
+      "sha256": "572ad2ec78c1d08da301489dfa16fe14e986705e042565c50cd5ab5ee827a683"
+    },
+    {
+      "path": "artifacts/red-timer.log",
+      "bytes": 1131,
+      "sha256": "c7a81e6705ee2b4a4b8b39479c410441476f298d46b47550e73865c054f430a9"
+    },
+    {
+      "path": "artifacts/signed-in-pages-build.json",
+      "bytes": 264,
+      "sha256": "6625877bd658ba340e3491bbaf6232f70069787920ef8899371cff7566a1f13f"
+    },
+    {
+      "path": "artifacts/signed-in-pages-results.json",
+      "bytes": 1467,
+      "sha256": "6b8336f228a82696d73441a633b315dfe6fe8d4081d2671f7bc1169eff7fab00"
+    },
+    {
+      "path": "images/01-before-phone-home.png",
+      "bytes": 323803,
+      "sha256": "329676d65b26f8765f163eb202ee52d5341474c3368ed8aa25062050f5b71ff5"
+    },
+    {
+      "path": "images/02-after-phone-home.png",
+      "bytes": 172408,
+      "sha256": "5c7edf1f4bb8946bf96bdc1d53eafb1ec40139d94e01ac749867355baf635caf"
+    },
+    {
+      "path": "images/03-before-phone-heroes.png",
+      "bytes": 348514,
+      "sha256": "bf0603528143caefba49a3c9ef483bd17be6851e95313287e3a7b1437fbe0524"
+    },
+    {
+      "path": "images/04-after-phone-heroes.png",
+      "bytes": 150787,
+      "sha256": "e7b376977f1a2c355d2b3d6223972826f250634134db816171cee68bec93c1c0"
+    },
+    {
+      "path": "images/05-before-long-clue.png",
+      "bytes": 1018434,
+      "sha256": "ef604572beec366d879a0a67f9a558e87555fc05563e266ec37e035b4a913114"
+    },
+    {
+      "path": "images/06-after-long-clue.png",
+      "bytes": 999295,
+      "sha256": "4ea2bacf747e9bf4cc626b20c66345b3b2bf11dc516d51e41cb38006d2559ed5"
+    },
+    {
+      "path": "images/07-before-reveal-explanation.png",
+      "bytes": 128269,
+      "sha256": "ed7ddc44963917a3407b1d212cd77b2a46852a75da929f9b2a6ace42299bc210"
+    },
+    {
+      "path": "images/08-after-reveal-explanation-production.png",
+      "bytes": 129686,
+      "sha256": "06043302fb96388e8a28ae5dd6d07c064af897764b6586ec47fe8579d5a94525"
+    },
+    {
+      "path": "images/09-phone-profile-records.png",
+      "bytes": 18063,
+      "sha256": "ae495b28d744396382ace17e548bd89c79858e154ab058b1566090cf748fed21"
+    },
+    {
+      "path": "images/10-phone-calibration-page2.png",
+      "bytes": 42335,
+      "sha256": "c7c71ab93954f200403e0c49007cc96644e6c90a895e915e3bcc665753e4b76c"
+    },
+    {
+      "path": "images/11-phone-chart-focus.png",
+      "bytes": 18314,
+      "sha256": "2058a22450b3a03b86b440bcbdcdc4c59bd305e7438937d5b3a2e80b193fab9e"
+    }
+  ]
+}

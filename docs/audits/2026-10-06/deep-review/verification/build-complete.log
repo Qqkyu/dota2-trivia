@@ -1,0 +1,60 @@
+
+> queue-arcade@0.2.0 build /home/kulmisiu/dev/dota2-trivia
+> next build
+
+▲ Next.js 16.3.8 (Turbopack)
+- Environments: .env.local
+✓ Running next.config.mjs took 8ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.9s
+  Running TypeScript ...
+
+  We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+  	- include was updated to add '.next-deep-release/types/**/*.ts'
+  	- include was updated to add '.next-deep-release/dev/types/**/*.ts'
+
+  Finished TypeScript in 4.7s ...
+  Collecting page data using 19 workers ...
+  Generating static pages using 19 workers (0/3) ...
+✓ Generating static pages using 19 workers (3/3) in 461ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ƒ /_not-found
+├ ƒ /api/auth/logout
+├ ƒ /api/auth/steam
+├ ƒ /api/auth/steam/callback
+├ ƒ /api/calibration
+├ ƒ /api/diagnostics
+├ ƒ /api/health
+├ ƒ /api/me
+├ ƒ /api/presence
+├ ƒ /api/private-rooms
+├ ƒ /api/private-rooms/leave
+├ ƒ /api/private-rooms/messages
+├ ƒ /api/private-rooms/start
+├ ƒ /api/reports
+├ ƒ /api/round-audio
+├ ƒ /api/round-image
+├ ƒ /api/rounds
+├ ƒ /api/sessions
+├ ƒ /api/votes
+├ ƒ /calibration
+├ ○ /icon.png
+├ ○ /opengraph-image
+├ ƒ /ops
+├ ƒ /party
+├ ƒ /play
+├ ƒ /privacy
+└ ƒ /profile
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

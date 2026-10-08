@@ -1,0 +1,4035 @@
+[
+  {
+    "id": "cooldown:alchemist_chemical_rage:1",
+    "correctAnswer": "60s",
+    "primaryValues": [
+      60
+    ]
+  },
+  {
+    "id": "cooldown:axe_culling_blade:3",
+    "correctAnswer": "70s",
+    "primaryValues": [
+      80,
+      75,
+      70
+    ]
+  },
+  {
+    "id": "cooldown:bane_brain_sap:4",
+    "correctAnswer": "11s",
+    "primaryValues": [
+      17,
+      15,
+      13,
+      11
+    ]
+  },
+  {
+    "id": "cooldown:batrider_flamebreak:4",
+    "correctAnswer": "13s",
+    "primaryValues": [
+      22,
+      19,
+      16,
+      13
+    ]
+  },
+  {
+    "id": "cooldown:batrider_flaming_lasso:3",
+    "correctAnswer": "60s",
+    "primaryValues": [
+      90,
+      75,
+      60
+    ]
+  },
+  {
+    "id": "cooldown:beastmaster_primal_roar:3",
+    "correctAnswer": "60s",
+    "primaryValues": [
+      90,
+      75,
+      60
+    ]
+  },
+  {
+    "id": "cooldown:bloodseeker_blood_bath:4",
+    "correctAnswer": "12s",
+    "primaryValues": [
+      15,
+      14,
+      13,
+      12
+    ]
+  },
+  {
+    "id": "cooldown:bristleback_viscous_nasal_goo:1",
+    "correctAnswer": "1.75s",
+    "primaryValues": [
+      1.75
+    ]
+  },
+  {
+    "id": "cooldown:chen_hand_of_god:3",
+    "correctAnswer": "110s",
+    "primaryValues": [
+      150,
+      130,
+      110
+    ]
+  },
+  {
+    "id": "cooldown:death_prophet_carrion_swarm:4",
+    "correctAnswer": "6s",
+    "primaryValues": [
+      9,
+      8,
+      7,
+      6
+    ]
+  },
+  {
+    "id": "cooldown:disruptor_static_storm:3",
+    "correctAnswer": "70s",
+    "primaryValues": [
+      100,
+      85,
+      70
+    ]
+  },
+  {
+    "id": "cooldown:elder_titan_ancestral_spirit:4",
+    "correctAnswer": "17s",
+    "primaryValues": [
+      23,
+      21,
+      19,
+      17
+    ]
+  },
+  {
+    "id": "cooldown:enigma_black_hole:3",
+    "correctAnswer": "160s",
+    "primaryValues": [
+      180,
+      170,
+      160
+    ]
+  },
+  {
+    "id": "cooldown:faceless_void_time_walk:4",
+    "correctAnswer": "6s",
+    "primaryValues": [
+      21,
+      16,
+      11,
+      6
+    ]
+  },
+  {
+    "id": "cooldown:furion_force_of_nature:4",
+    "correctAnswer": "30s",
+    "primaryValues": [
+      45,
+      40,
+      35,
+      30
+    ]
+  },
+  {
+    "id": "cooldown:gyrocopter_call_down:3",
+    "correctAnswer": "55s",
+    "primaryValues": [
+      75,
+      65,
+      55
+    ]
+  },
+  {
+    "id": "cooldown:hoodwink_decoy:1",
+    "correctAnswer": "30s",
+    "primaryValues": [
+      30
+    ]
+  },
+  {
+    "id": "cooldown:invoker_invoke:1",
+    "correctAnswer": "7s",
+    "primaryValues": [
+      7
+    ]
+  },
+  {
+    "id": "cooldown:invoker_tornado:1",
+    "correctAnswer": "27s",
+    "primaryValues": [
+      27
+    ]
+  },
+  {
+    "id": "cooldown:kunkka_torrent:4",
+    "correctAnswer": "10s",
+    "primaryValues": [
+      16,
+      14,
+      12,
+      10
+    ]
+  },
+  {
+    "id": "cooldown:largo_croak_of_genius:1",
+    "correctAnswer": "25s",
+    "primaryValues": [
+      25
+    ]
+  },
+  {
+    "id": "cooldown:lina_dragon_slave:4",
+    "correctAnswer": "8s",
+    "primaryValues": [
+      11,
+      10,
+      9,
+      8
+    ]
+  },
+  {
+    "id": "cooldown:lina_laguna_blade:3",
+    "correctAnswer": "50s",
+    "primaryValues": [
+      70,
+      60,
+      50
+    ]
+  },
+  {
+    "id": "cooldown:lina_light_strike_array:4",
+    "correctAnswer": "7s",
+    "primaryValues": [
+      13,
+      11,
+      9,
+      7
+    ]
+  },
+  {
+    "id": "cooldown:marci_grapple:4",
+    "correctAnswer": "10s",
+    "primaryValues": [
+      16,
+      14,
+      12,
+      10
+    ]
+  },
+  {
+    "id": "cooldown:marci_unleash:3",
+    "correctAnswer": "60s",
+    "primaryValues": [
+      80,
+      70,
+      60
+    ]
+  },
+  {
+    "id": "cooldown:mars_gods_rebuke:4",
+    "correctAnswer": "10s",
+    "primaryValues": [
+      16,
+      14,
+      12,
+      10
+    ]
+  },
+  {
+    "id": "cooldown:meepo_earthbind:4",
+    "correctAnswer": "10s",
+    "primaryValues": [
+      16,
+      14,
+      12,
+      10
+    ]
+  },
+  {
+    "id": "cooldown:meepo_petrify:1",
+    "correctAnswer": "40s",
+    "primaryValues": [
+      40
+    ]
+  },
+  {
+    "id": "cooldown:mirana_arrow:4",
+    "correctAnswer": "16s",
+    "primaryValues": [
+      19,
+      18,
+      17,
+      16
+    ]
+  },
+  {
+    "id": "cooldown:obsidian_destroyer_objurgation:4",
+    "correctAnswer": "27s",
+    "primaryValues": [
+      36,
+      33,
+      30,
+      27
+    ]
+  },
+  {
+    "id": "cooldown:oracle_fates_edict:4",
+    "correctAnswer": "8s",
+    "primaryValues": [
+      17,
+      14,
+      11,
+      8
+    ]
+  },
+  {
+    "id": "cooldown:oracle_rain_of_destiny:1",
+    "correctAnswer": "40s",
+    "primaryValues": [
+      40
+    ]
+  },
+  {
+    "id": "cooldown:phantom_assassin_fan_of_knives:1",
+    "correctAnswer": "14s",
+    "primaryValues": [
+      14
+    ]
+  },
+  {
+    "id": "cooldown:pudge_dismember:3",
+    "correctAnswer": "20s",
+    "primaryValues": [
+      30,
+      25,
+      20
+    ]
+  },
+  {
+    "id": "cooldown:pugna_life_drain:1",
+    "correctAnswer": "7s",
+    "primaryValues": [
+      7
+    ]
+  },
+  {
+    "id": "cooldown:ringmaster_wheel:3",
+    "correctAnswer": "70s",
+    "primaryValues": [
+      90,
+      80,
+      70
+    ]
+  },
+  {
+    "id": "cooldown:sandking_sand_storm:4",
+    "correctAnswer": "22s",
+    "primaryValues": [
+      40,
+      34,
+      28,
+      22
+    ]
+  },
+  {
+    "id": "cooldown:skeleton_king_hellfire_blast:4",
+    "correctAnswer": "8s",
+    "primaryValues": [
+      14,
+      12,
+      10,
+      8
+    ]
+  },
+  {
+    "id": "cooldown:snapfire_firesnap_cookie:4",
+    "correctAnswer": "15s",
+    "primaryValues": [
+      18,
+      17,
+      16,
+      15
+    ]
+  },
+  {
+    "id": "cooldown:spectre_reality:1",
+    "correctAnswer": "1.5s",
+    "primaryValues": [
+      1.5
+    ]
+  },
+  {
+    "id": "cooldown:spirit_breaker_charge_of_darkness:4",
+    "correctAnswer": "13s",
+    "primaryValues": [
+      22,
+      19,
+      16,
+      13
+    ]
+  },
+  {
+    "id": "cooldown:spirit_breaker_nether_strike:3",
+    "correctAnswer": "35s",
+    "primaryValues": [
+      75,
+      55,
+      35
+    ]
+  },
+  {
+    "id": "cooldown:spirit_breaker_planar_pocket:1",
+    "correctAnswer": "30s",
+    "primaryValues": [
+      30
+    ]
+  },
+  {
+    "id": "cooldown:tinker_rearm:3",
+    "correctAnswer": "4.5s",
+    "primaryValues": [
+      5.5,
+      5,
+      4.5
+    ]
+  },
+  {
+    "id": "cooldown:tiny_tree_channel:1",
+    "correctAnswer": "17s",
+    "primaryValues": [
+      17
+    ]
+  },
+  {
+    "id": "cooldown:undying_decay:4",
+    "correctAnswer": "4s",
+    "primaryValues": [
+      13,
+      10,
+      7,
+      4
+    ]
+  },
+  {
+    "id": "cooldown:visage_soul_assumption:1",
+    "correctAnswer": "4s",
+    "primaryValues": [
+      4
+    ]
+  },
+  {
+    "id": "cooldown:warlock_fatal_bonds:4",
+    "correctAnswer": "18s",
+    "primaryValues": [
+      42,
+      34,
+      26,
+      18
+    ]
+  },
+  {
+    "id": "cooldown:weaver_geminate_attack:4",
+    "correctAnswer": "3s",
+    "primaryValues": [
+      9,
+      7,
+      5,
+      3
+    ]
+  },
+  {
+    "id": "cooldown:witch_doctor_death_ward:3",
+    "correctAnswer": "80s",
+    "primaryValues": [
+      100,
+      90,
+      80
+    ]
+  },
+  {
+    "id": "cooldown:zuus_arc_lightning:1",
+    "correctAnswer": "1.6s",
+    "primaryValues": [
+      1.6
+    ]
+  },
+  {
+    "id": "damage:ancient_apparition_chilling_touch:4",
+    "correctAnswer": "125",
+    "primaryValues": [
+      35,
+      65,
+      95,
+      125
+    ]
+  },
+  {
+    "id": "damage:axe_culling_blade:3",
+    "correctAnswer": "475",
+    "primaryValues": [
+      275,
+      375,
+      475
+    ]
+  },
+  {
+    "id": "damage:bane_enfeeble:4",
+    "correctAnswer": "30",
+    "primaryValues": [
+      12,
+      18,
+      24,
+      30
+    ]
+  },
+  {
+    "id": "damage:bane_fiends_grip:3",
+    "correctAnswer": "150",
+    "primaryValues": [
+      70,
+      110,
+      150
+    ]
+  },
+  {
+    "id": "damage:brewmaster_thunder_clap:4",
+    "correctAnswer": "320",
+    "primaryValues": [
+      80,
+      160,
+      240,
+      320
+    ]
+  },
+  {
+    "id": "damage:dark_seer_vacuum:4",
+    "correctAnswer": "250",
+    "primaryValues": [
+      70,
+      130,
+      190,
+      250
+    ]
+  },
+  {
+    "id": "damage:dazzle_shadow_wave:4",
+    "correctAnswer": "145",
+    "primaryValues": [
+      85,
+      105,
+      125,
+      145
+    ]
+  },
+  {
+    "id": "damage:death_prophet_carrion_swarm:4",
+    "correctAnswer": "325",
+    "primaryValues": [
+      100,
+      175,
+      250,
+      325
+    ]
+  },
+  {
+    "id": "damage:dragon_knight_breathe_fire:4",
+    "correctAnswer": "320",
+    "primaryValues": [
+      80,
+      160,
+      240,
+      320
+    ]
+  },
+  {
+    "id": "damage:dragon_knight_dragon_tail:4",
+    "correctAnswer": "150",
+    "primaryValues": [
+      60,
+      90,
+      120,
+      150
+    ]
+  },
+  {
+    "id": "damage:earth_spirit_boulder_smash:4",
+    "correctAnswer": "320",
+    "primaryValues": [
+      110,
+      180,
+      250,
+      320
+    ]
+  },
+  {
+    "id": "damage:earth_spirit_rolling_boulder:4",
+    "correctAnswer": "90",
+    "primaryValues": [
+      60,
+      70,
+      80,
+      90
+    ]
+  },
+  {
+    "id": "damage:furion_sprout:4",
+    "correctAnswer": "250",
+    "primaryValues": [
+      70,
+      130,
+      190,
+      250
+    ]
+  },
+  {
+    "id": "damage:kez_talon_toss:4",
+    "correctAnswer": "240",
+    "primaryValues": [
+      60,
+      120,
+      180,
+      240
+    ]
+  },
+  {
+    "id": "damage:kunkka_torrent:4",
+    "correctAnswer": "320",
+    "primaryValues": [
+      110,
+      180,
+      250,
+      320
+    ]
+  },
+  {
+    "id": "damage:lina_laguna_blade:3",
+    "correctAnswer": "760",
+    "primaryValues": [
+      400,
+      580,
+      760
+    ]
+  },
+  {
+    "id": "damage:lion_finger_of_death:3",
+    "correctAnswer": "850",
+    "primaryValues": [
+      600,
+      725,
+      850
+    ]
+  },
+  {
+    "id": "damage:magnataur_reverse_polarity:3",
+    "correctAnswer": "300",
+    "primaryValues": [
+      100,
+      200,
+      300
+    ]
+  },
+  {
+    "id": "damage:magnataur_skewer:4",
+    "correctAnswer": "320",
+    "primaryValues": [
+      80,
+      160,
+      240,
+      320
+    ]
+  },
+  {
+    "id": "damage:mars_spear:4",
+    "correctAnswer": "325",
+    "primaryValues": [
+      100,
+      175,
+      250,
+      325
+    ]
+  },
+  {
+    "id": "damage:mirana_starfall:4",
+    "correctAnswer": "300",
+    "primaryValues": [
+      75,
+      150,
+      225,
+      300
+    ]
+  },
+  {
+    "id": "damage:monkey_king_primal_spring:4",
+    "correctAnswer": "380",
+    "primaryValues": [
+      110,
+      200,
+      290,
+      380
+    ]
+  },
+  {
+    "id": "damage:muerta_dead_shot:4",
+    "correctAnswer": "325",
+    "primaryValues": [
+      100,
+      175,
+      250,
+      325
+    ]
+  },
+  {
+    "id": "damage:obsidian_destroyer_astral_imprisonment:4",
+    "correctAnswer": "360",
+    "primaryValues": [
+      90,
+      180,
+      270,
+      360
+    ]
+  },
+  {
+    "id": "damage:pudge_meat_hook:4",
+    "correctAnswer": "360",
+    "primaryValues": [
+      150,
+      220,
+      290,
+      360
+    ]
+  },
+  {
+    "id": "damage:queenofpain_scream_of_pain:4",
+    "correctAnswer": "345",
+    "primaryValues": [
+      90,
+      175,
+      260,
+      345
+    ]
+  },
+  {
+    "id": "damage:razor_eye_of_the_storm:3",
+    "correctAnswer": "90",
+    "primaryValues": [
+      60,
+      75,
+      90
+    ]
+  },
+  {
+    "id": "damage:rubick_fade_bolt:4",
+    "correctAnswer": "325",
+    "primaryValues": [
+      85,
+      165,
+      245,
+      325
+    ]
+  },
+  {
+    "id": "damage:shadow_shaman_ether_shock:4",
+    "correctAnswer": "320",
+    "primaryValues": [
+      125,
+      190,
+      255,
+      320
+    ]
+  },
+  {
+    "id": "damage:shredder_timber_chain:4",
+    "correctAnswer": "225",
+    "primaryValues": [
+      45,
+      105,
+      165,
+      225
+    ]
+  },
+  {
+    "id": "damage:silencer_curse_of_the_silent:4",
+    "correctAnswer": "40",
+    "primaryValues": [
+      16,
+      24,
+      32,
+      40
+    ]
+  },
+  {
+    "id": "damage:skywrath_mage_mystic_flare:3",
+    "correctAnswer": "1600",
+    "primaryValues": [
+      800,
+      1200,
+      1600
+    ]
+  },
+  {
+    "id": "damage:slark_dark_pact:4",
+    "correctAnswer": "300",
+    "primaryValues": [
+      75,
+      150,
+      225,
+      300
+    ]
+  },
+  {
+    "id": "damage:snapfire_scatterblast:4",
+    "correctAnswer": "280",
+    "primaryValues": [
+      100,
+      160,
+      220,
+      280
+    ]
+  },
+  {
+    "id": "damage:sniper_assassinate:3",
+    "correctAnswer": "500",
+    "primaryValues": [
+      300,
+      400,
+      500
+    ]
+  },
+  {
+    "id": "damage:sniper_shrapnel:4",
+    "correctAnswer": "75",
+    "primaryValues": [
+      30,
+      45,
+      60,
+      75
+    ]
+  },
+  {
+    "id": "damage:storm_spirit_overload:4",
+    "correctAnswer": "100",
+    "primaryValues": [
+      25,
+      50,
+      75,
+      100
+    ]
+  },
+  {
+    "id": "damage:techies_land_mines:3",
+    "correctAnswer": "700",
+    "primaryValues": [
+      400,
+      550,
+      700
+    ]
+  },
+  {
+    "id": "damage:terrorblade_terror_wave:1",
+    "correctAnswer": "200",
+    "primaryValues": [
+      200
+    ]
+  },
+  {
+    "id": "damage:tidehunter_gush:4",
+    "correctAnswer": "280",
+    "primaryValues": [
+      100,
+      160,
+      220,
+      280
+    ]
+  },
+  {
+    "id": "damage:tinker_march_of_the_machines:4",
+    "correctAnswer": "40",
+    "primaryValues": [
+      13,
+      22,
+      31,
+      40
+    ]
+  },
+  {
+    "id": "damage:tiny_toss:4",
+    "correctAnswer": "360",
+    "primaryValues": [
+      90,
+      180,
+      270,
+      360
+    ]
+  },
+  {
+    "id": "damage:vengefulspirit_magic_missile:4",
+    "correctAnswer": "340",
+    "primaryValues": [
+      100,
+      180,
+      260,
+      340
+    ]
+  },
+  {
+    "id": "damage:visage_stone_form_self_cast:3",
+    "correctAnswer": "140",
+    "primaryValues": [
+      60,
+      100,
+      140
+    ]
+  },
+  {
+    "id": "damage:windrunner_powershot:4",
+    "correctAnswer": "470",
+    "primaryValues": [
+      170,
+      270,
+      370,
+      470
+    ]
+  },
+  {
+    "id": "damage:zuus_static_field:1",
+    "correctAnswer": "3.45%",
+    "primaryValues": [
+      3.45
+    ]
+  },
+  {
+    "id": "damage:zuus_thundergods_wrath:3",
+    "correctAnswer": "575",
+    "primaryValues": [
+      275,
+      425,
+      575
+    ]
+  },
+  {
+    "id": "hero-stat:attack-range:npc_dota_hero_arc_warden",
+    "correctAnswer": "Arc Warden",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_arc_warden",
+        "field": "attack_range",
+        "value": 625
+      },
+      {
+        "hero": "npc_dota_hero_death_prophet",
+        "field": "attack_range",
+        "value": 600
+      },
+      {
+        "hero": "npc_dota_hero_lion",
+        "field": "attack_range",
+        "value": 600
+      },
+      {
+        "hero": "npc_dota_hero_windrunner",
+        "field": "attack_range",
+        "value": 600
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:attack-range:npc_dota_hero_bane",
+    "correctAnswer": "Bane",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_vengefulspirit",
+        "field": "attack_range",
+        "value": 400
+      },
+      {
+        "hero": "npc_dota_hero_jakiro",
+        "field": "attack_range",
+        "value": 400
+      },
+      {
+        "hero": "npc_dota_hero_shadow_shaman",
+        "field": "attack_range",
+        "value": 400
+      },
+      {
+        "hero": "npc_dota_hero_bane",
+        "field": "attack_range",
+        "value": 425
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:attack-range:npc_dota_hero_clinkz",
+    "correctAnswer": "Clinkz",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_clinkz",
+        "field": "attack_range",
+        "value": 600
+      },
+      {
+        "hero": "npc_dota_hero_dazzle",
+        "field": "attack_range",
+        "value": 575
+      },
+      {
+        "hero": "npc_dota_hero_leshrac",
+        "field": "attack_range",
+        "value": 575
+      },
+      {
+        "hero": "npc_dota_hero_hoodwink",
+        "field": "attack_range",
+        "value": 575
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:attack-range:npc_dota_hero_death_prophet",
+    "correctAnswer": "Death Prophet",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_dazzle",
+        "field": "attack_range",
+        "value": 575
+      },
+      {
+        "hero": "npc_dota_hero_hoodwink",
+        "field": "attack_range",
+        "value": 575
+      },
+      {
+        "hero": "npc_dota_hero_death_prophet",
+        "field": "attack_range",
+        "value": 600
+      },
+      {
+        "hero": "npc_dota_hero_leshrac",
+        "field": "attack_range",
+        "value": 575
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:attack-range:npc_dota_hero_drow_ranger",
+    "correctAnswer": "Drow Ranger",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_silencer",
+        "field": "attack_range",
+        "value": 600
+      },
+      {
+        "hero": "npc_dota_hero_furion",
+        "field": "attack_range",
+        "value": 600
+      },
+      {
+        "hero": "npc_dota_hero_drow_ranger",
+        "field": "attack_range",
+        "value": 625
+      },
+      {
+        "hero": "npc_dota_hero_crystal_maiden",
+        "field": "attack_range",
+        "value": 600
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:attack-range:npc_dota_hero_hoodwink",
+    "correctAnswer": "Hoodwink",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_lich",
+        "field": "attack_range",
+        "value": 550
+      },
+      {
+        "hero": "npc_dota_hero_hoodwink",
+        "field": "attack_range",
+        "value": 575
+      },
+      {
+        "hero": "npc_dota_hero_witch_doctor",
+        "field": "attack_range",
+        "value": 550
+      },
+      {
+        "hero": "npc_dota_hero_puck",
+        "field": "attack_range",
+        "value": 550
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:attack-range:npc_dota_hero_lich",
+    "correctAnswer": "Lich",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_tinker",
+        "field": "attack_range",
+        "value": 500
+      },
+      {
+        "hero": "npc_dota_hero_necrolyte",
+        "field": "attack_range",
+        "value": 500
+      },
+      {
+        "hero": "npc_dota_hero_nevermore",
+        "field": "attack_range",
+        "value": 525
+      },
+      {
+        "hero": "npc_dota_hero_lich",
+        "field": "attack_range",
+        "value": 550
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:attack-range:npc_dota_hero_lina",
+    "correctAnswer": "Lina",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_lina",
+        "field": "attack_range",
+        "value": 670
+      },
+      {
+        "hero": "npc_dota_hero_mirana",
+        "field": "attack_range",
+        "value": 630
+      },
+      {
+        "hero": "npc_dota_hero_chen",
+        "field": "attack_range",
+        "value": 650
+      },
+      {
+        "hero": "npc_dota_hero_pugna",
+        "field": "attack_range",
+        "value": 630
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:attack-range:npc_dota_hero_lion",
+    "correctAnswer": "Lion",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_lion",
+        "field": "attack_range",
+        "value": 600
+      },
+      {
+        "hero": "npc_dota_hero_muerta",
+        "field": "attack_range",
+        "value": 575
+      },
+      {
+        "hero": "npc_dota_hero_hoodwink",
+        "field": "attack_range",
+        "value": 575
+      },
+      {
+        "hero": "npc_dota_hero_ringmaster",
+        "field": "attack_range",
+        "value": 575
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:attack-range:npc_dota_hero_necrolyte",
+    "correctAnswer": "Necrophos",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_storm_spirit",
+        "field": "attack_range",
+        "value": 480
+      },
+      {
+        "hero": "npc_dota_hero_necrolyte",
+        "field": "attack_range",
+        "value": 500
+      },
+      {
+        "hero": "npc_dota_hero_razor",
+        "field": "attack_range",
+        "value": 475
+      },
+      {
+        "hero": "npc_dota_hero_dark_willow",
+        "field": "attack_range",
+        "value": 475
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:attack-range:npc_dota_hero_tinker",
+    "correctAnswer": "Tinker",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_dark_willow",
+        "field": "attack_range",
+        "value": 475
+      },
+      {
+        "hero": "npc_dota_hero_storm_spirit",
+        "field": "attack_range",
+        "value": 480
+      },
+      {
+        "hero": "npc_dota_hero_razor",
+        "field": "attack_range",
+        "value": 475
+      },
+      {
+        "hero": "npc_dota_hero_tinker",
+        "field": "attack_range",
+        "value": 500
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:attack-range:npc_dota_hero_venomancer",
+    "correctAnswer": "Venomancer",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_bane",
+        "field": "attack_range",
+        "value": 425
+      },
+      {
+        "hero": "npc_dota_hero_venomancer",
+        "field": "attack_range",
+        "value": 450
+      },
+      {
+        "hero": "npc_dota_hero_weaver",
+        "field": "attack_range",
+        "value": 425
+      },
+      {
+        "hero": "npc_dota_hero_jakiro",
+        "field": "attack_range",
+        "value": 400
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:attack-range:npc_dota_hero_weaver",
+    "correctAnswer": "Weaver",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_snapfire",
+        "field": "attack_range",
+        "value": 400
+      },
+      {
+        "hero": "npc_dota_hero_jakiro",
+        "field": "attack_range",
+        "value": 400
+      },
+      {
+        "hero": "npc_dota_hero_weaver",
+        "field": "attack_range",
+        "value": 425
+      },
+      {
+        "hero": "npc_dota_hero_shadow_shaman",
+        "field": "attack_range",
+        "value": 400
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:attack-range:npc_dota_hero_witch_doctor",
+    "correctAnswer": "Witch Doctor",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_nevermore",
+        "field": "attack_range",
+        "value": 525
+      },
+      {
+        "hero": "npc_dota_hero_witch_doctor",
+        "field": "attack_range",
+        "value": 550
+      },
+      {
+        "hero": "npc_dota_hero_troll_warlord",
+        "field": "attack_range",
+        "value": 500
+      },
+      {
+        "hero": "npc_dota_hero_phoenix",
+        "field": "attack_range",
+        "value": 500
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:base-attack-time:npc_dota_hero_dazzle",
+    "correctAnswer": "Dazzle",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_dazzle",
+        "field": "attack_rate",
+        "value": 1.7
+      },
+      {
+        "hero": "npc_dota_hero_weaver",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_spectre",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_mars",
+        "field": "attack_rate",
+        "value": 1.8
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:base-attack-time:npc_dota_hero_death_prophet",
+    "correctAnswer": "Death Prophet",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_spectre",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_skeleton_king",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_death_prophet",
+        "field": "attack_rate",
+        "value": 1.7
+      },
+      {
+        "hero": "npc_dota_hero_mars",
+        "field": "attack_rate",
+        "value": 1.8
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:base-attack-time:npc_dota_hero_jakiro",
+    "correctAnswer": "Jakiro",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_jakiro",
+        "field": "attack_rate",
+        "value": 1.7
+      },
+      {
+        "hero": "npc_dota_hero_primal_beast",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_skeleton_king",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_spectre",
+        "field": "attack_rate",
+        "value": 1.8
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:base-attack-time:npc_dota_hero_ogre_magi",
+    "correctAnswer": "Ogre Magi",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_skeleton_king",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_ogre_magi",
+        "field": "attack_rate",
+        "value": 1.7
+      },
+      {
+        "hero": "npc_dota_hero_bristleback",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_magnataur",
+        "field": "attack_rate",
+        "value": 1.8
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:base-attack-time:npc_dota_hero_pangolier",
+    "correctAnswer": "Pangolier",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_bristleback",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_weaver",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_pangolier",
+        "field": "attack_rate",
+        "value": 1.7
+      },
+      {
+        "hero": "npc_dota_hero_snapfire",
+        "field": "attack_rate",
+        "value": 1.8
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:base-attack-time:npc_dota_hero_phantom_assassin",
+    "correctAnswer": "Phantom Assassin",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_spectre",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_skeleton_king",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_magnataur",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_phantom_assassin",
+        "field": "attack_rate",
+        "value": 1.7
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:base-attack-time:npc_dota_hero_rubick",
+    "correctAnswer": "Rubick",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_weaver",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_bristleback",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_rubick",
+        "field": "attack_rate",
+        "value": 1.7
+      },
+      {
+        "hero": "npc_dota_hero_primal_beast",
+        "field": "attack_rate",
+        "value": 1.8
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:base-attack-time:npc_dota_hero_shadow_demon",
+    "correctAnswer": "Shadow Demon",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_weaver",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_shadow_demon",
+        "field": "attack_rate",
+        "value": 1.7
+      },
+      {
+        "hero": "npc_dota_hero_primal_beast",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_mars",
+        "field": "attack_rate",
+        "value": 1.8
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:base-attack-time:npc_dota_hero_skeleton_king",
+    "correctAnswer": "Wraith King",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_treant",
+        "field": "attack_rate",
+        "value": 1.9
+      },
+      {
+        "hero": "npc_dota_hero_obsidian_destroyer",
+        "field": "attack_rate",
+        "value": 1.9
+      },
+      {
+        "hero": "npc_dota_hero_sven",
+        "field": "attack_rate",
+        "value": 1.9
+      },
+      {
+        "hero": "npc_dota_hero_skeleton_king",
+        "field": "attack_rate",
+        "value": 1.8
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:base-attack-time:npc_dota_hero_techies",
+    "correctAnswer": "Techies",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_mars",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_snapfire",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_techies",
+        "field": "attack_rate",
+        "value": 1.7
+      },
+      {
+        "hero": "npc_dota_hero_bristleback",
+        "field": "attack_rate",
+        "value": 1.8
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:base-attack-time:npc_dota_hero_tinker",
+    "correctAnswer": "Tinker",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_skeleton_king",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_magnataur",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_primal_beast",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_tinker",
+        "field": "attack_rate",
+        "value": 1.7
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:base-attack-time:npc_dota_hero_ursa",
+    "correctAnswer": "Ursa",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_skeleton_king",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_ursa",
+        "field": "attack_rate",
+        "value": 1.7
+      },
+      {
+        "hero": "npc_dota_hero_primal_beast",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_bristleback",
+        "field": "attack_rate",
+        "value": 1.8
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:base-attack-time:npc_dota_hero_vengefulspirit",
+    "correctAnswer": "Vengeful Spirit",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_vengefulspirit",
+        "field": "attack_rate",
+        "value": 1.5
+      },
+      {
+        "hero": "npc_dota_hero_silencer",
+        "field": "attack_rate",
+        "value": 1.6
+      },
+      {
+        "hero": "npc_dota_hero_storm_spirit",
+        "field": "attack_rate",
+        "value": 1.6
+      },
+      {
+        "hero": "npc_dota_hero_monkey_king",
+        "field": "attack_rate",
+        "value": 1.6
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:base-attack-time:npc_dota_hero_viper",
+    "correctAnswer": "Viper",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_spectre",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_primal_beast",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_bristleback",
+        "field": "attack_rate",
+        "value": 1.8
+      },
+      {
+        "hero": "npc_dota_hero_viper",
+        "field": "attack_rate",
+        "value": 1.7
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:move-speed:npc_dota_hero_ancient_apparition",
+    "correctAnswer": "Ancient Apparition",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_treant",
+        "field": "movement_speed",
+        "value": 280
+      },
+      {
+        "hero": "npc_dota_hero_invoker",
+        "field": "movement_speed",
+        "value": 280
+      },
+      {
+        "hero": "npc_dota_hero_ancient_apparition",
+        "field": "movement_speed",
+        "value": 285
+      },
+      {
+        "hero": "npc_dota_hero_phoenix",
+        "field": "movement_speed",
+        "value": 280
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:move-speed:npc_dota_hero_antimage",
+    "correctAnswer": "Anti-Mage",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_keeper_of_the_light",
+        "field": "movement_speed",
+        "value": 310
+      },
+      {
+        "hero": "npc_dota_hero_antimage",
+        "field": "movement_speed",
+        "value": 315
+      },
+      {
+        "hero": "npc_dota_hero_tusk",
+        "field": "movement_speed",
+        "value": 310
+      },
+      {
+        "hero": "npc_dota_hero_meepo",
+        "field": "movement_speed",
+        "value": 310
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:move-speed:npc_dota_hero_broodmother",
+    "correctAnswer": "Broodmother",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_pudge",
+        "field": "movement_speed",
+        "value": 280
+      },
+      {
+        "hero": "npc_dota_hero_shredder",
+        "field": "movement_speed",
+        "value": 280
+      },
+      {
+        "hero": "npc_dota_hero_broodmother",
+        "field": "movement_speed",
+        "value": 285
+      },
+      {
+        "hero": "npc_dota_hero_necrolyte",
+        "field": "movement_speed",
+        "value": 280
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:move-speed:npc_dota_hero_dark_seer",
+    "correctAnswer": "Dark Seer",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_ogre_magi",
+        "field": "movement_speed",
+        "value": 290
+      },
+      {
+        "hero": "npc_dota_hero_dark_seer",
+        "field": "movement_speed",
+        "value": 295
+      },
+      {
+        "hero": "npc_dota_hero_lion",
+        "field": "movement_speed",
+        "value": 290
+      },
+      {
+        "hero": "npc_dota_hero_lich",
+        "field": "movement_speed",
+        "value": 290
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:move-speed:npc_dota_hero_dawnbreaker",
+    "correctAnswer": "Dawnbreaker",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_dawnbreaker",
+        "field": "movement_speed",
+        "value": 300
+      },
+      {
+        "hero": "npc_dota_hero_muerta",
+        "field": "movement_speed",
+        "value": 295
+      },
+      {
+        "hero": "npc_dota_hero_bristleback",
+        "field": "movement_speed",
+        "value": 295
+      },
+      {
+        "hero": "npc_dota_hero_furion",
+        "field": "movement_speed",
+        "value": 295
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:move-speed:npc_dota_hero_kez",
+    "correctAnswer": "Kez",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_zuus",
+        "field": "movement_speed",
+        "value": 305
+      },
+      {
+        "hero": "npc_dota_hero_dazzle",
+        "field": "movement_speed",
+        "value": 305
+      },
+      {
+        "hero": "npc_dota_hero_juggernaut",
+        "field": "movement_speed",
+        "value": 305
+      },
+      {
+        "hero": "npc_dota_hero_kez",
+        "field": "movement_speed",
+        "value": 310
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:move-speed:npc_dota_hero_lich",
+    "correctAnswer": "Lich",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_sniper",
+        "field": "movement_speed",
+        "value": 285
+      },
+      {
+        "hero": "npc_dota_hero_lich",
+        "field": "movement_speed",
+        "value": 290
+      },
+      {
+        "hero": "npc_dota_hero_bloodseeker",
+        "field": "movement_speed",
+        "value": 285
+      },
+      {
+        "hero": "npc_dota_hero_shadow_shaman",
+        "field": "movement_speed",
+        "value": 285
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:move-speed:npc_dota_hero_lion",
+    "correctAnswer": "Lion",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_lion",
+        "field": "movement_speed",
+        "value": 290
+      },
+      {
+        "hero": "npc_dota_hero_shadow_shaman",
+        "field": "movement_speed",
+        "value": 285
+      },
+      {
+        "hero": "npc_dota_hero_sniper",
+        "field": "movement_speed",
+        "value": 285
+      },
+      {
+        "hero": "npc_dota_hero_ancient_apparition",
+        "field": "movement_speed",
+        "value": 285
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:move-speed:npc_dota_hero_meepo",
+    "correctAnswer": "Meepo",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_beastmaster",
+        "field": "movement_speed",
+        "value": 305
+      },
+      {
+        "hero": "npc_dota_hero_nevermore",
+        "field": "movement_speed",
+        "value": 305
+      },
+      {
+        "hero": "npc_dota_hero_meepo",
+        "field": "movement_speed",
+        "value": 310
+      },
+      {
+        "hero": "npc_dota_hero_magnataur",
+        "field": "movement_speed",
+        "value": 305
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:move-speed:npc_dota_hero_necrolyte",
+    "correctAnswer": "Necrophos",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_viper",
+        "field": "movement_speed",
+        "value": 275
+      },
+      {
+        "hero": "npc_dota_hero_medusa",
+        "field": "movement_speed",
+        "value": 275
+      },
+      {
+        "hero": "npc_dota_hero_tiny",
+        "field": "movement_speed",
+        "value": 275
+      },
+      {
+        "hero": "npc_dota_hero_necrolyte",
+        "field": "movement_speed",
+        "value": 280
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:move-speed:npc_dota_hero_skeleton_king",
+    "correctAnswer": "Wraith King",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_primal_beast",
+        "field": "movement_speed",
+        "value": 305
+      },
+      {
+        "hero": "npc_dota_hero_juggernaut",
+        "field": "movement_speed",
+        "value": 305
+      },
+      {
+        "hero": "npc_dota_hero_nevermore",
+        "field": "movement_speed",
+        "value": 305
+      },
+      {
+        "hero": "npc_dota_hero_skeleton_king",
+        "field": "movement_speed",
+        "value": 310
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:move-speed:npc_dota_hero_slark",
+    "correctAnswer": "Slark",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_slark",
+        "field": "movement_speed",
+        "value": 300
+      },
+      {
+        "hero": "npc_dota_hero_oracle",
+        "field": "movement_speed",
+        "value": 295
+      },
+      {
+        "hero": "npc_dota_hero_dark_seer",
+        "field": "movement_speed",
+        "value": 295
+      },
+      {
+        "hero": "npc_dota_hero_muerta",
+        "field": "movement_speed",
+        "value": 295
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:move-speed:npc_dota_hero_sven",
+    "correctAnswer": "Sven",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_life_stealer",
+        "field": "movement_speed",
+        "value": 320
+      },
+      {
+        "hero": "npc_dota_hero_sven",
+        "field": "movement_speed",
+        "value": 325
+      },
+      {
+        "hero": "npc_dota_hero_wisp",
+        "field": "movement_speed",
+        "value": 320
+      },
+      {
+        "hero": "npc_dota_hero_enchantress",
+        "field": "movement_speed",
+        "value": 320
+      }
+    ]
+  },
+  {
+    "id": "hero-stat:move-speed:npc_dota_hero_undying",
+    "correctAnswer": "Undying",
+    "primaryValues": [
+      {
+        "hero": "npc_dota_hero_undying",
+        "field": "movement_speed",
+        "value": 295
+      },
+      {
+        "hero": "npc_dota_hero_dark_willow",
+        "field": "movement_speed",
+        "value": 290
+      },
+      {
+        "hero": "npc_dota_hero_sand_king",
+        "field": "movement_speed",
+        "value": 290
+      },
+      {
+        "hero": "npc_dota_hero_rubick",
+        "field": "movement_speed",
+        "value": 290
+      }
+    ]
+  },
+  {
+    "id": "item-cost:abyssal_blade",
+    "correctAnswer": "6,250 gold",
+    "primaryValues": {
+      "item": "abyssal_blade",
+      "value": 6250
+    }
+  },
+  {
+    "id": "item-cost:aeon_disk",
+    "correctAnswer": "3,000 gold",
+    "primaryValues": {
+      "item": "aeon_disk",
+      "value": 3000
+    }
+  },
+  {
+    "id": "item-cost:aghanims_shard",
+    "correctAnswer": "1,400 gold",
+    "primaryValues": {
+      "item": "aghanims_shard",
+      "value": 1400
+    }
+  },
+  {
+    "id": "item-cost:arcane_blink",
+    "correctAnswer": "6,800 gold",
+    "primaryValues": {
+      "item": "arcane_blink",
+      "value": 6800
+    }
+  },
+  {
+    "id": "item-cost:armlet",
+    "correctAnswer": "2,500 gold",
+    "primaryValues": {
+      "item": "armlet",
+      "value": 2500
+    }
+  },
+  {
+    "id": "item-cost:assault",
+    "correctAnswer": "5,125 gold",
+    "primaryValues": {
+      "item": "assault",
+      "value": 5125
+    }
+  },
+  {
+    "id": "item-cost:basher",
+    "correctAnswer": "2,875 gold",
+    "primaryValues": {
+      "item": "basher",
+      "value": 2875
+    }
+  },
+  {
+    "id": "item-cost:black_king_bar",
+    "correctAnswer": "4,050 gold",
+    "primaryValues": {
+      "item": "black_king_bar",
+      "value": 4050
+    }
+  },
+  {
+    "id": "item-cost:blade_mail",
+    "correctAnswer": "2,400 gold",
+    "primaryValues": {
+      "item": "blade_mail",
+      "value": 2400
+    }
+  },
+  {
+    "id": "item-cost:blink",
+    "correctAnswer": "2,250 gold",
+    "primaryValues": {
+      "item": "blink",
+      "value": 2250
+    }
+  },
+  {
+    "id": "item-cost:bloodstone",
+    "correctAnswer": "4,700 gold",
+    "primaryValues": {
+      "item": "bloodstone",
+      "value": 4700
+    }
+  },
+  {
+    "id": "item-cost:bloodthorn",
+    "correctAnswer": "6,400 gold",
+    "primaryValues": {
+      "item": "bloodthorn",
+      "value": 6400
+    }
+  },
+  {
+    "id": "item-cost:bottle",
+    "correctAnswer": "675 gold",
+    "primaryValues": {
+      "item": "bottle",
+      "value": 675
+    }
+  },
+  {
+    "id": "item-cost:bracer",
+    "correctAnswer": "505 gold",
+    "primaryValues": {
+      "item": "bracer",
+      "value": 505
+    }
+  },
+  {
+    "id": "item-cost:butterfly",
+    "correctAnswer": "5,450 gold",
+    "primaryValues": {
+      "item": "butterfly",
+      "value": 5450
+    }
+  },
+  {
+    "id": "item-cost:clarity",
+    "correctAnswer": "60 gold",
+    "primaryValues": {
+      "item": "clarity",
+      "value": 60
+    }
+  },
+  {
+    "id": "item-cost:crimson_guard",
+    "correctAnswer": "3,725 gold",
+    "primaryValues": {
+      "item": "crimson_guard",
+      "value": 3725
+    }
+  },
+  {
+    "id": "item-cost:cyclone",
+    "correctAnswer": "2,600 gold",
+    "primaryValues": {
+      "item": "cyclone",
+      "value": 2600
+    }
+  },
+  {
+    "id": "item-cost:dagon",
+    "correctAnswer": "3,000 gold",
+    "primaryValues": {
+      "item": "dagon",
+      "value": 3000
+    }
+  },
+  {
+    "id": "item-cost:desolator",
+    "correctAnswer": "3,500 gold",
+    "primaryValues": {
+      "item": "desolator",
+      "value": 3500
+    }
+  },
+  {
+    "id": "item-cost:dust",
+    "correctAnswer": "80 gold",
+    "primaryValues": {
+      "item": "dust",
+      "value": 80
+    }
+  },
+  {
+    "id": "item-cost:enchanted_mango",
+    "correctAnswer": "65 gold",
+    "primaryValues": {
+      "item": "enchanted_mango",
+      "value": 65
+    }
+  },
+  {
+    "id": "item-cost:ethereal_blade",
+    "correctAnswer": "5,200 gold",
+    "primaryValues": {
+      "item": "ethereal_blade",
+      "value": 5200
+    }
+  },
+  {
+    "id": "item-cost:falcon_blade",
+    "correctAnswer": "1,125 gold",
+    "primaryValues": {
+      "item": "falcon_blade",
+      "value": 1125
+    }
+  },
+  {
+    "id": "item-cost:flask",
+    "correctAnswer": "100 gold",
+    "primaryValues": {
+      "item": "flask",
+      "value": 100
+    }
+  },
+  {
+    "id": "item-cost:force_staff",
+    "correctAnswer": "2,200 gold",
+    "primaryValues": {
+      "item": "force_staff",
+      "value": 2200
+    }
+  },
+  {
+    "id": "item-cost:gem",
+    "correctAnswer": "900 gold",
+    "primaryValues": {
+      "item": "gem",
+      "value": 900
+    }
+  },
+  {
+    "id": "item-cost:ghost",
+    "correctAnswer": "1,500 gold",
+    "primaryValues": {
+      "item": "ghost",
+      "value": 1500
+    }
+  },
+  {
+    "id": "item-cost:glimmer_cape",
+    "correctAnswer": "2,150 gold",
+    "primaryValues": {
+      "item": "glimmer_cape",
+      "value": 2150
+    }
+  },
+  {
+    "id": "item-cost:greater_crit",
+    "correctAnswer": "5,200 gold",
+    "primaryValues": {
+      "item": "greater_crit",
+      "value": 5200
+    }
+  },
+  {
+    "id": "item-cost:guardian_greaves",
+    "correctAnswer": "4,450 gold",
+    "primaryValues": {
+      "item": "guardian_greaves",
+      "value": 4450
+    }
+  },
+  {
+    "id": "item-cost:hand_of_midas",
+    "correctAnswer": "2,200 gold",
+    "primaryValues": {
+      "item": "hand_of_midas",
+      "value": 2200
+    }
+  },
+  {
+    "id": "item-cost:heart",
+    "correctAnswer": "5,300 gold",
+    "primaryValues": {
+      "item": "heart",
+      "value": 5300
+    }
+  },
+  {
+    "id": "item-cost:hurricane_pike",
+    "correctAnswer": "4,550 gold",
+    "primaryValues": {
+      "item": "hurricane_pike",
+      "value": 4550
+    }
+  },
+  {
+    "id": "item-cost:invis_sword",
+    "correctAnswer": "3,250 gold",
+    "primaryValues": {
+      "item": "invis_sword",
+      "value": 3250
+    }
+  },
+  {
+    "id": "item-cost:kaya_and_sange",
+    "correctAnswer": "4,200 gold",
+    "primaryValues": {
+      "item": "kaya_and_sange",
+      "value": 4200
+    }
+  },
+  {
+    "id": "item-cost:lotus_orb",
+    "correctAnswer": "3,850 gold",
+    "primaryValues": {
+      "item": "lotus_orb",
+      "value": 3850
+    }
+  },
+  {
+    "id": "item-cost:maelstrom",
+    "correctAnswer": "2,950 gold",
+    "primaryValues": {
+      "item": "maelstrom",
+      "value": 2950
+    }
+  },
+  {
+    "id": "item-cost:magic_wand",
+    "correctAnswer": "460 gold",
+    "primaryValues": {
+      "item": "magic_wand",
+      "value": 460
+    }
+  },
+  {
+    "id": "item-cost:manta",
+    "correctAnswer": "4,650 gold",
+    "primaryValues": {
+      "item": "manta",
+      "value": 4650
+    }
+  },
+  {
+    "id": "item-cost:mekansm",
+    "correctAnswer": "1,775 gold",
+    "primaryValues": {
+      "item": "mekansm",
+      "value": 1775
+    }
+  },
+  {
+    "id": "item-cost:mjollnir",
+    "correctAnswer": "5,500 gold",
+    "primaryValues": {
+      "item": "mjollnir",
+      "value": 5500
+    }
+  },
+  {
+    "id": "item-cost:monkey_king_bar",
+    "correctAnswer": "5,000 gold",
+    "primaryValues": {
+      "item": "monkey_king_bar",
+      "value": 5000
+    }
+  },
+  {
+    "id": "item-cost:moon_shard",
+    "correctAnswer": "4,000 gold",
+    "primaryValues": {
+      "item": "moon_shard",
+      "value": 4000
+    }
+  },
+  {
+    "id": "item-cost:null_talisman",
+    "correctAnswer": "505 gold",
+    "primaryValues": {
+      "item": "null_talisman",
+      "value": 505
+    }
+  },
+  {
+    "id": "item-cost:octarine_core",
+    "correctAnswer": "5,100 gold",
+    "primaryValues": {
+      "item": "octarine_core",
+      "value": 5100
+    }
+  },
+  {
+    "id": "item-cost:orchid",
+    "correctAnswer": "3,275 gold",
+    "primaryValues": {
+      "item": "orchid",
+      "value": 3275
+    }
+  },
+  {
+    "id": "item-cost:overwhelming_blink",
+    "correctAnswer": "6,800 gold",
+    "primaryValues": {
+      "item": "overwhelming_blink",
+      "value": 6800
+    }
+  },
+  {
+    "id": "item-cost:phase_boots",
+    "correctAnswer": "1,450 gold",
+    "primaryValues": {
+      "item": "phase_boots",
+      "value": 1450
+    }
+  },
+  {
+    "id": "item-cost:pipe",
+    "correctAnswer": "3,725 gold",
+    "primaryValues": {
+      "item": "pipe",
+      "value": 3725
+    }
+  },
+  {
+    "id": "item-cost:power_treads",
+    "correctAnswer": "1,400 gold",
+    "primaryValues": {
+      "item": "power_treads",
+      "value": 1400
+    }
+  },
+  {
+    "id": "item-cost:quelling_blade",
+    "correctAnswer": "100 gold",
+    "primaryValues": {
+      "item": "quelling_blade",
+      "value": 100
+    }
+  },
+  {
+    "id": "item-cost:radiance",
+    "correctAnswer": "4,700 gold",
+    "primaryValues": {
+      "item": "radiance",
+      "value": 4700
+    }
+  },
+  {
+    "id": "item-cost:rapier",
+    "correctAnswer": "5,600 gold",
+    "primaryValues": {
+      "item": "rapier",
+      "value": 5600
+    }
+  },
+  {
+    "id": "item-cost:refresher",
+    "correctAnswer": "5,000 gold",
+    "primaryValues": {
+      "item": "refresher",
+      "value": 5000
+    }
+  },
+  {
+    "id": "item-cost:sange_and_yasha",
+    "correctAnswer": "4,200 gold",
+    "primaryValues": {
+      "item": "sange_and_yasha",
+      "value": 4200
+    }
+  },
+  {
+    "id": "item-cost:satanic",
+    "correctAnswer": "5,050 gold",
+    "primaryValues": {
+      "item": "satanic",
+      "value": 5050
+    }
+  },
+  {
+    "id": "item-cost:sheepstick",
+    "correctAnswer": "5,200 gold",
+    "primaryValues": {
+      "item": "sheepstick",
+      "value": 5200
+    }
+  },
+  {
+    "id": "item-cost:shivas_guard",
+    "correctAnswer": "4,500 gold",
+    "primaryValues": {
+      "item": "shivas_guard",
+      "value": 4500
+    }
+  },
+  {
+    "id": "item-cost:silver_edge",
+    "correctAnswer": "5,700 gold",
+    "primaryValues": {
+      "item": "silver_edge",
+      "value": 5700
+    }
+  },
+  {
+    "id": "item-cost:skadi",
+    "correctAnswer": "5,900 gold",
+    "primaryValues": {
+      "item": "skadi",
+      "value": 5900
+    }
+  },
+  {
+    "id": "item-cost:smoke_of_deceit",
+    "correctAnswer": "50 gold",
+    "primaryValues": {
+      "item": "smoke_of_deceit",
+      "value": 50
+    }
+  },
+  {
+    "id": "item-cost:soul_ring",
+    "correctAnswer": "805 gold",
+    "primaryValues": {
+      "item": "soul_ring",
+      "value": 805
+    }
+  },
+  {
+    "id": "item-cost:sphere",
+    "correctAnswer": "4,800 gold",
+    "primaryValues": {
+      "item": "sphere",
+      "value": 4800
+    }
+  },
+  {
+    "id": "item-cost:swift_blink",
+    "correctAnswer": "6,800 gold",
+    "primaryValues": {
+      "item": "swift_blink",
+      "value": 6800
+    }
+  },
+  {
+    "id": "item-cost:tango",
+    "correctAnswer": "90 gold",
+    "primaryValues": {
+      "item": "tango",
+      "value": 90
+    }
+  },
+  {
+    "id": "item-cost:travel_boots",
+    "correctAnswer": "2,500 gold",
+    "primaryValues": {
+      "item": "travel_boots",
+      "value": 2500
+    }
+  },
+  {
+    "id": "item-cost:travel_boots_2",
+    "correctAnswer": "4,500 gold",
+    "primaryValues": {
+      "item": "travel_boots_2",
+      "value": 4500
+    }
+  },
+  {
+    "id": "item-cost:ultimate_scepter",
+    "correctAnswer": "4,200 gold",
+    "primaryValues": {
+      "item": "ultimate_scepter",
+      "value": 4200
+    }
+  },
+  {
+    "id": "item-cost:vanguard",
+    "correctAnswer": "1,700 gold",
+    "primaryValues": {
+      "item": "vanguard",
+      "value": 1700
+    }
+  },
+  {
+    "id": "item-cost:ward_sentry",
+    "correctAnswer": "50 gold",
+    "primaryValues": {
+      "item": "ward_sentry",
+      "value": 50
+    }
+  },
+  {
+    "id": "item-cost:wraith_band",
+    "correctAnswer": "505 gold",
+    "primaryValues": {
+      "item": "wraith_band",
+      "value": 505
+    }
+  },
+  {
+    "id": "item-cost:yasha_and_kaya",
+    "correctAnswer": "4,200 gold",
+    "primaryValues": {
+      "item": "yasha_and_kaya",
+      "value": 4200
+    }
+  },
+  {
+    "id": "item-price-duel:aeon_disk",
+    "correctAnswer": "Aeon Disk",
+    "primaryValues": [
+      {
+        "item": "maelstrom",
+        "value": 2950
+      },
+      {
+        "item": "cyclone",
+        "value": 2600
+      },
+      {
+        "item": "aeon_disk",
+        "value": 3000
+      },
+      {
+        "item": "basher",
+        "value": 2875
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:armlet",
+    "correctAnswer": "Armlet of Mordiggian",
+    "primaryValues": [
+      {
+        "item": "blink",
+        "value": 2250
+      },
+      {
+        "item": "force_staff",
+        "value": 2200
+      },
+      {
+        "item": "armlet",
+        "value": 2500
+      },
+      {
+        "item": "blade_mail",
+        "value": 2400
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:basher",
+    "correctAnswer": "Skull Basher",
+    "primaryValues": [
+      {
+        "item": "armlet",
+        "value": 2500
+      },
+      {
+        "item": "travel_boots",
+        "value": 2500
+      },
+      {
+        "item": "basher",
+        "value": 2875
+      },
+      {
+        "item": "cyclone",
+        "value": 2600
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:bloodthorn",
+    "correctAnswer": "Bloodthorn",
+    "primaryValues": [
+      {
+        "item": "abyssal_blade",
+        "value": 6250
+      },
+      {
+        "item": "silver_edge",
+        "value": 5700
+      },
+      {
+        "item": "skadi",
+        "value": 5900
+      },
+      {
+        "item": "bloodthorn",
+        "value": 6400
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:cyclone",
+    "correctAnswer": "Eul's Scepter of Divinity",
+    "primaryValues": [
+      {
+        "item": "blade_mail",
+        "value": 2400
+      },
+      {
+        "item": "cyclone",
+        "value": 2600
+      },
+      {
+        "item": "travel_boots",
+        "value": 2500
+      },
+      {
+        "item": "armlet",
+        "value": 2500
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:dagon",
+    "correctAnswer": "Dagon",
+    "primaryValues": [
+      {
+        "item": "dagon",
+        "value": 3000
+      },
+      {
+        "item": "cyclone",
+        "value": 2600
+      },
+      {
+        "item": "maelstrom",
+        "value": 2950
+      },
+      {
+        "item": "basher",
+        "value": 2875
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:ethereal_blade",
+    "correctAnswer": "Ethereal Blade",
+    "primaryValues": [
+      {
+        "item": "satanic",
+        "value": 5050
+      },
+      {
+        "item": "assault",
+        "value": 5125
+      },
+      {
+        "item": "ethereal_blade",
+        "value": 5200
+      },
+      {
+        "item": "octarine_core",
+        "value": 5100
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:flask",
+    "correctAnswer": "Healing Salve",
+    "primaryValues": [
+      {
+        "item": "dust",
+        "value": 80
+      },
+      {
+        "item": "enchanted_mango",
+        "value": 65
+      },
+      {
+        "item": "tango",
+        "value": 90
+      },
+      {
+        "item": "flask",
+        "value": 100
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:gem",
+    "correctAnswer": "Gem of True Sight",
+    "primaryValues": [
+      {
+        "item": "wraith_band",
+        "value": 505
+      },
+      {
+        "item": "bottle",
+        "value": 675
+      },
+      {
+        "item": "gem",
+        "value": 900
+      },
+      {
+        "item": "soul_ring",
+        "value": 805
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:guardian_greaves",
+    "correctAnswer": "Guardian Greaves",
+    "primaryValues": [
+      {
+        "item": "sange_and_yasha",
+        "value": 4200
+      },
+      {
+        "item": "kaya_and_sange",
+        "value": 4200
+      },
+      {
+        "item": "guardian_greaves",
+        "value": 4450
+      },
+      {
+        "item": "yasha_and_kaya",
+        "value": 4200
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:hand_of_midas",
+    "correctAnswer": "Hand of Midas",
+    "primaryValues": [
+      {
+        "item": "vanguard",
+        "value": 1700
+      },
+      {
+        "item": "hand_of_midas",
+        "value": 2200
+      },
+      {
+        "item": "mekansm",
+        "value": 1775
+      },
+      {
+        "item": "glimmer_cape",
+        "value": 2150
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:invis_sword",
+    "correctAnswer": "Shadow Blade",
+    "primaryValues": [
+      {
+        "item": "aeon_disk",
+        "value": 3000
+      },
+      {
+        "item": "invis_sword",
+        "value": 3250
+      },
+      {
+        "item": "dagon",
+        "value": 3000
+      },
+      {
+        "item": "maelstrom",
+        "value": 2950
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:maelstrom",
+    "correctAnswer": "Maelstrom",
+    "primaryValues": [
+      {
+        "item": "maelstrom",
+        "value": 2950
+      },
+      {
+        "item": "cyclone",
+        "value": 2600
+      },
+      {
+        "item": "basher",
+        "value": 2875
+      },
+      {
+        "item": "armlet",
+        "value": 2500
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:magic_wand",
+    "correctAnswer": "Magic Wand",
+    "primaryValues": [
+      {
+        "item": "tango",
+        "value": 90
+      },
+      {
+        "item": "quelling_blade",
+        "value": 100
+      },
+      {
+        "item": "flask",
+        "value": 100
+      },
+      {
+        "item": "magic_wand",
+        "value": 460
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:manta",
+    "correctAnswer": "Manta Style",
+    "primaryValues": [
+      {
+        "item": "travel_boots_2",
+        "value": 4500
+      },
+      {
+        "item": "manta",
+        "value": 4650
+      },
+      {
+        "item": "hurricane_pike",
+        "value": 4550
+      },
+      {
+        "item": "shivas_guard",
+        "value": 4500
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:null_talisman",
+    "correctAnswer": "Null Talisman",
+    "primaryValues": [
+      {
+        "item": "quelling_blade",
+        "value": 100
+      },
+      {
+        "item": "null_talisman",
+        "value": 505
+      },
+      {
+        "item": "magic_wand",
+        "value": 460
+      },
+      {
+        "item": "flask",
+        "value": 100
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:octarine_core",
+    "correctAnswer": "Octarine Core",
+    "primaryValues": [
+      {
+        "item": "satanic",
+        "value": 5050
+      },
+      {
+        "item": "refresher",
+        "value": 5000
+      },
+      {
+        "item": "monkey_king_bar",
+        "value": 5000
+      },
+      {
+        "item": "octarine_core",
+        "value": 5100
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:orchid",
+    "correctAnswer": "Orchid Malevolence",
+    "primaryValues": [
+      {
+        "item": "invis_sword",
+        "value": 3250
+      },
+      {
+        "item": "dagon",
+        "value": 3000
+      },
+      {
+        "item": "aeon_disk",
+        "value": 3000
+      },
+      {
+        "item": "orchid",
+        "value": 3275
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:overwhelming_blink",
+    "correctAnswer": "Overwhelming Blink",
+    "primaryValues": [
+      {
+        "item": "overwhelming_blink",
+        "value": 6800
+      },
+      {
+        "item": "abyssal_blade",
+        "value": 6250
+      },
+      {
+        "item": "bloodthorn",
+        "value": 6400
+      },
+      {
+        "item": "skadi",
+        "value": 5900
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:refresher",
+    "correctAnswer": "Refresher Orb",
+    "primaryValues": [
+      {
+        "item": "refresher",
+        "value": 5000
+      },
+      {
+        "item": "sphere",
+        "value": 4800
+      },
+      {
+        "item": "bloodstone",
+        "value": 4700
+      },
+      {
+        "item": "radiance",
+        "value": 4700
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:sange_and_yasha",
+    "correctAnswer": "Sange and Yasha",
+    "primaryValues": [
+      {
+        "item": "moon_shard",
+        "value": 4000
+      },
+      {
+        "item": "sange_and_yasha",
+        "value": 4200
+      },
+      {
+        "item": "black_king_bar",
+        "value": 4050
+      },
+      {
+        "item": "lotus_orb",
+        "value": 3850
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:sheepstick",
+    "correctAnswer": "Scythe of Vyse",
+    "primaryValues": [
+      {
+        "item": "octarine_core",
+        "value": 5100
+      },
+      {
+        "item": "assault",
+        "value": 5125
+      },
+      {
+        "item": "satanic",
+        "value": 5050
+      },
+      {
+        "item": "sheepstick",
+        "value": 5200
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:shivas_guard",
+    "correctAnswer": "Shiva's Guard",
+    "primaryValues": [
+      {
+        "item": "shivas_guard",
+        "value": 4500
+      },
+      {
+        "item": "sange_and_yasha",
+        "value": 4200
+      },
+      {
+        "item": "guardian_greaves",
+        "value": 4450
+      },
+      {
+        "item": "ultimate_scepter",
+        "value": 4200
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:silver_edge",
+    "correctAnswer": "Silver Edge",
+    "primaryValues": [
+      {
+        "item": "butterfly",
+        "value": 5450
+      },
+      {
+        "item": "rapier",
+        "value": 5600
+      },
+      {
+        "item": "silver_edge",
+        "value": 5700
+      },
+      {
+        "item": "mjollnir",
+        "value": 5500
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:skadi",
+    "correctAnswer": "Eye of Skadi",
+    "primaryValues": [
+      {
+        "item": "rapier",
+        "value": 5600
+      },
+      {
+        "item": "skadi",
+        "value": 5900
+      },
+      {
+        "item": "mjollnir",
+        "value": 5500
+      },
+      {
+        "item": "silver_edge",
+        "value": 5700
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:swift_blink",
+    "correctAnswer": "Swift Blink",
+    "primaryValues": [
+      {
+        "item": "abyssal_blade",
+        "value": 6250
+      },
+      {
+        "item": "skadi",
+        "value": 5900
+      },
+      {
+        "item": "bloodthorn",
+        "value": 6400
+      },
+      {
+        "item": "swift_blink",
+        "value": 6800
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:travel_boots",
+    "correctAnswer": "Boots of Travel",
+    "primaryValues": [
+      {
+        "item": "travel_boots",
+        "value": 2500
+      },
+      {
+        "item": "blade_mail",
+        "value": 2400
+      },
+      {
+        "item": "force_staff",
+        "value": 2200
+      },
+      {
+        "item": "blink",
+        "value": 2250
+      }
+    ]
+  },
+  {
+    "id": "item-price-duel:ultimate_scepter",
+    "correctAnswer": "Aghanim's Scepter",
+    "primaryValues": [
+      {
+        "item": "ultimate_scepter",
+        "value": 4200
+      },
+      {
+        "item": "black_king_bar",
+        "value": 4050
+      },
+      {
+        "item": "moon_shard",
+        "value": 4000
+      },
+      {
+        "item": "lotus_orb",
+        "value": 3850
+      }
+    ]
+  },
+  {
+    "id": "mana:alchemist_acid_spray:1",
+    "correctAnswer": "120",
+    "primaryValues": [
+      120
+    ]
+  },
+  {
+    "id": "mana:antimage_blink:3",
+    "correctAnswer": "50",
+    "primaryValues": [
+      60,
+      55,
+      50,
+      45
+    ]
+  },
+  {
+    "id": "mana:axe_berserkers_call:4",
+    "correctAnswer": "120",
+    "primaryValues": [
+      90,
+      100,
+      110,
+      120
+    ]
+  },
+  {
+    "id": "mana:batrider_sticky_napalm:1",
+    "correctAnswer": "22",
+    "primaryValues": [
+      22
+    ]
+  },
+  {
+    "id": "mana:bristleback_hairball:1",
+    "correctAnswer": "60",
+    "primaryValues": [
+      60
+    ]
+  },
+  {
+    "id": "mana:broodmother_insatiable_hunger:1",
+    "correctAnswer": "70",
+    "primaryValues": [
+      70
+    ]
+  },
+  {
+    "id": "mana:chen_zealot:1",
+    "correctAnswer": "50",
+    "primaryValues": [
+      50
+    ]
+  },
+  {
+    "id": "mana:clinkz_burning_barrage:1",
+    "correctAnswer": "40",
+    "primaryValues": [
+      40
+    ]
+  },
+  {
+    "id": "mana:clinkz_strafe:3",
+    "correctAnswer": "80",
+    "primaryValues": [
+      60,
+      70,
+      80,
+      90
+    ]
+  },
+  {
+    "id": "mana:dark_willow_bedlam:3",
+    "correctAnswer": "200",
+    "primaryValues": [
+      100,
+      150,
+      200
+    ]
+  },
+  {
+    "id": "mana:dazzle_poison_touch:3",
+    "correctAnswer": "135",
+    "primaryValues": [
+      125,
+      130,
+      135,
+      140
+    ]
+  },
+  {
+    "id": "mana:death_prophet_carrion_swarm:3",
+    "correctAnswer": "100",
+    "primaryValues": [
+      80,
+      90,
+      100,
+      110
+    ]
+  },
+  {
+    "id": "mana:disruptor_glimpse:4",
+    "correctAnswer": "115",
+    "primaryValues": [
+      70,
+      85,
+      100,
+      115
+    ]
+  },
+  {
+    "id": "mana:disruptor_kinetic_fence:1",
+    "correctAnswer": "70",
+    "primaryValues": [
+      70
+    ]
+  },
+  {
+    "id": "mana:disruptor_static_storm:3",
+    "correctAnswer": "225",
+    "primaryValues": [
+      125,
+      175,
+      225
+    ]
+  },
+  {
+    "id": "mana:ember_spirit_searing_chains:2",
+    "correctAnswer": "90",
+    "primaryValues": [
+      80,
+      90,
+      100,
+      110
+    ]
+  },
+  {
+    "id": "mana:enchantress_little_friends:1",
+    "correctAnswer": "75",
+    "primaryValues": [
+      75
+    ]
+  },
+  {
+    "id": "mana:enchantress_natures_attendants:1",
+    "correctAnswer": "140",
+    "primaryValues": [
+      140
+    ]
+  },
+  {
+    "id": "mana:enigma_malefice:2",
+    "correctAnswer": "110",
+    "primaryValues": [
+      100,
+      110,
+      120,
+      130
+    ]
+  },
+  {
+    "id": "mana:furion_curse_of_the_forest:1",
+    "correctAnswer": "80",
+    "primaryValues": [
+      80
+    ]
+  },
+  {
+    "id": "mana:furion_teleportation:4",
+    "correctAnswer": "80",
+    "primaryValues": [
+      50,
+      60,
+      70,
+      80
+    ]
+  },
+  {
+    "id": "mana:invoker_chaos_meteor:1",
+    "correctAnswer": "200",
+    "primaryValues": [
+      200
+    ]
+  },
+  {
+    "id": "mana:invoker_sun_strike:1",
+    "correctAnswer": "175",
+    "primaryValues": [
+      175
+    ]
+  },
+  {
+    "id": "mana:keeper_of_the_light_blinding_light:2",
+    "correctAnswer": "130",
+    "primaryValues": [
+      120,
+      130,
+      140,
+      150
+    ]
+  },
+  {
+    "id": "mana:kez_talon_toss:1",
+    "correctAnswer": "60",
+    "primaryValues": [
+      60,
+      65,
+      70,
+      75
+    ]
+  },
+  {
+    "id": "mana:kunkka_ghostship:3",
+    "correctAnswer": "225",
+    "primaryValues": [
+      125,
+      175,
+      225
+    ]
+  },
+  {
+    "id": "mana:largo_song_double_time:1",
+    "correctAnswer": "25",
+    "primaryValues": [
+      25,
+      35,
+      45
+    ]
+  },
+  {
+    "id": "mana:magnataur_horn_toss:1",
+    "correctAnswer": "100",
+    "primaryValues": [
+      100
+    ]
+  },
+  {
+    "id": "mana:mirana_arrow:1",
+    "correctAnswer": "90",
+    "primaryValues": [
+      90
+    ]
+  },
+  {
+    "id": "mana:monkey_king_primal_spring:1",
+    "correctAnswer": "100",
+    "primaryValues": [
+      100
+    ]
+  },
+  {
+    "id": "mana:nyx_assassin_spiked_carapace:1",
+    "correctAnswer": "40",
+    "primaryValues": [
+      40,
+      40,
+      40,
+      40
+    ]
+  },
+  {
+    "id": "mana:obsidian_destroyer_sanity_eclipse:1",
+    "correctAnswer": "200",
+    "primaryValues": [
+      200,
+      300,
+      400
+    ]
+  },
+  {
+    "id": "mana:ogre_magi_fireblast:1",
+    "correctAnswer": "70",
+    "primaryValues": [
+      70,
+      85,
+      100,
+      115
+    ]
+  },
+  {
+    "id": "mana:rattletrap_hookshot:1",
+    "correctAnswer": "100",
+    "primaryValues": [
+      100,
+      125,
+      150
+    ]
+  },
+  {
+    "id": "mana:ringmaster_wheel:3",
+    "correctAnswer": "300",
+    "primaryValues": [
+      150,
+      225,
+      300
+    ]
+  },
+  {
+    "id": "mana:sandking_sand_storm:1",
+    "correctAnswer": "85",
+    "primaryValues": [
+      85
+    ]
+  },
+  {
+    "id": "mana:shadow_demon_disseminate:1",
+    "correctAnswer": "100",
+    "primaryValues": [
+      100
+    ]
+  },
+  {
+    "id": "mana:shadow_demon_shadow_poison:1",
+    "correctAnswer": "40",
+    "primaryValues": [
+      40
+    ]
+  },
+  {
+    "id": "mana:shadow_shaman_urnaconda:1",
+    "correctAnswer": "140",
+    "primaryValues": [
+      140
+    ]
+  },
+  {
+    "id": "mana:silencer_glaives_of_wisdom:3",
+    "correctAnswer": "16",
+    "primaryValues": [
+      12,
+      14,
+      16,
+      18
+    ]
+  },
+  {
+    "id": "mana:slark_depth_shroud:1",
+    "correctAnswer": "75",
+    "primaryValues": [
+      75
+    ]
+  },
+  {
+    "id": "mana:snapfire_lil_shredder:2",
+    "correctAnswer": "80",
+    "primaryValues": [
+      70,
+      80,
+      90,
+      100
+    ]
+  },
+  {
+    "id": "mana:snapfire_mortimer_kisses:2",
+    "correctAnswer": "150",
+    "primaryValues": [
+      125,
+      150,
+      175
+    ]
+  },
+  {
+    "id": "mana:sniper_shrapnel:1",
+    "correctAnswer": "75",
+    "primaryValues": [
+      75
+    ]
+  },
+  {
+    "id": "mana:spectre_reality:1",
+    "correctAnswer": "25",
+    "primaryValues": [
+      25
+    ]
+  },
+  {
+    "id": "mana:spirit_breaker_nether_strike:1",
+    "correctAnswer": "125",
+    "primaryValues": [
+      125,
+      150,
+      175
+    ]
+  },
+  {
+    "id": "mana:storm_spirit_electric_vortex:2",
+    "correctAnswer": "70",
+    "primaryValues": [
+      60,
+      70,
+      80,
+      90
+    ]
+  },
+  {
+    "id": "mana:techies_suicide:4",
+    "correctAnswer": "175",
+    "primaryValues": [
+      100,
+      125,
+      150,
+      175
+    ]
+  },
+  {
+    "id": "mana:templar_assassin_psionic_trap:1",
+    "correctAnswer": "15",
+    "primaryValues": [
+      15,
+      15,
+      15
+    ]
+  },
+  {
+    "id": "mana:terrorblade_sunder:1",
+    "correctAnswer": "100",
+    "primaryValues": [
+      100,
+      75,
+      50
+    ]
+  },
+  {
+    "id": "mana:tidehunter_gush:1",
+    "correctAnswer": "100",
+    "primaryValues": [
+      100
+    ]
+  },
+  {
+    "id": "mana:tinker_march_of_the_machines:2",
+    "correctAnswer": "120",
+    "primaryValues": [
+      100,
+      120,
+      140,
+      160
+    ]
+  },
+  {
+    "id": "mana:tiny_tree_grab:4",
+    "correctAnswer": "25",
+    "primaryValues": [
+      40,
+      35,
+      30,
+      25
+    ]
+  },
+  {
+    "id": "mana:undying_soul_rip:4",
+    "correctAnswer": "110",
+    "primaryValues": [
+      80,
+      90,
+      100,
+      110
+    ]
+  },
+  {
+    "id": "mana:venomancer_noxious_plague:3",
+    "correctAnswer": "300",
+    "primaryValues": [
+      200,
+      250,
+      300
+    ]
+  },
+  {
+    "id": "mana:venomancer_snakebite:1",
+    "correctAnswer": "70",
+    "primaryValues": [
+      70,
+      80,
+      90,
+      100
+    ]
+  },
+  {
+    "id": "mana:visage_grave_chill:1",
+    "correctAnswer": "75",
+    "primaryValues": [
+      75
+    ]
+  },
+  {
+    "id": "mana:void_spirit_dissimilate:1",
+    "correctAnswer": "120",
+    "primaryValues": [
+      120
+    ]
+  },
+  {
+    "id": "mana:windrunner_windrun:1",
+    "correctAnswer": "50",
+    "primaryValues": [
+      50
+    ]
+  },
+  {
+    "id": "mana:winter_wyvern_arctic_burn:1",
+    "correctAnswer": "100",
+    "primaryValues": [
+      100
+    ]
+  },
+  {
+    "id": "move-speed:npc_dota_hero_abaddon",
+    "correctAnswer": "325",
+    "primaryValues": {
+      "hero": "npc_dota_hero_abaddon",
+      "value": 325
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_alchemist",
+    "correctAnswer": "290",
+    "primaryValues": {
+      "hero": "npc_dota_hero_alchemist",
+      "value": 290
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_antimage",
+    "correctAnswer": "315",
+    "primaryValues": {
+      "hero": "npc_dota_hero_antimage",
+      "value": 315
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_batrider",
+    "correctAnswer": "310",
+    "primaryValues": {
+      "hero": "npc_dota_hero_batrider",
+      "value": 310
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_beastmaster",
+    "correctAnswer": "305",
+    "primaryValues": {
+      "hero": "npc_dota_hero_beastmaster",
+      "value": 305
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_bloodseeker",
+    "correctAnswer": "285",
+    "primaryValues": {
+      "hero": "npc_dota_hero_bloodseeker",
+      "value": 285
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_chen",
+    "correctAnswer": "305",
+    "primaryValues": {
+      "hero": "npc_dota_hero_chen",
+      "value": 305
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_clinkz",
+    "correctAnswer": "285",
+    "primaryValues": {
+      "hero": "npc_dota_hero_clinkz",
+      "value": 285
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_dark_seer",
+    "correctAnswer": "295",
+    "primaryValues": {
+      "hero": "npc_dota_hero_dark_seer",
+      "value": 295
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_dark_willow",
+    "correctAnswer": "290",
+    "primaryValues": {
+      "hero": "npc_dota_hero_dark_willow",
+      "value": 290
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_death_prophet",
+    "correctAnswer": "290",
+    "primaryValues": {
+      "hero": "npc_dota_hero_death_prophet",
+      "value": 290
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_earth_spirit",
+    "correctAnswer": "290",
+    "primaryValues": {
+      "hero": "npc_dota_hero_earth_spirit",
+      "value": 290
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_earthshaker",
+    "correctAnswer": "315",
+    "primaryValues": {
+      "hero": "npc_dota_hero_earthshaker",
+      "value": 315
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_elder_titan",
+    "correctAnswer": "305",
+    "primaryValues": {
+      "hero": "npc_dota_hero_elder_titan",
+      "value": 305
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_enchantress",
+    "correctAnswer": "320",
+    "primaryValues": {
+      "hero": "npc_dota_hero_enchantress",
+      "value": 320
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_huskar",
+    "correctAnswer": "290",
+    "primaryValues": {
+      "hero": "npc_dota_hero_huskar",
+      "value": 290
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_jakiro",
+    "correctAnswer": "290",
+    "primaryValues": {
+      "hero": "npc_dota_hero_jakiro",
+      "value": 290
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_keeper_of_the_light",
+    "correctAnswer": "310",
+    "primaryValues": {
+      "hero": "npc_dota_hero_keeper_of_the_light",
+      "value": 310
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_kunkka",
+    "correctAnswer": "315",
+    "primaryValues": {
+      "hero": "npc_dota_hero_kunkka",
+      "value": 315
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_largo",
+    "correctAnswer": "290",
+    "primaryValues": {
+      "hero": "npc_dota_hero_largo",
+      "value": 290
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_life_stealer",
+    "correctAnswer": "320",
+    "primaryValues": {
+      "hero": "npc_dota_hero_life_stealer",
+      "value": 320
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_luna",
+    "correctAnswer": "325",
+    "primaryValues": {
+      "hero": "npc_dota_hero_luna",
+      "value": 325
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_mirana",
+    "correctAnswer": "285",
+    "primaryValues": {
+      "hero": "npc_dota_hero_mirana",
+      "value": 285
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_morphling",
+    "correctAnswer": "285",
+    "primaryValues": {
+      "hero": "npc_dota_hero_morphling",
+      "value": 285
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_necrolyte",
+    "correctAnswer": "280",
+    "primaryValues": {
+      "hero": "npc_dota_hero_necrolyte",
+      "value": 280
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_obsidian_destroyer",
+    "correctAnswer": "315",
+    "primaryValues": {
+      "hero": "npc_dota_hero_obsidian_destroyer",
+      "value": 315
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_omniknight",
+    "correctAnswer": "310",
+    "primaryValues": {
+      "hero": "npc_dota_hero_omniknight",
+      "value": 310
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_phantom_assassin",
+    "correctAnswer": "310",
+    "primaryValues": {
+      "hero": "npc_dota_hero_phantom_assassin",
+      "value": 310
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_phoenix",
+    "correctAnswer": "280",
+    "primaryValues": {
+      "hero": "npc_dota_hero_phoenix",
+      "value": 280
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_puck",
+    "correctAnswer": "290",
+    "primaryValues": {
+      "hero": "npc_dota_hero_puck",
+      "value": 290
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_pudge",
+    "correctAnswer": "280",
+    "primaryValues": {
+      "hero": "npc_dota_hero_pudge",
+      "value": 280
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_queenofpain",
+    "correctAnswer": "290",
+    "primaryValues": {
+      "hero": "npc_dota_hero_queenofpain",
+      "value": 290
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_riki",
+    "correctAnswer": "315",
+    "primaryValues": {
+      "hero": "npc_dota_hero_riki",
+      "value": 315
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_shadow_demon",
+    "correctAnswer": "290",
+    "primaryValues": {
+      "hero": "npc_dota_hero_shadow_demon",
+      "value": 290
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_silencer",
+    "correctAnswer": "300",
+    "primaryValues": {
+      "hero": "npc_dota_hero_silencer",
+      "value": 300
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_sniper",
+    "correctAnswer": "285",
+    "primaryValues": {
+      "hero": "npc_dota_hero_sniper",
+      "value": 285
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_spectre",
+    "correctAnswer": "295",
+    "primaryValues": {
+      "hero": "npc_dota_hero_spectre",
+      "value": 295
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_sven",
+    "correctAnswer": "325",
+    "primaryValues": {
+      "hero": "npc_dota_hero_sven",
+      "value": 325
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_ursa",
+    "correctAnswer": "310",
+    "primaryValues": {
+      "hero": "npc_dota_hero_ursa",
+      "value": 310
+    }
+  },
+  {
+    "id": "move-speed:npc_dota_hero_visage",
+    "correctAnswer": "285",
+    "primaryValues": {
+      "hero": "npc_dota_hero_visage",
+      "value": 285
+    }
+  }
+]

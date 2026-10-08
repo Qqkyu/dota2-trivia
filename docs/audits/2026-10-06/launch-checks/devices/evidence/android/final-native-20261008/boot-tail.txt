@@ -1,0 +1,83 @@
+--------- beginning of main
+10-08 16:44:29.268   655   822 D BluetoothActiveDeviceManager: Audio device added: Android SDK built for x86_64 type: 18
+10-08 16:44:29.268   655   822 D BluetoothActiveDeviceManager: Audio device added: Android SDK built for x86_64 type: 2
+10-08 16:44:29.269   655   822 D BluetoothActiveDeviceManager: Audio device added: Android SDK built for x86_64 type: 15
+10-08 16:44:29.269   655   822 D BluetoothActiveDeviceManager: Audio device added: Android SDK built for x86_64 type: 25
+10-08 16:44:29.269   655   822 D BluetoothActiveDeviceManager: Audio device added: Android SDK built for x86_64 type: 16
+10-08 16:44:29.269   655   822 D BluetoothActiveDeviceManager: Audio device added: Android SDK built for x86_64 type: 18
+10-08 16:44:29.349   655   655 D BluetoothDatabase: start()
+10-08 16:44:29.372   381   381 V C2Store : in ~ComponentModule
+10-08 16:44:29.372   381   381 V C2Store : unloading dll
+10-08 16:44:29.373   381   381 V C2Store : in init
+10-08 16:44:29.373   381   381 V C2Store : loading dll
+10-08 16:44:29.397   655   655 D BluetoothDatabase: Load Database
+10-08 16:44:29.434   655   655 D BluetoothAdapterService: setAdapterService() - trying to set service to com.android.bluetooth.btservice.AdapterService@a7388c2
+10-08 16:44:29.489   767   776 I WebViewLoader-: Background young concurrent copying GC freed 19951(816KB) AllocSpace objects, 0(0B) LOS objects, 93% free, 1681KB/25MB, paused 76.618ms total 275.721ms
+10-08 16:44:29.513   381   381 V C2Store : in ~ComponentModule
+10-08 16:44:29.514   381   381 V C2Store : unloading dll
+10-08 16:44:29.514   381   381 V C2Store : in init
+10-08 16:44:29.514   381   381 V C2Store : loading dll
+10-08 16:44:29.549   673   706 I ndroid.systemu: Waiting for a blocking GC ProfileSaver
+10-08 16:44:29.553   655   655 D BluetoothAdapterService: onBind()
+10-08 16:44:29.575   767   767 I WebViewLoader-: System.exit called, status: 0
+10-08 16:44:29.575   767   767 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+--------- beginning of system
+10-08 16:44:29.597   512   547 W ProcessCpuTracker: Failed to stat(/proc/726): android.system.ErrnoException: stat failed: ENOENT (No such file or directory)
+10-08 16:44:29.598   512   547 W ProcessCpuTracker: Skipping unknown process pid 726
+10-08 16:44:29.611   753   756 I webview_zygote: Background young concurrent copying GC freed 19694(784KB) AllocSpace objects, 0(0B) LOS objects, 93% free, 1669KB/25MB, paused 261us total 609.079ms
+10-08 16:44:29.625   673   706 I ndroid.systemu: WaitForGcToComplete blocked ProfileSaver on RunEmptyCheckpoint for 75.367ms
+10-08 16:44:29.647   381   381 V C2Store : in ~ComponentModule
+10-08 16:44:29.648   381   381 V C2Store : unloading dll
+10-08 16:44:29.648   381   381 V C2Store : in init
+10-08 16:44:29.648   381   381 V C2Store : loading dll
+10-08 16:44:29.671   801   801 I android.hardware.gnss@2.0-service.ranchu: Registering HAL: android.hardware.gnss@2.0::IGnss with name: default
+10-08 16:44:29.721   381   381 V C2Store : in ~ComponentModule
+10-08 16:44:29.721   381   381 V C2Store : unloading dll
+10-08 16:44:29.722   381   381 V C2Store : in init
+10-08 16:44:29.722   381   381 V C2Store : loading dll
+10-08 16:44:29.729   801   801 I HidlServiceManagement: Registered android.hardware.gnss@2.0::IGnss/default (start delay of 1572ms)
+10-08 16:44:29.742   801   801 I HidlServiceManagement: Removing namespace from process name android.hardware.gnss@2.0-service.ranchu to gnss@2.0-service.ranchu.
+10-08 16:44:29.768   144   144 I hw-BpHwBinder: onLastStrongRef automatically unlinking death recipients
+10-08 16:44:29.796   512   526 I ActivityManager: Process WebViewLoader-x86_64 (pid 767) has died: psvc PER 
+10-08 16:44:29.825   254   254 I Zygote  : Process 767 exited cleanly (0)
+10-08 16:44:29.844   512   540 I libprocessgroup: Successfully killed process cgroup uid 1037 pid 767 in 46ms
+10-08 16:44:29.869   381   381 V C2Store : in ~ComponentModule
+10-08 16:44:29.869   381   381 V C2Store : unloading dll
+10-08 16:44:29.869   381   381 V C2Store : in init
+10-08 16:44:29.870   381   381 V C2Store : loading dll
+10-08 16:44:29.900   512   529 D GnssLocationProvider: Link to death notification successful
+10-08 16:44:29.943   512   529 D GnssLocationProvider: gnssSetCapabilitesCb: 64u
+10-08 16:44:29.952   512   512 E LocationManagerService: unable to bind to GeofenceProxy
+10-08 16:44:29.952   512   512 W SystemServiceManager: Service com.android.server.location.LocationManagerService$Lifecycle took 1932 ms in onBootPhase
+10-08 16:44:29.952   512   512 D SystemServerTiming: OnBootPhase_600_com.android.server.location.LocationManagerService$Lifecycle took to complete: 1932ms
+10-08 16:44:29.952   512   512 I SystemServerTiming: OnBootPhase_600_com.android.server.timedetector.TimeDetectorService$Lifecycle
+10-08 16:44:29.952   512   512 D SystemServerTiming: OnBootPhase_600_com.android.server.timedetector.TimeDetectorService$Lifecycle took to complete: 0ms
+10-08 16:44:29.952   512   512 I SystemServerTiming: OnBootPhase_600_com.android.server.timezonedetector.TimeZoneDetectorService$Lifecycle
+10-08 16:44:29.952   512   512 D SystemServerTiming: OnBootPhase_600_com.android.server.timezonedetector.TimeZoneDetectorService$Lifecycle took to complete: 0ms
+10-08 16:44:29.953   512   512 I SystemServerTiming: OnBootPhase_600_com.android.server.search.SearchManagerService$Lifecycle
+10-08 16:44:29.953   512   512 D SystemServerTiming: OnBootPhase_600_com.android.server.search.SearchManagerService$Lifecycle took to complete: 0ms
+10-08 16:44:29.953   512   512 I SystemServerTiming: OnBootPhase_600_com.android.server.wallpaper.WallpaperManagerService$Lifecycle
+10-08 16:44:29.953   512   512 I WallpaperManagerService: switch-user-0
+10-08 16:44:29.954   512   512 V WallpaperManagerService: bindWallpaperComponentLocked: componentName=ComponentInfo{com.android.systemui/com.android.systemui.ImageWallpaper}
+10-08 16:44:29.963   512   529 D GnssLocationProvider: gnssNameCb: name=Android Studio Emulator GPS
+10-08 16:44:29.969   512   529 D GnssLocationProvider: gnssSetSystemInfoCb: yearOfHw=2020
+10-08 16:44:29.980   512   529 I GnssLocationProvider: Unable to initialize IGnssXtra interface.
+10-08 16:44:29.990   512   512 D WallpaperManagerService: switch-user-0 took to complete: 37ms
+10-08 16:44:29.990   512   512 D SystemServerTiming: OnBootPhase_600_com.android.server.wallpaper.WallpaperManagerService$Lifecycle took to complete: 37ms
+10-08 16:44:29.990   512   512 I SystemServerTiming: OnBootPhase_600_com.android.server.audio.AudioService$Lifecycle
+10-08 16:44:29.990   512   512 D SystemServerTiming: OnBootPhase_600_com.android.server.audio.AudioService$Lifecycle took to complete: 0ms
+10-08 16:44:29.996   512   512 I SystemServerTiming: OnBootPhase_600_com.android.server.soundtrigger_middleware.SoundTriggerMiddlewareService$Lifecycle
+10-08 16:44:29.996   512   512 D SystemServerTiming: OnBootPhase_600_com.android.server.soundtrigger_middleware.SoundTriggerMiddlewareService$Lifecycle took to complete: 0ms
+10-08 16:44:29.996   512   512 I SystemServerTiming: OnBootPhase_600_com.android.server.DockObserver
+10-08 16:44:29.997   512   512 D SystemServerTiming: OnBootPhase_600_com.android.server.DockObserver took to complete: 0ms
+10-08 16:44:29.997   512   512 I SystemServerTiming: OnBootPhase_600_com.android.server.midi.MidiService$Lifecycle
+10-08 16:44:29.997   512   512 D SystemServerTiming: OnBootPhase_600_com.android.server.midi.MidiService$Lifecycle took to complete: 0ms
+10-08 16:44:29.997   512   512 I SystemServerTiming: OnBootPhase_600_com.android.server.adb.AdbService$Lifecycle
+10-08 16:44:29.997   512   512 D SystemServerTiming: OnBootPhase_600_com.android.server.adb.AdbService$Lifecycle took to complete: 0ms
+10-08 16:44:29.997   512   512 I SystemServerTiming: OnBootPhase_600_com.android.server.usb.UsbService$Lifecycle
+10-08 16:44:29.997   512   512 D SystemServerTiming: OnBootPhase_600_com.android.server.usb.UsbService$Lifecycle took to complete: 0ms
+10-08 16:44:29.998   512   512 I SystemServerTiming: OnBootPhase_600_com.android.server.twilight.TwilightService
+--------- beginning of kernel
+10-08 16:44:28.208     0     0 I chatty  : uid=0(root) logd identical 1 line
+10-08 16:44:29.186     0     0 I init    : Control message: Processed ctl.interface_start for 'android.hardware.gnss@2.0::IGnss/default' from pid: 144 (/system/bin/hwservicemanager)
+10-08 16:44:33.063     0     0 D logd    : logdr: UID=2000 GID=2000 PID=860 n tail=80 logMask=99 pid=0 start=0ns timeout=0ns

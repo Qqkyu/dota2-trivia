@@ -1,0 +1,214 @@
+{
+  "appUrl": "http://127.0.0.1:3315",
+  "engine": "webkit",
+  "runName": "webkit265-zoom200-retry",
+  "buildId": "a9jO2vwwKVTSsroYDHJJW",
+  "startedAt": "2026-10-06T09:09:33.944Z",
+  "completed": true,
+  "requestedModes": [
+    "zoom200"
+  ],
+  "fixtureModes": [
+    "zoom200"
+  ],
+  "reviewerFixture": false,
+  "version": "26.5",
+  "pages": [],
+  "fixtures": [
+    {
+      "label": "zoom200-classic-item",
+      "axe": [],
+      "axeIncomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "target": [
+                "h2"
+              ],
+              "html": "<h2>How much does Abyssal Blade cost?</h2>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "p"
+              ],
+              "html": "<p class=\"queue-arcade-module__ZwN2dq__questionDetail\">Use the total shop price, including recipes and components.</p>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__answer[data-testid=\"arcade-answer\"]:nth-child(1) > .queue-arcade-module__ZwN2dq__answerKey"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__answerKey\">A</span>",
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__answer[data-testid=\"arcade-answer\"]:nth-child(1) > .queue-arcade-module__ZwN2dq__answerText"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__answerText\">5,700 gold</span>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__answer[data-testid=\"arcade-answer\"]:nth-child(2) > .queue-arcade-module__ZwN2dq__answerKey"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__answerKey\">B</span>",
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__answer[data-testid=\"arcade-answer\"]:nth-child(2) > .queue-arcade-module__ZwN2dq__answerText"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__answerText\">5,500 gold</span>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__answer[data-testid=\"arcade-answer\"]:nth-child(3) > .queue-arcade-module__ZwN2dq__answerKey"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__answerKey\">C</span>",
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__answer[data-testid=\"arcade-answer\"]:nth-child(3) > .queue-arcade-module__ZwN2dq__answerText"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__answerText\">5,600 gold</span>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__answer[data-testid=\"arcade-answer\"]:nth-child(4) > .queue-arcade-module__ZwN2dq__answerKey"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__answerKey\">D</span>",
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__answer[data-testid=\"arcade-answer\"]:nth-child(4) > .queue-arcade-module__ZwN2dq__answerText"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__answerText\">6,250 gold</span>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__answerHelperCopy"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__answerHelperCopy\">Use A–D or 1–4 to answer</span>",
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__pipEmpty:nth-child(2)"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__pipEmpty\">·</span>",
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__pipEmpty:nth-child(3)"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__pipEmpty\">·</span>",
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__pipEmpty:nth-child(4)"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__pipEmpty\">·</span>",
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__pipEmpty:nth-child(5)"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__pipEmpty\">·</span>",
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__pipEmpty:nth-child(6)"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__pipEmpty\">·</span>",
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__pipEmpty:nth-child(7)"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__pipEmpty\">·</span>",
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__pipEmpty:nth-child(8)"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__pipEmpty\">·</span>",
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__pipEmpty:nth-child(9)"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__pipEmpty\">·</span>",
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".queue-arcade-module__ZwN2dq__pipEmpty:nth-child(10)"
+              ],
+              "html": "<span class=\"queue-arcade-module__ZwN2dq__pipEmpty\">·</span>",
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            }
+          ]
+        }
+      ],
+      "geometry": {
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "dpr": 2
+        },
+        "scrollWidth": 630,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [
+          {
+            "target": "queue-arcade-module__ZwN2dq__volumeSlider",
+            "duration": 160,
+            "iterations": 1
+          }
+        ],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 640,
+        "height": 450
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/webkit265-zoom200-retry-zoom200-classic-item.png",
+      "errors": []
+    }
+  ],
+  "keyboard": [],
+  "failures": [],
+  "completedAt": "2026-10-06T09:09:53.139Z"
+}

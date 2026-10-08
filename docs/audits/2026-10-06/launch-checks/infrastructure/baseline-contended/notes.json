@@ -1,0 +1,8 @@
+{
+  "releaseApproved": false,
+  "contentGate": "The test-only baseline Dockerfile omitted the content-review gate while source changes were in progress. The repository gate was unchanged. Final gated image acceptance remains required.",
+  "contention": "Root ran a Next build and unit checks during this run; a low-priority Trivy image scan started near the end. The image scan found zero advisories. This failed run does not isolate app CPU quota from host contention.",
+  "failure": "First workload stopped around round6 because requests timed out or missed round deadlines. Later two planned workload repetitions did not run.",
+  "limits": "Synthetic local workload, not measured Render capacity. No external deployment.",
+  "measurement": "One-second main-process RSS/heap/event-loop samples and cgroup CPU/memory counters. No raw process logs or credentials archived."
+}

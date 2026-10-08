@@ -1,0 +1,421 @@
+13:28:26.679502 - CLIPBOARD PRESENTER: Possible change event object:text-changed:delete for [status bar (0x75bdce7ace40)]  in Google Chrome for Testing (Chromium 1.0) (0, 44, Round 1. How much mana does Acid Spray cost?)
+
+13:28:26.679557 - EVENT MANAGER: object:text-changed:delete for [status bar (0x75bdce7ace40)]  in Google Chrome for Testing (Chromium 1.0) (0, 44, Round 1. How much mana does Acid Spray cost?)
+13:28:26.679588 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.679612 - EVENT_MANAGER: Ignoring object:text-changed:delete due to multiple instances in short time
+13:28:26.679646 - CLIPBOARD PRESENTER: Possible change event object:text-changed:insert for [status bar (0x75bdce7ace40)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?)
+
+13:28:26.679709 - EVENT MANAGER: object:text-changed:insert for [status bar (0x75bdce7ace40)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?)
+13:28:26.679739 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.679766 - EVENT_MANAGER: Ignoring object:text-changed:insert due to multiple instances in short time
+
+13:28:26.679808 - EVENT MANAGER: object:text-caret-moved for [section (0x75bdce835a00)]  in Google Chrome for Testing (Chromium 1.0) (2, 0, 0)
+13:28:26.679834 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.679888 - EVENT MANAGER: Queueing object:text-caret-moved for [section (0x75bdce6b4080)]  in Google Chrome for Testing (Chromium 1.0) (2, 0, 0)
+13:28:26.679902 - EVENT MANAGER: App for event source is [application: 'Google Chrome for Testing' (0x75bdcf922840)] 
+13:28:26.679917 - SCRIPT MANAGER: Getting script for [application: 'Google Chrome for Testing' (0x75bdcf922840)]  [section (0x75bdcf845a00)] 
+13:28:26.679932 - SCRIPT MANAGER: Script is app script Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.679969 - EVENT MANAGER: object:text-caret-moved for [section (0x75bdce6b4700)]  in Google Chrome for Testing (Chromium 1.0) (2, 0, 0) has priority level: 4
+13:28:26.680001 - EVENT MANAGER: Queued object:text-caret-moved for [section (0x75bdcf845a00)]  in Google Chrome for Testing (Chromium 1.0) (2, 0, 0) priority: 4, counter: 187
+
+13:28:26.680045 - EVENT MANAGER: object:state-changed:focused for [document web: 'Play · Queue Arcade' (0x75bdce5617c0)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, 0)
+13:28:26.680071 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.680124 - EVENT MANAGER: Queueing object:state-changed:focused for [document web: 'Play · Queue Arcade' (0x75bdce5617c0)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, 0)
+13:28:26.680139 - EVENT MANAGER: App for event source is [application: 'Google Chrome for Testing' (0x75bdcf922840)] 
+13:28:26.680154 - SCRIPT MANAGER: Getting script for [application: 'Google Chrome for Testing' (0x75bdcf922840)]  [document web: 'Play · Queue Arcade' (0x75bdce5617c0)] 
+13:28:26.680168 - SCRIPT MANAGER: Script is app script Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.680315 - EVENT MANAGER: object:state-changed:focused for [document web: 'Play · Queue Arcade' (0x75bdce5617c0)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, 0) has priority level: 3
+13:28:26.680373 - EVENT MANAGER: Queued object:state-changed:focused for [document web: 'Play · Queue Arcade' (0x75bdce5617c0)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, 0) priority: 3, counter: 188
+
+13:28:26.681034 - EVENT MANAGER: object:state-changed:focused for [heading: 'Round 2' (0x75bdce6b4700)]  in Google Chrome for Testing (Chromium 1.0) (1, 0, 0)
+13:28:26.681101 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.681415 - EVENT_MANAGER: Not ignoring object:state-changed:focused due to source being focused
+13:28:26.681496 - EVENT MANAGER: Queueing object:state-changed:focused for [heading: 'Round 2' (0x75bdce6b4080)]  in Google Chrome for Testing (Chromium 1.0) (1, 0, 0)
+13:28:26.681515 - EVENT MANAGER: App for event source is [application: 'Google Chrome for Testing' (0x75bdcf922840)] 
+13:28:26.681534 - SCRIPT MANAGER: Getting script for [application: 'Google Chrome for Testing' (0x75bdcf922840)]  [heading: 'Round 2' (0x75bdcf90da00)] 
+13:28:26.681741 - SCRIPT MANAGER: Script is app script Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.681901 - EVENT MANAGER: object:state-changed:focused for [heading: 'Round 2' (0x75bdce6b7040)]  in Google Chrome for Testing (Chromium 1.0) (1, 0, 0) has priority level: 3
+13:28:26.681955 - EVENT MANAGER: Queued object:state-changed:focused for [heading: 'Round 2' (0x75bdce6b5380)]  in Google Chrome for Testing (Chromium 1.0) (1, 0, 0) priority: 3, counter: 189
+
+13:28:26.682012 - EVENT MANAGER: object:property-change:accessible-name for [timer: '60 seconds remaining' (0x75bdce6b6680)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, 60 seconds remaining)
+13:28:26.682048 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.682116 - EVENT MANAGER: Queueing object:property-change:accessible-name for [timer: '60 seconds remaining' (0x75bdce6b5740)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, 60 seconds remaining)
+13:28:26.682131 - EVENT MANAGER: App for event source is [application: 'Google Chrome for Testing' (0x75bdcf922840)] 
+13:28:26.682150 - SCRIPT MANAGER: Getting script for [application: 'Google Chrome for Testing' (0x75bdcf922840)]  [timer: '60 seconds remaining' (0x75bdcf9065c0)] 
+13:28:26.682170 - SCRIPT MANAGER: Script is app script Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.682204 - EVENT MANAGER: object:property-change:accessible-name for [timer: '60 seconds remaining' (0x75bdce6b5740)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, 60 seconds remaining) has priority level: 4
+13:28:26.682236 - EVENT MANAGER: Queued object:property-change:accessible-name for [timer: '60 seconds remaining' (0x75bdce6b6680)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, 60 seconds remaining) priority: 4, counter: 190
+
+13:28:26.682805 - EVENT MANAGER: object:property-change:accessible-name for [image: 'Dota 2' (0x75bdce6b7040)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, Dota 2)
+13:28:26.682852 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.683026 - EVENT_MANAGER: Ignoring object:property-change:accessible-name due to multiple instances in short time
+
+13:28:26.683566 - EVENT MANAGER: object:property-change:accessible-name for [heading: 'What year did Dota 2 officially release?' (0x75bdce6b5740)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, What year did Dota 2 officially release?)
+13:28:26.683600 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.683745 - EVENT_MANAGER: Ignoring object:property-change:accessible-name due to multiple instances in short time
+
+13:28:26.683949 - EVENT MANAGER: object:children-changed:add for [landmark: 'Your session' (0x75bdce6b5740)]  in Google Chrome for Testing (Chromium 1.0) (5, 0, [section (0x75bdce6b5740)])
+13:28:26.684000 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.684046 - SCRIPT MANAGER: Active script is: Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.684076 - EVENT MANAGER: Queueing object:children-changed:add for [landmark: 'Your session' (0x75bdcf8f5740)]  in Google Chrome for Testing (Chromium 1.0) (5, 0, [section (0x75bdcf8f5740)])
+13:28:26.684084 - EVENT MANAGER: App for event source is [application: 'Google Chrome for Testing' (0x75bdcf922840)] 
+13:28:26.684093 - SCRIPT MANAGER: Getting script for [application: 'Google Chrome for Testing' (0x75bdcf922840)]  [landmark: 'Your session' (0x75bdcf845780)] 
+13:28:26.684260 - SCRIPT MANAGER: Script is app script Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.684315 - EVENT MANAGER: object:children-changed:add for [landmark: 'Your session' (0x75bdce6b7f00)]  in Google Chrome for Testing (Chromium 1.0) (5, 0, [section (0x75bdce6b7f00)]) has priority level: 6
+13:28:26.684347 - EVENT MANAGER: Queued object:children-changed:add for [landmark: 'Your session' (0x75bdce6b7f00)]  in Google Chrome for Testing (Chromium 1.0) (5, 0, [section (0x75bdce6b7f00)]) priority: 6, counter: 191
+
+13:28:26.684378 - EVENT MANAGER: object:property-change:accessible-name for [heading: 'Round 2' (0x75bdce6b7f00)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, Round 2)
+13:28:26.684396 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.684412 - EVENT_MANAGER: Not ignoring object:property-change:accessible-name due to source being focused
+13:28:26.684429 - EVENT MANAGER: Queueing object:property-change:accessible-name for [heading: 'Round 2' (0x75bdce6b7440)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, Round 2)
+13:28:26.684438 - EVENT MANAGER: App for event source is [application: 'Google Chrome for Testing' (0x75bdcf922840)] 
+13:28:26.684445 - SCRIPT MANAGER: Getting script for [application: 'Google Chrome for Testing' (0x75bdcf922840)]  [heading: 'Round 2' (0x75bdce6b6d40)] 
+13:28:26.684455 - SCRIPT MANAGER: Script is app script Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.684474 - EVENT MANAGER: object:property-change:accessible-name for [heading: 'Round 2' (0x75bdce6b7f00)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, Round 2) has priority level: 4
+13:28:26.684492 - EVENT MANAGER: Queued object:property-change:accessible-name for [heading: 'Round 2' (0x75bdce6b6d40)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, Round 2) priority: 4, counter: 192
+
+13:28:26.684767 - EVENT MANAGER: object:property-change:accessible-name for [static: '002' (0x75bdce6b6b00)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, 002)
+13:28:26.684798 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.684931 - EVENT_MANAGER: Ignoring object:property-change:accessible-name due to multiple instances in short time
+
+13:28:26.685164 - EVENT MANAGER: object:property-change:accessible-name for [static: 'FLASHBACK' (0x75bdce6b6b00)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, FLASHBACK)
+13:28:26.685189 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.685309 - EVENT_MANAGER: Ignoring object:property-change:accessible-name due to multiple instances in short time
+
+13:28:26.685590 - EVENT MANAGER: object:property-change:accessible-name for [static: 'HISTORY' (0x75bdce6b7f00)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, HISTORY)
+13:28:26.685617 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.685753 - EVENT_MANAGER: Ignoring object:property-change:accessible-name due to multiple instances in short time
+
+13:28:26.686098 - EVENT MANAGER: object:property-change:accessible-name for [static: '2' (0x75bdce6b5bc0)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, 2)
+13:28:26.686127 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.686266 - EVENT_MANAGER: Ignoring object:property-change:accessible-name due to multiple instances in short time
+
+13:28:26.686369 - EVENT MANAGER: object:property-change:accessible-name for [static: '60' (0x75bdce6b7f00)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, 60)
+13:28:26.686423 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.686463 - EVENT_MANAGER: Ignoring object:property-change:accessible-name due to multiple instances in short time
+
+13:28:26.686872 - EVENT MANAGER: object:property-change:accessible-name for [static: 'What year did Dota 2 officially release?' (0x75bdce6b5bc0)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, What year did Dota 2 officially release?)
+13:28:26.686907 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.687131 - EVENT_MANAGER: Ignoring object:property-change:accessible-name due to multiple instances in short time
+
+13:28:26.687678 - EVENT MANAGER: object:property-change:accessible-name for [static: '2' (0x75bdce6b5bc0)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, 2)
+13:28:26.687715 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.687923 - EVENT_MANAGER: Ignoring object:property-change:accessible-name due to multiple instances in short time
+
+13:28:26.688311 - EVENT MANAGER: object:children-changed:add for [section (0x75bdce6b5bc0)]  in Google Chrome for Testing (Chromium 1.0) (2, 0, [section (0x75bdce6b5bc0)])
+13:28:26.688375 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.688420 - EVENT_MANAGER: Ignoring object:children-changed:add due to multiple instances in short time
+
+13:28:26.688806 - EVENT MANAGER: object:children-changed:add for [status bar (0x75bdce7ace40)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, [static: 'Round 2. What year did Dota 2 officially release?' (0x75bdce6b6f00)])
+13:28:26.688838 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.688858 - EVENT_MANAGER: Ignoring object:children-changed:add due to multiple instances in short time
+13:28:26.692853 - AXObject: [section (0x75bdec224300)]  has index -1 ; parent [section (0x75bdce68fb00)]  has 4 children
+13:28:26.694021 - EVENT SOURCE:
+                  app='Google Chrome for Testing (Chromium 1.0)' name='' role='section' axid='' id=0x75bdce68fb00
+                  description=''
+                  help=''
+                  states='enabled, sensitive, showing, visible'
+                  relations=''
+                  actions='click-ancestor; show-context-menu'
+                  interfaces='Action, Collection, Component, Document, Hyperlink, Hypertext, Text'
+                  attributes='class:queue-arcade-module__ZwN2dq__answerHelper, text-align:left, tag:div, display:flex'
+                  text='Slide to the year, then press Lock · Enter also locksCorrect now: 225 gold'
+                  path=[-1, 0, 0, 0, 5, 2, 1, 3, 0, 2, 1, 3]
+                  
+                  EVENT ANY DATA:
+                  name='' role='section' axid='' id=0x75bdec224300
+                  description=''
+                  help=''
+                  states='enabled, sensitive, showing, visible'
+                  relations=''
+                  actions=''
+                  interfaces='Action, Collection, Component, Document, Hyperlink, Hypertext, Text'
+                  attributes=''
+                  text=''
+                  path=[-1, 0, 0, 0, 5, 2, 1, 3, 0, 2, 1, 3, -1]
+                  
+13:28:26.694048 - SCRIPT MANAGER: Active script is: Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.694071 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.694093 - EVENT MANAGER: Getting script for event for [application: 'Google Chrome for Testing' (0x75bdcf922840)]  [section (0x75bdce68fb00)] 
+13:28:26.694102 - SCRIPT MANAGER: Getting script for [application: 'Google Chrome for Testing' (0x75bdcf922840)]  [section (0x75bdce68fb00)] 
+13:28:26.694118 - SCRIPT MANAGER: Script is app script Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.694124 - EVENT MANAGER: Script for event is Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.694128 - EVENT MANAGER: Processing object:children-changed:remove: script for event is active
+13:28:26.694200 - CHROMIUM: Ignoring because child is not an element
+TOTAL PROCESSING TIME: 0.0159
+^^^^^ FINISHED PRIORITY-6 OBJECT EVENT OBJECT:CHILDREN-CHANGED:REMOVE ^^^^^
+
+13:28:26.694274 - EVENT MANAGER: Dequeueing object:state-changed:focused for [document web: 'Play · Queue Arcade' (0x75bdce5617c0)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, 0)
+13:28:26.694292 - EVENT MANAGER: Dequeued object:state-changed:focused for [document web: 'Play · Queue Arcade' (0x75bdce5617c0)]  in Google Chrome for Testing (Chromium 1.0) (0, 0, 0) priority: 3, counter: 188
+
+vvvvv START PRIORITY-3 OBJECT EVENT OBJECT:STATE-CHANGED:FOCUSED (queue size: 7) vvvvv
+13:28:26.697670 - EVENT SOURCE:
+                  app='Google Chrome for Testing (Chromium 1.0)' name='Play · Queue Arcade' role='document web' axid='' id=0x75bdce5617c0
+                  description=''
+                  help=''
+                  states='enabled, focusable, sensitive, showing, visible'
+                  relations='embedded-by: [frame: 'Play · Queue Arcade - Google Chrome for Testing']'
+                  actions='do-default; show-context-menu; scroll-backward; scroll-down; scroll-forward; scroll-left; scroll-right; scroll-up'
+                  interfaces='Action, Collection, Component, Document, Hyperlink, Hypertext, Text'
+                  attributes='explicit-name:true, text-align:left, tag:#document, name-from:related-element'
+                  text='[OBJ][OBJ]'
+                  path=[-1, 0, 0, 0, 5, 2, 1, 3]
+                  
+13:28:26.697701 - SCRIPT MANAGER: Active script is: Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.697719 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.697739 - EVENT MANAGER: Getting script for event for [application: 'Google Chrome for Testing' (0x75bdcf922840)]  [document web: 'Play · Queue Arcade' (0x75bdce5617c0)] 
+13:28:26.697749 - SCRIPT MANAGER: Getting script for [application: 'Google Chrome for Testing' (0x75bdcf922840)]  [document web: 'Play · Queue Arcade' (0x75bdce5617c0)] 
+13:28:26.697764 - SCRIPT MANAGER: Script is app script Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.697769 - EVENT MANAGER: Script for event is Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.697773 - EVENT MANAGER: Processing object:state-changed:focused: script for event is active
+13:28:26.697895 - AXDocument: Attributes of [document web: 'Play · Queue Arcade' (0x75bdce5617c0)]  are: {'DocType': 'html', 'MimeType': 'text/html', 'Title': 'Play · Queue Arcade', 'URI': 'http://host.docker.internal:3333/play'}
+13:28:26.697905 - WEB: Ignoring because event source lost focus
+TOTAL PROCESSING TIME: 0.0036
+^^^^^ FINISHED PRIORITY-3 OBJECT EVENT OBJECT:STATE-CHANGED:FOCUSED ^^^^^
+
+13:28:26.697971 - EVENT MANAGER: Dequeueing object:state-changed:focused for [heading: 'Round 2' (0x75bdce6b7940)]  in Google Chrome for Testing (Chromium 1.0) (1, 0, 0)
+13:28:26.697989 - EVENT MANAGER: Dequeued object:state-changed:focused for [heading: 'Round 2' (0x75bdce6b6280)]  in Google Chrome for Testing (Chromium 1.0) (1, 0, 0) priority: 3, counter: 189
+
+vvvvv START PRIORITY-3 OBJECT EVENT OBJECT:STATE-CHANGED:FOCUSED (queue size: 6) vvvvv
+13:28:26.700390 - EVENT SOURCE:
+                  app='Google Chrome for Testing (Chromium 1.0)' name='Round 2' role='heading' axid='' id=0x75bdce6b6280
+                  description=''
+                  help=''
+                  states='enabled, focusable, focused, sensitive, showing, visible'
+                  relations=''
+                  actions='click-ancestor; show-context-menu'
+                  interfaces='Action, Collection, Component, Document, Hyperlink, Hypertext, Text'
+                  attributes='class:sr-only, text-align:left, level:1, tag:h1, name-from:contents, display:block'
+                  text='Round 2'
+                  path=[-1, 0, 0, 0, 5, 2, 1, 3, 0, 2, 0]
+                  
+13:28:26.700419 - SCRIPT MANAGER: Active script is: Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.700436 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.700455 - EVENT MANAGER: Getting script for event for [application: 'Google Chrome for Testing' (0x75bdcf922840)]  [heading: 'Round 2' (0x75bdce46e280)] 
+13:28:26.700465 - SCRIPT MANAGER: Getting script for [application: 'Google Chrome for Testing' (0x75bdcf922840)]  [heading: 'Round 2' (0x75bdce46e280)] 
+13:28:26.700479 - SCRIPT MANAGER: Script is app script Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.700485 - EVENT MANAGER: Script for event is Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.700488 - EVENT MANAGER: Processing object:state-changed:focused: script for event is active
+13:28:26.700899 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.701102 - AXObject: [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)]  has index -1 ; parent [panel: 'Answer choices' (0x75bdce6b6380)]  has 0 children
+13:28:26.701251 - AXObject: [panel: 'Answer choices' (0x75bdce6b6380)]  has index -1 ; parent [section (0x75bdce6b4c40)]  has 4 children
+13:28:26.702386 - WEB: Not event from context replicant, locus of focus is not dead.
+13:28:26.702405 - WEB: Getting caret context for None
+13:28:26.702418 - FOCUS MANAGER: Active window is [frame: 'Play · Queue Arcade - Google Chrome for Testing' (0x75bdcf844700)]  script.on_focused_changed:1870 > script_utilities.get_caret_context:2983 > script_utilities.active_document:302 > focus_manager.get_active_window:331
+13:28:26.702962 - AXUtilitiesRelation: [frame: 'Play · Queue Arcade - Google Chrome for Testing' (0x75bdcf844700)]  embeds: [[document web: 'Play · Queue Arcade' (0x75bdce5617c0)] ]
+13:28:26.702979 - SCRIPT UTILITIES: Active document (via embeds): [document web: 'Play · Queue Arcade' (0x75bdce5617c0)] 
+13:28:26.702985 - WEB: Now getting caret context for [document web: 'Play · Queue Arcade' (0x75bdce5617c0)] 
+13:28:26.702998 - WEB: Cached context of [document web: 'Play · Queue Arcade' (0x75bdce5617c0)]  is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] ,  0
+13:28:26.703358 - WEB: Result context of [document web: 'Play · Queue Arcade' (0x75bdce5617c0)]  is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] ,  0.
+13:28:26.703579 - AXObject: [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)]  has index -1 ; parent [panel: 'Answer choices' (0x75bdce5c3ac0)]  has 0 children
+13:28:26.703762 - AXObject: [panel: 'Answer choices' (0x75bdce5c3ac0)]  has index -1 ; parent [section (0x75bdce5c3c40)]  has 4 children
+13:28:26.704621 - WEB: Caret context is [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] ,  0
+13:28:26.704658 - WEB: Deferring to other scripts for handling non-document source
+13:28:26.704661 - CHROMIUM: Passing along event to default script
+13:28:26.705448 - SCRIPT UTILITIES: [frame: 'Play · Queue Arcade - Google Chrome for Testing' (0x75bdcf844700)]  is top-level object for: [heading: 'Round 2' (0x75bdce563fc0)] 
+13:28:26.706169 - SCRIPT UTILITIES: [heading: 'Round 2' (0x75bdce563fc0)]  is in frame [frame: 'Play · Queue Arcade - Google Chrome for Testing' (0x75bdcf844700)]  and dialog None
+13:28:26.706190 - AXObject: Clearing AT-SPI cache on [frame: 'Play · Queue Arcade - Google Chrome for Testing' (0x75bdcf844700)]  Recursive: False.  Reason: Checking if window can be the active window
+13:28:26.707221 - AXUtilities: [frame: 'Play · Queue Arcade - Google Chrome for Testing' (0x75bdcf844700)]  from [application: 'Google Chrome for Testing' (0x75bdcf922840)]  can be active window
+13:28:26.707385 - FOCUS MANAGER: Request to set locus of focus to [heading: 'Round 2' (0x75bdce563fc0)]  event_manager._process_object_event:849 > script.on_focused_changed:234 > default.on_focused_changed:1373 > focus_manager.set_locus_of_focus:245
+13:28:26.707849 - AXObject: Clearing AT-SPI cache on [heading: 'Round 2' (0x75bdce563fc0)]  Recursive: False.  Reason: Setting locus of focus.
+13:28:26.709043 - FOCUS MANAGER: Setting last cell coordinates to row=-1, column=-1
+13:28:26.709389 - AXText: [heading: 'Round 2' (0x75bdce563fc0)]  reports caret offset of -1.
+13:28:26.709521 - FOCUS MANAGER: Setting last cursor position to [heading: 'Round 2' (0x75bdce563fc0)]  -1
+13:28:26.709844 - AXText: [heading: 'Round 2' (0x75bdce563fc0)]  reports 0 selection(s).
+13:28:26.710206 - FOCUS MANAGER: Active window is [frame: 'Play · Queue Arcade - Google Chrome for Testing' (0x75bdcf844700)]  default.on_focused_changed:1373 > focus_manager.set_locus_of_focus:272 > ax_utilities_event.save_object_info_for_events:164 > focus_manager.get_active_window:331
+13:28:26.710739 - SCRIPT MANAGER: Active script is: Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:28:26.710762 - FOCUS MANAGER: Changing locus of focus from [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)]  to [heading: 'Round 2' (0x75bdce563fc0)] . Notify: True
+13:28:26.710811 - FOCUS MANAGER: Region of interest: [heading: 'Round 2' (0x75bdce563fc0)]  (0, 0)
+13:28:26.710849 - FOCUS MANAGER: Switching object of interest from [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)]  to [heading: 'Round 2' (0x75bdce563fc0)] 
+13:28:26.710861 - WEB: Focus changing from [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)]  to [heading: 'Round 2' (0x75bdce563fc0)] 
+13:28:26.712528 - AXText: [heading: 'Round 2' (0x75bdce563fc0)]  reports 7 characters.
+13:28:26.713507 - AXUtilitiesRelation: [heading: 'Round 2' (0x75bdce563fc0)]  is label for: []
+13:28:26.713525 - AXUtilitiesRelation: [heading: 'Round 2' (0x75bdce563fc0)]  is label for: []
+13:28:26.714197 - AXText: [heading: 'Round 2' (0x75bdce563fc0)]  reports caret offset of -1.
+13:28:26.715391 - WEB: updating braille for [heading: 'Round 2' (0x75bdce563fc0)]  {'documentFrame': "[document web: 'Play · Queue Arcade' (0x75bdce5617c0)] "} focus_manager.set_locus_of_focus:316 > script.locus_of_focus_changed:72 > script.locus_of_focus_changed:1106 > script.update_braille:831
+13:28:26.715966 - BRAILLE: disabled
+13:28:26.716903 - WEB: New focus [heading: 'Round 2' (0x75bdce563fc0)]  is heading. Generating object.
+13:28:26.716925 - WEB: Attempting to get contents for [heading: 'Round 2' (0x75bdce563fc0)]  None
+13:28:26.717028 - AXText: [heading: 'Round 2' (0x75bdce563fc0)]  reports 7 characters.
+13:28:26.717113 - AXText: Text of [heading: 'Round 2' (0x75bdce563fc0)]  'Round 2'
+13:28:26.717128 - WEB: None at offset 0 for [heading: 'Round 2' (0x75bdce563fc0)] : 'Round 2', Start: 0, End: 7.
+13:28:26.717154 - AXText: Getting attributes for [heading: 'Round 2' (0x75bdce563fc0)]  chars: 0-7
+13:28:26.717312 - AXText: Attributes for [heading: 'Round 2' (0x75bdce563fc0)]  at offset 0: ({'weight': '700', 'bg-color': '9,11,12', 'size': '24pt', 'language': 'en', 'direction': 'lr', 'fg-color': '241,240,234', 'family-name': 'Geist'}, start_offset=0, end_offset=7)
+13:28:26.717402 - AXText: 1 attribute ranges found.
+13:28:26.717515 - AXText: Text of [heading: 'Round 2' (0x75bdce563fc0)]  (0-7): 'Round 2'
+13:28:26.717557 - WEB: Focusable object can have caret context [heading: 'Round 2' (0x75bdce563fc0)] 
+13:28:26.717571 - INFO: _canHaveCaretContext took 0.0000s
+13:28:26.717661 - AXText: [heading: 'Round 2' (0x75bdce563fc0)]  reports 7 characters.
+13:28:26.717729 - AXText: [heading: 'Round 2' (0x75bdce563fc0)]  reports 7 characters.
+13:28:26.717794 - AXText: Text of [heading: 'Round 2' (0x75bdce563fc0)]  'Round 2'
+13:28:26.718130 - AXText: [section (0x75bdce694d80)]  reports 3 characters.
+13:28:26.719045 - AXUtilitiesRelation: [section (0x75bdce694d80)]  is label for: []
+13:28:26.719081 - AXUtilitiesRelation: [section (0x75bdce694d80)]  is label for: []
+13:28:26.719981 - AXHypertext: Start offset of [heading: 'Round 2' (0x75bdce563fc0)]  is 0
+13:28:26.720077 - AXHypertext: End offset of [heading: 'Round 2' (0x75bdce563fc0)]  is 1
+13:28:26.720176 - AXText: [section (0x75bdce694d80)]  reports 3 characters.
+13:28:26.721516 - WEB:  [section (0x75bdce694d80)]  can have caret context. (0.0013s)
+13:28:26.721528 - INFO: _canHaveCaretContext took 0.0013s
+13:28:26.721596 - AXText: [section (0x75bdce694d80)]  reports 3 characters.
+13:28:26.721660 - AXText: [section (0x75bdce694d80)]  reports 3 characters.
+13:28:26.721771 - AXText: Text of [section (0x75bdce694d80)]  '￼￼￼'
+13:28:26.722002 - AXHypertext: Child at offset 1 in [section (0x75bdce694d80)]  is [section (0x75bdce46e600)] 
+13:28:26.722581 - AXUtilitiesRelation: [section (0x75bdce46e600)]  is label for: []
+13:28:26.722597 - AXUtilitiesRelation: [section (0x75bdce46e600)]  is label for: []
+13:28:26.724075 - WEB:  [section (0x75bdce46e600)]  can have caret context. (0.0020s)
+13:28:26.724088 - INFO: _canHaveCaretContext took 0.0021s
+13:28:26.724848 - AXText: [section (0x75bdce46e600)]  reports 4 characters.
+13:28:26.726258 - AXText: [section (0x75bdce46e600)]  reports 4 characters.
+13:28:26.726331 - AXText: [section (0x75bdce46e600)]  reports 4 characters.
+13:28:26.726402 - AXText: Text of [section (0x75bdce46e600)]  '￼￼￼￼'
+13:28:26.726677 - AXHypertext: Child at offset 0 in [section (0x75bdce46e600)]  is [section (0x75bdce5c10c0)] 
+13:28:26.727753 - AXUtilitiesRelation: [section (0x75bdce5c10c0)]  is label for: []
+13:28:26.727783 - AXUtilitiesRelation: [section (0x75bdce5c10c0)]  is label for: []
+13:28:26.730341 - WEB:  [section (0x75bdce5c10c0)]  can have caret context. (0.0036s)
+13:28:26.730362 - INFO: _canHaveCaretContext took 0.0037s
+13:28:26.731427 - AXText: [section (0x75bdce5c10c0)]  reports 26 characters.
+13:28:26.733529 - AXText: [section (0x75bdce5c10c0)]  reports 26 characters.
+13:28:26.733651 - AXText: [section (0x75bdce5c10c0)]  reports 26 characters.
+13:28:26.733749 - AXText: Text of [section (0x75bdce5c10c0)]  'ROUND 002FLASHBACKHISTORY￼'
+13:28:26.734012 - WEB: Next caret in order for [heading: 'Round 2' (0x75bdce563fc0)] ,  6: [section (0x75bdce5c10c0)] ,  0 (0.0165s)
+13:28:26.734030 - WEB: Attempting to get contents for [section (0x75bdce5c10c0)]  None
+13:28:26.734145 - AXText: [section (0x75bdce5c10c0)]  reports 26 characters.
+13:28:26.734256 - AXText: Text of [section (0x75bdce5c10c0)]  'ROUND 002FLASHBACKHISTORY￼'
+13:28:26.734280 - WEB: None at offset 0 for [section (0x75bdce5c10c0)] : 'ROUND 002FLASHBACKHISTORY[OBJ]', Start: 0, End: 26.
+13:28:26.734307 - AXText: Getting attributes for [section (0x75bdce5c10c0)]  chars: 0-25
+13:28:26.734440 - AXText: Attributes for [section (0x75bdce5c10c0)]  at offset 0: ({'bg-color': '13,15,16', 'size': '8.5pt', 'language': 'en', 'direction': 'lr', 'fg-color': '222,221,216', 'family-name': 'Geist Mono'}, start_offset=0, end_offset=9)
+13:28:26.734622 - AXText: Attributes for [section (0x75bdce5c10c0)]  at offset 9: ({'bg-color': '13,15,16', 'size': '8.5pt', 'language': 'en', 'direction': 'lr', 'fg-color': '199,203,199', 'family-name': 'Geist Mono'}, start_offset=9, end_offset=18)
+13:28:26.734848 - AXText: Attributes for [section (0x75bdce5c10c0)]  at offset 18: ({'bg-color': '13,15,16', 'size': '8.5pt', 'language': 'en', 'direction': 'lr', 'fg-color': '150,157,156', 'family-name': 'Geist Mono'}, start_offset=18, end_offset=25)
+13:28:26.734963 - AXText: 3 attribute ranges found.
+13:28:26.735082 - AXText: Text of [section (0x75bdce5c10c0)]  (0-25): 'ROUND 002FLASHBACKHISTORY'
+13:28:26.735135 - WEB:  Object (not cached) for [heading: 'Round 2' (0x75bdce563fc0)]  at offset 0:
+13:28:26.735373 - AXText: Range 0-7 in [heading: 'Round 2' (0x75bdce563fc0)]  has rect (x:23, y:13, width:129, height:36)
+13:28:26.737550 -      0. chars: 0-7: 'Round 2' extents=(23, 13, 129, 36)
+                          name='Round 2' role='heading' axid='' id=0x75bdce563fc0
+                          description=''
+                          help=''
+                          states='enabled, focusable, focused, sensitive, showing, visible'
+                          relations=''
+                          actions='click-ancestor; show-context-menu'
+                          interfaces='Action, Collection, Component, Document, Hyperlink, Hypertext, Text'
+                          attributes='class:sr-only, text-align:left, level:1, tag:h1, name-from:contents, display:block'
+                          text='Round 2'
+                          path=[-1, 0, 0, 0, 5, 2, 1, 3, 0, 2, 0]
+13:28:26.738490 - AXUtilitiesRelation: [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)]  is controlled by [heading: 'Round 2' (0x75bdce563fc0)] : False
+13:28:26.738509 - AXUtilitiesRelation: [heading: 'Round 2' (0x75bdce563fc0)]  is controlled by [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] : False
+13:28:26.738515 - DEFAULT: Interrupting presentation
+13:28:26.738527 - SPEECH AND VERBOSITY MANAGER: interrupt_speech. Script: None Event: None notify_user: False
+13:28:26.738960 - SPEECH AND VERBOSITY MANAGER: Speech server is <orca.speechdispatcherfactory.SpeechServer object at 0x75bdfc3ac860>
+13:28:26.739126 - BRAILLE: Kill flash message script.locus_of_focus_changed:72 > script.locus_of_focus_changed:1181 > default.interrupt_presentation:2002 > braille.killFlash:1348
+13:28:26.739839 - DEFAULT: Speaking [(<Atspi.Accessible object at 0x75bdce563fc0 (AtspiAccessible at 0x35fe2b80)>, 0, 7, 'Round 2')] {'priorObj': "[toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] "} focus_manager.set_locus_of_focus:316 > script.locus_of_focus_changed:72 > script.locus_of_focus_changed:1184 > default.speak_contents:1929
+13:28:26.740387 - WEB: Generating speech contents (length: 1)
+13:28:26.740400 - ITEM 0:  [heading: 'Round 2' (0x75bdce563fc0)]  start: 0, end: 7 'Round 2'
+13:28:26.740416 - WEB: Generating speech for document object [heading: 'Round 2' (0x75bdce563fc0)] 
+13:28:26.740581 - AXText: Getting attributes for [heading: 'Round 2' (0x75bdce563fc0)]  chars: 0-7
+13:28:26.740725 - AXText: Attributes for [heading: 'Round 2' (0x75bdce563fc0)]  at offset 0: ({'weight': '700', 'bg-color': '9,11,12', 'size': '24pt', 'language': 'en', 'direction': 'lr', 'fg-color': '241,240,234', 'family-name': 'Geist'}, start_offset=0, end_offset=7)
+13:28:26.740828 - AXText: 1 attribute ranges found.
+13:28:26.740876 - GENERATOR: _get_functional_role: heading
+13:28:26.740947 - SPEECH GENERATOR: SpeechGenerator._generate_heading for [heading: 'Round 2' (0x75bdce563fc0)]  args: {'dialect': '',
+                   'endOffset': '7',
+                   'formatType': 'unfocused',
+                   'index': '0',
+                   'language': 'en',
+                   'priorObj': "[toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] ",
+                   'role': 'heading',
+                   'startOffset': '0',
+                   'string': 'Round 2',
+                   'total': '1'}
+13:28:26.740973 - FOCUS MANAGER: Locus of focus is [heading: 'Round 2' (0x75bdce563fc0)] 
+13:28:26.742700 - SCRIPT UTILITIES: [frame: 'Play · Queue Arcade - Google Chrome for Testing' (0x75bdcf844700)]  is top-level object for: [heading: 'Round 2' (0x75bdce563fc0)] 
+13:28:26.743970 - SCRIPT UTILITIES: [heading: 'Round 2' (0x75bdce563fc0)]  is in frame [frame: 'Play · Queue Arcade - Google Chrome for Testing' (0x75bdcf844700)]  and dialog None
+13:28:26.744375 - AXObject: [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)]  has index -1 ; parent [panel: 'Answer choices' (0x75bdce67dd40)]  has 0 children
+13:28:26.744578 - AXObject: [panel: 'Answer choices' (0x75bdce67dd40)]  has index -1 ; parent [section (0x75bdce67de00)]  has 4 children
+13:28:26.745281 - AXObject: [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)]  has index -1 ; parent [panel: 'Answer choices' (0x75bdce67cc00)]  has 0 children
+13:28:26.745478 - AXObject: [panel: 'Answer choices' (0x75bdce67cc00)]  has index -1 ; parent [section (0x75bdce67cc80)]  has 4 children
+13:28:26.748298 - AXObject: Looking for common ancestor of [heading: 'Round 2' (0x75bdce563fc0)]  and [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] 
+13:28:26.749351 - AXObject: [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)]  has index -1 ; parent [panel: 'Answer choices' (0x75bdce67f7c0)]  has 0 children
+13:28:26.749522 - AXObject: [panel: 'Answer choices' (0x75bdce67f7c0)]  has index -1 ; parent [section (0x75bdec1e9b40)]  has 4 children
+13:28:26.750280 - AXObject: Common ancestor of [heading: 'Round 2' (0x75bdce563fc0)]  and [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)]  is [section (0x75bdce67de80)] 
+13:28:26.750481 - AXObject: [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)]  has index -1 ; parent [panel: 'Answer choices' (0x75bdce67de00)]  has 0 children
+13:28:26.751114 - GENERATOR: _get_functional_role: panel
+13:28:26.751287 - AXObject: [panel: 'Answer choices' (0x75bdce67de00)]  has index -1 ; parent [section (0x75bdce6b6440)]  has 4 children
+13:28:26.751316 - GENERATOR: _get_functional_role: section
+13:28:26.751538 - GENERATOR: _get_functional_role: section
+13:28:26.751624 - SPEECH GENERATOR: SpeechGenerator._generate_panel for [panel: 'Answer choices' (0x75bdce67de00)]  args: {'ancestorOf': "[toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)] ",
+                   'count': '1',
+                   'formatType': 'ancestor',
+                   'leaving': 'True',
+                   'priorObj': "[heading: 'Round 2' (0x75bdce563fc0)] ",
+                   'role': 'panel'}
+13:28:26.751866 - AXObject: [panel: 'Answer choices' (0x75bdce67de00)]  has index -1 ; parent [section (0x75bdce6b52c0)]  has 4 children
+13:28:26.752427 - AXUtilitiesRelation: [panel: 'Answer choices' (0x75bdce67de00)]  contains details for: []
+13:28:26.752441 - WEB SPEECH GENERATOR: _generate_details_for: []
+13:28:26.752465 - FOCUS MANAGER: Locus of focus is [heading: 'Round 2' (0x75bdce563fc0)] 
+13:28:26.752493 - AXUtilitiesRelation: [panel: 'Answer choices' (0x75bdce67de00)]  contains details for: []
+13:28:26.752865 - AXObject: [panel: 'Answer choices' (0x75bdce67de00)]  has index -1 ; parent [section (0x75be0d86d2c0)]  has 4 children
+13:28:26.753754 - SPEECH GENERATOR: system voice requested with language='None', dialect=''
+13:28:26.753828 - SPEECH GENERATOR: _generate_leaving: [leaving panel., {'established': 'False'}]
+13:28:26.753859 - WEB SPEECH GENERATOR: _generate_leaving: [leaving panel., {'established': 'False'}]
+13:28:26.753890 - SPEECH GENERATOR: Results: [leaving panel., {'established': 'False'}]
+13:28:26.753926 - SPEECH GENERATOR: _generate_old_ancestors: [[leaving panel., {'established': 'False'}]]
+13:28:26.753953 - WEB SPEECH GENERATOR: _generate_old_ancestors: [[leaving panel., {'established': 'False'}]]
+13:28:26.753992 - FOCUS MANAGER: Locus of focus is [heading: 'Round 2' (0x75bdce563fc0)] 
+13:28:26.754346 - AXObject: [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)]  has index -1 ; parent [panel: 'Answer choices' (0x75bdce67e840)]  has 0 children
+13:28:26.754519 - AXObject: [panel: 'Answer choices' (0x75bdce67e840)]  has index -1 ; parent [section (0x75bdce6b6f00)]  has 4 children
+13:28:26.757456 - AXObject: Looking for common ancestor of [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)]  and [heading: 'Round 2' (0x75bdce563fc0)] 
+13:28:26.757650 - AXObject: [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)]  has index -1 ; parent [panel: 'Answer choices' (0x75be0d91e840)]  has 0 children
+13:28:26.757868 - AXObject: [panel: 'Answer choices' (0x75be0d91e840)]  has index -1 ; parent [section (0x75be0d86d2c0)]  has 4 children
+13:28:26.759428 - AXObject: Common ancestor of [toggle button: 'A 160 Your answer 0%' (0x75bdce6945c0)]  and [heading: 'Round 2' (0x75bdce563fc0)]  is [section (0x75bdce7965c0)] 
+13:28:26.759499 - GENERATOR: _get_functional_role: section
+13:28:26.759717 - GENERATOR: _get_functional_role: section
+13:28:26.759755 - AXUtilities: [section (0x75bdce7965c0)]  believed to be layout only: True, is not interactive
+13:28:26.759770 - SPEECH GENERATOR: _generate_new_ancestors: []
+13:28:26.759776 - WEB SPEECH GENERATOR: _generate_new_ancestors: []
+13:28:26.759929 - AXText: Text of [heading: 'Round 2' (0x75bdce563fc0)]  (0-7): 'Round 2'
+13:28:26.759953 - GENERATOR: _generate_text_substring: [Round 2]
+13:28:26.759969 - SPEECH GENERATOR: default voice requested with language='en', dialect=''
+13:28:26.759988 - SPEECH AND VERBOSITY MANAGER: Adjusting 'Round 2' from [heading: 'Round 2' (0x75bdce563fc0)]  start_offset: None
+13:28:26.760756 - SPEECH AND VERBOSITY MANAGER: Adjusted text: 'Round 2'
+13:28:26.760793 - SPEECH GENERATOR: _generate_text_substring: [Round 2, {'established': 'False'}]
+13:28:26.760807 - SPEECH GENERATOR: _generate_text_content: [Round 2, {'established': 'False'}]
+13:28:26.761550 - FOCUS MANAGER: Active mode: focus-tracking Object of interest: [heading: 'Round 2' (0x75bdce563fc0)] 
+13:28:26.762503 - SPEECH GENERATOR: system voice requested with language='en', dialect=''
+13:28:26.762541 - WEB SPEECH GENERATOR: _generate_accessible_role: [heading 1, {'established': 'False'}]
+13:28:26.762565 - GENERATOR: _generate_state_expanded: []
+13:28:26.762570 - SPEECH GENERATOR: _generate_state_expanded: []
+13:28:26.762584 - GENERATOR: _generate_state_current: []
+13:28:26.762589 - SPEECH GENERATOR: _generate_state_current: []
+13:28:26.762611 - AXUtilitiesRelation: [heading: 'Round 2' (0x75bdce563fc0)]  is label for: []
+13:28:26.762684 - FOCUS MANAGER: Active window is [frame: 'Play · Queue Arcade - Google Chrome for Testing' (0x75bdcf844700)]  script_utilities.is_clickable_element:2247 > script_utilities._has_grid_descendant:1946 > script_utilities.active_document:302 > focus_manager.get_active_window:331
+13:28:26.763596 - AXUtilitiesRelation: [frame: 'Play · Queue Arcade - Google Chrome for Testing' (0x75bdcf844700)]  embeds: [[document web: 'Play · Queue Arcade' (0x75bdce5617c0)] ]
+13:28:26.763615 - SCRIPT UTILITIES: Active document (via embeds): [document web: 'Play · Queue Arcade' (0x75bdce5617c0)] 
+13:28:26.763724 - FOCUS MANAGER: Active window is [frame: 'Play · Queue Arcade - Google Chrome for Testing' (0x75bdcf844700)]  script_utilities._has_grid_descendant:1948 > script_utilities._has_grid_descendant:1946 > script_utilities.active_document:302 > focus_manager.get_active_window:331
+13:28:26.764600 - AXUtilitiesRelation: [frame: 'Play · Queue Arcade - Google Chrome for Testing' (0x75bdcf844700)]  embeds: [[document web: 'Play · Queue Arcade' (0x75bdce5617c0)] ]
+13:28:26.764621 - SCRIPT UTILITIES: Active document (via embeds): [document web: 'Play · Queue Arcade' (0x75bdce5617c0)] 
+13:28:26.764635 - AXUtilitiesCollection: ax_utilities_collection.find_all_grids Root: [document web: 'Play · Queue Arcade' (0x75bdce5617c0)]  pred: None
+13:28:26.764884 - AXCollection: 0 match(es) found in 0.0002s
+13:28:26.767585 - SPEECH GENERATOR: system voice requested with language='en', dialect=''
+13:28:26.767631 - WEB SPEECH GENERATOR: _generate_has_click_action: [clickable, {'established': 'False'}]
+13:28:26.767667 - AXUtilitiesRelation: [heading: 'Round 2' (0x75bdce563fc0)]  has details in: []
+13:28:26.767674 - WEB SPEECH GENERATOR: _generate_has_details: []
+13:28:26.767687 - AXUtilitiesRelation: [heading: 'Round 2' (0x75bdce563fc0)]  contains details for: []
+13:28:26.767692 - WEB SPEECH GENERATOR: _generate_details_for: []
+13:28:26.767707 - FOCUS MANAGER: Locus of focus is [heading: 'Round 2' (0x75bdce563fc0)] 
+13:28:26.767729 - AXUtilitiesRelation: [heading: 'Round 2' (0x75bdce563fc0)]  is described by: []
+13:28:26.767734 - GENERATOR: _generate_accessible_description: []
+13:28:26.767739 - SPEECH GENERATOR: _generate_accessible_description: []
+13:28:26.767743 - WEB SPEECH GENERATOR: _generate_accessible_description: []
+13:28:26.767758 - SPEECH GENERATOR: _generate_state_has_popup: []
+13:28:26.767763 - WEB SPEECH GENERATOR: _generate_state_has_popup: []
+13:28:26.767879 - SPEECH GENERATOR: _generate_tutorial: []
+13:28:26.768079 - SPEECH GENERATOR: Results: [[leaving panel., {'established': 'False'}], Round 2, {'established': 'False'}, heading 1, {'established': 'False'}, clickable, {'established': 'False'}, PAUSE]
+13:28:26.768105 - WEB: Speech generation for document object [heading: 'Round 2' (0x75bdce563fc0)]  complete.
+13:28:26.768142 - SPEECH: Speak [[[leaving panel., {'established': 'False'}], Round 2, {'established': 'False'}, heading 1, {'established': 'False'}, clickable, {'established': 'False'}, PAUSE]], acss: None
+13:28:26.768166 - SPEECH: Speak [[leaving panel., {'established': 'False'}], Round 2, {'established': 'False'}, heading 1, {'established': 'False'}, clickable, {'established': 'False'}, PAUSE], acss: None
+13:28:26.768176 - SPEECH: Speak [leaving panel., {'established': 'False'}], acss: None
+13:28:26.768196 - SPEECH OUTPUT: 'leaving panel.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}
+13:28:26.768200 - SPEECH DISPATCHER: Speaking 'leaving panel.' as string
+13:28:26.768796 - SPEECH DISPATCHER: Speaking '<speak><mark name="0:7"/>leaving <mark name="8:14"/>panel.</speak>' 
+                  ORCA rate 50.0, pitch 5.0, volume 10.0, language C, punctuation: MOST
+                  SD rate 2, pitch 10, volume 100, language c
+13:28:26.769027 - SPEECH OUTPUT: 'Round 2 heading 1 clickable.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}

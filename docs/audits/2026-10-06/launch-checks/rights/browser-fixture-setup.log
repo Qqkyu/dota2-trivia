@@ -1,0 +1,63 @@
+{
+  url: 'http://127.0.0.1:3331/play',
+  state: { index: 0, phase: 'answering', gate: false },
+  main: {},
+  text: 'QUEUE ARCADE\n' +
+    'Side quests, between matches\n' +
+    'DOTA 2 · PATCH 7.41F\n' +
+    '70%\n' +
+    '1 PLAYING NOW · TEN GAMES\n' +
+    'Your queue has\n' +
+    'side quests.\n' +
+    '\n' +
+    'A Dota arcade built for the gap between Find Match and Accept. Everyone plays the same endless rotation; the challenge changes every round.\n' +
+    '\n' +
+    'ROUND MIX\n' +
+    'Classic Trivia\n' +
+    'Shopkeeper\n' +
+    'Spell Link\n' +
+    'Fogged\n' +
+    'Echo\n' +
+    'Soundcheck\n' +
+    'Quotes\n' +
+    "Aghanim's Lab\n" +
+    'Order Up\n' +
+    'Flashback\n' +
+    'JOINING…\n' +
+    'PARTY\n' +
+    'Sign in with Steam\n' +
+    'Connection interrupted · retrying automatically\n' +
+    '10\n' +
+    'games in the mix\n' +
+    '1517\n' +
+    'patch-current prompts\n' +
+    '2×\n' +
+    'crowd-breaker bonus\n' +
+    '0%\n' +
+    'your lifetime accuracy\n' +
+    'QUEUE ARCADE\n' +
+    '00:15\n' +
+    'ONE ROOM · ENDLESS\n' +
+    'The next round could be anything.\n' +
+    '\n' +
+    'Dota facts, recipes, spells, history, TI, fog, voices, sounds, and quotes—one round at a time.\n' +
+    '\n' +
+    'One synchronized round, deadline, and answer split for everyone\n' +
+    'PUBLIC ROOM READY\n' +
+    'Public Arcade\n' +
+    '15s\n' +
+    'Queue Arcade · Built for the seconds between “Find Match” and “Accept”\n' +
+    'Profile\n' +
+    'Privacy\n' +
+    'Calibration lab\n' +
+    'Dota 2 is a trademark of Valve Corporation. Game assets belong to their respective rights holders. This project is not affiliated with Valve.'
+}
+file:///home/kulmisiu/dev/dota2-trivia/scripts/lib/feedback-browser.mjs:89
+    throw new Error(`Timed out waiting for: ${expression}`);
+          ^
+
+Error: Timed out waiting for: document.querySelector('main')?.dataset.phase==='answering'
+    at Object.waitFor (file:///home/kulmisiu/dev/dota2-trivia/scripts/lib/feedback-browser.mjs:89:11)
+    at async file:///tmp/queue-arcade-launch-checks/check-flashback-art.mjs:31:292
+
+Node.js v24.15.0

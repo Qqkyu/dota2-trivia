@@ -1,0 +1,19 @@
+import json,warnings,math,base64,hashlib
+from pathlib import Path
+import numpy as np
+from scipy.io import wavfile
+from scipy import signal
+root=Path('/tmp/queue-arcade-launch-checks/soundcheck');assets=json.loads((root/'assets.json').read_text());byurl={a['url']:a for a in assets if 'error' not in a}
+def audio(name):
+ u='https://dotabase.dillerm.io/vpk/sounds/items/'+name+'.wav';a=byurl[u]
+ with warnings.catch_warnings():
+  warnings.simplefilter('ignore');sr,pcm=wavfile.read(a['file'])
+ y=pcm.astype(float)/32768
+ if y.ndim>1:y=y.mean(axis=1)
+ g=math.gcd(sr,8000);return a,signal.resample_poly(y,8000//g,sr//g)
+rows=[]
+for subject,alternative,left,right,n,offset in [('urn_of_shadows','essence_distiller','urn_of_shadows','item_distiller_cast',None,7128),('mjollnir','maelstrom','item_mjoll_on','item_mael_lightning_chain',960,0)]:
+ a,x=audio(left);b,y=audio(right);n=n or len(y);x=x[offset:offset+n];y=y[:n];corr=float(np.corrcoef(x,y)[0,1]);assert corr>.98
+ rows.append({'subject':subject,'alternative':alternative,'sampleRate':8000,'format':'mono signed 16-bit PCM little-endian; scipy resample_poly from original stereo mean','samples':n,'sourceStartSeconds':offset/8000,'alternativeStartSeconds':0,'correlation':corr,'source':{'url':a['url'],'sha256':a['sha256']},'alternativeSource':{'url':b['url'],'sha256':b['sha256']},'pcm':base64.b64encode(np.rint(x*32767).astype('<i2').tobytes()).decode(),'alternativePcm':base64.b64encode(np.rint(y*32767).astype('<i2').tobytes()).decode()})
+Path('/home/kulmisiu/dev/dota2-trivia/tests/fixtures/soundcheck-near-duplicate-cues.json').write_text(json.dumps({'recordedAt':'2026-10-06','description':'Independent source PCM excerpts for ambiguous Soundcheck choices. Raw asset hashes identify the download; PCM is downsampled only for the regression fixture.','pairs':rows},indent=2)+'\n')
+print(json.dumps([{k:v for k,v in r.items() if k not in ['pcm','alternativePcm']} for r in rows],indent=2))

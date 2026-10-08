@@ -1,0 +1,44 @@
+[
+  {
+    "fault": "silent",
+    "playPromiseResolved": true,
+    "detected": true,
+    "energy": 0.0,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.0,
+          "gain": 0.0,
+          "correlation": 0.0
+        },
+        {
+          "atSeconds": 0.0,
+          "gain": 0.0,
+          "correlation": 0.0
+        }
+      ]
+    ],
+    "residualFraction": 0.0
+  },
+  {
+    "fault": "duplicate",
+    "playPromiseResolved": true,
+    "detected": true,
+    "energy": 359.3432174873914,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.15988662131519274,
+          "gain": 1.006910370766507,
+          "correlation": 0.9519156997642013
+        },
+        {
+          "atSeconds": 0.15988662131519274,
+          "gain": 1.0121615176504328,
+          "correlation": 0.9521380333154897
+        }
+      ]
+    ],
+    "residualFraction": 0.4951089461004597
+  }
+]

@@ -1,0 +1,109 @@
+{
+  "recordedAt": "2026-10-08T14:58:00.831671+00:00",
+  "files": {
+    "actions.jsonl": {
+      "sha256": "f2a672d5cf733bdfa43d8a8bf8fa9ada7a86520e89019a3fd768939e3f3028c5",
+      "bytes": 6284
+    },
+    "android11-native-check.py.txt": {
+      "sha256": "c0af270b8a70345e8a068de75f6bb1ef2c6e555a3414d345224bb04c9a933b12",
+      "bytes": 6605
+    },
+    "android11-room-check.py.txt": {
+      "sha256": "d0132f9eece3d019bcd801f6ed0cf05555ae53a3f68ea41e6e73cca64032f7ff",
+      "bytes": 1049
+    },
+    "boot-progress-nodes.json": {
+      "sha256": "52f403c799202f108dd39eebf97ead38e90e5acfaf5e432befb507703715c604",
+      "bytes": 604
+    },
+    "boot-progress.png": {
+      "sha256": "5965e9cfb36e587576e0a57f7791dfbfa74668afcd61b8ceb4296a5d20255eec",
+      "bytes": 314051
+    },
+    "boot-progress.xml": {
+      "sha256": "147ebcae99195ff202e3c294f308af8b3ca9d87d63f87930e8e25a4a6dac42f3",
+      "bytes": 4116
+    },
+    "boot-tail.txt": {
+      "sha256": "7d1d72121d9163f353ba1d86e6946c89f7c6f7468dbe1bcb4bdd8c63660d6998",
+      "bytes": 8557
+    },
+    "browser-tail.txt": {
+      "sha256": "a9574205a919ce2a86a50d0bea495a55dae0eef61c66a3979edf660b4c67edff",
+      "bytes": 24574
+    },
+    "empty-code-validation.png": {
+      "sha256": "ed97475f9cf0645e89768f0b0e6a36b0a3c113ea95db75cd4330555274cf4710",
+      "bytes": 315349
+    },
+    "emulator.log": {
+      "sha256": "9d2c57bc031e92a55d1fa7035635d58382fe830cb082a73251033be62cbb47f5",
+      "bytes": 4808
+    },
+    "expected-results.json": {
+      "sha256": "279c6d136e845bb6a1cdc9c21f55145f110e0cc38c17d300b5d620674be71a1f",
+      "bytes": 769
+    },
+    "join-form.png": {
+      "sha256": "650164b2f3b7cf5ada0a3177546f4390dc26f34ee6e4e843dd4cf20ecc99350f",
+      "bytes": 506122
+    },
+    "joined-room.png": {
+      "sha256": "8377c8c21162dcd39d15e482186fe9ae49a30fba6c3bca998a6b05b44359f87d",
+      "bytes": 533712
+    },
+    "landscape-code.png": {
+      "sha256": "5de9e6e199f8732e50c7cb3d7ff0c457df63773c14b5184b74cecfcd0fa80b80",
+      "bytes": 348917
+    },
+    "landscape-resumed.png": {
+      "sha256": "e1f0d88fe8ac83d6eb8bcd716abfda50e6347b09fe4dad6221b88adea2f4d11c",
+      "bytes": 359374
+    },
+    "party-load-nodes.json": {
+      "sha256": "96fd664729a5d607e37c76812fe8f68b5743d18639bc38522f147b49417b30c8",
+      "bytes": 1035
+    },
+    "party-load.png": {
+      "sha256": "ffdac008e17d47eafb7b665e73f7c763621a298dc321eaa57d890517a5687d20",
+      "bytes": 42542
+    },
+    "party-load.xml": {
+      "sha256": "1dc746701a3437c688c240fd17050528809d76ada37ab16a1813b403af036ff5",
+      "bytes": 10830
+    },
+    "party-ready-nodes.json": {
+      "sha256": "c88ea0236428b55ad14d0a2b1f29c225e9db8a3769a444b7f6b64dc6ce929404",
+      "bytes": 1047
+    },
+    "party-ready.png": {
+      "sha256": "4a27d627ebe9909cbed524b3698f2d5a2ee2c9052e0041b14186b48fbfbd0cc7",
+      "bytes": 251345
+    },
+    "party-ready.xml": {
+      "sha256": "01dde474dbaacfcfac0b15f1ca4c31b6cda4af72f67d63d0764d9935b2fda0a1",
+      "bytes": 10842
+    },
+    "results.json": {
+      "sha256": "c63b403628782941189d5aaf063be39f8c870d66ee9546b27b6844215ceef06a",
+      "bytes": 4743
+    },
+    "run-android11.sh.txt": {
+      "sha256": "1d2706fa3245e76619d1a67236f31a30139d5582b7ac994896ede29090422c72",
+      "bytes": 912
+    },
+    "server-check.json": {
+      "sha256": "54b4bf76b520db486440103e7cdcdb7b75745b11684addbc6ea9717bda5fd412",
+      "bytes": 1305
+    },
+    "server-create.json": {
+      "sha256": "d15c8ed2aa074c5d3b9a7ea01cf2722fdb4fd568e0b8f4c9dbb979161bdaf3d5",
+      "bytes": 1153
+    },
+    "typed-code-keyboard.png": {
+      "sha256": "d2f49be4e8eaa9ef6502442353f107d67eab7840eaa63dd784b5567a36a673af",
+      "bytes": 276006
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-06",
+  "archivedAt": "2026-10-06T09:03:34.111178+00:00",
+  "scope": "This manifest covers the direct evidence files in this folder. It does not hash itself.",
+  "originalReport": {
+    "path": "/tmp/queue-arcade-deep-review/shopkeeper.md",
+    "sha256": "1747933f55a8fe0d9512b2b24380b3de0b4679bdd766b82bdff2a7f97211bf56",
+    "bytes": 4241
+  },
+  "reportEdits": "Updated paths to durable evidence, added repeat commands and final archive checks, and retained the factual review scope. The Shopkeeper report also links the later separate icon review.",
+  "files": {
+    "README.md": {
+      "sha256": "a5454384f273bf87430acc5ed3532af5b303c179f12ccdd7a183889a0e353cfb",
+      "bytes": 6312
+    },
+    "archive-verification.json": {
+      "sha256": "0599b533657d2b6a963fc4e782f42ec927985322d09b97e6b96510fd14d34ffe",
+      "bytes": 840
+    },
+    "check-shopkeeper-generator.mjs.txt": {
+      "sha256": "38c65705ae4fd49629b452d33a9df88c3aff717e155d5d89cc1257b12196b265",
+      "bytes": 1633
+    },
+    "focused-tests.log": {
+      "sha256": "4461d9602d9cf3992e3ea0055b38423549a757257a9686eca5abc505d1e90c17",
+      "bytes": 196
+    },
+    "shopkeeper-facts.test.mjs.txt": {
+      "sha256": "f651df067a55020803889fffb4939bd130245fe39ecf5d56a529db49d7437d71",
+      "bytes": 7774
+    },
+    "shopkeeper-ledger.json": {
+      "sha256": "60e6b4aefbd3f673699cd68fd0c2f9b032e99aa88e0b326711f9a5b48653f04a",
+      "bytes": 231356
+    },
+    "shopkeeper-strict-final.log": {
+      "sha256": "c821520d504e7089f5f98473082ca5f97c70f6089bcde7a70b7391ba6aa7d967",
+      "bytes": 136
+    },
+    "shopkeeper-valve-7.41f.json": {
+      "sha256": "031699406b34f3a33754d56c7b58a01419f32ae2bcd0a7d8e22bc5275913ba8a",
+      "bytes": 44646
+    }
+  },
+  "reviewedRepositoryFiles": {
+    "src/data/shopkeeper-questions.json": {
+      "sha256": "9a95635283b192ad63b3bc24eebc00f07fb53948e4d88cf66696ee80179b0810",
+      "bytes": 273523
+    },
+    "src/data/shopkeeper-catalog.json": {
+      "sha256": "2524c866bea88f41581b38c796913f2e095d008ce0466467e73760e3066bcf26",
+      "bytes": 44361
+    },
+    "scripts/generate-shopkeeper.mjs": {
+      "sha256": "7c09ed125bba0398d6e823e3554406e66ed58cb0873679e3cdddf35656acb98f",
+      "bytes": 27375
+    },
+    "scripts/validate-shopkeeper.mjs": {
+      "sha256": "e90bf29ab54b3b5c56477b853cd2ab9d7bf7a6fddbbd6e59924a0c53280bf5e1",
+      "bytes": 14488
+    },
+    "tests/shopkeeper-facts.test.mjs": {
+      "sha256": "f651df067a55020803889fffb4939bd130245fe39ecf5d56a529db49d7437d71",
+      "bytes": 7774
+    },
+    "tests/fixtures/shopkeeper-valve-7.41f.json": {
+      "sha256": "031699406b34f3a33754d56c7b58a01419f32ae2bcd0a7d8e22bc5275913ba8a",
+      "bytes": 44646
+    },
+    "src/lib/item-picker.mjs": {
+      "sha256": "a810837a720746de7b01a3253714631041b10e2884ed85fcc73110a399ab09bb",
+      "bytes": 2921
+    }
+  },
+  "sharedPrimaryArchive": {
+    "path": "../sources/valve-api-2026-10-06.tar.gz",
+    "sha256": "6e9ef5cf480cfe8cdf559ce70bab7d06c4df03dbfc5074c5641a8dd0f7305a8e",
+    "bytes": 1057556
+  },
+  "sharedPrimaryManifest": {
+    "path": "../sources/valve-api-manifest.json",
+    "sha256": "23907ffb406f17628d297857ea5a33176f75b9c5c9e8b76ff846e248bed75dbd",
+    "bytes": 61721
+  },
+  "preservedVisualArchiveManifest": {
+    "path": "images/archive-manifest.json",
+    "sha256": "bff50e0f6d3001a0eec5aa660f85b9ca5b1b1e905040cefdd778ec72621a29e3",
+    "bytes": 1031
+  }
+}

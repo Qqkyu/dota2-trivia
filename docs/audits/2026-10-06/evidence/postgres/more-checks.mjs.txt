@@ -1,0 +1,20 @@
+import postgres from 'postgres';
+process.env.DATABASE_URL='isolated-local-audit';
+process.env.ARCADE_VOTER_SALT='audit-fixture-only';
+const sql=postgres({host:'/tmp/queue-arcade-pg-audit.3f4hCl',port:55793,database:'postgres',username:'kulmisiu',max:5,prepare:false,onnotice:()=>{}});
+globalThis.__queueArcadePostgres=sql;
+const vote=await import('./lib/vote-store-postgres.js');
+const alpha=await import('./lib/alpha-store-postgres.js');
+await vote.getPostgresVoteStoreHealth();await alpha.getPostgresAlphaStoreHealth();
+const id='all-correct-'+Date.now();let inconsistent=0;const samples=[];
+await Promise.all([
+(async()=>{for(let i=0;i<400;i++) await vote.recordRoundVote({roundId:id,roomId:'audit-room',gameId:'dota2',contentVersion:'audit',questionId:'audit-question',questionRevision:'audit',correctIndex:0,answerIndex:0,answerKey:'correct-key',basePoints:200,voterId:'voter-'+i,submittedAt:Date.now()});})(),
+(async()=>{for(let i=0;i<700;i++){const c=await vote.getRoundCrowd(id,'audit-room','voter-0',true);if(c.total!==c.scoreSummary.correctCount){inconsistent++;if(samples.length<4)samples.push({total:c.total,scoreSummary:c.scoreSummary,keyTotal:c.keyCounts.reduce((n,x)=>n+x.count,0)});}}})()
+]);
+console.log(JSON.stringify({check:'all-correct votes during crowd reads',reads:700,inconsistent,samples}));
+const now=Date.now();
+await sql`INSERT INTO queue_arcade_alpha_sessions(session_hash, visitor_hash, started_at, last_seen_at, rounds_answered, correct_answers) SELECT 'audit-session-'||x,'audit-visitor-'||x,${now}::bigint-x,${now},1,1 FROM generate_series(1,50001) AS x ON CONFLICT DO NOTHING`;
+const total=await sql`SELECT COUNT(*) AS sessions, SUM(rounds_answered) AS rounds_answered FROM queue_arcade_alpha_sessions WHERE started_at >= ${now-86400000}`;
+const sessions=await alpha.getAlphaSessionsSince(now-86400000);
+console.log(JSON.stringify({check:'alpha analytics capacity',database:total[0],returnedSessions:sessions.length,returnedRounds:sessions.reduce((n,x)=>n+x.roundsAnswered,0)}));
+await sql.end();

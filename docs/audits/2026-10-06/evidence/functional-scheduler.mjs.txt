@@ -1,0 +1,28 @@
+import { readFileSync } from 'node:fs';
+import { createSemanticPublicDeck } from '/home/kulmisiu/dev/dota2-trivia/src/lib/semantic-schedule.mjs';
+import { formatsForRoundGames, roundFormatForQuestion, LIVE_ROUND_GAMES } from '/home/kulmisiu/dev/dota2-trivia/src/lib/arcade-games.mjs';
+import { createPrivateRoom, leavePrivateRoom } from '/home/kulmisiu/dev/dota2-trivia/src/lib/private-rooms.mjs';
+import { isPlayableClassicTriviaQuestion } from '/home/kulmisiu/dev/dota2-trivia/src/lib/classic-trivia-quality.mjs';
+import { isPlayableShopkeeperQuestion } from '/home/kulmisiu/dev/dota2-trivia/src/lib/shopkeeper-quality.mjs';
+import { isPlayableFlashbackQuestion } from '/home/kulmisiu/dev/dota2-trivia/src/lib/flashback.mjs';
+const root='/home/kulmisiu/dev/dota2-trivia';
+const read=f=>JSON.parse(readFileSync(root+'/src/data/'+f+'.json','utf8'));
+const questions=[...read('questions.generated').filter(q=>isPlayableClassicTriviaQuestion(q)&&isPlayableShopkeeperQuestion(q)&&(q.kind!=='spell-owner'||q.hint?.trim().length>=18&&!q.hint.startsWith('No additional mechanical clue'))),...read('shopkeeper-questions').filter(isPlayableShopkeeperQuestion),...read('soundcheck-questions'),...read('value-order-questions'),...read('aghanim-questions'),...read('flashback-questions').filter(isPlayableFlashbackQuestion)];
+for(const games of [['trivia'],['shopkeeper'],['spell-link','fogged-vision'],['trivia','shopkeeper','spell-link'],['flashback']]) {
+ const formats=formatsForRoundGames(games);const eligible=questions.filter(q=>formats.includes(roundFormatForQuestion(q)));
+ const deck=createSemanticPublicDeck(questions,{formats,getFormat:roundFormatForQuestion,seed:'functional-audit',poolSeedForFormat:f=>'functional-audit:'+f,length:10000});
+ const seen=new Map();let firstDuplicate=null;let minGap=Infinity;
+ deck.forEach((q,i)=>{if(seen.has(q.id)){const gap=i-seen.get(q.id);minGap=Math.min(minGap,gap);if(!firstDuplicate)firstDuplicate={id:q.id,from:seen.get(q.id),to:i};}seen.set(q.id,i)});
+ console.log('SUBSET',JSON.stringify({games,formats:formats.length,eligible:eligible.length,unique:seen.size,minGap,firstDuplicate,first36:deck.slice(0,36).map(q=>q.id)}));
+}
+if(global.gc) {
+ global.gc();const before=process.memoryUsage().heapUsed;const formats=formatsForRoundGames(LIVE_ROUND_GAMES);const started=Date.now();
+ for(let i=0;i<1000;i++) {
+   const record=createPrivateRoom({hostId:'functional-memory-host',gameId:'dota2',contentVersion:'audit',code:'FMEM'+i,games:LIVE_ROUND_GAMES});
+   const seed=`private-room:${record.roomId}:${i}:questions`;
+   createSemanticPublicDeck(questions,{formats,getFormat:roundFormatForQuestion,seed,poolSeedForFormat:f=>seed+f,length:24});
+   leavePrivateRoom(record.code,'functional-memory-host');
+   if([99,499,999].includes(i)){global.gc();console.log('MEMORY',JSON.stringify({createdAndDeleted:i+1,retainedBytes:process.memoryUsage().heapUsed-before,elapsedMs:Date.now()-started}));}
+ }
+ global.gc();console.log('AFTER_ALL_ROOMS_DELETED',JSON.stringify({roomCount:globalThis.__queueArcadePrivateRooms.size,heapGrowth:process.memoryUsage().heapUsed-before}));
+}

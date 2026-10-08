@@ -1,0 +1,10 @@
+{"acknowledged":false,"errorCode":"CONNECTION_CLOSED","schema":"runtime_03400b4494a946eaac99476e2cc418af"}
+file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:255
+    const x = socket.write(chunk, fn)
+                     ^
+
+TypeError: Cannot read properties of null (reading 'write')
+    at Immediate.nextWrite (file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:255:22)
+    at process.processImmediate (node:internal/timers:504:21)
+
+Node.js v24.15.0

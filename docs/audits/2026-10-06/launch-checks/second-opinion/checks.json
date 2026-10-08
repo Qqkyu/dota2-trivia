@@ -1,0 +1,35 @@
+{
+  "reviewDate": "2026-10-08",
+  "nodeVersion": "22.23.3",
+  "ingressFocusedTests": {
+    "command": "node node_modules/vitest/vitest.mjs run tests/proxy-ingress.test.mjs tests/ingress-probe.test.mjs tests/production-config.test.mjs --maxWorkers=2",
+    "files": 3,
+    "passed": 29,
+    "failed": 0,
+    "durationSeconds": 10.46
+  },
+  "driverFocusedTests": {
+    "command": "node node_modules/vitest/vitest.mjs run tests/postgres-driver-recovery.test.mjs tests/postgres-store.test.mjs --maxWorkers=2",
+    "files": 2,
+    "passed": 34,
+    "failed": 0,
+    "driverCases": 28,
+    "durationSeconds": 12.89,
+    "database": "Disposable loopback PostgreSQL 17"
+  },
+  "dependencyInstall": {
+    "command": "pnpm install --offline --frozen-lockfile --ignore-scripts",
+    "exitCode": 0
+  },
+  "scopedEslintExitCode": 0,
+  "scopedPrettierExitCode": 0,
+  "productionRequests": false,
+  "finalFullSuite": {
+    "passed": 1284,
+    "files": 64,
+    "skipped": 0,
+    "durationSeconds": 30.21,
+    "databaseVersion": "PostgreSQL 17.11",
+    "evidence": "../verification/2026-10-08/unit-tests-result.json"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "appOrigin": "http://127.0.0.1:3334",
+  "appBuild": "fQ95T7-zzQo1Bnsef8oBI",
+  "expected": [
+    "Android11 completes boot within six minutes",
+    "Firefox renders the Party page",
+    "An empty code reports Type a party code.",
+    "Native keyboard input accepts a disposable code",
+    "Rotation preserves the code and leaves Join reachable",
+    "Home and resume preserve the active form",
+    "Native Join reaches the room waiting screen",
+    "The local server confirms two participants"
+  ],
+  "limits": [
+    "One Android11 boot attempt",
+    "Ten minutes for app flow after boot",
+    "No physical phone or hardware acceleration",
+    "No Android speaker playback claim",
+    "No account login or paid service"
+  ],
+  "startedAt": "2026-10-08T14:42:35Z"
+}

@@ -1,0 +1,6 @@
+health-before-write { backend: 'file', ok: true }
+failed-write-visible-in-memory {"counts":[1,0,0,0],"total":1,"keyCounts":[],"scoreSummary":{"correctCount":1,"average":200,"best":200,"playerPoints":200},"playerVote":{"answerIndex":0,"submittedAt":1791263306818}}
+failed-write-file-missing true
+retry-treated-as-duplicate true
+failed-deletion-session-revoked-only-in-memory-and-user-still-on-disk true
+fixtures /tmp/qa-file-store-audit-petKxN

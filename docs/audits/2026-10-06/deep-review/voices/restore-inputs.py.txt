@@ -1,0 +1,55 @@
+# Archived review helper. Download only the inputs selected by the saved manifest.
+import argparse
+import concurrent.futures
+import hashlib
+import json
+from pathlib import Path
+import urllib.request
+
+parser = argparse.ArgumentParser(description="Restore pinned voice-review inputs outside the audit archive.")
+parser.add_argument("kind", choices=["sources", "audio"])
+parser.add_argument("--output-dir", type=Path, required=True)
+args = parser.parse_args()
+archive = Path(__file__).resolve().parent
+output = args.output_dir.resolve()
+if output == archive or output.is_relative_to(archive):
+    parser.error("Store the restored inputs outside the historical audit archive.")
+output.mkdir(parents=True, exist_ok=True)
+
+if args.kind == "sources":
+    manifest = json.loads((archive / "voices-upstream-manifest.json").read_text())
+    inputs = [{"name": Path(row["path"]).name, "url": row["url"], "sha256": row["sha256"]}
+              for row in manifest["sources"]]
+else:
+    ledger = json.loads((archive / "voices-ledger.json").read_text())
+    inputs = []
+    for row in ledger["records"]:
+        if row["kind"] != "hero-voice":
+            continue
+        source = row["evidence"]["audio"]
+        inputs.append({"name": source["url"].rsplit("/", 1)[1], "url": source["url"], "sha256": source["sha256"]})
+
+if len({row["name"] for row in inputs}) != len(inputs):
+    raise SystemExit("The selected inputs contain a filename collision.")
+
+
+def restore(row):
+    path = output / row["name"]
+    if path.exists():
+        data = path.read_bytes()
+        if hashlib.sha256(data).hexdigest() != row["sha256"]:
+            raise ValueError(f"Existing input differs from the recorded hash: {path}")
+        return "reused"
+    request = urllib.request.Request(row["url"], headers={"User-Agent": "queue-arcade-audit-replay/1.0"})
+    with urllib.request.urlopen(request, timeout=60) as response:
+        data = response.read()
+    if hashlib.sha256(data).hexdigest() != row["sha256"]:
+        raise ValueError(f"Downloaded input differs from the recorded hash: {row['url']}")
+    path.write_bytes(data)
+    return "downloaded"
+
+
+with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
+    results = list(pool.map(restore, inputs))
+print(json.dumps({"kind": args.kind, "inputs": len(inputs), "reused": results.count("reused"),
+                  "downloaded": results.count("downloaded"), "output": str(output)}, indent=2))

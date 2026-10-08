@@ -24,6 +24,11 @@ export default function PrivacyPage() {
             public-room votes expire after two hours; anonymous question-level answer and report totals remain for
             content calibration.
           </p>
+          <p>
+            Your guest statistics and sound settings stay in this browser. Tabs share lifetime statistics but keep
+            separate current sessions. Clearing browser data for this site removes those local records. If the browser
+            blocks storage, play still works, but local progress may be lost when you close the page.
+          </p>
         </section>
 
         <section>
@@ -55,6 +60,11 @@ export default function PrivacyPage() {
             profile” removes the Steam identity, sessions, and saved personal results together. Connected data is stored
             in <strong>{dataCountries}</strong>. Deletion also removes alpha visit summaries linked to that account.
           </p>
+          <p>
+            Automatic cleanup removes expired records when the app starts and once a minute while it runs. If the host
+            is sleeping or stopped, cleanup waits until the app runs again. Deleted records can remain in restricted
+            backups until those backups expire.
+          </p>
         </section>
 
         <section>
@@ -75,11 +85,8 @@ export default function PrivacyPage() {
             </a>
             . Steam data is presented as-is and as available, without a promise of accuracy or uninterrupted access;
             Valve and its suppliers limit liability as described in those terms. Queue Arcade is an unofficial fan
-            project and is not affiliated with Valve. Questions about stored data can be opened in the project’s{" "}
-            <a href="https://github.com/Qqkyu/dota2-trivia/issues" target="_blank" rel="noreferrer">
-              GitHub issue tracker
-            </a>
-            .
+            project and is not affiliated with Valve. For questions about stored data, email the{" "}
+            <a href="mailto:michalkulinski@google.com">maintainer</a>.
           </p>
         </section>
       </main>

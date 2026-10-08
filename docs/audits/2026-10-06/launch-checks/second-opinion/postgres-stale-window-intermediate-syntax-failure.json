@@ -1,0 +1,14 @@
+[
+  {
+    "module": "esm",
+    "exitCode": 1,
+    "stdout": "",
+    "stderr": "file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=3ktc572pt5weyby6jwvk6psyey/node_modules/postgres/src/connection.js:475\n    (query || sent.length) && error(Errors.connection('CONNECTION_CLOSED', options, socket))\n    ^\n\nTypeError: 0 is not a function\n    at Socket.closed (file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=3ktc572pt5weyby6jwvk6psyey/node_modules/postgres/src/connection.js:475:5)\n    at Socket.emit (node:events:519:28)\n    at TCP.<anonymous> (node:net:347:12)\n\nNode.js v22.23.3\n"
+  },
+  {
+    "module": "cjs",
+    "exitCode": 1,
+    "stdout": "",
+    "stderr": "/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=3ktc572pt5weyby6jwvk6psyey/node_modules/postgres/cjs/src/connection.js:475\n    (query || sent.length) && error(Errors.connection('CONNECTION_CLOSED', options, socket))\n    ^\n\nTypeError: 0 is not a function\n    at Socket.closed (/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=3ktc572pt5weyby6jwvk6psyey/node_modules/postgres/cjs/src/connection.js:475:5)\n    at Socket.emit (node:events:519:28)\n    at TCP.<anonymous> (node:net:347:12)\n\nNode.js v22.23.3\n"
+  }
+]

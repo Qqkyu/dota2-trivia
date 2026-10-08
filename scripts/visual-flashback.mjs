@@ -69,7 +69,11 @@ const fixtures = {
       answers: ["", "", "", ""],
       answerMode: "flashback-year",
       flashback: { family: "year", yearMin: 2009, yearMax: new Date().getFullYear() },
-      image: { src: "/arcade/flashback/ti1-gamescom.jpg", alt: "The International at Gamescom", kind: "hero" },
+      image: {
+        src: "/arcade/flashback/originals/international.svg",
+        alt: "The International tournament card",
+        kind: "hero",
+      },
     },
     reveal: {
       correctIndex: 1,
@@ -77,7 +81,7 @@ const fixtures = {
       explanation: "TI1 was at Gamescom in 2011.",
     },
   },
-  photo: {
+  winner: {
     game: "flashback",
     question: {
       kind: "flashback-choice",
@@ -86,16 +90,20 @@ const fixtures = {
       prompt: "Who won The International 2017 at KeyArena?",
       answers: ["Newbee", "Team Liquid", "LGD Gaming", "Virtus.pro"],
       flashback: { family: "choice" },
-      image: { src: "/arcade/flashback/ti5-keyarena.jpg", alt: "The International at KeyArena", kind: "hero" },
+      image: {
+        src: "/arcade/flashback/originals/international.svg",
+        alt: "The International tournament card",
+        kind: "item",
+      },
     },
     reveal: {
       correctIndex: 1,
       explanation: "Liquid swept Newbee 3-0.",
       media: {
-        src: "/arcade/flashback/winners/ti7-liquid.jpg",
-        alt: "Team Liquid lift the Aegis",
+        src: "/arcade/flashback/originals/winner-team-liquid.svg",
+        alt: "Team Liquid winner card",
         caption: "Team Liquid · TI7",
-        kind: "photo",
+        kind: "mark",
       },
     },
   },
@@ -213,7 +221,7 @@ await send("Page.addScriptToEvaluateOnNewDocument", {
       payload.serverNow = now;
       payload.round = {
         ...payload.round,
-        id: "visual-flashback-" + state.kind + (reveal ? "-reveal" : ""),
+        id: "visual-flashback-" + state.kind + (reveal ? "-reveal" : "") + (state.variant ? "-" + state.variant : ""),
         phase: reveal ? "reveal" : "answering",
         game: "flashback",
         startedAt: now - 3_000,
@@ -223,7 +231,7 @@ await send("Page.addScriptToEvaluateOnNewDocument", {
       };
       payload.questionRevision = "visual-flashback-" + state.kind + ":" + state.phase + ":" + now;
       payload.question = {
-        id: "visual-flashback-" + state.kind + (reveal ? "-reveal" : ""),
+        id: "visual-flashback-" + state.kind + (reveal ? "-reveal" : "") + (state.variant ? "-" + state.variant : ""),
         game: "flashback",
         difficulty: 2,
         clueStage: 1,
@@ -243,8 +251,8 @@ await send("Page.addScriptToEvaluateOnNewDocument", {
           ? { answerIndex: 0, answerKey: "order-v1:kez,largo,muerta,ringmaster", submittedAt: now - 1_000 }
           : null)
         : state.kind === "year"
-          ? (reveal || state.locked
-            ? { answerIndex: 1, answerKey: "year-v1:2011", submittedAt: now - 1_000 }
+          ? ((reveal || state.locked) && state.yearAnswer !== null
+            ? { answerIndex: 1, answerKey: "year-v1:" + (state.yearAnswer ?? 2011), submittedAt: now - 1_000 }
             : null)
           : { answerIndex: 1, submittedAt: now - 1_000 };
       payload.playerReport = null;
@@ -442,16 +450,16 @@ const yearReveal = await evaluate(`(() => {
 })()`);
 await screenshot("/tmp/flashback-year-reveal.png");
 
-await apply("photo", "answering");
+await apply("winner", "answering");
 await waitFor(
-  `document.querySelector("main")?.dataset.roundId === "visual-flashback-photo" && document.querySelector("main")?.dataset.phase === "answering"`,
+  `document.querySelector("main")?.dataset.roundId === "visual-flashback-winner" && document.querySelector("main")?.dataset.phase === "answering"`,
 );
-const photoAnswering = await evaluate(`({
+const winnerAnswering = await evaluate(`({
   strip: Boolean(document.querySelector('[data-testid="flashback-reveal-media"]')),
-  leak: document.body.innerHTML.includes("ti7-liquid"),
+  leak: document.body.innerHTML.includes("winner-team-liquid"),
   art: document.querySelector('[data-testid="question-artwork"] img')?.currentSrc ?? "",
 })`);
-await screenshot("/tmp/flashback-photo-answering.png");
+await screenshot("/tmp/flashback-winner-answering.png");
 
 const artBefore = await evaluate(`(() => {
   const art = document.querySelector('[data-testid="question-artwork"]');
@@ -459,14 +467,14 @@ const artBefore = await evaluate(`(() => {
   return { w: Math.round(box?.width ?? 0), h: Math.round(box?.height ?? 0), x: Math.round(box?.x ?? 0), y: Math.round(box?.y ?? 0) };
 })()`);
 
-await apply("photo", "reveal");
+await apply("winner", "reveal");
 await waitFor(
-  `document.querySelector("main")?.dataset.phase === "reveal" && document.querySelector('[data-testid="round-prompt"]')?.dataset.revealPhoto === "true"`,
+  `document.querySelector("main")?.dataset.phase === "reveal" && Boolean(document.querySelector('[data-testid="flashback-reveal-media"]'))`,
 );
 await delay(400);
-const photoReveal = await evaluate(`(() => {
+const winnerReveal = await evaluate(`(() => {
   const art = document.querySelector('[data-testid="question-artwork"]');
-  const img = art?.querySelector("img");
+  const img = document.querySelector('[data-testid="flashback-reveal-media"] img');
   const box = art?.getBoundingClientRect();
   return {
     strip: Boolean(document.querySelector('[data-testid="flashback-reveal-media"]')),
@@ -478,7 +486,7 @@ const photoReveal = await evaluate(`(() => {
     y: Math.round(box?.y ?? 0),
   };
 })()`);
-await screenshot("/tmp/flashback-photo-reveal.png");
+await screenshot("/tmp/flashback-winner-reveal.png");
 
 await send("Emulation.setDeviceMetricsOverride", {
   width: 390,
@@ -487,7 +495,7 @@ await send("Emulation.setDeviceMetricsOverride", {
   mobile: true,
 });
 await delay(300);
-const photoMobile = await evaluate(`(() => {
+const winnerMobile = await evaluate(`(() => {
   const art = document.querySelector('[data-testid="question-artwork"]');
   const box = art?.getBoundingClientRect();
   return {
@@ -496,9 +504,52 @@ const photoMobile = await evaluate(`(() => {
     overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
   };
 })()`);
-await screenshot("/tmp/flashback-photo-reveal-mobile.png");
+await screenshot("/tmp/flashback-winner-reveal-mobile.png");
+
+const yearRevealCases = [];
+for (const [width, height] of [
+  [320, 568],
+  [1440, 1000],
+]) {
+  await send("Emulation.setDeviceMetricsOverride", { width, height, deviceScaleFactor: 1, mobile: false });
+  for (const [scenario, yearAnswer] of [
+    ["unanswered", null],
+    ["wrong", 2017],
+    ["correct", 2011],
+  ]) {
+    const variant = `${width}-${scenario}`;
+    await apply("year", "reveal", { variant, yearAnswer });
+    await waitFor(
+      `document.querySelector("main")?.dataset.roundId === ${JSON.stringify(`visual-flashback-year-reveal-${variant}`)}`,
+    );
+    const state = await evaluate(`(() => {
+      const board = document.querySelector('[data-testid="flashback-year-board"]');
+      board?.scrollIntoView({ block: "center" });
+      return {
+        readout: document.querySelector('[data-testid="flashback-year-readout"]')?.textContent,
+        label: document.querySelector('[data-testid="flashback-year-answer-label"]')?.textContent ?? null,
+        yourAnswer: document.querySelector('[data-testid="flashback-year-your-answer"]')?.textContent ?? null,
+        slider: Boolean(document.querySelector('[data-testid="flashback-year-slider"]')),
+        lock: Boolean(document.querySelector('[data-testid="flashback-year-lock"]')),
+        overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+        explanation: document.querySelector('[data-testid="reveal-explanation"]')?.textContent ?? null,
+      };
+    })()`);
+    yearRevealCases.push({ width, height, scenario, yearAnswer, ...state });
+    await screenshot(`/tmp/flashback-year-${variant}.png`);
+  }
+}
 
 const failures = [];
+for (const state of yearRevealCases) {
+  const expectedChoice = state.yearAnswer === null ? "No answer locked." : `Your answer: ${state.yearAnswer}.`;
+  if (state.readout !== "2011" || state.label !== "Correct year" || state.yourAnswer !== expectedChoice) {
+    failures.push(`year ${state.width} ${state.scenario}: correct year and original choice are not clearly displayed`);
+  }
+  if (state.slider || state.lock || state.overflow || !state.explanation?.includes("2011")) {
+    failures.push(`year ${state.width} ${state.scenario}: reveal controls, width, or explanation failed`);
+  }
+}
 if (orderBefore.cards.length !== 4) failures.push("missing order cards");
 if (orderBefore.extraMarks > 0) failures.push("order cards still print a second index");
 if (orderBefore.overflow) failures.push("order answering overflows");
@@ -556,21 +607,22 @@ if (yearAfterPick.height !== yearBefore.height) failures.push("year board jumped
 if (yearReveal.correctYear !== "2011" || yearReveal.readout !== "2011" || !yearReveal.panelVisible) {
   failures.push("year reveal did not keep 2011");
 }
-if (photoAnswering.strip || photoAnswering.leak) failures.push("winner photo leaked while answering");
-if (photoReveal.strip) failures.push("winner photo still uses the small strip");
-if (!photoReveal.src.includes("ti7-liquid") || !photoReveal.alt.includes("Team Liquid")) {
-  failures.push("winner photo did not fill the question art");
+if (winnerAnswering.strip || winnerAnswering.leak) failures.push("winner card leaked while answering");
+if (!winnerReveal.strip) failures.push("winner card is missing from the result panel");
+if (!winnerReveal.src.includes("winner-team-liquid") || !winnerReveal.alt.includes("Team Liquid")) {
+  failures.push("winner card did not name the winning team");
 }
 if (
-  photoReveal.w !== artBefore.w ||
-  photoReveal.h !== artBefore.h ||
-  photoReveal.x !== artBefore.x ||
-  photoReveal.y !== artBefore.y
+  winnerReveal.w !== artBefore.w ||
+  winnerReveal.h !== artBefore.h ||
+  winnerReveal.x !== artBefore.x ||
+  winnerReveal.y !== artBefore.y
 ) {
-  failures.push("question art moved when the winner photo appeared");
+  failures.push("question art moved when the winner card appeared");
 }
-if (photoReveal.w !== 248 || photoReveal.h !== 148) failures.push(`photo art ${photoReveal.w}x${photoReveal.h}`);
-if (photoMobile.overflow) failures.push("mobile photo overflow");
+if (winnerReveal.w !== 248 || winnerReveal.h !== 148)
+  failures.push(`tournament art ${winnerReveal.w}x${winnerReveal.h}`);
+if (winnerMobile.overflow) failures.push("mobile winner-card overflow");
 
 console.log(
   JSON.stringify(
@@ -582,10 +634,11 @@ console.log(
       yearAfterSlide,
       yearAfterPick,
       yearReveal,
-      photoAnswering,
+      yearRevealCases,
+      winnerAnswering,
       artBefore,
-      photoReveal,
-      photoMobile,
+      winnerReveal,
+      winnerMobile,
       failures,
     },
     null,

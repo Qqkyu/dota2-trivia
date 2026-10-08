@@ -1,0 +1,75 @@
+{
+  "reviewDate": "2026-10-08",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "d0bc49d9d5dc114a130d51fc08bf631e1bbf827c4a05bd17f00a21cab8daca6a",
+      "bytes": 5370
+    },
+    {
+      "path": "checks.json",
+      "sha256": "da8747beff4aeaae9023dad95a7a54d9a14684657b1a36910982b74ab129be53",
+      "bytes": 1105
+    },
+    {
+      "path": "claude-findings.md",
+      "sha256": "6c17ecc9a6f499714467e7a8e66452df63ccf83353f3f854d8b589462e0cc1bc",
+      "bytes": 4992
+    },
+    {
+      "path": "claude-metadata.json",
+      "sha256": "77fd8f65d39b9828b2d253f5c937f01bc94376afcac793e3cf7e62bb1a1f3f3d",
+      "bytes": 1679
+    },
+    {
+      "path": "driver-regression-tests.log",
+      "sha256": "afccdf7a991ce8f9803ddef6e59c9a1700a299ceb1c9ddeacce42add0c4a5f11",
+      "bytes": 182
+    },
+    {
+      "path": "final-source-manifest.json",
+      "sha256": "ae0836a13845101e0e44fd3780db93048a44cedfc780d8050dc5e756d6b49dd1",
+      "bytes": 1468
+    },
+    {
+      "path": "ingress-negative-proofs.json",
+      "sha256": "c0f65dba294bd79bd50d8d9df3f1e30a32d319a20031b1547713273eccb7a67e",
+      "bytes": 2272
+    },
+    {
+      "path": "ingress-timeout-reproduction.json",
+      "sha256": "6c5ac8536642ae8bfe2304eed4db153ffa1d8d00a06e694d6e35e21def588368",
+      "bytes": 2471
+    },
+    {
+      "path": "module-parity.json",
+      "sha256": "685883504b088176d19a59450c43ed761281ddbd0038529f76e6552098eec6a2",
+      "bytes": 774
+    },
+    {
+      "path": "postgres-stale-window-after.json",
+      "sha256": "ce09c342225febcf466683e78c963b2aae5fe8a77c2d22ffd27b524a369a3299",
+      "bytes": 299
+    },
+    {
+      "path": "postgres-stale-window-before.json",
+      "sha256": "160cf75ee6d808f46b1699d98a9b54082689010f195a9a431de8a8104b3ead00",
+      "bytes": 666
+    },
+    {
+      "path": "postgres-stale-window-intermediate-syntax-failure.json",
+      "sha256": "bda2e5a33c4b7ceee7859f7a92b14294883015bd3f894ac2dc7ac8dd6d151573",
+      "bytes": 1315
+    },
+    {
+      "path": "review-prompt.txt",
+      "sha256": "37f3114ab27e32f6814ac34f5bacb929e24a7b342a57b4c9bcae6319c0cbcecf",
+      "bytes": 3695
+    },
+    {
+      "path": "reviewed-source-manifest.json",
+      "sha256": "9f23bd6ca7462daeac4b53951e2c65124e04f73b2ff3a0616db293106776fb0b",
+      "bytes": 6279
+    }
+  ]
+}

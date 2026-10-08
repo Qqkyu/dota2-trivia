@@ -1,0 +1,4553 @@
+[
+  {
+    "id": "hero-voice:npc_dota_hero_abaddon:abad_kill_03",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/abaddon/abad_kill_03.mp3",
+    "sourceSha256": "f5657a2af1fbcb1842406310f7f66ef52f3386dbb195d7c16eef21131cc3dc80",
+    "duration": 3.725375,
+    "firstPeakAboveMinus60DbAt": 0.04904761904761905,
+    "full": {
+      "peak": 0.7463420629501343,
+      "rms": 0.1128727208399509,
+      "peakDb": -2.54,
+      "rmsDb": -18.95,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.48965802788734436,
+        "rms": 0.14306503365468987,
+        "peakDb": -6.2,
+        "rmsDb": -16.89,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.6167021989822388,
+        "rms": 0.14988114689968673,
+        "peakDb": -4.2,
+        "rmsDb": -16.49,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_abyssal_underlord:abys_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/abyssal_underlord/abys_firstblood_01.mp3",
+    "sourceSha256": "636109455e9c92181affc70b0a9714736eb4d32b058bbb9f186f4296da9ab4f2",
+    "duration": 4.083063,
+    "firstPeakAboveMinus60DbAt": 0.051904761904761905,
+    "full": {
+      "peak": 0.8815886974334717,
+      "rms": 0.15639290439582704,
+      "peakDb": -1.09,
+      "rmsDb": -16.12,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.5951288342475891,
+        "rms": 0.10509918684191483,
+        "peakDb": -4.51,
+        "rmsDb": -19.57,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.7088099718093872,
+        "rms": 0.17546735561494495,
+        "peakDb": -2.99,
+        "rmsDb": -15.12,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_alchemist:alch_ability_concoc_15",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/alchemist/alch_ability_concoc_15.mp3",
+    "sourceSha256": "11ae82d2ed8ba7e31eaa889027c7d11018311b6e986078bd59f4fc39f7e51be7",
+    "duration": 2.549875,
+    "firstPeakAboveMinus60DbAt": 0.04249433106575964,
+    "full": {
+      "peak": 0.7626405358314514,
+      "rms": 0.13208561739888172,
+      "peakDb": -2.35,
+      "rmsDb": -17.58,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.17849125000000002,
+        "peak": 0.34965211153030396,
+        "rms": 0.10000556211908689,
+        "peakDb": -9.13,
+        "rmsDb": -20.0,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.43347875,
+        "peak": 0.6852436661720276,
+        "rms": 0.10567002486216408,
+        "peakDb": -3.28,
+        "rmsDb": -19.52,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_ancient_apparition:appa_kill_06",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_kill_06.mp3",
+    "sourceSha256": "f0b414b960a35defeab94cd9500e6e53c48affbac67fa07c2093afe69074eb8a",
+    "duration": 3.821875,
+    "firstPeakAboveMinus60DbAt": 0.2383219954648526,
+    "full": {
+      "peak": 0.5028511881828308,
+      "rms": 0.07363041195709265,
+      "peakDb": -5.97,
+      "rmsDb": -22.66,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.0029222469311207533,
+        "rms": 0.00013066720100228174,
+        "peakDb": -50.69,
+        "rmsDb": -77.68,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.44244617223739624,
+        "rms": 0.0470168444638317,
+        "peakDb": -7.08,
+        "rmsDb": -26.55,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_antimage:anti_respawn_06",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/antimage/anti_respawn_06.mp3",
+    "sourceSha256": "6a2ca2c1a8c6c6980babf33d05eee553e86f57eea8a9c3dae25d40bfe2fdbdf3",
+    "duration": 2.41925,
+    "firstPeakAboveMinus60DbAt": 0.04780045351473923,
+    "full": {
+      "peak": 1.0733296871185303,
+      "rms": 0.17020764771369584,
+      "peakDb": 0.61,
+      "rmsDb": -15.38,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.1693475,
+        "peak": 1.0733296871185303,
+        "rms": 0.17368253392467067,
+        "peakDb": 0.61,
+        "rmsDb": -15.2,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.4112725,
+        "peak": 1.0733296871185303,
+        "rms": 0.18532444849239255,
+        "peakDb": 0.61,
+        "rmsDb": -14.64,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_arc_warden:arcwar_kill_07",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/arc_warden/arcwar_kill_07.mp3",
+    "sourceSha256": "02e6caccd481a2a3e1d6ee12e2fe273b0550c327a67d4ea7aab4906696d28e7b",
+    "duration": 3.307375,
+    "firstPeakAboveMinus60DbAt": 0.04158730158730159,
+    "full": {
+      "peak": 0.900829017162323,
+      "rms": 0.14938360625706296,
+      "peakDb": -0.91,
+      "rmsDb": -16.51,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.23151625,
+        "peak": 0.516375720500946,
+        "rms": 0.20038582814096587,
+        "peakDb": -5.74,
+        "rmsDb": -13.96,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.6945135593414307,
+        "rms": 0.21923031151540795,
+        "peakDb": -3.17,
+        "rmsDb": -13.18,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_axe:axe_deny_15",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/axe/axe_deny_15.mp3",
+    "sourceSha256": "31a21a99f891f286a5346632d96da3e0e6881939cca969692a0f4244693f70f0",
+    "duration": 2.52375,
+    "firstPeakAboveMinus60DbAt": 0.0544671201814059,
+    "full": {
+      "peak": 0.5776757001876831,
+      "rms": 0.13916485544017707,
+      "peakDb": -4.77,
+      "rmsDb": -17.13,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.17666250000000003,
+        "peak": 0.5307528972625732,
+        "rms": 0.11558226103911981,
+        "peakDb": -5.5,
+        "rmsDb": -18.74,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.42903750000000007,
+        "peak": 0.5307528972625732,
+        "rms": 0.14505386846560045,
+        "peakDb": -5.5,
+        "rmsDb": -16.77,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_bane:bane_kill_06",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/bane/bane_kill_06.mp3",
+    "sourceSha256": "63569ea93ecf88526508a9587841dfdbc87e9394985754fe6642b233e7206aea",
+    "duration": 2.941625,
+    "firstPeakAboveMinus60DbAt": 0.04852607709750567,
+    "full": {
+      "peak": 0.5117408037185669,
+      "rms": 0.09646734635127326,
+      "peakDb": -5.82,
+      "rmsDb": -20.31,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.20591375000000003,
+        "peak": 0.4063740074634552,
+        "rms": 0.058969442302693804,
+        "peakDb": -7.82,
+        "rmsDb": -24.59,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.5000762500000001,
+        "peak": 0.4063740074634552,
+        "rms": 0.06808959425986714,
+        "peakDb": -7.82,
+        "rmsDb": -23.34,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_batrider:bat_kill_06",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/batrider/bat_kill_06.mp3",
+    "sourceSha256": "dc4082f5e74ff6bf2c9765bf2f814553ee5305025ecb6b44acfb0779be609bec",
+    "duration": 3.255125,
+    "firstPeakAboveMinus60DbAt": 0.047528344671201816,
+    "full": {
+      "peak": 0.586837649345398,
+      "rms": 0.12660075965877932,
+      "peakDb": -4.63,
+      "rmsDb": -17.95,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.22785875000000003,
+        "peak": 0.586837649345398,
+        "rms": 0.12395352668087926,
+        "peakDb": -4.63,
+        "rmsDb": -18.13,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.5533712500000001,
+        "peak": 0.586837649345398,
+        "rms": 0.12700226064594472,
+        "peakDb": -4.63,
+        "rmsDb": -17.92,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_beastmaster:beas_win_02",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/beastmaster/beas_win_02.mp3",
+    "sourceSha256": "df7dd34ce68e9dc518c3fffaa3c6ea9e6d4088cb5a1870a8757837a7e50bf1f6",
+    "duration": 4.35225,
+    "firstPeakAboveMinus60DbAt": 0.05376417233560091,
+    "full": {
+      "peak": 0.9309284687042236,
+      "rms": 0.1806411632261979,
+      "peakDb": -0.62,
+      "rmsDb": -14.86,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.8115266561508179,
+        "rms": 0.14955020283386145,
+        "peakDb": -1.81,
+        "rmsDb": -16.5,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.8150022029876709,
+        "rms": 0.15308035848081653,
+        "peakDb": -1.78,
+        "rmsDb": -16.3,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_bloodseeker:blod_kill_05",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/bloodseeker/blod_kill_05.mp3",
+    "sourceSha256": "99e345feb62e4b52905c55a6e0b14a64684ff4a3be35b9574d33db3ee1d7c724",
+    "duration": 2.941625,
+    "firstPeakAboveMinus60DbAt": 0.041791383219954646,
+    "full": {
+      "peak": 0.7340290546417236,
+      "rms": 0.12223500434023939,
+      "peakDb": -2.69,
+      "rmsDb": -18.26,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.20591375000000003,
+        "peak": 0.31681397557258606,
+        "rms": 0.07857172521350865,
+        "peakDb": -9.98,
+        "rmsDb": -22.09,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.5000762500000001,
+        "peak": 0.4670000374317169,
+        "rms": 0.09422207025827725,
+        "peakDb": -6.61,
+        "rmsDb": -20.52,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_bounty_hunter:bount_ability_track_04",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/bounty_hunter/bount_ability_track_04.mp3",
+    "sourceSha256": "6215caa91b141d064d2d022f56474fcee5b0292efec8676f1aabb10e760fc080",
+    "duration": 2.288625,
+    "firstPeakAboveMinus60DbAt": 0.058095238095238096,
+    "full": {
+      "peak": 0.5072664618492126,
+      "rms": 0.12189485055904187,
+      "peakDb": -5.9,
+      "rmsDb": -18.28,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.16020375000000003,
+        "peak": 0.39648371934890747,
+        "rms": 0.06466178782918071,
+        "peakDb": -8.04,
+        "rmsDb": -23.79,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.38906625000000006,
+        "peak": 0.5072664618492126,
+        "rms": 0.13560948435453474,
+        "peakDb": -5.9,
+        "rmsDb": -17.35,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_brewmaster:brew_firstblood_03",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/brewmaster/brew_firstblood_03.mp3",
+    "sourceSha256": "ae77998f2a4a551cc013c96c4a937b887114f8e088210f8fddca9ae90f90cfe0",
+    "duration": 2.941625,
+    "firstPeakAboveMinus60DbAt": 0.05607709750566894,
+    "full": {
+      "peak": 0.9024849534034729,
+      "rms": 0.09751455334619769,
+      "peakDb": -0.89,
+      "rmsDb": -20.22,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.20591375000000003,
+        "peak": 0.6882349252700806,
+        "rms": 0.08351714354685214,
+        "peakDb": -3.25,
+        "rmsDb": -21.56,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.5000762500000001,
+        "peak": 0.7671425938606262,
+        "rms": 0.15320419690444953,
+        "peakDb": -2.3,
+        "rmsDb": -16.29,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_bristleback:bristle_kill_06",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/bristleback/bristle_kill_06.mp3",
+    "sourceSha256": "698c08b1cfaa6ccac39fc245e8d0f0ff31cefcfae866ae4620974339c48d7de3",
+    "duration": 1.713875,
+    "firstPeakAboveMinus60DbAt": 0.04666666666666667,
+    "full": {
+      "peak": 0.8414657115936279,
+      "rms": 0.16058691299229522,
+      "peakDb": -1.5,
+      "rmsDb": -15.89,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.11997125000000002,
+        "peak": 0.32946714758872986,
+        "rms": 0.07684551008247323,
+        "peakDb": -9.64,
+        "rmsDb": -22.29,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.29135875,
+        "peak": 0.8414657115936279,
+        "rms": 0.20523356312200858,
+        "peakDb": -1.5,
+        "rmsDb": -13.76,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_broodmother:broo_firstblood_02",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/broodmother/broo_firstblood_02.mp3",
+    "sourceSha256": "61399dd80e4203e0fadb846b99fe505ee4190ef0f5c04a5a2aed783b32eface6",
+    "duration": 2.576,
+    "firstPeakAboveMinus60DbAt": 0.051541950113378684,
+    "full": {
+      "peak": 0.5602669715881348,
+      "rms": 0.14878903095137797,
+      "peakDb": -5.03,
+      "rmsDb": -16.55,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.18032,
+        "peak": 0.4676058888435364,
+        "rms": 0.0822941563680911,
+        "peakDb": -6.6,
+        "rmsDb": -21.69,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.43792000000000003,
+        "peak": 0.551765501499176,
+        "rms": 0.16081985573867705,
+        "peakDb": -5.16,
+        "rmsDb": -15.87,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_centaur:cent_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/centaur/cent_firstblood_01.mp3",
+    "sourceSha256": "b15cf58e229da3e181e8bc44be7d645e30509bad848eda1706811d79605dba9f",
+    "duration": 3.411875,
+    "firstPeakAboveMinus60DbAt": 0.04526077097505669,
+    "full": {
+      "peak": 1.0116267204284668,
+      "rms": 0.13234010422302006,
+      "peakDb": 0.1,
+      "rmsDb": -17.57,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.23883125000000005,
+        "peak": 0.4128214716911316,
+        "rms": 0.1470784875421939,
+        "peakDb": -7.68,
+        "rmsDb": -16.65,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.8523600101470947,
+        "rms": 0.18142695905769388,
+        "peakDb": -1.39,
+        "rmsDb": -14.83,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_chaos_knight:chaknight_kill_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/chaos_knight/chaknight_kill_01.mp3",
+    "sourceSha256": "3db2fcd46b34e9073bd16a551b7099edce894d77057f2c82a472fb1c879554e1",
+    "duration": 3.38575,
+    "firstPeakAboveMinus60DbAt": 0.04795918367346939,
+    "full": {
+      "peak": 0.463498055934906,
+      "rms": 0.06466493076199098,
+      "peakDb": -6.68,
+      "rmsDb": -23.79,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.2370025,
+        "peak": 0.3303091526031494,
+        "rms": 0.07681987333106993,
+        "peakDb": -9.62,
+        "rmsDb": -22.29,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.3303091526031494,
+        "rms": 0.0830710308082088,
+        "peakDb": -9.62,
+        "rmsDb": -21.61,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_chen:chen_ability_penit_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/chen/chen_ability_penit_01.mp3",
+    "sourceSha256": "c01cb566c2e6dcfd9014c837ee148e6b82d5a00b68e6f0f440283c04ab406674",
+    "duration": 2.907563,
+    "firstPeakAboveMinus60DbAt": 0.04553287981859411,
+    "full": {
+      "peak": 0.5077571868896484,
+      "rms": 0.13044658845004595,
+      "peakDb": -5.89,
+      "rmsDb": -17.69,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.20352941000000002,
+        "peak": 0.5034390687942505,
+        "rms": 0.1357272438395381,
+        "peakDb": -5.96,
+        "rmsDb": -17.35,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.49428571000000004,
+        "peak": 0.5077571868896484,
+        "rms": 0.19934294182915333,
+        "peakDb": -5.89,
+        "rmsDb": -14.01,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_clinkz:clinkz_kill_03",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/clinkz/clinkz_kill_03.mp3",
+    "sourceSha256": "5a546d28f03ece4dd0d2cf9791fbe0850019d46a20ec3c04b63008bae36f4a58",
+    "duration": 2.941625,
+    "firstPeakAboveMinus60DbAt": 0.03850340136054422,
+    "full": {
+      "peak": 0.8929497003555298,
+      "rms": 0.09343193815297109,
+      "peakDb": -0.98,
+      "rmsDb": -20.59,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.20591375000000003,
+        "peak": 0.7199769020080566,
+        "rms": 0.14964730020861716,
+        "peakDb": -2.85,
+        "rmsDb": -16.5,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.5000762500000001,
+        "peak": 0.7199769020080566,
+        "rms": 0.14334726023594108,
+        "peakDb": -2.85,
+        "rmsDb": -16.87,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_crystal_maiden:cm_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/crystalmaiden/cm_firstblood_01.mp3",
+    "sourceSha256": "dc62442ccc273c2e21f19d836b6872b72768ae029899aa2d0f739d771264efc7",
+    "duration": 3.3335,
+    "firstPeakAboveMinus60DbAt": 0.045759637188208614,
+    "full": {
+      "peak": 0.7587075233459473,
+      "rms": 0.1446161335088671,
+      "peakDb": -2.4,
+      "rmsDb": -16.8,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.23334500000000002,
+        "peak": 0.6985824108123779,
+        "rms": 0.17631682627872994,
+        "peakDb": -3.12,
+        "rmsDb": -15.07,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.6985824108123779,
+        "rms": 0.1355126775425977,
+        "peakDb": -3.12,
+        "rmsDb": -17.36,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_dark_seer:dkseer_kill_09",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/dark_seer/dkseer_kill_09.mp3",
+    "sourceSha256": "c1650e5001d40c450422aefe1663969d8a9b7a308361c810fc7d46fe8b2d0d82",
+    "duration": 3.064313,
+    "firstPeakAboveMinus60DbAt": 0.041405895691609976,
+    "full": {
+      "peak": 0.502388596534729,
+      "rms": 0.063251710934237,
+      "peakDb": -5.98,
+      "rmsDb": -23.98,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.21450191000000002,
+        "peak": 0.502388596534729,
+        "rms": 0.12277661136131432,
+        "peakDb": -5.98,
+        "rmsDb": -18.22,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.52093321,
+        "peak": 0.502388596534729,
+        "rms": 0.10702232021493494,
+        "peakDb": -5.98,
+        "rmsDb": -19.41,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_dark_willow:sylph_kill_10",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/dark_willow/sylph_kill_10.mp3",
+    "sourceSha256": "c70baf8f1ef5eb1bfc6f8819c55e6966f481e9fc551097aaec1aadd95a811a56",
+    "duration": 2.41925,
+    "firstPeakAboveMinus60DbAt": 0.057346938775510205,
+    "full": {
+      "peak": 0.7076612710952759,
+      "rms": 0.13237414086942761,
+      "peakDb": -3.0,
+      "rmsDb": -17.56,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.1693475,
+        "peak": 0.7018516063690186,
+        "rms": 0.2048760813740017,
+        "peakDb": -3.08,
+        "rmsDb": -13.77,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.4112725,
+        "peak": 0.7018516063690186,
+        "rms": 0.17506727649734702,
+        "peakDb": -3.08,
+        "rmsDb": -15.14,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_dawnbreaker:valora_firstblood_04",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/dawnbreaker/valora_firstblood_04.mp3",
+    "sourceSha256": "f40794bce0237883c744ad5daed3e264238dcca1287ab0232831b373082d175d",
+    "duration": 3.73551,
+    "firstPeakAboveMinus60DbAt": 0.009002267573696146,
+    "full": {
+      "peak": 1.0071163177490234,
+      "rms": 0.1356940256753026,
+      "peakDb": 0.06,
+      "rmsDb": -17.35,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 1.0071163177490234,
+        "rms": 0.1395298832634803,
+        "peakDb": 0.06,
+        "rmsDb": -17.11,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 1.0071163177490234,
+        "rms": 0.1876470594977316,
+        "peakDb": 0.06,
+        "rmsDb": -14.53,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_dazzle:dazz_win_03",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/dazzle/dazz_win_03.mp3",
+    "sourceSha256": "67e3f5d7b6ddcefbb0cded7cf0ee76579670ea9893c8668cfddef8eb2bb1abb7",
+    "duration": 3.49025,
+    "firstPeakAboveMinus60DbAt": 0.04492063492063492,
+    "full": {
+      "peak": 0.5813172459602356,
+      "rms": 0.14426701229571592,
+      "peakDb": -4.71,
+      "rmsDb": -16.82,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.01540348120033741,
+        "rms": 0.0027630761404182163,
+        "peakDb": -36.25,
+        "rmsDb": -51.17,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5813172459602356,
+        "rms": 0.10570707179055942,
+        "peakDb": -4.71,
+        "rmsDb": -19.52,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_death_prophet:dpro_respawn_14",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/death_prophet/dpro_respawn_14.mp3",
+    "sourceSha256": "2d22444693513e9e821f0f6283c8c65b313a887d818f8382c47b8621cf5be182",
+    "duration": 4.639625,
+    "firstPeakAboveMinus60DbAt": 0.05687074829931973,
+    "full": {
+      "peak": 0.5499913692474365,
+      "rms": 0.11425599980689274,
+      "peakDb": -5.19,
+      "rmsDb": -18.84,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.10635043680667877,
+        "rms": 0.01692087245784015,
+        "peakDb": -19.47,
+        "rmsDb": -35.43,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5375409126281738,
+        "rms": 0.12460913671831962,
+        "peakDb": -5.39,
+        "rmsDb": -18.09,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_disruptor:dis_spawn_04",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/disruptor/dis_spawn_04.mp3",
+    "sourceSha256": "491e73c0fff79106cddcb8038ee507852931be00da02b4af93c904e98a594564",
+    "duration": 3.255125,
+    "firstPeakAboveMinus60DbAt": 0.05174603174603175,
+    "full": {
+      "peak": 0.8519201874732971,
+      "rms": 0.11021383680266957,
+      "peakDb": -1.39,
+      "rmsDb": -19.16,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.22785875000000003,
+        "peak": 0.7221235036849976,
+        "rms": 0.18153523802977095,
+        "peakDb": -2.83,
+        "rmsDb": -14.82,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.5533712500000001,
+        "peak": 0.7221235036849976,
+        "rms": 0.1628006596713139,
+        "peakDb": -2.83,
+        "rmsDb": -15.77,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_doom_bringer:doom_kill_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/doom_bringer/doom_kill_01.mp3",
+    "sourceSha256": "9b4071ebf933285f2f6b4af23faae437b9ec6ba05f5d318da37264705dd6e2b7",
+    "duration": 3.3335,
+    "firstPeakAboveMinus60DbAt": 0.04981859410430839,
+    "full": {
+      "peak": 0.871888279914856,
+      "rms": 0.16541439072025968,
+      "peakDb": -1.19,
+      "rmsDb": -15.63,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.23334500000000002,
+        "peak": 0.33959493041038513,
+        "rms": 0.06936653415058958,
+        "peakDb": -9.38,
+        "rmsDb": -23.18,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5789676904678345,
+        "rms": 0.11941618788920037,
+        "peakDb": -4.75,
+        "rmsDb": -18.46,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_dragon_knight:drag_kill_11",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/dragon_knight/drag_kill_11.mp3",
+    "sourceSha256": "985557c26daa22a96b400aad2b889af5debee218fe1ebc39ef936ff700829262",
+    "duration": 2.811,
+    "firstPeakAboveMinus60DbAt": 0.04909297052154195,
+    "full": {
+      "peak": 0.5531901121139526,
+      "rms": 0.11723916534030754,
+      "peakDb": -5.14,
+      "rmsDb": -18.62,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.19677000000000003,
+        "peak": 0.47382625937461853,
+        "rms": 0.07386386408976851,
+        "peakDb": -6.49,
+        "rmsDb": -22.63,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.47787,
+        "peak": 0.481351375579834,
+        "rms": 0.10988963448906337,
+        "peakDb": -6.35,
+        "rmsDb": -19.18,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_drow_ranger:drow_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/drowranger/drow_firstblood_01.mp3",
+    "sourceSha256": "f584a341c70acbb8eb367c01af54f71161348839ac3c5f5cfa546410bb9e6a6a",
+    "duration": 4.04898,
+    "firstPeakAboveMinus60DbAt": 0.012018140589569161,
+    "full": {
+      "peak": 0.8904528617858887,
+      "rms": 0.1454564079723286,
+      "peakDb": -1.01,
+      "rmsDb": -16.75,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.8904528617858887,
+        "rms": 0.18970155515938716,
+        "peakDb": -1.01,
+        "rmsDb": -14.44,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.8904528617858887,
+        "rms": 0.16691044220063908,
+        "peakDb": -1.01,
+        "rmsDb": -15.55,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_earth_spirit:earthspi_respawn_06",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/earth_spirit/earthspi_respawn_06.mp3",
+    "sourceSha256": "a6ec829644889536570649615b335bb75dc23a166e00db941ce521bea8af586b",
+    "duration": 2.889375,
+    "firstPeakAboveMinus60DbAt": 0.04900226757369615,
+    "full": {
+      "peak": 0.8110918998718262,
+      "rms": 0.13312151440249045,
+      "peakDb": -1.82,
+      "rmsDb": -17.52,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.20225625,
+        "peak": 0.5383301377296448,
+        "rms": 0.1101297094371416,
+        "peakDb": -5.38,
+        "rmsDb": -19.16,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.49119375,
+        "peak": 0.8110918998718262,
+        "rms": 0.15609427776199608,
+        "peakDb": -1.82,
+        "rmsDb": -16.13,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_earthshaker:erth_kill_11",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/earthshaker/erth_kill_11.mp3",
+    "sourceSha256": "da081fe95272a8ac69bdddb06157305148a141cfd1d9ff650dd17ef254c14a79",
+    "duration": 2.393125,
+    "firstPeakAboveMinus60DbAt": 0.05600907029478458,
+    "full": {
+      "peak": 0.520407497882843,
+      "rms": 0.11521484044718293,
+      "peakDb": -5.67,
+      "rmsDb": -18.77,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.16751875000000002,
+        "peak": 0.15916995704174042,
+        "rms": 0.03090283208363314,
+        "peakDb": -15.96,
+        "rmsDb": -30.2,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.40683125000000003,
+        "peak": 0.4785599410533905,
+        "rms": 0.08845106942873866,
+        "peakDb": -6.4,
+        "rmsDb": -21.07,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_elder_titan:elder_kill_13",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/elder_titan/elder_kill_13.mp3",
+    "sourceSha256": "fcb95c4fa3dcb975038adb1f723c3c8c23c7c87947844b7e82851795fa1648f0",
+    "duration": 4.3,
+    "firstPeakAboveMinus60DbAt": 0.04591836734693878,
+    "full": {
+      "peak": 0.869530200958252,
+      "rms": 0.13014262915484828,
+      "peakDb": -1.21,
+      "rmsDb": -17.71,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.6876704692840576,
+        "rms": 0.12096942719708279,
+        "peakDb": -3.25,
+        "rmsDb": -18.35,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.869530200958252,
+        "rms": 0.14728113195761755,
+        "peakDb": -1.21,
+        "rmsDb": -16.64,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_ember_spirit:embr_firstblood_02",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ember_spirit/embr_firstblood_02.mp3",
+    "sourceSha256": "a833be1b83f57330ef3ae3e01dad99e8fdb48ecde0335c83b31bf5ddfeaf7693",
+    "duration": 3.464125,
+    "firstPeakAboveMinus60DbAt": 0.049591836734693875,
+    "full": {
+      "peak": 0.803015410900116,
+      "rms": 0.11947073509375034,
+      "peakDb": -1.91,
+      "rmsDb": -18.45,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.803015410900116,
+        "rms": 0.12965198949940496,
+        "peakDb": -1.91,
+        "rmsDb": -17.74,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.803015410900116,
+        "rms": 0.13326504058247235,
+        "peakDb": -1.91,
+        "rmsDb": -17.51,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_enchantress:ench_spawn_05",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/enchantress/ench_spawn_05.mp3",
+    "sourceSha256": "36ed28f0b3bddd92dd78b5808ef0c29655ab2f751299d7fd463f6084cd0b760f",
+    "duration": 2.071688,
+    "firstPeakAboveMinus60DbAt": 0.034467120181405894,
+    "full": {
+      "peak": 0.5158536434173584,
+      "rms": 0.21570527361291933,
+      "peakDb": -5.75,
+      "rmsDb": -13.32,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.14501816,
+        "peak": 0.5158536434173584,
+        "rms": 0.1710744022458732,
+        "peakDb": -5.75,
+        "rmsDb": -15.34,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.35218696,
+        "peak": 0.5158536434173584,
+        "rms": 0.24778374669628853,
+        "peakDb": -5.75,
+        "rmsDb": -12.12,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_enigma:enig_spawn_08",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/enigma/enig_spawn_08.mp3",
+    "sourceSha256": "ff2ec84107043bf04b9c3f9cb609860074836120593d3f122c7d09305af9bb99",
+    "duration": 4.03875,
+    "firstPeakAboveMinus60DbAt": 0.047165532879818596,
+    "full": {
+      "peak": 0.5471146106719971,
+      "rms": 0.14257319221687087,
+      "peakDb": -5.24,
+      "rmsDb": -16.92,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.28314876556396484,
+        "rms": 0.0705709552943197,
+        "peakDb": -10.96,
+        "rmsDb": -23.03,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5040334463119507,
+        "rms": 0.13273185153003625,
+        "peakDb": -5.95,
+        "rmsDb": -17.54,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_faceless_void:face_respawn_08",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/faceless_void/face_respawn_08.mp3",
+    "sourceSha256": "80d01fae5df67b8c92d7f41e53d5b6f3c3655521ea4837f2f41e8493c5db4b83",
+    "duration": 2.86325,
+    "firstPeakAboveMinus60DbAt": 0.05290249433106576,
+    "full": {
+      "peak": 0.589340090751648,
+      "rms": 0.18343881464154568,
+      "peakDb": -4.59,
+      "rmsDb": -14.73,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.2004275,
+        "peak": 0.5170788764953613,
+        "rms": 0.13384468711862574,
+        "peakDb": -5.73,
+        "rmsDb": -17.47,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.48675250000000003,
+        "peak": 0.5692263841629028,
+        "rms": 0.17751503159671975,
+        "peakDb": -4.89,
+        "rmsDb": -15.02,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_furion:furi_kill_03",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/furion/furi_kill_03.mp3",
+    "sourceSha256": "438f475edae1620fe16acd5fa860d1335d1e7650756242b9e5761ded06565046",
+    "duration": 2.750875,
+    "firstPeakAboveMinus60DbAt": 0.04390022675736961,
+    "full": {
+      "peak": 0.5162274837493896,
+      "rms": 0.15766658147062898,
+      "peakDb": -5.74,
+      "rmsDb": -16.05,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.19256125000000004,
+        "peak": 0.5162274837493896,
+        "rms": 0.21955581905664914,
+        "peakDb": -5.74,
+        "rmsDb": -13.17,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.46764875000000006,
+        "peak": 0.5162274837493896,
+        "rms": 0.1834888432208487,
+        "peakDb": -5.74,
+        "rmsDb": -14.73,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_grimstroke:grimstroke_firstblood_04",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/grimstroke/grimstroke_firstblood_04.mp3",
+    "sourceSha256": "e923a9b26cf5d41ff74f9f55a324db5aaf93f4dbdfd99bcb750c02d609b252c3",
+    "duration": 6.217143,
+    "firstPeakAboveMinus60DbAt": 0.01619047619047619,
+    "full": {
+      "peak": 0.9374490976333618,
+      "rms": 0.14126189838228437,
+      "peakDb": -0.56,
+      "rmsDb": -17.0,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.4366031885147095,
+        "rms": 0.08310792806789717,
+        "peakDb": -7.2,
+        "rmsDb": -21.61,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.9316469430923462,
+        "rms": 0.20091796737982742,
+        "peakDb": -0.61,
+        "rmsDb": -13.94,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_gyrocopter:gyro_call_down_11",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/gyrocopter/gyro_call_down_11.mp3",
+    "sourceSha256": "0607baa2935297584d28163f5c6237fc4630a86d49c6fe710a0cf2f7664abacb",
+    "duration": 2.9155,
+    "firstPeakAboveMinus60DbAt": 0.055736961451247166,
+    "full": {
+      "peak": 0.8895201683044434,
+      "rms": 0.18319341340119913,
+      "peakDb": -1.02,
+      "rmsDb": -14.74,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.20408500000000004,
+        "peak": 0.5138750672340393,
+        "rms": 0.11986128364373173,
+        "peakDb": -5.78,
+        "rmsDb": -18.43,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.49563500000000005,
+        "peak": 0.8632985353469849,
+        "rms": 0.20193145249086994,
+        "peakDb": -1.28,
+        "rmsDb": -13.9,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_hoodwink:hoodwink_firstblood_05",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/hoodwink/hoodwink_firstblood_05.mp3",
+    "sourceSha256": "b348b405eaa3884adfc9b393b86b32068e9b64086185d1901fc5379dfcfaf99c",
+    "duration": 2.52,
+    "firstPeakAboveMinus60DbAt": 0.014263038548752835,
+    "full": {
+      "peak": 1.1508550643920898,
+      "rms": 0.12522908305850103,
+      "peakDb": 1.22,
+      "rmsDb": -18.05,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.17640000000000003,
+        "peak": 1.1508550643920898,
+        "rms": 0.21634882627926727,
+        "peakDb": 1.22,
+        "rmsDb": -13.3,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.42840000000000006,
+        "peak": 1.1508550643920898,
+        "rms": 0.18074571092669092,
+        "peakDb": 1.22,
+        "rmsDb": -14.86,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_huskar:husk_respawn_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/huskar/husk_respawn_01.mp3",
+    "sourceSha256": "938beb245b1198fbcd464e4d57362128b8fc2cb557a4724e1c6ec2c79e08cd7d",
+    "duration": 2.079625,
+    "firstPeakAboveMinus60DbAt": 0.05054421768707483,
+    "full": {
+      "peak": 0.5080031156539917,
+      "rms": 0.08623697202905622,
+      "peakDb": -5.88,
+      "rmsDb": -21.29,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.14557375000000003,
+        "peak": 0.33573275804519653,
+        "rms": 0.05860509201481282,
+        "peakDb": -9.48,
+        "rmsDb": -24.64,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.35353625000000005,
+        "peak": 0.5000631809234619,
+        "rms": 0.11225707070310127,
+        "peakDb": -6.02,
+        "rmsDb": -19.0,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_invoker:kidvo_la_first_02",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/invoker/kidvo_la_first_02.mp3",
+    "sourceSha256": "bdafcb2afcb6fb10c5ac77eccae0e739aa3a713bd52a002bda0862667fcd3374",
+    "duration": 3.160816,
+    "firstPeakAboveMinus60DbAt": 0.008752834467120182,
+    "full": {
+      "peak": 0.8487303256988525,
+      "rms": 0.1441461881122033,
+      "peakDb": -1.42,
+      "rmsDb": -16.82,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.22125712000000003,
+        "peak": 0.5616666078567505,
+        "rms": 0.10744920319265688,
+        "peakDb": -5.01,
+        "rmsDb": -19.38,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.53733872,
+        "peak": 0.7772558927536011,
+        "rms": 0.13490234977914498,
+        "peakDb": -2.19,
+        "rmsDb": -17.4,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_jakiro:jak_kill_06",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/jakiro/jak_kill_06.mp3",
+    "sourceSha256": "673bccf7f8da54a4ae17f981d2c59ad26aab8a6839a60c84dd31bb3d106ad2d5",
+    "duration": 4.77025,
+    "firstPeakAboveMinus60DbAt": 0.2470294784580499,
+    "full": {
+      "peak": 0.5237714052200317,
+      "rms": 0.13536254288428323,
+      "peakDb": -5.62,
+      "rmsDb": -17.37,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.0005414841580204666,
+        "rms": 3.638731952684498e-05,
+        "peakDb": -65.33,
+        "rmsDb": -88.78,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5162660479545593,
+        "rms": 0.1530004919698335,
+        "peakDb": -5.74,
+        "rmsDb": -16.31,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_juggernaut:jug_respawn_06",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/juggernaut/jug_respawn_06.mp3",
+    "sourceSha256": "9ebf27e2a4957f5ec812c17c99b07177d624886bde317db305eb2dbf67efd2d1",
+    "duration": 1.922875,
+    "firstPeakAboveMinus60DbAt": 0.04621315192743764,
+    "full": {
+      "peak": 0.5479204654693604,
+      "rms": 0.09481188228162749,
+      "peakDb": -5.23,
+      "rmsDb": -20.46,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.13460125,
+        "peak": 0.0120092099532485,
+        "rms": 0.0021548301932102255,
+        "peakDb": -38.41,
+        "rmsDb": -53.33,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.32688875,
+        "peak": 0.5077646970748901,
+        "rms": 0.10415637068442558,
+        "peakDb": -5.89,
+        "rmsDb": -19.65,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_keeper_of_the_light:keep_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/keeper_of_the_light/keep_firstblood_01.mp3",
+    "sourceSha256": "84c646ddfc695ba441983721ffdcc7bdb5aaaccf6ef8b6642ff6284d13c0315f",
+    "duration": 4.796375,
+    "firstPeakAboveMinus60DbAt": 0.05045351473922902,
+    "full": {
+      "peak": 0.8463869690895081,
+      "rms": 0.11268792304836893,
+      "peakDb": -1.45,
+      "rmsDb": -18.96,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.8463869690895081,
+        "rms": 0.1340956113001831,
+        "peakDb": -1.45,
+        "rmsDb": -17.45,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.8463869690895081,
+        "rms": 0.14270810569881837,
+        "peakDb": -1.45,
+        "rmsDb": -16.91,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_kez:kez_attack_10",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/kez/kez_attack_10.mp3",
+    "sourceSha256": "716dc0c3ad63f8cc2848d4fda46656feea41ed50fee6e6aa4ee129f83287e8f7",
+    "duration": 1.645714,
+    "firstPeakAboveMinus60DbAt": 0.0,
+    "full": {
+      "peak": 0.9903750419616699,
+      "rms": 0.1549303159756806,
+      "peakDb": -0.08,
+      "rmsDb": -16.2,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.11519998000000001,
+        "peak": 0.9487327337265015,
+        "rms": 0.22923589810837078,
+        "peakDb": -0.46,
+        "rmsDb": -12.79,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27977138,
+        "peak": 0.9903750419616699,
+        "rms": 0.21446458489287212,
+        "peakDb": -0.08,
+        "rmsDb": -13.37,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_kunkka:kunk_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/kunkka/kunk_firstblood_01.mp3",
+    "sourceSha256": "9e54e772486ed637fce6bed94bca9112eb5518243ceef02c9e12999b2b22a5b8",
+    "duration": 2.993875,
+    "firstPeakAboveMinus60DbAt": 0.0500907029478458,
+    "full": {
+      "peak": 0.5621325969696045,
+      "rms": 0.13903988325545638,
+      "peakDb": -5.0,
+      "rmsDb": -17.14,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.20957125000000001,
+        "peak": 0.12212647497653961,
+        "rms": 0.014874049052236299,
+        "peakDb": -18.26,
+        "rmsDb": -36.55,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.50895875,
+        "peak": 0.5545495748519897,
+        "rms": 0.1402848134634326,
+        "peakDb": -5.12,
+        "rmsDb": -17.06,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_largo:largo_rival_239",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/largo/largo_rival_239.mp3",
+    "sourceSha256": "85232a65b2d629ead98b87f01d6f5d0c4e64b2d759c27c028199a9af2cfe8ea9",
+    "duration": 3.761633,
+    "firstPeakAboveMinus60DbAt": 0.0006802721088435374,
+    "full": {
+      "peak": 0.7268890738487244,
+      "rms": 0.12500129541850494,
+      "peakDb": -2.77,
+      "rmsDb": -18.06,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.6976680755615234,
+        "rms": 0.17088952069571833,
+        "peakDb": -3.13,
+        "rmsDb": -15.35,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.6976680755615234,
+        "rms": 0.15121794666496002,
+        "peakDb": -3.13,
+        "rmsDb": -16.41,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_legion_commander:legcom_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/legion_commander/legcom_firstblood_01.mp3",
+    "sourceSha256": "0c69dc01b8546243a80e3174d1b9ede8c3944752dde28527304f2cafdcb642bc",
+    "duration": 3.464125,
+    "firstPeakAboveMinus60DbAt": 0.04657596371882086,
+    "full": {
+      "peak": 0.9539733529090881,
+      "rms": 0.19933103712398548,
+      "peakDb": -0.41,
+      "rmsDb": -14.01,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.9539733529090881,
+        "rms": 0.3004022250151766,
+        "peakDb": -0.41,
+        "rmsDb": -10.45,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.9539733529090881,
+        "rms": 0.23608284512549385,
+        "peakDb": -0.41,
+        "rmsDb": -12.54,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_leshrac:lesh_kill_10",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/leshrac/lesh_kill_10.mp3",
+    "sourceSha256": "5f300cf96a787c162110f2e0b1daa0bafcb1a637a6fa814d1f3e80f273067c8a",
+    "duration": 3.725375,
+    "firstPeakAboveMinus60DbAt": 0.05759637188208617,
+    "full": {
+      "peak": 0.5528050065040588,
+      "rms": 0.12219613605355834,
+      "peakDb": -5.15,
+      "rmsDb": -18.26,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.5169289112091064,
+        "rms": 0.14064138336422513,
+        "peakDb": -5.73,
+        "rmsDb": -17.04,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5338888764381409,
+        "rms": 0.16640285078701897,
+        "peakDb": -5.45,
+        "rmsDb": -15.58,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_lich:lich_respawn_08",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/lich/lich_respawn_08.mp3",
+    "sourceSha256": "b46006dea4887c1d0893999996eb767b5b0fbc2fa148108995243cfefcffbb7e",
+    "duration": 5.501625,
+    "firstPeakAboveMinus60DbAt": 0.05417233560090703,
+    "full": {
+      "peak": 0.8726733326911926,
+      "rms": 0.17334203907179177,
+      "peakDb": -1.18,
+      "rmsDb": -15.22,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.3473333716392517,
+        "rms": 0.06599670036797245,
+        "peakDb": -9.19,
+        "rmsDb": -23.61,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5989231467247009,
+        "rms": 0.1559153484590915,
+        "peakDb": -4.45,
+        "rmsDb": -16.14,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_life_stealer:lifest_respawn_02",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/life_stealer/lifest_respawn_02.mp3",
+    "sourceSha256": "06625c2c860f2c098601cf10d9815d5434559a43256ac5995b065b4515b5e6a3",
+    "duration": 4.169375,
+    "firstPeakAboveMinus60DbAt": 0.04458049886621315,
+    "full": {
+      "peak": 0.5084912180900574,
+      "rms": 0.11192854316248943,
+      "peakDb": -5.87,
+      "rmsDb": -19.02,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.5078150033950806,
+        "rms": 0.11819817804622723,
+        "peakDb": -5.89,
+        "rmsDb": -18.55,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5078150033950806,
+        "rms": 0.13703217724615632,
+        "peakDb": -5.89,
+        "rmsDb": -17.26,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_lina:lina_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/lina/lina_firstblood_01.mp3",
+    "sourceSha256": "b33c23f91584de942478b790067ef471b550a3713775ce29b5f3a4523b5729a6",
+    "duration": 3.908125,
+    "firstPeakAboveMinus60DbAt": 0.058435374149659866,
+    "full": {
+      "peak": 0.606077253818512,
+      "rms": 0.06510864233519276,
+      "peakDb": -4.35,
+      "rmsDb": -23.73,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.42128849029541016,
+        "rms": 0.09727311347467153,
+        "peakDb": -7.51,
+        "rmsDb": -20.24,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.42128849029541016,
+        "rms": 0.08666150080352303,
+        "peakDb": -7.51,
+        "rmsDb": -21.24,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_lion:lion_kill_04",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/lion/lion_kill_04.mp3",
+    "sourceSha256": "14fe0e81e76be4f46a12d5992e0459999c6e56e7506798808de4174958436a1d",
+    "duration": 2.576,
+    "firstPeakAboveMinus60DbAt": 0.0536734693877551,
+    "full": {
+      "peak": 0.5061640739440918,
+      "rms": 0.06518668344037254,
+      "peakDb": -5.91,
+      "rmsDb": -23.72,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.18032,
+        "peak": 0.5035144090652466,
+        "rms": 0.11218017552780402,
+        "peakDb": -5.96,
+        "rmsDb": -19.0,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.43792000000000003,
+        "peak": 0.5035144090652466,
+        "rms": 0.09917065580752779,
+        "peakDb": -5.96,
+        "rmsDb": -20.07,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_lone_druid:lone_druid_level_09",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/lone_druid/lone_druid_level_09.mp3",
+    "sourceSha256": "28bc455d8e6bdc0f5d8cd8b2c917ccf5136a1e459ca1857ce19fc135c21a9e38",
+    "duration": 2.41925,
+    "firstPeakAboveMinus60DbAt": 0.047619047619047616,
+    "full": {
+      "peak": 0.6534208059310913,
+      "rms": 0.10078349933039638,
+      "peakDb": -3.7,
+      "rmsDb": -19.93,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.1693475,
+        "peak": 0.44535335898399353,
+        "rms": 0.06187687860192012,
+        "peakDb": -7.03,
+        "rmsDb": -24.17,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.4112725,
+        "peak": 0.44535335898399353,
+        "rms": 0.07529135468531079,
+        "peakDb": -7.03,
+        "rmsDb": -22.47,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_luna:luna_kill_06",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/luna/luna_kill_06.mp3",
+    "sourceSha256": "ba0f7114fcced034c61bc56fd5a388f943c3285e75cfe33ad0d970fe14cbd66a",
+    "duration": 2.027375,
+    "firstPeakAboveMinus60DbAt": 0.048775510204081635,
+    "full": {
+      "peak": 0.9980044364929199,
+      "rms": 0.12386485623126589,
+      "peakDb": -0.02,
+      "rmsDb": -18.14,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.14191625000000002,
+        "peak": 0.7898281216621399,
+        "rms": 0.09720889167543273,
+        "peakDb": -2.05,
+        "rmsDb": -20.25,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.34465375000000004,
+        "peak": 0.9980044364929199,
+        "rms": 0.2525055391100208,
+        "peakDb": -0.02,
+        "rmsDb": -11.95,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_lycan:lycan_kill_11",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/lycan/lycan_kill_11.mp3",
+    "sourceSha256": "d9d20bebe7d37aa22f86251fff2d71008d06506a51a2bc0bc4bddaefb977782e",
+    "duration": 3.1245,
+    "firstPeakAboveMinus60DbAt": 0.04517006802721089,
+    "full": {
+      "peak": 0.5270615816116333,
+      "rms": 0.07037768087630947,
+      "peakDb": -5.56,
+      "rmsDb": -23.05,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.21871500000000002,
+        "peak": 0.22625868022441864,
+        "rms": 0.052315292981955745,
+        "peakDb": -12.91,
+        "rmsDb": -25.63,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.531165,
+        "peak": 0.3982453942298889,
+        "rms": 0.0723009945318975,
+        "peakDb": -8.0,
+        "rmsDb": -22.82,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_magnataur:magn_levelup_09",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/magnataur/magn_levelup_09.mp3",
+    "sourceSha256": "145bfb6df45b7e627ffb7ee99150824aa1a3d419e26217e22e041bfcf9b3966c",
+    "duration": 2.811,
+    "firstPeakAboveMinus60DbAt": 0.054263038548752834,
+    "full": {
+      "peak": 0.9481925964355469,
+      "rms": 0.1731313955323942,
+      "peakDb": -0.46,
+      "rmsDb": -15.23,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.19677000000000003,
+        "peak": 0.10058179497718811,
+        "rms": 0.023150721963626865,
+        "peakDb": -19.95,
+        "rmsDb": -32.71,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.47787,
+        "peak": 0.9250352382659912,
+        "rms": 0.19627377387943198,
+        "peakDb": -0.68,
+        "rmsDb": -14.14,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_mars:mars_kill_05",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/mars/mars_kill_05.mp3",
+    "sourceSha256": "ce3636af942290d00b907006067c2b399b31cac6882aade95f3827cb3e4a1da3",
+    "duration": 2.899592,
+    "firstPeakAboveMinus60DbAt": 0.012607709750566893,
+    "full": {
+      "peak": 0.7634046673774719,
+      "rms": 0.1523396001146158,
+      "peakDb": -2.34,
+      "rmsDb": -16.34,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.20297144000000003,
+        "peak": 0.3757052421569824,
+        "rms": 0.07815787651676531,
+        "peakDb": -8.5,
+        "rmsDb": -22.14,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.4929306400000001,
+        "peak": 0.7551923990249634,
+        "rms": 0.19166620509061644,
+        "peakDb": -2.44,
+        "rmsDb": -14.35,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_medusa:medus_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/medusa/medus_firstblood_01.mp3",
+    "sourceSha256": "cdb07465203e2f66871a8c4117b1ec6114025486c788b036f17997943bcc1ad9",
+    "duration": 3.202875,
+    "firstPeakAboveMinus60DbAt": 0.04977324263038549,
+    "full": {
+      "peak": 0.8622151017189026,
+      "rms": 0.12477289752225137,
+      "peakDb": -1.29,
+      "rmsDb": -18.08,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.22420125000000002,
+        "peak": 0.663629949092865,
+        "rms": 0.0976067313996519,
+        "peakDb": -3.56,
+        "rmsDb": -20.21,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.5444887500000001,
+        "peak": 0.663629949092865,
+        "rms": 0.13533031599812206,
+        "peakDb": -3.56,
+        "rmsDb": -17.37,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_meepo:meepo_kill_06",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/meepo/meepo_kill_06.mp3",
+    "sourceSha256": "af3bed991352938d9de08d66d4cee51eefc972cb2a019702e8d32a4ac41c4dd8",
+    "duration": 1.557125,
+    "firstPeakAboveMinus60DbAt": 0.051950113378684805,
+    "full": {
+      "peak": 0.8362923860549927,
+      "rms": 0.13119305740118442,
+      "peakDb": -1.55,
+      "rmsDb": -17.64,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.10899875000000002,
+        "peak": 0.06730487197637558,
+        "rms": 0.009975955465020407,
+        "peakDb": -23.44,
+        "rmsDb": -40.02,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.26471125,
+        "peak": 0.33532339334487915,
+        "rms": 0.060382522590056276,
+        "peakDb": -9.49,
+        "rmsDb": -24.38,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_mirana:mir_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/mirana/mir_firstblood_01.mp3",
+    "sourceSha256": "bcf87b2e0ffd29f06584e3f15c4edab49a93d3f91fdcf0b36727900a9f0a8705",
+    "duration": 4.012625,
+    "firstPeakAboveMinus60DbAt": 0.04634920634920635,
+    "full": {
+      "peak": 0.756018340587616,
+      "rms": 0.13011321949399188,
+      "peakDb": -2.43,
+      "rmsDb": -17.71,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.6107072830200195,
+        "rms": 0.11494421858124762,
+        "peakDb": -4.28,
+        "rmsDb": -18.79,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.687646746635437,
+        "rms": 0.1711742745090867,
+        "peakDb": -3.25,
+        "rmsDb": -15.33,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_monkey_king:monkey_firstblood_03",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/monkey_king/monkey_firstblood_03.mp3",
+    "sourceSha256": "7af646591bcf312a95feab72deb488aed1de94aa0d277f8a396bb563c75e4e6d",
+    "duration": 3.568625,
+    "firstPeakAboveMinus60DbAt": 0.055034013605442175,
+    "full": {
+      "peak": 0.8004225492477417,
+      "rms": 0.12163061318588408,
+      "peakDb": -1.93,
+      "rmsDb": -18.3,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.7408120036125183,
+        "rms": 0.13744642057405704,
+        "peakDb": -2.61,
+        "rmsDb": -17.24,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.7408120036125183,
+        "rms": 0.13037362603795719,
+        "peakDb": -2.61,
+        "rmsDb": -17.7,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_morphling:mrph_kill_09",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/morphling/mrph_kill_09.mp3",
+    "sourceSha256": "0bb072e789381323348bce0f6df066ca4ae2e22e0f4d955f82a7f8da22c9f4f8",
+    "duration": 3.307375,
+    "firstPeakAboveMinus60DbAt": 0.04195011337868481,
+    "full": {
+      "peak": 0.5729049444198608,
+      "rms": 0.1393382805872426,
+      "peakDb": -4.84,
+      "rmsDb": -17.12,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.23151625,
+        "peak": 0.03202933445572853,
+        "rms": 0.01266923470836614,
+        "peakDb": -29.89,
+        "rmsDb": -37.94,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5025424957275391,
+        "rms": 0.08122874953255177,
+        "peakDb": -5.98,
+        "rmsDb": -21.81,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_muerta:muerta_pierce_the_veil_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/muerta/muerta_pierce_the_veil_01.mp3",
+    "sourceSha256": "3f80674fe10973c165e3a5e668164f80e0d39ad81d820a206f4cf1f6ee0d301f",
+    "duration": 3.94449,
+    "firstPeakAboveMinus60DbAt": 0.01870748299319728,
+    "full": {
+      "peak": 0.8600598573684692,
+      "rms": 0.164763673117516,
+      "peakDb": -1.31,
+      "rmsDb": -15.66,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.8600598573684692,
+        "rms": 0.2429618810731302,
+        "peakDb": -1.31,
+        "rmsDb": -12.29,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.8600598573684692,
+        "rms": 0.16742749108003252,
+        "peakDb": -1.31,
+        "rmsDb": -15.52,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_naga_siren:naga_kill_04",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/naga_siren/naga_kill_04.mp3",
+    "sourceSha256": "21e55ea532c6bfe7c499ea22b03e9cbe4ae9d7652fa7b9730f484d7e98fbafe4",
+    "duration": 2.65425,
+    "firstPeakAboveMinus60DbAt": 0.05614512471655329,
+    "full": {
+      "peak": 0.8597519993782043,
+      "rms": 0.1269741017766862,
+      "peakDb": -1.31,
+      "rmsDb": -17.93,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.18579750000000003,
+        "peak": 0.5916964411735535,
+        "rms": 0.10778490269008978,
+        "peakDb": -4.56,
+        "rmsDb": -19.35,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.4512225000000001,
+        "peak": 0.7026171684265137,
+        "rms": 0.14685364454602887,
+        "peakDb": -3.07,
+        "rmsDb": -16.66,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_necrolyte:necr_kill_03",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/necrolyte/necr_kill_03.mp3",
+    "sourceSha256": "7dd855a9b1c1370d4a45dd669817149cf1f849d64f00e7ac276bfe6c89f71c9d",
+    "duration": 3.255125,
+    "firstPeakAboveMinus60DbAt": 0.0554421768707483,
+    "full": {
+      "peak": 0.8409162759780884,
+      "rms": 0.12046299594980373,
+      "peakDb": -1.5,
+      "rmsDb": -18.38,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.22785875000000003,
+        "peak": 0.4696964621543884,
+        "rms": 0.09757473338643599,
+        "peakDb": -6.56,
+        "rmsDb": -20.21,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.5533712500000001,
+        "peak": 0.4837373197078705,
+        "rms": 0.10421445526084781,
+        "peakDb": -6.31,
+        "rmsDb": -19.64,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_nevermore:nev_kill_11",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/nevermore/nev_kill_11.mp3",
+    "sourceSha256": "3ad1bd0e17da6990f8a05c3f8b11ee78bb2408c645e998fa28fecd02442c0416",
+    "duration": 3.59475,
+    "firstPeakAboveMinus60DbAt": 0.04390022675736961,
+    "full": {
+      "peak": 0.5330244898796082,
+      "rms": 0.09249350558754199,
+      "peakDb": -5.47,
+      "rmsDb": -20.68,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.3072630763053894,
+        "rms": 0.06470571382796998,
+        "peakDb": -10.25,
+        "rmsDb": -23.78,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.40107232332229614,
+        "rms": 0.0803297290555712,
+        "peakDb": -7.94,
+        "rmsDb": -21.9,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_night_stalker:nstalk_kill_10",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/night_stalker/nstalk_kill_10.mp3",
+    "sourceSha256": "940805ad8744f05fde4ae86cbacadbe0c909a2d186591d3f86b9c12dc5556637",
+    "duration": 3.359625,
+    "firstPeakAboveMinus60DbAt": 0.058140589569160996,
+    "full": {
+      "peak": 0.5985330939292908,
+      "rms": 0.1565762160245725,
+      "peakDb": -4.46,
+      "rmsDb": -16.11,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.23517375000000001,
+        "peak": 0.5494998693466187,
+        "rms": 0.21833320315549962,
+        "peakDb": -5.2,
+        "rmsDb": -13.22,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5567473769187927,
+        "rms": 0.2077271969675146,
+        "peakDb": -5.09,
+        "rmsDb": -13.65,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_nyx_assassin:nyx_kill_09",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/nyx_assassin/nyx_kill_09.mp3",
+    "sourceSha256": "2dd5f6a2797696bee3ae0958c3aa9d859ff06f538ae6bf13d88337cbe25423cb",
+    "duration": 2.158,
+    "firstPeakAboveMinus60DbAt": 0.04653061224489796,
+    "full": {
+      "peak": 1.0520130395889282,
+      "rms": 0.12969652707537083,
+      "peakDb": 0.44,
+      "rmsDb": -17.74,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.15106,
+        "peak": 0.8053007125854492,
+        "rms": 0.1445991360915328,
+        "peakDb": -1.88,
+        "rmsDb": -16.8,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.36686,
+        "peak": 1.0520130395889282,
+        "rms": 0.23475935600979128,
+        "peakDb": 0.44,
+        "rmsDb": -12.59,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_obsidian_destroyer:odest_kill_06",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/outworld_destroyer/odest_kill_06.mp3",
+    "sourceSha256": "1ba14706580af4d6d67d12a89b24689c1e071e2550a2e3636298df4a49ad27cf",
+    "duration": 4.326125,
+    "firstPeakAboveMinus60DbAt": 0.039070294784580496,
+    "full": {
+      "peak": 0.7177585363388062,
+      "rms": 0.13479833820850295,
+      "peakDb": -2.88,
+      "rmsDb": -17.41,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.6941724419593811,
+        "rms": 0.1851844073198841,
+        "peakDb": -3.17,
+        "rmsDb": -14.65,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.6941724419593811,
+        "rms": 0.2028039415797964,
+        "peakDb": -3.17,
+        "rmsDb": -13.86,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_ogre_magi:ogmag_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ogre_magi/ogmag_firstblood_01.mp3",
+    "sourceSha256": "30ddc336b22893f79e27877b34c082b3251613d313162f66ff8b9326dc982d84",
+    "duration": 3.5425,
+    "firstPeakAboveMinus60DbAt": 0.0591156462585034,
+    "full": {
+      "peak": 0.7422881722450256,
+      "rms": 0.15848314275395492,
+      "peakDb": -2.59,
+      "rmsDb": -16.0,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.6030634045600891,
+        "rms": 0.0911907223002174,
+        "peakDb": -4.39,
+        "rmsDb": -20.8,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.7422881722450256,
+        "rms": 0.18626647746872638,
+        "peakDb": -2.59,
+        "rmsDb": -14.6,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_omniknight:omni_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/omniknight/omni_firstblood_01.mp3",
+    "sourceSha256": "f17c027a99e2007395d86ed57707fd8b31e3c4d60c489c76bcc0d6f4d851f376",
+    "duration": 3.49025,
+    "firstPeakAboveMinus60DbAt": 0.04523809523809524,
+    "full": {
+      "peak": 0.8569245934486389,
+      "rms": 0.12301843569322307,
+      "peakDb": -1.34,
+      "rmsDb": -18.2,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.8569245934486389,
+        "rms": 0.10805546283679657,
+        "peakDb": -1.34,
+        "rmsDb": -19.33,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.8569245934486389,
+        "rms": 0.12629302093352388,
+        "peakDb": -1.34,
+        "rmsDb": -17.97,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_oracle:orac_kill_13",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/oracle/orac_kill_13.mp3",
+    "sourceSha256": "35fb4176ade4fb4e7f6992d37f87c6faf2ebcbb6418c79324648d44a8b6c1fd2",
+    "duration": 4.77025,
+    "firstPeakAboveMinus60DbAt": 0.04591836734693878,
+    "full": {
+      "peak": 0.7692865133285522,
+      "rms": 0.0867401607999216,
+      "peakDb": -2.28,
+      "rmsDb": -21.24,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.7692865133285522,
+        "rms": 0.1053375394958851,
+        "peakDb": -2.28,
+        "rmsDb": -19.55,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.7692865133285522,
+        "rms": 0.12509927353258596,
+        "peakDb": -2.28,
+        "rmsDb": -18.05,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_pangolier:pangolin_firstblood_04",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/pangolin/pangolin_firstblood_04.mp3",
+    "sourceSha256": "dacd66d2216ab4bfad2472d1417050effedf3def81f675bb080d3456736ed801",
+    "duration": 3.38575,
+    "firstPeakAboveMinus60DbAt": 0.04931972789115646,
+    "full": {
+      "peak": 0.8237853050231934,
+      "rms": 0.14023514412538401,
+      "peakDb": -1.68,
+      "rmsDb": -17.06,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.2370025,
+        "peak": 0.8237853050231934,
+        "rms": 0.19958642560748485,
+        "peakDb": -1.68,
+        "rmsDb": -14.0,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.8237853050231934,
+        "rms": 0.19839082261465935,
+        "peakDb": -1.68,
+        "rmsDb": -14.05,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_phantom_assassin:phass_kill_10",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/phantom_assassin/phass_kill_10.mp3",
+    "sourceSha256": "c5f0c63316ea606275e197a822a4cbde7eb91c1d3954ff94f223e6272de07f10",
+    "duration": 2.811,
+    "firstPeakAboveMinus60DbAt": 0.050340136054421766,
+    "full": {
+      "peak": 0.7244603633880615,
+      "rms": 0.14608492633172962,
+      "peakDb": -2.8,
+      "rmsDb": -16.71,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.19677000000000003,
+        "peak": 0.6838289499282837,
+        "rms": 0.18993285186624675,
+        "peakDb": -3.3,
+        "rmsDb": -14.43,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.47787,
+        "peak": 0.7244603633880615,
+        "rms": 0.1750472645596017,
+        "peakDb": -2.8,
+        "rmsDb": -15.14,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_phantom_lancer:plance_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/phantom_lancer/plance_firstblood_01.mp3",
+    "sourceSha256": "cbfa8e7f03b579dff6346a4711dc39cad74ac519d6b3001e7fe76a08864020c8",
+    "duration": 3.9865,
+    "firstPeakAboveMinus60DbAt": 0.04419501133786848,
+    "full": {
+      "peak": 0.9886594414710999,
+      "rms": 0.11819774196460427,
+      "peakDb": -0.1,
+      "rmsDb": -18.55,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.14591574668884277,
+        "rms": 0.021404638023521258,
+        "peakDb": -16.72,
+        "rmsDb": -33.39,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.9886594414710999,
+        "rms": 0.1653896008159547,
+        "peakDb": -0.1,
+        "rmsDb": -15.63,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_puck:puck_firstblood_02",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/puck/puck_firstblood_02.mp3",
+    "sourceSha256": "1ea239e624974dbfdeb44446d9438e1690b647b43b2c091f4f830510ea77ed18",
+    "duration": 3.064313,
+    "firstPeakAboveMinus60DbAt": 0.03292517006802721,
+    "full": {
+      "peak": 0.5056670308113098,
+      "rms": 0.15026101969835917,
+      "peakDb": -5.92,
+      "rmsDb": -16.46,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.21450191000000002,
+        "peak": 0.4864690601825714,
+        "rms": 0.07308071286485639,
+        "peakDb": -6.26,
+        "rmsDb": -22.72,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.52093321,
+        "peak": 0.503360390663147,
+        "rms": 0.13021159747402297,
+        "peakDb": -5.96,
+        "rmsDb": -17.71,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_pudge:pud_level_09",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/pudge/pud_level_09.mp3",
+    "sourceSha256": "624991cffa08992afccfd89727ce081600a9077e6edf5b448a10ace0ed8f2363",
+    "duration": 2.10575,
+    "firstPeakAboveMinus60DbAt": 0.047165532879818596,
+    "full": {
+      "peak": 0.8704286217689514,
+      "rms": 0.14427022410782894,
+      "peakDb": -1.21,
+      "rmsDb": -16.82,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.14740250000000002,
+        "peak": 0.6894044280052185,
+        "rms": 0.16174661854703287,
+        "peakDb": -3.23,
+        "rmsDb": -15.82,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.3579775,
+        "peak": 0.6894044280052185,
+        "rms": 0.16292299892863818,
+        "peakDb": -3.23,
+        "rmsDb": -15.76,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_pugna:pugna_kill_07",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/pugna/pugna_kill_07.mp3",
+    "sourceSha256": "7d0685d82ed1eff0840c292ededbc0b467285ddd59a7ad2bd141869be55212df",
+    "duration": 3.464125,
+    "firstPeakAboveMinus60DbAt": 0.05290249433106576,
+    "full": {
+      "peak": 0.5426436066627502,
+      "rms": 0.10597386691763255,
+      "peakDb": -5.31,
+      "rmsDb": -19.5,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.48352330923080444,
+        "rms": 0.1632739875338512,
+        "peakDb": -6.31,
+        "rmsDb": -15.74,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.4935583174228668,
+        "rms": 0.18570314806959176,
+        "peakDb": -6.13,
+        "rmsDb": -14.62,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_queenofpain:pain_ability_screamofpain_03",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/queenofpain/pain_ability_screamofpain_03.mp3",
+    "sourceSha256": "edbcbe8fb860a11345fb12273950cb2bc5697eecd839c17a8c3e444eb7dcb1ea",
+    "duration": 2.9155,
+    "firstPeakAboveMinus60DbAt": 0.048480725623582764,
+    "full": {
+      "peak": 0.4578990340232849,
+      "rms": 0.06919911736580167,
+      "peakDb": -6.78,
+      "rmsDb": -23.2,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.20408500000000004,
+        "peak": 0.06913727521896362,
+        "rms": 0.027260201795580318,
+        "peakDb": -23.21,
+        "rmsDb": -31.29,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.49563500000000005,
+        "peak": 0.4578990340232849,
+        "rms": 0.08557516842609603,
+        "peakDb": -6.78,
+        "rmsDb": -21.35,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_rattletrap:ratt_kill_09",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/rattletrap/ratt_kill_09.mp3",
+    "sourceSha256": "aabff9823f5143eb75590615f72189799b137ab2117411456763333c54bb4df8",
+    "duration": 2.811,
+    "firstPeakAboveMinus60DbAt": 0.05065759637188209,
+    "full": {
+      "peak": 0.5880478024482727,
+      "rms": 0.1478779428223591,
+      "peakDb": -4.61,
+      "rmsDb": -16.6,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.19677000000000003,
+        "peak": 0.48116445541381836,
+        "rms": 0.08952730116110685,
+        "peakDb": -6.35,
+        "rmsDb": -20.96,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.47787,
+        "peak": 0.5354142189025879,
+        "rms": 0.1220430804165746,
+        "peakDb": -5.43,
+        "rmsDb": -18.27,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_razor:raz_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/razor/raz_firstblood_01.mp3",
+    "sourceSha256": "fe92988a966a9b75e702014e6fa0206cbc598a7091c054c24ea280a040930e3c",
+    "duration": 5.754938,
+    "firstPeakAboveMinus60DbAt": 0.07437641723356009,
+    "full": {
+      "peak": 0.7167930006980896,
+      "rms": 0.13525126350489056,
+      "peakDb": -2.89,
+      "rmsDb": -17.38,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.139370396733284,
+        "rms": 0.021749146112301665,
+        "peakDb": -17.12,
+        "rmsDb": -33.25,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5736665725708008,
+        "rms": 0.13132301967278637,
+        "peakDb": -4.83,
+        "rmsDb": -17.63,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_riki:riki_kill_12",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/riki/riki_kill_12.mp3",
+    "sourceSha256": "aeb5576172e5d642fe9374f0a2e38a341b96ec25a0b397780954fa089f44febb",
+    "duration": 1.609375,
+    "firstPeakAboveMinus60DbAt": 0.05315192743764172,
+    "full": {
+      "peak": 0.87827068567276,
+      "rms": 0.10382896797370644,
+      "peakDb": -1.13,
+      "rmsDb": -19.67,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.11265625000000001,
+        "peak": 0.3405771553516388,
+        "rms": 0.04940813423419814,
+        "peakDb": -9.36,
+        "rmsDb": -26.12,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27359375,
+        "peak": 0.5625314712524414,
+        "rms": 0.08558117400081529,
+        "peakDb": -5.0,
+        "rmsDb": -21.35,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_ringmaster:ringmaster_win_04",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ringmaster/ringmaster_win_04.mp3",
+    "sourceSha256": "96cbbac82b3c075c80fc90c5d0d1bccb9e9a36492be7a39e4f36ed4ac48e543c",
+    "duration": 3.552653,
+    "firstPeakAboveMinus60DbAt": 0.0062131519274376415,
+    "full": {
+      "peak": 0.9072203636169434,
+      "rms": 0.14670626113958354,
+      "peakDb": -0.85,
+      "rmsDb": -16.67,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.8981610536575317,
+        "rms": 0.18240914192446495,
+        "peakDb": -0.93,
+        "rmsDb": -14.78,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.9072203636169434,
+        "rms": 0.17502511314939515,
+        "peakDb": -0.85,
+        "rmsDb": -15.14,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_rubick:rubick_move_21",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/rubick/rubick_move_21.mp3",
+    "sourceSha256": "e96497693e20910fd716fc29a287bf77cbec58c74c2e3bd954e79ec1592cee61",
+    "duration": 3.438,
+    "firstPeakAboveMinus60DbAt": 0.04934240362811791,
+    "full": {
+      "peak": 0.8982734680175781,
+      "rms": 0.1499182554373152,
+      "peakDb": -0.93,
+      "rmsDb": -16.48,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.7596548795700073,
+        "rms": 0.14567620274261636,
+        "peakDb": -2.39,
+        "rmsDb": -16.73,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.8497576713562012,
+        "rms": 0.19108378277759983,
+        "peakDb": -1.41,
+        "rmsDb": -14.38,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_sand_king:skg_kill_09",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/sandking/skg_kill_09.mp3",
+    "sourceSha256": "ebbd8cecc72529a3147e122f34a4bbc31297fa550889e0dbb6306e8edb2b963e",
+    "duration": 3.202875,
+    "firstPeakAboveMinus60DbAt": 0.048775510204081635,
+    "full": {
+      "peak": 0.5507029891014099,
+      "rms": 0.13377640693425363,
+      "peakDb": -5.18,
+      "rmsDb": -17.47,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.22420125000000002,
+        "peak": 0.49532777070999146,
+        "rms": 0.11167402515679535,
+        "peakDb": -6.1,
+        "rmsDb": -19.04,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.5444887500000001,
+        "peak": 0.5101625323295593,
+        "rms": 0.1594947864197376,
+        "peakDb": -5.85,
+        "rmsDb": -15.95,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_shadow_demon:shadow_demon_kill_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/shadow_demon/shadow_demon_kill_01.mp3",
+    "sourceSha256": "c09059b9bc3f634a36ed16aee83953bd0ef2f5fe87db3ab2ebca6b67d509b21d",
+    "duration": 3.17675,
+    "firstPeakAboveMinus60DbAt": 0.04789115646258504,
+    "full": {
+      "peak": 0.3606695830821991,
+      "rms": 0.07319356526452868,
+      "peakDb": -8.86,
+      "rmsDb": -22.71,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.22237250000000003,
+        "peak": 0.24198254942893982,
+        "rms": 0.05390230691912986,
+        "peakDb": -12.32,
+        "rmsDb": -25.37,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.5400475000000001,
+        "peak": 0.25106191635131836,
+        "rms": 0.06428206224790661,
+        "peakDb": -12.0,
+        "rmsDb": -23.84,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_shadow_shaman:shad_respawn_07",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/shadowshaman/shad_respawn_07.mp3",
+    "sourceSha256": "79e9afe13666ea3bc03929104e3aa6a035f34445fc1f90cf6ce03f73d63bdbfc",
+    "duration": 3.098375,
+    "firstPeakAboveMinus60DbAt": 0.05133786848072562,
+    "full": {
+      "peak": 0.5038044452667236,
+      "rms": 0.09203137612490327,
+      "peakDb": -5.95,
+      "rmsDb": -20.72,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.21688625,
+        "peak": 0.21532408893108368,
+        "rms": 0.04391789970057681,
+        "peakDb": -13.34,
+        "rmsDb": -27.15,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.52672375,
+        "peak": 0.44106996059417725,
+        "rms": 0.07952233089518805,
+        "peakDb": -7.11,
+        "rmsDb": -21.99,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_shredder:timb_attack_03",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/shredder/timb_attack_03.mp3",
+    "sourceSha256": "d5a69c99e5f489fd88f4f6a0fe5e224d277ff96192a0d40b3353169e5383da59",
+    "duration": 1.68775,
+    "firstPeakAboveMinus60DbAt": 0.0555328798185941,
+    "full": {
+      "peak": 0.6644142866134644,
+      "rms": 0.09055774386573574,
+      "peakDb": -3.55,
+      "rmsDb": -20.86,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.11814250000000001,
+        "peak": 0.13417178392410278,
+        "rms": 0.019533284945759753,
+        "peakDb": -17.45,
+        "rmsDb": -34.18,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.28691750000000005,
+        "peak": 0.6562961339950562,
+        "rms": 0.08509550836732964,
+        "peakDb": -3.66,
+        "rmsDb": -21.4,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_silencer:silen_ability_intsteal_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/silencer/silen_ability_intsteal_01.mp3",
+    "sourceSha256": "8d5065cafc08d8143a5ebbbd292dbb6cc54a3b1332b22d7775a3ca1d098f6f92",
+    "duration": 3.28125,
+    "firstPeakAboveMinus60DbAt": 0.04247165532879819,
+    "full": {
+      "peak": 0.5125200152397156,
+      "rms": 0.11000406325434985,
+      "peakDb": -5.81,
+      "rmsDb": -19.17,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.22968750000000002,
+        "peak": 0.5016592741012573,
+        "rms": 0.16641838941346007,
+        "peakDb": -5.99,
+        "rmsDb": -15.58,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.5578125,
+        "peak": 0.5016592741012573,
+        "rms": 0.13770933117115414,
+        "peakDb": -5.99,
+        "rmsDb": -17.22,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_skeleton_king:wraith_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/skeleton_king/wraith_firstblood_01.mp3",
+    "sourceSha256": "556ff14a7b376963701bb46085b6f6135894da595feb607d6fa293babd186b51",
+    "duration": 3.1245,
+    "firstPeakAboveMinus60DbAt": 0.05514739229024943,
+    "full": {
+      "peak": 0.8901147246360779,
+      "rms": 0.11988232604768008,
+      "peakDb": -1.01,
+      "rmsDb": -18.42,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.21871500000000002,
+        "peak": 0.7783935070037842,
+        "rms": 0.16369872246346034,
+        "peakDb": -2.18,
+        "rmsDb": -15.72,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.531165,
+        "peak": 0.7783935070037842,
+        "rms": 0.12518832726193418,
+        "peakDb": -2.18,
+        "rmsDb": -18.05,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_skywrath_mage:drag_kill_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/skywrath_mage/drag_kill_01.mp3",
+    "sourceSha256": "13dbd15221668663b6ea5c5b5a8274f20f34c93cc8c2052e6c8fbbca04995e32",
+    "duration": 3.046125,
+    "firstPeakAboveMinus60DbAt": 0.05,
+    "full": {
+      "peak": 0.7257082462310791,
+      "rms": 0.09316465772946643,
+      "peakDb": -2.78,
+      "rmsDb": -20.61,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.21322875000000002,
+        "peak": 0.2970503866672516,
+        "rms": 0.059005821074402734,
+        "peakDb": -10.54,
+        "rmsDb": -24.58,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.51784125,
+        "peak": 0.49889299273490906,
+        "rms": 0.12054284023675464,
+        "peakDb": -6.04,
+        "rmsDb": -18.38,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_slardar:slar_kill_02",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/slardar/slar_kill_02.mp3",
+    "sourceSha256": "c25b4a4ab46a9bc041c80e9768eb183fdbaae9e33b3fc0c2fb7baeb396c3f94f",
+    "duration": 3.620875,
+    "firstPeakAboveMinus60DbAt": 0.05619047619047619,
+    "full": {
+      "peak": 0.9647008180618286,
+      "rms": 0.16679072874564535,
+      "peakDb": -0.31,
+      "rmsDb": -15.56,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.6159098744392395,
+        "rms": 0.15729159297776732,
+        "peakDb": -4.21,
+        "rmsDb": -16.07,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.8152649402618408,
+        "rms": 0.2043973405286745,
+        "peakDb": -1.77,
+        "rmsDb": -13.79,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_slark:slark_kill_03",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/slark/slark_kill_03.mp3",
+    "sourceSha256": "55083830a238824978fb3bc63b852028cfb748b7e901a4b4d92817c6f5b7a1d1",
+    "duration": 1.870625,
+    "firstPeakAboveMinus60DbAt": 0.043378684807256235,
+    "full": {
+      "peak": 0.8452909588813782,
+      "rms": 0.183106421727504,
+      "peakDb": -1.46,
+      "rmsDb": -14.75,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.13094375,
+        "peak": 0.4804527461528778,
+        "rms": 0.10610942053248933,
+        "peakDb": -6.37,
+        "rmsDb": -19.48,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.31800625000000005,
+        "peak": 0.6600078344345093,
+        "rms": 0.1456836561484344,
+        "peakDb": -3.61,
+        "rmsDb": -16.73,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_snapfire:snapfire_firstblood_03",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/snapfire/snapfire_firstblood_03.mp3",
+    "sourceSha256": "ebbbcd280cf1e1ba1ea1ec9db68c7d9c76790a9282160fd7ec08bcb388155679",
+    "duration": 4.153469,
+    "firstPeakAboveMinus60DbAt": 0.008639455782312925,
+    "full": {
+      "peak": 0.7732523679733276,
+      "rms": 0.14179374937427514,
+      "peakDb": -2.23,
+      "rmsDb": -16.97,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.7616593837738037,
+        "rms": 0.15423748886906594,
+        "peakDb": -2.36,
+        "rmsDb": -16.24,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.7616593837738037,
+        "rms": 0.1423460084197497,
+        "peakDb": -2.36,
+        "rmsDb": -16.93,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_sniper:snip_kill_08",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/sniper/snip_kill_08.mp3",
+    "sourceSha256": "308f7705eddd896df8825886ac1a82087d5392e352c3007b447dc832a04ef6b2",
+    "duration": 2.7065,
+    "firstPeakAboveMinus60DbAt": 0.05197278911564626,
+    "full": {
+      "peak": 0.6197378635406494,
+      "rms": 0.0722803272189995,
+      "peakDb": -4.16,
+      "rmsDb": -22.82,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.18945500000000004,
+        "peak": 0.34175625443458557,
+        "rms": 0.03712940829068591,
+        "peakDb": -9.33,
+        "rmsDb": -28.61,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.46010500000000004,
+        "peak": 0.34175625443458557,
+        "rms": 0.04626395258988187,
+        "peakDb": -9.33,
+        "rmsDb": -26.7,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_spectre:spec_spawn_02",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/spectre/spec_spawn_02.mp3",
+    "sourceSha256": "37e16b604c53b7d9a309dbfbcec76aec85e54021da3267a6e8d1195641693c80",
+    "duration": 3.908125,
+    "firstPeakAboveMinus60DbAt": 0.045691609977324264,
+    "full": {
+      "peak": 0.5020625591278076,
+      "rms": 0.1157288122171723,
+      "peakDb": -5.98,
+      "rmsDb": -18.73,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.13734374940395355,
+        "rms": 0.02589138885357698,
+        "peakDb": -17.24,
+        "rmsDb": -31.74,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.3628190755844116,
+        "rms": 0.08034003264749681,
+        "peakDb": -8.81,
+        "rmsDb": -21.9,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_spirit_breaker:spir_ability_charge_07",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/spirit_breaker/spir_ability_charge_07.mp3",
+    "sourceSha256": "b30a9158817781208033243c68f43a664e147af81b9563e5d8afa875fef9dfeb",
+    "duration": 1.8445,
+    "firstPeakAboveMinus60DbAt": 0.043356009070294785,
+    "full": {
+      "peak": 0.7725435495376587,
+      "rms": 0.11677455205439975,
+      "peakDb": -2.24,
+      "rmsDb": -18.65,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.129115,
+        "peak": 0.23290976881980896,
+        "rms": 0.056906443031790405,
+        "peakDb": -12.66,
+        "rmsDb": -24.9,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.31356500000000004,
+        "peak": 0.32383882999420166,
+        "rms": 0.07038049865453908,
+        "peakDb": -9.79,
+        "rmsDb": -23.05,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_storm_spirit:stormspirit_levelup_06",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/stormspirit/stormspirit_levelup_06.mp3",
+    "sourceSha256": "112086b8c35323679e49a1aad95d9cf0ec7c470e5e7eb39b2553bac381d29c8a",
+    "duration": 3.38575,
+    "firstPeakAboveMinus60DbAt": 0.058435374149659866,
+    "full": {
+      "peak": 0.6326584815979004,
+      "rms": 0.14969890015079845,
+      "peakDb": -3.98,
+      "rmsDb": -16.5,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.2370025,
+        "peak": 0.5830851793289185,
+        "rms": 0.15735056310520912,
+        "peakDb": -4.69,
+        "rmsDb": -16.06,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5830851793289185,
+        "rms": 0.19185604353806482,
+        "peakDb": -4.69,
+        "rmsDb": -14.34,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_sven:sven_kill_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/sven/sven_kill_01.mp3",
+    "sourceSha256": "c9eee964a39bef1ba27b58c14515e4e27bff023008d2ac4af249a691286f0ed3",
+    "duration": 2.10575,
+    "firstPeakAboveMinus60DbAt": 0.05287981859410431,
+    "full": {
+      "peak": 0.8535270690917969,
+      "rms": 0.19035630466458783,
+      "peakDb": -1.38,
+      "rmsDb": -14.41,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.14740250000000002,
+        "peak": 0.5027816891670227,
+        "rms": 0.13318313601718598,
+        "peakDb": -5.97,
+        "rmsDb": -17.51,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.3579775,
+        "peak": 0.5247799754142761,
+        "rms": 0.15729922755476736,
+        "peakDb": -5.6,
+        "rmsDb": -16.07,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_techies:tech_firstblood_02",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/techies/tech_firstblood_02.mp3",
+    "sourceSha256": "36e81a1ecd00331bfc2bf7664b0440a9fc2ba60d7697be9daea178114cfd647b",
+    "duration": 3.673125,
+    "firstPeakAboveMinus60DbAt": 0.048390022675736964,
+    "full": {
+      "peak": 0.8373819589614868,
+      "rms": 0.14375615529500552,
+      "peakDb": -1.54,
+      "rmsDb": -16.85,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.46864062547683716,
+        "rms": 0.10515475039798249,
+        "peakDb": -6.58,
+        "rmsDb": -19.56,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5314750075340271,
+        "rms": 0.10461975559970102,
+        "peakDb": -5.49,
+        "rmsDb": -19.61,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_templar_assassin:temp_kill_04",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/templar_assassin/temp_kill_04.mp3",
+    "sourceSha256": "25c5ea30e84b555ff8bfe39fbed25d05bf97e99619c91d0859ab1593fed88f06",
+    "duration": 2.079625,
+    "firstPeakAboveMinus60DbAt": 0.051224489795918364,
+    "full": {
+      "peak": 0.8658103942871094,
+      "rms": 0.14057337434984513,
+      "peakDb": -1.25,
+      "rmsDb": -17.04,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.14557375000000003,
+        "peak": 0.29783251881599426,
+        "rms": 0.11912887039889877,
+        "peakDb": -10.52,
+        "rmsDb": -18.48,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.35353625000000005,
+        "peak": 0.8658103942871094,
+        "rms": 0.2952440128031935,
+        "peakDb": -1.25,
+        "rmsDb": -10.6,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_terrorblade:terr_kill_09",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/terrorblade/terr_kill_09.mp3",
+    "sourceSha256": "0421bb00c922f7388370365805a6580ccfa3887c2046bd02b109d7e83a321be1",
+    "duration": 3.17675,
+    "firstPeakAboveMinus60DbAt": 0.04600907029478458,
+    "full": {
+      "peak": 0.5566903352737427,
+      "rms": 0.09170080968309194,
+      "peakDb": -5.09,
+      "rmsDb": -20.75,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.22237250000000003,
+        "peak": 0.3711627423763275,
+        "rms": 0.06467947155399287,
+        "peakDb": -8.61,
+        "rmsDb": -23.78,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.5400475000000001,
+        "peak": 0.5451456904411316,
+        "rms": 0.0991501311768914,
+        "peakDb": -5.27,
+        "rmsDb": -20.07,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_tidehunter:tide_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/tidehunter/tide_firstblood_01.mp3",
+    "sourceSha256": "d2a2222667d4070ebbc5386d85f496aff69fcc4243a481ce586da08bb586c87e",
+    "duration": 3.464125,
+    "firstPeakAboveMinus60DbAt": 0.04417233560090703,
+    "full": {
+      "peak": 0.9396885633468628,
+      "rms": 0.1624562629950979,
+      "peakDb": -0.54,
+      "rmsDb": -15.79,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.6069096922874451,
+        "rms": 0.09409845893797246,
+        "peakDb": -4.34,
+        "rmsDb": -20.53,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.9396885633468628,
+        "rms": 0.18874055146509777,
+        "peakDb": -0.54,
+        "rmsDb": -14.48,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_tinker:tink_ability_marchofthemachines_02",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/tinker/tink_ability_marchofthemachines_02.mp3",
+    "sourceSha256": "6afe3f9d65b2dfd7026a43539f230506104a284cc033922bdcf39ab11ce0ab6f",
+    "duration": 2.184125,
+    "firstPeakAboveMinus60DbAt": 0.05791383219954648,
+    "full": {
+      "peak": 0.5722430348396301,
+      "rms": 0.09668149284107819,
+      "peakDb": -4.85,
+      "rmsDb": -20.29,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.15288875000000002,
+        "peak": 0.5047036409378052,
+        "rms": 0.10212301008495377,
+        "peakDb": -5.94,
+        "rmsDb": -19.82,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.37130125,
+        "peak": 0.5722430348396301,
+        "rms": 0.11560199813465744,
+        "peakDb": -4.85,
+        "rmsDb": -18.74,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_tiny:tiny_firstblood_02",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/tiny/tiny_firstblood_02.mp3",
+    "sourceSha256": "f4475b5422f3aa65a86ab1178d7f51213894d74fbdb1db00278d1141cb059144",
+    "duration": 3.856,
+    "firstPeakAboveMinus60DbAt": 0.05126984126984127,
+    "full": {
+      "peak": 0.5896468758583069,
+      "rms": 0.15848101017388747,
+      "peakDb": -4.59,
+      "rmsDb": -16.0,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.5291279554367065,
+        "rms": 0.1583489573284707,
+        "peakDb": -5.53,
+        "rmsDb": -16.01,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5291279554367065,
+        "rms": 0.15106738662409666,
+        "peakDb": -5.53,
+        "rmsDb": -16.42,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_treant:treant_respawn_15",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/treant/treant_respawn_15.mp3",
+    "sourceSha256": "1cd0161b9698e2f0965432396d64235240225dbff74079496a03ca766d3e3412",
+    "duration": 3.93425,
+    "firstPeakAboveMinus60DbAt": 0.049569160997732425,
+    "full": {
+      "peak": 0.7792235016822815,
+      "rms": 0.12386448690887264,
+      "peakDb": -2.17,
+      "rmsDb": -18.14,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.5945628881454468,
+        "rms": 0.13863851810018352,
+        "peakDb": -4.52,
+        "rmsDb": -17.16,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.7792235016822815,
+        "rms": 0.14958181937737644,
+        "peakDb": -2.17,
+        "rmsDb": -16.5,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_troll_warlord:troll_kill_06",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_kill_06.mp3",
+    "sourceSha256": "c1025e2ad6651018bf9a248cf54bb14513e98d517d19a7c4a546cf85fb4885b0",
+    "duration": 3.046125,
+    "firstPeakAboveMinus60DbAt": 0.04625850340136054,
+    "full": {
+      "peak": 0.2864605188369751,
+      "rms": 0.029802819299496,
+      "peakDb": -10.86,
+      "rmsDb": -30.51,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.21322875000000002,
+        "peak": 0.1559673398733139,
+        "rms": 0.026957286332115058,
+        "peakDb": -16.14,
+        "rmsDb": -31.39,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.51784125,
+        "peak": 0.20953261852264404,
+        "rms": 0.04337168106018203,
+        "peakDb": -13.57,
+        "rmsDb": -27.26,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_tusk:tusk_kill_05",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/tusk/tusk_kill_05.mp3",
+    "sourceSha256": "876d2c9e10805ee5e7b91c65dd25161bff6446febe56259e2b510fdbbe0ddc7e",
+    "duration": 2.811,
+    "firstPeakAboveMinus60DbAt": 0.051564625850340134,
+    "full": {
+      "peak": 0.9300501346588135,
+      "rms": 0.1714643465198192,
+      "peakDb": -0.63,
+      "rmsDb": -15.32,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.19677000000000003,
+        "peak": 0.06770016998052597,
+        "rms": 0.01372961434621912,
+        "peakDb": -23.39,
+        "rmsDb": -37.25,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.47787,
+        "peak": 0.8891185522079468,
+        "rms": 0.1560269266875682,
+        "peakDb": -1.02,
+        "rmsDb": -16.14,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_undying:undying_firstblood_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/undying/undying_firstblood_01.mp3",
+    "sourceSha256": "46baad154514c60f83d4820a562c5040e7dd5990f9adc39703f1fed43e4c5425",
+    "duration": 5.109875,
+    "firstPeakAboveMinus60DbAt": 0.050816326530612244,
+    "full": {
+      "peak": 0.9266500473022461,
+      "rms": 0.15805105090103497,
+      "peakDb": -0.66,
+      "rmsDb": -16.02,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.7927452325820923,
+        "rms": 0.12946911688353188,
+        "peakDb": -2.02,
+        "rmsDb": -17.76,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.8968263864517212,
+        "rms": 0.15884061345919537,
+        "peakDb": -0.95,
+        "rmsDb": -15.98,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_ursa:ursa_kill_03",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ursa/ursa_kill_03.mp3",
+    "sourceSha256": "27a3bf22d189157eb3cca912af7fb0b7dc76eb9c00a8a794bbf0b1079e5776d8",
+    "duration": 2.811,
+    "firstPeakAboveMinus60DbAt": 0.04868480725623583,
+    "full": {
+      "peak": 0.5288827419281006,
+      "rms": 0.2035027457638933,
+      "peakDb": -5.53,
+      "rmsDb": -13.83,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.19677000000000003,
+        "peak": 0.5042043924331665,
+        "rms": 0.10484293401045269,
+        "peakDb": -5.95,
+        "rmsDb": -19.59,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.47787,
+        "peak": 0.5135498046875,
+        "rms": 0.20862364343088158,
+        "peakDb": -5.79,
+        "rmsDb": -13.61,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_vengefulspirit:vng_levelup_02",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/vengefulspirit/vng_levelup_02.mp3",
+    "sourceSha256": "c884f54ecb43b01152790b848f7d05f3562348ce89556d40a2d2f6b0cb329282",
+    "duration": 3.9865,
+    "firstPeakAboveMinus60DbAt": 0.04675736961451247,
+    "full": {
+      "peak": 0.5713191032409668,
+      "rms": 0.16776363737953945,
+      "peakDb": -4.86,
+      "rmsDb": -15.51,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.0727076604962349,
+        "rms": 0.010082185343377579,
+        "peakDb": -22.77,
+        "rmsDb": -39.93,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5713191032409668,
+        "rms": 0.14613849719164843,
+        "peakDb": -4.86,
+        "rmsDb": -16.7,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_venomancer:venm_firstblood_03",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/venomancer/venm_firstblood_03.mp3",
+    "sourceSha256": "bf38eb71b1cdf77f816b03130c778240eae019f6a62742fcd4cebff46a9258ec",
+    "duration": 3.516375,
+    "firstPeakAboveMinus60DbAt": 0.05138321995464853,
+    "full": {
+      "peak": 0.5584395527839661,
+      "rms": 0.09894297310361873,
+      "peakDb": -5.06,
+      "rmsDb": -20.09,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.29074978828430176,
+        "rms": 0.04854202574645961,
+        "peakDb": -10.73,
+        "rmsDb": -26.28,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5584395527839661,
+        "rms": 0.1513718784377796,
+        "peakDb": -5.06,
+        "rmsDb": -16.4,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_viper:vipe_firstblood_02",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/viper/vipe_firstblood_02.mp3",
+    "sourceSha256": "f309b448c0f5d17a22d260311572bf761166db36df4116757944b04781d5b058",
+    "duration": 3.411875,
+    "firstPeakAboveMinus60DbAt": 0.04158730158730159,
+    "full": {
+      "peak": 0.5217480659484863,
+      "rms": 0.11008563516587588,
+      "peakDb": -5.65,
+      "rmsDb": -19.17,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.23883125000000005,
+        "peak": 0.4402259886264801,
+        "rms": 0.03507708096951821,
+        "peakDb": -7.13,
+        "rmsDb": -29.1,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5217480659484863,
+        "rms": 0.1340222531992456,
+        "peakDb": -5.65,
+        "rmsDb": -17.46,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_visage:visa_rare_02",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/visage/visa_rare_02.mp3",
+    "sourceSha256": "29bedebdaf2294cc7f617862a94b35ea370a55df69e9f56877b775549fb2c4f3",
+    "duration": 3.229,
+    "firstPeakAboveMinus60DbAt": 0.04741496598639456,
+    "full": {
+      "peak": 0.6251550316810608,
+      "rms": 0.1534002517491816,
+      "peakDb": -4.08,
+      "rmsDb": -16.28,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.22603000000000004,
+        "peak": 0.42919206619262695,
+        "rms": 0.11717339463008658,
+        "peakDb": -7.35,
+        "rmsDb": -18.62,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.54893,
+        "peak": 0.5730183124542236,
+        "rms": 0.1315956041098791,
+        "peakDb": -4.84,
+        "rmsDb": -17.62,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_void_spirit:voidspir_kill_08",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/void_spirit/voidspir_kill_08.mp3",
+    "sourceSha256": "14a077d5017397845b3fef383fc84e22d64d402fe332e84752369b605ecd88fa",
+    "duration": 3.816,
+    "firstPeakAboveMinus60DbAt": 0.015306122448979591,
+    "full": {
+      "peak": 0.9595528841018677,
+      "rms": 0.12064351175195216,
+      "peakDb": -0.36,
+      "rmsDb": -18.37,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.9595528841018677,
+        "rms": 0.17471376378131528,
+        "peakDb": -0.36,
+        "rmsDb": -15.15,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.9595528841018677,
+        "rms": 0.1670971093018072,
+        "peakDb": -0.36,
+        "rmsDb": -15.54,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_warlock:warl_respawn_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/warlock/warl_respawn_01.mp3",
+    "sourceSha256": "1a6b2c8458d8377c2d9908cabbd662f9c13cddc5660f3c0f9c6815db9d22306f",
+    "duration": 3.829875,
+    "firstPeakAboveMinus60DbAt": 0.04895691609977324,
+    "full": {
+      "peak": 0.5418158769607544,
+      "rms": 0.13309647518220166,
+      "peakDb": -5.32,
+      "rmsDb": -17.52,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.12276711314916611,
+        "rms": 0.017144278621994222,
+        "peakDb": -18.22,
+        "rmsDb": -35.32,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5418158769607544,
+        "rms": 0.13053316672333662,
+        "peakDb": -5.32,
+        "rmsDb": -17.69,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_weaver:weav_kill_06",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/weaver/weav_kill_06.mp3",
+    "sourceSha256": "9191b7aede12e7c427bd472b937f23abeb32749abe2c16af0caa7cd9a42fa66f",
+    "duration": 3.046125,
+    "firstPeakAboveMinus60DbAt": 0.05607709750566894,
+    "full": {
+      "peak": 0.6469841003417969,
+      "rms": 0.1320039839603506,
+      "peakDb": -3.78,
+      "rmsDb": -17.59,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.21322875000000002,
+        "peak": 0.5809003114700317,
+        "rms": 0.11457566934850431,
+        "peakDb": -4.72,
+        "rmsDb": -18.82,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.51784125,
+        "peak": 0.6469841003417969,
+        "rms": 0.16287324999163955,
+        "peakDb": -3.78,
+        "rmsDb": -15.76,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_windrunner:wind_kill_05",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/windrunner/wind_kill_05.mp3",
+    "sourceSha256": "e814da13abc1e89a43c100b7d7ad34b21f8d36537132df9a49c8281b0e59bc43",
+    "duration": 1.870625,
+    "firstPeakAboveMinus60DbAt": 0.04691609977324263,
+    "full": {
+      "peak": 0.8298370242118835,
+      "rms": 0.07109138756891922,
+      "peakDb": -1.62,
+      "rmsDb": -22.96,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.13094375,
+        "peak": 0.2679227590560913,
+        "rms": 0.03973566689090417,
+        "peakDb": -11.44,
+        "rmsDb": -28.02,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.31800625000000005,
+        "peak": 0.2922487258911133,
+        "rms": 0.07172385173027199,
+        "peakDb": -10.68,
+        "rmsDb": -22.89,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_winter_wyvern:winwyv_cast_01",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/winter_wyvern/winwyv_cast_01.mp3",
+    "sourceSha256": "2b9c33a755824b5b7772f27e8d16a7d9c13f397b285eedebe190570bba189fa2",
+    "duration": 2.837125,
+    "firstPeakAboveMinus60DbAt": 0.052653061224489796,
+    "full": {
+      "peak": 0.8326787352561951,
+      "rms": 0.16760345897718068,
+      "peakDb": -1.59,
+      "rmsDb": -15.51,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.19859875000000002,
+        "peak": 0.6082677841186523,
+        "rms": 0.17551824757421586,
+        "peakDb": -4.32,
+        "rmsDb": -15.11,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.48231125,
+        "peak": 0.6842184066772461,
+        "rms": 0.17378719399733697,
+        "peakDb": -3.3,
+        "rmsDb": -15.2,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_witch_doctor:wdoc_kill_07",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/witchdoctor/wdoc_kill_07.mp3",
+    "sourceSha256": "19d770c18a0a9676dfe3aa34e2ecf44274f50287e8607f6d76517b971bf10e29",
+    "duration": 2.837125,
+    "firstPeakAboveMinus60DbAt": 0.05376417233560091,
+    "full": {
+      "peak": 0.6936247944831848,
+      "rms": 0.1482488479127378,
+      "peakDb": -3.18,
+      "rmsDb": -16.58,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.19859875000000002,
+        "peak": 0.4669801592826843,
+        "rms": 0.09098148263443062,
+        "peakDb": -6.61,
+        "rmsDb": -20.82,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.48231125,
+        "peak": 0.4669801592826843,
+        "rms": 0.09801125206287971,
+        "peakDb": -6.61,
+        "rmsDb": -20.17,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  },
+  {
+    "id": "hero-voice:npc_dota_hero_zuus:zuus_respawn_06",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/zuus/zuus_respawn_06.mp3",
+    "sourceSha256": "621cf493f6f644ae0621c58d32240f4a696059e96224f95b1c4cc72aa28c781d",
+    "duration": 3.908125,
+    "firstPeakAboveMinus60DbAt": 0.044126984126984126,
+    "full": {
+      "peak": 0.9681171774864197,
+      "rms": 0.11622423102580881,
+      "peakDb": -0.28,
+      "rmsDb": -18.69,
+      "exactSilence": false,
+      "belowMinus80Db": false
+    },
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.9681171774864197,
+        "rms": 0.20194583735708915,
+        "peakDb": -0.28,
+        "rmsDb": -13.9,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.9681171774864197,
+        "rms": 0.2501130522431484,
+        "peakDb": -0.28,
+        "rmsDb": -12.04,
+        "exactSilence": false,
+        "belowMinus80Db": false
+      }
+    ]
+  }
+]

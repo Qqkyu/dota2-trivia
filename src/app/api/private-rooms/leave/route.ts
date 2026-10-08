@@ -1,19 +1,21 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { rateLimitRequest } from "@/lib/api-protection";
+import { preflightRateLimit, rateLimitRequest, readJsonBody, requestOriginAllowed } from "@/lib/api-protection";
 import { privateRoomClientPayload, privateRoomIdentity } from "@/lib/private-room-rounds";
-import { leavePrivateRoom, normalizePrivateRoomCode } from "@/lib/private-rooms.mjs";
+import { getPrivateRoom, leavePrivateRoom, normalizePrivateRoomCode, privateRoomMember } from "@/lib/private-rooms.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "Invalid JSON." }, { status: 400 });
+  if (!requestOriginAllowed(request)) {
+    return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
   }
+  const limited = preflightRateLimit(request, "private-rooms-leave", 200);
+  if (limited) return limited;
+  const parsed = await readJsonBody(request);
+  if ("response" in parsed) return parsed.response;
+  const { body } = parsed;
   if (!body || typeof body !== "object") {
     return NextResponse.json({ error: "Missing private-room fields." }, { status: 400 });
   }
@@ -26,8 +28,14 @@ export async function POST(request: NextRequest) {
     const rateLimited = rateLimitRequest(request, "private-rooms-leave", identity.playerId, 40);
     if (rateLimited) return rateLimited;
     const now = Date.now();
-    const record = code ? leavePrivateRoom(code, identity.playerId, now) : null;
-    if (!record) return NextResponse.json({ error: "Unknown private room." }, { status: 404 });
+    if (!code || !getPrivateRoom(code, now)) {
+      return NextResponse.json({ error: "Unknown private room." }, { status: 404 });
+    }
+    if (!privateRoomMember(code, identity.playerId)) {
+      return NextResponse.json({ error: "Join the party first." }, { status: 403 });
+    }
+    const record = leavePrivateRoom(code, identity.playerId, now);
+    if (!record) return NextResponse.json({ left: true }, { headers: { "Cache-Control": "no-store" } });
     return NextResponse.json(privateRoomClientPayload(record, identity.playerId, now), {
       headers: { "Cache-Control": "no-store" },
     });

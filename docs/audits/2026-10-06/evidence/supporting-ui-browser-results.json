@@ -1,0 +1,42 @@
+{
+  "initialLog": {
+    "top": 898,
+    "height": 64,
+    "scrollHeight": 962
+  },
+  "cappedLog": {
+    "top": 874,
+    "height": 64,
+    "scrollHeight": 980,
+    "bottomGap": 42,
+    "lastText": "A very long name AliceThis is a long chat message that wraps and must remain visible at the bottom. 12345"
+  },
+  "failedDraft": {
+    "value": "first message",
+    "visibleError": 1,
+    "posts": 1
+  },
+  "playChatFailure": {
+    "value": "failed during active play",
+    "visibleError": 0,
+    "posts": 2,
+    "phase": "answering"
+  },
+  "calibration": {
+    "rows": 80,
+    "count": "Showing 80 of 1515",
+    "buttonNames": [
+      "All questions",
+      "Review queue",
+      "Reported",
+      "Reviewed",
+      "Quarantined"
+    ]
+  },
+  "expiredInvite": {
+    "before": "join",
+    "after": "choose",
+    "body": "QUEUE ARCADE\nSide quests, between matches\nDOTA 2 · PATCH 7.41F\n70%\nParty\nLeave\n\nUnknown private room.\n\nCREATE PARTY\nJOIN PARTY"
+  },
+  "pageErrors": []
+}

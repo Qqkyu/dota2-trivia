@@ -1,0 +1,74 @@
+Get:1 https://apt.postgresql.org/pub/repos/apt noble-pgdg InRelease [189 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+Get:3 https://dl.google.com/linux/chrome-stable/deb stable InRelease [2548 B]
+Get:4 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Get:5 https://dl.google.com/linux/chrome-stable/deb stable/main amd64 Packages [1412 B]
+Get:6 https://apt.postgresql.org/pub/repos/apt noble-pgdg/main amd64 Packages [1193 kB]
+Get:7 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:8 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:9 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+Get:10 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+Get:11 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1322 kB]
+Get:12 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+Get:13 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+Get:14 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [56.2 kB]
+Get:15 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2135 kB]
+Get:16 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2164 kB]
+Get:17 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1696 kB]
+Get:18 http://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Packages [671 B]
+Get:19 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [36.0 kB]
+Get:20 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.0 kB]
+Get:21 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [50.0 kB]
+Get:22 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1943 kB]
+Get:23 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1542 kB]
+Fetched 34.6 MB in 3s (11.9 MB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libpq5 libreadline8t64 postgresql-client-common readline-common
+Suggested packages:
+  libpq-oauth postgresql-17 postgresql-doc-17 readline-doc
+The following NEW packages will be installed:
+  libpq5 libreadline8t64 postgresql-client-17 postgresql-client-common
+  readline-common
+0 upgraded, 5 newly installed, 0 to remove and 3 not upgraded.
+Need to get 2575 kB of archives.
+After this operation, 12.0 MB of additional disk space will be used.
+Get:1 https://apt.postgresql.org/pub/repos/apt noble-pgdg/main amd64 libpq5 amd64 18.6-1.pgdg24.04+2 [264 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble/main amd64 readline-common all 8.2-4build1 [56.5 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble/main amd64 libreadline8t64 amd64 8.2-4build1 [153 kB]
+Get:4 https://apt.postgresql.org/pub/repos/apt noble-pgdg/main amd64 postgresql-client-common all 293.pgdg24.04+1 [48.5 kB]
+Get:5 https://apt.postgresql.org/pub/repos/apt noble-pgdg/main amd64 postgresql-client-17 amd64 17.11-1.pgdg24.04+2 [2053 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 2575 kB in 0s (5304 kB/s)
+Selecting previously unselected package readline-common.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 27343 files and directories currently installed.)
+Preparing to unpack .../readline-common_8.2-4build1_all.deb ...
+Unpacking readline-common (8.2-4build1) ...
+Selecting previously unselected package libreadline8t64:amd64.
+Preparing to unpack .../libreadline8t64_8.2-4build1_amd64.deb ...
+Adding 'diversion of /lib/x86_64-linux-gnu/libhistory.so.8 to /lib/x86_64-linux-gnu/libhistory.so.8.usr-is-merged by libreadline8t64'
+Adding 'diversion of /lib/x86_64-linux-gnu/libhistory.so.8.2 to /lib/x86_64-linux-gnu/libhistory.so.8.2.usr-is-merged by libreadline8t64'
+Adding 'diversion of /lib/x86_64-linux-gnu/libreadline.so.8 to /lib/x86_64-linux-gnu/libreadline.so.8.usr-is-merged by libreadline8t64'
+Adding 'diversion of /lib/x86_64-linux-gnu/libreadline.so.8.2 to /lib/x86_64-linux-gnu/libreadline.so.8.2.usr-is-merged by libreadline8t64'
+Unpacking libreadline8t64:amd64 (8.2-4build1) ...
+Selecting previously unselected package libpq5:amd64.
+Preparing to unpack .../libpq5_18.6-1.pgdg24.04+2_amd64.deb ...
+Unpacking libpq5:amd64 (18.6-1.pgdg24.04+2) ...
+Selecting previously unselected package postgresql-client-common.
+Preparing to unpack .../postgresql-client-common_293.pgdg24.04+1_all.deb ...
+Unpacking postgresql-client-common (293.pgdg24.04+1) ...
+Selecting previously unselected package postgresql-client-17.
+Preparing to unpack .../postgresql-client-17_17.11-1.pgdg24.04+2_amd64.deb ...
+Unpacking postgresql-client-17 (17.11-1.pgdg24.04+2) ...
+Setting up postgresql-client-common (293.pgdg24.04+1) ...
+Setting up libpq5:amd64 (18.6-1.pgdg24.04+2) ...
+Setting up readline-common (8.2-4build1) ...
+Setting up libreadline8t64:amd64 (8.2-4build1) ...
+Setting up postgresql-client-17 (17.11-1.pgdg24.04+2) ...
+update-alternatives: using /usr/share/postgresql/17/man/man1/psql.1.gz to provide /usr/share/man/man1/psql.1.gz (psql.1.gz) in auto mode
+Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+pg_dump (PostgreSQL) 17.11 (Ubuntu 17.11-1.pgdg24.04+2)
+pg_restore (PostgreSQL) 17.11 (Ubuntu 17.11-1.pgdg24.04+2)

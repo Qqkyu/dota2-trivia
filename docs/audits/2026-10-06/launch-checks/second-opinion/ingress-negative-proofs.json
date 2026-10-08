@@ -1,0 +1,60 @@
+{
+  "check": "Actual operator CLI accepts a matching proof and rejects forged, missing and appended address proofs",
+  "checkedAt": "2026-10-08T14:49:15.998Z",
+  "nodeVersion": "v24.15.0",
+  "fixture": {
+    "loopbackOnly": true,
+    "tlsCertificateVerified": true,
+    "certificateTrust": "Temporary self-signed certificate supplied through NODE_EXTRA_CA_CERTS",
+    "syntheticSecretOnly": true
+  },
+  "checks": [
+    {
+      "name": "matching-source-positive-control",
+      "passed": true,
+      "cliExitCode": 0,
+      "requestCount": 5,
+      "secretPrinted": false,
+      "proofAddressPrinted": false
+    },
+    {
+      "name": "forged-source",
+      "passed": true,
+      "cliExitCode": 1,
+      "requestCount": 1,
+      "secretPrinted": false,
+      "proofAddressPrinted": false
+    },
+    {
+      "name": "missing-source",
+      "passed": true,
+      "cliExitCode": 1,
+      "requestCount": 1,
+      "secretPrinted": false,
+      "proofAddressPrinted": false
+    },
+    {
+      "name": "appended-chain",
+      "passed": true,
+      "cliExitCode": 1,
+      "requestCount": 1,
+      "secretPrinted": false,
+      "proofAddressPrinted": false
+    }
+  ],
+  "sourceSha256": {
+    "scripts/check-ingress-proof.mjs": "49e49deeffdcaca8448fad91420d9fcb60d1307afd6b0ae54cc45cfa4d892948",
+    "src/lib/ingress-probe.mjs": "28de5683e29747720987e6026acdb7d2b640093f09835291aa5a093473e0f1ba",
+    "src/lib/steam-auth.mjs": "6da68b0d00bea6aa92aa8e9070f8e6d470a39879378859174f3ac1111b6d6893",
+    "src/lib/auth-session.ts": "078cef247e24bb232960ff359a28a2e2289ed8bf3dc7e0701438b1ac3a933428",
+    "src/lib/server-diagnostics.ts": "49e67b5abd4d6a020cbbe8ec871fdfd215ed477dec5976c395a10dd133b1ea27",
+    "src/lib/diagnostics.mjs": "6b07f2c7ef303757e5fa81e5f79033e522e7baa0f8eab2f642333ca5ef442ce9",
+    "src/instrumentation.ts": "8457d1a761d1f8cd22397a6f7df4184e03c90fc340befc4b7153ac1944437c48",
+    "src/proxy.ts": "a17e3cd94ba5b91af2cf8cf987625ff421f492d8782e7824fd75664fb5800c1d",
+    "src/app/api/health/route.ts": "36c18ad15ea8c8e331409e70d1eac2241c0f6eb9c89469d904f6b76afc767a04",
+    "src/app/api/diagnostics/route.ts": "c726f59b95246fb355ca82180697625749d1b1613d5e01b7f52400f3a77147cc"
+  },
+  "sourceEdited": false,
+  "externalTraffic": false,
+  "privateDataUsed": false
+}

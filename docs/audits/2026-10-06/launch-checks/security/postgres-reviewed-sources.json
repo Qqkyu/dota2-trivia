@@ -1,0 +1,11 @@
+{
+  "esmCjsPatchParity": true,
+  "sha256": {
+    "patches/postgres@3.4.9.patch": "d8930d4d380de22a4ee1d0480cf589fc302b4309b97edeab3a41404653d60563",
+    "scripts/database-backup.mjs": "f4060a7274dc009df6438c699cb57824fd1ea93c5cd9ef9e916340693ee2266b",
+    "scripts/database-runtime-grants.mjs": "daff662cdd93f519447c5e2670f83700028d306bb7fc8debf16fbdcc57d6ef02",
+    "scripts/migrate-db.mjs": "143e3e88cfe513e414ee3ee4b385a24af4ae235e25c68e01cf79769ce98b3ceb",
+    "scripts/grant-runtime-db.mjs": "9ec4e40714b62d2e2947bd2625e43aae37b8144ead2cdf72500b0785730d3383",
+    "scripts/cleanup-db.mjs": "630a6ced2494226ac0aa8e9a220b7cafc99df2a600a576b65d8e172aa57b9720"
+  }
+}

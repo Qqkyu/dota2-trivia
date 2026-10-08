@@ -1,0 +1,59 @@
+{
+  "before": {
+    "duration": 6.183356009070295,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0
+      },
+      {
+        "stage": 3,
+        "seconds": 6.183356,
+        "rms": 0.22604520372309833
+      }
+    ]
+  },
+  "after": {
+    "duration": 6.183356009070295,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.052548064340235685
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.1497935269722959
+      },
+      {
+        "stage": 3,
+        "seconds": 5.583356,
+        "rms": 0.23788097418714538
+      }
+    ]
+  },
+  "encodes": [
+    {
+      "stage": 1,
+      "bytes": 21246,
+      "fastAndFfmpegSamplesMatch": true
+    },
+    {
+      "stage": 2,
+      "bytes": 47706,
+      "fastAndFfmpegSamplesMatch": true
+    },
+    {
+      "stage": 3,
+      "bytes": 984982,
+      "fastAndFfmpegSamplesMatch": true
+    }
+  ]
+}

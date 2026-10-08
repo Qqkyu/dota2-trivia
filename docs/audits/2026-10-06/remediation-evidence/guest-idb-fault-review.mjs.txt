@@ -1,0 +1,85 @@
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import { createServer } from "node:http";
+import { soundBrowser } from "/home/kulmisiu/dev/dota2-trivia/scripts/lib/feedback-browser.mjs";
+
+const root = "/home/kulmisiu/dev/dota2-trivia/";
+const accuracy = (await readFile(root + "src/lib/guest-accuracy.mjs", "utf8")).replaceAll("export ", "");
+const helper = (await readFile(root + "src/lib/guest-lifetime-storage.mjs", "utf8"))
+  .replace(/^import .*?;\n/, "")
+  .replaceAll("export ", "");
+const source = `(() => {${accuracy}\n${helper}\nwindow.reviewHelpers = {updateGuestLifetimeStorage, loadGuestLifetimeStats};})()`;
+const server = createServer((_request, response) => response.end("<!doctype html><title>Isolated persistence review</title>"));
+await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
+const url = `http://127.0.0.1:${server.address().port}`;
+let browser;
+try {
+  browser = await soundBrowser();
+  console.log("BROWSER", (await browser.browser.send("Browser.getVersion")).product);
+  const first = browser.page;
+  await first.send("Page.navigate", { url });
+  await first.waitFor("location.origin === " + JSON.stringify(url));
+  await first.evaluate(source);
+  await first.evaluate(`localStorage.setItem('queue-arcade:stats:v2', JSON.stringify({runs:1,answered:5,correct:3,bestScore:100})); reviewHelpers.loadGuestLifetimeStats(localStorage)`);
+  const result = await first.evaluate(`(async () => {
+    const originalPut = IDBObjectStore.prototype.put;
+    let abortOnce = true;
+    IDBObjectStore.prototype.put = function(...args) {
+      const request = originalPut.apply(this, args);
+      if (abortOnce && args[1] === 'lifetime') {
+        abortOnce = false;
+        request.addEventListener('success', () => this.transaction.abort(), {once:true});
+      }
+      return request;
+    };
+    let calls = 0;
+    const increment = snapshot => {
+      calls++;
+      const stats = JSON.parse(snapshot.getItem('queue-arcade:stats:v2'));
+      stats.answered++;
+      snapshot.setItem('queue-arcade:stats:v2', JSON.stringify(stats));
+      return stats;
+    };
+    const [first, second] = await Promise.all([
+      reviewHelpers.updateGuestLifetimeStorage(localStorage, increment),
+      reviewHelpers.updateGuestLifetimeStorage(localStorage, increment)
+    ]);
+    return {first, second, calls};
+  })()`);
+  assert.equal(result.first.value.answered, 6);
+  assert.equal(result.second.value.answered, 7);
+  assert.equal(result.first.persisted, false);
+  assert.equal(result.second.persisted, false);
+  assert.equal(result.calls, 3);
+  console.log("PASS abort after put success starts fallback from the committed baseline and serializes queued updates");
+
+  const {page: second} = await browser.newPage();
+  await second.send("Page.navigate", { url });
+  await second.waitFor("location.origin === " + JSON.stringify(url));
+  await second.evaluate(source);
+  const loaded = await second.evaluate("reviewHelpers.loadGuestLifetimeStats(localStorage)");
+  assert.equal(loaded.value.answered, 5);
+  assert.equal(loaded.persisted, true);
+  console.log("PASS another renderer reads the committed record and ignores the aborted local mirror");
+
+  const rejected = await second.evaluate(`(async () => {
+    let calls = 0, rejected = false, reason = 'unset';
+    try {
+      await reviewHelpers.updateGuestLifetimeStorage(localStorage, snapshot => {
+        calls++;
+        snapshot.setItem('queue-arcade:stats:v2', JSON.stringify({answered:999}));
+        throw null;
+      });
+    } catch(error) { rejected = true; reason = error; }
+    return {calls, rejected, reason, latest:await reviewHelpers.loadGuestLifetimeStats(localStorage)};
+  })()`);
+  assert.equal(rejected.calls, 1);
+  assert.equal(rejected.rejected, true);
+  assert.equal(rejected.reason, null);
+  assert.equal(rejected.latest.value.answered, 5);
+  assert.equal(rejected.latest.persisted, true);
+  console.log("PASS a falsy callback exception rolls back once and preserves working IndexedDB persistence");
+} finally {
+  await browser?.close();
+  await new Promise(resolve => server.close(resolve));
+}

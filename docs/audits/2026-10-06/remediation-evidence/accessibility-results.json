@@ -1,0 +1,2336 @@
+{
+  "pages": [
+    {
+      "label": "ui-modern-1400-home",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 945,
+        "headings": [
+          "Your queue has\nside quests.",
+          "The next round could be anything."
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 72,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-party",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 900,
+        "headings": [
+          "Party"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 72,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-profile",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 900,
+        "headings": [
+          "Keep your streak."
+        ],
+        "inputs": [],
+        "smallTargets": []
+      }
+    },
+    {
+      "label": "ui-modern-1400-privacy",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 1637,
+        "headings": [
+          "Privacy, without fog.",
+          "When you play anonymously",
+          "Alpha measurements",
+          "When you connect Steam",
+          "Retention and deletion",
+          "Crash diagnostics",
+          "Steam and contact"
+        ],
+        "inputs": [],
+        "smallTargets": [
+          {
+            "name": "Steam Web API terms",
+            "width": 140.421875,
+            "height": 16
+          },
+          {
+            "name": "GitHub issue tracker",
+            "width": 131,
+            "height": 16
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-calibration",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 9282,
+        "headings": [
+          "Question calibration"
+        ],
+        "inputs": [
+          {
+            "type": "search",
+            "label": "Search calibration questions",
+            "placeholder": "Search prompt, kind, or question ID"
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Search calibration questions",
+            "width": 356,
+            "height": 21.5
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-ops",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 900,
+        "headings": [
+          "Steam sign-in required."
+        ],
+        "inputs": [],
+        "smallTargets": []
+      }
+    },
+    {
+      "label": "ui-modern-375-home",
+      "a": [],
+      "geometry": {
+        "width": 375,
+        "scrollWidth": 375,
+        "height": 900,
+        "scrollHeight": 1753,
+        "headings": [
+          "Your queue has\nside quests.",
+          "The next round could be anything."
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-375-party",
+      "a": [],
+      "geometry": {
+        "width": 375,
+        "scrollWidth": 375,
+        "height": 900,
+        "scrollHeight": 900,
+        "headings": [
+          "Party"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-375-profile",
+      "a": [],
+      "geometry": {
+        "width": 375,
+        "scrollWidth": 375,
+        "height": 900,
+        "scrollHeight": 900,
+        "headings": [
+          "Keep your streak."
+        ],
+        "inputs": [],
+        "smallTargets": []
+      }
+    },
+    {
+      "label": "ui-modern-375-privacy",
+      "a": [],
+      "geometry": {
+        "width": 375,
+        "scrollWidth": 375,
+        "height": 900,
+        "scrollHeight": 2351,
+        "headings": [
+          "Privacy, without fog.",
+          "When you play anonymously",
+          "Alpha measurements",
+          "When you connect Steam",
+          "Retention and deletion",
+          "Crash diagnostics",
+          "Steam and contact"
+        ],
+        "inputs": [],
+        "smallTargets": [
+          {
+            "name": "GitHub issue tracker",
+            "width": 131,
+            "height": 16
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-375-calibration",
+      "a": [],
+      "geometry": {
+        "width": 375,
+        "scrollWidth": 375,
+        "height": 900,
+        "scrollHeight": 18827,
+        "headings": [
+          "Question calibration"
+        ],
+        "inputs": [
+          {
+            "type": "search",
+            "label": "Search calibration questions",
+            "placeholder": "Search prompt, kind, or question ID"
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Search calibration questions",
+            "width": 271,
+            "height": 21.5
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-375-ops",
+      "a": [],
+      "geometry": {
+        "width": 375,
+        "scrollWidth": 375,
+        "height": 900,
+        "scrollHeight": 900,
+        "headings": [
+          "Steam sign-in required."
+        ],
+        "inputs": [],
+        "smallTargets": []
+      }
+    },
+    {
+      "label": "ui-modern-320-home",
+      "a": [],
+      "geometry": {
+        "width": 331,
+        "scrollWidth": 331,
+        "height": 930,
+        "scrollHeight": 1813,
+        "headings": [
+          "Your queue has\nside quests.",
+          "The next round could be anything."
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-party",
+      "a": [],
+      "geometry": {
+        "width": 331,
+        "scrollWidth": 331,
+        "height": 930,
+        "scrollHeight": 930,
+        "headings": [
+          "Party"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-profile",
+      "a": [],
+      "geometry": {
+        "width": 331,
+        "scrollWidth": 331,
+        "height": 930,
+        "scrollHeight": 930,
+        "headings": [
+          "Keep your streak."
+        ],
+        "inputs": [],
+        "smallTargets": []
+      }
+    },
+    {
+      "label": "ui-modern-320-privacy",
+      "a": [],
+      "geometry": {
+        "width": 331,
+        "scrollWidth": 331,
+        "height": 930,
+        "scrollHeight": 2494,
+        "headings": [
+          "Privacy, without fog.",
+          "When you play anonymously",
+          "Alpha measurements",
+          "When you connect Steam",
+          "Retention and deletion",
+          "Crash diagnostics",
+          "Steam and contact"
+        ],
+        "inputs": [],
+        "smallTargets": [
+          {
+            "name": "Steam Web API terms",
+            "width": 140.421875,
+            "height": 16
+          },
+          {
+            "name": "GitHub issue tracker",
+            "width": 131,
+            "height": 16
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-calibration",
+      "a": [],
+      "geometry": {
+        "width": 331,
+        "scrollWidth": 331,
+        "height": 930,
+        "scrollHeight": 19894,
+        "headings": [
+          "Question calibration"
+        ],
+        "inputs": [
+          {
+            "type": "search",
+            "label": "Search calibration questions",
+            "placeholder": "Search prompt, kind, or question ID"
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Search calibration questions",
+            "width": 216,
+            "height": 21.5
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-ops",
+      "a": [],
+      "geometry": {
+        "width": 331,
+        "scrollWidth": 331,
+        "height": 930,
+        "scrollHeight": 930,
+        "headings": [
+          "Steam sign-in required."
+        ],
+        "inputs": [],
+        "smallTargets": []
+      }
+    }
+  ],
+  "fixtures": [
+    {
+      "label": "ui-modern-1400-trivia",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 934,
+        "headings": [
+          "Round 1",
+          "How much mana does Acid Spray cost?"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 72,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-trivia",
+      "a": [],
+      "geometry": {
+        "width": 320,
+        "scrollWidth": 320,
+        "height": 900,
+        "scrollHeight": 1231,
+        "headings": [
+          "Round 1",
+          "How much mana does Acid Spray cost?"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-shopkeeper",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 934,
+        "headings": [
+          "Round 1",
+          "What do these components build?",
+          "COMMON",
+          "SUPPORT",
+          "CASTER",
+          "ARMOR",
+          "WEAPONS",
+          "ARMAMENTS"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "type": "text",
+            "label": null,
+            "placeholder": "Search Items"
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 72,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-shopkeeper",
+      "a": [],
+      "geometry": {
+        "width": 320,
+        "scrollWidth": 320,
+        "height": 900,
+        "scrollHeight": 1240,
+        "headings": [
+          "Round 1",
+          "What do these components build?",
+          "COMMON",
+          "SUPPORT",
+          "CASTER",
+          "ARMOR",
+          "WEAPONS",
+          "ARMAMENTS"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "type": "text",
+            "label": null,
+            "placeholder": "Search Items"
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-shop-recipe",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 938,
+        "headings": [
+          "Round 1",
+          "Build Abyssal Blade.",
+          "COMMON",
+          "SUPPORT",
+          "CASTER",
+          "ARMOR",
+          "WEAPONS",
+          "ARMAMENTS"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "type": "text",
+            "label": null,
+            "placeholder": "Search Items"
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 72,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-shop-recipe",
+      "a": [],
+      "geometry": {
+        "width": 320,
+        "scrollWidth": 320,
+        "height": 900,
+        "scrollHeight": 1283,
+        "headings": [
+          "Round 1",
+          "Build Abyssal Blade.",
+          "COMMON",
+          "SUPPORT",
+          "CASTER",
+          "ARMOR",
+          "WEAPONS",
+          "ARMAMENTS"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "type": "text",
+            "label": null,
+            "placeholder": "Search Items"
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-spell-link",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 1032,
+        "headings": [
+          "Round 1",
+          "Which hero owns this ability?",
+          "STRENGTH",
+          "AGILITY",
+          "INTELLIGENCE",
+          "UNIVERSAL"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 72,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-spell-link",
+      "a": [
+        {
+          "id": "target-size",
+          "impact": "serious",
+          "help": "All touch targets must be 24px large, or leave sufficient space",
+          "nodes": [
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_alchemist\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_alchemist\" data-state=\"idle\" data-search-match=\"true\" title=\"Alchemist\" aria-label=\"Alchemist\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_axe\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_axe\" data-state=\"idle\" data-search-match=\"true\" title=\"Axe\" aria-label=\"Axe\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_bristleback\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_bristleback\" data-state=\"idle\" data-search-match=\"true\" title=\"Bristleback\" aria-label=\"Bristleback\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_centaur\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_centaur\" data-state=\"idle\" data-search-match=\"true\" title=\"Centaur Warrunner\" aria-label=\"Centaur Warrunner\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_chaos_knight\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_chaos_knight\" data-state=\"idle\" data-search-match=\"true\" title=\"Chaos Knight\" aria-label=\"Chaos Knight\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_rattletrap\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_rattletrap\" data-state=\"idle\" data-search-match=\"true\" title=\"Clockwerk\" aria-label=\"Clockwerk\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_dawnbreaker\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_dawnbreaker\" data-state=\"idle\" data-search-match=\"true\" title=\"Dawnbreaker\" aria-label=\"Dawnbreaker\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_doom_bringer\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_doom_bringer\" data-state=\"idle\" data-search-match=\"true\" title=\"Doom\" aria-label=\"Doom\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_dragon_knight\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_dragon_knight\" data-state=\"idle\" data-search-match=\"true\" title=\"Dragon Knight\" aria-label=\"Dragon Knight\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_earth_spirit\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_earth_spirit\" data-state=\"idle\" data-search-match=\"true\" title=\"Earth Spirit\" aria-label=\"Earth Spirit\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_earthshaker\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_earthshaker\" data-state=\"idle\" data-search-match=\"true\" title=\"Earthshaker\" aria-label=\"Earthshaker\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_elder_titan\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_elder_titan\" data-state=\"idle\" data-search-match=\"true\" title=\"Elder Titan\" aria-label=\"Elder Titan\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_huskar\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_huskar\" data-state=\"idle\" data-search-match=\"true\" title=\"Huskar\" aria-label=\"Huskar\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_kunkka\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_kunkka\" data-state=\"idle\" data-search-match=\"true\" title=\"Kunkka\" aria-label=\"Kunkka\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_largo\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_largo\" data-state=\"idle\" data-search-match=\"true\" title=\"Largo\" aria-label=\"Largo\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_legion_commander\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_legion_commander\" data-state=\"idle\" data-search-match=\"true\" title=\"Legion Commander\" aria-label=\"Legion Commander\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_life_stealer\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_life_stealer\" data-state=\"idle\" data-search-match=\"true\" title=\"Lifestealer\" aria-label=\"Lifestealer\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_lycan\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_lycan\" data-state=\"idle\" data-search-match=\"true\" title=\"Lycan\" aria-label=\"Lycan\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_mars\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_mars\" data-state=\"idle\" data-search-match=\"true\" title=\"Mars\" aria-label=\"Mars\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_night_stalker\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_night_stalker\" data-state=\"idle\" data-search-match=\"true\" title=\"Night Stalker\" aria-label=\"Night Stalker\" aria-pressed=\"false\">"
+            }
+          ]
+        }
+      ],
+      "geometry": {
+        "width": 320,
+        "scrollWidth": 320,
+        "height": 900,
+        "scrollHeight": 1628,
+        "headings": [
+          "Round 1",
+          "Which hero owns this ability?",
+          "STRENGTH",
+          "AGILITY",
+          "INTELLIGENCE",
+          "UNIVERSAL"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          },
+          {
+            "name": "Alchemist",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Axe",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Bristleback",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Centaur Warrunner",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Chaos Knight",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Clockwerk",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Dawnbreaker",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Doom",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Dragon Knight",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-fogged-vision",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 988,
+        "headings": [
+          "Round 1",
+          "Which hero is hiding in the fog?",
+          "STRENGTH",
+          "AGILITY",
+          "INTELLIGENCE",
+          "UNIVERSAL"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 72,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-fogged-vision",
+      "a": [
+        {
+          "id": "target-size",
+          "impact": "serious",
+          "help": "All touch targets must be 24px large, or leave sufficient space",
+          "nodes": [
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_alchemist\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_alchemist\" data-state=\"idle\" data-search-match=\"true\" title=\"Alchemist\" aria-label=\"Alchemist\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_axe\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_axe\" data-state=\"idle\" data-search-match=\"true\" title=\"Axe\" aria-label=\"Axe\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_bristleback\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_bristleback\" data-state=\"idle\" data-search-match=\"true\" title=\"Bristleback\" aria-label=\"Bristleback\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_centaur\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_centaur\" data-state=\"idle\" data-search-match=\"true\" title=\"Centaur Warrunner\" aria-label=\"Centaur Warrunner\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_chaos_knight\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_chaos_knight\" data-state=\"idle\" data-search-match=\"true\" title=\"Chaos Knight\" aria-label=\"Chaos Knight\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_rattletrap\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_rattletrap\" data-state=\"idle\" data-search-match=\"true\" title=\"Clockwerk\" aria-label=\"Clockwerk\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_dawnbreaker\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_dawnbreaker\" data-state=\"idle\" data-search-match=\"true\" title=\"Dawnbreaker\" aria-label=\"Dawnbreaker\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_doom_bringer\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_doom_bringer\" data-state=\"idle\" data-search-match=\"true\" title=\"Doom\" aria-label=\"Doom\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_dragon_knight\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_dragon_knight\" data-state=\"idle\" data-search-match=\"true\" title=\"Dragon Knight\" aria-label=\"Dragon Knight\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_earth_spirit\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_earth_spirit\" data-state=\"idle\" data-search-match=\"true\" title=\"Earth Spirit\" aria-label=\"Earth Spirit\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_earthshaker\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_earthshaker\" data-state=\"idle\" data-search-match=\"true\" title=\"Earthshaker\" aria-label=\"Earthshaker\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_elder_titan\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_elder_titan\" data-state=\"idle\" data-search-match=\"true\" title=\"Elder Titan\" aria-label=\"Elder Titan\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_huskar\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_huskar\" data-state=\"idle\" data-search-match=\"true\" title=\"Huskar\" aria-label=\"Huskar\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_kunkka\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_kunkka\" data-state=\"idle\" data-search-match=\"true\" title=\"Kunkka\" aria-label=\"Kunkka\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_largo\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_largo\" data-state=\"idle\" data-search-match=\"true\" title=\"Largo\" aria-label=\"Largo\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_legion_commander\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_legion_commander\" data-state=\"idle\" data-search-match=\"true\" title=\"Legion Commander\" aria-label=\"Legion Commander\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_life_stealer\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_life_stealer\" data-state=\"idle\" data-search-match=\"true\" title=\"Lifestealer\" aria-label=\"Lifestealer\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_lycan\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_lycan\" data-state=\"idle\" data-search-match=\"true\" title=\"Lycan\" aria-label=\"Lycan\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_mars\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_mars\" data-state=\"idle\" data-search-match=\"true\" title=\"Mars\" aria-label=\"Mars\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_night_stalker\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_night_stalker\" data-state=\"idle\" data-search-match=\"true\" title=\"Night Stalker\" aria-label=\"Night Stalker\" aria-pressed=\"false\">"
+            }
+          ]
+        }
+      ],
+      "geometry": {
+        "width": 320,
+        "scrollWidth": 320,
+        "height": 900,
+        "scrollHeight": 1479,
+        "headings": [
+          "Round 1",
+          "Which hero is hiding in the fog?",
+          "STRENGTH",
+          "AGILITY",
+          "INTELLIGENCE",
+          "UNIVERSAL"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          },
+          {
+            "name": "Alchemist",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Axe",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Bristleback",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Centaur Warrunner",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Chaos Knight",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Clockwerk",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Dawnbreaker",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Doom",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Dragon Knight",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-echo-hunt",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 988,
+        "headings": [
+          "Round 1",
+          "Whose voice is this?",
+          "STRENGTH",
+          "AGILITY",
+          "INTELLIGENCE",
+          "UNIVERSAL"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 72,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-echo-hunt",
+      "a": [
+        {
+          "id": "target-size",
+          "impact": "serious",
+          "help": "All touch targets must be 24px large, or leave sufficient space",
+          "nodes": [
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_alchemist\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_alchemist\" data-state=\"idle\" data-search-match=\"true\" title=\"Alchemist\" aria-label=\"Alchemist\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_axe\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_axe\" data-state=\"idle\" data-search-match=\"true\" title=\"Axe\" aria-label=\"Axe\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_bristleback\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_bristleback\" data-state=\"idle\" data-search-match=\"true\" title=\"Bristleback\" aria-label=\"Bristleback\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_centaur\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_centaur\" data-state=\"idle\" data-search-match=\"true\" title=\"Centaur Warrunner\" aria-label=\"Centaur Warrunner\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_chaos_knight\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_chaos_knight\" data-state=\"idle\" data-search-match=\"true\" title=\"Chaos Knight\" aria-label=\"Chaos Knight\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_rattletrap\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_rattletrap\" data-state=\"idle\" data-search-match=\"true\" title=\"Clockwerk\" aria-label=\"Clockwerk\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_dawnbreaker\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_dawnbreaker\" data-state=\"idle\" data-search-match=\"true\" title=\"Dawnbreaker\" aria-label=\"Dawnbreaker\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_doom_bringer\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_doom_bringer\" data-state=\"idle\" data-search-match=\"true\" title=\"Doom\" aria-label=\"Doom\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_dragon_knight\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_dragon_knight\" data-state=\"idle\" data-search-match=\"true\" title=\"Dragon Knight\" aria-label=\"Dragon Knight\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_earth_spirit\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_earth_spirit\" data-state=\"idle\" data-search-match=\"true\" title=\"Earth Spirit\" aria-label=\"Earth Spirit\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_earthshaker\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_earthshaker\" data-state=\"idle\" data-search-match=\"true\" title=\"Earthshaker\" aria-label=\"Earthshaker\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_elder_titan\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_elder_titan\" data-state=\"idle\" data-search-match=\"true\" title=\"Elder Titan\" aria-label=\"Elder Titan\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_huskar\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_huskar\" data-state=\"idle\" data-search-match=\"true\" title=\"Huskar\" aria-label=\"Huskar\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_kunkka\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_kunkka\" data-state=\"idle\" data-search-match=\"true\" title=\"Kunkka\" aria-label=\"Kunkka\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_largo\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_largo\" data-state=\"idle\" data-search-match=\"true\" title=\"Largo\" aria-label=\"Largo\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_legion_commander\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_legion_commander\" data-state=\"idle\" data-search-match=\"true\" title=\"Legion Commander\" aria-label=\"Legion Commander\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_life_stealer\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_life_stealer\" data-state=\"idle\" data-search-match=\"true\" title=\"Lifestealer\" aria-label=\"Lifestealer\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_lycan\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_lycan\" data-state=\"idle\" data-search-match=\"true\" title=\"Lycan\" aria-label=\"Lycan\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_mars\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_mars\" data-state=\"idle\" data-search-match=\"true\" title=\"Mars\" aria-label=\"Mars\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_night_stalker\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_night_stalker\" data-state=\"idle\" data-search-match=\"true\" title=\"Night Stalker\" aria-label=\"Night Stalker\" aria-pressed=\"false\">"
+            }
+          ]
+        }
+      ],
+      "geometry": {
+        "width": 320,
+        "scrollWidth": 320,
+        "height": 900,
+        "scrollHeight": 1435,
+        "headings": [
+          "Round 1",
+          "Whose voice is this?",
+          "STRENGTH",
+          "AGILITY",
+          "INTELLIGENCE",
+          "UNIVERSAL"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          },
+          {
+            "name": "Alchemist",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Axe",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Bristleback",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Centaur Warrunner",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Chaos Knight",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Clockwerk",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Dawnbreaker",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Doom",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Dragon Knight",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-quote-hunt",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 988,
+        "headings": [
+          "Round 1",
+          "Who said it?",
+          "STRENGTH",
+          "AGILITY",
+          "INTELLIGENCE",
+          "UNIVERSAL"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 72,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-quote-hunt",
+      "a": [
+        {
+          "id": "target-size",
+          "impact": "serious",
+          "help": "All touch targets must be 24px large, or leave sufficient space",
+          "nodes": [
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_alchemist\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_alchemist\" data-state=\"idle\" data-search-match=\"true\" title=\"Alchemist\" aria-label=\"Alchemist\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_axe\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_axe\" data-state=\"idle\" data-search-match=\"true\" title=\"Axe\" aria-label=\"Axe\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_bristleback\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_bristleback\" data-state=\"idle\" data-search-match=\"true\" title=\"Bristleback\" aria-label=\"Bristleback\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_centaur\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_centaur\" data-state=\"idle\" data-search-match=\"true\" title=\"Centaur Warrunner\" aria-label=\"Centaur Warrunner\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_chaos_knight\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_chaos_knight\" data-state=\"idle\" data-search-match=\"true\" title=\"Chaos Knight\" aria-label=\"Chaos Knight\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_rattletrap\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_rattletrap\" data-state=\"idle\" data-search-match=\"true\" title=\"Clockwerk\" aria-label=\"Clockwerk\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_dawnbreaker\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_dawnbreaker\" data-state=\"idle\" data-search-match=\"true\" title=\"Dawnbreaker\" aria-label=\"Dawnbreaker\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_doom_bringer\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_doom_bringer\" data-state=\"idle\" data-search-match=\"true\" title=\"Doom\" aria-label=\"Doom\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_dragon_knight\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_dragon_knight\" data-state=\"idle\" data-search-match=\"true\" title=\"Dragon Knight\" aria-label=\"Dragon Knight\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_earth_spirit\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_earth_spirit\" data-state=\"idle\" data-search-match=\"true\" title=\"Earth Spirit\" aria-label=\"Earth Spirit\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_earthshaker\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_earthshaker\" data-state=\"idle\" data-search-match=\"true\" title=\"Earthshaker\" aria-label=\"Earthshaker\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_elder_titan\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_elder_titan\" data-state=\"idle\" data-search-match=\"true\" title=\"Elder Titan\" aria-label=\"Elder Titan\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_huskar\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_huskar\" data-state=\"idle\" data-search-match=\"true\" title=\"Huskar\" aria-label=\"Huskar\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_kunkka\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_kunkka\" data-state=\"idle\" data-search-match=\"true\" title=\"Kunkka\" aria-label=\"Kunkka\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_largo\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_largo\" data-state=\"idle\" data-search-match=\"true\" title=\"Largo\" aria-label=\"Largo\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_legion_commander\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_legion_commander\" data-state=\"idle\" data-search-match=\"true\" title=\"Legion Commander\" aria-label=\"Legion Commander\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_life_stealer\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_life_stealer\" data-state=\"idle\" data-search-match=\"true\" title=\"Lifestealer\" aria-label=\"Lifestealer\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_lycan\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_lycan\" data-state=\"idle\" data-search-match=\"true\" title=\"Lycan\" aria-label=\"Lycan\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_mars\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_mars\" data-state=\"idle\" data-search-match=\"true\" title=\"Mars\" aria-label=\"Mars\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_night_stalker\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_night_stalker\" data-state=\"idle\" data-search-match=\"true\" title=\"Night Stalker\" aria-label=\"Night Stalker\" aria-pressed=\"false\">"
+            }
+          ]
+        }
+      ],
+      "geometry": {
+        "width": 320,
+        "scrollWidth": 320,
+        "height": 900,
+        "scrollHeight": 1458,
+        "headings": [
+          "Round 1",
+          "Who said it?",
+          "STRENGTH",
+          "AGILITY",
+          "INTELLIGENCE",
+          "UNIVERSAL"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          },
+          {
+            "name": "Alchemist",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Axe",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Bristleback",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Centaur Warrunner",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Chaos Knight",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Clockwerk",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Dawnbreaker",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Doom",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Dragon Knight",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-aghanim-lab",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 1032,
+        "headings": [
+          "Round 1",
+          "Whose upgrade is this?",
+          "STRENGTH",
+          "AGILITY",
+          "INTELLIGENCE",
+          "UNIVERSAL"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 72,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-aghanim-lab",
+      "a": [
+        {
+          "id": "target-size",
+          "impact": "serious",
+          "help": "All touch targets must be 24px large, or leave sufficient space",
+          "nodes": [
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_alchemist\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_alchemist\" data-state=\"idle\" data-search-match=\"true\" title=\"Alchemist\" aria-label=\"Alchemist\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_axe\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_axe\" data-state=\"idle\" data-search-match=\"true\" title=\"Axe\" aria-label=\"Axe\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_bristleback\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_bristleback\" data-state=\"idle\" data-search-match=\"true\" title=\"Bristleback\" aria-label=\"Bristleback\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_centaur\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_centaur\" data-state=\"idle\" data-search-match=\"true\" title=\"Centaur Warrunner\" aria-label=\"Centaur Warrunner\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_chaos_knight\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_chaos_knight\" data-state=\"idle\" data-search-match=\"true\" title=\"Chaos Knight\" aria-label=\"Chaos Knight\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_rattletrap\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_rattletrap\" data-state=\"idle\" data-search-match=\"true\" title=\"Clockwerk\" aria-label=\"Clockwerk\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_dawnbreaker\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_dawnbreaker\" data-state=\"idle\" data-search-match=\"true\" title=\"Dawnbreaker\" aria-label=\"Dawnbreaker\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_doom_bringer\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_doom_bringer\" data-state=\"idle\" data-search-match=\"true\" title=\"Doom\" aria-label=\"Doom\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_dragon_knight\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_dragon_knight\" data-state=\"idle\" data-search-match=\"true\" title=\"Dragon Knight\" aria-label=\"Dragon Knight\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_earth_spirit\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_earth_spirit\" data-state=\"idle\" data-search-match=\"true\" title=\"Earth Spirit\" aria-label=\"Earth Spirit\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_earthshaker\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_earthshaker\" data-state=\"idle\" data-search-match=\"true\" title=\"Earthshaker\" aria-label=\"Earthshaker\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_elder_titan\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_elder_titan\" data-state=\"idle\" data-search-match=\"true\" title=\"Elder Titan\" aria-label=\"Elder Titan\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_huskar\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_huskar\" data-state=\"idle\" data-search-match=\"true\" title=\"Huskar\" aria-label=\"Huskar\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_kunkka\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_kunkka\" data-state=\"idle\" data-search-match=\"true\" title=\"Kunkka\" aria-label=\"Kunkka\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_largo\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_largo\" data-state=\"idle\" data-search-match=\"true\" title=\"Largo\" aria-label=\"Largo\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_legion_commander\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_legion_commander\" data-state=\"idle\" data-search-match=\"true\" title=\"Legion Commander\" aria-label=\"Legion Commander\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_life_stealer\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_life_stealer\" data-state=\"idle\" data-search-match=\"true\" title=\"Lifestealer\" aria-label=\"Lifestealer\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_lycan\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_lycan\" data-state=\"idle\" data-search-match=\"true\" title=\"Lycan\" aria-label=\"Lycan\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_mars\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_mars\" data-state=\"idle\" data-search-match=\"true\" title=\"Mars\" aria-label=\"Mars\" aria-pressed=\"false\">"
+            },
+            {
+              "target": [
+                "button[data-hero-key=\"npc_dota_hero_night_stalker\"]"
+              ],
+              "summary": "Fix any of the following:\n  Target has insufficient size (21.3px by 20.3px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 22.6px instead of at least 24px.",
+              "html": "<button type=\"button\" data-testid=\"hero-picker-hero\" data-hero-key=\"npc_dota_hero_night_stalker\" data-state=\"idle\" data-search-match=\"true\" title=\"Night Stalker\" aria-label=\"Night Stalker\" aria-pressed=\"false\">"
+            }
+          ]
+        }
+      ],
+      "geometry": {
+        "width": 320,
+        "scrollWidth": 320,
+        "height": 900,
+        "scrollHeight": 1572,
+        "headings": [
+          "Round 1",
+          "Whose upgrade is this?",
+          "STRENGTH",
+          "AGILITY",
+          "INTELLIGENCE",
+          "UNIVERSAL"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          },
+          {
+            "name": "Alchemist",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Axe",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Bristleback",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Centaur Warrunner",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Chaos Knight",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Clockwerk",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Dawnbreaker",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Doom",
+            "width": 21.265625,
+            "height": 20.25,
+            "testid": "hero-picker-hero"
+          },
+          {
+            "name": "Dragon Knight",
+            "width": 21.28125,
+            "height": 20.265625,
+            "testid": "hero-picker-hero"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-soundcheck",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 934,
+        "headings": [
+          "Round 1",
+          "Match the sound."
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 72,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-soundcheck",
+      "a": [],
+      "geometry": {
+        "width": 320,
+        "scrollWidth": 320,
+        "height": 900,
+        "scrollHeight": 1311,
+        "headings": [
+          "Round 1",
+          "Match the sound."
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-order-up",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 934,
+        "headings": [
+          "Round 1",
+          "How do these items rank from cheapest to most expensive?"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 72,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-order-up",
+      "a": [],
+      "geometry": {
+        "width": 320,
+        "scrollWidth": 320,
+        "height": 900,
+        "scrollHeight": 1484,
+        "headings": [
+          "Round 1",
+          "How do these items rank from cheapest to most expensive?"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-flashback-year",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 934,
+        "headings": [
+          "Round 1",
+          "What year did Dota 2 officially release?"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "type": "range",
+            "label": "Year",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 72,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-flashback-year",
+      "a": [],
+      "geometry": {
+        "width": 320,
+        "scrollWidth": 320,
+        "height": 900,
+        "scrollHeight": 1169,
+        "headings": [
+          "Round 1",
+          "What year did Dota 2 officially release?"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "type": "range",
+            "label": "Year",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-flashback-choice",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 934,
+        "headings": [
+          "Round 1",
+          "Who won The International 2011 in Cologne?"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 72,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-flashback-choice",
+      "a": [],
+      "geometry": {
+        "width": 320,
+        "scrollWidth": 320,
+        "height": 900,
+        "scrollHeight": 1308,
+        "headings": [
+          "Round 1",
+          "Who won The International 2011 in Cologne?"
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-1400-flashback-order",
+      "a": [],
+      "geometry": {
+        "width": 1400,
+        "scrollWidth": 1400,
+        "height": 900,
+        "scrollHeight": 934,
+        "headings": [
+          "Round 1",
+          "Put these TI winners in the order they first lifted the Aegis."
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 72,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    },
+    {
+      "label": "ui-modern-320-flashback-order",
+      "a": [],
+      "geometry": {
+        "width": 320,
+        "scrollWidth": 320,
+        "height": 900,
+        "scrollHeight": 1460,
+        "headings": [
+          "Round 1",
+          "Put these TI winners in the order they first lifted the Aegis."
+        ],
+        "inputs": [
+          {
+            "type": "range",
+            "label": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "width": 38,
+            "height": 20,
+            "testid": "game-volume"
+          }
+        ]
+      }
+    }
+  ],
+  "keyboard": [
+    {
+      "round": "trivia",
+      "key": "Control+a",
+      "votes": []
+    },
+    {
+      "round": "trivia",
+      "key": "Control+c",
+      "votes": []
+    },
+    {
+      "round": "trivia",
+      "key": "Control+d",
+      "votes": []
+    },
+    {
+      "round": "trivia",
+      "key": "Alt+1",
+      "votes": []
+    },
+    {
+      "round": "flashback-year",
+      "focus": "Mute game sounds",
+      "key": "Space",
+      "votes": [],
+      "muteLabel": null,
+      "enabledMute": 1
+    },
+    {
+      "round": "flashback-year",
+      "focus": "Mute game sounds",
+      "key": "Enter",
+      "votes": [],
+      "muteLabel": null,
+      "enabledMute": 1
+    }
+  ],
+  "errors": []
+}

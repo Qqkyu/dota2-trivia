@@ -1,0 +1,15 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const ts = require('/home/kulmisiu/dev/dota2-trivia/node_modules/typescript');
+const root = '/home/kulmisiu/dev/dota2-trivia';
+const out = '/tmp/queue-arcade-pg-audit.3f4hCl';
+fs.mkdirSync(`${out}/lib`, { recursive: true });
+fs.writeFileSync(`${out}/package.json`, JSON.stringify({type: 'module'}));
+fs.symlinkSync(`${root}/node_modules`, `${out}/node_modules`);
+for (const filename of fs.readdirSync(`${root}/src/lib`)) {
+  if (!/\.(ts|mjs)$/.test(filename)) continue;
+  let source = fs.readFileSync(`${root}/src/lib/${filename}`, 'utf8');
+  if (filename.endsWith('.ts')) source = ts.transpile(source, {module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022});
+  source = source.replaceAll(/(["'])@\/lib\/([^"']+)(["'])/g, (_, q, p) => `${q}./${p}${path.extname(p) ? '' : '.js'}${q}`);
+  fs.writeFileSync(`${out}/lib/${filename.replace(/\.ts$/, '.js')}`, source);
+}

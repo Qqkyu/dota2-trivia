@@ -1,0 +1,425 @@
+{
+  "decoded": 631,
+  "comparisons": 4746,
+  "flags": [
+    {
+      "questionId": "soundcheck-item:urn_of_shadows",
+      "subject": "urn_of_shadows",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/item_distiller_cast.wav",
+      "candidateSubjects": [
+        "essence_distiller"
+      ],
+      "spectralCosine": 0.9372326423921369,
+      "alignedCorrelation": 0.990918788243295,
+      "offsetSeconds": 0.891
+    },
+    {
+      "questionId": "soundcheck-item:mjollnir",
+      "subject": "mjollnir",
+      "stage": 1,
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/item_mael_lightning_chain.wav",
+      "candidateSubjects": [
+        "maelstrom"
+      ],
+      "alignedCorrelation": 0.9949857194425263,
+      "offsetSeconds": 0.0
+    }
+  ],
+  "controls": {
+    "scaledDuplicate": 1.0000001036941677,
+    "embeddedDuplicate": 0.9999991169782038,
+    "differentCue": 0.01863095053235539
+  },
+  "selectedRmsDbfsRange": [
+    -23.038253082157155,
+    -7.601330023094317
+  ],
+  "selectedClipOutliers": [
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/tidehunter/tidehunter_ravage.wav",
+      "duration": 4.148117913832199,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.3199129510518669,
+      "rmsDbfs": -9.899363559899026,
+      "clippedSampleFraction": 0.04635055649093652,
+      "longestClipRunMs": 1.6326530612244898,
+      "pcmMono8kSha256": "a4671b292c7fc43f57af958f70cdf368682b411064d7d3fa3f1adbbb02c95f64",
+      "owners": [
+        {
+          "subject": "tidehunter_ravage",
+          "event": "Ability.Ravage",
+          "basis": "reviewed-selected-event"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/earthshaker/echo_slam.wav",
+      "duration": 4.328480725623582,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.32099598847256433,
+      "rmsDbfs": -9.870007899884827,
+      "clippedSampleFraction": 0.009906436302295612,
+      "longestClipRunMs": 2.8798185941043086,
+      "pcmMono8kSha256": "81121c86936737fcbf37328dd5334edebf0e61b738097b665c61691369f8a193",
+      "owners": [
+        {
+          "subject": "earthshaker_echo_slam",
+          "event": "Hero_EarthShaker.EchoSlam.Single",
+          "basis": "npc-event-component"
+        },
+        {
+          "subject": "earthshaker_echo_slam",
+          "event": "Hero_EarthShaker.EchoSlam",
+          "basis": "reviewed-selected-event"
+        },
+        {
+          "subject": "earthshaker_echo_slam",
+          "event": "Hero_EarthShaker.EchoSlam.Single.Arcana",
+          "basis": "npc-event-component"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/magnataur/reverse_polarity.wav",
+      "duration": 3.1533333333333333,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.19614760407778475,
+      "rmsDbfs": -14.148339847263173,
+      "clippedSampleFraction": 0.00363506924968719,
+      "longestClipRunMs": 0.7029478458049886,
+      "pcmMono8kSha256": "d565f0a8a5b501665fadce0f72123bbb622acf7e3e0e170155b9e72b60c679c4",
+      "owners": [
+        {
+          "subject": "magnataur_reverse_polarity",
+          "event": "Hero_Magnataur.ReversePolarity.Cast",
+          "basis": "reviewed-selected-event"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/invoker/sunstrike_ignite.wav",
+      "duration": 2.0029024943310656,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.4042306861282385,
+      "rmsDbfs": -7.867414424513419,
+      "clippedSampleFraction": 0.02129562539625034,
+      "longestClipRunMs": 2.2675736961451247,
+      "pcmMono8kSha256": "91cd7dd55c402c7f9f98ba915f9f3d3899dbe5f4a008403b4858afd9f38d33c1",
+      "owners": [
+        {
+          "subject": "invoker_sun_strike",
+          "event": "Hero_Invoker.SunStrike.Ignite",
+          "basis": "reviewed-selected-event"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/muerta/deadshot_cast.wav",
+      "duration": 1.4318820861678005,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.22397067708136412,
+      "rmsDbfs": -12.9961767418309,
+      "clippedSampleFraction": 0.0035314984322047317,
+      "longestClipRunMs": 0.5668934240362812,
+      "pcmMono8kSha256": "f9fea5bcec1638b5db4edb10052e608ad91e6af1592f34df9f680a7c30afdacf",
+      "owners": [
+        {
+          "subject": "muerta_dead_shot",
+          "event": "Hero_Muerta.DeadShot.Cast",
+          "basis": "reviewed-selected-event"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/sand_king/sand_king_epicenter_spell.wav",
+      "duration": 5.0791383219954644,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.3330721269743493,
+      "rmsDbfs": -9.549234191431674,
+      "clippedSampleFraction": 0.0287914639046386,
+      "longestClipRunMs": 5.668934240362812,
+      "pcmMono8kSha256": "3c5b4f641fedd9d4c3d16f6f266464fe9cb2c897cfab4cec05e74140547babfb",
+      "owners": [
+        {
+          "subject": "sandking_epicenter",
+          "event": "Ability.SandKing_Epicenter.spell",
+          "basis": "reviewed-selected-event"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/slark/dark_pact_cast.wav",
+      "duration": 2.893015873015873,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.27540126980288404,
+      "rmsDbfs": -11.200681233134965,
+      "clippedSampleFraction": 0.007050367606715681,
+      "longestClipRunMs": 0.45351473922902497,
+      "pcmMono8kSha256": "db1a47dcf6277dd19ffd2b3da16fb0474be8e67765eebd45a20c9bec2b9b3843",
+      "owners": [
+        {
+          "subject": "slark_dark_pact",
+          "event": "Hero_Slark.DarkPact.Cast",
+          "basis": "reviewed-selected-event"
+        },
+        {
+          "subject": "slark_dark_pact",
+          "event": "Hero_Slark.DarkPact.Cast.Immortal",
+          "basis": "npc-event-component"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/earth_spirit/rolling_boulder_cast.wav",
+      "duration": 1.0105895691609976,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.3404557340544601,
+      "rmsDbfs": -9.358786938202119,
+      "clippedSampleFraction": 0.006664123678955281,
+      "longestClipRunMs": 1.746031746031746,
+      "pcmMono8kSha256": "bdbb411856e85cd6c51c8cd6e4f98ed1ce6a84e06b09a332eff213d274bba346",
+      "owners": [
+        {
+          "subject": "earth_spirit_rolling_boulder",
+          "event": "Hero_EarthSpirit.RollingBoulder.Cast",
+          "basis": "reviewed-selected-event"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/mars/shield_bash.wav",
+      "duration": 3.4481632653061225,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.23719534827659686,
+      "rmsDbfs": -12.497876646595197,
+      "clippedSampleFraction": 0.003794454966329966,
+      "longestClipRunMs": 1.7913832199546487,
+      "pcmMono8kSha256": "cc0aea23d4e6c37d9437990443016cb6414998d0195561f9d52a217048c0163c",
+      "owners": [
+        {
+          "subject": "mars_gods_rebuke",
+          "event": "Hero_Mars.Shield.Cast",
+          "basis": "reviewed-selected-event"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lion/lion_voodoo.wav",
+      "duration": 1.8895238095238096,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.19808111189943853,
+      "rmsDbfs": -14.063138696087723,
+      "clippedSampleFraction": 0.006720430107526882,
+      "longestClipRunMs": 0.5215419501133787,
+      "pcmMono8kSha256": "2c47a20760bb3171e50a6321bca703708f9bbc51e4e2f9132f541f03b5908ca5",
+      "owners": [
+        {
+          "subject": "lion_voodoo",
+          "event": "Hero_Lion.Voodoo",
+          "basis": "reviewed-selected-event"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/queenofpain/queenofpain_screamofpain.wav",
+      "duration": 2.6942857142857144,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.26727686372336384,
+      "rmsDbfs": -11.460772668651732,
+      "clippedSampleFraction": 0.004616303927014426,
+      "longestClipRunMs": 0.36281179138321995,
+      "pcmMono8kSha256": "6902c0cb04f98b69c4ecb21d6b5d9152503bf313422b8bf941354b34f22de693",
+      "owners": [
+        {
+          "subject": "queenofpain_scream_of_pain",
+          "event": "Hero_QueenOfPain.ScreamOfPain",
+          "basis": "reviewed-selected-event"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/queenofpain/queenofpain_shadowstrike.wav",
+      "duration": 2.2603174603174603,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.17913643540233498,
+      "rmsDbfs": -14.936321439374133,
+      "clippedSampleFraction": 0.0018609550561797753,
+      "longestClipRunMs": 0.997732426303855,
+      "pcmMono8kSha256": "5531fa95c4ebddc06b54fd1615511b6d4848b5014615963b6c75f602f0e71324",
+      "owners": [
+        {
+          "subject": "queenofpain_shadow_strike",
+          "event": "Hero_QueenOfPain.ShadowStrike",
+          "basis": "reviewed-selected-event"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/warlock/rain_of_chaos_cast.wav",
+      "duration": 5.028367346938776,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.21126835629370616,
+      "rmsDbfs": -13.50331093128375,
+      "clippedSampleFraction": 0.0016753024789065213,
+      "longestClipRunMs": 2.0861678004535147,
+      "pcmMono8kSha256": "8539de31905792a8a3bf067c1b1330f8befcae83224c7bdd19f13c50240f254a",
+      "owners": [
+        {
+          "subject": "warlock_rain_of_chaos",
+          "event": "Hero_Warlock.RainOfChaos",
+          "basis": "reviewed-selected-event"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/primal_beast/onslaught_cast.wav",
+      "duration": 3.2565079365079366,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.38219734100468367,
+      "rmsDbfs": -8.354246774244414,
+      "clippedSampleFraction": 0.025697713283012562,
+      "longestClipRunMs": 1.8594104308390023,
+      "pcmMono8kSha256": "82ee8ad984b42d4bf433bc271f829b539320616b578287dd9c5c0adf9357b036",
+      "owners": [
+        {
+          "subject": "primal_beast_onslaught",
+          "event": "Hero_PrimalBeast.Onslaught.Cast",
+          "basis": "reviewed-selected-event"
+        },
+        {
+          "subject": "primal_beast_onslaught",
+          "event": "Hero_PrimalBeast.Onslaught.Vox",
+          "basis": "event-layer"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lich/chain_frost_impact_hero01.wav",
+      "duration": 1.7052154195011338,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.2292977092886882,
+      "rmsDbfs": -12.79200567803547,
+      "clippedSampleFraction": 0.005146276595744681,
+      "longestClipRunMs": 0.47619047619047616,
+      "pcmMono8kSha256": "4ad9f3f2bf95836134c4555fe612f6feed599fb01040a1f29f99cf62480e1e35",
+      "owners": [
+        {
+          "subject": "lich_chain_frost",
+          "event": "Hero_Lich.ChainFrostImpact.Hero",
+          "basis": "reviewed-selected-event"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/mek_cast.wav",
+      "duration": 4.472380952380952,
+      "sampleRate": 22050,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.2782331833296167,
+      "rmsDbfs": -11.111821507186463,
+      "clippedSampleFraction": 0.004274154295449015,
+      "longestClipRunMs": 1.0884353741496597,
+      "pcmMono8kSha256": "044af7191e9d081f187e896c590ff1f2db17ba68cff8a7aa3a45d2c6a131ef12",
+      "owners": [
+        {
+          "subject": "mekansm",
+          "event": "DOTA_Item.Mekansm.Activate",
+          "basis": "reviewed-selected-event"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_cyclone.wav",
+      "duration": 3.328299319727891,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.2498283324242478,
+      "rmsDbfs": -12.047166217735255,
+      "clippedSampleFraction": 0.0011003011350474866,
+      "longestClipRunMs": 0.3401360544217687,
+      "pcmMono8kSha256": "8f82a8a7f0dac87688fb4a57934c8bb9ddeabe48348dfd1bb1acc669c777ed4e",
+      "owners": [
+        {
+          "subject": "cyclone",
+          "event": "DOTA_Item.Cyclone.Activate",
+          "basis": "reviewed-selected-event"
+        },
+        {
+          "subject": "wind_waker",
+          "event": "DOTA_Item.Cyclone.Activate",
+          "basis": "named-item-effect"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/misc/morph_in.wav",
+      "duration": 1.333265306122449,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.2352228840782214,
+      "rmsDbfs": -12.57040858853019,
+      "clippedSampleFraction": 0.00952429545725122,
+      "longestClipRunMs": 0.5215419501133787,
+      "pcmMono8kSha256": "82081444e550115615793c13a947c36738ad96841ddd39259a0c563c8cf4c885",
+      "owners": [
+        {
+          "subject": "sheepstick",
+          "event": "DOTA_Item.Sheepstick.Activate",
+          "basis": "reviewed-selected-event"
+        }
+      ]
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/item_mjoll_on.wav",
+      "duration": 4.443582766439909,
+      "sampleRate": 44100,
+      "channels": 2,
+      "peak": 1.0,
+      "rms": 0.23207867579075983,
+      "rmsDbfs": -12.687295244466911,
+      "clippedSampleFraction": 0.015163654177850807,
+      "longestClipRunMs": 2.199546485260771,
+      "pcmMono8kSha256": "84474e7ae0c2c11f693591b6f1f64491c5e8f37d82b6a77f04bc634179fca6af",
+      "owners": [
+        {
+          "subject": "mjollnir",
+          "event": "DOTA_Item.Mjollnir.Activate",
+          "basis": "reviewed-selected-event"
+        }
+      ]
+    }
+  ]
+}

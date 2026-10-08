@@ -9,7 +9,7 @@ import { randomUUID } from "node:crypto";
 
 const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const json = { "Content-Type": "application/json" };
+const json = { "Content-Type": "application/json", Origin: new URL(appUrl).origin };
 
 const hostId = `party-host-${randomUUID()}`;
 const guestId = `party-guest-${randomUUID()}`;
@@ -41,10 +41,8 @@ async function waitPhase(playerId, phase, timeout) {
 
 const created = await post("/api/private-rooms", { playerId: hostId, code, name: "Host", games: ["echo-hunt"] });
 if (created.status !== 200) throw new Error(`Could not create the party (${created.status}).`);
-const joined = await fetch(
-  `${appUrl}/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(guestId)}&name=${encodeURIComponent("Guest")}`,
-);
-if (!joined.ok) throw new Error(`Guest could not join (${joined.status}).`);
+const joined = await post("/api/private-rooms", { action: "join", code, playerId: guestId, name: "Guest" });
+if (joined.status !== 200) throw new Error(`Guest could not join (${joined.status}).`);
 const started = await post("/api/private-rooms/start", { playerId: hostId, code });
 if (started.status !== 200) throw new Error(`Could not start the party (${started.status}).`);
 
@@ -53,7 +51,15 @@ const audioSrc = answering.question?.audio?.src;
 if (typeof audioSrc !== "string" || !audioSrc.startsWith("/api/round-audio?")) {
   throw new Error(`Echo Hunt party round has no proxied audio (${JSON.stringify(answering.question?.audio)}).`);
 }
-const audio = await fetch(`${appUrl}${audioSrc}`, { cache: "no-store" });
+const mediaUrl = new URL(audioSrc, appUrl);
+for (const method of ["GET", "HEAD"]) {
+  const denied = await fetch(mediaUrl, { method, cache: "no-store" });
+  if (denied.status !== 403) throw new Error(`A stranger could request party audio with ${method} (${denied.status}).`);
+}
+const imageDenied = await fetch(`${appUrl}/api/round-image?roundId=${encodeURIComponent(answering.round.id)}`);
+if (imageDenied.status !== 403) throw new Error(`A stranger could request party images (${imageDenied.status}).`);
+mediaUrl.searchParams.set("playerId", hostId);
+const audio = await fetch(mediaUrl, { cache: "no-store" });
 if (audio.status === 409 || audio.status === 404 || audio.status === 400) {
   throw new Error(`Party round audio was refused with ${audio.status}; the proxy only knows the public room.`);
 }
@@ -119,10 +125,13 @@ if (newHostStart.status !== 200) {
 }
 
 const reveal = await waitPhase(guestId, "reveal", 30_000);
-const prewarm = await fetch(`${appUrl}/api/round-audio?roundId=${encodeURIComponent(reveal.round.id)}`, {
-  method: "HEAD",
-  cache: "no-store",
-});
+const prewarm = await fetch(
+  `${appUrl}/api/round-audio?roundId=${encodeURIComponent(reveal.round.id)}&playerId=${guestId}`,
+  {
+    method: "HEAD",
+    cache: "no-store",
+  },
+);
 if (prewarm.status !== 204) throw new Error(`Party next-round audio prewarm returned ${prewarm.status}.`);
 
-console.log("Validated party audio, member-only votes and chat, and host pass.");
+console.log("Validated member-only party audio, images, votes and chat, and host pass.");

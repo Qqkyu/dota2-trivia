@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+ci_probe_dir=/tmp/queue-arcade-launch-ci/pg17-preflight
+ci_probe_stamp=$(date -u +%Y%m%dT%H%M%SZ)
+ci_probe_client=queue-ci-pg17-client-${ci_probe_stamp}
+ci_probe_database=queue-ci-pg17-db-${ci_probe_stamp}
+ci_probe_network=queue-ci-pg17-network-${ci_probe_stamp}
+ci_probe_cleanup() {
+  docker rm --force "$ci_probe_client" "$ci_probe_database" > "$ci_probe_dir/cleanup.log" 2>&1 || true
+  docker network rm "$ci_probe_network" >> "$ci_probe_dir/cleanup.log" 2>&1 || true
+}
+trap ci_probe_cleanup EXIT
+docker network create "$ci_probe_network" > "$ci_probe_dir/network-id.txt"
+docker run --detach --name "$ci_probe_client" --cpus 0.5 --memory 768m --memory-swap 768m \
+  --network "$ci_probe_network" --entrypoint sleep queue-arcade-ci-runner:20261006 infinity \
+  > "$ci_probe_dir/client-id.txt"
+docker cp "$ci_probe_dir/install-client.sh" "$ci_probe_client:/tmp/install-client.sh"
+docker exec --user runner --env PG_BIN_DIR=/usr/lib/postgresql/17/bin "$ci_probe_client" \
+  bash /tmp/install-client.sh > "$ci_probe_dir/install.log" 2>&1
+docker run --detach --name "$ci_probe_database" --cpus 0.25 --memory 256m --memory-swap 256m \
+  --network "$ci_probe_network" --network-alias database \
+  --env POSTGRES_DB=ci_source --env POSTGRES_PASSWORD=isolated_pg17_ci_preflight \
+  postgres:17-alpine@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24 \
+  > "$ci_probe_dir/database-id.txt"
+for ci_probe_attempt in {1..45}; do
+  if docker exec "$ci_probe_database" pg_isready --host 127.0.0.1 --username postgres --dbname ci_source > /dev/null; then break; fi
+  sleep 1
+done
+docker exec "$ci_probe_database" psql --username postgres --dbname ci_source --set ON_ERROR_STOP=1 \
+  --command "CREATE TABLE backup_check (id integer PRIMARY KEY, label text NOT NULL); INSERT INTO backup_check VALUES (1, 'first'), (2, 'second');" \
+  > "$ci_probe_dir/source.log"
+docker exec "$ci_probe_database" createdb --username postgres ci_restored
+docker exec --user runner --env PGPASSWORD=isolated_pg17_ci_preflight "$ci_probe_client" \
+  /usr/lib/postgresql/17/bin/pg_dump --format=custom --file=/tmp/ci-roundtrip.dump \
+  --dbname=postgresql://postgres@database:5432/ci_source
+docker exec --user runner --env PGPASSWORD=isolated_pg17_ci_preflight "$ci_probe_client" \
+  /usr/lib/postgresql/17/bin/pg_restore --exit-on-error --no-owner --no-acl \
+  --dbname=postgresql://postgres@database:5432/ci_restored /tmp/ci-roundtrip.dump
+docker exec "$ci_probe_database" psql --username postgres --dbname ci_restored --tuples-only --no-align \
+  --set ON_ERROR_STOP=1 --command "SELECT json_build_object('serverVersion',current_setting('server_version'),'rowCount',COUNT(*),'labels',string_agg(label,',' ORDER BY id)) FROM backup_check;" \
+  > "$ci_probe_dir/roundtrip.json"
+docker exec "$ci_probe_client" bash -c 'dpkg-query --show postgresql-client-17 libpq5; /usr/lib/postgresql/17/bin/pg_dump --version; /usr/lib/postgresql/17/bin/pg_restore --version; sha256sum /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc; cat /etc/apt/sources.list.d/pgdg.sources' \
+  > "$ci_probe_dir/client-versions.log"
+docker inspect "$ci_probe_client" --format '{"image":{{json .Image}},"cpus":{{.HostConfig.NanoCpus}},"memory":{{.HostConfig.Memory}},"privileged":{{.HostConfig.Privileged}}}' \
+  > "$ci_probe_dir/client-container.json"
+python3 - "$ci_probe_dir/roundtrip.json" <<'PY'
+import json,sys
+result=json.load(open(sys.argv[1]))
+assert result['serverVersion'].startswith('17.'), result
+assert result['rowCount']==2 and result['labels']=='first,second', result
+print('PostgreSQL 17 signed client installation and dump/restore round trip passed.')
+PY

@@ -10,9 +10,12 @@ import {
   SOUNDCHECK_DEFINITIONS,
   soundcheckAudioUrl,
   soundcheckClips,
+  soundcheckEventDetails,
+  soundcheckPcmPreviewAudit,
   soundcheckSharedAudioAlternatives,
   soundcheckSource,
 } from "./soundcheck-audit.mjs";
+import { soundcheckClipTiming } from "../src/lib/soundcheck.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const outputPath = join(root, "src", "data", "soundcheck-questions.json");
@@ -61,24 +64,6 @@ function hasActiveBehavior(record) {
   return behaviors.some((behavior) => typeof behavior === "string" && behavior !== "Passive" && behavior !== "Hidden");
 }
 
-function eventBody(contents, event) {
-  const escapedEvent = event.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const assignment = new RegExp(`^[\\t ]*${escapedEvent}[\\t ]*=`, "m").exec(contents);
-  if (!assignment) return null;
-
-  const openingBrace = contents.indexOf("{", assignment.index + assignment[0].length);
-  if (openingBrace < 0) return null;
-
-  let depth = 0;
-  for (let index = openingBrace; index < contents.length; index += 1) {
-    if (contents[index] === "{") depth += 1;
-    if (contents[index] !== "}") continue;
-    depth -= 1;
-    if (depth === 0) return contents.slice(openingBrace + 1, index);
-  }
-  return null;
-}
-
 const auditedClips = SOUNDCHECK_DEFINITIONS.flatMap((definition) =>
   soundcheckClips(definition).map((clip) => ({ definition, clip })),
 );
@@ -95,11 +80,12 @@ const eventFileContents = new Map(
 
 await Promise.all(
   auditedClips.map(async ({ definition, clip }) => {
-    const body = eventBody(eventFileContents.get(clip.eventFile) ?? "", clip.event);
+    const event = soundcheckEventDetails(eventFileContents.get(clip.eventFile) ?? "", clip.event);
     const sourceVsnd = clip.audioPath.replace(/\.wav$/, ".vsnd");
-    const eventSounds = [...(body?.matchAll(/"([^"]+\.vsnd)"/g) ?? [])].map((match) => match[1]);
-    const eventDuration = Number(body?.match(/vsnd_duration\s*=\s*([0-9.]+)/)?.[1]);
-    if (!body || !eventSounds.includes(sourceVsnd)) {
+    const eventSounds = event?.audioPaths ?? [];
+    const eventDuration = event?.duration;
+    soundcheckClipTiming(clip);
+    if (!event || !eventSounds.includes(sourceVsnd)) {
       throw new Error(
         `${definition.family}:${clip.subject} no longer maps ${clip.event} to ${sourceVsnd} (found ${eventSounds.join(", ") || "no sound"}).`,
       );
@@ -121,6 +107,10 @@ const browserAudioResults = await Promise.all(
     }
     const bytes = Buffer.from(await response.arrayBuffer());
     if (bytes.length < 128) return { error: `${clip.subject} returned an empty browser audio asset (${url}).` };
+    const preview = soundcheckPcmPreviewAudit(bytes, clip);
+    if (Math.abs(preview.duration - clip.duration) > 0.02 || preview.stages.some((stage) => stage.rms < 0.0001)) {
+      return { error: `${clip.subject} has a silent preview or a source-duration mismatch (${url}).` };
+    }
     return { digest: createHash("sha256").update(bytes).digest("hex"), url };
   }),
 );
@@ -229,7 +219,7 @@ const questions = SOUNDCHECK_DEFINITIONS.map((definition, index) => {
     difficulty: definition.difficulty,
     eyebrow: isSequence
       ? "Soundcheck · Ordered pair"
-      : `Soundcheck · ${definition.family === "ability" ? "Ability sound" : "Item activation"}`,
+      : `Soundcheck · ${definition.family === "ability" ? "Ability sound" : "Item sound"}`,
     prompt: isSequence ? "Match both sounds." : "Match the sound.",
     answers,
     ...(answerImages ? { answerImages } : {}),
@@ -238,7 +228,7 @@ const questions = SOUNDCHECK_DEFINITIONS.map((definition, index) => {
     correctIndex,
     explanation: isSequence
       ? `The sequence was ${subjectName}, then ${secondSubjectName}.`
-      : `That was the ${definition.family === "ability" ? "gameplay" : "activation"} sound for ${subjectName}.`,
+      : `That was the gameplay sound for ${subjectName}.`,
     audio: {
       src: soundcheckAudioUrl(clips[0]),
       clips: clips.map(soundcheckAudioUrl),
@@ -259,6 +249,7 @@ const questions = SOUNDCHECK_DEFINITIONS.map((definition, index) => {
         event: clip.event,
         eventFile: clip.eventFile,
         duration: clip.duration,
+        ...(clip.startSeconds !== undefined ? { startSeconds: clip.startSeconds } : {}),
         audioSha256: browserAudioDigests.get(soundcheckAudioUrl(clip)),
       })),
       audit: {

@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-06",
+  "archivedAt": "2026-10-06T09:03:34.114330+00:00",
+  "scope": "This manifest covers the direct evidence files in this folder. It does not hash itself.",
+  "originalReport": {
+    "path": "/tmp/queue-arcade-deep-review/aghanim.md",
+    "sha256": "02f986e63c150b0824ec71ba0ceeedc1403e97d2b3ec66666be9fa4218ae6923",
+    "bytes": 10307
+  },
+  "reportEdits": "Updated paths to durable evidence, added repeat commands and final archive checks, and retained the factual review scope. The Shopkeeper report also links the later separate icon review.",
+  "files": {
+    "README.md": {
+      "sha256": "9a37029cee532713ac5354f7ae19089c9395c095fddab8ff7321177dea493d0f",
+      "bytes": 14005
+    },
+    "aghanim-facts.test.mjs.txt": {
+      "sha256": "6038a2ef79794157739cadc7dd6cdbf1f1adc890e056a538fb25c96bb471dd61",
+      "bytes": 16271
+    },
+    "aghanim-ledger.json": {
+      "sha256": "9228515d1a3f9ab1683e63a1a2c2a2beeed94eebcb62238e4558ca1498cd41da",
+      "bytes": 132608
+    },
+    "aghanim-source-comparison.json": {
+      "sha256": "bb012bf1afc381fbd311fd69f2544136d589deeba42afdf22382c201a490914b",
+      "bytes": 521325
+    },
+    "aghanim-strict-final.log": {
+      "sha256": "adf71b20d5917f7a2e9629f1629bc46d5c33a7d30d6836a59a7bbcc5eb4fd93c",
+      "bytes": 89
+    },
+    "aghanim-valve-7.41f.json": {
+      "sha256": "fdd0246026dbff4c033773b64812c448f51ee1aedd024b79a4a9d74fd1b34816",
+      "bytes": 137697
+    },
+    "archive-verification.json": {
+      "sha256": "544ef6bf78b2c6aa74879bc7e28c10793048010cf5cdf12f5fcdef6aa7435531",
+      "bytes": 916
+    },
+    "focused-tests.log": {
+      "sha256": "4461d9602d9cf3992e3ea0055b38423549a757257a9686eca5abc505d1e90c17",
+      "bytes": 196
+    }
+  },
+  "reviewedRepositoryFiles": {
+    "src/data/aghanim-questions.json": {
+      "sha256": "7cbe040efd07b0b676c05b25235f53baa124d2bfe43abd5b758c7a8acbfc001e",
+      "bytes": 132045
+    },
+    "src/data/aghanim-upgrades.json": {
+      "sha256": "1dff4dcee3c9214273a49fba7f53d96318dbb4a87f285634386669dbcb350665",
+      "bytes": 52717
+    },
+    "scripts/generate-aghanim.mjs": {
+      "sha256": "5bf4f55569ee19b7676369bbb8404ca5fbc7ad668554a0caad77c7612a005788",
+      "bytes": 3337
+    },
+    "scripts/validate-aghanim.mjs": {
+      "sha256": "bc362290ccdf5b1de4361abd7fe69c708b4df6e405dc2d14415c831583743c85",
+      "bytes": 9482
+    },
+    "tests/aghanim-facts.test.mjs": {
+      "sha256": "6038a2ef79794157739cadc7dd6cdbf1f1adc890e056a538fb25c96bb471dd61",
+      "bytes": 16271
+    },
+    "tests/fixtures/aghanim-valve-7.41f.json": {
+      "sha256": "fdd0246026dbff4c033773b64812c448f51ee1aedd024b79a4a9d74fd1b34816",
+      "bytes": 137697
+    },
+    "src/lib/public-question.mjs": {
+      "sha256": "65b09ccd69aa458b96d7e4700710b93567b1683d7127355def2c1fac493018e4",
+      "bytes": 11523
+    }
+  },
+  "sharedPrimaryArchive": {
+    "path": "../sources/valve-api-2026-10-06.tar.gz",
+    "sha256": "6e9ef5cf480cfe8cdf559ce70bab7d06c4df03dbfc5074c5641a8dd0f7305a8e",
+    "bytes": 1057556
+  },
+  "sharedPrimaryManifest": {
+    "path": "../sources/valve-api-manifest.json",
+    "sha256": "23907ffb406f17628d297857ea5a33176f75b9c5c9e8b76ff846e248bed75dbd",
+    "bytes": 61721
+  }
+}

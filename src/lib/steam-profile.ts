@@ -1,4 +1,4 @@
-import { upsertSteamUser, type SteamIdentityInput } from "@/lib/account-store";
+import { updateSteamUser, type SteamIdentityInput } from "@/lib/account-store";
 import type { AccountUser } from "@/lib/account-contract";
 import {
   FALLBACK_STEAM_DISPLAY_NAME,
@@ -113,5 +113,5 @@ export async function refreshSteamIdentityIfNeeded(user: AccountUser, now = Date
 
   const identity = await steamIdentityProfile(user.steamId, now);
   if (steamIdentityNeedsEnrichment(identity)) return user;
-  return upsertSteamUser(identity);
+  return (await updateSteamUser(user.id, identity)) ?? user;
 }

@@ -18,6 +18,7 @@ import {
   NON_TRIVIA_SPELL_OWNER_KEYS,
 } from "./question-quality-audit.mjs";
 import { buildSpellHint, containsAbilityLeak, containsAnswerLeak, containsFullNameLeak } from "./spell-hints.mjs";
+import { NUMERIC_SOURCE_LABEL, numericDetail } from "./numeric-question-copy.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const questions = JSON.parse(await readFile(join(root, "src", "data", "questions.generated.json"), "utf8"));
@@ -28,6 +29,17 @@ const ids = new Set();
 const contentSignatures = new Map();
 const imageUrls = new Set();
 const audioUrls = new Set();
+const numericKinds = new Set([
+  "mana-cost",
+  "cooldown",
+  "ability-damage",
+  "hero-move-speed",
+  "hero-stat-duel",
+  "item-cost",
+  "item-price-duel",
+]);
+const primaryNumericUrl = (url) =>
+  /^https:\/\/www\.dota2\.com\/datafeed\/(hero|ability|item)data\?language=english&\1_id=[1-9]\d*$/.test(url ?? "");
 const isVoiceVocalization = (word) =>
   /^(?:a+h+|h+a+h*|h+e+h+|h+o+h*|h+u+h+|(?:ha){2,}h?|(?:ah){2,}a?|(?:he){2,}h?|(?:eh){2,}e?|(?:ho){2,}h?|(?:oh){2,}o?|hm+|hmm+|e+h+|o+h+|u+gh+|gr+r+|ar+gh+)$/i.test(
     word,
@@ -237,9 +249,26 @@ for (const [index, question] of questions.entries()) {
   if (!/^https:\/\//.test(question.source?.url ?? "")) failures.push(`${label}: source URL is invalid.`);
   if (
     liveClientKinds.has(question.kind) &&
+    !numericKinds.has(question.kind) &&
+    question.kind !== "spell-owner" &&
     question.source?.label !== `Dota 2 live-client audit · build ${CLIENT_CONSTANT_AUDIT.clientBuild}`
   ) {
     failures.push(`${label}: current-client answer audit is missing from the source stamp.`);
+  }
+  if (question.kind === "spell-owner" && !primaryNumericUrl(question.source?.url)) {
+    failures.push(`${label}: a direct Valve hero or ability data source is required.`);
+  }
+  if (numericKinds.has(question.kind)) {
+    if (
+      question.source?.label !== NUMERIC_SOURCE_LABEL ||
+      !primaryNumericUrl(question.source?.url) ||
+      !question.source?.references?.length ||
+      question.source.references.some((reference) => !reference.label || !primaryNumericUrl(reference.url))
+    )
+      failures.push(`${label}: primary numeric source references are missing.`);
+    if (question.detail !== numericDetail(question.kind, question.id.split(":")[1], question.answers)) {
+      failures.push(`${label}: visible numeric conditions are missing.`);
+    }
   }
   if (question.patch !== metadata.patch) failures.push(`${label}: patch does not match metadata.`);
 }

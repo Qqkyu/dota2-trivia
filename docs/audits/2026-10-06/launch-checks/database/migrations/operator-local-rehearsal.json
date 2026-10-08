@@ -1,0 +1,231 @@
+{
+  "localOnly": true,
+  "startedAt": "2026-10-06T13:24:42.519Z",
+  "referenceSha256": "ec73a511692a2625467d959097747c86febb5e4a571a6414d89dc6abc6412dd9",
+  "cases": [
+    {
+      "scenario": "success",
+      "checks": {
+        "restoredAll58OriginalRows": true,
+        "onlyReadOnlyRuntimeChecksBeforePublication": true,
+        "verifiedCredentialPublishedMode0600": true,
+        "all58OldRowsUnchangedAndTwoMigrationRowsAdded": true,
+        "copiedDatabaseAndNewRolesRemoved": true,
+        "generatedCredentialFilesRemoved": true
+      },
+      "status": "passed",
+      "ownerFlags": {
+        "rolsuper": false,
+        "rolcreatedb": true,
+        "rolcreaterole": true
+      },
+      "helper": {
+        "ok": true,
+        "transactionCommitted": true,
+        "stage": null,
+        "errorCode": null,
+        "appliedMigrations": [
+          1,
+          2
+        ],
+        "allOriginalHashesPreserved": true,
+        "runtimeAuthenticated": true,
+        "runtimeReadinessPassed": true,
+        "runtimeCheckReadOnly": true
+      },
+      "runtimeRights": {
+        "runtime_identity": true,
+        "schema_create": false,
+        "database_create": false,
+        "temporary": false,
+        "ledger_read": true,
+        "ledger_write": false
+      },
+      "originalTableHashes": [
+        {
+          "name": "queue_arcade_alpha_sessions",
+          "rows": 7,
+          "sha256": "2d0aec1450a353b1e29b1f3e7780bb2fac81ecd9cd085ad09b95ed1bb498ac5a"
+        },
+        {
+          "name": "queue_arcade_player_rounds",
+          "rows": 20,
+          "sha256": "2a1e43e3a253c2f2a206808172fd5446df9242066ec29ab3cb045ce44dfd3155"
+        },
+        {
+          "name": "queue_arcade_question_reporters",
+          "rows": 1,
+          "sha256": "a123fc8635da5d16f8cd77dbf209a823676d9495ce38f756e3625c26369bff36"
+        },
+        {
+          "name": "queue_arcade_question_reviews",
+          "rows": 1,
+          "sha256": "ee06a004f2f38c2bdd1081c5c7cfd223fbdc80b11bf38ea0b84c5b45a306a422"
+        },
+        {
+          "name": "queue_arcade_question_stats",
+          "rows": 19,
+          "sha256": "646b7e3fc8be9c237c17dfe2db5c281ac7fcf13923b8a57168f24a02ad5e1739"
+        },
+        {
+          "name": "queue_arcade_round_votes",
+          "rows": 3,
+          "sha256": "3cbcf2c798429c6cb91d86302319d727a269eb038ef961c952b703aa3b2a649d"
+        },
+        {
+          "name": "queue_arcade_rounds",
+          "rows": 3,
+          "sha256": "d6972054035204803db1d0127ab60164133aebff3f7a7a7b90842ba170a050f6"
+        },
+        {
+          "name": "queue_arcade_user_identities",
+          "rows": 1,
+          "sha256": "63875477d3ec1cc5e3867d933a717a3433994e6098ded627209160325c0b6bad"
+        },
+        {
+          "name": "queue_arcade_user_sessions",
+          "rows": 2,
+          "sha256": "45da99e66ec0bb0d5cfdf93d4bf5b1d3a1e44375dc3255ec2c6ea37318bedc89"
+        },
+        {
+          "name": "queue_arcade_users",
+          "rows": 1,
+          "sha256": "78eb69ab3aeb5942d26d1c85e483991725f0bd2ef39edc2eefdb5c2c81e85a68"
+        }
+      ],
+      "finalTableHashes": [
+        {
+          "name": "queue_arcade_alpha_round_events",
+          "rows": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "queue_arcade_alpha_sessions",
+          "rows": 7,
+          "sha256": "79f16966253e72463a8c1260d9095880116e52025c1a6163b5d4107565dddfe1"
+        },
+        {
+          "name": "queue_arcade_player_rounds",
+          "rows": 20,
+          "sha256": "48ac0483f68bc9dc000e9e38776467e45dc3df00d057dd75fc0c902b8d47a954"
+        },
+        {
+          "name": "queue_arcade_question_reporters",
+          "rows": 1,
+          "sha256": "a123fc8635da5d16f8cd77dbf209a823676d9495ce38f756e3625c26369bff36"
+        },
+        {
+          "name": "queue_arcade_question_reviews",
+          "rows": 1,
+          "sha256": "ee06a004f2f38c2bdd1081c5c7cfd223fbdc80b11bf38ea0b84c5b45a306a422"
+        },
+        {
+          "name": "queue_arcade_question_stats",
+          "rows": 19,
+          "sha256": "646b7e3fc8be9c237c17dfe2db5c281ac7fcf13923b8a57168f24a02ad5e1739"
+        },
+        {
+          "name": "queue_arcade_round_votes",
+          "rows": 3,
+          "sha256": "3cbcf2c798429c6cb91d86302319d727a269eb038ef961c952b703aa3b2a649d"
+        },
+        {
+          "name": "queue_arcade_rounds",
+          "rows": 3,
+          "sha256": "d6972054035204803db1d0127ab60164133aebff3f7a7a7b90842ba170a050f6"
+        },
+        {
+          "name": "queue_arcade_schema_migrations",
+          "rows": 2,
+          "sha256": "b48e82cec17db0343312103f70dbe554b3be284da85fa5a4509a01da08473e73"
+        },
+        {
+          "name": "queue_arcade_steam_nonces",
+          "rows": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "queue_arcade_user_identities",
+          "rows": 1,
+          "sha256": "63875477d3ec1cc5e3867d933a717a3433994e6098ded627209160325c0b6bad"
+        },
+        {
+          "name": "queue_arcade_user_sessions",
+          "rows": 2,
+          "sha256": "45da99e66ec0bb0d5cfdf93d4bf5b1d3a1e44375dc3255ec2c6ea37318bedc89"
+        },
+        {
+          "name": "queue_arcade_users",
+          "rows": 1,
+          "sha256": "78eb69ab3aeb5942d26d1c85e483991725f0bd2ef39edc2eefdb5c2c81e85a68"
+        }
+      ]
+    },
+    {
+      "scenario": "data-mismatch",
+      "checks": {
+        "restoredAll58OriginalRows": true,
+        "noVerifiedCredentialPublished": true,
+        "schemaRowsGrantsAndRoleRolledBack": true,
+        "copiedDatabaseAndNewRolesRemoved": true,
+        "generatedCredentialFilesRemoved": true
+      },
+      "status": "passed",
+      "ownerFlags": {
+        "rolsuper": false,
+        "rolcreatedb": true,
+        "rolcreaterole": true
+      },
+      "helper": {
+        "ok": false,
+        "transactionCommitted": false,
+        "stage": "atomic-migration-and-grants",
+        "errorCode": "BEFORE_DATA_MISMATCH",
+        "appliedMigrations": [],
+        "allOriginalHashesPreserved": false,
+        "runtimeAuthenticated": false,
+        "runtimeReadinessPassed": false,
+        "runtimeCheckReadOnly": false
+      }
+    },
+    {
+      "scenario": "late-grant-failure",
+      "checks": {
+        "restoredAll58OriginalRows": true,
+        "noVerifiedCredentialPublished": true,
+        "schemaRowsGrantsAndRoleRolledBack": true,
+        "failureOccurredAfterMigrationAndRoleCreation": true,
+        "copiedDatabaseAndNewRolesRemoved": true,
+        "generatedCredentialFilesRemoved": true
+      },
+      "status": "passed",
+      "ownerFlags": {
+        "rolsuper": false,
+        "rolcreatedb": true,
+        "rolcreaterole": true
+      },
+      "helper": {
+        "ok": false,
+        "transactionCommitted": false,
+        "stage": "atomic-migration-and-grants",
+        "errorCode": "P0001",
+        "appliedMigrations": [
+          1,
+          2
+        ],
+        "allOriginalHashesPreserved": true,
+        "runtimeAuthenticated": false,
+        "runtimeReadinessPassed": false,
+        "runtimeCheckReadOnly": false
+      }
+    }
+  ],
+  "cleanup": {
+    "allCopiedDatabasesAndRolesRemoved": true,
+    "allGeneratedCredentialFilesRemoved": true
+  },
+  "serverVersion": "17.11",
+  "ok": true,
+  "completedAt": "2026-10-06T13:24:57.073Z",
+  "helperSha256": "0761c161df7a11089e78cc7ea0b6678b06ca0f142f4e24bc4381ada2b04edca8"
+}

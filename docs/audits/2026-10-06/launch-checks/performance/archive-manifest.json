@@ -1,0 +1,110 @@
+{
+  "recordedAt": "2026-10-06",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 6248,
+      "sha256": "836cbbaa25b211e5a23cb55fb74da6e10d87eeb2dba3577c4637d80c456673d4"
+    },
+    {
+      "file": "check-container-profile.mjs.txt",
+      "bytes": 18868,
+      "sha256": "fad6b5cb56bc6e6b8f4b2d5f7337cf5b66bd3888c5baddee3692faa24aea5e78"
+    },
+    {
+      "file": "cpu-profile-summary.json",
+      "bytes": 161499,
+      "sha256": "4a3f6967f42437f9ce0bc2edefd5bd7ebd19c89b6a1a9b9ff491ec1c6a0bb3e6"
+    },
+    {
+      "file": "exclusive-profile-groups.json",
+      "bytes": 860,
+      "sha256": "f4b2faf9b22b7412df2429f8960cc1f664facaab819f080ab0b9d984259b3965"
+    },
+    {
+      "file": "launch-cpu-15-1.cpuprofile.gz",
+      "bytes": 158830,
+      "sha256": "ff0c80253edcd4c1620ce47e847455bd1b26a91a59742cafddb91d4230da06be"
+    },
+    {
+      "file": "launch-cpu-15-2.cpuprofile.gz",
+      "bytes": 160978,
+      "sha256": "c3a71e1ebc4b1be7fb11eb848b1dd1495679cd3060757387426fc26dbf7d7f11"
+    },
+    {
+      "file": "launch-cpu-15-3.cpuprofile.gz",
+      "bytes": 157858,
+      "sha256": "18940dba4fdf8203790341f1b5fa015578d2f7bd92f28f5d3fc3afe05417c84c"
+    },
+    {
+      "file": "launch-cpu-15-4.cpuprofile.gz",
+      "bytes": 155478,
+      "sha256": "f0b86742c2bf4f10e87ab86cd5c7c6ab08dc59777f576404774ea4c16095d296"
+    },
+    {
+      "file": "launch-cpu-15-5.cpuprofile.gz",
+      "bytes": 158078,
+      "sha256": "b2611892f0162273b277310ee4c753e68015373a010cf2a164c72b3539a07c28"
+    },
+    {
+      "file": "launch-cpu-15-6.cpuprofile.gz",
+      "bytes": 157485,
+      "sha256": "1191951b2f977d153412c85e53f78ca8719835903caf52681213cda5b5e2d4eb"
+    },
+    {
+      "file": "launch-cpu-15-7.cpuprofile.gz",
+      "bytes": 156405,
+      "sha256": "046b7e1a1f3598ba4b3765725f66433e03bb3563c86d8a18528533d537e58045"
+    },
+    {
+      "file": "launch-cpu-15-8.cpuprofile.gz",
+      "bytes": 157519,
+      "sha256": "cca848cf19fd7f522577a46f36d0187a264f2b23ddb4ab86c63926b02d61e987"
+    },
+    {
+      "file": "party-microbench.json",
+      "bytes": 535,
+      "sha256": "c1f2524b5e227cf56187658358dfecbede22effc02db5e0b3122929a85dcfce0"
+    },
+    {
+      "file": "party-microbench.mjs.txt",
+      "bytes": 3053,
+      "sha256": "9eb123f05a9ae28be9acaf2b603950c83990f433d050c371edbae99702b126c1"
+    },
+    {
+      "file": "process-summary.json",
+      "bytes": 935,
+      "sha256": "82f26d6bdd18517b14f73e1563b133f7ea5d886715422b4d792ee83b9aef8167"
+    },
+    {
+      "file": "profile-manifest.json",
+      "bytes": 2435,
+      "sha256": "6ce004b8c6674235af472f8a3244da6ebbc0da73b913e5f9792978025f9472ed"
+    },
+    {
+      "file": "quiet-capacity.log",
+      "bytes": 6075,
+      "sha256": "65be53acf5c6f0038cdc7ae5f01cea950f6338a442c628d7e2f81c6ca4b67cb0"
+    },
+    {
+      "file": "quiet-container-result.json",
+      "bytes": 4872,
+      "sha256": "036723b6f5d22eb9158a1f21166135189cf901564284b18dda6be92793f3d5e3"
+    },
+    {
+      "file": "source-manifest.json",
+      "bytes": 802,
+      "sha256": "b8834ce0d418a39b34975172124530d619a9e239f59f32aaba9bd66b44b0a092"
+    },
+    {
+      "file": "summarize-profiles.mjs.txt",
+      "bytes": 1197,
+      "sha256": "2da44c7b79044b227a33b9a6f0ad1919f0529ba2eab86ce6ca7105b654d9a40e"
+    },
+    {
+      "file": "workload-comparison.json",
+      "bytes": 96636,
+      "sha256": "9f4f68a48109136ef3e326e0d5f85607e81f54d8a25d8e7e1aaf3d8b1249592f"
+    }
+  ]
+}

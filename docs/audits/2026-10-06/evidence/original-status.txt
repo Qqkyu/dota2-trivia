@@ -1,0 +1,12 @@
+ M scripts/image-assets.mjs
+ M scripts/validate-shopkeeper.mjs
+ M src/app/api/rounds/route.ts
+ M src/components/queue-arcade.tsx
+ M src/data/shopkeeper-catalog.json
+ M src/data/shopkeeper-questions.json
+ M src/data/soundcheck-questions.json
+ M src/lib/arcade-contract.ts
+ M src/lib/trivia.ts
+?? public/arcade/items/
+?? src/lib/guest-accuracy.mjs
+?? tests/guest-accuracy.test.mjs

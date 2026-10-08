@@ -1,0 +1,26 @@
+[
+  {
+    "check": "data",
+    "exit": 0
+  },
+  {
+    "check": "lint",
+    "exit": 0
+  },
+  {
+    "check": "types",
+    "exit": 0
+  },
+  {
+    "check": "bundle",
+    "exit": 0
+  },
+  {
+    "check": "headers",
+    "exit": 0
+  },
+  {
+    "check": "content-release",
+    "exit": 0
+  }
+]

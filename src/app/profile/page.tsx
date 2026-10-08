@@ -42,6 +42,7 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
   const cookieStore = await cookies();
   const token = cookieStore.get(ACCOUNT_SESSION_COOKIE)?.value;
   let profile = null;
+  let unavailable = false;
   let roomRecords: Array<{ game: string; total: number; correct: number }> = [];
   try {
     const user = token ? await getUserBySession(sessionTokenHash(token)) : null;
@@ -49,6 +50,7 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
     profile = enriched ? await getAccountProfile(enriched.id, DEFAULT_GAME_ID) : null;
   } catch (error) {
     logServerError("profile.render", error);
+    unavailable = true;
   }
   if (profile) {
     try {
@@ -61,6 +63,21 @@ export default async function ProfilePage({ searchParams }: ProfilePageProps) {
     } catch (error) {
       logServerError("profile.room-compare", error);
     }
+  }
+
+  if (unavailable) {
+    return (
+      <SiteChrome current="profile">
+        <main className={styles.page} data-testid="profile-unavailable">
+          <section className={styles.emptyCard} role="alert">
+            <small>Personal records</small>
+            <h1>Your profile is unavailable.</h1>
+            <p>We could not load your records. Try again when the connection returns.</p>
+            <a href="/profile">Try again</a>
+          </section>
+        </main>
+      </SiteChrome>
+    );
   }
 
   if (!profile) {

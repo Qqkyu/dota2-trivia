@@ -1,0 +1,22 @@
+[
+  {
+    "kind": "membership",
+    "players": 446,
+    "iterations": 10000,
+    "milliseconds": 230.17934799999995,
+    "cpuMilliseconds": 253.688,
+    "meanMilliseconds": 0.023017934799999994,
+    "p95Milliseconds": 0.031807000000014796,
+    "responseBytes": 104407795
+  },
+  {
+    "kind": "roundRoomWork",
+    "players": 446,
+    "iterations": 10000,
+    "milliseconds": 84.52274399999999,
+    "cpuMilliseconds": 92.13,
+    "meanMilliseconds": 0.0084522744,
+    "p95Milliseconds": 0.010800000000017462,
+    "responseBytes": 0
+  }
+]

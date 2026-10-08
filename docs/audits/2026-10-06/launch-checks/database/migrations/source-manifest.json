@@ -1,0 +1,110 @@
+{
+  "reviewedAt": "2026-10-06",
+  "files": [
+    {
+      "file": "docs/audits/2026-10-06/launch-checks/database/migrations/migrations.md",
+      "bytes": 10557,
+      "sha256": "1e20db0ebeae0e46b44018f79d055e4a0b5c849d5631a17ea7d5ff481520052c"
+    },
+    {
+      "file": "docs/audits/2026-10-06/launch-checks/database/migrations/non-super-role-rehearsal.json",
+      "bytes": 1410,
+      "sha256": "d23b90cdcb770f863954f93440abd87ff724066fd5a38b98be3ff4b29127e9f6"
+    },
+    {
+      "file": "docs/audits/2026-10-06/launch-checks/database/migrations/non-super-role-rehearsal.md",
+      "bytes": 2564,
+      "sha256": "dfd8caf1ac42e7446ef543280cb544b5237423f9553334630d9334ad6157418a"
+    },
+    {
+      "file": "docs/audits/2026-10-06/launch-checks/database/migrations/non-super-role-rehearsal.mjs",
+      "bytes": 8014,
+      "sha256": "a021aed0a5d37835eed3c0f9fba7bc172c49dd8710528a64c1252a4f073d7c1b"
+    },
+    {
+      "file": "docs/audits/2026-10-06/launch-checks/database/migrations/operator-cli-regression.log",
+      "bytes": 181,
+      "sha256": "cbc3dcf8c146e58139ec417fc6d1fc1060a7b0ee5c5c10f82a927fac0d4dd5c3"
+    },
+    {
+      "file": "docs/audits/2026-10-06/launch-checks/database/migrations/postgres14-column-grants.log",
+      "bytes": 191,
+      "sha256": "2543a6200d751716114ca7ad74511ad31df64cd02d41af672e570718cf7dce4b"
+    },
+    {
+      "file": "docs/audits/2026-10-06/launch-checks/database/migrations/postgres14-tests.log",
+      "bytes": 182,
+      "sha256": "896f6639b546cca5e3d280b983d2e6c9ee507f04ffeda2f504b0117ec0ed89bb"
+    },
+    {
+      "file": "docs/audits/2026-10-06/launch-checks/database/migrations/postgres17-tests.log",
+      "bytes": 179,
+      "sha256": "ff1f62f32c563d9cff692122aed5bdbaa82590ba3e938893d2a98409e6360c39"
+    },
+    {
+      "file": "docs/audits/2026-10-06/launch-checks/database/migrations/render-backup-migration.json",
+      "bytes": 32052,
+      "sha256": "ec73a511692a2625467d959097747c86febb5e4a571a6414d89dc6abc6412dd9"
+    },
+    {
+      "file": "docs/audits/2026-10-06/launch-checks/database/migrations/restore-render-verification.mjs",
+      "bytes": 11122,
+      "sha256": "0eba78634d4503a467d753ad58ce3e0326d841a3ede1703f249071a298ae8673"
+    },
+    {
+      "file": "scripts/cleanup-db.mjs",
+      "bytes": 950,
+      "sha256": "630a6ced2494226ac0aa8e9a220b7cafc99df2a600a576b65d8e172aa57b9720"
+    },
+    {
+      "file": "scripts/database-backup.mjs",
+      "bytes": 17332,
+      "sha256": "f4060a7274dc009df6438c699cb57824fd1ea93c5cd9ef9e916340693ee2266b"
+    },
+    {
+      "file": "scripts/database-runtime-grants.mjs",
+      "bytes": 3623,
+      "sha256": "daff662cdd93f519447c5e2670f83700028d306bb7fc8debf16fbdcc57d6ef02"
+    },
+    {
+      "file": "scripts/grant-runtime-db.mjs",
+      "bytes": 1096,
+      "sha256": "9ec4e40714b62d2e2947bd2625e43aae37b8144ead2cdf72500b0785730d3383"
+    },
+    {
+      "file": "scripts/migrate-db.mjs",
+      "bytes": 912,
+      "sha256": "143e3e88cfe513e414ee3ee4b385a24af4ae235e25c68e01cf79769ce98b3ceb"
+    },
+    {
+      "file": "src/lib/database-schema.mjs",
+      "bytes": 14018,
+      "sha256": "ea36b40a7a1808dbd117f7a2bc4bdd0a63e0db451bd018e944e9a6e4d246991e"
+    },
+    {
+      "file": "tests/database-cli-connection.test.mjs",
+      "bytes": 2999,
+      "sha256": "6312412f1db5de12528dc3173bc109b2e0191445c244c58b0a769207915515af"
+    },
+    {
+      "file": "tests/database-launch-migrations.test.mjs",
+      "bytes": 18523,
+      "sha256": "0309623df3976c9a70fa63916411961726852f372c59e0e610f7261627fff1d3"
+    },
+    {
+      "file": "tests/database-schema.test.mjs",
+      "bytes": 15536,
+      "sha256": "b6ec7351acf078cf1fd218b3d171649c7fa2e03e3945c09cc47697bcf4799867"
+    },
+    {
+      "file": "tests/helpers/source-store-loader.mjs",
+      "bytes": 1825,
+      "sha256": "0bad615e111d487c125b009adee38fba7c41142a15444d874d4378f2595069b5"
+    },
+    {
+      "file": "tests/postgres-store.test.mjs",
+      "bytes": 9795,
+      "sha256": "a5886412502dfc12a67c4fd74dded35997749adc96f20e3d1f014d58bcc48d55"
+    }
+  ]
+}

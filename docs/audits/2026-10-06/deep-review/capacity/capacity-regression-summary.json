@@ -1,0 +1,25 @@
+{
+  "ok": true,
+  "buildId": "a9jO2vwwKVTSsroYDHJJW",
+  "scriptSha256": "0dedf34f66a36b9cf8f83ef2ef0fc242e648046cf046df1b3048e993c2027f78",
+  "startedAt": 1791276862087,
+  "endedAt": 1791276904164,
+  "seconds": 42.077,
+  "players": 4,
+  "roundsPerPlayer": 2,
+  "requests": 379,
+  "bytes": 669707,
+  "statuses": {
+    "200": 349,
+    "204": 7,
+    "409": 14,
+    "429": 9
+  },
+  "peakOutstandingHttp": 4,
+  "metricSamples": 42,
+  "maxRssMiB": 150.73828125,
+  "maxHeapUsedMiB": 74.55220794677734,
+  "maxEventLoopDelayMs": 94.044159,
+  "maxEventLoopUtilization": 0.15753160034807331,
+  "scope": "Small regression on final candidate. This does not repeat the 466-player capacity window."
+}

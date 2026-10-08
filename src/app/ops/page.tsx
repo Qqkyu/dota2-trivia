@@ -115,7 +115,7 @@ export default async function OpsPage() {
         <span>
           <Activity /> Private alpha pulse
         </span>
-        <h1>Is the arcade landing?</h1>
+        <h1>Arcade activity</h1>
         <p>Anonymous visits from the last {sessions.windowDays} days. Format health uses current question revisions.</p>
       </section>
 
@@ -158,13 +158,23 @@ export default async function OpsPage() {
             <span>14-day activity</span>
             <strong>{sessions.accuracy}% answer accuracy</strong>
           </header>
-          <div className={styles.chart} aria-label="Rounds by day">
+          <div className={styles.chart} role="list" aria-label="Rounds by day">
             {sessions.daily.map((day) => (
-              <div key={day.date} title={`${day.date}: ${day.rounds} rounds, ${day.players} players`}>
+              <div
+                key={day.date}
+                role="listitem"
+                tabIndex={0}
+                aria-label={`${day.date}: ${day.rounds} rounds, ${day.players} players`}
+                title={`${day.date}: ${day.rounds} rounds, ${day.players} players`}
+              >
                 <span
+                  aria-hidden="true"
                   style={{ "--bar-height": `${Math.max(4, (day.rounds / maxDailyRounds) * 100)}%` } as CSSProperties}
                 />
                 <small>{day.date.slice(5)}</small>
+                <strong className={styles.chartValue}>
+                  {day.rounds} rounds, {day.players} players
+                </strong>
               </div>
             ))}
           </div>
@@ -179,13 +189,13 @@ export default async function OpsPage() {
           </div>
           <strong>{catalog.contentLabel}</strong>
         </header>
-        <div className={styles.formatTable} role="table" aria-label="Round format health">
+        <div className={styles.formatTable} role="table" aria-label="Round format health" tabIndex={0}>
           <div className={styles.formatHeader} role="row">
-            <span>Round format</span>
-            <span>Answers</span>
-            <span>Accuracy</span>
-            <span>Reports</span>
-            <span>Signal</span>
+            <span role="columnheader">Round format</span>
+            <span role="columnheader">Answers</span>
+            <span role="columnheader">Accuracy</span>
+            <span role="columnheader">Reports</span>
+            <span role="columnheader">Signal</span>
           </div>
           {snapshot.formats.map((format) => (
             <div className={styles.formatRow} key={format.format} role="row" data-signal={format.signal}>

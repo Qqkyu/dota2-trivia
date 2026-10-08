@@ -1,0 +1,42 @@
+[
+  {
+    "file": "src/data/soundcheck-questions.json",
+    "sha256": "5b2d5899fe162ab5ee48c6bc6a5cbc6fb891664d93546468fb6b08b9fa7e2f5c"
+  },
+  {
+    "file": "src/lib/soundcheck-choices.mjs",
+    "sha256": "d076abe026812fe7619339c954360cefcda7f85899962001024cb98b4ee57d34"
+  },
+  {
+    "file": "src/lib/soundcheck.mjs",
+    "sha256": "e121d75cf5e525cba7c83998b1047354d619aad954e2292bfaecdf1d5b2f752e"
+  },
+  {
+    "file": "src/lib/cut-round-audio.mjs",
+    "sha256": "ff263439a28cba5fa74f09bed0485b4164588ec24f10079b058b4a4d50831303"
+  },
+  {
+    "file": "src/lib/round-audio-cache.mjs",
+    "sha256": "4bf251015eee1c1e9ff2464ec3da05c7673fe21a43623783312a6c6afa83a753"
+  },
+  {
+    "file": "src/lib/public-question.mjs",
+    "sha256": "65b09ccd69aa458b96d7e4700710b93567b1683d7127355def2c1fac493018e4"
+  },
+  {
+    "file": "src/app/api/round-audio/route.ts",
+    "sha256": "7b98af690cef0dd92e5736e18ac8ea71ce7a33d22eee9ca3cf38106472494e3d"
+  },
+  {
+    "file": "src/components/queue-arcade.tsx",
+    "sha256": "01d439eb362c92c1f8c00dfe64df634254043cfa06d1a8f618545ed77e3d3c32"
+  },
+  {
+    "file": "tests/soundcheck-facts.test.mjs",
+    "sha256": "383ec507b628c73ffadcf46b667e7e71aee4a48f1e8884c3766e02db6dd8294a"
+  },
+  {
+    "file": "tests/fixtures/soundcheck-near-duplicate-cues.json",
+    "sha256": "756586f8addf598466354dee35a8c0828b44ab6f5f8495d879d33a0e32722261"
+  }
+]

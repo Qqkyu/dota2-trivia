@@ -1,0 +1,3 @@
+STORAGE_KEYS ["queue-arcade:player:v2:tab"]
+TWO_TABS {"id1":"bf41ca32-dce2-40ef-b226-8ebc74add887","id2":"d919af1b-d488-44be-9502-ab02cfd7e669","tab1":{"score":"Gold0Streak1","crowd":"Global splitFinal2 answersBroodmotherYou100%You+219Correct avg+219Best+219","stats":"{\"runs\":1,\"answered\":1,\"correct\":1,\"bestScore\":219}"},"tab2":{"score":"Gold219Streak2","stats":"{\"runs\":1,\"answered\":1,\"correct\":1,\"bestScore\":219}"}}
+CORRECT_ONE {"phase":"reveal","score":"Gold0Streak1","banner":"You drew first blood","correctState":"correct","stats":"{\"runs\":1,\"answered\":1,\"correct\":1,\"bestScore\":219}","keys":["queue-arcade:pending-votes:v1","queue-arcade:audio-tab:v1","queue-arcade:stats:v2","queue-arcade:settings:v4","queue-arcade:settled-rounds:v1"]}

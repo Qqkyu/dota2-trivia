@@ -1,0 +1,5 @@
+ERROR        | Your GPU cannot be used for hardware rendering. Consider using software rendering.
+WARNING      | unexpected '-prop' value ('ro.hw_timeout_multiplier=10'), only 'qemu.*' properties are supported
+WARNING      | x86_64 emulation may not work without hardware acceleration!
+INFO         | Graphics Adapter Vendor Google (Microsoft Corporation)
+INFO         | Graphics Adapter Android Emulator OpenGL ES Translator (D3D12 (NVIDIA GeForce RTX 4080))

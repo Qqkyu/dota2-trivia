@@ -1,0 +1,488 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Recorded evidence differs: docs/audits/2026-10-06/launch-checks/question-review-index.json
++ actual - expected
+... Skipped lines
+
+  '{\n' +
+    '  "schemaVersion": 1,\n' +
+    '  "reviewedAt": "2026-10-06",\n' +
+    '  "hashAlgorithm": "SHA-256 of UTF-8 JSON.stringify with object keys recursively sorted by JavaScript default string sort and array order preserved; no whitespace or trailing newline.",\n' +
+    '  "scope": "Current playable question content and the declared launch review deltas. Historical review limits remain in force except where a linked launch review adds specific checks. No human listening, subjective difficulty approval, live Dota execution, device, CI, hosting, or legal clearance is implied.",\n' +
+...
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/README.md",\n' +
++   '        "sha256": "351e3500c428b055fd16dc57f7c3211fe7fd2e7134310906a53ec8388f1df86f"\n' +
+-   '        "sha256": "8b7d4e276ea24380c5aa813d97c896d57df80c2178df4fd19b4ff02d02d68bd9"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/replacement-checks.json",\n' +
+    '        "sha256": "c60d7c0a1872b64a9db9f17fa1ec57d0b1431866a8b1ee79a267b1170d8d039c"\n' +
+    '      },\n' +
+
+    at file:///home/kulmisiu/dev/dota2-trivia/[eval1]:250:47
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '{\n' +
+    '  "schemaVersion": 1,\n' +
+    '  "reviewedAt": "2026-10-06",\n' +
+    '  "hashAlgorithm": "SHA-256 of UTF-8 JSON.stringify with object keys recursively sorted by JavaScript default string sort and array order preserved; no whitespace or trailing newline.",\n' +
+    '  "scope": "Current playable question content and the declared launch review deltas. Historical review limits remain in force except where a linked launch review adds specific checks. No human listening, subjective difficulty approval, live Dota execution, device, CI, hosting, or legal clearance is implied.",\n' +
+    '  "calibrationRevisionScope": "Current questionCalibrationRevision applied to current questions with the hashed presentation dependencies. Not a claim about a deployed version.",\n' +
+    '  "inputs": {\n' +
+    '    "historicalIndex": {\n' +
+    '      "path": "docs/audits/2026-10-06/deep-review/question-review-index.json",\n' +
+    '      "sha256": "ef7c1a268c2d2025dcb44600da6851b3defef725d700821a6e9cc9b4fe8a55c2"\n' +
+    '    },\n' +
+    '    "catalogs": [\n' +
+    '      {\n' +
+    '        "path": "src/data/questions.generated.json",\n' +
+    '        "sha256": "4e730f3f38c07bc51c10292b6e7e73223e72fafcf88c8c44c43cc466af561c5f",\n' +
+    '        "rows": 1036\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "src/data/aghanim-questions.json",\n' +
+    '        "sha256": "7cbe040efd07b0b676c05b25235f53baa124d2bfe43abd5b758c7a8acbfc001e",\n' +
+    '        "rows": 84\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "src/data/shopkeeper-questions.json",\n' +
+    '        "sha256": "9a95635283b192ad63b3bc24eebc00f07fb53948e4d88cf66696ee80179b0810",\n' +
+    '        "rows": 102\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "src/data/soundcheck-questions.json",\n' +
+    '        "sha256": "5b2d5899fe162ab5ee48c6bc6a5cbc6fb891664d93546468fb6b08b9fa7e2f5c",\n' +
+    '        "rows": 96\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "src/data/value-order-questions.json",\n' +
+    '        "sha256": "cccae64e09c2bac89658e3414c6ce56c5cccfac64c2e91573e283144084599c3",\n' +
+    '        "rows": 80\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "src/data/flashback-questions.json",\n' +
+    '        "sha256": "d24501989ca28d91517d18e55e9cddf9eac7851bfd842580aab41c32c6d60bf5",\n' +
+    '        "rows": 191\n' +
+    '      }\n' +
+    '    ],\n' +
+    '    "presentationDependencies": [\n' +
+    '      {\n' +
+    '        "path": "src/lib/question-revision.mjs",\n' +
+    '        "sha256": "f9a887486b57931fb6a8252da500413c113f77c1d68b1da7ce773709d82e56be"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "src/lib/soundcheck-choices.mjs",\n' +
+    '        "sha256": "d076abe026812fe7619339c954360cefcda7f85899962001024cb98b4ee57d34"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "src/lib/arcade-games.mjs",\n' +
+    '        "sha256": "3b32907c5c6bb6cc2308cbb81689a706743e0797d4fab5b91af860a3505f96f9"\n' +
+    '      }\n' +
+    '    ],\n' +
+    '    "evidence": [\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/question-review-index.json",\n' +
+    '        "sha256": "ef7c1a268c2d2025dcb44600da6851b3defef725d700821a6e9cc9b4fe8a55c2"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/numeric/numeric-ledger.json",\n' +
+    '        "sha256": "0b9fe1ce93eb2b9baf6b2e6490f3bfe21e1be3cc52a3a6d6d67302d40fdbc73a"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/identity/identity-ledger.json",\n' +
+    '        "sha256": "2240cc6a8dbf976a0bfb9230a2b9fe7a14c4ea8d1431c9ce13b4562ff213abf8"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/voices/voices-ledger.json",\n' +
+    '        "sha256": "7c1eacd61831c010e0aafa99a44eb52aaafd8bde19609ef1c4f654034415205a"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/shopkeeper/shopkeeper-ledger.json",\n' +
+    '        "sha256": "60e6b4aefbd3f673699cd68fd0c2f9b032e99aa88e0b326711f9a5b48653f04a"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/soundcheck/soundcheck-ledger.json",\n' +
+    '        "sha256": "730ae0ae0ac80e675367cb2e589dbae1c1e8cad53e7cac57d52e1c0e3f43b2f9"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/aghanim/aghanim-ledger.json",\n' +
+    '        "sha256": "9228515d1a3f9ab1683e63a1a2c2a2beeed94eebcb62238e4558ca1498cd41da"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/flashback/flashback-ledger.json",\n' +
+    '        "sha256": "010c63728c720e48f7cc04d81de0629ade61218190c502e1bdae669f33a1d3c0"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/echo/echo-ledger.json",\n' +
+    '        "sha256": "f7238e96d1e63bf43aa6605a82f6e57607e232303fbc54fbd43861afb60e4586"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/echo/echo-change-ledger.json",\n' +
+    '        "sha256": "f2819228fd0d687fba9b8d679d1761e30c7228c3be399a88fb5563c326c23613"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/echo/README.md",\n' +
+    '        "sha256": "d8d9ae63d81df1688e7da00597b7dc5f8f24bafcffaba8d69a576df4bce19dda"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/echo/archive-manifest.json",\n' +
+    '        "sha256": "55619dea217aca5b205fbebe5306917a87b14f653bad517f13e9756187768c3a"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/echo/verification.json",\n' +
+    '        "sha256": "b1ab4aab53915998f520cfe0f8bc0d4b1832ff8a070e607a8f36dec3289a6a34"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/soundcheck/question-ledger.json",\n' +
+    '        "sha256": "50acdcf5c0dac53bddf2b4ce216a4932bdb0bce3c7adadeaaf14874c7fe988b2"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/soundcheck/README.md",\n' +
+    '        "sha256": "ea7ffa367f64bc8310e57d55dfa0f1cdbfee5a3051b61a6f5d581b8edf199012"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/soundcheck/summary.json",\n' +
+    '        "sha256": "b96924c0d341f2159ecc04444609b42c4b617e583c4218ecee9fe45db3ffaf61"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/soundcheck/archive-manifest.json",\n' +
+    '        "sha256": "b94c1368b913040b51eca58368d2792e94bf04b0ffe087df789b9ca3d733d775"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",\n' +
+    '        "sha256": "6534416c38ce709da8b44ee97bbd970001470535388e6a34411795741bee248e"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/README.md",\n' +
+    '        "sha256": "351e3500c428b055fd16dc57f7c3211fe7fd2e7134310906a53ec8388f1df86f"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/replacement-checks.json",\n' +
+    '        "sha256": "c60d7c0a1872b64a9db9f17fa1ec57d0b1431866a8b1ee79a267b1170d8d039c"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/flashback-before-rights.json",\n' +
+    '        "sha256": "edb7f76694493f9c2e71dba4c349cec4b9cfa4380e497ba50ab340f14d922bec"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/valve-terms.md",\n' +
+    '        "sha256": "406108b2e633ab5badaba0d53fc50e22b1e61ee78c88e6ed8b6245e2dc6217b4"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/terms-sources.json",\n' +
+    '        "sha256": "09ddcb9634b8921a7a970b7567bc6ff41e7ab46c463697ad17a11f47d0dfbad7"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/photo-provenance.json",\n' +
+    '        "sha256": "a9db4d95e8dee6022a692378f83478c73ad8c65bb18aff8cceac2db956bd38c9"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/quarantine-manifest.json",\n' +
+    '        "sha256": "8f50b258ec25511f89cdada81900eb89f66427f9cefbe09b25378805a4486c22"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/fonts.json",\n' +
+    '        "sha256": "a4fe485972740bf837a0b77a52ea66c89b05155aee8428343ad2e1ea1187f2ef"\n' +
+    '      }\n' +
+    '    ],\n' +
+    '    "artwork": [\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/international.svg",\n' +
+    '        "sha256": "ee9c75d5fbe966a939d7edd3db2614b52b84aa82912b8e7c63b104ef25c9117c"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-natus-vincere.svg",\n' +
+    '        "sha256": "3a8a02776bb316868a8a23fef90891ca27f8c92eb75091813bad0912683db174"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-invictus-gaming.svg",\n' +
+    '        "sha256": "dd80403e8806ae873ec075300a545b8ee8c130099bc5b608c73757a31d2f5592"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-alliance.svg",\n' +
+    '        "sha256": "14e7a8236a9af725e876312bb950a4c2528573c034d79df6b19d4eda0e51c3c3"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-newbee.svg",\n' +
+    '        "sha256": "45e96f42a52f67dac1fb010a8255fa4dc951fc858b7a022a602858a9a90ea858"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-evil-geniuses.svg",\n' +
+    '        "sha256": "74deace1500bfc8bf797e6f3310bbe30cf5d1906e007ab21c55cb2b10e5e17ca"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-wings-gaming.svg",\n' +
+    '        "sha256": "e5de807ecac3acf9cc2d09a8b2ab23e3761b3802a54ade4b34caef41c9cf924e"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-team-liquid.svg",\n' +
+    '        "sha256": "c8b7d31de2ea899deb91fd2e3dd890ef70d0bb4f671e5fe3452725d5715c02d9"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-og.svg",\n' +
+    '        "sha256": "ca25ce289ad6c90efeaff14479271ff18e3562b6d02eb1728a38fe0e107a129b"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-team-spirit.svg",\n' +
+    '        "sha256": "89672491ea264b9e38c376cb48dc9056cfdf0238684f94cb2e769b1e80923ed7"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-tundra-esports.svg",\n' +
+    '        "sha256": "6dcc21595c3ca297118a49c1d2af84e037e40aadf73e47f077e9d6dd5ef52e07"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-team-falcons.svg",\n' +
+    '        "sha256": "15e4f0f95e8212f738c50e473e183209dc127c7b7832d33238e6ed25e7ee43f0"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-team-secret.svg",\n' +
+    '        "sha256": "e0400ed80cd3b2af956da49d944fc6178e7a17b0316ea01145c1b7539b9f322b"\n' +
+    '      }\n' +
+    '    ],\n' +
+    '    "helper": {\n' +
+    '      "path": "docs/audits/2026-10-06/launch-checks/build-content-review-index.mjs.txt",\n' +
+    '      "sha256": "7f4073de256c3ae6ba659e4da9c83a4ea9ae74af5701760938d8876d0a0720c5"\n' +
+    '    }\n' +
+    '  },\n' +
+    '  "summary": {\n' +
+    '    "reviewedAt": "2026-10-06",\n' +
+    '    "storedQuestions": 1589,\n' +
+    '    "reviewedPlayableQuestions": 1517,\n' +
+    '    "originalIdsCovered": 1517,\n' +
+    '  '... 2412057 more characters,
+  expected: '{\n' +
+    '  "schemaVersion": 1,\n' +
+    '  "reviewedAt": "2026-10-06",\n' +
+    '  "hashAlgorithm": "SHA-256 of UTF-8 JSON.stringify with object keys recursively sorted by JavaScript default string sort and array order preserved; no whitespace or trailing newline.",\n' +
+    '  "scope": "Current playable question content and the declared launch review deltas. Historical review limits remain in force except where a linked launch review adds specific checks. No human listening, subjective difficulty approval, live Dota execution, device, CI, hosting, or legal clearance is implied.",\n' +
+    '  "calibrationRevisionScope": "Current questionCalibrationRevision applied to current questions with the hashed presentation dependencies. Not a claim about a deployed version.",\n' +
+    '  "inputs": {\n' +
+    '    "historicalIndex": {\n' +
+    '      "path": "docs/audits/2026-10-06/deep-review/question-review-index.json",\n' +
+    '      "sha256": "ef7c1a268c2d2025dcb44600da6851b3defef725d700821a6e9cc9b4fe8a55c2"\n' +
+    '    },\n' +
+    '    "catalogs": [\n' +
+    '      {\n' +
+    '        "path": "src/data/questions.generated.json",\n' +
+    '        "sha256": "4e730f3f38c07bc51c10292b6e7e73223e72fafcf88c8c44c43cc466af561c5f",\n' +
+    '        "rows": 1036\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "src/data/aghanim-questions.json",\n' +
+    '        "sha256": "7cbe040efd07b0b676c05b25235f53baa124d2bfe43abd5b758c7a8acbfc001e",\n' +
+    '        "rows": 84\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "src/data/shopkeeper-questions.json",\n' +
+    '        "sha256": "9a95635283b192ad63b3bc24eebc00f07fb53948e4d88cf66696ee80179b0810",\n' +
+    '        "rows": 102\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "src/data/soundcheck-questions.json",\n' +
+    '        "sha256": "5b2d5899fe162ab5ee48c6bc6a5cbc6fb891664d93546468fb6b08b9fa7e2f5c",\n' +
+    '        "rows": 96\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "src/data/value-order-questions.json",\n' +
+    '        "sha256": "cccae64e09c2bac89658e3414c6ce56c5cccfac64c2e91573e283144084599c3",\n' +
+    '        "rows": 80\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "src/data/flashback-questions.json",\n' +
+    '        "sha256": "d24501989ca28d91517d18e55e9cddf9eac7851bfd842580aab41c32c6d60bf5",\n' +
+    '        "rows": 191\n' +
+    '      }\n' +
+    '    ],\n' +
+    '    "presentationDependencies": [\n' +
+    '      {\n' +
+    '        "path": "src/lib/question-revision.mjs",\n' +
+    '        "sha256": "f9a887486b57931fb6a8252da500413c113f77c1d68b1da7ce773709d82e56be"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "src/lib/soundcheck-choices.mjs",\n' +
+    '        "sha256": "d076abe026812fe7619339c954360cefcda7f85899962001024cb98b4ee57d34"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "src/lib/arcade-games.mjs",\n' +
+    '        "sha256": "3b32907c5c6bb6cc2308cbb81689a706743e0797d4fab5b91af860a3505f96f9"\n' +
+    '      }\n' +
+    '    ],\n' +
+    '    "evidence": [\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/question-review-index.json",\n' +
+    '        "sha256": "ef7c1a268c2d2025dcb44600da6851b3defef725d700821a6e9cc9b4fe8a55c2"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/numeric/numeric-ledger.json",\n' +
+    '        "sha256": "0b9fe1ce93eb2b9baf6b2e6490f3bfe21e1be3cc52a3a6d6d67302d40fdbc73a"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/identity/identity-ledger.json",\n' +
+    '        "sha256": "2240cc6a8dbf976a0bfb9230a2b9fe7a14c4ea8d1431c9ce13b4562ff213abf8"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/voices/voices-ledger.json",\n' +
+    '        "sha256": "7c1eacd61831c010e0aafa99a44eb52aaafd8bde19609ef1c4f654034415205a"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/shopkeeper/shopkeeper-ledger.json",\n' +
+    '        "sha256": "60e6b4aefbd3f673699cd68fd0c2f9b032e99aa88e0b326711f9a5b48653f04a"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/soundcheck/soundcheck-ledger.json",\n' +
+    '        "sha256": "730ae0ae0ac80e675367cb2e589dbae1c1e8cad53e7cac57d52e1c0e3f43b2f9"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/aghanim/aghanim-ledger.json",\n' +
+    '        "sha256": "9228515d1a3f9ab1683e63a1a2c2a2beeed94eebcb62238e4558ca1498cd41da"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/deep-review/flashback/flashback-ledger.json",\n' +
+    '        "sha256": "010c63728c720e48f7cc04d81de0629ade61218190c502e1bdae669f33a1d3c0"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/echo/echo-ledger.json",\n' +
+    '        "sha256": "f7238e96d1e63bf43aa6605a82f6e57607e232303fbc54fbd43861afb60e4586"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/echo/echo-change-ledger.json",\n' +
+    '        "sha256": "f2819228fd0d687fba9b8d679d1761e30c7228c3be399a88fb5563c326c23613"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/echo/README.md",\n' +
+    '        "sha256": "d8d9ae63d81df1688e7da00597b7dc5f8f24bafcffaba8d69a576df4bce19dda"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/echo/archive-manifest.json",\n' +
+    '        "sha256": "55619dea217aca5b205fbebe5306917a87b14f653bad517f13e9756187768c3a"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/echo/verification.json",\n' +
+    '        "sha256": "b1ab4aab53915998f520cfe0f8bc0d4b1832ff8a070e607a8f36dec3289a6a34"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/soundcheck/question-ledger.json",\n' +
+    '        "sha256": "50acdcf5c0dac53bddf2b4ce216a4932bdb0bce3c7adadeaaf14874c7fe988b2"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/soundcheck/README.md",\n' +
+    '        "sha256": "ea7ffa367f64bc8310e57d55dfa0f1cdbfee5a3051b61a6f5d581b8edf199012"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/soundcheck/summary.json",\n' +
+    '        "sha256": "b96924c0d341f2159ecc04444609b42c4b617e583c4218ecee9fe45db3ffaf61"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/soundcheck/archive-manifest.json",\n' +
+    '        "sha256": "b94c1368b913040b51eca58368d2792e94bf04b0ffe087df789b9ca3d733d775"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",\n' +
+    '        "sha256": "6534416c38ce709da8b44ee97bbd970001470535388e6a34411795741bee248e"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/README.md",\n' +
+    '        "sha256": "8b7d4e276ea24380c5aa813d97c896d57df80c2178df4fd19b4ff02d02d68bd9"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/replacement-checks.json",\n' +
+    '        "sha256": "c60d7c0a1872b64a9db9f17fa1ec57d0b1431866a8b1ee79a267b1170d8d039c"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/flashback-before-rights.json",\n' +
+    '        "sha256": "edb7f76694493f9c2e71dba4c349cec4b9cfa4380e497ba50ab340f14d922bec"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/valve-terms.md",\n' +
+    '        "sha256": "406108b2e633ab5badaba0d53fc50e22b1e61ee78c88e6ed8b6245e2dc6217b4"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/terms-sources.json",\n' +
+    '        "sha256": "09ddcb9634b8921a7a970b7567bc6ff41e7ab46c463697ad17a11f47d0dfbad7"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/photo-provenance.json",\n' +
+    '        "sha256": "a9db4d95e8dee6022a692378f83478c73ad8c65bb18aff8cceac2db956bd38c9"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/quarantine-manifest.json",\n' +
+    '        "sha256": "8f50b258ec25511f89cdada81900eb89f66427f9cefbe09b25378805a4486c22"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "docs/audits/2026-10-06/launch-checks/rights/fonts.json",\n' +
+    '        "sha256": "a4fe485972740bf837a0b77a52ea66c89b05155aee8428343ad2e1ea1187f2ef"\n' +
+    '      }\n' +
+    '    ],\n' +
+    '    "artwork": [\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/international.svg",\n' +
+    '        "sha256": "ee9c75d5fbe966a939d7edd3db2614b52b84aa82912b8e7c63b104ef25c9117c"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-natus-vincere.svg",\n' +
+    '        "sha256": "3a8a02776bb316868a8a23fef90891ca27f8c92eb75091813bad0912683db174"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-invictus-gaming.svg",\n' +
+    '        "sha256": "dd80403e8806ae873ec075300a545b8ee8c130099bc5b608c73757a31d2f5592"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-alliance.svg",\n' +
+    '        "sha256": "14e7a8236a9af725e876312bb950a4c2528573c034d79df6b19d4eda0e51c3c3"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-newbee.svg",\n' +
+    '        "sha256": "45e96f42a52f67dac1fb010a8255fa4dc951fc858b7a022a602858a9a90ea858"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-evil-geniuses.svg",\n' +
+    '        "sha256": "74deace1500bfc8bf797e6f3310bbe30cf5d1906e007ab21c55cb2b10e5e17ca"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-wings-gaming.svg",\n' +
+    '        "sha256": "e5de807ecac3acf9cc2d09a8b2ab23e3761b3802a54ade4b34caef41c9cf924e"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-team-liquid.svg",\n' +
+    '        "sha256": "c8b7d31de2ea899deb91fd2e3dd890ef70d0bb4f671e5fe3452725d5715c02d9"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-og.svg",\n' +
+    '        "sha256": "ca25ce289ad6c90efeaff14479271ff18e3562b6d02eb1728a38fe0e107a129b"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-team-spirit.svg",\n' +
+    '        "sha256": "89672491ea264b9e38c376cb48dc9056cfdf0238684f94cb2e769b1e80923ed7"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-tundra-esports.svg",\n' +
+    '        "sha256": "6dcc21595c3ca297118a49c1d2af84e037e40aadf73e47f077e9d6dd5ef52e07"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-team-falcons.svg",\n' +
+    '        "sha256": "15e4f0f95e8212f738c50e473e183209dc127c7b7832d33238e6ed25e7ee43f0"\n' +
+    '      },\n' +
+    '      {\n' +
+    '        "path": "public/arcade/flashback/originals/winner-team-secret.svg",\n' +
+    '        "sha256": "e0400ed80cd3b2af956da49d944fc6178e7a17b0316ea01145c1b7539b9f322b"\n' +
+    '      }\n' +
+    '    ],\n' +
+    '    "helper": {\n' +
+    '      "path": "docs/audits/2026-10-06/launch-checks/build-content-review-index.mjs.txt",\n' +
+    '      "sha256": "7f4073de256c3ae6ba659e4da9c83a4ea9ae74af5701760938d8876d0a0720c5"\n' +
+    '    }\n' +
+    '  },\n' +
+    '  "summary": {\n' +
+    '    "reviewedAt": "2026-10-06",\n' +
+    '    "storedQuestions": 1589,\n' +
+    '    "reviewedPlayableQuestions": 1517,\n' +
+    '    "originalIdsCovered": 1517,\n' +
+    '  '... 2412057 more characters,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.23.3

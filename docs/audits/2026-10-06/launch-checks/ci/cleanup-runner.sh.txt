@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+ci_base=/tmp/queue-arcade-launch-ci
+ci_name=$(python3 -c 'import json;print(json.load(open("/tmp/queue-arcade-launch-ci/evidence/active-runner.json"))["name"])')
+ci_volume=$(python3 -c 'import json;print(json.load(open("/tmp/queue-arcade-launch-ci/evidence/active-runner.json"))["volume"])')
+ci_token_file=$(python3 -c 'import json;print(json.load(open("/tmp/queue-arcade-launch-ci/evidence/active-runner.json"))["tokenFile"])')
+case "$ci_name" in queue-arcade-ci-[0-9]*T[0-9]*Z) ;; *) echo 'Unexpected runner name.' >&2; exit 2;; esac
+if test "$(docker inspect "$ci_name" --format '{{.State.Running}}')" = true; then
+  echo 'Runner is still running. Wait for its one job or coordinate cancellation first.' >&2
+  exit 2
+fi
+docker logs "$ci_name" > "$ci_base/evidence/runner-process.log" 2>&1
+docker cp "$ci_name:/runner-evidence" "$ci_base/evidence/completed-runner"
+for ci_file in queue-arcade-ci.log queue-arcade-chrome.log; do
+  docker cp "$ci_name:/tmp/$ci_file" "$ci_base/evidence/$ci_file" 2>/dev/null || true
+done
+# Preserve only selected test results. The output directory also has disposable
+# database/app environment files, so never copy that directory wholesale.
+mkdir -p "$ci_base/evidence/container-check"
+for ci_file in container-result.json capacity-1.json; do
+  docker cp "$ci_name:/tmp/queue-arcade-container-ci/$ci_file" "$ci_base/evidence/container-check/$ci_file" 2>/dev/null || true
+done
+gh api repos/Qqkyu/dota2-trivia/actions/runners > "$ci_base/evidence/runners-after-job.json"
+ci_id=$(python3 - "$ci_name" "$ci_base/evidence/runners-after-job.json" <<'PY'
+import json,sys
+for runner in json.load(open(sys.argv[2]))['runners']:
+ if runner['name']==sys.argv[1]:print(runner['id'])
+PY
+)
+if test -n "$ci_id"; then gh api --method DELETE "repos/Qqkyu/dota2-trivia/actions/runners/$ci_id"; fi
+docker rm "$ci_name"
+docker volume rm "$ci_volume"
+rm "$ci_token_file"
+gh api repos/Qqkyu/dota2-trivia/actions/runners --jq '{total_count, runners:[.runners[] | {id,name,status}]}' > "$ci_base/evidence/runners-after-cleanup.json"
+echo 'Disposable runner, data volume and registration token removed.'

@@ -1,0 +1,191 @@
+{
+  "orderBefore": {
+    "cards": [
+      {
+        "text": "Kez",
+        "context": "Katana",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 53,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      },
+      {
+        "text": "Largo",
+        "context": "Bard",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 307,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      },
+      {
+        "text": "Muerta",
+        "context": "The Veil",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 560,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      },
+      {
+        "text": "Ringmaster",
+        "context": "Circus",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 814,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      }
+    ],
+    "extraMarks": 0,
+    "overflow": false
+  },
+  "orderAfterPick": [
+    {
+      "x": 53,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    },
+    {
+      "x": 307,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    },
+    {
+      "x": 560,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    },
+    {
+      "x": 814,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    }
+  ],
+  "orderReveal": {
+    "rows": [
+      {
+        "name": "Muerta",
+        "context": "The Veil",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      },
+      {
+        "name": "Ringmaster",
+        "context": "Circus",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      },
+      {
+        "name": "Kez",
+        "context": "Katana",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      },
+      {
+        "name": "Largo",
+        "context": "Bard",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      }
+    ],
+    "yours": [
+      "Kez",
+      "Largo",
+      "Muerta",
+      "Ringmaster"
+    ],
+    "panelVisible": true
+  },
+  "yearBefore": {
+    "min": "2009",
+    "max": "2026",
+    "currentYear": "2026",
+    "height": 186,
+    "answers": 0,
+    "ticks": 0,
+    "helper": true,
+    "lock": true,
+    "lockDisabled": false
+  },
+  "yearAfterSlide": {
+    "locked": "false",
+    "readout": "2011",
+    "lockLabel": "Lock"
+  },
+  "yearAfterPick": {
+    "locked": "true",
+    "readout": "2011",
+    "value": "2011",
+    "height": 186,
+    "lockLabel": "Locked",
+    "lockDisabled": true
+  },
+  "yearReveal": {
+    "readout": "2011",
+    "correctYear": "2011",
+    "height": 186,
+    "panelVisible": true
+  },
+  "photoAnswering": {
+    "strip": false,
+    "leak": false,
+    "art": "http://127.0.0.1:3315/arcade/flashback/ti5-keyarena.jpg"
+  },
+  "artBefore": {
+    "w": 248,
+    "h": 148,
+    "x": 80,
+    "y": 217
+  },
+  "photoReveal": {
+    "strip": false,
+    "src": "http://127.0.0.1:3315/arcade/flashback/winners/ti7-liquid.jpg",
+    "alt": "Team Liquid lift the Aegis",
+    "w": 248,
+    "h": 148,
+    "x": 80,
+    "y": 217
+  },
+  "photoMobile": {
+    "w": 248,
+    "h": 148,
+    "overflow": false
+  },
+  "failures": []
+}
+
+

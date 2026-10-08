@@ -1,0 +1,11 @@
+import runpy,json
+from pathlib import Path
+import numpy as np
+ns=runpy.run_path('/tmp/queue-arcade-launch-checks/soundcheck/verify-native.py');root=ns['root'];results=[]
+for name in ['silent','duplicate']:
+ row=json.loads((root/f'browser-results-control-{name}-0.json').read_text())[0];c=ns['plan'][row['index']];audio=np.frombuffer((root/row['file']).read_bytes(),dtype='<f4').reshape(-1,2).astype(float);y=ns['resample'](audio,44100);energy=float(np.sum(y*y));fits=[]
+ for clip in c['clips']:
+  ref=ns['reference'](root/clip['file'])*row['volume'];fits.append([ns['fit'](y[:,channel],ref[:,channel]) for channel in range(2)])
+ remainder=float(np.sum(y*y))/max(energy,1e-20);accepted=remainder<.04 and all(.9<x['gain']<1.1 and x['correlation']>.98 for pair in fits for x in pair);assert not accepted
+ results.append({'fault':name,'playPromiseResolved':all(x.get('resolved') for x in row['calls']),'detected':not accepted,'energy':energy,'fits':fits,'residualFraction':remainder})
+(root/'native-controls.json').write_text(json.dumps(results,indent=2)+'\n');print(json.dumps(results,indent=2))

@@ -1,0 +1,103 @@
+{
+  "changes": [
+    {
+      "reviewedAt": "2026-10-06",
+      "oldId": "hero-voice:npc_dota_hero_troll_warlord:troll_kill_06",
+      "newId": "hero-voice:npc_dota_hero_troll_warlord:troll_respawn_10",
+      "status": "fixed",
+      "reason": "The original full clip was 13.18 LUFS below the reviewed catalog median. The replacement is 12.19 LUFS louder, with strong unclipped opening prefixes and exact unprompted full-line recognition by two model sizes.",
+      "before": {
+        "id": "hero-voice:npc_dota_hero_troll_warlord:troll_kill_06",
+        "hero": "Troll Warlord",
+        "heroKey": "npc_dota_hero_troll_warlord",
+        "heroId": 95,
+        "voiceId": 95,
+        "expectedText": "You were a casualty of war.",
+        "responseName": "troll_kill_06",
+        "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_kill_06.mp3",
+        "sourceSha256": "c1025e2ad6651018bf9a248cf54bb14513e98d517d19a7c4a546cf85fb4885b0",
+        "pinnedTranscriptSource": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/troll_warlord.json",
+        "pinnedTranscriptSourceSha256": "bb3d54c79009e8b9d7d228a275485d263243d9f41c3f1b38aeec4c2edd847c28",
+        "sourceDurationSeconds": 3.046125,
+        "stages": [
+          {
+            "stage": 1,
+            "requestedSeconds": 0.24,
+            "file": "troll_kill_06.stage-1.mp3",
+            "sha256": "f5ae1c9d4d47747c9e5d376971c9c93296e9a231e4f166a021a815d3d759653c",
+            "bytes": 2525
+          },
+          {
+            "stage": 2,
+            "requestedSeconds": 0.56,
+            "file": "troll_kill_06.stage-2.mp3",
+            "sha256": "3216fc4a8221b487545f682ee55eec784dc5a1332bba920e2d35a4012e6602c1",
+            "bytes": 5033
+          },
+          {
+            "stage": 3,
+            "requestedSeconds": null,
+            "file": "troll_kill_06.stage-3.mp3",
+            "sha256": "c1025e2ad6651018bf9a248cf54bb14513e98d517d19a7c4a546cf85fb4885b0",
+            "bytes": 24369
+          }
+        ]
+      },
+      "after": {
+        "id": "hero-voice:npc_dota_hero_troll_warlord:troll_respawn_10",
+        "hero": "Troll Warlord",
+        "heroKey": "npc_dota_hero_troll_warlord",
+        "heroId": 95,
+        "voiceId": 95,
+        "expectedText": "Being dead only makes me angrier.",
+        "responseName": "troll_respawn_10",
+        "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_respawn_10.mp3",
+        "sourceSha256": "c7f469c9be5cd351736f0a0e386cd22c5b804ceb0ef850c932df8377a7ee69cd",
+        "pinnedTranscriptSource": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/troll_warlord.json",
+        "pinnedTranscriptSourceSha256": "bb3d54c79009e8b9d7d228a275485d263243d9f41c3f1b38aeec4c2edd847c28",
+        "sourceDurationSeconds": 3.918375,
+        "stages": [
+          {
+            "stage": 1,
+            "requestedSeconds": 0.24,
+            "file": "troll_respawn_10.stage-1.mp3",
+            "sha256": "ecef83e9b77d302eba303cd00e96f924394300c3b6b7b48d1b638779651400c9",
+            "bytes": 2525
+          },
+          {
+            "stage": 2,
+            "requestedSeconds": 0.56,
+            "file": "troll_respawn_10.stage-2.mp3",
+            "sha256": "6c9c6b3a7e81cd1839e8446b40ffbfc5ade00eb89d09a1632f07d2c9180a61a4",
+            "bytes": 5033
+          },
+          {
+            "stage": 3,
+            "requestedSeconds": null,
+            "file": "troll_respawn_10.stage-3.mp3",
+            "sha256": "c7f469c9be5cd351736f0a0e386cd22c5b804ceb0ef850c932df8377a7ee69cd",
+            "bytes": 31474
+          }
+        ]
+      },
+      "changedQuestionFields": [
+        "id",
+        "explanation",
+        "audio.src"
+      ],
+      "currentQuestionSha256": "5ccf2b9d326b6a983c82937df64fadfa0c6816e0aaf6ae6f5bde4e7b362e5d34",
+      "reviewedSelectionGuard": "scripts/hero-response-quality.mjs pins hero95 to troll_respawn_10 for Echo; Quote Hunt choices are unchanged.",
+      "fixture": "tests/fixtures/echo-troll-reviewed.json",
+      "validation": {
+        "sourceHeroId": 95,
+        "sourceVoiceId": 95,
+        "smallModelNormalizedExact": true,
+        "mediumModelNormalizedExact": true,
+        "sourceFixtureTestsPassed": 6,
+        "responseValidatorPassed": true,
+        "publicClueAndRevealSerializationPassed": true
+      },
+      "historicalArchive": "docs/audits/2026-10-06/deep-review/voices remains unchanged and contains the prior selection."
+    }
+  ]
+}

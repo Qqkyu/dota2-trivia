@@ -6,6 +6,11 @@ import { fileURLToPath } from "node:url";
 import { heroCorrectAnswerKey } from "../src/lib/hero-picker.mjs";
 import { varietyShuffle } from "../src/lib/variety.mjs";
 import { containsAnswerLeak } from "./spell-hints.mjs";
+import {
+  isSubstantialResponseText,
+  responseSelectionAllowed,
+  responseTextsAreNearDuplicates,
+} from "./hero-response-quality.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const [questions, picker] = await Promise.all([
@@ -90,11 +95,23 @@ if (new Set(audioUrls).size !== echoQuestions.length) failures.push("Echo Hunt a
 
 const seenLines = new Map();
 for (const question of responseQuestions) {
+  if (
+    !responseSelectionAllowed(
+      { name: question.id.split(":").at(-1), heroKey: question.varietyKey },
+      question.kind === "hero-quote" ? "quote" : "echo",
+    )
+  ) {
+    failures.push(`${question.id}: this response is outside the reviewed source and audio selections.`);
+  }
   const line = question.kind === "hero-voice" ? echoTranscript(question) : (question.detail ?? "");
   const words = line.match(/[a-z]+(?:['’-][a-z]+)*/gi) ?? [];
   const minimumCharacters = question.kind === "hero-voice" ? 18 : 28;
   const minimumWords = question.kind === "hero-voice" ? 3 : 5;
-  if (line.length < minimumCharacters || words.length < minimumWords) {
+  if (
+    line.length < minimumCharacters ||
+    words.length < minimumWords ||
+    !isSubstantialResponseText(line, minimumCharacters, minimumWords)
+  ) {
     failures.push(`${question.id}: response line is too slight for ${question.eyebrow}.`);
   }
   if (hasVocalization(line) || (question.kind === "hero-voice" && startsWithVocalization(line))) {
@@ -110,13 +127,20 @@ for (const question of responseQuestions) {
   if (signature) seenLines.set(signature, question.id);
 }
 
-for (const [heroKey] of expectedSpeakingKeys) {
+for (const heroKey of expectedSpeakingKeys) {
   const heroLines = responseQuestions
     .filter((question) => question.varietyKey === heroKey)
     .map((question) =>
       normalizedLine(question.kind === "hero-voice" ? echoTranscript(question) : (question.detail ?? "")),
     );
   if (new Set(heroLines).size !== heroLines.length) failures.push(`${heroKey}: response variants must be distinct.`);
+  for (let left = 0; left < heroLines.length; left += 1) {
+    for (let right = left + 1; right < heroLines.length; right += 1) {
+      if (responseTextsAreNearDuplicates(heroLines[left], heroLines[right])) {
+        failures.push(`${heroKey}: response variants must not repeat nearly the same line.`);
+      }
+    }
+  }
 }
 
 for (const [kind, values] of [

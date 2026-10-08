@@ -1,0 +1,35 @@
+# Archived review helper. Measurements do not establish intelligibility or speaker identity by listening.
+import json,subprocess,array,math,concurrent.futures,argparse,hashlib
+from pathlib import Path
+parser=argparse.ArgumentParser(description="Replay the final 123 Echo prefix measurements. Requires ffmpeg.")
+parser.add_argument("--audio-root",type=Path,required=True)
+parser.add_argument("--output-dir",type=Path,required=True)
+args=parser.parse_args()
+archive=Path(__file__).resolve().parent
+root=args.output_dir.resolve();root.mkdir(parents=True,exist_ok=True)
+if root==archive or root.is_relative_to(archive):parser.error("Use a separate output directory to preserve the historical archive.")
+checks=[]
+for record in json.loads((archive/'voices-ledger.json').read_text())['records']:
+ if record['kind']!='hero-voice':continue
+ source=record['evidence']['audio']
+ local=args.audio_root/source['url'].rsplit('/',1)[1]
+ if hashlib.sha256(local.read_bytes()).hexdigest()!=source['sha256']:raise SystemExit(f"Audio hash differs from the audit: {local}")
+ checks.append({'id':record['currentId'],'url':source['url'],'sha256':source['sha256'],'duration':source['durationSeconds'],'file':str(local)})
+def metrics(samples):
+ if not samples:return {'peak':0,'rms':0,'exactSilence':True}
+ peak=max(abs(x) for x in samples);rms=math.sqrt(sum(x*x for x in samples)/len(samples))
+ return {'peak':peak,'rms':rms,'peakDb':round(20*math.log10(peak),2) if peak else None,'rmsDb':round(20*math.log10(rms),2) if rms else None,'exactSilence':peak==0,'belowMinus80Db':peak<.0001}
+def check(row):
+ proc=subprocess.run(['ffmpeg','-nostdin','-v','error','-i',row['file'],'-ac','1','-ar','44100','-f','f32le','pipe:1'],capture_output=True,check=True,timeout=20)
+ samples=array.array('f');samples.frombytes(proc.stdout);duration=row['duration']
+ cuts=[min(.24,max(duration*.07,min(.1,duration*.12))),min(.56,max(duration*.17,min(.22,duration*.27)))]
+ first=next((i/44100 for i,x in enumerate(samples) if abs(x)>=.001),None)
+ stages=[{'stage':i+1,'seconds':seconds,**metrics(samples[:math.floor(seconds*44100)])} for i,seconds in enumerate(cuts)]
+ return {'id':row['id'],'sourceUrl':row['url'],'sourceSha256':row['sha256'],'duration':duration,'firstPeakAboveMinus60DbAt':first,'full':metrics(samples),'stages':stages}
+with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:rows=list(pool.map(check,checks))
+(root/'voices-replayed-prefix-checks.json').write_text(json.dumps(rows,indent=2)+'\n')
+print(json.dumps({'checked':len(rows),'exactSilentFirst':[r for r in rows if r['stages'][0]['exactSilence']],'exactSilentBoth':[r['id'] for r in rows if all(s['exactSilence'] for s in r['stages'])],'nearlySilentFirst':[{'id':r['id'],'stage1':r['stages'][0],'onset':r['firstPeakAboveMinus60DbAt']} for r in rows if r['stages'][0]['belowMinus80Db'] and not r['stages'][0]['exactSilence']]},indent=2))
+
+weak=[r['id'] for r in rows if any(stage['rms'] < .001 for stage in r['stages'])]
+print(json.dumps({'firstTwoPrefixesBelowMinus60DbRms':weak,'listened':False},indent=2))
+raise SystemExit(1 if weak else 0)

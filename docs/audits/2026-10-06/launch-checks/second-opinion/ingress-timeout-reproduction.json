@@ -1,0 +1,62 @@
+{
+  "check": "Operator ingress proof CLI accepts a response beyond its socket timeout",
+  "phase": "pre-fix",
+  "observed_at": null,
+  "observed_at_note": "The reproduction did not record a wall-clock timestamp.",
+  "source": {
+    "path": "scripts/check-ingress-proof.mjs",
+    "modified_for_reproduction": false,
+    "sha256": null,
+    "sha256_note": "The source hash was not recorded before the deadline fix.",
+    "timeout_behavior": "The original CLI used node:https request timeout: 10000 and had no absolute deadline."
+  },
+  "command": {
+    "fixture_command_shape": "node --input-type=module <<'NODE' ... NODE",
+    "cli_argv_shape": [
+      "process.execPath",
+      "scripts/check-ingress-proof.mjs",
+      "https://127.0.0.1:<ephemeral-port>"
+    ],
+    "node_version": "v24.15.0",
+    "environment": {
+      "ARCADE_AUTH_SECRET": "Synthetic test secret only. Value omitted.",
+      "INGRESS_EXPECTED_IPV4": "192.0.2.50",
+      "NODE_EXTRA_CA_CERTS": "Temporary fixture certificate path. Exact temporary path was not recorded."
+    }
+  },
+  "fixture": {
+    "transport": "Local HTTPS bound to 127.0.0.1 on an ephemeral port",
+    "certificate": "Temporary self-signed RSA 2048 certificate, one-day validity, subject CN=127.0.0.1, subjectAltName=IP:127.0.0.1",
+    "tls_certificate_verification_enabled": true,
+    "certificate_trust_method": "NODE_EXTRA_CA_CERTS for the child CLI",
+    "response": "HTTP 200, Cache-Control: no-store, application/json, valid nonce-bound proof computed with the synthetic secret",
+    "first_response": {
+      "initial_body": "One whitespace byte",
+      "whitespace_interval_ms": 1000,
+      "scheduled_completion_ms": 12000,
+      "observed_completion_ms": 12001
+    },
+    "remaining_responses": "The remaining four responses returned valid JSON immediately.",
+    "outer_kill_guard_ms": 18000,
+    "outer_kill_guard_used": false,
+    "temporary_files_removed": true,
+    "server_closed": true
+  },
+  "result": {
+    "defect_confirmed": true,
+    "configured_timeout_ms": 10000,
+    "total_cli_elapsed_ms": 12040,
+    "request_count": 5,
+    "checks_passed": 5,
+    "cli_exit_code": 0,
+    "cli_reported_ok": true,
+    "stderr_empty": true
+  },
+  "scope": {
+    "external_network_traffic": false,
+    "private_data_used": false,
+    "production_requests": false,
+    "source_edits": false
+  },
+  "post_fix_status": "Recorded separately by the parent reviewer. This file records only the observed pre-fix reproduction."
+}

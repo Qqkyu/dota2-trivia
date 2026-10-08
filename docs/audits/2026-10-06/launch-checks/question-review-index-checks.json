@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-06",
+  "status": "passed",
+  "currentIndex": {
+    "path": "docs/audits/2026-10-06/launch-checks/question-review-index.json",
+    "sha256": "f90c9263e7afe97e86d1c18b642a120f033e477d6933d3978da69bf5472f022b"
+  },
+  "delta": {
+    "path": "docs/audits/2026-10-06/launch-checks/question-review-delta.json",
+    "sha256": "e1d4a0e086bcec2f5077fabe74ded2ba5c38492b68f22ba449cbd4817408180c"
+  },
+  "summary": {
+    "reviewedAt": "2026-10-06",
+    "storedQuestions": 1589,
+    "reviewedPlayableQuestions": 1517,
+    "originalIdsCovered": 1517,
+    "currentIdsCovered": 1517,
+    "retiredUnreviewedTemplates": 72,
+    "byFormat": {
+      "spell-link": 127,
+      "aghanim-upgrades": 84,
+      "classic-ability-values": 159,
+      "flashback": 191,
+      "fogged-vision": 127,
+      "quote-hunt": 245,
+      "classic-hero-stats": 82,
+      "echo-hunt": 123,
+      "classic-item-prices": 101,
+      "shopkeeper-builds": 52,
+      "shopkeeper-paths": 50,
+      "soundcheck": 96,
+      "value-order": 80
+    },
+    "changedQuestionDataRows": 33,
+    "unchangedQuestionDataRows": 1484,
+    "trollVoiceReplacements": 1,
+    "flashbackQuestionsWithNewArtwork": 32,
+    "replacedImageFields": 47,
+    "originalArtworkFiles": 13,
+    "presentationOnlyChanges": 2,
+    "changedCalibrationRevisions": 35,
+    "markedAnswersChanged": 0,
+    "echoQuestionsWithCompletedAutomatedReview": 123,
+    "soundcheckQuestionsWithCompletedAutomatedReview": 96,
+    "humanListeningPerformed": false,
+    "operationalReleaseApproval": false
+  },
+  "checks": {
+    "historicalSevenLedgersAndBaselineHashesUnchanged": true,
+    "all1517HistoricalLedgerPointersAndRowHashesMatch": true,
+    "all1517CurrentQuestionHashesBound": true,
+    "all1517MarkedAnswersMatchHistoricalReview": true,
+    "all191BeforeRightsQuestionsMatchHistoricalHashes": true,
+    "exactly33QuestionDataChangesExplained": true,
+    "all47ArtworkFieldChangesReconstructCurrentQuestions": true,
+    "all13ArtworkFileHashesMatch": true,
+    "trollChangeContainsExactlyIdExplanationAudio": true,
+    "all123FinalEchoQuestionHashesMatch": true,
+    "all96SoundcheckQuestionsHaveThreePassedNativeStages": true,
+    "exactlyTwoPresentationOnlyChangesExplained": true,
+    "all35CalibrationChangesRecorded": true,
+    "all72RetiredRowsUnchangedAndNotReviewed": true,
+    "noUnexpectedOrMissingQuestionIds": true
+  },
+  "command": "node --input-type=module < docs/audits/2026-10-06/launch-checks/build-content-review-index.mjs.txt"
+}

@@ -1,0 +1,123 @@
+#!/usr/bin/env python3
+"""Bounded native ADB actions for the task-owned Android 11 emulator."""
+import argparse
+import datetime
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import subprocess
+import time
+import urllib.parse
+import xml.etree.ElementTree as ET
+
+ADB = '/home/kulmisiu/android-sdk/platform-tools/adb'
+SERIAL = 'emulator-5582'
+OUT = Path('/tmp/queue-arcade-launch-checks/android11-final-check')
+OUT.mkdir(exist_ok=True)
+LOG = OUT / 'actions.jsonl'
+
+def adb(*args, timeout=55, binary=False):
+    env = dict(os.environ)
+    env['ADB_VENDOR_KEYS'] = '/tmp/queue-arcade-launch-checks/android-home/adbkey'
+    result = subprocess.run([ADB, '-P', '5037', '-s', SERIAL, *args],
+                            capture_output=True, timeout=timeout, env=env)
+    if result.returncode:
+        raise RuntimeError(result.stderr.decode(errors='replace').strip())
+    return result.stdout if binary else result.stdout.decode(errors='replace').strip()
+
+def record(action, result):
+    entry = {'at': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+             'action': action, 'result': result}
+    with LOG.open('a') as handle:
+        handle.write(json.dumps(entry) + '\n')
+    print(json.dumps(entry))
+
+def dump():
+    adb('shell', 'uiautomator', 'dump', '/sdcard/queue-audit-window.xml')
+    return adb('shell', 'cat', '/sdcard/queue-audit-window.xml')
+
+def nodes(xml):
+    return [dict(n.attrib) for n in ET.fromstring(xml).iter('node')]
+
+def capture(name, include_tree=True):
+    if not re.fullmatch(r'[a-z0-9-]+', name):
+        raise ValueError('Invalid evidence name')
+    png = adb('exec-out', 'screencap', '-p', binary=True)
+    (OUT / (name + '.png')).write_bytes(png)
+    if not include_tree:
+        return {'name': name, 'screenshotSha256': hashlib.sha256(png).hexdigest()}
+    xml = dump()
+    (OUT / (name + '.xml')).write_text(xml)
+    visible = [{'text': n.get('text'), 'description': n.get('content-desc'),
+                'class': n.get('class'), 'bounds': n.get('bounds'),
+                'focused': n.get('focused'), 'resourceId': n.get('resource-id')}
+               for n in nodes(xml) if n.get('text') or n.get('content-desc') or n.get('focused') == 'true']
+    (OUT / (name + '-nodes.json')).write_text(json.dumps(visible, indent=2) + '\n')
+    return {'name': name, 'screenshotSha256': hashlib.sha256(png).hexdigest(), 'visible': visible}
+
+parser = argparse.ArgumentParser()
+parser.add_argument('action', choices=['inventory', 'launch', 'capture', 'shot', 'tap-text', 'tap', 'text', 'back', 'rotate', 'background', 'resume', 'assert-text', 'swipe'])
+parser.add_argument('args', nargs='*')
+args = parser.parse_args()
+try:
+    action = args.action
+    values = args.args
+    if action == 'inventory':
+        result = {'androidVersion': adb('shell', 'getprop', 'ro.build.version.release'),
+                  'apiLevel': adb('shell', 'getprop', 'ro.build.version.sdk'),
+                  'bootCompleted': adb('shell', 'getprop', 'sys.boot_completed'),
+                  'screen': adb('shell', 'wm', 'size'),
+                  'density': adb('shell', 'wm', 'density'),
+                  'inputMethod': adb('shell', 'settings', 'get', 'secure', 'default_input_method'),
+                  'firefoxVersion': next((line.strip() for line in adb('shell', 'dumpsys', 'package', 'org.mozilla.firefox').splitlines() if 'versionName=' in line), 'not found')}
+    elif action == 'launch':
+        url = values[0]
+        parts = urllib.parse.urlsplit(url)
+        if parts.scheme != 'http' or parts.hostname != '127.0.0.1' or not parts.port or parts.username or parts.password:
+            raise ValueError('Only the isolated localhost candidate URL is permitted')
+        adb('reverse', 'tcp:' + str(parts.port), 'tcp:' + str(parts.port))
+        result = {'url': url, 'launch': adb('shell', 'am', 'start', '-a', 'android.intent.action.VIEW', '-d', url, '-p', 'org.mozilla.firefox')}
+    elif action in ('capture', 'shot'):
+        result = capture(values[0], include_tree=action == 'capture')
+    elif action == 'tap-text':
+        matches = [n for n in nodes(dump()) if n.get('text', '').casefold() == values[0].casefold() or n.get('content-desc', '').casefold() == values[0].casefold()]
+        if len(matches) != 1:
+            raise RuntimeError('Expected one exact native UI match, got ' + str(len(matches)))
+        bounds = list(map(int, re.findall(r'\d+', matches[0]['bounds'])))
+        x, y = (bounds[0] + bounds[2]) // 2, (bounds[1] + bounds[3]) // 2
+        result = {'label': values[0], 'point': [x, y], 'output': adb('shell', 'input', 'tap', str(x), str(y))}
+    elif action == 'tap':
+        x, y = map(int, values)
+        if not (0 <= x <= 2560 and 0 <= y <= 2560):
+            raise ValueError('Point outside expected test screen')
+        result = {'point': [x, y], 'output': adb('shell', 'input', 'tap', str(x), str(y))}
+    elif action == 'text':
+        if not re.fullmatch(r'[A-Za-z0-9]{1,20}', values[0]):
+            raise ValueError('Only a short disposable party code is permitted')
+        result = {'typed': values[0], 'output': adb('shell', 'input', 'text', values[0])}
+    elif action == 'back':
+        result = {'output': adb('shell', 'input', 'keyevent', 'KEYCODE_BACK')}
+    elif action == 'rotate':
+        setting = {'portrait': '0', 'landscape': '1'}[values[0]]
+        adb('shell', 'settings', 'put', 'system', 'accelerometer_rotation', '0')
+        result = {'rotation': values[0], 'output': adb('shell', 'settings', 'put', 'system', 'user_rotation', setting)}
+    elif action == 'background':
+        result = {'output': adb('shell', 'input', 'keyevent', 'KEYCODE_HOME')}
+    elif action == 'resume':
+        result = {'output': adb('shell', 'am', 'start', '-n', 'org.mozilla.firefox/org.mozilla.fenix.HomeActivity')}
+    elif action == 'assert-text':
+        tree = nodes(dump())
+        found = [n for n in tree if values[0].casefold() in (n.get('text', '') + ' ' + n.get('content-desc', '')).casefold()]
+        if not found:
+            raise AssertionError('Native UI text missing: ' + values[0])
+        result = {'expectedText': values[0], 'matches': len(found)}
+    elif action == 'swipe':
+        if len(values) != 4 or any(not re.fullmatch(r'\d{1,4}', v) for v in values):
+            raise ValueError('Four pixel coordinates required')
+        result = {'points': list(map(int, values)), 'output': adb('shell', 'input', 'swipe', *values, '500')}
+    record(action, result)
+except Exception as error:
+    record(args.action, {'error': str(error), 'errorType': type(error).__name__})
+    raise SystemExit(1)

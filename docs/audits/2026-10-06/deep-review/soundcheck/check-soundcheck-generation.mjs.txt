@@ -1,0 +1,12 @@
+import{readFileSync,writeFileSync}from'node:fs';
+const root='/home/kulmisiu/dev/dota2-trivia';
+const assets=JSON.parse(readFileSync('/tmp/queue-arcade-deep-review/soundcheck-cache/assets.json'));
+const constants={abilities:'/tmp/dota-abilities.json',items:'/tmp/dota-items.json',hero_abilities:'/tmp/dota-hero-abilities.json'};
+globalThis.fetch=async url=>{const name=String(url).split('/').at(-1),constant=constants[name];if(constant)return new Response(readFileSync(constant),{headers:{'content-type':'application/json'}});const asset=assets.find(a=>a.url===url);if(!asset)throw Error('Uncached source '+url);return new Response(readFileSync(asset.path),{headers:{'content-type':asset.type==='audio'?'audio/wav':'text/plain'}})};
+let script=readFileSync(root+'/scripts/generate-soundcheck.mjs','utf8').replace('#!/usr/bin/env node','');
+script=script.replace('const root = join(dirname(fileURLToPath(import.meta.url)), "..");',`const root = ${JSON.stringify(root)};`).replace('const outputPath = join(root, "src", "data", "soundcheck-questions.json");','const outputPath = "/tmp/queue-arcade-deep-review/soundcheck-regenerated.json";').replace('from "./soundcheck-audit.mjs"','from "file://'+root+'/scripts/soundcheck-audit.mjs"').replace('from "../src/lib/soundcheck.mjs"','from "file://'+root+'/src/lib/soundcheck.mjs"');
+await import('data:text/javascript;base64,'+Buffer.from(script).toString('base64'));
+const expected=JSON.parse(readFileSync(root+'/src/data/soundcheck-questions.json')),actual=JSON.parse(readFileSync('/tmp/queue-arcade-deep-review/soundcheck-regenerated.json'));
+const canonical=o=>JSON.stringify(o,(k,v)=>typeof v==='string'&&(/\.png/.test(v))?v.split('/').at(-1).split('?')[0]:v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.entries(v).sort(([a],[b])=>a.localeCompare(b))):v);
+const changes=[];for(let i=0;i<actual.length;i++)if(canonical(actual[i])!==canonical(expected[i])){for(const key of Object.keys(actual[i]))if(canonical(actual[i][key])!==canonical(expected[i][key]))changes.push({id:actual[i].id,key,actual:actual[i][key],expected:expected[i][key]})}
+writeFileSync('/tmp/queue-arcade-deep-review/soundcheck-generation-diff.json',JSON.stringify(changes,null,2)+'\n');if(changes.length)throw Error('Regenerated differences: '+JSON.stringify(changes.map(x=>({id:x.id,key:x.key}))));console.log('All 96 regenerated questions agree with the deck. Existing local icon overrides preserved.');

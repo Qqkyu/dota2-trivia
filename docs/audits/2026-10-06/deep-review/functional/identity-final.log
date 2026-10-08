@@ -1,0 +1,9 @@
+PASS account change does not write connected results into guest stats
+PASS account logout starts a separate guest run
+PASS account switch ignores delayed accepted vote
+PASS account switch ignores delayed failed vote
+PASS account metadata missing cannot create guest credit
+PASS account switch discards an old profile response
+PASS account vote response migrates pending ownership from an old guest tab
+PASS account metadata restoration excludes earlier unknown results
+Validated 8 player journeys.

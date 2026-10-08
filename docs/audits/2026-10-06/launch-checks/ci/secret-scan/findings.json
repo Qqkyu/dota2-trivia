@@ -1,0 +1,427 @@
+{
+  "tool": "Gitleaks 8.30.1",
+  "exitCode": 1,
+  "findingCount": 59,
+  "classifiedCounts": {
+    "anonymous-third-party-page-token": 6,
+    "file-digest": 52,
+    "public-asset-filename": 1
+  },
+  "unclassified": 0,
+  "repositoryCredentialFindings": 0,
+  "findings": [
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/flashback/flashback-primary/hobb-publisher-excerpt.html",
+      "line": 170,
+      "category": "anonymous-third-party-page-token",
+      "reason": "A public publisher page visitor field. Classification is documented in anonymous-page-classification.json and README.md; no value was replayed."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/flashback/flashback-primary/hobb-publisher-excerpt.html",
+      "line": 170,
+      "category": "anonymous-third-party-page-token",
+      "reason": "A public publisher page visitor field. Classification is documented in anonymous-page-classification.json and README.md; no value was replayed."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/flashback/flashback-primary/hobb-publisher-excerpt.html",
+      "line": 183,
+      "category": "anonymous-third-party-page-token",
+      "reason": "A public publisher page visitor field. Classification is documented in anonymous-page-classification.json and README.md; no value was replayed."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "line": 61,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "line": 72,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "line": 113,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "line": 121,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "line": 180,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "line": 270,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "line": 277,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "line": 304,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "line": 311,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "line": 342,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "line": 377,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "line": 390,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-baseline-manifest.json",
+      "line": 391,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "line": 60,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "line": 71,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "line": 114,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "line": 122,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "line": 188,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "line": 279,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "line": 286,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "line": 313,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "line": 321,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "line": 352,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "line": 399,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "line": 415,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/verification/source-manifest.json",
+      "line": 416,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "line": 56,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "line": 67,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "line": 103,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "line": 110,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "line": 159,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "line": 245,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "line": 251,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "line": 271,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/evidence/original-hashes.json",
+      "line": 299,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/flashback/flashback-primary/hobb-publisher-excerpt.html",
+      "line": 4037,
+      "category": "anonymous-third-party-page-token",
+      "reason": "A public publisher page visitor field. Classification is documented in anonymous-page-classification.json and README.md; no value was replayed."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/flashback/flashback-primary/hobb-publisher-excerpt.html",
+      "line": 4039,
+      "category": "anonymous-third-party-page-token",
+      "reason": "A public publisher page visitor field. Classification is documented in anonymous-page-classification.json and README.md; no value was replayed."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/launch-checks/rights/create-replacements.mjs.txt",
+      "line": 24,
+      "category": "public-asset-filename",
+      "reason": "An image filename in a set of four public event-venue image paths."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/deep-review/flashback/flashback-primary/hobb-publisher-excerpt.html",
+      "line": 5117,
+      "category": "anonymous-third-party-page-token",
+      "reason": "A public publisher page visitor field. Classification is documented in anonymous-page-classification.json and README.md; no value was replayed."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/manifest.json",
+      "line": 41,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/content-review.json",
+      "line": 34,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/content-review.json",
+      "line": 42,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/content-review.json",
+      "line": 108,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "line": 61,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "line": 72,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "line": 113,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "line": 121,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "line": 180,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "line": 270,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "line": 277,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "line": 304,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "line": 311,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "line": 342,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "line": 377,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "line": 390,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    },
+    {
+      "rule": "generic-api-key",
+      "file": "docs/audits/2026-10-06/remediation-evidence/source-manifest.json",
+      "line": 391,
+      "category": "file-digest",
+      "reason": "A SHA-256 file digest in an audit or content manifest. The rule matches a keyword in the file path."
+    }
+  ]
+}

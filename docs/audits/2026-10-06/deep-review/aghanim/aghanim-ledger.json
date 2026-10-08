@@ -1,0 +1,3411 @@
+{
+  "reviewedAt": "2026-10-06",
+  "patch": "7.41f",
+  "scope": "All 84 questions and source upgrades. Semantics checked against fresh Valve hero data; flags also checked against the retained client definitions.",
+  "patchEvidence": {
+    "provider": "Valve hero data",
+    "retrievedAt": "2026-10-06",
+    "latestPublishedPatch": "7.41f",
+    "patchListUrl": "https://www.dota2.com/datafeed/patchnoteslist?language=english",
+    "patchListSha256": "9ec57bde0c37aee9b782bd7190cc0c18b68310d90b6cba0b9f9dd3b196bd29ea"
+  },
+  "counts": {
+    "records": 84,
+    "verified": 60,
+    "fixed": 24,
+    "unverified": 0
+  },
+  "records": [
+    {
+      "id": "aghanim-upgrade:antimage:scepter",
+      "heroKey": "npc_dota_hero_antimage",
+      "heroName": "Anti-Mage",
+      "abilityKey": "antimage_blink",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=1",
+        "sha256": "bd110e5daa54998cb29975abe4b689e0d3673fb75b8293c00c112efc77aff9ae",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/1.json",
+        "fields": [
+          "abilities[name=antimage_blink].scepter_loc",
+          "abilities[name=antimage_blink].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_antimage"
+        ]
+      },
+      "note": "Blink grants the next mana-burning attack an extra maximum-mana burn and mana-gain prevention. The five-second window matches the Scepter value.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:axe:scepter",
+      "heroKey": "npc_dota_hero_axe",
+      "heroName": "Axe",
+      "abilityKey": "axe_counter_helix",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2",
+        "sha256": "47f5fa1582c0ca8249449c9bc36cecee039dc6cc16fdc096d23fef64328134bb",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/2.json",
+        "fields": [
+          "abilities[name=axe_counter_helix].scepter_loc",
+          "abilities[name=axe_counter_helix].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_axe"
+        ]
+      },
+      "note": "Damage reduction applies to attacks against the caster only. Own attacks advance the counter and the cooldown is removed.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "The passive counter loses its cooldown, advances on the caster's own attacks, and applies stacking outgoing attack-damage reduction.",
+          "after": "The passive counter loses its cooldown, advances on the caster's attacks, and reduces affected enemies' attack damage against the caster."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:bane:scepter",
+      "heroKey": "npc_dota_hero_bane",
+      "heroName": "Bane",
+      "abilityKey": "bane_fiends_grip",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3",
+        "sha256": "424f22f65a9b6954cbcb70975b35c2f6a302c8afac34a4b790b3f2d3bd3872c6",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/3.json",
+        "fields": [
+          "abilities[name=bane_fiends_grip].scepter_loc",
+          "abilities[name=bane_fiends_grip].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_bane"
+        ]
+      },
+      "note": "Two uncontrollable channeling illusions take increased damage and die when interrupted. Their damage does not stack.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:crystal_maiden:shard",
+      "heroKey": "npc_dota_hero_crystal_maiden",
+      "heroName": "Crystal Maiden",
+      "abilityKey": "crystal_maiden_crystal_clone",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5",
+        "sha256": "d1c3a95b1433d967ec032227aab6a23baa7bc16ec485f7e8faa32ca650c08804",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/5.json",
+        "fields": [
+          "abilities[name=crystal_maiden_crystal_clone].desc_loc",
+          "abilities[name=crystal_maiden_crystal_clone].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_crystal_maiden"
+        ]
+      },
+      "note": "The caster disjoints incoming projectiles when sliding. The clone later applies the area disable when damaged or expired.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "Slides in a direction, leaving a projectile-disjointing clone that shatters into an area disable when damaged or timed out.",
+          "after": "Slides away, disjointing incoming projectiles and leaving a clone that shatters into an area disable when damaged or expired."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:drow_ranger:shard",
+      "heroKey": "npc_dota_hero_drow_ranger",
+      "heroName": "Drow Ranger",
+      "abilityKey": "drow_ranger_glacier",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=6",
+        "sha256": "73204dd32fc78fa741e23c5205859dc9bb0b314cd87ddd16c1db05743ab448eb",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/6.json",
+        "fields": [
+          "abilities[name=drow_ranger_glacier].desc_loc",
+          "abilities[name=drow_ranger_glacier].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_drow_ranger"
+        ]
+      },
+      "note": "The hill knocks enemies away and supplies flying vision. The attack-range bonus applies to ranged allies, while the caster has a separate damage bonus.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "Creates an icy hill that knocks enemies away and grants high-ground bonuses, flying vision, and extra ranged attack range.",
+          "after": "Creates an icy hill that knocks enemies away, grants flying vision, and increases the attack range of ranged allies."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:earthshaker:shard",
+      "heroKey": "npc_dota_hero_earthshaker",
+      "heroName": "Earthshaker",
+      "abilityKey": "earthshaker_fissure",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=7",
+        "sha256": "abb6e8df50096cf66f52726c6a2d7e669c96c5f59b44e465baf5eeb92db88461",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/7.json",
+        "fields": [
+          "abilities[name=earthshaker_fissure].shard_loc",
+          "abilities[name=earthshaker_fissure].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_earthshaker"
+        ]
+      },
+      "note": "Casting another ability sends a shortened Aftershock along the Fissure path.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:mirana:scepter",
+      "heroKey": "npc_dota_hero_mirana",
+      "heroName": "Mirana",
+      "abilityKey": "mirana_arrow",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9",
+        "sha256": "b555bb7ec8e6157f4dbaf591bd92424f0ae77911301b167324d4f63a683c2480",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/9.json",
+        "fields": [
+          "abilities[name=mirana_arrow].scepter_loc",
+          "abilities[name=mirana_arrow].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_mirana"
+        ]
+      },
+      "note": "Arrow triggers Starstorm along its path and a weaker second hit on impact. The patch changes arrow stun scaling but no number in this clue.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:morphling:scepter",
+      "heroKey": "npc_dota_hero_morphling",
+      "heroName": "Morphling",
+      "abilityKey": "morphling_replicate",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=10",
+        "sha256": "1a5ecde65e169408c3b08797b530e312b901e4c50e743641e2d098591a39069a",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/10.json",
+        "fields": [
+          "abilities[name=morphling_replicate].scepter_loc",
+          "abilities[name=morphling_replicate].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_morphling"
+        ]
+      },
+      "note": "The strong illusion is the alt-cast option. Toggling while it lives replaces it with the caster.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "Creates a strong illusion of a target hero that can cast basic abilities; recasting swaps the caster into its position.",
+          "after": "Alt-cast creates a strong illusion of a target hero that can cast basic abilities; toggling again replaces it with the caster."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:nevermore:scepter",
+      "heroKey": "npc_dota_hero_nevermore",
+      "heroName": "Shadow Fiend",
+      "abilityKey": "nevermore_requiem",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11",
+        "sha256": "a64012d6b80b7a328d6c63142162a2c1c0450e4e126d23d59c13b45a7e2e3911",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/11.json",
+        "fields": [
+          "abilities[name=nevermore_requiem].scepter_loc",
+          "abilities[name=nevermore_requiem].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_nevermore"
+        ]
+      },
+      "note": "Returning Requiem waves heal the caster for the damage they deal.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:phantom_lancer:shard",
+      "heroKey": "npc_dota_hero_phantom_lancer",
+      "heroName": "Phantom Lancer",
+      "abilityKey": "phantom_lancer_juxtapose",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=12",
+        "sha256": "7052f4f9b4487fa48d7a8b066e1b520c00f0acbe042a3d8c22c1538f91ee0eeb",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/12.json",
+        "fields": [
+          "abilities[name=phantom_lancer_juxtapose].shard_loc",
+          "abilities[name=phantom_lancer_juxtapose].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_phantom_lancer"
+        ]
+      },
+      "note": "The passive receives an active invisibility effect, movement speed, and a duplicate image.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:puck:scepter",
+      "heroKey": "npc_dota_hero_puck",
+      "heroName": "Puck",
+      "abilityKey": "puck_dream_coil",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=13",
+        "sha256": "aa0cf50cb9b15452922e6118ccb6e21c003d6e57b2b59672f71c03fbc30f1d20",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/13.json",
+        "fields": [
+          "abilities[name=puck_dream_coil].scepter_loc",
+          "abilities[name=puck_dream_coil].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_puck"
+        ]
+      },
+      "note": "The Scepter attacks affected enemies at 90 percent of normal attack rate and continues through the stun from breaking the coil.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:pudge:shard",
+      "heroKey": "npc_dota_hero_pudge",
+      "heroName": "Pudge",
+      "abilityKey": "pudge_meat_hook",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14",
+        "sha256": "7f168db60e3be1d7b77c34a51d5b05695582ea1b773987f809fe1fd94cc0b374",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/14.json",
+        "fields": [
+          "abilities[name=pudge_meat_hook].shard_loc",
+          "abilities[name=pudge_meat_hook].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_pudge"
+        ]
+      },
+      "note": "Pull distance supplies bonus damage. The ally-hook cooldown reduction value is 50 percent.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:razor:scepter",
+      "heroKey": "npc_dota_hero_razor",
+      "heroName": "Razor",
+      "abilityKey": "razor_eye_of_the_storm",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15",
+        "sha256": "2737960f1a4bf7acb5e61afa8bff57f8b5ff63dc102f35e8a7117f049aac5f73",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/15.json",
+        "fields": [
+          "abilities[name=razor_eye_of_the_storm].scepter_loc",
+          "abilities[name=razor_eye_of_the_storm].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_razor"
+        ]
+      },
+      "note": "Two storm targets and the permitted building classes match the Scepter description.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:storm_spirit:shard",
+      "heroKey": "npc_dota_hero_storm_spirit",
+      "heroName": "Storm Spirit",
+      "abilityKey": "storm_spirit_overload",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17",
+        "sha256": "15e30184b86d331844d34143c0ba7c3cfb11f539e5f19e55e553a19822558066",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/17.json",
+        "fields": [
+          "abilities[name=storm_spirit_overload].shard_loc",
+          "abilities[name=storm_spirit_overload].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_storm_spirit"
+        ]
+      },
+      "note": "Three charges and extra attack speed apply to the caster and nearby allied heroes.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:sven:scepter",
+      "heroKey": "npc_dota_hero_sven",
+      "heroName": "Sven",
+      "abilityKey": "sven_storm_bolt",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=18",
+        "sha256": "0db5620e2a660cf0a4f5654085597f97fb3edab9c2e01f2f3d18d632ff888a40",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/18.json",
+        "fields": [
+          "abilities[name=sven_storm_bolt].scepter_loc",
+          "abilities[name=sven_storm_bolt].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_sven"
+        ]
+      },
+      "note": "Range and basic dispel apply normally. Extra damage and travel with the projectile require alt-cast.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:tiny:scepter",
+      "heroKey": "npc_dota_hero_tiny",
+      "heroName": "Tiny",
+      "abilityKey": "tiny_tree_channel",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19",
+        "sha256": "5e1e42e5431c1130635c92486d17ccf7059cb3b122b4f6f1c9fb88a643f7a50a",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/19.json",
+        "fields": [
+          "abilities[name=tiny_tree_channel].desc_loc",
+          "abilities[name=tiny_tree_channel].ability_is_granted_by_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_tiny"
+        ]
+      },
+      "note": "The new channeled ability throws nearby trees and uses attack damage with Tree Throw bonuses.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:vengefulspirit:scepter",
+      "heroKey": "npc_dota_hero_vengefulspirit",
+      "heroName": "Vengeful Spirit",
+      "abilityKey": "vengefulspirit_command_aura",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20",
+        "sha256": "0e7870e8c64c9e078cefe521c9d96553130496abc7e9c0f92d954c409f6016c5",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/20.json",
+        "fields": [
+          "abilities[name=vengefulspirit_command_aura].scepter_loc",
+          "abilities[name=vengefulspirit_command_aura].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_vengefulspirit"
+        ]
+      },
+      "note": "A full-damage strong illusion can cast spells and becomes the respawn location if still alive.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:windrunner:shard",
+      "heroKey": "npc_dota_hero_windrunner",
+      "heroName": "Windranger",
+      "abilityKey": "windrunner_gale_force",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21",
+        "sha256": "a70cbf92672a6f62f806f50854bb8845b73c00280c5779269a5788c71655d341",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/21.json",
+        "fields": [
+          "abilities[name=windrunner_gale_force].desc_loc",
+          "abilities[name=windrunner_gale_force].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_windrunner"
+        ]
+      },
+      "note": "The new vector-targeted wind pushes enemies in the selected direction.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:zuus:scepter",
+      "heroKey": "npc_dota_hero_zuus",
+      "heroName": "Zeus",
+      "abilityKey": "zuus_cloud",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22",
+        "sha256": "98db1f635f8beed0870085aa0bcd89e2c61c3085394a7f317bba1c9de68444a6",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/22.json",
+        "fields": [
+          "abilities[name=zuus_cloud].desc_loc",
+          "abilities[name=zuus_cloud].ability_is_granted_by_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_zuus"
+        ]
+      },
+      "note": "The globally targeted cloud automatically casts Lightning Bolt on nearby enemies.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:kunkka:scepter",
+      "heroKey": "npc_dota_hero_kunkka",
+      "heroName": "Kunkka",
+      "abilityKey": "kunkka_ghostship",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=23",
+        "sha256": "822a544e7c5f4a7b8f49af98ffb5ac9ae2732aa2143550c451246ff02a9b199f",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/23.json",
+        "fields": [
+          "abilities[name=kunkka_ghostship].scepter_loc",
+          "abilities[name=kunkka_ghostship].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_kunkka"
+        ]
+      },
+      "note": "The Scepter fleet count is two. Each ship fires cannonballs from both sides for a portion of Ghostship damage.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:lina:scepter",
+      "heroKey": "npc_dota_hero_lina",
+      "heroName": "Lina",
+      "abilityKey": "lina_flame_cloak",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25",
+        "sha256": "4f044b61a25a83718b4443849159778830223ca4f746ae5ead81dad7441c23f2",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/25.json",
+        "fields": [
+          "abilities[name=lina_flame_cloak].desc_loc",
+          "abilities[name=lina_flame_cloak].ability_is_granted_by_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_lina"
+        ]
+      },
+      "note": "The new ability grants unobstructed movement, spell damage, magic resistance, and maximum Fiery Soul stacks.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:lion:shard",
+      "heroKey": "npc_dota_hero_lion",
+      "heroName": "Lion",
+      "abilityKey": "lion_mana_drain",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26",
+        "sha256": "0e1f7f5a241f1ca82facfc2a20cc4dce909c0b59932190f1db3b2564e8a4a384",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/26.json",
+        "fields": [
+          "abilities[name=lion_mana_drain].shard_loc",
+          "abilities[name=lion_mana_drain].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_lion"
+        ]
+      },
+      "note": "Two additional enemy targets, longer break distance, debuff immunity, and magic resistance match the Shard data.",
+      "changes": [
+        {
+          "field": "answerDisplayNames",
+          "before": [
+            "Lion",
+            "Dark Willow",
+            "Keeper of the Light",
+            "Outworld Devourer"
+          ],
+          "after": [
+            "Lion",
+            "Dark Willow",
+            "Keeper of the Light",
+            "Outworld Destroyer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:shadow_shaman:scepter",
+      "heroKey": "npc_dota_hero_shadow_shaman",
+      "heroName": "Shadow Shaman",
+      "abilityKey": "shadow_shaman_shackles",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=27",
+        "sha256": "140257a291c4f0b74cbce9b3b4dff48c6986a5bc7099032d243cb8e06f39f916",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/27.json",
+        "fields": [
+          "abilities[name=shadow_shaman_shackles].scepter_loc",
+          "abilities[name=shadow_shaman_shackles].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_shadow_shaman"
+        ]
+      },
+      "note": "Allies and Mass Serpent Wards are valid targets. Allied units are not disabled. The radial damage uses Ether Shock.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "The channel can target allies and friendly wards; affected units repeatedly emit radial damage around themselves.",
+          "after": "The channel can target allies or summoned serpent wards, making affected units repeatedly emit radial damage without disabling allied targets."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:tidehunter:shard",
+      "heroKey": "npc_dota_hero_tidehunter",
+      "heroName": "Tidehunter",
+      "abilityKey": "tidehunter_dead_in_the_water",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=29",
+        "sha256": "41f1768a339294f46e9b7837e9341c56ce3d07f80eb095931f5c52e2a6019fd3",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/29.json",
+        "fields": [
+          "abilities[name=tidehunter_dead_in_the_water].desc_loc",
+          "abilities[name=tidehunter_dead_in_the_water].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_tidehunter"
+        ]
+      },
+      "note": "The anchor targets an enemy hero. The destroy count is four hero attacks.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "Attaches a heavy anchor that leashes an enemy; four hero attacks destroy it.",
+          "after": "Attaches a heavy anchor that leashes an enemy hero; four hero attacks destroy it."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:witch_doctor:shard",
+      "heroKey": "npc_dota_hero_witch_doctor",
+      "heroName": "Witch Doctor",
+      "abilityKey": "witch_doctor_voodoo_switcheroo",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30",
+        "sha256": "54330c77dbf36e804cd6b25784b67b5a2c0c991c7bc5d91b0526b001a39350ad",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/30.json",
+        "fields": [
+          "abilities[name=witch_doctor_voodoo_switcheroo].desc_loc",
+          "abilities[name=witch_doctor_voodoo_switcheroo].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_witch_doctor"
+        ]
+      },
+      "note": "The caster becomes hidden while acting as a slower-attacking Death Ward.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:lich:scepter",
+      "heroKey": "npc_dota_hero_lich",
+      "heroName": "Lich",
+      "abilityKey": "lich_sinister_gaze",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=31",
+        "sha256": "f43ce66c059b65380148172fc6e0db0d0155f51568f58f924969e714a9be328f",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/31.json",
+        "fields": [
+          "abilities[name=lich_sinister_gaze].scepter_loc",
+          "abilities[name=lich_sinister_gaze].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_lich"
+        ]
+      },
+      "note": "The Scepter gives an area target and permits other spell casts during the channel.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:riki:scepter",
+      "heroKey": "npc_dota_hero_riki",
+      "heroName": "Riki",
+      "abilityKey": "riki_tricks_of_the_trade",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=32",
+        "sha256": "3a01e12ef08b827395ae73fc84c7cd33b40a019b9dd52a63f1d5cc8589fb68b2",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/32.json",
+        "fields": [
+          "abilities[name=riki_tricks_of_the_trade].scepter_loc",
+          "abilities[name=riki_tricks_of_the_trade].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_riki"
+        ]
+      },
+      "note": "The caster hides inside an ally, increases that ally movement speed, and extends the attack sequence.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:enigma:shard",
+      "heroKey": "npc_dota_hero_enigma",
+      "heroName": "Enigma",
+      "abilityKey": "enigma_malefice",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=33",
+        "sha256": "6092c03c476959741aecb7509e8bb46a7b9b20823fb8917a7443ecf699d065bb",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/33.json",
+        "fields": [
+          "abilities[name=enigma_malefice].shard_loc",
+          "abilities[name=enigma_malefice].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_enigma"
+        ]
+      },
+      "note": "The Shard lengthens each stun and creates an Eidolon per pulse. The spawned units cannot multiply. The unsupported controllability claim was removed.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "Every stun pulse creates an uncontrollable summoned unit beside the target and lasts slightly longer.",
+          "after": "Each stun pulse lasts longer and creates a summoned unit beside the target; these units cannot multiply."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:tinker:shard",
+      "heroKey": "npc_dota_hero_tinker",
+      "heroName": "Tinker",
+      "abilityKey": "tinker_warp_grenade",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34",
+        "sha256": "b53a8b50662ae237d01b23aad19f0d6fc707f687fe2de468b51e10de64c81e18",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/34.json",
+        "fields": [
+          "abilities[name=tinker_warp_grenade].desc_loc",
+          "abilities[name=tinker_warp_grenade].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_tinker"
+        ]
+      },
+      "note": "The new flare teleports the enemy away, roots them, and reduces attack and cast range.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:sniper:shard",
+      "heroKey": "npc_dota_hero_sniper",
+      "heroName": "Sniper",
+      "abilityKey": "sniper_concussive_grenade",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=35",
+        "sha256": "022377e09d48796db5e5cbc4a319ebc39afb9ba8533a31ffa4e389a3a8f279f5",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/35.json",
+        "fields": [
+          "abilities[name=sniper_concussive_grenade].desc_loc",
+          "abilities[name=sniper_concussive_grenade].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_sniper"
+        ]
+      },
+      "note": "The grenade damages and disarms enemies and knocks both enemies and the caster back.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:necrolyte:shard",
+      "heroKey": "npc_dota_hero_necrolyte",
+      "heroName": "Necrophos",
+      "abilityKey": "necrolyte_death_seeker",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=36",
+        "sha256": "a397399debd35abf0cafca2c052de1569c61420ab07d6e39fde2f0c93899a058",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/36.json",
+        "fields": [
+          "abilities[name=necrolyte_death_seeker].desc_loc",
+          "abilities[name=necrolyte_death_seeker].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_necrolyte"
+        ]
+      },
+      "note": "The caster travels as a Death Pulse that spreads to nearby enemies and allies at the target location.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:beastmaster:scepter",
+      "heroKey": "npc_dota_hero_beastmaster",
+      "heroName": "Beastmaster",
+      "abilityKey": "beastmaster_drums_of_slom",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=38",
+        "sha256": "03d5175adb067ad4ab483288711ea9917c025117a8ca6c70abaf7f404c3a2379",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/38.json",
+        "fields": [
+          "abilities[name=beastmaster_drums_of_slom].desc_loc",
+          "abilities[name=beastmaster_drums_of_slom].ability_is_granted_by_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_beastmaster"
+        ]
+      },
+      "note": "Attacks by the caster or controlled units accelerate the drumbeats. The damage heals the caster and controlled units.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:queenofpain:shard",
+      "heroKey": "npc_dota_hero_queenofpain",
+      "heroName": "Queen of Pain",
+      "abilityKey": "queenofpain_blink",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39",
+        "sha256": "9d942ec86974a0b16b0d4eeba88d3ee69a34bba4ebbbca839aef88702d105f92",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/39.json",
+        "fields": [
+          "abilities[name=queenofpain_blink].shard_loc",
+          "abilities[name=queenofpain_blink].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_queenofpain"
+        ]
+      },
+      "note": "Both teleport endpoints deal damage and silence enemies.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:venomancer:scepter",
+      "heroKey": "npc_dota_hero_venomancer",
+      "heroName": "Venomancer",
+      "abilityKey": "venomancer_noxious_plague",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40",
+        "sha256": "c70d8c09bcfb5b50f87fd3cd99e4b91dc99b0a04eeaad8e0cab6b33a6846e5d0",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/40.json",
+        "fields": [
+          "abilities[name=venomancer_noxious_plague].scepter_loc",
+          "abilities[name=venomancer_noxious_plague].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_venomancer"
+        ]
+      },
+      "note": "The upgrade lowers cooldown and enemy magic resistance. Spreading from heroes retains full impact damage.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:faceless_void:scepter",
+      "heroKey": "npc_dota_hero_faceless_void",
+      "heroName": "Faceless Void",
+      "abilityKey": "faceless_void_time_walk_reverse",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=41",
+        "sha256": "73ee94a3fd2be1ffb6a5d5d038543c056d095200493955c2b2aca71ac6c392ba",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/41.json",
+        "fields": [
+          "abilities[name=faceless_void_time_walk_reverse].desc_loc",
+          "abilities[name=faceless_void_time_walk_reverse].ability_is_granted_by_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_faceless_void"
+        ]
+      },
+      "note": "The separate return ability is available for 1.5 seconds after Time Walk and does not change health.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "For 1.5 seconds after landing a mobility spell, recast it to return to the previous location without reverting health.",
+          "after": "For 1.5 seconds after a mobility spell, a second ability returns the caster to the previous location without changing health."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:death_prophet:scepter",
+      "heroKey": "npc_dota_hero_death_prophet",
+      "heroName": "Death Prophet",
+      "abilityKey": "death_prophet_exorcism",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43",
+        "sha256": "a570f01798798f5e718abcd0d967aeac60666f522d235a028cb047b6aa2f559b",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/43.json",
+        "fields": [
+          "abilities[name=death_prophet_exorcism].scepter_loc",
+          "abilities[name=death_prophet_exorcism].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_death_prophet"
+        ]
+      },
+      "note": "Attacks and spell effects send an extra damaging ghost that returns with healing.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:phantom_assassin:scepter",
+      "heroKey": "npc_dota_hero_phantom_assassin",
+      "heroName": "Phantom Assassin",
+      "abilityKey": "phantom_assassin_fan_of_knives",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=44",
+        "sha256": "7ac1694bbbaaed259cf6f66436a1bc978cb60216e5f7bc3c85e1f33d09afecc9",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/44.json",
+        "fields": [
+          "abilities[name=phantom_assassin_fan_of_knives].desc_loc",
+          "abilities[name=phantom_assassin_fan_of_knives].ability_is_granted_by_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_phantom_assassin"
+        ]
+      },
+      "note": "The new radial blades deal a percentage of each target maximum health and apply Break.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:pugna:shard",
+      "heroKey": "npc_dota_hero_pugna",
+      "heroName": "Pugna",
+      "abilityKey": "pugna_life_drain",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45",
+        "sha256": "8e1982eef2b60777d527526a96a4f65a3e9bd2e31a34789e53a5f4a6d2ed6290",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/45.json",
+        "fields": [
+          "abilities[name=pugna_life_drain].shard_loc",
+          "abilities[name=pugna_life_drain].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_pugna"
+        ]
+      },
+      "note": "Channeling through Nether Ward reaches nearby enemy heroes at reduced strength.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:viper:scepter",
+      "heroKey": "npc_dota_hero_viper",
+      "heroName": "Viper",
+      "abilityKey": "viper_nose_dive",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=47",
+        "sha256": "078647f23ff65e14a7e1ee257baa64ed3fb6f5240c6e967ef46b7476458d29fd",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/47.json",
+        "fields": [
+          "abilities[name=viper_nose_dive].desc_loc",
+          "abilities[name=viper_nose_dive].ability_is_granted_by_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_viper"
+        ]
+      },
+      "note": "The new landing ability releases Nethertoxin and applies Corrosive Skin to enemies in the area.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:luna:scepter",
+      "heroKey": "npc_dota_hero_luna",
+      "heroName": "Luna",
+      "abilityKey": "luna_eclipse",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=48",
+        "sha256": "319cd3b2a790b2bc09ed36b3401be498b14be86c5915b18327182d6dd3d7c4aa",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/48.json",
+        "fields": [
+          "abilities[name=luna_eclipse].scepter_loc",
+          "abilities[name=luna_eclipse].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_luna"
+        ]
+      },
+      "note": "The upgraded ultimate follows an ally or affects a location, adds beams, and removes the per-unit beam limit.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:dragon_knight:shard",
+      "heroKey": "npc_dota_hero_dragon_knight",
+      "heroName": "Dragon Knight",
+      "abilityKey": "dragon_knight_fireball",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49",
+        "sha256": "ffa770ae93d1268e67f4bd03ea050eb016deb1f27db2049596cb218c03889a1b",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/49.json",
+        "fields": [
+          "abilities[name=dragon_knight_fireball].desc_loc",
+          "abilities[name=dragon_knight_fireball].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_dragon_knight"
+        ]
+      },
+      "note": "The new ground fire damages over time and lingers on enemies. Melee form has shorter cast range.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:dazzle:scepter",
+      "heroKey": "npc_dota_hero_dazzle",
+      "heroName": "Dazzle",
+      "abilityKey": "dazzle_shadow_wave",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50",
+        "sha256": "2bd5ac58af625745a1947cd01cea64b6f47dd03bc0b3956e9ce8f806982a9c15",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/50.json",
+        "fields": [
+          "abilities[name=dazzle_shadow_wave].scepter_loc",
+          "abilities[name=dazzle_shadow_wave].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_dazzle"
+        ]
+      },
+      "note": "The bouncing heal can also hit enemies, damage them, heal nearby allies, and cause an attack against each enemy hit.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "The bouncing heal can target enemies, damaging them, healing nearby allies, and triggering an attack against each enemy bounce.",
+          "after": "The bouncing heal can target enemies, damaging them, healing nearby allies, and making the caster attack each enemy hit."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:rattletrap:shard",
+      "heroKey": "npc_dota_hero_rattletrap",
+      "heroName": "Clockwerk",
+      "abilityKey": "rattletrap_jetpack",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=51",
+        "sha256": "7715bcbe6b96070b58a39a822948bdf1251dfc26544062dd2d0dc304d1ab9a8f",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/51.json",
+        "fields": [
+          "abilities[name=rattletrap_jetpack].desc_loc",
+          "abilities[name=rattletrap_jetpack].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_rattletrap"
+        ]
+      },
+      "note": "The new movement ability grants flight, vision, and movement speed while blocking attacks and reducing turn rate.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:leshrac:scepter",
+      "heroKey": "npc_dota_hero_leshrac",
+      "heroName": "Leshrac",
+      "abilityKey": "leshrac_greater_lightning_storm",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=52",
+        "sha256": "3dba21b803ed8d423d0c8405041e2d17cf7be053dba1d0c8fc71ebec273dd2bd",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/52.json",
+        "fields": [
+          "abilities[name=leshrac_greater_lightning_storm].desc_loc",
+          "abilities[name=leshrac_greater_lightning_storm].ability_is_granted_by_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_leshrac"
+        ]
+      },
+      "note": "Ethereal form prevents attacks. Enemies are slowed and take amplified magic damage, while the caster moves faster without amplified incoming damage.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "Turns the caster and nearby enemies ethereal, slowing enemies and amplifying their incoming magic damage without penalizing the caster.",
+          "after": "Turns the caster and nearby enemies ethereal; enemies move slower and take more magic damage, while the caster moves faster."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:furion:shard",
+      "heroKey": "npc_dota_hero_furion",
+      "heroName": "Nature's Prophet",
+      "abilityKey": "furion_curse_of_the_forest",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53",
+        "sha256": "fb8ef7935ea30c11f927b1ae1837bb5470262c27e6b55943017399535924a548",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/53.json",
+        "fields": [
+          "abilities[name=furion_curse_of_the_forest].desc_loc",
+          "abilities[name=furion_curse_of_the_forest].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_furion"
+        ]
+      },
+      "note": "The curse reveals enemy heroes through fog. Damage and slow depend on nearby trees, including treants.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:life_stealer:scepter",
+      "heroKey": "npc_dota_hero_life_stealer",
+      "heroName": "Lifestealer",
+      "abilityKey": "life_stealer_infest",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=54",
+        "sha256": "8477ea4345745c6a83f05d94911f079b172f04afd043d8b5229a137204fdfe2b",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/54.json",
+        "fields": [
+          "abilities[name=life_stealer_infest].scepter_loc",
+          "abilities[name=life_stealer_infest].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_life_stealer"
+        ]
+      },
+      "note": "The Scepter permits infesting enemy heroes and attacking inside with more regeneration. Patch 7.41f lowers enemy duration from five to four seconds; the clue makes no duration claim.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:dark_seer:shard",
+      "heroKey": "npc_dota_hero_dark_seer",
+      "heroName": "Dark Seer",
+      "abilityKey": "dark_seer_surge",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55",
+        "sha256": "eb12a9a9d26af89c1c036198160207e305d5e5aec5d4531b855ab618ffe5449a",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/55.json",
+        "fields": [
+          "abilities[name=dark_seer_surge].shard_loc",
+          "abilities[name=dark_seer_surge].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_dark_seer"
+        ]
+      },
+      "note": "The Shard trail lasts seven seconds, damages and slows enemies, and can be disabled with alt-cast.",
+      "changes": [
+        {
+          "field": "answerDisplayNames",
+          "before": [
+            "Outworld Devourer",
+            "Shadow Demon",
+            "Witch Doctor",
+            "Dark Seer"
+          ],
+          "after": [
+            "Outworld Destroyer",
+            "Shadow Demon",
+            "Witch Doctor",
+            "Dark Seer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:clinkz:shard",
+      "heroKey": "npc_dota_hero_clinkz",
+      "heroName": "Clinkz",
+      "abilityKey": "clinkz_burning_barrage",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56",
+        "sha256": "0b271467d5b827f14ab936b13762a2b498ebe3d21ae77efa6fd5b75a40e9743f",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/56.json",
+        "fields": [
+          "abilities[name=clinkz_burning_barrage].desc_loc",
+          "abilities[name=clinkz_burning_barrage].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_clinkz"
+        ]
+      },
+      "note": "The new channeled arrows pierce units, use a percentage of attack damage, and apply attack modifiers.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:omniknight:shard",
+      "heroKey": "npc_dota_hero_omniknight",
+      "heroName": "Omniknight",
+      "abilityKey": "omniknight_purification",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=57",
+        "sha256": "386266d8af51e916d43050f8ca59e917eb5b1406d885dcae24b9d0cd8d0c67d5",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/57.json",
+        "fields": [
+          "abilities[name=omniknight_purification].shard_loc",
+          "abilities[name=omniknight_purification].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_omniknight"
+        ]
+      },
+      "note": "The repeat delay is three seconds and effectiveness is 65 percent.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:enchantress:scepter",
+      "heroKey": "npc_dota_hero_enchantress",
+      "heroName": "Enchantress",
+      "abilityKey": "enchantress_little_friends",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58",
+        "sha256": "d9c88736c13a2d7fb15cb2d9df7036f3debaf55964b07abba18311422f0b1d33",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/58.json",
+        "fields": [
+          "abilities[name=enchantress_little_friends].desc_loc",
+          "abilities[name=enchantress_little_friends].ability_is_granted_by_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_enchantress"
+        ]
+      },
+      "note": "The new ability roots one target and forces nearby allied, enemy, and neutral creeps to attack with extra movement and attack speed.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "Roots one enemy and compels every nearby creep—friendly, hostile, or neutral—to attack it with bonus speed.",
+          "after": "Roots one enemy and makes nearby friendly, hostile, and neutral creeps attack it with bonus movement and attack speed."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:huskar:shard",
+      "heroKey": "npc_dota_hero_huskar",
+      "heroName": "Huskar",
+      "abilityKey": "huskar_berserkers_blood",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=59",
+        "sha256": "559af7b0b80ce4acaf10617aa3f93e46469ef440f7de53421d0864937e3cae4b",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/59.json",
+        "fields": [
+          "abilities[name=huskar_berserkers_blood].shard_loc",
+          "abilities[name=huskar_berserkers_blood].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_huskar"
+        ]
+      },
+      "note": "The active costs health and gives a basic dispel. Healing occurs after a delay and gains an extra amount per removed debuff.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "Pay health to apply a basic self-dispel, then heal for the health spent plus a bonus for every debuff removed.",
+          "after": "Spends health for a basic self-dispel, then heals that amount after a delay, plus extra healing per debuff removed."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:night_stalker:scepter",
+      "heroKey": "npc_dota_hero_night_stalker",
+      "heroName": "Night Stalker",
+      "abilityKey": "night_stalker_hunter_in_the_night",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=60",
+        "sha256": "2a91833020ae3d8f03a7a66e93bd1f9ce840212025ce84f87f47dbb9f13bf718",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/60.json",
+        "fields": [
+          "abilities[name=night_stalker_hunter_in_the_night].scepter_loc",
+          "abilities[name=night_stalker_hunter_in_the_night].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_night_stalker"
+        ]
+      },
+      "note": "Hero kills reset basic ability cooldowns. The passive receives additional movement and attack speed.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:broodmother:scepter",
+      "heroKey": "npc_dota_hero_broodmother",
+      "heroName": "Broodmother",
+      "abilityKey": "broodmother_sticky_snare",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=61",
+        "sha256": "37bffb54d119d964df85bca5c968f0c9f6c9415cae84508d881b592ee7aa93ad",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/61.json",
+        "fields": [
+          "abilities[name=broodmother_sticky_snare].desc_loc",
+          "abilities[name=broodmother_sticky_snare].ability_is_granted_by_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_broodmother"
+        ]
+      },
+      "note": "The invisible traps must touch existing webs and root, reveal, and damage crossing enemy heroes.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:bounty_hunter:shard",
+      "heroKey": "npc_dota_hero_bounty_hunter",
+      "heroName": "Bounty Hunter",
+      "abilityKey": "bounty_hunter_wind_walk_ally",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=62",
+        "sha256": "51503174e7818e594cdf76b29e81fb2811d00af79f6bd8bc12a55cd26c7e9511",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/62.json",
+        "fields": [
+          "abilities[name=bounty_hunter_wind_walk_ally].desc_loc",
+          "abilities[name=bounty_hunter_wind_walk_ally].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_bounty_hunter"
+        ]
+      },
+      "note": "The new ally buff carries all Shadow Walk bonuses and does not break the caster invisibility.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:weaver:shard",
+      "heroKey": "npc_dota_hero_weaver",
+      "heroName": "Weaver",
+      "abilityKey": "weaver_shukuchi",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=63",
+        "sha256": "345b8612bf2229f1e958a78ae583108d422aaa1a0142d5377a6b98ad5ff3dc8c",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/63.json",
+        "fields": [
+          "abilities[name=weaver_shukuchi].shard_loc",
+          "abilities[name=weaver_shukuchi].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_weaver"
+        ]
+      },
+      "note": "Marked targets receive the secondary attack only if still within 1200 range when the movement spell ends.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "Enemies crossed during the movement spell are marked, then struck by a secondary attack when the caster exits.",
+          "after": "Marks enemies damaged by the movement spell, then strikes marked targets within 1200 range with a secondary attack after exiting."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:jakiro:scepter",
+      "heroKey": "npc_dota_hero_jakiro",
+      "heroName": "Jakiro",
+      "abilityKey": "jakiro_macropyre",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=64",
+        "sha256": "0d064898b570ac37ba91c33067b9b45e65830348cf97a73d8aa911e15954e935",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/64.json",
+        "fields": [
+          "abilities[name=jakiro_macropyre].scepter_loc",
+          "abilities[name=jakiro_macropyre].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_jakiro"
+        ]
+      },
+      "note": "The upgraded ground effect lasts longer, deals pure damage, and has slowing ice edges.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:batrider:scepter",
+      "heroKey": "npc_dota_hero_batrider",
+      "heroName": "Batrider",
+      "abilityKey": "batrider_flaming_lasso",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65",
+        "sha256": "ce9dd60a56c89b3cf80ea6dffbb480ebbfd7dcd8b8530ce80dd594d8ed05b058",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/65.json",
+        "fields": [
+          "abilities[name=batrider_flaming_lasso].scepter_loc",
+          "abilities[name=batrider_flaming_lasso].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_batrider"
+        ]
+      },
+      "note": "The second victim must be the target nearest allied hero within 650 range.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "The tether grabs its target and that target's nearest allied hero, linking the second victim to the first.",
+          "after": "The tether also grabs the target's nearest allied hero within 650 range, linking the second victim to the first."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:chen:scepter",
+      "heroKey": "npc_dota_hero_chen",
+      "heroName": "Chen",
+      "abilityKey": "chen_hand_of_god",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66",
+        "sha256": "fdce30cb6cf5b3b689e531d74c8c96f1142419365991a97e29c5278da39fa184",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/66.json",
+        "fields": [
+          "abilities[name=chen_hand_of_god].scepter_loc",
+          "abilities[name=chen_hand_of_god].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_chen"
+        ]
+      },
+      "note": "The global heal becomes channeled. Nearby other allies receive debuff immunity, magic resistance, and stronger healing over time.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:doom_bringer:scepter",
+      "heroKey": "npc_dota_hero_doom_bringer",
+      "heroName": "Doom",
+      "abilityKey": "doom_bringer_doom",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=69",
+        "sha256": "828f71b1b781daeb20a6d0fdc1b361a826c282aa95772d27f5f962a191405719",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/69.json",
+        "fields": [
+          "abilities[name=doom_bringer_doom].scepter_loc",
+          "abilities[name=doom_bringer_doom].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_doom_bringer"
+        ]
+      },
+      "note": "The upgrade applies Break and an aura around the victim. A self-cast applies the effect to enemies around the caster.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:spirit_breaker:shard",
+      "heroKey": "npc_dota_hero_spirit_breaker",
+      "heroName": "Spirit Breaker",
+      "abilityKey": "spirit_breaker_planar_pocket",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71",
+        "sha256": "f3ce0b406f7de82bac071071e1605e819dd4d77cd9f13731908dfdd92a13b248",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/71.json",
+        "fields": [
+          "abilities[name=spirit_breaker_planar_pocket].desc_loc",
+          "abilities[name=spirit_breaker_planar_pocket].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_spirit_breaker"
+        ]
+      },
+      "note": "Unit-targeted spells from enemy heroes aimed at the selected hero are redirected. This is not an area interception effect.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "Redirects enemy unit-targeted spells aimed near a chosen hero onto the caster while granting magic resistance.",
+          "after": "Redirects enemy heroes' unit-targeted spells from a chosen hero to the caster, who gains magic resistance."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:gyrocopter:shard",
+      "heroKey": "npc_dota_hero_gyrocopter",
+      "heroName": "Gyrocopter",
+      "abilityKey": "gyrocopter_homing_missile",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=72",
+        "sha256": "96a21bda132a8d106a885f83f4daccf7f02ebd2be842b34023f210677ca78c75",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/72.json",
+        "fields": [
+          "abilities[name=gyrocopter_homing_missile].shard_loc",
+          "abilities[name=gyrocopter_homing_missile].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_gyrocopter"
+        ]
+      },
+      "note": "The homing missile fires the current Rocket Barrage around itself after a delay.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:alchemist:shard",
+      "heroKey": "npc_dota_hero_alchemist",
+      "heroName": "Alchemist",
+      "abilityKey": "alchemist_berserk_potion",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=73",
+        "sha256": "1e869c01237a78093f39c23fd4240b477fbaf49be1ca6c25c76be11726cb2815",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/73.json",
+        "fields": [
+          "abilities[name=alchemist_berserk_potion].desc_loc",
+          "abilities[name=alchemist_berserk_potion].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_alchemist"
+        ]
+      },
+      "note": "The ally potion gives a basic dispel, attack speed, movement speed, and health regeneration.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:invoker:scepter",
+      "heroKey": "npc_dota_hero_invoker",
+      "heroName": "Invoker",
+      "abilityKey": "invoker_ice_wall",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74",
+        "sha256": "16bed6792a0c75a2c4ab2248d2c0ac5ea72a5195856e8ed6a2e5a85c2f27177b",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/74.json",
+        "fields": [
+          "abilities[name=invoker_ice_wall].scepter_loc",
+          "abilities[name=invoker_ice_wall].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_invoker"
+        ]
+      },
+      "note": "The existing wall receives vector targeting. Enemy heroes that stay inside long enough are rooted.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:obsidian_destroyer:scepter",
+      "heroKey": "npc_dota_hero_obsidian_destroyer",
+      "heroName": "Outworld Destroyer",
+      "abilityKey": "obsidian_destroyer_objurgation",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76",
+        "sha256": "90ec5af3d2d94f47bc529205c075684012bb9889282334eefc52bb2e5e8fbc26",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/76.json",
+        "fields": [
+          "abilities[name=obsidian_destroyer_objurgation].scepter_loc",
+          "abilities[name=obsidian_destroyer_objurgation].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_obsidian_destroyer"
+        ]
+      },
+      "note": "Automatic prevention triggers below 20 percent health, not only on lethal damage. It gives a strong dispel and an undispellable mana-based barrier.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "Prevents lethal-threshold damage, strongly dispels the caster, and grants an undispellable mana-based barrier on a long internal cooldown.",
+          "after": "Prevents damage that would drop health below 20%, then applies a strong dispel and an undispellable mana-based barrier."
+        },
+        {
+          "field": "correctHeroName",
+          "before": "Outworld Devourer",
+          "after": "Outworld Destroyer"
+        },
+        {
+          "field": "answerDisplayNames",
+          "before": [
+            "Necrophos",
+            "Ringmaster",
+            "Outworld Devourer",
+            "Warlock"
+          ],
+          "after": [
+            "Necrophos",
+            "Ringmaster",
+            "Outworld Destroyer",
+            "Warlock"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:lycan:scepter",
+      "heroKey": "npc_dota_hero_lycan",
+      "heroName": "Lycan",
+      "abilityKey": "lycan_wolf_bite",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=77",
+        "sha256": "4e15d4e4aad61724a505c92b83a4796d486e652915613ddea8d7093ede47228f",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/77.json",
+        "fields": [
+          "abilities[name=lycan_wolf_bite].desc_loc",
+          "abilities[name=lycan_wolf_bite].ability_is_granted_by_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_lycan"
+        ]
+      },
+      "note": "The allied target gains Shapeshift properties. Both heroes share lifesteal healing while within range.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:shadow_demon:shard",
+      "heroKey": "npc_dota_hero_shadow_demon",
+      "heroName": "Shadow Demon",
+      "abilityKey": "shadow_demon_demonic_cleanse",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79",
+        "sha256": "59f5ac4f4edb1708c9732f2a1fc9d388ffeb0fba57b6dd1a8806e40689610a8e",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/79.json",
+        "fields": [
+          "abilities[name=shadow_demon_demonic_cleanse].desc_loc",
+          "abilities[name=shadow_demon_demonic_cleanse].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_shadow_demon"
+        ]
+      },
+      "note": "The new ally spell continuously applies basic dispels and heals when it ends.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:chaos_knight:scepter",
+      "heroKey": "npc_dota_hero_chaos_knight",
+      "heroName": "Chaos Knight",
+      "abilityKey": "chaos_knight_phantasm",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=81",
+        "sha256": "04bfadd814b365bb93cd6d7971582c4b7b1957357a95c83be6b248103b339cbb",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/81.json",
+        "fields": [
+          "abilities[name=chaos_knight_phantasm].scepter_loc",
+          "abilities[name=chaos_knight_phantasm].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_chaos_knight"
+        ]
+      },
+      "note": "The duplication chance applies to illusions of the caster. The active ultimate also creates illusions of allied heroes globally.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "Creating an illusion has a chance to create another; activating the ultimate also creates global illusions of allied heroes.",
+          "after": "Creating a copy of the caster can produce another; activating the ultimate also creates illusions of allied heroes globally."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:meepo:shard",
+      "heroKey": "npc_dota_hero_meepo",
+      "heroName": "Meepo",
+      "abilityKey": "meepo_petrify",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=82",
+        "sha256": "18d1ddac6c9026e7c4c7fc88fd626865bc56e8e04d81bd50de29a5b150afc4bf",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/82.json",
+        "fields": [
+          "abilities[name=meepo_petrify].desc_loc",
+          "abilities[name=meepo_petrify].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_meepo"
+        ]
+      },
+      "note": "The new ability gives invulnerability and untargetability for three seconds and restores 25 percent maximum health.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:treant:shard",
+      "heroKey": "npc_dota_hero_treant",
+      "heroName": "Treant Protector",
+      "abilityKey": "treant_eyes_in_the_forest",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=83",
+        "sha256": "b1b453bbdb429cca65abc8eb23d03dcf052160eeda0c497529db1086d3e55f9f",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/83.json",
+        "fields": [
+          "abilities[name=treant_eyes_in_the_forest].desc_loc",
+          "abilities[name=treant_eyes_in_the_forest].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_treant"
+        ]
+      },
+      "note": "The invisible eye has a 360-second duration and can also end when the tree or eye is destroyed. The displayed ability name now matches Valve capitalization.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "Enchants a tree with long-lasting, invisible, unobstructed vision until the tree or hidden eye is destroyed.",
+          "after": "Enchants a tree with an invisible eye, granting unobstructed vision for six minutes unless the eye or tree is destroyed."
+        },
+        {
+          "field": "abilityName",
+          "before": "Eyes in the Forest",
+          "after": "Eyes In The Forest"
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:ogre_magi:shard",
+      "heroKey": "npc_dota_hero_ogre_magi",
+      "heroName": "Ogre Magi",
+      "abilityKey": "ogre_magi_smash",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=84",
+        "sha256": "31165d69eb927113b31a1c17e11c59a94ae88f6620126d6ccd72c5ea6faab43d",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/84.json",
+        "fields": [
+          "abilities[name=ogre_magi_smash].desc_loc",
+          "abilities[name=ogre_magi_smash].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_ogre_magi"
+        ]
+      },
+      "note": "The shield absorbs part of several hero attacks, returns a fireball, and accepts allied towers as targets.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:undying:shard",
+      "heroKey": "npc_dota_hero_undying",
+      "heroName": "Undying",
+      "abilityKey": "undying_tombstone",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=85",
+        "sha256": "08d9cdceeefe21029e7dd447d64db68a16c95d5cc65271bb9d2aea676914021f",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/85.json",
+        "fields": [
+          "abilities[name=undying_tombstone].shard_loc",
+          "abilities[name=undying_tombstone].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_undying"
+        ]
+      },
+      "note": "The allied hero cannot immediately leave or re-enter the structure and is stunned if it is destroyed with them inside.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:rubick:scepter",
+      "heroKey": "npc_dota_hero_rubick",
+      "heroName": "Rubick",
+      "abilityKey": "rubick_spell_steal",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=86",
+        "sha256": "f48ede505239c531253fd18a47e23ea4673354b2068fb329004e588ebe2f587c",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/86.json",
+        "fields": [
+          "abilities[name=rubick_spell_steal].scepter_loc",
+          "abilities[name=rubick_spell_steal].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_rubick"
+        ]
+      },
+      "note": "The upgrade permits two stolen spells, more cast range, and Scepter versions of stolen abilities.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:disruptor:shard",
+      "heroKey": "npc_dota_hero_disruptor",
+      "heroName": "Disruptor",
+      "abilityKey": "disruptor_kinetic_fence",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87",
+        "sha256": "43c1c7a8b6c75e9e77f1dbf4b93b100db55affd9ad4a68653e2bc0d30b1f5b22",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/87.json",
+        "fields": [
+          "abilities[name=disruptor_kinetic_fence].desc_loc",
+          "abilities[name=disruptor_kinetic_fence].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_disruptor"
+        ]
+      },
+      "note": "The new kinetic wall forms after a delay and blocks enemy passage.",
+      "changes": [
+        {
+          "field": "answerDisplayNames",
+          "before": [
+            "Lich",
+            "Disruptor",
+            "Outworld Devourer",
+            "Silencer"
+          ],
+          "after": [
+            "Lich",
+            "Disruptor",
+            "Outworld Destroyer",
+            "Silencer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:nyx_assassin:scepter",
+      "heroKey": "npc_dota_hero_nyx_assassin",
+      "heroName": "Nyx Assassin",
+      "abilityKey": "nyx_assassin_burrow",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=88",
+        "sha256": "9f105f9be1549e9d328ec8951bfcd139a450f8b2b878fa00d2445888e96884bc",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/88.json",
+        "fields": [
+          "abilities[name=nyx_assassin_burrow].desc_loc",
+          "abilities[name=nyx_assassin_burrow].ability_is_granted_by_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_nyx_assassin"
+        ]
+      },
+      "note": "The caster becomes stationary, invisible, unable to attack, and resistant to damage. Several other spells receive bonuses.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:naga_siren:scepter",
+      "heroKey": "npc_dota_hero_naga_siren",
+      "heroName": "Naga Siren",
+      "abilityKey": "naga_siren_ensnare",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=89",
+        "sha256": "2cb865193dbbc22c49fa4e86f52342553134850f10a590f6defa2e248dd8c235",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/89.json",
+        "fields": [
+          "abilities[name=naga_siren_ensnare].scepter_loc",
+          "abilities[name=naga_siren_ensnare].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_naga_siren"
+        ]
+      },
+      "note": "The projectile gains cast range and speed, works against debuff immunity, and applies Break.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:keeper_of_the_light:scepter",
+      "heroKey": "npc_dota_hero_keeper_of_the_light",
+      "heroName": "Keeper of the Light",
+      "abilityKey": "keeper_of_the_light_will_o_wisp",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=90",
+        "sha256": "0be69cac3537e4387910565019e45b7d2bcc617232277ebe57a4b4be738a67de",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/90.json",
+        "fields": [
+          "abilities[name=keeper_of_the_light_will_o_wisp].desc_loc",
+          "abilities[name=keeper_of_the_light_will_o_wisp].ability_is_granted_by_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_keeper_of_the_light"
+        ]
+      },
+      "note": "The new orb alternates active and inactive periods and pulls nearby enemies. The pull does not interrupt.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:wisp:scepter",
+      "heroKey": "npc_dota_hero_wisp",
+      "heroName": "Io",
+      "abilityKey": "wisp_spirits",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=91",
+        "sha256": "9708f342dba9bcdff6beeed420328d10ff44f9d45521131c6924fc7ebfd60136",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/91.json",
+        "fields": [
+          "abilities[name=wisp_spirits].scepter_loc",
+          "abilities[name=wisp_spirits].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_wisp"
+        ]
+      },
+      "note": "The orbiting orbs spawn automatically, slow heroes on collision, and can be exploded manually.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:visage:shard",
+      "heroKey": "npc_dota_hero_visage",
+      "heroName": "Visage",
+      "abilityKey": "visage_gravekeepers_cloak",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=92",
+        "sha256": "78591b57c037fa88bac748bb48dcc45e893f94ed551ad112ab1b4b04759dbb2e",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/92.json",
+        "fields": [
+          "abilities[name=visage_gravekeepers_cloak].shard_loc",
+          "abilities[name=visage_gravekeepers_cloak].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_visage"
+        ]
+      },
+      "note": "The passive gains an active Stone Form with invulnerability, nearby stuns, and health restoration.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:slark:shard",
+      "heroKey": "npc_dota_hero_slark",
+      "heroName": "Slark",
+      "abilityKey": "slark_depth_shroud",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=93",
+        "sha256": "9449a1c4eaa6fa29ecbf5aa3602691a29b2a42fa15756cf4462940b03df87126",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/93.json",
+        "fields": [
+          "abilities[name=slark_depth_shroud].desc_loc",
+          "abilities[name=slark_depth_shroud].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_slark"
+        ]
+      },
+      "note": "The new cloud hides allies inside and applies Shadow Dance effects.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:medusa:shard",
+      "heroKey": "npc_dota_hero_medusa",
+      "heroName": "Medusa",
+      "abilityKey": "medusa_cold_blooded",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=94",
+        "sha256": "fa6123a0efbd3234a3173dd0748c248b92499bf876573585cf59c7c3bd568106",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/94.json",
+        "fields": [
+          "abilities[name=medusa_cold_blooded].desc_loc",
+          "abilities[name=medusa_cold_blooded].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_medusa"
+        ]
+      },
+      "note": "An enemy spell targeting the caster triggers a single-target snake back at that enemy and petrifies them.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "When targeted by a spell, fires a single-target projectile back at the caster that briefly turns them to stone.",
+          "after": "When targeted by an enemy spell, fires a single-target projectile at that caster, briefly turning them to stone."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:ringmaster:shard",
+      "heroKey": "npc_dota_hero_ringmaster",
+      "heroName": "Ringmaster",
+      "abilityKey": "ringmaster_spotlight",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131",
+        "sha256": "5d0bf58eaac7e5f80753d7927dc83fadda2b158202d46c85fc67e563b3cf3641",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/131.json",
+        "fields": [
+          "abilities[name=ringmaster_spotlight].desc_loc",
+          "abilities[name=ringmaster_spotlight].ability_is_granted_by_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_ringmaster"
+        ]
+      },
+      "note": "The lights reveal invisibility and add a miss chance. Illusions lose current health based on maximum health each second; their maximum health is not reduced.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "Sweeping lights reveal invisible enemies, make attacks miss, and rapidly drain the maximum health of illusions caught in the beams.",
+          "after": "Sweeping lights reveal invisible enemies, cause attacks to miss, and damage illusions each second based on their maximum health."
+        }
+      ]
+    },
+    {
+      "id": "aghanim-upgrade:muerta:scepter",
+      "heroKey": "npc_dota_hero_muerta",
+      "heroName": "Muerta",
+      "abilityKey": "muerta_dead_shot",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138",
+        "sha256": "6fe5b5c513f109d665c8362b62365ebc4d187540302d9c5ef6bef1ee555bd9c9",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/138.json",
+        "fields": [
+          "abilities[name=muerta_dead_shot].scepter_loc",
+          "abilities[name=muerta_dead_shot].ability_has_scepter",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_muerta"
+        ]
+      },
+      "note": "The ricochet gains expansion, hero piercing, fear, and more damage.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:kez:shard",
+      "heroKey": "npc_dota_hero_kez",
+      "heroName": "Kez",
+      "abilityKey": "kez_shodo_sai",
+      "patch": "7.41f",
+      "status": "verified",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145",
+        "sha256": "1def0d5fd2242c259b4d1b3d6d8aacd1176a898f73c58afd32149f3c0f713947",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/145.json",
+        "fields": [
+          "abilities[name=kez_shodo_sai].shard_loc",
+          "abilities[name=kez_shodo_sai].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_kez"
+        ]
+      },
+      "note": "An active parry produces a stronger mark with extra critical damage and stun duration.",
+      "changes": []
+    },
+    {
+      "id": "aghanim-upgrade:largo:shard",
+      "heroKey": "npc_dota_hero_largo",
+      "heroName": "Largo",
+      "abilityKey": "largo_encore",
+      "patch": "7.41f",
+      "status": "fixed",
+      "reviewedAt": "2026-10-06",
+      "source": {
+        "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155",
+        "sha256": "a22ff422fa3cebe8c681f5443d07b051407d340a98580ef6036cead456289ec4",
+        "retrievedAt": "2026-10-06",
+        "localPayload": "valve/heroes/155.json",
+        "fields": [
+          "abilities[name=largo_encore].shard_loc",
+          "abilities[name=largo_encore].ability_has_shard",
+          "name_loc",
+          "abilities[].special_values"
+        ]
+      },
+      "checks": {
+        "prompt": "verified",
+        "effectClue": "verified",
+        "upgradeTypeAndModeClue": "verified",
+        "abilityNameClue": "verified",
+        "correctHero": "verified",
+        "explanation": "verified",
+        "heroExistsInValveRoster": true,
+        "primaryUpgradeFlag": true,
+        "threeStageDisclosure": "passed",
+        "answerUniqueness": "No conflicting native hero upgrade found after all three clues.",
+        "nativeOwnersMatchingFinalTwoClues": [
+          "npc_dota_hero_largo"
+        ]
+      },
+      "note": "The copied buffs require allied hero targets. A self-cast copy must reach the nearest allied hero within the original ability cast range.",
+      "changes": [
+        {
+          "field": "effect",
+          "before": "Giving a unit-targeted buff to an ally also buffs the caster; self-casts copy to the nearest allied hero.",
+          "after": "Unit-targeted buffs on allied heroes also affect the caster; self-casts copy to the nearest allied hero within cast range."
+        }
+      ]
+    }
+  ]
+}

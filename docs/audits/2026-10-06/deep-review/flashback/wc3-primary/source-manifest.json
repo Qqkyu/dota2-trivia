@@ -1,0 +1,41 @@
+{
+  "reviewedAt": "2026-10-06",
+  "files": [
+    {
+      "file": "dota-6.52.w3x",
+      "url": "https://raw.githubusercontent.com/n3k0lai/dota-legacy/6dfc50b6a7654db3c89f60f241c1871b1c68a277/DotA%20Allstars%20v6.52.w3x",
+      "bytes": 3187686,
+      "sha256": "52992049f850436c699beafd26474926f8fd4ad797dffdb62e843a6d8b3cf368",
+      "md5": "0493cfc9318f004c61016fcc1f065479"
+    },
+    {
+      "file": "epicwar652-download.bin",
+      "url": "https://www.epicwar.com/maps/51441/",
+      "bytes": 3187686,
+      "sha256": "52992049f850436c699beafd26474926f8fd4ad797dffdb62e843a6d8b3cf368",
+      "md5": "0493cfc9318f004c61016fcc1f065479"
+    },
+    {
+      "file": "hive652-download.bin",
+      "url": "https://www.hiveworkshop.com/threads/dota-allstars-v6-52.86648/",
+      "bytes": 3187686,
+      "sha256": "52992049f850436c699beafd26474926f8fd4ad797dffdb62e843a6d8b3cf368",
+      "md5": "0493cfc9318f004c61016fcc1f065479"
+    },
+    {
+      "file": "dota-6.41.w3x",
+      "url": "https://raw.githubusercontent.com/n3k0lai/dota-legacy/6dfc50b6a7654db3c89f60f241c1871b1c68a277/DotA%20Allstars%20v6.41.w3x",
+      "bytes": 1981041,
+      "sha256": "2f669b97d03c0dd81ef860c8a678df0275817be3affe4d75cc44ca5db00af4d4",
+      "md5": "024267384e541edea8fed22202e2a1ef"
+    },
+    {
+      "file": "mpyq.py",
+      "url": "https://raw.githubusercontent.com/eagleflo/mpyq/master/mpyq.py",
+      "bytes": 14436,
+      "sha256": "e10fa2f422d837345f438934a99a3cdf67fa9148c7106d421408e1ecfa83e239",
+      "md5": "0e9f05a39e36e7fa16c49d0f1da4a65a"
+    }
+  ],
+  "mirrorComparison": "All three v6.52 files are byte-for-byte identical."
+}

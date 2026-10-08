@@ -1,0 +1,383 @@
+{
+  "url": "http://127.0.0.1:3331",
+  "buildId": "YC6nz9frAbvjRFKHq5lSy",
+  "browser": "153.0.8010.12",
+  "completed": true,
+  "errors": [],
+  "events": [
+    {
+      "label": "recipe entry gate",
+      "startMs": 1791291463964,
+      "endMs": 1791291463964,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%1 playing now \u00b7 Ten gamesYour queue hasside quests.A Dota arcade built for the gap between Find Match and Accept. Eve"
+      },
+      "speech": []
+    },
+    {
+      "label": "recipe round start",
+      "startMs": 1791291463964,
+      "endMs": 1791291466187,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. Build Abyssal Blade.Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Shopkeeper RushRecipes58Target itemBuild Abyssal Blade.basicsupgradesSho"
+      },
+      "speech": [
+        {
+          "atMs": 1791291464032.0798,
+          "text": "Soundcheck",
+          "durationSeconds": 0.9049886621315193,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291464070.8757,
+          "text": "Quotes",
+          "durationSeconds": 0.7358730158730159,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291464172.2478,
+          "text": "Aghanim's Lab",
+          "durationSeconds": 0.9866666666666667,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291464429.56,
+          "text": "GOLD",
+          "durationSeconds": 0.6052607709750567,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291464455.901,
+          "text": "Round 1.",
+          "durationSeconds": 0.945124716553288,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291464481.5662,
+          "text": " Build Abyssal Blade.",
+          "durationSeconds": 1.3308843537414965,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291464508.2424,
+          "text": "0",
+          "durationSeconds": 0.006984126984126984,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291464568.8127,
+          "text": "STREAK",
+          "durationSeconds": 0.7226757369614513,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291464607.0798,
+          "text": "0",
+          "durationSeconds": 0.006984126984126984,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291464658.7192,
+          "text": "Your session",
+          "durationSeconds": 0.9219047619047619,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291464691.0696,
+          "text": "RECENT ROUNDS",
+          "durationSeconds": 1.0751473922902495,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291464725.983,
+          "text": "ROUND 1",
+          "durationSeconds": 0.6980952380952381,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291464794.576,
+          "text": "Your session",
+          "durationSeconds": 0.9219047619047619,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291464849.1187,
+          "text": " middle dot  middle dot  middle dot  middle dot  middle dot  middle dot  middle dot  middle dot  middle dot ",
+          "durationSeconds": 5.098684807256236,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291464912.4045,
+          "text": "Queue Arcade  middle dot  Built for the seconds between \u201cFind Match\u201d and \u201cAccept\u201d",
+          "durationSeconds": 4.620226757369615,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291464969.525,
+          "text": "Profile",
+          "durationSeconds": 0.7776417233560091,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291465007.6777,
+          "text": "link",
+          "durationSeconds": 0.6400453514739229,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291465044.2014,
+          "text": "Privacy",
+          "durationSeconds": 0.7512018140589569,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291465232.7166,
+          "text": "link",
+          "durationSeconds": 0.6400453514739229,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291465273.6357,
+          "text": "Calibration lab",
+          "durationSeconds": 1.1425396825396825,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291465306.7148,
+          "text": "link",
+          "durationSeconds": 0.6400453514739229,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291465345.588,
+          "text": "Dota 2 is a trademark of Valve Corporation.",
+          "durationSeconds": 2.6199092970521543,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291465388.8174,
+          "text": "Game assets belong to their respective rights holders.",
+          "durationSeconds": 2.986984126984127,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291465423.3452,
+          "text": "This project is not affiliated with Valve.",
+          "durationSeconds": 2.4546485260770976,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291465468.2803,
+          "text": "leaving main content.",
+          "durationSeconds": 1.439546485260771,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291465496.9473,
+          "text": "notification",
+          "durationSeconds": 1.1711111111111112,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291465526.9966,
+          "text": "clickable",
+          "durationSeconds": 0.8842630385487529,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "shop search",
+      "startMs": 1791291469566,
+      "endMs": 1791291470820,
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "testid": "shopkeeper-search-field",
+        "name": "Search shop items"
+      },
+      "speech": [
+        {
+          "atMs": 1791291469594.787,
+          "text": "g ",
+          "durationSeconds": 0.5482993197278911,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291469635.2358,
+          "text": "l ",
+          "durationSeconds": 0.5629478458049887,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291469689.906,
+          "text": "o ",
+          "durationSeconds": 0.5390022675736962,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291469718.207,
+          "text": "v ",
+          "durationSeconds": 0.6195918367346939,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291469758.2124,
+          "text": "e ",
+          "durationSeconds": 0.4940136054421769,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291469798.986,
+          "text": "s ",
+          "durationSeconds": 0.5592290249433106,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291469873.022,
+          "text": "GLOVES",
+          "durationSeconds": 0.6516099773242631,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "shop component selected",
+      "startMs": 1791291471243,
+      "endMs": 1791291473466,
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "testid": "shopkeeper-search-field",
+        "name": "Search shop items"
+      },
+      "speech": [
+        {
+          "atMs": 1791291471270.9348,
+          "text": "return ",
+          "durationSeconds": 0.7476643990929706,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291471432.5168,
+          "text": "Added Gloves of Haste.",
+          "durationSeconds": 1.4521995464852608,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291471467.684,
+          "text": " 1 of 2 components selected.",
+          "durationSeconds": 2.0560997732426305,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "second recipe query",
+      "startMs": 1791291473466,
+      "endMs": 1791291474323,
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "testid": "shopkeeper-search-field",
+        "name": "Search shop items"
+      },
+      "speech": [
+        {
+          "atMs": 1791291473535.1008,
+          "text": "l ",
+          "durationSeconds": 0.5629478458049887,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291473578.186,
+          "text": "o ",
+          "durationSeconds": 0.5390022675736962,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291473627.9258,
+          "text": "v ",
+          "durationSeconds": 0.6195918367346939,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291473659.5615,
+          "text": "e ",
+          "durationSeconds": 0.4940136054421769,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291473697.402,
+          "text": "s ",
+          "durationSeconds": 0.5592290249433106,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291473722.8577,
+          "text": "No more separators.",
+          "durationSeconds": 1.287437641723356,
+          "exit": 0
+        }
+      ],
+      "query": ""
+    },
+    {
+      "label": "shop ready to build",
+      "startMs": 1791291475168,
+      "endMs": 1791291477190,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "testid": "shopkeeper-recipe-build",
+        "name": "Build"
+      },
+      "speech": [
+        {
+          "atMs": 1791291475198.4353,
+          "text": "return ",
+          "durationSeconds": 0.7476643990929706,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291475313.7234,
+          "text": "leaving region.",
+          "durationSeconds": 0.9844444444444445,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291475339.3152,
+          "text": "BUILD push button.",
+          "durationSeconds": 1.2086621315192745,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "shop recipe submitted",
+      "startMs": 1791291477190,
+      "endMs": 1791291477609,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "testid": "shopkeeper-recipe-build",
+        "name": "Locked"
+      },
+      "speech": [
+        {
+          "atMs": 1791291477213.6067,
+          "text": "return ",
+          "durationSeconds": 0.7476643990929706,
+          "exit": 0
+        }
+      ],
+      "voteAnswerKeys": [
+        "recipe-v1:gloves+magic_wand"
+      ]
+    }
+  ]
+}

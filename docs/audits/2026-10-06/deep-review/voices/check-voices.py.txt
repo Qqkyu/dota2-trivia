@@ -1,0 +1,54 @@
+# Archived review helper. Outputs go to a separate replay directory.
+import json, re, unicodedata, collections, hashlib, argparse
+from pathlib import Path
+parser=argparse.ArgumentParser(description="Replay the archived voice transcript and attribution check.")
+parser.add_argument("catalog",type=Path)
+parser.add_argument("--source-root",type=Path,required=True)
+parser.add_argument("--output-dir",type=Path,required=True)
+args=parser.parse_args()
+archive=Path(__file__).resolve().parent
+root=args.output_dir.resolve(); root.mkdir(parents=True,exist_ok=True)
+if root==archive or root.is_relative_to(archive):parser.error("Use a separate output directory to preserve the historical archive.")
+sources=args.source_root.resolve();catalog_path=args.catalog
+questions=[q for q in json.loads(catalog_path.read_text()) if q['kind'] in ['hero-quote','hero-voice']]
+heroes=json.loads((sources/'heroes.json').read_text()); bykey={h['full_name']:h for h in heroes}
+manifest=json.loads((archive/'voices-upstream-manifest.json').read_text())['sources']
+manifestbyfile={Path(r['path']).name:r for r in manifest}
+for entry in manifest:
+ path=sources/Path(entry['path']).name
+ if hashlib.sha256(path.read_bytes()).hexdigest()!=entry['sha256']:
+  raise SystemExit(f"Source hash differs from the audit: {path}")
+response_by_name=collections.defaultdict(list); text_owners=collections.defaultdict(list)
+def text(r):return re.sub(r'\s+',' ',r.get('text') or r.get('text_simple') or '').strip()
+def norm(t):return re.sub(r'[^a-z0-9]+',' ',unicodedata.normalize('NFKD',t).lower()).strip()
+response_count=0
+for f in sorted(sources/Path(r['path']).name for r in manifest if r['path'].startswith('json/responses/')):
+ for r in json.loads(f.read_text()):
+  response_count+=1
+  rec={**r,'file':f.name,'source':manifestbyfile[f.name]['url'],'sourceSha256':manifestbyfile[f.name]['sha256']}
+  response_by_name[r['name']].append(rec)
+  if r.get('hero_id') is not None:text_owners[norm(text(r))].append(rec)
+checks=[]; problems=[]
+for q in questions:
+ hero=bykey[q['varietyKey']]; name=q['id'].split(':')[-1]
+ matches=[r for r in response_by_name[name] if r.get('hero_id')==hero['id']]
+ transcript=q.get('detail') if q['kind']=='hero-quote' else re.fullmatch('“(.*)” is spoken by .*\\.',q['explanation']).group(1)
+ errors=[]
+ if not matches:errors.append('Response name and hero_id have no source match')
+ exact=[r for r in matches if text(r)==transcript]
+ if not exact:errors.append('Transcript differs from source')
+ if q['kind']=='hero-voice' and not any(q['audio']['src']=='https://dotabase.dillerm.io/vpk'+r['mp3'] for r in matches):errors.append('MP3 path differs from source')
+ cross=[{'hero_id':r['hero_id'],'name':r['name'],'file':r['file'],'text':text(r),'source':r['source']} for r in text_owners[norm(transcript)] if r.get('hero_id')!=hero['id']]
+ if cross and q['kind']=='hero-quote':errors.append('Text-only quote exists for other heroes')
+ aliases=[a for a in hero.get('aliases','').split('|') if len(a)>2]
+ leaks=[a for a in aliases if re.search(r'(?<!\w)'+re.escape(a)+r'(?!\w)',transcript,re.I)]
+ if leaks:errors.append('Hero alias occurs in transcript: '+', '.join(leaks))
+ if re.search(r'<[^>]+>|&\w+;|\[.*?\]|%[a-z]+%|\\[a-z]',transcript):errors.append('Possible markup')
+ rec={'id':q['id'],'kind':q['kind'],'heroKey':q['varietyKey'],'heroId':hero['id'],'heroName':q['answers'][q['correctIndex']],'transcript':transcript,'matches':[{k:r.get(k) for k in ['name','fullname','hero_id','voice_id','text','text_simple','criteria','pretty_criteria','mp3','file','source','sourceSha256']} for r in matches],'crossHeroMatches':cross,'errors':errors}
+ checks.append(rec)
+ if errors:problems.append(rec)
+(root/'voices-current-source-checks.json').write_text(json.dumps(checks,indent=2)+'\n')
+(root/'voices-current-source-problems.json').write_text(json.dumps(problems,indent=2)+'\n')
+print(json.dumps({'responseRecordsCompared':response_count,'questionRecords':len(checks),'problems':len(problems),'details':[{'id':r['id'],'errors':r['errors'],'cross':r['crossHeroMatches']} for r in problems]},indent=2))
+
+raise SystemExit(1 if problems else 0)

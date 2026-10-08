@@ -1,0 +1,18 @@
+{
+  "verifiedAt": "2026-10-06",
+  "questionHashChecks": 1589,
+  "originalSourceObjectsPreserved": 1589,
+  "validLedgerPointers": 1517,
+  "originalLiveIds": 1517,
+  "currentLiveIds": 1517,
+  "explicitlyUnreviewedRetiredIds": 72,
+  "allInputByteHashesMatch": true,
+  "allCurrentCanonicalHashesMatch": true,
+  "allBaselineCanonicalHashesMatch": true,
+  "allLedgerRowHashesMatch": true,
+  "allSourceFilesResolveCorrectly": true,
+  "indexSha256": "ef7c1a268c2d2025dcb44600da6851b3defef725d700821a6e9cc9b4fe8a55c2",
+  "summarySha256": "de118720c7b10e5ce778758760ce4c292211f8b9d20e059d5f41273ae5aab90f",
+  "builderSha256": "b3ec19286ecdfc7e45edbeded824282c3fa86472915ecc9e5a7e8e85cf90c7e9",
+  "verifierSha256": "ac03452a1de455bbc386f1e2927dc58b0bab2e0e8fae505c5c61c73b008c40f9"
+}

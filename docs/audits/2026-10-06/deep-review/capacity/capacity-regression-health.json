@@ -1,0 +1,22 @@
+{
+  "httpStatus": 200,
+  "status": "ready",
+  "storage": {
+    "backend": "postgres",
+    "ok": true
+  },
+  "accounts": {
+    "backend": "postgres",
+    "ok": true
+  },
+  "alpha": {
+    "backend": "postgres",
+    "ok": true,
+    "retentionDays": 30
+  },
+  "content": {
+    "gameId": "dota2",
+    "version": "7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-4-soundcheck-13-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-20",
+    "questions": 1517
+  }
+}

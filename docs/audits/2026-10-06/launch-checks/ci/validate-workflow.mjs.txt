@@ -1,0 +1,41 @@
+import assert from 'node:assert/strict';
+import { readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { parseWorkflow, convertWorkflowTemplate, NoOperationTraceWriter } from '@actions/workflow-parser';
+import { Lexer, Parser, Evaluator, data } from '@actions/expressions';
+import YAML from 'yaml';
+const name='/home/kulmisiu/dev/dota2-trivia/.github/workflows/ci.yml';
+const content=await readFile(name,'utf8');
+const parsed=parseWorkflow({name:'ci.yml',content},new NoOperationTraceWriter());
+await convertWorkflowTemplate(parsed.context,parsed.value);
+assert.equal(parsed.context.errors.count,0,JSON.stringify(parsed.context.errors.getErrors()));
+const workflow=YAML.parse(content);
+const node=workflow.jobs.verify.steps.find(s=>s.uses?.startsWith('actions/setup-node@'));
+const trivy=workflow.jobs.verify.steps.find(s=>s.uses?.startsWith('aquasecurity/trivy-action@'));
+const artifact=workflow.jobs.verify.steps.find(s=>s.uses?.startsWith('actions/upload-artifact@'));
+const environment=workflow.jobs.verify.env;
+assert.equal(environment.LAUNCH_DATABASE_TEST_URL,environment.TEST_DATABASE_URL);
+assert.equal(new URL(environment.LAUNCH_DATABASE_TEST_URL).hostname,'127.0.0.1');
+assert.equal(environment.PG_BIN_DIR,'/usr/lib/postgresql/17/bin');
+assert(workflow.jobs.verify.steps.some(s=>s.run==='pnpm test --maxWorkers=2'));
+const clientInstall=workflow.jobs.verify.steps.find(s=>s.name==='Install PostgreSQL 17 backup tools from the signed PGDG repository');
+assert(clientInstall.run.includes('Signed-By: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc'));
+assert(clientInstall.run.includes('postgresql-client-17'));
+const contexts=[['candidate','refs/heads/codex/launch-checks-20261006',false,true],['main','refs/heads/main',false,false],['pull-request','refs/pull/7/merge',false,false],['manual-local','refs/heads/main',true,true]];
+function evaluate(source,ref,local){
+  const expression=source.replace(/^\$\{\{\s*|\s*\}\}$/g,'').replace('failure()','true');
+  const ast=new Parser(new Lexer(expression).lex().tokens,['github','inputs'],[]).parse();
+  const context=new data.Dictionary({key:'github',value:new data.Dictionary({key:'ref',value:new data.StringData(ref)})},{key:'inputs',value:new data.Dictionary({key:'local_runner',value:new data.BooleanData(local)})});
+  const result=new Evaluator(ast,context).evaluate();
+  return result instanceof data.Array?result.values().map(v=>v.coerceString()):result.coerceString();
+}
+const results=contexts.map(([label,ref,manual,isLocal])=>{
+  const observed={label,runsOn:evaluate(workflow.jobs.verify['runs-on'],ref,manual),nodeCache:evaluate(node.with.cache,ref,manual),automaticNodeCache:evaluate(node.with['package-manager-cache'],ref,manual),trivyCache:evaluate(trivy.with.cache,ref,manual),uploadOnFailure:evaluate(artifact.if,ref,manual)};
+  assert.deepEqual(observed.runsOn,isLocal?['self-hosted','Linux','X64','queue-arcade-ci-local']:'ubuntu-latest');
+  assert.equal(observed.nodeCache,isLocal?'':'pnpm');
+  for(const key of ['automaticNodeCache','trivyCache','uploadOnFailure']) assert.equal(observed[key],String(!isLocal));
+  return observed;
+});
+const report={parser:'@actions/workflow-parser 0.3.61',schemaErrors:parsed.context.errors.getErrors(),workflowSha256:createHash('sha256').update(content).digest('hex'),databaseChecks:{launchSuiteEnabled:true,launchDatabaseIsLoopback:true,backupBinaryDirectory:environment.PG_BIN_DIR,signedPostgresClient17Install:true,maxTestWorkers:2},cases:results};
+await writeFile('/tmp/queue-arcade-launch-ci/evidence/workflow-validation.json',JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify(report,null,2));

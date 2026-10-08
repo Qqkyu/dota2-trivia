@@ -1,0 +1,23 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "num_turns": 170,
+  "duration_ms": 1023713,
+  "modelUsage": {
+    "claude-fable-5-1": {
+      "inputTokens": 13898,
+      "outputTokens": 82329,
+      "cacheReadInputTokens": 10121068,
+      "cacheCreationInputTokens": 1109858,
+      "webSearchRequests": 0,
+      "costUSD": 28.9534645,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 64000,
+      "thinkingTokens": 47271,
+      "canonicalModel": "claude-fable-5-1",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  }
+}

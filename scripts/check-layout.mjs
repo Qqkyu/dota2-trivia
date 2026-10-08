@@ -414,9 +414,6 @@ const INSPECT_SOURCE = `(() => {
       if (helperClip) issues.push(helperClip);
       if (phone) {
         const helperBox = box(helper);
-        if (helperBox && helperBox.t < vh && helperBox.b > vh + 2) {
-          issues.push("answer helper is cut by the screen edge");
-        }
         const scoreBox = box(document.querySelector('[data-testid="score-grid"]'));
         if (helperBox && scoreBox && overlap(helperBox, scoreBox)) issues.push("answer helper overlaps GOLD");
       }
@@ -456,6 +453,38 @@ const INSPECT_SOURCE = `(() => {
       promptH: prompt ? Math.round(prompt.getBoundingClientRect().height) : 0,
       h2: h2?.textContent ?? "",
     };
+  };
+  window.__queueArcadeInspectHelperReachability = async function inspectHelperReachability() {
+    const issues = [];
+    const helper = document.querySelector('[data-testid="answer-helper"]');
+    const prompt = document.querySelector('[data-testid="round-prompt"]');
+    if (!helper || !prompt) return ["helper or prompt missing during scroll check"];
+    const initialScroll = { left: scrollX, top: scrollY };
+    const promptText = prompt.textContent;
+    const nextFrame = () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    try {
+      helper.scrollIntoView({ block: "center", inline: "nearest", behavior: "instant" });
+      await nextFrame();
+      const helperBox = box(helper);
+      if (helperBox.t < 0 || helperBox.b > innerHeight + 2 || helperBox.l < 0 || helperBox.r > innerWidth + 2) {
+        issues.push("answer helper is not fully reachable after scrolling");
+      }
+      const clip = clippedByHidden(helper);
+      if (clip) issues.push(clip);
+      const center = document.elementFromPoint(helperBox.l + helperBox.w / 2, helperBox.t + helperBox.h / 2);
+      if (!helper.contains(center)) issues.push("answer helper is covered after scrolling");
+      const timerBox = box(document.querySelector('[data-testid="round-timer"]'));
+      if (!timerBox || timerBox.t < 0 || timerBox.b > innerHeight) issues.push("round timer is off screen at answer helper");
+      if (prompt.textContent !== promptText) issues.push("prompt changed during scrolling");
+    } finally {
+      window.scrollTo({ ...initialScroll, behavior: "instant" });
+      await nextFrame();
+    }
+    const heading = prompt.querySelector("h2");
+    const restored = box(heading);
+    if (!restored || restored.t < 0 || restored.b > innerHeight) issues.push("prompt is not visible after restoring scroll");
+    if (heading && (textCut(heading) || clippedByHidden(heading))) issues.push("prompt is clipped after restoring scroll");
+    return issues;
   };
   window.__queueArcadeInspectWait = function inspectWait() {
     const issues = [];
@@ -734,6 +763,9 @@ try {
     const result = await page.evaluate(
       `window.__queueArcadeInspectLayout(${viewportName === "phone" ? "true" : "false"})`,
     );
+    if (viewportName === "phone") {
+      result.issues.push(...(await page.evaluate(`window.__queueArcadeInspectHelperReachability()`)));
+    }
     await screenshot(`${viewportName}-${kind}`);
     if (result.issues.length) {
       failures.push(`${viewportName}/${kind}: ${result.issues.join("; ")}`);

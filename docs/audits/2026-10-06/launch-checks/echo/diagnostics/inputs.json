@@ -1,0 +1,294 @@
+{
+  "scope": "Diagnostic ASR variants only. Gameplay audio has not been modified. No expected text is supplied to the recognition model.",
+  "records": [
+    {
+      "id": "hero-voice:npc_dota_hero_bristleback:bristle_kill_06@bandpass",
+      "hero": "Bristleback",
+      "expectedText": "Yeah, that chinned ya, didn't it?",
+      "originalId": "hero-voice:npc_dota_hero_bristleback:bristle_kill_06",
+      "originalSha256": "698c08b1cfaa6ccac39fc245e8d0f0ff31cefcfae866ae4620974339c48d7de3",
+      "ffmpegFilter": "highpass=f=150,lowpass=f=5000,loudnorm=I=-18:TP=-1:LRA=7",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "bristle_kill_06.bandpass.wav",
+          "sha256": "d5db7d8f7bee689d9cf88767707db77da60ed9fea27127c3cba8ee3f4941302f",
+          "bytes": 54428
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_bristleback:bristle_kill_06@slower",
+      "hero": "Bristleback",
+      "expectedText": "Yeah, that chinned ya, didn't it?",
+      "originalId": "hero-voice:npc_dota_hero_bristleback:bristle_kill_06",
+      "originalSha256": "698c08b1cfaa6ccac39fc245e8d0f0ff31cefcfae866ae4620974339c48d7de3",
+      "ffmpegFilter": "atempo=0.8",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "bristle_kill_06.slower.wav",
+          "sha256": "16084bffd91fba01f825c9ee3c611217ab2ffd514d60718b44b10102abdf1c21",
+          "bytes": 66908
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_bristleback:bristle_kill_06@higher",
+      "hero": "Bristleback",
+      "expectedText": "Yeah, that chinned ya, didn't it?",
+      "originalId": "hero-voice:npc_dota_hero_bristleback:bristle_kill_06",
+      "originalSha256": "698c08b1cfaa6ccac39fc245e8d0f0ff31cefcfae866ae4620974339c48d7de3",
+      "ffmpegFilter": "aresample=16000,asetrate=19200,aresample=16000",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "bristle_kill_06.higher.wav",
+          "sha256": "3a4441a1199fd1cd768fc1ab84e31384dffd458c6b27b51539a17dd681e39ce5",
+          "bytes": 45372
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_bristleback:bristle_kill_06@lower",
+      "hero": "Bristleback",
+      "expectedText": "Yeah, that chinned ya, didn't it?",
+      "originalId": "hero-voice:npc_dota_hero_bristleback:bristle_kill_06",
+      "originalSha256": "698c08b1cfaa6ccac39fc245e8d0f0ff31cefcfae866ae4620974339c48d7de3",
+      "ffmpegFilter": "aresample=16000,asetrate=12800,aresample=16000",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "bristle_kill_06.lower.wav",
+          "sha256": "7f9fcde4ff806a1dde64ae8ebef3f7b59a89011153d92868557714eddbf26cd9",
+          "bytes": 68012
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_jakiro:jak_kill_11@bandpass",
+      "hero": "Jakiro",
+      "expectedText": "We burned your candle at both ends.",
+      "originalId": "hero-voice:npc_dota_hero_jakiro:jak_kill_11",
+      "originalSha256": "52b5fce698f47a1126ee4d1b145bab39876e1b937db80b7655d5e5ed63d62d08",
+      "ffmpegFilter": "highpass=f=150,lowpass=f=5000,loudnorm=I=-18:TP=-1:LRA=7",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "jak_kill_11.bandpass.wav",
+          "sha256": "5e1cb792ec0e85e41c8fca182ce5dc52b35e661bf1270f1d673e33afca7b7464",
+          "bytes": 128824
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_jakiro:jak_kill_11@slower",
+      "hero": "Jakiro",
+      "expectedText": "We burned your candle at both ends.",
+      "originalId": "hero-voice:npc_dota_hero_jakiro:jak_kill_11",
+      "originalSha256": "52b5fce698f47a1126ee4d1b145bab39876e1b937db80b7655d5e5ed63d62d08",
+      "ffmpegFilter": "atempo=0.8",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "jak_kill_11.slower.wav",
+          "sha256": "9e794a75344db5caaad14c71b4be29bdd5861315312a8f83486fd97d6a913550",
+          "bytes": 159832
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_jakiro:jak_kill_11@higher",
+      "hero": "Jakiro",
+      "expectedText": "We burned your candle at both ends.",
+      "originalId": "hero-voice:npc_dota_hero_jakiro:jak_kill_11",
+      "originalSha256": "52b5fce698f47a1126ee4d1b145bab39876e1b937db80b7655d5e5ed63d62d08",
+      "ffmpegFilter": "aresample=16000,asetrate=19200,aresample=16000",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "jak_kill_11.higher.wav",
+          "sha256": "19fb92e4f21cbfa8e23e959707b08001f7025eb78c0f42efc6cc9f623c90a19f",
+          "bytes": 107368
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_jakiro:jak_kill_11@lower",
+      "hero": "Jakiro",
+      "expectedText": "We burned your candle at both ends.",
+      "originalId": "hero-voice:npc_dota_hero_jakiro:jak_kill_11",
+      "originalSha256": "52b5fce698f47a1126ee4d1b145bab39876e1b937db80b7655d5e5ed63d62d08",
+      "ffmpegFilter": "aresample=16000,asetrate=12800,aresample=16000",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "jak_kill_11.lower.wav",
+          "sha256": "7cbe9465ceb4a9739a2aad0cd1ed02f7803c10022539665095956317415dea7c",
+          "bytes": 161006
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_spectre:spec_spawn_02@bandpass",
+      "hero": "Spectre",
+      "expectedText": "From another dimension, a world beyond.",
+      "originalId": "hero-voice:npc_dota_hero_spectre:spec_spawn_02",
+      "originalSha256": "37e16b604c53b7d9a309dbfbcec76aec85e54021da3267a6e8d1195641693c80",
+      "ffmpegFilter": "highpass=f=150,lowpass=f=5000,loudnorm=I=-18:TP=-1:LRA=7",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "spec_spawn_02.bandpass.wav",
+          "sha256": "d32c6a0070a5d05baf0e37c24ef8d2618fac9eaa2351e3986146885d1f484597",
+          "bytes": 124644
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_spectre:spec_spawn_02@slower",
+      "hero": "Spectre",
+      "expectedText": "From another dimension, a world beyond.",
+      "originalId": "hero-voice:npc_dota_hero_spectre:spec_spawn_02",
+      "originalSha256": "37e16b604c53b7d9a309dbfbcec76aec85e54021da3267a6e8d1195641693c80",
+      "ffmpegFilter": "atempo=0.8",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "spec_spawn_02.slower.wav",
+          "sha256": "b9daa87bf4a0188d547152fc15b6dff7c7795ce146d70536f9718fcdacd125c9",
+          "bytes": 154526
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_spectre:spec_spawn_02@higher",
+      "hero": "Spectre",
+      "expectedText": "From another dimension, a world beyond.",
+      "originalId": "hero-voice:npc_dota_hero_spectre:spec_spawn_02",
+      "originalSha256": "37e16b604c53b7d9a309dbfbcec76aec85e54021da3267a6e8d1195641693c80",
+      "ffmpegFilter": "aresample=16000,asetrate=19200,aresample=16000",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "spec_spawn_02.higher.wav",
+          "sha256": "fd4538feaa20ba987056b1192c5ac9a8aa2971749392f109b24870148d65548b",
+          "bytes": 103886
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_spectre:spec_spawn_02@lower",
+      "hero": "Spectre",
+      "expectedText": "From another dimension, a world beyond.",
+      "originalId": "hero-voice:npc_dota_hero_spectre:spec_spawn_02",
+      "originalSha256": "37e16b604c53b7d9a309dbfbcec76aec85e54021da3267a6e8d1195641693c80",
+      "ffmpegFilter": "aresample=16000,asetrate=12800,aresample=16000",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "spec_spawn_02.lower.wav",
+          "sha256": "d3955e5c2083e74f24d5de6b486e629d67cc3931e1c06433d1fb60bb9da0699d",
+          "bytes": 155782
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_spectre:spec_spawn_02@reversed",
+      "hero": "Spectre",
+      "expectedText": "From another dimension, a world beyond.",
+      "originalId": "hero-voice:npc_dota_hero_spectre:spec_spawn_02",
+      "originalSha256": "37e16b604c53b7d9a309dbfbcec76aec85e54021da3267a6e8d1195641693c80",
+      "ffmpegFilter": "areverse",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "spec_spawn_02.reversed.wav",
+          "sha256": "37e89099c7bca92e45c838273c56f644dfffb55abbd703b133ec2ecc050edb67",
+          "bytes": 124644
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_techies:tech_firstblood_02@bandpass",
+      "hero": "Techies",
+      "expectedText": "First blood! Start with a bang!",
+      "originalId": "hero-voice:npc_dota_hero_techies:tech_firstblood_02",
+      "originalSha256": "36e81a1ecd00331bfc2bf7664b0440a9fc2ba60d7697be9daea178114cfd647b",
+      "ffmpegFilter": "highpass=f=150,lowpass=f=5000,loudnorm=I=-18:TP=-1:LRA=7",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "tech_firstblood_02.bandpass.wav",
+          "sha256": "3c38a479c6bfc8f81ecf9e7bb5d980f18be85f177bb9667072fef9c4bec0d88d",
+          "bytes": 117122
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_techies:tech_firstblood_02@slower",
+      "hero": "Techies",
+      "expectedText": "First blood! Start with a bang!",
+      "originalId": "hero-voice:npc_dota_hero_techies:tech_firstblood_02",
+      "originalSha256": "36e81a1ecd00331bfc2bf7664b0440a9fc2ba60d7697be9daea178114cfd647b",
+      "ffmpegFilter": "atempo=0.8",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "tech_firstblood_02.slower.wav",
+          "sha256": "897efc0c864c826f43f7f8d822fd0c7581b55380d71178f6576c9fa5be81dc0e",
+          "bytes": 145148
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_techies:tech_firstblood_02@higher",
+      "hero": "Techies",
+      "expectedText": "First blood! Start with a bang!",
+      "originalId": "hero-voice:npc_dota_hero_techies:tech_firstblood_02",
+      "originalSha256": "36e81a1ecd00331bfc2bf7664b0440a9fc2ba60d7697be9daea178114cfd647b",
+      "ffmpegFilter": "aresample=16000,asetrate=19200,aresample=16000",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "tech_firstblood_02.higher.wav",
+          "sha256": "7bf4dbd80cd9bccd410ca08f6a211da8fe1adbf0578ecb21022aa381d84cad11",
+          "bytes": 97616
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_techies:tech_firstblood_02@lower",
+      "hero": "Techies",
+      "expectedText": "First blood! Start with a bang!",
+      "originalId": "hero-voice:npc_dota_hero_techies:tech_firstblood_02",
+      "originalSha256": "36e81a1ecd00331bfc2bf7664b0440a9fc2ba60d7697be9daea178114cfd647b",
+      "ffmpegFilter": "aresample=16000,asetrate=12800,aresample=16000",
+      "stages": [
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "tech_firstblood_02.lower.wav",
+          "sha256": "6abf8a37bdefcc7751df61d6346e0afb95a619cf4d908529a4166ba7e0c045a1",
+          "bytes": 146378
+        }
+      ]
+    }
+  ]
+}

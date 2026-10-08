@@ -1,0 +1,16 @@
+{
+  "fixture": "synthetic runtime churn; no real user data",
+  "postgresMajor": 14,
+  "backup": {
+    "tables": 13,
+    "rows": 1931,
+    "elapsedMs": 153
+  },
+  "restore": {
+    "verified": true,
+    "tables": 13,
+    "rows": 1931,
+    "elapsedMs": 140
+  },
+  "allTableHashesMatched": true
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "file": "src/lib/private-rooms.mjs",
+    "sha256": "f88e79abee48964d776ee158960243613fe19e56d455e1532dbd4f1fbf336401"
+  },
+  {
+    "file": "src/lib/private-room-rounds.ts",
+    "sha256": "f9cc069c8b87710aa15faf9537d49e071f5bae38229f837a990b8864c692c06d"
+  },
+  {
+    "file": "src/lib/room-presence.mjs",
+    "sha256": "b1054e174f28141f77ee69a656ef16829397d31662d595a4f12950d4cccbbcb2"
+  },
+  {
+    "file": "src/app/api/private-rooms/route.ts",
+    "sha256": "bdcb8a92912d7f5079b6fe764216ac2574d9eed013fb02fe3543cd717277f1e9"
+  },
+  {
+    "file": "src/app/api/rounds/route.ts",
+    "sha256": "086acdcfd7a3633ad6619837ba27cf92a4a2785df99560e0074b82dfb217eb47"
+  },
+  {
+    "file": "src/lib/rate-limit.mjs",
+    "sha256": "c8fd57b4f3ed317c4af5c22f3f34be9b8c9abdaf9a328395a5af28077a099a2f"
+  }
+]

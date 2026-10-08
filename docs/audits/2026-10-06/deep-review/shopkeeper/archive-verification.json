@@ -1,0 +1,20 @@
+{
+  "verifiedAt": "2026-10-06T09:03:01.401417+00:00",
+  "primaryArchiveSha256": "f310ec175975d52e1c0124c261b07fcb42f37fa6bd64d7c62d17a2ba719a26b8",
+  "focusedTestCommand": "DOTA_VALVE_HERO_DATA_ROOT=/tmp/queue-arcade-deep-review/valve/heroes node node_modules/vitest/vitest.mjs run tests/shopkeeper-facts.test.mjs tests/aghanim-facts.test.mjs",
+  "focusedTestsPassed": 289,
+  "focusedTestExitCode": 0,
+  "copiedLedgerMatchesOriginal": true,
+  "copiedFixtureMatchesRepository": true,
+  "testSourceSnapshotMatchesRepository": true,
+  "questionsMatchedToCurrentCatalog": 102,
+  "questionStatus": {
+    "verified": 56,
+    "fixed": 46
+  },
+  "catalogEntriesMatched": 182,
+  "primaryItemResponsesRehashed": 182,
+  "primaryDirectRecipeSetsMatched": 182,
+  "primaryRecipeScrollResponsesRehashed": 26,
+  "preservedVisualEvidenceFilesVerified": 7
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "index": 229,
+    "questionId": "soundcheck-item:mask_of_madness",
+    "stage": 2,
+    "pcmSha256": "f4d774ebdd2606a9f616a9e2670140098439d7d32d393f1b5ae90074eb96e868",
+    "frames": 73449,
+    "nativePeak": 0.699999988079071,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.6924489795918367,
+          "gain": 0.6035445178212127,
+          "correlation": 0.6499193877145728
+        },
+        {
+          "atSeconds": 0.6924489795918367,
+          "gain": 0.5788963305794449,
+          "correlation": 0.6286531045937045
+        }
+      ],
+      [
+        {
+          "atSeconds": 1.2082766439909296,
+          "gain": 1.0000135743626577,
+          "correlation": 0.9999996342218285
+        },
+        {
+          "atSeconds": 1.2082766439909296,
+          "gain": 1.000014086395286,
+          "correlation": 0.999999651181524
+        }
+      ]
+    ],
+    "residualFraction": 0.3382927657713698,
+    "ordered": true,
+    "gapsSeconds": [
+      0.24582766439909287
+    ],
+    "pass": false
+  }
+]

@@ -1,9 +1,15 @@
 .data
+.local-assets
 .env*
 .git
 .github
 .next
+.next-*
+coverage
+out
+.agents
+.codex
+.aws
 node_modules
 npm-debug.log*
 pnpm-debug.log*
-README.md

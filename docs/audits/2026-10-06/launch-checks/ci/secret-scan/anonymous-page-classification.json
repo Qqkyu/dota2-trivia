@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-10-06T13:21:33.253529+00:00",
+  "method": "Read-only fresh public GET without Cookie or Authorization headers; captured values were never sent",
+  "freshPageHasPrestaShopObject": true,
+  "archivedLoggedIn": false,
+  "archivedHasCustomerPersonalData": false,
+  "freshLoggedIn": false,
+  "freshHasCustomerPersonalData": false,
+  "archivedCustomerConsentTokenIsHashOfEmptyString": true,
+  "freshAndArchivedStaticTokenEqual": true,
+  "freshAndArchivedPageTokenEqual": true,
+  "archiveSha256": "812ce90af389de35b15d42353f9b792f41e828e04643d95314bb7fdf29f640f0",
+  "freshResponseSha256": "7aa5e59b37c247d4c27f24770facfa45e7f1b770e29937240ebc48b781698620",
+  "archivedTokenFieldCount": 6,
+  "archivedTokenFieldsAlsoPresentInFreshAnonymousResponse": 4,
+  "gdprCustomerIdZero": true,
+  "gdprGuestIdZero": true
+}

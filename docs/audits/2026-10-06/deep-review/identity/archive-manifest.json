@@ -1,0 +1,90 @@
+{
+  "reviewedAt": "2026-10-06",
+  "files": [
+    {
+      "file": "identity-abilities-1.png",
+      "bytes": 1642577,
+      "sha256": "1d65fda0e48418476fdee4c5a9e4bc15d6074a9c3cd889696b7c4f4417e3b6c5"
+    },
+    {
+      "file": "identity-abilities-2.png",
+      "bytes": 1660978,
+      "sha256": "f1a3a06b90fe773a1939bf4c926b36d1cbc55b8316d128cb4566671dcf2389c3"
+    },
+    {
+      "file": "identity-abilities-manifest.json",
+      "bytes": 47025,
+      "sha256": "3d3b721114ea7c366100c1457613d10839109776acf981a5f20b399b407e0003"
+    },
+    {
+      "file": "identity-differences.json",
+      "bytes": 16173,
+      "sha256": "5fe4ac0b7ba09c7d5f676ed9f67d9f356b5b975e91f8dbf8cd0e96fe0083a472"
+    },
+    {
+      "file": "identity-dotabase-manifest.json",
+      "bytes": 227,
+      "sha256": "930c4f500d09ddcd5aac4f08c5960cb679ce9ee84faec602de81f7c37385c766"
+    },
+    {
+      "file": "identity-expected-mapping.json",
+      "bytes": 16711,
+      "sha256": "2a22f86bbc09e5f2c6ab67e805ce36026362dfc355e1cfb9b3cd7fd56d004ac8"
+    },
+    {
+      "file": "identity-final-checks.json",
+      "bytes": 37695,
+      "sha256": "173abbe5ceb3ce18ae3e52a0212704687711c0828e971c906f12e3915be5f119"
+    },
+    {
+      "file": "identity-ledger.json",
+      "bytes": 698731,
+      "sha256": "2240cc6a8dbf976a0bfb9230a2b9fe7a14c4ea8d1431c9ce13b4562ff213abf8"
+    },
+    {
+      "file": "identity-portraits-1.png",
+      "bytes": 2783366,
+      "sha256": "58aa6030c9c991180d2cc17925951d0b4975e8523e653c93911751091827c3d3"
+    },
+    {
+      "file": "identity-portraits-2.png",
+      "bytes": 2725633,
+      "sha256": "3b8336dd74cb52183ba1db1a392480bf07ab8359ae97203f71e9cb74c624c227"
+    },
+    {
+      "file": "identity-portraits-manifest.json",
+      "bytes": 45180,
+      "sha256": "9d0ced1158567a110425772a430d62e3811cb5facc73ebd11db0267d89e4296c"
+    },
+    {
+      "file": "identity-primary-source-manifest.json",
+      "bytes": 38461,
+      "sha256": "38f380ab3af786ec2d02e28bde5f5e8b543b91de2629d3c902d89fa821da8e45"
+    },
+    {
+      "file": "identity-proposal-checks.json",
+      "bytes": 21746,
+      "sha256": "c225f9d07a0ee56bea66e0a996ef3f024c69b570da46d91de25558e62f40a80b"
+    },
+    {
+      "file": "identity-question-patches.json",
+      "bytes": 175825,
+      "sha256": "fdd53e9d595e6308451b0b80cf7e4a0f01c1179ecffacd9e7effdbaaaaf335de"
+    },
+    {
+      "file": "identity-source-comparison.json",
+      "bytes": 192064,
+      "sha256": "4b93ff892a7a6ebce01685941ea8083206083e7157bdac629392834a5859c9d1"
+    },
+    {
+      "file": "identity.md",
+      "bytes": 12691,
+      "sha256": "1d5ada301b443b593044f8fa66734f43e3334aace9ac6172c16f35a7cf79e9b6"
+    },
+    {
+      "file": "test-results.txt",
+      "bytes": 194,
+      "sha256": "cf2917bb6041a23d65d768fd2437d923cd2d2832300ceb0478e387da93ef6cfb"
+    }
+  ]
+}

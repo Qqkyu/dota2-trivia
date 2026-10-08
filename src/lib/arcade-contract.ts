@@ -20,6 +20,8 @@ export interface CrowdScoreSummary {
   playerPoints: number | null;
 }
 
+export type PlayerIdentity = { kind: "guest"; id: string } | { kind: "account"; id: string };
+
 export interface PlayerVote {
   answerIndex: number;
   submittedAt: number;
@@ -27,6 +29,8 @@ export interface PlayerVote {
 }
 
 export interface MissedRoundResult {
+  game?: RoundGame;
+  category?: PublicArcadeQuestion["category"];
   roundId: string;
   correct: boolean;
   points: number;
@@ -68,6 +72,7 @@ export interface RoomPresence {
 }
 
 export interface RoomSnapshot {
+  playerIdentity: PlayerIdentity | null;
   serverNow: number;
   room: PublicRoom;
   round: PublicRoundSnapshot;
@@ -77,10 +82,11 @@ export interface RoomSnapshot {
   crowd: CrowdResult;
   playerVote: PlayerVote | null;
   playerReport: ReportReason | null;
-  previousResult: MissedRoundResult | null;
+  previousResults: MissedRoundResult[];
 }
 
 export interface VoteResult extends CrowdResult {
+  playerIdentity: PlayerIdentity | null;
   accepted: boolean;
   playerVote: PlayerVote | null;
 }

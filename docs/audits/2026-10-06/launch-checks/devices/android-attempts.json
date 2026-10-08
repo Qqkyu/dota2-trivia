@@ -1,0 +1,76 @@
+{
+  "appJourneyPasses": 0,
+  "appJourneyFailures": 0,
+  "notRunReason": "A complete native Android gameplay journey was not verified. The October8 Android11 run passed native Party navigation, keyboard input and server-confirmed Join. Its waiting-room UI and settled landscape layout remained unverified at the fixed deadline.",
+  "hostKvmAvailable": false,
+  "windowsHypervisorPlatformInstallState": 2,
+  "attempts": [
+    {
+      "name": "Android16 first boot",
+      "emulator": "37.2.12",
+      "cpuAcceleration": false,
+      "virtualCpus": 2,
+      "requestedRamMiB": 2048,
+      "effectiveMinimumRamMiB": 2560,
+      "graphics": "software: swangle and lavapipe",
+      "hostLoad": "Overlapped other audits, including ASR.",
+      "observed": "Android system watchdog repeatedly restarted system_server. Android later registered Chrome and Gboard. Root paused the attempt to remove resource contention."
+    },
+    {
+      "name": "Android16 quiet retry",
+      "cpuAcceleration": false,
+      "virtualCpus": 1,
+      "graphics": "swiftshader; Vulkan disabled",
+      "hostAvailableMemoryGiB": 10,
+      "observed": "Android reached boot_completed=1 and launched Chrome133, but native system and SystemUI not-responding dialogs appeared. Chrome133 recorded SIGTRAP crashes and never exposed an app page or DevTools socket.",
+      "changesOnlyInsideAvd": [
+        "system_server_watchdog_timeout_ms=600000",
+        "Chrome first-run test bypass",
+        "Debug ADB root",
+        "Unused Google Search and Play Services disabled after repeated startup failures"
+      ]
+    },
+    {
+      "name": "Android16 host graphics retry",
+      "cpuAcceleration": false,
+      "graphics": "D3D12 NVIDIA GeForce RTX4080 via WSL",
+      "observed": "Emulator reported GPU incompatibility and exited139 before ADB connected. The attempted ro.hw_timeout_multiplier property was rejected because only qemu.* properties are supported."
+    },
+    {
+      "name": "Android11 AOSP fallback",
+      "emulator": "37.2.12",
+      "cpuAcceleration": false,
+      "virtualCpus": 1,
+      "requestedRamMiB": 1536,
+      "graphics": "swiftshader; Vulkan disabled",
+      "observed": "Android reached boot_completed=1. Official Firefox157.0.1 installed successfully. Geckodriver first failed before browser launch while setting ownership on shared storage. The next attempt will use its documented internal storage mode.",
+      "appPageLoaded": false,
+      "laterObserved": "On October6, internal-storage WebDriver startup also failed, but native ADB launch loaded the Party page after adb reverse was restored. That screenshot did not establish a completed journey."
+    },
+    {
+      "name": "Android11 bounded final native attempt",
+      "date": "2026-10-08",
+      "appOrigin": "http://127.0.0.1:3334",
+      "appBuild": "fQ95T7-zzQo1Bnsef8oBI",
+      "emulator": "37.2.12",
+      "browser": "Firefox 157.0.1",
+      "cpuAcceleration": false,
+      "virtualCpus": 1,
+      "requestedRamMiB": 1536,
+      "graphics": "swiftshader; Vulkan disabled",
+      "bootCompleted": true,
+      "appPageLoaded": true,
+      "systemUiAnrDialogsObserved": 1,
+      "nativeWaitUsed": true,
+      "serverConfirmedJoin": true,
+      "completedGameplayJourney": false,
+      "settledLandscapeLayout": "unresolved",
+      "stoppedAtDeadline": true,
+      "results": "evidence/android/final-native-20261008/results.json"
+    }
+  ],
+  "nextAttempt": null,
+  "physicalDevice": false,
+  "recordedAt": "2026-10-08T14:58:00.831671+00:00",
+  "partialNativeFlows": 1
+}

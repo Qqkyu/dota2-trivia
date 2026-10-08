@@ -1,0 +1,35 @@
+[
+  {
+    "round": "spell-link",
+    "key": "Enter",
+    "focus": "Mute game sounds",
+    "votes": [
+      {
+        "gameId": "dota2",
+        "mode": "mixed",
+        "filter": "Mixed",
+        "roundId": "audit-ui-spell-link",
+        "answerIndex": 0,
+        "answerKey": "npc_dota_hero_abaddon",
+        "voterId": "fcae2f1c-7e2c-4c3d-93b7-5e0bbae3f7e8",
+        "sessionId": "ef8e9c08-c648-4449-acc4-578b08373ef7"
+      }
+    ],
+    "muted": 0,
+    "query": ""
+  },
+  {
+    "round": "spell-link",
+    "key": "Space",
+    "focus": "Mute game sounds",
+    "votes": [],
+    "muted": 0,
+    "query": "abaddon "
+  },
+  {
+    "reducedMotion": {
+      "matches": true,
+      "activeAnimations": []
+    }
+  }
+]

@@ -1,0 +1,5 @@
+
+> queue-arcade@0.2.0 audit:client /home/kulmisiu/dev/dota2-trivia
+> node scripts/audit-live-client.mjs "--" "--client-root=/tmp/queue-arcade-live6882"
+
+Client audit passed 1038 answer checks across 1036 questions using 131 pinned base-build 6882 files plus 13 reviewed 7.41f numeric patch deltas.

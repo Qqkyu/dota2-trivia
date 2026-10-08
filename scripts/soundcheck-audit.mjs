@@ -3,6 +3,8 @@
 // in the installed Dota 2 client (build 6882, VersionDate Jul 31 2026), then
 // kept for 7.41f. Dotabase mirrors those Valve resources as browser-ready WAV files.
 
+import { soundcheckClipTiming, soundcheckCutDuration } from "../src/lib/soundcheck.mjs";
+
 export const SOUNDCHECK_AUDIT = Object.freeze({
   patch: "7.41f",
   reviewedAt: "2026-09-17",
@@ -12,14 +14,74 @@ export const SOUNDCHECK_AUDIT = Object.freeze({
 
 export const SOUNDCHECK_ASSET_ROOT = "https://dotabase.dillerm.io/vpk";
 
-// Hurricane Pike calls the Force Staff cue on self/allied casts. Its separate
-// enemy-target cue does not make the generic Force Staff clip uniquely
-// attributable, so these items must never oppose one another as answers.
-export const SOUNDCHECK_SHARED_AUDIO_GROUPS = Object.freeze([Object.freeze(["force_staff", "hurricane_pike"])]);
+// Shared base cues must not offer another valid owner as a wrong answer.
+export { SOUNDCHECK_SHARED_AUDIO_GROUPS, soundcheckSharedAudioAlternatives } from "../src/lib/soundcheck-choices.mjs";
 
-export function soundcheckSharedAudioAlternatives(subject, choices) {
-  const group = SOUNDCHECK_SHARED_AUDIO_GROUPS.find((subjects) => subjects.includes(subject));
-  return group ? choices.filter((choice) => choice !== subject && group.includes(choice)) : [];
+export function soundcheckEventDetails(contents, event) {
+  const escapedEvent = event.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const assignment = new RegExp(`^[\\t ]*${escapedEvent}[\\t ]*=`, "m").exec(contents);
+  if (!assignment) return null;
+  const openingBrace = contents.indexOf("{", assignment.index + assignment[0].length);
+  if (openingBrace < 0) return null;
+  let depth = 0;
+  for (let index = openingBrace; index < contents.length; index += 1) {
+    if (contents[index] === "{") depth += 1;
+    if (contents[index] !== "}") continue;
+    depth -= 1;
+    if (depth !== 0) continue;
+    const body = contents.slice(openingBrace + 1, index);
+    return {
+      audioPaths: [...body.matchAll(/"([^"\n]+\.vsnd)"/g)].map((match) => match[1]),
+      duration: Number(body.match(/vsnd_duration\s*=\s*([0-9.]+)/)?.[1]),
+      layers: [...body.matchAll(/soundevent_layer\d+\s*=\s*"([^"]+)"/g)].map((match) => match[1]),
+    };
+  }
+  return null;
+}
+
+/** Check the actual samples that each progressive preview will play. */
+export function soundcheckPcmPreviewAudit(bytes, clip) {
+  const buffer = Buffer.from(bytes);
+  if (
+    buffer.length < 44 ||
+    buffer.toString("ascii", 0, 4) !== "RIFF" ||
+    buffer.toString("ascii", 8, 16) !== "WAVEfmt " ||
+    buffer.readUInt32LE(16) !== 16 ||
+    buffer.readUInt16LE(20) !== 1 ||
+    buffer.readUInt16LE(34) !== 16 ||
+    buffer.toString("ascii", 36, 40) !== "data"
+  )
+    throw new Error("Soundcheck preview audit requires a canonical 16-bit PCM WAV.");
+  const channels = buffer.readUInt16LE(22);
+  const sampleRate = buffer.readUInt32LE(24);
+  const blockAlign = buffer.readUInt16LE(32);
+  const dataBytes = buffer.readUInt32LE(40);
+  if (
+    !sampleRate ||
+    !channels ||
+    blockAlign !== channels * 2 ||
+    dataBytes > buffer.length - 44 ||
+    dataBytes % blockAlign
+  ) {
+    throw new Error("Invalid Soundcheck PCM WAV header.");
+  }
+  const { startSeconds, duration } = soundcheckClipTiming(clip);
+  const startFrame = Math.floor(startSeconds * sampleRate);
+  const totalFrames = dataBytes / blockAlign;
+  const stages = [1, 2, 3].map((stage) => {
+    const seconds = soundcheckCutDuration(duration, stage);
+    const endFrame = Math.min(totalFrames, startFrame + Math.ceil(seconds * sampleRate));
+    let sumSquares = 0;
+    for (let frame = startFrame; frame < endFrame; frame += 1) {
+      for (let channel = 0; channel < channels; channel += 1) {
+        const sample = buffer.readInt16LE(44 + frame * blockAlign + channel * 2) / 32768;
+        sumSquares += sample * sample;
+      }
+    }
+    const samples = (endFrame - startFrame) * channels;
+    return { stage, seconds, rms: samples > 0 ? Math.sqrt(sumSquares / samples) : 0 };
+  });
+  return { duration: totalFrames / sampleRate, stages };
 }
 
 export const SOUNDCHECK_DEFINITIONS = Object.freeze([
@@ -122,6 +184,7 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     eventFile: "soundevents/game_sounds_heroes/game_sounds_skeletonking.vsndevts",
     audioPath: "sounds/weapons/hero/skeleton_king/reincarnate.wav",
     duration: 6.183356,
+    startSeconds: 0.6,
   },
   {
     family: "ability",
@@ -247,7 +310,7 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     family: "ability",
     difficulty: 2,
     subject: "muerta_dead_shot",
-    distractors: ["muerta_the_calling", "muerta_spectral_slug", "muerta_pierce_the_veil"],
+    distractors: ["muerta_the_calling", "muerta_gunslinger", "muerta_pierce_the_veil"],
     event: "Hero_Muerta.DeadShot.Cast",
     eventFile: "soundevents/game_sounds_heroes/game_sounds_muerta.vsndevts",
     audioPath: "sounds/weapons/hero/muerta/deadshot_cast.wav",
@@ -509,7 +572,7 @@ export const SOUNDCHECK_DEFINITIONS = Object.freeze([
     family: "ability",
     difficulty: 2,
     subject: "kez_echo_slash",
-    distractors: ["kez_grappling_claw", "kez_falcon_rush", "kez_raptor_dance"],
+    distractors: ["kez_grappling_claw", "kez_talon_toss", "kez_raptor_dance"],
     event: "Hero_Kez.EchoSlash.Katana.Start",
     eventFile: "soundevents/game_sounds_heroes/game_sounds_kez.vsndevts",
     audioPath: "sounds/weapons/hero/kez/echo_katana_cast.wav",
@@ -1118,6 +1181,7 @@ export function soundcheckClips(definition) {
     eventFile: definition.eventFile,
     audioPath: definition.audioPath,
     duration: definition.duration,
+    ...(definition.startSeconds !== undefined ? { startSeconds: definition.startSeconds } : {}),
   };
   return definition.sequence ? [primary, definition.sequence] : [primary];
 }

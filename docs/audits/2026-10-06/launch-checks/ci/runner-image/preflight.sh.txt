@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+runuser -u runner -- /opt/runner/bin/Runner.Listener --version
+runuser -u runner -- node --version
+runuser -u runner -- google-chrome --version
+runuser -u runner -- docker version
+runuser -u runner -- docker buildx version
+runuser -u runner -- pulseaudio --start --exit-idle-time=-1
+runuser -u runner -- pactl info
+runuser -u runner -- google-chrome --headless=new --disable-gpu --dump-dom 'data:text/html,<title>runner-preflight</title>' > /runner-evidence/chrome.html 2> /runner-evidence/chrome.log
+rg_command=grep
+"$rg_command" --quiet runner-preflight /runner-evidence/chrome.html
+docker run --detach --name queue-runner-preflight-pg --publish 5432:5432 \
+  --env POSTGRES_PASSWORD=isolated_preflight --env POSTGRES_DB=queue_arcade postgres:17-alpine
+for attempt in {1..45}; do
+  if docker exec queue-runner-preflight-pg pg_isready --username postgres --dbname queue_arcade; then break; fi
+  sleep 1
+done
+runuser -u runner -- bash -c 'exec 3<>/dev/tcp/127.0.0.1/5432; exec 3>&-'
+docker run --detach --name queue-runner-preflight-http --network host node:22-alpine \
+  node -e 'require("node:http").createServer((q,r)=>r.end("runner-host-network-ok")).listen(3000,"0.0.0.0")'
+for attempt in {1..20}; do
+  if curl --fail --silent http://127.0.0.1:3000 > /runner-evidence/http.txt; then break; fi
+  sleep 1
+done
+grep --quiet runner-host-network-ok /runner-evidence/http.txt
+mkdir -p /tmp/queue-runner-build
+printf '%s\n' 'FROM node:22-alpine' 'RUN node --version' > /tmp/queue-runner-build/Dockerfile
+runuser -u runner -- docker build --tag queue-runner-preflight:local /tmp/queue-runner-build
+docker rm --force queue-runner-preflight-pg queue-runner-preflight-http
+printf '%s\n' 'Preflight passed: runner, Node, Docker build, Chrome sandbox, PulseAudio, mapped Postgres, host-network HTTP.'

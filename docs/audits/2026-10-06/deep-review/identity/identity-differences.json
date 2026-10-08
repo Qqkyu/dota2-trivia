@@ -1,0 +1,302 @@
+[
+  {
+    "id": "ability-owner:centaur_mount",
+    "issue": "MISSING from official hero API"
+  },
+  {
+    "id": "ability-owner:earth_spirit_rolling_boulder",
+    "answer": "Earth Spirit",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [
+      {
+        "name": "damage",
+        "values": [60, 70, 80, 90]
+      }
+    ],
+    "official": "Earth Spirit gathers himself into a boulder and, after a 0.6s delay, rolls toward the target location, dealing 60 + 100% STR damage and stunning enemy units. He will stop if he collides with an enemy hero or is stunned. If he rolls over a Stone Remnant, he will travel further and faster, and stun enemies for longer.",
+    "app": "Earth Spirit gathers himself into a boulder and, after a 0.6s delay, rolls toward the target location, dealing 60 + 100% STR damage and stunning enemy units. He will stop if he collides with an enemy hero or is stunned. If he rolls over a Stone Remnant, he will travel further and faster, and stun enemies for longer."
+  },
+  {
+    "id": "ability-owner:gyrocopter_flak_cannon",
+    "answer": "Gyrocopter",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [],
+    "official": "Gyrocopter's attacks hit all enemy units in an area around it for a limited number of attacks. Only the main target of attacks will receive attack bonuses such as Critical Strike. Lasts %abilityduration% seconds or until the attacks are used.",
+    "app": "Gyrocopter's attacks hit all enemy units in an area around it for a limited number of attacks. Only the main target of attacks will receive attack bonuses such as Critical Strike. Lasts 12 seconds or until the attacks are used."
+  },
+  {
+    "id": "ability-owner:juggernaut_healing_ward",
+    "answer": "Juggernaut",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [],
+    "official": "Summons a Healing Ward which heals all nearby allied units, based on their max health. The Healing Ward moves at 325 movement speed after being summoned. Lasts %abilityduration% seconds.",
+    "app": "Summons a Healing Ward which heals all nearby allied units, based on their max health. The Healing Ward moves at 325 movement speed after being summoned. Lasts 18 seconds."
+  },
+  {
+    "id": "ability-owner:legion_commander_outfight_them",
+    "answer": "Legion Commander",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [],
+    "official": "When Legion Commander or an allied Hero within 1200 range casts an ability, they gain bonus armor for 6s; allies gain 50% of the value. This bonus stacks independently.",
+    "app": "Passively grants Legion Commander armor. If Legion or an allied Hero within 1200 range casts an ability, they gain bonus armor for 6s; allies gain 50% of the value. This bonus stacks independently."
+  },
+  {
+    "id": "ability-owner:marci_companion_run",
+    "answer": "Marci",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [],
+    "official": "Marci bounds to the targeted allied unit, choosing a direction and distance she will spring away from it. Upon reaching the unit, Marci lunges to her final destination, damaging and stunning enemies where she lands. When Rebound is set to alt-cast, Marci brings the target ally with her to her final destination. The ally receives 25% bonus movement speed for 4s.",
+    "app": "Marci bounds to the targeted allied unit, choosing a direction and distance she will spring away from it. Upon reaching the unit, Marci lunges to her final destination, damaging and stunning enemies where she lands. When Rebound is set to alt-cast, Marci brings the target ally with her to her final destination. The ally receives 15% bonus movement speed for 4s."
+  },
+  {
+    "id": "ability-owner:mirana_arrow",
+    "answer": "Mirana",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [
+      {
+        "name": "arrow_max_stun",
+        "values": [2.3, 3.2, 4.1, 5]
+      }
+    ],
+    "official": "Fires a long-range arrow with deadly precision, which stuns and damages the first enemy unit it strikes. The stun duration ranges from 0.01 to 2.3 seconds, with bonus damage up to 180 added, based on the distance the arrow travels to its target. Instantly kills the first non-ancient creep it hits.",
+    "app": "Fires a long-range arrow with deadly precision, which stuns and damages the first enemy unit it strikes. The stun duration ranges from 0.01 to 2.6 seconds, with bonus damage up to 180 added, based on the distance the arrow travels to its target. Instantly kills the first non-ancient creep it hits."
+  },
+  {
+    "id": "ability-owner:muerta_the_calling",
+    "answer": "Muerta",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [],
+    "official": "Summons a group of 4 revenants that slowly circle the targeted location. Enemies within the area are slowed. Revenants deal damage and silence enemies as they pass through them.",
+    "app": "Muerta summons a ring of revenants that circle the target area for a short time. Every enemy a revenant passes through takes damage and is slowed. Enemies inside the ring also attack more slowly."
+  },
+  {
+    "id": "ability-owner:naga_siren_reel_in",
+    "issue": "MISSING from official hero API"
+  },
+  {
+    "id": "ability-owner:nevermore_shadowraze3",
+    "issue": "MISSING from official hero API"
+  },
+  {
+    "id": "ability-owner:obsidian_destroyer_astral_imprisonment",
+    "answer": "Outworld Devourer",
+    "checks": {
+      "heroName": false,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [],
+    "official": "Steals a percentage of the target's max mana and places them into an astral prison. The hidden unit is invulnerable and disabled. When the astral prison implodes, it deals damage to the target.",
+    "app": "Steals a percentage of the target's max mana and places them into an astral prison. The hidden unit is invulnerable and disabled. When the astral prison implodes, it deals damage to the target."
+  },
+  {
+    "id": "ability-owner:omniknight_hammer_of_purity",
+    "answer": "Omniknight",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [],
+    "official": "Omniknight imbues his hammer with holy power, causing his attack to have increased range, deal pure damage based on a percentage of his base damage and slow his target for a short duration. Omniknight heals for 40% of the damage dealt over 4s.",
+    "app": "The caster imbues his hammer with holy power, causing his attack to have increased range, deal pure damage based on a percentage of his base damage, and slow his target. The caster heals for 40% of the damage dealt over 4 seconds."
+  },
+  {
+    "id": "ability-owner:phoenix_sun_ray",
+    "answer": "Phoenix",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [],
+    "official": "Phoenix expels a beam of light at the cost of its own health. The beam damages enemies and heals allies for a base amount plus a percentage of their max health. The percentage increases as the beam continues to fire.",
+    "app": "Phoenix expels a beam of light at the cost of its own health. The beam damages enemies and heals allies for a base amount plus a percentage of their health. The percentage increases as the beam continues to fire."
+  },
+  {
+    "id": "ability-owner:rattletrap_overclocking",
+    "answer": "Clockwerk",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [],
+    "official": "Supercharges Clockwerks abilities: Battery Assault: Increased radius and affects all enemies in its range. Power Cogs: Radius increased, and Clockwerk's armor while near Power Cogs is increased. Rocket Flares: Increased damage, vision and slow duration, and fire additional rockets to either side of the target. Hookshot: Stun radius and duration increased. Jetpack: Moves faster. Clockwerk's movement and attack speed becomes slowed to a crawl after the duration runs out.",
+    "app": "Supercharges Clockwerks abilities: Battery Assault: Increased radius and affects all enemies in its range. Power Cogs: Radius increased, and Clockwerk's armor while near Power Cogs is increased. Rocket Flares: Increased damage, vision and slow duration, and fire additional rockets to either side of the target. Hookshot: Stun radius and duration increased. Jetpack Moves faster. Clockwerk's movement and attack speed becomes slowed to a crawl after the duration runs out."
+  },
+  {
+    "id": "ability-owner:ringmaster_impalement",
+    "answer": "Ring Master",
+    "checks": {
+      "heroName": false,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [],
+    "official": "Ringmaster throws one of his daggers to a precise point of his choosing. If he strikes an enemy, the dagger deals impact damage, briefly slows the unit hit, and causes them to bleed. The bleeding deals a percentage of the victim's maximum health in damage every second to heroes and flat damage per second to creeps.",
+    "app": "Ringmaster throws one of his daggers to a precise point of his choosing. If he strikes an enemy, the dagger deals impact damage, briefly slows the unit hit, and causes them to bleed. The bleeding deals a percentage of the victim's maximum health in damage every second to heroes and flat damage per second to creeps."
+  },
+  {
+    "id": "ability-owner:shadow_demon_shadow_poison",
+    "answer": "Shadow Demon",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [],
+    "official": "Deals damage in a line, and afflicts enemy units with a poison effect. The poison deals 1/2/4/8/16 times the stack damage based on the number of stacks on the target, up to 5 stacks. Additional stacks cause 60 damage each. This deferred damage is dealt when Shadow Poison's duration is expired, or the Release sub-ability is used.",
+    "app": "Deals damage in a line, and afflicts enemy units with a poison effect. The poison deals 1/2/4/8/16 times the stack damage based on the number of stacks on the target, up to 5 stacks. Additional stacks cause 50 damage each. This deferred damage is dealt when Shadow Poison's duration is expired, or the Release sub-ability is used."
+  },
+  {
+    "id": "ability-owner:sniper_take_aim",
+    "answer": "Sniper",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [
+      {
+        "name": "passive_attack_range_bonus",
+        "values": [160, 240, 320, 400]
+      }
+    ],
+    "official": "Passively increases Sniper's attack range by 160. On cast, Sniper gains increased vision, Headshot chance, and attack range. Slows you by 65% for the duration and restricts your vision to a frontal cone.",
+    "app": "Passively increases Sniper's attack range by 160. On cast, Sniper gains increased vision, Headshot chance, and attack range. Slows you by 65% for the duration and restricts your vision to a frontal cone."
+  },
+  {
+    "id": "ability-owner:templar_assassin_meld",
+    "answer": "Templar Assassin",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [],
+    "official": "Templar Assassin conceals herself, becoming invisible as long as she remains still. If Meld's invisibility is broken by attacking an enemy, Lanaya's attack will deal bonus damage to the enemy and reduce their armor for 6 seconds. Bonus damage and debuffs from Meld are applied to all enemies in the Psi Blades split range.",
+    "app": "Templar Assassin conceals herself, becoming invisible as long as she remains still. If Meld's invisibility is broken by attacking an enemy, Lanaya's attack will deal bonus damage to the enemy and reduce their armor for 6 seconds. Bonus damage and armor reductions are applied to all enemies in the Psi Blades split range."
+  },
+  {
+    "id": "ability-owner:ursa_fury_swipes",
+    "answer": "Ursa",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [
+      {
+        "name": "bonus_reset_time",
+        "values": [8, 12, 16, 20]
+      }
+    ],
+    "official": "Ursa's claws dig deeper wounds in the enemy, causing consecutive attacks to the same enemy to deal more damage. If the same target is not attacked after 8 seconds, the bonus damage is lost.",
+    "app": "Ursa's claws dig deeper wounds in the enemy, causing consecutive attacks to the same enemy to deal more damage. If the same target is not attacked after 8 seconds, the bonus damage is lost."
+  },
+  {
+    "id": "ability-owner:visage_stone_form_self_cast",
+    "issue": "MISSING from official hero API"
+  },
+  {
+    "id": "ability-owner:windrunner_powershot",
+    "answer": "Windranger",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [],
+    "official": "CHANNELED - Windranger charges her bow for up to %abilitychanneltime% second for a single powerful shot, which deals more damage the longer it is charged. The arrow damages and slows enemies' movement speed along its path. For each enemy that Powershot hits, its damage and slow is reduced.",
+    "app": "CHANNELED - Windranger charges her bow for up to 1 second for a single powerful shot, which deals more damage the longer it is charged. The arrow damages and slows enemies' movement speed along its path. For each enemy that Powershot hits, its damage and slow is reduced."
+  },
+  {
+    "id": "ability-owner:winter_wyvern_splinter_blast",
+    "answer": "Winter Wyvern",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [
+      {
+        "name": "movespeed_slow_tooltip",
+        "values": [27, 30, 33, 36]
+      }
+    ],
+    "official": "Launches a ball of brittle ice toward a unit. The ice shatters on impact, leaving the primary target completely unaffected, while hurling damaging splinters into nearby enemies in a 500 base radius. Enemies struck by these splinters are slowed by 27%.",
+    "app": "Launches a ball of brittle ice toward a unit. The ice shatters on impact, leaving the primary target completely unaffected, while hurling damaging splinters into nearby enemies in a 500 base radius. Enemies struck by these splinters are slowed by 28%."
+  },
+  {
+    "id": "ability-owner:witch_doctor_maledict",
+    "answer": "Witch Doctor",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levels": [],
+    "official": "Curses all enemy Heroes and player-controlled targets in a small area, causing them to take a set amount of damage each second, as well as bursts of damage every 4 seconds based on how much health they have lost since the curse began.",
+    "app": "Curses all enemy Heroes and player-controlled units in a small area, causing them to take a set amount of damage each second, as well as bursts of damage every 4 seconds based on how much health they have lost since the curse began."
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_obsidian_destroyer",
+    "answer": "Outworld Devourer",
+    "checks": {
+      "heroName": false,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "official": "",
+    "app": "Outworld Devourer was hiding behind the fog."
+  }
+]

@@ -33,6 +33,23 @@ export function soundcheckCutDuration(duration, stage) {
   return progressiveCutDuration(duration, stage, SOUNDCHECK_REVEAL_STAGES, SOUNDCHECK_CUT_PROFILES);
 }
 
+/** Keep the source duration for audit checks, but skip any reviewed silent prefix. */
+export function soundcheckClipTiming(clip) {
+  const startSeconds = clip?.startSeconds ?? 0;
+  const sourceDuration = clip?.duration;
+  if (
+    !Number.isFinite(sourceDuration) ||
+    sourceDuration <= 0 ||
+    sourceDuration > 60 ||
+    !Number.isFinite(startSeconds) ||
+    startSeconds < 0 ||
+    startSeconds >= sourceDuration
+  ) {
+    throw new Error("Invalid Soundcheck clip timing.");
+  }
+  return { startSeconds, duration: sourceDuration - startSeconds };
+}
+
 /**
  * The complete final pass needs a little more than one third of a 15-second
  * round so even the longest reviewed two-sound sequence can finish.

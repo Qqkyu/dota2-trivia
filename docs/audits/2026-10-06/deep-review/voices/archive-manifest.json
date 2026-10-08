@@ -1,0 +1,98 @@
+{
+  "createdAt": "2026-10-06T08:45:35.637980+00:00",
+  "scope": "Selected evidence for all 245 Quote Hunt and 123 Echo Hunt records. Full source corpus and binary audio excluded.",
+  "files": {
+    "README.md": {
+      "bytes": 11702,
+      "sha256": "093777d447e09b81d48bb34dd7b4437fdf082bafe5852123530f7b3987730434"
+    },
+    "archive-verification.json": {
+      "bytes": 717,
+      "sha256": "68858fa66a60173bd5e49c18dc056b47df10a31f1db2f8fe290b734df5f41c5b"
+    },
+    "check-echo-prefixes.py.txt": {
+      "bytes": 3088,
+      "sha256": "ba93386f771eca3bdfb1afeb12c9010e2b3b7637858e40be80eceff9cde89fe6"
+    },
+    "check-voices.py.txt": {
+      "bytes": 4130,
+      "sha256": "c8e1fd241cb7330b168f2e3f7ddcffc82a12ab66e14e48c52aebbd3664ff2529"
+    },
+    "restore-inputs.py.txt": {
+      "bytes": 2428,
+      "sha256": "53b29c89e681992b6c6214fc64993a691943d5ff9113e9ef63c3c974e659fb3c"
+    },
+    "valve-herolist-source.json": {
+      "bytes": 254,
+      "sha256": "1ff36969307f41b85f076ee490d79a69d3df4c5f9ca118da58ea9164b76f5637"
+    },
+    "valve-herolist.json": {
+      "bytes": 16425,
+      "sha256": "b009c6ff9f3ef6b60cf384f68616c09b92da99f14a55d7ccacf3b7f78cb2a2a8"
+    },
+    "voices-aa-candidate-probes.json": {
+      "bytes": 35013,
+      "sha256": "70902e612816670bbb2258e539b318762facfc5504c198abd138ca4958770d5d"
+    },
+    "voices-audio-checks.json": {
+      "bytes": 72799,
+      "sha256": "884786da50bef2c0fbdbb27dffa225e494be32159e850ccadff3be232193a1e3"
+    },
+    "voices-current-source-checks.json": {
+      "bytes": 384710,
+      "sha256": "fda3cde4bc13f6ddcd6de631d093365123010d23ac285bb5d5ed41e5e9378e40"
+    },
+    "voices-current-source-problems.json": {
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "voices-finding-source-records.json": {
+      "bytes": 6405,
+      "sha256": "30c73df3396da22602e4e423c85273a49f4f12243ded2741ee1d0d4d4afd73e0"
+    },
+    "voices-hero-identities.json": {
+      "bytes": 20320,
+      "sha256": "9208ab828b3ef264c5280ae11f635f23da02dabff383a8d6849fbb2c63a27ce3"
+    },
+    "voices-identity-checks.json": {
+      "bytes": 96890,
+      "sha256": "e79d0715a1b9f9b5b19cb8ddd8500925ecce77f530a0b2516f4ebe339cd71a48"
+    },
+    "voices-ledger.json": {
+      "bytes": 1182232,
+      "sha256": "7c1eacd61831c010e0aafa99a44eb52aaafd8bde19609ef1c4f654034415205a"
+    },
+    "voices-low-prefix-replacements.json": {
+      "bytes": 4056,
+      "sha256": "63d060b3b2a1422c598d1c60977c751f497d2517c5b2e63e0a9df5a245592422"
+    },
+    "voices-prefix-checks.json": {
+      "bytes": 129734,
+      "sha256": "40c116f68f5907be1be12f91633bed212132df228ba57d9ebe23fb18ad00626d"
+    },
+    "voices-public-flow-checks.json": {
+      "bytes": 7931,
+      "sha256": "341e3f7ba55914000c48a5fcf83a48cb662730545b04fc98168dbe515c3c7888"
+    },
+    "voices-question-patches.json": {
+      "bytes": 9001,
+      "sha256": "1fb344ceb3157fd94387e52f7cf0a9626402b1d74a06165952618c858e6c8c9d"
+    },
+    "voices-replacement-audio-check.json": {
+      "bytes": 660,
+      "sha256": "abf7097d76ab2232995daf494947dd48768d4f128ecf05441c58ba71925ea7c8"
+    },
+    "voices-replacement-evidence.json": {
+      "bytes": 5709,
+      "sha256": "280510a6882cbd8e2567a77c837014c44a31ed3a6372f46a5f72b5e2aeb7d0e2"
+    },
+    "voices-selected-source-records.json": {
+      "bytes": 267644,
+      "sha256": "f6604d53f7b0957fd6fddcbbef62978bfa9011dceeb696ab78815441eae4062f"
+    },
+    "voices-upstream-manifest.json": {
+      "bytes": 71551,
+      "sha256": "4d578b46e8e9462e76b6bb5c7d5f81586aa1e34126261aadc4618382b4dd1139"
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "checkedAt": "2026-10-08T14:45:34.097654+00:00",
+  "since": "2026-10-01T00:00:00Z",
+  "services": [
+    {
+      "serviceId": "srv-d9mqd1942hec73e9nlt0",
+      "type": "web_service",
+      "returnedDeployCount": 35,
+      "currentMonthDeployCount": 0,
+      "newestDeployCreatedAt": "2026-08-09T17:45:14.175814Z",
+      "fullMonthCovered": true,
+      "nonterminalCurrentMonthCount": 0,
+      "resourceNumber": 1
+    },
+    {
+      "type": "static_site",
+      "returnedDeployCount": 85,
+      "currentMonthDeployCount": 0,
+      "newestDeployCreatedAt": "2026-08-13T18:47:51.297115Z",
+      "fullMonthCovered": true,
+      "nonterminalCurrentMonthCount": 0,
+      "resourceNumber": 2
+    },
+    {
+      "type": "web_service",
+      "returnedDeployCount": 98,
+      "currentMonthDeployCount": 0,
+      "newestDeployCreatedAt": "2026-08-13T18:47:51.356017Z",
+      "fullMonthCovered": true,
+      "nonterminalCurrentMonthCount": 0,
+      "resourceNumber": 3
+    },
+    {
+      "type": "static_site",
+      "returnedDeployCount": 42,
+      "currentMonthDeployCount": 0,
+      "newestDeployCreatedAt": "2026-08-29T14:53:10.016213Z",
+      "fullMonthCovered": true,
+      "nonterminalCurrentMonthCount": 0,
+      "resourceNumber": 4
+    },
+    {
+      "type": "static_site",
+      "returnedDeployCount": 9,
+      "currentMonthDeployCount": 0,
+      "newestDeployCreatedAt": "2024-09-29T17:16:10.511025Z",
+      "fullMonthCovered": true,
+      "nonterminalCurrentMonthCount": 0,
+      "resourceNumber": 5
+    },
+    {
+      "type": "web_service",
+      "returnedDeployCount": 100,
+      "currentMonthDeployCount": 0,
+      "newestDeployCreatedAt": "2026-08-01T08:15:29.880032Z",
+      "fullMonthCovered": true,
+      "nonterminalCurrentMonthCount": 0,
+      "resourceNumber": 6
+    }
+  ],
+  "currentMonthDeployCount": 0,
+  "limitations": [
+    "Deploy count is not billed pipeline usage.",
+    "Deleted resources, detached build sources, workflow builds and other task usage are not included.",
+    "No usage or spend-limit endpoint exists in the inspected official public API/CLI."
+  ],
+  "serviceState": {
+    "id": "srv-d9mqd1942hec73e9nlt0",
+    "branch": "main",
+    "autoDeployTrigger": "off",
+    "suspended": "suspended",
+    "suspenders": [
+      "user"
+    ],
+    "buildSourceId": null,
+    "plan": "free",
+    "buildPlan": "starter"
+  },
+  "customDomainCount": 0,
+  "officialCliCommit": "5772e84f9b8ba99ba1b3890d73423a70ca68daf8",
+  "officialCliFiles": {
+    "client_gen.go": "cf9d2aa8bd36790b6548f6c9d7f598c64ee30c34f834a6ea61620e4cbc3bc4cc",
+    "types_gen.go": "6494072d48da320baca6558b323106c4190d373f53403cea54e05ddeba7b2560",
+    "buildsources_gen.go": "f441b8103a2a232efe022d3301270e5fa370a4b57a58c622a677a25cecec103f"
+  }
+}

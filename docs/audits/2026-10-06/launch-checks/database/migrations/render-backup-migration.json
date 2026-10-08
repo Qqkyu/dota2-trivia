@@ -1,0 +1,1269 @@
+{
+  "reviewedAt": "2026-10-06T12:41:40.841Z",
+  "sourceFormat": "PostgreSQL directory archive",
+  "destination": "unique disposable local PostgreSQL17 database",
+  "checks": {
+    "restoreSucceeded": true,
+    "allOriginalRowsAndColumnsUnchanged": true,
+    "runtimeCrudSucceededAndRolledBack": true,
+    "runtimeDdlTruncateAndLedgerWritesDenied": true,
+    "runtimeVerificationDidNotAlterData": true,
+    "repeatMigrationNoOp": true
+  },
+  "server": {
+    "version": "17.11",
+    "version_number": 170011
+  },
+  "sourceFilesSha256": "2eccb287b77a13666fa75bcff612ff04a4a1ca0dba177295a4d0582f7d21c63c",
+  "restoreMilliseconds": 76,
+  "before": {
+    "schema": "public",
+    "tables": [
+      {
+        "name": "queue_arcade_alpha_sessions",
+        "rows": 7,
+        "sha256": "2d0aec1450a353b1e29b1f3e7780bb2fac81ecd9cd085ad09b95ed1bb498ac5a",
+        "columns": [
+          {
+            "name": "session_hash",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "visitor_hash",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "started_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "last_seen_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "finished_at",
+            "type": "bigint",
+            "nullable": "YES",
+            "default": null
+          },
+          {
+            "name": "rounds_answered",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "correct_answers",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "feedback",
+            "type": "text",
+            "nullable": "YES",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_player_rounds",
+        "rows": 20,
+        "sha256": "2a1e43e3a253c2f2a206808172fd5446df9242066ec29ab3cb045ce44dfd3155",
+        "columns": [
+          {
+            "name": "user_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "game_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "round_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "round_number",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_revision",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "round_game",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "round_format",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "correct",
+            "type": "boolean",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "answer_stage",
+            "type": "smallint",
+            "nullable": "YES",
+            "default": null
+          },
+          {
+            "name": "submitted_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_question_reporters",
+        "rows": 1,
+        "sha256": "a123fc8635da5d16f8cd77dbf209a823676d9495ce38f756e3625c26369bff36",
+        "columns": [
+          {
+            "name": "game_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_revision",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "reporter_hash",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "reason",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "submitted_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_question_reviews",
+        "rows": 1,
+        "sha256": "ee06a004f2f38c2bdd1081c5c7cfd223fbdc80b11bf38ea0b84c5b45a306a422",
+        "columns": [
+          {
+            "name": "game_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_revision",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "report_total_at_review",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "signal_status_at_review",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "updated_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_question_stats",
+        "rows": 19,
+        "sha256": "646b7e3fc8be9c237c17dfe2db5c281ac7fcf13923b8a57168f24a02ad5e1739",
+        "columns": [
+          {
+            "name": "game_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_revision",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "count_0",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "count_1",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "count_2",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "count_3",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "total",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "correct_index",
+            "type": "smallint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "report_incorrect",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "report_outdated",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "report_ambiguous",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "report_unclear",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "updated_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_round_votes",
+        "rows": 3,
+        "sha256": "3cbcf2c798429c6cb91d86302319d727a269eb038ef961c952b703aa3b2a649d",
+        "columns": [
+          {
+            "name": "round_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "voter_hash",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "answer_index",
+            "type": "smallint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "submitted_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "map_x",
+            "type": "double precision",
+            "nullable": "YES",
+            "default": null
+          },
+          {
+            "name": "map_y",
+            "type": "double precision",
+            "nullable": "YES",
+            "default": null
+          },
+          {
+            "name": "answer_key",
+            "type": "text",
+            "nullable": "YES",
+            "default": null
+          },
+          {
+            "name": "base_points",
+            "type": "smallint",
+            "nullable": "NO",
+            "default": "0"
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_rounds",
+        "rows": 3,
+        "sha256": "d6972054035204803db1d0127ab60164133aebff3f7a7a7b90842ba170a050f6",
+        "columns": [
+          {
+            "name": "round_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "room_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "game_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "content_version",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "count_0",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "count_1",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "count_2",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "count_3",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "created_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "updated_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_user_identities",
+        "rows": 1,
+        "sha256": "63875477d3ec1cc5e3867d933a717a3433994e6098ded627209160325c0b6bad",
+        "columns": [
+          {
+            "name": "provider",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "provider_user_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "user_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "display_name",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "avatar_url",
+            "type": "text",
+            "nullable": "YES",
+            "default": null
+          },
+          {
+            "name": "profile_url",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "updated_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_user_sessions",
+        "rows": 2,
+        "sha256": "45da99e66ec0bb0d5cfdf93d4bf5b1d3a1e44375dc3255ec2c6ea37318bedc89",
+        "columns": [
+          {
+            "name": "token_hash",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "user_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "created_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "expires_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_users",
+        "rows": 1,
+        "sha256": "78eb69ab3aeb5942d26d1c85e483991725f0bd2ef39edc2eefdb5c2c81e85a68",
+        "columns": [
+          {
+            "name": "id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "created_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "updated_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      }
+    ]
+  },
+  "appliedMigrations": [1, 2],
+  "migrationMilliseconds": 95,
+  "originalColumnsAfterMigration": [
+    {
+      "name": "queue_arcade_alpha_sessions",
+      "rows": 7,
+      "sha256": "2d0aec1450a353b1e29b1f3e7780bb2fac81ecd9cd085ad09b95ed1bb498ac5a"
+    },
+    {
+      "name": "queue_arcade_player_rounds",
+      "rows": 20,
+      "sha256": "2a1e43e3a253c2f2a206808172fd5446df9242066ec29ab3cb045ce44dfd3155"
+    },
+    {
+      "name": "queue_arcade_question_reporters",
+      "rows": 1,
+      "sha256": "a123fc8635da5d16f8cd77dbf209a823676d9495ce38f756e3625c26369bff36"
+    },
+    {
+      "name": "queue_arcade_question_reviews",
+      "rows": 1,
+      "sha256": "ee06a004f2f38c2bdd1081c5c7cfd223fbdc80b11bf38ea0b84c5b45a306a422"
+    },
+    {
+      "name": "queue_arcade_question_stats",
+      "rows": 19,
+      "sha256": "646b7e3fc8be9c237c17dfe2db5c281ac7fcf13923b8a57168f24a02ad5e1739"
+    },
+    {
+      "name": "queue_arcade_round_votes",
+      "rows": 3,
+      "sha256": "3cbcf2c798429c6cb91d86302319d727a269eb038ef961c952b703aa3b2a649d"
+    },
+    {
+      "name": "queue_arcade_rounds",
+      "rows": 3,
+      "sha256": "d6972054035204803db1d0127ab60164133aebff3f7a7a7b90842ba170a050f6"
+    },
+    {
+      "name": "queue_arcade_user_identities",
+      "rows": 1,
+      "sha256": "63875477d3ec1cc5e3867d933a717a3433994e6098ded627209160325c0b6bad"
+    },
+    {
+      "name": "queue_arcade_user_sessions",
+      "rows": 2,
+      "sha256": "45da99e66ec0bb0d5cfdf93d4bf5b1d3a1e44375dc3255ec2c6ea37318bedc89"
+    },
+    {
+      "name": "queue_arcade_users",
+      "rows": 1,
+      "sha256": "78eb69ab3aeb5942d26d1c85e483991725f0bd2ef39edc2eefdb5c2c81e85a68"
+    }
+  ],
+  "after": {
+    "schema": "public",
+    "tables": [
+      {
+        "name": "queue_arcade_alpha_round_events",
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "columns": [
+          {
+            "name": "session_hash",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "round_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_alpha_sessions",
+        "rows": 7,
+        "sha256": "79f16966253e72463a8c1260d9095880116e52025c1a6163b5d4107565dddfe1",
+        "columns": [
+          {
+            "name": "session_hash",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "visitor_hash",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "started_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "last_seen_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "finished_at",
+            "type": "bigint",
+            "nullable": "YES",
+            "default": null
+          },
+          {
+            "name": "rounds_answered",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "correct_answers",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "feedback",
+            "type": "text",
+            "nullable": "YES",
+            "default": null
+          },
+          {
+            "name": "user_id",
+            "type": "text",
+            "nullable": "YES",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_player_rounds",
+        "rows": 20,
+        "sha256": "48ac0483f68bc9dc000e9e38776467e45dc3df00d057dd75fc0c902b8d47a954",
+        "columns": [
+          {
+            "name": "user_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "game_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "round_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "round_number",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_revision",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "round_game",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "round_format",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "correct",
+            "type": "boolean",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "answer_stage",
+            "type": "smallint",
+            "nullable": "YES",
+            "default": null
+          },
+          {
+            "name": "submitted_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "reveal_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_question_reporters",
+        "rows": 1,
+        "sha256": "a123fc8635da5d16f8cd77dbf209a823676d9495ce38f756e3625c26369bff36",
+        "columns": [
+          {
+            "name": "game_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_revision",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "reporter_hash",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "reason",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "submitted_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_question_reviews",
+        "rows": 1,
+        "sha256": "ee06a004f2f38c2bdd1081c5c7cfd223fbdc80b11bf38ea0b84c5b45a306a422",
+        "columns": [
+          {
+            "name": "game_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_revision",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "report_total_at_review",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "signal_status_at_review",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "updated_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_question_stats",
+        "rows": 19,
+        "sha256": "646b7e3fc8be9c237c17dfe2db5c281ac7fcf13923b8a57168f24a02ad5e1739",
+        "columns": [
+          {
+            "name": "game_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_revision",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "count_0",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "count_1",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "count_2",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "count_3",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "total",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "correct_index",
+            "type": "smallint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "report_incorrect",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "report_outdated",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "report_ambiguous",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "report_unclear",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "updated_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_round_votes",
+        "rows": 3,
+        "sha256": "3cbcf2c798429c6cb91d86302319d727a269eb038ef961c952b703aa3b2a649d",
+        "columns": [
+          {
+            "name": "round_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "voter_hash",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "answer_index",
+            "type": "smallint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "submitted_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "map_x",
+            "type": "double precision",
+            "nullable": "YES",
+            "default": null
+          },
+          {
+            "name": "map_y",
+            "type": "double precision",
+            "nullable": "YES",
+            "default": null
+          },
+          {
+            "name": "answer_key",
+            "type": "text",
+            "nullable": "YES",
+            "default": null
+          },
+          {
+            "name": "base_points",
+            "type": "smallint",
+            "nullable": "NO",
+            "default": "0"
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_rounds",
+        "rows": 3,
+        "sha256": "d6972054035204803db1d0127ab60164133aebff3f7a7a7b90842ba170a050f6",
+        "columns": [
+          {
+            "name": "round_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "room_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "game_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "content_version",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "question_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "count_0",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "count_1",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "count_2",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "count_3",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": "0"
+          },
+          {
+            "name": "created_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "updated_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_schema_migrations",
+        "rows": 2,
+        "sha256": "2c8f7bacd910f80457389213d8168a9a996bb92f7b952756b7e2e1634709301e",
+        "columns": [
+          {
+            "name": "version",
+            "type": "integer",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "name",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "applied_at",
+            "type": "timestamp with time zone",
+            "nullable": "NO",
+            "default": "CURRENT_TIMESTAMP"
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_steam_nonces",
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "columns": [
+          {
+            "name": "nonce_hash",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "expires_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_user_identities",
+        "rows": 1,
+        "sha256": "63875477d3ec1cc5e3867d933a717a3433994e6098ded627209160325c0b6bad",
+        "columns": [
+          {
+            "name": "provider",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "provider_user_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "user_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "display_name",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "avatar_url",
+            "type": "text",
+            "nullable": "YES",
+            "default": null
+          },
+          {
+            "name": "profile_url",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "updated_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_user_sessions",
+        "rows": 2,
+        "sha256": "45da99e66ec0bb0d5cfdf93d4bf5b1d3a1e44375dc3255ec2c6ea37318bedc89",
+        "columns": [
+          {
+            "name": "token_hash",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "user_id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "created_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "expires_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "queue_arcade_users",
+        "rows": 1,
+        "sha256": "78eb69ab3aeb5942d26d1c85e483991725f0bd2ef39edc2eefdb5c2c81e85a68",
+        "columns": [
+          {
+            "name": "id",
+            "type": "text",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "created_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          },
+          {
+            "name": "updated_at",
+            "type": "bigint",
+            "nullable": "NO",
+            "default": null
+          }
+        ]
+      }
+    ]
+  },
+  "grants": {
+    "role": "qa_render_runtime_ffb2df52028e",
+    "schema": "public",
+    "tables": 13,
+    "ledger": "SELECT",
+    "applicationTables": "SELECT, INSERT, UPDATE, DELETE"
+  },
+  "runtimeRoleFlags": {
+    "rolsuper": false,
+    "rolcreatedb": false,
+    "rolcreaterole": false,
+    "rolreplication": false,
+    "rolbypassrls": false
+  },
+  "runtimeRights": {
+    "schema_create": false,
+    "database_create": false,
+    "temporary": false,
+    "ledger_select": true,
+    "ledger_insert": false
+  },
+  "status": "passed",
+  "sourceFileCount": 11
+}

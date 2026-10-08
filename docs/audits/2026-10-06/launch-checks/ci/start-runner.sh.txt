@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+umask 077
+ci_base=/tmp/queue-arcade-launch-ci
+if test -f "$ci_base/evidence/active-runner.json"; then
+  ci_previous=$(python3 -c 'import json;print(json.load(open("/tmp/queue-arcade-launch-ci/evidence/active-runner.json"))["name"])')
+  if docker inspect "$ci_previous" > /dev/null 2>&1; then
+    echo 'The previous disposable runner still exists. Complete its cleanup first.' >&2
+    exit 2
+  fi
+fi
+ci_stamp=$(date -u +%Y%m%dT%H%M%SZ)
+ci_name=queue-arcade-ci-${ci_stamp}
+ci_volume=${ci_name}-data
+ci_token_json=$(mktemp "$ci_base/registration-XXXXXX.json")
+ci_token_file=$(mktemp "$ci_base/token-XXXXXX")
+# Run only after the parent releases the local CPU/memory slot.
+gh api --method POST repos/Qqkyu/dota2-trivia/actions/runners/registration-token > "$ci_token_json"
+python3 - "$ci_token_json" "$ci_token_file" <<'PY'
+import json, pathlib, sys
+reply=json.loads(pathlib.Path(sys.argv[1]).read_text())
+token=reply['token']
+if not isinstance(token,str) or not token.strip():raise ValueError('Missing runner registration token')
+pathlib.Path(sys.argv[2]).write_text(token+'\n')
+PY
+rm "$ci_token_json"
+docker run --detach --name "$ci_name" --privileged --cpus 2 --memory 5g --memory-swap 5g --shm-size 1g \
+  --mount "type=volume,source=$ci_volume,target=/var/lib/docker" \
+  --mount "type=bind,source=$ci_token_file,target=/run/runner-registration-token,readonly" \
+  --env "RUNNER_NAME=$ci_name" --env RUNNER_LABEL=queue-arcade-ci-local \
+  queue-arcade-ci-runner:20261006 run > "$ci_base/evidence/runner-container-id.txt"
+python3 - "$ci_name" "$ci_volume" "$ci_token_file" "$ci_base/evidence/active-runner.json" <<'PY'
+import json,pathlib,sys
+pathlib.Path(sys.argv[4]).write_text(json.dumps({'name':sys.argv[1],'volume':sys.argv[2],'tokenFile':sys.argv[3],'repository':'Qqkyu/dota2-trivia'},indent=2)+'\n')
+PY
+printf 'Started disposable runner %s.\n' "$ci_name"

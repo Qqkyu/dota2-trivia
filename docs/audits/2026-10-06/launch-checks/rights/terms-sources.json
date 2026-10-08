@@ -1,0 +1,64 @@
+{
+  "sources": [
+    {
+      "url": "https://store.steampowered.com/subscriber_agreement/#2",
+      "title": "Steam Subscriber Agreement",
+      "section": "2.D; context 2.F and 2.G",
+      "excerpt": "solely on a non-commercial basis",
+      "applicability": "Noncommercial fan art; browser trivia is not named. Third-party rights remain separate.",
+      "checkedAt": "2026-10-06",
+      "retrieval": "Official page retrieved through the browsing tool. No claim of archived raw HTML bytes."
+    },
+    {
+      "url": "https://store.steampowered.com/video_policy",
+      "title": "Valve Video Policy",
+      "section": "First paragraph",
+      "excerpt": "We're not fine with taking assets from our games (e.g. voice, music, items) and distributing those separately.",
+      "applicability": "Video terms do not establish this app’s asset delivery permission.",
+      "checkedAt": "2026-10-06",
+      "retrieval": "Official page retrieved through the browsing tool. No claim of archived raw HTML bytes."
+    },
+    {
+      "url": "https://www.dota2.com/dotatv",
+      "title": "Dota 2 Community Stream Policy",
+      "section": "Permission conditions and noncommercial FAQ",
+      "applicability": "DotaTV streams only; operator camera and audio rights are separate.",
+      "checkedAt": "2026-10-06",
+      "retrieval": "Official page retrieved through the browsing tool. No claim of archived raw HTML bytes."
+    },
+    {
+      "url": "https://steamcommunity.com/dev/apiterms",
+      "title": "Steam Web API Terms of Use",
+      "section": "2, 3, 5 and 9",
+      "publishedVersionLabel": "Last updated July 2010",
+      "applicability": "Steam Data, user privacy and limited branding; not a general event-photo license.",
+      "checkedAt": "2026-10-06",
+      "retrieval": "Official page retrieved through the browsing tool. No claim of archived raw HTML bytes."
+    },
+    {
+      "url": "https://www.valvesoftware.com/en/legal",
+      "title": "Valve Site Terms of Use",
+      "section": "Use of the Site; Your Obligations",
+      "applicability": "Valve website materials have their own restricted terms.",
+      "checkedAt": "2026-10-06",
+      "retrieval": "Official page retrieved through the browsing tool. No claim of archived raw HTML bytes."
+    },
+    {
+      "url": "https://store.steampowered.com/legal",
+      "title": "Valve Legal Info",
+      "section": "Copyright",
+      "applicability": "Valve and other owners retain their marks.",
+      "checkedAt": "2026-10-06",
+      "retrieval": "Official page retrieved through the browsing tool. No claim of archived raw HTML bytes."
+    },
+    {
+      "url": "https://www.dota2.com/majorsregistration/content?l=english",
+      "title": "Team Supporters Club Submission Guidelines",
+      "section": "Opening ownership requirement; Team Logo",
+      "applicability": "Teams must own submitted materials. CDN hosting is not proof of app reuse rights.",
+      "checkedAt": "2026-10-06",
+      "retrieval": "Official page retrieved through the browsing tool. No claim of archived raw HTML bytes."
+    }
+  ],
+  "legalConclusion": "No separate or blanket redistribution license asserted."
+}

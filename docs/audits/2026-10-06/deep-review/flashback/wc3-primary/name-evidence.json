@@ -1,0 +1,54 @@
+{
+  "reviewedAt": "2026-10-06",
+  "mapVersion": "6.52",
+  "mapSha256": "52992049f850436c699beafd26474926f8fd4ad797dffdb62e843a6d8b3cf368",
+  "records": [
+    {
+      "questionId": "flashback:scythe-old-name",
+      "member": "Units\\ItemStrings.txt",
+      "memberSha256": "d931d79cec14304306c251c214b4fe1298a7e3164b88fa3d22967382734bccab",
+      "record": "I0AL",
+      "values": {
+        "Name": "Guinsoo's Scythe of Vyse"
+      },
+      "sameNameRecords": [
+        "I07K",
+        "I0BY"
+      ],
+      "earlierMap": {
+        "version": "6.41",
+        "member": "war3map.w3t",
+        "memberSha256": "c72f69933ba0574deedf8aeafa40902f33e6be139d93fad7f03d852c9e630136",
+        "record": "spre",
+        "field": "unam",
+        "zeroBasedByteOffset": 51608,
+        "value": "Guinsoo's Scythe of Vyse",
+        "publishedMd5": "024267384e541edea8fed22202e2a1ef",
+        "publishedChecksumUrl": "https://www.moddb.com/games/warcraft-iii-frozen-throne/addons/dota-allstars-6-41"
+      }
+    },
+    {
+      "questionId": "flashback:pit-lord",
+      "member": "Units\\NeutralUnitStrings.txt",
+      "memberSha256": "b917966a39821c33470cebe18d98ac7445d176a26f2508870715c0c6f048b077",
+      "record": "N00R",
+      "values": {
+        "Name": "Pit Lord",
+        "Propernames": "Azgalor"
+      },
+      "abilityNamesInUbertip": [
+        "Firestorm",
+        "Pit of Malice",
+        "Expulsion",
+        "Dark Rift"
+      ],
+      "dota2ComparisonSource": "https://www.dota2.com/darkrift/",
+      "dota2SharedAbilityNames": [
+        "Firestorm",
+        "Pit of Malice",
+        "Dark Rift"
+      ],
+      "continuityFinding": "Inference from matching primary-source ability labels and the original native hero record; no claim about reasons for renaming."
+    }
+  ]
+}

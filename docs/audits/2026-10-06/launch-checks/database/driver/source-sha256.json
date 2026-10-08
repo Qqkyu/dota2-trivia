@@ -1,0 +1,29 @@
+{
+  "reviewedAt": "2026-10-06T13:28:39.188Z",
+  "node": "v24.15.0",
+  "sha256": {
+    "package.json": "239cee113d997543c34b354012243e272367a1932c1185af8174da7d7cd7491c",
+    "pnpm-lock.yaml": "bf115fc52c489e8cd873f017cf5279f5a998bd27d8435722deeb9dbf6dc2819d",
+    "patches/postgres@3.4.9.patch": "d8930d4d380de22a4ee1d0480cf589fc302b4309b97edeab3a41404653d60563",
+    "tests/postgres-driver-recovery.test.mjs": "49457c470b0b22628835ae18c3504a41addd2d4e89ab8b6c8605ca8c96ba2dce",
+    "tests/helpers/postgres-disconnect-worker.mjs": "4d8a4261dd073a4f7880eb45320b529a19c7487e1a51882c7c78962a89c5e27a",
+    "tests/helpers/postgres-fencing-worker.mjs": "4623b16162afcd1c87cb5a012daf6574631705ad8b43ba9189ae04f0696beb9e",
+    "scripts/database-backup.mjs": "f4060a7274dc009df6438c699cb57824fd1ea93c5cd9ef9e916340693ee2266b",
+    "scripts/backup-db.mjs": "e5dbf3d0067127db0fa301c7ac7613b333dd2ca6407a828153b25bd98ffc0e11",
+    "scripts/restore-db.mjs": "4ea8c0e5ad5fb896664299fe50d5f487ae01032b3e0ae3b8524e19c1c461b9a2",
+    "tests/database-backup.test.mjs": "7a8c1bc4fce8fd40c08e6d5c27386ee5fa5b4501e791fa1df85700eaef1612cd",
+    "tests/database-schema.test.mjs": "b6ec7351acf078cf1fd218b3d171649c7fa2e03e3945c09cc47697bcf4799867",
+    "tests/helpers/postgres-reset-worker.mjs": "d401fb88a136f4fc85cbb48d1a4fd23825364eb94c2c3d99475e003d64d62064",
+    "tests/helpers/postgres-startup-worker.mjs": "76f2434fee14f97e3f682a6cb1bf25608576e5ec25b571950dbcb4bd15c0982c",
+    "scripts/migrate-db.mjs": "143e3e88cfe513e414ee3ee4b385a24af4ae235e25c68e01cf79769ce98b3ceb",
+    "scripts/grant-runtime-db.mjs": "9ec4e40714b62d2e2947bd2625e43aae37b8144ead2cdf72500b0785730d3383",
+    "scripts/cleanup-db.mjs": "630a6ced2494226ac0aa8e9a220b7cafc99df2a600a576b65d8e172aa57b9720",
+    "tests/database-cli-connection.test.mjs": "6312412f1db5de12528dc3173bc109b2e0191445c244c58b0a769207915515af"
+  },
+  "productionNode": {
+    "version": "v22.23.3",
+    "archive": "https://nodejs.org/dist/v22.23.3/node-v22.23.3-linux-x64.tar.xz",
+    "checksums": "https://nodejs.org/dist/v22.23.3/SHASUMS256.txt",
+    "sha256": "df450af89261115ef9f9e3830c3eeb2cc9213b63c720b1af623cb5dcbe2e02de"
+  }
+}

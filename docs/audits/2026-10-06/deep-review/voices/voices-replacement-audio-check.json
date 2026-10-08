@@ -1,0 +1,25 @@
+{
+  "id": "hero-voice:npc_dota_hero_shredder:timb_respawn_02",
+  "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/shredder/timb_respawn_02.mp3",
+  "sha256": "a881cb5ba59f3ab88ea1949b8adbac72d5364681fed6fd2e1d032702f6da9e43",
+  "bytes": 24996,
+  "duration": 3.1245,
+  "decode": "passed",
+  "firstTwoStages": [
+    {
+      "stage": 1,
+      "duration": 0.21871500000000002,
+      "peak": 0.4707513749599457,
+      "rms": 0.076988662597694,
+      "exactSilence": false
+    },
+    {
+      "stage": 2,
+      "duration": 0.531165,
+      "peak": 0.4707513749599457,
+      "rms": 0.0824925549015241,
+      "exactSilence": false
+    }
+  ],
+  "listened": false
+}

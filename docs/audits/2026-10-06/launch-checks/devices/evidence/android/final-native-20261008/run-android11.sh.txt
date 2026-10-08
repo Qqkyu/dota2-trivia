@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+export ANDROID_HOME=/tmp/queue-arcade-launch-checks/android-sdk
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+export ANDROID_USER_HOME=/tmp/queue-arcade-launch-checks/android-home
+export ANDROID_SDK_HOME="$ANDROID_USER_HOME"
+export ANDROID_EMULATOR_HOME="$ANDROID_USER_HOME"
+export ANDROID_AVD_HOME=/tmp/queue-arcade-launch-checks/android-avd
+export ANDROID_ADB_SERVER_PORT=5037
+export ADB_SERVER_SOCKET=tcp:localhost:5037
+export ADB_VENDOR_KEYS="$ANDROID_USER_HOME/adbkey"
+export ANDROID_I_WANT_MY_TCG=yes
+export QEMU_AUDIO_DRV=none
+exec "$ANDROID_HOME/emulator/emulator" -avd queue_launch_android11 -accel off -gpu swiftshader -feature -Vulkan -vsync-rate 15 -no-window -no-snapshot -no-boot-anim -no-metrics -crash-report-mode disabled -camera-back none -camera-front none -memory 1536 -cores 1 -port 5582 -adb-path /home/kulmisiu/android-sdk/platform-tools/adb -no-direct-adb

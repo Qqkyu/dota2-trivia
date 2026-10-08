@@ -1,14 +1,17 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { rateLimitRequest, requestPlayerIdentity } from "@/lib/api-protection";
-import { cutAudioWithFfmpeg } from "@/lib/cut-round-audio.mjs";
+import { cutAudioWithFfmpeg, trimPcmWav } from "@/lib/cut-round-audio.mjs";
 import { GAME_CATALOGS, isGameId } from "@/lib/game-catalogs";
 import { liveRoundAt, liveRoundForSettings } from "@/lib/private-room-rounds";
 import { privateRoomCodeFromRoundId } from "@/lib/private-rooms.mjs";
-import { cachedAudioResponse, cachedRoundAudio, warmRoundAudio } from "@/lib/round-audio-cache.mjs";
+import { privateMediaAccessResponse } from "@/lib/private-media-access";
+import { cachedAudioCut, cachedAudioResponse, cachedRoundAudio, warmRoundAudio } from "@/lib/round-audio-cache.mjs";
+import { MediaBusyError, waitForMedia } from "@/lib/media-work.mjs";
 import {
   echoHuntCutDuration,
   echoHuntRevealStage,
   soundcheckCutDuration,
+  soundcheckClipTiming,
   soundcheckRevealStage,
 } from "@/lib/soundcheck.mjs";
 import { clueStageAt } from "@/lib/scoring.mjs";
@@ -20,23 +23,6 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 // Answer audio stays private: "Cache-Control": "private, max-age=60"
-
-function trimPcmWav(bytes: ArrayBuffer, seconds: number) {
-  const buf = Buffer.from(bytes);
-  if (buf.length < 44 || buf.toString("ascii", 0, 4) !== "RIFF" || buf.toString("ascii", 8, 12) !== "WAVE") {
-    return null;
-  }
-  if (buf.readUInt16LE(20) !== 1) return null;
-  const sampleRate = buf.readUInt32LE(24);
-  const blockAlign = buf.readUInt16LE(32) || 1;
-  const keep = Math.min(buf.length - 44, Math.max(blockAlign, Math.ceil(seconds * sampleRate) * blockAlign));
-  const out = Buffer.alloc(44 + keep);
-  buf.copy(out, 0, 0, 44);
-  buf.copy(out, 44, 44, 44 + keep);
-  out.writeUInt32LE(36 + keep, 4);
-  out.writeUInt32LE(keep, 40);
-  return out.buffer.slice(out.byteOffset, out.byteOffset + out.byteLength);
-}
 
 function audioSources(question: TriviaQuestion | undefined) {
   return question?.audio?.clips ?? (question?.audio?.src ? [question.audio.src] : []);
@@ -60,13 +46,15 @@ function liveRoundForRoundId(roundId: string) {
 
 export async function HEAD(request: NextRequest) {
   const searchParams = new URL(request.url).searchParams;
-  const limited = rateLimitRequest(request, "round-audio", requestPlayerIdentity(request, searchParams), 60);
+  const limited = rateLimitRequest(request, "round-audio", requestPlayerIdentity(request, searchParams), 60, 3_000);
   if (limited) return limited;
   const roundId = searchParams.get("roundId");
 
   if (!roundId || roundId.length > 240 || !isGameId(roundId.split(":", 1)[0])) {
     return new Response(null, { status: 400 });
   }
+  const denied = await privateMediaAccessResponse(request, roundId);
+  if (denied) return denied;
 
   const live = liveRoundForRoundId(roundId);
   if (!live) return new Response(null, { status: 409 });
@@ -86,7 +74,28 @@ export async function HEAD(request: NextRequest) {
   const sources = audioSources(nextQuestion);
 
   try {
-    await Promise.all(sources.map((source, clip) => warmRoundAudio(nextRound.id, clip, source)));
+    await waitForMedia(
+      Promise.all(
+        sources.map(async (source, clip) => {
+          const audio = await warmRoundAudio(nextRound.id, clip, source);
+          const metadata = nextQuestion?.soundcheck?.clips?.[clip];
+          if (!metadata) return;
+          const { startSeconds, duration } = soundcheckClipTiming(metadata);
+          if (startSeconds > 0) {
+            await cachedAudioCut(
+              source,
+              duration,
+              audio.contentType,
+              async () =>
+                trimPcmWav(audio.bytes, duration, startSeconds) ??
+                (await cutAudioWithFfmpeg(audio.bytes, duration, audio.contentType, { startSeconds })),
+              startSeconds,
+            );
+          }
+        }),
+      ),
+      request.signal,
+    );
     return new Response(null, {
       status: 204,
       headers: {
@@ -96,13 +105,16 @@ export async function HEAD(request: NextRequest) {
     });
   } catch (error) {
     logServerError("round-audio.preload", error, { roundId: roundId.slice(0, 160) });
-    return new Response(null, { status: 502, headers: { "Cache-Control": "no-store" } });
+    return new Response(null, {
+      status: error instanceof MediaBusyError ? 503 : 502,
+      headers: { "Cache-Control": "no-store", "Retry-After": "2" },
+    });
   }
 }
 
 export async function GET(request: NextRequest) {
   const searchParams = new URL(request.url).searchParams;
-  const limited = rateLimitRequest(request, "round-audio", requestPlayerIdentity(request, searchParams), 60);
+  const limited = rateLimitRequest(request, "round-audio", requestPlayerIdentity(request, searchParams), 60, 3_000);
   if (limited) return limited;
   const roundId = searchParams.get("roundId");
   const clip = Number(searchParams.get("clip") ?? "0");
@@ -117,6 +129,8 @@ export async function GET(request: NextRequest) {
   ) {
     return NextResponse.json({ error: "Invalid round audio." }, { status: 400 });
   }
+  const denied = await privateMediaAccessResponse(request, roundId);
+  if (denied) return denied;
 
   const live = liveRoundForRoundId(roundId);
   if (!live) return NextResponse.json({ error: "That round is no longer active." }, { status: 409 });
@@ -132,10 +146,14 @@ export async function GET(request: NextRequest) {
 
   try {
     const range = request.headers.get("range");
-    let cached = await cachedRoundAudio(round.id, clip);
+    let cached = await waitForMedia(cachedRoundAudio(round.id, clip), request.signal);
     if (!cached) {
-      cached = await warmRoundAudio(round.id, clip, source);
+      cached = await waitForMedia(warmRoundAudio(round.id, clip, source), request.signal);
     }
+    const metadata = question?.soundcheck?.clips?.[clip];
+    const timing = metadata ? soundcheckClipTiming(metadata) : null;
+    let cutSeconds = timing?.startSeconds ? timing.duration : null;
+    const startSeconds = timing?.startSeconds ?? 0;
     if (round.phase === "answering") {
       const remaining = Math.max(0, round.answerDeadline - Date.now());
       const stage =
@@ -144,25 +162,41 @@ export async function GET(request: NextRequest) {
           : round.game === "echo-hunt"
             ? echoHuntRevealStage(remaining, round.answerDuration)
             : clueStageAt(remaining, round.answerDuration);
-      if (stage >= 3) {
-        return cachedAudioResponse(cached, null);
+      if (stage < 3) {
+        const cachedBytes = Buffer.from(cached.bytes);
+        const isWav = cachedBytes.length > 44 && cachedBytes.toString("ascii", 0, 4) === "RIFF";
+        const sourceDuration = timing?.duration ?? (isWav ? (cachedBytes.length - 44) / 88_200 : 4);
+        cutSeconds =
+          round.game === "soundcheck"
+            ? soundcheckCutDuration(sourceDuration, stage)
+            : echoHuntCutDuration(sourceDuration, stage);
       }
-      const cachedBytes = Buffer.from(cached.bytes);
-      const isWav = cachedBytes.length > 44 && cachedBytes.toString("ascii", 0, 4) === "RIFF";
-      const sourceDuration =
-        question?.soundcheck?.clips?.[clip]?.duration ?? (isWav ? (cachedBytes.length - 44) / 88_200 : 4);
-      const cutSeconds =
-        round.game === "soundcheck"
-          ? soundcheckCutDuration(sourceDuration, stage)
-          : echoHuntCutDuration(sourceDuration, stage);
-      const trimmed =
-        trimPcmWav(cached.bytes, cutSeconds) ??
-        (await cutAudioWithFfmpeg(cached.bytes, cutSeconds, cached.contentType));
-      return cachedAudioResponse({ bytes: trimmed, contentType: cached.contentType }, null);
     }
-    return cachedAudioResponse(cached, range);
+    if (cutSeconds !== null) {
+      const original = cached;
+      const seconds = cutSeconds;
+      cached = await waitForMedia(
+        cachedAudioCut(
+          source,
+          seconds,
+          original.contentType,
+          async () =>
+            trimPcmWav(original.bytes, seconds, startSeconds) ??
+            (await cutAudioWithFfmpeg(original.bytes, seconds, original.contentType, { startSeconds })),
+          startSeconds,
+        ),
+        request.signal,
+      );
+    }
+    return cachedAudioResponse(cached, round.phase === "answering" ? null : range);
   } catch (error) {
     logServerError("round-audio.proxy", error, { roundId: roundId.slice(0, 160), clip });
-    return NextResponse.json({ error: "Round audio unavailable." }, { status: 502 });
+    return NextResponse.json(
+      { error: "Round audio unavailable." },
+      {
+        status: error instanceof MediaBusyError ? 503 : 502,
+        headers: { "Cache-Control": "no-store", "Retry-After": "2" },
+      },
+    );
   }
 }

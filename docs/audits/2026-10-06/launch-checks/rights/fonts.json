@@ -1,0 +1,906 @@
+{
+  "reviewedAt": "2026-10-06",
+  "expectedResult": "All four font files have hashes and extracted copyright/license fields. Any new Geist license notice must match the historical primary source byte for byte. No font binary or layout changes.",
+  "assets": [
+    {
+      "path": "src/app/fonts/GeistVF.woff",
+      "sha256": "296fafafd41304f7c992079054b8af914dbbd865f32de97c66d0f613b55755d6",
+      "bytes": 66268,
+      "format": "WOFF",
+      "nameRecords": [
+        {
+          "nameId": 1,
+          "field": "family",
+          "value": "Geist"
+        },
+        {
+          "nameId": 2,
+          "field": "subfamily",
+          "value": "Regular"
+        },
+        {
+          "nameId": 3,
+          "field": "uniqueId",
+          "value": "1.200;VRCL;Geist-Regular"
+        },
+        {
+          "nameId": 4,
+          "field": "fullName",
+          "value": "Geist"
+        },
+        {
+          "nameId": 5,
+          "field": "version",
+          "value": "Version 1.200;Glyphs 3.2 (3249)"
+        },
+        {
+          "nameId": 6,
+          "field": "postscriptName",
+          "value": "Geist-Regular"
+        },
+        {
+          "nameId": 8,
+          "field": "manufacturer",
+          "value": "Basement.studio, Vercel, Andrés Briganti, Guido Ferreyra, Mateo Zaragoza"
+        },
+        {
+          "nameId": 9,
+          "field": "designer",
+          "value": "Basement.studio, Andrés Briganti, Mateo Zaragoza"
+        },
+        {
+          "nameId": 11,
+          "field": "vendorUrl",
+          "value": "https://basement.studio/"
+        },
+        {
+          "nameId": 12,
+          "field": "designerUrl",
+          "value": "https://basement.studio/"
+        },
+        {
+          "nameId": 16,
+          "field": "typographicFamily",
+          "value": "Geist"
+        },
+        {
+          "nameId": 17,
+          "field": "typographicSubfamily",
+          "value": "Regular"
+        }
+      ],
+      "os2EmbeddingFsType": 8,
+      "embeddedCopyrightPresent": false,
+      "embeddedLicensePresent": false,
+      "sourceMatch": {
+        "type": "byte-identical",
+        "url": "https://raw.githubusercontent.com/vercel/next.js/v14.2.15/packages/create-next-app/templates/app/ts/app/fonts/GeistVF.woff",
+        "sha256": "296fafafd41304f7c992079054b8af914dbbd865f32de97c66d0f613b55755d6"
+      },
+      "gitIntroductionCommit": "fbc2662b0796b312c0a70fc58af63026bad7f270",
+      "applicableLicense": "SIL Open Font License 1.1",
+      "licenseSource": "https://raw.githubusercontent.com/vercel/geist-font/63b548e95d4821c66fb74f9f93c7c8a693d48301/LICENSE.txt",
+      "licenseNoticePaths": [
+        "src/app/fonts/OFL-Geist.txt",
+        "public/fonts/OFL-Geist.txt"
+      ],
+      "licenseCopyright": "Copyright (c) 2023 Vercel, in collaboration with basement.studio"
+    },
+    {
+      "path": "src/app/fonts/GeistMonoVF.woff",
+      "sha256": "e8b65928f551b17e3d67c3f709721b952c39842d14b00701f9232057fde73608",
+      "bytes": 67864,
+      "format": "WOFF",
+      "nameRecords": [
+        {
+          "nameId": 1,
+          "field": "family",
+          "value": "Geist Mono"
+        },
+        {
+          "nameId": 2,
+          "field": "subfamily",
+          "value": "Regular"
+        },
+        {
+          "nameId": 3,
+          "field": "uniqueId",
+          "value": "1.200;VRCL;GeistMono-Regular"
+        },
+        {
+          "nameId": 4,
+          "field": "fullName",
+          "value": "Geist Mono"
+        },
+        {
+          "nameId": 5,
+          "field": "version",
+          "value": "Version 1.200;Glyphs 3.2 (3249)"
+        },
+        {
+          "nameId": 6,
+          "field": "postscriptName",
+          "value": "GeistMono-Regular"
+        },
+        {
+          "nameId": 8,
+          "field": "manufacturer",
+          "value": "Basement.studio, Vercel, Andrés Briganti, Guido Ferreyra, Mateo Zaragoza"
+        },
+        {
+          "nameId": 9,
+          "field": "designer",
+          "value": "Basement.studio, Andrés Briganti, Mateo Zaragoza"
+        },
+        {
+          "nameId": 11,
+          "field": "vendorUrl",
+          "value": "https://basement.studio/"
+        },
+        {
+          "nameId": 12,
+          "field": "designerUrl",
+          "value": "https://basement.studio/"
+        },
+        {
+          "nameId": 16,
+          "field": "typographicFamily",
+          "value": "Geist Mono"
+        },
+        {
+          "nameId": 17,
+          "field": "typographicSubfamily",
+          "value": "Regular"
+        }
+      ],
+      "os2EmbeddingFsType": 8,
+      "embeddedCopyrightPresent": false,
+      "embeddedLicensePresent": false,
+      "sourceMatch": {
+        "type": "byte-identical",
+        "url": "https://raw.githubusercontent.com/vercel/next.js/v14.2.15/packages/create-next-app/templates/app/ts/app/fonts/GeistMonoVF.woff",
+        "sha256": "e8b65928f551b17e3d67c3f709721b952c39842d14b00701f9232057fde73608"
+      },
+      "gitIntroductionCommit": "fbc2662b0796b312c0a70fc58af63026bad7f270",
+      "applicableLicense": "SIL Open Font License 1.1",
+      "licenseSource": "https://raw.githubusercontent.com/vercel/geist-font/63b548e95d4821c66fb74f9f93c7c8a693d48301/LICENSE.txt",
+      "licenseNoticePaths": [
+        "src/app/fonts/OFL-Geist.txt",
+        "public/fonts/OFL-Geist.txt"
+      ],
+      "licenseCopyright": "Copyright (c) 2023 Vercel, in collaboration with basement.studio"
+    },
+    {
+      "path": "src/app/fonts/radiance-bold.otf",
+      "sha256": "f9108894ffdc2a25e39801a1331b5c4501d9e24f151ab62c0d5ce41307f41cb8",
+      "bytes": 69988,
+      "format": "OpenType",
+      "nameRecords": [
+        {
+          "nameId": 0,
+          "field": "copyright",
+          "value": "Copyright 2013 Valve Corporation. See license metadata for details."
+        },
+        {
+          "nameId": 1,
+          "field": "family",
+          "value": "Radiance"
+        },
+        {
+          "nameId": 2,
+          "field": "subfamily",
+          "value": "Bold"
+        },
+        {
+          "nameId": 3,
+          "field": "uniqueId",
+          "value": "1.000;YWFT;Radiance-Bold"
+        },
+        {
+          "nameId": 4,
+          "field": "fullName",
+          "value": "Radiance Bold"
+        },
+        {
+          "nameId": 5,
+          "field": "version",
+          "value": "Version 1.000;hotconv 1.0.109;makeotfexe 2.5.65596"
+        },
+        {
+          "nameId": 6,
+          "field": "postscriptName",
+          "value": "Radiance-Bold"
+        },
+        {
+          "nameId": 7,
+          "field": "trademark",
+          "value": "Radiance is a trademark of Valve Corporation."
+        },
+        {
+          "nameId": 8,
+          "field": "manufacturer",
+          "value": "YouWorkForThem"
+        },
+        {
+          "nameId": 9,
+          "field": "designer",
+          "value": "YouWorkForThem"
+        },
+        {
+          "nameId": 10,
+          "field": "description",
+          "value": "Radiance is a typeface originally created for the game DOTA 2."
+        },
+        {
+          "nameId": 11,
+          "field": "vendorUrl",
+          "value": "http://youworkforthem.com"
+        },
+        {
+          "nameId": 12,
+          "field": "designerUrl",
+          "value": "http://youworkforthem.com"
+        },
+        {
+          "nameId": 13,
+          "field": "licenseDescription",
+          "value": "Copyright 2013 Valve Corp. All Rights Reserved. Like other Valve game content, you may use this font to create Fan Art, as described in the Steam Subscriber Agreement."
+        }
+      ],
+      "os2EmbeddingFsType": 8,
+      "embeddedCopyrightPresent": true,
+      "embeddedLicensePresent": true,
+      "sourceMatch": {
+        "type": "Unknown",
+        "reason": "The introduction commit records no exact source URL. The official Valve WOFF is a different binary and must not be treated as an identical source for this OTF."
+      },
+      "gitIntroductionCommit": "dae1c683ac0138e73604fc81490ef354e34c8c67",
+      "applicableLicense": "Embedded Valve fan-art permission, subject to Steam Subscriber Agreement; unrestricted commercial use not established",
+      "licenseSource": "Embedded name ID13; https://store.steampowered.com/subscriber_agreement/#2",
+      "scopeAssessment": "The local font explicitly permits Fan Art under the Steam Subscriber Agreement. Section2.D permits noncommercial fan art. Root retains this font for the current noncommercial fan-app scope. This records the project decision and does not claim an unrestricted license."
+    },
+    {
+      "path": "public/fonts/radiance-bold.otf",
+      "sha256": "f9108894ffdc2a25e39801a1331b5c4501d9e24f151ab62c0d5ce41307f41cb8",
+      "bytes": 69988,
+      "format": "OpenType",
+      "nameRecords": [
+        {
+          "nameId": 0,
+          "field": "copyright",
+          "value": "Copyright 2013 Valve Corporation. See license metadata for details."
+        },
+        {
+          "nameId": 1,
+          "field": "family",
+          "value": "Radiance"
+        },
+        {
+          "nameId": 2,
+          "field": "subfamily",
+          "value": "Bold"
+        },
+        {
+          "nameId": 3,
+          "field": "uniqueId",
+          "value": "1.000;YWFT;Radiance-Bold"
+        },
+        {
+          "nameId": 4,
+          "field": "fullName",
+          "value": "Radiance Bold"
+        },
+        {
+          "nameId": 5,
+          "field": "version",
+          "value": "Version 1.000;hotconv 1.0.109;makeotfexe 2.5.65596"
+        },
+        {
+          "nameId": 6,
+          "field": "postscriptName",
+          "value": "Radiance-Bold"
+        },
+        {
+          "nameId": 7,
+          "field": "trademark",
+          "value": "Radiance is a trademark of Valve Corporation."
+        },
+        {
+          "nameId": 8,
+          "field": "manufacturer",
+          "value": "YouWorkForThem"
+        },
+        {
+          "nameId": 9,
+          "field": "designer",
+          "value": "YouWorkForThem"
+        },
+        {
+          "nameId": 10,
+          "field": "description",
+          "value": "Radiance is a typeface originally created for the game DOTA 2."
+        },
+        {
+          "nameId": 11,
+          "field": "vendorUrl",
+          "value": "http://youworkforthem.com"
+        },
+        {
+          "nameId": 12,
+          "field": "designerUrl",
+          "value": "http://youworkforthem.com"
+        },
+        {
+          "nameId": 13,
+          "field": "licenseDescription",
+          "value": "Copyright 2013 Valve Corp. All Rights Reserved. Like other Valve game content, you may use this font to create Fan Art, as described in the Steam Subscriber Agreement."
+        }
+      ],
+      "os2EmbeddingFsType": 8,
+      "embeddedCopyrightPresent": true,
+      "embeddedLicensePresent": true,
+      "sourceMatch": {
+        "type": "Unknown",
+        "reason": "The introduction commit records no exact source URL. The official Valve WOFF is a different binary and must not be treated as an identical source for this OTF."
+      },
+      "gitIntroductionCommit": "dae1c683ac0138e73604fc81490ef354e34c8c67",
+      "applicableLicense": "Embedded Valve fan-art permission, subject to Steam Subscriber Agreement; unrestricted commercial use not established",
+      "licenseSource": "Embedded name ID13; https://store.steampowered.com/subscriber_agreement/#2",
+      "scopeAssessment": "The local font explicitly permits Fan Art under the Steam Subscriber Agreement. Section2.D permits noncommercial fan art. Root retains this font for the current noncommercial fan-app scope. This records the project decision and does not claim an unrestricted license."
+    }
+  ],
+  "primarySources": [
+    {
+      "url": "https://raw.githubusercontent.com/vercel/next.js/v14.2.15/packages/create-next-app/templates/app/ts/app/fonts/GeistVF.woff",
+      "file": "Geist-next14.woff",
+      "bytes": 66268,
+      "sha256": "296fafafd41304f7c992079054b8af914dbbd865f32de97c66d0f613b55755d6"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/vercel/next.js/v14.2.15/packages/create-next-app/templates/app/ts/app/fonts/GeistMonoVF.woff",
+      "file": "GeistMono-next14.woff",
+      "bytes": 67864,
+      "sha256": "e8b65928f551b17e3d67c3f709721b952c39842d14b00701f9232057fde73608"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/vercel/geist-font/63b548e95d4821c66fb74f9f93c7c8a693d48301/packages/next/dist/fonts/geist-sans/Geist-Variable.ttf",
+      "file": "Geist-1.2.0.ttf",
+      "bytes": 124544,
+      "sha256": "932767b66d0d98c2aa73072a4e4c9a4a5a2fde425f0cc3fe1ed9610e10b21519"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/vercel/geist-font/63b548e95d4821c66fb74f9f93c7c8a693d48301/packages/next/dist/fonts/geist-mono/GeistMono-Variable.ttf",
+      "file": "GeistMono-1.2.0.ttf",
+      "bytes": 126500,
+      "sha256": "1e5fc0420b5ccf94f1c01dbcc006c46604af5e2b4ccd6bc7785a04d7ca88e3b9"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/vercel/geist-font/63b548e95d4821c66fb74f9f93c7c8a693d48301/LICENSE.txt",
+      "file": "geist-pinned-LICENSE.txt",
+      "bytes": 4368,
+      "sha256": "930853ee1daa68554d9e35c8a9175affb74f699fad9a5da6ee5ebe76379d9137"
+    },
+    {
+      "url": "https://cdn.steamstatic.com/apps/dota2/fonts/radiance-bold.woff",
+      "file": "radiance-official.woff",
+      "bytes": 62296,
+      "sha256": "b6cd5bf2884df0ae14852f107ddf3681dcef6172f8b2379859800788829d1de4"
+    }
+  ],
+  "historicalGeistRelease": {
+    "tag": "1.2.0",
+    "commit": "63b548e95d4821c66fb74f9f93c7c8a693d48301",
+    "releaseUrl": "https://github.com/vercel/geist-font/releases/tag/1.2.0",
+    "licenseSha256": "930853ee1daa68554d9e35c8a9175affb74f699fad9a5da6ee5ebe76379d9137",
+    "licenseBytes": 4368,
+    "fontTableComparisons": [
+      {
+        "local": "src/app/fonts/GeistVF.woff",
+        "upstreamFile": "Geist-1.2.0.ttf",
+        "matchingTables": [
+          "GDEF",
+          "GPOS",
+          "GSUB",
+          "OS/2",
+          "STAT",
+          "avar",
+          "cmap",
+          "fvar",
+          "glyf",
+          "gvar",
+          "hhea",
+          "hmtx",
+          "loca",
+          "maxp",
+          "name",
+          "post"
+        ],
+        "differentTables": [
+          "head"
+        ],
+        "localOnlyTables": [],
+        "upstreamOnlyTables": [],
+        "upstreamNameRecords": [
+          {
+            "id": 1,
+            "value": "Geist"
+          },
+          {
+            "id": 2,
+            "value": "Regular"
+          },
+          {
+            "id": 3,
+            "value": "1.200;VRCL;Geist-Regular"
+          },
+          {
+            "id": 4,
+            "value": "Geist"
+          },
+          {
+            "id": 5,
+            "value": "Version 1.200;Glyphs 3.2 (3249)"
+          },
+          {
+            "id": 6,
+            "value": "Geist-Regular"
+          },
+          {
+            "id": 8,
+            "value": "Basement.studio, Vercel, Andrés Briganti, Guido Ferreyra, Mateo Zaragoza"
+          },
+          {
+            "id": 9,
+            "value": "Basement.studio, Andrés Briganti, Mateo Zaragoza"
+          },
+          {
+            "id": 11,
+            "value": "https://basement.studio/"
+          },
+          {
+            "id": 12,
+            "value": "https://basement.studio/"
+          },
+          {
+            "id": 16,
+            "value": "Geist"
+          },
+          {
+            "id": 17,
+            "value": "Regular"
+          },
+          {
+            "id": 25,
+            "value": "Geist"
+          },
+          {
+            "id": 256,
+            "value": "Weight"
+          },
+          {
+            "id": 257,
+            "value": "Thin"
+          },
+          {
+            "id": 258,
+            "value": "Geist-Thin"
+          },
+          {
+            "id": 259,
+            "value": "UltraLight"
+          },
+          {
+            "id": 260,
+            "value": "Geist-UltraLight"
+          },
+          {
+            "id": 261,
+            "value": "Light"
+          },
+          {
+            "id": 262,
+            "value": "Geist-Light"
+          },
+          {
+            "id": 263,
+            "value": "Medium"
+          },
+          {
+            "id": 264,
+            "value": "Geist-Medium"
+          },
+          {
+            "id": 265,
+            "value": "SemiBold"
+          },
+          {
+            "id": 266,
+            "value": "Geist-SemiBold"
+          },
+          {
+            "id": 267,
+            "value": "Bold"
+          },
+          {
+            "id": 268,
+            "value": "Geist-Bold"
+          },
+          {
+            "id": 269,
+            "value": "Black"
+          },
+          {
+            "id": 270,
+            "value": "Geist-Black"
+          },
+          {
+            "id": 271,
+            "value": "UltraBlack"
+          },
+          {
+            "id": 272,
+            "value": "Geist-UltraBlack"
+          },
+          {
+            "id": 273,
+            "value": "Italic"
+          },
+          {
+            "id": 274,
+            "value": "Roman"
+          },
+          {
+            "id": 275,
+            "value": "No tail a"
+          },
+          {
+            "id": 276,
+            "value": "Alt a"
+          },
+          {
+            "id": 277,
+            "value": "Alt l"
+          },
+          {
+            "id": 278,
+            "value": "Alt R"
+          },
+          {
+            "id": 279,
+            "value": "Alt I"
+          },
+          {
+            "id": 280,
+            "value": "Alt G"
+          },
+          {
+            "id": 281,
+            "value": "Alt arrows"
+          },
+          {
+            "id": 282,
+            "value": "Rounded dot"
+          },
+          {
+            "id": 283,
+            "value": "Alt numbers"
+          }
+        ]
+      },
+      {
+        "local": "src/app/fonts/GeistMonoVF.woff",
+        "upstreamFile": "GeistMono-1.2.0.ttf",
+        "matchingTables": [
+          "GDEF",
+          "GPOS",
+          "GSUB",
+          "OS/2",
+          "STAT",
+          "avar",
+          "cmap",
+          "fvar",
+          "glyf",
+          "gvar",
+          "head",
+          "hhea",
+          "hmtx",
+          "loca",
+          "maxp",
+          "name",
+          "post"
+        ],
+        "differentTables": [],
+        "localOnlyTables": [],
+        "upstreamOnlyTables": [],
+        "upstreamNameRecords": [
+          {
+            "id": 1,
+            "value": "Geist Mono"
+          },
+          {
+            "id": 2,
+            "value": "Regular"
+          },
+          {
+            "id": 3,
+            "value": "1.200;VRCL;GeistMono-Regular"
+          },
+          {
+            "id": 4,
+            "value": "Geist Mono"
+          },
+          {
+            "id": 5,
+            "value": "Version 1.200;Glyphs 3.2 (3249)"
+          },
+          {
+            "id": 6,
+            "value": "GeistMono-Regular"
+          },
+          {
+            "id": 8,
+            "value": "Basement.studio, Vercel, Andrés Briganti, Guido Ferreyra, Mateo Zaragoza"
+          },
+          {
+            "id": 9,
+            "value": "Basement.studio, Andrés Briganti, Mateo Zaragoza"
+          },
+          {
+            "id": 11,
+            "value": "https://basement.studio/"
+          },
+          {
+            "id": 12,
+            "value": "https://basement.studio/"
+          },
+          {
+            "id": 16,
+            "value": "Geist Mono"
+          },
+          {
+            "id": 17,
+            "value": "Regular"
+          },
+          {
+            "id": 25,
+            "value": "GeistMono"
+          },
+          {
+            "id": 256,
+            "value": "Weight"
+          },
+          {
+            "id": 257,
+            "value": "Thin"
+          },
+          {
+            "id": 258,
+            "value": "GeistMono-Thin"
+          },
+          {
+            "id": 259,
+            "value": "UltraLight"
+          },
+          {
+            "id": 260,
+            "value": "GeistMono-UltraLight"
+          },
+          {
+            "id": 261,
+            "value": "Light"
+          },
+          {
+            "id": 262,
+            "value": "GeistMono-Light"
+          },
+          {
+            "id": 263,
+            "value": "Medium"
+          },
+          {
+            "id": 264,
+            "value": "GeistMono-Medium"
+          },
+          {
+            "id": 265,
+            "value": "SemiBold"
+          },
+          {
+            "id": 266,
+            "value": "GeistMono-SemiBold"
+          },
+          {
+            "id": 267,
+            "value": "Bold"
+          },
+          {
+            "id": 268,
+            "value": "GeistMono-Bold"
+          },
+          {
+            "id": 269,
+            "value": "Black"
+          },
+          {
+            "id": 270,
+            "value": "GeistMono-Black"
+          },
+          {
+            "id": 271,
+            "value": "UltraBlack"
+          },
+          {
+            "id": 272,
+            "value": "GeistMono-UltraBlack"
+          },
+          {
+            "id": 273,
+            "value": "Italic"
+          },
+          {
+            "id": 274,
+            "value": "Roman"
+          },
+          {
+            "id": 275,
+            "value": "No tail a"
+          },
+          {
+            "id": 276,
+            "value": "Alt a"
+          },
+          {
+            "id": 277,
+            "value": "Alt l"
+          },
+          {
+            "id": 278,
+            "value": "Alt R"
+          },
+          {
+            "id": 279,
+            "value": "Alt G"
+          },
+          {
+            "id": 280,
+            "value": "Alt arrows"
+          },
+          {
+            "id": 281,
+            "value": "Rounded dot"
+          },
+          {
+            "id": 282,
+            "value": "Slashed zero"
+          }
+        ]
+      }
+    ],
+    "sansHeadDifferences": {
+      "offsets": [
+        10,
+        11,
+        34,
+        35
+      ],
+      "fields": [
+        "checkSumAdjustment",
+        "modified timestamp"
+      ],
+      "allOtherTablesIdentical": true
+    }
+  },
+  "radianceOfficialWoffComparison": {
+    "local": "src/app/fonts/radiance-bold.otf",
+    "upstreamFile": "radiance-official.woff",
+    "matchingTables": [],
+    "differentTables": [
+      "GDEF",
+      "OS/2",
+      "cmap",
+      "head",
+      "hhea",
+      "hmtx",
+      "maxp",
+      "name",
+      "post"
+    ],
+    "localOnlyTables": [
+      "GPOS",
+      "DSIG",
+      "CFF ",
+      "GSUB"
+    ],
+    "upstreamOnlyTables": [
+      "prep",
+      "FFTM",
+      "fpgm",
+      "glyf",
+      "cvt ",
+      "loca",
+      "gasp"
+    ],
+    "upstreamNameRecords": [
+      {
+        "id": 0,
+        "value": "Copyright (c) , 2013. All rights reserved."
+      },
+      {
+        "id": 1,
+        "value": "ø"
+      },
+      {
+        "id": 2,
+        "value": "ø"
+      },
+      {
+        "id": 3,
+        "value": "ø"
+      },
+      {
+        "id": 4,
+        "value": "ø"
+      },
+      {
+        "id": 5,
+        "value": "This is a protected WebFont and is intended for CSS @font-face use ONLY. Reverse engineering this font is strictly prohibited and against all YouWorkForThem WebFont licensing usage rules. You may NOT use this WebFont file for desktop publishing."
+      },
+      {
+        "id": 6,
+        "value": ""
+      },
+      {
+        "id": 10,
+        "value": "This is a protected WebFont and is intended for CSS @font-face use ONLY. Reverse engineering this font is strictly prohibited and against all YouWorkForThem WebFont licensing usage rules. You may NOT use this WebFont file for desktop publishing."
+      },
+      {
+        "id": 0,
+        "value": "Copyright (c) , 2013. All rights reserved."
+      },
+      {
+        "id": 1,
+        "value": "ø"
+      },
+      {
+        "id": 2,
+        "value": "ø"
+      },
+      {
+        "id": 3,
+        "value": "ø"
+      },
+      {
+        "id": 4,
+        "value": "ø"
+      },
+      {
+        "id": 5,
+        "value": "This is a protected WebFont and is intended for CSS @font-face use ONLY. Reverse engineering this font is strictly prohibited and against all YouWorkForThem WebFont licensing usage rules. You may NOT use this WebFont file for desktop publishing."
+      },
+      {
+        "id": 6,
+        "value": ""
+      },
+      {
+        "id": 10,
+        "value": "This is a protected WebFont and is intended for CSS @font-face use ONLY. Reverse engineering this font is strictly prohibited and against all YouWorkForThem WebFont licensing usage rules. You may NOT use this WebFont file for desktop publishing."
+      }
+    ]
+  },
+  "changes": [
+    "Added exact historical Geist LICENSE.txt bytes as src/app/fonts/OFL-Geist.txt.",
+    "Added the same bytes as public/fonts/OFL-Geist.txt."
+  ],
+  "checks": {
+    "fontBinariesUnchanged": true,
+    "geistLocalFilesExactlyMatchNext14215Templates": true,
+    "noticeCopiesMatchPinnedLicenseHash": true,
+    "radianceCopiesIdentical": true
+  },
+  "limitations": [
+    "Radiance OTF original acquisition URL remains Unknown.",
+    "Valve official radiance-bold.woff differs and contains a webfont-use notice. Its terms are not assigned to the local OTF.",
+    "No font license was purchased and no rights holder was contacted.",
+    "This review does not grant commercial permission."
+  ]
+}

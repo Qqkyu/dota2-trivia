@@ -1,0 +1,3 @@
+STORAGE_KEYS ["queue-arcade:player:v2:tab"]
+CORRECT_ONE {"phase":"reveal","score":"Gold219Streak2","banner":null,"correctState":"correct","stats":"{\"runs\":1,\"answered\":1,\"correct\":1,\"bestScore\":219}","keys":["queue-arcade:pending-votes:v1","queue-arcade:audio-tab:v1","queue-arcade:stats:v2","queue-arcade:settings:v4","queue-arcade:settled-rounds:v1"]}
+STORAGE_DISABLED {"text":"ARCADE INTERRUPTED\nThat round crashed.\n\nYour connected records are safe. Retry the view or return to the lobby.\n\nRetry\nReturn to lobby"}

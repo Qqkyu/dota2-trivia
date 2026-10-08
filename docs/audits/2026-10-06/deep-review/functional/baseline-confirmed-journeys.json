@@ -1,0 +1,154 @@
+[
+  {
+    "name": "mobile hero search has an editable input",
+    "passed": false,
+    "error": "Expected values to be strictly equal:\n\nfalse !== true\n",
+    "state": {
+      "path": "/play",
+      "phase": "answering",
+      "text": "QUEUE ARCADE\nRound 1\nROUND 001\nSPELL LINK\n15\nCLUE 1\n/ 3\nABILITY IDENTITY\nWhich hero owns this ability?\n01\nSummons dark energies around an ally unit, dispelling them and creating an all damage barrier that absorbs a set amount of damage before expiring. When the barrier is destroyed it will burst and deal damage equal to the amount it could absorb to an area around it.\n02\nAbility name unlocks at 10s\n03\nIcon unlocks at 5s\n\n127 HEROES \u00b7 TYPE TO FILTER\n\nSTRENGTH\nAGILITY\nINTELLIGENCE\nUNIVERSAL\nChoose a hero \u00b7 type to search \u00b7 Enter picks the only match\nGOLD\n0\nSTREAK\n0\nRECENT ROUNDS\nROUND 1\n\u00b7\n\u00b7\n\u00b7\n\u00b7\n\u00b7\n\u00b7\n\u00b7\n\u00b7\n\u00b7\nQueue Arcade \u00b7 Built for the seconds between \u201cFind Match\u201d and \u201cAccept\u201d\nProfile\nPrivacy\nCalibration lab\nDota 2 and its assets are trademarks of Valve Corporation. This project is not affiliated with Valve.",
+      "submissions": [],
+      "calls": [
+        {
+          "path": "/api/presence",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/me",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/round-audio",
+          "method": "HEAD",
+          "body": {}
+        },
+        {
+          "path": "/api/sessions",
+          "method": "POST",
+          "body": {
+            "action": "start",
+            "sessionId": "c517d3d7-5487-4155-b91e-3c6188f4842d",
+            "voterId": "c1450047-2b69-47d0-b2f9-75cb35442a7e"
+          }
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        }
+      ]
+    }
+  },
+  {
+    "name": "cancel delayed party join with Back",
+    "passed": false,
+    "error": "Expected values to be strictly equal:\n\n'/play' !== '/party'\n",
+    "state": {
+      "path": "/play",
+      "phase": "lobby",
+      "text": "QUEUE ARCADE\nSide quests, between matches\nDOTA 2 \u00b7 PATCH 7.41F\n70%\nParty lobby\nLeave\nPARTY CODE\nJOURNEY\nCopy link\n\nPLAYERS\n2/100\n\nHOST\nSecond player\nSTART\n\nNo messages yet.\n\nSEND\n\n\u00a0\n\nHIDE CHAT",
+      "submissions": [],
+      "calls": [
+        {
+          "path": "/api/presence",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/me",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/private-rooms",
+          "method": "POST",
+          "body": {
+            "action": "join",
+            "code": "JOURNEY",
+            "playerId": "f3650d1b-cc82-4f05-9cd6-21eac5419ad0",
+            "name": ""
+          }
+        },
+        {
+          "path": "/api/private-rooms",
+          "method": "POST",
+          "body": {
+            "action": "touch",
+            "code": "JOURNEY",
+            "playerId": "f3650d1b-cc82-4f05-9cd6-21eac5419ad0"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "cancel delayed party create with Back",
+    "passed": false,
+    "error": "Expected values to be strictly equal:\n\n'/play' !== '/party'\n",
+    "state": {
+      "path": "/play",
+      "phase": "lobby",
+      "text": "QUEUE ARCADE\nSide quests, between matches\nDOTA 2 \u00b7 PATCH 7.41F\n70%\nParty lobby\nLeave\nPARTY CODE\nJOURNEY\nCopy link\n\nPLAYERS\n2/100\n\nHOST\nSecond player\nSTART\n\nNo messages yet.\n\nSEND\n\n\u00a0\n\nHIDE CHAT",
+      "submissions": [],
+      "calls": [
+        {
+          "path": "/api/presence",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/me",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/private-rooms",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/private-rooms",
+          "method": "POST",
+          "body": {
+            "playerId": "cd0b58ac-ba31-4ea8-8f13-9416510251ef",
+            "games": [
+              "trivia",
+              "shopkeeper",
+              "spell-link",
+              "fogged-vision",
+              "echo-hunt",
+              "soundcheck",
+              "quote-hunt",
+              "aghanim-lab",
+              "order-up",
+              "flashback"
+            ],
+            "code": "JOURNEY",
+            "name": ""
+          }
+        },
+        {
+          "path": "/api/private-rooms",
+          "method": "POST",
+          "body": {
+            "action": "touch",
+            "code": "JOURNEY",
+            "playerId": "cd0b58ac-ba31-4ea8-8f13-9416510251ef"
+          }
+        }
+      ]
+    }
+  }
+]

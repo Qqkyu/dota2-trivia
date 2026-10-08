@@ -1,0 +1,1910 @@
+{
+  "appUrl": "http://127.0.0.1:3311",
+  "engine": "firefox",
+  "runName": "firefox151-fixed",
+  "version": "151.0",
+  "pages": [
+    {
+      "label": "mobile-home",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [
+          {
+            "target": "",
+            "duration": 1800,
+            "iterations": null
+          }
+        ],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-home.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-party",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-party.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-profile",
+      "axe": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=axeAPI",
+          "nodes": [
+            {
+              "target": [
+                "article[data-testid=\"format-mastery-trivia\"] > .profile-module__5FeCNW__cardBody > .profile-module__5FeCNW__duel > .profile-module__5FeCNW__duelScores > span:nth-child(1) > small"
+              ],
+              "html": "<small>You</small>",
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.04 (foreground color: #5b615e, background color: #0c0f0f, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "article[data-testid=\"format-mastery-trivia\"] > .profile-module__5FeCNW__cardBody > .profile-module__5FeCNW__duel > .profile-module__5FeCNW__duelScores > span:nth-child(2) > small"
+              ],
+              "html": "<small>Crowd</small>",
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.04 (foreground color: #5b615e, background color: #0c0f0f, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "article[data-testid=\"format-mastery-shopkeeper\"] > .profile-module__5FeCNW__cardBody > .profile-module__5FeCNW__duel > .profile-module__5FeCNW__duelScores > span:nth-child(1) > small"
+              ],
+              "html": "<small>You</small>",
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.04 (foreground color: #5b615e, background color: #0c0f0f, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "article[data-testid=\"format-mastery-shopkeeper\"] > .profile-module__5FeCNW__cardBody > .profile-module__5FeCNW__duel > .profile-module__5FeCNW__duelScores > span:nth-child(2) > small"
+              ],
+              "html": "<small>Crowd</small>",
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.04 (foreground color: #5b615e, background color: #0c0f0f, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "article[data-testid=\"format-mastery-soundcheck\"] > .profile-module__5FeCNW__cardBody > .profile-module__5FeCNW__duel > .profile-module__5FeCNW__duelScores > span:nth-child(1) > small"
+              ],
+              "html": "<small>You</small>",
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.04 (foreground color: #5b615e, background color: #0c0f0f, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "article[data-testid=\"format-mastery-soundcheck\"] > .profile-module__5FeCNW__cardBody > .profile-module__5FeCNW__duel > .profile-module__5FeCNW__duelScores > span:nth-child(2) > small"
+              ],
+              "html": "<small>Crowd</small>",
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.04 (foreground color: #5b615e, background color: #0c0f0f, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "article[data-testid=\"format-mastery-aghanim-lab\"] > .profile-module__5FeCNW__cardBody > .profile-module__5FeCNW__duel > .profile-module__5FeCNW__duelScores > span:nth-child(1) > small"
+              ],
+              "html": "<small>You</small>",
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.04 (foreground color: #5b615e, background color: #0c0f0f, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "article[data-testid=\"format-mastery-aghanim-lab\"] > .profile-module__5FeCNW__cardBody > .profile-module__5FeCNW__duel > .profile-module__5FeCNW__duelScores > span:nth-child(2) > small"
+              ],
+              "html": "<small>Crowd</small>",
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.04 (foreground color: #5b615e, background color: #0c0f0f, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "article[data-testid=\"format-mastery-order-up\"] > .profile-module__5FeCNW__cardBody > .profile-module__5FeCNW__duel > .profile-module__5FeCNW__duelScores > span:nth-child(1) > small"
+              ],
+              "html": "<small>You</small>",
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.04 (foreground color: #5b615e, background color: #0c0f0f, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "article[data-testid=\"format-mastery-order-up\"] > .profile-module__5FeCNW__cardBody > .profile-module__5FeCNW__duel > .profile-module__5FeCNW__duelScores > span:nth-child(2) > small"
+              ],
+              "html": "<small>Crowd</small>",
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.04 (foreground color: #5b615e, background color: #0c0f0f, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "article[data-testid=\"format-mastery-flashback\"] > .profile-module__5FeCNW__cardBody > .profile-module__5FeCNW__duel > .profile-module__5FeCNW__duelScores > span:nth-child(1) > small"
+              ],
+              "html": "<small>You</small>",
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.04 (foreground color: #5b615e, background color: #0c0f0f, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "article[data-testid=\"format-mastery-flashback\"] > .profile-module__5FeCNW__cardBody > .profile-module__5FeCNW__duel > .profile-module__5FeCNW__duelScores > span:nth-child(2) > small"
+              ],
+              "html": "<small>Crowd</small>",
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.04 (foreground color: #5b615e, background color: #0c0f0f, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "p"
+              ],
+              "html": "<p class=\"profile-module__5FeCNW__privacyNote\">Only Queue Arcade answers made while connected are recorded. <a href=\"/privacy\">What we store</a></p>",
+              "summary": "Fix any of the following:\n  Element has insufficient color contrast of 3.5 (foreground color: #626966, background color: #090b0c, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        }
+      ],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [
+          {
+            "name": "View Steam profile ↗",
+            "width": 115.88333129882812,
+            "height": 14
+          },
+          {
+            "name": "What we store",
+            "width": 72.93333435058594,
+            "height": 12
+          }
+        ],
+        "inputs": [],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-profile.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-privacy",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [
+          {
+            "name": "Steam Web API terms",
+            "width": 140.4166717529297,
+            "height": 16
+          },
+          {
+            "name": "GitHub issue tracker",
+            "width": 130.9666748046875,
+            "height": 16
+          }
+        ],
+        "inputs": [],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-privacy.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-calibration",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "type": "search",
+            "name": "Search calibration questions",
+            "placeholder": "Search prompt, kind, or question ID"
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-calibration.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-ops",
+      "axe": [
+        {
+          "id": "scrollable-region-focusable",
+          "impact": "serious",
+          "help": "Scrollable region must have keyboard access",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/scrollable-region-focusable?application=axeAPI",
+          "nodes": [
+            {
+              "target": [
+                ".ops-module__QZ7ZDG__formatTable"
+              ],
+              "html": "<div class=\"ops-module__QZ7ZDG__formatTable\" role=\"table\" aria-label=\"Round format health\">",
+              "summary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
+            }
+          ]
+        }
+      ],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-ops.png",
+      "errors": []
+    }
+  ],
+  "fixtures": [
+    {
+      "label": "mobile-classic-ability",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-classic-ability.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-classic-hero",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-classic-hero.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-classic-item",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-classic-item.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-shop-recipe",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "testid": "shopkeeper-search-field",
+            "type": "text",
+            "name": "Search shop items",
+            "placeholder": "Search Items"
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-shop-recipe.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-shop-build",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "testid": "shopkeeper-search-field",
+            "type": "text",
+            "name": "Search shop items",
+            "placeholder": "Search Items"
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-shop-build.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-shop-path",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "testid": "shopkeeper-search-field",
+            "type": "text",
+            "name": "Search shop items",
+            "placeholder": "Search Items"
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-shop-path.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-spell-link",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "testid": "hero-search-input",
+            "type": "search",
+            "name": "Filter heroes",
+            "placeholder": "Search heroes"
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-spell-link.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-fogged-vision",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "testid": "hero-search-input",
+            "type": "search",
+            "name": "Filter heroes",
+            "placeholder": "Search heroes"
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-fogged-vision.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-echo-hunt",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "testid": "hero-search-input",
+            "type": "search",
+            "name": "Filter heroes",
+            "placeholder": "Search heroes"
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-echo-hunt.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-quote-hunt",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "testid": "hero-search-input",
+            "type": "search",
+            "name": "Filter heroes",
+            "placeholder": "Search heroes"
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-quote-hunt.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-aghanim",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "testid": "hero-search-input",
+            "type": "search",
+            "name": "Filter heroes",
+            "placeholder": "Search heroes"
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-aghanim.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-soundcheck",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-soundcheck.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-order-up",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-order-up.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-flashback-year",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "testid": "flashback-year-slider",
+            "type": "range",
+            "name": "Year",
+            "placeholder": ""
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-flashback-year.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-flashback-choice",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-flashback-choice.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-flashback-order",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [
+          {
+            "label": "60 seconds remaining",
+            "live": "off"
+          }
+        ],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-fixed-mobile-flashback-order.png",
+      "errors": []
+    }
+  ],
+  "keyboard": [
+    {
+      "name": "classic-ability",
+      "tabSequence": [
+        {
+          "tag": "A",
+          "name": "Queue Arcade home",
+          "testid": "site-home",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 24,
+            "y": 23.5,
+            "width": 233.93333435058594,
+            "height": 40
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Enable game sounds",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1091,
+            "y": 25.5,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Game volume",
+          "testid": "game-volume",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1135,
+            "y": 33.5,
+            "width": 72,
+            "height": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "A160",
+          "testid": "arcade-answer",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 53,
+            "y": 397,
+            "width": 418,
+            "height": 76
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "B120",
+          "testid": "arcade-answer",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 481,
+            "y": 397,
+            "width": 418,
+            "height": 76
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "C100",
+          "testid": "arcade-answer",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 53,
+            "y": 483,
+            "width": 418,
+            "height": 76
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "D140",
+          "testid": "arcade-answer",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 481,
+            "y": 483,
+            "width": 418,
+            "height": 76
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Profile",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 522.0499877929688,
+            "y": 852.5,
+            "width": 36.633331298828125,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Privacy",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 570.683349609375,
+            "y": 852.5,
+            "width": 40.69999694824219,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "NEXTJS-PORTAL",
+          "name": "",
+          "role": null,
+          "outline": "none 3px rgb(117, 117, 117)",
+          "box": {
+            "x": 0,
+            "y": 900,
+            "width": 0,
+            "height": 0
+          }
+        },
+        {
+          "tag": "NEXTJS-PORTAL",
+          "name": "",
+          "role": null,
+          "outline": "none 3px rgb(117, 117, 117)",
+          "box": {
+            "x": 0,
+            "y": 900,
+            "width": 0,
+            "height": 0
+          }
+        },
+        {
+          "tag": "NEXTJS-PORTAL",
+          "name": "",
+          "role": null,
+          "outline": "none 3px rgb(117, 117, 117)",
+          "box": {
+            "x": 0,
+            "y": 900,
+            "width": 0,
+            "height": 0
+          }
+        },
+        {
+          "tag": "NEXTJS-PORTAL",
+          "name": "",
+          "role": null,
+          "outline": "none 3px rgb(117, 117, 117)",
+          "box": {
+            "x": 0,
+            "y": 900,
+            "width": 0,
+            "height": 0
+          }
+        }
+      ],
+      "report": {
+        "openedFocus": {
+          "tag": "BUTTON",
+          "name": "Wrong answer",
+          "testid": "report-reason",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 121,
+            "y": 561.8499755859375,
+            "width": 96.25,
+            "height": 39
+          }
+        },
+        "afterEscape": {
+          "focus": {
+            "tag": "BUTTON",
+            "name": "Wrong answer",
+            "testid": "report-reason",
+            "role": null,
+            "outline": "solid 2px rgb(210, 163, 74)",
+            "box": {
+              "x": 121,
+              "y": 561.8499755859375,
+              "width": 96.25,
+              "height": 39
+            }
+          },
+          "reasons": 4
+        },
+        "afterRoundChange": {
+          "tag": "BUTTON",
+          "name": "Wrong answer",
+          "testid": "report-reason",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 650,
+            "y": 822,
+            "width": 143.5,
+            "height": 40
+          }
+        }
+      },
+      "votes": []
+    },
+    {
+      "name": "shop-build",
+      "tabSequence": [
+        {
+          "tag": "A",
+          "name": "Queue Arcade home",
+          "testid": "site-home",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 24,
+            "y": 23.5,
+            "width": 233.93333435058594,
+            "height": 40
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Enable game sounds",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1091,
+            "y": 25.5,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Game volume",
+          "testid": "game-volume",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1135,
+            "y": 33.5,
+            "width": 72,
+            "height": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "basics",
+          "testid": "shopkeeper-tab-basics",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 65,
+            "y": 402,
+            "width": 88,
+            "height": 36
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "upgrades",
+          "testid": "shopkeeper-tab-upgrades",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 153,
+            "y": 402,
+            "width": 88,
+            "height": 36
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Search shop items",
+          "testid": "shopkeeper-search-field",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 567,
+            "y": 406,
+            "width": 315,
+            "height": 28
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Magic Wand, 460 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 70,
+            "y": 479,
+            "width": 28.716659545898438,
+            "height": 21.75
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Bracer, 505 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 101.71665954589844,
+            "y": 479,
+            "width": 28.7166748046875,
+            "height": 21.75
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Wraith Band, 505 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 133.43333435058594,
+            "y": 479,
+            "width": 28.716659545898438,
+            "height": 21.75
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Null Talisman, 505 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 165.14999389648438,
+            "y": 479,
+            "width": 28.7166748046875,
+            "height": 21.75
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Power Treads, 1,400 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 70,
+            "y": 503.75,
+            "width": 28.716659545898438,
+            "height": 21.75
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Soul Ring, 805 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 101.71665954589844,
+            "y": 503.75,
+            "width": 28.7166748046875,
+            "height": 21.75
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Orb of Corrosion, 1,050 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 133.43333435058594,
+            "y": 503.75,
+            "width": 28.716659545898438,
+            "height": 21.75
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Falcon Blade, 1,125 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 165.14999389648438,
+            "y": 503.75,
+            "width": 28.7166748046875,
+            "height": 21.75
+          }
+        }
+      ],
+      "votes": []
+    },
+    {
+      "name": "fogged-vision",
+      "tabSequence": [
+        {
+          "tag": "A",
+          "name": "Queue Arcade home",
+          "testid": "site-home",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 24,
+            "y": 23.5,
+            "width": 233.93333435058594,
+            "height": 40
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Enable game sounds",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1091,
+            "y": 25.5,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Game volume",
+          "testid": "game-volume",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1135,
+            "y": 33.5,
+            "width": 72,
+            "height": 20
+          }
+        },
+        {
+          "tag": "DIV",
+          "name": "127 heroes · type to filterStrengthAgilityIntelligenceUniversal",
+          "testid": "hero-picker",
+          "role": null,
+          "outline": "auto 1px rgb(241, 240, 234)",
+          "box": {
+            "x": 53,
+            "y": 371,
+            "width": 846,
+            "height": 431.33331298828125
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Filter heroes",
+          "testid": "hero-search-input",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 99.03334045410156,
+            "y": 372.5,
+            "width": 786.9666748046875,
+            "height": 38
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Alchemist",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 64,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Axe",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 103.13333129882812,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Bristleback",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 142.26666259765625,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Centaur Warrunner",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 181.39999389648438,
+            "y": 467,
+            "width": 36.13334655761719,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Chaos Knight",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 220.53334045410156,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Clockwerk",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 259.66668701171875,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Dawnbreaker",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 298.79998779296875,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Doom",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 337.933349609375,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Dragon Knight",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 377.066650390625,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        }
+      ],
+      "votes": []
+    },
+    {
+      "name": "order-up",
+      "tabSequence": [
+        {
+          "tag": "A",
+          "name": "Queue Arcade home",
+          "testid": "site-home",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 24,
+            "y": 23.5,
+            "width": 233.93333435058594,
+            "height": 40
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Enable game sounds",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1091,
+            "y": 25.5,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Game volume",
+          "testid": "game-volume",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1135,
+            "y": 33.5,
+            "width": 72,
+            "height": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "1. Clarity",
+          "testid": "value-order-card",
+          "role": null,
+          "outline": "solid 3px rgb(217, 219, 216)",
+          "box": {
+            "x": 70,
+            "y": 480.79998779296875,
+            "width": 196.25,
+            "height": 116
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "2. Tango",
+          "testid": "value-order-card",
+          "role": null,
+          "outline": "solid 3px rgb(217, 219, 216)",
+          "box": {
+            "x": 275.25,
+            "y": 480.79998779296875,
+            "width": 196.25,
+            "height": 116
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "3. Enchanted Mango",
+          "testid": "value-order-card",
+          "role": null,
+          "outline": "solid 3px rgb(217, 219, 216)",
+          "box": {
+            "x": 480.5,
+            "y": 480.79998779296875,
+            "width": 196.25,
+            "height": 116
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "4. Dust of Appearance",
+          "testid": "value-order-card",
+          "role": null,
+          "outline": "solid 3px rgb(217, 219, 216)",
+          "box": {
+            "x": 685.75,
+            "y": 480.79998779296875,
+            "width": 196.25,
+            "height": 116
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Profile",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 522.0499877929688,
+            "y": 852.5,
+            "width": 36.633331298828125,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Privacy",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 570.683349609375,
+            "y": 852.5,
+            "width": 40.69999694824219,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "NEXTJS-PORTAL",
+          "name": "",
+          "role": null,
+          "outline": "none 3px rgb(117, 117, 117)",
+          "box": {
+            "x": 0,
+            "y": 900,
+            "width": 0,
+            "height": 0
+          }
+        },
+        {
+          "tag": "NEXTJS-PORTAL",
+          "name": "",
+          "role": null,
+          "outline": "none 3px rgb(117, 117, 117)",
+          "box": {
+            "x": 0,
+            "y": 900,
+            "width": 0,
+            "height": 0
+          }
+        },
+        {
+          "tag": "NEXTJS-PORTAL",
+          "name": "",
+          "role": null,
+          "outline": "none 3px rgb(117, 117, 117)",
+          "box": {
+            "x": 0,
+            "y": 900,
+            "width": 0,
+            "height": 0
+          }
+        },
+        {
+          "tag": "NEXTJS-PORTAL",
+          "name": "",
+          "role": null,
+          "outline": "none 3px rgb(117, 117, 117)",
+          "box": {
+            "x": 0,
+            "y": 900,
+            "width": 0,
+            "height": 0
+          }
+        }
+      ],
+      "votes": []
+    },
+    {
+      "name": "flashback-year",
+      "tabSequence": [
+        {
+          "tag": "A",
+          "name": "Queue Arcade home",
+          "testid": "site-home",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 24,
+            "y": 23.5,
+            "width": 233.93333435058594,
+            "height": 40
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Enable game sounds",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1091,
+            "y": 25.5,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Game volume",
+          "testid": "game-volume",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1135,
+            "y": 33.5,
+            "width": 72,
+            "height": 20
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Year",
+          "testid": "flashback-year-slider",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 156,
+            "y": 452.75,
+            "width": 640,
+            "height": 28
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Lock",
+          "testid": "flashback-year-lock",
+          "role": null,
+          "outline": "none 0px rgb(230, 196, 119)",
+          "box": {
+            "x": 430,
+            "y": 521.25,
+            "width": 92,
+            "height": 38
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Profile",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 522.0499877929688,
+            "y": 852.5,
+            "width": 36.633331298828125,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Privacy",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 570.683349609375,
+            "y": 852.5,
+            "width": 40.69999694824219,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "NEXTJS-PORTAL",
+          "name": "",
+          "role": null,
+          "outline": "none 3px rgb(117, 117, 117)",
+          "box": {
+            "x": 0,
+            "y": 900,
+            "width": 0,
+            "height": 0
+          }
+        },
+        {
+          "tag": "NEXTJS-PORTAL",
+          "name": "",
+          "role": null,
+          "outline": "none 3px rgb(117, 117, 117)",
+          "box": {
+            "x": 0,
+            "y": 900,
+            "width": 0,
+            "height": 0
+          }
+        },
+        {
+          "tag": "NEXTJS-PORTAL",
+          "name": "",
+          "role": null,
+          "outline": "none 3px rgb(117, 117, 117)",
+          "box": {
+            "x": 0,
+            "y": 900,
+            "width": 0,
+            "height": 0
+          }
+        },
+        {
+          "tag": "NEXTJS-PORTAL",
+          "name": "",
+          "role": null,
+          "outline": "none 3px rgb(117, 117, 117)",
+          "box": {
+            "x": 0,
+            "y": 900,
+            "width": 0,
+            "height": 0
+          }
+        },
+        {
+          "tag": "NEXTJS-PORTAL",
+          "name": "",
+          "role": null,
+          "outline": "none 3px rgb(117, 117, 117)",
+          "box": {
+            "x": 0,
+            "y": 900,
+            "width": 0,
+            "height": 0
+          }
+        },
+        {
+          "tag": "NEXTJS-PORTAL",
+          "name": "",
+          "role": null,
+          "outline": "none 3px rgb(117, 117, 117)",
+          "box": {
+            "x": 0,
+            "y": 900,
+            "width": 0,
+            "height": 0
+          }
+        }
+      ],
+      "votes": []
+    }
+  ],
+  "failures": [
+    "mobile-profile: color-contrast",
+    "mobile-ops: scrollable-region-focusable"
+  ]
+}

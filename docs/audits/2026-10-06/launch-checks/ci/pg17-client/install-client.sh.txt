@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+sudo install -d /usr/share/postgresql-common/pgdg
+sudo curl --fail --silent --show-error --location --retry 3 \
+  https://www.postgresql.org/media/keys/ACCC4CF8.asc \
+  --output /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
+. /etc/os-release
+printf '%s\n' \
+  'Types: deb' \
+  'URIs: https://apt.postgresql.org/pub/repos/apt' \
+  "Suites: ${VERSION_CODENAME}-pgdg" \
+  "Architectures: $(dpkg --print-architecture)" \
+  'Components: main' \
+  'Signed-By: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc' \
+  | sudo tee /etc/apt/sources.list.d/pgdg.sources > /dev/null
+sudo apt-get update
+sudo apt-get install --yes --no-install-recommends postgresql-client-17
+"$PG_BIN_DIR/pg_dump" --version | grep -E '^pg_dump \(PostgreSQL\) 17\.'
+"$PG_BIN_DIR/pg_restore" --version | grep -E '^pg_restore \(PostgreSQL\) 17\.'

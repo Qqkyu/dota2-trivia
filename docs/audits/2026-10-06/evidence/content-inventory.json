@@ -1,0 +1,500 @@
+{
+  "files": {
+    "questions.generated": {
+      "total": 1036,
+      "live": 964,
+      "kinds": {
+        "spell-owner": 127,
+        "cooldown": 52,
+        "ability-damage": 47,
+        "fogged-hero": 127,
+        "hero-quote": 245,
+        "hero-stat-duel": 42,
+        "hero-voice": 123,
+        "recipe-component": 36,
+        "item-cost": 73,
+        "item-price-duel": 28,
+        "mana-cost": 60,
+        "hero-move-speed": 40,
+        "recipe-upgrade": 36
+      },
+      "patches": {
+        "7.41f": 1036
+      },
+      "difficulties": {
+        "1": 32,
+        "2": 891,
+        "3": 113
+      }
+    },
+    "shopkeeper-questions": {
+      "total": 102,
+      "live": 100,
+      "kinds": {
+        "shopkeeper-build-result": 26,
+        "shopkeeper-real-recipe": 26,
+        "shopkeeper-shared-part": 38,
+        "shopkeeper-upgrade-path": 12
+      },
+      "patches": {
+        "7.41f": 102
+      },
+      "difficulties": {
+        "3": 102
+      }
+    },
+    "soundcheck-questions": {
+      "total": 96,
+      "live": 96,
+      "kinds": {
+        "soundcheck-ability": 48,
+        "soundcheck-item": 48
+      },
+      "patches": {
+        "7.41f": 96
+      },
+      "difficulties": {
+        "1": 36,
+        "2": 42,
+        "3": 18
+      }
+    },
+    "value-order-questions": {
+      "total": 80,
+      "live": 80,
+      "kinds": {
+        "value-order-item": 16,
+        "value-order-cooldown": 16,
+        "value-order-mana": 12,
+        "value-order-damage": 12,
+        "value-order-move-speed": 12,
+        "value-order-attack-range": 12
+      },
+      "patches": {
+        "7.41f": 80
+      },
+      "difficulties": {
+        "3": 80
+      }
+    },
+    "aghanim-questions": {
+      "total": 84,
+      "live": 84,
+      "kinds": {
+        "aghanim-upgrade": 84
+      },
+      "patches": {
+        "7.41f": 84
+      },
+      "difficulties": {
+        "2": 84
+      }
+    },
+    "flashback-questions": {
+      "total": 191,
+      "live": 191,
+      "kinds": {
+        "flashback-year": 72,
+        "flashback-choice": 98,
+        "flashback-order": 21
+      },
+      "patches": {
+        "7.41e": 191
+      },
+      "difficulties": {
+        "1": 16,
+        "2": 119,
+        "3": 56
+      }
+    }
+  },
+  "liveCount": 1515,
+  "formats": {
+    "spell-link": 127,
+    "classic-ability-values": 159,
+    "fogged-vision": 127,
+    "quote-hunt": 245,
+    "classic-hero-stats": 82,
+    "echo-hunt": 123,
+    "classic-item-prices": 101,
+    "shopkeeper-builds": 51,
+    "shopkeeper-paths": 49,
+    "soundcheck": 96,
+    "value-order": 80,
+    "aghanim-upgrades": 84,
+    "flashback": 191
+  },
+  "sourceDomains": {
+    "www.dota2.com": 693,
+    "docs.opendota.com": 127,
+    "github.com": 452,
+    "dotabase.dillerm.io": 96,
+    "liquipedia.net": 63,
+    "en.wikipedia.org": 40,
+    "dota2.fandom.com": 27,
+    "store.steampowered.com": 3,
+    "www.gamedeveloper.com": 2,
+    "www.sbnation.com": 1,
+    "sea.ign.com": 1,
+    "www.gosugamers.net": 2,
+    "esports.gg": 1,
+    "blast.tv": 1,
+    "www.youtube.com": 1,
+    "www.pcgamesn.com": 1,
+    "www.gamespot.com": 4
+  },
+  "duplicateIds": [],
+  "exactDuplicateText": [],
+  "invalidAnswers": [],
+  "localAssets": 55,
+  "missingLocalAssets": [],
+  "assetAndSourceDomains": {
+    "www.dota2.com": 21,
+    "cdn.cloudflare.steamstatic.com": 707,
+    "docs.opendota.com": 1,
+    "github.com": 2,
+    "dotabase.dillerm.io": 278,
+    "cdn.steamstatic.com": 11,
+    "liquipedia.net": 28,
+    "en.wikipedia.org": 9,
+    "dota2.fandom.com": 12,
+    "store.steampowered.com": 3,
+    "www.gamedeveloper.com": 1,
+    "www.sbnation.com": 1,
+    "sea.ign.com": 1,
+    "www.gosugamers.net": 1,
+    "esports.gg": 1,
+    "blast.tv": 1,
+    "www.youtube.com": 1,
+    "www.pcgamesn.com": 1,
+    "www.gamespot.com": 2
+  },
+  "filteredShopkeeper": [
+    {
+      "id": "shopkeeper-recipe:disperser",
+      "issues": [
+        "invalid prompt item tray"
+      ]
+    },
+    {
+      "id": "shopkeeper-upgrade:phylactery:angels_demise",
+      "issues": [
+        "invalid prompt item tray"
+      ]
+    }
+  ],
+  "damageOrdering": [
+    {
+      "id": "value-order:ability-damage:01",
+      "order": "Lowest to highest: Meat Hook (360 damage) → Culling Blade (475 damage) → Thundergod's Wrath (575 damage) → Laguna Blade (760 damage).",
+      "source": [
+        {
+          "id": "damage:pudge_meat_hook:4",
+          "prompt": "How much damage does Meat Hook deal at max level?",
+          "explanation": "Meat Hook — damage: 150 / 220 / 290 / 360 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:axe_culling_blade:3",
+          "prompt": "How much damage does Culling Blade deal at max level?",
+          "explanation": "Culling Blade — damage: 275 / 375 / 475 across its levels, before talents and upgrades. This is the damage dealt when the target is above the execution threshold."
+        },
+        {
+          "id": "damage:zuus_thundergods_wrath:3",
+          "prompt": "How much damage does Thundergod's Wrath deal at max level?",
+          "explanation": "Thundergod's Wrath — damage: 275 / 425 / 575 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:lina_laguna_blade:3",
+          "prompt": "How much damage does Laguna Blade deal at max level?",
+          "explanation": "Laguna Blade — damage: 400 / 580 / 760 across its levels, before talents and upgrades."
+        }
+      ]
+    },
+    {
+      "id": "value-order:ability-damage:02",
+      "order": "Lowest to highest: Culling Blade (475 damage) → Thundergod's Wrath (575 damage) → Laguna Blade (760 damage) → Finger of Death (850 damage).",
+      "source": [
+        {
+          "id": "damage:axe_culling_blade:3",
+          "prompt": "How much damage does Culling Blade deal at max level?",
+          "explanation": "Culling Blade — damage: 275 / 375 / 475 across its levels, before talents and upgrades. This is the damage dealt when the target is above the execution threshold."
+        },
+        {
+          "id": "damage:zuus_thundergods_wrath:3",
+          "prompt": "How much damage does Thundergod's Wrath deal at max level?",
+          "explanation": "Thundergod's Wrath — damage: 275 / 425 / 575 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:lina_laguna_blade:3",
+          "prompt": "How much damage does Laguna Blade deal at max level?",
+          "explanation": "Laguna Blade — damage: 400 / 580 / 760 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:lion_finger_of_death:3",
+          "prompt": "How much base damage does Finger of Death deal at max level?",
+          "explanation": "Finger of Death — base damage: 600 / 725 / 850 across its levels, before talents and upgrades. Permanent kill stacks and upgrades add damage on top."
+        }
+      ]
+    },
+    {
+      "id": "value-order:ability-damage:03",
+      "order": "Lowest to highest: Scream Of Pain (345 damage) → Astral Imprisonment (360 damage) → Culling Blade (475 damage) → Thundergod's Wrath (575 damage).",
+      "source": [
+        {
+          "id": "damage:queenofpain_scream_of_pain:4",
+          "prompt": "How much damage does Scream Of Pain deal at max level?",
+          "explanation": "Scream Of Pain — damage: 90 / 175 / 260 / 345 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:obsidian_destroyer_astral_imprisonment:4",
+          "prompt": "How much damage does Astral Imprisonment deal at max level?",
+          "explanation": "Astral Imprisonment — damage: 90 / 180 / 270 / 360 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:axe_culling_blade:3",
+          "prompt": "How much damage does Culling Blade deal at max level?",
+          "explanation": "Culling Blade — damage: 275 / 375 / 475 across its levels, before talents and upgrades. This is the damage dealt when the target is above the execution threshold."
+        },
+        {
+          "id": "damage:zuus_thundergods_wrath:3",
+          "prompt": "How much damage does Thundergod's Wrath deal at max level?",
+          "explanation": "Thundergod's Wrath — damage: 275 / 425 / 575 across its levels, before talents and upgrades."
+        }
+      ]
+    },
+    {
+      "id": "value-order:ability-damage:04",
+      "order": "Lowest to highest: Terror Wave (200 damage) → Timber Chain (225 damage) → Talon Toss (240 damage) → Sprout (250 damage).",
+      "source": [
+        {
+          "id": "damage:terrorblade_terror_wave:1",
+          "prompt": "How much damage does Terror Wave deal?",
+          "explanation": "Terror Wave — damage: 200, before talents and upgrades."
+        },
+        {
+          "id": "damage:shredder_timber_chain:4",
+          "prompt": "How much damage does Timber Chain deal at max level?",
+          "explanation": "Timber Chain — damage: 45 / 105 / 165 / 225 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:kez_talon_toss:4",
+          "prompt": "How much damage does Talon Toss deal at max level?",
+          "explanation": "Talon Toss — damage: 60 / 120 / 180 / 240 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:furion_sprout:4",
+          "prompt": "How much damage does Sprout deal at max level?",
+          "explanation": "Sprout — damage: 70 / 130 / 190 / 250 across its levels, before talents and upgrades."
+        }
+      ]
+    },
+    {
+      "id": "value-order:ability-damage:05",
+      "order": "Lowest to highest: Timber Chain (225 damage) → Talon Toss (240 damage) → Sprout (250 damage) → Gush (280 damage).",
+      "source": [
+        {
+          "id": "damage:shredder_timber_chain:4",
+          "prompt": "How much damage does Timber Chain deal at max level?",
+          "explanation": "Timber Chain — damage: 45 / 105 / 165 / 225 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:kez_talon_toss:4",
+          "prompt": "How much damage does Talon Toss deal at max level?",
+          "explanation": "Talon Toss — damage: 60 / 120 / 180 / 240 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:furion_sprout:4",
+          "prompt": "How much damage does Sprout deal at max level?",
+          "explanation": "Sprout — damage: 70 / 130 / 190 / 250 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:tidehunter_gush:4",
+          "prompt": "How much damage does Gush deal at max level?",
+          "explanation": "Gush — damage: 100 / 160 / 220 / 280 across its levels, before talents and upgrades."
+        }
+      ]
+    },
+    {
+      "id": "value-order:ability-damage:06",
+      "order": "Lowest to highest: Starstorm (300 damage) → Breathe Fire (320 damage) → Dead Shot (325 damage) → Magic Missile (340 damage).",
+      "source": [
+        {
+          "id": "damage:mirana_starfall:4",
+          "prompt": "How much damage does each Starstorm meteor deal at max level?",
+          "explanation": "Starstorm — damage per meteor: 75 / 150 / 225 / 300 across its levels, before talents and upgrades. The closest enemy can be struck by a second meteor."
+        },
+        {
+          "id": "damage:dragon_knight_breathe_fire:4",
+          "prompt": "How much damage does Breathe Fire deal at max level?",
+          "explanation": "Breathe Fire — damage: 80 / 160 / 240 / 320 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:muerta_dead_shot:4",
+          "prompt": "How much damage does Dead Shot deal at max level?",
+          "explanation": "Dead Shot — damage: 100 / 175 / 250 / 325 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:vengefulspirit_magic_missile:4",
+          "prompt": "How much damage does Magic Missile deal at max level?",
+          "explanation": "Magic Missile — damage: 85 / 170 / 255 / 340 across its levels, before talents and upgrades."
+        }
+      ]
+    },
+    {
+      "id": "value-order:ability-damage:07",
+      "order": "Lowest to highest: Rolling Boulder (90 damage) → Shadow Wave (145 damage) → Dragon Tail (150 damage) → Terror Wave (200 damage).",
+      "source": [
+        {
+          "id": "damage:earth_spirit_rolling_boulder:4",
+          "prompt": "How much base damage does Rolling Boulder deal at max level?",
+          "explanation": "Rolling Boulder — base damage: 60 / 70 / 80 / 90 across its levels, before talents and upgrades. Rolling Boulder also adds 100% of Earth Spirit's Strength."
+        },
+        {
+          "id": "damage:dazzle_shadow_wave:4",
+          "prompt": "How much damage does each Shadow Wave pulse deal at max level?",
+          "explanation": "Shadow Wave — damage per healing pulse: 85 / 105 / 125 / 145 across its levels, before talents and upgrades. Each healed unit creates one damaging pulse around itself."
+        },
+        {
+          "id": "damage:dragon_knight_dragon_tail:4",
+          "prompt": "How much damage does Dragon Tail deal at max level?",
+          "explanation": "Dragon Tail — damage: 60 / 90 / 120 / 150 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:terrorblade_terror_wave:1",
+          "prompt": "How much damage does Terror Wave deal?",
+          "explanation": "Terror Wave — damage: 200, before talents and upgrades."
+        }
+      ]
+    },
+    {
+      "id": "value-order:ability-damage:08",
+      "order": "Lowest to highest: Magic Missile (340 damage) → Scream Of Pain (345 damage) → Astral Imprisonment (360 damage) → Culling Blade (475 damage).",
+      "source": [
+        {
+          "id": "damage:vengefulspirit_magic_missile:4",
+          "prompt": "How much damage does Magic Missile deal at max level?",
+          "explanation": "Magic Missile — damage: 85 / 170 / 255 / 340 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:queenofpain_scream_of_pain:4",
+          "prompt": "How much damage does Scream Of Pain deal at max level?",
+          "explanation": "Scream Of Pain — damage: 90 / 175 / 260 / 345 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:obsidian_destroyer_astral_imprisonment:4",
+          "prompt": "How much damage does Astral Imprisonment deal at max level?",
+          "explanation": "Astral Imprisonment — damage: 90 / 180 / 270 / 360 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:axe_culling_blade:3",
+          "prompt": "How much damage does Culling Blade deal at max level?",
+          "explanation": "Culling Blade — damage: 275 / 375 / 475 across its levels, before talents and upgrades. This is the damage dealt when the target is above the execution threshold."
+        }
+      ]
+    },
+    {
+      "id": "value-order:ability-damage:09",
+      "order": "Lowest to highest: Vacuum (250 damage) → Gush (280 damage) → Reverse Polarity (300 damage) → Breathe Fire (320 damage).",
+      "source": [
+        {
+          "id": "damage:dark_seer_vacuum:4",
+          "prompt": "How much damage does Vacuum deal at max level?",
+          "explanation": "Vacuum — damage: 70 / 130 / 190 / 250 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:tidehunter_gush:4",
+          "prompt": "How much damage does Gush deal at max level?",
+          "explanation": "Gush — damage: 100 / 160 / 220 / 280 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:magnataur_reverse_polarity:3",
+          "prompt": "How much damage does Reverse Polarity deal at max level?",
+          "explanation": "Reverse Polarity — damage: 100 / 200 / 300 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:dragon_knight_breathe_fire:4",
+          "prompt": "How much damage does Breathe Fire deal at max level?",
+          "explanation": "Breathe Fire — damage: 80 / 160 / 240 / 320 across its levels, before talents and upgrades."
+        }
+      ]
+    },
+    {
+      "id": "value-order:ability-damage:10",
+      "order": "Lowest to highest: Crypt Swarm (325 damage) → Magic Missile (340 damage) → Scream Of Pain (345 damage) → Meat Hook (360 damage).",
+      "source": [
+        {
+          "id": "damage:death_prophet_carrion_swarm:4",
+          "prompt": "How much damage does Crypt Swarm deal at max level?",
+          "explanation": "Crypt Swarm — damage: 100 / 175 / 250 / 325 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:vengefulspirit_magic_missile:4",
+          "prompt": "How much damage does Magic Missile deal at max level?",
+          "explanation": "Magic Missile — damage: 85 / 170 / 255 / 340 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:queenofpain_scream_of_pain:4",
+          "prompt": "How much damage does Scream Of Pain deal at max level?",
+          "explanation": "Scream Of Pain — damage: 90 / 175 / 260 / 345 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:pudge_meat_hook:4",
+          "prompt": "How much damage does Meat Hook deal at max level?",
+          "explanation": "Meat Hook — damage: 150 / 220 / 290 / 360 across its levels, before talents and upgrades."
+        }
+      ]
+    },
+    {
+      "id": "value-order:ability-damage:11",
+      "order": "Lowest to highest: Shadow Wave (145 damage) → Dragon Tail (150 damage) → Terror Wave (200 damage) → Timber Chain (225 damage).",
+      "source": [
+        {
+          "id": "damage:dazzle_shadow_wave:4",
+          "prompt": "How much damage does each Shadow Wave pulse deal at max level?",
+          "explanation": "Shadow Wave — damage per healing pulse: 85 / 105 / 125 / 145 across its levels, before talents and upgrades. Each healed unit creates one damaging pulse around itself."
+        },
+        {
+          "id": "damage:dragon_knight_dragon_tail:4",
+          "prompt": "How much damage does Dragon Tail deal at max level?",
+          "explanation": "Dragon Tail — damage: 60 / 90 / 120 / 150 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:terrorblade_terror_wave:1",
+          "prompt": "How much damage does Terror Wave deal?",
+          "explanation": "Terror Wave — damage: 200, before talents and upgrades."
+        },
+        {
+          "id": "damage:shredder_timber_chain:4",
+          "prompt": "How much damage does Timber Chain deal at max level?",
+          "explanation": "Timber Chain — damage: 45 / 105 / 165 / 225 across its levels, before talents and upgrades."
+        }
+      ]
+    },
+    {
+      "id": "value-order:ability-damage:12",
+      "order": "Lowest to highest: Scatterblast (280 damage) → Reverse Polarity (300 damage) → Thunder Clap (320 damage) → Dead Shot (325 damage).",
+      "source": [
+        {
+          "id": "damage:snapfire_scatterblast:4",
+          "prompt": "How much base damage does Scatterblast deal at max level?",
+          "explanation": "Scatterblast — base damage: 100 / 160 / 220 / 280 across its levels, before talents and upgrades. Point-blank targets take 30% more damage."
+        },
+        {
+          "id": "damage:magnataur_reverse_polarity:3",
+          "prompt": "How much damage does Reverse Polarity deal at max level?",
+          "explanation": "Reverse Polarity — damage: 100 / 200 / 300 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:brewmaster_thunder_clap:4",
+          "prompt": "How much damage does Thunder Clap deal at max level?",
+          "explanation": "Thunder Clap — damage: 80 / 160 / 240 / 320 across its levels, before talents and upgrades."
+        },
+        {
+          "id": "damage:muerta_dead_shot:4",
+          "prompt": "How much damage does Dead Shot deal at max level?",
+          "explanation": "Dead Shot — damage: 100 / 175 / 250 / 325 across its levels, before talents and upgrades."
+        }
+      ]
+    }
+  ]
+}

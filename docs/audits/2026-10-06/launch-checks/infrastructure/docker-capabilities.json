@@ -1,0 +1,21 @@
+{
+  "ServerVersion": "28.3.2",
+  "OperatingSystem": "Docker Desktop (containerized)",
+  "OSType": "linux",
+  "Architecture": "x86_64",
+  "NCPU": 20,
+  "MemTotal": 18858168320,
+  "CgroupDriver": "cgroupfs",
+  "CgroupVersion": "2",
+  "Driver": "overlayfs",
+  "MemoryLimit": true,
+  "SwapLimit": true,
+  "CpuCfsPeriod": true,
+  "CpuCfsQuota": true,
+  "CPUSet": true,
+  "PidsLimit": true,
+  "SecurityOptions": [
+    "name=seccomp,profile=builtin",
+    "name=cgroupns"
+  ]
+}

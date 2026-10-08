@@ -1,0 +1,49 @@
+{
+  "action": "check",
+  "at": "2026-10-08T14:54:05.064554+00:00",
+  "status": 200,
+  "payload": {
+    "serverNow": 1791471245063,
+    "waiting": true,
+    "countdownMs": 0,
+    "privateRoom": {
+      "code": "ANDROID11Q8",
+      "games": [
+        "trivia"
+      ],
+      "formats": [
+        "classic-ability-values",
+        "classic-hero-stats",
+        "classic-item-prices"
+      ],
+      "startedAt": null,
+      "isHost": false,
+      "players": [
+        {
+          "name": "AndroidAuditHost",
+          "host": false,
+          "self": true,
+          "score": 0,
+          "away": true
+        },
+        {
+          "name": "Guest-14E475B5",
+          "host": true,
+          "self": false,
+          "score": 0,
+          "away": false
+        }
+      ],
+      "messages": []
+    },
+    "room": {
+      "id": "dota2:7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21:private:ANDROID11Q8",
+      "gameId": "dota2",
+      "contentVersion": "7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21"
+    },
+    "presence": {
+      "activePlayers": 1
+    },
+    "nameTaken": false
+  }
+}

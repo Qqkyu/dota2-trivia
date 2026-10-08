@@ -1,0 +1,59 @@
+(node:3) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("/tmp/queue-arcade-launch-ci/validator/json-loader.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "parser": "@actions/workflow-parser 0.3.61",
+  "schemaErrors": [],
+  "workflowSha256": "c7eda5798dfe27975e5cad6fa1f2dcfbab17b303cb98fdbf7d79486be0f873b1",
+  "databaseChecks": {
+    "launchSuiteEnabled": true,
+    "launchDatabaseIsLoopback": true,
+    "backupBinaryDirectory": "/usr/lib/postgresql/17/bin",
+    "signedPostgresClient17Install": true,
+    "maxTestWorkers": 2
+  },
+  "cases": [
+    {
+      "label": "candidate",
+      "runsOn": [
+        "self-hosted",
+        "Linux",
+        "X64",
+        "queue-arcade-ci-local"
+      ],
+      "nodeCache": "",
+      "automaticNodeCache": "false",
+      "trivyCache": "false",
+      "uploadOnFailure": "false"
+    },
+    {
+      "label": "main",
+      "runsOn": "ubuntu-latest",
+      "nodeCache": "pnpm",
+      "automaticNodeCache": "true",
+      "trivyCache": "true",
+      "uploadOnFailure": "true"
+    },
+    {
+      "label": "pull-request",
+      "runsOn": "ubuntu-latest",
+      "nodeCache": "pnpm",
+      "automaticNodeCache": "true",
+      "trivyCache": "true",
+      "uploadOnFailure": "true"
+    },
+    {
+      "label": "manual-local",
+      "runsOn": [
+        "self-hosted",
+        "Linux",
+        "X64",
+        "queue-arcade-ci-local"
+      ],
+      "nodeCache": "",
+      "automaticNodeCache": "false",
+      "trivyCache": "false",
+      "uploadOnFailure": "false"
+    }
+  ]
+}

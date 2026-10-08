@@ -1,0 +1,19 @@
+import datetime, json, pathlib, sys, urllib.request
+origin='http://127.0.0.1:3334'
+code='ANDROID11Q8'
+player='android-native-audit-host-20261008'
+action=sys.argv[1]
+path=pathlib.Path('/tmp/queue-arcade-launch-checks/android11-final-check')
+if action=='create':
+    payload={'playerId':player,'code':code,'games':['trivia'],'name':'AndroidAuditHost'}
+    request=urllib.request.Request(origin+'/api/private-rooms',data=json.dumps(payload).encode(),headers={'Content-Type':'application/json','Origin':origin},method='POST')
+elif action=='check':
+    request=urllib.request.Request(origin+'/api/private-rooms?code='+code+'&playerId='+player)
+else:
+    raise ValueError('Unknown action')
+with urllib.request.urlopen(request,timeout=10) as response:
+    data=json.load(response)
+    room=data.get('room',data)
+    result={'action':action,'at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'status':response.status,'payload':data}
+    (path/('server-'+action+'.json')).write_text(json.dumps(result,indent=2)+'\n')
+    print(json.dumps(result))

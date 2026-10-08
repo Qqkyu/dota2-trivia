@@ -1,10 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isAlphaSessionId } from "@/lib/alpha-analytics.mjs";
-import { recordAlphaSessionRound } from "@/lib/alpha-store";
+import { alphaSessionKey } from "@/lib/alpha-store";
 import { sessionUserForRequest } from "@/lib/auth-session";
-import { rateLimitRequest } from "@/lib/api-protection";
+import { preflightRateLimit, rateLimitRequest, readJsonBody, requestOriginAllowed } from "@/lib/api-protection";
+import { validatedGuestIdentity } from "@/lib/guest-identity.mjs";
 import { roundFormatForQuestion } from "@/lib/arcade-games.mjs";
-import { recordPlayerRound } from "@/lib/account-store";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
 import {
   isKeyedAnswerQuestion,
@@ -19,19 +19,20 @@ import { parsePublicRoomSettings, PUBLIC_VOTE_ACCEPT_GRACE_MS } from "@/lib/publ
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { scoreBreakdown } from "@/lib/scoring.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
-import { recordRoundVote } from "@/lib/vote-store";
+import { recordRoundOutcome, type RoundOutcomeEffects } from "@/lib/vote-store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
-  let body: unknown;
-
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "Invalid JSON." }, { status: 400 });
+  if (!requestOriginAllowed(request)) {
+    return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
   }
+  const preflight = preflightRateLimit(request, "votes", 600);
+  if (preflight) return preflight;
+  const parsed = await readJsonBody(request);
+  if ("response" in parsed) return parsed.response;
+  const { body } = parsed;
 
   if (!body || typeof body !== "object") {
     return NextResponse.json({ error: "Missing vote fields." }, { status: 400 });
@@ -72,8 +73,10 @@ export async function POST(request: NextRequest) {
     logServerError("votes.account-session", error);
     return NextResponse.json({ error: "Vote storage unavailable." }, { status: 503 });
   }
-  const effectiveVoterId = accountUser ? `account:${accountUser.id}` : voterId;
-  const rateLimited = rateLimitRequest(request, "votes", effectiveVoterId, 12);
+  const guestId = validatedGuestIdentity(voterId);
+  if (!accountUser && !guestId) return NextResponse.json({ error: "Invalid player." }, { status: 400 });
+  const effectiveVoterId = accountUser ? `account:${accountUser.id}` : guestId!;
+  const rateLimited = rateLimitRequest(request, "votes", effectiveVoterId, 12, 600);
   if (rateLimited) return rateLimited;
 
   const submittedAt = Date.now();
@@ -116,58 +119,55 @@ export async function POST(request: NextRequest) {
           round.answerDuration,
         ).rawPoints
       : 0;
-    const result = await recordRoundVote({
-      roundId,
-      roomId: room.id,
-      gameId: room.gameId,
-      contentVersion: room.contentVersion,
-      questionId: round.questionId,
-      questionRevision: questionCalibrationRevision(question),
-      correctIndex: question.correctIndex,
-      answerIndex: resolvedAnswerIndex,
-      answerKey: resolvedAnswerKey,
-      basePoints,
-      voterId: effectiveVoterId,
-      submittedAt,
-      countTowardCalibration: !live.isolated,
-    });
+    const effects: RoundOutcomeEffects = {};
+    if (accountUser && !live.isolated) {
+      const roundFormat = roundFormatForQuestion(question);
+      if (!roundFormat) throw new Error(`Question ${question.id} has no public round format.`);
+      effects.account = {
+        userId: accountUser.id,
+        round: {
+          roundId: round.id,
+          roundNumber: round.number,
+          gameId: room.gameId,
+          questionId: question.id,
+          questionRevision: questionCalibrationRevision(question),
+          roundGame: round.game,
+          roundFormat,
+          correct: isCorrect,
+          answerStage: answerStageForRound(
+            round.game,
+            Math.max(0, round.answerDeadline - submittedAt),
+            round.answerDuration,
+          ),
+          submittedAt,
+          revealAt: round.answerDeadline + PUBLIC_VOTE_ACCEPT_GRACE_MS,
+        },
+      };
+    }
+    if (typeof sessionId === "string") {
+      effects.alpha = { key: alphaSessionKey({ sessionId, voterId: effectiveVoterId }), correct: isCorrect };
+    }
+    const result = await recordRoundOutcome(
+      {
+        roundId,
+        roomId: room.id,
+        gameId: room.gameId,
+        contentVersion: room.contentVersion,
+        questionId: round.questionId,
+        questionRevision: questionCalibrationRevision(question),
+        correctIndex: question.correctIndex,
+        answerIndex: resolvedAnswerIndex,
+        answerKey: resolvedAnswerKey,
+        basePoints,
+        voterId: effectiveVoterId,
+        submittedAt,
+        countTowardCalibration: !live.isolated,
+      },
+      effects,
+    );
 
     if (live.isolated && settings.privateCode && result.accepted) {
       addPrivateRoomScore(settings.privateCode, effectiveVoterId, basePoints, submittedAt, roundId);
-    }
-
-    if (accountUser && result.playerVote && !live.isolated) {
-      const roundFormat = roundFormatForQuestion(question);
-      if (!roundFormat) throw new Error(`Question ${question.id} has no public round format.`);
-      const storedVote = result.playerVote;
-      await recordPlayerRound(accountUser.id, {
-        roundId: round.id,
-        roundNumber: round.number,
-        gameId: room.gameId,
-        questionId: question.id,
-        questionRevision: questionCalibrationRevision(question),
-        roundGame: round.game,
-        roundFormat,
-        correct: isQuestionAnswerCorrect(question, storedVote.answerIndex, storedVote.answerKey),
-        answerStage: answerStageForRound(
-          round.game,
-          Math.max(0, round.answerDeadline - storedVote.submittedAt),
-          round.answerDuration,
-        ),
-        submittedAt: storedVote.submittedAt,
-      });
-    }
-
-    if (result.accepted && typeof sessionId === "string") {
-      try {
-        await recordAlphaSessionRound(
-          { sessionId, voterId: effectiveVoterId },
-          isQuestionAnswerCorrect(question, resolvedAnswerIndex, resolvedAnswerKey),
-          submittedAt,
-        );
-      } catch (error) {
-        logServerError("alpha-session.round", error, { roundId: roundId.slice(0, 160) });
-      }
     }
 
     const playerVote =
@@ -176,6 +176,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         accepted: result.accepted,
+        playerIdentity: accountUser ? { kind: "account", id: accountUser.id } : { kind: "guest", id: guestId! },
         counts: [0, 0, 0, 0],
         total: result.total,
         keyCounts: [],

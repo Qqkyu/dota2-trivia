@@ -1,0 +1,323 @@
+[
+  {
+    "oldId": "hero-quote:npc_dota_hero_lich:lich_kill_06",
+    "id": "hero-quote:npc_dota_hero_lich:lich_rare_02",
+    "game": "quote-hunt",
+    "heroKey": "npc_dota_hero_lich",
+    "detail": "Those who disturb my peace shall be left in pieces.",
+    "phases": [
+      {
+        "now": 0,
+        "clueStage": 1,
+        "quoteHints": [],
+        "audio": null
+      },
+      {
+        "now": 4999,
+        "clueStage": 1,
+        "quoteHints": [],
+        "audio": null
+      },
+      {
+        "now": 5000,
+        "clueStage": 2,
+        "quoteHints": [
+          "Intelligence hero"
+        ],
+        "audio": null
+      },
+      {
+        "now": 9999,
+        "clueStage": 2,
+        "quoteHints": [
+          "Intelligence hero"
+        ],
+        "audio": null
+      },
+      {
+        "now": 10000,
+        "clueStage": 3,
+        "quoteHints": [
+          "Intelligence hero",
+          "Ranged · Support"
+        ],
+        "audio": null
+      }
+    ],
+    "reveal": {
+      "correctIndex": 2,
+      "explanation": "“Those who disturb my peace shall be left in pieces.” is spoken by Lich.",
+      "correctAnswerKey": "npc_dota_hero_lich"
+    },
+    "passed": true
+  },
+  {
+    "oldId": "hero-quote:npc_dota_hero_sniper:snip_kill_12",
+    "id": "hero-quote:npc_dota_hero_sniper:snip_rare_04",
+    "game": "quote-hunt",
+    "heroKey": "npc_dota_hero_sniper",
+    "detail": "Why am I smiling? This is what trigger-happy looks like.",
+    "phases": [
+      {
+        "now": 0,
+        "clueStage": 1,
+        "quoteHints": [],
+        "audio": null
+      },
+      {
+        "now": 4999,
+        "clueStage": 1,
+        "quoteHints": [],
+        "audio": null
+      },
+      {
+        "now": 5000,
+        "clueStage": 2,
+        "quoteHints": [
+          "Agility hero"
+        ],
+        "audio": null
+      },
+      {
+        "now": 9999,
+        "clueStage": 2,
+        "quoteHints": [
+          "Agility hero"
+        ],
+        "audio": null
+      },
+      {
+        "now": 10000,
+        "clueStage": 3,
+        "quoteHints": [
+          "Agility hero",
+          "Ranged · Nuker"
+        ],
+        "audio": null
+      }
+    ],
+    "reveal": {
+      "correctIndex": 2,
+      "explanation": "“Why am I smiling? This is what trigger-happy looks like.” is spoken by Sniper.",
+      "correctAnswerKey": "npc_dota_hero_sniper"
+    },
+    "passed": true
+  },
+  {
+    "oldId": "hero-quote:npc_dota_hero_techies:tech_firstblood_03",
+    "id": "hero-quote:npc_dota_hero_techies:tech_levelup_09",
+    "game": "quote-hunt",
+    "heroKey": "npc_dota_hero_techies",
+    "detail": "My mind is exploding with ideas. Not literally I hope!",
+    "phases": [
+      {
+        "now": 0,
+        "clueStage": 1,
+        "quoteHints": [],
+        "audio": null
+      },
+      {
+        "now": 4999,
+        "clueStage": 1,
+        "quoteHints": [],
+        "audio": null
+      },
+      {
+        "now": 5000,
+        "clueStage": 2,
+        "quoteHints": [
+          "Universal hero"
+        ],
+        "audio": null
+      },
+      {
+        "now": 9999,
+        "clueStage": 2,
+        "quoteHints": [
+          "Universal hero"
+        ],
+        "audio": null
+      },
+      {
+        "now": 10000,
+        "clueStage": 3,
+        "quoteHints": [
+          "Universal hero",
+          "Ranged · Disabler"
+        ],
+        "audio": null
+      }
+    ],
+    "reveal": {
+      "correctIndex": 2,
+      "explanation": "“My mind is exploding with ideas. Not literally I hope!” is spoken by Techies.",
+      "correctAnswerKey": "npc_dota_hero_techies"
+    },
+    "passed": true
+  },
+  {
+    "oldId": "hero-voice:npc_dota_hero_shredder:timb_attack_03",
+    "id": "hero-voice:npc_dota_hero_shredder:timb_respawn_02",
+    "game": "echo-hunt",
+    "heroKey": "npc_dota_hero_shredder",
+    "detail": null,
+    "phases": [
+      {
+        "now": 0,
+        "clueStage": 1,
+        "quoteHints": null,
+        "audio": {
+          "src": "/api/round-audio?roundId=response-flow-proof&clip=0&stage=1"
+        }
+      },
+      {
+        "now": 4999,
+        "clueStage": 1,
+        "quoteHints": null,
+        "audio": {
+          "src": "/api/round-audio?roundId=response-flow-proof&clip=0&stage=1"
+        }
+      },
+      {
+        "now": 5000,
+        "clueStage": 2,
+        "quoteHints": null,
+        "audio": {
+          "src": "/api/round-audio?roundId=response-flow-proof&clip=0&stage=2"
+        }
+      },
+      {
+        "now": 7999,
+        "clueStage": 2,
+        "quoteHints": null,
+        "audio": {
+          "src": "/api/round-audio?roundId=response-flow-proof&clip=0&stage=2"
+        }
+      },
+      {
+        "now": 8000,
+        "clueStage": 3,
+        "quoteHints": null,
+        "audio": {
+          "src": "/api/round-audio?roundId=response-flow-proof&clip=0&stage=3"
+        }
+      }
+    ],
+    "reveal": {
+      "correctIndex": 1,
+      "explanation": "“Trees? Why did it have to be trees?” is spoken by Timbersaw.",
+      "correctAnswerKey": "npc_dota_hero_shredder"
+    },
+    "passed": true
+  },
+  {
+    "oldId": "hero-voice:npc_dota_hero_jakiro:jak_kill_06",
+    "id": "hero-voice:npc_dota_hero_jakiro:jak_kill_11",
+    "game": "echo-hunt",
+    "heroKey": "npc_dota_hero_jakiro",
+    "detail": null,
+    "phases": [
+      {
+        "now": 0,
+        "clueStage": 1,
+        "quoteHints": null,
+        "audio": {
+          "src": "/api/round-audio?roundId=response-flow-proof&clip=0&stage=1"
+        }
+      },
+      {
+        "now": 4999,
+        "clueStage": 1,
+        "quoteHints": null,
+        "audio": {
+          "src": "/api/round-audio?roundId=response-flow-proof&clip=0&stage=1"
+        }
+      },
+      {
+        "now": 5000,
+        "clueStage": 2,
+        "quoteHints": null,
+        "audio": {
+          "src": "/api/round-audio?roundId=response-flow-proof&clip=0&stage=2"
+        }
+      },
+      {
+        "now": 7999,
+        "clueStage": 2,
+        "quoteHints": null,
+        "audio": {
+          "src": "/api/round-audio?roundId=response-flow-proof&clip=0&stage=2"
+        }
+      },
+      {
+        "now": 8000,
+        "clueStage": 3,
+        "quoteHints": null,
+        "audio": {
+          "src": "/api/round-audio?roundId=response-flow-proof&clip=0&stage=3"
+        }
+      }
+    ],
+    "reveal": {
+      "correctIndex": 1,
+      "explanation": "“We burned your candle at both ends.” is spoken by Jakiro.",
+      "correctAnswerKey": "npc_dota_hero_jakiro"
+    },
+    "passed": true
+  },
+  {
+    "oldId": "hero-voice:npc_dota_hero_ancient_apparition:appa_kill_06",
+    "id": "hero-voice:npc_dota_hero_ancient_apparition:appa_blink_02",
+    "game": "echo-hunt",
+    "heroKey": "npc_dota_hero_ancient_apparition",
+    "detail": null,
+    "phases": [
+      {
+        "now": 0,
+        "clueStage": 1,
+        "quoteHints": null,
+        "audio": {
+          "src": "/api/round-audio?roundId=response-flow-proof&clip=0&stage=1"
+        }
+      },
+      {
+        "now": 4999,
+        "clueStage": 1,
+        "quoteHints": null,
+        "audio": {
+          "src": "/api/round-audio?roundId=response-flow-proof&clip=0&stage=1"
+        }
+      },
+      {
+        "now": 5000,
+        "clueStage": 2,
+        "quoteHints": null,
+        "audio": {
+          "src": "/api/round-audio?roundId=response-flow-proof&clip=0&stage=2"
+        }
+      },
+      {
+        "now": 7999,
+        "clueStage": 2,
+        "quoteHints": null,
+        "audio": {
+          "src": "/api/round-audio?roundId=response-flow-proof&clip=0&stage=2"
+        }
+      },
+      {
+        "now": 8000,
+        "clueStage": 3,
+        "quoteHints": null,
+        "audio": {
+          "src": "/api/round-audio?roundId=response-flow-proof&clip=0&stage=3"
+        }
+      }
+    ],
+    "reveal": {
+      "correctIndex": 2,
+      "explanation": "“Sharp as winter's teeth.” is spoken by Ancient Apparition.",
+      "correctAnswerKey": "npc_dota_hero_ancient_apparition"
+    },
+    "passed": true
+  }
+]

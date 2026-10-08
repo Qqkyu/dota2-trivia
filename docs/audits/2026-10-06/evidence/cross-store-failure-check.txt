@@ -1,0 +1,8 @@
+[queue-arcade:error] {"roundId":"dota2:7.41f-variety-7-classic-trivia-6-shopkeeper-7-public-arcade-4-soundcheck-11-spell-link-4-fogged-vision-5-global-score-1-order-up-4-aghanim-lab-1-flashback","questionId":"hero-voice:npc_dota_hero_winter_wyvern:winwyv_cast_01","at":"2026-10-06T05:08:27.188Z","event":"votes.persist","fingerprint":"bdabcc8c","errorName":"Error","frame":"at account.recordPlayerRound (/tmp/queue-arcade-audit-20261006/cross-store-failure-check.cjs:21:51)","release":"local"}
+{
+  "firstStatus": 503,
+  "persistedCrowdTotal": 1,
+  "retryAfterRecoveryStatus": 409,
+  "profileAnswered": 0,
+  "roundsOnDisk": 0
+}

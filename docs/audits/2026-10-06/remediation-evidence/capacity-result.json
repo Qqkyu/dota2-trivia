@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "scope": "Single local production process, PostgreSQL 14, 100 guests behind one address. This is a bounded functional concurrency check, not a hosting capacity certificate.",
+  "accepted": 100,
+  "revealedTotal": 100,
+  "metrics": {
+    "join": {
+      "requests": 99,
+      "p50Ms": 7,
+      "p95Ms": 13,
+      "maxMs": 18
+    },
+    "round": {
+      "requests": 100,
+      "p50Ms": 147,
+      "p95Ms": 164,
+      "maxMs": 165
+    },
+    "vote": {
+      "requests": 100,
+      "p50Ms": 161,
+      "p95Ms": 219,
+      "maxMs": 224
+    }
+  }
+}

@@ -1,0 +1,2396 @@
+[
+  {
+    "subject": "pudge_meat_hook",
+    "duration": 2.8670068027210887,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.18524394019596677
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.14389026729760027
+      },
+      {
+        "stage": 3,
+        "seconds": 2.867007,
+        "rms": 0.0873929829625771
+      }
+    ]
+  },
+  {
+    "subject": "earthshaker_echo_slam",
+    "duration": 4.328480725623582,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.5999461557494777
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.6152159501530826
+      },
+      {
+        "stage": 3,
+        "seconds": 4.328481,
+        "rms": 0.32099598847256433
+      }
+    ]
+  },
+  {
+    "subject": "faceless_void_chronosphere",
+    "duration": 5.840657596371882,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.2740743900322595
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.34341140548478444
+      },
+      {
+        "stage": 3,
+        "seconds": 5.840658,
+        "rms": 0.24519005619468737
+      }
+    ]
+  },
+  {
+    "subject": "invoker_sun_strike",
+    "duration": 2.0029024943310656,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.10014515,
+        "rms": 0.4935076235142421
+      },
+      {
+        "stage": 2,
+        "seconds": 0.22031932999999998,
+        "rms": 0.5435382447430408
+      },
+      {
+        "stage": 3,
+        "seconds": 2.002903,
+        "rms": 0.4042306861282385
+      }
+    ]
+  },
+  {
+    "subject": "kunkka_ghostship",
+    "duration": 3.7257596371882085,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.1566033721762558
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.12123685444347569
+      },
+      {
+        "stage": 3,
+        "seconds": 3.72576,
+        "rms": 0.07081157006150036
+      }
+    ]
+  },
+  {
+    "subject": "sniper_assassinate",
+    "duration": 0.7865759637188209,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.055,
+        "rms": 0.015839315164318805
+      },
+      {
+        "stage": 2,
+        "seconds": 0.11,
+        "rms": 0.14790238592238383
+      },
+      {
+        "stage": 3,
+        "seconds": 0.786576,
+        "rms": 0.19035761765773965
+      }
+    ]
+  },
+  {
+    "subject": "tidehunter_ravage",
+    "duration": 4.148117913832199,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.6897814915045347
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.6951507252989043
+      },
+      {
+        "stage": 3,
+        "seconds": 4.148118,
+        "rms": 0.3199129510518669
+      }
+    ]
+  },
+  {
+    "subject": "magnataur_reverse_polarity",
+    "duration": 3.1533333333333333,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.22189667102739394
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.20151759515340015
+      },
+      {
+        "stage": 3,
+        "seconds": 3.153333,
+        "rms": 0.19614760407778475
+      }
+    ]
+  },
+  {
+    "subject": "phoenix_supernova",
+    "duration": 4.082857142857143,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.4289540352983155
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.4807894452401001
+      },
+      {
+        "stage": 3,
+        "seconds": 4.082857,
+        "rms": 0.27823244321123924
+      }
+    ]
+  },
+  {
+    "subject": "skeleton_king_reincarnation",
+    "duration": 6.183356009070295,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.052548064340235685
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.1497935269722959
+      },
+      {
+        "stage": 3,
+        "seconds": 5.583356,
+        "rms": 0.23788097418714538
+      }
+    ]
+  },
+  {
+    "subject": "axe_culling_blade",
+    "duration": 1.7345578231292518,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.08672790000000001,
+        "rms": 0.1821582977772488
+      },
+      {
+        "stage": 2,
+        "seconds": 0.19080138,
+        "rms": 0.3227802981553029
+      },
+      {
+        "stage": 3,
+        "seconds": 1.734558,
+        "rms": 0.25816837756982425
+      }
+    ]
+  },
+  {
+    "subject": "zuus_thundergods_wrath",
+    "duration": 5.025011337868481,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.19113919256821454
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.20445050205649234
+      },
+      {
+        "stage": 3,
+        "seconds": 5.025012,
+        "rms": 0.23521469469526282
+      }
+    ]
+  },
+  {
+    "subject": "pangolier_shield_crash",
+    "duration": 2.5103333333333335,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.4278083532595377
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.44787564517307554
+      },
+      {
+        "stage": 3,
+        "seconds": 2.510333,
+        "rms": 0.22511209709957702
+      }
+    ]
+  },
+  {
+    "subject": "puck_waning_rift",
+    "duration": 2.197755102040816,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.10988775,
+        "rms": 0.5159827338540022
+      },
+      {
+        "stage": 2,
+        "seconds": 0.24175305,
+        "rms": 0.4662672671674973
+      },
+      {
+        "stage": 3,
+        "seconds": 2.197755,
+        "rms": 0.2269058189629855
+      }
+    ]
+  },
+  {
+    "subject": "nyx_assassin_spiked_carapace",
+    "duration": 0.5305895691609978,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.053059,
+        "rms": 0.45581962077386423
+      },
+      {
+        "stage": 2,
+        "seconds": 0.106118,
+        "rms": 0.4903912496146403
+      },
+      {
+        "stage": 3,
+        "seconds": 0.53059,
+        "rms": 0.39837750362367985
+      }
+    ]
+  },
+  {
+    "subject": "slark_dark_pact",
+    "duration": 2.893015873015873,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.3853089126794717
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.43087117535387054
+      },
+      {
+        "stage": 3,
+        "seconds": 2.893016,
+        "rms": 0.27540126980288404
+      }
+    ]
+  },
+  {
+    "subject": "oracle_fates_edict",
+    "duration": 2.73,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.17353293911684214
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.2539192441398319
+      },
+      {
+        "stage": 3,
+        "seconds": 2.73,
+        "rms": 0.14939733644077893
+      }
+    ]
+  },
+  {
+    "subject": "hoodwink_bushwhack",
+    "duration": 2.1661041666666665,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.10830519999999999,
+        "rms": 0.02182889635727101
+      },
+      {
+        "stage": 2,
+        "seconds": 0.23827143999999997,
+        "rms": 0.18746681832424222
+      },
+      {
+        "stage": 3,
+        "seconds": 2.166104,
+        "rms": 0.12610567613715318
+      }
+    ]
+  },
+  {
+    "subject": "earth_spirit_rolling_boulder",
+    "duration": 1.0105895691609976,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.055,
+        "rms": 0.052632500651988885
+      },
+      {
+        "stage": 2,
+        "seconds": 0.11116490000000001,
+        "rms": 0.12320094834015613
+      },
+      {
+        "stage": 3,
+        "seconds": 1.01059,
+        "rms": 0.3404557340544601
+      }
+    ]
+  },
+  {
+    "subject": "windrunner_shackleshot",
+    "duration": 1.332312925170068,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.06661565000000001,
+        "rms": 0.23223235007292162
+      },
+      {
+        "stage": 2,
+        "seconds": 0.14655443,
+        "rms": 0.24193458338335877
+      },
+      {
+        "stage": 3,
+        "seconds": 1.332313,
+        "rms": 0.20811972869886236
+      }
+    ]
+  },
+  {
+    "subject": "shadow_shaman_voodoo",
+    "duration": 1.3973469387755102,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.06986735,
+        "rms": 0.0111998534747496
+      },
+      {
+        "stage": 2,
+        "seconds": 0.15370816999999998,
+        "rms": 0.04803608729820099
+      },
+      {
+        "stage": 3,
+        "seconds": 1.397347,
+        "rms": 0.10547537829084154
+      }
+    ]
+  },
+  {
+    "subject": "tusk_ice_shards",
+    "duration": 3.0109750566893423,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.3908263867201521
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.41912158490171264
+      },
+      {
+        "stage": 3,
+        "seconds": 3.010975,
+        "rms": 0.19449393822020944
+      }
+    ]
+  },
+  {
+    "subject": "muerta_dead_shot",
+    "duration": 1.4318820861678005,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.0716854,
+        "rms": 0.25276098562917065
+      },
+      {
+        "stage": 2,
+        "seconds": 0.15770788,
+        "rms": 0.4108873516996767
+      },
+      {
+        "stage": 3,
+        "seconds": 1.433708,
+        "rms": 0.22397067708136412
+      }
+    ]
+  },
+  {
+    "subject": "dawnbreaker_celestial_hammer",
+    "duration": 1.1886621315192745,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.05950835,
+        "rms": 0.3635094837579577
+      },
+      {
+        "stage": 2,
+        "seconds": 0.13091837,
+        "rms": 0.4342238004869706
+      },
+      {
+        "stage": 3,
+        "seconds": 1.190167,
+        "rms": 0.25660524284193204
+      }
+    ]
+  },
+  {
+    "subject": "mars_gods_rebuke",
+    "duration": 3.4481632653061225,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.439132629525162
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.4588994903767494
+      },
+      {
+        "stage": 3,
+        "seconds": 3.448163,
+        "rms": 0.23719534827659686
+      }
+    ]
+  },
+  {
+    "subject": "mirana_starfall",
+    "duration": 2.8879818594104307,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.2767578154389202
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.2775997313171965
+      },
+      {
+        "stage": 3,
+        "seconds": 2.887982,
+        "rms": 0.1719660853183215
+      }
+    ]
+  },
+  {
+    "subject": "void_spirit_resonant_pulse",
+    "duration": 1.6021768707482993,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.08010885000000001,
+        "rms": 0.144810283720961
+      },
+      {
+        "stage": 2,
+        "seconds": 0.17623947,
+        "rms": 0.23844866837264292
+      },
+      {
+        "stage": 3,
+        "seconds": 1.602177,
+        "rms": 0.3035361933361801
+      }
+    ]
+  },
+  {
+    "subject": "void_spirit_aether_remnant",
+    "duration": 2.616734693877551,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.021138415992519394
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.02415612532690512
+      },
+      {
+        "stage": 3,
+        "seconds": 2.616735,
+        "rms": 0.19157116976902708
+      }
+    ]
+  },
+  {
+    "subject": "ember_spirit_sleight_of_fist",
+    "duration": 2.2764172335600907,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.11382085,
+        "rms": 0.1542943612073604
+      },
+      {
+        "stage": 2,
+        "seconds": 0.25040587,
+        "rms": 0.2742546128235117
+      },
+      {
+        "stage": 3,
+        "seconds": 2.276417,
+        "rms": 0.18534487530872298
+      }
+    ]
+  },
+  {
+    "subject": "ember_spirit_searing_chains",
+    "duration": 1.3080045351473923,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.0654002,
+        "rms": 0.30075334736492587
+      },
+      {
+        "stage": 2,
+        "seconds": 0.14388044,
+        "rms": 0.2838579653324163
+      },
+      {
+        "stage": 3,
+        "seconds": 1.308004,
+        "rms": 0.16919443229745534
+      }
+    ]
+  },
+  {
+    "subject": "lion_voodoo",
+    "duration": 1.8895238095238096,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.09447620000000001,
+        "rms": 0.3163341115880402
+      },
+      {
+        "stage": 2,
+        "seconds": 0.20784764,
+        "rms": 0.44933131744541205
+      },
+      {
+        "stage": 3,
+        "seconds": 1.889524,
+        "rms": 0.19808111189943853
+      }
+    ]
+  },
+  {
+    "subject": "lion_impale",
+    "duration": 0.6417233560090703,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.055,
+        "rms": 0.26285161164509974
+      },
+      {
+        "stage": 2,
+        "seconds": 0.11,
+        "rms": 0.2767819603166274
+      },
+      {
+        "stage": 3,
+        "seconds": 0.641723,
+        "rms": 0.1393566207223475
+      }
+    ]
+  },
+  {
+    "subject": "dark_willow_bramble_maze",
+    "duration": 3.4439909297052154,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.24831939909706557
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.22363725647498933
+      },
+      {
+        "stage": 3,
+        "seconds": 3.443991,
+        "rms": 0.08058508207247533
+      }
+    ]
+  },
+  {
+    "subject": "dark_willow_cursed_crown",
+    "duration": 1.7836734693877552,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.0891837,
+        "rms": 0.07656845972007235
+      },
+      {
+        "stage": 2,
+        "seconds": 0.19620414,
+        "rms": 0.12922116769681577
+      },
+      {
+        "stage": 3,
+        "seconds": 1.783674,
+        "rms": 0.1333408616420503
+      }
+    ]
+  },
+  {
+    "subject": "snapfire_firesnap_cookie",
+    "duration": 2.0038095238095237,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.10019045,
+        "rms": 0.3565292054456494
+      },
+      {
+        "stage": 2,
+        "seconds": 0.22041899,
+        "rms": 0.2520236695617452
+      },
+      {
+        "stage": 3,
+        "seconds": 2.003809,
+        "rms": 0.0903340040223207
+      }
+    ]
+  },
+  {
+    "subject": "snapfire_scatterblast",
+    "duration": 0.9683673469387755,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.055,
+        "rms": 0.21036447499493244
+      },
+      {
+        "stage": 2,
+        "seconds": 0.11,
+        "rms": 0.23408009626291723
+      },
+      {
+        "stage": 3,
+        "seconds": 0.968367,
+        "rms": 0.15311434868213888
+      }
+    ]
+  },
+  {
+    "subject": "queenofpain_scream_of_pain",
+    "duration": 2.6942857142857144,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.14292433148159572
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.32243193065693304
+      },
+      {
+        "stage": 3,
+        "seconds": 2.694286,
+        "rms": 0.26727686372336384
+      }
+    ]
+  },
+  {
+    "subject": "queenofpain_shadow_strike",
+    "duration": 2.2603174603174603,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.1130159,
+        "rms": 0.3452239177920954
+      },
+      {
+        "stage": 2,
+        "seconds": 0.24863497999999998,
+        "rms": 0.3407942740450064
+      },
+      {
+        "stage": 3,
+        "seconds": 2.260318,
+        "rms": 0.17913643540233498
+      }
+    ]
+  },
+  {
+    "subject": "enigma_black_hole",
+    "duration": 4.920068027210885,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.3759627075963586
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.3368453938483241
+      },
+      {
+        "stage": 3,
+        "seconds": 4.920068,
+        "rms": 0.2976748590626173
+      }
+    ]
+  },
+  {
+    "subject": "legion_commander_duel",
+    "duration": 4.167074829931972,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.4562616883878906
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.4638710618528722
+      },
+      {
+        "stage": 3,
+        "seconds": 4.167075,
+        "rms": 0.1732518940405324
+      }
+    ]
+  },
+  {
+    "subject": "juggernaut_omni_slash",
+    "duration": 3.3343537414965985,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.30298257990508204
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.2960936382951413
+      },
+      {
+        "stage": 3,
+        "seconds": 3.334354,
+        "rms": 0.11809967170235827
+      }
+    ]
+  },
+  {
+    "subject": "witch_doctor_death_ward",
+    "duration": 1.4971655328798186,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.0748583,
+        "rms": 0.15938173852546283
+      },
+      {
+        "stage": 2,
+        "seconds": 0.16468826,
+        "rms": 0.2540465912248812
+      },
+      {
+        "stage": 3,
+        "seconds": 1.497166,
+        "rms": 0.11377444010662773
+      }
+    ]
+  },
+  {
+    "subject": "sandking_epicenter",
+    "duration": 5.0791383219954644,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.2604187324689598
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.3876925114143071
+      },
+      {
+        "stage": 3,
+        "seconds": 5.079138,
+        "rms": 0.3330721269743493
+      }
+    ]
+  },
+  {
+    "subject": "warlock_rain_of_chaos",
+    "duration": 5.028367346938776,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.3746170531811927
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.37197701490478585
+      },
+      {
+        "stage": 3,
+        "seconds": 5.028368,
+        "rms": 0.21126835629370616
+      }
+    ]
+  },
+  {
+    "subject": "disruptor_glimpse",
+    "duration": 2.3459637188208617,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.1172982,
+        "rms": 0.03766066275703416
+      },
+      {
+        "stage": 2,
+        "seconds": 0.25805604,
+        "rms": 0.1998073256598677
+      },
+      {
+        "stage": 3,
+        "seconds": 2.345964,
+        "rms": 0.13782240658051106
+      }
+    ]
+  },
+  {
+    "subject": "primal_beast_onslaught",
+    "duration": 3.2565079365079366,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.4908156552574316
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.5029796290612952
+      },
+      {
+        "stage": 3,
+        "seconds": 3.256508,
+        "rms": 0.38219734100468367
+      }
+    ]
+  },
+  {
+    "subject": "ringmaster_tame_the_beasts",
+    "duration": 3.015079365079365,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.3765229446364433
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.2991339345248204
+      },
+      {
+        "stage": 3,
+        "seconds": 3.015079,
+        "rms": 0.17652109989911474
+      }
+    ]
+  },
+  {
+    "subject": "grimstroke_dark_artistry",
+    "duration": 4.628571428571429,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.25910460634833965
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.285189118634962
+      },
+      {
+        "stage": 3,
+        "seconds": 4.628572,
+        "rms": 0.14997760638368926
+      }
+    ]
+  },
+  {
+    "subject": "dark_seer_vacuum",
+    "duration": 2.241904761904762,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.11209525000000001,
+        "rms": 0.29637205856160304
+      },
+      {
+        "stage": 2,
+        "seconds": 0.24660955,
+        "rms": 0.3743005440929907
+      },
+      {
+        "stage": 3,
+        "seconds": 2.241905,
+        "rms": 0.31593103512287096
+      }
+    ]
+  },
+  {
+    "subject": "warlock_fatal_bonds",
+    "duration": 2.5170068027210886,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.26150961349746243
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.3351809949871433
+      },
+      {
+        "stage": 3,
+        "seconds": 2.517007,
+        "rms": 0.16935351666113796
+      }
+    ]
+  },
+  {
+    "subject": "kez_echo_slash",
+    "duration": 1.5044897959183674,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.07522450000000001,
+        "rms": 0.05060022779900527
+      },
+      {
+        "stage": 2,
+        "seconds": 0.1654939,
+        "rms": 0.13987519536277626
+      },
+      {
+        "stage": 3,
+        "seconds": 1.50449,
+        "rms": 0.10811541396833563
+      }
+    ]
+  },
+  {
+    "subject": "shadow_demon_disruption",
+    "duration": 3.6993197278911563,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.11211602183294485
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.14026672227252446
+      },
+      {
+        "stage": 3,
+        "seconds": 3.69932,
+        "rms": 0.22194794638264556
+      }
+    ]
+  },
+  {
+    "subject": "shadow_demon_demonic_purge",
+    "duration": 2.498684807256236,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.17121600652353225
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.2808586801154153
+      },
+      {
+        "stage": 3,
+        "seconds": 2.498685,
+        "rms": 0.24155192587036867
+      }
+    ]
+  },
+  {
+    "subject": "lich_frost_nova",
+    "duration": 4.005986394557823,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.42165742476300877
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.4108017953176776
+      },
+      {
+        "stage": 3,
+        "seconds": 4.005986,
+        "rms": 0.17957500328265594
+      }
+    ]
+  },
+  {
+    "subject": "lich_chain_frost",
+    "duration": 1.7052154195011338,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.08526075,
+        "rms": 0.5110285070108864
+      },
+      {
+        "stage": 2,
+        "seconds": 0.18757364999999998,
+        "rms": 0.5092154878658158
+      },
+      {
+        "stage": 3,
+        "seconds": 1.705215,
+        "rms": 0.2292977092886882
+      }
+    ]
+  },
+  {
+    "subject": "skywrath_mage_concussive_shot",
+    "duration": 2.249863945578231,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.11249320000000002,
+        "rms": 0.32979200211193377
+      },
+      {
+        "stage": 2,
+        "seconds": 0.24748504000000002,
+        "rms": 0.3404511540670801
+      },
+      {
+        "stage": 3,
+        "seconds": 2.249864,
+        "rms": 0.2937641971196786
+      }
+    ]
+  },
+  {
+    "subject": "skywrath_mage_mystic_flare",
+    "duration": 2.0634693877551022,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.10317345,
+        "rms": 0.24361974833306396
+      },
+      {
+        "stage": 2,
+        "seconds": 0.22698159,
+        "rms": 0.4312435611176134
+      },
+      {
+        "stage": 3,
+        "seconds": 2.063469,
+        "rms": 0.2916170200550888
+      }
+    ]
+  },
+  {
+    "subject": "black_king_bar",
+    "duration": 3.8848526077097505,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.3710210376115206
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.40814652096653903
+      },
+      {
+        "stage": 3,
+        "seconds": 3.884853,
+        "rms": 0.23370353726537182
+      }
+    ]
+  },
+  {
+    "subject": "blink",
+    "duration": 2.037142857142857,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.10185715000000001,
+        "rms": 0.3957257195297699
+      },
+      {
+        "stage": 2,
+        "seconds": 0.22408572999999998,
+        "rms": 0.35528749945196125
+      },
+      {
+        "stage": 3,
+        "seconds": 2.037143,
+        "rms": 0.17877144834270584
+      }
+    ]
+  },
+  {
+    "subject": "manta",
+    "duration": 2.4571428571428573,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.5222401202931383
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.5014744876708139
+      },
+      {
+        "stage": 3,
+        "seconds": 2.457143,
+        "rms": 0.25303723874425327
+      }
+    ]
+  },
+  {
+    "subject": "refresher",
+    "duration": 2.902154195011338,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.4163889721530616
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.41325339358085367
+      },
+      {
+        "stage": 3,
+        "seconds": 2.902154,
+        "rms": 0.2572798613489549
+      }
+    ]
+  },
+  {
+    "subject": "hand_of_midas",
+    "duration": 1.9998866213151927,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.09999435000000001,
+        "rms": 0.2458677288968219
+      },
+      {
+        "stage": 2,
+        "seconds": 0.21998757,
+        "rms": 0.23477654735130443
+      },
+      {
+        "stage": 3,
+        "seconds": 1.999887,
+        "rms": 0.16791344201210376
+      }
+    ]
+  },
+  {
+    "subject": "force_staff",
+    "duration": 1.1024943310657596,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.055124700000000006,
+        "rms": 0.4830548370800466
+      },
+      {
+        "stage": 2,
+        "seconds": 0.12127434000000001,
+        "rms": 0.5417244281895967
+      },
+      {
+        "stage": 3,
+        "seconds": 1.102494,
+        "rms": 0.3085112945470603
+      }
+    ]
+  },
+  {
+    "subject": "dagon",
+    "duration": 1.3445124716553287,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.0672256,
+        "rms": 0.5059148795187678
+      },
+      {
+        "stage": 2,
+        "seconds": 0.14789632,
+        "rms": 0.47256852520164416
+      },
+      {
+        "stage": 3,
+        "seconds": 1.344512,
+        "rms": 0.31644090318525
+      }
+    ]
+  },
+  {
+    "subject": "shivas_guard",
+    "duration": 3.735918367346939,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.30427432240914415
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.42690105141713885
+      },
+      {
+        "stage": 3,
+        "seconds": 3.735918,
+        "rms": 0.3323225676232242
+      }
+    ]
+  },
+  {
+    "subject": "blade_mail",
+    "duration": 0.8448979591836735,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.055,
+        "rms": 0.4132993146272426
+      },
+      {
+        "stage": 2,
+        "seconds": 0.11,
+        "rms": 0.4091488326640418
+      },
+      {
+        "stage": 3,
+        "seconds": 0.844898,
+        "rms": 0.29542205610476174
+      }
+    ]
+  },
+  {
+    "subject": "satanic",
+    "duration": 3.308004535147392,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.3869861725763999
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.40364607444371153
+      },
+      {
+        "stage": 3,
+        "seconds": 3.308005,
+        "rms": 0.2605946711627989
+      }
+    ]
+  },
+  {
+    "subject": "lotus_orb",
+    "duration": 3.2865759637188208,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.3688306418325025
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.4019244214915877
+      },
+      {
+        "stage": 3,
+        "seconds": 3.286576,
+        "rms": 0.2059693614359679
+      }
+    ]
+  },
+  {
+    "subject": "glimmer_cape",
+    "duration": 3.8021315192743765,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.11821655210844903
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.19338734376773148
+      },
+      {
+        "stage": 3,
+        "seconds": 3.802131,
+        "rms": 0.15376024631782853
+      }
+    ]
+  },
+  {
+    "subject": "mekansm",
+    "duration": 4.472380952380952,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.12165636661431621
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.34587026873672383
+      },
+      {
+        "stage": 3,
+        "seconds": 4.472381,
+        "rms": 0.2782331833296167
+      }
+    ]
+  },
+  {
+    "subject": "pipe",
+    "duration": 2.737142857142857,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.3169461919498023
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.403161066090248
+      },
+      {
+        "stage": 3,
+        "seconds": 2.737143,
+        "rms": 0.41680555541322756
+      }
+    ]
+  },
+  {
+    "subject": "orchid",
+    "duration": 1.9964625850340136,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.09982315000000001,
+        "rms": 0.28150352497709685
+      },
+      {
+        "stage": 2,
+        "seconds": 0.21961093,
+        "rms": 0.33060410156974884
+      },
+      {
+        "stage": 3,
+        "seconds": 1.996463,
+        "rms": 0.21821055493400138
+      }
+    ]
+  },
+  {
+    "subject": "cyclone",
+    "duration": 3.328299319727891,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.1686359852611286
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.25128366066592167
+      },
+      {
+        "stage": 3,
+        "seconds": 3.328299,
+        "rms": 0.2498283324242478
+      }
+    ]
+  },
+  {
+    "subject": "bloodthorn",
+    "duration": 2.9964625850340134,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.3003454571652833
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.3494119688296064
+      },
+      {
+        "stage": 3,
+        "seconds": 2.996463,
+        "rms": 0.24070843765889013
+      }
+    ]
+  },
+  {
+    "subject": "nullifier",
+    "duration": 1.6027210884353742,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.08013605000000001,
+        "rms": 0.03928796999725788
+      },
+      {
+        "stage": 2,
+        "seconds": 0.17629931000000001,
+        "rms": 0.08936252389258108
+      },
+      {
+        "stage": 3,
+        "seconds": 1.602721,
+        "rms": 0.19341449924886644
+      }
+    ]
+  },
+  {
+    "subject": "diffusal_blade",
+    "duration": 2.843514739229025,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.23147948053541195
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.3428849523131518
+      },
+      {
+        "stage": 3,
+        "seconds": 2.843515,
+        "rms": 0.20671778711893404
+      }
+    ]
+  },
+  {
+    "subject": "soul_ring",
+    "duration": 3.5825170068027212,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.3291517997347783
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.30106046867623554
+      },
+      {
+        "stage": 3,
+        "seconds": 3.582517,
+        "rms": 0.22254651564135472
+      }
+    ]
+  },
+  {
+    "subject": "arcane_boots",
+    "duration": 1.8365079365079364,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.0918254,
+        "rms": 0.18465598567918004
+      },
+      {
+        "stage": 2,
+        "seconds": 0.20201588,
+        "rms": 0.3116765437728737
+      },
+      {
+        "stage": 3,
+        "seconds": 1.836508,
+        "rms": 0.2012415646042412
+      }
+    ]
+  },
+  {
+    "subject": "sphere",
+    "duration": 2.746938775510204,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.32141223675534575
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.38049427365777694
+      },
+      {
+        "stage": 3,
+        "seconds": 2.746939,
+        "rms": 0.15690502427899158
+      }
+    ]
+  },
+  {
+    "subject": "veil_of_discord",
+    "duration": 2.0081632653061225,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.10040815000000002,
+        "rms": 0.27640501957628216
+      },
+      {
+        "stage": 2,
+        "seconds": 0.22089793000000002,
+        "rms": 0.3912501982075886
+      },
+      {
+        "stage": 3,
+        "seconds": 2.008163,
+        "rms": 0.2601879654355781
+      }
+    ]
+  },
+  {
+    "subject": "abyssal_blade",
+    "duration": 1.1740589569160997,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.058702950000000004,
+        "rms": 0.032390893083171855
+      },
+      {
+        "stage": 2,
+        "seconds": 0.12914649,
+        "rms": 0.08845408989426966
+      },
+      {
+        "stage": 3,
+        "seconds": 1.174059,
+        "rms": 0.20018242160128258
+      }
+    ]
+  },
+  {
+    "subject": "heavens_halberd",
+    "duration": 2.6463945578231294,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.36235990311417304
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.36286512986690694
+      },
+      {
+        "stage": 3,
+        "seconds": 2.646394,
+        "rms": 0.23257745043725983
+      }
+    ]
+  },
+  {
+    "subject": "rod_of_atos",
+    "duration": 2.9732879818594102,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.4217306962600875
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.3852041476089797
+      },
+      {
+        "stage": 3,
+        "seconds": 2.973288,
+        "rms": 0.22335413903874185
+      }
+    ]
+  },
+  {
+    "subject": "bloodstone",
+    "duration": 2.220113378684807,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.11100565000000001,
+        "rms": 0.3284501529615972
+      },
+      {
+        "stage": 2,
+        "seconds": 0.24421243,
+        "rms": 0.3509657132171449
+      },
+      {
+        "stage": 3,
+        "seconds": 2.220113,
+        "rms": 0.2260957924219161
+      }
+    ]
+  },
+  {
+    "subject": "black_king_bar",
+    "duration": 3.8848526077097505,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.3710210376115206
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.40814652096653903
+      },
+      {
+        "stage": 3,
+        "seconds": 3.884853,
+        "rms": 0.23370353726537182
+      }
+    ]
+  },
+  {
+    "subject": "gungir",
+    "duration": 2.5026041666666665,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.18781868399890153
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.250228042180997
+      },
+      {
+        "stage": 3,
+        "seconds": 2.502604,
+        "rms": 0.19175605421824068
+      }
+    ]
+  },
+  {
+    "subject": "orchid",
+    "duration": 1.9964625850340136,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.09982315000000001,
+        "rms": 0.28150352497709685
+      },
+      {
+        "stage": 2,
+        "seconds": 0.21961093,
+        "rms": 0.33060410156974884
+      },
+      {
+        "stage": 3,
+        "seconds": 1.996463,
+        "rms": 0.21821055493400138
+      }
+    ]
+  },
+  {
+    "subject": "mask_of_madness",
+    "duration": 4.782380952380953,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.289805114537916
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.3391254082960592
+      },
+      {
+        "stage": 3,
+        "seconds": 4.782381,
+        "rms": 0.23000042442084176
+      }
+    ]
+  },
+  {
+    "subject": "armlet",
+    "duration": 1.2779591836734694,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.06389795000000001,
+        "rms": 0.26300203038740694
+      },
+      {
+        "stage": 2,
+        "seconds": 0.14057549,
+        "rms": 0.4409873196339507
+      },
+      {
+        "stage": 3,
+        "seconds": 1.277959,
+        "rms": 0.2829758219637126
+      }
+    ]
+  },
+  {
+    "subject": "harpoon",
+    "duration": 1.3103401360544218,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.0656,
+        "rms": 0.15808124714023883
+      },
+      {
+        "stage": 2,
+        "seconds": 0.14432,
+        "rms": 0.16409457589293383
+      },
+      {
+        "stage": 3,
+        "seconds": 1.312,
+        "rms": 0.07354619456122723
+      }
+    ]
+  },
+  {
+    "subject": "force_staff",
+    "duration": 1.1024943310657596,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.055124700000000006,
+        "rms": 0.4830548370800466
+      },
+      {
+        "stage": 2,
+        "seconds": 0.12127434000000001,
+        "rms": 0.5417244281895967
+      },
+      {
+        "stage": 3,
+        "seconds": 1.102494,
+        "rms": 0.3085112945470603
+      }
+    ]
+  },
+  {
+    "subject": "ethereal_blade",
+    "duration": 2.635827664399093,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.28627609240617313
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.24384478100556162
+      },
+      {
+        "stage": 3,
+        "seconds": 2.635828,
+        "rms": 0.11802711230612521
+      }
+    ]
+  },
+  {
+    "subject": "nullifier",
+    "duration": 1.6027210884353742,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.08013605000000001,
+        "rms": 0.03928796999725788
+      },
+      {
+        "stage": 2,
+        "seconds": 0.17629931000000001,
+        "rms": 0.08936252389258108
+      },
+      {
+        "stage": 3,
+        "seconds": 1.602721,
+        "rms": 0.19341449924886644
+      }
+    ]
+  },
+  {
+    "subject": "sheepstick",
+    "duration": 1.333265306122449,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.06666325,
+        "rms": 0.2053051916388915
+      },
+      {
+        "stage": 2,
+        "seconds": 0.14665915,
+        "rms": 0.4211124620144283
+      },
+      {
+        "stage": 3,
+        "seconds": 1.333265,
+        "rms": 0.2352228840782214
+      }
+    ]
+  },
+  {
+    "subject": "rod_of_atos",
+    "duration": 2.9732879818594102,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.4217306962600875
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.3852041476089797
+      },
+      {
+        "stage": 3,
+        "seconds": 2.973288,
+        "rms": 0.22335413903874185
+      }
+    ]
+  },
+  {
+    "subject": "smoke_of_deceit",
+    "duration": 2.9333106575963717,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.11526289874438388
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.25147709894468234
+      },
+      {
+        "stage": 3,
+        "seconds": 2.933311,
+        "rms": 0.1897827057613068
+      }
+    ]
+  },
+  {
+    "subject": "dust",
+    "duration": 5.489433106575964,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.021616338835166546
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.046151194821493574
+      },
+      {
+        "stage": 3,
+        "seconds": 5.489433,
+        "rms": 0.10114308527594258
+      }
+    ]
+  },
+  {
+    "subject": "phase_boots",
+    "duration": 0.9905215419501133,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.055,
+        "rms": 0.025161519762724845
+      },
+      {
+        "stage": 2,
+        "seconds": 0.11,
+        "rms": 0.05117555090044783
+      },
+      {
+        "stage": 3,
+        "seconds": 0.990522,
+        "rms": 0.17524424147598425
+      }
+    ]
+  },
+  {
+    "subject": "guardian_greaves",
+    "duration": 4.4846031746031745,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.2143746261600937
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.2607307065961698
+      },
+      {
+        "stage": 3,
+        "seconds": 4.484603,
+        "rms": 0.12464681211689921
+      }
+    ]
+  },
+  {
+    "subject": "silver_edge",
+    "duration": 3.666938775510204,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.2438557092551533
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.26248857743370435
+      },
+      {
+        "stage": 3,
+        "seconds": 3.666939,
+        "rms": 0.15257410703027907
+      }
+    ]
+  },
+  {
+    "subject": "ghost",
+    "duration": 3.318684807256236,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.3531032821165808
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.3635604722316265
+      },
+      {
+        "stage": 3,
+        "seconds": 3.318685,
+        "rms": 0.25695404037652325
+      }
+    ]
+  },
+  {
+    "subject": "spirit_vessel",
+    "duration": 3.126530612244898,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.06986960481157434
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.12084310347514257
+      },
+      {
+        "stage": 3,
+        "seconds": 3.126531,
+        "rms": 0.2171516828469682
+      }
+    ]
+  },
+  {
+    "subject": "urn_of_shadows",
+    "duration": 2.0014285714285713,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.10007145,
+        "rms": 0.28791583020966105
+      },
+      {
+        "stage": 2,
+        "seconds": 0.22015719,
+        "rms": 0.30802945465577386
+      },
+      {
+        "stage": 3,
+        "seconds": 2.001429,
+        "rms": 0.26580581355658073
+      }
+    ]
+  },
+  {
+    "subject": "mjollnir",
+    "duration": 4.443582766439909,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.30385303864080704
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.5219192259268053
+      },
+      {
+        "stage": 3,
+        "seconds": 4.443583,
+        "rms": 0.23207867579075983
+      }
+    ]
+  },
+  {
+    "subject": "moon_shard",
+    "duration": 2.5469614512471654,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.04682438369518084
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.13603203191895302
+      },
+      {
+        "stage": 3,
+        "seconds": 2.546962,
+        "rms": 0.12523249399024894
+      }
+    ]
+  },
+  {
+    "subject": "meteor_hammer",
+    "duration": 2.0056462585034014,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.1002823,
+        "rms": 0.031089968244025018
+      },
+      {
+        "stage": 2,
+        "seconds": 0.22062106,
+        "rms": 0.07894199576957739
+      },
+      {
+        "stage": 3,
+        "seconds": 2.005646,
+        "rms": 0.1893706483765254
+      }
+    ]
+  },
+  {
+    "subject": "pavise",
+    "duration": 6.009002267573696,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.2755832761006222
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.30288162409393854
+      },
+      {
+        "stage": 3,
+        "seconds": 6.01675,
+        "rms": 0.09141145130771876
+      }
+    ]
+  },
+  {
+    "subject": "solar_crest",
+    "duration": 3.1268027210884353,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.39315734431957466
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.3802214584426163
+      },
+      {
+        "stage": 3,
+        "seconds": 3.126803,
+        "rms": 0.21319731542053005
+      }
+    ]
+  },
+  {
+    "subject": "tango",
+    "duration": 2.7075056689342403,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.25826836129901654
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.19207607174470406
+      },
+      {
+        "stage": 3,
+        "seconds": 2.707506,
+        "rms": 0.07048348120412376
+      }
+    ]
+  },
+  {
+    "subject": "flask",
+    "duration": 2.7623356009070297,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.32091825441410093
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.23996401367886377
+      },
+      {
+        "stage": 3,
+        "seconds": 2.762336,
+        "rms": 0.1267462368704473
+      }
+    ]
+  },
+  {
+    "subject": "hurricane_pike",
+    "duration": 2.10249433106576,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.10512470000000002,
+        "rms": 0.40732010838356975
+      },
+      {
+        "stage": 2,
+        "seconds": 0.23127434000000002,
+        "rms": 0.3355419692801032
+      },
+      {
+        "stage": 3,
+        "seconds": 2.102494,
+        "rms": 0.13396757636871673
+      }
+    ]
+  },
+  {
+    "subject": "solar_crest",
+    "duration": 3.1268027210884353,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.39315734431957466
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.3802214584426163
+      },
+      {
+        "stage": 3,
+        "seconds": 3.126803,
+        "rms": 0.21319731542053005
+      }
+    ]
+  },
+  {
+    "subject": "disperser",
+    "duration": 4.01265306122449,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.12,
+        "rms": 0.21945435047304532
+      },
+      {
+        "stage": 2,
+        "seconds": 0.27,
+        "rms": 0.29593535843296703
+      },
+      {
+        "stage": 3,
+        "seconds": 4.012653,
+        "rms": 0.1584020102203468
+      }
+    ]
+  },
+  {
+    "subject": "nullifier",
+    "duration": 1.6027210884353742,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.08013605000000001,
+        "rms": 0.03928796999725788
+      },
+      {
+        "stage": 2,
+        "seconds": 0.17629931000000001,
+        "rms": 0.08936252389258108
+      },
+      {
+        "stage": 3,
+        "seconds": 1.602721,
+        "rms": 0.19341449924886644
+      }
+    ]
+  }
+]

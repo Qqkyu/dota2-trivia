@@ -1,0 +1,61 @@
+import os
+os.environ['OPENBLAS_NUM_THREADS']='1';os.environ['OMP_NUM_THREADS']='1'
+import json,hashlib,math,warnings
+from pathlib import Path
+import numpy as np
+from scipy.io import wavfile
+from scipy import signal
+root=Path('/tmp/queue-arcade-launch-checks/soundcheck');inv=json.loads((root/'inventory.json').read_text());assets=json.loads((root/'assets.json').read_text());qs=json.loads(Path('/home/kulmisiu/dev/dota2-trivia/src/data/soundcheck-questions.json').read_text());catalog=json.loads(Path('/home/kulmisiu/dev/dota2-trivia/src/data/shopkeeper-catalog.json').read_text());cache={};metrics=[]
+def decode(path):
+ with warnings.catch_warnings():
+  warnings.simplefilter('ignore');sr,a=wavfile.read(path)
+ if np.issubdtype(a.dtype,np.integer):a=a.astype(np.float64)/max(abs(np.iinfo(a.dtype).min),np.iinfo(a.dtype).max)
+ else:a=a.astype(np.float64)
+ if a.ndim==1:a=a[:,None]
+ return sr,a
+
+def fingerprint(y):
+ if len(y)<256:y=np.pad(y,(0,256-len(y)))
+ _,_,z=signal.stft(y,fs=8000,nperseg=256,noverlap=192,boundary='zeros');p=np.abs(z)**2
+ edges=np.unique(np.round(np.geomspace(1,p.shape[0],33)).astype(int));bands=np.stack([np.mean(p[lo:hi],axis=0) for lo,hi in zip(edges[:-1],edges[1:])])
+ features=np.stack([np.mean(bands[:,s],axis=1) if len(s) else np.zeros(bands.shape[0]) for s in np.array_split(np.arange(bands.shape[1]),16)],axis=1)
+ features=np.log10(features+1e-10);features-=features.mean();features=features.ravel();return features/(np.linalg.norm(features)+1e-12)
+
+def correlation(a,b):
+ if len(a)>len(b):a,b=b,a
+ if len(a)<100:return 0.,0
+ a=a-a.mean();b=b-b.mean();den=np.sum(a*a)
+ if den<1e-12:return 0.,0
+ cross=signal.correlate(b,a,mode='valid',method='fft');energy=signal.fftconvolve(b*b,np.ones(len(a)),mode='valid');values=cross/np.sqrt(np.maximum(energy*den,1e-20));index=int(np.argmax(np.abs(values)));return float(abs(values[index])),index/8000
+
+for asset in assets:
+ if 'error' in asset:continue
+ sr,a=decode(asset['file']);mono=a.mean(axis=1);g=math.gcd(sr,8000);y=signal.resample_poly(mono,8000//g,sr//g).astype(np.float32)
+ cache[asset['url']]={'y':y,'fp':fingerprint(y),'asset':asset}
+ clip=np.abs(a)>=32767/32768; peak=float(np.max(np.abs(a)));rms=float(np.sqrt(np.mean(a*a)));runs=np.diff(np.r_[False,clip.any(axis=1),False].astype(int));starts=np.flatnonzero(runs==1);ends=np.flatnonzero(runs==-1)
+ metrics.append({'url':asset['url'],'duration':len(a)/sr,'sampleRate':sr,'channels':a.shape[1],'peak':peak,'rms':rms,'rmsDbfs':20*math.log10(max(rms,1e-12)),'clippedSampleFraction':float(np.mean(clip)),'longestClipRunMs':float(max(ends-starts,default=0)/sr*1000),'pcmMono8kSha256':hashlib.sha256(y.tobytes()).hexdigest(),'owners':asset['owners']})
+(root/'audio-metrics.json').write_text(json.dumps(metrics,indent=2)+'\n')
+allKeys=[x['url'] for x in metrics];matrix=np.stack([cache[u]['fp'] for u in allKeys]);safety=[];nearest=[];coverage=[];comparisons=0
+for q in qs:
+ choices=set(x.rsplit('/',1)[-1].removesuffix('.png') for x in (q.get('answerImages',[])+sum(q.get('answerImagePairs',[]),[])))
+ if q['soundcheck']['family']=='item' and q['soundcheck']['format']=='single' and q['soundcheck']['clips'][0]['subject'] not in ['blink','force_staff','cyclone','diffusal_blade','urn_of_shadows','mjollnir']:choices=set(i['key'] for g in catalog['groups'] for i in g['items'])
+ for ci,c in enumerate(q['soundcheck']['clips']):
+  url=q['audio']['clips'][ci];ref=cache[url]['y'][round(c.get('startSeconds',0)*8000):];available=[u for u in allKeys if u!=url and any(owner['subject'] in choices-{c['subject']} for owner in cache[u]['asset']['owners'])];covered={o['subject'] for u in available for o in cache[u]['asset']['owners'] if o['subject'] in choices};coverage.append({'questionId':q['id'],'subject':c['subject'],'offeredOtherSubjects':sorted(choices-{c['subject']}),'comparedSubjects':sorted(covered),'comparisonAssets':len(available)});comparisons+=len(available)
+  indexes=[allKeys.index(u) for u in available];scores=matrix[indexes]@fingerprint(ref) if indexes else []
+  candidates=sorted(zip(available,scores),key=lambda x:x[1],reverse=True)
+  for u,similarity in candidates:
+   cor,offset=correlation(ref,cache[u]['y']);row={'questionId':q['id'],'subject':c['subject'],'candidateUrl':u,'candidateSubjects':sorted({o['subject'] for o in cache[u]['asset']['owners'] if o['subject'] in choices}),'spectralCosine':float(similarity),'alignedCorrelation':cor,'offsetSeconds':offset}
+   nearest.append(row)
+   if cor>.95:safety.append(row)
+  # Check the actual short-stage samples against competing cue starts too.
+  for stage in [1,2]:
+   file=root/'cuts'/f'q{qs.index(q)+1:03d}-s{stage}-c{ci+1}.wav';sr,a=decode(file);g=math.gcd(sr,8000);preview=signal.resample_poly(a.mean(axis=1),8000//g,sr//g)
+   for u in available:
+    other=cache[u]['y'][:len(preview)+160]
+    if len(other)<len(preview):continue
+    cor,off=correlation(preview,other)
+    if cor>.98:safety.append({'questionId':q['id'],'subject':c['subject'],'stage':stage,'candidateUrl':u,'candidateSubjects':sorted({o['subject'] for o in cache[u]['asset']['owners'] if o['subject'] in choices}),'alignedCorrelation':cor,'offsetSeconds':off})
+ref=cache[qs[0]['audio']['src']]['y'];controls={'scaledDuplicate':correlation(ref,ref*.2)[0],'embeddedDuplicate':correlation(ref,np.r_[np.zeros(1600),ref*.5,np.zeros(1200)])[0],'differentCue':correlation(ref,cache[qs[1]['audio']['src']]['y'])[0]};assert controls['scaledDuplicate']>.999 and controls['embeddedDuplicate']>.999 and controls['differentCue']<.9
+result={'assetsDecoded':len(metrics),'missingAssets':len(assets)-len(metrics),'comparisons':comparisons,'thresholds':{'fullAlignedCorrelationFlag':.95,'earlyStageCorrelationFlag':.98,'fullCandidatesPerClip':'all available candidates'},'controls':controls,'flags':safety,'nearestBySpectralSimilarity':sorted(nearest,key=lambda x:x['alignedCorrelation'],reverse=True)[:50],'coverage':coverage}
+(root/'perceptual-comparison.json').write_text(json.dumps(result,indent=2)+'\n')
+selected={u for q in qs for u in q['audio']['clips']};loud=[m for m in metrics if m['url'] in selected];summary={'decoded':len(metrics),'comparisons':comparisons,'flags':safety,'controls':controls,'selectedRmsDbfsRange':[min(m['rmsDbfs'] for m in loud),max(m['rmsDbfs'] for m in loud)],'selectedClipOutliers':[m for m in loud if m['clippedSampleFraction']>.001 or m['longestClipRunMs']>2 or m['rmsDbfs']< -35]};(root/'analysis-summary.json').write_text(json.dumps(summary,indent=2)+'\n');print(json.dumps(summary,indent=2))

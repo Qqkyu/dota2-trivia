@@ -1,0 +1,49 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile,readdir,stat,copyFile,mkdir} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import path from 'node:path';
+const base='docs/audits/2026-10-06/launch-checks/rights';
+const json=async p=>JSON.parse(await readFile(p,'utf8'));
+const hash=async p=>createHash('sha256').update(await readFile(p)).digest('hex');
+const browser=await json(`${base}/browser/results.json`);
+const flow=await json(`${base}/standard-flashback-browser.log`);
+const presence=await json(`${base}/browser/image-presence-check.json`);
+assert.equal(presence.statesChecked,256);
+assert.equal(presence.failures,0);
+assert.equal(presence.build,browser.build);
+assert.equal(browser.build,process.env.APP_BUILD);
+assert.equal(browser.renderedStates,256);
+assert.equal(browser.resources.length,36);
+assert.deepEqual(flow.failures,[]);
+assert.equal(flow.yearRevealCases.length,6);
+for(const test of flow.yearRevealCases){assert.equal(test.readout,'2011');assert.equal(test.label,'Correct year');assert.equal(test.yourAnswer,test.yearAnswer===null?'No answer locked.':`Your answer: ${test.yearAnswer}.`);assert.equal(test.slider,false);assert.equal(test.lock,false);assert.equal(test.overflow,false);}
+const quarantine=await json(`${base}/quarantine-manifest.json`);
+for(const asset of quarantine.assets){assert.equal(await hash(asset.preservedLocalPath),asset.sha256);assert.equal((await stat(asset.preservedLocalPath)).size,asset.bytes);await assert.rejects(stat(asset.oldPublicPath),{code:'ENOENT'});}
+const replacements=await json(`${base}/replacements.json`);
+await mkdir(`${base}/year-reveal-after`,{recursive:true});
+for(const width of [320,1440])for(const scenario of ['unanswered','wrong','correct']){const name=`flashback-year-${width}-${scenario}.png`;await copyFile(`/tmp/${name}`,`${base}/year-reveal-after/${name}`);}
+const sourcePaths=[
+'src/components/queue-arcade.tsx','src/components/queue-arcade.module.css',
+'src/data/flashback-questions.json','src/lib/flashback.mjs','scripts/image-assets.mjs',
+'scripts/validate-flashback.mjs','scripts/validate-question-delivery.mjs','scripts/visual-flashback.mjs','scripts/check-flashback-ui.mjs',
+'tests/flashback-asset-rights.test.mjs','tests/content-assets.test.mjs',
+'THIRD_PARTY_NOTICES.md','docs/content-sources.md','.gitignore','.dockerignore',
+'src/app/fonts/GeistVF.woff','src/app/fonts/GeistMonoVF.woff','src/app/fonts/radiance-bold.otf','public/fonts/radiance-bold.otf',
+'src/app/fonts/OFL-Geist.txt','public/fonts/OFL-Geist.txt',
+...replacements.assets.map(a=>'public'+a.publicUrl)
+];
+const sourceHashes=Object.fromEntries(await Promise.all(sourcePaths.map(async p=>[p,await hash(p)])));
+const evidencePaths=[];
+async function walk(dir){for(const e of await readdir(dir,{withFileTypes:true})){const p=path.join(dir,e.name);if(e.isDirectory())await walk(p);else if(e.isFile()&&p!==`${base}/verification.json`)evidencePaths.push(p);}}
+await walk(base);
+const evidenceHashes=Object.fromEntries(await Promise.all(evidencePaths.sort().map(async p=>[path.relative(base,p),await hash(p)])));
+await writeFile(`${base}/verification.json`,JSON.stringify({
+reviewedAt:'2026-10-06',build:browser.build,appUrl:browser.appUrl,
+status:'Completed for the recorded source and build',
+assetChanges:{questionsWithImageChanges:32,imageFieldsChanged:47,questionFactsAndMarkedAnswersChanged:0,originalAssetsPreserved:23,oldPublicUrlsReturning404:23,newOriginalSvgAssets:13,all191FlashbackQuestionsPlayable:true},
+checks:{focusedNodeTestsPassed:12,flashbackValidator:'passed',publicQuestionDeliveryValidator:'passed',browserStates:256,viewports:browser.viewports,svgHttpHashesMatched:13,retiredHttpUrlsNotFound:23,originalImagePresenceStates:256,standardFlashbackFlow:'passed',yearRevealCases:flow.yearRevealCases,actualScreenshotsInspected:true},
+scope:'Real production HTML, CSS and assets in Chromium with controlled question API responses. The focused checks do not establish physical-device, Steam-login, scoring or database behavior.',
+rightsConclusion:'The identified third-party photo/mark use has been removed from the app. Original bytes remain in a local directory excluded from public files, Git additions and Docker context. Published Valve terms have scope limits; this record does not assert a blanket game-asset redistribution license.',
+sourceHashes,evidenceHashes
+},null,2)+'\n');
+console.log(JSON.stringify({sourceFiles:sourcePaths.length,evidenceFiles:evidencePaths.length,build:browser.build,states:browser.renderedStates,yearCases:flow.yearRevealCases.length}));

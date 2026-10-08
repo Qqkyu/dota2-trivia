@@ -1,0 +1,12 @@
+10-06 14:54:34.629  1033  1311 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 1311 (bt_stack_manage), pid 1033 (droid.bluetooth)
+10-06 14:58:00.058  1579  1882 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 1882 (bt_stack_manage), pid 1579 (droid.bluetooth)
+10-06 14:59:30.286  2121  2121 F libc    : Fatal signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr 0x0 in tid 2121 (.android.chrome), pid 2121 (.android.chrome)
+10-06 14:59:39.691  2431  2431 F DEBUG   : Cmdline: com.android.chrome
+10-06 14:59:39.694  2431  2431 F DEBUG   : signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr 0x0000000000000000
+10-06 14:59:40.361  2191  2449 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 2449 (bt_stack_manage), pid 2191 (droid.bluetooth)
+10-06 15:00:54.018  2698  2790 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 2790 (bt_stack_manage), pid 2698 (droid.bluetooth)
+10-06 15:02:03.441  3065  3214 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 3214 (bt_stack_manage), pid 3065 (droid.bluetooth)
+10-06 15:03:00.294  3447  3541 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 3541 (bt_stack_manage), pid 3447 (droid.bluetooth)
+10-06 15:03:42.789  3564  3564 F libc    : Fatal signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr 0x0 in tid 3564 (.android.chrome), pid 3564 (.android.chrome)
+10-06 15:03:54.032  3766  3766 F DEBUG   : Cmdline: com.android.chrome
+10-06 15:03:54.033  3766  3766 F DEBUG   : signal 5 (SIGTRAP), code 128 (SI_KERNEL), fault addr 0x0000000000000000

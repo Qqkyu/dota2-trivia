@@ -1,0 +1,32 @@
+{
+  "source": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts",
+  "clientBuild": "6882",
+  "sourceSha256": "003a53fc7f6c5e29625a9278706d77d1590d7f2dee4ede60302d88d5a6a35214",
+  "events": "\tDOTA_Item.BlinkDagger.Activate = \n\t{\n\t\ttype = \"dota_src1_3d\"\n\t\tvolume = 1.0\n\t\tpitch_rand_min = -0.05\n\t\tpitch_rand_max = 0.05\n\t\tpitch = 1.0\n\t\tsoundlevel = 81.0\n\t\tdistance_max = 2500.0\n\t\tvsnd_files = \"sounds/weapons/hero/antimage/blink_out.vsnd\"\n\t\tvsnd_duration = 2.037143\n\t}\n\tDOTA_Item.Arcane_Blink.Activate = \n\t{\n\t\ttype = \"dota_src1_3d\"\n\t\tvolume = 1.0\n\t\tpitch_rand_min = -0.05\n\t\tpitch_rand_max = 0.05\n\t\tpitch = 1.0\n\t\tsoundlevel = 81.0\n\t\tdistance_max = 2500.0\n\t\tsoundevent_layer2_on = 1.0\n\t\tsoundevent_layer2 = \"Blink_Layer.Arcane\"\n\t\tvsnd_files = \"sounds/weapons/hero/antimage/blink_out.vsnd\"\n\t\tvsnd_duration = 2.037143\n\t}\n\tDOTA_Item.Swift_Blink.Activate = \n\t{\n\t\ttype = \"dota_src1_3d\"\n\t\tvolume = 1.0\n\t\tpitch_rand_min = -0.05\n\t\tpitch_rand_max = 0.05\n\t\tpitch = 1.0\n\t\tsoundlevel = 81.0\n\t\tdistance_max = 2500.0\n\t\tsoundevent_layer2_on = 1.0\n\t\tsoundevent_layer2 = \"Blink_Layer.Swift\"\n\t\tvsnd_files = \"sounds/weapons/hero/antimage/blink_out.vsnd\"\n\t\tvsnd_duration = 2.037143\n\t}\n\tDOTA_Item.Overwhelming_Blink.Activate = \n\t{\n\t\ttype = \"dota_src1_3d\"\n\t\tvolume = 1.0\n\t\tpitch_rand_min = -0.05\n\t\tpitch_rand_max = 0.05\n\t\tpitch = 1.0\n\t\tsoundlevel = 81.0\n\t\tdistance_max = 2500.0\n\t\tsoundevent_layer2_on = 1.0\n\t\tsoundevent_layer2 = \"Blink_Layer.Overwhelming\"\n\t\tvsnd_files = \"sounds/weapons/hero/antimage/blink_out.vsnd\"\n\t\tvsnd_duration = 2.037143\n\t}\n\tDOTA_Item.DiffusalBlade.Activate = \n\t{\n\t\ttype = \"dota_src1_3d\"\n\t\tvolume = 0.5\n\t\tpitch_rand_min = -0.05\n\t\tpitch_rand_max = 0.05\n\t\tpitch = 1.0\n\t\tsoundlevel = 81.0\n\t\tdistance_max = 2500.0\n\t\tvsnd_files = \"sounds/items/item_diffusalblade.vsnd\"\n\t\tvsnd_duration = 2.843515\n\t}\n\tItem.Disperser.Cast = \n\t{\n\t\ttype = \"dota_src1_3d\"\n\t\tvolume = 0.5\n\t\tpitch_rand_min = -0.05\n\t\tpitch_rand_max = 0.05\n\t\tpitch = 1.0\n\t\tsoundlevel = 81.0\n\t\tdistance_max = 2500.0\n\t\tvsnd_files = \"sounds/items/item_diffusalblade.vsnd\"\n\t\tvsnd_duration = 2.843515\n\t}",
+  "heroEvents": [
+    {
+      "hero": "muerta",
+      "source": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_muerta.vsndevts",
+      "sourceSha256": "f106208828c1d76b6cf8742c5d81144c2331bddc07bd334ba64f42eab0cf692f",
+      "events": "\tHero_Muerta.DeadShot.Cast = \n\t{\n\t\ttype = \"dota_src1_3d\"\n\t\tvolume = 1.0\n\t\tpitch_rand_min = -0.1\n\t\tpitch_rand_max = 0.1\n\t\tpitch = 1.0\n\t\tsoundlevel = 81.0\n\t\tdistance_max = 2500.0\n\t\tmixgroup = \"Weapons\"\n\t\tsoundevent_layer2 = \"Hero_Muerta.DeadShot.Layer\"\n\t\tsoundevent_layer2_on = 1.0\n\t\tvsnd_files = \"sounds/weapons/hero/muerta/deadshot_cast.vsnd\"\n\t\tvsnd_duration = 1.433708\n\t}\n\tHero_Muerta.SpectralBlast.Cast = \n\t{\n\t\ttype = \"dota_src1_3d\"\n\t\tvolume = 1.0\n\t\tpitch_rand_min = -0.1\n\t\tpitch_rand_max = 0.1\n\t\tpitch = 1.3\n\t\tsoundlevel = 81.0\n\t\tdistance_max = 2500.0\n\t\tmixgroup = \"Weapons\"\n\t\tvsnd_files = \"sounds/weapons/hero/muerta/deadshot_cast.vsnd\"\n\t\tvsnd_duration = 1.433708\n\t}",
+      "replacement": {
+        "key": "muerta_gunslinger",
+        "name": "Gunslinger",
+        "behavior": "70506183133700",
+        "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138"
+      }
+    },
+    {
+      "hero": "kez",
+      "source": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_kez.vsndevts",
+      "sourceSha256": "98f9404a0f24b9d26c4fad5379d8a19109189c817fccc82f1e9faaf5361c4803",
+      "events": "\tHero_Kez.FalconRush.Sai.Target = \n\t{\n\t\ttype = \"dota_update_default\"\n\t\tvolume = 1.0\n\t\tpitch_rand_min = -0.05\n\t\tpitch_rand_max = 0.05\n\t\tpitch = 1.0\n\t\tsoundlevel = 81.0\n\t\tmixgroup = \"Weapons\"\n\t\tspread_radius = 300.0\n\t\tvsnd_files = \"sounds/weapons/hero/kez/echo_katana_cast.vsnd\"\n\t\tvsnd_duration = 1.50449\n\t}\n\tHero_Kez.EchoSlash.Katana.Start = \n\t{\n\t\ttype = \"dota_update_default\"\n\t\tvolume = 1.0\n\t\tpitch_rand_min = -0.05\n\t\tpitch_rand_max = 0.05\n\t\tpitch = 1.0\n\t\tsoundlevel = 81.0\n\t\tmixgroup = \"Weapons\"\n\t\tspread_radius = 300.0\n\t\tvsnd_files = \"sounds/weapons/hero/kez/echo_katana_cast.vsnd\"\n\t\tvsnd_duration = 1.50449\n\t}",
+      "replacement": {
+        "key": "kez_talon_toss",
+        "name": "Talon Toss",
+        "behavior": "8724152361",
+        "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145"
+      }
+    }
+  ]
+}

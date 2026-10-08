@@ -1,0 +1,5 @@
+{
+  "exitCode": 1,
+  "stdout": "",
+  "stderr": "{\"firstError\":\"ECONNRESET\",\"secondError\":\"CONNECTION_CLOSED\",\"interruptions\":3}\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: A later startup run must have its own retry window\n\nundefined !== 2\n\n    at file:///tmp/queue-arcade-launch-checks/security/postgres-stale-window-review.mjs:91:12\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: undefined,\n  expected: 2,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n\nNode.js v22.23.3\n"
+}

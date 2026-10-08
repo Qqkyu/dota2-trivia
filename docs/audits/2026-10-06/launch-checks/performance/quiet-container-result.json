@@ -1,0 +1,182 @@
+{
+  "ok": false,
+  "runId": "6ebd6090",
+  "image": "queue-arcade-launch:baseline",
+  "full": true,
+  "runs": 1,
+  "limits": {
+    "cpus": 1,
+    "memoryMiB": 1024,
+    "swapMiB": 0,
+    "databaseCpus": 1,
+    "databaseMemoryMiB": 512
+  },
+  "startedAt": 1791292459829,
+  "workloads": [
+    {
+      "ok": false,
+      "startedAt": 1791292493486,
+      "endedAt": 1791292716555,
+      "file": "capacity-1.json"
+    }
+  ],
+  "engine": {
+    "ServerVersion": "28.3.2",
+    "OperatingSystem": "Docker Desktop (containerized)",
+    "Architecture": "x86_64",
+    "CgroupVersion": "2",
+    "NCPU": 20,
+    "MemTotal": 18858168320
+  },
+  "imageId": "sha256:ce9eca3d1cf89ec1d2ba245bdd54107373b95fdb80731a26fa04329bca3bb626",
+  "health": {
+    "status": "ready",
+    "storage": {
+      "backend": "postgres",
+      "ok": true
+    },
+    "accounts": {
+      "backend": "postgres",
+      "ok": true
+    },
+    "alpha": {
+      "backend": "postgres",
+      "ok": true,
+      "retentionDays": 30
+    },
+    "maintenance": {
+      "lastAttemptAt": 1791292463670,
+      "lastSucceededAt": 1791292463928,
+      "lastFailedAt": null
+    },
+    "steam": {
+      "profileEnrichment": false
+    },
+    "reviews": {
+      "reviewersConfigured": 0
+    },
+    "content": {
+      "gameId": "dota2",
+      "version": "7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21",
+      "questions": 1517
+    },
+    "serverNow": 1791292464367
+  },
+  "runtime": {
+    "node": "v22.23.3",
+    "uid": 1001,
+    "buildId": "7FUBU6Evl5KI2B64_VHQk",
+    "cpu": "100000 100000",
+    "memory": "1073741824",
+    "swap": "0"
+  },
+  "nativeEncodedBytes": 1271,
+  "error": "AssertionError [ERR_ASSERTION]: Workload 1 failed; inspect its JSON and log\n\n1 !== 0\n\n    at file:///tmp/queue-arcade-launch-checks/capacity-profile/check-container-profile.mjs:342:12",
+  "finalState": {
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 4262,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-06T13:14:23.135044871Z",
+      "FinishedAt": "0001-01-01T00:00:00Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-06T13:16:30.768845672Z",
+            "End": "2026-10-06T13:16:32.290893675Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:17:02.290100482Z",
+            "End": "2026-10-06T13:17:03.070366132Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:17:33.06979356Z",
+            "End": "2026-10-06T13:17:34.552034169Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:18:04.551480277Z",
+            "End": "2026-10-06T13:18:05.418390477Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:18:35.417612055Z",
+            "End": "2026-10-06T13:18:35.465893252Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    },
+    "restartCount": 0
+  },
+  "shutdown": {
+    "milliseconds": 473,
+    "status": 0,
+    "state": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-10-06T13:14:23.135044871Z",
+      "FinishedAt": "2026-10-06T13:18:37.065152388Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-06T13:16:30.768845672Z",
+            "End": "2026-10-06T13:16:32.290893675Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:17:02.290100482Z",
+            "End": "2026-10-06T13:17:03.070366132Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:17:33.06979356Z",
+            "End": "2026-10-06T13:17:34.552034169Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:18:04.551480277Z",
+            "End": "2026-10-06T13:18:05.418390477Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:18:35.417612055Z",
+            "End": "2026-10-06T13:18:35.465893252Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  "endedAt": 1791292718120,
+  "scriptSha256": "fad6b5cb56bc6e6b8f4b2d5f7337cf5b66bd3888c5baddee3692faa24aea5e78"
+}

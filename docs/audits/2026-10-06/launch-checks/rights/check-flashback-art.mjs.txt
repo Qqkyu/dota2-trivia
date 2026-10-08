@@ -1,0 +1,226 @@
+import assert from "node:assert/strict";
+import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { pathToFileURL } from "node:url";
+const root = process.cwd();
+const { soundBrowser, delay, click } = await import(
+  pathToFileURL(root + "/scripts/lib/feedback-browser.mjs")
+);
+const { publicQuestionForRound } = await import(
+  pathToFileURL(root + "/src/lib/public-question.mjs")
+);
+const output = `${root}/docs/audits/2026-10-06/launch-checks/rights/browser`;
+const appUrl = process.env.APP_URL ?? "http://127.0.0.1:3330";
+const read = async (path) =>
+  JSON.parse(await readFile(`${root}/${path}`, "utf8"));
+const changes = await read(
+  "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+);
+const quarantine = await read(
+  "docs/audits/2026-10-06/launch-checks/rights/quarantine-manifest.json",
+);
+const ids = new Set(changes.changes.map((change) => change.id));
+const selected = (await read("src/data/flashback-questions.json")).filter(
+  (question) => ids.has(question.id),
+);
+const fixtures = selected.map((raw) => ({
+  id: raw.id,
+  ...Object.fromEntries(
+    ["answering", "reveal"].map((phase) => [
+      phase,
+      publicQuestionForRound(
+        raw,
+        {
+          id: raw.id,
+          game: "flashback",
+          phase,
+          answerDeadline:
+            phase === "reveal" ? Date.now() - 100 : Date.now() + 15000,
+          answerDuration: 15000,
+        },
+        Date.now(),
+      ),
+    ]),
+  ),
+}));
+const results = [];
+const resources = [];
+let browser;
+await mkdir(output, { recursive: true });
+try {
+  for (const asset of changes.assets) {
+    const response = await fetch(appUrl + asset.publicUrl);
+    const bytes = Buffer.from(await response.arrayBuffer());
+    assert.equal(response.status, 200, asset.publicUrl);
+    assert.equal(
+      createHash("sha256").update(bytes).digest("hex"),
+      asset.sha256,
+      asset.publicUrl,
+    );
+    assert.match(response.headers.get("content-type"), /^image\/svg\+xml/);
+    resources.push({
+      url: asset.publicUrl,
+      status: response.status,
+      sha256: asset.sha256,
+    });
+  }
+  for (const asset of quarantine.assets) {
+    const response = await fetch(appUrl + asset.oldPublicUrl);
+    assert.equal(response.status, 404, asset.oldPublicUrl);
+    await response.body?.cancel();
+    resources.push({ url: asset.oldPublicUrl, status: response.status });
+  }
+  browser = await soundBrowser();
+  const { page } = await browser.newPage();
+  await page.send("Page.addScriptToEvaluateOnNewDocument", {
+    source: `(()=>{
+ const fixtures=${JSON.stringify(fixtures)};const state=window.__rights={index:0,phase:'answering',gate:true};const json=value=>new Response(JSON.stringify(value),{headers:{'Content-Type':'application/json'}});const original=window.fetch.bind(window);
+ window.fetch=async(input,init={})=>{const url=new URL(typeof input==='string'?input:input.url,location.href);
+ if(url.pathname==='/api/me')return json({authenticated:false});
+ if(url.pathname==='/api/rounds'){const fixture=fixtures[state.index],now=Date.now(),gate=state.gate;state.gate=false;const phase=gate?'reveal':state.phase;const round={id:gate?'rights-gate':'rights-'+state.index,number:state.index+1,game:'flashback',phase,startedAt:now-1000,answerDeadline:phase==='reveal'?now-100:now+60000,revealDeadline:gate?now+50:now+65000,answerDuration:15000};return json({serverNow:now,room:{id:'rights-room',gameId:'dota2',contentVersion:'rights-check',mode:'mixed',filter:'Mixed'},round,questionRevision:round.id+':'+phase,question:gate?null:{...fixture[phase],id:round.id},presence:{activePlayers:1},crowd:{counts:[0,0,0,0],total:0,keyCounts:[],scoreSummary:null},playerVote:null,playerReport:null,previousResults:[]});}
+ if(url.pathname.startsWith('/api/'))return json({ok:true});return original(input,init);};})()`,
+  });
+  await page.send("Page.navigate", { url: appUrl + "/play" });
+  await page.waitFor(
+    `document.readyState==='complete'&&document.querySelector('main')?.dataset.clientReady==='true'`,
+    30000,
+  );
+  if (
+    await page.evaluate(
+      `!!document.querySelector('[data-testid="start-arcade"]')&&!document.querySelector('[data-testid="start-arcade"]').disabled`,
+    )
+  )
+    await click(page, '[data-testid="start-arcade"]');
+  try {
+    await page.waitFor(
+      `document.querySelector('main')?.dataset.phase==='answering'`,
+      30000,
+    );
+  } catch (error) {
+    console.error(
+      await page.evaluate(
+        `({url:location.href,state:window.__rights,main:document.querySelector('main')?.dataset,text:document.body.innerText.slice(0,1500)})`,
+      ),
+    );
+    throw error;
+  }
+  for (const [width, height] of [
+    [320, 568],
+    [390, 844],
+    [568, 320],
+    [1440, 1000],
+  ]) {
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width,
+      height,
+      deviceScaleFactor: 1,
+      mobile: false,
+    });
+    for (let index = 0; index < fixtures.length; index++)
+      for (const phase of ["answering", "reveal"]) {
+        await page.evaluate(
+          `window.__rights.index=${index};window.__rights.phase=${JSON.stringify(phase)};window.dispatchEvent(new Event('focus'));true`,
+        );
+        await page.waitFor(
+          `document.querySelector('main')?.dataset.roundId==='rights-${index}'&&document.querySelector('main')?.dataset.phase===${JSON.stringify(phase)}`,
+          20000,
+        );
+        await page.waitFor(
+          `[...document.querySelectorAll('img')].filter(img=>img.src.includes('/arcade/flashback/originals/')).every(img=>img.complete&&img.naturalWidth>0)`,
+          10000,
+        );
+        await delay(60);
+        const status = await page.evaluate(
+          `(()=>{const original=[...document.querySelectorAll('img')].filter(img=>img.src.includes('/arcade/flashback/originals/'));const caption=document.querySelector('[data-testid="flashback-reveal-media"] figcaption');const text=document.querySelector('[data-testid="reveal-explanation"]');const panel=document.querySelector('[data-testid="reveal-panel"]'); const copy=panel?.querySelector('[class*="revealCopy"]'); const style=panel?getComputedStyle(panel):null; const innerWidth=panel?panel.clientWidth-parseFloat(style.paddingLeft)-parseFloat(style.paddingRight):0; return {copyWidth:copy?.getBoundingClientRect().width??0,panelInnerWidth:innerWidth,originalImages:original.map(img=>({src:new URL(img.src).pathname,loaded:img.complete&&img.naturalWidth>0})),hasWinner:original.some(img=>img.src.includes('/winner-')),caption:caption?.textContent??null,captionClipped:!!caption&&caption.scrollHeight>caption.clientHeight+2,explanationClipped:!!text&&text.scrollHeight>text.clientHeight+2,overflow:document.documentElement.scrollWidth>document.documentElement.clientWidth+1};})()`,
+        );
+        const raw = selected[index],
+          isWinner =
+            !!raw.flashback?.revealMedia?.src?.includes("/originals/winner-");
+        assert.ok(
+          !status.overflow,
+          `${raw.id} ${width} ${phase}: horizontal overflow`,
+        );
+        assert.ok(!status.explanationClipped, `${raw.id}: explanation clipped`);
+        assert.ok(!status.captionClipped, `${raw.id}: caption clipped`);
+        if (isWinner) {
+          assert.equal(
+            status.hasWinner,
+            phase === "reveal",
+            `${raw.id}: winner visibility`,
+          );
+          if (phase === "reveal") {
+            assert.equal(status.caption, raw.flashback.revealMedia.caption);
+            if (width <= 680)
+              assert.ok(
+                Math.abs(status.copyWidth - status.panelInnerWidth) < 2,
+                `${raw.id}: explanation should use full panel width (${status.copyWidth}/${status.panelInnerWidth})`,
+              );
+          }
+        }
+        if (phase === "reveal") {
+          const reachability = await page.evaluate(
+            `(async()=>{const issues=[];const explanation=document.querySelector('[data-testid="reveal-explanation"]');const header=document.querySelector('[data-testid="round-timer"]')?.closest('[class*="roundHeader"]');const offset=header&&getComputedStyle(header).position==='sticky'?header.getBoundingClientRect().height+8:8;if(explanation){const range=document.createRange();range.selectNodeContents(explanation);for(const edge of ['first','last']){let rects=[...range.getClientRects()].filter(r=>r.width&&r.height);const target=edge==='first'?rects[0]:rects.at(-1);if(!target)continue;window.scrollTo({top:scrollY+target.top-offset,behavior:'instant'});await new Promise(resolve=>requestAnimationFrame(resolve));rects=[...range.getClientRects()].filter(r=>r.width&&r.height);const r=edge==='first'?rects[0]:rects.at(-1);if(r.top<0||r.bottom>innerHeight+1||!explanation.contains(document.elementFromPoint(r.left+r.width/2,r.top+r.height/2)))issues.push(edge+' explanation line inaccessible');}}if(!explanation)issues.push('explanation missing');const report=document.querySelector('[data-testid="report-question"]');if(!report)issues.push('report control missing');if(report){report.scrollIntoView({block:'center'});await new Promise(resolve=>requestAnimationFrame(resolve));const r=report.getBoundingClientRect();if(!report.contains(document.elementFromPoint(r.left+r.width/2,r.top+r.height/2)))issues.push('report control inaccessible');}if(innerWidth<=680){const timer=document.querySelector('[data-testid="round-timer"]')?.getBoundingClientRect();if(!timer||timer.top<0||timer.bottom>innerHeight)issues.push('round timer outside viewport');}window.scrollTo(0,0);return issues;})()`,
+          );
+          assert.deepEqual(reachability, [], raw.id + " reveal reachability");
+          status.reachabilityIssues = reachability;
+        }
+        const result = { id: raw.id, width, height, phase, ...status };
+        results.push(result);
+        if (
+          [320, 1440].includes(width) &&
+          [
+            "flashback:ti7-winner",
+            "flashback:first-ti-winners-order",
+            "flashback:ti1-year",
+          ].includes(raw.id) &&
+          phase === "reveal"
+        ) {
+          await page.evaluate(
+            `document.querySelector('[data-testid="reveal-panel"]')?.scrollIntoView({block:'center'});true`,
+          );
+          const shot = await page.send("Page.captureScreenshot", {
+            format: "png",
+            captureBeyondViewport: false,
+          });
+          await writeFile(
+            `${output}/${width}-${raw.id.replace(":", "-")}-${phase}.png`,
+            Buffer.from(shot.data, "base64"),
+          );
+          await page.evaluate("window.scrollTo(0,0)");
+        }
+      }
+  }
+  await writeFile(
+    `${output}/results.json`,
+    JSON.stringify(
+      {
+        appUrl,
+        build: process.env.APP_BUILD ?? null,
+        scope:
+          "Real production page/CSS/images; controlled public API snapshots; no persistent writes",
+        viewports: [
+          [320, 568],
+          [390, 844],
+          [568, 320],
+          [1440, 1000],
+        ],
+        questionCount: selected.length,
+        renderedStates: results.length,
+        resources,
+        results,
+      },
+      null,
+      2,
+    ) + "\n",
+  );
+  console.log(
+    JSON.stringify({
+      questionCount: selected.length,
+      renderedStates: results.length,
+      resourceChecks: resources.length,
+      failures: 0,
+    }),
+  );
+} finally {
+  await browser?.close();
+}

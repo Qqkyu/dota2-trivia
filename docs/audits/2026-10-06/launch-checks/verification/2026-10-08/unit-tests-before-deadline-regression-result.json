@@ -1,0 +1,10 @@
+{
+  "check": "unit-tests",
+  "command": "Node22 vitest run --maxWorkers=2",
+  "startedAt": "2026-10-08T14:41:41.193904+00:00",
+  "endedAt": "2026-10-08T14:42:00.614753+00:00",
+  "exit": 0,
+  "databaseTestsConfigured": true,
+  "launchDatabaseTestsConfigured": true,
+  "logSha256": "8e7469f5227700dfb239f5c6dbbfbdd3d119a6cdd5391297e8ff1aceff3474b7"
+}

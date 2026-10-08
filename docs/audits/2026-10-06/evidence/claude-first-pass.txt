@@ -1,0 +1,81 @@
+Original reviewer output. Some claims were corrected in ../../second-opinion.md. This file preserves evidence and is not the final assessment.
+
+Audit complete. Below is the report. No files were changed.
+
+# Queue Arcade security audit (working tree, 2026-10-06)
+
+**Bottom line.** No remote code execution, SQL injection, or authentication bypass was found. SQL is fully parameterized, the Steam callback checks the right OpenID fields, sessions are random and stored hashed, and the container runs as non-root. The real risks are: a guest can forge the server's `account:` identity namespace, every abuse control depends on a rate limiter that is trivially bypassed, the round schedule is predictable from the public repo, and audio trimming spawns an unbounded number of ffmpeg processes. Severities below assume a public Render deployment with Postgres.
+
+## Confirmed code-level findings
+
+**1. Guest IDs can collide with server-derived account identities. Medium. Confidence: high on mechanics, exploitability depends on an ID leak.**
+`src/app/api/votes/route.ts:57-75`, `src/app/api/reports/route.ts:37-55`, `src/app/api/sessions/route.ts:33-51`, `src/app/api/rounds/route.ts:40-52`, `src/lib/private-room-rounds.ts:23-29`, `src/lib/api-protection.ts:12`.
+Guest `voterId`/`playerId` values are only length-checked, and `requestPlayerIdentity` explicitly allows `:`. The server builds account identities as `account:<userId>` and hashes both through the same `anonymousVoterHash(roomId, id)`. A guest who sends `voterId: "account:usr_..."` gets the victim's hash.
+Preconditions: knowing the victim's internal user id. It is only returned to the owner via `/api/me` (`profile.user.id`) and is unguessable (UUID or 18 random bytes), so this is a defense-in-depth gap today, not a live exploit.
+Impact if an id leaks: vote first under the victim's hash so the victim's own vote returns `accepted:false`, then `votes/route.ts:139-159` writes the attacker's answer into the victim's permanent personal record; read the victim's current answer before reveal via `rounds` `playerVote`; block the victim's reports; take the host seat in a party; delete the victim's alpha visit rows via the same prefix.
+Fix: reject guest ids that contain `:` (or require the browser's UUID shape) in one shared validator, and hash guests under a distinct scope such as `guest:`. Never return `user.id` to the browser unless needed.
+Tests: unit test that `POST /api/votes` with `voterId: "account:x"` and no session is 400; multiplayer smoke that a forged `account:` guest cannot pre-empt a seeded account's vote.
+
+**2. Rate limiting is bypassable, so every per-route guardrail is advisory. Medium. Confidence: high.**
+`src/lib/api-protection.ts:5-17`, `src/lib/rate-limit.mjs:32-36`.
+Keys are `IP + identity`. Identity is client-chosen for guests. The IP is taken from `x-real-ip`, then the first `x-forwarded-for` entry, both client-writable unless the edge overwrites them (unknown for Render). When the bucket map reaches 20,000 keys, the oldest bucket is evicted, so a flood of fresh keys also resets everyone else's limits.
+Impact: this feeds findings 3, 4, 5 and 6. The README already states guest limits only stop accidental loops.
+Fix: read the client IP from one configured header only (`ARCADE_TRUSTED_IP_HEADER`) and fall back to the socket address; evict only expired buckets and refuse new keys when full; add a per-IP global budget; add edge throttling.
+Tests: unit test that a spoofed `x-real-ip` is ignored unless the trusted header is configured; test that filling the map does not reset an active bucket.
+
+**3. Unbounded ffmpeg spawns on the answer-phase audio path. Medium. Confidence: high.**
+`src/app/api/round-audio/route.ts:139-161`, `src/lib/cut-round-audio.mjs:10-37`.
+For non-WAV clips (Echo Hunt mp3 files, e.g. `src/data/questions.generated.json:15864`) every answering-phase GET writes a temp file and spawns ffmpeg. The trimmed result is never cached, only the full upstream clip is. Limit is 60/min per client-chosen `playerId`.
+Impact: CPU and tmpfs exhaustion during every Echo Hunt round from a single host.
+Fix: cache the trimmed buffer per `roundId:clip:stage`; cap concurrent ffmpeg processes with a semaphore; add a kill timeout and `-threads 1`.
+Tests: two requests for the same stage invoke ffmpeg once; a third concurrent request waits or gets 503.
+
+**4. Unbounded in-memory growth from unauthenticated clients. Medium. Confidence: high.**
+`src/lib/private-rooms.mjs:355-402` (no cap on room count, 30-minute idle expiry, 8 creations/min per rotatable id), `src/lib/room-presence.mjs:31-36` (one entry per rotated id for 45 seconds, also inflates the public "playing now" number).
+Fix: cap total rooms and presence entries; count creations per IP.
+Test: creating rooms past the cap returns 429/409.
+
+**5. Alpha analytics rows can be created without a started session and without bound. Medium. Confidence: high.**
+`src/app/api/votes/route.ts:161-171`, `src/lib/alpha-store-postgres.ts:111-125`, `:142-153`.
+Any accepted vote with a fresh UUID `sessionId` inserts a new 30-day row. `/api/votes` has no same-origin check (unlike `/api/sessions`). `/ops` then loads up to 50,000 rows into memory.
+Impact: Postgres growth and falsified visits, players, return rate.
+Fix: make the vote path an `UPDATE` that only touches sessions already started via `/api/sessions`; cap sessions per visitor hash per day.
+Test: vote with an unknown `sessionId` creates no alpha row.
+
+**6. Round order and answers are computable offline. Medium for game integrity, design-level. Confidence: high.**
+`src/lib/public-rooms.ts:14-22, 60-75, 110-129`, `src/lib/trivia.ts:266-288`, `src/app/api/rounds/route.ts:148-152`.
+The deck seed is `public-room:<roomId>:questions` plus the content version, the epoch is a constant, and `/api/rounds` returns the room id, round number and `startedAt`. The repo is public, so a script can clone it and emit the correct answer for every round. The "browser never imports the catalog" boundary does not protect against this.
+Fix: derive the seed with an HMAC over a server secret (a key derived from `ARCADE_AUTH_SECRET`). Determinism across instances is kept because they share the secret.
+Test: deck order changes when the secret changes; the existing schedule validators run with a fixed test secret.
+
+**7. Spell Link stage-3 image URL names the hero. Low. Confidence: high.**
+`src/lib/public-question.mjs:125-134` sends `question.image.src` such as `abilities/abaddon_aphotic_shield.png` (`src/data/questions.generated.json:18`) during the last five seconds of answering. `scripts/validate-question-delivery.mjs:132-139` checks stage 1 only and searches for `npc_dota_hero_<slug>`, so it misses this. Issue #5 acknowledges the class.
+Fix: proxy ability icons like `/api/round-image` does for portraits. Test: stage-3 payload JSON must not contain the hero slug.
+
+**8. Steam state cookie adds no binding beyond the URL token. Low. Confidence: medium.**
+`src/lib/steam-auth.mjs:41-70`, `src/app/api/auth/steam/callback/route.ts:47-66`.
+The cookie value equals the `state` query value, both server-signed, so anyone holding a captured callback URL (proxy or access logs) can forge the cookie within ten minutes. Replay protection then rests on Steam refusing a second `check_authentication` for the same nonce, which the OpenID 2.0 spec requires but this code does not verify. The code also does not check that `openid.signed` lists `claimed_id`, `identity`, `return_to`, `response_nonce`, and `op_endpoint`.
+Fix: keep a random secret in the cookie and only its hash in `state`; assert the required signed fields; keep a short-lived set of seen nonces.
+Tests: callback with a valid state but a cookie derived from the URL is rejected; a signed list missing `claimed_id` is rejected.
+
+**9. Party code takeover and enumeration. Low.**
+`src/lib/private-rooms.mjs:377-382`: a code is reusable when all members are away for 90 seconds; a stranger can recreate it and the original members' next poll joins the new room. Codes may be three characters and the `peek` limit is keyed on `IP + code` (`src/app/api/private-rooms/route.ts:22`), so active parties can be enumerated and joined to read names and chat. Fix: refuse reuse while any member exists; enforce a minimum of six characters; key peek on IP only.
+
+## Hardening and deployment-dependent items
+
+- **No CSRF origin check on vote, report, and party POSTs** (`votes`, `reports`, `private-rooms/*`). SameSite=Lax cookies mitigate today. Apply `isSameOriginMutation` uniformly.
+- **No security headers.** `next.config.mjs:5-26` sets only cache headers. Add `Content-Security-Policy` with `frame-ancestors 'none'`, `Referrer-Policy`, `X-Content-Type-Options`. Clickjacking of the profile delete and reviewer PATCH buttons is otherwise possible.
+- **No body size limit** on JSON routes other than diagnostics (`src/app/api/diagnostics/route.ts:9-19`). Rely on the edge or add a content-length check.
+- **Public health endpoint** (`src/app/api/health/route.ts:35-49`) reveals reviewer count, Steam enrichment, and backend, and triggers schema DDL. Restrict to internal callers or add a token. The app DB role must have DDL rights, which means a compromised app can alter schema.
+- **Postgres TLS** is not set in code (`src/lib/vote-store-postgres.ts:87-92`). It depends on `sslmode` in `DATABASE_URL`. Unknown.
+- **Edge IP headers** on Render are unknown; finding 2 is only as strong as that configuration.
+- **Logs** may retain full callback URLs with `state`. Confirm access-log retention.
+- **Dependencies**: CI runs `pnpm audit`, but `HANDOFF.md:18` says CI is disabled and the Render service and free Postgres are suspended or expired. CVE status of next 16.3.3, postgres 3.4.9, sharp 0.35.4 was not verified offline.
+- **Per-tab guest ids** (`src/components/queue-arcade.tsx:2572-2581`) let one person vote once per tab per round. Design choice, but it compounds finding 2 for calibration poisoning.
+
+Things that checked out: parameterized SQL everywhere; `FOR UPDATE` plus `ON CONFLICT` dedupe inside transactions; hashed session tokens with HttpOnly, Secure, Lax cookies; `returnTo` allowlist; strict callback checks on namespace, mode, endpoint, `return_to`, and `claimed_id == identity`; ffmpeg via `spawn` with an argument array and fixed filenames; path traversal check and host allowlist in `round-image`; sanitized structured logs; no `dangerouslySetInnerHTML`; `.env*` and `.data` excluded from the image; production secret validation; FK cascade on profile deletion.
+
+## Scope and limitations
+
+Inspected: all 18 route handlers under `src/app/api`, `src/lib` auth, session, store, room, rate-limit, audio, image, diagnostics, review, and public-question modules, the ops, calibration, profile, and privacy pages, `next.config.mjs`, `Dockerfile`, `.dockerignore`, `.gitignore`, CI workflow, `package.json`, `README.md`, `AGENTS.md`, `HANDOFF.md`, the new `guest-accuracy.mjs`, representative data entries, and the related tests and validators.
+Not done: no code was run, no database or live service was touched, `.env*` was not read, dependency CVEs were not checked, Steam's actual nonce replay behaviour was not tested, the 5,000-line `queue-arcade.tsx` was read only at identity, vote, report, and session call sites, and `scripts/` was only grepped. Uncommitted changes were audited as part of the working tree, not as a diff.

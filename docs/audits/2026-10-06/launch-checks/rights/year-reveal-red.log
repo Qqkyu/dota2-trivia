@@ -1,0 +1,292 @@
+{
+  "orderBefore": {
+    "cards": [
+      {
+        "text": "Kez",
+        "context": "Katana",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 53,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      },
+      {
+        "text": "Largo",
+        "context": "Bard",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 307,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      },
+      {
+        "text": "Muerta",
+        "context": "The Veil",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 560,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      },
+      {
+        "text": "Ringmaster",
+        "context": "Circus",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 814,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      }
+    ],
+    "extraMarks": 0,
+    "overflow": false
+  },
+  "orderAfterPick": [
+    {
+      "x": 53,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    },
+    {
+      "x": 307,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    },
+    {
+      "x": 560,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    },
+    {
+      "x": 814,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    }
+  ],
+  "orderReveal": {
+    "rows": [
+      {
+        "name": "Muerta",
+        "context": "The Veil",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      },
+      {
+        "name": "Ringmaster",
+        "context": "Circus",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      },
+      {
+        "name": "Kez",
+        "context": "Katana",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      },
+      {
+        "name": "Largo",
+        "context": "Bard",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      }
+    ],
+    "yours": [
+      "Kez",
+      "Largo",
+      "Muerta",
+      "Ringmaster"
+    ],
+    "panelVisible": true
+  },
+  "yearBefore": {
+    "min": "2009",
+    "max": "2026",
+    "currentYear": "2026",
+    "height": 186,
+    "answers": 0,
+    "ticks": 0,
+    "helper": true,
+    "lock": true,
+    "lockDisabled": false
+  },
+  "yearAfterSlide": {
+    "locked": "false",
+    "readout": "2011",
+    "lockLabel": "Lock"
+  },
+  "yearAfterPick": {
+    "locked": "true",
+    "readout": "2011",
+    "value": "2011",
+    "height": 186,
+    "lockLabel": "Locked",
+    "lockDisabled": true
+  },
+  "yearReveal": {
+    "readout": "2011",
+    "correctYear": "2011",
+    "height": 186,
+    "panelVisible": true
+  },
+  "yearRevealCases": [
+    {
+      "width": 320,
+      "height": 568,
+      "scenario": "unanswered",
+      "yearAnswer": null,
+      "readout": "2017",
+      "label": null,
+      "yourAnswer": null,
+      "slider": true,
+      "lock": true,
+      "overflow": false,
+      "explanation": "TI1 was at Gamescom in 2011."
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "scenario": "wrong",
+      "yearAnswer": 2017,
+      "readout": "2017",
+      "label": null,
+      "yourAnswer": null,
+      "slider": true,
+      "lock": true,
+      "overflow": false,
+      "explanation": "TI1 was at Gamescom in 2011."
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "scenario": "correct",
+      "yearAnswer": 2011,
+      "readout": "2011",
+      "label": null,
+      "yourAnswer": null,
+      "slider": true,
+      "lock": true,
+      "overflow": false,
+      "explanation": "TI1 was at Gamescom in 2011."
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "scenario": "unanswered",
+      "yearAnswer": null,
+      "readout": "2017",
+      "label": null,
+      "yourAnswer": null,
+      "slider": true,
+      "lock": true,
+      "overflow": false,
+      "explanation": "TI1 was at Gamescom in 2011."
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "scenario": "wrong",
+      "yearAnswer": 2017,
+      "readout": "2017",
+      "label": null,
+      "yourAnswer": null,
+      "slider": true,
+      "lock": true,
+      "overflow": false,
+      "explanation": "TI1 was at Gamescom in 2011."
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "scenario": "correct",
+      "yearAnswer": 2011,
+      "readout": "2011",
+      "label": null,
+      "yourAnswer": null,
+      "slider": true,
+      "lock": true,
+      "overflow": false,
+      "explanation": "TI1 was at Gamescom in 2011."
+    }
+  ],
+  "winnerAnswering": {
+    "strip": false,
+    "leak": false,
+    "art": "http://127.0.0.1:3332/arcade/flashback/originals/international.svg"
+  },
+  "artBefore": {
+    "w": 248,
+    "h": 148,
+    "x": 80,
+    "y": 217
+  },
+  "winnerReveal": {
+    "strip": true,
+    "src": "http://127.0.0.1:3332/arcade/flashback/originals/winner-team-liquid.svg",
+    "alt": "Team Liquid winner card",
+    "w": 248,
+    "h": 148,
+    "x": 80,
+    "y": 217
+  },
+  "winnerMobile": {
+    "w": 248,
+    "h": 148,
+    "overflow": false
+  },
+  "failures": [
+    "year 320 unanswered: correct year and original choice are not clearly displayed",
+    "year 320 unanswered: reveal controls, width, or explanation failed",
+    "year 320 wrong: correct year and original choice are not clearly displayed",
+    "year 320 wrong: reveal controls, width, or explanation failed",
+    "year 320 correct: correct year and original choice are not clearly displayed",
+    "year 320 correct: reveal controls, width, or explanation failed",
+    "year 1440 unanswered: correct year and original choice are not clearly displayed",
+    "year 1440 unanswered: reveal controls, width, or explanation failed",
+    "year 1440 wrong: correct year and original choice are not clearly displayed",
+    "year 1440 wrong: reveal controls, width, or explanation failed",
+    "year 1440 correct: correct year and original choice are not clearly displayed",
+    "year 1440 correct: reveal controls, width, or explanation failed"
+  ]
+}
+file:///home/kulmisiu/dev/dota2-trivia/scripts/check-flashback-ui.mjs:71
+      else reject(new Error(`visual-flashback failed (${code}).`));
+                  ^
+
+Error: visual-flashback failed (1).
+    at ChildProcess.<anonymous> (file:///home/kulmisiu/dev/dota2-trivia/scripts/check-flashback-ui.mjs:71:19)
+    at ChildProcess.emit (node:events:509:28)
+    at ChildProcess._handle.onexit (node:internal/child_process:295:12)
+
+Node.js v24.15.0

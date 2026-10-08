@@ -1,0 +1,10 @@
+import { readFileSync } from 'node:fs';
+import { createSemanticPublicDeck } from '/home/kulmisiu/dev/dota2-trivia/src/lib/semantic-schedule.mjs';
+import { formatsForRoundGames, roundFormatForQuestion, LIVE_ROUND_GAMES } from '/home/kulmisiu/dev/dota2-trivia/src/lib/arcade-games.mjs';
+import { createPrivateRoom, leavePrivateRoom } from '/home/kulmisiu/dev/dota2-trivia/src/lib/private-rooms.mjs';
+import { isPlayableClassicTriviaQuestion } from '/home/kulmisiu/dev/dota2-trivia/src/lib/classic-trivia-quality.mjs';
+import { isPlayableShopkeeperQuestion } from '/home/kulmisiu/dev/dota2-trivia/src/lib/shopkeeper-quality.mjs';
+import { isPlayableFlashbackQuestion } from '/home/kulmisiu/dev/dota2-trivia/src/lib/flashback.mjs';
+const root='/home/kulmisiu/dev/dota2-trivia';
+const read=f=>JSON.parse(readFileSync(root+'/src/data/'+f+'.json','utf8'));
+export const questions=[...read('questions.generated').filter(q=>isPlayableClassicTriviaQuestion(q)&&isPlayableShopkeeperQuestion(q)&&(q.kind!=='spell-owner'||q.hint?.trim().length>=18&&!q.hint.startsWith('No additional mechanical clue'))),...read('shopkeeper-questions').filter(isPlayableShopkeeperQuestion),...read('soundcheck-questions'),...read('value-order-questions'),...read('aghanim-questions'),...read('flashback-questions').filter(isPlayableFlashbackQuestion)];

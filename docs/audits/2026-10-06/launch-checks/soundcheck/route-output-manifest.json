@@ -1,0 +1,4361 @@
+{
+  "routeSha256": "7b98af690cef0dd92e5736e18ac8ea71ce7a33d22eee9ca3cf38106472494e3d",
+  "cases": [
+    {
+      "index": 0,
+      "questionId": "soundcheck-ability:pudge_meat_hook",
+      "id": "dota2:launch-sound:0:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q001-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/pudge/hook_throw.wav",
+          "sha256": "5ad98c2c54f56e0d7e8160646a550a820cb0426e3a34b1a8382873f11af0094a",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "questionId": "soundcheck-ability:pudge_meat_hook",
+      "id": "dota2:launch-sound:0:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q001-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/pudge/hook_throw.wav",
+          "sha256": "ae387bb7a62ecc08f05247f9b1ce8f40feebe77910a6e2eab5a2b36b0db6933b",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "questionId": "soundcheck-ability:pudge_meat_hook",
+      "id": "dota2:launch-sound:0:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q001-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/pudge/hook_throw.wav",
+          "sha256": "3bf393dd1d48b4c5a6a4abfe5444f5f06b0a696a043f25c3152c7143903bc084",
+          "duration": 2.867007
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "questionId": "soundcheck-ability:earthshaker_echo_slam",
+      "id": "dota2:launch-sound:1:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q002-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/earthshaker/echo_slam.wav",
+          "sha256": "8a0235f93769000688b92544c984e23357bcc4cae2b9d0345d85821b38e6b677",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "questionId": "soundcheck-ability:earthshaker_echo_slam",
+      "id": "dota2:launch-sound:1:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q002-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/earthshaker/echo_slam.wav",
+          "sha256": "ca87fdbea953d358640dd0fd35440d0b82c3b99803f87e0f5c0555196965acfc",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "questionId": "soundcheck-ability:earthshaker_echo_slam",
+      "id": "dota2:launch-sound:1:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q002-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/earthshaker/echo_slam.wav",
+          "sha256": "17cdc093765353bef72e0f5914904e3a5837d7142fb8a87a588d40abf782ad5f",
+          "duration": 4.328481
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "questionId": "soundcheck-ability:faceless_void_chronosphere",
+      "id": "dota2:launch-sound:2:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q003-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/faceless_void/chronosphere.wav",
+          "sha256": "504d9ceb4ce0be980f515341697ab659cc3b5b53691563ea41424f139694863b",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "questionId": "soundcheck-ability:faceless_void_chronosphere",
+      "id": "dota2:launch-sound:2:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q003-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/faceless_void/chronosphere.wav",
+          "sha256": "f10fa2231ffbff7494b8991ce234719944bb5853df4f148e6f2d53126cec0be8",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "questionId": "soundcheck-ability:faceless_void_chronosphere",
+      "id": "dota2:launch-sound:2:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q003-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/faceless_void/chronosphere.wav",
+          "sha256": "bf169f8bb7385317e88baaba0b977b7e41ec03766fa450a71755e7eee86f9f67",
+          "duration": 5.840658
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "questionId": "soundcheck-ability:invoker_sun_strike",
+      "id": "dota2:launch-sound:3:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q004-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/invoker/sunstrike_ignite.wav",
+          "sha256": "392e648494aed1c948fd924bea0b214a0e5e86eb89cbf07337e31d403c337714",
+          "duration": 0.10014515
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "questionId": "soundcheck-ability:invoker_sun_strike",
+      "id": "dota2:launch-sound:3:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q004-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/invoker/sunstrike_ignite.wav",
+          "sha256": "e889fe7a4f82ca04689fa6ec58e1fec8efa27b2c38d599cef00089d8142753c1",
+          "duration": 0.22031932999999998
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "questionId": "soundcheck-ability:invoker_sun_strike",
+      "id": "dota2:launch-sound:3:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q004-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/invoker/sunstrike_ignite.wav",
+          "sha256": "379211547633ac941d2b360fb528c9164db2ddd4e499f4526a2d2353d856a143",
+          "duration": 2.002903
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "questionId": "soundcheck-ability:kunkka_ghostship",
+      "id": "dota2:launch-sound:4:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q005-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/kunkka/ability_ghost_ship_bell.wav",
+          "sha256": "c7da5ace6f2e31e19e9076bd87ac3804e2e0d3c57ccd6ce9f96fe1a26d2aa4c7",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "questionId": "soundcheck-ability:kunkka_ghostship",
+      "id": "dota2:launch-sound:4:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q005-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/kunkka/ability_ghost_ship_bell.wav",
+          "sha256": "c46a571c1fd616368bb7ef075039c74a591923db49696974fc8d83d461aa7b5f",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "questionId": "soundcheck-ability:kunkka_ghostship",
+      "id": "dota2:launch-sound:4:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q005-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/kunkka/ability_ghost_ship_bell.wav",
+          "sha256": "cfea76821e8d47ff06d9d66cdbbe4f566e03bc4810ede16192a51e0c590be98b",
+          "duration": 3.72576
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "questionId": "soundcheck-ability:sniper_assassinate",
+      "id": "dota2:launch-sound:5:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q006-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/sniper/sniper_assassinate_load.wav",
+          "sha256": "de5304d6bcee77a6e27b9b22d721e8ed61b33477351d46a505e72a6666d22777",
+          "duration": 0.055
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "questionId": "soundcheck-ability:sniper_assassinate",
+      "id": "dota2:launch-sound:5:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q006-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/sniper/sniper_assassinate_load.wav",
+          "sha256": "854d2134b6c7a8325cdb40ec30312b55482dfd2c5972640796b56a55507a5e26",
+          "duration": 0.11
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "questionId": "soundcheck-ability:sniper_assassinate",
+      "id": "dota2:launch-sound:5:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q006-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/sniper/sniper_assassinate_load.wav",
+          "sha256": "f3f3064698136a8efb2c169fb6961042c49333611ca0524511f8aa87e033ed49",
+          "duration": 0.786576
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "questionId": "soundcheck-ability:tidehunter_ravage",
+      "id": "dota2:launch-sound:6:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q007-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/tidehunter/tidehunter_ravage.wav",
+          "sha256": "05da0ca08fa726faf88ea1bf971148b91f01ea7d765c0f0c8298b05f027d832e",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 19,
+      "questionId": "soundcheck-ability:tidehunter_ravage",
+      "id": "dota2:launch-sound:6:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q007-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/tidehunter/tidehunter_ravage.wav",
+          "sha256": "a89e3ef8570ed2e28c12d65a2dfce7fef289451f9a329c2d0530c9834f7709ed",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 20,
+      "questionId": "soundcheck-ability:tidehunter_ravage",
+      "id": "dota2:launch-sound:6:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q007-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/tidehunter/tidehunter_ravage.wav",
+          "sha256": "27c026678d22e97dd7d516c9b91b4991118e26ea9270d7551fbaaac73a83c76b",
+          "duration": 4.148118
+        }
+      ]
+    },
+    {
+      "index": 21,
+      "questionId": "soundcheck-ability:magnataur_reverse_polarity",
+      "id": "dota2:launch-sound:7:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q008-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/magnataur/reverse_polarity.wav",
+          "sha256": "07c8110dd295b133393fcae1a18165ca13f193961ab938d8b31150c4c074b409",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 22,
+      "questionId": "soundcheck-ability:magnataur_reverse_polarity",
+      "id": "dota2:launch-sound:7:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q008-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/magnataur/reverse_polarity.wav",
+          "sha256": "c3c9f5cfef2434318dc981178b137b0c28cf18f5c5c3b6b8e2802748ae504def",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 23,
+      "questionId": "soundcheck-ability:magnataur_reverse_polarity",
+      "id": "dota2:launch-sound:7:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q008-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/magnataur/reverse_polarity.wav",
+          "sha256": "66b9973102fc9a4686b86b41ae97ea054a9bab76b632be6bde8ce2ec6426468a",
+          "duration": 3.153333
+        }
+      ]
+    },
+    {
+      "index": 24,
+      "questionId": "soundcheck-ability:phoenix_supernova",
+      "id": "dota2:launch-sound:8:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q009-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/phoenix/super_nova_explode.wav",
+          "sha256": "c86b87c228072d2a183c2552a1b77b991dab9a10330c7a990505cb73c24b7b96",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 25,
+      "questionId": "soundcheck-ability:phoenix_supernova",
+      "id": "dota2:launch-sound:8:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q009-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/phoenix/super_nova_explode.wav",
+          "sha256": "07df27fccd2542e2c4b6e1875cf6b0fea3deb58db267cf7b4634381c22ebc7a5",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 26,
+      "questionId": "soundcheck-ability:phoenix_supernova",
+      "id": "dota2:launch-sound:8:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q009-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/phoenix/super_nova_explode.wav",
+          "sha256": "8d32165afc14d109f14d345f06dd04221a781f850f9156f5de74bb3ca9aaa7c5",
+          "duration": 4.082857
+        }
+      ]
+    },
+    {
+      "index": 27,
+      "questionId": "soundcheck-ability:skeleton_king_reincarnation",
+      "id": "dota2:launch-sound:9:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q010-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skeleton_king/reincarnate.wav",
+          "sha256": "c37bd279519cb853eca24fae268a293d98864e4c37ed50996daef47efe0d2e29",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 28,
+      "questionId": "soundcheck-ability:skeleton_king_reincarnation",
+      "id": "dota2:launch-sound:9:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q010-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skeleton_king/reincarnate.wav",
+          "sha256": "f54094d1d219573c2fde2becc4bafd0771e518e32680c5a90dd753e1e195a155",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 29,
+      "questionId": "soundcheck-ability:skeleton_king_reincarnation",
+      "id": "dota2:launch-sound:9:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q010-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skeleton_king/reincarnate.wav",
+          "sha256": "07c6ebbe2bc41115cf67a160a7297f85f39db5a82b84fa45d32e39c2ee68769a",
+          "duration": 5.583356
+        }
+      ]
+    },
+    {
+      "index": 30,
+      "questionId": "soundcheck-ability:axe_culling_blade",
+      "id": "dota2:launch-sound:10:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q011-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/axe/culling_blade_success.wav",
+          "sha256": "3e12d7bc2a41744fcf4a11d5ec97fdb3c735e28025a34589a037898a80ddee86",
+          "duration": 0.08672790000000001
+        }
+      ]
+    },
+    {
+      "index": 31,
+      "questionId": "soundcheck-ability:axe_culling_blade",
+      "id": "dota2:launch-sound:10:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q011-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/axe/culling_blade_success.wav",
+          "sha256": "da4af4a2134f0c4eac6a243c8ea371316448259e29419b205fa54c967395d2b4",
+          "duration": 0.19080138
+        }
+      ]
+    },
+    {
+      "index": 32,
+      "questionId": "soundcheck-ability:axe_culling_blade",
+      "id": "dota2:launch-sound:10:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q011-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/axe/culling_blade_success.wav",
+          "sha256": "0546879cd9bc10f3be1ac4e56ed69d240764c2b76d789eea3777ffd036776b39",
+          "duration": 1.734558
+        }
+      ]
+    },
+    {
+      "index": 33,
+      "questionId": "soundcheck-ability:zuus_thundergods_wrath",
+      "id": "dota2:launch-sound:11:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q012-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/zuus/gods_wrath_cast.wav",
+          "sha256": "2b1a33517380d285c67ca9f8efe1deba20028819209625cc840f5c323f7074d7",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 34,
+      "questionId": "soundcheck-ability:zuus_thundergods_wrath",
+      "id": "dota2:launch-sound:11:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q012-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/zuus/gods_wrath_cast.wav",
+          "sha256": "8d583c6675375358c46a23524609474afc980a8aca9e6bd21737cba0e7925dfd",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 35,
+      "questionId": "soundcheck-ability:zuus_thundergods_wrath",
+      "id": "dota2:launch-sound:11:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q012-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/zuus/gods_wrath_cast.wav",
+          "sha256": "559dbfc9c186dbf98f42b5ca38c09a017d7497bab2477b2e795b7f2f8829c337",
+          "duration": 5.025012
+        }
+      ]
+    },
+    {
+      "index": 36,
+      "questionId": "soundcheck-ability:pangolier_shield_crash",
+      "id": "dota2:launch-sound:12:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q013-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/pangolier/tail_thump.wav",
+          "sha256": "b218fa1999c39d3ec7c182fe002435542136285ac46818d89aabf21aec404c41",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 37,
+      "questionId": "soundcheck-ability:pangolier_shield_crash",
+      "id": "dota2:launch-sound:12:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q013-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/pangolier/tail_thump.wav",
+          "sha256": "4c7827450b425f8e4ae904d199dcc2408296c7ff1570d3c7760ffd223b88c828",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 38,
+      "questionId": "soundcheck-ability:pangolier_shield_crash",
+      "id": "dota2:launch-sound:12:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q013-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/pangolier/tail_thump.wav",
+          "sha256": "e76b80f5123082972ad3be66b3802f6bd26cf75ef0338488794c0751b3b5d7f8",
+          "duration": 2.510333
+        }
+      ]
+    },
+    {
+      "index": 39,
+      "questionId": "soundcheck-ability:puck_waning_rift",
+      "id": "dota2:launch-sound:13:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q014-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/puck/waning_rift.wav",
+          "sha256": "5f05221a919551e63fff493c9c237ad62b946ecd60df53112a74b1f35deb48c1",
+          "duration": 0.10988775
+        }
+      ]
+    },
+    {
+      "index": 40,
+      "questionId": "soundcheck-ability:puck_waning_rift",
+      "id": "dota2:launch-sound:13:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q014-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/puck/waning_rift.wav",
+          "sha256": "c97bf650e0377ef9c10e3b687a285448a023daf1b47fa31fe0c04f9ac9b39592",
+          "duration": 0.24175305
+        }
+      ]
+    },
+    {
+      "index": 41,
+      "questionId": "soundcheck-ability:puck_waning_rift",
+      "id": "dota2:launch-sound:13:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q014-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/puck/waning_rift.wav",
+          "sha256": "bce08b31cdd8405d35165470590ab8abc925be2f559ee91670513028329410f6",
+          "duration": 2.197755
+        }
+      ]
+    },
+    {
+      "index": 42,
+      "questionId": "soundcheck-ability:nyx_assassin_spiked_carapace",
+      "id": "dota2:launch-sound:14:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q015-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/nyx/spiked_carapace.wav",
+          "sha256": "3a86b715a681949e41d4bf7012ed2bfc916f628b567dc6b71b5cf352cefddc07",
+          "duration": 0.053059
+        }
+      ]
+    },
+    {
+      "index": 43,
+      "questionId": "soundcheck-ability:nyx_assassin_spiked_carapace",
+      "id": "dota2:launch-sound:14:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q015-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/nyx/spiked_carapace.wav",
+          "sha256": "c996331bdbd918e3f8de7f376d2e8734999282db1328f25a49978e69862045a3",
+          "duration": 0.106118
+        }
+      ]
+    },
+    {
+      "index": 44,
+      "questionId": "soundcheck-ability:nyx_assassin_spiked_carapace",
+      "id": "dota2:launch-sound:14:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q015-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/nyx/spiked_carapace.wav",
+          "sha256": "58cbf6dd2a805471efad8c06a65bacc7a0bbb599e0bab848e753259943cbc816",
+          "duration": 0.53059
+        }
+      ]
+    },
+    {
+      "index": 45,
+      "questionId": "soundcheck-ability:slark_dark_pact",
+      "id": "dota2:launch-sound:15:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q016-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/slark/dark_pact_cast.wav",
+          "sha256": "db5d8c06d822c33f3654319ea5411f87f2dfd63c3dfaa5fe6def8d88353b7054",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 46,
+      "questionId": "soundcheck-ability:slark_dark_pact",
+      "id": "dota2:launch-sound:15:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q016-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/slark/dark_pact_cast.wav",
+          "sha256": "59b4861a0b0da9157f4078c54b4aeff7023beeaf33bf439e088307c9f8140301",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 47,
+      "questionId": "soundcheck-ability:slark_dark_pact",
+      "id": "dota2:launch-sound:15:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q016-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/slark/dark_pact_cast.wav",
+          "sha256": "4b135dcfba4bddf34e3b8a82df52dfde648b12d942c20de412e0c98fe4f52318",
+          "duration": 2.893016
+        }
+      ]
+    },
+    {
+      "index": 48,
+      "questionId": "soundcheck-ability:oracle_fates_edict",
+      "id": "dota2:launch-sound:16:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q017-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/oracle/edict_cast.wav",
+          "sha256": "f13c4d94ad0750042c741e5ed315595d18b7f193107a1ab2aa5ef7e8b74bbac6",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 49,
+      "questionId": "soundcheck-ability:oracle_fates_edict",
+      "id": "dota2:launch-sound:16:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q017-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/oracle/edict_cast.wav",
+          "sha256": "a13da21398043e3e7f27dc3509f7cc312b1b258465bf8d84a826e34d82b88c2c",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 50,
+      "questionId": "soundcheck-ability:oracle_fates_edict",
+      "id": "dota2:launch-sound:16:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q017-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/oracle/edict_cast.wav",
+          "sha256": "cb68941df7c2ea753eb9933ee60afe0f7a205a6fd4ca5b46787f75a898a8a19b",
+          "duration": 2.73
+        }
+      ]
+    },
+    {
+      "index": 51,
+      "questionId": "soundcheck-ability:hoodwink_bushwhack",
+      "id": "dota2:launch-sound:17:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q018-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/hoodwink/bushwhack_cast.wav",
+          "sha256": "1d89f06377f7d56eff1a92b7449c0bd8e4d88c4d49add4e3bf051cc8df17c83b",
+          "duration": 0.10830519999999999
+        }
+      ]
+    },
+    {
+      "index": 52,
+      "questionId": "soundcheck-ability:hoodwink_bushwhack",
+      "id": "dota2:launch-sound:17:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q018-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/hoodwink/bushwhack_cast.wav",
+          "sha256": "6d825cce496210eee0cc6cfd615537f2c695f4006ddb0cc192189d49112d9963",
+          "duration": 0.23827143999999997
+        }
+      ]
+    },
+    {
+      "index": 53,
+      "questionId": "soundcheck-ability:hoodwink_bushwhack",
+      "id": "dota2:launch-sound:17:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q018-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/hoodwink/bushwhack_cast.wav",
+          "sha256": "0cf1d3781ffe6cfa0592633abee77c1d3dc26b64a046cc684044d216f21f2ae9",
+          "duration": 2.166104
+        }
+      ]
+    },
+    {
+      "index": 54,
+      "questionId": "soundcheck-ability:earth_spirit_rolling_boulder",
+      "id": "dota2:launch-sound:18:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q019-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/earth_spirit/rolling_boulder_cast.wav",
+          "sha256": "8a95fb034ff0435247c8d97a628b9e3ed12ec59d12cff94bfdf784eadee957dc",
+          "duration": 0.055
+        }
+      ]
+    },
+    {
+      "index": 55,
+      "questionId": "soundcheck-ability:earth_spirit_rolling_boulder",
+      "id": "dota2:launch-sound:18:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q019-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/earth_spirit/rolling_boulder_cast.wav",
+          "sha256": "b66d2186409b413e53bd6d741560eb307e54e8bdb5cf69eda7400348451f2d4f",
+          "duration": 0.11116490000000001
+        }
+      ]
+    },
+    {
+      "index": 56,
+      "questionId": "soundcheck-ability:earth_spirit_rolling_boulder",
+      "id": "dota2:launch-sound:18:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q019-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/earth_spirit/rolling_boulder_cast.wav",
+          "sha256": "35a62cbd997a01acc185b222d31678b4cf3147675a6f47e3604b0a9e1bcb1105",
+          "duration": 1.01059
+        }
+      ]
+    },
+    {
+      "index": 57,
+      "questionId": "soundcheck-ability:windrunner_shackleshot",
+      "id": "dota2:launch-sound:19:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q020-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/windrunner/shackleshot_cast.wav",
+          "sha256": "7de7555fcd1ac75921c616051e1ba42e3f554115e970f0c68cd73d491f2bfc60",
+          "duration": 0.06661565000000001
+        }
+      ]
+    },
+    {
+      "index": 58,
+      "questionId": "soundcheck-ability:windrunner_shackleshot",
+      "id": "dota2:launch-sound:19:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q020-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/windrunner/shackleshot_cast.wav",
+          "sha256": "8f3191632ac0ad1c22910c3a5d68cbf3e23b0d0c314163b3def8c96b1e0156bf",
+          "duration": 0.14655443
+        }
+      ]
+    },
+    {
+      "index": 59,
+      "questionId": "soundcheck-ability:windrunner_shackleshot",
+      "id": "dota2:launch-sound:19:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q020-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/windrunner/shackleshot_cast.wav",
+          "sha256": "a3d77df186d7485f661025858816b48d798d1cc27bb06ca60190a1cb77a80baa",
+          "duration": 1.332313
+        }
+      ]
+    },
+    {
+      "index": 60,
+      "questionId": "soundcheck-ability:shadow_shaman_voodoo",
+      "id": "dota2:launch-sound:20:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q021-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/ambient/chicken.wav",
+          "sha256": "6e0b7d0bdc9f4f65c7103a654b35452161523275510d7441ec39e047ba17c0c3",
+          "duration": 0.06986735
+        }
+      ]
+    },
+    {
+      "index": 61,
+      "questionId": "soundcheck-ability:shadow_shaman_voodoo",
+      "id": "dota2:launch-sound:20:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q021-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/ambient/chicken.wav",
+          "sha256": "d44c6199eca80a1f37a8289ae91f621709e4603fc699d8f7acd8a01e99f9051b",
+          "duration": 0.15370816999999998
+        }
+      ]
+    },
+    {
+      "index": 62,
+      "questionId": "soundcheck-ability:shadow_shaman_voodoo",
+      "id": "dota2:launch-sound:20:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q021-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/ambient/chicken.wav",
+          "sha256": "d52e22acaf31cc9eace2a84ebe78a7c8f1609d6b0b2d3913732c6ef4dc236f4a",
+          "duration": 1.397347
+        }
+      ]
+    },
+    {
+      "index": 63,
+      "questionId": "soundcheck-ability:tusk_ice_shards",
+      "id": "dota2:launch-sound:21:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q022-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/tusk/ice_shards_cast.wav",
+          "sha256": "c36732cc9a8b7858ae841a7fb40640385f903ce3823380a6c18ef1aa95af28ad",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 64,
+      "questionId": "soundcheck-ability:tusk_ice_shards",
+      "id": "dota2:launch-sound:21:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q022-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/tusk/ice_shards_cast.wav",
+          "sha256": "5a01b5a11de3801b6a3416a72e4658ee3eef8e4b44002ea734f55071fffb207c",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 65,
+      "questionId": "soundcheck-ability:tusk_ice_shards",
+      "id": "dota2:launch-sound:21:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q022-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/tusk/ice_shards_cast.wav",
+          "sha256": "a777eb88a996d8644f18cb41797e90dd16575392b208cde76cda316a3c0e0b3a",
+          "duration": 3.010975
+        }
+      ]
+    },
+    {
+      "index": 66,
+      "questionId": "soundcheck-ability:muerta_dead_shot",
+      "id": "dota2:launch-sound:22:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q023-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/muerta/deadshot_cast.wav",
+          "sha256": "0331f8b61b810c056419e538a29f0d3ab2fddbf94f24cc42ee80c53cfe2382ec",
+          "duration": 0.0716854
+        }
+      ]
+    },
+    {
+      "index": 67,
+      "questionId": "soundcheck-ability:muerta_dead_shot",
+      "id": "dota2:launch-sound:22:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q023-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/muerta/deadshot_cast.wav",
+          "sha256": "d373381901ec68572935753c515497ff2fc82979b52cddc921c015f15c20a9d6",
+          "duration": 0.15770788
+        }
+      ]
+    },
+    {
+      "index": 68,
+      "questionId": "soundcheck-ability:muerta_dead_shot",
+      "id": "dota2:launch-sound:22:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q023-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/muerta/deadshot_cast.wav",
+          "sha256": "494c2c92f4cc8ff96d30a940349132212f2579400f5f4675ffc448dad7ed1755",
+          "duration": 1.433708
+        }
+      ]
+    },
+    {
+      "index": 69,
+      "questionId": "soundcheck-ability:dawnbreaker_celestial_hammer",
+      "id": "dota2:launch-sound:23:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q024-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dawnbreaker/celestial_hammer_cast.wav",
+          "sha256": "6f19278265bdc6bcaa78dc9acd186858db6cf5068b997994303caeb9121a37d8",
+          "duration": 0.05950835
+        }
+      ]
+    },
+    {
+      "index": 70,
+      "questionId": "soundcheck-ability:dawnbreaker_celestial_hammer",
+      "id": "dota2:launch-sound:23:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q024-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dawnbreaker/celestial_hammer_cast.wav",
+          "sha256": "7abf59a9f4080f8fe4bc54c56b6654663012beba95ea7b68c573312b685d9e55",
+          "duration": 0.13091837
+        }
+      ]
+    },
+    {
+      "index": 71,
+      "questionId": "soundcheck-ability:dawnbreaker_celestial_hammer",
+      "id": "dota2:launch-sound:23:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q024-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dawnbreaker/celestial_hammer_cast.wav",
+          "sha256": "541b3eae99311662e47d81eeef3c5cad5b123874de73be845d86c71653955d9f",
+          "duration": 1.190167
+        }
+      ]
+    },
+    {
+      "index": 72,
+      "questionId": "soundcheck-ability:mars_gods_rebuke",
+      "id": "dota2:launch-sound:24:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q025-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/mars/shield_bash.wav",
+          "sha256": "73bf4b48dae71e00c8274018794a78e444c928c8cbc35deef4cfac24b00ed93b",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 73,
+      "questionId": "soundcheck-ability:mars_gods_rebuke",
+      "id": "dota2:launch-sound:24:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q025-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/mars/shield_bash.wav",
+          "sha256": "2b0dd13a786722fe4543cbb25277dc94e1bd7515f4dddacf1e146a9429b80129",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 74,
+      "questionId": "soundcheck-ability:mars_gods_rebuke",
+      "id": "dota2:launch-sound:24:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q025-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/mars/shield_bash.wav",
+          "sha256": "ec1c1ab40d9ccdabd52b7a053bbe95f92e713a819763a393bba66ef57e3f96e0",
+          "duration": 3.448163
+        }
+      ]
+    },
+    {
+      "index": 75,
+      "questionId": "soundcheck-ability:mirana_starfall",
+      "id": "dota2:launch-sound:25:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q026-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/mirana/starfall.wav",
+          "sha256": "4b9c1c3330935e5e057396d8026b667a32d8f40d679f88d86f22f164b2805862",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 76,
+      "questionId": "soundcheck-ability:mirana_starfall",
+      "id": "dota2:launch-sound:25:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q026-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/mirana/starfall.wav",
+          "sha256": "69156b9a4ba9c422520e74332d0c436f67f572a235856b7dc26edaa122e3a822",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 77,
+      "questionId": "soundcheck-ability:mirana_starfall",
+      "id": "dota2:launch-sound:25:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q026-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/mirana/starfall.wav",
+          "sha256": "ac94c045a9bf129f874f55793ef1023e346828e5a81ba44bd72a71e84fdff311",
+          "duration": 2.887982
+        }
+      ]
+    },
+    {
+      "index": 78,
+      "questionId": "soundcheck-ability:void_spirit_resonant_pulse",
+      "id": "dota2:launch-sound:26:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q027-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/void_spirit/pulse_cast.wav",
+          "sha256": "6ab2a547d586f4fb5c2ccc8f4d1f6f707f3d8b9410d348aba5f315abb5724a48",
+          "duration": 0.08010885000000001
+        },
+        {
+          "file": "cuts/q027-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/void_spirit/remnant_triggered.wav",
+          "sha256": "b2b6aa7cef9f8205c9b0da8b554628182e8b5b4afbc2858693184a440d80a437",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 79,
+      "questionId": "soundcheck-ability:void_spirit_resonant_pulse",
+      "id": "dota2:launch-sound:26:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q027-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/void_spirit/pulse_cast.wav",
+          "sha256": "e0d83c91995b87e567466b4859ab3e214cf949a26d075765bbb39967f9428e86",
+          "duration": 0.17623947
+        },
+        {
+          "file": "cuts/q027-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/void_spirit/remnant_triggered.wav",
+          "sha256": "6feae90970c0f0cd74f782c1ef4c83260d28d8204bd38f36a0a2c91f2f52261b",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 80,
+      "questionId": "soundcheck-ability:void_spirit_resonant_pulse",
+      "id": "dota2:launch-sound:26:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q027-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/void_spirit/pulse_cast.wav",
+          "sha256": "8ee62b6eed257daf8ec2e86aeb4a1273371635a7d872bc5f64ffcff642caf2bd",
+          "duration": 1.602177
+        },
+        {
+          "file": "cuts/q027-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/void_spirit/remnant_triggered.wav",
+          "sha256": "738b8674a8244d8365d6fb0d19517d288c19f27732dd55f23672052f932d1715",
+          "duration": 2.616735
+        }
+      ]
+    },
+    {
+      "index": 81,
+      "questionId": "soundcheck-ability:ember_spirit_sleight_of_fist",
+      "id": "dota2:launch-sound:27:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q028-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ember_spirit/sleight_of_fist_cast.wav",
+          "sha256": "5cfa9c4678f0c09f824d1a95c6b283bd903a878a1b85a1c9fa54799e779ad856",
+          "duration": 0.11382085
+        },
+        {
+          "file": "cuts/q028-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ember_spirit/searing_chains_target01.wav",
+          "sha256": "278fe8e4b65aa4138f3f3f51f7a0a53f09d6064d18ea5e878c0dd3761802b732",
+          "duration": 0.0654002
+        }
+      ]
+    },
+    {
+      "index": 82,
+      "questionId": "soundcheck-ability:ember_spirit_sleight_of_fist",
+      "id": "dota2:launch-sound:27:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q028-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ember_spirit/sleight_of_fist_cast.wav",
+          "sha256": "fc4f94b6016d67b6f6fc521da3baf39dd252c5b5ba8511448e70200dae41ada9",
+          "duration": 0.25040587
+        },
+        {
+          "file": "cuts/q028-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ember_spirit/searing_chains_target01.wav",
+          "sha256": "2795b0496ce7aa2973f1dc13e75cf0d6c413f05b907080057fd9b7abb1180e0d",
+          "duration": 0.14388044
+        }
+      ]
+    },
+    {
+      "index": 83,
+      "questionId": "soundcheck-ability:ember_spirit_sleight_of_fist",
+      "id": "dota2:launch-sound:27:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q028-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ember_spirit/sleight_of_fist_cast.wav",
+          "sha256": "bd975c7eb98329cd4c6186fa21988e0818970ed03018de10110d82f6c88aed66",
+          "duration": 2.276417
+        },
+        {
+          "file": "cuts/q028-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ember_spirit/searing_chains_target01.wav",
+          "sha256": "ab42bab17edbc60b79faa82118bb77c1f18ddcafa9dc51024315fbdbc3f83fd3",
+          "duration": 1.308004
+        }
+      ]
+    },
+    {
+      "index": 84,
+      "questionId": "soundcheck-ability:lion_voodoo",
+      "id": "dota2:launch-sound:28:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q029-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lion/lion_voodoo.wav",
+          "sha256": "dcf9d5f9c747d24c084a49276bd498be33f3efa6b306031b9386e8bc567b1605",
+          "duration": 0.09447620000000001
+        },
+        {
+          "file": "cuts/q029-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lion/lion_impale_target_hit1.wav",
+          "sha256": "2ecb412295d72f65ec48f301d351a95e60bb14212042e358845d091e15fead21",
+          "duration": 0.055
+        }
+      ]
+    },
+    {
+      "index": 85,
+      "questionId": "soundcheck-ability:lion_voodoo",
+      "id": "dota2:launch-sound:28:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q029-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lion/lion_voodoo.wav",
+          "sha256": "c8a5454cccb04abb2ade6cbb5f82c5251d98754654cc3ca322a3d403e4cd47cb",
+          "duration": 0.20784764
+        },
+        {
+          "file": "cuts/q029-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lion/lion_impale_target_hit1.wav",
+          "sha256": "56e0ba8941bff349be9d22aac3b1a172f5b9653a63a2d18afebf33749eb280d6",
+          "duration": 0.11
+        }
+      ]
+    },
+    {
+      "index": 86,
+      "questionId": "soundcheck-ability:lion_voodoo",
+      "id": "dota2:launch-sound:28:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q029-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lion/lion_voodoo.wav",
+          "sha256": "637d9a1077e8cf5f86f747fca626e70d3db3fe29e4e8a1e7d4528f5ee27be03e",
+          "duration": 1.889524
+        },
+        {
+          "file": "cuts/q029-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lion/lion_impale_target_hit1.wav",
+          "sha256": "71daf0c6f66cc0e8b5ac6d0f71f2126bec0b637562a0458cbe3165b413450478",
+          "duration": 0.641723
+        }
+      ]
+    },
+    {
+      "index": 87,
+      "questionId": "soundcheck-ability:dark_willow_bramble_maze",
+      "id": "dota2:launch-sound:29:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q030-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_willow/bramble_cast.wav",
+          "sha256": "67fb5533bedf8af73ef5892c0556236b5d972e6c93bb60d034505e6d893af07f",
+          "duration": 0.12
+        },
+        {
+          "file": "cuts/q030-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_willow/ley_target.wav",
+          "sha256": "926c5703566fa1959c52bf03377904f4628944897ae9bfe2fb81e97ac0acca1c",
+          "duration": 0.0891837
+        }
+      ]
+    },
+    {
+      "index": 88,
+      "questionId": "soundcheck-ability:dark_willow_bramble_maze",
+      "id": "dota2:launch-sound:29:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q030-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_willow/bramble_cast.wav",
+          "sha256": "13b2175105fc8a04cb212d01f2fef650d2b4d099d0617482f2a16c0877efdb86",
+          "duration": 0.27
+        },
+        {
+          "file": "cuts/q030-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_willow/ley_target.wav",
+          "sha256": "2df7b29ca2561df58aef19cfccdc4adb75b65b9940e5c460933d4cbb06cd76b5",
+          "duration": 0.19620414
+        }
+      ]
+    },
+    {
+      "index": 89,
+      "questionId": "soundcheck-ability:dark_willow_bramble_maze",
+      "id": "dota2:launch-sound:29:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q030-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_willow/bramble_cast.wav",
+          "sha256": "d92673945b82beea9d4f7fee32c72f588bdc9b81638c800d218fe76fd7ba14b6",
+          "duration": 3.443991
+        },
+        {
+          "file": "cuts/q030-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_willow/ley_target.wav",
+          "sha256": "da0e6a397b75fca1a309aac792bd407deb9864afc307e8be7a39f1287940e8f8",
+          "duration": 1.783674
+        }
+      ]
+    },
+    {
+      "index": 90,
+      "questionId": "soundcheck-ability:snapfire_firesnap_cookie",
+      "id": "dota2:launch-sound:30:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q031-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/snapfire/cookie_cast.wav",
+          "sha256": "0bc38008e8e819e0e60aa95d9c9a279dccdd84cdb387c79bcb7fd6409bbde491",
+          "duration": 0.10019045
+        },
+        {
+          "file": "cuts/q031-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/snapfire/shotgun_target.wav",
+          "sha256": "82b2d754af1191450a7530987239d44834c92ec5534e9a5d1498b265f5eb3631",
+          "duration": 0.055
+        }
+      ]
+    },
+    {
+      "index": 91,
+      "questionId": "soundcheck-ability:snapfire_firesnap_cookie",
+      "id": "dota2:launch-sound:30:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q031-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/snapfire/cookie_cast.wav",
+          "sha256": "ca14555267d1e179c25f3aed8876c2e4fc7ddb937883d39bfd0ca8c1d22ac9f4",
+          "duration": 0.22041899
+        },
+        {
+          "file": "cuts/q031-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/snapfire/shotgun_target.wav",
+          "sha256": "0d2891ce7e0c01e58c508e873bc0bbecfd9e85fef14a8f94019d752bdc9c464e",
+          "duration": 0.11
+        }
+      ]
+    },
+    {
+      "index": 92,
+      "questionId": "soundcheck-ability:snapfire_firesnap_cookie",
+      "id": "dota2:launch-sound:30:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q031-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/snapfire/cookie_cast.wav",
+          "sha256": "825f19e3d17a35d2bb46bb109783c7d3e0d5a715c00073e4faef7d488f0a3a49",
+          "duration": 2.003809
+        },
+        {
+          "file": "cuts/q031-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/snapfire/shotgun_target.wav",
+          "sha256": "2c1e21643544141b3f614fdaf06deac2e6013ac07d4dad49548391214a8e341a",
+          "duration": 0.968367
+        }
+      ]
+    },
+    {
+      "index": 93,
+      "questionId": "soundcheck-ability:queenofpain_scream_of_pain",
+      "id": "dota2:launch-sound:31:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q032-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/queenofpain/queenofpain_screamofpain.wav",
+          "sha256": "ec032b00e1fdd2c24a0087583bd2a937018e5ff8cc675262f65952b432176268",
+          "duration": 0.12
+        },
+        {
+          "file": "cuts/q032-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/queenofpain/queenofpain_shadowstrike.wav",
+          "sha256": "aa333979ddbbd5d3f9427c9a9ffb97e8bddf2c360d8ee00bca268b36e7f52e2f",
+          "duration": 0.1130159
+        }
+      ]
+    },
+    {
+      "index": 94,
+      "questionId": "soundcheck-ability:queenofpain_scream_of_pain",
+      "id": "dota2:launch-sound:31:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q032-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/queenofpain/queenofpain_screamofpain.wav",
+          "sha256": "e2f37d59b06dd30075c66728b045944689fcb7f8a5621f0a2467be564820e4f8",
+          "duration": 0.27
+        },
+        {
+          "file": "cuts/q032-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/queenofpain/queenofpain_shadowstrike.wav",
+          "sha256": "583ba6c395d687ae866a3f70d53c8874ba41372182e5eec9db61628795ee651e",
+          "duration": 0.24863497999999998
+        }
+      ]
+    },
+    {
+      "index": 95,
+      "questionId": "soundcheck-ability:queenofpain_scream_of_pain",
+      "id": "dota2:launch-sound:31:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q032-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/queenofpain/queenofpain_screamofpain.wav",
+          "sha256": "dd0f7af74b1dca402f3810a439f02de61b47c24b0593956b88259e66a8acc10e",
+          "duration": 2.694286
+        },
+        {
+          "file": "cuts/q032-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/queenofpain/queenofpain_shadowstrike.wav",
+          "sha256": "b13a73e291b1c4dabc465a9b802a9fcaf35ab82913dd989a465a100c30819c64",
+          "duration": 2.260318
+        }
+      ]
+    },
+    {
+      "index": 96,
+      "questionId": "soundcheck-ability:enigma_black_hole",
+      "id": "dota2:launch-sound:32:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q033-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/enigma/black_hole_chasm.wav",
+          "sha256": "a083b6f327b133c8aec670db90d9eb1b244d8c66a813964d35943042a38db9fb",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 97,
+      "questionId": "soundcheck-ability:enigma_black_hole",
+      "id": "dota2:launch-sound:32:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q033-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/enigma/black_hole_chasm.wav",
+          "sha256": "1f36e30ae462b48763eae1e5ff177cb4550f71d589a12162281bcc335ce94962",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 98,
+      "questionId": "soundcheck-ability:enigma_black_hole",
+      "id": "dota2:launch-sound:32:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q033-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/enigma/black_hole_chasm.wav",
+          "sha256": "65d3dcc2cb207c4dc6c78258b5eb0798955157a2fbd7ded2fc1dceb38735264b",
+          "duration": 4.920068
+        }
+      ]
+    },
+    {
+      "index": 99,
+      "questionId": "soundcheck-ability:legion_commander_duel",
+      "id": "dota2:launch-sound:33:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q034-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/legion_commander/duel_cast.wav",
+          "sha256": "27baa40b3048017e6ce352b574d87c8b6c9487b2a79ee3a1a5d0bc2220727298",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 100,
+      "questionId": "soundcheck-ability:legion_commander_duel",
+      "id": "dota2:launch-sound:33:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q034-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/legion_commander/duel_cast.wav",
+          "sha256": "1a0bccf365460b7e664bbb67cf1f091d9ca91b7163bfd4ac6a7a5f8b657ede04",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 101,
+      "questionId": "soundcheck-ability:legion_commander_duel",
+      "id": "dota2:launch-sound:33:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q034-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/legion_commander/duel_cast.wav",
+          "sha256": "f018683153635e128a03d70c4fdac185320035056ee3b600cd0904120a4f6231",
+          "duration": 4.167075
+        }
+      ]
+    },
+    {
+      "index": 102,
+      "questionId": "soundcheck-ability:juggernaut_omni_slash",
+      "id": "dota2:launch-sound:34:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q035-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/juggernaut/omnislash_attack1.wav",
+          "sha256": "fcb7861af2eee262b40cf02d32692f69239fcbb67d41e733d9c94f0d99871424",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 103,
+      "questionId": "soundcheck-ability:juggernaut_omni_slash",
+      "id": "dota2:launch-sound:34:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q035-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/juggernaut/omnislash_attack1.wav",
+          "sha256": "ff5d5b111f95443bebfc04a3b0c2b4529982705f4a8bbc6103cd161dfbeaba30",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 104,
+      "questionId": "soundcheck-ability:juggernaut_omni_slash",
+      "id": "dota2:launch-sound:34:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q035-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/juggernaut/omnislash_attack1.wav",
+          "sha256": "8b449e6b8ebcc7e47fbddf39e247fec06408077075b2965f8bcd879df423cec2",
+          "duration": 3.334354
+        }
+      ]
+    },
+    {
+      "index": 105,
+      "questionId": "soundcheck-ability:witch_doctor_death_ward",
+      "id": "dota2:launch-sound:35:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q036-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/witch_doctor/deathward_attack.wav",
+          "sha256": "a4b39a427c4e657ecfb8ec6265a4ddbb1fcaa035900f43fedc1f217ea9ff6954",
+          "duration": 0.0748583
+        }
+      ]
+    },
+    {
+      "index": 106,
+      "questionId": "soundcheck-ability:witch_doctor_death_ward",
+      "id": "dota2:launch-sound:35:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q036-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/witch_doctor/deathward_attack.wav",
+          "sha256": "17d5409d373be445ca3d6b50ebf960cae16b57f0989a9be7b2ac28e588c3cb79",
+          "duration": 0.16468826
+        }
+      ]
+    },
+    {
+      "index": 107,
+      "questionId": "soundcheck-ability:witch_doctor_death_ward",
+      "id": "dota2:launch-sound:35:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q036-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/witch_doctor/deathward_attack.wav",
+          "sha256": "27070c44918c50f20be230a25f78b93a88083fe29cfd7fb40491f20681ca215c",
+          "duration": 1.497166
+        }
+      ]
+    },
+    {
+      "index": 108,
+      "questionId": "soundcheck-ability:sandking_epicenter",
+      "id": "dota2:launch-sound:36:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q037-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/sand_king/sand_king_epicenter_spell.wav",
+          "sha256": "5e737c8e7bcaab917037eb92afd13519768e2e90f91e839552e8672cb91b238e",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 109,
+      "questionId": "soundcheck-ability:sandking_epicenter",
+      "id": "dota2:launch-sound:36:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q037-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/sand_king/sand_king_epicenter_spell.wav",
+          "sha256": "3acdf4ad73cec15823aa2fc79f0c806675c683d3940d75a8beb1603b0f6ecd75",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 110,
+      "questionId": "soundcheck-ability:sandking_epicenter",
+      "id": "dota2:launch-sound:36:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q037-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/sand_king/sand_king_epicenter_spell.wav",
+          "sha256": "fd9e37bcb901b4bc9c159c7f4f70707d72f2c7d5dfce1ca490aba5e19d15019f",
+          "duration": 5.079138
+        }
+      ]
+    },
+    {
+      "index": 111,
+      "questionId": "soundcheck-ability:warlock_rain_of_chaos",
+      "id": "dota2:launch-sound:37:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q038-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/warlock/rain_of_chaos_cast.wav",
+          "sha256": "c03c6b2e66faf841f139e8d4249a46142b2864b01206d76fd1bbd17cc4c0bb6a",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 112,
+      "questionId": "soundcheck-ability:warlock_rain_of_chaos",
+      "id": "dota2:launch-sound:37:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q038-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/warlock/rain_of_chaos_cast.wav",
+          "sha256": "ec809466e999491cd359cfca6c978cf506fe0abeab0c78b759e5b466f235ef0e",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 113,
+      "questionId": "soundcheck-ability:warlock_rain_of_chaos",
+      "id": "dota2:launch-sound:37:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q038-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/warlock/rain_of_chaos_cast.wav",
+          "sha256": "f469185a37008e37cd1792311f4e46599130d6e083f1817f20d77c10e4343a21",
+          "duration": 5.028368
+        }
+      ]
+    },
+    {
+      "index": 114,
+      "questionId": "soundcheck-ability:disruptor_glimpse",
+      "id": "dota2:launch-sound:38:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q039-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/disruptor/glimpse_end.wav",
+          "sha256": "b5e7e0b9e38c347ead0282dfd34609adbc46b5dcb823389ad8d8f563f7e06fbe",
+          "duration": 0.1172982
+        }
+      ]
+    },
+    {
+      "index": 115,
+      "questionId": "soundcheck-ability:disruptor_glimpse",
+      "id": "dota2:launch-sound:38:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q039-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/disruptor/glimpse_end.wav",
+          "sha256": "8e961c42ca682fb2888f9c3b3c35a84697a5849e402b743150a78e8e60d9e6cf",
+          "duration": 0.25805604
+        }
+      ]
+    },
+    {
+      "index": 116,
+      "questionId": "soundcheck-ability:disruptor_glimpse",
+      "id": "dota2:launch-sound:38:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q039-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/disruptor/glimpse_end.wav",
+          "sha256": "a81f03f522c6bb85da17da2d4da097c983ced6a14049921bfc39a2ad1acba49e",
+          "duration": 2.345964
+        }
+      ]
+    },
+    {
+      "index": 117,
+      "questionId": "soundcheck-ability:primal_beast_onslaught",
+      "id": "dota2:launch-sound:39:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q040-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/primal_beast/onslaught_cast.wav",
+          "sha256": "f9833b66d8a5930de390ec53155fdfe62099ada01e00d8619f0fd44695e805ff",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 118,
+      "questionId": "soundcheck-ability:primal_beast_onslaught",
+      "id": "dota2:launch-sound:39:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q040-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/primal_beast/onslaught_cast.wav",
+          "sha256": "e6db764196f31d1bfcdd41eab70d135e5772e19b7891d8bc0091984b3c77008d",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 119,
+      "questionId": "soundcheck-ability:primal_beast_onslaught",
+      "id": "dota2:launch-sound:39:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q040-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/primal_beast/onslaught_cast.wav",
+          "sha256": "1e67acce479df203d1e47c851c31b6e577570b611f121c4917eff8e5c015e731",
+          "duration": 3.256508
+        }
+      ]
+    },
+    {
+      "index": 120,
+      "questionId": "soundcheck-ability:ringmaster_tame_the_beasts",
+      "id": "dota2:launch-sound:40:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q041-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ringmaster/whip_cast.wav",
+          "sha256": "5209599ca62aa63fa2290507ea5d4fa3781a514ba72223b9107d1cd1214dcb88",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 121,
+      "questionId": "soundcheck-ability:ringmaster_tame_the_beasts",
+      "id": "dota2:launch-sound:40:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q041-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ringmaster/whip_cast.wav",
+          "sha256": "7799e4c7023c38a75be818f1374a70b24363e56fca1db0319f8ed0dc6f7aad02",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 122,
+      "questionId": "soundcheck-ability:ringmaster_tame_the_beasts",
+      "id": "dota2:launch-sound:40:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q041-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ringmaster/whip_cast.wav",
+          "sha256": "f97610adc351f5f4418f380cb8f110a5fa27ee12dcb39d603ed8482bd875aa9c",
+          "duration": 3.015079
+        }
+      ]
+    },
+    {
+      "index": 123,
+      "questionId": "soundcheck-ability:grimstroke_dark_artistry",
+      "id": "dota2:launch-sound:41:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q042-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/grimstroke/dark_artistry_cast.wav",
+          "sha256": "c958fdf172e684a50b494122e89682e566b3316668868bea627ac32f1d7955d4",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 124,
+      "questionId": "soundcheck-ability:grimstroke_dark_artistry",
+      "id": "dota2:launch-sound:41:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q042-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/grimstroke/dark_artistry_cast.wav",
+          "sha256": "65115fbf977c6aa6a9c365f3b423fbcba52a08b874a54962029e2657cde60b1d",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 125,
+      "questionId": "soundcheck-ability:grimstroke_dark_artistry",
+      "id": "dota2:launch-sound:41:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q042-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/grimstroke/dark_artistry_cast.wav",
+          "sha256": "0007959d20b0a9d7c8a866f9db55776f30075dae1560141e90858931ceb0628f",
+          "duration": 4.628572
+        }
+      ]
+    },
+    {
+      "index": 126,
+      "questionId": "soundcheck-ability:dark_seer_vacuum",
+      "id": "dota2:launch-sound:42:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q043-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_seer/dota_dark_seer_vacuum.wav",
+          "sha256": "b1d558b206c253343f01dd78ac92324b014f60465a631f66288ec2733370abff",
+          "duration": 0.11209525000000001
+        }
+      ]
+    },
+    {
+      "index": 127,
+      "questionId": "soundcheck-ability:dark_seer_vacuum",
+      "id": "dota2:launch-sound:42:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q043-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_seer/dota_dark_seer_vacuum.wav",
+          "sha256": "8523408e991bc85ae1ff8d73301f3dd5cce0a0f7e893b4c87882d1095de50fde",
+          "duration": 0.24660955
+        }
+      ]
+    },
+    {
+      "index": 128,
+      "questionId": "soundcheck-ability:dark_seer_vacuum",
+      "id": "dota2:launch-sound:42:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q043-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_seer/dota_dark_seer_vacuum.wav",
+          "sha256": "40e78a495674dee3bb3524fdbe1a99417cd9ce487ac9313cd4839d39338fdcb2",
+          "duration": 2.241905
+        }
+      ]
+    },
+    {
+      "index": 129,
+      "questionId": "soundcheck-ability:warlock_fatal_bonds",
+      "id": "dota2:launch-sound:43:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q044-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/warlock/fatal_bonds_cast.wav",
+          "sha256": "c8bd605161e64ac80335619cf60844e909c53fb51d59268c7a5bea5a06746815",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 130,
+      "questionId": "soundcheck-ability:warlock_fatal_bonds",
+      "id": "dota2:launch-sound:43:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q044-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/warlock/fatal_bonds_cast.wav",
+          "sha256": "c5578d388d0089243ec4325a7bff5a0f5127d71a569032fb4d1476a9bc3f1f3b",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 131,
+      "questionId": "soundcheck-ability:warlock_fatal_bonds",
+      "id": "dota2:launch-sound:43:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q044-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/warlock/fatal_bonds_cast.wav",
+          "sha256": "8a38fe713b5ffbaa81e3589a172d314a7173dde42d545613aeca84d5ffe6eae2",
+          "duration": 2.517007
+        }
+      ]
+    },
+    {
+      "index": 132,
+      "questionId": "soundcheck-ability:kez_echo_slash",
+      "id": "dota2:launch-sound:44:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q045-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/kez/echo_katana_cast.wav",
+          "sha256": "5104834646dec3f8755432bf955c5c665c1004ee9c76d334bc2149ed9a2292dd",
+          "duration": 0.07522450000000001
+        }
+      ]
+    },
+    {
+      "index": 133,
+      "questionId": "soundcheck-ability:kez_echo_slash",
+      "id": "dota2:launch-sound:44:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q045-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/kez/echo_katana_cast.wav",
+          "sha256": "53562ed8be806956dd47c7ac82393c026dbecc35892f5a90136e248a257f6e47",
+          "duration": 0.1654939
+        }
+      ]
+    },
+    {
+      "index": 134,
+      "questionId": "soundcheck-ability:kez_echo_slash",
+      "id": "dota2:launch-sound:44:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q045-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/kez/echo_katana_cast.wav",
+          "sha256": "284555a6f0f3ddbf33575f46533779f321ef83b0a52eb2011503e42f9abb62bd",
+          "duration": 1.50449
+        }
+      ]
+    },
+    {
+      "index": 135,
+      "questionId": "soundcheck-ability:shadow_demon_disruption",
+      "id": "dota2:launch-sound:45:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q046-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shadow_demon/disruption.wav",
+          "sha256": "3b29c26231ea36895996a9adf0d49ade0971dd709a79b480c4c55bc7241fea4b",
+          "duration": 0.12
+        },
+        {
+          "file": "cuts/q046-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shadow_demon/demonic_purge_cast.wav",
+          "sha256": "eb8d68f51bdc07c7bee778a9a45a0caee61d3e6c17139038c44f481396bc20f7",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 136,
+      "questionId": "soundcheck-ability:shadow_demon_disruption",
+      "id": "dota2:launch-sound:45:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q046-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shadow_demon/disruption.wav",
+          "sha256": "611fe77ffd38a8d23d90e0a705981d976eb9f5fd0b0262713dfeecc13bfc654c",
+          "duration": 0.27
+        },
+        {
+          "file": "cuts/q046-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shadow_demon/demonic_purge_cast.wav",
+          "sha256": "947d74e18ad5f274a213973dbe6472a5779b27cf64415574ac054a83901cdbc1",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 137,
+      "questionId": "soundcheck-ability:shadow_demon_disruption",
+      "id": "dota2:launch-sound:45:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q046-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shadow_demon/disruption.wav",
+          "sha256": "66fe906f726698b714aec0f4f6238e01cbc213730107a52e7b59e6a1ceccd4e0",
+          "duration": 3.69932
+        },
+        {
+          "file": "cuts/q046-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shadow_demon/demonic_purge_cast.wav",
+          "sha256": "531b5b034d79bb0392d3be4ee918097ba4ee7705884230e7ce82ab4cde6aa9fc",
+          "duration": 2.498685
+        }
+      ]
+    },
+    {
+      "index": 138,
+      "questionId": "soundcheck-ability:lich_frost_nova",
+      "id": "dota2:launch-sound:46:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q047-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lich/frost_nova.wav",
+          "sha256": "feb59ea0f056f564333fc60c834eed3f941ab609f4c9351980bfdb43ac22ef95",
+          "duration": 0.12
+        },
+        {
+          "file": "cuts/q047-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lich/chain_frost_impact_hero01.wav",
+          "sha256": "f34027f7cbcb5d1d62977663dd69500d8cbef1bcbeda257e21a46da272785dfc",
+          "duration": 0.08526075
+        }
+      ]
+    },
+    {
+      "index": 139,
+      "questionId": "soundcheck-ability:lich_frost_nova",
+      "id": "dota2:launch-sound:46:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q047-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lich/frost_nova.wav",
+          "sha256": "abad8c7e10905abf5490ab4481111f42765695404de277c4e799cb086e09ea30",
+          "duration": 0.27
+        },
+        {
+          "file": "cuts/q047-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lich/chain_frost_impact_hero01.wav",
+          "sha256": "b4c914e5cabb21398e8f83cda6440f0c6dfb537f747e07e8c8f39e4349bf451b",
+          "duration": 0.18757364999999998
+        }
+      ]
+    },
+    {
+      "index": 140,
+      "questionId": "soundcheck-ability:lich_frost_nova",
+      "id": "dota2:launch-sound:46:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q047-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lich/frost_nova.wav",
+          "sha256": "a3c233aebc41dd334a002916b5514f84266af684b0cef0b5dd112342e1c360d5",
+          "duration": 4.005986
+        },
+        {
+          "file": "cuts/q047-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lich/chain_frost_impact_hero01.wav",
+          "sha256": "4a3bc4457bed938ec60cd2e6f3151d1f3992960a7517cc02022b977a23e4e0ad",
+          "duration": 1.705215
+        }
+      ]
+    },
+    {
+      "index": 141,
+      "questionId": "soundcheck-ability:skywrath_mage_concussive_shot",
+      "id": "dota2:launch-sound:47:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q048-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skywrath/concussive_shot_cast.wav",
+          "sha256": "7a486619166031335d0b320fc2108bc019ad490077a4ec753a7a857a1f4e0747",
+          "duration": 0.11249320000000002
+        },
+        {
+          "file": "cuts/q048-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skywrath/mystic_flare_cast.wav",
+          "sha256": "c7fe4427552e56272a4a8747eca5484acb4d03ddc77780a19d783da606770271",
+          "duration": 0.10317345
+        }
+      ]
+    },
+    {
+      "index": 142,
+      "questionId": "soundcheck-ability:skywrath_mage_concussive_shot",
+      "id": "dota2:launch-sound:47:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q048-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skywrath/concussive_shot_cast.wav",
+          "sha256": "bdd1e94fd062e1794bdb89133656402bed15ac42b5a9f8fbc5eab472a204d373",
+          "duration": 0.24748504000000002
+        },
+        {
+          "file": "cuts/q048-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skywrath/mystic_flare_cast.wav",
+          "sha256": "e5e4db9e7da6df9a3928c78b00367b2be3ca06a499d4a1b1b9ed732d744644b7",
+          "duration": 0.22698159
+        }
+      ]
+    },
+    {
+      "index": 143,
+      "questionId": "soundcheck-ability:skywrath_mage_concussive_shot",
+      "id": "dota2:launch-sound:47:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q048-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skywrath/concussive_shot_cast.wav",
+          "sha256": "b082f4710590aaa3426814df575c4f45b1e449c701d972e3c3998b4d9350995a",
+          "duration": 2.249864
+        },
+        {
+          "file": "cuts/q048-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skywrath/mystic_flare_cast.wav",
+          "sha256": "d40444703c690c9d66e9d8137bf8ba6067a12ce0ab62efba2a61878b63a7a259",
+          "duration": 2.063469
+        }
+      ]
+    },
+    {
+      "index": 144,
+      "questionId": "soundcheck-item:black_king_bar",
+      "id": "dota2:launch-sound:48:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q049-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/black_king_bar.wav",
+          "sha256": "a1d1ac1fa3cdce9a03f3921986387a64e35004c2b027839d3d0a82b05f3304bb",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 145,
+      "questionId": "soundcheck-item:black_king_bar",
+      "id": "dota2:launch-sound:48:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q049-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/black_king_bar.wav",
+          "sha256": "8dd18f50466ba96e7eac93ea00349d1f5899e5c88a7c20dd1926830adc1ddd92",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 146,
+      "questionId": "soundcheck-item:black_king_bar",
+      "id": "dota2:launch-sound:48:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q049-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/black_king_bar.wav",
+          "sha256": "bd67f60c7147b3fcb226f7ed850de6b6c0022b9432542293a4306c696dd29270",
+          "duration": 3.884853
+        }
+      ]
+    },
+    {
+      "index": 147,
+      "questionId": "soundcheck-item:blink",
+      "id": "dota2:launch-sound:49:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q050-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/antimage/blink_out.wav",
+          "sha256": "b140f2394095c666c889a68c3c6a0c5383190ac928c5976843cbb25b1f0c0bda",
+          "duration": 0.10185715000000001
+        }
+      ]
+    },
+    {
+      "index": 148,
+      "questionId": "soundcheck-item:blink",
+      "id": "dota2:launch-sound:49:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q050-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/antimage/blink_out.wav",
+          "sha256": "27bffa32641e3601eead7e7ac4939a36af68b992251c6afa305db490465854a7",
+          "duration": 0.22408572999999998
+        }
+      ]
+    },
+    {
+      "index": 149,
+      "questionId": "soundcheck-item:blink",
+      "id": "dota2:launch-sound:49:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q050-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/antimage/blink_out.wav",
+          "sha256": "ba6f923a870b3b4aed0519fdda114ea8170bd1f5865d8b84ea73df8bff0b59cf",
+          "duration": 2.037143
+        }
+      ]
+    },
+    {
+      "index": 150,
+      "questionId": "soundcheck-item:manta",
+      "id": "dota2:launch-sound:50:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q051-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/manta.wav",
+          "sha256": "753d4ee1b37f1fa6df79ddd8022c9ada6f5a7acf91af487efdb888d76e285b01",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 151,
+      "questionId": "soundcheck-item:manta",
+      "id": "dota2:launch-sound:50:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q051-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/manta.wav",
+          "sha256": "006179efeda347c36100e33ebb36960f524ec18529e32d2cb05bef58ac3882dd",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 152,
+      "questionId": "soundcheck-item:manta",
+      "id": "dota2:launch-sound:50:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q051-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/manta.wav",
+          "sha256": "bbbb26d1e452908606ea148d2458cd3d92e5725039e3f66f40d4a720b2cf3cb6",
+          "duration": 2.457143
+        }
+      ]
+    },
+    {
+      "index": 153,
+      "questionId": "soundcheck-item:refresher",
+      "id": "dota2:launch-sound:51:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q052-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/refresher.wav",
+          "sha256": "10f6418af0128459b3cd7ec5d55346e6a4cd09bcd375e99feea7542050fd28a0",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 154,
+      "questionId": "soundcheck-item:refresher",
+      "id": "dota2:launch-sound:51:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q052-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/refresher.wav",
+          "sha256": "24f1d70bd6664469c715ba854d93f2ac6bc01c31520ca7372be640db0d67cf63",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 155,
+      "questionId": "soundcheck-item:refresher",
+      "id": "dota2:launch-sound:51:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q052-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/refresher.wav",
+          "sha256": "94631d2ebf6be351fa4f290d518f258c6f3570e205242021ea2c9b9bdeea1fde",
+          "duration": 2.902154
+        }
+      ]
+    },
+    {
+      "index": 156,
+      "questionId": "soundcheck-item:hand_of_midas",
+      "id": "dota2:launch-sound:52:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q053-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_handofmidas.wav",
+          "sha256": "c16187c55e7f99b3b0e3aea2acf6e27f218df4b881ab52f0d5e9b654580ab340",
+          "duration": 0.09999435000000001
+        }
+      ]
+    },
+    {
+      "index": 157,
+      "questionId": "soundcheck-item:hand_of_midas",
+      "id": "dota2:launch-sound:52:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q053-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_handofmidas.wav",
+          "sha256": "92d0caf56b150d85aa7e388181d3f05789ebafe29b245d2c0bef002ce3221092",
+          "duration": 0.21998757
+        }
+      ]
+    },
+    {
+      "index": 158,
+      "questionId": "soundcheck-item:hand_of_midas",
+      "id": "dota2:launch-sound:52:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q053-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_handofmidas.wav",
+          "sha256": "50d8d1b4aafe4c4882e6a96a154f35f0a8de433fe2578c07b2f0ab51797e7434",
+          "duration": 1.999887
+        }
+      ]
+    },
+    {
+      "index": 159,
+      "questionId": "soundcheck-item:force_staff",
+      "id": "dota2:launch-sound:53:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q054-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/force_staff.wav",
+          "sha256": "9b3c0cc89ff525bbd19748bddfd19b9623039a3591820016d37b5d97426aa384",
+          "duration": 0.055124700000000006
+        }
+      ]
+    },
+    {
+      "index": 160,
+      "questionId": "soundcheck-item:force_staff",
+      "id": "dota2:launch-sound:53:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q054-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/force_staff.wav",
+          "sha256": "332daa10227c963111cda23351b448a573706b66f7ca5534eec4223f819b89b5",
+          "duration": 0.12127434000000001
+        }
+      ]
+    },
+    {
+      "index": 161,
+      "questionId": "soundcheck-item:force_staff",
+      "id": "dota2:launch-sound:53:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q054-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/force_staff.wav",
+          "sha256": "970de1b2c55aa6ac793dd151bd2381cbcdfee15e95a9dd6e67a1ac3c3eede5ea",
+          "duration": 1.102494
+        }
+      ]
+    },
+    {
+      "index": 162,
+      "questionId": "soundcheck-item:dagon",
+      "id": "dota2:launch-sound:54:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q055-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/dagon.wav",
+          "sha256": "77908d10eff98a770862b565833935a8c5f1c9812c41414e7939f068f34e5558",
+          "duration": 0.0672256
+        }
+      ]
+    },
+    {
+      "index": 163,
+      "questionId": "soundcheck-item:dagon",
+      "id": "dota2:launch-sound:54:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q055-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/dagon.wav",
+          "sha256": "6353abd469fae0525934b6b17be7e54947f31a081c74a7c43393aa81dba98191",
+          "duration": 0.14789632
+        }
+      ]
+    },
+    {
+      "index": 164,
+      "questionId": "soundcheck-item:dagon",
+      "id": "dota2:launch-sound:54:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q055-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/dagon.wav",
+          "sha256": "7e14d9efcaf8ec1511c36984bc100fe3a3929a723d3ca24b88785298c242e72a",
+          "duration": 1.344512
+        }
+      ]
+    },
+    {
+      "index": 165,
+      "questionId": "soundcheck-item:shivas_guard",
+      "id": "dota2:launch-sound:55:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q056-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/shivas_guard.wav",
+          "sha256": "b4bdc6f6abc645fbe3d7a80f0cebeaaf9f3c0634ab0c38681a02e042be75fe4a",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 166,
+      "questionId": "soundcheck-item:shivas_guard",
+      "id": "dota2:launch-sound:55:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q056-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/shivas_guard.wav",
+          "sha256": "c27744027ea0151e8b947847b09ad69badaa7fd61d26cff37fdf8f6e3ad85652",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 167,
+      "questionId": "soundcheck-item:shivas_guard",
+      "id": "dota2:launch-sound:55:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q056-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/shivas_guard.wav",
+          "sha256": "a9670b89cd879bf4409528ff35ad11a008d2dc386a933f9feb217b5d1bec10c9",
+          "duration": 3.735918
+        }
+      ]
+    },
+    {
+      "index": 168,
+      "questionId": "soundcheck-item:blade_mail",
+      "id": "dota2:launch-sound:56:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q057-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_blade_mail.wav",
+          "sha256": "d871b797e2f9127e0487150255d9950f63cc13ee8cd3febae07977dc257ad01f",
+          "duration": 0.055
+        }
+      ]
+    },
+    {
+      "index": 169,
+      "questionId": "soundcheck-item:blade_mail",
+      "id": "dota2:launch-sound:56:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q057-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_blade_mail.wav",
+          "sha256": "8d2e2289c5614a0ea15253abbb72307eb405bf0f4e18a7122f46f1c8095d9e0b",
+          "duration": 0.11
+        }
+      ]
+    },
+    {
+      "index": 170,
+      "questionId": "soundcheck-item:blade_mail",
+      "id": "dota2:launch-sound:56:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q057-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_blade_mail.wav",
+          "sha256": "5b5149681e57e9dcc424c53d6d300324a752f38af35eb8bbcf35bfe66f4dada9",
+          "duration": 0.844898
+        }
+      ]
+    },
+    {
+      "index": 171,
+      "questionId": "soundcheck-item:satanic",
+      "id": "dota2:launch-sound:57:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q058-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_satanic.wav",
+          "sha256": "988f6ebd63f51044c5c5ef0b9bf0a23246f29d4431eba86c9400ccc7cfb3605d",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 172,
+      "questionId": "soundcheck-item:satanic",
+      "id": "dota2:launch-sound:57:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q058-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_satanic.wav",
+          "sha256": "62690e9a5e09b702bfa7c7aecce81bfab74b3f578fd05c370f8a8c809ef8f841",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 173,
+      "questionId": "soundcheck-item:satanic",
+      "id": "dota2:launch-sound:57:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q058-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_satanic.wav",
+          "sha256": "37c0f0fc3d9b39455c6a86032fa259770f387c63569df507ce844ac943ca0fe8",
+          "duration": 3.308005
+        }
+      ]
+    },
+    {
+      "index": 174,
+      "questionId": "soundcheck-item:lotus_orb",
+      "id": "dota2:launch-sound:58:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q059-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/lotus_cast.wav",
+          "sha256": "4a998365ed37884bef91b046034177e73436f4b7fcc775fc31d5f99229fb37ee",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 175,
+      "questionId": "soundcheck-item:lotus_orb",
+      "id": "dota2:launch-sound:58:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q059-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/lotus_cast.wav",
+          "sha256": "e6136b8d1cc50f3ad2aa3fd6a84262384da74a3f38ab67be3bba9077b0b5e3c1",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 176,
+      "questionId": "soundcheck-item:lotus_orb",
+      "id": "dota2:launch-sound:58:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q059-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/lotus_cast.wav",
+          "sha256": "84123cfc3f7e67076d4e18b176e5e0abbd16668d3fcb90d13ed143f30777b22d",
+          "duration": 3.286576
+        }
+      ]
+    },
+    {
+      "index": 177,
+      "questionId": "soundcheck-item:glimmer_cape",
+      "id": "dota2:launch-sound:59:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q060-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/glimmer_cape.wav",
+          "sha256": "ea83ae7d0b714d00bf44f17c82d664d50514a66b0c8ad3c27c49b4b6dcce4bc8",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 178,
+      "questionId": "soundcheck-item:glimmer_cape",
+      "id": "dota2:launch-sound:59:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q060-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/glimmer_cape.wav",
+          "sha256": "d186f80095223aec9a238e13acc3a14030e7bb8b893c3b17a339ace3cdfc6d83",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 179,
+      "questionId": "soundcheck-item:glimmer_cape",
+      "id": "dota2:launch-sound:59:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q060-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/glimmer_cape.wav",
+          "sha256": "dade1577b9d0a702eb1b1a24394ca54e26f1a3149b5c4486961f00f7b83ab80a",
+          "duration": 3.802131
+        }
+      ]
+    },
+    {
+      "index": 180,
+      "questionId": "soundcheck-item:mekansm",
+      "id": "dota2:launch-sound:60:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q061-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/mek_cast.wav",
+          "sha256": "240c6f96ed306b3ca0dc94ef8f06a121367cddf55e6bdd76c884223754b87e5d",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 181,
+      "questionId": "soundcheck-item:mekansm",
+      "id": "dota2:launch-sound:60:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q061-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/mek_cast.wav",
+          "sha256": "63de2db303d032941cea18015d3f4a064f3ad64797f6171f94296cce9dacaa1c",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 182,
+      "questionId": "soundcheck-item:mekansm",
+      "id": "dota2:launch-sound:60:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q061-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/mek_cast.wav",
+          "sha256": "7618bfd9d00d1db8bcf9010a1b5128780d6aaef4faa41b052e8608c6b2c8c534",
+          "duration": 4.472381
+        }
+      ]
+    },
+    {
+      "index": 183,
+      "questionId": "soundcheck-item:pipe",
+      "id": "dota2:launch-sound:61:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q062-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/pipe.wav",
+          "sha256": "6e3af1bd3faa51a24fa4cdda23b2ca88ff21605c33970853707987fdefd4a8dd",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 184,
+      "questionId": "soundcheck-item:pipe",
+      "id": "dota2:launch-sound:61:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q062-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/pipe.wav",
+          "sha256": "60c182af8104aef868a6bb875e9fae86d096612647637ba2798d757f63308700",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 185,
+      "questionId": "soundcheck-item:pipe",
+      "id": "dota2:launch-sound:61:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q062-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/pipe.wav",
+          "sha256": "70df1cb2aa1b6d684c4945c9526bbdb41bd8b27f4a6e8d36a3ef7749fce5200d",
+          "duration": 2.737143
+        }
+      ]
+    },
+    {
+      "index": 186,
+      "questionId": "soundcheck-item:orchid",
+      "id": "dota2:launch-sound:62:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q063-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/orchid.wav",
+          "sha256": "cec5ff959b1d9d04853e45143bbaf181ffd26425786711e8ef2713aa374a733f",
+          "duration": 0.09982315000000001
+        }
+      ]
+    },
+    {
+      "index": 187,
+      "questionId": "soundcheck-item:orchid",
+      "id": "dota2:launch-sound:62:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q063-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/orchid.wav",
+          "sha256": "34ff44e7160a3f79b3350ee03165586ae25c8e508f9a45a78be84c3c129f3ac3",
+          "duration": 0.21961093
+        }
+      ]
+    },
+    {
+      "index": 188,
+      "questionId": "soundcheck-item:orchid",
+      "id": "dota2:launch-sound:62:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q063-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/orchid.wav",
+          "sha256": "75ad97baaa8ae345c7c82c244d5336d4558eb05aeaa1975d1e1c0af795cbebf1",
+          "duration": 1.996463
+        }
+      ]
+    },
+    {
+      "index": 189,
+      "questionId": "soundcheck-item:cyclone",
+      "id": "dota2:launch-sound:63:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q064-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_cyclone.wav",
+          "sha256": "958e701d80a3415fd23ab4736e42126b152c43ed1e52c78100864de8245b30b6",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 190,
+      "questionId": "soundcheck-item:cyclone",
+      "id": "dota2:launch-sound:63:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q064-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_cyclone.wav",
+          "sha256": "f329e6c06b31ea188a9de321a499899032729c2b6c7e14bb60c63826c07cc58e",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 191,
+      "questionId": "soundcheck-item:cyclone",
+      "id": "dota2:launch-sound:63:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q064-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_cyclone.wav",
+          "sha256": "bf53db30def256d0c723c9867564b550ff12db5573a2365d454249009bcd2d66",
+          "duration": 3.328299
+        }
+      ]
+    },
+    {
+      "index": 192,
+      "questionId": "soundcheck-item:bloodthorn",
+      "id": "dota2:launch-sound:64:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q065-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/bloodthorn.wav",
+          "sha256": "5445292af8dd17da7f85950c815f842033dabe14e3d58f20af2759c2e929fc7f",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 193,
+      "questionId": "soundcheck-item:bloodthorn",
+      "id": "dota2:launch-sound:64:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q065-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/bloodthorn.wav",
+          "sha256": "131a5845fd7118433cd8cdeb5ce3b816868462a79918ad6fa1a27196a0ca467e",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 194,
+      "questionId": "soundcheck-item:bloodthorn",
+      "id": "dota2:launch-sound:64:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q065-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/bloodthorn.wav",
+          "sha256": "d1909b97cab3e31664ab727d52909578a0748200c1ae617f8e6ab7bb049a2441",
+          "duration": 2.996463
+        }
+      ]
+    },
+    {
+      "index": 195,
+      "questionId": "soundcheck-item:nullifier",
+      "id": "dota2:launch-sound:65:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q066-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/nullifier_cast.wav",
+          "sha256": "c9822d85fa5c6adb6fece5ecbe405d4fc4ad2969dda583734495e21c295e8b1a",
+          "duration": 0.08013605000000001
+        }
+      ]
+    },
+    {
+      "index": 196,
+      "questionId": "soundcheck-item:nullifier",
+      "id": "dota2:launch-sound:65:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q066-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/nullifier_cast.wav",
+          "sha256": "5e15ce42ad84882bb166630bd4a506de7066a02f7be1d385a19de4926f725a7e",
+          "duration": 0.17629931000000001
+        }
+      ]
+    },
+    {
+      "index": 197,
+      "questionId": "soundcheck-item:nullifier",
+      "id": "dota2:launch-sound:65:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q066-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/nullifier_cast.wav",
+          "sha256": "b5032ff355bd3c3626633ae9ce57c15c2ff795d7137381153840ff436385ed3f",
+          "duration": 1.602721
+        }
+      ]
+    },
+    {
+      "index": 198,
+      "questionId": "soundcheck-item:diffusal_blade",
+      "id": "dota2:launch-sound:66:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q067-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_diffusalblade.wav",
+          "sha256": "d0a66019ea31c826c8adab7c26426f7cd8fcc18e5f2f14301ac5bc0d0c08bd67",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 199,
+      "questionId": "soundcheck-item:diffusal_blade",
+      "id": "dota2:launch-sound:66:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q067-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_diffusalblade.wav",
+          "sha256": "70d14892e818223b25015018b7262f3530a9d9bf8fe07811e9bc4764f6af020c",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 200,
+      "questionId": "soundcheck-item:diffusal_blade",
+      "id": "dota2:launch-sound:66:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q067-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_diffusalblade.wav",
+          "sha256": "cc58211af42281214b597d12e929706910fb02f1ba5f0f75a0a5f62565dc6045",
+          "duration": 2.843515
+        }
+      ]
+    },
+    {
+      "index": 201,
+      "questionId": "soundcheck-item:soul_ring",
+      "id": "dota2:launch-sound:67:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q068-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/soul_ring.wav",
+          "sha256": "9fb3dd39ff16f093ff55054a0ecf27602a35a95dd14ed58cbfc2433ecce71a05",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 202,
+      "questionId": "soundcheck-item:soul_ring",
+      "id": "dota2:launch-sound:67:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q068-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/soul_ring.wav",
+          "sha256": "0f96505b8c2e606e299a251686af96eb04787685b212e9459dde1c8c5af1b0b8",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 203,
+      "questionId": "soundcheck-item:soul_ring",
+      "id": "dota2:launch-sound:67:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q068-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/soul_ring.wav",
+          "sha256": "667ded62a22774cf940a2a59507b95dd22c08bb879859094d5288f68b3df6919",
+          "duration": 3.582517
+        }
+      ]
+    },
+    {
+      "index": 204,
+      "questionId": "soundcheck-item:arcane_boots",
+      "id": "dota2:launch-sound:68:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q069-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_arcane_boots.wav",
+          "sha256": "e16d5e12878931ec9dc1fabdd446d9bbbe959b13e6d26a8bdb74384d8d9205d6",
+          "duration": 0.0918254
+        }
+      ]
+    },
+    {
+      "index": 205,
+      "questionId": "soundcheck-item:arcane_boots",
+      "id": "dota2:launch-sound:68:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q069-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_arcane_boots.wav",
+          "sha256": "a4604ec4e3a9e0ec4347f1d54e0915d1f0b5feb21ac463c5a391d7b1ff97cda3",
+          "duration": 0.20201588
+        }
+      ]
+    },
+    {
+      "index": 206,
+      "questionId": "soundcheck-item:arcane_boots",
+      "id": "dota2:launch-sound:68:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q069-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_arcane_boots.wav",
+          "sha256": "e4d37a558f351c79c50a5ecb3ba0d2ec3f1a06aa6673b8f7e0f396ab0cd3c4f8",
+          "duration": 1.836508
+        }
+      ]
+    },
+    {
+      "index": 207,
+      "questionId": "soundcheck-item:sphere",
+      "id": "dota2:launch-sound:69:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q070-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/linkens_sphere.wav",
+          "sha256": "dfc5814878da73027e4e87f1ac1141fdf5f09aeb400e40deb2e6f693036cb01b",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 208,
+      "questionId": "soundcheck-item:sphere",
+      "id": "dota2:launch-sound:69:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q070-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/linkens_sphere.wav",
+          "sha256": "888ac49154390b2ce2b3694e3d82b51c40d0963486da9a4b062d146a50262dbe",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 209,
+      "questionId": "soundcheck-item:sphere",
+      "id": "dota2:launch-sound:69:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q070-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/linkens_sphere.wav",
+          "sha256": "a10f8c031d724351dd78a2d4c5463203fc9a561e7c9c07067a7d2d0cf9da63f1",
+          "duration": 2.746939
+        }
+      ]
+    },
+    {
+      "index": 210,
+      "questionId": "soundcheck-item:veil_of_discord",
+      "id": "dota2:launch-sound:70:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q071-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/veil_of_discord.wav",
+          "sha256": "5e4d109e228bd1eb209d04c1e42d3f6295d05b47e2a49c975d11b9da42a5b3b4",
+          "duration": 0.10040815000000002
+        }
+      ]
+    },
+    {
+      "index": 211,
+      "questionId": "soundcheck-item:veil_of_discord",
+      "id": "dota2:launch-sound:70:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q071-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/veil_of_discord.wav",
+          "sha256": "01d0aafe0a097678bca5a88876ecd0bac9cf0912d19fed19cbf4b357bf58c587",
+          "duration": 0.22089793000000002
+        }
+      ]
+    },
+    {
+      "index": 212,
+      "questionId": "soundcheck-item:veil_of_discord",
+      "id": "dota2:launch-sound:70:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q071-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/veil_of_discord.wav",
+          "sha256": "0da6555cfb2035386be15bd17ea490250063fac0cbd3bcfcdcdb8ed5895825d9",
+          "duration": 2.008163
+        }
+      ]
+    },
+    {
+      "index": 213,
+      "questionId": "soundcheck-item:abyssal_blade",
+      "id": "dota2:launch-sound:71:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q072-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/abyssal_blade.wav",
+          "sha256": "28c6127f9f04cc2d0b500fc459211e9835982d67672980195a0cab25486bf62a",
+          "duration": 0.058702950000000004
+        }
+      ]
+    },
+    {
+      "index": 214,
+      "questionId": "soundcheck-item:abyssal_blade",
+      "id": "dota2:launch-sound:71:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q072-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/abyssal_blade.wav",
+          "sha256": "3716a00b0c5f7d88cca135f0d98f82a19f0bbb607bf28498df863decb3d408ec",
+          "duration": 0.12914649
+        }
+      ]
+    },
+    {
+      "index": 215,
+      "questionId": "soundcheck-item:abyssal_blade",
+      "id": "dota2:launch-sound:71:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q072-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/abyssal_blade.wav",
+          "sha256": "efee2abdb83a2a338d8345c24a351808619494dcc08e29db03a4ef766fd2184a",
+          "duration": 1.174059
+        }
+      ]
+    },
+    {
+      "index": 216,
+      "questionId": "soundcheck-item:heavens_halberd",
+      "id": "dota2:launch-sound:72:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q073-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/heavens_halberd.wav",
+          "sha256": "14e448ca6d904c40761528b9582a473a47bc4fca2868625b2e5178c1d41c86dc",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 217,
+      "questionId": "soundcheck-item:heavens_halberd",
+      "id": "dota2:launch-sound:72:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q073-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/heavens_halberd.wav",
+          "sha256": "0508e1cfca7000e11be7c2838c113ea2f59f09874cc0ea0b9ad83c695fc3cf43",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 218,
+      "questionId": "soundcheck-item:heavens_halberd",
+      "id": "dota2:launch-sound:72:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q073-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/heavens_halberd.wav",
+          "sha256": "c618b83c95cf56cbe71e2b270420732585be16af8f101a780377fb6aec81c4a4",
+          "duration": 2.646394
+        }
+      ]
+    },
+    {
+      "index": 219,
+      "questionId": "soundcheck-item:rod_of_atos",
+      "id": "dota2:launch-sound:73:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q074-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/rod_of_atos.wav",
+          "sha256": "5d8ef33f585496c15431b601e672a2cfc5d3ecc40808af1a160785ff384a3631",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 220,
+      "questionId": "soundcheck-item:rod_of_atos",
+      "id": "dota2:launch-sound:73:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q074-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/rod_of_atos.wav",
+          "sha256": "1da1452a4e46dc39b8bb4fa35a6a01bfc90aad47ed93bc9bb393d215bb88be9c",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 221,
+      "questionId": "soundcheck-item:rod_of_atos",
+      "id": "dota2:launch-sound:73:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q074-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/rod_of_atos.wav",
+          "sha256": "a6342944c2aa3580f8a36f7b2c231073b20536e398feaa97ab650f5671118ecf",
+          "duration": 2.973288
+        }
+      ]
+    },
+    {
+      "index": 222,
+      "questionId": "soundcheck-item:bloodstone",
+      "id": "dota2:launch-sound:74:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q075-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/bloodstone_cast.wav",
+          "sha256": "03ac9aa0ff96042a2c13f3892666a38161bb28bead3b82bffeba12cfea7c89ff",
+          "duration": 0.11100565000000001
+        },
+        {
+          "file": "cuts/q075-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/black_king_bar.wav",
+          "sha256": "a1d1ac1fa3cdce9a03f3921986387a64e35004c2b027839d3d0a82b05f3304bb",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 223,
+      "questionId": "soundcheck-item:bloodstone",
+      "id": "dota2:launch-sound:74:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q075-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/bloodstone_cast.wav",
+          "sha256": "8dbf7c3b683152006883e746d7fe65dd90d61e838c49ee6291d20849723380d0",
+          "duration": 0.24421243
+        },
+        {
+          "file": "cuts/q075-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/black_king_bar.wav",
+          "sha256": "8dd18f50466ba96e7eac93ea00349d1f5899e5c88a7c20dd1926830adc1ddd92",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 224,
+      "questionId": "soundcheck-item:bloodstone",
+      "id": "dota2:launch-sound:74:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q075-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/bloodstone_cast.wav",
+          "sha256": "bccdc5ee27d2f3314599109091197b4eabb97a1ee74594578e1156c099150a23",
+          "duration": 2.220113
+        },
+        {
+          "file": "cuts/q075-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/black_king_bar.wav",
+          "sha256": "bd67f60c7147b3fcb226f7ed850de6b6c0022b9432542293a4306c696dd29270",
+          "duration": 3.884853
+        }
+      ]
+    },
+    {
+      "index": 225,
+      "questionId": "soundcheck-item:gungir",
+      "id": "dota2:launch-sound:75:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q076-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/gleipnir_cast.wav",
+          "sha256": "bbb23b3e09cc0835777462a97fd009337abd654f2fd0fd1d7d91d141c54e10f5",
+          "duration": 0.12
+        },
+        {
+          "file": "cuts/q076-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/orchid.wav",
+          "sha256": "cec5ff959b1d9d04853e45143bbaf181ffd26425786711e8ef2713aa374a733f",
+          "duration": 0.09982315000000001
+        }
+      ]
+    },
+    {
+      "index": 226,
+      "questionId": "soundcheck-item:gungir",
+      "id": "dota2:launch-sound:75:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q076-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/gleipnir_cast.wav",
+          "sha256": "8cee50d5d7da3b0b9dc628f93edbd92ddf6b254a0c30fa8d427b852fc9d4ff45",
+          "duration": 0.27
+        },
+        {
+          "file": "cuts/q076-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/orchid.wav",
+          "sha256": "34ff44e7160a3f79b3350ee03165586ae25c8e508f9a45a78be84c3c129f3ac3",
+          "duration": 0.21961093
+        }
+      ]
+    },
+    {
+      "index": 227,
+      "questionId": "soundcheck-item:gungir",
+      "id": "dota2:launch-sound:75:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q076-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/gleipnir_cast.wav",
+          "sha256": "9aa12166e12dce0f26c6cd2b79600991d285b69ba13db02ea58b4667d4d183f3",
+          "duration": 2.502604
+        },
+        {
+          "file": "cuts/q076-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/orchid.wav",
+          "sha256": "75ad97baaa8ae345c7c82c244d5336d4558eb05aeaa1975d1e1c0af795cbebf1",
+          "duration": 1.996463
+        }
+      ]
+    },
+    {
+      "index": 228,
+      "questionId": "soundcheck-item:mask_of_madness",
+      "id": "dota2:launch-sound:76:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q077-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/mask_of_madness.wav",
+          "sha256": "04023990bb416e656fc5bf9217a39e31af54d7acac08135022a1c69cb949a02a",
+          "duration": 0.12
+        },
+        {
+          "file": "cuts/q077-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_armlet_activate.wav",
+          "sha256": "681411a224dccd1cb8855bfb6ca10e077a6de494f57765b1cf3efd854e55fd75",
+          "duration": 0.06389795000000001
+        }
+      ]
+    },
+    {
+      "index": 229,
+      "questionId": "soundcheck-item:mask_of_madness",
+      "id": "dota2:launch-sound:76:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q077-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/mask_of_madness.wav",
+          "sha256": "fd19eb6a216d21c03464f4006d90a72adb61392f5be861166ab3a32184ca3d1e",
+          "duration": 0.27
+        },
+        {
+          "file": "cuts/q077-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_armlet_activate.wav",
+          "sha256": "1ac324f1e4455789fec02e8803a5aa8f099ed38554f7992953c1379da5d90837",
+          "duration": 0.14057549
+        }
+      ]
+    },
+    {
+      "index": 230,
+      "questionId": "soundcheck-item:mask_of_madness",
+      "id": "dota2:launch-sound:76:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q077-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/mask_of_madness.wav",
+          "sha256": "c97570e7ac86df270be5f748f854055d4476ae27c5f590df4ddb8740c9f7adb2",
+          "duration": 4.782381
+        },
+        {
+          "file": "cuts/q077-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_armlet_activate.wav",
+          "sha256": "eb25f5c3af944d8f3341bdceb2c87d8d7ab5578ca0740895212bca58dfcfed80",
+          "duration": 1.277959
+        }
+      ]
+    },
+    {
+      "index": 231,
+      "questionId": "soundcheck-item:harpoon",
+      "id": "dota2:launch-sound:77:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q078-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/harpoon_cast.wav",
+          "sha256": "e6c0789bcd21041846d4f27201afc563d7acc4bdd7a243cc727fe4bed53878c0",
+          "duration": 0.0656
+        },
+        {
+          "file": "cuts/q078-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/force_staff.wav",
+          "sha256": "9b3c0cc89ff525bbd19748bddfd19b9623039a3591820016d37b5d97426aa384",
+          "duration": 0.055124700000000006
+        }
+      ]
+    },
+    {
+      "index": 232,
+      "questionId": "soundcheck-item:harpoon",
+      "id": "dota2:launch-sound:77:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q078-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/harpoon_cast.wav",
+          "sha256": "f402cf7c986a3a50859ec6fb4672e2e705bb5a0c8479d277d3df90e7bdd17418",
+          "duration": 0.14432
+        },
+        {
+          "file": "cuts/q078-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/force_staff.wav",
+          "sha256": "332daa10227c963111cda23351b448a573706b66f7ca5534eec4223f819b89b5",
+          "duration": 0.12127434000000001
+        }
+      ]
+    },
+    {
+      "index": 233,
+      "questionId": "soundcheck-item:harpoon",
+      "id": "dota2:launch-sound:77:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q078-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/harpoon_cast.wav",
+          "sha256": "c9983da26e7a9de7e44829c5f703213ec1a7aac0291866ddce36bc396c50bc78",
+          "duration": 1.312
+        },
+        {
+          "file": "cuts/q078-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/force_staff.wav",
+          "sha256": "970de1b2c55aa6ac793dd151bd2381cbcdfee15e95a9dd6e67a1ac3c3eede5ea",
+          "duration": 1.102494
+        }
+      ]
+    },
+    {
+      "index": 234,
+      "questionId": "soundcheck-item:ethereal_blade",
+      "id": "dota2:launch-sound:78:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q079-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/ethereal_blade_cast.wav",
+          "sha256": "b0eff174b59163fabf16bacbb9d76d0b3a1577ab8c174b1ab6d6a07b8c4c2429",
+          "duration": 0.12
+        },
+        {
+          "file": "cuts/q079-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/nullifier_cast.wav",
+          "sha256": "c9822d85fa5c6adb6fece5ecbe405d4fc4ad2969dda583734495e21c295e8b1a",
+          "duration": 0.08013605000000001
+        }
+      ]
+    },
+    {
+      "index": 235,
+      "questionId": "soundcheck-item:ethereal_blade",
+      "id": "dota2:launch-sound:78:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q079-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/ethereal_blade_cast.wav",
+          "sha256": "cbb57ab999f10c509b3aed6742c2f33eecbf5601ab181f55e937baeb2771f0b6",
+          "duration": 0.27
+        },
+        {
+          "file": "cuts/q079-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/nullifier_cast.wav",
+          "sha256": "5e15ce42ad84882bb166630bd4a506de7066a02f7be1d385a19de4926f725a7e",
+          "duration": 0.17629931000000001
+        }
+      ]
+    },
+    {
+      "index": 236,
+      "questionId": "soundcheck-item:ethereal_blade",
+      "id": "dota2:launch-sound:78:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q079-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/ethereal_blade_cast.wav",
+          "sha256": "5882ab786d5d4f25dd09b0e154cca96a74ca7e5373b15f186cc2765902210ce7",
+          "duration": 2.635828
+        },
+        {
+          "file": "cuts/q079-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/nullifier_cast.wav",
+          "sha256": "b5032ff355bd3c3626633ae9ce57c15c2ff795d7137381153840ff436385ed3f",
+          "duration": 1.602721
+        }
+      ]
+    },
+    {
+      "index": 237,
+      "questionId": "soundcheck-item:sheepstick",
+      "id": "dota2:launch-sound:79:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q080-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/misc/morph_in.wav",
+          "sha256": "03b448b15d619198378e5956f108c2b24989799538122dacd344c2ef8403b0ee",
+          "duration": 0.06666325
+        },
+        {
+          "file": "cuts/q080-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/rod_of_atos.wav",
+          "sha256": "5d8ef33f585496c15431b601e672a2cfc5d3ecc40808af1a160785ff384a3631",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 238,
+      "questionId": "soundcheck-item:sheepstick",
+      "id": "dota2:launch-sound:79:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q080-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/misc/morph_in.wav",
+          "sha256": "694df9ae8434c8425d109f4c311b0336401134c2df60af155196c9ec3f6d3020",
+          "duration": 0.14665915
+        },
+        {
+          "file": "cuts/q080-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/rod_of_atos.wav",
+          "sha256": "1da1452a4e46dc39b8bb4fa35a6a01bfc90aad47ed93bc9bb393d215bb88be9c",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 239,
+      "questionId": "soundcheck-item:sheepstick",
+      "id": "dota2:launch-sound:79:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q080-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/misc/morph_in.wav",
+          "sha256": "003d3e539c5bc2c210e90daa04319b31831785dc30a1e720e62751474803d6e5",
+          "duration": 1.333265
+        },
+        {
+          "file": "cuts/q080-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/rod_of_atos.wav",
+          "sha256": "a6342944c2aa3580f8a36f7b2c231073b20536e398feaa97ab650f5671118ecf",
+          "duration": 2.973288
+        }
+      ]
+    },
+    {
+      "index": 240,
+      "questionId": "soundcheck-item:smoke_of_deceit",
+      "id": "dota2:launch-sound:80:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q081-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/smoke_of_deceit.wav",
+          "sha256": "edabd79534fd4ae2385d533632f9636d3a1d0338ccf506874fcab8f0e2473cfe",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 241,
+      "questionId": "soundcheck-item:smoke_of_deceit",
+      "id": "dota2:launch-sound:80:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q081-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/smoke_of_deceit.wav",
+          "sha256": "5feec354e63ef6e2c350d48dc591212e05aa52bb0d92d46b63c8794e20b374f0",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 242,
+      "questionId": "soundcheck-item:smoke_of_deceit",
+      "id": "dota2:launch-sound:80:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q081-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/smoke_of_deceit.wav",
+          "sha256": "3f3e8a3ca7593a4ffc37b1ddd328e3d3e3b47ac49ab5e8a28e7613ebd09691b0",
+          "duration": 2.933311
+        }
+      ]
+    },
+    {
+      "index": 243,
+      "questionId": "soundcheck-item:dust",
+      "id": "dota2:launch-sound:81:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q082-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/dust_of_appearance.wav",
+          "sha256": "447b368c6beac29aa0c7117254dc1eb011ef1e7da70d26c03c6dcc934b334486",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 244,
+      "questionId": "soundcheck-item:dust",
+      "id": "dota2:launch-sound:81:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q082-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/dust_of_appearance.wav",
+          "sha256": "e8834d87cb2cd09c1c7a73609408cc3859b5e4175a279fa7b0db8874a279ef14",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 245,
+      "questionId": "soundcheck-item:dust",
+      "id": "dota2:launch-sound:81:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q082-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/dust_of_appearance.wav",
+          "sha256": "8da59f3334b847be13af186d6c68af9dff79b25a58790e6b9ccec369b6821378",
+          "duration": 5.489433
+        }
+      ]
+    },
+    {
+      "index": 246,
+      "questionId": "soundcheck-item:phase_boots",
+      "id": "dota2:launch-sound:82:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q083-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/phase_boots_activate.wav",
+          "sha256": "5a4fd61ca81d22922f209f1729dc83f3632d3cc221bc82e06bf3600fe0928927",
+          "duration": 0.055
+        }
+      ]
+    },
+    {
+      "index": 247,
+      "questionId": "soundcheck-item:phase_boots",
+      "id": "dota2:launch-sound:82:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q083-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/phase_boots_activate.wav",
+          "sha256": "cbbc4bcc36d66f45588f7c4aef61ff9102e9341ac8af545d50fa41b13bbb0600",
+          "duration": 0.11
+        }
+      ]
+    },
+    {
+      "index": 248,
+      "questionId": "soundcheck-item:phase_boots",
+      "id": "dota2:launch-sound:82:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q083-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/phase_boots_activate.wav",
+          "sha256": "bb3ccbc1fb0411231b9490cb5409781798e29b22646b125af88c5c98e1cf2522",
+          "duration": 0.990522
+        }
+      ]
+    },
+    {
+      "index": 249,
+      "questionId": "soundcheck-item:guardian_greaves",
+      "id": "dota2:launch-sound:83:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q084-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/guardian_greaves.wav",
+          "sha256": "3af3c9ac31575a2813dbe8bfa66328124aaefbe43230a3ad526e2daa7ac62811",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 250,
+      "questionId": "soundcheck-item:guardian_greaves",
+      "id": "dota2:launch-sound:83:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q084-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/guardian_greaves.wav",
+          "sha256": "3236f0e320884e1959735198c27cf923292173335b5a5578678750b79d010b07",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 251,
+      "questionId": "soundcheck-item:guardian_greaves",
+      "id": "dota2:launch-sound:83:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q084-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/guardian_greaves.wav",
+          "sha256": "758f46bd979f7c5ce53d601ef8e4ddbbfe151a9fdc7b27ecc0520cabef4121ba",
+          "duration": 4.484603
+        }
+      ]
+    },
+    {
+      "index": 252,
+      "questionId": "soundcheck-item:silver_edge",
+      "id": "dota2:launch-sound:84:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q085-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/silver_edge_target.wav",
+          "sha256": "2c41e7c9d6173e14c4b5a3d938319c3e16526cc70b681402377e1d22a7247a83",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 253,
+      "questionId": "soundcheck-item:silver_edge",
+      "id": "dota2:launch-sound:84:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q085-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/silver_edge_target.wav",
+          "sha256": "99f71bef20d78a745aa7df1c42264767ef92f08a501e45d60b53b15cbd6d29bb",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 254,
+      "questionId": "soundcheck-item:silver_edge",
+      "id": "dota2:launch-sound:84:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q085-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/silver_edge_target.wav",
+          "sha256": "e4fae1cefe51dbd139d8b7b6ed90d36ba5367d6ac361764a6322fb7f4ca7e761",
+          "duration": 3.666939
+        }
+      ]
+    },
+    {
+      "index": 255,
+      "questionId": "soundcheck-item:ghost",
+      "id": "dota2:launch-sound:85:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q086-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_ghost_sceptre.wav",
+          "sha256": "da92a9127d595d703e2385c5a08f7b6c923e7068ff49e43cf04049b45e78770d",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 256,
+      "questionId": "soundcheck-item:ghost",
+      "id": "dota2:launch-sound:85:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q086-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_ghost_sceptre.wav",
+          "sha256": "0f3ae3cdbadb6e3b0bb3dfb843f616e221ad26bd4ea70c7582fc5386fd87d18a",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 257,
+      "questionId": "soundcheck-item:ghost",
+      "id": "dota2:launch-sound:85:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q086-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_ghost_sceptre.wav",
+          "sha256": "57bfdddbea6203b8ba68b7a78da12b2041351a19b87874f804d4ac4c20c79f2b",
+          "duration": 3.318685
+        }
+      ]
+    },
+    {
+      "index": 258,
+      "questionId": "soundcheck-item:spirit_vessel",
+      "id": "dota2:launch-sound:86:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q087-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/spirit_vessel_cast.wav",
+          "sha256": "60c59c84f2fdbf36215a53197ee85b639c74073e3637c7ed322012a34814f540",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 259,
+      "questionId": "soundcheck-item:spirit_vessel",
+      "id": "dota2:launch-sound:86:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q087-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/spirit_vessel_cast.wav",
+          "sha256": "82f1f94da62e4ed2f9b14fad2fdb5fadd0e67962a1d443cea7fdad83b38079ad",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 260,
+      "questionId": "soundcheck-item:spirit_vessel",
+      "id": "dota2:launch-sound:86:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q087-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/spirit_vessel_cast.wav",
+          "sha256": "b07045a3bc4bbaef0d13d79121b1a870a0746bcda2d9e1626f54bdb0977b8ec0",
+          "duration": 3.126531
+        }
+      ]
+    },
+    {
+      "index": 261,
+      "questionId": "soundcheck-item:urn_of_shadows",
+      "id": "dota2:launch-sound:87:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q088-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/urn_of_shadows.wav",
+          "sha256": "2f0619225661a0ea4df714e3c397696de20e1762c5b2de023b158e5bf3481d7c",
+          "duration": 0.10007145
+        }
+      ]
+    },
+    {
+      "index": 262,
+      "questionId": "soundcheck-item:urn_of_shadows",
+      "id": "dota2:launch-sound:87:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q088-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/urn_of_shadows.wav",
+          "sha256": "77ba5e26a18bc3570204bd083cd53e11b32e17e36ce545c943c767c1a9e762bf",
+          "duration": 0.22015719
+        }
+      ]
+    },
+    {
+      "index": 263,
+      "questionId": "soundcheck-item:urn_of_shadows",
+      "id": "dota2:launch-sound:87:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q088-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/urn_of_shadows.wav",
+          "sha256": "4235af43eef6c181a23582a26e5c0ed53756e50f834a1270bdfec3997cdc2141",
+          "duration": 2.001429
+        }
+      ]
+    },
+    {
+      "index": 264,
+      "questionId": "soundcheck-item:mjollnir",
+      "id": "dota2:launch-sound:88:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q089-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_mjoll_on.wav",
+          "sha256": "bc18b8aa29b11a114d0e9699c05a629294911fd24327fa71bd07c01a73cf5c62",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 265,
+      "questionId": "soundcheck-item:mjollnir",
+      "id": "dota2:launch-sound:88:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q089-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_mjoll_on.wav",
+          "sha256": "386cdd6c6b8d2a14f13dc0411d3017fb8bc2582dcbf4103d2d5bb6e149442156",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 266,
+      "questionId": "soundcheck-item:mjollnir",
+      "id": "dota2:launch-sound:88:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q089-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/item_mjoll_on.wav",
+          "sha256": "11fc34bcbf9a38e8c062fc98c0b7336092b262db6092f5f329f1f13c92781b02",
+          "duration": 4.443583
+        }
+      ]
+    },
+    {
+      "index": 267,
+      "questionId": "soundcheck-item:moon_shard",
+      "id": "dota2:launch-sound:89:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q090-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/moon_shard.wav",
+          "sha256": "0bd0087ec4c8d7301273ead53a99da6909295d2e5b2f904bd01fa888b5ac1c04",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 268,
+      "questionId": "soundcheck-item:moon_shard",
+      "id": "dota2:launch-sound:89:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q090-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/moon_shard.wav",
+          "sha256": "5b2f617721370f40d232b880bc76e14c11451d0fdf1772445f9b45b47937464c",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 269,
+      "questionId": "soundcheck-item:moon_shard",
+      "id": "dota2:launch-sound:89:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q090-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/moon_shard.wav",
+          "sha256": "aec951925c2011243aec57f7c22051885a1b05693ecde86e0e9e0d2a6a76e0be",
+          "duration": 2.546962
+        }
+      ]
+    },
+    {
+      "index": 270,
+      "questionId": "soundcheck-item:meteor_hammer",
+      "id": "dota2:launch-sound:90:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q091-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/meteor_fall.wav",
+          "sha256": "b33a323755a158e712259e7004ba80919a490595fcc047001d4b1aeb2e1279f5",
+          "duration": 0.1002823
+        }
+      ]
+    },
+    {
+      "index": 271,
+      "questionId": "soundcheck-item:meteor_hammer",
+      "id": "dota2:launch-sound:90:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q091-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/meteor_fall.wav",
+          "sha256": "773e52daddeb8279bbf2e81ce86da98b3aa9d7c21d888348ac0d56ace2216248",
+          "duration": 0.22062106
+        }
+      ]
+    },
+    {
+      "index": 272,
+      "questionId": "soundcheck-item:meteor_hammer",
+      "id": "dota2:launch-sound:90:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q091-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/meteor_fall.wav",
+          "sha256": "0584f963ba8264f697b0ea9e39aaafa4d34c6c2a55ddfc806ccb53c4652ba31c",
+          "duration": 2.005646
+        }
+      ]
+    },
+    {
+      "index": 273,
+      "questionId": "soundcheck-item:pavise",
+      "id": "dota2:launch-sound:91:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q092-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/pavise_target.wav",
+          "sha256": "9177a407e577eca769bf4464ac8fe44aab092f562edd253584d23da99fa0b0ac",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 274,
+      "questionId": "soundcheck-item:pavise",
+      "id": "dota2:launch-sound:91:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q092-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/pavise_target.wav",
+          "sha256": "783f0a165757fc154b5a1b8067c2adc6af9a0afdad22f0ef4d8f00eaaddccd85",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 275,
+      "questionId": "soundcheck-item:pavise",
+      "id": "dota2:launch-sound:91:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q092-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/pavise_target.wav",
+          "sha256": "fc88538e9b7819133f52e5dea8ffbcbfede44d7fb16b326a4ab1f6fe509c7d1c",
+          "duration": 6.01675
+        }
+      ]
+    },
+    {
+      "index": 276,
+      "questionId": "soundcheck-item:solar_crest",
+      "id": "dota2:launch-sound:92:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q093-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/star_emblem_ally.wav",
+          "sha256": "5dc8ff5e9146c2a598ccf2b8f7ebd84f6231aff34a632a81b9b9f929af0ad6c3",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 277,
+      "questionId": "soundcheck-item:solar_crest",
+      "id": "dota2:launch-sound:92:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q093-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/star_emblem_ally.wav",
+          "sha256": "5cb712aec44c3d9eb23fb1dc7610f5dae7f6f78431c59d8f25af55432d1851e3",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 278,
+      "questionId": "soundcheck-item:solar_crest",
+      "id": "dota2:launch-sound:92:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q093-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/star_emblem_ally.wav",
+          "sha256": "9214b4b0bb97b387c2b8988af3725c5ec4d9fd50e7b0ff660b00e0408d1e9faf",
+          "duration": 3.126803
+        }
+      ]
+    },
+    {
+      "index": 279,
+      "questionId": "soundcheck-item:tango",
+      "id": "dota2:launch-sound:93:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q094-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/tango.wav",
+          "sha256": "ee4112c4df0ccac306393f7cb81457e06c46d6dccec9d236bd39babf1e13ab21",
+          "duration": 0.12
+        },
+        {
+          "file": "cuts/q094-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/healing_salve.wav",
+          "sha256": "1f25c8afad0be91565f7e1f77971c7c2646e4d9dcd9623313b6c9903787fc807",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 280,
+      "questionId": "soundcheck-item:tango",
+      "id": "dota2:launch-sound:93:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q094-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/tango.wav",
+          "sha256": "4fdab79f9811287b95a827ac508753f16e96b4628cb3706724e64a9956b53185",
+          "duration": 0.27
+        },
+        {
+          "file": "cuts/q094-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/healing_salve.wav",
+          "sha256": "4203c7f408321bb112d2aaf00a7d5c1a669d95a5f0f8347fe0bfec18a2fdbddb",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 281,
+      "questionId": "soundcheck-item:tango",
+      "id": "dota2:launch-sound:93:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q094-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/tango.wav",
+          "sha256": "e33296ac8dc4650239137fa71d0d4861ad002b7cc2ce0e585c5c28cebe7ed2ee",
+          "duration": 2.707506
+        },
+        {
+          "file": "cuts/q094-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/healing_salve.wav",
+          "sha256": "bdee80301df634e008f168af925d4fc70ab50088d328bd5697b845790edba24c",
+          "duration": 2.762336
+        }
+      ]
+    },
+    {
+      "index": 282,
+      "questionId": "soundcheck-item:hurricane_pike",
+      "id": "dota2:launch-sound:94:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q095-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/hurricane_pike.wav",
+          "sha256": "4b8be1d635ec32752f8ed497edd54ba8cc0499eb0838e0baf2e1de2c374f67d7",
+          "duration": 0.10512470000000002
+        },
+        {
+          "file": "cuts/q095-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/star_emblem_ally.wav",
+          "sha256": "5dc8ff5e9146c2a598ccf2b8f7ebd84f6231aff34a632a81b9b9f929af0ad6c3",
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "index": 283,
+      "questionId": "soundcheck-item:hurricane_pike",
+      "id": "dota2:launch-sound:94:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q095-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/hurricane_pike.wav",
+          "sha256": "60a5d8d67cd608e44d5945f5f750c874b5b462233a2ca6913f6924afcdfeb41e",
+          "duration": 0.23127434000000002
+        },
+        {
+          "file": "cuts/q095-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/star_emblem_ally.wav",
+          "sha256": "5cb712aec44c3d9eb23fb1dc7610f5dae7f6f78431c59d8f25af55432d1851e3",
+          "duration": 0.27
+        }
+      ]
+    },
+    {
+      "index": 284,
+      "questionId": "soundcheck-item:hurricane_pike",
+      "id": "dota2:launch-sound:94:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q095-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/hurricane_pike.wav",
+          "sha256": "a3790f12f9a2c209f97ba9415ce08e61c69c34d8c653f7226405fe0b6c98a0a8",
+          "duration": 2.102494
+        },
+        {
+          "file": "cuts/q095-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/star_emblem_ally.wav",
+          "sha256": "9214b4b0bb97b387c2b8988af3725c5ec4d9fd50e7b0ff660b00e0408d1e9faf",
+          "duration": 3.126803
+        }
+      ]
+    },
+    {
+      "index": 285,
+      "questionId": "soundcheck-item:disperser",
+      "id": "dota2:launch-sound:95:stage:1",
+      "stage": 1,
+      "clips": [
+        {
+          "file": "cuts/q096-s1-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/disperser_target_ally.wav",
+          "sha256": "fb621ece1ca3bf44640a6d978345fa8a790acc5e19222b8bbc500a0800033016",
+          "duration": 0.12
+        },
+        {
+          "file": "cuts/q096-s1-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/nullifier_cast.wav",
+          "sha256": "c9822d85fa5c6adb6fece5ecbe405d4fc4ad2969dda583734495e21c295e8b1a",
+          "duration": 0.08013605000000001
+        }
+      ]
+    },
+    {
+      "index": 286,
+      "questionId": "soundcheck-item:disperser",
+      "id": "dota2:launch-sound:95:stage:2",
+      "stage": 2,
+      "clips": [
+        {
+          "file": "cuts/q096-s2-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/disperser_target_ally.wav",
+          "sha256": "8ba5525f0b3550dd050e2683cb3f5eadd0d2810e341d1fe2d51f7f24a1e34697",
+          "duration": 0.27
+        },
+        {
+          "file": "cuts/q096-s2-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/nullifier_cast.wav",
+          "sha256": "5e15ce42ad84882bb166630bd4a506de7066a02f7be1d385a19de4926f725a7e",
+          "duration": 0.17629931000000001
+        }
+      ]
+    },
+    {
+      "index": 287,
+      "questionId": "soundcheck-item:disperser",
+      "id": "dota2:launch-sound:95:stage:3",
+      "stage": 3,
+      "clips": [
+        {
+          "file": "cuts/q096-s3-c1.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/disperser_target_ally.wav",
+          "sha256": "1651b820b966c3e6150d7906d3b309d383c1be064e755d9e1c1e10501fb76943",
+          "duration": 4.012653
+        },
+        {
+          "file": "cuts/q096-s3-c2.wav",
+          "source": "https://dotabase.dillerm.io/vpk/sounds/items/nullifier_cast.wav",
+          "sha256": "b5032ff355bd3c3626633ae9ce57c15c2ff795d7137381153840ff436385ed3f",
+          "duration": 1.602721
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "ok": false,
+  "image": "queue-arcade-launch:baseline",
+  "imageId": "sha256:ce9eca3d1cf89ec1d2ba245bdd54107373b95fdb80731a26fa04329bca3bb626",
+  "runtime": {
+    "node": "v22.23.3",
+    "uid": 1001,
+    "buildId": "7FUBU6Evl5KI2B64_VHQk",
+    "cpu": "100000 100000",
+    "memory": "1073741824",
+    "swap": "0"
+  },
+  "limits": {
+    "cpus": 1,
+    "memoryMiB": 1024,
+    "swapMiB": 0,
+    "databaseCpus": 1,
+    "databaseMemoryMiB": 512
+  },
+  "elapsedSeconds": 202.28,
+  "database": null,
+  "latency": null,
+  "shutdown": {
+    "milliseconds": 513,
+    "status": 0,
+    "state": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-10-06T13:06:57.324655348Z",
+      "FinishedAt": "2026-10-06T13:10:09.020350819Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 3,
+        "Log": [
+          {
+            "Start": "2026-10-06T13:07:32.529920177Z",
+            "End": "2026-10-06T13:07:33.246185806Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:08:03.246171726Z",
+            "End": "2026-10-06T13:08:04.354377696Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:08:34.354520942Z",
+            "End": "2026-10-06T13:08:39.410607193Z",
+            "ExitCode": -1,
+            "Output": "Health check exceeded timeout (5s)"
+          },
+          {
+            "Start": "2026-10-06T13:09:09.409907465Z",
+            "End": "2026-10-06T13:09:14.46951578Z",
+            "ExitCode": -1,
+            "Output": "Health check exceeded timeout (5s)"
+          },
+          {
+            "Start": "2026-10-06T13:09:44.467659279Z",
+            "End": "2026-10-06T13:09:49.533245579Z",
+            "ExitCode": -1,
+            "Output": "Health check exceeded timeout (5s)"
+          }
+        ]
+      }
+    }
+  },
+  "runs": [
+    {
+      "file": "capacity-1.json",
+      "ok": false,
+      "seconds": 161.24,
+      "players": 462,
+      "votes": 2752,
+      "requests": 74962,
+      "statuses": {
+        "200": 72093,
+        "204": 2508,
+        "409": 352,
+        "429": 9
+      },
+      "responseBytes": 425288346,
+      "mediaRequests": 9,
+      "peakOutstandingHttp": 256,
+      "roundP95MaxMs": 5918.94,
+      "voteP95MaxMs": 11527.02,
+      "clientQueueP95MaxMs": 15014.3,
+      "clientQueueMaxMs": 15028.81
+    }
+  ]
+}

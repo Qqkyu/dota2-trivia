@@ -1,0 +1,12 @@
+{
+  "patches/postgres@3.4.9.patch": "d8930d4d380de22a4ee1d0480cf589fc302b4309b97edeab3a41404653d60563",
+  "scripts/check-db-runtime.mjs": "bc8f9800f60acd3c5c4c786a23c90c83f3b91919ae50fa151c2cc5bc8dddd03b",
+  "src/lib/database-client.ts": "7e897b950fb9f73119d26cc8849a95c2d2affd782a0f1fca6672d1b7dce6ce1a",
+  "src/lib/database-schema.mjs": "ea36b40a7a1808dbd117f7a2bc4bdd0a63e0db451bd018e944e9a6e4d246991e",
+  "src/lib/vote-store.ts": "d5a317e867963e9c244ad101243f5c960f8622479806706e4c9d5f76bbd1d352",
+  "src/lib/vote-store-postgres.ts": "7272d11241fdbe8525fd2622ecf423eb1e7f16f0705af96b3468c53aec2ea963",
+  "src/lib/account-store.ts": "2b86b692d69ebdf75d8000147ff3c4185f9f3f6b6a3e1530c584a9439188a643",
+  "src/lib/account-store-postgres.ts": "4fe26f5f237b2ccbeabb75ba88007cf2e9263151809606e983245842d75cb1ff",
+  "src/lib/alpha-store.ts": "9d016fae6870ff2960ead74809cf5c8b0609d1f39ea6debbf2a06fea3d4a6449",
+  "src/lib/alpha-store-postgres.ts": "91e7231196fa440c37e03b0125b6b8d32a342e53b77fa8438bbfcbb6e57b5c56"
+}

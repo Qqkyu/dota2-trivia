@@ -1,0 +1,137 @@
+[
+  {
+    "name": "jak_kill_11",
+    "sourceFile": "jakiro.json",
+    "transcript": "We burned your candle at both ends.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/jakiro/jak_kill_11.mp3",
+    "sourceSha256": "52b5fce698f47a1126ee4d1b145bab39876e1b937db80b7655d5e5ed63d62d08",
+    "duration": 4.038875,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.08519270271062851,
+        "rms": 0.01899047679695411,
+        "rmsDb": -34.42928262449434,
+        "peakDb": -21.39195207373472
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.545745849609375,
+        "rms": 0.09112580679062819,
+        "rmsDb": -20.807172271824115,
+        "peakDb": -5.260191168211557
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_kill_12",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "You'll grow colder but no older.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_kill_12.mp3",
+    "sourceSha256": "cfe8d03a021dab3bf8853ff87f41ef037b254d27f37f9740bf3026eeadc33b44",
+    "duration": 6.56475,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.0071656182408332825,
+        "rms": 0.0007501574065725452,
+        "rmsDb": -62.496951968612706,
+        "peakDb": -42.89492666500006
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.47188228368759155,
+        "rms": 0.0790640901798849,
+        "rmsDb": -22.040414445799257,
+        "peakDb": -6.523326549396583
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_spawn_02",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "The Age of Ice begins!",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_spawn_02.mp3",
+    "sourceSha256": "7f36599cb708ad148a8f2b9ae17149c3f2d1d4f254f9af0c400d384d18415590",
+    "duration": 4.318188,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 9.822903666645288e-05,
+        "rms": 2.066959093922761e-05,
+        "rmsDb": -93.69336236352981,
+        "peakDb": -80.155202301289
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.49660998582839966,
+        "rms": 0.10256096570420183,
+        "rmsDb": -19.78035797061758,
+        "peakDb": -6.079691038095105
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_kill_09",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Now is the winter of your disembowelment.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_kill_09.mp3",
+    "sourceSha256": "4cb390a1c5efdd47bbf85bf2e223d64fbc326b0398d0cad84352e0bd0f277d76",
+    "duration": 4.344313,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 6.049214425729588e-05,
+        "rms": 1.226403162986563e-05,
+        "rmsDb": -98.22733476147806,
+        "peakDb": -84.36602041677762
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.38248753547668457,
+        "rms": 0.06969531394559608,
+        "rmsDb": -23.135928425410025,
+        "peakDb": -8.347654261809808
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_respawn_08",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Colder than hell's heart, I return.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_respawn_08.mp3",
+    "sourceSha256": "d7cc8b1bedffad412b1a149f92fea4c0c097522fe29e72cd799f6d940dcbf929",
+    "duration": 5.807188,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 5.093120489618741e-05,
+        "rms": 1.1894252446626667e-05,
+        "rmsDb": -98.49325696325667,
+        "peakDb": -85.86032098911116
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.48071831464767456,
+        "rms": 0.06597066536705694,
+        "rmsDb": -23.612982713787627,
+        "peakDb": -6.362186631739343
+      }
+    ],
+    "listened": false
+  }
+]

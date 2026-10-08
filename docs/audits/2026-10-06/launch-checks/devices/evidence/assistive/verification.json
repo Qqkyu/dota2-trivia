@@ -1,0 +1,25 @@
+{
+  "buildId": "YC6nz9frAbvjRFKHq5lSy",
+  "url": "http://127.0.0.1:3331",
+  "roundRegression": "PASS",
+  "shopRegression": "PASS",
+  "actualOrcaNextPrompt": "PASS, spoken once in transition window",
+  "actualOrcaRecipeSelection": "PASS, name and count spoken",
+  "focusRecovery": "PASS, round heading then Search and Build",
+  "recipeSubmissions": 1,
+  "errors": [],
+  "browser": "121.0.6167.160",
+  "additionalRuns": {
+    "149.0.7827.55": "Round and complete recipe speech pass",
+    "153.0.8010.12": {
+      "roundRegression": "PASS",
+      "shopKeyboardRegression": "PASS",
+      "roundSpeech": "PASS",
+      "recipeFirstSelectionSpeech": "PASS",
+      "recipeNextTypedSearch": "FAIL with Orca42 programmatic focus, PASS after native Tab/Shift+Tab",
+      "native200And400Zoom": "PASS",
+      "probeRaf": "did not fix mode issue",
+      "probe150ms": "did not fix mode issue"
+    }
+  }
+}

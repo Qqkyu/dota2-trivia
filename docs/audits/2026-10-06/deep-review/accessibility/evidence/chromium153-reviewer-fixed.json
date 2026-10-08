@@ -1,0 +1,964 @@
+{
+  "appUrl": "http://127.0.0.1:3311",
+  "engine": "chromium",
+  "runName": "chromium153-reviewer-fixed",
+  "version": "153.0.8010.12",
+  "pages": [
+    {
+      "label": "desktop-home",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 1280,
+          "height": 900,
+          "dpr": 1
+        },
+        "scrollWidth": 1280,
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "testid": "game-volume",
+            "width": 72,
+            "height": 20
+          }
+        ],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [
+          {
+            "target": "",
+            "duration": 1800,
+            "iterations": null
+          }
+        ],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-desktop-home.png",
+      "errors": []
+    },
+    {
+      "label": "desktop-party",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 1280,
+          "height": 900,
+          "dpr": 1
+        },
+        "scrollWidth": 1280,
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "testid": "game-volume",
+            "width": 72,
+            "height": 20
+          }
+        ],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-desktop-party.png",
+      "errors": []
+    },
+    {
+      "label": "desktop-party-unchecked",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 1280,
+          "height": 900,
+          "dpr": 1
+        },
+        "scrollWidth": 1280,
+        "smallTargets": [
+          {
+            "name": "Game volume",
+            "testid": "game-volume",
+            "width": 72,
+            "height": 20
+          }
+        ],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "testid": "private-room-join-code",
+            "type": "text",
+            "name": "PARTY CODE",
+            "placeholder": "ABC12"
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-desktop-party-unchecked.png",
+      "errors": []
+    },
+    {
+      "label": "desktop-profile",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 1280,
+          "height": 900,
+          "dpr": 1
+        },
+        "scrollWidth": 1280,
+        "smallTargets": [
+          {
+            "name": "View Steam profile ↗",
+            "width": 115.890625,
+            "height": 14
+          },
+          {
+            "name": "What we store",
+            "width": 72.953125,
+            "height": 12
+          }
+        ],
+        "inputs": [],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-desktop-profile.png",
+      "errors": []
+    },
+    {
+      "label": "desktop-privacy",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 1280,
+          "height": 900,
+          "dpr": 1
+        },
+        "scrollWidth": 1280,
+        "smallTargets": [
+          {
+            "name": "Steam Web API terms",
+            "width": 140.421875,
+            "height": 16
+          },
+          {
+            "name": "GitHub issue tracker",
+            "width": 131,
+            "height": 16
+          }
+        ],
+        "inputs": [],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-desktop-privacy.png",
+      "errors": []
+    },
+    {
+      "label": "desktop-calibration",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 1280,
+          "height": 900,
+          "dpr": 1
+        },
+        "scrollWidth": 1280,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "type": "search",
+            "name": "Search calibration questions",
+            "placeholder": "Search prompt, kind, or question ID"
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-desktop-calibration.png",
+      "errors": []
+    },
+    {
+      "label": "desktop-ops",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 1280,
+          "height": 900,
+          "dpr": 1
+        },
+        "scrollWidth": 1280,
+        "smallTargets": [],
+        "inputs": [],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-desktop-ops.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-home",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [
+          {
+            "target": "",
+            "duration": 1800,
+            "iterations": null
+          }
+        ],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-mobile-home.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-party",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [
+          {
+            "target": "queue-arcade-module__ZwN2dq__volumeSlider",
+            "duration": 160,
+            "iterations": 1
+          }
+        ],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-mobile-party.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-party-unchecked",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "testid": "private-room-join-code",
+            "type": "text",
+            "name": "PARTY CODE",
+            "placeholder": "ABC12"
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-mobile-party-unchecked.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-profile",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [
+          {
+            "name": "View Steam profile ↗",
+            "width": 115.890625,
+            "height": 14
+          },
+          {
+            "name": "What we store",
+            "width": 72.953125,
+            "height": 12
+          }
+        ],
+        "inputs": [],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-mobile-profile.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-privacy",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [
+          {
+            "name": "Steam Web API terms",
+            "width": 140.421875,
+            "height": 16
+          },
+          {
+            "name": "GitHub issue tracker",
+            "width": 131,
+            "height": 16
+          }
+        ],
+        "inputs": [],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-mobile-privacy.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-calibration",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "type": "search",
+            "name": "Search calibration questions",
+            "placeholder": "Search prompt, kind, or question ID"
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-mobile-calibration.png",
+      "errors": []
+    },
+    {
+      "label": "mobile-ops",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "dpr": 1
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 640
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-mobile-ops.png",
+      "errors": []
+    },
+    {
+      "label": "zoom200-home",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "dpr": 2
+        },
+        "scrollWidth": 640,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [
+          {
+            "target": "",
+            "duration": 1800,
+            "iterations": null
+          }
+        ],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 640,
+        "height": 450
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-zoom200-home.png",
+      "errors": []
+    },
+    {
+      "label": "zoom200-party",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "dpr": 2
+        },
+        "scrollWidth": 640,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 640,
+        "height": 450
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-zoom200-party.png",
+      "errors": []
+    },
+    {
+      "label": "zoom200-party-unchecked",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "dpr": 2
+        },
+        "scrollWidth": 640,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "testid": "private-room-join-code",
+            "type": "text",
+            "name": "PARTY CODE",
+            "placeholder": "ABC12"
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 640,
+        "height": 450
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-zoom200-party-unchecked.png",
+      "errors": []
+    },
+    {
+      "label": "zoom200-profile",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "dpr": 2
+        },
+        "scrollWidth": 640,
+        "smallTargets": [
+          {
+            "name": "View Steam profile ↗",
+            "width": 115.890625,
+            "height": 14
+          },
+          {
+            "name": "What we store",
+            "width": 72.953125,
+            "height": 12
+          }
+        ],
+        "inputs": [],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 640,
+        "height": 450
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-zoom200-profile.png",
+      "errors": []
+    },
+    {
+      "label": "zoom200-privacy",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "dpr": 2
+        },
+        "scrollWidth": 640,
+        "smallTargets": [
+          {
+            "name": "Steam Web API terms",
+            "width": 140.421875,
+            "height": 16
+          },
+          {
+            "name": "GitHub issue tracker",
+            "width": 131,
+            "height": 16
+          }
+        ],
+        "inputs": [],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 640,
+        "height": 450
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-zoom200-privacy.png",
+      "errors": []
+    },
+    {
+      "label": "zoom200-calibration",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "dpr": 2
+        },
+        "scrollWidth": 640,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "type": "search",
+            "name": "Search calibration questions",
+            "placeholder": "Search prompt, kind, or question ID"
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 640,
+        "height": 450
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-zoom200-calibration.png",
+      "errors": []
+    },
+    {
+      "label": "zoom200-ops",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "dpr": 2
+        },
+        "scrollWidth": 640,
+        "smallTargets": [],
+        "inputs": [],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 640,
+        "height": 450
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-zoom200-ops.png",
+      "errors": []
+    },
+    {
+      "label": "zoom400-home",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 225,
+          "dpr": 4
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [
+          {
+            "target": "",
+            "duration": 1800,
+            "iterations": null
+          }
+        ],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 225
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-zoom400-home.png",
+      "errors": []
+    },
+    {
+      "label": "zoom400-party",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 225,
+          "dpr": 4
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [
+          {
+            "target": "queue-arcade-module__ZwN2dq__volumeSlider",
+            "duration": 160,
+            "iterations": 1
+          }
+        ],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 225
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-zoom400-party.png",
+      "errors": []
+    },
+    {
+      "label": "zoom400-party-unchecked",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 225,
+          "dpr": 4
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "testid": "game-volume",
+            "type": "range",
+            "name": "Game volume",
+            "placeholder": ""
+          },
+          {
+            "testid": "private-room-join-code",
+            "type": "text",
+            "name": "PARTY CODE",
+            "placeholder": "ABC12"
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 225
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-zoom400-party-unchecked.png",
+      "errors": []
+    },
+    {
+      "label": "zoom400-profile",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 225,
+          "dpr": 4
+        },
+        "scrollWidth": 320,
+        "smallTargets": [
+          {
+            "name": "View Steam profile ↗",
+            "width": 115.890625,
+            "height": 14
+          },
+          {
+            "name": "What we store",
+            "width": 72.953125,
+            "height": 12
+          }
+        ],
+        "inputs": [],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 225
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-zoom400-profile.png",
+      "errors": []
+    },
+    {
+      "label": "zoom400-privacy",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 225,
+          "dpr": 4
+        },
+        "scrollWidth": 320,
+        "smallTargets": [
+          {
+            "name": "Steam Web API terms",
+            "width": 140.421875,
+            "height": 16
+          },
+          {
+            "name": "GitHub issue tracker",
+            "width": 131,
+            "height": 16
+          }
+        ],
+        "inputs": [],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 225
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-zoom400-privacy.png",
+      "errors": []
+    },
+    {
+      "label": "zoom400-calibration",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 225,
+          "dpr": 4
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [
+          {
+            "type": "search",
+            "name": "Search calibration questions",
+            "placeholder": "Search prompt, kind, or question ID"
+          }
+        ],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 225
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-zoom400-calibration.png",
+      "errors": [
+        "Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n\nhttps://react.dev/link/hydration-mismatch\n\n  ...\n    <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>\n      <LoadingBoundary name=\"calibration/\" loading={null}>\n        <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>\n          <RedirectBoundary>\n            <RedirectErrorBoundary router={{...}}>\n              <InnerLayoutRouter url=\"/calibration\" tree={[...]} params={{}} cacheNode={{rsc:Promise, ...}} ...>\n                <SegmentViewNode type=\"page\" pagePath=\"calibratio...\">\n                  <SegmentTrieNode>\n                  <CalibrationPage>\n                    <CalibrationDashboard snapshot={{...}} logoUrl=\"https://cd...\" canReview={true}>\n                      <main className=\"calibratio...\" data-testid=\"calibratio...\">\n                        <header>\n                        <section>\n                        <section>\n                        <section className=\"calibratio...\">\n                          <div className=\"calibratio...\">\n                            <label>\n                              <Search>\n                              <input\n                                type=\"search\"\n                                value=\"\"\n                                onChange={function onChange}\n                                placeholder=\"Search prompt, kind, or question ID\"\n                                aria-label=\"Search calibration questions\"\n-                               style={{caret-color:\"transparent\"}}\n                              >\n                            ...\n                          <div className=\"calibratio...\">\n                            <span aria-live=\"polite\">\n+                             1517\n-                             1516\n                            ...\n                          ...\n                        ...\n                ...\n              ...\n    ...\n"
+      ]
+    },
+    {
+      "label": "zoom400-ops",
+      "axe": [],
+      "geometry": {
+        "viewport": {
+          "width": 320,
+          "height": 225,
+          "dpr": 4
+        },
+        "scrollWidth": 320,
+        "smallTargets": [],
+        "inputs": [],
+        "timers": [],
+        "activeAnimations": [],
+        "forcedColors": false,
+        "reducedMotion": false
+      },
+      "configuredViewport": {
+        "width": 320,
+        "height": 225
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-zoom400-ops.png",
+      "errors": []
+    }
+  ],
+  "fixtures": [],
+  "keyboard": [],
+  "failures": [
+    "zoom400-calibration: browser error"
+  ]
+}

@@ -1,0 +1,20 @@
+FROM queue-arcade-ci-runner:20261006
+USER root
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install --yes --no-install-recommends \
+    orca python3-dasbus python3-gi python-gi-dev python3-cairo python3-louis python3-brlapi \
+    speech-dispatcher speech-dispatcher-espeak-ng espeak-ng \
+    xvfb xauth xdotool dbus-x11 at-spi2-core \
+    meson ninja-build pkg-config gettext yelp-tools desktop-file-utils \
+    libatspi2.0-dev libatk-bridge2.0-dev libgirepository1.0-dev \
+    && rm -rf /var/lib/apt/lists/*
+COPY orca-gnome-49 /opt/orca-source
+RUN meson setup /opt/orca-build /opt/orca-source --prefix=/opt/orca49 \
+    && meson compile -C /opt/orca-build \
+    && meson install -C /opt/orca-build
+ENV PATH="/opt/orca49/bin:${PATH}" \
+    PYTHONPATH=/opt/orca49/lib/python3.12/site-packages:/opt/orca49/lib/python3/dist-packages \
+    XDG_DATA_DIRS=/opt/orca49/share:/usr/local/share:/usr/share
+RUN apt-get update && apt-get install --yes --no-install-recommends openbox && rm -rf /var/lib/apt/lists/*
+WORKDIR /tmp
+ENTRYPOINT ["/bin/bash"]

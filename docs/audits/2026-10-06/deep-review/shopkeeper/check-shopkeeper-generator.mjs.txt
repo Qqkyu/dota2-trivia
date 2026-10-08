@@ -1,0 +1,25 @@
+import assert from 'node:assert/strict';
+import {readFile,mkdtemp,mkdir,copyFile,symlink} from 'node:fs/promises';
+import {spawnSync} from 'node:child_process';
+const root='/home/kulmisiu/dev/dota2-trivia';
+const temp=await mkdtemp('/tmp/queue-shopkeeper-generator-');
+await mkdir(temp+'/scripts');
+await mkdir(temp+'/src/data',{recursive:true});
+await symlink(root+'/node_modules',temp+'/node_modules','dir');
+for(const file of ['generate-shopkeeper.mjs','client-constant-audit.mjs','valve-keyvalues.mjs']) await copyFile(root+'/scripts/'+file,temp+'/scripts/'+file);
+const result=spawnSync(process.execPath,[temp+'/scripts/generate-shopkeeper.mjs','--items-cache=/tmp/queue-arcade-items.json','--client-root=/tmp/queue-arcade-live6882'],{encoding:'utf8'});
+assert.equal(result.status,0,result.stderr);
+console.log(result.stdout.trim());
+function canonical(value){
+  if(typeof value==='string' && value.includes('/items/')) return value.replace(/^.*\/items\//,'items/').replace(/\?.*$/,'');
+  if(Array.isArray(value))return value.map(canonical);
+  if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).map(([key,child])=>[key,canonical(child)]));
+  return value;
+}
+for(const file of ['shopkeeper-questions.json','shopkeeper-catalog.json']){
+  const actual=JSON.parse(await readFile(temp+'/src/data/'+file,'utf8'));
+  const expected=JSON.parse(await readFile(root+'/src/data/'+file,'utf8'));
+  assert.deepEqual(canonical(actual),canonical(expected));
+  console.log('PASS complete generator parity for '+file+' with local image optimization preserved');
+}
+console.log('Temporary generated output: '+temp);

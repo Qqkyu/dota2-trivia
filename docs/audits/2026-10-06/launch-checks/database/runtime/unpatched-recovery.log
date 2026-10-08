@@ -1,0 +1,20 @@
+2026-10-06 14:41:16.599 CEST [889489] LOG:  received smart shutdown request
+2026-10-06 14:41:16.885 CEST [889489] LOG:  background worker "logical replication launcher" (PID 889902) exited with exit code 1
+2026-10-06 14:41:16.886 CEST [889897] LOG:  shutting down
+2026-10-06 14:41:18.550 CEST [889489] LOG:  database system is shut down
+2026-10-06 14:41:18.984 CEST [897830] LOG:  starting PostgreSQL 14.19 (Ubuntu 14.19-0ubuntu0.22.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0, 64-bit
+2026-10-06 14:41:18.984 CEST [897830] LOG:  listening on IPv4 address "127.0.0.1", port 46993
+2026-10-06 14:41:19.012 CEST [897830] LOG:  listening on Unix socket "/tmp/queue-arcade-launch-checks/pg-runtime/socket/.s.PGSQL.46993"
+2026-10-06 14:41:19.018 CEST [897833] LOG:  database system was shut down at 2026-10-06 14:41:18 CEST
+2026-10-06 14:41:19.022 CEST [897830] LOG:  database system is ready to accept connections
+2026-10-06 14:41:20.535 CEST [897830] LOG:  received immediate shutdown request
+2026-10-06 14:41:20.539 CEST [897830] LOG:  database system is shut down
+2026-10-06 14:41:20.654 CEST [897952] LOG:  starting PostgreSQL 14.19 (Ubuntu 14.19-0ubuntu0.22.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0, 64-bit
+2026-10-06 14:41:20.654 CEST [897952] LOG:  listening on IPv4 address "127.0.0.1", port 46993
+2026-10-06 14:41:20.656 CEST [897952] LOG:  listening on Unix socket "/tmp/queue-arcade-launch-checks/pg-runtime/socket/.s.PGSQL.46993"
+2026-10-06 14:41:20.660 CEST [897953] LOG:  database system was interrupted; last known up at 2026-10-06 14:41:19 CEST
+2026-10-06 14:41:22.743 CEST [897953] LOG:  database system was not properly shut down; automatic recovery in progress
+2026-10-06 14:41:22.744 CEST [897953] LOG:  redo starts at 0/B032170
+2026-10-06 14:41:22.766 CEST [897953] LOG:  invalid record length at 0/B03C768: wanted 24, got 0
+2026-10-06 14:41:22.766 CEST [897953] LOG:  redo done at 0/B03C710 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.02 s
+2026-10-06 14:41:22.871 CEST [897952] LOG:  database system is ready to accept connections

@@ -1,0 +1,11 @@
+
+file:///home/kulmisiu/dev/dota2-trivia/scripts/check-party-api.mjs:43
+if (created.status !== 200) throw new Error(`Could not create the party (${created.status}).`);
+                                  ^
+
+Error: Could not create the party (429).
+    at file:///home/kulmisiu/dev/dota2-trivia/scripts/check-party-api.mjs:43:35
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+Node.js v24.15.0
+

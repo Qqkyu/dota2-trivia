@@ -1,0 +1,34 @@
+{
+  "service": {
+    "id": "srv-d9mqd1942hec73e9nlt0",
+    "name": "queue-arcade",
+    "repo": "https://github.com/Qqkyu/dota2-trivia",
+    "branch": "main",
+    "suspended": "suspended",
+    "autoDeployTrigger": "commit",
+    "details": {
+      "plan": "free",
+      "region": "frankfurt",
+      "numInstances": 1,
+      "url": "https://queue-arcade.onrender.com",
+      "healthCheckPath": "/api/health"
+    }
+  },
+  "database": {
+    "id": "dpg-d9mqc4taeets73aiclsg-a",
+    "name": "queue-arcade-db",
+    "plan": "0.1c-256mb",
+    "region": "frankfurt",
+    "version": "17",
+    "status": "available",
+    "suspended": "not_suspended",
+    "ipAllowList": [],
+    "diskSizeGB": 1
+  },
+  "recovery": {
+    "recoveryStatus": "AVAILABLE",
+    "startsAt": "2026-10-02T22:54:14Z"
+  },
+  "exports": [],
+  "scope": "Read-only resource metadata plus one requested logical export; no database data/schema mutation."
+}

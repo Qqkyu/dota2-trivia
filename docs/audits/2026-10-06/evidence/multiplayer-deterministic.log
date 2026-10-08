@@ -1,0 +1,9 @@
+file:///tmp/queue-arcade-audit-20261006/multiplayer-deterministic.mjs:528
+  throw new Error("The synchronized reveal did not expose the final round split.");
+        ^
+
+Error: The synchronized reveal did not expose the final round split.
+    at file:///tmp/queue-arcade-audit-20261006/multiplayer-deterministic.mjs:528:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+Node.js v24.15.0

@@ -1,0 +1,62 @@
+Original reviewer output. Some claims were corrected in ../../second-opinion.md. This file preserves evidence and is not the final assessment.
+
+Defensive review complete. Findings below.
+
+## 1. Steam callback duplicate-parameter mismatch — CONFIRMED
+
+The invariant mismatch is real in the source.
+
+- **Callback read** (`src/app/api/auth/steam/callback/route.ts:55,62`): uses `params.get("openid.claimed_id")` and `params.get("openid.identity")`. `URLSearchParams.get()` returns the **first** occurrence of a repeated key.
+- **Verification body** (`src/lib/steam-auth.mjs:97-104`): `steamVerificationBody` iterates all pairs and calls `body.set(key, value)`, which overwrites, so the **last** occurrence of any repeated `openid.*` key wins.
+- **Session issuance** (`route.ts:56,78-80`): the Steam ID that becomes the session is derived from the first-seen `claimed_id` via `steamIdFromClaimedId`, not from what the verification body carried.
+
+So the value the server validates locally (first duplicate) and the value it sends to Steam for authentication (last duplicate) can diverge. The session is minted for the first value.
+
+**Correction to first pass.** My earlier statement that no authentication-relevant invariant gap existed in the Steam callback was wrong. There is a first-versus-last parameter-selection divergence between the local check and the verification payload. I retract the clean finding for this file.
+
+**Confidence:** High that the code paths diverge on duplicate keys. The two call sites demonstrably use opposite selection semantics.
+
+**Severity:** Provider-dependent, capped at High, not yet proven Critical. Exploitability hinges entirely on how `steamcommunity.com/openid/login` handles a `check_authentication` body containing a value the user influenced. See limitations.
+
+**Provider-dependent limitations:**
+- The verification body is sent to the real Steam endpoint (`steam-auth.mjs:3`), and the response must match `/^is_valid:true\s*$/m` (`route.ts:76`). Steam signs a fixed set of fields at `id_res` time. For a mismatch to yield a session, Steam would have to return `is_valid:true` for a body whose signed fields it did not itself issue. Standard OpenID 2.0 verification recomputes the signature over the association, so a tampered field normally fails. Whether a duplicate-key body actually passes depends on Steam's parser, which I cannot test from source alone and must not probe.
+- `openid.return_to` is also checked with `.get()` (first) against `expectedReturnTo.href` (`route.ts:52-61`), and `openid.sig`/`openid.signed` are forwarded by the loop. If Steam's verifier keys on the signed set, the first/last split likely just fails `is_valid`. The risk is concentrated in the narrow case where Steam tolerates duplicate keys and validates a different instance than the callback reads.
+
+**Exact regression invariant to lock in (test, no attack):** the value the callback uses to derive the session Steam ID must be byte-identical to the value placed in the verification body for every `openid.*` key, under duplicate keys. Concretely: assert that `steamVerificationBody` and the callback's field reads resolve duplicates the **same way** (both first, or both last), so a request carrying two `openid.claimed_id` (or `openid.identity`) values either is rejected outright or verifies and sessions on the *same* instance. A unit test feeding a `URLSearchParams` with repeated `openid.claimed_id`/`openid.identity` should show the body and the session-source ID agree. The simplest hardening is to reject any request containing duplicate `openid.*` keys, or to build the verification body from the same `.get()` reads the checks use.
+
+## 2. Party-code reuse while members/scores exist — CONFIRMED as intended, bounded
+
+A 90-second-inactive room **is** replaceable by a new create request, and this is consistent with the documented rule, not a violation of it.
+
+`createPrivateRoom` (`src/lib/private-rooms.mjs:377-382`) calls `markAwayMembers` then deletes the room only if **no** member is still active (`some((member) => !member.away)` is false). A member goes away at `PRIVATE_ROOM_MEMBER_TIMEOUT_MS` = 90s (`:16,:221`). So the delete-and-recreate path triggers only when **every** seat has been silent for 90 seconds.
+
+The documented rule (HANDOFF.md:96, and the comments at `:9-16,:218,:452-455`) says Away players keep seat and score, and only Leave removes a player. That rule governs the **live room's** roster view and host handoff. It does not promise the *code string* is reserved forever. The reuse path requires the entire party to be simultaneously Away.
+
+**So: yes, a room all of whose members are 90s-idle can be dropped and its code reclaimed, discarding held seats and scores.** This is a deliberate reclamation of a fully-abandoned code, not a seat being pulled from an active party. The broader idle sweep (`PRIVATE_ROOM_IDLE_MS` = 30min, `:8,:212-216`) removes rooms independently.
+
+**Residual concern (minor, not a blocker):** if a real party all background their tabs past 90s (phones, throttled tabs — exactly the scenario the `:13-14` comment worries about), another user who guesses or reuses that code can delete the room and its scores. No ownership check gates reuse; only liveness does. That is a correctness/UX edge, not an auth bypass, and it is self-consistent with the stated model that parties are ephemeral and in-memory only (HANDOFF.md:96). Worth a note, not a release gate.
+
+**Correction to first pass:** none needed. The reuse behavior I flagged is confirmed and does not contradict the Away-keeps-seat rule, because reuse needs all seats Away.
+
+## 3. Public deterministic schedule — deliberate limitation, not a release blocker
+
+Confirmed as an intentional casual-scope decision, not a defect.
+
+The public schedule is fully deterministic: fixed epoch (`src/lib/public-rooms.ts:14-22,113`), seeded deck (`:61`), and round index from wall-clock time (`:131-139`). Anyone can compute upcoming questions. This matters only if standings are competitive.
+
+The handoff and README repeatedly and explicitly scope competition out:
+- HANDOFF.md:95 — public leaderboards and competitive rankings are deliberately out of current scope.
+- HANDOFF.md:135,140 — server-owned deterministic rounds are an intended architectural property so multiple instances agree.
+- HANDOFF.md:278-279, README.md:290 — opaque asset delivery and threat modeling are listed as prerequisites **before** adding competitive rankings.
+
+Under the current noncompetitive, personal-stats-only scope, predictable scheduling has no abuse surface worth gating a release. It becomes a blocker only if and when public rankings are introduced, at which point the already-documented items (opaque per-round asset tokens, abuse modeling) must land first. Classify as accepted limitation.
+
+## Summary
+
+| Item | Verdict | Severity | Action |
+|---|---|---|---|
+| Steam duplicate-key mismatch | Confirmed | High (provider-capped) | Reject duplicate `openid.*` keys or unify first/last selection; add regression test |
+| Party-code reuse vs Away rule | Confirmed, consistent with docs | Low | Optional: note the all-Away reclamation edge |
+| Deterministic public schedule | Intentional | None under current scope | Revisit only before competitive rankings |
+
+The one first-pass statement I withdraw is the clean bill for the Steam callback. The duplicate-parameter divergence between the local check and the verification body is real; its upgrade to Critical depends on Steam's duplicate-key handling, which I did not and should not test. The remaining two items stand as intended behavior under the documented casual scope.

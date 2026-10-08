@@ -1,0 +1,589 @@
+
+ RUN  v5.0.0 /home/kulmisiu/dev/dota2-trivia
+
+ ❯ tests/database-launch-migrations.test.mjs (10 tests | 10 skipped) 41ms
+ ❯ tests/database-backup.test.mjs (13 tests | 4 failed) 126ms
+   ❯ PostgreSQL snapshot backup and isolated restore (4)
+     × restores every table from the same snapshot while real account votes continue 36ms
+     × refuses corrupted archives, original sources and nonempty targets before restore 24ms
+     × rolls the whole restore back when data loading fails after schema creation 34ms
+     × leaves the target empty when the restore connection is terminated during COPY 26ms
+ ❯ tests/postgres-driver-recovery.test.mjs (24 tests | 24 failed) 11120ms
+   ❯ Postgres driver interruption recovery (24)
+     × settles esm startup once interruption and accepts later queries 89ms
+     × settles esm startup reset-once interruption and accepts later queries 73ms
+     × settles esm startup repeated interruption and accepts later queries 62ms
+     × settles esm startup clean-close interruption and accepts later queries 43ms
+     × settles cjs startup once interruption and accepts later queries 43ms
+     × settles cjs startup reset-once interruption and accepts later queries 42ms
+     × settles cjs startup repeated interruption and accepts later queries 42ms
+     × settles cjs startup clean-close interruption and accepts later queries 40ms
+     × recovers repeated esm queries after a real TCP reset 5076ms
+     × recovers repeated cjs queries after a real TCP reset 5093ms
+     × survives and reconnects after esm transaction socket interruption 40ms
+     × survives and reconnects after cjs transaction socket interruption 37ms
+     × survives and reconnects after esm transaction backend interruption 35ms
+     × survives and reconnects after cjs transaction backend interruption 36ms
+     × survives and reconnects after esm reserved socket interruption 35ms
+     × survives and reconnects after cjs reserved socket interruption 37ms
+     × rejects esm stale or queued query work without damaging the next transaction 33ms
+     × rejects esm stale or queued commit work without damaging the next transaction 36ms
+     × rejects esm stale or queued rollback work without damaging the next transaction 36ms
+     × rejects esm stale or queued queued work without damaging the next transaction 36ms
+     × rejects cjs stale or queued query work without damaging the next transaction 37ms
+     × rejects cjs stale or queued commit work without damaging the next transaction 42ms
+     × rejects cjs stale or queued rollback work without damaging the next transaction 37ms
+     × rejects cjs stale or queued queued work without damaging the next transaction 38ms
+ ❯ tests/postgres-store.test.mjs (6 tests | 6 failed) 154ms
+   ❯ PostgreSQL store transactions (6)
+     × rolls back the vote, profile, and calibration if analytics persistence fails 26ms
+     × returns one crowd snapshot during concurrent commits 21ms
+     × includes more than 50,000 sessions and matches the reference summary 32ms
+     × removes owned analytics and rejects enrichment and writes after deletion 26ms
+     × finishes account deletion while a Steam login updates the same identity 28ms
+     × consumes a nonce once across concurrent database transactions 20ms
+ ❯ tests/database-schema.test.mjs (11 tests | 10 failed) 236ms
+   ❯ PostgreSQL schema and cleanup (10)
+     × serializes fresh migrations from independent Node processes 26ms
+     × preserves legacy results and adds reveal times and alpha ownership 22ms
+     × rolls back a failed migration and retries the shared initializer 20ms
+     × cleans inactive data without traffic and preserves saved results and question totals 24ms
+     × does not create tables during a cleanup preview 18ms
+     × runs the deploy and cleanup commands against the configured schema 30ms
+     × refuses an unrecognized database version 28ms
+     × checks production migrations with a runtime role that cannot create tables 27ms
+     × rejects missing and pending production migrations without changing the database 19ms
+     × permits production auto-migration only with the explicit opt-in 20ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/database-launch-migrations.test.mjs > launch database migration and runtime privileges
+Error: connect ECONNREFUSED 127.0.0.1:55823
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/66]⎯
+
+ FAIL  tests/database-launch-migrations.test.mjs > launch database migration and runtime privileges
+Error: connect ECONNREFUSED 127.0.0.1:55823
+ ❯ cachedError node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:170:23
+ ❯ new Query node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:36:24
+ ❯ sql node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/index.js:112:11
+ ❯ tests/database-launch-migrations.test.mjs:116:20
+    114|     await Promise.all([...pools].map((sql) => sql.end({ timeout: 1 }))…
+    115|     if (cluster) {
+    116|       await cluster`DROP DATABASE IF EXISTS ${cluster(database)} WITH …
+       |                    ^
+    117|       await cluster`DROP ROLE IF EXISTS ${cluster(runtimeRole)}`;
+    118|       await cluster`DROP ROLE IF EXISTS ${cluster(migrationRole)}`;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/66]⎯
+
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 44 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/database-backup.test.mjs > PostgreSQL snapshot backup and isolated restore > restores every table from the same snapshot while real account votes continue
+ FAIL  tests/database-backup.test.mjs > PostgreSQL snapshot backup and isolated restore > refuses corrupted archives, original sources and nonempty targets before restore
+ FAIL  tests/database-backup.test.mjs > PostgreSQL snapshot backup and isolated restore > rolls the whole restore back when data loading fails after schema creation
+ FAIL  tests/database-backup.test.mjs > PostgreSQL snapshot backup and isolated restore > leaves the target empty when the restore connection is terminated during COPY
+Error: connect ECONNREFUSED 127.0.0.1:55823
+ ❯ cachedError node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:170:23
+ ❯ new Query node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:36:24
+ ❯ sql node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/index.js:112:11
+ ❯ tests/database-backup.test.mjs:54:50
+     52|     admin = postgres(databaseUrl, options);
+     53|     databases = ["backup", "restore"].map((kind) => `qa_${kind}_${rand…
+     54|     for (const database of databases) await admin`CREATE DATABASE ${ad…
+       |                                                  ^
+     55|     [sourceUrl, targetUrl] = databases.map((database) => {
+     56|       const url = new URL(databaseUrl);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/66]⎯
+
+ FAIL  tests/database-backup.test.mjs > PostgreSQL snapshot backup and isolated restore > restores every table from the same snapshot while real account votes continue
+ FAIL  tests/database-backup.test.mjs > PostgreSQL snapshot backup and isolated restore > refuses corrupted archives, original sources and nonempty targets before restore
+ FAIL  tests/database-backup.test.mjs > PostgreSQL snapshot backup and isolated restore > rolls the whole restore back when data loading fails after schema creation
+ FAIL  tests/database-backup.test.mjs > PostgreSQL snapshot backup and isolated restore > leaves the target empty when the restore connection is terminated during COPY
+Error: connect ECONNREFUSED 127.0.0.1:55823
+ ❯ cachedError node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:170:23
+ ❯ new Query node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:36:24
+ ❯ sql node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/index.js:112:11
+ ❯ tests/database-backup.test.mjs:68:56
+     66|     resetStoreGlobals();
+     67|     await Promise.all([source?.end({ timeout: 2 }), target?.end({ time…
+     68|     for (const database of databases ?? []) await admin`DROP DATABASE …
+       |                                                        ^
+     69|     await admin?.end({ timeout: 2 });
+     70|     await rm(directory, { recursive: true, force: true });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/66]⎯
+
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > serializes fresh migrations from independent Node processes
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > preserves legacy results and adds reveal times and alpha ownership
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > rolls back a failed migration and retries the shared initializer
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > cleans inactive data without traffic and preserves saved results and question totals
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > does not create tables during a cleanup preview
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > runs the deploy and cleanup commands against the configured schema
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > refuses an unrecognized database version
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > checks production migrations with a runtime role that cannot create tables
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > rejects missing and pending production migrations without changing the database
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > permits production auto-migration only with the explicit opt-in
+Error: connect ECONNREFUSED 127.0.0.1:55823
+ ❯ cachedError node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:170:23
+ ❯ new Query node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:36:24
+ ❯ sql node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/index.js:112:11
+ ❯ tests/database-schema.test.mjs:43:16
+     41|     schema = `schema_test_${randomUUID().replaceAll("-", "")}`;
+     42|     admin = postgres(databaseUrl, { max: 1, connect_timeout: 5, onnoti…
+     43|     await admin`CREATE SCHEMA ${admin(schema)}`;
+       |                ^
+     44|     sql = postgres(databaseUrl, {
+     45|       max: 2,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/66]⎯
+
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > serializes fresh migrations from independent Node processes
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > preserves legacy results and adds reveal times and alpha ownership
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > rolls back a failed migration and retries the shared initializer
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > cleans inactive data without traffic and preserves saved results and question totals
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > does not create tables during a cleanup preview
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > runs the deploy and cleanup commands against the configured schema
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > refuses an unrecognized database version
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > checks production migrations with a runtime role that cannot create tables
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > rejects missing and pending production migrations without changing the database
+ FAIL  tests/database-schema.test.mjs > PostgreSQL schema and cleanup > permits production auto-migration only with the explicit opt-in
+Error: connect ECONNREFUSED 127.0.0.1:55823
+ ❯ cachedError node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:170:23
+ ❯ new Query node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:36:24
+ ❯ sql node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/index.js:112:11
+ ❯ tests/database-schema.test.mjs:56:39
+     54|     await sql?.end({ timeout: 2 });
+     55|     try {
+     56|       if (admin && schema) await admin`DROP SCHEMA IF EXISTS ${admin(s…
+       |                                       ^
+     57|     } finally {
+     58|       await admin?.end({ timeout: 2 });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/66]⎯
+
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > settles esm startup once interruption and accepts later queries
+Error: Command failed: /tmp/queue-arcade-launch-checks/tools/node22/bin/node /home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs once
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+Error: connect ECONNREFUSED 127.0.0.1:55823
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1638:16)
+    at cachedError (file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:170:23)
+    at new Query (file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:36:24)
+    at sql (file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/index.js:112:11)
+    at file:///home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs:15:14 {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 55823
+}
+
+Node.js v22.23.3
+
+ ❯ cachedError node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:170:23
+ ❯ new Query node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:36:24
+ ❯ sql node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/index.js:112:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/66]⎯
+
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > settles esm startup reset-once interruption and accepts later queries
+Error: Command failed: /tmp/queue-arcade-launch-checks/tools/node22/bin/node /home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs reset-once
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+Error: connect ECONNREFUSED 127.0.0.1:55823
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1638:16)
+    at cachedError (file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:170:23)
+    at new Query (file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:36:24)
+    at sql (file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/index.js:112:11)
+    at file:///home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs:15:14 {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 55823
+}
+
+Node.js v22.23.3
+
+ ❯ cachedError node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:170:23
+ ❯ new Query node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:36:24
+ ❯ sql node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/index.js:112:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/66]⎯
+
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > settles esm startup repeated interruption and accepts later queries
+Error: Command failed: /tmp/queue-arcade-launch-checks/tools/node22/bin/node /home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs repeated
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+Error: connect ECONNREFUSED 127.0.0.1:55823
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1638:16)
+    at cachedError (file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:170:23)
+    at new Query (file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:36:24)
+    at sql (file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/index.js:112:11)
+    at file:///home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs:15:14 {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 55823
+}
+
+Node.js v22.23.3
+
+ ❯ cachedError node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:170:23
+ ❯ new Query node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:36:24
+ ❯ sql node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/index.js:112:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/66]⎯
+
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > settles esm startup clean-close interruption and accepts later queries
+Error: Command failed: /tmp/queue-arcade-launch-checks/tools/node22/bin/node /home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs clean-close
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+Error: connect ECONNREFUSED 127.0.0.1:55823
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1638:16)
+    at cachedError (file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:170:23)
+    at new Query (file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:36:24)
+    at sql (file:///home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/index.js:112:11)
+    at file:///home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs:15:14 {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 55823
+}
+
+Node.js v22.23.3
+
+ ❯ cachedError node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:170:23
+ ❯ new Query node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:36:24
+ ❯ sql node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/index.js:112:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/66]⎯
+
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > settles cjs startup once interruption and accepts later queries
+Error: Command failed: /tmp/queue-arcade-launch-checks/tools/node22/bin/node /home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs once
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+Error: connect ECONNREFUSED 127.0.0.1:55823
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1638:16)
+    at cachedError (/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:170:23)
+    at new Query (/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:36:24)
+    at sql (/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/index.js:112:11)
+    at file:///home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs:15:14 {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 55823
+}
+
+Node.js v22.23.3
+
+ ❯ cachedError node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:170:23
+ ❯ new Query node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:36:24
+ ❯ sql node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/index.js:112:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/66]⎯
+
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > settles cjs startup reset-once interruption and accepts later queries
+Error: Command failed: /tmp/queue-arcade-launch-checks/tools/node22/bin/node /home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs reset-once
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+Error: connect ECONNREFUSED 127.0.0.1:55823
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1638:16)
+    at cachedError (/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:170:23)
+    at new Query (/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:36:24)
+    at sql (/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/index.js:112:11)
+    at file:///home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs:15:14 {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 55823
+}
+
+Node.js v22.23.3
+
+ ❯ cachedError node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:170:23
+ ❯ new Query node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:36:24
+ ❯ sql node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/index.js:112:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/66]⎯
+
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > settles cjs startup repeated interruption and accepts later queries
+Error: Command failed: /tmp/queue-arcade-launch-checks/tools/node22/bin/node /home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs repeated
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+Error: connect ECONNREFUSED 127.0.0.1:55823
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1638:16)
+    at cachedError (/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:170:23)
+    at new Query (/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:36:24)
+    at sql (/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/index.js:112:11)
+    at file:///home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs:15:14 {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 55823
+}
+
+Node.js v22.23.3
+
+ ❯ cachedError node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:170:23
+ ❯ new Query node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:36:24
+ ❯ sql node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/index.js:112:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/66]⎯
+
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > settles cjs startup clean-close interruption and accepts later queries
+Error: Command failed: /tmp/queue-arcade-launch-checks/tools/node22/bin/node /home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs clean-close
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+Error: connect ECONNREFUSED 127.0.0.1:55823
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1638:16)
+    at cachedError (/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:170:23)
+    at new Query (/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:36:24)
+    at sql (/home/kulmisiu/dev/dota2-trivia/node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/index.js:112:11)
+    at file:///home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-startup-worker.mjs:15:14 {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 55823
+}
+
+Node.js v22.23.3
+
+ ❯ cachedError node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:170:23
+ ❯ new Query node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/query.js:36:24
+ ❯ sql node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/cjs/src/index.js:112:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/66]⎯
+
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > recovers repeated esm queries after a real TCP reset
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > recovers repeated cjs queries after a real TCP reset
+Error: Command failed: /tmp/queue-arcade-launch-checks/tools/node22/bin/node /home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-reset-worker.mjs
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(["CONNECTION_CLOSED", "ECONNRESET", "EPIPE"].includes(failure.code))
+
+    at file:///home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-reset-worker.mjs:69:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v22.23.3
+
+ ❯ tests/helpers/postgres-reset-worker.mjs:69:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/66]⎯
+
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > survives and reconnects after esm transaction socket interruption
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > survives and reconnects after cjs transaction socket interruption
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > survives and reconnects after esm transaction backend interruption
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > survives and reconnects after cjs transaction backend interruption
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > survives and reconnects after esm reserved socket interruption
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > survives and reconnects after cjs reserved socket interruption
+AssertionError: node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: connect ECONNREFUSED 127.0.0.1:55823
+    at file:///home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-disconnect-worker.mjs:75:5
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v22.23.3
+: expected { code: 1, signal: null } to deeply equal { code: +0, signal: null }
+
+- Expected
++ Received
+
+  {
+-   "code": 0,
++   "code": 1,
+    "signal": null,
+  }
+
+ ❯ tests/helpers/postgres-disconnect-worker.mjs:75:5
+ ❯ tests/postgres-driver-recovery.test.mjs:85:32
+     83|         await interruption;
+     84|         expect(parseError).toBeUndefined();
+     85|         expect(result, stderr).toEqual({ code: 0, signal: null });
+       |                                ^
+     86|         expect(events.map((event) => event.event)).toEqual(["blocked",…
+     87|         expect(events.at(-1)).toMatchObject({ ok: true, recovered: tru…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/66]⎯
+
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > rejects esm stale or queued query work without damaging the next transaction
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > rejects cjs stale or queued query work without damaging the next transaction
+Error: Command failed: /tmp/queue-arcade-launch-checks/tools/node22/bin/node /home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-fencing-worker.mjs query
+Warning: Detected unsettled top-level await at file:///home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-fencing-worker.mjs:48
+    const { stale, pid } = await entered;
+                           ^
+
+
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/66]⎯
+
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > rejects esm stale or queued commit work without damaging the next transaction
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > rejects cjs stale or queued commit work without damaging the next transaction
+Error: Command failed: /tmp/queue-arcade-launch-checks/tools/node22/bin/node /home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-fencing-worker.mjs commit
+Warning: Detected unsettled top-level await at file:///home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-fencing-worker.mjs:48
+    const { stale, pid } = await entered;
+                           ^
+
+
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/66]⎯
+
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > rejects esm stale or queued rollback work without damaging the next transaction
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > rejects cjs stale or queued rollback work without damaging the next transaction
+Error: Command failed: /tmp/queue-arcade-launch-checks/tools/node22/bin/node /home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-fencing-worker.mjs rollback
+Warning: Detected unsettled top-level await at file:///home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-fencing-worker.mjs:48
+    const { stale, pid } = await entered;
+                           ^
+
+
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/66]⎯
+
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > rejects esm stale or queued queued work without damaging the next transaction
+Error: Command failed: /tmp/queue-arcade-launch-checks/tools/node22/bin/node /home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-fencing-worker.mjs queued
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(["57P01", "CONNECTION_CLOSED"].includes(failure.code))
+
+    at file:///home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-fencing-worker.mjs:26:5
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v22.23.3
+
+ ❯ tests/helpers/postgres-fencing-worker.mjs:26:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/66]⎯
+
+ FAIL  tests/postgres-driver-recovery.test.mjs > Postgres driver interruption recovery > rejects cjs stale or queued queued work without damaging the next transaction
+Error: Command failed: /tmp/queue-arcade-launch-checks/tools/node22/bin/node /home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-fencing-worker.mjs queued
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(["57P01", "CONNECTION_CLOSED"].includes(failure.code))
+
+    at file:///home/kulmisiu/dev/dota2-trivia/tests/helpers/postgres-fencing-worker.mjs:26:5
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v22.23.3
+
+ ❯ tests/helpers/postgres-fencing-worker.mjs:26:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/66]⎯
+
+ FAIL  tests/postgres-store.test.mjs > PostgreSQL store transactions > rolls back the vote, profile, and calibration if analytics persistence fails
+ FAIL  tests/postgres-store.test.mjs > PostgreSQL store transactions > returns one crowd snapshot during concurrent commits
+ FAIL  tests/postgres-store.test.mjs > PostgreSQL store transactions > includes more than 50,000 sessions and matches the reference summary
+ FAIL  tests/postgres-store.test.mjs > PostgreSQL store transactions > removes owned analytics and rejects enrichment and writes after deletion
+ FAIL  tests/postgres-store.test.mjs > PostgreSQL store transactions > finishes account deletion while a Steam login updates the same identity
+ FAIL  tests/postgres-store.test.mjs > PostgreSQL store transactions > consumes a nonce once across concurrent database transactions
+Error: connect ECONNREFUSED 127.0.0.1:55823
+ ❯ cachedError node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:170:23
+ ❯ new Query node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:36:24
+ ❯ sql node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/index.js:112:11
+ ❯ tests/postgres-store.test.mjs:60:16
+     58|     schema = `store_test_${randomUUID().replaceAll("-", "")}`;
+     59|     admin = postgres(databaseUrl, { max: 1, connect_timeout: 5, onnoti…
+     60|     await admin`CREATE SCHEMA ${admin(schema)}`;
+       |                ^
+     61|     sql = postgres(databaseUrl, {
+     62|       max: 5,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/66]⎯
+
+ FAIL  tests/postgres-store.test.mjs > PostgreSQL store transactions > rolls back the vote, profile, and calibration if analytics persistence fails
+ FAIL  tests/postgres-store.test.mjs > PostgreSQL store transactions > returns one crowd snapshot during concurrent commits
+ FAIL  tests/postgres-store.test.mjs > PostgreSQL store transactions > includes more than 50,000 sessions and matches the reference summary
+ FAIL  tests/postgres-store.test.mjs > PostgreSQL store transactions > removes owned analytics and rejects enrichment and writes after deletion
+ FAIL  tests/postgres-store.test.mjs > PostgreSQL store transactions > finishes account deletion while a Steam login updates the same identity
+ FAIL  tests/postgres-store.test.mjs > PostgreSQL store transactions > consumes a nonce once across concurrent database transactions
+Error: connect ECONNREFUSED 127.0.0.1:55823
+ ❯ cachedError node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:170:23
+ ❯ new Query node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/query.js:36:24
+ ❯ sql node_modules/.pnpm/postgres@3.4.9_patch_hash=7sx3fmubjo5jekvb3uoxqzywpi/node_modules/postgres/src/index.js:112:11
+ ❯ tests/postgres-store.test.mjs:80:39
+     78|     await sql?.end({ timeout: 2 });
+     79|     try {
+     80|       if (admin && schema) await admin`DROP SCHEMA IF EXISTS ${admin(s…
+       |                                       ^
+     81|     } finally {
+     82|       await admin?.end({ timeout: 2 });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/66]⎯
+
+
+ Test Files  5 failed | 59 passed (64)
+      Tests  44 failed | 1225 passed | 10 skipped (1279)
+   Start at  16:38:43
+   Duration  17.21s (tests 86%, import 9%, transform 4%, worker 1%)
+
+    Isolate  64 workers spawned · ~60ms startup each (spawn + environment, per file)
+             at least ~1.85s faster with isolate: false — reuses workers across files instead of one per file
+

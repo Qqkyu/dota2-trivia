@@ -1,0 +1,638 @@
+{
+  "ti6": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1471321014&feeds=steam_community_announcements",
+    "label": "The International Grand Champions",
+    "newsId": "3819571008275061494",
+    "publishedAt": 1471321013
+  },
+  "ti7": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1502747786&feeds=steam_community_announcements",
+    "label": "The International Grand Champions",
+    "newsId": "2093464278198213978",
+    "publishedAt": 1502747785
+  },
+  "ti8": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1535409006&feeds=steam_community_announcements",
+    "label": "The International Grand Champions",
+    "newsId": "2444779293802972536",
+    "publishedAt": 1535409005
+  },
+  "ti9": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1580113725&feeds=steam_community_announcements",
+    "label": "True Sight World Premiere — The International 2019",
+    "newsId": "2597949245060857650",
+    "publishedAt": 1580113724
+  },
+  "ti11": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1667242748&feeds=steam_community_announcements",
+    "label": "The International Grand Champions",
+    "newsId": "4706851091188574456",
+    "publishedAt": 1667242747
+  },
+  "ti12": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1698861275&feeds=steam_community_announcements",
+    "label": "The International Grand Champions",
+    "newsId": "5288974951203591834",
+    "publishedAt": 1698861274
+  },
+  "ti13": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1726872361&feeds=steam_community_announcements",
+    "label": "The International Grand Champions",
+    "newsId": "6341720536507758661",
+    "publishedAt": 1726872360
+  },
+  "ti14": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1758062561&feeds=steam_community_announcements",
+    "label": "The International 2025 Grand Champions",
+    "newsId": "1811138915339274",
+    "publishedAt": 1758062560
+  },
+  "vancouver": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1521158383&feeds=steam_community_announcements",
+    "label": "The International 2018 Tickets and Venue",
+    "newsId": "2982945658353099641",
+    "publishedAt": 1521158382
+  },
+  "singapore": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1654108795&feeds=steam_community_announcements",
+    "label": "The International 2022",
+    "newsId": "4469272893489759990",
+    "publishedAt": 1654108794
+  },
+  "copenhagen": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1709935006&feeds=steam_community_announcements",
+    "label": "The International 2024",
+    "newsId": "5679673637657134027",
+    "publishedAt": 1709935005
+  },
+  "underlord": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1471973644&feeds=steam_community_announcements",
+    "label": "The Dark Rift Update",
+    "newsId": "3819571008275061321",
+    "publishedAt": 1471973643
+  },
+  "700news": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1481589434&feeds=steam_community_announcements",
+    "label": "7.00 Update - The New Journey Begins",
+    "newsId": "3819571008275060443",
+    "publishedAt": 1481589433
+  },
+  "duelingnews": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1509505492&feeds=steam_community_announcements",
+    "label": "7.07 Update — The Dueling Fates",
+    "newsId": "2140760316584760507",
+    "publishedAt": 1509505491
+  },
+  "grimstroke": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1535178113&feeds=steam_community_announcements",
+    "label": "New Hero: Grimstroke — Available Now",
+    "newsId": "2444779293793316014",
+    "publishedAt": 1535178112
+  },
+  "mars": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1551835701&feeds=steam_community_announcements",
+    "label": "New Hero: Mars — Available Now",
+    "newsId": "2530366080589995585",
+    "publishedAt": 1551835700
+  },
+  "outlandersnews": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1574796214&feeds=steam_community_announcements",
+    "label": "The Outlanders Update",
+    "newsId": "2551782186252321694",
+    "publishedAt": 1574796213
+  },
+  "mistwoodsnews": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1608241341&feeds=steam_community_announcements",
+    "label": "The Mistwoods Update",
+    "newsId": "4090922416496489102",
+    "publishedAt": 1608241340
+  },
+  "dawn": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1617994916&feeds=steam_community_announcements",
+    "label": "The Dawnbreaker & 7.29 Gameplay Update",
+    "newsId": "4117954073003321659",
+    "publishedAt": 1617994915
+  },
+  "marci": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1635462765&feeds=steam_community_announcements",
+    "label": "Marci Marches In",
+    "newsId": "4186652357025566900",
+    "publishedAt": 1635462764
+  },
+  "primal": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1645655725&feeds=steam_community_announcements",
+    "label": "The Primal Beast & 7.31 Gameplay Update",
+    "newsId": "4246335832505905090",
+    "publishedAt": 1645655724
+  },
+  "muerta": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1678144027&feeds=steam_community_announcements",
+    "label": "The Dead Reckoning Update",
+    "newsId": "5070528176578217258",
+    "publishedAt": 1678144026
+  },
+  "ringmaster": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1724375458&feeds=steam_community_announcements",
+    "label": "Introducing The Ringmaster and the 2024 Compendium",
+    "newsId": "5875595438690008977",
+    "publishedAt": 1724375457
+  },
+  "kez": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1731032534&feeds=steam_community_announcements",
+    "label": "Introducing Kez and Crownfall Act IV",
+    "newsId": "6148070194801613786",
+    "publishedAt": 1731032533
+  },
+  "largo": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1765843655&feeds=steam_community_announcements",
+    "label": "Introducing Largo and Patch 7.40",
+    "newsId": "1818752592134412",
+    "publishedAt": 1765843654
+  },
+  "silt": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1496956046&feeds=steam_community_announcements",
+    "label": "Exclusive Battle Pass Campaign — Siltbreaker: Act I",
+    "newsId": "1967358417035580708",
+    "publishedAt": 1496956045
+  },
+  "darkmoon": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1485473166&feeds=steam_community_announcements",
+    "label": "Special Event: Dark Moon",
+    "newsId": "3819571008275060282",
+    "publishedAt": 1485473165
+  },
+  "underhollow": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1529007223&feeds=steam_community_announcements",
+    "label": "The Underhollow Beckons",
+    "newsId": "2842216343260937830",
+    "publishedAt": 1529007222
+  },
+  "morokai": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1562375589&feeds=steam_community_announcements",
+    "label": "Special Battle Pass Event and Immortal Treasure II",
+    "newsId": "2436926440597622046",
+    "publishedAt": 1562375588
+  },
+  "aghlab": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1594766801&feeds=steam_community_announcements",
+    "label": "The Summer Event Arrives",
+    "newsId": "3516698970147696280",
+    "publishedAt": 1594766800
+  },
+  "nemestice": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1624488706&feeds=steam_community_announcements",
+    "label": "Nemestice Falls and New Powers Rise",
+    "newsId": "4032392655061572038",
+    "publishedAt": 1624488705
+  },
+  "crownfall": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1713482076&feeds=steam_community_announcements",
+    "label": "Welcome to Crownfall",
+    "newsId": "5762994032392388600",
+    "publishedAt": 1713482075
+  },
+  "crownfallend": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1738871969&feeds=steam_community_announcements",
+    "label": "The Crownfall Archive",
+    "newsId": "1790848102629239",
+    "publishedAt": 1738871968
+  },
+  "persona": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1563585353&feeds=steam_community_announcements",
+    "label": "Acolyte of the Lost Arts — Invoker Hero Persona",
+    "newsId": "2413284533097763940",
+    "publishedAt": 1563585352
+  },
+  "postponed": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1588286935&feeds=steam_community_announcements",
+    "label": "The International",
+    "newsId": "3127131079126647862",
+    "publishedAt": 1588286934
+  },
+  "sweden": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1624314509&feeds=steam_community_announcements",
+    "label": "An Important Update on TI10: The International - Dota 2 Championships in Sweden",
+    "newsId": "4056035920070765657",
+    "publishedAt": 1624314508
+  },
+  "bucharest": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1625689948&feeds=steam_community_announcements",
+    "label": "Announcing New Location and Dates for The International - Dota 2 Championships",
+    "newsId": "4032392655112171372",
+    "publishedAt": 1625689947
+  },
+  "noaudience": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1633220588&feeds=steam_community_announcements",
+    "label": "The International 2021 Ticket Sales Canceled",
+    "newsId": "3938951840889131676",
+    "publishedAt": 1633220587
+  },
+  "frankfurt": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1448304305&feeds=steam_community_announcements",
+    "label": "The Frankfurt Major Champions",
+    "newsId": "377536659007548439",
+    "publishedAt": 1448304304
+  },
+  "shanghai": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1457379914&feeds=steam_community_announcements",
+    "label": "The Shanghai Major Champions",
+    "newsId": "295355202054110079",
+    "publishedAt": 1457379913
+  },
+  "shanghaistart": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1456429023&feeds=steam_community_announcements",
+    "label": "The Shanghai Major Commences",
+    "newsId": "295354567834657455",
+    "publishedAt": 1456429022
+  },
+  "manila": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1465838993&feeds=steam_community_announcements",
+    "label": "Manila Champions, TI Qualifiers and 6.88 Gameplay Update",
+    "newsId": "3819571008275229825",
+    "publishedAt": 1465838992
+  },
+  "boston": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1481420578&feeds=steam_community_announcements",
+    "label": "The Boston Major Champions",
+    "newsId": "3819571008275060558",
+    "publishedAt": 1481420577
+  },
+  "kiev": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1493762626&feeds=steam_community_announcements",
+    "label": "The Kiev Major Champions",
+    "newsId": "3819571008275059440",
+    "publishedAt": 1493762625
+  },
+  "kievdates": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1487201470&feeds=steam_community_announcements",
+    "label": "Kiev Major Dates and Tickets",
+    "newsId": "3819571008275060174",
+    "publishedAt": 1487201469
+  },
+  "io": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1340929201&feeds=steam_updates",
+    "label": "Dota 2 Update - June 28, 2012",
+    "newsId": "1461665741193619035",
+    "publishedAt": 1340929200
+  },
+  "wisp": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1341533701&feeds=steam_updates",
+    "label": "Dota 2 Update - July 5, 2012",
+    "newsId": "1461666363703992304",
+    "publishedAt": 1341533700
+  },
+  "frostivus": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1355945881&feeds=steam_updates",
+    "label": "Dota 2 Update - December 19th, 2012",
+    "newsId": "1479695995263515868",
+    "publishedAt": 1355945880
+  },
+  "skremoved": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1386708721&feeds=steam_updates",
+    "label": "Dota 2 Update - December 10th, 2013",
+    "newsId": "1027115945257105909",
+    "publishedAt": 1386708720
+  },
+  "wkreturns": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1386984301&feeds=steam_updates",
+    "label": "Dota 2 Update - December 13th, 2013",
+    "newsId": "1009102270951312175",
+    "publishedAt": 1386984300
+  },
+  "wraithnightnews": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1386804778&feeds=steam_community_announcements",
+    "label": "Frosti… Wraith-Night",
+    "newsId": "1010228077059444622",
+    "publishedAt": 1386804777
+  },
+  "lina": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1362703861&feeds=steam_updates",
+    "label": "Dota 2 Update - March 7th, 2013",
+    "newsId": "1495465667587110694",
+    "publishedAt": 1362703860
+  },
+  "renames": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1385086981&feeds=steam_updates",
+    "label": "Dota 2 Update - November 21st, 2013",
+    "newsId": "1027114673592365394",
+    "publishedAt": 1385086980
+  },
+  "threespiritsnews": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1384413846&feeds=steam_community_announcements",
+    "label": "Three Spirits Update",
+    "newsId": "1027114127626051589",
+    "publishedAt": 1384413845
+  },
+  "newbloom2014": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1390937478&feeds=steam_community_announcements",
+    "label": "Rebirth in the New Bloom Festival",
+    "newsId": "920159973317718987",
+    "publishedAt": 1390937477
+  },
+  "oracle": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1416349146&feeds=steam_community_announcements",
+    "label": "The Foreseer’s Contract Update",
+    "newsId": "522743866912458308",
+    "publishedAt": 1416349145
+  },
+  "wyvern": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1423680141&feeds=steam_community_announcements",
+    "label": "The Chill of New Bloom",
+    "newsId": "517122602973145787",
+    "publishedAt": 1423680140
+  },
+  "balance": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1450229901&feeds=steam_community_announcements",
+    "label": "The Balance of Power Update",
+    "newsId": "377538916257120634",
+    "publishedAt": 1450229900
+  },
+  "compendium": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1368036130&feeds=steam_community_announcements",
+    "label": "Introducing the Interactive Compendium",
+    "newsId": "1478591738299367539",
+    "publishedAt": 1368036129
+  },
+  "diretide2012": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1352155920&feeds=steam_community_announcements",
+    "label": "Diretide",
+    "newsId": "1478591738299191435",
+    "publishedAt": 1352155919
+  },
+  "diretide2013": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1383954180&feeds=steam_community_announcements",
+    "label": "Not My Best Work!",
+    "newsId": "1027113495094635006",
+    "publishedAt": 1383954179
+  },
+  "diretide2020": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1603998917&feeds=steam_community_announcements",
+    "label": "Diretide - Available Now!",
+    "newsId": "3884878205215396390",
+    "publishedAt": 1603998916
+  },
+  "truesight": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1476232723&feeds=steam_community_announcements",
+    "label": "True Sight: A New Documentary Series",
+    "newsId": "3819571008275061096",
+    "publishedAt": 1476232722
+  },
+  "truesight2017": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1506470490&feeds=steam_community_announcements",
+    "label": "True Sight – The International 2017",
+    "newsId": "2175660043458980038",
+    "publishedAt": 1506470489
+  },
+  "truesight2018": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1547516464&feeds=steam_community_announcements",
+    "label": "True Sight — The International 2018",
+    "newsId": "2711631078229914818",
+    "publishedAt": 1547516463
+  },
+  "freetoplay": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1392836560&feeds=steam_community_announcements",
+    "label": "Free to Play Documentary: Coming Soon",
+    "newsId": "920162436773291916",
+    "publishedAt": 1392836559
+  },
+  "cache": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1433465470&feeds=steam_community_announcements",
+    "label": "The Collector's Cache",
+    "newsId": "519384546585693097",
+    "publishedAt": 1433465469
+  },
+  "scannews": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1461606330&feeds=steam_community_announcements",
+    "label": "New Gameplay Update",
+    "newsId": "3819571008275269884",
+    "publishedAt": 1461606329
+  },
+  "newbloom2020": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1579832569&feeds=steam_community_announcements",
+    "label": "New Bloom Treasure",
+    "newsId": "2597949245049098648",
+    "publishedAt": 1579832568
+  },
+  "700": {
+    "url": "https://www.dota2.com/700/gameplay",
+    "label": "Valve: 700/gameplay"
+  },
+  "mk": {
+    "url": "https://www.dota2.com/700/monkeyking",
+    "label": "Valve: 700/monkeyking"
+  },
+  "dueling": {
+    "url": "https://www.dota2.com/duelingfates",
+    "label": "Valve: duelingfates"
+  },
+  "outlanders": {
+    "url": "https://www.dota2.com/outlanders",
+    "label": "Valve: outlanders"
+  },
+  "mistwoods": {
+    "url": "https://www.dota2.com/mistwoods",
+    "label": "Valve: mistwoods"
+  },
+  "bounty": {
+    "url": "https://www.dota2.com/rekindlingsoul",
+    "label": "Valve: rekindlingsoul"
+  },
+  "arcane": {
+    "url": "https://www.dota2.com/balanceofpower",
+    "label": "Valve: balanceofpower"
+  },
+  "scan": {
+    "url": "https://www.dota2.com/687",
+    "label": "Valve: 687"
+  },
+  "newbloomday2": {
+    "url": "https://www.dota2.com/newbloom2014/day2/?l=english",
+    "label": "Valve: newbloom2014/day2/?l=english"
+  },
+  "newbloomday3": {
+    "url": "https://www.dota2.com/newbloom2014/day3/?l=english",
+    "label": "Valve: newbloom2014/day3/?l=english"
+  },
+  "wraithnight": {
+    "url": "https://www.dota2.com/wraithnight",
+    "label": "Valve: wraithnight"
+  },
+  "threespirits": {
+    "url": "https://www.dota2.com/threespirits",
+    "label": "Valve: threespirits"
+  },
+  "winter2016": {
+    "url": "https://www.dota2.com/winter2016",
+    "label": "Valve: winter2016"
+  },
+  "compendium2013": {
+    "url": "https://www.dota2.com/international2013/compendium",
+    "label": "Valve: international2013/compendium"
+  },
+  "battlepass2016": {
+    "url": "https://www.dota2.com/international2016/battlepass",
+    "label": "Valve: international2016/battlepass"
+  },
+  "battlepass2019": {
+    "url": "https://www.dota2.com/international2019/battlepass",
+    "label": "Valve: international2019/battlepass"
+  },
+  "reborn": {
+    "url": "https://www.dota2.com/reborn/updates",
+    "label": "Valve: reborn/updates"
+  },
+  "aegis": {
+    "url": "https://www.dota2.com/aegisofchampions",
+    "label": "Valve: aegisofchampions"
+  },
+  "greeviling": {
+    "url": "https://www.dota2.com/frostivus",
+    "label": "Valve: frostivus"
+  },
+  "7.23": {
+    "url": "https://www.dota2.com/datafeed/patchnotes?version=7.23&language=english",
+    "label": "Valve patch 7.23"
+  },
+  "7.24": {
+    "url": "https://www.dota2.com/datafeed/patchnotes?version=7.24&language=english",
+    "label": "Valve patch 7.24"
+  },
+  "7.28": {
+    "url": "https://www.dota2.com/datafeed/patchnotes?version=7.28&language=english",
+    "label": "Valve patch 7.28"
+  },
+  "7.29": {
+    "url": "https://www.dota2.com/datafeed/patchnotes?version=7.29&language=english",
+    "label": "Valve patch 7.29"
+  },
+  "7.31": {
+    "url": "https://www.dota2.com/datafeed/patchnotes?version=7.31&language=english",
+    "label": "Valve patch 7.31"
+  },
+  "7.32e": {
+    "url": "https://www.dota2.com/datafeed/patchnotes?version=7.32e&language=english",
+    "label": "Valve patch 7.32e"
+  },
+  "7.33": {
+    "url": "https://www.dota2.com/datafeed/patchnotes?version=7.33&language=english",
+    "label": "Valve patch 7.33"
+  },
+  "7.36": {
+    "url": "https://www.dota2.com/datafeed/patchnotes?version=7.36&language=english",
+    "label": "Valve patch 7.36"
+  },
+  "7.38": {
+    "url": "https://www.dota2.com/datafeed/patchnotes?version=7.38&language=english",
+    "label": "Valve patch 7.38"
+  },
+  "7.40": {
+    "url": "https://www.dota2.com/datafeed/patchnotes?version=7.40&language=english",
+    "label": "Valve patch 7.40"
+  },
+  "7.41": {
+    "url": "https://www.dota2.com/datafeed/patchnotes?version=7.41&language=english",
+    "label": "Valve patch 7.41"
+  },
+  "release": {
+    "url": "https://store.steampowered.com/app/570/Dota_2/",
+    "label": "Valve: Dota 2 release date"
+  },
+  "ti1": {
+    "url": "https://store.steampowered.com/oldnews/5967",
+    "label": "Valve: Dota 2 unveiled at Gamescom 2011"
+  },
+  "navi": {
+    "url": "https://navi.gg/en/publications/d2-the-international-navi-history",
+    "label": "NAVI: Our history at The International"
+  },
+  "ti4": {
+    "url": "https://www.dota2.com.cn/event/201407/celebration/list1.htm",
+    "label": "Perfect World: Newbee wins TI2014"
+  },
+  "ti5": {
+    "url": "https://www.guinnessworldrecords.com/news/2015/8/pakistani-gamer-becomes-youngest-gamer-to-surpass-1million-in-esports-earnings-a-391494",
+    "label": "Guinness World Records: TI2015 winner and prize records"
+  },
+  "ti10": {
+    "url": "https://store.steampowered.com/news/posts/?appids=570&enddate=1637023739&feed=steam_community_announcements",
+    "label": "Valve: The International 2021 Grand Champions"
+  },
+  "techies": {
+    "url": "https://www.gamespot.com/articles/dota-2-4th-september-patch-content-analysis/1100-6438363/",
+    "label": "Matthew Bailey: direct analysis of the 4 September 2014 patch"
+  },
+  "court": {
+    "url": "https://www.govinfo.gov/content/pkg/USCOURTS-cand-3_15-cv-04084/pdf/USCOURTS-cand-3_15-cv-04084-6.pdf",
+    "label": "Court record: DotA creator depositions, pages 6 to 10"
+  },
+  "wc3": {
+    "url": "https://classic.battle.net/war3/maps/dota.shtml",
+    "label": "Blizzard: Warcraft III DotA map"
+  },
+  "announce": {
+    "url": "https://store.steampowered.com/oldnews/4487",
+    "label": "Valve: Dota 2 announcement in 2010"
+  },
+  "plus": {
+    "url": "https://store.steampowered.com/oldnews/38154?l=english",
+    "label": "Valve: Dota Plus launches"
+  },
+  "artifact": {
+    "url": "https://store.steampowered.com/app/583950/Artifact/",
+    "label": "Valve: Artifact release date"
+  },
+  "underlords": {
+    "url": "https://store.steampowered.com/app/1046930/Dota_Underlords/",
+    "label": "Valve: Dota Underlords genre and early access date"
+  },
+  "theplay": {
+    "url": "https://www.youtube.com/watch?v=La--egn0MrU",
+    "label": "Valve: The Play, TI2012 winners bracket semifinal game 2"
+  },
+  "20m": {
+    "url": "https://washingtoninteractivenetwork.org/wp-content/uploads/2014/08/Washington-Interactive-Network-Impact-Study-2016.pdf",
+    "label": "Washington Interactive Network: 2016 industry impact study"
+  },
+  "carl": {
+    "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/invoker.json",
+    "label": "Valve response data, extracted by Dotabase: invo_rare_04"
+  },
+  "longgame": {
+    "url": "https://www.youtube.com/watch?v=LSLqy4iVkdQ",
+    "label": "Original match broadcast: Cloud9 vs SFZ game 2, part 2"
+  },
+  "fountain": {
+    "url": "https://www.youtube.com/watch?v=d6H-HEpnlk8",
+    "label": "Valve: The International Archives, Fountain Hook"
+  },
+  "sheever": {
+    "url": "https://sheevergaming.wordpress.com/about/",
+    "label": "Sheever: About, identity and WoW history only"
+  },
+  "purge": {
+    "url": "https://www.reddit.com/r/DotA2/comments/1avbk9/",
+    "label": "Purge: first-person AMA about his beginner guide"
+  },
+  "2gd": {
+    "url": "https://www.reddit.com/r/DotA2/comments/47sc46/update_from_the_shanghai_major/",
+    "label": "Gabe Newell: Update from the Shanghai Major"
+  },
+  "og": {
+    "url": "https://www.socios.com/og-fan-tokens/",
+    "label": "OG partner Socios: founding members"
+  },
+  "odpixel": {
+    "url": "https://gameinformer.com/b/features/archive/2017/02/11/what-it-s-like-to-be-an-esports-commentator.aspx",
+    "label": "Game Informer: interview with Owen ODPixel Davies"
+  },
+  "autochess": {
+    "url": "https://store.steampowered.com/app/1530300/Auto_Chess/",
+    "label": "Drodo and Dragonest: Auto Chess history"
+  },
+  "ti5venue": {
+    "url": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=570&count=2&maxlength=0&enddate=1436852212&feeds=steam_community_announcements",
+    "label": "Secret Shop Pre-Orders & Pubstomps",
+    "newsId": "431567758218145911",
+    "publishedAt": 1436852211
+  }
+}

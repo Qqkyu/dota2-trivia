@@ -1,0 +1,15 @@
+[33m[PLUGIN_TIMINGS] [0mJavaScript callbacks ran for 3.5s of this 12.7s build (28%).
+The slowest callbacks, timed inside each callback (the wait before a callback starts is excluded, the time it awaits is included):
+  - plugin vite:native-config-compat-check transform (27%, 3.5s, 1 call)
+Additional callback time came from callbacks under 1s.
+See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.
+
+
+ RUN  v5.0.0 /home/kulmisiu/dev/dota2-trivia
+
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  14:38:56
+   Duration  125ms (transform 50%, import 27%, tests 17%, worker 6%)
+

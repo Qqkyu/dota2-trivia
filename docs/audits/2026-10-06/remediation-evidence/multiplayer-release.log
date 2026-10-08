@@ -1,0 +1,46 @@
+
+> queue-arcade@0.2.0 check:multiplayer /home/kulmisiu/dev/dota2-trivia
+> node scripts/multiplayer-smoke.mjs
+
+{
+  "roomId": "dota2:7.41f-variety-7-classic-trivia-6-shopkeeper-8-public-arcade-4-soundcheck-12-spell-link-4-fogged-vision-5-global-score-1-order-up-5-aghanim-lab-1-flashback-19:public",
+  "roundId": "dota2:7.41f-variety-7-classic-trivia-6-shopkeeper-8-public-arcade-4-soundcheck-12-spell-link-4-fogged-vision-5-global-score-1-order-up-5-aghanim-lab-1-flashback-19:public:round:1093062",
+  "deadlinesMatch": true,
+  "hiddenDuringAnswering": true,
+  "duplicateRejected": true,
+  "finalTotal": 2,
+  "persisted": true,
+  "persistenceBackend": "postgres",
+  "steamOpenIdBoundaryVerified": true,
+  "accountProfileVerified": true,
+  "accountProfilePageVerified": true,
+  "accountStoreVerified": true,
+  "accountDeletionVerified": true,
+  "stableQuestionRevision": true,
+  "apiRateLimitVerified": true,
+  "voterIdsHashed": true,
+  "reportRejectedBeforeReveal": true,
+  "reportDeduplicated": true,
+  "playerReportRestored": true,
+  "reportCarriesIntoNextRound": true,
+  "calibrationAggregates": true,
+  "diagnosticsBoundaryVerified": true,
+  "reviewWorkflowVerified": true,
+  "roomPresenceVerified": true,
+  "alphaSessionVerified": true,
+  "alphaOpsVerified": true,
+  "legacyModesCollapsedIntoPublicRoom": [
+    "trivia",
+    "shopkeeper",
+    "fogged-vision",
+    "map-sense",
+    "counterplay",
+    "not-a-mode"
+  ],
+  "sharedDifficultyPoolVerified": true,
+  "legacyLevelSettingsIgnored": true,
+  "allPublicModeAndCategorySilosRemoved": true,
+  "questionPayloadCacheVerified": true,
+  "audioPreloadGuardedUntilReveal": true,
+  "upcomingAudioPreloadVerified": "not-needed"
+}

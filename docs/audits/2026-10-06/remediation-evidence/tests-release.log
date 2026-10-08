@@ -1,0 +1,17 @@
+
+> queue-arcade@0.2.0 test /home/kulmisiu/dev/dota2-trivia
+> vitest run
+
+
+ RUN  v5.0.0 /home/kulmisiu/dev/dota2-trivia
+
+
+ Test Files  43 passed (43)
+      Tests  354 passed (354)
+   Start at  09:47:54
+   Duration  10.08s (tests 55%, transform 34%, import 10%, worker 1%)
+
+  Transform  transforming modules took 11.15s · 34% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+

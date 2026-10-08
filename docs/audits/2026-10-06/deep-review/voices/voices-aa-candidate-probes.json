@@ -1,0 +1,1163 @@
+[
+  {
+    "name": "appa_spawn_02",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "The Age of Ice begins!",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_spawn_02.mp3",
+    "sourceSha256": "7f36599cb708ad148a8f2b9ae17149c3f2d1d4f254f9af0c400d384d18415590",
+    "duration": 4.318188,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 9.822903666645288e-05,
+        "rms": 2.066959093922761e-05,
+        "rmsDb": -93.69336236352981,
+        "peakDb": -80.155202301289
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.49660998582839966,
+        "rms": 0.10256096570420183,
+        "rmsDb": -19.78035797061758,
+        "peakDb": -6.079691038095105
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_spawn_03",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "A cold wind blows.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_spawn_03.mp3",
+    "sourceSha256": "d3be8ac4b8d4a1d13d77b3413ac31dc9163883faa08d5ad7b7181f8471712b17",
+    "duration": 3.7435,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.0003740992397069931,
+        "rms": 4.942601328483476e-05,
+        "rmsDb": -86.12088836866155,
+        "peakDb": -68.54026348860971
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.484910249710083,
+        "rms": 0.06094270585796272,
+        "rmsDb": -24.30156533994543,
+        "peakDb": -6.286772719195614
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_battlebegins_01",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Time to break the ice!",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_battlebegins_01.mp3",
+    "sourceSha256": "cf8dc962fd58ba6bd064fa80d0bbfc1b2d33cc83b40c34b8e0bb6120af3c3cfd",
+    "duration": 3.403938,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.23827566000000003,
+        "peak": 4.982863902114332e-05,
+        "rms": 1.1739556124679917e-05,
+        "rmsDb": -98.60696647104663,
+        "peakDb": -86.05041949265325
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5228398442268372,
+        "rms": 0.07589219157383899,
+        "rmsDb": -22.396058113406184,
+        "peakDb": -5.632626468177087
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_move_14",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "The spirit moves me!",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_move_14.mp3",
+    "sourceSha256": "fff08bc666895318d599e60a88bf46138415d426cfbfaeedf6487b78e9216999",
+    "duration": 4.00475,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 5.427082214737311e-05,
+        "rms": 1.2004218404934782e-05,
+        "rmsDb": -98.41332223229605,
+        "peakDb": -85.30867198508159
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.039267923682928085,
+        "rms": 0.005358123199693961,
+        "rmsDb": -45.41974609700438,
+        "peakDb": -28.119241234528715
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_move_17",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "A course disturbed.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_move_17.mp3",
+    "sourceSha256": "b6a05ca099504a08167f8295e898f40b45fb180574d062fcad6693b76d60d380",
+    "duration": 4.00475,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 5.676888395100832e-05,
+        "rms": 1.2902392228669905e-05,
+        "rmsDb": -97.78659519650986,
+        "peakDb": -84.91779287423158
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.33671319484710693,
+        "rms": 0.03532162613415878,
+        "rmsDb": -29.039186212401688,
+        "peakDb": -9.454797289879659
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_attack_07",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Hoary frost upon you!",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_attack_07.mp3",
+    "sourceSha256": "dbd1ffefd5116d37999b34f4f93547bb8b9cb21532c3339f5b8b474a7dc6f57a",
+    "duration": 3.038188,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.21267316,
+        "peak": 5.2661456720670685e-05,
+        "rms": 1.226540655123777e-05,
+        "rmsDb": -98.22636104041493,
+        "peakDb": -85.57014263228653
+      },
+      {
+        "stage": 2,
+        "seconds": 0.51649196,
+        "peak": 0.507577121257782,
+        "rms": 0.08510700802076297,
+        "rmsDb": -21.4006935410968,
+        "peakDb": -5.889959234124554
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_cast_03",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Set loose the fog of war.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_cast_03.mp3",
+    "sourceSha256": "ec940b1c094e70022afad449724abf73ad8c03d55cee1fbf3b659531be056644",
+    "duration": 4.057,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.013609134592115879,
+        "rms": 0.0009339772323162458,
+        "rmsDb": -60.59327420987218,
+        "peakDb": -37.32338981601905
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.4945177435874939,
+        "rms": 0.09152785561227425,
+        "rmsDb": -20.768934250336635,
+        "peakDb": -6.116362420915844
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_ability_coldfeet_02",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Stay where you are!",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_ability_coldfeet_02.mp3",
+    "sourceSha256": "f455e6a2f9a4e9800a3f843bc87449819cf57251197e4f4dc6c6b78d22d9d9cf",
+    "duration": 2.907563,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.20352941000000002,
+        "peak": 5.525935921468772e-05,
+        "rms": 1.1739640586091955e-05,
+        "rmsDb": -98.6069039797687,
+        "peakDb": -85.15188310903392
+      },
+      {
+        "stage": 2,
+        "seconds": 0.49428571000000004,
+        "peak": 0.5238469839096069,
+        "rms": 0.08491237560799078,
+        "rmsDb": -21.420580172370634,
+        "peakDb": -5.61591104461527
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_ability_touch_02",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Ice preserves you!",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_ability_touch_02.mp3",
+    "sourceSha256": "f4d063ca10e712a69ab0d6b79c299fe829fa3cd231188fee0fc5ae82d3c68f68",
+    "duration": 3.221063,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.22547441000000001,
+        "peak": 5.773369048256427e-05,
+        "rms": 1.2669485981457217e-05,
+        "rmsDb": -97.94482009372052,
+        "peakDb": -84.7714136083901
+      },
+      {
+        "stage": 2,
+        "seconds": 0.5475807100000001,
+        "peak": 0.5073813199996948,
+        "rms": 0.07730644375450273,
+        "rmsDb": -22.235686093072484,
+        "peakDb": -5.8933105203855565
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_ability_touch_04",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "A preserving cold.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_ability_touch_04.mp3",
+    "sourceSha256": "d53cbf50ac6f415c666e95d1111748f9b39ed4cfd80db679d52fa11e998569a6",
+    "duration": 3.273313,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.22913191000000002,
+        "peak": 7.237451791297644e-05,
+        "rms": 1.5038633645794088e-05,
+        "rmsDb": -96.45583240660056,
+        "peakDb": -82.8082863218515
+      },
+      {
+        "stage": 2,
+        "seconds": 0.55646321,
+        "peak": 0.4537047743797302,
+        "rms": 0.059164835403808576,
+        "rmsDb": -24.55872678702018,
+        "peakDb": -6.864533011732277
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_level_02",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Winter grows colder.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_level_02.mp3",
+    "sourceSha256": "2530d34b386ff141088a050bddd60d0ca8fd22f61473c756ab4f88b17531c019",
+    "duration": 5.2325,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.04067829251289368,
+        "rms": 0.0040115411790492385,
+        "rmsDb": -47.93377490686122,
+        "peakDb": -27.812745700920694
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.3892335593700409,
+        "rms": 0.05655214825598749,
+        "rmsDb": -24.951017856149722,
+        "peakDb": -8.195794446136395
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_kill_01",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "The frost takes you.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_kill_01.mp3",
+    "sourceSha256": "798dc9e72511e6be73b86294eb18fdf5c0aa2fcd8b3835161dfef6f48a21c4d9",
+    "duration": 3.874125,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 5.101774513605051e-05,
+        "rms": 1.2223555493227454e-05,
+        "rmsDb": -98.25604902999547,
+        "peakDb": -85.84557480186726
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.44345080852508545,
+        "rms": 0.07840307747625506,
+        "rmsDb": -22.113337801228408,
+        "peakDb": -7.063090978696368
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_kill_03",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Your blood runs cold.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_kill_03.mp3",
+    "sourceSha256": "436f45f512814ef09c422bd191e0079da260f1cd6b43abf9799e30f56fea3be9",
+    "duration": 3.717375,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 9.309474990004674e-05,
+        "rms": 1.3906570710191903e-05,
+        "rmsDb": -97.13559903244519,
+        "peakDb": -80.62149620931643
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.46513330936431885,
+        "rms": 0.10057940341658131,
+        "rmsDb": -19.94981889421735,
+        "peakDb": -6.64845116912761
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_kill_04",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Ice bejewels your corpse.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_kill_04.mp3",
+    "sourceSha256": "f19f8da2f0c74c9898efef5f9a344f4ca460f1d7f2c3dcf2423422bcf4e46d02",
+    "duration": 4.057,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 4.6649664000142366e-05,
+        "rms": 1.1845561364768778e-05,
+        "rmsDb": -98.52888706210925,
+        "peakDb": -86.62302959929693
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.47918516397476196,
+        "rms": 0.08706782817231358,
+        "rmsDb": -21.202845769714955,
+        "peakDb": -6.389932731558417
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_kill_05",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Embrace cold death.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_kill_05.mp3",
+    "sourceSha256": "ed41d698ec00fcaa0075fb267bbda375d7573400b527f002d8a9e29f6323695f",
+    "duration": 3.769625,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 5.106866592541337e-05,
+        "rms": 1.1446928590890491e-05,
+        "rmsDb": -98.82622052843055,
+        "peakDb": -85.83690974275173
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.4451160430908203,
+        "rms": 0.0851776017336239,
+        "rmsDb": -21.393491842304844,
+        "peakDb": -7.030535047611615
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_kill_08",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Winter is at hand.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_kill_08.mp3",
+    "sourceSha256": "0bec1d6bcff4604e5e5840885b7b19594d146646eba2686d2987aae1d2e15e52",
+    "duration": 3.273313,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.22913191000000002,
+        "peak": 5.235564458416775e-05,
+        "rms": 1.2065718723502285e-05,
+        "rmsDb": -98.36893606382458,
+        "peakDb": -85.62072978319628
+      },
+      {
+        "stage": 2,
+        "seconds": 0.55646321,
+        "peak": 0.4831025302410126,
+        "rms": 0.07874893624562405,
+        "rmsDb": -22.075106080488084,
+        "peakDb": -6.31921375795613
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_kill_09",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Now is the winter of your disembowelment.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_kill_09.mp3",
+    "sourceSha256": "4cb390a1c5efdd47bbf85bf2e223d64fbc326b0398d0cad84352e0bd0f277d76",
+    "duration": 4.344313,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 6.049214425729588e-05,
+        "rms": 1.226403162986563e-05,
+        "rmsDb": -98.22733476147806,
+        "peakDb": -84.36602041677762
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.38248753547668457,
+        "rms": 0.06969531394559608,
+        "rmsDb": -23.135928425410025,
+        "peakDb": -8.347654261809808
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_kill_10",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Pale and trembling.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_kill_10.mp3",
+    "sourceSha256": "c91d6bf6ff9abf17663f5b2c0277b1c0470ff849501ebbcf89ac9f2a3b4b470c",
+    "duration": 2.855375,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.19987625,
+        "peak": 0.012073765508830547,
+        "rms": 0.0014371771070028562,
+        "rmsDb": -56.84979418700876,
+        "peakDb": -38.36314526140157
+      },
+      {
+        "stage": 2,
+        "seconds": 0.48541375000000003,
+        "peak": 0.5064206719398499,
+        "rms": 0.09539959499366114,
+        "rmsDb": -20.40906938063329,
+        "peakDb": -5.909771497169048
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_kill_12",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "You'll grow colder but no older.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_kill_12.mp3",
+    "sourceSha256": "cfe8d03a021dab3bf8853ff87f41ef037b254d27f37f9740bf3026eeadc33b44",
+    "duration": 6.56475,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.0071656182408332825,
+        "rms": 0.0007501574065725452,
+        "rmsDb": -62.496951968612706,
+        "peakDb": -42.89492666500006
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.47188228368759155,
+        "rms": 0.0790640901798849,
+        "rmsDb": -22.040414445799257,
+        "peakDb": -6.523326549396583
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_rival_01",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Crystal Maiden, you dare cross ice with me?",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_rival_01.mp3",
+    "sourceSha256": "747cc745e2ae7c2bc3892f482e8b8543e1b5d3658734a2f8adb97958a75e90c3",
+    "duration": 5.18025,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 5.193197284825146e-05,
+        "rms": 1.1851260571857445e-05,
+        "rmsDb": -98.52470906010683,
+        "peakDb": -85.69130357281117
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.42672407627105713,
+        "rms": 0.06244213438109922,
+        "rmsDb": -24.090445208255467,
+        "peakDb": -7.397057060944338
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_rival_03",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Pudge, it's the meat locker for you!",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_rival_03.mp3",
+    "sourceSha256": "03f8de21935a4a81148ccb21980721e6a55078b80a2cd5332e0909fbff636bef",
+    "duration": 4.187563,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 5.869353117304854e-05,
+        "rms": 1.2590951359477979e-05,
+        "rmsDb": -97.99882907606063,
+        "peakDb": -84.62819522569829
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.500589907169342,
+        "rms": 0.05260406458192681,
+        "rmsDb": -25.579613954452572,
+        "peakDb": -6.010358216603398
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_rival_04",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Lich, your ice is weak.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_rival_04.mp3",
+    "sourceSha256": "0271faf08401f82a18ced83b70e95dc4db98d29718601b836e48515348bd2b96",
+    "duration": 3.717375,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.0042910887859761715,
+        "rms": 0.0004490923803556425,
+        "rmsDb": -66.9532862689337,
+        "peakDb": -47.34864998965135
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.43928447365760803,
+        "rms": 0.07403767944943246,
+        "rmsDb": -22.610944034498278,
+        "peakDb": -7.145082928729013
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_rival_05",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Enigma, elemental to elemental.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_rival_05.mp3",
+    "sourceSha256": "1d856318d83b474d4e1de50c61b8aa2c268cfa703780e66b62644abfc5a8faee",
+    "duration": 5.859438,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 5.542553117265925e-05,
+        "rms": 1.2087227623166922e-05,
+        "rmsDb": -98.35346598614309,
+        "peakDb": -85.12580272232111
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.1843460500240326,
+        "rms": 0.031261977332930936,
+        "rmsDb": -30.099671122867516,
+        "peakDb": -14.6873232713981
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_lasthit_02",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Age before beauty.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_lasthit_02.mp3",
+    "sourceSha256": "f520fbf2a82c5d9581bcc41c70a090c3676f9c2cccf9cc04785f478b361afe07",
+    "duration": 2.62025,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.1834175,
+        "peak": 0.004749472253024578,
+        "rms": 0.000488520612634911,
+        "rmsDb": -66.22234213881256,
+        "peakDb": -46.467092903640214
+      },
+      {
+        "stage": 2,
+        "seconds": 0.4454425,
+        "peak": 0.4848155677318573,
+        "rms": 0.1253549423082682,
+        "rmsDb": -18.0371707730231,
+        "peakDb": -6.2884688629950345
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_lasthit_08",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "The cost of frost.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_lasthit_08.mp3",
+    "sourceSha256": "46ebafc87a2aff349e9b802d41f0606a9074e943529073d9602020c4da3fe64b",
+    "duration": 3.560625,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.0180787593126297,
+        "rms": 0.000646553399729534,
+        "rmsDb": -63.78791200654108,
+        "peakDb": -34.85662754155729
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.47144943475723267,
+        "rms": 0.06534134496810683,
+        "rmsDb": -23.696238607430335,
+        "peakDb": -6.53129761244768
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_respawn_02",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Winter always returns.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_respawn_02.mp3",
+    "sourceSha256": "81cb12e1b48e1f89c436b7802ca3ce8bffffa5865e3238c2f7bc9999792bf36e",
+    "duration": 4.945125,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 4.718645868706517e-05,
+        "rms": 1.2184579110120163e-05,
+        "rmsDb": -98.28378935963735,
+        "peakDb": -86.52365229903072
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.14746522903442383,
+        "rms": 0.012702957491850518,
+        "rmsDb": -37.92190310393554,
+        "peakDb": -16.62620740641613
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_respawn_05",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "My vapors coalesce.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_respawn_05.mp3",
+    "sourceSha256": "929f5718bea2692008eca984d6f01834a596883c99e88a73b7ea4e01530fd872",
+    "duration": 5.0235,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 5.477876038639806e-05,
+        "rms": 1.2356655110016713e-05,
+        "rmsDb": -98.1619814973385,
+        "peakDb": -85.22775599638315
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.44262218475341797,
+        "rms": 0.080647253217955,
+        "rmsDb": -21.868208395035357,
+        "peakDb": -7.079336450085022
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_respawn_08",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Colder than hell's heart, I return.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_respawn_08.mp3",
+    "sourceSha256": "d7cc8b1bedffad412b1a149f92fea4c0c097522fe29e72cd799f6d940dcbf929",
+    "duration": 5.807188,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 5.093120489618741e-05,
+        "rms": 1.1894252446626667e-05,
+        "rmsDb": -98.49325696325667,
+        "peakDb": -85.86032098911116
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.48071831464767456,
+        "rms": 0.06597066536705694,
+        "rmsDb": -23.612982713787627,
+        "peakDb": -6.362186631739343
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_respawn_09",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "A new ice age dawns.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_respawn_09.mp3",
+    "sourceSha256": "9c03eff35142adc3ee17136cdd53cab91f71b6cad17fac44448fbbae24562aa1",
+    "duration": 4.344313,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.004062226973474026,
+        "rms": 0.0002338092255694329,
+        "rmsDb": -72.62276713167432,
+        "peakDb": -47.82471628837606
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.39640793204307556,
+        "rms": 0.0780052969799258,
+        "rmsDb": -22.15751810746108,
+        "peakDb": -8.037153279089818
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_respawn_11",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Exempt from time's ablations.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_respawn_11.mp3",
+    "sourceSha256": "53a33f6605c4c3bc761e98cb3566caafca6a8977bb6ab2f4a58f85bd9696553a",
+    "duration": 4.919,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 5.266174775897525e-05,
+        "rms": 1.1913502363462686e-05,
+        "rmsDb": -98.47921089373435,
+        "peakDb": -85.57009462906434
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.46339285373687744,
+        "rms": 0.07784260594140531,
+        "rmsDb": -22.17565267189879,
+        "peakDb": -6.681013360276555
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_rare_02",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "My spirit may be locked in ice, but my rage still burns.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_rare_02.mp3",
+    "sourceSha256": "a6be32783c218e6ff23f25118ce7dd6ccd7e703dcd0337cd2f15ad100d28b729",
+    "duration": 11.031688,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 7.384351920336485e-05,
+        "rms": 1.2282198385816003e-05,
+        "rmsDb": -98.21447784080418,
+        "peakDb": -82.63375228130533
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.45498114824295044,
+        "rms": 0.08507921817727818,
+        "rmsDb": -21.403530192700227,
+        "peakDb": -6.840131951854394
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_purch_01",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Unfroze my assets for this.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_purch_01.mp3",
+    "sourceSha256": "6326855ec4367ca0e594033ef4ba88e2e793300b927cc880b39300cc161184da",
+    "duration": 3.848,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 5.8236786571796983e-05,
+        "rms": 1.239088081120944e-05,
+        "rmsDb": -98.13795641024898,
+        "peakDb": -84.6960519364824
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.47700145840644836,
+        "rms": 0.07095755895046149,
+        "rmsDb": -22.980026666395695,
+        "peakDb": -6.429605862514089
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_purch_02",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "I waited ages but it was worth it.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_purch_02.mp3",
+    "sourceSha256": "7bf43323bc5fee12161ca0f8e3533ddf3c1f8ec3e40eba16b751fbcc093d9a3e",
+    "duration": 4.083125,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.0052392249926924706,
+        "rms": 0.0009894934720224915,
+        "rmsDb": -60.09174133231414,
+        "peakDb": -45.61465901715793
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.46641069650650024,
+        "rms": 0.07213855131566559,
+        "rmsDb": -22.836651668390196,
+        "peakDb": -6.624629963416529
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_purch_03",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "At last I have you.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_purch_03.mp3",
+    "sourceSha256": "f7b84ab2a81591c94cd136f980a7164364b25b05c253a90fb6127bdb848a76c1",
+    "duration": 3.351688,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.23461816000000002,
+        "peak": 0.0075294547714293,
+        "rms": 0.0016410989381220316,
+        "rmsDb": -55.69730471062379,
+        "peakDb": -42.464729422420845
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5002469420433044,
+        "rms": 0.08392205231855639,
+        "rmsDb": -21.522478079768156,
+        "peakDb": -6.016311149598254
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_blink_02",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Sharp as winter's teeth.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_blink_02.mp3",
+    "sourceSha256": "7aec7750cd458246d7973241a8632acb43411676588cbf21c604fb131fbc7aaa",
+    "duration": 3.430063,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.09991215169429779,
+        "rms": 0.00785407038988714,
+        "rmsDb": -42.098104216131006,
+        "peakDb": -20.007633760437958
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.4638700485229492,
+        "rms": 0.08382030116294004,
+        "rmsDb": -21.533015661938492,
+        "peakDb": -6.672073367954015
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_scepter_02",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Scepter, like a shard of ice.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_scepter_02.mp3",
+    "sourceSha256": "cb4af2ed22c6d7f09825357f827c5715ce4d6405b88c094e0ae9df5ab6dfb420",
+    "duration": 3.821875,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 5.7477202062727883e-05,
+        "rms": 1.2454185730640037e-05,
+        "rmsDb": -98.09369323770008,
+        "peakDb": -84.81008762157502
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.4557800590991974,
+        "rms": 0.04345385015322827,
+        "rmsDb": -27.239434751982905,
+        "peakDb": -6.824893592442718
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_bottle_01",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "For a time of need.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_bottle_01.mp3",
+    "sourceSha256": "f10fcaa9b74cd62877dc9cf407368ab2bb7c4428c7850eedcd69742b898df1c3",
+    "duration": 3.299438,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.23096066,
+        "peak": 5.399269866757095e-05,
+        "rms": 1.2011854638097045e-05,
+        "rmsDb": -98.40779864143968,
+        "peakDb": -85.3532993008644
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.479938268661499,
+        "rms": 0.07770382956674651,
+        "rmsDb": -22.19115153679466,
+        "peakDb": -6.376292390145276
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_bottle_03",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "I'll put this on ice.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_bottle_03.mp3",
+    "sourceSha256": "4b77b9198a4de413f1870406d48d7ef1a732b787840e23ae74994311faf22e79",
+    "duration": 4.187563,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 4.87795150547754e-05,
+        "rms": 1.1889409158546275e-05,
+        "rmsDb": -98.49679454018924,
+        "peakDb": -86.23525043144286
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.44392722845077515,
+        "rms": 0.07378195943936776,
+        "rmsDb": -22.640996306552637,
+        "peakDb": -7.053764330704002
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_deny_08",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "Not til you're older.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_deny_08.mp3",
+    "sourceSha256": "cb1733218fccc1addd0d3cb6b8a4d0efbe1a2999c1ff1e1f0d4b496895d5defc",
+    "duration": 3.5345,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 4.8391593736596406e-05,
+        "rms": 1.168312857290126e-05,
+        "rmsDb": -98.64881687733546,
+        "peakDb": -86.30460149061877
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.28416895866394043,
+        "rms": 0.03939355538276808,
+        "rmsDb": -28.09149642167645,
+        "peakDb": -10.928467283782595
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_win_03",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "A new ice age begins!",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_win_03.mp3",
+    "sourceSha256": "8066e074e8d2208fcae8a04f5d17ddc98c62b63db644ac2f74ba7382ee4b2ac5",
+    "duration": 7.296188,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 4.787905345438048e-05,
+        "rms": 1.1835504450120614e-05,
+        "rmsDb": -98.53626453883835,
+        "peakDb": -86.39708887943235
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.40194132924079895,
+        "rms": 0.05667848559021839,
+        "rmsDb": -24.931635246331364,
+        "peakDb": -7.916746711770603
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_notyet_03",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "It's not time yet.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_notyet_03.mp3",
+    "sourceSha256": "3ae3c3c11b01d8fa8fef61c8f7f8c1377dcb3c5e2450a419b0f0be0862cdaa17",
+    "duration": 2.4635,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.17244500000000001,
+        "peak": 7.54952197894454e-05,
+        "rms": 1.2468614372609027e-05,
+        "rmsDb": -98.08363613294041,
+        "peakDb": -82.44161092365188
+      },
+      {
+        "stage": 2,
+        "seconds": 0.418795,
+        "peak": 0.225221648812294,
+        "rms": 0.03620048128058255,
+        "rmsDb": -28.825713110821873,
+        "peakDb": -12.947797329003897
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_notyet_06",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "It's not time yet.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_notyet_06.mp3",
+    "sourceSha256": "115e4923c1b4062f84b649a3a93df1afa6bb9d9818f812c6675478c3d547b637",
+    "duration": 3.665125,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 5.919839895796031e-05,
+        "rms": 1.4268272514587252e-05,
+        "rmsDb": -96.91257209033046,
+        "peakDb": -84.55380077538136
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.4717687666416168,
+        "rms": 0.05417853927640588,
+        "rmsDb": -25.32345416573525,
+        "peakDb": -6.52541629758854
+      }
+    ],
+    "listened": false
+  },
+  {
+    "name": "appa_notyet_09",
+    "sourceFile": "ancient_apparition.json",
+    "transcript": "It's not time yet.",
+    "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_notyet_09.mp3",
+    "sourceSha256": "6567970c2536c337adf0a437c0c0898158d02bfb101376b04e5729f91816e437",
+    "duration": 3.508438,
+    "stages": [
+      {
+        "stage": 1,
+        "seconds": 0.24,
+        "peak": 0.00024929153732955456,
+        "rms": 4.6529386623989525e-05,
+        "rmsDb": -86.64545345076276,
+        "peakDb": -72.06584928379202
+      },
+      {
+        "stage": 2,
+        "seconds": 0.56,
+        "peak": 0.5069056153297424,
+        "rms": 0.10450915113758229,
+        "rmsDb": -19.61691359497248,
+        "peakDb": -5.901457955637959
+      }
+    ],
+    "listened": false
+  }
+]

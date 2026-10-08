@@ -1,0 +1,713 @@
+{
+  "reviewedAt": "2026-10-06",
+  "changedQuestions": 32,
+  "fields": 47,
+  "assets": [
+    {
+      "publicPath": "public/arcade/flashback/originals/international.svg",
+      "publicUrl": "/arcade/flashback/originals/international.svg",
+      "sha256": "ee9c75d5fbe966a939d7edd3db2614b52b84aa82912b8e7c63b104ef25c9117c",
+      "description": "Generic trophy drawn from basic geometric paths. No photograph, team logo, event date, location, or Valve emblem.",
+      "creator": "Queue Arcade project, original SVG geometry and plain text created for this review",
+      "externalAssets": []
+    },
+    {
+      "publicPath": "public/arcade/flashback/originals/winner-natus-vincere.svg",
+      "publicUrl": "/arcade/flashback/originals/winner-natus-vincere.svg",
+      "sha256": "3a8a02776bb316868a8a23fef90891ca27f8c92eb75091813bad0912683db174",
+      "description": "Plain-text Natus Vincere winner card with an original border. No team logo or photograph.",
+      "creator": "Queue Arcade project, original SVG geometry and plain text created for this review",
+      "externalAssets": []
+    },
+    {
+      "publicPath": "public/arcade/flashback/originals/winner-invictus-gaming.svg",
+      "publicUrl": "/arcade/flashback/originals/winner-invictus-gaming.svg",
+      "sha256": "dd80403e8806ae873ec075300a545b8ee8c130099bc5b608c73757a31d2f5592",
+      "description": "Plain-text Invictus Gaming winner card with an original border. No team logo or photograph.",
+      "creator": "Queue Arcade project, original SVG geometry and plain text created for this review",
+      "externalAssets": []
+    },
+    {
+      "publicPath": "public/arcade/flashback/originals/winner-alliance.svg",
+      "publicUrl": "/arcade/flashback/originals/winner-alliance.svg",
+      "sha256": "14e7a8236a9af725e876312bb950a4c2528573c034d79df6b19d4eda0e51c3c3",
+      "description": "Plain-text Alliance winner card with an original border. No team logo or photograph.",
+      "creator": "Queue Arcade project, original SVG geometry and plain text created for this review",
+      "externalAssets": []
+    },
+    {
+      "publicPath": "public/arcade/flashback/originals/winner-newbee.svg",
+      "publicUrl": "/arcade/flashback/originals/winner-newbee.svg",
+      "sha256": "45e96f42a52f67dac1fb010a8255fa4dc951fc858b7a022a602858a9a90ea858",
+      "description": "Plain-text Newbee winner card with an original border. No team logo or photograph.",
+      "creator": "Queue Arcade project, original SVG geometry and plain text created for this review",
+      "externalAssets": []
+    },
+    {
+      "publicPath": "public/arcade/flashback/originals/winner-evil-geniuses.svg",
+      "publicUrl": "/arcade/flashback/originals/winner-evil-geniuses.svg",
+      "sha256": "74deace1500bfc8bf797e6f3310bbe30cf5d1906e007ab21c55cb2b10e5e17ca",
+      "description": "Plain-text Evil Geniuses winner card with an original border. No team logo or photograph.",
+      "creator": "Queue Arcade project, original SVG geometry and plain text created for this review",
+      "externalAssets": []
+    },
+    {
+      "publicPath": "public/arcade/flashback/originals/winner-wings-gaming.svg",
+      "publicUrl": "/arcade/flashback/originals/winner-wings-gaming.svg",
+      "sha256": "e5de807ecac3acf9cc2d09a8b2ab23e3761b3802a54ade4b34caef41c9cf924e",
+      "description": "Plain-text Wings Gaming winner card with an original border. No team logo or photograph.",
+      "creator": "Queue Arcade project, original SVG geometry and plain text created for this review",
+      "externalAssets": []
+    },
+    {
+      "publicPath": "public/arcade/flashback/originals/winner-team-liquid.svg",
+      "publicUrl": "/arcade/flashback/originals/winner-team-liquid.svg",
+      "sha256": "c8b7d31de2ea899deb91fd2e3dd890ef70d0bb4f671e5fe3452725d5715c02d9",
+      "description": "Plain-text Team Liquid winner card with an original border. No team logo or photograph.",
+      "creator": "Queue Arcade project, original SVG geometry and plain text created for this review",
+      "externalAssets": []
+    },
+    {
+      "publicPath": "public/arcade/flashback/originals/winner-og.svg",
+      "publicUrl": "/arcade/flashback/originals/winner-og.svg",
+      "sha256": "ca25ce289ad6c90efeaff14479271ff18e3562b6d02eb1728a38fe0e107a129b",
+      "description": "Plain-text OG winner card with an original border. No team logo or photograph.",
+      "creator": "Queue Arcade project, original SVG geometry and plain text created for this review",
+      "externalAssets": []
+    },
+    {
+      "publicPath": "public/arcade/flashback/originals/winner-team-spirit.svg",
+      "publicUrl": "/arcade/flashback/originals/winner-team-spirit.svg",
+      "sha256": "89672491ea264b9e38c376cb48dc9056cfdf0238684f94cb2e769b1e80923ed7",
+      "description": "Plain-text Team Spirit winner card with an original border. No team logo or photograph.",
+      "creator": "Queue Arcade project, original SVG geometry and plain text created for this review",
+      "externalAssets": []
+    },
+    {
+      "publicPath": "public/arcade/flashback/originals/winner-tundra-esports.svg",
+      "publicUrl": "/arcade/flashback/originals/winner-tundra-esports.svg",
+      "sha256": "6dcc21595c3ca297118a49c1d2af84e037e40aadf73e47f077e9d6dd5ef52e07",
+      "description": "Plain-text Tundra Esports winner card with an original border. No team logo or photograph.",
+      "creator": "Queue Arcade project, original SVG geometry and plain text created for this review",
+      "externalAssets": []
+    },
+    {
+      "publicPath": "public/arcade/flashback/originals/winner-team-falcons.svg",
+      "publicUrl": "/arcade/flashback/originals/winner-team-falcons.svg",
+      "sha256": "15e4f0f95e8212f738c50e473e183209dc127c7b7832d33238e6ed25e7ee43f0",
+      "description": "Plain-text Team Falcons winner card with an original border. No team logo or photograph.",
+      "creator": "Queue Arcade project, original SVG geometry and plain text created for this review",
+      "externalAssets": []
+    },
+    {
+      "publicPath": "public/arcade/flashback/originals/winner-team-secret.svg",
+      "publicUrl": "/arcade/flashback/originals/winner-team-secret.svg",
+      "sha256": "e0400ed80cd3b2af956da49d944fc6178e7a17b0316ea01145c1b7539b9f322b",
+      "description": "Plain-text Team Secret winner card with an original border. No team logo or photograph.",
+      "creator": "Queue Arcade project, original SVG geometry and plain text created for this review",
+      "externalAssets": []
+    }
+  ],
+  "changes": [
+    {
+      "id": "flashback:ti1-year",
+      "field": "image",
+      "before": {
+        "src": "/arcade/flashback/ti1-gamescom.jpg",
+        "alt": "The International at Gamescom",
+        "kind": "hero"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/international.svg",
+        "alt": "The International tournament card",
+        "kind": "item"
+      }
+    },
+    {
+      "id": "flashback:og-first-ti-year",
+      "field": "image",
+      "before": {
+        "src": "/arcade/flashback/ti8-vancouver.jpg",
+        "alt": "The International in Vancouver",
+        "kind": "hero"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/international.svg",
+        "alt": "The International tournament card",
+        "kind": "item"
+      }
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "field": "image",
+      "before": {
+        "src": "/arcade/flashback/ti1-gamescom.jpg",
+        "alt": "The International at Gamescom",
+        "kind": "hero"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/international.svg",
+        "alt": "The International tournament card",
+        "kind": "item"
+      }
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/36.png",
+        "alt": "Natus Vincere",
+        "caption": "Natus Vincere · TI1"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-natus-vincere.svg",
+        "alt": "Natus Vincere winner card",
+        "caption": "Natus Vincere · TI1",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "field": "image",
+      "before": {
+        "src": "/arcade/flashback/ti-seattle.jpg",
+        "alt": "The International in Seattle",
+        "kind": "hero"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/international.svg",
+        "alt": "The International tournament card",
+        "kind": "item"
+      }
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/5.png",
+        "alt": "Invictus Gaming",
+        "caption": "Invictus Gaming · TI2"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-invictus-gaming.svg",
+        "alt": "Invictus Gaming winner card",
+        "caption": "Invictus Gaming · TI2",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "field": "image",
+      "before": {
+        "src": "/arcade/flashback/ti-seattle.jpg",
+        "alt": "The International in Seattle",
+        "kind": "hero"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/international.svg",
+        "alt": "The International tournament card",
+        "kind": "item"
+      }
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/ti3-alliance.jpg",
+        "alt": "Alliance lift the Aegis",
+        "caption": "Alliance · TI3",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-alliance.svg",
+        "alt": "Alliance winner card",
+        "caption": "Alliance · TI3",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:ti4-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/1375614.png",
+        "alt": "Newbee",
+        "caption": "Newbee · TI4"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-newbee.svg",
+        "alt": "Newbee winner card",
+        "caption": "Newbee · TI4",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "field": "image",
+      "before": {
+        "src": "/arcade/flashback/ti5-keyarena.jpg",
+        "alt": "The International at KeyArena",
+        "kind": "hero"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/international.svg",
+        "alt": "The International tournament card",
+        "kind": "item"
+      }
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/ti5-eg.jpg",
+        "alt": "Evil Geniuses lift the Aegis",
+        "caption": "Evil Geniuses · TI5",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-evil-geniuses.svg",
+        "alt": "Evil Geniuses winner card",
+        "caption": "Evil Geniuses · TI5",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:ti6-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/wings.png",
+        "alt": "Wings Gaming",
+        "caption": "Wings Gaming · TI6"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-wings-gaming.svg",
+        "alt": "Wings Gaming winner card",
+        "caption": "Wings Gaming · TI6",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "field": "image",
+      "before": {
+        "src": "/arcade/flashback/ti5-keyarena.jpg",
+        "alt": "The International at KeyArena",
+        "kind": "hero"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/international.svg",
+        "alt": "The International tournament card",
+        "kind": "item"
+      }
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/ti7-liquid.jpg",
+        "alt": "Team Liquid lift the Aegis",
+        "caption": "Team Liquid · TI7",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-team-liquid.svg",
+        "alt": "Team Liquid winner card",
+        "caption": "Team Liquid · TI7",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "field": "image",
+      "before": {
+        "src": "/arcade/flashback/ti8-vancouver.jpg",
+        "alt": "The International in Vancouver",
+        "kind": "hero"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/international.svg",
+        "alt": "The International tournament card",
+        "kind": "item"
+      }
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/ti8-og.jpg",
+        "alt": "OG on the Vancouver stage",
+        "caption": "OG · TI8",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-og.svg",
+        "alt": "OG winner card",
+        "caption": "OG · TI8",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:ti9-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/ti9-og.jpg",
+        "alt": "OG lift the Aegis",
+        "caption": "OG · TI9",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-og.svg",
+        "alt": "OG winner card",
+        "caption": "OG · TI9",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:ti10-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/ti10-spirit.jpg",
+        "alt": "Team Spirit lift the Aegis",
+        "caption": "Team Spirit · TI10",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-team-spirit.svg",
+        "alt": "Team Spirit winner card",
+        "caption": "Team Spirit · TI10",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:ti11-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/ti11-tundra.jpg",
+        "alt": "Tundra Esports lift the Aegis",
+        "caption": "Tundra Esports · TI11",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-tundra-esports.svg",
+        "alt": "Tundra Esports winner card",
+        "caption": "Tundra Esports · TI11",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:ti12-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/ti12-spirit.jpg",
+        "alt": "Team Spirit lift the Aegis",
+        "caption": "Team Spirit · TI12",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-team-spirit.svg",
+        "alt": "Team Spirit winner card",
+        "caption": "Team Spirit · TI12",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:ti13-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/ti13-liquid.jpg",
+        "alt": "Team Liquid lift the Aegis",
+        "caption": "Team Liquid · TI13",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-team-liquid.svg",
+        "alt": "Team Liquid winner card",
+        "caption": "Team Liquid · TI13",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:ti14-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/ti14-falcons.jpg",
+        "alt": "Team Falcons lift the Aegis",
+        "caption": "Team Falcons · TI14",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-team-falcons.svg",
+        "alt": "Team Falcons winner card",
+        "caption": "Team Falcons · TI14",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:ti1-city",
+      "field": "image",
+      "before": {
+        "src": "/arcade/flashback/ti1-gamescom.jpg",
+        "alt": "The International at Gamescom",
+        "kind": "hero"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/international.svg",
+        "alt": "The International tournament card",
+        "kind": "item"
+      }
+    },
+    {
+      "id": "flashback:back-to-back",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/ti8-og.jpg",
+        "alt": "OG on the Vancouver stage",
+        "caption": "OG · first back-to-back TI",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-og.svg",
+        "alt": "OG winner card",
+        "caption": "OG · first back-to-back TI",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:frankfurt-major-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/frankfurt-og.jpg",
+        "alt": "OG Frankfurt Major roster",
+        "caption": "OG · Frankfurt Major",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-og.svg",
+        "alt": "OG winner card",
+        "caption": "OG · Frankfurt Major",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:ti2-year",
+      "field": "image",
+      "before": {
+        "src": "/arcade/flashback/ti-seattle.jpg",
+        "alt": "The International in Seattle",
+        "kind": "hero"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/international.svg",
+        "alt": "The International tournament card",
+        "kind": "item"
+      }
+    },
+    {
+      "id": "flashback:ti3-year",
+      "field": "image",
+      "before": {
+        "src": "/arcade/flashback/ti-seattle.jpg",
+        "alt": "The International in Seattle",
+        "kind": "hero"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/international.svg",
+        "alt": "The International tournament card",
+        "kind": "item"
+      }
+    },
+    {
+      "id": "flashback:ti5-year",
+      "field": "image",
+      "before": {
+        "src": "/arcade/flashback/ti5-keyarena.jpg",
+        "alt": "The International at KeyArena",
+        "kind": "hero"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/international.svg",
+        "alt": "The International tournament card",
+        "kind": "item"
+      }
+    },
+    {
+      "id": "flashback:ti7-year",
+      "field": "image",
+      "before": {
+        "src": "/arcade/flashback/ti5-keyarena.jpg",
+        "alt": "The International at KeyArena",
+        "kind": "hero"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/international.svg",
+        "alt": "The International tournament card",
+        "kind": "item"
+      }
+    },
+    {
+      "id": "flashback:shanghai-major-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/shanghai-secret.jpg",
+        "alt": "Team Secret Shanghai Major roster",
+        "caption": "Team Secret · Shanghai Major",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-team-secret.svg",
+        "alt": "Team Secret winner card",
+        "caption": "Team Secret · Shanghai Major",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:manila-major-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/manila-og.jpg",
+        "alt": "OG leave the Manila Major stage",
+        "caption": "OG · Manila Major",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-og.svg",
+        "alt": "OG winner card",
+        "caption": "OG · Manila Major",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:boston-major-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/boston-og.jpg",
+        "alt": "OG lift the Boston Major trophy",
+        "caption": "OG · Boston Major",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-og.svg",
+        "alt": "OG winner card",
+        "caption": "OG · Boston Major",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:kiev-major-winner",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/kiev-og.jpg",
+        "alt": "OG lift the Kiev Major trophy",
+        "caption": "OG · Kiev Major",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-og.svg",
+        "alt": "OG winner card",
+        "caption": "OG · Kiev Major",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:four-majors",
+      "field": "flashback.revealMedia",
+      "before": {
+        "src": "/arcade/flashback/winners/kiev-og.jpg",
+        "alt": "OG lift the Kiev Major trophy",
+        "caption": "OG · four Valve Majors",
+        "kind": "photo"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/winner-og.svg",
+        "alt": "OG winner card",
+        "caption": "OG · four Valve Majors",
+        "kind": "mark"
+      }
+    },
+    {
+      "id": "flashback:first-seattle-ti",
+      "field": "image",
+      "before": {
+        "src": "/arcade/flashback/ti-seattle.jpg",
+        "alt": "The International in Seattle",
+        "kind": "hero"
+      },
+      "after": {
+        "src": "/arcade/flashback/originals/international.svg",
+        "alt": "The International tournament card",
+        "kind": "item"
+      }
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "field": "flashback.cards[0].image",
+      "before": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/111474.png",
+      "after": "/arcade/flashback/originals/winner-alliance.svg"
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "field": "flashback.cards[1].image",
+      "before": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/1375614.png",
+      "after": "/arcade/flashback/originals/winner-newbee.svg"
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "field": "flashback.cards[2].image",
+      "before": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/36.png",
+      "after": "/arcade/flashback/originals/winner-natus-vincere.svg"
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "field": "flashback.cards[3].image",
+      "before": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/5.png",
+      "after": "/arcade/flashback/originals/winner-invictus-gaming.svg"
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "field": "flashback.cards[0].image",
+      "before": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
+      "after": "/arcade/flashback/originals/winner-og.svg"
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "field": "flashback.cards[1].image",
+      "before": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2163.png",
+      "after": "/arcade/flashback/originals/winner-team-liquid.svg"
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "field": "flashback.cards[2].image",
+      "before": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/39.png",
+      "after": "/arcade/flashback/originals/winner-evil-geniuses.svg"
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "field": "flashback.cards[3].image",
+      "before": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/1838315.png",
+      "after": "/arcade/flashback/originals/winner-wings-gaming.svg"
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "field": "flashback.cards[0].image",
+      "before": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png",
+      "after": "/arcade/flashback/originals/international.svg"
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "field": "flashback.cards[1].image",
+      "before": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/36.png",
+      "after": "/arcade/flashback/originals/international.svg"
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "field": "flashback.cards[2].image",
+      "before": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
+      "after": "/arcade/flashback/originals/international.svg"
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "field": "flashback.cards[3].image",
+      "before": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/5.png",
+      "after": "/arcade/flashback/originals/international.svg"
+    }
+  ]
+}

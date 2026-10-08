@@ -1,0 +1,6 @@
+{
+  "quietWindow": "Builds, image scans, Android emulation, assistive browser container, and local browser suites were stopped before this run.",
+  "result": "Every game and database invariant passed. The required one-second round/vote p95 target failed, so the overall container result remains false.",
+  "media": "The initial probe served 900 matching cold-media responses. It fetched three upstream sources and spawned exactly two successful ffmpeg jobs, with one active at a time. The game workload made another 90 media reads and 4610 reveal-preload requests.",
+  "limits": "A single ten-round matrix. No long-duration soak, maximum-capacity proof, or Render throughput claim. The load driver limits concurrent HTTP requests to 256 and reports its own queue time."
+}

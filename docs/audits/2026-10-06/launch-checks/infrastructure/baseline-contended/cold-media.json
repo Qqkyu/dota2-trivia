@@ -1,0 +1,91 @@
+{
+  "ok": true,
+  "players": 100,
+  "startedAt": 1791292019441,
+  "scenarios": [
+    {
+      "game": "soundcheck",
+      "stages": [
+        {
+          "stage": 1,
+          "requests": 100,
+          "totalBytes": 2121200,
+          "responseBytes": 21212,
+          "contentType": "audio/wav",
+          "sha256": "753d4ee1b37f1fa6df79ddd8022c9ada6f5a7acf91af487efdb888d76e285b01",
+          "p50Ms": 1733.06,
+          "p95Ms": 1735.11,
+          "p99Ms": 1735.16,
+          "maxMs": 1735.1968989999996
+        },
+        {
+          "stage": 2,
+          "requests": 100,
+          "totalBytes": 4767200,
+          "responseBytes": 47672,
+          "contentType": "audio/wav",
+          "sha256": "006179efeda347c36100e33ebb36960f524ec18529e32d2cb05bef58ac3882dd",
+          "p50Ms": 160.33,
+          "p95Ms": 271.98,
+          "p99Ms": 277.15,
+          "maxMs": 279.1817119999996
+        },
+        {
+          "stage": 3,
+          "requests": 100,
+          "totalBytes": 43348400,
+          "responseBytes": 433484,
+          "contentType": "audio/wav",
+          "sha256": "bbbb26d1e452908606ea148d2458cd3d92e5725039e3f66f40d4a720b2cf3cb6",
+          "p50Ms": 114.83,
+          "p95Ms": 248.86,
+          "p99Ms": 261.02,
+          "maxMs": 261.98674700000083
+        }
+      ]
+    },
+    {
+      "game": "fogged-vision",
+      "stages": [
+        {
+          "stage": 1,
+          "requests": 100,
+          "totalBytes": 2413700,
+          "responseBytes": 24137,
+          "contentType": "image/png",
+          "sha256": "6b535939ba32ddf649141e9a998dd6f9c32a64159c2c985956cad74bc91d59ca",
+          "p50Ms": 436.49,
+          "p95Ms": 436.63,
+          "p99Ms": 436.65,
+          "maxMs": 436.6570009999996
+        },
+        {
+          "stage": 2,
+          "requests": 100,
+          "totalBytes": 3214400,
+          "responseBytes": 32144,
+          "contentType": "image/png",
+          "sha256": "188256306eff797b475e2849854ca550041fcb7e47253158f0abf4a16723c529",
+          "p50Ms": 245.53,
+          "p95Ms": 354.2,
+          "p99Ms": 359.03,
+          "maxMs": 360.722980999999
+        },
+        {
+          "stage": 3,
+          "requests": 100,
+          "totalBytes": 4640900,
+          "responseBytes": 46409,
+          "contentType": "image/png",
+          "sha256": "1775ba0ca6b0d54d1f4d721a32a480b3d52e639e0d782c661d8eda55912ec24e",
+          "p50Ms": 154.41,
+          "p95Ms": 248.63,
+          "p99Ms": 253.34,
+          "maxMs": 254.71715799999947
+        }
+      ]
+    }
+  ],
+  "endedAt": 1791292047383,
+  "requests": 1008
+}

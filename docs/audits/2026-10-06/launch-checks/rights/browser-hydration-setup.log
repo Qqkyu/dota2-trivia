@@ -1,0 +1,12 @@
+file:///home/kulmisiu/dev/dota2-trivia/scripts/lib/feedback-browser.mjs:78
+      throw new Error(result.exceptionDetails.exception?.description ?? result.exceptionDetails.text);
+            ^
+
+Error: Error: Missing/enabled control: [data-testid="start-arcade"]
+    at <anonymous>:3:39
+    at <anonymous>:7:5
+    at Object.evaluate (file:///home/kulmisiu/dev/dota2-trivia/scripts/lib/feedback-browser.mjs:78:13)
+    at async click (file:///home/kulmisiu/dev/dota2-trivia/scripts/lib/feedback-browser.mjs:166:15)
+    at async file:///tmp/queue-arcade-launch-checks/check-flashback-art.mjs:93:5
+
+Node.js v24.15.0

@@ -1,0 +1,56 @@
+{
+  "status": "pass",
+  "scope": "In-memory lifecycle mocks and shell syntax only",
+  "realDockerCalls": 0,
+  "realGitHubCalls": 0,
+  "reviewedArtifacts": {
+    "/tmp/queue-arcade-launch-ci/runner-lifecycle.py": {
+      "sha256": "dd1d39370778798b58ec513a330797faf41b2d548b992c95c103d0b413e0bab7"
+    },
+    "/tmp/queue-arcade-launch-ci/runner-image/entrypoint.sh": {
+      "sha256": "9ea022f648e7a8fadfc18631dcef9a18b64a07ced607d82a1c90ba82ab616370"
+    }
+  },
+  "checks": [
+    {
+      "check": "cleanup_normal",
+      "status": "pass"
+    },
+    {
+      "check": "cleanup_container_missing",
+      "status": "pass"
+    },
+    {
+      "check": "cleanup_diagnostic_failure",
+      "status": "pass"
+    },
+    {
+      "check": "cleanup_github_remove_failure",
+      "status": "pass"
+    },
+    {
+      "check": "cleanup_github_verify_failure",
+      "status": "pass"
+    },
+    {
+      "check": "cleanup_volume_failure_retry",
+      "status": "pass"
+    },
+    {
+      "check": "cleanup_wrong_owner",
+      "status": "pass"
+    },
+    {
+      "check": "cleanup_running",
+      "status": "pass"
+    },
+    {
+      "check": "start_limits_mounts_and_credentials",
+      "status": "pass"
+    },
+    {
+      "check": "entrypoint_shell_syntax",
+      "status": "pass"
+    }
+  ]
+}

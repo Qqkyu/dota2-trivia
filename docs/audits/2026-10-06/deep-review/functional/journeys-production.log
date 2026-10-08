@@ -1,0 +1,46 @@
+PASS mobile hero search has an editable input
+PASS cancel delayed party join with Back
+PASS cancel delayed party create with Back
+PASS party response body timeout leaves Join usable
+PASS rapid party Join sends one request
+PASS touch answer and reveal classic
+PASS touch answer and reveal hero
+PASS touch answer and reveal fog
+PASS touch answer and reveal echo
+PASS touch answer and reveal quote
+PASS touch answer and reveal aghanim
+PASS touch answer and reveal shop
+PASS touch answer and reveal recipe
+PASS touch answer and reveal freerecipe
+PASS touch answer and reveal shared
+PASS touch answer and reveal upgrade
+PASS touch answer and reveal year
+PASS touch answer and reveal flashchoice
+PASS touch answer and reveal flashorder
+PASS touch answer and reveal order
+PASS touch answer and reveal damageorder
+PASS touch answer and reveal soundability
+PASS touch answer and reveal sounditem
+PASS edit partial order without an accidental lock
+PASS edit partial flashorder without an accidental lock
+PASS recipe removal and incomplete build stay unlocked
+PASS hero zero and ambiguous searches never submit
+PASS failed vote retries once without resetting the round
+PASS offline polling recovers with the same accepted answer
+PASS open report follows its original round
+PASS keyboard focus keeps year slider and lock separate
+PASS Back and Forward keep the public route usable
+PASS account change does not write connected results into guest stats
+PASS account logout starts a separate guest run
+PASS account switch ignores delayed accepted vote
+PASS account switch ignores delayed failed vote
+PASS account metadata missing cannot create guest credit
+PASS account switch discards an old profile response
+PASS account vote response migrates pending ownership from an old guest tab
+PASS account metadata restoration excludes earlier unknown results
+PASS account metadata gap cannot add unowned points to a known run
+PASS party chat draft survives the start transition
+PASS mobile rotation preserves a partial order
+PASS live party handoff reload and rejoin
+PASS profile cancel and failed deletion preserve the account
+Validated 45 player journeys.

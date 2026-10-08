@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-10-06",
+  "braces": {
+    "latest": "3.0.3",
+    "patchedVersion": null
+  },
+  "micromatch": {
+    "latest": "4.0.8",
+    "braces": "^3.0.3"
+  },
+  "nextEslintPlugin": {
+    "latest": "16.3.8",
+    "canary": "16.4.0-canary.61",
+    "fastGlob": "3.3.1"
+  },
+  "replacement": {
+    "name": "tinyglobby",
+    "version": "0.2.17",
+    "node": ">=12.0.0"
+  },
+  "sources": [
+    "https://registry.npmjs.org/braces/latest",
+    "https://registry.npmjs.org/micromatch/latest",
+    "https://registry.npmjs.org/@next%2feslint-plugin-next/latest",
+    "https://registry.npmjs.org/tinyglobby/latest",
+    "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm"
+  ]
+}

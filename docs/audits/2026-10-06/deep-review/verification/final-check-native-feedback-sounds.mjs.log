@@ -1,0 +1,15 @@
+Native output check rejects raw-lock.
+Native output check rejects double-result.
+Native PCM ok: Shopkeeper first recipe pick before window focus (both output channels, full waveform, no extra copy)
+Native PCM ok: Shopkeeper first answer pick before window focus (both output channels, full waveform, no extra copy)
+Native PCM ok: Shopkeeper first recipe pick (both output channels, full waveform, no extra copy)
+Native PCM ok: Shopkeeper first answer pick (both output channels, full waveform, no extra copy)
+Native PCM ok: Shopkeeper first answer pick wrong result (both output channels, full waveform, no extra copy)
+Native PCM ok: Aghanim first answer pick (both output channels, full waveform, no extra copy)
+Native PCM ok: Aghanim first answer pick wrong result (both output channels, full waveform, no extra copy)
+Native PCM ok: wrong result with two game tabs (both output channels, full waveform, no extra copy)
+Native PCM ok: pick after tab ownership returns (both output channels, full waveform, no extra copy)
+Native PCM ok: result after tab ownership returns (both output channels, full waveform, no extra copy)
+Native feedback output holds: 10 checks. Cold first picks, unfocused first Shopkeeper picks, and the combined output of two live tabs.
+
+

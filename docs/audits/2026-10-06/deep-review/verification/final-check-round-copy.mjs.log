@@ -1,0 +1,11 @@
+
+file:///home/kulmisiu/dev/dota2-trivia/scripts/check-round-copy.mjs:166
+    if (createdParty.status !== 200) throw new Error(`${game}: could not create a party (${createdParty.status}).`);
+                                           ^
+
+Error: trivia: could not create a party (429).
+    at file:///home/kulmisiu/dev/dota2-trivia/scripts/check-round-copy.mjs:166:44
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+Node.js v24.15.0
+

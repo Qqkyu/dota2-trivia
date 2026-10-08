@@ -1,0 +1,12 @@
+[
+  {
+    "format": "esm",
+    "exitCode": 0,
+    "output": "{\"format\":\"esm\",\"startupReset\":true}\n{\"format\":\"esm\",\"firstError\":\"ECONNRESET\"}\n{\"format\":\"esm\",\"recoveredQuery\":1}\n{\"format\":\"esm\",\"recoveredQuery\":2}\n"
+  },
+  {
+    "format": "cjs",
+    "exitCode": 0,
+    "output": "{\"format\":\"cjs\",\"startupReset\":true}\n{\"format\":\"cjs\",\"firstError\":\"ECONNRESET\"}\n{\"format\":\"cjs\",\"recoveredQuery\":1}\n{\"format\":\"cjs\",\"recoveredQuery\":2}\n"
+  }
+]

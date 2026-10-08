@@ -1,0 +1,62 @@
+// Run from the repository root: node --input-type=module < this-file.mjs.txt
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+const root = 'docs/audits/2026-10-06/deep-review';
+const read = (path) => JSON.parse(fs.readFileSync(path));
+const index = read(`${root}/question-review-index.json`);
+const sha = (bytes) => crypto.createHash('sha256').update(bytes).digest('hex');
+// A JSON replacer supplies a second implementation of the documented canonical form.
+const canonical = (input) => JSON.stringify(input, (_key, value) => value && typeof value === 'object' && !Array.isArray(value)
+  ? Object.keys(value).sort().reduce((out, key) => (out[key] = value[key], out), {}) : value);
+const byId = new Map(index.inputs.catalogs.flatMap(({ path }) => read(path).map((question) => [question.id, question])));
+const baseline = new Map(read(index.inputs.baseline.path).map((question) => [question.id, question]));
+const ledgers = new Map(index.inputs.ledgers.map(({ path }) => [path, read(path)]));
+let questionHashChecks = 0, originalSourceObjectsPreserved = 0, validLedgerPointers = 0;
+for (const input of [index.inputs.baseline, ...index.inputs.catalogs, ...index.inputs.ledgers,
+  index.inputs.calibrationHelper, ...index.inputs.calibrationDependencies, index.inputs.formatHelper]) {
+  assert.equal(sha(fs.readFileSync(input.path)), input.sha256, input.path);
+}
+for (const row of [...index.questions, ...index.outOfScope]) {
+  const current = byId.get(row.currentId);
+  const { live, format, ...original } = baseline.get(row.originalId);
+  assert.equal(sha(canonical(current)), row.currentStableJsonSha256, row.currentId);
+  assert.equal(sha(canonical(original)), row.baselineStableJsonSha256, row.originalId);
+  questionHashChecks += 1;
+  assert.deepEqual(row.source, current.source);
+  assert.deepEqual(row.originalSource, original.source);
+  assert.equal(typeof row.source, 'object');
+  assert.equal(typeof row.originalSource, 'object');
+  originalSourceObjectsPreserved += 1;
+  assert(read(row.sourceFile).some((question) => question.id === row.currentId));
+  if (row.reviewStatus === 'not-reviewed') {
+    assert.equal(live, false);
+    assert.equal(row.correctAnswerCheck.status, 'not-checked');
+    assert.equal(row.ledgerPath, null);
+    continue;
+  }
+  assert.equal(live, true);
+  const ledgerRow = row.ledgerPointer.split('/').slice(1).reduce((value, key) => value[key], ledgers.get(row.ledgerPath));
+  assert.equal(ledgerRow.id, row.originalId);
+  assert.equal(ledgerRow.status, row.reviewStatus);
+  assert.equal(sha(canonical(ledgerRow)), row.ledgerRowSha256);
+  validLedgerPointers += 1;
+  assert.equal(row.correctAnswerCheck.storedAnswer, current.answers[current.correctIndex]);
+}
+assert.equal(index.questions.length, 1517);
+assert.equal(new Set(index.questions.map((question) => question.originalId)).size, 1517);
+assert.equal(new Set(index.questions.map((question) => question.currentId)).size, 1517);
+assert.equal(index.outOfScope.length, 72);
+assert.equal(new Set([...index.questions, ...index.outOfScope].map((question) => question.currentId)).size, 1589);
+const result = {
+  verifiedAt: '2026-10-06', questionHashChecks, originalSourceObjectsPreserved, validLedgerPointers,
+  originalLiveIds: 1517, currentLiveIds: 1517, explicitlyUnreviewedRetiredIds: 72,
+  allInputByteHashesMatch: true, allCurrentCanonicalHashesMatch: true, allBaselineCanonicalHashesMatch: true,
+  allLedgerRowHashesMatch: true, allSourceFilesResolveCorrectly: true,
+  indexSha256: sha(fs.readFileSync(`${root}/question-review-index.json`)),
+  summarySha256: sha(fs.readFileSync(`${root}/question-review-summary.json`)),
+  builderSha256: sha(fs.readFileSync(`${root}/build-question-review-index.mjs.txt`)),
+  verifierSha256: sha(fs.readFileSync(`${root}/verify-question-review-index.mjs.txt`)),
+};
+fs.writeFileSync(`${root}/question-review-index-checks.json`, JSON.stringify(result, null, 2) + '\n');
+console.log(JSON.stringify(result, null, 2));

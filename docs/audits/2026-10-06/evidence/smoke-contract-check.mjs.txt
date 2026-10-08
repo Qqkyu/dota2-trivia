@@ -1,0 +1,26 @@
+import { readFile, writeFile } from 'node:fs/promises';
+import vm from 'node:vm';
+const root='/home/kulmisiu/dev/dota2-trivia';
+const {publicQuestionForRound}=await import(`${root}/src/lib/public-question.mjs`);
+const {roundPhaseAt,PUBLIC_VOTE_ACCEPT_GRACE_MS}=await import(`${root}/src/lib/round-timing.mjs`);
+const {isFlashbackOrderAnswerForQuestion,isFlashbackYearAnswerForQuestion}=await import(`${root}/src/lib/flashback.mjs`);
+const {steamIdentityNeedsEnrichment}=await import(`${root}/src/lib/steam-profile.mjs`);
+const data=async name=>JSON.parse(await readFile(`${root}/src/data/${name}.json`,'utf8'));
+const script=await readFile(`${root}/scripts/multiplayer-smoke.mjs`,'utf8');
+const voteSource=script.slice(script.indexOf('async function vote('),script.indexOf('\nasync function report('));
+const bodies=[];
+const context=vm.createContext({settings:{gameId:'dota2',mode:'mixed',filter:'Mixed'},appUrl:'http://local.invalid',fetch:async(_url,opts)=>{bodies.push(JSON.parse(opts.body));return {ok:true,json:async()=>({accepted:true})}}});
+vm.runInContext(voteSource+'\nglobalThis.vote=vote;',context);
+const flashback=await data('flashback-questions');
+const results=[];
+for(const kind of ['flashback-year','flashback-order']){
+const q=flashback.find(q=>q.kind===kind);const now=Date.now();const round={id:'audit:round',game:'flashback',phase:'answering',answerDuration:15000,answerDeadline:now+15000};
+const pub=publicQuestionForRound(q,round,now);await context.vote({question:pub,round},'audit-player',0);const body=bodies.at(-1);
+const valid=kind==='flashback-year'?isFlashbackYearAnswerForQuestion(q,body.answerKey):isFlashbackOrderAnswerForQuestion(q,body.answerKey);
+results.push({kind,answerMode:pub.answerMode,submittedFields:Object.keys(body),hasAnswerKey:!!body.answerKey,validForCurrentContract:valid});
+}
+const decks=await Promise.all(['questions.generated','shopkeeper-questions','soundcheck-questions','value-order-questions'].map(data));
+const privateIds=new Set(decks.flat().map(q=>q.id));
+const aghanim=await data('aghanim-questions');
+const output={phaseAtSmokeWake:roundPhaseAt(10200,10000),phaseAtGraceEnd:roundPhaseAt(10000+PUBLIC_VOTE_ACCEPT_GRACE_MS,10000),graceMs:PUBLIC_VOTE_ACCEPT_GRACE_MS,seededIdentityNeedsEnrichment:steamIdentityNeedsEnrichment({displayName:'Smoke Tester',avatarUrl:null}),omittedAghanimQuestions:aghanim.filter(q=>!privateIds.has(q.id)).length,omittedFlashbackQuestions:flashback.filter(q=>!privateIds.has(q.id)).length,flashbackVotes:results};
+await writeFile('/tmp/queue-arcade-audit-20261006/smoke-contract-check.json',JSON.stringify(output,null,2));console.log(JSON.stringify(output,null,2));

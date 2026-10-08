@@ -1,0 +1,17 @@
+# Local verification on 2026-10-08
+
+The full suite passed 1,284 tests in 64 files, with no skipped tests. It used Node 22.23.3 and the existing isolated PostgreSQL 17.11 database. The measured test duration was 30.21 seconds. See the [test log](unit-tests.log), [run record](unit-tests-result.json), and [runtime versions](runtime-versions.json).
+
+All 19 data validators, lint, and TypeScript checks passed. The [static records](static-checks.json) preserve each result. Production build `fQ95T7-zzQo1Bnsef8oBI` also passed the private-answer bundle scan and the live security-header checks on six pages at local port 3334. Those checks found fresh script nonces, the required security headers, and no private catalog fingerprints in browser bundles. See the [build checks](build-checks.json). This build predates the final database-driver change below. The UI source remains unchanged; these browser checks do not verify the later driver patch.
+
+The first full-suite attempt found that the local database was stopped after the host session ended. It failed with connection-refused errors. Starting the existing audit container restored the test environment. The [initial log](unit-tests-db-stopped.log) and [initial run record](unit-tests-db-stopped-result.json) remain available. No application change was needed for the passing repeat.
+
+An earlier passing repeat covered 1,279 tests. The next run added the ingress CLI deadline regression. It verifies that a TLS response that sends whitespace every 100 ms still reaches the absolute 10-second deadline. The [deadline delta checks](final-delta-checks.json) also passed lint and formatting for that change and confirmed the content release gate for all 124 reviewed files.
+
+The final run includes the database-driver fix that clears an old startup retry timestamp on normal close. Four added tests cover mixed startup failures and recovery of a pool with five connections in both driver module formats. The earlier [1,280-test passing log](unit-tests-before-mixed-startup-fix.log) remains available. The [final driver checks](driver-delta-checks.json) repeat lint, types, and the content release gate after that fix. All pass. The final test run record binds the patched driver, lockfile, and new tests to their SHA-256 hashes.
+
+The first content-index check rejected a stale hash for the rights report. That report had received the later browser and year-reveal results. After reviewing that addition, we refreshed the report hash and the derived index hash. No question row, answer, or recorded delta changed. The [exact changes](content-index-refresh.json), [passing read-only check](content-index-final.log), and [five passing tamper controls](content-negative-controls.log) record this repair. The content review document retains SHA-256 `272bf69778ad75bd0e7aa51a19ca4b256c4e780777a793ef7558bc1126751af6`.
+
+The [historical archive check](historical-archive-integrity.json) found that all 335 files, totaling 73,973,912 bytes, still match the earlier archive manifest. The [source preservation check](source-preservation.json) found no unexplained missing baseline file. Its 23 public asset removals all have matching original copies in the ignored local archive.
+
+The [evidence manifest](manifest.json) records the size and SHA-256 hash of each file in this directory. These are local results at the recorded times. They do not establish hosted deployment health, native-device behavior, or the final CI result.

@@ -1,0 +1,24 @@
+import postgres from 'postgres';
+process.env.DATABASE_URL='isolated-local-audit';
+process.env.ARCADE_VOTER_SALT='audit-fixture-only';
+const sql=postgres({host:'/tmp/queue-arcade-pg-audit.3f4hCl',port:55793,database:'postgres',username:'kulmisiu',max:5,prepare:false,onnotice:()=>{}});
+globalThis.__queueArcadePostgres=sql;
+const vote=await import('./lib/vote-store-postgres.js');
+const account=await import('./lib/account-store-postgres.js');
+const alpha=await import('./lib/alpha-store-postgres.js');
+await vote.getPostgresVoteStoreHealth();
+await account.getPostgresAccountStoreHealth();
+await alpha.getPostgresAlphaStoreHealth();
+const input=(roundId,voterId,i)=>({roundId,roomId:'audit-room',gameId:'dota2',contentVersion:'audit-version',questionId:'audit-question',questionRevision:'audit-revision',correctIndex:0,answerIndex:i%4,answerKey:'key-'+(i%4),basePoints:i%4===0?200:0,voterId,submittedAt:Date.now()});
+let seen=0, inconsistent=0, samples=[];
+await Promise.all([
+ (async()=>{for(let i=0;i<300;i++) await vote.recordRoundVote(input('concurrent-round','voter-'+i,i));})(),
+ (async()=>{for(let i=0;i<500;i++) {const c=await vote.getRoundCrowd('concurrent-round','audit-room','voter-0',true);seen++;const keyTotal=c.keyCounts.reduce((n,x)=>n+x.count,0);if(keyTotal!==c.total||c.scoreSummary.correctCount!==c.counts[0]){inconsistent++;if(samples.length<4)samples.push({total:c.total,counts:c.counts,keyTotal,correctCount:c.scoreSummary.correctCount});}}})()
+]);
+console.log(JSON.stringify({check:'concurrent reads and writes',seen,inconsistent,samples}));
+const duplicates=await Promise.all(Array.from({length:25},(_,i)=>vote.recordRoundVote(input('duplicate-round','same-voter',i))));
+const final=await vote.getRoundCrowd('duplicate-round','audit-room','same-voter',true);
+console.log(JSON.stringify({check:'duplicate concurrent vote submissions',accepted:duplicates.filter(x=>x.accepted).length,total:final.total,playerVote:final.playerVote}));
+const users=await Promise.all(Array.from({length:25},()=>account.upsertSteamUser({steamId:'76561198000000001',displayName:'Audit user',avatarUrl:null,profileUrl:'https://steamcommunity.com/profiles/76561198000000001',authenticatedAt:Date.now()})));
+console.log(JSON.stringify({check:'concurrent Steam upsert',users:users.length,uniqueIds:new Set(users.map(u=>u.id)).size}));
+await sql.end();

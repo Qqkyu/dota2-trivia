@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, Check, Copy, MessageSquare, Pencil, Users } from "lucide-react";
 import clsx from "clsx";
+import { safeBrowserStorage } from "@/lib/browser-storage.mjs";
+import { requestWithRetry } from "@/lib/request-retry.mjs";
 import type { FormatPreview } from "@/components/format-look";
 import { FormatPreviewCard, formatPreviewCardStyles } from "@/components/format-preview-card";
 import {
@@ -119,21 +121,38 @@ function ChatBox({
   dock,
   onDraft,
   onSend,
+  sending,
+  error,
 }: {
   room: PrivateRoomView;
   draft: string;
   dock?: boolean;
   onDraft: (value: string) => void;
   onSend: () => void;
+  sending: boolean;
+  error: string | null;
 }) {
   const logRef = useRef<HTMLDivElement | null>(null);
+  const followLogRef = useRef(true);
+  const latestMessageId = room.messages.at(-1)?.id;
   useEffect(() => {
-    logRef.current?.scrollTo(0, logRef.current.scrollHeight);
-  }, [room.messages.length]);
+    if (followLogRef.current) logRef.current?.scrollTo(0, logRef.current.scrollHeight);
+  }, [latestMessageId]);
 
   return (
     <div className={clsx(styles.chat, dock && styles.chatDock)} data-testid="private-room-chat">
-      <div className={styles.chatLog} ref={logRef}>
+      <div
+        className={styles.chatLog}
+        ref={logRef}
+        role="log"
+        aria-label="Party messages"
+        aria-live="polite"
+        aria-relevant="additions"
+        onScroll={(event) => {
+          const log = event.currentTarget;
+          followLogRef.current = log.scrollHeight - log.clientHeight - log.scrollTop <= 8;
+        }}
+      >
         {room.messages.length === 0 ? <p className={styles.muted}>No messages yet.</p> : null}
         {room.messages.map((message) => (
           <p key={message.id}>
@@ -157,19 +176,42 @@ function ChatBox({
           data-testid="private-room-chat-input"
           onChange={(event) => onDraft(event.currentTarget.value)}
         />
-        <button type="submit" data-testid="private-room-chat-send">
+        <button type="submit" data-testid="private-room-chat-send" disabled={sending} aria-busy={sending}>
           Send
         </button>
       </form>
+      <p className={styles.chatError} role="status" data-testid="private-room-chat-error">
+        {error ?? "\u00a0"}
+      </p>
     </div>
   );
+}
+
+const PARTY_CHAT_DRAFT_KEY = "queue-arcade:party-chat-draft:v1";
+
+function readChatDraft(code?: string) {
+  if (!code) return "";
+  try {
+    const saved = JSON.parse(safeBrowserStorage("session").getItem(PARTY_CHAT_DRAFT_KEY) ?? "null");
+    return saved?.code === code && typeof saved.text === "string" ? saved.text.slice(0, 80) : "";
+  } catch {
+    return "";
+  }
+}
+
+function saveChatDraft(code: string | undefined, text: string) {
+  if (!code) return;
+  const storage = safeBrowserStorage("session");
+  if (text) storage.setItem(PARTY_CHAT_DRAFT_KEY, JSON.stringify({ code, text: text.slice(0, 80) }));
+  else storage.removeItem(PARTY_CHAT_DRAFT_KEY);
 }
 
 const PARTY_NAME_KEY = "queue-arcade:party-name";
 
 function persistPartyName(value: string) {
-  if (value.trim()) window.localStorage.setItem(PARTY_NAME_KEY, value);
-  else window.localStorage.removeItem(PARTY_NAME_KEY);
+  const storage = safeBrowserStorage("local");
+  if (value.trim()) storage.setItem(PARTY_NAME_KEY, value);
+  else storage.removeItem(PARTY_NAME_KEY);
 }
 
 export function PrivateRoomPanel({
@@ -196,18 +238,28 @@ export function PrivateRoomPanel({
   const [joinCode, setJoinCode] = useState(() => filterCode(initialCode ?? ""));
   const [nameDraft, setNameDraft] = useState<string | null>(() => {
     if (typeof window === "undefined") return null;
-    return storedPartyNameDraft(window.localStorage.getItem(PARTY_NAME_KEY));
+    return storedPartyNameDraft(safeBrowserStorage("local").getItem(PARTY_NAME_KEY));
   });
   const [room, setRoom] = useState<PrivateRoomView | null>(null);
-  const [draft, setDraft] = useState("");
+  const [draft, setDraft] = useState(() => readChatDraft(initialCode));
+  const draftVersionRef = useRef(0);
+  const [sending, setSending] = useState(false);
+  const sendingRef = useRef(false);
+  const [chatError, setChatError] = useState<string | null>(null);
+  const [failedInitialCode, setFailedInitialCode] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [errorField, setErrorField] = useState<"code" | "name" | "games" | null>(null);
   const [nameNotice, setNameNotice] = useState<string | null>(null);
   const nameNoticeTimerRef = useRef<number | null>(null);
   const [busy, setBusy] = useState<"create" | "join" | "start" | null>(null);
+  const busyRef = useRef<"create" | "join" | "start" | null>(null);
   const [copied, setCopied] = useState(false);
   const [chatOpen, setChatOpen] = useState(true);
   const startedRef = useRef(false);
+  const requestGenerationRef = useRef(0);
+  const requestsRef = useRef(new Set<AbortController>());
+  const requestSequenceRef = useRef(0);
+  const appliedSequenceRef = useRef(0);
   const onStartedRef = useRef(onStarted);
   const onWaitingChangeRef = useRef(onWaitingChange);
   const playerIdRef = useRef(playerId);
@@ -274,6 +326,9 @@ export function PrivateRoomPanel({
   useEffect(
     () => () => {
       if (nameNoticeTimerRef.current != null) window.clearTimeout(nameNoticeTimerRef.current);
+      requestGenerationRef.current += 1;
+      for (const request of requestsRef.current) request.abort();
+      requestsRef.current.clear();
     },
     [],
   );
@@ -306,6 +361,8 @@ export function PrivateRoomPanel({
     (payload: PrivateRoomPayload) => {
       const next = asRoomView(payload);
       if (!next) return null;
+      // A response captured before the start must not return a running party to its lobby.
+      if (next.waiting && (playActive || startedRef.current)) return null;
       const selfName = next.players.find((player) => player.self)?.name ?? "";
       if (selfName && !nameEditingRef.current) {
         committedNameRef.current = selfName;
@@ -325,16 +382,81 @@ export function PrivateRoomPanel({
     [playActive],
   );
 
+  const cancelRequests = () => {
+    requestGenerationRef.current += 1;
+    for (const request of requestsRef.current) request.abort();
+    requestsRef.current.clear();
+    busyRef.current = null;
+    setBusy(null);
+  };
+
+  const beginEntry = (action: "create" | "join") => {
+    if (busyRef.current) return null;
+    busyRef.current = action;
+    setBusy(action);
+    const generation = requestGenerationRef.current;
+    const controller = new AbortController();
+    requestsRef.current.add(controller);
+    const current = () => !controller.signal.aborted && generation === requestGenerationRef.current;
+    return {
+      current,
+      fetch: (path: string, init?: RequestInit) =>
+        requestWithRetry(
+          async (signal: AbortSignal) => {
+            const response = await fetch(path, { ...init, signal });
+            const payload = (await response.json()) as PrivateRoomPayload;
+            return { response, payload };
+          },
+          {
+            signal: controller.signal,
+            attempts: 1,
+          },
+        ),
+      finish: () => {
+        requestsRef.current.delete(controller);
+        if (current()) {
+          busyRef.current = null;
+          setBusy(null);
+        }
+      },
+    };
+  };
+
   const requestRoom = useCallback(
     async (path: string, init?: RequestInit) => {
-      const response = await fetch(path, {
-        ...init,
-        headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },
-      });
-      const payload = (await response.json()) as PrivateRoomPayload;
-      if (init?.signal?.aborted) return null;
-      if (!response.ok) throw new Error(payload.error ?? "Request failed.");
-      return applyPayload(payload);
+      const generation = requestGenerationRef.current;
+      const sequence = ++requestSequenceRef.current;
+      const controller = new AbortController();
+      const abort = () => controller.abort();
+      init?.signal?.addEventListener("abort", abort, { once: true });
+      if (init?.signal?.aborted) controller.abort();
+      requestsRef.current.add(controller);
+      try {
+        const { response, payload } = await requestWithRetry(
+          async (signal: AbortSignal) => {
+            const response = await fetch(path, {
+              ...init,
+              signal,
+              headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },
+            });
+            const payload = (await response.json()) as PrivateRoomPayload;
+            return { response, payload };
+          },
+          { signal: controller.signal, attempts: 1 },
+        );
+        if (controller.signal.aborted || generation !== requestGenerationRef.current) return null;
+        if (!response.ok) throw new Error(payload.error ?? "Request failed.");
+        if (sequence < appliedSequenceRef.current) return null;
+        appliedSequenceRef.current = sequence;
+        return applyPayload(payload);
+      } catch (cause) {
+        if (controller.signal.aborted || generation !== requestGenerationRef.current) return null;
+        if (cause instanceof Error && cause.name === "AbortError") throw new Error("Request timed out. Try again.");
+        throw cause;
+      } finally {
+        requestsRef.current.delete(controller);
+        init?.signal?.removeEventListener("abort", abort);
+      }
     },
     [applyPayload],
   );
@@ -358,9 +480,10 @@ export function PrivateRoomPanel({
         return false;
       }
       try {
-        const payload = await requestRoom(
-          `/api/private-rooms?code=${encodeURIComponent(trackedCode)}&playerId=${encodeURIComponent(playerIdRef.current())}&name=${encodeURIComponent(next)}`,
-        );
+        const payload = await requestRoom("/api/private-rooms", {
+          method: "POST",
+          body: JSON.stringify({ action: "rename", code: trackedCode, playerId: playerIdRef.current(), name: next }),
+        });
         if (!payload) return false;
         const selfName = payload.players.find((player) => player.self)?.name ?? "";
         if (payload.nameTaken || (selfName && selfName.toLowerCase() !== next.toLowerCase())) {
@@ -381,21 +504,36 @@ export function PrivateRoomPanel({
   );
 
   useEffect(() => {
-    const code = trackedCode ?? initialCode;
+    const code = trackedCode ?? (initialCode !== failedInitialCode ? initialCode : undefined);
     if (!code) return undefined;
     const abort = new AbortController();
-    const load = () =>
-      requestRoom(
-        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(playerIdRef.current())}`,
-        {
+    let loading = false;
+    const load = async () => {
+      if (loading || abort.signal.aborted) return;
+      loading = true;
+      try {
+        await requestRoom("/api/private-rooms", {
+          method: "POST",
           signal: abort.signal,
-        },
-      ).catch((cause: unknown) => {
+          body: JSON.stringify({
+            action: trackedCode ? "touch" : "join",
+            code,
+            playerId: playerIdRef.current(),
+            ...(!trackedCode && !playActive ? { name: nameRef.current } : {}),
+          }),
+        });
+      } catch (cause) {
         if (abort.signal.aborted) return;
         if (cause instanceof Error && cause.name === "AbortError") return;
         setError(cause instanceof Error ? cause.message : "Request failed.");
-        if (!trackedCode) setScreen("choose");
-      });
+        if (!trackedCode) {
+          setFailedInitialCode(code);
+          setScreen("choose");
+        }
+      } finally {
+        loading = false;
+      }
+    };
     const start = window.setTimeout(() => void load(), 0);
     const timer = window.setInterval(() => void load(), PRIVATE_ROOM_POLL_MS);
     return () => {
@@ -403,7 +541,7 @@ export function PrivateRoomPanel({
       window.clearTimeout(start);
       window.clearInterval(timer);
     };
-  }, [initialCode, requestRoom, trackedCode]);
+  }, [failedInitialCode, initialCode, playActive, requestRoom, trackedCode]);
 
   const toggleGame = (id: string) => {
     setSelected((current) => (current.includes(id) ? current.filter((game) => game !== id) : [...current, id]));
@@ -428,15 +566,18 @@ export function PrivateRoomPanel({
     }
     const name = shownName.trim();
     const code = filterCode(joinCode);
-    setBusy("join");
+    const entry = beginEntry("join");
+    if (!entry) return;
     setError(null);
     setErrorField(null);
     try {
       const player = playerId();
-      const joined = await fetch(
-        `/api/private-rooms?code=${encodeURIComponent(code)}&playerId=${encodeURIComponent(player)}&name=${encodeURIComponent(name)}`,
-      );
-      const payload = (await joined.json()) as PrivateRoomPayload;
+      const { response: joined, payload } = await entry.fetch("/api/private-rooms", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "join", code, playerId: player, name }),
+      });
+      if (!entry.current()) return;
       if (joined.status === 404) throw new Error("No party with that code.");
       if (joined.status === 409) {
         setError(payload.error ?? "This party is full.");
@@ -446,10 +587,17 @@ export function PrivateRoomPanel({
       if (!joined.ok) throw new Error(payload.error ?? "Could not join that party.");
       goToRoom(payload, code);
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Could not join that party.");
+      if (!entry.current()) return;
+      setError(
+        cause instanceof Error && cause.name === "AbortError"
+          ? "Request timed out. Try again."
+          : cause instanceof Error
+            ? cause.message
+            : "Could not join that party.",
+      );
       setErrorField("code");
     } finally {
-      setBusy(null);
+      entry.finish();
     }
   };
 
@@ -463,13 +611,16 @@ export function PrivateRoomPanel({
     }
     const name = shownName.trim();
     const code = filterCode(joinCode);
-    setBusy("create");
+    const entry = beginEntry("create");
+    if (!entry) return;
     setError(null);
     setErrorField(null);
     try {
       const player = playerId();
-      const existing = await fetch(`/api/private-rooms?code=${encodeURIComponent(code)}&peek=1`);
-      const existingPayload = (await existing.json()) as PrivateRoomPayload;
+      const { response: existing, payload: existingPayload } = await entry.fetch(
+        `/api/private-rooms?code=${encodeURIComponent(code)}&peek=1`,
+      );
+      if (!entry.current()) return;
       if (!existing.ok && existing.status !== 404) {
         throw new Error(existingPayload.error ?? "Could not create that party.");
       }
@@ -478,12 +629,12 @@ export function PrivateRoomPanel({
         setErrorField("games");
         return;
       }
-      const created = await fetch("/api/private-rooms", {
+      const { response: created, payload: createdPayload } = await entry.fetch("/api/private-rooms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ playerId: player, games: selected, code, name }),
       });
-      const createdPayload = (await created.json()) as PrivateRoomPayload;
+      if (!entry.current()) return;
       if (created.ok) {
         goToRoom(createdPayload, code);
         return;
@@ -495,17 +646,27 @@ export function PrivateRoomPanel({
       }
       throw new Error(createdPayload.error ?? "Could not create that party.");
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Could not create that party.");
+      if (!entry.current()) return;
+      setError(
+        cause instanceof Error && cause.name === "AbortError"
+          ? "Request timed out. Try again."
+          : cause instanceof Error
+            ? cause.message
+            : "Could not create that party.",
+      );
       setErrorField("code");
     } finally {
-      setBusy(null);
+      entry.finish();
     }
   };
 
   const startRoom = async () => {
-    if (!room) return;
-    await syncName(nameInputRef.current?.value ?? shownName);
+    if (!room || busyRef.current) return;
+    const generation = requestGenerationRef.current;
+    busyRef.current = "start";
     setBusy("start");
+    await syncName(nameInputRef.current?.value ?? shownName);
+    if (generation !== requestGenerationRef.current) return;
     setError(null);
     setErrorField(null);
     try {
@@ -514,24 +675,41 @@ export function PrivateRoomPanel({
         body: JSON.stringify({ code: room.code, playerId: playerId() }),
       });
     } catch (cause) {
+      if (generation !== requestGenerationRef.current) return;
       setError(cause instanceof Error ? cause.message : "Could not start.");
     } finally {
-      setBusy(null);
+      if (generation === requestGenerationRef.current) {
+        busyRef.current = null;
+        setBusy(null);
+      }
     }
   };
 
   const sendMessage = async () => {
-    if (!room || !draft.trim()) return;
+    if (!room || !draft.trim() || sendingRef.current) return;
     const text = draft;
+    const version = draftVersionRef.current;
+    const generation = requestGenerationRef.current;
+    sendingRef.current = true;
+    setSending(true);
+    setChatError(null);
     setDraft("");
+    saveChatDraft(room.code, "");
     try {
       await requestRoom("/api/private-rooms/messages", {
         method: "POST",
         body: JSON.stringify({ code: room.code, playerId: playerId(), text }),
       });
     } catch (cause) {
-      setDraft(text);
-      setError(cause instanceof Error ? cause.message : "Could not send.");
+      if (generation !== requestGenerationRef.current) return;
+      if (draftVersionRef.current === version) {
+        setDraft(text);
+        saveChatDraft(room.code, text);
+      }
+      setChatError(cause instanceof Error ? cause.message : "Could not send. Try again.");
+    } finally {
+      sendingRef.current = false;
+      setSending(false);
     }
   };
 
@@ -564,7 +742,18 @@ export function PrivateRoomPanel({
   }, [joinCode, playerId, screen, trackedCode]);
 
   const chatBox = room ? (
-    <ChatBox room={room} draft={draft} onDraft={setDraft} onSend={() => void sendMessage()} />
+    <ChatBox
+      room={room}
+      draft={draft}
+      onDraft={(value) => {
+        draftVersionRef.current += 1;
+        setDraft(value);
+        saveChatDraft(room.code, value);
+      }}
+      onSend={() => void sendMessage()}
+      sending={sending}
+      error={chatError}
+    />
   ) : null;
 
   const chatPanel = room ? (
@@ -626,6 +815,7 @@ export function PrivateRoomPanel({
       className={styles.back}
       data-testid="private-room-leave"
       onClick={() => {
+        cancelRequests();
         if (screen === "wait") {
           leaveParty();
           onClose?.();
@@ -641,7 +831,7 @@ export function PrivateRoomPanel({
       }}
     >
       <ArrowLeft />
-      {screen === "create" || screen === "join" ? "Back" : "Leave"}
+      {screen === "create" || screen === "join" ? "Back" : screen === "choose" ? "Back to lobby" : "Leave"}
     </button>
   );
 
@@ -812,7 +1002,8 @@ export function PrivateRoomPanel({
   if (screen === "choose") {
     return (
       <section className={styles.view} data-testid="private-room-setup" data-path="choose">
-        <h1 className="sr-only">Party</h1>
+        <h1 className={styles.setupTitle}>Play with friends</h1>
+        <p className={styles.setupIntro}>Create a party and choose the games, or join with a friend&apos;s code.</p>
         {back}
         {setupError}
         <div className={styles.chooseDoors}>

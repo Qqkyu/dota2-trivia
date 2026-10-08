@@ -1,0 +1,1 @@
+Production stress before IndexedDB fix: pair 7 failed. Both tabs had Web Locks. Tab B wrote answered13 at t=-0.3ms, tab A read old answered12 at t=-0.1ms and wrote13. Both had distinct session voter IDs. Storage event carrying B's value arrived in A at t=+0.6ms. Expected answered14.

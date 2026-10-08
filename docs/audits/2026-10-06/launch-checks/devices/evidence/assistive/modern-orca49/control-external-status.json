@@ -1,0 +1,31 @@
+{
+  "buildId": "NsjBPH5Ygi5SqnYfuwSHz",
+  "browser": "153.0.8010.12",
+  "reader": "49.8",
+  "roleAtEnd": "status",
+  "runtimeRoleRemoval": false,
+  "completed": true,
+  "errors": [],
+  "startMs": 1791294264066,
+  "endMs": 1791294270103,
+  "beforeFocus": {
+    "tag": "INPUT",
+    "id": "",
+    "testid": "game-volume",
+    "name": "Game volume"
+  },
+  "afterFocus": {
+    "tag": "INPUT",
+    "id": "",
+    "testid": "game-volume",
+    "name": "Game volume"
+  },
+  "nextTab": {
+    "tag": "INPUT",
+    "id": "",
+    "testid": "flashback-year-slider",
+    "name": "Year"
+  },
+  "speechRequests": [],
+  "promptCount": 0
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "canonical": "<link rel=\"canonical\" href=\"http://127.0.0.1:3210\"/>",
+    "ogUrl": "<meta property=\"og:url\" content=\"http://127.0.0.1:3210\"/>",
+    "ogImage": "<meta property=\"og:image\" content=\"http://127.0.0.1:3210/opengraph-image?6e152baac7db7aec\"/>"
+  },
+  {
+    "path": "/party",
+    "status": 200,
+    "canonical": "<link rel=\"canonical\" href=\"http://localhost:3000\"/>",
+    "ogUrl": "<meta property=\"og:url\" content=\"http://localhost:3000\"/>",
+    "ogImage": "<meta property=\"og:image\" content=\"http://localhost:3000/opengraph-image?6e152baac7db7aec\"/>"
+  },
+  {
+    "path": "/play",
+    "status": 200,
+    "canonical": "<link rel=\"canonical\" href=\"http://127.0.0.1:3210\"/>",
+    "ogUrl": "<meta property=\"og:url\" content=\"http://127.0.0.1:3210\"/>",
+    "ogImage": "<meta property=\"og:image\" content=\"http://127.0.0.1:3210/opengraph-image?6e152baac7db7aec\"/>"
+  },
+  {
+    "path": "/privacy",
+    "status": 200,
+    "canonical": "<link rel=\"canonical\" href=\"http://127.0.0.1:3210\"/>",
+    "ogUrl": "<meta property=\"og:url\" content=\"http://127.0.0.1:3210\"/>",
+    "ogImage": "<meta property=\"og:image\" content=\"http://127.0.0.1:3210/opengraph-image?6e152baac7db7aec\"/>"
+  }
+]

@@ -1,0 +1,47 @@
+import postgres from '/home/kulmisiu/dev/dota2-trivia/node_modules/postgres/src/index.js';
+import {createHash,randomBytes} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {writeFile,chmod} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {verifyDatabaseSchema} from '/home/kulmisiu/dev/dota2-trivia/src/lib/database-schema.mjs';
+const pgEnv={...process.env,PGHOST:'/tmp/queue-arcade-migrations.OfHbML',PGPORT:'55794',PGUSER:'kulmisiu'};
+const options={host:pgEnv.PGHOST,port:55794,username:'kulmisiu',max:1,prepare:false};
+const source=postgres('postgres:///queue_arcade_release_smoke',options);
+const restored=postgres('postgres:///queue_arcade_release_restore_full',options);
+const id='backup-fixture-user';
+const token=randomBytes(32).toString('base64url');
+const hash=value=>createHash('sha256').update(value).digest('base64url');
+const now=Date.now();
+const sessionHash=hash('backup-fixture-session');
+const dump='/tmp/queue-arcade-fixes/restore-full.dump';
+try {
+ const [round]=await source`SELECT * FROM queue_arcade_rounds ORDER BY round_id LIMIT 1`;
+ await source.begin(async sql=>{
+  await sql`INSERT INTO queue_arcade_users VALUES (${id},${now},${now})`;
+  await sql`INSERT INTO queue_arcade_user_identities VALUES ('steam','76561198000009999',${id},'Restore fixture','https://avatars.steamstatic.com/fixture.jpg','https://steamcommunity.com/profiles/76561198000009999',${now})`;
+  await sql`INSERT INTO queue_arcade_user_sessions VALUES (${hash(token)},${id},${now},${now+3600000})`;
+  await sql`INSERT INTO queue_arcade_player_rounds (user_id,game_id,round_id,round_number,question_id,question_revision,round_game,round_format,correct,answer_stage,submitted_at,reveal_at) VALUES (${id},'dota2',${round.round_id},1,${round.question_id},'restore-revision','trivia','classic-ability-values',true,null,${now-60000},${now-1000})`;
+  await sql`INSERT INTO queue_arcade_alpha_sessions (session_hash,visitor_hash,started_at,last_seen_at,rounds_answered,correct_answers,user_id) VALUES (${sessionHash},${hash('backup-visitor')},${now},${now},1,1,${id})`;
+  await sql`INSERT INTO queue_arcade_alpha_round_events VALUES (${sessionHash},${round.round_id})`;
+  await sql`INSERT INTO queue_arcade_steam_nonces VALUES (${hash('backup-fixture-nonce')},${now+3600000})`;
+ });
+ const started=performance.now();
+ execFileSync('/usr/lib/postgresql/14/bin/pg_dump',['--dbname=queue_arcade_release_smoke','--format=custom',`--file=${dump}`],{env:pgEnv});
+ await chmod(dump,0o600);
+ execFileSync('/usr/lib/postgresql/14/bin/createdb',['queue_arcade_release_restore_full'],{env:pgEnv});
+ execFileSync('/usr/lib/postgresql/14/bin/pg_restore',['--dbname=queue_arcade_release_restore_full','--no-owner','--no-acl','--exit-on-error',dump],{env:pgEnv});
+ await verifyDatabaseSchema(restored);
+ const tables=await source`SELECT tablename FROM pg_tables WHERE schemaname='public' AND tablename LIKE 'queue_arcade_%' ORDER BY tablename`;
+ const results=[];
+ for(const {tablename} of tables){
+  const before=await source`SELECT row_to_json(t)::text AS data FROM ${source(tablename)} AS t ORDER BY row_to_json(t)::text`;
+  const after=await restored`SELECT row_to_json(t)::text AS data FROM ${restored(tablename)} AS t ORDER BY row_to_json(t)::text`;
+  assert.deepEqual(after,before,tablename);results.push({table:tablename,rows:after.length,identical:true});
+ }
+ const output={ok:true,engine:'PostgreSQL 14',scope:'Disposable local data only. Includes synthetic account, identity, active session, saved correct result, alpha visit/event and login nonce.',elapsedMs:Math.round(performance.now()-started),tables:results};
+ await writeFile('/tmp/queue-arcade-fixes/restore-full-result.json',JSON.stringify(output,null,2)+'\n');console.log(JSON.stringify(output,null,2));
+} finally {
+ await source`DELETE FROM queue_arcade_users WHERE id=${id}`.catch(()=>{});
+ await source`DELETE FROM queue_arcade_steam_nonces WHERE nonce_hash=${hash('backup-fixture-nonce')}`.catch(()=>{});
+ await Promise.all([source.end(),restored.end()]);
+}

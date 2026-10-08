@@ -1,0 +1,685 @@
+[
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_horiz.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 184,
+    "ids": [
+      "flashback:reborn-year",
+      "flashback:engine-history-order",
+      "flashback:modes-order",
+      "flashback:valve-path-order",
+      "flashback:major-cities-order",
+      "flashback:og-majors-order",
+      "flashback:ti-year-gaps-order"
+    ]
+  },
+  {
+    "url": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 210,
+    "ids": [
+      "flashback:dota2-release-year",
+      "flashback:engine-history-order",
+      "flashback:patch-systems-order",
+      "flashback:valve-side-order",
+      "flashback:modes-order",
+      "flashback:valve-path-order",
+      "flashback:major-cities-order",
+      "flashback:og-majors-order",
+      "flashback:recent-patches-order",
+      "flashback:season-events-order",
+      "flashback:ti-year-gaps-order"
+    ]
+  },
+  {
+    "url": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 190,
+    "ids": [
+      "flashback:patch-700-year",
+      "flashback:700-title"
+    ]
+  },
+  {
+    "url": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/techies.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 190,
+    "ids": [
+      "flashback:techies-year"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cyclone.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 111,
+    "ids": [
+      "flashback:dota-creator",
+      "flashback:engine-history-order",
+      "flashback:valve-path-order",
+      "flashback:major-cities-order",
+      "flashback:og-majors-order",
+      "flashback:ti-year-gaps-order"
+    ]
+  },
+  {
+    "url": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/111474.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 472,
+    "ids": [
+      "flashback:first-ti-winners-order"
+    ]
+  },
+  {
+    "url": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/1375614.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 777,
+    "ids": [
+      "flashback:ti4-winner",
+      "flashback:first-ti-winners-order"
+    ]
+  },
+  {
+    "url": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/5.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 868,
+    "ids": [
+      "flashback:ti2-winner",
+      "flashback:first-ti-winners-order",
+      "flashback:ti-cities-order"
+    ]
+  },
+  {
+    "url": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/36.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 1105,
+    "ids": [
+      "flashback:ti1-winner",
+      "flashback:first-ti-winners-order",
+      "flashback:ti-cities-order"
+    ]
+  },
+  {
+    "url": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2586976.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 799,
+    "ids": [
+      "flashback:later-ti-winners-order",
+      "flashback:ti-cities-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aegis.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 109,
+    "ids": [
+      "flashback:ti-cities-order",
+      "flashback:engine-history-order",
+      "flashback:valve-side-order",
+      "flashback:major-cities-order",
+      "flashback:og-majors-order",
+      "flashback:season-events-order",
+      "flashback:ti-year-gaps-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aghanims_shard.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 70,
+    "ids": [
+      "flashback:shard-year",
+      "flashback:patch-systems-order"
+    ]
+  },
+  {
+    "url": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/2163.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 816,
+    "ids": [
+      "flashback:later-ti-winners-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 83,
+    "ids": [
+      "flashback:first-arcana-year"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/abyssal_underlord.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 156,
+    "ids": [
+      "flashback:underlord-year",
+      "flashback:last-wc3-hero",
+      "flashback:valve-side-order",
+      "flashback:pit-lord",
+      "flashback:underlords-genre",
+      "flashback:coop-events-order",
+      "flashback:underhollow-year",
+      "flashback:auto-chess",
+      "flashback:season-events-order"
+    ]
+  },
+  {
+    "url": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/39.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 857,
+    "ids": [
+      "flashback:later-ti-winners-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 64,
+    "ids": [
+      "flashback:first-original-hero",
+      "flashback:heroes-added-order",
+      "flashback:morokai-year",
+      "flashback:season-events-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/sheepstick.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 86,
+    "ids": [
+      "flashback:scythe-old-name"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blood_grenade.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 87,
+    "ids": [
+      "flashback:patch-systems-order",
+      "flashback:recent-patches-order",
+      "flashback:rune-history-order"
+    ]
+  },
+  {
+    "url": "https://cdn.steamstatic.com/apps/dota2/images/team_logos/1838315.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 786,
+    "ids": [
+      "flashback:later-ti-winners-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/quelling_blade.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 88,
+    "ids": [
+      "flashback:patch-systems-order",
+      "flashback:map-features-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/mars.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 84,
+    "ids": [
+      "flashback:heroes-added-order",
+      "flashback:mars-year"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 81,
+    "ids": [
+      "flashback:heroes-added-order",
+      "flashback:pangolier-year"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/grimstroke.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 139,
+    "ids": [
+      "flashback:heroes-added-order",
+      "flashback:grimstroke-year"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 90,
+    "ids": [
+      "flashback:valve-side-order",
+      "flashback:crownfall-year",
+      "flashback:kez-crownfall"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phoenix.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 83,
+    "ids": [
+      "flashback:phoenix-year",
+      "flashback:2013-heroes-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/oracle.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 140,
+    "ids": [
+      "flashback:oracle-year",
+      "flashback:2013-heroes-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 89,
+    "ids": [
+      "flashback:siltbreaker-year",
+      "flashback:siltbreaker-coop",
+      "flashback:coop-events-order",
+      "flashback:sheever-name"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/arc_warden.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 144,
+    "ids": [
+      "flashback:arc-warden-year",
+      "flashback:2013-heroes-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/roshan_halloween_angry.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 565,
+    "ids": [
+      "flashback:diretide-year",
+      "flashback:giff-diretide",
+      "flashback:coop-events-order",
+      "flashback:diretide-return-year",
+      "flashback:season-events-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 98,
+    "ids": [
+      "flashback:dawnbreaker-year",
+      "flashback:recent-heroes-order",
+      "flashback:later-originals-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_scepter.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 101,
+    "ids": [
+      "flashback:aghanim-lab-year",
+      "flashback:coop-events-order",
+      "flashback:rune-history-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/primal_beast.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 89,
+    "ids": [
+      "flashback:primal-beast-year",
+      "flashback:recent-heroes-order",
+      "flashback:later-originals-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 87,
+    "ids": [
+      "flashback:ringmaster-year",
+      "flashback:recent-heroes-order",
+      "flashback:newest-heroes-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 87,
+    "ids": [
+      "flashback:first-persona-year",
+      "flashback:first-persona-hero",
+      "flashback:modes-order",
+      "flashback:invoker-carl"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 141,
+    "ids": [
+      "flashback:muerta-year",
+      "flashback:recent-heroes-order",
+      "flashback:newest-heroes-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 134,
+    "ids": [
+      "flashback:kez-year",
+      "flashback:newest-heroes-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/luna.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 84,
+    "ids": [
+      "flashback:dark-moon-year",
+      "flashback:dark-moon-temple",
+      "flashback:coop-events-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/wisp.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 85,
+    "ids": [
+      "flashback:io-wisp",
+      "flashback:io-year"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/hoodwink.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 143,
+    "ids": [
+      "flashback:hoodwink-year",
+      "flashback:later-originals-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/snapfire.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 87,
+    "ids": [
+      "flashback:snapfire-patch",
+      "flashback:snapfire-year"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/courier.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 104,
+    "ids": [
+      "flashback:personal-courier",
+      "flashback:flying-courier-gone"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cheese.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 134,
+    "ids": [
+      "flashback:roshan-cheese"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/boots.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 81,
+    "ids": [
+      "flashback:modes-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tpscroll.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 92,
+    "ids": [
+      "flashback:map-features-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bottle.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 83,
+    "ids": [
+      "flashback:map-features-order",
+      "flashback:recent-patches-order",
+      "flashback:rune-history-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/energy_booster.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 138,
+    "ids": [
+      "flashback:map-features-order",
+      "flashback:rune-history-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 89,
+    "ids": [
+      "flashback:later-originals-order",
+      "flashback:marci-year"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/legion_commander.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 86,
+    "ids": [
+      "flashback:legion-year",
+      "flashback:2013-heroes-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 119,
+    "ids": [
+      "flashback:ember-year"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/terrorblade.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 141,
+    "ids": [
+      "flashback:terrorblade-year"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/winter_wyvern.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 87,
+    "ids": [
+      "flashback:winter-wyvern-year"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 86,
+    "ids": [
+      "flashback:void-spirit-year",
+      "flashback:fourth-spirit",
+      "flashback:void-outlanders"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/largo.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 90,
+    "ids": [
+      "flashback:largo-year",
+      "flashback:largo-740",
+      "flashback:recent-patches-order",
+      "flashback:newest-heroes-order"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/crystal_maiden.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 83,
+    "ids": [
+      "flashback:frostivus-year",
+      "flashback:frostivus-what"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 84,
+    "ids": [
+      "flashback:fourth-spirit"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/tome_of_knowledge.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 139,
+    "ids": [
+      "flashback:tome-replaced"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/refresher_shard.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 148,
+    "ids": [
+      "flashback:refresher-shard"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ward_sentry.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 79,
+    "ids": [
+      "flashback:free-observers"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 83,
+    "ids": [
+      "flashback:new-bloom"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 81,
+    "ids": [
+      "flashback:fountain-hook",
+      "flashback:free-to-play"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 81,
+    "ids": [
+      "flashback:outworld-devourer"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 149,
+    "ids": [
+      "flashback:wraith-night",
+      "flashback:wraith-king-year"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lycan.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 89,
+    "ids": [
+      "flashback:old-name-lycan"
+    ]
+  },
+  {
+    "url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/roshan_spell_block.png",
+    "status": 200,
+    "type": "image/png",
+    "durationMs": 1064,
+    "ids": [
+      "flashback:roshan-cheese",
+      "flashback:refresher-shard"
+    ]
+  }
+]

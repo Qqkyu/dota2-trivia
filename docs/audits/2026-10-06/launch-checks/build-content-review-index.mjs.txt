@@ -1,0 +1,252 @@
+#!/usr/bin/env node
+// Run from the repository root: node --input-type=module < this-file
+// The default checks the saved evidence without writing. Pass --write after - to record it.
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+const base = 'docs/audits/2026-10-06';
+const archive = `${base}/launch-checks`;
+const oldPath = `${base}/deep-review/question-review-index.json`;
+const read = (path) => JSON.parse(readFileSync(path, 'utf8'));
+const hash = (value) => createHash('sha256').update(value).digest('hex');
+const rawHash = (path) => hash(readFileSync(path));
+const stableValue = (value) => Array.isArray(value) ? value.map(stableValue)
+  : value && typeof value === 'object'
+    ? Object.fromEntries(Object.keys(value).sort().map((key) => [key, stableValue(value[key])])) : value;
+const stableJson = (value) => JSON.stringify(stableValue(value));
+const stableHash = (value) => hash(stableJson(value));
+const equal = (left, right) => stableJson(left) === stableJson(right);
+const binding = (path) => ({ path, sha256: rawHash(path) });
+const pointerValue = (value, pointer) => pointer.split('/').slice(1).reduce((part, key) => part[key], value);
+const fieldParts = (field) => field.replace(/\[(\d+)\]/g, '.$1').split('.');
+const fieldValue = (value, field) => fieldParts(field).reduce((part, key) => part[key], value);
+const setField = (value, field, replacement) => {
+  const keys = fieldParts(field);
+  const last = keys.pop();
+  keys.reduce((part, key) => part[key], value)[last] = structuredClone(replacement);
+};
+const changedPaths = (before, after, path = '') => {
+  if (equal(before, after)) return [];
+  if (before && after && typeof before === 'object' && typeof after === 'object'
+    && Array.isArray(before) === Array.isArray(after)) {
+    return [...new Set([...Object.keys(before), ...Object.keys(after)])].sort().flatMap((key) =>
+      changedPaths(before[key], after[key], path ? `${path}.${key}` : key));
+  }
+  return [path];
+};
+const { questionCalibrationRevision } = await import(pathToFileURL(resolve('src/lib/question-revision.mjs')));
+const { roundFormatForQuestion } = await import(pathToFileURL(resolve('src/lib/arcade-games.mjs')));
+const { soundcheckNeedsReviewedChoices } = await import(pathToFileURL(resolve('src/lib/soundcheck-choices.mjs')));
+
+const old = read(oldPath);
+assert.equal(old.questions.length, 1517);
+assert.equal(old.outOfScope.length, 72);
+for (const input of [old.inputs.baseline, ...old.inputs.ledgers]) {
+  assert.equal(rawHash(input.path), input.sha256, `Historical evidence changed: ${input.path}`);
+}
+const oldLedgers = new Map(old.inputs.ledgers.map(({ path }) => [path, read(path)]));
+const current = new Map();
+for (const { path } of old.inputs.catalogs) for (const question of read(path)) {
+  assert(!current.has(question.id), `Duplicate question ID: ${question.id}`);
+  current.set(question.id, { question, sourceFile: path });
+}
+assert.equal(current.size, 1589);
+assert.equal([...current.values()].filter(({ question }) => roundFormatForQuestion(question) !== null).length, 1517);
+
+const echoPath = `${archive}/echo/echo-ledger.json`;
+const echo = read(echoPath);
+const echoById = new Map(echo.records.map((row, index) => [row.id, { row, index }]));
+assert.equal(echoById.size, 123);
+const echoChangePath = `${archive}/echo/echo-change-ledger.json`;
+const [troll] = read(echoChangePath).changes;
+assert.equal(troll.oldId, 'hero-voice:npc_dota_hero_troll_warlord:troll_kill_06');
+assert.equal(troll.newId, 'hero-voice:npc_dota_hero_troll_warlord:troll_respawn_10');
+const soundPath = `${archive}/soundcheck/question-ledger.json`;
+const sound = read(soundPath);
+const soundById = new Map(sound.map((row, index) => [row.id, { row, index }]));
+assert.equal(soundById.size, 96);
+const rightsPath = `${archive}/rights/replacements.json`;
+const rights = read(rightsPath);
+assert.equal(rights.changes.length, 47);
+const rightsById = new Map();
+rights.changes.forEach((change, index) => {
+  const values = rightsById.get(change.id) ?? [];
+  values.push({ change, index });
+  rightsById.set(change.id, values);
+});
+assert.equal(rightsById.size, 32);
+assert.equal(rights.assets.length, 13);
+for (const asset of rights.assets) assert.equal(rawHash(asset.publicPath), asset.sha256, `Changed artwork: ${asset.publicPath}`);
+const beforeFlashback = new Map(read(`${archive}/rights/flashback-before-rights.json`).map((q) => [q.id, q]));
+assert.equal(beforeFlashback.size, 191);
+const trollBaseline = read(old.inputs.baseline.path).find((row) => row.id === troll.oldId);
+const { live: ignoredLive, format: ignoredFormat, ...beforeTroll } = trollBaseline;
+const presentationIds = ['soundcheck-item:mjollnir', 'soundcheck-item:urn_of_shadows'];
+const questionChanges = [];
+const presentationChanges = [];
+const byFormat = {};
+const answerSnapshot = (question) => ({
+  storedAnswer: question.answers[question.correctIndex],
+  correctIndex: question.correctIndex,
+  ...(question.valueOrder?.correctOrder ? { correctOrder: question.valueOrder.correctOrder } : {}),
+  ...(question.flashback?.correctOrder ? { correctOrder: question.flashback.correctOrder } : {}),
+  ...(Number.isInteger(question.flashback?.correctYear) ? { correctYear: question.flashback.correctYear } : {}),
+});
+
+const questions = old.questions.map((prior, index) => {
+  assert.equal(stableHash(pointerValue(oldLedgers.get(prior.ledgerPath), prior.ledgerPointer)), prior.ledgerRowSha256);
+  const currentId = prior.currentId === troll.oldId ? troll.newId : prior.currentId;
+  const { question, sourceFile } = current.get(currentId) ?? {};
+  assert(question, `Missing reviewed question: ${currentId}`);
+  assert.equal(sourceFile, prior.sourceFile);
+  const format = roundFormatForQuestion(question);
+  assert.equal(format, prior.currentFormat);
+  byFormat[format] = (byFormat[format] ?? 0) + 1;
+  const currentStableJsonSha256 = stableHash(question);
+  const currentCalibrationRevision = questionCalibrationRevision(question);
+  const answer = answerSnapshot(question);
+  for (const [key, value] of Object.entries(answer)) assert(equal(value, prior.correctAnswerCheck[key]), `Marked answer changed: ${currentId}/${key}`);
+  const launchReview = [];
+  if (question.kind === 'hero-voice') {
+    const { row, index: rowIndex } = echoById.get(currentId) ?? {};
+    assert(row, `Missing final Echo review: ${currentId}`);
+    assert.equal(currentStableJsonSha256, row.currentQuestionSha256);
+    assert.equal(row.sourceAttribution.audioUrl, question.audio.src);
+    assert.equal(row.sourceAttribution.status, 'verified_against_pinned_metadata');
+    assert.equal(row.signalStatus, 'passed_all_three_actual_gameplay_stages');
+    assert.equal(row.humanListeningPerformed, false);
+    launchReview.push({ path: echoPath, pointer: `/records/${rowIndex}`, rowSha256: stableHash(row),
+      sourceStatus: row.sourceAttribution.status, signalStatus: row.signalStatus,
+      transcriptStatus: row.transcriptStatus, humanListeningPerformed: false });
+  }
+  if (format === 'soundcheck') {
+    const { row, index: rowIndex } = soundById.get(currentId) ?? {};
+    assert(row, `Missing final Soundcheck review: ${currentId}`);
+    assert.equal(row.status, 'passed-automated-checks');
+    assert.equal(row.stages.length, 3);
+    assert(row.stages.every((stage) => stage.pass === true));
+    launchReview.push({ path: soundPath, pointer: `/${rowIndex}`, rowSha256: stableHash(row),
+      status: row.status, nativeBrowserStagesPassed: 3, humanListeningPerformed: false });
+  }
+  const imageChanges = rightsById.get(currentId);
+  if (imageChanges) {
+    for (const { change, index: rowIndex } of imageChanges) {
+      assert(equal(fieldValue(question, change.field), change.after), `Artwork field differs: ${currentId}/${change.field}`);
+      launchReview.push({ path: rightsPath, pointer: `/changes/${rowIndex}`, rowSha256: stableHash(change),
+        status: 'original-artwork-replacement-verified', field: change.field });
+    }
+  }
+  if (currentStableJsonSha256 !== prior.currentStableJsonSha256) {
+    assert(currentId === troll.newId || imageChanges, `Unreviewed question change: ${currentId}`);
+    const before = currentId === troll.newId ? beforeTroll : beforeFlashback.get(currentId);
+    assert.equal(stableHash(before), prior.currentStableJsonSha256, `Before snapshot does not match historical index: ${currentId}`);
+    const paths = changedPaths(before, question);
+    if (currentId === troll.newId) {
+      assert.deepEqual(paths, ['audio.src', 'explanation', 'id']);
+      assert.equal(question.audio.src, troll.after.sourceUrl);
+      assert.equal(currentStableJsonSha256, troll.currentQuestionSha256);
+    } else {
+      const reconstructed = structuredClone(before);
+      for (const { change } of imageChanges) {
+        assert(equal(fieldValue(before, change.field), change.before));
+        assert(/^(image|flashback\.revealMedia|flashback\.cards\[\d+\]\.image)$/.test(change.field), `Non-image field in rights delta: ${change.field}`);
+        if (change.field === 'flashback.revealMedia') assert.equal(change.before.caption, change.after.caption);
+        setField(reconstructed, change.field, change.after);
+      }
+      assert(equal(reconstructed, question), `Changes outside declared artwork fields: ${currentId}`);
+    }
+    questionChanges.push({ originalId: prior.originalId, previousId: prior.currentId, currentId,
+      sourceFile, format, reason: currentId === troll.newId ? 'Replace unusually quiet Troll Warlord recording.' : 'Replace images with original project artwork.',
+      beforeStableJsonSha256: prior.currentStableJsonSha256, afterStableJsonSha256: currentStableJsonSha256,
+      beforeCalibrationRevision: prior.currentCalibrationRevision, afterCalibrationRevision: currentCalibrationRevision,
+      changedFields: [...new Set(paths.map((path) => path.split('.')[0]))], changedPaths: paths,
+      markedAnswerUnchanged: true, evidence: launchReview });
+  } else if (currentCalibrationRevision !== prior.currentCalibrationRevision) {
+    assert(presentationIds.includes(currentId), `Unreviewed presentation change: ${currentId}`);
+    assert.equal(soundcheckNeedsReviewedChoices(question.soundcheck.clips[0].subject), true);
+    presentationChanges.push({ currentId, questionStableJsonSha256: currentStableJsonSha256,
+      beforeCalibrationRevision: prior.currentCalibrationRevision, afterCalibrationRevision: currentCalibrationRevision,
+      reason: 'Limit the answer picker to four reviewed choices because an excluded item shares the served cue.',
+      excludedAmbiguousAlternative: currentId.endsWith(':mjollnir') ? 'maelstrom' : 'essence_distiller',
+      offeredAnswers: question.answers, markedAnswerUnchanged: true,
+      evidence: launchReview, choiceGuard: 'src/lib/soundcheck-choices.mjs' });
+  }
+  return { originalId: prior.originalId, previousId: prior.currentId, currentId, sourceFile, format, kind: question.kind,
+    currentStableJsonSha256, currentCalibrationRevision, markedAnswer: answer,
+    historicalReview: { path: oldPath, pointer: `/questions/${index}`, rowSha256: stableHash(prior),
+      ledgerPath: prior.ledgerPath, ledgerPointer: prior.ledgerPointer, ledgerRowSha256: prior.ledgerRowSha256,
+      group: prior.ledgerGroup, status: prior.reviewStatus, scope: prior.correctAnswerCheck.scope, limits: prior.correctAnswerCheck.limits ?? [] },
+    launchReview,
+    questionDataChangedSinceDeepReview: currentStableJsonSha256 !== prior.currentStableJsonSha256,
+    calibrationChangedSinceDeepReview: currentCalibrationRevision !== prior.currentCalibrationRevision };
+});
+assert.equal(new Set(questions.map((q) => q.currentId)).size, 1517);
+assert.equal(new Set(questions.map((q) => q.originalId)).size, 1517);
+assert.equal(questionChanges.length, 33);
+assert.equal(questionChanges.filter((row) => row.format === 'flashback').length, 32);
+assert.equal(presentationChanges.length, 2);
+assert.deepEqual(presentationChanges.map((row) => row.currentId).sort(), presentationIds);
+assert.equal(questions.filter((row) => row.calibrationChangedSinceDeepReview).length, 35);
+for (const [id, question] of beforeFlashback) {
+  const prior = old.questions.find((row) => row.currentId === id);
+  assert.equal(stableHash(question), prior.currentStableJsonSha256);
+}
+const outOfScope = old.outOfScope.map((prior, index) => {
+  const { question, sourceFile } = current.get(prior.currentId);
+  assert.equal(roundFormatForQuestion(question), null);
+  assert.equal(stableHash(question), prior.currentStableJsonSha256);
+  return { currentId: question.id, sourceFile, currentStableJsonSha256: stableHash(question),
+    status: 'not-reviewed-retired-template', historicalPointer: `/outOfScope/${index}`, unchanged: true };
+});
+
+const evidencePaths = [oldPath, ...old.inputs.ledgers.map(({ path }) => path),
+  echoPath, echoChangePath, `${archive}/echo/README.md`, `${archive}/echo/archive-manifest.json`, `${archive}/echo/verification.json`,
+  soundPath, `${archive}/soundcheck/README.md`, `${archive}/soundcheck/summary.json`, `${archive}/soundcheck/archive-manifest.json`,
+  rightsPath, `${archive}/rights/README.md`, `${archive}/rights/replacement-checks.json`, `${archive}/rights/flashback-before-rights.json`,
+  `${archive}/rights/valve-terms.md`, `${archive}/rights/terms-sources.json`, `${archive}/rights/photo-provenance.json`,
+  `${archive}/rights/quarantine-manifest.json`, `${archive}/rights/fonts.json`];
+const summary = { reviewedAt: '2026-10-06', storedQuestions: 1589, reviewedPlayableQuestions: 1517,
+  originalIdsCovered: 1517, currentIdsCovered: 1517, retiredUnreviewedTemplates: 72, byFormat,
+  changedQuestionDataRows: 33, unchangedQuestionDataRows: 1484, trollVoiceReplacements: 1,
+  flashbackQuestionsWithNewArtwork: 32, replacedImageFields: 47, originalArtworkFiles: 13,
+  presentationOnlyChanges: 2, changedCalibrationRevisions: 35, markedAnswersChanged: 0,
+  echoQuestionsWithCompletedAutomatedReview: 123, soundcheckQuestionsWithCompletedAutomatedReview: 96,
+  humanListeningPerformed: false, operationalReleaseApproval: false };
+const inputs = { historicalIndex: binding(oldPath),
+  catalogs: old.inputs.catalogs.map(({ path }) => ({ ...binding(path), rows: read(path).length })),
+  presentationDependencies: ['src/lib/question-revision.mjs', 'src/lib/soundcheck-choices.mjs', 'src/lib/arcade-games.mjs'].map(binding),
+  evidence: evidencePaths.map(binding), artwork: rights.assets.map(({ publicPath }) => binding(publicPath)),
+  helper: binding(`${archive}/build-content-review-index.mjs.txt`) };
+const index = { schemaVersion: 1, reviewedAt: '2026-10-06', hashAlgorithm: old.hashAlgorithm,
+  scope: 'Current playable question content and the declared launch review deltas. Historical review limits remain in force except where a linked launch review adds specific checks. No human listening, subjective difficulty approval, live Dota execution, device, CI, hosting, or legal clearance is implied.',
+  calibrationRevisionScope: 'Current questionCalibrationRevision applied to current questions with the hashed presentation dependencies. Not a claim about a deployed version.',
+  inputs, summary, questions, outOfScope };
+const delta = { schemaVersion: 1, reviewedAt: '2026-10-06', historicalIndex: binding(oldPath),
+  hashAlgorithm: old.hashAlgorithm, summary, questionChanges, presentationChanges,
+  audioArchiveNote: 'Changed fields are computed from full question JSON. The Troll replacement changes audio.src, explanation, and id. Historical audio-listening notes describe that earlier pass. The launch Echo and Soundcheck reports provide the completed automated checks and their limits.' };
+const indexPath = `${archive}/question-review-index.json`;
+const deltaPath = `${archive}/question-review-delta.json`;
+const serialize = (value) => `${JSON.stringify(value, null, 2)}\n`;
+const checks = { schemaVersion: 1, reviewedAt: '2026-10-06', status: 'passed',
+  currentIndex: { path: indexPath, sha256: hash(serialize(index)) },
+  delta: { path: deltaPath, sha256: hash(serialize(delta)) }, summary,
+  checks: { historicalSevenLedgersAndBaselineHashesUnchanged: true, all1517HistoricalLedgerPointersAndRowHashesMatch: true,
+    all1517CurrentQuestionHashesBound: true, all1517MarkedAnswersMatchHistoricalReview: true,
+    all191BeforeRightsQuestionsMatchHistoricalHashes: true, exactly33QuestionDataChangesExplained: true,
+    all47ArtworkFieldChangesReconstructCurrentQuestions: true, all13ArtworkFileHashesMatch: true,
+    trollChangeContainsExactlyIdExplanationAudio: true, all123FinalEchoQuestionHashesMatch: true,
+    all96SoundcheckQuestionsHaveThreePassedNativeStages: true, exactlyTwoPresentationOnlyChangesExplained: true,
+    all35CalibrationChangesRecorded: true, all72RetiredRowsUnchangedAndNotReviewed: true,
+    noUnexpectedOrMissingQuestionIds: true },
+  command: 'node --input-type=module < docs/audits/2026-10-06/launch-checks/build-content-review-index.mjs.txt' };
+const outputs = [[indexPath, index], [deltaPath, delta], [`${archive}/question-review-index-checks.json`, checks]];
+if (process.argv.includes('--write')) {
+  for (const [path, value] of outputs) writeFileSync(path, serialize(value));
+  console.log('Recorded current content index, delta, and checks. No application or historical archive files changed.');
+} else {
+  for (const [path, value] of outputs) assert.equal(readFileSync(path, 'utf8'), serialize(value), `Recorded evidence differs: ${path}`);
+  console.log('PASS: 1,517 playable questions, 33 data changes, 2 presentation changes, 35 calibration changes, 72 unchanged retired templates.');
+}

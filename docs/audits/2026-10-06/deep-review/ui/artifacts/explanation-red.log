@@ -1,0 +1,91 @@
+FAIL 320x568-mana-cost-reveal shows the full explanation: Expected values to be strictly equal:
+
+true !== false
+
+FAIL 320x568-mana-cost-reveal explanation lines remain reachable: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'last explanation line is hidden after scrolling'
++ ]
+- []
+
+FAIL 320x568-aghanim-upgrade-reveal shows the full explanation: Expected values to be strictly equal:
+
+true !== false
+
+FAIL 320x568-aghanim-upgrade-reveal explanation lines remain reachable: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'last explanation line is hidden after scrolling'
++ ]
+- []
+
+FAIL 320x568-flashback-choice-reveal shows the full explanation: Expected values to be strictly equal:
+
+true !== false
+
+FAIL 320x568-flashback-choice-reveal explanation lines remain reachable: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'last explanation line is hidden after scrolling'
++ ]
+- []
+
+Checked 320x568
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: 6 responsive failures:
+320x568-mana-cost-reveal shows the full explanation: Expected values to be strictly equal:
+
+true !== false
+
+320x568-mana-cost-reveal explanation lines remain reachable: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'last explanation line is hidden after scrolling'
++ ]
+- []
+
+320x568-aghanim-upgrade-reveal shows the full explanation: Expected values to be strictly equal:
+
+true !== false
+
+320x568-aghanim-upgrade-reveal explanation lines remain reachable: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'last explanation line is hidden after scrolling'
++ ]
+- []
+
+320x568-flashback-choice-reveal shows the full explanation: Expected values to be strictly equal:
+
+true !== false
+
+320x568-flashback-choice-reveal explanation lines remain reachable: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'last explanation line is hidden after scrolling'
++ ]
+- []
+
+
+6 !== 0
+
+    at file:///home/kulmisiu/dev/dota2-trivia/scripts/check-responsive-ui.mjs:395:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 6,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

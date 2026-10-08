@@ -1,0 +1,223 @@
+[
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "hero-picker",
+      "result": {
+        "chunk_id": "5f1a22",
+        "wall_time_seconds": 0.047686482,
+        "exit_code": 0,
+        "original_token_count": 26,
+        "output": "Validated 127 live heroes, Dota attribute quadrants, alphabetical positions, and opaque hero-key votes.\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "aghanim",
+      "result": {
+        "chunk_id": "ff78c8",
+        "wall_time_seconds": 0.123437072,
+        "exit_code": 0,
+        "original_token_count": 23,
+        "output": "Validated 84 answer-safe Aghanim upgrades (44 Scepter / 40 Shard; 36 new / 48 existing).\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "fogged-vision",
+      "result": {
+        "chunk_id": "570ac0",
+        "wall_time_seconds": 0.000018264,
+        "exit_code": 0,
+        "original_token_count": 27,
+        "output": "Validated all 127 enabled heroes in Fogged Vision against the approved former-Veteran three-stage curve.\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "soundcheck",
+      "result": {
+        "chunk_id": "0309c3",
+        "wall_time_seconds": 0.001688616,
+        "exit_code": 0,
+        "original_token_count": 64,
+        "output": "Validated 96 Soundcheck rounds and 114 three-stage clip profiles ({\"ability\":48,\"item\":48}; formats {\"ability\":{\"single\":39,\"sequence\":9},\"item\":{\"single\":39,\"sequence\":9}}; difficulty {\"ability\":[18,21,9],\"item\":[18,21,9]}; answer slots [24,24,24,24]).\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "value-order",
+      "result": {
+        "chunk_id": "89412d",
+        "wall_time_seconds": 0.038405499,
+        "exit_code": 0,
+        "original_token_count": 49,
+        "output": "Validated 80 tie-free ordering rounds against current audited values: {\"item-price\":16,\"ability-cooldown\":16,\"ability-mana\":12,\"ability-damage\":12,\"hero-move-speed\":12,\"hero-attack-range\":12}.\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "flashback",
+      "result": {
+        "chunk_id": "09bab4",
+        "wall_time_seconds": 0.002815507,
+        "exit_code": 0,
+        "original_token_count": 17,
+        "output": "Validated 191 Flashback prompts and the full-question entry gate.\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "audio-preload",
+      "result": {
+        "chunk_id": "db4fa4",
+        "wall_time_seconds": 0.002457166,
+        "exit_code": 0,
+        "original_token_count": 24,
+        "output": "Validated answer-safe next-round audio warming, request deduplication, and cached byte ranges.\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "hero-responses",
+      "result": {
+        "chunk_id": "152bbb",
+        "wall_time_seconds": 0.228518623,
+        "exit_code": 0,
+        "original_token_count": 39,
+        "output": "Validated 123 unique Echo clips and 245 curated quotes across all 123 speaking heroes; only Phoenix, Primal Beast, Io, and Marci are intentionally absent.\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "feedback-sounds",
+      "result": {
+        "chunk_id": "ce34b2",
+        "wall_time_seconds": 0.000012036,
+        "exit_code": 0,
+        "original_token_count": 32,
+        "output": "Validated four Dota UI events, five runtime WAVs, and the lossless pick lead-in. Native output is checked by pnpm check:sounds.\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "variety",
+      "result": {
+        "chunk_id": "a87227",
+        "wall_time_seconds": 0.000012731,
+        "exit_code": 0,
+        "original_token_count": 95,
+        "output": "Validated deterministic templates, hidden difficulty cadence {\"1\":6,\"2\":6,\"3\":6}, thirteen-format public arcade cadence {\"trivia\":3,\"shopkeeper\":2,\"spell-link\":1,\"fogged-vision\":1,\"echo-hunt\":1,\"soundcheck\":1,\"quote-hunt\":1,\"aghanim-lab\":1,\"order-up\":1,\"flashback\":1}, and Soundcheck family rotation ({\"soundcheck-ability\":12,\"soundcheck-item\":12} / {\"single\":18,\"sequence\":6}).\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "semantic-repetition",
+      "result": {
+        "chunk_id": "0bb3dc",
+        "wall_time_seconds": 0.024816535,
+        "exit_code": 0,
+        "original_token_count": 38,
+        "output": "Validated 10,000 synchronized rounds: main subjects stay 12 rounds apart, exact questions stay at least 624 rounds apart, and 24-round batches agree.\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "public-arcade",
+      "result": {
+        "chunk_id": "1ffc98",
+        "wall_time_seconds": 0.004304518,
+        "exit_code": 0,
+        "original_token_count": 86,
+        "output": "Validated one 1515-question public room across thirteen continuous formats: {\"classic-ability-values\":159,\"fogged-vision\":127,\"shopkeeper-builds\":51,\"quote-hunt\":245,\"aghanim-upgrades\":84,\"classic-hero-stats\":82,\"soundcheck\":96,\"flashback\":191,\"value-order\":80,\"shopkeeper-paths\":49,\"spell-link\":127,\"classic-item-prices\":101,\"echo-hunt\":123}.\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "room-resume",
+      "result": {
+        "chunk_id": "e9e91a",
+        "wall_time_seconds": 0.000008492,
+        "exit_code": 0,
+        "original_token_count": 39,
+        "output": "Validated the live room wires the 5000ms sync gate, 5000ms heartbeat, and five browser wake paths (gate logic is unit-tested in tests/room-sync.test.mjs).\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "bandwidth",
+      "result": {
+        "chunk_id": "1d74b7",
+        "wall_time_seconds": 0.000014502,
+        "exit_code": 0,
+        "original_token_count": 33,
+        "output": "Validated a 5000ms room heartbeat, deadline-driven clues, direct remote images, a 8,898 byte app icon, and safe cache boundaries.\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "question-delivery",
+      "result": {
+        "chunk_id": "b528e4",
+        "wall_time_seconds": 0.034383651,
+        "exit_code": 0,
+        "original_token_count": 23,
+        "output": "Validated server-delivered questions, phase-aware clues, and the private catalog boundary.\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "navigation",
+      "result": {
+        "chunk_id": "271a81",
+        "wall_time_seconds": 0.000010156,
+        "exit_code": 0,
+        "original_token_count": 25,
+        "output": "Navigation validation passed: canonical / and /play views plus legacy mode fallbacks are intact.\n"
+      }
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "name": "player-profiles",
+      "result": {
+        "chunk_id": "c736fe",
+        "wall_time_seconds": 0.000014361,
+        "exit_code": 0,
+        "original_token_count": 19,
+        "output": "Validated Steam OpenID boundaries and server-owned player record summaries.\n"
+      }
+    }
+  }
+]

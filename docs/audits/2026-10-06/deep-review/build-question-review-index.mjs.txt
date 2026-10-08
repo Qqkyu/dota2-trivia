@@ -1,0 +1,269 @@
+#!/usr/bin/env node
+// Run from the repository root with Node. This evidence helper does not change app data.
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { copyFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+const root = process.cwd();
+const archive = 'docs/audits/2026-10-06/deep-review';
+const baselinePath = `${archive}/catalog-baseline.json`;
+if (!existsSync(resolve(root, baselinePath))) {
+  copyFileSync('/tmp/queue-arcade-deep-review/catalog-baseline.json', resolve(root, baselinePath));
+}
+const read = (path) => JSON.parse(readFileSync(resolve(root, path), 'utf8'));
+const rawHash = (path) => createHash('sha256').update(readFileSync(resolve(root, path))).digest('hex');
+const stableValue = (value) => Array.isArray(value) ? value.map(stableValue) : value && typeof value === 'object'
+  ? Object.fromEntries(Object.keys(value).sort().map((key) => [key, stableValue(value[key])])) : value;
+const stableJson = (value) => JSON.stringify(stableValue(value));
+const stableHash = (value) => createHash('sha256').update(stableJson(value), 'utf8').digest('hex');
+const equal = (left, right) => stableJson(left) === stableJson(right);
+const { questionCalibrationRevision } = await import(pathToFileURL(resolve(root, 'src/lib/question-revision.mjs')));
+const { roundFormatForQuestion } = await import(pathToFileURL(resolve(root, 'src/lib/arcade-games.mjs')));
+
+const catalogs = [
+  'src/data/questions.generated.json',
+  'src/data/aghanim-questions.json',
+  'src/data/shopkeeper-questions.json',
+  'src/data/soundcheck-questions.json',
+  'src/data/value-order-questions.json',
+  'src/data/flashback-questions.json',
+];
+const definitions = [
+  { name: 'numeric', count: 422, file: `${archive}/numeric/numeric-ledger.json`, entries: (value) => value, pointer: '' },
+  { name: 'identity', count: 254, file: `${archive}/identity/identity-ledger.json`, entries: (value) => value.entries, pointer: '/entries' },
+  { name: 'voices', count: 368, file: `${archive}/voices/voices-ledger.json`, entries: (value) => value.records, pointer: '/records' },
+  { name: 'shopkeeper', count: 102, file: `${archive}/shopkeeper/shopkeeper-ledger.json`, entries: (value) => value.questions, pointer: '/questions' },
+  { name: 'soundcheck', count: 96, file: `${archive}/soundcheck/soundcheck-ledger.json`, entries: (value) => value.questions, pointer: '/questions' },
+  { name: 'aghanim', count: 84, file: `${archive}/aghanim/aghanim-ledger.json`, entries: (value) => value.records, pointer: '/records' },
+  { name: 'flashback', count: 191, file: `${archive}/flashback/flashback-ledger.json`, entries: (value) => value, pointer: '' },
+];
+
+const baseline = read(baselinePath);
+assert.equal(baseline.length, 1589);
+const baselineById = new Map();
+for (const row of baseline) {
+  assert(!baselineById.has(row.id), `Duplicate baseline ID ${row.id}`);
+  assert(row.source && typeof row.source === 'object', `Lost original source metadata for ${row.id}`);
+  baselineById.set(row.id, row);
+}
+const originalLive = baseline.filter((row) => row.live === true);
+const originalRetired = baseline.filter((row) => row.live === false);
+assert.equal(originalLive.length, 1517);
+assert.equal(originalRetired.length, 72);
+const currentById = new Map();
+for (const sourceFile of catalogs) for (const question of read(sourceFile)) {
+  assert(!currentById.has(question.id), `Duplicate current ID ${question.id}`);
+  currentById.set(question.id, { question, sourceFile });
+}
+assert.equal(currentById.size, 1589);
+assert.equal([...currentById.values()].filter(({ question }) => roundFormatForQuestion(question) !== null).length, 1517);
+
+const ledgerByOriginalId = new Map();
+for (const definition of definitions) {
+  const ledger = read(definition.file);
+  const entries = definition.entries(ledger);
+  assert.equal(entries.length, definition.count, `Unexpected ${definition.name} ledger count`);
+  entries.forEach((entry, index) => {
+    assert(!ledgerByOriginalId.has(entry.id), `Two ledgers cover ${entry.id}`);
+    assert(baselineById.get(entry.id)?.live, `Ledger row is not an original live question: ${entry.id}`);
+    ledgerByOriginalId.set(entry.id, { definition, entry, pointer: `${definition.pointer}/${index}` });
+  });
+}
+assert.equal(ledgerByOriginalId.size, 1517);
+for (const question of originalLive) assert(ledgerByOriginalId.has(question.id), `Missing review for ${question.id}`);
+
+function cleanBaseline(row) {
+  // live and format were inventory fields; source is original question metadata and must remain.
+  const { live, format, ...question } = row;
+  return question;
+}
+function changedPaths(left, right, path = '') {
+  if (equal(left, right)) return [];
+  if (left === undefined || right === undefined || left === null || right === null ||
+      typeof left !== 'object' || typeof right !== 'object' || Array.isArray(left) !== Array.isArray(right)) return [path];
+  if (Array.isArray(left)) {
+    const length = Math.max(left.length, right.length);
+    return Array.from({ length }, (_, index) => changedPaths(left[index], right[index], `${path}[${index}]`)).flat();
+  }
+  return [...new Set([...Object.keys(left), ...Object.keys(right)])].sort()
+    .flatMap((key) => changedPaths(left[key], right[key], path ? `${path}.${key}` : key));
+}
+const nonPlayerRoots = new Set(['id', 'source', 'patch', 'varietyKey', 'difficulty']);
+const nonPlayerSegments = new Set(['audit', 'clientBuild', 'reviewedAt', 'source', 'sourceRefs', 'sourceReferences']);
+function playerVisiblePath(path) {
+  const parts = path.replace(/\[\d+\]/g, '').split('.');
+  return !nonPlayerRoots.has(parts[0]) && !parts.some((part) => nonPlayerSegments.has(part));
+}
+function statusGroup(status) {
+  if (status === 'unverified') return 'unverified';
+  if (['fixed', 'corrected', 'fixed-and-verified'].includes(status)) return 'fixed';
+  if (['verified', 'verified-by-source-and-waveform'].includes(status)) return 'verified';
+  throw new Error(`Unexpected review status ${status}`);
+}
+function answerCheck(group, entry, question) {
+  const common = {
+    status: entry.status === 'unverified' ? 'unverified' : 'verified-within-stated-scope',
+    storedAnswer: question.answers[question.correctIndex],
+    correctIndex: question.correctIndex,
+    ...(question.valueOrder?.correctOrder ? { correctOrder: question.valueOrder.correctOrder } : {}),
+    ...(question.flashback?.correctOrder ? { correctOrder: question.flashback.correctOrder } : {}),
+    ...(Number.isInteger(question.flashback?.correctYear) ? { correctYear: question.flashback.correctYear } : {}),
+  };
+  if (group === 'numeric') return { ...common,
+    scope: question.valueOrder ? 'All four card values, units and conditions, all offered permutations, and the unique ascending order checked against independent Valve data.' : 'Marked value or winning hero/item, every offered option, the selected ability level, and full explanation values checked against independent Valve data.',
+    limits: ['Public Valve data does not expose a patch/build identifier. No game-client damage simulation was run.'] };
+  if (group === 'identity') return { ...common,
+    scope: question.kind === 'spell-owner' ? 'Native hero ownership, current names, full hero-picker answer identity, stored options, hint, explanation and artwork identity.' : 'Hero-picker answer identity, current hero names, stored options, portrait identity and visual inspection.',
+    limits: [] };
+  if (group === 'voices') return { ...common,
+    scope: entry.scope,
+    limits: question.kind === 'hero-voice' ? ['Actual listening is unverified; transcript ownership, source metadata, timing and decoded audio measurements were checked.'] : [],
+    ...(question.kind === 'hero-voice' ? { audioListening: 'unverified' } : {}) };
+  if (group === 'shopkeeper') return { ...common,
+    scope: 'Direct recipe facts, component quantities, all offered answers, full selectable catalog alternatives where applicable, and marked recipe/result/upgrade/shared component.',
+    validAnswerKeys: entry.validAnswers ?? null,
+    limits: ['Current in-client shop-tab order was not independently checked. Item icon visual review is archived separately under shopkeeper/images/.'] };
+  if (group === 'soundcheck') return { ...common,
+    scope: 'Event-to-subject mapping, official choice names, offered choice scope, sequence order, source audio hashes, waveform comparisons and clue timing.',
+    offeredChoiceScope: entry.offeredChoiceScope,
+    audioListening: 'unverified',
+    limits: ['No human listening or in-client playback was performed.', 'The legacy build-6882 extract has no independently verified acquisition history.'] };
+  if (group === 'aghanim') return { ...common,
+    scope: 'Native hero owner, upgrade item and mode, all effect claims and ability names, stored options, and unique native owner after all three clues.',
+    limits: ['Early effect clues can be shared; uniqueness was checked after all three clues. Current Valve responses have no build identifier.'] };
+  return { ...common,
+    scope: entry.reviewScope,
+    optionReview: entry.optionReview,
+    limits: entry.limitation ? [entry.limitation] : [] };
+}
+
+const seenCurrent = new Set();
+const questions = originalLive.map((inventoryRow) => {
+  const baselineQuestion = cleanBaseline(inventoryRow);
+  const review = ledgerByOriginalId.get(inventoryRow.id);
+  const currentId = review.entry.currentId ?? inventoryRow.id;
+  const current = currentById.get(currentId);
+  assert(current, `Missing current question ${currentId}`);
+  assert(roundFormatForQuestion(current.question), `Current reviewed question is outside live formats: ${currentId}`);
+  assert(!seenCurrent.has(currentId), `Two original IDs map to ${currentId}`);
+  seenCurrent.add(currentId);
+  const question = current.question;
+  const paths = changedPaths(baselineQuestion, question);
+  const fields = [...new Set([...Object.keys(baselineQuestion), ...Object.keys(question)])].sort()
+    .filter((key) => !equal(baselineQuestion[key], question[key]));
+  const visiblePaths = paths.filter(playerVisiblePath);
+  const category = !paths.length ? 'unchanged' : paths.every((path) => path === 'source' || path.startsWith('source.'))
+    ? 'source-only' : visiblePaths.length ? 'player-visible' : 'metadata-only';
+  return {
+    originalId: inventoryRow.id,
+    currentId,
+    sourceFile: current.sourceFile,
+    originalFormat: inventoryRow.format,
+    currentFormat: roundFormatForQuestion(question),
+    kind: question.kind,
+    originalSource: baselineQuestion.source,
+    source: question.source,
+    ledgerPath: review.definition.file,
+    ledgerPointer: review.pointer,
+    ledgerGroup: review.definition.name,
+    ledgerRowSha256: stableHash(review.entry),
+    reviewStatus: review.entry.status,
+    reviewStatusGroup: statusGroup(review.entry.status),
+    correctAnswerCheck: answerCheck(review.definition.name, review.entry, question),
+    baselineStableJsonSha256: stableHash(baselineQuestion),
+    currentStableJsonSha256: stableHash(question),
+    currentCalibrationRevision: questionCalibrationRevision(question),
+    changedFields: fields,
+    changedPaths: paths,
+    playerVisibleChangedPaths: visiblePaths,
+    changeCategory: category,
+  };
+}).sort((left, right) => left.originalId.localeCompare(right.originalId));
+assert.equal(questions.length, 1517);
+assert.equal(seenCurrent.size, 1517);
+for (const { question } of currentById.values()) if (roundFormatForQuestion(question)) {
+  assert(seenCurrent.has(question.id), `Current live question lacks an original review: ${question.id}`);
+}
+const outOfScope = originalRetired.map((inventoryRow) => {
+  const current = currentById.get(inventoryRow.id);
+  assert(current, `Retired row disappeared: ${inventoryRow.id}`);
+  assert.equal(current.sourceFile, 'src/data/questions.generated.json');
+  assert.equal(roundFormatForQuestion(current.question), null);
+  assert(!ledgerByOriginalId.has(inventoryRow.id));
+  assert(!seenCurrent.has(inventoryRow.id));
+  const baselineQuestion = cleanBaseline(inventoryRow);
+  return {
+    originalId: inventoryRow.id,
+    currentId: current.question.id,
+    sourceFile: current.sourceFile,
+    kind: current.question.kind,
+    source: current.question.source,
+    originalSource: baselineQuestion.source,
+    reviewStatus: 'not-reviewed',
+    reason: 'Retired generated recipe template, outside the original 1517 live-question review scope.',
+    ledgerPath: null,
+    correctAnswerCheck: { status: 'not-checked', scope: 'Out of scope; no factual verification claim.' },
+    baselineStableJsonSha256: stableHash(baselineQuestion),
+    currentStableJsonSha256: stableHash(current.question),
+    changedFields: [...new Set([...Object.keys(baselineQuestion), ...Object.keys(current.question)])].sort()
+      .filter((key) => !equal(baselineQuestion[key], current.question[key])),
+  };
+}).sort((left, right) => left.originalId.localeCompare(right.originalId));
+assert.equal(outOfScope.length, 72);
+assert.equal(questions.length + outOfScope.length, currentById.size);
+const replacements = questions.filter((row) => row.originalId !== row.currentId)
+  .map(({ originalId, currentId, ledgerPath }) => ({ originalId, currentId, ledgerPath }));
+assert.equal(replacements.length, 6);
+assert(replacements.every((row) => row.ledgerPath.includes('/voices/')));
+const countBy = (rows, field) => rows.reduce((counts, row) => ({ ...counts, [row[field]]: (counts[row[field]] ?? 0) + 1 }), {});
+const summary = {
+  reviewedAt: '2026-10-06',
+  baselineCatalogRows: baseline.length,
+  currentCatalogRows: currentById.size,
+  originalLiveQuestions: originalLive.length,
+  reviewedOriginalIds: questions.length,
+  coveredCurrentLiveIds: seenCurrent.size,
+  retiredOutOfScope: outOfScope.length,
+  idReplacements: replacements,
+  ledgerCounts: countBy(questions, 'ledgerGroup'),
+  rawReviewStatusCounts: countBy(questions, 'reviewStatus'),
+  groupedReviewStatusCounts: countBy(questions, 'reviewStatusGroup'),
+  dataChangeCounts: countBy(questions, 'changeCategory'),
+  changedQuestionRows: questions.filter((row) => row.changeCategory !== 'unchanged').length,
+  outOfScopeKindCounts: countBy(outOfScope, 'kind'),
+  audioListeningUnverified: questions.filter((row) => row.correctAnswerCheck.audioListening === 'unverified').length,
+  assertions: { expectedSevenLedgerCounts: [422, 254, 368, 102, 96, 84, 191],
+    all1517OriginalIdsCoveredExactlyOnce: true, all1517CurrentLiveIdsCoveredExactlyOnce: true,
+    noDuplicateOriginalIds: true, noDuplicateCurrentIds: true, noMissingLedgerRows: true,
+    all72RetiredRowsExplicitlyNotReviewed: true, sixVoiceIdReplacementsAreOneToOne: true,
+    sourceMetadataPreservedSeparatelyFromSourceFile: true },
+  interpretation: {
+    reviewStatus: 'Copied from each ledger. Verified and fixed apply only within correctAnswerCheck.scope and its limits. Soundcheck and Echo audio listening remain unverified.',
+    sourceOnly: 'Question JSON changed only under the top-level source field.',
+    playerVisible: 'At least one data change affects a prompt, category, answer, scored result, clue, image/audio contract, card, or reveal. Source/audit metadata, IDs, patch labels, variety keys and seed difficulty are excluded.',
+    metadataOnly: 'Data changed, but neither a player-visible data field nor only source changed.',
+    unchanged: 'Canonical question JSON is unchanged. A ledger may still mark a code-only behavior correction as fixed.',
+    coverage: 'This index covers stored question content. Changes to UI/server code and unavailable live-client or listening checks are not counted as question-data changes.',
+  },
+};
+const index = {
+  schemaVersion: 1,
+  reviewedAt: '2026-10-06',
+  hashAlgorithm: 'SHA-256 of UTF-8 JSON.stringify with object keys recursively sorted by JavaScript default string sort and array order preserved; no whitespace or trailing newline.',
+  baselineNormalization: 'Remove only inventory fields live and format. Preserve the original question source object. sourceFile is reconstructed from current catalog ownership after the six explicit voice mappings.',
+  calibrationRevisionScope: 'Current questionCalibrationRevision helper applied to the current question. No claim about the revision from a previous deployment.',
+  inputs: { baseline: { path: baselinePath, sha256: rawHash(baselinePath) },
+    catalogs: catalogs.map((path) => ({ path, sha256: rawHash(path), rows: read(path).length })),
+    ledgers: definitions.map((definition) => ({ path: definition.file, sha256: rawHash(definition.file), rows: definition.count })),
+    calibrationHelper: { path: 'src/lib/question-revision.mjs', sha256: rawHash('src/lib/question-revision.mjs') },
+    calibrationDependencies: [{ path: 'src/lib/soundcheck-choices.mjs', sha256: rawHash('src/lib/soundcheck-choices.mjs') }],
+    formatHelper: { path: 'src/lib/arcade-games.mjs', sha256: rawHash('src/lib/arcade-games.mjs') } },
+  summary,
+  questions,
+  outOfScope,
+};
+writeFileSync(resolve(root, `${archive}/question-review-index.json`), JSON.stringify(index, null, 2) + '\n');
+writeFileSync(resolve(root, `${archive}/question-review-summary.json`), JSON.stringify(summary, null, 2) + '\n');
+console.log(JSON.stringify(summary, null, 2));

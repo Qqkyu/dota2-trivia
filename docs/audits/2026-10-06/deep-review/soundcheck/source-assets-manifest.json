@@ -1,0 +1,4619 @@
+{
+  "reviewedAt": "2026-10-06",
+  "scope": "107 original WAVs and 48 event files fetched from Dotabase; selected Valve event data checked against the cached client extract.",
+  "binarySourcesArchived": false,
+  "clientExtractArchived": false,
+  "notes": [
+    "Exact upstream URLs and SHA-256 hashes identify the inspected inputs.",
+    "Source event excerpts and official name records are archived separately.",
+    "The cached client extract installation origin is unproven.",
+    "The candidate reincarnate-stinger.wav returned HTML and was not used or archived."
+  ],
+  "assets": [
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_pudge.vsndevts",
+      "type": "event",
+      "bytes": 21756,
+      "sha256": "306ec40906b9f3c95705dca899d445168d902b06234efe1a935ad2ea89e28ddb",
+      "localSha256": "2dc54c724a4799125e22f338fe10278880bdefefe9a3a62dbc6fefff986ae898",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "e10b1ca9008e5ae724c0232e4578a43c761f229276935036912241665041bbb8.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_earthshaker.vsndevts",
+      "type": "event",
+      "bytes": 16539,
+      "sha256": "085c66a09e46257669b1fc2940e3a7faccfb39f32f82f181620bb1e147165fd6",
+      "localSha256": "1bbc2a2b973ec5b4722ba3b17aefa3a6fb9ba0052e78a33cc3af9cec1e84a488",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "008efe15b7f0a69c1b7bb98ff72dcd8991ba99b7bb2e0fd63cee6275c9ab4c10.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_faceless_void.vsndevts",
+      "type": "event",
+      "bytes": 6562,
+      "sha256": "f78fac45266d5555de91b0fd900a4ac3650f7bd58a09ccfad196c1a485af6ee8",
+      "localSha256": "13fbfe5189abdc9c128ac018af8be1c3f3eaa445a06d7a34c653517f57a0bda9",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "69beea9b4d5023b19df70c2871ed557d86c73c5b33620be06396fdd083bd6e95.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/pudge/hook_throw.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "pudge_meat_hook",
+        "event": "Hero_Pudge.AttackHookExtend",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_pudge.vsndevts",
+        "audioPath": "sounds/weapons/hero/pudge/hook_throw.wav",
+        "duration": 2.867007
+      },
+      "bytes": 505784,
+      "sha256": "3bf393dd1d48b4c5a6a4abfe5444f5f06b0a696a043f25c3152c7143903bc084",
+      "decodedDuration": 2.867,
+      "pcmSha256": "c5993812d042bf07d71b84198a728f09d09eeb5d7a3e6c19def3f57d3d4bdcee",
+      "peak": 1.300469160079956,
+      "rms": 0.12102259263416226,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.25730344351633305,
+          "pcmSha256": "e1c67a95fa7f8b6a4849930963bda6deba01bafc0639054ff711b6f999d338a6"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.19870497827944625,
+          "pcmSha256": "ffba7230507fb23a572ecb5bdaddf77a14bf1442e0afec1240eae99b79d485fb"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.867007,
+          "rms": 0.12102259263416226,
+          "pcmSha256": "c5993812d042bf07d71b84198a728f09d09eeb5d7a3e6c19def3f57d3d4bdcee"
+        }
+      ],
+      "originalCacheFilename": "4aed736c82f46d6a0144ea49fd225c6ea4b1d2fd2856f14f52c89fc0772cbf28.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/invoker/sunstrike_ignite.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "invoker_sun_strike",
+        "event": "Hero_Invoker.SunStrike.Ignite",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts",
+        "audioPath": "sounds/weapons/hero/invoker/sunstrike_ignite.wav",
+        "duration": 2.002903
+      },
+      "bytes": 353356,
+      "sha256": "379211547633ac941d2b360fb528c9164db2ddd4e499f4526a2d2353d856a143",
+      "decodedDuration": 2.0029375,
+      "pcmSha256": "020a148ca39bf15e2f533a1749c439d523743530b89896077893fb9a617de6a2",
+      "peak": 1.3049017190933228,
+      "rms": 0.41439876402988723,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.10014515,
+          "rms": 0.539060409585208,
+          "pcmSha256": "543aeb42b0c8718deb9121145f3f37769e8cc8c3c7b7a4260656d60a36632fe6"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.22031932999999998,
+          "rms": 0.5734017035878408,
+          "pcmSha256": "4c4cb2c35831f489550003086b6231d3a4e2a82c4d154c962e4af49ee7135265"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.002903,
+          "rms": 0.4144051938090872,
+          "pcmSha256": "58574da9a122e058191c9d482aadf6b0d54cb99d46b481f4f601baaa4c844f3e"
+        }
+      ],
+      "originalCacheFilename": "94d5379252feb40aebbf880d420ebf05d018d90894b90ac5c6ecf4d1211c6321.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts",
+      "type": "event",
+      "bytes": 15934,
+      "sha256": "140a55e63dded266eb6527d2e0372487651a6af44b5cf9a15f246301ca7bb7bc",
+      "localSha256": "732ae76858367a9588b65223fc4f1c1b7862a8b5cd1c95ce2deb8648006a5b1f",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "0c41e783a6549f465e3a93264e0fb3f24b87c1ce40d491c5cd4f7a27f842ee4f.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_kunkka.vsndevts",
+      "type": "event",
+      "bytes": 10717,
+      "sha256": "2aaef889cd0d95e1eb414f5dfcd218e449a54747da73242dcaf434d4f9483a06",
+      "localSha256": "ab6cf9b94296906804e7b3ee398ed47eecd3316f14dd81951e08b77ad906cecc",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "7b68696056796b56b6238575fcc5b8e5406fc0ea863e7a0aa5c63e24cbe951fe.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/earthshaker/echo_slam.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "earthshaker_echo_slam",
+        "event": "Hero_EarthShaker.EchoSlam",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_earthshaker.vsndevts",
+        "audioPath": "sounds/weapons/hero/earthshaker/echo_slam.wav",
+        "duration": 4.328481
+      },
+      "bytes": 763588,
+      "sha256": "17cdc093765353bef72e0f5914904e3a5837d7142fb8a87a588d40abf782ad5f",
+      "decodedDuration": 4.3285,
+      "pcmSha256": "05b8432350593b62f47e905996a266461af79a374c62ff5bd553649e849e678f",
+      "peak": 1.603926658630371,
+      "rms": 0.4312735137400592,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.841161495160401,
+          "pcmSha256": "82601918bdd128f5c9771e0307954b3152ed08d17fcf3e95e676165712e26055"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.8631616976326989,
+          "pcmSha256": "59a132b6f941b703bd6829d24b74d24e748758cbdf503d5f9900907838e42260"
+        },
+        {
+          "stage": 3,
+          "seconds": 4.328481,
+          "rms": 0.43127662734355254,
+          "pcmSha256": "56b7353eef346747f31a34532c47036beb2201677f4daba99f73ec77d00b74c5"
+        }
+      ],
+      "originalCacheFilename": "2d03eadfc365dd0fef5e51e0b762c94e0601719a7e61289fedb18d6c95d460a1.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/sniper/sniper_assassinate_load.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "sniper_assassinate",
+        "event": "Ability.AssassinateLoad",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts",
+        "audioPath": "sounds/weapons/hero/sniper/sniper_assassinate_load.wav",
+        "duration": 0.786576
+      },
+      "bytes": 69420,
+      "sha256": "f3f3064698136a8efb2c169fb6961042c49333611ca0524511f8aa87e033ed49",
+      "decodedDuration": 0.7865625,
+      "pcmSha256": "272553d5354eee397ca746e4b25b5bf8c89368645a843c902d0d6769d806ad60",
+      "peak": 1.4074152708053589,
+      "rms": 0.1566429602104379,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.055,
+          "rms": 0.015684699421126314,
+          "pcmSha256": "02d68a1bf9716f891614f274104ff606aff5dd08c212ffb6f808e11595b3e72a"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.11,
+          "rms": 0.13911451660853544,
+          "pcmSha256": "7deb321f8c6a920e02395902389c38bca080491319ebbdfc8bceb955fc1f3252"
+        },
+        {
+          "stage": 3,
+          "seconds": 0.786576,
+          "rms": 0.1566429602104379,
+          "pcmSha256": "272553d5354eee397ca746e4b25b5bf8c89368645a843c902d0d6769d806ad60"
+        }
+      ],
+      "originalCacheFilename": "6d1cee1990061acb1b762fd3253758fbfa5d3261831289b7e8fef86dda3d243f.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts",
+      "type": "event",
+      "bytes": 9202,
+      "sha256": "7303eae668d3f190ddb3fa05674fb38bf2323071fd048c2a68ae6b5f0da50ca7",
+      "localSha256": "4ce3e7bbf5db0baaf00dada296ccfc2ec3932f6d448d0a33ab72276d0263073c",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "e6eff651b79a97a3399261f1939ed0ba0a9eb97a88ab531fc47e5a8b8b14ea23.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_tidehunter.vsndevts",
+      "type": "event",
+      "bytes": 11772,
+      "sha256": "e15981844a5e9e0766617cf48e74df551c3abefdbdcaf2d702d89a92fa4a43d1",
+      "localSha256": "6891535d4d40d7f8b0d674091b602f2d89e8d72834321013043acfe7c7cb83c5",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "77cfe2852c235b614f584ddd8b7fe595368a4d9a62898e6c68c600e53feab521.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/kunkka/ability_ghost_ship_bell.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "kunkka_ghostship",
+        "event": "Ability.Ghostship.bell",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_kunkka.vsndevts",
+        "audioPath": "sounds/weapons/hero/kunkka/ability_ghost_ship_bell.wav",
+        "duration": 3.72576
+      },
+      "bytes": 328656,
+      "sha256": "cfea76821e8d47ff06d9d66cdbbe4f566e03bc4810ede16192a51e0c590be98b",
+      "decodedDuration": 3.72575,
+      "pcmSha256": "71b62225f4a7ff2da03f94727891e0e2f2e76314132ff9aebe31f4add88fcb30",
+      "peak": 0.9643030166625977,
+      "rms": 0.07038302228320303,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.15551110065940243,
+          "pcmSha256": "56310b502d8734c090a4bdbab949ef764634a01768c972bb37a38fca05227d8e"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.12058477030306985,
+          "pcmSha256": "aa86fefb2e84446c5021f4b8782ba9d232643d3f30eedd33e4af292ba20d750f"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.72576,
+          "rms": 0.07038302228320303,
+          "pcmSha256": "71b62225f4a7ff2da03f94727891e0e2f2e76314132ff9aebe31f4add88fcb30"
+        }
+      ],
+      "originalCacheFilename": "5046f55e26ab49f03e50944dbffde5469ff13b93fbf04a729a084aeadbb6337e.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_magnataur.vsndevts",
+      "type": "event",
+      "bytes": 10736,
+      "sha256": "d761cb983713e39e5dc5a7f8b2559159bbbba9e40dcaff8c779a39530672d84f",
+      "localSha256": "48bdc723ad95b0055c4646024c0b61ae175b6eb9c354b499cc1d535ae28295b7",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "3297fb65c8ae9a7e5ae233fd87aa90e2993070e8df0aaf9e8b583b44929dd814.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/faceless_void/chronosphere.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "faceless_void_chronosphere",
+        "event": "Hero_FacelessVoid.Chronosphere",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_faceless_void.vsndevts",
+        "audioPath": "sounds/weapons/hero/faceless_void/chronosphere.wav",
+        "duration": 5.840658
+      },
+      "bytes": 1030336,
+      "sha256": "bf169f8bb7385317e88baaba0b977b7e41ec03766fa450a71755e7eee86f9f67",
+      "decodedDuration": 5.8406875,
+      "pcmSha256": "22bd364c7408e697b98b1eb31b2bc6d87bce92d379f5946e05b08f49bfc37022",
+      "peak": 1.4454169273376465,
+      "rms": 0.34665194566664287,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.3855527478958767,
+          "pcmSha256": "f1991aa4d3d8e81d3a8b25135454385febc0e121f110f5abd50d7395491cfc24"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.48481990086101495,
+          "pcmSha256": "c170008bcc45862a02e728c7b21613369b19a4b59c9d26a7a9acd0cc7a09c5d9"
+        },
+        {
+          "stage": 3,
+          "seconds": 5.840658,
+          "rms": 0.34665380040724375,
+          "pcmSha256": "7b5120a2dcea165e33585ac3253998c55c53aefdb450ce4d40c3c325feee8c94"
+        }
+      ],
+      "originalCacheFilename": "3eed97483aa5dc4b3f1d45e1ffd68966fca4babb8c150294027e2c216cabf371.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_phoenix.vsndevts",
+      "type": "event",
+      "bytes": 9769,
+      "sha256": "38391fe16c37c16382d8b60b4c504d51b882db5f9fe98bfaabee1542d4f395c3",
+      "localSha256": "c6a667cc915d9f9d1ba6f20b3019d1831ca530f404e2b472dfc654c8c1dbf4db",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "c9046aaa117278e77067a8aadb1ec8b1d417f11723b2bcf7f2662aa575951d00.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/magnataur/reverse_polarity.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "magnataur_reverse_polarity",
+        "event": "Hero_Magnataur.ReversePolarity.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_magnataur.vsndevts",
+        "audioPath": "sounds/weapons/hero/magnataur/reverse_polarity.wav",
+        "duration": 3.153333
+      },
+      "bytes": 556292,
+      "sha256": "66b9973102fc9a4686b86b41ae97ea054a9bab76b632be6bde8ce2ec6426468a",
+      "decodedDuration": 3.153375,
+      "pcmSha256": "4313bce963f8621df2398ba6dfdcb5374ee41e204c2426cb4158413176bbfb40",
+      "peak": 1.5986720323562622,
+      "rms": 0.24273399900019266,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.28911655772773287,
+          "pcmSha256": "6f21f233e6c01f82d1f1cc8f40938eea021d08131efe47073ac424a211681f25"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.2521898215809987,
+          "pcmSha256": "2bbf5363f31bd1f230c57f066c2d8e07109b98d4966c671030c9e3008efc0e0a"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.153333,
+          "rms": 0.2427364045340146,
+          "pcmSha256": "311286647872afd6dd92ed8bc4c0c6e00f20963b08faf3f2dda57eb73faa6f3d"
+        }
+      ],
+      "originalCacheFilename": "d594656b53fbdcb9f9d81f40557034b131d3272d58350abcec4a9315c37f1788.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/tidehunter/tidehunter_ravage.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "tidehunter_ravage",
+        "event": "Ability.Ravage",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_tidehunter.vsndevts",
+        "audioPath": "sounds/weapons/hero/tidehunter/tidehunter_ravage.wav",
+        "duration": 4.148118
+      },
+      "bytes": 731772,
+      "sha256": "27c026678d22e97dd7d516c9b91b4991118e26ea9270d7551fbaaac73a83c76b",
+      "decodedDuration": 4.148125,
+      "pcmSha256": "be272aecaba841a12764570a8be7e3fe98133730c624875785d35ef6db692773",
+      "peak": 1.9309349060058594,
+      "rms": 0.4415478077636378,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.9652533578633916,
+          "pcmSha256": "1a7dba9b2da4e59bef4b1fe100c4e24c3396b9140d5e7cd3a10cbba689373121"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.9682913679815018,
+          "pcmSha256": "989ea35ec8f0d01b4e7a43d67f0101f08d831fe38bc0e91772a3bc65b1f6bdbb"
+        },
+        {
+          "stage": 3,
+          "seconds": 4.148118,
+          "rms": 0.44155113420656,
+          "pcmSha256": "98e9a6b87e11b17eaf1664adf35cee2bf0cd3ddebf00b548e8c8ee677f70fb13"
+        }
+      ],
+      "originalCacheFilename": "e8346b10965d9ae903f6569653ae90dd45d3242c47b072a70d7f68e76e7df37f.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_skeletonking.vsndevts",
+      "type": "event",
+      "bytes": 10618,
+      "sha256": "1f90877175b4908ca8afd77fdace2097ff20b9269047d30f4499ab83bf18d3c8",
+      "localSha256": "37e25a98837fc6d6f703e0eb085ce6741c94fdf60953431879e50c10ebc0a650",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "999d24f938774057f2514c37910c1b7c804226747297884974fda4643367f50e.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_axe.vsndevts",
+      "type": "event",
+      "bytes": 13056,
+      "sha256": "925649685e9f49e52739c2dfe3518372047ac029a2ff188576e8f83652fd6f6c",
+      "localSha256": "458b361d635e1cfe6c59d02df533b659f32c1ae09d479c171ac1cf15366100fd",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "91a8706ff8139b52d1c995c8e834193ef3f6a3147b3c001347d2be4db7d8df44.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/phoenix/super_nova_explode.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "phoenix_supernova",
+        "event": "Hero_Phoenix.SuperNova.Explode",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_phoenix.vsndevts",
+        "audioPath": "sounds/weapons/hero/phoenix/super_nova_explode.wav",
+        "duration": 4.082857
+      },
+      "bytes": 720260,
+      "sha256": "8d32165afc14d109f14d345f06dd04221a781f850f9156f5de74bb3ca9aaa7c5",
+      "decodedDuration": 4.082875,
+      "pcmSha256": "bcf12606055794a6a512dd5d802879e88ac8017f43a41cc507b76bfb01aa22ee",
+      "peak": 1.4157774448394775,
+      "rms": 0.3059518987387402,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.5022263408264284,
+          "pcmSha256": "fc6c5170b0e98337989d0aff2bbfb1ad1b5b61d94d18c765c7fa3c9eec43bf4e"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.5820438298763996,
+          "pcmSha256": "a4802b7e87eb19d3ac56e0c502aeec982fd246e50bad49bc049f119050c92df8"
+        },
+        {
+          "stage": 3,
+          "seconds": 4.082857,
+          "rms": 0.30595424049708586,
+          "pcmSha256": "5b451af95eeef5ab64cfd154df730d9ed541b2323d182f2420d8743bafb3817b"
+        }
+      ],
+      "originalCacheFilename": "570a7a519a03258715863ead2cca34cacdc0f24e864a2250a33011d3f037d3b6.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/axe/culling_blade_success.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "axe_culling_blade",
+        "event": "Hero_Axe.Culling_Blade_Success",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_axe.vsndevts",
+        "audioPath": "sounds/weapons/hero/axe/culling_blade_success.wav",
+        "duration": 1.734558
+      },
+      "bytes": 306020,
+      "sha256": "0546879cd9bc10f3be1ac4e56ed69d240764c2b76d789eea3777ffd036776b39",
+      "decodedDuration": 1.7345625,
+      "pcmSha256": "55ab9fe2dab5a7906b40da16f644e9cf7755a87c68b5d730dbbc7e174cca86ea",
+      "peak": 1.3978612422943115,
+      "rms": 0.3228435264949387,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.08672790000000001,
+          "rms": 0.2511862006727754,
+          "pcmSha256": "bebe3c873daf6e05610c0cb494648f006e35cb8712d4650fcf84f2387703cd1a"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.19080138,
+          "rms": 0.42710251134854854,
+          "pcmSha256": "35046ce442469c545070b9a85221550bbb0f9f9d8c09ea3fa0c130fc775fecf4"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.734558,
+          "rms": 0.3228493416869155,
+          "pcmSha256": "7fc5cb333fdcf464f40e4a3c1e20650f85f8c109b16f93fe71878d4452ae7af7"
+        }
+      ],
+      "originalCacheFilename": "38d96015b98a01e70ecd83d66c88c128a1b6c1e466124eb564b159cd1ab56b61.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_zuus.vsndevts",
+      "type": "event",
+      "bytes": 8596,
+      "sha256": "ff2b5dede138853eb0553874964753b348556199cf0e088a51b934215ac5ed39",
+      "localSha256": "78816bdac19ed82b99e80af93562e4b31b84eba05eff3ae515c4f4de9cad07fc",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "1594f783770a5dfc905e2f864b87da1c63fb78dd8e7730033886954758254394.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_pangolier.vsndevts",
+      "type": "event",
+      "bytes": 15456,
+      "sha256": "4f593c4c8bea83d6be5bb2d864bc2ceee415f4ae5d8a7f6468c1f3e6ac455c53",
+      "localSha256": "103ec94e3275739a246e779c9113fceecdfdb9d66dfdec0c55ae557410854868",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "39cdfe6e9a7c27b6fc206d99120be5ca52c8f374d716fc8262be38bc27ee0e44.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/pangolier/tail_thump.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "pangolier_shield_crash",
+        "event": "Hero_Pangolier.TailThump",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_pangolier.vsndevts",
+        "audioPath": "sounds/weapons/hero/pangolier/tail_thump.wav",
+        "duration": 2.510333
+      },
+      "bytes": 241036,
+      "sha256": "e76b80f5123082972ad3be66b3802f6bd26cf75ef0338488794c0751b3b5d7f8",
+      "decodedDuration": 2.510375,
+      "pcmSha256": "572609d55df3db4775803492f35b53d9ca80af27b0c9547335c15a4cef924f82",
+      "peak": 1.391593337059021,
+      "rms": 0.3086638879455683,
+      "leadingSilenceMs": 0.1875,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.5825142141673008,
+          "pcmSha256": "4072b14d8625dcabf32137395a68cc69238d5113e37ef064e6ac34f96105037e"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.6081941388286782,
+          "pcmSha256": "9582b9b1c0cc3638281b12c8ec2266da16901102883596164f317c02ba04fa5e"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.510333,
+          "rms": 0.3086677303701512,
+          "pcmSha256": "80a532bd3d044dc6b4be9fa99ed1b2622393728e0bc09266611fddcb127f040f"
+        }
+      ],
+      "originalCacheFilename": "985326298f23bb967fba086ee25d90d84f21e8bc4048d5d8fdb8034cfb1b0e43.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skeleton_king/reincarnate.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "skeleton_king_reincarnation",
+        "event": "Hero_SkeletonKing.Reincarnate",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_skeletonking.vsndevts",
+        "audioPath": "sounds/weapons/hero/skeleton_king/reincarnate.wav",
+        "duration": 6.183356
+      },
+      "bytes": 1090788,
+      "sha256": "88a064a936de3bb0cf9ca16e0bec2759f87591e8b0d7d90f22107b4841f40342",
+      "decodedDuration": 6.183375,
+      "pcmSha256": "4ec38fdb641af67e97a189cfa6022193969389e8dc8a8a90fd6272c146b261d1",
+      "peak": 1.3906581401824951,
+      "rms": 0.3102862247667845,
+      "leadingSilenceMs": 587.25,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0,
+          "pcmSha256": "f6e28ad1753237d42be72be187a88f09a269097eeda24bcf12908db6bd361246"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0,
+          "pcmSha256": "55ecc6e1af2de98d63e14a413199b378c013252b5d30ed742aec47414350b24d"
+        },
+        {
+          "stage": 3,
+          "seconds": 6.183356,
+          "rms": 0.3102877929262495,
+          "pcmSha256": "e24a5e996147af213936e673455479bb4e5e1a705c8b956f77ad7767de7e2186"
+        }
+      ],
+      "originalCacheFilename": "e23a6d2b8b0c9067debca44cd7ea3ac78e4f1729ae3a523614eb6a0280766a25.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_puck.vsndevts",
+      "type": "event",
+      "bytes": 4939,
+      "sha256": "dddc783b7709020c2be83a43bbc761cc6c92285df227c8271194ef38e62426d3",
+      "localSha256": "f2877f5decc1c5d79b935ee397cce276c6d9e149e634db910bd86b54f2978243",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "67e49ca07e0494b69288a13c73701fd88b7a625a00d249cc294bc3e27fd31171.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/nyx/spiked_carapace.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "nyx_assassin_spiked_carapace",
+        "event": "Hero_NyxAssassin.SpikedCarapace",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_nyx_assassin.vsndevts",
+        "audioPath": "sounds/weapons/hero/nyx/spiked_carapace.wav",
+        "duration": 0.53059
+      },
+      "bytes": 93640,
+      "sha256": "58cbf6dd2a805471efad8c06a65bacc7a0bbb599e0bab848e753259943cbc816",
+      "decodedDuration": 0.530625,
+      "pcmSha256": "6c6e18c8613d829d262b0b6a321f21d8531390ae15335f212725a2d18f3a28ac",
+      "peak": 1.389296293258667,
+      "rms": 0.4961972211713702,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.053059,
+          "rms": 0.5012522305498878,
+          "pcmSha256": "2c47d4018cb44dcf361cba141c55ede1885d54e84ed38a0d2630dfeaffb23607"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.106118,
+          "rms": 0.5776900788094438,
+          "pcmSha256": "719296bf6a92c405648171919d353464760d76b415a392c2a5d954ae4ec7fe55"
+        },
+        {
+          "stage": 3,
+          "seconds": 0.53059,
+          "rms": 0.49622644620430006,
+          "pcmSha256": "9534d173106c2fdebfb46f0e4a737138c74a2e1889abc888fe444f9b1c7c1c51"
+        }
+      ],
+      "originalCacheFilename": "1740537730b0cc20c5645be165bcfbdeb53bd08e81850c97f79de393c541c3b5.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/puck/waning_rift.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "puck_waning_rift",
+        "event": "Hero_Puck.Waning_Rift",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_puck.vsndevts",
+        "audioPath": "sounds/weapons/hero/puck/waning_rift.wav",
+        "duration": 2.197755
+      },
+      "bytes": 193886,
+      "sha256": "bce08b31cdd8405d35165470590ab8abc925be2f559ee91670513028329410f6",
+      "decodedDuration": 2.19775,
+      "pcmSha256": "ad4ad2db88ee60bf404936bad6de524b7ea4c7665ead1a77e5e266b52db2ff8f",
+      "peak": 0.9922075271606445,
+      "rms": 0.2268584074840675,
+      "leadingSilenceMs": 0.0625,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.10988775,
+          "rms": 0.5160441876702431,
+          "pcmSha256": "7cdded6a7492ac169fb83e1a729cd5a91757e08f4f6c6f26e35966e23cc0cf68"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.24175305,
+          "rms": 0.46625269786725176,
+          "pcmSha256": "f0fb38fc921dd4a269d708b2401fe67b819e0a3d8b8fd20596a3a65bbeb5c0fa"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.197755,
+          "rms": 0.2268584074840675,
+          "pcmSha256": "ad4ad2db88ee60bf404936bad6de524b7ea4c7665ead1a77e5e266b52db2ff8f"
+        }
+      ],
+      "originalCacheFilename": "b965a627d99de76945ef12526c26f9f48feb4ebdccc35d693ba49c0012374d18.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_nyx_assassin.vsndevts",
+      "type": "event",
+      "bytes": 7181,
+      "sha256": "3a72395b61bca7d145911f5aa441225069954915df54997e9887761027ff50b4",
+      "localSha256": "c2a04d5fca7b856ca0c4cddaeea09356a15f135def5663531fcf9b9153a543b3",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "2f918c50d1f4978f705c42c9d7e6b60f1a6fc237ef8549fea8b8b38464f42ebf.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_slark.vsndevts",
+      "type": "event",
+      "bytes": 8985,
+      "sha256": "cca707b1fd9cda8b3052615119259497ce52b5c5f8de475b958ad309c5673c31",
+      "localSha256": "6ed2e7d2dea8dc5a4dbedcdd9f4cb770decdb60621e9c893dc567617f98cf40e",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "3814826218a2eb2db16333f019de624e6fd8ff81bcb9b417ac05a7cba045d43d.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/zuus/gods_wrath_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "zuus_thundergods_wrath",
+        "event": "Hero_Zuus.GodsWrath",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_zuus.vsndevts",
+        "audioPath": "sounds/weapons/hero/zuus/gods_wrath_cast.wav",
+        "duration": 5.025012
+      },
+      "bytes": 886456,
+      "sha256": "559dbfc9c186dbf98f42b5ca38c09a017d7497bab2477b2e795b7f2f8829c337",
+      "decodedDuration": 5.025,
+      "pcmSha256": "5c3154d1441d62f8a59ea8cfe2e6e2604f0c16d0c6b2ff0f05cf3e4c6493491d",
+      "peak": 1.3325344324111938,
+      "rms": 0.2933186835076348,
+      "leadingSilenceMs": 8.25,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.18739259496749472,
+          "pcmSha256": "a0ad3633f56834e19526c30832805161ceecd5adbc8c5ea4804f7236c3928f9c"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.20171498983124372,
+          "pcmSha256": "417b7ec15bdc471b26596cb689341c67d6985fde68da1d9d319f8e89a75a45d9"
+        },
+        {
+          "stage": 3,
+          "seconds": 5.025012,
+          "rms": 0.2933186835076348,
+          "pcmSha256": "5c3154d1441d62f8a59ea8cfe2e6e2604f0c16d0c6b2ff0f05cf3e4c6493491d"
+        }
+      ],
+      "originalCacheFilename": "fb89dcacad1482a0fd187f150b5d6b74c11ef2b6f49cc51b4d3a9edf1985e726.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_oracle.vsndevts",
+      "type": "event",
+      "bytes": 7504,
+      "sha256": "e5c2f89390a334037a7f98f697428fedd44291ad3dc5bec2fdaf33107eca7ea5",
+      "localSha256": "c4bd9bad4ba04d24613036f500d78fb6ff09c16047d9ce2acd903b3a49431e68",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "18efae525504e5737d4c56e7403c9d28814f85ea01df94f8e13719a81211bb76.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_hoodwink.vsndevts",
+      "type": "event",
+      "bytes": 10952,
+      "sha256": "aef83b191ed66c98391425b6e0b48dd18a4925cd1d6d5f5f28ea6b20b4f16b6b",
+      "localSha256": "5bd768e99a914acdcb9ad20cfe99d87e5f86be9bcf93673d1232a8f2746a294a",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "8da678d0f5972f54774d6cf69ee8d1414c5480dd295fbd498e5585dbbf29191a.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/oracle/edict_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "oracle_fates_edict",
+        "event": "Hero_Oracle.FatesEdict.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_oracle.vsndevts",
+        "audioPath": "sounds/weapons/hero/oracle/edict_cast.wav",
+        "duration": 2.73
+      },
+      "bytes": 481616,
+      "sha256": "cb68941df7c2ea753eb9933ee60afe0f7a205a6fd4ca5b46787f75a898a8a19b",
+      "decodedDuration": 2.73,
+      "pcmSha256": "8be4b4622529067c01dc122e9eec72baba88970cf43c72f0b4fa3fa53c471d76",
+      "peak": 1.1167006492614746,
+      "rms": 0.16453766456526459,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.18754326044719713,
+          "pcmSha256": "6b5fb532352126145c90b974089226bd4601d8788ad59a4e4c5b3045228caa31"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.2626630628181938,
+          "pcmSha256": "eb20ad297f83952b639aac87bd04b809c31d0c2a3be7069f88d9b514d60db008"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.73,
+          "rms": 0.16453766456526459,
+          "pcmSha256": "8be4b4622529067c01dc122e9eec72baba88970cf43c72f0b4fa3fa53c471d76"
+        }
+      ],
+      "originalCacheFilename": "b5bc58997da7d44aff88241499e7557e0a0e35ca949268d110b9beeacf4c2317.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_earth_spirit.vsndevts",
+      "type": "event",
+      "bytes": 13130,
+      "sha256": "2a62d54b15478ad57d7d68aa0f71baef3d0f181308ff9e0b76f41da5e036d078",
+      "localSha256": "fc6d765d3ec0ec9f8c48c23b6ab9bb0120398c1a98adc725649ece5c742cca34",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "12cfb657241f69ee67c2dcfbfa91dab0ea6789713f08e15f648d8425cf421806.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/windrunner/shackleshot_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "windrunner_shackleshot",
+        "event": "Hero_Windrunner.ShackleshotCast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_windrunner.vsndevts",
+        "audioPath": "sounds/weapons/hero/windrunner/shackleshot_cast.wav",
+        "duration": 1.332313
+      },
+      "bytes": 235064,
+      "sha256": "a3d77df186d7485f661025858816b48d798d1cc27bb06ca60190a1cb77a80baa",
+      "decodedDuration": 1.3323125,
+      "pcmSha256": "81a62a70430e1f878fd3f7a191c5af11b5e19efe66d0eebec4ea22a366546ae8",
+      "peak": 1.4285889863967896,
+      "rms": 0.2781402558760825,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.06661565000000001,
+          "rms": 0.32170448027515136,
+          "pcmSha256": "8195482d4a35c496175d8fd7d69ff4df10b6db54041e3295560906d5487003cd"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.14655443,
+          "rms": 0.33806548401475806,
+          "pcmSha256": "c1f34345512d71e73de0335d1e827da9b7406fc0df23b6cffb9107f2731ecdd5"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.332313,
+          "rms": 0.2781402558760825,
+          "pcmSha256": "81a62a70430e1f878fd3f7a191c5af11b5e19efe66d0eebec4ea22a366546ae8"
+        }
+      ],
+      "originalCacheFilename": "99c8c12ece1b5945116b8cca1d3fdb2d1df73258ea8cc4ae185d4452777be38f.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/hoodwink/bushwhack_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "hoodwink_bushwhack",
+        "event": "Hero_Hoodwink.Bushwhack.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_hoodwink.vsndevts",
+        "audioPath": "sounds/weapons/hero/hoodwink/bushwhack_cast.wav",
+        "duration": 2.166104
+      },
+      "bytes": 415936,
+      "sha256": "0cf1d3781ffe6cfa0592633abee77c1d3dc26b64a046cc684044d216f21f2ae9",
+      "decodedDuration": 2.166125,
+      "pcmSha256": "07d6d87252a540bf4e6ff5b731c93763aeaef8854feaa813c514a50c00940eda",
+      "peak": 1.3229951858520508,
+      "rms": 0.17824142938971227,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.10830519999999999,
+          "rms": 0.03081067780742033,
+          "pcmSha256": "79a81eb09556cd3d91895854b007b8dbbb64645b6dc0f5112bf3d85adb542304"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.23827143999999997,
+          "rms": 0.26483636440971875,
+          "pcmSha256": "c3127b4dd6b5712d518df6a6acf0ad4cbae45d6101a13cddb632f81cc63aea56"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.166104,
+          "rms": 0.1782440008780646,
+          "pcmSha256": "eedd7f49bb6037ac2b037a765afc50f23ac10437b007a7baf4e0094e3ac6a6e4"
+        }
+      ],
+      "originalCacheFilename": "f9210ff48f4a305b9122ef573d28e7c578b0de17dda6c3aa66291540f8dc0d9e.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/slark/dark_pact_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "slark_dark_pact",
+        "event": "Hero_Slark.DarkPact.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_slark.vsndevts",
+        "audioPath": "sounds/weapons/hero/slark/dark_pact_cast.wav",
+        "duration": 2.893016
+      },
+      "bytes": 510372,
+      "sha256": "4b135dcfba4bddf34e3b8a82df52dfde648b12d942c20de412e0c98fe4f52318",
+      "decodedDuration": 2.893,
+      "pcmSha256": "a065820d50ebae046c577797a2e4991470f5be63a778437fe6de385ea5681e0b",
+      "peak": 1.6117286682128906,
+      "rms": 0.33077727286790437,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.49242839907586033,
+          "pcmSha256": "bf1fc0589c1ee6a522fb7e87b15dca56cda6b33d3a5eee66a803f2d7af9c5118"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.55150800581524,
+          "pcmSha256": "058e81320b150064081d2eca598503f2ac6fc28eea33a9d5fd44560b936e737a"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.893016,
+          "rms": 0.33077727286790437,
+          "pcmSha256": "a065820d50ebae046c577797a2e4991470f5be63a778437fe6de385ea5681e0b"
+        }
+      ],
+      "originalCacheFilename": "aea029847144864ce6d6f80dba4465bfb53e236f20fe41e2b4df907d9b9316e9.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_windrunner.vsndevts",
+      "type": "event",
+      "bytes": 12444,
+      "sha256": "ccd99996ac2d875bb00df40b92f19c1f0f13f9d5c1ddc7ca7232535a29dc972f",
+      "localSha256": "24daf293e38f504e443d0b3a4cf7dff4625687362160e11aaf3b87de409a0ce3",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "79c1f49108eac5fc9f5aadfae0ab5a631c107ddaa001221e83b997a5c678bcf4.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_shadowshaman.vsndevts",
+      "type": "event",
+      "bytes": 6998,
+      "sha256": "3b696da32cf96e51af19a9aa07b6a151d16e260d185c13e9a68df50f1815b88f",
+      "localSha256": "bd677c169225e8c8201e6919488bc66f1fff11dd742209c901718928aa3bfa75",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "49652cbeebc2a7c890a50b7d577eb862cd6e21fe40c6be5dbedf79879be75844.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/ambient/chicken.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "shadow_shaman_voodoo",
+        "event": "Hero_ShadowShaman.Hex.Target",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_shadowshaman.vsndevts",
+        "audioPath": "sounds/ambient/chicken.wav",
+        "duration": 1.397347
+      },
+      "bytes": 246536,
+      "sha256": "d52e22acaf31cc9eace2a84ebe78a7c8f1609d6b0b2d3913732c6ef4dc236f4a",
+      "decodedDuration": 1.397375,
+      "pcmSha256": "a10b8adc2cd662033135ca66d03315551619eb61b185b9ad924cf7955e04fd06",
+      "peak": 1.1995177268981934,
+      "rms": 0.1491304752147425,
+      "leadingSilenceMs": 10.125,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.06986735,
+          "rms": 0.015499893509509633,
+          "pcmSha256": "094cb61a93b0dfe42755cb6912cf44e76e3d49890c84274bc819222c40004dc0"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.15370816999999998,
+          "rms": 0.06792062938481432,
+          "pcmSha256": "d0b94a81cac4d1a2cb25b790967bf750f1d584c44e91c87093055691acd23805"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.397347,
+          "rms": 0.14913381038510198,
+          "pcmSha256": "f9dfdef7b599ad1f9e307a659956b60bf1021c83d4798c40c588b3d14b2d6eda"
+        }
+      ],
+      "originalCacheFilename": "d22d7ac120c73eb7614f51449c7a78c6115d34895371a95fa5a98a8492cf8e38.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_tusk.vsndevts",
+      "type": "event",
+      "bytes": 12597,
+      "sha256": "ab7b6235d905ea42251955d06c5375386a7df56c0763089b7fa6bcacb306998f",
+      "localSha256": "b15d4d69c5980d92b540d0fce15c11c2717c05dfcfdf28d0b43702f35d2dde25",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "c2bd229816942360202436d96efa77e959621e01893cd694c775f3df87bf26fe.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/tusk/ice_shards_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "tusk_ice_shards",
+        "event": "Hero_Tusk.IceShards.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_tusk.vsndevts",
+        "audioPath": "sounds/weapons/hero/tusk/ice_shards_cast.wav",
+        "duration": 3.010975
+      },
+      "bytes": 531180,
+      "sha256": "a777eb88a996d8644f18cb41797e90dd16575392b208cde76cda316a3c0e0b3a",
+      "decodedDuration": 3.011,
+      "pcmSha256": "614020064addf9694a1a2dc60b6bb8ef4f3a4e4a9114988991f30e463e117672",
+      "peak": 1.457772970199585,
+      "rms": 0.2421607794127784,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.5523977224319992,
+          "pcmSha256": "5bc8b267970ed6b372e15a1a8480096ebf766100fcf8a24a8c1e1448aa6a22aa"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.5900126902371013,
+          "pcmSha256": "29d88581c01713e05eebc5fddbd7515f1d51f9d846adc00920a79bff39e7d2ca"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.010975,
+          "rms": 0.2421632926994994,
+          "pcmSha256": "7558c4a63a4a156a0821a5f6850f2ffe7a9bc53636164ea2283fcb82338af5c1"
+        }
+      ],
+      "originalCacheFilename": "57782bdc7a8e022b01471194f697be8fc999cd84e83efe80e411321a7db2e077.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_muerta.vsndevts",
+      "type": "event",
+      "bytes": 13854,
+      "sha256": "6c4040d18a813de90ebf8e0c60a6e337a7600953f30a6d70e8d7bd8975628cbc",
+      "localSha256": "f106208828c1d76b6cf8742c5d81144c2331bddc07bd334ba64f42eab0cf692f",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "9925a5aa581f150c184110e97a266dff2811db4d313ed7e8a5ea897d7a3f5b07.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/muerta/deadshot_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "muerta_dead_shot",
+        "event": "Hero_Muerta.DeadShot.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_muerta.vsndevts",
+        "audioPath": "sounds/weapons/hero/muerta/deadshot_cast.wav",
+        "duration": 1.433708
+      },
+      "bytes": 252628,
+      "sha256": "494c2c92f4cc8ff96d30a940349132212f2579400f5f4675ffc448dad7ed1755",
+      "decodedDuration": 1.431875,
+      "pcmSha256": "754d712eefe860e3c303a491f4369cda154ad9ad5822713aadae5ed8452cc557",
+      "peak": 1.5010700225830078,
+      "rms": 0.30086763170988007,
+      "leadingSilenceMs": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.0716854,
+          "rms": 0.34191720882970894,
+          "pcmSha256": "ae09a2b4079c966b047fdb203d34580b6286b6553d8b1e504ec4abde91679c4e"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.15770788,
+          "rms": 0.5568481362234683,
+          "pcmSha256": "2a4ce481b3a27e1c1bcb549c81594094c79d354e105c22655510d25a72277cff"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.433708,
+          "rms": 0.30086763170988007,
+          "pcmSha256": "754d712eefe860e3c303a491f4369cda154ad9ad5822713aadae5ed8452cc557"
+        }
+      ],
+      "originalCacheFilename": "ce5d3a0b235931b079090b362cd3822c09e44888e6dc197698a73f2acc775653.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_dawnbreaker.vsndevts",
+      "type": "event",
+      "bytes": 11857,
+      "sha256": "41d0fb065208de020ab4fe3f4f62ec59894474964aa659c667c47c81b469fbe5",
+      "localSha256": "2a54f52f05f1d69911c441f9b006858e8cb79f47f4f323857d6b707a314fbdbe",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "86b13aef0c40c25660ba73f8336e795f1d9ab55032f0dddaa3672ed7efe9e744.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dawnbreaker/celestial_hammer_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "dawnbreaker_celestial_hammer",
+        "event": "Hero_Dawnbreaker.Celestial_Hammer.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_dawnbreaker.vsndevts",
+        "audioPath": "sounds/weapons/hero/dawnbreaker/celestial_hammer_cast.wav",
+        "duration": 1.190167
+      },
+      "bytes": 209724,
+      "sha256": "541b3eae99311662e47d81eeef3c5cad5b123874de73be845d86c71653955d9f",
+      "decodedDuration": 1.1886875,
+      "pcmSha256": "f0b550338cd79568242d46bb27e423f97a1ebcad2f07d02f6eea5dc9d4475d4e",
+      "peak": 1.4028964042663574,
+      "rms": 0.31356091775864814,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.05950835,
+          "rms": 0.5139691261651637,
+          "pcmSha256": "2b19d04a8358237a5e4e901ed48c48d81aaa3a33375da4c1ecc364eb90925176"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.13091837,
+          "rms": 0.6122539628894065,
+          "pcmSha256": "55939b89d545fb03babc0a236a47307805c9d22d328a5efdf0911147e2ed4dd3"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.190167,
+          "rms": 0.31356091775864814,
+          "pcmSha256": "f0b550338cd79568242d46bb27e423f97a1ebcad2f07d02f6eea5dc9d4475d4e"
+        }
+      ],
+      "originalCacheFilename": "da63c63647a97fb761757b2489adeb90d2131874eb2d033e248672d6c22133ab.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_mars.vsndevts",
+      "type": "event",
+      "bytes": 9724,
+      "sha256": "2d81ffd952c7408c6b0c28cc5afe0693c1ec36e2ba62d703501a9075f860e3b1",
+      "localSha256": "66966f09e464f19dde9147f591010ce669fb3dbe54efcc8b2f5b1a0dcf5141bb",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "e7ffe927348385ddd90f0ee13526871d5e4cf95e1b7c9ad730b7a35d80f036f3.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/earth_spirit/rolling_boulder_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "earth_spirit_rolling_boulder",
+        "event": "Hero_EarthSpirit.RollingBoulder.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_earth_spirit.vsndevts",
+        "audioPath": "sounds/weapons/hero/earth_spirit/rolling_boulder_cast.wav",
+        "duration": 1.01059
+      },
+      "bytes": 178312,
+      "sha256": "35a62cbd997a01acc185b222d31678b4cf3147675a6f47e3604b0a9e1bcb1105",
+      "decodedDuration": 1.010625,
+      "pcmSha256": "88b145794db8c00bcf8f9d58a2ee3069c38f281d410051c7b54f4bfd8822e11c",
+      "peak": 1.4208518266677856,
+      "rms": 0.4249631847967247,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.055,
+          "rms": 0.07030287907892861,
+          "pcmSha256": "d68608158315320120a254a5d00e52b4e1addf0053cae6a0f1bb7015697c7a1d"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.11116490000000001,
+          "rms": 0.16710786161753188,
+          "pcmSha256": "1afc17dc2ab8eb0494f4b0adea114fc3cd9a07cca6655a63b4137ac44e4543e6"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.01059,
+          "rms": 0.4249763248732186,
+          "pcmSha256": "b526d6552078aca158ef93b4482572eeef0b5b48ec8976b537449be2133c0a6b"
+        }
+      ],
+      "originalCacheFilename": "a0042a11a9ab3d4d609670ecb7facf7ebdfa7df8f2702b257a977dbb08415c4c.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_mirana.vsndevts",
+      "type": "event",
+      "bytes": 8738,
+      "sha256": "99e6a66aabc1bc78d02a90866f7294e38cf43afe43f16aae1320f5e37446d3d5",
+      "localSha256": "d8936c54f8af76983ad7a19caebe54d627ccf8151c67783bd7931b9618131962",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "325241a590217d6ea3132897cda91a26d93575de868801225fd97b56c5005efe.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/mars/shield_bash.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "mars_gods_rebuke",
+        "event": "Hero_Mars.Shield.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_mars.vsndevts",
+        "audioPath": "sounds/weapons/hero/mars/shield_bash.wav",
+        "duration": 3.448163
+      },
+      "bytes": 608300,
+      "sha256": "ec1c1ab40d9ccdabd52b7a053bbe95f92e713a819763a393bba66ef57e3f96e0",
+      "decodedDuration": 3.4481875,
+      "pcmSha256": "5e0ced286d885342f2271c7d23fb3ed2e43c46e61433b6adfba29711093da2c6",
+      "peak": 1.467122197151184,
+      "rms": 0.2616669229228057,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.5273441199893178,
+          "pcmSha256": "4237ddb38f208f32349d39083d435e76f5f856f4a70d5c8f9925ec1eeb4d2b6d"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.5271266574896446,
+          "pcmSha256": "05c7fd5a9b89920de426ba0377d28f7c2eaf782c5df53b3dc22a6cc63b718847"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.448163,
+          "rms": 0.26166929434088876,
+          "pcmSha256": "ebb54f04ea58861f0f0c904cf1cd58da89d85c28fc95e3976ed38edfe7d7364b"
+        }
+      ],
+      "originalCacheFilename": "bffed1b98721393fed233bcfa3de217c71fd4e440c9c36fc569daae5ba5b6286.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_void_spirit.vsndevts",
+      "type": "event",
+      "bytes": 9747,
+      "sha256": "cf5420a7bb7e864c1bd1727a6cf7d3f184def480a388148039fb926d50b4c5fb",
+      "localSha256": "d387256602514bba81999de58ee0d2b5948525fd9e2b94d0597f23933ef9fa27",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "0d06487646077e973548883c58bf5ab49491578f49eecedfc866afe8a61f9550.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/void_spirit/pulse_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "void_spirit_resonant_pulse",
+        "event": "Hero_VoidSpirit.Pulse.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_void_spirit.vsndevts",
+        "audioPath": "sounds/weapons/hero/void_spirit/pulse_cast.wav",
+        "duration": 1.602177
+      },
+      "bytes": 282668,
+      "sha256": "8ee62b6eed257daf8ec2e86aeb4a1273371635a7d872bc5f64ffcff642caf2bd",
+      "decodedDuration": 1.6021875,
+      "pcmSha256": "bcfd3799a58870556122167792464613398a475f4c8fcfa1a51011a11222f27f",
+      "peak": 1.206864595413208,
+      "rms": 0.30319756996059644,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.08010885000000001,
+          "rms": 0.13306917226691026,
+          "pcmSha256": "30b7930cbfc6b004afd026ca3a644336ce59db1a08d0c559efbd2321235205cb"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.17623947,
+          "rms": 0.2530112607380679,
+          "pcmSha256": "5f2b58d604df60f78265755af73308e3d73401ee6183e21040d87d85aaaacd9e"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.602177,
+          "rms": 0.3032034832668309,
+          "pcmSha256": "b7b7f69b20c545e8977fc48fd420302e9dc7073a93d77a9d074d6c9b61d4b086"
+        }
+      ],
+      "originalCacheFilename": "472fa80cf445692af85e03836a3269f24145d43e0f4234197629b3ed47bef8f5.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/mirana/starfall.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "mirana_starfall",
+        "event": "Ability.Starfall",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_mirana.vsndevts",
+        "audioPath": "sounds/weapons/hero/mirana/starfall.wav",
+        "duration": 2.887982
+      },
+      "bytes": 509484,
+      "sha256": "ac94c045a9bf129f874f55793ef1023e346828e5a81ba44bd72a71e84fdff311",
+      "decodedDuration": 2.888,
+      "pcmSha256": "e3138ecfcc57d21f42731d349c2c40065182e420084c7ad984ba578bd0a60f1d",
+      "peak": 1.408835768699646,
+      "rms": 0.19706025304532632,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.3765611881468608,
+          "pcmSha256": "c11dc53cfec497b1d3fcb1345da5e16ab9ab027cae0348d9c398ebf9dad33543"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.36825879460560274,
+          "pcmSha256": "929ca5926b04f53417a46ee93965153735e8098f14fdfa8b5942db1f54642f6d"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.887982,
+          "rms": 0.1970623853967619,
+          "pcmSha256": "df981631eb54ad6077dd1893d921e95ced68c160e1b294a5b4b4aa1ac485a7c2"
+        }
+      ],
+      "originalCacheFilename": "c335c23301de0dbc79336259d05efeb784d7a280c280e1fab52dc85a2ff09633.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/void_spirit/remnant_triggered.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "void_spirit_aether_remnant",
+        "event": "Hero_VoidSpirit.AetherRemnant.Triggered",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_void_spirit.vsndevts",
+        "audioPath": "sounds/weapons/hero/void_spirit/remnant_triggered.wav",
+        "duration": 2.616735
+      },
+      "bytes": 461636,
+      "sha256": "738b8674a8244d8365d6fb0d19517d288c19f27732dd55f23672052f932d1715",
+      "decodedDuration": 2.61675,
+      "pcmSha256": "d5099e2eca409564659c33c10b198e6c9294f04a2e0c73af6e496c41db19570d",
+      "peak": 1.0369701385498047,
+      "rms": 0.20454288132777051,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.01957422867953789,
+          "pcmSha256": "04a609c9bad0f3fdfdbe38569a1473a79fd2ae3a1d9332f512ea1a2f0d25f5d6"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.02211478860080216,
+          "pcmSha256": "4f4a9fdd2320dbc9bf68fd25f6b5ab7051e03f1ed5388a808097411f354ae0e2"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.616735,
+          "rms": 0.20454523571561176,
+          "pcmSha256": "0c44fdde99a6e0eb3b4995be85f2b33def736fc2d09f29c5040704c070812097"
+        }
+      ],
+      "originalCacheFilename": "8a216b0adca075ff13167c2d0c9c2a688732140257dfb4e26fa40633d26de72d.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_ember_spirit.vsndevts",
+      "type": "event",
+      "bytes": 12670,
+      "sha256": "9b1c5da59a9c648c500b5ed99d5428ceb3ef9ced298224782baf3c69a518ef25",
+      "localSha256": "c24863641e14be563129ba11524e1d047881b79c6b79113c4021b0a7aa943a50",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "245b34eda035da0eedfa7bebc026d97aa218edc6224612fe624e0d6f9e77629b.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ember_spirit/searing_chains_target01.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "ember_spirit_searing_chains",
+        "event": "Hero_EmberSpirit.SearingChains.Target",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_ember_spirit.vsndevts",
+        "audioPath": "sounds/weapons/hero/ember_spirit/searing_chains_target01.wav",
+        "duration": 1.308004
+      },
+      "bytes": 230776,
+      "sha256": "ab42bab17edbc60b79faa82118bb77c1f18ddcafa9dc51024315fbdbc3f83fd3",
+      "decodedDuration": 1.308,
+      "pcmSha256": "915f3081fe3a0d36c1e690054260f766684758c69d5e4b34dfd90a11c686f2d9",
+      "peak": 1.0900012254714966,
+      "rms": 0.19210933087718693,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.0654002,
+          "rms": 0.3398194223203386,
+          "pcmSha256": "d9e433e815798a1344d62ed51b6df4a7b0827c071a28bf2c6c9d9fecc09111e1"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.14388044,
+          "rms": 0.3332996670234958,
+          "pcmSha256": "c08e4c668a1c51057c8e950682f0e8166feb6ce229f9f72fac5253634c687131"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.308004,
+          "rms": 0.19210933087718693,
+          "pcmSha256": "915f3081fe3a0d36c1e690054260f766684758c69d5e4b34dfd90a11c686f2d9"
+        }
+      ],
+      "originalCacheFilename": "a013afd4ee55d66d936af8a2a8c0044b27be2314101fe2d81ffdde11485af1f7.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_lion.vsndevts",
+      "type": "event",
+      "bytes": 11213,
+      "sha256": "195020beda4100abe52dc09d9da362859ed3a018a1fa61f5b25cd4300a926686",
+      "localSha256": "b6c3d6a8e3a1e73cf4828774179aaece55d3e9db1cfd60023a52cbe22489767e",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "2c83af3d74b8a726f60717b09a93d185a35630c38a2f5ec517a686e9b766102c.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ember_spirit/sleight_of_fist_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "ember_spirit_sleight_of_fist",
+        "event": "Hero_EmberSpirit.SleightOfFist.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_ember_spirit.vsndevts",
+        "audioPath": "sounds/weapons/hero/ember_spirit/sleight_of_fist_cast.wav",
+        "duration": 2.276417
+      },
+      "bytes": 401604,
+      "sha256": "bd975c7eb98329cd4c6186fa21988e0818970ed03018de10110d82f6c88aed66",
+      "decodedDuration": 2.2764375,
+      "pcmSha256": "a8ebccd129e218f475dc6fefc0186ef5eef7b4ddfda6a06318952d36c4b7420a",
+      "peak": 1.3631422519683838,
+      "rms": 0.23716259671899237,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.11382085,
+          "rms": 0.2167492124261172,
+          "pcmSha256": "ab7f903f8da13a36f90021b4f109af121a085adf8aa5d371fa1fba065023f209"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.25040587,
+          "rms": 0.3813640680877343,
+          "pcmSha256": "cb14fae1df8c12b63bfd44e11743938a4cbb3037ef12aa2004e089f36db999be"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.276417,
+          "rms": 0.23716585245685493,
+          "pcmSha256": "5ea30162a1c05e6ab1fc1f3dc4694db18963d254330a4b23bd510dc7c9eaa861"
+        }
+      ],
+      "originalCacheFilename": "afd75dddf9eb27b64ca1d9b5e5a870043a882d65bcd5143e68a9c5c3426197d4.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lion/lion_impale_target_hit1.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "lion_impale",
+        "event": "Hero_Lion.ImpaleHitTarget",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_lion.vsndevts",
+        "audioPath": "sounds/weapons/hero/lion/lion_impale_target_hit1.wav",
+        "duration": 0.641723
+      },
+      "bytes": 113244,
+      "sha256": "71daf0c6f66cc0e8b5ac6d0f71f2126bec0b637562a0458cbe3165b413450478",
+      "decodedDuration": 0.64175,
+      "pcmSha256": "c25539d67de5adf76d834d18ba3fa6455321f1471ee6546f98fd47d7eccaf217",
+      "peak": 1.1799731254577637,
+      "rms": 0.1798923334039219,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.055,
+          "rms": 0.337210028957631,
+          "pcmSha256": "80f58f0a2d1fc30f476f3d27b3e05a236645dbe0256bba9107df7aca5472723b"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.11,
+          "rms": 0.3544182970935979,
+          "pcmSha256": "f1dd0d63ee29a9bdfcc791e53035a025b02bc48b64014960bf4eae91ab3d4057"
+        },
+        {
+          "stage": 3,
+          "seconds": 0.641723,
+          "rms": 0.17990109389643502,
+          "pcmSha256": "e829407c13dc2ffc34763e357bad5991959e68f0c0f578a7207964cff29b8470"
+        }
+      ],
+      "originalCacheFilename": "8fc82a912ec1eac9917d8c45d400cfc19bcd44e8df0b326b858c74e52413c1e0.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lion/lion_voodoo.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "lion_voodoo",
+        "event": "Hero_Lion.Voodoo",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_lion.vsndevts",
+        "audioPath": "sounds/weapons/hero/lion/lion_voodoo.wav",
+        "duration": 1.889524
+      },
+      "bytes": 333356,
+      "sha256": "637d9a1077e8cf5f86f747fca626e70d3db3fe29e4e8a1e7d4528f5ee27be03e",
+      "decodedDuration": 1.8895625,
+      "pcmSha256": "287f32718a28fc4036e13abfa8ef3210a68a4fc6050e61234e504f19e1255821",
+      "peak": 1.5561268329620361,
+      "rms": 0.2609692902061235,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.09447620000000001,
+          "rms": 0.4155519980182036,
+          "pcmSha256": "bf623dce0b7a10d160e64a9b8af67bf3993dcbd0e99083961b5884f9563ea4d9"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.20784764,
+          "rms": 0.5931551047263867,
+          "pcmSha256": "93d004d066d5645aebbd4b45db3f566e7332bc5f07d05c74aa1c59b846125b81"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.889524,
+          "rms": 0.2609736062801064,
+          "pcmSha256": "5c018f6fba80b1ec82954af39a62bc2e26852194a9b3d513a190f872b60dc0f5"
+        }
+      ],
+      "originalCacheFilename": "a959e71b3665e3919f0a4742fa3e89294f1d9762923657fc70271bbc47a5e135.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_dark_willow.vsndevts",
+      "type": "event",
+      "bytes": 9957,
+      "sha256": "4080b894568991bf9a64ab9bd653976bd51d836be6f3517901f6236a2893337c",
+      "localSha256": "94947622ef042e90c9814b5c3c973f8f7d6288069c8cc4bae59b8e598d4bc2b1",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "2c726292ccdb237213a1cd590156e2fe21ca97da346f20cf70a896b36c7b6278.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_willow/ley_target.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "dark_willow_cursed_crown",
+        "event": "Hero_DarkWillow.Ley.Target",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_dark_willow.vsndevts",
+        "audioPath": "sounds/weapons/hero/dark_willow/ley_target.wav",
+        "duration": 1.783674
+      },
+      "bytes": 314684,
+      "sha256": "da0e6a397b75fca1a309aac792bd407deb9864afc307e8be7a39f1287940e8f8",
+      "decodedDuration": 1.7836875,
+      "pcmSha256": "b69b7eef2e0a265114ecf218fdb270d1f949d452232bd998c22b44f8d6361557",
+      "peak": 1.0836734771728516,
+      "rms": 0.14678336813799217,
+      "leadingSilenceMs": 0.0625,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.0891837,
+          "rms": 0.09521601644391565,
+          "pcmSha256": "06fa0da463c4a238104f59113590b6e724c37fa43a4358f90b397395682b83ad"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.19620414,
+          "rms": 0.153015115792721,
+          "pcmSha256": "d430729432e72406cfa00d1f4083680fbbe36542423f5a9f866a1812c5981fb8"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.783674,
+          "rms": 0.1467859240903264,
+          "pcmSha256": "4894e9c55afc3fdd2f19f389dd1cac88bf919628c2465a5e83fffad879bdc3e3"
+        }
+      ],
+      "originalCacheFilename": "7a756ee8adc0a9f497dd6f35f23fda6c871a54ebdf6ac2a3cc182b621af29910.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_snapfire.vsndevts",
+      "type": "event",
+      "bytes": 10940,
+      "sha256": "cba2f5c8d5591f005ca0cb309c5fc303a4f39ddf081fb1df5aba005ff1d99cc5",
+      "localSha256": "7377dc2639bc1fb82f9258c1a26bf2836ab0276f565a54f03fdb49a1de00cbc0",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "39df091165166f4d0f246d16de8680e3d952d5e926525adfe0d742b0f4605ae8.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_willow/bramble_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "dark_willow_bramble_maze",
+        "event": "Hero_DarkWillow.Brambles.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_dark_willow.vsndevts",
+        "audioPath": "sounds/weapons/hero/dark_willow/bramble_cast.wav",
+        "duration": 3.443991
+      },
+      "bytes": 607564,
+      "sha256": "d92673945b82beea9d4f7fee32c72f588bdc9b81638c800d218fe76fd7ba14b6",
+      "decodedDuration": 3.444,
+      "pcmSha256": "7b4ece085824871248368a6e372444c2b58c1003b5d94947ce560a4a694c943b",
+      "peak": 1.0985589027404785,
+      "rms": 0.0892130911935826,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.2844366889781276,
+          "pcmSha256": "d1a4255df217ab9e8d76fb1cb60c5c362af304928cb1210caada7474d13d909f"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.25550965167030204,
+          "pcmSha256": "8ba483f8a59897509d2d88725e122eec3ca32b80128f99423ab50595ee6e3b35"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.443991,
+          "rms": 0.08921390069252397,
+          "pcmSha256": "502f5f62c58a9a5bd37652582c2b0b5f15f94ffcdf0eb63ba1d645f04d940c85"
+        }
+      ],
+      "originalCacheFilename": "a4df270a0bb8d23e09ea9b01691722fe62fc9bec8c11089e7b718edb9b6ceb26.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/snapfire/cookie_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "snapfire_firesnap_cookie",
+        "event": "Hero_Snapfire.FeedCookie.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_snapfire.vsndevts",
+        "audioPath": "sounds/weapons/hero/snapfire/cookie_cast.wav",
+        "duration": 2.003809
+      },
+      "bytes": 353516,
+      "sha256": "825f19e3d17a35d2bb46bb109783c7d3e0d5a715c00073e4faef7d488f0a3a49",
+      "decodedDuration": 2.0038125,
+      "pcmSha256": "c34cc27c3398fd191d1f04f247ef6ccf75dbda457a3bcbb8282e8ff42c705c1f",
+      "peak": 1.425851583480835,
+      "rms": 0.12301823960168182,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.10019045,
+          "rms": 0.4925476835573242,
+          "pcmSha256": "5da9557a3835cc38aacf8e36f94016804dbb8fabdde6735ea3bbc9e312a43e2d"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.22041899,
+          "rms": 0.3467862067688102,
+          "pcmSha256": "c7e6121ef3c2976988551938381c4243fa4e0a242177934dbdc0ed25a614e43b"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.003809,
+          "rms": 0.12302015809371239,
+          "pcmSha256": "8cd099629ead0cfbba978776bccfea0e15a460d9004ba65e01851badc537a4cc"
+        }
+      ],
+      "originalCacheFilename": "105fd29adf70735e1718f45e4ec5e98e3cdea54ea8cab2b456bd1241c389ee99.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/snapfire/shotgun_target.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "snapfire_scatterblast",
+        "event": "Hero_Snapfire.Shotgun.Target",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_snapfire.vsndevts",
+        "audioPath": "sounds/weapons/hero/snapfire/shotgun_target.wav",
+        "duration": 0.968367
+      },
+      "bytes": 170864,
+      "sha256": "2c1e21643544141b3f614fdaf06deac2e6013ac07d4dad49548391214a8e341a",
+      "decodedDuration": 0.968375,
+      "pcmSha256": "6aa3606f5ff76dcdc59063b0d3ca88ef649f02fc7069745319fcdbd62c0549e0",
+      "peak": 0.8103816509246826,
+      "rms": 0.19603180349578633,
+      "leadingSilenceMs": 0.0625,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.055,
+          "rms": 0.26380617186370703,
+          "pcmSha256": "1ab7810b73f06f8ee66252cdd85c65bd18d555a117f15ff58c743cd9e75fa5a9"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.11,
+          "rms": 0.3036249307213432,
+          "pcmSha256": "3258988b15babe6f837cb45647de109b59baf0499ac8f2a62d75190d147a86b2"
+        },
+        {
+          "stage": 3,
+          "seconds": 0.968367,
+          "rms": 0.19603812661712797,
+          "pcmSha256": "586976d3431718e8b6bc510946c2999210d2310d3490e693a81f2d7dde102e01"
+        }
+      ],
+      "originalCacheFilename": "42cce2acd1918570d5d9a70f4bf2f400f97016f6d343458ea02e6d4ba9f6263d.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/queenofpain/queenofpain_screamofpain.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "queenofpain_scream_of_pain",
+        "event": "Hero_QueenOfPain.ScreamOfPain",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_queenofpain.vsndevts",
+        "audioPath": "sounds/weapons/hero/queenofpain/queenofpain_screamofpain.wav",
+        "duration": 2.694286
+      },
+      "bytes": 475316,
+      "sha256": "dd0f7af74b1dca402f3810a439f02de61b47c24b0593956b88259e66a8acc10e",
+      "decodedDuration": 2.6943125,
+      "pcmSha256": "37f2f1772aa8b2d34f79ddfdc90b641d90b549efcf0e77c4660f286ac47d95c5",
+      "peak": 1.5993473529815674,
+      "rms": 0.37627534473263313,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.20047761468773925,
+          "pcmSha256": "bfdc2a969269efb0b0b0ad9381648371de96ee3f33689a67aba4db9488bf6082"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.4506755017872314,
+          "pcmSha256": "72d60c64d7a601d0fc6478af6487e2575edfeb1c679f419ad1f4537ccac4afdf"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.694286,
+          "rms": 0.37627970904044833,
+          "pcmSha256": "d802da98048dd2999f113f2a74f9a914de664b15184bb9eac49b1cfad33a618e"
+        }
+      ],
+      "originalCacheFilename": "8a3246c1fcdee4a41fe38d06c7b2d509477212033e54e267eefb79e78cadecab.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_queenofpain.vsndevts",
+      "type": "event",
+      "bytes": 9018,
+      "sha256": "a82bc60fd1f0b2cde0ec0dfe6566fb2b3b171dff3f30ff7e56b7d4ce9b33eb21",
+      "localSha256": "33503035d639a25dc02f4cf1162f3cfa31a030cd366062997f0624417ed5729e",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "1629be08a12ac4b1b9349a16488f27b75150d9787e8cee51993b3ba889e168d8.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_enigma.vsndevts",
+      "type": "event",
+      "bytes": 4608,
+      "sha256": "0019972fa47319024311e5989c16d8eddc259eda984aac687acee12a5f645701",
+      "localSha256": "be89b7241f643eca30799dd1a478436d83a351313077ed528a9497e973b3d154",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "5fe47eefc734a8155b58f7d122524e1a86318a8c81fede511b12b313a514f984.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_legion_commander.vsndevts",
+      "type": "event",
+      "bytes": 8969,
+      "sha256": "bedc0daf7a55298eaba9d0602fff01bf263529a74df3e6ac22dbab29800e7b9c",
+      "localSha256": "7d6b68b3576d74d08330a8577036c2780f0dd9bec147c588782ca76357c4f7b9",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "1778f9977168bcf1451110d490bd7f1500fc09fa0d1347b257ea622992fe8d89.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/enigma/black_hole_chasm.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "enigma_black_hole",
+        "event": "Hero_Enigma.BlackHole.Cast.Chasm",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_enigma.vsndevts",
+        "audioPath": "sounds/weapons/hero/enigma/black_hole_chasm.wav",
+        "duration": 4.920068
+      },
+      "bytes": 867944,
+      "sha256": "65d3dcc2cb207c4dc6c78258b5eb0798955157a2fbd7ded2fc1dceb38735264b",
+      "decodedDuration": 4.9200625,
+      "pcmSha256": "96117de9d82f4ef0a53cc67d43049036f7fdb6f6b3a9556afe30ad44e411dd21",
+      "peak": 1.37906813621521,
+      "rms": 0.335491648780777,
+      "leadingSilenceMs": 0.25,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.06437384142401621,
+          "pcmSha256": "3981884f44d37edc1df6d68cf2d77ba88290c000595e821db52c07bdde3c9050"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.10435239744752393,
+          "pcmSha256": "348d2cc1e4ba662b3ae54aaff0f6696313cf1c5d4d738b0bf161004b3d532167"
+        },
+        {
+          "stage": 3,
+          "seconds": 4.920068,
+          "rms": 0.335491648780777,
+          "pcmSha256": "96117de9d82f4ef0a53cc67d43049036f7fdb6f6b3a9556afe30ad44e411dd21"
+        }
+      ],
+      "originalCacheFilename": "707bd2f72e6b57df02f930aaae2432c1ffbf62514483a9efe38cd044152193da.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/queenofpain/queenofpain_shadowstrike.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "queenofpain_shadow_strike",
+        "event": "Hero_QueenOfPain.ShadowStrike",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_queenofpain.vsndevts",
+        "audioPath": "sounds/weapons/hero/queenofpain/queenofpain_shadowstrike.wav",
+        "duration": 2.260318
+      },
+      "bytes": 398764,
+      "sha256": "b13a73e291b1c4dabc465a9b802a9fcaf35ab82913dd989a465a100c30819c64",
+      "decodedDuration": 2.2603125,
+      "pcmSha256": "6d3436d41fc7374f46302490a66aa135e8ef201df8f597d45e368cc9f8274088",
+      "peak": 1.5117782354354858,
+      "rms": 0.23140761074441063,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.1130159,
+          "rms": 0.43381974078205215,
+          "pcmSha256": "06e53329fa28fac8609afdc636a266c93ea7bff3fa7a86a131a2499bdef4e135"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.24863497999999998,
+          "rms": 0.4079478104854892,
+          "pcmSha256": "37935e5054093cabdfd2704e1eec5bfad29ce64fbcf0ae86b6d53db58eace167"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.260318,
+          "rms": 0.23140761074441063,
+          "pcmSha256": "6d3436d41fc7374f46302490a66aa135e8ef201df8f597d45e368cc9f8274088"
+        }
+      ],
+      "originalCacheFilename": "97a64f0d268249c9cf91cbe2244af3539f38b8109e4c7b736f202222b75bc32b.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_juggernaut.vsndevts",
+      "type": "event",
+      "bytes": 14017,
+      "sha256": "42f6737ad933e2ecd9c967e0d170e272bcff5b58a0fae8b607ba0eabe15d09e6",
+      "localSha256": "ec2a8660325ad214789ae89d42f4e53827843a952dddaab7dd077a064dfbd315",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "b201805d3010d7cb84c50a0c094752986d37d88b5a8cefbac2d2bfd4c8ec600e.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_witchdoctor.vsndevts",
+      "type": "event",
+      "bytes": 9968,
+      "sha256": "15b13e12c51713d92e6dc4c5e05e4666ce7dcdf566eb11f1709d4a260f066aa7",
+      "localSha256": "a003d8b2b5a473cd522fd928d66a5ee61d0aca040b665bafe108c2f44fef4765",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "49b9b160553420bfdbf373ac5ce8a58e9f5cd0fe6b42a23d165c391badba5203.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/legion_commander/duel_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "legion_commander_duel",
+        "event": "Hero_LegionCommander.Duel.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_legion_commander.vsndevts",
+        "audioPath": "sounds/weapons/hero/legion_commander/duel_cast.wav",
+        "duration": 4.167075
+      },
+      "bytes": 735116,
+      "sha256": "f018683153635e128a03d70c4fdac185320035056ee3b600cd0904120a4f6231",
+      "decodedDuration": 4.1670625,
+      "pcmSha256": "a432cd67d501802d3db465873af372ad67a2c56b65c769daaec942994dfbee44",
+      "peak": 1.3287416696548462,
+      "rms": 0.23938255690190788,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.6209334608304512,
+          "pcmSha256": "878b4d9a62396642a5a257d98d647732567ba62e8a26217f39c72b4d33392dff"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.6352928911960026,
+          "pcmSha256": "491700946c650cf612a174c2af7532395196ea64284b14544329b9c98c2af60f"
+        },
+        {
+          "stage": 3,
+          "seconds": 4.167075,
+          "rms": 0.23938255690190788,
+          "pcmSha256": "a432cd67d501802d3db465873af372ad67a2c56b65c769daaec942994dfbee44"
+        }
+      ],
+      "originalCacheFilename": "c67a7e88a30c41a44f7421e0d3ffa8cf862bee378d06ecbc37adee4eefc0c5eb.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/juggernaut/omnislash_attack1.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "juggernaut_omni_slash",
+        "event": "Hero_Juggernaut.OmniSlash",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_juggernaut.vsndevts",
+        "audioPath": "sounds/weapons/hero/juggernaut/omnislash_attack1.wav",
+        "duration": 3.334354
+      },
+      "bytes": 588224,
+      "sha256": "8b449e6b8ebcc7e47fbddf39e247fec06408077075b2965f8bcd879df423cec2",
+      "decodedDuration": 3.334375,
+      "pcmSha256": "c03d7793c02b697a268f125e7f478c3a0c28166ae037dfef8bc3efdd6fe024a7",
+      "peak": 1.2017420530319214,
+      "rms": 0.14870040452024852,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.4034210978496538,
+          "pcmSha256": "9422028be2d5f8dbeb62094f8d081757bd35587599a7776909c75ce95b58af09"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.38669207316329296,
+          "pcmSha256": "029b64ff8f1e0ddf06f23f415b2e6ccaaf129b6f17b0c46016e0f81cf3af8e9a"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.334354,
+          "rms": 0.1487017981706234,
+          "pcmSha256": "ef2f8aa9f41acdb1a4ad43c33636ee3f3bdba1782202555a1f7cf82edaef04fc"
+        }
+      ],
+      "originalCacheFilename": "c15191df146807a4925deb7661bbe9046004f1b6b5e8ad9fccabb8ef62e58c39.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_sandking.vsndevts",
+      "type": "event",
+      "bytes": 5735,
+      "sha256": "7f35e86187b77675e6b7a4b2143069c89a871484b0382dfe388513e677a545cb",
+      "localSha256": "0e9c7fa25b8b8b767af307b455413e3c3f2872ba0da75d4021f1fa5f3ff1c257",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "2ac2be18e96101871d6abb5c07f3c86f11aff173cbf01bdb4666a8a0e3c6078d.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/witch_doctor/deathward_attack.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "witch_doctor_death_ward",
+        "event": "Hero_WitchDoctor_Ward.Attack",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_witchdoctor.vsndevts",
+        "audioPath": "sounds/weapons/hero/witch_doctor/deathward_attack.wav",
+        "duration": 1.497166
+      },
+      "bytes": 264144,
+      "sha256": "27070c44918c50f20be230a25f78b93a88083fe29cfd7fb40491f20681ca215c",
+      "decodedDuration": 1.4971875,
+      "pcmSha256": "f24b222bc51fccfcdaa0e17e7ae2fad5c6dfb4382761f8055aafce68bae5ae01",
+      "peak": 1.3625625371932983,
+      "rms": 0.15804125848072068,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.0748583,
+          "rms": 0.22460700823558433,
+          "pcmSha256": "b09e9edda611da18ce019ad019fce6c51ea20283613a39d044c2098d0c4ec890"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.16468826,
+          "rms": 0.3572401535505608,
+          "pcmSha256": "fa94393562030ec7716ff8513138583bff53287a9e56acea495d4dda2922d607"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.497166,
+          "rms": 0.1580445550578602,
+          "pcmSha256": "0fb8b071f87b63d0d6950705cc2ac3e8ee106cf8e791df5218aa559f44bd21c1"
+        }
+      ],
+      "originalCacheFilename": "b19f4d201c2fcc6a38bc89987c473cec5185537994314be41c1564520d1f6ce1.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_warlock.vsndevts",
+      "type": "event",
+      "bytes": 10058,
+      "sha256": "87cccca947461bc0e0b913891af1e0c4d56b553aa0c80e41143bb5ef852e3090",
+      "localSha256": "5d3e04b21652c632f02f1e799ce7096a8e3bf703890f4c0b0a170441eca08146",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "3adea9b1efa06c5d708f2c0eb367dca3feadcd522af31b8cd777a5d5229ecbe4.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/sand_king/sand_king_epicenter_spell.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "sandking_epicenter",
+        "event": "Ability.SandKing_Epicenter.spell",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_sandking.vsndevts",
+        "audioPath": "sounds/weapons/hero/sand_king/sand_king_epicenter_spell.wav",
+        "duration": 5.079138
+      },
+      "bytes": 896004,
+      "sha256": "fd9e37bcb901b4bc9c159c7f4f70707d72f2c7d5dfce1ca490aba5e19d15019f",
+      "decodedDuration": 5.079125,
+      "pcmSha256": "6090df5d5a52bf97fff21aede85baacc8937f3f4457f742f435ed2a73ecf2756",
+      "peak": 1.7586785554885864,
+      "rms": 0.44959673931408484,
+      "leadingSilenceMs": 10.0625,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.3608972802736612,
+          "pcmSha256": "be69403226a963c1703099cd40f710dafaa6044d9093df5f7178c92786874eb7"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.5393003648103784,
+          "pcmSha256": "2d6d7d5e279efb78b181fa06375eb7823cedda6cda0ac0bcaaeace93a79ada95"
+        },
+        {
+          "stage": 3,
+          "seconds": 5.079138,
+          "rms": 0.44959673931408484,
+          "pcmSha256": "6090df5d5a52bf97fff21aede85baacc8937f3f4457f742f435ed2a73ecf2756"
+        }
+      ],
+      "originalCacheFilename": "192704bbcd99008763ba0d2c6e21dc114659b499427ec5646aa5ef456b798a9f.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_disruptor.vsndevts",
+      "type": "event",
+      "bytes": 6874,
+      "sha256": "0ec24c4c987c29c03183b54f38f04f754c665c65a84ff99ef06f187fbcd2ebee",
+      "localSha256": "6c644de2d6b3ac78ae8638498635c01893555d0089060857365b2e2cb7c01772",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "71f2397546b620db6bb1edadbcb6c6fe82d74cd94c85d2c5808a277cd2b4902d.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_primal_beast.vsndevts",
+      "type": "event",
+      "bytes": 12438,
+      "sha256": "1cffe683eed1b07a5dc57f038ca1978de16acc42708b0477a381a80e6f49811f",
+      "localSha256": "4dc6cf51018b622dea73f00750a63d705576badaa3e60d02f0b1e2b4ba048b0a",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "dae48b2e01c3e2e70ec028d16f970f733fe9bdf967c804e1f0d446535402a071.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/primal_beast/onslaught_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "primal_beast_onslaught",
+        "event": "Hero_PrimalBeast.Onslaught.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_primal_beast.vsndevts",
+        "audioPath": "sounds/weapons/hero/primal_beast/onslaught_cast.wav",
+        "duration": 3.256508
+      },
+      "bytes": 574492,
+      "sha256": "1e67acce479df203d1e47c851c31b6e577570b611f121c4917eff8e5c015e731",
+      "decodedDuration": 3.2565,
+      "pcmSha256": "9e97475eb1820c41c1bd61a905a3bc34ad633a96e65ecc53897aabc09246bd9e",
+      "peak": 1.4365400075912476,
+      "rms": 0.4098150551357897,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.6429253886435164,
+          "pcmSha256": "c956745ff500c85ad5fd41f4a71d122b7c7e9ebfaddc327bd7b9e8c2c21dcb89"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.6310841178261186,
+          "pcmSha256": "2d80a6da739bda81b1533507bfc751f6b3d438b1382dd61bb9cc399650eee69e"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.256508,
+          "rms": 0.4098150551357897,
+          "pcmSha256": "9e97475eb1820c41c1bd61a905a3bc34ad633a96e65ecc53897aabc09246bd9e"
+        }
+      ],
+      "originalCacheFilename": "fd30e86b20ae4ba13e39e8bc5bd2158b244513b556b20c89959a8f7e144e8d65.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/disruptor/glimpse_end.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "disruptor_glimpse",
+        "event": "Hero_Disruptor.Glimpse.End",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_disruptor.vsndevts",
+        "audioPath": "sounds/weapons/hero/disruptor/glimpse_end.wav",
+        "duration": 2.345964
+      },
+      "bytes": 413872,
+      "sha256": "a81f03f522c6bb85da17da2d4da097c983ced6a14049921bfc39a2ad1acba49e",
+      "decodedDuration": 2.346,
+      "pcmSha256": "00a6a71a749276351d5bd64a8f47ffcf977f0c17f6cc76c4eed132309e943907",
+      "peak": 1.006387710571289,
+      "rms": 0.12154186367124942,
+      "leadingSilenceMs": 5.375,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.1172982,
+          "rms": 0.03669884922288599,
+          "pcmSha256": "bf52d427b1ee01c10c668d893fb57c4ef61dd1577783e9645f9b9c45359816bc"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.25805604,
+          "rms": 0.18114832627928723,
+          "pcmSha256": "3110596b2201bbb467933c70e113eccc4a2b129147e40543fe04255f7c320631"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.345964,
+          "rms": 0.12154348270752684,
+          "pcmSha256": "b0ae07c5e635373b490b4cdc33a01d9c76243300d7d94c4c6f0475a7b2cbcb80"
+        }
+      ],
+      "originalCacheFilename": "63703ba78e4de1f1106002387a5f3d94f07c2313cbd3410b404e8ec2186b2285.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_ringmaster.vsndevts",
+      "type": "event",
+      "bytes": 17452,
+      "sha256": "d1eff2ab07ee8f869df85765dd4f179632c838d73b898097659886eac7c8c355",
+      "localSha256": "5c8aba90979501a4b545134e42565842fa08e3cbe7e64f56ee67dcb39cba4a09",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "7d2b1ff98dbc35c4661e99abf79bc98c8b9eaa43561d4bb989cd1c252283dfbe.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/warlock/rain_of_chaos_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "warlock_rain_of_chaos",
+        "event": "Hero_Warlock.RainOfChaos",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_warlock.vsndevts",
+        "audioPath": "sounds/weapons/hero/warlock/rain_of_chaos_cast.wav",
+        "duration": 5.028368
+      },
+      "bytes": 887048,
+      "sha256": "f469185a37008e37cd1792311f4e46599130d6e083f1817f20d77c10e4343a21",
+      "decodedDuration": 5.028375,
+      "pcmSha256": "46071b599baea8a5833d46dc0a5793ce155630effba9c6fa04c797ba59efabfb",
+      "peak": 1.4440815448760986,
+      "rms": 0.28043743662794424,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.5059821641847895,
+          "pcmSha256": "2f6468b39783493e7dfb11bfd476ed9f27adcbebe08de46bc56d35ef48b8cc2d"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.5051111470207288,
+          "pcmSha256": "4daf89107ce8a82b00f47ce11a6cdf37a7cbff9a9ce731c9bf1d80d360712dd1"
+        },
+        {
+          "stage": 3,
+          "seconds": 5.028368,
+          "rms": 0.28043917948753433,
+          "pcmSha256": "f520e0d3f2bf4aebfff7542d3794b41933dd65e84fea3074089427a48fa47a8d"
+        }
+      ],
+      "originalCacheFilename": "1662b81efc58e54f2d64ddac63307025fa427d6cce2fab620926f2ef2a9bd518.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_grimstroke.vsndevts",
+      "type": "event",
+      "bytes": 11953,
+      "sha256": "2c0ea0472d786ddb01d398de785dbc6699dded1d8008c89377b70848b42353dd",
+      "localSha256": "1ca03507dd5ed0ae30de415cdd3294c81afe0fad2b9751895e52550e510a7947",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "d32ce681297d17550fd9c48a60ab42d59933be0d11b162d81e96c937c726256b.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_dark_seer.vsndevts",
+      "type": "event",
+      "bytes": 7207,
+      "sha256": "4cfe4c72afa9031f25d8c681249fe17d7c90e314a6ec2e4c37f8a2a374d68780",
+      "localSha256": "d1a10701a87e92ad0dbe5583ceac8852220d853482b6bcaedc21801bd9865bd0",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "98dd2a227dc3f44c0927bf2cb30c50d3d01ee5b79a85678fedf442494068cee7.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/ringmaster/whip_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "ringmaster_tame_the_beasts",
+        "event": "Hero_Ringmaster.Whip.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_ringmaster.vsndevts",
+        "audioPath": "sounds/weapons/hero/ringmaster/whip_cast.wav",
+        "duration": 3.015079
+      },
+      "bytes": 531904,
+      "sha256": "f97610adc351f5f4418f380cb8f110a5fa27ee12dcb39d603ed8482bd875aa9c",
+      "decodedDuration": 3.0150625,
+      "pcmSha256": "5b2d8b69cc0e1f920813b3d677622f0487f055626b80438bc28f2a51b1452e1a",
+      "peak": 1.4212164878845215,
+      "rms": 0.23819211916823554,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.5107985525433623,
+          "pcmSha256": "ebc4fc8ca39774bbe8ea6ec79f79448751fd0a58a503d7fce8c3ec1b5d456627"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.4031585843952944,
+          "pcmSha256": "cfbd49a6bc25b60b27192cd0412aa51be276d1ceab2e7c6521b7916e059a7d9c"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.015079,
+          "rms": 0.23819211916823554,
+          "pcmSha256": "5b2d8b69cc0e1f920813b3d677622f0487f055626b80438bc28f2a51b1452e1a"
+        }
+      ],
+      "originalCacheFilename": "303930dfca3436208ce63a82a199df0ae8cc5ea70b179cab2d14257843fa8c2f.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/dark_seer/dota_dark_seer_vacuum.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "dark_seer_vacuum",
+        "event": "Hero_Dark_Seer.Vacuum",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_dark_seer.vsndevts",
+        "audioPath": "sounds/weapons/hero/dark_seer/dota_dark_seer_vacuum.wav",
+        "duration": 2.241905
+      },
+      "bytes": 395516,
+      "sha256": "40e78a495674dee3bb3524fdbe1a99417cd9ce487ac9313cd4839d39338fdcb2",
+      "decodedDuration": 2.2419375,
+      "pcmSha256": "ff904daf2bcf7fd85315ebeb3c4b7fa8d9b5b7b0759f44b47afbe7f4122d5ea8",
+      "peak": 1.419453740119934,
+      "rms": 0.38644087886388995,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.11209525000000001,
+          "rms": 0.3184792076991155,
+          "pcmSha256": "877ce18ac7083bf60953a747cb814347555060369035f32db5ff0df761dc8194"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.24660955,
+          "rms": 0.3994263978167316,
+          "pcmSha256": "e2aad0973434340e0af88b0f3a54e552c51c124ae1b93beb6167ddc1e36f7d97"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.241905,
+          "rms": 0.38644626551161215,
+          "pcmSha256": "20ad2fb11b3fd128066410568395df3a5118035a867f73a8292751e9cf66e45a"
+        }
+      ],
+      "originalCacheFilename": "763aa97dbd532d96a8982863048ba8122c6e66c0e8aecee66e1d0f6c19980589.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/warlock/fatal_bonds_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "warlock_fatal_bonds",
+        "event": "Hero_Warlock.FatalBonds",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_warlock.vsndevts",
+        "audioPath": "sounds/weapons/hero/warlock/fatal_bonds_cast.wav",
+        "duration": 2.517007
+      },
+      "bytes": 444044,
+      "sha256": "8a38fe713b5ffbaa81e3589a172d314a7173dde42d545613aeca84d5ffe6eae2",
+      "decodedDuration": 2.517,
+      "pcmSha256": "a8b6920e8b0c18098c062567de34894de3aaaaad71f8848e6622170c69112ab5",
+      "peak": 1.3831483125686646,
+      "rms": 0.20330043052256358,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.3382471616910591,
+          "pcmSha256": "7de705e109f4cf036c0cf6d4a5f282a53281d4bf25b56a59418e45cfcafe01d0"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.4440474019923719,
+          "pcmSha256": "1e6c457e8de2e16f4cb0fae5067a851e93cd1725dbdd4bf3d4b4d4c23cdf19c3"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.517007,
+          "rms": 0.20330043052256358,
+          "pcmSha256": "a8b6920e8b0c18098c062567de34894de3aaaaad71f8848e6622170c69112ab5"
+        }
+      ],
+      "originalCacheFilename": "cd86aa3b40259b00bcbbb64937000c12b92e0ce54eeed591432545868c272bf9.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/kez/echo_katana_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "kez_echo_slash",
+        "event": "Hero_Kez.EchoSlash.Katana.Start",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_kez.vsndevts",
+        "audioPath": "sounds/weapons/hero/kez/echo_katana_cast.wav",
+        "duration": 1.50449
+      },
+      "bytes": 265436,
+      "sha256": "284555a6f0f3ddbf33575f46533779f321ef83b0a52eb2011503e42f9abb62bd",
+      "decodedDuration": 1.5045,
+      "pcmSha256": "17dd1e25d7f733d8b0cb8ba8c0587c364be07572dfd70764c38c2b57b68e7f9c",
+      "peak": 0.9912376999855042,
+      "rms": 0.1297494660197914,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.07522450000000001,
+          "rms": 0.05938699615670381,
+          "pcmSha256": "21563dc6e4ed51fdfefd50af5e195191f2015da545e319dcae2d444ba5a92fc3"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.1654939,
+          "rms": 0.16318772003029333,
+          "pcmSha256": "5fb4e99df2e4453aa28fee50dcd6b933e0c6756c3a39070010e6742ab0cf057f"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.50449,
+          "rms": 0.1297521611325508,
+          "pcmSha256": "0f1e1aa790df3f19e96b3eaa0fad5d36975bd2ea2ff55e9ed6bb624977cf6b93"
+        }
+      ],
+      "originalCacheFilename": "103f25505e48fc80f15896f0a70e8e666f3e5d4298c3ebc76b7e12699c66d8af.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_kez.vsndevts",
+      "type": "event",
+      "bytes": 14660,
+      "sha256": "4dc42ce1b1e326bcdd717fc5a4c6210e46cf7e09a9b7577016a5b58e574f3cb6",
+      "localSha256": "98f9404a0f24b9d26c4fad5379d8a19109189c817fccc82f1e9faaf5361c4803",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "961f7af712adc9fbb5868e86a53f836692a2e72df08defa8b45d984b2ec44e9c.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/grimstroke/dark_artistry_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "grimstroke_dark_artistry",
+        "event": "Hero_Grimstroke.DarkArtistry.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_grimstroke.vsndevts",
+        "audioPath": "sounds/weapons/hero/grimstroke/dark_artistry_cast.wav",
+        "duration": 4.628572
+      },
+      "bytes": 816524,
+      "sha256": "0007959d20b0a9d7c8a866f9db55776f30075dae1560141e90858931ceb0628f",
+      "decodedDuration": 4.6285625,
+      "pcmSha256": "60af87d44385171cca42487d2a49244b06198de97c9521270ccd6594fce396a7",
+      "peak": 1.0537242889404297,
+      "rms": 0.13636293994396606,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.33452086202803105,
+          "pcmSha256": "e6024c68fa9b8591a4920a842bcd6243b13543baef9ac2072c221dc9e6f119c8"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.28599016134349625,
+          "pcmSha256": "44dce25dee8749c220a6559ab38e97077865c3db18a06947f6d8a3c8a5372a45"
+        },
+        {
+          "stage": 3,
+          "seconds": 4.628572,
+          "rms": 0.13636293994396606,
+          "pcmSha256": "60af87d44385171cca42487d2a49244b06198de97c9521270ccd6594fce396a7"
+        }
+      ],
+      "originalCacheFilename": "fa1a75dc4958b481e5f8815fa143afb80be8faeea9a35489144d3fd8c3b2c017.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_shadow_demon.vsndevts",
+      "type": "event",
+      "bytes": 7765,
+      "sha256": "e05a3fd7298e863a18318ed86b39f51b51d243f5f6a94971fecf99764a834edf",
+      "localSha256": "172936065942c4bf0a815d6ea9f7159aae547bbf93f00a746e6342a214546f29",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "620904803eeb9189d92930c0cb6b7b6f5e84f4e82b025e7cec7e75c6ec0c4442.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shadow_demon/demonic_purge_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "shadow_demon_demonic_purge",
+        "event": "Hero_ShadowDemon.DemonicPurge.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_shadow_demon.vsndevts",
+        "audioPath": "sounds/weapons/hero/shadow_demon/demonic_purge_cast.wav",
+        "duration": 2.498685
+      },
+      "bytes": 440812,
+      "sha256": "531b5b034d79bb0392d3be4ee918097ba4ee7705884230e7ce82ab4cde6aa9fc",
+      "decodedDuration": 2.4986875,
+      "pcmSha256": "8b6e73075eff0627752218f69c8d40556628fdeab5bb42774fbb6175c57c6ed8",
+      "peak": 1.3373513221740723,
+      "rms": 0.28504507932880746,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.21562191147107773,
+          "pcmSha256": "b159071887c263c4a179592b2a90d425f632cdd9d152d1875e628ab62cc609ec"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.3476009307520924,
+          "pcmSha256": "11ae488aa3147575acc5aa80ac1c6288c37b57082ed01ffdbdb26cf429e48f00"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.498685,
+          "rms": 0.2850486416961609,
+          "pcmSha256": "c850093b16023be2353dbc5fdb77ce85873290058c0d114b27dbfddd2df50bad"
+        }
+      ],
+      "originalCacheFilename": "67d3b45511227e0ba27a1e55cec7be2f801d56cbf83f913ad47512305268fb82.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_lich.vsndevts",
+      "type": "event",
+      "bytes": 9939,
+      "sha256": "42e64726de4cf6ac4baa23558b7fb0518768afcae992f970dc85928b8363601f",
+      "localSha256": "8d52899ca2bc4ec1a8ce6ddee677b218862881b0525e7e60ff4dd1e982ea2f63",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "65d5a0366a55b05c5b3cb6ca8f486251376fb32acd6c18f1666018e59a3e9849.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lich/chain_frost_impact_hero01.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "lich_chain_frost",
+        "event": "Hero_Lich.ChainFrostImpact.Hero",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_lich.vsndevts",
+        "audioPath": "sounds/weapons/hero/lich/chain_frost_impact_hero01.wav",
+        "duration": 1.705215
+      },
+      "bytes": 300844,
+      "sha256": "4a3bc4457bed938ec60cd2e6f3151d1f3992960a7517cc02022b977a23e4e0ad",
+      "decodedDuration": 1.70525,
+      "pcmSha256": "ed818f937dce3311ab29ffcf81766c2174d8ae3f5e391cf311f9d73156b54924",
+      "peak": 1.4628074169158936,
+      "rms": 0.2586843208163947,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.08526075,
+          "rms": 0.6134076839858784,
+          "pcmSha256": "507bb6a10faee60c1a0182aa54f8aaa19b2805b68df90bc698883ae59e6ab561"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.18757364999999998,
+          "rms": 0.5678310477794412,
+          "pcmSha256": "23061d950dcdc09c1c26ce0334d211ad5a134fa5f3664c896ad5eed51dc793aa"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.705215,
+          "rms": 0.25868906153315013,
+          "pcmSha256": "a13115139f37979c05ef467bf48d9524a58924110a6b8268aee27188fc5527e0"
+        }
+      ],
+      "originalCacheFilename": "e74dc29a70e171515bf4f413c332cc96f517ae3c28793b3e766d503c81238299.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_skywrath_mage.vsndevts",
+      "type": "event",
+      "bytes": 7294,
+      "sha256": "10a40f8dfea02c41e6bfe2bce0924cbbb0fc726ac3c2c5ebd1c43aba2d691796",
+      "localSha256": "7259f01cd2b46451d776ab3a65863742b4dddf03393a05b79ddf55195376c531",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "3de15e66e91dce44b773df8bb907176465baf5ef75cc91a55a82dd005c0b1eb9.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shadow_demon/disruption.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "shadow_demon_disruption",
+        "event": "Hero_ShadowDemon.Disruption",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_shadow_demon.vsndevts",
+        "audioPath": "sounds/weapons/hero/shadow_demon/disruption.wav",
+        "duration": 3.69932
+      },
+      "bytes": 652604,
+      "sha256": "66fe906f726698b714aec0f4f6238e01cbc213730107a52e7b59e6a1ceccd4e0",
+      "decodedDuration": 3.6993125,
+      "pcmSha256": "2b7167b132e639d8b29d1f0e9f763e4e031bec037f8c0ce89233788e84647928",
+      "peak": 1.1312189102172852,
+      "rms": 0.24642815992596562,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.14433639350390354,
+          "pcmSha256": "c672704ccaf71ef05accbe4d8f857fb314ce169dd333670019969d6bbfefba24"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.16414320084862555,
+          "pcmSha256": "2fdf36c137a39443846eac35abbbc80204553383d1fecb13cdc4bca994da1bf5"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.69932,
+          "rms": 0.24642815992596562,
+          "pcmSha256": "2b7167b132e639d8b29d1f0e9f763e4e031bec037f8c0ce89233788e84647928"
+        }
+      ],
+      "originalCacheFilename": "53f4709db02886fba15104e3d17af61db480b67f2aab1a3a2fe1fdec34d5f175.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skywrath/mystic_flare_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "skywrath_mage_mystic_flare",
+        "event": "Hero_SkywrathMage.MysticFlare.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_skywrath_mage.vsndevts",
+        "audioPath": "sounds/weapons/hero/skywrath/mystic_flare_cast.wav",
+        "duration": 2.063469
+      },
+      "bytes": 364040,
+      "sha256": "d40444703c690c9d66e9d8137bf8ba6067a12ce0ab62efba2a61878b63a7a259",
+      "decodedDuration": 2.0635,
+      "pcmSha256": "61eb6f27b8da56127414461a36a69b2e55e0fecbac51f0f2544716feb70c871c",
+      "peak": 1.2599265575408936,
+      "rms": 0.2429095098374235,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.10317345,
+          "rms": 0.21530774821713375,
+          "pcmSha256": "66d31850d1100d6f109dc563aaadbaa45b9d6970350484773d1f8254dfddf4c8"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.22698159,
+          "rms": 0.40457476200786413,
+          "pcmSha256": "292a5426b5258b59b7d7a700170179e92021b8977320092dc60bfbfb8a623e1d"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.063469,
+          "rms": 0.24291318858433178,
+          "pcmSha256": "7f9e8d5527a3ed5eb673a4ffc6c6591ddf471bc2e5394cc200cf50dde990e84a"
+        }
+      ],
+      "originalCacheFilename": "707930deb86c981799a992e344bc2b4b285f84b7d301ca204d88e7fa27ef5cd7.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/skywrath/concussive_shot_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "skywrath_mage_concussive_shot",
+        "event": "Hero_SkywrathMage.ConcussiveShot.Cast",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_skywrath_mage.vsndevts",
+        "audioPath": "sounds/weapons/hero/skywrath/concussive_shot_cast.wav",
+        "duration": 2.249864
+      },
+      "bytes": 396920,
+      "sha256": "b082f4710590aaa3426814df575c4f45b1e449c701d972e3c3998b4d9350995a",
+      "decodedDuration": 2.249875,
+      "pcmSha256": "6b6fc0df1c2827fbed0dbb90ec21cbad16e0b7a4a50d8023093f4d6da62a1c40",
+      "peak": 1.2981541156768799,
+      "rms": 0.31558516926179286,
+      "leadingSilenceMs": 14.5625,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.11249320000000002,
+          "rms": 0.25516113447579114,
+          "pcmSha256": "b4807efb3b28011703d62769a07addea31aa953700aedd860f3be05b8816b479"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.24748504000000002,
+          "rms": 0.27959428095842775,
+          "pcmSha256": "f365cfd951a07ea86cac8bcefc5e85e63b6a2fc48d8576c0bc489098a90eb79d"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.249864,
+          "rms": 0.3155895526944727,
+          "pcmSha256": "feb5aff0033a6dc853635040e0a137e5f70be62a323cf63ce41f2ddbaaa655dd"
+        }
+      ],
+      "originalCacheFilename": "26677d105d83f15c788c0ccf8d18b40730234926aabf78ca2befbfd36c1988bc.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts",
+      "type": "event",
+      "bytes": 65667,
+      "sha256": "afe08be6e1421fa313d5d0b244e2da863a39e3f6c65d8e7d293703e3693065d9",
+      "localSha256": "003a53fc7f6c5e29625a9278706d77d1590d7f2dee4ede60302d88d5a6a35214",
+      "exactLocalMatch": false,
+      "originalCacheFilename": "1dade7ea5a822e6665f22b04d91250422f0749a7bcfa09cb2b8f66658d246794.txt"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lich/frost_nova.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "lich_frost_nova",
+        "event": "Ability.FrostNova",
+        "eventFile": "soundevents/game_sounds_heroes/game_sounds_lich.vsndevts",
+        "audioPath": "sounds/weapons/hero/lich/frost_nova.wav",
+        "duration": 4.005986
+      },
+      "bytes": 706700,
+      "sha256": "a3c233aebc41dd334a002916b5514f84266af684b0cef0b5dd112342e1c360d5",
+      "decodedDuration": 4.006,
+      "pcmSha256": "578483da50b8ea9c03476dcf1a6efc4983f32f3d0cdc8a07bdf87911ebd49032",
+      "peak": 1.3579533100128174,
+      "rms": 0.22979766827005707,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.5802372513591285,
+          "pcmSha256": "3096244f309065f6c7907e5b971c5c490638c16d7608e79606a6e0ddcfebe67e"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.5608415367894932,
+          "pcmSha256": "33ff4e9a7e0e9cc87ae99b322ec78467595b2f0ad2ca0bd4a00896498ddf4bb6"
+        },
+        {
+          "stage": 3,
+          "seconds": 4.005986,
+          "rms": 0.22979946089640826,
+          "pcmSha256": "31fe29b3a452e5358a2ad168c485bf0f84c26684b2d4ffbb2a13538772ac831e"
+        }
+      ],
+      "originalCacheFilename": "d4c930a3016202f7584c1988392c1a97ce8b82091bf8d8ccc1328dbdf77b4530.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/manta.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "manta",
+        "event": "DOTA_Item.Manta.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/manta.wav",
+        "duration": 2.457143
+      },
+      "bytes": 433484,
+      "sha256": "bbbb26d1e452908606ea148d2458cd3d92e5725039e3f66f40d4a720b2cf3cb6",
+      "decodedDuration": 2.457125,
+      "pcmSha256": "c4d50740823b855700cec02b94626ed7c6ed60816cf722f4577ceb3e628b7dd2",
+      "peak": 1.378111720085144,
+      "rms": 0.29786612449165223,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.6798915405809802,
+          "pcmSha256": "2bf76f1616fd2de6c392a93b872fc0d15c12e24e03b79cc1a5969910f7697caf"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.616127787835339,
+          "pcmSha256": "be893cf2aa53095b746a146e3bf582a5b0562913abb66c11302cba0d383d9b2b"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.457143,
+          "rms": 0.29786612449165223,
+          "pcmSha256": "c4d50740823b855700cec02b94626ed7c6ed60816cf722f4577ceb3e628b7dd2"
+        }
+      ],
+      "originalCacheFilename": "e5c0a23e1ceded88ef7a3b195a6edb66c74be68bf875671c8ebcea37d97f86a5.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/antimage/blink_out.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "blink",
+        "event": "DOTA_Item.BlinkDagger.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/weapons/hero/antimage/blink_out.wav",
+        "duration": 2.037143
+      },
+      "bytes": 359396,
+      "sha256": "ba6f923a870b3b4aed0519fdda114ea8170bd1f5865d8b84ea73df8bff0b59cf",
+      "decodedDuration": 2.037125,
+      "pcmSha256": "7cdad3225353832d6e47043eb49ce633c05c4a1f54ef81cf3463411067150e87",
+      "peak": 1.3406435251235962,
+      "rms": 0.20241073644535887,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.10185715000000001,
+          "rms": 0.5408784330758897,
+          "pcmSha256": "28f5534e33bde65981e05ec316531bc995e0624abedbe408935fa461074b05a4"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.22408572999999998,
+          "rms": 0.43420644551362664,
+          "pcmSha256": "b4b4fafe560c78111d65167ad89cdb755a238fff639f56dc300ee46551a2c75c"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.037143,
+          "rms": 0.20241073644535887,
+          "pcmSha256": "7cdad3225353832d6e47043eb49ce633c05c4a1f54ef81cf3463411067150e87"
+        }
+      ],
+      "originalCacheFilename": "ca30aef70b47f00efa790d7e1c5ebe68c871f7fa5049630bff3dcbbb9d10e67a.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/black_king_bar.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "black_king_bar",
+        "event": "DOTA_Item.BlackKingBar.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/black_king_bar.wav",
+        "duration": 3.884853
+      },
+      "bytes": 685332,
+      "sha256": "bd67f60c7147b3fcb226f7ed850de6b6c0022b9432542293a4306c696dd29270",
+      "decodedDuration": 3.884875,
+      "pcmSha256": "c0553e0771ce117e0ca7f951b0aea2b8a04244db88a0818e9e99011bbd6ffe90",
+      "peak": 1.4653191566467285,
+      "rms": 0.28743122401588955,
+      "leadingSilenceMs": 9,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.4714444045196501,
+          "pcmSha256": "6d5397eb81e7866a252ef000a0c86213bafec7a47a3fb8aef2bd7550b448c697"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.5290213395166714,
+          "pcmSha256": "296770431d9f6154162c747b55763f15d67f3a140d0174eb0d74526c00d32b66"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.884853,
+          "rms": 0.28743353614539374,
+          "pcmSha256": "333c28060ac084795ac9b9711a9b7a3797ac8b12b6a1b8c255b8cea7370f3433"
+        }
+      ],
+      "originalCacheFilename": "163d1d31ad7dfc71ac3227ae77ab296cfd6354351aac706e71f54127edc0c5f7.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/item_handofmidas.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "hand_of_midas",
+        "event": "DOTA_Item.Hand_Of_Midas",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/item_handofmidas.wav",
+        "duration": 1.999887
+      },
+      "bytes": 352824,
+      "sha256": "50d8d1b4aafe4c4882e6a96a154f35f0a8de433fe2578c07b2f0ab51797e7434",
+      "decodedDuration": 1.999875,
+      "pcmSha256": "9b035d4c304c116051b3b35c87afa8c330154c36e0d075dbda2f992383dc6381",
+      "peak": 0.8674250841140747,
+      "rms": 0.14646137876459775,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.09999435000000001,
+          "rms": 0.24751190175896054,
+          "pcmSha256": "72e2bcd79fedfc0124f9262aab933d389fcae20db26426b944f64a6a829b4e52"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.21998757,
+          "rms": 0.24693182921483836,
+          "pcmSha256": "fa997e98d96f3a9a82495883a6938f97aa6bd101210a9217d317e25ef081ef3f"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.999887,
+          "rms": 0.14646137876459775,
+          "pcmSha256": "9b035d4c304c116051b3b35c87afa8c330154c36e0d075dbda2f992383dc6381"
+        }
+      ],
+      "originalCacheFilename": "3b283e52641ede0836d77915843626a29da06434c83cc201afd4e779d8ee19ea.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/dagon.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "dagon",
+        "event": "DOTA_Item.Dagon.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/dagon.wav",
+        "duration": 1.344512
+      },
+      "bytes": 237216,
+      "sha256": "7e14d9efcaf8ec1511c36984bc100fe3a3929a723d3ca24b88785298c242e72a",
+      "decodedDuration": 1.3445,
+      "pcmSha256": "b584b9f248add42da013a07085e7d7835aec67e5ab9cada568d68aa60270edd2",
+      "peak": 1.402622938156128,
+      "rms": 0.4090536061242097,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.0672256,
+          "rms": 0.6610907058281728,
+          "pcmSha256": "a8b942a989aaa82b29f07966349f56722565133563447af3faa1d0237b4c35ab"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.14789632,
+          "rms": 0.6092023163748767,
+          "pcmSha256": "7e4ad55ed50796352d0cd565c9f096c56726787d751453669dd909db01dd27a7"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.344512,
+          "rms": 0.4090536061242097,
+          "pcmSha256": "b584b9f248add42da013a07085e7d7835aec67e5ab9cada568d68aa60270edd2"
+        }
+      ],
+      "originalCacheFilename": "96a5ae26373197831a3e5186021a186e30f6fc89b34c6e8abee12e4c38768844.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/force_staff.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "force_staff",
+        "event": "DOTA_Item.ForceStaff.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/force_staff.wav",
+        "duration": 1.102494
+      },
+      "bytes": 194524,
+      "sha256": "970de1b2c55aa6ac793dd151bd2381cbcdfee15e95a9dd6e67a1ac3c3eede5ea",
+      "decodedDuration": 1.1025,
+      "pcmSha256": "0253ed1dceba13d19bff1cdf153e814bc45b6fddd7c5f00a7d44f88a00e3c1cc",
+      "peak": 1.321350336074829,
+      "rms": 0.3518608173018166,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.055124700000000006,
+          "rms": 0.5318623502458865,
+          "pcmSha256": "ba00acf65059c6067631bb77a40cf12f541aad1f73840e9b0d87768660d2a3d4"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.12127434000000001,
+          "rms": 0.6454772713481494,
+          "pcmSha256": "8efe37070da92234bed21d1e091605e86219069d4d6e82845e68cf43925715a3"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.102494,
+          "rms": 0.351870791060087,
+          "pcmSha256": "2f740cbbc6d4b1d2c2dd2f70b88906358f91e8573db07bd60b61137bd8aef4b4"
+        }
+      ],
+      "originalCacheFilename": "1a9076ad409449db203abe0a8e8462a9b6a3707fa62ef40bcc1782bea857aebf.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_blade_mail.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "blade_mail",
+        "event": "DOTA_Item.BladeMail.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/dota_item_blade_mail.wav",
+        "duration": 0.844898
+      },
+      "bytes": 149084,
+      "sha256": "5b5149681e57e9dcc424c53d6d300324a752f38af35eb8bbcf35bfe66f4dada9",
+      "decodedDuration": 0.8449375,
+      "pcmSha256": "ee1f1d3d2c9dbb4543a39823d75b154737631f8d8385ee205fe8aedeccd00c2c",
+      "peak": 1.427724003791809,
+      "rms": 0.36772402679011,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.055,
+          "rms": 0.5744330639736761,
+          "pcmSha256": "8d1a06f833191d80dc43fa4b33cbbd26158906e8d3575a5c769f3d7199067f22"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.11,
+          "rms": 0.563917199398459,
+          "pcmSha256": "2cb8fb2f6987f38f226b70291e2d50bc6eaa203b8efda749a78714138823ab19"
+        },
+        {
+          "stage": 3,
+          "seconds": 0.844898,
+          "rms": 0.36773762778840885,
+          "pcmSha256": "f7a81deeed2da084e57c33520fd6f6f038d8d40a8df670427a0007b0c4b556f7"
+        }
+      ],
+      "originalCacheFilename": "864e6cf193a839bbc21ab35b99bfeec7d15a1fed7aae5eb3cf28ad5f3565ba1d.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/refresher.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "refresher",
+        "event": "DOTA_Item.Refresher.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/refresher.wav",
+        "duration": 2.902154
+      },
+      "bytes": 511984,
+      "sha256": "94631d2ebf6be351fa4f290d518f258c6f3570e205242021ea2c9b9bdeea1fde",
+      "decodedDuration": 2.9021875,
+      "pcmSha256": "45e2c612449ce8779a2f0e1845e96ed56334a039fdcc29c8f0339920f8ef8ef6",
+      "peak": 1.3692305088043213,
+      "rms": 0.34297060322846007,
+      "leadingSilenceMs": 17.75,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.5487219976971938,
+          "pcmSha256": "d15c0585bbe9e2f609fe70af5dc89f6b378f09d5040029e2e05cd8290a12044a"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.5523984536478311,
+          "pcmSha256": "08c27c52e7388e6011b597c65c83e724b80c1fb5aed0db01a76a7bf4753adc47"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.902154,
+          "rms": 0.3429742963063411,
+          "pcmSha256": "deb8807835ef1333327b79830719c8a5a515cc35911b5157267d2bcf5c3051b7"
+        }
+      ],
+      "originalCacheFilename": "f4f6b8c33ee4562a15c60e166cfe8f0427f6d56209f5530a00c195c24c0db407.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/lotus_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "lotus_orb",
+        "event": "Item.LotusOrb.Target",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/lotus_cast.wav",
+        "duration": 3.286576
+      },
+      "bytes": 579796,
+      "sha256": "84123cfc3f7e67076d4e18b176e5e0abbd16668d3fcb90d13ed143f30777b22d",
+      "decodedDuration": 3.2865625,
+      "pcmSha256": "475f92c379a19f090fa92214a459326d1eae40cdd01ccd85a2a238b8aad94df1",
+      "peak": 1.3222914934158325,
+      "rms": 0.23655958033166077,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.4005929288377792,
+          "pcmSha256": "2ea71bf9dcf4a83f31b66975c903f26a0af51630e00e54c17d3cd4d0bb39161e"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.4523460305960404,
+          "pcmSha256": "e08d0dbd3530b3988d12dcbee6ab39ed19b883b2e4894d1e0f054c71619776ef"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.286576,
+          "rms": 0.23655958033166077,
+          "pcmSha256": "475f92c379a19f090fa92214a459326d1eae40cdd01ccd85a2a238b8aad94df1"
+        }
+      ],
+      "originalCacheFilename": "dfeba8cc8d467955a2e95732ac0cdd8a81a9c27e9599738d76751c14e6854e6c.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/shivas_guard.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "shivas_guard",
+        "event": "DOTA_Item.ShivasGuard.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/shivas_guard.wav",
+        "duration": 3.735918
+      },
+      "bytes": 659060,
+      "sha256": "a9670b89cd879bf4409528ff35ad11a008d2dc386a933f9feb217b5d1bec10c9",
+      "decodedDuration": 3.7359375,
+      "pcmSha256": "32c64e66e192fa417bc9e8875002c71ea9af42066221a7992162e990c5461df7",
+      "peak": 1.3852653503417969,
+      "rms": 0.4290055028280599,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.39804424018997886,
+          "pcmSha256": "520fa4a636bd9f03327c0bd5121709342a62ff37ca30266cc0b9e1cb642c7d62"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.5639819893741015,
+          "pcmSha256": "32bd815f851cd95b5ebd3da7e5ca9bb66a92c1a3a48bd468158bd8f10b72c2ee"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.735918,
+          "rms": 0.4290090913758278,
+          "pcmSha256": "e9afb047b851dcc3e38992a58956b8f1aab065068321a13542fdc30730d2340b"
+        }
+      ],
+      "originalCacheFilename": "e66b3b009a2441382f81a375fa63c91b63e2e262d7bd376ca31a619c1e55c6e8.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/mek_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "mekansm",
+        "event": "DOTA_Item.Mekansm.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/mek_cast.wav",
+        "duration": 4.472381
+      },
+      "bytes": 394508,
+      "sha256": "7618bfd9d00d1db8bcf9010a1b5128780d6aaef4faa41b052e8608c6b2c8c534",
+      "decodedDuration": 4.4724375,
+      "pcmSha256": "98ca95f4096299e67d75e56ccdcea058ff06570802cf41771f10e96025beffff",
+      "peak": 1.4853253364562988,
+      "rms": 0.34118830492117885,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.167932941615632,
+          "pcmSha256": "17823f2a789d0192f6e6d47d203fea86f671d5e6e689cd87b8a3518afb9d3456"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.4701478103716155,
+          "pcmSha256": "3edfaf8527a01ff1c4d525bd54a79340cd29884e6c349868ef57686927ee7ddf"
+        },
+        {
+          "stage": 3,
+          "seconds": 4.472381,
+          "rms": 0.3411906889111795,
+          "pcmSha256": "20994bad88390399095f1d8fe08ced6b209ac8a59a2168fbb5ba07c7b91a2659"
+        }
+      ],
+      "originalCacheFilename": "8bd63ecaaabd998aa6070d10f0013b13e9b9aad5734fc704733cee6e59e05cf5.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/item_satanic.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "satanic",
+        "event": "DOTA_Item.Satanic.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/item_satanic.wav",
+        "duration": 3.308005
+      },
+      "bytes": 583576,
+      "sha256": "37c0f0fc3d9b39455c6a86032fa259770f387c63569df507ce844ac943ca0fe8",
+      "decodedDuration": 3.308,
+      "pcmSha256": "c178b3a133afd9d13db942ad12914ccdde059edea962909525dc14fe657aebb6",
+      "peak": 1.3969895839691162,
+      "rms": 0.3385211864855186,
+      "leadingSilenceMs": 0.0625,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.5218623027219733,
+          "pcmSha256": "2bca63f05a0b8546d5000c37057da731068243bee23b9735e7dc6211e2bea68a"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.5390277948701884,
+          "pcmSha256": "729e7f637751795206ad7e0710c14c2e4148b3aac7a6922490be4126e2625131"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.308005,
+          "rms": 0.3385211864855186,
+          "pcmSha256": "c178b3a133afd9d13db942ad12914ccdde059edea962909525dc14fe657aebb6"
+        }
+      ],
+      "originalCacheFilename": "7b7d6103701111c18f6766879282aefd7e7c01cede052fdd7cbeb69351c18c18.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/orchid.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "orchid",
+        "event": "DOTA_Item.Orchid.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/orchid.wav",
+        "duration": 1.996463
+      },
+      "bytes": 352220,
+      "sha256": "75ad97baaa8ae345c7c82c244d5336d4558eb05aeaa1975d1e1c0af795cbebf1",
+      "decodedDuration": 1.9965,
+      "pcmSha256": "040229d6cf459f1f83d69d6ff9146a8549a8c2bfbc9339eee504d01015d099f7",
+      "peak": 1.3289906978607178,
+      "rms": 0.244329791842875,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.09982315000000001,
+          "rms": 0.3025339021844872,
+          "pcmSha256": "b97fc2fd3868a92bb67dbc6d7d5803976a026c6aaf9c3485474464325fcf5b76"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.21961093,
+          "rms": 0.3697048833660195,
+          "pcmSha256": "aebe8fa9a37847264d27be16f82bf4d28c37b037beae20ee04027ce970662901"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.996463,
+          "rms": 0.24433361627826994,
+          "pcmSha256": "8f85fe8e1ad588c7249407713ae371a81dca0d40c1e19a0bff3cc474348e4760"
+        }
+      ],
+      "originalCacheFilename": "9c6111e5d846943ce4db5e4533c81f0ba98972321f47d9b8abf8341118a09231.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/glimmer_cape.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "glimmer_cape",
+        "event": "Item.GlimmerCape.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/glimmer_cape.wav",
+        "duration": 3.802131
+      },
+      "bytes": 670740,
+      "sha256": "dade1577b9d0a702eb1b1a24394ca54e26f1a3149b5c4486961f00f7b83ab80a",
+      "decodedDuration": 3.802125,
+      "pcmSha256": "3aa92c8840921486b6fdbd04a43f4c0e69a0adedbc076935db2ac5a4f4c0ed1b",
+      "peak": 1.0947707891464233,
+      "rms": 0.1777892852970436,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.15575675383246756,
+          "pcmSha256": "bebf44bbf8cafcfcbf2487bf727de5b696c08859ed8816ee22fcd28b2359c8f8"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.24559258528347436,
+          "pcmSha256": "73870ec57747406eb3c99c81eeb95b6f672e1e4dfbff82a33d5be2a0b83a7dad"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.802131,
+          "rms": 0.1777892852970436,
+          "pcmSha256": "3aa92c8840921486b6fdbd04a43f4c0e69a0adedbc076935db2ac5a4f4c0ed1b"
+        }
+      ],
+      "originalCacheFilename": "c787c1946c1320cdb8d70ed2e6e395efc246d3385c3bfd90c00d0f042d4516f4.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/pipe.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "pipe",
+        "event": "DOTA_Item.Pipe.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/pipe.wav",
+        "duration": 2.737143
+      },
+      "bytes": 482876,
+      "sha256": "70df1cb2aa1b6d684c4945c9526bbdb41bd8b27f4a6e8d36a3ef7749fce5200d",
+      "decodedDuration": 2.737125,
+      "pcmSha256": "73027a2c2c3007b3995bfeb7860b9fb1107ec45502e11aac2fcc291bee5df47b",
+      "peak": 1.372725248336792,
+      "rms": 0.543974258232871,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.39324345456649024,
+          "pcmSha256": "e0ed190253b35a1169d8790645b4c396e2c1ab6165aef6e3b889e46210382270"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.44601805998449,
+          "pcmSha256": "fb49aafaa0e34e84660a4d5fcd598d229c459cba4c19e040c78d4c9635dcf87b"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.737143,
+          "rms": 0.543974258232871,
+          "pcmSha256": "73027a2c2c3007b3995bfeb7860b9fb1107ec45502e11aac2fcc291bee5df47b"
+        }
+      ],
+      "originalCacheFilename": "b77091ad78611e1c4353e8ce1c4ab4077b1dfda6f00ceb70dbac579df6c66766.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/bloodthorn.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "bloodthorn",
+        "event": "DOTA_Item.Bloodthorn.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/bloodthorn.wav",
+        "duration": 2.996463
+      },
+      "bytes": 528620,
+      "sha256": "d1909b97cab3e31664ab727d52909578a0748200c1ae617f8e6ab7bb049a2441",
+      "decodedDuration": 2.9965,
+      "pcmSha256": "bc144f2d7ac06fdb4468159e6cb87b56106e83f66bbe30233ed96730ab77e5db",
+      "peak": 1.3254454135894775,
+      "rms": 0.2549674904011455,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.33305398833787414,
+          "pcmSha256": "01758df78b56e6a37d34d19f71e4f5e585ca5b615a851d8e8c95747fb48f07f6"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.40264692272167535,
+          "pcmSha256": "c33174f2fbf6ce716e61020a46d3a76b4fd6be2bea9b6f0e54aba069b7a9d512"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.996463,
+          "rms": 0.2549701494554374,
+          "pcmSha256": "10eabe797a245e8bf78211684666337e9328962be57c423f8d32c4a6128ea5d0"
+        }
+      ],
+      "originalCacheFilename": "b88b505986881124ebd129211470f7617ec46b7b095cf259f98b8ce8fa954f8b.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_cyclone.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "cyclone",
+        "event": "DOTA_Item.Cyclone.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/dota_item_cyclone.wav",
+        "duration": 3.328299
+      },
+      "bytes": 587156,
+      "sha256": "bf53db30def256d0c723c9867564b550ff12db5573a2365d454249009bcd2d66",
+      "decodedDuration": 3.3283125,
+      "pcmSha256": "771d8b87ca836f2130fb3c962d0c5b867e202e77817e6661812920295a1903bc",
+      "peak": 1.3730348348617554,
+      "rms": 0.26232100466321157,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.19764078709506125,
+          "pcmSha256": "d4224d2f6ff23a81492804246ca88e0c00dd97ea3bddc277c754def4b5c407b4"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.2647871137485734,
+          "pcmSha256": "8157832d9da88dcf1700bce7a65a286351230f7d8f6c08ff370cec785458147c"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.328299,
+          "rms": 0.262323467667166,
+          "pcmSha256": "82eddbb653af6f26d75d6fa9c1f349dd21ee4dc53d4b2184f2c1c6fb54045901"
+        }
+      ],
+      "originalCacheFilename": "6f5e0f59b370b252fd6c95f029b0a14551f674e6a806b8d6502749726754652e.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/nullifier_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "nullifier",
+        "event": "DOTA_Item.Nullifier.Cast",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/nullifier_cast.wav",
+        "duration": 1.602721
+      },
+      "bytes": 282764,
+      "sha256": "b5032ff355bd3c3626633ae9ce57c15c2ff795d7137381153840ff436385ed3f",
+      "decodedDuration": 1.60275,
+      "pcmSha256": "436e0ff653042b9747b3d01084f295e112c53e06e70fac9ff22a815dd5e61c6e",
+      "peak": 1.3115079402923584,
+      "rms": 0.25825543923274813,
+      "leadingSilenceMs": 1.6875,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.08013605000000001,
+          "rms": 0.05366539008393444,
+          "pcmSha256": "7af735d8c8bd91f46175e973839af20727261ee7a9d5018dc5d209fb8562a568"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.17629931000000001,
+          "rms": 0.12313875764708394,
+          "pcmSha256": "70746ff12b6a3bc34f7a510c5d73595f76be14dd88c02429df3f40a4072a04fa"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.602721,
+          "rms": 0.25826047477698016,
+          "pcmSha256": "225c13291969dbb01fea042508323cddf14ba452c429d94f2e4c543ad514b41b"
+        }
+      ],
+      "originalCacheFilename": "49de5d68537f3cac1fa52c3e6d0d0c388dc079e2a6970c482d45c2ae319de1b0.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/soul_ring.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "soul_ring",
+        "event": "DOTA_Item.SoulRing.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/soul_ring.wav",
+        "duration": 3.582517
+      },
+      "bytes": 632000,
+      "sha256": "667ded62a22774cf940a2a59507b95dd22c08bb879859094d5288f68b3df6919",
+      "decodedDuration": 3.5825,
+      "pcmSha256": "97158fdeee8f70ac6ba0ebc70fc6b1992c0d4316b89585779156c9b873d861d5",
+      "peak": 1.3846439123153687,
+      "rms": 0.25048433288938005,
+      "leadingSilenceMs": 17.25,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.4132473882216362,
+          "pcmSha256": "33362acb883dad2ca0e912701a7e5f2714422a79d2d8ef09ec6bf9365bfbf654"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.3798314761130139,
+          "pcmSha256": "3f6345e31fb8b582b4aa82836ca4d1a92281d130208fc2afa963c5354514b22f"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.582517,
+          "rms": 0.25048433288938005,
+          "pcmSha256": "97158fdeee8f70ac6ba0ebc70fc6b1992c0d4316b89585779156c9b873d861d5"
+        }
+      ],
+      "originalCacheFilename": "169adbba430f91f0301053741febf73a2973d4c06a3d98922b4b9c4e1ddafd7c.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/dota_item_arcane_boots.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "arcane_boots",
+        "event": "DOTA_Item.ArcaneBoots.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/dota_item_arcane_boots.wav",
+        "duration": 1.836508
+      },
+      "bytes": 324004,
+      "sha256": "e4d37a558f351c79c50a5ecb3ba0d2ec3f1a06aa6673b8f7e0f396ab0cd3c4f8",
+      "decodedDuration": 1.8365,
+      "pcmSha256": "a2603706f8d8bc72234a4ed4bc169473bcf5fcedb1239b8881e391ccb8af4e8e",
+      "peak": 1.376121997833252,
+      "rms": 0.2789689584881547,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.0918254,
+          "rms": 0.23929215691270683,
+          "pcmSha256": "6be050e115dd47eaf5717cbf2ea713801054c0e3cbb2c3e1ea5b428d8b75efd8"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.20201588,
+          "rms": 0.4234395990460504,
+          "pcmSha256": "f04e900991b637583a885a2b71384e1c7f3cee1b407c6b13777fdeb31bd25a59"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.836508,
+          "rms": 0.2789689584881547,
+          "pcmSha256": "a2603706f8d8bc72234a4ed4bc169473bcf5fcedb1239b8881e391ccb8af4e8e"
+        }
+      ],
+      "originalCacheFilename": "7318a16942bdcbaf3af3aefd84c5a71dbb822fbb32bce4d68468dff7f3d4f5c9.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/item_diffusalblade.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "diffusal_blade",
+        "event": "DOTA_Item.DiffusalBlade.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/item_diffusalblade.wav",
+        "duration": 2.843515
+      },
+      "bytes": 501640,
+      "sha256": "cc58211af42281214b597d12e929706910fb02f1ba5f0f75a0a5f62565dc6045",
+      "decodedDuration": 2.8435,
+      "pcmSha256": "09acb9627797d2a90bd0a8c62f658d2e312b336c75b10b8f6f612c00d29b5bba",
+      "peak": 1.226792812347412,
+      "rms": 0.2862759089702113,
+      "leadingSilenceMs": 0.0625,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.30932737060634463,
+          "pcmSha256": "61d10408c7149fe18276142d82c9211f494a758671101588c9427d25a3e8e606"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.4664994500625355,
+          "pcmSha256": "031a2ad1aa5072de75d0b62dcc6e44b26188b4927dc73c1591512c1b70e4ddb2"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.843515,
+          "rms": 0.2862759089702113,
+          "pcmSha256": "09acb9627797d2a90bd0a8c62f658d2e312b336c75b10b8f6f612c00d29b5bba"
+        }
+      ],
+      "originalCacheFilename": "02252237bd4f06fd21a10bedc28e1220cba5a3b5898ff0b773e48c3d6a873de9.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/veil_of_discord.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "veil_of_discord",
+        "event": "DOTA_Item.VeilofDiscord.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/veil_of_discord.wav",
+        "duration": 2.008163
+      },
+      "bytes": 354284,
+      "sha256": "0da6555cfb2035386be15bd17ea490250063fac0cbd3bcfcdcdb8ed5895825d9",
+      "decodedDuration": 2.0081875,
+      "pcmSha256": "42f22ab73d00f5312378047d136ea064a6c20743adc0efa31863d6649e442c8a",
+      "peak": 1.3183943033218384,
+      "rms": 0.3057283578790128,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.10040815000000002,
+          "rms": 0.3719583556984867,
+          "pcmSha256": "e2da65cd64bad8fa8021d893706ae1ef1b7ebddb326721bf4f1bc906309a3cfd"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.22089793000000002,
+          "rms": 0.48086826126706556,
+          "pcmSha256": "f752b123ae83543e26ebdfe70f3e43d793bbd42dee4c237275353c5946f957c6"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.008163,
+          "rms": 0.30573311551952126,
+          "pcmSha256": "373314f38954e790f5e6f507c35e3b5bc0cf249cd24739d0d7367f84aa2e06fe"
+        }
+      ],
+      "originalCacheFilename": "7519343b0dc0911c82b14dc15ba290cf6011e4487271e57f50f0932f8a020c1e.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/heavens_halberd.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "heavens_halberd",
+        "event": "DOTA_Item.HeavensHalberd.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/heavens_halberd.wav",
+        "duration": 2.646394
+      },
+      "bytes": 466868,
+      "sha256": "c618b83c95cf56cbe71e2b270420732585be16af8f101a780377fb6aec81c4a4",
+      "decodedDuration": 2.646375,
+      "pcmSha256": "1947af0eb9646f5a0ff70ac19469ea9a41f40618553b868cd9059092d624c6c6",
+      "peak": 1.3965208530426025,
+      "rms": 0.2668439920366654,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.41252700097873746,
+          "pcmSha256": "622fa0dd4e321030f4280009309c3ab4c67f81ee45f0af95d0e77c3f741ee5e3"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.3957177027012785,
+          "pcmSha256": "b55858e102dda0179094b77d1cde72aa64679fca6ce3d761dbb2d51981df0617"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.646394,
+          "rms": 0.2668439920366654,
+          "pcmSha256": "1947af0eb9646f5a0ff70ac19469ea9a41f40618553b868cd9059092d624c6c6"
+        }
+      ],
+      "originalCacheFilename": "3b7b20381be2afb64adfe1e812aafb8daa7086a48cd65859b495a617a99c7c0e.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/abyssal_blade.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "abyssal_blade",
+        "event": "DOTA_Item.AbyssalBlade.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/abyssal_blade.wav",
+        "duration": 1.174059
+      },
+      "bytes": 207148,
+      "sha256": "efee2abdb83a2a338d8345c24a351808619494dcc08e29db03a4ef766fd2184a",
+      "decodedDuration": 1.1740625,
+      "pcmSha256": "efed09be6c8fc179fd648edefd1e2e00e5544789ba0c802acd7673a8bb1b6af5",
+      "peak": 1.1558023691177368,
+      "rms": 0.22886356716891745,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.058702950000000004,
+          "rms": 0.028782180112014232,
+          "pcmSha256": "7e5784dcf8ff725dc01c66e7408f0bb2bc610dc4be4a191d6a4db00be899e563"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.12914649,
+          "rms": 0.08716653956458156,
+          "pcmSha256": "27d3d3bc6695a446f7ee1563546b0426c4333d5339872e74b4e1e3a7af5b1796"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.174059,
+          "rms": 0.22886964831957823,
+          "pcmSha256": "504eb66de13ec5e794a345d670a5fa13d148a61d3db66e44f26b391683d49f5a"
+        }
+      ],
+      "originalCacheFilename": "fbb1b19f7f6670f4953a8b5123fedff43bb58311aa2cf971eec6e128d99f0094.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/bloodstone_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "bloodstone",
+        "event": "DOTA_Item.Bloodstone.Cast",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/bloodstone_cast.wav",
+        "duration": 2.220113
+      },
+      "bytes": 391672,
+      "sha256": "bccdc5ee27d2f3314599109091197b4eabb97a1ee74594578e1156c099150a23",
+      "decodedDuration": 2.220125,
+      "pcmSha256": "d77bd0fd00da7687f93f3047eceefa10a6abfdce8c676ead8638eaf5ac18b7e0",
+      "peak": 1.3187017440795898,
+      "rms": 0.23665357514283067,
+      "leadingSilenceMs": 0.4375,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.11100565000000001,
+          "rms": 0.3375119799334289,
+          "pcmSha256": "37aabe102f5480913886310a1e8eb983b9ecb627f065db95372539cda7a2fc03"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.24421243,
+          "rms": 0.3640434647067396,
+          "pcmSha256": "29f0d4318ff76f22444c4614e21f6b61e4752a17de49061e7f6ff9add21de19c"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.220113,
+          "rms": 0.23665690620534904,
+          "pcmSha256": "488966da6184986d25c1f6e9b255d339dceed70ffa056b5acf5333bc1f946ddc"
+        }
+      ],
+      "originalCacheFilename": "0b4a62b5880d9891ceb9fd1e802a209892a6e955a66d2fae9984ac6c2c681dfe.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/linkens_sphere.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "sphere",
+        "event": "DOTA_Item.LinkensSphere.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/linkens_sphere.wav",
+        "duration": 2.746939
+      },
+      "bytes": 484604,
+      "sha256": "a10f8c031d724351dd78a2d4c5463203fc9a561e7c9c07067a7d2d0cf9da63f1",
+      "decodedDuration": 2.7469375,
+      "pcmSha256": "dab824f92acdc76a2b72a2c7d8c48a53193c80d1de080d1b21690aeff359700b",
+      "peak": 1.42390775680542,
+      "rms": 0.17034860264913929,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.3246608598572195,
+          "pcmSha256": "a1479cf3de70420324a13d0ea3232fa665375108bb6f22ca7c7accb3cab3fd95"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.4010973053115996,
+          "pcmSha256": "3368fdbf948481c1c7dba20790e4c8c80c171bb05378088af33a6d1a8e71fb83"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.746939,
+          "rms": 0.17034860264913929,
+          "pcmSha256": "dab824f92acdc76a2b72a2c7d8c48a53193c80d1de080d1b21690aeff359700b"
+        }
+      ],
+      "originalCacheFilename": "e6b786f6ad5a4e1c1849e48ec45493e40005be73195c7cb7fd818c78eb5e5205.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/item_armlet_activate.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "armlet",
+        "event": "DOTA_Item.Armlet.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/item_armlet_activate.wav",
+        "duration": 1.277959
+      },
+      "bytes": 225476,
+      "sha256": "eb25f5c3af944d8f3341bdceb2c87d8d7ab5578ca0740895212bca58dfcfed80",
+      "decodedDuration": 1.278,
+      "pcmSha256": "8d7c09e4983b8b7a4508440604fc32af78d1fa16338ced190449916898b6678e",
+      "peak": 1.4287748336791992,
+      "rms": 0.3930500141419075,
+      "leadingSilenceMs": 0.1875,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.06389795000000001,
+          "rms": 0.36899587352413654,
+          "pcmSha256": "1997f3de7bd49317d6a246383478f1d60ddadfdbafa6b1b96eb2449c4534cb5b"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.14057549,
+          "rms": 0.6145602164193557,
+          "pcmSha256": "7650bfe21281bb52a18cb633a33273608450f0c808122b306c2972293835e22a"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.277959,
+          "rms": 0.39305962545917594,
+          "pcmSha256": "3d84c48d30bf0e5d205b945ed0357c305a2c41fe5a1da344136d835b524d54c3"
+        }
+      ],
+      "originalCacheFilename": "fa1c33f63c86f0ce18b131e0b72c286e97a03cd7d6629d52a46fb41bd13bdb21.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/rod_of_atos.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "rod_of_atos",
+        "event": "DOTA_Item.RodOfAtos.Cast",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/rod_of_atos.wav",
+        "duration": 2.973288
+      },
+      "bytes": 524532,
+      "sha256": "a6342944c2aa3580f8a36f7b2c231073b20536e398feaa97ab650f5671118ecf",
+      "decodedDuration": 2.9733125,
+      "pcmSha256": "bd5a64e8a2538755730eef043513bc00368298bd699ff2e78719dda9ad5f8eb1",
+      "peak": 1.3249194622039795,
+      "rms": 0.27551863119706693,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.3841037952534853,
+          "pcmSha256": "02cdc1555f1ed1e29e16084434933cb8e93c51912d659bb712fd5ade62504010"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.38566853719926036,
+          "pcmSha256": "f71c5ede86823b9bb63d9c4ae09a980306518f06f937f6f404db717959505c21"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.973288,
+          "rms": 0.2755215269564844,
+          "pcmSha256": "924fe7684b4a3d9f78e1038adfcafd2cf6a66fac366ef95efdfb2be17020b198"
+        }
+      ],
+      "originalCacheFilename": "706ee84a6c0fb27e5ed7ebad8406f2b7b82dc2b7e793ba83c6efb873197c28ab.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/gleipnir_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "gungir",
+        "event": "Item.Gleipnir.Cast",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/gleipnir_cast.wav",
+        "duration": 2.502604
+      },
+      "bytes": 480544,
+      "sha256": "9aa12166e12dce0f26c6cd2b79600991d285b69ba13db02ea58b4667d4d183f3",
+      "decodedDuration": 2.502625,
+      "pcmSha256": "85b9c11ae1d4e2ea2a804530aa60f8877138c2124e3a69938bd80a218edd85c9",
+      "peak": 1.4083192348480225,
+      "rms": 0.25797005870045253,
+      "leadingSilenceMs": 0.5625,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.2532664485228854,
+          "pcmSha256": "10db98fc99b43a09892afe34396be0ba45556951a9c094707b603494b1796739"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.33891105128011645,
+          "pcmSha256": "784eaa10aa9177c000bbaa1f5abbbe5fc6e29d30f09caa3a157dcb308a6c5326"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.502604,
+          "rms": 0.2579732800042169,
+          "pcmSha256": "45e5067fb60b8c0599d408842328e22c250c54f3ee850328a42c36f5f0a0d5ef"
+        }
+      ],
+      "originalCacheFilename": "c745ebc1adb12a40c204ebf70b60e63dd5224b80bd86a19d66d87672cf7db6fb.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/harpoon_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "harpoon",
+        "event": "Item.Harpoon.Cast",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/harpoon_cast.wav",
+        "duration": 1.312
+      },
+      "bytes": 231188,
+      "sha256": "c9983da26e7a9de7e44829c5f703213ec1a7aac0291866ddce36bc396c50bc78",
+      "decodedDuration": 1.310375,
+      "pcmSha256": "01c7c8b4e553cc63c97d707b3fb1cd2884c691493c50a6155fb59ec6e2e93aa6",
+      "peak": 1.0320024490356445,
+      "rms": 0.10185962207382063,
+      "leadingSilenceMs": 2.3125,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.0656,
+          "rms": 0.22227210911108358,
+          "pcmSha256": "5e12a41c38f70d669a4d3a4b14dfc35b6f9675963403fe57d2297078371620a6"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.14432,
+          "rms": 0.23132121957772206,
+          "pcmSha256": "c7a0f425205dcd0f2fdab3e1ce3211a6f48d151321bce247a44784ba375209d3"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.312,
+          "rms": 0.10185962207382063,
+          "pcmSha256": "01c7c8b4e553cc63c97d707b3fb1cd2884c691493c50a6155fb59ec6e2e93aa6"
+        }
+      ],
+      "originalCacheFilename": "11ea23ff17c0a51c1b43c93fec0ddf3b86e28876e4cca70b7743974a324cf871.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/misc/morph_in.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "sheepstick",
+        "event": "DOTA_Item.Sheepstick.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/misc/morph_in.wav",
+        "duration": 1.333265
+      },
+      "bytes": 235232,
+      "sha256": "003d3e539c5bc2c210e90daa04319b31831785dc30a1e720e62751474803d6e5",
+      "decodedDuration": 1.33325,
+      "pcmSha256": "3140070ddfe1fc38af51c61d36d75e9a1103a8f0c054c6dd5a95c4af491bd487",
+      "peak": 1.5561268329620361,
+      "rms": 0.3097950195282306,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.06666325,
+          "rms": 0.2625840548771346,
+          "pcmSha256": "23062a86b5eb3e47ba17639e77497b82c4eb29283ee5313170b1b281f00b7986"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.14665915,
+          "rms": 0.5456299226539512,
+          "pcmSha256": "4100d4661d09cb5bee93bca7d613bf9fd838d7a5e99fec7adff15b704983985d"
+        },
+        {
+          "stage": 3,
+          "seconds": 1.333265,
+          "rms": 0.3097950195282306,
+          "pcmSha256": "3140070ddfe1fc38af51c61d36d75e9a1103a8f0c054c6dd5a95c4af491bd487"
+        }
+      ],
+      "originalCacheFilename": "c753c928f93edaaf91f5584202fa1966d6192c9eb962b9aea75e8a3fe833466d.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/smoke_of_deceit.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "smoke_of_deceit",
+        "event": "DOTA_Item.SmokeOfDeceit.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/smoke_of_deceit.wav",
+        "duration": 2.933311
+      },
+      "bytes": 258762,
+      "sha256": "3f3e8a3ca7593a4ffc37b1ddd328e3d3e3b47ac49ab5e8a28e7613ebd09691b0",
+      "decodedDuration": 2.9333125,
+      "pcmSha256": "ba028466adcf2822e3ae4839c2fa35ad9da4543620448f1b3ab2cfcf8e755994",
+      "peak": 0.9942840337753296,
+      "rms": 0.18976608017,
+      "leadingSilenceMs": 0.25,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.11525242234015473,
+          "pcmSha256": "e0cc068a21e6bc18917a6b83572f8758faf982ffbf3259d772938c5cc1591e19"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.25140921134084987,
+          "pcmSha256": "9b1692f88b3aafd02184bfe8200fc033d3ff8230b6dfcb437c9376fa2a107ae0"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.933311,
+          "rms": 0.1897681018702207,
+          "pcmSha256": "7d690f6a419d3e6361e04e44544673beae292a3dae98ef71cb4d948a25650ab2"
+        }
+      ],
+      "originalCacheFilename": "682819e5d98974341448814175b6a84bf3556a914597590dfe3efe44fae6fca4.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/ethereal_blade_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "ethereal_blade",
+        "event": "DOTA_Item.EtherealBlade.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/ethereal_blade_cast.wav",
+        "duration": 2.635828
+      },
+      "bytes": 465004,
+      "sha256": "5882ab786d5d4f25dd09b0e154cca96a74ca7e5373b15f186cc2765902210ce7",
+      "decodedDuration": 2.6358125,
+      "pcmSha256": "f1668aa5012e761941f5841cc44d6e4faf243a3e5263c0d7a9177c27d2fb1a6a",
+      "peak": 1.2699298858642578,
+      "rms": 0.1306794919986533,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.3632746359051517,
+          "pcmSha256": "bf190567a1522bd4d95eaefdffa354726e5c203e71376cb4cadcb48dbd171b4d"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.29246152411923937,
+          "pcmSha256": "846f087f63b3855055a22da9e841a0981752138d31e57db3f2c3e500fd90d0ca"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.635828,
+          "rms": 0.1306794919986533,
+          "pcmSha256": "f1668aa5012e761941f5841cc44d6e4faf243a3e5263c0d7a9177c27d2fb1a6a"
+        }
+      ],
+      "originalCacheFilename": "e96e26ea791f5b09213e89995d3930e873deed08daab7457474512d784c4786f.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/mask_of_madness.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "mask_of_madness",
+        "event": "DOTA_Item.MaskOfMadness.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/mask_of_madness.wav",
+        "duration": 4.782381
+      },
+      "bytes": 843656,
+      "sha256": "c97570e7ac86df270be5f748f854055d4476ae27c5f590df4ddb8740c9f7adb2",
+      "decodedDuration": 4.782375,
+      "pcmSha256": "da324c3790f2d16629cbd2b127d05d83d4834adc3dcc7c8218ea5f75b46cbddf",
+      "peak": 1.3960093259811401,
+      "rms": 0.20698841184662747,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.4093576299204016,
+          "pcmSha256": "ff23e24a95dda70cde204b0f3e698333f993a12f957e3d0b2a2b7707402c14fc"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.45798379819305024,
+          "pcmSha256": "c6c12a376efbcef30c00808cce742e569ddb7f576b82518547a231b9cd6c4506"
+        },
+        {
+          "stage": 3,
+          "seconds": 4.782381,
+          "rms": 0.20698841184662747,
+          "pcmSha256": "da324c3790f2d16629cbd2b127d05d83d4834adc3dcc7c8218ea5f75b46cbddf"
+        }
+      ],
+      "originalCacheFilename": "ca2567f3838816ae180df96ded1eb3e9bd6f9277fc365999ddef31015e548cac.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/dust_of_appearance.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "dust",
+        "event": "DOTA_Item.DustOfAppearance.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/dust_of_appearance.wav",
+        "duration": 5.489433
+      },
+      "bytes": 968380,
+      "sha256": "8da59f3334b847be13af186d6c68af9dff79b25a58790e6b9ccec369b6821378",
+      "decodedDuration": 5.4894375,
+      "pcmSha256": "ae2973fd0ee8d2327531a6f26f34a16b7549b52cb2848121188079229db84e76",
+      "peak": 0.9556403160095215,
+      "rms": 0.10384030025442341,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.022322280223739336,
+          "pcmSha256": "c62f9ed4fdf48e622ed56262aa49b547e30da2f923b05479a999049d6f8f4823"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.04982426540837566,
+          "pcmSha256": "96b5eeeee8e085169bd8618ca119e3ff4c92f273912b03333284ab77a09d5709"
+        },
+        {
+          "stage": 3,
+          "seconds": 5.489433,
+          "rms": 0.10384089139251897,
+          "pcmSha256": "e235b08a15b81c5862dbae775150c87b44dafb4af5262fbb46e72989cd51e1f5"
+        }
+      ],
+      "originalCacheFilename": "790b2bcd9321722e6ee771cf38acbe9cf6b8adb8286bafefbc404afb8ae71229.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/phase_boots_activate.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "phase_boots",
+        "event": "DOTA_Item.PhaseBoots.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/phase_boots_activate.wav",
+        "duration": 0.990522
+      },
+      "bytes": 174772,
+      "sha256": "bb3ccbc1fb0411231b9490cb5409781798e29b22646b125af88c5c98e1cf2522",
+      "decodedDuration": 0.9905625,
+      "pcmSha256": "adfdf9d8f2be26bfb4868efe9ceb22eda4b8637f9887ebd3fd37aaf3f4e90958",
+      "peak": 1.0110520124435425,
+      "rms": 0.21852568633486177,
+      "leadingSilenceMs": 0.25,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.055,
+          "rms": 0.03433323914837399,
+          "pcmSha256": "41b861eefcc86b45e9c144c2c3905cfd7de2267ac85e45155480242774282bcb"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.11,
+          "rms": 0.06324028567950225,
+          "pcmSha256": "a0a90f008a88bd456236eaeed20f64e0baf9213f2a207cc567689b4115e49622"
+        },
+        {
+          "stage": 3,
+          "seconds": 0.990522,
+          "rms": 0.21853258024772412,
+          "pcmSha256": "e449dc44943ae5f28024fb5344779e56e2ddf4c054475592ef655c62e847acdf"
+        }
+      ],
+      "originalCacheFilename": "354513848a8c0b6bf1ca2bd22e62b37f88b25e6fc645f6de50a39728588b8c0b.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/item_ghost_sceptre.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "ghost",
+        "event": "DOTA_Item.GhostScepter.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/item_ghost_sceptre.wav",
+        "duration": 3.318685
+      },
+      "bytes": 585460,
+      "sha256": "57bfdddbea6203b8ba68b7a78da12b2041351a19b87874f804d4ac4c20c79f2b",
+      "decodedDuration": 3.3186875,
+      "pcmSha256": "c06177fdbf4e7101a953dffb3a7f5201b495c95d0ec2235597a953cb5a89d492",
+      "peak": 1.3070731163024902,
+      "rms": 0.2537808763658913,
+      "leadingSilenceMs": 1.5,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.33541638021938464,
+          "pcmSha256": "6a9c8af4577629b41bce7217c814a078e304e670c9b5740dacc4ae1d86ab30b9"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.3517301747855662,
+          "pcmSha256": "ef27c7c07b912ad68f7936390f2b0037331e1724c10d03d72194c8ad0786b8d5"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.318685,
+          "rms": 0.2537832660950854,
+          "pcmSha256": "11c10909b64be6f3f35092709afdb6fb012b21b3255fb0c4fd12088252d4d7be"
+        }
+      ],
+      "originalCacheFilename": "cf902a833e032b6537584d943450e6601830223950c193df0f9f89ebfd1908b6.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/urn_of_shadows.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "urn_of_shadows",
+        "event": "DOTA_Item.UrnOfShadows.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/urn_of_shadows.wav",
+        "duration": 2.001429
+      },
+      "bytes": 353096,
+      "sha256": "4235af43eef6c181a23582a26e5c0ed53756e50f834a1270bdfec3997cdc2141",
+      "decodedDuration": 2.0014375,
+      "pcmSha256": "6d9e5758412a338ce289e6ff6d810c1eaed619ad61ee91e8ca409aac6f903267",
+      "peak": 1.4061472415924072,
+      "rms": 0.31375028177592706,
+      "leadingSilenceMs": 13.875,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.10007145,
+          "rms": 0.3704184504592986,
+          "pcmSha256": "d7f3ef48a20bd357799af8fd76238d16c6c261717889a78ce6f5c4ac32c72385"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.22015719,
+          "rms": 0.39470096934460214,
+          "pcmSha256": "561366b7a51bfabbeca97942053376e5f79cd17cb3e02576e46a77920e51010a"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.001429,
+          "rms": 0.31375518071778463,
+          "pcmSha256": "23899b73e0191deb8524f34c0636f1c12b9714daf40eff71afff17dbf489c911"
+        }
+      ],
+      "originalCacheFilename": "35940c58430f25cf30854ccce4f887b6bc9de21c26dbed4e0ae536b80e291b67.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/guardian_greaves.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "guardian_greaves",
+        "event": "Item.GuardianGreaves.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/guardian_greaves.wav",
+        "duration": 4.484603
+      },
+      "bytes": 791128,
+      "sha256": "758f46bd979f7c5ce53d601ef8e4ddbbfe151a9fdc7b27ecc0520cabef4121ba",
+      "decodedDuration": 4.484625,
+      "pcmSha256": "67861f7ed9c4556dca24dccf48d5379eff7f6fcca5188fce092edaab1629d789",
+      "peak": 1.3506765365600586,
+      "rms": 0.14178344486803918,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.2916293999279666,
+          "pcmSha256": "8e35850351694f296867ed7417a3d951b6a7fe4339d4881dc8cc3b26b1cc899e"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.3356693028590353,
+          "pcmSha256": "a951494e64576284ae861082bfe7849c15fb90245b8a519b799c083c70345765"
+        },
+        {
+          "stage": 3,
+          "seconds": 4.484603,
+          "rms": 0.141784432860659,
+          "pcmSha256": "1cb3fb6d0bc96cc7a89cb663ded9583be47b87f61a867a3f2b7155a6a8235ac4"
+        }
+      ],
+      "originalCacheFilename": "d594eebad9e4dbaa77aac556b91f11a831e527238377945803c02db8913f4864.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/silver_edge_target.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "silver_edge",
+        "event": "DOTA_Item.SilverEdge.Target",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/silver_edge_target.wav",
+        "duration": 3.666939
+      },
+      "bytes": 646892,
+      "sha256": "e4fae1cefe51dbd139d8b7b6ed90d36ba5367d6ac361764a6322fb7f4ca7e761",
+      "decodedDuration": 3.6669375,
+      "pcmSha256": "e42940956fa56787ad87a5249279f5199388fbf3cc93fa606dcd01af3fe76e27",
+      "peak": 1.3611537218093872,
+      "rms": 0.19060269805061317,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.3148131244758235,
+          "pcmSha256": "8b4749fb4b1618ed59f5967bb983b91008d30ab2d4cc476722c9381935267b62"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.3474035555664587,
+          "pcmSha256": "f94e75f28f6a6dd1da06a5334953ef2b06474dc99f18b6c4eb8ac096d1716cdc"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.666939,
+          "rms": 0.19060269805061317,
+          "pcmSha256": "e42940956fa56787ad87a5249279f5199388fbf3cc93fa606dcd01af3fe76e27"
+        }
+      ],
+      "originalCacheFilename": "d42340b04b1203dbb01df34f6f45a7ad7e51f43305ea0fe342de5fc151232283.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/spirit_vessel_cast.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "spirit_vessel",
+        "event": "DOTA_Item.SpiritVessel.Cast",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/spirit_vessel_cast.wav",
+        "duration": 3.126531
+      },
+      "bytes": 551564,
+      "sha256": "b07045a3bc4bbaef0d13d79121b1a870a0746bcda2d9e1626f54bdb0977b8ec0",
+      "decodedDuration": 3.1265625,
+      "pcmSha256": "5bda857b353809a8a02ff00ec824ea88f62e44525c3bee873f39a971c4e47110",
+      "peak": 1.320770263671875,
+      "rms": 0.2633283639661749,
+      "leadingSilenceMs": 8.4375,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.08378702160912155,
+          "pcmSha256": "846164ba205a4ab2c7879e5ae987c2584fceab0017bdfb22ec35bfbb770ac579"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.14375175233991594,
+          "pcmSha256": "2f4a5629ffb5fcbade69c656657fe1072e5361c6c0622bbfc0e7e78236a58ab3"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.126531,
+          "rms": 0.2633309959732912,
+          "pcmSha256": "224fdcba08c7d20884134f84a4f6387f50db7fe1d39e1a009213bc3a9fe7a558"
+        }
+      ],
+      "originalCacheFilename": "fb3860c6b5c6c808933313ee7340220d20b6f6f9ee54cb1fb77a94b955f5dbbf.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/item_mjoll_on.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "mjollnir",
+        "event": "DOTA_Item.Mjollnir.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/item_mjoll_on.wav",
+        "duration": 4.443583
+      },
+      "bytes": 783892,
+      "sha256": "11fc34bcbf9a38e8c062fc98c0b7336092b262db6092f5f329f1f13c92781b02",
+      "decodedDuration": 4.4435625,
+      "pcmSha256": "d0f3f59c84ffd48035fd6ee669c023175adf7e8bbcadbc9a1ce44d142b5ded71",
+      "peak": 1.6493761539459229,
+      "rms": 0.3069180227878194,
+      "leadingSilenceMs": 2.3125,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.41200057354723435,
+          "pcmSha256": "0fa899c800c89ffdbe8a2e5c210e0154e4bd56aa97fc77f723b8cbd79f4ab255"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.6781510062596292,
+          "pcmSha256": "fa610e74438beb14ddcf9a17f71c2032c56ea15827b373eb281d9e75a19ead6d"
+        },
+        {
+          "stage": 3,
+          "seconds": 4.443583,
+          "rms": 0.3069180227878194,
+          "pcmSha256": "d0f3f59c84ffd48035fd6ee669c023175adf7e8bbcadbc9a1ce44d142b5ded71"
+        }
+      ],
+      "originalCacheFilename": "e09ae81e6b96dcb47438928cbe7e5796943163cadfc95f465b8d6f755acde50d.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/star_emblem_ally.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "solar_crest",
+        "event": "Item.StarEmblem.Friendly",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/star_emblem_ally.wav",
+        "duration": 3.126803
+      },
+      "bytes": 551612,
+      "sha256": "9214b4b0bb97b387c2b8988af3725c5ec4d9fd50e7b0ff660b00e0408d1e9faf",
+      "decodedDuration": 3.1268125,
+      "pcmSha256": "c44f754bc70e2d4a1ed2f0da6062e155b9c3e8eab3ad785d0bd59c250f876673",
+      "peak": 1.3482733964920044,
+      "rms": 0.2539831582614801,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.5389150361097448,
+          "pcmSha256": "9ed99ff088df43d826517fcf3972c9503050cb22d1f4acc14b698ee078e33b27"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.5069958561360337,
+          "pcmSha256": "c4d6ceaa886170d399565188e9c473f9a03b355d62b733118c3d5c84230bc44e"
+        },
+        {
+          "stage": 3,
+          "seconds": 3.126803,
+          "rms": 0.25398569664523823,
+          "pcmSha256": "6bff29fae08269878c4ce58b23b36503443e8c240648155f517b36e653d367a4"
+        }
+      ],
+      "originalCacheFilename": "4b1151298285e61f04aee88cdf6a97d095c50af68e73d464e86b99d22e32f985.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/meteor_fall.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "meteor_hammer",
+        "event": "DOTA_Item.MeteorHammer.Cast",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/meteor_fall.wav",
+        "duration": 2.005646
+      },
+      "bytes": 176942,
+      "sha256": "0584f963ba8264f697b0ea9e39aaafa4d34c6c2a55ddfc806ccb53c4652ba31c",
+      "decodedDuration": 2.0056875,
+      "pcmSha256": "2eea38d720e4412d94617660eedc2065a844676b7c31e2b1b4aed1caf7254205",
+      "peak": 1.0015928745269775,
+      "rms": 0.18888750307389104,
+      "leadingSilenceMs": 0.375,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.1002823,
+          "rms": 0.03102988177765648,
+          "pcmSha256": "7c40448e079a0c84c067c99ca8b0fc5537c0c7e0b7987a686d08a729ab8eccff"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.22062106,
+          "rms": 0.0789381339604537,
+          "pcmSha256": "c8d360d9afb769ac817dd2a0986a0763c9bd87cae10d86b7220a776feecc61ef"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.005646,
+          "rms": 0.18889044612191516,
+          "pcmSha256": "19c9f60e22f3e6be17de875c5d94b40983a15993509f7e97407a1cb2e37ee859"
+        }
+      ],
+      "originalCacheFilename": "2dcca3f054f8df917e5b8d24ac9021d9ca1a4d09a86279d0d8a55804b136aeb3.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/moon_shard.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "moon_shard",
+        "event": "Item.MoonShard.Consume",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/moon_shard.wav",
+        "duration": 2.546962
+      },
+      "bytes": 449328,
+      "sha256": "aec951925c2011243aec57f7c22051885a1b05693ecde86e0e9e0d2a6a76e0be",
+      "decodedDuration": 2.547,
+      "pcmSha256": "4fb473cb71b55be92c1acf2c6ce7736e7e7956e07135790757de6acb7113e860",
+      "peak": 1.1172982454299927,
+      "rms": 0.1589920847106603,
+      "leadingSilenceMs": 7.125,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.06608424255610451,
+          "pcmSha256": "1abdaea116833b97afc03b896303e19296aee943ad2eee9e47df0ce47414f47f"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.18838262637171815,
+          "pcmSha256": "1b7a4a0fa255f78790b63d25c22690b54274cfbce5c71f887b24f9fb6855355a"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.546962,
+          "rms": 0.15899403534228534,
+          "pcmSha256": "f44081a321df02dc84248d7b5bdb02f8c08769aca8b78cd3eb6d612affbe005a"
+        }
+      ],
+      "originalCacheFilename": "f639c6ef3a651db468415e8dba73d129760aed9ce1cf40e41f4a503a41f112d1.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/tango.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "tango",
+        "event": "DOTA_Item.Tango.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/tango.wav",
+        "duration": 2.707506
+      },
+      "bytes": 477648,
+      "sha256": "e33296ac8dc4650239137fa71d0d4861ad002b7cc2ce0e585c5c28cebe7ed2ee",
+      "decodedDuration": 2.7075,
+      "pcmSha256": "80cfd268eb43843cced24b1cd68f493d2d988e9f849817d15baf16360692cbba",
+      "peak": 1.385413408279419,
+      "rms": 0.09164537374481112,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.3554947265567617,
+          "pcmSha256": "97d0599a6d0b912c450701f8b9dbb69669b2c233fe5bac23ca9dddc83a63637e"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.2630872867685976,
+          "pcmSha256": "796fa7e1c5c75b6a0890b3914943b18c6415cd25bc7cde953e62c04812526fd6"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.707506,
+          "rms": 0.09164537374481112,
+          "pcmSha256": "80cfd268eb43843cced24b1cd68f493d2d988e9f849817d15baf16360692cbba"
+        }
+      ],
+      "originalCacheFilename": "951b3a4a4c3746b323868e49fddbca95f0055d125574325625979ee7de7a0fe6.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/pavise_target.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "pavise",
+        "event": "Item.Pavise.Target",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/pavise_target.wav",
+        "duration": 6.01675
+      },
+      "bytes": 530038,
+      "sha256": "fc88538e9b7819133f52e5dea8ffbcbfede44d7fb16b326a4ab1f6fe509c7d1c",
+      "decodedDuration": 6.009,
+      "pcmSha256": "a726e1a2091d4549423af3e41e7150dde6ebee331f1d3e1b25367f01af636503",
+      "peak": 0.9936696887016296,
+      "rms": 0.09141166281102568,
+      "leadingSilenceMs": 1.625,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.27547619506902354,
+          "pcmSha256": "e11dce11601704ba29751f0c798911429f6ff5da249c2bce57c0c16b97b249e2"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.3028817413654168,
+          "pcmSha256": "c7c4b507adc889fd748dcd80ed15a7bdc1fb88c8672f8e72f0f4290e121d6dc9"
+        },
+        {
+          "stage": 3,
+          "seconds": 6.01675,
+          "rms": 0.09141166281102568,
+          "pcmSha256": "a726e1a2091d4549423af3e41e7150dde6ebee331f1d3e1b25367f01af636503"
+        }
+      ],
+      "originalCacheFilename": "6857504bc69a4190ecf45599c653ba40d914b4cb31cdae67b4b24cb1fe5e756e.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/healing_salve.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "flask",
+        "event": "DOTA_Item.HealingSalve.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/healing_salve.wav",
+        "duration": 2.762336
+      },
+      "bytes": 487320,
+      "sha256": "bdee80301df634e008f168af925d4fc70ab50088d328bd5697b845790edba24c",
+      "decodedDuration": 2.762375,
+      "pcmSha256": "4e5250084041e93abce04436b08814edee9818b3cb4d9152e7de3d14a1540776",
+      "peak": 1.233620047569275,
+      "rms": 0.15465126343110566,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.4403123197777675,
+          "pcmSha256": "d5a831cad567bde4d00a5ec51de0040345752148f52805a9bec8b78d675877e5"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.32599154231524574,
+          "pcmSha256": "c0c72a7092819c3f0341d6ff8e6a69d97cfe7cc55a8d031e67873fc1086df254"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.762336,
+          "rms": 0.15465301298861642,
+          "pcmSha256": "659b02e92e307215f61cda75fbdc9bf914bedfe7b52cb83c27a0617639afb6d9"
+        }
+      ],
+      "originalCacheFilename": "27a4631717f5ace6df631b5635cedbf8d9e0429cc5e23ea8e8e4305b76522d84.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/disperser_target_ally.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "disperser",
+        "event": "Item.Disperser.Target.Ally",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/disperser_target_ally.wav",
+        "duration": 4.012653
+      },
+      "bytes": 707876,
+      "sha256": "1651b820b966c3e6150d7906d3b309d383c1be064e755d9e1c1e10501fb76943",
+      "decodedDuration": 4.0126875,
+      "pcmSha256": "f16a10f068cf89a85ff877853603ff03ae557fe5ebb7fb28e1fd04f114c470f1",
+      "peak": 1.1243947744369507,
+      "rms": 0.21320003876538193,
+      "leadingSilenceMs": 0.0625,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.12,
+          "rms": 0.2935562886286935,
+          "pcmSha256": "fbbc82db5e6c7a5a9b54aa4058921894f2bca4959984ec69ca59aef6a4207467"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.27,
+          "rms": 0.4010682685958785,
+          "pcmSha256": "8b94b5273c0691ea0b136c563c337ecf6ce70e09a2b7c296daca1fa88879c487"
+        },
+        {
+          "stage": 3,
+          "seconds": 4.012653,
+          "rms": 0.2132016991436301,
+          "pcmSha256": "d4d03ac13347b8e6bf94c10a536f33532e4f769109389df737c576e1f28939a4"
+        }
+      ],
+      "originalCacheFilename": "04aa5f45c979516a7235cb393361980cf4cb803dfd98303909f39c44a6e308cc.wav"
+    },
+    {
+      "url": "https://dotabase.dillerm.io/vpk/sounds/items/hurricane_pike.wav",
+      "type": "audio",
+      "clip": {
+        "subject": "hurricane_pike",
+        "event": "DOTA_Item.HurricanePike.Activate",
+        "eventFile": "soundevents/game_sounds_items.vsndevts",
+        "audioPath": "sounds/items/hurricane_pike.wav",
+        "duration": 2.102494
+      },
+      "bytes": 370924,
+      "sha256": "a3790f12f9a2c209f97ba9415ce08e61c69c34d8c653f7226405fe0b6c98a0a8",
+      "decodedDuration": 2.1025,
+      "pcmSha256": "16221bf77be49a7b92e259ce2986af08926773edd247214f911b489c795602e4",
+      "peak": 1.0843639373779297,
+      "rms": 0.15222421093590055,
+      "leadingSilenceMs": 0,
+      "stages": [
+        {
+          "stage": 1,
+          "seconds": 0.10512470000000002,
+          "rms": 0.47912519514846885,
+          "pcmSha256": "c3e56eb5cb0e170948de64bab82df584db1f157b20bbc1ced262398b57bf7a7b"
+        },
+        {
+          "stage": 2,
+          "seconds": 0.23127434000000002,
+          "rms": 0.3994620106570611,
+          "pcmSha256": "0b913e8fdc8fc8c56ddc20b8eb409a0482b6abfdf1c93ad39155204880d9d38f"
+        },
+        {
+          "stage": 3,
+          "seconds": 2.102494,
+          "rms": 0.15222646013758917,
+          "pcmSha256": "70a8451de68ea526cbd28ff6af3450089aa3f5918a0f4af29dabbd9a37e2b282"
+        }
+      ],
+      "originalCacheFilename": "40a068b2c644198876dbcaedc11fcccf313f84fbbca019c5b59e0126dd71af38.wav"
+    }
+  ]
+}

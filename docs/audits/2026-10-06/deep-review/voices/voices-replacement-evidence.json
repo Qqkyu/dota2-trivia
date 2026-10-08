@@ -1,0 +1,134 @@
+[
+  {
+    "originalId": "hero-quote:npc_dota_hero_lich:lich_kill_06",
+    "replacementId": "hero-quote:npc_dota_hero_lich:lich_rare_02",
+    "record": {
+      "name": "lich_rare_02",
+      "fullname": "lich_lich_rare_02",
+      "mp3": "/sounds/vo/lich/lich_rare_02.mp3",
+      "hero_id": 31,
+      "voice_id": 31,
+      "text": "Those who disturb my peace shall be left in pieces.",
+      "text_simple": " those who disturb my peace shall be left in pieces ",
+      "criteria": "Select Islich",
+      "pretty_criteria": "Rare"
+    },
+    "source": {
+      "path": "json/responses/lich.json",
+      "file": "/tmp/queue-arcade-deep-review/voices-sources/lich.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/lich.json",
+      "bytes": 77664,
+      "sha256": "f07d1755e65285a9f3908c18144d389692ea7694c1ef081febed490c16c0b098"
+    }
+  },
+  {
+    "originalId": "hero-quote:npc_dota_hero_sniper:snip_kill_12",
+    "replacementId": "hero-quote:npc_dota_hero_sniper:snip_rare_04",
+    "record": {
+      "name": "snip_rare_04",
+      "fullname": "sniper_snip_rare_04",
+      "mp3": "/sounds/vo/sniper/snip_rare_04.mp3",
+      "hero_id": 35,
+      "voice_id": 35,
+      "text": "Why am I smiling? This is what trigger-happy looks like.",
+      "text_simple": " why am i smiling this is what triggerhappy looks like ",
+      "criteria": "Select Issniper|HeroChatWheel GoldTier",
+      "pretty_criteria": "Rare|A gold hero chat wheel was used"
+    },
+    "source": {
+      "path": "json/responses/sniper.json",
+      "file": "/tmp/queue-arcade-deep-review/voices-sources/sniper.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/sniper.json",
+      "bytes": 86457,
+      "sha256": "90da364bc0a63ad5b3485d4a076a09e6b7ddb4cd03b4d7b79f9fde23e7bac751"
+    }
+  },
+  {
+    "originalId": "hero-quote:npc_dota_hero_techies:tech_firstblood_03",
+    "replacementId": "hero-quote:npc_dota_hero_techies:tech_levelup_09",
+    "record": {
+      "name": "tech_levelup_09",
+      "fullname": "techies_tech_levelup_09",
+      "mp3": "/sounds/vo/techies/tech_levelup_09.mp3",
+      "hero_id": 105,
+      "voice_id": 105,
+      "text": "My mind is exploding with ideas. Not literally I hope!",
+      "text_simple": " my mind is exploding with ideas not literally i hope ",
+      "criteria": "LevelUp Istechies",
+      "pretty_criteria": "Leveling up"
+    },
+    "source": {
+      "path": "json/responses/techies.json",
+      "file": "/tmp/queue-arcade-deep-review/voices-sources/techies.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/techies.json",
+      "bytes": 218065,
+      "sha256": "6188c847ec096405f5e6103a5dc3b06febee3518b3baca14c01b4698950b437d"
+    }
+  },
+  {
+    "originalId": "hero-voice:npc_dota_hero_shredder:timb_attack_03",
+    "replacementId": "hero-voice:npc_dota_hero_shredder:timb_respawn_02",
+    "record": {
+      "name": "timb_respawn_02",
+      "fullname": "shredder_timb_respawn_02",
+      "mp3": "/sounds/vo/shredder/timb_respawn_02.mp3",
+      "hero_id": 98,
+      "voice_id": 98,
+      "text": "Trees? Why did it have to be trees?",
+      "text_simple": " trees why did it have to be trees ",
+      "criteria": "Respawn Isshredder",
+      "pretty_criteria": "Respawning"
+    },
+    "source": {
+      "path": "json/responses/timbersaw.json",
+      "file": "/tmp/queue-arcade-deep-review/voices-sources/timbersaw.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/timbersaw.json",
+      "bytes": 111313,
+      "sha256": "c327771f7a20ecde39d8e61280561a2ce56e19a0a7f82e6c3224ea01ef1089a6"
+    }
+  },
+  {
+    "originalId": "hero-voice:npc_dota_hero_jakiro:jak_kill_06",
+    "replacementId": "hero-voice:npc_dota_hero_jakiro:jak_kill_11",
+    "record": {
+      "name": "jak_kill_11",
+      "fullname": "jakiro_jak_kill_11",
+      "mp3": "/sounds/vo/jakiro/jak_kill_11.mp3",
+      "hero_id": 64,
+      "voice_id": 64,
+      "text": "We burned your candle at both ends.",
+      "text_simple": " we burned your candle at both ends ",
+      "criteria": "Kill Isjakiro",
+      "pretty_criteria": "Killing a hero"
+    },
+    "source": {
+      "path": "json/responses/jakiro.json",
+      "file": "/tmp/queue-arcade-deep-review/voices-sources/jakiro.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/jakiro.json",
+      "bytes": 81567,
+      "sha256": "010b4dc56201aa3cca8f075a1821936fbe8f8a5e0be414e75913d6d9c9f37667"
+    }
+  },
+  {
+    "originalId": "hero-voice:npc_dota_hero_ancient_apparition:appa_kill_06",
+    "replacementId": "hero-voice:npc_dota_hero_ancient_apparition:appa_blink_02",
+    "record": {
+      "name": "appa_blink_02",
+      "fullname": "ancient_apparition_appa_blink_02",
+      "mp3": "/sounds/vo/ancient_apparition/appa_blink_02.mp3",
+      "hero_id": 68,
+      "voice_id": 68,
+      "text": "Sharp as winter's teeth.",
+      "text_simple": " sharp as winters teeth ",
+      "criteria": "Purchase Isancient_apparition IsBlinkDagger",
+      "pretty_criteria": "Buying Blink Dagger"
+    },
+    "source": {
+      "path": "json/responses/ancient_apparition.json",
+      "file": "/tmp/queue-arcade-deep-review/voices-sources/ancient_apparition.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/ancient_apparition.json",
+      "bytes": 78503,
+      "sha256": "debe0d8664bdd2cebaf1904402e749e785b2d6421e1685ce812e312635ba0beb"
+    }
+  }
+]

@@ -1,0 +1,22 @@
+import { firefox, webkit } from '/tmp/claude-1000/-home-kulmisiu-dev-taboo-cards-api/659193c9-6633-4106-855b-13298045b98b/scratchpad/shots/node_modules/playwright/index.mjs';
+import fs from 'node:fs/promises';
+const dir='/tmp/queue-arcade-audit-20261006';
+const base='http://127.0.0.1:3210';
+const results=[];
+const engines=[{name:'firefox',engine:firefox,executablePath:'/home/kulmisiu/.cache/ms-playwright/firefox-1419/firefox/firefox'},{name:'webkit2336',engine:webkit,executablePath:'/home/kulmisiu/.cache/ms-playwright/webkit-2336/pw_run.sh'},{name:'webkit1869',engine:webkit,executablePath:'/home/kulmisiu/.cache/ms-playwright/webkit-1869/pw_run.sh'}];
+let webkitWorked=false;
+for(const config of engines){if(config.name==='webkit1869'&&webkitWorked)continue;let browser;const result={engine:config.name,executablePath:config.executablePath,events:[],pageErrors:[],failedRequests:[]};results.push(result);
+try{browser=await config.engine.launch({executablePath:config.executablePath,headless:true,timeout:15000});result.version=browser.version();const context=await browser.newContext({viewport:{width:1400,height:900}});const page=await context.newPage();page.setDefaultTimeout(15000);page.on('pageerror',e=>result.pageErrors.push(String(e)));page.on('requestfailed',r=>{if(r.url().startsWith(base))result.failedRequests.push({url:r.url(),failure:r.failure()})});
+await page.goto(base,{waitUntil:'domcontentloaded'});await page.waitForSelector('main[data-client-ready="true"]');result.events.push({step:'homepage',url:page.url(),heading:await page.locator('h1').innerText()});await page.getByTestId('start-arcade').click();await page.waitForSelector('main[data-phase="answering"]',{timeout:35000});result.events.push({step:'public-play',url:page.url(),game:await page.getByTestId('public-room').getAttribute('data-round-game'),kind:await page.locator('main').getAttribute('data-question-kind')});
+const vote=page.waitForResponse(r=>new URL(r.url()).pathname==='/api/votes'&&r.request().method()==='POST',{timeout:18000});
+if(await page.getByTestId('hero-picker-hero').count()){await page.getByTestId('hero-picker-hero').first().click()}
+else if(await page.getByTestId('flashback-year-lock').count()){await page.getByTestId('flashback-year-lock').click()}
+else if(await page.getByTestId('value-order-card').count()){for(let i=0;i<4;i++)await page.getByTestId('value-order-card').nth(i).click()}
+else if(await page.getByTestId('flashback-order-card').count()){for(let i=0;i<4;i++)await page.getByTestId('flashback-order-card').nth(i).click()}
+else if(await page.getByTestId('shopkeeper-recipe-build').count()){const needed=await page.locator('[data-testid="shopkeeper-recipe-slot"][data-empty="true"]').count();for(let i=0;i<needed;i++)await page.getByTestId('shopkeeper-store-item').nth(i).click();await page.getByTestId('shopkeeper-recipe-build').click()}
+else if(await page.getByTestId('shopkeeper-store-item').count()){await page.getByTestId('shopkeeper-store-item').first().click()}
+else {await page.getByTestId('arcade-answer').first().click()}
+const response=await vote;result.events.push({step:'answer',status:response.status(),payload:await response.json()});await page.waitForSelector('main[data-phase="reveal"]',{timeout:20000});result.events.push({step:'reveal',text:await page.getByTestId('reveal-panel').innerText()});await page.screenshot({path:`${dir}/ui-${config.name}-reveal.png`,fullPage:true});
+await page.getByTestId('site-home').click();await page.getByTestId('private-room-open').click();await page.getByTestId('private-room-choose-create').click();const code=('UI'+config.name.toUpperCase()+Date.now().toString(36).toUpperCase()).slice(0,16);await page.getByTestId('private-room-join-code').fill(code);await page.getByTestId('private-room-create').click();await page.getByTestId('private-room-code').waitFor();result.events.push({step:'party-created',code:await page.getByTestId('private-room-code').innerText(),url:page.url()});await page.screenshot({path:`${dir}/ui-${config.name}-party.png`,fullPage:true});
+await page.getByTestId('site-home').click();result.events.push({step:'returned-home',url:page.url()});result.status='passed';if(config.name.startsWith('webkit'))webkitWorked=true;
+}catch(error){result.status='failed';result.error=String(error);console.log(config.name,result.error)}finally{await browser?.close().catch(()=>{});await fs.writeFile(dir+'/ui-cross-browser-results.json',JSON.stringify(results,null,2));console.log(JSON.stringify(result));}}

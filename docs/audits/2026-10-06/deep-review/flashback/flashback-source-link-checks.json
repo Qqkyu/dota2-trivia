@@ -1,0 +1,1354 @@
+{
+  "ti6": {
+    "status": 200,
+    "expectedId": "3819571008275061494",
+    "matched": true,
+    "returned": [
+      {
+        "id": "3819571008275061494",
+        "title": "The International Grand Champions",
+        "date": 1471321013
+      },
+      {
+        "id": "252585986935145952",
+        "title": "The International Grand Champions",
+        "date": 1471321013
+      }
+    ]
+  },
+  "ti7": {
+    "status": 200,
+    "expectedId": "2093464278198213978",
+    "matched": true,
+    "returned": [
+      {
+        "id": "2093464278198213978",
+        "title": "The International Grand Champions",
+        "date": 1502747785
+      },
+      {
+        "id": "3819571008275051321",
+        "title": "The International Grand Champions",
+        "date": 1502747785
+      }
+    ]
+  },
+  "ti8": {
+    "status": 200,
+    "expectedId": "2444779293802972536",
+    "matched": true,
+    "returned": [
+      {
+        "id": "2444779293802972536",
+        "title": "The International Grand Champions",
+        "date": 1535409005
+      },
+      {
+        "id": "2444779293793316014",
+        "title": "New Hero: Grimstroke \u2014 Available Now",
+        "date": 1535178112
+      }
+    ]
+  },
+  "ti9": {
+    "status": 200,
+    "expectedId": "2597949245060857650",
+    "matched": true,
+    "returned": [
+      {
+        "id": "2597949245060857650",
+        "title": "True Sight World Premiere \u2014 The International 2019",
+        "date": 1580113724
+      },
+      {
+        "id": "2597949245049098648",
+        "title": "New Bloom Treasure",
+        "date": 1579832568
+      }
+    ]
+  },
+  "ti11": {
+    "status": 200,
+    "expectedId": "4706851091188574456",
+    "matched": true,
+    "returned": [
+      {
+        "id": "4706851091188574456",
+        "title": "The International Grand Champions",
+        "date": 1667242747
+      },
+      {
+        "id": "4706851091183395534",
+        "title": "A Mournful Revenant Rises",
+        "date": 1667120019
+      }
+    ]
+  },
+  "ti12": {
+    "status": 200,
+    "expectedId": "5288974951203591834",
+    "matched": true,
+    "returned": [
+      {
+        "id": "5288974951203591834",
+        "title": "The International Grand Champions",
+        "date": 1698861274
+      },
+      {
+        "id": "5229301621577910334",
+        "title": "The International Is Here",
+        "date": 1698369027
+      }
+    ]
+  },
+  "ti13": {
+    "status": 200,
+    "expectedId": "6341720536507758661",
+    "matched": true,
+    "returned": [
+      {
+        "id": "6341720536507758661",
+        "title": "The International Grand Champions",
+        "date": 1726872360
+      },
+      {
+        "id": "6250522009514261237",
+        "title": "The International is Here",
+        "date": 1726173213
+      }
+    ]
+  },
+  "ti14": {
+    "status": 200,
+    "expectedId": "1811138915339274",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1811138915339274",
+        "title": "The International 2025 Grand Champions",
+        "date": 1758062560
+      },
+      {
+        "id": "1809869180189983",
+        "title": "The International 2025 Arrives",
+        "date": 1757406948
+      }
+    ]
+  },
+  "vancouver": {
+    "status": 200,
+    "expectedId": "2982945658353099641",
+    "matched": true,
+    "returned": [
+      {
+        "id": "2982945658353099641",
+        "title": "The International 2018 Tickets and Venue",
+        "date": 1521158382
+      },
+      {
+        "id": "3819571008275050878",
+        "title": "The International 2018 Tickets and Venue",
+        "date": 1521158382
+      }
+    ]
+  },
+  "singapore": {
+    "status": 200,
+    "expectedId": "4469272893489759990",
+    "matched": true,
+    "returned": [
+      {
+        "id": "4469272893489759990",
+        "title": "The International 2022",
+        "date": 1654108794
+      },
+      {
+        "id": "4292505348844170878",
+        "title": "The Stockholm Major Champions",
+        "date": 1653412947
+      }
+    ]
+  },
+  "copenhagen": {
+    "status": 200,
+    "expectedId": "5679673637657134027",
+    "matched": true,
+    "returned": [
+      {
+        "id": "5679673637657134027",
+        "title": "The International 2024",
+        "date": 1709935005
+      },
+      {
+        "id": "5679673637646565913",
+        "title": "Dota Plus Update \u2014 Spring 2024 (And Dota Labs)",
+        "date": 1709684551
+      }
+    ]
+  },
+  "underlord": {
+    "status": 200,
+    "expectedId": "3819571008275061321",
+    "matched": true,
+    "returned": [
+      {
+        "id": "3819571008275061321",
+        "title": "The Dark Rift Update",
+        "date": 1471973643
+      },
+      {
+        "id": "252586225991534458",
+        "title": "The Dark Rift Update",
+        "date": 1471973643
+      }
+    ]
+  },
+  "700news": {
+    "status": 200,
+    "expectedId": "3819571008275060443",
+    "matched": true,
+    "returned": [
+      {
+        "id": "3819571008275060443",
+        "title": "7.00 Update - The New Journey Begins",
+        "date": 1481589433
+      },
+      {
+        "id": "91592690506413557",
+        "title": "7.00 Update - The New Journey Begins",
+        "date": 1481589433
+      }
+    ]
+  },
+  "duelingnews": {
+    "status": 200,
+    "expectedId": "2140760316584760507",
+    "matched": true,
+    "returned": [
+      {
+        "id": "2140760316584760507",
+        "title": "7.07 Update \u2014 The Dueling Fates",
+        "date": 1509505491
+      },
+      {
+        "id": "3819571008275051005",
+        "title": "7.07 Update \u2014 The Dueling Fates",
+        "date": 1509505491
+      }
+    ]
+  },
+  "grimstroke": {
+    "status": 200,
+    "expectedId": "2444779293793316014",
+    "matched": true,
+    "returned": [
+      {
+        "id": "2444779293793316014",
+        "title": "New Hero: Grimstroke \u2014 Available Now",
+        "date": 1535178112
+      },
+      {
+        "id": "2454911758745995353",
+        "title": "Closing in on The International",
+        "date": 1533952967
+      }
+    ]
+  },
+  "mars": {
+    "status": 200,
+    "expectedId": "2530366080589995585",
+    "matched": true,
+    "returned": [
+      {
+        "id": "2530366080589995585",
+        "title": "New Hero: Mars \u2014 Available Now",
+        "date": 1551835700
+      },
+      {
+        "id": "2462808987396359370",
+        "title": "New Bloom Rewards",
+        "date": 1549060086
+      }
+    ]
+  },
+  "outlandersnews": {
+    "status": 200,
+    "expectedId": "2551782186252321694",
+    "matched": true,
+    "returned": [
+      {
+        "id": "2551782186252321694",
+        "title": "The Outlanders Update",
+        "date": 1574796213
+      },
+      {
+        "id": "2451574645864162208",
+        "title": "Fast Queue",
+        "date": 1572675809
+      }
+    ]
+  },
+  "mistwoodsnews": {
+    "status": 200,
+    "expectedId": "4090922416496489102",
+    "matched": true,
+    "returned": [
+      {
+        "id": "4090922416496489102",
+        "title": "The Mistwoods Update",
+        "date": 1608241340
+      },
+      {
+        "id": "3856733252025493698",
+        "title": "Dota Plus Update - Winter 2020",
+        "date": 1606859971
+      }
+    ]
+  },
+  "dawn": {
+    "status": 200,
+    "expectedId": "4117954073003321659",
+    "matched": true,
+    "returned": [
+      {
+        "id": "4117954073003321659",
+        "title": "The Dawnbreaker & 7.29 Gameplay Update",
+        "date": 1617994915
+      },
+      {
+        "id": "4026754911343076553",
+        "title": "A New Approach to Helping Players Learn Dota",
+        "date": 1616631212
+      }
+    ]
+  },
+  "marci": {
+    "status": 200,
+    "expectedId": "4186652357025566900",
+    "matched": true,
+    "returned": [
+      {
+        "id": "4186652357025566900",
+        "title": "Marci Marches In",
+        "date": 1635462764
+      },
+      {
+        "id": "4698935641762385103",
+        "title": "This Fall Marci Joins the Fight",
+        "date": 1634387386
+      }
+    ]
+  },
+  "primal": {
+    "status": 200,
+    "expectedId": "4246335832505905090",
+    "matched": true,
+    "returned": [
+      {
+        "id": "4246335832505905090",
+        "title": "The Primal Beast & 7.31 Gameplay Update",
+        "date": 1645655724
+      },
+      {
+        "id": "4235075565596807483",
+        "title": "DPC Winter Tour Fantasy Treasure",
+        "date": 1644444478
+      }
+    ]
+  },
+  "muerta": {
+    "status": 200,
+    "expectedId": "5070528176578217258",
+    "matched": true,
+    "returned": [
+      {
+        "id": "5070528176578217258",
+        "title": "The Dead Reckoning Update",
+        "date": 1678144026
+      },
+      {
+        "id": "5059268543373304374",
+        "title": "Gameplay Update",
+        "date": 1677547284
+      }
+    ]
+  },
+  "ringmaster": {
+    "status": 200,
+    "expectedId": "5875595438690008977",
+    "matched": true,
+    "returned": [
+      {
+        "id": "5875595438690008977",
+        "title": "Introducing The Ringmaster and the 2024 Compendium",
+        "date": 1724375457
+      },
+      {
+        "id": "5875594803675196266",
+        "title": "7.37b Gameplay Patch",
+        "date": 1723662559
+      }
+    ]
+  },
+  "kez": {
+    "status": 200,
+    "expectedId": "6148070194801613786",
+    "matched": true,
+    "returned": [
+      {
+        "id": "6148070194801613786",
+        "title": "Introducing Kez and Crownfall Act IV",
+        "date": 1731032533
+      },
+      {
+        "id": "6148070194801582586",
+        "title": "Ascension Night",
+        "date": 1730951606
+      }
+    ]
+  },
+  "largo": {
+    "status": 200,
+    "expectedId": "1818752592134412",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1818752592134412",
+        "title": "Introducing Largo and Patch 7.40",
+        "date": 1765843654
+      },
+      {
+        "id": "1818752592128752",
+        "title": "The International 2026 Live Event Broadcast RFP and Broadcast License Requests",
+        "date": 1765574894
+      }
+    ]
+  },
+  "silt": {
+    "status": 200,
+    "expectedId": "1967358417035580708",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1967358417035580708",
+        "title": "Exclusive Battle Pass Campaign \u2014 Siltbreaker: Act I",
+        "date": 1496956045
+      },
+      {
+        "id": "3819571008275058964",
+        "title": "Exclusive Battle Pass Campaign \u2014 Siltbreaker: Act I",
+        "date": 1496956045
+      }
+    ]
+  },
+  "darkmoon": {
+    "status": 200,
+    "expectedId": "3819571008275060282",
+    "matched": true,
+    "returned": [
+      {
+        "id": "3819571008275060282",
+        "title": "Special Event: Dark Moon",
+        "date": 1485473165
+      },
+      {
+        "id": "83715191689030737",
+        "title": "Special Event: Dark Moon",
+        "date": 1485473165
+      }
+    ]
+  },
+  "underhollow": {
+    "status": 200,
+    "expectedId": "2842216343260937830",
+    "matched": true,
+    "returned": [
+      {
+        "id": "2842216343260937830",
+        "title": "The Underhollow Beckons",
+        "date": 1529007222
+      },
+      {
+        "id": "2431262152929235956",
+        "title": "New Ranked Season",
+        "date": 1528244506
+      }
+    ]
+  },
+  "morokai": {
+    "status": 200,
+    "expectedId": "2436926440597622046",
+    "matched": true,
+    "returned": [
+      {
+        "id": "2436926440597622046",
+        "title": "Special Battle Pass Event and Immortal Treasure II",
+        "date": 1562375588
+      },
+      {
+        "id": "2436926440561524520",
+        "title": "Dark Willow Announcer Pack",
+        "date": 1561512536
+      }
+    ]
+  },
+  "aghlab": {
+    "status": 200,
+    "expectedId": "3516698970147696280",
+    "matched": true,
+    "returned": [
+      {
+        "id": "3516698970147696280",
+        "title": "The Summer Event Arrives",
+        "date": 1594766800
+      },
+      {
+        "id": "3516698970133529949",
+        "title": "The Disciple's Path \u2014 Anti-Mage Hero Persona",
+        "date": 1594428081
+      }
+    ]
+  },
+  "nemestice": {
+    "status": 200,
+    "expectedId": "4032392655061572038",
+    "matched": true,
+    "returned": [
+      {
+        "id": "4032392655061572038",
+        "title": "Nemestice Falls and New Powers Rise",
+        "date": 1624488705
+      },
+      {
+        "id": "4056035920070765657",
+        "title": "An Important Update on TI10: The International - Dota 2 Championships in Sweden",
+        "date": 1624314508
+      }
+    ]
+  },
+  "crownfall": {
+    "status": 200,
+    "expectedId": "5762994032392388600",
+    "matched": true,
+    "returned": [
+      {
+        "id": "5762994032392388600",
+        "title": "Welcome to Crownfall",
+        "date": 1713482075
+      },
+      {
+        "id": "5762994032391916529",
+        "title": "Ascension Day",
+        "date": 1713470882
+      }
+    ]
+  },
+  "crownfallend": {
+    "status": 200,
+    "expectedId": "1790848102629239",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1790848102629239",
+        "title": "The Crownfall Archive",
+        "date": 1738871968
+      },
+      {
+        "id": "1790214123059768",
+        "title": "The Charms of the Snake",
+        "date": 1738181317
+      }
+    ]
+  },
+  "persona": {
+    "status": 200,
+    "expectedId": "2413284533097763940",
+    "matched": true,
+    "returned": [
+      {
+        "id": "2413284533097763940",
+        "title": "Acolyte of the Lost Arts \u2014 Invoker Hero Persona",
+        "date": 1563585352
+      },
+      {
+        "id": "2413284533090077004",
+        "title": "The International Compendium Update",
+        "date": 1563401573
+      }
+    ]
+  },
+  "postponed": {
+    "status": 200,
+    "expectedId": "3127131079126647862",
+    "matched": true,
+    "returned": [
+      {
+        "id": "3127131079126647862",
+        "title": "The International",
+        "date": 1588286934
+      },
+      {
+        "id": "3112493747284512560",
+        "title": "Collector's Cache Call to Arms Deadline Extension",
+        "date": 1588070306
+      }
+    ]
+  },
+  "sweden": {
+    "status": 200,
+    "expectedId": "4056035920070765657",
+    "matched": true,
+    "returned": [
+      {
+        "id": "4056035920070765657",
+        "title": "An Important Update on TI10: The International - Dota 2 Championships in Sweden",
+        "date": 1624314508
+      },
+      {
+        "id": "4093189347037260559",
+        "title": "Dota Plus Update - Summer 2021",
+        "date": 1622591155
+      }
+    ]
+  },
+  "bucharest": {
+    "status": 200,
+    "expectedId": "4032392655112171372",
+    "matched": true,
+    "returned": [
+      {
+        "id": "4032392655112171372",
+        "title": "Announcing New Location and Dates for The International - Dota 2 Championships",
+        "date": 1625689947
+      },
+      {
+        "id": "4032392655108103168",
+        "title": "Dota 2 Update - July 6th, 2021",
+        "date": 1625593377
+      }
+    ]
+  },
+  "noaudience": {
+    "status": 200,
+    "expectedId": "3938951840889131676",
+    "matched": true,
+    "returned": [
+      {
+        "id": "3938951840889131676",
+        "title": "The International 2021 Ticket Sales Canceled",
+        "date": 1633220587
+      },
+      {
+        "id": "3938951840884775199",
+        "title": "The International Compendium",
+        "date": 1633117199
+      }
+    ]
+  },
+  "frankfurt": {
+    "status": 200,
+    "expectedId": "377536659007548439",
+    "matched": true,
+    "returned": [
+      {
+        "id": "377536659007548439",
+        "title": "The Frankfurt Major Champions",
+        "date": 1448304304
+      },
+      {
+        "id": "3819571008275289386",
+        "title": "The Frankfurt Major Champions",
+        "date": 1448304304
+      }
+    ]
+  },
+  "shanghai": {
+    "status": 200,
+    "expectedId": "295355202054110079",
+    "matched": true,
+    "returned": [
+      {
+        "id": "295355202054110079",
+        "title": "The Shanghai Major Champions",
+        "date": 1457379913
+      },
+      {
+        "id": "3819571008275288877",
+        "title": "The Shanghai Major Champions",
+        "date": 1457379913
+      }
+    ]
+  },
+  "shanghaistart": {
+    "status": 200,
+    "expectedId": "295354567834657455",
+    "matched": true,
+    "returned": [
+      {
+        "id": "295354567834657455",
+        "title": "The Shanghai Major Commences",
+        "date": 1456429022
+      },
+      {
+        "id": "3819571008275288992",
+        "title": "The Shanghai Major Commences",
+        "date": 1456429022
+      }
+    ]
+  },
+  "manila": {
+    "status": 200,
+    "expectedId": "3819571008275229825",
+    "matched": true,
+    "returned": [
+      {
+        "id": "3819571008275229825",
+        "title": "Manila Champions, TI Qualifiers and 6.88 Gameplay Update",
+        "date": 1465838992
+      },
+      {
+        "id": "249202181076192906",
+        "title": "Manila Champions, TI Qualifiers and 6.88 Gameplay Update",
+        "date": 1465838992
+      }
+    ]
+  },
+  "boston": {
+    "status": 200,
+    "expectedId": "3819571008275060558",
+    "matched": true,
+    "returned": [
+      {
+        "id": "3819571008275060558",
+        "title": "The Boston Major Champions",
+        "date": 1481420577
+      },
+      {
+        "id": "91592690499351524",
+        "title": "The Boston Major Champions",
+        "date": 1481420577
+      }
+    ]
+  },
+  "kiev": {
+    "status": 200,
+    "expectedId": "3819571008275059440",
+    "matched": true,
+    "returned": [
+      {
+        "id": "3819571008275059440",
+        "title": "The Kiev Major Champions",
+        "date": 1493762625
+      },
+      {
+        "id": "1858142318046968535",
+        "title": "The Kiev Major Champions",
+        "date": 1493762625
+      }
+    ]
+  },
+  "kievdates": {
+    "status": 200,
+    "expectedId": "3819571008275060174",
+    "matched": true,
+    "returned": [
+      {
+        "id": "3819571008275060174",
+        "title": "Kiev Major Dates and Tickets",
+        "date": 1487201469
+      },
+      {
+        "id": "75836429538980743",
+        "title": "Kiev Major Dates and Tickets",
+        "date": 1487201469
+      }
+    ]
+  },
+  "io": {
+    "status": 200,
+    "expectedId": "1461665741193619035",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1461665741193619035",
+        "title": "Dota 2 Update - June 28, 2012",
+        "date": 1340929200
+      },
+      {
+        "id": "1389607509688482525",
+        "title": "Dota 2 Update - June 22, 2012",
+        "date": 1340398680
+      }
+    ]
+  },
+  "wisp": {
+    "status": 200,
+    "expectedId": "1461666363703992304",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1461666363703992304",
+        "title": "Dota 2 Update - July 5, 2012",
+        "date": 1341533700
+      },
+      {
+        "id": "1461665741193619035",
+        "title": "Dota 2 Update - June 28, 2012",
+        "date": 1340929200
+      }
+    ]
+  },
+  "frostivus": {
+    "status": 200,
+    "expectedId": "1479695995263515868",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1479695995263515868",
+        "title": "Dota 2 Update - December 19th, 2012",
+        "date": 1355945880
+      },
+      {
+        "id": "1477443562831750977",
+        "title": "Dota 2 Update - December 13th, 2012",
+        "date": 1355451120
+      }
+    ]
+  },
+  "skremoved": {
+    "status": 200,
+    "expectedId": "1027115945257105909",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1027115945257105909",
+        "title": "Dota 2 Update - December 10th, 2013",
+        "date": 1386708720
+      },
+      {
+        "id": "1027115944979555752",
+        "title": "Dota 2 Update - December 5th, 2013",
+        "date": 1386285540
+      }
+    ]
+  },
+  "wkreturns": {
+    "status": 200,
+    "expectedId": "1009102270951312175",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1009102270951312175",
+        "title": "Dota 2 Update - December 13th, 2013",
+        "date": 1386984300
+      },
+      {
+        "id": "1027115945257105909",
+        "title": "Dota 2 Update - December 10th, 2013",
+        "date": 1386708720
+      }
+    ]
+  },
+  "wraithnightnews": {
+    "status": 200,
+    "expectedId": "1010228077059444622",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1010228077059444622",
+        "title": "Frosti\u2026 Wraith-Night",
+        "date": 1386804777
+      },
+      {
+        "id": "3819571008275320329",
+        "title": "Frosti\u2026 Wraith-Night",
+        "date": 1386804777
+      }
+    ]
+  },
+  "lina": {
+    "status": 200,
+    "expectedId": "1495465667587110694",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1495465667587110694",
+        "title": "Dota 2 Update - March 7th, 2013",
+        "date": 1362703860
+      },
+      {
+        "id": "1496591023580339300",
+        "title": "Dota 2 Update - February 28th, 2013",
+        "date": 1362105780
+      }
+    ]
+  },
+  "renames": {
+    "status": 200,
+    "expectedId": "1027114673592365394",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1027114673592365394",
+        "title": "Dota 2 Update - November 21st, 2013",
+        "date": 1385086980
+      },
+      {
+        "id": "1027114673547649759",
+        "title": "Dota 2 Update - November 20th, 2013",
+        "date": 1384998300
+      }
+    ]
+  },
+  "threespiritsnews": {
+    "status": 200,
+    "expectedId": "1027114127626051589",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1027114127626051589",
+        "title": "Three Spirits Update",
+        "date": 1384413845
+      },
+      {
+        "id": "3819571008275320440",
+        "title": "Three Spirits Update",
+        "date": 1384413845
+      }
+    ]
+  },
+  "newbloom2014": {
+    "status": 200,
+    "expectedId": "920159973317718987",
+    "matched": true,
+    "returned": [
+      {
+        "id": "920159973317718987",
+        "title": "Rebirth in the New Bloom Festival",
+        "date": 1390937477
+      },
+      {
+        "id": "3819571008275319906",
+        "title": "Rebirth in the New Bloom Festival",
+        "date": 1390937477
+      }
+    ]
+  },
+  "oracle": {
+    "status": 200,
+    "expectedId": "522743866912458308",
+    "matched": true,
+    "returned": [
+      {
+        "id": "522743866912458308",
+        "title": "The Foreseer\u2019s Contract Update",
+        "date": 1416349145
+      },
+      {
+        "id": "3819571008275318665",
+        "title": "The Foreseer\u2019s Contract Update",
+        "date": 1416349145
+      }
+    ]
+  },
+  "wyvern": {
+    "status": 200,
+    "expectedId": "517122602973145787",
+    "matched": true,
+    "returned": [
+      {
+        "id": "517122602973145787",
+        "title": "The Chill of New Bloom",
+        "date": 1423680140
+      },
+      {
+        "id": "3819571008275318248",
+        "title": "The Chill of New Bloom",
+        "date": 1423680140
+      }
+    ]
+  },
+  "balance": {
+    "status": 200,
+    "expectedId": "377538916257120634",
+    "matched": true,
+    "returned": [
+      {
+        "id": "377538916257120634",
+        "title": "The Balance of Power Update",
+        "date": 1450229900
+      },
+      {
+        "id": "3819571008275289271",
+        "title": "The Balance of Power Update",
+        "date": 1450229900
+      }
+    ]
+  },
+  "compendium": {
+    "status": 200,
+    "expectedId": "1478591738299367539",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1478591738299367539",
+        "title": "Introducing the Interactive Compendium",
+        "date": 1368036129
+      },
+      {
+        "id": "3819571008275477928",
+        "title": "Introducing the Interactive Compendium",
+        "date": 1368036129
+      }
+    ]
+  },
+  "diretide2012": {
+    "status": 200,
+    "expectedId": "1478591738299191435",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1478591738299191435",
+        "title": "Diretide",
+        "date": 1352155919
+      },
+      {
+        "id": "3819571008275478340",
+        "title": "Diretide",
+        "date": 1352155919
+      }
+    ]
+  },
+  "diretide2013": {
+    "status": 200,
+    "expectedId": "1027113495094635006",
+    "matched": true,
+    "returned": [
+      {
+        "id": "1027113495094635006",
+        "title": "Not My Best Work!",
+        "date": 1383954179
+      },
+      {
+        "id": "3819571008275320502",
+        "title": "Not My Best Work!",
+        "date": 1383954179
+      }
+    ]
+  },
+  "diretide2020": {
+    "status": 200,
+    "expectedId": "3884878205215396390",
+    "matched": true,
+    "returned": [
+      {
+        "id": "3884878205215396390",
+        "title": "Diretide - Available Now!",
+        "date": 1603998916
+      },
+      {
+        "id": "3819572206286446953",
+        "title": "Fall 2020 Call to Arms Deadline Extension",
+        "date": 1600802218
+      }
+    ]
+  },
+  "truesight": {
+    "status": 200,
+    "expectedId": "3819571008275061096",
+    "matched": true,
+    "returned": [
+      {
+        "id": "3819571008275061096",
+        "title": "True Sight: A New Documentary Series",
+        "date": 1476232722
+      },
+      {
+        "id": "241332296588876357",
+        "title": "True Sight: A New Documentary Series",
+        "date": 1476232722
+      }
+    ]
+  },
+  "truesight2017": {
+    "status": 200,
+    "expectedId": "2175660043458980038",
+    "matched": true,
+    "returned": [
+      {
+        "id": "2175660043458980038",
+        "title": "True Sight \u2013 The International 2017",
+        "date": 1506470489
+      },
+      {
+        "id": "3819571008275051141",
+        "title": "True Sight \u2013 The International 2017",
+        "date": 1506470489
+      }
+    ]
+  },
+  "truesight2018": {
+    "status": 200,
+    "expectedId": "2711631078229914818",
+    "matched": true,
+    "returned": [
+      {
+        "id": "2711631078229914818",
+        "title": "True Sight \u2014 The International 2018",
+        "date": 1547516463
+      },
+      {
+        "id": "2417769111292141519",
+        "title": "True Sight World Premiere",
+        "date": 1545517587
+      }
+    ]
+  },
+  "freetoplay": {
+    "status": 200,
+    "expectedId": "920162436773291916",
+    "matched": true,
+    "returned": [
+      {
+        "id": "920162436773291916",
+        "title": "Free to Play Documentary: Coming Soon",
+        "date": 1392836559
+      },
+      {
+        "id": "3819571008275319725",
+        "title": "Free to Play Documentary: Coming Soon",
+        "date": 1392836559
+      }
+    ]
+  },
+  "cache": {
+    "status": 200,
+    "expectedId": "519384546585693097",
+    "matched": true,
+    "returned": [
+      {
+        "id": "519384546585693097",
+        "title": "The Collector's Cache",
+        "date": 1433465469
+      },
+      {
+        "id": "3819571008275291289",
+        "title": "The Collector's Cache",
+        "date": 1433465469
+      }
+    ]
+  },
+  "scannews": {
+    "status": 200,
+    "expectedId": "3819571008275269884",
+    "matched": true,
+    "returned": [
+      {
+        "id": "3819571008275269884",
+        "title": "New Gameplay Update",
+        "date": 1461606329
+      },
+      {
+        "id": "255953140186992085",
+        "title": "New Gameplay Update",
+        "date": 1461606329
+      }
+    ]
+  },
+  "newbloom2020": {
+    "status": 200,
+    "expectedId": "2597949245049098648",
+    "matched": true,
+    "returned": [
+      {
+        "id": "2597949245049098648",
+        "title": "New Bloom Treasure",
+        "date": 1579832568
+      },
+      {
+        "id": "2600199781642522323",
+        "title": "Spring 2020 Call to Arms",
+        "date": 1578634916
+      }
+    ]
+  },
+  "700": {
+    "skipped": "primary webpage read separately"
+  },
+  "mk": {
+    "skipped": "primary webpage read separately"
+  },
+  "dueling": {
+    "skipped": "primary webpage read separately"
+  },
+  "outlanders": {
+    "skipped": "primary webpage read separately"
+  },
+  "mistwoods": {
+    "skipped": "primary webpage read separately"
+  },
+  "bounty": {
+    "skipped": "primary webpage read separately"
+  },
+  "arcane": {
+    "skipped": "primary webpage read separately"
+  },
+  "scan": {
+    "skipped": "primary webpage read separately"
+  },
+  "newbloomday2": {
+    "skipped": "primary webpage read separately"
+  },
+  "newbloomday3": {
+    "skipped": "primary webpage read separately"
+  },
+  "wraithnight": {
+    "skipped": "primary webpage read separately"
+  },
+  "threespirits": {
+    "skipped": "primary webpage read separately"
+  },
+  "winter2016": {
+    "skipped": "primary webpage read separately"
+  },
+  "compendium2013": {
+    "skipped": "primary webpage read separately"
+  },
+  "battlepass2016": {
+    "skipped": "primary webpage read separately"
+  },
+  "battlepass2019": {
+    "skipped": "primary webpage read separately"
+  },
+  "reborn": {
+    "skipped": "primary webpage read separately"
+  },
+  "aegis": {
+    "skipped": "primary webpage read separately"
+  },
+  "greeviling": {
+    "skipped": "primary webpage read separately"
+  },
+  "7.23": {
+    "skipped": "primary webpage read separately"
+  },
+  "7.24": {
+    "skipped": "primary webpage read separately"
+  },
+  "7.28": {
+    "skipped": "primary webpage read separately"
+  },
+  "7.29": {
+    "skipped": "primary webpage read separately"
+  },
+  "7.31": {
+    "skipped": "primary webpage read separately"
+  },
+  "7.32e": {
+    "skipped": "primary webpage read separately"
+  },
+  "7.33": {
+    "skipped": "primary webpage read separately"
+  },
+  "7.36": {
+    "skipped": "primary webpage read separately"
+  },
+  "7.38": {
+    "skipped": "primary webpage read separately"
+  },
+  "7.40": {
+    "skipped": "primary webpage read separately"
+  },
+  "7.41": {
+    "skipped": "primary webpage read separately"
+  },
+  "release": {
+    "skipped": "primary webpage read separately"
+  },
+  "ti1": {
+    "skipped": "primary webpage read separately"
+  },
+  "navi": {
+    "skipped": "primary webpage read separately"
+  },
+  "ti4": {
+    "skipped": "primary webpage read separately"
+  },
+  "ti5": {
+    "skipped": "primary webpage read separately"
+  },
+  "ti10": {
+    "skipped": "primary webpage read separately"
+  },
+  "techies": {
+    "skipped": "primary webpage read separately"
+  },
+  "court": {
+    "skipped": "primary webpage read separately"
+  },
+  "wc3": {
+    "skipped": "primary webpage read separately"
+  },
+  "announce": {
+    "skipped": "primary webpage read separately"
+  },
+  "plus": {
+    "skipped": "primary webpage read separately"
+  },
+  "artifact": {
+    "skipped": "primary webpage read separately"
+  },
+  "underlords": {
+    "skipped": "primary webpage read separately"
+  },
+  "theplay": {
+    "skipped": "primary webpage read separately"
+  },
+  "20m": {
+    "skipped": "primary webpage read separately"
+  },
+  "carl": {
+    "skipped": "primary webpage read separately"
+  },
+  "longgame": {
+    "skipped": "primary webpage read separately"
+  },
+  "fountain": {
+    "skipped": "primary webpage read separately"
+  },
+  "sheever": {
+    "skipped": "primary webpage read separately"
+  },
+  "purge": {
+    "skipped": "primary webpage read separately"
+  },
+  "2gd": {
+    "skipped": "primary webpage read separately"
+  },
+  "og": {
+    "skipped": "primary webpage read separately"
+  },
+  "odpixel": {
+    "skipped": "primary webpage read separately"
+  },
+  "autochess": {
+    "skipped": "primary webpage read separately"
+  },
+  "ti5venue": {
+    "status": 200,
+    "expectedId": "431567758218145911",
+    "matched": true,
+    "returned": [
+      {
+        "id": "431567758218145911",
+        "title": "Secret Shop Pre-Orders & Pubstomps",
+        "date": 1436852211
+      },
+      {
+        "id": "3819571008275290887",
+        "title": "Secret Shop Pre-Orders & Pubstomps",
+        "date": 1436852211
+      }
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+
+> queue-arcade@0.2.0 validate-assets /home/kulmisiu/dev/dota2-trivia
+> node scripts/validate-image-assets.mjs
+
+Verified availability and media headers for 784 local/remote images and 230 audio clips across all six question catalogs and both pickers (including archived rows).

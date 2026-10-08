@@ -1,0 +1,38 @@
+[
+  {
+    "name": "DOTA_Item.UrnOfShadows.Activate",
+    "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts",
+    "sourceSha256": "afe08be6e1421fa313d5d0b244e2da863a39e3f6c65d8e7d293703e3693065d9",
+    "text": "\tDOTA_Item.UrnOfShadows.Activate = \r\n\t{\r\n\t\ttype = \"dota_src1_3d\"\r\n\t\tvolume = 0.750000\r\n\t\tpitch_rand_min = -0.050000\r\n\t\tpitch_rand_max = 0.050000\r\n\t\tpitch = 1.000000\r\n\t\tsoundlevel = 81.000000\r\n\t\tdistance_max = 2500.000000\r\n\t\tvsnd_files = \"sounds/items/urn_of_shadows.vsnd\"\r\n\t\tvsnd_duration = 2.001429\r\n\t}"
+  },
+  {
+    "name": "item_essence_distiller.cast",
+    "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts",
+    "sourceSha256": "afe08be6e1421fa313d5d0b244e2da863a39e3f6c65d8e7d293703e3693065d9",
+    "text": "\titem_essence_distiller.cast = \r\n\t{\r\n\t\ttype = \"dota_src1_3d\"\r\n\t\tvolume = 1.000000\r\n\t\tpitch_rand_min = -0.050000\r\n\t\tpitch_rand_max = 0.050000\r\n\t\tpitch = 1.000000\r\n\t\tsoundlevel = 81.000000\r\n\t\tdistance_max = 2000.000000\r\n\t\tvsnd_files = \"sounds/items/item_distiller_cast.vsnd\"\r\n\t\tvsnd_duration = 1.110453\r\n\t}"
+  },
+  {
+    "name": "DOTA_Item.Mjollnir.Activate",
+    "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts",
+    "sourceSha256": "afe08be6e1421fa313d5d0b244e2da863a39e3f6c65d8e7d293703e3693065d9",
+    "text": "\tDOTA_Item.Mjollnir.Activate = \r\n\t{\r\n\t\ttype = \"dota_src1_3d\"\r\n\t\tvolume = 1.000000\r\n\t\tpitch_rand_min = -0.050000\r\n\t\tpitch_rand_max = 0.050000\r\n\t\tpitch = 1.000000\r\n\t\tsoundlevel = 81.000000\r\n\t\tdistance_max = 2500.000000\r\n\t\tvsnd_files = \"sounds/items/item_mjoll_on.vsnd\"\r\n\t\tvsnd_duration = 4.443583\r\n\t}"
+  },
+  {
+    "name": "Item.Maelstrom.Chain_Lightning.Jump",
+    "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts",
+    "sourceSha256": "afe08be6e1421fa313d5d0b244e2da863a39e3f6c65d8e7d293703e3693065d9",
+    "text": "\tItem.Maelstrom.Chain_Lightning.Jump = \r\n\t{\r\n\t\ttype = \"dota_src1_3d\"\r\n\t\tvolume = 0.750000\r\n\t\tpitch_rand_min = -0.050000\r\n\t\tpitch_rand_max = 0.050000\r\n\t\tpitch = 1.000000\r\n\t\tsoundlevel = 81.000000\r\n\t\tdistance_max = 2500.000000\r\n\t\tvsnd_files = \"sounds/items/item_mael_lightning_chain.vsnd\"\r\n\t\tvsnd_duration = 2.393106\r\n\t}"
+  },
+  {
+    "name": "Hero_Axe.Culling_Blade_Success",
+    "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_heroes/game_sounds_axe.vsndevts",
+    "sourceSha256": "925649685e9f49e52739c2dfe3518372047ac029a2ff188576e8f83652fd6f6c",
+    "text": "\tHero_Axe.Culling_Blade_Success = \r\n\t{\r\n\t\ttype = \"dota_update_default\"\r\n\t\tvolume = 1.000000\r\n\t\tpitch_rand_min = -0.025000\r\n\t\tpitch_rand_max = 0.025000\r\n\t\tpitch = 1.025000\r\n\t\tsoundlevel = 84.000000\r\n\t\tmixgroup = \"Ultimates\"\r\n\t\tspread_radius = 900.000000\r\n\t\tlimiter_on = 1.000000\r\n\t\tlimiter_event_name = \"Hero_Axe.Culling_Blade_Success\"\r\n\t\tlimiter_max = 1.000000\r\n\t\tlimiter_stop_oldest = false\r\n\t\tlimiter_match_event_duration = 0.250000\r\n\t\tvsnd_files = \r\n\t\t[\r\n\t\t\t\"sounds/weapons/hero/axe/culling_blade_success.vsnd\",\r\n\t\t]\r\n\t\tvsnd_duration = 1.734558\r\n\t}"
+  },
+  {
+    "name": "DOTA_Item.Sheepstick.Activate",
+    "url": "https://dotabase.dillerm.io/vpk/soundevents/game_sounds_items.vsndevts",
+    "sourceSha256": "afe08be6e1421fa313d5d0b244e2da863a39e3f6c65d8e7d293703e3693065d9",
+    "text": "\tDOTA_Item.Sheepstick.Activate = \r\n\t{\r\n\t\ttype = \"dota_src1_3d\"\r\n\t\tvolume = 1.000000\r\n\t\tpitch_rand_min = -0.025000\r\n\t\tpitch_rand_max = 0.025000\r\n\t\tpitch = 0.975000\r\n\t\tsoundlevel = 81.000000\r\n\t\tdistance_max = 3500.000000\r\n\t\tlimiter_on = 1.000000\r\n\t\tblock_duration = 1.000000\r\n\t\tblock_distance = 300.000000\r\n\t\tlimiter_match_entity = 0.000000\r\n\t\tlimiter_match_type = 0.000000\r\n\t\tvsnd_files = \"sounds/misc/morph_in.vsnd\"\r\n\t\tvsnd_duration = 1.333265\r\n\t}"
+  }
+]

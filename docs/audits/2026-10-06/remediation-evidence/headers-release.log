@@ -1,0 +1,5 @@
+
+> queue-arcade@0.2.0 check:headers /home/kulmisiu/dev/dota2-trivia
+> node scripts/check-security-headers.mjs
+
+Production HTML has fresh script nonces, security headers, and runtime social metadata.

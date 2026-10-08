@@ -278,7 +278,7 @@
     "prompt": "What do these components build?",
     "answers": ["Disperser", "Butterfly", "Satanic", "Radiance"],
     "answerImages": [
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/disperser.png?t=1593393829403",
+      "/arcade/items/disperser.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/butterfly.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/satanic.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/radiance.png?t=1593393829403"
@@ -1223,7 +1223,7 @@
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/harpoon.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/spirit_vessel.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/phylactery.png?t=1593393829403"
+      "/arcade/items/phylactery.png"
     ],
     "answerImageKind": "item",
     "correctIndex": 1,
@@ -1473,7 +1473,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 1275
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -1594,7 +1595,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 625
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -1614,7 +1616,7 @@
     },
     "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
     "correctIndex": 0,
-    "explanation": "Bloodstone uses Veil of Discord, Soul Booster.",
+    "explanation": "Bloodstone uses Veil of Discord, Soul Booster. No recipe scroll is needed.",
     "shopkeeper": {
       "format": "real-recipe",
       "targetItemKey": "bloodstone",
@@ -1691,7 +1693,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 0
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -1812,7 +1815,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 700
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -1933,7 +1937,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 675
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -2054,7 +2059,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 1100
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -2067,25 +2073,14 @@
     "difficulty": 3,
     "eyebrow": "Disperser",
     "prompt": "Build Disperser.",
-    "image": {
-      "src": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/disperser.png?t=1593393829403",
-      "alt": "Disperser item icon",
-      "kind": "item"
-    },
+    "image": { "src": "/arcade/items/disperser.png", "alt": "Disperser item icon", "kind": "item" },
     "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
     "correctIndex": 1,
     "explanation": "Disperser uses Diffusal Blade, Eaglesong.",
     "shopkeeper": {
       "format": "real-recipe",
       "targetItemKey": "disperser",
-      "promptItems": [
-        {
-          "key": "disperser",
-          "name": "Disperser",
-          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/disperser.png?t=1593393829403",
-          "count": 1
-        }
-      ],
+      "promptItems": [{ "key": "disperser", "name": "Disperser", "image": "/arcade/items/disperser.png", "count": 1 }],
       "recipeComponentKeys": ["diffusal_blade", "eagle"],
       "answerRecipeKeys": [
         ["diffusal_blade", "ultimate_orb"],
@@ -2151,7 +2146,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 800
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -2171,7 +2167,7 @@
     },
     "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
     "correctIndex": 3,
-    "explanation": "Echo Sabre uses Ogre Axe, Broadsword, Void Stone.",
+    "explanation": "Echo Sabre uses Ogre Axe, Broadsword, Void Stone. No recipe scroll is needed.",
     "shopkeeper": {
       "format": "real-recipe",
       "targetItemKey": "echo_sabre",
@@ -2272,7 +2268,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 0
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -2369,7 +2366,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 900
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -2490,7 +2488,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 250
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -2587,7 +2586,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 1000
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -2708,7 +2708,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 300
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -2805,7 +2806,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 1000
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -2902,7 +2904,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 300
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -2999,7 +3002,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 350
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -3120,7 +3124,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 1000
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -3140,7 +3145,7 @@
     },
     "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
     "correctIndex": 3,
-    "explanation": "Shadow Blade uses Claymore, Blitz Knuckles, Shadow Amulet.",
+    "explanation": "Shadow Blade uses Claymore, Blitz Knuckles, Shadow Amulet. No recipe scroll is needed.",
     "shopkeeper": {
       "format": "real-recipe",
       "targetItemKey": "invis_sword",
@@ -3241,7 +3246,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 0
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -3261,7 +3267,7 @@
     },
     "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
     "correctIndex": 1,
-    "explanation": "Maelstrom uses Mithril Hammer, Javelin, Gloves of Haste.",
+    "explanation": "Maelstrom uses Mithril Hammer, Javelin, Gloves of Haste. No recipe scroll is needed.",
     "shopkeeper": {
       "format": "real-recipe",
       "targetItemKey": "maelstrom",
@@ -3362,7 +3368,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 0
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -3459,7 +3466,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 550
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -3479,7 +3487,7 @@
     },
     "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
     "correctIndex": 0,
-    "explanation": "Oblivion Staff uses Blitz Knuckles, Robe of the Magi, Sage's Mask.",
+    "explanation": "Oblivion Staff uses Blitz Knuckles, Robe of the Magi, Sage's Mask. No recipe scroll is needed.",
     "shopkeeper": {
       "format": "real-recipe",
       "targetItemKey": "oblivion_staff",
@@ -3580,7 +3588,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 0
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -3677,7 +3686,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 700
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -3774,7 +3784,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 250
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -3895,7 +3906,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 500
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -3915,7 +3927,7 @@
     },
     "answers": ["Recipe A", "Recipe B", "Recipe C", "Recipe D"],
     "correctIndex": 1,
-    "explanation": "Tranquil Boots uses Boots of Speed, Wind Lace, Ring of Regen.",
+    "explanation": "Tranquil Boots uses Boots of Speed, Wind Lace, Ring of Regen. No recipe scroll is needed.",
     "shopkeeper": {
       "format": "real-recipe",
       "targetItemKey": "tranquil_boots",
@@ -4016,7 +4028,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 0
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -4137,7 +4150,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 350
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -4258,7 +4272,8 @@
           }
         ]
       ],
-      "clientBuild": "6882"
+      "clientBuild": "6882",
+      "recipeCost": 300
     },
     "source": { "label": "Dota 2 live-client recipes · build 6882", "url": "https://www.dota2.com/patches/7.41f" },
     "patch": "7.41f"
@@ -4270,7 +4285,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Cloak", "Gloves of Haste", "Orb of Venom", "Blades of Attack"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cloak.png?t=1593393829403",
@@ -4316,7 +4331,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Maelstrom", "Platemail", "Hyperstone", "Buckler"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/maelstrom.png?t=1593393829403",
@@ -4362,7 +4377,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Mithril Hammer", "Belt of Strength", "Wind Lace", "Headdress"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mithril_hammer.png?t=1593393829403",
@@ -4408,7 +4423,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Broadsword", "Void Stone", "Ogre Axe", "Mithril Hammer"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/broadsword.png?t=1593393829403",
@@ -4454,7 +4469,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Mithril Hammer", "Javelin", "Gloves of Haste", "Ogre Axe"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mithril_hammer.png?t=1593393829403",
@@ -4500,7 +4515,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Oblivion Staff", "Gloves of Haste", "Mithril Hammer", "Javelin"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/oblivion_staff.png?t=1593393829403",
@@ -4546,7 +4561,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Blitz Knuckles", "Oblivion Staff", "Javelin", "Demon Edge"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blitz_knuckles.png?t=1593393829403",
@@ -4592,7 +4607,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Ring of Protection", "Circlet", "Gauntlets of Strength", "Sage's Mask"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_protection.png?t=1593393829403",
@@ -4638,7 +4653,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Claymore", "Talisman of Evasion", "Eaglesong", "Sacred Relic"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/claymore.png?t=1593393829403",
@@ -4684,7 +4699,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Talisman of Evasion", "Claymore", "Reaver", "Morbid Mask"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/talisman_of_evasion.png?t=1593393829403",
@@ -4730,7 +4745,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Wind Lace", "Staff of Wizardry", "Void Stone", "Energy Booster"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/wind_lace.png?t=1593393829403",
@@ -4776,7 +4791,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Point Booster", "Wizard Hat", "Magic Wand", "Crown"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/point_booster.png?t=1593393829403",
@@ -4822,7 +4837,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Point Booster", "Wizard Hat", "Kaya", "Crown"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/point_booster.png?t=1593393829403",
@@ -4868,7 +4883,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Fluffy Hat", "Robe of the Magi", "Staff of Wizardry", "Voodoo Mask"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/fluffy_hat.png?t=1593393829403",
@@ -4914,7 +4929,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Ring of Tarrasque", "Morbid Mask", "Reaver", "Claymore"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_tarrasque.png?t=1593393829403",
@@ -4960,7 +4975,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Orb of Venom", "Dragon Lance", "Force Staff", "Specialist's Array"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_venom.png?t=1593393829403",
@@ -5006,7 +5021,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Shawl", "Blitz Knuckles", "Claymore", "Shadow Amulet"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/shawl.png?t=1593393829403",
@@ -5052,7 +5067,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Vitality Booster", "Platemail", "Perseverance", "Energy Booster"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vitality_booster.png?t=1593393829403",
@@ -5098,7 +5113,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Perseverance", "Platemail", "Energy Booster", "Ultimate Orb"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pers.png?t=1593393829403",
@@ -5144,7 +5159,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Cloak", "Broadsword", "Blades of Attack", "Perseverance"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/cloak.png?t=1593393829403",
@@ -5190,7 +5205,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Chainmail", "Headdress", "Belt of Strength", "Wind Lace"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chainmail.png?t=1593393829403",
@@ -5236,7 +5251,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Blitz Knuckles", "Javelin", "Shadow Amulet", "Claymore"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blitz_knuckles.png?t=1593393829403",
@@ -5282,7 +5297,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Demon Edge", "Blitz Knuckles", "Shadow Blade", "Javelin"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/demon_edge.png?t=1593393829403",
@@ -5328,7 +5343,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Javelin", "Oblivion Staff", "Claymore", "Orchid Malevolence"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/javelin.png?t=1593393829403",
@@ -5374,7 +5389,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Chainmail", "Boots of Speed", "Ring of Basilius", "Blades of Attack"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chainmail.png?t=1593393829403",
@@ -5420,7 +5435,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Ring of Tarrasque", "Cloak", "Tranquil Boots", "Drum of Endurance"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ring_of_tarrasque.png?t=1593393829403",
@@ -5466,7 +5481,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Vitality Booster", "Crown", "Shawl", "Cloak"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/vitality_booster.png?t=1593393829403",
@@ -5512,7 +5527,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Blitz Knuckles", "Claymore", "Shadow Amulet", "Morbid Mask"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blitz_knuckles.png?t=1593393829403",
@@ -5558,7 +5573,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Broadsword", "Chasm Stone", "Platemail", "Splintmail"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/broadsword.png?t=1593393829403",
@@ -5604,7 +5619,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Chasm Stone", "Platemail", "Point Booster", "Splintmail"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/chasm_stone.png?t=1593393829403",
@@ -5650,7 +5665,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Urn of Shadows", "Wizard Hat", "Diadem", "Chainmail"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/urn_of_shadows.png?t=1593393829403",
@@ -5696,7 +5711,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Blink Dagger", "Talisman of Evasion", "Eaglesong", "Claymore"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403",
@@ -5742,7 +5757,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Blade of Alacrity", "Ogre Axe", "Staff of Wizardry", "Point Booster"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blade_of_alacrity.png?t=1593393829403",
@@ -5788,7 +5803,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Ogre Axe", "Broadsword", "Blade of Alacrity", "Staff of Wizardry"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ogre_axe.png?t=1593393829403",
@@ -5834,7 +5849,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Crystalys", "Voodoo Mask", "Robe of the Magi", "Fluffy Hat"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lesser_crit.png?t=1593393829403",
@@ -5880,7 +5895,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Blades of Attack", "Morbid Mask", "Buckler", "Ring of Basilius"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blades_of_attack.png?t=1593393829403",
@@ -5926,7 +5941,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Orb of Venom", "Pavise", "Wind Lace", "Chainmail"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orb_of_venom.png?t=1593393829403",
@@ -5972,7 +5987,7 @@
     "category": "Recipes",
     "difficulty": 3,
     "eyebrow": "Shared Part",
-    "prompt": "What component do both items use?",
+    "prompt": "Which component is used directly in both recipes?",
     "answers": ["Band of Elvenskin", "Blade of Alacrity", "Orb of Blight", "Orb of Frost"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/boots_of_elves.png?t=1593393829403",
@@ -6057,6 +6072,8 @@
           "headdress",
           "mekansm",
           "ring_of_basilius",
+          "ring_of_regen",
+          "sobi_mask",
           "wizard_hat"
         ],
         ["energy_booster", "octarine_core", "point_booster", "soul_booster", "tiara_of_selemene", "vitality_booster"],
@@ -6190,7 +6207,7 @@
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/skadi.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mjollnir.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/helm_of_the_overlord.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/disperser.png?t=1593393829403"
+      "/arcade/items/disperser.png"
     ],
     "answerImageKind": "item",
     "correctIndex": 3,
@@ -6414,7 +6431,7 @@
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/yasha_and_kaya.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mjollnir.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/helm_of_the_overlord.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/disperser.png?t=1593393829403"
+      "/arcade/items/disperser.png"
     ],
     "answerImageKind": "item",
     "correctIndex": 1,
@@ -6461,7 +6478,7 @@
     "answers": ["Divine Rapier", "Khanda", "Helm of the Overlord", "Silver Edge"],
     "answerImages": [
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/rapier.png?t=1593393829403",
-      "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/angels_demise.png?t=1593393829403",
+      "/arcade/items/angels_demise.png",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/helm_of_the_overlord.png?t=1593393829403",
       "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/silver_edge.png?t=1593393829403"
     ],
@@ -6473,12 +6490,7 @@
       "sourceItemKey": "phylactery",
       "targetItemKey": "angels_demise",
       "promptItems": [
-        {
-          "key": "phylactery",
-          "name": "Phylactery",
-          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/phylactery.png?t=1593393829403",
-          "count": 1
-        }
+        { "key": "phylactery", "name": "Phylactery", "image": "/arcade/items/phylactery.png", "count": 1 }
       ],
       "answerItemKeys": ["rapier", "angels_demise", "helm_of_the_overlord", "silver_edge"],
       "answerRecipeKeys": [
@@ -6556,6 +6568,8 @@
           "headdress",
           "mekansm",
           "ring_of_basilius",
+          "ring_of_regen",
+          "sobi_mask",
           "wizard_hat"
         ],
         ["blade_of_alacrity", "ogre_axe", "point_booster", "staff_of_wizardry", "ultimate_scepter"],

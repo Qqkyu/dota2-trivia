@@ -1,31 +1,21 @@
 import { NextResponse } from "next/server";
-import { rateLimitRequest } from "@/lib/api-protection";
+import { preflightRateLimit, readJsonBody, requestOriginAllowed } from "@/lib/api-protection";
 import { normalizeClientDiagnostic } from "@/lib/diagnostics.mjs";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
-  const length = Number(request.headers.get("content-length") ?? 0);
-  if (Number.isFinite(length) && length > 2_048) {
-    return NextResponse.json({ error: "Diagnostic payload too large." }, { status: 413 });
+  if (!requestOriginAllowed(request)) {
+    return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
   }
-
-  let body: unknown;
-  try {
-    const raw = await request.text();
-    if (raw.length > 2_048) {
-      return NextResponse.json({ error: "Diagnostic payload too large." }, { status: 413 });
-    }
-    body = JSON.parse(raw);
-  } catch {
-    return NextResponse.json({ error: "Invalid diagnostic payload." }, { status: 400 });
-  }
+  const limited = preflightRateLimit(request, "diagnostics", 6);
+  if (limited) return limited;
+  const parsed = await readJsonBody(request, { maxBytes: 2_048 });
+  if ("response" in parsed) return parsed.response;
+  const { body } = parsed;
   const diagnostic = normalizeClientDiagnostic(body);
   if (!diagnostic) return NextResponse.json({ error: "Invalid diagnostic payload." }, { status: 400 });
-
-  const rateLimited = rateLimitRequest(request, "diagnostics", "browser-error", 6);
-  if (rateLimited) return rateLimited;
 
   console.error(
     "[queue-arcade:client-error]",

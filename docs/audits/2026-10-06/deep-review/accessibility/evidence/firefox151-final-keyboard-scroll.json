@@ -1,0 +1,1013 @@
+{
+  "appUrl": "http://127.0.0.1:3320",
+  "engine": "firefox",
+  "runName": "firefox151-final-keyboard-scroll",
+  "buildId": "IqM7S-izzhLw1FS90-lLJ",
+  "startedAt": "2026-10-06T09:24:50.424Z",
+  "completed": true,
+  "requestedModes": [],
+  "fixtureModes": [],
+  "reviewerFixture": true,
+  "version": "151.0",
+  "pages": [],
+  "fixtures": [],
+  "keyboard": [
+    {
+      "name": "classic-ability",
+      "tabSequence": [
+        {
+          "tag": "A",
+          "name": "Queue Arcade home",
+          "testid": "site-home",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 24,
+            "y": 23.5,
+            "width": 233.93333435058594,
+            "height": 40
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Enable game sounds",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1091,
+            "y": 25.5,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Game volume",
+          "testid": "game-volume",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1135,
+            "y": 33.5,
+            "width": 72,
+            "height": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "A160",
+          "testid": "arcade-answer",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 53,
+            "y": 397,
+            "width": 418,
+            "height": 76
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "B120",
+          "testid": "arcade-answer",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 481,
+            "y": 397,
+            "width": 418,
+            "height": 76
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "C100",
+          "testid": "arcade-answer",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 53,
+            "y": 483,
+            "width": 418,
+            "height": 76
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "D140",
+          "testid": "arcade-answer",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 481,
+            "y": 483,
+            "width": 418,
+            "height": 76
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Profile",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 522.0499877929688,
+            "y": 852.5,
+            "width": 36.633331298828125,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Privacy",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 570.683349609375,
+            "y": 852.5,
+            "width": 40.69999694824219,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        }
+      ],
+      "timerLive": "off",
+      "report": {
+        "openedFocus": {
+          "tag": "BUTTON",
+          "name": "Wrong answer",
+          "testid": "report-reason",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 121,
+            "y": 561.8499755859375,
+            "width": 96.25,
+            "height": 39
+          }
+        },
+        "afterEscape": {
+          "focus": {
+            "tag": "BUTTON",
+            "name": "Wrong answer",
+            "testid": "report-reason",
+            "role": null,
+            "outline": "solid 2px rgb(210, 163, 74)",
+            "box": {
+              "x": 121,
+              "y": 561.8499755859375,
+              "width": 96.25,
+              "height": 39
+            }
+          },
+          "reasons": 4
+        },
+        "afterRoundChange": {
+          "tag": "BUTTON",
+          "name": "Wrong answer",
+          "testid": "report-reason",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 650,
+            "y": 822,
+            "width": 143.5,
+            "height": 40
+          }
+        }
+      },
+      "votes": []
+    },
+    {
+      "name": "shop-build",
+      "tabSequence": [
+        {
+          "tag": "A",
+          "name": "Queue Arcade home",
+          "testid": "site-home",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 24,
+            "y": 23.5,
+            "width": 233.93333435058594,
+            "height": 40
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Enable game sounds",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1091,
+            "y": 25.5,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Game volume",
+          "testid": "game-volume",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1135,
+            "y": 33.5,
+            "width": 72,
+            "height": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "basics",
+          "testid": "shopkeeper-tab-basics",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 65,
+            "y": 402,
+            "width": 88,
+            "height": 36
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "upgrades",
+          "testid": "shopkeeper-tab-upgrades",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 153,
+            "y": 402,
+            "width": 88,
+            "height": 36
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Search shop items",
+          "testid": "shopkeeper-search-field",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 567,
+            "y": 406,
+            "width": 315,
+            "height": 28
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Magic Wand, 460 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 70,
+            "y": 479,
+            "width": 34.31666564941406,
+            "height": 26
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Bracer, 505 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 101.71665954589844,
+            "y": 479,
+            "width": 34.316680908203125,
+            "height": 26
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Wraith Band, 505 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 133.43333435058594,
+            "y": 479,
+            "width": 34.31666564941406,
+            "height": 26
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Null Talisman, 505 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 165.14999389648438,
+            "y": 479,
+            "width": 34.31666564941406,
+            "height": 26
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Power Treads, 1,400 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 70,
+            "y": 508,
+            "width": 34.31666564941406,
+            "height": 26
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Soul Ring, 805 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 101.71665954589844,
+            "y": 508,
+            "width": 34.316680908203125,
+            "height": 26
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Orb of Corrosion, 1,050 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 133.43333435058594,
+            "y": 508,
+            "width": 34.31666564941406,
+            "height": 26
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Falcon Blade, 1,125 gold",
+          "testid": "shopkeeper-store-item",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 165.14999389648438,
+            "y": 508,
+            "width": 34.31666564941406,
+            "height": 26
+          }
+        }
+      ],
+      "timerLive": "off",
+      "votes": []
+    },
+    {
+      "name": "fogged-vision",
+      "tabSequence": [
+        {
+          "tag": "A",
+          "name": "Queue Arcade home",
+          "testid": "site-home",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 24,
+            "y": 23.5,
+            "width": 233.93333435058594,
+            "height": 40
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Enable game sounds",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1091,
+            "y": 25.5,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Game volume",
+          "testid": "game-volume",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1135,
+            "y": 33.5,
+            "width": 72,
+            "height": 20
+          }
+        },
+        {
+          "tag": "DIV",
+          "name": "127 heroes · type to filterStrengthAgilityIntelligenceUniversal",
+          "testid": "hero-picker",
+          "role": null,
+          "outline": "auto 1px rgb(241, 240, 234)",
+          "box": {
+            "x": 53,
+            "y": 371,
+            "width": 846,
+            "height": 431.33331298828125
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Filter heroes",
+          "testid": "hero-search-input",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 99.03334045410156,
+            "y": 372.5,
+            "width": 786.9666748046875,
+            "height": 38
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Alchemist",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 64,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Axe",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 103.13333129882812,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Bristleback",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 142.26666259765625,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Centaur Warrunner",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 181.39999389648438,
+            "y": 467,
+            "width": 36.13334655761719,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Chaos Knight",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 220.53334045410156,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Clockwerk",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 259.66668701171875,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Dawnbreaker",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 298.79998779296875,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Doom",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 337.933349609375,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Dragon Knight",
+          "testid": "hero-picker-hero",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 377.066650390625,
+            "y": 467,
+            "width": 36.133331298828125,
+            "height": 34.41667175292969
+          }
+        }
+      ],
+      "timerLive": "off",
+      "votes": []
+    },
+    {
+      "name": "order-up",
+      "tabSequence": [
+        {
+          "tag": "A",
+          "name": "Queue Arcade home",
+          "testid": "site-home",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 24,
+            "y": 23.5,
+            "width": 233.93333435058594,
+            "height": 40
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Enable game sounds",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1091,
+            "y": 25.5,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Game volume",
+          "testid": "game-volume",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1135,
+            "y": 33.5,
+            "width": 72,
+            "height": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "1. Clarity",
+          "testid": "value-order-card",
+          "role": null,
+          "outline": "solid 3px rgb(217, 219, 216)",
+          "box": {
+            "x": 70,
+            "y": 480.79998779296875,
+            "width": 196.25,
+            "height": 116
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "2. Tango",
+          "testid": "value-order-card",
+          "role": null,
+          "outline": "solid 3px rgb(217, 219, 216)",
+          "box": {
+            "x": 275.25,
+            "y": 480.79998779296875,
+            "width": 196.25,
+            "height": 116
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "3. Enchanted Mango",
+          "testid": "value-order-card",
+          "role": null,
+          "outline": "solid 3px rgb(217, 219, 216)",
+          "box": {
+            "x": 480.5,
+            "y": 480.79998779296875,
+            "width": 196.25,
+            "height": 116
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "4. Dust of Appearance",
+          "testid": "value-order-card",
+          "role": null,
+          "outline": "solid 3px rgb(217, 219, 216)",
+          "box": {
+            "x": 685.75,
+            "y": 480.79998779296875,
+            "width": 196.25,
+            "height": 116
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Profile",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 522.0499877929688,
+            "y": 852.5,
+            "width": 36.633331298828125,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Privacy",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 570.683349609375,
+            "y": 852.5,
+            "width": 40.69999694824219,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        }
+      ],
+      "timerLive": "off",
+      "votes": []
+    },
+    {
+      "name": "flashback-year",
+      "tabSequence": [
+        {
+          "tag": "A",
+          "name": "Queue Arcade home",
+          "testid": "site-home",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 24,
+            "y": 23.5,
+            "width": 233.93333435058594,
+            "height": 40
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Enable game sounds",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1091,
+            "y": 25.5,
+            "width": 36,
+            "height": 36
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Game volume",
+          "testid": "game-volume",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 1135,
+            "y": 33.5,
+            "width": 72,
+            "height": 20
+          }
+        },
+        {
+          "tag": "INPUT",
+          "name": "Year",
+          "testid": "flashback-year-slider",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 156,
+            "y": 452.75,
+            "width": 640,
+            "height": 28
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "name": "Lock",
+          "testid": "flashback-year-lock",
+          "role": null,
+          "outline": "none 0px rgb(230, 196, 119)",
+          "box": {
+            "x": 430,
+            "y": 521.25,
+            "width": 92,
+            "height": 38
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Profile",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 522.0499877929688,
+            "y": 852.5,
+            "width": 36.633331298828125,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Privacy",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 570.683349609375,
+            "y": 852.5,
+            "width": 40.69999694824219,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        },
+        {
+          "tag": "A",
+          "name": "Calibration lab",
+          "role": null,
+          "outline": "solid 2px rgb(210, 163, 74)",
+          "box": {
+            "x": 623.38330078125,
+            "y": 852.5,
+            "width": 80.78334045410156,
+            "height": 30
+          }
+        }
+      ],
+      "timerLive": "off",
+      "votes": []
+    },
+    {
+      "name": "mobile-next-round",
+      "before": {
+        "scrollY": 647,
+        "height": 640,
+        "prompt": {
+          "top": -317,
+          "bottom": -258.5
+        },
+        "timer": {
+          "top": 13.25,
+          "bottom": 41.75
+        }
+      },
+      "after": {
+        "scrollY": 80,
+        "height": 640,
+        "prompt": {
+          "top": 250,
+          "bottom": 308.5
+        },
+        "timer": {
+          "top": 14.25,
+          "bottom": 42.75
+        }
+      },
+      "screenshot": "/tmp/queue-arcade-deep-review/accessibility/firefox151-final-keyboard-scroll-mobile-next-round.png"
+    }
+  ],
+  "failures": [],
+  "accountFixture": {
+    "status": 200,
+    "authenticated": true,
+    "name": "SyntheticAuditPlayerWithAnExtremelyLongDisplayNameForLayout",
+    "answers": 100
+  },
+  "completedAt": "2026-10-06T09:24:58.829Z"
+}

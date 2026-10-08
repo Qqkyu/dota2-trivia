@@ -1,0 +1,73 @@
+{
+  "ok": true,
+  "engine": "PostgreSQL 14",
+  "scope": "Disposable local data only. Includes synthetic account, identity, active session, saved correct result, alpha visit/event and login nonce.",
+  "elapsedMs": 207,
+  "tables": [
+    {
+      "table": "queue_arcade_alpha_round_events",
+      "rows": 1,
+      "identical": true
+    },
+    {
+      "table": "queue_arcade_alpha_sessions",
+      "rows": 33,
+      "identical": true
+    },
+    {
+      "table": "queue_arcade_player_rounds",
+      "rows": 1,
+      "identical": true
+    },
+    {
+      "table": "queue_arcade_question_reporters",
+      "rows": 9,
+      "identical": true
+    },
+    {
+      "table": "queue_arcade_question_reviews",
+      "rows": 3,
+      "identical": true
+    },
+    {
+      "table": "queue_arcade_question_stats",
+      "rows": 3,
+      "identical": true
+    },
+    {
+      "table": "queue_arcade_round_votes",
+      "rows": 106,
+      "identical": true
+    },
+    {
+      "table": "queue_arcade_rounds",
+      "rows": 4,
+      "identical": true
+    },
+    {
+      "table": "queue_arcade_schema_migrations",
+      "rows": 2,
+      "identical": true
+    },
+    {
+      "table": "queue_arcade_steam_nonces",
+      "rows": 1,
+      "identical": true
+    },
+    {
+      "table": "queue_arcade_user_identities",
+      "rows": 1,
+      "identical": true
+    },
+    {
+      "table": "queue_arcade_user_sessions",
+      "rows": 1,
+      "identical": true
+    },
+    {
+      "table": "queue_arcade_users",
+      "rows": 1,
+      "identical": true
+    }
+  ]
+}

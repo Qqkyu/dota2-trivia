@@ -1,0 +1,61 @@
+Checked 320x568
+Checked 360x640
+Checked 390x844
+Checked 568x320
+Checked 768x1024
+Checked 1280x640
+Checked 1920x1080
+Checked 2560x1440
+Checked 3440x1440
+Checked 3840x2160
+FAIL 960x540-spell-owner-answering keeps prompt text visible: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   "The caster buries himself beneath the battlefield over a short duration. Once affected, Spiked Carapace instantly stuns nearby enemies when cast, the range of Mind Flare and Impale is increased, and Impale's cooldown is decreased. While affected, the caster is stationary, unable to attack, and invisible. The caster gains damage reduction from all damage sources."
++ ]
+- []
+
+FAIL 960x540-spell-owner-reveal keeps prompt text visible: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   "The caster buries himself beneath the battlefield over a short duration. Once affected, Spiked Carapace instantly stuns nearby enemies when cast, the range of Mind Flare and Impale is increased, and Impale's cooldown is decreased. While affected, the caster is stationary, unable to attack, and invisible. The caster gains damage reduction from all damage sources."
++ ]
+- []
+
+Checked 960x540 (1920x1080 at 200% reflow)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: 2 responsive failures:
+960x540-spell-owner-answering keeps prompt text visible: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   "The caster buries himself beneath the battlefield over a short duration. Once affected, Spiked Carapace instantly stuns nearby enemies when cast, the range of Mind Flare and Impale is increased, and Impale's cooldown is decreased. While affected, the caster is stationary, unable to attack, and invisible. The caster gains damage reduction from all damage sources."
++ ]
+- []
+
+960x540-spell-owner-reveal keeps prompt text visible: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   "The caster buries himself beneath the battlefield over a short duration. Once affected, Spiked Carapace instantly stuns nearby enemies when cast, the range of Mind Flare and Impale is increased, and Impale's cooldown is decreased. While affected, the caster is stationary, unable to attack, and invisible. The caster gains damage reduction from all damage sources."
++ ]
+- []
+
+
+2 !== 0
+
+    at file:///home/kulmisiu/dev/dota2-trivia/scripts/check-responsive-ui.mjs:357:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 2,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

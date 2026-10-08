@@ -1,0 +1,191 @@
+{
+  "frozen": true,
+  "scope": "Final Postgres driver patch and authenticated ingress proof",
+  "files": [
+    {
+      "path": "patches/postgres@3.4.9.patch",
+      "sha256": "d8930d4d380de22a4ee1d0480cf589fc302b4309b97edeab3a41404653d60563",
+      "bytes": 10924
+    },
+    {
+      "path": "package.json",
+      "sha256": "239cee113d997543c34b354012243e272367a1932c1185af8174da7d7cd7491c",
+      "bytes": 5445
+    },
+    {
+      "path": "docs/postgres-driver-patch.md",
+      "sha256": "9c1eb0e0e6f92c678b6ee49f13624a2697b80c1c0f5bc554fc796b19bcb68da9",
+      "bytes": 2937
+    },
+    {
+      "path": "tests/postgres-driver-recovery.test.mjs",
+      "sha256": "49457c470b0b22628835ae18c3504a41addd2d4e89ab8b6c8605ca8c96ba2dce",
+      "bytes": 4695
+    },
+    {
+      "path": "tests/helpers/postgres-disconnect-worker.mjs",
+      "sha256": "4d8a4261dd073a4f7880eb45320b529a19c7487e1a51882c7c78962a89c5e27a",
+      "bytes": 3513
+    },
+    {
+      "path": "tests/helpers/postgres-fencing-worker.mjs",
+      "sha256": "4623b16162afcd1c87cb5a012daf6574631705ad8b43ba9189ae04f0696beb9e",
+      "bytes": 2858
+    },
+    {
+      "path": "tests/helpers/postgres-reset-worker.mjs",
+      "sha256": "d401fb88a136f4fc85cbb48d1a4fd23825364eb94c2c3d99475e003d64d62064",
+      "bytes": 3197
+    },
+    {
+      "path": "tests/helpers/postgres-startup-worker.mjs",
+      "sha256": "76f2434fee14f97e3f682a6cb1bf25608576e5ec25b571950dbcb4bd15c0982c",
+      "bytes": 3699
+    },
+    {
+      "path": "src/lib/database-client.ts",
+      "sha256": "7e897b950fb9f73119d26cc8849a95c2d2affd782a0f1fca6672d1b7dce6ce1a",
+      "bytes": 1537
+    },
+    {
+      "path": "src/lib/database-schema.mjs",
+      "sha256": "ea36b40a7a1808dbd117f7a2bc4bdd0a63e0db451bd018e944e9a6e4d246991e",
+      "bytes": 14018
+    },
+    {
+      "path": "src/lib/production-config.mjs",
+      "sha256": "09e5658dfc96d6c03bc7942bda85047a04fbf00a5de020ce8fdba028c6316db3",
+      "bytes": 3180
+    },
+    {
+      "path": "src/instrumentation.ts",
+      "sha256": "8457d1a761d1f8cd22397a6f7df4184e03c90fc340befc4b7153ac1944437c48",
+      "bytes": 885
+    },
+    {
+      "path": "scripts/start-production.mjs",
+      "sha256": "53dc0d474b69613a07f07edeeb7ac74e9faf5a381ee46fe5f8f6c272fee72aa3",
+      "bytes": 1117
+    },
+    {
+      "path": "tests/production-config.test.mjs",
+      "sha256": "af5f0b3957bc9102d3b8f021f3af1a0bfc9f5f70f3d756786f139c3b163dfe1e",
+      "bytes": 4569
+    },
+    {
+      "path": "src/lib/api-protection.ts",
+      "sha256": "a9cdfc86d757b455d430143900a40743e81369d98729b4aca42a645fada45001",
+      "bytes": 3025
+    },
+    {
+      "path": "src/lib/rate-limit.mjs",
+      "sha256": "c8fd57b4f3ed317c4af5c22f3f34be9b8c9abdaf9a328395a5af28077a099a2f",
+      "bytes": 5060
+    },
+    {
+      "path": "src/lib/request-body.mjs",
+      "sha256": "f64c528a96eea48607d88329b4ce0e8cf68e39ce773f94310d16c7d674e82025",
+      "bytes": 2750
+    },
+    {
+      "path": "src/lib/diagnostic-error-code.mjs",
+      "sha256": "e713fbf8b8c594cc8484c16d644909752f7af05b2877a41e75f812843f25bcd1",
+      "bytes": 1281
+    },
+    {
+      "path": "node_modules/postgres/src/result.js",
+      "sha256": "001ff5e0c8d634674f483d07fbcd620a797e3101f842d6c20ca3ace936260465",
+      "bytes": 416
+    },
+    {
+      "path": "node_modules/postgres/src/query.js",
+      "sha256": "67c45a5151032aa46b587abc15381fe4efd97c696e5c1b53082b8161309c4ee2",
+      "bytes": 3600
+    },
+    {
+      "path": "node_modules/postgres/src/types.js",
+      "sha256": "1883bd4536eab1c94b9e708d325b13708b0f18ec80020e3a825f34a72f603b81",
+      "bytes": 10935
+    },
+    {
+      "path": "node_modules/postgres/src/errors.js",
+      "sha256": "85cfbed9a5ab0db41ab8e97b806c881af29807dfe99bc656fdf1a18c1c13b6c6",
+      "bytes": 1155
+    },
+    {
+      "path": "node_modules/postgres/src/index.js",
+      "sha256": "113f368341a9e1b3572c835ef48355e050ad06953242f6b27c1e180780e5b821",
+      "bytes": 15971
+    },
+    {
+      "path": "node_modules/postgres/src/bytes.js",
+      "sha256": "53b73b5ee2919ab5561229c62a4e2db578f63ca613b795b380c23cb684f2d514",
+      "bytes": 1362
+    },
+    {
+      "path": "node_modules/postgres/src/subscribe.js",
+      "sha256": "5d0b1ec9705281ed4a60236fe5f65654038bae117845a71d19e35374d34c0cfa",
+      "bytes": 7626
+    },
+    {
+      "path": "node_modules/postgres/src/connection.js",
+      "sha256": "53f5459568cbd898a13fa5da35f2ecabdf1b759c3a882a5986237c6936afd997",
+      "bytes": 29704
+    },
+    {
+      "path": "node_modules/postgres/src/large.js",
+      "sha256": "05ea787f79cefaf16310f14119fbfd36d2fed0795581b0df1b0e63b591a3ed94",
+      "bytes": 2133
+    },
+    {
+      "path": "node_modules/postgres/src/queue.js",
+      "sha256": "15e6345adb6708bf3b99ad39fc2231c2fb61de5f6cba4b7a7a6be881482a4ec3",
+      "bytes": 541
+    },
+    {
+      "path": "node_modules/postgres/cjs/src/connection.js",
+      "sha256": "89b91c0d6a1fe1a3f2951dfb8c2cd126f781d2b66042877ec1286a4093a135b2",
+      "bytes": 29761
+    },
+    {
+      "path": "node_modules/postgres/cjs/src/index.js",
+      "sha256": "b45cf2beaaa5c924b78f08d27d60ec2969e0ab4cc74da610d485833fa813a655",
+      "bytes": 16018
+    },
+    {
+      "path": "src/lib/ingress-probe.mjs",
+      "sha256": "28de5683e29747720987e6026acdb7d2b640093f09835291aa5a093473e0f1ba",
+      "bytes": 3056
+    },
+    {
+      "path": "src/app/api/health/ingress/route.ts",
+      "sha256": "8777a81206e617222c39b2d044ee1eb6c95e46fbd826094cc58a95598fe0e9b9",
+      "bytes": 999
+    },
+    {
+      "path": "scripts/check-ingress-proof.mjs",
+      "sha256": "58ff031231be9343c3ae006307893b67d70540456cc5911f51f65592e781933e",
+      "bytes": 3883
+    },
+    {
+      "path": "tests/ingress-probe.test.mjs",
+      "sha256": "83954636bae9ba0809f3f0bcdf8aeeefe2c2cd0958cc57fec903aa3d5e6665c0",
+      "bytes": 5731
+    },
+    {
+      "path": "docs/ingress-verification.md",
+      "sha256": "e7488b01e934090fde9ede81a2e13b0d690a3bb35e13e01754aca70cf707f58b",
+      "bytes": 3366
+    },
+    {
+      "path": ".env.example",
+      "sha256": "37c8d9ee3af8370667038eac4f49b0ab4c8e7926d61823fd238189141d564423",
+      "bytes": 2039
+    },
+    {
+      "path": "tests/helpers/source-store-loader.mjs",
+      "sha256": "0bad615e111d487c125b009adee38fba7c41142a15444d874d4378f2595069b5",
+      "bytes": 1825
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "buildId": "NsjBPH5Ygi5SqnYfuwSHz",
+  "browser": "153.0.8010.12",
+  "reader": "49.8",
+  "roleAtEnd": null,
+  "runtimeRoleRemoval": true,
+  "completed": true,
+  "errors": [],
+  "startMs": 1791294536236,
+  "endMs": 1791294542278,
+  "beforeFocus": {
+    "tag": "BODY",
+    "id": "",
+    "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Classic TriviaMana65How much mana does Acid Spray cost?Us"
+  },
+  "afterFocus": {
+    "tag": "H1",
+    "id": "",
+    "testid": "round-heading",
+    "name": "Round 2"
+  },
+  "nextTab": {
+    "tag": "INPUT",
+    "id": "",
+    "testid": "flashback-year-slider",
+    "name": "Year"
+  },
+  "speechRequests": [
+    {
+      "atMs": 1791294536377.29,
+      "text": "leaving panel."
+    },
+    {
+      "atMs": 1791294536378.756,
+      "text": "Round 2 heading 1 clickable."
+    },
+    {
+      "atMs": 1791294536500.134,
+      "text": " Round 2. What year did Dota 2 officially release?"
+    }
+  ],
+  "promptCount": 1
+}

@@ -1,0 +1,15 @@
+import postgres from 'postgres';
+process.env.DATABASE_URL='isolated-local-audit';process.env.ARCADE_VOTER_SALT='audit-fixture-only';
+const sql=postgres({host:'/tmp/queue-arcade-pg-audit.3f4hCl',port:55793,database:'postgres',username:'kulmisiu',max:5,prepare:false,onnotice:()=>{}});
+globalThis.__queueArcadePostgres=sql;
+const vote=await import('./lib/vote-store-postgres.js');
+await vote.getPostgresVoteStoreHealth();
+for(const existing of [0,10000]){
+ const roundId='bench-'+existing+'-'+Date.now(), now=Date.now();
+ await sql`INSERT INTO queue_arcade_rounds(round_id,room_id,game_id,content_version,question_id,created_at,updated_at,count_0) VALUES (${roundId},'audit-room','dota2','audit','audit-question',${now},${now},${existing})`;
+ if(existing)await sql`INSERT INTO queue_arcade_round_votes(round_id,voter_hash,answer_index,answer_key,submitted_at,base_points) SELECT ${roundId},'bench-voter-'||x,0,'hero-'||(x%120),${now},200 FROM generate_series(1,${existing}) AS x`;
+ const start=performance.now();const latencies=[];
+ await Promise.all(Array.from({length:1000},(_,i)=>(async()=>{const s=performance.now();await vote.recordRoundVote({roundId,roomId:'audit-room',gameId:'dota2',contentVersion:'audit',questionId:'audit-question',questionRevision:'audit',correctIndex:0,answerIndex:0,answerKey:'hero-'+i%120,basePoints:200,voterId:'new-bench-voter-'+i,submittedAt:now,countTowardCalibration:false});latencies.push(performance.now()-s);})()));
+ latencies.sort((a,b)=>a-b);console.log(JSON.stringify({existingVotes:existing,newVotes:1000,poolSize:5,wallMs:Math.round(performance.now()-start),p50Ms:Math.round(latencies[499]),p95Ms:Math.round(latencies[949]),p99Ms:Math.round(latencies[989])}));
+}
+await sql.end();

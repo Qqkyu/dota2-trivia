@@ -1,17 +1,24 @@
 import { NextResponse, type NextRequest } from "next/server";
 import type { CrowdResult } from "@/lib/arcade-contract";
 import { sessionUserForRequest } from "@/lib/auth-session";
-import { rateLimitRequest } from "@/lib/api-protection";
+import { preflightRateLimit, rateLimitRequest } from "@/lib/api-protection";
 import { prioritizedKeyCounts } from "@/lib/crowd-split.mjs";
 import { GAME_CATALOGS } from "@/lib/game-catalogs";
+import { validatedGuestIdentity } from "@/lib/guest-identity.mjs";
 import { liveRoundAt, liveRoundForSettings } from "@/lib/private-room-rounds";
-import { applyPrivateRoomCrowdBonus, pendingPrivateRoomRoundIds } from "@/lib/private-rooms.mjs";
+import {
+  applyPrivateRoomCrowdBonus,
+  pendingPrivateRoomRoundIds,
+  privateRoomAwardVersion,
+  privateRoomMember,
+} from "@/lib/private-rooms.mjs";
 import { parsePublicRoomSettings } from "@/lib/public-rooms";
 import { crowdScoreMultiplier, missedRoundResult } from "@/lib/scoring.mjs";
 import { publicQuestionForRound, publicQuestionRevision } from "@/lib/public-question";
 import { questionCalibrationRevision } from "@/lib/question-revision.mjs";
 import { correctAnswerKey, isKeyedAnswerQuestion } from "@/lib/keyed-answer";
 import { touchRoomPresence } from "@/lib/room-presence.mjs";
+import { recoveryRoundNumbers } from "@/lib/round-recovery.mjs";
 import { logServerError } from "@/lib/server-diagnostics";
 import { getPlayerQuestionReport, getRoundCrowd } from "@/lib/vote-store";
 
@@ -22,6 +29,8 @@ const HIDDEN_COUNTS: CrowdResult["counts"] = [0, 0, 0, 0];
 const MAX_REVEALED_KEY_CHOICES = 12;
 
 export async function GET(request: NextRequest) {
+  const preflight = preflightRateLimit(request, "rounds", 9_000);
+  if (preflight) return preflight;
   const searchParams = new URL(request.url).searchParams;
   const settings = parsePublicRoomSettings({
     gameId: searchParams.get("gameId"),
@@ -31,12 +40,13 @@ export async function GET(request: NextRequest) {
   });
   const playerId = searchParams.get("playerId") ?? undefined;
   const knownQuestionRevision = searchParams.get("questionRevision") ?? undefined;
+  const pendingRoundParam = searchParams.get("pendingRoundIds") ?? "";
 
   if (!settings) {
     return NextResponse.json({ error: "Invalid public room settings." }, { status: 400 });
   }
 
-  if (playerId && (playerId.length < 8 || playerId.length > 80)) {
+  if (playerId !== undefined && !validatedGuestIdentity(playerId)) {
     return NextResponse.json({ error: "Invalid player ID." }, { status: 400 });
   }
   if (knownQuestionRevision && knownQuestionRevision.length > 240) {
@@ -45,8 +55,10 @@ export async function GET(request: NextRequest) {
 
   try {
     const accountUser = await sessionUserForRequest(request);
-    const effectivePlayerId = accountUser ? `account:${accountUser.id}` : playerId;
-    const rateLimited = rateLimitRequest(request, "rounds", effectivePlayerId ?? "anonymous", 180);
+    const effectivePlayerId = accountUser
+      ? `account:${accountUser.id}`
+      : (validatedGuestIdentity(playerId) ?? undefined);
+    const rateLimited = rateLimitRequest(request, "rounds", effectivePlayerId ?? "anonymous", 180, 9_000);
     if (rateLimited) return rateLimited;
     const serverNow = Date.now();
     const live = liveRoundForSettings(settings, serverNow);
@@ -56,6 +68,16 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error }, { status, headers: { "Cache-Control": "no-store" } });
     }
     const { room, round } = live;
+    if (
+      live.isolated &&
+      settings.privateCode &&
+      (!effectivePlayerId || !privateRoomMember(settings.privateCode, effectivePlayerId))
+    ) {
+      return NextResponse.json(
+        { error: "Join the party before reading rounds." },
+        { status: 403, headers: { "Cache-Control": "no-store" } },
+      );
+    }
     const activePlayers = effectivePlayerId ? touchRoomPresence(room.id, effectivePlayerId, serverNow) : 0;
     const question = GAME_CATALOGS[room.gameId].questions.find((candidate) => candidate.id === round.questionId);
     if (!question) throw new Error(`Public question ${round.questionId} is missing from the active catalog.`);
@@ -71,7 +93,18 @@ export async function GET(request: NextRequest) {
       answerDuration: round.answerDuration,
     };
     const previousRound = round.number > 0 ? liveRoundAt(settings, round.number - 1, serverNow) : null;
-    const [result, playerReport, previousCrowd] = await Promise.all([
+    const recoveryNumbers = recoveryRoundNumbers(
+      pendingRoundParam,
+      room.id,
+      round.number,
+      live.isolated ? live.record.startedAt : undefined,
+    );
+    if (previousRound) recoveryNumbers.push(previousRound.number);
+    const closedRounds = [...new Set(recoveryNumbers)]
+      .map((number) => liveRoundAt(settings, number, serverNow))
+      .filter((pastRound) => pastRound !== null);
+    const awardVersion = settings.privateCode ? privateRoomAwardVersion(settings.privateCode) : 0;
+    const [result, playerReport, previousCrowds] = await Promise.all([
       getRoundCrowd(round.id, room.id, effectivePlayerId, round.phase === "reveal"),
       getPlayerQuestionReport(
         room.gameId,
@@ -80,9 +113,25 @@ export async function GET(request: NextRequest) {
         questionCalibrationRevision(question),
         effectivePlayerId,
       ),
-      previousRound && effectivePlayerId
-        ? getRoundCrowd(previousRound.id, room.id, effectivePlayerId, true)
-        : Promise.resolve(null),
+      effectivePlayerId && closedRounds.length
+        ? Promise.all(
+            closedRounds.map(async (pastRound) => {
+              try {
+                const missed = missedRoundResult(
+                  pastRound.id,
+                  await getRoundCrowd(pastRound.id, room.id, effectivePlayerId, true),
+                );
+                if (!missed) return null;
+                const pastQuestion = GAME_CATALOGS[room.gameId].questions.find(
+                  (candidate) => candidate.id === pastRound.questionId,
+                );
+                return { ...missed, game: pastRound.game, category: pastQuestion?.category };
+              } catch {
+                return null;
+              }
+            }),
+          )
+        : Promise.resolve([]),
     ]);
     const playerVote =
       result.playerVote && isKeyedAnswerQuestion(question)
@@ -96,10 +145,12 @@ export async function GET(request: NextRequest) {
           round.id,
           crowdScoreMultiplier(result.scoreSummary?.correctCount ?? 0, result.total),
           serverNow,
+          { awardVersion, total: result.total },
         );
       }
       const pendingIds = pendingPrivateRoomRoundIds(settings.privateCode, round.id);
       if (pendingIds.length) {
+        const pendingAwardVersion = privateRoomAwardVersion(settings.privateCode);
         const crowds = await Promise.all(
           pendingIds.map(async (pendingRoundId) => {
             try {
@@ -117,6 +168,7 @@ export async function GET(request: NextRequest) {
             pendingRoundId,
             crowdScoreMultiplier(crowd.scoreSummary?.correctCount ?? 0, crowd.total),
             serverNow,
+            { awardVersion: pendingAwardVersion, total: crowd.total },
           );
         });
       }
@@ -125,6 +177,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       {
         serverNow,
+        playerIdentity: accountUser
+          ? { kind: "account", id: accountUser.id }
+          : effectivePlayerId
+            ? { kind: "guest", id: effectivePlayerId }
+            : null,
         room,
         round: publicRound,
         questionRevision,
@@ -146,7 +203,7 @@ export async function GET(request: NextRequest) {
         },
         playerVote,
         playerReport,
-        previousResult: previousRound ? missedRoundResult(previousRound.id, previousCrowd) : null,
+        previousResults: (previousCrowds ?? []).filter(Boolean),
       },
       {
         headers: {

@@ -1,0 +1,9 @@
+import json,warnings
+from pathlib import Path
+import numpy as np
+from scipy.io import wavfile
+from scipy import signal
+root=Path('/tmp/queue-arcade-launch-checks/soundcheck');sr,x=wavfile.read(root/'cuts/q077-s2-c1.wav');x=x[:,0].astype(float)/32768*.7;y=np.fromfile(root/'recordings/case-229-initial.f32',dtype='<f4').reshape(-1,2)[:,0].astype(float);rows=[]
+for start in range(0,len(x)-882,882):
+ ref=x[start:start+882];cross=signal.correlate(y,ref,mode='valid',method='fft');at=int(cross.argmax());sample=y[at:at+len(ref)];cor=float(np.dot(ref,sample)/np.sqrt(np.dot(ref,ref)*np.dot(sample,sample)));rows.append({'sourceStart':start/sr,'capturedStart':at/sr,'delay':(at-start)/sr,'correlation':cor})
+(root/'native-outlier-segments.json').write_text(json.dumps(rows,indent=2)+'\n');print(json.dumps(rows,indent=2))

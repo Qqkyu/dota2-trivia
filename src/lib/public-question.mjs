@@ -14,7 +14,7 @@ import {
   recipeBuilderCorrectAnswerKey,
 } from "./item-picker.mjs";
 import { clueStageAt } from "./scoring.mjs";
-import { echoHuntRevealStage, soundcheckRevealStage } from "./soundcheck.mjs";
+import { echoHuntRevealStage, soundcheckClipTiming, soundcheckRevealStage } from "./soundcheck.mjs";
 import { isValueOrderQuestion, valueOrderCorrectAnswerKey } from "./value-order.mjs";
 
 function copyImage(image, alt) {
@@ -139,7 +139,14 @@ export function publicQuestionForRound(question, round, now) {
         ...(!recipeBuilderAnswer && question.shopkeeper.answerGroups
           ? { answerGroups: question.shopkeeper.answerGroups.map(copyShopkeeperItems) }
           : {}),
-        ...(recipeBuilderAnswer ? { recipeSize: question.shopkeeper.recipeComponentKeys.length } : {}),
+        ...(recipeBuilderAnswer
+          ? {
+              recipeSize: question.shopkeeper.recipeComponentKeys.length,
+              ...(Number.isInteger(question.shopkeeper.recipeCost) && question.shopkeeper.recipeCost >= 0
+                ? { recipeCost: question.shopkeeper.recipeCost }
+                : {}),
+            }
+          : {}),
       }
     : undefined;
   const soundcheck = question.soundcheck
@@ -147,7 +154,7 @@ export function publicQuestionForRound(question, round, now) {
         family: question.soundcheck.family,
         format: question.soundcheck.format,
         choiceScope: question.soundcheck.choiceScope,
-        clips: question.soundcheck.clips.map((clip) => ({ duration: clip.duration })),
+        clips: question.soundcheck.clips.map((clip) => ({ duration: soundcheckClipTiming(clip).duration })),
       }
     : undefined;
   const quoteHints =

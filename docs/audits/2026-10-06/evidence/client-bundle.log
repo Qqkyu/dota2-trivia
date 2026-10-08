@@ -1,0 +1,5 @@
+
+> queue-arcade@0.2.0 validate-client-bundle /home/kulmisiu/dev/dota2-trivia
+> node scripts/validate-client-bundle.mjs
+
+Validated 14 private catalog fingerprints: server build only, zero browser bundles.

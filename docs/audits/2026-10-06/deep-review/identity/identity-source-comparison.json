@@ -1,0 +1,5523 @@
+[
+  {
+    "id": "ability-owner:abaddon_aphotic_shield",
+    "kind": "spell-owner",
+    "answer": "Abaddon",
+    "heroKey": "npc_dota_hero_abaddon",
+    "officialHero": "Abaddon",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=102",
+    "sourceFile": "valve/heroes/102.json",
+    "abilityKey": "abaddon_aphotic_shield",
+    "officialAbility": "Aphotic Shield",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "8"
+    },
+    "owners": ["npc_dota_hero_abaddon"],
+    "officialDescription": "Summons dark energies around an ally unit, dispelling them and creating an all damage barrier that absorbs a set amount of damage before expiring. When the barrier is destroyed it will burst and deal damage equal to the amount it could absorb to an area around it. DISPEL TYPE: Strong Dispel",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:abyssal_underlord_pit_of_malice",
+    "kind": "spell-owner",
+    "answer": "Underlord",
+    "heroKey": "npc_dota_hero_abyssal_underlord",
+    "officialHero": "Underlord",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=108",
+    "sourceFile": "valve/heroes/108.json",
+    "abilityKey": "abyssal_underlord_pit_of_malice",
+    "officialAbility": "Pit of Malice",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "48"
+    },
+    "owners": ["npc_dota_hero_abyssal_underlord"],
+    "officialDescription": "A deadly pit is conjured at the target location; any unit that enters will be damaged and rooted. Each enemy unit within the pit are affected by the root only every 3.6 seconds.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:alchemist_unstable_concoction",
+    "kind": "spell-owner",
+    "answer": "Alchemist",
+    "heroKey": "npc_dota_hero_alchemist",
+    "officialHero": "Alchemist",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=73",
+    "sourceFile": "valve/heroes/73.json",
+    "abilityKey": "alchemist_unstable_concoction",
+    "officialAbility": "Unstable Concoction",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "2052"
+    },
+    "owners": ["npc_dota_hero_alchemist"],
+    "officialDescription": "Alchemist brews up an unstable concoction that he can throw at an enemy hero, to stun and deal damage in an area around the explosion. The longer the concoction brews, the more damage it deals and the longer the stun. Alchemist is faster while charging the concoction. After 5 seconds, the brew reaches its maximum damage and stun time. However, after 5.5 seconds, the concoction will explode on Alchemist himself if not thrown.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:ancient_apparition_bone_chill",
+    "kind": "spell-owner",
+    "answer": "Ancient Apparition",
+    "heroKey": "npc_dota_hero_ancient_apparition",
+    "officialHero": "Ancient Apparition",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=68",
+    "sourceFile": "valve/heroes/68.json",
+    "abilityKey": "ancient_apparition_bone_chill",
+    "officialAbility": "Bone Chill",
+    "abilityType": {
+      "innate": true,
+      "shard": false,
+      "scepter": false,
+      "behavior": "562949953421315"
+    },
+    "owners": ["npc_dota_hero_ancient_apparition"],
+    "officialDescription": "When Ancient Apparition deals Magic damage to an enemy with his abilities, it is slowed for a short duration. If the target is a Hero, its Strength is also reduced. Multiple instances of this effect stack and have independent durations.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:antimage_counterspell",
+    "kind": "spell-owner",
+    "answer": "Anti-Mage",
+    "heroKey": "npc_dota_hero_antimage",
+    "officialHero": "Anti-Mage",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=1",
+    "sourceFile": "valve/heroes/1.json",
+    "abilityKey": "antimage_counterspell",
+    "officialAbility": "Counterspell",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "2052"
+    },
+    "owners": ["npc_dota_hero_antimage"],
+    "officialDescription": "Passively grants magic resistance. Counterspell may be activated to create an anti-magic shell around Anti-Mage that blocks and reflects any targeted spells.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:arc_warden_magnetic_field",
+    "kind": "spell-owner",
+    "answer": "Arc Warden",
+    "heroKey": "npc_dota_hero_arc_warden",
+    "officialHero": "Arc Warden",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=113",
+    "sourceFile": "valve/heroes/113.json",
+    "abilityKey": "arc_warden_magnetic_field",
+    "officialAbility": "Magnetic Field",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "4429185072"
+    },
+    "owners": ["npc_dota_hero_arc_warden"],
+    "officialDescription": "Arc Warden generates a circular distortion field of magnetic energy. The Magnetic Field grants bonus attack speed and protects allied units within it by evading attacks coming from outside the field. The Magnetic Field pulls runes, and runes inside Magnetic Field automatically activate.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:axe_battle_hunger",
+    "kind": "spell-owner",
+    "answer": "Axe",
+    "heroKey": "npc_dota_hero_axe",
+    "officialHero": "Axe",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2",
+    "sourceFile": "valve/heroes/2.json",
+    "abilityKey": "axe_battle_hunger",
+    "officialAbility": "Battle Hunger",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "8"
+    },
+    "owners": ["npc_dota_hero_axe"],
+    "officialDescription": "Enrages an enemy unit, causing it to take damage over time until it kills another unit or the duration ends. The enemy is slowed as long as they are facing away from Axe.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:bane_nightmare",
+    "kind": "spell-owner",
+    "answer": "Bane",
+    "heroKey": "npc_dota_hero_bane",
+    "officialHero": "Bane",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3",
+    "sourceFile": "valve/heroes/3.json",
+    "abilityKey": "bane_nightmare",
+    "officialAbility": "Nightmare",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "1099545182216"
+    },
+    "owners": ["npc_dota_hero_bane"],
+    "officialDescription": "Puts the target enemy or friendly Hero to sleep. Sleeping units walk in Bane's chosen direction and are awakened when damaged. If the target was directly attacked, the Nightmare passes to the attacking unit. Bane can attack and damage Nightmared targets freely. Can be put on alt-cast to have the target stand still.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:batrider_firefly",
+    "kind": "spell-owner",
+    "answer": "Batrider",
+    "heroKey": "npc_dota_hero_batrider",
+    "officialHero": "Batrider",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65",
+    "sourceFile": "valve/heroes/65.json",
+    "abilityKey": "batrider_firefly",
+    "officialAbility": "Firefly",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "2052"
+    },
+    "owners": ["npc_dota_hero_batrider"],
+    "officialDescription": "Batrider takes to the skies, moving increasingly fast and laying down a trail of flames from the air. The fire damages any enemies it touches and destroys trees below Batrider. Maximum movement speed bonus is reached at the end of Firefly's duration.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:beastmaster_summon_raptor",
+    "kind": "spell-owner",
+    "answer": "Beastmaster",
+    "heroKey": "npc_dota_hero_beastmaster",
+    "officialHero": "Beastmaster",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=38",
+    "sourceFile": "valve/heroes/38.json",
+    "abilityKey": "beastmaster_summon_raptor",
+    "officialAbility": "Summon Raptors",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "4"
+    },
+    "owners": ["npc_dota_hero_beastmaster"],
+    "officialDescription": "Beastmaster summons 2 hawks that circle around Beastmaster and dive-bombs at enemies with a base attack rate of every 4s, damaging and rooting them. Attack rate increases with the Hawk's attack speed. Prioritizes heroes.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:bloodseeker_thirst",
+    "kind": "spell-owner",
+    "answer": "Bloodseeker",
+    "heroKey": "npc_dota_hero_bloodseeker",
+    "officialHero": "Bloodseeker",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=4",
+    "sourceFile": "valve/heroes/4.json",
+    "abilityKey": "bloodseeker_thirst",
+    "officialAbility": "Thirst",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "2"
+    },
+    "owners": ["npc_dota_hero_bloodseeker"],
+    "officialDescription": "Bloodseeker is invigorated by the wounds of his enemies, gaining bonus movement speed when an enemy hero's health falls below 100%, with the bonuses increasing as their health falls further. If an enemy hero's health falls below 25%, he will also gain vision and True Sight of that hero. Bonuses stack per hero. Unlocks max movement speed for Bloodseeker.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:bounty_hunter_wind_walk",
+    "kind": "spell-owner",
+    "answer": "Bounty Hunter",
+    "heroKey": "npc_dota_hero_bounty_hunter",
+    "officialHero": "Bounty Hunter",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=62",
+    "sourceFile": "valve/heroes/62.json",
+    "abilityKey": "bounty_hunter_wind_walk",
+    "officialAbility": "Shadow Walk",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "4196356"
+    },
+    "owners": ["npc_dota_hero_bounty_hunter"],
+    "officialDescription": "Bounty Hunter becomes invisible and gains bonus movement speed and the ability to move through other units until he attacks or casts a spell. If he breaks the invisibility with an attack, that attack will stun the target for a short duration.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:brewmaster_drunken_brawler",
+    "kind": "spell-owner",
+    "answer": "Brewmaster",
+    "heroKey": "npc_dota_hero_brewmaster",
+    "officialHero": "Brewmaster",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=78",
+    "sourceFile": "valve/heroes/78.json",
+    "abilityKey": "brewmaster_drunken_brawler",
+    "officialAbility": "Drunken Brawler",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "70506187327492"
+    },
+    "owners": ["npc_dota_hero_brewmaster"],
+    "officialDescription": "Brewmaster can switch stances based on the elements he controls. Whenever Brewmaster casts an ability, he becomes Brewed Up, increasing his stance power by 150% for 5s. If he casts another ability while Brewed Up, the duration is extended by 2s. After Brewed Up expires, he is hungover and cannot Brew Up again for 9s. Earth Brawler gains bonus Magic Resistance and Armor. Storm Brawler gains bonus Evasion and Movement Speed. Fire Brawler gains bonus Attack Speed and chance to critical strike.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:bristleback_quill_spray",
+    "kind": "spell-owner",
+    "answer": "Bristleback",
+    "heroKey": "npc_dota_hero_bristleback",
+    "officialHero": "Bristleback",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=99",
+    "sourceFile": "valve/heroes/99.json",
+    "abilityKey": "bristleback_quill_spray",
+    "officialAbility": "Quill Spray",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "6148"
+    },
+    "owners": ["npc_dota_hero_bristleback"],
+    "officialDescription": "Sprays enemy units with quills dealing damage in an area of effect around Bristleback. Deals bonus damage for every time a unit was hit by Quill Spray in the last 14 seconds.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:broodmother_spin_web",
+    "kind": "spell-owner",
+    "answer": "Broodmother",
+    "heroKey": "npc_dota_hero_broodmother",
+    "officialHero": "Broodmother",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=61",
+    "sourceFile": "valve/heroes/61.json",
+    "abilityKey": "broodmother_spin_web",
+    "officialAbility": "Spin Web",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "48"
+    },
+    "owners": ["npc_dota_hero_broodmother"],
+    "officialDescription": "Spins a large web that grants Broodmother a passive movement speed increase and increases her Turn Rate, while in its vicinity, as well as giving free movement. Spin Web can be cast from anywhere as long as the new web touches an existing web. Webs never expire, and can be manually destroyed. When the maximum limit of webs is exceeded, the oldest web disappears.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:centaur_mount",
+    "status": "needs-review"
+  },
+  {
+    "id": "ability-owner:chaos_knight_reality_rift",
+    "kind": "spell-owner",
+    "answer": "Chaos Knight",
+    "heroKey": "npc_dota_hero_chaos_knight",
+    "officialHero": "Chaos Knight",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=81",
+    "sourceFile": "valve/heroes/81.json",
+    "abilityKey": "chaos_knight_reality_rift",
+    "officialAbility": "Reality Rift",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "524296"
+    },
+    "owners": ["npc_dota_hero_chaos_knight"],
+    "officialDescription": "Teleports Chaos Knight, any illusions he has, and the target unit to a point along the line between him and the target. The enemy unit has their armor reduced for 6s.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:chen_holy_persuasion",
+    "kind": "spell-owner",
+    "answer": "Chen",
+    "heroKey": "npc_dota_hero_chen",
+    "officialHero": "Chen",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66",
+    "sourceFile": "valve/heroes/66.json",
+    "abilityKey": "chen_holy_persuasion",
+    "officialAbility": "Holy Persuasion",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "33554440"
+    },
+    "owners": ["npc_dota_hero_chen"],
+    "officialDescription": "Chen takes control of an enemy or neutral creep and receives a percentage of its bounty. Its maximum health is set to 400. Converted creeps will have increased movement speed and bonus damage. Chen may globally target his own creep if it has not taken damage in the last 3 seconds to unsummon it.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:clinkz_burning_barrage",
+    "kind": "spell-owner",
+    "answer": "Clinkz",
+    "heroKey": "npc_dota_hero_clinkz",
+    "officialHero": "Clinkz",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56",
+    "sourceFile": "valve/heroes/56.json",
+    "abilityKey": "clinkz_burning_barrage",
+    "officialAbility": "Burning Barrage",
+    "abilityType": {
+      "innate": false,
+      "shard": true,
+      "scepter": false,
+      "behavior": "8589935761"
+    },
+    "owners": ["npc_dota_hero_clinkz"],
+    "officialDescription": "CHANNELED - Clinkz channels and shoots multiple piercing arrows in the target direction that hit all enemy units dealing a percentage of Clinkz' attack damage and applying attack modifiers.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:crystal_maiden_crystal_clone",
+    "kind": "spell-owner",
+    "answer": "Crystal Maiden",
+    "heroKey": "npc_dota_hero_crystal_maiden",
+    "officialHero": "Crystal Maiden",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5",
+    "sourceFile": "valve/heroes/5.json",
+    "abilityKey": "crystal_maiden_crystal_clone",
+    "officialAbility": "Crystal Clone",
+    "abilityType": {
+      "innate": false,
+      "shard": true,
+      "scepter": false,
+      "behavior": "8762165265"
+    },
+    "owners": ["npc_dota_hero_crystal_maiden"],
+    "officialDescription": "Slides in a direction, creating a crystal clone of herself in her place and disjointing incoming projectiles. If the clone takes enough damage or times out, it shatters, Frostbiting enemies in a 450 AoE around its place. The Clone can also be destroyed by Crystal Maiden's own spells.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:dark_seer_normal_punch",
+    "kind": "spell-owner",
+    "answer": "Dark Seer",
+    "heroKey": "npc_dota_hero_dark_seer",
+    "officialHero": "Dark Seer",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55",
+    "sourceFile": "valve/heroes/55.json",
+    "abilityKey": "dark_seer_normal_punch",
+    "officialAbility": "Normal Punch",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": true,
+      "behavior": "8589934595"
+    },
+    "owners": ["npc_dota_hero_dark_seer"],
+    "officialDescription": "Passive ability. Causes Dark Seer's next attack on a hero to have True Strike, knock a replica out of the victim, damaging and stunning them based on how far Dark Seer has moved in the past 3 seconds. Max power is reached after 1100 distance moved.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:dark_willow_shadow_realm",
+    "kind": "spell-owner",
+    "answer": "Dark Willow",
+    "heroKey": "npc_dota_hero_dark_willow",
+    "officialHero": "Dark Willow",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119",
+    "sourceFile": "valve/heroes/119.json",
+    "abilityKey": "dark_willow_shadow_realm",
+    "officialAbility": "Shadow Realm",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "4196356"
+    },
+    "owners": ["npc_dota_hero_dark_willow"],
+    "officialDescription": "Dark Willow recedes into the shadows, becoming untargetable. Her next attack has 600 bonus attack range and deals bonus magic damage, and will end Shadow Realm. Damage scales based on how long she remains under the effects of Shadow Realm, the maximum being reached after 3 seconds.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:dawnbreaker_celestial_hammer",
+    "kind": "spell-owner",
+    "answer": "Dawnbreaker",
+    "heroKey": "npc_dota_hero_dawnbreaker",
+    "officialHero": "Dawnbreaker",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=135",
+    "sourceFile": "valve/heroes/135.json",
+    "abilityKey": "dawnbreaker_celestial_hammer",
+    "officialAbility": "Celestial Hammer",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "16"
+    },
+    "owners": ["npc_dota_hero_dawnbreaker"],
+    "officialDescription": "Dawnbreaker hurls her weapon at a target, damaging enemies struck along the way. The hammer pauses for 2 seconds at the destination before flying back to her, leaving a trail of fire that slows enemies. Dawnbreaker can recall the hammer at any time, pulling her towards it so they meet in the middle.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:dazzle_shallow_grave",
+    "kind": "spell-owner",
+    "answer": "Dazzle",
+    "heroKey": "npc_dota_hero_dazzle",
+    "officialHero": "Dazzle",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50",
+    "sourceFile": "valve/heroes/50.json",
+    "abilityKey": "dazzle_shallow_grave",
+    "officialAbility": "Shallow Grave",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "167772168"
+    },
+    "owners": ["npc_dota_hero_dazzle"],
+    "officialDescription": "An ally blessed with Shallow Grave, no matter how close to death, cannot die while under its protection. Healing on that ally is also amplified for the duration based on the hero's HP.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:death_prophet_spirit_siphon",
+    "kind": "spell-owner",
+    "answer": "Death Prophet",
+    "heroKey": "npc_dota_hero_death_prophet",
+    "officialHero": "Death Prophet",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43",
+    "sourceFile": "valve/heroes/43.json",
+    "abilityKey": "death_prophet_spirit_siphon",
+    "officialAbility": "Spirit Siphon",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "134217736"
+    },
+    "owners": ["npc_dota_hero_death_prophet"],
+    "officialDescription": "Creates a spirit link between Death Prophet and an enemy unit, draining health from the enemy.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:disruptor_glimpse",
+    "kind": "spell-owner",
+    "answer": "Disruptor",
+    "heroKey": "npc_dota_hero_disruptor",
+    "officialHero": "Disruptor",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87",
+    "sourceFile": "valve/heroes/87.json",
+    "abilityKey": "disruptor_glimpse",
+    "officialAbility": "Glimpse",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "8"
+    },
+    "owners": ["npc_dota_hero_disruptor"],
+    "officialDescription": "Teleports the target hero back to where it was 4 seconds ago. Instantly kills illusions. Deals damage equal to a percentage of the distance glimpsed, that cannot go over a damage maximum.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:doom_bringer_infernal_blade",
+    "kind": "spell-owner",
+    "answer": "Doom",
+    "heroKey": "npc_dota_hero_doom_bringer",
+    "officialHero": "Doom",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=69",
+    "sourceFile": "valve/heroes/69.json",
+    "abilityKey": "doom_bringer_infernal_blade",
+    "officialAbility": "Infernal Blade",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "135176"
+    },
+    "owners": ["npc_dota_hero_doom_bringer"],
+    "officialDescription": "Doom swings his burning sword, igniting the enemy. Stuns for 0.66 seconds and applies a 4 second burn that deals a base damage plus a percentage of the target's Max HP as damage per second.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:dragon_knight_wyrms_wrath",
+    "kind": "spell-owner",
+    "answer": "Dragon Knight",
+    "heroKey": "npc_dota_hero_dragon_knight",
+    "officialHero": "Dragon Knight",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49",
+    "sourceFile": "valve/heroes/49.json",
+    "abilityKey": "dragon_knight_wyrms_wrath",
+    "officialAbility": "Wyrm's Wrath",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "2"
+    },
+    "owners": ["npc_dota_hero_dragon_knight"],
+    "officialDescription": "The life blood of the Dragon improves Dragon Knight's abilities and items to have increased AoE and causes his attacks to deal additional magic damage to enemy units.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:drow_ranger_glacier",
+    "kind": "spell-owner",
+    "answer": "Drow Ranger",
+    "heroKey": "npc_dota_hero_drow_ranger",
+    "officialHero": "Drow Ranger",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=6",
+    "sourceFile": "valve/heroes/6.json",
+    "abilityKey": "drow_ranger_glacier",
+    "officialAbility": "Glacier",
+    "abilityType": {
+      "innate": false,
+      "shard": true,
+      "scepter": false,
+      "behavior": "8589934597"
+    },
+    "owners": ["npc_dota_hero_drow_ranger"],
+    "officialDescription": "Drow creates a hill of ice beneath her, knocking away nearby enemies. Units on the hill gain flying vision and Drow and her ranged allies gain bonus attack range. Drow gains additional damage while on the Glacier and attacking targets below her. The front of the hill obscures vision and cannot be moved through except by Drow. Does not interrupt Multishot when cast.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:earth_spirit_rolling_boulder",
+    "kind": "spell-owner",
+    "answer": "Earth Spirit",
+    "heroKey": "npc_dota_hero_earth_spirit",
+    "officialHero": "Earth Spirit",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=107",
+    "sourceFile": "valve/heroes/107.json",
+    "abilityKey": "earth_spirit_rolling_boulder",
+    "officialAbility": "Rolling Boulder",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "134742032"
+    },
+    "owners": ["npc_dota_hero_earth_spirit"],
+    "officialDescription": "Earth Spirit gathers himself into a boulder and, after a 0.6s delay, rolls toward the target location, dealing 60 + 100% STR damage and stunning enemy units. He will stop if he collides with an enemy hero or is stunned. If he rolls over a Stone Remnant, he will travel further and faster, and stun enemies for longer.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": [
+      {
+        "name": "damage",
+        "values": [60, 70, 80, 90]
+      }
+    ]
+  },
+  {
+    "id": "ability-owner:earthshaker_enchant_totem",
+    "kind": "spell-owner",
+    "answer": "Earthshaker",
+    "heroKey": "npc_dota_hero_earthshaker",
+    "officialHero": "Earthshaker",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=7",
+    "sourceFile": "valve/heroes/7.json",
+    "abilityKey": "earthshaker_enchant_totem",
+    "officialAbility": "Enchant Totem",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "4"
+    },
+    "owners": ["npc_dota_hero_earthshaker"],
+    "officialDescription": "Empowers Earthshaker's totem, causing it to deal extra damage and have 100 bonus attack range on the next attack.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:elder_titan_ancestral_spirit",
+    "kind": "spell-owner",
+    "answer": "Elder Titan",
+    "heroKey": "npc_dota_hero_elder_titan",
+    "officialHero": "Elder Titan",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=103",
+    "sourceFile": "valve/heroes/103.json",
+    "abilityKey": "elder_titan_ancestral_spirit",
+    "officialAbility": "Astral Spirit",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "134217776"
+    },
+    "owners": ["npc_dota_hero_elder_titan"],
+    "officialDescription": "Elder Titan sends forth his Astral Spirit, damaging any units it passes through. When the spirit rejoins the Titan, it grants bonus damage and movement speed for each unit it passed through. The Astral Spirit possesses the Echo Stomp, Return Spirit, and Natural Order abilities.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:ember_spirit_flame_guard",
+    "kind": "spell-owner",
+    "answer": "Ember Spirit",
+    "heroKey": "npc_dota_hero_ember_spirit",
+    "officialHero": "Ember Spirit",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=106",
+    "sourceFile": "valve/heroes/106.json",
+    "abilityKey": "ember_spirit_flame_guard",
+    "officialAbility": "Flame Guard",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "4"
+    },
+    "owners": ["npc_dota_hero_ember_spirit"],
+    "officialDescription": "Ember Spirit surrounds himself with a ring of fire that consumes incoming magic damage, absorbing a percentage of the damage taken. Flame Guard deals damage per second in an area around Ember Spirit while Flame Guard is active. If the shield is broken, the damage is also lost.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:enchantress_bunny_hop",
+    "kind": "spell-owner",
+    "answer": "Enchantress",
+    "heroKey": "npc_dota_hero_enchantress",
+    "officialHero": "Enchantress",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58",
+    "sourceFile": "valve/heroes/58.json",
+    "abilityKey": "enchantress_bunny_hop",
+    "officialAbility": "Sproink",
+    "abilityType": {
+      "innate": false,
+      "shard": true,
+      "scepter": false,
+      "behavior": "8589936645"
+    },
+    "owners": ["npc_dota_hero_enchantress"],
+    "officialDescription": "Leaps backward, dodges incoming projectiles, and launches an Impetus attack on the 2 furthest enemy units within Enchantress' attack range + 100.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:enigma_demonic_conversion",
+    "kind": "spell-owner",
+    "answer": "Enigma",
+    "heroKey": "npc_dota_hero_enigma",
+    "officialHero": "Enigma",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=33",
+    "sourceFile": "valve/heroes/33.json",
+    "abilityKey": "enigma_demonic_conversion",
+    "officialAbility": "Demonic Summoning",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "33554448"
+    },
+    "owners": ["npc_dota_hero_enigma"],
+    "officialDescription": "Summons three fragments of Enigma himself at the cost of health. The eidolons health is increased by 3% of Enigma's current health. These eidolons are all under Enigma's control, and repeated successful attacks cause them to multiply. When this happens, the eidolons have their health restored.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:faceless_void_time_dilation",
+    "kind": "spell-owner",
+    "answer": "Faceless Void",
+    "heroKey": "npc_dota_hero_faceless_void",
+    "officialHero": "Faceless Void",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=41",
+    "sourceFile": "valve/heroes/41.json",
+    "abilityKey": "faceless_void_time_dilation",
+    "officialAbility": "Time Dilation",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "4"
+    },
+    "owners": ["npc_dota_hero_faceless_void"],
+    "officialDescription": "Faceless Void envelops nearby enemies with time dilating fields to slow cooldown progression of their abilities. Each enveloped enemy gains one Time Dilation stack when applied, and one stack per ability they have on cooldown. Each stack deals damage per second and slows movement and attack speed. The duration is paused while affected by Chronosphere.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:furion_curse_of_the_forest",
+    "kind": "spell-owner",
+    "answer": "Nature's Prophet",
+    "heroKey": "npc_dota_hero_furion",
+    "officialHero": "Nature's Prophet",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53",
+    "sourceFile": "valve/heroes/53.json",
+    "abilityKey": "furion_curse_of_the_forest",
+    "officialAbility": "Curse of the Oldgrowth",
+    "abilityType": {
+      "innate": false,
+      "shard": true,
+      "scepter": false,
+      "behavior": "8589934597"
+    },
+    "owners": ["npc_dota_hero_furion"],
+    "officialDescription": "Applies a curse on all enemy heroes within 900 range, displaying them in fog, slowing them, and dealing damage over time based on the number of trees within 250 radius. Treants count as trees for this purpose.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:grimstroke_ink_creature",
+    "kind": "spell-owner",
+    "answer": "Grimstroke",
+    "heroKey": "npc_dota_hero_grimstroke",
+    "officialHero": "Grimstroke",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=121",
+    "sourceFile": "valve/heroes/121.json",
+    "abilityKey": "grimstroke_ink_creature",
+    "officialAbility": "Phantom's Embrace",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "134217736"
+    },
+    "owners": ["npc_dota_hero_grimstroke"],
+    "officialDescription": "Summons a phantom that moves quickly towards the target, latching to it when she arrives. Once latched, the phantom damages and silences. If she survives the full latch duration she rends her victim for heavy damage and refreshes Phantom's Embrace's cooldown. Hero attacks against the phantom count as 3 attacks each.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:gyrocopter_flak_cannon",
+    "kind": "spell-owner",
+    "answer": "Gyrocopter",
+    "heroKey": "npc_dota_hero_gyrocopter",
+    "officialHero": "Gyrocopter",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=72",
+    "sourceFile": "valve/heroes/72.json",
+    "abilityKey": "gyrocopter_flak_cannon",
+    "officialAbility": "Flak Cannon",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "2052"
+    },
+    "owners": ["npc_dota_hero_gyrocopter"],
+    "officialDescription": "Gyrocopter's attacks hit all enemy units in an area around it for a limited number of attacks. Only the main target of attacks will receive attack bonuses such as Critical Strike. Lasts %abilityduration% seconds or until the attacks are used.",
+    "descriptionMatches": false,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:hoodwink_decoy",
+    "kind": "spell-owner",
+    "answer": "Hoodwink",
+    "heroKey": "npc_dota_hero_hoodwink",
+    "officialHero": "Hoodwink",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=123",
+    "sourceFile": "valve/heroes/123.json",
+    "abilityKey": "hoodwink_decoy",
+    "officialAbility": "Decoy",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": true,
+      "behavior": "8589936709"
+    },
+    "owners": ["npc_dota_hero_hoodwink"],
+    "officialDescription": "Hoodwink turns invisible, increasing her movement speed, and creates a decoy illusion that starts aiming a decreased damage Sharpshooter at the nearest enemy hero. If the illusion is attacked or hit by a targeted ability, it is destroyed and it throws a lesser bushwhack towards the enemy.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:huskar_burning_spear",
+    "kind": "spell-owner",
+    "answer": "Huskar",
+    "heroKey": "npc_dota_hero_huskar",
+    "officialHero": "Huskar",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=59",
+    "sourceFile": "valve/heroes/59.json",
+    "abilityKey": "huskar_burning_spear",
+    "officialAbility": "Burning Spear",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "135176"
+    },
+    "owners": ["npc_dota_hero_huskar"],
+    "officialDescription": "Huskar sets his spears aflame, dealing damage over time with his regular attack. Multiple attacks will stack additional damage. Each attack drains some of Huskar's health.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:invoker_wex",
+    "kind": "spell-owner",
+    "answer": "Invoker",
+    "heroKey": "npc_dota_hero_invoker",
+    "officialHero": "Invoker",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74",
+    "sourceFile": "valve/heroes/74.json",
+    "abilityKey": "invoker_wex",
+    "officialAbility": "Wex",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "70368748374020"
+    },
+    "owners": ["npc_dota_hero_invoker"],
+    "officialDescription": "Allows manipulation of storm elements. Active Wex instances imbue Invoker with bonus movement and attack speed. Passively grants bonus agility per level of Wex.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:jakiro_liquid_ice",
+    "kind": "spell-owner",
+    "answer": "Jakiro",
+    "heroKey": "npc_dota_hero_jakiro",
+    "officialHero": "Jakiro",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=64",
+    "sourceFile": "valve/heroes/64.json",
+    "abilityKey": "jakiro_liquid_ice",
+    "officialAbility": "Liquid Frost",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "35184372224008"
+    },
+    "owners": ["npc_dota_hero_jakiro"],
+    "officialDescription": "Jakiro chill his enemies with ice added to his attack, slowing movement for 5 seconds and increasing damage taken from Jakiro's attacks and abilities. This effect does not apply to buildings. Shares a cooldown with Liquid Fire.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:juggernaut_healing_ward",
+    "kind": "spell-owner",
+    "answer": "Juggernaut",
+    "heroKey": "npc_dota_hero_juggernaut",
+    "officialHero": "Juggernaut",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=8",
+    "sourceFile": "valve/heroes/8.json",
+    "abilityKey": "juggernaut_healing_ward",
+    "officialAbility": "Healing Ward",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "48"
+    },
+    "owners": ["npc_dota_hero_juggernaut"],
+    "officialDescription": "Summons a Healing Ward which heals all nearby allied units, based on their max health. The Healing Ward moves at 325 movement speed after being summoned. Lasts %abilityduration% seconds.",
+    "descriptionMatches": false,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:keeper_of_the_light_blinding_light",
+    "kind": "spell-owner",
+    "answer": "Keeper of the Light",
+    "heroKey": "npc_dota_hero_keeper_of_the_light",
+    "officialHero": "Keeper of the Light",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=90",
+    "sourceFile": "valve/heroes/90.json",
+    "abilityKey": "keeper_of_the_light_blinding_light",
+    "officialAbility": "Blinding Light",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "48"
+    },
+    "owners": ["npc_dota_hero_keeper_of_the_light"],
+    "officialDescription": "A blinding light flashes over the targeted area, knocking back units to the edge of the area and blinding them, causing them to miss some attacks. Minimum knockback distance is 175 range over 0.6 seconds.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:kez_switch_weapons",
+    "kind": "spell-owner",
+    "answer": "Kez",
+    "heroKey": "npc_dota_hero_kez",
+    "officialHero": "Kez",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145",
+    "sourceFile": "valve/heroes/145.json",
+    "abilityKey": "kez_switch_weapons",
+    "officialAbility": "Switch Discipline",
+    "abilityType": {
+      "innate": true,
+      "shard": false,
+      "scepter": false,
+      "behavior": "70506317350916"
+    },
+    "owners": ["npc_dota_hero_kez"],
+    "officialDescription": "Kez switches between his Kazurai Katana and Shodo Sai. He gains different attack capabilities and abilities based on the weapon equipped. The abilities level up together, and when an ability is used, the associated alternate weapon ability also goes on cooldown. Kez deals extra damage on the first Katana hit or ability after switching to Katana, and gains bonus speed after switching to Sai.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:kunkka_x_marks_the_spot",
+    "kind": "spell-owner",
+    "answer": "Kunkka",
+    "heroKey": "npc_dota_hero_kunkka",
+    "officialHero": "Kunkka",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=23",
+    "sourceFile": "valve/heroes/23.json",
+    "abilityKey": "kunkka_x_marks_the_spot",
+    "officialAbility": "X Marks the Spot",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "134217736"
+    },
+    "owners": ["npc_dota_hero_kunkka"],
+    "officialDescription": "Targets a friendly or enemy Hero, marks their position with an X, and returns them to it after several seconds. Kunkka can trigger the return at any time during the duration. Lasts twice as long on allied heroes.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:largo_croak_of_genius",
+    "kind": "spell-owner",
+    "answer": "Largo",
+    "heroKey": "npc_dota_hero_largo",
+    "officialHero": "Largo",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155",
+    "sourceFile": "valve/heroes/155.json",
+    "abilityKey": "largo_croak_of_genius",
+    "officialAbility": "Croak of Genius",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "35184372088840"
+    },
+    "owners": ["npc_dota_hero_largo"],
+    "officialDescription": "Largo strums a tune to a friendly hero. The hero's items and abilities have reduced mana cost and a percentage of their damage reverberates over the following 5 seconds. When an affected hero spends mana, the remaining buff duration is reduced by 0.5s. Duration is not reduced for Largo himself.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:legion_commander_outfight_them",
+    "kind": "spell-owner",
+    "answer": "Legion Commander",
+    "heroKey": "npc_dota_hero_legion_commander",
+    "officialHero": "Legion Commander",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=104",
+    "sourceFile": "valve/heroes/104.json",
+    "abilityKey": "legion_commander_outfight_them",
+    "officialAbility": "Outfight Them!",
+    "abilityType": {
+      "innate": true,
+      "shard": false,
+      "scepter": false,
+      "behavior": "562949953421379"
+    },
+    "owners": ["npc_dota_hero_legion_commander"],
+    "officialDescription": "When Legion Commander or an allied Hero within 1200 range casts an ability, they gain bonus armor for 6s; allies gain 50% of the value. This bonus stacks independently.",
+    "descriptionMatches": false,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:leshrac_diabolic_edict",
+    "kind": "spell-owner",
+    "answer": "Leshrac",
+    "heroKey": "npc_dota_hero_leshrac",
+    "officialHero": "Leshrac",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=52",
+    "sourceFile": "valve/heroes/52.json",
+    "abilityKey": "leshrac_diabolic_edict",
+    "officialAbility": "Diabolic Edict",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "4"
+    },
+    "owners": ["npc_dota_hero_leshrac"],
+    "officialDescription": "Saturates the area around Leshrac with magical explosions that deal pure damage to enemy units and buildings. The fewer units available to attack, the more damage those units will take.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:lich_frost_shield",
+    "kind": "spell-owner",
+    "answer": "Lich",
+    "heroKey": "npc_dota_hero_lich",
+    "officialHero": "Lich",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=31",
+    "sourceFile": "valve/heroes/31.json",
+    "abilityKey": "lich_frost_shield",
+    "officialAbility": "Frost Shield",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "33554440"
+    },
+    "owners": ["npc_dota_hero_lich"],
+    "officialDescription": "Applies a magical frost shield around the target, reducing damage from attacks against it. While the shield is active, ice magic will affect nearby enemy units every 1 seconds, dealing minor damage and slowing them.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:life_stealer_open_wounds",
+    "kind": "spell-owner",
+    "answer": "Lifestealer",
+    "heroKey": "npc_dota_hero_life_stealer",
+    "officialHero": "Lifestealer",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=54",
+    "sourceFile": "valve/heroes/54.json",
+    "abilityKey": "life_stealer_open_wounds",
+    "officialAbility": "Open Wounds",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "8"
+    },
+    "owners": ["npc_dota_hero_life_stealer"],
+    "officialDescription": "Lifestealer rends an enemy unit, slowing the victim's movement speed and allowing all allies to regain health for a percentage of the damage they deal to that unit. The victim recovers movement speed over the duration.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:lina_flame_cloak",
+    "kind": "spell-owner",
+    "answer": "Lina",
+    "heroKey": "npc_dota_hero_lina",
+    "officialHero": "Lina",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25",
+    "sourceFile": "valve/heroes/25.json",
+    "abilityKey": "lina_flame_cloak",
+    "officialAbility": "Flame Cloak",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": true,
+      "behavior": "8589936645"
+    },
+    "owners": ["npc_dota_hero_lina"],
+    "officialDescription": "Grants Lina unobstructed movement and increases her spell damage and magic resistance. Grants max fiery soul stacks on activation.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:lion_mana_drain",
+    "kind": "spell-owner",
+    "answer": "Lion",
+    "heroKey": "npc_dota_hero_lion",
+    "officialHero": "Lion",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26",
+    "sourceFile": "valve/heroes/26.json",
+    "abilityKey": "lion_mana_drain",
+    "officialAbility": "Mana Drain",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "134217864"
+    },
+    "owners": ["npc_dota_hero_lion"],
+    "officialDescription": "CHANNELED - Channels magical energy, taking mana and slowing enemies over time. If the enemy has no mana remaining, the slow is increased by 15%. Can target allies to give them mana and movement speed at a 50% rate.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:lone_druid_spirit_bear",
+    "kind": "spell-owner",
+    "answer": "Lone Druid",
+    "heroKey": "npc_dota_hero_lone_druid",
+    "officialHero": "Lone Druid",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=80",
+    "sourceFile": "valve/heroes/80.json",
+    "abilityKey": "lone_druid_spirit_bear",
+    "officialAbility": "Summon Spirit Bear",
+    "abilityType": {
+      "innate": true,
+      "shard": false,
+      "scepter": false,
+      "behavior": "4"
+    },
+    "owners": ["npc_dota_hero_lone_druid"],
+    "officialDescription": "Summons a powerful Spirit Bear companion that can equip items. If the bear moves 1100 distance away from the Lone Druid, it cannot attack. Lone Druid suffers 20% of his max health as backlash damage if the Spirit Bear dies. Spirit Bear has Demolish, Return, Entangling Claws, Savage Roar, and Spirit Link abilities.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:luna_lunar_blessing",
+    "kind": "spell-owner",
+    "answer": "Luna",
+    "heroKey": "npc_dota_hero_luna",
+    "officialHero": "Luna",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=48",
+    "sourceFile": "valve/heroes/48.json",
+    "abilityKey": "luna_lunar_blessing",
+    "officialAbility": "Lunar Blessing",
+    "abilityType": {
+      "innate": true,
+      "shard": false,
+      "scepter": false,
+      "behavior": "567347999997955"
+    },
+    "owners": ["npc_dota_hero_luna"],
+    "officialDescription": "Grants attack damage to Luna and nearby allied heroes within 1200 range, with Luna receiving double the attack damage bonuses. At night, Lunar Blessing is global, and Luna is blessed with bonus night vision.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:lycan_wolf_bite",
+    "kind": "spell-owner",
+    "answer": "Lycan",
+    "heroKey": "npc_dota_hero_lycan",
+    "officialHero": "Lycan",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=77",
+    "sourceFile": "valve/heroes/77.json",
+    "abilityKey": "lycan_wolf_bite",
+    "officialAbility": "Wolf Bite",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": true,
+      "behavior": "8589934665"
+    },
+    "owners": ["npc_dota_hero_lycan"],
+    "officialDescription": "Lycan bites an allied hero or creep-hero, granting them Shapeshift properties. Lycan and the bitten target gain 40% Lifesteal and share the healing effect of Lifesteal with each other as long as they are within 1200 range of each other.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:magnataur_horn_toss",
+    "kind": "spell-owner",
+    "answer": "Magnus",
+    "heroKey": "npc_dota_hero_magnataur",
+    "officialHero": "Magnus",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=97",
+    "sourceFile": "valve/heroes/97.json",
+    "abilityKey": "magnataur_horn_toss",
+    "officialAbility": "Horn Toss",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": true,
+      "behavior": "8589934597"
+    },
+    "owners": ["npc_dota_hero_magnataur"],
+    "officialDescription": "Magnus tosses any enemies in front of him, launching them to his rear. Enemies take damage, spend 0.6 seconds in the air, and are stunned while in the air and an additional amount of time after landing.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:marci_companion_run",
+    "kind": "spell-owner",
+    "answer": "Marci",
+    "heroKey": "npc_dota_hero_marci",
+    "officialHero": "Marci",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=136",
+    "sourceFile": "valve/heroes/136.json",
+    "abilityKey": "marci_companion_run",
+    "officialAbility": "Rebound",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "1074528264"
+    },
+    "owners": ["npc_dota_hero_marci"],
+    "officialDescription": "Marci bounds to the targeted allied unit, choosing a direction and distance she will spring away from it. Upon reaching the unit, Marci lunges to her final destination, damaging and stunning enemies where she lands. When Rebound is set to alt-cast, Marci brings the target ally with her to her final destination. The ally receives 25% bonus movement speed for 4s.",
+    "descriptionMatches": false,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:mars_bulwark",
+    "kind": "spell-owner",
+    "answer": "Mars",
+    "heroKey": "npc_dota_hero_mars",
+    "officialHero": "Mars",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=129",
+    "sourceFile": "valve/heroes/129.json",
+    "abilityKey": "mars_bulwark",
+    "officialAbility": "Bulwark",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "134219792"
+    },
+    "owners": ["npc_dota_hero_mars"],
+    "officialDescription": "Mars wields his massive shield to block a portion of each physical attack when hit from the front or sides. Can be toggled, granting phased movement, removing Mars's ability to attack, and locking the direction he is facing. When active, reduces movement speed and re-directs 70% of the attack projectiles aimed at allies towards himself.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:medusa_gorgon_grasp",
+    "kind": "spell-owner",
+    "answer": "Medusa",
+    "heroKey": "npc_dota_hero_medusa",
+    "officialHero": "Medusa",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=94",
+    "sourceFile": "valve/heroes/94.json",
+    "abilityKey": "medusa_gorgon_grasp",
+    "officialAbility": "Gorgon's Grasp",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "48"
+    },
+    "owners": ["npc_dota_hero_medusa"],
+    "officialDescription": "Medusa fires arrows in a line that land in 3 groups, with each grouping larger than the previous. Enemies struck by a volley of arrows take an initial burst of damage and then are rooted, cannot turn, are revealed to the enemy, and take damage per second.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:meepo_poof",
+    "kind": "spell-owner",
+    "answer": "Meepo",
+    "heroKey": "npc_dota_hero_meepo",
+    "officialHero": "Meepo",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=82",
+    "sourceFile": "valve/heroes/82.json",
+    "abilityKey": "meepo_poof",
+    "officialAbility": "Poof",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "1099713478680"
+    },
+    "owners": ["npc_dota_hero_meepo"],
+    "officialDescription": "Drawing mystical energies from the earth, a Meepo can teleport to another Meepo or itself after channeling for 1.5 seconds, damaging the enemy in both the departure and arrival locations. If the ability is in alt-cast state, all Meepos will also cast Poof to the target. When cast on the ground, all Meepos except the selected one will Poof to the closest location.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:mirana_arrow",
+    "kind": "spell-owner",
+    "answer": "Mirana",
+    "heroKey": "npc_dota_hero_mirana",
+    "officialHero": "Mirana",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9",
+    "sourceFile": "valve/heroes/9.json",
+    "abilityKey": "mirana_arrow",
+    "officialAbility": "Sacred Arrow",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "134218768"
+    },
+    "owners": ["npc_dota_hero_mirana"],
+    "officialDescription": "Fires a long-range arrow with deadly precision, which stuns and damages the first enemy unit it strikes. The stun duration ranges from 0.01 to 2.3 seconds, with bonus damage up to 180 added, based on the distance the arrow travels to its target. Instantly kills the first non-ancient creep it hits.",
+    "descriptionMatches": false,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": [
+      {
+        "name": "arrow_max_stun",
+        "values": [2.3, 3.2, 4.1, 5]
+      }
+    ]
+  },
+  {
+    "id": "ability-owner:monkey_king_tree_dance",
+    "kind": "spell-owner",
+    "answer": "Monkey King",
+    "heroKey": "npc_dota_hero_monkey_king",
+    "officialHero": "Monkey King",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=114",
+    "sourceFile": "valve/heroes/114.json",
+    "abilityKey": "monkey_king_tree_dance",
+    "officialAbility": "Tree Dance",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "524296"
+    },
+    "owners": ["npc_dota_hero_monkey_king"],
+    "officialDescription": "Monkey King jumps to a tree and perches atop it. While perched, he gains the Primal Spring ability-a channeled leap attack. If Monkey King's tree is destroyed, he falls and is stunned for 3s. Taking damage while on the ground puts Tree Dance on cooldown.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:morphling_adaptive_strike_agi",
+    "kind": "spell-owner",
+    "answer": "Morphling",
+    "heroKey": "npc_dota_hero_morphling",
+    "officialHero": "Morphling",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=10",
+    "sourceFile": "valve/heroes/10.json",
+    "abilityKey": "morphling_adaptive_strike_agi",
+    "officialAbility": "Adaptive Strike",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "8"
+    },
+    "owners": ["npc_dota_hero_morphling"],
+    "officialDescription": "Launches a surge of water toward an enemy unit, stunning them, knocking them back, and dealing base damage plus additional damage based on Morphling's agility times a multiplier. If Morphling's agility is 50% higher than strength, the maximum agility multiplier is used. Knockback distance and stun duration are based on Morphling's strength. If his strength is 50% higher than his agility, the maximum knockback distance and stun duration is used.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:muerta_the_calling",
+    "kind": "spell-owner",
+    "answer": "Muerta",
+    "heroKey": "npc_dota_hero_muerta",
+    "officialHero": "Muerta",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138",
+    "sourceFile": "valve/heroes/138.json",
+    "abilityKey": "muerta_the_calling",
+    "officialAbility": "The Calling",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "4294967344"
+    },
+    "owners": ["npc_dota_hero_muerta"],
+    "officialDescription": "Summons a group of 4 revenants that slowly circle the targeted location. Enemies within the area are slowed. Revenants deal damage and silence enemies as they pass through them.",
+    "descriptionMatches": false,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:naga_siren_reel_in",
+    "status": "needs-review"
+  },
+  {
+    "id": "ability-owner:necrolyte_ghost_shroud",
+    "kind": "spell-owner",
+    "answer": "Necrophos",
+    "heroKey": "npc_dota_hero_necrolyte",
+    "officialHero": "Necrophos",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=36",
+    "sourceFile": "valve/heroes/36.json",
+    "abilityKey": "necrolyte_ghost_shroud",
+    "officialAbility": "Ghost Shroud",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "2052"
+    },
+    "owners": ["npc_dota_hero_necrolyte"],
+    "officialDescription": "Necrophos slips into the realm that separates the living from the dead. Unable to attack or be attacked, he emits an aura that slows enemies around him. He takes additional magic damage in this form, but his restorative powers are amplified.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:nevermore_shadowraze3",
+    "status": "needs-review"
+  },
+  {
+    "id": "ability-owner:night_stalker_crippling_fear",
+    "kind": "spell-owner",
+    "answer": "Night Stalker",
+    "heroKey": "npc_dota_hero_night_stalker",
+    "officialHero": "Night Stalker",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=60",
+    "sourceFile": "valve/heroes/60.json",
+    "abilityKey": "night_stalker_crippling_fear",
+    "officialAbility": "Crippling Fear",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "2052"
+    },
+    "owners": ["npc_dota_hero_night_stalker"],
+    "officialDescription": "Night Stalker horrifies all nearby enemies, causing them to become silenced and take damage over time while near him. The effect lasts longer at night.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:nyx_assassin_burrow",
+    "kind": "spell-owner",
+    "answer": "Nyx Assassin",
+    "heroKey": "npc_dota_hero_nyx_assassin",
+    "officialHero": "Nyx Assassin",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=88",
+    "sourceFile": "valve/heroes/88.json",
+    "abilityKey": "nyx_assassin_burrow",
+    "officialAbility": "Burrow",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": true,
+      "behavior": "8589934597"
+    },
+    "owners": ["npc_dota_hero_nyx_assassin"],
+    "officialDescription": "Nyx Assassin buries himself beneath the battlefield over a short duration. Once burrowed, Spiked Carapace instantly stuns nearby enemies when cast, the range of Mind Flare and Impale is increased, and Impale's cooldown is decreased. While burrowed, Nyx Assassin is stationary, unable to attack, and invisible. Nyx Assassin gains damage reduction from all damage sources.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:obsidian_destroyer_astral_imprisonment",
+    "kind": "spell-owner",
+    "answer": "Outworld Devourer",
+    "heroKey": "npc_dota_hero_obsidian_destroyer",
+    "officialHero": "Outworld Destroyer",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76",
+    "sourceFile": "valve/heroes/76.json",
+    "abilityKey": "obsidian_destroyer_astral_imprisonment",
+    "officialAbility": "Astral Imprisonment",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "33554472"
+    },
+    "owners": ["npc_dota_hero_obsidian_destroyer"],
+    "officialDescription": "Steals a percentage of the target's max mana and places them into an astral prison. The hidden unit is invulnerable and disabled. When the astral prison implodes, it deals damage to the target.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": false,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:ogre_magi_unrefined_fireblast",
+    "kind": "spell-owner",
+    "answer": "Ogre Magi",
+    "heroKey": "npc_dota_hero_ogre_magi",
+    "officialHero": "Ogre Magi",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=84",
+    "sourceFile": "valve/heroes/84.json",
+    "abilityKey": "ogre_magi_unrefined_fireblast",
+    "officialAbility": "Unrefined Fireblast",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": true,
+      "behavior": "8589934601"
+    },
+    "owners": ["npc_dota_hero_ogre_magi"],
+    "officialDescription": "Blasts an enemy unit with a wave of fire, dealing 150 + 1.5x Ogre's Strength in damage and stunning the target. Its mana cost is 35% of Ogre Magi's current mana.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:omniknight_hammer_of_purity",
+    "kind": "spell-owner",
+    "answer": "Omniknight",
+    "heroKey": "npc_dota_hero_omniknight",
+    "officialHero": "Omniknight",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=57",
+    "sourceFile": "valve/heroes/57.json",
+    "abilityKey": "omniknight_hammer_of_purity",
+    "officialAbility": "Hammer of Purity",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "137439088648"
+    },
+    "owners": ["npc_dota_hero_omniknight"],
+    "officialDescription": "Omniknight imbues his hammer with holy power, causing his attack to have increased range, deal pure damage based on a percentage of his base damage and slow his target for a short duration. Omniknight heals for 40% of the damage dealt over 4s.",
+    "descriptionMatches": false,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:oracle_purifying_flames",
+    "kind": "spell-owner",
+    "answer": "Oracle",
+    "heroKey": "npc_dota_hero_oracle",
+    "officialHero": "Oracle",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=111",
+    "sourceFile": "valve/heroes/111.json",
+    "abilityKey": "oracle_purifying_flames",
+    "officialAbility": "Purifying Flames",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "8"
+    },
+    "owners": ["npc_dota_hero_oracle"],
+    "officialDescription": "Burns away impurities, dealing heavy magic damage to the target before causing them to regenerate health over time. The amount of health regenerated over its duration exceeds the amount of initial damage. Can be cast on enemies and allies.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:pangolier_shield_crash",
+    "kind": "spell-owner",
+    "answer": "Pangolier",
+    "heroKey": "npc_dota_hero_pangolier",
+    "officialHero": "Pangolier",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=120",
+    "sourceFile": "valve/heroes/120.json",
+    "abilityKey": "pangolier_shield_crash",
+    "officialAbility": "Shield Crash",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "2052"
+    },
+    "owners": ["npc_dota_hero_pangolier"],
+    "officialDescription": "Pangolier jumps in the air and slams back to the ground in front of his current position damaging all enemies in a radius. Pangolier gains an all damage barrier for a short time if Shield Crash hits an enemy hero. Forward movement is maintained if Shield Crash is used while Rolling Thunder is active, and allows Rolling Thunder to clear walls or cliffs.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:phantom_assassin_fan_of_knives",
+    "kind": "spell-owner",
+    "answer": "Phantom Assassin",
+    "heroKey": "npc_dota_hero_phantom_assassin",
+    "officialHero": "Phantom Assassin",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=44",
+    "sourceFile": "valve/heroes/44.json",
+    "abilityKey": "phantom_assassin_fan_of_knives",
+    "officialAbility": "Fan of Knives",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": true,
+      "behavior": "8589934597"
+    },
+    "owners": ["npc_dota_hero_phantom_assassin"],
+    "officialDescription": "Phantom Assassin releases sharp blades around her, dealing a percentage of each victim's max health on impact and applying Break.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:phantom_lancer_doppelwalk",
+    "kind": "spell-owner",
+    "answer": "Phantom Lancer",
+    "heroKey": "npc_dota_hero_phantom_lancer",
+    "officialHero": "Phantom Lancer",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=12",
+    "sourceFile": "valve/heroes/12.json",
+    "abilityKey": "phantom_lancer_doppelwalk",
+    "officialAbility": "Doppelganger",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "524336"
+    },
+    "owners": ["npc_dota_hero_phantom_lancer"],
+    "officialDescription": "Phantom Lancer briefly vanishes from the battlefield. After 1 second, Phantom Lancer and any of his nearby illusions reappear at a random position within the targeted location, along with two additional doppelgangers. Extends duration of all illusions. The two added doppelgangers have different properties: one takes normal damage and deals none, while the other takes 500% bonus damage and deals -80% less damage. DISPEL TYPE: Basic Dispel",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:phoenix_sun_ray",
+    "kind": "spell-owner",
+    "answer": "Phoenix",
+    "heroKey": "npc_dota_hero_phoenix",
+    "officialHero": "Phoenix",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=110",
+    "sourceFile": "valve/heroes/110.json",
+    "abilityKey": "phoenix_sun_ray",
+    "officialAbility": "Sun Ray",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "16"
+    },
+    "owners": ["npc_dota_hero_phoenix"],
+    "officialDescription": "Phoenix expels a beam of light at the cost of its own health. The beam damages enemies and heals allies for a base amount plus a percentage of their max health. The percentage increases as the beam continues to fire.",
+    "descriptionMatches": false,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:primal_beast_rock_throw",
+    "kind": "spell-owner",
+    "answer": "Primal Beast",
+    "heroKey": "npc_dota_hero_primal_beast",
+    "officialHero": "Primal Beast",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=137",
+    "sourceFile": "valve/heroes/137.json",
+    "abilityKey": "primal_beast_rock_throw",
+    "officialAbility": "Rock Throw",
+    "abilityType": {
+      "innate": false,
+      "shard": true,
+      "scepter": false,
+      "behavior": "8589934641"
+    },
+    "owners": ["npc_dota_hero_primal_beast"],
+    "officialDescription": "Primal Beast throws a rock at the target location that stuns and damages enemies. The rock cannot be thrown within a minimum range of Primal Beast. After landing, the rock splits into 3 additional fragments that land behind the initial target location. Rock Throw increases stacks of Uproar for each hero hit.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:puck_waning_rift",
+    "kind": "spell-owner",
+    "answer": "Puck",
+    "heroKey": "npc_dota_hero_puck",
+    "officialHero": "Puck",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=13",
+    "sourceFile": "valve/heroes/13.json",
+    "abilityKey": "puck_waning_rift",
+    "officialAbility": "Waning Rift",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "48"
+    },
+    "owners": ["npc_dota_hero_puck"],
+    "officialDescription": "Puck teleports to the target location and releases a burst of faerie dust that deals damage and silences enemy units nearby.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:pudge_flesh_heap",
+    "kind": "spell-owner",
+    "answer": "Pudge",
+    "heroKey": "npc_dota_hero_pudge",
+    "officialHero": "Pudge",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14",
+    "sourceFile": "valve/heroes/14.json",
+    "abilityKey": "pudge_flesh_heap",
+    "officialAbility": "Meat Shield",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "138414084"
+    },
+    "owners": ["npc_dota_hero_pudge"],
+    "officialDescription": "Pudge covers himself with a layer of flesh that blocks damage of any type taken from any source.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:pugna_nether_ward",
+    "kind": "spell-owner",
+    "answer": "Pugna",
+    "heroKey": "npc_dota_hero_pugna",
+    "officialHero": "Pugna",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45",
+    "sourceFile": "valve/heroes/45.json",
+    "abilityKey": "pugna_nether_ward",
+    "officialAbility": "Nether Ward",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "16"
+    },
+    "owners": ["npc_dota_hero_pugna"],
+    "officialDescription": "Pugna places a Nether Ward at the target location. The ward will fire at any enemy hero who casts a spell dealing base damage plus the damage multiplier of the mana spent by the enemy hero.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:queenofpain_scream_of_pain",
+    "kind": "spell-owner",
+    "answer": "Queen of Pain",
+    "heroKey": "npc_dota_hero_queenofpain",
+    "officialHero": "Queen of Pain",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39",
+    "sourceFile": "valve/heroes/39.json",
+    "abilityKey": "queenofpain_scream_of_pain",
+    "officialAbility": "Scream Of Pain",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "4"
+    },
+    "owners": ["npc_dota_hero_queenofpain"],
+    "officialDescription": "The Queen of Pain lets loose a piercing scream around her, damaging nearby enemies. 25% of the damage dealt to heroes is reflected back to her.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:rattletrap_overclocking",
+    "kind": "spell-owner",
+    "answer": "Clockwerk",
+    "heroKey": "npc_dota_hero_rattletrap",
+    "officialHero": "Clockwerk",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=51",
+    "sourceFile": "valve/heroes/51.json",
+    "abilityKey": "rattletrap_overclocking",
+    "officialAbility": "Overclocking",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": true,
+      "behavior": "8589936645"
+    },
+    "owners": ["npc_dota_hero_rattletrap"],
+    "officialDescription": "Supercharges Clockwerks abilities: Battery Assault: Increased radius and affects all enemies in its range. Power Cogs: Radius increased, and Clockwerk's armor while near Power Cogs is increased. Rocket Flares: Increased damage, vision and slow duration, and fire additional rockets to either side of the target. Hookshot: Stun radius and duration increased. Jetpack: Moves faster. Clockwerk's movement and attack speed becomes slowed to a crawl after the duration runs out.",
+    "descriptionMatches": false,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:razor_static_link",
+    "kind": "spell-owner",
+    "answer": "Razor",
+    "heroKey": "npc_dota_hero_razor",
+    "officialHero": "Razor",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15",
+    "sourceFile": "valve/heroes/15.json",
+    "abilityKey": "razor_static_link",
+    "officialAbility": "Static Link",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "134217736"
+    },
+    "owners": ["npc_dota_hero_razor"],
+    "officialDescription": "Creates a charged link between Razor and an enemy Hero, stealing damage from the target and giving it to Razor. Allows Razor to attack while moving with the link active.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:riki_tricks_of_the_trade",
+    "kind": "spell-owner",
+    "answer": "Riki",
+    "heroKey": "npc_dota_hero_riki",
+    "officialHero": "Riki",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=32",
+    "sourceFile": "valve/heroes/32.json",
+    "abilityKey": "riki_tricks_of_the_trade",
+    "officialAbility": "Tricks of the Trade",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "176"
+    },
+    "owners": ["npc_dota_hero_riki"],
+    "officialDescription": "CHANNELED - Riki phases out of the world and periodically strikes 2 random enemy units from behind in an area around him. He has fixed attack damage while phased out.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:ringmaster_impalement",
+    "kind": "spell-owner",
+    "answer": "Ring Master",
+    "heroKey": "npc_dota_hero_ringmaster",
+    "officialHero": "Ringmaster",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131",
+    "sourceFile": "valve/heroes/131.json",
+    "abilityKey": "ringmaster_impalement",
+    "officialAbility": "Impalement Arts",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "16"
+    },
+    "owners": ["npc_dota_hero_ringmaster"],
+    "officialDescription": "Ringmaster throws one of his daggers to a precise point of his choosing. If he strikes an enemy, the dagger deals impact damage, briefly slows the unit hit, and causes them to bleed. The bleeding deals a percentage of the victim's maximum health in damage every second to heroes and flat damage per second to creeps.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": false,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:rubick_fade_bolt",
+    "kind": "spell-owner",
+    "answer": "Rubick",
+    "heroKey": "npc_dota_hero_rubick",
+    "officialHero": "Rubick",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=86",
+    "sourceFile": "valve/heroes/86.json",
+    "abilityKey": "rubick_fade_bolt",
+    "officialAbility": "Fade Bolt",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "8"
+    },
+    "owners": ["npc_dota_hero_rubick"],
+    "officialDescription": "Rubick creates a powerful stream of arcane energy that travels between enemy units, dealing damage and reducing their attack and spell damage. Each jump deals less damage.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:sandking_scorpion_strike",
+    "kind": "spell-owner",
+    "answer": "Sand King",
+    "heroKey": "npc_dota_hero_sand_king",
+    "officialHero": "Sand King",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=16",
+    "sourceFile": "valve/heroes/16.json",
+    "abilityKey": "sandking_scorpion_strike",
+    "officialAbility": "Stinger",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "134217776"
+    },
+    "owners": ["npc_dota_hero_sand_king"],
+    "officialDescription": "Sand King strikes an area, performing an attack on all enemies in the area of effect, dealing extra damage to each. Enemies within an innermost radius of 125 take 40% extra damage. Applies Caustic Finale and a slow to all enemies hit.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:shadow_demon_shadow_poison",
+    "kind": "spell-owner",
+    "answer": "Shadow Demon",
+    "heroKey": "npc_dota_hero_shadow_demon",
+    "officialHero": "Shadow Demon",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79",
+    "sourceFile": "valve/heroes/79.json",
+    "abilityKey": "shadow_demon_shadow_poison",
+    "officialAbility": "Shadow Poison",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "134217776"
+    },
+    "owners": ["npc_dota_hero_shadow_demon"],
+    "officialDescription": "Deals damage in a line, and afflicts enemy units with a poison effect. The poison deals 1/2/4/8/16 times the stack damage based on the number of stacks on the target, up to 5 stacks. Additional stacks cause 60 damage each. This deferred damage is dealt when Shadow Poison's duration is expired, or the Release sub-ability is used.",
+    "descriptionMatches": false,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:shadow_shaman_fowl_play",
+    "kind": "spell-owner",
+    "answer": "Shadow Shaman",
+    "heroKey": "npc_dota_hero_shadow_shaman",
+    "officialHero": "Shadow Shaman",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=27",
+    "sourceFile": "valve/heroes/27.json",
+    "abilityKey": "shadow_shaman_fowl_play",
+    "officialAbility": "Fowl Play",
+    "abilityType": {
+      "innate": true,
+      "shard": false,
+      "scepter": false,
+      "behavior": "2"
+    },
+    "owners": ["npc_dota_hero_shadow_shaman"],
+    "officialDescription": "When taking lethal damage, Shadow Shaman receives a strong dispel and survives as a 1 HP chicken with increased movement speed. Incoming damage is reduced to zero for a short duration and additional chickens are created to confuse the enemy. Cooldown resets when Shadow Shaman respawns. DISPEL TYPE: Strong Dispel",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:shredder_timber_chain",
+    "kind": "spell-owner",
+    "answer": "Timbersaw",
+    "heroKey": "npc_dota_hero_shredder",
+    "officialHero": "Timbersaw",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=98",
+    "sourceFile": "valve/heroes/98.json",
+    "abilityKey": "shredder_timber_chain",
+    "officialAbility": "Timber Chain",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "134742032"
+    },
+    "owners": ["npc_dota_hero_shredder"],
+    "officialDescription": "Timbersaw fires a chain that embeds itself in the first tree it hits, pulling him towards it. Any enemy in the path takes damage.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:silencer_last_word",
+    "kind": "spell-owner",
+    "answer": "Silencer",
+    "heroKey": "npc_dota_hero_silencer",
+    "officialHero": "Silencer",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75",
+    "sourceFile": "valve/heroes/75.json",
+    "abilityKey": "silencer_last_word",
+    "officialAbility": "Last Word",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "8"
+    },
+    "owners": ["npc_dota_hero_silencer"],
+    "officialDescription": "Enchants a target, providing vision of them and causing them to be damaged and silenced if they cast a spell or if the enchantment timer expires. Deals extra damage based on the difference in intelligence between Silencer and the target.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:skeleton_king_bone_guard",
+    "kind": "spell-owner",
+    "answer": "Wraith King",
+    "heroKey": "npc_dota_hero_skeleton_king",
+    "officialHero": "Wraith King",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=42",
+    "sourceFile": "valve/heroes/42.json",
+    "abilityKey": "skeleton_king_bone_guard",
+    "officialAbility": "Bone Guard",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "8589934596"
+    },
+    "owners": ["npc_dota_hero_skeleton_king"],
+    "officialDescription": "Gains a Charge for every 2 creeps killed and 2 charges per hero killed. Activate to spend all charges, summoning skeletons that respawn once when killed. Skeletons benefit from Vampiric Spirit's lifesteal.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:skywrath_mage_concussive_shot",
+    "kind": "spell-owner",
+    "answer": "Skywrath Mage",
+    "heroKey": "npc_dota_hero_skywrath_mage",
+    "officialHero": "Skywrath Mage",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=101",
+    "sourceFile": "valve/heroes/101.json",
+    "abilityKey": "skywrath_mage_concussive_shot",
+    "officialAbility": "Concussive Shot",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "4"
+    },
+    "owners": ["npc_dota_hero_skywrath_mage"],
+    "officialDescription": "Skywrath Mage sets off a long range shot that hits the closest hero within a long range. Upon impact, it deals damage and slows in an area of effect.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:slardar_slithereen_crush",
+    "kind": "spell-owner",
+    "answer": "Slardar",
+    "heroKey": "npc_dota_hero_slardar",
+    "officialHero": "Slardar",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=28",
+    "sourceFile": "valve/heroes/28.json",
+    "abilityKey": "slardar_slithereen_crush",
+    "officialAbility": "Slithereen Crush",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "4"
+    },
+    "owners": ["npc_dota_hero_slardar"],
+    "officialDescription": "Slams the ground, leaving a puddle of water, and stunning and damaging nearby enemy units. After the stun, the affected units are slowed.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:slark_pounce",
+    "kind": "spell-owner",
+    "answer": "Slark",
+    "heroKey": "npc_dota_hero_slark",
+    "officialHero": "Slark",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=93",
+    "sourceFile": "valve/heroes/93.json",
+    "abilityKey": "slark_pounce",
+    "officialAbility": "Pounce",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "524292"
+    },
+    "owners": ["npc_dota_hero_slark"],
+    "officialDescription": "Slark leaps forward, leashing and applying Essence Shift stacks to the first hero he connects. That unit can only move a limited distance away from Slark's landing position.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:snapfire_spit_creep",
+    "kind": "spell-owner",
+    "answer": "Snapfire",
+    "heroKey": "npc_dota_hero_snapfire",
+    "officialHero": "Snapfire",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128",
+    "sourceFile": "valve/heroes/128.json",
+    "abilityKey": "snapfire_spit_creep",
+    "officialAbility": "Spit Out",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": true,
+      "behavior": "8623751217"
+    },
+    "owners": ["npc_dota_hero_snapfire"],
+    "officialDescription": "Mortimer spits out the unit that's in his mouth, causing impact damage and stun in a large area. The glob leaves a pool of firespit based on the current level of Mortimer Kisses, that slows and applies damage over time. Spit Out has a no minimum launch range.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:sniper_take_aim",
+    "kind": "spell-owner",
+    "answer": "Sniper",
+    "heroKey": "npc_dota_hero_sniper",
+    "officialHero": "Sniper",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=35",
+    "sourceFile": "valve/heroes/35.json",
+    "abilityKey": "sniper_take_aim",
+    "officialAbility": "Take Aim",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "4"
+    },
+    "owners": ["npc_dota_hero_sniper"],
+    "officialDescription": "Passively increases Sniper's attack range by 160. On cast, Sniper gains increased vision, Headshot chance, and attack range. Slows you by 65% for the duration and restricts your vision to a frontal cone.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": [
+      {
+        "name": "passive_attack_range_bonus",
+        "values": [160, 240, 320, 400]
+      }
+    ]
+  },
+  {
+    "id": "ability-owner:spectre_shadow_step",
+    "kind": "spell-owner",
+    "answer": "Spectre",
+    "heroKey": "npc_dota_hero_spectre",
+    "officialHero": "Spectre",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=67",
+    "sourceFile": "valve/heroes/67.json",
+    "abilityKey": "spectre_shadow_step",
+    "officialAbility": "Shadow Step",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "40"
+    },
+    "owners": ["npc_dota_hero_spectre"],
+    "officialDescription": "Sends an uncontrollable illusion at a target that follows and attacks the target. The Reality sub-ability may be used to teleport to the illusion, destroying it.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:spirit_breaker_planar_pocket",
+    "kind": "spell-owner",
+    "answer": "Spirit Breaker",
+    "heroKey": "npc_dota_hero_spirit_breaker",
+    "officialHero": "Spirit Breaker",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71",
+    "sourceFile": "valve/heroes/71.json",
+    "abilityKey": "spirit_breaker_planar_pocket",
+    "officialAbility": "Planar Pocket",
+    "abilityType": {
+      "innate": false,
+      "shard": true,
+      "scepter": false,
+      "behavior": "8589936649"
+    },
+    "owners": ["npc_dota_hero_spirit_breaker"],
+    "officialDescription": "Barathrum gains magic resistance and distorts reality around the selected hero, making any unit-targeted spells cast by enemy heroes get redirected towards Spirit Breaker. Can be cast on both allied and enemy heroes, but only spells cast by enemies of Spirit Breaker will be redirected.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:storm_spirit_overload",
+    "kind": "spell-owner",
+    "answer": "Storm Spirit",
+    "heroKey": "npc_dota_hero_storm_spirit",
+    "officialHero": "Storm Spirit",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17",
+    "sourceFile": "valve/heroes/17.json",
+    "abilityKey": "storm_spirit_overload",
+    "officialAbility": "Overload",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "2"
+    },
+    "owners": ["npc_dota_hero_storm_spirit"],
+    "officialDescription": "Casting a spell creates an electrical charge, which is released in a burst on Storm's next attack, dealing damage and slowing nearby enemies.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:sven_warcry",
+    "kind": "spell-owner",
+    "answer": "Sven",
+    "heroKey": "npc_dota_hero_sven",
+    "officialHero": "Sven",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=18",
+    "sourceFile": "valve/heroes/18.json",
+    "abilityKey": "sven_warcry",
+    "officialAbility": "Warcry",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "2052"
+    },
+    "owners": ["npc_dota_hero_sven"],
+    "officialDescription": "Sven's Warcry heartens his allied heroes for battle, increasing their armor and movement speed. Lasts 8 seconds.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:techies_suicide",
+    "kind": "spell-owner",
+    "answer": "Techies",
+    "heroKey": "npc_dota_hero_techies",
+    "officialHero": "Techies",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=105",
+    "sourceFile": "valve/heroes/105.json",
+    "abilityKey": "techies_suicide",
+    "officialAbility": "Blast Off!",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "67633200"
+    },
+    "owners": ["npc_dota_hero_techies"],
+    "officialDescription": "Techies hurtle themselves into the enemy's midst, detonating charges upon impact which deal massive area of effect damage and stun enemies. Upon landing, the assault deals Techies non-lethal damage equal to a percentage of their current health.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:templar_assassin_meld",
+    "kind": "spell-owner",
+    "answer": "Templar Assassin",
+    "heroKey": "npc_dota_hero_templar_assassin",
+    "officialHero": "Templar Assassin",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=46",
+    "sourceFile": "valve/heroes/46.json",
+    "abilityKey": "templar_assassin_meld",
+    "officialAbility": "Meld",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "33816580"
+    },
+    "owners": ["npc_dota_hero_templar_assassin"],
+    "officialDescription": "Templar Assassin conceals herself, becoming invisible as long as she remains still. If Meld's invisibility is broken by attacking an enemy, Lanaya's attack will deal bonus damage to the enemy and reduce their armor for 6 seconds. Bonus damage and debuffs from Meld are applied to all enemies in the Psi Blades split range.",
+    "descriptionMatches": false,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:terrorblade_demon_zeal",
+    "kind": "spell-owner",
+    "answer": "Terrorblade",
+    "heroKey": "npc_dota_hero_terrorblade",
+    "officialHero": "Terrorblade",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=109",
+    "sourceFile": "valve/heroes/109.json",
+    "abilityKey": "terrorblade_demon_zeal",
+    "officialAbility": "Demon Zeal",
+    "abilityType": {
+      "innate": false,
+      "shard": true,
+      "scepter": false,
+      "behavior": "8589934597"
+    },
+    "owners": ["npc_dota_hero_terrorblade"],
+    "officialDescription": "Costs part of Terrorblade's current HP to cast, providing Terrorblade and nearby illusions bonus movement, HP Regen and attack speed. Does not affect Reflection illusions. Can't be cast while in Metamorphosis and Metamorphosis will remove Demon Zeal.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:tidehunter_dead_in_the_water",
+    "kind": "spell-owner",
+    "answer": "Tidehunter",
+    "heroKey": "npc_dota_hero_tidehunter",
+    "officialHero": "Tidehunter",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=29",
+    "sourceFile": "valve/heroes/29.json",
+    "abilityKey": "tidehunter_dead_in_the_water",
+    "officialAbility": "Dead in the Water",
+    "abilityType": {
+      "innate": false,
+      "shard": true,
+      "scepter": false,
+      "behavior": "8589934601"
+    },
+    "owners": ["npc_dota_hero_tidehunter"],
+    "officialDescription": "Tidehunter attaches a heavy anchor to an enemy hero. The hero is leashed while attached to the anchor. Attempting to move more than 350 units away from the anchor forces the hero to 100 move speed, dragging the anchor behind them. The anchor can be destroyed with 4 hero attacks.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:tinker_warp_grenade",
+    "kind": "spell-owner",
+    "answer": "Tinker",
+    "heroKey": "npc_dota_hero_tinker",
+    "officialHero": "Tinker",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34",
+    "sourceFile": "valve/heroes/34.json",
+    "abilityKey": "tinker_warp_grenade",
+    "officialAbility": "Warp Flare",
+    "abilityType": {
+      "innate": false,
+      "shard": true,
+      "scepter": false,
+      "behavior": "8606711817"
+    },
+    "owners": ["npc_dota_hero_tinker"],
+    "officialDescription": "Throws a flare towards an enemy, dealing damage, teleporting them away, rooting them and reducing their Cast and Attack Range for 2 seconds. The target is teleported further the closer they are to Tinker.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:tiny_tree_grab",
+    "kind": "spell-owner",
+    "answer": "Tiny",
+    "heroKey": "npc_dota_hero_tiny",
+    "officialHero": "Tiny",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19",
+    "sourceFile": "valve/heroes/19.json",
+    "abilityKey": "tiny_tree_grab",
+    "officialAbility": "Tree Grab",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "8"
+    },
+    "owners": ["npc_dota_hero_tiny"],
+    "officialDescription": "Grabs a tree and causes Tiny to have bonus range, damage, and a splashing attack for a limited number of attacks. The tree can be thrown, to deal your attack to a unit at a distance.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:treant_leech_seed",
+    "kind": "spell-owner",
+    "answer": "Treant Protector",
+    "heroKey": "npc_dota_hero_treant",
+    "officialHero": "Treant Protector",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=83",
+    "sourceFile": "valve/heroes/83.json",
+    "abilityKey": "treant_leech_seed",
+    "officialAbility": "Leech Seed",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "135176"
+    },
+    "owners": ["npc_dota_hero_treant"],
+    "officialDescription": "Treant's attack plants a life-sapping seed in an enemy unit. That unit takes additional magic damage, is rooted and disarmed for a short duration, and emits 2 healing pulses to up to 5 nearby allies of Treant Protector based on the damage dealt by the attack.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:troll_warlord_berserkers_rage",
+    "kind": "spell-owner",
+    "answer": "Troll Warlord",
+    "heroKey": "npc_dota_hero_troll_warlord",
+    "officialHero": "Troll Warlord",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=95",
+    "sourceFile": "valve/heroes/95.json",
+    "abilityKey": "troll_warlord_berserkers_rage",
+    "officialAbility": "Berserker's Rage",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "2"
+    },
+    "owners": ["npc_dota_hero_troll_warlord"],
+    "officialDescription": "While in melee form, Troll Warlord's attacks have a chance to ensnare, preventing the target from moving or using mobility spells and has additional movement speed. When in ranged form, Troll Warlord's attacks have a chance to Maim the target, dealing bonus damage, and slowing the target's movement and attack speed.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:tusk_snowball",
+    "kind": "spell-owner",
+    "answer": "Tusk",
+    "heroKey": "npc_dota_hero_tusk",
+    "officialHero": "Tusk",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=100",
+    "sourceFile": "valve/heroes/100.json",
+    "abilityKey": "tusk_snowball",
+    "officialAbility": "Snowball",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "524296"
+    },
+    "owners": ["npc_dota_hero_tusk"],
+    "officialDescription": "Tusk begins rolling into a snowball. Allies within a 325 radius can also be added to the snowball by right-clicking on them, even while the snowball is moving. Once launched, any enemies caught in the snowball's path will be stunned and take damage. Each allied Hero in the snowball will add to its damage and stun duration.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:undying_tombstone",
+    "kind": "spell-owner",
+    "answer": "Undying",
+    "heroKey": "npc_dota_hero_undying",
+    "officialHero": "Undying",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=85",
+    "sourceFile": "valve/heroes/85.json",
+    "abilityKey": "undying_tombstone",
+    "officialAbility": "Tombstone",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "134217744"
+    },
+    "owners": ["npc_dota_hero_undying"],
+    "officialDescription": "Summons a tombstone at the target point. Zombies will frequently spawn next to every enemy unit in the area around the Tombstone, and attack them. Zombies have the Deathlust ability, which causes their attacks to slow the target, and if the target reaches below a certain amount of health, increases the attack and movement speed of the zombie.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:ursa_fury_swipes",
+    "kind": "spell-owner",
+    "answer": "Ursa",
+    "heroKey": "npc_dota_hero_ursa",
+    "officialHero": "Ursa",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=70",
+    "sourceFile": "valve/heroes/70.json",
+    "abilityKey": "ursa_fury_swipes",
+    "officialAbility": "Fury Swipes",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "2"
+    },
+    "owners": ["npc_dota_hero_ursa"],
+    "officialDescription": "Ursa's claws dig deeper wounds in the enemy, causing consecutive attacks to the same enemy to deal more damage. If the same target is not attacked after 8 seconds, the bonus damage is lost.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": [
+      {
+        "name": "bonus_reset_time",
+        "values": [8, 12, 16, 20]
+      }
+    ]
+  },
+  {
+    "id": "ability-owner:vengefulspirit_wave_of_terror",
+    "kind": "spell-owner",
+    "answer": "Vengeful Spirit",
+    "heroKey": "npc_dota_hero_vengefulspirit",
+    "officialHero": "Vengeful Spirit",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20",
+    "sourceFile": "valve/heroes/20.json",
+    "abilityKey": "vengefulspirit_wave_of_terror",
+    "officialAbility": "Wave of Terror",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "16"
+    },
+    "owners": ["npc_dota_hero_vengefulspirit"],
+    "officialDescription": "Vengeful Spirit lets loose a wicked cry, weakening the total attack damage and armor of enemies, and giving vision of the path ahead.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:venomancer_snakebite",
+    "kind": "spell-owner",
+    "answer": "Venomancer",
+    "heroKey": "npc_dota_hero_venomancer",
+    "officialHero": "Venomancer",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40",
+    "sourceFile": "valve/heroes/40.json",
+    "abilityKey": "venomancer_snakebite",
+    "officialAbility": "Snakebite",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "8"
+    },
+    "owners": ["npc_dota_hero_venomancer"],
+    "officialDescription": "Venomancer summons a Spawn of Aktok to sink its fangs into a target, dealing magic damage and applying a toxin that does damage every second. When the target attacks while infected, they take the initial damage again.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:viper_nethertoxin",
+    "kind": "spell-owner",
+    "answer": "Viper",
+    "heroKey": "npc_dota_hero_viper",
+    "officialHero": "Viper",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=47",
+    "sourceFile": "valve/heroes/47.json",
+    "abilityKey": "viper_nethertoxin",
+    "officialAbility": "Nethertoxin",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "48"
+    },
+    "owners": ["npc_dota_hero_viper"],
+    "officialDescription": "Viper releases a Nethertoxin at the targeted area. Units in that area take an increasing damage over time based on how long they remain in it. Units in it have their attack speed slowed.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:visage_stone_form_self_cast",
+    "status": "needs-review"
+  },
+  {
+    "id": "ability-owner:void_spirit_resonant_pulse",
+    "kind": "spell-owner",
+    "answer": "Void Spirit",
+    "heroKey": "npc_dota_hero_void_spirit",
+    "officialHero": "Void Spirit",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=126",
+    "sourceFile": "valve/heroes/126.json",
+    "abilityKey": "void_spirit_resonant_pulse",
+    "officialAbility": "Resonant Pulse",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "134217732"
+    },
+    "owners": ["npc_dota_hero_void_spirit"],
+    "officialDescription": "Void Spirit wraps himself in a protective shield that absorbs physical damage and emits a single damaging pulse around him. The shield gains increased damage absorption for each enemy hero the pulse hits.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:warlock_shadow_word",
+    "kind": "spell-owner",
+    "answer": "Warlock",
+    "heroKey": "npc_dota_hero_warlock",
+    "officialHero": "Warlock",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=37",
+    "sourceFile": "valve/heroes/37.json",
+    "abilityKey": "warlock_shadow_word",
+    "officialAbility": "Shadow Word",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "8"
+    },
+    "owners": ["npc_dota_hero_warlock"],
+    "officialDescription": "Warlock whispers an incantation, casting a spell on a unit that makes it deal damage to nearby enemy units and heal nearby ally units. Target Unit will also heal or be damaged depending on whether they are ally or enemy.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:weaver_shukuchi",
+    "kind": "spell-owner",
+    "answer": "Weaver",
+    "heroKey": "npc_dota_hero_weaver",
+    "officialHero": "Weaver",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=63",
+    "sourceFile": "valve/heroes/63.json",
+    "abilityKey": "weaver_shukuchi",
+    "officialAbility": "Shukuchi",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "4196356"
+    },
+    "owners": ["npc_dota_hero_weaver"],
+    "officialDescription": "Weaver shifts out of visibility, gaining max movement speed and doing harm to any enemies it passes through.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:windrunner_powershot",
+    "kind": "spell-owner",
+    "answer": "Windranger",
+    "heroKey": "npc_dota_hero_windrunner",
+    "officialHero": "Windranger",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21",
+    "sourceFile": "valve/heroes/21.json",
+    "abilityKey": "windrunner_powershot",
+    "officialAbility": "Powershot",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "144"
+    },
+    "owners": ["npc_dota_hero_windrunner"],
+    "officialDescription": "CHANNELED - Windranger charges her bow for up to %abilitychanneltime% second for a single powerful shot, which deals more damage the longer it is charged. The arrow damages and slows enemies' movement speed along its path. For each enemy that Powershot hits, its damage and slow is reduced.",
+    "descriptionMatches": false,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:winter_wyvern_splinter_blast",
+    "kind": "spell-owner",
+    "answer": "Winter Wyvern",
+    "heroKey": "npc_dota_hero_winter_wyvern",
+    "officialHero": "Winter Wyvern",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=112",
+    "sourceFile": "valve/heroes/112.json",
+    "abilityKey": "winter_wyvern_splinter_blast",
+    "officialAbility": "Splinter Blast",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "40"
+    },
+    "owners": ["npc_dota_hero_winter_wyvern"],
+    "officialDescription": "Launches a ball of brittle ice toward a unit. The ice shatters on impact, leaving the primary target completely unaffected, while hurling damaging splinters into nearby enemies in a 500 base radius. Enemies struck by these splinters are slowed by 27%.",
+    "descriptionMatches": false,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": [
+      {
+        "name": "movespeed_slow_tooltip",
+        "values": [27, 30, 33, 36]
+      }
+    ]
+  },
+  {
+    "id": "ability-owner:wisp_spirits",
+    "kind": "spell-owner",
+    "answer": "Io",
+    "heroKey": "npc_dota_hero_wisp",
+    "officialHero": "Io",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=91",
+    "sourceFile": "valve/heroes/91.json",
+    "abilityKey": "wisp_spirits",
+    "officialAbility": "Spirits",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "2052"
+    },
+    "owners": ["npc_dota_hero_wisp"],
+    "officialDescription": "Summon five particle spirits that dance in a circle around Io. If a particle collides with an enemy hero, it explodes, damaging all enemy units in an area around it. Creeps take minor damage from touching a particle spirit, but do not cause them to explode. When its duration ends, any remaining Spirits explode.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:witch_doctor_maledict",
+    "kind": "spell-owner",
+    "answer": "Witch Doctor",
+    "heroKey": "npc_dota_hero_witch_doctor",
+    "officialHero": "Witch Doctor",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30",
+    "sourceFile": "valve/heroes/30.json",
+    "abilityKey": "witch_doctor_maledict",
+    "officialAbility": "Maledict",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "134217776"
+    },
+    "owners": ["npc_dota_hero_witch_doctor"],
+    "officialDescription": "Curses all enemy Heroes and player-controlled targets in a small area, causing them to take a set amount of damage each second, as well as bursts of damage every 4 seconds based on how much health they have lost since the curse began.",
+    "descriptionMatches": false,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "ability-owner:zuus_lightning_bolt",
+    "kind": "spell-owner",
+    "answer": "Zeus",
+    "heroKey": "npc_dota_hero_zuus",
+    "officialHero": "Zeus",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22",
+    "sourceFile": "valve/heroes/22.json",
+    "abilityKey": "zuus_lightning_bolt",
+    "officialAbility": "Lightning Bolt",
+    "abilityType": {
+      "innate": false,
+      "shard": false,
+      "scepter": false,
+      "behavior": "24"
+    },
+    "owners": ["npc_dota_hero_zuus"],
+    "officialDescription": "Calls down a bolt of lightning to strike an enemy unit, causing damage and a mini-stun. When cast, Lightning Bolt briefly provides unobstructed vision and True Sight around the target in a 600 radius. Can be cast on the ground, affecting the closest enemy hero in 325 range.",
+    "descriptionMatches": true,
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    },
+    "levelDependentPlaceholders": []
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_abaddon",
+    "kind": "fogged-hero",
+    "answer": "Abaddon",
+    "heroKey": "npc_dota_hero_abaddon",
+    "officialHero": "Abaddon",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=102",
+    "sourceFile": "valve/heroes/102.json",
+    "owners": ["npc_dota_hero_abaddon"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_abyssal_underlord",
+    "kind": "fogged-hero",
+    "answer": "Underlord",
+    "heroKey": "npc_dota_hero_abyssal_underlord",
+    "officialHero": "Underlord",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=108",
+    "sourceFile": "valve/heroes/108.json",
+    "owners": ["npc_dota_hero_abyssal_underlord"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_alchemist",
+    "kind": "fogged-hero",
+    "answer": "Alchemist",
+    "heroKey": "npc_dota_hero_alchemist",
+    "officialHero": "Alchemist",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=73",
+    "sourceFile": "valve/heroes/73.json",
+    "owners": ["npc_dota_hero_alchemist"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_ancient_apparition",
+    "kind": "fogged-hero",
+    "answer": "Ancient Apparition",
+    "heroKey": "npc_dota_hero_ancient_apparition",
+    "officialHero": "Ancient Apparition",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=68",
+    "sourceFile": "valve/heroes/68.json",
+    "owners": ["npc_dota_hero_ancient_apparition"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_antimage",
+    "kind": "fogged-hero",
+    "answer": "Anti-Mage",
+    "heroKey": "npc_dota_hero_antimage",
+    "officialHero": "Anti-Mage",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=1",
+    "sourceFile": "valve/heroes/1.json",
+    "owners": ["npc_dota_hero_antimage"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_arc_warden",
+    "kind": "fogged-hero",
+    "answer": "Arc Warden",
+    "heroKey": "npc_dota_hero_arc_warden",
+    "officialHero": "Arc Warden",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=113",
+    "sourceFile": "valve/heroes/113.json",
+    "owners": ["npc_dota_hero_arc_warden"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_axe",
+    "kind": "fogged-hero",
+    "answer": "Axe",
+    "heroKey": "npc_dota_hero_axe",
+    "officialHero": "Axe",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2",
+    "sourceFile": "valve/heroes/2.json",
+    "owners": ["npc_dota_hero_axe"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_bane",
+    "kind": "fogged-hero",
+    "answer": "Bane",
+    "heroKey": "npc_dota_hero_bane",
+    "officialHero": "Bane",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3",
+    "sourceFile": "valve/heroes/3.json",
+    "owners": ["npc_dota_hero_bane"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_batrider",
+    "kind": "fogged-hero",
+    "answer": "Batrider",
+    "heroKey": "npc_dota_hero_batrider",
+    "officialHero": "Batrider",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65",
+    "sourceFile": "valve/heroes/65.json",
+    "owners": ["npc_dota_hero_batrider"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_beastmaster",
+    "kind": "fogged-hero",
+    "answer": "Beastmaster",
+    "heroKey": "npc_dota_hero_beastmaster",
+    "officialHero": "Beastmaster",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=38",
+    "sourceFile": "valve/heroes/38.json",
+    "owners": ["npc_dota_hero_beastmaster"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_bloodseeker",
+    "kind": "fogged-hero",
+    "answer": "Bloodseeker",
+    "heroKey": "npc_dota_hero_bloodseeker",
+    "officialHero": "Bloodseeker",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=4",
+    "sourceFile": "valve/heroes/4.json",
+    "owners": ["npc_dota_hero_bloodseeker"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_bounty_hunter",
+    "kind": "fogged-hero",
+    "answer": "Bounty Hunter",
+    "heroKey": "npc_dota_hero_bounty_hunter",
+    "officialHero": "Bounty Hunter",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=62",
+    "sourceFile": "valve/heroes/62.json",
+    "owners": ["npc_dota_hero_bounty_hunter"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_brewmaster",
+    "kind": "fogged-hero",
+    "answer": "Brewmaster",
+    "heroKey": "npc_dota_hero_brewmaster",
+    "officialHero": "Brewmaster",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=78",
+    "sourceFile": "valve/heroes/78.json",
+    "owners": ["npc_dota_hero_brewmaster"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_bristleback",
+    "kind": "fogged-hero",
+    "answer": "Bristleback",
+    "heroKey": "npc_dota_hero_bristleback",
+    "officialHero": "Bristleback",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=99",
+    "sourceFile": "valve/heroes/99.json",
+    "owners": ["npc_dota_hero_bristleback"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_broodmother",
+    "kind": "fogged-hero",
+    "answer": "Broodmother",
+    "heroKey": "npc_dota_hero_broodmother",
+    "officialHero": "Broodmother",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=61",
+    "sourceFile": "valve/heroes/61.json",
+    "owners": ["npc_dota_hero_broodmother"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_centaur",
+    "kind": "fogged-hero",
+    "answer": "Centaur Warrunner",
+    "heroKey": "npc_dota_hero_centaur",
+    "officialHero": "Centaur Warrunner",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=96",
+    "sourceFile": "valve/heroes/96.json",
+    "owners": ["npc_dota_hero_centaur"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_chaos_knight",
+    "kind": "fogged-hero",
+    "answer": "Chaos Knight",
+    "heroKey": "npc_dota_hero_chaos_knight",
+    "officialHero": "Chaos Knight",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=81",
+    "sourceFile": "valve/heroes/81.json",
+    "owners": ["npc_dota_hero_chaos_knight"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_chen",
+    "kind": "fogged-hero",
+    "answer": "Chen",
+    "heroKey": "npc_dota_hero_chen",
+    "officialHero": "Chen",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66",
+    "sourceFile": "valve/heroes/66.json",
+    "owners": ["npc_dota_hero_chen"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_clinkz",
+    "kind": "fogged-hero",
+    "answer": "Clinkz",
+    "heroKey": "npc_dota_hero_clinkz",
+    "officialHero": "Clinkz",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56",
+    "sourceFile": "valve/heroes/56.json",
+    "owners": ["npc_dota_hero_clinkz"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_crystal_maiden",
+    "kind": "fogged-hero",
+    "answer": "Crystal Maiden",
+    "heroKey": "npc_dota_hero_crystal_maiden",
+    "officialHero": "Crystal Maiden",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5",
+    "sourceFile": "valve/heroes/5.json",
+    "owners": ["npc_dota_hero_crystal_maiden"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_dark_seer",
+    "kind": "fogged-hero",
+    "answer": "Dark Seer",
+    "heroKey": "npc_dota_hero_dark_seer",
+    "officialHero": "Dark Seer",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55",
+    "sourceFile": "valve/heroes/55.json",
+    "owners": ["npc_dota_hero_dark_seer"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_dark_willow",
+    "kind": "fogged-hero",
+    "answer": "Dark Willow",
+    "heroKey": "npc_dota_hero_dark_willow",
+    "officialHero": "Dark Willow",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119",
+    "sourceFile": "valve/heroes/119.json",
+    "owners": ["npc_dota_hero_dark_willow"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_dawnbreaker",
+    "kind": "fogged-hero",
+    "answer": "Dawnbreaker",
+    "heroKey": "npc_dota_hero_dawnbreaker",
+    "officialHero": "Dawnbreaker",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=135",
+    "sourceFile": "valve/heroes/135.json",
+    "owners": ["npc_dota_hero_dawnbreaker"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_dazzle",
+    "kind": "fogged-hero",
+    "answer": "Dazzle",
+    "heroKey": "npc_dota_hero_dazzle",
+    "officialHero": "Dazzle",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50",
+    "sourceFile": "valve/heroes/50.json",
+    "owners": ["npc_dota_hero_dazzle"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_death_prophet",
+    "kind": "fogged-hero",
+    "answer": "Death Prophet",
+    "heroKey": "npc_dota_hero_death_prophet",
+    "officialHero": "Death Prophet",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43",
+    "sourceFile": "valve/heroes/43.json",
+    "owners": ["npc_dota_hero_death_prophet"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_disruptor",
+    "kind": "fogged-hero",
+    "answer": "Disruptor",
+    "heroKey": "npc_dota_hero_disruptor",
+    "officialHero": "Disruptor",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87",
+    "sourceFile": "valve/heroes/87.json",
+    "owners": ["npc_dota_hero_disruptor"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_doom_bringer",
+    "kind": "fogged-hero",
+    "answer": "Doom",
+    "heroKey": "npc_dota_hero_doom_bringer",
+    "officialHero": "Doom",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=69",
+    "sourceFile": "valve/heroes/69.json",
+    "owners": ["npc_dota_hero_doom_bringer"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_dragon_knight",
+    "kind": "fogged-hero",
+    "answer": "Dragon Knight",
+    "heroKey": "npc_dota_hero_dragon_knight",
+    "officialHero": "Dragon Knight",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49",
+    "sourceFile": "valve/heroes/49.json",
+    "owners": ["npc_dota_hero_dragon_knight"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_drow_ranger",
+    "kind": "fogged-hero",
+    "answer": "Drow Ranger",
+    "heroKey": "npc_dota_hero_drow_ranger",
+    "officialHero": "Drow Ranger",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=6",
+    "sourceFile": "valve/heroes/6.json",
+    "owners": ["npc_dota_hero_drow_ranger"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_earth_spirit",
+    "kind": "fogged-hero",
+    "answer": "Earth Spirit",
+    "heroKey": "npc_dota_hero_earth_spirit",
+    "officialHero": "Earth Spirit",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=107",
+    "sourceFile": "valve/heroes/107.json",
+    "owners": ["npc_dota_hero_earth_spirit"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_earthshaker",
+    "kind": "fogged-hero",
+    "answer": "Earthshaker",
+    "heroKey": "npc_dota_hero_earthshaker",
+    "officialHero": "Earthshaker",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=7",
+    "sourceFile": "valve/heroes/7.json",
+    "owners": ["npc_dota_hero_earthshaker"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_elder_titan",
+    "kind": "fogged-hero",
+    "answer": "Elder Titan",
+    "heroKey": "npc_dota_hero_elder_titan",
+    "officialHero": "Elder Titan",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=103",
+    "sourceFile": "valve/heroes/103.json",
+    "owners": ["npc_dota_hero_elder_titan"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_ember_spirit",
+    "kind": "fogged-hero",
+    "answer": "Ember Spirit",
+    "heroKey": "npc_dota_hero_ember_spirit",
+    "officialHero": "Ember Spirit",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=106",
+    "sourceFile": "valve/heroes/106.json",
+    "owners": ["npc_dota_hero_ember_spirit"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_enchantress",
+    "kind": "fogged-hero",
+    "answer": "Enchantress",
+    "heroKey": "npc_dota_hero_enchantress",
+    "officialHero": "Enchantress",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58",
+    "sourceFile": "valve/heroes/58.json",
+    "owners": ["npc_dota_hero_enchantress"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_enigma",
+    "kind": "fogged-hero",
+    "answer": "Enigma",
+    "heroKey": "npc_dota_hero_enigma",
+    "officialHero": "Enigma",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=33",
+    "sourceFile": "valve/heroes/33.json",
+    "owners": ["npc_dota_hero_enigma"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_faceless_void",
+    "kind": "fogged-hero",
+    "answer": "Faceless Void",
+    "heroKey": "npc_dota_hero_faceless_void",
+    "officialHero": "Faceless Void",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=41",
+    "sourceFile": "valve/heroes/41.json",
+    "owners": ["npc_dota_hero_faceless_void"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_furion",
+    "kind": "fogged-hero",
+    "answer": "Nature's Prophet",
+    "heroKey": "npc_dota_hero_furion",
+    "officialHero": "Nature's Prophet",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53",
+    "sourceFile": "valve/heroes/53.json",
+    "owners": ["npc_dota_hero_furion"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_grimstroke",
+    "kind": "fogged-hero",
+    "answer": "Grimstroke",
+    "heroKey": "npc_dota_hero_grimstroke",
+    "officialHero": "Grimstroke",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=121",
+    "sourceFile": "valve/heroes/121.json",
+    "owners": ["npc_dota_hero_grimstroke"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_gyrocopter",
+    "kind": "fogged-hero",
+    "answer": "Gyrocopter",
+    "heroKey": "npc_dota_hero_gyrocopter",
+    "officialHero": "Gyrocopter",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=72",
+    "sourceFile": "valve/heroes/72.json",
+    "owners": ["npc_dota_hero_gyrocopter"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_hoodwink",
+    "kind": "fogged-hero",
+    "answer": "Hoodwink",
+    "heroKey": "npc_dota_hero_hoodwink",
+    "officialHero": "Hoodwink",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=123",
+    "sourceFile": "valve/heroes/123.json",
+    "owners": ["npc_dota_hero_hoodwink"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_huskar",
+    "kind": "fogged-hero",
+    "answer": "Huskar",
+    "heroKey": "npc_dota_hero_huskar",
+    "officialHero": "Huskar",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=59",
+    "sourceFile": "valve/heroes/59.json",
+    "owners": ["npc_dota_hero_huskar"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_invoker",
+    "kind": "fogged-hero",
+    "answer": "Invoker",
+    "heroKey": "npc_dota_hero_invoker",
+    "officialHero": "Invoker",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74",
+    "sourceFile": "valve/heroes/74.json",
+    "owners": ["npc_dota_hero_invoker"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_jakiro",
+    "kind": "fogged-hero",
+    "answer": "Jakiro",
+    "heroKey": "npc_dota_hero_jakiro",
+    "officialHero": "Jakiro",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=64",
+    "sourceFile": "valve/heroes/64.json",
+    "owners": ["npc_dota_hero_jakiro"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_juggernaut",
+    "kind": "fogged-hero",
+    "answer": "Juggernaut",
+    "heroKey": "npc_dota_hero_juggernaut",
+    "officialHero": "Juggernaut",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=8",
+    "sourceFile": "valve/heroes/8.json",
+    "owners": ["npc_dota_hero_juggernaut"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_keeper_of_the_light",
+    "kind": "fogged-hero",
+    "answer": "Keeper of the Light",
+    "heroKey": "npc_dota_hero_keeper_of_the_light",
+    "officialHero": "Keeper of the Light",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=90",
+    "sourceFile": "valve/heroes/90.json",
+    "owners": ["npc_dota_hero_keeper_of_the_light"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_kez",
+    "kind": "fogged-hero",
+    "answer": "Kez",
+    "heroKey": "npc_dota_hero_kez",
+    "officialHero": "Kez",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145",
+    "sourceFile": "valve/heroes/145.json",
+    "owners": ["npc_dota_hero_kez"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_kunkka",
+    "kind": "fogged-hero",
+    "answer": "Kunkka",
+    "heroKey": "npc_dota_hero_kunkka",
+    "officialHero": "Kunkka",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=23",
+    "sourceFile": "valve/heroes/23.json",
+    "owners": ["npc_dota_hero_kunkka"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_largo",
+    "kind": "fogged-hero",
+    "answer": "Largo",
+    "heroKey": "npc_dota_hero_largo",
+    "officialHero": "Largo",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155",
+    "sourceFile": "valve/heroes/155.json",
+    "owners": ["npc_dota_hero_largo"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_legion_commander",
+    "kind": "fogged-hero",
+    "answer": "Legion Commander",
+    "heroKey": "npc_dota_hero_legion_commander",
+    "officialHero": "Legion Commander",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=104",
+    "sourceFile": "valve/heroes/104.json",
+    "owners": ["npc_dota_hero_legion_commander"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_leshrac",
+    "kind": "fogged-hero",
+    "answer": "Leshrac",
+    "heroKey": "npc_dota_hero_leshrac",
+    "officialHero": "Leshrac",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=52",
+    "sourceFile": "valve/heroes/52.json",
+    "owners": ["npc_dota_hero_leshrac"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_lich",
+    "kind": "fogged-hero",
+    "answer": "Lich",
+    "heroKey": "npc_dota_hero_lich",
+    "officialHero": "Lich",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=31",
+    "sourceFile": "valve/heroes/31.json",
+    "owners": ["npc_dota_hero_lich"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_life_stealer",
+    "kind": "fogged-hero",
+    "answer": "Lifestealer",
+    "heroKey": "npc_dota_hero_life_stealer",
+    "officialHero": "Lifestealer",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=54",
+    "sourceFile": "valve/heroes/54.json",
+    "owners": ["npc_dota_hero_life_stealer"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_lina",
+    "kind": "fogged-hero",
+    "answer": "Lina",
+    "heroKey": "npc_dota_hero_lina",
+    "officialHero": "Lina",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25",
+    "sourceFile": "valve/heroes/25.json",
+    "owners": ["npc_dota_hero_lina"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_lion",
+    "kind": "fogged-hero",
+    "answer": "Lion",
+    "heroKey": "npc_dota_hero_lion",
+    "officialHero": "Lion",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26",
+    "sourceFile": "valve/heroes/26.json",
+    "owners": ["npc_dota_hero_lion"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_lone_druid",
+    "kind": "fogged-hero",
+    "answer": "Lone Druid",
+    "heroKey": "npc_dota_hero_lone_druid",
+    "officialHero": "Lone Druid",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=80",
+    "sourceFile": "valve/heroes/80.json",
+    "owners": ["npc_dota_hero_lone_druid"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_luna",
+    "kind": "fogged-hero",
+    "answer": "Luna",
+    "heroKey": "npc_dota_hero_luna",
+    "officialHero": "Luna",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=48",
+    "sourceFile": "valve/heroes/48.json",
+    "owners": ["npc_dota_hero_luna"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_lycan",
+    "kind": "fogged-hero",
+    "answer": "Lycan",
+    "heroKey": "npc_dota_hero_lycan",
+    "officialHero": "Lycan",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=77",
+    "sourceFile": "valve/heroes/77.json",
+    "owners": ["npc_dota_hero_lycan"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_magnataur",
+    "kind": "fogged-hero",
+    "answer": "Magnus",
+    "heroKey": "npc_dota_hero_magnataur",
+    "officialHero": "Magnus",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=97",
+    "sourceFile": "valve/heroes/97.json",
+    "owners": ["npc_dota_hero_magnataur"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_marci",
+    "kind": "fogged-hero",
+    "answer": "Marci",
+    "heroKey": "npc_dota_hero_marci",
+    "officialHero": "Marci",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=136",
+    "sourceFile": "valve/heroes/136.json",
+    "owners": ["npc_dota_hero_marci"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_mars",
+    "kind": "fogged-hero",
+    "answer": "Mars",
+    "heroKey": "npc_dota_hero_mars",
+    "officialHero": "Mars",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=129",
+    "sourceFile": "valve/heroes/129.json",
+    "owners": ["npc_dota_hero_mars"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_medusa",
+    "kind": "fogged-hero",
+    "answer": "Medusa",
+    "heroKey": "npc_dota_hero_medusa",
+    "officialHero": "Medusa",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=94",
+    "sourceFile": "valve/heroes/94.json",
+    "owners": ["npc_dota_hero_medusa"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_meepo",
+    "kind": "fogged-hero",
+    "answer": "Meepo",
+    "heroKey": "npc_dota_hero_meepo",
+    "officialHero": "Meepo",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=82",
+    "sourceFile": "valve/heroes/82.json",
+    "owners": ["npc_dota_hero_meepo"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_mirana",
+    "kind": "fogged-hero",
+    "answer": "Mirana",
+    "heroKey": "npc_dota_hero_mirana",
+    "officialHero": "Mirana",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9",
+    "sourceFile": "valve/heroes/9.json",
+    "owners": ["npc_dota_hero_mirana"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_monkey_king",
+    "kind": "fogged-hero",
+    "answer": "Monkey King",
+    "heroKey": "npc_dota_hero_monkey_king",
+    "officialHero": "Monkey King",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=114",
+    "sourceFile": "valve/heroes/114.json",
+    "owners": ["npc_dota_hero_monkey_king"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_morphling",
+    "kind": "fogged-hero",
+    "answer": "Morphling",
+    "heroKey": "npc_dota_hero_morphling",
+    "officialHero": "Morphling",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=10",
+    "sourceFile": "valve/heroes/10.json",
+    "owners": ["npc_dota_hero_morphling"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_muerta",
+    "kind": "fogged-hero",
+    "answer": "Muerta",
+    "heroKey": "npc_dota_hero_muerta",
+    "officialHero": "Muerta",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138",
+    "sourceFile": "valve/heroes/138.json",
+    "owners": ["npc_dota_hero_muerta"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_naga_siren",
+    "kind": "fogged-hero",
+    "answer": "Naga Siren",
+    "heroKey": "npc_dota_hero_naga_siren",
+    "officialHero": "Naga Siren",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=89",
+    "sourceFile": "valve/heroes/89.json",
+    "owners": ["npc_dota_hero_naga_siren"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_necrolyte",
+    "kind": "fogged-hero",
+    "answer": "Necrophos",
+    "heroKey": "npc_dota_hero_necrolyte",
+    "officialHero": "Necrophos",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=36",
+    "sourceFile": "valve/heroes/36.json",
+    "owners": ["npc_dota_hero_necrolyte"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_nevermore",
+    "kind": "fogged-hero",
+    "answer": "Shadow Fiend",
+    "heroKey": "npc_dota_hero_nevermore",
+    "officialHero": "Shadow Fiend",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11",
+    "sourceFile": "valve/heroes/11.json",
+    "owners": ["npc_dota_hero_nevermore"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_night_stalker",
+    "kind": "fogged-hero",
+    "answer": "Night Stalker",
+    "heroKey": "npc_dota_hero_night_stalker",
+    "officialHero": "Night Stalker",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=60",
+    "sourceFile": "valve/heroes/60.json",
+    "owners": ["npc_dota_hero_night_stalker"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_nyx_assassin",
+    "kind": "fogged-hero",
+    "answer": "Nyx Assassin",
+    "heroKey": "npc_dota_hero_nyx_assassin",
+    "officialHero": "Nyx Assassin",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=88",
+    "sourceFile": "valve/heroes/88.json",
+    "owners": ["npc_dota_hero_nyx_assassin"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_obsidian_destroyer",
+    "kind": "fogged-hero",
+    "answer": "Outworld Devourer",
+    "heroKey": "npc_dota_hero_obsidian_destroyer",
+    "officialHero": "Outworld Destroyer",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76",
+    "sourceFile": "valve/heroes/76.json",
+    "owners": ["npc_dota_hero_obsidian_destroyer"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": false,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_ogre_magi",
+    "kind": "fogged-hero",
+    "answer": "Ogre Magi",
+    "heroKey": "npc_dota_hero_ogre_magi",
+    "officialHero": "Ogre Magi",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=84",
+    "sourceFile": "valve/heroes/84.json",
+    "owners": ["npc_dota_hero_ogre_magi"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_omniknight",
+    "kind": "fogged-hero",
+    "answer": "Omniknight",
+    "heroKey": "npc_dota_hero_omniknight",
+    "officialHero": "Omniknight",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=57",
+    "sourceFile": "valve/heroes/57.json",
+    "owners": ["npc_dota_hero_omniknight"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_oracle",
+    "kind": "fogged-hero",
+    "answer": "Oracle",
+    "heroKey": "npc_dota_hero_oracle",
+    "officialHero": "Oracle",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=111",
+    "sourceFile": "valve/heroes/111.json",
+    "owners": ["npc_dota_hero_oracle"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_pangolier",
+    "kind": "fogged-hero",
+    "answer": "Pangolier",
+    "heroKey": "npc_dota_hero_pangolier",
+    "officialHero": "Pangolier",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=120",
+    "sourceFile": "valve/heroes/120.json",
+    "owners": ["npc_dota_hero_pangolier"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_phantom_assassin",
+    "kind": "fogged-hero",
+    "answer": "Phantom Assassin",
+    "heroKey": "npc_dota_hero_phantom_assassin",
+    "officialHero": "Phantom Assassin",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=44",
+    "sourceFile": "valve/heroes/44.json",
+    "owners": ["npc_dota_hero_phantom_assassin"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_phantom_lancer",
+    "kind": "fogged-hero",
+    "answer": "Phantom Lancer",
+    "heroKey": "npc_dota_hero_phantom_lancer",
+    "officialHero": "Phantom Lancer",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=12",
+    "sourceFile": "valve/heroes/12.json",
+    "owners": ["npc_dota_hero_phantom_lancer"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_phoenix",
+    "kind": "fogged-hero",
+    "answer": "Phoenix",
+    "heroKey": "npc_dota_hero_phoenix",
+    "officialHero": "Phoenix",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=110",
+    "sourceFile": "valve/heroes/110.json",
+    "owners": ["npc_dota_hero_phoenix"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_primal_beast",
+    "kind": "fogged-hero",
+    "answer": "Primal Beast",
+    "heroKey": "npc_dota_hero_primal_beast",
+    "officialHero": "Primal Beast",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=137",
+    "sourceFile": "valve/heroes/137.json",
+    "owners": ["npc_dota_hero_primal_beast"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_puck",
+    "kind": "fogged-hero",
+    "answer": "Puck",
+    "heroKey": "npc_dota_hero_puck",
+    "officialHero": "Puck",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=13",
+    "sourceFile": "valve/heroes/13.json",
+    "owners": ["npc_dota_hero_puck"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_pudge",
+    "kind": "fogged-hero",
+    "answer": "Pudge",
+    "heroKey": "npc_dota_hero_pudge",
+    "officialHero": "Pudge",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14",
+    "sourceFile": "valve/heroes/14.json",
+    "owners": ["npc_dota_hero_pudge"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_pugna",
+    "kind": "fogged-hero",
+    "answer": "Pugna",
+    "heroKey": "npc_dota_hero_pugna",
+    "officialHero": "Pugna",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45",
+    "sourceFile": "valve/heroes/45.json",
+    "owners": ["npc_dota_hero_pugna"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_queenofpain",
+    "kind": "fogged-hero",
+    "answer": "Queen of Pain",
+    "heroKey": "npc_dota_hero_queenofpain",
+    "officialHero": "Queen of Pain",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39",
+    "sourceFile": "valve/heroes/39.json",
+    "owners": ["npc_dota_hero_queenofpain"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_rattletrap",
+    "kind": "fogged-hero",
+    "answer": "Clockwerk",
+    "heroKey": "npc_dota_hero_rattletrap",
+    "officialHero": "Clockwerk",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=51",
+    "sourceFile": "valve/heroes/51.json",
+    "owners": ["npc_dota_hero_rattletrap"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_razor",
+    "kind": "fogged-hero",
+    "answer": "Razor",
+    "heroKey": "npc_dota_hero_razor",
+    "officialHero": "Razor",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15",
+    "sourceFile": "valve/heroes/15.json",
+    "owners": ["npc_dota_hero_razor"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_riki",
+    "kind": "fogged-hero",
+    "answer": "Riki",
+    "heroKey": "npc_dota_hero_riki",
+    "officialHero": "Riki",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=32",
+    "sourceFile": "valve/heroes/32.json",
+    "owners": ["npc_dota_hero_riki"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_ringmaster",
+    "kind": "fogged-hero",
+    "answer": "Ringmaster",
+    "heroKey": "npc_dota_hero_ringmaster",
+    "officialHero": "Ringmaster",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131",
+    "sourceFile": "valve/heroes/131.json",
+    "owners": ["npc_dota_hero_ringmaster"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_rubick",
+    "kind": "fogged-hero",
+    "answer": "Rubick",
+    "heroKey": "npc_dota_hero_rubick",
+    "officialHero": "Rubick",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=86",
+    "sourceFile": "valve/heroes/86.json",
+    "owners": ["npc_dota_hero_rubick"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_sand_king",
+    "kind": "fogged-hero",
+    "answer": "Sand King",
+    "heroKey": "npc_dota_hero_sand_king",
+    "officialHero": "Sand King",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=16",
+    "sourceFile": "valve/heroes/16.json",
+    "owners": ["npc_dota_hero_sand_king"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_shadow_demon",
+    "kind": "fogged-hero",
+    "answer": "Shadow Demon",
+    "heroKey": "npc_dota_hero_shadow_demon",
+    "officialHero": "Shadow Demon",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79",
+    "sourceFile": "valve/heroes/79.json",
+    "owners": ["npc_dota_hero_shadow_demon"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_shadow_shaman",
+    "kind": "fogged-hero",
+    "answer": "Shadow Shaman",
+    "heroKey": "npc_dota_hero_shadow_shaman",
+    "officialHero": "Shadow Shaman",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=27",
+    "sourceFile": "valve/heroes/27.json",
+    "owners": ["npc_dota_hero_shadow_shaman"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_shredder",
+    "kind": "fogged-hero",
+    "answer": "Timbersaw",
+    "heroKey": "npc_dota_hero_shredder",
+    "officialHero": "Timbersaw",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=98",
+    "sourceFile": "valve/heroes/98.json",
+    "owners": ["npc_dota_hero_shredder"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_silencer",
+    "kind": "fogged-hero",
+    "answer": "Silencer",
+    "heroKey": "npc_dota_hero_silencer",
+    "officialHero": "Silencer",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75",
+    "sourceFile": "valve/heroes/75.json",
+    "owners": ["npc_dota_hero_silencer"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_skeleton_king",
+    "kind": "fogged-hero",
+    "answer": "Wraith King",
+    "heroKey": "npc_dota_hero_skeleton_king",
+    "officialHero": "Wraith King",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=42",
+    "sourceFile": "valve/heroes/42.json",
+    "owners": ["npc_dota_hero_skeleton_king"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_skywrath_mage",
+    "kind": "fogged-hero",
+    "answer": "Skywrath Mage",
+    "heroKey": "npc_dota_hero_skywrath_mage",
+    "officialHero": "Skywrath Mage",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=101",
+    "sourceFile": "valve/heroes/101.json",
+    "owners": ["npc_dota_hero_skywrath_mage"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_slardar",
+    "kind": "fogged-hero",
+    "answer": "Slardar",
+    "heroKey": "npc_dota_hero_slardar",
+    "officialHero": "Slardar",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=28",
+    "sourceFile": "valve/heroes/28.json",
+    "owners": ["npc_dota_hero_slardar"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_slark",
+    "kind": "fogged-hero",
+    "answer": "Slark",
+    "heroKey": "npc_dota_hero_slark",
+    "officialHero": "Slark",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=93",
+    "sourceFile": "valve/heroes/93.json",
+    "owners": ["npc_dota_hero_slark"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_snapfire",
+    "kind": "fogged-hero",
+    "answer": "Snapfire",
+    "heroKey": "npc_dota_hero_snapfire",
+    "officialHero": "Snapfire",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128",
+    "sourceFile": "valve/heroes/128.json",
+    "owners": ["npc_dota_hero_snapfire"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_sniper",
+    "kind": "fogged-hero",
+    "answer": "Sniper",
+    "heroKey": "npc_dota_hero_sniper",
+    "officialHero": "Sniper",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=35",
+    "sourceFile": "valve/heroes/35.json",
+    "owners": ["npc_dota_hero_sniper"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_spectre",
+    "kind": "fogged-hero",
+    "answer": "Spectre",
+    "heroKey": "npc_dota_hero_spectre",
+    "officialHero": "Spectre",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=67",
+    "sourceFile": "valve/heroes/67.json",
+    "owners": ["npc_dota_hero_spectre"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_spirit_breaker",
+    "kind": "fogged-hero",
+    "answer": "Spirit Breaker",
+    "heroKey": "npc_dota_hero_spirit_breaker",
+    "officialHero": "Spirit Breaker",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71",
+    "sourceFile": "valve/heroes/71.json",
+    "owners": ["npc_dota_hero_spirit_breaker"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_storm_spirit",
+    "kind": "fogged-hero",
+    "answer": "Storm Spirit",
+    "heroKey": "npc_dota_hero_storm_spirit",
+    "officialHero": "Storm Spirit",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17",
+    "sourceFile": "valve/heroes/17.json",
+    "owners": ["npc_dota_hero_storm_spirit"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_sven",
+    "kind": "fogged-hero",
+    "answer": "Sven",
+    "heroKey": "npc_dota_hero_sven",
+    "officialHero": "Sven",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=18",
+    "sourceFile": "valve/heroes/18.json",
+    "owners": ["npc_dota_hero_sven"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_techies",
+    "kind": "fogged-hero",
+    "answer": "Techies",
+    "heroKey": "npc_dota_hero_techies",
+    "officialHero": "Techies",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=105",
+    "sourceFile": "valve/heroes/105.json",
+    "owners": ["npc_dota_hero_techies"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_templar_assassin",
+    "kind": "fogged-hero",
+    "answer": "Templar Assassin",
+    "heroKey": "npc_dota_hero_templar_assassin",
+    "officialHero": "Templar Assassin",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=46",
+    "sourceFile": "valve/heroes/46.json",
+    "owners": ["npc_dota_hero_templar_assassin"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_terrorblade",
+    "kind": "fogged-hero",
+    "answer": "Terrorblade",
+    "heroKey": "npc_dota_hero_terrorblade",
+    "officialHero": "Terrorblade",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=109",
+    "sourceFile": "valve/heroes/109.json",
+    "owners": ["npc_dota_hero_terrorblade"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_tidehunter",
+    "kind": "fogged-hero",
+    "answer": "Tidehunter",
+    "heroKey": "npc_dota_hero_tidehunter",
+    "officialHero": "Tidehunter",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=29",
+    "sourceFile": "valve/heroes/29.json",
+    "owners": ["npc_dota_hero_tidehunter"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_tinker",
+    "kind": "fogged-hero",
+    "answer": "Tinker",
+    "heroKey": "npc_dota_hero_tinker",
+    "officialHero": "Tinker",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34",
+    "sourceFile": "valve/heroes/34.json",
+    "owners": ["npc_dota_hero_tinker"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_tiny",
+    "kind": "fogged-hero",
+    "answer": "Tiny",
+    "heroKey": "npc_dota_hero_tiny",
+    "officialHero": "Tiny",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19",
+    "sourceFile": "valve/heroes/19.json",
+    "owners": ["npc_dota_hero_tiny"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_treant",
+    "kind": "fogged-hero",
+    "answer": "Treant Protector",
+    "heroKey": "npc_dota_hero_treant",
+    "officialHero": "Treant Protector",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=83",
+    "sourceFile": "valve/heroes/83.json",
+    "owners": ["npc_dota_hero_treant"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_troll_warlord",
+    "kind": "fogged-hero",
+    "answer": "Troll Warlord",
+    "heroKey": "npc_dota_hero_troll_warlord",
+    "officialHero": "Troll Warlord",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=95",
+    "sourceFile": "valve/heroes/95.json",
+    "owners": ["npc_dota_hero_troll_warlord"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_tusk",
+    "kind": "fogged-hero",
+    "answer": "Tusk",
+    "heroKey": "npc_dota_hero_tusk",
+    "officialHero": "Tusk",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=100",
+    "sourceFile": "valve/heroes/100.json",
+    "owners": ["npc_dota_hero_tusk"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_undying",
+    "kind": "fogged-hero",
+    "answer": "Undying",
+    "heroKey": "npc_dota_hero_undying",
+    "officialHero": "Undying",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=85",
+    "sourceFile": "valve/heroes/85.json",
+    "owners": ["npc_dota_hero_undying"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_ursa",
+    "kind": "fogged-hero",
+    "answer": "Ursa",
+    "heroKey": "npc_dota_hero_ursa",
+    "officialHero": "Ursa",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=70",
+    "sourceFile": "valve/heroes/70.json",
+    "owners": ["npc_dota_hero_ursa"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_vengefulspirit",
+    "kind": "fogged-hero",
+    "answer": "Vengeful Spirit",
+    "heroKey": "npc_dota_hero_vengefulspirit",
+    "officialHero": "Vengeful Spirit",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20",
+    "sourceFile": "valve/heroes/20.json",
+    "owners": ["npc_dota_hero_vengefulspirit"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_venomancer",
+    "kind": "fogged-hero",
+    "answer": "Venomancer",
+    "heroKey": "npc_dota_hero_venomancer",
+    "officialHero": "Venomancer",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40",
+    "sourceFile": "valve/heroes/40.json",
+    "owners": ["npc_dota_hero_venomancer"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_viper",
+    "kind": "fogged-hero",
+    "answer": "Viper",
+    "heroKey": "npc_dota_hero_viper",
+    "officialHero": "Viper",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=47",
+    "sourceFile": "valve/heroes/47.json",
+    "owners": ["npc_dota_hero_viper"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_visage",
+    "kind": "fogged-hero",
+    "answer": "Visage",
+    "heroKey": "npc_dota_hero_visage",
+    "officialHero": "Visage",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=92",
+    "sourceFile": "valve/heroes/92.json",
+    "owners": ["npc_dota_hero_visage"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_void_spirit",
+    "kind": "fogged-hero",
+    "answer": "Void Spirit",
+    "heroKey": "npc_dota_hero_void_spirit",
+    "officialHero": "Void Spirit",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=126",
+    "sourceFile": "valve/heroes/126.json",
+    "owners": ["npc_dota_hero_void_spirit"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_warlock",
+    "kind": "fogged-hero",
+    "answer": "Warlock",
+    "heroKey": "npc_dota_hero_warlock",
+    "officialHero": "Warlock",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=37",
+    "sourceFile": "valve/heroes/37.json",
+    "owners": ["npc_dota_hero_warlock"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_weaver",
+    "kind": "fogged-hero",
+    "answer": "Weaver",
+    "heroKey": "npc_dota_hero_weaver",
+    "officialHero": "Weaver",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=63",
+    "sourceFile": "valve/heroes/63.json",
+    "owners": ["npc_dota_hero_weaver"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_windrunner",
+    "kind": "fogged-hero",
+    "answer": "Windranger",
+    "heroKey": "npc_dota_hero_windrunner",
+    "officialHero": "Windranger",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21",
+    "sourceFile": "valve/heroes/21.json",
+    "owners": ["npc_dota_hero_windrunner"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_winter_wyvern",
+    "kind": "fogged-hero",
+    "answer": "Winter Wyvern",
+    "heroKey": "npc_dota_hero_winter_wyvern",
+    "officialHero": "Winter Wyvern",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=112",
+    "sourceFile": "valve/heroes/112.json",
+    "owners": ["npc_dota_hero_winter_wyvern"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_wisp",
+    "kind": "fogged-hero",
+    "answer": "Io",
+    "heroKey": "npc_dota_hero_wisp",
+    "officialHero": "Io",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=91",
+    "sourceFile": "valve/heroes/91.json",
+    "owners": ["npc_dota_hero_wisp"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_witch_doctor",
+    "kind": "fogged-hero",
+    "answer": "Witch Doctor",
+    "heroKey": "npc_dota_hero_witch_doctor",
+    "officialHero": "Witch Doctor",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30",
+    "sourceFile": "valve/heroes/30.json",
+    "owners": ["npc_dota_hero_witch_doctor"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  },
+  {
+    "id": "fogged-hero:npc_dota_hero_zuus",
+    "kind": "fogged-hero",
+    "answer": "Zeus",
+    "heroKey": "npc_dota_hero_zuus",
+    "officialHero": "Zeus",
+    "source": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22",
+    "sourceFile": "valve/heroes/22.json",
+    "owners": ["npc_dota_hero_zuus"],
+    "officialDescription": "",
+    "checks": {
+      "heroName": true,
+      "abilityName": true,
+      "image": true,
+      "uniqueAnswers": true
+    }
+  }
+]

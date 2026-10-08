@@ -1,0 +1,31 @@
+[
+  {
+    "engine": "firefox",
+    "executablePath": "/home/kulmisiu/.cache/ms-playwright/firefox-1419/firefox/firefox",
+    "events": [],
+    "pageErrors": [],
+    "failedRequests": [],
+    "version": "115.0",
+    "status": "failed",
+    "error": "Error: browser.newContext: Protocol error (Browser.setDefaultViewport): ERROR: failed to call method 'Browser.setDefaultViewport' with parameters {\n  \"browserContextId\": \"5ec46da9-d87e-494f-9a0c-fbd6c35c4d70\",\n  \"viewport\": {\n    \"viewportSize\": {\n      \"width\": 1400,\n      \"height\": 900\n    },\n    \"deviceScaleFactor\": 1,\n    \"isMobile\": false\n  }\n}\nFound property \"<root>.viewport.isMobile\" - false which is not described in this scheme"
+  },
+  {
+    "engine": "webkit2336",
+    "executablePath": "/home/kulmisiu/.cache/ms-playwright/webkit-2336/pw_run.sh",
+    "events": [],
+    "pageErrors": [],
+    "failedRequests": [],
+    "status": "failed",
+    "error": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> /home/kulmisiu/.cache/ms-playwright/webkit-2336/pw_run.sh --inspector-pipe --headless --no-startup-window\n<launched> pid=81427\n[pid=81427][err] /home/kulmisiu/.cache/ms-playwright/webkit-2336/minibrowser-wpe/bin/MiniBrowser: error while loading shared libraries: libavif.so.13: cannot open shared object file: No such file or directory\nCall log:\n\u001b[2m  - <launching> /home/kulmisiu/.cache/ms-playwright/webkit-2336/pw_run.sh --inspector-pipe --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=81427\u001b[22m\n\u001b[2m  - [pid=81427][err] /home/kulmisiu/.cache/ms-playwright/webkit-2336/minibrowser-wpe/bin/MiniBrowser: error while loading shared libraries: libavif.so.13: cannot open shared object file: No such file or directory\u001b[22m\n\u001b[2m  - [pid=81427] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=81427] <kill>\u001b[22m\n\u001b[2m  - [pid=81427] <will force kill>\u001b[22m\n\u001b[2m  - [pid=81427] <process did exit: exitCode=127, signal=null>\u001b[22m\n\u001b[2m  - [pid=81427] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=81427] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=81427] <gracefully close end>\u001b[22m\n"
+  },
+  {
+    "engine": "webkit1869",
+    "executablePath": "/home/kulmisiu/.cache/ms-playwright/webkit-1869/pw_run.sh",
+    "events": [],
+    "pageErrors": [],
+    "failedRequests": [],
+    "version": "26.5",
+    "status": "failed",
+    "error": "Error: browserContext.newPage: Protocol error (Page.overrideSetting): Unknown setting: FixedBackgroundsPaintRelativeToDocument"
+  }
+]

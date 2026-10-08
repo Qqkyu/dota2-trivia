@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import {randomUUID} from 'node:crypto';
+import {writeFile} from 'node:fs/promises';
+
+const origin='http://127.0.0.1:3211';
+const code=`LOAD${Date.now().toString(36).slice(-7).toUpperCase()}`;
+const players=Array.from({length:100},()=>`load-${randomUUID()}`);
+const latencies={join:[],round:[],vote:[]};
+const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+async function post(path,body){return fetch(origin+path,{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(10000)});}
+async function snapshot(player){const url=new URL('/api/rounds',origin);Object.entries({gameId:'dota2',mode:'mixed',filter:'Mixed',privateCode:code,playerId:player}).forEach(([key,value])=>url.searchParams.set(key,value));const response=await fetch(url,{signal:AbortSignal.timeout(10000)});assert.equal(response.status,200);return response.json();}
+async function measure(name,callback){const started=performance.now();const result=await callback();latencies[name].push(performance.now()-started);return result;}
+try {
+  const created=await post('/api/private-rooms',{code,playerId:players[0],name:'Load 0',games:['trivia']});assert.equal(created.status,200,await created.text());
+  for(let offset=1;offset<players.length;offset+=10){await Promise.all(players.slice(offset,offset+10).map((playerId,index)=>measure('join',async()=>{const response=await post('/api/private-rooms',{action:'join',code,playerId,name:`Load ${offset+index}`});assert.equal(response.status,200,await response.text());})));}
+  const started=await post('/api/private-rooms/start',{code,playerId:players[0]});assert.equal(started.status,200,await started.text());
+  let first;
+  for(let i=0;i<40;i++){const url=new URL('/api/rounds',origin);Object.entries({gameId:'dota2',privateCode:code,playerId:players[0]}).forEach(([key,value])=>url.searchParams.set(key,value));const response=await fetch(url);if(response.ok){first=await response.json();if(first.round.phase==='answering')break;}await pause(200);}
+  assert(first?.round?.phase==='answering');
+  const snapshots=await Promise.all(players.map(player=>measure('round',()=>snapshot(player))));
+  assert(snapshots.every(item=>item.round.id===first.round.id));
+  const votes=await Promise.all(players.map(player=>measure('vote',async()=>{const response=await post('/api/votes',{gameId:'dota2',privateCode:code,roundId:first.round.id,answerIndex:0,voterId:player});assert.equal(response.status,200,await response.clone().text());return response.json();})));
+  assert(votes.every(item=>item.accepted));
+  let revealed;
+  for(let i=0;i<60;i++){revealed=await snapshot(players[0]);if(revealed.round.phase==='reveal')break;await pause(400);}
+  assert.equal(revealed.round.id,first.round.id);assert.equal(revealed.round.phase,'reveal');assert.equal(revealed.crowd.total,100);assert.equal(revealed.crowd.counts.reduce((sum,count)=>sum+count,0),100);
+  const metrics=Object.fromEntries(Object.entries(latencies).map(([key,values])=>{values.sort((a,b)=>a-b);return[key,{requests:values.length,p50Ms:Math.round(values[Math.floor(values.length*.5)]),p95Ms:Math.round(values[Math.floor(values.length*.95)]),maxMs:Math.round(values.at(-1))}]}));
+  const output={ok:true,scope:'Single local production process, PostgreSQL 14, 100 guests behind one address. This is a bounded functional concurrency check, not a hosting capacity certificate.',accepted:100,revealedTotal:revealed.crowd.total,metrics};
+  await writeFile('/tmp/queue-arcade-fixes/capacity-result.json',JSON.stringify(output,null,2)+'\n');console.log(JSON.stringify(output,null,2));
+} finally {
+  for(let offset=0;offset<players.length;offset+=10){await Promise.allSettled(players.slice(offset,offset+10).map(playerId=>post('/api/private-rooms/leave',{code,playerId})));}
+}

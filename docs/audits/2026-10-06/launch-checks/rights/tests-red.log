@@ -1,0 +1,67 @@
+
+ RUN  v5.0.0 /home/kulmisiu/dev/dota2-trivia
+
+ ❯ tests/flashback-asset-rights.test.mjs (3 tests | 3 failed) 8ms
+   ❯ Flashback assets with no recorded reuse permission (3)
+     × keeps all 23 retired assets outside public output and catalog references 6ms
+     × shows original winner cards only after the answer deadline 1ms
+     × keeps replacement tournament art free of years, cities and winner names 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/flashback-asset-rights.test.mjs > Flashback assets with no recorded reuse permission > keeps all 23 retired assets outside public output and catalog references
+AssertionError: public/arcade/flashback/ti-seattle.jpg: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/flashback-asset-rights.test.mjs:20:68
+     18|     const catalog = JSON.stringify(questions);
+     19|     for (const asset of quarantine.assets) {
+     20|       expect(existsSync(asset.oldPublicPath), asset.oldPublicPath).toB…
+       |                                                                    ^
+     21|       expect(catalog, asset.oldPublicUrl).not.toContain(asset.oldPubli…
+     22|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/flashback-asset-rights.test.mjs > Flashback assets with no recorded reuse permission > shows original winner cards only after the answer deadline
+AssertionError: expected undefined to be 'mark' // Object.is equality
+
+- Expected:
+"mark"
+
++ Received:
+undefined
+
+ ❯ tests/flashback-asset-rights.test.mjs:30:26
+     28|     for (const question of winners) {
+     29|       const media = question.flashback.revealMedia;
+     30|       expect(media.kind).toBe("mark");
+       |                          ^
+     31|       expect(media.src).toMatch(/^\/arcade\/flashback\/originals\/winn…
+     32|       const round = { id: `rights:${question.id}`, game: "flashback", …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/flashback-asset-rights.test.mjs > Flashback assets with no recorded reuse permission > keeps replacement tournament art free of years, cities and winner names
+Error: ENOENT: no such file or directory, open 'public/arcade/flashback/originals/international.svg'
+ ❯ tests/flashback-asset-rights.test.mjs:47:20
+     45|
+     46|   it("keeps replacement tournament art free of years, cities and winne…
+     47|     const source = readFileSync("public/arcade/flashback/originals/int…
+       |                    ^
+     48|     expect(source).not.toMatch(/20\d\d|Cologne|Seattle|Vancouver|Allia…
+     49|     expect(source).toContain("THE INTERNATIONAL");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  14:21:47
+   Duration  152ms (transform 63%, import 22%, tests 11%, worker 4%)
+

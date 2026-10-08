@@ -1,0 +1,53 @@
+{
+  "reviewedAt": "2026-10-06",
+  "records": 422,
+  "classicRecords": 342,
+  "orderRecords": 80,
+  "initialNumericTests": {
+    "failed": 411,
+    "passed": 13,
+    "total": 424
+  },
+  "finalNumericTests": 425,
+  "finalRelatedTests": 12,
+  "checks": [
+    {
+      "command": "pnpm exec vitest run tests/numeric-content.test.mjs tests/content-answers.test.mjs tests/hero-response-quality.test.mjs tests/spell-link-overrides.test.mjs --reporter=dot",
+      "exitCode": 0,
+      "passedTests": 437
+    },
+    {
+      "command": "pnpm exec eslint scripts/sync-dota-data.mjs scripts/numeric-question-copy.mjs scripts/damage-question-facts.mjs scripts/client-constant-audit.mjs scripts/generate-value-order.mjs scripts/validate-value-order.mjs scripts/validate-questions.mjs tests/numeric-content.test.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node scripts/validate-questions.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node scripts/validate-value-order.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node --check scripts/sync-dota-data.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "git diff --check -- [numeric owned files]",
+      "exitCode": 0
+    }
+  ],
+  "generatorInputComparison": {
+    "input": "pre-existing /tmp/queue-arcade-741e-cache/dota-abilities.json",
+    "source": "independent Valve public profiles retrieved2026-10-06",
+    "selectedFields": 159,
+    "mismatchesAfterOverrides": 0
+  },
+  "limitations": [
+    "No full live sync was run.",
+    "No Dota2 gameplay damage simulation was run.",
+    "Browser layout checks and final release hashes are owned by the root review.",
+    "The legacy build6882 acquisition history is unknown.",
+    "Valve public profile responses do not expose a patch/build identifier."
+  ]
+}

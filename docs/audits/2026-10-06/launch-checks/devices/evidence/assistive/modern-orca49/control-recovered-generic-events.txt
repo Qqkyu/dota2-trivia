@@ -1,0 +1,60 @@
+13:48:50.088954 - FOCUS MANAGER: Locus of focus is [section (0x7566acd44340)] 
+13:48:50.089263 - EVENT_MANAGER: Not ignoring object:text-changed:insert due to source being live region
+13:48:50.089326 - EVENT MANAGER: Queueing object:text-changed:insert for [section (0x7566ad5c5b40)]  in Google Chrome for Testing (Chromium 1.0) (0, 44, Round 1. How much mana does Acid Spray cost?)
+13:48:50.089339 - EVENT MANAGER: App for event source is [application: 'Google Chrome for Testing' (0x7566adef4c80)] 
+13:48:50.089349 - SCRIPT MANAGER: Getting script for [application: 'Google Chrome for Testing' (0x7566adef4c80)]  [section (0x7566acb88c80)] 
+13:48:50.089366 - SCRIPT MANAGER: Script is app script Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:48:56.274920 - EVENT MANAGER: Queued object:text-changed:delete for [section (0x7566accc05c0)]  in Google Chrome for Testing (Chromium 1.0) (0, 44, Round 1. How much mana does Acid Spray cost?) priority: 4, counter: 174
+13:48:56.274972 - CLIPBOARD PRESENTER: Possible change event object:text-changed:insert for [section (0x7566accc05c0)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?)
+
+13:48:56.275025 - EVENT MANAGER: object:text-changed:insert for [section (0x7566accc3ac0)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?)
+13:48:56.275057 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x7566ae043cc0)] 
+13:48:56.275089 - EVENT_MANAGER: Not ignoring object:text-changed:insert due to source being live region
+
+13:48:56.275025 - EVENT MANAGER: object:text-changed:insert for [section (0x7566accc3ac0)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?)
+13:48:56.275057 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x7566ae043cc0)] 
+13:48:56.275089 - EVENT_MANAGER: Not ignoring object:text-changed:insert due to source being live region
+13:48:56.275122 - EVENT MANAGER: Queueing object:text-changed:insert for [section (0x7566accc3940)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?)
+13:48:56.275136 - EVENT MANAGER: App for event source is [application: 'Google Chrome for Testing' (0x7566adef4c80)] 
+13:48:56.275057 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x7566ae043cc0)] 
+13:48:56.275089 - EVENT_MANAGER: Not ignoring object:text-changed:insert due to source being live region
+13:48:56.275122 - EVENT MANAGER: Queueing object:text-changed:insert for [section (0x7566accc3940)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?)
+13:48:56.275136 - EVENT MANAGER: App for event source is [application: 'Google Chrome for Testing' (0x7566adef4c80)] 
+13:48:56.275153 - SCRIPT MANAGER: Getting script for [application: 'Google Chrome for Testing' (0x7566adef4c80)]  [section (0x7566ad5bbac0)] 
+13:48:56.275170 - SCRIPT MANAGER: Script is app script Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:48:56.275089 - EVENT_MANAGER: Not ignoring object:text-changed:insert due to source being live region
+13:48:56.275122 - EVENT MANAGER: Queueing object:text-changed:insert for [section (0x7566accc3940)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?)
+13:48:56.275136 - EVENT MANAGER: App for event source is [application: 'Google Chrome for Testing' (0x7566adef4c80)] 
+13:48:56.275153 - SCRIPT MANAGER: Getting script for [application: 'Google Chrome for Testing' (0x7566adef4c80)]  [section (0x7566ad5bbac0)] 
+13:48:56.275170 - SCRIPT MANAGER: Script is app script Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:48:56.275206 - EVENT MANAGER: object:text-changed:insert for [section (0x7566accc2e00)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?) has priority level: 4
+13:48:56.275170 - SCRIPT MANAGER: Script is app script Google Chrome for Testing (module=orca.scripts.toolkits.Chromium.script)
+13:48:56.275206 - EVENT MANAGER: object:text-changed:insert for [section (0x7566accc2e00)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?) has priority level: 4
+13:48:56.275242 - EVENT MANAGER: Queued object:text-changed:insert for [section (0x7566ad5bbac0)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?) priority: 4, counter: 175
+13:48:56.275285 - CLIPBOARD PRESENTER: Possible change event object:text-changed:delete for [static (0x7566adfbfd40)]  in Google Chrome for Testing (Chromium 1.0) (0, 2, 65)
+
+13:48:56.275337 - EVENT MANAGER: object:text-changed:delete for [static (0x7566adfbfd40)]  in Google Chrome for Testing (Chromium 1.0) (0, 2, 65)
+13:48:56.275206 - EVENT MANAGER: object:text-changed:insert for [section (0x7566accc2e00)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?) has priority level: 4
+13:48:56.275242 - EVENT MANAGER: Queued object:text-changed:insert for [section (0x7566ad5bbac0)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?) priority: 4, counter: 175
+13:48:56.275285 - CLIPBOARD PRESENTER: Possible change event object:text-changed:delete for [static (0x7566adfbfd40)]  in Google Chrome for Testing (Chromium 1.0) (0, 2, 65)
+
+13:48:56.275337 - EVENT MANAGER: object:text-changed:delete for [static (0x7566adfbfd40)]  in Google Chrome for Testing (Chromium 1.0) (0, 2, 65)
+13:48:56.275365 - FOCUS MANAGER: Locus of focus is [toggle button: 'A 160 Your answer 0%' (0x7566ae043cc0)] 
+
+13:48:56.391000 - EVENT MANAGER: Dequeueing object:text-changed:insert for [section (0x7566ad64f580)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?)
+13:48:56.391016 - EVENT MANAGER: Dequeued object:text-changed:insert for [section (0x7566ad64f580)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?) priority: 4, counter: 175
+
+vvvvv START PRIORITY-4 OBJECT EVENT OBJECT:TEXT-CHANGED:INSERT (queue size: 5) vvvvv
+13:48:56.392884 - EVENT SOURCE:
+13:48:56.391000 - EVENT MANAGER: Dequeueing object:text-changed:insert for [section (0x7566ad64f580)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?)
+13:48:56.391016 - EVENT MANAGER: Dequeued object:text-changed:insert for [section (0x7566ad64f580)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?) priority: 4, counter: 175
+
+vvvvv START PRIORITY-4 OBJECT EVENT OBJECT:TEXT-CHANGED:INSERT (queue size: 5) vvvvv
+13:48:56.392884 - EVENT SOURCE:
+                  app='Google Chrome for Testing (Chromium 1.0)' name='' role='section' axid='' id=0x7566ad5c7f00
+13:48:56.392978 - EVENT MANAGER: Processing object:text-changed:insert: script for event is active
+13:48:56.393028 - AXUtilitiesEvent: Reason for object:text-changed:insert for [section (0x7566aca67b80)]  in Google Chrome for Testing (Chromium 1.0) (0, 49, Round 2. What year did Dota 2 officially release?): TextEventReason.UNKNOWN
+13:48:56.393585 - FOCUS MANAGER: Active window is [frame: 'Play · Queue Arcade - Google Chrome for Testing' (0x7566acc91940)]  script.on_text_inserted:2194 > script_utilities.handle_as_live_region:3557 > script_utilities.active_document:302 > focus_manager.get_active_window:331
+13:48:56.394109 - AXUtilitiesRelation: [frame: 'Play · Queue Arcade - Google Chrome for Testing' (0x7566acc91940)]  embeds: [[document web: 'Play · Queue Arcade' (0x7566adf1ba40)] ]
+13:48:56.394129 - SCRIPT UTILITIES: Active document (via embeds): [document web: 'Play · Queue Arcade' (0x7566adf1ba40)] 
+13:48:56.394849 - WEB: Event to be handled as live region

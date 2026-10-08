@@ -4,6 +4,8 @@ import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { seededShuffle } from "../src/lib/variety.mjs";
 import { valueOrderAnswerKey } from "../src/lib/value-order.mjs";
+import { damageOrderMeasurement } from "./damage-question-facts.mjs";
+import { combineNumericSources, NUMERIC_SOURCE_LABEL, ORDER_DETAILS } from "./numeric-question-copy.mjs";
 
 const ROOT = process.cwd();
 const QUESTIONS_PATH = join(ROOT, "src", "data", "questions.generated.json");
@@ -51,7 +53,7 @@ const FAMILY_CONFIG = Object.freeze({
     kind: "value-order-attack-range",
     category: "Heroes",
     eyebrow: "Base attack range",
-    prompt: "How do these heroes rank from shortest to longest attack range?",
+    prompt: "How do these heroes rank from shortest to longest base attack range?",
     lead: "Shortest to longest",
   },
 });
@@ -156,14 +158,15 @@ function itemEntry(question) {
 
 function cooldownEntry(question) {
   const { hero, ability } = splitAbilityEyebrow(question);
+  const isInvoke = question.id.split(":")[1] === "invoker_invoke";
   return {
     key: question.id.split(":")[1],
     name: ability,
-    context: hero,
+    context: `${hero}${isInvoke ? " · base cooldown before orb-level reductions" : ""}`,
     image: question.image?.src,
     kind: "ability",
     value: numericAnswer(question),
-    label: question.answers[question.correctIndex],
+    label: `${question.answers[question.correctIndex]}${isInvoke ? " base cooldown" : ""}`,
     sourceId: question.id,
     source: question.source,
     patch: question.patch,
@@ -190,14 +193,16 @@ function manaEntry(question) {
 function damageEntry(question) {
   const { hero, ability } = splitAbilityEyebrow(question);
   const value = numericAnswer(question);
+  const measurement = damageOrderMeasurement(question.id.split(":")[1]);
+  if (!measurement) throw new Error(`${question.id} has no reviewed damage measurement.`);
   return {
     key: question.id.split(":")[1],
     name: ability,
-    context: hero,
+    context: `${hero} · ${measurement}`,
     image: question.image?.src,
     kind: "ability",
     value,
-    label: `${formatNumber(value)} damage`,
+    label: `${formatNumber(value)} ${measurement}`,
     sourceId: question.id,
     source: question.source,
     patch: question.patch,
@@ -308,6 +313,7 @@ function buildQuestion(entries, family, index) {
     difficulty: 3,
     eyebrow: config.eyebrow,
     prompt: config.prompt,
+    detail: ORDER_DETAILS[family],
     answers: privateAnswerChoices(correctKeys, correctIndex),
     correctIndex,
     explanation: `${config.lead}: ${readableOrder}.`,
@@ -325,10 +331,10 @@ function buildQuestion(entries, family, index) {
       correctOrder: correctKeys,
       audit: {
         derivedFrom: entries.map((entry) => entry.sourceId),
-        clientBuild: entries[0].source.label.match(/build\s+(\d+)/i)?.[1] ?? "unknown",
+        sourceType: NUMERIC_SOURCE_LABEL,
       },
     },
-    source: entries[0].source,
+    source: combineNumericSources(entries.map((entry) => entry.source)),
     patch: entries[0].patch,
   };
 }
@@ -352,11 +358,7 @@ const cooldownByKey = new Map(
 );
 const manaEntries = sourceQuestions.filter((question) => question.kind === "mana-cost").map(manaEntry);
 const damageEntries = sourceQuestions
-  .filter(
-    (question) =>
-      question.kind === "ability-damage" &&
-      /^How much (?:base )?damage does .+ deal(?: at max level)?\?$/.test(question.prompt),
-  )
+  .filter((question) => question.kind === "ability-damage" && damageOrderMeasurement(question.id.split(":")[1]))
   .map(damageEntry);
 const movementEntries = sourceQuestions.filter((question) => question.kind === "hero-move-speed").map(movementEntry);
 const attackRangeByHero = new Map(

@@ -1,0 +1,82 @@
+// Run from the repository root: node --input-type=module < this-file
+// The trials modify only an isolated copy under the system temporary directory.
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { tmpdir } from 'node:os';
+import { spawnSync } from 'node:child_process';
+
+const archive = 'docs/audits/2026-10-06/launch-checks';
+const helperPath = `${archive}/build-content-review-index.mjs.txt`;
+const helper = readFileSync(helperPath, 'utf8');
+const index = JSON.parse(readFileSync(`${archive}/question-review-index.json`, 'utf8'));
+const historical = JSON.parse(readFileSync(index.inputs.historicalIndex.path, 'utf8'));
+const paths = new Set([
+  historical.inputs.baseline.path,
+  ...index.inputs.catalogs.map((row) => row.path),
+  ...index.inputs.presentationDependencies.map((row) => row.path),
+  ...index.inputs.evidence.map((row) => row.path),
+  ...index.inputs.artwork.map((row) => row.path),
+  helperPath, `${archive}/question-review-index.json`, `${archive}/question-review-delta.json`,
+  `${archive}/question-review-index-checks.json`,
+]);
+const fixture = mkdtempSync(join(tmpdir(), 'queue-content-review-negative-'));
+try {
+  for (const path of paths) {
+    mkdirSync(dirname(join(fixture, path)), { recursive: true });
+    copyFileSync(path, join(fixture, path));
+  }
+  const run = () => {
+    const result = spawnSync(process.execPath, ['--input-type=module'], { cwd: fixture, input: helper, encoding: 'utf8', timeout: 30000 });
+    assert(!result.error, `Child checker did not execute: ${result.error}`);
+    return result;
+  };
+  const baseline = run();
+  assert.equal(baseline.status, 0, baseline.stderr);
+  assert.match(baseline.stdout, /PASS: 1,517 playable questions/);
+  const results = [];
+  const trial = (name, path, mutate, expectedError) => {
+    const target = join(fixture, path);
+    const saved = readFileSync(target);
+    try {
+      mutate(target, saved);
+      const result = run();
+      assert.notEqual(result.status, 0, `${name} unexpectedly passed`);
+      assert.match(result.stderr, expectedError, `${name} failed for the wrong reason`);
+      results.push({ name, status: 'rejected-as-expected', exitCode: result.status, expectedError: expectedError.source });
+    } finally {
+      writeFileSync(target, saved);
+    }
+  };
+  const generated = 'src/data/questions.generated.json';
+  trial('changed marked answer', generated, (path, bytes) => {
+    const rows = JSON.parse(bytes);
+    const q = rows.find((row) => row.id === 'ability-owner:abaddon_aphotic_shield');
+    q.answers[q.correctIndex] = 'Unreviewed answer';
+    writeFileSync(path, JSON.stringify(rows));
+  }, /Marked answer changed/);
+  trial('unexpected prompt change', generated, (path, bytes) => {
+    const rows = JSON.parse(bytes);
+    rows.find((row) => row.id === 'ability-owner:abaddon_aphotic_shield').prompt += ' Unreviewed text.';
+    writeFileSync(path, JSON.stringify(rows));
+  }, /Unreviewed question change/);
+  trial('missing historical ledger', historical.inputs.ledgers[0].path, (path) => rmSync(path), /ENOENT/);
+  trial('changed replacement artwork', index.inputs.artwork[0].path, (path, bytes) => {
+    writeFileSync(path, Buffer.concat([bytes, Buffer.from('\n<!-- unreviewed -->\n')]));
+  }, /Changed artwork/);
+  trial('changed saved index', `${archive}/question-review-index.json`, (path, bytes) => {
+    const saved = JSON.parse(bytes);
+    saved.summary.reviewedPlayableQuestions = 1516;
+    writeFileSync(path, JSON.stringify(saved));
+  }, /Recorded evidence differs/);
+  const restored = run();
+  assert.equal(restored.status, 0, 'Restored fixture must pass again');
+  assert.match(restored.stdout, /PASS: 1,517 playable questions/);
+  console.log(JSON.stringify({ schemaVersion: 1, reviewedAt: '2026-10-06', status: 'passed',
+    helper: { path: helperPath, sha256: createHash('sha256').update(helper).digest('hex') },
+    isolatedBaselinePassed: true, negativeCasesPassed: results.length, cases: results,
+    restoredFixturePassed: true, applicationFilesModified: false, historicalArchiveModified: false }, null, 2));
+} finally {
+  rmSync(fixture, { recursive: true, force: true });
+}

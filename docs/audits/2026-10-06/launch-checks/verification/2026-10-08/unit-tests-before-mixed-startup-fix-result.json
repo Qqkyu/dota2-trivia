@@ -1,0 +1,14 @@
+{
+  "check": "unit-tests",
+  "command": "Node22 vitest run --maxWorkers=2",
+  "startedAt": "2026-10-08T14:44:41.461790+00:00",
+  "endedAt": "2026-10-08T14:45:08.472651+00:00",
+  "exit": 0,
+  "databaseTestsConfigured": true,
+  "launchDatabaseTestsConfigured": true,
+  "logSha256": "3e4d04412de3ad2c0f73b5d2956c5d46b6300e96346ddeca33ea815508ff1f02",
+  "deadlineFixInputs": {
+    "scripts/check-ingress-proof.mjs": "49e49deeffdcaca8448fad91420d9fcb60d1307afd6b0ae54cc45cfa4d892948",
+    "tests/proxy-ingress.test.mjs": "2001a9fb26867bf213938c9c3d47f1a0cf424151def7e3e38e7ed3b5f2dade66"
+  }
+}

@@ -1,0 +1,3509 @@
+{
+  "appUrl": "http://127.0.0.1:3331",
+  "scope": "Real production page/CSS/images; controlled public API snapshots; no persistent writes",
+  "viewports": [
+    [
+      320,
+      568
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      1440,
+      1000
+    ]
+  ],
+  "questionCount": 32,
+  "renderedStates": 192,
+  "resources": [
+    {
+      "url": "/arcade/flashback/originals/international.svg",
+      "status": 200,
+      "sha256": "ee9c75d5fbe966a939d7edd3db2614b52b84aa82912b8e7c63b104ef25c9117c"
+    },
+    {
+      "url": "/arcade/flashback/originals/winner-natus-vincere.svg",
+      "status": 200,
+      "sha256": "3a8a02776bb316868a8a23fef90891ca27f8c92eb75091813bad0912683db174"
+    },
+    {
+      "url": "/arcade/flashback/originals/winner-invictus-gaming.svg",
+      "status": 200,
+      "sha256": "dd80403e8806ae873ec075300a545b8ee8c130099bc5b608c73757a31d2f5592"
+    },
+    {
+      "url": "/arcade/flashback/originals/winner-alliance.svg",
+      "status": 200,
+      "sha256": "14e7a8236a9af725e876312bb950a4c2528573c034d79df6b19d4eda0e51c3c3"
+    },
+    {
+      "url": "/arcade/flashback/originals/winner-newbee.svg",
+      "status": 200,
+      "sha256": "45e96f42a52f67dac1fb010a8255fa4dc951fc858b7a022a602858a9a90ea858"
+    },
+    {
+      "url": "/arcade/flashback/originals/winner-evil-geniuses.svg",
+      "status": 200,
+      "sha256": "74deace1500bfc8bf797e6f3310bbe30cf5d1906e007ab21c55cb2b10e5e17ca"
+    },
+    {
+      "url": "/arcade/flashback/originals/winner-wings-gaming.svg",
+      "status": 200,
+      "sha256": "e5de807ecac3acf9cc2d09a8b2ab23e3761b3802a54ade4b34caef41c9cf924e"
+    },
+    {
+      "url": "/arcade/flashback/originals/winner-team-liquid.svg",
+      "status": 200,
+      "sha256": "c8b7d31de2ea899deb91fd2e3dd890ef70d0bb4f671e5fe3452725d5715c02d9"
+    },
+    {
+      "url": "/arcade/flashback/originals/winner-og.svg",
+      "status": 200,
+      "sha256": "ca25ce289ad6c90efeaff14479271ff18e3562b6d02eb1728a38fe0e107a129b"
+    },
+    {
+      "url": "/arcade/flashback/originals/winner-team-spirit.svg",
+      "status": 200,
+      "sha256": "89672491ea264b9e38c376cb48dc9056cfdf0238684f94cb2e769b1e80923ed7"
+    },
+    {
+      "url": "/arcade/flashback/originals/winner-tundra-esports.svg",
+      "status": 200,
+      "sha256": "6dcc21595c3ca297118a49c1d2af84e037e40aadf73e47f077e9d6dd5ef52e07"
+    },
+    {
+      "url": "/arcade/flashback/originals/winner-team-falcons.svg",
+      "status": 200,
+      "sha256": "15e4f0f95e8212f738c50e473e183209dc127c7b7832d33238e6ed25e7ee43f0"
+    },
+    {
+      "url": "/arcade/flashback/originals/winner-team-secret.svg",
+      "status": 200,
+      "sha256": "e0400ed80cd3b2af956da49d944fc6178e7a17b0316ea01145c1b7539b9f322b"
+    },
+    {
+      "url": "/arcade/flashback/ti-seattle.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/ti1-gamescom.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/ti5-keyarena.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/ti8-vancouver.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/boston-og.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/falcons.png",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/frankfurt-og.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/kiev-og.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/manila-og.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/shanghai-secret.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/spirit.png",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/ti10-spirit.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/ti11-tundra.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/ti12-spirit.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/ti13-liquid.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/ti14-falcons.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/ti3-alliance.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/ti5-eg.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/ti7-liquid.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/ti8-og.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/ti9-og.jpg",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/tundra.png",
+      "status": 404
+    },
+    {
+      "url": "/arcade/flashback/winners/wings.png",
+      "status": 404
+    }
+  ],
+  "results": [
+    {
+      "id": "flashback:ti1-year",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-year",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:og-first-ti-year",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:og-first-ti-year",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-natus-vincere.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Natus Vincere \u00b7 TI1",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-invictus-gaming.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Invictus Gaming \u00b7 TI2",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-alliance.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Alliance \u00b7 TI3",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti4-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti4-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-newbee.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Newbee \u00b7 TI4",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-evil-geniuses.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Evil Geniuses \u00b7 TI5",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti6-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti6-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-wings-gaming.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Wings Gaming \u00b7 TI6",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-team-liquid.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Liquid \u00b7 TI7",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 TI8",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti9-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti9-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 TI9",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti10-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti10-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-team-spirit.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Spirit \u00b7 TI10",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti11-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti11-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-tundra-esports.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Tundra Esports \u00b7 TI11",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti12-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti12-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-team-spirit.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Spirit \u00b7 TI12",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti13-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti13-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-team-liquid.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Liquid \u00b7 TI13",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti14-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti14-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-team-falcons.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Falcons \u00b7 TI14",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-city",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-city",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:back-to-back",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:back-to-back",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 first back-to-back TI",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-alliance.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-newbee.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-natus-vincere.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-invictus-gaming.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-natus-vincere.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-invictus-gaming.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-alliance.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-newbee.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-team-liquid.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-evil-geniuses.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-wings-gaming.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-evil-geniuses.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-wings-gaming.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-team-liquid.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:frankfurt-major-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:frankfurt-major-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 Frankfurt Major",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti2-year",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti2-year",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti3-year",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti3-year",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti5-year",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti5-year",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti7-year",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti7-year",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:shanghai-major-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:shanghai-major-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-team-secret.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Secret \u00b7 Shanghai Major",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:manila-major-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:manila-major-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 Manila Major",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:boston-major-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:boston-major-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 Boston Major",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:kiev-major-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:kiev-major-winner",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 Kiev Major",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:four-majors",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:four-majors",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 four Valve Majors",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:first-seattle-ti",
+      "width": 320,
+      "height": 568,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:first-seattle-ti",
+      "width": 320,
+      "height": 568,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-year",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-year",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:og-first-ti-year",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:og-first-ti-year",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-natus-vincere.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Natus Vincere \u00b7 TI1",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-invictus-gaming.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Invictus Gaming \u00b7 TI2",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-alliance.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Alliance \u00b7 TI3",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti4-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti4-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-newbee.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Newbee \u00b7 TI4",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-evil-geniuses.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Evil Geniuses \u00b7 TI5",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti6-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti6-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-wings-gaming.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Wings Gaming \u00b7 TI6",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-team-liquid.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Liquid \u00b7 TI7",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 TI8",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti9-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti9-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 TI9",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti10-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti10-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-team-spirit.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Spirit \u00b7 TI10",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti11-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti11-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-tundra-esports.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Tundra Esports \u00b7 TI11",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti12-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti12-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-team-spirit.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Spirit \u00b7 TI12",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti13-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti13-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-team-liquid.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Liquid \u00b7 TI13",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti14-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti14-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-team-falcons.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Falcons \u00b7 TI14",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-city",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-city",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:back-to-back",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:back-to-back",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 first back-to-back TI",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-alliance.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-newbee.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-natus-vincere.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-invictus-gaming.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-natus-vincere.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-invictus-gaming.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-alliance.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-newbee.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-team-liquid.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-evil-geniuses.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-wings-gaming.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-evil-geniuses.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-wings-gaming.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-team-liquid.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:frankfurt-major-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:frankfurt-major-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 Frankfurt Major",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti2-year",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti2-year",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti3-year",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti3-year",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti5-year",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti5-year",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti7-year",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti7-year",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:shanghai-major-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:shanghai-major-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-team-secret.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Secret \u00b7 Shanghai Major",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:manila-major-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:manila-major-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 Manila Major",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:boston-major-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:boston-major-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 Boston Major",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:kiev-major-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:kiev-major-winner",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 Kiev Major",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:four-majors",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:four-majors",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 four Valve Majors",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:first-seattle-ti",
+      "width": 390,
+      "height": 844,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:first-seattle-ti",
+      "width": 390,
+      "height": 844,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-year",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-year",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:og-first-ti-year",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:og-first-ti-year",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-natus-vincere.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Natus Vincere \u00b7 TI1",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti2-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-invictus-gaming.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Invictus Gaming \u00b7 TI2",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti3-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-alliance.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Alliance \u00b7 TI3",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti4-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti4-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-newbee.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Newbee \u00b7 TI4",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti5-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-evil-geniuses.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Evil Geniuses \u00b7 TI5",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti6-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti6-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-wings-gaming.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Wings Gaming \u00b7 TI6",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti7-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-team-liquid.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Liquid \u00b7 TI7",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti8-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 TI8",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti9-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti9-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 TI9",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti10-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti10-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-team-spirit.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Spirit \u00b7 TI10",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti11-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti11-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-tundra-esports.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Tundra Esports \u00b7 TI11",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti12-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti12-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-team-spirit.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Spirit \u00b7 TI12",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti13-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti13-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-team-liquid.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Liquid \u00b7 TI13",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti14-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti14-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-team-falcons.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Falcons \u00b7 TI14",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-city",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti1-city",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:back-to-back",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:back-to-back",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 first back-to-back TI",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-alliance.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-newbee.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-natus-vincere.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-invictus-gaming.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:first-ti-winners-order",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-natus-vincere.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-invictus-gaming.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-alliance.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-newbee.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-team-liquid.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-evil-geniuses.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-wings-gaming.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:later-ti-winners-order",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-evil-geniuses.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-wings-gaming.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-team-liquid.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti-cities-order",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        },
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:frankfurt-major-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:frankfurt-major-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 Frankfurt Major",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti2-year",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti2-year",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti3-year",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti3-year",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti5-year",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti5-year",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti7-year",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:ti7-year",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:shanghai-major-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:shanghai-major-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-team-secret.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "Team Secret \u00b7 Shanghai Major",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:manila-major-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:manila-major-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 Manila Major",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:boston-major-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:boston-major-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 Boston Major",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:kiev-major-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:kiev-major-winner",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 Kiev Major",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:four-majors",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:four-majors",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/winner-og.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": true,
+      "caption": "OG \u00b7 four Valve Majors",
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:first-seattle-ti",
+      "width": 1440,
+      "height": 1000,
+      "phase": "answering",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    },
+    {
+      "id": "flashback:first-seattle-ti",
+      "width": 1440,
+      "height": 1000,
+      "phase": "reveal",
+      "originalImages": [
+        {
+          "src": "/arcade/flashback/originals/international.svg",
+          "loaded": true
+        }
+      ],
+      "hasWinner": false,
+      "caption": null,
+      "captionClipped": false,
+      "explanationClipped": false,
+      "overflow": false
+    }
+  ],
+  "build": "YC6nz9frAbvjRFKHq5lSy"
+}

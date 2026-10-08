@@ -1,0 +1,66 @@
+{
+  "ok": true,
+  "serverVersion": "14.19 (Ubuntu 14.19-0ubuntu0.22.04.1)",
+  "steps": [
+    {
+      "command": [
+        "pg_ctl",
+        "-m",
+        "smart",
+        "stop"
+      ],
+      "code": 0,
+      "stdout": "waiting for server to shut down.... done\nserver stopped\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "pg_ctl",
+        "-l",
+        "/tmp/queue-arcade-launch-checks/pg-runtime/postgres.log",
+        "start"
+      ],
+      "code": 0,
+      "stdout": "waiting for server to start.... done\nserver started\n",
+      "stderr": ""
+    },
+    {
+      "inflightPausedAt": "analytics insert trigger",
+      "uncommittedRoundVisibleToOtherConnection": false
+    },
+    {
+      "command": [
+        "pg_ctl",
+        "-m",
+        "immediate",
+        "stop"
+      ],
+      "code": 0,
+      "stdout": "waiting for server to shut down.... done\nserver stopped\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "pg_ctl",
+        "-l",
+        "/tmp/queue-arcade-launch-checks/pg-runtime/postgres.log",
+        "start"
+      ],
+      "code": 0,
+      "stdout": "waiting for server to start.... done\nserver started\n",
+      "stderr": ""
+    },
+    {
+      "workerExitCode": 0,
+      "workerStdout": "{\"acknowledged\":false,\"errorCode\":\"CONNECTION_CLOSED\",\"schema\":\"runtime_33e631d33a0341499f18e578c613f7fd\"}\n{\"ok\":true,\"samePoolRecovered\":true,\"freshVoteAccepted\":true,\"retryDeduplicated\":true,\"schema\":\"runtime_33e631d33a0341499f18e578c613f7fd\",\"snapshot\":{\"queue_arcade_rounds\":{\"rows\":26,\"sha256\":\"514e35c3496d3b83197ec604e150ce4e16df5284412b26f6a7c5036ed2e36056\"},\"queue_arcade_round_votes\":{\"rows\":649,\"sha256\":\"c227d0caddde12699de9bf8d0157ec51de077ba3def8c458f025391a03d4650c\"},\"queue_arcade_question_stats\":{\"rows\":26,\"sha256\":\"458bb6a06beadd3370b055146ac02f618a806742f3e76e00e4ba06865b1f1443\"},\"queue_arcade_users\":{\"rows\":25,\"sha256\":\"058b12b7825c364a2bb2e87bf21b4ebfaa8d0696b9f5ddb89d675512fc124079\"},\"queue_arcade_user_identities\":{\"rows\":25,\"sha256\":\"e0f8482273dff4b46e1bbf113fd34d122defc485d006594088cda02cf88dd93e\"},\"queue_arcade_user_sessions\":{\"rows\":1,\"sha256\":\"03638d1e6abc7fc00f9d58b23c03114f35ab6681b123a3c836844e6cfa456e3b\"},\"queue_arcade_player_rounds\":{\"rows\":578,\"sha256\":\"0d6d16bb0f271b06b3dcc94fd6635cfafca2a263595e1a057e2ff9cda7f889ec\"},\"queue_arcade_alpha_sessions\":{\"rows\":26,\"sha256\":\"8fb075ea297e610e78b16afa4676d27ce70697903813b7cf6b616e7dc853ea4f\"},\"queue_arcade_alpha_round_events\":{\"rows\":577,\"sha256\":\"186ceaa636e296ee64b71585530156ffbc808f8040c14dcb8a764aa87d434cfa\"},\"queue_arcade_steam_nonces\":{\"rows\":1,\"sha256\":\"a224867ac9eca1a2d240a31694176033c60fc33c5e51bd98bc754b633bf6c1d2\"}}}\n",
+      "workerStderr": ""
+    }
+  ],
+  "gracefulSnapshotMatches": true,
+  "crashSnapshotMatches": true,
+  "inflightPartialWritesVisible": false,
+  "workerExitCode": 0,
+  "samePoolRecovered": true,
+  "freshVoteAccepted": true,
+  "retryDeduplicated": true
+}

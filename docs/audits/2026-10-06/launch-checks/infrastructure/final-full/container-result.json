@@ -1,0 +1,356 @@
+{
+  "ok": false,
+  "runId": "56b71d3b",
+  "image": "queue-arcade-launch:final",
+  "full": true,
+  "runs": 1,
+  "limits": {
+    "cpus": 1,
+    "memoryMiB": 1024,
+    "swapMiB": 0,
+    "databaseCpus": 1,
+    "databaseMemoryMiB": 512
+  },
+  "startedAt": 1791293917561,
+  "workloads": [
+    {
+      "ok": true,
+      "startedAt": 1791293967081,
+      "endedAt": 1791294191306,
+      "file": "capacity-1.json"
+    }
+  ],
+  "engine": {
+    "ServerVersion": "28.3.2",
+    "OperatingSystem": "Docker Desktop (containerized)",
+    "Architecture": "x86_64",
+    "CgroupVersion": "2",
+    "NCPU": 20,
+    "MemTotal": 18858168320
+  },
+  "imageId": "sha256:691894e712d4c9c24abbe9d4be7776f03f996c6835d82453d96ddd02c43eed40",
+  "databaseRuntime": {
+    "version": "17.11",
+    "cpu": "100000 100000",
+    "memory": "536870912",
+    "swap": "0"
+  },
+  "health": {
+    "status": "ready",
+    "storage": {
+      "backend": "postgres",
+      "ok": true
+    },
+    "accounts": {
+      "backend": "postgres",
+      "ok": true
+    },
+    "alpha": {
+      "backend": "postgres",
+      "ok": true,
+      "retentionDays": 30
+    },
+    "maintenance": {
+      "lastAttemptAt": 1791293922258,
+      "lastSucceededAt": 1791293922476,
+      "lastFailedAt": null
+    },
+    "steam": {
+      "profileEnrichment": false
+    },
+    "reviews": {
+      "reviewersConfigured": 0
+    },
+    "content": {
+      "gameId": "dota2",
+      "version": "7.41f-variety-8-classic-trivia-7-shopkeeper-9-public-arcade-5-soundcheck-14-spell-link-5-fogged-vision-6-global-score-1-order-up-6-aghanim-lab-2-flashback-21",
+      "questions": 1517
+    },
+    "serverNow": 1791293923047
+  },
+  "runtime": {
+    "node": "v22.23.3",
+    "uid": 1001,
+    "buildId": "17maTjvFAVt1T9gU35HQ-",
+    "cpu": "100000 100000",
+    "memory": "1073741824",
+    "swap": "0"
+  },
+  "nativeEncodedBytes": 1271,
+  "coldMedia": {
+    "ok": true,
+    "players": 100,
+    "startedAt": 1791293923819,
+    "scenarios": [
+      {
+        "game": "soundcheck",
+        "stages": [
+          {
+            "stage": 1,
+            "requests": 100,
+            "totalBytes": 976800,
+            "responseBytes": 9768,
+            "contentType": "audio/wav",
+            "sha256": "9b3c0cc89ff525bbd19748bddfd19b9623039a3591820016d37b5d97426aa384",
+            "p50Ms": 1457.58,
+            "p95Ms": 1459.13,
+            "p99Ms": 1459.2,
+            "maxMs": 1459.2081079999998
+          },
+          {
+            "stage": 2,
+            "requests": 100,
+            "totalBytes": 2144000,
+            "responseBytes": 21440,
+            "contentType": "audio/wav",
+            "sha256": "332daa10227c963111cda23351b448a573706b66f7ca5534eec4223f819b89b5",
+            "p50Ms": 136.79,
+            "p95Ms": 243.13,
+            "p99Ms": 247.93,
+            "maxMs": 249.06500899999992
+          },
+          {
+            "stage": 3,
+            "requests": 100,
+            "totalBytes": 19452400,
+            "responseBytes": 194524,
+            "contentType": "audio/wav",
+            "sha256": "970de1b2c55aa6ac793dd151bd2381cbcdfee15e95a9dd6e67a1ac3c3eede5ea",
+            "p50Ms": 93.56,
+            "p95Ms": 213.03,
+            "p99Ms": 219.55,
+            "maxMs": 222.9477480000005
+          }
+        ]
+      },
+      {
+        "game": "echo-hunt",
+        "stages": [
+          {
+            "stage": 1,
+            "requests": 100,
+            "totalBytes": 446100,
+            "responseBytes": 4461,
+            "contentType": "audio/mpeg",
+            "sha256": "cf17ab2e29e379c2bc891f61e3730db97779b738ce8b6cc94f4c68cb54a3490b",
+            "p50Ms": 1229.66,
+            "p95Ms": 1230.04,
+            "p99Ms": 1230.09,
+            "maxMs": 1230.1518680000008
+          },
+          {
+            "stage": 2,
+            "requests": 100,
+            "totalBytes": 983700,
+            "responseBytes": 9837,
+            "contentType": "audio/mpeg",
+            "sha256": "9136444191cc66dfddd3524f51d928c20d750e0025fb7a39830574a894f3c0fb",
+            "p50Ms": 143.69,
+            "p95Ms": 190.84,
+            "p99Ms": 219.21,
+            "maxMs": 220.44223200000124
+          },
+          {
+            "stage": 3,
+            "requests": 100,
+            "totalBytes": 6086400,
+            "responseBytes": 60864,
+            "contentType": "audio/mpeg",
+            "sha256": "b348b405eaa3884adfc9b393b86b32068e9b64086185d1901fc5379dfcfaf99c",
+            "p50Ms": 141.27,
+            "p95Ms": 223.43,
+            "p99Ms": 229.64,
+            "maxMs": 230.49746199999936
+          }
+        ]
+      },
+      {
+        "game": "fogged-vision",
+        "stages": [
+          {
+            "stage": 1,
+            "requests": 100,
+            "totalBytes": 2289300,
+            "responseBytes": 22893,
+            "contentType": "image/png",
+            "sha256": "459fd2d27d35066f13f5029bbeb3b9e3542f1bf773501311121f6c8a54ac3c68",
+            "p50Ms": 356.79,
+            "p95Ms": 357.73,
+            "p99Ms": 357.91,
+            "maxMs": 357.97506299999804
+          },
+          {
+            "stage": 2,
+            "requests": 100,
+            "totalBytes": 3098800,
+            "responseBytes": 30988,
+            "contentType": "image/png",
+            "sha256": "7a86bcbfb6d2b8875d57ede6529cfe751e476c180c7cd2c6a8ca471faff9ed2b",
+            "p50Ms": 288.84,
+            "p95Ms": 410.96,
+            "p99Ms": 439.59,
+            "maxMs": 442.09563799999887
+          },
+          {
+            "stage": 3,
+            "requests": 100,
+            "totalBytes": 4744300,
+            "responseBytes": 47443,
+            "contentType": "image/png",
+            "sha256": "51c2c358511287ef9145e7a7c806cdc243248cf556eef88db68a39b856698d7c",
+            "p50Ms": 191.24,
+            "p95Ms": 282.88,
+            "p99Ms": 289.74,
+            "maxMs": 290.87788
+          }
+        ]
+      }
+    ],
+    "endedAt": 1791293965766,
+    "requests": 1512,
+    "processCounters": [
+      {
+        "fetches": {},
+        "ffmpegStarted": 0,
+        "ffmpegCompleted": 0,
+        "ffmpegFailed": 0,
+        "ffmpegActive": 0,
+        "ffmpegPeak": 0
+      },
+      {
+        "fetches": {
+          "1a9076ad409449db203abe0a8e8462a9b6a3707fa62ef40bcc1782bea857aebf": 1,
+          "f73e6076c4612446f1fd9d63a9f05359d7abff0a02ccbe517f0aefd22b182edc": 1,
+          "e146d21fa1f9465a1234b005dec58e942eedda5693c861dc34f769d6c86be27d": 1
+        },
+        "ffmpegStarted": 2,
+        "ffmpegCompleted": 2,
+        "ffmpegFailed": 0,
+        "ffmpegActive": 0,
+        "ffmpegPeak": 1
+      }
+    ]
+  },
+  "database": {
+    "sessions": 466,
+    "finished": 466,
+    "rounds": 4660,
+    "correct": 1135,
+    "events": 4660
+  },
+  "correctnessPassed": true,
+  "latency": {
+    "targetMs": 1000,
+    "roundP95Max": 2212.14,
+    "voteP95Max": 2508.92,
+    "met": false
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Correctness passed but the one-second p95 latency target failed\n    at file:///home/kulmisiu/dev/dota2-trivia/scripts/check-container.mjs:446:3\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "finalState": {
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 50427,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-06T13:38:41.751078583Z",
+      "FinishedAt": "0001-01-01T00:00:00Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-06T13:40:49.264803003Z",
+            "End": "2026-10-06T13:40:49.351399801Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:41:19.351441964Z",
+            "End": "2026-10-06T13:41:19.403447879Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:41:49.402608133Z",
+            "End": "2026-10-06T13:41:51.091788771Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:42:21.091372417Z",
+            "End": "2026-10-06T13:42:22.177286089Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:42:52.176864866Z",
+            "End": "2026-10-06T13:42:53.518475259Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    },
+    "restartCount": 0
+  },
+  "shutdown": {
+    "milliseconds": 437,
+    "status": 0,
+    "state": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-10-06T13:38:41.751078583Z",
+      "FinishedAt": "2026-10-06T13:43:12.038686013Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-06T13:40:49.264803003Z",
+            "End": "2026-10-06T13:40:49.351399801Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:41:19.351441964Z",
+            "End": "2026-10-06T13:41:19.403447879Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:41:49.402608133Z",
+            "End": "2026-10-06T13:41:51.091788771Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:42:21.091372417Z",
+            "End": "2026-10-06T13:42:22.177286089Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:42:52.176864866Z",
+            "End": "2026-10-06T13:42:53.518475259Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  "endedAt": 1791294193094,
+  "scriptSha256": "aa7b5fc0658da24af732b65bc533341bfe0eb79ea97d4e3d5033804c3358553d"
+}

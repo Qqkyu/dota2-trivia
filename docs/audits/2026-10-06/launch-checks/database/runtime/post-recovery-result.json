@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "samePoolRecovered": true,
+  "freshVoteAccepted": true,
+  "retryDeduplicated": true,
+  "schema": "runtime_03400b4494a946eaac99476e2cc418af",
+  "snapshot": {
+    "queue_arcade_rounds": {
+      "rows": 26,
+      "sha256": "fa7944f545e911b84a3685750cb9d6d8f628d6b73933022fb1f4f78ed05afb39"
+    },
+    "queue_arcade_round_votes": {
+      "rows": 649,
+      "sha256": "938680cedf012a977643c856b0cc1c540aebe04450bf859e02f8e34fcfca57e8"
+    },
+    "queue_arcade_question_stats": {
+      "rows": 26,
+      "sha256": "c06302b41c274dcf13207fd2ccf095e121187560ab0f3385b86775e8d10470c3"
+    },
+    "queue_arcade_users": {
+      "rows": 25,
+      "sha256": "a87a532630af76c0957cd52d64ef8d7c08d8616280f04360f0b02a2136311b37"
+    },
+    "queue_arcade_user_identities": {
+      "rows": 25,
+      "sha256": "a71caef1b51aadc6b6814e1dc268c6cf4b01919ebf997c089d998b311512a333"
+    },
+    "queue_arcade_user_sessions": {
+      "rows": 1,
+      "sha256": "cc00a23420fa7423ad1d1255c50872cbfc04c38d3ad2c9f40a0023c86aa06893"
+    },
+    "queue_arcade_player_rounds": {
+      "rows": 578,
+      "sha256": "7ecc9946eb52a4ef156e12a147a3807504592aedc0ecb4b3d53c3f1e9b8d97f4"
+    },
+    "queue_arcade_alpha_sessions": {
+      "rows": 26,
+      "sha256": "290b13b99bf323a92167080ec610f930b8ebd567e83a7541af25a29ab5b5d322"
+    },
+    "queue_arcade_alpha_round_events": {
+      "rows": 577,
+      "sha256": "cc9406732b0b7410862189ca422614fad2679862b19e4bc1e0897ad36756d2e2"
+    },
+    "queue_arcade_steam_nonces": {
+      "rows": 1,
+      "sha256": "99536f3d8d15abaab905016902547f86916fb62fa3f6d489d5dc8307da4dcc67"
+    }
+  }
+}

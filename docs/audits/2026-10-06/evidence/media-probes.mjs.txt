@@ -1,0 +1,45 @@
+import vm from 'node:vm';
+import { readFile } from 'node:fs/promises';
+import crypto from 'node:crypto';
+import { createRequire } from 'node:module';
+const repo = '/home/kulmisiu/dev/dota2-trivia';
+const require = createRequire(`${repo}/package.json`);
+const ts = require('typescript');
+const context = vm.createContext({ Request, Response, Headers, URL, URLSearchParams, Buffer, console, Date, Map, Set, Promise, process: { env: { NODE_ENV: 'production', ARCADE_VOTER_SALT: 'isolated-audit' } } });
+const modules = new Map();
+const json = (body, options) => Response.json(body, options);
+function mock(name, values) { modules.set(name, new vm.SyntheticModule(Object.keys(values), function () { for (const [key, value] of Object.entries(values)) this.setExport(key, value); }, {context})); }
+async function source(name, file) { const input = await readFile(`${repo}/${file}`, 'utf8'); const code = file.endsWith('.ts') ? ts.transpileModule(input, {compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText : input; const mod = new vm.SourceTextModule(code, {context,identifier:file}); modules.set(name,mod); return mod; }
+async function link(mod) { await mod.link((name) => { if (!modules.has(name)) throw new Error(`Unmocked import ${name}`); return modules.get(name); }); await mod.evaluate(); return mod.namespace; }
+mock('next/server', {NextResponse: {json}});
+mock('node:crypto', {createHash:crypto.createHash});
+await source('@/lib/rate-limit.mjs','src/lib/rate-limit.mjs');
+await source('@/lib/voter-hash','src/lib/voter-hash.ts');
+const api = await link(await source('@/lib/api-protection','src/lib/api-protection.ts'));
+const request = (id, ip='192.0.2.12') => new Request(`https://audit.invalid/api/round-audio?roundId=dota2:audit&playerId=${id}`,{headers:{'x-real-ip':ip}});
+let stableAllowed=0; for(let i=0;i<61;i++) if (!api.rateLimitRequest(request('same-guest'), 'probe-stable','same-guest',60)) stableAllowed++;
+let rotatedAllowed=0; for(let i=0;i<125;i++) { const r=request(`rotated-${i}`); if (!api.rateLimitRequest(r, 'probe-rotated',api.requestPlayerIdentity(r),60)) rotatedAllowed++; }
+let headerRotatedAllowed=0; for(let i=0;i<125;i++) if (!api.rateLimitRequest(request('same-guest',`192.0.2.${i}`),'probe-ip','same-guest',60)) headerRotatedAllowed++;
+console.log(JSON.stringify({probe:'rate-limit',sameIpSameId:{requests:61,allowed:stableAllowed},sameIpRotatedId:{requests:125,allowed:rotatedAllowed},sameIdRotatedXRealIp:{requests:125,allowed:headerRotatedAllowed}}));
+let cuts=0;
+const audio={bytes:new Uint8Array([1,2,3,4]).buffer,contentType:'audio/mpeg'};
+const round={id:'dota2:audit',number:1,game:'echo-hunt',phase:'answering',questionId:'audit',answerDuration:30000,answerDeadline:Date.now()+30000};
+mock('@/lib/cut-round-audio.mjs',{cutAudioWithFfmpeg: async () => {cuts++; return audio.bytes;}});
+mock('@/lib/game-catalogs',{isGameId:id=>id==='dota2',GAME_CATALOGS:{dota2:{questions:[{id:'audit',audio:{src:'https://fixture.invalid/audio.mp3'}}]}}});
+mock('@/lib/private-room-rounds',{liveRoundForSettings:()=>({room:{gameId:'dota2'},round}),liveRoundAt:()=>null});
+mock('@/lib/private-rooms.mjs',{privateRoomCodeFromRoundId:()=>null});
+mock('@/lib/round-audio-cache.mjs',{cachedAudioResponse:()=>new Response(audio.bytes),cachedRoundAudio:async()=>audio,warmRoundAudio:async()=>audio});
+mock('@/lib/soundcheck.mjs',{echoHuntCutDuration:()=>1,echoHuntRevealStage:()=>1,soundcheckCutDuration:()=>1,soundcheckRevealStage:()=>1});
+mock('@/lib/scoring.mjs',{clueStageAt:()=>1});
+mock('@/lib/public-rooms',{parsePublicRoomSettings:()=>({gameId:'dota2'})});
+mock('@/lib/server-diagnostics',{logServerError:()=>{}});
+const audioRoute=await link(await source('audio-route','src/app/api/round-audio/route.ts'));
+const statuses=await Promise.all(Array.from({length:65},(_,i)=>audioRoute.GET(request(`audio-guest-${i}`)).then(r=>r.status)));
+console.log(JSON.stringify({probe:'audio-handler-mocked-converter',requests:statuses.length,success:statuses.filter(s=>s===200).length,conversionCalls:cuts,networkRequests:0,ffmpegProcesses:0}));
+await source('@/lib/diagnostics.mjs','src/lib/diagnostics.mjs');
+const diag=await link(await source('diagnostics-route','src/app/api/diagnostics/route.ts'));
+let generated=0;
+const stream=new ReadableStream({pull(controller){if(generated>=65536){controller.close();return;} generated+=1024;controller.enqueue(new Uint8Array(1024).fill(32));}});
+const diagnosticRequest=new Request('https://audit.invalid/api/diagnostics',{method:'POST',body:stream,duplex:'half'});
+const diagnosticResponse=await diag.POST(diagnosticRequest);
+console.log(JSON.stringify({probe:'diagnostic-body',configuredLimit:2048,streamBytesRead:generated,status:diagnosticResponse.status,contentLength:diagnosticRequest.headers.get('content-length')}));

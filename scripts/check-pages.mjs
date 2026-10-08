@@ -27,6 +27,9 @@ const privacy = await page("/privacy");
 if (!privacy.includes('data-testid="site-chrome"') || !privacy.includes('data-testid="site-footer"')) {
   throw new Error("Privacy page is missing site chrome.");
 }
+if (!privacy.includes('href="mailto:') || privacy.includes('href="https://github.com/Qqkyu/dota2-trivia/issues"')) {
+  throw new Error("Privacy contact must work without access to the private repository.");
+}
 
 const home = await page("/");
 if (!home.includes('data-testid="start-arcade"') || !home.includes('data-testid="private-room-open"')) {

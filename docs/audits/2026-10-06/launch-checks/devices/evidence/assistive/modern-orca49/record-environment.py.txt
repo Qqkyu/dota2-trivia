@@ -1,0 +1,6 @@
+import json,platform,subprocess,pathlib
+from orca import orca_platform
+packages=['libatspi2.0-0t64','libatk-bridge2.0-0t64','python3-gi','python3-dasbus','speech-dispatcher','espeak-ng','openbox','xvfb']
+def output(*command): return subprocess.check_output(command,text=True).strip()
+record={'orca':orca_platform.version,'orcaPrefix':orca_platform.prefix,'python':platform.python_version(),'osRelease':pathlib.Path('/etc/os-release').read_text(),'browser':output('/opt/chrome153/chrome','--version'),'packages':{p:output('dpkg-query','-W','-f=${Version}',p) for p in packages},'display':':96','resolution':'1280x900x24','appUrl':'http://host.docker.internal:3333','buildId':'NsjBPH5Ygi5SqnYfuwSHz','sourceArchiveSHA256':'e2dc1552c8167aebc959d2983631f5580f7c00f07e839b3927e054add3a294ae'}
+pathlib.Path('/evidence/session/environment.json').write_text(json.dumps(record,indent=2)+'\n')

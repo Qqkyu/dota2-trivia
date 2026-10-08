@@ -37,7 +37,7 @@ globalThis.fetch = async () => {
     status: 200,
     headers: {
       "Content-Length": String(sourceBytes.byteLength),
-      "Content-Type": "audio/test",
+      "Content-Type": "audio/mpeg",
     },
   });
 };
@@ -45,8 +45,8 @@ globalThis.fetch = async () => {
 try {
   const roundId = `audio-preload-validation:${Date.now()}`;
   const [first, second] = await Promise.all([
-    warmRoundAudio(roundId, 0, "https://audio.invalid/clip.wav"),
-    warmRoundAudio(roundId, 0, "https://audio.invalid/clip.wav"),
+    warmRoundAudio(roundId, 0, "https://dotabase.dillerm.io/vpk/test.wav"),
+    warmRoundAudio(roundId, 0, "https://dotabase.dillerm.io/vpk/test.wav"),
   ]);
   const cached = await cachedRoundAudio(roundId, 0);
   record(upstreamFetches === 1, "Concurrent audio preloads no longer collapse into one upstream fetch.");
@@ -88,8 +88,9 @@ record(
   "The playable audio endpoint no longer requires the current round or consumes its warm cache.",
 );
 record(
-  routeSource.includes('rateLimitRequest(request, "round-audio", requestPlayerIdentity(request, searchParams), 60)') &&
-    !routeSource.includes('"proxy", 60'),
+  /rateLimitRequest\(\s*request,\s*"round-audio",\s*requestPlayerIdentity\(request, searchParams\),\s*60,\s*3_000,?\s*\)/.test(
+    routeSource,
+  ) && !routeSource.includes('"proxy", 60'),
   "The audio proxy still shares one identity across every player on an IP.",
 );
 record(
@@ -101,7 +102,7 @@ record(
   "The audio route no longer cuts answering MP3s through the shared encoder helper.",
 );
 record(
-  routeSource.includes("if (stage >= 3)") && routeSource.includes("echoHuntRevealStage("),
+  routeSource.includes("if (stage < 3)") && routeSource.includes("echoHuntRevealStage("),
   "Echo Hunt final cuts are still trimmed to a four-second fallback.",
 );
 record(
@@ -112,7 +113,12 @@ record(
   "Failed audio cuts no longer remove their temporary work directory.",
 );
 record(
-  dockerfile.includes("apk add --no-cache ffmpeg") && dockerfile.includes("FROM node:22-alpine AS runner"),
+  dockerfile.includes("apk add --no-cache ffmpeg") &&
+    (dockerfile.includes("FROM node:22-alpine AS runner") ||
+      (dockerfile.includes("ARG NODE_IMAGE=node:22-alpine@sha256:") &&
+        (dockerfile.includes("FROM ${NODE_IMAGE} AS runner") ||
+          (dockerfile.includes("FROM ${NODE_IMAGE} AS runtime-base") &&
+            dockerfile.includes("FROM runtime-base AS runner"))))),
   "The production image no longer installs ffmpeg for Echo Hunt cuts.",
 );
 

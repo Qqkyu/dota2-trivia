@@ -1,0 +1,309 @@
+{
+  "checkedAt": "2026-10-08T14:42:28.355255+00:00",
+  "baselineFiles": 421,
+  "unchangedFiles": 354,
+  "changedFiles": [
+    ".dockerignore",
+    ".env.example",
+    ".github/workflows/ci.yml",
+    ".gitignore",
+    "Dockerfile",
+    "THIRD_PARTY_NOTICES.md",
+    "docs/content-review.json",
+    "docs/content-sources.md",
+    "docs/operations.md",
+    "package.json",
+    "pnpm-lock.yaml",
+    "scripts/check-capacity.mjs",
+    "scripts/check-pages.mjs",
+    "scripts/check-ui.mjs",
+    "scripts/cleanup-db.mjs",
+    "scripts/hero-response-quality.mjs",
+    "scripts/image-assets.mjs",
+    "scripts/migrate-db.mjs",
+    "scripts/validate-audio-preload.mjs",
+    "scripts/validate-flashback.mjs",
+    "scripts/validate-hero-responses.mjs",
+    "scripts/validate-question-delivery.mjs",
+    "scripts/validate-shopkeeper.mjs",
+    "scripts/visual-flashback.mjs",
+    "src/app/privacy/page.tsx",
+    "src/components/queue-arcade.module.css",
+    "src/components/queue-arcade.tsx",
+    "src/components/site-footer.tsx",
+    "src/data/flashback-questions.json",
+    "src/data/questions.generated.json",
+    "src/lib/database-schema.mjs",
+    "src/lib/flashback.mjs",
+    "src/lib/production-config.mjs",
+    "src/lib/rate-limit.mjs",
+    "src/lib/soundcheck-choices.mjs",
+    "src/lib/steam-auth.mjs",
+    "src/lib/trivia.ts",
+    "tests/database-schema.test.mjs",
+    "tests/helpers/source-store-loader.mjs",
+    "tests/hero-response-quality.test.mjs",
+    "tests/production-config.test.mjs",
+    "tests/security-auth.test.mjs",
+    "tests/security-protection.test.mjs",
+    "tests/soundcheck-facts.test.mjs"
+  ],
+  "missingBaselinePaths": [
+    {
+      "path": "public/arcade/flashback/ti-seattle.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/ti1-gamescom.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/ti5-keyarena.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/ti8-vancouver.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/boston-og.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/falcons.png",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/frankfurt-og.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/kiev-og.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/manila-og.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/shanghai-secret.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/spirit.png",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/ti10-spirit.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/ti11-tundra.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/ti12-spirit.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/ti13-liquid.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/ti14-falcons.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/ti3-alliance.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/ti5-eg.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/ti7-liquid.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/ti8-og.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/ti9-og.jpg",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/tundra.png",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    },
+    {
+      "path": "public/arcade/flashback/winners/wings.png",
+      "intentionallyRemovedPublicAsset": true,
+      "preservedCopyMatches": true
+    }
+  ],
+  "preservedAssets": [
+    {
+      "oldPublicPath": "public/arcade/flashback/ti-seattle.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/ti-seattle.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/ti1-gamescom.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/ti1-gamescom.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/ti5-keyarena.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/ti5-keyarena.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/ti8-vancouver.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/ti8-vancouver.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/boston-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/boston-og.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/falcons.png",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/falcons.png",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/frankfurt-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/frankfurt-og.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/kiev-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/kiev-og.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/manila-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/manila-og.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/shanghai-secret.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/shanghai-secret.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/spirit.png",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/spirit.png",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti10-spirit.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti10-spirit.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti11-tundra.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti11-tundra.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti12-spirit.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti12-spirit.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti13-liquid.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti13-liquid.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti14-falcons.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti14-falcons.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti3-alliance.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti3-alliance.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti5-eg.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti5-eg.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti7-liquid.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti7-liquid.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti8-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti8-og.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti9-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti9-og.jpg",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/tundra.png",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/tundra.png",
+      "match": true,
+      "publicRemoved": true
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/wings.png",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/wings.png",
+      "match": true,
+      "publicRemoved": true
+    }
+  ],
+  "unexplainedMissingFiles": 0
+}

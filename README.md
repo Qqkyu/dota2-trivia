@@ -1,5 +1,7 @@
 # Queue Arcade
 
+Release preparation: [current launch checks](docs/audits/2026-10-06/launch-checks/README.md). Earlier records cover the [security audit and fixes](docs/audits/2026-10-06/remediation.md) and [complete question, functional and UI review](docs/audits/2026-10-06/deep-review/README.md).
+
 An unofficial browser arcade made for the gap between **Find Match** and **Accept**. Dota 2 is its first content pack: the project began as a recreation of Valve's old Queue Trivia and now rotates ten named round identities inside one endless public arcade:
 
 - **Classic Trivia** — mana, cooldowns, damage, stat comparisons, and item prices;
@@ -20,7 +22,7 @@ The playable MVP includes:
 - endless, instantly interruptible arcade sessions with automatic round transitions;
 - canonical `/` lobby and `/play` session URLs with direct loading plus browser Back and Forward support;
 - one shared public room of 15-second rounds, without mode, category, or player-facing difficulty queues;
-- 1,518 live prompts for Dota patch 7.41f, including all 127 enabled heroes in Fogged Vision, 102 Shopkeeper rounds, 96 Soundcheck rounds, 84 Aghanim's Lab upgrades, 80 tie-free Order Up rounds, and 191 sourced Flashback prompts;
+- 1,517 live prompts for Dota patch 7.41f, including all 127 enabled heroes in Fogged Vision, 102 Shopkeeper rounds, 96 Soundcheck rounds, 84 Aghanim's Lab upgrades, 80 tie-free Order Up rounds, and 191 sourced Flashback prompts;
 - item, hero, and ability artwork for visual answer rounds;
 - 123 remotely verified Echo Hunt clips, 96 Soundcheck rounds built from 114 audited clips, and 245 Quote Hunt lines sourced through Dotabase;
 - live-client answer audits plus balanced A–D placement for every generated question family;
@@ -91,37 +93,50 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-Votes and question reports default to `.data/queue-arcade-votes.json`, which is intentionally ignored by Git. Set `DATABASE_URL` to use the production Postgres store; the application creates its Queue Arcade tables on the first readiness check. Anonymous player IDs are salted and hashed before persistence, and production requires a private `ARCADE_VOTER_SALT`.
+Votes and question reports default to `.data/queue-arcade-votes.json`, which is intentionally ignored by Git. Set `DATABASE_URL` to use Postgres. Development can initialize the schema automatically; production requires `pnpm db:migrate` with a migration role before startup. Anonymous player IDs are salted and hashed before persistence. Production requires separate private `ARCADE_VOTER_SALT` and `ARCADE_AUTH_SECRET` values of at least 32 characters each.
 
 Steam connection is optional. Anonymous players can enter the public arcade immediately and keep browser-local lifetime
 stats. A connected player receives the same public rounds, but accepted answers are also recorded against an internal
 Queue Arcade account so personal records survive another browser. Steam OpenID verifies only the SteamID; Queue Arcade
-never receives a Steam password. Set `STEAM_WEB_API_KEY` only if you want to enrich profiles with the player's current
-public Steam name and avatar.
+never receives a Steam password. `STEAM_WEB_API_KEY` enables the official API for public names and avatars.
+Without that key, profile enrichment still uses public Steam Community XML when available.
 
 ## Production alpha
 
-The repository includes a standalone multi-stage `Dockerfile`. A production deployment should provide:
+The repository includes a non-root standalone `Dockerfile` and a manual-deploy
+[Render test-service Blueprint](render.yaml). Use one application instance with Postgres.
+Private rooms, chat, and presence live in process memory and end when that process restarts.
+The launch checks verified the existing Render database, restored its backup locally,
+applied the reviewed migrations, and configured a restricted application role. See the
+[hosting record](docs/audits/2026-10-06/launch-checks/hosting/README.md) for deployment status.
 
-```bash
-DATABASE_URL=postgres://...
-ARCADE_VOTER_SALT=a-long-private-random-value
-ARCADE_APP_URL=https://arcade.example
-ARCADE_AUTH_SECRET=a-separate-long-private-random-value
-ARCADE_DATA_COUNTRIES=Poland
-ARCADE_REVIEWER_STEAM_IDS=7656119xxxxxxxxxx
-```
+Follow [deployment and operations](docs/operations.md) before launch. That guide covers
+separate migration/runtime roles, secret setup, backups and restore drills, cleanup, edge
+limits, alerts, and rollback. Copy variable names from [`.env.example`](.env.example) into
+the host's secret environment; production commands read exported variables. Run
+`pnpm db:migrate` with migration credentials, then `pnpm check:config` and `pnpm start` with
+runtime credentials. Startup rejects invalid configuration before listening. Keep
+`ARCADE_AUTO_MIGRATE=false` for a runtime role without schema privileges.
 
-`DATABASE_POOL_SIZE` defaults to 5. `ARCADE_ROUND_RETENTION_HOURS` defaults to 2: expired raw rounds and their voter hashes are deleted, while question-level accuracy and deduplicated reports remain. Alpha visits contain only salted player/session hashes, timestamps, and round/correct totals; they expire after 30 days. A single long-running instance with a persistent disk can deliberately retain the file backend by setting `ARCADE_ALLOW_FILE_STORE=true`, but Postgres is the supported public-alpha path.
+`DATABASE_POOL_SIZE` defaults to 5. Raw votes and rounds expire after two hours by default;
+alpha sessions expire after 30 days. A worker cleans expired data every minute while the
+app runs. Sleeping or stopped hosts need an independent `pnpm db:cleanup` job. Question
+aggregates, reports, and saved account results persist separately. Postgres is the supported
+public deployment backend. File storage requires an explicit `ARCADE_ALLOW_FILE_STORE=true`
+exception, persistent disk, and one process. Setting `DATABASE_URL` does not import JSON data.
 
-Use `GET /api/health` as the deployment readiness check. It verifies production configuration, initializes and queries
-the vote, account, and alpha stores, and reports the active content version without exposing secrets. `ARCADE_APP_URL` must be
-the canonical HTTPS origin used in Steam's return URL. `ARCADE_DATA_COUNTRIES` is displayed in `/privacy`, as required
-when Steam-linked data is stored. The authentication secret must be at least 32 characters and distinct from the voter
-salt. A standard [Steam Web API key](https://steamcommunity.com/dev/apikey) is optional and stays server-side; when it is
-absent, authenticated profiles use a generic Steam-player label. The vote, report, room, and Steam authentication APIs
-also apply per-player or per-IP in-process guardrails. Guest limits key on the browser-chosen player ID, so they stop
-accidental loops rather than a deliberate abuser; a public host should add IP-level throttling at its edge.
+Use `GET /api/health` for readiness. It verifies production configuration, the migrated
+schema, and all durable stores, and reports the active content version without secrets.
+Set `ARCADE_APP_URL` to the canonical HTTPS origin used for Steam login and social metadata.
+`ARCADE_DATA_COUNTRIES` is shown on `/privacy`; include actual storage and backup countries.
+A [Steam Web API key](https://steamcommunity.com/dev/apikey) is optional and stays server-side.
+
+API mutations require a same-origin `Origin` or `Referer`. Guest and source limits are
+process-local. Explicit `ARCADE_TRUST_PROXY=none` ignores forwarded addresses and uses a
+shared conservative address budget. Public startup rejects an omitted policy. Enable
+`cf-connecting-ip`, `x-real-ip`, or `x-forwarded-for` only after the
+[hosted ingress check](docs/ingress-verification.md) proves that the edge controls it.
+Recheck that policy after any hosting or proxy change.
 
 `ARCADE_REVIEWER_STEAM_IDS` accepts comma- or space-separated 17-digit SteamID64 values. Signed-in reviewers can mark
 an open calibration signal as reviewed or quarantined. A reviewed question automatically returns to the queue when it
@@ -141,14 +156,16 @@ Connected sessions are represented by random HttpOnly, SameSite cookies; only a 
 the profile cascades through the Steam identity, active sessions, personal round results, and linked alpha visits. Public
 profile responses omit the internal question IDs and revision keys retained for server-side auditing. Public leaderboards
 remain intentionally excluded from this alpha. Questions and marked answers are now server-delivered by
-phase, but hidden-identity audio and artwork still use descriptive upstream asset paths, and a determined player can
-harvest answers across completed reveals. Personal records are calculated from server-accepted synchronized votes rather
+phase. Answer-sensitive audio and Fogged Vision images use current-round routes that hide upstream filenames.
+A determined player can still harvest completed reveals and exploit the deterministic schedule. Personal records are calculated from server-accepted synchronized votes rather
 than a client-submitted result.
 
-Every push and pull request runs the full build in GitHub Actions, boots the production server against Postgres 17, and
-exercises synchronized rounds, hidden results, duplicate votes, reports, protected calibration review transitions,
-stable question revisions, Steam-state rejection, account sessions, personal-result idempotency, protected alpha ops,
-hashed visit summaries and cascading profile deletion.
+The CI workflow is configured to install native media tools, validate the reviewed content, test and build
+the app, scan and start the actual Docker image against disposable Postgres, and check
+browser flows, native audio output, headers, runtime social metadata, multiplayer, and
+cleanup packaging. Require its `verify` result before releasing. The
+[launch CI record](docs/audits/2026-10-06/launch-checks/ci/README.md) distinguishes workflow
+configuration from completed runs and names the tested revision.
 
 ## Refresh the Dota data
 
@@ -172,11 +189,14 @@ The data generators write:
 - `src/data/aghanim-questions.json`
 
 The sync uses OpenDota for localized metadata and artwork, and Dotabase for hero-response metadata and playable audio
-paths. Because third-party constants can lag behind a patch, every generated ownership, mana, cooldown, damage, hero
-stat, item-price, and recipe answer was independently compared with the installed 7.41e client build 6882. The
-differences are explicit in `scripts/client-constant-audit.mjs`; generation refuses unaudited patch numbers instead of
-silently trusting stale values. `scripts/audit-live-client.mjs` reruns 1,038 marked-answer checks against decompiled client
-constants:
+paths. The October review checked all 1,517 live questions against current Valve data, dated primary historical
+sources, pinned response metadata and measured audio samples. Its [per-question index](docs/audits/2026-10-06/deep-review/question-review-index.json)
+records the evidence and limits. All 219 audio questions still need a human listening pass. The 72 retired recipe rows
+remain outside the live catalog and were not fact-checked in this pass.
+
+The existing build 6882 extract and reviewed patch deltas provide a separate numeric check. Its original installation
+provenance is unproven, so it is not a fresh installed-client certificate. `scripts/client-constant-audit.mjs` records
+the differences; `scripts/audit-live-client.mjs` reruns 1,038 marked-answer checks against that pinned source:
 
 ```bash
 DOTA_CLIENT_AUDIT_ROOT=/path/to/decompiled-client pnpm audit:client
@@ -219,7 +239,7 @@ elimination, non-active item sets, unaudited sequence clips, and ordered pairs t
 ## Verify it
 
 With `pnpm dev` running, use `pnpm check:sounds` for feedback sound changes. It opens its own muted Chrome,
-uses real mouse and keyboard input, and measures decoded audio samples for each pick and result. It covers
+uses real mouse and keyboard input, and checks both native PulseAudio output and decoded Web Audio samples. Install Chrome, ffmpeg, `pulseaudio`, and `pulseaudio-utils` on the test host. It covers
 Shopkeeper recipe steps, all four Shopkeeper question types, Fogged Vision, Spell Link, four-choice trivia,
 Order Up, and Flashback ordering. It also tests closely timed picks/results, hidden tabs, and mute.
 Before the real checks, it proves that forced silence and cut-off clips fail even when `play()` succeeds.
@@ -231,7 +251,11 @@ See [the sound diagnosis and test limits](docs/feedback-sounds.md).
 pnpm check
 ```
 
-That validates the question deck, template rotation, answer balance, scan length, and visual/audio metadata, runs the vitest unit suite (`pnpm test`: scoring, crowd splits, rate limits, calibration, reviews, revisions, diagnostics, party rooms, room sync, Spell Link redaction, and interface copy), runs ESLint, runs strict TypeScript checking, creates an optimized production build, proves no private catalog data reached a browser bundle, and then runs the headless-Chrome and API click-throughs in `pnpm check:ui` (public play, party lobby, party audio and membership, one party round per format checking copy, controls, and reveals, reports, shop and hero-grid search with Enter picking the only match, Flashback, feedback sounds, and production rate limits).
+That first checks the committed content-review manifest, then validates the question deck, template rotation, answer balance, scan length, and visual/audio metadata, runs the vitest unit suite (`pnpm test`: scoring, crowd splits, rate limits, calibration, reviews, revisions, diagnostics, party rooms, room sync, Spell Link redaction, and interface copy), runs ESLint, runs strict TypeScript checking, creates an optimized production build, proves no private catalog data reached a browser bundle, and then runs the headless-Chrome and API click-throughs in `pnpm check:ui` (public play, party lobby, party audio and membership, one party round per format checking copy, controls, and reveals, reports, shop and hero-grid search with Enter picking the only match, Flashback, feedback sounds, and production rate limits).
+
+The UI gate also runs touch, recovery, account-switch and responsive checks. `pnpm check:responsive` tests 31 answer variants at 11 sizes from 320px to 4K. `pnpm check:journeys` runs 54 player journeys. Install the pinned browser engines with `pnpm exec playwright install --with-deps chromium firefox webkit`, then run `pnpm check:accessibility` against an isolated `APP_URL`. Set `BROWSER_ENGINE=firefox` or `BROWSER_ENGINE=webkit` for the other engines. CI runs all three. Browser emulation does not replace physical-device or screen-reader testing.
+
+`pnpm check:capacity` requires `CAPACITY_ISOLATED=1`, a separate local server/store, and the test proxy configuration documented in the script. Its default is four players and two rounds. The audited full run used 466 players. Run capacity tests separately from UI checks so synthetic users do not share rate-limit budgets. See the [load report](docs/audits/2026-10-06/deep-review/capacity/README.md).
 
 With the development server running, use `pnpm check:multiplayer` to create anonymous test clients. It verifies shared
 round IDs and deadlines, sanitized answering payloads, hidden pre-reveal results, concurrent votes, duplicate rejection, the shared reveal, disk
@@ -255,7 +279,7 @@ under `/tmp`.
 
 ## Crowd architecture
 
-Each game catalog and content version owns exactly one public room. Room IDs are explicitly namespaced as `<game>:<content-version>:public`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and multiple servers calculate the same timeline as long as they run the same question snapshot and configuration.
+Each game catalog and content version owns exactly one public room. Room IDs are explicitly namespaced as `<game>:<content-version>:public`, so future content revisions and game packs cannot collide with their questions or statistics. `/api/rounds` uses a fixed epoch and deterministic question batches to calculate the current server-owned question, answer deadline, and reveal deadline. That means restarts require no timer recovery and a replacement server calculates the same public timeline when it runs the same question snapshot and configuration. This does not make private rooms or process-local limits safe across multiple instances.
 
 `/api/rounds` converts the private catalog entry into an explicit public payload. During answering it omits the internal
 question ID, marked answer, explanation, source/audit metadata, hidden Shopkeeper keys, Order Up values, and locked progressive clues. The
@@ -276,7 +300,7 @@ behind the current-round private proxy so its upstream filename cannot reveal an
 
 First-time room entry is gated separately from the shared clock. A player joins the active question when at least eight seconds remain; otherwise the client holds on a synchronized countdown and begins with the next full round. Existing players never pause or leave the global timeline.
 
-The local persistent store is an atomic JSON file suited to development and a single long-running Node instance with a persistent disk. Public deployments switch automatically to transactional Postgres when `DATABASE_URL` is configured. Raw per-round votes expire independently from durable question aggregates. Calibration keys include a stable fingerprint of the playable prompt, choices, marked answer, clues, and assets, so an unchanged question keeps its history across room releases while an edited question starts cleanly. `/calibration` never exposes voter hashes. It waits for 20 answers before suggesting that a question looks too easy or too hard. Reports and sampled difficulty outliers open the review queue; allowlisted Steam reviewers can mark a signal reviewed or quarantined, and a reviewed signal reopens when new evidence arrives. None of those states silently changes the live deck.
+The local persistent store is an atomic JSON file suited to development and a single long-running Node instance with a persistent disk. Public deployments use transactional Postgres when `DATABASE_URL` is configured and migrations have been applied. This selects a different store; it does not migrate local JSON data. Raw per-round votes expire independently from durable question aggregates. Calibration keys include a stable fingerprint of the playable prompt, choices, marked answer, clues, and assets, so an unchanged question keeps its history across room releases while an edited question starts cleanly. `/calibration` never exposes voter hashes. It waits for 20 answers before suggesting that a question looks too easy or too hard. Reports and sampled difficulty outliers open the review queue; allowlisted Steam reviewers can mark a signal reviewed or quarantined, and a reviewed signal reopens when new evidence arrives. None of those states silently changes the live deck.
 Public calibration responses also replace answer-bearing catalog IDs with their opaque revision fingerprints. Allowlisted
 reviewers receive the internal IDs only after their Steam session is verified, because those IDs are needed for explicit
 review and quarantine writes.
@@ -287,9 +311,9 @@ review and quarantine writes.
 2. Run a concentrated public soft launch, then review `/ops` after the first real sessions.
 3. Collect public-alpha samples and watch structured error fingerprints by release in the deployment logs.
 4. Review ordered-pair accuracy, then expand Soundcheck with carefully audited channel and announcer families.
-5. Replace descriptive hidden-identity asset paths with opaque delivery before considering competitive rankings.
+5. Design protection against replaying harvested answers before considering competitive rankings.
 6. Implement a second game's content pack only after the Dota public loop proves sticky.
 
 ## Attribution
 
-Question names and artwork mappings are generated from [OpenDota](https://docs.opendota.com/); marked answers and numeric constants are independently audited against the installed client. Hero-response metadata, browser-ready Soundcheck WAVs, and every audible arcade UI cue are sourced through [Dotabase](https://github.com/mdiller/dotabase). Queue Trivia's original answer click, the layered matchmaking-start event, the legacy `challenge_success` sting, and `General.InvalidTarget_Invulnerable` (“meep merp”) are independently checked against the installed client; the runtime synthesizes no substitute tones. Game assets are served from public Dota asset hosts. Steam connection uses Valve's OpenID provider and an inline Steam brand mark. The archived Map Sense terrain artwork comes from [OpenDota's public map archive](https://github.com/odota/web/tree/master/public/assets/images/dota2/map), with its historical objective changes checked against [Valve's 7.41 notes](https://www.dota2.com/patches/7.41). Archived Counterplay outcomes were checked against the matching client and mechanics sources. Dota 2 and its assets are trademarks of Valve Corporation. This fan project is not affiliated with or endorsed by Valve.
+Question names and artwork mappings are generated from [OpenDota](https://docs.opendota.com/); the review checks marked answers and numeric constants against current Valve API data, official patch notes and a pinned client extract. Hero-response metadata, browser-ready Soundcheck WAVs, and every audible arcade UI cue are sourced through [Dotabase](https://github.com/mdiller/dotabase). Queue Trivia's original answer click, the layered matchmaking-start event, the legacy `challenge_success` sting, and `General.InvalidTarget_Invulnerable` (“meep merp”) are independently checked against the installed client; the runtime synthesizes no substitute tones. Game assets are served from public Dota asset hosts. Steam connection uses Valve's OpenID provider and an inline Steam brand mark. The archived Map Sense terrain artwork comes from [OpenDota's public map archive](https://github.com/odota/web/tree/master/public/assets/images/dota2/map), with its historical objective changes checked against [Valve's 7.41 notes](https://www.dota2.com/patches/7.41). Archived Counterplay outcomes were checked against the matching client and mechanics sources. Dota 2 and its assets are trademarks of Valve Corporation. This fan project is not affiliated with or endorsed by Valve.

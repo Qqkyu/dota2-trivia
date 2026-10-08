@@ -1,0 +1,130 @@
+[
+  {
+    "pid": 14,
+    "samples": 189,
+    "seconds": 189.79,
+    "rssPeakMiB": 225.92,
+    "rssFinalMiB": 225.05,
+    "heapUsedPeakMiB": 126.34,
+    "heapUsedFinalMiB": 80.29,
+    "eventLoopP99MaxMs": 619.71,
+    "eventLoopP99MedianMs": 78.91,
+    "eventLoopMaximumMs": 619.71,
+    "eventLoopUtilizationP95": 1,
+    "cgroupMemoryPeakMiB": 310.95,
+    "cgroupEventsFinal": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "cgroupCpuFirst": {
+      "usage_usec": 677811,
+      "user_usec": 525403,
+      "system_usec": 152407,
+      "nice_usec": 0,
+      "nr_periods": 9,
+      "nr_throttled": 2,
+      "throttled_usec": 10513,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "cgroupCpuFinal": {
+      "usage_usec": 117262402,
+      "user_usec": 100498719,
+      "system_usec": 16763683,
+      "nice_usec": 0,
+      "nr_periods": 1732,
+      "nr_throttled": 869,
+      "throttled_usec": 29338788,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "mediaFinal": {
+      "fetches": {
+        "e5c0a23e1ceded88ef7a3b195a6edb66c74be68bf875671c8ebcea37d97f86a5": 1,
+        "87befb249623ca4403b0dac7179cdabe38acaff29e6c2ea464e675ea4637e02c": 1,
+        "c4155f6fa7d401328578e9e23d0003b8f1f3d7a807895b2fb97431268f28cf3c": 1
+      },
+      "ffmpegStarted": 0,
+      "ffmpegCompleted": 0,
+      "ffmpegFailed": 0,
+      "ffmpegActive": 0,
+      "ffmpegPeak": 0
+    },
+    "windows": [
+      {
+        "file": "capacity-1.json",
+        "rssPeakMiB": 225.92,
+        "rssFinalMiB": 225.05,
+        "heapFinalMiB": 80.29,
+        "eventLoopP99MaxMs": 619.71,
+        "eventLoopUtilizationP95": 1
+      }
+    ]
+  },
+  {
+    "pid": 1,
+    "samples": 191,
+    "seconds": 190.08,
+    "rssPeakMiB": 52.64,
+    "rssFinalMiB": 52.45,
+    "heapUsedPeakMiB": 5.18,
+    "heapUsedFinalMiB": 5.09,
+    "eventLoopP99MaxMs": 92.41,
+    "eventLoopP99MedianMs": 20.19,
+    "eventLoopMaximumMs": 92.41,
+    "eventLoopUtilizationP95": 0.002,
+    "cgroupMemoryPeakMiB": 310.95,
+    "cgroupEventsFinal": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "cgroupCpuFirst": {
+      "usage_usec": 596737,
+      "user_usec": 454657,
+      "system_usec": 142080,
+      "nice_usec": 0,
+      "nr_periods": 8,
+      "nr_throttled": 2,
+      "throttled_usec": 10513,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "cgroupCpuFinal": {
+      "usage_usec": 117454600,
+      "user_usec": 100681611,
+      "system_usec": 16772988,
+      "nice_usec": 0,
+      "nr_periods": 1734,
+      "nr_throttled": 870,
+      "throttled_usec": 29340768,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "mediaFinal": {
+      "fetches": {},
+      "ffmpegStarted": 0,
+      "ffmpegCompleted": 0,
+      "ffmpegFailed": 0,
+      "ffmpegActive": 0,
+      "ffmpegPeak": 0
+    },
+    "windows": [
+      {
+        "file": "capacity-1.json",
+        "rssPeakMiB": 52.45,
+        "rssFinalMiB": 52.45,
+        "heapFinalMiB": 5.09,
+        "eventLoopP99MaxMs": 80.48,
+        "eventLoopUtilizationP95": 0.0017
+      }
+    ]
+  }
+]

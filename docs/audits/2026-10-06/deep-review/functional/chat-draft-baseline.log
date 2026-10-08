@@ -1,0 +1,29 @@
+FAIL party chat draft survives the start transition: Expected values to be strictly equal:
++ actual - expected
+
++ ''
+- 'Meet after this round'
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: [
+  {
+    "name": "party chat draft survives the start transition",
+    "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ ''\n- 'Meet after this round'\n"
+  }
+]
+
+1 !== 0
+
+    at file:///home/kulmisiu/dev/dota2-trivia/scripts/check-user-journeys.mjs:381:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

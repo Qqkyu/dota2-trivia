@@ -1,6 +1,8 @@
 import { ALPHA_SESSION_RETENTION_DAYS } from "@/lib/alpha-analytics.mjs";
-import type { AlphaSessionIdentity, AlphaStoreHealth, StoredAlphaSession } from "@/lib/alpha-store";
-import { configuredPostgres } from "@/lib/vote-store-postgres";
+import type { AlphaIdentity, AlphaStoreHealth, StoredAlphaSession } from "@/lib/alpha-store";
+import { configuredPostgres, databasePool, databaseTransaction } from "@/lib/database-client";
+import { ensureDatabaseSchema } from "@/lib/database-schema.mjs";
+import type { summarizeAlphaSessions } from "@/lib/alpha-analytics.mjs";
 import { anonymousVoterHash } from "@/lib/voter-hash";
 
 type Numeric = number | string;
@@ -15,16 +17,12 @@ interface AlphaSessionRow {
   correct_answers: Numeric;
 }
 
-const globalAlphaPostgres = globalThis as typeof globalThis & {
-  __queueArcadeAlphaPostgresSchema?: Promise<void>;
-  __queueArcadeAlphaPostgresLastPrune?: number;
-};
-
 function configuredRetentionDays() {
   return ALPHA_SESSION_RETENTION_DAYS;
 }
 
-function hashesFor(identity: AlphaSessionIdentity) {
+function hashesFor(identity: AlphaIdentity) {
+  if ("sessionHash" in identity) return identity;
   return {
     sessionHash: anonymousVoterHash("alpha-session", `${identity.voterId}:${identity.sessionId}`),
     visitorHash: anonymousVoterHash("alpha-visitor", identity.voterId),
@@ -43,100 +41,76 @@ function storedSession(row: AlphaSessionRow): StoredAlphaSession {
   };
 }
 
-async function ensureSchema() {
-  if (globalAlphaPostgres.__queueArcadeAlphaPostgresSchema) {
-    return globalAlphaPostgres.__queueArcadeAlphaPostgresSchema;
-  }
-  const schemaPromise = (async () => {
-    const sql = configuredPostgres();
-    await sql.begin(async (transaction) => {
-      await transaction`
-        CREATE TABLE IF NOT EXISTS queue_arcade_alpha_sessions (
-          session_hash TEXT PRIMARY KEY,
-          visitor_hash TEXT NOT NULL,
-          started_at BIGINT NOT NULL,
-          last_seen_at BIGINT NOT NULL,
-          finished_at BIGINT,
-          rounds_answered BIGINT NOT NULL DEFAULT 0,
-          correct_answers BIGINT NOT NULL DEFAULT 0
-        )
-      `;
-      await transaction`
-        CREATE INDEX IF NOT EXISTS queue_arcade_alpha_sessions_started_at_idx
-        ON queue_arcade_alpha_sessions(started_at)
-      `;
-      await transaction`
-        CREATE INDEX IF NOT EXISTS queue_arcade_alpha_sessions_visitor_hash_idx
-        ON queue_arcade_alpha_sessions(visitor_hash)
-      `;
-    });
-  })();
-  globalAlphaPostgres.__queueArcadeAlphaPostgresSchema = schemaPromise.catch((error) => {
-    globalAlphaPostgres.__queueArcadeAlphaPostgresSchema = undefined;
-    throw error;
-  });
-  return globalAlphaPostgres.__queueArcadeAlphaPostgresSchema;
+function ensureSchema() {
+  return ensureDatabaseSchema(databasePool());
 }
 
-async function maybePruneSessions() {
-  const now = Date.now();
-  if (now - (globalAlphaPostgres.__queueArcadeAlphaPostgresLastPrune ?? 0) < 60 * 60 * 1_000) return;
-  const expiresBefore = now - configuredRetentionDays() * 24 * 60 * 60 * 1_000;
-  await configuredPostgres()`DELETE FROM queue_arcade_alpha_sessions WHERE last_seen_at < ${expiresBefore}`;
-  globalAlphaPostgres.__queueArcadeAlphaPostgresLastPrune = now;
+function ownerId(identity: AlphaIdentity) {
+  if ("sessionHash" in identity) return identity.userId;
+  return identity.voterId.startsWith("account:") ? identity.voterId.slice("account:".length) : null;
 }
 
 export async function getPostgresAlphaStoreHealth(): Promise<AlphaStoreHealth> {
   await ensureSchema();
-  await maybePruneSessions();
   await configuredPostgres()`SELECT 1 AS healthy`;
   return { backend: "postgres", ok: true, retentionDays: configuredRetentionDays() };
 }
 
-export async function recordAlphaSessionStart(identity: AlphaSessionIdentity, at: number) {
+export async function recordAlphaSessionStart(identity: AlphaIdentity, at: number) {
   await ensureSchema();
   const { sessionHash, visitorHash } = hashesFor(identity);
   await configuredPostgres()`
     INSERT INTO queue_arcade_alpha_sessions (
-      session_hash, visitor_hash, started_at, last_seen_at, finished_at, rounds_answered, correct_answers
+      session_hash, visitor_hash, user_id, started_at, last_seen_at, finished_at, rounds_answered, correct_answers
     )
-    VALUES (${sessionHash}, ${visitorHash}, ${at}, ${at}, NULL, 0, 0)
+    VALUES (${sessionHash}, ${visitorHash}, ${ownerId(identity)}, ${at}, ${at}, NULL, 0, 0)
     ON CONFLICT (session_hash) DO UPDATE SET
       started_at = LEAST(queue_arcade_alpha_sessions.started_at, EXCLUDED.started_at),
       last_seen_at = GREATEST(queue_arcade_alpha_sessions.last_seen_at, EXCLUDED.last_seen_at)
   `;
-  await maybePruneSessions();
 }
 
-export async function recordAlphaSessionRound(identity: AlphaSessionIdentity, correct: boolean, at: number) {
+export async function recordAlphaSessionRound(identity: AlphaIdentity, correct: boolean, at: number, roundId?: string) {
+  await ensureSchema();
+  return databaseTransaction(async (sql) => {
+    const { sessionHash, visitorHash } = hashesFor(identity);
+    await sql`
+      INSERT INTO queue_arcade_alpha_sessions (
+        session_hash, visitor_hash, user_id, started_at, last_seen_at, finished_at, rounds_answered, correct_answers
+      )
+      VALUES (${sessionHash}, ${visitorHash}, ${ownerId(identity)}, ${at}, ${at}, NULL, 0, 0)
+      ON CONFLICT (session_hash) DO NOTHING
+    `;
+    if (roundId) {
+      const inserted = await sql`
+        INSERT INTO queue_arcade_alpha_round_events (session_hash, round_id)
+        VALUES (${sessionHash}, ${roundId})
+        ON CONFLICT DO NOTHING RETURNING round_id
+      `;
+      if (!inserted.length) return;
+    }
+    await sql`
+      UPDATE queue_arcade_alpha_sessions
+      SET last_seen_at = GREATEST(last_seen_at, ${at}),
+        rounds_answered = rounds_answered + 1,
+        correct_answers = correct_answers + ${Number(correct)}
+      WHERE session_hash = ${sessionHash}
+    `;
+  });
+}
+
+export async function recordAlphaSessionFinish(identity: AlphaIdentity, at: number) {
   await ensureSchema();
   const { sessionHash, visitorHash } = hashesFor(identity);
   await configuredPostgres()`
     INSERT INTO queue_arcade_alpha_sessions (
-      session_hash, visitor_hash, started_at, last_seen_at, finished_at, rounds_answered, correct_answers
+      session_hash, visitor_hash, user_id, started_at, last_seen_at, finished_at, rounds_answered, correct_answers
     )
-    VALUES (${sessionHash}, ${visitorHash}, ${at}, ${at}, NULL, 1, ${Number(correct)})
-    ON CONFLICT (session_hash) DO UPDATE SET
-      last_seen_at = GREATEST(queue_arcade_alpha_sessions.last_seen_at, EXCLUDED.last_seen_at),
-      rounds_answered = queue_arcade_alpha_sessions.rounds_answered + 1,
-      correct_answers = queue_arcade_alpha_sessions.correct_answers + ${Number(correct)}
-  `;
-  await maybePruneSessions();
-}
-
-export async function recordAlphaSessionFinish(identity: AlphaSessionIdentity, at: number) {
-  await ensureSchema();
-  const { sessionHash, visitorHash } = hashesFor(identity);
-  await configuredPostgres()`
-    INSERT INTO queue_arcade_alpha_sessions (
-      session_hash, visitor_hash, started_at, last_seen_at, finished_at, rounds_answered, correct_answers
-    )
-    VALUES (${sessionHash}, ${visitorHash}, ${at}, ${at}, ${at}, 0, 0)
+    VALUES (${sessionHash}, ${visitorHash}, ${ownerId(identity)}, ${at}, ${at}, ${at}, 0, 0)
     ON CONFLICT (session_hash) DO UPDATE SET
       last_seen_at = GREATEST(queue_arcade_alpha_sessions.last_seen_at, EXCLUDED.last_seen_at),
       finished_at = GREATEST(COALESCE(queue_arcade_alpha_sessions.finished_at, 0), EXCLUDED.finished_at)
   `;
-  await maybePruneSessions();
 }
 
 export async function getAlphaSessionsSince(since: number): Promise<StoredAlphaSession[]> {
@@ -147,7 +121,6 @@ export async function getAlphaSessionsSince(since: number): Promise<StoredAlphaS
     FROM queue_arcade_alpha_sessions
     WHERE started_at >= ${since}
     ORDER BY started_at DESC
-    LIMIT 50000
   `;
   return rows.map(storedSession);
 }
@@ -161,4 +134,73 @@ export async function deleteAlphaVisitor(voterId: string) {
     RETURNING session_hash
   `;
   return rows.length;
+}
+
+export async function getAlphaSummary(now = Date.now()): Promise<ReturnType<typeof summarizeAlphaSessions>> {
+  await ensureSchema();
+  const since = now - ALPHA_SESSION_RETENTION_DAYS * 86_400_000;
+  const dailyStart = new Date(now);
+  dailyStart.setUTCHours(0, 0, 0, 0);
+  dailyStart.setUTCDate(dailyStart.getUTCDate() - 13);
+  interface SummaryRow {
+    sessions: Numeric;
+    players: Numeric;
+    returning_players: Numeric;
+    rounds: Numeric;
+    correct: Numeric;
+    duration: Numeric;
+    daily: Array<{ day: Numeric; sessions: Numeric; players: Numeric; rounds: Numeric }>;
+  }
+  const rows = await configuredPostgres()<SummaryRow[]>`
+    WITH eligible AS (
+      SELECT * FROM queue_arcade_alpha_sessions
+      WHERE started_at >= ${since} AND started_at <= ${now + 60_000}
+    ), visitors AS (
+      SELECT visitor_hash, COUNT(*) AS visits FROM eligible GROUP BY visitor_hash
+    ), days AS (
+      SELECT FLOOR(started_at / 86400000.0) * 86400000 AS day,
+        COUNT(*) AS sessions, COUNT(DISTINCT visitor_hash) AS players,
+        COALESCE(SUM(rounds_answered), 0) AS rounds
+      FROM eligible WHERE started_at >= ${dailyStart.getTime()}
+      GROUP BY day
+    )
+    SELECT COUNT(*) AS sessions,
+      (SELECT COUNT(*) FROM visitors) AS players,
+      (SELECT COUNT(*) FROM visitors WHERE visits > 1) AS returning_players,
+      COALESCE(SUM(rounds_answered), 0) AS rounds,
+      COALESCE(SUM(correct_answers), 0) AS correct,
+      COALESCE(SUM(LEAST(86400000, GREATEST(0,
+        GREATEST(last_seen_at, COALESCE(finished_at, started_at)) - started_at))), 0) AS duration,
+      COALESCE((SELECT json_agg(days ORDER BY day) FROM days), '[]'::json) AS daily
+    FROM eligible
+  `;
+  const row = rows[0];
+  const sessions = Number(row.sessions);
+  const players = Number(row.players);
+  const returningPlayers = Number(row.returning_players);
+  const rounds = Number(row.rounds);
+  const correct = Number(row.correct);
+  const daily = new Map(row.daily.map((day) => [Number(day.day), day]));
+  return {
+    windowDays: ALPHA_SESSION_RETENTION_DAYS,
+    sessions,
+    players,
+    returningPlayers,
+    returnRate: players ? Math.round((returningPlayers / players) * 100) : 0,
+    rounds,
+    correct,
+    accuracy: rounds ? Math.round((correct / rounds) * 100) : 0,
+    roundsPerSession: sessions ? Math.round((rounds / sessions) * 10) / 10 : 0,
+    averageMinutes: sessions ? Math.round((Number(row.duration) / sessions / 60000) * 10) / 10 : 0,
+    daily: Array.from({ length: 14 }, (_, index) => {
+      const timestamp = dailyStart.getTime() + index * 86_400_000;
+      const day = daily.get(timestamp);
+      return {
+        date: new Date(timestamp).toISOString().slice(0, 10),
+        sessions: Number(day?.sessions ?? 0),
+        players: Number(day?.players ?? 0),
+        rounds: Number(day?.rounds ?? 0),
+      };
+    }),
+  };
 }

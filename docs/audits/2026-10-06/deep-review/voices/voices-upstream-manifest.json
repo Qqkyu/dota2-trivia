@@ -1,0 +1,1371 @@
+{
+  "commit": {
+    "commit": "7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa",
+    "commitDate": "2026-09-16T23:47:24Z",
+    "retrievedAt": "2026-10-06T08:09:39.629182+00:00"
+  },
+  "sources": [
+    {
+      "path": "json/responses/abaddon.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/abaddon.json",
+      "bytes": 96062,
+      "sha256": "c26a2d2f8cd524f305d3a126c0cd62d9411e9b0379a36cd85e37d924d4027b1d"
+    },
+    {
+      "path": "json/responses/alchemist.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/alchemist.json",
+      "bytes": 116231,
+      "sha256": "452a99bfcdd94f38702e26eb258d7b982c93ab49fd054ae179a84ddd6f173732"
+    },
+    {
+      "path": "json/responses/ancient_apparition.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/ancient_apparition.json",
+      "bytes": 78503,
+      "sha256": "debe0d8664bdd2cebaf1904402e749e785b2d6421e1685ce812e312635ba0beb"
+    },
+    {
+      "path": "json/responses/announcer_axe.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_axe.json",
+      "bytes": 136389,
+      "sha256": "02865db5b3868a0300f0e482642aa5e6243502a4b4a881a70db26906a0e189f2"
+    },
+    {
+      "path": "json/responses/announcer_bastion.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_bastion.json",
+      "bytes": 331795,
+      "sha256": "b6376fad5e7625c3cb6385a9d8610ee8e0ae533ef1b3aa3e9689010ae2fbcddf"
+    },
+    {
+      "path": "json/responses/announcer_bristleback.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_bristleback.json",
+      "bytes": 130271,
+      "sha256": "94cbe0bf321f1a9e137d9e70b8336d19603c9265a7667cfa0fe5d828d9cd1feb"
+    },
+    {
+      "path": "json/responses/announcer_cave_johnson.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_cave_johnson.json",
+      "bytes": 472726,
+      "sha256": "1e3303cca1c1bc35d1639270389c5ffc586b7d9c3146ba971dc6538c31ad335b"
+    },
+    {
+      "path": "json/responses/announcer_clockwerk.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_clockwerk.json",
+      "bytes": 54999,
+      "sha256": "6088694856b873f32376779bed4b62309ff75413288e0150c505547b9ecaf9bd"
+    },
+    {
+      "path": "json/responses/announcer_crystal_maiden.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_crystal_maiden.json",
+      "bytes": 178516,
+      "sha256": "f0746c7b7d45edfbc9dd94c59e2e8987e3191936d6d47efbe16dff72d399d052"
+    },
+    {
+      "path": "json/responses/announcer_dark_willow.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_dark_willow.json",
+      "bytes": 232765,
+      "sha256": "0ac0a6a4fa4fce133b6f08f3c98ee33d9e83f87bed6227cbcdacc081f9df8d8c"
+    },
+    {
+      "path": "json/responses/announcer_darkest_dungeon_ft_wayne_june.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_darkest_dungeon_ft_wayne_june.json",
+      "bytes": 359587,
+      "sha256": "70e6b212a8c4722eed7655647c84af2385eda0f1289a0e4c21ed55d21f7acccc"
+    },
+    {
+      "path": "json/responses/announcer_death_prophet.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_death_prophet.json",
+      "bytes": 65760,
+      "sha256": "d5800c0e9cfbd9d82e5b08fd5512c23bcef725cba78a12db4421bc6da3f4af17"
+    },
+    {
+      "path": "json/responses/announcer_defense_grid.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_defense_grid.json",
+      "bytes": 213390,
+      "sha256": "6f554532f192288bf91d6097849c4b4a8c5bc2cc3ef17c2d79779260fe3fab9e"
+    },
+    {
+      "path": "json/responses/announcer_deus_ex.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_deus_ex.json",
+      "bytes": 389306,
+      "sha256": "470196724355d8470094553b783301b1defebc8dbc113f54f8c28be8e1005e1c"
+    },
+    {
+      "path": "json/responses/announcer_dr_kleiner.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_dr_kleiner.json",
+      "bytes": 181938,
+      "sha256": "06542dcd8d96bc022c3fac21cc3795dd7445c9238542151525e595e017467618"
+    },
+    {
+      "path": "json/responses/announcer_fallout_.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_fallout_.json",
+      "bytes": 113017,
+      "sha256": "6ba5665ab7442e0e19ecc55df0c82a58290110d68bc8683c20911e50ddfe6e63"
+    },
+    {
+      "path": "json/responses/announcer_glados.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_glados.json",
+      "bytes": 182213,
+      "sha256": "016a57b82c64f679ccbc8aba2d36e6a8f4e9949abb5236c1f208e8127ad5c168"
+    },
+    {
+      "path": "json/responses/announcer_juggernaut.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_juggernaut.json",
+      "bytes": 138491,
+      "sha256": "6c86ac6037f30f638cb54edd763fcacebf40f69cfdbc82c8748d2541b2c2ae49"
+    },
+    {
+      "path": "json/responses/announcer_kunkka__tidehunter.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_kunkka__tidehunter.json",
+      "bytes": 204760,
+      "sha256": "72f4b756ca477aedea08e751cece25916b17d75fed74b32c21177e192a8c20e0"
+    },
+    {
+      "path": "json/responses/announcer_lina.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_lina.json",
+      "bytes": 98985,
+      "sha256": "c2ed106aff810ffce8835872f303d8fbb586eb3270b5e7c1a42e1d6b00c224f1"
+    },
+    {
+      "path": "json/responses/announcer_meepo.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_meepo.json",
+      "bytes": 241912,
+      "sha256": "efc9f5d9b5e049a2e24100273fd984a3eba3749a34ac155b1b254468e7e6bf56"
+    },
+    {
+      "path": "json/responses/announcer_monkey_king.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_monkey_king.json",
+      "bytes": 180205,
+      "sha256": "7ed3b667215a6b01055b08d93e45a8ecd8d23a55dcdfeb7b47ed63e415127e20"
+    },
+    {
+      "path": "json/responses/announcer_natures_prophet.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_natures_prophet.json",
+      "bytes": 145380,
+      "sha256": "9ba6008ba29d17d3ea70f5872366a7fff610ba3fa91074315e95199136d7026d"
+    },
+    {
+      "path": "json/responses/announcer_pyrion_flax.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_pyrion_flax.json",
+      "bytes": 261052,
+      "sha256": "2636443f78299dfd2ebf1af69141822411f35bbbc4812a5de83f8e3f74bd8778"
+    },
+    {
+      "path": "json/responses/announcer_rick_and_morty.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_rick_and_morty.json",
+      "bytes": 353753,
+      "sha256": "15e06eae1108d140e996c50dd7fa10b848ab2f43a9e0c8d31cb64a6c5e48faa4"
+    },
+    {
+      "path": "json/responses/announcer_ringmaster.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_ringmaster.json",
+      "bytes": 97079,
+      "sha256": "6f496f3f5195b834b4039da96f29a6339cca46ed1c83bcec8ec89b6b9d3281c5"
+    },
+    {
+      "path": "json/responses/announcer_storm_spirit.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_storm_spirit.json",
+      "bytes": 155363,
+      "sha256": "b6b39f2e2b0d41beb66c66637bac9700fb770aa5d2e2e284ff0b8d55f2a65bac"
+    },
+    {
+      "path": "json/responses/announcer_techies.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_techies.json",
+      "bytes": 158110,
+      "sha256": "ef2a2e00090bab25450993ef3a61a7d4223f4e0dfd33814702a15bbc1559d71c"
+    },
+    {
+      "path": "json/responses/announcer_the_pirate_capn.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_the_pirate_capn.json",
+      "bytes": 140121,
+      "sha256": "d3ff294a0a6b15b2a127fabb654e465e38623baf80af475c6235c696dad2eccb"
+    },
+    {
+      "path": "json/responses/announcer_the_stanley_parable.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_the_stanley_parable.json",
+      "bytes": 316374,
+      "sha256": "95302b7893f55492e56f5c91daa668f77dd2bd365830e857427af9dc74999d9e"
+    },
+    {
+      "path": "json/responses/announcer_trine.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_trine.json",
+      "bytes": 266067,
+      "sha256": "208c2e826fcea007d3c49ba44442430bbe307692640b3a5a46bd95326ced052e"
+    },
+    {
+      "path": "json/responses/announcer_tuskar.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_tuskar.json",
+      "bytes": 66444,
+      "sha256": "c2737243c8718d7ad8ead4701e4a61e35f7c7d04cfa8a5d0c7514326a82aade9"
+    },
+    {
+      "path": "json/responses/announcer_voice_of_the_international.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/announcer_voice_of_the_international.json",
+      "bytes": 290773,
+      "sha256": "e0aaae6b5c878e5ef0d849fc5ccf45092472476f7a9f45eb658edcb258ed28aa"
+    },
+    {
+      "path": "json/responses/antimage.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/antimage.json",
+      "bytes": 81067,
+      "sha256": "85ddd6ee19f9cc2b00afd99752a09dfefb5e0c78a414089a6c39e2976c8adf79"
+    },
+    {
+      "path": "json/responses/arc_warden.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/arc_warden.json",
+      "bytes": 133404,
+      "sha256": "3490cc28278e6603fd0d2aa350c30d289c78e1134dee7119e8bd5766627be003"
+    },
+    {
+      "path": "json/responses/ardalan_arms_race__head.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/ardalan_arms_race__head.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "json/responses/ardalan_arsonist__head.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/ardalan_arsonist__head.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "json/responses/axe.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/axe.json",
+      "bytes": 150545,
+      "sha256": "3cbbffddeedad97995d43258afb8923c5b4bdd58addc2e6128030be72ca09ce3"
+    },
+    {
+      "path": "json/responses/axe_automaton_persona.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/axe_automaton_persona.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "json/responses/bane.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/bane.json",
+      "bytes": 87436,
+      "sha256": "6c3bb8a706968c83b3032b74f1dd8e4039c18a1ec243b350c2b54d83dc70846d"
+    },
+    {
+      "path": "json/responses/batrider.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/batrider.json",
+      "bytes": 95044,
+      "sha256": "84349409d278f71c30937759ed139514901b8ea05df3fa01a77e438d9af9d53d"
+    },
+    {
+      "path": "json/responses/beastmaster.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/beastmaster.json",
+      "bytes": 81169,
+      "sha256": "aa4307b14593337ca76809683c92434c2794683c41f9ae8ee5614c4eb99b2a9c"
+    },
+    {
+      "path": "json/responses/benevolent_companion.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/benevolent_companion.json",
+      "bytes": 651,
+      "sha256": "3897e81f38db601bbd4a568e902259dac205f5424c3ccca04e0eda36e909d3cb"
+    },
+    {
+      "path": "json/responses/blades_of_voth_domosh.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/blades_of_voth_domosh.json",
+      "bytes": 141510,
+      "sha256": "d243cfae01fc54ea1d6be759d57145dbec414ff6a5597bb483b277a3fbfa0f78"
+    },
+    {
+      "path": "json/responses/bloodseeker.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/bloodseeker.json",
+      "bytes": 83000,
+      "sha256": "321476a4fc06b63a89f409f9a788a669aeb28379c80193f246add35d9c07cf6a"
+    },
+    {
+      "path": "json/responses/bounty_hunter.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/bounty_hunter.json",
+      "bytes": 97131,
+      "sha256": "0dd53f528ba2fedcc86d0772fa1c59c58acc595cf1ce59ebae49aa7b3ae2d156"
+    },
+    {
+      "path": "json/responses/brewmaster.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/brewmaster.json",
+      "bytes": 98859,
+      "sha256": "55ace68201654d1a311ef107cc6bf0a8959b19a94ca3b48bab536c2195435074"
+    },
+    {
+      "path": "json/responses/bristleback.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/bristleback.json",
+      "bytes": 182779,
+      "sha256": "c4b38491dc828d2c682f278ee77e190b290a6d844092cab7ebeb3f80702e6479"
+    },
+    {
+      "path": "json/responses/bristleback_automaton_persona.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/bristleback_automaton_persona.json",
+      "bytes": 21694,
+      "sha256": "635763fd0b04de550cac6d2d82940ab055fb4067563751a6d1153763f284b838"
+    },
+    {
+      "path": "json/responses/broodmother.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/broodmother.json",
+      "bytes": 81714,
+      "sha256": "f2f25c5c9a5dc23e0ca1b5ac91c454cfccebb991a95d75a0917c96636de26766"
+    },
+    {
+      "path": "json/responses/call_of_the_bladeform_legacy.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/call_of_the_bladeform_legacy.json",
+      "bytes": 280068,
+      "sha256": "c752bbe09c51e11cb3b771d43eb3c7a928aa9133c597b5ab4e8ad6e31a0543fc"
+    },
+    {
+      "path": "json/responses/centaur_warrunner.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/centaur_warrunner.json",
+      "bytes": 100526,
+      "sha256": "4e408d5e64bc8b405f0ec52447291376b25acc9e1196edc0f4a8475f6917b67f"
+    },
+    {
+      "path": "json/responses/chaos_knight.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/chaos_knight.json",
+      "bytes": 94449,
+      "sha256": "9004a8d9571f190d0866ba580ff52c26873a90028ab55a031a6608493dd043cc"
+    },
+    {
+      "path": "json/responses/chen.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/chen.json",
+      "bytes": 64694,
+      "sha256": "1b91534afdebdc7668fb8fbf4aecee77a4d39ac9733f0899f583a312997794fd"
+    },
+    {
+      "path": "json/responses/claszian_apostasy_head.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/claszian_apostasy_head.json",
+      "bytes": 324384,
+      "sha256": "52b1c0b09b8a77c8d1a22718f2b37900ef9e3b3478b4b51c998171968506239d"
+    },
+    {
+      "path": "json/responses/clinkz.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/clinkz.json",
+      "bytes": 79620,
+      "sha256": "216c55a11c57827d9d9bc0b008a17cbf9ac61323de8776c4b46bd66026d84419"
+    },
+    {
+      "path": "json/responses/clockwerk.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/clockwerk.json",
+      "bytes": 102530,
+      "sha256": "0095a4f9edeb00029909bbe7bf334ffde91f9009a775f0853bc0260802099898"
+    },
+    {
+      "path": "json/responses/compass_of_the_rising_gale.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/compass_of_the_rising_gale.json",
+      "bytes": 335245,
+      "sha256": "03bfaba074a3d3d5a264894723aed578afc485569c307fea5723afd168acb746"
+    },
+    {
+      "path": "json/responses/conduit_of_the_blueheart.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/conduit_of_the_blueheart.json",
+      "bytes": 244897,
+      "sha256": "659ebc00054ae97ae1ddd63cf8faa7749a5f4a93e7d6973dac1a488be0277578"
+    },
+    {
+      "path": "json/responses/crown_of_the_one_true_king.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/crown_of_the_one_true_king.json",
+      "bytes": 306968,
+      "sha256": "6c0c3f3ab4fb3ac22d2a15fb38936df62ebe653f470a4407c58b70f0d92a1a81"
+    },
+    {
+      "path": "json/responses/crystal_maiden.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/crystal_maiden.json",
+      "bytes": 101766,
+      "sha256": "ac5cb9ee1c39d44cc8a68b62df758e69fc40d490d61db06a4a0da4b55c0676b5"
+    },
+    {
+      "path": "json/responses/dark_seer.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/dark_seer.json",
+      "bytes": 74240,
+      "sha256": "ae87081a8f94f32d1ff3c87a6c2bde79a4ff8c725189a93888ecc920d52f72a7"
+    },
+    {
+      "path": "json/responses/dark_willow.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/dark_willow.json",
+      "bytes": 700510,
+      "sha256": "3fae578dedd83bf996bb9725e03de76bb91cfaf0e1ee7733373bd20132b145df"
+    },
+    {
+      "path": "json/responses/davion_of_dragon_hold.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/davion_of_dragon_hold.json",
+      "bytes": 508376,
+      "sha256": "6545f1f02e3e2fb64f6df68859ecbb68ced4a0c3e772fc1dcc4fda99975f4029"
+    },
+    {
+      "path": "json/responses/dawnbreaker.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/dawnbreaker.json",
+      "bytes": 332165,
+      "sha256": "b51bebf3bd29a3c2e85cbfffae2a202944cda2d2b98ff5a69c760bcdb06ad1ff"
+    },
+    {
+      "path": "json/responses/dazzle.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/dazzle.json",
+      "bytes": 72708,
+      "sha256": "0ac6aa1d0ae173d9afe47d763c2b256c68407d63d75b84e15621d0d46fea6963"
+    },
+    {
+      "path": "json/responses/death_prophet.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/death_prophet.json",
+      "bytes": 108624,
+      "sha256": "5b7103065a9eda2526041f9abc044c335901677a05fe7b17c9494733c42c388c"
+    },
+    {
+      "path": "json/responses/default_announcer.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/default_announcer.json",
+      "bytes": 632847,
+      "sha256": "6ef7d34cb97c2c8bc2d1bea5d2f47fc2de92ac4770ac843466586be1f6494832"
+    },
+    {
+      "path": "json/responses/default_megakill_announcer.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/default_megakill_announcer.json",
+      "bytes": 7958,
+      "sha256": "062a08aa7011db23d112df4da7b24c01e1461437f01c479f382e2c1008667dcd"
+    },
+    {
+      "path": "json/responses/demon_eater.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/demon_eater.json",
+      "bytes": 89558,
+      "sha256": "ac9e678c3f3dea895799d81db45117c863a4c1f7332a0bf204d8b53f8de5b959"
+    },
+    {
+      "path": "json/responses/disruptor.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/disruptor.json",
+      "bytes": 93301,
+      "sha256": "d314f972a1a7dbb1b749f5e00396e4e3c818395852463496cf83eba9a95cc30f"
+    },
+    {
+      "path": "json/responses/doom.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/doom.json",
+      "bytes": 74853,
+      "sha256": "802b03282341a4af009e352fbaee9d9dce1fd63d2055922269a85882f98fd427"
+    },
+    {
+      "path": "json/responses/dragon_knight.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/dragon_knight.json",
+      "bytes": 174467,
+      "sha256": "73d783ef71906be839057106c32290db8205d5dd413551b8e605d0b5d6e1cb7a"
+    },
+    {
+      "path": "json/responses/dread_retribution.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/dread_retribution.json",
+      "bytes": 323784,
+      "sha256": "2eef758b39fbc8ced7630da70e4948115e42571713d14a84abb6e6d1d78e2df0"
+    },
+    {
+      "path": "json/responses/drow_ranger.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/drow_ranger.json",
+      "bytes": 95464,
+      "sha256": "bcbfc745b395f9d4727ea87f58a6bd073b6807eed1a2943e3fb1a7ec74d8e9be"
+    },
+    {
+      "path": "json/responses/earth_spirit.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/earth_spirit.json",
+      "bytes": 141329,
+      "sha256": "2c191e70267c460a708f0f44c160d054f4ae10cb05c522c6e85026f3d400ebc5"
+    },
+    {
+      "path": "json/responses/earthshaker.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/earthshaker.json",
+      "bytes": 101846,
+      "sha256": "4ff86ec2d8ceec53bb21caa6952376159f18a339c1f8b940905bebac2bb1416f"
+    },
+    {
+      "path": "json/responses/elder_titan.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/elder_titan.json",
+      "bytes": 108053,
+      "sha256": "c93dbf9ad5901a2e696759c35fce8ed8aa87f6b014e6335454a022dbc4c4039a"
+    },
+    {
+      "path": "json/responses/ember_spirit.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/ember_spirit.json",
+      "bytes": 137773,
+      "sha256": "6182d8373b023ef46e8c67558ef3068af812f4bde6cf404d1e2ee86f599608e8"
+    },
+    {
+      "path": "json/responses/eminence_of_ristul.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/eminence_of_ristul.json",
+      "bytes": 293858,
+      "sha256": "555322df5788f23ae400c032c767438272d7ac65a419c68d0a41e5e277859d56"
+    },
+    {
+      "path": "json/responses/enchantress.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/enchantress.json",
+      "bytes": 72200,
+      "sha256": "2f992e422f2f8885e0113370d7d05aff1d7da9733a7b79ae5485a7ba60344b15"
+    },
+    {
+      "path": "json/responses/enigma.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/enigma.json",
+      "bytes": 78836,
+      "sha256": "9bdb986cfc4cc970cfbb489945f67a1015642947318096aecee21962b60347d8"
+    },
+    {
+      "path": "json/responses/exile_unveiled.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/exile_unveiled.json",
+      "bytes": 376673,
+      "sha256": "c3818b9759dbb085112b804e308195cac494241455520b9a40dbef2f5ca27520"
+    },
+    {
+      "path": "json/responses/faceless_void.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/faceless_void.json",
+      "bytes": 82354,
+      "sha256": "38f62fd83b9979b26adf8ea25444a2988b7621bf3263e401edab192cef858336"
+    },
+    {
+      "path": "json/responses/feast_of_abscession.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/feast_of_abscession.json",
+      "bytes": 328220,
+      "sha256": "f8835384543a52aa9dd3a57d18b809fe4ba0383dab33fc536d4fe86ee1691f64"
+    },
+    {
+      "path": "json/responses/fists_of_axe_unleashed.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/fists_of_axe_unleashed.json",
+      "bytes": 155648,
+      "sha256": "41ccb5e34d62e56081b78c6e00e623aeaef2eec3d8af9c0dc2c47b5ecaa201ea"
+    },
+    {
+      "path": "json/responses/fractal_horns_of_inner_abysm.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/fractal_horns_of_inner_abysm.json",
+      "bytes": 275842,
+      "sha256": "6ba02ca5fe3f9bb6a22d44b5f1322cf44fa861b3863b099db060ce9a0035fa25"
+    },
+    {
+      "path": "json/responses/great_sages_reckoning.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/great_sages_reckoning.json",
+      "bytes": 394166,
+      "sha256": "2fb9bff669cec0e19a58aa2f4abf59f2ccf525c5f61615e790278481c9953a63"
+    },
+    {
+      "path": "json/responses/grimstroke.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/grimstroke.json",
+      "bytes": 335970,
+      "sha256": "1e312297656cf22dce4af871eed625bd61bb43dbb498c26786f5c9a6fc2ea878"
+    },
+    {
+      "path": "json/responses/gyrocopter.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/gyrocopter.json",
+      "bytes": 107507,
+      "sha256": "cca581ba5e20e2ed740eede974aa9857a32024cb59667bffe63e7f71641f2200"
+    },
+    {
+      "path": "json/responses/helm_of_the_ardalan_interdictor.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/helm_of_the_ardalan_interdictor.json",
+      "bytes": 87134,
+      "sha256": "04a6f7eff5be0006be11903b1e7ec74a3ff3ec64ce4f009178e01e9ea451d790"
+    },
+    {
+      "path": "json/responses/hoodwink.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/hoodwink.json",
+      "bytes": 486172,
+      "sha256": "3f529c9871ca043b0bc17af1830d21acbcc0029a0b374661a6ef452296d92434"
+    },
+    {
+      "path": "json/responses/huskar.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/huskar.json",
+      "bytes": 77961,
+      "sha256": "efa4498862fc0da5f4e0e4da3c492c622e5150db80d19fb717ace9471ed1a57d"
+    },
+    {
+      "path": "json/responses/invoker.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/invoker.json",
+      "bytes": 319136,
+      "sha256": "4bd09ee31a233f366c5bf849ca616cf682bab26d2e0fc90f7d12457230ffa9d5"
+    },
+    {
+      "path": "json/responses/io.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/io.json",
+      "bytes": 7894,
+      "sha256": "b6d898da4c39f5bea38cab6af827e64528f457e579373a9d102941f4727732e7"
+    },
+    {
+      "path": "json/responses/jakiro.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/jakiro.json",
+      "bytes": 81567,
+      "sha256": "010b4dc56201aa3cca8f075a1821936fbe8f8a5e0be414e75913d6d9c9f37667"
+    },
+    {
+      "path": "json/responses/juggernaut.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/juggernaut.json",
+      "bytes": 118149,
+      "sha256": "66564c6dfe0cb90c4de3ba5a0a9e4892e25d8ec671789e553a6779f5259ce1d6"
+    },
+    {
+      "path": "json/responses/keeper_of_the_light.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/keeper_of_the_light.json",
+      "bytes": 110730,
+      "sha256": "fe662f5166986dbc2fdc0176b1c5d3a79c18942ce46a156e7ede4b0f13d63dad"
+    },
+    {
+      "path": "json/responses/kez.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/kez.json",
+      "bytes": 402275,
+      "sha256": "ba480f0121bf45e453bd015b5749c7f97151ef900238b9c266e0da9260ff7d80"
+    },
+    {
+      "path": "json/responses/kunkka.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/kunkka.json",
+      "bytes": 93687,
+      "sha256": "e43486f9d1e57ce6d87ba207ff54fb45aa21a84fce7911e194996d0d1ce382ba"
+    },
+    {
+      "path": "json/responses/largo.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/largo.json",
+      "bytes": 423696,
+      "sha256": "581cf45b3e5834e64fb3923e37dcfec8e5cdb35972e4b04541454d149376f99c"
+    },
+    {
+      "path": "json/responses/legion_commander.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/legion_commander.json",
+      "bytes": 284848,
+      "sha256": "57a058899c111194324eff7046eaa4bc7844a6d5392eef59ab3541d936e80868"
+    },
+    {
+      "path": "json/responses/legion_commander_automaton_persona.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/legion_commander_automaton_persona.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "json/responses/leshrac.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/leshrac.json",
+      "bytes": 69235,
+      "sha256": "31d4d2d25f668215b1a168cb69ddcdedc893ab023a20972b311b4f9b53aed8d6"
+    },
+    {
+      "path": "json/responses/lich.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/lich.json",
+      "bytes": 77664,
+      "sha256": "f07d1755e65285a9f3908c18144d389692ea7694c1ef081febed490c16c0b098"
+    },
+    {
+      "path": "json/responses/lifestealer.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/lifestealer.json",
+      "bytes": 95080,
+      "sha256": "723bbf8e525f76287ba5c95f123d22aef3938d0dc6773b932c17d06dcafe969f"
+    },
+    {
+      "path": "json/responses/lina.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/lina.json",
+      "bytes": 80206,
+      "sha256": "c0eb55bb90005eb388230539dd73a7197b97179efa754655bbdc1b2209d8dac5"
+    },
+    {
+      "path": "json/responses/lion.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/lion.json",
+      "bytes": 57357,
+      "sha256": "bc960a253cec515ebe799e69d836ceb5b01c27d7087729cad7a6eb3b63cc73f0"
+    },
+    {
+      "path": "json/responses/lone_druid.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/lone_druid.json",
+      "bytes": 224591,
+      "sha256": "8016fe879e306bebd994a7c444354d2857b9ff0e4dcf757bd890997dda52e522"
+    },
+    {
+      "path": "json/responses/luna.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/luna.json",
+      "bytes": 87113,
+      "sha256": "41008b738e34d3220b2f67d8ae0d67b5ffe42fc3c171abb852842f3191aaf7ad"
+    },
+    {
+      "path": "json/responses/lycan.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/lycan.json",
+      "bytes": 94304,
+      "sha256": "062b57990093d71d0f73353b0d862e48805c9548531a305f52b6d28b82aded36"
+    },
+    {
+      "path": "json/responses/magnus.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/magnus.json",
+      "bytes": 102369,
+      "sha256": "dee4fb597c7cd52202292dd939054eb8824d7a9914ddaec963dd424477161193"
+    },
+    {
+      "path": "json/responses/manifold_paradox.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/manifold_paradox.json",
+      "bytes": 78242,
+      "sha256": "4bb678eadb51f8207b1168ee69964f2148b44015bf5e85e87c40d82084cf0817"
+    },
+    {
+      "path": "json/responses/marci.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/marci.json",
+      "bytes": 3241,
+      "sha256": "6fcabe8361e01b59a6699c6101f53382a5815acd82f0a24cf7108dd21911116a"
+    },
+    {
+      "path": "json/responses/mars.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/mars.json",
+      "bytes": 403397,
+      "sha256": "3a62ff603036fa065edc293eb4017480d752f16d73d626f5e351ec94e27a7e25"
+    },
+    {
+      "path": "json/responses/medusa.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/medusa.json",
+      "bytes": 114140,
+      "sha256": "5125f6fb44a67b7cb4254ab9495fbb1c425ca7d9d38351bce83f6a8495476bf0"
+    },
+    {
+      "path": "json/responses/meepo.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/meepo.json",
+      "bytes": 122973,
+      "sha256": "08a2420b6b5daefabd92e1c0add27d85307ed1bec80c45b8e6418673a05f1344"
+    },
+    {
+      "path": "json/responses/megakills_axe.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_axe.json",
+      "bytes": 18210,
+      "sha256": "66e65fc6cb9b73e89e37e08ec7b6510c94ae5d05c786caec10a910cd56805a33"
+    },
+    {
+      "path": "json/responses/megakills_bastion.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_bastion.json",
+      "bytes": 29412,
+      "sha256": "c105c83cf9802d0846a14ffa90381853da63e2baff055b98031f23d6af2fe30f"
+    },
+    {
+      "path": "json/responses/megakills_bristleback.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_bristleback.json",
+      "bytes": 20506,
+      "sha256": "787e4fd38017c54b4d6919e39eb3ba22b2f101ea790a5acd7092b16a8af7f900"
+    },
+    {
+      "path": "json/responses/megakills_cave_johnson.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_cave_johnson.json",
+      "bytes": 203378,
+      "sha256": "5131e6385092f270958dd48ef02042dc533a0a4c7e01e1a84695232f735dcef6"
+    },
+    {
+      "path": "json/responses/megakills_clockwerk.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_clockwerk.json",
+      "bytes": 12872,
+      "sha256": "2a30859f913034833085bd8b085d4674d00699b281753dd41325f4c7b5cf7106"
+    },
+    {
+      "path": "json/responses/megakills_crystal_maiden.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_crystal_maiden.json",
+      "bytes": 22692,
+      "sha256": "fc48e4cda142abdd8d8193b9cb308ccc6242509b7f21f8fa719ca23235ddfd67"
+    },
+    {
+      "path": "json/responses/megakills_dark_willow.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_dark_willow.json",
+      "bytes": 29203,
+      "sha256": "1dd95a76c00d1247762a3fe38c0291a0a49300f8213f1cfa375d11b0226b6ca5"
+    },
+    {
+      "path": "json/responses/megakills_darkest_dungeon_ft_wayne_june.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_darkest_dungeon_ft_wayne_june.json",
+      "bytes": 37756,
+      "sha256": "a75a51aeb5207f73d2a5fe8f1fe22e7da7273fb88cdcfba96f594b078dc6e12f"
+    },
+    {
+      "path": "json/responses/megakills_defense_grid.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_defense_grid.json",
+      "bytes": 35869,
+      "sha256": "81fba598c0945336ffe72a92eefb7f9981d0c62ec85a405892572e95ce00273d"
+    },
+    {
+      "path": "json/responses/megakills_deus_ex.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_deus_ex.json",
+      "bytes": 41674,
+      "sha256": "66ec4155a32b60863e7b4e0ca62d3396d89032c47b422d3f2740dfd36dfe5cd7"
+    },
+    {
+      "path": "json/responses/megakills_diretide.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_diretide.json",
+      "bytes": 57134,
+      "sha256": "1493a62df031925cd27cea335121aeb57bc27a317c14efbf5d57d2d3feaa523d"
+    },
+    {
+      "path": "json/responses/megakills_fallout_.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_fallout_.json",
+      "bytes": 11514,
+      "sha256": "03469c3f50ea7b98983f37f76f918dea2486ef5a721cd261f196100b03e3b31c"
+    },
+    {
+      "path": "json/responses/megakills_gabe_newell.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_gabe_newell.json",
+      "bytes": 57413,
+      "sha256": "0aef433e222c5fa954582c92e558c58aaf2ff6a609042426a2176033ecb34e8b"
+    },
+    {
+      "path": "json/responses/megakills_glados.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_glados.json",
+      "bytes": 26588,
+      "sha256": "8179cbcb751024f5cb7a8365e30fa49cdded23a41b349dfb83b15f64de806ec8"
+    },
+    {
+      "path": "json/responses/megakills_juggernaut.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_juggernaut.json",
+      "bytes": 14414,
+      "sha256": "aa9f3cb70572b7406d21987201cfdfefcd9749707ceb5dbf91accbcbbab849bb"
+    },
+    {
+      "path": "json/responses/megakills_kunkka__tidehunter.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_kunkka__tidehunter.json",
+      "bytes": 36892,
+      "sha256": "326a1409b643d6b3e7f6458685e8b7a94aeeb44e3e07f8e5cc0a202b2a3d0c21"
+    },
+    {
+      "path": "json/responses/megakills_lina.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_lina.json",
+      "bytes": 13960,
+      "sha256": "c48941f13a6621f647aba606314ee655eee3fb17d1df57b5b90abb39b03cf9b1"
+    },
+    {
+      "path": "json/responses/megakills_meepo.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_meepo.json",
+      "bytes": 28544,
+      "sha256": "173f6701269492aa7b0da1c93ca8c7279107fa5e7d2730ef0e6edacc94b65c03"
+    },
+    {
+      "path": "json/responses/megakills_monkey_king.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_monkey_king.json",
+      "bytes": 24573,
+      "sha256": "4cfe193d74cbad2b0a484f66c7dcc7aabea6b65d2a993f7b20fe1e5c716abc9b"
+    },
+    {
+      "path": "json/responses/megakills_natures_prophet.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_natures_prophet.json",
+      "bytes": 13624,
+      "sha256": "a4340e235c68367eb230867163709102af5f6b8fcba8c78dc51a2b8f897010cd"
+    },
+    {
+      "path": "json/responses/megakills_pyrion_flax.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_pyrion_flax.json",
+      "bytes": 35657,
+      "sha256": "9c65f73393d2ed893ea46571458514d98d41a74c97597eaad4f76bee1fe19d38"
+    },
+    {
+      "path": "json/responses/megakills_rick_and_morty.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_rick_and_morty.json",
+      "bytes": 80569,
+      "sha256": "f91c070a9b49a0445d4d299fcb226ad7c4ca071ecb951606cdf5f983c0bef5a9"
+    },
+    {
+      "path": "json/responses/megakills_ringmaster.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_ringmaster.json",
+      "bytes": 8559,
+      "sha256": "0133dd77b935922726d40d0d75fbebaed715e2e8cd2d7ae8ed06944f5a506848"
+    },
+    {
+      "path": "json/responses/megakills_storm_spirit.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_storm_spirit.json",
+      "bytes": 15316,
+      "sha256": "d41a194ec59f568247726258c53880970467bfdfa07c4ebdda9b9ea5a9115683"
+    },
+    {
+      "path": "json/responses/megakills_techies.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_techies.json",
+      "bytes": 16876,
+      "sha256": "edf2a8b5781d76a26b9dc3b359625833502e567aaddd3bb9c9d13132524960d7"
+    },
+    {
+      "path": "json/responses/megakills_the_pirate_capn.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_the_pirate_capn.json",
+      "bytes": 29078,
+      "sha256": "784d15a16ae3f68f2c3ad777f508c8ed6855f57886e161a30e722f6e6ac35417"
+    },
+    {
+      "path": "json/responses/megakills_the_stanley_parable.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_the_stanley_parable.json",
+      "bytes": 92912,
+      "sha256": "224495485c3d7ebc9b0e0cc5406a42c6b00b8ebceb587fea713ef5b72e8d5b42"
+    },
+    {
+      "path": "json/responses/megakills_trine.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_trine.json",
+      "bytes": 21618,
+      "sha256": "dbc1c918ca39a750ac13221e60223f39e9f14223080b625e4ac4bbf350d4d567"
+    },
+    {
+      "path": "json/responses/megakills_voice_of_the_international.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/megakills_voice_of_the_international.json",
+      "bytes": 34921,
+      "sha256": "c1832861ac2a1b92cf67f190082c7697db37dc8ec81306e14ea2ba2b9443d068"
+    },
+    {
+      "path": "json/responses/mercurials_call.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/mercurials_call.json",
+      "bytes": 106044,
+      "sha256": "dd39d13f133a11c308a2bfcb0a5c58211f118cf52385b9278ab5af11cc313c9c"
+    },
+    {
+      "path": "json/responses/mirana.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/mirana.json",
+      "bytes": 97019,
+      "sha256": "6d9fdd7d414509fe2556eeab707c5381036e1338c07a7102ffa740f29e8ad0b8"
+    },
+    {
+      "path": "json/responses/mirana_of_nightsilver.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/mirana_of_nightsilver.json",
+      "bytes": 345723,
+      "sha256": "1dd281a80becf6d30045bf587caf2632fe667b2d2e2916a8c0302fcb1ad4e56f"
+    },
+    {
+      "path": "json/responses/monkey_king.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/monkey_king.json",
+      "bytes": 374542,
+      "sha256": "5579f3fa5f948331668acad4805d443b62d0165059258fbdf19ec9a4edea18b7"
+    },
+    {
+      "path": "json/responses/morphling.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/morphling.json",
+      "bytes": 105249,
+      "sha256": "119a64a7b0c562feedaea5cbbffc3ac9ea3d49ca43bb7fc4e82b42f0e56a7338"
+    },
+    {
+      "path": "json/responses/morphling_automaton_persona.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/morphling_automaton_persona.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "json/responses/muerta.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/muerta.json",
+      "bytes": 527631,
+      "sha256": "d7679b5c5873282244ba4bd23149e925c6143f5e8386fe5cb29faf278d6320b3"
+    },
+    {
+      "path": "json/responses/naga_siren.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/naga_siren.json",
+      "bytes": 95002,
+      "sha256": "5ea30cdc2af759e2458b7dad3113f37d8aee8c12b9de5ca4e82f1a64aaed06ff"
+    },
+    {
+      "path": "json/responses/natures_prophet.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/natures_prophet.json",
+      "bytes": 78327,
+      "sha256": "454e35ca2cc55c2ebff75356c2cf82394ce1d112cc1b5e98623e6497a9a424e8"
+    },
+    {
+      "path": "json/responses/necrophos.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/necrophos.json",
+      "bytes": 70168,
+      "sha256": "63e3659389eff9f0882a5f4e28541f4dc0facecc8bc1bc25875bee551907852b"
+    },
+    {
+      "path": "json/responses/night_stalker.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/night_stalker.json",
+      "bytes": 76425,
+      "sha256": "8c7a4bdfaefdbf380e0e8c3a0495c074d6c2c1440135099d8a0643b6ed29a6ca"
+    },
+    {
+      "path": "json/responses/nyx_assassin.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/nyx_assassin.json",
+      "bytes": 107141,
+      "sha256": "7854777d51b1c4ce03e9157a05b17bc16416c80e3b34466b3b038d05d7bb3007"
+    },
+    {
+      "path": "json/responses/ogre_magi.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/ogre_magi.json",
+      "bytes": 108761,
+      "sha256": "753beb8e6e2e5161929e831c1d1038b5a26d05440a167db18389160412b50c09"
+    },
+    {
+      "path": "json/responses/omniknight.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/omniknight.json",
+      "bytes": 94006,
+      "sha256": "6d2a2bed61cebb13ba6b46981274bbd352c4db0dd5249b052d8255040f9d536e"
+    },
+    {
+      "path": "json/responses/oracle.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/oracle.json",
+      "bytes": 273500,
+      "sha256": "0970c905b4f77835ef081281aaf06a70a77ea81fe887c88c7ece2b56c163548f"
+    },
+    {
+      "path": "json/responses/oracle_automaton_persona.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/oracle_automaton_persona.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "json/responses/outworld_destroyer.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/outworld_destroyer.json",
+      "bytes": 95270,
+      "sha256": "c31b2cb07bef406958457cf52ba1750bb620a0835a04ee635a54b5335e9b3251"
+    },
+    {
+      "path": "json/responses/pangolier.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/pangolier.json",
+      "bytes": 393849,
+      "sha256": "a4752b7f687b7bcb76a7cbdc5440b704bb758c8223a630b50ced48c983d4943d"
+    },
+    {
+      "path": "json/responses/phantom_advent__voice.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/phantom_advent__voice.json",
+      "bytes": 424100,
+      "sha256": "ca77d7601fc5d1d26ce5839ade1f13b25fc5e23db73c627e239ff0c0ae937a8b"
+    },
+    {
+      "path": "json/responses/phantom_assassin.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/phantom_assassin.json",
+      "bytes": 104142,
+      "sha256": "a78577f7d2989cda5e73a68008cf366be5b0be66f7c3580ad2d9ac67ce521b10"
+    },
+    {
+      "path": "json/responses/phantom_lancer.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/phantom_lancer.json",
+      "bytes": 107909,
+      "sha256": "8855214a243dd7c769aed081985cc223d4fe1eba5835bc647c2a98fddde737d2"
+    },
+    {
+      "path": "json/responses/phoenix.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/phoenix.json",
+      "bytes": 6937,
+      "sha256": "a0808b62b78b1eecf795ad794e11a8adc19cd43be781bf68706b4938a58db800"
+    },
+    {
+      "path": "json/responses/planetfall.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/planetfall.json",
+      "bytes": 355980,
+      "sha256": "224948a70b7413dba0c3b78a995db57a73afa979c59a8cbed0cfbc466921f10f"
+    },
+    {
+      "path": "json/responses/primal_beast.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/primal_beast.json",
+      "bytes": 62487,
+      "sha256": "ef69fb9855e7e0ffc194d0bd951f40c025a6facad9a67fa6f98ecf801a9be8e3"
+    },
+    {
+      "path": "json/responses/puck.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/puck.json",
+      "bytes": 75682,
+      "sha256": "51e94aee1e36b8da6189dbbeba2f7d810001d7be7907ce09fdd371acdaf1d846"
+    },
+    {
+      "path": "json/responses/pudge.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/pudge.json",
+      "bytes": 107190,
+      "sha256": "d350eec8060fa303df32dccc59b64383ef1cb7e1430fa28ba551fadc519dd046"
+    },
+    {
+      "path": "json/responses/pugna.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/pugna.json",
+      "bytes": 81676,
+      "sha256": "e1b7d8ab22b184ed2e77be8ca4dfb4e7a7c2ca5b5e1470e2fca1245dcdce8da8"
+    },
+    {
+      "path": "json/responses/queen_of_pain.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/queen_of_pain.json",
+      "bytes": 103849,
+      "sha256": "d53506bb28162f2dbcf12a63da38bebb7f2e3d9b2d0e7ff7692747b0a6f6f52a"
+    },
+    {
+      "path": "json/responses/razor.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/razor.json",
+      "bytes": 85996,
+      "sha256": "64c1c0033e117b09bbd1e4add5721e63f0cff8d8d2a448d9c8073d6388fa0caa"
+    },
+    {
+      "path": "json/responses/riki.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/riki.json",
+      "bytes": 64574,
+      "sha256": "00d228625c1c2099cebbb76a9dd4ddf51c444c214c7b4b4a2441a1f4c4943cf7"
+    },
+    {
+      "path": "json/responses/ringmaster.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/ringmaster.json",
+      "bytes": 314322,
+      "sha256": "9e78a48cdb8ab4d2fcb2f825b720eb034d31a1b911a5ca8497a0173c700349c0"
+    },
+    {
+      "path": "json/responses/rubick.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/rubick.json",
+      "bytes": 152838,
+      "sha256": "1861fc096d8ec88a2a29a2caab18d034fb897e5790b2b6cb717825f90da30066"
+    },
+    {
+      "path": "json/responses/sand_king.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/sand_king.json",
+      "bytes": 85794,
+      "sha256": "f265210833ec381985ffc27d0d0303437554ed1161586e1e71f5a5f3a68453a5"
+    },
+    {
+      "path": "json/responses/shadow_demon.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/shadow_demon.json",
+      "bytes": 108147,
+      "sha256": "8c1e6566454553c877de6077f6d0d533354d2fd23fba0226906307090459a89e"
+    },
+    {
+      "path": "json/responses/shadow_fiend.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/shadow_fiend.json",
+      "bytes": 98006,
+      "sha256": "faedb9634fe00d073723a662aa1013f0ea303774d8c4878cd7b6a4c3da1eac9c"
+    },
+    {
+      "path": "json/responses/shadow_shaman.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/shadow_shaman.json",
+      "bytes": 73301,
+      "sha256": "635ea566b5c009d9cb56fab70b8402142cb1a71e4593351376cfcf6459bd06dd"
+    },
+    {
+      "path": "json/responses/silencer.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/silencer.json",
+      "bytes": 85167,
+      "sha256": "44b436eba3737b129d8904c0eb055c28a5c1078e785155334ecc0ce06da06b3c"
+    },
+    {
+      "path": "json/responses/skywrath_mage.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/skywrath_mage.json",
+      "bytes": 361337,
+      "sha256": "155c061c11db60974fd74e0de70d0652d5716ae5b3e0cbd18301f4a7abcb9b21"
+    },
+    {
+      "path": "json/responses/slardar.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/slardar.json",
+      "bytes": 66690,
+      "sha256": "da4bc4365ab4bef9781073844573468cd714ac9d21e3da624a241c2f3bce2045"
+    },
+    {
+      "path": "json/responses/slark.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/slark.json",
+      "bytes": 88731,
+      "sha256": "bd5a31140741587b5a53540a6fd9422afdecab0ba53f97599328ffab05d5329a"
+    },
+    {
+      "path": "json/responses/snapfire.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/snapfire.json",
+      "bytes": 822573,
+      "sha256": "624faac3dfdb8437d244b418fe98110cc1074a219836ed6b83aa95595aeacd19"
+    },
+    {
+      "path": "json/responses/sniper.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/sniper.json",
+      "bytes": 86457,
+      "sha256": "90da364bc0a63ad5b3485d4a076a09e6b7ddb4cd03b4d7b79f9fde23e7bac751"
+    },
+    {
+      "path": "json/responses/spectre.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/spectre.json",
+      "bytes": 66292,
+      "sha256": "97be89dfe0a673f30cd954b5a1dbc5d36f7c051426c90296552e9fd742780cfb"
+    },
+    {
+      "path": "json/responses/spirit_breaker.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/spirit_breaker.json",
+      "bytes": 87217,
+      "sha256": "91afd458b9e3156126e01b895d9a9416e3bfdfc678d8b1565ffb30734c8f2abb"
+    },
+    {
+      "path": "json/responses/storm_spirit.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/storm_spirit.json",
+      "bytes": 91508,
+      "sha256": "d8fcb997a12be1370d8ffa3ba2fa0f736dba0a13c22081bf22789c2ee00f0eb2"
+    },
+    {
+      "path": "json/responses/sven.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/sven.json",
+      "bytes": 95562,
+      "sha256": "2b4f2219458a7e48427b882613746090089cda737b2681e73dd54821cb1d8829"
+    },
+    {
+      "path": "json/responses/techies.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/techies.json",
+      "bytes": 218065,
+      "sha256": "6188c847ec096405f5e6103a5dc3b06febee3518b3baca14c01b4698950b437d"
+    },
+    {
+      "path": "json/responses/tempest_helm_of_the_thundergod.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/tempest_helm_of_the_thundergod.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "json/responses/templar_assassin.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/templar_assassin.json",
+      "bytes": 103837,
+      "sha256": "c7afea0525ced579d60a8f2f6f142537df424f6653b448bbdcb7205b3d03bb49"
+    },
+    {
+      "path": "json/responses/terrorblade.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/terrorblade.json",
+      "bytes": 186221,
+      "sha256": "960e4912714e62f06096a1d2591fa418fbd8e9e691361fde43e79f5b0a3c0908"
+    },
+    {
+      "path": "json/responses/the_devotions_of_dragonus__wings.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/the_devotions_of_dragonus__wings.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "json/responses/the_disciples_path.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/the_disciples_path.json",
+      "bytes": 360460,
+      "sha256": "312a35485cb24aa2eeeccd7324411f3e234722688ed8f9777f7c4a8784e77f0b"
+    },
+    {
+      "path": "json/responses/the_good_old_days.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/the_good_old_days.json",
+      "bytes": 282866,
+      "sha256": "3a78955eb32686927d776b7e5d38e3225e7bd67cc4d12c8cac667d776313a8bd"
+    },
+    {
+      "path": "json/responses/the_resurrection_of_shen__wings.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/the_resurrection_of_shen__wings.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "json/responses/the_toy_butcher.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/the_toy_butcher.json",
+      "bytes": 337237,
+      "sha256": "4171a9cc06e8a0ccd0733fa9814e6d54cd3d057a3f5a0e62d39b2f74f5f68204"
+    },
+    {
+      "path": "json/responses/tidehunter.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/tidehunter.json",
+      "bytes": 75337,
+      "sha256": "8798d4bc4a941e6717f1eff8ac4caa8126dc60751e1fb1530ed67c46e919cd2b"
+    },
+    {
+      "path": "json/responses/timbersaw.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/timbersaw.json",
+      "bytes": 111313,
+      "sha256": "c327771f7a20ecde39d8e61280561a2ce56e19a0a7f82e6c3224ea01ef1089a6"
+    },
+    {
+      "path": "json/responses/tinker.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/tinker.json",
+      "bytes": 93199,
+      "sha256": "c22efae32fd57ec52bef64a5e8975f079d74a0b10327e779dc76b7b08e160338"
+    },
+    {
+      "path": "json/responses/tiny.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/tiny.json",
+      "bytes": 310065,
+      "sha256": "8e9eabbd07dacd5166098b1b9c06e4f2ec21553fb7bf2242276e6dc2ae8b8cc9"
+    },
+    {
+      "path": "json/responses/treant_protector.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/treant_protector.json",
+      "bytes": 107576,
+      "sha256": "635d3a2505f758a0f847252f863122f44b7506557ff9beab903c02783ab67f0c"
+    },
+    {
+      "path": "json/responses/troll_warlord.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/troll_warlord.json",
+      "bytes": 109585,
+      "sha256": "bb3d54c79009e8b9d7d228a275485d263243d9f41c3f1b38aeec4c2edd847c28"
+    },
+    {
+      "path": "json/responses/tusk.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/tusk.json",
+      "bytes": 142991,
+      "sha256": "4da9202bba2c0b08d1e8f07f130015c39a9a66d0a704fded59b8f7c7dd862dc3"
+    },
+    {
+      "path": "json/responses/underlord.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/underlord.json",
+      "bytes": 110838,
+      "sha256": "5ec0ff8b40ae62404168aa3130c8e0eda18f2211b5b9b906eabb159ef4e2a3ef"
+    },
+    {
+      "path": "json/responses/undying.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/undying.json",
+      "bytes": 228043,
+      "sha256": "d550d6c0ba3b4986d025ed21a9d0603fead503dd6328a31589f44c5758ca1a15"
+    },
+    {
+      "path": "json/responses/ursa.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/ursa.json",
+      "bytes": 103613,
+      "sha256": "664ba4dc638757d3a3eb0b5b20f6f90b23845150adfff540d4a3440bb51e9740"
+    },
+    {
+      "path": "json/responses/vengeful_spirit.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/vengeful_spirit.json",
+      "bytes": 531316,
+      "sha256": "07a89d33fc3bedb55b094224f82f6174da0a0a0885241fa09771886c9aafb6bb"
+    },
+    {
+      "path": "json/responses/venomancer.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/venomancer.json",
+      "bytes": 76579,
+      "sha256": "a1d53e7f675f16ea103bf63bef72ff06378ccadc852176432b5ae2e9ac9c6a2c"
+    },
+    {
+      "path": "json/responses/viper.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/viper.json",
+      "bytes": 62744,
+      "sha256": "0858419de22134cd9c81af031d4f8e108e16baaabf81a7acba51f4a9e01c6f50"
+    },
+    {
+      "path": "json/responses/visage.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/visage.json",
+      "bytes": 105404,
+      "sha256": "b123a97c3a302f143dd5f861fca345cfb927770be49e3705102f3c61eb6a808f"
+    },
+    {
+      "path": "json/responses/voice_of_flockhearts_gamble.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/voice_of_flockhearts_gamble.json",
+      "bytes": 222011,
+      "sha256": "6fad5585cd7b66f3b5093f238bdd64edc4dc0cc80386b7eca98237624fffbc46"
+    },
+    {
+      "path": "json/responses/voice_of_the_magus_cypher.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/voice_of_the_magus_cypher.json",
+      "bytes": 136646,
+      "sha256": "be4795ea09c6f49a6f9ddcad306c4a5e7b1acaa24de903376f90528c81d810a0"
+    },
+    {
+      "path": "json/responses/void_spirit.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/void_spirit.json",
+      "bytes": 333402,
+      "sha256": "485158fec7c83cc7e30594ca0d1f8c23ed56c9516b9858d8062af34744f47245"
+    },
+    {
+      "path": "json/responses/voidstorm_asylum_tormentor.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/voidstorm_asylum_tormentor.json",
+      "bytes": 226814,
+      "sha256": "303b69bf0fe1734e898a0a5c7841bb4674d9bd64091d29856ffe905e150589ea"
+    },
+    {
+      "path": "json/responses/warlock.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/warlock.json",
+      "bytes": 71535,
+      "sha256": "b6b50bec07073ef69cb0e19483efebbb1c0b3ee6cca33091ea1c458a6da2c45c"
+    },
+    {
+      "path": "json/responses/weaver.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/weaver.json",
+      "bytes": 69315,
+      "sha256": "c43f0379cec7884e69dbd3d9d07a3b6c237a595ea93afcda819fca34c6b958b8"
+    },
+    {
+      "path": "json/responses/windranger.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/windranger.json",
+      "bytes": 106868,
+      "sha256": "6fb7825cdfca9d477e212ffbd5a3d3105f12fa1759449bb2e5916adf207f6f25"
+    },
+    {
+      "path": "json/responses/winter_wyvern.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/winter_wyvern.json",
+      "bytes": 113594,
+      "sha256": "2231ef593607f101c5223d2e352aae2f7fd6157c17d0b4a4adde9a41af2c6cd6"
+    },
+    {
+      "path": "json/responses/witch_doctor.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/witch_doctor.json",
+      "bytes": 65864,
+      "sha256": "465506fba240ba5ffdca3a8a93c0d4e791b283e66a192fd0642afdb36ab226d7"
+    },
+    {
+      "path": "json/responses/wraith_king.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/wraith_king.json",
+      "bytes": 162248,
+      "sha256": "c8df0d180accfc0d3f9d55fd930d8c103ab6168ba7be89d4f5348e7b66889899"
+    },
+    {
+      "path": "json/responses/zeus.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/zeus.json",
+      "bytes": 215619,
+      "sha256": "4448cabd8215464718d68d0a346921f2b382d2bc40c63250f67c4141034151c4"
+    },
+    {
+      "path": "json/heroes.json",
+      "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/heroes.json",
+      "bytes": 2358942,
+      "sha256": "4b82d54e4ec2a045b116c589c87151c100c017a6051d3b5dbe9af16c1c061ae1"
+    }
+  ]
+}

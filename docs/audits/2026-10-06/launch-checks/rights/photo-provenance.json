@@ -1,0 +1,1119 @@
+{
+  "reviewedAt": "2026-10-06",
+  "scope": "All 23 preserved Flashback photos and team marks in quarantine-manifest.json. Read-only app and asset review.",
+  "expectedResult": "Every preserved asset has an identity hash, source status, creator status and permission status. Only exact hash matches are described as byte-identical. Unknowns remain explicit.",
+  "summary": {
+    "transformed-resemblance": 8,
+    "unconfirmed-candidate": 1,
+    "Unknown": 7,
+    "byte-identical": 7
+  },
+  "licenseSummary": {
+    "CC BY 2.0": 1,
+    "CC BY-SA 2.0": 1,
+    "Unknown": 19,
+    "All rights reserved": 2
+  },
+  "assets": [
+    {
+      "oldPublicPath": "public/arcade/flashback/ti-seattle.jpg",
+      "oldPublicUrl": "/arcade/flashback/ti-seattle.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/ti-seattle.jpg",
+      "sha256": "faa960fdb052714ecf13582d36350931a8f3ca350587b5da78daebbd0034131b",
+      "bytes": 259038,
+      "uses": [
+        {
+          "id": "flashback:ti2-winner",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti3-winner",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti2-year",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti3-year",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:first-seattle-ti",
+          "field": "image.src"
+        }
+      ],
+      "dimensions": [
+        960,
+        640
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "f497faa647f9a7371559c47303242012ca187b65",
+      "gitIntroductionNote": "Use each International's own art on Flashback\n\nWho-won prompts get that year's TI mark or stage, not the Aegis\nand not the winning team.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "transformed-resemblance",
+      "sourcePage": "https://www.flickr.com/photos/jakobwells/14516251507/",
+      "sourceImageUrl": "https://live.staticflickr.com/2908/14516251507_34937933b8_b.jpg",
+      "publisher": "Jakob Wells on Flickr",
+      "photographerOrDesigner": "Jakob Wells",
+      "license": "CC BY 2.0",
+      "licenseEvidenceUrl": "https://www.flickr.com/photos/jakobwells/14516251507/",
+      "reusePermission": "License grant found; attribution and license conditions must be met before reuse.",
+      "evidence": [
+        {
+          "kind": "photographer-published-license",
+          "title": "The International 2014",
+          "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+          "commonsFilePage": "https://commons.wikimedia.org/wiki/File:The_International_2014.jpg",
+          "meanAbsoluteRgbDifferenceAfterResize": 7.342817382812499,
+          "imageSha256": "a139deb589725c34d39ef9e89c20f07ff8afaced835c120382b6d3689c37e8d7"
+        }
+      ],
+      "limits": [
+        "This is the TI4 KeyArena photo, not a TI2 or TI3 venue photo. The previous app uses listed in the quarantine manifest could imply the wrong event.",
+        "Exact local byte identity against the Commons thumbnail could not be tested because its host returned HTTP 403.",
+        "The first candidate, Crowd_at_TI4.jpg / Flickr 14515407230, was rejected because it shows a different camera angle. Its license was not used as proof for this asset."
+      ],
+      "embeddedArtist": "unknown",
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/ti1-gamescom.jpg",
+      "oldPublicUrl": "/arcade/flashback/ti1-gamescom.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/ti1-gamescom.jpg",
+      "sha256": "bbf28b76a319b66328c798ec035bdb0516fa4bc51deb075ee4e6faf6b34f32c8",
+      "bytes": 188575,
+      "uses": [
+        {
+          "id": "flashback:ti1-year",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti1-winner",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti1-city",
+          "field": "image.src"
+        }
+      ],
+      "dimensions": [
+        960,
+        640
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "f497faa647f9a7371559c47303242012ca187b65",
+      "gitIntroductionNote": "Use each International's own art on Flashback\n\nWho-won prompts get that year's TI mark or stage, not the Aegis\nand not the winning team.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "transformed-resemblance",
+      "sourcePage": "https://www.flickr.com/photos/designducky/6073132468/",
+      "sourceImageUrl": "https://live.staticflickr.com/6063/6073132468_b3fefe5411_b.jpg",
+      "publisher": "designducky on Flickr",
+      "photographerOrDesigner": "YJ, currently displayed as designducky on Flickr",
+      "license": "CC BY-SA 2.0",
+      "licenseEvidenceUrl": "https://www.flickr.com/photos/designducky/6073132468/",
+      "reusePermission": "License grant found; attribution and applicable share-alike conditions must be met before reuse.",
+      "evidence": [
+        {
+          "kind": "photographer-published-license",
+          "title": "valve's booth next door",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+          "currentFlickrAuthor": "designducky",
+          "commonsAuthor": "YJ",
+          "commonsFilePage": "https://commons.wikimedia.org/wiki/File:The_International_Dota_2_video_game_tournament.jpg",
+          "meanAbsoluteRgbDifferenceAfterResize": 5.104111328125001,
+          "imageSha256": "9c43bc2e34a24265d319c55263144c624ac00bb6803ef4d1270438bb8fdc5ddb"
+        }
+      ],
+      "limits": [
+        "Visual composition and low pixel difference match the same photograph. Exact local byte identity against the Commons 960-pixel thumbnail could not be tested because its host returned HTTP 403.",
+        "This source evidence does not prove that the app previously met the license conditions."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/ti5-keyarena.jpg",
+      "oldPublicUrl": "/arcade/flashback/ti5-keyarena.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/ti5-keyarena.jpg",
+      "sha256": "43c6273b05cc1ca1c0dc3524fbf398aed7595d67f0d0c8a1d2545ff775001814",
+      "bytes": 229778,
+      "uses": [
+        {
+          "id": "flashback:ti5-winner",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti7-winner",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti5-year",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti7-year",
+          "field": "image.src"
+        }
+      ],
+      "dimensions": [
+        960,
+        640
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "f497faa647f9a7371559c47303242012ca187b65",
+      "gitIntroductionNote": "Use each International's own art on Flashback\n\nWho-won prompts get that year's TI mark or stage, not the Aegis\nand not the winning team.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "unconfirmed-candidate",
+      "sourcePage": "Unknown",
+      "sourceImageUrl": "Unknown",
+      "publisher": "Unknown",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "candidate-file-page",
+          "url": "https://commons.wikimedia.org/wiki/File:The_International_2015,_Key_Arena,_Seattle,_Washington_D.C..jpg",
+          "candidatePhotographer": "Zilsonzxc",
+          "candidateLicense": "CC BY-SA 4.0",
+          "candidateLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "basis": "The creator upload states own work and displays this license. The linked 960 by 640 thumbnail could not be downloaded for identity comparison."
+        }
+      ],
+      "limits": [
+        "The candidate license cannot be assigned to the local asset until photo identity is confirmed. Asset source, photographer and license remain Unknown."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/ti8-vancouver.jpg",
+      "oldPublicUrl": "/arcade/flashback/ti8-vancouver.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/ti8-vancouver.jpg",
+      "sha256": "3464e1d74caf040d26f445222d6b5ed6f3d4b9338203789f5336777dbdd8cd7c",
+      "bytes": 130586,
+      "uses": [
+        {
+          "id": "flashback:og-first-ti-year",
+          "field": "image.src"
+        },
+        {
+          "id": "flashback:ti8-winner",
+          "field": "image.src"
+        }
+      ],
+      "dimensions": [
+        960,
+        640
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "f497faa647f9a7371559c47303242012ca187b65",
+      "gitIntroductionNote": "Use each International's own art on Flashback\n\nWho-won prompts get that year's TI mark or stage, not the Aegis\nand not the winning team.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "Unknown",
+      "sourcePage": "Unknown",
+      "sourceImageUrl": "Unknown",
+      "publisher": "Unknown",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [],
+      "limits": [
+        "The image shows two commentators at a desk. The file name is not proof of a specific event or location. Commons category candidates could not be compared because thumbnail downloads returned HTTP 403."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/boston-og.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/boston-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/boston-og.jpg",
+      "sha256": "04fda07e56fb6a53a8ebc09235c41a29fe838a61803f9f9cd9bbfd2b2882ba2f",
+      "bytes": 157993,
+      "uses": [
+        {
+          "id": "flashback:boston-major-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        576,
+        384
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "9ace4dc19ed13ca8d4e091e8b1f23754c8dae467",
+      "gitIntroductionNote": "Show official winner photos after Flashback who-won\n\nLiquipedia is rate-limited from this host, so reveal uses Valve hoist and roster shots for later TIs and the five Majors. Older TIs stay on team marks until those galleries are reachable.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "byte-identical",
+      "sourcePage": "https://store.steampowered.com/news/app/570/view/3819571008275060558",
+      "sourceImageUrl": "https://cdn.steamstatic.com/apps/dota2/blog/boston_major_champions.jpg",
+      "publisher": "Valve",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "published-article-image",
+          "articleTitle": "The Boston Major Champions",
+          "articleGid": "3819571008275060558",
+          "originalArticleImageUrl": "https://cdn.dota2.com/apps/dota2/blog/boston_major_champions.jpg",
+          "downloadUrl": "https://cdn.steamstatic.com/apps/dota2/blog/boston_major_champions.jpg",
+          "downloadSha256": "04fda07e56fb6a53a8ebc09235c41a29fe838a61803f9f9cd9bbfd2b2882ba2f",
+          "downloadBytes": 157993,
+          "downloadDimensions": [
+            576,
+            384
+          ],
+          "match": "byte-identical",
+          "meanAbsoluteRgbDifferenceAfterResize": null
+        }
+      ],
+      "limits": [
+        "The publisher and hosting domain do not establish photographer ownership or a permission grant for this app. The inspected article does not supply a photographer credit or an image-specific reuse license."
+      ],
+      "embeddedMetadataNote": "Adobe Photoshop CS6 document metadata is present. It does not identify a photographer or reuse license.",
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/falcons.png",
+      "oldPublicUrl": "/arcade/flashback/winners/falcons.png",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/falcons.png",
+      "sha256": "af366792bf1861ba0b9432c4bd6f58cc873ebec4667b0db450fd1228aa490037",
+      "bytes": 10154,
+      "uses": [],
+      "dimensions": [
+        250,
+        109
+      ],
+      "kind": "team-mark",
+      "gitIntroductionCommit": "895d2cc3f177c5689e86b5436eea9c12de9d44aa",
+      "gitIntroductionNote": "Stop Flashback order cards jumping and show a reveal picture\n\nLock the order board size so picking a card does not move the frame. After reveal, show the winning team mark or the hidden subject next to the text.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "Unknown",
+      "sourcePage": "Unknown",
+      "sourceImageUrl": "Unknown",
+      "publisher": "Unknown",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [],
+      "limits": [
+        "The introduction commit contains no exact source URL or reuse license. No acquisition script or embedded creator credit was found. Team identity alone does not identify the designer or establish permission."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/frankfurt-og.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/frankfurt-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/frankfurt-og.jpg",
+      "sha256": "b9f9978ae322169939e6128bd4835a8fafd32d6e9ef8689de84e2fac7c7455c2",
+      "bytes": 97500,
+      "uses": [
+        {
+          "id": "flashback:frankfurt-major-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        810,
+        550
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "9ace4dc19ed13ca8d4e091e8b1f23754c8dae467",
+      "gitIntroductionNote": "Show official winner photos after Flashback who-won\n\nLiquipedia is rate-limited from this host, so reveal uses Valve hoist and roster shots for later TIs and the five Majors. Older TIs stay on team marks until those galleries are reachable.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "byte-identical",
+      "sourcePage": "https://store.steampowered.com/news/app/570/view/377536659007548439",
+      "sourceImageUrl": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/frankfurt_major_og_2015.jpg",
+      "publisher": "Valve",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "published-article-image",
+          "articleTitle": "The Frankfurt Major Champions",
+          "articleGid": "377536659007548439",
+          "originalArticleImageUrl": "https://cdn.dota2.com/apps/dota2/images/blogfiles/frankfurt_major_og_2015.jpg",
+          "downloadUrl": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/frankfurt_major_og_2015.jpg",
+          "downloadSha256": "b9f9978ae322169939e6128bd4835a8fafd32d6e9ef8689de84e2fac7c7455c2",
+          "downloadBytes": 97500,
+          "downloadDimensions": [
+            810,
+            550
+          ],
+          "match": "byte-identical",
+          "meanAbsoluteRgbDifferenceAfterResize": null
+        }
+      ],
+      "limits": [
+        "The publisher and hosting domain do not establish photographer ownership or a permission grant for this app. The inspected article does not supply a photographer credit or an image-specific reuse license."
+      ],
+      "embeddedMetadataNote": "Adobe Photoshop CS6 document metadata is present. It does not identify a photographer or reuse license.",
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/kiev-og.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/kiev-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/kiev-og.jpg",
+      "sha256": "aabb83368fa9da9a413727710a4d650e59eb0870602eedb53ea308e26c709d86",
+      "bytes": 259334,
+      "uses": [
+        {
+          "id": "flashback:kiev-major-winner",
+          "field": "flashback.revealMedia.src"
+        },
+        {
+          "id": "flashback:four-majors",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        810,
+        550
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "9ace4dc19ed13ca8d4e091e8b1f23754c8dae467",
+      "gitIntroductionNote": "Show official winner photos after Flashback who-won\n\nLiquipedia is rate-limited from this host, so reveal uses Valve hoist and roster shots for later TIs and the five Majors. Older TIs stay on team marks until those galleries are reachable.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "byte-identical",
+      "sourcePage": "https://store.steampowered.com/news/app/570/view/3819571008275059440",
+      "sourceImageUrl": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/kiev_major_winners.jpg",
+      "publisher": "Valve",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "published-article-image",
+          "articleTitle": "The Kiev Major Champions",
+          "articleGid": "3819571008275059440",
+          "originalArticleImageUrl": "https://cdn.dota2.com/apps/dota2/images/blogfiles/kiev_major_winners.jpg",
+          "downloadUrl": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/kiev_major_winners.jpg",
+          "downloadSha256": "aabb83368fa9da9a413727710a4d650e59eb0870602eedb53ea308e26c709d86",
+          "downloadBytes": 259334,
+          "downloadDimensions": [
+            810,
+            550
+          ],
+          "match": "byte-identical",
+          "meanAbsoluteRgbDifferenceAfterResize": null
+        }
+      ],
+      "limits": [
+        "The publisher and hosting domain do not establish photographer ownership or a permission grant for this app. The inspected article does not supply a photographer credit or an image-specific reuse license."
+      ],
+      "embeddedMetadataNote": "Adobe Photoshop CS6 document metadata is present. It does not identify a photographer or reuse license.",
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/manila-og.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/manila-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/manila-og.jpg",
+      "sha256": "9f5ed0443e114964f8b92a6b230741159410f4487687469efff0d87a0be7c448",
+      "bytes": 290808,
+      "uses": [
+        {
+          "id": "flashback:manila-major-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        810,
+        550
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "9ace4dc19ed13ca8d4e091e8b1f23754c8dae467",
+      "gitIntroductionNote": "Show official winner photos after Flashback who-won\n\nLiquipedia is rate-limited from this host, so reveal uses Valve hoist and roster shots for later TIs and the five Majors. Older TIs stay on team marks until those galleries are reachable.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "byte-identical",
+      "sourcePage": "https://store.steampowered.com/news/app/570/view/3819571008275229825",
+      "sourceImageUrl": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/blog_manila_2016_champs.jpg",
+      "publisher": "Valve",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "published-article-image",
+          "articleTitle": "Manila Champions, TI Qualifiers and 6.88 Gameplay Update",
+          "articleGid": "3819571008275229825",
+          "originalArticleImageUrl": "https://cdn.dota2.com/apps/dota2/images/blogfiles/blog_manila_2016_champs.jpg",
+          "downloadUrl": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/blog_manila_2016_champs.jpg",
+          "downloadSha256": "9f5ed0443e114964f8b92a6b230741159410f4487687469efff0d87a0be7c448",
+          "downloadBytes": 290808,
+          "downloadDimensions": [
+            810,
+            550
+          ],
+          "match": "byte-identical",
+          "meanAbsoluteRgbDifferenceAfterResize": null
+        }
+      ],
+      "limits": [
+        "The publisher and hosting domain do not establish photographer ownership or a permission grant for this app. The inspected article does not supply a photographer credit or an image-specific reuse license."
+      ],
+      "embeddedMetadataNote": "Adobe Photoshop CS6 document metadata is present. It does not identify a photographer or reuse license.",
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/shanghai-secret.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/shanghai-secret.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/shanghai-secret.jpg",
+      "sha256": "19084cbe2e73af29ed0169df6ce64b3ea3a04bb3ff35c589014e30b19bd4a4a2",
+      "bytes": 136931,
+      "uses": [
+        {
+          "id": "flashback:shanghai-major-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        810,
+        550
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "9ace4dc19ed13ca8d4e091e8b1f23754c8dae467",
+      "gitIntroductionNote": "Show official winner photos after Flashback who-won\n\nLiquipedia is rate-limited from this host, so reveal uses Valve hoist and roster shots for later TIs and the five Majors. Older TIs stay on team marks until those galleries are reachable.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "byte-identical",
+      "sourcePage": "https://store.steampowered.com/news/app/570/view/295355202054110079",
+      "sourceImageUrl": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/shanghai_champions_2016.jpg",
+      "publisher": "Valve",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "published-article-image",
+          "articleTitle": "The Shanghai Major Champions",
+          "articleGid": "295355202054110079",
+          "originalArticleImageUrl": "https://cdn.dota2.com/apps/dota2/images/blogfiles/shanghai_champions_2016.jpg",
+          "downloadUrl": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/shanghai_champions_2016.jpg",
+          "downloadSha256": "19084cbe2e73af29ed0169df6ce64b3ea3a04bb3ff35c589014e30b19bd4a4a2",
+          "downloadBytes": 136931,
+          "downloadDimensions": [
+            810,
+            550
+          ],
+          "match": "byte-identical",
+          "meanAbsoluteRgbDifferenceAfterResize": null
+        }
+      ],
+      "limits": [
+        "The publisher and hosting domain do not establish photographer ownership or a permission grant for this app. The inspected article does not supply a photographer credit or an image-specific reuse license."
+      ],
+      "embeddedMetadataNote": "Adobe Photoshop CS6 document metadata is present. It does not identify a photographer or reuse license.",
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/spirit.png",
+      "oldPublicUrl": "/arcade/flashback/winners/spirit.png",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/spirit.png",
+      "sha256": "ef08fc04052a9a43ca89ee3c51fc667fc9be6f194910948be197dbce65c1e3f7",
+      "bytes": 3573,
+      "uses": [],
+      "dimensions": [
+        250,
+        150
+      ],
+      "kind": "team-mark",
+      "gitIntroductionCommit": "895d2cc3f177c5689e86b5436eea9c12de9d44aa",
+      "gitIntroductionNote": "Stop Flashback order cards jumping and show a reveal picture\n\nLock the order board size so picking a card does not move the frame. After reveal, show the winning team mark or the hidden subject next to the text.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "Unknown",
+      "sourcePage": "Unknown",
+      "sourceImageUrl": "Unknown",
+      "publisher": "Unknown",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [],
+      "limits": [
+        "The introduction commit contains no exact source URL or reuse license. No acquisition script or embedded creator credit was found. Team identity alone does not identify the designer or establish permission."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti10-spirit.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti10-spirit.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti10-spirit.jpg",
+      "sha256": "bc098919d2c1516a196e802d34eefd3f7ae58f3435164a8fbfc0726050197ffe",
+      "bytes": 97736,
+      "uses": [
+        {
+          "id": "flashback:ti10-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        800,
+        533
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "5b1b46902a336d0bc4bd92b816d1f0e7b9fe01b9",
+      "gitIntroductionNote": "Use official Valve hoist photos for TI3, TI5, TI9, and TI10.\n\nFlickr dota2ti shots replace team logos on those who-won reveals. TI1, TI2, TI4, and TI6 still need a usable hoist frame.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "transformed-resemblance",
+      "sourcePage": "https://www.flickr.com/photos/dota2ti/51600685519/",
+      "sourceImageUrl": "https://live.staticflickr.com/65535/51600685519_fe8183389d_c.jpg",
+      "publisher": "Dota 2 The International on Flickr",
+      "photographerOrDesigner": "Unknown",
+      "license": "All rights reserved",
+      "licenseEvidenceUrl": "https://www.flickr.com/photos/dota2ti/51600685519/",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "flickr-photo-model",
+          "photoId": "51600685519",
+          "title": "The International 2021",
+          "licenseId": 0,
+          "imageSha256": "02e854f9d500b0ac2500f9a25bf052e5d4e0b222cf8f1939c57546835872b75c",
+          "meanAbsoluteRgbDifferenceAfterResize": 3.2691080362726708,
+          "displayedLicenseText": "All rights reserved"
+        }
+      ],
+      "limits": [
+        "The photo account is named, but the individual photographer is Unknown. No separate permission for this app was found. The local JPEG is a transformed match, not an identical download."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti11-tundra.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti11-tundra.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti11-tundra.jpg",
+      "sha256": "6ab28b380894e9e0cd74f80bbc7eb1495d8989614105d3cf2f9ae150dfca2bad",
+      "bytes": 184792,
+      "uses": [
+        {
+          "id": "flashback:ti11-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        800,
+        450
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "9ace4dc19ed13ca8d4e091e8b1f23754c8dae467",
+      "gitIntroductionNote": "Show official winner photos after Flashback who-won\n\nLiquipedia is rate-limited from this host, so reveal uses Valve hoist and roster shots for later TIs and the five Majors. Older TIs stay on team marks until those galleries are reachable.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "byte-identical",
+      "sourcePage": "https://store.steampowered.com/news/app/570/view/4706851091188574456",
+      "sourceImageUrl": "https://clan.akamai.steamstatic.com/images/3703047/d20ecdc24cb719aba0ed6fcd4c19c6da2673f510.jpg",
+      "publisher": "Valve",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "published-article-image",
+          "articleTitle": "The International Grand Champions",
+          "articleGid": "4706851091188574456",
+          "originalArticleImageUrl": "https://clan.akamai.steamstatic.com/images/3703047/d20ecdc24cb719aba0ed6fcd4c19c6da2673f510.jpg",
+          "downloadUrl": "https://clan.akamai.steamstatic.com/images/3703047/d20ecdc24cb719aba0ed6fcd4c19c6da2673f510.jpg",
+          "downloadSha256": "6ab28b380894e9e0cd74f80bbc7eb1495d8989614105d3cf2f9ae150dfca2bad",
+          "downloadBytes": 184792,
+          "downloadDimensions": [
+            800,
+            450
+          ],
+          "match": "byte-identical",
+          "meanAbsoluteRgbDifferenceAfterResize": null
+        }
+      ],
+      "limits": [
+        "The publisher and hosting domain do not establish photographer ownership or a permission grant for this app. The inspected article does not supply a photographer credit or an image-specific reuse license."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti12-spirit.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti12-spirit.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti12-spirit.jpg",
+      "sha256": "2d7e0e037d5d0cc706a1fd0189fc63cde7331b102b3d58ce0d78ee39addeb6b9",
+      "bytes": 109461,
+      "uses": [
+        {
+          "id": "flashback:ti12-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        800,
+        533
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "9ace4dc19ed13ca8d4e091e8b1f23754c8dae467",
+      "gitIntroductionNote": "Show official winner photos after Flashback who-won\n\nLiquipedia is rate-limited from this host, so reveal uses Valve hoist and roster shots for later TIs and the five Majors. Older TIs stay on team marks until those galleries are reachable.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "transformed-resemblance",
+      "sourcePage": "https://store.steampowered.com/news/app/570/view/5288974951203591834",
+      "sourceImageUrl": "https://clan.akamai.steamstatic.com/images/3703047/04db0e2af5e77d1d501e46d48b7b86e0a173c421.jpg",
+      "publisher": "Valve",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "published-article-image",
+          "articleTitle": "The International Grand Champions",
+          "articleGid": "5288974951203591834",
+          "originalArticleImageUrl": "https://clan.akamai.steamstatic.com/images/3703047/04db0e2af5e77d1d501e46d48b7b86e0a173c421.jpg",
+          "downloadUrl": "https://clan.akamai.steamstatic.com/images/3703047/04db0e2af5e77d1d501e46d48b7b86e0a173c421.jpg",
+          "downloadSha256": "85281b26ff5f22d171fa2215cba127ea4cb77cd34eaeb87910b6e574478313eb",
+          "downloadBytes": 3151032,
+          "downloadDimensions": [
+            2048,
+            1365
+          ],
+          "match": "visual-pixel-candidate",
+          "meanAbsoluteRgbDifferenceAfterResize": 3.379
+        }
+      ],
+      "limits": [
+        "The publisher and hosting domain do not establish photographer ownership or a permission grant for this app. The inspected article does not supply a photographer credit or an image-specific reuse license.",
+        "The photograph composition matches visually and by low pixel difference after resizing. The exact conversion and original acquisition URL are not recorded."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti13-liquid.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti13-liquid.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti13-liquid.jpg",
+      "sha256": "d1b8af8ce619849b0c8c73ae1bb0c763242166c731b1e419582f1ea6cb6583c5",
+      "bytes": 264256,
+      "uses": [
+        {
+          "id": "flashback:ti13-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        800,
+        450
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "9ace4dc19ed13ca8d4e091e8b1f23754c8dae467",
+      "gitIntroductionNote": "Show official winner photos after Flashback who-won\n\nLiquipedia is rate-limited from this host, so reveal uses Valve hoist and roster shots for later TIs and the five Majors. Older TIs stay on team marks until those galleries are reachable.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "byte-identical",
+      "sourcePage": "https://store.steampowered.com/news/app/570/view/6341720536507758661",
+      "sourceImageUrl": "https://clan.akamai.steamstatic.com/images/3703047/5d614dc7454bfde1701834ffc951eb194a3a55af.jpg",
+      "publisher": "Valve",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "published-article-image",
+          "articleTitle": "The International Grand Champions",
+          "articleGid": "6341720536507758661",
+          "originalArticleImageUrl": "https://clan.akamai.steamstatic.com/images/3703047/5d614dc7454bfde1701834ffc951eb194a3a55af.jpg",
+          "downloadUrl": "https://clan.akamai.steamstatic.com/images/3703047/5d614dc7454bfde1701834ffc951eb194a3a55af.jpg",
+          "downloadSha256": "d1b8af8ce619849b0c8c73ae1bb0c763242166c731b1e419582f1ea6cb6583c5",
+          "downloadBytes": 264256,
+          "downloadDimensions": [
+            800,
+            450
+          ],
+          "match": "byte-identical",
+          "meanAbsoluteRgbDifferenceAfterResize": null
+        }
+      ],
+      "limits": [
+        "The publisher and hosting domain do not establish photographer ownership or a permission grant for this app. The inspected article does not supply a photographer credit or an image-specific reuse license."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti14-falcons.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti14-falcons.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti14-falcons.jpg",
+      "sha256": "89c81bdb9b8171a2eb9b175d2fbc4758b8169f69618f5a327695644b7e562e7b",
+      "bytes": 125518,
+      "uses": [
+        {
+          "id": "flashback:ti14-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        800,
+        450
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "9ace4dc19ed13ca8d4e091e8b1f23754c8dae467",
+      "gitIntroductionNote": "Show official winner photos after Flashback who-won\n\nLiquipedia is rate-limited from this host, so reveal uses Valve hoist and roster shots for later TIs and the five Majors. Older TIs stay on team marks until those galleries are reachable.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "transformed-resemblance",
+      "sourcePage": "https://store.steampowered.com/news/app/570/view/1811138915339274",
+      "sourceImageUrl": "https://clan.akamai.steamstatic.com/images/3703047/4ba13ce440c2d97294b14560cfcf46a3f1b113be.png",
+      "publisher": "Valve",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "published-article-image",
+          "articleTitle": "The International 2025 Grand Champions",
+          "articleGid": "1811138915339274",
+          "originalArticleImageUrl": "https://clan.akamai.steamstatic.com/images/3703047/4ba13ce440c2d97294b14560cfcf46a3f1b113be.png",
+          "downloadUrl": "https://clan.akamai.steamstatic.com/images/3703047/4ba13ce440c2d97294b14560cfcf46a3f1b113be.png",
+          "downloadSha256": "aedf839264ce66a257a3fa22b12ef33f649f8c357b031f96778c0dc32e969c82",
+          "downloadBytes": 794406,
+          "downloadDimensions": [
+            800,
+            450
+          ],
+          "match": "visual-pixel-candidate",
+          "meanAbsoluteRgbDifferenceAfterResize": 4.982
+        }
+      ],
+      "limits": [
+        "The publisher and hosting domain do not establish photographer ownership or a permission grant for this app. The inspected article does not supply a photographer credit or an image-specific reuse license.",
+        "The photograph composition matches visually and by low pixel difference after resizing. The exact conversion and original acquisition URL are not recorded."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti3-alliance.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti3-alliance.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti3-alliance.jpg",
+      "sha256": "d0a2d8a1003e86963958a8f56e3021140667be8ba249f1c2259dae8f3304b478",
+      "bytes": 78000,
+      "uses": [
+        {
+          "id": "flashback:ti3-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        800,
+        533
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "5b1b46902a336d0bc4bd92b816d1f0e7b9fe01b9",
+      "gitIntroductionNote": "Use official Valve hoist photos for TI3, TI5, TI9, and TI10.\n\nFlickr dota2ti shots replace team logos on those who-won reveals. TI1, TI2, TI4, and TI6 still need a usable hoist frame.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "Unknown",
+      "sourcePage": "Unknown",
+      "sourceImageUrl": "Unknown",
+      "publisher": "Dota 2 The International on Flickr, claimed by the introduction commit",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "git-acquisition-note",
+          "commit": "5b1b46902a336d0bc4bd92b816d1f0e7b9fe01b9",
+          "claim": "Flickr dota2ti shots replace team logos on those who-won reveals."
+        }
+      ],
+      "limits": [
+        "The commit names the account but records no exact photo ID. A sample of the relevant official albums did not establish the exact photo. No license from a different photo is applied to this asset."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti5-eg.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti5-eg.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti5-eg.jpg",
+      "sha256": "f9366c6aced39560266da1e026ed1134533e345757f191d13961a5304c0b3b41",
+      "bytes": 110257,
+      "uses": [
+        {
+          "id": "flashback:ti5-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        800,
+        533
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "5b1b46902a336d0bc4bd92b816d1f0e7b9fe01b9",
+      "gitIntroductionNote": "Use official Valve hoist photos for TI3, TI5, TI9, and TI10.\n\nFlickr dota2ti shots replace team logos on those who-won reveals. TI1, TI2, TI4, and TI6 still need a usable hoist frame.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "Unknown",
+      "sourcePage": "Unknown",
+      "sourceImageUrl": "Unknown",
+      "publisher": "Dota 2 The International on Flickr, claimed by the introduction commit",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "git-acquisition-note",
+          "commit": "5b1b46902a336d0bc4bd92b816d1f0e7b9fe01b9",
+          "claim": "Flickr dota2ti shots replace team logos on those who-won reveals."
+        }
+      ],
+      "limits": [
+        "The commit names the account but records no exact photo ID. A sample of the relevant official albums did not establish the exact photo. No license from a different photo is applied to this asset."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti7-liquid.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti7-liquid.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti7-liquid.jpg",
+      "sha256": "0fe5aaefc499e8e86a4172ece400e93f223970dfb36838a96d0e86b985e2c2a7",
+      "bytes": 97448,
+      "uses": [
+        {
+          "id": "flashback:ti7-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        800,
+        543
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "9ace4dc19ed13ca8d4e091e8b1f23754c8dae467",
+      "gitIntroductionNote": "Show official winner photos after Flashback who-won\n\nLiquipedia is rate-limited from this host, so reveal uses Valve hoist and roster shots for later TIs and the five Majors. Older TIs stay on team marks until those galleries are reachable.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "transformed-resemblance",
+      "sourcePage": "https://store.steampowered.com/news/app/570/view/2093464278198213978",
+      "sourceImageUrl": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/blogimg_ti7_grndchmp.png",
+      "publisher": "Valve",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "published-article-image",
+          "articleTitle": "The International Grand Champions",
+          "articleGid": "2093464278198213978",
+          "originalArticleImageUrl": "https://cdn.dota2.com/apps/dota2/images/blogfiles/blogimg_ti7_grndchmp.png",
+          "downloadUrl": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/blogimg_ti7_grndchmp.png",
+          "downloadSha256": "37623d7292d087f99c6eec3ee2d29bd9f8b945084f73d354b3a84a3fdffb9c54",
+          "downloadBytes": 714248,
+          "downloadDimensions": [
+            810,
+            550
+          ],
+          "match": "visual-pixel-candidate",
+          "meanAbsoluteRgbDifferenceAfterResize": 2.452
+        }
+      ],
+      "limits": [
+        "The publisher and hosting domain do not establish photographer ownership or a permission grant for this app. The inspected article does not supply a photographer credit or an image-specific reuse license.",
+        "The photograph composition matches visually and by low pixel difference after resizing. The exact conversion and original acquisition URL are not recorded."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti8-og.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti8-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti8-og.jpg",
+      "sha256": "581361634d2e078e820566a27d3a45daa70ed6233a591d553bff8997749fb3e6",
+      "bytes": 132870,
+      "uses": [
+        {
+          "id": "flashback:ti8-winner",
+          "field": "flashback.revealMedia.src"
+        },
+        {
+          "id": "flashback:back-to-back",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        800,
+        543
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "9ace4dc19ed13ca8d4e091e8b1f23754c8dae467",
+      "gitIntroductionNote": "Show official winner photos after Flashback who-won\n\nLiquipedia is rate-limited from this host, so reveal uses Valve hoist and roster shots for later TIs and the five Majors. Older TIs stay on team marks until those galleries are reachable.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "transformed-resemblance",
+      "sourcePage": "https://store.steampowered.com/news/app/570/view/2444779293802972536",
+      "sourceImageUrl": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/ti8_champions.png",
+      "publisher": "Valve",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "published-article-image",
+          "articleTitle": "The International Grand Champions",
+          "articleGid": "2444779293802972536",
+          "originalArticleImageUrl": "https://cdn.dota2.com/apps/dota2/images/blogfiles/ti8_champions.png",
+          "downloadUrl": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/ti8_champions.png",
+          "downloadSha256": "f8efb6fb8451843e86bf790bcf201eba07c395efcfea9f33c5c076caa6aa2d4f",
+          "downloadBytes": 888148,
+          "downloadDimensions": [
+            810,
+            550
+          ],
+          "match": "visual-pixel-candidate",
+          "meanAbsoluteRgbDifferenceAfterResize": 3.576
+        }
+      ],
+      "limits": [
+        "The publisher and hosting domain do not establish photographer ownership or a permission grant for this app. The inspected article does not supply a photographer credit or an image-specific reuse license.",
+        "The photograph composition matches visually and by low pixel difference after resizing. The exact conversion and original acquisition URL are not recorded."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/ti9-og.jpg",
+      "oldPublicUrl": "/arcade/flashback/winners/ti9-og.jpg",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/ti9-og.jpg",
+      "sha256": "b821ab925a40cdcbd5aeb38ad47489bc5ba282a4b17673b111538c8fed4d029f",
+      "bytes": 66370,
+      "uses": [
+        {
+          "id": "flashback:ti9-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        800,
+        534
+      ],
+      "kind": "photograph",
+      "gitIntroductionCommit": "5b1b46902a336d0bc4bd92b816d1f0e7b9fe01b9",
+      "gitIntroductionNote": "Use official Valve hoist photos for TI3, TI5, TI9, and TI10.\n\nFlickr dota2ti shots replace team logos on those who-won reveals. TI1, TI2, TI4, and TI6 still need a usable hoist frame.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "transformed-resemblance",
+      "sourcePage": "https://www.flickr.com/photos/dota2ti/48617255962/",
+      "sourceImageUrl": "https://live.staticflickr.com/65535/48617255962_430876671e_c.jpg",
+      "publisher": "Dota 2 The International on Flickr",
+      "photographerOrDesigner": "Unknown",
+      "license": "All rights reserved",
+      "licenseEvidenceUrl": "https://www.flickr.com/photos/dota2ti/48617255962/",
+      "reusePermission": "Unknown",
+      "evidence": [
+        {
+          "kind": "flickr-photo-model",
+          "photoId": "48617255962",
+          "title": "The International 2019 Dota® 2 Championships",
+          "licenseId": 0,
+          "imageSha256": "39385d33f0fce18fd4410bf36b4bea11c2dbfe2b6ed845ff458781e647ad6b4c",
+          "meanAbsoluteRgbDifferenceAfterResize": 1.6827590511860173,
+          "displayedLicenseText": "All rights reserved"
+        }
+      ],
+      "limits": [
+        "The photo account is named, but the individual photographer is Unknown. No separate permission for this app was found. The local JPEG is a transformed match, not an identical download."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/tundra.png",
+      "oldPublicUrl": "/arcade/flashback/winners/tundra.png",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/tundra.png",
+      "sha256": "274005db3c0bd04355a30ddc76cf40f1fa6d0eeb44fc9fcd5977176aad3e4110",
+      "bytes": 4598,
+      "uses": [],
+      "dimensions": [
+        250,
+        150
+      ],
+      "kind": "team-mark",
+      "gitIntroductionCommit": "895d2cc3f177c5689e86b5436eea9c12de9d44aa",
+      "gitIntroductionNote": "Stop Flashback order cards jumping and show a reveal picture\n\nLock the order board size so picking a card does not move the frame. After reveal, show the winning team mark or the hidden subject next to the text.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "Unknown",
+      "sourcePage": "Unknown",
+      "sourceImageUrl": "Unknown",
+      "publisher": "Unknown",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [],
+      "limits": [
+        "The introduction commit contains no exact source URL or reuse license. No acquisition script or embedded creator credit was found. Team identity alone does not identify the designer or establish permission."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    },
+    {
+      "oldPublicPath": "public/arcade/flashback/winners/wings.png",
+      "oldPublicUrl": "/arcade/flashback/winners/wings.png",
+      "preservedLocalPath": ".local-assets/flashback-originals/winners/wings.png",
+      "sha256": "673f1b890f8d4f6348f0cf0a68ad8872654e6a0f7bab1595e2a8db107097a17b",
+      "bytes": 41814,
+      "uses": [
+        {
+          "id": "flashback:ti6-winner",
+          "field": "flashback.revealMedia.src"
+        }
+      ],
+      "dimensions": [
+        294,
+        294
+      ],
+      "kind": "team-mark",
+      "gitIntroductionCommit": "895d2cc3f177c5689e86b5436eea9c12de9d44aa",
+      "gitIntroductionNote": "Stop Flashback order cards jumping and show a reveal picture\n\nLock the order board size so picking a card does not move the frame. After reveal, show the winning team mark or the hidden subject next to the text.",
+      "acquisitionScript": "Unknown",
+      "actualAcquisitionUrl": "Unknown",
+      "sourceIdentification": "Unknown",
+      "sourcePage": "Unknown",
+      "sourceImageUrl": "Unknown",
+      "publisher": "Unknown",
+      "photographerOrDesigner": "Unknown",
+      "license": "Unknown",
+      "licenseEvidenceUrl": "Unknown",
+      "reusePermission": "Unknown",
+      "evidence": [],
+      "limits": [
+        "The introduction commit contains no exact source URL or reuse license. No acquisition script or embedded creator credit was found. Team identity alone does not identify the designer or establish permission."
+      ],
+      "recommendedDisposition": "Keep outside public output. Do not restore on the strength of a fact-source citation."
+    }
+  ],
+  "checks": {
+    "assetCount": 23,
+    "allPreservedHashesMatchManifest": true,
+    "sourcePhotosCopiedIntoAuditFolder": false
+  },
+  "limits": [
+    "No contact with photographers or rights holders. No purchase or license acquisition.",
+    "No assumption that publisher hosting or a fact citation grants image reuse.",
+    "Public Flickr album samples were checked, not every image in every album.",
+    "Commons thumbnail downloads returned HTTP 403. This limits exact comparisons for the venue photo candidates.",
+    "Core Valve fan-content, game-asset and trademark terms are handled by the parent rights review."
+  ]
+}

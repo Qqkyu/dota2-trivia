@@ -1,0 +1,38 @@
+{
+  "phaseAtSmokeWake": "answering",
+  "phaseAtGraceEnd": "reveal",
+  "graceMs": 800,
+  "seededIdentityNeedsEnrichment": true,
+  "omittedAghanimQuestions": 84,
+  "omittedFlashbackQuestions": 191,
+  "flashbackVotes": [
+    {
+      "kind": "flashback-year",
+      "answerMode": "flashback-year",
+      "submittedFields": [
+        "gameId",
+        "mode",
+        "filter",
+        "roundId",
+        "answerIndex",
+        "voterId"
+      ],
+      "hasAnswerKey": false,
+      "validForCurrentContract": false
+    },
+    {
+      "kind": "flashback-order",
+      "answerMode": "flashback-order",
+      "submittedFields": [
+        "gameId",
+        "mode",
+        "filter",
+        "roundId",
+        "answerIndex",
+        "voterId"
+      ],
+      "hasAnswerKey": false,
+      "validForCurrentContract": false
+    }
+  ]
+}

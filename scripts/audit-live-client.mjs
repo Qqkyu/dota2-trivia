@@ -3,9 +3,11 @@
 import { readdir, readFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
 import { CLIENT_CONSTANT_AUDIT } from "./client-constant-audit.mjs";
 import { DAMAGE_QUESTION_FACTS } from "./damage-question-facts.mjs";
 import { parseValveKeyValues } from "./valve-keyvalues.mjs";
+import { applyClientPatchDeltas } from "./client-patch-deltas.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const clientRootArgument = process.argv.find((argument) => argument.startsWith("--client-root="));
@@ -19,6 +21,22 @@ const CORE_NPC_DIRECTORY = join(CLIENT_ROOT, "core", "scripts", "npc");
 
 const questions = JSON.parse(await readFile(join(ROOT, "src", "data", "questions.generated.json"), "utf8"));
 const metadata = JSON.parse(await readFile(join(ROOT, "src", "data", "trivia-meta.generated.json"), "utf8"));
+const snapshot = JSON.parse(await readFile(join(ROOT, "src/data/client-audit-snapshot.json"), "utf8"));
+const patchDeltas = JSON.parse(await readFile(join(ROOT, "src/data/client-patch-deltas.json"), "utf8"));
+if (
+  snapshot.clientBuild !== CLIENT_CONSTANT_AUDIT.clientBuild ||
+  patchDeltas.baseClientBuild !== snapshot.clientBuild ||
+  patchDeltas.patch !== CLIENT_CONSTANT_AUDIT.patch
+) {
+  throw new Error("The client snapshot and patch-delta review do not match the catalog audit.");
+}
+for (const [path, expectedHash] of Object.entries(snapshot.files)) {
+  const actualHash = createHash("sha256")
+    .update(await readFile(join(CLIENT_ROOT, path)))
+    .digest("hex");
+  if (actualHash !== expectedHash)
+    throw new Error(`Unreviewed client file: ${path}. Repeat the source review before accepting this snapshot.`);
+}
 const failures = [];
 let checks = 0;
 
@@ -70,6 +88,12 @@ const abilities = {
 };
 const abilityOwners = new Map();
 const heroAbilityFiles = (await readdir(HERO_ABILITY_DIRECTORY)).filter((file) => file.endsWith(".txt"));
+const expectedHeroFiles = Object.keys(snapshot.files)
+  .filter((path) => path.startsWith("npc/scripts/npc/heroes/"))
+  .map((path) => path.split("/").at(-1));
+if (JSON.stringify([...heroAbilityFiles].sort()) !== JSON.stringify(expectedHeroFiles.sort())) {
+  throw new Error("The client hero-file list differs from the reviewed snapshot.");
+}
 
 for (const file of heroAbilityFiles) {
   const owner = file.replace(/\.txt$/, "");
@@ -85,6 +109,7 @@ for (const file of heroAbilityFiles) {
 
 const heroes = await loadKeyValues(join(CORE_NPC_DIRECTORY, "npc_heroes.txt"), "DOTAHeroes");
 const items = await loadKeyValues(join(CORE_NPC_DIRECTORY, "items.txt"), "DOTAAbilities");
+const appliedDeltas = applyClientPatchDeltas({ abilities, heroes, items }, patchDeltas);
 const recipes = new Map();
 
 for (const item of Object.values(items)) {
@@ -256,6 +281,6 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Live-client audit passed ${checks} answer checks across ${questions.length} questions (Dota ${CLIENT_CONSTANT_AUDIT.patch}, client build ${CLIENT_CONSTANT_AUDIT.clientBuild}).`,
+    `Client audit passed ${checks} answer checks across ${questions.length} questions using ${Object.keys(snapshot.files).length} pinned base-build ${snapshot.clientBuild} files plus ${appliedDeltas} reviewed ${patchDeltas.patch} numeric patch deltas.`,
   );
 }

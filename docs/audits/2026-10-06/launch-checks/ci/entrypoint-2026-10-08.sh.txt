@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+mkdir -p /runner-evidence
+chown runner:runner /runner-evidence
+# This daemon owns only the container's disposable Docker data volume.
+dockerd --host=unix:///var/run/docker.sock --data-root=/var/lib/docker > /runner-evidence/docker.log 2>&1 &
+daemon_pid=$!
+finish() {
+  rm -f /run/runner-registration-token
+  if test -d /opt/runner/_diag; then cp -a /opt/runner/_diag /runner-evidence/runner-diag; fi
+  kill "$daemon_pid" 2>/dev/null || true
+  wait "$daemon_pid" 2>/dev/null || true
+}
+trap finish EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+for attempt in {1..60}; do
+  if docker info > /dev/null 2>&1; then break; fi
+  if ! kill -0 "$daemon_pid" 2>/dev/null; then cat /runner-evidence/docker.log; exit 1; fi
+  sleep 1
+done
+docker info > /dev/null
+if test "${1:-preflight}" = preflight; then
+  /usr/local/bin/preflight.sh
+  exit
+fi
+if test "${1:-}" != run; then echo 'Expected preflight or run mode.' >&2; exit 2; fi
+: "${RUNNER_NAME:?Set a unique disposable runner name.}"
+: "${RUNNER_LABEL:?Set the repository-specific runner label.}"
+# Only the one-hour repository registration token enters the container.
+read -r runner_registration_token < /run/runner-registration-token
+runuser -u runner -- ./config.sh --unattended --ephemeral --disableupdate \
+  --url https://github.com/Qqkyu/dota2-trivia --name "$RUNNER_NAME" \
+  --labels "$RUNNER_LABEL" --work _work --token "$runner_registration_token"
+rm -f /run/runner-registration-token
+unset runner_registration_token
+runuser -u runner -- ./run.sh

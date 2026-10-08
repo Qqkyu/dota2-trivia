@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-10-06T12:27:52.514Z",
+  "checks": [
+    {
+      "check": "discovery",
+      "status": 200,
+      "endpointMatches": true
+    },
+    {
+      "check": "unauthenticated-login-page",
+      "status": 200,
+      "redirects": 1,
+      "loginPage": true
+    },
+    {
+      "check": "unsigned-verification-rejected",
+      "status": 200,
+      "accepted": false
+    }
+  ],
+  "completedRealLogin": false
+}

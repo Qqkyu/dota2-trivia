@@ -1,0 +1,1228 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-06",
+  "historicalIndex": {
+    "path": "docs/audits/2026-10-06/deep-review/question-review-index.json",
+    "sha256": "ef7c1a268c2d2025dcb44600da6851b3defef725d700821a6e9cc9b4fe8a55c2"
+  },
+  "hashAlgorithm": "SHA-256 of UTF-8 JSON.stringify with object keys recursively sorted by JavaScript default string sort and array order preserved; no whitespace or trailing newline.",
+  "summary": {
+    "reviewedAt": "2026-10-06",
+    "storedQuestions": 1589,
+    "reviewedPlayableQuestions": 1517,
+    "originalIdsCovered": 1517,
+    "currentIdsCovered": 1517,
+    "retiredUnreviewedTemplates": 72,
+    "byFormat": {
+      "spell-link": 127,
+      "aghanim-upgrades": 84,
+      "classic-ability-values": 159,
+      "flashback": 191,
+      "fogged-vision": 127,
+      "quote-hunt": 245,
+      "classic-hero-stats": 82,
+      "echo-hunt": 123,
+      "classic-item-prices": 101,
+      "shopkeeper-builds": 52,
+      "shopkeeper-paths": 50,
+      "soundcheck": 96,
+      "value-order": 80
+    },
+    "changedQuestionDataRows": 33,
+    "unchangedQuestionDataRows": 1484,
+    "trollVoiceReplacements": 1,
+    "flashbackQuestionsWithNewArtwork": 32,
+    "replacedImageFields": 47,
+    "originalArtworkFiles": 13,
+    "presentationOnlyChanges": 2,
+    "changedCalibrationRevisions": 35,
+    "markedAnswersChanged": 0,
+    "echoQuestionsWithCompletedAutomatedReview": 123,
+    "soundcheckQuestionsWithCompletedAutomatedReview": 96,
+    "humanListeningPerformed": false,
+    "operationalReleaseApproval": false
+  },
+  "questionChanges": [
+    {
+      "originalId": "flashback:back-to-back",
+      "previousId": "flashback:back-to-back",
+      "currentId": "flashback:back-to-back",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "64f2e334940a2903a8a57b71d131ffd6bd62711c2322eb5d54480231206ce1b1",
+      "afterStableJsonSha256": "a9b3289a0b2878fac7da16b7d5b7ea338138857b4b814773c74738533632cca2",
+      "beforeCalibrationRevision": "q1_PU66zB9_K1gKYIq2RiFTSR",
+      "afterCalibrationRevision": "q1_wTWt2vK1FFnWwm32END1lP",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/23",
+          "rowSha256": "7f204865a1bb6f65a2f8f01c9bfc19473c4a20eed31b5c7395781b4254376a37",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:boston-major-winner",
+      "previousId": "flashback:boston-major-winner",
+      "currentId": "flashback:boston-major-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "35a0556c0316f2bd88d5a4590b45bb35a4d341ab63e84de73546756af00a59a4",
+      "afterStableJsonSha256": "2bc45db7fe0928b47b12a3e878c123b08b4896f4d3ca1be92c0861b2f66b34b9",
+      "beforeCalibrationRevision": "q1_0IqkBNsOq07qgOeTw61a1M",
+      "afterCalibrationRevision": "q1_ujPazP8XurD4hspnafFwBv",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/31",
+          "rowSha256": "9c58630227e99cab1783556e3620119fc39f59d73526088c22884a7d19b1a707",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:first-seattle-ti",
+      "previousId": "flashback:first-seattle-ti",
+      "currentId": "flashback:first-seattle-ti",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "ae25c58fd8bf6a98616a682e59d8e5361086bb470832b2254b1bd86d21f43e56",
+      "afterStableJsonSha256": "863e46735d999d205a580d9200285c6306026f742347d33d99266663a7bc715a",
+      "beforeCalibrationRevision": "q1_TODXWJT7GZdygdo4GYhEom",
+      "afterCalibrationRevision": "q1_QxGjT-3gU3X266fhD-qBZp",
+      "changedFields": [
+        "image"
+      ],
+      "changedPaths": [
+        "image.alt",
+        "image.kind",
+        "image.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/34",
+          "rowSha256": "2b6ae0defc8321d9a55ac21a61adfa1f0097bf00eaee01efc3954386c9241d90",
+          "status": "original-artwork-replacement-verified",
+          "field": "image"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:first-ti-winners-order",
+      "previousId": "flashback:first-ti-winners-order",
+      "currentId": "flashback:first-ti-winners-order",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "71d2811c3376d4be801a040496767e9354d5c7f3587422e1d88d00cc08afb807",
+      "afterStableJsonSha256": "c82e3c956174be342d18b0471f67dec6a551b15deb1f56ddcd1dca5fd13380aa",
+      "beforeCalibrationRevision": "q1_xZaNtR9rjrrqLp28RE6xkt",
+      "afterCalibrationRevision": "q1_IKBSgLYVbeC9fvJ8vxEBZk",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.cards.0.image",
+        "flashback.cards.1.image",
+        "flashback.cards.2.image",
+        "flashback.cards.3.image"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/35",
+          "rowSha256": "feda6397eae6a76bca3597a26dcaca20dd382ed7440a9539e56d2d198cdbf079",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.cards[0].image"
+        },
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/36",
+          "rowSha256": "e5ae158ea3486ba21cb0085a78255d2d92d2946d54c08bb5b2fc3f5801d020a4",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.cards[1].image"
+        },
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/37",
+          "rowSha256": "221f5f57de163be3546445c2f6934d3f19667776a57fc1842a74db3d4539de8b",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.cards[2].image"
+        },
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/38",
+          "rowSha256": "f63b771283a23a659b1e6ef4694192b93ebcc3879541e42921c82d56979ff4ea",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.cards[3].image"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:four-majors",
+      "previousId": "flashback:four-majors",
+      "currentId": "flashback:four-majors",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "ef77b65169b037dffc6bb228a3a5ae5be76d63cef8bd2172f457daaf4668dff4",
+      "afterStableJsonSha256": "14cba5db92e2c95b51e729d788cd012dba8b7b56478f21159dafd1142fd161d5",
+      "beforeCalibrationRevision": "q1_WykTUIqsHDAUQosT63UyPK",
+      "afterCalibrationRevision": "q1_NuCjTMof9qv4R69SuVyQeO",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/33",
+          "rowSha256": "e18af70d042a10b4d405209652bf9c00bd24ad4a2ed8dd33a05ba8007d18e9e8",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:frankfurt-major-winner",
+      "previousId": "flashback:frankfurt-major-winner",
+      "currentId": "flashback:frankfurt-major-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "6e25270416e70fc368adb74d85094a3fd4314cf01a734b6e8e154349355da3b8",
+      "afterStableJsonSha256": "e05d7fefe6c039e810787f56a152b5e42669266c50071897d32c6298446ed11b",
+      "beforeCalibrationRevision": "q1__6pFSskXXTYMhW_0S_oEi9",
+      "afterCalibrationRevision": "q1_ERqBW8KOw978eAWJnSax_j",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/24",
+          "rowSha256": "d4b8692f81d487859dad016b32ac92e9d418f8d14cb26e8c01717fb2f32c2bb5",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:kiev-major-winner",
+      "previousId": "flashback:kiev-major-winner",
+      "currentId": "flashback:kiev-major-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "277787c5b31600e1cf55b51d55946dd5e5c48a7d3dc3cd351099a67276d65c56",
+      "afterStableJsonSha256": "c8103859b553f5bf61bd4a4557fececcfbfa703f2509f6b1deff1d66d8436924",
+      "beforeCalibrationRevision": "q1_00sEE1Y245JeXGgqMQFJyK",
+      "afterCalibrationRevision": "q1_WkNUyTFBcOqTcIFPyq3CRz",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/32",
+          "rowSha256": "3f2b30a7f61a841a124e4959e915a35e9c75c83f56c6085206d564bcb023279c",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:later-ti-winners-order",
+      "previousId": "flashback:later-ti-winners-order",
+      "currentId": "flashback:later-ti-winners-order",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "5465aeb560d8ae6d241226b4a8496b11be6528b0bfc9dfca3f35ac7ec6e6b381",
+      "afterStableJsonSha256": "9760d35d44cef26fc0b5987754c54d712f9fef3d8c503813b616ed931435cb5c",
+      "beforeCalibrationRevision": "q1_bDNGBXWHD0UbS6PfbUaZ_H",
+      "afterCalibrationRevision": "q1_QPPJv5zkM_Np-BuJbruFH3",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.cards.0.image",
+        "flashback.cards.1.image",
+        "flashback.cards.2.image",
+        "flashback.cards.3.image"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/39",
+          "rowSha256": "4d8bce1f8fbcbbbc7ae65794c5806f368e94aa3076df4dc6d9494b251dd15210",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.cards[0].image"
+        },
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/40",
+          "rowSha256": "c71b653b7e31bb048a3bde0690de8eafcfd624cd12b4e2b23a67a61a9d2fa7cb",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.cards[1].image"
+        },
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/41",
+          "rowSha256": "eec0e938e54eeda56bae9c23a81d331919ca025b56c397386b2a3b557b3cb9be",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.cards[2].image"
+        },
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/42",
+          "rowSha256": "b200e0f77beb7d31f3d9cec9ba52e1569cf92bf939801c44732cc2fc9e22c9ff",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.cards[3].image"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:manila-major-winner",
+      "previousId": "flashback:manila-major-winner",
+      "currentId": "flashback:manila-major-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "39f2ba9e5c39ba6213ba3c631a6934f6eb62873cfe1ff8230410ad2dafa85948",
+      "afterStableJsonSha256": "d47b8e7716b441b7be2bfb8a1d3b6ab0dc53fa5f7112c3b74e46ccf1083fb03d",
+      "beforeCalibrationRevision": "q1_JZ_RVq_AsE5havJUz81mPY",
+      "afterCalibrationRevision": "q1_QFBEkx-_rJio1aD1ZCHsL2",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/30",
+          "rowSha256": "8ff772c41d34546b782361a507f1855d03a29c9dba3b63431e2effb21a4868a5",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:og-first-ti-year",
+      "previousId": "flashback:og-first-ti-year",
+      "currentId": "flashback:og-first-ti-year",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "297bfaaddf5fa1ed84bd8973e38f6367b34916fe14655e34ee0e74993971b0c5",
+      "afterStableJsonSha256": "6fa21031af14891ad2ba971a4ac7f718dcf9686b61b3f617a5df9ca0be502e67",
+      "beforeCalibrationRevision": "q1_l5BQiW37kkcnm_z_zlrKUL",
+      "afterCalibrationRevision": "q1_lgpxAIHyt8MQOBkzZ6_tCQ",
+      "changedFields": [
+        "image"
+      ],
+      "changedPaths": [
+        "image.alt",
+        "image.kind",
+        "image.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/1",
+          "rowSha256": "d76dbd9ee6941b2c23c36b451ca55cc066e5016190fb85e39be0481f94b88e98",
+          "status": "original-artwork-replacement-verified",
+          "field": "image"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:shanghai-major-winner",
+      "previousId": "flashback:shanghai-major-winner",
+      "currentId": "flashback:shanghai-major-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "0b7c79402ff4c1222af79017e1d3eb0f99b2b3e899d7942687ad7f7a209e2248",
+      "afterStableJsonSha256": "d748533adae51aa8a3aa2b429e35ed1314ea88fd24018a2afb736e2f3c7911e5",
+      "beforeCalibrationRevision": "q1_KaYDCfijCnYuM5HV8fzjeA",
+      "afterCalibrationRevision": "q1__R-GxRrKHsUByF7DnJ1D4_",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/29",
+          "rowSha256": "78aa507e0011bb2dbb322c4d2c86e3db70527b611e8c10a4f21d75b6a8a11c7f",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti-cities-order",
+      "previousId": "flashback:ti-cities-order",
+      "currentId": "flashback:ti-cities-order",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "11f8f9ff00355ad8a29bf474f0e494d1f50cc4ba7a7456f3637ab0cb28214a15",
+      "afterStableJsonSha256": "bcdd4ec04b4ef40daef38d19ee13f5acf390a8c461b99cd5b3369800475b4e77",
+      "beforeCalibrationRevision": "q1_MlcnXHRkEAjCTn9WcBOfrg",
+      "afterCalibrationRevision": "q1_qeKOWrxue4Kyzi5dUrtdot",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.cards.0.image",
+        "flashback.cards.1.image",
+        "flashback.cards.2.image",
+        "flashback.cards.3.image"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/43",
+          "rowSha256": "4f2d57313bebbc6cd2a9cd64e3e38aa1332a9c0483caf48b7039c9f28a96f8da",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.cards[0].image"
+        },
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/44",
+          "rowSha256": "34e6e4d3389792300ec883349a0a3dd4d0ad8acaedd60520cf644d641a59ced2",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.cards[1].image"
+        },
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/45",
+          "rowSha256": "f998967fbe44f7c368d33d2e9447b921a742b5475a1b118d3c32dbb5185a681a",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.cards[2].image"
+        },
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/46",
+          "rowSha256": "97a3eeb5cd1294ffd64e93cfccd14e34ed4d976f747f7a12fa5eae2af2d28fa1",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.cards[3].image"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti1-city",
+      "previousId": "flashback:ti1-city",
+      "currentId": "flashback:ti1-city",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "e7e06eb487ee4da1e392e7a0351dc68177940b7936885027a8c0ece5d4b8ba8d",
+      "afterStableJsonSha256": "1e9673467f79de45d819b8f63738d9e1677f2bb7e994e5e57a3b438adde7faf3",
+      "beforeCalibrationRevision": "q1_Nu7A_h7R47KfGpmIYgGnPX",
+      "afterCalibrationRevision": "q1_1_GtGe4Nu0lg5J20XMIadE",
+      "changedFields": [
+        "image"
+      ],
+      "changedPaths": [
+        "image.alt",
+        "image.kind",
+        "image.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/22",
+          "rowSha256": "227e902832c86edc4b27f0958a3f7016879ebbee09e3d5240d7c752be2439a53",
+          "status": "original-artwork-replacement-verified",
+          "field": "image"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti1-winner",
+      "previousId": "flashback:ti1-winner",
+      "currentId": "flashback:ti1-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "24b5cb34d7576c0e40272d157eb6440846aa3f0fe0cb2887d3009b62227fa4c6",
+      "afterStableJsonSha256": "35d8f84385daa36d9f21a66e16e165224ed4bb802ac75a7bd123ae270241ae88",
+      "beforeCalibrationRevision": "q1_STFQsYVwxzaIET-sqTOqVf",
+      "afterCalibrationRevision": "q1_QSuhGw4ZVfk34kmx4Hi8Rs",
+      "changedFields": [
+        "flashback",
+        "image"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src",
+        "image.alt",
+        "image.kind",
+        "image.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/2",
+          "rowSha256": "f583de868347c0f45ea35bb10a0bd429c4dbd05e3f1a44154fccc890ac7679d3",
+          "status": "original-artwork-replacement-verified",
+          "field": "image"
+        },
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/3",
+          "rowSha256": "8e8fb66135e517a936cfc2e265cf091b087e5b4ada1b542ff3cef08f7d38d3a3",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti1-year",
+      "previousId": "flashback:ti1-year",
+      "currentId": "flashback:ti1-year",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "5fc603e3db3d1d481ab16c25c4e4a57023f6553bec075c780613ec1bb3eb19fd",
+      "afterStableJsonSha256": "4bdf03e3dfe377bdc28a2a5e61c5da798d1b4b158e9ac3db506a93e64762ce20",
+      "beforeCalibrationRevision": "q1_IFlxaBhWWIk3fY9WzZcSVv",
+      "afterCalibrationRevision": "q1_wwpYOcp6riflQ7f_1_GN5h",
+      "changedFields": [
+        "image"
+      ],
+      "changedPaths": [
+        "image.alt",
+        "image.kind",
+        "image.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/0",
+          "rowSha256": "ff5aeb2183f755253d785375dd6e09ba646ca63ee6b89c1ddd015d2ea2e0402a",
+          "status": "original-artwork-replacement-verified",
+          "field": "image"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti10-winner",
+      "previousId": "flashback:ti10-winner",
+      "currentId": "flashback:ti10-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "b108dc35847ef08d7250db8c5f499491b2fdf2de09edd0aa30de88646e0ff284",
+      "afterStableJsonSha256": "f60305f57e3b8f0224949449172e70dba6fc168c05a5e6b83699e2aa5545a24c",
+      "beforeCalibrationRevision": "q1_6fNU8hHt0lvgGCnshvbCZb",
+      "afterCalibrationRevision": "q1_6otZV5Kj1FKjZCzXP7bDpF",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/17",
+          "rowSha256": "8cdef710032961a72f44322bb9f3fb5006ff92825e2a2206805455b47ce25b31",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti11-winner",
+      "previousId": "flashback:ti11-winner",
+      "currentId": "flashback:ti11-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "ae540ebf2d3377917f7703028b7c2663480ec7a47b8402fcb4e3893ac8f823cd",
+      "afterStableJsonSha256": "608c68b49c54fc481d4b2ca43aa81a6520bdfa38ec08dcc554555f0f14ed9668",
+      "beforeCalibrationRevision": "q1_aApc-lAwvlDRZa9NZ0Sh9f",
+      "afterCalibrationRevision": "q1_ZOtUSBq-JX9UJ3leTgE3qM",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/18",
+          "rowSha256": "6fbe861c4cf82c9b6218d0f69e3c2211610a30370decc1fb2259ea82d99958a5",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti12-winner",
+      "previousId": "flashback:ti12-winner",
+      "currentId": "flashback:ti12-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "a59c9a20e1997967651678eeff1e4c58ba7d3cd53a079e447401f5a1cd50e43e",
+      "afterStableJsonSha256": "76f7514d7f3e23428c0d482fdea881d5aae247b9adf77c3d02e6a32c86b17fdb",
+      "beforeCalibrationRevision": "q1_BmGSEVcGbZWC9G6nuQcbSC",
+      "afterCalibrationRevision": "q1_1wvdWiVEaD33f22y2CQbGl",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/19",
+          "rowSha256": "11966a97b87b9e11acfa6667ec472139a77f2cf80c3d6c3598e136f8c1aae62d",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti13-winner",
+      "previousId": "flashback:ti13-winner",
+      "currentId": "flashback:ti13-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "5aa0db957cd3c475703bf457365cec9659d7fe03354ff7f6c67f86cced50d231",
+      "afterStableJsonSha256": "970b9dc7c52b2a6a81714b3c18121eafa964f986f43950c6efc4d675043dc2c4",
+      "beforeCalibrationRevision": "q1_8_gt3ZYLl7nLTwu8AjSXK0",
+      "afterCalibrationRevision": "q1_ydgj8o2oOT0inTULC1-0LH",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/20",
+          "rowSha256": "415881f9e1b15f9849157070ef9c21fc76b7da9c3214002416196b3665bbdced",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti14-winner",
+      "previousId": "flashback:ti14-winner",
+      "currentId": "flashback:ti14-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "eab3136e135762dbe77de6f7a7ebbbcc467c854b9355cd9ca21bc2238ecb9195",
+      "afterStableJsonSha256": "f35936abc44c9640e58e0900c8b9180ff500e1594004380613410864855be918",
+      "beforeCalibrationRevision": "q1__HzzOGMVhT690udAZKCop1",
+      "afterCalibrationRevision": "q1_iaOL82eDxjG6oWyYVDvAJ1",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/21",
+          "rowSha256": "7542a5d15962325defd8c75332c983f0d8df82f6f6634a61ec7790d776e22556",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti2-winner",
+      "previousId": "flashback:ti2-winner",
+      "currentId": "flashback:ti2-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "ebf9d46497ae8233e0f81a312698b6988ee351e6cc4a3c95b3e3bde19d36f9ec",
+      "afterStableJsonSha256": "afd06d2364d8548cbec2e12b77a7058ebd0f5297708ba68071c52a870e8b9b71",
+      "beforeCalibrationRevision": "q1_7g6toY3THm5EGJk7kcsteB",
+      "afterCalibrationRevision": "q1_gUMiIwsEH2-sUZhY7aPKUs",
+      "changedFields": [
+        "flashback",
+        "image"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src",
+        "image.alt",
+        "image.kind",
+        "image.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/4",
+          "rowSha256": "fe893606e2427e28c094720840dc7bfab03d3fa56ac9216eb489b2afa02f7f74",
+          "status": "original-artwork-replacement-verified",
+          "field": "image"
+        },
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/5",
+          "rowSha256": "2bea02e40d8574a1192af7c3c3e60afca8d8a14738a4708bf4cc3f1f121d2d75",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti2-year",
+      "previousId": "flashback:ti2-year",
+      "currentId": "flashback:ti2-year",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "b918e548da9fa62c420eab2b73075994787f40d7a65499838ff3b7081000e01d",
+      "afterStableJsonSha256": "88882ad72db4525c6c8d677f27b24c4e150a3ad6a7fd3cbfee03ca1d1035dd4f",
+      "beforeCalibrationRevision": "q1_zKxZcs1xpbn7vAL_8s0mTJ",
+      "afterCalibrationRevision": "q1_9GQXatG0PsnfujNqjVRvD2",
+      "changedFields": [
+        "image"
+      ],
+      "changedPaths": [
+        "image.alt",
+        "image.kind",
+        "image.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/25",
+          "rowSha256": "06eaad97116559322fb1c3ce7503017f66049b1dbdc85992e1f8228801c7fbe1",
+          "status": "original-artwork-replacement-verified",
+          "field": "image"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti3-winner",
+      "previousId": "flashback:ti3-winner",
+      "currentId": "flashback:ti3-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "33cc02a1298b53a580a23fa8f8459e730b399dffd38e59aea079bdf1bc292638",
+      "afterStableJsonSha256": "adf3ac5fa0bd254472f6d5da0c789995e2a5f1ca714b44b1db8050331c798042",
+      "beforeCalibrationRevision": "q1_Q0upeSeDgyLJb6MwwbMszA",
+      "afterCalibrationRevision": "q1_arKlweU3M8AiKyqSY6QqQo",
+      "changedFields": [
+        "flashback",
+        "image"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src",
+        "image.alt",
+        "image.kind",
+        "image.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/6",
+          "rowSha256": "27fb258d9d121906fc23ea4fb0ea7cc561fd019a984d2451a795fe0d57bf501c",
+          "status": "original-artwork-replacement-verified",
+          "field": "image"
+        },
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/7",
+          "rowSha256": "77125d9547e0103c97589ef0c719b33ffc4f27f2827bedb5181f4565a4e529b6",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti3-year",
+      "previousId": "flashback:ti3-year",
+      "currentId": "flashback:ti3-year",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "b4c305ee29c7f6cb03a79af1eb57c98876c2f4806cba06560f9e364d9136aba4",
+      "afterStableJsonSha256": "4e83dfaa4f9494787beb4466318ba4af8dd0d42277c125c0d9fdc25e445f293e",
+      "beforeCalibrationRevision": "q1_et7xCpr-jsQ-kEWILD9W4y",
+      "afterCalibrationRevision": "q1_MJYGTkjX5k83lc9kKC1e6l",
+      "changedFields": [
+        "image"
+      ],
+      "changedPaths": [
+        "image.alt",
+        "image.kind",
+        "image.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/26",
+          "rowSha256": "573b1dd1e7dd2ab870bc5058a6c191e319308d47fee9e73b755aa0e1b4ffe2e2",
+          "status": "original-artwork-replacement-verified",
+          "field": "image"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti4-winner",
+      "previousId": "flashback:ti4-winner",
+      "currentId": "flashback:ti4-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "e444aa8144bfd5d2f344a76ae87b1396bad8bcba834beaf20ac6ca21aebd5391",
+      "afterStableJsonSha256": "2f0d590779ac0750fca2baba051b2f2e2e056cbbfb73a956238312fa9140ca87",
+      "beforeCalibrationRevision": "q1_RhoRvoU3ApLbpXthJYgY8c",
+      "afterCalibrationRevision": "q1_zdzT2EkqkNGhfrO2jncUm3",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/8",
+          "rowSha256": "4f9f390d99efbc0f0c1317fb11d21eb381d2fa056e2705e0050a54a99fbbfc15",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti5-winner",
+      "previousId": "flashback:ti5-winner",
+      "currentId": "flashback:ti5-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "8fdb6fba4ee053591e1d68888da46d9a804bc8ab1c547e13418e1a6bacb464a3",
+      "afterStableJsonSha256": "f42a83408e972b06f84a3e17d0c465fb0a60297b63d618d9486532da5abb917e",
+      "beforeCalibrationRevision": "q1_a_0qhrykfTsoWX9xKLIEVO",
+      "afterCalibrationRevision": "q1_0ltNdeE04ExqpTEBfJ-UEA",
+      "changedFields": [
+        "flashback",
+        "image"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src",
+        "image.alt",
+        "image.kind",
+        "image.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/9",
+          "rowSha256": "ece8347f31f382c65452a0379a406dc1be0b685f49f6f01c15cde506069f3e3b",
+          "status": "original-artwork-replacement-verified",
+          "field": "image"
+        },
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/10",
+          "rowSha256": "b9b80533c733652e9e622f9aa3d97e69af37612f8aa21fb1566b77f214bd160b",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti5-year",
+      "previousId": "flashback:ti5-year",
+      "currentId": "flashback:ti5-year",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "9c9c0d29dd327ce2d4c566d8f2eb1eeb17a67e241a204c393645532ec6ef2724",
+      "afterStableJsonSha256": "5339aeb93b05861e922bdb4df8a67a0c07ab32a58542ab8a5256efe04f619ea2",
+      "beforeCalibrationRevision": "q1_dIQQxn28kJHrVGcG-HIZP8",
+      "afterCalibrationRevision": "q1_V3gzRBQlP9-LyTS0-BbYPs",
+      "changedFields": [
+        "image"
+      ],
+      "changedPaths": [
+        "image.alt",
+        "image.kind",
+        "image.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/27",
+          "rowSha256": "a447917b1d1725b26e93bbc62587deb7b068308890c5614bf1b9c95196a037bc",
+          "status": "original-artwork-replacement-verified",
+          "field": "image"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti6-winner",
+      "previousId": "flashback:ti6-winner",
+      "currentId": "flashback:ti6-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "b0f3537355ce8e79efb94dcbef124ee45240655da215b1457f9f2cc68ed0c5a5",
+      "afterStableJsonSha256": "d8458b7fe8d3d48797a0bed4717fcc6fc9fc84709c58cc30f71829113aae334d",
+      "beforeCalibrationRevision": "q1_lsMmlo_ceE4q_uzymn54G5",
+      "afterCalibrationRevision": "q1_6H6Ab51mi0pRyrNHLkNlmj",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/11",
+          "rowSha256": "c0576a71f34d27c3c3cd388d08f1df6074970483ade3c3b1821a1c7643bc9c6e",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti7-winner",
+      "previousId": "flashback:ti7-winner",
+      "currentId": "flashback:ti7-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "36b002fca5fbf98b67fed65932b4af97d247f376d8660f4babbed5cdff679323",
+      "afterStableJsonSha256": "3a31547d641024c1e53714d50a12523ffa54013a8c8a7010d8ad83347c15e544",
+      "beforeCalibrationRevision": "q1_tPshbLdbH9K8WuTZEVoDX_",
+      "afterCalibrationRevision": "q1_mV3n6TG3bCfmz6HNtZ4gRM",
+      "changedFields": [
+        "flashback",
+        "image"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src",
+        "image.alt",
+        "image.kind",
+        "image.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/12",
+          "rowSha256": "329e56023b67d5c72ecb26d9fa7e551490eafcded878b936f5e8f0af48f4ea88",
+          "status": "original-artwork-replacement-verified",
+          "field": "image"
+        },
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/13",
+          "rowSha256": "74bc65d1375815beb1e75b171efa951acf9a9785a2f99028d0219088e6f2265f",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti7-year",
+      "previousId": "flashback:ti7-year",
+      "currentId": "flashback:ti7-year",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "33b36c6c277779ffabf8a5844ea650d0e9629e4673f7f6cd5d0256f69778ca6d",
+      "afterStableJsonSha256": "1c289abb3a9e35339193ea54ab66af17607032c482f50004935755e9c5d8830d",
+      "beforeCalibrationRevision": "q1_MDcJwKFw7EQTQ48UtykgjM",
+      "afterCalibrationRevision": "q1_oATZGGSqPuSnb-k7NOjG6Z",
+      "changedFields": [
+        "image"
+      ],
+      "changedPaths": [
+        "image.alt",
+        "image.kind",
+        "image.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/28",
+          "rowSha256": "767011df484832335aaf1c437c53850cadcad6b102b14de2aac6980a9e33d099",
+          "status": "original-artwork-replacement-verified",
+          "field": "image"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti8-winner",
+      "previousId": "flashback:ti8-winner",
+      "currentId": "flashback:ti8-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "67a6642506748ec106b9e08f3654a44a3680c4719d99c74e3f8e1096a7451202",
+      "afterStableJsonSha256": "46d8f3c2a7eda109f7b6e43600b0bfeac775f348e59c3d7deae4a0a884a214cb",
+      "beforeCalibrationRevision": "q1_Oz1Yz5wISpfUTxGraIgeI0",
+      "afterCalibrationRevision": "q1_GTSQxjJ140wq_4s9cxcXu4",
+      "changedFields": [
+        "flashback",
+        "image"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src",
+        "image.alt",
+        "image.kind",
+        "image.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/14",
+          "rowSha256": "b74887901449bc975b110e060b6dd7b91bf5f1605b47b01356a95aa2c2fc596a",
+          "status": "original-artwork-replacement-verified",
+          "field": "image"
+        },
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/15",
+          "rowSha256": "766fd6d0d4538f3b251483fbf7465779032df5f8e2f5160fdbae6a83f75352cb",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "flashback:ti9-winner",
+      "previousId": "flashback:ti9-winner",
+      "currentId": "flashback:ti9-winner",
+      "sourceFile": "src/data/flashback-questions.json",
+      "format": "flashback",
+      "reason": "Replace images with original project artwork.",
+      "beforeStableJsonSha256": "7a710781b219c7875002410f1e5ec7c005d22b7cb984e8ac3242ed24f0f8744d",
+      "afterStableJsonSha256": "3d16fd06261cec3c867035d6612b21c9d840afb2dc7302015aa73c54ff65bc01",
+      "beforeCalibrationRevision": "q1_Tx0odpWlHbTt_VBuQSFYYq",
+      "afterCalibrationRevision": "q1_bSfHRAoEG_faVkBqDYDKud",
+      "changedFields": [
+        "flashback"
+      ],
+      "changedPaths": [
+        "flashback.revealMedia.alt",
+        "flashback.revealMedia.kind",
+        "flashback.revealMedia.src"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/rights/replacements.json",
+          "pointer": "/changes/16",
+          "rowSha256": "80a5bd6f1cbfae02c7ee395ee0058b198193407dc276b042a24381c15ced17a2",
+          "status": "original-artwork-replacement-verified",
+          "field": "flashback.revealMedia"
+        }
+      ]
+    },
+    {
+      "originalId": "hero-voice:npc_dota_hero_troll_warlord:troll_kill_06",
+      "previousId": "hero-voice:npc_dota_hero_troll_warlord:troll_kill_06",
+      "currentId": "hero-voice:npc_dota_hero_troll_warlord:troll_respawn_10",
+      "sourceFile": "src/data/questions.generated.json",
+      "format": "echo-hunt",
+      "reason": "Replace unusually quiet Troll Warlord recording.",
+      "beforeStableJsonSha256": "e85e5ed48f1123826b1226e6eceb82c0eafbb908aa0fc390ed358d32cb80b08a",
+      "afterStableJsonSha256": "5ccf2b9d326b6a983c82937df64fadfa0c6816e0aaf6ae6f5bde4e7b362e5d34",
+      "beforeCalibrationRevision": "q1_gRiBKnoMyoTk1VGw_30qb-",
+      "afterCalibrationRevision": "q1_rLkIERV_EtFFUDkAHG08lb",
+      "changedFields": [
+        "audio",
+        "explanation",
+        "id"
+      ],
+      "changedPaths": [
+        "audio.src",
+        "explanation",
+        "id"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/echo/echo-ledger.json",
+          "pointer": "/records/108",
+          "rowSha256": "5902784f5c469fb91df33847dc7fca605dd91585cccf53a8427fd8ea687f1a8c",
+          "sourceStatus": "verified_against_pinned_metadata",
+          "signalStatus": "passed_all_three_actual_gameplay_stages",
+          "transcriptStatus": "exact_normalized_transcript",
+          "humanListeningPerformed": false
+        }
+      ]
+    }
+  ],
+  "presentationChanges": [
+    {
+      "currentId": "soundcheck-item:mjollnir",
+      "questionStableJsonSha256": "3df80d6319e02cc69ea86113791f73670aa8054cc95eb290dfc8780f16aa67eb",
+      "beforeCalibrationRevision": "q1_8t36C5BEoHQ6-sjG0ZXJSa",
+      "afterCalibrationRevision": "q1_4yb3cFXXCu_DWGW2G-zHy0",
+      "reason": "Limit the answer picker to four reviewed choices because an excluded item shares the served cue.",
+      "excludedAmbiguousAlternative": "maelstrom",
+      "offeredAnswers": [
+        "Mjollnir",
+        "Solar Crest",
+        "Lotus Orb",
+        "Pavise"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/soundcheck/question-ledger.json",
+          "pointer": "/88",
+          "rowSha256": "85a8c780ecb6d3c9cda53e4d50afdd3760355f5a690df0a3871f220c50851c00",
+          "status": "passed-automated-checks",
+          "nativeBrowserStagesPassed": 3,
+          "humanListeningPerformed": false
+        }
+      ],
+      "choiceGuard": "src/lib/soundcheck-choices.mjs"
+    },
+    {
+      "currentId": "soundcheck-item:urn_of_shadows",
+      "questionStableJsonSha256": "eaa3671e9a1622ddcd1403329a77d128c29b37532c9da5b7dd15d4734cdf3cd3",
+      "beforeCalibrationRevision": "q1_jcoC2VdkXW8ltGBziEIAcN",
+      "afterCalibrationRevision": "q1_lvgz9s-G48lREld82ZA1BE",
+      "reason": "Limit the answer picker to four reviewed choices because an excluded item shares the served cue.",
+      "excludedAmbiguousAlternative": "essence_distiller",
+      "offeredAnswers": [
+        "Spirit Vessel",
+        "Glimmer Cape",
+        "Eul's Scepter of Divinity",
+        "Urn of Shadows"
+      ],
+      "markedAnswerUnchanged": true,
+      "evidence": [
+        {
+          "path": "docs/audits/2026-10-06/launch-checks/soundcheck/question-ledger.json",
+          "pointer": "/87",
+          "rowSha256": "aae0dfdec06e0d623b9f6d71df728eb85e5f1d36472daa89524066e4b4abed7e",
+          "status": "passed-automated-checks",
+          "nativeBrowserStagesPassed": 3,
+          "humanListeningPerformed": false
+        }
+      ],
+      "choiceGuard": "src/lib/soundcheck-choices.mjs"
+    }
+  ],
+  "audioArchiveNote": "Changed fields are computed from full question JSON. The Troll replacement changes audio.src, explanation, and id. Historical audio-listening notes describe that earlier pass. The launch Echo and Soundcheck reports provide the completed automated checks and their limits."
+}

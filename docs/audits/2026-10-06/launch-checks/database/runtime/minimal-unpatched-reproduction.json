@@ -1,0 +1,27 @@
+{
+  "command": "TEST_DATABASE_URL=postgres://kulmisiu@127.0.0.1:46993/qa_launch_runtime node tests/helpers/postgres-disconnect-worker.mjs transaction socket",
+  "exitCode": 1,
+  "stage": "before driver patch",
+  "stdout": [
+    {
+      "event": "blocked",
+      "pid": 934962,
+      "mode": "transaction",
+      "disruption": "socket"
+    },
+    {
+      "event": "interrupted",
+      "code": "CONNECTION_CLOSED",
+      "mode": "transaction",
+      "disruption": "socket"
+    }
+  ],
+  "uncaughtError": {
+    "name": "TypeError",
+    "message": "Cannot read properties of null (reading 'write')",
+    "source": "postgres/src/connection.js:255",
+    "callback": "Immediate.nextWrite"
+  },
+  "nodeVersion": "v24.15.0",
+  "postgresPackageVersion": "3.4.9"
+}

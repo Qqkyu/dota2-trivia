@@ -1,0 +1,10 @@
+
+file:///home/kulmisiu/dev/dota2-trivia/scripts/check-layout.mjs:830
+    throw new Error(`Layout failed:\\n- ${failures.join("\\n- ")}`);
+          ^
+
+Error: Layout failed:\n- phone/shop-recipe: answer helper is cut by the screen edge\n- phone/fogged-vision: answer helper is cut by the screen edge\n- phone/echo-hunt: answer helper is cut by the screen edge\n- phone/quote-hunt: answer helper is cut by the screen edge
+    at file:///home/kulmisiu/dev/dota2-trivia/scripts/check-layout.mjs:830:11
+
+Node.js v24.15.0
+

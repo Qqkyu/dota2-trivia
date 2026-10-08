@@ -1,0 +1,50 @@
+import {chromium} from '/home/kulmisiu/dev/dota2-trivia/node_modules/playwright/index.mjs';
+import {journeyFixtures} from '/home/kulmisiu/dev/dota2-trivia/scripts/lib/journey-browser.mjs';
+import {execFileSync} from 'node:child_process';
+import {writeFile,mkdir} from 'node:fs/promises';
+const base='/tmp/queue-arcade-launch-checks/assistive';
+const result={url:'http://127.0.0.1:3330',startedAt:new Date().toISOString(),events:[],errors:[]};
+const browser=await chromium.launch({headless:false,executablePath:'/usr/bin/google-chrome',args:['--no-sandbox','--force-renderer-accessibility','--disable-dev-shm-usage','--disable-gpu']});
+result.browser=browser.version();
+const context=await browser.newContext({viewport:{width:1280,height:800}});
+const page=await context.newPage();
+await mkdir(base+'/session/screenshots',{recursive:true});
+page.on('pageerror',error=>result.errors.push(String(error)));
+await page.addInitScript(()=>localStorage.setItem('queue-arcade:settings:v3',JSON.stringify({soundEnabled:false,gameVolume:0.7})));
+let state=null;
+await page.route('**/api/me',route=>route.fulfill({json:{authenticated:false,steamAvailable:false}}));
+for(const resource of ['sessions','diagnostics','reports'])await page.route('**/api/'+resource,route=>route.fulfill({json:{accepted:true}}));
+await page.route('**/api/rounds?*',async route=>{
+ if(!state)return route.continue();
+ const now=Date.now(),gate=state.gate,id=gate?'at-gate':`at-${state.kind}-${state.number}`;
+ const round={id,number:state.number,game:gate?'trivia':journeyFixtures[state.kind].answering.game,phase:gate?'reveal':state.phase,startedAt:now-1000,answerDeadline:gate||state.phase==='reveal'?now-1000:now+60000,revealDeadline:gate?now+100:now+67000,answerDuration:60000};
+ const question=gate?null:{...journeyFixtures[state.kind][state.phase],id};
+ if(question?.image?.src?.startsWith('/api/round-image')) question.image.src='/missing-assistive-fixture-image.png';
+ await route.fulfill({json:{serverNow:now,room:{id:'assistive-room',gameId:'dota2',contentVersion:'assistive',mode:'mixed',filter:'Mixed'},round,questionRevision:id+':'+round.phase,question,presence:{activePlayers:1},crowd:{counts:[0,0,0,0],total:state.vote?1:0,keyCounts:[],scoreSummary:null},playerVote:state.vote,playerReport:null,previousResults:[]}});
+});
+await page.route('**/api/votes',async route=>{
+ const vote=route.request().postDataJSON();state.votes.push(vote);state.vote={answerIndex:vote.answerIndex,answerKey:vote.answerKey,submittedAt:Date.now()};
+ await route.fulfill({json:{accepted:true,counts:[0,0,0,0],total:1,keyCounts:[],scoreSummary:null,playerVote:state.vote}});
+});
+const sleep=ms=>page.waitForTimeout(ms);
+const xd=(...args)=>execFileSync('xdotool',args,{encoding:'utf8'});
+async function key(combo){xd('key','--clearmodifiers',combo);await sleep(400);}
+async function log(label,extra={}){
+ const event={label,at:Date.now(),...extra,state:await page.evaluate(()=>({path:location.pathname,phase:document.querySelector('main')?.dataset.phase,round:document.querySelector('main')?.dataset.roundId,focus:{tag:document.activeElement?.tagName,id:document.activeElement?.id,testid:document.activeElement?.dataset.testid,name:document.activeElement?.getAttribute('aria-label')||document.activeElement?.textContent?.trim().slice(0,180)},prompt:document.querySelector('[data-testid="round-prompt"]')?.textContent,helper:document.querySelector('[data-testid="answer-helper"]')?.textContent,reveal:document.querySelector('[data-testid="reveal-panel"]')?.textContent,live:[...document.querySelectorAll('[aria-live], [role="alert"], [role="status"]')].map(x=>({role:x.getAttribute('role'),live:x.getAttribute('aria-live'),text:x.textContent?.trim().slice(0,350)}))}))};
+ result.events.push(event);await writeFile(base+'/session/app-results.json',JSON.stringify(result,null,2));console.log(label,JSON.stringify(event.state.focus));return event;
+}
+async function navigate(path){await page.bringToFront();const windows=xd('search','--onlyvisible','--class','google-chrome').trim().split('\n');xd('windowfocus',windows.at(-1));await key('ctrl+l');xd('type','--clearmodifiers','--delay','0',result.url+path);await key('Return');await page.waitForURL(result.url+path);await page.waitForLoadState('domcontentloaded');await sleep(1000);}
+async function tabTo(selector,max=40){for(let i=0;i<max;i++){if(await page.evaluate(s=>document.activeElement?.matches(s),selector))return i;await key('Tab');await log('tab', {target:selector});}throw new Error('Could not Tab to '+selector);}
+async function fixture(kind){state={kind,gate:true,phase:'answering',number:1,vote:null,votes:[]};await navigate('/play');await page.waitForSelector('main[data-phase="waiting"][data-round-id="at-gate"]');await log(kind+' entry gate');state.gate=false;await page.evaluate(()=>window.dispatchEvent(new Event('focus')));await page.waitForSelector(`main[data-phase="answering"][data-round-id="at-${kind}-1"]`);await sleep(2000);await log(kind+' round start');await writeFile(base+`/session/${kind}-aria.txt`,await page.locator('body').ariaSnapshot());}
+async function reveal(kind){state.phase='reveal';await log(kind+' before reveal');await page.evaluate(()=>window.dispatchEvent(new Event('focus')));await page.waitForSelector('main[data-phase="reveal"]');await sleep(2300);await log(kind+' after reveal',{votes:state.votes});await page.screenshot({path:base+`/session/screenshots/${kind}-reveal.png`});}
+try{
+ await navigate('/');await sleep(2500);await log('home loaded');for(let i=0;i<7;i++){await key('Tab');await log('home tab '+(i+1));}
+ await fixture('classic');await tabTo('[data-testid="arcade-answer"]');await log('classic answer focused');await key('Return');await log('classic answer locked');await reveal('classic');state.number=2;state.phase='answering';state.vote=null;await log('classic before next round');await page.evaluate(()=>window.dispatchEvent(new Event('focus')));await page.waitForSelector('main[data-phase="answering"][data-round-id="at-classic-2"]');await sleep(2500);await log('classic next round');await key('h');await log('classic structural heading key');
+ await fixture('hero');await tabTo('[data-testid="hero-search-input"]');xd('type','--clearmodifiers','--delay','80','Abaddon');await sleep(1200);await log('hero search');await key('Return');await log('hero answer locked');await reveal('hero');
+ await fixture('year');await tabTo('[data-testid="flashback-year-slider"]');await key('Right');await log('year adjusted');await tabTo('[data-testid="flashback-year-lock"]');await key('Return');await log('year answer locked');await reveal('year');
+ await fixture('order');for(let i=0;i<4;i++){await tabTo('[data-testid="value-order-card"]:not(:disabled)');await key('Return');await log('order pick '+(i+1));}await reveal('order');
+ await fixture('recipe');await tabTo('[data-testid="shopkeeper-search-field"]');xd('type','--clearmodifiers','--delay','80','gloves');await sleep(1000);await log('shop search');await tabTo('[data-testid="shopkeeper-store-item"]:not(:disabled)');await key('Return');await log('shop component selected');await page.screenshot({path:base+'/session/screenshots/shop-component.png'});
+ result.completed=true;
+}catch(error){result.errors.push(error.stack);console.error(error.stack);}
+await writeFile(base+'/session/app-results.json',JSON.stringify(result,null,2));
+await sleep(700);await browser.close();

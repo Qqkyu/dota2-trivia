@@ -1,0 +1,1276 @@
+{
+  "url": "http://127.0.0.1:3331",
+  "buildId": "YC6nz9frAbvjRFKHq5lSy",
+  "browser": "153.0.8010.12",
+  "completed": true,
+  "errors": [],
+  "events": [
+    {
+      "label": "home loaded",
+      "startMs": 1791291142548,
+      "endMs": 1791291142548,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%One public room \u00b7 Ten gamesYour queue hasside quests.A Dota arcade built for the gap between Find Match and Accept. E"
+      },
+      "speech": []
+    },
+    {
+      "label": "home tab 1",
+      "startMs": 1791291142548,
+      "endMs": 1791291142970,
+      "focus": {
+        "tag": "A",
+        "id": "",
+        "testid": "site-home",
+        "name": "Queue Arcade home"
+      },
+      "speech": [
+        {
+          "atMs": 1791291142575.1145,
+          "text": "tab ",
+          "durationSeconds": 0.658639455782313,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291142600.3125,
+          "text": "Queue Arcade home link.",
+          "durationSeconds": 1.561859410430839,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "home tab 2",
+      "startMs": 1791291142970,
+      "endMs": 1791291143389,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "name": "Enable game sounds"
+      },
+      "speech": [
+        {
+          "atMs": 1791291142994.3608,
+          "text": "tab ",
+          "durationSeconds": 0.658639455782313,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291143027.5002,
+          "text": "Enable game sounds toggle button not pressed.",
+          "durationSeconds": 2.6467120181405894,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "home tab 3",
+      "startMs": 1791291143389,
+      "endMs": 1791291143807,
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "testid": "game-volume",
+        "name": "Game volume"
+      },
+      "speech": [
+        {
+          "atMs": 1791291143412.267,
+          "text": "tab ",
+          "durationSeconds": 0.658639455782313,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291143442.2239,
+          "text": "Game volume horizontal slider 70 percent.",
+          "durationSeconds": 2.957551020408163,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291143470.0417,
+          "text": "Focus mode",
+          "durationSeconds": 1.0687074829931973,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "home tab 4",
+      "startMs": 1791291143807,
+      "endMs": 1791291144227,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "testid": "start-arcade",
+        "name": "Play Dota"
+      },
+      "speech": [
+        {
+          "atMs": 1791291143832.951,
+          "text": "tab ",
+          "durationSeconds": 0.658639455782313,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291143861.2686,
+          "text": "PLAY DOTA push button.",
+          "durationSeconds": 1.4226303854875284,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "home tab 5",
+      "startMs": 1791291144227,
+      "endMs": 1791291144647,
+      "focus": {
+        "tag": "A",
+        "id": "",
+        "testid": "private-room-open",
+        "name": "Party"
+      },
+      "speech": [
+        {
+          "atMs": 1791291144254.5083,
+          "text": "tab ",
+          "durationSeconds": 0.658639455782313,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291144280.4553,
+          "text": "PARTY link.",
+          "durationSeconds": 0.9957369614512471,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "home tab 6",
+      "startMs": 1791291144647,
+      "endMs": 1791291145065,
+      "focus": {
+        "tag": "A",
+        "id": "",
+        "testid": "steam-sign-in",
+        "name": "Sign in with Steam"
+      },
+      "speech": [
+        {
+          "atMs": 1791291144671.8296,
+          "text": "tab ",
+          "durationSeconds": 0.658639455782313,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291144696.319,
+          "text": "Sign in with Steam link.",
+          "durationSeconds": 1.4902494331065759,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "home tab 7",
+      "startMs": 1791291145065,
+      "endMs": 1791291145486,
+      "focus": {
+        "tag": "A",
+        "id": "",
+        "name": "Profile"
+      },
+      "speech": [
+        {
+          "atMs": 1791291145092.1719,
+          "text": "tab ",
+          "durationSeconds": 0.658639455782313,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291145122.6921,
+          "text": "Profile link.",
+          "durationSeconds": 1.115873015873016,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "classic entry gate",
+      "startMs": 1791291145486,
+      "endMs": 1791291147384,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%1 playing now \u00b7 Ten gamesYour queue hasside quests.A Dota arcade built for the gap between Find Match and Accept. Eve"
+      },
+      "speech": [
+        {
+          "atMs": 1791291145527.3801,
+          "text": "l ",
+          "durationSeconds": 0.5629478458049887,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291145563.8513,
+          "text": "Address and search bar autocomplete 127.0.0.1:3331 selected.",
+          "durationSeconds": 7.969387755102041,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146221.6826,
+          "text": "return ",
+          "durationSeconds": 0.7476643990929706,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146502.4082,
+          "text": "Finished loading Play  middle dot  Queue Arcade.",
+          "durationSeconds": 2.51546485260771,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146535.7458,
+          "text": "Page has 1 landmark, 2 headings, 5 unvisited links.",
+          "durationSeconds": 3.947392290249433,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146593.6616,
+          "text": "statusbar",
+          "durationSeconds": 0.8585487528344671,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146618.8213,
+          "text": "70%",
+          "durationSeconds": 0.8358730158730159,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146643.5261,
+          "text": "Queue Arcade home",
+          "durationSeconds": 1.3312925170068026,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146675.1665,
+          "text": "link",
+          "durationSeconds": 0.6400453514739229,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146708.1094,
+          "text": "DOTA 2  middle dot  PATCH 7.41F",
+          "durationSeconds": 2.831111111111111,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146737.871,
+          "text": "header",
+          "durationSeconds": 0.6462131519274377,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146772.832,
+          "text": "Enable game sounds",
+          "durationSeconds": 1.3642630385487529,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146798.843,
+          "text": "toggle button",
+          "durationSeconds": 0.9920634920634921,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146826.2961,
+          "text": "not pressed",
+          "durationSeconds": 0.9029024943310657,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146857.9924,
+          "text": "Game volume",
+          "durationSeconds": 0.9795011337868481,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146886.0867,
+          "text": "horizontal slider",
+          "durationSeconds": 1.3453061224489795,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146918.5547,
+          "text": "70 percent",
+          "durationSeconds": 1.2690702947845804,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146952.6003,
+          "text": "statusbar",
+          "durationSeconds": 0.8585487528344671,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291146985.9553,
+          "text": "1 PLAYING NOW  middle dot  TEN GAMES",
+          "durationSeconds": 2.2713378684807255,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147025.7693,
+          "text": "Your queue has",
+          "durationSeconds": 1.0015873015873016,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147052.7021,
+          "text": "heading level 1",
+          "durationSeconds": 1.019954648526077,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147083.7324,
+          "text": "side quests.",
+          "durationSeconds": 1.1511564625850341,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147118.6067,
+          "text": "heading level 1",
+          "durationSeconds": 1.019954648526077,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147155.962,
+          "text": "A Dota arcade built for the gap between Find Match and Accept.",
+          "durationSeconds": 3.672562358276644,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147190.1306,
+          "text": "Everyone plays the same endless rotation; the challenge changes every round.",
+          "durationSeconds": 4.283945578231292,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147234.506,
+          "text": "ROUND MIX",
+          "durationSeconds": 0.9043083900226757,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147268.8096,
+          "text": "Round identities",
+          "durationSeconds": 1.1704761904761904,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147298.6382,
+          "text": "panel",
+          "durationSeconds": 0.6749206349206349,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147327.7612,
+          "text": "Classic Trivia",
+          "durationSeconds": 1.199954648526077,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147366.5037,
+          "text": "Shopkeeper",
+          "durationSeconds": 0.9211791383219955,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "classic round start",
+      "startMs": 1791291147384,
+      "endMs": 1791291149434,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Classic TriviaMana58How much mana does Acid Spray cost?Us"
+      },
+      "speech": [
+        {
+          "atMs": 1791291147410.3792,
+          "text": "Spell Link",
+          "durationSeconds": 0.9192743764172335,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147462.326,
+          "text": "Fogged",
+          "durationSeconds": 0.692063492063492,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147544.7776,
+          "text": "Use A\u2013D or 1\u20134 to answerCorrect now: 225 gold",
+          "durationSeconds": 4.55750566893424,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147602.7532,
+          "text": "GOLD",
+          "durationSeconds": 0.6052607709750567,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147628.334,
+          "text": "Round 1.",
+          "durationSeconds": 0.945124716553288,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147657.853,
+          "text": " How much mana does Acid Spray cost?",
+          "durationSeconds": 2.190566893424036,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147684.7676,
+          "text": "0",
+          "durationSeconds": 0.006984126984126984,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147729.9734,
+          "text": "STREAK",
+          "durationSeconds": 0.7226757369614513,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147762.824,
+          "text": "0",
+          "durationSeconds": 0.006984126984126984,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147804.5986,
+          "text": "Your session",
+          "durationSeconds": 0.9219047619047619,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147832.933,
+          "text": "RECENT ROUNDS",
+          "durationSeconds": 1.0751473922902495,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147864.5469,
+          "text": "ROUND 1",
+          "durationSeconds": 0.6980952380952381,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147925.3296,
+          "text": "Your session",
+          "durationSeconds": 0.9219047619047619,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147952.4622,
+          "text": " middle dot  middle dot  middle dot  middle dot  middle dot  middle dot  middle dot  middle dot  middle dot ",
+          "durationSeconds": 5.098684807256236,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291147987.6404,
+          "text": "Queue Arcade  middle dot  Built for the seconds between \u201cFind Match\u201d and \u201cAccept\u201d",
+          "durationSeconds": 4.620226757369615,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291148018.833,
+          "text": "Profile",
+          "durationSeconds": 0.7776417233560091,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291148045.0374,
+          "text": "link",
+          "durationSeconds": 0.6400453514739229,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291148077.2244,
+          "text": "Privacy",
+          "durationSeconds": 0.7512018140589569,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291148103.6963,
+          "text": "link",
+          "durationSeconds": 0.6400453514739229,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291148133.82,
+          "text": "Calibration lab",
+          "durationSeconds": 1.1425396825396825,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291148161.5312,
+          "text": "link",
+          "durationSeconds": 0.6400453514739229,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291148191.7048,
+          "text": "Dota 2 is a trademark of Valve Corporation.",
+          "durationSeconds": 2.6199092970521543,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291148225.1663,
+          "text": "Game assets belong to their respective rights holders.",
+          "durationSeconds": 2.986984126984127,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291148257.622,
+          "text": "This project is not affiliated with Valve.",
+          "durationSeconds": 2.4546485260770976,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291148299.577,
+          "text": "leaving main content.",
+          "durationSeconds": 1.439546485260771,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291148327.081,
+          "text": "notification",
+          "durationSeconds": 1.1711111111111112,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291148353.7324,
+          "text": "clickable",
+          "durationSeconds": 0.8842630385487529,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "classic answer focused",
+      "startMs": 1791291151122,
+      "endMs": 1791291151125,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "testid": "arcade-answer",
+        "name": "A160"
+      },
+      "speech": []
+    },
+    {
+      "label": "classic answer locked",
+      "startMs": 1791291151125,
+      "endMs": 1791291151544,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Classic TriviaMana56How much mana does Acid Spray cost?Us"
+      },
+      "speech": [
+        {
+          "atMs": 1791291151148.6882,
+          "text": "return ",
+          "durationSeconds": 0.7476643990929706,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291151172.9746,
+          "text": "pressed",
+          "durationSeconds": 0.6726077097505669,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291151211.501,
+          "text": "statusbar.",
+          "durationSeconds": 0.9468027210884353,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "classic before reveal",
+      "startMs": 1791291151544,
+      "endMs": 1791291151546,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Classic TriviaMana56How much mana does Acid Spray cost?Us"
+      },
+      "speech": []
+    },
+    {
+      "label": "classic after reveal",
+      "startMs": 1791291151546,
+      "endMs": 1791291153878,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Classic TriviaMana65How much mana does Acid Spray cost?Us"
+      },
+      "speech": [
+        {
+          "atMs": 1791291151811.1626,
+          "text": "INCORRECTAcid Spray's mana cost is 120, before modifiers.",
+          "durationSeconds": 4.439727891156463,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291151912.0823,
+          "text": "NO SCORE",
+          "durationSeconds": 0.8629478458049886,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291152012.8906,
+          "text": "Report question",
+          "durationSeconds": 1.2639455782312925,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291152112.8809,
+          "text": "INCORRECTAcid Spray's mana cost is 120, before modifiers.",
+          "durationSeconds": 4.439727891156463,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291152138.9216,
+          "text": " NO SCORE +0GOLD",
+          "durationSeconds": 1.6838548752834468,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291152217.501,
+          "text": "+0",
+          "durationSeconds": 0.6674829931972789,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291152315.0068,
+          "text": "Acid Spray's mana cost is 120, before modifiers.",
+          "durationSeconds": 3.8653514739229027,
+          "exit": 0
+        }
+      ],
+      "voteAnswerKeys": [
+        null
+      ]
+    },
+    {
+      "label": "classic before next round",
+      "startMs": 1791291153878,
+      "endMs": 1791291153984,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. How much mana does Acid Spray cost?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Classic TriviaMana65How much mana does Acid Spray cost?Us"
+      },
+      "speech": []
+    },
+    {
+      "label": "classic next round",
+      "startMs": 1791291153984,
+      "endMs": 1791291156516,
+      "focus": {
+        "tag": "H1",
+        "id": "",
+        "testid": "round-heading",
+        "name": "Round 2"
+      },
+      "speech": [
+        {
+          "atMs": 1791291154068.6118,
+          "text": "Round 2 heading level 1.",
+          "durationSeconds": 1.7829478458049886,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291154275.3662,
+          "text": "Round 2.",
+          "durationSeconds": 0.875827664399093,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291154298.324,
+          "text": " What year did Dota 2 officially release?",
+          "durationSeconds": 2.2494784580498868,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "classic structural heading key",
+      "startMs": 1791291156516,
+      "endMs": 1791291156936,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 2. What year did Dota 2 officially release?Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 2Round 002FlashbackHistory58What year did Dota 2 officially re"
+      },
+      "speech": [
+        {
+          "atMs": 1791291156542.6748,
+          "text": "h ",
+          "durationSeconds": 0.6077097505668935,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291156569.5195,
+          "text": "What year did Dota 2 officially release? heading level 2.",
+          "durationSeconds": 3.506893424036281,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "next round first Tab",
+      "startMs": 1791291156936,
+      "endMs": 1791291157356,
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "testid": "flashback-year-slider",
+        "name": "Year"
+      },
+      "speech": [
+        {
+          "atMs": 1791291156960.9524,
+          "text": "tab ",
+          "durationSeconds": 0.658639455782313,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291156985.088,
+          "text": "Year horizontal slider 2017.",
+          "durationSeconds": 2.7298866213151927,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291157010.9026,
+          "text": "Focus mode",
+          "durationSeconds": 1.0687074829931973,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "recipe entry gate",
+      "startMs": 1791291157356,
+      "endMs": 1791291159243,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%1 playing now \u00b7 Ten gamesYour queue hasside quests.A Dota arcade built for the gap between Find Match and Accept. Eve"
+      },
+      "speech": [
+        {
+          "atMs": 1791291157396.0493,
+          "text": "l ",
+          "durationSeconds": 0.5629478458049887,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291157428.897,
+          "text": "Address and search bar autocomplete 127.0.0.1:3331/play selected.",
+          "durationSeconds": 8.517596371882085,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158109.3484,
+          "text": "return ",
+          "durationSeconds": 0.7476643990929706,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158357.1157,
+          "text": "Loading.",
+          "durationSeconds": 0.7428571428571429,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158387.0317,
+          "text": "  Please wait.",
+          "durationSeconds": 0.9406802721088435,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158418.02,
+          "text": "Finished loading Play  middle dot  Queue Arcade.",
+          "durationSeconds": 2.51546485260771,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158449.0881,
+          "text": "Page has 1 landmark, 2 headings, 6 unvisited links.",
+          "durationSeconds": 3.9896598639455783,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158479.053,
+          "text": "statusbar",
+          "durationSeconds": 0.8585487528344671,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158504.1492,
+          "text": "70%",
+          "durationSeconds": 0.8358730158730159,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158530.956,
+          "text": "Queue Arcade home",
+          "durationSeconds": 1.3312925170068026,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158558.6755,
+          "text": "link",
+          "durationSeconds": 0.6400453514739229,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158593.8997,
+          "text": "DOTA 2  middle dot  PATCH 7.41F",
+          "durationSeconds": 2.831111111111111,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158623.9575,
+          "text": "header",
+          "durationSeconds": 0.6462131519274377,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158658.0862,
+          "text": "Enable game sounds",
+          "durationSeconds": 1.3642630385487529,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158686.044,
+          "text": "toggle button",
+          "durationSeconds": 0.9920634920634921,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158713.1675,
+          "text": "not pressed",
+          "durationSeconds": 0.9029024943310657,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158744.685,
+          "text": "Game volume",
+          "durationSeconds": 0.9795011337868481,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158772.5527,
+          "text": "horizontal slider",
+          "durationSeconds": 1.3453061224489795,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158801.7346,
+          "text": "70 percent",
+          "durationSeconds": 1.2690702947845804,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158832.8152,
+          "text": "statusbar",
+          "durationSeconds": 0.8585487528344671,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158866.7466,
+          "text": "1 PLAYING NOW  middle dot  TEN GAMES",
+          "durationSeconds": 2.2713378684807255,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158907.6785,
+          "text": "Your queue has",
+          "durationSeconds": 1.0015873015873016,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158935.5042,
+          "text": "heading level 1",
+          "durationSeconds": 1.019954648526077,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158967.4353,
+          "text": "side quests.",
+          "durationSeconds": 1.1511564625850341,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291158994.8794,
+          "text": "heading level 1",
+          "durationSeconds": 1.019954648526077,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159032.1086,
+          "text": "A Dota arcade built for the gap between Find Match and Accept.",
+          "durationSeconds": 3.672562358276644,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159065.3416,
+          "text": "Everyone plays the same endless rotation; the challenge changes every round.",
+          "durationSeconds": 4.283945578231292,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159112.105,
+          "text": "ROUND MIX",
+          "durationSeconds": 0.9043083900226757,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159144.2686,
+          "text": "Round identities",
+          "durationSeconds": 1.1704761904761904,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159172.1995,
+          "text": "panel",
+          "durationSeconds": 0.6749206349206349,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159199.339,
+          "text": "Classic Trivia",
+          "durationSeconds": 1.199954648526077,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159233.5957,
+          "text": "Shopkeeper",
+          "durationSeconds": 0.9211791383219955,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "recipe round start",
+      "startMs": 1791291159243,
+      "endMs": 1791291161304,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. Build Abyssal Blade.Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Shopkeeper RushRecipes58Target itemBuild Abyssal Blade.basicsupgradesSho"
+      },
+      "speech": [
+        {
+          "atMs": 1791291159279.0596,
+          "text": "Spell Link",
+          "durationSeconds": 0.9192743764172335,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159523.9976,
+          "text": "GOLD",
+          "durationSeconds": 0.6052607709750567,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159555.5076,
+          "text": "0",
+          "durationSeconds": 0.006984126984126984,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159602.6648,
+          "text": "STREAK",
+          "durationSeconds": 0.7226757369614513,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159635.3474,
+          "text": "0",
+          "durationSeconds": 0.006984126984126984,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159659.2305,
+          "text": "Round 1.",
+          "durationSeconds": 0.945124716553288,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159682.497,
+          "text": " Build Abyssal Blade.",
+          "durationSeconds": 1.3308843537414965,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159707.18,
+          "text": "Your session",
+          "durationSeconds": 0.9219047619047619,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159733.5852,
+          "text": "RECENT ROUNDS",
+          "durationSeconds": 1.0751473922902495,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159764.732,
+          "text": "ROUND 1",
+          "durationSeconds": 0.6980952380952381,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159822.2954,
+          "text": "Your session",
+          "durationSeconds": 0.9219047619047619,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159850.3574,
+          "text": " middle dot  middle dot  middle dot  middle dot  middle dot  middle dot  middle dot  middle dot  middle dot ",
+          "durationSeconds": 5.098684807256236,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159883.7095,
+          "text": "Queue Arcade  middle dot  Built for the seconds between \u201cFind Match\u201d and \u201cAccept\u201d",
+          "durationSeconds": 4.620226757369615,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159915.9832,
+          "text": "Profile",
+          "durationSeconds": 0.7776417233560091,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159942.2122,
+          "text": "link",
+          "durationSeconds": 0.6400453514739229,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159972.2295,
+          "text": "Privacy",
+          "durationSeconds": 0.7512018140589569,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291159999.4583,
+          "text": "link",
+          "durationSeconds": 0.6400453514739229,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291160029.6711,
+          "text": "Calibration lab",
+          "durationSeconds": 1.1425396825396825,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291160056.465,
+          "text": "link",
+          "durationSeconds": 0.6400453514739229,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291160086.2188,
+          "text": "Dota 2 is a trademark of Valve Corporation.",
+          "durationSeconds": 2.6199092970521543,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291160121.718,
+          "text": "Game assets belong to their respective rights holders.",
+          "durationSeconds": 2.986984126984127,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291160154.4187,
+          "text": "This project is not affiliated with Valve.",
+          "durationSeconds": 2.4546485260770976,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291160196.1902,
+          "text": "leaving main content.",
+          "durationSeconds": 1.439546485260771,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291160222.5762,
+          "text": "notification",
+          "durationSeconds": 1.1711111111111112,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291160248.5037,
+          "text": "clickable",
+          "durationSeconds": 0.8842630385487529,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "shop search",
+      "startMs": 1791291163839,
+      "endMs": 1791291165091,
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "testid": "shopkeeper-search-field",
+        "name": "Search shop items"
+      },
+      "speech": [
+        {
+          "atMs": 1791291163867.0735,
+          "text": "g ",
+          "durationSeconds": 0.5482993197278911,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291163904.9568,
+          "text": "l ",
+          "durationSeconds": 0.5629478458049887,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291163952.9785,
+          "text": "o ",
+          "durationSeconds": 0.5390022675736962,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291163986.9158,
+          "text": "v ",
+          "durationSeconds": 0.6195918367346939,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291164026.3662,
+          "text": "e ",
+          "durationSeconds": 0.4940136054421769,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291164070.4053,
+          "text": "s ",
+          "durationSeconds": 0.5592290249433106,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291164112.293,
+          "text": "GLOVES",
+          "durationSeconds": 0.6516099773242631,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "shop component selected",
+      "startMs": 1791291165511,
+      "endMs": 1791291167733,
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "testid": "shopkeeper-search-field",
+        "name": "Search shop items"
+      },
+      "speech": [
+        {
+          "atMs": 1791291165538.4824,
+          "text": "return ",
+          "durationSeconds": 0.7476643990929706,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291165687.7227,
+          "text": "Added Gloves of Haste.",
+          "durationSeconds": 1.4521995464852608,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291165713.3025,
+          "text": " 1 of 2 components selected.",
+          "durationSeconds": 2.0560997732426305,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "shop ready to build",
+      "startMs": 1791291169423,
+      "endMs": 1791291171444,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "testid": "shopkeeper-recipe-build",
+        "name": "Build"
+      },
+      "speech": [
+        {
+          "atMs": 1791291169449.212,
+          "text": "return ",
+          "durationSeconds": 0.7476643990929706,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291169538.6401,
+          "text": "leaving region.",
+          "durationSeconds": 0.9844444444444445,
+          "exit": 0
+        },
+        {
+          "atMs": 1791291169565.6982,
+          "text": "BUILD push button.",
+          "durationSeconds": 1.2086621315192745,
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "label": "shop recipe submitted",
+      "startMs": 1791291171444,
+      "endMs": 1791291171863,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. Build Abyssal Blade.Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Shopkeeper RushRecipes58Target itemBuild Abyssal Blade.basicsupgradesAdd"
+      },
+      "speech": [
+        {
+          "atMs": 1791291171470.5337,
+          "text": "return ",
+          "durationSeconds": 0.7476643990929706,
+          "exit": 0
+        }
+      ],
+      "voteAnswerKeys": [
+        "recipe-v1:gloves+magic_wand"
+      ]
+    }
+  ]
+}

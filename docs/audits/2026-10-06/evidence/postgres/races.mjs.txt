@@ -1,0 +1,14 @@
+import postgres from 'postgres';
+import {spawn} from 'node:child_process';
+const sql = postgres({ host:'/tmp/queue-arcade-pg-audit.3f4hCl', port:55793, database:'postgres', username:'kulmisiu', max:1, prepare:false, onnotice:()=>{} });
+for (const mode of ['vote','account','alpha']) {
+ const schema = 'audit_' + mode;
+ await sql.unsafe(`CREATE SCHEMA ${schema}`);
+ const start = Date.now()+1500;
+ const results = await Promise.all(Array.from({length:12}, () => new Promise(resolve => {
+  const child = spawn(process.execPath, ['/tmp/queue-arcade-pg-audit.3f4hCl/worker.mjs', mode, String(start)], {env:{...process.env, DATABASE_URL:'isolated-local-audit', AUDIT_SCHEMA:schema}});
+  let result=''; child.stdout.on('data', b=>result+=b); child.stderr.on('data', b=>result+=b); child.on('close',()=>resolve(result.trim()));
+ })));
+ console.log(JSON.stringify({mode, results}));
+}
+await sql.end();

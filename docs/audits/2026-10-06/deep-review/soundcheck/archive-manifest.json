@@ -1,0 +1,57 @@
+{
+  "reviewedAt": "2026-10-06",
+  "files": {
+    "audit-soundcheck-assets.mjs.txt": {
+      "sha256": "fc5c424da23a73b881cbe28e72690ce108e5387d8c23184769ad5c7370bf677a",
+      "bytes": 3032
+    },
+    "build-soundcheck-ledger.mjs.txt": {
+      "sha256": "5514564dee27aa5ba4779d94d817feb66866025cf9af6ca19e683e0010bb52f3",
+      "bytes": 9518
+    },
+    "check-soundcheck-generation.mjs.txt": {
+      "sha256": "5ae16dbd7e164d7f385e4487bd6f9a6b29f5ea20c780dfb66a3932427b6c5b7d",
+      "bytes": 2443
+    },
+    "generation-check.json": {
+      "sha256": "2cdd9c37c8867d0c547e571786aa27ce64494c45a25b3cf98cd681ec26581f92",
+      "bytes": 1260
+    },
+    "reincarnation-waveform.json": {
+      "sha256": "e41b6e7889e5b18b50710eb61da1225beead340f266a6a6e20e4d0c48240cf7d",
+      "bytes": 1005
+    },
+    "report.md": {
+      "sha256": "5fe10b18086d8199ae6508abbd0705619be43f0c295b3429c71b3c122ce50d01",
+      "bytes": 8939
+    },
+    "soundcheck-generation-diff.json": {
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "soundcheck-ledger.json": {
+      "sha256": "730ae0ae0ac80e675367cb2e589dbae1c1e8cad53e7cac57d52e1c0e3f43b2f9",
+      "bytes": 312077
+    },
+    "soundcheck-regenerated.json": {
+      "sha256": "e99a0dff74ddaf5b5790780e0605027113dd0d10ae6231b6cde3473076ff91fe",
+      "bytes": 200878
+    },
+    "soundcheck-waveforms.json": {
+      "sha256": "7e4e3c9855cbfe21c6efe27e84ff8566d4545252dc8de2366b058ca26f6ce8c5",
+      "bytes": 45697
+    },
+    "source-assets-manifest.json": {
+      "sha256": "b56364d61009b17a7b9e30a0e8f2cfc54f63ce639c789f776929afdede7ae6dc",
+      "bytes": 179879
+    },
+    "source-event-excerpts.json": {
+      "sha256": "aa63cf17107300f6b2a82b4576d500bc3fac5845f13803fc4512be290900a11c",
+      "bytes": 4743
+    },
+    "source-official-names.json": {
+      "sha256": "3f8f681d8bb8199d0a7caf53388d8b380d3d6c5cf8a5ba92ceae51dd703328df",
+      "bytes": 9658
+    }
+  }
+}

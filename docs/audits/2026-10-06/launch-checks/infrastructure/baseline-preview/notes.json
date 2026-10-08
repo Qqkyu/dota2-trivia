@@ -1,0 +1,8 @@
+{
+  "releaseApproved": false,
+  "contentGate": "Test-only baseline image; final gated image remains required.",
+  "contention": "Other local browser, build, and unit checks ran during this calibration. This is not the final isolated timing test.",
+  "result": "Game, score, native media, cleanup, and independent database checks passed. The one-second latency target failed for 20 players on 0.1 CPU.",
+  "media": "Twenty concurrent clients per stage; three Soundcheck, three Echo Hunt, and three Fogged Vision stages. Exactly two successful native ffmpeg jobs, peak one, and three total upstream fetches.",
+  "limits": "Local model of published free-preview CPU/RAM limits; not measured Render throughput."
+}

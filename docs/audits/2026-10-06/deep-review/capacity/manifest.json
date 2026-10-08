@@ -1,0 +1,32 @@
+{
+  "archivedAt": "2026-10-06T08:48:16.436Z",
+  "testedBuildId": "b-Fjb1-sNhRtFg4M0Kbmr",
+  "testedBuildDirectory": ".next-check",
+  "script": "scripts/check-capacity.mjs",
+  "scriptSha256": "0dedf34f66a36b9cf8f83ef2ef0fc242e648046cf046df1b3048e993c2027f78",
+  "node": "24.15.0",
+  "next": "16.3.8",
+  "postgres": "14",
+  "databasePoolSize": 5,
+  "fixture": "Isolated local synthetic PostgreSQL and app server; no user data or remote services.",
+  "finalCandidateRegression": {
+    "ok": true,
+    "testedBuildId": "a9jO2vwwKVTSsroYDHJJW",
+    "testedBuildDirectory": ".next-deep-check",
+    "scriptSha256": "0dedf34f66a36b9cf8f83ef2ef0fc242e648046cf046df1b3048e993c2027f78",
+    "players": 4,
+    "roundsPerPlayer": 2,
+    "independentDatabaseCheck": true
+  },
+  "artifactSha256": {
+    "README.md": "d96a1badb338de3743b5a384092544dac7ae85709f34df6f6db98e2cfa2882a3",
+    "capacity-final.json": "5f8094660e14046b0db2f8a056fe81845ee65585174cd36524cd2002d317f6a9",
+    "capacity-final-summary.json": "af9f7cfea0db8e2425ca931eeb38d46ce343ae22a31290925c70f4187cfcd5b7",
+    "capacity-final-database.json": "3629524341df5065e6921781d4ff35f25a51cb73986d7d178536dc0de1b13a63",
+    "process-metrics-summary.json": "8b1d8061ecf4c84e14c909533c08e90bcc096e51f9bd8139704b78f91a893f60",
+    "capacity-regression.json": "bc4e4d1ed519f2566c3e8a4a63d9bfbde53f78c0ff31df5c2d539ca079755325",
+    "capacity-regression-summary.json": "5ba3bcc526c6e8ddd08338bf2178ba784f5953f348dc5cd2359631d53d3f5cff",
+    "capacity-regression-database.json": "b58c45d83b7ea015de87f4768e29ca16daa4c9e42e7ec3336a5bbfc4113155f6",
+    "capacity-regression-health.json": "f7a49c817b8b0f221b10d2bbb07076acaf3fa9cb8d1673786a70a719a51475ac"
+  }
+}

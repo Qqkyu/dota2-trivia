@@ -1,0 +1,26 @@
+[
+  {
+    "text": "System UI isn't responding",
+    "description": "",
+    "class": "android.widget.TextView",
+    "bounds": "[98,536][622,590]",
+    "focused": "false",
+    "resourceId": "android:id/alertTitle"
+  },
+  {
+    "text": "Close app",
+    "description": "",
+    "class": "android.widget.Button",
+    "bounds": "[50,620][670,716]",
+    "focused": "false",
+    "resourceId": "android:id/aerr_close"
+  },
+  {
+    "text": "Wait",
+    "description": "",
+    "class": "android.widget.Button",
+    "bounds": "[50,716][670,812]",
+    "focused": "false",
+    "resourceId": "android:id/aerr_wait"
+  }
+]

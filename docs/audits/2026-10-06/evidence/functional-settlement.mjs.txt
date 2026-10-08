@@ -1,0 +1,67 @@
+import {readFileSync} from 'node:fs';
+import {createRequire} from 'node:module';
+import * as party from '/home/kulmisiu/dev/dota2-trivia/src/lib/private-rooms.mjs';
+import * as score from '/home/kulmisiu/dev/dota2-trivia/src/lib/scoring.mjs';
+import * as timing from '/home/kulmisiu/dev/dota2-trivia/src/lib/round-timing.mjs';
+const require=createRequire('/home/kulmisiu/dev/dota2-trivia/package.json');
+const ts=require('typescript');
+const root='/home/kulmisiu/dev/dota2-trivia';
+const question={id:'audit-item-price',kind:'item-cost',game:'trivia',difficulty:1,correctIndex:0,answers:['A','B','C','D']};
+const room={id:'dota2:audit:private:FSETTLE',gameId:'dota2',contentVersion:'audit',mode:'mixed',filter:'Mixed'};
+const settings={gameId:'dota2',privateCode:'FSETTLE'};
+let now=1000000;
+const originalNow=Date.now;Date.now=()=>now;
+const startedAt=now+3000;
+const roundAt=(n,time)=>({id:`${room.id}:round:${n}:${startedAt}`,number:n,game:'trivia',questionId:question.id,startedAt:startedAt+n*22000,answerDeadline:startedAt+n*22000+15000,revealDeadline:startedAt+(n+1)*22000,answerDuration:15000,phase:timing.roundPhaseAt(time,startedAt+n*22000+15000)});
+const live=(_,time)=>({room,round:roundAt(Math.max(0,Math.floor((time-startedAt)/22000)),time),isolated:true});
+let commit;let reached;let accepted;
+const pendingEntered=new Promise(resolve=>{reached=resolve});
+const votes=new Map();
+const crowd=async(id,_room,_player)=>{
+ const v=votes.get(id);return {counts:[v?1:0,0,0,0],total:v?1:0,keyCounts:[],playerVote:v?{answerIndex:0,submittedAt:v.submittedAt}:null,scoreSummary:score.roundScoreSummary({correctCount:v?1:0,total:v?1:0,basePointsTotal:v?.basePoints??0,basePointsBest:v?.basePoints??0,playerBasePoints:v?.basePoints??null})};
+};
+const common={
+ 'next/server':{NextResponse:{json:(body,init)=>new Response(JSON.stringify(body),{...init,headers:{'Content-Type':'application/json',...init?.headers}})}},
+ '@/lib/auth-session':{sessionUserForRequest:async()=>null},
+ '@/lib/api-protection':{rateLimitRequest:()=>null},
+ '@/lib/arcade-games.mjs':{roundFormatForQuestion:()=> 'classic-item-prices'},
+ '@/lib/game-catalogs':{GAME_CATALOGS:{dota2:{questions:[question]}}},
+ '@/lib/keyed-answer':{isKeyedAnswerQuestion:()=>false,isQuestionAnswerCorrect:(_q,i)=>i===0,isValidAnswerKeyForQuestion:()=>false,keyedAnswerIndex:()=>null,correctAnswerKey:()=>null},
+ '@/lib/private-room-rounds':{liveRoundForSettings:live,liveRoundAt:(_s,n,time)=>roundAt(n,time)},
+ '@/lib/private-rooms.mjs':party,
+ '@/lib/public-rooms':{parsePublicRoomSettings:()=>settings,PUBLIC_VOTE_ACCEPT_GRACE_MS:timing.PUBLIC_VOTE_ACCEPT_GRACE_MS},
+ '@/lib/question-revision.mjs':{questionCalibrationRevision:()=> 'audit-revision'},
+ '@/lib/scoring.mjs':score,
+ '@/lib/server-diagnostics':{logServerError:(_name,error)=>{throw error}},
+ '@/lib/vote-store':{
+   recordRoundVote:async(input)=>{reached();return new Promise(resolve=>{commit=async()=>{votes.set(input.roundId,input);accepted=true;resolve({accepted:true,...await crowd(input.roundId)});};});},
+   getRoundCrowd:crowd,getPlayerQuestionReport:async()=>null,
+ },
+ '@/lib/alpha-analytics.mjs':{isAlphaSessionId:()=>true},
+ '@/lib/alpha-store':{recordAlphaSessionRound:async()=>{}},
+ '@/lib/account-store':{recordPlayerRound:async()=>{}},
+ '@/lib/player-profile.mjs':{answerStageForRound:()=>null},
+ '@/lib/crowd-split.mjs':{prioritizedKeyCounts:()=>[]},
+ '@/lib/public-question':{publicQuestionRevision:()=> 'audit-public-revision',publicQuestionForRound:()=>({})},
+ '@/lib/room-presence.mjs':{touchRoomPresence:()=>1},
+};
+function loadRoute(path){
+ const out=ts.transpileModule(readFileSync(root+path,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+ const module={exports:{}};new Function('require','module','exports',out)(name=>{if(!(name in common))throw new Error('Unknown dependency '+name);return common[name];},module,module.exports);return module.exports;
+}
+try {
+ const voteRoute=loadRoute('/src/app/api/votes/route.ts');const roundRoute=loadRoute('/src/app/api/rounds/route.ts');
+ party.createPrivateRoom({hostId:'functional-host',gameId:'dota2',contentVersion:'audit',code:'FSETTLE',games:['trivia'],now});party.startPrivateRoom('FSETTLE','functional-host',now);
+ const round0=roundAt(0,now);now=round0.answerDeadline+700;
+ const pendingVote=voteRoute.POST(new Request('http://audit/api/votes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({gameId:'dota2',privateCode:'FSETTLE',voterId:'functional-host',roundId:round0.id,answerIndex:0})}));
+ await pendingEntered;
+ now=round0.answerDeadline+850;
+ const earlyReveal=await roundRoute.GET(new Request('http://audit/api/rounds?gameId=dota2&privateCode=FSETTLE&playerId=functional-host'));
+ console.log('BEFORE_COMMIT',JSON.stringify({status:earlyReveal.status,accepted:accepted??false,score:party.getPrivateRoom('FSETTLE',now).players[0].score,settled:globalThis.__queueArcadePrivateRooms.get('FSETTLE').settledRoundIds}));
+ await commit();const response=await pendingVote;
+ console.log('VOTE_COMMITTED',JSON.stringify({status:response.status,result:await response.json(),score:party.getPrivateRoom('FSETTLE',now).players[0].score}));
+ now=round0.revealDeadline+100;
+ const next=await roundRoute.GET(new Request('http://audit/api/rounds?gameId=dota2&privateCode=FSETTLE&playerId=functional-host'));
+ const result=await next.json();
+ console.log('NEXT_ROUND',JSON.stringify({status:next.status,round:result.round.number,previousResults:result.previousResults,score:party.getPrivateRoom('FSETTLE',now).players[0].score,pendingRecognized:party.pendingPrivateRoomRoundIds('FSETTLE',result.round.id),pendingActual:globalThis.__queueArcadePrivateRooms.get('FSETTLE').members[0].pendingAwards}));
+}finally{Date.now=originalNow;party.resetPrivateRoomsForTests();}

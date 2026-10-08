@@ -1,0 +1,27 @@
+{
+  "id": "sha256:691894e712d4c9c24abbe9d4be7776f03f996c6835d82453d96ddd02c43eed40",
+  "created": "2026-10-06T13:27:49.543301081Z",
+  "os": "linux",
+  "architecture": "amd64",
+  "size": 143821022,
+  "user": "nextjs",
+  "command": [
+    "node",
+    "scripts/start-production.mjs",
+    "--standalone"
+  ],
+  "imageConfigId": "sha256:80bf93f2948f4b2fe5abde9cecac014f0e90dcc9ca2a4f1466691c351f86dc6b",
+  "baseImage": "node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402",
+  "dockerfileSha256": "56a7d5e76037479cba5c0bb156b4a1077c0b1a471b870fed3b2fb1e537e6e52b",
+  "contentReviewSha256": "602b2117b0dd76da24d865f6f0e256486a822e80eeae522037fdcbce512903ab",
+  "contentGate": [
+    "for patch 7.41f: 122 files, reviewed 2026-10-06T13:26:52.603Z by Codex audit team."
+  ],
+  "sourceFiles": {
+    "package.json": "239cee113d997543c34b354012243e272367a1932c1185af8174da7d7cd7491c",
+    "pnpm-lock.yaml": "bf115fc52c489e8cd873f017cf5279f5a998bd27d8435722deeb9dbf6dc2819d",
+    "scripts/check-container.mjs": "aa7b5fc0658da24af732b65bc533341bfe0eb79ea97d4e3d5033804c3358553d",
+    "scripts/check-capacity.mjs": "7b4536dcbbe14f11a4e578100cb35f680401363ca6caf8f88fc176018cb198e8",
+    "scripts/check-cold-media.mjs": "039047277c25afdbd02f69025513b19faad305d37f23e4062809a83f0d1b7ff3"
+  }
+}

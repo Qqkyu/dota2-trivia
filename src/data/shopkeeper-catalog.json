@@ -714,7 +714,7 @@
         {
           "key": "phylactery",
           "name": "Phylactery",
-          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/phylactery.png?t=1593393829403",
+          "image": "/arcade/items/phylactery.png",
           "cost": 2600
         },
         {
@@ -738,7 +738,7 @@
         {
           "key": "angels_demise",
           "name": "Khanda",
-          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/angels_demise.png?t=1593393829403",
+          "image": "/arcade/items/angels_demise.png",
           "cost": 5600
         },
         {
@@ -1131,7 +1131,7 @@
         {
           "key": "disperser",
           "name": "Disperser",
-          "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/disperser.png?t=1593393829403",
+          "image": "/arcade/items/disperser.png",
           "cost": 6100
         },
         {

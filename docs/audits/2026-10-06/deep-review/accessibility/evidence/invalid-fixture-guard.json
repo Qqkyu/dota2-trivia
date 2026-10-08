@@ -1,0 +1,23 @@
+{
+  "appUrl": "http://127.0.0.1:3315",
+  "engine": "chromium",
+  "runName": "invalid-fixture-guard",
+  "buildId": "a9jO2vwwKVTSsroYDHJJW",
+  "startedAt": "2026-10-06T09:02:07.834Z",
+  "completed": false,
+  "requestedModes": [],
+  "reviewerFixture": true,
+  "version": "153.0.8010.12",
+  "pages": [],
+  "fixtures": [],
+  "keyboard": [],
+  "failures": [
+    "Reviewer fixture is not authenticated by /api/me"
+  ],
+  "accountFixture": {
+    "status": 200,
+    "authenticated": false,
+    "name": null,
+    "answers": null
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "reviewedAt": "2026-10-06",
+  "baselineCatalogRows": 1589,
+  "currentCatalogRows": 1589,
+  "originalLiveQuestions": 1517,
+  "reviewedOriginalIds": 1517,
+  "coveredCurrentLiveIds": 1517,
+  "retiredOutOfScope": 72,
+  "idReplacements": [
+    {
+      "originalId": "hero-quote:npc_dota_hero_lich:lich_kill_06",
+      "currentId": "hero-quote:npc_dota_hero_lich:lich_rare_02",
+      "ledgerPath": "docs/audits/2026-10-06/deep-review/voices/voices-ledger.json"
+    },
+    {
+      "originalId": "hero-quote:npc_dota_hero_sniper:snip_kill_12",
+      "currentId": "hero-quote:npc_dota_hero_sniper:snip_rare_04",
+      "ledgerPath": "docs/audits/2026-10-06/deep-review/voices/voices-ledger.json"
+    },
+    {
+      "originalId": "hero-quote:npc_dota_hero_techies:tech_firstblood_03",
+      "currentId": "hero-quote:npc_dota_hero_techies:tech_levelup_09",
+      "ledgerPath": "docs/audits/2026-10-06/deep-review/voices/voices-ledger.json"
+    },
+    {
+      "originalId": "hero-voice:npc_dota_hero_ancient_apparition:appa_kill_06",
+      "currentId": "hero-voice:npc_dota_hero_ancient_apparition:appa_blink_02",
+      "ledgerPath": "docs/audits/2026-10-06/deep-review/voices/voices-ledger.json"
+    },
+    {
+      "originalId": "hero-voice:npc_dota_hero_jakiro:jak_kill_06",
+      "currentId": "hero-voice:npc_dota_hero_jakiro:jak_kill_11",
+      "ledgerPath": "docs/audits/2026-10-06/deep-review/voices/voices-ledger.json"
+    },
+    {
+      "originalId": "hero-voice:npc_dota_hero_shredder:timb_attack_03",
+      "currentId": "hero-voice:npc_dota_hero_shredder:timb_respawn_02",
+      "ledgerPath": "docs/audits/2026-10-06/deep-review/voices/voices-ledger.json"
+    }
+  ],
+  "ledgerCounts": {
+    "identity": 254,
+    "aghanim": 84,
+    "numeric": 422,
+    "flashback": 191,
+    "voices": 368,
+    "shopkeeper": 102,
+    "soundcheck": 96
+  },
+  "rawReviewStatusCounts": {
+    "verified": 782,
+    "corrected": 50,
+    "fixed": 589,
+    "verified-by-source-and-waveform": 90,
+    "fixed-and-verified": 6
+  },
+  "groupedReviewStatusCounts": {
+    "verified": 872,
+    "fixed": 645
+  },
+  "dataChangeCounts": {
+    "source-only": 316,
+    "player-visible": 701,
+    "metadata-only": 60,
+    "unchanged": 440
+  },
+  "changedQuestionRows": 1077,
+  "outOfScopeKindCounts": {
+    "recipe-component": 36,
+    "recipe-upgrade": 36
+  },
+  "audioListeningUnverified": 219,
+  "assertions": {
+    "expectedSevenLedgerCounts": [
+      422,
+      254,
+      368,
+      102,
+      96,
+      84,
+      191
+    ],
+    "all1517OriginalIdsCoveredExactlyOnce": true,
+    "all1517CurrentLiveIdsCoveredExactlyOnce": true,
+    "noDuplicateOriginalIds": true,
+    "noDuplicateCurrentIds": true,
+    "noMissingLedgerRows": true,
+    "all72RetiredRowsExplicitlyNotReviewed": true,
+    "sixVoiceIdReplacementsAreOneToOne": true,
+    "sourceMetadataPreservedSeparatelyFromSourceFile": true
+  },
+  "interpretation": {
+    "reviewStatus": "Copied from each ledger. Verified and fixed apply only within correctAnswerCheck.scope and its limits. Soundcheck and Echo audio listening remain unverified.",
+    "sourceOnly": "Question JSON changed only under the top-level source field.",
+    "playerVisible": "At least one data change affects a prompt, category, answer, scored result, clue, image/audio contract, card, or reveal. Source/audit metadata, IDs, patch labels, variety keys and seed difficulty are excluded.",
+    "metadataOnly": "Data changed, but neither a player-visible data field nor only source changed.",
+    "unchanged": "Canonical question JSON is unchanged. A ledger may still mark a code-only behavior correction as fixed.",
+    "coverage": "This index covers stored question content. Changes to UI/server code and unavailable live-client or listening checks are not counted as question-data changes."
+  }
+}

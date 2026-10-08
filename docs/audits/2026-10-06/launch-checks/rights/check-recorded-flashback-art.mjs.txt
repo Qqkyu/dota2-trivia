@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
+const root=process.cwd();
+const {publicQuestionForRound}=await import(pathToFileURL(root+'/src/lib/public-question.mjs'));
+const base='docs/audits/2026-10-06/launch-checks/rights';
+const read=async p=>JSON.parse(await readFile(p,'utf8'));
+const questions=new Map((await read('src/data/flashback-questions.json')).map(q=>[q.id,q]));
+const recorded=await read(base+'/browser/results.json');
+function collect(value){if(typeof value==='string'&&value.startsWith('/arcade/flashback/originals/'))return[value];if(value&&typeof value==='object')return Object.values(value).flatMap(collect);return[];}
+const results=[];
+for(const state of recorded.results){const raw=questions.get(state.id);const now=Date.now();const question=publicQuestionForRound(raw,{id:raw.id,game:'flashback',phase:state.phase,answerDeadline:state.phase==='reveal'?now-100:now+15000,answerDuration:15000},now);const expected=[...new Set(collect(question))];const actual=[...new Set(state.originalImages.map(img=>img.src))];assert.deepEqual(actual.sort(),expected.sort(),`${state.id} ${state.width} ${state.phase}`);assert.ok(state.originalImages.every(img=>img.loaded));results.push({id:state.id,width:state.width,phase:state.phase,expected,actual});}
+assert.equal(results.length,256);
+await writeFile(base+'/browser/image-presence-check.json',JSON.stringify({build:recorded.build,scope:'Offline comparison of every original image named by each public question against recorded DOM image URLs and load status, for all 256 browser states.',statesChecked:results.length,failures:0,results},null,2)+'\n');
+console.log(JSON.stringify({states:results.length,failures:0}));

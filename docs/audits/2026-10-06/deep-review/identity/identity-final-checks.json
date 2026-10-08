@@ -1,0 +1,1025 @@
+{
+  "reviewedAt": "2026-10-06",
+  "records": 254,
+  "allAppliedFieldsMatch": true,
+  "allDirectValveSources": true,
+  "contentHashes": [
+    {
+      "id": "ability-owner:abaddon_aphotic_shield",
+      "sha256": "040b23211bc4b8a19d87f018fe75fbb6f5ad4a91474f1d257314a515125cf94a"
+    },
+    {
+      "id": "ability-owner:abyssal_underlord_pit_of_malice",
+      "sha256": "835ac36df1a9371b071b6aaa6002fe9f9f0e3057e1cca1423b2d22c693f836b5"
+    },
+    {
+      "id": "ability-owner:alchemist_unstable_concoction",
+      "sha256": "2cfc167843eb65637d99482c4fc7a143a5c86cc39057e849b3eb2ced06640042"
+    },
+    {
+      "id": "ability-owner:ancient_apparition_bone_chill",
+      "sha256": "f9bafe6b657a80558ce2daa33f84edcd9055867b11a3195139f187c4a122ef3d"
+    },
+    {
+      "id": "ability-owner:antimage_counterspell",
+      "sha256": "065d2c7e4fb043c61c156c692453bf78f0fcc817ac3358975ae626807aeb9541"
+    },
+    {
+      "id": "ability-owner:arc_warden_magnetic_field",
+      "sha256": "48a2ec5d2bea6b2a9062f26b83c1ce1fd4ea7d6292e7569efeb1f7f390706885"
+    },
+    {
+      "id": "ability-owner:axe_battle_hunger",
+      "sha256": "8e1f829a99a34389d36045fe0a65b9b9eeb3937fa39158678720a198f0cc8e37"
+    },
+    {
+      "id": "ability-owner:bane_nightmare",
+      "sha256": "3b0015cb008302c834b8b76cc4797a230658d5eecbfdbf412c9132d9288f80c1"
+    },
+    {
+      "id": "ability-owner:batrider_firefly",
+      "sha256": "2e642d96296101fbac280ff17c7425b94dbca86b27688d5ad157cb52cdaf6fab"
+    },
+    {
+      "id": "ability-owner:beastmaster_summon_raptor",
+      "sha256": "e63a0509ba58453538277332298096bcb40029c6c2972d1d84f9f77570876868"
+    },
+    {
+      "id": "ability-owner:bloodseeker_thirst",
+      "sha256": "5e9683d7f682235b010b360eb3866abfebc0d6023a347974968b23d7017dd1fd"
+    },
+    {
+      "id": "ability-owner:bounty_hunter_wind_walk",
+      "sha256": "f02623a9e4128b8aa94cce4ce579d3a9f7d5bdd2335196a38f27bc60112354fc"
+    },
+    {
+      "id": "ability-owner:brewmaster_drunken_brawler",
+      "sha256": "7b335b32bfc5d27e2829ed3e93552fe4a25f84cb2fd62d2af6f6bbafe68c2c64"
+    },
+    {
+      "id": "ability-owner:bristleback_quill_spray",
+      "sha256": "59ed405dcd9d9ebae7d1140dfeca06aed1ffae1e127f27558de55cb4d3bbe3f4"
+    },
+    {
+      "id": "ability-owner:broodmother_spin_web",
+      "sha256": "d0f4ec5cc936b0d8ae6d71b9d9b123a23f4649d254b7bda136ce9a60ebc94fbc"
+    },
+    {
+      "id": "ability-owner:centaur_mount",
+      "sha256": "23928a0e092c32f4344073964163a820dc8dfedff6ddf898073234028edc8384"
+    },
+    {
+      "id": "ability-owner:chaos_knight_reality_rift",
+      "sha256": "d9cfc857660c96eaa7430d2b847fe18befda62eebfdaaa06b0f00bdf3543ead4"
+    },
+    {
+      "id": "ability-owner:chen_holy_persuasion",
+      "sha256": "03f8a8b5de07ec6cdb939f5a49dc9f0f3579c14ebced013db611753db3b878c9"
+    },
+    {
+      "id": "ability-owner:clinkz_burning_barrage",
+      "sha256": "9ea24e65f30910387668ffd62881e7ab1b663518bfc972d70f5aedce265826cf"
+    },
+    {
+      "id": "ability-owner:crystal_maiden_crystal_clone",
+      "sha256": "b3d5dee7537cbfa64036dbe0f1befbbac296e7de01c29558a9d6adf41a7da750"
+    },
+    {
+      "id": "ability-owner:dark_seer_normal_punch",
+      "sha256": "bfdc38a830c1513dcb16fc77e8443b7d216a64b6ec18040ef8a80df77666ea4b"
+    },
+    {
+      "id": "ability-owner:dark_willow_shadow_realm",
+      "sha256": "f187d1b9def238e8745a2f5e71cae5837e96f845a808a6bfd3334e15b9caa210"
+    },
+    {
+      "id": "ability-owner:dawnbreaker_celestial_hammer",
+      "sha256": "092befab991ca94c09a04eb0a542b7416210ac66fa0e371e52acc22668df939b"
+    },
+    {
+      "id": "ability-owner:dazzle_shallow_grave",
+      "sha256": "fa465cd777665e3301a3874f49715909c02b949729b0f6d08642a434af93a64a"
+    },
+    {
+      "id": "ability-owner:death_prophet_spirit_siphon",
+      "sha256": "768430b9567b411175f7e7f4f9842364eb37da39cb19425c60bf859226544bd8"
+    },
+    {
+      "id": "ability-owner:disruptor_glimpse",
+      "sha256": "8b975095451bb63a991930b8c960741089c024c5492cddb251a183e041d8b157"
+    },
+    {
+      "id": "ability-owner:doom_bringer_infernal_blade",
+      "sha256": "3b37793d7beac9eac250f8d96b1aca3ce72e0c447f6a355563b5169f3a57d4e5"
+    },
+    {
+      "id": "ability-owner:dragon_knight_wyrms_wrath",
+      "sha256": "70892037f1fe53db435eefd73378f8b72a2258cca5ae2d061178b8b2d026e3f9"
+    },
+    {
+      "id": "ability-owner:drow_ranger_glacier",
+      "sha256": "d15e54814226f9913b41a35e0d03959494e6a868adc624add37a1a0c3cae3ac2"
+    },
+    {
+      "id": "ability-owner:earth_spirit_rolling_boulder",
+      "sha256": "a04929a3258c1f56a6e6a278a854179a3f03bda6978948ae706f4cd0c9528492"
+    },
+    {
+      "id": "ability-owner:earthshaker_enchant_totem",
+      "sha256": "004fbb0ce06bd1bf001a497f3814818d554cadcc5062671e422fe88f900e6d66"
+    },
+    {
+      "id": "ability-owner:elder_titan_ancestral_spirit",
+      "sha256": "03c7aeff2988c537678a96fe6f72cfc6ada802034cc963b11c5eb4e3ac62cafa"
+    },
+    {
+      "id": "ability-owner:ember_spirit_flame_guard",
+      "sha256": "341ed025e3163a0f58dde065e0da7dcf199ee5f4f6e5ef067700b75251bc0ae8"
+    },
+    {
+      "id": "ability-owner:enchantress_bunny_hop",
+      "sha256": "7a67ef5282ee83fd2a88bb047eada22a24202ef7778ef79a17973e7fe25b84cb"
+    },
+    {
+      "id": "ability-owner:enigma_demonic_conversion",
+      "sha256": "707aba3d230cb5df3a94bb7fa634db77cb0663d48d1610bcd71abdea727a288a"
+    },
+    {
+      "id": "ability-owner:faceless_void_time_dilation",
+      "sha256": "2b8ec38b5ff98535b2cd83a384fa352cc4c587bf02acfeb214ff372d2264d85c"
+    },
+    {
+      "id": "ability-owner:furion_curse_of_the_forest",
+      "sha256": "2a061d5b079db8a68cf375a39bb33540db82fa790bbcc1902c04737ee320f56f"
+    },
+    {
+      "id": "ability-owner:grimstroke_ink_creature",
+      "sha256": "c9bbf38e8c8cf0a287fd117a2c136c1f018acc401b6eecef59ef5f19a8af1ec6"
+    },
+    {
+      "id": "ability-owner:gyrocopter_flak_cannon",
+      "sha256": "ec4386a0c20de94c175df0b8ba990f3b8b14cc50e00eaade2eb58eda0e25e5f3"
+    },
+    {
+      "id": "ability-owner:hoodwink_decoy",
+      "sha256": "6d96472d07dd9c266692775ed3070818ba5397fac0b5f9bdccb5f747a8d7f61a"
+    },
+    {
+      "id": "ability-owner:huskar_burning_spear",
+      "sha256": "64357757ce6a744ddcd8f62c43f14c670482030c869e80c77e98625e990ce248"
+    },
+    {
+      "id": "ability-owner:invoker_wex",
+      "sha256": "f6efff214228dc7838efb5d30174463205ca2768a73e7e2fe3bb41567c37c499"
+    },
+    {
+      "id": "ability-owner:jakiro_liquid_ice",
+      "sha256": "ca63049cbfd13113dc447e490d4dfc8fd5d7a01c9bde83da85ac40bc70b7107f"
+    },
+    {
+      "id": "ability-owner:juggernaut_healing_ward",
+      "sha256": "5ff7ca3684b0d5fa4f9976afe3e18c3d2ea7f3083fd152f320027b849655ee73"
+    },
+    {
+      "id": "ability-owner:keeper_of_the_light_blinding_light",
+      "sha256": "50e82f4405cbbe61b9d45d7a5204d0e40031df9c7d34f97370c44446a6ba451a"
+    },
+    {
+      "id": "ability-owner:kez_switch_weapons",
+      "sha256": "2591d9c38ad2fba4420dc1211c6069b1df0edde386f35256051b4c5c0b0df5db"
+    },
+    {
+      "id": "ability-owner:kunkka_x_marks_the_spot",
+      "sha256": "37e718be04855a7ef30a8e8462e99a7782107e3455d52a44a41f2d664a4547fd"
+    },
+    {
+      "id": "ability-owner:largo_croak_of_genius",
+      "sha256": "9db0c407845227fe0078506fb124509b753563c6c6863513a953500099f9fc61"
+    },
+    {
+      "id": "ability-owner:legion_commander_outfight_them",
+      "sha256": "f3cdfd630a238c229c11b35b0973a1c66b2fcbe6812c3344fbf4f51c5eafdf2c"
+    },
+    {
+      "id": "ability-owner:leshrac_diabolic_edict",
+      "sha256": "ef6cd0e1055b13b8396b1eec9aaff8c99f1d8df2150ad5b8e82d8052bf4e3be4"
+    },
+    {
+      "id": "ability-owner:lich_frost_shield",
+      "sha256": "97a86395799a4e732548d743a0f56558e81c63835b5f078e5f939913dc859fe1"
+    },
+    {
+      "id": "ability-owner:life_stealer_open_wounds",
+      "sha256": "1b2621c3a10ce22691979a3b83ac9f40f4f17cf0e2b05c0e35071b08557fed9c"
+    },
+    {
+      "id": "ability-owner:lina_flame_cloak",
+      "sha256": "bee2343ffb8b83cee261498b001c2fd73a9aa433093d4f3e2b1ec08c4e2afbc5"
+    },
+    {
+      "id": "ability-owner:lion_mana_drain",
+      "sha256": "d1ac90eef14927a8348a614a757e17e3e3f2c248271f6149da5b2bb4b80fbca2"
+    },
+    {
+      "id": "ability-owner:lone_druid_spirit_bear",
+      "sha256": "b872d8445b12eb93c4585f45d960652de3929e8ee512e9ffb3065415cab77fe1"
+    },
+    {
+      "id": "ability-owner:luna_lunar_blessing",
+      "sha256": "f43eab1f419068a50eb370be5b1abdee58e733702fe296909b920f21223e2b29"
+    },
+    {
+      "id": "ability-owner:lycan_wolf_bite",
+      "sha256": "fc8d13f5c867bec23fc410f88263e4231f4b0523b6ae2ae2648dade11d08a1ee"
+    },
+    {
+      "id": "ability-owner:magnataur_horn_toss",
+      "sha256": "99ea34f2314ed0b1efa4b76c75a637e000ce0b748dd0fd76b4e8a324544319d2"
+    },
+    {
+      "id": "ability-owner:marci_companion_run",
+      "sha256": "5628a1f4d7a1589e3fd438cf43dd2548bd89a8269e26c0a8334f9c9acd43fb4b"
+    },
+    {
+      "id": "ability-owner:mars_bulwark",
+      "sha256": "74b20b250c87cb79f2ab64d96f5de9cd0ce92e62d7f7d30863e3e459b3185ad2"
+    },
+    {
+      "id": "ability-owner:medusa_gorgon_grasp",
+      "sha256": "4929bad2a8b1cc5b8da4abd135d808277a079bffb96dd4e0e097be5ef1e20d8b"
+    },
+    {
+      "id": "ability-owner:meepo_poof",
+      "sha256": "81c3cf8e6e8d2df31fed6b96cfc7c6c100b39c07f51ab493fe31d52658bb277f"
+    },
+    {
+      "id": "ability-owner:mirana_arrow",
+      "sha256": "51d3204636aa231df22b6226f96087a4a9accc211af79a16f566c15bd55d7b5b"
+    },
+    {
+      "id": "ability-owner:monkey_king_tree_dance",
+      "sha256": "3b159973e97e686ae761e9a0c1e2435f6bdb509244d311811f54c509d04cf57e"
+    },
+    {
+      "id": "ability-owner:morphling_adaptive_strike_agi",
+      "sha256": "d2d62fcc2f815ba028bc9ed5f08bf619b9f47fe11ef8903c2984017cad8e32db"
+    },
+    {
+      "id": "ability-owner:muerta_the_calling",
+      "sha256": "62dcebf6d68c46d3b18efc8f40db4f52cdc8b939c002e4cbf5354de3ac383a01"
+    },
+    {
+      "id": "ability-owner:naga_siren_reel_in",
+      "sha256": "652f25127af9f53bef94a5b9178617254487e5d403be39152b199d5c65b52ef8"
+    },
+    {
+      "id": "ability-owner:necrolyte_ghost_shroud",
+      "sha256": "0555ca019f55d1f70dcfccab1775014c11487bad1ed94f245dba4c6a3cd49358"
+    },
+    {
+      "id": "ability-owner:nevermore_shadowraze3",
+      "sha256": "8bcac72d89b93b4ac30c6cd2b58442fd0dc2ca38e3d6551bf4476a479463cb14"
+    },
+    {
+      "id": "ability-owner:night_stalker_crippling_fear",
+      "sha256": "c0d601c31aa7673f5dd85e795e6d99a3b62669803a4376067fae617fa8b9812b"
+    },
+    {
+      "id": "ability-owner:nyx_assassin_burrow",
+      "sha256": "098d0a19f0b1dbaab4d337e2b4dda875d9af320e7c6fc30df350bfdc2948157d"
+    },
+    {
+      "id": "ability-owner:obsidian_destroyer_astral_imprisonment",
+      "sha256": "51299bf425018b238074ce621d965e9bee387ce7ec7e4050a382bb73319dcffc"
+    },
+    {
+      "id": "ability-owner:ogre_magi_unrefined_fireblast",
+      "sha256": "b15b712277e7eb2f465613d4882265659d3db33d673daac747592f4cce362fe0"
+    },
+    {
+      "id": "ability-owner:omniknight_hammer_of_purity",
+      "sha256": "883da997d65cd6bf3c06e90d0f75b886330dc3178ebfa10e1004e644bc7464b5"
+    },
+    {
+      "id": "ability-owner:oracle_purifying_flames",
+      "sha256": "1771136906f2a5bf74a2144ee1726b95d7aaa7ef2bb932027bdbee6e0069a8cb"
+    },
+    {
+      "id": "ability-owner:pangolier_shield_crash",
+      "sha256": "9875f9305fb2fa43a39cdc04d5408c50e9027a274ca8d127f800c2ad3df5ea06"
+    },
+    {
+      "id": "ability-owner:phantom_assassin_fan_of_knives",
+      "sha256": "d345ae28aa9b3b8a1bdf7cd52729b0d4608e894e16b5370059c1364357c8ff8f"
+    },
+    {
+      "id": "ability-owner:phantom_lancer_doppelwalk",
+      "sha256": "4a427fcf4e648cd489c924a841fb2d4b4da7d9874a255c74849e200e32b22e25"
+    },
+    {
+      "id": "ability-owner:phoenix_sun_ray",
+      "sha256": "d8a7b23ac3d0739323c1427dd796d58e1c2a867af74980b2fae227bb6f8c21ae"
+    },
+    {
+      "id": "ability-owner:primal_beast_rock_throw",
+      "sha256": "bdc32243456961af22fe853bbb50f3233ccc0cc3a6c7bc5f413c227f2406a1e9"
+    },
+    {
+      "id": "ability-owner:puck_waning_rift",
+      "sha256": "95a432c869aee80eced5944348ee60692d833dae9a5dc59bd63092b5e16190de"
+    },
+    {
+      "id": "ability-owner:pudge_flesh_heap",
+      "sha256": "0282680b28f447f76fdfb49f97482067c3dac1703c179dcae40dee5cc4905365"
+    },
+    {
+      "id": "ability-owner:pugna_nether_ward",
+      "sha256": "28e031edfea4a6aa50eaeac130ea106b17c9e00c2326111c90c616283b319b57"
+    },
+    {
+      "id": "ability-owner:queenofpain_scream_of_pain",
+      "sha256": "afe5e63a506b0f7a9e4b39dacbf73310493fdadc20b7aecec258ead651b057a4"
+    },
+    {
+      "id": "ability-owner:rattletrap_overclocking",
+      "sha256": "1fc4df8301aa8a774fcc1dc3b257b2ed11c193a7ef78ae8500b88723463f6232"
+    },
+    {
+      "id": "ability-owner:razor_static_link",
+      "sha256": "f0dfc24c7ae3516bc748c27b88a068d1bfe22da47659611eb1be223a36cf0de1"
+    },
+    {
+      "id": "ability-owner:riki_tricks_of_the_trade",
+      "sha256": "fffb8b15c73e96db99e5709e98f2503550a3b8b404556fd660ba228176c5ad36"
+    },
+    {
+      "id": "ability-owner:ringmaster_impalement",
+      "sha256": "affdbd2e21a6a8cddeedb25623039b7a8f5898810fb1714c847c43c2afa4c25a"
+    },
+    {
+      "id": "ability-owner:rubick_fade_bolt",
+      "sha256": "db505ecfd895bb0fa50d4657ecf7bd04a28fc0b0b877c1e1afe9889379cc0008"
+    },
+    {
+      "id": "ability-owner:sandking_scorpion_strike",
+      "sha256": "2832261ce2dbd42fdd5e2f9c2f32c7bb6f7cde62c76d8be097c004b023b60873"
+    },
+    {
+      "id": "ability-owner:shadow_demon_shadow_poison",
+      "sha256": "abc3554b1d60c17d29640c571879e4171fb25cd094626e1df4536f5fcdad7527"
+    },
+    {
+      "id": "ability-owner:shadow_shaman_fowl_play",
+      "sha256": "0a408aebd47e074d06c896910f0f6c074c8d4a36fdf94ced79f190f69c48d6fd"
+    },
+    {
+      "id": "ability-owner:shredder_timber_chain",
+      "sha256": "38d45c8c1dbe89efc6710c2a01e33f6aefe1802ff3570bfd37ca38a93ab4e249"
+    },
+    {
+      "id": "ability-owner:silencer_last_word",
+      "sha256": "35ed30e5a816be794188ac2ab71a479ca5dbda009fc44ab94e6d865291705b86"
+    },
+    {
+      "id": "ability-owner:skeleton_king_bone_guard",
+      "sha256": "5e6076b6e6fa7c1a6d7046416e76d0845f85735e981e612dcdac4222ce93fa56"
+    },
+    {
+      "id": "ability-owner:skywrath_mage_concussive_shot",
+      "sha256": "0a60fd2cb06b71c91145e13431555b70605c054bb27febad2a2644283678fca5"
+    },
+    {
+      "id": "ability-owner:slardar_slithereen_crush",
+      "sha256": "2ad0cfa04d1589f89e8662d29d3a9f35e1080542f4b6d13546128f002d3f5e1e"
+    },
+    {
+      "id": "ability-owner:slark_pounce",
+      "sha256": "3693eb3175543ef9ee7a3496d8bc7ca5c4dc39b39a5e086069cc74cea704fa85"
+    },
+    {
+      "id": "ability-owner:snapfire_spit_creep",
+      "sha256": "64cb59fc9be0ad84ba2c5573970c2c4075cc7c7e591b0f50ae069462a58889f2"
+    },
+    {
+      "id": "ability-owner:sniper_take_aim",
+      "sha256": "20013e5fb8441e60336998675d866ac2bc3d4bc25b42b9c5017bfdd773c308c7"
+    },
+    {
+      "id": "ability-owner:spectre_shadow_step",
+      "sha256": "2098f7860fedd0c749c02e8b7f08d079ca5ab050dd5a20100d8fbe791d13c283"
+    },
+    {
+      "id": "ability-owner:spirit_breaker_planar_pocket",
+      "sha256": "fa847c97ceeef6c877fd702b5208b634dafaaaf315976b5e6354dd100ba28f6b"
+    },
+    {
+      "id": "ability-owner:storm_spirit_overload",
+      "sha256": "448a703501e6534a2ed3185c17c07a4d628da0a1429183eca02ac34610571427"
+    },
+    {
+      "id": "ability-owner:sven_warcry",
+      "sha256": "413764954d48378a622114246ed2a0e30678bd5cc28ee2a3f481ffefb5de51f8"
+    },
+    {
+      "id": "ability-owner:techies_suicide",
+      "sha256": "1bcf8172bf954b057346aae5af9a1cd024b8231b2c853aaf4c048f98d105ccb8"
+    },
+    {
+      "id": "ability-owner:templar_assassin_meld",
+      "sha256": "9dc986169cc98363770b37b104411a97e7abc58038511ba43315acbcb4a99641"
+    },
+    {
+      "id": "ability-owner:terrorblade_demon_zeal",
+      "sha256": "ea693717385470fcf688981379a8ff508a6f316328f82f2351fd065015f20f7c"
+    },
+    {
+      "id": "ability-owner:tidehunter_dead_in_the_water",
+      "sha256": "1ed6d1ecfee37d453b1f3ee5b499c0b12f69fb6c522aaf066bccc2c9f2694e8e"
+    },
+    {
+      "id": "ability-owner:tinker_warp_grenade",
+      "sha256": "4e2e4c2d59c2d9e09d58c41d997bbdc306f71239c0067c02bdee238b8f323509"
+    },
+    {
+      "id": "ability-owner:tiny_tree_grab",
+      "sha256": "09ba7c4a1a249e8d8715fadf6830ee4a49c5428c33ffafe1083eb9a326ab0cfd"
+    },
+    {
+      "id": "ability-owner:treant_leech_seed",
+      "sha256": "0e8e3cf803d6772cedd3f6d53b24813a1415725a0574971df000410d273c5ddd"
+    },
+    {
+      "id": "ability-owner:troll_warlord_berserkers_rage",
+      "sha256": "f494bebd535875dd3ec6e187d558d2298737a77f464f695770c3c7b880b43aae"
+    },
+    {
+      "id": "ability-owner:tusk_snowball",
+      "sha256": "8cf72e34446768a163c8795116a13807db7963eb71d8457f30c9220e6f69908d"
+    },
+    {
+      "id": "ability-owner:undying_tombstone",
+      "sha256": "7e7de6454e87e6a8adc2172a4cc99439467c08cc7d9d4acd7bdcb55a36ab3bc2"
+    },
+    {
+      "id": "ability-owner:ursa_fury_swipes",
+      "sha256": "1a406e9e449024c092ca79720058fbd0ee89fd7ce958c7f97eb98176cab38111"
+    },
+    {
+      "id": "ability-owner:vengefulspirit_wave_of_terror",
+      "sha256": "02550b27397f6e6810664171ea97691723f534eab6e131f46ded9bd5839ecf69"
+    },
+    {
+      "id": "ability-owner:venomancer_snakebite",
+      "sha256": "1f4b5e0d30d23b127e909831c77bec25d040182e09b7bfab6e241552cf963d06"
+    },
+    {
+      "id": "ability-owner:viper_nethertoxin",
+      "sha256": "8f46cff4a712b18aaf1e2e64ec03f5c7f7c9652a072b78e3c300e23b459bc331"
+    },
+    {
+      "id": "ability-owner:visage_stone_form_self_cast",
+      "sha256": "d2089ed7e425749dee94d8051cfcaa84891114d1365f03af7e5540bcda5ecec0"
+    },
+    {
+      "id": "ability-owner:void_spirit_resonant_pulse",
+      "sha256": "ff92f78091a7e3c599493a040ffa32e95a70bcb15f1aca93592ee1e0e2057d91"
+    },
+    {
+      "id": "ability-owner:warlock_shadow_word",
+      "sha256": "e5658b2a0ed25b2f5f9527d047681544ca940330fd6d014a6fb15981d8e10ca8"
+    },
+    {
+      "id": "ability-owner:weaver_shukuchi",
+      "sha256": "d1d14df513734cc420827371bb90b291d0bcbb85214663e4c6282e0b962a757a"
+    },
+    {
+      "id": "ability-owner:windrunner_powershot",
+      "sha256": "e222f6807ff666adff1340a83fcdba9613a0a2b7d16af2b51a90395c2bee19a6"
+    },
+    {
+      "id": "ability-owner:winter_wyvern_splinter_blast",
+      "sha256": "c7f4d48b771def35737453242f7d0fe71a3fb07fc3561556abf6081062a8ed24"
+    },
+    {
+      "id": "ability-owner:wisp_spirits",
+      "sha256": "dfadb8905b3f4a6b8db9f72c3b5b318c7820e4e2bad369c47904e6e0de45d880"
+    },
+    {
+      "id": "ability-owner:witch_doctor_maledict",
+      "sha256": "7ed9bdedf9e3326f69e70e1386bae3e26b17b45d6ee9ea30fb2a31a021d48829"
+    },
+    {
+      "id": "ability-owner:zuus_lightning_bolt",
+      "sha256": "c2b536fab7925cd73090235347525e0422ed463dcfc99b30f701a2bcfb5d2d31"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_abaddon",
+      "sha256": "581a8555333246b2ae024f7f5e83bae556d2b85b1686017dfb350afeabe25e89"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_abyssal_underlord",
+      "sha256": "c9c65efc33dcb0baae1022a002493529d8afdf30a59f5f8b804173e0cbfae194"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_alchemist",
+      "sha256": "5fec4f5c12de6f83313058dae6d22f1edf2c768cc21b6b334eabb8f12341104a"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_ancient_apparition",
+      "sha256": "7261a1567d9c5b7ae74a673709a687082edd206e94d2fd9077b0f839df15ae3b"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_antimage",
+      "sha256": "d6ca3b0804dbde030a4f058254bcf273e088c125b0ac1406ba52b2895648ded6"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_arc_warden",
+      "sha256": "ab4a01876d79a9ebb3491110c80d3cdb569c4ac67fbc672eb14ae82740fcb33b"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_axe",
+      "sha256": "69e72cc492615988f8f0b294d1ef15e728bc28870d029b00cb679c6ed76b4eca"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_bane",
+      "sha256": "90cb278c7b830f24d68e070fed334718942796459c8c21f627abf92b54cc849a"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_batrider",
+      "sha256": "06a0326d63a4db5e7ef1d75a1e2f99fbabf025f3dc3b0edf7653d895caf6ba01"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_beastmaster",
+      "sha256": "8bc7c401ee72bbf012ce373757668da95673ebc785884799109d5d57c01c83a2"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_bloodseeker",
+      "sha256": "2bbfab3866d3c054ccb6ea6a7a55df7f1f7a40b5aa02545ee993e78a2205f286"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_bounty_hunter",
+      "sha256": "c5ff187e557dda083442426ae2817c211b4bb27d469f1e23b28553d33e8188be"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_brewmaster",
+      "sha256": "2785ec2d259b8636638db74eb0890d25276fbfbe1e3f7b339ce3c078acb39746"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_bristleback",
+      "sha256": "ebc1abaa85e66107f0b8371957e8aad7232f0984a1f494be999af19d09ed83e6"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_broodmother",
+      "sha256": "a76c30eed9e0ce0bfaf84c012792ea98686e2819c4108b3fbee8a63e80a16ce8"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_centaur",
+      "sha256": "300608e66954658caab94b87c81e33b8dd11432c0cb2b5991dadc3ff2a7cf2cb"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_chaos_knight",
+      "sha256": "06621c07e3a82d695c17c02b166e26187885b7b05c4f592b3b5268fe5bac5e5e"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_chen",
+      "sha256": "c5157f1add7317b41391dc30ab170049d490b8a30d6a6358a9f64f6ef9240b4b"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_clinkz",
+      "sha256": "6660f2bf6dbb1fb04132fd4c6f7f1aeabc6c3db7c39c98039729bcd8e762bc8b"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_crystal_maiden",
+      "sha256": "765ec6bba87b8d2a463d37be53c4f2b1b7a55dea62e2a8db74c76e5ce51b0706"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_dark_seer",
+      "sha256": "52f8ad6db26fcecb948df6a77d0c6e3fa284b80e07063caec55b301e61448cf1"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_dark_willow",
+      "sha256": "fc96ca86860222d45039c21a2b9766e8bcf95a4a2b1317db956512a3999930e4"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_dawnbreaker",
+      "sha256": "929499e6ee98e2aa1e6cc8f7005e2012f4f14dfcd032dd75f7ea72cfa41bfd8b"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_dazzle",
+      "sha256": "f37f1a29d004276a7002e0e8dd8fab550241d51e714d3511f6e494c1c320f799"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_death_prophet",
+      "sha256": "6e34e5ea429b7e21e76efaa9d9d346c25622b957d0429fa64feb1920ce2390d5"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_disruptor",
+      "sha256": "675b4fd133613f2f25ebbe19aa94d678d8dbeac03bdad4addc995166eb92431a"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_doom_bringer",
+      "sha256": "24246337be0242417aaf2f3f54e3efd6d2847cf4fac74dfdd8cbba5b1434f009"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_dragon_knight",
+      "sha256": "fbfe6da03f0e26853acbf8281dc513ace91525ed6c94fae72651968fc21d90d5"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_drow_ranger",
+      "sha256": "4cf0062183ddfc842a76959038106a4000d28a49fa38db2d2cd18746a9e57c9c"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_earth_spirit",
+      "sha256": "600a854d702606266b1a96b21fb1da6ee4bca4735cf87d0f1cfb72f8e1d037e4"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_earthshaker",
+      "sha256": "fed7181eb862ef914c20909254faa0fd8b6cc2dea5cc1b20aa3ffc98f7c7939e"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_elder_titan",
+      "sha256": "816949b8f67ebe2706a425dac913646ae26df6573db2015b8f1352f9e1879ac2"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_ember_spirit",
+      "sha256": "5d7bd0afbba66d26f832e6733860e811a182b06b2494b622d4c2a772d8d0a7d5"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_enchantress",
+      "sha256": "a45ff439b11692cd065b4fcf882a47fdf1da3f654c5e45dd2a62e797302137fb"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_enigma",
+      "sha256": "98afbae91f68d24f10dcba747647b3726b3216062e1e24a456775b0d1d1d1917"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_faceless_void",
+      "sha256": "883bdf2a1f42e690ca327d20b86d4201526dbd4114a873bc8949c93778eb0676"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_furion",
+      "sha256": "9d6096f83d52b630d40bc98799c72d16d8aaa08435327ec1951ba89cd8089230"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_grimstroke",
+      "sha256": "acad317470bfad7e8bbd317bd9ac842d7d5f9f8e98c8a36112a535597d4443d5"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_gyrocopter",
+      "sha256": "a7827e9b514825ff5302d48765b71d7c4bced914a64f21211a251246159b057b"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_hoodwink",
+      "sha256": "52d3ee989ace1ce6f6f27e96b2443441082e3f36d719efef7736be3fb5d083bf"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_huskar",
+      "sha256": "02fd34cd2787e0626f653f92712df739e08d32f155c75895de6d377b22ed5385"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_invoker",
+      "sha256": "5ebe9f8dfea617b16740e3138ec7b74dbe2f24708add70b3c1f82539e5958819"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_jakiro",
+      "sha256": "9f9b87d540b4365c1fc9c04798c82c068a6ed5506e98d3ee08e57321dbed9294"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_juggernaut",
+      "sha256": "852f57173207597e25eca24df43cfdb27d5957f8ad104588557f0747129aec89"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_keeper_of_the_light",
+      "sha256": "7b41ffebdbb6d3ecbb91e0eebe7b9d8448b57651b67f1049b6401eb0d1a47414"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_kez",
+      "sha256": "00ef372099fdf7339367efca5bbdc05013549d3f35ea14b3b87b1d4c0e5bd8bc"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_kunkka",
+      "sha256": "23e6ef7e772a201f20c5c389cb3e5621020481016a43e507c4054e1520eecb87"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_largo",
+      "sha256": "cd46ebf9f23ae67264ee19d77213ecdbcd5f20729597b695682fcd1836ec1c86"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_legion_commander",
+      "sha256": "c77763f22ae8e46ae3c7446c04b20c5c7fb66d71b36732693618d0555e991b50"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_leshrac",
+      "sha256": "7f8e45694b6ed07dadc3ec0fb72bb2b0a7dae2cf200e557b327e56d7ca0e78df"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_lich",
+      "sha256": "0046b8de8ff2c5759fabc23323290078c035832613ba9c4a5a04e6ae10918192"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_life_stealer",
+      "sha256": "7c2f270fe8cda9adf6f3490cb66a6396f796c813c7e656d24d5e5b40f0e8fccd"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_lina",
+      "sha256": "24ed2aba8ae712abbe59fa95dcb245d840913c80d58eb5629a01a5f79f67d2fb"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_lion",
+      "sha256": "ccc379f40e02b1c123e2fc02b4a841a998f1158977771bc132a7df76fdb2f7ef"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_lone_druid",
+      "sha256": "df6b58e74ba1a374b15bf43027d7f61139924f0eaddbbc5776e79eee3826a41c"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_luna",
+      "sha256": "a854caa86d5c4a792bd91ea80b614c5eb618db4da910deadc7aafc8996abb4d2"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_lycan",
+      "sha256": "29155f1408d47c5ebe056c18252e78637388ed56e31e02d9ab3f12e1759501b1"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_magnataur",
+      "sha256": "fe0f7a486502298b61829b158a67c1291958bba932dc4249ca800864530a9038"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_marci",
+      "sha256": "f1e6ff95fb2502ada481e524585464ee768a02b0f2ed58858fdce83b6f6cb943"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_mars",
+      "sha256": "4c9bb0dc3105987a1cc64c2d3a21cc798ca3706208ff5f99ae3b9ef3f2351627"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_medusa",
+      "sha256": "adcb2ded8108dc89cf13bba49e98e2527f798b7a97637fc569e240b91d36a06f"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_meepo",
+      "sha256": "6176ef615e1b69523d88968f204335f1cd605bb90748d5f27fa366e56acfb05c"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_mirana",
+      "sha256": "04e33c78a5da4c75201074bc2f2cb5081c1ef2384afc1a585435870b9138e2a1"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_monkey_king",
+      "sha256": "668cf55031bdb5e4f085d5d3a094303b9e3475b07a154a9b72457867bd73c1a6"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_morphling",
+      "sha256": "901a584621169c84ce1ebe60bf65b5352444bc27356dcc78b4c308aaa03baf6f"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_muerta",
+      "sha256": "d178aea9ee61e78d8dabda9e9db9295a49fcbbd7ed21e5a222b4aa078f317d44"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_naga_siren",
+      "sha256": "8089acf7ed1b6932a59f620ebf9ebe6c1d0e16e603fdba9a7a42c4c0ed5fed65"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_necrolyte",
+      "sha256": "2bbdd18a5d8e7d72f062d906603182f2ee8612bd67f506d2bdb9c132553503c4"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_nevermore",
+      "sha256": "854a8a75283d2dd5968c9533dbbb945bd7d10023425a2e3fe78e4619978935b2"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_night_stalker",
+      "sha256": "e10620991388e70126cd8297fdfc1cbda1e1e014c6e2052e13f1d711c9aa8ace"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_nyx_assassin",
+      "sha256": "d1b914a7cddcd7b44d08682b05c1772d8896cb93524b69b73c355aaa8f8f6760"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_obsidian_destroyer",
+      "sha256": "7a1a08cfe1facbf25660ca89ada572e929116f00b47d688a3f09393366e6ebc0"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_ogre_magi",
+      "sha256": "2b26185ddc8e35ba0f7c17434cb30dd7aabe43e1f6db2875bdc696791ba75bc3"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_omniknight",
+      "sha256": "8c6bc40f9e5f5ad7c9230fa01dff8fbbbd7e978336e0eb86e08f62395b8c7583"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_oracle",
+      "sha256": "374d0ca37d89e3b1d94361fe4b7ae33efa8a655f4bd2b9f9f3f2cc1165f733c6"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_pangolier",
+      "sha256": "90ea9bc7f714980803fc89636241dd79b31f59f291d06e5410449afe9c4d4383"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_phantom_assassin",
+      "sha256": "2947dc3e604876fc8759236ddf9febc2321b455ae0832e5c16d6ae0c9233886a"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_phantom_lancer",
+      "sha256": "7f5102209ad6b64865f5ff9222dd9108681f832930e3249affea118e0a9423a7"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_phoenix",
+      "sha256": "06ce0b835b71cfd8adea76c6417fba1e92eec3d6a82af4f581f6231cf1300d95"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_primal_beast",
+      "sha256": "c3f76726469ee3eab7d3a776bcbfe54029fadcce7e6eb76f77115c7a6fb3d6f5"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_puck",
+      "sha256": "b1b0d75e4596b43fb394fe9d57571ad4a2ad055e81bad3574899c78ad22db78b"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_pudge",
+      "sha256": "05d5b2f924bd72ad681ef58c613f739af7af85f7ab7263eefc5dadb659330006"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_pugna",
+      "sha256": "ce5b97bbba4e838e702ea6c973bd7275df44bbcbe81ff188c76001c4e1e88188"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_queenofpain",
+      "sha256": "d7debdb7aeae04e3ab1756579ca8e64fc0b886aa732df996b47a5278e1fa1075"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_rattletrap",
+      "sha256": "ddb8ed4b5334ba577dd674e3175f93a11c9e16b4562d7ccea9c8157465503904"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_razor",
+      "sha256": "b19dbc1b90ac65da5a0cc5a1faddb93659ee35cdb3f40d381421d06753b482ec"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_riki",
+      "sha256": "0f9277766c384178b4ca73c86654489dd2b17a8246ad5c87dccb4989a91a2812"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_ringmaster",
+      "sha256": "9fe02517d5dd5af64bb1df2142c61684265b08289638b8e83282832e22968e29"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_rubick",
+      "sha256": "e80c00e4f56a1cd4426c4ec76edc38a6e4a848be0a31aadfb0072e36288c59c1"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_sand_king",
+      "sha256": "3a3d67afa6882f90b1d38e3d88d9de2b09563f6fe7c8ea0c9f60f5551bb257f9"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_shadow_demon",
+      "sha256": "62a5d038611d5537fae4648d4b4e1510f581719c57f57dc03c227db1488b12db"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_shadow_shaman",
+      "sha256": "8fe790df716c79e22d6ca1280afc5ad7a76de71fe9e3c9bc59abf99342e49d19"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_shredder",
+      "sha256": "cfa9249f4f5530c11e11593fc6ff156d7dbb18b24e43565318569cd213e3a04b"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_silencer",
+      "sha256": "50519e5b42393da44dd74caf74a42019e090b303c02b28cdf0ee834abbb0ce9c"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_skeleton_king",
+      "sha256": "02c3ea74694260c5cb7e926e888f3cedbbe986a0f186d59cfba7d6cacb6e3ed5"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_skywrath_mage",
+      "sha256": "b46308223584b09256e0028bdf88537c09e2ba2ac2f065377ad2bfdad1c964eb"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_slardar",
+      "sha256": "22ad604c9bbc6a4e499ed31694686b7efc3c16ffd61ca64005a851a7ef4bee1b"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_slark",
+      "sha256": "173872ff27119c433d9f369407ccca41db8ad6f517510c9cf5b2aa2d441bb560"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_snapfire",
+      "sha256": "cf4c6cb9fe2a15844ba48c1ebdaccf1c6ece996e55615c5d6bea7e78b9244dac"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_sniper",
+      "sha256": "abf92c56bb806dcab69f1f06120a3c00b05b2e23323778f6cb8b70a0b6f56aa1"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_spectre",
+      "sha256": "2a36380ea44c6fd9a8e477df1200f50ee0adfcbdc83d8ef5bd5bc1380b6c2ee2"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_spirit_breaker",
+      "sha256": "902d637f5a2a88e828e6308ae8c00922c73d650f6b3838c75d9222f8f52a213c"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_storm_spirit",
+      "sha256": "eb8ff209d654c66fe1fc26b945c1a04f2beb091c08a4e44d518c0546c6d2af03"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_sven",
+      "sha256": "247fca5ab5c6789fc5fd2829ba780c4301ff294970685134f719753127f878c3"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_techies",
+      "sha256": "b828ad622e5edae7595ea21cc6d42c60540e2b119b95b0d9e78983b67c28f4a4"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_templar_assassin",
+      "sha256": "c52822bb91ad1b1959f9a110fad5a54f468ff1353ce8491b9dae8224cf20e42b"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_terrorblade",
+      "sha256": "4072d0136a024b50786569a9e5d6cc4061591baa697b94616454e0613731dc3e"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_tidehunter",
+      "sha256": "4cca622492ede91f63728722547915e53ec0670b0e71a7e1b90c858242d26a62"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_tinker",
+      "sha256": "c201f20a03086c77099884b60c9550ba1664122db4d11e0d4094c0da8ae25855"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_tiny",
+      "sha256": "e0e78ff8b9575aeefeea5d4f3105e7d515fa14d768fd9fd31416fa464d5c7fa9"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_treant",
+      "sha256": "de6d2c6bf824b7152a4335a12b728523fd441cd99b75cb69e1383984486dfa0b"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_troll_warlord",
+      "sha256": "0273acd90cba4404cf66138819b4743d91c618818fc84fa8324fa263f568bd40"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_tusk",
+      "sha256": "b3aaa745601d6500e3a8adab7c52a7681404d4d3005670f50bb5fbc7092f7346"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_undying",
+      "sha256": "b4e9ba3c879cff420c93df91ef3cf2acfa3e3677c133c95404fb4284467d57e0"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_ursa",
+      "sha256": "3c9616b2939e776221c2d30e0c126ecbf2f9a495020b20cdfbe543cfa80465a1"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_vengefulspirit",
+      "sha256": "f9195c9ceafd5ae60c1c9566a3893d19dcc94c819be5c28d74046f10587b0c36"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_venomancer",
+      "sha256": "dab06387a63f7549ad2e09281d70f1006d79d1d5dbfe606909d2eee2310d1374"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_viper",
+      "sha256": "e6db09ce985011c3778bd29bd6403ef85e5a04e5bb99906a51a065e549a9d155"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_visage",
+      "sha256": "1793d75c1b135e8084291480b5da0c2926a15ef686aee414187e33d243338662"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_void_spirit",
+      "sha256": "503c349c35b64a4a23bafc65b3e19cf952923b07b1a6e2b13644da63b6776ffd"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_warlock",
+      "sha256": "b35d88e61207a0ce55a01a6cd281093a611df4b39716117176034d9dc7d00552"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_weaver",
+      "sha256": "9a45544bded06d672bf562338fec3701c06b6eb5bed62dc945991c72c210510d"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_windrunner",
+      "sha256": "44a8a596dbe3b59a0d472f3d50205e7d5199d1dcb3c0be2c7e1dff885ce84a36"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_winter_wyvern",
+      "sha256": "27eb8269a4ffba78262174e5c7b3302729a679b035fae9996a840268426cedfa"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_wisp",
+      "sha256": "e612f7975a35e680bad7e84615e5a91aaaa905175d37db2d8daa5f605a41946e"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_witch_doctor",
+      "sha256": "7799dde97ab126ed69111d6af6363e2b1166a0bfe4e0899a659cca9e352b7cb1"
+    },
+    {
+      "id": "fogged-hero:npc_dota_hero_zuus",
+      "sha256": "2e6dcf216b081338a5862f4f7f08ee10d75927b127130bd19925c370421658c1"
+    }
+  ],
+  "canonicalization": "UTF-8 JSON.stringify of each final parsed question with object keys sorted recursively; array order is preserved. No whitespace or trailing newline."
+}

@@ -1,0 +1,141 @@
+"""Unprompted local ASR and signal measurements for the exact Echo stage files."""
+import argparse
+import datetime
+import hashlib
+import json
+import math
+import os
+import re
+import time
+from pathlib import Path
+
+os.environ.setdefault("OMP_NUM_THREADS", "4")
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
+
+import numpy as np
+from faster_whisper import WhisperModel
+from faster_whisper.audio import decode_audio
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--model", default="/tmp/queue-arcade-launch-checks/models/small.en")
+parser.add_argument("--label", default="small.en")
+parser.add_argument("--input", default="/tmp/queue-arcade-launch-checks/echo/inputs.json")
+parser.add_argument("--stage", type=int, choices=[0, 1, 2, 3], default=0)
+parser.add_argument("--ids")
+parser.add_argument("--threads", type=int, default=4)
+parser.add_argument("--output", required=True)
+args = parser.parse_args()
+root = Path(args.input).resolve().parent
+inputs = json.loads(Path(args.input).read_text())
+keep_ids = set(json.loads(Path(args.ids).read_text())) if args.ids else None
+records = [r for r in inputs["records"] if keep_ids is None or r["id"] in keep_ids]
+
+def tokens(text):
+    return re.findall(r"[a-z0-9]+", text.lower().replace("\u2019", "'"))
+
+def distance(left, right):
+    previous = list(range(len(right) + 1))
+    for i, first in enumerate(left, 1):
+        current = [i]
+        for j, second in enumerate(right, 1):
+            current.append(min(current[-1] + 1, previous[j] + 1, previous[j - 1] + (first != second)))
+        previous = current
+    return previous[-1]
+
+def comparison(expected, actual):
+    ref, hyp = tokens(expected), tokens(actual)
+    full_distance = distance(ref, hyp)
+    prefixes = [(distance(ref[:end], hyp), end) for end in range(1, len(ref) + 1)]
+    prefix_distance, prefix_end = min(prefixes, key=lambda pair: (pair[0], abs(pair[1] - len(hyp))))
+    chars_ref, chars_hyp = " ".join(ref), " ".join(hyp)
+    return {
+        "normalizedExact": ref == hyp,
+        "wordEdits": full_distance,
+        "wordErrorRate": full_distance / max(1, len(ref)),
+        "characterErrorRate": distance(chars_ref, chars_hyp) / max(1, len(chars_ref)),
+        "bestPrefixWordEdits": prefix_distance,
+        "bestPrefixReferenceWords": prefix_end,
+        "recognizedWords": len(hyp),
+        "referenceWords": len(ref),
+    }
+
+def metrics(pcm):
+    signal = pcm.astype(np.float64)
+    absolute = np.abs(signal)
+    rms = float(np.sqrt(np.mean(signal * signal)))
+    peak = float(np.max(absolute))
+    db = lambda value: 20 * math.log10(value) if value > 0 else None
+    frame_size = 320
+    frame_rms = [float(np.sqrt(np.mean(part * part))) for part in np.array_split(signal, range(frame_size, len(signal), frame_size))]
+    active = [i for i, energy in enumerate(frame_rms) if energy >= 10 ** (-45 / 20)]
+    spectrum = np.abs(np.fft.rfft(signal)) ** 2
+    frequency = np.fft.rfftfreq(len(signal), 1 / 16000)
+    power = float(np.sum(spectrum))
+    speech_band = float(np.sum(spectrum[(frequency >= 100) & (frequency <= 7000)])) / power if power else 0
+    return {
+        "decodedDurationSeconds": len(signal) / 16000,
+        "peak": peak,
+        "peakDbfs": db(peak),
+        "rmsDbfs": db(rms),
+        "crestDb": db(peak / rms) if rms else None,
+        "dcOffset": float(np.mean(signal)),
+        "fractionAtOrAbove099": float(np.mean(absolute >= 0.99)),
+        "fractionAtOrAbove0999": float(np.mean(absolute >= 0.999)),
+        "fractionBelowMinus60Db": float(np.mean(absolute < 0.001)),
+        "first20msFrameAboveMinus45DbSeconds": active[0] * 0.02 if active else None,
+        "last20msFrameAboveMinus45DbSeconds": min(len(signal) / 16000, (active[-1] + 1) * 0.02) if active else None,
+        "powerIn100To7000HzFraction": speech_band,
+        "zeroCrossingRate": float(np.mean(signal[1:] * signal[:-1] < 0)),
+    }
+
+settings = {
+    "language": "en", "task": "transcribe", "beam_size": 5, "best_of": 1,
+    "temperature": 0, "condition_on_previous_text": False, "word_timestamps": True,
+    "vad_filter": False, "initial_prompt": None, "hotwords": None,
+    "no_speech_threshold": 0.6, "compression_ratio_threshold": 2.4,
+    "log_prob_threshold": -1.0, "max_new_tokens": 96,
+}
+model = WhisperModel(args.model, device="cpu", compute_type="int8", cpu_threads=args.threads, num_workers=1, local_files_only=True)
+output = Path(args.output)
+output.parent.mkdir(parents=True, exist_ok=True)
+completed = set()
+if output.exists():
+    for line in output.read_text().splitlines():
+        old = json.loads(line)
+        completed.add((old["id"], old["stage"]))
+print(json.dumps({"model": args.label, "records": len(records), "stage": args.stage, "alreadyCompleted": len(completed), "settings": settings}), flush=True)
+with output.open("a") as handle:
+    for record in records:
+        for stage in record["stages"]:
+            if args.stage and stage["stage"] != args.stage:
+                continue
+            if (record["id"], stage["stage"]) in completed:
+                continue
+            file = root / "clips" / stage["file"]
+            if hashlib.sha256(file.read_bytes()).hexdigest() != stage["sha256"]:
+                raise ValueError(f"Changed input {file}")
+            started = time.monotonic()
+            pcm = decode_audio(str(file), sampling_rate=16000)
+            segments, info = model.transcribe(pcm, **settings)
+            decoded = []
+            for segment in segments:
+                decoded.append({
+                    "start": segment.start, "end": segment.end, "text": segment.text,
+                    "averageLogProbability": segment.avg_logprob, "noSpeechProbability": segment.no_speech_prob,
+                    "compressionRatio": segment.compression_ratio,
+                    "words": [{"start": word.start, "end": word.end, "word": word.word, "probability": word.probability} for word in (segment.words or [])],
+                })
+            text = " ".join(segment["text"].strip() for segment in decoded).strip()
+            result = {
+                "id": record["id"], "hero": record["hero"], "stage": stage["stage"],
+                "model": args.label, "modelPath": args.model, "inputSha256": stage["sha256"],
+                "expectedText": record["expectedText"], "recognizedText": text,
+                "comparison": comparison(record["expectedText"], text), "metrics": metrics(pcm),
+                "segments": decoded, "inferenceSeconds": time.monotonic() - started,
+                "reviewedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                "settings": settings,
+            }
+            handle.write(json.dumps(result) + "\n")
+            handle.flush()
+            print(f"{record['hero']} stage {stage['stage']}: {text!r} WER={result['comparison']['wordErrorRate']:.3f} {result['inferenceSeconds']:.2f}s", flush=True)

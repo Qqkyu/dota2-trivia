@@ -1,0 +1,204 @@
+{
+  "reviewDate": "2026-10-06",
+  "baseCommit": "7528a842754642d249640531df3f6fc91bf032b9",
+  "finalCodeBuild": "IqM7S-izzhLw1FS90-lLJ",
+  "deploymentPerformed": false,
+  "interpretation": "These checks have different scopes and build IDs. Later changes received focused checks. No single run covered every assertion on the last build.",
+  "unitAndIntegration": {
+    "passed": 1140,
+    "filesPassed": 56,
+    "skipped": 0,
+    "includesIsolatedPostgres": true,
+    "evidence": "verification/tests-final.log",
+    "scope": "The run includes final content and account-identity changes. Later layout and round-scroll fixes received production browser checks."
+  },
+  "finalProductionFlows": {
+    "build": "IqM7S-izzhLw1FS90-lLJ",
+    "playerJourneysPassed": 54,
+    "gameplayRecoveryChecksPassed": 18,
+    "identityTransitionsIncluded": 9,
+    "scrollTransitionsIncluded": 9,
+    "concurrentGuestResultsPreserved": 200,
+    "evidence": "functional/README.md",
+    "limits": "Journeys use the real app with controlled API fixtures. Isolated endpoint cases, storage concurrency and the separate capacity run test actual local persistence."
+  },
+  "uiGateScripts": {
+    "total": 20,
+    "individuallyPassed": 20,
+    "singleFinalCombinedInvocation": false,
+    "evidence": "verification/browser-gate-dispositions.json",
+    "additionalEvidence": ["functional/README.md", "ui/README.md"],
+    "initialFailures": "Three API checks hit a shared synthetic source-IP quota and passed on an isolated process with limits enabled. The layout check was corrected to assert scroll reachability instead of requiring all content above the fold."
+  },
+  "responsive": {
+    "evidence": "ui/README.md",
+    "fullMatrix": {
+      "build": "a9jO2vwwKVTSsroYDHJJW",
+      "viewports": 11,
+      "variants": 31,
+      "renderedStates": 781,
+      "assertionsPassed": 1963,
+      "assertionsFailed": 2,
+      "finding": "The longest Spell Link clue was clipped at 960x540 in answering and reveal."
+    },
+    "clueFixFollowup": {
+      "build": "DKFXc21icCaO5DvyThFkY",
+      "viewports": 11,
+      "renderedStates": 143,
+      "assertionsPassed": 423,
+      "assertionsFailed": 0
+    },
+    "explanationFixFollowup": {
+      "build": "sC6gD0NWB3unDRTq6LaOu",
+      "viewports": 5,
+      "renderedStates": 355,
+      "assertionsPassed": 1151,
+      "assertionsFailed": 0
+    },
+    "signedSupportingPages": {
+      "build": "DKFXc21icCaO5DvyThFkY",
+      "viewports": 5,
+      "actualApiAuthentication": true,
+      "syntheticAnswers": 100,
+      "passed": true
+    },
+    "legacyLayouts": {
+      "formats": 16,
+      "widths": [420, 1400],
+      "passed": true
+    },
+    "partyCrowd": {
+      "combinations": 24,
+      "player101Rejected": true,
+      "passed": true
+    }
+  },
+  "accessibility": {
+    "evidence": "accessibility/README.md",
+    "engines": ["Chromium 153.0.8010.12", "Firefox 151.0", "WebKit 26.5"],
+    "fullFormatMatrixPerEngine": {
+      "formats": 16,
+      "modes": 6,
+      "states": 96,
+      "passed": true
+    },
+    "finalSignedMatrixPerEngine": {
+      "build": "DKFXc21icCaO5DvyThFkY",
+      "pageStates": 42,
+      "mobileFormats": 16,
+      "keyboardChecks": 5,
+      "passed": true
+    },
+    "explanationChecks": {
+      "build": "sC6gD0NWB3unDRTq6LaOu",
+      "totalAcrossEngines": 18,
+      "passed": true
+    },
+    "finalKeyboardAndScrollPerEngine": {
+      "build": "IqM7S-izzhLw1FS90-lLJ",
+      "checks": 6,
+      "passed": true
+    },
+    "limits": "Automated axe checks, keyboard input and browser emulation do not prove full WCAG conformance. Physical phones, native zoom, OS high contrast, screen-reader speech and complete manual contrast measurements remain unverified."
+  },
+  "content": {
+    "liveQuestionsReviewed": 1517,
+    "retiredRowsOutsideScope": 72,
+    "playerVisibleRecordsChanged": 701,
+    "sourceOnlyRecordsChanged": 316,
+    "metadataOnlyRecordsChanged": 60,
+    "unchangedRecords": 440,
+    "clientSourceAnswerChecks": 1038,
+    "imageAvailabilityChecks": 784,
+    "audioAvailabilityChecks": 230,
+    "humanListeningVerdictsOutstanding": 219,
+    "questionIndex": "question-review-index.json",
+    "independentIndexChecks": "question-review-index-checks.json",
+    "validationEvidence": "verification/validate-final.log",
+    "assetsEvidence": "verification/assets-final.log",
+    "limits": "Verified means agreement with the recorded source within each ledger's stated scope. The current API lacks an embedded build tag. No Dota match was used to simulate all mechanics.",
+    "releaseManifest": {
+      "path": "../../../content-review.json",
+      "reviewedFiles": 110,
+      "passed": true,
+      "evidence": "verification/content-release-final.log"
+    }
+  },
+  "capacity": {
+    "evidence": "capacity/README.md",
+    "largeRunBuild": "b-Fjb1-sNhRtFg4M0Kbmr",
+    "players": 466,
+    "groups": 12,
+    "rounds": 10,
+    "requests": 129932,
+    "acceptedVotes": 4660,
+    "finishedSessions": 466,
+    "correctAnswers": 1126,
+    "durationSeconds": 224.54,
+    "http5xx": 0,
+    "unexpectedThrottles": 0,
+    "independentDatabaseTotalsMatch": true,
+    "peakAppRssMiB": 611.22,
+    "maximumInFlightRequests": 256,
+    "laterRegression": {
+      "build": "a9jO2vwwKVTSsroYDHJJW",
+      "players": 4,
+      "rounds": 2,
+      "requests": 379,
+      "votes": 8,
+      "passed": true
+    },
+    "limits": "Local unrestricted WSL2, Node 24 and PostgreSQL 14. This does not establish Render or 512 MiB capacity, cold-cache media overload, sustained churn or 466 concurrent media downloads."
+  },
+  "buildAndStaticChecks": {
+    "optimizedProductionBuild": "verification/build-scroll.log",
+    "lint": "verification/lint-archived.log",
+    "typecheck": "verification/typecheck-restored.log",
+    "format": "verification/format-archive-final.log",
+    "productionConfig": "verification/config-complete.log",
+    "frozenOfflineLockfile": "verification/lockfile-complete.log",
+    "allPassed": true
+  },
+  "security": {
+    "identityBoundary": "functional/security-identity.md",
+    "freshNoncesAndHeaders": "verification/headers-scroll.log",
+    "privateCatalogFingerprintsServerOnly": 14,
+    "bundleEvidence": "verification/bundle-scroll.log",
+    "knownProductionDependencyAdvisories": 0,
+    "dependencyEvidence": "verification/dependencies-final.log",
+    "earlierAudit": "../remediation.md",
+    "remainingDevelopmentAdvisory": "braces 3.0.3, GHSA-vfj7-8cjw-p6xm, recorded in the earlier audit"
+  },
+  "secondOpinion": {
+    "model": "claude-fable-5-1",
+    "turns": 170,
+    "evidence": "second-opinion/README.md",
+    "disposition": "No new confirmed wrong answer, leaked answer or ambiguous option set. The reported missing ability files were present under abilities/. Six history verification questions are resolved by archived primary evidence."
+  },
+  "deployment": {
+    "observedStatus": 503,
+    "renderRouting": "suspend-by-user",
+    "evidence": "verification/render-final.log",
+    "liveApplicationVerified": false
+  },
+  "remainingLaunchChecks": [
+    "Human listening review for 123 Echo and 96 Soundcheck questions",
+    "Physical phones, actual assistive technology and manual contrast completion",
+    "Real Steam authentication and deployed proxy behavior",
+    "Container and staging execution, hosted CI, database state and backup restore verification",
+    "Asset permission records",
+    "Capacity and memory testing under the intended hosting limits"
+  ],
+  "sourcePreservation": {
+    "evidence": "verification/source-manifest.json",
+    "baselineFiles": 392,
+    "unchangedFiles": 328,
+    "changedFiles": 64,
+    "addedFiles": 29,
+    "missingFiles": 0
+  },
+  "cleanup": {
+    "evidence": "verification/cleanup.json",
+    "allTemporaryServerAndDatabasePortsClosed": true
+  }
+}

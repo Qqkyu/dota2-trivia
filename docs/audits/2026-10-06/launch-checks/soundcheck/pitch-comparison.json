@@ -1,0 +1,771 @@
+{
+  "candidatePairs": 50,
+  "speedComparisons": 400,
+  "ratios": [
+    0.8,
+    0.9,
+    0.95,
+    0.975,
+    1,
+    1.025,
+    1.05,
+    1.1,
+    1.25
+  ],
+  "positiveControlRestoredPitchCorrelation": 0.997621924283807,
+  "flags": [],
+  "rows": [
+    {
+      "questionId": "soundcheck-item:ghost",
+      "subject": "ghost",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/item_ghost_etherealblade.wav",
+      "candidateSubjects": [
+        "ethereal_blade"
+      ],
+      "spectralCosine": 0.9772409444444269,
+      "alignedCorrelation": 0.7696367015565105,
+      "offsetSeconds": 0.098875,
+      "bestPitchAdjusted": {
+        "correlation": 0.7696367015565105,
+        "speedRatio": 1
+      }
+    },
+    {
+      "questionId": "soundcheck-item:abyssal_blade",
+      "subject": "abyssal_blade",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.780232089975379,
+      "alignedCorrelation": 0.7039436384667378,
+      "offsetSeconds": 0.88025,
+      "bestPitchAdjusted": {
+        "correlation": 0.7235090921935101,
+        "speedRatio": 0.9
+      }
+    },
+    {
+      "questionId": "soundcheck-ability:kez_echo_slash",
+      "subject": "kez_echo_slash",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "kez_talon_toss"
+      ],
+      "spectralCosine": 0.6635268564573593,
+      "alignedCorrelation": 0.7039009709194114,
+      "offsetSeconds": 0.570125,
+      "bestPitchAdjusted": {
+        "correlation": 0.7448249326207865,
+        "speedRatio": 1.1
+      }
+    },
+    {
+      "questionId": "soundcheck-item:orchid",
+      "subject": "orchid",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.7498169185537767,
+      "alignedCorrelation": 0.7037542552042918,
+      "offsetSeconds": 1.302,
+      "bestPitchAdjusted": {
+        "correlation": 0.7742638862997069,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:pipe",
+      "subject": "pipe",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.7843096225351016,
+      "alignedCorrelation": 0.6820240670759706,
+      "offsetSeconds": 2.368125,
+      "bestPitchAdjusted": {
+        "correlation": 0.7040449664810597,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:spirit_vessel",
+      "subject": "spirit_vessel",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.8366398086097022,
+      "alignedCorrelation": 0.6653360021031265,
+      "offsetSeconds": 2.50125,
+      "bestPitchAdjusted": {
+        "correlation": 0.7204779435465926,
+        "speedRatio": 0.8
+      }
+    },
+    {
+      "questionId": "soundcheck-item:manta",
+      "subject": "manta",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.8017958468520688,
+      "alignedCorrelation": 0.6604468851462002,
+      "offsetSeconds": 1.08175,
+      "bestPitchAdjusted": {
+        "correlation": 0.6786076839054117,
+        "speedRatio": 0.8
+      }
+    },
+    {
+      "questionId": "soundcheck-item:heavens_halberd",
+      "subject": "heavens_halberd",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.8408097283580684,
+      "alignedCorrelation": 0.6597083905861832,
+      "offsetSeconds": 2.32775,
+      "bestPitchAdjusted": {
+        "correlation": 0.72407049830521,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:dagon",
+      "subject": "dagon",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.7996723104517169,
+      "alignedCorrelation": 0.6520553264634676,
+      "offsetSeconds": 0.969875,
+      "bestPitchAdjusted": {
+        "correlation": 0.6520553264634676,
+        "speedRatio": 1
+      }
+    },
+    {
+      "questionId": "soundcheck-item:smoke_of_deceit",
+      "subject": "smoke_of_deceit",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.7628548180638017,
+      "alignedCorrelation": 0.6427050604049789,
+      "offsetSeconds": 1.657625,
+      "bestPitchAdjusted": {
+        "correlation": 0.7132751765883529,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:hand_of_midas",
+      "subject": "hand_of_midas",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.7377682127616874,
+      "alignedCorrelation": 0.6308462686756268,
+      "offsetSeconds": 0.949,
+      "bestPitchAdjusted": {
+        "correlation": 0.6980539266617245,
+        "speedRatio": 0.8
+      }
+    },
+    {
+      "questionId": "soundcheck-item:veil_of_discord",
+      "subject": "veil_of_discord",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.6828657684132181,
+      "alignedCorrelation": 0.6179643598555311,
+      "offsetSeconds": 0.82575,
+      "bestPitchAdjusted": {
+        "correlation": 0.7283056418016035,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:refresher",
+      "subject": "refresher",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.7891809482344728,
+      "alignedCorrelation": 0.6090227318002939,
+      "offsetSeconds": 2.57025,
+      "bestPitchAdjusted": {
+        "correlation": 0.7334471666207709,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:rod_of_atos",
+      "subject": "rod_of_atos",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.764877378257425,
+      "alignedCorrelation": 0.6054555971603871,
+      "offsetSeconds": 2.83375,
+      "bestPitchAdjusted": {
+        "correlation": 0.711315817090788,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:sphere",
+      "subject": "sphere",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.7911690077510701,
+      "alignedCorrelation": 0.5978847530722019,
+      "offsetSeconds": 0.278,
+      "bestPitchAdjusted": {
+        "correlation": 0.6099992592816323,
+        "speedRatio": 1.05
+      }
+    },
+    {
+      "questionId": "soundcheck-item:arcane_boots",
+      "subject": "arcane_boots",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.7143049258328793,
+      "alignedCorrelation": 0.5798890793625157,
+      "offsetSeconds": 1.674625,
+      "bestPitchAdjusted": {
+        "correlation": 0.6641973445930885,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-ability:lich_frost_nova",
+      "subject": "lich_frost_nova",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/lich/frost_blast_immortal.wav",
+      "candidateSubjects": [
+        "lich_sinister_gaze"
+      ],
+      "spectralCosine": 0.9766152678582276,
+      "alignedCorrelation": 0.5765460114545747,
+      "offsetSeconds": 0.0,
+      "bestPitchAdjusted": {
+        "correlation": 0.5765460114545747,
+        "speedRatio": 1
+      }
+    },
+    {
+      "questionId": "soundcheck-item:shivas_guard",
+      "subject": "shivas_guard",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.7799244611053924,
+      "alignedCorrelation": 0.5699350543446211,
+      "offsetSeconds": 3.271625,
+      "bestPitchAdjusted": {
+        "correlation": 0.6529644973135076,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:blade_mail",
+      "subject": "blade_mail",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.8121131549733206,
+      "alignedCorrelation": 0.5319498483132772,
+      "offsetSeconds": 0.01025,
+      "bestPitchAdjusted": {
+        "correlation": 0.5678264603918589,
+        "speedRatio": 1.1
+      }
+    },
+    {
+      "questionId": "soundcheck-item:glimmer_cape",
+      "subject": "glimmer_cape",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.6522323097692612,
+      "alignedCorrelation": 0.5319063593125698,
+      "offsetSeconds": 0.12225,
+      "bestPitchAdjusted": {
+        "correlation": 0.6600751326498484,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:nullifier",
+      "subject": "nullifier",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.7955494094767341,
+      "alignedCorrelation": 0.5287655424646426,
+      "offsetSeconds": 0.90675,
+      "bestPitchAdjusted": {
+        "correlation": 0.531151821418272,
+        "speedRatio": 0.9
+      }
+    },
+    {
+      "questionId": "soundcheck-item:bloodthorn",
+      "subject": "bloodthorn",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.8130001855467085,
+      "alignedCorrelation": 0.518848329715579,
+      "offsetSeconds": 0.3505,
+      "bestPitchAdjusted": {
+        "correlation": 0.5594518721217437,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-ability:kez_echo_slash",
+      "subject": "kez_echo_slash",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh04.wav",
+      "candidateSubjects": [
+        "kez_talon_toss"
+      ],
+      "spectralCosine": 0.5358627660700561,
+      "alignedCorrelation": 0.5009982778820703,
+      "offsetSeconds": 0.5485,
+      "bestPitchAdjusted": {
+        "correlation": 0.5743804385325867,
+        "speedRatio": 1.1
+      }
+    },
+    {
+      "questionId": "soundcheck-item:mekansm",
+      "subject": "mekansm",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.6645574679094635,
+      "alignedCorrelation": 0.46790279781654043,
+      "offsetSeconds": 0.352625,
+      "bestPitchAdjusted": {
+        "correlation": 0.5217941477263132,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:rod_of_atos",
+      "subject": "rod_of_atos",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/wraith_totem_pulse.wav",
+      "candidateSubjects": [
+        "crellas_crozier"
+      ],
+      "spectralCosine": 0.7023597759723688,
+      "alignedCorrelation": 0.4596783649180693,
+      "offsetSeconds": 1.7985,
+      "bestPitchAdjusted": {
+        "correlation": 0.46424954778013194,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:soul_ring",
+      "subject": "soul_ring",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.6179058526909631,
+      "alignedCorrelation": 0.4095117439088838,
+      "offsetSeconds": 1.548125,
+      "bestPitchAdjusted": {
+        "correlation": 0.5730094321526754,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:dust",
+      "subject": "dust",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.7269379695946847,
+      "alignedCorrelation": 0.4095111224840083,
+      "offsetSeconds": 0.80225,
+      "bestPitchAdjusted": {
+        "correlation": 0.47482406458066284,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:black_king_bar",
+      "subject": "black_king_bar",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.741390138492048,
+      "alignedCorrelation": 0.3963010256201774,
+      "offsetSeconds": 1.264375,
+      "bestPitchAdjusted": {
+        "correlation": 0.5662899022877126,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:guardian_greaves",
+      "subject": "guardian_greaves",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.8597693937978008,
+      "alignedCorrelation": 0.3937197047268246,
+      "offsetSeconds": 2.31775,
+      "bestPitchAdjusted": {
+        "correlation": 0.5630787829638786,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:glimmer_cape",
+      "subject": "glimmer_cape",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/weaver/shukuchi.wav",
+      "candidateSubjects": [
+        "invis_sword",
+        "shadow_amulet"
+      ],
+      "spectralCosine": 0.913646253150948,
+      "alignedCorrelation": 0.39159992058985,
+      "offsetSeconds": 0.0,
+      "bestPitchAdjusted": {
+        "correlation": 0.39159992058985,
+        "speedRatio": 1
+      }
+    },
+    {
+      "questionId": "soundcheck-item:orchid",
+      "subject": "orchid",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/item_mjoll_off.wav",
+      "candidateSubjects": [
+        "mjollnir"
+      ],
+      "spectralCosine": 0.896416594428985,
+      "alignedCorrelation": 0.38622341747881217,
+      "offsetSeconds": 1.334125,
+      "bestPitchAdjusted": {
+        "correlation": 0.3951063353192516,
+        "speedRatio": 1.05
+      }
+    },
+    {
+      "questionId": "soundcheck-item:pipe",
+      "subject": "pipe",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/item_mjoll_off.wav",
+      "candidateSubjects": [
+        "mjollnir"
+      ],
+      "spectralCosine": 0.8852633483823824,
+      "alignedCorrelation": 0.38459677498808614,
+      "offsetSeconds": 1.03,
+      "bestPitchAdjusted": {
+        "correlation": 0.4124366432789886,
+        "speedRatio": 1.05
+      }
+    },
+    {
+      "questionId": "soundcheck-ability:kez_echo_slash",
+      "subject": "kez_echo_slash",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh02.wav",
+      "candidateSubjects": [
+        "kez_talon_toss"
+      ],
+      "spectralCosine": 0.6015773222171914,
+      "alignedCorrelation": 0.3792587689540295,
+      "offsetSeconds": 0.544125,
+      "bestPitchAdjusted": {
+        "correlation": 0.41598773947357504,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-ability:kez_echo_slash",
+      "subject": "kez_echo_slash",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh03.wav",
+      "candidateSubjects": [
+        "kez_talon_toss"
+      ],
+      "spectralCosine": 0.6810538563622177,
+      "alignedCorrelation": 0.3784763250381073,
+      "offsetSeconds": 0.553375,
+      "bestPitchAdjusted": {
+        "correlation": 0.43041443704976445,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:phase_boots",
+      "subject": "phase_boots",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.47668690772716105,
+      "alignedCorrelation": 0.37235660815990773,
+      "offsetSeconds": 0.752375,
+      "bestPitchAdjusted": {
+        "correlation": 0.4023739318326564,
+        "speedRatio": 1.025
+      }
+    },
+    {
+      "questionId": "soundcheck-item:smoke_of_deceit",
+      "subject": "smoke_of_deceit",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/force_staff.wav",
+      "candidateSubjects": [
+        "force_staff"
+      ],
+      "spectralCosine": 0.7499452222563994,
+      "alignedCorrelation": 0.3703790681677753,
+      "offsetSeconds": 0.856625,
+      "bestPitchAdjusted": {
+        "correlation": 0.38513542320786964,
+        "speedRatio": 0.975
+      }
+    },
+    {
+      "questionId": "soundcheck-item:smoke_of_deceit",
+      "subject": "smoke_of_deceit",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/item_distiller_cast.wav",
+      "candidateSubjects": [
+        "essence_distiller"
+      ],
+      "spectralCosine": 0.7205175072664463,
+      "alignedCorrelation": 0.3590124775721368,
+      "offsetSeconds": 1.31075,
+      "bestPitchAdjusted": {
+        "correlation": 0.3590124775721368,
+        "speedRatio": 1
+      }
+    },
+    {
+      "questionId": "soundcheck-item:smoke_of_deceit",
+      "subject": "smoke_of_deceit",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/wraith_totem_pulse.wav",
+      "candidateSubjects": [
+        "crellas_crozier"
+      ],
+      "spectralCosine": 0.5194635701633906,
+      "alignedCorrelation": 0.35875041534163565,
+      "offsetSeconds": 1.612875,
+      "bestPitchAdjusted": {
+        "correlation": 0.5209416752173422,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:lotus_orb",
+      "subject": "lotus_orb",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/weapons/hero/shared/small_blade/whoosh01.wav",
+      "candidateSubjects": [
+        "blood_grenade"
+      ],
+      "spectralCosine": 0.786063345988326,
+      "alignedCorrelation": 0.35325068492858036,
+      "offsetSeconds": 0.59,
+      "bestPitchAdjusted": {
+        "correlation": 0.3624531367792948,
+        "speedRatio": 0.9
+      }
+    },
+    {
+      "questionId": "soundcheck-item:smoke_of_deceit",
+      "subject": "smoke_of_deceit",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/butterfly.wav",
+      "candidateSubjects": [
+        "butterfly"
+      ],
+      "spectralCosine": 0.6493170324626285,
+      "alignedCorrelation": 0.35107893458852796,
+      "offsetSeconds": 0.75925,
+      "bestPitchAdjusted": {
+        "correlation": 0.36941041037177336,
+        "speedRatio": 1.025
+      }
+    },
+    {
+      "questionId": "soundcheck-item:rod_of_atos",
+      "subject": "rod_of_atos",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/item_distiller_cast.wav",
+      "candidateSubjects": [
+        "essence_distiller"
+      ],
+      "spectralCosine": 0.8968459488871638,
+      "alignedCorrelation": 0.3502998329615828,
+      "offsetSeconds": 1.3075,
+      "bestPitchAdjusted": {
+        "correlation": 0.3502998329615828,
+        "speedRatio": 1
+      }
+    },
+    {
+      "questionId": "soundcheck-item:spirit_vessel",
+      "subject": "spirit_vessel",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/wraith_totem_pulse.wav",
+      "candidateSubjects": [
+        "crellas_crozier"
+      ],
+      "spectralCosine": 0.5980275954052408,
+      "alignedCorrelation": 0.3489790442929464,
+      "offsetSeconds": 1.567,
+      "bestPitchAdjusted": {
+        "correlation": 0.3810859652957675,
+        "speedRatio": 0.9
+      }
+    },
+    {
+      "questionId": "soundcheck-item:smoke_of_deceit",
+      "subject": "smoke_of_deceit",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/item_mjoll_off.wav",
+      "candidateSubjects": [
+        "mjollnir"
+      ],
+      "spectralCosine": 0.6672970256876856,
+      "alignedCorrelation": 0.3359148130279929,
+      "offsetSeconds": 0.715375,
+      "bestPitchAdjusted": {
+        "correlation": 0.48929452578524646,
+        "speedRatio": 1.025
+      }
+    },
+    {
+      "questionId": "soundcheck-item:satanic",
+      "subject": "satanic",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/mkb_pierce.wav",
+      "candidateSubjects": [
+        "monkey_king_bar"
+      ],
+      "spectralCosine": 0.9459929832122886,
+      "alignedCorrelation": 0.33006551574100784,
+      "offsetSeconds": 2.6545,
+      "bestPitchAdjusted": {
+        "correlation": 0.36985640398798547,
+        "speedRatio": 1.025
+      }
+    },
+    {
+      "questionId": "soundcheck-item:veil_of_discord",
+      "subject": "veil_of_discord",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/wraith_totem_pulse.wav",
+      "candidateSubjects": [
+        "crellas_crozier"
+      ],
+      "spectralCosine": 0.8536541598328977,
+      "alignedCorrelation": 0.3247300516945454,
+      "offsetSeconds": 0.7685,
+      "bestPitchAdjusted": {
+        "correlation": 0.4587430135496376,
+        "speedRatio": 1.25
+      }
+    },
+    {
+      "questionId": "soundcheck-item:manta",
+      "subject": "manta",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/wraith_totem_pulse.wav",
+      "candidateSubjects": [
+        "crellas_crozier"
+      ],
+      "spectralCosine": 0.7793411650003109,
+      "alignedCorrelation": 0.3246923081547553,
+      "offsetSeconds": 1.3925,
+      "bestPitchAdjusted": {
+        "correlation": 0.4010245140445485,
+        "speedRatio": 0.9
+      }
+    },
+    {
+      "questionId": "soundcheck-item:arcane_boots",
+      "subject": "arcane_boots",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/brooch_target.wav",
+      "candidateSubjects": [
+        "revenants_brooch"
+      ],
+      "spectralCosine": 0.7910371421388989,
+      "alignedCorrelation": 0.32426554460151336,
+      "offsetSeconds": 0.27375,
+      "bestPitchAdjusted": {
+        "correlation": 0.3564236797017388,
+        "speedRatio": 1.025
+      }
+    },
+    {
+      "questionId": "soundcheck-item:silver_edge",
+      "subject": "silver_edge",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/mkb_pierce.wav",
+      "candidateSubjects": [
+        "monkey_king_bar"
+      ],
+      "spectralCosine": 0.90787947021075,
+      "alignedCorrelation": 0.3220828184504073,
+      "offsetSeconds": 2.6525,
+      "bestPitchAdjusted": {
+        "correlation": 0.3220828184504073,
+        "speedRatio": 1
+      }
+    },
+    {
+      "questionId": "soundcheck-item:blade_mail",
+      "subject": "blade_mail",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/blink_overwhelming.wav",
+      "candidateSubjects": [
+        "blink",
+        "overwhelming_blink"
+      ],
+      "spectralCosine": 0.6851676426967755,
+      "alignedCorrelation": 0.32142031482519556,
+      "offsetSeconds": 1.50825,
+      "bestPitchAdjusted": {
+        "correlation": 0.32142031482519556,
+        "speedRatio": 1
+      }
+    },
+    {
+      "questionId": "soundcheck-item:abyssal_blade",
+      "subject": "abyssal_blade",
+      "candidateUrl": "https://dotabase.dillerm.io/vpk/sounds/items/rod_of_atos.wav",
+      "candidateSubjects": [
+        "rod_of_atos"
+      ],
+      "spectralCosine": 0.8989343435174901,
+      "alignedCorrelation": 0.3199553861106675,
+      "offsetSeconds": 1.73475,
+      "bestPitchAdjusted": {
+        "correlation": 0.3199553861106675,
+        "speedRatio": 1
+      }
+    }
+  ]
+}

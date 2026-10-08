@@ -1,0 +1,44 @@
+[
+  {
+    "image": "/tmp/queue-arcade-deep-review/accessibility/chromium153-reviewer-fixed-mobile-party-unchecked.png",
+    "sampleRegion": [
+      49,
+      169,
+      160,
+      184
+    ],
+    "observedTextRgb": [
+      121,
+      115,
+      113
+    ],
+    "observedBackgroundRgb": [
+      22,
+      17,
+      17
+    ],
+    "contrastRatio": 4.01263435565725,
+    "method": "Common solid glyph and background pixels. Approximate raster check; antialiasing is present."
+  },
+  {
+    "image": "/tmp/queue-arcade-deep-review/accessibility/chromium153-final-pages-mobile-party-unchecked.png",
+    "sampleRegion": [
+      49,
+      169,
+      160,
+      184
+    ],
+    "observedTextRgb": [
+      236,
+      236,
+      230
+    ],
+    "observedBackgroundRgb": [
+      17,
+      18,
+      18
+    ],
+    "contrastRatio": 15.823008452172125,
+    "method": "Common solid glyph and background pixels. Approximate raster check; antialiasing is present."
+  }
+]

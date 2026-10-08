@@ -113,6 +113,10 @@ export function isPlayableFlashbackQuestion(question) {
   }
   return (
     Boolean(flashbackOrderCorrectAnswerKey(question)) &&
-    question.flashback.cards.every((card) => typeof card.image === "string" && card.image.startsWith("https://"))
+    question.flashback.cards.every(
+      (card) =>
+        typeof card.image === "string" &&
+        (card.image.startsWith("https://") || /^\/arcade\/flashback\/originals\/[a-z-]+\.svg$/.test(card.image)),
+    )
   );
 }

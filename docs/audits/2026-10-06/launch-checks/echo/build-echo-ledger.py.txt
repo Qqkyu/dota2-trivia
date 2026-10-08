@@ -1,0 +1,83 @@
+from pathlib import Path
+import collections
+import datetime
+import hashlib
+import json
+import re
+
+root = Path("/tmp/queue-arcade-launch-checks/echo")
+load = lambda name: json.loads((root / name).read_text())
+lines = lambda name: [json.loads(line) for line in (root / name).read_text().splitlines()]
+inputs = load("inputs-final.json")
+signals = {r["id"]: r for r in load("signal-checks-final.json")["records"]}
+all_asr = lines("asr-small-all.jsonl") + lines("asr-medium-review.jsonl") + lines("asr-large-review.jsonl")
+all_asr += lines("candidates/asr-small.jsonl") + lines("candidates/asr-medium.jsonl")
+text_rows = {r["id"]: r for r in json.loads(Path("/tmp/queue-arcade-launch-checks/echo-text-review.json").read_text())["rows"]}
+
+def basic(text):
+    return re.findall(r"[a-z0-9]+", text.lower().replace("\u2019", "'"))
+
+def equivalent(text):
+    text = text.lower().replace("\u2019", "'")
+    substitutions = [
+        ("i'd've", "i would have"), ("i'd have", "i would have"), ("it's", "it is"),
+        ("some time", "sometime"), ("weightclass", "weight class"),
+        ("choppin ", "chopping "), ("honourable", "honorable"),
+    ]
+    for before, after in substitutions:
+        text = text.replace(before, after)
+    text = re.sub(r"\bya\b", "you", text)
+    return re.findall(r"[a-z0-9]+", text.replace("'", ""))
+
+notes = {
+    "Alchemist": "All three models recover the sentence apart from the opening verb. Mixed, Mix, Nix, and Next are competing outputs. The pinned source spells Mixed. No gameplay text was changed on that evidence.",
+    "Bristleback": "The pinned dialect phrase chinned ya becomes changed it or changed you in all models. Four diagnostic filters did not resolve this word. The source slang remains unchanged.",
+    "Disruptor": "All models render death a solution where the source has death the solution. The remaining sentence agrees. This article is not independently resolved by ASR.",
+    "Faceless Void": "All models render I return where the pinned source has I returned. The rest of the line agrees. The final consonant and tense remain unresolved by ASR.",
+    "Jakiro": "The models recover the candle-at-both-ends sentence with competing candle, cattle, and counter words or prepositions. Filtering and speed/pitch diagnostics did not produce an exact transcript. Attribution is source-backed.",
+    "Ogre Magi": "The second clause You got some on you is stable. The first-blood shout is misread as bread or omitted. The source belongs to the same multi-character hero.",
+    "Skywrath Mage": "The source lore name Skree'auk is phonetic text in all models, and talons becomes talents. These mismatches do not identify a different hero. The native source hero and audio folder both identify Skywrath Mage.",
+    "Slark": "Wanted becomes wied, whited, or whined. The remaining words agree. The pinned source word is retained because recognizers do not resolve it consistently.",
+    "Spectre": "All three models produce conflicting text. Five diagnostic filters, including reversal, do not recover the full source sentence. The slowed variant recovers From another dimension, but its ending still differs. Clean decoding and source attribution pass; word intelligibility remains unverified by these models.",
+    "Warlock": "Death becomes This in all three model sizes, with no/new disagreement in two. Most of the line agrees, but its opening word is not independently resolved by ASR.",
+}
+
+questions = {q["id"]: q for q in json.loads(Path("src/data/questions.generated.json").read_text()) if q["kind"] == "hero-voice"}
+records = []
+for item in inputs["records"]:
+    results = [r for r in all_asr if r["id"] == item["id"]]
+    full = [r for r in results if r["stage"] == 3]
+    exact = [r for r in full if basic(r["recognizedText"]) == basic(item["expectedText"])]
+    same = [r for r in full if equivalent(r["recognizedText"]) == equivalent(item["expectedText"])]
+    status = "exact_normalized_transcript" if exact else "spelling_or_contraction_equivalent" if same else "model_intelligibility_unverified" if item["hero"] == "Spectre" else "partial_transcript_agreement"
+    source_text = text_rows.get(item["id"])
+    note = notes.get(item["hero"], "The unprompted full-line transcript agrees after punctuation normalization." if exact else "The recognized full line agrees after the documented spacing, spelling, dialect, or contraction equivalences.")
+    question = questions[item["id"]]
+    records.append({
+        "id": item["id"], "hero": item["hero"], "heroKey": item["heroKey"],
+        "currentQuestionSha256": hashlib.sha256(json.dumps(question, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest(),
+        "expectedText": item["expectedText"], "transcriptStatus": status,
+        "sourceAttribution": {"status": "verified_against_pinned_metadata", "heroId": item["heroId"], "voiceId": item["voiceId"], "audioUrl": item["sourceUrl"], "audioSha256": item["sourceSha256"], "transcriptUrl": item["pinnedTranscriptSource"], "transcriptSourceSha256": item["pinnedTranscriptSourceSha256"]},
+        "signalStatus": "passed_all_three_actual_gameplay_stages",
+        "fullRecognition": [{"model": r["model"], "text": r["recognizedText"], "comparison": r["comparison"]} for r in full],
+        "prefixRecognition": [{"stage": r["stage"], "model": r["model"], "text": r["recognizedText"], "bestPrefixWordEdits": r["comparison"]["bestPrefixWordEdits"]} for r in results if r["stage"] < 3],
+        "signal": signals[item["id"]], "note": note,
+        "crossHeroTranscriptMatches": source_text["exactOtherHeroTexts"] if source_text else [],
+        "sourceCorpusComparison": "Reviewed across all 226 pinned files and 91,246 response records. The new Troll response received a separate final source check." if not source_text else "See text-review-before.json for the full corpus comparison and wording notes.",
+        "humanListeningPerformed": False,
+        "modelProvesSpeakerIdentity": False,
+    })
+
+summary = {
+    "reviewedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    "currentEchoQuestions": len(records), "actualGameplayStages": 3 * len(records),
+    "transcriptStatuses": dict(collections.Counter(r["transcriptStatus"] for r in records)),
+    "sourceAttributionVerified": len(records), "signalChecksPassed": len(records),
+    "changedQuestions": 1,
+    "recognitionSettings": "English, CPU int8, beam size5, temperature0, no initial prompt or transcript hints, VAD disabled, independent files with no previous text conditioning.",
+    "recognitionScope": "123 baseline full clips and 246 baseline encoded prefixes; 26 full-line medium-model rechecks; 11 full-line large-model rechecks; two Troll candidate stage sets with small and medium models; 17 diagnostic variants for four uncertain voices.",
+    "normalization": "Basic matching ignores case and punctuation. The equivalent class additionally expands I'd've/I'd have and it's; joins some time; separates weightclass; maps choppin/chopping, ya/you and honourable/honorable; and ignores apostrophe placement.",
+    "acceptanceLimit": "All sources and signal checks pass. Nine full lines have partial ASR word disagreements and Spectre's full-line words remain model-unverified. No claim of human listening, actor verification, physical-speaker playback, or subjective difficulty is made.",
+}
+(root / "echo-ledger.json").write_text(json.dumps({"summary": summary, "records": records}, indent=2, ensure_ascii=False) + "\n")
+print(json.dumps(summary, indent=2))

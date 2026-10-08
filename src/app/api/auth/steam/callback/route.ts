@@ -6,13 +6,15 @@ import {
   setAccountSessionCookie,
 } from "@/lib/auth-session";
 import { rateLimitRequest } from "@/lib/api-protection";
-import { upsertSteamUser } from "@/lib/account-store";
+import { consumeSteamLoginNonce, upsertSteamUser } from "@/lib/account-store";
 import {
   STEAM_OPENID_ENDPOINT,
-  STEAM_OPENID_NAMESPACE,
   STEAM_STATE_COOKIE,
-  steamIdFromClaimedId,
+  steamCallbackParameters,
+  steamAssertionIdentity,
   steamVerificationBody,
+  steamVerificationSucceeded,
+  sessionTokenHash,
   verifySteamState,
 } from "@/lib/steam-auth.mjs";
 import { steamIdentityProfile } from "@/lib/steam-profile";
@@ -38,32 +40,23 @@ function failed(origin: string) {
 }
 
 export async function GET(request: NextRequest) {
-  const limited = rateLimitRequest(request, "steam-auth-callback", "steam", 20);
+  const limited = rateLimitRequest(request, "steam-auth-callback", "steam", 120, 120);
   if (limited) return limited;
 
   let origin: string | null = null;
   try {
     origin = configuredApplicationOrigin(request);
-    const stateToken = request.nextUrl.searchParams.get("state");
+    const params = steamCallbackParameters(request.nextUrl.searchParams);
+    if (!params) return failed(origin);
+    const stateToken = params.state;
     const stateCookie = request.cookies.get(STEAM_STATE_COOKIE)?.value;
     const state = verifySteamState(stateToken, { secret: configuredAuthSecret() });
     if (!state || !stateCookie || stateCookie !== stateToken) return failed(origin);
 
     const expectedReturnTo = new URL("/api/auth/steam/callback", origin);
     expectedReturnTo.searchParams.set("state", stateToken);
-    const params = request.nextUrl.searchParams;
-    const claimedId = params.get("openid.claimed_id");
-    const steamId = steamIdFromClaimedId(claimedId);
-    if (
-      params.get("openid.ns") !== STEAM_OPENID_NAMESPACE ||
-      params.get("openid.mode") !== "id_res" ||
-      params.get("openid.op_endpoint") !== STEAM_OPENID_ENDPOINT ||
-      params.get("openid.return_to") !== expectedReturnTo.href ||
-      params.get("openid.identity") !== claimedId ||
-      !steamId
-    ) {
-      return failed(origin);
-    }
+    const steamId = steamAssertionIdentity(params, expectedReturnTo.href);
+    if (!steamId) return failed(origin);
 
     const verification = await fetch(STEAM_OPENID_ENDPOINT, {
       method: "POST",
@@ -73,7 +66,9 @@ export async function GET(request: NextRequest) {
       signal: AbortSignal.timeout(10_000),
     });
     const verificationText = await verification.text();
-    if (!verification.ok || !/^is_valid:true\s*$/m.test(verificationText)) return failed(origin);
+    if (!verification.ok || !steamVerificationSucceeded(verificationText)) return failed(origin);
+    const nonceHash = sessionTokenHash(`steam-openid:${params["openid.response_nonce"]}`);
+    if (!(await consumeSteamLoginNonce(nonceHash, Date.now() + 10 * 60 * 1_000))) return failed(origin);
 
     const identity = await steamIdentityProfile(steamId);
     const user = await upsertSteamUser(identity);

@@ -1,0 +1,57 @@
+{
+  "checkedAt": "2026-10-06T13:12:46.049Z",
+  "checks": {
+    "nonSuperuserCreatedExactRuntimeRole": true,
+    "scramVerifierStoredUnchanged": true,
+    "scramPasswordLogin": true,
+    "wrongPasswordDenied": "28P01",
+    "runtimeCrudAndSchemaVerification": true,
+    "runtimeCreateDenied": "42501",
+    "runtimeTempDenied": "42501",
+    "runtimeLedgerUpdateDenied": "42501",
+    "runtimeSetOwnerDenied": "42501",
+    "ownerSetRuntimeDeniedByDefault": "42501",
+    "creatorCanAlterRuntime": true,
+    "connection21Denied": "53300",
+    "twentyConnectionsAccepted": true
+  },
+  "serverVersion": "17.11",
+  "creatorSelfGrant": "",
+  "runtimeFlags": {
+    "rolsuper": false,
+    "rolcreatedb": false,
+    "rolcreaterole": false,
+    "rolinherit": false,
+    "rolreplication": false,
+    "rolbypassrls": false,
+    "rolcanlogin": true,
+    "rolconnlimit": 20
+  },
+  "memberships": [
+    {
+      "parent_is_runtime": true,
+      "member_is_creator": true,
+      "admin_option": true,
+      "inherit_option": false,
+      "set_option": false
+    }
+  ],
+  "ownership": {
+    "schema_owner": "pg_database_owner",
+    "schema_create": true,
+    "database_create": true
+  },
+  "applied": [
+    1,
+    2
+  ],
+  "grants": {
+    "role": "synthetic_runtime",
+    "schema": "public",
+    "tables": 13,
+    "ledger": "SELECT",
+    "applicationTables": "SELECT, INSERT, UPDATE, DELETE"
+  },
+  "ok": true,
+  "cleanedUp": true
+}

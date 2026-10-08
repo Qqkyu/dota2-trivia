@@ -1,0 +1,50 @@
+FAIL mobile next round restores prompt 320 flashchoice: Next prompt must be visible: {"promptTop":-369,"promptBottom":-281.25,"timerTop":13.25,"timerBottom":41.75,"height":568,"scroll":687}
+FAIL mobile next round restores prompt 320 hero: Next prompt must be visible: {"promptTop":-575,"promptBottom":-516.5,"timerTop":13.25,"timerBottom":41.75,"height":568,"scroll":833}
+FAIL mobile next round restores prompt 320 shop: Next prompt must be visible: {"promptTop":-425.140625,"promptBottom":-366.640625,"timerTop":13.25,"timerBottom":41.75,"height":568,"scroll":689}
+FAIL mobile next round restores prompt 390 flashchoice: Next prompt must be visible: {"promptTop":-64,"promptBottom":-5.5,"timerTop":13.25,"timerBottom":41.75,"height":844,"scroll":382}
+FAIL mobile next round restores prompt 390 hero: Next prompt must be visible: {"promptTop":-298,"promptBottom":-268.75,"timerTop":13.25,"timerBottom":41.75,"height":844,"scroll":556}
+FAIL mobile next round restores prompt 390 shop: Next prompt must be visible: {"promptTop":-149.140625,"promptBottom":-90.640625,"timerTop":13.25,"timerBottom":41.75,"height":844,"scroll":413}
+PASS mobile next round preserves active party chat
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: [
+  {
+    "name": "mobile next round restores prompt 320 flashchoice",
+    "error": "Next prompt must be visible: {\"promptTop\":-369,\"promptBottom\":-281.25,\"timerTop\":13.25,\"timerBottom\":41.75,\"height\":568,\"scroll\":687}"
+  },
+  {
+    "name": "mobile next round restores prompt 320 hero",
+    "error": "Next prompt must be visible: {\"promptTop\":-575,\"promptBottom\":-516.5,\"timerTop\":13.25,\"timerBottom\":41.75,\"height\":568,\"scroll\":833}"
+  },
+  {
+    "name": "mobile next round restores prompt 320 shop",
+    "error": "Next prompt must be visible: {\"promptTop\":-425.140625,\"promptBottom\":-366.640625,\"timerTop\":13.25,\"timerBottom\":41.75,\"height\":568,\"scroll\":689}"
+  },
+  {
+    "name": "mobile next round restores prompt 390 flashchoice",
+    "error": "Next prompt must be visible: {\"promptTop\":-64,\"promptBottom\":-5.5,\"timerTop\":13.25,\"timerBottom\":41.75,\"height\":844,\"scroll\":382}"
+  },
+  {
+    "name": "mobile next round restores prompt 390 hero",
+    "error": "Next prompt must be visible: {\"promptTop\":-298,\"promptBottom\":-268.75,\"timerTop\":13.25,\"timerBottom\":41.75,\"height\":844,\"scroll\":556}"
+  },
+  {
+    "name": "mobile next round restores prompt 390 shop",
+    "error": "Next prompt must be visible: {\"promptTop\":-149.140625,\"promptBottom\":-90.640625,\"timerTop\":13.25,\"timerBottom\":41.75,\"height\":844,\"scroll\":413}"
+  }
+]
+
+6 !== 0
+
+    at file:///home/kulmisiu/dev/dota2-trivia/scripts/check-user-journeys.mjs:563:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 6,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

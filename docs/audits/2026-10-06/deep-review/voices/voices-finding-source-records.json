@@ -1,0 +1,142 @@
+[
+  {
+    "originalId": "hero-quote:npc_dota_hero_lich:lich_kill_06",
+    "originalTranscript": "You'll be looking up at the grass.",
+    "sourceRecords": [
+      {
+        "name": "lich_kill_06",
+        "fullname": "lich_lich_kill_06",
+        "hero_id": 31,
+        "voice_id": 31,
+        "text": "You'll be looking up at the grass.",
+        "text_simple": " youll be looking up at the grass ",
+        "criteria": "Kill Islich",
+        "pretty_criteria": "Killing a hero",
+        "mp3": "/sounds/vo/lich/lich_kill_06.mp3",
+        "file": "lich.json",
+        "source": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/lich.json",
+        "sourceSha256": "f07d1755e65285a9f3908c18144d389692ea7694c1ef081febed490c16c0b098"
+      }
+    ],
+    "crossHeroMatches": [
+      {
+        "hero_id": 87,
+        "name": "dis_kill_04",
+        "file": "disruptor.json",
+        "text": "You'll be looking up at the grass.",
+        "source": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/disruptor.json"
+      }
+    ],
+    "reason": "The original text is also spoken by Disruptor as dis_kill_04, so the full-hero quote answer is ambiguous."
+  },
+  {
+    "originalId": "hero-quote:npc_dota_hero_sniper:snip_kill_12",
+    "originalTranscript": "Hee hee hee hee hee hee hee hee hee hee!",
+    "sourceRecords": [
+      {
+        "name": "snip_kill_12",
+        "fullname": "sniper_snip_kill_12",
+        "hero_id": 35,
+        "voice_id": 35,
+        "text": "Hee hee hee hee hee hee hee hee hee hee!",
+        "text_simple": " hee hee hee hee hee hee hee hee hee hee ",
+        "criteria": "Kill Issniper",
+        "pretty_criteria": "Killing a hero",
+        "mp3": "/sounds/vo/sniper/snip_kill_12.mp3",
+        "file": "sniper.json",
+        "source": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/sniper.json",
+        "sourceSha256": "90da364bc0a63ad5b3485d4a076a09e6b7ddb4cd03b4d7b79f9fde23e7bac751"
+      }
+    ],
+    "crossHeroMatches": [],
+    "reason": "The original consists only of repeated Hee laughter. It supplies no meaningful text clue."
+  },
+  {
+    "originalId": "hero-quote:npc_dota_hero_techies:tech_firstblood_03",
+    "originalTranscript": "First blood? Uh, I only see a crater. Awwww.. No blood? Nope.",
+    "sourceRecords": [
+      {
+        "name": "tech_firstblood_03",
+        "fullname": "techies_tech_firstblood_03",
+        "hero_id": 105,
+        "voice_id": 105,
+        "text": "First blood? Uh, I only see a crater. Awwww.. No blood? Nope.",
+        "text_simple": " first blood uh i only see a crater awwww no blood nope ",
+        "criteria": "Kill Istechies IsFirstBlood Chance_10%",
+        "pretty_criteria": "Killing a hero (First Blood) (10% chance)",
+        "mp3": "/sounds/vo/techies/tech_firstblood_03.mp3",
+        "file": "techies.json",
+        "source": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/techies.json",
+        "sourceSha256": "6188c847ec096405f5e6103a5dc3b06febee3518b3baca14c01b4698950b437d"
+      }
+    ],
+    "crossHeroMatches": [],
+    "reason": "The original is a near-duplicate of the retained tech_firstblood_01 quote, differing mainly in a vocalization and trailing Nope."
+  },
+  {
+    "originalId": "hero-voice:npc_dota_hero_ancient_apparition:appa_kill_06",
+    "originalTranscript": "From time's cradle I bring death.",
+    "sourceRecords": [
+      {
+        "name": "appa_kill_06",
+        "fullname": "ancient_apparition_appa_kill_06",
+        "hero_id": 68,
+        "voice_id": 68,
+        "text": "From time's cradle I bring death.",
+        "text_simple": " from times cradle i bring death ",
+        "criteria": "Kill Isancient_apparition",
+        "pretty_criteria": "Killing a hero",
+        "mp3": "/sounds/vo/ancient_apparition/appa_kill_06.mp3",
+        "file": "ancient_apparition.json",
+        "source": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/ancient_apparition.json",
+        "sourceSha256": "debe0d8664bdd2cebaf1904402e749e785b2d6421e1685ce812e312635ba0beb"
+      }
+    ],
+    "crossHeroMatches": [],
+    "reason": "The original first240ms prefix has -77.68dB RMS. The replacement first prefix has -42.10dB RMS, with a -20.01dB peak."
+  },
+  {
+    "originalId": "hero-voice:npc_dota_hero_jakiro:jak_kill_06",
+    "originalTranscript": "Another kill for me! No, me!",
+    "sourceRecords": [
+      {
+        "name": "jak_kill_06",
+        "fullname": "jakiro_jak_kill_06",
+        "hero_id": 64,
+        "voice_id": 64,
+        "text": "Another kill for me! No, me!",
+        "text_simple": " another kill for me no me ",
+        "criteria": "Kill Isjakiro",
+        "pretty_criteria": "Killing a hero",
+        "mp3": "/sounds/vo/jakiro/jak_kill_06.mp3",
+        "file": "jakiro.json",
+        "source": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/jakiro.json",
+        "sourceSha256": "010b4dc56201aa3cca8f075a1821936fbe8f8a5e0be414e75913d6d9c9f37667"
+      }
+    ],
+    "crossHeroMatches": [],
+    "reason": "The original first240ms prefix has -88.78dB RMS. The replacement first prefix has -34.43dB RMS and a distinct spoken sentence."
+  },
+  {
+    "originalId": "hero-voice:npc_dota_hero_shredder:timb_attack_03",
+    "originalTranscript": "Chop chop chop chop chop chop chop!",
+    "sourceRecords": [
+      {
+        "name": "timb_attack_03",
+        "fullname": "shredder_timb_attack_03",
+        "hero_id": 98,
+        "voice_id": 98,
+        "text": "Chop chop chop chop chop chop chop!",
+        "text_simple": " chop chop chop chop chop chop chop ",
+        "criteria": "Kill Isshredder",
+        "pretty_criteria": "Killing a hero",
+        "mp3": "/sounds/vo/shredder/timb_attack_03.mp3",
+        "file": "timbersaw.json",
+        "source": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/timbersaw.json",
+        "sourceSha256": "c327771f7a20ecde39d8e61280561a2ce56e19a0a7f82e6c3224ea01ef1089a6"
+      }
+    ],
+    "crossHeroMatches": [],
+    "reason": "The original repeats Chop seven times. Replace it with a complete spoken line for the substantial-line policy."
+  }
+]

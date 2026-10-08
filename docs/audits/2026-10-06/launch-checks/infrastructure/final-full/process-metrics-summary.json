@@ -1,0 +1,143 @@
+[
+  {
+    "pid": 14,
+    "samples": 267,
+    "seconds": 268.07,
+    "rssPeakMiB": 250.59,
+    "rssFinalMiB": 224.87,
+    "heapUsedPeakMiB": 126.65,
+    "heapUsedFinalMiB": 79.47,
+    "eventLoopP99MaxMs": 510.13,
+    "eventLoopP99MedianMs": 90.51,
+    "eventLoopMaximumMs": 510.13,
+    "eventLoopUtilizationP95": 0.9994,
+    "cgroupMemoryPeakMiB": 211.98,
+    "cgroupEventsFinal": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "cgroupCpuFirst": {
+      "usage_usec": 587499,
+      "user_usec": 465947,
+      "system_usec": 121551,
+      "nice_usec": 0,
+      "nr_periods": 11,
+      "nr_throttled": 5,
+      "throttled_usec": 178032,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "cgroupCpuFinal": {
+      "usage_usec": 195896822,
+      "user_usec": 168439892,
+      "system_usec": 27456930,
+      "nice_usec": 0,
+      "nr_periods": 2577,
+      "nr_throttled": 1513,
+      "throttled_usec": 53432035,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "mediaFinal": {
+      "fetches": {
+        "1a9076ad409449db203abe0a8e8462a9b6a3707fa62ef40bcc1782bea857aebf": 1,
+        "f73e6076c4612446f1fd9d63a9f05359d7abff0a02ccbe517f0aefd22b182edc": 1,
+        "e146d21fa1f9465a1234b005dec58e942eedda5693c861dc34f769d6c86be27d": 1,
+        "87b2a6b057d1d019e4573750ae3d32a5ec1ef5f3d9a78986b890ea08c02a92bc": 1,
+        "63703ba78e4de1f1106002387a5f3d94f07c2313cbd3410b404e8ec2186b2285": 1,
+        "5e4a8215b663f1a7cd0a7c9f11fd5c57ddd39a3af8246ec23f46edc70abc8cad": 1,
+        "fb89dcacad1482a0fd187f150b5d6b74c11ef2b6f49cc51b4d3a9edf1985e726": 1,
+        "472fa80cf445692af85e03836a3269f24145d43e0f4234197629b3ed47bef8f5": 1,
+        "8a216b0adca075ff13167c2d0c9c2a688732140257dfb4e26fa40633d26de72d": 1,
+        "b9444c0704c654b8b57027f24b243ee861f512ad188a35cddf78728de0c0a7c8": 1,
+        "fb3860c6b5c6c808933313ee7340220d20b6f6f9ee54cb1fb77a94b955f5dbbf": 1,
+        "5cf16c6c4dd2aa6cce344b4e7b4bb2156144ba54398ae0e64e915deff8f4c4dc": 1,
+        "1740537730b0cc20c5645be165bcfbdeb53bd08e81850c97f79de393c541c3b5": 1,
+        "58cc7920117508a7e4f5d4db0fa627a465d077760b39b9ea732ce42212518c03": 1,
+        "1662b81efc58e54f2d64ddac63307025fa427d6cce2fab620926f2ef2a9bd518": 1,
+        "94da1d99aae00e543eda3a94711a7fa26841dbcab88303785a741e65b90eecf6": 1
+      },
+      "ffmpegStarted": 2,
+      "ffmpegCompleted": 2,
+      "ffmpegFailed": 0,
+      "ffmpegActive": 0,
+      "ffmpegPeak": 1
+    },
+    "windows": [
+      {
+        "file": "capacity-1.json",
+        "rssPeakMiB": 250.59,
+        "rssFinalMiB": 224.87,
+        "heapFinalMiB": 79.47,
+        "eventLoopP99MaxMs": 510.13,
+        "eventLoopUtilizationP95": 0.9996
+      }
+    ]
+  },
+  {
+    "pid": 1,
+    "samples": 269,
+    "seconds": 268.06,
+    "rssPeakMiB": 52.91,
+    "rssFinalMiB": 52.81,
+    "heapUsedPeakMiB": 5.18,
+    "heapUsedFinalMiB": 4.94,
+    "eventLoopP99MaxMs": 85.52,
+    "eventLoopP99MedianMs": 20.2,
+    "eventLoopMaximumMs": 85.52,
+    "eventLoopUtilizationP95": 0.0016,
+    "cgroupMemoryPeakMiB": 211.98,
+    "cgroupEventsFinal": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "cgroupCpuFirst": {
+      "usage_usec": 586358,
+      "user_usec": 465042,
+      "system_usec": 121315,
+      "nice_usec": 0,
+      "nr_periods": 11,
+      "nr_throttled": 5,
+      "throttled_usec": 178032,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "cgroupCpuFinal": {
+      "usage_usec": 195849664,
+      "user_usec": 168401141,
+      "system_usec": 27448523,
+      "nice_usec": 0,
+      "nr_periods": 2577,
+      "nr_throttled": 1513,
+      "throttled_usec": 53432035,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "mediaFinal": {
+      "fetches": {},
+      "ffmpegStarted": 0,
+      "ffmpegCompleted": 0,
+      "ffmpegFailed": 0,
+      "ffmpegActive": 0,
+      "ffmpegPeak": 0
+    },
+    "windows": [
+      {
+        "file": "capacity-1.json",
+        "rssPeakMiB": 52.81,
+        "rssFinalMiB": 52.81,
+        "heapFinalMiB": 4.94,
+        "eventLoopP99MaxMs": 85.52,
+        "eventLoopUtilizationP95": 0.0015
+      }
+    ]
+  }
+]

@@ -86,6 +86,7 @@ export interface PublicArcadeQuestion {
     format?: ShopkeeperFormat;
     promptItems?: ShopkeeperItemReference[];
     recipeSize?: number;
+    recipeCost?: number;
     answerGroups?: [
       ShopkeeperItemReference[],
       ShopkeeperItemReference[],
@@ -186,6 +187,8 @@ export function isPublicArcadeQuestion(value: unknown): value is PublicArcadeQue
         candidate.answerMode === "flashback-order" ||
         candidate.answerMode === "flashback-year") &&
       (candidate.answerMode !== "item-recipe" || candidate.shopkeeper?.recipeSize !== undefined) &&
+      (candidate.shopkeeper?.recipeCost === undefined ||
+        (Number.isInteger(candidate.shopkeeper.recipeCost) && candidate.shopkeeper.recipeCost >= 0)) &&
       (candidate.shopkeeper?.recipeSize === undefined ||
         (Number.isInteger(candidate.shopkeeper.recipeSize) &&
           candidate.shopkeeper.recipeSize >= 1 &&

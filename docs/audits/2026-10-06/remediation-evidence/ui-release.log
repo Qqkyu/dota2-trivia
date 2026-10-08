@@ -1,0 +1,285 @@
+
+> queue-arcade@0.2.0 check:ui /home/kulmisiu/dev/dota2-trivia
+> node scripts/check-ui.mjs
+
+⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+Validated profile, calibration, privacy, and Steam OpenID start/reject.
+Validated party lobby names, uniqueness, and 3 tabs for LDNMGK (Alex, Guest-004072D6, Guest-F51FC66D).
+Validated 10 party previews match the 362x132 profile crop. 10 games selected.
+Validated nick sync across two Chrome profiles for NDOFXD.
+Validated party UI at 1, 20, 50, and 100 players on 1080p, desktop, laptop, small, narrow, short. The 101st join is blocked.
+Validated public play lobby → answer → reveal ([data-testid="arcade-answer"]:not([disabled])).
+[queue-arcade:error] {"roundId":"dota2:7.41f-variety-7-classic-trivia-6-shopkeeper-8-public-arcade-4-soundcheck-12-spell-link-4-fogged-vision-5-global-score-1-order-up-5-aghanim-lab-1-flashback","at":"2026-10-06T07:50:24.076Z","event":"round-audio.preload","fingerprint":"d6f9402e","errorName":"ResponseAborted","frame":"at ServerResponse.<anonymous> (/home/kulmisiu/dev/dota2-trivia/.next-check/server/chunks/[root-of-the-server]__03b6i2i._.js:1:65698)","release":"local"}
+Validated question reports: accept, dedupe, and next-round carryover.
+Validated member-only party audio, images, votes and chat, and host pass.
+[queue-arcade:error] {"roundId":"dota2:7.41f-variety-7-classic-trivia-6-shopkeeper-8-public-arcade-4-soundcheck-12-spell-link-4-fogged-vision-5-global-score-1-order-up-5-aghanim-lab-1-flashback","at":"2026-10-06T07:52:46.225Z","event":"round-audio.preload","fingerprint":"d6f9402e","errorName":"ResponseAborted","frame":"at ServerResponse.<anonymous> (/home/kulmisiu/dev/dota2-trivia/.next-check/server/chunks/[root-of-the-server]__03b6i2i._.js:1:65698)","release":"local"}
+[queue-arcade:error] {"roundId":"dota2:7.41f-variety-7-classic-trivia-6-shopkeeper-8-public-arcade-4-soundcheck-12-spell-link-4-fogged-vision-5-global-score-1-order-up-5-aghanim-lab-1-flashback","at":"2026-10-06T07:53:05.597Z","event":"round-audio.preload","fingerprint":"d6f9402e","errorName":"ResponseAborted","frame":"at ServerResponse.<anonymous> (/home/kulmisiu/dev/dota2-trivia/.next-check/server/chunks/[root-of-the-server]__03b6i2i._.js:1:65698)","release":"local"}
+Validated round copy, controls, and reveals for 10 formats: trivia, shopkeeper, spell-link, fogged-vision, echo-hunt, soundcheck, quote-hunt, aghanim-lab, order-up, flashback.
+Validated Shopkeeper search (108 → 4 items) and Enter picks the only match.
+Layout ok: 16 play formats at 420 and 1400px.
+Validated hero grid search and reveal: Enter picks the only match, reveal names Crystal Maiden in place.
+{
+  "orderBefore": {
+    "cards": [
+      {
+        "text": "Kez",
+        "context": "Katana",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 53,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      },
+      {
+        "text": "Largo",
+        "context": "Bard",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 307,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      },
+      {
+        "text": "Muerta",
+        "context": "The Veil",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 560,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      },
+      {
+        "text": "Ringmaster",
+        "context": "Circus",
+        "font": "geistSans, \"geistSans Fallback\", Arial, Helvetica, sans-serif",
+        "fontSize": 14,
+        "x": 814,
+        "y": 467,
+        "w": 246,
+        "h": 132,
+        "artW": 72,
+        "artH": 72,
+        "nameBottom": 575,
+        "contextTop": 575,
+        "nameOverlapsArt": false
+      }
+    ],
+    "extraMarks": 0,
+    "overflow": false
+  },
+  "orderAfterPick": [
+    {
+      "x": 53,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    },
+    {
+      "x": 307,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    },
+    {
+      "x": 560,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    },
+    {
+      "x": 814,
+      "y": 467,
+      "w": 246,
+      "h": 132
+    }
+  ],
+  "orderReveal": {
+    "rows": [
+      {
+        "name": "Muerta",
+        "context": "The Veil",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      },
+      {
+        "name": "Ringmaster",
+        "context": "Circus",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      },
+      {
+        "name": "Kez",
+        "context": "Katana",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      },
+      {
+        "name": "Largo",
+        "context": "Bard",
+        "clipped": false,
+        "contextUnderIndex": false,
+        "fontSize": 14
+      }
+    ],
+    "yours": [
+      "Kez",
+      "Largo",
+      "Muerta",
+      "Ringmaster"
+    ],
+    "panelVisible": true
+  },
+  "yearBefore": {
+    "min": "2009",
+    "max": "2026",
+    "currentYear": "2026",
+    "height": 186,
+    "answers": 0,
+    "ticks": 0,
+    "helper": true,
+    "lock": true,
+    "lockDisabled": false
+  },
+  "yearAfterSlide": {
+    "locked": "false",
+    "readout": "2011",
+    "lockLabel": "Lock"
+  },
+  "yearAfterPick": {
+    "locked": "true",
+    "readout": "2011",
+    "value": "2011",
+    "height": 186,
+    "lockLabel": "Locked",
+    "lockDisabled": true
+  },
+  "yearReveal": {
+    "readout": "2011",
+    "correctYear": "2011",
+    "height": 186,
+    "panelVisible": true
+  },
+  "photoAnswering": {
+    "strip": false,
+    "leak": false,
+    "art": "http://127.0.0.1:43119/arcade/flashback/ti5-keyarena.jpg"
+  },
+  "artBefore": {
+    "w": 248,
+    "h": 148,
+    "x": 80,
+    "y": 217
+  },
+  "photoReveal": {
+    "strip": false,
+    "src": "http://127.0.0.1:43119/arcade/flashback/winners/ti7-liquid.jpg",
+    "alt": "Team Liquid lift the Aegis",
+    "w": 248,
+    "h": 148,
+    "x": 80,
+    "y": 217
+  },
+  "photoMobile": {
+    "w": 248,
+    "h": 148,
+    "overflow": false
+  },
+  "failures": []
+}
+PASS expired invitation keeps its recovery form open
+PASS short party lobby keeps chat and its error slot inside the panel
+PASS new capped chat messages stay visible at the bottom
+PASS reading older messages does not jump to the bottom
+PASS failed chat preserves a newer draft and shows an error
+PASS a delayed lobby chat reply cannot reset active play
+PASS active-play chat failures are visible and do not move the dock
+PASS party membership uses explicit POST actions
+PASS calibration can reach records beyond the first 80
+PASS calibration search and filters reset pagination
+Validated party recovery, chat delivery and scrolling, stale replies, POST membership, and calibration pages.
+PASS entry and storage {"failFirst":true}
+PASS entry and storage {"hangFirst":true}
+PASS entry and storage {"blockStorage":true}
+PASS entry and storage {"blockStorageGetter":true}
+PASS 100 concurrent rounds preserve all 200 guest lifetime results
+PASS stale local mirror cannot replace the authoritative guest record
+PASS both guest tabs receive one score and one streak increment
+PASS missed reveal recovers once for guest session
+PASS missed reveal recovers once for connected session
+PASS vote committed after round transition recovers in the same current round
+PASS changed crowd award corrects score without counting the answer again
+PASS accepted account answer replaces a conflicting local choice before POST returns
+PASS leaving pending public entry cancels its result
+PASS transient profile failure preserves the known account
+PASS denied IndexedDB keeps play usable and does not overwrite shared lifetime data
+PASS browser commands do not submit classic answers
+PASS focused mute keeps native keyboard behavior in year
+PASS focused mute keeps native keyboard behavior in hero
+Native output check rejects raw-lock.
+Native output check rejects double-result.
+Native PCM ok: Shopkeeper first recipe pick before window focus (both output channels, full waveform, no extra copy)
+Native PCM ok: Shopkeeper first answer pick before window focus (both output channels, full waveform, no extra copy)
+Native PCM ok: Shopkeeper first recipe pick (both output channels, full waveform, no extra copy)
+Native PCM ok: Shopkeeper first answer pick (both output channels, full waveform, no extra copy)
+Native PCM ok: Shopkeeper first answer pick wrong result (both output channels, full waveform, no extra copy)
+Native PCM ok: Aghanim first answer pick (both output channels, full waveform, no extra copy)
+Native PCM ok: Aghanim first answer pick wrong result (both output channels, full waveform, no extra copy)
+Native PCM ok: wrong result with two game tabs (both output channels, full waveform, no extra copy)
+Native PCM ok: pick after tab ownership returns (both output channels, full waveform, no extra copy)
+Native PCM ok: result after tab ownership returns (both output channels, full waveform, no extra copy)
+Native feedback output holds: 10 checks. Cold first picks, unfocused first Shopkeeper picks, and the combined output of two live tabs.
+PCM check rejects silent-lock, even though native play() resolves.
+PCM check rejects cut-lock, even though native play() resolves.
+PCM ok: Shopkeeper recipe mouse pick (lock)
+PCM ok: Shopkeeper recipe remove (lock)
+PCM ok: Shopkeeper recipe Enter pick 1 (lock)
+PCM ok: Shopkeeper recipe Enter pick 2 (lock)
+PCM ok: Shopkeeper build at reveal (lock + wrong)
+PCM ok: shop-build pick at reveal (lock + wrong)
+PCM ok: shop-path pick at reveal (lock + wrong)
+PCM ok: shop-shared pick at reveal (lock + wrong)
+PCM ok: fogged-vision pick at reveal (lock + wrong)
+PCM ok: aghanim-lab pick at reveal (lock + wrong)
+PCM ok: spell-link pick at reveal (lock + wrong)
+PCM ok: trivia pick at reveal (lock + wrong)
+PCM ok: shop-build correct Enter pick (lock + correct)
+PCM ok: fogged-vision correct Enter pick (lock + correct)
+PCM ok: aghanim-lab correct Enter pick (lock + correct)
+PCM ok: spell-link correct Enter pick (lock + correct)
+PCM ok: trivia correct Enter pick (lock + correct)
+PCM ok: value-order card 1 (lock)
+PCM ok: value-order card 2 (lock)
+PCM ok: value-order card 3 (lock)
+PCM ok: value-order card 4 (lock + wrong)
+PCM ok: flashback-order card 1 (lock)
+PCM ok: flashback-order card 2 (lock)
+PCM ok: flashback-order card 3 (lock)
+PCM ok: flashback-order card 4 (lock + wrong)
+PCM ok: before delayed result (lock)
+PCM ok: delayed wrong result (wrong)
+PCM ok: next round pick (lock)
+PCM ok: before hidden result (lock)
+PCM ok: hidden wrong result (wrong)
+Feedback playback holds: 30 tapped PCM checks, ten fixed formats, mouse/keyboard, deadline races, hidden tab, and mute.
+Validated production vote rate limit (12 then 429).

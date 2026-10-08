@@ -1,0 +1,133 @@
+{
+  "checkedAt": "2026-10-08T14:40:22.836Z",
+  "buildId": "fQ95T7-zzQo1Bnsef8oBI",
+  "origin": "http://127.0.0.1:3334",
+  "passed": true,
+  "scope": "Actual local Next route, synthetic secret and supplied local header. This does not verify Render ingress.",
+  "checks": [
+    {
+      "name": "unauthenticated",
+      "status": 404
+    },
+    {
+      "name": "invalid-token",
+      "status": 404
+    },
+    {
+      "name": "query-rejected",
+      "status": 404
+    },
+    {
+      "name": "head-rejected",
+      "status": 404
+    },
+    {
+      "name": "post-rejected",
+      "status": 405
+    },
+    {
+      "name": "authenticated-budget-1",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-2",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-3",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-4",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-5",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-6",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-7",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-8",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-9",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-10",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-11",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-12",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-13",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-14",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-15",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-16",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-17",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-18",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-19",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-20",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-21",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-22",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-23",
+      "status": 200
+    },
+    {
+      "name": "authenticated-budget-24",
+      "status": 200
+    },
+    {
+      "name": "operator-budget-exhausted",
+      "status": 404
+    },
+    {
+      "name": "app-health-unaffected",
+      "status": 200
+    }
+  ]
+}

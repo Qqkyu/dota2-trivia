@@ -8,7 +8,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-  const limited = rateLimitRequest(request, "steam-auth-start", "steam", 20);
+  const limited = rateLimitRequest(request, "steam-auth-start", "steam", 120, 120);
   if (limited) return limited;
 
   try {

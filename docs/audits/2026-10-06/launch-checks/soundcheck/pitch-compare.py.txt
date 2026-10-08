@@ -1,0 +1,29 @@
+import os
+os.environ['OPENBLAS_NUM_THREADS']='1';os.environ['OMP_NUM_THREADS']='1'
+import json,math,warnings
+from pathlib import Path
+from fractions import Fraction
+import numpy as np
+from scipy.io import wavfile
+from scipy import signal
+root=Path('/tmp/queue-arcade-launch-checks/soundcheck');qs=json.loads(Path('/home/kulmisiu/dev/dota2-trivia/src/data/soundcheck-questions.json').read_text());assets=json.loads((root/'assets.json').read_text());comparison=json.loads((root/'perceptual-comparison.json').read_text());byurl={a['url']:a for a in assets if 'error'not in a};cache={}
+def wave(url):
+ if url in cache:return cache[url]
+ with warnings.catch_warnings():
+  warnings.simplefilter('ignore');sr,a=wavfile.read(byurl[url]['file'])
+ a=a.astype(float)/32768
+ if a.ndim>1:a=a.mean(axis=1)
+ g=math.gcd(sr,8000);cache[url]=signal.resample_poly(a,8000//g,sr//g);return cache[url]
+def corr(a,b):
+ if len(a)>len(b):a,b=b,a
+ a=a-a.mean();b=b-b.mean();cross=signal.correlate(b,a,mode='valid',method='fft');energy=signal.fftconvolve(b*b,np.ones(len(a)),mode='valid');return float(np.max(np.abs(cross)/np.sqrt(np.maximum(energy*np.sum(a*a),1e-20))))
+rows=[];counts=0
+# The 50 highest-correlation candidates from the exhaustive unshifted pass.
+for row in comparison['nearestBySpectralSimilarity']:
+ q=next(q for q in qs if q['id']==row['questionId']);ci=next(i for i,c in enumerate(q['soundcheck']['clips']) if c['subject']==row['subject']);a=wave(q['audio']['clips'][ci]);a=a[round(q['soundcheck']['clips'][ci].get('startSeconds',0)*8000):];b=wave(row['candidateUrl']);best={'correlation':row['alignedCorrelation'],'speedRatio':1}
+ for ratio in [.8,.9,.95,.975,1.025,1.05,1.1,1.25]:
+  f=Fraction(ratio).limit_denominator(1000);shifted=signal.resample_poly(b,f.denominator,f.numerator);score=corr(a,shifted);counts+=1
+  if score>best['correlation']:best={'correlation':score,'speedRatio':ratio}
+ rows.append({**row,'bestPitchAdjusted':best})
+a=wave(qs[0]['audio']['src']);pitched=signal.resample_poly(a,20,21);control=corr(a,signal.resample_poly(pitched,21,20));assert control>.99
+result={'candidatePairs':len(rows),'speedComparisons':counts,'ratios':[.8,.9,.95,.975,1,1.025,1.05,1.1,1.25],'positiveControlRestoredPitchCorrelation':control,'flags':[r for r in rows if r['bestPitchAdjusted']['correlation']>.95],'rows':rows};(root/'pitch-comparison.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items() if k!='rows'},indent=2))

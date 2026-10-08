@@ -1,4 +1,6 @@
-import postgres, { type Sql } from "postgres";
+import { configuredPostgres, databasePool, databaseTransaction } from "@/lib/database-client";
+import { ensureDatabaseSchema } from "@/lib/database-schema.mjs";
+export { configuredPostgres } from "@/lib/database-client";
 import type { CrowdResult, PlayerVote, ReportResult, VoteResult } from "@/lib/arcade-contract";
 import { isReportReason } from "@/lib/calibration";
 import type { GameId } from "@/lib/game-catalogs";
@@ -11,7 +13,6 @@ import type {
   RoundVoteInput,
   VoteStoreHealth,
 } from "@/lib/vote-store";
-import { logServerError } from "@/lib/server-diagnostics";
 import { anonymousVoterHash } from "@/lib/voter-hash";
 
 type Numeric = number | string;
@@ -72,124 +73,8 @@ interface QuestionReviewRow {
   updated_at: Numeric;
 }
 
-const globalPostgres = globalThis as typeof globalThis & {
-  __queueArcadePostgres?: Sql;
-  __queueArcadePostgresSchema?: Promise<void>;
-  __queueArcadePostgresLastPrune?: number;
-};
-
-export function configuredPostgres() {
-  const connectionString = process.env.DATABASE_URL?.trim();
-  if (!connectionString) throw new Error("DATABASE_URL is required for the Postgres vote store.");
-
-  const configuredMax = Number(process.env.DATABASE_POOL_SIZE ?? 5);
-  const max = Number.isInteger(configuredMax) && configuredMax > 0 ? configuredMax : 5;
-  globalPostgres.__queueArcadePostgres ??= postgres(connectionString, {
-    max,
-    idle_timeout: 20,
-    connect_timeout: 10,
-    prepare: false,
-  });
-  return globalPostgres.__queueArcadePostgres;
-}
-
-async function ensureSchema() {
-  if (globalPostgres.__queueArcadePostgresSchema) return globalPostgres.__queueArcadePostgresSchema;
-  const schemaPromise = (async () => {
-    const sql = configuredPostgres();
-    await sql.begin(async (transaction) => {
-      await transaction`
-        CREATE TABLE IF NOT EXISTS queue_arcade_rounds (
-          round_id TEXT PRIMARY KEY,
-          room_id TEXT NOT NULL,
-          game_id TEXT NOT NULL,
-          content_version TEXT NOT NULL,
-          question_id TEXT NOT NULL,
-          count_0 BIGINT NOT NULL DEFAULT 0,
-          count_1 BIGINT NOT NULL DEFAULT 0,
-          count_2 BIGINT NOT NULL DEFAULT 0,
-          count_3 BIGINT NOT NULL DEFAULT 0,
-          created_at BIGINT NOT NULL,
-          updated_at BIGINT NOT NULL
-        )
-      `;
-      await transaction`
-        CREATE TABLE IF NOT EXISTS queue_arcade_round_votes (
-          round_id TEXT NOT NULL REFERENCES queue_arcade_rounds(round_id) ON DELETE CASCADE,
-          voter_hash TEXT NOT NULL,
-          answer_index SMALLINT NOT NULL CHECK (answer_index BETWEEN 0 AND 3),
-          answer_key TEXT,
-          submitted_at BIGINT NOT NULL,
-          map_x DOUBLE PRECISION,
-          map_y DOUBLE PRECISION,
-          base_points SMALLINT NOT NULL DEFAULT 0 CHECK (base_points BETWEEN 0 AND 1000),
-          PRIMARY KEY (round_id, voter_hash)
-        )
-      `;
-      await transaction`
-        ALTER TABLE queue_arcade_round_votes
-        ADD COLUMN IF NOT EXISTS answer_key TEXT
-      `;
-      await transaction`
-        ALTER TABLE queue_arcade_round_votes
-        ADD COLUMN IF NOT EXISTS base_points SMALLINT NOT NULL DEFAULT 0
-      `;
-      await transaction`
-        CREATE INDEX IF NOT EXISTS queue_arcade_rounds_updated_at_idx
-        ON queue_arcade_rounds(updated_at)
-      `;
-      await transaction`
-        CREATE TABLE IF NOT EXISTS queue_arcade_question_stats (
-          game_id TEXT NOT NULL,
-          question_id TEXT NOT NULL,
-          question_revision TEXT NOT NULL,
-          count_0 BIGINT NOT NULL DEFAULT 0,
-          count_1 BIGINT NOT NULL DEFAULT 0,
-          count_2 BIGINT NOT NULL DEFAULT 0,
-          count_3 BIGINT NOT NULL DEFAULT 0,
-          total BIGINT NOT NULL DEFAULT 0,
-          correct_index SMALLINT NOT NULL CHECK (correct_index BETWEEN 0 AND 3),
-          report_incorrect BIGINT NOT NULL DEFAULT 0,
-          report_outdated BIGINT NOT NULL DEFAULT 0,
-          report_ambiguous BIGINT NOT NULL DEFAULT 0,
-          report_unclear BIGINT NOT NULL DEFAULT 0,
-          updated_at BIGINT NOT NULL,
-          PRIMARY KEY (game_id, question_id, question_revision)
-        )
-      `;
-      await transaction`
-        CREATE TABLE IF NOT EXISTS queue_arcade_question_reporters (
-          game_id TEXT NOT NULL,
-          question_id TEXT NOT NULL,
-          question_revision TEXT NOT NULL,
-          reporter_hash TEXT NOT NULL,
-          reason TEXT NOT NULL CHECK (reason IN ('incorrect', 'outdated', 'ambiguous', 'unclear')),
-          submitted_at BIGINT NOT NULL,
-          PRIMARY KEY (game_id, question_id, question_revision, reporter_hash),
-          FOREIGN KEY (game_id, question_id, question_revision)
-            REFERENCES queue_arcade_question_stats(game_id, question_id, question_revision)
-            ON DELETE CASCADE
-        )
-      `;
-      await transaction`
-        CREATE TABLE IF NOT EXISTS queue_arcade_question_reviews (
-          game_id TEXT NOT NULL,
-          question_id TEXT NOT NULL,
-          question_revision TEXT NOT NULL,
-          state TEXT NOT NULL CHECK (state IN ('open', 'reviewed', 'quarantined')),
-          report_total_at_review BIGINT NOT NULL DEFAULT 0,
-          signal_status_at_review TEXT NOT NULL,
-          updated_at BIGINT NOT NULL,
-          PRIMARY KEY (game_id, question_id, question_revision)
-        )
-      `;
-    });
-  })();
-  globalPostgres.__queueArcadePostgresSchema = schemaPromise.catch((error) => {
-    globalPostgres.__queueArcadePostgresSchema = undefined;
-    throw error;
-  });
-  return globalPostgres.__queueArcadePostgresSchema;
+function ensureSchema() {
+  return ensureDatabaseSchema(databasePool());
 }
 
 function countsFrom(row: CountRow | undefined): CrowdResult["counts"] {
@@ -218,21 +103,6 @@ function reportScope(gameId: GameId, questionId: string, questionRevision: strin
   return `report:${gameId}:${questionId}:${questionRevision}`;
 }
 
-async function maybePruneRounds() {
-  const now = Date.now();
-  if (now - (globalPostgres.__queueArcadePostgresLastPrune ?? 0) < 15 * 60 * 1000) return;
-
-  const configuredHours = Number(process.env.ARCADE_ROUND_RETENTION_HOURS ?? 2);
-  const retentionHours = Number.isFinite(configuredHours) && configuredHours > 0 ? configuredHours : 2;
-  const expiresBefore = now - retentionHours * 60 * 60 * 1000;
-  try {
-    await configuredPostgres()`DELETE FROM queue_arcade_rounds WHERE updated_at < ${expiresBefore}`;
-    globalPostgres.__queueArcadePostgresLastPrune = now;
-  } catch (error) {
-    logServerError("rounds.prune", error);
-  }
-}
-
 export async function getPostgresVoteStoreHealth(): Promise<VoteStoreHealth> {
   await ensureSchema();
   await configuredPostgres()`SELECT 1 AS healthy`;
@@ -241,57 +111,61 @@ export async function getPostgresVoteStoreHealth(): Promise<VoteStoreHealth> {
 
 export async function getRoundCrowd(roundId: string, roomId: string, voterId?: string, includeScores = false) {
   await ensureSchema();
-  const sql = configuredPostgres();
-  const [roundRows, voteRows, itemCountRows, scoreRows] = await Promise.all([
-    sql<RoundRow[]>`
-      SELECT round_id, room_id, game_id, content_version, question_id, count_0, count_1, count_2, count_3
-      FROM queue_arcade_rounds
-      WHERE round_id = ${roundId} AND room_id = ${roomId}
-      LIMIT 1
-    `,
-    voterId
-      ? sql<VoteRow[]>`
-          SELECT answer_index, answer_key, submitted_at, base_points
+  const hash = voterId ? anonymousVoterHash(roomId, voterId) : null;
+  const rows = await configuredPostgres()<
+    Array<
+      CountRow &
+        ScoreAggregateRow & {
+          answer_index: Numeric | null;
+          answer_key: string | null;
+          submitted_at: Numeric | null;
+          base_points: Numeric | null;
+          key_counts: KeyCountRow[];
+        }
+    >
+  >`
+    SELECT round.count_0, round.count_1, round.count_2, round.count_3,
+      player.answer_index, player.answer_key, player.submitted_at, player.base_points,
+      scores.correct_count, scores.base_points_total, scores.base_points_best,
+      COALESCE((
+        SELECT json_agg(answer_counts ORDER BY answer_counts.count DESC, answer_counts.answer_key ASC)
+        FROM (
+          SELECT answer_key, COUNT(*) AS count
           FROM queue_arcade_round_votes
-          WHERE round_id = ${roundId} AND voter_hash = ${anonymousVoterHash(roomId, voterId)}
-          LIMIT 1
-        `
-      : Promise.resolve([] as VoteRow[]),
-    sql<KeyCountRow[]>`
-      SELECT answer_key, COUNT(*) AS count
+          WHERE round_id = round.round_id AND answer_key IS NOT NULL
+          GROUP BY answer_key
+        ) AS answer_counts
+      ), '[]'::json) AS key_counts
+    FROM queue_arcade_rounds AS round
+    LEFT JOIN queue_arcade_round_votes AS player
+      ON player.round_id = round.round_id AND player.voter_hash = ${hash}
+    LEFT JOIN LATERAL (
+      SELECT COUNT(*) FILTER (WHERE base_points > 0) AS correct_count,
+        COALESCE(SUM(base_points), 0) AS base_points_total,
+        COALESCE(MAX(base_points), 0) AS base_points_best
       FROM queue_arcade_round_votes
-      WHERE round_id = ${roundId} AND answer_key IS NOT NULL
-      GROUP BY answer_key
-      ORDER BY count DESC, answer_key ASC
-    `,
-    includeScores
-      ? sql<ScoreAggregateRow[]>`
-          SELECT
-            COUNT(*) FILTER (WHERE base_points > 0) AS correct_count,
-            COALESCE(SUM(base_points), 0) AS base_points_total,
-            COALESCE(MAX(base_points), 0) AS base_points_best
-          FROM queue_arcade_round_votes
-          WHERE round_id = ${roundId}
-        `
-      : Promise.resolve([] as ScoreAggregateRow[]),
-  ]);
-  const counts = countsFrom(roundRows[0]);
-  const scoreRow = scoreRows[0];
+      WHERE round_id = round.round_id AND ${includeScores}
+    ) AS scores ON TRUE
+    WHERE round.round_id = ${roundId} AND round.room_id = ${roomId}
+  `;
+  const row = rows[0];
+  const counts = countsFrom(row);
+  const playerVote =
+    row?.answer_index !== null && row?.submitted_at !== null && row ? playerVoteFrom(row as VoteRow) : null;
   return {
     counts,
     total: totalFor(counts),
-    keyCounts: keyCountsFrom(itemCountRows),
-    scoreSummary:
-      includeScores && scoreRow
-        ? roundScoreSummary({
-            correctCount: Number(scoreRow.correct_count),
-            total: totalFor(counts),
-            basePointsTotal: Number(scoreRow.base_points_total),
-            basePointsBest: Number(scoreRow.base_points_best),
-            playerBasePoints: voteRows[0] ? Number(voteRows[0].base_points) : null,
-          })
-        : null,
-    playerVote: playerVoteFrom(voteRows[0]),
+    keyCounts: keyCountsFrom(row?.key_counts ?? []),
+    scoreSummary: includeScores
+      ? roundScoreSummary({
+          correctCount: Number(row?.correct_count ?? 0),
+          total: totalFor(counts),
+          basePointsTotal: Number(row?.base_points_total ?? 0),
+          basePointsBest: Number(row?.base_points_best ?? 0),
+          playerBasePoints: playerVote ? Number(row.base_points) : null,
+        })
+      : null,
+    playerVote,
   };
 }
 
@@ -398,12 +272,9 @@ export async function setQuestionReview(input: QuestionReviewInput): Promise<Sto
   return reviewFromRow(rows[0]);
 }
 
-export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult> {
+export async function recordRoundVote(input: RoundVoteInput): Promise<Omit<VoteResult, "playerIdentity">> {
   await ensureSchema();
-  await maybePruneRounds();
-  const sql = configuredPostgres();
-
-  return sql.begin(async (transaction) => {
+  return databaseTransaction(async (transaction) => {
     await transaction`
       INSERT INTO queue_arcade_rounds (
         round_id, room_id, game_id, content_version, question_id, created_at, updated_at
@@ -452,19 +323,12 @@ export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult
         WHERE round_id = ${input.roundId} AND voter_hash = ${voterHash}
         LIMIT 1
       `;
-      const itemCountRows = await transaction<KeyCountRow[]>`
-        SELECT answer_key, COUNT(*) AS count
-        FROM queue_arcade_round_votes
-        WHERE round_id = ${input.roundId} AND answer_key IS NOT NULL
-        GROUP BY answer_key
-        ORDER BY count DESC, answer_key ASC
-      `;
       const counts = countsFrom(round);
       return {
         accepted: false,
         counts,
         total: totalFor(counts),
-        keyCounts: keyCountsFrom(itemCountRows),
+        keyCounts: [],
         scoreSummary: null,
         playerVote: playerVoteFrom(existingVotes[0]),
       };
@@ -503,19 +367,12 @@ export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult
           updated_at = EXCLUDED.updated_at
       `;
     }
-    const itemCountRows = await transaction<KeyCountRow[]>`
-      SELECT answer_key, COUNT(*) AS count
-      FROM queue_arcade_round_votes
-      WHERE round_id = ${input.roundId} AND answer_key IS NOT NULL
-      GROUP BY answer_key
-      ORDER BY count DESC, answer_key ASC
-    `;
     const counts = countsFrom(updatedRounds[0]);
     return {
       accepted: true,
       counts,
       total: totalFor(counts),
-      keyCounts: keyCountsFrom(itemCountRows),
+      keyCounts: [],
       scoreSummary: null,
       playerVote: playerVoteFrom(insertedVotes[0]),
     };
@@ -524,8 +381,7 @@ export async function recordRoundVote(input: RoundVoteInput): Promise<VoteResult
 
 export async function recordQuestionReport(input: QuestionReportInput): Promise<ReportResult> {
   await ensureSchema();
-  const sql = configuredPostgres();
-  return sql.begin(async (transaction) => {
+  return databaseTransaction(async (transaction) => {
     await transaction`
       INSERT INTO queue_arcade_question_stats (
         game_id, question_id, question_revision, correct_index, updated_at

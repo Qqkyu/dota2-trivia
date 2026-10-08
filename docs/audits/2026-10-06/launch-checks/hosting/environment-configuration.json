@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "serviceId": "srv-d9mqd1942hec73e9nlt0",
+  "changedEnvironmentKeys": [
+    "DATABASE_URL",
+    "ARCADE_AUTO_MIGRATE",
+    "ARCADE_TRUST_PROXY"
+  ],
+  "runtimeRole": "queue_arcade_runtime_20261006",
+  "automaticMigrations": false,
+  "trustedHeader": null,
+  "hostedIngressCheckPending": true,
+  "autoDeployTrigger": "off",
+  "serviceStillPaused": true,
+  "planUnchanged": true
+}

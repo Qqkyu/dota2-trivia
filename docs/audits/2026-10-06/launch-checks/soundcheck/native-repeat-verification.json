@@ -1,0 +1,697 @@
+[
+  {
+    "captureFile": "browser-results-229.json",
+    "index": 229,
+    "questionId": "soundcheck-item:mask_of_madness",
+    "stage": 2,
+    "pcmSha256": "7279b57a6d08234784df79c61ea6341d92dd1c08dfb90ddb8fd9f4d6acbc7006",
+    "frames": 46455,
+    "nativePeak": 0.699999988079071,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.10267573696145124,
+          "gain": 0.9999957361108158,
+          "correlation": 0.9999957705534311
+        },
+        {
+          "atSeconds": 0.10267573696145124,
+          "gain": 0.9999958504619457,
+          "correlation": 0.9999957632902168
+        }
+      ],
+      [
+        {
+          "atSeconds": 0.5902947845804989,
+          "gain": 1.0000135743626577,
+          "correlation": 0.9999996342218285
+        },
+        {
+          "atSeconds": 0.5902947845804989,
+          "gain": 1.000014086395286,
+          "correlation": 0.999999651181524
+        }
+      ]
+    ],
+    "residualFraction": 4.83656316303311e-06,
+    "ordered": true,
+    "gapsSeconds": [
+      0.2176190476190476
+    ],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-a-228.json",
+    "index": 228,
+    "questionId": "soundcheck-item:mask_of_madness",
+    "stage": 1,
+    "pcmSha256": "cdf5d1e168e2cdb8237444c5584825369ed61bd9c501fb8f2de7af66b3828d2b",
+    "frames": 35571,
+    "nativePeak": 0.67889404296875,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.09287981859410431,
+          "gain": 0.999954679489149,
+          "correlation": 0.9999869283483876
+        },
+        {
+          "atSeconds": 0.09287981859410431,
+          "gain": 0.9999545653387948,
+          "correlation": 0.9999869887611181
+        }
+      ],
+      [
+        {
+          "atSeconds": 0.4179591836734694,
+          "gain": 1.0000063869681062,
+          "correlation": 0.999997888698055
+        },
+        {
+          "atSeconds": 0.4179591836734694,
+          "gain": 1.0000055180672058,
+          "correlation": 0.999997680159377
+        }
+      ]
+    ],
+    "residualFraction": 1.947771027831403e-05,
+    "ordered": true,
+    "gapsSeconds": [
+      0.20507936507936508
+    ],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-a-228.json",
+    "index": 229,
+    "questionId": "soundcheck-item:mask_of_madness",
+    "stage": 2,
+    "pcmSha256": "20e000d2b36c9e97c0e6543c203537d8fd77b8a7efc275462fae60e2b153f1de",
+    "frames": 46105,
+    "nativePeak": 0.699999988079071,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.10213151927437641,
+          "gain": 0.9999957361108158,
+          "correlation": 0.9999957705534311
+        },
+        {
+          "atSeconds": 0.10213151927437641,
+          "gain": 0.9999958504619457,
+          "correlation": 0.9999957632902168
+        }
+      ],
+      [
+        {
+          "atSeconds": 0.5897505668934241,
+          "gain": 1.0000135743626577,
+          "correlation": 0.9999996342218285
+        },
+        {
+          "atSeconds": 0.5897505668934241,
+          "gain": 1.000014086395286,
+          "correlation": 0.999999651181524
+        }
+      ]
+    ],
+    "residualFraction": 4.8365631630331095e-06,
+    "ordered": true,
+    "gapsSeconds": [
+      0.21761904761904766
+    ],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-a-228.json",
+    "index": 230,
+    "questionId": "soundcheck-item:mask_of_madness",
+    "stage": 3,
+    "pcmSha256": "7ba3fdeb4570810afc74dc4fd2f2602f0f9376f2b0842938a3139664ec15c3c9",
+    "frames": 295522,
+    "nativePeak": 0.699999988079071,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.09287981859410431,
+          "gain": 1.000011674911706,
+          "correlation": 0.9999992321322358
+        },
+        {
+          "atSeconds": 0.09287981859410431,
+          "gain": 1.0000134294484129,
+          "correlation": 0.9999996077918182
+        }
+      ],
+      [
+        {
+          "atSeconds": 5.108390022675737,
+          "gain": 1.000014711487452,
+          "correlation": 0.9999999007331556
+        },
+        {
+          "atSeconds": 5.108390022675737,
+          "gain": 1.0000149392430218,
+          "correlation": 0.9999999080466306
+        }
+      ]
+    ],
+    "residualFraction": 7.95031645752429e-07,
+    "ordered": true,
+    "gapsSeconds": [
+      0.2331292040816324
+    ],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-b-228.json",
+    "index": 228,
+    "questionId": "soundcheck-item:mask_of_madness",
+    "stage": 1,
+    "pcmSha256": "de023317c4373bf94729d54e59af288baf0ce17c56fe7af55ce8675a25f61084",
+    "frames": 35840,
+    "nativePeak": 0.67889404296875,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.09287981859410431,
+          "gain": 0.999954679489149,
+          "correlation": 0.9999869283483876
+        },
+        {
+          "atSeconds": 0.09287981859410431,
+          "gain": 0.9999545653387948,
+          "correlation": 0.9999869887611181
+        }
+      ],
+      [
+        {
+          "atSeconds": 0.4179591836734694,
+          "gain": 1.0000063869681062,
+          "correlation": 0.999997888698055
+        },
+        {
+          "atSeconds": 0.4179591836734694,
+          "gain": 1.0000055180672058,
+          "correlation": 0.999997680159377
+        }
+      ]
+    ],
+    "residualFraction": 1.947771027831403e-05,
+    "ordered": true,
+    "gapsSeconds": [
+      0.20507936507936508
+    ],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-b-228.json",
+    "index": 229,
+    "questionId": "soundcheck-item:mask_of_madness",
+    "stage": 2,
+    "pcmSha256": "b0fee15e3ce16e157112c56e9f85378341c4ca7bd3f5edef087b6adc4f20c7b9",
+    "frames": 46530,
+    "nativePeak": 0.699999988079071,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.10351473922902495,
+          "gain": 0.9999957361108158,
+          "correlation": 0.9999957705534311
+        },
+        {
+          "atSeconds": 0.10351473922902495,
+          "gain": 0.9999958504619457,
+          "correlation": 0.9999957632902168
+        }
+      ],
+      [
+        {
+          "atSeconds": 0.5911337868480726,
+          "gain": 1.0000135743626577,
+          "correlation": 0.9999996342218285
+        },
+        {
+          "atSeconds": 0.5911337868480726,
+          "gain": 1.000014086395286,
+          "correlation": 0.999999651181524
+        }
+      ]
+    ],
+    "residualFraction": 4.83656316303311e-06,
+    "ordered": true,
+    "gapsSeconds": [
+      0.21761904761904766
+    ],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-b-228.json",
+    "index": 230,
+    "questionId": "soundcheck-item:mask_of_madness",
+    "stage": 3,
+    "pcmSha256": "21133420e9ed5de2d202a909860be023268ec4d02c548ac939fe5f4c4bc92157",
+    "frames": 294504,
+    "nativePeak": 0.699999988079071,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.0836281179138322,
+          "gain": 1.000011674911706,
+          "correlation": 0.9999992321322358
+        },
+        {
+          "atSeconds": 0.0836281179138322,
+          "gain": 1.0000134294484129,
+          "correlation": 0.9999996077918182
+        }
+      ],
+      [
+        {
+          "atSeconds": 5.075918367346938,
+          "gain": 1.000014711487452,
+          "correlation": 0.9999999007331556
+        },
+        {
+          "atSeconds": 5.075918367346938,
+          "gain": 1.0000149392430218,
+          "correlation": 0.9999999080466306
+        }
+      ]
+    ],
+    "residualFraction": 7.950316457524297e-07,
+    "ordered": true,
+    "gapsSeconds": [
+      0.20990924943310585
+    ],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-a-276.json",
+    "index": 276,
+    "questionId": "soundcheck-item:solar_crest",
+    "stage": 1,
+    "pcmSha256": "914fb384783cb840285ab6326480c47ff1564202b8492a5c54a3cf676fafac42",
+    "frames": 25121,
+    "nativePeak": 0.689532458782196,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.12233560090702948,
+          "gain": 0.9997497593517338,
+          "correlation": 0.9999523092464063
+        },
+        {
+          "atSeconds": 0.12233560090702948,
+          "gain": 0.9996891072162742,
+          "correlation": 0.9999353319223556
+        }
+      ]
+    ],
+    "residualFraction": 0.00011119841800641101,
+    "ordered": true,
+    "gapsSeconds": [],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-a-276.json",
+    "index": 277,
+    "questionId": "soundcheck-item:solar_crest",
+    "stage": 2,
+    "pcmSha256": "60877b83a50666fa95df63ece4dee991097435afa7376333313e34ef3cb31f0a",
+    "frames": 31185,
+    "nativePeak": 0.6993163824081421,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.11609977324263039,
+          "gain": 0.9998951793405756,
+          "correlation": 0.9999784381491298
+        },
+        {
+          "atSeconds": 0.11609977324263039,
+          "gain": 0.9998506304196014,
+          "correlation": 0.9999673487230896
+        }
+      ]
+    ],
+    "residualFraction": 5.2849938490588135e-05,
+    "ordered": true,
+    "gapsSeconds": [],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-a-276.json",
+    "index": 278,
+    "questionId": "soundcheck-item:solar_crest",
+    "stage": 3,
+    "pcmSha256": "8705a1f8e9d88e62fc3526010a7c22daf8390bc1ab4b80a3360b5a875f8e6212",
+    "frames": 158255,
+    "nativePeak": 0.6993163824081421,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.12877551020408162,
+          "gain": 0.9999836413789256,
+          "correlation": 0.9999943105844742
+        },
+        {
+          "atSeconds": 0.12877551020408162,
+          "gain": 0.9999677685886406,
+          "correlation": 0.9999905351350207
+        }
+      ]
+    ],
+    "residualFraction": 1.4516765243492327e-05,
+    "ordered": true,
+    "gapsSeconds": [],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-a-276.json",
+    "index": 279,
+    "questionId": "soundcheck-item:tango",
+    "stage": 1,
+    "pcmSha256": "41a389455481edcb1575f1a956f70df4e96c31b7daf5fcbc5eb862ab6856f0aa",
+    "frames": 38555,
+    "nativePeak": 0.699999988079071,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.10414965986394557,
+          "gain": 0.9991528556283706,
+          "correlation": 0.9997393419664626
+        },
+        {
+          "atSeconds": 0.10414965986394557,
+          "gain": 0.9991758956190389,
+          "correlation": 0.9997270437519965
+        }
+      ],
+      [
+        {
+          "atSeconds": 0.42922902494331067,
+          "gain": 0.9967090150542613,
+          "correlation": 0.9990300840950606
+        },
+        {
+          "atSeconds": 0.42922902494331067,
+          "gain": 0.9973516809403928,
+          "correlation": 0.9989478734629323
+        }
+      ]
+    ],
+    "residualFraction": 0.0014260957266033878,
+    "ordered": true,
+    "gapsSeconds": [
+      0.20507936507936508
+    ],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-a-276.json",
+    "index": 280,
+    "questionId": "soundcheck-item:tango",
+    "stage": 2,
+    "pcmSha256": "2c5f917327c0e194625f2d98f54981934243c11d89325cfb63c660e9efb1f2b1",
+    "frames": 51480,
+    "nativePeak": 0.699999988079071,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.07600907029478458,
+          "gain": 0.9993119878697295,
+          "correlation": 0.9997873926590524
+        },
+        {
+          "atSeconds": 0.07600907029478458,
+          "gain": 0.9993497541402016,
+          "correlation": 0.9997835297520901
+        }
+      ],
+      [
+        {
+          "atSeconds": 0.5636281179138322,
+          "gain": 0.9973976847115388,
+          "correlation": 0.9992320149351765
+        },
+        {
+          "atSeconds": 0.5636281179138322,
+          "gain": 0.9978851272600711,
+          "correlation": 0.9991587583638295
+        }
+      ]
+    ],
+    "residualFraction": 0.0011387294243983778,
+    "ordered": true,
+    "gapsSeconds": [
+      0.21761904761904755
+    ],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-a-276.json",
+    "index": 281,
+    "questionId": "soundcheck-item:tango",
+    "stage": 3,
+    "pcmSha256": "0d5d6135de1823fa0ffd7b5e8cee18692902f2c01879fb7c19eaa30829c1ba0e",
+    "frames": 270355,
+    "nativePeak": 0.699999988079071,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.1034467120181406,
+          "gain": 0.9995049363092404,
+          "correlation": 0.999845767504745
+        },
+        {
+          "atSeconds": 0.1034467120181406,
+          "gain": 0.9995137571876468,
+          "correlation": 0.9998367273889067
+        }
+      ],
+      [
+        {
+          "atSeconds": 3.029160997732426,
+          "gain": 0.9990633091942993,
+          "correlation": 0.9997206046550708
+        },
+        {
+          "atSeconds": 3.029160997732426,
+          "gain": 0.9993074859570718,
+          "correlation": 0.9997205745319719
+        }
+      ]
+    ],
+    "residualFraction": 0.0005027091101019881,
+    "ordered": true,
+    "gapsSeconds": [
+      0.2182082857142853
+    ],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-b-276.json",
+    "index": 276,
+    "questionId": "soundcheck-item:solar_crest",
+    "stage": 1,
+    "pcmSha256": "a99ddd9acd25b2fc17dd8c457061deff37d04be11b2a7a83b361fdda7eceba0c",
+    "frames": 24243,
+    "nativePeak": 0.689532458782196,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.10219954648526076,
+          "gain": 0.9997497593517338,
+          "correlation": 0.9999523092464063
+        },
+        {
+          "atSeconds": 0.10219954648526076,
+          "gain": 0.9996891072162742,
+          "correlation": 0.9999353319223556
+        }
+      ]
+    ],
+    "residualFraction": 0.00011119841800641101,
+    "ordered": true,
+    "gapsSeconds": [],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-b-276.json",
+    "index": 277,
+    "questionId": "soundcheck-item:solar_crest",
+    "stage": 2,
+    "pcmSha256": "70f52eac53a3c14f528cfb8a67720700d54157d2dd245061b6b5c54d6fac57d6",
+    "frames": 31847,
+    "nativePeak": 0.6993163824081421,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.12099773242630385,
+          "gain": 0.9998951793405756,
+          "correlation": 0.9999784381491298
+        },
+        {
+          "atSeconds": 0.12099773242630385,
+          "gain": 0.9998506304196014,
+          "correlation": 0.9999673487230896
+        }
+      ]
+    ],
+    "residualFraction": 5.284993849058813e-05,
+    "ordered": true,
+    "gapsSeconds": [],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-b-276.json",
+    "index": 278,
+    "questionId": "soundcheck-item:solar_crest",
+    "stage": 3,
+    "pcmSha256": "986077f0a76fa5676b72226fdb8b461026de6a262cad9876f436f84ffc6fd526",
+    "frames": 157488,
+    "nativePeak": 0.6993163824081421,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.11866213151927438,
+          "gain": 0.9999836413789256,
+          "correlation": 0.9999943105844742
+        },
+        {
+          "atSeconds": 0.11866213151927438,
+          "gain": 0.9999677685886406,
+          "correlation": 0.9999905351350207
+        }
+      ]
+    ],
+    "residualFraction": 1.4516765243492327e-05,
+    "ordered": true,
+    "gapsSeconds": [],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-b-276.json",
+    "index": 279,
+    "questionId": "soundcheck-item:tango",
+    "stage": 1,
+    "pcmSha256": "d0787de2ef8f450bb0243bcc59bab002fd2da312aef820be05e19b4f43f5fe61",
+    "frames": 38660,
+    "nativePeak": 0.699999988079071,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.09287981859410431,
+          "gain": 0.9991528556283706,
+          "correlation": 0.9997393419664626
+        },
+        {
+          "atSeconds": 0.09287981859410431,
+          "gain": 0.9991758956190389,
+          "correlation": 0.9997270437519965
+        }
+      ],
+      [
+        {
+          "atSeconds": 0.4179591836734694,
+          "gain": 0.9967090150542613,
+          "correlation": 0.9990300840950606
+        },
+        {
+          "atSeconds": 0.4179591836734694,
+          "gain": 0.9973516809403928,
+          "correlation": 0.9989478734629323
+        }
+      ]
+    ],
+    "residualFraction": 0.0014260957266033878,
+    "ordered": true,
+    "gapsSeconds": [
+      0.20507936507936508
+    ],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-b-276.json",
+    "index": 280,
+    "questionId": "soundcheck-item:tango",
+    "stage": 2,
+    "pcmSha256": "cc1455607564e1fabd4ad8cc3d6d346cf6276c1d1c91a651d457001a950a48d2",
+    "frames": 52476,
+    "nativePeak": 0.699999988079071,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.09859410430839002,
+          "gain": 0.9993119878697295,
+          "correlation": 0.9997873926590524
+        },
+        {
+          "atSeconds": 0.09859410430839002,
+          "gain": 0.9993497541402016,
+          "correlation": 0.9997835297520901
+        }
+      ],
+      [
+        {
+          "atSeconds": 0.5862131519274376,
+          "gain": 0.9973976847115388,
+          "correlation": 0.9992320149351765
+        },
+        {
+          "atSeconds": 0.5862131519274376,
+          "gain": 0.9978851272600711,
+          "correlation": 0.9991587583638295
+        }
+      ]
+    ],
+    "residualFraction": 0.0011387294243983778,
+    "ordered": true,
+    "gapsSeconds": [
+      0.2176190476190476
+    ],
+    "pass": true
+  },
+  {
+    "captureFile": "browser-results-repeat-b-276.json",
+    "index": 281,
+    "questionId": "soundcheck-item:tango",
+    "stage": 3,
+    "pcmSha256": "c667968b267d98ec07a45a33cea68daff111a520380f143ca18ca86a64a23f57",
+    "frames": 268868,
+    "nativePeak": 0.699999988079071,
+    "fits": [
+      [
+        {
+          "atSeconds": 0.08281179138321995,
+          "gain": 0.9995049363092404,
+          "correlation": 0.999845767504745
+        },
+        {
+          "atSeconds": 0.08281179138321995,
+          "gain": 0.9995137571876468,
+          "correlation": 0.9998367273889067
+        }
+      ],
+      [
+        {
+          "atSeconds": 3.0085260770975055,
+          "gain": 0.9990633091942993,
+          "correlation": 0.9997206046550708
+        },
+        {
+          "atSeconds": 3.0085260770975055,
+          "gain": 0.9993074859570718,
+          "correlation": 0.9997205745319719
+        }
+      ]
+    ],
+    "residualFraction": 0.0005027091101019879,
+    "ordered": true,
+    "gapsSeconds": [
+      0.21820828571428574
+    ],
+    "pass": true
+  }
+]

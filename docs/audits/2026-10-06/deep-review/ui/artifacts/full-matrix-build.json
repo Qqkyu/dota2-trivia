@@ -1,0 +1,12 @@
+{
+  "appUrl": "http://127.0.0.1:3315",
+  "buildId": "a9jO2vwwKVTSsroYDHJJW",
+  "browser": "Chromium 153",
+  "fixtureCases": 31,
+  "viewports": 11,
+  "states": 781,
+  "passedAssertions": 1963,
+  "failedAssertions": 2,
+  "failedStates": ["960x540-spell-owner-answering", "960x540-spell-owner-reveal"],
+  "note": "Complete candidate matrix. The two real clue clipping failures were corrected after this build and are checked in the later clue follow-up."
+}

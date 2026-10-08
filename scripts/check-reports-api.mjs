@@ -17,16 +17,25 @@ const settings = { gameId: "dota2", mode: "mixed", filter: "Mixed", privateCode:
 
 const created = await fetch(`${appUrl}/api/private-rooms`, {
   method: "POST",
-  headers: { "Content-Type": "application/json" },
+  headers: { "Content-Type": "application/json", Origin: new URL(appUrl).origin },
   body: JSON.stringify({ playerId: hostId, code, name: "Reporter", games: ["trivia"] }),
 });
 if (!created.ok) {
   throw new Error(`Could not create a party for reports (${created.status} ${await created.text()}).`);
 }
 
+const joined = await fetch(`${appUrl}/api/private-rooms`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json", Origin: new URL(appUrl).origin },
+  body: JSON.stringify({ action: "join", playerId: guestId, code, name: "Guest reporter" }),
+});
+if (!joined.ok) {
+  throw new Error(`Could not join the report party (${joined.status} ${await joined.text()}).`);
+}
+
 const started = await fetch(`${appUrl}/api/private-rooms/start`, {
   method: "POST",
-  headers: { "Content-Type": "application/json" },
+  headers: { "Content-Type": "application/json", Origin: new URL(appUrl).origin },
   body: JSON.stringify({ playerId: hostId, code }),
 });
 if (!started.ok) {
@@ -57,7 +66,7 @@ async function waitPhase(playerId, phase, timeout) {
 async function report(roundId, playerId, reason) {
   const response = await fetch(`${appUrl}/api/reports`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", Origin: new URL(appUrl).origin },
     body: JSON.stringify({ ...settings, roundId, reason, voterId: playerId }),
   });
   return { status: response.status, body: await response.json() };

@@ -1,0 +1,237 @@
+[
+  {
+    "file": "README.md",
+    "bytes": 2312,
+    "sha256": "b33f9127b90481b96d892c8aead6082e9d340d236dee7468a6586193f70eefc9"
+  },
+  {
+    "file": "check-flashback-flow.mjs",
+    "bytes": 3752,
+    "sha256": "8c7c6a1688e3e6e25d1ed0351dbd8a333bd9f44e22388814c7f7f81ddd05c339"
+  },
+  {
+    "file": "check-flashback-sources.py",
+    "bytes": 1000,
+    "sha256": "c978b21de1cca7c1fdec83c3bb927235166b5a1a72c893a43beb7104ae002c08"
+  },
+  {
+    "file": "cited-primary-pages.json",
+    "bytes": 1828734,
+    "sha256": "94e2cb523639ee395fa36af8ce3ac8cc3277a1378d77a4c9e3cea0bd99564f5c"
+  },
+  {
+    "file": "cited-valve-news.json",
+    "bytes": 158281,
+    "sha256": "44bec1b4537071b314c3004d36048b2b205d34b2b83282a29a7524083ffabac7"
+  },
+  {
+    "file": "flashback-before.json",
+    "bytes": 201549,
+    "sha256": "9c3a4ad3426a8c9fee586d8db74f2de150882fa87cea80b406ee6f460dfd3244"
+  },
+  {
+    "file": "flashback-calibration-changes.json",
+    "bytes": 1347,
+    "sha256": "9bb9a1fa0824d0d4a505f00a3d64be3a7b175f87bb68a2c18e910f9cef758e75"
+  },
+  {
+    "file": "flashback-changed-ids.json",
+    "bytes": 2298,
+    "sha256": "eee00720c593e5b688aa20d6c8096a9414b8f354d34aaa16621347bb0c8abf66"
+  },
+  {
+    "file": "flashback-exclusions.json",
+    "bytes": 3,
+    "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  {
+    "file": "flashback-ledger.json",
+    "bytes": 467566,
+    "sha256": "010c63728c720e48f7cc04d81de0629ade61218190c502e1bdae669f33a1d3c0"
+  },
+  {
+    "file": "flashback-primary/B3T2lVtxjLQ.metadata.json",
+    "bytes": 1360,
+    "sha256": "3eaa663880314254c92bdcda8050d03a615c7e7fd3c474616b25b32227f11c60"
+  },
+  {
+    "file": "flashback-primary/LSLqy4iVkdQ.en-orig.vtt",
+    "bytes": 1146129,
+    "sha256": "ffae5bcd387a4fc6f556f25c90826fd9c18ce125d487a8d8f24dd14523d6fbbf"
+  },
+  {
+    "file": "flashback-primary/LSLqy4iVkdQ.metadata.json",
+    "bytes": 549,
+    "sha256": "18334168125682e745cec8cebcbc80183a270898a8973b39c7ee5dcccde3cf74"
+  },
+  {
+    "file": "flashback-primary/OaGSi1YTA-E.en-orig.vtt",
+    "bytes": 632553,
+    "sha256": "e05ee888644d45b4c1662fa13320d1f28b435ac9292789db9247714458e5f0d6"
+  },
+  {
+    "file": "flashback-primary/OaGSi1YTA-E.metadata.json",
+    "bytes": 523,
+    "sha256": "969ca35a82fa40d3f538beb5873f66b56aad01907b3390e5dc209021340669d0"
+  },
+  {
+    "file": "flashback-primary/additional-media-manifest.json",
+    "bytes": 2285,
+    "sha256": "f818ea3b50d13085cbb4d70f56aa4e0905d09d93597c34fdae5eb64e3e333773"
+  },
+  {
+    "file": "flashback-primary/archive-auto-chess-article.txt",
+    "bytes": 2335,
+    "sha256": "b3c3a853ce61b0ccf90cebac90f9955fd8399fc6f33b867d011dc7ce7b9e3740"
+  },
+  {
+    "file": "flashback-primary/archive-auto-chess.txt",
+    "bytes": 48467,
+    "sha256": "cb3af7602ae650c3d87f25edea4f58cfc9ac37ba4b4352283a676606d306aa06"
+  },
+  {
+    "file": "flashback-primary/archive-underlords-article.txt",
+    "bytes": 2290,
+    "sha256": "aaaef073a14059b20c50c5dca79a1ab1d275916281915985bbf3e7b3f65b2b39"
+  },
+  {
+    "file": "flashback-primary/archive-underlords.txt",
+    "bytes": 49236,
+    "sha256": "6df134356955d60f07797ccc7f094ed25591305c158f8f443729a46a8a30ac05"
+  },
+  {
+    "file": "flashback-primary/auto-chess-evidence.json",
+    "bytes": 959,
+    "sha256": "715e987c2660b8c79646fe035b3bac6cc2077e3275326dc2da98d72816f140cd"
+  },
+  {
+    "file": "flashback-primary/d6H-HEpnlk8.en-orig.vtt",
+    "bytes": 37658,
+    "sha256": "2463a1b629d786deab99a8e6b8f4fd5aa3c2f2d6ecc8208654c19dd39f90a859"
+  },
+  {
+    "file": "flashback-primary/d6H-HEpnlk8.metadata.json",
+    "bytes": 580,
+    "sha256": "74b2b6ca42c563ce1d4973175590effbf1bc649aab30ca16fb01500a16af748a"
+  },
+  {
+    "file": "flashback-primary/fountain-103.png",
+    "bytes": 1079843,
+    "sha256": "420cb9c24f3a50c0e8bbea5510c59fdf247980bcf2cc537188bdfffc994ba88e"
+  },
+  {
+    "file": "flashback-primary/fountain-draft.png",
+    "bytes": 481805,
+    "sha256": "8a931b747bb84f73e83e486e875c2306415f0df4b85b58e66605ca341597b62c"
+  },
+  {
+    "file": "flashback-primary/hobb-publisher-excerpt.html",
+    "bytes": 464619,
+    "sha256": "7f97a9e19a49e7ad7c0c759b7c171a68266bafbaddc47d1f581481eba5cdb873"
+  },
+  {
+    "file": "flashback-primary/long-match-119m50.png",
+    "bytes": 269716,
+    "sha256": "ba42c6ab523b7bd52b3cd6a7308292dfd8c7ee08666bdc9d399deceadf411cfe"
+  },
+  {
+    "file": "flashback-primary/rgU06QNNmfE.en-orig.vtt",
+    "bytes": 56319,
+    "sha256": "ccb46fd0408324dd37ee2de73b6c0f782d902c97e5cf9acb7e899122b21d4d1a"
+  },
+  {
+    "file": "flashback-primary/rgU06QNNmfE.metadata.json",
+    "bytes": 1329,
+    "sha256": "fc63b59e1a40ff1e60bf4b53954a045c13e767ada58a98e683747da08cfc830b"
+  },
+  {
+    "file": "flashback-primary/sheever-name-26.png",
+    "bytes": 1092734,
+    "sha256": "d456f9b37812300c762217a506b9b1b009ef87748148e87b0296d98843ba6cab"
+  },
+  {
+    "file": "flashback-primary-review.md",
+    "bytes": 5371,
+    "sha256": "a9cb7c40dd227f76c8905449eb6b5282b55d6cbc61cb82c9ec6e1251608cd69a"
+  },
+  {
+    "file": "flashback-source-link-checks.json",
+    "bytes": 31121,
+    "sha256": "b827248514cac7782c38708cba0df00397048b0465a06506cfc754915d8f1a6f"
+  },
+  {
+    "file": "flashback-sources.json",
+    "bytes": 27972,
+    "sha256": "51592d4fff6bc5dd6621b4db2d0de3f03bdec1f58d4d7fddc5633ef80e09c139"
+  },
+  {
+    "file": "flashback-ti20m-primary.md",
+    "bytes": 2926,
+    "sha256": "b018c9ee5182307447bc087ff11b4dfc4a20e43acb977a71fe5b86891ef37086"
+  },
+  {
+    "file": "flashback-ti20m-sources/guinness-highest-earning-esports-nation.html",
+    "bytes": 31099,
+    "sha256": "4649de36bc6743ebfa9396833f686b464e999f2da7664759239ec68a06800831"
+  },
+  {
+    "file": "flashback-ti20m-sources/guinness-ti2016-certification.html",
+    "bytes": 33567,
+    "sha256": "84ac05badcfa9b1a66da05fdd7581ef9417d77817182e13aa4f08f6edec4c1d8"
+  },
+  {
+    "file": "flashback-ti20m-sources/manifest.json",
+    "bytes": 961,
+    "sha256": "715be351a49777cfbc1d6df61250c0b3d17f9945e7cff8f9595e6a7b842e47d5"
+  },
+  {
+    "file": "flashback-ti20m-sources/valve-ti2016-battlepass.html",
+    "bytes": 122673,
+    "sha256": "9a87a0543e059c9bbfb24985d03c66c67e22ffa79b3f8b42637247fd214bba9b"
+  },
+  {
+    "file": "flashback-wc3-primary.md",
+    "bytes": 4753,
+    "sha256": "7ea259e8264cde5477b329434926832f3b187b16fcf0191a15a50c2a6828166f"
+  },
+  {
+    "file": "flashback.md",
+    "bytes": 12504,
+    "sha256": "c754cb0ed365daca3d4445dab83aa88bb59910a5b29473c24d178845557442bb"
+  },
+  {
+    "file": "snapshot-limitations.json",
+    "bytes": 378,
+    "sha256": "624a2eec7973e8614229fc08f47b790c8f3ffa5d564d27da84c237b06ebbb348"
+  },
+  {
+    "file": "wc3-primary/extract.py",
+    "bytes": 2455,
+    "sha256": "cf208282a7f820265ac729260cef79f9244e832a6d495d0e5c1dd6f7c4937c6b"
+  },
+  {
+    "file": "wc3-primary/extraction-manifest.json",
+    "bytes": 4935,
+    "sha256": "aa34684edeb8a033de8c6e98f38eed119c50f54761576536008031ddfdf056cf"
+  },
+  {
+    "file": "wc3-primary/mpyq-LICENSE",
+    "bytes": 1314,
+    "sha256": "193916c6fb0a70df0263d25264d823a88ed3819086628402a95e0b4c85e12026"
+  },
+  {
+    "file": "wc3-primary/mpyq.py",
+    "bytes": 14436,
+    "sha256": "e10fa2f422d837345f438934a99a3cdf67fa9148c7106d421408e1ecfa83e239"
+  },
+  {
+    "file": "wc3-primary/name-evidence.json",
+    "bytes": 1773,
+    "sha256": "e4c9800ee4bc9ea155827665dfcf0a4aaf58b5fd17e6e738c2d5ed0899724f6c"
+  },
+  {
+    "file": "wc3-primary/source-manifest.json",
+    "bytes": 1624,
+    "sha256": "6bf50fd5dc91abd4a825a2d8e7b7f37c4663f974f11e968defee1860ad6ba38c"
+  }
+]

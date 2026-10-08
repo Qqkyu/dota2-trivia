@@ -1,0 +1,68 @@
+{
+  "records": [
+    {
+      "id": "hero-voice:npc_dota_hero_troll_warlord:troll_respawn_02",
+      "hero": "Troll Warlord",
+      "expectedText": "I knew I'd be back.",
+      "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_respawn_02.mp3",
+      "sourceSha256": "8202e56f9e530612ba95cd3a966be25d50d5696648366b9cc2ea7361140c359d",
+      "pinnedTranscriptSource": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/troll_warlord.json",
+      "pinnedTranscriptSourceSha256": "bb3d54c79009e8b9d7d228a275485d263243d9f41c3f1b38aeec4c2edd847c28",
+      "stages": [
+        {
+          "stage": 1,
+          "requestedSeconds": 0.24,
+          "file": "troll_respawn_02.stage-1.mp3",
+          "sha256": "626b0f9f144ecf7c573d922bbf4b561b4838818315cf2cee8567a2455e5179e6",
+          "bytes": 2525
+        },
+        {
+          "stage": 2,
+          "requestedSeconds": 0.56,
+          "file": "troll_respawn_02.stage-2.mp3",
+          "sha256": "7293ce0ccd5c7b1b39c12773298fd2e26e8be55c540332e3bba97906edafca57",
+          "bytes": 5033
+        },
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "troll_respawn_02.stage-3.mp3",
+          "sha256": "8202e56f9e530612ba95cd3a966be25d50d5696648366b9cc2ea7361140c359d",
+          "bytes": 13711
+        }
+      ]
+    },
+    {
+      "id": "hero-voice:npc_dota_hero_troll_warlord:troll_respawn_10",
+      "hero": "Troll Warlord",
+      "expectedText": "Being dead only makes me angrier.",
+      "sourceUrl": "https://dotabase.dillerm.io/vpk/sounds/vo/troll_warlord/troll_respawn_10.mp3",
+      "sourceSha256": "c7f469c9be5cd351736f0a0e386cd22c5b804ceb0ef850c932df8377a7ee69cd",
+      "pinnedTranscriptSource": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/troll_warlord.json",
+      "pinnedTranscriptSourceSha256": "bb3d54c79009e8b9d7d228a275485d263243d9f41c3f1b38aeec4c2edd847c28",
+      "stages": [
+        {
+          "stage": 1,
+          "requestedSeconds": 0.24,
+          "file": "troll_respawn_10.stage-1.mp3",
+          "sha256": "ecef83e9b77d302eba303cd00e96f924394300c3b6b7b48d1b638779651400c9",
+          "bytes": 2525
+        },
+        {
+          "stage": 2,
+          "requestedSeconds": 0.56,
+          "file": "troll_respawn_10.stage-2.mp3",
+          "sha256": "6c9c6b3a7e81cd1839e8446b40ffbfc5ade00eb89d09a1632f07d2c9180a61a4",
+          "bytes": 5033
+        },
+        {
+          "stage": 3,
+          "requestedSeconds": null,
+          "file": "troll_respawn_10.stage-3.mp3",
+          "sha256": "c7f469c9be5cd351736f0a0e386cd22c5b804ceb0ef850c932df8377a7ee69cd",
+          "bytes": 31474
+        }
+      ]
+    }
+  ]
+}

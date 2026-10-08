@@ -1,0 +1,60 @@
+[
+  {
+    "file": "year-slider-2018.wav",
+    "text": "2018",
+    "sampleRate": 22050,
+    "channels": 1,
+    "frames": 27778,
+    "durationSeconds": 1.2597732426303856,
+    "peakAmplitude": 25976,
+    "rms": 2802.754927418117,
+    "synthExit": 0
+  },
+  {
+    "file": "classic-result.wav",
+    "text": "INCORRECTAcid Spray's mana cost is 120, before modifiers.",
+    "sampleRate": 22050,
+    "channels": 1,
+    "frames": 97896,
+    "durationSeconds": 4.439727891156463,
+    "peakAmplitude": 25435,
+    "rms": 2852.996770147619,
+    "synthExit": 0
+  },
+  {
+    "file": "round-announcement.wav",
+    "text": [
+      "Round 2.",
+      " What year did Dota 2 officially release?"
+    ],
+    "sampleRate": 22050,
+    "channels": 1,
+    "frames": 68913,
+    "durationSeconds": 3.1253061224489795,
+    "peakAmplitude": 21961,
+    "rms": 3046.548515924422,
+    "synthExit": [
+      0,
+      0
+    ],
+    "assembly": "Consecutive Orca speech packets joined without other processing."
+  },
+  {
+    "file": "recipe-selection.wav",
+    "text": [
+      "Added Gloves of Haste.",
+      " 1 of 2 components selected."
+    ],
+    "sampleRate": 22050,
+    "channels": 1,
+    "frames": 77358,
+    "durationSeconds": 3.5082993197278913,
+    "peakAmplitude": 24505,
+    "rms": 2538.5831354763254,
+    "synthExit": [
+      0,
+      0
+    ],
+    "assembly": "Consecutive Orca speech packets joined without other processing."
+  }
+]

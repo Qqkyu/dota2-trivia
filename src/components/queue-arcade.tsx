@@ -46,7 +46,30 @@ import {
 } from "@/lib/calibration";
 import type { AccountSnapshot } from "@/lib/account-contract";
 import type { ArcadeMode, RoundGame, ShopkeeperItemReference, TriviaArtworkKind } from "@/lib/trivia";
-import type { CrowdResult, PublicRoomSettings, ReportResult, RoomSnapshot, VoteResult } from "@/lib/arcade-contract";
+import type {
+  CrowdResult,
+  PlayerIdentity,
+  MissedRoundResult,
+  PublicRoomSettings,
+  ReportResult,
+  RoomSnapshot,
+  VoteResult,
+} from "@/lib/arcade-contract";
+import {
+  applyGuestLifetimeStats,
+  guestPendingRoundIds,
+  forgetGuestPendingVote,
+  readGuestLifetimeStats,
+  reconcileGuestRunBest,
+  markGuestRoundSettled,
+  rememberGuestPendingVote,
+} from "@/lib/guest-accuracy.mjs";
+import { safeBrowserStorage } from "@/lib/browser-storage.mjs";
+import { updateGuestLifetimeStorage, loadGuestLifetimeStats } from "@/lib/guest-lifetime-storage.mjs";
+import { shouldHandleAnswerShortcut } from "@/lib/answer-shortcuts.mjs";
+import { requestWithRetry } from "@/lib/request-retry.mjs";
+import { normalizePlayerIdentity, playerIdentityKey, samePlayerIdentity } from "@/lib/player-identity";
+import { reconcileSessionResult, sessionResultTotals, type SessionRoundResult } from "@/lib/session-results";
 import { LIVE_ROUND_GAMES, PUBLIC_ARCADE_MODE } from "@/lib/arcade-games.mjs";
 import { PrivateRoomPanel } from "@/components/private-room-panel";
 import { LIVE_ROUND_HEADER_LABELS } from "@/lib/round-question-copy.mjs";
@@ -155,7 +178,7 @@ const PLAYER_KEY = "queue-arcade:player:v2";
 
 function storedPlayerId() {
   if (typeof window === "undefined") return "";
-  return window.sessionStorage.getItem(`${PLAYER_KEY}:tab`) ?? "";
+  return safeBrowserStorage("session").getItem(`${PLAYER_KEY}:tab`) ?? "";
 }
 
 function withPlayerId(url: string, playerId = storedPlayerId()) {
@@ -583,15 +606,37 @@ function normalizePlayerVote(value: unknown) {
   };
 }
 
-function normalizePreviousResult(value: unknown) {
-  if (value == null) return null;
-  if (!value || typeof value !== "object") return undefined;
-  const candidate = value as { roundId?: unknown; correct?: unknown; points?: unknown };
+function normalizePreviousResult(value: unknown): MissedRoundResult | null {
+  if (value == null || typeof value !== "object") return null;
+  const candidate = value as {
+    roundId?: unknown;
+    correct?: unknown;
+    points?: unknown;
+    game?: unknown;
+    category?: unknown;
+  };
   if (typeof candidate.roundId !== "string" || !candidate.roundId || typeof candidate.correct !== "boolean") {
-    return undefined;
+    return null;
   }
   const points = Math.max(0, Math.round(Number(candidate.points) || 0));
-  return { roundId: candidate.roundId, correct: candidate.correct, points };
+  return {
+    roundId: candidate.roundId,
+    correct: candidate.correct,
+    points,
+    ...(typeof candidate.game === "string" && ROUND_GAMES.includes(candidate.game as RoundGame)
+      ? { game: candidate.game as RoundGame }
+      : {}),
+    ...(typeof candidate.category === "string"
+      ? { category: candidate.category as PublicArcadeQuestion["category"] }
+      : {}),
+  };
+}
+
+function normalizePreviousResults(value: unknown) {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((entry) => normalizePreviousResult(entry))
+    .filter((entry): entry is MissedRoundResult => Boolean(entry));
 }
 
 function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
@@ -659,6 +704,7 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
   }
 
   return {
+    playerIdentity: normalizePlayerIdentity(candidate.playerIdentity),
     serverNow: candidate.serverNow,
     room,
     round,
@@ -668,7 +714,7 @@ function normalizeRoomSnapshot(value: unknown): RoomSnapshot | null {
     crowd,
     playerVote,
     playerReport,
-    previousResult: normalizePreviousResult(candidate.previousResult) ?? null,
+    previousResults: normalizePreviousResults(candidate.previousResults),
   };
 }
 
@@ -679,13 +725,19 @@ function normalizeVoteResult(value: unknown): VoteResult | null {
   if (typeof value.accepted !== "boolean" || playerVote === undefined || !crowd) return null;
 
   return {
+    playerIdentity: normalizePlayerIdentity("playerIdentity" in value ? value.playerIdentity : null),
     accepted: value.accepted,
     ...crowd,
     playerVote,
   };
 }
 
-function publicRoomQuery(settings: PublicRoomSettings, playerId: string, questionRevision?: string) {
+function publicRoomQuery(
+  settings: PublicRoomSettings,
+  playerId: string,
+  questionRevision?: string,
+  pendingRoundIds: string[] = [],
+) {
   return new URLSearchParams({
     gameId: settings.gameId,
     mode: settings.mode,
@@ -693,6 +745,7 @@ function publicRoomQuery(settings: PublicRoomSettings, playerId: string, questio
     playerId,
     ...(settings.privateCode ? { privateCode: settings.privateCode } : {}),
     ...(questionRevision ? { questionRevision } : {}),
+    ...(pendingRoundIds.length ? { pendingRoundIds: pendingRoundIds.slice(0, 24).join(",") } : {}),
   });
 }
 
@@ -1116,7 +1169,7 @@ function ValueOrderBoard({
   useEffect(() => {
     if (phase !== "answering" || locked) return;
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
+      if (!shouldHandleAnswerShortcut(event)) return;
       const cardIndex = Number(event.key) - 1;
       if (cardIndex >= 0 && cardIndex < cards.length) {
         event.preventDefault();
@@ -1245,15 +1298,7 @@ function FlashbackYearBoard({
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (locked || !hasRange) return;
-      const target = event.target;
-      if (
-        target instanceof HTMLInputElement ||
-        target instanceof HTMLTextAreaElement ||
-        target instanceof HTMLSelectElement ||
-        (target instanceof HTMLElement && target.isContentEditable)
-      ) {
-        return;
-      }
+      if (!shouldHandleAnswerShortcut(event)) return;
       if (event.key === "Enter" || event.key === " ") {
         const year = cursorYear ?? midpoint;
         if (year === null) return;
@@ -1265,7 +1310,7 @@ function FlashbackYearBoard({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [commitYear, cursorYear, hasRange, locked, midpoint]);
 
-  const shownYear = lockedYear ?? cursorYear ?? midpoint;
+  const shownYear = correctYear ?? lockedYear ?? cursorYear ?? midpoint;
 
   return (
     <div
@@ -1275,8 +1320,18 @@ function FlashbackYearBoard({
       data-locked={locked ? "true" : "false"}
       data-correct-year={correctYear ?? ""}
     >
+      {phase === "reveal" && (
+        <span className={styles.flashbackYearResultText} data-testid="flashback-year-answer-label">
+          Correct year
+        </span>
+      )}
       <strong data-testid="flashback-year-readout">{shownYear ?? "Year"}</strong>
-      {hasRange ? (
+      {phase === "reveal" && (
+        <p className={styles.flashbackYearResultText} data-testid="flashback-year-your-answer">
+          {lockedYear !== null ? `Your answer: ${lockedYear}.` : "No answer locked."}
+        </p>
+      )}
+      {hasRange && phase !== "reveal" ? (
         <>
           <input
             className={styles.flashbackYearSlider}
@@ -1368,15 +1423,7 @@ function FlashbackOrderBoard({
   useEffect(() => {
     if (phase !== "answering" || locked) return;
     const handleKeyDown = (event: KeyboardEvent) => {
-      const target = event.target;
-      if (
-        target instanceof HTMLInputElement ||
-        target instanceof HTMLTextAreaElement ||
-        target instanceof HTMLSelectElement ||
-        (target instanceof HTMLElement && target.isContentEditable)
-      ) {
-        return;
-      }
+      if (!shouldHandleAnswerShortcut(event)) return;
       const letterIndex = { a: 0, b: 1, c: 2, d: 3 }[event.key.toLowerCase()];
       const cardIndex = event.key >= "1" && event.key <= "4" ? Number(event.key) - 1 : letterIndex;
       if (cardIndex !== undefined && cardIndex >= 0 && cardIndex < cards.length) {
@@ -1550,6 +1597,7 @@ function ShopkeeperStore({
 }) {
   const [section, setSection] = useState<"basics" | "upgrades">("upgrades");
   const [query, setQuery] = useState("");
+  const [selectionAnnouncement, setSelectionAnnouncement] = useState("");
   const [tooltip, setTooltip] = useState<{
     item: ShopkeeperCatalogItem;
     left: number;
@@ -1559,6 +1607,8 @@ function ShopkeeperStore({
   } | null>(null);
   const recipeBuilder = isPublicRecipeBuilderQuestion(question);
   const recipeSize = recipeBuilder ? (question.shopkeeper?.recipeSize ?? 0) : 0;
+  const recipeCost = question.shopkeeper?.recipeCost;
+  const recipeIncluded = typeof recipeCost === "number" && recipeCost > 0;
   const submittedRecipeKeys = recipeItemsFromAnswerKey(selectedKey) ?? [];
   const [draftRecipeKeys, setDraftRecipeKeys] = useState<string[]>(() => submittedRecipeKeys);
   const activeRecipeKeys = selectedKey ? submittedRecipeKeys : draftRecipeKeys;
@@ -1568,6 +1618,9 @@ function ShopkeeperStore({
   const selectedItem = selectedKey ? SHOPKEEPER_CATALOG_BY_KEY.get(selectedKey) : undefined;
   const queryRef = useRef(query);
   const storeRef = useRef<HTMLDivElement | null>(null);
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const recipeBuildRef = useRef<HTMLButtonElement | null>(null);
+  const recipeFocusRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
     queryRef.current = query;
   }, [query]);
@@ -1585,22 +1638,42 @@ function ShopkeeperStore({
   };
 
   const addRecipeItem = useCallback(
-    (itemKey: string) => {
+    (itemKey: string, restoreKeyboardFocus = false) => {
       if (phase !== "answering" || selectedKey !== null || draftRecipeKeys.length >= recipeSize) return;
+      if (restoreKeyboardFocus && document.activeElement instanceof HTMLElement)
+        recipeFocusRef.current = document.activeElement;
       onPick?.();
       setQuery("");
       setTooltip(null);
       setDraftRecipeKeys((itemKeys) => [...itemKeys, itemKey]);
+      setSelectionAnnouncement(
+        `Added ${SHOPKEEPER_CATALOG_BY_KEY.get(itemKey)?.name ?? itemKey}. ${draftRecipeKeys.length + 1} of ${recipeSize} components selected.`,
+      );
     },
     [draftRecipeKeys.length, onPick, phase, recipeSize, selectedKey],
   );
 
-  const removeRecipeItem = (slot: number) => {
+  const removeRecipeItem = (slot: number, restoreKeyboardFocus = false) => {
     if (phase !== "answering" || selectedKey !== null || !draftRecipeKeys[slot]) return;
+    if (restoreKeyboardFocus && document.activeElement instanceof HTMLElement)
+      recipeFocusRef.current = document.activeElement;
     onPick?.();
     setTooltip(null);
     setDraftRecipeKeys((itemKeys) => itemKeys.filter((_, index) => index !== slot));
+    setSelectionAnnouncement(
+      `Removed ${SHOPKEEPER_CATALOG_BY_KEY.get(draftRecipeKeys[slot])?.name ?? draftRecipeKeys[slot]}. ${draftRecipeKeys.length - 1} of ${recipeSize} components selected.`,
+    );
   };
+
+  useEffect(() => {
+    const previousControl = recipeFocusRef.current;
+    recipeFocusRef.current = null;
+    if (!previousControl || phase !== "answering" || selectedKey !== null) return;
+    if (document.activeElement !== document.body && document.activeElement !== previousControl) return;
+    if (previousControl.isConnected && !previousControl.matches(":disabled")) return;
+    const nextControl = draftRecipeKeys.length === recipeSize ? recipeBuildRef.current : searchInputRef.current;
+    nextControl?.focus({ preventScroll: true });
+  }, [draftRecipeKeys, phase, recipeSize, selectedKey]);
 
   const submitRecipe = () => {
     if (draftRecipeKeys.length !== recipeSize) return;
@@ -1618,7 +1691,7 @@ function ShopkeeperStore({
     if (matches.length === 1) {
       const itemKey = matches[0].key;
       if (recipeBuilder) {
-        addRecipeItem(itemKey);
+        addRecipeItem(itemKey, true);
       } else {
         onChoose(itemKey);
         setQuery("");
@@ -1656,17 +1729,8 @@ function ShopkeeperStore({
     if (phase !== "answering" || selectedKey !== null) return;
 
     const startSearching = (event: KeyboardEvent) => {
-      if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return;
+      if (!shouldHandleAnswerShortcut(event)) return;
       if (storeRef.current?.closest("[inert]")) return;
-      const target = event.target;
-      if (
-        target instanceof HTMLInputElement ||
-        target instanceof HTMLTextAreaElement ||
-        target instanceof HTMLSelectElement ||
-        (target instanceof HTMLElement && target.isContentEditable)
-      ) {
-        return;
-      }
 
       if (event.key === "Enter") {
         if (pickSingleMatch()) event.preventDefault();
@@ -1716,13 +1780,12 @@ function ShopkeeperStore({
         data-locked={selectedKey ? "true" : "false"}
       >
         <div className={styles.shopkeeperStoreToolbar}>
-          <div className={styles.shopkeeperStoreTabs} role="tablist" aria-label="Shop section">
+          <div className={styles.shopkeeperStoreTabs} role="group" aria-label="Shop section">
             {(["basics", "upgrades"] as const).map((tab) => (
               <button
                 key={tab}
                 type="button"
-                role="tab"
-                aria-selected={section === tab}
+                aria-pressed={section === tab}
                 data-testid={`shopkeeper-tab-${tab}`}
                 onClick={() => {
                   setTooltip(null);
@@ -1736,7 +1799,9 @@ function ShopkeeperStore({
           <label className={styles.shopSearchBox} data-focused={normalizedQuery ? "true" : "false"}>
             <Search aria-hidden="true" />
             <input
+              ref={searchInputRef}
               data-testid="shopkeeper-search-field"
+              aria-label="Search shop items"
               type="text"
               value={query}
               placeholder={DOTA_SHOP_SEARCH_PLACEHOLDER}
@@ -1748,6 +1813,7 @@ function ShopkeeperStore({
                 setQuery(event.target.value);
               }}
               onKeyDown={(event) => {
+                if (!shouldHandleAnswerShortcut(event.nativeEvent, { allowedInput: event.currentTarget })) return;
                 if (event.key === "Enter" && pickSingleMatch()) {
                   event.preventDefault();
                   return;
@@ -1769,6 +1835,16 @@ function ShopkeeperStore({
           aria-live="polite"
         >
           {query}
+        </div>
+
+        <div
+          className="sr-only"
+          data-testid="shopkeeper-selection-status"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          {selectionAnnouncement}
         </div>
 
         {recipeBuilder && phase === "answering" && (
@@ -1795,7 +1871,7 @@ function ShopkeeperStore({
                     data-testid="shopkeeper-recipe-slot"
                     data-item-key={item.key}
                     aria-label={`Remove ${item.name}`}
-                    onClick={() => removeRecipeItem(slot)}
+                    onClick={(event) => removeRecipeItem(slot, event.detail === 0)}
                     disabled={selectedKey !== null}
                   >
                     <Image src={item.image} alt="" fill sizes="58px" unoptimized />
@@ -1807,15 +1883,22 @@ function ShopkeeperStore({
                   </span>
                 );
               })}
-              <span className={styles.shopkeeperRecipeIncluded} data-testid="shopkeeper-recipe-included">
-                <Image src={SHOPKEEPER_RECIPE_IMAGE} alt="" width={36} height={27} unoptimized />
-                <small>Included</small>
-              </span>
+              {recipeIncluded ? (
+                <span className={styles.shopkeeperRecipeIncluded} data-testid="shopkeeper-recipe-included">
+                  <Image src={SHOPKEEPER_RECIPE_IMAGE} alt="" width={36} height={27} unoptimized />
+                  <small>Included</small>
+                </span>
+              ) : recipeCost === 0 ? (
+                <span className={styles.shopkeeperRecipeIncluded} data-testid="shopkeeper-no-recipe">
+                  <small>No recipe required</small>
+                </span>
+              ) : null}
             </div>
             <button
               type="button"
               className={styles.shopkeeperBuildButton}
               data-testid="shopkeeper-recipe-build"
+              ref={recipeBuildRef}
               onClick={submitRecipe}
               disabled={selectedKey !== null || activeRecipeKeys.length !== recipeSize}
             >
@@ -1829,7 +1912,7 @@ function ShopkeeperStore({
           <div className={styles.shopkeeperRecipeReveal} data-testid="shopkeeper-open-reveal">
             <ShopkeeperRecipePick itemKeys={submittedRecipeKeys} label="Your items" />
             <ArrowRight aria-hidden="true" />
-            <ShopkeeperRecipePick itemKeys={correctRecipeKeys} label="Correct items" recipeIncluded />
+            <ShopkeeperRecipePick itemKeys={correctRecipeKeys} label="Correct items" recipeIncluded={recipeIncluded} />
           </div>
         ) : phase === "reveal" ? (
           <div className={styles.shopkeeperRevealPicks} data-testid="shopkeeper-open-reveal">
@@ -1896,7 +1979,9 @@ function ShopkeeperStore({
                         data-item-key={item.key}
                         data-state={state}
                         data-pick-count={selectedCount}
-                        onClick={() => (recipeBuilder ? addRecipeItem(item.key) : chooseItem(item.key))}
+                        onClick={(event) =>
+                          recipeBuilder ? addRecipeItem(item.key, event.detail === 0) : chooseItem(item.key)
+                        }
                         onPointerEnter={(event) => showItemTooltip(item, event.currentTarget)}
                         onPointerLeave={() => setTooltip(null)}
                         onFocus={(event) => showItemTooltip(item, event.currentTarget)}
@@ -2014,6 +2099,17 @@ function HeroPicker({
   const correctHero = phase === "reveal" && targetKey ? HERO_PICKER_BY_KEY.get(targetKey) : undefined;
   const selectedHero = selectedKey ? HERO_PICKER_BY_KEY.get(selectedKey) : undefined;
   const matchCount = normalizedQuery ? HERO_PICKER_HEROES.filter(heroMatches).length : HERO_PICKER_HEROES.length;
+  useEffect(() => {
+    if (!normalizedQuery) return;
+    const board = pickerRef.current?.querySelector<HTMLElement>('[data-testid="hero-picker-board"]');
+    const match = board?.querySelector<HTMLElement>('[data-search-match="true"]');
+    if (!board || !match) return;
+    const bounds = board.getBoundingClientRect();
+    const target = match.getBoundingClientRect();
+    if (target.top < bounds.top || target.bottom > bounds.bottom) {
+      board.scrollTop += target.top - bounds.top;
+    }
+  }, [normalizedQuery]);
   const chooseHero = useCallback(
     (heroKey: string) => {
       onChoose(heroKey);
@@ -2027,17 +2123,8 @@ function HeroPicker({
     if (phase !== "answering" || selectedKey !== null) return;
 
     const startSearching = (event: KeyboardEvent) => {
-      if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return;
+      if (!shouldHandleAnswerShortcut(event)) return;
       if (pickerRef.current?.closest("[inert]")) return;
-      const target = event.target;
-      if (
-        target instanceof HTMLInputElement ||
-        target instanceof HTMLTextAreaElement ||
-        target instanceof HTMLSelectElement ||
-        (target instanceof HTMLElement && target.isContentEditable)
-      ) {
-        return;
-      }
 
       if (event.key === "Enter") {
         // Enter picks the only hero the typed filter still shows.
@@ -2088,6 +2175,39 @@ function HeroPicker({
       >
         {query}
       </div>
+      <label className={styles.heroSearchField}>
+        <Search aria-hidden="true" />
+        <input
+          className={styles.heroSearchInput}
+          data-testid="hero-search-input"
+          aria-label="Filter heroes"
+          type="search"
+          enterKeyHint="go"
+          autoComplete="off"
+          spellCheck={false}
+          placeholder="Search heroes"
+          value={query}
+          disabled={phase !== "answering" || selectedKey !== null}
+          onChange={(event) => {
+            queryRef.current = event.currentTarget.value;
+            setQuery(event.currentTarget.value);
+            flashSearch(Boolean(event.currentTarget.value.trim()));
+          }}
+          onKeyDown={(event) => {
+            if (!shouldHandleAnswerShortcut(event.nativeEvent, { allowedInput: event.currentTarget })) return;
+            if (event.key === "Escape") {
+              event.preventDefault();
+              queryRef.current = "";
+              setQuery("");
+              flashSearch(false);
+            } else if (event.key === "Enter") {
+              event.preventDefault();
+              const matches = searchHeroes(event.currentTarget.value);
+              if (matches.length === 1) chooseHero(matches[0].key);
+            }
+          }}
+        />
+      </label>
       {/* Fixed-height status line: the filter count while answering, the lock,
           then the correct hero's name on reveal. Nothing below it moves. */}
       <p
@@ -2114,7 +2234,7 @@ function HeroPicker({
           `${HERO_PICKER_HEROES.length} heroes · type to filter`
         )}
       </p>
-      <div className={styles.heroPickerBoard}>
+      <div className={styles.heroPickerBoard} data-testid="hero-picker-board">
         {HERO_PICKER_CATALOG.groups.map((group) => (
           <section
             key={group.key}
@@ -2181,7 +2301,14 @@ function classicQuestionContext(question: PublicArcadeQuestion) {
 
 function shopkeeperAnswerAction(question: PublicArcadeQuestion) {
   if (question.shopkeeper?.format === "build-result") return "Choose the finished item";
-  if (question.shopkeeper?.format === "real-recipe") return "Pick the shop items. Recipe is included.";
+  if (question.shopkeeper?.format === "real-recipe") {
+    const cost = question.shopkeeper.recipeCost;
+    return cost === 0
+      ? "Pick the shop items. No recipe required."
+      : typeof cost === "number" && cost > 0
+        ? "Pick the shop items. Recipe is included."
+        : "Pick the shop items.";
+  }
   if (question.shopkeeper?.format === "shared-part") return "Choose the shared component";
   return "Choose the direct upgrade";
 }
@@ -2192,7 +2319,7 @@ function ClassicChoiceBoard({ question, active }: { question: PublicArcadeQuesti
   useEffect(() => {
     if (!active || selectedIndex !== null) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return;
+      if (!shouldHandleAnswerShortcut(event)) return;
       const letterIndex = (LETTERS as readonly string[]).indexOf(event.key.toUpperCase());
       const numIndex = ["1", "2", "3", "4"].indexOf(event.key);
       const index = letterIndex >= 0 ? letterIndex : numIndex;
@@ -2414,6 +2541,7 @@ export function QueueArcade({
   const [crowd, setCrowdState] = useState<CrowdResult>(EMPTY_CROWD);
   const [roundAward, setRoundAward] = useState<RoundAward | null>(null);
   const [score, setScore] = useState(0);
+  const scoreRef = useRef(0);
   const [streak, setStreak] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [history, setHistory] = useState<RoundRecord[]>([]);
@@ -2427,14 +2555,17 @@ export function QueueArcade({
   const [statsLoaded, setStatsLoaded] = useState(false);
   const [account, setAccount] = useState<AccountSnapshot | null>(null);
   const accountRef = useRef<AccountSnapshot | null>(null);
-  useEffect(() => {
-    accountRef.current = account;
-  }, [account]);
+  const accountRequestRef = useRef<AbortController | null>(null);
+  const playerIdentityRef = useRef<PlayerIdentity | null>(null);
+  const identityGenerationRef = useRef(0);
   const joiningRoomRef = useRef(false);
+  const entryRequestRef = useRef<AbortController | null>(null);
+  const sessionResultsRef = useRef<SessionRoundResult[]>([]);
   const [roomError, setRoomError] = useState<string | null>(null);
   const [voteError, setVoteError] = useState<string | null>(null);
   const [activeRoomId, setActiveRoomId] = useState("");
   const [activeRoundId, setActiveRoundId] = useState("");
+  const [roundAnnouncement, setRoundAnnouncement] = useState<{ id: string; text: string } | null>(null);
   const [activePlayers, setActivePlayers] = useState(0);
   const [roundAudioState, setRoundAudioState] = useState<"loading" | "ready" | "playing" | "error" | "blocked">(
     "loading",
@@ -2469,6 +2600,11 @@ export function QueueArcade({
   const roomSettingsRef = useRef<PublicRoomSettings | null>(null);
   const roomSnapshotRef = useRef<RoomSnapshot | null>(null);
   const roundIdRef = useRef("");
+  const roundStageRef = useRef<HTMLDivElement | null>(null);
+  const roundHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const lastRoundControlRef = useRef<HTMLElement | null>(null);
+  const announcedRoundRef = useRef<string | null>(null);
+  const scrollToRoundRef = useRef<string | null>(null);
   const questionRevisionRef = useRef("");
   const entryWaitRoundIdRef = useRef("");
   const entryWaitModeRef = useRef<"lessons" | "silent" | null>(null);
@@ -2481,6 +2617,7 @@ export function QueueArcade({
   const autoPlayedAudioKeyRef = useRef("");
   const prewarmedAfterRoundIdRef = useRef("");
   const reportTargetRef = useRef<QuestionReportTarget | null>(null);
+  const reportFocusRef = useRef<string | null>(null);
   const reportStateRef = useRef<"idle" | "sending" | "sent" | "error">("idle");
   const autoStartAttemptedRef = useRef(false);
   const alphaSessionIdRef = useRef("");
@@ -2519,12 +2656,32 @@ export function QueueArcade({
 
   const answerDuration = ANSWER_DURATION_MS;
   const loadAccount = useCallback(async () => {
+    accountRequestRef.current?.abort();
+    const controller = new AbortController();
+    accountRequestRef.current = controller;
+    const generation = identityGenerationRef.current;
     try {
-      const response = await fetch("/api/me", { cache: "no-store" });
+      const response = await fetch("/api/me", { cache: "no-store", signal: controller.signal });
       if (!response.ok) throw new Error("Profile request failed.");
-      setAccount((await response.json()) as AccountSnapshot);
+      const next = (await response.json()) as AccountSnapshot;
+      if (
+        controller.signal.aborted ||
+        accountRequestRef.current !== controller ||
+        generation !== identityGenerationRef.current
+      )
+        return;
+      const identity = playerIdentityRef.current;
+      if (
+        identity &&
+        (next.authenticated
+          ? identity.kind !== "account" || identity.id !== next.profile.user.id
+          : identity.kind !== "guest")
+      )
+        return;
+      accountRef.current = next;
+      setAccount(next);
     } catch {
-      setAccount({ authenticated: false });
+      // A temporary profile failure does not change the server's session cookie.
     }
   }, []);
 
@@ -2547,12 +2704,19 @@ export function QueueArcade({
     if (playerIdRef.current) return playerIdRef.current;
 
     const tabKey = `${PLAYER_KEY}:tab`;
-    const stored = window.sessionStorage.getItem(tabKey);
+    const stored = safeBrowserStorage("session").getItem(tabKey);
     const id = stored ?? window.crypto.randomUUID();
-    window.sessionStorage.setItem(tabKey, id);
+    safeBrowserStorage("session").setItem(tabKey, id);
     playerIdRef.current = id;
     return id;
   }, []);
+
+  const resultVoterId = useCallback(() => {
+    const known = playerIdentityKey(playerIdentityRef.current);
+    if (known) return known;
+    const current = accountRef.current;
+    return current?.authenticated ? `account:${current.profile.user.id}` : ensurePlayerId();
+  }, [ensurePlayerId]);
 
   const sendAlphaSessionEvent = useCallback(
     async (action: "start" | "finish", sessionId: string) => {
@@ -2565,6 +2729,54 @@ export function QueueArcade({
       if (!response.ok) throw new Error("Alpha session unavailable.");
     },
     [ensurePlayerId],
+  );
+
+  const adoptPlayerIdentity = useCallback(
+    (identity: PlayerIdentity | null) => {
+      if (!identity || samePlayerIdentity(playerIdentityRef.current, identity)) return false;
+      const changed = playerIdentityRef.current !== null || sessionResultsRef.current.length > 0;
+      playerIdentityRef.current = identity;
+      identityGenerationRef.current += 1;
+      accountRequestRef.current?.abort();
+      if (identity.kind === "guest") {
+        accountRef.current = { authenticated: false };
+        setAccount(accountRef.current);
+      } else if (!accountRef.current?.authenticated || accountRef.current.profile.user.id !== identity.id) {
+        accountRef.current = null;
+        setAccount(null);
+        void loadAccount();
+      }
+      if (changed) {
+        sessionResultsRef.current = [];
+        scoreRef.current = 0;
+        setScore(0);
+        setCorrectCount(0);
+        setStreak(0);
+        setHistory([]);
+        setRoundAward(null);
+        roundIndexRef.current = 0;
+        setRoundIndex(0);
+        runSavedRef.current = false;
+        finalizedRef.current = false;
+        voteRequestSettledRef.current = false;
+        selectedIndexRef.current = null;
+        selectedAnswerKeyRef.current = null;
+        setSelectedIndex(null);
+        setSelectedAnswerKey(null);
+        participatedRef.current = false;
+        setVoteError(null);
+        setReportedReason(null);
+        updateReportTarget(null);
+        updateReportState("idle");
+        setReportNotice(null);
+        reportFocusRef.current = null;
+        alphaSessionIdRef.current = window.crypto.randomUUID();
+        alphaSessionFinishedRef.current = false;
+        void sendAlphaSessionEvent("start", alphaSessionIdRef.current).catch(() => undefined);
+      }
+      return changed;
+    },
+    [loadAccount, sendAlphaSessionEvent, updateReportState, updateReportTarget],
   );
 
   const finishAlphaSession = useCallback(() => {
@@ -2691,10 +2903,14 @@ export function QueueArcade({
   const requestRoomSnapshot = useCallback(
     async (settings: PublicRoomSettings, playerId: string, signal?: AbortSignal) => {
       const requestedAt = Date.now();
-      const response = await fetch(`/api/rounds?${publicRoomQuery(settings, playerId, questionRevisionRef.current)}`, {
-        cache: "no-store",
-        signal,
-      });
+      const identityGeneration = identityGenerationRef.current;
+      const response = await fetch(
+        `/api/rounds?${publicRoomQuery(settings, playerId, questionRevisionRef.current, guestPendingRoundIds(safeBrowserStorage("session"), { playerId: resultVoterId(), roomId: roomSnapshotRef.current?.room.id }))}`,
+        {
+          cache: "no-store",
+          signal,
+        },
+      );
       const payload: unknown = await response.json();
       const receivedAt = Date.now();
 
@@ -2704,9 +2920,75 @@ export function QueueArcade({
 
       return {
         snapshot,
+        identityGeneration,
         receivedAt,
         clockOffset: (requestedAt + receivedAt) / 2 - snapshot.serverNow,
       };
+    },
+    [resultVoterId],
+  );
+
+  const creditRound = useCallback(
+    (
+      roundId: string,
+      result: {
+        correct: boolean;
+        points: number;
+        category?: PublicArcadeQuestion["category"];
+        game?: RoundGame;
+        accepted?: boolean;
+        identity: PlayerIdentity | null;
+      },
+    ) => {
+      if (!result.identity && playerIdentityRef.current) return false;
+      const scope = { playerId: playerIdentityKey(result.identity) ?? "" };
+      if (result.accepted !== false && result.identity?.kind === "account") {
+        forgetGuestPendingVote(safeBrowserStorage("session"), roundId, scope);
+      }
+      const records = reconcileSessionResult(sessionResultsRef.current, {
+        id: roundId,
+        accepted: result.accepted !== false,
+        correct: result.correct,
+        points: result.points,
+        category: result.category,
+        game: result.game,
+      });
+      if (records === sessionResultsRef.current) return false;
+      sessionResultsRef.current = records;
+      const totals = sessionResultTotals(records);
+      const nextScore = totals.score;
+      scoreRef.current = nextScore;
+      setScore(nextScore);
+      setCorrectCount(totals.correctCount);
+      setStreak(totals.streak);
+      setHistory(
+        records.filter((record): record is SessionRoundResult & RoundRecord => Boolean(record.category && record.game)),
+      );
+      if (result.accepted !== false && result.identity?.kind === "guest") {
+        const startedRun = !runSavedRef.current;
+        runSavedRef.current = true;
+        const runId = alphaSessionIdRef.current;
+        const persistLifetime = (storage: {
+          getItem: (key: string) => string | null;
+          setItem: (key: string, value: string) => void;
+        }) => {
+          const firstSettlement = markGuestRoundSettled(storage, roundId, scope);
+          const latest = readGuestLifetimeStats(storage, STORAGE_KEY);
+          const nextStats = firstSettlement
+            ? applyGuestLifetimeStats(latest, { correct: result.correct, startedRun, nextScore })
+            : latest;
+          if (runId) nextStats.bestScore = reconcileGuestRunBest(storage, runId, nextScore, latest.bestScore);
+          storage.setItem(STORAGE_KEY, JSON.stringify(nextStats));
+          return nextStats;
+        };
+        void updateGuestLifetimeStorage(safeBrowserStorage("local"), persistLifetime).then(
+          ({ value, current, persisted }) => {
+            if (persisted) forgetGuestPendingVote(safeBrowserStorage("session"), roundId, scope);
+            if (current) setLifetimeStats(value);
+          },
+        );
+      }
+      return true;
     },
     [],
   );
@@ -2714,7 +2996,7 @@ export function QueueArcade({
   const finalizeRound = useCallback(
     (snapshot: RoomSnapshot, localRevealDeadline: number) => {
       const question = currentQuestionRef.current;
-      if (!question || finalizedRef.current || !participatedRef.current || snapshot.round.id !== roundIdRef.current) {
+      if (!question || !participatedRef.current || snapshot.round.id !== roundIdRef.current) {
         return;
       }
 
@@ -2726,8 +3008,9 @@ export function QueueArcade({
       const voted = Boolean(snapshot.playerVote);
       const locked = selectedIndexRef.current !== null || Boolean(selectedAnswerKeyRef.current);
       const pendingVote = locked && !voted && !voteRequestSettledRef.current;
-      if (pendingVote || finalizedRef.current) return;
+      if (pendingVote) return;
 
+      const firstFinalization = !finalizedRef.current;
       finalizedRef.current = true;
       const pickedCorrect = locked
         ? isPublicQuestionAnswerCorrect(
@@ -2758,53 +3041,42 @@ export function QueueArcade({
         speedBonus,
         cluePenalty,
       });
-      setScore((currentScore) => {
-        const nextScore = currentScore + points;
-        if (voted && !accountRef.current?.authenticated) {
-          setLifetimeStats((currentStats) => {
-            const startedRun = !runSavedRef.current;
-            if (startedRun) runSavedRef.current = true;
-            const nextStats = {
-              runs: currentStats.runs + (startedRun ? 1 : 0),
-              answered: currentStats.answered + 1,
-              correct: currentStats.correct + (isCorrect ? 1 : 0),
-              bestScore: Math.max(currentStats.bestScore, nextScore),
-            };
-            window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextStats));
-            return nextStats;
-          });
-        }
-        return nextScore;
+      creditRound(snapshot.round.id, {
+        identity: snapshot.playerIdentity,
+        correct: isCorrect,
+        points,
+        category: question.category,
+        game: question.game,
+        accepted: voted,
       });
-      setHistory((records) => [
-        ...records,
-        {
-          id: snapshot.round.id,
-          category: question.category,
-          game: question.game,
-          correct: isCorrect,
-          points,
-        },
-      ]);
 
-      if (isCorrect) {
-        setCorrectCount((count) => count + 1);
-        setStreak((currentStreak) => currentStreak + 1);
-      } else {
-        setStreak(0);
+      if (firstFinalization) {
+        if (voted) playSound(answerFeedbackKind(isCorrect));
+        else if (!pickedCorrect) playSound(answerFeedbackKind(false));
       }
-      if (voted) playSound(answerFeedbackKind(isCorrect));
-      else if (!pickedCorrect) playSound(answerFeedbackKind(false));
     },
-    [playSound, setCrowd, setDeadline, setPhase],
+    [creditRound, playSound, setCrowd, setDeadline, setPhase],
   );
 
   const applyRoomSnapshot = useCallback(
     (snapshot: RoomSnapshot, clockOffset: number, receivedAt: number) => {
       const localAnswerDeadline = snapshot.round.answerDeadline + clockOffset;
       const localRevealDeadline = snapshot.round.revealDeadline + clockOffset;
-      const isNewRound = roundIdRef.current !== snapshot.round.id;
-      const hadRound = Boolean(roundIdRef.current);
+      const identityChanged = adoptPlayerIdentity(snapshot.playerIdentity);
+      const isNewRound = roundIdRef.current !== snapshot.round.id || identityChanged;
+      const hadRound = Boolean(roundIdRef.current) && !identityChanged;
+      if (hadRound && roundIdRef.current !== snapshot.round.id && snapshot.round.phase === "answering") {
+        scrollToRoundRef.current = snapshot.round.id;
+      }
+      if (isNewRound && reportTargetRef.current) {
+        const focused = document.activeElement;
+        if (
+          focused instanceof HTMLElement &&
+          (focused.dataset.testid === "report-reason" || focused.dataset.testid === "report-question")
+        ) {
+          reportFocusRef.current = focused.dataset.reportReason ?? REPORT_REASONS[0];
+        }
+      }
 
       roomSnapshotRef.current = snapshot;
       setActiveRoomId(snapshot.room.id);
@@ -2860,57 +3132,28 @@ export function QueueArcade({
         throw new Error("The synchronized round did not include its public question payload.");
       }
       if (snapshot.question) questionRevisionRef.current = snapshot.questionRevision;
+      if (snapshot.playerVote && snapshot.playerIdentity) {
+        rememberGuestPendingVote(safeBrowserStorage("session"), snapshot.round.id, {
+          playerId: playerIdentityKey(snapshot.playerIdentity) ?? "",
+          roomId: snapshot.room.id,
+        });
+      }
+
+      for (const missed of snapshot.previousResults) {
+        creditRound(missed.roundId, {
+          identity: snapshot.playerIdentity,
+          correct: missed.correct,
+          points: missed.points,
+          category:
+            missed.category ??
+            (currentQuestionRef.current?.id === missed.roundId ? currentQuestionRef.current.category : undefined),
+          game:
+            missed.game ??
+            (currentQuestionRef.current?.id === missed.roundId ? currentQuestionRef.current.game : undefined),
+        });
+      }
 
       if (isNewRound) {
-        const missed = snapshot.previousResult;
-        const previousQuestion = currentQuestionRef.current;
-        if (
-          hadRound &&
-          !finalizedRef.current &&
-          participatedRef.current &&
-          voteRequestSettledRef.current &&
-          missed &&
-          missed.roundId === roundIdRef.current &&
-          previousQuestion
-        ) {
-          const isCorrect = missed.correct;
-          const points = missed.points;
-          setScore((currentScore) => {
-            const nextScore = currentScore + points;
-            if (!accountRef.current?.authenticated) {
-              setLifetimeStats((currentStats) => {
-                const startedRun = !runSavedRef.current;
-                if (startedRun) runSavedRef.current = true;
-                const nextStats = {
-                  runs: currentStats.runs + (startedRun ? 1 : 0),
-                  answered: currentStats.answered + 1,
-                  correct: currentStats.correct + (isCorrect ? 1 : 0),
-                  bestScore: Math.max(currentStats.bestScore, nextScore),
-                };
-                window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextStats));
-                return nextStats;
-              });
-            }
-            return nextScore;
-          });
-          setHistory((records) => [
-            ...records,
-            {
-              id: missed.roundId,
-              category: previousQuestion.category,
-              game: previousQuestion.game,
-              correct: isCorrect,
-              points,
-            },
-          ]);
-          if (isCorrect) {
-            setCorrectCount((count) => count + 1);
-            setStreak((currentStreak) => currentStreak + 1);
-          } else {
-            setStreak(0);
-          }
-        }
-
         roundIdRef.current = snapshot.round.id;
         currentQuestionRef.current = question;
         setCurrentQuestion(question);
@@ -2939,8 +3182,8 @@ export function QueueArcade({
         setAnswerTimeLeft(nextAnswerTimeLeft);
         setVoteError(null);
 
-        participatedRef.current = snapshot.round.phase === "answering";
-        finalizedRef.current = snapshot.round.phase === "reveal";
+        participatedRef.current = snapshot.round.phase === "answering" || Boolean(playerVote);
+        finalizedRef.current = false;
         voteRequestSettledRef.current = Boolean(playerVote);
         if (snapshot.round.phase === "answering") feedbackPlayerRef.current?.clearPending();
 
@@ -2948,11 +3191,13 @@ export function QueueArcade({
           setDeadline(localAnswerDeadline);
           setRevealDeadlineState(null);
           setPhase("answering");
-        } else {
-          setDeadline(null);
-          setRevealDeadlineState(localRevealDeadline);
-          setPhase("reveal");
+          return;
         }
+
+        setDeadline(null);
+        setRevealDeadlineState(localRevealDeadline);
+        setPhase("reveal");
+        finalizeRound(snapshot, localRevealDeadline);
         return;
       }
 
@@ -2967,7 +3212,8 @@ export function QueueArcade({
         }
       }
 
-      if (snapshot.playerVote && selectedIndexRef.current === null) {
+      if (snapshot.playerVote) {
+        voteRequestSettledRef.current = true;
         const nextAnswerTimeLeft = Math.max(0, snapshot.round.answerDeadline - snapshot.playerVote.submittedAt);
         selectedIndexRef.current = snapshot.playerVote.answerIndex;
         selectedAnswerKeyRef.current = snapshot.playerVote.answerKey ?? null;
@@ -2988,7 +3234,16 @@ export function QueueArcade({
       setRevealDeadlineState(localRevealDeadline);
       finalizeRound(snapshot, localRevealDeadline);
     },
-    [finalizeRound, setCrowd, setDeadline, setPhase, updateReportState, updateReportTarget],
+    [
+      adoptPlayerIdentity,
+      creditRound,
+      finalizeRound,
+      setCrowd,
+      setDeadline,
+      setPhase,
+      updateReportState,
+      updateReportTarget,
+    ],
   );
 
   const syncRoom = useCallback(
@@ -3004,7 +3259,12 @@ export function QueueArcade({
       const task = (async () => {
         try {
           const result = await requestRoomSnapshot(settings, ensurePlayerId(), attempt.signal);
-          if (!gate.isCurrent(attempt.generation) || roomSettingsRef.current !== settings) return;
+          if (
+            !gate.isCurrent(attempt.generation) ||
+            roomSettingsRef.current !== settings ||
+            result.identityGeneration !== identityGenerationRef.current
+          )
+            return;
           applyRoomSnapshot(result.snapshot, result.clockOffset, result.receivedAt);
         } catch {
           if (gate.isCurrent(attempt.generation) && roomSettingsRef.current === settings) {
@@ -3052,6 +3312,8 @@ export function QueueArcade({
         ...(privateCode ? { privateCode } : {}),
       };
       joiningRoomRef.current = true;
+      const controller = new AbortController();
+      entryRequestRef.current = controller;
       setRoomError(null);
       roomSyncGateRef.current?.cancel();
       roomSettingsRef.current = settings;
@@ -3060,8 +3322,16 @@ export function QueueArcade({
       playSound("start");
 
       try {
-        const result = await requestRoomSnapshot(settings, ensurePlayerId());
-        if (roomSettingsRef.current !== settings) return;
+        const result = await requestWithRetry(
+          (signal: AbortSignal) => requestRoomSnapshot(settings, ensurePlayerId(), signal),
+          { signal: controller.signal, onRetry: () => setRoomError("Could not connect · retrying.") },
+        );
+        if (
+          controller.signal.aborted ||
+          roomSettingsRef.current !== settings ||
+          result.identityGeneration !== identityGenerationRef.current
+        )
+          return;
 
         roundIdRef.current = "";
         entryWaitRoundIdRef.current = "";
@@ -3071,6 +3341,7 @@ export function QueueArcade({
         currentQuestionRef.current = null;
         roundIndexRef.current = 0;
         runSavedRef.current = false;
+        sessionResultsRef.current = [];
         finalizedRef.current = false;
         participatedRef.current = false;
         feedbackPlayerRef.current?.clearPending();
@@ -3080,6 +3351,7 @@ export function QueueArcade({
         setSelectedIndex(null);
         setSelectedAnswerKey(null);
         setRoundIndex(0);
+        scoreRef.current = 0;
         setScore(0);
         setStreak(0);
         setCorrectCount(0);
@@ -3102,14 +3374,19 @@ export function QueueArcade({
           window.history.pushState({ queueArcadeView: "play" }, "", playHref);
         }
       } catch {
-        if (roomSettingsRef.current === settings) {
+        if (!controller.signal.aborted && roomSettingsRef.current === settings) {
           roomSettingsRef.current = null;
           setRoomError(
-            privateCode ? "Could not join that private room · retrying." : "Could not join the public room · retrying.",
+            privateCode
+              ? "Could not join that party. Retry or return to the lobby."
+              : "Could not join the public room. Press Play to retry.",
           );
         }
       } finally {
-        joiningRoomRef.current = false;
+        if (entryRequestRef.current === controller) {
+          entryRequestRef.current = null;
+          joiningRoomRef.current = false;
+        }
       }
     },
     [
@@ -3127,8 +3404,11 @@ export function QueueArcade({
     if (roomCode || !autoStart || window.location.pathname !== PUBLIC_ARCADE_PATH || autoStartAttemptedRef.current) {
       return;
     }
-    autoStartAttemptedRef.current = true;
-    void startRun(false);
+    const timeout = window.setTimeout(() => {
+      autoStartAttemptedRef.current = true;
+      void startRun(false);
+    }, 0);
+    return () => window.clearTimeout(timeout);
   }, [autoStart, roomCode, startRun]);
 
   const submitQuestionReport = useCallback(
@@ -3137,6 +3417,7 @@ export function QueueArcade({
       const settings = roomSettingsRef.current;
       if (!target || !settings || reportStateRef.current === "sending") return;
 
+      const reportIdentityGeneration = identityGenerationRef.current;
       updateReportState("sending");
 
       try {
@@ -3160,7 +3441,11 @@ export function QueueArcade({
           throw new Error("REPORT_FAILED");
         }
 
-        if (reportTargetRef.current?.roundId !== target.roundId) return;
+        if (
+          reportTargetRef.current?.roundId !== target.roundId ||
+          reportIdentityGeneration !== identityGenerationRef.current
+        )
+          return;
 
         if (roundIdRef.current === target.roundId) {
           setReportedReason(candidate.reason);
@@ -3176,7 +3461,10 @@ export function QueueArcade({
           expiresAt: Date.now() + 5_000,
         });
       } catch {
-        if (reportTargetRef.current?.roundId === target.roundId) {
+        if (
+          reportTargetRef.current?.roundId === target.roundId &&
+          reportIdentityGeneration === identityGenerationRef.current
+        ) {
           updateReportState("error");
         }
       }
@@ -3228,6 +3516,10 @@ export function QueueArcade({
       const snapshot = roomSnapshotRef.current;
       const settings = roomSettingsRef.current;
       if (!snapshot || !settings || snapshot.round.id !== roundIdRef.current) return;
+      const voteScope = { playerId: resultVoterId(), roomId: snapshot.room.id };
+      const voteIdentityGeneration = identityGenerationRef.current;
+      // Keep recovery metadata before sending: the server can commit after this round ends.
+      rememberGuestPendingVote(safeBrowserStorage("session"), snapshot.round.id, voteScope);
 
       try {
         const response = await fetch("/api/votes", {
@@ -3252,15 +3544,39 @@ export function QueueArcade({
 
         const result = normalizeVoteResult(payload);
         if (!result) throw new Error("VOTE_FAILED");
+        const returnedIdentity = playerIdentityKey(result.playerIdentity);
+        if (result.playerVote && returnedIdentity && returnedIdentity !== voteScope.playerId) {
+          forgetGuestPendingVote(safeBrowserStorage("session"), snapshot.round.id, voteScope);
+          rememberGuestPendingVote(safeBrowserStorage("session"), snapshot.round.id, {
+            playerId: returnedIdentity,
+            roomId: snapshot.room.id,
+          });
+        }
+        if (voteIdentityGeneration !== identityGenerationRef.current) {
+          void syncRoom(true);
+          return;
+        }
+        const identityChanged = adoptPlayerIdentity(result.playerIdentity);
+        const matchesIdentity =
+          samePlayerIdentity(result.playerIdentity, playerIdentityRef.current) ||
+          (!result.playerIdentity && !playerIdentityRef.current);
+        if (roundIdRef.current !== snapshot.round.id || !matchesIdentity) {
+          void syncRoom(true);
+          return;
+        }
 
         if (roundIdRef.current === snapshot.round.id) {
           voteRequestSettledRef.current = true;
-          setCrowd({
-            counts: result.counts,
-            total: result.total,
-            keyCounts: result.keyCounts,
-            scoreSummary: result.scoreSummary,
-          });
+          const nextCrowd =
+            !identityChanged && phaseRef.current === "reveal" && !result.scoreSummary
+              ? (roomSnapshotRef.current?.crowd ?? crowdRef.current)
+              : {
+                  counts: result.counts,
+                  total: result.total,
+                  keyCounts: result.keyCounts,
+                  scoreSummary: result.scoreSummary,
+                };
+          setCrowd(nextCrowd);
           if (result.playerVote) {
             const serverTimeLeft = Math.max(0, snapshot.round.answerDeadline - result.playerVote.submittedAt);
             selectedIndexRef.current = result.playerVote.answerIndex;
@@ -3270,17 +3586,25 @@ export function QueueArcade({
             setSelectedAnswerKey(result.playerVote.answerKey ?? null);
             setAnswerTimeLeft(serverTimeLeft);
             if (roomSnapshotRef.current?.round.id === snapshot.round.id) {
-              roomSnapshotRef.current = { ...roomSnapshotRef.current, playerVote: result.playerVote };
+              roomSnapshotRef.current = {
+                ...roomSnapshotRef.current,
+                playerVote: result.playerVote,
+                playerIdentity: result.playerIdentity,
+                playerReport: identityChanged ? null : roomSnapshotRef.current.playerReport,
+                crowd: nextCrowd,
+              };
+              participatedRef.current = true;
             }
           }
           setRoomError(null);
           setVoteError(null);
           if (phaseRef.current === "reveal" && roomSnapshotRef.current) {
-            finalizeRound(roomSnapshotRef.current, 0);
+            if (identityChanged && !result.scoreSummary) void syncRoom(true);
+            else finalizeRound(roomSnapshotRef.current, 0);
           }
         }
       } catch (cause) {
-        if (roundIdRef.current === snapshot.round.id) {
+        if (roundIdRef.current === snapshot.round.id && voteIdentityGeneration === identityGenerationRef.current) {
           const roundClosed = cause instanceof Error && cause.message === "ROUND_CLOSED";
           if (!roundClosed && phaseRef.current === "answering") {
             voteRequestSettledRef.current = false;
@@ -3300,7 +3624,7 @@ export function QueueArcade({
         void syncRoom();
       }
     },
-    [ensurePlayerId, finalizeRound, setCrowd, syncRoom],
+    [adoptPlayerIdentity, ensurePlayerId, finalizeRound, resultVoterId, setCrowd, syncRoom],
   );
 
   const chooseAnswer = useCallback(
@@ -3371,11 +3695,17 @@ export function QueueArcade({
 
   const returnToLobby = useCallback(
     (historyAction: "push" | "replace" | "none" = "push") => {
+      entryRequestRef.current?.abort();
+      entryRequestRef.current = null;
+      joiningRoomRef.current = false;
       if (phaseRef.current !== "lobby") finishAlphaSession();
       roomSyncGateRef.current?.cancel();
       roomSettingsRef.current = null;
       roomSnapshotRef.current = null;
+      playerIdentityRef.current = null;
+      identityGenerationRef.current += 1;
       roundIdRef.current = "";
+      scrollToRoundRef.current = null;
       questionRevisionRef.current = "";
       entryWaitRoundIdRef.current = "";
       entryWaitModeRef.current = null;
@@ -3452,7 +3782,7 @@ export function QueueArcade({
         return;
       }
       if (view === "party") {
-        if (phaseRef.current !== "lobby") returnToLobby("none");
+        returnToLobby("none");
         setPartyOpen(true);
         setPrivateWaiting(false);
         privateCodeRef.current = "";
@@ -3481,6 +3811,81 @@ export function QueueArcade({
     );
     return () => window.clearTimeout(timeout);
   }, [reportTarget, updateReportState, updateReportTarget]);
+
+  useEffect(() => {
+    const rememberControl = (event: FocusEvent) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement) || target === document.body) return;
+      lastRoundControlRef.current =
+        roundStageRef.current?.contains(target) && target.matches("button, input, select, textarea") ? target : null;
+    };
+    const clearOutsideClick = (event: PointerEvent) => {
+      if (event.target instanceof Node && !roundStageRef.current?.contains(event.target))
+        lastRoundControlRef.current = null;
+    };
+    document.addEventListener("focusin", rememberControl);
+    document.addEventListener("pointerdown", clearOutsideClick);
+    return () => {
+      document.removeEventListener("focusin", rememberControl);
+      document.removeEventListener("pointerdown", clearOutsideClick);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (phase === "lobby" || phase === "waiting") {
+      announcedRoundRef.current = null;
+      return;
+    }
+    if (phase !== "answering" || !currentQuestion || currentQuestion.id !== activeRoundId) return;
+    if (announcedRoundRef.current === activeRoundId) return;
+    announcedRoundRef.current = activeRoundId;
+    setRoundAnnouncement({ id: activeRoundId, text: `Round ${roundIndex + 1}. ${currentQuestion.prompt}` });
+  }, [activeRoundId, currentQuestion, phase, roundIndex]);
+
+  useEffect(() => {
+    if (phase !== "answering" || currentQuestion?.id !== activeRoundId || scrollToRoundRef.current !== activeRoundId)
+      return;
+    scrollToRoundRef.current = null;
+    const focused = document.activeElement;
+    if (
+      focused instanceof HTMLElement &&
+      (focused.closest('[data-testid="private-room-play-dock"], [data-testid="report-carryover"]') ||
+        (focused.matches('input, textarea, select, [contenteditable="true"]') &&
+          !roundStageRef.current?.contains(focused)))
+    )
+      return;
+    if (reportFocusRef.current) return;
+    const previousControl = lastRoundControlRef.current;
+    if (
+      focused === document.body &&
+      previousControl &&
+      (!previousControl.isConnected || previousControl.matches(":disabled"))
+    ) {
+      lastRoundControlRef.current = null;
+      roundHeadingRef.current?.focus({ preventScroll: true });
+    }
+    const stage = roundStageRef.current;
+    const prompt = stage?.querySelector<HTMLElement>('[data-testid="round-prompt"] h2');
+    const timer = stage?.querySelector<HTMLElement>('[data-testid="round-timer"]');
+    if (!stage || !prompt || !timer) return;
+    const promptBounds = prompt.getBoundingClientRect();
+    const timerBounds = timer.getBoundingClientRect();
+    if (promptBounds.top < timerBounds.bottom || promptBounds.bottom > window.innerHeight || timerBounds.top < 0) {
+      stage.scrollIntoView({ block: "start", inline: "nearest", behavior: "instant" });
+    }
+  }, [activeRoundId, currentQuestion?.id, phase]);
+
+  useEffect(() => {
+    const reason = reportFocusRef.current;
+    if (!reason) return;
+    const button = document.querySelector<HTMLButtonElement>(
+      `[data-testid="report-carryover"] [data-report-reason="${reason}"]`,
+    );
+    if (button) {
+      reportFocusRef.current = null;
+      button.focus({ preventScroll: true });
+    }
+  }, [activeRoundId, reportTarget]);
 
   useEffect(() => {
     if (!reportNotice) return;
@@ -3613,7 +4018,14 @@ export function QueueArcade({
     return () => window.clearTimeout(timeout);
   }, [answerDuration, currentQuestion, deadline, entryWaitDeadline, phase, revealDeadline, syncRoom]);
 
-  useEffect(() => () => roomSyncGateRef.current?.cancel(), []);
+  useEffect(
+    () => () => {
+      roomSyncGateRef.current?.cancel();
+      entryRequestRef.current?.abort();
+      accountRequestRef.current?.abort();
+    },
+    [],
+  );
 
   useEffect(() => {
     const timeout = window.setTimeout(() => void loadAccount(), 0);
@@ -3621,15 +4033,22 @@ export function QueueArcade({
   }, [loadAccount]);
 
   useEffect(() => {
-    const hydration = window.setTimeout(() => {
+    const hydration = window.setTimeout(async () => {
       try {
-        const storedStats = window.localStorage.getItem(STORAGE_KEY) ?? window.localStorage.getItem(LEGACY_STORAGE_KEY);
-        const currentSettings = window.localStorage.getItem(SETTINGS_KEY);
+        const storedStats =
+          safeBrowserStorage("local").getItem(STORAGE_KEY) ?? safeBrowserStorage("local").getItem(LEGACY_STORAGE_KEY);
+        const currentSettings = safeBrowserStorage("local").getItem(SETTINGS_KEY);
         const storedSettings =
           currentSettings ??
-          window.localStorage.getItem(PREVIOUS_SETTINGS_KEY) ??
-          window.localStorage.getItem(LEGACY_SETTINGS_KEY);
-        if (storedStats) setLifetimeStats({ ...EMPTY_STATS, ...JSON.parse(storedStats) });
+          safeBrowserStorage("local").getItem(PREVIOUS_SETTINGS_KEY) ??
+          safeBrowserStorage("local").getItem(LEGACY_SETTINGS_KEY);
+        if (storedStats) {
+          const storage = safeBrowserStorage("local");
+          const statsKey = storage.getItem(STORAGE_KEY) === null ? LEGACY_STORAGE_KEY : STORAGE_KEY;
+          const loaded = readGuestLifetimeStats(storage, statsKey);
+          if (statsKey === LEGACY_STORAGE_KEY) storage.setItem(STORAGE_KEY, JSON.stringify(loaded));
+          setLifetimeStats(loaded);
+        }
         if (storedSettings) {
           const settings = JSON.parse(storedSettings) as {
             soundEnabled?: boolean;
@@ -3643,6 +4062,8 @@ export function QueueArcade({
           }
         }
         ensurePlayerId();
+        const { value, current } = await loadGuestLifetimeStats(safeBrowserStorage("local"));
+        if (current) setLifetimeStats(value);
       } catch {
         // Corrupt local data should never stop a round from starting.
       } finally {
@@ -3654,13 +4075,25 @@ export function QueueArcade({
   }, [ensurePlayerId]);
 
   useEffect(() => {
+    const refreshLifetime = (event: StorageEvent) => {
+      if (event.key === STORAGE_KEY) {
+        void loadGuestLifetimeStats(safeBrowserStorage("local")).then(({ value, current }) => {
+          if (current) setLifetimeStats(value);
+        });
+      }
+    };
+    window.addEventListener("storage", refreshLifetime);
+    return () => window.removeEventListener("storage", refreshLifetime);
+  }, []);
+
+  useEffect(() => {
     if (!statsLoaded) return;
-    window.localStorage.setItem(SETTINGS_KEY, JSON.stringify({ soundEnabled, gameVolume }));
+    safeBrowserStorage("local").setItem(SETTINGS_KEY, JSON.stringify({ soundEnabled, gameVolume }));
   }, [gameVolume, soundEnabled, statsLoaded]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
+      if (!shouldHandleAnswerShortcut(event)) return;
 
       if (phaseRef.current === "answering") {
         if (currentQuestionRef.current && isPublicKeyedAnswerQuestion(currentQuestionRef.current)) return;
@@ -3837,6 +4270,11 @@ export function QueueArcade({
       data-round-id={activeRoundId || undefined}
       data-question-kind={currentQuestion?.kind}
     >
+      <div className="sr-only" data-testid="round-announcement" aria-live="polite" aria-atomic="true">
+        {phase !== "lobby" && phase !== "waiting" && roundAnnouncement?.id === activeRoundId
+          ? roundAnnouncement.text
+          : ""}
+      </div>
       <div className={styles.backdrop} aria-hidden="true">
         <span className={styles.backdropOrbOne} />
         <span className={styles.backdropOrbTwo} />
@@ -3962,6 +4400,7 @@ export function QueueArcade({
                 onClick={(event) => {
                   if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
                   event.preventDefault();
+                  returnToLobby("none");
                   privateCodeRef.current = "";
                   setActivePrivateCode("");
                   setPartyInviteCode("");
@@ -4151,8 +4590,11 @@ export function QueueArcade({
           data-content-difficulty={currentQuestion.difficulty}
           data-copy-guard={shouldBlockQuestionClipboard(phase) ? "blocked" : "allowed"}
         >
-          <h1 className="sr-only">Round {roundIndex + 1}</h1>
+          <h1 className="sr-only" ref={roundHeadingRef} data-testid="round-heading" tabIndex={-1}>
+            Round {roundIndex + 1}
+          </h1>
           <div
+            ref={roundStageRef}
             className={clsx(
               styles.gameStage,
               currentGame === "shopkeeper" && styles.shopkeeperStage,
@@ -4190,7 +4632,7 @@ export function QueueArcade({
               <div
                 className={styles.timer}
                 role="timer"
-                aria-live="polite"
+                aria-live="off"
                 aria-label={`${Math.ceil(answerRemaining / 1000)} seconds remaining`}
               >
                 <Clock3 />
@@ -4799,7 +5241,7 @@ export function QueueArcade({
                     <span className={styles.answerHelperCopy}>
                       {isOpenShopRound
                         ? isRecipeBuilderRound
-                          ? "Pick the shop items. Recipe is included."
+                          ? shopkeeperAnswerAction(currentQuestion)
                           : isSoundcheckRound
                             ? "Choose the item that made the sound"
                             : "Choose an item from the shop · Enter picks the only match"
@@ -5089,7 +5531,8 @@ export function QueueArcade({
           <Link href="/privacy">Privacy</Link>
           <Link href="/calibration">Calibration lab</Link>
           <span>
-            Dota 2 and its assets are trademarks of Valve Corporation. This project is not affiliated with Valve.
+            Dota 2 is a trademark of Valve Corporation. Game assets belong to their respective rights holders. This
+            project is not affiliated with Valve.
           </span>
         </span>
       </footer>

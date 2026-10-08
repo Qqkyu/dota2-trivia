@@ -1,0 +1,104 @@
+[
+  {
+    "script": "check-pages.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 315
+  },
+  {
+    "script": "check-party-lobby.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 17443
+  },
+  {
+    "script": "check-party-previews.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 23449
+  },
+  {
+    "script": "check-party-nicks.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 3958
+  },
+  {
+    "script": "check-party-crowd.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 16886
+  },
+  {
+    "script": "check-public-play.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 18132
+  },
+  {
+    "script": "check-reports-api.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 25182
+  },
+  {
+    "script": "check-party-api.mjs",
+    "exitCode": 1,
+    "signal": null,
+    "durationMs": 105
+  },
+  {
+    "script": "check-round-copy.mjs",
+    "exitCode": 1,
+    "signal": null,
+    "durationMs": 215
+  },
+  {
+    "script": "check-shop-search.mjs",
+    "exitCode": 1,
+    "signal": null,
+    "durationMs": 21194
+  },
+  {
+    "script": "check-layout.mjs",
+    "exitCode": 1,
+    "signal": null,
+    "durationMs": 22738
+  },
+  {
+    "script": "check-hero-search.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 19643
+  },
+  {
+    "script": "check-flashback-ui.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 8991
+  },
+  {
+    "script": "check-ui-recovery.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 6642
+  },
+  {
+    "script": "check-native-feedback-sounds.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 39868
+  },
+  {
+    "script": "check-feedback-sounds.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 45136
+  },
+  {
+    "script": "check-rate-limit-live.mjs",
+    "exitCode": 0,
+    "signal": null,
+    "durationMs": 1919
+  }
+]

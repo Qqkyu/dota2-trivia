@@ -1,0 +1,46 @@
+{
+  "reviewDate": "2026-10-08",
+  "scope": "Final directly reviewed and tested deltas after Claude snapshot",
+  "files": [
+    {
+      "path": "patches/postgres@3.4.9.patch",
+      "sha256": "044690b18b8491ae967e42518f8a45924d93a696c625f6cfbd4675a214033395",
+      "bytes": 10970
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "1fb31a4621811db09070a8bf0bdc4fea4c5f4e942213c69158a38a95ffc139a6",
+      "bytes": 144837
+    },
+    {
+      "path": "scripts/check-ingress-proof.mjs",
+      "sha256": "49e49deeffdcaca8448fad91420d9fcb60d1307afd6b0ae54cc45cfa4d892948",
+      "bytes": 4258
+    },
+    {
+      "path": "tests/proxy-ingress.test.mjs",
+      "sha256": "2001a9fb26867bf213938c9c3d47f1a0cf424151def7e3e38e7ed3b5f2dade66",
+      "bytes": 4913
+    },
+    {
+      "path": "tests/postgres-driver-recovery.test.mjs",
+      "sha256": "cd20c9ac56dedd65ab4518849b4c91e1cfbcfbb9307c3639dc01a04961cd83e6",
+      "bytes": 5444
+    },
+    {
+      "path": "tests/helpers/postgres-startup-worker.mjs",
+      "sha256": "db16e620c54081527030b477690b6f0e88f9740d4e5cb498027dd2e1e2298521",
+      "bytes": 4408
+    },
+    {
+      "path": "tests/helpers/postgres-pool-recovery-worker.mjs",
+      "sha256": "a93ba2487d2cad286f7fa29d8fac1a5c39d87f5b0c5c46ad4351fe0942e55540",
+      "bytes": 4485
+    },
+    {
+      "path": "docs/postgres-driver-patch.md",
+      "sha256": "0e94ded059cd8a537dc77e2afaeba08c07d0c4fdb5a8e104e75f329cc5dc686f",
+      "bytes": 3432
+    }
+  ]
+}

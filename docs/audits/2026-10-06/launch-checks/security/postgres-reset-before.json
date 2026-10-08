@@ -1,0 +1,12 @@
+[
+  {
+    "format": "esm",
+    "exitCode": 1,
+    "output": "{\"format\":\"esm\",\"interrupted\":\"CONNECTION_CLOSED\"}\n{\"format\":\"esm\",\"recoveredQuery\":1}\n{\"format\":\"esm\",\"error\":\"Recovered query 2 timed out\"}\n"
+  },
+  {
+    "format": "cjs",
+    "exitCode": 1,
+    "output": "{\"format\":\"cjs\",\"interrupted\":\"CONNECTION_CLOSED\"}\n{\"format\":\"cjs\",\"recoveredQuery\":1}\n{\"format\":\"cjs\",\"error\":\"Recovered query 2 timed out\"}\n"
+  }
+]

@@ -1,0 +1,132 @@
+{
+  "ok": true,
+  "players": 100,
+  "startedAt": 1791293923819,
+  "scenarios": [
+    {
+      "game": "soundcheck",
+      "stages": [
+        {
+          "stage": 1,
+          "requests": 100,
+          "totalBytes": 976800,
+          "responseBytes": 9768,
+          "contentType": "audio/wav",
+          "sha256": "9b3c0cc89ff525bbd19748bddfd19b9623039a3591820016d37b5d97426aa384",
+          "p50Ms": 1457.58,
+          "p95Ms": 1459.13,
+          "p99Ms": 1459.2,
+          "maxMs": 1459.2081079999998
+        },
+        {
+          "stage": 2,
+          "requests": 100,
+          "totalBytes": 2144000,
+          "responseBytes": 21440,
+          "contentType": "audio/wav",
+          "sha256": "332daa10227c963111cda23351b448a573706b66f7ca5534eec4223f819b89b5",
+          "p50Ms": 136.79,
+          "p95Ms": 243.13,
+          "p99Ms": 247.93,
+          "maxMs": 249.06500899999992
+        },
+        {
+          "stage": 3,
+          "requests": 100,
+          "totalBytes": 19452400,
+          "responseBytes": 194524,
+          "contentType": "audio/wav",
+          "sha256": "970de1b2c55aa6ac793dd151bd2381cbcdfee15e95a9dd6e67a1ac3c3eede5ea",
+          "p50Ms": 93.56,
+          "p95Ms": 213.03,
+          "p99Ms": 219.55,
+          "maxMs": 222.9477480000005
+        }
+      ]
+    },
+    {
+      "game": "echo-hunt",
+      "stages": [
+        {
+          "stage": 1,
+          "requests": 100,
+          "totalBytes": 446100,
+          "responseBytes": 4461,
+          "contentType": "audio/mpeg",
+          "sha256": "cf17ab2e29e379c2bc891f61e3730db97779b738ce8b6cc94f4c68cb54a3490b",
+          "p50Ms": 1229.66,
+          "p95Ms": 1230.04,
+          "p99Ms": 1230.09,
+          "maxMs": 1230.1518680000008
+        },
+        {
+          "stage": 2,
+          "requests": 100,
+          "totalBytes": 983700,
+          "responseBytes": 9837,
+          "contentType": "audio/mpeg",
+          "sha256": "9136444191cc66dfddd3524f51d928c20d750e0025fb7a39830574a894f3c0fb",
+          "p50Ms": 143.69,
+          "p95Ms": 190.84,
+          "p99Ms": 219.21,
+          "maxMs": 220.44223200000124
+        },
+        {
+          "stage": 3,
+          "requests": 100,
+          "totalBytes": 6086400,
+          "responseBytes": 60864,
+          "contentType": "audio/mpeg",
+          "sha256": "b348b405eaa3884adfc9b393b86b32068e9b64086185d1901fc5379dfcfaf99c",
+          "p50Ms": 141.27,
+          "p95Ms": 223.43,
+          "p99Ms": 229.64,
+          "maxMs": 230.49746199999936
+        }
+      ]
+    },
+    {
+      "game": "fogged-vision",
+      "stages": [
+        {
+          "stage": 1,
+          "requests": 100,
+          "totalBytes": 2289300,
+          "responseBytes": 22893,
+          "contentType": "image/png",
+          "sha256": "459fd2d27d35066f13f5029bbeb3b9e3542f1bf773501311121f6c8a54ac3c68",
+          "p50Ms": 356.79,
+          "p95Ms": 357.73,
+          "p99Ms": 357.91,
+          "maxMs": 357.97506299999804
+        },
+        {
+          "stage": 2,
+          "requests": 100,
+          "totalBytes": 3098800,
+          "responseBytes": 30988,
+          "contentType": "image/png",
+          "sha256": "7a86bcbfb6d2b8875d57ede6529cfe751e476c180c7cd2c6a8ca471faff9ed2b",
+          "p50Ms": 288.84,
+          "p95Ms": 410.96,
+          "p99Ms": 439.59,
+          "maxMs": 442.09563799999887
+        },
+        {
+          "stage": 3,
+          "requests": 100,
+          "totalBytes": 4744300,
+          "responseBytes": 47443,
+          "contentType": "image/png",
+          "sha256": "51c2c358511287ef9145e7a7c806cdc243248cf556eef88db68a39b856698d7c",
+          "p50Ms": 191.24,
+          "p95Ms": 282.88,
+          "p99Ms": 289.74,
+          "maxMs": 290.87788
+        }
+      ]
+    }
+  ],
+  "endedAt": 1791293965766,
+  "requests": 1512
+}

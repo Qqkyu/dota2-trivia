@@ -9,7 +9,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-  const rateLimited = rateLimitRequest(request, "presence", "public-room", 60);
+  const rateLimited = rateLimitRequest(request, "presence", "public-room", 600, 600);
   if (rateLimited) return rateLimited;
 
   const room = publicRoomFor({ gameId: DEFAULT_GAME_ID, mode: PUBLIC_ARCADE_MODE, filter: "Mixed" });

@@ -1,0 +1,136 @@
+2.337.0
+v22.23.3
+Google Chrome 154.0.8037.97 
+Client:
+ Version:           29.1.3
+ API version:       1.52
+ Go version:        go1.24.4
+ Git commit:        29.1.3-0ubuntu3~24.04.2
+ Built:             Wed Apr 29 16:41:06 2026
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server:
+ Engine:
+  Version:          29.1.3
+  API version:      1.52 (minimum version 1.44)
+  Go version:       go1.24.4
+  Git commit:       29.1.3-0ubuntu3~24.04.2
+  Built:            Wed Apr 29 16:41:06 2026
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          2.2.1
+  GitCommit:        
+ runc:
+  Version:          1.3.4-0ubuntu1~24.04.1
+  GitCommit:        
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        
+github.com/docker/buildx 0.30.1 0.30.1-0ubuntu1~24.04.1
+Server String: /tmp/queue-runner-runtime/pulse/native
+Library Protocol Version: 35
+Server Protocol Version: 35
+Is Local: yes
+Client Index: 0
+Tile Size: 65472
+User Name: runner
+Host Name: 2e3e3ed6c7f4
+Server Name: pulseaudio
+Server Version: 16.1
+Default Sample Specification: s16le 2ch 44100Hz
+Default Channel Map: front-left,front-right
+Default Sink: auto_null
+Default Source: auto_null.monitor
+Cookie: 556c:0bc8
+Unable to find image 'postgres:17-alpine' locally
+17-alpine: Pulling from library/postgres
+a8a481ae6efc: Pulling fs layer
+3333950675b2: Pulling fs layer
+eb805f20f060: Pulling fs layer
+e2de96513ba9: Pulling fs layer
+93a3470d5852: Pulling fs layer
+7ccdb0dcae74: Pulling fs layer
+4ece9a32c307: Pulling fs layer
+f3b07e8a357c: Pulling fs layer
+43f9814c9a3b: Pulling fs layer
+b0a0d9d2abf2: Pulling fs layer
+eb805f20f060: Download complete
+b0a0d9d2abf2: Download complete
+a8a481ae6efc: Download complete
+43f9814c9a3b: Download complete
+3333950675b2: Download complete
+e2de96513ba9: Download complete
+7ccdb0dcae74: Download complete
+93a3470d5852: Download complete
+4ece9a32c307: Download complete
+656469e78267: Download complete
+e2de96513ba9: Pull complete
+4ece9a32c307: Pull complete
+43f9814c9a3b: Pull complete
+3333950675b2: Pull complete
+fa8e66b88311: Download complete
+f3b07e8a357c: Download complete
+eb805f20f060: Pull complete
+f3b07e8a357c: Pull complete
+7ccdb0dcae74: Pull complete
+93a3470d5852: Pull complete
+b0a0d9d2abf2: Pull complete
+a8a481ae6efc: Pull complete
+Digest: sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24
+Status: Downloaded newer image for postgres:17-alpine
+7bd9499c1ff783385f56d004954a70b13c9d5ffd43008be3ee615e402abac775
+/var/run/postgresql:5432 - no response
+/var/run/postgresql:5432 - no response
+/var/run/postgresql:5432 - accepting connections
+Unable to find image 'node:22-alpine' locally
+22-alpine: Pulling from library/node
+d39db1cf9caa: Pulling fs layer
+e554276b05e6: Pulling fs layer
+f7f2d304681a: Pulling fs layer
+d39db1cf9caa: Download complete
+e554276b05e6: Download complete
+15c907cd5cbc: Download complete
+707399b387b7: Download complete
+f7f2d304681a: Download complete
+e554276b05e6: Pull complete
+f7f2d304681a: Pull complete
+d39db1cf9caa: Pull complete
+Digest: sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
+Status: Downloaded newer image for node:22-alpine
+3c1b3fd33154cea34e681be2f11b04d33ff8f48d91a448d03ecfae035ed6ef02
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 76B done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/node:22-alpine
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/2] FROM docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
+#4 resolve docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402 0.1s done
+#4 DONE 0.3s
+
+#5 [2/2] RUN node --version
+#5 0.226 v22.23.3
+#5 DONE 0.3s
+
+#6 exporting to image
+#6 exporting layers
+#6 exporting layers 0.3s done
+#6 exporting manifest sha256:f8bf219be0956b2ddb2b25f823434792e9b576d4219910243b5769228ae02bcb 0.1s done
+#6 exporting config sha256:05e3e900782d85115570e73ee38d43914d043675754ea26cb9e471abeb5df6b9 0.1s done
+#6 exporting attestation manifest sha256:65871b381c3c953248accbb985d4127d9dac59de0890cd7fc8ac34f153ba6a19 0.1s done
+#6 exporting manifest list sha256:706450bb4737ad9488e94e0981630135f5e022b9161d7fcdc061ba80ef2881e8 0.0s done
+#6 naming to docker.io/library/queue-runner-preflight:local 0.0s done
+#6 unpacking to docker.io/library/queue-runner-preflight:local 0.0s done
+#6 DONE 0.6s
+queue-runner-preflight-pg
+queue-runner-preflight-http
+Preflight passed: runner, Node, Docker build, Chrome sandbox, PulseAudio, mapped Postgres, host-network HTTP.

@@ -1,0 +1,36 @@
+import os
+os.environ['OPENBLAS_NUM_THREADS']='1';os.environ['OMP_NUM_THREADS']='1'
+import json,math,warnings,hashlib
+from pathlib import Path
+import numpy as np
+from scipy.io import wavfile
+from scipy import signal
+root=Path('/tmp/queue-arcade-launch-checks/soundcheck');plan=json.loads((root/'playback-plan.json').read_text())['cases'];results=[]
+def resample(a,sr):
+ g=math.gcd(sr,44100);return signal.resample_poly(a,44100//g,sr//g,axis=0)
+def reference(path):
+ with warnings.catch_warnings():
+  warnings.simplefilter('ignore');sr,a=wavfile.read(path)
+ if np.issubdtype(a.dtype,np.integer):a=a.astype(np.float64)/max(abs(np.iinfo(a.dtype).min),np.iinfo(a.dtype).max)
+ if a.ndim==1:a=np.repeat(a[:,None],2,axis=1)
+ return resample(a,sr)
+def fit(recording,ref):
+ cross=signal.correlate(recording,ref,mode='valid',method='fft');at=int(np.argmax(cross));sample=recording[at:at+len(ref)];den=float(np.dot(ref,ref));gain=float(np.dot(sample,ref)/max(den,1e-20));cor=float(np.dot(sample,ref)/max(np.sqrt(np.dot(sample,sample)*den),1e-20));recording[at:at+len(ref)]-=ref*gain;return {'atSeconds':at/44100,'gain':gain,'correlation':cor}
+def check(row):
+ c=plan[row['index']];raw=(root/row['file']).read_bytes();audio=np.frombuffer(raw,dtype='<f4').reshape(-1,2).astype(np.float64);y=resample(audio,44100);initial=float(np.sum(y*y));fits=[]
+ for clip in c['clips']:
+  ref=reference(root/clip['file'])*row['volume'];fits.append([fit(y[:,channel],ref[:,channel]) for channel in range(2)])
+ remainder=float(np.sum(y*y))/max(initial,1e-20);calls=[x for x in row['calls'] if 'round-audio' in x['src']];ordered=all(fits[i][0]['atSeconds']<fits[i+1][0]['atSeconds'] for i in range(len(fits)-1));gaps=[fits[i+1][0]['atSeconds']-fits[i][0]['atSeconds']-c['clips'][i]['duration'] for i in range(len(fits)-1)];ok=remainder<.04 and len(calls)==len(c['clips']) and all(x.get('resolved') and 'endedAt'in x and not x.get('error') for x in calls) and all(.9<x['gain']<1.1 and x['correlation']>.98 for pair in fits for x in pair) and ordered and float(np.max(np.abs(audio)))<1
+ return {'captureFile':row['captureFile'],'index':row['index'],'questionId':row['questionId'],'stage':row['stage'],'pcmSha256':hashlib.sha256(raw).hexdigest(),'frames':len(audio),'nativePeak':float(np.max(np.abs(audio))),'fits':fits,'residualFraction':remainder,'ordered':ordered,'gapsSeconds':gaps,'pass':ok}
+
+files=sorted((f for f in root.glob('browser-results-*.json') if 'control-' not in f.name),key=lambda f:(f.name not in ['browser-results-0.json','browser-results-3.json'],f.stat().st_mtime))
+attempts=[]
+for file in files:
+ for row in json.loads(file.read_text()):attempts.append(check({**row,'captureFile':file.name}))
+latest={}
+for row in attempts:latest[row['index']]=row
+results=sorted(latest.values(),key=lambda x:x['index'])
+summary={'cases':len(results),'passed':sum(x['pass'] for x in results),'failed':[x for x in results if not x['pass']],'attemptsTotal':len(attempts),'attemptsFailed':[x for x in attempts if not x['pass']],'minimumCorrelation':min((c['correlation'] for r in results for p in r['fits'] for c in p),default=0),'maxResidualFraction':max((r['residualFraction'] for r in results),default=0),'maxOutputPeak':max((r['nativePeak'] for r in results),default=0),'results':results}
+(root/'native-verification.json').write_text(json.dumps(summary,indent=2)+'\n')
+(root/'native-repeat-verification.json').write_text(json.dumps([r for r in attempts if r['captureFile'] not in ['browser-results-0.json','browser-results-3.json','browser-results-279.json']],indent=2)+'\n')
+print(json.dumps({k:v for k,v in summary.items() if k!='results'},indent=2))

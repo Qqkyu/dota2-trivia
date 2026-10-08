@@ -1,0 +1,16 @@
+{
+  "check": "unit-tests",
+  "command": "Node22 vitest run --maxWorkers=2",
+  "startedAt": "2026-10-08T14:54:50.748112+00:00",
+  "endedAt": "2026-10-08T14:55:21.261521+00:00",
+  "exit": 0,
+  "databaseTestsConfigured": true,
+  "launchDatabaseTestsConfigured": true,
+  "logSha256": "34a14123376cc9ca67e7bf5f41bd3f6ae4dfc5e33252caf8576c59584fd2e5d6",
+  "driverFixInputs": {
+    "patches/postgres@3.4.9.patch": "044690b18b8491ae967e42518f8a45924d93a696c625f6cfbd4675a214033395",
+    "pnpm-lock.yaml": "1fb31a4621811db09070a8bf0bdc4fea4c5f4e942213c69158a38a95ffc139a6",
+    "tests/postgres-driver-recovery.test.mjs": "cd20c9ac56dedd65ab4518849b4c91e1cfbcfbb9307c3639dc01a04961cd83e6",
+    "tests/helpers/postgres-pool-recovery-worker.mjs": "a93ba2487d2cad286f7fa29d8fac1a5c39d87f5b0c5c46ad4351fe0942e55540"
+  }
+}

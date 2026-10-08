@@ -1,0 +1,182 @@
+{
+  "hero-quote:npc_dota_hero_lich:lich_kill_06": {
+    "reason": "The original text is also spoken by Disruptor as dis_kill_04, so the full-hero quote answer is ambiguous.",
+    "expected": {
+      "id": "hero-quote:npc_dota_hero_lich:lich_kill_06",
+      "explanation": "\u201cYou'll be looking up at the grass.\u201d is spoken by Lich.",
+      "source": {
+        "label": "Dotabase hero responses \u00b7 2026-09-15",
+        "url": "https://github.com/mdiller/dotabase"
+      },
+      "detail": "You'll be looking up at the grass."
+    },
+    "set": {
+      "id": "hero-quote:npc_dota_hero_lich:lich_rare_02",
+      "explanation": "\u201cThose who disturb my peace shall be left in pieces.\u201d is spoken by Lich.",
+      "source": {
+        "label": "Dotabase Lich responses \u00b7 reviewed 2026-10-06",
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/lich.json"
+      },
+      "detail": "Those who disturb my peace shall be left in pieces."
+    },
+    "evidence": {
+      "sourceUrl": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/lich.json",
+      "sourceFileSha256": "f07d1755e65285a9f3908c18144d389692ea7694c1ef081febed490c16c0b098",
+      "responseName": "lich_rare_02",
+      "heroId": 31,
+      "uniqueHeroIdAcross91246Responses": 31
+    }
+  },
+  "hero-quote:npc_dota_hero_sniper:snip_kill_12": {
+    "reason": "The original consists only of repeated Hee laughter. It supplies no meaningful text clue.",
+    "expected": {
+      "id": "hero-quote:npc_dota_hero_sniper:snip_kill_12",
+      "explanation": "\u201cHee hee hee hee hee hee hee hee hee hee!\u201d is spoken by Sniper.",
+      "source": {
+        "label": "Dotabase hero responses \u00b7 2026-09-15",
+        "url": "https://github.com/mdiller/dotabase"
+      },
+      "detail": "Hee hee hee hee hee hee hee hee hee hee!"
+    },
+    "set": {
+      "id": "hero-quote:npc_dota_hero_sniper:snip_rare_04",
+      "explanation": "\u201cWhy am I smiling? This is what trigger-happy looks like.\u201d is spoken by Sniper.",
+      "source": {
+        "label": "Dotabase Sniper responses \u00b7 reviewed 2026-10-06",
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/sniper.json"
+      },
+      "detail": "Why am I smiling? This is what trigger-happy looks like."
+    },
+    "evidence": {
+      "sourceUrl": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/sniper.json",
+      "sourceFileSha256": "90da364bc0a63ad5b3485d4a076a09e6b7ddb4cd03b4d7b79f9fde23e7bac751",
+      "responseName": "snip_rare_04",
+      "heroId": 35,
+      "uniqueHeroIdAcross91246Responses": 35
+    }
+  },
+  "hero-quote:npc_dota_hero_techies:tech_firstblood_03": {
+    "reason": "The original is a near-duplicate of the retained tech_firstblood_01 quote, differing mainly in a vocalization and trailing Nope.",
+    "expected": {
+      "id": "hero-quote:npc_dota_hero_techies:tech_firstblood_03",
+      "explanation": "\u201cFirst blood? Uh, I only see a crater. Awwww.. No blood? Nope.\u201d is spoken by Techies.",
+      "source": {
+        "label": "Dotabase hero responses \u00b7 2026-09-15",
+        "url": "https://github.com/mdiller/dotabase"
+      },
+      "detail": "First blood? Uh, I only see a crater. Awwww.. No blood? Nope."
+    },
+    "set": {
+      "id": "hero-quote:npc_dota_hero_techies:tech_levelup_09",
+      "explanation": "\u201cMy mind is exploding with ideas. Not literally I hope!\u201d is spoken by Techies.",
+      "source": {
+        "label": "Dotabase Techies responses \u00b7 reviewed 2026-10-06",
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/techies.json"
+      },
+      "detail": "My mind is exploding with ideas. Not literally I hope!"
+    },
+    "evidence": {
+      "sourceUrl": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/techies.json",
+      "sourceFileSha256": "6188c847ec096405f5e6103a5dc3b06febee3518b3baca14c01b4698950b437d",
+      "responseName": "tech_levelup_09",
+      "heroId": 105,
+      "uniqueHeroIdAcross91246Responses": 105
+    }
+  },
+  "hero-voice:npc_dota_hero_shredder:timb_attack_03": {
+    "reason": "The original repeats Chop seven times. Replace it with a complete spoken line for the substantial-line policy.",
+    "expected": {
+      "id": "hero-voice:npc_dota_hero_shredder:timb_attack_03",
+      "explanation": "\u201cChop chop chop chop chop chop chop!\u201d is spoken by Timbersaw.",
+      "source": {
+        "label": "Dotabase hero responses \u00b7 2026-09-15",
+        "url": "https://github.com/mdiller/dotabase"
+      },
+      "audio": {
+        "src": "https://dotabase.dillerm.io/vpk/sounds/vo/shredder/timb_attack_03.mp3"
+      }
+    },
+    "set": {
+      "id": "hero-voice:npc_dota_hero_shredder:timb_respawn_02",
+      "explanation": "\u201cTrees? Why did it have to be trees?\u201d is spoken by Timbersaw.",
+      "source": {
+        "label": "Dotabase Timbersaw responses \u00b7 reviewed 2026-10-06",
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/timbersaw.json"
+      },
+      "audio": {
+        "src": "https://dotabase.dillerm.io/vpk/sounds/vo/shredder/timb_respawn_02.mp3"
+      }
+    },
+    "evidence": {
+      "sourceUrl": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/timbersaw.json",
+      "sourceFileSha256": "c327771f7a20ecde39d8e61280561a2ce56e19a0a7f82e6c3224ea01ef1089a6",
+      "responseName": "timb_respawn_02",
+      "heroId": 98,
+      "uniqueHeroIdAcross91246Responses": 98
+    }
+  },
+  "hero-voice:npc_dota_hero_jakiro:jak_kill_06": {
+    "reason": "The original first240ms prefix has -88.78dB RMS. The replacement first prefix has -34.43dB RMS and a distinct spoken sentence.",
+    "expected": {
+      "id": "hero-voice:npc_dota_hero_jakiro:jak_kill_06",
+      "explanation": "\u201cAnother kill for me! No, me!\u201d is spoken by Jakiro.",
+      "source": {
+        "label": "Dotabase hero responses \u00b7 2026-09-15",
+        "url": "https://github.com/mdiller/dotabase"
+      },
+      "audio": {
+        "src": "https://dotabase.dillerm.io/vpk/sounds/vo/jakiro/jak_kill_06.mp3"
+      }
+    },
+    "set": {
+      "id": "hero-voice:npc_dota_hero_jakiro:jak_kill_11",
+      "explanation": "\u201cWe burned your candle at both ends.\u201d is spoken by Jakiro.",
+      "source": {
+        "label": "Dotabase Jakiro responses \u00b7 reviewed 2026-10-06",
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/jakiro.json"
+      },
+      "audio": {
+        "src": "https://dotabase.dillerm.io/vpk/sounds/vo/jakiro/jak_kill_11.mp3"
+      }
+    },
+    "evidence": {
+      "sourceUrl": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/jakiro.json",
+      "sourceFileSha256": "010b4dc56201aa3cca8f075a1821936fbe8f8a5e0be414e75913d6d9c9f37667",
+      "responseName": "jak_kill_11",
+      "heroId": 64,
+      "audioMetricsFile": "voices-low-prefix-replacements.json"
+    }
+  },
+  "hero-voice:npc_dota_hero_ancient_apparition:appa_kill_06": {
+    "reason": "The original first240ms prefix has -77.68dB RMS. The replacement first prefix has -42.10dB RMS, with a -20.01dB peak.",
+    "expected": {
+      "id": "hero-voice:npc_dota_hero_ancient_apparition:appa_kill_06",
+      "explanation": "\u201cFrom time's cradle I bring death.\u201d is spoken by Ancient Apparition.",
+      "source": {
+        "label": "Dotabase hero responses \u00b7 2026-09-15",
+        "url": "https://github.com/mdiller/dotabase"
+      },
+      "audio": {
+        "src": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_kill_06.mp3"
+      }
+    },
+    "set": {
+      "id": "hero-voice:npc_dota_hero_ancient_apparition:appa_blink_02",
+      "explanation": "\u201cSharp as winter's teeth.\u201d is spoken by Ancient Apparition.",
+      "source": {
+        "label": "Dotabase Ancient Apparition responses \u00b7 reviewed 2026-10-06",
+        "url": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/ancient_apparition.json"
+      },
+      "audio": {
+        "src": "https://dotabase.dillerm.io/vpk/sounds/vo/ancient_apparition/appa_blink_02.mp3"
+      }
+    },
+    "evidence": {
+      "sourceUrl": "https://raw.githubusercontent.com/mdiller/dotabase/7ec2f5a91d21f52aae5a37bf12caa3c057fdbffa/json/responses/ancient_apparition.json",
+      "sourceFileSha256": "debe0d8664bdd2cebaf1904402e749e785b2d6421e1685ce812e312635ba0beb",
+      "responseName": "appa_blink_02",
+      "heroId": 68,
+      "audioMetricsFile": "voices-aa-candidate-probes.json"
+    }
+  }
+}

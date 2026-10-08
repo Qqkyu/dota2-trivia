@@ -1,0 +1,6 @@
+{
+  "quietWindow": "Builds, image scans, Android emulation, assistive browser container, and local browser suites were stopped before this run.",
+  "result": "All game and container checks passed, including the one-second round/vote p95 target.",
+  "limits": "Four synthetic players over ten rounds, with bounded cold media. This is a local model of the published free-preview resource limits, not a hosted throughput, uptime, or long-term leak test.",
+  "coldMedia": "All nine stages passed. The first image stage reached 3.10 seconds p95. The API latency target does not cover cold-media download and conversion."
+}

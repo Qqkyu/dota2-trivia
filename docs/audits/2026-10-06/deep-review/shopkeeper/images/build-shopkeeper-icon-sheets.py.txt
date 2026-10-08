@@ -1,0 +1,47 @@
+from pathlib import Path
+from PIL import Image,ImageDraw,ImageFont,ImageStat
+import json,hashlib,math
+cache=Path('/tmp/queue-arcade-deep-review/shopkeeper-icon-cache')
+out=Path('docs/audits/2026-10-06/deep-review/shopkeeper/images');out.mkdir(parents=True,exist_ok=True)
+manifest=json.loads((cache/'manifest.json').read_text())
+font=ImageFont.truetype('/usr/share/fonts/truetype/ubuntu/Ubuntu-R.ttf',16)
+small=ImageFont.truetype('/usr/share/fonts/truetype/ubuntu/Ubuntu-R.ttf',13)
+heading=ImageFont.truetype('/usr/share/fonts/truetype/ubuntu/Ubuntu-M.ttf',22)
+cols,rows,w,h=7,9,208,188
+images=[]
+for e in manifest['entries']:
+ with Image.open(cache/e['cacheFilename']) as original:
+  original.verify()
+ with Image.open(cache/e['cacheFilename']) as original:
+  image=original.convert('RGBA');e['decodedWidth'],e['decodedHeight']=image.size
+  e['nontransparentBounds']=image.getchannel('A').getbbox()
+  e['rgbStandardDeviation']=ImageStat.Stat(image.convert('RGB')).stddev
+  if not e['nontransparentBounds'] or max(e['rgbStandardDeviation'])<1:raise ValueError('Blank '+e['key'])
+  images.append(image.copy())
+for page in range(math.ceil(len(images)/(cols*rows))):
+ start=page*cols*rows;end=min(len(images),start+cols*rows)
+ pageRows=math.ceil((end-start)/cols)
+ sheet=Image.new('RGB',(cols*w+24,pageRows*h+78),(13,21,29));draw=ImageDraw.Draw(sheet)
+ draw.text((14,10),f'Shopkeeper item icons {start+1}-{end} of {len(images)}',font=heading,fill=(242,244,247))
+ draw.text((14,41),'Current catalog artwork and labels. This sheet does not verify live-client shop order.',font=small,fill=(182,196,210))
+ for i in range(start,end):
+  e=manifest['entries'][i];col=(i-start)%cols;row=(i-start)//cols;x=12+col*w;y=70+row*h
+  draw.rounded_rectangle((x,y,x+w-8,y+h-7),radius=5,fill=(25,37,49))
+  image=images[i].copy();image.thumbnail((176,116),Image.Resampling.LANCZOS)
+  if image.width<150:
+   ratio=min(176/image.width,116/image.height);image=image.resize((round(image.width*ratio),round(image.height*ratio)),Image.Resampling.LANCZOS)
+  sheet.paste(image,(x+(w-8-image.width)//2,y+4),image)
+  label=f'{i+1}. {e["name"]}';words=label.split();lines=[];line=''
+  for word in words:
+   proposal=f'{line} {word}'.strip()
+   if draw.textlength(proposal,font=font)>w-20 and line:lines.append(line);line=word
+   else:line=proposal
+  if line:lines.append(line)
+  for j,line in enumerate(lines):draw.text((x+7,y+123+j*18),line,font=font,fill=(243,245,248))
+  draw.text((x+7,y+h-25),e['key'],font=small,fill=(165,188,210))
+  e['contactSheet']=f'items-{page+1:02d}.jpg';e['sheetRow']=row+1;e['sheetColumn']=col+1
+ sheet.save(out/f'items-{page+1:02d}.jpg',quality=94,subsampling=0)
+manifest['visualReview']='Pending contact-sheet inspection.'
+manifest['sheets']=[{'file':p.name,'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'bytes':p.stat().st_size} for p in sorted(out.glob('items-*.jpg'))]
+(out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+print(json.dumps({'items':len(images),'sheets':len(manifest['sheets']),'dimensions':sorted(set((e['decodedWidth'],e['decodedHeight']) for e in manifest['entries']))}))

@@ -1,0 +1,14 @@
+[
+  {
+    "module": "esm",
+    "exitCode": 0,
+    "stdout": "{\"ok\":true,\"mode\":\"mixed-window\",\"recoveredQueries\":3}\n",
+    "stderr": ""
+  },
+  {
+    "module": "cjs",
+    "exitCode": 0,
+    "stdout": "{\"ok\":true,\"mode\":\"mixed-window\",\"recoveredQueries\":3}\n",
+    "stderr": ""
+  }
+]

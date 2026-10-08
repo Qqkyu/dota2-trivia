@@ -1,0 +1,18 @@
+{
+  "appUrl": "http://127.0.0.1:3319",
+  "buildId": "sC6gD0NWB3unDRTq6LaOu",
+  "browser": "Chromium 153",
+  "fixtureSelection": "longest raw explanation per kind and sound format",
+  "fixtureCases": 31,
+  "viewports": [
+    "320x568",
+    "360x640",
+    "390x844",
+    "568x320",
+    "1280x640"
+  ],
+  "note": "Final production verification of the natural-height reveal explanations. See results.json for the completed assertions and states.",
+  "states": 355,
+  "passedAssertions": 1151,
+  "failedAssertions": 0
+}

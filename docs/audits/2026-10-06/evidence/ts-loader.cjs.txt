@@ -1,0 +1,16 @@
+const fs = require('node:fs');
+const Module = require('node:module');
+const path = require('node:path');
+const root = '/home/kulmisiu/dev/dota2-trivia';
+const ts = require(root + '/node_modules/typescript');
+const originalResolve = Module._resolveFilename;
+Module._resolveFilename = function (specifier, parent, ...rest) {
+  if (specifier.startsWith('@/')) specifier = path.join(root, 'src', specifier.slice(2));
+  return originalResolve.call(this, specifier, parent, ...rest);
+};
+Module._extensions['.ts'] = function (module, filename) {
+  const source = fs.readFileSync(filename, 'utf8');
+  const result = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS, esModuleInterop: true } });
+  module._compile(result.outputText, filename);
+};
+module.exports = { root };

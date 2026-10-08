@@ -1,0 +1,53 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {soundBrowser,click,delay} from '/home/kulmisiu/dev/dota2-trivia/scripts/lib/feedback-browser.mjs';
+import {nativeAudioOutput} from '/home/kulmisiu/dev/dota2-trivia/scripts/lib/native-audio-output.mjs';
+const root='/tmp/queue-arcade-launch-checks/soundcheck',plan=JSON.parse(await readFile(root+'/playback-plan.json','utf8'));
+const fault=process.env.FAULT??'',run=process.env.RUN??'',recordDir='recordings'+(fault?'-'+fault:'')+(run?'-'+run:'');
+const limit=Number(process.env.LIMIT??288),start=Number(process.env.START??0),results=[];
+await mkdir(root+'/'+recordDir,{recursive:true});
+function install(cases,originNow,fault){
+ const fetchNative=window.fetch.bind(window),realNow=Date.now;
+ const json=v=>new Response(JSON.stringify(v),{headers:{'Content-Type':'application/json'}});
+ const crowd={counts:[0,0,0,0],total:0,keyCounts:[],scoreSummary:null};let index=-1,gate=true,frozen=null;
+ Date.now=()=>frozen??realNow();
+ const playNative=HTMLMediaElement.prototype.play;window.__nativeCalls=[];
+ HTMLMediaElement.prototype.play=function(...args){const call={src:this.src,volume:this.volume,at:performance.now()};window.__nativeCalls.push(call);this.addEventListener('ended',()=>{call.endedAt=performance.now();call.duration=this.duration;},{once:true});if(fault==='silent'&&index>=0)this.muted=true;if(fault==='duplicate'&&index>=0&&this.src.includes('round-audio')){const copy=new Audio(this.src);copy.volume=this.volume;setTimeout(()=>void playNative.call(copy).catch(()=>{}),65);}const p=playNative.apply(this,args);p.then(()=>{call.resolved=true;},e=>{call.error=e.name;});return p;};
+ window.__launchSound={set(i){frozen??=realNow();index=i;window.dispatchEvent(new Event('online'));},calls:()=>window.__nativeCalls};
+ window.fetch=async(...args)=>{const input=args[0],url=new URL(typeof input==='string'||input instanceof URL?String(input):input.url,location.href),path=url.pathname;
+ if(!path.startsWith('/api/'))return fetchNative(...args);if(path==='/api/me')return json({authenticated:false});if(path!=='/api/rounds')return json({activePlayers:1});
+ const now=Date.now(),c=cases[index<0?0:index],first=gate;gate=false;const id=first?'entry-gate':index<0?'warmup':c.id;const rem=index<0?15000:c.round.answerDeadline-originNow;
+ const question={...c.question,id};question.audio={src:c.question.audio.src,clips:c.question.audio.clips};
+ return json({serverNow:now,playerIdentity:{kind:'guest',id:url.searchParams.get('playerId')},room:{id:'soundcheck-launch',gameId:'dota2',contentVersion:'soundcheck-launch',mode:'mixed',filter:'Mixed'},round:{...c.round,id,number:index+1,phase:first?'reveal':'answering',startedAt:now-(15000-rem),answerDeadline:first?now-100:now+rem,revealDeadline:first?now+100:now+rem+7000},questionRevision:id,question:first?null:question,presence:{activePlayers:1},crowd,playerVote:null,playerReport:null,previousResults:[]});
+ };
+}
+const byId=new Map(plan.cases.map(c=>[c.id,c]));
+for(let offset=start;offset<Math.min(start+limit,plan.cases.length);offset+=24){
+ const output=await nativeAudioOutput();let browser;
+ try{
+ browser=await soundBrowser({muteAudio:false,env:output.env});const page=browser.page;
+ await page.send('Network.setBlockedURLs',{urls:['https://cdn.cloudflare.steamstatic.com/*','https://cdn.akamai.steamstatic.com/*']});
+ await page.send('Fetch.enable',{patterns:[{urlPattern:'*/api/*'}]});
+ page.socket.addEventListener('message',async message=>{const payload=JSON.parse(message.data);if(payload.method!=='Fetch.requestPaused')return;const{requestId,request}=payload.params;try{const url=new URL(request.url);if(url.pathname==='/api/round-audio'){const c=byId.get(url.searchParams.get('roundId')),clip=Number(url.searchParams.get('clip')??0);assert(c&&c.clips[clip]);const bytes=await readFile(root+'/'+c.clips[clip].file);await page.send('Fetch.fulfillRequest',{requestId,responseCode:200,responseHeaders:[{name:'Content-Type',value:'audio/wav'},{name:'Cache-Control',value:'no-store'}],body:bytes.toString('base64')});}else await page.send('Fetch.fulfillRequest',{requestId,responseCode:200,responseHeaders:[{name:'Content-Type',value:'application/json'}],body:Buffer.from('{}').toString('base64')});}catch(error){console.error('interception',error);await page.send('Fetch.failRequest',{requestId,errorReason:'Failed'});}});
+ await page.send('Page.addScriptToEvaluateOnNewDocument',{source:`(${install.toString()})(${JSON.stringify(plan.cases)},${plan.now},${JSON.stringify(fault)});`});
+ await page.send('Page.navigate',{url:plan.app+'/play'});
+ await page.waitFor(`document.querySelector('[data-testid="soundcheck-player"]')!==null`);
+ await page.waitFor(`['ready','blocked'].includes(document.querySelector('[data-testid="soundcheck-player"]').dataset.audioState)`);
+ if(await page.evaluate(`document.querySelector('[data-testid="soundcheck-player"]').dataset.audioState==='blocked'`))await click(page,'[data-testid="soundcheck-player"]');
+ // Grant a real user gesture even if the browser accepted this initial clip.
+ else await click(page,'[data-testid="soundcheck-player"]');
+ await delay(700);
+ for(let index=offset;index<Math.min(offset+24,start+limit,plan.cases.length);index++){
+  const c=plan.cases[index],mark=output.mark(),before=await page.evaluate('window.__nativeCalls.length');
+  await page.evaluate(`window.__launchSound.set(${index})`);
+  try { await page.waitFor(`window.__nativeCalls.slice(${before}).filter(c=>c.src.includes('round-audio')&&c.endedAt).length>=${c.clips.length}`,20000); } catch(error) { await writeFile(root+`/browser-timeout-${index}.json`,JSON.stringify(await page.evaluate(`({calls:window.__nativeCalls.slice(${before}),player:document.querySelector('[data-testid=\"soundcheck-player\"]')?.outerHTML,audio:[...document.querySelectorAll('audio')].map(a=>({src:a.src,time:a.currentTime,duration:a.duration,paused:a.paused,ended:a.ended,readyState:a.readyState,error:a.error?.message})),phase:document.querySelector('main')?.dataset.phase})`),null,2));throw error; }
+  await delay(300);
+  const channels=output.read(mark),pcm=new Float32Array(channels[0].length*2);for(let i=0;i<channels[0].length;i++){pcm[i*2]=channels[0][i];pcm[i*2+1]=channels[1][i];}
+  const file=`${recordDir}/case-${String(index).padStart(3,'0')}.f32`;await writeFile(root+'/'+file,Buffer.from(pcm.buffer));
+  const calls=await page.evaluate(`window.__nativeCalls.slice(${before})`),state=await page.evaluate(`({...document.querySelector('[data-testid="soundcheck-player"]').dataset})`),volume=await page.evaluate(`Number(document.querySelector('[data-testid="game-volume"]').value)/100`);
+  results.push({index,questionId:c.questionId,stage:c.stage,file,frames:channels[0].length,sampleRate:44100,channels:2,volume,calls,state});
+  await writeFile(root+`/browser-results-${fault?"control-"+fault+"-":""}${run?run+"-":""}${start}.json`,JSON.stringify(results,null,2)+'\n');
+  console.log(JSON.stringify({index,questionId:c.questionId,stage:c.stage,plays:calls.filter(c=>c.src.includes('round-audio')).length,frames:channels[0].length,state:state.audioState}));
+ }
+ }finally{await browser?.close();await output.close();}
+}

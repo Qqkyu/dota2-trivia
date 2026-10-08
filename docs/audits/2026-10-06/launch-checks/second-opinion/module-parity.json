@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-10-08",
+  "checks": {
+    "socketClose": true,
+    "readyForQuery": true,
+    "reservedAndTransaction": true
+  },
+  "installedFiles": [
+    {
+      "path": "node_modules/postgres/src/connection.js",
+      "sha256": "8d9d168ba8ff27f9aa341b0ccc829640939e97c7106657f448ba3b6dd2b5f0bc"
+    },
+    {
+      "path": "node_modules/postgres/cjs/src/connection.js",
+      "sha256": "864c83cef050097f3ec2c808c4936100f93982752f5d45d24d51f381fecffbc8"
+    },
+    {
+      "path": "node_modules/postgres/src/index.js",
+      "sha256": "113f368341a9e1b3572c835ef48355e050ad06953242f6b27c1e180780e5b821"
+    },
+    {
+      "path": "node_modules/postgres/cjs/src/index.js",
+      "sha256": "b45cf2beaaa5c924b78f08d27d60ec2969e0ab4cc74da610d485833fa813a655"
+    }
+  ]
+}

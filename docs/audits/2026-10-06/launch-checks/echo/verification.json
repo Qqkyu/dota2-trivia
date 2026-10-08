@@ -1,0 +1,26 @@
+{
+  "verifiedAt": "2026-10-06T13:00:34.637565+00:00",
+  "finalQuestionIdsAndRecordHashesMatched": 123,
+  "sourceRowsMatched": 123,
+  "signalRowsMatched": 123,
+  "finalStageInputHashesMatched": 369,
+  "finalStageSmallModelResultsMatched": 369,
+  "speechRecognitionRuns": 435,
+  "baselineSmallModelRuns": 369,
+  "mediumRechecks": 26,
+  "largeRechecks": 11,
+  "candidateRuns": 12,
+  "diagnosticRuns": 17,
+  "allRunsHadNoTranscriptHints": true,
+  "replaySmoke": {
+    "questionId": "hero-voice:npc_dota_hero_troll_warlord:troll_respawn_10",
+    "sourceAndTwoEncodedPrefixesByteIdentical": true
+  },
+  "applicationFixChecks": {
+    "focusedTestsPassed": 6,
+    "responseValidatorPassed": true,
+    "focusedEslintPassed": true,
+    "publicAnsweringStagesAndRevealPassed": true
+  },
+  "humanListeningPerformed": false
+}

@@ -1,0 +1,468 @@
+[
+  {
+    "name": "mobile next round restores prompt 320 flashchoice",
+    "passed": false,
+    "error": "Next prompt must be visible: {\"promptTop\":-369,\"promptBottom\":-281.25,\"timerTop\":13.25,\"timerBottom\":41.75,\"height\":568,\"scroll\":687}",
+    "state": {
+      "path": "/play",
+      "phase": "answering",
+      "text": "QUEUE ARCADE\nRound 2\nROUND 002\nFLASHBACK\n15\nWhich city was first planned to host The International 10?\nA\nBucharest\nB\nStockholm\nC\nSingapore\nD\nHamburg\nUse A–D or 1–4 to answer\nGOLD\n0\nSTREAK\n0\nRECENT ROUNDS\nROUND 2\n·\n·\n·\n·\n·\n·\n·\n·\nQueue Arcade · Built for the seconds between “Find Match” and “Accept”\nProfile\nPrivacy\nCalibration lab\nDota 2 and its assets are trademarks of Valve Corporation. This project is not affiliated with Valve.",
+      "submissions": [],
+      "calls": [
+        {
+          "path": "/api/round-audio",
+          "method": "HEAD",
+          "body": {}
+        },
+        {
+          "path": "/api/sessions",
+          "method": "POST",
+          "body": {
+            "action": "start",
+            "sessionId": "bb838e9d-55a2-48f4-956d-4f8b8a73b6ca",
+            "voterId": "b1ed0a57-612b-43cf-85d1-44d42a861d20"
+          }
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/round-audio",
+          "method": "HEAD",
+          "body": {}
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        }
+      ]
+    }
+  },
+  {
+    "name": "mobile next round restores prompt 320 hero",
+    "passed": false,
+    "error": "Next prompt must be visible: {\"promptTop\":-575,\"promptBottom\":-516.5,\"timerTop\":13.25,\"timerBottom\":41.75,\"height\":568,\"scroll\":833}",
+    "state": {
+      "path": "/play",
+      "phase": "answering",
+      "text": "QUEUE ARCADE\nRound 2\nROUND 002\nSPELL LINK\n15\nCLUE 1\n/ 3\nABILITY IDENTITY\nWhich hero owns this ability?\n01\nSummons dark energies around an ally unit, dispelling them and creating an all damage barrier that absorbs a set amount of damage before expiring. When the barrier is destroyed it will burst and deal damage equal to the amount it could absorb to an area around it.\n02\nAbility name unlocks at 10s\n03\nIcon unlocks at 5s\n\n127 HEROES · TYPE TO FILTER\n\nSTRENGTH\nAGILITY\nINTELLIGENCE\nUNIVERSAL\nChoose a hero · type to search · Enter picks the only match\nGOLD\n0\nSTREAK\n0\nRECENT ROUNDS\nROUND 2\n·\n·\n·\n·\n·\n·\n·\n·\nQueue Arcade · Built for the seconds between “Find Match” and “Accept”\nProfile\nPrivacy\nCalibration lab\nDota 2 and its assets are trademarks of Valve Corporation. This project is not affiliated with Valve.",
+      "submissions": [],
+      "calls": [
+        {
+          "path": "/api/round-audio",
+          "method": "HEAD",
+          "body": {}
+        },
+        {
+          "path": "/api/sessions",
+          "method": "POST",
+          "body": {
+            "action": "start",
+            "sessionId": "556199cb-f24d-4bda-aa19-fe331177e569",
+            "voterId": "0a9f6bf4-c6e8-4eb0-8373-ec2c50a50f31"
+          }
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/round-audio",
+          "method": "HEAD",
+          "body": {}
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        }
+      ]
+    }
+  },
+  {
+    "name": "mobile next round restores prompt 320 shop",
+    "passed": false,
+    "error": "Next prompt must be visible: {\"promptTop\":-425.140625,\"promptBottom\":-366.640625,\"timerTop\":13.25,\"timerBottom\":41.75,\"height\":568,\"scroll\":689}",
+    "state": {
+      "path": "/play",
+      "phase": "answering",
+      "text": "QUEUE ARCADE\nRound 2\nROUND 002\nSHOPKEEPER RUSH\n15\nBuckler\nHyperstone\nPlatemail\nWhat do these components build?\nBASICS\nUPGRADES\nCOMMON\nSUPPORT\nCASTER\nARMOR\nWEAPONS\nARMAMENTS\nChoose an item from the shop · Enter picks the only match\nGOLD\n0\nSTREAK\n0\nRECENT ROUNDS\nROUND 2\n·\n·\n·\n·\n·\n·\n·\n·\nQueue Arcade · Built for the seconds between “Find Match” and “Accept”\nProfile\nPrivacy\nCalibration lab\nDota 2 and its assets are trademarks of Valve Corporation. This project is not affiliated with Valve.",
+      "submissions": [],
+      "calls": [
+        {
+          "path": "/api/round-audio",
+          "method": "HEAD",
+          "body": {}
+        },
+        {
+          "path": "/api/sessions",
+          "method": "POST",
+          "body": {
+            "action": "start",
+            "sessionId": "7a7af9d2-615b-482e-a94f-a5409c254654",
+            "voterId": "798d9dbf-3041-4c98-bf34-ab08b2abe323"
+          }
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/round-audio",
+          "method": "HEAD",
+          "body": {}
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        }
+      ]
+    }
+  },
+  {
+    "name": "mobile next round restores prompt 390 flashchoice",
+    "passed": false,
+    "error": "Next prompt must be visible: {\"promptTop\":-64,\"promptBottom\":-5.5,\"timerTop\":13.25,\"timerBottom\":41.75,\"height\":844,\"scroll\":382}",
+    "state": {
+      "path": "/play",
+      "phase": "answering",
+      "text": "QUEUE ARCADE\nRound 2\nROUND 002\nFLASHBACK\n15\nWhich city was first planned to host The International 10?\nA\nBucharest\nB\nStockholm\nC\nSingapore\nD\nHamburg\nUse A–D or 1–4 to answer\nGOLD\n0\nSTREAK\n0\nRECENT ROUNDS\nROUND 2\n·\n·\n·\n·\n·\n·\n·\n·\nQueue Arcade · Built for the seconds between “Find Match” and “Accept”\nProfile\nPrivacy\nCalibration lab\nDota 2 and its assets are trademarks of Valve Corporation. This project is not affiliated with Valve.",
+      "submissions": [],
+      "calls": [
+        {
+          "path": "/api/round-audio",
+          "method": "HEAD",
+          "body": {}
+        },
+        {
+          "path": "/api/sessions",
+          "method": "POST",
+          "body": {
+            "action": "start",
+            "sessionId": "412b8289-bf84-4108-957e-3a5093d331e7",
+            "voterId": "16efbde4-4d3b-4641-96a8-1a83bb149cc8"
+          }
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/round-audio",
+          "method": "HEAD",
+          "body": {}
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        }
+      ]
+    }
+  },
+  {
+    "name": "mobile next round restores prompt 390 hero",
+    "passed": false,
+    "error": "Next prompt must be visible: {\"promptTop\":-298,\"promptBottom\":-268.75,\"timerTop\":13.25,\"timerBottom\":41.75,\"height\":844,\"scroll\":556}",
+    "state": {
+      "path": "/play",
+      "phase": "answering",
+      "text": "QUEUE ARCADE\nRound 2\nROUND 002\nSPELL LINK\n15\nCLUE 1\n/ 3\nABILITY IDENTITY\nWhich hero owns this ability?\n01\nSummons dark energies around an ally unit, dispelling them and creating an all damage barrier that absorbs a set amount of damage before expiring. When the barrier is destroyed it will burst and deal damage equal to the amount it could absorb to an area around it.\n02\nAbility name unlocks at 10s\n03\nIcon unlocks at 5s\n\n127 HEROES · TYPE TO FILTER\n\nSTRENGTH\nAGILITY\nINTELLIGENCE\nUNIVERSAL\nChoose a hero · type to search · Enter picks the only match\nGOLD\n0\nSTREAK\n0\nRECENT ROUNDS\nROUND 2\n·\n·\n·\n·\n·\n·\n·\n·\nQueue Arcade · Built for the seconds between “Find Match” and “Accept”\nProfile\nPrivacy\nCalibration lab\nDota 2 and its assets are trademarks of Valve Corporation. This project is not affiliated with Valve.",
+      "submissions": [],
+      "calls": [
+        {
+          "path": "/api/round-audio",
+          "method": "HEAD",
+          "body": {}
+        },
+        {
+          "path": "/api/sessions",
+          "method": "POST",
+          "body": {
+            "action": "start",
+            "sessionId": "aa6c46b6-2d29-4b4a-9c2c-9019e3a0934f",
+            "voterId": "68ef3c2d-8eaa-4ea8-9f4d-fe282452f8a8"
+          }
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/round-audio",
+          "method": "HEAD",
+          "body": {}
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        }
+      ]
+    }
+  },
+  {
+    "name": "mobile next round restores prompt 390 shop",
+    "passed": false,
+    "error": "Next prompt must be visible: {\"promptTop\":-149.140625,\"promptBottom\":-90.640625,\"timerTop\":13.25,\"timerBottom\":41.75,\"height\":844,\"scroll\":413}",
+    "state": {
+      "path": "/play",
+      "phase": "answering",
+      "text": "QUEUE ARCADE\nRound 2\nROUND 002\nSHOPKEEPER RUSH\n15\nBuckler\nHyperstone\nPlatemail\nWhat do these components build?\nBASICS\nUPGRADES\nCOMMON\nSUPPORT\nCASTER\nARMOR\nWEAPONS\nARMAMENTS\nChoose an item from the shop · Enter picks the only match\nGOLD\n0\nSTREAK\n0\nRECENT ROUNDS\nROUND 2\n·\n·\n·\n·\n·\n·\n·\n·\nQueue Arcade · Built for the seconds between “Find Match” and “Accept”\nProfile\nPrivacy\nCalibration lab\nDota 2 and its assets are trademarks of Valve Corporation. This project is not affiliated with Valve.",
+      "submissions": [],
+      "calls": [
+        {
+          "path": "/api/round-audio",
+          "method": "HEAD",
+          "body": {}
+        },
+        {
+          "path": "/api/sessions",
+          "method": "POST",
+          "body": {
+            "action": "start",
+            "sessionId": "0fc30480-2537-460a-8d1e-a68e7b990420",
+            "voterId": "7569c8a8-bec1-4552-bd96-c7442bb1b133"
+          }
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/api/round-audio",
+          "method": "HEAD",
+          "body": {}
+        },
+        {
+          "path": "/api/rounds",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        },
+        {
+          "path": "/undefined",
+          "method": "GET",
+          "body": {}
+        }
+      ]
+    }
+  },
+  {
+    "name": "mobile next round preserves active party chat",
+    "passed": true
+  }
+]

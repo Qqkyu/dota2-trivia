@@ -1,0 +1,33 @@
+{
+  "name": "/queue-arcade-ci-preflight-20261006",
+  "image": "sha256:285cd0c0d0fd7be15e0900938d552db30bd6dcb92e4704d338e4d42f33e34d43",
+  "state": {
+    "Status": "exited",
+    "Running": false,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 0,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-10-06T12:48:50.608723288Z",
+    "FinishedAt": "2026-10-06T12:49:50.550793524Z"
+  },
+  "privileged": true,
+  "nanoCpus": 2000000000,
+  "memory": 5368709120,
+  "memorySwap": 5368709120,
+  "mounts": [
+    {
+      "Type": "volume",
+      "Name": "queue-arcade-ci-preflight-data-20261006",
+      "Source": "/var/lib/docker/volumes/queue-arcade-ci-preflight-data-20261006/_data",
+      "Destination": "/var/lib/docker",
+      "Driver": "local",
+      "Mode": "z",
+      "RW": true,
+      "Propagation": ""
+    }
+  ]
+}

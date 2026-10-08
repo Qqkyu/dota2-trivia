@@ -1,0 +1,13 @@
+PASS expired invitation keeps its recovery form open
+PASS short party lobby keeps chat and its error slot inside the panel
+PASS new capped chat messages stay visible at the bottom
+PASS reading older messages does not jump to the bottom
+PASS failed chat preserves a newer draft and shows an error
+PASS a delayed lobby chat reply cannot reset active play
+PASS active-play chat failures are visible and do not move the dock
+PASS party membership uses explicit POST actions
+PASS calibration can reach records beyond the first 80
+PASS calibration search and filters reset pagination
+Validated party recovery, chat delivery and scrolling, stale replies, POST membership, and calibration pages.
+
+

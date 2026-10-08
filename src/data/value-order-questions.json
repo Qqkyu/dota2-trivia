@@ -7,6 +7,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:clarity,enchanted_mango,dust,tango",
       "order-v1:enchanted_mango,clarity,dust,tango",
@@ -79,12 +80,30 @@
           "item-cost:dust",
           "item-cost:tango"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=38",
+      "references": [
+        {
+          "label": "Clarity",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=38"
+        },
+        {
+          "label": "Enchanted Mango",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=216"
+        },
+        {
+          "label": "Dust of Appearance",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=40"
+        },
+        {
+          "label": "Tango",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=44"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -96,6 +115,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:bracer,magic_wand,bottle,soul_ring",
       "order-v1:magic_wand,bracer,bottle,soul_ring",
@@ -168,12 +188,30 @@
           "item-cost:bottle",
           "item-cost:soul_ring"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=36",
+      "references": [
+        {
+          "label": "Magic Wand",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=36"
+        },
+        {
+          "label": "Bracer",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=73"
+        },
+        {
+          "label": "Bottle",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=41"
+        },
+        {
+          "label": "Soul Ring",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=178"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -185,6 +223,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:falcon_blade,gem,aghanims_shard,phase_boots",
       "order-v1:gem,aghanims_shard,falcon_blade,phase_boots",
@@ -257,12 +296,30 @@
           "item-cost:aghanims_shard",
           "item-cost:phase_boots"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=30",
+      "references": [
+        {
+          "label": "Gem of True Sight",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=30"
+        },
+        {
+          "label": "Falcon Blade",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=596"
+        },
+        {
+          "label": "Aghanim's Shard",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=609"
+        },
+        {
+          "label": "Phase Boots",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=50"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -274,6 +331,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:vanguard,ghost,mekansm,glimmer_cape",
       "order-v1:ghost,mekansm,vanguard,glimmer_cape",
@@ -346,12 +404,30 @@
           "item-cost:mekansm",
           "item-cost:glimmer_cape"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=37",
+      "references": [
+        {
+          "label": "Ghost Scepter",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=37"
+        },
+        {
+          "label": "Vanguard",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=125"
+        },
+        {
+          "label": "Mekansm",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=79"
+        },
+        {
+          "label": "Glimmer Cape",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=254"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -363,6 +439,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:force_staff,blink,blade_mail,armlet",
       "order-v1:blink,force_staff,blade_mail,armlet",
@@ -435,12 +512,30 @@
           "item-cost:blade_mail",
           "item-cost:armlet"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=102",
+      "references": [
+        {
+          "label": "Force Staff",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=102"
+        },
+        {
+          "label": "Blink Dagger",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=1"
+        },
+        {
+          "label": "Blade Mail",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=127"
+        },
+        {
+          "label": "Armlet of Mordiggian",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=151"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -452,6 +547,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:cyclone,travel_boots,basher,maelstrom",
       "order-v1:travel_boots,cyclone,basher,maelstrom",
@@ -524,12 +620,30 @@
           "item-cost:basher",
           "item-cost:maelstrom"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=48",
+      "references": [
+        {
+          "label": "Boots of Travel",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=48"
+        },
+        {
+          "label": "Eul's Scepter of Divinity",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=100"
+        },
+        {
+          "label": "Skull Basher",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=143"
+        },
+        {
+          "label": "Maelstrom",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=166"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -541,6 +655,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:invis_sword,aeon_disk,orchid,desolator",
       "order-v1:aeon_disk,orchid,invis_sword,desolator",
@@ -613,12 +728,30 @@
           "item-cost:orchid",
           "item-cost:desolator"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=256",
+      "references": [
+        {
+          "label": "Aeon Disk",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=256"
+        },
+        {
+          "label": "Shadow Blade",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=152"
+        },
+        {
+          "label": "Orchid Malevolence",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=98"
+        },
+        {
+          "label": "Desolator",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=168"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -630,6 +763,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:lotus_orb,crimson_guard,moon_shard,black_king_bar",
       "order-v1:crimson_guard,moon_shard,lotus_orb,black_king_bar",
@@ -702,12 +836,30 @@
           "item-cost:moon_shard",
           "item-cost:black_king_bar"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=242",
+      "references": [
+        {
+          "label": "Crimson Guard",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=242"
+        },
+        {
+          "label": "Lotus Orb",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=226"
+        },
+        {
+          "label": "Moon Shard",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=247"
+        },
+        {
+          "label": "Black King Bar",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=116"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -719,6 +871,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:kaya_and_sange,guardian_greaves,shivas_guard,manta",
       "order-v1:guardian_greaves,kaya_and_sange,shivas_guard,manta",
@@ -791,12 +944,30 @@
           "item-cost:shivas_guard",
           "item-cost:manta"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=273",
+      "references": [
+        {
+          "label": "Kaya and Sange",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=273"
+        },
+        {
+          "label": "Guardian Greaves",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=231"
+        },
+        {
+          "label": "Shiva's Guard",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=119"
+        },
+        {
+          "label": "Manta Style",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=147"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -808,6 +979,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:sphere,bloodstone,monkey_king_bar,octarine_core",
       "order-v1:bloodstone,sphere,monkey_king_bar,octarine_core",
@@ -880,12 +1052,30 @@
           "item-cost:octarine_core",
           "item-cost:monkey_king_bar"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=121",
+      "references": [
+        {
+          "label": "Bloodstone",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=121"
+        },
+        {
+          "label": "Linken's Sphere",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=123"
+        },
+        {
+          "label": "Octarine Core",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=235"
+        },
+        {
+          "label": "Monkey King Bar",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=135"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -897,6 +1087,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:satanic,refresher,assault,greater_crit",
       "order-v1:refresher,assault,satanic,greater_crit",
@@ -969,12 +1160,30 @@
           "item-cost:greater_crit",
           "item-cost:assault"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=110",
+      "references": [
+        {
+          "label": "Refresher Orb",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=110"
+        },
+        {
+          "label": "Satanic",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=156"
+        },
+        {
+          "label": "Daedalus",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=141"
+        },
+        {
+          "label": "Assault Cuirass",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=112"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -986,6 +1195,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:butterfly,ethereal_blade,mjollnir,rapier",
       "order-v1:ethereal_blade,mjollnir,butterfly,rapier",
@@ -1058,12 +1268,30 @@
           "item-cost:mjollnir",
           "item-cost:rapier"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=176",
+      "references": [
+        {
+          "label": "Ethereal Blade",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=176"
+        },
+        {
+          "label": "Butterfly",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=139"
+        },
+        {
+          "label": "Mjollnir",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=158"
+        },
+        {
+          "label": "Divine Rapier",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=133"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -1075,6 +1303,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:silver_edge,skadi,abyssal_blade,bloodthorn",
       "order-v1:skadi,silver_edge,abyssal_blade,bloodthorn",
@@ -1147,12 +1376,30 @@
           "item-cost:abyssal_blade",
           "item-cost:bloodthorn"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=249",
+      "references": [
+        {
+          "label": "Silver Edge",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=249"
+        },
+        {
+          "label": "Eye of Skadi",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=160"
+        },
+        {
+          "label": "Abyssal Blade",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=208"
+        },
+        {
+          "label": "Bloodthorn",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=250"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -1164,6 +1411,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:blink,glimmer_cape,armlet,basher",
       "order-v1:glimmer_cape,blink,armlet,basher",
@@ -1236,12 +1484,30 @@
           "item-cost:armlet",
           "item-cost:basher"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=254",
+      "references": [
+        {
+          "label": "Glimmer Cape",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=254"
+        },
+        {
+          "label": "Blink Dagger",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=1"
+        },
+        {
+          "label": "Armlet of Mordiggian",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=151"
+        },
+        {
+          "label": "Skull Basher",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=143"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -1253,6 +1519,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:pipe,orchid,shivas_guard,hurricane_pike",
       "order-v1:orchid,shivas_guard,pipe,hurricane_pike",
@@ -1325,12 +1592,30 @@
           "item-cost:hurricane_pike",
           "item-cost:shivas_guard"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=98",
+      "references": [
+        {
+          "label": "Orchid Malevolence",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=98"
+        },
+        {
+          "label": "Pipe of Insight",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=90"
+        },
+        {
+          "label": "Hurricane Pike",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=263"
+        },
+        {
+          "label": "Shiva's Guard",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=119"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -1342,6 +1627,7 @@
     "difficulty": 3,
     "eyebrow": "Item prices",
     "prompt": "How do these items rank from cheapest to most expensive?",
+    "detail": "Use total shop prices, including recipes and components.",
     "answers": [
       "order-v1:vanguard,aghanims_shard,force_staff,blade_mail",
       "order-v1:aghanims_shard,force_staff,vanguard,blade_mail",
@@ -1414,12 +1700,30 @@
           "item-cost:force_staff",
           "item-cost:blade_mail"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=609",
+      "references": [
+        {
+          "label": "Aghanim's Shard",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=609"
+        },
+        {
+          "label": "Vanguard",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=125"
+        },
+        {
+          "label": "Force Staff",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=102"
+        },
+        {
+          "label": "Blade Mail",
+          "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=127"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -1431,6 +1735,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:spectre_reality,zuus_arc_lightning,bristleback_viscous_nasal_goo,weaver_geminate_attack",
       "order-v1:zuus_arc_lightning,spectre_reality,bristleback_viscous_nasal_goo,weaver_geminate_attack",
@@ -1507,12 +1812,30 @@
           "cooldown:bristleback_viscous_nasal_goo:1",
           "cooldown:weaver_geminate_attack:4"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/abilitydata?language=english&ability_id=5338",
+      "references": [
+        {
+          "label": "Reality",
+          "url": "https://www.dota2.com/datafeed/abilitydata?language=english&ability_id=5338"
+        },
+        {
+          "label": "Arc Lightning",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22"
+        },
+        {
+          "label": "Viscous Nasal Goo",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=99"
+        },
+        {
+          "label": "Geminate Attack",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=63"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -1524,6 +1847,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:tinker_rearm,undying_decay,death_prophet_carrion_swarm,invoker_invoke",
       "order-v1:undying_decay,tinker_rearm,death_prophet_carrion_swarm,invoker_invoke",
@@ -1531,7 +1855,7 @@
       "order-v1:invoker_invoke,death_prophet_carrion_swarm,tinker_rearm,undying_decay"
     ],
     "correctIndex": 1,
-    "explanation": "Shortest to longest: Decay (4s) → Rearm (4.5s) → Crypt Swarm (6s) → Invoke (7s).",
+    "explanation": "Shortest to longest: Decay (4s) → Rearm (4.5s) → Crypt Swarm (6s) → Invoke (7s base cooldown).",
     "valueOrder": {
       "family": "ability-cooldown",
       "direction": "ascending",
@@ -1539,7 +1863,7 @@
         {
           "key": "invoker_invoke",
           "name": "Invoke",
-          "context": "Invoker",
+          "context": "Invoker · base cooldown before orb-level reductions",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/invoker_invoke.png",
           "kind": "ability"
         },
@@ -1569,7 +1893,7 @@
         {
           "key": "invoker_invoke",
           "value": 7,
-          "label": "7s"
+          "label": "7s base cooldown"
         },
         {
           "key": "undying_decay",
@@ -1600,12 +1924,30 @@
           "cooldown:death_prophet_carrion_swarm:4",
           "cooldown:invoker_invoke:1"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=85",
+      "references": [
+        {
+          "label": "Decay",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=85"
+        },
+        {
+          "label": "Rearm",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34"
+        },
+        {
+          "label": "Crypt Swarm",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43"
+        },
+        {
+          "label": "Invoke",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -1617,6 +1959,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:lina_light_strike_array,faceless_void_time_walk,lina_dragon_slave,kunkka_torrent",
       "order-v1:faceless_void_time_walk,lina_dragon_slave,lina_light_strike_array,kunkka_torrent",
@@ -1693,12 +2036,26 @@
           "cooldown:lina_dragon_slave:4",
           "cooldown:kunkka_torrent:4"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=41",
+      "references": [
+        {
+          "label": "Time Walk",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=41"
+        },
+        {
+          "label": "Dragon Slave",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25"
+        },
+        {
+          "label": "Torrent",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=23"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -1710,6 +2067,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:oracle_fates_edict,pugna_life_drain,mars_gods_rebuke,bane_brain_sap",
       "order-v1:pugna_life_drain,mars_gods_rebuke,oracle_fates_edict,bane_brain_sap",
@@ -1786,12 +2144,30 @@
           "cooldown:mars_gods_rebuke:4",
           "cooldown:bane_brain_sap:4"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45",
+      "references": [
+        {
+          "label": "Life Drain",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45"
+        },
+        {
+          "label": "Fate's Edict",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=111"
+        },
+        {
+          "label": "God's Rebuke",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=129"
+        },
+        {
+          "label": "Brain Sap",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -1803,6 +2179,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:skeleton_king_hellfire_blast,marci_grapple,bloodseeker_blood_bath,batrider_flamebreak",
       "order-v1:marci_grapple,skeleton_king_hellfire_blast,bloodseeker_blood_bath,batrider_flamebreak",
@@ -1879,12 +2256,30 @@
           "cooldown:bloodseeker_blood_bath:4",
           "cooldown:batrider_flamebreak:4"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=42",
+      "references": [
+        {
+          "label": "Wraithfire Blast",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=42"
+        },
+        {
+          "label": "Dispose",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=136"
+        },
+        {
+          "label": "Blood Rite",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=4"
+        },
+        {
+          "label": "Flamebreak",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -1896,6 +2291,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:bane_brain_sap,meepo_earthbind,spirit_breaker_charge_of_darkness,phantom_assassin_fan_of_knives",
       "order-v1:meepo_earthbind,bane_brain_sap,spirit_breaker_charge_of_darkness,phantom_assassin_fan_of_knives",
@@ -1972,12 +2368,30 @@
           "cooldown:spirit_breaker_charge_of_darkness:4",
           "cooldown:phantom_assassin_fan_of_knives:1"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=82",
+      "references": [
+        {
+          "label": "Earthbind",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=82"
+        },
+        {
+          "label": "Brain Sap",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3"
+        },
+        {
+          "label": "Charge of Darkness",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71"
+        },
+        {
+          "label": "Fan of Knives",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=44"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -1989,6 +2403,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:phantom_assassin_fan_of_knives,batrider_flamebreak,snapfire_firesnap_cookie,mirana_arrow",
       "order-v1:batrider_flamebreak,snapfire_firesnap_cookie,phantom_assassin_fan_of_knives,mirana_arrow",
@@ -2065,12 +2480,30 @@
           "cooldown:snapfire_firesnap_cookie:4",
           "cooldown:mirana_arrow:4"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65",
+      "references": [
+        {
+          "label": "Flamebreak",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65"
+        },
+        {
+          "label": "Fan of Knives",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=44"
+        },
+        {
+          "label": "Firesnap Cookie",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128"
+        },
+        {
+          "label": "Sacred Arrow",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -2082,6 +2515,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:elder_titan_ancestral_spirit,mirana_arrow,warlock_fatal_bonds,pudge_dismember",
       "order-v1:mirana_arrow,warlock_fatal_bonds,elder_titan_ancestral_spirit,pudge_dismember",
@@ -2158,12 +2592,30 @@
           "cooldown:warlock_fatal_bonds:4",
           "cooldown:pudge_dismember:3"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9",
+      "references": [
+        {
+          "label": "Sacred Arrow",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9"
+        },
+        {
+          "label": "Astral Spirit",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=103"
+        },
+        {
+          "label": "Fatal Bonds",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=37"
+        },
+        {
+          "label": "Dismember",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -2175,6 +2627,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:warlock_fatal_bonds,pudge_dismember,sandking_sand_storm,largo_croak_of_genius",
       "order-v1:pudge_dismember,warlock_fatal_bonds,sandking_sand_storm,largo_croak_of_genius",
@@ -2251,12 +2704,30 @@
           "cooldown:sandking_sand_storm:4",
           "cooldown:largo_croak_of_genius:1"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=37",
+      "references": [
+        {
+          "label": "Fatal Bonds",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=37"
+        },
+        {
+          "label": "Dismember",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14"
+        },
+        {
+          "label": "Sand Storm",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=16"
+        },
+        {
+          "label": "Croak of Genius",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -2268,6 +2739,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:invoker_tornado,largo_croak_of_genius,furion_force_of_nature,spirit_breaker_nether_strike",
       "order-v1:largo_croak_of_genius,invoker_tornado,furion_force_of_nature,spirit_breaker_nether_strike",
@@ -2344,12 +2816,30 @@
           "cooldown:furion_force_of_nature:4",
           "cooldown:spirit_breaker_nether_strike:3"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155",
+      "references": [
+        {
+          "label": "Croak of Genius",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155"
+        },
+        {
+          "label": "Tornado",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74"
+        },
+        {
+          "label": "Nature's Call",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53"
+        },
+        {
+          "label": "Nether Strike",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -2361,6 +2851,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:hoodwink_decoy,obsidian_destroyer_objurgation,spirit_breaker_nether_strike,meepo_petrify",
       "order-v1:obsidian_destroyer_objurgation,spirit_breaker_nether_strike,hoodwink_decoy,meepo_petrify",
@@ -2376,7 +2867,7 @@
         {
           "key": "obsidian_destroyer_objurgation",
           "name": "Objurgation",
-          "context": "Outworld Devourer",
+          "context": "Outworld Destroyer",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/obsidian_destroyer_objurgation.png",
           "kind": "ability"
         },
@@ -2437,12 +2928,30 @@
           "cooldown:spirit_breaker_nether_strike:3",
           "cooldown:meepo_petrify:1"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76",
+      "references": [
+        {
+          "label": "Objurgation",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76"
+        },
+        {
+          "label": "Decoy",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=123"
+        },
+        {
+          "label": "Nether Strike",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71"
+        },
+        {
+          "label": "Dig",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=82"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -2454,6 +2963,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:spirit_breaker_nether_strike,spirit_breaker_planar_pocket,oracle_rain_of_destiny,lina_laguna_blade",
       "order-v1:spirit_breaker_planar_pocket,oracle_rain_of_destiny,spirit_breaker_nether_strike,lina_laguna_blade",
@@ -2530,12 +3040,26 @@
           "cooldown:oracle_rain_of_destiny:1",
           "cooldown:lina_laguna_blade:3"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71",
+      "references": [
+        {
+          "label": "Nether Strike",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=71"
+        },
+        {
+          "label": "Rain of Destiny",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=111"
+        },
+        {
+          "label": "Laguna Blade",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -2547,6 +3071,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:lina_laguna_blade,gyrocopter_call_down,alchemist_chemical_rage,axe_culling_blade",
       "order-v1:gyrocopter_call_down,lina_laguna_blade,alchemist_chemical_rage,axe_culling_blade",
@@ -2623,12 +3148,30 @@
           "cooldown:alchemist_chemical_rage:1",
           "cooldown:axe_culling_blade:3"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25",
+      "references": [
+        {
+          "label": "Laguna Blade",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25"
+        },
+        {
+          "label": "Call Down",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=72"
+        },
+        {
+          "label": "Chemical Rage",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=73"
+        },
+        {
+          "label": "Culling Blade",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -2640,6 +3183,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:batrider_flaming_lasso,gyrocopter_call_down,disruptor_static_storm,witch_doctor_death_ward",
       "order-v1:gyrocopter_call_down,batrider_flaming_lasso,disruptor_static_storm,witch_doctor_death_ward",
@@ -2716,12 +3260,30 @@
           "cooldown:disruptor_static_storm:3",
           "cooldown:witch_doctor_death_ward:3"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=72",
+      "references": [
+        {
+          "label": "Call Down",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=72"
+        },
+        {
+          "label": "Flaming Lasso",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65"
+        },
+        {
+          "label": "Static Storm",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87"
+        },
+        {
+          "label": "Death Ward",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -2733,6 +3295,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:ringmaster_wheel,beastmaster_primal_roar,witch_doctor_death_ward,chen_hand_of_god",
       "order-v1:beastmaster_primal_roar,witch_doctor_death_ward,ringmaster_wheel,chen_hand_of_god",
@@ -2762,7 +3325,7 @@
         {
           "key": "ringmaster_wheel",
           "name": "Wheel of Wonder",
-          "context": "Ring Master",
+          "context": "Ringmaster",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/ringmaster_wheel.png",
           "kind": "ability"
         },
@@ -2809,12 +3372,30 @@
           "cooldown:witch_doctor_death_ward:3",
           "cooldown:chen_hand_of_god:3"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=38",
+      "references": [
+        {
+          "label": "Primal Roar",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=38"
+        },
+        {
+          "label": "Wheel of Wonder",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131"
+        },
+        {
+          "label": "Death Ward",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30"
+        },
+        {
+          "label": "Hand of God",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -2826,6 +3407,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level cooldowns",
     "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+    "detail": "Use listed cooldowns, before talents, facets, upgrades, reductions, or resets. Use each card's condition.",
     "answers": [
       "order-v1:witch_doctor_death_ward,axe_culling_blade,chen_hand_of_god,enigma_black_hole",
       "order-v1:axe_culling_blade,chen_hand_of_god,witch_doctor_death_ward,enigma_black_hole",
@@ -2902,12 +3484,30 @@
           "cooldown:chen_hand_of_god:3",
           "cooldown:enigma_black_hole:3"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2",
+      "references": [
+        {
+          "label": "Culling Blade",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2"
+        },
+        {
+          "label": "Death Ward",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30"
+        },
+        {
+          "label": "Hand of God",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66"
+        },
+        {
+          "label": "Black Hole",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=33"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -2919,6 +3519,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level mana costs",
     "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "detail": "Use listed mana costs, before talents, facets, upgrades, or other modifiers.",
     "answers": [
       "order-v1:alchemist_acid_spray,enigma_malefice,dazzle_poison_touch,keeper_of_the_light_blinding_light",
       "order-v1:enigma_malefice,alchemist_acid_spray,dazzle_poison_touch,keeper_of_the_light_blinding_light",
@@ -2995,12 +3596,30 @@
           "mana:dazzle_poison_touch:3",
           "mana:keeper_of_the_light_blinding_light:2"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=73",
+      "references": [
+        {
+          "label": "Acid Spray",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=73"
+        },
+        {
+          "label": "Malefice",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=33"
+        },
+        {
+          "label": "Poison Touch",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50"
+        },
+        {
+          "label": "Blinding Light",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=90"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -3012,6 +3631,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level mana costs",
     "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "detail": "Use listed mana costs, before talents, facets, upgrades, or other modifiers.",
     "answers": [
       "order-v1:shadow_demon_shadow_poison,tiny_tree_grab,largo_song_double_time,chen_zealot",
       "order-v1:tiny_tree_grab,shadow_demon_shadow_poison,largo_song_double_time,chen_zealot",
@@ -3088,12 +3708,30 @@
           "mana:largo_song_double_time:1",
           "mana:chen_zealot:1"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19",
+      "references": [
+        {
+          "label": "Tree Grab",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19"
+        },
+        {
+          "label": "Shadow Poison",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79"
+        },
+        {
+          "label": "Hotfeet Hustle",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155"
+        },
+        {
+          "label": "Zealot",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -3105,6 +3743,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level mana costs",
     "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "detail": "Use listed mana costs, before talents, facets, upgrades, or other modifiers.",
     "answers": [
       "order-v1:sandking_sand_storm,furion_curse_of_the_forest,mirana_arrow,venomancer_snakebite",
       "order-v1:furion_curse_of_the_forest,mirana_arrow,sandking_sand_storm,venomancer_snakebite",
@@ -3181,12 +3820,30 @@
           "mana:mirana_arrow:1",
           "mana:venomancer_snakebite:1"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53",
+      "references": [
+        {
+          "label": "Curse of the Oldgrowth",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53"
+        },
+        {
+          "label": "Sand Storm",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=16"
+        },
+        {
+          "label": "Sacred Arrow",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9"
+        },
+        {
+          "label": "Snakebite",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -3198,6 +3855,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level mana costs",
     "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "detail": "Use listed mana costs, before talents, facets, upgrades, or other modifiers.",
     "answers": [
       "order-v1:clinkz_strafe,sandking_sand_storm,winter_wyvern_arctic_burn,death_prophet_carrion_swarm",
       "order-v1:sandking_sand_storm,winter_wyvern_arctic_burn,clinkz_strafe,death_prophet_carrion_swarm",
@@ -3274,12 +3932,30 @@
           "mana:winter_wyvern_arctic_burn:1",
           "mana:death_prophet_carrion_swarm:3"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=16",
+      "references": [
+        {
+          "label": "Sand Storm",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=16"
+        },
+        {
+          "label": "Strafe",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56"
+        },
+        {
+          "label": "Arctic Burn",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=112"
+        },
+        {
+          "label": "Crypt Swarm",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -3291,6 +3967,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level mana costs",
     "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "detail": "Use listed mana costs, before talents, facets, upgrades, or other modifiers.",
     "answers": [
       "order-v1:ogre_magi_fireblast,void_spirit_dissimilate,enigma_malefice,shadow_shaman_urnaconda",
       "order-v1:void_spirit_dissimilate,ogre_magi_fireblast,enigma_malefice,shadow_shaman_urnaconda",
@@ -3367,12 +4044,30 @@
           "mana:enigma_malefice:2",
           "mana:shadow_shaman_urnaconda:1"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=84",
+      "references": [
+        {
+          "label": "Fireblast",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=84"
+        },
+        {
+          "label": "Dissimilate",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=126"
+        },
+        {
+          "label": "Malefice",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=33"
+        },
+        {
+          "label": "Urnaconda",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=27"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -3384,6 +4079,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level mana costs",
     "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "detail": "Use listed mana costs, before talents, facets, upgrades, or other modifiers.",
     "answers": [
       "order-v1:batrider_sticky_napalm,silencer_glaives_of_wisdom,tiny_tree_grab,shadow_demon_shadow_poison",
       "order-v1:silencer_glaives_of_wisdom,batrider_sticky_napalm,tiny_tree_grab,shadow_demon_shadow_poison",
@@ -3460,12 +4156,30 @@
           "mana:tiny_tree_grab:4",
           "mana:shadow_demon_shadow_poison:1"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75",
+      "references": [
+        {
+          "label": "Glaives of Wisdom",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75"
+        },
+        {
+          "label": "Sticky Napalm",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65"
+        },
+        {
+          "label": "Tree Grab",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=19"
+        },
+        {
+          "label": "Shadow Poison",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -3477,6 +4191,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level mana costs",
     "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "detail": "Use listed mana costs, before talents, facets, upgrades, or other modifiers.",
     "answers": [
       "order-v1:rattletrap_hookshot,enchantress_natures_attendants,tinker_march_of_the_machines,invoker_sun_strike",
       "order-v1:enchantress_natures_attendants,tinker_march_of_the_machines,rattletrap_hookshot,invoker_sun_strike",
@@ -3553,12 +4268,30 @@
           "mana:tinker_march_of_the_machines:2",
           "mana:invoker_sun_strike:1"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58",
+      "references": [
+        {
+          "label": "Nature's Attendants",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58"
+        },
+        {
+          "label": "Hookshot",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=51"
+        },
+        {
+          "label": "March of the Machines",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34"
+        },
+        {
+          "label": "Sun Strike",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -3570,6 +4303,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level mana costs",
     "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "detail": "Use listed mana costs, before talents, facets, upgrades, or other modifiers.",
     "answers": [
       "order-v1:largo_song_double_time,clinkz_burning_barrage,chen_zealot,bristleback_hairball",
       "order-v1:clinkz_burning_barrage,chen_zealot,largo_song_double_time,bristleback_hairball",
@@ -3646,12 +4380,30 @@
           "mana:chen_zealot:1",
           "mana:bristleback_hairball:1"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56",
+      "references": [
+        {
+          "label": "Burning Barrage",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56"
+        },
+        {
+          "label": "Hotfeet Hustle",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155"
+        },
+        {
+          "label": "Zealot",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66"
+        },
+        {
+          "label": "Hairball",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=99"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -3663,6 +4415,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level mana costs",
     "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "detail": "Use listed mana costs, before talents, facets, upgrades, or other modifiers.",
     "answers": [
       "order-v1:invoker_chaos_meteor,disruptor_static_storm,ringmaster_wheel,obsidian_destroyer_sanity_eclipse",
       "order-v1:disruptor_static_storm,invoker_chaos_meteor,ringmaster_wheel,obsidian_destroyer_sanity_eclipse",
@@ -3692,14 +4445,14 @@
         {
           "key": "obsidian_destroyer_sanity_eclipse",
           "name": "Sanity's Eclipse",
-          "context": "Outworld Devourer",
+          "context": "Outworld Destroyer",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/obsidian_destroyer_sanity_eclipse.png",
           "kind": "ability"
         },
         {
           "key": "ringmaster_wheel",
           "name": "Wheel of Wonder",
-          "context": "Ring Master",
+          "context": "Ringmaster",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/ringmaster_wheel.png",
           "kind": "ability"
         }
@@ -3739,12 +4492,30 @@
           "mana:ringmaster_wheel:3",
           "mana:obsidian_destroyer_sanity_eclipse:1"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74",
+      "references": [
+        {
+          "label": "Chaos Meteor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74"
+        },
+        {
+          "label": "Static Storm",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87"
+        },
+        {
+          "label": "Wheel of Wonder",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131"
+        },
+        {
+          "label": "Sanity's Eclipse",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -3756,6 +4527,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level mana costs",
     "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "detail": "Use listed mana costs, before talents, facets, upgrades, or other modifiers.",
     "answers": [
       "order-v1:disruptor_kinetic_fence,bristleback_hairball,visage_grave_chill,furion_curse_of_the_forest",
       "order-v1:bristleback_hairball,disruptor_kinetic_fence,visage_grave_chill,furion_curse_of_the_forest",
@@ -3832,12 +4604,30 @@
           "mana:visage_grave_chill:1",
           "mana:furion_curse_of_the_forest:1"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=99",
+      "references": [
+        {
+          "label": "Hairball",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=99"
+        },
+        {
+          "label": "Kinetic Fence",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=87"
+        },
+        {
+          "label": "Grave Chill",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=92"
+        },
+        {
+          "label": "Curse of the Oldgrowth",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -3849,6 +4639,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level mana costs",
     "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "detail": "Use listed mana costs, before talents, facets, upgrades, or other modifiers.",
     "answers": [
       "order-v1:tinker_march_of_the_machines,keeper_of_the_light_blinding_light,techies_suicide,invoker_chaos_meteor",
       "order-v1:keeper_of_the_light_blinding_light,techies_suicide,tinker_march_of_the_machines,invoker_chaos_meteor",
@@ -3925,12 +4716,30 @@
           "mana:techies_suicide:4",
           "mana:invoker_chaos_meteor:1"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=90",
+      "references": [
+        {
+          "label": "Blinding Light",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=90"
+        },
+        {
+          "label": "March of the Machines",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34"
+        },
+        {
+          "label": "Blast Off!",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=105"
+        },
+        {
+          "label": "Chaos Meteor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -3942,6 +4751,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level mana costs",
     "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+    "detail": "Use listed mana costs, before talents, facets, upgrades, or other modifiers.",
     "answers": [
       "order-v1:bristleback_hairball,chen_zealot,broodmother_insatiable_hunger,sniper_shrapnel",
       "order-v1:chen_zealot,broodmother_insatiable_hunger,bristleback_hairball,sniper_shrapnel",
@@ -4018,12 +4828,30 @@
           "mana:broodmother_insatiable_hunger:1",
           "mana:sniper_shrapnel:1"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66",
+      "references": [
+        {
+          "label": "Zealot",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66"
+        },
+        {
+          "label": "Hairball",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=99"
+        },
+        {
+          "label": "Insatiable Hunger",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=61"
+        },
+        {
+          "label": "Shrapnel",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=35"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -4035,6 +4863,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level damage",
     "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "detail": "Use damage to enemy heroes, before talents, facets, added upgrade effects, amplification, or resistance. Use each card's condition.",
     "answers": [
       "order-v1:pudge_meat_hook,axe_culling_blade,zuus_thundergods_wrath,lina_laguna_blade",
       "order-v1:axe_culling_blade,pudge_meat_hook,zuus_thundergods_wrath,lina_laguna_blade",
@@ -4050,28 +4879,28 @@
         {
           "key": "axe_culling_blade",
           "name": "Culling Blade",
-          "context": "Axe",
+          "context": "Axe · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/axe_culling_blade.png",
           "kind": "ability"
         },
         {
           "key": "lina_laguna_blade",
           "name": "Laguna Blade",
-          "context": "Lina",
+          "context": "Lina · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lina_laguna_blade.png",
           "kind": "ability"
         },
         {
           "key": "zuus_thundergods_wrath",
           "name": "Thundergod's Wrath",
-          "context": "Zeus",
+          "context": "Zeus · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/zuus_thundergods_wrath.png",
           "kind": "ability"
         },
         {
           "key": "pudge_meat_hook",
           "name": "Meat Hook",
-          "context": "Pudge",
+          "context": "Pudge · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pudge_meat_hook.png",
           "kind": "ability"
         }
@@ -4111,12 +4940,30 @@
           "damage:zuus_thundergods_wrath:3",
           "damage:lina_laguna_blade:3"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14",
+      "references": [
+        {
+          "label": "Meat Hook",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14"
+        },
+        {
+          "label": "Culling Blade",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2"
+        },
+        {
+          "label": "Thundergod's Wrath",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22"
+        },
+        {
+          "label": "Laguna Blade",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -4128,6 +4975,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level damage",
     "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "detail": "Use damage to enemy heroes, before talents, facets, added upgrade effects, amplification, or resistance. Use each card's condition.",
     "answers": [
       "order-v1:zuus_thundergods_wrath,axe_culling_blade,lina_laguna_blade,lion_finger_of_death",
       "order-v1:axe_culling_blade,zuus_thundergods_wrath,lina_laguna_blade,lion_finger_of_death",
@@ -4135,7 +4983,7 @@
       "order-v1:lion_finger_of_death,lina_laguna_blade,zuus_thundergods_wrath,axe_culling_blade"
     ],
     "correctIndex": 1,
-    "explanation": "Lowest to highest: Culling Blade (475 damage) → Thundergod's Wrath (575 damage) → Laguna Blade (760 damage) → Finger of Death (850 damage).",
+    "explanation": "Lowest to highest: Culling Blade (475 damage) → Thundergod's Wrath (575 damage) → Laguna Blade (760 damage) → Finger of Death (850 base damage; no kill stacks).",
     "valueOrder": {
       "family": "ability-damage",
       "direction": "ascending",
@@ -4143,28 +4991,28 @@
         {
           "key": "axe_culling_blade",
           "name": "Culling Blade",
-          "context": "Axe",
+          "context": "Axe · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/axe_culling_blade.png",
           "kind": "ability"
         },
         {
           "key": "lion_finger_of_death",
           "name": "Finger of Death",
-          "context": "Lion",
+          "context": "Lion · base damage; no kill stacks",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lion_finger_of_death.png",
           "kind": "ability"
         },
         {
           "key": "zuus_thundergods_wrath",
           "name": "Thundergod's Wrath",
-          "context": "Zeus",
+          "context": "Zeus · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/zuus_thundergods_wrath.png",
           "kind": "ability"
         },
         {
           "key": "lina_laguna_blade",
           "name": "Laguna Blade",
-          "context": "Lina",
+          "context": "Lina · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/lina_laguna_blade.png",
           "kind": "ability"
         }
@@ -4178,7 +5026,7 @@
         {
           "key": "lion_finger_of_death",
           "value": 850,
-          "label": "850 damage"
+          "label": "850 base damage; no kill stacks"
         },
         {
           "key": "zuus_thundergods_wrath",
@@ -4204,12 +5052,30 @@
           "damage:lina_laguna_blade:3",
           "damage:lion_finger_of_death:3"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2",
+      "references": [
+        {
+          "label": "Culling Blade",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2"
+        },
+        {
+          "label": "Thundergod's Wrath",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22"
+        },
+        {
+          "label": "Laguna Blade",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25"
+        },
+        {
+          "label": "Finger of Death",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -4221,6 +5087,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level damage",
     "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "detail": "Use damage to enemy heroes, before talents, facets, added upgrade effects, amplification, or resistance. Use each card's condition.",
     "answers": [
       "order-v1:obsidian_destroyer_astral_imprisonment,queenofpain_scream_of_pain,axe_culling_blade,zuus_thundergods_wrath",
       "order-v1:queenofpain_scream_of_pain,axe_culling_blade,obsidian_destroyer_astral_imprisonment,zuus_thundergods_wrath",
@@ -4236,28 +5103,28 @@
         {
           "key": "obsidian_destroyer_astral_imprisonment",
           "name": "Astral Imprisonment",
-          "context": "Outworld Devourer",
+          "context": "Outworld Destroyer · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/obsidian_destroyer_astral_imprisonment.png",
           "kind": "ability"
         },
         {
           "key": "queenofpain_scream_of_pain",
           "name": "Scream Of Pain",
-          "context": "Queen of Pain",
+          "context": "Queen of Pain · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/queenofpain_scream_of_pain.png",
           "kind": "ability"
         },
         {
           "key": "axe_culling_blade",
           "name": "Culling Blade",
-          "context": "Axe",
+          "context": "Axe · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/axe_culling_blade.png",
           "kind": "ability"
         },
         {
           "key": "zuus_thundergods_wrath",
           "name": "Thundergod's Wrath",
-          "context": "Zeus",
+          "context": "Zeus · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/zuus_thundergods_wrath.png",
           "kind": "ability"
         }
@@ -4297,12 +5164,30 @@
           "damage:axe_culling_blade:3",
           "damage:zuus_thundergods_wrath:3"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39",
+      "references": [
+        {
+          "label": "Scream Of Pain",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39"
+        },
+        {
+          "label": "Astral Imprisonment",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76"
+        },
+        {
+          "label": "Culling Blade",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2"
+        },
+        {
+          "label": "Thundergod's Wrath",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=22"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -4314,6 +5199,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level damage",
     "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "detail": "Use damage to enemy heroes, before talents, facets, added upgrade effects, amplification, or resistance. Use each card's condition.",
     "answers": [
       "order-v1:shredder_timber_chain,terrorblade_terror_wave,kez_talon_toss,furion_sprout",
       "order-v1:terrorblade_terror_wave,kez_talon_toss,shredder_timber_chain,furion_sprout",
@@ -4329,28 +5215,28 @@
         {
           "key": "furion_sprout",
           "name": "Sprout",
-          "context": "Nature's Prophet",
+          "context": "Nature's Prophet · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/furion_sprout.png",
           "kind": "ability"
         },
         {
           "key": "shredder_timber_chain",
           "name": "Timber Chain",
-          "context": "Timbersaw",
+          "context": "Timbersaw · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shredder_timber_chain.png",
           "kind": "ability"
         },
         {
           "key": "terrorblade_terror_wave",
           "name": "Terror Wave",
-          "context": "Terrorblade",
+          "context": "Terrorblade · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/terrorblade_terror_wave.png",
           "kind": "ability"
         },
         {
           "key": "kez_talon_toss",
           "name": "Talon Toss",
-          "context": "Kez",
+          "context": "Kez · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/kez_talon_toss.png",
           "kind": "ability"
         }
@@ -4390,12 +5276,30 @@
           "damage:kez_talon_toss:4",
           "damage:furion_sprout:4"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=109",
+      "references": [
+        {
+          "label": "Terror Wave",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=109"
+        },
+        {
+          "label": "Timber Chain",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=98"
+        },
+        {
+          "label": "Talon Toss",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145"
+        },
+        {
+          "label": "Sprout",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -4407,6 +5311,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level damage",
     "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "detail": "Use damage to enemy heroes, before talents, facets, added upgrade effects, amplification, or resistance. Use each card's condition.",
     "answers": [
       "order-v1:shredder_timber_chain,kez_talon_toss,furion_sprout,tidehunter_gush",
       "order-v1:kez_talon_toss,shredder_timber_chain,furion_sprout,tidehunter_gush",
@@ -4422,28 +5327,28 @@
         {
           "key": "kez_talon_toss",
           "name": "Talon Toss",
-          "context": "Kez",
+          "context": "Kez · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/kez_talon_toss.png",
           "kind": "ability"
         },
         {
           "key": "shredder_timber_chain",
           "name": "Timber Chain",
-          "context": "Timbersaw",
+          "context": "Timbersaw · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shredder_timber_chain.png",
           "kind": "ability"
         },
         {
           "key": "furion_sprout",
           "name": "Sprout",
-          "context": "Nature's Prophet",
+          "context": "Nature's Prophet · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/furion_sprout.png",
           "kind": "ability"
         },
         {
           "key": "tidehunter_gush",
           "name": "Gush",
-          "context": "Tidehunter",
+          "context": "Tidehunter · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tidehunter_gush.png",
           "kind": "ability"
         }
@@ -4483,12 +5388,30 @@
           "damage:furion_sprout:4",
           "damage:tidehunter_gush:4"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=98",
+      "references": [
+        {
+          "label": "Timber Chain",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=98"
+        },
+        {
+          "label": "Talon Toss",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145"
+        },
+        {
+          "label": "Sprout",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53"
+        },
+        {
+          "label": "Gush",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=29"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -4500,6 +5423,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level damage",
     "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "detail": "Use damage to enemy heroes, before talents, facets, added upgrade effects, amplification, or resistance. Use each card's condition.",
     "answers": [
       "order-v1:dragon_knight_breathe_fire,mirana_starfall,muerta_dead_shot,vengefulspirit_magic_missile",
       "order-v1:mirana_starfall,dragon_knight_breathe_fire,muerta_dead_shot,vengefulspirit_magic_missile",
@@ -4507,7 +5431,7 @@
       "order-v1:vengefulspirit_magic_missile,muerta_dead_shot,dragon_knight_breathe_fire,mirana_starfall"
     ],
     "correctIndex": 1,
-    "explanation": "Lowest to highest: Starstorm (300 damage) → Breathe Fire (320 damage) → Dead Shot (325 damage) → Magic Missile (340 damage).",
+    "explanation": "Lowest to highest: Starstorm (300 primary-meteor damage) → Breathe Fire (320 damage) → Dead Shot (325 damage) → Magic Missile (340 damage).",
     "valueOrder": {
       "family": "ability-damage",
       "direction": "ascending",
@@ -4515,28 +5439,28 @@
         {
           "key": "dragon_knight_breathe_fire",
           "name": "Breathe Fire",
-          "context": "Dragon Knight",
+          "context": "Dragon Knight · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dragon_knight_breathe_fire.png",
           "kind": "ability"
         },
         {
           "key": "mirana_starfall",
           "name": "Starstorm",
-          "context": "Mirana",
+          "context": "Mirana · primary-meteor damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/mirana_starfall.png",
           "kind": "ability"
         },
         {
           "key": "vengefulspirit_magic_missile",
           "name": "Magic Missile",
-          "context": "Vengeful Spirit",
+          "context": "Vengeful Spirit · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/vengefulspirit_magic_missile.png",
           "kind": "ability"
         },
         {
           "key": "muerta_dead_shot",
           "name": "Dead Shot",
-          "context": "Muerta",
+          "context": "Muerta · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/muerta_dead_shot.png",
           "kind": "ability"
         }
@@ -4550,7 +5474,7 @@
         {
           "key": "mirana_starfall",
           "value": 300,
-          "label": "300 damage"
+          "label": "300 primary-meteor damage"
         },
         {
           "key": "vengefulspirit_magic_missile",
@@ -4576,12 +5500,30 @@
           "damage:muerta_dead_shot:4",
           "damage:vengefulspirit_magic_missile:4"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9",
+      "references": [
+        {
+          "label": "Starstorm",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9"
+        },
+        {
+          "label": "Breathe Fire",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49"
+        },
+        {
+          "label": "Dead Shot",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138"
+        },
+        {
+          "label": "Magic Missile",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -4593,6 +5535,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level damage",
     "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "detail": "Use damage to enemy heroes, before talents, facets, added upgrade effects, amplification, or resistance. Use each card's condition.",
     "answers": [
       "order-v1:dazzle_shadow_wave,earth_spirit_rolling_boulder,dragon_knight_dragon_tail,terrorblade_terror_wave",
       "order-v1:earth_spirit_rolling_boulder,dragon_knight_dragon_tail,dazzle_shadow_wave,terrorblade_terror_wave",
@@ -4600,7 +5543,7 @@
       "order-v1:terrorblade_terror_wave,dragon_knight_dragon_tail,dazzle_shadow_wave,earth_spirit_rolling_boulder"
     ],
     "correctIndex": 2,
-    "explanation": "Lowest to highest: Rolling Boulder (90 damage) → Shadow Wave (145 damage) → Dragon Tail (150 damage) → Terror Wave (200 damage).",
+    "explanation": "Lowest to highest: Rolling Boulder (90 base damage; no Strength bonus) → Shadow Wave (145 damage per healing pulse) → Dragon Tail (150 damage) → Terror Wave (200 damage).",
     "valueOrder": {
       "family": "ability-damage",
       "direction": "ascending",
@@ -4608,28 +5551,28 @@
         {
           "key": "terrorblade_terror_wave",
           "name": "Terror Wave",
-          "context": "Terrorblade",
+          "context": "Terrorblade · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/terrorblade_terror_wave.png",
           "kind": "ability"
         },
         {
           "key": "dazzle_shadow_wave",
           "name": "Shadow Wave",
-          "context": "Dazzle",
+          "context": "Dazzle · damage per healing pulse",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dazzle_shadow_wave.png",
           "kind": "ability"
         },
         {
           "key": "earth_spirit_rolling_boulder",
           "name": "Rolling Boulder",
-          "context": "Earth Spirit",
+          "context": "Earth Spirit · base damage; no Strength bonus",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/earth_spirit_rolling_boulder.png",
           "kind": "ability"
         },
         {
           "key": "dragon_knight_dragon_tail",
           "name": "Dragon Tail",
-          "context": "Dragon Knight",
+          "context": "Dragon Knight · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dragon_knight_dragon_tail.png",
           "kind": "ability"
         }
@@ -4643,12 +5586,12 @@
         {
           "key": "dazzle_shadow_wave",
           "value": 145,
-          "label": "145 damage"
+          "label": "145 damage per healing pulse"
         },
         {
           "key": "earth_spirit_rolling_boulder",
           "value": 90,
-          "label": "90 damage"
+          "label": "90 base damage; no Strength bonus"
         },
         {
           "key": "dragon_knight_dragon_tail",
@@ -4669,12 +5612,30 @@
           "damage:dragon_knight_dragon_tail:4",
           "damage:terrorblade_terror_wave:1"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=107",
+      "references": [
+        {
+          "label": "Rolling Boulder",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=107"
+        },
+        {
+          "label": "Shadow Wave",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50"
+        },
+        {
+          "label": "Dragon Tail",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49"
+        },
+        {
+          "label": "Terror Wave",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=109"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -4686,6 +5647,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level damage",
     "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "detail": "Use damage to enemy heroes, before talents, facets, added upgrade effects, amplification, or resistance. Use each card's condition.",
     "answers": [
       "order-v1:queenofpain_scream_of_pain,vengefulspirit_magic_missile,obsidian_destroyer_astral_imprisonment,axe_culling_blade",
       "order-v1:vengefulspirit_magic_missile,obsidian_destroyer_astral_imprisonment,queenofpain_scream_of_pain,axe_culling_blade",
@@ -4701,28 +5663,28 @@
         {
           "key": "obsidian_destroyer_astral_imprisonment",
           "name": "Astral Imprisonment",
-          "context": "Outworld Devourer",
+          "context": "Outworld Destroyer · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/obsidian_destroyer_astral_imprisonment.png",
           "kind": "ability"
         },
         {
           "key": "vengefulspirit_magic_missile",
           "name": "Magic Missile",
-          "context": "Vengeful Spirit",
+          "context": "Vengeful Spirit · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/vengefulspirit_magic_missile.png",
           "kind": "ability"
         },
         {
           "key": "axe_culling_blade",
           "name": "Culling Blade",
-          "context": "Axe",
+          "context": "Axe · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/axe_culling_blade.png",
           "kind": "ability"
         },
         {
           "key": "queenofpain_scream_of_pain",
           "name": "Scream Of Pain",
-          "context": "Queen of Pain",
+          "context": "Queen of Pain · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/queenofpain_scream_of_pain.png",
           "kind": "ability"
         }
@@ -4762,12 +5724,30 @@
           "damage:obsidian_destroyer_astral_imprisonment:4",
           "damage:axe_culling_blade:3"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20",
+      "references": [
+        {
+          "label": "Magic Missile",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20"
+        },
+        {
+          "label": "Scream Of Pain",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39"
+        },
+        {
+          "label": "Astral Imprisonment",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=76"
+        },
+        {
+          "label": "Culling Blade",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=2"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -4779,6 +5759,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level damage",
     "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "detail": "Use damage to enemy heroes, before talents, facets, added upgrade effects, amplification, or resistance. Use each card's condition.",
     "answers": [
       "order-v1:dark_seer_vacuum,tidehunter_gush,magnataur_reverse_polarity,dragon_knight_breathe_fire",
       "order-v1:tidehunter_gush,dark_seer_vacuum,magnataur_reverse_polarity,dragon_knight_breathe_fire",
@@ -4794,28 +5775,28 @@
         {
           "key": "dark_seer_vacuum",
           "name": "Vacuum",
-          "context": "Dark Seer",
+          "context": "Dark Seer · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dark_seer_vacuum.png",
           "kind": "ability"
         },
         {
           "key": "tidehunter_gush",
           "name": "Gush",
-          "context": "Tidehunter",
+          "context": "Tidehunter · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/tidehunter_gush.png",
           "kind": "ability"
         },
         {
           "key": "dragon_knight_breathe_fire",
           "name": "Breathe Fire",
-          "context": "Dragon Knight",
+          "context": "Dragon Knight · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dragon_knight_breathe_fire.png",
           "kind": "ability"
         },
         {
           "key": "magnataur_reverse_polarity",
           "name": "Reverse Polarity",
-          "context": "Magnus",
+          "context": "Magnus · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/magnataur_reverse_polarity.png",
           "kind": "ability"
         }
@@ -4855,12 +5836,30 @@
           "damage:magnataur_reverse_polarity:3",
           "damage:dragon_knight_breathe_fire:4"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55",
+      "references": [
+        {
+          "label": "Vacuum",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55"
+        },
+        {
+          "label": "Gush",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=29"
+        },
+        {
+          "label": "Reverse Polarity",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=97"
+        },
+        {
+          "label": "Breathe Fire",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -4872,6 +5871,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level damage",
     "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "detail": "Use damage to enemy heroes, before talents, facets, added upgrade effects, amplification, or resistance. Use each card's condition.",
     "answers": [
       "order-v1:vengefulspirit_magic_missile,death_prophet_carrion_swarm,queenofpain_scream_of_pain,pudge_meat_hook",
       "order-v1:death_prophet_carrion_swarm,vengefulspirit_magic_missile,queenofpain_scream_of_pain,pudge_meat_hook",
@@ -4887,28 +5887,28 @@
         {
           "key": "vengefulspirit_magic_missile",
           "name": "Magic Missile",
-          "context": "Vengeful Spirit",
+          "context": "Vengeful Spirit · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/vengefulspirit_magic_missile.png",
           "kind": "ability"
         },
         {
           "key": "queenofpain_scream_of_pain",
           "name": "Scream Of Pain",
-          "context": "Queen of Pain",
+          "context": "Queen of Pain · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/queenofpain_scream_of_pain.png",
           "kind": "ability"
         },
         {
           "key": "pudge_meat_hook",
           "name": "Meat Hook",
-          "context": "Pudge",
+          "context": "Pudge · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/pudge_meat_hook.png",
           "kind": "ability"
         },
         {
           "key": "death_prophet_carrion_swarm",
           "name": "Crypt Swarm",
-          "context": "Death Prophet",
+          "context": "Death Prophet · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/death_prophet_carrion_swarm.png",
           "kind": "ability"
         }
@@ -4948,12 +5948,30 @@
           "damage:queenofpain_scream_of_pain:4",
           "damage:pudge_meat_hook:4"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43",
+      "references": [
+        {
+          "label": "Crypt Swarm",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43"
+        },
+        {
+          "label": "Magic Missile",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20"
+        },
+        {
+          "label": "Scream Of Pain",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39"
+        },
+        {
+          "label": "Meat Hook",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -4965,6 +5983,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level damage",
     "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "detail": "Use damage to enemy heroes, before talents, facets, added upgrade effects, amplification, or resistance. Use each card's condition.",
     "answers": [
       "order-v1:dragon_knight_dragon_tail,dazzle_shadow_wave,terrorblade_terror_wave,shredder_timber_chain",
       "order-v1:dazzle_shadow_wave,terrorblade_terror_wave,dragon_knight_dragon_tail,shredder_timber_chain",
@@ -4972,7 +5991,7 @@
       "order-v1:shredder_timber_chain,terrorblade_terror_wave,dragon_knight_dragon_tail,dazzle_shadow_wave"
     ],
     "correctIndex": 2,
-    "explanation": "Lowest to highest: Shadow Wave (145 damage) → Dragon Tail (150 damage) → Terror Wave (200 damage) → Timber Chain (225 damage).",
+    "explanation": "Lowest to highest: Shadow Wave (145 damage per healing pulse) → Dragon Tail (150 damage) → Terror Wave (200 damage) → Timber Chain (225 damage).",
     "valueOrder": {
       "family": "ability-damage",
       "direction": "ascending",
@@ -4980,28 +5999,28 @@
         {
           "key": "dazzle_shadow_wave",
           "name": "Shadow Wave",
-          "context": "Dazzle",
+          "context": "Dazzle · damage per healing pulse",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dazzle_shadow_wave.png",
           "kind": "ability"
         },
         {
           "key": "terrorblade_terror_wave",
           "name": "Terror Wave",
-          "context": "Terrorblade",
+          "context": "Terrorblade · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/terrorblade_terror_wave.png",
           "kind": "ability"
         },
         {
           "key": "shredder_timber_chain",
           "name": "Timber Chain",
-          "context": "Timbersaw",
+          "context": "Timbersaw · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/shredder_timber_chain.png",
           "kind": "ability"
         },
         {
           "key": "dragon_knight_dragon_tail",
           "name": "Dragon Tail",
-          "context": "Dragon Knight",
+          "context": "Dragon Knight · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/dragon_knight_dragon_tail.png",
           "kind": "ability"
         }
@@ -5010,7 +6029,7 @@
         {
           "key": "dazzle_shadow_wave",
           "value": 145,
-          "label": "145 damage"
+          "label": "145 damage per healing pulse"
         },
         {
           "key": "terrorblade_terror_wave",
@@ -5041,12 +6060,30 @@
           "damage:terrorblade_terror_wave:1",
           "damage:shredder_timber_chain:4"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50",
+      "references": [
+        {
+          "label": "Shadow Wave",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50"
+        },
+        {
+          "label": "Dragon Tail",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=49"
+        },
+        {
+          "label": "Terror Wave",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=109"
+        },
+        {
+          "label": "Timber Chain",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=98"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -5058,6 +6095,7 @@
     "difficulty": 3,
     "eyebrow": "Max-level damage",
     "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+    "detail": "Use damage to enemy heroes, before talents, facets, added upgrade effects, amplification, or resistance. Use each card's condition.",
     "answers": [
       "order-v1:magnataur_reverse_polarity,snapfire_scatterblast,brewmaster_thunder_clap,muerta_dead_shot",
       "order-v1:snapfire_scatterblast,brewmaster_thunder_clap,magnataur_reverse_polarity,muerta_dead_shot",
@@ -5065,7 +6103,7 @@
       "order-v1:snapfire_scatterblast,magnataur_reverse_polarity,brewmaster_thunder_clap,muerta_dead_shot"
     ],
     "correctIndex": 3,
-    "explanation": "Lowest to highest: Scatterblast (280 damage) → Reverse Polarity (300 damage) → Thunder Clap (320 damage) → Dead Shot (325 damage).",
+    "explanation": "Lowest to highest: Scatterblast (280 base damage; outside point-blank range) → Reverse Polarity (300 damage) → Thunder Clap (320 damage) → Dead Shot (325 damage).",
     "valueOrder": {
       "family": "ability-damage",
       "direction": "ascending",
@@ -5073,28 +6111,28 @@
         {
           "key": "magnataur_reverse_polarity",
           "name": "Reverse Polarity",
-          "context": "Magnus",
+          "context": "Magnus · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/magnataur_reverse_polarity.png",
           "kind": "ability"
         },
         {
           "key": "snapfire_scatterblast",
           "name": "Scatterblast",
-          "context": "Snapfire",
+          "context": "Snapfire · base damage; outside point-blank range",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/snapfire_scatterblast.png",
           "kind": "ability"
         },
         {
           "key": "brewmaster_thunder_clap",
           "name": "Thunder Clap",
-          "context": "Brewmaster",
+          "context": "Brewmaster · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/brewmaster_thunder_clap.png",
           "kind": "ability"
         },
         {
           "key": "muerta_dead_shot",
           "name": "Dead Shot",
-          "context": "Muerta",
+          "context": "Muerta · damage",
           "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/muerta_dead_shot.png",
           "kind": "ability"
         }
@@ -5108,7 +6146,7 @@
         {
           "key": "snapfire_scatterblast",
           "value": 280,
-          "label": "280 damage"
+          "label": "280 base damage; outside point-blank range"
         },
         {
           "key": "brewmaster_thunder_clap",
@@ -5134,12 +6172,30 @@
           "damage:brewmaster_thunder_clap:4",
           "damage:muerta_dead_shot:4"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128",
+      "references": [
+        {
+          "label": "Scatterblast",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128"
+        },
+        {
+          "label": "Reverse Polarity",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=97"
+        },
+        {
+          "label": "Thunder Clap",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=78"
+        },
+        {
+          "label": "Dead Shot",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -5151,6 +6207,7 @@
     "difficulty": 3,
     "eyebrow": "Base movement speed",
     "prompt": "How do these heroes rank from slowest to fastest?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_dark_seer,npc_dota_hero_silencer,npc_dota_hero_elder_titan,npc_dota_hero_phantom_assassin",
       "order-v1:npc_dota_hero_silencer,npc_dota_hero_dark_seer,npc_dota_hero_elder_titan,npc_dota_hero_phantom_assassin",
@@ -5223,12 +6280,30 @@
           "move-speed:npc_dota_hero_elder_titan",
           "move-speed:npc_dota_hero_phantom_assassin"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55",
+      "references": [
+        {
+          "label": "Dark Seer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55"
+        },
+        {
+          "label": "Silencer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75"
+        },
+        {
+          "label": "Elder Titan",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=103"
+        },
+        {
+          "label": "Phantom Assassin",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=44"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -5240,6 +6315,7 @@
     "difficulty": 3,
     "eyebrow": "Base movement speed",
     "prompt": "How do these heroes rank from slowest to fastest?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_riki,npc_dota_hero_omniknight,npc_dota_hero_life_stealer,npc_dota_hero_luna",
       "order-v1:npc_dota_hero_omniknight,npc_dota_hero_riki,npc_dota_hero_life_stealer,npc_dota_hero_luna",
@@ -5312,12 +6388,30 @@
           "move-speed:npc_dota_hero_life_stealer",
           "move-speed:npc_dota_hero_luna"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=57",
+      "references": [
+        {
+          "label": "Omniknight",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=57"
+        },
+        {
+          "label": "Riki",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=32"
+        },
+        {
+          "label": "Lifestealer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=54"
+        },
+        {
+          "label": "Luna",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=48"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -5329,6 +6423,7 @@
     "difficulty": 3,
     "eyebrow": "Base movement speed",
     "prompt": "How do these heroes rank from slowest to fastest?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_spectre,npc_dota_hero_largo,npc_dota_hero_silencer,npc_dota_hero_chen",
       "order-v1:npc_dota_hero_largo,npc_dota_hero_silencer,npc_dota_hero_spectre,npc_dota_hero_chen",
@@ -5401,12 +6496,30 @@
           "move-speed:npc_dota_hero_silencer",
           "move-speed:npc_dota_hero_chen"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155",
+      "references": [
+        {
+          "label": "Largo",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155"
+        },
+        {
+          "label": "Spectre",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=67"
+        },
+        {
+          "label": "Silencer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75"
+        },
+        {
+          "label": "Chen",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -5418,6 +6531,7 @@
     "difficulty": 3,
     "eyebrow": "Base movement speed",
     "prompt": "How do these heroes rank from slowest to fastest?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_phantom_assassin,npc_dota_hero_chen,npc_dota_hero_earthshaker,npc_dota_hero_enchantress",
       "order-v1:npc_dota_hero_chen,npc_dota_hero_earthshaker,npc_dota_hero_phantom_assassin,npc_dota_hero_enchantress",
@@ -5490,12 +6604,30 @@
           "move-speed:npc_dota_hero_earthshaker",
           "move-speed:npc_dota_hero_enchantress"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66",
+      "references": [
+        {
+          "label": "Chen",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66"
+        },
+        {
+          "label": "Phantom Assassin",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=44"
+        },
+        {
+          "label": "Earthshaker",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=7"
+        },
+        {
+          "label": "Enchantress",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -5507,6 +6639,7 @@
     "difficulty": 3,
     "eyebrow": "Base movement speed",
     "prompt": "How do these heroes rank from slowest to fastest?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_pudge,npc_dota_hero_visage,npc_dota_hero_shadow_demon,npc_dota_hero_dark_seer",
       "order-v1:npc_dota_hero_visage,npc_dota_hero_pudge,npc_dota_hero_shadow_demon,npc_dota_hero_dark_seer",
@@ -5579,12 +6712,30 @@
           "move-speed:npc_dota_hero_shadow_demon",
           "move-speed:npc_dota_hero_dark_seer"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14",
+      "references": [
+        {
+          "label": "Pudge",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=14"
+        },
+        {
+          "label": "Visage",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=92"
+        },
+        {
+          "label": "Shadow Demon",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=79"
+        },
+        {
+          "label": "Dark Seer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -5596,6 +6747,7 @@
     "difficulty": 3,
     "eyebrow": "Base movement speed",
     "prompt": "How do these heroes rank from slowest to fastest?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_elder_titan,npc_dota_hero_silencer,npc_dota_hero_ursa,npc_dota_hero_kunkka",
       "order-v1:npc_dota_hero_silencer,npc_dota_hero_elder_titan,npc_dota_hero_ursa,npc_dota_hero_kunkka",
@@ -5668,12 +6820,30 @@
           "move-speed:npc_dota_hero_ursa",
           "move-speed:npc_dota_hero_kunkka"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75",
+      "references": [
+        {
+          "label": "Silencer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75"
+        },
+        {
+          "label": "Elder Titan",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=103"
+        },
+        {
+          "label": "Ursa",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=70"
+        },
+        {
+          "label": "Kunkka",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=23"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -5685,6 +6855,7 @@
     "difficulty": 3,
     "eyebrow": "Base movement speed",
     "prompt": "How do these heroes rank from slowest to fastest?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_dark_willow,npc_dota_hero_bloodseeker,npc_dota_hero_spectre,npc_dota_hero_silencer",
       "order-v1:npc_dota_hero_bloodseeker,npc_dota_hero_spectre,npc_dota_hero_dark_willow,npc_dota_hero_silencer",
@@ -5757,12 +6928,30 @@
           "move-speed:npc_dota_hero_spectre",
           "move-speed:npc_dota_hero_silencer"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=4",
+      "references": [
+        {
+          "label": "Bloodseeker",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=4"
+        },
+        {
+          "label": "Dark Willow",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119"
+        },
+        {
+          "label": "Spectre",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=67"
+        },
+        {
+          "label": "Silencer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -5774,6 +6963,7 @@
     "difficulty": 3,
     "eyebrow": "Base movement speed",
     "prompt": "How do these heroes rank from slowest to fastest?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_largo,npc_dota_hero_visage,npc_dota_hero_spectre,npc_dota_hero_silencer",
       "order-v1:npc_dota_hero_visage,npc_dota_hero_spectre,npc_dota_hero_largo,npc_dota_hero_silencer",
@@ -5846,12 +7036,30 @@
           "move-speed:npc_dota_hero_spectre",
           "move-speed:npc_dota_hero_silencer"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=92",
+      "references": [
+        {
+          "label": "Visage",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=92"
+        },
+        {
+          "label": "Largo",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155"
+        },
+        {
+          "label": "Spectre",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=67"
+        },
+        {
+          "label": "Silencer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -5863,6 +7071,7 @@
     "difficulty": 3,
     "eyebrow": "Base movement speed",
     "prompt": "How do these heroes rank from slowest to fastest?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_necrolyte,npc_dota_hero_bloodseeker,npc_dota_hero_queenofpain,npc_dota_hero_spectre",
       "order-v1:npc_dota_hero_bloodseeker,npc_dota_hero_necrolyte,npc_dota_hero_queenofpain,npc_dota_hero_spectre",
@@ -5935,12 +7144,30 @@
           "move-speed:npc_dota_hero_queenofpain",
           "move-speed:npc_dota_hero_spectre"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=36",
+      "references": [
+        {
+          "label": "Necrophos",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=36"
+        },
+        {
+          "label": "Bloodseeker",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=4"
+        },
+        {
+          "label": "Queen of Pain",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=39"
+        },
+        {
+          "label": "Spectre",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=67"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -5952,6 +7179,7 @@
     "difficulty": 3,
     "eyebrow": "Base movement speed",
     "prompt": "How do these heroes rank from slowest to fastest?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_antimage,npc_dota_hero_batrider,npc_dota_hero_enchantress,npc_dota_hero_sven",
       "order-v1:npc_dota_hero_batrider,npc_dota_hero_antimage,npc_dota_hero_enchantress,npc_dota_hero_sven",
@@ -6024,12 +7252,30 @@
           "move-speed:npc_dota_hero_enchantress",
           "move-speed:npc_dota_hero_sven"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65",
+      "references": [
+        {
+          "label": "Batrider",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=65"
+        },
+        {
+          "label": "Anti-Mage",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=1"
+        },
+        {
+          "label": "Enchantress",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=58"
+        },
+        {
+          "label": "Sven",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=18"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -6041,6 +7287,7 @@
     "difficulty": 3,
     "eyebrow": "Base movement speed",
     "prompt": "How do these heroes rank from slowest to fastest?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_silencer,npc_dota_hero_dark_seer,npc_dota_hero_beastmaster,npc_dota_hero_ursa",
       "order-v1:npc_dota_hero_dark_seer,npc_dota_hero_beastmaster,npc_dota_hero_silencer,npc_dota_hero_ursa",
@@ -6113,12 +7360,30 @@
           "move-speed:npc_dota_hero_beastmaster",
           "move-speed:npc_dota_hero_ursa"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55",
+      "references": [
+        {
+          "label": "Dark Seer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55"
+        },
+        {
+          "label": "Silencer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75"
+        },
+        {
+          "label": "Beastmaster",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=38"
+        },
+        {
+          "label": "Ursa",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=70"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -6130,6 +7395,7 @@
     "difficulty": 3,
     "eyebrow": "Base movement speed",
     "prompt": "How do these heroes rank from slowest to fastest?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_dark_seer,npc_dota_hero_earth_spirit,npc_dota_hero_silencer,npc_dota_hero_chen",
       "order-v1:npc_dota_hero_earth_spirit,npc_dota_hero_silencer,npc_dota_hero_dark_seer,npc_dota_hero_chen",
@@ -6202,12 +7468,30 @@
           "move-speed:npc_dota_hero_silencer",
           "move-speed:npc_dota_hero_chen"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=107",
+      "references": [
+        {
+          "label": "Earth Spirit",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=107"
+        },
+        {
+          "label": "Dark Seer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=55"
+        },
+        {
+          "label": "Silencer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75"
+        },
+        {
+          "label": "Chen",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -6218,7 +7502,8 @@
     "category": "Heroes",
     "difficulty": 3,
     "eyebrow": "Base attack range",
-    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "prompt": "How do these heroes rank from shortest to longest base attack range?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_silencer,npc_dota_hero_arc_warden,npc_dota_hero_mirana,npc_dota_hero_chen",
       "order-v1:npc_dota_hero_arc_warden,npc_dota_hero_silencer,npc_dota_hero_mirana,npc_dota_hero_chen",
@@ -6291,12 +7576,62 @@
           "hero-stat:attack-range:npc_dota_hero_lina",
           "hero-stat:attack-range:npc_dota_hero_lina"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75",
+      "references": [
+        {
+          "label": "Silencer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75"
+        },
+        {
+          "label": "Nature's Prophet",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53"
+        },
+        {
+          "label": "Drow Ranger",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=6"
+        },
+        {
+          "label": "Crystal Maiden",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5"
+        },
+        {
+          "label": "Arc Warden",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=113"
+        },
+        {
+          "label": "Death Prophet",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43"
+        },
+        {
+          "label": "Lion",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26"
+        },
+        {
+          "label": "Windranger",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21"
+        },
+        {
+          "label": "Lina",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25"
+        },
+        {
+          "label": "Mirana",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9"
+        },
+        {
+          "label": "Chen",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66"
+        },
+        {
+          "label": "Pugna",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -6307,7 +7642,8 @@
     "category": "Heroes",
     "difficulty": 3,
     "eyebrow": "Base attack range",
-    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "prompt": "How do these heroes rank from shortest to longest base attack range?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_bane,npc_dota_hero_vengefulspirit,npc_dota_hero_venomancer,npc_dota_hero_dark_willow",
       "order-v1:npc_dota_hero_vengefulspirit,npc_dota_hero_bane,npc_dota_hero_venomancer,npc_dota_hero_dark_willow",
@@ -6380,12 +7716,54 @@
           "hero-stat:attack-range:npc_dota_hero_venomancer",
           "hero-stat:attack-range:npc_dota_hero_tinker"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20",
+      "references": [
+        {
+          "label": "Vengeful Spirit",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=20"
+        },
+        {
+          "label": "Jakiro",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=64"
+        },
+        {
+          "label": "Shadow Shaman",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=27"
+        },
+        {
+          "label": "Bane",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3"
+        },
+        {
+          "label": "Venomancer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40"
+        },
+        {
+          "label": "Weaver",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=63"
+        },
+        {
+          "label": "Dark Willow",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119"
+        },
+        {
+          "label": "Storm Spirit",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17"
+        },
+        {
+          "label": "Razor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15"
+        },
+        {
+          "label": "Tinker",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -6396,7 +7774,8 @@
     "category": "Heroes",
     "difficulty": 3,
     "eyebrow": "Base attack range",
-    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "prompt": "How do these heroes rank from shortest to longest base attack range?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_windrunner,npc_dota_hero_muerta,npc_dota_hero_drow_ranger,npc_dota_hero_pugna",
       "order-v1:npc_dota_hero_muerta,npc_dota_hero_drow_ranger,npc_dota_hero_windrunner,npc_dota_hero_pugna",
@@ -6469,12 +7848,74 @@
           "hero-stat:attack-range:npc_dota_hero_drow_ranger",
           "hero-stat:attack-range:npc_dota_hero_lina"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26",
+      "references": [
+        {
+          "label": "Lion",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26"
+        },
+        {
+          "label": "Muerta",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138"
+        },
+        {
+          "label": "Hoodwink",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=123"
+        },
+        {
+          "label": "Ringmaster",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131"
+        },
+        {
+          "label": "Arc Warden",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=113"
+        },
+        {
+          "label": "Death Prophet",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43"
+        },
+        {
+          "label": "Windranger",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21"
+        },
+        {
+          "label": "Silencer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75"
+        },
+        {
+          "label": "Nature's Prophet",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53"
+        },
+        {
+          "label": "Drow Ranger",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=6"
+        },
+        {
+          "label": "Crystal Maiden",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5"
+        },
+        {
+          "label": "Lina",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25"
+        },
+        {
+          "label": "Mirana",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9"
+        },
+        {
+          "label": "Chen",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66"
+        },
+        {
+          "label": "Pugna",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -6485,7 +7926,8 @@
     "category": "Heroes",
     "difficulty": 3,
     "eyebrow": "Base attack range",
-    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "prompt": "How do these heroes rank from shortest to longest base attack range?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_venomancer,npc_dota_hero_weaver,npc_dota_hero_razor,npc_dota_hero_storm_spirit",
       "order-v1:npc_dota_hero_weaver,npc_dota_hero_razor,npc_dota_hero_venomancer,npc_dota_hero_storm_spirit",
@@ -6558,12 +8000,54 @@
           "hero-stat:attack-range:npc_dota_hero_tinker",
           "hero-stat:attack-range:npc_dota_hero_tinker"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128",
+      "references": [
+        {
+          "label": "Snapfire",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=128"
+        },
+        {
+          "label": "Jakiro",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=64"
+        },
+        {
+          "label": "Weaver",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=63"
+        },
+        {
+          "label": "Shadow Shaman",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=27"
+        },
+        {
+          "label": "Bane",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3"
+        },
+        {
+          "label": "Venomancer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40"
+        },
+        {
+          "label": "Dark Willow",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119"
+        },
+        {
+          "label": "Storm Spirit",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17"
+        },
+        {
+          "label": "Razor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15"
+        },
+        {
+          "label": "Tinker",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -6574,7 +8058,8 @@
     "category": "Heroes",
     "difficulty": 3,
     "eyebrow": "Base attack range",
-    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "prompt": "How do these heroes rank from shortest to longest base attack range?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_arc_warden,npc_dota_hero_pugna,npc_dota_hero_chen,npc_dota_hero_lina",
       "order-v1:npc_dota_hero_pugna,npc_dota_hero_arc_warden,npc_dota_hero_chen,npc_dota_hero_lina",
@@ -6647,12 +8132,46 @@
           "hero-stat:attack-range:npc_dota_hero_lina",
           "hero-stat:attack-range:npc_dota_hero_lina"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=113",
+      "references": [
+        {
+          "label": "Arc Warden",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=113"
+        },
+        {
+          "label": "Death Prophet",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43"
+        },
+        {
+          "label": "Lion",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26"
+        },
+        {
+          "label": "Windranger",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21"
+        },
+        {
+          "label": "Lina",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=25"
+        },
+        {
+          "label": "Mirana",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=9"
+        },
+        {
+          "label": "Chen",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=66"
+        },
+        {
+          "label": "Pugna",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=45"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -6663,7 +8182,8 @@
     "category": "Heroes",
     "difficulty": 3,
     "eyebrow": "Base attack range",
-    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "prompt": "How do these heroes rank from shortest to longest base attack range?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_storm_spirit,npc_dota_hero_razor,npc_dota_hero_phoenix,npc_dota_hero_nevermore",
       "order-v1:npc_dota_hero_razor,npc_dota_hero_storm_spirit,npc_dota_hero_phoenix,npc_dota_hero_nevermore",
@@ -6736,12 +8256,46 @@
           "hero-stat:attack-range:npc_dota_hero_witch_doctor",
           "hero-stat:attack-range:npc_dota_hero_witch_doctor"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119",
+      "references": [
+        {
+          "label": "Dark Willow",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119"
+        },
+        {
+          "label": "Storm Spirit",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17"
+        },
+        {
+          "label": "Razor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15"
+        },
+        {
+          "label": "Tinker",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34"
+        },
+        {
+          "label": "Shadow Fiend",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11"
+        },
+        {
+          "label": "Witch Doctor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30"
+        },
+        {
+          "label": "Troll Warlord",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=95"
+        },
+        {
+          "label": "Phoenix",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=110"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -6752,7 +8306,8 @@
     "category": "Heroes",
     "difficulty": 3,
     "eyebrow": "Base attack range",
-    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "prompt": "How do these heroes rank from shortest to longest base attack range?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_necrolyte,npc_dota_hero_storm_spirit,npc_dota_hero_nevermore,npc_dota_hero_lich",
       "order-v1:npc_dota_hero_storm_spirit,npc_dota_hero_nevermore,npc_dota_hero_necrolyte,npc_dota_hero_lich",
@@ -6825,12 +8380,54 @@
           "hero-stat:attack-range:npc_dota_hero_witch_doctor",
           "hero-stat:attack-range:npc_dota_hero_lich"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119",
+      "references": [
+        {
+          "label": "Dark Willow",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119"
+        },
+        {
+          "label": "Storm Spirit",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17"
+        },
+        {
+          "label": "Razor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15"
+        },
+        {
+          "label": "Tinker",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34"
+        },
+        {
+          "label": "Necrophos",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=36"
+        },
+        {
+          "label": "Shadow Fiend",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11"
+        },
+        {
+          "label": "Witch Doctor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30"
+        },
+        {
+          "label": "Troll Warlord",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=95"
+        },
+        {
+          "label": "Phoenix",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=110"
+        },
+        {
+          "label": "Lich",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=31"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -6841,7 +8438,8 @@
     "category": "Heroes",
     "difficulty": 3,
     "eyebrow": "Base attack range",
-    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "prompt": "How do these heroes rank from shortest to longest base attack range?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_razor,npc_dota_hero_venomancer,npc_dota_hero_storm_spirit,npc_dota_hero_phoenix",
       "order-v1:npc_dota_hero_venomancer,npc_dota_hero_storm_spirit,npc_dota_hero_razor,npc_dota_hero_phoenix",
@@ -6914,12 +8512,62 @@
           "hero-stat:attack-range:npc_dota_hero_tinker",
           "hero-stat:attack-range:npc_dota_hero_witch_doctor"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3",
+      "references": [
+        {
+          "label": "Bane",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=3"
+        },
+        {
+          "label": "Venomancer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40"
+        },
+        {
+          "label": "Weaver",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=63"
+        },
+        {
+          "label": "Jakiro",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=64"
+        },
+        {
+          "label": "Dark Willow",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119"
+        },
+        {
+          "label": "Storm Spirit",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17"
+        },
+        {
+          "label": "Razor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15"
+        },
+        {
+          "label": "Tinker",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34"
+        },
+        {
+          "label": "Shadow Fiend",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11"
+        },
+        {
+          "label": "Witch Doctor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30"
+        },
+        {
+          "label": "Troll Warlord",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=95"
+        },
+        {
+          "label": "Phoenix",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=110"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -6930,7 +8578,8 @@
     "category": "Heroes",
     "difficulty": 3,
     "eyebrow": "Base attack range",
-    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "prompt": "How do these heroes rank from shortest to longest base attack range?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_necrolyte,npc_dota_hero_nevermore,npc_dota_hero_lich,npc_dota_hero_leshrac",
       "order-v1:npc_dota_hero_nevermore,npc_dota_hero_necrolyte,npc_dota_hero_lich,npc_dota_hero_leshrac",
@@ -7003,12 +8652,70 @@
           "hero-stat:attack-range:npc_dota_hero_lich",
           "hero-stat:attack-range:npc_dota_hero_death_prophet"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17",
+      "references": [
+        {
+          "label": "Storm Spirit",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17"
+        },
+        {
+          "label": "Necrophos",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=36"
+        },
+        {
+          "label": "Razor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15"
+        },
+        {
+          "label": "Dark Willow",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119"
+        },
+        {
+          "label": "Shadow Fiend",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11"
+        },
+        {
+          "label": "Witch Doctor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30"
+        },
+        {
+          "label": "Troll Warlord",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=95"
+        },
+        {
+          "label": "Phoenix",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=110"
+        },
+        {
+          "label": "Tinker",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=34"
+        },
+        {
+          "label": "Lich",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=31"
+        },
+        {
+          "label": "Dazzle",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50"
+        },
+        {
+          "label": "Hoodwink",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=123"
+        },
+        {
+          "label": "Death Prophet",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43"
+        },
+        {
+          "label": "Leshrac",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=52"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -7019,7 +8726,8 @@
     "category": "Heroes",
     "difficulty": 3,
     "eyebrow": "Base attack range",
-    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "prompt": "How do these heroes rank from shortest to longest base attack range?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_puck,npc_dota_hero_nevermore,npc_dota_hero_muerta,npc_dota_hero_windrunner",
       "order-v1:npc_dota_hero_nevermore,npc_dota_hero_puck,npc_dota_hero_muerta,npc_dota_hero_windrunner",
@@ -7092,12 +8800,66 @@
           "hero-stat:attack-range:npc_dota_hero_lion",
           "hero-stat:attack-range:npc_dota_hero_arc_warden"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11",
+      "references": [
+        {
+          "label": "Shadow Fiend",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11"
+        },
+        {
+          "label": "Witch Doctor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30"
+        },
+        {
+          "label": "Troll Warlord",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=95"
+        },
+        {
+          "label": "Phoenix",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=110"
+        },
+        {
+          "label": "Lich",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=31"
+        },
+        {
+          "label": "Hoodwink",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=123"
+        },
+        {
+          "label": "Puck",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=13"
+        },
+        {
+          "label": "Lion",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26"
+        },
+        {
+          "label": "Muerta",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138"
+        },
+        {
+          "label": "Ringmaster",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131"
+        },
+        {
+          "label": "Arc Warden",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=113"
+        },
+        {
+          "label": "Death Prophet",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43"
+        },
+        {
+          "label": "Windranger",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=21"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -7108,7 +8870,8 @@
     "category": "Heroes",
     "difficulty": 3,
     "eyebrow": "Base attack range",
-    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "prompt": "How do these heroes rank from shortest to longest base attack range?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_ringmaster,npc_dota_hero_witch_doctor,npc_dota_hero_clinkz,npc_dota_hero_drow_ranger",
       "order-v1:npc_dota_hero_witch_doctor,npc_dota_hero_clinkz,npc_dota_hero_ringmaster,npc_dota_hero_drow_ranger",
@@ -7181,12 +8944,74 @@
           "hero-stat:attack-range:npc_dota_hero_clinkz",
           "hero-stat:attack-range:npc_dota_hero_drow_ranger"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11",
+      "references": [
+        {
+          "label": "Shadow Fiend",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11"
+        },
+        {
+          "label": "Witch Doctor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30"
+        },
+        {
+          "label": "Troll Warlord",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=95"
+        },
+        {
+          "label": "Phoenix",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=110"
+        },
+        {
+          "label": "Lion",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=26"
+        },
+        {
+          "label": "Muerta",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=138"
+        },
+        {
+          "label": "Hoodwink",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=123"
+        },
+        {
+          "label": "Ringmaster",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=131"
+        },
+        {
+          "label": "Clinkz",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=56"
+        },
+        {
+          "label": "Dazzle",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50"
+        },
+        {
+          "label": "Leshrac",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=52"
+        },
+        {
+          "label": "Silencer",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=75"
+        },
+        {
+          "label": "Nature's Prophet",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=53"
+        },
+        {
+          "label": "Drow Ranger",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=6"
+        },
+        {
+          "label": "Crystal Maiden",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5"
+        }
+      ]
     },
     "patch": "7.41f"
   },
@@ -7197,7 +9022,8 @@
     "category": "Heroes",
     "difficulty": 3,
     "eyebrow": "Base attack range",
-    "prompt": "How do these heroes rank from shortest to longest attack range?",
+    "prompt": "How do these heroes rank from shortest to longest base attack range?",
+    "detail": "Use base stats in the default form, without items, talents, facets, or ability effects.",
     "answers": [
       "order-v1:npc_dota_hero_nevermore,npc_dota_hero_necrolyte,npc_dota_hero_witch_doctor,npc_dota_hero_leshrac",
       "order-v1:npc_dota_hero_necrolyte,npc_dota_hero_witch_doctor,npc_dota_hero_nevermore,npc_dota_hero_leshrac",
@@ -7270,12 +9096,62 @@
           "hero-stat:attack-range:npc_dota_hero_witch_doctor",
           "hero-stat:attack-range:npc_dota_hero_death_prophet"
         ],
-        "clientBuild": "6882"
+        "sourceType": "Valve Dota 2 public data"
       }
     },
     "source": {
-      "label": "Dota 2 live-client audit · build 6882",
-      "url": "https://www.dota2.com/patches/7.41f"
+      "label": "Valve Dota 2 public data",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17",
+      "references": [
+        {
+          "label": "Storm Spirit",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=17"
+        },
+        {
+          "label": "Necrophos",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=36"
+        },
+        {
+          "label": "Razor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=15"
+        },
+        {
+          "label": "Dark Willow",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=119"
+        },
+        {
+          "label": "Shadow Fiend",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=11"
+        },
+        {
+          "label": "Witch Doctor",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=30"
+        },
+        {
+          "label": "Troll Warlord",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=95"
+        },
+        {
+          "label": "Phoenix",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=110"
+        },
+        {
+          "label": "Dazzle",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=50"
+        },
+        {
+          "label": "Hoodwink",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=123"
+        },
+        {
+          "label": "Death Prophet",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=43"
+        },
+        {
+          "label": "Leshrac",
+          "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=52"
+        }
+      ]
     },
     "patch": "7.41f"
   }

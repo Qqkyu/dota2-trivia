@@ -1,0 +1,42 @@
+[
+  {
+    "text": "",
+    "description": "Site information",
+    "class": "android.widget.Button",
+    "bounds": "[16,161][112,257]",
+    "focused": "false",
+    "resourceId": "browser.toolbar.site.info.unknown"
+  },
+  {
+    "text": "",
+    "description": " 127.0.0.1:3334/party. Search or enter address",
+    "class": "android.view.View",
+    "bounds": "[112,161][416,257]",
+    "focused": "false",
+    "resourceId": "ADDRESSBAR_URL_BOX"
+  },
+  {
+    "text": "",
+    "description": "New tab",
+    "class": "android.widget.Button",
+    "bounds": "[432,161][528,257]",
+    "focused": "false",
+    "resourceId": ""
+  },
+  {
+    "text": "",
+    "description": "Non-private Tabs Open: 4. Tap to switch tabs.",
+    "class": "android.view.View",
+    "bounds": "[552,185][600,233]",
+    "focused": "false",
+    "resourceId": "TabCounterTestTags.tabCounter"
+  },
+  {
+    "text": "",
+    "description": "More options",
+    "class": "android.widget.Button",
+    "bounds": "[624,161][720,257]",
+    "focused": "false",
+    "resourceId": ""
+  }
+]

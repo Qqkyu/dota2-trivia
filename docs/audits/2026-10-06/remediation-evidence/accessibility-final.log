@@ -1,0 +1,275 @@
+{
+  "pages": [
+    {
+      "label": "ui-modern-1400-home",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-party",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-profile",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-privacy",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-calibration",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-ops",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-375-home",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-375-party",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-375-profile",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-375-privacy",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-375-calibration",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-375-ops",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-home",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-party",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-profile",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-privacy",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-calibration",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-ops",
+      "violations": [],
+      "overflow": false
+    }
+  ],
+  "fixtures": [
+    {
+      "label": "ui-modern-1400-trivia",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-trivia",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-shopkeeper",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-shopkeeper",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-shop-recipe",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-shop-recipe",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-spell-link",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-spell-link",
+      "violations": [
+        "target-size"
+      ],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-fogged-vision",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-fogged-vision",
+      "violations": [
+        "target-size"
+      ],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-echo-hunt",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-echo-hunt",
+      "violations": [
+        "target-size"
+      ],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-quote-hunt",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-quote-hunt",
+      "violations": [
+        "target-size"
+      ],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-aghanim-lab",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-aghanim-lab",
+      "violations": [
+        "target-size"
+      ],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-soundcheck",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-soundcheck",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-order-up",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-order-up",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-flashback-year",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-flashback-year",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-flashback-choice",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-flashback-choice",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-1400-flashback-order",
+      "violations": [],
+      "overflow": false
+    },
+    {
+      "label": "ui-modern-320-flashback-order",
+      "violations": [],
+      "overflow": false
+    }
+  ],
+  "keyboard": [
+    {
+      "round": "trivia",
+      "key": "Control+a",
+      "votes": []
+    },
+    {
+      "round": "trivia",
+      "key": "Control+c",
+      "votes": []
+    },
+    {
+      "round": "trivia",
+      "key": "Control+d",
+      "votes": []
+    },
+    {
+      "round": "trivia",
+      "key": "Alt+1",
+      "votes": []
+    },
+    {
+      "round": "flashback-year",
+      "focus": "Mute game sounds",
+      "key": "Space",
+      "votes": [],
+      "muteLabel": null,
+      "enabledMute": 1
+    },
+    {
+      "round": "flashback-year",
+      "focus": "Mute game sounds",
+      "key": "Enter",
+      "votes": [],
+      "muteLabel": null,
+      "enabledMute": 1
+    }
+  ],
+  "errors": []
+}

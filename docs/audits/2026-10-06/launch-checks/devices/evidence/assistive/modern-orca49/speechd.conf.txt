@@ -1,0 +1,8 @@
+LogLevel 4
+LogDir "/evidence/session/log"
+DefaultLanguage "en-US"
+DefaultVoiceType "MALE1"
+AddModule "espeak-ng" "/usr/lib/speech-dispatcher-modules/sd_espeak-ng" "/etc/speech-dispatcher/modules/espeak-ng.conf"
+DefaultModule espeak-ng
+DisableAutoSpawn
+AudioOutputMethod "pulse"

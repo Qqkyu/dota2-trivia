@@ -1,0 +1,54 @@
+import {readFileSync,writeFileSync,readdirSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {SOUNDCHECK_DEFINITIONS,soundcheckClips,soundcheckAudioUrl,soundcheckEventDetails,soundcheckPcmPreviewAudit} from '/home/kulmisiu/dev/dota2-trivia/scripts/soundcheck-audit.mjs';
+import {soundcheckClipTiming} from '/home/kulmisiu/dev/dota2-trivia/src/lib/soundcheck.mjs';
+import {isSingleItemSoundPickerQuestion} from '/home/kulmisiu/dev/dota2-trivia/src/lib/item-picker.mjs';
+import {parseValveKeyValues} from '/home/kulmisiu/dev/dota2-trivia/scripts/valve-keyvalues.mjs';
+const repo='/home/kulmisiu/dev/dota2-trivia', out='/tmp/queue-arcade-deep-review', source='/tmp/queue-arcade-live6882';
+const read=p=>JSON.parse(readFileSync(p)); const hash=b=>createHash('sha256').update(b).digest('hex');
+const qs=read(repo+'/src/data/soundcheck-questions.json'), assets=read(out+'/soundcheck-cache/assets.json'), names=read(repo+'/tests/fixtures/soundcheck-official-names.json').names;
+const shop=read(repo+'/src/data/shopkeeper-catalog.json').groups.flatMap(x=>x.items.map(i=>i.key));
+const abilityRecords=new Map;for(const file of readdirSync(source+'/npc/scripts/npc/heroes')){const path=source+'/npc/scripts/npc/heroes/'+file;const data=parseValveKeyValues(readFileSync(path,'utf8'));for(const[k,v]of Object.entries(data.DOTAAbilities??data))if(v&&typeof v==='object')abilityRecords.set(k,{record:v,path,owner:file});}
+const itemBytes=readFileSync(source+'/core/scripts/npc/items.txt'),itemData=parseValveKeyValues(itemBytes.toString()),items=itemData.DOTAAbilities??itemData;
+const sameCueEvents=new Map;const itemEvents=readFileSync(source+'/events/soundevents/game_sounds_items.vsndevts','utf8');for(const m of itemEvents.matchAll(/^\t([^\s=]+)\s*=\s*\{([\s\S]*?)^\t\}/gm))for(const p of m[2].matchAll(/"([^"\n]+\.vsnd)"/g)){const events=sameCueEvents.get(p[1])??[];events.push(m[1]);sameCueEvents.set(p[1],events);}
+const notes={
+muerta_dead_shot:['Dead Shot, Parting Shot, and Spectral Blast share deadshot_cast.vsnd. In-game event pitch differs, but the app plays the isolated WAV. Spectral Slug was replaced with Gunslinger, which current Valve and NPC data identify as an active toggle.'],
+kez_echo_slash:['EchoSlash.Katana.Start and FalconRush.Sai.Target use identical echo_katana_cast.vsnd, pitch, and duration. Falcon Rush was replaced with Talon Toss, a current active ability from Kez.'],
+void_spirit_resonant_pulse:['Brewmaster Void Pulse and Astral Pull share this WAV. The four ordered pairs contain only Void Spirit abilities, so those other owners are not rejected answers.'],
+lion_voodoo:['The Earth Spike target clip is also used by Nyx Impale. This ordered pair offers only Lion abilities.'],
+sheepstick:['Monkey King transformation events share the Hex WAV. This item-only ordered pair does not offer those hero abilities.'],
+meteor_hammer:['Tinker Turret.Cast shares this WAV. The item-only shop does not offer hero abilities.'],
+blink:['The three purchasable Blink upgrades use the same blink_out.vsnd base cue and add distinct layers. The isolated base cue now offers the four reviewed choices. Item.AbyssalBlade.Blink also references this file, but the current Abyssal record has no blink active.'],
+diffusal_blade:['Disperser.Cast and DiffusalBlade.Activate use the same item_diffusalblade.vsnd. The single now offers the four reviewed choices. The Disperser sequence uses its distinct ally-target WAV.'],
+force_staff:['The earlier audit removed Hurricane Pike from the reviewed wrong answers and disabled the full shop. This review preserves that fix.'],
+cyclone:['Eul\'s and Wind Waker share the Cyclone ability name. Only one Cyclone item cue appears in the extracted event file. Wind Waker runtime call sites are unavailable. The four reviewed choices conservatively avoid this unproven ambiguity.'],
+skeleton_king_reincarnation:['The unchanged source WAV starts with 587.25 ms of silence. Both original previews were exactly silent. A trusted startSeconds of 0.6 now removes that prefix from each stage, reveal, and prewarming.'],
+silver_edge:['The selected source is SilverEdge.Target, not an established activation cue. Item copy now says gameplay sound.'],
+sphere:['The selected item sound may be a triggered effect. Generic gameplay-sound copy avoids asserting an activation.'],
+refresher:['Ex Machina shares this WAV but is not offered in the shop catalog.'],
+hand_of_midas:['Philosopher\'s Stone Consume shares this WAV but is not offered in the shop catalog.'],
+soul_ring:['Flayer\'s Wineskin shares this WAV but is not offered in the shop catalog.'],
+dagon:['Dagon5.Target shares the WAV; the shop represents Dagon with one key, so no competing upgrade answer is offered.'],
+tango:['The second clip is Healing Salve. TranquilBoots.Activate also references that WAV, but Tranquil Boots is not a sequence choice.'],
+};
+const fixed=new Set(['blink','diffusal_blade','cyclone','skeleton_king_reincarnation','muerta_dead_shot','kez_echo_slash']);
+const ledger=SOUNDCHECK_DEFINITIONS.map(d=>{
+ const q=qs.find(q=>q.id===`soundcheck-${d.family}:${d.subject}`), clips=soundcheckClips(d), labels=names[d.family];
+ const choiceKeys=[d.subject,...d.distractors], activeChoices=choiceKeys.map(key=>d.family==='item'?items['item_'+key]:abilityRecords.get(key)?.record);
+ const sameHero=d.family!=='ability'||d.difficulty===1||new Set(choiceKeys.map(k=>abilityRecords.get(k)?.owner)).size===1;
+ const active=d.difficulty===1||activeChoices.every(record=>/UNIT_TARGET|POINT|NO_TARGET|TOGGLE/.test(record?.AbilityBehavior??''));
+ const imageKey=p=>p.split('/').at(-1).replace('.png','');const expected=q.answerImagePairs?q.answerImagePairs.map(pair=>pair.map(p=>labels[imageKey(p)]).join(' → ')):q.answerImages.map(p=>labels[imageKey(p)]);
+ const checks={questionText:q.prompt===(clips.length===2?'Match both sounds.':'Match the sound.'),officialChoiceLabels:JSON.stringify(expected)===JSON.stringify(q.answers),correctAnswerAndOrder:q.answers[q.correctIndex]===clips.map(c=>labels[c.subject]).join(' → '),distinctChoices:new Set(q.answers).size===4,sameHeroWhenRequired:sameHero,activeChoicesWhenRequired:active,sequenceDistinctSubjects:clips.length<2||clips[0].subject!==clips[1].subject};
+ const clipLedger=clips.map((c,i)=>{
+  const wav=assets.find(x=>x.url===soundcheckAudioUrl(c)), mirror=assets.find(x=>x.type==='event'&&x.url.endsWith(c.eventFile)), localBytes=readFileSync(source+'/events/'+c.eventFile);
+  const local=soundcheckEventDetails(localBytes.toString(),c.event),remote=soundcheckEventDetails(readFileSync(mirror.path,'utf8'),c.event),preview=soundcheckPcmPreviewAudit(readFileSync(wav.path),c);
+  const metadata=q.soundcheck.clips[i], npc=d.family==='ability'?abilityRecords.get(c.subject):null;
+  const eventMatches=JSON.stringify(local)===JSON.stringify(remote)&&local.audioPaths.includes(c.audioPath.replace('.wav','.vsnd'))&&Math.abs(local.duration-c.duration)<0.000001;
+  if(!eventMatches||wav.sha256!==metadata.audioSha256||preview.stages.some(x=>x.rms<0.0001))throw Error('Clip failed '+c.subject);
+  return{...c,audioUrl:wav.url,audioSha256:wav.sha256,pcmSha256:wav.pcmSha256,sourceEventUrl:mirror.url,localEventSha256:hash(localBytes),mirrorEventSha256:mirror.sha256,eventMetadataMatchesMirror:eventMatches,sourceDuration:preview.duration,playableDuration:soundcheckClipTiming(c).duration,previewStages:preview.stages,leadingSilenceMsBeforeOffset:wav.leadingSilenceMs,abilitySound:npc?.record.AbilitySound??null,abilitySourcePath:npc?.path??null,identityEvidence:npc?.record.AbilitySound===c.event?'NPC AbilitySound names this event':'Named item or hero effect event and asset path; runtime call site not independently inspected',sharedItemEvents:d.family==='item'?sameCueEvents.get(c.audioPath.replace('.wav','.vsnd'))??[]:[]};
+ });
+ if(Object.values(checks).some(x=>!x))throw Error('Question failed '+q.id);
+ return{id:q.id,status:fixed.has(d.subject)?'fixed-and-verified':'verified-by-source-and-waveform',family:d.family,difficulty:d.difficulty,format:q.soundcheck.format,prompt:q.prompt,answers:q.answers,correctAnswer:q.answers[q.correctIndex],explanation:q.explanation,choiceKeys,offeredChoiceScope:isSingleItemSoundPickerQuestion(q)?'full-shop':'reviewed-four',offeredChoiceCount:isSingleItemSoundPickerQuestion(q)?shop.length:4,checks,clips:clipLedger,notes:notes[d.subject]??[],manualListening:'Not performed. Source identity and decoded waveforms were inspected.'};
+});
+writeFileSync(out+'/soundcheck-ledger.json',JSON.stringify({reviewedAt:'2026-10-06',scope:{questions:96,clipReferences:114,uniqueAudioFiles:107,eventFiles:48},sourceLimits:['The local extract calls itself build 6882; its installation provenance was not independently established.','All 114 selected event mappings and durations match the current Dotabase mirror. Whole event-file hashes differ because serialization and unrelated data can differ.','Current official Valve names were checked. No in-client playback or human listening was performed.','Wind Waker shared-cue risk is inferred. Its runtime call site is not available.'],questions:ledger},null,2)+'\n');
+console.log(JSON.stringify({questions:ledger.length,clips:ledger.reduce((n,q)=>n+q.clips.length,0),checked:ledger.every(q=>Object.values(q.checks).every(Boolean)),directNpcSoundMatches:ledger.flatMap(q=>q.clips).filter(c=>c.identityEvidence.startsWith('NPC')).length,reviewedSingleItems:ledger.filter(q=>q.family==='item'&&q.format==='single'&&q.offeredChoiceScope==='reviewed-four').map(q=>q.id)},null,2));

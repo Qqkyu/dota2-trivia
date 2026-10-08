@@ -1,0 +1,70 @@
+import assert from 'node:assert/strict';
+import { chromium } from '/tmp/claude-1000/-home-kulmisiu-dev-taboo-cards-api/659193c9-6633-4106-855b-13298045b98b/scratchpad/shots/node_modules/playwright/index.mjs';
+import { mkdir, writeFile } from 'node:fs/promises';
+const app = process.env.APP_URL ?? 'http://127.0.0.1:3315';
+const token = 'isolated-deep-ui-fixture-valid-session-token-20261006';
+const dir = '/tmp/queue-arcade-deep-review/ui/final-supporting';
+await mkdir(dir, {recursive:true});
+const browser = await chromium.launch({ executablePath:'/home/kulmisiu/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome', headless:true });
+const results=[];
+try {
+  for(const [width,height,scale] of [[320,568,1],[768,1024,1],[1280,640,1],[3840,2160,1],[960,540,2]]) {
+    const context = await browser.newContext({viewport:{width,height}, deviceScaleFactor:scale, isMobile:width===320, hasTouch:width===320});
+    await context.addCookies([{name:'queue_arcade_session', value:token, url:app}]);
+    const page=await context.newPage();
+    const row={width,height,scale};
+    const fit=async(label)=>{
+      const measured=await page.evaluate(()=>({width:document.documentElement.scrollWidth,available:document.documentElement.clientWidth}));
+      assert.ok(measured.width<=Math.min(width,measured.available)+1,`${label}: ${JSON.stringify(measured)}`);
+    };
+    const shot=async(name)=>{await fit(name);await page.screenshot({path:`${dir}/${width}x${height}-${name}.png`});};
+    await page.goto(app);
+    await page.getByTestId('profile-action').waitFor();
+    const me=await page.evaluate(async()=>await(await fetch('/api/me')).json());
+    assert.equal(me.authenticated,true);
+    row.name=await page.getByTestId('profile-action').locator('strong').textContent();
+    assert.ok(row.name.length>50);
+    row.playBottom=await page.getByTestId('start-arcade').evaluate(el=>el.getBoundingClientRect().bottom);
+    if(width===320)assert.ok(row.playBottom<=height,'Play is below the first phone screen');
+    await shot('home');
+    await page.goto(app+'/profile');
+    await page.locator('[data-testid="profile-page"][data-authenticated="true"]').waitFor();
+    assert.equal(await page.locator('[aria-label="Lifetime records"] > div').first().locator('strong').textContent(),'100');
+    assert.equal(await page.locator('[data-testid^="format-mastery-"]').count(),10);
+    await shot('profile');
+    await page.getByTestId('profile-records').evaluate(el=>el.scrollIntoView({block:'start'}));
+    await shot('profile-records');
+    await page.getByTestId('format-mastery-flashback').scrollIntoViewIfNeeded();
+    await shot('profile-last-records');
+    await page.goto(app+'/calibration');
+    await page.getByTestId('calibration-row').first().waitFor();
+    assert.equal(await page.getByTestId('calibration-row').count(),80);
+    const nav=page.getByRole('navigation',{name:'Calibration pages above results'});
+    await nav.evaluate(el=>el.scrollIntoView({block:'start'}));
+    await shot('calibration-controls');
+    const first=await page.getByTestId('calibration-row').first().textContent();
+    await page.getByTestId('calibration-top-next-page').click();
+    await page.waitForFunction(first=>document.querySelector('[data-testid="calibration-row"]').textContent!==first,first);
+    assert.match(await nav.textContent(),/Page 2 of/);
+    await shot('calibration-page2');
+    await page.getByTestId('calibration-top-previous-page').click();
+    await page.waitForFunction(first=>document.querySelector('[data-testid="calibration-row"]').textContent===first,first);
+    await page.goto(app+'/ops');
+    await page.getByTestId('ops-dashboard').waitFor();
+    assert.equal(await page.locator('h1').textContent(),'Arcade activity');
+    await shot('ops');
+    const last=page.getByRole('list',{name:'Rounds by day'}).getByRole('listitem').last();
+    await last.focus();
+    await last.scrollIntoViewIfNeeded();
+    const tip=await last.locator('strong').boundingBox();
+    assert.ok(tip.x>=-1 && tip.x+tip.width<=width+1,'Last chart tooltip exceeds the viewport');
+    await shot('ops-chart-focus');
+    row.authenticated=true; row.answers=100; row.formatCards=10; row.calibrationPagination='next and previous passed';
+    results.push(row);
+    console.log(`Verified real signed-in pages ${width}x${height}`);
+    await context.close();
+  }
+} finally {
+  await browser.close();
+  await writeFile(dir+'/results.json',JSON.stringify(results,null,2));
+}

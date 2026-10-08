@@ -1,0 +1,310 @@
+diff --git a/cjs/src/connection.js b/cjs/src/connection.js
+index 07f6716702ac888215c86ad6e0071aaf55ae519c..8774cc17fb0d907a275564c260c86ad140008749 100644
+--- a/cjs/src/connection.js
++++ b/cjs/src/connection.js
+@@ -87,6 +87,7 @@ function Connection(options, queues = {}, { onopen = noop, onend = noop, onclose
+     , statementId = Math.random().toString(36).slice(2)
+     , statementCount = 1
+     , closedTime = 0
++    , closeRunStart = 0
+     , remaining = 0
+     , hostIndex = 0
+     , retries = 0
+@@ -252,6 +253,12 @@ function Connection(options, queues = {}, { onopen = noop, onend = noop, onclose
+   }
+ 
+   function nextWrite(fn) {
++    if (!socket) {
++      nextWriteTimer !== null && clearImmediate(nextWriteTimer)
++      chunk = nextWriteTimer = null
++      error(Errors.connection('CONNECTION_CLOSED', options, socket))
++      return false
++    }
+     const x = socket.write(chunk, fn)
+     nextWriteTimer !== null && clearImmediate(nextWriteTimer)
+     chunk = nextWriteTimer = null
+@@ -438,6 +445,7 @@ function Connection(options, queues = {}, { onopen = noop, onend = noop, onclose
+     remaining = 0
+     incomings = null
+     clearImmediate(nextWriteTimer)
++    chunk = nextWriteTimer = null
+     socket.removeListener('data', data)
+     socket.removeListener('connect', connected)
+     idleTimer.cancel()
+@@ -447,10 +455,27 @@ function Connection(options, queues = {}, { onopen = noop, onend = noop, onclose
+     socket.removeAllListeners()
+     socket = null
+ 
+-    if (initial)
+-      return reconnect()
++    if (initial) {
++      const err = errorResponse
++      query = results = errorResponse = null
++      result = new Result()
++      rows = 0
++      closedTime = performance.now()
++      closeRunStart || (closeRunStart = closedTime)
++      options.shared.retries++
++      delay = (typeof backoff === 'function' ? backoff(options.shared.retries) : backoff) * 1000
++      if (closedTime + delay <= closeRunStart + (options.connect_timeout || 30) * 1000)
++        return reconnect()
++      closeRunStart = 0
++      errored(err || Errors.connection('CONNECTION_CLOSED', options, socket))
++      return onclose(connection, Errors.connection('CONNECTION_CLOSED', options, socket))
++    }
+ 
+-    !hadError && (query || sent.length) && error(Errors.connection('CONNECTION_CLOSED', options, socket))
++    (query || sent.length) && error(Errors.connection('CONNECTION_CLOSED', options, socket))
++    query = results = errorResponse = null
++    result = new Result()
++    rows = 0
++    closeRunStart = 0
+     closedTime = performance.now()
+     hadError && options.shared.retries++
+     delay = (typeof backoff === 'function' ? backoff(options.shared.retries) : backoff) * 1000
+@@ -560,12 +585,12 @@ function Connection(options, queues = {}, { onopen = noop, onend = noop, onclose
+       }
+ 
+       if (needsTypes) {
+-        initial.reserve && (initial = null)
+-        return fetchArrayTypes()
++        initial.reserve && (closeRunStart = 0, initial = null)
++        return fetchArrayTypes().catch(noop)
+       }
+ 
+       initial && !initial.reserve && execute(initial)
+-      options.shared.retries = retries = 0
++      options.shared.retries = retries = closeRunStart = 0
+       initial = null
+       return
+     }
+diff --git a/cjs/src/index.js b/cjs/src/index.js
+index f09c61c7e998f411560b95c9a8e1ed6a97972c11..c5e6647bc4520afa6f402a8a906d941bb9e3a93c 100644
+--- a/cjs/src/index.js
++++ b/cjs/src/index.js
+@@ -210,14 +210,23 @@ function Postgres(a, b) {
+         closed.length && connect(closed.shift(), query)
+       })
+ 
++    let closedError = null
++
+     move(c, reserved)
+     c.reserved = () => queue.length
+       ? c.execute(queue.shift())
+       : move(c, reserved)
+     c.reserved.release = true
++    c.reserved.closed = error => {
++      closedError = error
++      while (queue.length)
++        queue.shift().reject(error)
++    }
+ 
+     const sql = Sql(handler)
+     sql.release = () => {
++      if (closedError)
++        return
+       c.reserved = null
+       onopen(c)
+     }
+@@ -225,6 +234,8 @@ function Postgres(a, b) {
+     return sql
+ 
+     function handler(q) {
++      if (closedError)
++        return q.reject(closedError)
+       c.queue === full
+         ? queue.push(q)
+         : c.execute(q) || move(c, full)
+@@ -236,13 +247,19 @@ function Postgres(a, b) {
+     const queries = Queue()
+     let savepoints = 0
+       , connection
++      , closedError
+       , prepare = null
+ 
+     try {
+       await sql.unsafe('begin ' + options.replace(/[^a-z ]/ig, ''), [], { onexecute }).execute()
+       return await Promise.race([
+         scope(connection, fn),
+-        new Promise((_, reject) => connection.onclose = reject)
++        new Promise((_, reject) => connection.onclose = error => {
++          closedError = error
++          while (queries.length)
++            queries.shift().reject(error)
++          reject(error)
++        })
+       ])
+     } catch (error) {
+       throw error
+@@ -290,6 +307,8 @@ function Postgres(a, b) {
+ 
+       function handler(q) {
+         q.catch(e => uncaughtError || (uncaughtError = e))
++        if (closedError)
++          return q.reject(closedError)
+         c.queue === full
+           ? queries.push(q)
+           : c.execute(q) || move(c, full)
+@@ -420,6 +439,7 @@ function Postgres(a, b) {
+ 
+   function onclose(c, e) {
+     move(c, closed)
++    c.reserved && c.reserved.closed && c.reserved.closed(e)
+     c.reserved = null
+     c.onclose && (c.onclose(e), c.onclose = null)
+     options.onclose && options.onclose(c.id)
+diff --git a/src/connection.js b/src/connection.js
+index 1b1cccde43b4570d5d071d6ffaab2669b3c2065a..7681b9cf02c2ce649951e59236ab552f0e449292 100644
+--- a/src/connection.js
++++ b/src/connection.js
+@@ -87,6 +87,7 @@ function Connection(options, queues = {}, { onopen = noop, onend = noop, onclose
+     , statementId = Math.random().toString(36).slice(2)
+     , statementCount = 1
+     , closedTime = 0
++    , closeRunStart = 0
+     , remaining = 0
+     , hostIndex = 0
+     , retries = 0
+@@ -252,6 +253,12 @@ function Connection(options, queues = {}, { onopen = noop, onend = noop, onclose
+   }
+ 
+   function nextWrite(fn) {
++    if (!socket) {
++      nextWriteTimer !== null && clearImmediate(nextWriteTimer)
++      chunk = nextWriteTimer = null
++      error(Errors.connection('CONNECTION_CLOSED', options, socket))
++      return false
++    }
+     const x = socket.write(chunk, fn)
+     nextWriteTimer !== null && clearImmediate(nextWriteTimer)
+     chunk = nextWriteTimer = null
+@@ -438,6 +445,7 @@ function Connection(options, queues = {}, { onopen = noop, onend = noop, onclose
+     remaining = 0
+     incomings = null
+     clearImmediate(nextWriteTimer)
++    chunk = nextWriteTimer = null
+     socket.removeListener('data', data)
+     socket.removeListener('connect', connected)
+     idleTimer.cancel()
+@@ -447,10 +455,27 @@ function Connection(options, queues = {}, { onopen = noop, onend = noop, onclose
+     socket.removeAllListeners()
+     socket = null
+ 
+-    if (initial)
+-      return reconnect()
++    if (initial) {
++      const err = errorResponse
++      query = results = errorResponse = null
++      result = new Result()
++      rows = 0
++      closedTime = performance.now()
++      closeRunStart || (closeRunStart = closedTime)
++      options.shared.retries++
++      delay = (typeof backoff === 'function' ? backoff(options.shared.retries) : backoff) * 1000
++      if (closedTime + delay <= closeRunStart + (options.connect_timeout || 30) * 1000)
++        return reconnect()
++      closeRunStart = 0
++      errored(err || Errors.connection('CONNECTION_CLOSED', options, socket))
++      return onclose(connection, Errors.connection('CONNECTION_CLOSED', options, socket))
++    }
+ 
+-    !hadError && (query || sent.length) && error(Errors.connection('CONNECTION_CLOSED', options, socket))
++    (query || sent.length) && error(Errors.connection('CONNECTION_CLOSED', options, socket))
++    query = results = errorResponse = null
++    result = new Result()
++    rows = 0
++    closeRunStart = 0
+     closedTime = performance.now()
+     hadError && options.shared.retries++
+     delay = (typeof backoff === 'function' ? backoff(options.shared.retries) : backoff) * 1000
+@@ -560,12 +585,12 @@ function Connection(options, queues = {}, { onopen = noop, onend = noop, onclose
+       }
+ 
+       if (needsTypes) {
+-        initial.reserve && (initial = null)
+-        return fetchArrayTypes()
++        initial.reserve && (closeRunStart = 0, initial = null)
++        return fetchArrayTypes().catch(noop)
+       }
+ 
+       initial && !initial.reserve && execute(initial)
+-      options.shared.retries = retries = 0
++      options.shared.retries = retries = closeRunStart = 0
+       initial = null
+       return
+     }
+diff --git a/src/index.js b/src/index.js
+index c7fba3dace20173f4cb13f3f138bb6d213b43683..66e1eac5209a90b451237f3da759b1ecb1c4f3f9 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -210,14 +210,23 @@ function Postgres(a, b) {
+         closed.length && connect(closed.shift(), query)
+       })
+ 
++    let closedError = null
++
+     move(c, reserved)
+     c.reserved = () => queue.length
+       ? c.execute(queue.shift())
+       : move(c, reserved)
+     c.reserved.release = true
++    c.reserved.closed = error => {
++      closedError = error
++      while (queue.length)
++        queue.shift().reject(error)
++    }
+ 
+     const sql = Sql(handler)
+     sql.release = () => {
++      if (closedError)
++        return
+       c.reserved = null
+       onopen(c)
+     }
+@@ -225,6 +234,8 @@ function Postgres(a, b) {
+     return sql
+ 
+     function handler(q) {
++      if (closedError)
++        return q.reject(closedError)
+       c.queue === full
+         ? queue.push(q)
+         : c.execute(q) || move(c, full)
+@@ -236,13 +247,19 @@ function Postgres(a, b) {
+     const queries = Queue()
+     let savepoints = 0
+       , connection
++      , closedError
+       , prepare = null
+ 
+     try {
+       await sql.unsafe('begin ' + options.replace(/[^a-z ]/ig, ''), [], { onexecute }).execute()
+       return await Promise.race([
+         scope(connection, fn),
+-        new Promise((_, reject) => connection.onclose = reject)
++        new Promise((_, reject) => connection.onclose = error => {
++          closedError = error
++          while (queries.length)
++            queries.shift().reject(error)
++          reject(error)
++        })
+       ])
+     } catch (error) {
+       throw error
+@@ -290,6 +307,8 @@ function Postgres(a, b) {
+ 
+       function handler(q) {
+         q.catch(e => uncaughtError || (uncaughtError = e))
++        if (closedError)
++          return q.reject(closedError)
+         c.queue === full
+           ? queries.push(q)
+           : c.execute(q) || move(c, full)
+@@ -420,6 +439,7 @@ function Postgres(a, b) {
+ 
+   function onclose(c, e) {
+     move(c, closed)
++    c.reserved && c.reserved.closed && c.reserved.closed(e)
+     c.reserved = null
+     c.onclose && (c.onclose(e), c.onclose = null)
+     options.onclose && options.onclose(c.id)

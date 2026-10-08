@@ -1,0 +1,10 @@
+{
+  "root": "/tmp/queue-arcade-launch-checks/pg-runtime",
+  "data": "/tmp/queue-arcade-launch-checks/pg-runtime/data",
+  "socket": "/tmp/queue-arcade-launch-checks/pg-runtime/socket",
+  "port": 46993,
+  "owner": 1000,
+  "user": "kulmisiu",
+  "pgbin": "/usr/lib/postgresql/14/bin",
+  "auditOnly": true
+}

@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-06T13:01:15.045371+00:00",
+  "scope": "All 123 final Echo selections, one applied volume correction, 369 exact gameplay stages, 435 local speech recognition runs, source attribution and signal evidence. No audio binaries or model weights.",
+  "files": {
+    "README.md": {
+      "bytes": 11172,
+      "sha256": "d8d9ae63d81df1688e7da00597b7dc5f8f24bafcffaba8d69a576df4bce19dda"
+    },
+    "asr-large-review.jsonl": {
+      "bytes": 25819,
+      "sha256": "815674cc08c6f42f27ed46d4cc8e0a924b975af0b383c8159d7456fc5c1d54b2"
+    },
+    "asr-medium-review.jsonl": {
+      "bytes": 59392,
+      "sha256": "fd41f828e737bd227801726565a62a6049f88ac8b36811a8af4149546e04d4e1"
+    },
+    "asr-requirements.txt": {
+      "bytes": 500,
+      "sha256": "9bdcecf01b7ace66562d5b601307395f240a6238ac8d61fc3ec83152f9b5d787"
+    },
+    "asr-small-all.jsonl": {
+      "bytes": 723465,
+      "sha256": "a53526d5063264cb82f6c5c165c2534e9aa2845e96d5727afffbead991ca7512"
+    },
+    "build-echo-ledger.py.txt": {
+      "bytes": 7518,
+      "sha256": "431e29bf9278b25f5e437fd15aa6ad4be115486d455c2c6ee2b048fcd6191986"
+    },
+    "candidates/asr-medium.jsonl": {
+      "bytes": 11289,
+      "sha256": "c68fc8e5d63c47fef404035b1c6b9261180487478f58b362317191a7475c3e8c"
+    },
+    "candidates/asr-small.jsonl": {
+      "bytes": 11741,
+      "sha256": "9339795b8c1221a9b65aae5b7dd77cbc417408bfbd8024e8f71163b5cc4d6ca8"
+    },
+    "candidates/echo-troll-reviewed.json": {
+      "bytes": 1063,
+      "sha256": "100133ead423decd6259e87e5f40f44199ba635c05b058477e45dc729aae32aa"
+    },
+    "candidates/inputs.json": {
+      "bytes": 2766,
+      "sha256": "f0207c400a5524ca1dd978c0f89b999e0a2f69a9b2b64fdeb2f17d752583379e"
+    },
+    "candidates/troll-probes.json": {
+      "bytes": 15170,
+      "sha256": "16ecba05a2d7e7cc4b109b34eca5e129b46033a6e22e2ce6328f226e0841a037"
+    },
+    "diagnostics/asr-medium.jsonl": {
+      "bytes": 42711,
+      "sha256": "3bb4263f3d4533df9d33e735f6333a0df21463fdac23f5d765a105a4cc68653a"
+    },
+    "diagnostics/inputs.json": {
+      "bytes": 11438,
+      "sha256": "20eec2bda5313ef4896d6071dedfa627c96356f8a45ffaa71dd2241eb70022e2"
+    },
+    "echo-change-ledger.json": {
+      "bytes": 4552,
+      "sha256": "f2819228fd0d687fba9b8d679d1761e30c7228c3be399a88fb5563c326c23613"
+    },
+    "echo-ledger.json": {
+      "bytes": 634513,
+      "sha256": "f7238e96d1e63bf43aa6605a82f6e57607e232303fbc54fbd43861afb60e4586"
+    },
+    "ffmpeg-version.txt": {
+      "bytes": 1689,
+      "sha256": "ff177c4585de71302b95b6fe2751cb5fdfc8c145ce192b81876fd617561ffa9f"
+    },
+    "final-source-checks.json": {
+      "bytes": 105022,
+      "sha256": "3d06dadea4118ab5f85af41e8e7bac1236f7c8654326aadad3b632d1f2a34d82"
+    },
+    "inputs-before.json": {
+      "bytes": 188623,
+      "sha256": "7195c768406239e8f25ab8e117a5518c9390303794898d445feb1fbadaa522f4"
+    },
+    "inputs-final.json": {
+      "bytes": 188747,
+      "sha256": "6377ca3eb52f6373a0a471535730dbac53e335f5ab98d48c4d3a5ea984328fc0"
+    },
+    "measure-echo.py.txt": {
+      "bytes": 4881,
+      "sha256": "f1fdf935be95dc2113979437b3b05c5a15217c3ac9baf0e7fe35a627af002996"
+    },
+    "model-manifests.json": {
+      "bytes": 2697,
+      "sha256": "bec24336951c5580c8358b0dd1a494cdf888e087710b2798f6c1014235988dee"
+    },
+    "replay-inputs.py.txt": {
+      "bytes": 3173,
+      "sha256": "0458d572ecb9fdb488f7feaee4fbda0a9c53881a9b2e83c5b9c661c1a0eb1dfa"
+    },
+    "replay-smoke.log": {
+      "bytes": 125,
+      "sha256": "2ebba2d92543f7150d83514f6279bee5d8a88a9dbb6569d5249ff82c928449a8"
+    },
+    "signal-checks-before.json": {
+      "bytes": 332106,
+      "sha256": "9af2921e47fab2ae335a745dd62c06928bbeb18cf92f7d42485c44e1889447ef"
+    },
+    "signal-checks-final.json": {
+      "bytes": 332120,
+      "sha256": "0f1d265a5b4ddab21c15e476e7b940a7ea7d4330e161cf9b3ba6609dd0b458ed"
+    },
+    "text-review-before.json": {
+      "bytes": 181007,
+      "sha256": "8711ae10ec2dbcf7ebbc0db506187adceed9035b6d00530307b53bcb57df0fcc"
+    },
+    "text-review-before.md": {
+      "bytes": 4498,
+      "sha256": "263bfd917dae3bb3a63e9e6e7c57c0c866e2d2e90fea1c67dec0f684341dd755"
+    },
+    "transcribe-echo.py.txt": {
+      "bytes": 6903,
+      "sha256": "227b7d842eac8d3f34e401880963b3d70751004c3ddfe689d8ddf45eddb4a73a"
+    },
+    "troll-guard-green.log": {
+      "bytes": 626,
+      "sha256": "a667a2768f181294625aa2ef8ba5ee8323bc73d46827b92e9648e1687d460ef7"
+    },
+    "troll-guard-red.log": {
+      "bytes": 1292,
+      "sha256": "72734e8a9e20918b71fe1c35dc7a2d4a888b84603f86227e58aa8723d1de0199"
+    },
+    "troll-public-flow.json": {
+      "bytes": 596,
+      "sha256": "63ef3542742de0568c3ca1dc450a57e3a35c947bca1bd8c88ed000d5d9631ec5"
+    },
+    "verification.json": {
+      "bytes": 813,
+      "sha256": "b1ab4aab53915998f520cfe0f8bc0d4b1832ff8a070e607a8f36dec3289a6a34"
+    }
+  },
+  "reviewedRepositoryFiles": {
+    "src/data/questions.generated.json": {
+      "bytes": 1273838,
+      "sha256": "4e730f3f38c07bc51c10292b6e7e73223e72fafcf88c8c44c43cc466af561c5f"
+    },
+    "src/lib/soundcheck.mjs": {
+      "bytes": 3197,
+      "sha256": "e121d75cf5e525cba7c83998b1047354d619aad954e2292bfaecdf1d5b2f752e"
+    },
+    "src/lib/cut-round-audio.mjs": {
+      "bytes": 4817,
+      "sha256": "ff263439a28cba5fa74f09bed0485b4164588ec24f10079b058b4a4d50831303"
+    },
+    "src/lib/public-question.mjs": {
+      "bytes": 11523,
+      "sha256": "65b09ccd69aa458b96d7e4700710b93567b1683d7127355def2c1fac493018e4"
+    },
+    "src/app/api/round-audio/route.ts": {
+      "bytes": 8166,
+      "sha256": "7b98af690cef0dd92e5736e18ac8ea71ce7a33d22eee9ca3cf38106472494e3d"
+    },
+    "scripts/hero-response-quality.mjs": {
+      "bytes": 3893,
+      "sha256": "9e27589a87cb8b560c740f6b0c822f9371f04bcd42da21c3ea9fb40e56ca53b0"
+    },
+    "scripts/validate-hero-responses.mjs": {
+      "bytes": 6809,
+      "sha256": "98fd47fa36ea5bd96fda7c1c99b054e0f0791badede0e611a362f9becb71e17f"
+    },
+    "tests/hero-response-quality.test.mjs": {
+      "bytes": 4283,
+      "sha256": "77961b9209628635a60250ea45b6fed1c5e651a106beebc81a9da3e6fe91487b"
+    },
+    "tests/fixtures/echo-troll-reviewed.json": {
+      "bytes": 1063,
+      "sha256": "100133ead423decd6259e87e5f40f44199ba635c05b058477e45dc729aae32aa"
+    }
+  },
+  "unchangedPriorVoiceArchiveManifest": {
+    "path": "../../deep-review/voices/archive-manifest.json",
+    "bytes": 3615,
+    "sha256": "db75447a1c82eca46dc349daec75bc9eaac9e90a2ac94b281063323f0c12e7b2"
+  },
+  "limits": "Automated review only. Nine full lines have partial word disagreement; Spectre has no verified full-line machine transcript. No human listening or actor identity verification claim."
+}

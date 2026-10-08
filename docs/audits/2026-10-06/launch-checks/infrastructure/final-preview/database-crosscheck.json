@@ -1,0 +1,11 @@
+{
+  "source": "Separate psql SELECT queries against the isolated PostgreSQL container after all guest sessions finished.",
+  "observed": {
+    "sessions": 4,
+    "finished": 4,
+    "rounds": 40,
+    "correct": 10,
+    "events": 40
+  },
+  "matchesHttpDerivedExpected": true
+}

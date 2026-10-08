@@ -1,0 +1,26 @@
+{
+  "round-audio.wav": {
+    "sampleRate": 22050,
+    "channels": 1,
+    "sampleWidthBytes": 2,
+    "frames": 177215,
+    "durationSeconds": 8.036961451247166,
+    "nonzeroSamples": 79535,
+    "peakAbsoluteSample": 32768,
+    "sourceStartSeconds": 18.3296533203125,
+    "sourceEndSeconds": 26.3666533203125,
+    "note": "Unaltered PCM excerpt from PulseAudio monitor recording. Speech requests are in the transcript. No human listening check."
+  },
+  "recipe-audio.wav": {
+    "sampleRate": 22050,
+    "channels": 1,
+    "sampleWidthBytes": 2,
+    "frames": 311831,
+    "durationSeconds": 14.141995464852608,
+    "nonzeroSamples": 213389,
+    "peakAbsoluteSample": 32768,
+    "sourceStartSeconds": 14.6293095703125,
+    "sourceEndSeconds": 30.5933095703125,
+    "note": "Unaltered PCM excerpt from PulseAudio monitor recording. Speech requests are in the transcript. No human listening check."
+  }
+}

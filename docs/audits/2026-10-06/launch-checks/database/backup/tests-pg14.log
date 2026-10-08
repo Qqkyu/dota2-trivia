@@ -1,0 +1,23 @@
+
+ RUN  v5.0.0 /home/kulmisiu/dev/dota2-trivia
+
+ ✓ tests/database-backup.test.mjs > backup connection contract > rejects incomplete or unsupported connection settings: postgres://localhost/db 3ms
+ ✓ tests/database-backup.test.mjs > backup connection contract > rejects incomplete or unsupported connection settings: postgres://user@localhost/ 0ms
+ ✓ tests/database-backup.test.mjs > backup connection contract > rejects incomplete or unsupported connection settings: https://user@localhost/db 0ms
+ ✓ tests/database-backup.test.mjs > backup connection contract > rejects incomplete or unsupported connection settings: postgres://user@localhost/db?hostaddr=127.0.0.2 0ms
+ ✓ tests/database-backup.test.mjs > backup connection contract > rejects incomplete or unsupported connection settings: postgres://user@localhost/db?sslmode=prefer 0ms
+ ✓ tests/database-backup.test.mjs > backup connection contract > rejects incomplete or unsupported connection settings: postgres://user@localhost/db?sslmode=disable&sslmode=verify-full 0ms
+ ✓ tests/database-backup.test.mjs > backup connection contract > rejects incomplete or unsupported connection settings: postgres://user@localhost/db?sslrootcert=/unimplemented/custom-ca.pem 0ms
+ ✓ tests/database-backup.test.mjs > backup connection contract > rejects incomplete or unsupported connection settings: postgres://user@localhost/db?connect_timeout=0 0ms
+ ✓ tests/database-backup.test.mjs > backup connection contract > uses explicit defaults and decodes URL credentials without reading PG environment 1ms
+ ✓ tests/database-backup.test.mjs > PostgreSQL snapshot backup and isolated restore > restores every table from the same snapshot while real account votes continue 909ms
+ ✓ tests/database-backup.test.mjs > PostgreSQL snapshot backup and isolated restore > refuses corrupted archives, original sources and nonempty targets before restore 408ms
+ ✓ tests/database-backup.test.mjs > PostgreSQL snapshot backup and isolated restore > rolls the whole restore back when data loading fails after schema creation 447ms
+ ✓ tests/database-backup.test.mjs > PostgreSQL snapshot backup and isolated restore > leaves the target empty when the restore connection is terminated during COPY 493ms
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  14:36:52
+   Duration  2.61s (tests 89%, import 7%, transform 4%)
+
+JSON report written to /home/kulmisiu/dev/dota2-trivia/docs/audits/2026-10-06/launch-checks/database/backup/tests-pg14.json

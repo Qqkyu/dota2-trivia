@@ -1,0 +1,182 @@
+[
+  {
+    "name": "mobile hero search has an editable input",
+    "passed": true
+  },
+  {
+    "name": "cancel delayed party join with Back",
+    "passed": true
+  },
+  {
+    "name": "cancel delayed party create with Back",
+    "passed": true
+  },
+  {
+    "name": "party response body timeout leaves Join usable",
+    "passed": true
+  },
+  {
+    "name": "rapid party Join sends one request",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal classic",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal hero",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal fog",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal echo",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal quote",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal aghanim",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal shop",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal recipe",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal freerecipe",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal shared",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal upgrade",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal year",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal flashchoice",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal flashorder",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal order",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal damageorder",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal soundability",
+    "passed": true
+  },
+  {
+    "name": "touch answer and reveal sounditem",
+    "passed": true
+  },
+  {
+    "name": "edit partial order without an accidental lock",
+    "passed": true
+  },
+  {
+    "name": "edit partial flashorder without an accidental lock",
+    "passed": true
+  },
+  {
+    "name": "recipe removal and incomplete build stay unlocked",
+    "passed": true
+  },
+  {
+    "name": "hero zero and ambiguous searches never submit",
+    "passed": true
+  },
+  {
+    "name": "failed vote retries once without resetting the round",
+    "passed": true
+  },
+  {
+    "name": "offline polling recovers with the same accepted answer",
+    "passed": true
+  },
+  {
+    "name": "open report follows its original round",
+    "passed": true
+  },
+  {
+    "name": "keyboard focus keeps year slider and lock separate",
+    "passed": true
+  },
+  {
+    "name": "Back and Forward keep the public route usable",
+    "passed": true
+  },
+  {
+    "name": "account change does not write connected results into guest stats",
+    "passed": true
+  },
+  {
+    "name": "account logout starts a separate guest run",
+    "passed": true
+  },
+  {
+    "name": "account switch ignores delayed accepted vote",
+    "passed": true
+  },
+  {
+    "name": "account switch ignores delayed failed vote",
+    "passed": true
+  },
+  {
+    "name": "account metadata missing cannot create guest credit",
+    "passed": true
+  },
+  {
+    "name": "account switch discards an old profile response",
+    "passed": true
+  },
+  {
+    "name": "account vote response migrates pending ownership from an old guest tab",
+    "passed": true
+  },
+  {
+    "name": "account metadata restoration excludes earlier unknown results",
+    "passed": true
+  },
+  {
+    "name": "account metadata gap cannot add unowned points to a known run",
+    "passed": true
+  },
+  {
+    "name": "party chat draft survives the start transition",
+    "passed": true
+  },
+  {
+    "name": "mobile rotation preserves a partial order",
+    "passed": true
+  },
+  {
+    "name": "live party handoff reload and rejoin",
+    "passed": true
+  },
+  {
+    "name": "profile cancel and failed deletion preserve the account",
+    "passed": true
+  }
+]

@@ -1,0 +1,236 @@
+{
+  "url": "http://host.docker.internal:3333",
+  "buildId": "NsjBPH5Ygi5SqnYfuwSHz",
+  "browser": "153.0.8010.12",
+  "reader": "Orca 49.8",
+  "speechOutput": "stock Speech Dispatcher espeak-ng module to recorded PulseAudio null sink",
+  "initialReading": "Native Control at each entry gate; no Browse/Focus toggle after component selection.",
+  "completed": true,
+  "checks": {
+    "secondSearch": true,
+    "searchFocusRecovery": true,
+    "buildFocus": true,
+    "oneRecipeVote": true
+  },
+  "errors": [],
+  "events": [
+    {
+      "label": "recipe entry gate",
+      "startMs": 1791293432923,
+      "endMs": 1791293432923,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%1 playing now \u00b7 Ten gamesYour queue hasside quests.A Dota arcade built for the gap between Find Match and Accept. Eve"
+      },
+      "query": null,
+      "speechRequests": []
+    },
+    {
+      "label": "recipe initial page reading stopped",
+      "startMs": 1791293432923,
+      "endMs": 1791293433349,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%1 playing now \u00b7 Ten gamesYour queue hasside quests.A Dota arcade built for the gap between Find Match and Accept. Eve"
+      },
+      "query": null,
+      "speechRequests": [
+        {
+          "atMs": 1791293432940.1182,
+          "text": "left control"
+        }
+      ]
+    },
+    {
+      "label": "recipe round start",
+      "startMs": 1791293433349,
+      "endMs": 1791293435408,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. Build Abyssal Blade.Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Shopkeeper RushRecipes58Target itemBuild Abyssal Blade.basicsupgradesSho"
+      },
+      "query": "",
+      "speechRequests": [
+        {
+          "atMs": 1791293433671.924,
+          "text": " Round 1. Build Abyssal Blade."
+        }
+      ]
+    },
+    {
+      "label": "shop search",
+      "startMs": 1791293437947,
+      "endMs": 1791293439201,
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "testid": "shopkeeper-search-field",
+        "name": "Search shop items"
+      },
+      "query": "gloves",
+      "speechRequests": [
+        {
+          "atMs": 1791293437960.622,
+          "text": "g"
+        },
+        {
+          "atMs": 1791293438001.513,
+          "text": "l"
+        },
+        {
+          "atMs": 1791293438044.472,
+          "text": "o"
+        },
+        {
+          "atMs": 1791293438082.0168,
+          "text": "v"
+        },
+        {
+          "atMs": 1791293438121.5051,
+          "text": "e"
+        },
+        {
+          "atMs": 1791293438134.222,
+          "text": " GLOVE"
+        },
+        {
+          "atMs": 1791293438161.901,
+          "text": "s"
+        },
+        {
+          "atMs": 1791293438199.2258,
+          "text": " GLOVES"
+        }
+      ]
+    },
+    {
+      "label": "shop component selected",
+      "startMs": 1791293439622,
+      "endMs": 1791293445544,
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "testid": "shopkeeper-search-field",
+        "name": "Search shop items"
+      },
+      "query": "",
+      "speechRequests": [
+        {
+          "atMs": 1791293439633.312,
+          "text": "return"
+        },
+        {
+          "atMs": 1791293439718.7021,
+          "text": "Search shop items entry Search Items."
+        },
+        {
+          "atMs": 1791293439722.572,
+          "text": "Focus mode"
+        },
+        {
+          "atMs": 1791293439839.0752,
+          "text": " Added Gloves of Haste. 1 of 2 components selected."
+        }
+      ]
+    },
+    {
+      "label": "shop second search",
+      "startMs": 1791293445544,
+      "endMs": 1791293446400,
+      "focus": {
+        "tag": "INPUT",
+        "id": "",
+        "testid": "shopkeeper-search-field",
+        "name": "Search shop items"
+      },
+      "query": "gloves",
+      "speechRequests": [
+        {
+          "atMs": 1791293445556.664,
+          "text": "g"
+        },
+        {
+          "atMs": 1791293445603.023,
+          "text": "l"
+        },
+        {
+          "atMs": 1791293445646.146,
+          "text": "o"
+        },
+        {
+          "atMs": 1791293445676.551,
+          "text": "v"
+        },
+        {
+          "atMs": 1791293445717.128,
+          "text": "e"
+        },
+        {
+          "atMs": 1791293445738.795,
+          "text": " GLOVE"
+        },
+        {
+          "atMs": 1791293445757.7268,
+          "text": "s"
+        },
+        {
+          "atMs": 1791293445771.2458,
+          "text": " GLOVES"
+        }
+      ]
+    },
+    {
+      "label": "shop ready to build",
+      "startMs": 1791293447240,
+      "endMs": 1791293453165,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "testid": "shopkeeper-recipe-build",
+        "name": "Build"
+      },
+      "query": "",
+      "speechRequests": [
+        {
+          "atMs": 1791293447253.746,
+          "text": "return"
+        },
+        {
+          "atMs": 1791293447319.751,
+          "text": "BUILD push button."
+        },
+        {
+          "atMs": 1791293447450.0352,
+          "text": " Added Gloves of Haste. 2 of 2 components selected."
+        }
+      ]
+    },
+    {
+      "label": "shop recipe submitted",
+      "startMs": 1791293453165,
+      "endMs": 1791293453586,
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "name": "Round 1. Build Abyssal Blade.Queue ArcadeSide quests, between matchesDota 2 \u00b7 Patch 7.41f70%Round 1Round 001Shopkeeper RushRecipes60Target itemBuild Abyssal Blade.basicsupgradesAdd"
+      },
+      "query": "",
+      "speechRequests": [
+        {
+          "atMs": 1791293453175.998,
+          "text": "return"
+        },
+        {
+          "atMs": 1791293453223.593,
+          "text": "LOCKED grayed."
+        }
+      ],
+      "voteAnswerKeys": [
+        "recipe-v1:gloves+gloves"
+      ]
+    }
+  ]
+}

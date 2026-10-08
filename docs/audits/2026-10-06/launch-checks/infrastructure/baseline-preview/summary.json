@@ -1,0 +1,104 @@
+{
+  "ok": false,
+  "image": "queue-arcade-launch:baseline",
+  "imageId": "sha256:ce9eca3d1cf89ec1d2ba245bdd54107373b95fdb80731a26fa04329bca3bb626",
+  "runtime": {
+    "node": "v22.23.3",
+    "uid": 1001,
+    "buildId": "7FUBU6Evl5KI2B64_VHQk",
+    "cpu": "10000 100000",
+    "memory": "536870912",
+    "swap": "0"
+  },
+  "limits": {
+    "cpus": 0.1,
+    "memoryMiB": 512,
+    "swapMiB": 0,
+    "databaseCpus": 0.1,
+    "databaseMemoryMiB": 256
+  },
+  "elapsedSeconds": 130.97,
+  "database": {
+    "sessions": 20,
+    "finished": 20,
+    "rounds": 40,
+    "correct": 10,
+    "events": 40
+  },
+  "latency": {
+    "targetMs": 1000,
+    "roundP95Max": 1205.27,
+    "voteP95Max": 3603.24,
+    "met": false
+  },
+  "shutdown": {
+    "milliseconds": 1031,
+    "status": 0,
+    "state": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 143,
+      "Error": "",
+      "StartedAt": "2026-10-06T13:22:03.127094241Z",
+      "FinishedAt": "2026-10-06T13:23:59.819478029Z",
+      "Health": {
+        "Status": "unhealthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-06T13:22:08.27075778Z",
+            "End": "2026-10-06T13:22:11.519499363Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:22:41.518064337Z",
+            "End": "2026-10-06T13:22:41.622660765Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:23:11.623320717Z",
+            "End": "2026-10-06T13:23:11.924130899Z",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-06T13:23:41.923208616Z",
+            "End": "2026-10-06T13:23:42.020710249Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    }
+  },
+  "runs": [
+    {
+      "file": "capacity-1.json",
+      "ok": true,
+      "seconds": 52.45,
+      "players": 20,
+      "votes": 40,
+      "requests": 1280,
+      "statuses": {
+        "200": 1218,
+        "204": 39,
+        "409": 14,
+        "429": 9
+      },
+      "responseBytes": 2497868,
+      "mediaRequests": 0,
+      "peakOutstandingHttp": 40,
+      "roundP95MaxMs": 1205.27,
+      "voteP95MaxMs": 3603.24,
+      "clientQueueP95MaxMs": 1.4,
+      "clientQueueMaxMs": 5.08
+    }
+  ]
+}

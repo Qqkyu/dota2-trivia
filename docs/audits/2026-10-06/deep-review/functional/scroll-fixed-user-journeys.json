@@ -1,0 +1,38 @@
+[
+  {
+    "name": "mobile next round restores prompt 320 flashchoice",
+    "passed": true
+  },
+  {
+    "name": "mobile next round restores prompt 320 hero",
+    "passed": true
+  },
+  {
+    "name": "mobile next round restores prompt 320 shop",
+    "passed": true
+  },
+  {
+    "name": "mobile next round restores prompt 390 flashchoice",
+    "passed": true
+  },
+  {
+    "name": "mobile next round restores prompt 390 hero",
+    "passed": true
+  },
+  {
+    "name": "mobile next round restores prompt 390 shop",
+    "passed": true
+  },
+  {
+    "name": "mobile next round resets nested hero search and scroll",
+    "passed": true
+  },
+  {
+    "name": "mobile next round resets nested shop search and scroll",
+    "passed": true
+  },
+  {
+    "name": "mobile next round preserves active party chat",
+    "passed": true
+  }
+]

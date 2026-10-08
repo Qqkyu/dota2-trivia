@@ -298,6 +298,28 @@
   border-top: 1px solid var(--line);
 }
 
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 64px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.pagination button {
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 .tableHeader,
 .row {
   display: grid;
@@ -620,7 +642,7 @@
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 900px) {
   .shell {
     padding-inline: 12px;
   }
@@ -742,5 +764,41 @@
     flex-direction: column;
     justify-content: center;
     gap: 3px;
+  }
+}
+
+.controls input {
+  min-height: 42px;
+}
+
+.shell :is(button, a, input):focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .header {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-block: 14px;
+  }
+
+  .guardrail {
+    min-width: 0;
+  }
+
+  .controls input {
+    font-size: 16px;
+  }
+
+  .controls button,
+  .pagination button {
+    min-height: 44px;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-block: 12px;
   }
 }

@@ -1,0 +1,126 @@
+import { spawn } from "node:child_process";
+import { mkdtemp, rm, readFile, writeFile } from "node:fs/promises";
+import { createServer } from "node:net";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function freePort() {
+  return new Promise((resolve, reject) => {
+    const server = createServer();
+    server.listen(0, "127.0.0.1", () => {
+      const address = server.address();
+      const port = typeof address === "object" && address ? address.port : 0;
+      server.close((error) => (error ? reject(error) : resolve(port)));
+    });
+    server.on("error", reject);
+  });
+}
+
+async function waitJson(url, timeout = 15_000) {
+  const startedAt = Date.now();
+  while (Date.now() - startedAt < timeout) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) return await response.json();
+    } catch {
+      // Chrome is still binding.
+    }
+    await delay(100);
+  }
+  throw new Error(`Chrome debug HTTP did not open at ${url}`);
+}
+
+function attachCdp(webSocketDebuggerUrl) {
+  const socket = new WebSocket(webSocketDebuggerUrl);
+  const pending = new Map();
+  let requestId = 0;
+  socket.addEventListener("message", (message) => {
+    const payload = JSON.parse(message.data);
+    if (!payload.id) return;
+    const request = pending.get(payload.id);
+    if (!request) return;
+    pending.delete(payload.id);
+    if (payload.error) request.reject(new Error(payload.error.message));
+    else request.resolve(payload.result);
+  });
+  function send(method, params = {}) {
+    const id = ++requestId;
+    socket.send(JSON.stringify({ id, method, params }));
+    return new Promise((resolve, reject) => pending.set(id, { resolve, reject }));
+  }
+  async function evaluate(expression) {
+    const result = await send("Runtime.evaluate", { expression, awaitPromise: true, returnByValue: true });
+    if (result.exceptionDetails) {
+      throw new Error(result.exceptionDetails.exception?.description ?? result.exceptionDetails.text);
+    }
+    return result.result.value;
+  }
+  async function waitFor(expression, timeout = 20_000) {
+    const startedAt = Date.now();
+    while (Date.now() - startedAt < timeout) {
+      if (await evaluate(expression)) return;
+      await delay(150);
+    }
+    throw new Error(`Timed out waiting for: ${expression}`);
+  }
+  return {
+    socket,
+    send,
+    evaluate,
+    waitFor,
+    ready: new Promise((resolve, reject) => {
+      socket.addEventListener("open", resolve, { once: true });
+      socket.addEventListener("error", reject, { once: true });
+    }),
+  };
+}
+
+
+const appUrl='http://127.0.0.1:3210';
+const port=await freePort();
+const userDataDir=await mkdtemp(join(tmpdir(),'queue-arcade-functional-'));
+const chrome=spawn('google-chrome',['--headless=new','--mute-audio',`--remote-debugging-port=${port}`,'--remote-allow-origins=*',`--user-data-dir=${userDataDir}`,'--no-first-run','--disable-gpu','--window-size=1400,1000','about:blank'],{stdio:'ignore'});
+let browser; const pages=[];
+async function newPage(inject='') {
+ const created=await browser.send('Target.createTarget',{url:'about:blank'});
+ const list=await fetch(`http://127.0.0.1:${port}/json/list`).then(r=>r.json());
+ const page=attachCdp(list.find(p=>p.id===created.targetId).webSocketDebuggerUrl);
+ pages.push(page);await page.ready;await page.send('Page.enable');await page.send('Runtime.enable');
+ if(inject)await page.send('Page.addScriptToEvaluateOnNewDocument',{source:inject});
+ return page;
+}
+try {
+ const version=await waitJson(`http://127.0.0.1:${port}/json/version`);browser=attachCdp(version.webSocketDebuggerUrl);await browser.ready;
+ const failed=await newPage(`const realFetch=window.fetch;window.__roundRequests=0;window.fetch=function(url,options){if(String(url).startsWith('/api/rounds?')){window.__roundRequests++;if(window.__roundRequests===1)return Promise.resolve(new Response(JSON.stringify({error:'Simulated transient outage'}),{status:503,headers:{'Content-Type':'application/json'}}));}return realFetch.call(this,url,options);};`);
+ await failed.send('Page.navigate',{url:appUrl+'/play'});await failed.waitFor(`document.body?.innerText.includes('Could not join the public room')`);await delay(11000);
+ console.log('INITIAL_FAILURE',JSON.stringify(await failed.evaluate(`({requests:window.__roundRequests,phase:document.querySelector('main')?.dataset.phase,text:document.body.innerText.slice(-1000)})`)));
+ await failed.send('Page.navigate',{url:'about:blank'});
+ const page=await newPage();await page.send('Page.navigate',{url:appUrl+'/'});await page.waitFor(`document.querySelector('main')?.dataset.clientReady==='true'`);
+ const playerId=await page.evaluate(`sessionStorage.getItem('queue-arcade:player:v1:tab')`);
+ console.log('STORAGE_KEYS',JSON.stringify(await page.evaluate(`Object.keys(sessionStorage)`)));
+ const id=playerId??await page.evaluate(`Object.values(sessionStorage).find(v=>/^[0-9a-f]{8}-/.test(v))`);
+ const code='FN'+Date.now().toString(36).toUpperCase();
+ const post=async(path,body)=>{const r=await fetch(appUrl+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const p=await r.json();if(!r.ok)throw new Error(JSON.stringify(p));return p;};
+ await post('/api/private-rooms',{playerId:id,name:'Functional audit',code,games:['spell-link']});
+ await page.send('Page.navigate',{url:appUrl+'/play?room='+code});await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-start"]'))`);
+ await post('/api/private-rooms/start',{playerId:id,code});await page.waitFor(`document.querySelector('main')?.dataset.phase==='answering'`,12000);
+ const room=await fetch(appUrl+'/api/rounds?'+new URLSearchParams({gameId:'dota2',privateCode:code,playerId:id})).then(r=>r.json());
+ const questions=JSON.parse(await readFile('/home/kulmisiu/dev/dota2-trivia/src/data/questions.generated.json','utf8'));
+ const q=questions.find(q=>q.kind==='spell-owner'&&q.hint===room.question.hint);
+ if(!q)throw new Error('Cannot map spell clue '+JSON.stringify(room.question));
+ const key='npc_dota_hero_'+q.answerImages[q.correctIndex].match(/heroes\/([^/?]+)\.png/)[1];
+ await page.evaluate(`document.querySelector('[data-hero-key="${key}"]').click()`);
+ await page.waitFor(`document.querySelector('main')?.dataset.phase==='reveal'`,22000);
+ console.log('CORRECT_ONE',JSON.stringify(await page.evaluate(`({phase:document.querySelector('main')?.dataset.phase,score:document.querySelector('[data-testid="score-grid"]')?.innerText,banner:document.querySelector('[data-testid="kill-streak-banner"]')?.innerText??null,correctState:document.querySelector('[data-hero-key="${key}"]')?.dataset.state,stats:localStorage.getItem('queue-arcade:stats:v1'),keys:Object.keys(localStorage)})`)));
+ await page.send('Page.captureScreenshot',{format:'png'}).then(r=>writeFile('/tmp/queue-arcade-audit-20261006/functional-double-streak.png',Buffer.from(r.data,'base64')));
+ const roundId=room.round.id;
+ await page.send('Page.navigate',{url:'about:blank'});
+ await delay(34000);
+ const recovered=await fetch(appUrl+'/api/rounds?'+new URLSearchParams({gameId:'dota2',privateCode:code,playerId:id,pendingRoundIds:roundId})).then(r=>r.json());
+ console.log('MISSED_ROUND',JSON.stringify({requestedIdLength:roundId.length,currentRound:recovered.round?.number,requestedRound:room.round.number,recovered:recovered.previousResults}));
+ const publicRoom=await fetch(appUrl+'/api/rounds?gameId=dota2&playerId=functional-ids-audit').then(r=>r.json());
+ const pending=Array.from({length:22},(_,i)=>publicRoom.round.id.replace(/:round:\d+$/,':round:'+Math.max(1000000,publicRoom.round.number-i-1)));
+ const response=await fetch(appUrl+'/api/rounds?'+new URLSearchParams({gameId:'dota2',playerId:'functional-ids-audit',pendingRoundIds:pending.join(',')}));
+ console.log('PENDING_LIMIT',JSON.stringify({idLength:pending[0].length,pendingLength:pending.join(',').length,status:response.status,body:await response.json()}));
+}finally {for(const p of pages)p.socket.close();browser?.socket.close();chrome.kill('SIGKILL');await rm(userDataDir,{recursive:true,force:true}).catch(()=>{});}
