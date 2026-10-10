@@ -145,7 +145,7 @@ jobs:
       - name: Verify browser journeys and native audio output
         run: pnpm check:ui
       - name: Check accessibility and keyboard flows in Chromium
-        run: A11Y_MODES=desktop,mobile,zoom200,zoom400,reduced,forced pnpm check:accessibility
+        run: A11Y_MODES=desktop,mobile,zoom200,zoom400,reduced,forced,forced-dark pnpm check:accessibility
       - name: Check mobile and keyboard flows in Firefox
         run: BROWSER_ENGINE=firefox A11Y_MODES=mobile pnpm check:accessibility
       - name: Check mobile and keyboard flows in WebKit

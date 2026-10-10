@@ -13,6 +13,7 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { publicQuestionForRound } from "../src/lib/public-question.mjs";
+import { checkControlPainting } from "./lib/forced-color-checks.mjs";
 
 const require = createRequire(import.meta.url);
 const playwrightModule = process.env.PLAYWRIGHT_MODULE;
@@ -22,11 +23,19 @@ const appUrl = process.env.APP_URL ?? "http://127.0.0.1:3310";
 const engine = process.env.BROWSER_ENGINE ?? "chromium";
 const runName = process.env.A11Y_RUN_NAME ?? engine;
 const outputDir = process.env.A11Y_OUTPUT_DIR ?? "/tmp/queue-arcade-deep-review/accessibility";
-const requestedModes = (process.env.A11Y_MODES ?? "desktop,mobile,zoom200,zoom400,reduced,forced")
+const requestedModes = (process.env.A11Y_MODES ?? "desktop,mobile,zoom200,zoom400,reduced,forced,forced-dark")
   .split(",")
   .filter(Boolean);
 const fixtureModes = process.env.A11Y_FIXTURE_MODES?.split(",").filter(Boolean) ?? requestedModes;
 const fixtureNames = process.env.A11Y_FIXTURES?.split(",").filter(Boolean);
+const pagePaths = process.env.A11Y_PAGES?.split(",").filter(Boolean) ?? [
+  "/",
+  "/party",
+  "/profile",
+  "/privacy",
+  "/calibration",
+  "/ops",
+];
 const timeoutMs = Number(process.env.A11Y_TIMEOUT_MS ?? 45000);
 const modes = {
   desktop: { viewport: { width: 1280, height: 900 } },
@@ -38,7 +47,8 @@ const modes = {
   zoom200: { viewport: { width: 640, height: 450 }, deviceScaleFactor: 2 },
   zoom400: { viewport: { width: 320, height: 225 }, deviceScaleFactor: 4 },
   reduced: { viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" },
-  forced: { viewport: { width: 1280, height: 900 }, forcedColors: "active" },
+  forced: { viewport: { width: 1280, height: 900 }, forcedColors: "active", colorScheme: "light" },
+  "forced-dark": { viewport: { width: 1280, height: 900 }, forcedColors: "active", colorScheme: "dark" },
 };
 const results = {
   appUrl,
@@ -54,6 +64,7 @@ const results = {
   pages: [],
   fixtures: [],
   keyboard: [],
+  painting: [],
   failures: [],
 };
 await mkdir(outputDir, { recursive: true });
@@ -280,13 +291,13 @@ async function inspect(page, label, errors, mode) {
   await page.screenshot({ path: screenshot, fullPage: true, scale: "css" });
   if (geometry.scrollWidth > modes[mode].viewport.width + 2) results.failures.push(`${label}: horizontal overflow`);
   for (const rule of axe)
-    if (["critical", "serious"].includes(rule.impact) && !(mode === "forced" && rule.id === "color-contrast")) {
+    if (["critical", "serious"].includes(rule.impact) && !(mode.startsWith("forced") && rule.id === "color-contrast")) {
       // Axe uses authored colors here, although forced-color painting replaces
       // them. Keep its raw output and inspect those screenshots separately.
       results.failures.push(`${label}: ${rule.id}`);
     }
   if (errors.length) results.failures.push(`${label}: browser error`);
-  if (mode === "forced" && !geometry.forcedColors)
+  if (mode.startsWith("forced") && !geometry.forcedColors)
     results.failures.push(`${label}: forced-color emulation unavailable`);
   if (mode === "reduced" && !geometry.reducedMotion)
     results.failures.push(`${label}: reduced-motion emulation unavailable`);
@@ -322,6 +333,16 @@ async function focusState(page) {
   });
 }
 
+async function inspectPainting(page, kind, mode) {
+  if (mode !== "desktop" && !mode.startsWith("forced")) return;
+  const report = await checkControlPainting({ page, kind, mode, outputDir, runName });
+  results.painting.push(report);
+  for (const check of report.checks) {
+    if (!check.passed) results.failures.push(`${mode}-${kind}: ${check.name}`);
+  }
+  await save();
+}
+
 try {
   if (process.env.A11Y_REVIEWER_COOKIE) {
     const verificationContext = await browser.newContext();
@@ -348,7 +369,7 @@ try {
   for (const mode of requestedModes) {
     if (!modes[mode]) throw new Error(`Unknown mode ${mode}`);
     if (process.env.A11Y_FIXTURES_ONLY !== "1") {
-      for (const pathname of ["/", "/party", "/profile", "/privacy", "/calibration", "/ops"]) {
+      for (const pathname of pagePaths) {
         const session = await makePage(mode);
         await session.page.goto(appUrl + pathname, { waitUntil: "domcontentloaded" });
         await session.page.waitForFunction(() => {
@@ -403,8 +424,11 @@ try {
           }
         }
         results.pages.push(pageResult);
+        if (pathname === "/") await inspectPainting(session.page, "volume", mode);
+        if (pathname === "/calibration") await inspectPainting(session.page, "calibration", mode);
         if (pathname === "/party") {
           await session.page.getByTestId("private-room-choose-create").click();
+          await inspectPainting(session.page, "party", mode);
           await session.page.getByRole("group", { name: "Games", exact: true }).getByRole("button").first().click();
           results.pages.push(await inspect(session.page, `${mode}-party-unchecked`, session.errors, mode));
         }
@@ -416,6 +440,7 @@ try {
       : fixtures.filter((fixture) => !fixtureNames || fixtureNames.includes(fixture.name))) {
       const session = await fixturePage(fixture, mode);
       results.fixtures.push(await inspect(session.page, `${mode}-${fixture.name}`, session.errors, mode));
+      if (fixture.name === "shop-build") await inspectPainting(session.page, "shop", mode);
       await session.context.close();
       await save();
     }
@@ -474,7 +499,7 @@ try {
         await page.keyboard.press("Enter");
         await page.keyboard.press("Tab");
         keyboard.report = { openedFocus: await focusState(page) };
-        if (keyboardMode === "forced") {
+        if (keyboardMode.startsWith("forced")) {
           const menu = page.getByRole("group", { name: "Why are you reporting this question?" });
           const first = await menu.screenshot({ path: path.join(outputDir, `${runName}-report-focus-first.png`) });
           await page.keyboard.press("Tab");

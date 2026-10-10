@@ -978,3 +978,23 @@
   background: transparent;
   content: "";
 }
+
+@media (forced-colors: active) {
+  .gameCard::after {
+    border-color: CanvasText;
+    background: Canvas;
+    color: CanvasText;
+    content: "\2713" / "";
+    font-weight: 700;
+  }
+
+  .gameCard[data-on="false"]::after {
+    border-color: CanvasText;
+    background: Canvas;
+    content: "";
+  }
+
+  .gameCard:focus-visible {
+    outline-color: Highlight;
+  }
+}

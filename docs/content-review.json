@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-10T10:54:09.495Z",
+  "reviewedAt": "2026-10-10T11:15:45.834Z",
   "reviewedBy": "Codex audit team",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
@@ -23,7 +23,7 @@
     "scripts/backfill-quote-hints.mjs": "57299c37e5a02ef9580e2189be76b13dc9308df0bc72a81a1ad9c699b0e1672c",
     "scripts/backfill-spell-hints.mjs": "e8dbb84d76e17554c4d4ec88caf209081a73ea110042479a5178b8e51747c69f",
     "scripts/backup-db.mjs": "e5dbf3d0067127db0fa301c7ac7613b333dd2ca6407a828153b25bd98ffc0e11",
-    "scripts/check-accessibility.mjs": "ada35f46e03ae9a917a7705db0e62477ad2e0dd008606040b933468277d9a9e9",
+    "scripts/check-accessibility.mjs": "72dee694777e5fb7d561c238e78f2748a0a2c46388bf51d559b973292dc95668",
     "scripts/check-capacity.mjs": "7b4536dcbbe14f11a4e578100cb35f680401363ca6caf8f88fc176018cb198e8",
     "scripts/check-cold-media.mjs": "039047277c25afdbd02f69025513b19faad305d37f23e4062809a83f0d1b7ff3",
     "scripts/check-container.mjs": "14db144a2ee9308e878ba6af3f31de00bb825cad60e6d2495e89d90c7bd80698",
@@ -78,6 +78,7 @@
     "scripts/image-assets.mjs": "74d5e8b21cdc06b0be8e52398be46c1eb72041392c636db8a3aa543d693513d9",
     "scripts/lib/feedback-browser.mjs": "2bc2476c7f332a58cbebd937915165d4fc3573ab0a5ea0c947c2b6372222b5d7",
     "scripts/lib/feedback-sound-probe.mjs": "78223939c4929e86c64f9e6b3270768a0b814c0d811a9045d10b03be14436188",
+    "scripts/lib/forced-color-checks.mjs": "0b9ef695d3e1f1be74640f2409c5bb1832487a1952d9cf3af33ea6faea02eabb",
     "scripts/lib/health-readiness.mjs": "f255a0c66fd073c6c4d234a6e18e639bd903c95024e1c3824632d8ee106f36f5",
     "scripts/lib/journey-browser.mjs": "57e32ff048834906114be9cc1d8dafb17e30dbee61b2b2ee496e1d4bf44ca61d",
     "scripts/lib/native-audio-output.mjs": "be35c741c4cce6dfaff9f3e633ac25023a0d9ddca1bdbb6f69e1fe7d86d83442",

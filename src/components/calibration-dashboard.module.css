@@ -281,6 +281,21 @@
   color: #bce5e2;
 }
 
+@media (forced-colors: active) {
+  .controls button {
+    border: 3px solid ButtonBorder;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+
+  .controls button[aria-pressed="true"] {
+    border-style: double;
+    border-color: ButtonText;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+}
+
 .resultMeta {
   display: flex;
   align-items: center;
@@ -800,5 +815,11 @@
     flex-wrap: wrap;
     gap: 8px;
     padding-block: 12px;
+  }
+}
+
+@media (forced-colors: active) {
+  .controls button:focus-visible {
+    outline-color: Highlight;
   }
 }

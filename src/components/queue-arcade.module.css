@@ -300,11 +300,6 @@
   background: transparent;
 }
 
-.volumeControl[data-muted="true"] .volumeSlider,
-.volumeControl[data-muted="true"] .volumeValue {
-  opacity: 0.42;
-}
-
 .volumeSlider {
   width: 72px;
   height: 20px;
@@ -3004,6 +2999,20 @@ button[data-state="wrong"] > .heroPickerVerdict {
   border-bottom-color: #d6a33f;
   color: #e2bf72;
   background: linear-gradient(180deg, transparent, rgba(210, 163, 74, 0.08));
+}
+
+@media (forced-colors: active) {
+  .shopkeeperStoreTabs button {
+    border-bottom-color: Canvas;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .shopkeeperStoreTabs button[aria-pressed="true"] {
+    border-bottom-color: CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
 }
 
 /* Locked board: search packs matches but must not resize the shop. */
@@ -7025,5 +7034,11 @@ button[data-state="wrong"] > .heroPickerVerdict {
 @media (max-width: 680px) {
   .valueOrderSequence > div {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (forced-colors: active) {
+  .shopkeeperStoreTabs button:focus-visible {
+    outline-color: Highlight;
   }
 }
