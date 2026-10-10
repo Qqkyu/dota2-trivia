@@ -256,13 +256,23 @@ try {
     `document.querySelector('[data-testid="private-room-code-label"]')?.textContent?.trim() ?? ""`,
   );
   if (codeLabel !== "Party code") throw new Error(`Party code has no label (${JSON.stringify(codeLabel)}).`);
+  // Keep the join request pending long enough to exercise the loading state.
+  await page.send("Network.enable");
+  await page.send("Network.emulateNetworkConditions", {
+    offline: false,
+    latency: 600,
+    downloadThroughput: -1,
+    uploadThroughput: -1,
+  });
   await fill("private-room-join-code", "NOPE99");
   await clickTestId("private-room-join");
-  await delay(400);
+  await page.waitFor(`Boolean(document.querySelector('[data-testid="private-room-error"]')?.textContent?.trim()) ||
+    Boolean(document.querySelector('[data-testid="private-room-wait"]'))`);
   const missingJoin = await page.evaluate(`(() => ({
     setup: Boolean(document.querySelector('[data-testid="private-room-setup"]')),
     wait: Boolean(document.querySelector('[data-testid="private-room-wait"]')),
     error: document.querySelector('[data-testid="private-room-error"]')?.textContent?.trim() ?? "",
+    canRetry: document.querySelector('[data-testid="private-room-join"]')?.disabled === false,
   }))()`);
   if (!missingJoin.setup || missingJoin.wait) {
     throw new Error(`Join created a party (${JSON.stringify(missingJoin)}).`);
@@ -270,6 +280,13 @@ try {
   if (missingJoin.error !== "No party with that code.") {
     throw new Error(`Join of a missing code did not fail (${JSON.stringify(missingJoin)}).`);
   }
+  if (!missingJoin.canRetry) throw new Error("Join button stayed disabled after a missing-code response.");
+  await page.send("Network.emulateNetworkConditions", {
+    offline: false,
+    latency: 0,
+    downloadThroughput: -1,
+    uploadThroughput: -1,
+  });
 
   await clickTestId("private-room-leave");
   await page.waitFor(`document.querySelector('[data-testid="private-room-setup"]')?.dataset.path === "choose"`);

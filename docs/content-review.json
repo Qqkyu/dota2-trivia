@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-10T09:59:12.423Z",
+  "reviewedAt": "2026-10-10T10:54:09.495Z",
   "reviewedBy": "Codex audit team",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
@@ -40,7 +40,7 @@
     "scripts/check-pages.mjs": "1a401e653ad0b500988c960d63375c8fa08840c2b9354555065a73fc9e540d16",
     "scripts/check-party-api.mjs": "cc1add586175b7f3f5b1323e805ba8c613fc9fba201ffd0ae67db6a73323f60b",
     "scripts/check-party-crowd.mjs": "51e3e00dacab7b7bfcc80fcb23997c11efeea98d2a566eea3dfb2136b1a0b7f5",
-    "scripts/check-party-lobby.mjs": "a4189c5de7d2e030b793e756cad87be5b0c947a5fbe5cbdb0915592eb81ff708",
+    "scripts/check-party-lobby.mjs": "7b47ac77cdb2c65f4c284443a46797127c6ee356639ff00858573a96ae3b5946",
     "scripts/check-party-nicks.mjs": "36dfe4f3375c9e9e26c29968fd00be3c6446a26f40dccd509f3e8742993a4bac",
     "scripts/check-party-previews.mjs": "9ad4c293abd5a5456695e6a4b133ab0c99970e1dcde649849dcd1d512939d25d",
     "scripts/check-production-config.mjs": "3100c5b1a64a63c0859a13e9ec7c21cb6cda86f074d459c232007f16ccaab093",
@@ -81,6 +81,7 @@
     "scripts/lib/health-readiness.mjs": "f255a0c66fd073c6c4d234a6e18e639bd903c95024e1c3824632d8ee106f36f5",
     "scripts/lib/journey-browser.mjs": "57e32ff048834906114be9cc1d8dafb17e30dbee61b2b2ee496e1d4bf44ca61d",
     "scripts/lib/native-audio-output.mjs": "be35c741c4cce6dfaff9f3e633ac25023a0d9ddca1bdbb6f69e1fe7d86d83442",
+    "scripts/lib/reveal-entry.mjs": "5a157036ce50fcda939ba83c6a2e8a280750984a19e302addbab20a7d23350a2",
     "scripts/migrate-db.mjs": "143e3e88cfe513e414ee3ee4b385a24af4ae235e25c68e01cf79769ce98b3ceb",
     "scripts/multiplayer-smoke.mjs": "f5803730be83dfe6b4b8006a2e9d29dd72fe1659306925f3c272057925fd795a",
     "scripts/numeric-question-copy.mjs": "3af6de7711f3dd999fdf14446d10e0e1a55e24a21d09c16de8d3f566fe55f2dc",
@@ -122,7 +123,7 @@
     "scripts/validate-variety.mjs": "a6c214d681e97b238dad452f370d73d87e476080000f08c5a60f48ae3700a365",
     "scripts/valve-keyvalues.mjs": "40afeca27ef3905fa529af4bbf6e08392a4a4d780d382560ec56bbbc59013029",
     "scripts/visual-flashback.mjs": "cb0279b3d92b1e99542f7c7dbb2246cf6a03b449f327ff9ae88486bc01b8435e",
-    "scripts/visual-smoke.mjs": "4b38a2b53bcba85834e3cb31b8870bb64ab08131a0726f7794b1eb91cf10eddb",
+    "scripts/visual-smoke.mjs": "8e14f037726e255d606975d9b068a630a2b155b9c6801fcd176d3c03173eaa20",
     "src/data/ability-text-overrides.json": "c67a922160843be2f70af20c5febc5078f8a27e8d16d851d77aa2f3b03d55dab",
     "src/data/aghanim-questions.json": "7cbe040efd07b0b676c05b25235f53baa124d2bfe43abd5b758c7a8acbfc001e",
     "src/data/aghanim-upgrades.json": "1dff4dcee3c9214273a49fba7f53d96318dbb4a87f285634386669dbcb350665",

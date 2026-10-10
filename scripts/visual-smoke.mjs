@@ -4,6 +4,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { MIN_INITIAL_ANSWER_TIME_MS } from "../src/lib/arcade-entry.mjs";
 import { valueOrderAnswerKey } from "../src/lib/value-order.mjs";
+import { waitForRevealEntryWindow } from "./lib/reveal-entry.mjs";
 
 const debuggingUrl = process.env.CHROME_DEBUG_URL ?? "http://127.0.0.1:9222";
 const appUrl = process.env.APP_URL ?? process.env.ARCADE_APP_URL ?? "http://localhost:3000";
@@ -420,30 +421,6 @@ async function runAghanimLayoutStress() {
   })()`);
 }
 
-async function waitForRevealEntryWindow() {
-  const roomUrl = new URL("/api/rounds", appUrl);
-  roomUrl.search = new URLSearchParams({
-    gameId: "dota2",
-    mode: "mixed",
-    filter: "Mixed",
-    playerId: `visual-entry-${Date.now()}`,
-  });
-
-  for (let attempt = 0; attempt < 4; attempt += 1) {
-    const snapshot = await fetch(roomUrl, { cache: "no-store" }).then((response) => response.json());
-    const revealRemaining = snapshot.round.revealDeadline - snapshot.serverNow;
-    if (snapshot.round.phase === "reveal" && revealRemaining >= 5_000) return;
-
-    const wait =
-      snapshot.round.phase === "answering"
-        ? snapshot.round.answerDeadline - snapshot.serverNow + 150
-        : snapshot.round.revealDeadline - snapshot.serverNow + 150;
-    await delay(Math.max(150, wait));
-  }
-
-  throw new Error("Could not reach a reveal window for the first-entry smoke test.");
-}
-
 await send("Page.enable");
 await send("Runtime.enable");
 await send("Page.addScriptToEvaluateOnNewDocument", {
@@ -589,7 +566,7 @@ await waitFor(
 const defaultVolume = await evaluate(`document.querySelector('[data-testid="game-volume"]')?.value`);
 await evaluate(`(() => {
   localStorage.clear();
-  localStorage.setItem("queue-arcade:settings:v2", JSON.stringify({ soundEnabled: false, gameVolume: 0.7 }));
+  localStorage.setItem("queue-arcade:settings:v3", JSON.stringify({ soundEnabled: false, gameVolume: 0.1 }));
   return true;
 })()`);
 await navigate(appUrl);
@@ -597,8 +574,10 @@ await waitFor(
   `document.querySelector("main")?.dataset.clientReady === "true" && document.querySelector("main")?.dataset.accountReady === "true"`,
 );
 const migratedVolume = await evaluate(`document.querySelector('[data-testid="game-volume"]')?.value`);
+const migratedMuted = await evaluate(`Boolean(document.querySelector('button[aria-label="Enable game sounds"]'))`);
 await evaluate(`(() => {
-  localStorage.setItem("queue-arcade:settings:v3", JSON.stringify({ soundEnabled: false, gameVolume: 0.7 }));
+  localStorage.clear();
+  localStorage.setItem("queue-arcade:settings:v4", JSON.stringify({ soundEnabled: false, gameVolume: 0.45 }));
   return true;
 })()`);
 await navigate(appUrl);
@@ -828,7 +807,14 @@ await navigate(appUrl);
 await waitFor(
   `document.querySelector("main")?.dataset.clientReady === "true" && document.querySelector("main")?.dataset.accountReady === "true"`,
 );
-await waitForRevealEntryWindow();
+const entryRoomUrl = new URL("/api/rounds", appUrl);
+entryRoomUrl.search = new URLSearchParams({
+  gameId: "dota2",
+  mode: "mixed",
+  filter: "Mixed",
+  playerId: `visual-entry-${Date.now()}`,
+});
+await waitForRevealEntryWindow(entryRoomUrl);
 await evaluate(`document.querySelector('[data-testid="start-arcade"]')?.click()`);
 await waitFor(`Boolean(document.querySelector('[data-testid="round-entry-wait"][data-lessons="true"]')) ||
   Boolean(document.querySelector('[data-testid="start-arcade"]')?.disabled) ||
@@ -1360,8 +1346,9 @@ if (!lobby.title.includes("Queue Arcade") || !lobby.heading?.includes("side ques
 }
 if (
   lobby.startButtons !== 1 ||
-  defaultVolume !== "10" ||
-  migratedVolume !== "10" ||
+  defaultVolume !== "70" ||
+  migratedVolume !== "70" ||
+  !migratedMuted ||
   lobby.shareButtons !== 0 ||
   lobby.canonical !== `${new URL(appUrl).origin}/` ||
   !lobby.openGraphImage?.includes("opengraph-image") ||
@@ -1372,7 +1359,7 @@ if (
   !lobby.copy?.toLowerCase().includes("ten games") ||
   lobby.copy?.toLowerCase().includes("choose your side quest") ||
   !lobby.muted ||
-  lobby.volume !== "70"
+  lobby.volume !== "45"
 ) {
   failures.push("The one-room lobby still exposes modes or lost its compact round mix.");
 }
