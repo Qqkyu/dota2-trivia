@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-10T11:15:45.834Z",
+  "reviewedAt": "2026-10-10T11:57:08.146Z",
   "reviewedBy": "Codex audit team",
   "gameplayPatch": "7.41f",
   "sourceAudit": {
@@ -124,7 +124,7 @@
     "scripts/validate-variety.mjs": "a6c214d681e97b238dad452f370d73d87e476080000f08c5a60f48ae3700a365",
     "scripts/valve-keyvalues.mjs": "40afeca27ef3905fa529af4bbf6e08392a4a4d780d382560ec56bbbc59013029",
     "scripts/visual-flashback.mjs": "cb0279b3d92b1e99542f7c7dbb2246cf6a03b449f327ff9ae88486bc01b8435e",
-    "scripts/visual-smoke.mjs": "8e14f037726e255d606975d9b068a630a2b155b9c6801fcd176d3c03173eaa20",
+    "scripts/visual-smoke.mjs": "0064ae5cee65d0da37fe6597d8418c421967a51c4b8a475fc269ede1f3a3d010",
     "src/data/ability-text-overrides.json": "c67a922160843be2f70af20c5febc5078f8a27e8d16d851d77aa2f3b03d55dab",
     "src/data/aghanim-questions.json": "7cbe040efd07b0b676c05b25235f53baa124d2bfe43abd5b758c7a8acbfc001e",
     "src/data/aghanim-upgrades.json": "1dff4dcee3c9214273a49fba7f53d96318dbb4a87f285634386669dbcb350665",

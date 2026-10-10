@@ -1131,6 +1131,9 @@ if (!answering.openShop) {
       );
     }
   } else if (answering.flashbackYear) {
+    answering.flashbackYearSubmittedYear = await evaluate(
+      `Number(document.querySelector('[data-testid="flashback-year-slider"]')?.value)`,
+    );
     await evaluate(`document.querySelector('[data-testid="flashback-year-lock"]')?.click()`);
   } else if (answering.flashbackOrder) {
     const measureFlashbackOrder = `(() => {
@@ -1237,6 +1240,15 @@ const reveal = await evaluate(`(() => {
     orderValueLabels: document.querySelectorAll('[data-testid="value-order-sequence"] em').length,
     flashbackOrderSequences: document.querySelectorAll('[data-testid="flashback-order-sequence"]').length,
     flashbackYearSlider: Boolean(document.querySelector('[data-testid="flashback-year-slider"]')),
+    flashbackYear: {
+      visible: Boolean(document.querySelector('[data-testid="flashback-year-board"]')),
+      phase: document.querySelector('[data-testid="flashback-year-board"]')?.dataset.phase ?? "",
+      correctYear: document.querySelector('[data-testid="flashback-year-board"]')?.dataset.correctYear ?? "",
+      readout: document.querySelector('[data-testid="flashback-year-readout"]')?.textContent?.trim() ?? "",
+      label: document.querySelector('[data-testid="flashback-year-answer-label"]')?.textContent?.trim() ?? "",
+      yourAnswer: document.querySelector('[data-testid="flashback-year-your-answer"]')?.textContent?.trim() ?? "",
+      lock: Boolean(document.querySelector('[data-testid="flashback-year-lock"]')),
+    },
     crowdSplit: (() => {
       const split = document.querySelector('[data-testid="crowd-split"]');
       const rows = [...document.querySelectorAll('[data-testid="crowd-split-row"]')];
@@ -1584,7 +1596,16 @@ if (
         : answering.flashbackOrder
           ? reveal.flashbackOrderSequences < 1 || reveal.openShopReveal
           : answering.flashbackYear
-            ? !reveal.flashbackYearSlider || reveal.openShopReveal
+            ? !reveal.flashbackYear.visible ||
+              reveal.flashbackYear.phase !== "reveal" ||
+              !/^\d{4}$/.test(reveal.flashbackYear.correctYear) ||
+              reveal.flashbackYear.readout !== reveal.flashbackYear.correctYear ||
+              reveal.flashbackYear.label !== "Correct year" ||
+              !Number.isInteger(answering.flashbackYearSubmittedYear) ||
+              reveal.flashbackYear.yourAnswer !== `Your answer: ${answering.flashbackYearSubmittedYear}.` ||
+              reveal.flashbackYearSlider ||
+              reveal.flashbackYear.lock ||
+              reveal.openShopReveal
             : reveal.percentages !== 4 || reveal.openShopReveal) ||
   reveal.reportReasons !== 4 ||
   reveal.audioPrewarmRequests < 1 ||
@@ -1717,6 +1738,8 @@ if (failures.length) {
         shopTooltip,
         heroSearch,
         reveal,
+        revealBoundsBeforeReport,
+        sameBounds,
         autoAdvanced,
         historyBack,
         historyForward,
@@ -1744,6 +1767,10 @@ console.log(
       legacyModeRedirect: true,
       roundFamilies: lobby.roundFamilies,
       synchronizedReveal: true,
+      revealReportBounds: { before: revealBoundsBeforeReport, after: reveal.reportBounds, sameBounds },
+      flashbackYearReveal: answering.flashbackYear
+        ? { submittedYear: answering.flashbackYearSubmittedYear, ...reveal.flashbackYear }
+        : "not-current-round",
       fairFirstEntry: true,
       stableShopTooltip: answering.openShop ? shopTooltip?.stable : "not-current-round",
       automaticAdvance: true,
