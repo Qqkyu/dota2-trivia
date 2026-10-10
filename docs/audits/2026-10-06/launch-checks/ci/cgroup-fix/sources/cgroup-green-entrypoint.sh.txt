@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+probe_mode=green
+probe_dir=/runner-evidence/cgroup-green
+mkdir -p "$probe_dir"
+rm -f "$probe_dir/ready-for-outer-exec" /run/outer-exec-verified
+cat /sys/fs/cgroup/memory.events /sys/fs/cgroup/memory.events.local > "$probe_dir/outer-memory-events-before.txt"
+if test "$probe_mode" = green; then /usr/local/bin/prepare-cgroup-v2.sh; fi
+dockerd --host=unix:///var/run/docker.sock --data-root=/var/lib/docker > "$probe_dir/docker.log" 2>&1 &
+daemon_pid=$!
+finish() {
+  docker rm --force cgroup-unlimited-probe cgroup-cpu-probe cgroup-memory-probe > /dev/null 2>&1 || true
+  kill "$daemon_pid" 2>/dev/null || true
+  wait "$daemon_pid" 2>/dev/null || true
+}
+trap finish EXIT
+for attempt in {1..60}; do
+  if docker info > /dev/null 2>&1; then break; fi
+  if ! kill -0 "$daemon_pid" 2>/dev/null; then exit 1; fi
+  sleep 1
+done
+docker run --rm --name cgroup-unlimited-probe --entrypoint node queue-arcade:ci -e 'process.exit(0)'
+set +e
+docker run --name cgroup-cpu-probe --cpus .5 --memory 64m --memory-swap 64m \
+  --entrypoint node queue-arcade:ci --input-type=module -e "$(cat /run/cgroup-cpu-probe.mjs)" \
+  > "$probe_dir/cpu.json" 2> "$probe_dir/cpu.stderr.log"
+probe_status=$?
+set -e
+printf '%s\n' "$probe_status" > "$probe_dir/cpu-exit.txt"
+if test "$probe_status" != 0; then cat "$probe_dir/cpu.stderr.log"; exit "$probe_status"; fi
+set +e
+docker run --name cgroup-memory-probe --cpus .5 --memory 64m --memory-swap 64m \
+  --entrypoint node queue-arcade:ci --input-type=module -e "$(cat /run/cgroup-memory-probe.mjs)" \
+  > "$probe_dir/memory.stdout.log" 2> "$probe_dir/memory.stderr.log"
+probe_status=$?
+set -e
+printf '%s\n' "$probe_status" > "$probe_dir/memory-exit.txt"
+docker inspect cgroup-memory-probe --format '{{json .State}}' > "$probe_dir/memory-state.json"
+test "$probe_status" = 137
+test "$(docker inspect cgroup-memory-probe --format '{{.State.OOMKilled}}')" = true
+cat /sys/fs/cgroup/cpu.max /sys/fs/cgroup/memory.max /sys/fs/cgroup/memory.swap.max > "$probe_dir/outer-limits-final.txt"
+cat /sys/fs/cgroup/memory.events /sys/fs/cgroup/memory.events.local > "$probe_dir/outer-memory-events-after.txt"
+awk '$1 == "oom" || $1 == "oom_kill" { if ($2 != 0) exit 1 }' /sys/fs/cgroup/memory.events.local
+touch "$probe_dir/ready-for-outer-exec"
+for attempt in {1..30}; do
+  if test -f /run/outer-exec-verified; then break; fi
+  sleep 0.5
+done
+test -f /run/outer-exec-verified
+printf '%s\n' 'Nested CPU throttling, memory OOM enforcement, and later outer exec passed.'

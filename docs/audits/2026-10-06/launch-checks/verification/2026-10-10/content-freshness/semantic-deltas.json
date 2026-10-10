@@ -1,0 +1,682 @@
+{
+  "baselineArchiveSha256": "6e9ef5cf480cfe8cdf559ce70bab7d06c4df03dbfc5074c5641a8dd0f7305a8e",
+  "changedResponseArchiveSha256": "3fecf0bbfe209486d78d9489c668d6a07fa99c6ca70c0edabe45936d61c7451b",
+  "comparisonSha256": "d67c35b264a930280d86033c2a3f50601c9f2fa3761f75063364c2dea34f0f6e",
+  "normalization": "Remove only facet_bonus objects exactly equal to {name:\"\",values:[],operation:0}. Compare special_values arrays by unique name, retaining every added, removed, or changed field.",
+  "summary": {
+    "responsesVerified": 349,
+    "byteIdentical": 151,
+    "emptyFacetOnly": 189,
+    "responsesWithOtherDifferences": 9,
+    "otherDifferences": 37
+  },
+  "emptyFacetOnlyResponses": [
+    "abilities/1008.json",
+    "abilities/5061.json",
+    "abilities/5338.json",
+    "abilities/5724.json",
+    "abilities/7116.json",
+    "abilities/980.json",
+    "abilitydata-5337.json",
+    "abilitydata-5725.json",
+    "itemdata-220.json",
+    "items/1.json",
+    "items/100.json",
+    "items/102.json",
+    "items/104.json",
+    "items/1076.json",
+    "items/108.json",
+    "items/1097.json",
+    "items/11.json",
+    "items/110.json",
+    "items/1107.json",
+    "items/112.json",
+    "items/1122.json",
+    "items/1123.json",
+    "items/1128.json",
+    "items/114.json",
+    "items/116.json",
+    "items/119.json",
+    "items/12.json",
+    "items/121.json",
+    "items/123.json",
+    "items/125.json",
+    "items/127.json",
+    "items/129.json",
+    "items/13.json",
+    "items/133.json",
+    "items/135.json",
+    "items/137.json",
+    "items/139.json",
+    "items/14.json",
+    "items/141.json",
+    "items/143.json",
+    "items/145.json",
+    "items/1466.json",
+    "items/147.json",
+    "items/149.json",
+    "items/15.json",
+    "items/151.json",
+    "items/152.json",
+    "items/154.json",
+    "items/156.json",
+    "items/1575.json",
+    "items/158.json",
+    "items/16.json",
+    "items/160.json",
+    "items/162.json",
+    "items/164.json",
+    "items/166.json",
+    "items/168.json",
+    "items/17.json",
+    "items/170.json",
+    "items/172.json",
+    "items/174.json",
+    "items/176.json",
+    "items/178.json",
+    "items/18.json",
+    "items/180.json",
+    "items/1802.json",
+    "items/1806.json",
+    "items/1808.json",
+    "items/181.json",
+    "items/1847.json",
+    "items/1848.json",
+    "items/1849.json",
+    "items/185.json",
+    "items/1852.json",
+    "items/1856.json",
+    "items/1858.json",
+    "items/1872.json",
+    "items/188.json",
+    "items/19.json",
+    "items/190.json",
+    "items/2.json",
+    "items/20.json",
+    "items/206.json",
+    "items/208.json",
+    "items/21.json",
+    "items/210.json",
+    "items/214.json",
+    "items/215.json",
+    "items/216.json",
+    "items/22.json",
+    "items/223.json",
+    "items/225.json",
+    "items/226.json",
+    "items/229.json",
+    "items/23.json",
+    "items/231.json",
+    "items/232.json",
+    "items/235.json",
+    "items/236.json",
+    "items/237.json",
+    "items/24.json",
+    "items/240.json",
+    "items/242.json",
+    "items/244.json",
+    "items/247.json",
+    "items/249.json",
+    "items/25.json",
+    "items/250.json",
+    "items/252.json",
+    "items/254.json",
+    "items/256.json",
+    "items/259.json",
+    "items/26.json",
+    "items/261.json",
+    "items/263.json",
+    "items/265.json",
+    "items/267.json",
+    "items/269.json",
+    "items/27.json",
+    "items/273.json",
+    "items/277.json",
+    "items/279.json",
+    "items/28.json",
+    "items/29.json",
+    "items/3.json",
+    "items/30.json",
+    "items/31.json",
+    "items/32.json",
+    "items/34.json",
+    "items/36.json",
+    "items/37.json",
+    "items/38.json",
+    "items/39.json",
+    "items/4.json",
+    "items/40.json",
+    "items/41.json",
+    "items/42.json",
+    "items/43.json",
+    "items/44.json",
+    "items/46.json",
+    "items/473.json",
+    "items/48.json",
+    "items/485.json",
+    "items/5.json",
+    "items/50.json",
+    "items/51.json",
+    "items/52.json",
+    "items/53.json",
+    "items/534.json",
+    "items/54.json",
+    "items/55.json",
+    "items/56.json",
+    "items/569.json",
+    "items/57.json",
+    "items/58.json",
+    "items/59.json",
+    "items/593.json",
+    "items/596.json",
+    "items/598.json",
+    "items/6.json",
+    "items/60.json",
+    "items/600.json",
+    "items/603.json",
+    "items/604.json",
+    "items/61.json",
+    "items/610.json",
+    "items/63.json",
+    "items/635.json",
+    "items/65.json",
+    "items/67.json",
+    "items/69.json",
+    "items/7.json",
+    "items/73.json",
+    "items/75.json",
+    "items/77.json",
+    "items/79.json",
+    "items/8.json",
+    "items/81.json",
+    "items/86.json",
+    "items/88.json",
+    "items/9.json",
+    "items/90.json",
+    "items/911.json",
+    "items/92.json",
+    "items/931.json",
+    "items/939.json",
+    "items/94.json",
+    "items/96.json",
+    "items/98.json"
+  ],
+  "changes": [
+    {
+      "response": "abilitylist.json",
+      "url": "https://www.dota2.com/datafeed/abilitylist?language=english",
+      "deltas": [
+        {
+          "path": "$.result.data.itemabilities[2187].name_english_loc",
+          "before": "{s:bonus_ward_hp_tooltip}x Plague Ward HP/Damage",
+          "after": "{s:bonus_ward_base_damage}x Plague Ward HP/Damage"
+        },
+        {
+          "path": "$.result.data.itemabilities[2187].name_loc",
+          "before": "{s:bonus_ward_hp_tooltip}x Plague Ward HP/Damage",
+          "after": "{s:bonus_ward_base_damage}x Plague Ward HP/Damage"
+        }
+      ]
+    },
+    {
+      "response": "heroes/145.json",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145",
+      "deltas": [
+        {
+          "path": "$.result.data.heroes[0].abilities[5].behavior",
+          "before": "8724154373",
+          "after": "9007207978895365"
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[6].behavior",
+          "before": "8724152361",
+          "after": "9007207978893353"
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[7].behavior",
+          "before": "8732542993",
+          "after": "9007207987283985"
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[8].behavior",
+          "before": "8724152325",
+          "after": "9007207978893317"
+        }
+      ]
+    },
+    {
+      "response": "heroes/155.json",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155",
+      "deltas": [
+        {
+          "path": "$.result.data.heroes[0].abilities[5].behavior",
+          "before": "8589936709",
+          "after": "9007207844677701"
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[6].behavior",
+          "before": "8589936709",
+          "after": "9007207844677701"
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[7].behavior",
+          "before": "8589936709",
+          "after": "9007207844677701"
+        }
+      ]
+    },
+    {
+      "response": "heroes/40.json",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40",
+      "deltas": [
+        {
+          "path": "$.result.data.heroes[0].abilities[2].special_values.magic_immune",
+          "beforePresent": false,
+          "afterPresent": true,
+          "before": null,
+          "after": {
+            "name": "magic_immune",
+            "values_float": [
+              1
+            ],
+            "is_percentage": false,
+            "heading_loc": "",
+            "bonuses": [],
+            "values_shard": [],
+            "values_scepter": [],
+            "required_facet": ""
+          }
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[2].special_values.ward_base_damage",
+          "beforePresent": false,
+          "afterPresent": true,
+          "before": null,
+          "after": {
+            "name": "ward_base_damage",
+            "values_float": [
+              16,
+              24,
+              32,
+              40
+            ],
+            "is_percentage": false,
+            "heading_loc": "WARD DAMAGE:",
+            "bonuses": [
+              {
+                "name": "special_bonus_unique_venomancer",
+                "value": 2.5,
+                "operation": 1
+              }
+            ],
+            "values_shard": [],
+            "values_scepter": [],
+            "required_facet": ""
+          }
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[2].special_values.ward_damage_spread",
+          "beforePresent": false,
+          "afterPresent": true,
+          "before": null,
+          "after": {
+            "name": "ward_damage_spread",
+            "values_float": [
+              2
+            ],
+            "is_percentage": false,
+            "heading_loc": "",
+            "bonuses": [],
+            "values_shard": [],
+            "values_scepter": [],
+            "required_facet": ""
+          }
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[2].special_values.ward_damage_tooltip",
+          "beforePresent": true,
+          "afterPresent": false,
+          "before": {
+            "name": "ward_damage_tooltip",
+            "values_float": [
+              16,
+              24,
+              32,
+              40
+            ],
+            "is_percentage": false,
+            "heading_loc": "WARD DAMAGE:",
+            "bonuses": [
+              {
+                "name": "special_bonus_unique_venomancer",
+                "value": 2.5,
+                "operation": 1
+              }
+            ],
+            "values_shard": [],
+            "values_scepter": [],
+            "required_facet": ""
+          },
+          "after": null
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[2].special_values.ward_gold_bounty_max",
+          "beforePresent": false,
+          "afterPresent": true,
+          "before": null,
+          "after": {
+            "name": "ward_gold_bounty_max",
+            "values_float": [
+              10,
+              14,
+              18,
+              22
+            ],
+            "is_percentage": false,
+            "heading_loc": "",
+            "bonuses": [],
+            "values_shard": [],
+            "values_scepter": [],
+            "required_facet": ""
+          }
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[2].special_values.ward_gold_bounty_min",
+          "beforePresent": false,
+          "afterPresent": true,
+          "before": null,
+          "after": {
+            "name": "ward_gold_bounty_min",
+            "values_float": [
+              10,
+              14,
+              18,
+              22
+            ],
+            "is_percentage": false,
+            "heading_loc": "",
+            "bonuses": [],
+            "values_shard": [],
+            "values_scepter": [],
+            "required_facet": ""
+          }
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[2].special_values.ward_hp_tooltip",
+          "beforePresent": true,
+          "afterPresent": false,
+          "before": {
+            "name": "ward_hp_tooltip",
+            "values_float": [
+              150,
+              250,
+              350,
+              450
+            ],
+            "is_percentage": false,
+            "heading_loc": "WARD HP:",
+            "bonuses": [
+              {
+                "name": "special_bonus_unique_venomancer",
+                "value": 2.5,
+                "operation": 1
+              }
+            ],
+            "values_shard": [],
+            "values_scepter": [],
+            "required_facet": ""
+          },
+          "after": null
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[2].special_values.ward_max_health",
+          "beforePresent": false,
+          "afterPresent": true,
+          "before": null,
+          "after": {
+            "name": "ward_max_health",
+            "values_float": [
+              150,
+              250,
+              350,
+              450
+            ],
+            "is_percentage": false,
+            "heading_loc": "WARD HP:",
+            "bonuses": [
+              {
+                "name": "special_bonus_unique_venomancer",
+                "value": 2.5,
+                "operation": 1
+              }
+            ],
+            "values_shard": [],
+            "values_scepter": [],
+            "required_facet": ""
+          }
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[2].special_values.ward_multiplier",
+          "beforePresent": true,
+          "afterPresent": false,
+          "before": {
+            "name": "ward_multiplier",
+            "values_float": [
+              1
+            ],
+            "is_percentage": false,
+            "heading_loc": "",
+            "bonuses": [
+              {
+                "name": "special_bonus_unique_venomancer",
+                "value": 2.5,
+                "operation": 1
+              }
+            ],
+            "values_shard": [],
+            "values_scepter": [],
+            "required_facet": ""
+          },
+          "after": null
+        },
+        {
+          "path": "$.result.data.heroes[0].talents[7].name_loc",
+          "before": "{s:bonus_ward_hp_tooltip}x Plague Ward HP/Damage",
+          "after": "{s:bonus_ward_base_damage}x Plague Ward HP/Damage"
+        }
+      ]
+    },
+    {
+      "response": "heroes/5.json",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5",
+      "deltas": [
+        {
+          "path": "$.result.data.heroes[0].abilities[5].desc_loc",
+          "before": "CHANNELED - Surrounds Crystal Maiden with 100 random icy explosions that slow enemies and deal massive damage. Lasts %abilitychanneltime% seconds.",
+          "after": "CHANNELED - Surrounds Crystal Maiden with %num_explosions% random icy explosions that slow enemies and deal massive damage. Lasts %abilitychanneltime% seconds."
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[5].notes_loc[1]",
+          "before": "Explosions occur every %explosion_interval% seconds.",
+          "after": "Explosions occur every %explosion_interval_tooltip% seconds."
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[5].special_values.explosion_interval",
+          "beforePresent": true,
+          "afterPresent": false,
+          "before": {
+            "name": "explosion_interval",
+            "values_float": [
+              0.1
+            ],
+            "is_percentage": false,
+            "heading_loc": "",
+            "bonuses": [],
+            "values_shard": [],
+            "values_scepter": [],
+            "required_facet": ""
+          },
+          "after": null
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[5].special_values.explosion_interval_tooltip",
+          "beforePresent": false,
+          "afterPresent": true,
+          "before": null,
+          "after": {
+            "name": "explosion_interval_tooltip",
+            "values_float": [
+              0.1
+            ],
+            "is_percentage": false,
+            "heading_loc": "",
+            "bonuses": [],
+            "values_shard": [],
+            "values_scepter": [],
+            "required_facet": ""
+          }
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[5].special_values.num_explosions",
+          "beforePresent": false,
+          "afterPresent": true,
+          "before": null,
+          "after": {
+            "name": "num_explosions",
+            "values_float": [
+              100
+            ],
+            "is_percentage": false,
+            "heading_loc": "",
+            "bonuses": [],
+            "values_shard": [],
+            "values_scepter": [],
+            "required_facet": ""
+          }
+        }
+      ]
+    },
+    {
+      "response": "heroes/7.json",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=7",
+      "deltas": [
+        {
+          "path": "$.result.data.heroes[0].abilities[0].special_values.free_pathing_application_radius",
+          "beforePresent": true,
+          "afterPresent": false,
+          "before": {
+            "name": "free_pathing_application_radius",
+            "values_float": [
+              150
+            ],
+            "is_percentage": false,
+            "heading_loc": "",
+            "bonuses": [],
+            "values_shard": [],
+            "values_scepter": [],
+            "required_facet": ""
+          },
+          "after": null
+        }
+      ]
+    },
+    {
+      "response": "heroes/74.json",
+      "url": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74",
+      "deltas": [
+        {
+          "path": "$.result.data.heroes[0].abilities[4].behavior",
+          "before": "8724152393",
+          "after": "9007207978893385"
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[5].behavior",
+          "before": "8594131013",
+          "after": "9007207848872005"
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[6].behavior",
+          "before": "283602059345",
+          "after": "9007482856800337"
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[7].behavior",
+          "before": "8724152433",
+          "after": "9007207978893425"
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[8].behavior",
+          "before": "8757706825",
+          "after": "9007208012447817"
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[9].behavior",
+          "before": "8724152401",
+          "after": "9007207978893393"
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[10].behavior",
+          "before": "8724152433",
+          "after": "9007207978893425"
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[11].behavior",
+          "before": "8724152389",
+          "after": "9007207978893381"
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[12].behavior",
+          "before": "8724152389",
+          "after": "9007207978893381"
+        },
+        {
+          "path": "$.result.data.heroes[0].abilities[13].behavior",
+          "before": "8724152401",
+          "after": "9007207978893393"
+        }
+      ]
+    },
+    {
+      "response": "itemlist.json",
+      "url": "https://www.dota2.com/datafeed/itemlist?language=english",
+      "deltas": [
+        {
+          "path": "$.result.data.itemabilities[167].recipes[0].items",
+          "before": [
+            28,
+            28,
+            17
+          ],
+          "after": [
+            23,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "response": "items/1854.json",
+      "url": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=1854",
+      "deltas": [
+        {
+          "path": "$.result.data.items[0].special_values.damage_must_be_player_owned_or_roshan",
+          "beforePresent": false,
+          "afterPresent": true,
+          "before": null,
+          "after": {
+            "name": "damage_must_be_player_owned_or_roshan",
+            "values_float": [
+              1
+            ],
+            "is_percentage": false,
+            "heading_loc": "",
+            "bonuses": [],
+            "values_shard": [],
+            "values_scepter": [],
+            "required_facet": ""
+          }
+        }
+      ]
+    }
+  ]
+}

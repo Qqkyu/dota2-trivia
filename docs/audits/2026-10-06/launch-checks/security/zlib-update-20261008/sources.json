@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-10-08T15:51:37.626147+00:00",
+  "sources": [
+    {
+      "url": "https://raw.githubusercontent.com/alpinelinux/aports/3.24-stable/main/zlib/APKBUILD",
+      "path": "APKBUILD.txt",
+      "bytes": 1134,
+      "sha256": "c9348892bf3857602fe74fcc1d411e263b408b7d70344170396f5993a62bbe26"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/alpinelinux/aports/3.24-stable/main/zlib/CVE-2026-85091.patch",
+      "path": "CVE-2026-85091.patch.txt",
+      "bytes": 854,
+      "sha256": "110ff14375733173d8aa54574473424fbd7dfe4b81f1ca34a759c6fe14b15b14"
+    }
+  ],
+  "patchMatchesPackageRecipe": true
+}

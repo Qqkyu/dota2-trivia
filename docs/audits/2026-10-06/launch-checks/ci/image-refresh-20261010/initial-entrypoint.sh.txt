@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+out=/runner-evidence/image-refresh-20261010
+mkdir -p "$out"
+/usr/local/bin/prepare-cgroup-v2.sh
+dockerd --host=unix:///var/run/docker.sock --data-root=/var/lib/docker > "$out/docker.log" 2>&1 &
+daemon_pid=$!
+finish() { kill "$daemon_pid" 2>/dev/null || true; wait "$daemon_pid" 2>/dev/null || true; }
+trap finish EXIT
+for attempt in {1..60}; do
+  if docker info >/dev/null 2>&1; then break; fi
+  if ! kill -0 "$daemon_pid" 2>/dev/null; then exit 1; fi
+  sleep 1
+done
+docker info > /dev/null
+cd /opt/runner/_work/dota2-trivia/dota2-trivia
+test "$(git -c safe.directory="$PWD" rev-parse HEAD)" = c8729a2b11b5723f99375e53cabc8fde6fd5fa31
+sha256sum Dockerfile > "$out/dockerfile-sha256.txt"
+docker build --tag queue-arcade:ci-zlib . > "$out/build.log" 2>&1
+docker image inspect queue-arcade:ci-zlib > "$out/image-metadata.json"
+docker run --rm --entrypoint node queue-arcade:ci-zlib -e 'const fs=require("node:fs"),path=require("node:path"),crypto=require("node:crypto"),sharp=require("sharp");const libraries=[];function walk(p){for(const e of fs.readdirSync(p,{withFileTypes:true})){const f=path.join(p,e.name);if(e.isDirectory())walk(f);else if(e.isFile()&&/libvips.*\.so/.test(e.name))libraries.push({path:f,sha256:crypto.createHash("sha256").update(fs.readFileSync(f)).digest("hex")});}}walk("/app/node_modules/@img");console.log(JSON.stringify({node:process.versions,sharp:sharp.versions,libraries},null,2))' > "$out/native-metadata.json"
+docker run --rm --entrypoint sh queue-arcade:ci-zlib -c 'apk info --installed zlib; apk info --all zlib; ffmpeg -version | head -3' > "$out/runtime-packages.log"
+CONTAINER_ISOLATED=1 CONTAINER_IMAGE=queue-arcade:ci-zlib CONTAINER_APP_PORT=3323 CONTAINER_OUTPUT=/tmp/queue-arcade-container-refresh \
+  runuser -u runner --preserve-environment -- node scripts/check-container.mjs --skip-build > "$out/container-check.log" 2>&1
+cp /tmp/queue-arcade-container-refresh/container-result.json /tmp/queue-arcade-container-refresh/capacity-1.json "$out/"
+scanner=/home/runner/.local/bin/trivy-bin/trivy
+cache=/opt/runner/_work/dota2-trivia/dota2-trivia/.cache/trivy
+"$scanner" image --cache-dir "$cache" --download-db-only > "$out/database-update.log" 2>&1
+cp "$cache/db/metadata.json" "$out/database-metadata.json"
+"$scanner" --version > "$out/scanner-version.log"
+sha256sum "$scanner" "$cache/db/trivy.db" "$cache/db/metadata.json" > "$out/scanner-input-sha256.txt"
+"$scanner" image --cache-dir "$cache" --skip-db-update --skip-java-db-update --offline-scan --scanners vuln \
+  --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --ignore-unfixed=false --format json --exit-code 0 \
+  --output "$out/trivy-full.json" queue-arcade:ci-zlib > "$out/trivy-full.log" 2>&1
+printf '%s\n' 'Candidate image build, native metadata, constrained container flow and refreshed all-severity scan completed.'

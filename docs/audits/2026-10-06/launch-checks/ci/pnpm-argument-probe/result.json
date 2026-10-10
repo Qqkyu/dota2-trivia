@@ -1,0 +1,12 @@
+{
+  "pnpmVersion": "9.12.1",
+  "command": "pnpm check:container --skip-build",
+  "method": "Harmless custom-script fixture writes argv; no container test is started",
+  "expectedArgv": [
+    "--skip-build"
+  ],
+  "observedArgv": [
+    "--skip-build"
+  ],
+  "passed": true
+}

@@ -1,0 +1,39 @@
+{
+  "checkedAt": "2026-10-10T09:15:10.229548+00:00",
+  "checks": [
+    {
+      "command": "node --input-type=module < docs/audits/2026-10-06/launch-checks/build-content-review-index.mjs.txt",
+      "exitCode": 0,
+      "log": "content-index.log",
+      "logSha256": "2a4328042eefc7fe0de5d0f0ea687ff575f0dd360466af0efbf441d95e161d41"
+    },
+    {
+      "command": "node scripts/validate-content-release.mjs",
+      "exitCode": 0,
+      "log": "content-release.log",
+      "logSha256": "ed0837653095904fc4fd07ca8ef2a633a5218a2c1f24e39bffad16ce773c9872"
+    }
+  ],
+  "reviewFiles": [
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/content-review.md",
+      "bytes": 9412,
+      "sha256": "272bf69778ad75bd0e7aa51a19ca4b256c4e780777a793ef7558bc1126751af6"
+    },
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/question-review-index.json",
+      "bytes": 2422093,
+      "sha256": "f90c9263e7afe97e86d1c18b642a120f033e477d6933d3978da69bf5472f022b"
+    },
+    {
+      "path": "docs/audits/2026-10-06/launch-checks/question-review-index-checks.json",
+      "bytes": 2512,
+      "sha256": "1ec029b80764205cbfb3dd6150e8c16844166b9c62f1bbfa8f8b37a92768bba6"
+    },
+    {
+      "path": "docs/content-review.json",
+      "bytes": 13923,
+      "sha256": "3b6706d2eb665edec4cbe3efbabb800011f8e3ac1832eb726d13e6142ebe4d08"
+    }
+  ]
+}

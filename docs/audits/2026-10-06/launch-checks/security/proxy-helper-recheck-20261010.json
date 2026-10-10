@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-10-10T09:15:56.114870+00:00",
+  "sourceSha256": "6c984bdf8be4e68e9622dfec5e148e7a351bc44f66ddf854063034ba263c6905",
+  "expectedFrozenSha256": "6c984bdf8be4e68e9622dfec5e148e7a351bc44f66ddf854063034ba263c6905",
+  "command": "python3 /tmp/queue-arcade-launch-checks/test-enable-render-proxy.py",
+  "passed": 31,
+  "hostedRequests": 0,
+  "mutations": 0,
+  "resultLogSha256": "0e0a9782adb8d28d95b82da5132c9946784828cc9199726363c3fd36a539697c"
+}

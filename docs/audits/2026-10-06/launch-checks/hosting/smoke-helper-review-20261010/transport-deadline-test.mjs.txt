@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import { createServer } from 'node:http';
+import { Check } from './hosted-smoke.mjs';
+
+let requests = 0;
+const timers = new Set();
+const server = createServer((request, response) => {
+  requests++;
+  response.writeHead(200, { 'Content-Type': 'application/json' });
+  response.write(' ');
+  const timer = setInterval(() => response.write(' '), 100);
+  timers.add(timer);
+  response.on('close', () => { clearInterval(timer); timers.delete(timer); });
+});
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+try {
+  const check = new Check(`http://127.0.0.1:${server.address().port}`, {}, true);
+  const started = Date.now();
+  await assert.rejects(check.request('/trickle'), error => error.publicCode === 'REQUEST_DEADLINE');
+  const elapsedMs = Date.now() - started;
+  assert(elapsedMs >= 14_900 && elapsedMs < 18_000);
+  assert.equal(requests, 1);
+  console.log(JSON.stringify({ checkedAt: new Date().toISOString(), passed: true,
+    elapsedMs, hostedRequests: 0, localRequests: requests,
+    responseTrickledEveryMs: 100, failure: 'REQUEST_DEADLINE' }, null, 2));
+} finally {
+  for (const timer of timers) clearInterval(timer);
+  server.closeAllConnections();
+  await new Promise(resolve => server.close(resolve));
+}

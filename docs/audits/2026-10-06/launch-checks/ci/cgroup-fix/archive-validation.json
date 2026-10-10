@@ -1,0 +1,54 @@
+{
+  "sourceCopiesMatch": true,
+  "greenInputHashesMatch": true,
+  "offlineReviewInputHashesMatch": true,
+  "redInvokedInputHashesMatch": true,
+  "redUnusedPrepareSource": "The red entrypoint did not call prepare-cgroup-v2.sh. Its result records the earlier unused guard hash. The archive preserves the later guard used by the green probe.",
+  "syntaxChecks": [
+    {
+      "file": "sources/run-cgroup-probe.py.txt",
+      "check": "Python AST parse",
+      "passed": true
+    },
+    {
+      "file": "sources/cgroup-repro-entrypoint.sh.txt",
+      "check": "bash -n",
+      "passed": true
+    },
+    {
+      "file": "sources/cgroup-green-entrypoint.sh.txt",
+      "check": "bash -n",
+      "passed": true
+    },
+    {
+      "file": "sources/runner-lifecycle.py.txt",
+      "check": "Python AST parse",
+      "passed": true
+    },
+    {
+      "file": "sources/runner-image/entrypoint.sh.txt",
+      "check": "bash -n",
+      "passed": true
+    },
+    {
+      "file": "sources/runner-image/prepare-cgroup-v2.sh.txt",
+      "check": "bash -n",
+      "passed": true
+    },
+    {
+      "file": "sources/cgroup-review/test_prepare.py.txt",
+      "check": "Python AST parse",
+      "passed": true
+    },
+    {
+      "file": "sources/cgroup-review/test_lifecycle.py.txt",
+      "check": "Python AST parse",
+      "passed": true
+    }
+  ],
+  "rawOutputExtension": {
+    "source": "red/cgroup-red/cpu.json",
+    "archive": "red/cgroup-red/cpu.json.txt",
+    "reason": "The failed probe emitted no JSON bytes. Preserve its exact empty output as text so the archive does not mislabel it as a JSON document."
+  }
+}

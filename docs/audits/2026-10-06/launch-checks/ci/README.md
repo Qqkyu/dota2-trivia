@@ -20,7 +20,7 @@ The host GitHub credential stays on the host. Only a short-lived repository regi
 
 ## Workflow validation
 
-The workflow now supports the exact candidate branch and an explicit `local_runner` manual input. Both local paths select `[self-hosted, Linux, X64, queue-arcade-ci-local]`. They disable all three configured caches and failure artifact uploads. Hosted main and pull-request paths keep the prior behavior. Native round and shop accessibility regressions are included in the 22-script `check:ui` command. After building and scanning the image, `check:container --skip-build` runs the small four-player, two-round test with separate migration and runtime database roles and checked CPU and memory limits.
+The workflow now supports the exact candidate branch and an explicit `local_runner` manual input. Both local paths select `[self-hosted, Linux, X64, queue-arcade-ci-local]`. They disable all three configured caches and failure artifact uploads. Hosted main and pull-request paths keep the prior behavior. Native round and shop accessibility regressions are included in the 22-script `check:ui` command. After building and scanning the image, `check:container --skip-build` runs the small four-player, two-round test with separate migration and runtime database roles and checked CPU and memory limits. The current step explicitly uses the preview budget: 0.1 CPU and 512 MiB for the app, plus 0.1 CPU and 256 MiB for Postgres.
 
 GitHub's official `@actions/workflow-parser` version 0.3.61 parsed and converted the workflow with zero schema errors. Its expression evaluator checked candidate, main, pull-request, and manual-local routing and cache conditions. The temporary Node loader only supplies JSON module support for the parser's bundled schema; it does not change the schema or validation. [Official parser source](https://github.com/actions/languageservices/tree/main/workflow-parser)
 
@@ -57,3 +57,13 @@ A separate reviewer tested ten cases with mocked subprocesses. These cover start
 The original push event arrived after a manual dispatch and cancelled that dispatch under the workflow's concurrency rule. [Run 37797906984](runs/37797906984/README.md) records that incomplete attempt. A fresh dependency audit then found a newly published Sharp advisory. The next candidate includes Sharp 0.35.5.
 
 The replacement push run reached the test step and exposed a pnpm 9.12.1 argument error. The corrected step is `pnpm exec vitest run --maxWorkers=2`. In the same installed runner environment, that command passed all 1,284 tests, then lint and typecheck passed without a generated `next-env.d.ts`. [Run 37799841251](runs/37799841251/README.md) records the failure and local recheck. Both disposable runners and their volumes were removed. The full corrected workflow remains pending.
+
+## Resumed checks on 10 October
+
+[Run 37802218519](runs/37802218519/README.md) passed all 1,284 tests, lint, typecheck, builds, the client-bundle check, and the image vulnerability gate. The constrained-container step then stopped before the app started because the nested runner had not delegated its private cgroup controllers. The [failure reproduction and fix](cgroup-fix/README.md) preserve the original failure and prove CPU throttling and child memory-limit enforcement. The outer 2 CPU, 5 GiB limit stayed unchanged. No host cgroup or daemon setting changed.
+
+The [image preflight](image-refresh-20261010/README.md) rebuilt the candidate with the current zlib fix. The small app/database flow passed at its documented 1 CPU defaults. A refreshed Trivy database found zero known vulnerabilities across all severities, including unfixed issues. The stale runner, registration, and dedicated volume were removed. These preflight results do not replace a successful workflow for the final commit.
+
+The final workflow now runs its small four-player container check at the intended preview budget: app 0.1 CPU and 512 MiB, database 0.1 CPU and 256 MiB, with swap disabled. The official workflow parser and expression checks passed with assertions for those four limits. The final exact-commit workflow is pending.
+
+The current image gate rejects fixable MEDIUM, HIGH, and CRITICAL vulnerabilities. This includes the newly fixed zlib advisory. The final release scan also checks LOW, UNKNOWN, and unfixed findings separately. The validator asserts the gate settings.

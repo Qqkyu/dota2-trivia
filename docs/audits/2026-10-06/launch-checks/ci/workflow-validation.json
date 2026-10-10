@@ -1,13 +1,23 @@
 {
   "parser": "@actions/workflow-parser 0.3.61",
   "schemaErrors": [],
-  "workflowSha256": "46aed739effe73323a7b6c4281abd2660b7b19e292a7e09f5b5b159eb5bf8359",
+  "workflowSha256": "972c1c83f1525d4f2d347c9a4cdfa383205d260d616690d7ac25ca22d4e547b3",
   "databaseChecks": {
     "launchSuiteEnabled": true,
     "launchDatabaseIsLoopback": true,
     "backupBinaryDirectory": "/usr/lib/postgresql/17/bin",
     "signedPostgresClient17Install": true,
     "maxTestWorkers": 2
+  },
+  "previewContainerLimits": {
+    "CONTAINER_CPUS": "0.1",
+    "CONTAINER_MEMORY_MIB": "512",
+    "CONTAINER_DATABASE_CPUS": "0.1",
+    "CONTAINER_DATABASE_MEMORY_MIB": "256"
+  },
+  "containerVulnerabilityGate": {
+    "severity": "CRITICAL,HIGH,MEDIUM",
+    "ignoreUnfixed": true
   },
   "cases": [
     {

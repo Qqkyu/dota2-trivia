@@ -1,0 +1,390 @@
+{
+  "baselineArchiveFiles": 408,
+  "uniqueEndpointsAttempted": 349,
+  "httpRequestsAttempted": 349,
+  "successfulHttp200": 349,
+  "retryRequestsUsed": 0,
+  "failedOrUnreachable": [],
+  "notRefetchedCounts": {
+    "Local acquisition manifest, not a public API endpoint.": 6,
+    "Old short or empty discovery response, not a successful reviewed current data profile.": 3,
+    "Historical patch detail outside this bounded current-patch freshness check.": 50
+  },
+  "notRefetched": [
+    {
+      "path": "abilities/manifest.json",
+      "bytes": 1487,
+      "sha256": "75d3b7b63f161b492f967ec8d53128f89168c7faa65e74ed81b0eff084112d2c",
+      "reason": "Local acquisition manifest, not a public API endpoint."
+    },
+    {
+      "path": "abilitydata-8140.json",
+      "bytes": 47,
+      "sha256": "b9b79590dcc390e2006a2e17019595d92fa19782b099dc28384722d7477c7d96",
+      "reason": "Old short or empty discovery response, not a successful reviewed current data profile.",
+      "savedResponse": {
+        "result": {
+          "data": {
+            "abilities": []
+          },
+          "status": 1
+        }
+      }
+    },
+    {
+      "path": "heroes/manifest.json",
+      "bytes": 35210,
+      "sha256": "ae009f89d618cfa9887683d8b54e75e48e16e6660ae59ed34fad4b70cde92d00",
+      "reason": "Local acquisition manifest, not a public API endpoint."
+    },
+    {
+      "path": "heroes.json",
+      "bytes": 23,
+      "sha256": "8ab0434759e13d1c2e49e4d601c7a9ea7366910048f40348f73d1ca0ebb3d144",
+      "reason": "Old short or empty discovery response, not a successful reviewed current data profile.",
+      "savedResponse": {
+        "result": {
+          "status": 8
+        }
+      }
+    },
+    {
+      "path": "items.json",
+      "bytes": 43,
+      "sha256": "0ee0cb5dc8f2ea2337504276cecc7ccabf13e05863fe52f26a04144334f4da0a",
+      "reason": "Old short or empty discovery response, not a successful reviewed current data profile.",
+      "savedResponse": {
+        "result": {
+          "data": {
+            "items": []
+          },
+          "status": 1
+        }
+      }
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 1418,
+      "sha256": "3598b8ebe6330a99d9807541195066f595ca47569020e97b8d92e6d6d4d0de4a",
+      "reason": "Local acquisition manifest, not a public API endpoint."
+    },
+    {
+      "path": "patches/7.23.json",
+      "bytes": 158,
+      "sha256": "10ba216f7cd852dd5de4317df37114d4d1692aefefd2aa120925b80fc41af828",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.24.json",
+      "bytes": 26782,
+      "sha256": "162e68ae15de2fa092cd624393e2d0a58a628f41a8ec93336c7563734e329e58",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.24b.json",
+      "bytes": 2935,
+      "sha256": "83a2c1cce115a3bd1b9c7724e0e98b841994ff5bdbe3881edd0ea036132f1b8a",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.25.json",
+      "bytes": 34322,
+      "sha256": "669cf2e1278623febf0a4f7b960d0c59e3edab7dc498450090ac2befe3388d1b",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.25b.json",
+      "bytes": 1101,
+      "sha256": "3c3e989c3342faa18afa1d103a27b8a3407de357d1fdd371faeba5439335b57e",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.25c.json",
+      "bytes": 4415,
+      "sha256": "f85285065af6ff9ed3d50aa386c2bd7631bad3e01f30a1051b9fb4f0a9a68ff5",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.26.json",
+      "bytes": 743,
+      "sha256": "9f2a4343bace7a6c7bb43c7893a55ef4b4e4e34ae064c2d108f9779da3fa45ac",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.26b.json",
+      "bytes": 1702,
+      "sha256": "50b7e9130e55f57f1537866c1591c69c91d8c308a8d0e9de50836c41a2484673",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.26c.json",
+      "bytes": 21000,
+      "sha256": "cb2f5531d5b69c10d3b8bdd86e55049da18e46adae2976c952cf728f911bea91",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.27.json",
+      "bytes": 27798,
+      "sha256": "5bf88ab3380f727b54739eb5b1a409ab8113d02d73d27f3ab3f4a4e62a17e1c9",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.27b.json",
+      "bytes": 55725,
+      "sha256": "60d6f286f7122851e5af53a886d136f6bbe056b47204b8bebea82756de927be1",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.27c.json",
+      "bytes": 2981,
+      "sha256": "ce6a41585dd1f039ce661027ca490aa9ebba9356d6d95ad172f53533df43e283",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.27d.json",
+      "bytes": 7642,
+      "sha256": "74b5428c8e57ebef0ce68224c0be5c70c49fcd4992a0adcd8edab877ccd019b1",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.28.json",
+      "bytes": 151,
+      "sha256": "c37d1163c81efa78aee8ce6ef8eff57c8cc74f0ad9e9381481692e2040ccb65d",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.28a.json",
+      "bytes": 9334,
+      "sha256": "d97b3b2f0121fff9bd3c52342846b2b6835ee3db2103208248011f300a8224f6",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.28b.json",
+      "bytes": 10693,
+      "sha256": "863eecd93cda461a143f410f0ad3c0518685ce1a61a430b502b34e1cce4cd9f8",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.28c.json",
+      "bytes": 3068,
+      "sha256": "17c8b8dfa002a8d66ae689d444dcf5d718094cdae40eb18d1b8863745f044f33",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.29.json",
+      "bytes": 113399,
+      "sha256": "0d4494da56ea0aabde9ced3c992b4ec9b43769530d1c4d1ad2639073803ebc49",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.29b.json",
+      "bytes": 10782,
+      "sha256": "f28c26ce74b117c97b1906fd9c892c2bec334c804d202e7d685c2bbc1bdda8d1",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.29c.json",
+      "bytes": 5708,
+      "sha256": "017dae0214381a58940bfe399b8b242ff7d99fbabd4ad3ac2cc8cf504cd2f1b8",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.29d.json",
+      "bytes": 5119,
+      "sha256": "d8ff4f0946683313aabc50c6d67219d913737286c661034665800725d75ab7fa",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.30.json",
+      "bytes": 82295,
+      "sha256": "19e8b45247517db57af70f85510c7dd6355b7a93fde92a85d469e5b9ac59b2bd",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.30b.json",
+      "bytes": 1451,
+      "sha256": "18ccbf3a20d0ab5860e3587e372cb657c224689679177c632e42b3e714a84ebe",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.30c.json",
+      "bytes": 24486,
+      "sha256": "eac36c83f4e821d7f019ce997c3a1b2911658b9c6d5236d9e567459986d3e8bc",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.30d.json",
+      "bytes": 7232,
+      "sha256": "74746122c5d772bd7dc6a85ecdb2a1bb27df139208e5de94d9bb85471adde979",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.30e.json",
+      "bytes": 13040,
+      "sha256": "729a1e4268ecfa37d0773a6044b8d854dc3d19c3415b531efc8d18b36e152718",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.31.json",
+      "bytes": 130214,
+      "sha256": "9a5a76422eba02b2e45bf80c81450e9c7155d1a028cc59a8cfecf9cd10fdf28a",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.31b.json",
+      "bytes": 6559,
+      "sha256": "4eb9039f4bb4619b5a63562e4d7a64e9696393c442d53230f29cbf06ceebf969",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.31c.json",
+      "bytes": 13891,
+      "sha256": "a466b0d430266f86d5aec3b2c8e437e9dff994bbc57bc654c3451c37fbfeeab3",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.31d.json",
+      "bytes": 16153,
+      "sha256": "7e1c74ba750f211d1305c5deeb475e40ac597e423974ec2e898e162f7d5b074c",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.32.json",
+      "bytes": 92953,
+      "sha256": "ed1e0611aaf132a4f870209250781ca31e57178c1a56b20373c3ed0404006c0d",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.32b.json",
+      "bytes": 16337,
+      "sha256": "a06712aafc17af006ba552ab51ac74a72486e58d5399d66824badedd371bd2cf",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.32c.json",
+      "bytes": 17449,
+      "sha256": "6a3f0c1764f32be9b85eb4ec0ee924df8c49956c8da56f9caa0cf0a3aded56b2",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.32d.json",
+      "bytes": 18128,
+      "sha256": "9b3948885779b76185d02df7212bf9c7ae468a21e5948a3408ee874e5d044c01",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.32e.json",
+      "bytes": 21867,
+      "sha256": "cc3280d7c1469938d44f44b7095c8a8f64b3928ed63b97ebc57928152cb4a001",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.33.json",
+      "bytes": 169457,
+      "sha256": "b65cb135d43236e8816546e661a58aaf30de3ec7f737a201905590e041f17d04",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.34.json",
+      "bytes": 82566,
+      "sha256": "6b314a1c829f67f28bdcfda3572d8a4df801e41ec761a11945c425e378671740",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.35.json",
+      "bytes": 76898,
+      "sha256": "591e1c3e0e2a8638574a7b1da806aed7e3b0f09874dfd9bbcefe82ab038ac33f",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.36.json",
+      "bytes": 273900,
+      "sha256": "553f3b825b4989aa25263a91796822ec849715eb8792eaeb13f2e662c3780845",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.37.json",
+      "bytes": 90933,
+      "sha256": "aee84631cda37ef608b02844bd50fac0ff90527e43a2cb7c834fff3f28315804",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.38.json",
+      "bytes": 219245,
+      "sha256": "24231525f0516890a5eba9472660445512578379f7080d51bfa8e10d96d98934",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.39.json",
+      "bytes": 109172,
+      "sha256": "9eb8254a8695e5069f1a708bacef961e76180ab218f05d3606fff07d13557832",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.40.json",
+      "bytes": 124257,
+      "sha256": "4f831b14d41981f8f9cfc96e2decd9016c9033768ca6a8fc01c468a067fecd46",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.40c.json",
+      "bytes": 12103,
+      "sha256": "a9b9f04b6415e9208b093b8822600ca6ec5949dea3bba425f2cccc5260fa7092",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.41.json",
+      "bytes": 210198,
+      "sha256": "bcee7be712fff470c5ce7f093fe5cc2b95d26c7c8f60835317c8262179e5e7d3",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.41a.json",
+      "bytes": 10978,
+      "sha256": "9feb22076c60e2eeeb8ba82208ccc3ae89c0b9e53009e793ef96f8407648e2d8",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.41b.json",
+      "bytes": 22826,
+      "sha256": "390b489d8baa0814b7ae2a456c66d6bd7286042b8003d80a3403d9dcf752f764",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.41c.json",
+      "bytes": 25166,
+      "sha256": "4660fbbb4532b14443bd4c4d1f87265706c6afae39c49ef62da3c17cc0dfd006",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.41d.json",
+      "bytes": 25964,
+      "sha256": "dd4f52ff2f171e3cefc82222e8d4d58f001dfb06f966d6368d653fecb16fd23c",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/7.41e.json",
+      "bytes": 19767,
+      "sha256": "7e9af03eaba53c9897e80842d3319ab67c326e7834e5b927cbb249136d060750",
+      "reason": "Historical patch detail outside this bounded current-patch freshness check."
+    },
+    {
+      "path": "patches/manifest.json",
+      "bytes": 1857,
+      "sha256": "6b1d08e400c6a376402c5a356471fca42688060acc2f3557bb7d80c958fca72a",
+      "reason": "Local acquisition manifest, not a public API endpoint."
+    },
+    {
+      "path": "shopkeeper-item-manifest.json",
+      "bytes": 52724,
+      "sha256": "2f4f77389813cbf5954b94fc4419a8856ec3d48fcf1f614649fe0f78cd53bc59",
+      "reason": "Local acquisition manifest, not a public API endpoint."
+    },
+    {
+      "path": "shopkeeper-recipe-manifest.json",
+      "bytes": 7760,
+      "sha256": "28e3f3433163e4942cf374f6d4dff5fa439481b18f017c7c8cb9e1a342a5b713",
+      "reason": "Local acquisition manifest, not a public API endpoint."
+    }
+  ]
+}

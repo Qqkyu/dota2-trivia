@@ -109,7 +109,7 @@ jobs:
           scan-type: image
           scanners: vuln
           ignore-unfixed: true
-          severity: CRITICAL,HIGH
+          severity: CRITICAL,HIGH,MEDIUM
           exit-code: "1"
           cache: ${{ github.ref != 'refs/heads/codex/launch-checks-20261006' && inputs.local_runner != true }}
       - name: Verify constrained container and database roles
@@ -118,6 +118,10 @@ jobs:
           CONTAINER_IMAGE: queue-arcade:ci
           CONTAINER_APP_PORT: "3323"
           CONTAINER_OUTPUT: /tmp/queue-arcade-container-ci
+          CONTAINER_CPUS: "0.1"
+          CONTAINER_MEMORY_MIB: "512"
+          CONTAINER_DATABASE_CPUS: "0.1"
+          CONTAINER_DATABASE_MEMORY_MIB: "256"
         run: pnpm check:container --skip-build
       - name: Apply database migrations with the packaged CLI
         run: docker run --rm --network host --env DATABASE_URL queue-arcade:ci node scripts/migrate-db.mjs

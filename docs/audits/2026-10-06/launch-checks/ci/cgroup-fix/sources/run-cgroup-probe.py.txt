@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+import hashlib, importlib.util, io, json, pathlib, subprocess, sys, tarfile, time
+BASE=pathlib.Path('/tmp/queue-arcade-launch-ci')
+spec=importlib.util.spec_from_file_location('lifecycle',BASE/'runner-lifecycle.py'); life=importlib.util.module_from_spec(spec); spec.loader.exec_module(life)
+mode=sys.argv[1]; assert mode in ('red','green')
+state=json.loads(life.STATE.read_text()); life.check_state(state)
+docker=life.docker_binary(); name=state['name']
+metadata=life.resource(docker,'container',name); life.assert_owned(metadata,'container',state)
+assert not metadata['State']['Running']
+h=metadata['HostConfig']; assert h['CgroupnsMode']=='private' and h['NanoCpus']==2000000000 and h['Memory']==5368709120 and h['MemorySwap']==5368709120
+assert h.get('PidMode') in ('',None) and h.get('IpcMode') in ('private','') and h.get('NetworkMode') in ('default','bridge') and h.get('UTSMode') in ('',None) and not h.get('Binds') and not h.get('VolumesFrom')
+assert len(metadata['Mounts'])==1 and metadata['Mounts'][0]['Type']=='volume' and metadata['Mounts'][0]['Name']==state['volume'] and metadata['Mounts'][0]['Destination']=='/var/lib/docker'
+volume=life.resource(docker,'volume',state['volume']); life.assert_owned(volume,'volume',state)
+assert volume.get('Driver')=='local' and not volume.get('Options')
+out=BASE/'evidence'/name/('cgroup-'+mode+'-20261010'); out.mkdir(exist_ok=True)
+files={BASE/('cgroup-'+('repro' if mode=='red' else 'green')+'-entrypoint.sh'):'usr/local/bin/entrypoint.sh',BASE/'runner-image/prepare-cgroup-v2.sh':'usr/local/bin/prepare-cgroup-v2.sh',BASE/'cgroup-cpu-probe.mjs':'run/cgroup-cpu-probe.mjs',BASE/'cgroup-memory-probe.mjs':'run/cgroup-memory-probe.mjs'}
+stream=io.BytesIO()
+with tarfile.open(fileobj=stream,mode='w') as tar:
+ for source,destination in files.items():
+  value=source.read_bytes(); item=tarfile.TarInfo(destination); item.size=len(value); item.mode=0o755 if destination.endswith('.sh') else 0o644; tar.addfile(item,io.BytesIO(value))
+life.call([docker,'cp','-',name+':/'],data=stream.getvalue())
+life.call([docker,'start',name])
+outer_exec_pass=False
+for _ in range(120):
+ current=life.resource(docker,'container',name)
+ if not current['State']['Running']: break
+ if mode=='green':
+  r=life.call([docker,'exec',name,'bash','-c','if test -f /runner-evidence/cgroup-green/ready-for-outer-exec; then test "$(cat /sys/fs/cgroup/cpu.max)" = "200000 100000" && test "$(cat /sys/fs/cgroup/memory.max)" = 5368709120 && test "$(cat /sys/fs/cgroup/memory.swap.max)" = 0 && touch /run/outer-exec-verified; else exit 4; fi'],check=False)
+  if r.returncode==0: outer_exec_pass=True
+ time.sleep(1)
+else:
+ life.call([docker,'stop','--time','10',name]); raise RuntimeError('Bounded probe timeout')
+current=life.resource(docker,'container',name)
+life.copy_out(docker,name,'/runner-evidence/cgroup-'+mode,out)
+if mode=='green': life.copy_out(docker,name,'/runner-evidence/cgroup-init',out)
+log=life.call([docker,'logs','--since',current['State']['StartedAt'],name],check=False); (out/'process.log').write_bytes(log.stdout+log.stderr)
+result={'mode':mode,'state':{k:current['State'][k] for k in ('Status','ExitCode','OOMKilled','StartedAt','FinishedAt')},'outerExecPassed':outer_exec_pass,'outerLimits':{'nanoCpus':h['NanoCpus'],'memory':h['Memory'],'memorySwap':h['MemorySwap'],'cgroupNamespace':h['CgroupnsMode']},'inputs':{str(p.relative_to(BASE)):hashlib.sha256(p.read_bytes()).hexdigest() for p in files}}
+(out/'result.json').write_text(json.dumps(result,indent=2)+'\n'); print(json.dumps(result))

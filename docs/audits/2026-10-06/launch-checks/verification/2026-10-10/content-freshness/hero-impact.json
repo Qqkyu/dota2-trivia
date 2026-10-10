@@ -1,0 +1,630 @@
+{
+  "reviewedAt": "2026-10-10T09:21:41.113540+00:00",
+  "scope": "Read-only comparison of six changed Valve hero responses against every current playable question in the launch index.",
+  "playableQuestionCount": 1517,
+  "changedHeroSources": [
+    {
+      "heroId": 5,
+      "name": "Crystal Maiden",
+      "sourceUrl": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=5",
+      "freshSourceSha256": "0e76a4701afbab6b34a34b809cd969aeedf87bf663c3e6f156f6e344398f15f0",
+      "changedAbilities": [
+        {
+          "ability": "crystal_maiden_freezing_field",
+          "name": "Freezing Field",
+          "changedFields": [
+            "desc_loc",
+            "notes_loc",
+            "special_values"
+          ]
+        }
+      ]
+    },
+    {
+      "heroId": 7,
+      "name": "Earthshaker",
+      "sourceUrl": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=7",
+      "freshSourceSha256": "09e1e1b63293391b30880b15bfb9f48e801253cc45725adf16a04befb226a41b",
+      "changedAbilities": [
+        {
+          "ability": "earthshaker_fissure",
+          "name": "Fissure",
+          "changedFields": [
+            "special_values"
+          ]
+        }
+      ]
+    },
+    {
+      "heroId": 40,
+      "name": "Venomancer",
+      "sourceUrl": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=40",
+      "freshSourceSha256": "0146b2b1cf3ac8422d9a1960246841694b178583028cb8af6a4d951f69f0cd8f",
+      "changedAbilities": [
+        {
+          "ability": "venomancer_plague_ward",
+          "name": "Plague Ward",
+          "changedFields": [
+            "special_values"
+          ]
+        }
+      ]
+    },
+    {
+      "heroId": 145,
+      "name": "Kez",
+      "sourceUrl": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=145",
+      "freshSourceSha256": "bf644bbfbdca6886e7d72ef84aac4c2811ab2a1974f13a4d132d81b75353f817",
+      "changedAbilities": [
+        {
+          "ability": "kez_falcon_rush",
+          "name": "Falcon Rush",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8724154373",
+          "behaviorAfter": "9007207978895365",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        },
+        {
+          "ability": "kez_talon_toss",
+          "name": "Talon Toss",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8724152361",
+          "behaviorAfter": "9007207978893353",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        },
+        {
+          "ability": "kez_shodo_sai",
+          "name": "Shodo Sai",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8732542993",
+          "behaviorAfter": "9007207987283985",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        },
+        {
+          "ability": "kez_ravens_veil",
+          "name": "Raven's Veil",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8724152325",
+          "behaviorAfter": "9007207978893317",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        }
+      ]
+    },
+    {
+      "heroId": 155,
+      "name": "Largo",
+      "sourceUrl": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=155",
+      "freshSourceSha256": "12edddd337919d76d16a30bfb4c77650bb0aee242342798337dcdd0882fe5a7a",
+      "changedAbilities": [
+        {
+          "ability": "largo_song_fight_song",
+          "name": "Bullbelly Blitz",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8589936709",
+          "behaviorAfter": "9007207844677701",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        },
+        {
+          "ability": "largo_song_double_time",
+          "name": "Hotfeet Hustle",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8589936709",
+          "behaviorAfter": "9007207844677701",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        },
+        {
+          "ability": "largo_song_good_vibrations",
+          "name": "Island Elixir",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8589936709",
+          "behaviorAfter": "9007207844677701",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        }
+      ]
+    },
+    {
+      "heroId": 74,
+      "name": "Invoker",
+      "sourceUrl": "https://www.dota2.com/datafeed/herodata?language=english&hero_id=74",
+      "freshSourceSha256": "fdca8fcedf624aef31459e6cfb85b6a08e216f7cb5d61268d756d7dabda40ede",
+      "changedAbilities": [
+        {
+          "ability": "invoker_cold_snap",
+          "name": "Cold Snap",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8724152393",
+          "behaviorAfter": "9007207978893385",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        },
+        {
+          "ability": "invoker_ghost_walk",
+          "name": "Ghost Walk",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8594131013",
+          "behaviorAfter": "9007207848872005",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        },
+        {
+          "ability": "invoker_tornado",
+          "name": "Tornado",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "283602059345",
+          "behaviorAfter": "9007482856800337",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        },
+        {
+          "ability": "invoker_emp",
+          "name": "E.M.P.",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8724152433",
+          "behaviorAfter": "9007207978893425",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        },
+        {
+          "ability": "invoker_alacrity",
+          "name": "Alacrity",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8757706825",
+          "behaviorAfter": "9007208012447817",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        },
+        {
+          "ability": "invoker_chaos_meteor",
+          "name": "Chaos Meteor",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8724152401",
+          "behaviorAfter": "9007207978893393",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        },
+        {
+          "ability": "invoker_sun_strike",
+          "name": "Sun Strike",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8724152433",
+          "behaviorAfter": "9007207978893425",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        },
+        {
+          "ability": "invoker_forge_spirit",
+          "name": "Forge Spirit",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8724152389",
+          "behaviorAfter": "9007207978893381",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        },
+        {
+          "ability": "invoker_ice_wall",
+          "name": "Ice Wall",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8724152389",
+          "behaviorAfter": "9007207978893381",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        },
+        {
+          "ability": "invoker_deafening_blast",
+          "name": "Deafening Blast",
+          "changedFields": [
+            "behavior"
+          ],
+          "behaviorBefore": "8724152401",
+          "behaviorAfter": "9007207978893393",
+          "exactIntegerDelta": "9007199254740992",
+          "previousBitsUnchanged": true
+        }
+      ]
+    }
+  ],
+  "referencingPlayableQuestionCount": 22,
+  "referencingPlayableQuestions": [
+    {
+      "id": "ability-owner:kez_switch_weapons",
+      "sourceFile": "src/data/questions.generated.json",
+      "referencedChangedAbilities": [
+        "kez_shodo_sai"
+      ],
+      "referenceType": "explanatory-reference",
+      "prompt": "Which hero owns this ability?",
+      "eyebrow": "Switch Discipline",
+      "answer": "Kez",
+      "explanation": "Switch Discipline belongs to Kez. Kez switches between his Kazurai Katana and Shodo Sai.\n\nHe gains different attack capabilities and abilities based on the weapon equipped. The abilities level up together, and when an ability is used, the associated alternate weapon ability also goes on cooldown.\n\nKez deals extra damage on the first Katana hit or ability after switching to Katana, and gains bonus speed after switching to Sai.",
+      "needsChange": false
+    },
+    {
+      "id": "aghanim-upgrade:earthshaker:shard",
+      "sourceFile": "src/data/aghanim-questions.json",
+      "referencedChangedAbilities": [
+        "earthshaker_fissure"
+      ],
+      "referenceType": "direct",
+      "prompt": "Whose upgrade is this?",
+      "eyebrow": "Upgrade effect",
+      "answer": "Earthshaker",
+      "explanation": "Earthshaker's Aghanim's Shard upgrades Fissure. Casting another ability releases a shorter stun along an existing terrain barrier.",
+      "needsChange": false
+    },
+    {
+      "id": "aghanim-upgrade:invoker:scepter",
+      "sourceFile": "src/data/aghanim-questions.json",
+      "referencedChangedAbilities": [
+        "invoker_ice_wall"
+      ],
+      "referenceType": "direct",
+      "prompt": "Whose upgrade is this?",
+      "eyebrow": "Upgrade effect",
+      "answer": "Invoker",
+      "explanation": "Invoker's Aghanim's Scepter upgrades Ice Wall. Turns a wall spell into a vector-targeted strip that roots enemies who remain inside long enough.",
+      "needsChange": false
+    },
+    {
+      "id": "aghanim-upgrade:kez:shard",
+      "sourceFile": "src/data/aghanim-questions.json",
+      "referencedChangedAbilities": [
+        "kez_shodo_sai"
+      ],
+      "referenceType": "direct",
+      "prompt": "Whose upgrade is this?",
+      "eyebrow": "Upgrade effect",
+      "answer": "Kez",
+      "explanation": "Kez's Aghanim's Shard upgrades Shodo Sai. A successful parry creates a stronger mark that adds stun duration and critical damage.",
+      "needsChange": false
+    },
+    {
+      "id": "cooldown:invoker_tornado:1",
+      "sourceFile": "src/data/questions.generated.json",
+      "referencedChangedAbilities": [
+        "invoker_tornado"
+      ],
+      "referenceType": "direct",
+      "prompt": "What is the base cooldown of Tornado?",
+      "eyebrow": "Invoker \u00b7 Tornado",
+      "answer": "27s",
+      "explanation": "Tornado's cooldown is 27s, before reductions.",
+      "needsChange": false
+    },
+    {
+      "id": "damage:kez_talon_toss:4",
+      "sourceFile": "src/data/questions.generated.json",
+      "referencedChangedAbilities": [
+        "kez_talon_toss"
+      ],
+      "referenceType": "direct",
+      "prompt": "How much damage does Talon Toss deal at max level?",
+      "eyebrow": "Kez \u00b7 Talon Toss",
+      "answer": "240",
+      "explanation": "Talon Toss, damage: 60 / 120 / 180 / 240 across its levels, before talents, facets, and added upgrade effects.",
+      "needsChange": false
+    },
+    {
+      "id": "mana:invoker_chaos_meteor:1",
+      "sourceFile": "src/data/questions.generated.json",
+      "referencedChangedAbilities": [
+        "invoker_chaos_meteor"
+      ],
+      "referenceType": "direct",
+      "prompt": "How much mana does Chaos Meteor cost?",
+      "eyebrow": "Invoker \u00b7 Chaos Meteor",
+      "answer": "200",
+      "explanation": "Chaos Meteor's mana cost is 200, before modifiers.",
+      "needsChange": false
+    },
+    {
+      "id": "mana:invoker_sun_strike:1",
+      "sourceFile": "src/data/questions.generated.json",
+      "referencedChangedAbilities": [
+        "invoker_sun_strike"
+      ],
+      "referenceType": "direct",
+      "prompt": "How much mana does Sun Strike cost?",
+      "eyebrow": "Invoker \u00b7 Sun Strike",
+      "answer": "175",
+      "explanation": "Sun Strike's mana cost is 175, before modifiers.",
+      "needsChange": false
+    },
+    {
+      "id": "mana:kez_talon_toss:1",
+      "sourceFile": "src/data/questions.generated.json",
+      "referencedChangedAbilities": [
+        "kez_talon_toss"
+      ],
+      "referenceType": "direct",
+      "prompt": "How much mana does Talon Toss cost at level 1?",
+      "eyebrow": "Kez \u00b7 Talon Toss",
+      "answer": "60",
+      "explanation": "Talon Toss' mana cost is 60 / 65 / 70 / 75 across its levels, before modifiers.",
+      "needsChange": false
+    },
+    {
+      "id": "mana:largo_song_double_time:1",
+      "sourceFile": "src/data/questions.generated.json",
+      "referencedChangedAbilities": [
+        "largo_song_double_time"
+      ],
+      "referenceType": "direct",
+      "prompt": "How much mana does Hotfeet Hustle cost at level 1?",
+      "eyebrow": "Largo \u00b7 Hotfeet Hustle",
+      "answer": "25",
+      "explanation": "Hotfeet Hustle's mana cost is 25 / 35 / 45 across its levels, before modifiers.",
+      "needsChange": false
+    },
+    {
+      "id": "soundcheck-ability:invoker_sun_strike",
+      "sourceFile": "src/data/soundcheck-questions.json",
+      "referencedChangedAbilities": [
+        "invoker_sun_strike"
+      ],
+      "referenceType": "direct",
+      "prompt": "Match the sound.",
+      "eyebrow": "Soundcheck \u00b7 Ability sound",
+      "answer": "Sun Strike",
+      "explanation": "That was the gameplay sound for Sun Strike.",
+      "needsChange": false
+    },
+    {
+      "id": "soundcheck-ability:kez_echo_slash",
+      "sourceFile": "src/data/soundcheck-questions.json",
+      "referencedChangedAbilities": [
+        "kez_talon_toss"
+      ],
+      "referenceType": "distractor-only",
+      "prompt": "Match the sound.",
+      "eyebrow": "Soundcheck \u00b7 Ability sound",
+      "answer": "Echo Slash",
+      "explanation": "That was the gameplay sound for Echo Slash.",
+      "needsChange": false
+    },
+    {
+      "id": "soundcheck-ability:sandking_epicenter",
+      "sourceFile": "src/data/soundcheck-questions.json",
+      "referencedChangedAbilities": [
+        "crystal_maiden_freezing_field"
+      ],
+      "referenceType": "distractor-only",
+      "prompt": "Match the sound.",
+      "eyebrow": "Soundcheck \u00b7 Ability sound",
+      "answer": "Epicenter",
+      "explanation": "That was the gameplay sound for Epicenter.",
+      "needsChange": false
+    },
+    {
+      "id": "soundcheck-ability:zuus_thundergods_wrath",
+      "sourceFile": "src/data/soundcheck-questions.json",
+      "referencedChangedAbilities": [
+        "invoker_sun_strike"
+      ],
+      "referenceType": "distractor-only",
+      "prompt": "Match the sound.",
+      "eyebrow": "Soundcheck \u00b7 Ability sound",
+      "answer": "Thundergod's Wrath",
+      "explanation": "That was the gameplay sound for Thundergod's Wrath.",
+      "needsChange": false
+    },
+    {
+      "id": "value-order:ability-cooldown:10",
+      "sourceFile": "src/data/value-order-questions.json",
+      "referencedChangedAbilities": [
+        "invoker_tornado"
+      ],
+      "referenceType": "direct",
+      "prompt": "How do these abilities rank from shortest to longest max-level cooldown?",
+      "eyebrow": "Max-level cooldowns",
+      "answer": "order-v1:largo_croak_of_genius,invoker_tornado,furion_force_of_nature,spirit_breaker_nether_strike",
+      "explanation": "Shortest to longest: Croak of Genius (25s) \u2192 Tornado (27s) \u2192 Nature's Call (30s) \u2192 Nether Strike (35s).",
+      "needsChange": false
+    },
+    {
+      "id": "value-order:ability-damage:04",
+      "sourceFile": "src/data/value-order-questions.json",
+      "referencedChangedAbilities": [
+        "kez_talon_toss"
+      ],
+      "referenceType": "direct",
+      "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+      "eyebrow": "Max-level damage",
+      "answer": "order-v1:terrorblade_terror_wave,shredder_timber_chain,kez_talon_toss,furion_sprout",
+      "explanation": "Lowest to highest: Terror Wave (200 damage) \u2192 Timber Chain (225 damage) \u2192 Talon Toss (240 damage) \u2192 Sprout (250 damage).",
+      "needsChange": false
+    },
+    {
+      "id": "value-order:ability-damage:05",
+      "sourceFile": "src/data/value-order-questions.json",
+      "referencedChangedAbilities": [
+        "kez_talon_toss"
+      ],
+      "referenceType": "direct",
+      "prompt": "How do these abilities rank from lowest to highest max-level damage?",
+      "eyebrow": "Max-level damage",
+      "answer": "order-v1:shredder_timber_chain,kez_talon_toss,furion_sprout,tidehunter_gush",
+      "explanation": "Lowest to highest: Timber Chain (225 damage) \u2192 Talon Toss (240 damage) \u2192 Sprout (250 damage) \u2192 Gush (280 damage).",
+      "needsChange": false
+    },
+    {
+      "id": "value-order:ability-mana:02",
+      "sourceFile": "src/data/value-order-questions.json",
+      "referencedChangedAbilities": [
+        "largo_song_double_time"
+      ],
+      "referenceType": "direct",
+      "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+      "eyebrow": "Max-level mana costs",
+      "answer": "order-v1:tiny_tree_grab,shadow_demon_shadow_poison,largo_song_double_time,chen_zealot",
+      "explanation": "Lowest to highest: Tree Grab (25 mana) \u2192 Shadow Poison (40 mana) \u2192 Hotfeet Hustle (45 mana) \u2192 Zealot (50 mana).",
+      "needsChange": false
+    },
+    {
+      "id": "value-order:ability-mana:07",
+      "sourceFile": "src/data/value-order-questions.json",
+      "referencedChangedAbilities": [
+        "invoker_sun_strike"
+      ],
+      "referenceType": "direct",
+      "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+      "eyebrow": "Max-level mana costs",
+      "answer": "order-v1:enchantress_natures_attendants,rattletrap_hookshot,tinker_march_of_the_machines,invoker_sun_strike",
+      "explanation": "Lowest to highest: Nature's Attendants (140 mana) \u2192 Hookshot (150 mana) \u2192 March of the Machines (160 mana) \u2192 Sun Strike (175 mana).",
+      "needsChange": false
+    },
+    {
+      "id": "value-order:ability-mana:08",
+      "sourceFile": "src/data/value-order-questions.json",
+      "referencedChangedAbilities": [
+        "largo_song_double_time"
+      ],
+      "referenceType": "direct",
+      "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+      "eyebrow": "Max-level mana costs",
+      "answer": "order-v1:clinkz_burning_barrage,largo_song_double_time,chen_zealot,bristleback_hairball",
+      "explanation": "Lowest to highest: Burning Barrage (40 mana) \u2192 Hotfeet Hustle (45 mana) \u2192 Zealot (50 mana) \u2192 Hairball (60 mana).",
+      "needsChange": false
+    },
+    {
+      "id": "value-order:ability-mana:09",
+      "sourceFile": "src/data/value-order-questions.json",
+      "referencedChangedAbilities": [
+        "invoker_chaos_meteor"
+      ],
+      "referenceType": "direct",
+      "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+      "eyebrow": "Max-level mana costs",
+      "answer": "order-v1:invoker_chaos_meteor,disruptor_static_storm,ringmaster_wheel,obsidian_destroyer_sanity_eclipse",
+      "explanation": "Lowest to highest: Chaos Meteor (200 mana) \u2192 Static Storm (225 mana) \u2192 Wheel of Wonder (300 mana) \u2192 Sanity's Eclipse (400 mana).",
+      "needsChange": false
+    },
+    {
+      "id": "value-order:ability-mana:11",
+      "sourceFile": "src/data/value-order-questions.json",
+      "referencedChangedAbilities": [
+        "invoker_chaos_meteor"
+      ],
+      "referenceType": "direct",
+      "prompt": "How do these abilities rank from lowest to highest max-level mana cost?",
+      "eyebrow": "Max-level mana costs",
+      "answer": "order-v1:keeper_of_the_light_blinding_light,tinker_march_of_the_machines,techies_suicide,invoker_chaos_meteor",
+      "explanation": "Lowest to highest: Blinding Light (150 mana) \u2192 March of the Machines (160 mana) \u2192 Blast Off! (175 mana) \u2192 Chaos Meteor (200 mana).",
+      "needsChange": false
+    }
+  ],
+  "falsePositiveTextMatches": [
+    {
+      "id": "aghanim-upgrade:jakiro:scepter",
+      "reason": "Jakiro's Macropyre ice walls are not Invoker's Ice Wall."
+    },
+    {
+      "id": "shopkeeper-build:black_king_bar",
+      "reason": "Blade of Alacrity item references are not Invoker Alacrity."
+    },
+    {
+      "id": "shopkeeper-build:ultimate_scepter",
+      "reason": "Blade of Alacrity item references are not Invoker Alacrity."
+    },
+    {
+      "id": "shopkeeper-recipe:echo_sabre",
+      "reason": "Blade of Alacrity item references are not Invoker Alacrity."
+    },
+    {
+      "id": "shopkeeper-recipe:gungir",
+      "reason": "Blade of Alacrity item references are not Invoker Alacrity."
+    },
+    {
+      "id": "shopkeeper-recipe:oblivion_staff",
+      "reason": "Blade of Alacrity item references are not Invoker Alacrity."
+    },
+    {
+      "id": "shopkeeper-shared:ultimate_scepter:dragon_lance",
+      "reason": "Blade of Alacrity item references are not Invoker Alacrity."
+    },
+    {
+      "id": "shopkeeper-shared:ultimate_scepter:specialists_array",
+      "reason": "Blade of Alacrity item references are not Invoker Alacrity."
+    },
+    {
+      "id": "shopkeeper-shared:yasha:orb_of_corrosion",
+      "reason": "Blade of Alacrity item references are not Invoker Alacrity."
+    },
+    {
+      "id": "shopkeeper-upgrade:diffusal_blade:disperser",
+      "reason": "Blade of Alacrity item references are not Invoker Alacrity."
+    },
+    {
+      "id": "shopkeeper-upgrade:echo_sabre:harpoon",
+      "reason": "Blade of Alacrity item references are not Invoker Alacrity."
+    },
+    {
+      "id": "shopkeeper-upgrade:force_staff:hurricane_pike",
+      "reason": "Blade of Alacrity item references are not Invoker Alacrity."
+    },
+    {
+      "id": "shopkeeper-upgrade:maelstrom:mjollnir",
+      "reason": "Blade of Alacrity item references are not Invoker Alacrity."
+    },
+    {
+      "id": "shopkeeper-upgrade:tranquil_boots:boots_of_bearing",
+      "reason": "Blade of Alacrity item references are not Invoker Alacrity."
+    },
+    {
+      "id": "shopkeeper-upgrade:vanguard:crimson_guard",
+      "reason": "Blade of Alacrity item references are not Invoker Alacrity."
+    }
+  ],
+  "requiredQuestionChanges": [],
+  "verdict": "No current playable answer, condition, hint, or explanation needs a change for these six hero-response deltas.",
+  "evidence": [
+    "Freezing Field still has 100 explosions at 0.1 second intervals. The renamed fields do not change the value. The only playable reference is a Soundcheck distractor.",
+    "Fissure loses an internal free-pathing radius field. The current Shard question asks about the shorter Aftershock stun, and the current Valve Shard text still confirms that effect. It contains no pathing or radius claim.",
+    "No current playable question refers to Plague Ward. Its health and displayed damage values are unchanged, and its description already states magic immunity.",
+    "All 17 behavior-only changes add exactly bit 2^53 and preserve every previous bit. Names, owners, descriptions, upgrades, damage, mana and cooldown fields are unchanged.",
+    "Current numeric answers remain Tornado cooldown 27, Talon Toss maximum damage 240 and level-one mana 60, Hotfeet Hustle level-one mana 25 and maximum mana 45, Chaos Meteor mana 200, and Sun Strike mana 175. All eight ranking questions still use these values.",
+    "The current Invoker Ice Wall Scepter and Kez Shodo Sai Shard descriptions still support their upgrade questions.",
+    "Sound identity and distractor labels do not depend on the changed numeric or behavior fields."
+  ],
+  "limits": [
+    "No semantics are assigned to the new internal behavior bit. No playable question asks about that bit. This comparison does not claim live-client execution or audio revalidation."
+  ]
+}

@@ -1,0 +1,1 @@
+{"name": "queue-arcade-cli-argument-probe", "private": true, "scripts": {"check:container": "node argv.mjs", "test": "node argv.mjs"}}

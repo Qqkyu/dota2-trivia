@@ -1,0 +1,72 @@
+{
+  "checkedAt": "2026-10-10T09:24:42.842Z",
+  "passed": 16,
+  "hostedRequests": 0,
+  "operatorSha256": "4ddb5316d133629560e177d14c6e433c60d641a4b51e66b3d2e818827dc7b3c2",
+  "cases": [
+    {
+      "name": "valid check makes 131 IPv4 calls and one IPv6 control without retaining headers or addresses",
+      "passed": true
+    },
+    {
+      "name": "reject source-failure within request allowance",
+      "passed": true
+    },
+    {
+      "name": "reject source-mismatch within request allowance",
+      "passed": true
+    },
+    {
+      "name": "reject control-window within request allowance",
+      "passed": true
+    },
+    {
+      "name": "reject control-blocked within request allowance",
+      "passed": true
+    },
+    {
+      "name": "reject slow-probes within request allowance",
+      "passed": true
+    },
+    {
+      "name": "reject probe-error within request allowance",
+      "passed": true
+    },
+    {
+      "name": "reject no-block within request allowance",
+      "passed": true
+    },
+    {
+      "name": "reject bypass-after-block within request allowance",
+      "passed": true
+    },
+    {
+      "name": "reject plain-allowed within request allowance",
+      "passed": true
+    },
+    {
+      "name": "reject reset-changed within request allowance",
+      "passed": true
+    },
+    {
+      "name": "curl command has fixed HTTPS destination and no redirect or credential options",
+      "passed": true
+    },
+    {
+      "name": "curl parser rejects oversized or malformed status output",
+      "passed": true
+    },
+    {
+      "name": "IPv6 parser rejects IPv4, local, link-scoped and zone addresses",
+      "passed": true
+    },
+    {
+      "name": "login response rejects foreign redirects and wrong rate metadata",
+      "passed": true
+    },
+    {
+      "name": "untrusted exception text stays out of the report",
+      "passed": true
+    }
+  ]
+}

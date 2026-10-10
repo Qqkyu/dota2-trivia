@@ -1,0 +1,13 @@
+{
+  "historicalWrongLive": {
+    "allowed": false,
+    "wrongKnownLiveWasSuspended": false,
+    "verification": "deployment_pending"
+  },
+  "pendingUnknownAfterCorrectLive": {
+    "allowed": true,
+    "activeUnknownDeployWasSuspended": false,
+    "verification": "new_candidate_live"
+  },
+  "hostedRequests": false
+}

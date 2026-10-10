@@ -1,0 +1,94 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.58kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
+#2 DONE 0.9s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 172B done
+#3 DONE 0.0s
+
+#4 [dependencies 1/6] FROM docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
+#4 resolve docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 132.47kB 0.0s done
+#5 DONE 0.1s
+
+#6 [runner 6/9] COPY --from=builder --chown=nextjs:nodejs /app/scripts/grant-runtime-db.mjs /app/scripts/database-runtime-grants.mjs ./scripts/
+#6 CACHED
+
+#7 [builder 5/8] COPY . .
+#7 CACHED
+
+#8 [dependencies 4/6] COPY package.json pnpm-lock.yaml ./
+#8 CACHED
+
+#9 [builder 4/8] COPY --from=dependencies /app/node_modules ./node_modules
+#9 CACHED
+
+#10 [runner 4/9] COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+#10 CACHED
+
+#11 [dependencies 2/6] WORKDIR /app
+#11 CACHED
+
+#12 [dependencies 3/6] RUN corepack enable
+#12 CACHED
+
+#13 [builder 8/8] RUN node -e "const fs = require('node:fs'); fs.cpSync(fs.realpathSync('node_modules/postgres'), '.next/standalone/node_modules/postgres', { recursive: true, dereference: true })"
+#13 CACHED
+
+#14 [dependencies 6/6] RUN pnpm install --frozen-lockfile
+#14 CACHED
+
+#15 [runtime-base 4/4] RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
+#15 CACHED
+
+#16 [runtime-base 3/4] RUN apk add --no-cache ffmpeg 'zlib>=1.3.2-r1'     && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack /opt/yarn-v*     && rm -f /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack /usr/local/bin/yarn /usr/local/bin/yarnpkg
+#16 CACHED
+
+#17 [builder 7/8] RUN pnpm build
+#17 CACHED
+
+#18 [runner 8/9] COPY --from=builder --chown=nextjs:nodejs /app/src/lib/production-config.mjs /app/src/lib/database-schema.mjs ./src/lib/
+#18 CACHED
+
+#19 [runner 3/9] COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+#19 CACHED
+
+#20 [dependencies 5/6] COPY patches ./patches
+#20 CACHED
+
+#21 [runner 1/9] COPY --from=builder --chown=nextjs:nodejs /app/THIRD_PARTY_NOTICES.md ./THIRD_PARTY_NOTICES.md
+#21 CACHED
+
+#22 [runner 2/9] COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+#22 CACHED
+
+#23 [builder 6/8] RUN pnpm check:content-release
+#23 CACHED
+
+#24 [runner 5/9] COPY --from=builder --chown=nextjs:nodejs /app/scripts/start-production.mjs /app/scripts/migrate-db.mjs /app/scripts/cleanup-db.mjs /app/scripts/check-production-config.mjs ./scripts/
+#24 CACHED
+
+#25 [runner 7/9] COPY --from=builder --chown=nextjs:nodejs /app/scripts/database-backup.mjs ./scripts/
+#25 CACHED
+
+#26 [runner 9/9] RUN mkdir -p /app/.data /app/.next/cache && chown -R nextjs:nodejs /app/.data /app/.next/cache
+#26 CACHED
+
+#27 exporting to image
+#27 exporting layers done
+#27 exporting manifest sha256:91170bc3621847ca748a8c868087c07a15059ca0f14a769bf0202dbb6923a6aa done
+#27 exporting config sha256:bc4db6b81166bf7f16a0a073e27e2395865dc92bc8fbcc97a01d821370bfefea done
+#27 exporting attestation manifest sha256:c586e2536492871d2c5e860265615a0551dde045a8b257a9131356db8ba71d0e 0.0s done
+#27 exporting manifest list sha256:a8f931a2252416ebffaaf3df62a2e5bd6a7b10e8e550aac14f55aa98c90dfba4 0.0s done
+#27 naming to docker.io/library/queue-arcade:ci-zlib done
+#27 unpacking to docker.io/library/queue-arcade:ci-zlib 0.0s done
+#27 DONE 0.1s
+WARNING: current commit information was not captured by the build: failed to read current commit information with git rev-parse --is-inside-work-tree

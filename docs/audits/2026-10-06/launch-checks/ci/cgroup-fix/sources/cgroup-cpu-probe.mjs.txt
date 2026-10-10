@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const read = name => fs.readFileSync(`/sys/fs/cgroup/${name}`, 'utf8').trim();
+const cpuMax = read('cpu.max');
+const [quota, period] = cpuMax.split(/\s+/).map(Number);
+assert.equal(quota / period, .5);
+assert.equal(read('memory.max'), '67108864');
+assert.equal(read('memory.swap.max'), '0');
+const stats = () => Object.fromEntries(read('cpu.stat').split('\n').map(line => { const [key, value] = line.split(' '); return [key, Number(value)]; }));
+const before = stats();
+const started = performance.now();
+while (performance.now() - started < 3000) Math.sqrt(Math.random());
+const after = stats();
+const throttledPeriods = after.nr_throttled - before.nr_throttled;
+const throttledUsec = after.throttled_usec - before.throttled_usec;
+assert(throttledPeriods > 0 && throttledUsec > 0, 'The CPU limit must throttle the busy process');
+console.log(JSON.stringify({cpuMax, memoryMax: read('memory.max'), memorySwapMax: read('memory.swap.max'), throttledPeriods, throttledUsec, passed: true}));

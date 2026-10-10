@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "scope": "All files in this content-freshness directory except this manifest. Earlier audit archives remain unchanged.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 4655,
+      "sha256": "da28955137cb494b5f7dda2d2bb4c4dd12ea5c38f8bd36251629a7e2fc4d13b9"
+    },
+    {
+      "path": "changed-responses.tar.gz",
+      "bytes": 148826,
+      "sha256": "3fecf0bbfe209486d78d9489c668d6a07fa99c6ca70c0edabe45936d61c7451b"
+    },
+    {
+      "path": "check-upstream.py.txt",
+      "bytes": 5643,
+      "sha256": "35952c02dbc36a06a7131acbd4931bfd870e7ab7e964fcbcc0ba0dc518203898"
+    },
+    {
+      "path": "compare-saved.py.txt",
+      "bytes": 4377,
+      "sha256": "6a1b3c24a56024cdf360ddb780d70e224472b2814fbbf67db607d108f9e56762"
+    },
+    {
+      "path": "content-index.log",
+      "bytes": 129,
+      "sha256": "2a4328042eefc7fe0de5d0f0ea687ff575f0dd360466af0efbf441d95e161d41"
+    },
+    {
+      "path": "content-release.log",
+      "bytes": 213,
+      "sha256": "ed0837653095904fc4fd07ca8ef2a633a5218a2c1f24e39bffad16ce773c9872"
+    },
+    {
+      "path": "fetch-scope.json",
+      "bytes": 15435,
+      "sha256": "4cda272939e3d333d2e8e0e1681631e8ff96cb1fe7560ec72803ca77519a5fcb"
+    },
+    {
+      "path": "field-impact.json",
+      "bytes": 17260,
+      "sha256": "83de4c084728ec267fa904e24e2d5546900307e3e74607265d815f1820336ae5"
+    },
+    {
+      "path": "hero-impact.json",
+      "bytes": 24446,
+      "sha256": "6cdd8ea19238f0bcca5ce182a833885283b9e717f05cac52ef7156035779f108"
+    },
+    {
+      "path": "item-impact.json",
+      "bytes": 6724,
+      "sha256": "0c61437ff7a09359360d87422018cca1aa633e42e18c867368b01a461e5e5371"
+    },
+    {
+      "path": "local-checks.json",
+      "bytes": 1341,
+      "sha256": "c40705a1b8b404be421ba0f050f0bd18f34095183c7604fcd467d5a570a87d4a"
+    },
+    {
+      "path": "semantic-deltas.json",
+      "bytes": 19332,
+      "sha256": "740c7785e05bc795c909a3f364acf4e876f43df249bcd358c8827fe48c41b95b"
+    },
+    {
+      "path": "upstream-comparison.json",
+      "bytes": 320432,
+      "sha256": "d67c35b264a930280d86033c2a3f50601c9f2fa3761f75063364c2dea34f0f6e"
+    }
+  ]
+}

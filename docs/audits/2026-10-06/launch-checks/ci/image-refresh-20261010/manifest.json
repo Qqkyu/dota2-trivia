@@ -1,0 +1,129 @@
+{
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 2426,
+      "sha256": "f84601786a433f67ce53afe28ea9d5c18997b655929559772bc0e262f624739c"
+    },
+    {
+      "file": "cleanup-result.json",
+      "bytes": 97,
+      "sha256": "0be5ab0c975197025aa3aaef7712365a46e1afa332c2f1c32ec6ac51f4c52159"
+    },
+    {
+      "file": "completed/build.log",
+      "bytes": 3841,
+      "sha256": "3c65095df1dfe868f39992d7a9222c7bec29584a7271f72cdbfb0bf35068824c"
+    },
+    {
+      "file": "completed/capacity-1.json",
+      "bytes": 8348,
+      "sha256": "8f57af6ba81168f9547ed033d4d541946af04999501dd04c896a796040dcbf05"
+    },
+    {
+      "file": "completed/container-check.log",
+      "bytes": 184,
+      "sha256": "9dba14f4b3428e466203d396128e0777b865071fb350c231705083aad9122cb5"
+    },
+    {
+      "file": "completed/container-result.json",
+      "bytes": 3928,
+      "sha256": "05fb56973c8aef89a6d963b78001f87c14ec1c625c2983fb009a2a4e6e682f9f"
+    },
+    {
+      "file": "completed/database-metadata.json",
+      "bytes": 152,
+      "sha256": "6c8ec7feaaf6ca19eab9a0bcabeb7ece4e267909228c2d1fdb432368723f282f"
+    },
+    {
+      "file": "completed/database-update.log",
+      "bytes": 3827,
+      "sha256": "5db70e06eb32f898fbe1509b4244637675964f2ef1aa4fa75b7dfac77314879b"
+    },
+    {
+      "file": "completed/dockerfile-sha256.txt",
+      "bytes": 77,
+      "sha256": "d8c8dc030e821f9656b66331f6e7dd0739f1728fca75dc219472c6bb134ccde2"
+    },
+    {
+      "file": "completed/image-metadata.json",
+      "bytes": 3512,
+      "sha256": "3eba4dd409adfae648bb3650fb84f8213bdf173ef502a2523103c937e264a024"
+    },
+    {
+      "file": "completed/native-metadata.json",
+      "bytes": 1848,
+      "sha256": "be123aa0f9724b335f308271c566264942fc132b63aef64290ef154b5e67f926"
+    },
+    {
+      "file": "completed/runtime-packages.log",
+      "bytes": 2233,
+      "sha256": "b943f3f68ccf2113f8093c08aa2f47687396366a27f35223b70e2057f9cf246f"
+    },
+    {
+      "file": "completed/scanner-input-sha256.txt",
+      "bytes": 381,
+      "sha256": "a4b3e09f243107293e6b73e9453fb9e70d73f0aa4232258114880460a8242631"
+    },
+    {
+      "file": "completed/scanner-version.log",
+      "bytes": 16,
+      "sha256": "ea3524df63e27041d6b4a85932a889aba8e3cd3cc2ee01404822111bb673e17c"
+    },
+    {
+      "file": "completed/trivy-full.json",
+      "bytes": 204536,
+      "sha256": "b27164726e3da8942f4afa4e72e587bc286c2a71bf7c75e840f48073f9397e5f"
+    },
+    {
+      "file": "completed/trivy-full.log",
+      "bytes": 655,
+      "sha256": "7b0c3551048316e44f5651773dcb995892bcd7006108b8dcd60c02edf061651f"
+    },
+    {
+      "file": "entrypoint.sh.txt",
+      "bytes": 2856,
+      "sha256": "b9b9cb9702cd28ac8716a17edb452848750907f21a94138e089c1df43d4f9a3d"
+    },
+    {
+      "file": "initial/build.log",
+      "bytes": 12251,
+      "sha256": "f885644cc37189d35ebae923a5530fad14f4216003641bc24832739df3a635fe"
+    },
+    {
+      "file": "initial/dockerfile-sha256.txt",
+      "bytes": 77,
+      "sha256": "d8c8dc030e821f9656b66331f6e7dd0739f1728fca75dc219472c6bb134ccde2"
+    },
+    {
+      "file": "initial/image-metadata.json",
+      "bytes": 3512,
+      "sha256": "d27bf568e474ee2c28850ff370c201af63f69266875ab8352c2001ca1f3aedf8"
+    },
+    {
+      "file": "initial/native-metadata.json.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "initial-entrypoint.sh.txt",
+      "bytes": 2858,
+      "sha256": "a119f339845f2c99f3ad07e9cd1ae3661a10ae804307c87d93a0840505442417"
+    },
+    {
+      "file": "runners-after-cleanup.json",
+      "bytes": 40,
+      "sha256": "0a37990c04105f6d4c2c21388345c6326e3d61bcd8733ff58d79c28bc80f52a3"
+    },
+    {
+      "file": "start-image-refresh.py.txt",
+      "bytes": 1745,
+      "sha256": "ca308e38e411f9c94476531356f316d5d713fe37f38bb936cc37a7f8d7d60ec1"
+    },
+    {
+      "file": "summary.json",
+      "bytes": 1571,
+      "sha256": "dd954eb022615b781ac893237ada804ad3b4f0898d3c251d18d022414eadfbc5"
+    }
+  ]
+}

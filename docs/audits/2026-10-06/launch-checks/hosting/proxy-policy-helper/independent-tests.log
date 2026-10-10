@@ -1,0 +1,36 @@
+test_candidate_remote_sha_and_successful_ci_are_required (policy_final_independent_tests.OperatorTests) ... ok
+test_operation_allowlist_blocks_other_mutations (policy_final_independent_tests.OperatorTests) ... ok
+test_redirects_never_forward_operator_authorization (policy_final_independent_tests.OperatorTests) ... ok
+test_reviewed_readonly_helper_is_hash_bound (policy_final_independent_tests.OperatorTests) ... ok
+test_all_five_proof_cases_are_required (policy_final_independent_tests.PolicyTests) ... ok
+test_duplicate_environment_keys_are_rejected (policy_final_independent_tests.PolicyTests) ... ok
+test_empty_202_is_recorded_as_queued (policy_final_independent_tests.PolicyTests) ... ok
+test_failed_repeated_proof_cannot_change_configuration (policy_final_independent_tests.PolicyTests) ... ok
+test_full_environment_change_during_proof_blocks_put (policy_final_independent_tests.PolicyTests) ... ok
+test_incomplete_environment_group_listing_blocks_put (policy_final_independent_tests.PolicyTests) ... ok
+test_linked_environment_group_blocks_put_without_fetching_group_values (policy_final_independent_tests.PolicyTests) ... ok
+test_monitor_deadline_stops_pending_build (policy_final_independent_tests.PolicyTests) ... ok
+test_only_one_key_changes_and_exact_sha_is_deployed (policy_final_independent_tests.PolicyTests) ... ok
+test_other_change_after_put_suspends_and_does_not_deploy (policy_final_independent_tests.PolicyTests) ... ok
+test_poll_detects_any_full_environment_change (policy_final_independent_tests.PolicyTests) ... ok
+test_poll_detects_new_wrong_sha (policy_final_independent_tests.PolicyTests) ... ok
+test_poll_does_not_allow_health_checks_with_another_pending_deploy (policy_final_independent_tests.PolicyTests) ... ok
+test_poll_requires_new_live_deploy_not_the_old_same_sha (policy_final_independent_tests.PolicyTests) ... ok
+test_poll_stops_if_the_remote_candidate_moves (policy_final_independent_tests.PolicyTests) ... ok
+test_poll_stops_wrong_live_commit_even_for_historical_id (policy_final_independent_tests.PolicyTests) ... ok
+test_proof_input_hash_change_blocks_put (policy_final_independent_tests.PolicyTests) ... ok
+test_proof_must_be_fresh_and_bound_to_live_commit_and_run (policy_final_independent_tests.PolicyTests) ... ok
+test_receipt_metadata_binding_prevents_old_deploy_reclassification (policy_final_independent_tests.PolicyTests) ... ok
+test_remote_branch_change_after_proof_blocks_put (policy_final_independent_tests.PolicyTests) ... ok
+test_same_sha_replacement_deployment_during_proof_blocks_put (policy_final_independent_tests.PolicyTests) ... ok
+test_service_and_database_plan_changes_block_put (policy_final_independent_tests.PolicyTests) ... ok
+test_uncertain_put_is_not_retried_and_service_is_suspended (policy_final_independent_tests.PolicyTests) ... ok
+test_uncertain_suspension_is_not_retried (policy_final_independent_tests.PolicyTests) ... ok
+test_unknown_receipt_fields_are_not_printed_or_used (policy_final_independent_tests.PolicyTests) ... ok
+test_unrelated_environment_group_metadata_is_not_logged (policy_final_independent_tests.PolicyTests) ... ok
+test_wrong_deploy_commit_suspends_before_cancel (policy_final_independent_tests.PolicyTests) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 0.067s
+
+OK

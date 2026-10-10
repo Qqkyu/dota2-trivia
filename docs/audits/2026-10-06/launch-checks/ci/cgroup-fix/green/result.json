@@ -1,0 +1,23 @@
+{
+  "mode": "green",
+  "state": {
+    "Status": "exited",
+    "ExitCode": 0,
+    "OOMKilled": true,
+    "StartedAt": "2026-10-10T09:14:07.417063354Z",
+    "FinishedAt": "2026-10-10T09:14:13.822307338Z"
+  },
+  "outerExecPassed": true,
+  "outerLimits": {
+    "nanoCpus": 2000000000,
+    "memory": 5368709120,
+    "memorySwap": 5368709120,
+    "cgroupNamespace": "private"
+  },
+  "inputs": {
+    "cgroup-green-entrypoint.sh": "623942fc639bebc6683709dc2a089a4aa4c7f4faa994c1404c8925bdb4239850",
+    "runner-image/prepare-cgroup-v2.sh": "ee9b3790d566e746fbf7710b1fdff53463ee69ed78e7c34cda10300c3ddd9bf1",
+    "cgroup-cpu-probe.mjs": "4492d18858763236513817b2dcaddaabccb19d1ea3c6d5b5c85b3d2123435243",
+    "cgroup-memory-probe.mjs": "e398dc172ae41deb1d8bb05a50a1f1cc4a98361c35d8243996ca9315b161ba79"
+  }
+}

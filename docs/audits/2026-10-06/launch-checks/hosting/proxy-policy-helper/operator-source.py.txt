@@ -1,0 +1,462 @@
+"""Change one Render environment key only after a fresh, repeated ingress proof.
+
+This is a mutation helper. Preparing or testing it does not authorize its execution.
+The --apply invocation needs a new approval review after the hosted proof succeeds.
+"""
+import datetime
+import hashlib
+import hmac
+import importlib.util
+import json
+import os
+from pathlib import Path
+import re
+import sys
+import time
+import urllib.error
+import urllib.request
+from urllib.parse import urlparse
+
+ROOT = Path('/home/kulmisiu/dev/dota2-trivia')
+PRIVATE = Path('/tmp/queue-arcade-launch-checks')
+OUT = ROOT / 'docs/audits/2026-10-06/launch-checks/hosting'
+SID = 'srv-d9mqd1942hec73e9nlt0'
+DID = 'dpg-d9mqc4taeets73aiclsg-a'
+OWNER = 'tea-cspsf9i3esus738f3t4g'
+BRANCH = 'codex/launch-checks-20261006'
+ORIGIN = 'https://queue-arcade.onrender.com'
+KEY = 'ARCADE_TRUST_PROXY'
+POLICY = 'cf-connecting-ip'
+PROOF_HELPER = PRIVATE / 'prove-render-ingress.py'
+PROOF_HELPER_SHA256 = 'e73148881241fd2ad02380bf6b14438d7ddbd9f1b2fe887fd11753c56123ef49'
+PROOF_FILE = OUT / 'hosted-ingress-proof.json'
+RECEIPT = OUT / 'proxy-policy-change.json'
+CHECK_NAMES = ('baseline', 'cloudflare-header', 'real-ip-header', 'forwarded-chain', 'combined-headers')
+LOCAL_INPUTS = ('scripts/check-ingress-proof.mjs', 'src/lib/ingress-probe.mjs')
+TERMINAL = {'live', 'deactivated', 'canceled', 'build_failed', 'update_failed', 'pre_deploy_failed'}
+PROOF_KEYS = {'checkedAt', 'origin', 'ok', 'policyDuringCheck', 'checks', 'changedConfiguration',
+              'commit', 'deployId', 'ciRunId', 'independentIpv4SourcesAgreed', 'operatorSecretLogged',
+              'rawAddressesLogged', 'deploymentAndConfigurationStable', 'localInputs'}
+
+
+def require(condition, message='Proxy policy precondition failed.'):
+    if not condition:
+        raise RuntimeError(message)
+
+
+def now():
+    return datetime.datetime.now(datetime.timezone.utc)
+
+
+def timestamp(value):
+    require(isinstance(value, str))
+    result = datetime.datetime.fromisoformat(value.replace('Z', '+00:00'))
+    require(result.tzinfo is not None)
+    return result
+
+
+def read_json(path, limit=65_536):
+    require(path.is_file() and not path.is_symlink())
+    with path.open('rb') as source:
+        raw = source.read(limit + 1)
+    require(len(raw) <= limit)
+    return json.loads(raw)
+
+
+def digest(value):
+    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+
+
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, request, response, code, message, headers, new_url):
+        return None
+
+
+OPENER = urllib.request.build_opener(NoRedirect())
+
+
+def api(path, method='GET', body=None):
+    # Keep the mutation allowlist small, including the fail-closed actions.
+    valid = method == 'GET' and (path in ['/postgres/' + DID, '/env-groups?ownerId=' + OWNER + '&limit=100'] or path in [
+        '/services/' + SID, '/services/' + SID + '/env-vars?limit=100',
+        '/services/' + SID + '/deploys?limit=20'])
+    valid = valid or (method == 'PUT' and path == '/services/' + SID + '/env-vars/' + KEY
+                      and isinstance(body, dict) and set(body) == {'value'} and body['value'] == POLICY)
+    valid = valid or (method == 'POST' and path in ['/services/' + SID + '/deploys', '/services/' + SID + '/suspend'])
+    valid = valid or (method == 'POST' and re.fullmatch('/services/' + SID + r'/deploys/dep-[a-z0-9]{1,80}/cancel', path))
+    require(bool(valid), 'Provider operation is outside this helper scope.')
+    if method == 'POST' and path.endswith('/deploys'):
+        require(isinstance(body, dict) and set(body) == {'commitId', 'clearCache'})
+        require(re.fullmatch(r'[0-9a-f]{40}', body['commitId']) is not None and body['clearCache'] == 'do_not_clear')
+    if method == 'POST' and (path.endswith('/suspend') or path.endswith('/cancel')):
+        require(body is None)
+    key = os.environ['RENDER_API_KEY']
+    require(isinstance(key, str) and len(key) >= 16)
+    request = urllib.request.Request('https://api.render.com/v1' + path, method=method,
+        headers={'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'},
+        data=None if body is None else json.dumps(body).encode())
+    with OPENER.open(request, timeout=10) as response:
+        raw = response.read(2_000_001)
+        require(len(raw) <= 2_000_000)
+        return response.status, json.loads(raw) if raw else None
+
+
+def get(path):
+    status, value = api(path)
+    require(status == 200)
+    return value
+
+
+def verified_proof_helper():
+    require(PROOF_HELPER.is_file() and not PROOF_HELPER.is_symlink())
+    with PROOF_HELPER.open('rb') as source:
+        raw = source.read(32_769)
+    require(len(raw) <= 32_768 and hashlib.sha256(raw).hexdigest() == PROOF_HELPER_SHA256,
+            'Read-only proof helper changed after review.')
+    spec = importlib.util.spec_from_file_location('reviewed_ingress_proof', PROOF_HELPER)
+    module = importlib.util.module_from_spec(spec)
+    # Execute the exact reviewed bytes, with no second file read between check and load.
+    exec(compile(raw, str(PROOF_HELPER), 'exec'), module.__dict__)
+    return module
+
+
+def checked_candidate(proof_helper):
+    candidate = read_json(PRIVATE / 'candidate-commit.json')
+    require(candidate['branch'] == BRANCH and candidate['originalIndexUnchanged'] is True)
+    sha = candidate['commit']
+    require(isinstance(sha, str) and re.fullmatch(r'[0-9a-f]{40}', sha) is not None)
+    env = {'PATH': '/usr/bin:/bin', 'GH_PROMPT_DISABLED': '1', 'GH_PAGER': 'cat'}
+    for name in ['HOME', 'XDG_CONFIG_HOME', 'GH_CONFIG_DIR', 'GH_TOKEN', 'GITHUB_TOKEN']:
+        if name in os.environ:
+            env[name] = os.environ[name]
+    def gh(endpoint):
+        result = proof_helper.run_bounded(['gh', 'api', '--hostname', 'github.com', endpoint],
+                                          env=env, timeout=15, limit=1_000_000)
+        require(result.returncode == 0 and not result.stderr)
+        return json.loads(result.stdout)
+    remote = gh('repos/Qqkyu/dota2-trivia/git/ref/heads/' + BRANCH)
+    require(remote['object']['sha'] == sha, 'Remote branch moved after review.')
+    runs = gh('repos/Qqkyu/dota2-trivia/actions/runs?head_sha=' + sha + '&per_page=100')
+    passed = [x for x in runs['workflow_runs'] if x['head_sha'] == sha and x['path'] == '.github/workflows/ci.yml'
+              and x['status'] == 'completed' and x['conclusion'] == 'success']
+    require(passed, 'The exact candidate has no completed successful CI run.')
+    run_id = passed[0]['id']
+    require(type(run_id) is int and run_id > 0)
+    return {'commit': sha, 'branch': BRANCH, 'ciRunId': run_id}
+
+
+def deployments():
+    entries = get('/services/' + SID + '/deploys?limit=20')
+    require(isinstance(entries, list) and len(entries) <= 20)
+    rows = [x['deploy'] for x in entries]
+    for row in rows:
+        require(isinstance(row.get('id'), str) and re.fullmatch(r'dep-[a-z0-9]{1,80}', row['id']) is not None)
+    return rows
+
+
+def checked_configuration(candidate, policy):
+    service = get('/services/' + SID)
+    details = service['serviceDetails']
+    require(service['id'] == SID and service['name'] == 'queue-arcade' and service['ownerId'] == OWNER)
+    require(service['repo'] == 'https://github.com/Qqkyu/dota2-trivia')
+    require(service['branch'] == BRANCH and service['autoDeployTrigger'] == 'off')
+    require(service['suspended'] == 'not_suspended')
+    require(details['plan'] == 'free' and details['buildPlan'] == 'starter')
+    require(details['region'] == 'frankfurt' and details['numInstances'] == 1)
+    require(details['healthCheckPath'] == '/api/health')
+    database = get('/postgres/' + DID)
+    require(database['id'] == DID and database['plan'] == '0.1c-256mb')
+    require(database['region'] == 'frankfurt' and database['version'] == '17')
+    require(database['status'] == 'available' and database['diskSizeGB'] == 1)
+    require(database['ipAllowList'] == [])
+    groups = get('/env-groups?ownerId=' + OWNER + '&limit=100')
+    require(isinstance(groups, list) and len(groups) < 100, 'Environment group listing may be incomplete.')
+    require(all(isinstance(group, dict) and isinstance(group.get('serviceLinks'), list) for group in groups))
+    linked = any(link.get('id') == SID for group in groups for link in group['serviceLinks'])
+    require(not linked, 'A linked environment group is outside this single-key operation.')
+    rows = get('/services/' + SID + '/env-vars?limit=100')
+    require(isinstance(rows, list) and len(rows) < 100)
+    env = {}
+    for row in rows:
+        item = row['envVar']
+        require(isinstance(item['key'], str) and isinstance(item['value'], str) and item['key'] not in env)
+        env[item['key']] = item['value']
+    require(env[KEY] == policy and env['ARCADE_APP_URL'] == ORIGIN)
+    require(env['ARCADE_ALLOW_FILE_STORE'] == 'false' and env['ARCADE_AUTO_MIGRATE'] == 'false')
+    require(len(env['ARCADE_AUTH_SECRET'].strip()) >= 32 and len(env['ARCADE_VOTER_SALT'].strip()) >= 32)
+    url = urlparse(env['DATABASE_URL'])
+    require(url.scheme in ['postgres', 'postgresql'] and url.hostname == DID)
+    require(url.username == 'queue_arcade_runtime_20261006' and url.password)
+    require(url.path == '/queue_arcade_db' and url.query == 'sslmode=require')
+    # This object stays in memory. Only its keyed binding can enter an audit receipt.
+    return {'service': {k: service[k] for k in ['id', 'name', 'ownerId', 'repo', 'branch', 'autoDeployTrigger', 'suspended']},
+            'serviceDetails': {k: details[k] for k in ['plan', 'buildPlan', 'region', 'numInstances', 'healthCheckPath']},
+            'database': {k: database[k] for k in ['id', 'plan', 'region', 'version', 'status', 'diskSizeGB', 'ipAllowList']},
+            'environment': env, 'linkedEnvironmentGroups': False}
+
+
+def one_live(candidate, rows, *, all_terminal):
+    live = [x for x in rows if x['status'] == 'live']
+    require(len(live) == 1 and (live[0].get('commit') or {}).get('id') == candidate['commit'])
+    if all_terminal:
+        require(all(x['status'] in TERMINAL for x in rows), 'A deployment is still in progress.')
+    return live[0]
+
+
+def validate_proof(proof, candidate, live):
+    require(isinstance(proof, dict) and set(proof) == PROOF_KEYS)
+    require(proof['origin'] == ORIGIN and proof['commit'] == candidate['commit'])
+    require(proof['deployId'] == live['id'] and proof['ciRunId'] == candidate['ciRunId'])
+    require(proof['ok'] is True and proof['policyDuringCheck'] == 'none' and proof['changedConfiguration'] is False)
+    require(proof['independentIpv4SourcesAgreed'] is True and proof['deploymentAndConfigurationStable'] is True)
+    require(proof['operatorSecretLogged'] is False and proof['rawAddressesLogged'] is False)
+    age = (now() - timestamp(proof['checkedAt'])).total_seconds()
+    require(0 <= age <= 300, 'Hosted ingress proof is stale.')
+    require(isinstance(proof['checks'], list) and len(proof['checks']) == len(CHECK_NAMES))
+    for name, row in zip(CHECK_NAMES, proof['checks']):
+        require(set(row) == {'name', 'receivedVerifiedEgress', 'suppliedHeaderDidNotControlResult'})
+        require(row['name'] == name and row['receivedVerifiedEgress'] is True and row['suppliedHeaderDidNotControlResult'] is True)
+    require(isinstance(proof['localInputs'], list) and len(proof['localInputs']) == len(LOCAL_INPUTS))
+    for path, row in zip(LOCAL_INPUTS, proof['localInputs']):
+        require(set(row) == {'path', 'sha256'} and row['path'] == path)
+        require(isinstance(row['sha256'], str) and re.fullmatch(r'[0-9a-f]{64}', row['sha256']) is not None)
+
+
+def repeat_proof(helper):
+    result = helper.run_bounded([sys.executable, str(PROOF_HELPER)],
+        env={'PATH': '/usr/bin:/bin', 'RENDER_API_KEY': os.environ['RENDER_API_KEY']}, timeout=180, limit=32_768)
+    require(result.returncode == 0 and not result.stderr, 'Repeated hosted ingress proof failed.')
+    return json.loads(result.stdout)
+
+
+BINDING_FIELDS = ('serviceId', 'databaseId', 'commit', 'ciRunId', 'branch', 'previousLiveDeployId',
+                  'previousDeployIds', 'proofCheckedAt', 'proofDigest', 'changedKey', 'previousPolicy',
+                  'requestedPolicy', 'monitorDeadline')
+
+
+def configuration_binding(configuration, receipt):
+    key = hmac.digest(os.environ['RENDER_API_KEY'].encode(), b'queue-arcade-proxy-policy-binding-key:v1', 'sha256')
+    value = json.dumps({'configuration': configuration, 'operation': {key: receipt[key] for key in BINDING_FIELDS}},
+                       sort_keys=True, separators=(',', ':')).encode()
+    return hmac.digest(key, b'queue-arcade-proxy-policy-configuration:v1\x00' + value, 'sha256').hex()
+
+
+def save(receipt):
+    # Receipt fields are constructed below. Provider bodies and environment maps never enter it.
+    (OUT / 'proxy-policy-change.json').write_text(json.dumps(receipt, indent=2) + '\n')
+    print(json.dumps(receipt))
+
+
+def safe_deploy(row):
+    result = {'id': row['id'], 'status': row.get('status'), 'commit': (row.get('commit') or {}).get('id')}
+    require(re.fullmatch(r'dep-[a-z0-9]{1,80}', result['id']) is not None)
+    require(result['status'] in TERMINAL | {'created', 'build_in_progress', 'pre_deploy_in_progress', 'update_in_progress', 'queued'})
+    require(result['commit'] is None or re.fullmatch(r'[0-9a-f]{40}', result['commit']) is not None)
+    return result
+
+
+def suspend(receipt, row=None):
+    receipt['suspendAttempted'] = True
+    receipt['externalHealthChecksAllowed'] = False
+    save(receipt)
+    try:
+        api('/services/' + SID + '/suspend', 'POST')
+    except Exception:
+        receipt['suspendOutcomeUnknown'] = True
+        save(receipt)
+        raise
+    receipt['suspendRequested'] = True
+    receipt['externalHealthChecksAllowed'] = False
+    save(receipt)
+    if row is not None and row.get('status') not in TERMINAL:
+        try:
+            api('/services/' + SID + '/deploys/' + safe_deploy(row)['id'] + '/cancel', 'POST')
+            receipt['cancelRequested'] = True
+        except Exception:
+            receipt['cancelRequested'] = False
+    service = get('/services/' + SID)
+    receipt['serviceSuspended'] = service.get('suspended') == 'suspended'
+    save(receipt)
+
+
+def inspect_deployments(candidate, receipt, rows):
+    previous = set(receipt['previousDeployIds'])
+    fresh = [x for x in rows if x['id'] not in previous]
+    for row in rows:
+        sha = (row.get('commit') or {}).get('id')
+        unexpected_live = row.get('status') == 'live' and sha != candidate['commit']
+        unexpected_new = row in fresh and sha is not None and sha != candidate['commit']
+        if unexpected_live or unexpected_new:
+            receipt['failure'] = 'unexpected_deploy_commit'
+            suspend(receipt, row)
+            raise RuntimeError('Unexpected deployment was stopped.')
+    receipt['observedDeploys'] = [safe_deploy(x) for x in fresh]
+    live = [x for x in rows if x['status'] == 'live']
+    expected_live = [x for x in fresh if x['status'] == 'live' and (x.get('commit') or {}).get('id') == candidate['commit']]
+    receipt['externalHealthChecksAllowed'] = (len(live) == 1 and len(expected_live) == 1
+                                             and all(x['status'] in TERMINAL for x in rows))
+    receipt['verification'] = 'new_candidate_live' if receipt['externalHealthChecksAllowed'] else 'deployment_pending'
+    if receipt['externalHealthChecksAllowed']:
+        receipt['newLiveDeployId'] = expected_live[0]['id']
+    elif now() > timestamp(receipt['monitorDeadline']):
+        receipt['failure'] = 'monitor_deadline_exceeded'
+        active = next((x for x in fresh if x['status'] not in TERMINAL), None)
+        suspend(receipt, active)
+        raise RuntimeError('Deployment deadline exceeded.')
+    receipt['checkedAt'] = now().isoformat()
+    save(receipt)
+    return receipt['externalHealthChecksAllowed']
+
+
+def apply(helper, candidate):
+    before = checked_configuration(candidate, 'none')
+    old_deploys = deployments()
+    live = one_live(candidate, old_deploys, all_terminal=True)
+    validate_proof(read_json(PROOF_FILE), candidate, live)
+    repeated = repeat_proof(helper)
+    validate_proof(repeated, candidate, live)
+    require(read_json(PROOF_FILE) == repeated, 'Proof report and repeated proof output disagree.')
+    require(checked_candidate(helper) == candidate)
+    # Re-fetch all conditions after the proof and immediately before changing the key.
+    unchanged = checked_configuration(candidate, 'none')
+    require(unchanged == before, 'Configuration changed during the proof interval.')
+    current_deploys = deployments()
+    require(one_live(candidate, current_deploys, all_terminal=True)['id'] == live['id'])
+    require(helper.checked_local_inputs(candidate['commit']) == repeated['localInputs'])
+    validate_proof(repeated, candidate, live)
+    expected = {**before, 'environment': {**before['environment'], KEY: POLICY}}
+    receipt = {'checkedAt': now().isoformat(), 'serviceId': SID, 'databaseId': DID,
+        'commit': candidate['commit'], 'ciRunId': candidate['ciRunId'], 'branch': BRANCH,
+        'plan': 'free', 'buildPlan': 'starter', 'databasePlan': '0.1c-256mb',
+        'previousLiveDeployId': live['id'], 'previousDeployIds': [x['id'] for x in current_deploys],
+        'proofCheckedAt': repeated['checkedAt'], 'proofDigest': digest(repeated),
+        'changedKey': KEY, 'previousPolicy': 'none', 'requestedPolicy': POLICY,
+        'configurationChangeAttempted': True, 'configurationChanged': False,
+        'externalHealthChecksAllowed': False, 'monitorDeadline': (now() + datetime.timedelta(minutes=10)).isoformat()}
+    receipt['configurationBinding'] = configuration_binding(expected, receipt)
+    save(receipt)
+    try:
+        api('/services/' + SID + '/env-vars/' + KEY, 'PUT', {'value': POLICY})
+        receipt['configurationChanged'] = True
+        save(receipt)
+        after = checked_configuration(candidate, POLICY)
+        require(after == expected, 'A setting other than the proxy policy changed.')
+        require(one_live(candidate, deployments(), all_terminal=True)['id'] == live['id'])
+        status, created = api('/services/' + SID + '/deploys', 'POST',
+                              {'commitId': candidate['commit'], 'clearCache': 'do_not_clear'})
+        require(status in [201, 202])
+        receipt['deployRequestStatus'] = status
+        receipt['queued'] = status == 202
+        if created is not None:
+            receipt['requestedDeploy'] = safe_deploy(created)
+            if receipt['requestedDeploy']['commit'] not in [None, candidate['commit']]:
+                receipt['failure'] = 'unexpected_deploy_commit'
+                suspend(receipt, created)
+                raise RuntimeError('Unexpected deployment was stopped.')
+        save(receipt)
+        for attempt in range(4):
+            require(checked_configuration(candidate, POLICY) == expected, 'Configuration changed after deployment started.')
+            if inspect_deployments(candidate, receipt, deployments()):
+                break
+            if attempt < 3:
+                time.sleep(1)
+    except Exception as error:
+        receipt['errorType'] = type(error).__name__
+        if not receipt.get('suspendAttempted'):
+            try:
+                suspend(receipt)
+            except Exception:
+                receipt['suspendOutcomeUnknown'] = True
+        save(receipt)
+        raise
+
+
+
+def validate_receipt(receipt, candidate):
+    required = set(BINDING_FIELDS) | {'checkedAt', 'plan', 'buildPlan', 'databasePlan',
+        'configurationBinding', 'configurationChangeAttempted', 'configurationChanged', 'externalHealthChecksAllowed'}
+    optional = {'deployRequestStatus', 'queued', 'requestedDeploy', 'observedDeploys', 'verification',
+        'newLiveDeployId', 'failure', 'errorType', 'suspendAttempted', 'suspendRequested',
+        'cancelRequested', 'serviceSuspended', 'suspendOutcomeUnknown'}
+    require(isinstance(receipt, dict) and required <= set(receipt) <= required | optional)
+    require(receipt['serviceId'] == SID and receipt['databaseId'] == DID)
+    require(receipt['commit'] == candidate['commit'] and receipt['ciRunId'] == candidate['ciRunId'])
+    require(receipt['branch'] == BRANCH and receipt['plan'] == 'free' and receipt['buildPlan'] == 'starter')
+    require(receipt['databasePlan'] == '0.1c-256mb' and receipt['previousPolicy'] == 'none')
+    require(receipt['changedKey'] == KEY and receipt['requestedPolicy'] == POLICY)
+    for key in ['checkedAt', 'proofCheckedAt', 'monitorDeadline']:
+        timestamp(receipt[key])
+    for key in ['proofDigest', 'configurationBinding']:
+        require(isinstance(receipt[key], str) and re.fullmatch(r'[0-9a-f]{64}', receipt[key]) is not None)
+    for key in ['configurationChangeAttempted', 'configurationChanged', 'externalHealthChecksAllowed',
+                'queued', 'suspendAttempted', 'suspendRequested', 'cancelRequested', 'serviceSuspended', 'suspendOutcomeUnknown']:
+        if key in receipt:
+            require(type(receipt[key]) is bool)
+    for key in ['previousLiveDeployId', 'newLiveDeployId']:
+        if key in receipt:
+            require(isinstance(receipt[key], str) and re.fullmatch(r'dep-[a-z0-9]{1,80}', receipt[key]) is not None)
+    ids = receipt['previousDeployIds']
+    require(isinstance(ids, list) and 0 < len(ids) <= 20 and len(set(ids)) == len(ids))
+    require(all(isinstance(x, str) and re.fullmatch(r'dep-[a-z0-9]{1,80}', x) is not None for x in ids))
+    require(receipt['previousLiveDeployId'] in ids)
+    if 'deployRequestStatus' in receipt:
+        require(type(receipt['deployRequestStatus']) is int and receipt['deployRequestStatus'] in [201, 202])
+    if 'requestedDeploy' in receipt:
+        require(set(receipt['requestedDeploy']) == {'id', 'status', 'commit'})
+        safe_deploy({'id': receipt['requestedDeploy']['id'], 'status': receipt['requestedDeploy']['status'],
+                     'commit': {'id': receipt['requestedDeploy']['commit']}})
+    if 'observedDeploys' in receipt:
+        require(isinstance(receipt['observedDeploys'], list) and len(receipt['observedDeploys']) <= 20)
+        for row in receipt['observedDeploys']:
+            require(set(row) == {'id', 'status', 'commit'})
+            safe_deploy({'id': row['id'], 'status': row['status'], 'commit': {'id': row['commit']}})
+    if 'verification' in receipt:
+        require(receipt['verification'] in ['new_candidate_live', 'deployment_pending'])
+    if 'failure' in receipt:
+        require(receipt['failure'] in ['unexpected_deploy_commit', 'monitor_deadline_exceeded'])
+    if 'errorType' in receipt:
+        require(receipt['errorType'] in ['RuntimeError', 'HTTPError', 'URLError', 'TimeoutError', 'JSONDecodeError',
+            'KeyError', 'TypeError', 'ValueError', 'OSError', 'FileNotFoundError', 'PermissionError'])
+    require(receipt['configurationChanged'] is True and receipt['configurationChangeAttempted'] is True)
+    require(not receipt.get('suspendAttempted'), 'The prior operation attempted to stop this service.')
+
+def poll(helper, candidate):
+    receipt = read_json(RECEIPT)
+    validate_receipt(receipt, candidate)
+    try:
+        configuration = checked_configuration(candidate, POLICY)
+        require(hmac.compare_digest(configuration_binding(configuration, receipt), receipt['configurationBinding']),
+                'Configuration changed after the single-key update.')
+        require(checked_candidate(helper) == candidate, 'Candidate or CI changed during monitoring.')
+        inspect_deployments(candidate, receipt, deployments())
+    except Exception as error:
+        receipt['errorType'] = type(error).__name__
+        if not receipt.get('suspendAttempted'):
+            try:
+                suspend(receipt)
+            except Exception:
+                receipt['suspendOutcomeUnknown'] = True
+        save(receipt)
+        raise
+
+
+def main():
+    require(len(sys.argv) == 2 and sys.argv[1] in ['--apply', '--poll'])
+    helper = verified_proof_helper()
+    if sys.argv[1] == '--apply':
+        apply(helper, checked_candidate(helper))
+    else:
+        receipt = read_json(RECEIPT)
+        candidate = {'commit': receipt['commit'], 'branch': BRANCH, 'ciRunId': receipt['ciRunId']}
+        require(isinstance(candidate['commit'], str) and re.fullmatch(r'[0-9a-f]{40}', candidate['commit']) is not None)
+        require(type(candidate['ciRunId']) is int and candidate['ciRunId'] > 0)
+        # Poll validates the authenticated receipt and checks GitHub inside its fail-closed block.
+        poll(helper, candidate)
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception as error:
+        print(json.dumps({'ok': False, 'checkedAt': now().isoformat(), 'errorType': type(error).__name__}))
+        sys.exit(1)

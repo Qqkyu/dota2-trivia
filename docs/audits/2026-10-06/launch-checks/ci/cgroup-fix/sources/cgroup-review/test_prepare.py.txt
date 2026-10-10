@@ -1,0 +1,146 @@
+#!/usr/bin/env python3
+"""Run the reviewed shell source against confined, fake cgroup files.
+
+These checks prove fail-closed shell behavior. They do not emulate kernel
+cgroup enforcement, Docker namespace isolation, or process migration.
+"""
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import tempfile
+
+HERE = Path(__file__).resolve().parent
+SOURCE = HERE.parent / 'runner-image' / 'prepare-cgroup-v2.sh'
+original = SOURCE.read_text()
+
+CASES = [
+    ('accept expected layout', {}, True),
+    ('reject wrong filesystem', {'filesystem': 'tmpfs'}, False),
+    ('reject non-root namespace membership', {'membership': '0::/docker/other'}, False),
+    ('reject threaded root', {'type': 'threaded'}, False),
+    ('reject thread-domain root', {'type': 'domain threaded'}, False),
+    ('reject invalid domain root', {'type': 'domain invalid'}, False),
+    ('reject unlimited CPU', {'cpu': 'max 100000'}, False),
+    ('reject wrong CPU limit', {'cpu': '100000 100000'}, False),
+    ('reject malformed CPU limit', {'cpu': 'hello 100000'}, False),
+    ('reject excessive memory', {'memory': '10737418240'}, False),
+    ('reject unlimited memory', {'memory': 'max'}, False),
+    ('reject swap allowance', {'swap': '5368709120'}, False),
+    ('reject missing CPU controller', {'controllers': 'memory pids'}, False),
+    ('reject missing memory controller', {'controllers': 'cpu pids'}, False),
+    ('reject pre-existing init child', {'existingInit': True}, False),
+    ('reject invalid init child type', {'childType': 'domain invalid'}, False),
+    ('reject remaining root processes', {'processes': '424242'}, False),
+    ('reject post-enable threaded root', {'afterType': 'domain threaded'}, False),
+    ('reject post-enable CPU drift', {'afterCpu': '100000 100000'}, False),
+    ('reject post-enable memory drift', {'afterMemory': '10737418240'}, False),
+    ('reject post-enable swap drift', {'afterSwap': '1'}, False),
+    ('reject enabled CPU omission', {'afterControllers': 'memory pids'}, False),
+    ('reject enabled memory omission', {'afterControllers': 'cpu pids'}, False),
+    ('reject controller write failure', {'subtreeWriteFails': True}, False),
+    ('reject malformed root PID', {'processes': 'hello'}, False),
+    ('reject live PID move failure', {'processes': '424242', 'moveFails': True, 'pidAlive': True}, False),
+]
+
+MOCK = r'''#!/usr/bin/env python3
+import json, os, pathlib, subprocess, sys
+base = pathlib.Path(os.environ['CGROUP_MOCK_BASE'])
+case = json.loads((base / 'case.json').read_text())
+cg = base / 'cg'
+name = pathlib.Path(sys.argv[0]).name
+args = sys.argv[1:]
+if name == 'stat':
+    print(case.get('filesystem', 'cgroup2fs'))
+elif name == 'sleep':
+    pass
+elif name == 'mkdir':
+    result = subprocess.run(['/bin/mkdir', *args])
+    if result.returncode:
+        sys.exit(result.returncode)
+    if (cg / 'init').is_dir():
+        (cg / 'init' / 'cgroup.type').write_text(case.get('childType', 'domain') + '\n')
+        if case.get('moveFails'):
+            (cg / 'init' / 'cgroup.procs').mkdir(exist_ok=True)
+elif name == 'cat':
+    path = pathlib.Path(args[0])
+    control = cg / 'cgroup.subtree_control'
+    enabled = control.is_file() and control.read_text().startswith('+')
+    override = None
+    if path == control and enabled:
+        override = case.get('afterControllers', control.read_text().replace('+', '').strip())
+    if enabled:
+        override = {
+            cg / 'cgroup.type': case.get('afterType'),
+            cg / 'cpu.max': case.get('afterCpu'),
+            cg / 'memory.max': case.get('afterMemory'),
+            cg / 'memory.swap.max': case.get('afterSwap'),
+        }.get(path, override)
+    if override is not None:
+        print(override)
+    else:
+        sys.exit(subprocess.run(['/bin/cat', *args]).returncode)
+else:
+    sys.exit('Unexpected mock command')
+'''
+
+results = []
+for name, case, expected in CASES:
+    with tempfile.TemporaryDirectory(prefix='case-', dir=HERE) as temporary:
+        base = Path(temporary)
+        cg = base / 'cg'
+        cg.mkdir()
+        proc = base / 'proc'
+        (proc / '1').mkdir(parents=True)
+        (proc / '1' / 'cgroup').write_text(case.get('membership', '0::/') + '\n')
+        if case.get('pidAlive'):
+            (proc / '424242').mkdir()
+        files = {
+            'cgroup.type': case.get('type', 'domain'),
+            'cpu.max': case.get('cpu', '200000 100000'),
+            'memory.max': case.get('memory', '5368709120'),
+            'memory.swap.max': case.get('swap', '0'),
+            'cgroup.controllers': case.get('controllers', 'cpuset cpu io memory pids'),
+            'cgroup.procs': case.get('processes', ''),
+            'cgroup.subtree_control': '',
+        }
+        for filename, value in files.items():
+            (cg / filename).write_text(value + ('\n' if value else ''))
+        if case.get('existingInit'):
+            (cg / 'init').mkdir()
+        if case.get('subtreeWriteFails'):
+            (cg / 'cgroup.subtree_control').unlink()
+            (cg / 'cgroup.subtree_control').mkdir()
+        (base / 'case.json').write_text(json.dumps(case))
+        commands = base / 'bin'
+        commands.mkdir()
+        for command in ('stat', 'cat', 'mkdir', 'sleep'):
+            path = commands / command
+            path.write_text(MOCK)
+            path.chmod(0o700)
+        transformed = original.replace('cg_root=/sys/fs/cgroup', f'cg_root={cg}')
+        transformed = transformed.replace('cg_evidence=/runner-evidence/cgroup-init', f'cg_evidence={base}/evidence')
+        transformed = transformed.replace('/proc/1/cgroup', str(proc / '1' / 'cgroup'))
+        transformed = transformed.replace('/proc/$cg_pid', str(proc) + '/$cg_pid')
+        script = base / 'prepare.sh'
+        script.write_text(transformed)
+        env = {'PATH': str(commands) + ':/usr/bin:/bin', 'CGROUP_MOCK_BASE': str(base)}
+        completed = subprocess.run(['/bin/bash', str(script)], env=env, capture_output=True, text=True, timeout=15)
+        success = completed.returncode == 0
+        if case.get('moveFails') and case.get('pidAlive'):
+            assert 'A live process could not move' in completed.stderr
+        results.append({'name': name, 'expectedSuccess': expected, 'exitCode': completed.returncode,
+                        'passed': success == expected})
+
+report = {
+    'source': str(SOURCE),
+    'sourceSha256': hashlib.sha256(original.encode()).hexdigest(),
+    'scope': 'Path-confined shell control-flow mocks only. No Docker, network, or real cgroup writes.',
+    'passed': all(result['passed'] for result in results),
+    'testCount': len(results),
+    'cases': results,
+}
+(HERE / 'prepare-mock-results.json').write_text(json.dumps(report, indent=2) + '\n')
+print(json.dumps(report, indent=2))
+raise SystemExit(0 if report['passed'] else 1)

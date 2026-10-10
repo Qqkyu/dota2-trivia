@@ -85,7 +85,7 @@ The GitHub workflow additionally builds and scans the production image, runs its
 migration CLI, boots that image against disposable Postgres, and checks headers, runtime
 social metadata, browser journeys, native audio, multiplayer, and the packaged cleanup CLI.
 The image runs as a non-root user. High and critical production dependency findings fail
-CI; the image scan also fails for high and critical findings with available fixes.
+CI; the image scan fails for medium, high and critical findings with available fixes.
 Unfixed container findings still need review before launch. Require the `verify` check
 before merging releases. The [CI record](audits/2026-10-06/launch-checks/ci/README.md) names
 completed runs, their exact revisions, and the isolated runner used for launch checks.
@@ -104,6 +104,9 @@ As of 2026-10-08, both production and full JavaScript dependency audits have no 
 Sharp is pinned to 0.35.5 after the fresh audit found a newly indexed advisory in its
 bundled SVG library. The [security update record](audits/2026-10-06/launch-checks/security/sharp-update-20261008.md)
 preserves the finding, patched native versions and verification results.
+The runtime image also requires Alpine `zlib>=1.3.2-r1` after the complete container
+scan found `CVE-2026-85091`. See the [package update record](audits/2026-10-06/launch-checks/security/zlib-update-20261008/README.md)
+and the CI report for the replacement image's verification.
 The Next ESLint plugin's directory matcher uses a scoped `tinyglobby@0.2.17` override
 to remove the unpatched `braces` dependency. The pinned patch in `patches/` disables
 automatic directory expansion to preserve the previous matcher behavior. Keep that patch

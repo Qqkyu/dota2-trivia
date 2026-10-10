@@ -24,7 +24,8 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 # Package managers are build tools; the runtime uses node and packaged CLIs only.
-RUN apk add --no-cache ffmpeg \
+# The zlib minimum includes Alpine's CVE-2026-85091 fix.
+RUN apk add --no-cache ffmpeg 'zlib>=1.3.2-r1' \
     && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack /opt/yarn-v* \
     && rm -f /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack /usr/local/bin/yarn /usr/local/bin/yarnpkg
 RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs

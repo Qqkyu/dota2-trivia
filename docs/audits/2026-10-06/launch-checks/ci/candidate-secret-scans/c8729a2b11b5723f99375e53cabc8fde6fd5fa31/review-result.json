@@ -1,0 +1,13 @@
+{
+  "commit": "c8729a2b11b5723f99375e53cabc8fde6fd5fa31",
+  "findingCount": 67,
+  "classifications": {
+    "Reviewed SHA-256 file digest": 58,
+    "Prior-reviewed anonymous publisher page field; exact file hash unchanged": 6,
+    "Environment variable names in an allowlist assertion; no credential value": 1,
+    "Prior-reviewed public image filename; exact file hash unchanged": 1,
+    "Explicit synthetic ingress test secret": 1
+  },
+  "identifiedRepositoryCredentials": 0,
+  "manualReviewComplete": true
+}

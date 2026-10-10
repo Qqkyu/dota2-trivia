@@ -1,0 +1,55 @@
+{
+  "checkedAt": "2026-10-10T09:20:42.299964+00:00",
+  "sourceCommit": "c8729a2b11b5723f99375e53cabc8fde6fd5fa31",
+  "sourceDelta": "Only the current Dockerfile was copied into the checkout before this build. This is a preflight, not an exact future-commit CI result.",
+  "dockerfileSha256": "a190e4a390341fdff927df2b43e961f3b9e824eac2c00cc1932fbcd9ddb62ba9",
+  "imageId": "sha256:a8f931a2252416ebffaaf3df62a2e5bd6a7b10e8e550aac14f55aa98c90dfba4",
+  "os": {
+    "Family": "alpine",
+    "Name": "3.24.2"
+  },
+  "installedZlib": "1.3.2-r1",
+  "sharp": "0.35.5",
+  "librsvg": "2.63.2",
+  "libvips": "8.18.7",
+  "scan": {
+    "createdAt": "2026-10-10T09:19:16.606133387Z",
+    "database": {
+      "Version": 2,
+      "NextUpdate": "2026-10-11T07:01:36.894063051Z",
+      "UpdatedAt": "2026-10-10T07:01:36.894063512Z",
+      "DownloadedAt": "2026-10-10T09:19:12.32336666Z"
+    },
+    "severities": [
+      "UNKNOWN",
+      "LOW",
+      "MEDIUM",
+      "HIGH",
+      "CRITICAL"
+    ],
+    "includeUnfixed": true,
+    "findings": 0,
+    "scope": "Trivy package inventory and advisory database. It does not prove complete discovery of static native libraries."
+  },
+  "containerFlow": {
+    "passed": true,
+    "limits": {
+      "cpus": 1,
+      "memoryMiB": 1024,
+      "swapMiB": 0,
+      "databaseCpus": 1,
+      "databaseMemoryMiB": 512
+    },
+    "runtimeUid": 1001,
+    "sessions": 4,
+    "finished": 4,
+    "latency": {
+      "targetMs": 1000,
+      "roundP95Max": 30.01,
+      "voteP95Max": 41.42,
+      "met": true
+    },
+    "restarts": 0,
+    "oomKilled": false
+  }
+}

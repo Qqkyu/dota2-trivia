@@ -1,0 +1,343 @@
+{
+  "jobs": [
+    {
+      "id": 113397083231,
+      "name": "verify",
+      "status": "completed",
+      "conclusion": "failure",
+      "started_at": "2026-10-08T15:38:30Z",
+      "completed_at": "2026-10-08T15:45:42Z",
+      "runner_name": "queue-arcade-ci-20261008T153817Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-08T15:38:31Z",
+          "completed_at": "2026-10-08T15:38:37Z"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-08T15:38:37Z",
+          "completed_at": "2026-10-08T15:38:52Z"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-08T15:38:52Z",
+          "completed_at": "2026-10-08T15:38:56Z"
+        },
+        {
+          "name": "Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-08T15:38:56Z",
+          "completed_at": "2026-10-08T15:39:07Z"
+        },
+        {
+          "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-08T15:39:07Z",
+          "completed_at": "2026-10-08T15:39:15Z"
+        },
+        {
+          "name": "Install native media test tools",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-08T15:39:15Z",
+          "completed_at": "2026-10-08T15:39:20Z"
+        },
+        {
+          "name": "Install PostgreSQL 17 backup tools from the signed PGDG repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-08T15:39:20Z",
+          "completed_at": "2026-10-08T15:39:24Z"
+        },
+        {
+          "name": "Run pnpm install --frozen-lockfile",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-08T15:39:24Z",
+          "completed_at": "2026-10-08T15:39:49Z"
+        },
+        {
+          "name": "Install browser engines for accessibility checks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-08T15:39:49Z",
+          "completed_at": "2026-10-08T15:40:44Z"
+        },
+        {
+          "name": "Run pnpm audit --prod --audit-level high",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-08T15:40:44Z",
+          "completed_at": "2026-10-08T15:40:45Z"
+        },
+        {
+          "name": "Run pnpm check:config",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-08T15:40:45Z",
+          "completed_at": "2026-10-08T15:40:45Z"
+        },
+        {
+          "name": "Run pnpm check:content-release",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-08T15:40:45Z",
+          "completed_at": "2026-10-08T15:40:45Z"
+        },
+        {
+          "name": "Run pnpm validate-data",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-08T15:40:45Z",
+          "completed_at": "2026-10-08T15:40:47Z"
+        },
+        {
+          "name": "Run pnpm exec vitest run --maxWorkers=2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-08T15:40:47Z",
+          "completed_at": "2026-10-08T15:41:39Z"
+        },
+        {
+          "name": "Run pnpm lint",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-08T15:41:39Z",
+          "completed_at": "2026-10-08T15:42:02Z"
+        },
+        {
+          "name": "Run pnpm typecheck",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-08T15:42:02Z",
+          "completed_at": "2026-10-08T15:42:09Z"
+        },
+        {
+          "name": "Run pnpm build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-08T15:42:09Z",
+          "completed_at": "2026-10-08T15:42:40Z"
+        },
+        {
+          "name": "Run pnpm validate-client-bundle",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-08T15:42:40Z",
+          "completed_at": "2026-10-08T15:42:41Z"
+        },
+        {
+          "name": "Build production container",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-08T15:42:41Z",
+          "completed_at": "2026-10-08T15:44:46Z"
+        },
+        {
+          "name": "Scan production container",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20,
+          "started_at": "2026-10-08T15:44:46Z",
+          "completed_at": "2026-10-08T15:45:33Z"
+        },
+        {
+          "name": "Verify constrained container and database roles",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 21,
+          "started_at": "2026-10-08T15:45:33Z",
+          "completed_at": "2026-10-08T15:45:34Z"
+        },
+        {
+          "name": "Apply database migrations with the packaged CLI",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 22,
+          "started_at": "2026-10-08T15:45:34Z",
+          "completed_at": "2026-10-08T15:45:34Z"
+        },
+        {
+          "name": "Start production container against Postgres",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 23,
+          "started_at": "2026-10-08T15:45:34Z",
+          "completed_at": "2026-10-08T15:45:34Z"
+        },
+        {
+          "name": "Verify production headers and runtime metadata",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 24,
+          "started_at": "2026-10-08T15:45:34Z",
+          "completed_at": "2026-10-08T15:45:34Z"
+        },
+        {
+          "name": "Verify browser journeys and native audio output",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 25,
+          "started_at": "2026-10-08T15:45:34Z",
+          "completed_at": "2026-10-08T15:45:34Z"
+        },
+        {
+          "name": "Check accessibility and keyboard flows in Chromium",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 26,
+          "started_at": "2026-10-08T15:45:34Z",
+          "completed_at": "2026-10-08T15:45:34Z"
+        },
+        {
+          "name": "Check mobile and keyboard flows in Firefox",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 27,
+          "started_at": "2026-10-08T15:45:34Z",
+          "completed_at": "2026-10-08T15:45:34Z"
+        },
+        {
+          "name": "Check mobile and keyboard flows in WebKit",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 28,
+          "started_at": "2026-10-08T15:45:34Z",
+          "completed_at": "2026-10-08T15:45:34Z"
+        },
+        {
+          "name": "Start muted browser",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 29,
+          "started_at": "2026-10-08T15:45:34Z",
+          "completed_at": "2026-10-08T15:45:34Z"
+        },
+        {
+          "name": "Verify browser journey silently",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 30,
+          "started_at": "2026-10-08T15:45:34Z",
+          "completed_at": "2026-10-08T15:45:34Z"
+        },
+        {
+          "name": "Verify synchronized Postgres room",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 31,
+          "started_at": "2026-10-08T15:45:34Z",
+          "completed_at": "2026-10-08T15:45:34Z"
+        },
+        {
+          "name": "Verify packaged cleanup CLI",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 32,
+          "started_at": "2026-10-08T15:45:34Z",
+          "completed_at": "2026-10-08T15:45:34Z"
+        },
+        {
+          "name": "Collect container log",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 33,
+          "started_at": "2026-10-08T15:45:34Z",
+          "completed_at": "2026-10-08T15:45:34Z"
+        },
+        {
+          "name": "Preserve failure logs",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 34,
+          "started_at": "2026-10-08T15:45:34Z",
+          "completed_at": "2026-10-08T15:45:34Z"
+        },
+        {
+          "name": "Stop test processes",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 35,
+          "started_at": "2026-10-08T15:45:34Z",
+          "completed_at": "2026-10-08T15:45:34Z"
+        },
+        {
+          "name": "Post Scan production container",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 66,
+          "started_at": "2026-10-08T15:45:34Z",
+          "completed_at": "2026-10-08T15:45:35Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 67,
+          "started_at": "2026-10-08T15:45:35Z",
+          "completed_at": "2026-10-08T15:45:35Z"
+        },
+        {
+          "name": "Post Run pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 68,
+          "started_at": "2026-10-08T15:45:35Z",
+          "completed_at": "2026-10-08T15:45:35Z"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 69,
+          "started_at": "2026-10-08T15:45:35Z",
+          "completed_at": "2026-10-08T15:45:35Z"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 70,
+          "started_at": "2026-10-08T15:45:35Z",
+          "completed_at": "2026-10-08T15:45:35Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 71,
+          "started_at": "2026-10-08T15:45:35Z",
+          "completed_at": "2026-10-08T15:45:35Z"
+        }
+      ]
+    }
+  ]
+}

@@ -23,6 +23,12 @@ It detects later changes; it does not replace factual review. No test claims tha
 recognition is human listening, browser emulation is a physical phone, or a local load run
 establishes Render capacity.
 
+The [10 October dependency audit](security/dependency-audit-20261010.md) found no
+advisories. The [refreshed image](ci/image-refresh-20261010/README.md) includes the
+Sharp and Alpine zlib fixes and passed a complete vulnerability scan. The
+[bundled-library review](security/zlib-bundled-review-20261010.md) records the separate
+limits of native-library coverage. Final CI must still pass for the exact release commit.
+
 ## Deployment record
 
 The [CI record](ci/README.md) will name the exact checked revision and completed workflow.

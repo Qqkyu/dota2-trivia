@@ -1,0 +1,165 @@
+{
+  "source": "/tmp/queue-arcade-launch-ci/runner-image/prepare-cgroup-v2.sh",
+  "sourceSha256": "ee9b3790d566e746fbf7710b1fdff53463ee69ed78e7c34cda10300c3ddd9bf1",
+  "scope": "Path-confined shell control-flow mocks only. No Docker, network, or real cgroup writes.",
+  "passed": true,
+  "testCount": 26,
+  "cases": [
+    {
+      "name": "accept expected layout",
+      "expectedSuccess": true,
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "name": "reject wrong filesystem",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject non-root namespace membership",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject threaded root",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject thread-domain root",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject invalid domain root",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject unlimited CPU",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject wrong CPU limit",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject malformed CPU limit",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject excessive memory",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject unlimited memory",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject swap allowance",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject missing CPU controller",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject missing memory controller",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject pre-existing init child",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject invalid init child type",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject remaining root processes",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject post-enable threaded root",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject post-enable CPU drift",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject post-enable memory drift",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject post-enable swap drift",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject enabled CPU omission",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject enabled memory omission",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject controller write failure",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject malformed root PID",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    },
+    {
+      "name": "reject live PID move failure",
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,347 @@
+{
+  "fieldDifferencesReviewed": 37,
+  "requiredQuestionChanges": 0,
+  "distinctReferencingPlayableQuestions": 26,
+  "rows": [
+    {
+      "response": "abilitylist.json",
+      "path": "$.result.data.itemabilities[2187].name_english_loc",
+      "entity": "special_bonus_unique_venomancer",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "The changed talent template refers to unchanged Plague Ward HP and damage values. No playable question references this talent or Plague Ward."
+    },
+    {
+      "response": "abilitylist.json",
+      "path": "$.result.data.itemabilities[2187].name_loc",
+      "entity": "special_bonus_unique_venomancer",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "The changed talent template refers to unchanged Plague Ward HP and damage values. No playable question references this talent or Plague Ward."
+    },
+    {
+      "response": "heroes/145.json",
+      "path": "$.result.data.heroes[0].abilities[5].behavior",
+      "entity": "kez_falcon_rush",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/145.json",
+      "path": "$.result.data.heroes[0].abilities[6].behavior",
+      "entity": "kez_talon_toss",
+      "referencingPlayableIds": [
+        "damage:kez_talon_toss:4",
+        "mana:kez_talon_toss:1",
+        "soundcheck-ability:kez_echo_slash",
+        "value-order:ability-damage:04",
+        "value-order:ability-damage:05"
+      ],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/145.json",
+      "path": "$.result.data.heroes[0].abilities[7].behavior",
+      "entity": "kez_shodo_sai",
+      "referencingPlayableIds": [
+        "ability-owner:kez_switch_weapons",
+        "aghanim-upgrade:kez:shard"
+      ],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/145.json",
+      "path": "$.result.data.heroes[0].abilities[8].behavior",
+      "entity": "kez_ravens_veil",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/155.json",
+      "path": "$.result.data.heroes[0].abilities[5].behavior",
+      "entity": "largo_song_fight_song",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/155.json",
+      "path": "$.result.data.heroes[0].abilities[6].behavior",
+      "entity": "largo_song_double_time",
+      "referencingPlayableIds": [
+        "mana:largo_song_double_time:1",
+        "value-order:ability-mana:02",
+        "value-order:ability-mana:08"
+      ],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/155.json",
+      "path": "$.result.data.heroes[0].abilities[7].behavior",
+      "entity": "largo_song_good_vibrations",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/40.json",
+      "path": "$.result.data.heroes[0].abilities[2].special_values.magic_immune",
+      "entity": "venomancer_plague_ward",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "No current playable question refers to Plague Ward. Its health and displayed damage values are unchanged, and its description already states magic immunity."
+    },
+    {
+      "response": "heroes/40.json",
+      "path": "$.result.data.heroes[0].abilities[2].special_values.ward_base_damage",
+      "entity": "venomancer_plague_ward",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "No current playable question refers to Plague Ward. Its health and displayed damage values are unchanged, and its description already states magic immunity."
+    },
+    {
+      "response": "heroes/40.json",
+      "path": "$.result.data.heroes[0].abilities[2].special_values.ward_damage_spread",
+      "entity": "venomancer_plague_ward",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "No current playable question refers to Plague Ward. Its health and displayed damage values are unchanged, and its description already states magic immunity."
+    },
+    {
+      "response": "heroes/40.json",
+      "path": "$.result.data.heroes[0].abilities[2].special_values.ward_damage_tooltip",
+      "entity": "venomancer_plague_ward",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "No current playable question refers to Plague Ward. Its health and displayed damage values are unchanged, and its description already states magic immunity."
+    },
+    {
+      "response": "heroes/40.json",
+      "path": "$.result.data.heroes[0].abilities[2].special_values.ward_gold_bounty_max",
+      "entity": "venomancer_plague_ward",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "No current playable question refers to Plague Ward. Its health and displayed damage values are unchanged, and its description already states magic immunity."
+    },
+    {
+      "response": "heroes/40.json",
+      "path": "$.result.data.heroes[0].abilities[2].special_values.ward_gold_bounty_min",
+      "entity": "venomancer_plague_ward",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "No current playable question refers to Plague Ward. Its health and displayed damage values are unchanged, and its description already states magic immunity."
+    },
+    {
+      "response": "heroes/40.json",
+      "path": "$.result.data.heroes[0].abilities[2].special_values.ward_hp_tooltip",
+      "entity": "venomancer_plague_ward",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "No current playable question refers to Plague Ward. Its health and displayed damage values are unchanged, and its description already states magic immunity."
+    },
+    {
+      "response": "heroes/40.json",
+      "path": "$.result.data.heroes[0].abilities[2].special_values.ward_max_health",
+      "entity": "venomancer_plague_ward",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "No current playable question refers to Plague Ward. Its health and displayed damage values are unchanged, and its description already states magic immunity."
+    },
+    {
+      "response": "heroes/40.json",
+      "path": "$.result.data.heroes[0].abilities[2].special_values.ward_multiplier",
+      "entity": "venomancer_plague_ward",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "No current playable question refers to Plague Ward. Its health and displayed damage values are unchanged, and its description already states magic immunity."
+    },
+    {
+      "response": "heroes/40.json",
+      "path": "$.result.data.heroes[0].talents[7].name_loc",
+      "entity": "special_bonus_unique_venomancer",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "No current playable question refers to Plague Ward. Its health and displayed damage values are unchanged, and its description already states magic immunity."
+    },
+    {
+      "response": "heroes/5.json",
+      "path": "$.result.data.heroes[0].abilities[5].desc_loc",
+      "entity": "crystal_maiden_freezing_field",
+      "referencingPlayableIds": [
+        "soundcheck-ability:sandking_epicenter"
+      ],
+      "requiredQuestionChange": false,
+      "reason": "Freezing Field still has 100 explosions at 0.1 second intervals. The renamed fields do not change the value. The only playable reference is a Soundcheck distractor."
+    },
+    {
+      "response": "heroes/5.json",
+      "path": "$.result.data.heroes[0].abilities[5].notes_loc[1]",
+      "entity": "crystal_maiden_freezing_field",
+      "referencingPlayableIds": [
+        "soundcheck-ability:sandking_epicenter"
+      ],
+      "requiredQuestionChange": false,
+      "reason": "Freezing Field still has 100 explosions at 0.1 second intervals. The renamed fields do not change the value. The only playable reference is a Soundcheck distractor."
+    },
+    {
+      "response": "heroes/5.json",
+      "path": "$.result.data.heroes[0].abilities[5].special_values.explosion_interval",
+      "entity": "crystal_maiden_freezing_field",
+      "referencingPlayableIds": [
+        "soundcheck-ability:sandking_epicenter"
+      ],
+      "requiredQuestionChange": false,
+      "reason": "Freezing Field still has 100 explosions at 0.1 second intervals. The renamed fields do not change the value. The only playable reference is a Soundcheck distractor."
+    },
+    {
+      "response": "heroes/5.json",
+      "path": "$.result.data.heroes[0].abilities[5].special_values.explosion_interval_tooltip",
+      "entity": "crystal_maiden_freezing_field",
+      "referencingPlayableIds": [
+        "soundcheck-ability:sandking_epicenter"
+      ],
+      "requiredQuestionChange": false,
+      "reason": "Freezing Field still has 100 explosions at 0.1 second intervals. The renamed fields do not change the value. The only playable reference is a Soundcheck distractor."
+    },
+    {
+      "response": "heroes/5.json",
+      "path": "$.result.data.heroes[0].abilities[5].special_values.num_explosions",
+      "entity": "crystal_maiden_freezing_field",
+      "referencingPlayableIds": [
+        "soundcheck-ability:sandking_epicenter"
+      ],
+      "requiredQuestionChange": false,
+      "reason": "Freezing Field still has 100 explosions at 0.1 second intervals. The renamed fields do not change the value. The only playable reference is a Soundcheck distractor."
+    },
+    {
+      "response": "heroes/7.json",
+      "path": "$.result.data.heroes[0].abilities[0].special_values.free_pathing_application_radius",
+      "entity": "earthshaker_fissure",
+      "referencingPlayableIds": [
+        "aghanim-upgrade:earthshaker:shard"
+      ],
+      "requiredQuestionChange": false,
+      "reason": "Fissure loses an internal free-pathing radius field. The current Shard question asks about the shorter Aftershock stun, and the current Valve Shard text still confirms that effect. It contains no pathing or radius claim."
+    },
+    {
+      "response": "heroes/74.json",
+      "path": "$.result.data.heroes[0].abilities[4].behavior",
+      "entity": "invoker_cold_snap",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/74.json",
+      "path": "$.result.data.heroes[0].abilities[5].behavior",
+      "entity": "invoker_ghost_walk",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/74.json",
+      "path": "$.result.data.heroes[0].abilities[6].behavior",
+      "entity": "invoker_tornado",
+      "referencingPlayableIds": [
+        "cooldown:invoker_tornado:1",
+        "value-order:ability-cooldown:10"
+      ],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/74.json",
+      "path": "$.result.data.heroes[0].abilities[7].behavior",
+      "entity": "invoker_emp",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/74.json",
+      "path": "$.result.data.heroes[0].abilities[8].behavior",
+      "entity": "invoker_alacrity",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/74.json",
+      "path": "$.result.data.heroes[0].abilities[9].behavior",
+      "entity": "invoker_chaos_meteor",
+      "referencingPlayableIds": [
+        "mana:invoker_chaos_meteor:1",
+        "value-order:ability-mana:09",
+        "value-order:ability-mana:11"
+      ],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/74.json",
+      "path": "$.result.data.heroes[0].abilities[10].behavior",
+      "entity": "invoker_sun_strike",
+      "referencingPlayableIds": [
+        "mana:invoker_sun_strike:1",
+        "soundcheck-ability:invoker_sun_strike",
+        "soundcheck-ability:zuus_thundergods_wrath",
+        "value-order:ability-mana:07"
+      ],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/74.json",
+      "path": "$.result.data.heroes[0].abilities[11].behavior",
+      "entity": "invoker_forge_spirit",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/74.json",
+      "path": "$.result.data.heroes[0].abilities[12].behavior",
+      "entity": "invoker_ice_wall",
+      "referencingPlayableIds": [
+        "aghanim-upgrade:invoker:scepter"
+      ],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "heroes/74.json",
+      "path": "$.result.data.heroes[0].abilities[13].behavior",
+      "entity": "invoker_deafening_blast",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "Only behavior bit 2^53 changed. The exact numeric values, names, owners, ability text, and upgrade descriptions used by these questions are unchanged. No meaning is assigned to that bit."
+    },
+    {
+      "response": "itemlist.json",
+      "path": "$.result.data.itemabilities[167].recipes[0].items",
+      "entity": "item_recipe_necronomicon",
+      "referencingPlayableIds": [],
+      "requiredQuestionChange": false,
+      "reason": "There is no current or retired stored question reference to Necronomicon."
+    },
+    {
+      "response": "items/1854.json",
+      "path": "$.result.data.items[0].special_values.damage_must_be_player_owned_or_roshan",
+      "entity": "item_consecrated_wraps",
+      "referencingPlayableIds": [
+        "shopkeeper-build:pipe",
+        "shopkeeper-build:soul_booster",
+        "shopkeeper-recipe:consecrated_wraps",
+        "shopkeeper-shared:pipe:consecrated_wraps"
+      ],
+      "requiredQuestionChange": false,
+      "reason": "These four references concern unchanged recipes or recipe distractors, not the added damage-source restriction."
+    }
+  ]
+}

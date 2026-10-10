@@ -1,0 +1,151 @@
+{
+  "status": "pass",
+  "scope": "In-memory lifecycle mocks and shell syntax only",
+  "realDockerCalls": 0,
+  "realGitHubCalls": 0,
+  "reviewedArtifacts": {
+    "/tmp/queue-arcade-launch-ci/runner-lifecycle.py": {
+      "sha256": "e51f03d8ddd01539011f07dbb0ccf920a7f9db62412a5fe9af51b6f1933fc4e9"
+    },
+    "/tmp/queue-arcade-launch-ci/runner-image/entrypoint.sh": {
+      "sha256": "98a6c41b3e1ab5f58350c4300a19a2881fb48598976b9bb92ab070b2ba2c9085"
+    },
+    "/tmp/queue-arcade-launch-ci/runner-image/prepare-cgroup-v2.sh": {
+      "sha256": "ee9b3790d566e746fbf7710b1fdff53463ee69ed78e7c34cda10300c3ddd9bf1"
+    }
+  },
+  "checks": [
+    {
+      "check": "cleanup_normal",
+      "status": "pass"
+    },
+    {
+      "check": "cleanup_container_missing",
+      "status": "pass"
+    },
+    {
+      "check": "cleanup_diagnostic_failure",
+      "status": "pass"
+    },
+    {
+      "check": "cleanup_github_remove_failure",
+      "status": "pass"
+    },
+    {
+      "check": "cleanup_github_verify_failure",
+      "status": "pass"
+    },
+    {
+      "check": "cleanup_volume_failure_retry",
+      "status": "pass"
+    },
+    {
+      "check": "cleanup_wrong_owner",
+      "status": "pass"
+    },
+    {
+      "check": "cleanup_running",
+      "status": "pass"
+    },
+    {
+      "check": "start_normal",
+      "status": "pass"
+    },
+    {
+      "check": "start_host_cgroup_namespace",
+      "status": "pass"
+    },
+    {
+      "check": "start_missing_cgroup_namespace",
+      "status": "pass"
+    },
+    {
+      "check": "start_wrong_cpu_limit",
+      "status": "pass"
+    },
+    {
+      "check": "start_wrong_memory_limit",
+      "status": "pass"
+    },
+    {
+      "check": "start_wrong_swap_limit",
+      "status": "pass"
+    },
+    {
+      "check": "start_host_pid_namespace",
+      "status": "pass"
+    },
+    {
+      "check": "start_host_ipc_namespace",
+      "status": "pass"
+    },
+    {
+      "check": "start_host_uts_namespace",
+      "status": "pass"
+    },
+    {
+      "check": "start_host_network_namespace",
+      "status": "pass"
+    },
+    {
+      "check": "start_foreign_pid_namespace",
+      "status": "pass"
+    },
+    {
+      "check": "start_foreign_ipc_namespace",
+      "status": "pass"
+    },
+    {
+      "check": "start_foreign_uts_namespace",
+      "status": "pass"
+    },
+    {
+      "check": "start_foreign_network_namespace",
+      "status": "pass"
+    },
+    {
+      "check": "start_host_bind_mount",
+      "status": "pass"
+    },
+    {
+      "check": "start_volumes_from_other",
+      "status": "pass"
+    },
+    {
+      "check": "start_wrong_container_owner",
+      "status": "pass"
+    },
+    {
+      "check": "start_wrong_volume_owner",
+      "status": "pass"
+    },
+    {
+      "check": "start_extra_mount",
+      "status": "pass"
+    },
+    {
+      "check": "start_wrong_mount_type",
+      "status": "pass"
+    },
+    {
+      "check": "start_wrong_mount_name",
+      "status": "pass"
+    },
+    {
+      "check": "start_wrong_mount_destination",
+      "status": "pass"
+    },
+    {
+      "check": "start_foreign_volume_driver",
+      "status": "pass"
+    },
+    {
+      "check": "start_volume_bind_options",
+      "status": "pass"
+    },
+    {
+      "check": "entrypoint_shell_syntax",
+      "status": "pass"
+    }
+  ]
+}

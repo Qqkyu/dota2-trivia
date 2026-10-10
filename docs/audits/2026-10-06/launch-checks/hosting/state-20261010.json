@@ -1,0 +1,57 @@
+{
+  "checkedAt": "2026-10-10T09:12:25.537777+00:00",
+  "service": {
+    "id": "srv-d9mqd1942hec73e9nlt0",
+    "name": "queue-arcade",
+    "branch": "main",
+    "autoDeployTrigger": "off",
+    "suspended": "suspended"
+  },
+  "runtime": {
+    "plan": "free",
+    "buildPlan": "starter",
+    "region": "frankfurt",
+    "numInstances": 1,
+    "healthCheckPath": "/api/health"
+  },
+  "database": {
+    "id": "dpg-d9mqc4taeets73aiclsg-a",
+    "plan": "0.1c-256mb",
+    "region": "frankfurt",
+    "status": "available",
+    "version": "17",
+    "diskSizeGB": 1,
+    "ipAllowList": []
+  },
+  "restrictedRuntimeConfigurationPassed": true,
+  "proxyPolicy": "none",
+  "deploys": [
+    {
+      "id": "dep-d9sbpam417fc73au1stg",
+      "status": "live",
+      "trigger": "new_commit",
+      "createdAt": "2026-08-09T17:45:14.175814Z",
+      "updatedAt": "2026-08-10T15:07:28.574789Z",
+      "finishedAt": "2026-08-09T17:46:20.022261Z",
+      "commit": "d3db8441e3853940ac6c3607caa9b5fcdaf6ba91"
+    },
+    {
+      "id": "dep-d9sb2a6q1p3s73fk7kug",
+      "status": "deactivated",
+      "trigger": "new_commit",
+      "createdAt": "2026-08-09T16:56:08.930002Z",
+      "updatedAt": "2026-08-09T17:46:20.021348Z",
+      "finishedAt": "2026-08-09T16:57:12.798644Z",
+      "commit": "eb3b2844d68241cd1ecc8a372b4a962ed5a7582e"
+    },
+    {
+      "id": "dep-d9sak5rncjis739od2d0",
+      "status": "deactivated",
+      "trigger": "new_commit",
+      "createdAt": "2026-08-09T16:25:59.094594Z",
+      "updatedAt": "2026-08-09T16:57:12.797406Z",
+      "finishedAt": "2026-08-09T16:27:49.997925Z",
+      "commit": "40861d15cd03eaceee6ef60682107f9060d0ac52"
+    }
+  ]
+}

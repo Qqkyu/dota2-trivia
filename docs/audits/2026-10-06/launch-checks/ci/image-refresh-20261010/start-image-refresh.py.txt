@@ -1,0 +1,13 @@
+import importlib.util, io, json, pathlib, tarfile
+b=pathlib.Path('/tmp/queue-arcade-launch-ci'); spec=importlib.util.spec_from_file_location('life',b/'runner-lifecycle.py'); life=importlib.util.module_from_spec(spec);spec.loader.exec_module(life)
+s=json.loads(life.STATE.read_text()); life.check_state(s);d=life.docker_binary();m=life.resource(d,'container',s['name']);life.assert_owned(m,'container',s);assert not m['State']['Running']
+h=m['HostConfig']; assert h['CgroupnsMode']=='private' and h['NanoCpus']==2000000000 and h['Memory']==h['MemorySwap']==5368709120
+assert h.get('PidMode') in ('',None) and h.get('IpcMode') in ('private','') and h.get('NetworkMode') in ('default','bridge') and h.get('UTSMode') in ('',None) and not h.get('Binds') and not h.get('VolumesFrom')
+assert len(m['Mounts'])==1 and m['Mounts'][0]['Type']=='volume' and m['Mounts'][0]['Name']==s['volume'] and m['Mounts'][0]['Destination']=='/var/lib/docker'
+v=life.resource(d,'volume',s['volume']);life.assert_owned(v,'volume',s);assert v['Driver']=='local' and not v.get('Options')
+files={b/'image-refresh-entrypoint.sh':'usr/local/bin/entrypoint.sh',b/'runner-image/prepare-cgroup-v2.sh':'usr/local/bin/prepare-cgroup-v2.sh',pathlib.Path('/home/kulmisiu/dev/dota2-trivia/Dockerfile'):'opt/runner/_work/dota2-trivia/dota2-trivia/Dockerfile'}
+stream=io.BytesIO()
+with tarfile.open(fileobj=stream,mode='w') as tar:
+ for source,target in files.items():
+  data=source.read_bytes(); i=tarfile.TarInfo(target);i.size=len(data);i.mode=0o755 if target.endswith('.sh') else 0o644;tar.addfile(i,io.BytesIO(data))
+life.call([d,'cp','-',s['name']+':/'],data=stream.getvalue());life.call([d,'start',s['name']]);print('Started cached image preflight in the owned private runner.')

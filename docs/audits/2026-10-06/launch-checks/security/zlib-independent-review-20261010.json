@@ -1,0 +1,160 @@
+{
+  "checkedAt": "2026-10-10T09:19:26.717776+00:00",
+  "reportSha256": "5aee0a379b7f086cb2cca119d8682789d1a355eadd546d95b7f6cce17e7547e7",
+  "checks": [
+    {
+      "source": "package.json",
+      "kind": "local",
+      "match": true
+    },
+    {
+      "source": "pnpm-lock.yaml",
+      "kind": "local",
+      "match": true
+    },
+    {
+      "source": "Dockerfile",
+      "kind": "local",
+      "match": true
+    },
+    {
+      "source": "src/app/api/round-image/route.ts",
+      "kind": "local",
+      "match": true
+    },
+    {
+      "source": "src/lib/round-image-cache.mjs",
+      "kind": "local",
+      "match": true
+    },
+    {
+      "source": "node_modules/sharp/src/common.cc",
+      "kind": "local",
+      "match": true
+    },
+    {
+      "source": "node_modules/sharp/src/pipeline.cc",
+      "kind": "local",
+      "match": true
+    },
+    {
+      "source": "node_modules/sharp/package.json",
+      "kind": "local",
+      "match": true
+    },
+    {
+      "source": "node_modules/next/dist/server/image-optimizer.js",
+      "kind": "local",
+      "match": true
+    },
+    {
+      "source": "node_modules/.pnpm/@img+sharp-libvips-linuxmusl-x64@1.3.4/node_modules/@img/sharp-libvips-linuxmusl-x64/versions.json",
+      "kind": "local",
+      "match": true
+    },
+    {
+      "source": "node_modules/.pnpm/@img+sharp-libvips-linuxmusl-x64@1.3.4/node_modules/@img/sharp-libvips-linuxmusl-x64/lib/libvips-cpp.so.8.18.7",
+      "kind": "local",
+      "match": true
+    },
+    {
+      "source": "node_zlib.cc",
+      "kind": "saved-upstream",
+      "match": true
+    },
+    {
+      "source": "node-lib-zlib.js",
+      "kind": "saved-upstream",
+      "match": true
+    },
+    {
+      "source": "node-deps-zlib.h",
+      "kind": "saved-upstream",
+      "match": true
+    },
+    {
+      "source": "node-deps-gzwrite.c",
+      "kind": "saved-upstream",
+      "match": true
+    },
+    {
+      "source": "libvips-pngsave.c",
+      "kind": "saved-upstream",
+      "match": true
+    },
+    {
+      "source": "libvips-vipspng.c",
+      "kind": "saved-upstream",
+      "match": true
+    },
+    {
+      "source": "libpng-pngwutil.c",
+      "kind": "saved-upstream",
+      "match": true
+    },
+    {
+      "source": "libpng-pngrutil.c",
+      "kind": "saved-upstream",
+      "match": true
+    },
+    {
+      "source": "upstream-zlib-fix.patch",
+      "kind": "saved-upstream",
+      "match": true
+    },
+    {
+      "source": "node-zlib.gyp",
+      "kind": "saved-upstream",
+      "match": true
+    },
+    {
+      "source": "node-zlib-BUILD.gn",
+      "kind": "saved-upstream",
+      "match": true
+    },
+    {
+      "source": "zlib-ng-2.3.3-gzwrite.c",
+      "kind": "saved-upstream",
+      "match": true
+    },
+    {
+      "source": "zlib-ng-2.3.3-gzlib.c",
+      "kind": "saved-upstream",
+      "match": true
+    },
+    {
+      "source": "zlib-ng-2.3.3-gzguts.h",
+      "kind": "saved-upstream",
+      "match": true
+    },
+    {
+      "source": "sharp-libvips-1.3.4-posix.sh",
+      "kind": "saved-upstream",
+      "match": true
+    },
+    {
+      "source": "sharp-libvips-1.3.4-versions.properties",
+      "kind": "saved-upstream",
+      "match": true
+    }
+  ],
+  "relativeLinks": [
+    {
+      "target": "zlib-update-20261008/README.md",
+      "exists": true
+    },
+    {
+      "target": "../../../../../src/app/api/round-image/route.ts",
+      "exists": true
+    },
+    {
+      "target": "../../../../../src/lib/round-image-cache.mjs",
+      "exists": true
+    },
+    {
+      "target": "../infrastructure/final-native-metadata.json",
+      "exists": true
+    }
+  ],
+  "ok": true
+}

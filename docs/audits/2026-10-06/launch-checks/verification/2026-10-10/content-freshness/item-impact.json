@@ -1,0 +1,235 @@
+{
+  "sourceFile": "src/data/shopkeeper-questions.json",
+  "sourceSha256": "9a95635283b192ad63b3bc24eebc00f07fb53948e4d88cf66696ee80179b0810",
+  "changedFields": [
+    {
+      "response": "itemlist.json",
+      "source": "https://www.dota2.com/datafeed/itemlist?language=english",
+      "entity": "item_recipe_necronomicon",
+      "field": "recipes[0].items",
+      "before": [
+        28,
+        28,
+        17
+      ],
+      "after": [
+        23,
+        17
+      ],
+      "matchingQuestionIds": [],
+      "verdict": "No current or retired stored question contains this item."
+    },
+    {
+      "response": "items/1854.json",
+      "source": "https://www.dota2.com/datafeed/itemdata?language=english&item_id=1854",
+      "entity": "item_consecrated_wraps",
+      "field": "special_values.damage_must_be_player_owned_or_roshan",
+      "beforePresent": false,
+      "after": 1,
+      "matchingQuestionIds": [
+        "shopkeeper-build:pipe",
+        "shopkeeper-build:soul_booster",
+        "shopkeeper-recipe:consecrated_wraps",
+        "shopkeeper-shared:pipe:consecrated_wraps"
+      ],
+      "verdict": "No question or alternative asks about the changed damage-source condition."
+    }
+  ],
+  "currentItemListRecords": [
+    {
+      "id": 105,
+      "name": "item_recipe_necronomicon",
+      "name_loc": "Necronomicon Recipe",
+      "name_english_loc": "Necronomicon Recipe",
+      "neutral_item_tier": -1,
+      "is_pregame_suggested": false,
+      "is_earlygame_suggested": false,
+      "is_lategame_suggested": false,
+      "recipes": [
+        {
+          "items": [
+            23,
+            17
+          ]
+        }
+      ],
+      "is_innate": false
+    },
+    {
+      "id": 1853,
+      "name": "item_recipe_consecrated_wraps",
+      "name_loc": "Consecrated Wraps Recipe",
+      "name_english_loc": "Consecrated Wraps Recipe",
+      "neutral_item_tier": -1,
+      "is_pregame_suggested": false,
+      "is_earlygame_suggested": false,
+      "is_lategame_suggested": false,
+      "recipes": [
+        {
+          "items": [
+            61,
+            1848,
+            261
+          ]
+        }
+      ],
+      "is_innate": false
+    },
+    {
+      "id": 1854,
+      "name": "item_consecrated_wraps",
+      "name_loc": "Consecrated Wraps",
+      "name_english_loc": "Consecrated Wraps",
+      "neutral_item_tier": -1,
+      "is_pregame_suggested": false,
+      "is_earlygame_suggested": false,
+      "is_lategame_suggested": true,
+      "recipes": [],
+      "is_innate": false
+    }
+  ],
+  "questions": [
+    {
+      "id": "shopkeeper-build:pipe",
+      "file": "src/data/shopkeeper-questions.json",
+      "prompt": "What do these components build?",
+      "correctIndex": 1,
+      "storedAnswer": "Pipe of Insight",
+      "explanation": "Pipe of Insight is built from Ring of Tarrasque, Cloak, Shawl.",
+      "recipeComponentKeys": [
+        "ring_of_tarrasque",
+        "cloak",
+        "shawl"
+      ],
+      "targetRecipeKeys": null,
+      "sharedComponentKey": null,
+      "answerRecipeKeys": [
+        [
+          "pers",
+          "cloak",
+          "blades_of_attack",
+          "orb_of_venom"
+        ],
+        [
+          "ring_of_tarrasque",
+          "cloak",
+          "shawl"
+        ],
+        [
+          "tranquil_boots",
+          "ancient_janggo",
+          "ring_of_tarrasque"
+        ],
+        [
+          "vitality_booster",
+          "shawl",
+          "crown"
+        ]
+      ],
+      "verdict": "unchanged",
+      "reason": "Question and alternatives concern recipes. The added damage-source restriction does not change recipe components, recipe price, answer identity, or shared component."
+    },
+    {
+      "id": "shopkeeper-build:soul_booster",
+      "file": "src/data/shopkeeper-questions.json",
+      "prompt": "What do these components build?",
+      "correctIndex": 0,
+      "storedAnswer": "Soul Booster",
+      "explanation": "Soul Booster is built from Point Booster, Vitality Booster, Energy Booster.",
+      "recipeComponentKeys": [
+        "point_booster",
+        "vitality_booster",
+        "energy_booster"
+      ],
+      "targetRecipeKeys": null,
+      "sharedComponentKey": null,
+      "answerRecipeKeys": [
+        [
+          "point_booster",
+          "vitality_booster",
+          "energy_booster"
+        ],
+        [
+          "vitality_booster",
+          "energy_booster"
+        ],
+        [
+          "vitality_booster",
+          "shawl",
+          "crown"
+        ],
+        [
+          "point_booster",
+          "crown",
+          "wizard_hat"
+        ]
+      ],
+      "verdict": "unchanged",
+      "reason": "Question and alternatives concern recipes. The added damage-source restriction does not change recipe components, recipe price, answer identity, or shared component."
+    },
+    {
+      "id": "shopkeeper-recipe:consecrated_wraps",
+      "file": "src/data/shopkeeper-questions.json",
+      "prompt": "Build Consecrated Wraps.",
+      "correctIndex": 1,
+      "storedAnswer": "Recipe B",
+      "explanation": "Consecrated Wraps uses Vitality Booster, Shawl, Crown.",
+      "recipeComponentKeys": [
+        "vitality_booster",
+        "shawl",
+        "crown"
+      ],
+      "targetRecipeKeys": null,
+      "sharedComponentKey": null,
+      "answerRecipeKeys": [
+        [
+          "helm_of_iron_will",
+          "shawl",
+          "crown"
+        ],
+        [
+          "vitality_booster",
+          "shawl",
+          "crown"
+        ],
+        [
+          "vitality_booster",
+          "magic_wand",
+          "crown"
+        ],
+        [
+          "vitality_booster",
+          "shawl",
+          "ring_of_health"
+        ]
+      ],
+      "verdict": "unchanged",
+      "reason": "Question and alternatives concern recipes. The added damage-source restriction does not change recipe components, recipe price, answer identity, or shared component."
+    },
+    {
+      "id": "shopkeeper-shared:pipe:consecrated_wraps",
+      "file": "src/data/shopkeeper-questions.json",
+      "prompt": "Which component is used directly in both recipes?",
+      "correctIndex": 2,
+      "storedAnswer": "Shawl",
+      "explanation": "Pipe of Insight and Consecrated Wraps both use Shawl in their direct recipes.",
+      "recipeComponentKeys": null,
+      "targetRecipeKeys": [
+        [
+          "ring_of_tarrasque",
+          "cloak",
+          "shawl"
+        ],
+        [
+          "vitality_booster",
+          "shawl",
+          "crown"
+        ]
+      ],
+      "sharedComponentKey": "shawl",
+      "answerRecipeKeys": null,
+      "verdict": "unchanged",
+      "reason": "Question and alternatives concern recipes. The added damage-source restriction does not change recipe components, recipe price, answer identity, or shared component."
+    }
+  ]
+}

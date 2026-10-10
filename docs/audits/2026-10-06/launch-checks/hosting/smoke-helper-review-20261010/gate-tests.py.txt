@@ -1,0 +1,127 @@
+"""Offline review tests. Provider and command calls use synthetic data only."""
+import copy
+import datetime
+import hashlib
+import importlib.util
+import json
+import os
+from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
+
+BASE = Path('/tmp/queue-arcade-launch-checks/hosted-smoke-preparation')
+spec = importlib.util.spec_from_file_location('gate_under_review', BASE / 'create-gate.py')
+gate = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(gate)
+NOW = datetime.datetime.now(datetime.timezone.utc)
+CASES = []
+
+
+def fixture():
+    policy = gate.reviewed_policy()
+    policy.now = lambda: NOW
+    candidate = {'commit': 'a' * 40, 'branch': policy.BRANCH, 'ciRunId': 123}
+    configuration = {'environment': {'synthetic': 'value'}}
+    proof = {'checkedAt': NOW.isoformat(), 'origin': policy.ORIGIN, 'ok': True,
+             'policyDuringCheck': 'none', 'commit': candidate['commit'], 'ciRunId': 123,
+             'deployId': 'dep-old', 'independentIpv4SourcesAgreed': True,
+             'deploymentAndConfigurationStable': True}
+    receipt = {'serviceId': policy.SID, 'databaseId': policy.DID,
+               'commit': candidate['commit'], 'ciRunId': 123, 'branch': policy.BRANCH,
+               'previousLiveDeployId': 'dep-old', 'previousDeployIds': ['dep-old'],
+               'proofCheckedAt': proof['checkedAt'], 'proofDigest': policy.digest(proof),
+               'changedKey': policy.KEY, 'previousPolicy': 'none', 'requestedPolicy': policy.POLICY,
+               'monitorDeadline': (NOW + datetime.timedelta(minutes=15)).isoformat(),
+               'checkedAt': NOW.isoformat(), 'plan': 'free', 'buildPlan': 'starter',
+               'databasePlan': '0.1c-256mb', 'configurationChangeAttempted': True,
+               'configurationChanged': True, 'externalHealthChecksAllowed': True,
+               'newLiveDeployId': 'dep-new', 'verification': 'new_candidate_live'}
+    receipt['configurationBinding'] = policy.configuration_binding(configuration, receipt)
+    health = {'status': 'ready', 'content': {'questions': 1517, 'version': 'synthetic-content'},
+              **{name: {'ok': True, 'backend': 'postgres'} for name in ('storage', 'accounts', 'alpha')}}
+    live = {'id': 'dep-new', 'status': 'live', 'commit': {'id': candidate['commit']}}
+    state = SimpleNamespace(policy=policy, candidate=candidate, configuration=configuration,
+                            proof=proof, receipt=receipt, health=health, live=live,
+                            rows=[live], commands=[], status=b'200', extra=b'', stderr=b'',
+                            exitcode=0, mutation=None)
+    def command(argv, **kwargs):
+        state.commands.append(argv)
+        if argv[:3] == ['git', 'cat-file', 'blob']:
+            data = (gate.ROOT / argv[3].split(':', 1)[1]).read_bytes() + state.extra
+        else:
+            assert argv[0] == 'curl'
+            assert '--ipv4' in argv and '--disable' in argv and '--proto' in argv
+            assert '--location' not in argv and '-L' not in argv
+            assert kwargs['env'] == {'PATH': '/usr/bin:/bin'}
+            assert kwargs['timeout'] <= 12 and kwargs['limit'] <= 32768
+            data = json.dumps(state.health).encode() + b'\n' + state.status
+            if state.mutation:
+                state.mutation(state)
+        return SimpleNamespace(returncode=state.exitcode, stdout=data, stderr=state.stderr)
+    helper = SimpleNamespace(run_bounded=command)
+    policy.verified_proof_helper = lambda: helper
+    policy.checked_candidate = lambda _: copy.deepcopy(state.candidate)
+    policy.checked_configuration = lambda *_: copy.deepcopy(state.configuration)
+    policy.deployments = lambda: copy.deepcopy(state.rows)
+    policy.read_json = lambda path: copy.deepcopy(state.receipt if path == policy.RECEIPT else state.proof)
+    policy.api = lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError('Live provider calls forbidden'))
+    return state
+
+
+def run(name, mutate=None, should_pass=False):
+    state = fixture()
+    if mutate:
+        mutate(state)
+    failed = False
+    try:
+        result = gate.prepare(state.policy)
+    except (RuntimeError, KeyError, ValueError, TypeError):
+        failed = True
+    assert failed != should_pass, name
+    if should_pass:
+        assert result['deployId'] == 'dep-new' and result['ingressVerified'] is True
+        assert set(result) == {'version', 'checkedAt', 'origin', 'serviceId', 'commit',
+                              'deployId', 'ciRunId', 'ciConclusion', 'ingressVerified',
+                              'proxyPolicy', 'contentVersion', 'operatorSha256', 'localInputs'}
+        assert len([x for x in state.commands if x[0] == 'curl']) == 1
+    CASES.append({'name': name, 'passed': True})
+
+
+with patch.dict(os.environ, {'RENDER_API_KEY': 'synthetic-offline-test-key-only'}, clear=False):
+    run('fresh exact candidate creates value-free gate', should_pass=True)
+    for key, value in {'externalHealthChecksAllowed': False, 'verification': 'deployment_pending',
+                       'configurationChanged': False, 'suspendAttempted': True,
+                       'newLiveDeployId': 'dep-other', 'configurationBinding': '0' * 64,
+                       'proofDigest': '0' * 64, 'proofCheckedAt': (NOW - datetime.timedelta(minutes=1)).isoformat(),
+                       'checkedAt': (NOW - datetime.timedelta(minutes=31)).isoformat(),
+                       'commit': 'b' * 40, 'ciRunId': 321}.items():
+        run('reject receipt ' + key, lambda state, k=key, v=value: state.receipt.update({k: v}))
+    for key, value in {'ok': False, 'policyDuringCheck': 'cf-connecting-ip',
+                       'deploymentAndConfigurationStable': False,
+                       'independentIpv4SourcesAgreed': False, 'commit': 'b' * 40,
+                       'deployId': 'dep-other', 'ciRunId': 321,
+                       'checkedAt': (NOW - datetime.timedelta(minutes=31)).isoformat()}.items():
+        def modify(state, k=key, v=value):
+            state.proof[k] = v
+            state.receipt['proofDigest'] = state.policy.digest(state.proof)
+            state.receipt['proofCheckedAt'] = state.proof['checkedAt']
+            state.receipt['configurationBinding'] = state.policy.configuration_binding(state.configuration, state.receipt)
+        run('reject proof ' + key, modify)
+    run('reject nonterminal deployment', lambda state: state.rows.append({'id': 'dep-busy', 'status': 'build_in_progress'}))
+    run('reject second live deployment', lambda state: state.rows.append({'id': 'dep-other', 'status': 'live', 'commit': {'id': state.candidate['commit']}}))
+    run('reject wrong live commit', lambda state: state.live['commit'].update({'id': 'b' * 40}))
+    run('reject local input differs from candidate', lambda state: setattr(state, 'extra', b'changed'))
+    run('reject health redirect', lambda state: setattr(state, 'status', b'302'))
+    run('reject health not ready', lambda state: state.health.update({'status': 'starting'}))
+    run('reject wrong question count', lambda state: state.health['content'].update({'questions': 1}))
+    run('reject non-durable store', lambda state: state.health['storage'].update({'backend': 'file'}))
+    run('reject changed environment after health', lambda state: setattr(state, 'mutation', lambda value: value.configuration['environment'].update({'changed': 'value'})))
+    run('reject moved candidate after health', lambda state: setattr(state, 'mutation', lambda value: value.candidate.update({'commit': 'b' * 40})))
+    run('reject replaced live deployment after health', lambda state: setattr(state, 'mutation', lambda value: value.live.update({'id': 'dep-other'})))
+    run('reject command error output', lambda state: setattr(state, 'stderr', b'synthetic-error'))
+    run('reject command failure', lambda state: setattr(state, 'exitcode', 1))
+
+print(json.dumps({'checkedAt': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                  'passed': len(CASES), 'hostedRequests': 0,
+                  'gateSha256': hashlib.sha256((BASE / 'create-gate.py').read_bytes()).hexdigest(),
+                  'cases': CASES}, indent=2))

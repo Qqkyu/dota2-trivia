@@ -1,0 +1,323 @@
+#!/usr/bin/env python3
+"""Review the runner lifecycle with in-memory Docker and GitHub substitutes."""
+import contextlib
+import copy
+import hashlib
+import io
+import json
+import pathlib
+import subprocess
+import tarfile
+import types
+from unittest import mock
+
+BASE = pathlib.Path('/tmp/queue-arcade-launch-ci')
+LIFECYCLE = BASE / 'runner-lifecycle.py'
+ENTRYPOINT = BASE / 'runner-image' / 'entrypoint.sh'
+RESULT = BASE / 'cgroup-review' / 'lifecycle-mock-results.json'
+PREPARE = BASE / 'runner-image' / 'prepare-cgroup-v2.sh'
+PREPARE_BYTES = PREPARE.read_bytes()
+SOURCE = LIFECYCLE.read_text()
+ENTRYPOINT_BYTES = ENTRYPOINT.read_bytes()
+NAME = 'queue-arcade-ci-20261008T120000Z'
+OWNER = 'f' * 32
+LABEL = 'io.queue-arcade.launch-ci-owner'
+BASE_STATE = {'name': NAME, 'volume': NAME + '-data', 'owner': OWNER}
+
+
+class MemoryPath:
+    def __init__(self, files, name='evidence'):
+        self.files = files
+        self.name = name
+
+    def __truediv__(self, child):
+        return MemoryPath(self.files, self.name + '/' + child)
+
+    def exists(self):
+        return self.name in self.files
+
+    def read_text(self):
+        return self.files[self.name]
+
+    def read_bytes(self):
+        return self.files[self.name]
+
+    def write_text(self, data):
+        self.files[self.name] = data
+
+    def write_bytes(self, data):
+        self.files[self.name] = data
+
+    def mkdir(self, **kwargs):
+        pass
+
+
+def load_namespace():
+    namespace = {'__name__': 'lifecycle_review'}
+    exec(compile(SOURCE, str(LIFECYCLE), 'exec'), namespace)
+    return namespace
+
+
+def cleanup_case(case):
+    namespace = load_namespace()
+    files = {'state': json.dumps(copy.deepcopy(BASE_STATE))}
+    resources = {
+        'container': {
+            'Config': {'Labels': {LABEL: OWNER}},
+            'State': {'Running': case == 'running'},
+        },
+        'volume': {'Labels': {LABEL: OWNER}},
+    }
+    if case == 'container_missing':
+        resources['container'] = None
+    if case == 'wrong_owner':
+        resources['container']['Config']['Labels'][LABEL] = 'x' * 32
+    runners = [{
+        'id': 42, 'name': NAME, 'status': 'offline',
+        'labels': [{'name': 'owner-' + OWNER}],
+    }]
+    commands = []
+    runner_calls = 0
+    volume_tries = 0
+
+    def call(argv, **kwargs):
+        nonlocal volume_tries
+        commands.append(argv)
+        if argv[1:2] == ['logs']:
+            return types.SimpleNamespace(stdout=b'out', stderr=b'err', returncode=0)
+        if argv[1:2] == ['rm']:
+            resources['container'] = None
+        elif argv[1:3] == ['volume', 'rm']:
+            volume_tries += 1
+            if case == 'volume_failure_retry' and volume_tries == 1:
+                raise RuntimeError('Mock volume removal failure')
+            resources['volume'] = None
+        elif argv[0] == 'gh':
+            if case == 'github_remove_failure':
+                raise RuntimeError('Mock GitHub removal failure')
+            runners.clear()
+        return types.SimpleNamespace(stdout=b'', stderr=b'', returncode=0)
+
+    def repository_runners():
+        nonlocal runner_calls
+        runner_calls += 1
+        if case == 'github_verify_failure' and runner_calls == 2:
+            raise RuntimeError('Mock GitHub verification failure')
+        return copy.deepcopy(runners)
+
+    def copy_out(*args, **kwargs):
+        if case == 'diagnostic_failure':
+            raise ValueError('Mock unsafe diagnostic archive')
+        return True
+
+    def write_state(value):
+        files['state'] = json.dumps(value)
+
+    namespace.update(
+        STATE=MemoryPath(files, 'state'), EVIDENCE=MemoryPath(files),
+        docker_binary=lambda: 'docker',
+        resource=lambda docker, kind, name: resources[kind],
+        call=call, repository_runners=repository_runners,
+        copy_out=copy_out, write_state=write_state,
+    )
+    failure = None
+    with contextlib.redirect_stdout(io.StringIO()):
+        try:
+            namespace['cleanup']()
+        except (RuntimeError, ValueError) as error:
+            failure = type(error).__name__
+    if case in ('normal', 'container_missing', 'diagnostic_failure'):
+        assert failure is None
+        assert json.loads(files['state']).get('cleanedAt')
+        assert resources == {'container': None, 'volume': None}
+        assert not runners
+    elif case in ('github_remove_failure', 'github_verify_failure', 'volume_failure_retry'):
+        assert failure == 'RuntimeError'
+        assert not json.loads(files['state']).get('cleanedAt')
+        assert resources['container'] is None
+        if case == 'volume_failure_retry':
+            with contextlib.redirect_stdout(io.StringIO()):
+                namespace['cleanup']()
+            assert json.loads(files['state']).get('cleanedAt')
+            assert resources['volume'] is None
+        else:
+            assert resources['volume'] is None
+    elif case in ('wrong_owner', 'running'):
+        assert failure is not None
+        assert commands == []
+    if case not in ('container_missing', 'wrong_owner', 'running'):
+        assert files['evidence/' + NAME + '/runner-process.log'] == b'outerr'
+
+
+def start_case(case='normal'):
+    namespace = load_namespace()
+    files = {'base/runner-image/entrypoint.sh': ENTRYPOINT_BYTES,
+             'base/runner-image/prepare-cgroup-v2.sh': PREPARE_BYTES}
+    commands = []
+    state = {}
+    token = 'mock-registration-secret'
+    created = False
+
+    def call(argv, *, data=None, **kwargs):
+        nonlocal created
+        assert all(token not in arg for arg in argv)
+        commands.append((argv, data))
+        if argv[1] == 'create':
+            created = True
+        return types.SimpleNamespace(stdout=b'mock-container-id', stderr=b'', returncode=0)
+
+    def resource(docker, kind, name):
+        if not created:
+            return None
+        if kind == 'volume':
+            metadata = {'Labels': {LABEL: state['owner']}, 'Driver': 'local', 'Options': None}
+            if case == 'wrong_volume_owner':
+                metadata['Labels'][LABEL] = 'wrong'
+            elif case == 'foreign_volume_driver':
+                metadata['Driver'] = 'some-external-driver'
+            elif case == 'volume_bind_options':
+                metadata['Options'] = {'type': 'none', 'o': 'bind', 'device': '/'}
+            return metadata
+        host = {'CgroupnsMode': 'private', 'NanoCpus': 2000000000,
+                'Memory': 5368709120, 'MemorySwap': 5368709120,
+                'PidMode': '', 'IpcMode': 'private', 'UTSMode': '',
+                'NetworkMode': 'default', 'Binds': None, 'VolumesFrom': None,
+                'CgroupParent': ''}
+        mounts = [{'Type': 'volume', 'Name': state['volume'],
+                   'Destination': '/var/lib/docker'}]
+        metadata = {'Config': {'Labels': {LABEL: state['owner']}},
+                    'HostConfig': host, 'Mounts': mounts}
+        mutations = {
+            'host_cgroup_namespace': ('CgroupnsMode', 'host'),
+            'missing_cgroup_namespace': ('CgroupnsMode', ''),
+            'wrong_cpu_limit': ('NanoCpus', 4000000000),
+            'wrong_memory_limit': ('Memory', 10737418240),
+            'wrong_swap_limit': ('MemorySwap', -1),
+            'host_pid_namespace': ('PidMode', 'host'),
+            'host_ipc_namespace': ('IpcMode', 'host'),
+            'host_uts_namespace': ('UTSMode', 'host'),
+            'host_network_namespace': ('NetworkMode', 'host'),
+            'foreign_pid_namespace': ('PidMode', 'container:other'),
+            'foreign_ipc_namespace': ('IpcMode', 'container:other'),
+            'foreign_uts_namespace': ('UTSMode', 'container:other'),
+            'foreign_network_namespace': ('NetworkMode', 'container:other'),
+            'host_bind_mount': ('Binds', ['/var/run/docker.sock:/var/run/docker.sock']),
+            'volumes_from_other': ('VolumesFrom', ['other']),
+        }
+        if case in mutations:
+            key, value = mutations[case]
+            host[key] = value
+        elif case == 'wrong_container_owner':
+            metadata['Config']['Labels'][LABEL] = 'wrong'
+        elif case == 'extra_mount':
+            mounts.append({'Type': 'bind', 'Source': '/', 'Destination': '/host'})
+        elif case == 'wrong_mount_type':
+            mounts[0]['Type'] = 'bind'
+        elif case == 'wrong_mount_name':
+            mounts[0]['Name'] = 'other-volume'
+        elif case == 'wrong_mount_destination':
+            mounts[0]['Destination'] = '/sys/fs/cgroup'
+        return metadata
+
+    namespace.update(
+        BASE=MemoryPath(files, 'base'), EVIDENCE=MemoryPath(files),
+        STATE=MemoryPath(files, 'state'), docker_binary=lambda: 'docker',
+        resource=resource, repository_runners=lambda: [],
+        json_call=lambda argv: {'token': token},
+        write_state=lambda value: state.update(value), call=call,
+    )
+    failure = None
+    with contextlib.redirect_stdout(io.StringIO()):
+        try:
+            namespace['start']()
+        except ValueError as error:
+            failure = error
+    if case != 'normal':
+        assert failure is not None
+        assert not any(argv[1] == 'start' for argv, data in commands)
+        return
+    assert failure is None
+    create = next(argv for argv, data in commands if argv[1] == 'create')
+    for flag, expected in (
+        ('--cpus', '2'), ('--memory', '5g'), ('--memory-swap', '5g'),
+    ):
+        assert create[create.index(flag) + 1] == expected
+    assert '--cgroupns=private' in create
+    assert create[create.index('--mount') + 1] == (
+        'type=volume,source=' + state['volume'] + ',target=/var/lib/docker'
+    )
+    assert '-v' not in create and '--volume' not in create
+    assert not any('type=bind' in arg for arg in create)
+    assert '/var/run/docker.sock' not in repr(create)
+    assert not any('GH_TOKEN' in arg or 'GITHUB_TOKEN' in arg for arg in create)
+    copy_args, stream = next((argv, data) for argv, data in commands if argv[1] == 'cp')
+    assert copy_args[2] == '-'
+    with tarfile.open(fileobj=io.BytesIO(stream)) as archive:
+        secret = archive.getmember('run/runner-registration-token')
+        assert secret.mode == 0o600 and secret.uid == 0 and secret.gid == 0
+        assert archive.extractfile(secret).read() == (token + '\n').encode()
+        assert archive.extractfile('usr/local/bin/entrypoint.sh').read() == ENTRYPOINT_BYTES
+        assert archive.extractfile('usr/local/bin/prepare-cgroup-v2.sh').read() == PREPARE_BYTES
+    assert token not in repr(files) and token not in repr(state)
+    assert ENTRYPOINT_BYTES.index(b'/usr/local/bin/prepare-cgroup-v2.sh') < ENTRYPOINT_BYTES.index(b'\ndockerd ')
+
+
+def main():
+    checks = []
+
+    def record(name, action):
+        try:
+            action()
+            checks.append({'check': name, 'status': 'pass'})
+        except Exception as error:
+            checks.append({
+                'check': name, 'status': 'fail',
+                'errorType': type(error).__name__,
+            })
+
+    # Reject any external command attempted by a lifecycle function.
+    with mock.patch('subprocess.run', side_effect=AssertionError('External commands blocked')):
+        for case in (
+            'normal', 'container_missing', 'diagnostic_failure',
+            'github_remove_failure', 'github_verify_failure',
+            'volume_failure_retry', 'wrong_owner', 'running',
+        ):
+            record('cleanup_' + case, lambda case=case: cleanup_case(case))
+        for case in (
+            'normal', 'host_cgroup_namespace', 'missing_cgroup_namespace',
+            'wrong_cpu_limit', 'wrong_memory_limit', 'wrong_swap_limit',
+            'host_pid_namespace', 'host_ipc_namespace', 'host_uts_namespace', 'host_network_namespace',
+            'foreign_pid_namespace', 'foreign_ipc_namespace', 'foreign_uts_namespace', 'foreign_network_namespace',
+            'host_bind_mount', 'volumes_from_other', 'wrong_container_owner', 'wrong_volume_owner',
+            'extra_mount', 'wrong_mount_type', 'wrong_mount_name', 'wrong_mount_destination',
+            'foreign_volume_driver', 'volume_bind_options',
+        ):
+            record('start_' + case, lambda case=case: start_case(case))
+
+    def shell_syntax():
+        result = subprocess.run(
+            ['bash', '-n', str(ENTRYPOINT)], capture_output=True, timeout=10,
+        )
+        assert result.returncode == 0
+
+    record('entrypoint_shell_syntax', shell_syntax)
+    passed = all(check['status'] == 'pass' for check in checks)
+    report = {
+        'status': 'pass' if passed else 'fail',
+        'scope': 'In-memory lifecycle mocks and shell syntax only',
+        'realDockerCalls': 0,
+        'realGitHubCalls': 0,
+        'reviewedArtifacts': {
+            str(LIFECYCLE): {'sha256': hashlib.sha256(SOURCE.encode()).hexdigest()},
+            str(ENTRYPOINT): {'sha256': hashlib.sha256(ENTRYPOINT_BYTES).hexdigest()},
+            str(PREPARE): {'sha256': hashlib.sha256(PREPARE_BYTES).hexdigest()},
+        },
+        'checks': checks,
+    }
+    RESULT.write_text(json.dumps(report, indent=2) + '\n')
+    print(json.dumps({'status': report['status'], 'checks': len(checks)}))
+    return 0 if passed else 1
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

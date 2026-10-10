@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+"""Replay the saved Valve response comparison without network access."""
+import collections
+import hashlib
+import json
+import pathlib
+import tarfile
+
+ROOT = pathlib.Path.cwd()
+OUT = ROOT / 'docs/audits/2026-10-06/launch-checks/verification/2026-10-10/content-freshness'
+BASE = ROOT / 'docs/audits/2026-10-06/deep-review/sources/valve-api-2026-10-06.tar.gz'
+FRESH = OUT / 'changed-responses.tar.gz'
+SHA = lambda raw: hashlib.sha256(raw).hexdigest()
+comparison = json.loads((OUT / 'upstream-comparison.json').read_text())
+assert SHA(BASE.read_bytes()) == comparison['baselineArchiveSha256']
+assert not comparison['summary']['failed']
+empty_facet = {'name': '', 'values': [], 'operation': 0}
+
+def normalize(value):
+    if isinstance(value, dict):
+        return {key: normalize(child) for key, child in value.items()
+                if not (key == 'facet_bonus' and child == empty_facet)}
+    if isinstance(value, list):
+        return [normalize(child) for child in value]
+    return value
+
+def compare(before, after, path='$'):
+    if isinstance(before, dict) and isinstance(after, dict):
+        for key in sorted(set(before) | set(after)):
+            child_path = path + '.' + key
+            if key not in before or key not in after:
+                yield {'path': child_path,
+                       'beforePresent': key in before,
+                       'afterPresent': key in after,
+                       'before': before.get(key), 'after': after.get(key)}
+            else:
+                yield from compare(before[key], after[key], child_path)
+    elif isinstance(before, list) and isinstance(after, list):
+        if path.endswith('.special_values'):
+            assert len({v['name'] for v in before}) == len(before)
+            assert len({v['name'] for v in after}) == len(after)
+            yield from compare({v['name']: v for v in before},
+                               {v['name']: v for v in after}, path)
+        elif len(before) == len(after):
+            for index, (left, right) in enumerate(zip(before, after)):
+                yield from compare(left, right, f'{path}[{index}]')
+        elif before != after:
+            yield {'path': path, 'before': before, 'after': after}
+    elif type(before) is not type(after) or before != after:
+        yield {'path': path, 'before': before, 'after': after}
+
+changes = []
+empty_only = []
+raw_identical = []
+with tarfile.open(BASE) as baseline, tarfile.open(FRESH) as fresh:
+    expected_members = set(comparison['summary']['changedJson'])
+    assert {m.name for m in fresh.getmembers()} == expected_members
+    for row in comparison['responses']:
+        assert row['status'] == 200
+        old = baseline.extractfile(row['path']).read()
+        assert SHA(old) == row['baselineSha256']
+        new = fresh.extractfile(row['path']).read() if row['path'] in expected_members else old
+        assert SHA(new) == row['sha256'] and len(new) == row['bytes']
+        if old == new:
+            raw_identical.append(row['path'])
+            continue
+        deltas = list(compare(normalize(json.loads(old)), normalize(json.loads(new))))
+        if not deltas:
+            empty_only.append(row['path'])
+        else:
+            changes.append({'response': row['path'], 'url': row['url'], 'deltas': deltas})
+
+result = {
+    'baselineArchiveSha256': SHA(BASE.read_bytes()),
+    'changedResponseArchiveSha256': SHA(FRESH.read_bytes()),
+    'comparisonSha256': SHA((OUT / 'upstream-comparison.json').read_bytes()),
+    'normalization': 'Remove only facet_bonus objects exactly equal to '
+                     '{name:"",values:[],operation:0}. Compare special_values '
+                     'arrays by unique name, retaining every added, removed, or changed field.',
+    'summary': {
+        'responsesVerified': len(comparison['responses']),
+        'byteIdentical': len(raw_identical),
+        'emptyFacetOnly': len(empty_only),
+        'responsesWithOtherDifferences': len(changes),
+        'otherDifferences': sum(len(row['deltas']) for row in changes),
+    },
+    'emptyFacetOnlyResponses': empty_only,
+    'changes': changes,
+}
+encoded = json.dumps(result, indent=2) + '\n'
+target = OUT / 'semantic-deltas.json'
+if target.exists():
+    assert target.read_text() == encoded, 'Saved semantic comparison differs'
+else:
+    target.write_text(encoded)
+print(json.dumps(result['summary'], indent=2))

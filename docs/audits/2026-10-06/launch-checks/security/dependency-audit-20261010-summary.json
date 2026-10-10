@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-10-10T09:14:33.424417+00:00",
+  "command": "pnpm audit --json",
+  "scope": "Full dependency graph, including development dependencies. No --prod or severity filter.",
+  "nodeVersion": "v22.23.3",
+  "pnpmVersion": "9.12.1",
+  "exitCode": 0,
+  "advisories": 0,
+  "vulnerabilities": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0
+  },
+  "reportedTotalDependencies": 447,
+  "evidence": {
+    "file": "dependency-audit-20261010.json",
+    "sha256": "802c55f7c0fed74cd44169b476634570a7f531cdf59d8a8688e396513ae3e5ce"
+  },
+  "inputs": {
+    "package.json": "8108be09b1eec963462db48cfcc510c98ba9f19c47ffb76b1038bed017819203",
+    "pnpm-lock.yaml": "e6eb745ddcc1653b58fdf927fb0cff64a57ced64e4b5775ef9c04e3020621295"
+  },
+  "limits": [
+    "The result reflects the registry advisory database at the check time.",
+    "Bundled native libraries and operating system packages require separate review and image scans."
+  ],
+  "changedDependencies": false
+}
