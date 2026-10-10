@@ -6,6 +6,7 @@ import { createHash, randomBytes } from "node:crypto";
 import { createWriteStream } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve, join } from "node:path";
+import { readHealthWithDeadline } from "./lib/health-readiness.mjs";
 
 assert.equal(process.env.CONTAINER_ISOLATED, "1", "Set CONTAINER_ISOLATED=1 for this local synthetic container test");
 const args = process.argv.slice(2);
@@ -286,8 +287,8 @@ ALTER SCHEMA public OWNER TO arcade_migration;
   let health;
   for (let attempt = 0; ; attempt++) {
     try {
-      const response = await fetch(appUrl + "/api/health", { signal: AbortSignal.timeout(2000) });
-      health = await response.json();
+      const response = await readHealthWithDeadline(appUrl + "/api/health");
+      health = response.health;
       if (response.ok && health.status === "ready") break;
     } catch {}
     assert(attempt < 60, "Application readiness timed out");
